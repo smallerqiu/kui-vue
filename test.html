@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/public/js/lib/vue.js"></script>
+    <script src="/public/js/k-ui.js"></script>
+    <link href="/public/css/k-css.css" rel="stylesheet" />
+</head>
+
+<body id="filename">
+    <div class="body">
+        <h2>1、按钮</h2>
+        <div style="margin:20px 0;">
+            <k-button>按钮</k-button>
+            <k-button type="danger">按钮</k-button>
+            <k-button type="primary">按钮</k-button>
+            <k-button type="warning">按钮</k-button>
+            <k-button type="ghost">按钮</k-button>
+            <k-button type="success">按钮</k-button>
+            <k-button type="gray">按钮</k-button>
+            <k-button type="link">按钮</k-button>
+            <k-button type="primary" mini>按钮</k-button>
+            <k-button type="primary" circle>按钮</k-button>
+        </div>
+        <h2>2、表格</h2>
+        <k-table :data="data" :columns="columns" :onselection="getSelection"> </k-table>
+
+        <Page :total="30" :pagesize="10"></Page>
+        <h2>3、弹框</h2>
+        <div style="margin:20px 0">
+            <k-button type="danger" @click="show1=true">按钮</k-button>
+            <k-button type="primary" @click="show2=true">按钮</k-button>
+
+            <Modal title="弹框" v-model="show1" :close="close1" :ok="ok" :cancel="cancel">
+                我是弹框
+            </Modal>
+            <Modal title="自定义按钮" v-model="show2" :close="close2" :width="600">
+                我是弹框
+                <div slot="footer" class="pull-left">
+                    <k-button type="danger" @click="ok">自定义按钮1</k-button>
+                    <k-button type="primary" @click="cancel">自定义按钮2</k-button>
+                </div>
+            </Modal>
+        </div>
+        <h2>4、时间控件</h2>
+        <div style="margin:20px 0">
+            <h3 id="default">默认</h3>{{time}}--{{range[0]}}--{{range[1]}}
+            <code>&lt;date-picker v-model=&quot;time&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time"></date-picker>
+            <h3 id="year">年</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; format=&quot;YYYY&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" format="YYYY"></date-picker>
+            <h3 id="month">月</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; format=&quot;YYYY-MM&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" format="YYYY-MM"></date-picker>
+            <h3 id="time">时间</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; format=&quot;YYYY-MM-DD HH:mm:ss&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" format="YYYY-MM-DD HH:mm:ss"></date-picker>
+            <h3 id="disabled">禁用</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; disabled&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" disabled></date-picker>
+            <h3 id="clearable">清除</h3>
+            <code>&lt;date-picker v-model=&quot;emptyTime&quot; clearable&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="emptyTime" clearable></date-picker>
+            <br>
+            <code>&lt;date-picker v-model=&quot;emptyRange&quot; clearable&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="emptyRange" clearable></date-picker>
+            <h3 id="range">范围</h3>
+            <code>&lt;date-picker v-model=&quot;range&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="range"></date-picker>
+            <h3 id="rangeSeparator">范围分离 </h3>
+            <code>&lt;date-picker v-model=&quot;range&quot; range-separator=&quot;至&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="range" range-separator="至"></date-picker>
+            <h3 id="disableddate">局部禁用</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; :disabled-date=&quot;disabledDate&quot; &gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" :disabled-date="disabledDate"></date-picker>
+            <h3 id="local">中英文切换</h3>
+            <code>&lt;date-picker v-model=&quot;time&quot; :local=&quot;local&quot;&gt;&lt;/date-picker&gt;</code>
+            <br>
+            <date-picker v-model="time" :local="local" format="YYYY-MM-DD HH:mm:ss"></date-picker>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '.body',
+        data: {
+            show1: false, show2: false,
+            data: [
+                { productNo: '11', productName: '你好', materielType: '11', platformCateCode: '222', category: 'fdsf' },
+                { productNo: '11', productName: '你好', materielType: '11', platformCateCode: '222', category: 'fdsf' },
+                { productNo: '11', productName: '你好', materielType: '11', platformCateCode: '222', category: 'fdsf' },
+                { productNo: '11', productName: '你好', materielType: '11', platformCateCode: '222', category: 'fdsf' },
+                { productNo: '11', productName: '你好', materielType: '11', platformCateCode: '222', category: 'fdsf' },
+            ],
+            columns: [
+                { type: 'selection' },
+                { title: '商品ID', key: 'productNo' },
+                { title: '物料分区', key: 'materielType' },
+                { title: '分类编码', key: 'platformCateCode' },
+                { title: '商品分类', key: 'category', width: 100 },
+                { title: '商品名称', key: 'productName', width: 100 },
+                { title: '商品规格', key: 'productSkuName', width: 100 },
+            ],
+            //日期date
+            time: new Date(),
+            range: [new Date(), new Date()],
+            emptyTime: '',
+            emptyRange: [],
+            local: {
+                dow: 0, // Sunday is the first day of the week
+                hourTip: 'Select Hour', // tip of select hour
+                minuteTip: 'Select Minute', // tip of select minute
+                secondTip: 'Select Second', // tip of select second
+                yearSuffix: '', // suffix of head
+                monthsHead: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), // months of head
+                months: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'), // months of panel
+                weeks: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_') // weeks
+            }
+        },
+        methods: {
+            close1: function (v) { /* this.show1 = v */ },
+            close2: function (v) { this.show2 = v },
+            ok: function () { alert(' 点了 OK') },
+            cancel: function () { alert(' 点了cancer') },
+            getSelection: function () {
+
+            },
+            disabledDate: function (time) {
+                var day = time.getDay();
+                return day === 0 || day === 6;
+            }
+        }
+    })
+</script>
+
+</html>
