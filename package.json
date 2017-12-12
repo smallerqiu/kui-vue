@@ -1,7 +1,7 @@
 {
     "name": "kyui",
     "version": "1.0.1",
-    "description": "聚彩官方商城",
+    "description": "UI for vue2.0",
     "main": "index.js",
     "scripts": {
         "dev": "gulp dev",

@@ -1,6 +1,6 @@
 node_modules/
 publish/
-dist/
+
 *.cmd
 .DS_Store
 
