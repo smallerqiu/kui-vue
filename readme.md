@@ -1,1 +1,1 @@
-# UI fro vue2.0
+# UI for vue2.0
