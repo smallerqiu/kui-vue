@@ -20,12 +20,17 @@
             padding: 13px;
             font-size: 12px;
             text-align: left;
+            white-space: normal;
         }
         td.full {
             padding: 0 !important;
         }
         td {
             padding: 10px 13px;
+            div{
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
         tbody tr {
             &:nth-child(even) {
