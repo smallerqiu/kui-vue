@@ -1,5 +1,5 @@
 {
-    "name": "kui",
+    "name": "kyui",
     "version": "1.0.0",
     "description": "聚彩官方商城",
     "main": "index.js",
@@ -46,6 +46,6 @@
     },
     "keywords": [
         "vue2.0",
-        "kui"
+        "kyui"
     ]
 }
