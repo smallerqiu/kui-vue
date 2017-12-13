@@ -3,9 +3,10 @@
     <h2>表格</h2>
     <Table :data="data" :columns="col"></Table>
     <!-- <Button type="test">fsds</Button> -->
-    {{d}}----{{d1}}
-    <datePicker v-model="d"></datePicker>
+    {{d}}----{{d1}}<br/>
+    <datePicker v-model="d"></datePicker><br/>
     <datePicker v-model="d1"></datePicker>
+    <input type="date" v-model="d">
   </div>
 </template>
 <script>
@@ -26,7 +27,8 @@ export default {
                 props: { type: "danger", mini: true },
                 on: {
                   click: () => {
-                    console.log(p);
+                    // this.test()
+                    console.log(this);
                   }
                 }
               },
@@ -38,12 +40,18 @@ export default {
           title: "测试",
           key: "abc",
           render: (h, p) => {
-            return h("datePicker", { prop: { value: '' } });
+            console.log('1111',this.d)
+            return h("datePicker", { attrs: { value: this.d } });
           }
         },
         { type: "selection" }
       ]
     };
+  },
+  methods:{
+    test(){
+      alert('ddd')
+    }
   }
 };
 </script>
