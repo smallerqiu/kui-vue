@@ -28,6 +28,7 @@ export default {
     popupClass: [String],
     value: [Date, Array, String],
     disabled: [Boolean],
+    change: { type: Function, default: () => {} },
     rangeSeparator: { type: String, default: "~" },
     clearable: { type: Boolean, default: false },
     placeholder: [String],
@@ -78,14 +79,14 @@ export default {
     } */
   },
   created() {
-    this.setText();
+    this.value != "" && this.value != [] && this.setText();
   },
   watch: {
     value(val) {
       // console.log(Array.isArray(val),val.join(this.rangeSeparator))
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
-      console.log(d);
-      this.text = d
+      this.text = d;
+      this.change(val);
       // this.$emit("input", this.range ? [] : "");
       // this.$emit("input", d);
     },

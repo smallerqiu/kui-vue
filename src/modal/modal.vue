@@ -38,9 +38,9 @@ export default {
     width: { required: false, default: 520 },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
-    ok: { required: false, default: function() {}, type: Function },
-    cancel: { required: false, default: function() {}, type: Function },
-    close: { required: false, default: function() {}, type: Function }
+    ok: { required: false, default: () => {}, type: Function },
+    cancel: { required: false, default: () => {}, type: Function },
+    close: { required: false, default: () => {}, type: Function }
   },
   data() {
     return {

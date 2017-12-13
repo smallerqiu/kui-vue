@@ -4,9 +4,9 @@
     <Table :data="data" :columns="col"></Table>
     <!-- <Button type="test">fsds</Button> -->
     {{d}}----{{d1}}<br/>
-    <datePicker v-model="d"></datePicker><br/>
-    <datePicker v-model="d1"></datePicker>
-    <input type="date" v-model="d">
+    <datePicker v-model="d" :change="t1"></datePicker><br/>
+    <!-- <datePicker v-model="d1"></datePicker> -->
+    <!-- <input type="date" v-model="d"> -->
   </div>
 </template>
 <script>
@@ -40,7 +40,6 @@ export default {
           title: "测试",
           key: "abc",
           render: (h, p) => {
-            console.log('1111',this.d)
             return h("datePicker", { attrs: { value: this.d } });
           }
         },
@@ -51,6 +50,9 @@ export default {
   methods:{
     test(){
       alert('ddd')
+    },
+    t1(v){
+      console.log(v)
     }
   }
 };
