@@ -2,8 +2,50 @@
    margin: 0;
    padding: 0;
    outline: none;
-   border: none;
    list-style: none;
+}
+
+html, body, section {
+   height: 100%;
+}
+article, aside, audio, details, figcaption, figure, footer, header, img, main, mark, menu, nav, section, summary, time, video {
+   display: block;
+   margin: 0;
+   padding: 0
+}
+body {
+   -webkit-text-size-adjust: none;
+   -moz-text-size-adjust: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   -moz-font-feature-setting: 'liga', 'kern';
+   background-color: #c5cace;
+   color: #252525; // font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+   font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+   font-size: 100%;
+   font-weight: 400;
+}
+fieldset, img {
+   border: 0
+}
+
+a {
+   text-decoration: none;
+   color: rgb(55, 55, 55);
+}
+
+h2 {
+   font-size: 18px;
+   color: #555;
+   margin-bottom: 20px;
+}
+
+h3 {
+   font-size: 14px;
+   color: #555;
 }
 
 body {
@@ -13,6 +55,7 @@ body {
 main {
    display: block;
    min-width: 1050px;
+   height: 100%;
 }
 
 header {
@@ -21,23 +64,54 @@ header {
    border-bottom: 1px solid #ddd;
    line-height: 60px;
    padding: 0 20px;
+   font-size: 18px;
 }
 
 .main {
    background: #f5f9fc;
    display: inline-block;
+   display: flex;
    .nav {
       min-width: 218px;
       width: 218px;
-      background-color: #f5f9fc;
       color: #555;
-      font-family: \5fae\8f6f\96c5\9ed1;
-      overflow-x: hidden;
-      overflow-y: auto;
       margin-top: 20px;
       padding-left: 25px;
-      opacity: 0;
+      height: 100%;
       -webkit-animation: opacity-nav .2s linear forwards;
       animation: opacity-nav .2s linear forwards;
+      border-left: 1px solid #e8e8e8;
+      margin-left: 20px;
+      li {
+         padding: 8px 0;
+         position: relative;
+         em {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #16aa6b;
+            left: -30px;
+            top: 10px;
+            border-radius: 50%;
+         }
+         h5 {
+            font-size: 15px;
+         }
+         a {
+            font-size: 13px;
+            display: block;
+            padding: 8px 0;
+            span {
+               color: #ababab;
+               margin-left: 5px;
+            }
+         }
+      }
+   }
+   .content {
+      flex: 1;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      background: #f1f1f1;
    }
 }

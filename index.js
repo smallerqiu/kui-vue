@@ -28,7 +28,7 @@ const install = function(Vue, opts = {}) {
         Vue.component(x, UI[x]);
     })
 }
-
+UI.install = install
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);

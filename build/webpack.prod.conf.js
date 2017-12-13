@@ -76,7 +76,6 @@ module.exports = {
     },
     // devtool: '#cheap-module-eval-source-map',
     plugins: [
-        // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin("k-ui.css"),
         new webpack.optimize.UglifyJsPlugin({

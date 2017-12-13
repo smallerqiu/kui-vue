@@ -1,19 +1,19 @@
 <template>
-    <div class="datepicker" :class="{'datepicker-range':range,'datepicker__clearable':clearable&&text&&!disabled}">
-        <input readonly :value="text" :class="[show ? 'focus' : '', inputClass]" :disabled="disabled" :placeholder="placeholder" :name="name" />
-        <a class="datepicker-close" @click.stop="cls"></a>
-        <transition name="datepicker-anim">
-            <div class="datepicker-popup" :class="popupClass" tabindex="-1" v-if="show">
-                <template v-if="range">
-                    <Calendar v-model="dates[0]" :left="true"></Calendar>
-                    <Calendar v-model="dates[1]" :right="true"></Calendar>
-                </template>
-                <template v-else>
-                    <Calendar v-model="dates[0]"></Calendar>
-                </template>
-            </div>
-        </transition>
-    </div>
+  <div class="datepicker" :class="{'datepicker-range':range,'datepicker__clearable':clearable&&text&&!disabled}">
+    <input readonly :value="text" :class="[show ? 'focus' : '', inputClass]" :disabled="disabled" :placeholder="placeholder" :name="name" />
+    <a class="datepicker-close" @click.stop="cls"></a>
+    <transition name="datepicker-anim">
+      <div class="datepicker-popup" :class="popupClass" tabindex="-1" v-if="show">
+        <template v-if="range">
+          <Calendar v-model="dates[0]" :left="true"></Calendar>
+          <Calendar v-model="dates[1]" :right="true"></Calendar>
+        </template>
+        <template v-else>
+          <Calendar v-model="dates[0]"></Calendar>
+        </template>
+      </div>
+    </transition>
+  </div>
 </template>
 <script>
 import calendar from "./datecalendar";
@@ -56,6 +56,7 @@ export default {
   },
   data() {
     return {
+      text: "",
       show: false,
       dates: this.vi(this.value)
     };
@@ -63,8 +64,8 @@ export default {
   computed: {
     range() {
       return this.dates.length === 2;
-    },
-    text() {
+    }
+    /*  text() {
       const val = this.value;
       const txt = this.dates
         .map(date => this.tf(date))
@@ -74,43 +75,45 @@ export default {
       } else {
         return val ? txt : "";
       }
-    }
+    } */
+  },
+  created() {
+    this.setText();
   },
   watch: {
-    value(val) {
-      // if(!Array.isArray(val)){
-
-      //    console.log(val)
-      //    // var s = new Date(val)
-      //    // this.dates = new Array(this.tf(s))
-      // }
-      this.dates = this.vi(this.value);
+    dates(val) {
+      // console.log(val)
+      // this.value = Array.isArray(val)?this.tf(val[0]):[this.tf(val[0]),this.tf(val[1])]
+      // console.log(val)
     }
   },
   methods: {
+    setText() {
+      let date = this.dates.map(date => this.tf(date));
+      let txt = date.join(` ${this.rangeSeparator} `);
+      this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
+    },
     cls() {
       this.$emit("input", this.range ? [] : "");
     },
     vi(val) {
-      //此处返回值 返回的date 类型改为字符串
       if (Array.isArray(val)) {
-        // return val.length > 1 ? val.map(item => new Date(item)) : [new Date(), new Date()]
-        return val.length > 1
-          ? val.map(item => new Date(item))
-          : [new Date(), new Date()];
+        // var d1 = new Date();
+        // var d2 = new Date(d1.setMonth(d1.getMonth() + 1 + 1));
+        return val.length > 1 ? val.map(item => new Date(item)) : [new Date(), new Date()];
       } else {
-        // return val ? new Array(new Date(val)) : [new Date()]
         return val ? new Array(new Date(val)) : [new Date()];
       }
     },
     ok() {
-      const $this = this;
-      $this.$emit(
-        "input",
-        Array.isArray($this.value) ? $this.dates : $this.dates[0]
-      );
+      let date = this.dates.map(date => this.tf(date));
+      let txt = date.join(` ${this.rangeSeparator} `);
+      this.text = date.length == 1 ? date[0] : txt;
+
+      this.$emit("input", date.length == 1 ? date[0] : date);
+
       setTimeout(() => {
-        $this.show = $this.range;
+        this.show = this.range;
       });
     },
     tf(time, format) {
