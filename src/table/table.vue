@@ -1,38 +1,50 @@
 <template>
-      <div class="table">
-            <table>
-                  <thead>
-                        <tr>
-                              <th class="selection" v-if="columns[0].type=='selection'">
-                                    <label for="check">
-                                          <input type="checkbox" id="check" ref="checkall" @click="_checkAll($event)">全选</label>
-                              </th>
-                              <th v-for="(item,index) in columns" v-if="item.title" :key="index">{{item.title}}</th>
-                        </tr>
-                  </thead>
-                  <tbody>
-                        <tr v-for="(item,i) in data" :key="i">
-                              <td v-if="columns[0].type=='selection'">
-                                    <label for="">
-                                          <input type="checkbox" class="checkchild" @click="check($event,item)">
-                                    </label>
-                              </td>
-                              <td v-for="(sub,ii) in columns" v-if="sub.title" :key="ii">
-                                    <div v-if="sub.render" v-html="sub.render(item,i)" :style="`width:${sub.width}px;`"></div>
-                                    <div v-else :style="`width:${sub.width}px;`">{{item[sub.key]}}</div>
-                              </td>
-                        </tr>
-                        <tr v-show="!data||data.length==0">
-                              <td colspan="50" style="text-align:center">
-                                    <div>暂无数据...</div>
-                              </td>
-                        </tr>
-                  </tbody>
-            </table>
-      </div>
+  <div class="table">
+    <table>
+      <thead>
+        <tr>
+          <th v-for="(item,index) in columns" v-if="item.title" :key="index">
+            <template v-if="item.type&&item.type=='selection'">
+              <label for="check">
+                <input type="checkbox" id="check" ref="checkall" @click="_checkAll($event)">全选</label>
+            </template>
+            <template v-else>{{item.title}}</template>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,m) in data" :key="m">
+          <td v-for="(sub,n) in columns" v-if="sub.title" :key="n">
+            <template v-if="sub.type&&sub.type=='selection'">
+              <label for="">
+                <input type="checkbox" class="checkchild" @click="check($event,item)">
+              </label>
+            </template>
+            <template v-if="sub.type&&sub.type=='html'">
+              <div v-html="item[sub.key]"></div>
+            </template>
+            <template v-if="sub.render">
+              <Expand :render="sub.render" :row="item" :column="sub" :index="m"></Expand>
+            </template>
+            <template v-else>
+              <div :style="`width:${sub.width}px;`">{{item[sub.key]}}</div>
+            </template>
+          </td>
+        </tr>
+        <tr v-show="!data||data.length==0">
+          <td colspan="50" style="text-align:center">
+            <div>暂无数据...</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 <script>
+import Expand from "./expand.js";
+import utils from "../utils";
 export default {
+  components: { 'Expand': Expand },
   name: "Table",
   props: {
     data: {
@@ -59,7 +71,7 @@ export default {
   },
   updated() {
     this.data.forEach(item => {
-      item._uuid = uuid();
+      item._uuid = utils.uuid();
     });
     var type = this.columns.filter(x => {
       return x.type == "selection";

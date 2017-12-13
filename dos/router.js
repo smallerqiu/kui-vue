@@ -7,16 +7,16 @@ Vue.use(Router)
 let router = []
 let children = []
 
-let r = ['index', 'button']
+let r = ['start','index', 'button','table']
 r.map((x) => {
     children.push({
         path: `/${x}`,
-        component: resolve => require([`/dos/ui/${x}`], resolve)
+        component: resolve => require([`./ui/${x}`], resolve)
     })
 })
-routes.push({
+router.push({
     path: '/',
-    component: resolve => require(['/dos/app'], resolve),
+    component: resolve => require(['./layout'], resolve),
     children: children
 })
 
