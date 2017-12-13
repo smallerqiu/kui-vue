@@ -78,7 +78,6 @@ export default {
       item._uuid = utils.uuid();
       item._checked = false;
     });
-    // console.log(this.data)
   },
   methods: {
     check(item,index) {
