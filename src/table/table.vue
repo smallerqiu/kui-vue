@@ -3,7 +3,7 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(item,index) in columns" v-if="item.title" :key="index">
+          <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="check">
                 <input type="checkbox" id="check" ref="checkall" @click="_checkAll($event)">全选</label>
@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="(item,m) in data" :key="m">
-          <td v-for="(sub,n) in columns" v-if="sub.title" :key="n">
+          <td v-for="(sub,n) in columns" :key="n">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
                 <input type="checkbox" class="checkchild" @click="check($event,item)">
@@ -44,7 +44,7 @@
 import Expand from "./expand.js";
 import utils from "../utils";
 export default {
-  components: { 'Expand': Expand },
+  components: { Expand: Expand },
   name: "Table",
   props: {
     data: {
@@ -76,7 +76,7 @@ export default {
     var type = this.columns.filter(x => {
       return x.type == "selection";
     });
-    if (type.length>0) {
+    if (type.length > 0) {
       this.checkAll(false);
       this.$refs.checkall.checked = false;
     }

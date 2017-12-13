@@ -41,7 +41,7 @@ export default {
             return h("datePicker", { prop: { value: '' } });
           }
         },
-        { title: "测试", type: "selection" }
+        { type: "selection" }
       ]
     };
   }
