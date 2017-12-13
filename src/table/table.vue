@@ -5,8 +5,8 @@
         <tr>
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
-              <label for="check">
-                <input type="checkbox" id="check" ref="checkall" @click="_checkAll($event)">全选</label>
+              <label for="k-checkbox-all">
+                <input type="checkbox" id="k-checkbox-all" v-model="checked" @click="_checkAll()">全选</label>
             </template>
             <template v-else>{{item.title}}</template>
           </th>
@@ -17,7 +17,7 @@
           <td v-for="(sub,n) in columns" :key="n">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
-                <input type="checkbox" class="checkchild" @click="check($event,item)">
+                <input type="checkbox" class="checkchild" v-model="item._checked" @click="check(item,m)">
               </label>
             </template>
             <template v-if="sub.type&&sub.type=='html'">
@@ -47,73 +47,57 @@ export default {
   components: { Expand: Expand },
   name: "Table",
   props: {
-    data: {
-      required: false,
-      default: []
-    }, // 表格数据
-    columns: {
-      required: false,
-      default: []
-    }, // 表格类目
+    data: { required: false, default: [] }, // 表格数据
+    columns: { required: false, default: [] }, // 表格类目
     // onselect: { type: Function, required: false,default:function(){} }, //单个选中触发
     // onselectAll: { type: Function, required: false,default:function(){} }, //所有选中触发
-    onselection: {
-      type: Function,
-      required: false,
-      default: function() {}
-    } //选中的时候触发,
+    onselection: { type: Function, required: false, default: function() {} } //选中的时候触发,
   },
   data() {
     return {
-      row: [] //所有选择的数据
+      checked: false,
+      selectRow: [] //所有选择的数据
       // selectRow:{}  //当前单选出发所选择的数据
     };
   },
-  updated() {
+  /* updated() {
     this.data.forEach(item => {
       item._uuid = utils.uuid();
+      item._checked = false;
     });
     var type = this.columns.filter(x => {
       return x.type == "selection";
     });
     if (type.length > 0) {
       this.checkAll(false);
-      this.$refs.checkall.checked = false;
+      this.is_all_check = false;
     }
-  },
+  }, */
   mounted() {
+    this.data.forEach(item => {
+      item._uuid = utils.uuid();
+      item._checked = false;
+    });
     // console.log(this.data)
   },
   methods: {
-    check(e, item) {
-      var che = e.target.checked;
-      var index = -1;
-      this.row.map((x, i) => {
-        x._uuid == item._uuid && (index = i);
-      });
-      if (che) {
-        // this.selectRow = item;
-        index < 0 && this.row.push(item);
-      } else {
-        // this.selectRow = null
-        index >= 0 && this.row.splice(index, 1);
-      }
-      // this.onselect(this.selectRow,this.row)
-      this.onselection(this.row);
+    check(item,index) {
+      let is_checked = !item._checked
+      this.data[index]._checked = is_checked;
+      this.selectRow = this.data.filter(x => x._checked == true);
+      this.onselection(this.selectRow);
     },
-    checkAll(cheAll) {
-      var childs = document.querySelectorAll(".checkchild");
-      for (var item of childs) {
-        item.checked = cheAll;
-      }
-      this.row = cheAll ? JSON.parse(JSON.stringify(this.data)) : [];
-      // this.onselectAll(this.row)
-      // console.log(this.row)
-      this.onselection(this.row);
+    checkAll(ischecked) { 
+      this.data.forEach(item => (item._checked = ischecked));
+      this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : []; 
+      this.onselection(this.selectRow);
     },
-    _checkAll(e) {
-      var cheAll = e.target.checked;
-      this.checkAll(cheAll);
+    _checkAll() {
+      // var cheAll = e.target.checked;
+      //this.is_all_check = !e.target.checked;
+      // console.log(cheAll)
+      this.checked = !this.checked
+      this.checkAll(this.checked);
     }
   }
 };
