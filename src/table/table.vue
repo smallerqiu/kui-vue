@@ -75,8 +75,8 @@ export default {
     });
     var type = this.columns.filter(x => {
       return x.type == "selection";
-    })[0];
-    if (type) {
+    });
+    if (type.length>0) {
       this.checkAll(false);
       this.$refs.checkall.checked = false;
     }
