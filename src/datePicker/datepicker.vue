@@ -81,6 +81,14 @@ export default {
     this.setText();
   },
   watch: {
+    value(val) {
+      // console.log(Array.isArray(val),val.join(this.rangeSeparator))
+      let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
+      console.log(d);
+      this.text = d
+      // this.$emit("input", this.range ? [] : "");
+      // this.$emit("input", d);
+    },
     dates(val) {
       // console.log(val)
       // this.value = Array.isArray(val)?this.tf(val[0]):[this.tf(val[0]),this.tf(val[1])]
@@ -100,7 +108,9 @@ export default {
       if (Array.isArray(val)) {
         // var d1 = new Date();
         // var d2 = new Date(d1.setMonth(d1.getMonth() + 1 + 1));
-        return val.length > 1 ? val.map(item => new Date(item)) : [new Date(), new Date()];
+        return val.length > 1
+          ? val.map(item => new Date(item))
+          : [new Date(), new Date()];
       } else {
         return val ? new Array(new Date(val)) : [new Date()];
       }
