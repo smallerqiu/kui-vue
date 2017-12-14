@@ -20,10 +20,10 @@
                 <input type="checkbox" class="checkchild" v-model="item._checked" @click="check(item,m)">
               </label>
             </template>
-            <template v-if="sub.type&&sub.type=='html'">
+            <template v-else-if="sub.type&&sub.type=='html'">
               <div v-html="item[sub.key]"></div>
             </template>
-            <template v-if="sub.render">
+            <template v-else-if="sub.render">
               <Expand :render="sub.render" :row="item" :column="sub" :index="m"></Expand>
             </template>
             <template v-else>
