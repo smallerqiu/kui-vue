@@ -3,8 +3,8 @@ import Page from './src/page'
 import Button from './src/button'
 import Input from './src/input'
 import datePicker from './src/datePicker'
-import Modal from './src/modal/modal'
-import Toast from './src/modal/toast'
+import { Modal, Toast } from './src/modal'
+import { Row, Col } from './src/grid'
 
 import './styles';
 
@@ -15,7 +15,8 @@ const components = {
     Button,
     Input,
     Modal,
-    Toast
+    Toast,
+    Row, Col
 }
 const UI = {
     ...components,
@@ -23,7 +24,7 @@ const UI = {
     kInput: Input,
     kTable: Table,
 }
-const install = function(Vue, opts = {}) {
+const install = function (Vue, opts = {}) {
     Object.keys(UI).map((x) => {
         Vue.component(x, UI[x]);
     })

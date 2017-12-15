@@ -14,6 +14,11 @@ var app = express();
 
 
 // 调用webpack并把配置传递过去
+const chalk = require('chalk')
+
+const ora = require('ora')
+const spinner = ora('开启编译...')
+spinner.start()
 var compiler = webpack(config);
 
 // 使用 webpack-dev-middleware 中间件，搭建服务器

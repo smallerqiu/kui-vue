@@ -1,0 +1,31 @@
+.wocao {
+   background: #ddd;
+}
+
+.k-row {
+   position: relative;
+   margin-left: 0;
+   margin-right: 0;
+   height: auto;
+   zoom: 1;
+   display: block;
+   &:after{
+      clear: both; 
+   }
+   &:after,&:before {
+      content: "";
+      display: table;
+  }
+}
+
+@fix :~'k-col';
+@counts :24;
+.makecol(@index) when(@index>0){
+   .@{fix}-@{index} {
+      display: block;
+      float: left;
+      width: percentage((@index / @counts));
+  }
+  .makecol((@index - 1));
+}
+.makecol(@counts);  

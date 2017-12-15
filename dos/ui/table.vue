@@ -13,8 +13,8 @@
 export default {
   data() {
     return {
-      d:'',
-      d1:[],
+      d: "",
+      d1: [],
       data: [{ abc: "abc" }, { test: "test" }],
       col: [
         {
@@ -40,19 +40,28 @@ export default {
           title: "测试",
           key: "abc",
           render: (h, p) => {
-            return h("datePicker", { attrs: { value: this.d } });
+            return h("datePicker", {
+              // attrs: { value: this.d },
+              props: {
+                value:this.d,
+                lang:'en',
+                change: v => {
+                  console.log('回调',v);
+                }
+              }
+            },this.d);
           }
         },
         { type: "selection" }
       ]
     };
   },
-  methods:{
-    test(){
-      alert('ddd')
+  methods: {
+    test() {
+      alert("ddd");
     },
-    t1(v){
-      console.log(v)
+    t1(v) {
+      // console.log(v)
     }
   }
 };
