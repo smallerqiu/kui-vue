@@ -1,3 +1,4 @@
-import Modal from './modal'
-import Toast from './toast'
-export {Modal,Toast}
+import Modal from './modal.vue'
+import Toast from './toast.vue'
+
+export { Modal, Toast }
