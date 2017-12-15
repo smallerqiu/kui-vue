@@ -31,7 +31,7 @@
             </template>
           </td>
         </tr>
-        <tr v-show="!data||data.length==0">
+        <tr v-if="!data||data.length==0">
           <td colspan="50" style="text-align:center">
             <div>暂无数据...</div>
           </td>

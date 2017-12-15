@@ -32,40 +32,38 @@ export default {
     rangeSeparator: { type: String, default: "~" },
     clearable: { type: Boolean, default: false },
     placeholder: [String],
+    lang: {
+      type: String,
+      default: "zh",
+      validator(value) {
+        return ["zh", "en"].indexOf(value) >= 0;
+      }
+    },
     disabledDate: {
       type: Function,
       default: () => {
         return false;
       }
     },
-    format: { type: String, default: "YYYY-MM-DD" },
-    local: {
-      type: Object,
-      default() {
-        return {
-          dow: 1, // Monday is the first day of the week
-          hourTip: "选择小时", // tip of select hour
-          minuteTip: "选择分钟", // tip of select minute
-          secondTip: "选择秒数", // tip of select second
-          yearSuffix: "年", // format of head
-          monthsHead: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"), // months of head
-          months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"), // months of panel
-          weeks: "一_二_三_四_五_六_日".split("_") // weeks
-        };
-      }
-    }
+    format: { type: String, default: "YYYY-MM-DD" }
   },
   data() {
     return {
       text: "",
       show: false,
-      dates: this.vi(this.value)
+      dates: this.vi(this.value),
+      local:{}
     };
   },
   computed: {
     range() {
       return this.dates.length === 2;
-    }
+    },
+    /* local() {
+      // console.log(this.lg)
+      let x =  require(`./lang/${this.lang}.js`);
+      console.log(x)
+    } */
     /*  text() {
       const val = this.value;
       const txt = this.dates
@@ -78,7 +76,11 @@ export default {
       }
     } */
   },
+  /* boforeCreated(){
+    this.local = require(`./lang/${this.lang}.js`);
+  }, */
   created() {
+    this.local = require(`./lang/${this.lang}.js`);
     this.value != "" && this.value != [] && this.setText();
   },
   watch: {
@@ -86,14 +88,15 @@ export default {
       // console.log(Array.isArray(val),val.join(this.rangeSeparator))
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
       this.text = d;
-      this.change(val);
+      this.change(this.text);
       // this.$emit("input", this.range ? [] : "");
       // this.$emit("input", d);
     },
     dates(val) {
-      // console.log(val)
-      // this.value = Array.isArray(val)?this.tf(val[0]):[this.tf(val[0]),this.tf(val[1])]
-      // console.log(val)
+      let date = this.dates.map(date => this.tf(date));
+      let txt = date.join(` ${this.rangeSeparator} `);
+      let text = date.length == 1 ? date[0] : txt;
+      this.change(text);
     }
   },
   methods: {

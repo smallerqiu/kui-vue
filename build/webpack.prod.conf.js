@@ -16,11 +16,21 @@ module.exports = {
     },
     watch: true,
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                options: { extractCSS: true, esModule: false, preserveWhitespace: false }
-            }, {
+                options: {
+                    extractCSS: true, esModule: false, preserveWhitespace: false,
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            use: 'css-loader',
+                            fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
+                        })
+                    }
+                }
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -36,16 +46,23 @@ module.exports = {
             {
                 test: /\.css$/,
                 // 将样式抽取出来为独立的文件
-                use: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader"),
-                exclude: /node_modules/
+                use: ExtractTextPlugin.extract({
+                    fallback: "vue-style-loader",
+                    use: [
+                        { loader: "css-loader" },
+                    ],
+                }),
+                // loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader"),
+                // exclude: /node_modules/
             },
-            // 使用less-loader、css-loader和style-loade 加载 .less 结尾的文件
+            //使用less-loader、css-loader和style-loade 加载 .less 结尾的文件
             {
                 test: /\.less$/,
                 // 将样式抽取出来为独立的文件
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: [{ loader: "css-loader" },
+                    use: [
+                        { loader: "css-loader" },
                         { loader: "less-loader" },
                     ],
                 }),

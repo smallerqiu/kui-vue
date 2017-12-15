@@ -1,6 +1,6 @@
 {
     "name": "kyui",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "scripts": {
@@ -38,8 +38,10 @@
         "url-loader": "^0.6.2",
         "v-distpicker": "^1.0.13",
         "vue": "^2.5.9",
+        "vue-hljs": "^1.0.0",
         "vue-loader": "^13.5.0",
         "vue-router": "^3.0.1",
+        "vue-style-loader": "^3.0.3",
         "vue-template-compiler": "^2.5.9",
         "webpack": "^3.10.0",
         "webpack-dev-middleware": "^1.12.2",
