@@ -3,10 +3,10 @@ import Page from './src/page'
 import Button from './src/button'
 import Input from './src/input'
 import datePicker from './src/datePicker'
-// import { Modal, Toast } from './src/modal'
+import { Modal, Toast } from './src/modal'
 import { Row, Col } from './src/grid'
-import Modal from './src/modal/modal'
-import Toast from './src/modal/toast'
+// import Modal from './src/modal/modal'
+// import Toast from './src/modal/toast'
 
 import './styles';
 
