@@ -60,6 +60,23 @@ export default {
       // selectRow:{}  //当前单选出发所选择的数据
     };
   },
+  watch: {
+    data(items) {
+      // handler(items) {
+      this.checked = false;
+      items.forEach(item => {
+        item._uuid = utils.uuid();
+        item._checked = false;
+      });
+      if (this.selectRow.length != 0) {
+        this.selectRow = [];
+        this.onselection(this.selectRow);
+      }
+      // console.log(items);
+      // },
+      // // deep: true
+    }
+  },
   /* updated() {
     this.data.forEach(item => {
       item._uuid = utils.uuid();
@@ -73,29 +90,24 @@ export default {
       this.is_all_check = false;
     }
   }, */
-  mounted() {
-    this.data.forEach(item => {
-      item._uuid = utils.uuid();
-      item._checked = false;
-    });
-  },
+
   methods: {
-    check(item,index) {
-      let is_checked = !item._checked
+    check(item, index) {
+      let is_checked = !item._checked;
       this.data[index]._checked = is_checked;
       this.selectRow = this.data.filter(x => x._checked == true);
       this.onselection(this.selectRow);
     },
-    checkAll(ischecked) { 
+    checkAll(ischecked) {
       this.data.forEach(item => (item._checked = ischecked));
-      this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : []; 
+      this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : [];
       this.onselection(this.selectRow);
     },
     _checkAll() {
       // var cheAll = e.target.checked;
       //this.is_all_check = !e.target.checked;
       // console.log(cheAll)
-      this.checked = !this.checked
+      this.checked = !this.checked;
       this.checkAll(this.checked);
     }
   }

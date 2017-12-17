@@ -7,6 +7,7 @@
     <datePicker v-model="d" :change="t1"></datePicker><br/>
     <!-- <datePicker v-model="d1"></datePicker> -->
     <!-- <input type="date" v-model="d"> -->
+    <Button @click="reset">重置</Button>
   </div>
 </template>
 <script>
@@ -38,18 +39,26 @@ export default {
         },
         {
           title: "测试",
-          key: "abc",
+          key: "abc"
+        },
+        {
+          title: "测试",
+          key: "111",
           render: (h, p) => {
-            return h("datePicker", {
-              // attrs: { value: this.d },
-              props: {
-                value:this.d,
-                lang:'en',
-                change: v => {
-                  console.log('回调',v);
+            return h(
+              "datePicker",
+              {
+                // attrs: { value: this.d },
+                props: {
+                  value: this.d,
+                  lang: "en",
+                  change: v => {
+                    console.log("回调", v);
+                  }
                 }
-              }
-            },this.d);
+              },
+              this.d
+            );
           }
         },
         { type: "selection" }
@@ -57,6 +66,10 @@ export default {
     };
   },
   methods: {
+    reset() {
+      this.data[0].abc = "232";
+      // this.data = [{ abc: "abc" }, { test: "test" }]
+    },
     test() {
       alert("ddd");
     },
