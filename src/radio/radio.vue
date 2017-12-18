@@ -1,29 +1,30 @@
 <template>
-   <label class="k-checkbox-wp">
-      <span :class="classes">
-         <span class="k-checkbox-inner"></span>
-         <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
-      </span>
-      <slot>{{label}}</slot>
-   </label>
+  <label class="k-radio-wp">
+    <span :class="classes">
+      <span class="k-radio-inner"></span>
+      <input type="radio" class="k-radio-input" :name="name" :disabled="disabled" :checked="checked" @change="changed($event)">
+    </span>
+    <slot>{{label}}</slot>
+  </label>
 </template>
 <script>
-import utils from '../utils'
+import utils from "../utils";
 export default {
-  name: "Checkbox",
+  name: "Radio",
   props: {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String },
-    label: { type: String }
+    label: { type: String },
+    // onchange: { type: Function, default: () => {} }
   },
   computed: {
     classes() {
       return [
-        "k-checkbox",
+        "k-radio",
         {
-          ["k-checkbox-checked"]: this.checked,
-          ["k-checkbox-disabled"]: this.disabled
+          ["k-radio-checked"]: this.checked,
+          ["k-radio-disabled"]: this.disabled
         }
       ];
     }
@@ -32,7 +33,7 @@ export default {
     return {
       checked: false,
       group: false,
-      parent: utils.findParent(this, "CheckboxGroup")
+      parent: utils.findParent(this, "RadioGroup")
     };
   },
   mounted() {
@@ -44,13 +45,14 @@ export default {
     }
   },
   methods: {
-    change(event) {
+    changed(event) {
       if (this.disabled) {
         return false;
       }
       const checked = event.target.checked;
       this.checked = checked;
       this.$emit("input", checked);
+      // console.log("change", checked);
 
       if (this.group && this.label !== undefined) {
         this.parent.change({

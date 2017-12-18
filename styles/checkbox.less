@@ -1,0 +1,67 @@
+.k-checkbox-wp {
+   cursor: pointer;
+   font-size: 12px;
+   display: inline-block;
+   margin-right: 8px;
+   .k-checkbox {
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+      cursor: pointer;
+      outline: 0;
+      line-height: 1;
+      position: relative;
+      margin-right: 5px;
+      .k-checkbox-inner {
+         display: inline-block;
+         width: 14px;
+         height: 14px;
+         position: relative;
+         top: 0;
+         left: 0;
+         border: 1px solid #dddee1;
+         border-radius: 2px;
+         background-color: #fff;
+         transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
+      }
+      .k-checkbox-input {
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         top: 0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         z-index: 1;
+         cursor: pointer;
+         opacity: 0;
+      }
+   }
+   .k-checkbox-checked {
+      .k-checkbox-inner {
+         background: @main;
+         border-color: @main;
+         position: relative;
+         &::after {
+            position: absolute;
+            font-family: 'jcfont';
+            content: '\e6d4';
+            width: 13px;
+            height: 13px;
+            line-height: 13px;
+            top: 0;
+            left: 0;
+            color: #fff;
+            text-align: center;
+         }
+      }
+   }
+   .k-checkbox-disabled{
+      .k-checkbox-inner{
+         background: #f3f3f3;
+         &:after {
+            background-color: #f3f3f3;
+         }
+      }
+   }
+}

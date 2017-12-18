@@ -34,7 +34,7 @@
     <h3>区块间隔</h3>
     <Row padding="10" class="pd">
       <Col span="6">
-      <div>6</div>
+       <div>6</div>
       </Col>
       <Col span="6">
       <div>6</div>

@@ -1,67 +1,88 @@
-.pages{
-   color: #999;
-   text-align: right;
-   font-size: 14px;
-   padding: 20px 0;
-   text-align: center;
-   user-select: none;
-   &>div {
-       display: inline-block;
-   }
-   .paging {
-       margin: 0 auto;
-       padding-top: 20px;
-       &> a {
-           color: #999 !important;
-           min-width: 12px;
-           height: 36px;
-           padding: 0 12px;
-           font-size: 12px;
-           line-height: 36px;
-           text-align: center;
-           display: inline-block;
-           border: 1px solid #e4e4e4;
-           transition :all 0.2s ease-in-out 0s;
-           margin-left:-1px;
-           cursor: pointer;
-           &:hover {
-               background-color: #f5f5f5;
-           }
-           &.active {
-               color: #FFF!important;
-               border: 1px solid #fc544e;
-               background-color: #fc544e
-           }
-       }
-   }
-   .page-number {
-       margin: 0 4px;
-       &> span {
-           color: #333;
-       }
-   }
-   .jump-page {
-       &>input {
-           width: 36px !important;
-           height: 34px;
-           line-height: 34px;
-           border-radius: 0;
-           margin: 0 4px;
-           border-color: #e4e4e4;
-           text-align: center;
-       }
-       &>.submit {
-           width: 36px;
-           height: 36px;
-           color: #999;
-           font-size: 14px;
-           line-height: 36px;
-           text-align: center;
-           margin-left: 8px;
-           padding: 0 10px;
-           background-color: #f8f8f8;
-           border: 1px solid #e4e4e4;
-           display: inline-block;
-       }
-   }
+.pages {
+    color: #999;
+    text-align: right;
+    font-size: 14px;
+    padding: 20px 0;
+    text-align: center;
+    user-select: none;
+    &>div {
+        display: inline-block;
+    }
+    .paging {
+        margin: 0 auto;
+        padding-top: 20px;
+        &> a {
+            background: #fff;
+            color: #666 !important;
+            min-width: 12px;
+            height: 36px;
+            padding: 0 12px;
+            font-size: 12px;
+            line-height: 36px;
+            text-align: center;
+            display: inline-block;
+            border: 1px solid #e4e4e4;
+            transition: all 0.2s ease-in-out 0s;
+            margin-left: -1px;
+            cursor: pointer;
+            &:hover {
+                background-color: #f5f5f5;
+            }
+            &.active {
+                color: #FFF!important;
+                border: 1px solid #fc544e;
+                background-color: #fc544e
+            }
+        }
+    }
+    .page-number {
+        margin: 0 4px;
+        &> span {
+            color: #666;
+        }
+    }
+    .jump-page {
+        .topage {
+            width: 36px !important;
+            height: 34px;
+            line-height: 34px;
+            border-radius: 0;
+            margin: 0 4px;
+            border-color: #e4e4e4;
+            text-align: center;
+        }
+        .submit {
+            width: 36px;
+            height: 36px;
+            color: #999;
+            font-size: 14px;
+            line-height: 36px;
+            text-align: center;
+            margin-left: 8px;
+            padding: 0 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #e4e4e4;
+            display: inline-block;
+        }
+    }
+}
+
+.pages-mini {
+    .paging>a {
+        height: 28px;
+        padding: 0 8px;
+        font-size: 8px;
+        line-height: 28px;
+    }
+    .jump-page {
+        .topage {
+            width: 28px;
+            height: 28px;
+        }
+        .submit {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+        }
+    }
 }

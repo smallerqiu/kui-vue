@@ -18,7 +18,7 @@
 <script>
 import calendar from "./datecalendar";
 export default {
-  name: "datePicker",
+  name: "DatePicker",
   components: {
     Calendar: calendar
   },

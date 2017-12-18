@@ -7,7 +7,8 @@ Vue.use(Router)
 let router = []
 let children = []
 
-let r = ['install','start','log','index', 'button','datepicker','table','grid','page']
+let r = ['install', 'start', 'log', 'index', 'button','select',
+    'checkbox', 'radio', 'datepicker', 'table', 'grid', 'page', 'modal']
 r.map((x) => {
     children.push({
         path: `/${x}`,

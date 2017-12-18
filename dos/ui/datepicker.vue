@@ -6,51 +6,51 @@
     <Row padding="10">
       <Col span="6">
       <h4>默认</h4>
-      <datePicker></datePicker>
+      <DatePicker></DatePicker>
       </Col>
       <Col span="6">
       <h4>年</h4>
-      <datePicker format="YYYY"></datePicker>
+      <DatePicker format="YYYY"></DatePicker>
       </Col>
       <Col span="6">
       <h4>月</h4>
-      <datePicker format="MM"></datePicker>
+      <DatePicker format="MM"></DatePicker>
       </Col>
       <Col span="6">
       <h4>时间</h4>
-      <datePicker format="YYYY-MM-DD HH:mm:ss"></datePicker>
+      <DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
       </Col>
     </Row>
     <Row padding="10">
       <Col span="6">
       <h4>范围</h4>
-      <datePicker v-model="d2" clearable></datePicker>
+      <DatePicker v-model="d2" clearable></DatePicker>
       </Col>
       <Col span="6">
       <h4>范围分离</h4>
-      <datePicker range-separator="至" v-model="d2" clearable></datePicker>
+      <DatePicker range-separator="至" v-model="d2" clearable></DatePicker>
       </Col>
       <Col span="6">
       <h4>清除</h4>
-      <datePicker clearable></datePicker>
+      <DatePicker clearable></DatePicker>
       </Col>
       <Col span="6">
       <h4>禁用</h4>
-      <datePicker disabled></datePicker>
+      <DatePicker disabled></DatePicker>
       </Col>
     </Row>
     <Row padding="10">
       <Col span="6">
       <h4>局部禁用</h4>
-      <datePicker :disabled-date="disabledDate" v-model="d" clearable></datePicker>
+      <DatePicker :disabled-date="disabledDate" v-model="d" clearable></DatePicker>
       </Col>
       <Col span="6">
       <h4>本地化</h4>
-      <datePicker :lang="en" v-model="d" clearable></datePicker>
+      <DatePicker :lang="en" v-model="d" clearable></DatePicker>
       </Col>
       <Col span="6">
       <h4>时间回调</h4>
-      <datePicker :change="test"></datePicker>
+      <DatePicker :change="test"></DatePicker>
       </Col>
       <Col span="6"></Col>
     </Row>
@@ -141,27 +141,27 @@ export default {
       d: "",
       d2: [],
       demo: `//默认
-<datePicker></datePicker>
+<DatePicker></DatePicker>
 //年
-<datePicker format="YYYY"></datePicker>
+<DatePicker format="YYYY"></DatePicker>
 //月
-<datePicker format="MM"></datePicker>
+<DatePicker format="MM"></DatePicker>
 //时间
-<datePicker format="YYYY-MM-DD HH:mm:ss"></datePicker>
+<DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
 //清除
-<datePicker clearable></datePicker>
+<DatePicker clearable></DatePicker>
 //禁用
-<datePicker disabled></datePicker>
+<DatePicker disabled></DatePicker>
 //范围
-<datePicker v-model="d2" clearable></datePicker>
+<DatePicker v-model="d2" clearable></DatePicker>
 //范围分离
-<datePicker range-separator="至" v-model="d2" clearable></datePicker>
+<DatePicker range-separator="至" v-model="d2" clearable></DatePicker>
 //局部禁用
-<datePicker :disabled-date="disabledDate" v-model="d" clearable></datePicker>
+<DatePicker :disabled-date="disabledDate" v-model="d" clearable></DatePicker>
 //本地化
-<datePicker :lang="en" v-model="d" clearable></datePicker>
+<DatePicker :lang="en" v-model="d" clearable></DatePicker>
 //时间回调
-<datePicker :change="test"></datePicker>
+<DatePicker :change="test"></DatePicker>
 <script>
 export default {
   data() {

@@ -102,7 +102,7 @@ header {
       menu {
          margin-left: 20px;
          border-left: 1px solid #e8e8e8;
-         padding-left: 25px;
+         
          height: 100%;
       }
       li {
@@ -113,21 +113,26 @@ header {
             width: 10px;
             height: 10px;
             background: #16aa6b;
-            left: -30px;
+            left: -5px;
             top: 10px;
             border-radius: 50%;
          }
          h5 {
             font-size: 15px;
+            padding-left: 25px;
          }
          a {
             font-size: 13px;
             display: block;
-            padding: 8px 0;
+            padding: 8px 0 8px 25px;
             span {
                color: #ababab;
                margin-left: 5px;
             }
+         }
+         .active{
+            background: #e8e8e8;
+            border-right: 2px solid #16aa6a;
          }
       }
    }
@@ -229,7 +234,7 @@ table {
       margin: 10px 0;
       .k-col {
          text-align: center;
-         padding: 5px;
+         padding: 5px 0;
          &:nth-child(even) {
             background: rgba(0, 153, 229, .7)
          }
