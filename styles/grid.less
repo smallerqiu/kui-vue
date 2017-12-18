@@ -1,7 +1,3 @@
-.wocao {
-   background: #ddd;
-}
-
 .k-row {
    position: relative;
    margin-left: 0;
@@ -9,6 +5,7 @@
    height: auto;
    zoom: 1;
    display: block;
+   box-sizing: border-box;
    &:after{
       clear: both; 
    }
@@ -24,6 +21,7 @@
    .@{fix}-@{index} {
       display: block;
       float: left;
+      box-sizing: border-box;
       width: percentage((@index / @counts));
   }
   .makecol((@index - 1));

@@ -34,8 +34,8 @@ export default {
   },
   props: {
     value: { required: false, type: Boolean, default: false },
-    title: { required: false, default: "我是一个标题" },
-    width: { required: false, default: 520 },
+    title: { required: false, default: "我是一个标题",type:String },
+    width: { required: false, default: 520,type:[Number,String] },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
     ok: { required: false, default: () => {}, type: Function },
@@ -61,13 +61,13 @@ export default {
     closed() {
       this.cancel();
       this.out();
-      console.log;
     },
     out() {
       this.$refs["modal"].className = "modal closed";
       setTimeout(() => {
         this.visible = false;
         this.$refs["modal"].className = "modal";
+        this.$emit("input", false);
         this.close(false);
       }, 300);
     }

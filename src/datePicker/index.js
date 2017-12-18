@@ -1,2 +1,2 @@
-import datePicker from './datepicker'
-export default datePicker
+import DatePicker from './Datepicker'
+export default DatePicker
