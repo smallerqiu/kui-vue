@@ -6,7 +6,7 @@
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
-                <input type="checkbox" id="k-checkbox-all" v-model="checked" @click="_checkAll()">全选</label>
+                <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选</label>
             </template>
             <template v-else>{{item.title}}</template>
           </th>
@@ -17,7 +17,7 @@
           <td v-for="(sub,n) in columns" :key="n">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
-                <input type="checkbox" class="checkchild" v-model="item._checked" @click="check(item,m)">
+                <input type="checkbox" v-model="item._checked" @change="check(item,m)">
               </label>
             </template>
             <template v-else-if="sub.type&&sub.type=='html'">
@@ -94,7 +94,7 @@ export default {
 
   methods: {
     check(item, index) {
-      let is_checked = !item._checked;
+      let is_checked = item._checked;
       this.data[index]._checked = is_checked;
       this.selectRow = this.data.filter(x => x._checked == true);
       this.onselection(this.selectRow, item);
@@ -103,14 +103,7 @@ export default {
       this.data.forEach(item => (item._checked = ischecked));
       this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : [];
       this.onselection(this.selectRow);
-    },
-    _checkAll() {
-      // var cheAll = e.target.checked;
-      //this.is_all_check = !e.target.checked;
-      // console.log(cheAll)
-      this.checked = !this.checked;
-      this.checkAll(this.checked);
-    }
+    }, 
   }
 };
 </script>
