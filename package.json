@@ -1,6 +1,6 @@
 {
     "name": "kyui",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "scripts": {
@@ -27,6 +27,7 @@
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.5",
         "html-webpack-plugin": "^2.30.1",
+        "kui-loader": "^1.0.0",
         "kyui": "^1.0.6",
         "less": "^2.7.3",
         "less-loader": "^4.0.5",

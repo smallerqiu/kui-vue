@@ -1,1 +1,32 @@
 @main: ~'#fc544e';
+@keyframes dropdown-in {
+   0% {
+      opacity: 0;
+      transform: scaleY(.8)
+   }
+   to {
+      opacity: 1;
+      transform: scaleY(1)
+   }
+}
+
+@keyframes dropdown-out {
+   0% {
+      opacity: 1;
+      transform: scaleY(1)
+   }
+   to {
+      opacity: 0;
+      transform: scaleY(.8)
+   }
+}
+
+.dropdown-enter-active {
+   transform-origin: 0 0;
+   animation: dropdown-in .2s cubic-bezier(.23, 1, .32, 1)
+}
+
+.dropdown-leave-active {
+   transform-origin: 0 0;
+   animation: dropdown-out .2s cubic-bezier(.755, .05, .855, .06)
+} 

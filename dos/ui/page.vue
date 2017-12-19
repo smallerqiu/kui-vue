@@ -2,8 +2,8 @@
   <div>
     <h2>Page 分页</h2>
     <h3>代码示例</h3>
-    <Page :total="100" :curent="1" :pagesize="10"></Page>
-    <Page :total="100" :curent="1" :pagesize="10" mini></Page>
+    <Page :total="1000" :curent="1" :pagesize="10"></Page>
+    <Page :total="60" :curent="1" :pagesize="10" mini @change="test"></Page>
     <div v-high>
       <pre>
         <code>{{pages}}</code>
@@ -53,7 +53,7 @@
           <td>返回值</td>
         </tr>
         <tr>
-          <td>onchange</td>
+          <td>change</td>
           <td>页码改变的回调，返回改变后的页码</td>
           <td>页码改变的回调，返回改变后的页码 页码</td>
         </tr>
@@ -65,9 +65,14 @@
 export default {
   data() {
     return {
-      pages:`<Page :total="100" :curent="1" :pagesize="10"></Page>
+      pages: `<Page :total="100" :curent="1" :pagesize="10"></Page>
 <Page :total="100" :curent="1" :pagesize="10" mini></Page>`
     };
+  },
+  methods: {
+    test(v) {
+      console.log(v);
+    }
   }
 };
 </script>

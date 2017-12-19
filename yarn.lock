@@ -2415,6 +2415,12 @@ kind-of@^4.0.0:
   dependencies:
     is-buffer "^1.1.5"
 
+kui-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/kui-loader/-/kui-loader-1.0.0.tgz#ac82d0444c72ed3830d61af07893a5105aab3c99"
+  dependencies:
+    loader-utils "^1.1.0"
+
 kyui@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/kyui/-/kyui-1.0.6.tgz#a53952add7638495c07da52dfd2fa0e3aa647e9c"
