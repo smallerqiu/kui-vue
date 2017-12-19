@@ -40,8 +40,10 @@ export default {
           title: "基础组建",
           child: [
             { title: "按钮", sub: "Button", link: "/button" },
+            { title: "输入框", sub: "Input", link: "/input" },
             { title: "多选框", sub: "Checkbox", link: "/checkbox" },
             { title: "单选框", sub: "Radio", link: "/radio" },
+            { title: "开关", sub: "Switch", link: "/switch" },
             { title: "下拉框", sub: "Select", link: "/select" },
             { title: "删格", sub: "Grid", link: "/grid" },
             { title: "日期", sub: "datePicker", link: "/datepicker" },

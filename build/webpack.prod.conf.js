@@ -19,16 +19,24 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    extractCSS: true, esModule: false, preserveWhitespace: false,
-                    loaders: {
-                        css: ExtractTextPlugin.extract({
-                            use: 'css-loader',
-                            fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
-                        })
+                use: [{
+                    loader: 'vue-loader',
+                    options: {
+                        extractCSS: true, esModule: false, preserveWhitespace: false,
+                        loaders: {
+                            css: ExtractTextPlugin.extract({
+                                use: 'css-loader',
+                                fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
+                            })
+                        }
+                    }
+                }, {
+                    loader: 'kui-loader',
+                    options: {
+                        prefix: false
                     }
                 }
+                ]
             },
             {
                 test: /\.js$/,
