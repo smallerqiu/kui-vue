@@ -1,0 +1,79 @@
+.table {
+    background: #fff;
+    width: 100%;
+    margin: 10px 0;
+    // overflow: auto;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        thead {
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            font-weight: 400;
+        }
+        th, td {
+            padding: 13px;
+            font-size: 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        td.full {
+            padding: 0 !important;
+        }
+        td {
+            padding: 10px 13px;
+           /*  div{
+                overflow: hidden;
+                text-overflow: ellipsis;
+            } */
+        }
+        tbody tr {
+            &:nth-child(even) {
+                background: #f9f9f9;
+            }
+            &:nth-child(odd) {
+                background: #fff;
+            }
+            &:hover {
+                background: #eee;
+            }
+        }
+    }
+    .selection {
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        white-space: nowrap;
+    }
+    input[type=text], select, input[type=date] {
+        font-size: 12px;
+        padding: 10px;
+        box-sizing: border-box;
+        height: 36px;
+        width: 200px;
+        border-radius: 0;
+        text-indent: 0;
+        background: #fff;
+    }
+    th>a,td>a {
+        color: #3a95ff;
+    }
+    .mini {
+        height: 22px !important;
+        line-height: 20px;
+        padding: 0 5px!important;
+    }
+    input[type=button].mini {
+        width: auto !important;
+    }
+    input[type=text].mini {
+        width: 60px !important;
+    }
+    .no-data{
+        text-align: center;
+        padding: 10px 0;
+    }
+}
