@@ -9,7 +9,7 @@
     <p>：通过设置col的span参数，指定跨越的范围，其范围是1到24</p>
     <p>：每个row中的col总和应该为24</p>
     <br>
-    <p>注意：非 template/render 模式下，需使用 i-col。</p>
+    <p>注意：非 template/render 模式下，需使用 k-col。</p>
     <h3>代码示例</h3>
     <Row>
       <Col span="12">12</Col>
@@ -55,10 +55,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>padding</td>
@@ -72,10 +72,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>span</td>

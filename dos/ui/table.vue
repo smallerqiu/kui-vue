@@ -1,9 +1,9 @@
 <template>
   <div class="">
     <h2>Table 表格</h2>
-    <p>注意：非 template/render 模式下，需使用 i-table。</p>
+    <p>注意：非 template/render 模式下，需使用 k-table。</p>
     <h3>代码示例</h3>
-    <Button @click="test">tetew</Button>
+    <!-- <Button @click="test">tetew</Button> -->
     <Table :data="data" :columns="col" :onselection="test2"></Table>
     <div v-high>
       <pre>
@@ -14,10 +14,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>data</td>
@@ -43,9 +43,9 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>事件名</td>
-          <td>说明</td>
-          <td>返回值</td>
+          <th>事件名</th>
+          <th>说明</th>
+          <th>返回值</th>
         </tr>
         <tr>
           <td>onselection</td>
@@ -58,10 +58,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>type</td>

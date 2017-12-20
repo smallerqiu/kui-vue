@@ -1,7 +1,7 @@
 <template>
   <section class="body">
     <header>
-      VUE KUI 使用文档
+      <img :src="logo" />VUE KUI 使用文档
     </header>
     <section class="main">
       <nav class="nav">
@@ -33,7 +33,8 @@ export default {
           child: [
             { title: "安装", link: "/install" },
             { title: "快速上手", link: "/start" },
-            { title: "更新日志", link: "/log" }
+            { title: "更新日志", link: "/log" },
+            { title: "kyui-loader", link: "/kyui-loader" }
           ]
         },
         {
@@ -49,14 +50,21 @@ export default {
             { title: "日期", sub: "datePicker", link: "/datepicker" },
             { title: "表格", sub: "Table", link: "/table" },
             { title: "分页", sub: "Page", link: "/page" },
-            { title: "对话框", sub: "Modal", link: "/modal" }
+            { title: "对话框", sub: "Modal", link: "/modal" },
+            { title: "颜色", sub: "Color", link: "/color" },
+            { title: "表单", sub: "Form", link: "/form" }
           ]
         },
         {
           title: "其他",
-          child: [{ title: "github", link: "" }]
+          child: [
+            { title: "github", link: "" },
+            { title: "支持作者", link: "/sponsor" },
+            { title: "关于", link: "/index" }
+          ]
         }
-      ]
+      ],
+      logo: require("./logo.png")
     };
   },
   methods: {},

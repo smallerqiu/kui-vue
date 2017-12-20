@@ -1,16 +1,30 @@
 const rm = require('rimraf')
 const ora = require('ora')
 
-const webpackConfig = require('./webpack.prod.conf')
+// const webpackConfig = require('./webpack.prod.conf')
 const spinner = ora('开始构建...')
 const chalk = require('chalk')
 const webpack = require('webpack')
+const path = require('path')
 
+let isdoc = process.argv.indexOf('doc') >= 0
+const webpackConfig = isdoc ? require('./webpack.dev.conf') : require('./webpack.prod.conf')
+const rmpath = isdoc ? './dos-html/' : './dist/'
+
+if (isdoc) {
+    webpackConfig.output = {
+        path: path.resolve(__dirname, '../dos-html'),
+        filename: 'js/[name].[hash].js',
+        publicPath: "",
+        chunkFilename: 'js/[name].[chunkhash].js'
+    }
+}
+// return
 spinner.start()
 
-rm('../dist/', (err) => {
+rm(rmpath, (err) => {
     if (err) throw err
-    webpack(webpackConfig, function(err, stats) {
+    webpack(webpackConfig, function (err, stats) {
         spinner.stop()
         if (err) throw err
         process.stdout.write(stats.toString({

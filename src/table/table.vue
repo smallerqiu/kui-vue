@@ -31,13 +31,9 @@
             </template>
           </td>
         </tr>
-        <tr v-if="!data||data.length==0">
-          <td colspan="50" style="text-align:center">
-            <div>{{noDataText}}</div>
-          </td>
-        </tr>
       </tbody>
     </table>
+    <div v-if="!data||data.length==0" class="no-data">{{noDataText}}</div>
   </div>
 </template>
 <script>
@@ -103,7 +99,7 @@ export default {
       this.data.forEach(item => (item._checked = ischecked));
       this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : [];
       this.onselection(this.selectRow);
-    }, 
+    }
   }
 };
 </script>

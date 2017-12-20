@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './app'
 import router from './router'
-import kui from '../index'
+import kui from '../src/index'
 import './demo.less'
 import vueHljs from "./Hljs"
 

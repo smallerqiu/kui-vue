@@ -1,6 +1,10 @@
 node_modules/
 publish/
-
+src/
+dos/
+build/
+styles/
+doc-html/
 *.cmd
 .DS_Store
 

@@ -1,11 +1,11 @@
 <template>
-   <div class="k-input">
-      <template v-if="type !== 'textarea'">
-         <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type" :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange">
-      </template>
-      <textarea v-else :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="textarea" :class="textareaClasses" :style="textareaStyles" :placeholder="placeholder" :disabled="disabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput">
-      </textarea>
-   </div>
+  <div :style="styles" :class="classes">
+    <template v-if="type !== 'textarea'">
+      <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type" :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange">
+    </template>
+    <textarea v-else :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="textarea" :class="textareaClasses" :placeholder="placeholder" :disabled="disabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput">
+    </textarea>
+  </div>
 
 </template>
 
@@ -13,10 +13,7 @@
 export default {
   name: "Input",
   props: {
-    mini: {
-      type: Boolean,
-      default: false
-    },
+    mini: { type: Boolean, default: false },
     type: {
       validator(value) {
         return (
@@ -40,51 +37,72 @@ export default {
       },
       default: "off"
     },
-    Id: {
-      type: String
+    Id: { type: String },
+    width: { type: [Number, String] }
+  },
+  data() {
+    return {
+      currentValue: ""
+    };
+  },
+  watch: {
+    value(val) {
+      this.setCurrentValue(val);
     }
   },
+  mounted() {
+    this.currentValue = this.value;
+  },
   computed: {
+    classes() {
+      return [
+        "k-input-wp",
+        {
+          ["k-input-mini"]: this.mini
+        }
+      ];
+    },
+    styles() {
+      return this.width && this.width > 0 ? { width: `${this.width}px` } : {};
+    },
     inputClasses() {
       return [
-        "input",
+        "k-input",
         {
-          ["input-mini"]: !!this.mini,
-          ['input-disabled']: this.disabled
+          ["k-input-mini"]: !!this.mini,
+          ["k-input-disabled"]: this.disabled
         }
       ];
     },
     textareaClasses() {
       return [
-        "input",
+        "k-input",
         {
-          ["input-mini"]: !!this.mini,
-          ['input-disabled']: this.disabled
+          ["k-input-mini"]: !!this.mini,
+          ["k-input-disabled"]: this.disabled,
+          ["k-textarea"]: this.type == "textarea"
         }
       ];
     }
   },
   methods: {
     handleEnter(event) {
-      this.$emit("on-enter", event);
+      this.$emit("enter", event);
     },
     handleKeydown(event) {
-      this.$emit("on-keydown", event);
+      this.$emit("keydown", event);
     },
     handleKeypress(event) {
-      this.$emit("on-keypress", event);
+      this.$emit("keypress", event);
     },
     handleKeyup(event) {
-      this.$emit("on-keyup", event);
-    },
-    handleIconClick(event) {
-      this.$emit("on-click", event);
+      this.$emit("keyup", event);
     },
     handleFocus(event) {
-      this.$emit("on-focus", event);
+      this.$emit("focus", event);
     },
     handleBlur(event) {
-      this.$emit("on-blur", event);
+      this.$emit("blur", event);
     },
     handleInput(event) {
       let value = event.target.value;
@@ -92,14 +110,12 @@ export default {
         value = Number.isNaN(Number(value)) ? value : Number(value);
       this.$emit("input", value);
       this.setCurrentValue(value);
-      this.$emit("on-change", event);
     },
     handleChange(event) {
-      this.$emit("on-input-change", event);
+      this.$emit("change", event.target.value);
     },
     setCurrentValue(value) {
       if (value === this.currentValue) return;
-      
       this.currentValue = value;
     },
     focus() {

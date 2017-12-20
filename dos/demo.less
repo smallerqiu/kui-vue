@@ -85,6 +85,12 @@ header {
    line-height: 60px;
    padding: 0 20px;
    font-size: 18px;
+   img {
+      height: 30px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 10px;
+   }
 }
 
 .main {
@@ -102,7 +108,6 @@ header {
       menu {
          margin-left: 20px;
          border-left: 1px solid #e8e8e8;
-         
          height: 100%;
       }
       li {
@@ -130,7 +135,7 @@ header {
                margin-left: 5px;
             }
          }
-         .active{
+         .active {
             background: #e8e8e8;
             border-right: 2px solid #16aa6a;
          }
@@ -140,8 +145,60 @@ header {
       flex: 1;
       padding: 10px 20px;
       box-sizing: border-box;
-      background: #f1f1f1;
+      background: #fff;
       overflow: auto;
+      a {
+         color: #3390d4;
+      }
+   }
+   .nav, .content {
+      &::-webkit-scrollbar {
+         width: 2px;
+         height: 2px;
+         background: hsla(0, 0%, 100%, .2);
+      }
+      &::-webkit-scrollbar-thumb {
+         border-radius: 0;
+         background-color: rgba(95, 95, 95, .2);
+         -webkit-transition: background-color .15s;
+         transition: background-color .15s;
+      }
+      &::-webkit-scrollbar-track {
+         border-radius: 0;
+      }
+   }
+}
+
+// 此处为vue 的过度
+.fade-enter-active, .fade-leave-active {
+   transition: opacity .3s
+}
+
+.fade-enter, .fade-leave-to {
+   opacity: 0
+}
+
+// 此处为nuxt 的过度
+.page-enter-active, .page-leave-active {
+   transition: opacity .5s;
+}
+
+.page-enter, .page-leave-active {
+   opacity: 0;
+}
+
+.demo-sponsor {
+   .paycode {
+      text-align: center;
+      div {
+         float: left;
+         margin: 20px;
+         padding: 10px;
+         border: 1px solid #f1f1f1;
+      }
+      img {
+         height: 200px
+      }
    }
 }
 
@@ -151,7 +208,7 @@ code, kbd, pre, samp {
 }
 
 .hljs {
-   background: #fff !important;
+   background: #f1f1f1 !important;
    padding: 15px !important;
 }
 
@@ -169,11 +226,15 @@ table {
    table {
       background: #fff;
       width: 100%;
+      th {
+         white-space: nowrap;
+         text-align: left;
+      }
       td, th {
          font-size: 12px;
          border: 1px solid #eee;
          padding: 11px;
-         text-align: center;
+         // text-align: center;
          box-sizing: border-box;
       }
       tr {
@@ -228,11 +289,13 @@ table {
       line-height: 20px;
    }
 }
-.demo-button{
-   .k-button{
+
+.demo-button {
+   .k-button {
       margin-right: 10px;
    }
 }
+
 .demo-grid {
    .k-row {
       margin: 10px 0;
