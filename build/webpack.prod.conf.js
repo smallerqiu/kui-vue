@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path');
 module.exports = {
     entry: [
-        path.resolve(__dirname, '../index.js')
+        path.resolve(__dirname, '../src/index.js')
     ],
     output: {
         path: path.resolve(__dirname, "../dist"),
@@ -83,7 +83,7 @@ module.exports = {
                     // 把较小的图片转换成base64的字符串内嵌在生成的js文件里
                     limit: 10000,
                     // 路径要与当前配置文件下的publicPath相结合
-                    name: '../img/[name].[ext]?[hash:7]'
+                    name: 'img/[name].[ext]?[hash:7]'
                 }
             },
             { // 加载图标
@@ -92,7 +92,7 @@ module.exports = {
                 query: {
                     // 把较小的图标转换成base64的字符串内嵌在生成的js文件里    
                     limit: 10000,
-                    name: '../fonts/[name].[ext]?[hash:7]',
+                    name: 'fonts/[name].[ext]?[hash:7]',
                     prefix: 'font'
                 }
             },

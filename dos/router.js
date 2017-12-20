@@ -7,12 +7,12 @@ Vue.use(Router)
 let router = []
 let children = []
 
-let r = ['install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch',
-    'checkbox', 'radio', 'datepicker', 'table', 'grid', 'page', 'modal']
+let r = ['','install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch','form','color',
+    'checkbox', 'radio', 'datepicker', 'table', 'grid', 'page', 'modal','kyui-loader','sponsor','about']
 r.map((x) => {
     children.push({
         path: `/${x}`,
-        component: resolve => require([`./ui/${x}`], resolve)
+        component: resolve => require([x==''?'./ui/index':`./ui/${x}`], resolve)
     })
 })
 router.push({

@@ -62,10 +62,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>value</td>
@@ -121,9 +121,9 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>事件名</td>
-          <td>说明</td>
-          <td>返回值</td>
+          <th>事件名</th>
+          <th>说明</th>
+          <th>返回值</th>
         </tr>
         <tr>
           <td>change</td>

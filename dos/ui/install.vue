@@ -44,8 +44,8 @@ export default {
 </head>
 <body>
 <div id="app">
-    <i-button @click="show">Click me!</i-button>
-    <Modal v-model="visible" title="Welcome">Welcome to kyui</Modal>
+    <k-button @click="show">Click me!</k-button>
+    <Modal v-model="visible" title="Welcome">Welcome to use kyui</Modal>
 </div>
 <script>
     new Vue({

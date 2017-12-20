@@ -44,11 +44,12 @@ config.plugins = [
         // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new ExtractTextPlugin("[name].[contenthash].css"),
+    new ExtractTextPlugin("css/[name].[contenthash].css"),
     // 提取入口文件里面的公共模块
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
         filename: 'vendors.js',
+        path:'js'
     }),
     // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
     new webpack.optimize.OccurrenceOrderPlugin(),

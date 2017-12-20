@@ -24,6 +24,11 @@ export default {
       text: ""
     };
   },
+  watch: {
+    value(val) {
+      this.checked = val;
+    }
+  },
   computed: {
     // styles() {
     //   return this.checked
@@ -36,14 +41,13 @@ export default {
         {
           ["k-switch-checked"]: this.checked,
           ["k-switch-disabled"]: this.disabled,
-          ["k-switch-success"]: this.type == "success"
+          [`k-switch-${this.type}`]: !!this.type
         }
       ];
     }
   },
   methods: {
     change() {
-      console.log(this);
       this.checked = !this.checked;
       this.$emit("input", this.checked);
       this.$emit("change", this.checked);

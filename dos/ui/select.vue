@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Select 选择器</h2>
-    <p>注意：非 template/render 模式下，需使用 i-select</p>
+    <p>注意：非 template/render 模式下，需使用 k-select</p>
     <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
     <h3>代码示例 </h3>
 
@@ -17,10 +17,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>value</td>
@@ -52,9 +52,9 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>事件名</td>
-          <td>说明</td>
-          <td>返回值</td>
+          <th>事件名</th>
+          <th>说明</th>
+          <th>返回值</th>
         </tr>
         <tr>
           <td>change</td>
@@ -77,9 +77,9 @@ export default {
         { label: "栗子🌰", value: 3 },
         { label: "葡萄🍇", value: 4 }
       ],
-      demo: `<Select :data="data" @change="change" :width="200" clearable></Select> &nbsp;
-    <Select v-model="d" :data="data" @change="change" :width="300" ></Select> &nbsp;
-    <Select v-model="d" :data="data" disabled :width="200"></Select>
+      demo: `<Select :data="data" @change="change" :width="200" clearable></Select>
+<Select v-model="d" :data="data" @change="change" :width="300" ></Select>
+<Select v-model="d" :data="data" disabled :width="200"></Select>
 <script>
 export default {
   data() {

@@ -46,10 +46,10 @@
     <div class="table-border">
       <table>
         <tr>
-          <td>属性</td>
-          <td>说明</td>
-          <td>类型</td>
-          <td>默认值</td>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
         </tr>
         <tr>
           <td>type</td>
@@ -85,12 +85,35 @@ export default {
     return {
       btn: `<Button>Default</Button>
 <Button type="primary">Primary</Button>
-<Button type="ghost">Ghost</Button>
-<Button type="link">link</Button>
-<br><br>
+<Button type="gray">gray</Button>
 <Button type="success">Success</Button>
 <Button type="warning">Warning</Button>
-<Button type="danger">Error</Button>`
+<Button type="danger">Error</Button>
+<Button type="link">link</Button>
+//镂空
+<Button hollow>Default</Button>
+<Button type="primary" hollow>Primary</Button>
+<Button type="gray" hollow>gray</Button>
+<Button type="success" hollow>Success</Button>
+<Button type="warning" hollow>Warning</Button>
+<Button type="danger" hollow>Error</Button>
+<Button type="link" hollow>link</Button>
+//圆角
+<Button circle>Default</Button>
+<Button type="primary" circle>Primary</Button>
+<Button type="gray" circle>gray</Button>
+<Button type="success" circle>Success</Button>
+<Button type="warning" circle>Warning</Button>
+<Button type="danger" circle>Error</Button>
+<Button type="link" circle>link</Button>
+//迷你
+<Button mini>Default</Button>
+<Button type="primary" mini>Primary</Button>
+<Button type="gray" mini>gray</Button>
+<Button type="success" mini>Success</Button>
+<Button type="warning" mini>Warning</Button>
+<Button type="danger" mini>Error</Button>
+<Button type="link" mini>link</Button>`
     };
   }
 };
