@@ -6,7 +6,9 @@
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
-                <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选</label>
+                <Checkbox v-model="checked" @change="checkAll(checked)">全选</Checkbox>
+                <!-- <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选 -->
+                </label>
             </template>
             <template v-else>{{item.title}}</template>
           </th>
@@ -17,7 +19,8 @@
           <td v-for="(sub,n) in columns" :key="n">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
-                <input type="checkbox" v-model="item._checked" @change="check(item,m)">
+                <Checkbox v-model="item._checked" @change="check(item,m)"></Checkbox>
+                <!-- <input type="checkbox" v-model="item._checked" @change="check(item,m)"> -->
               </label>
             </template>
             <template v-else-if="sub.type&&sub.type=='html'">
@@ -37,6 +40,7 @@
   </div>
 </template>
 <script>
+import Checkbox from '../checkbox'
 import Expand from "./expand.js";
 // import utils from "../utils";
 export default {
