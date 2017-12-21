@@ -34,6 +34,7 @@ const UI = {
     kForm: Form,
     kButton: Button,
     kInput: Input,
+    kSelect: Select,
     kTable: Table,
     kSwitch: Switch,
     kCol: Col,
