@@ -1,53 +1,53 @@
 <template>
   <div :class="`${pre}`">
     <div :class="`${pre}-head`">
-      <a :class="`${pre}-prev-decade-btn`" v-show="showYears" @click="year-=10">«</a>
-      <a :class="`${pre}-prev-year-btn`" v-show="!showYears" @click="year--">«</a>
-      <a :class="`${pre}-prev-month-btn`" v-show="!showYears&&!showMonths" @click="pm">‹</a>
-      <a :class="`${pre}-year-select`" v-show="showYears">{{ys+'-'+ye}}</a>
+      <span :class="`${pre}-prev-decade-btn`" v-show="showYears" @click="year-=10">«</span>
+      <span :class="`${pre}-prev-year-btn`" v-show="!showYears" @click="year--">«</span>
+      <span :class="`${pre}-prev-month-btn`" v-show="!showYears&&!showMonths" @click="pm">‹</span>
+      <span :class="`${pre}-year-select`" v-show="showYears">{{ys+'-'+ye}}</span>
       <template v-if="local.yearSuffix">
-        <a :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}{{local.yearSuffix}}</a>
-        <a :class="`${pre}-month-select`" @click="showMonths=!showMonths" v-show="!showYears&&!showMonths">{{local.monthsHead[month]}}</a>
+        <span :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}{{local.yearSuffix}}</span>
+        <span :class="`${pre}-month-select`" @click="showMonths=!showMonths" v-show="!showYears&&!showMonths">{{local.monthsHead[month]}}</span>
       </template>
       <template v-else>
-        <a :class="`${pre}-month-select`" @click="showMonths=!showMonths" v-show="!showYears&&!showMonths">{{local.monthsHead[month]}}</a>
-        <a :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}</a>
+        <span :class="`${pre}-month-select`" @click="showMonths=!showMonths" v-show="!showYears&&!showMonths">{{local.monthsHead[month]}}</span>
+        <span :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}</span>
       </template>
-      <a :class="`${pre}-next-month-btn`" v-show="!showYears&&!showMonths" @click="nm">›</a>
-      <a :class="`${pre}-next-year-btn`" v-show="!showYears" @click="year++">»</a>
-      <a :class="`${pre}-next-decade-btn`" v-show="showYears" @click="year+=10">»</a>
+      <span :class="`${pre}-next-month-btn`" v-show="!showYears&&!showMonths" @click="nm">›</span>
+      <span :class="`${pre}-next-year-btn`" v-show="!showYears" @click="year++">»</span>
+      <span :class="`${pre}-next-decade-btn`" v-show="showYears" @click="year+=10">»</span>
     </div>
     <div :class="`${pre}-body`">
       <div :class="`${pre}-days`">
-        <a :class="`${pre}-week`" v-for="(i,j) in local.weeks" :key="j">{{i}}</a>
-        <a v-for="(j,x) in days" :key="x" @click="is($event)&&(day=j.i,ok(j))" :class="[(j.p||j.n)?`${pre}-date-out`:'',status(j.y,j.m,j.i,hour,minute,second,'YYYYMMDD')]">{{j.i}}</a>
+        <span :class="`${pre}-week`" v-for="(i,j) in local.weeks" :key="j">{{i}}</span>
+        <span v-for="(j,x) in days" :key="x" @click="is($event)&&(day=j.i,ok(j))" :class="[(j.p||j.n)?`${pre}-date-out`:'',status(j.y,j.m,j.i,hour,minute,second,'YYYYMMDD')]">{{j.i}}</span>
       </div>
       <div :class="`${pre}-months`" v-show="showMonths">
-        <a v-for="(i,j) in local.months" :key="j" @click="is($event)&&(showMonths=(m==='M'),month=j,(m==='M'&&ok()))" :class="[status(year,j,day,hour,minute,second,'YYYYMM')]">{{i}}</a>
+        <span v-for="(i,j) in local.months" :key="j" @click="is($event)&&(showMonths=(m==='M'),month=j,(m==='M'&&ok()))" :class="[status(year,j,day,hour,minute,second,'YYYYMM')]">{{i}}</span>
       </div>
       <div :class="`${pre}-years`" v-show="showYears">
-        <a v-for="(i,j) in years" :key="j" @click="is($event)&&(showYears=(m==='Y'),year=i,(m==='Y'&&ok()))" :class="[(j===0||j===11)?`${pre}-date-out`:'',status(i,month,day,hour,minute,second,'YYYY')]">{{i}}</a>
+        <span v-for="(i,j) in years" :key="j" @click="is($event)&&(showYears=(m==='Y'),year=i,(m==='Y'&&ok()))" :class="[(j===0||j===11)?`${pre}-date-out`:'',status(i,month,day,hour,minute,second,'YYYY')]">{{i}}</span>
       </div>
       <div :class="`${pre}-hours`" v-show="showHours">
         <div :class="`${pre}-title`">{{local.hourTip}}</div>
-        <a v-for="(j,i) in 24" :key="i" @click="is($event)&&(showHours=false,hour=i,ok('h'))" :class="[status(year,month,day,i,minute,second,'YYYYMMDDHH')]">{{i}}</a>
+        <span v-for="(j,i) in 24" :key="i" @click="is($event)&&(showHours=false,hour=i,ok('h'))" :class="[status(year,month,day,i,minute,second,'YYYYMMDDHH')]">{{i}}</span>
       </div>
       <div :class="`${pre}-minutes`" v-show="showMinutes">
         <div :class="`${pre}-title`">{{local.minuteTip}}</div>
-        <a v-for="(j,i) in 60" :key="i" @click="is($event)&&(showMinutes=false,minute=i,ok('h'))" :class="[status(year,month,day,hour,i,second,'YYYYMMDDHHmm')]">{{i}}</a>
+        <span v-for="(j,i) in 60" :key="i" @click="is($event)&&(showMinutes=false,minute=i,ok('h'))" :class="[status(year,month,day,hour,i,second,'YYYYMMDDHHmm')]">{{i}}</span>
       </div>
       <div :class="`${pre}-seconds`" v-show="showSeconds">
         <div :class="`${pre}-title`">{{local.secondTip}}</div>
-        <a v-for="(j,i) in 60" :key="i" @click="is($event)&&(showSeconds=false,second=i,ok('h'))" :class="[status(year,month,day,hour,minute,i,'YYYYMMDDHHmmss')]">{{i}}</a>
+        <span v-for="(j,i) in 60" :key="i" @click="is($event)&&(showSeconds=false,second=i,ok('h'))" :class="[status(year,month,day,hour,minute,i,'YYYYMMDDHHmmss')]">{{i}}</span>
       </div>
     </div>
     <div :class="`${pre}-foot`" v-if="m==='H'">
       <div :class="`${pre}-hour`">
-        <a :title="local.hourTip" @click="showHours=!showHours,showMinutes=showSeconds=false" :class="{on:showHours}">{{hour|dd}}</a>
+        <span :title="local.hourTip" @click="showHours=!showHours,showMinutes=showSeconds=false" :class="{on:showHours}">{{hour|dd}}</span>
         <span>:</span>
-        <a :title="local.minuteTip" @click="showMinutes=!showMinutes,showHours=showSeconds=false" :class="{on:showMinutes}">{{minute|dd}}</a>
+        <span :title="local.minuteTip" @click="showMinutes=!showMinutes,showHours=showSeconds=false" :class="{on:showMinutes}">{{minute|dd}}</span>
         <span>:</span>
-        <a :title="local.secondTip" @click="showSeconds=!showSeconds,showHours=showMinutes=false" :class="{on:showSeconds}">{{second|dd}}</a>
+        <span :title="local.secondTip" @click="showSeconds=!showSeconds,showHours=showMinutes=false" :class="{on:showSeconds}">{{second|dd}}</span>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ export default {
   data() {
     const time = this.get(this.value);
     return {
-      pre: "calendar",
+      pre: "k-calendar",
       m: "D",
       showYears: false,
       showMonths: false,
