@@ -6,9 +6,9 @@
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
-                <Checkbox v-model="checked" @change="checkAll(checked)">全选</Checkbox>
+                <Checkbox  @change="checkAll" v-model="checked">全选</Checkbox>
                 <!-- <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选 -->
-                </label>
+              </label>
             </template>
             <template v-else>{{item.title}}</template>
           </th>
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import Checkbox from '../checkbox'
+import Checkbox from "../checkbox";
 import Expand from "./expand.js";
 // import utils from "../utils";
 export default {
@@ -62,20 +62,13 @@ export default {
     };
   },
   watch: {
-    data(items) {
-      // handler(items) {
-      this.checked = false;
-      items.forEach(item => {
-        // item._uuid = utils.uuid();
-        item._checked = false;
-      });
-      // if (this.selectRow.length != 0) {  //todo:这个地方会有性能问题。
-      this.selectRow = this.data.filter(x => x._checked == true);
-      this.onselection(this.selectRow);
-      // }
-      // console.log(items, index);
-      // },
-      // // deep: true
+    data: {
+      handler(items) {
+        this.checked = false;
+        this.selectRow = this.data.filter(x => x._checked == true);
+        this.onselection(this.selectRow);
+      },
+      deep: true
     }
   },
   /* updated() {

@@ -3,7 +3,8 @@
     <h2>Table 表格</h2>
     <p>注意：非 template/render 模式下，需使用 k-table。</p>
     <h3>代码示例</h3>
-    <!-- <Button @click="test">tetew</Button> -->
+    <!-- <Button @click="test">tetew</Button>
+    <Button @click="test1">tetew</Button> -->
     <Table :data="data" :columns="col" :onselection="test2"></Table>
     <div v-high>
       <pre>
@@ -204,19 +205,29 @@ export default {
             );
           }
         }
-      ]
+      ],
+      row:[]
     };
   },
   methods: {
     test() {
-      this.data[0].birthday ='2017-12-12'// { nick: "毛毛1", gender: "男1", birthday: "", action: "" };
-      // { nick: "高总", gender: "男", birthday: "", action: "" },
-      // { nick: "娟娟", gender: "男", birthday: "", action: "" },
-      // { nick: "鱼雷", gender: "男", birthday: "", action: "" }
-      console.log(this.data)
+      // this.data[0].birthday ='2017-12-12'//
+      this.data = [
+        { nick: "毛毛1", gender: "男1", birthday: "", action: "" },
+        { nick: "高总", gender: "男", birthday: "", action: "" },
+        { nick: "娟娟", gender: "男", birthday: "", action: "" },
+        { nick: "鱼雷", gender: "男", birthday: "", action: "" },
+        { nick: "鱼雷", gender: "男", birthday: "", action: "" },
+      ]
+      
+      // console.log(this.data)
     },
     test2(v){
+      this.row = v
       console.log(v)
+    },
+    test1(){
+      console.log(this.row)
     }
   }
 };
