@@ -10,14 +10,14 @@ import DatePicker from './datePicker'
 import { Modal, Toast } from './modal'
 import { Row, Col } from './grid'
 import Form from './form'
-import Color from './color'
+import ColorPicker from './colorPicker'
 
 import '../styles';
 
 const components = {
     Table,
     Page,
-    DatePicker, Color,
+    DatePicker, ColorPicker,
     Button,
     Select,
     Input,
@@ -27,7 +27,7 @@ const components = {
     RadioGroup,
     Modal,
     Toast,
-    Row, Col
+    Row, Col, 
 }
 const UI = {
     ...components,

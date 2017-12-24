@@ -51,7 +51,7 @@ export default {
             { title: "表格", sub: "Table", link: "/table" },
             { title: "分页", sub: "Page", link: "/page" },
             { title: "对话框", sub: "Modal", link: "/modal" },
-            { title: "颜色", sub: "Color", link: "/color" },
+            { title: "颜色", sub: "ColorPicker", link: "/colorpicker" },
             { title: "表单", sub: "Form", link: "/form" }
           ]
         },

@@ -1,9 +1,9 @@
 <template>
-  <div class="datepicker" :class="{'datepicker-range':range,'datepicker__clearable':clearable&&text&&!disabled}">
-    <input readonly :value="text" :class="[show ? 'focus' : '', inputClass]" :disabled="disabled" :placeholder="placeholder" :name="name" />
-    <a class="datepicker-close" @click.stop="cls"></a>
+  <div :class="classes">
+    <input readonly :value="text" :class="inputClass" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
+    <a class="k-datepicker-close" @click.stop="cls"></a>
     <transition name="dropdown">
-      <div class="datepicker-popup" :class="popupClass" tabindex="-1" v-if="show">
+      <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="show" ref="kCalendar">
         <template v-if="range">
           <Calendar v-model="dates[0]" :left="true"></Calendar>
           <Calendar v-model="dates[1]" :right="true"></Calendar>
@@ -17,6 +17,7 @@
 </template>
 <script>
 import calendar from "./datecalendar";
+import utils from "../utils";
 export default {
   name: "DatePicker",
   components: {
@@ -24,7 +25,6 @@ export default {
   },
   props: {
     name: [String],
-    inputClass: [String],
     popupClass: [String],
     value: [Date, Array, String],
     disabled: [Boolean],
@@ -52,13 +52,34 @@ export default {
       text: "",
       show: false,
       dates: this.vi(this.value),
-      local:{}
+      local: {}
     };
   },
   computed: {
+    classes() {
+      return [
+        "k-datepicker",
+        {
+          ["k-datepicker-range"]: this.rangeSeparator,
+          ["k-datepicker-clearable"]:
+            this.clearable && this.text && !this.disabled
+        }
+      ];
+    },
+    inputClass() {
+      return [
+        "k-datepicker-input",
+        {
+          ["focus"]: this.show
+        }
+      ];
+    },
+    popupStyle() {
+      return this.range ? { width: "405px" } : "";
+    },
     range() {
       return this.dates.length === 2;
-    },
+    }
     /* local() {
       // console.log(this.lg)
       let x =  require(`./lang/${this.lang}.js`);
@@ -84,6 +105,23 @@ export default {
     this.value != "" && this.value != [] && this.setText();
   },
   watch: {
+    show(v) {
+      if (v) {
+        //获取元素的位置
+        // console.log(this.$refs.colorBox.style)
+        let obj = this.$refs.kInput;
+        var pos = utils.getElementPos(obj);
+        let cal = this.$refs.kCalendar;
+        console.log(cal);
+        // console.log(y, document.body.clientHeight)
+        if (pos.x > document.body.clientWidth - 215) {
+          cal.style.right = "0";
+        }
+        if (pos.y > document.body.clientHeight - 260) {
+          cal.style.bottom = "36px";
+        }
+      }
+    },
     value(val) {
       // console.log(Array.isArray(val),val.join(this.rangeSeparator))
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;

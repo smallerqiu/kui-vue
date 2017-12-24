@@ -51,6 +51,7 @@
       <Col span="6">
       <h4>时间回调</h4>
       <DatePicker :change="test"></DatePicker>
+      <ColorPicker v-model="d"></ColorPicker>
       </Col>
       <Col span="6"></Col>
     </Row>

@@ -21,7 +21,20 @@ let utils = {
          if (parent) name = parent.$options.name;
       }
       return parent;
-   }
+   },
+   getElementPos(element) {
+      var pos = { x: 0, y: 0 };
+      if (!element) return pos
+      pos.x = element.offsetLeft;
+      pos.y = element.offsetTop;
+      var current = element.offsetParent;
+      while (current !== null) {
+         pos.x += current.offsetLeft;
+         pos.y += current.offsetTop;
+         current = current.offsetParent;
+      }
+      return pos;
+   },
 }
 
 export default utils
