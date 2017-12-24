@@ -5,6 +5,7 @@
     <h4>单独使用 ,使用 v-model 可以双向绑定数据。</h4>
     {{d}}<br>
     <Checkbox v-model="d">单选框 </Checkbox>
+    <Button @click="d=!d">选择</Button>
     <h3>组合使用</h3>
     {{g}}
     <CheckboxGroup v-model="g">

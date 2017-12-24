@@ -1,14 +1,14 @@
 <template>
-   <label class="k-checkbox-wp">
-      <span :class="classes">
-         <span class="k-checkbox-inner"></span>
-         <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
-      </span>
-      <slot>{{label}}</slot>
-   </label>
+  <label class="k-checkbox-wp">
+    <span :class="classes">
+      <span class="k-checkbox-inner"></span>
+      <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
+    </span>
+    <slot>{{label}}</slot>
+  </label>
 </template>
 <script>
-import utils from '../utils'
+import utils from "../utils";
 export default {
   name: "Checkbox",
   props: {
@@ -45,9 +45,11 @@ export default {
   },
   methods: {
     change(event) {
+      
       if (this.disabled) {
         return false;
       }
+      
       const checked = event.target.checked;
       this.checked = checked;
       this.$emit("input", checked);
@@ -67,7 +69,7 @@ export default {
   watch: {
     value(v) {
       this.checked = v;
-    }
-  }
+    }, 
+  },
 };
 </script>
