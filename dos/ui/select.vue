@@ -4,10 +4,11 @@
     <p>注意：非 template/render 模式下，需使用 k-select</p>
     <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
     <h3>代码示例 </h3>
-
+    <Button @click="test">test</Button>
     <Select :data="data" @change="change" :width="200" clearable></Select> &nbsp;
     <Select v-model="d" :data="data" @change="change" :width="300" ></Select> &nbsp;
-    <Select v-model="d" :data="data" disabled :width="200"></Select>
+    <Select v-model="d1" :data="data" disabled :width="200"></Select>
+    <Select v-model="d2" :width="200"></Select>
     <br>
     <br>
     <div v-high>
@@ -69,7 +70,9 @@
 export default {
   data() {
     return {
-      d: "3",
+      d: "1",
+      d1: "2",
+      d2: "3",
       data: [
         { label: "苹果🍎", value: 0 },
         { label: "橘子🍊", value: 1 },
@@ -105,7 +108,10 @@ export default {
   },
   methods: {
     change(item) {
-      console.log(item);
+      console.log('call',item);
+    },
+    test(){
+      this.d= ''
     }
   }
 };
