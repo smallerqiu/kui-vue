@@ -6,7 +6,7 @@
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
-                <Checkbox  @change="checkAll" v-model="checked">全选</Checkbox>
+                <Checkbox @change="checkAll" v-model="checked">全选</Checkbox>
                 <!-- <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选 -->
               </label>
             </template>
@@ -48,8 +48,8 @@ export default {
   name: "Table",
   props: {
     noDataText: { type: String, default: "暂无数据..." },
-    data: { required: false, default: [] }, // 表格数据
-    columns: { required: false, default: [] }, // 表格类目
+    data: { required: false, default: () => [] }, // 表格数据
+    columns: { required: false, default: () => [] }, // 表格类目
     // onselect: { type: Function, required: false,default:function(){} }, //单个选中触发
     // onselectAll: { type: Function, required: false,default:function(){} }, //所有选中触发
     onselection: { type: Function, required: false, default: function() {} } //选中的时候触发,

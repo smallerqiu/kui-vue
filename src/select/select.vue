@@ -21,7 +21,7 @@ export default {
   name: "Select",
   props: {
     placeholder: { type: String, default: "请选择" },
-    data: { type: Array, default: [] },
+    data: { type: Array, default: ()=>{ return []} },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number] },
     clearable: { type: Boolean, default: false },
@@ -30,8 +30,8 @@ export default {
   data() {
     return {
       isdrop: false,
-      label: "",
-      dropdownWith: 0
+      dropdownWith: 0,
+      label:''
     };
   },
   beforeDestroy() {
@@ -39,8 +39,11 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.dc);
-    if (this.data.length > 0 && this.value) {
-      this.label = this.data.filter(x => x.value == this.value)[0].label;
+  },
+  watch:{
+    value(val){
+      let item = val ? this.data.filter(x => x.value == val)[0]:null
+      this.label = item?item.label:''
     }
   },
   computed: {
@@ -76,7 +79,7 @@ export default {
       ];
     },
     clear() {
-      this.label = ''
+      !this.value &&  (this.label = '')
       this.$emit("input", "");
       this.$emit("change", {});
     },
@@ -90,9 +93,9 @@ export default {
     },
     select(item) {
       setTimeout(() => (this.isdrop = !this.isdrop));
-      this.label = item.label;
-      this.$emit("input", item.value);
+      !this.value && (this.label = item.label);
       this.$emit("change", item);
+      this.$emit("input", item.value);
     }
   }
 };
