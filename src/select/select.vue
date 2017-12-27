@@ -21,9 +21,14 @@ export default {
   name: "Select",
   props: {
     placeholder: { type: String, default: "请选择" },
-    data: { type: Array, default: ()=>{ return []} },
+    data: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
     width: { type: [Number, String], default: 0 },
-    value: { type: [String, Number] },
+    value: { type: [String, Number], default: "" },
     clearable: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false }
   },
@@ -31,7 +36,7 @@ export default {
     return {
       isdrop: false,
       dropdownWith: 0,
-      label:''
+      label: ""
     };
   },
   beforeDestroy() {
@@ -40,10 +45,12 @@ export default {
   mounted() {
     document.addEventListener("click", this.dc);
   },
-  watch:{
-    value(val){
-      let item = val ? this.data.filter(x => x.value == val)[0]:null
-      this.label = item?item.label:''
+  watch: {
+    value(val) {
+      console.log('change',this.isNotEmpty(val),val)
+      let item = this.isNotEmpty(val) ? this.data.filter(x => x.value == val)[0] : null;
+      console.log('change',item)
+      this.label = item!=null ? item.label : "";
     }
   },
   computed: {
@@ -67,6 +74,9 @@ export default {
     }
   },
   methods: {
+    isNotEmpty(obj) {
+      return obj !== null && obj !== "" && obj !== undefined;
+    },
     dc(e) {
       this.isdrop = this.$el.contains(e.target) && !this.disabled;
     },
@@ -79,7 +89,7 @@ export default {
       ];
     },
     clear() {
-      !this.value &&  (this.label = '')
+      !this.isNotEmpty(this.value) && (this.label = "");
       this.$emit("input", "");
       this.$emit("change", {});
     },
@@ -93,7 +103,7 @@ export default {
     },
     select(item) {
       setTimeout(() => (this.isdrop = !this.isdrop));
-      !this.value && (this.label = item.label);
+      !this.isNotEmpty(this.value) && (this.label = item.label);
       this.$emit("change", item);
       this.$emit("input", item.value);
     }
