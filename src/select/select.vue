@@ -47,9 +47,7 @@ export default {
   },
   watch: {
     value(val) {
-      console.log('change',this.isNotEmpty(val),val)
       let item = this.isNotEmpty(val) ? this.data.filter(x => x.value == val)[0] : null;
-      console.log('change',item)
       this.label = item!=null ? item.label : "";
     }
   },

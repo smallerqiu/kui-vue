@@ -112,7 +112,7 @@ export default {
         let obj = this.$refs.kInput;
         var pos = utils.getElementPos(obj);
         let cal = this.$refs.kCalendar;
-        console.log(cal);
+        // console.log(cal);
         // console.log(y, document.body.clientHeight)
         if (pos.x > document.body.clientWidth - 215) {
           cal.style.right = "0";
