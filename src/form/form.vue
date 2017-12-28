@@ -7,7 +7,10 @@
 export default {
   name: "Form",
   props: {
-    labelAlign: { type: String }
+    labelAlign: { type: String },
+    model: { type: Object },
+    rules: { type: Object },
+    labelWidth: { type: Number }
   },
   data() {
     return {};

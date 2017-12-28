@@ -7,11 +7,14 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const path = require('path')
 
-let isdoc = process.argv.indexOf('doc') >= 0
-const webpackConfig = isdoc ? require('./webpack.dev.conf') : require('./webpack.prod.conf')
-const rmpath = isdoc ? './dos-html/' : './dist/'
+let buidDoc = process.argv.indexOf('doc') >= 0
 
-if (isdoc) {
+process.env.NODE_ENV = buidDoc ? 'prod' : 'dev'
+
+const webpackConfig = buidDoc ? require('./webpack.dev.conf') : require('./webpack.prod.conf')
+const rmpath = buidDoc ? './dos-html/' : './dist/'
+
+if (buidDoc) {
     webpackConfig.output = {
         path: path.resolve(__dirname, '../dos-html'),
         filename: 'js/[name].[hash].js',
