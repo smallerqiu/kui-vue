@@ -2,15 +2,11 @@
   <div class="">
     <h2>Table 表格</h2>
     <p>注意：非 template/render 模式下，需使用 k-table。</p>
-    <h3>代码示例</h3>
+    <h3>基础／组件嵌套</h3>
     <!-- <Button @click="test">tetew</Button>
     <Button @click="test1">tetew</Button> -->
     <Table :data="data" :columns="col" :onselection="test2"></Table>
-    <div v-high>
-      <pre>
-        <code>{{demo}}</code>
-      </pre>
-    </div>
+    <Code>{{demo}}</Code>
     <h3>Table props</h3>
     <div class="table-border">
       <table>
@@ -145,7 +141,9 @@ export default {
               {
                 props: { type: "danger", mini: true },
                 on: {
-                  click: () => {}
+                  click: () => {
+                    this.data.splice(p.index, 1);
+                  }
                 }
               },
               "删除"
@@ -181,7 +179,7 @@ export default {
                   lang: "en",
                   change: v => {
                     console.log("回调", v);
-                    p.row.birthday =v
+                    p.row.birthday = v;
                   }
                 }
               },
@@ -198,7 +196,9 @@ export default {
               {
                 props: { type: "danger", mini: true },
                 on: {
-                  click: () => {}
+                  click: () => {
+                    this.data.splice(p.index, 1);
+                  }
                 }
               },
               "删除"
@@ -206,7 +206,7 @@ export default {
           }
         }
       ],
-      row:[]
+      row: []
     };
   },
   methods: {
@@ -217,17 +217,17 @@ export default {
         { nick: "高总", gender: "男", birthday: "", action: "" },
         { nick: "娟娟", gender: "男", birthday: "", action: "" },
         { nick: "鱼雷", gender: "男", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "男", birthday: "", action: "" },
-      ]
-      
+        { nick: "鱼雷", gender: "男", birthday: "", action: "" }
+      ];
+
       // console.log(this.data)
     },
-    test2(v){
-      this.row = v
-      console.log(v)
+    test2(v) {
+      this.row = v;
+      console.log(v);
     },
-    test1(){
-      console.log(this.row)
+    test1() {
+      console.log(this.row);
     }
   }
 };

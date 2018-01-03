@@ -1,2 +1,3 @@
 import Form from './form'
-export default Form
+import FormItem from './formitem'
+export { Form, FormItem }

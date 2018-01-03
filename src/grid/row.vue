@@ -1,14 +1,14 @@
 <template>
-   <div class="k-row" :style="styles">
-      <slot></slot>
-   </div>
+  <div class="k-row" :style="styles">
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
   name: "Row",
   props: {
-    padding: {
-      type: [Number,String],
+    gutter: {
+      type: [Number, String],
       default: 0
     }
   },
@@ -18,10 +18,10 @@ export default {
   computed: {
     styles() {
       let style = {};
-      if (this.padding !== 0) {
+      if (this.gutter !== 0) {
         style = {
-          marginLeft: this.padding / -2 + "px",
-          marginRight: this.padding / -2 + "px"
+          marginLeft: this.gutter / -2 + "px",
+          marginRight: this.gutter / -2 + "px"
         };
       }
       return style;

@@ -46,9 +46,9 @@
             position: absolute;
             font-family: 'jcfont';
             content: '\e6d4';
-            width: 13px;
-            height: 13px;
-            line-height: 13px;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
             top: 0;
             left: 0;
             color: #fff;
@@ -56,12 +56,18 @@
          }
       }
    }
-   .k-checkbox-disabled{
-      cursor: not-allowed;
-      .k-checkbox-inner{
+}
+
+.k-checkbox-disabled {
+   cursor: not-allowed;
+   opacity: .5;
+   .k-checkbox {
+      .k-checkbox-inner {
          background: #f3f3f3;
+         border-color: #999;
          &:after {
             background-color: #f3f3f3;
+            color: #666;
          }
       }
    }

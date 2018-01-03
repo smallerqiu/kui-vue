@@ -9,7 +9,7 @@
     <!-- <input type="color" ref="html5Color" v-model="html5Color" @change="updataValue(html5Color)"> -->
     <!-- 颜色色盘 -->
     <transition name="dropdown">
-      <div class="k-box"  ref="colorBox" v-if="isOpen">
+      <div class="k-box" ref="colorBox" v-if="isOpen">
         <div class="bd" v-if="!showMore">
           <h3>主题颜色</h3>
           <ul class="tColor">
@@ -39,7 +39,7 @@
 </template>
 <script>
 import picker from "./picker";
-import Button from "../button";
+import { Button } from "../button";
 import utils from "../utils";
 export default {
   components: { picker, "k-button": Button },
@@ -97,13 +97,14 @@ export default {
         "#00215f",
         "#72349d"
       ],
-      html5Color: this.value
+      html5Color: this.value,
+      showColor: this.hoveColor || this.value
     };
   },
   computed: {
-    showColor() {
-      return this.hoveColor || this.value;
-    },
+    // showColor() {
+    //   return this.hoveColor || this.value;
+    // },
     // 颜色面板
     colorPanel() {
       let colorArr = [];
@@ -130,15 +131,23 @@ export default {
       }
     }
   },
+  mounted() {},
   methods: {
-    hide(){
-      setTimeout(()=>this.isOpen=!this.isOpen)
+    hide() {
+      setTimeout(() => {
+        this.isOpen = !this.isOpen;
+        this.showMore = false;
+      });
+      this.$emit("input", this.showColor);
+      this.$emit("change", this.showColor);
     },
     // 更新组件的值 value
     updataValue(value) {
+      // this.value = value
       if (value != this.value) {
-        this.$emit("input", value);
-        this.$emit("change", value);
+        this.showColor = value;
+        // this.$emit("input", value);
+        // this.$emit("change", value);
       }
     },
     // 格式化 hex 颜色值
@@ -194,6 +203,12 @@ export default {
     },
     dc(e) {
       this.isOpen = this.$el.contains(e.target) && !this.disabled;
+      if (!this.isOpen) {
+        this.showMore = false;
+        this.showColor = this.value;
+        this.$emit("input", this.showColor);
+        this.$emit("change", this.showColor);
+      }
     }
   },
   mounted() {

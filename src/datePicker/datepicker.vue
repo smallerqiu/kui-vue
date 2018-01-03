@@ -1,7 +1,7 @@
 <template>
   <div :class="classes">
     <input readonly :value="text" :class="inputClass" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
-    <a class="k-datepicker-close" @click.stop="cls"></a>
+    <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
     <transition name="dropdown">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="show" ref="kCalendar">
         <template v-if="range">
@@ -62,7 +62,7 @@ export default {
         {
           ["k-datepicker-range"]: this.rangeSeparator,
           ["k-datepicker-clearable"]:
-            this.clearable && this.text && !this.disabled
+            this.clearable && !this.disabled
         }
       ];
     },
@@ -144,6 +144,7 @@ export default {
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
     cls() {
+      this.setText()
       this.$emit("input", this.range ? [] : "");
     },
     vi(val) {

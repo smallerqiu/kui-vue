@@ -1,39 +1,27 @@
 <template>
-   <div>
-      <h2>安装</h2>
-      <h3>CDN 引入</h3>
-      <p>在页面上引入 js 和 css 文件即可开始使用：</p>
-      <div v-high>
-         <pre>
-            <code class="xml html">{{cdn}}</code>
-         </pre>
-      </div>
-      <h3>示例</h3>
-      <div v-high>
-         <pre>
-            <code class="html javascript">{{shili}}</code>
-         </pre>
-      </div>
-      <h3>NPM 安装</h3>
-      <div v-high>
-         <pre>
-            <code class="sql">{{npm}}</code>
-         </pre>
-      </div>
-   </div>
+    <div>
+        <h2>安装</h2>
+        <h3>CDN 引入</h3>
+        <p>在页面上引入 js 和 css 文件即可开始使用：</p>
+        <Code lang="xml html">{{cdn}}</Code>
+        <h3>示例</h3>
+        <code class="html javascript">{{shili}}</code>
+        <h3>NPM 安装</h3>
+        <Code lang="sql">{{npm}}</Code>
+    </div>
 </template>
 <script>
 export default {
   data() {
     return {
-       npm:'$ npm install kyui --save',
+      npm: "$ npm install kyui --save",
       cdn: `<!-- import Vue.js -->
 <script src="//vuejs.org/js/vue.min.js"><\/script>
 <!-- import stylesheet -->
 <link rel="stylesheet" href="//unpkg.com/kyui/dist/k-ui.css">
 <!-- import kyui -->
 <script src="//unpkg.com/kyui/dist/k-ui.js"><\/script>`,
-   shili:`<!DOCTYPE html>
+      shili: `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">

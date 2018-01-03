@@ -7,6 +7,8 @@
    font-size: 14px;
    position: relative;
    .k-select-selection {
+      border-radius: @radius;
+      overflow: hidden;
       display: block;
       box-sizing: border-box;
       outline: 0;
@@ -63,6 +65,7 @@
       }
    }
    .k-select-dropdown {
+      border-radius: @radius;
       width: inherit;
       max-height: 200px;
       overflow: auto;
@@ -114,9 +117,16 @@
    }
 }
 
-.k-select-open .k-select-arrow {
-   &:after {
-      transform: rotate(180deg);
+.k-select-open {
+   .k-select-selection {
+      // border-color: @main;
+      border-color: #3bb4f2;
+      box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+   }
+   .k-select-arrow {
+      &:after {
+         transform: rotate(180deg);
+      }
    }
 }
 

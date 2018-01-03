@@ -2,35 +2,24 @@
   <div>
     <h2>Input 输入框</h2>
     <p>注意：非 template/render 模式下，需使用 k-input。</p>
-    <br>
-    <p>当前输入：{{d}}</p>
-    <Row>
-      <Col span="6">
-      <Input type="text" width="200" v-model="d" placeholder="请输入银行卡号"></Input>
-      </Col>
-      <Col span="6">
-      <Input type="password" width="200" placeholder="请输入银行卡密码"></Input>
-      </Col>
-      <Col span="6">
-      <Input type="password" width="200" placeholder="请输入银行卡密码" mini></Input>
-      </Col>
-      <Col span="6">
-      <Input type="password" width="200" placeholder="请输入银行卡密码" disabled></Input>
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="12">
-      <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码"></Input>
-      </Col>
-      <Col span="12">
-      <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled></Input>
-      </Col>
-    </Row>
-    <br>
-    <div v-high>
-      <pre><code>{{demo}}</code></pre>
+    <h3>基础</h3>
+    <Input type="text" width="200" v-model="d" placeholder="请输入内容..."></Input>
+    <Code lang="xml html">{{demo1}}</Code>
+    <h3>尺寸</h3>
+    <div style="display:inline-block;">
+      <Input type="text" width="200" v-model="d" placeholder="请输入内容..." style="float:left;"></Input>
+      <Input type="text" width="200" v-model="d" mini placeholder="请输入内容..." style="margin-left:15px;float:left;"></Input>
     </div>
+    <Code lang="xml html">{{demo2}}</Code>
+    <h3>文本域</h3>
+    <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
+    <Code lang="xml html">{{demo3}}</Code>
+    <h3>禁用</h3>
+    <div style="display:inline-block;">
+      <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled style="float:left;"></Input>
+      <Input type="text" width="200" v-model="d" placeholder="请输入内容..." disabled style="margin-left:15px;float:left;"></Input>
+    </div>
+    <Code lang="xml html">{{demo4}}</Code>
     <h3>Input props </h3>
     <div class="table-border">
       <table>
@@ -45,6 +34,12 @@
           <td>输入框类型，可选值为 text、password、textarea、url、email、date</td>
           <td>String</td>
           <td>text</td>
+        </tr>
+        <tr>
+          <td>width</td>
+          <td>组件的宽度</td>
+          <td>String,Number</td>
+          <td>200</td>
         </tr>
         <tr>
           <td>value </td>
@@ -149,30 +144,12 @@
 export default {
   data() {
     return {
-      d: "",
-      demo: `<Row>
-  <Col span="6">
-  <Input type="text" width="200" v-model="d" placeholder="请输入银行卡号"></Input>
-  </Col>
-  <Col span="6">
-  <Input type="password" width="200" placeholder="请输入银行卡密码"></Input>
-  </Col>
-  <Col span="6">
-  <Input type="password" width="200" placeholder="请输入银行卡密码" mini></Input>
-  </Col>
-    <Col span="6">
-  <Input type="password" width="200" placeholder="请输入银行卡密码" disabled ></Input>
-  </Col>
-</Row>
-<br>
-<Row>
-  <Col span="12">
-  <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码"></Input>
-  </Col>
-  <Col span="12">
-  <Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled></Input>
-  </Col>
-</Row>`
+      demo1: `<Input type="text" width="200" v-model="d" placeholder="请输入内容..."></Input>`,
+      demo2: `<Input type="text" width="200" v-model="d" placeholder="请输入内容..."></Input>
+<Input type="text" width="200" v-model="d" mini placeholder="请输入内容..."></Input>`,
+      demo3: `<Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>`,
+      demo4: `<Input v-model="d" width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled></Input>
+<Input type="text" width="200" v-model="d" placeholder="请输入内容..." disabled></Input>`
     };
   }
 };

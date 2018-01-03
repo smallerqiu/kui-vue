@@ -29,6 +29,19 @@
          background-color: #fff;
          transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
          border-radius: 50%;
+         &:after {
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            border-radius: 6px;
+            display: block;
+            content: " ";
+            opacity: 0;
+            background-color: @main;
+            transition: all .2s ease-in-out;
+         }
       }
       .k-radio-input {
          width: 100%;
@@ -49,18 +62,11 @@
          border-color: @main;
          position: relative;
          &:after {
-            position: absolute;
+            opacity: 1; 
             width: 8px;
             height: 8px;
             left: 3px;
             top: 3px;
-            border-radius: 6px;
-            display: table;
-            border-top: 0;
-            border-left: 0;
-            content: " ";
-            background-color: @main;
-            transition: all .2s ease-in-out;
          }
       }
    }
@@ -70,6 +76,20 @@
          background: #f3f3f3;
          &:after {
             background-color: #f3f3f3;
+         }
+      }
+   }
+}
+
+.k-radio-disabled {
+   cursor: not-allowed;
+   opacity: .5;
+   .k-radio {
+      .k-radio-inner {
+         background: #f3f3f3;
+         border-color: #999;
+         &:after {
+            background-color: #999;
          }
       }
    }

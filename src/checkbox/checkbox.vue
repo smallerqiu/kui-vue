@@ -1,5 +1,5 @@
 <template>
-  <label class="k-checkbox-wp">
+  <label :class="wpclasses">
     <span :class="classes">
       <span class="k-checkbox-inner"></span>
       <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
@@ -18,12 +18,19 @@ export default {
     label: { type: String }
   },
   computed: {
+    wpclasses() {
+      return [
+        "k-checkbox-wp",
+        {
+          ["k-checkbox-disabled"]: this.disabled
+        }
+      ];
+    },
     classes() {
       return [
         "k-checkbox",
         {
-          ["k-checkbox-checked"]: this.checked,
-          ["k-checkbox-disabled"]: this.disabled
+          ["k-checkbox-checked"]: this.checked
         }
       ];
     }
@@ -45,11 +52,10 @@ export default {
   },
   methods: {
     change(event) {
-      
       if (this.disabled) {
         return false;
       }
-      
+
       const checked = event.target.checked;
       this.checked = checked;
       this.$emit("input", checked);
@@ -69,7 +75,7 @@ export default {
   watch: {
     value(v) {
       this.checked = v;
-    }, 
-  },
+    }
+  }
 };
 </script>

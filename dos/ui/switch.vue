@@ -2,18 +2,24 @@
   <div>
     <h2>Switch 开关</h2>
     <p>注意：没有使用 kui-loader 时，必须使用 k-switch 标签。</p>
+    <h3>基本</h3>
     <p>{{m}}</p>
-    <Switch v-model="m"></Switch> &nbsp;&nbsp;
+    <Switch v-model="m"></Switch>
+    <Code lang="xml html">{{demo1}}</Code>
+    <h3>主题</h3>
     <Switch v-model="m2"></Switch>&nbsp;&nbsp;
     <Switch v-model="m2" type="success"></Switch>&nbsp;&nbsp;
     <Switch v-model="m2" type="primary"></Switch>&nbsp;&nbsp;
     <Switch v-model="m2" type="warning"></Switch>&nbsp;&nbsp;
-    <Switch v-model="m3" true-text="是" false-text="否"></Switch>&nbsp;&nbsp;
-    <br>
-    <br>
-    <div v-high>
-      <pre><code>{{demo}}</code></pre>
-    </div>
+    <Code lang="xml html">{{demo2}}</Code>
+    <h3>文字</h3>
+    <Switch v-model="m3" true-text="是" false-text="否"></Switch>
+    <Code lang="xml html">{{demo3}}</Code>
+    <h3>禁用</h3>
+    <Switch v-model="d1" disabled></Switch>&nbsp;&nbsp;
+    <Switch v-model="d2" disabled></Switch>&nbsp;&nbsp;
+    <Switch v-model="d2" disabled true-text="是" false-text="否"></Switch>
+    <Code lang="xml html">{{demo4}}</Code>
     <h3>Switch props</h3>
     <div class="table-border">
       <table>
@@ -76,24 +82,19 @@
 export default {
   data() {
     return {
+      d1: false,
+      d2: true,
       m: false,
       m2: true,
-      demo: `<\Switch v-model="m"><\/Switch>
-<\Switch v-model="m2"><\/Switch>
-<\Switch v-model="m2" type="success"><\/Switch>
-<\Switch v-model="m2" type="danger"><\/Switch>
-<\Switch v-model="m2" type="primary"><\/Switch>
-<\Switch v-model="m2" type="warning"><\/Switch>
-<\Switch v-model="m3" true-text="是" false-text="否"><\/Switch>
-<script>
-export default {
-  data() {
-    return {
-      m: false,
-      m2: true,
-  }
-};
-<\/script>`
+      demo1: `<Switch v-model="m"></Switch>`,
+      demo2: `<Switch v-model="m2"></Switch>
+<Switch v-model="m2" type="success"></Switch>
+<Switch v-model="m2" type="primary"></Switch>
+<Switch v-model="m2" type="warning"></Switch>`,
+      demo3: `<Switch v-model="m3" true-text="是" false-text="否"></Switch>`,
+      demo4: `<Switch v-model="d1" disabled></Switch>
+<Switch v-model="d2" disabled></Switch>
+<Switch v-model="d2" disabled true-text="是" false-text="否"></Switch>`
     };
   }
 };
