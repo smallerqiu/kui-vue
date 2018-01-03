@@ -39,7 +39,8 @@ export default {
     }
   },
   mounted() {
-    this.setColor("#000000");
+    let color = this.$parent.value
+    this.setColor(color);
   },
   methods: {
     setColor(color) {

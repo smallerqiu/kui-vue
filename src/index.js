@@ -1,6 +1,6 @@
 import Table from './table'
 import Page from './page'
-import Button from './button'
+import { Button, ButtonGroup } from './button'
 import Input from './input'
 import Select from './select'
 import Switch from './switch'
@@ -9,7 +9,7 @@ import { Radio, RadioGroup } from './radio'
 import DatePicker from './datePicker'
 import { Modal, Toast } from './modal'
 import { Row, Col } from './grid'
-import Form from './form'
+import { Form, FormItem } from './form'
 import ColorPicker from './colorPicker'
 
 import '../styles';
@@ -18,16 +18,18 @@ const components = {
     Table,
     Page,
     DatePicker, ColorPicker,
-    Button,
+    Button, ButtonGroup,
     Select,
     Input,
+    Form,
+    FormItem,
     Checkbox,
     CheckboxGroup,
     Radio,
     RadioGroup,
     Modal,
     Toast,
-    Row, Col, 
+    Row, Col,
 }
 const UI = {
     ...components,

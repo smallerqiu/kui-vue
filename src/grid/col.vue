@@ -15,7 +15,7 @@ export default {
   computed: {
     styles() {
       let style = {};
-      let p = this.$parent.padding;
+      let p = this.$parent.gutter;
       if (p !== 0) {
         style = { paddingLeft: p / 2 + "px", paddingRight: p / 2 + "px" };
       }

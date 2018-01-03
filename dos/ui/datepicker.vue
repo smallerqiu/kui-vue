@@ -2,62 +2,55 @@
 <template>
   <div>
     <h2>DatePicker 日期选择器</h2>
-    <h3>代码示例</h3>
-    <Row padding="10">
-      <Col span="6">
-      <h4>默认</h4>
-      <DatePicker></DatePicker>
-      </Col>
-      <Col span="6">
+    <h3>基础</h3>
+    <DatePicker></DatePicker>
+    <Code lang="xml html">{{demo1}}</Code>
+    <h3>可清除</h3>
+    <DatePicker clearable></DatePicker>
+    <Code lang="xml html">{{demo5}}</Code>
+    <h3>日期单位</h3>
+    <Row gutter="10">
+      <Col span="8">
       <h4>年</h4>
       <DatePicker format="YYYY"></DatePicker>
       </Col>
-      <Col span="6">
+      <Col span="8">
       <h4>月</h4>
       <DatePicker format="MM"></DatePicker>
       </Col>
-      <Col span="6">
+      <Col span="8">
       <h4>时间</h4>
       <DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
       </Col>
     </Row>
+    <Code lang="xml html">{{demo2}}</Code>
+    <h3>选择日期范围</h3>
     <Row padding="10">
-      <Col span="6">
+      <Col span="8">
       <h4>范围</h4>
-      <DatePicker v-model="d2" clearable></DatePicker>
+      <DatePicker v-model="d2"></DatePicker>
       </Col>
-      <Col span="6">
-      <h4>范围分离</h4>
-      <DatePicker range-separator="至" v-model="d2" clearable></DatePicker>
+      <Col span="8">
+      <h4>范围符号</h4>
+      <DatePicker range-separator="至" v-model="d2"></DatePicker>
       </Col>
-      <Col span="6">
-      <h4>清除</h4>
-      <DatePicker clearable></DatePicker>
+    </Row>
+    <h3>禁用</h3>
+    <Row padding="10">
+      <Col span="8">
+      <h4>局部禁用</h4>
+      <DatePicker :disabled-date="disabledDate" v-model="d"></DatePicker>
       </Col>
-      <Col span="6">
+      <Col span="8">
       <h4>禁用</h4>
       <DatePicker disabled></DatePicker>
       </Col>
     </Row>
-    <Row padding="10">
-      <Col span="6">
-      <h4>局部禁用</h4>
-      <DatePicker :disabled-date="disabledDate" v-model="d" clearable></DatePicker>
-      </Col>
-      <Col span="6">
-      <h4>本地化</h4>
-      <DatePicker :lang="en" v-model="d" clearable></DatePicker>
-      </Col>
-      <Col span="6">
-      <h4>时间回调</h4>
-      <DatePicker :change="test"></DatePicker>
-      </Col>
-      <Col span="6"></Col>
-    </Row>
-<br>
-    <div v-high>
-      <pre><code class="js javascript xml">{{demo}}</code></pre>
-    </div>
+    <Code lang="xml html">{{demo3}}</Code>
+    <h3>多语言</h3>
+    英文：<DatePicker lang="en"></DatePicker>&nbsp;&nbsp;
+    中文：<DatePicker></DatePicker>
+    <Code lang="xml html">{{demo4}}</Code>
     <h3>DatePicker props</h3>
     <div class="table-border">
       <table>
@@ -140,46 +133,28 @@ export default {
     return {
       d: "",
       d2: [],
-      demo: `//默认
-<DatePicker></DatePicker>
-//年
+      demo1: `<DatePicker></DatePicker>`,
+      demo2: `//年
 <DatePicker format="YYYY"></DatePicker>
 //月
 <DatePicker format="MM"></DatePicker>
 //时间
-<DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
-//清除
-<DatePicker clearable></DatePicker>
-//禁用
+<DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>`,
+      demo3: `<DatePicker :disabled-date="disabledDate" v-model="d"></DatePicker>
 <DatePicker disabled></DatePicker>
-//范围
-<DatePicker v-model="d2" clearable></DatePicker>
-//范围分离
-<DatePicker range-separator="至" v-model="d2" clearable></DatePicker>
-//局部禁用
-<DatePicker :disabled-date="disabledDate" v-model="d" clearable></DatePicker>
-//本地化
-<DatePicker :lang="en" v-model="d" clearable></DatePicker>
-//时间回调
-<DatePicker :change="test"></DatePicker>
 <script>
 export default {
-  data() {
-    return {
-      d:"",d2:[]
+    methods: {
+        disabledDate: time => {
+          var day = time.getDay();
+          return day === 0 || day === 6;
+        }
     }
-  },
-  methods: {
-    test: v => { //回调
-      alert("当前时间为：" + v);
-    },
-    disabledDate: time => { //时间局部禁用
-        var day = time.getDay();
-        return day === 0 || day === 6;
-    }
-  }
-};
-<\/script>`
+}
+<\/script>`,
+      demo4: `<DatePicker lang="en"></DatePicker>
+<DatePicker></DatePicker>`,
+      demo5: `<DatePicker clearable></DatePicker>`
     };
   },
   methods: {

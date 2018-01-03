@@ -1,14 +1,12 @@
 <template>
   <div>
     <h2>Page 分页</h2>
-    <h3>代码示例</h3>
+    <h3>基础</h3>
     <Page :total="1000" :curent="1" :pagesize="10"></Page>
+    <Code lang="xml html">{{pages}}</Code>
+    <h3>尺寸</h3>    
     <Page :total="60" :curent="1" :pagesize="10" mini @change="test"></Page>
-    <div v-high>
-      <pre>
-        <code>{{pages}}</code>
-      </pre>
-    </div>
+    <Code lang="xml html">{{pages1}}</Code>
     <h3>Page props</h3>
     <div class="table-border">
       <table>
@@ -65,8 +63,8 @@
 export default {
   data() {
     return {
-      pages: `<Page :total="100" :curent="1" :pagesize="10"></Page>
-<Page :total="100" :curent="1" :pagesize="10" mini></Page>`
+      pages: `<Page :total="100" :curent="1" :pagesize="10"></Page>`,
+      pages1:`<Page :total="60" :curent="1" :pagesize="10" mini></Page>`
     };
   },
   methods: {

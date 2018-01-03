@@ -3,9 +3,10 @@ import App from './app'
 import router from './router'
 import kui from '../src/index'
 import './demo.less'
-import vueHljs from "./Hljs"
 
-Vue.use(vueHljs)
+import preCode from "./components/high"
+
+Vue.use(preCode)
 Vue.use(kui)
 
 new Vue({

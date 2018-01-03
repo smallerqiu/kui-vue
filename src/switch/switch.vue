@@ -48,6 +48,9 @@ export default {
   },
   methods: {
     change() {
+      if (this.disabled) {
+        return false;
+      }
       this.checked = !this.checked;
       this.$emit("input", this.checked);
       this.$emit("change", this.checked);

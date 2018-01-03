@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2>Checkbox 多选框</h2>
-    <h3>代码示例 </h3>
+    <h3>基础 </h3>
     <h4>单独使用 ,使用 v-model 可以双向绑定数据。</h4>
-    {{d}}<br>
+    <p>{{d}}</p>
     <Checkbox v-model="d">单选框 </Checkbox>
-    <Button @click="d=!d">选择</Button>
+    <Button @click="d=!d">Click me</Button>
     <h3>组合使用</h3>
     {{g}}
     <CheckboxGroup v-model="g">
@@ -14,11 +14,9 @@
       <Checkbox label="香蕉🍌"></Checkbox>
       <Checkbox label="栗子🌰"></Checkbox>
       <Checkbox label="葡萄🍇" disabled></Checkbox>
+      <Checkbox label="梨子🍐" disabled></Checkbox>
     </CheckboxGroup>
-    <br>
-    <div v-high>
-      <pre><code>{{demo}}</code></pre>
-    </div>
+    <Code>{{demo}}</Code>
     <h3>Checkbox props</h3>
     <div class="table-border">
       <table>
@@ -102,28 +100,25 @@ export default {
   data() {
     return {
       d: true,
-      g: ["苹果🍎", "香蕉🍌"],
-      demo: `//单独使用
-<Checkbox v-model="d">单选框 </Checkbox>
-//组合使用
-<CheckboxGroup v-model="g">
+      g: ["苹果🍎", "香蕉🍌",'葡萄🍇'],
+      demo1:`<Checkbox v-model="d">单选框 </Checkbox>`,
+      demo: `<CheckboxGroup v-model="g">
       <Checkbox label="苹果🍎"></Checkbox>
       <Checkbox label="橘子🍊"></Checkbox>
       <Checkbox label="香蕉🍌"></Checkbox>
-      <Checkbox label="栗子🌰"></Checkbox>
       <Checkbox label="葡萄🍇" disabled></Checkbox>
+      <Checkbox label="梨子🍐" disabled></Checkbox>
 </CheckboxGroup>
 <script>
 export default {
   data() {
     return {
       d: true,
-      g: ["苹果🍎",'香蕉🍌']
+      g: ["苹果🍎", "香蕉🍌",'葡萄🍇'],
     }
   }
 }
-<\/script>
-      `
+<\/script>`
     };
   }
 };

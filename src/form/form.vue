@@ -1,6 +1,8 @@
 <template>
   <div>
-    <form autocomplete="off" :class="classes"></form>
+    <form autocomplete="off" :class="classes">
+      <slot></slot>
+    </form>
   </div>
 </template>
 <script>
@@ -10,7 +12,7 @@ export default {
     labelAlign: { type: String },
     model: { type: Object },
     rules: { type: Object },
-    labelWidth: { type: Number }
+    labelWidth: { type: [Number, String] }
   },
   data() {
     return {};

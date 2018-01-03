@@ -4,23 +4,32 @@
       <img :src="logo" />VUE KUI 使用文档
     </header>
     <section class="main">
-      <nav class="nav">
-        <menu>
-          <li v-for="(item ,x) in nav" :key="x">
-            <em></em>
-            <h5>{{item.title}}</h5>
-            <a :href="`#${sub.link}`" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">{{sub.title}}
-              <span>{{sub.sub}}</span>
-            </a>
-          </li>
-        </menu>
-      </nav>
-      <div class="content">
-        <transition name="fade" mode="out-in">
-          <router-view></router-view>
-        </transition>
-      </div>
+      <Row>
+        <Col span="4">
+        <nav class="nav">
+          <menu>
+            <li v-for="(item ,x) in nav" :key="x">
+              <em></em>
+              <h5>{{item.title}}</h5>
+              <a :href="`#${sub.link}`" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">{{sub.title}}
+                <span>{{sub.sub}}</span>
+              </a>
+            </li>
+          </menu>
+        </nav>
+        </Col>
+        <Col span="20">
+        <div class="content">
+          <transition name="fade" mode="out-in">
+            <router-view></router-view>
+          </transition>
+        </div>
+        </Col>
+      </Row>
     </section>
+    <footer>
+      <p>Copyright ©2009-2018 <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
+    </footer>
   </section>
 </template>
 <script>
@@ -46,7 +55,7 @@ export default {
             { title: "单选框", sub: "Radio", link: "/radio" },
             { title: "开关", sub: "Switch", link: "/switch" },
             { title: "下拉框", sub: "Select", link: "/select" },
-            { title: "删格", sub: "Grid", link: "/grid" },
+            { title: "布局", sub: "Layout", link: "/layout" },
             { title: "日期", sub: "datePicker", link: "/datepicker" },
             { title: "表格", sub: "Table", link: "/table" },
             { title: "分页", sub: "Page", link: "/page" },

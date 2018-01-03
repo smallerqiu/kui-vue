@@ -3,17 +3,15 @@
     <h2>Select 选择器</h2>
     <p>注意：非 template/render 模式下，需使用 k-select</p>
     <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
-    <h3>代码示例 </h3>
-    <Button @click="test">test</Button>
-    <Select :data="data" @change="change" :width="200" clearable></Select> &nbsp;
-    <Select v-model="d" :data="data" @change="change" :width="300" ></Select> &nbsp;
+    <h3>基础 </h3>
+    <Select :data="data" :width="200"></Select>
+    <Code lang="xml html">{{demo1}}</Code>
+    <h3>可清除</h3>
+    <Select :data="data" :width="200" clearable></Select>
+    <Code lang="xml html">{{demo2}}</Code>
+    <h3>禁用</h3>
     <Select v-model="d1" :data="data" disabled :width="200"></Select>
-    <Select v-model="d2" :width="200"></Select>
-    <br>
-    <br>
-    <div v-high>
-      <pre><code class="javascript sql html">{{demo}}</code></pre>
-    </div>
+    <Code lang="xml html">{{demo3}}</Code>
     <h3>Radio props</h3>
     <div class="table-border">
       <table>
@@ -26,6 +24,12 @@
         <tr>
           <td>value</td>
           <td>指定选中项目的 value 值，可以使用 v-model 双向绑定数据</td>
+          <td>String,Number</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>width</td>
+          <td>组件宽度</td>
           <td>String,Number</td>
           <td>-</td>
         </tr>
@@ -80,39 +84,10 @@ export default {
         { label: "栗子🌰", value: 3 },
         { label: "葡萄🍇", value: 4 }
       ],
-      demo: `<Select :data="data" @change="change" :width="200" clearable></Select>
-<Select v-model="d" :data="data" @change="change" :width="300" ></Select>
-<Select v-model="d" :data="data" disabled :width="200"></Select>
-<script>
-export default {
-  data() {
-    return {
-      d: "3",
-      data: [
-        { label: "苹果🍎", value: 0 },
-        { label: "橘子🍊", value: 1 },
-        { label: "香蕉🍌", value: 2 },
-        { label: "栗子🌰", value: 3 },
-        { label: "葡萄🍇", value: 4 }
-      ],
+      demo1:`<Code lang="xml html">{{demo1}}</Code>`,
+      demo2:`<Select :data="data" :width="200" clearable></Select>`,
+      demo3:`<Select v-model="d1" :data="data" disabled :width="200"></Select>`,
     };
-  },
-  methods: {
-    change(item) {
-      console.log(item);
-    }
-  }
-};
-<\/script>`
-    };
-  },
-  methods: {
-    change(item) {
-      console.log('call',item);
-    },
-    test(){
-      this.d= ''
-    }
   }
 };
 </script>

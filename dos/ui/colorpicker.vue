@@ -6,7 +6,7 @@
       <p>数据模型是从offce 颜色组件扒下来的。</p>
       <p>{{d}}</p>
       <ColorPicker v-model="d"></ColorPicker>
-      <div v-high><pre><code>{{demo}}</code></pre></div>
+      <Code>{{demo}}</Code>
        <h3>ColorPicker props</h3>
     <div class="table-border">
       <table>

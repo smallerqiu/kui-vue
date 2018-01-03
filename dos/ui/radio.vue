@@ -1,24 +1,26 @@
 <template>
   <div>
     <h2>Radio 单选框</h2>
-    <h3>代码示例</h3>
+    <h3>基础</h3>
     <p>单独使用可使用v-model双向绑定数据</p>
-    {{m}}
+    <p>{{m}}</p>
     <Radio v-model="m" @change="test">测试</Radio>
-    <br>
+    <Code lang="xml html">{{demo1}}</Code>
+    <h3>禁用</h3>
+    <Radio label="葡萄🍇" disabled v-model="m1"></Radio>
+    <Radio label="梨子🍐" disabled></Radio>
+    <Code lang="xml html">{{demo2}}</Code>
     <h3>组合使用</h3>
-    {{d}}<br>
+    <p>{{d}}</p>
     <RadioGroup v-model="d" @change="test">
       <Radio label="苹果🍎"></Radio>
       <Radio label="橘子🍊"></Radio>
       <Radio label="香蕉🍌"></Radio>
       <Radio label="栗子🌰"></Radio>
-      <Radio label="葡萄🍇" disabled></Radio>
+      <Radio label="葡萄🍇" ></Radio>
+      <Radio label="梨子🍐" disabled></Radio>
     </RadioGroup>
-    <br>
-    <div v-high>
-      <pre><code>{{demo}}</code></pre>
-    </div>
+    <Code lang="xml html">{{demo3}}</Code>
     <h3>Radio props</h3>
     <div class="table-border">
       <table>
@@ -101,29 +103,21 @@
 export default {
   data() {
     return {
+      m:true,
+      m1:true,
       d: "苹果🍎",
       m: false,
-      demo: `//单独使用
-<Radio v-model="m">测试</Radio>
-//组合使用
-<RadioGroup v-model="d">
+      demo1: `<Radio v-model="m" @change="test">测试</Radio>`,
+      demo2: `<Radio label="葡萄🍇" disabled v-model="m"></Radio>
+<Radio label="梨子🍐" disabled></Radio>`,
+      demo3: `<RadioGroup v-model="d">
   <Radio label="苹果🍎"></Radio>
   <Radio label="橘子🍊"></Radio>
   <Radio label="香蕉🍌"></Radio>
   <Radio label="栗子🌰"></Radio>
   <Radio label="葡萄🍇" disabled></Radio>
-</RadioGroup>
-<script>
-export default {
-  data() {
-    return {
-      d: "苹果🍎",
-      m: false,
-    }
-  }
-}
-<\/script>
-`
+  <Radio label="梨子🍐" disabled></Radio>
+</RadioGroup>`
     };
   },
   methods: {

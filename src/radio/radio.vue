@@ -1,5 +1,5 @@
 <template>
-  <label class="k-radio-wp">
+  <label :class="wpclasses">
     <span :class="classes">
       <span class="k-radio-inner"></span>
       <input type="radio" class="k-radio-input" :name="name" :disabled="disabled" :checked="checked" @change="changed($event)">
@@ -15,16 +15,23 @@ export default {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String },
-    label: { type: String },
+    label: { type: String }
     // onchange: { type: Function, default: () => {} }
   },
   computed: {
+    wpclasses() {
+      return [
+        "k-radio-wp",
+        {
+          ["k-radio-disabled"]: this.disabled
+        }
+      ];
+    },
     classes() {
       return [
         "k-radio",
         {
-          ["k-radio-checked"]: this.checked,
-          ["k-radio-disabled"]: this.disabled
+          ["k-radio-checked"]: this.checked
         }
       ];
     }

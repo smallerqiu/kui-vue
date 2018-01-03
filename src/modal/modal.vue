@@ -15,8 +15,8 @@
           <div class="modal-footer">
             <slot name="footer">
               <div class="pull-right">
-                <k-button mini @click="closed">{{cancelText}}</k-button>
-                <k-button type="primary" @click="yes" mini>{{okText}}</k-button>
+                <k-button @click="closed">{{cancelText}}</k-button>
+                <k-button type="primary" @click="yes">{{okText}}</k-button>
               </div>
             </slot>
           </div>
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import Button from "../button";
+import {Button} from "../button";
 export default {
   name: "Modal",
   components: {

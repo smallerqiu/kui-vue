@@ -8,7 +8,7 @@ let router = []
 let children = []
 
 let r = ['','install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch','form','colorpicker',
-    'checkbox', 'radio', 'datepicker', 'table', 'grid', 'page', 'modal','kyui-loader','sponsor','about']
+    'checkbox', 'radio', 'datepicker', 'table', 'layout', 'page', 'modal','kyui-loader','sponsor','about']
 r.map((x) => {
     children.push({
         path: `/${x}`,
