@@ -1,3 +1,3 @@
 theme: jekyll-theme-architect
-url:https://kui.chuchur.com
-root:/doc-html/
+url:"https://chuchur.github.io/kui/"
+root:"/doc-html/"
