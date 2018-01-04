@@ -4,7 +4,6 @@ src/
 dos/
 build/
 styles/
-dos-html/
 *.cmd
 .DS_Store
 
