@@ -1,6 +1,6 @@
 /**
  * by chuchur /chuchur@qq.com
- * 打包vue 组建
+ * 打包vue 组件
  */
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
