@@ -11,7 +11,9 @@
             <li v-for="(item ,x) in nav" :key="x">
               <em></em>
               <h5>{{item.title}}</h5>
-              <a :href="`#${sub.link}`" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">{{sub.title}}
+              <a :href="sub.weblink||`#${sub.link}`" :target="sub.weblink?'_blank':''" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">
+                <Icon :type="sub.icon" v-if="sub.icon"></Icon>
+                {{sub.title}}
                 <span>{{sub.sub}}</span>
               </a>
             </li>
@@ -28,7 +30,8 @@
       </Row>
     </section>
     <footer>
-      <p>Copyright ©2009-2018 <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
+      <p>Copyright ©2009-2018
+        <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
     </footer>
   </section>
 </template>
@@ -49,28 +52,28 @@ export default {
         {
           title: "基础组件",
           child: [
-            { title: "图标", sub: "Icon", link: "/icon" },
-            { title: "按钮", sub: "Button", link: "/button" },
-            { title: "输入框", sub: "Input", link: "/input" },
-            { title: "多选框", sub: "Checkbox", link: "/checkbox" },
-            { title: "单选框", sub: "Radio", link: "/radio" },
-            { title: "开关", sub: "Switch", link: "/switch" },
-            { title: "下拉框", sub: "Select", link: "/select" },
-            { title: "布局", sub: "Layout", link: "/layout" },
-            { title: "日期", sub: "datePicker", link: "/datepicker" },
-            { title: "表格", sub: "Table", link: "/table" },
-            { title: "分页", sub: "Page", link: "/page" },
-            { title: "对话框", sub: "Modal", link: "/modal" },
-            { title: "颜色", sub: "ColorPicker", link: "/colorpicker" },
-            { title: "表单", sub: "Form", link: "/form" }
+            { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
+            { title: "按钮", sub: "Button", link: "/button",icon:'stop' },
+            { title: "输入框", sub: "Input", link: "/input",icon:'ios-compose' },
+            { title: "多选框", sub: "Checkbox", link: "/checkbox",icon:'android-checkbox' },
+            { title: "单选框", sub: "Radio", link: "/radio",icon:'android-radio-button-on' },
+            { title: "开关", sub: "Switch", link: "/switch",icon:'ios-toggle' },
+            { title: "下拉框", sub: "Select", link: "/select",icon:'chevron-down' },
+            { title: "布局", sub: "Layout", link: "/layout",icon:'social-buffer' },
+            { title: "日期", sub: "datePicker", link: "/datepicker",icon:'ios-calendar-outline' },
+            { title: "表格", sub: "Table", link: "/table",icon:'ios-grid-view' },
+            { title: "分页", sub: "Page", link: "/page",icon:'ios-skipforward' },
+            { title: "对话框", sub: "Modal", link: "/modal",icon:'ios-browsers' },
+            { title: "颜色", sub: "ColorPicker", link: "/colorpicker",icon:'android-color-palette' },
+            { title: "表单", sub: "Form", link: "/form",icon:'ios-list' }
           ]
         },
         {
           title: "其他",
           child: [
-            { title: "github", link: "" },
-            { title: "支持作者", link: "/sponsor" },
-            { title: "关于", link: "/index" }
+            { title: "github", weblink: "https://github.com/chuchur/kui",icon:'social-github', },
+            { title: "支持作者", link: "/sponsor",icon:'social-usd' },
+            { title: "关于", link: "/index",icon:'android-happy' }
           ]
         }
       ],

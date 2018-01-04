@@ -4,7 +4,7 @@
       <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span>
       <span class="k-select-label" v-if="label">{{label}}</span>
       <span class="k-select-arrow"></span>
-      <span class="k-select-clearable" v-if="isclearable" @click.stop="clear">×</span>
+      <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
       <div class="k-select-dropdown" v-if="isdrop" :style="dropdownStyles">
