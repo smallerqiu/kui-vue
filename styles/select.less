@@ -103,16 +103,31 @@
       position: absolute;
       top: 8px;
       right: 38px;
-      background: #b1b1b1;
-      border-radius: 50%;
+      // background: #b1b1b1;
+      // border-radius: 50%;
       width: 15px;
       height: 15px;
       line-height: 15px;
       text-align: center;
-      font-size: 13px;
-      color: #fff;
+      // font-size: 13px;
+      // color: #fff;
+      &::before {
+         content: "\F406";
+         font-family: Ionicons;
+         font-size: 20px;
+         position: absolute;
+         left: 0;
+         top: 0;
+         text-align: center;
+         color: #999;
+         // width: 100%;
+         // line-height: 32px;
+         // background: #fff;
+      }
       &:hover {
-         background: #555;
+         &::before {
+            color: #555;
+         }
       }
    }
 }
