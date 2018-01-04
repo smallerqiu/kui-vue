@@ -9,3 +9,5 @@ timezone: Asia/Shanghai
 # URL
 url: https://kui.chuchur.com
 root: /
+
+theme: jekyll-theme-architect
