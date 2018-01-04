@@ -18,9 +18,11 @@ if (buidDoc) {
     webpackConfig.output = {
         path: path.resolve(__dirname, '../dos-html'),
         filename: 'js/[name].[hash].js',
-        publicPath: "",
+        publicPath: path.resolve(__dirname, '/'),
         chunkFilename: 'js/[name].[chunkhash].js'
     }
+} else {
+    webpackConfig.output.publicPath = ''
 }
 // return
 spinner.start()

@@ -5,7 +5,7 @@
         <p>在页面上引入 js 和 css 文件即可开始使用：</p>
         <Code lang="xml html">{{cdn}}</Code>
         <h3>示例</h3>
-        <code class="html javascript">{{shili}}</code>
+        <Code class="html javascript">{{shili}}</Code>
         <h3>NPM 安装</h3>
         <Code lang="sql">{{npm}}</Code>
     </div>
@@ -49,8 +49,7 @@ export default {
     })
   <\/script>
 </body>
-</html>
-   `
+</html>`
     };
   }
 };

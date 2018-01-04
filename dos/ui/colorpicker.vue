@@ -2,7 +2,7 @@
    <div>
       <h2>ColorPicker 颜色</h2>
       <p>注意：非 template/render 模式下，需使用 color-picker。</p>
-      <h3>代码示例</h3>
+      <h3>基础</h3>
       <p>数据模型是从offce 颜色组件扒下来的。</p>
       <p>{{d}}</p>
       <ColorPicker v-model="d"></ColorPicker>

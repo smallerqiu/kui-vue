@@ -11,6 +11,7 @@ import { Modal, Toast } from './modal'
 import { Row, Col } from './grid'
 import { Form, FormItem } from './form'
 import ColorPicker from './colorPicker'
+import Icon from './icon'
 
 import '../styles';
 
@@ -30,6 +31,7 @@ const components = {
     Modal,
     Toast,
     Row, Col,
+    Icon,
 }
 const UI = {
     ...components,

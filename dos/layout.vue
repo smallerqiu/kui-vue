@@ -47,8 +47,9 @@ export default {
           ]
         },
         {
-          title: "基础组建",
+          title: "基础组件",
           child: [
+            { title: "图标", sub: "Icon", link: "/icon" },
             { title: "按钮", sub: "Button", link: "/button" },
             { title: "输入框", sub: "Input", link: "/input" },
             { title: "多选框", sub: "Checkbox", link: "/checkbox" },

@@ -7,7 +7,7 @@ Vue.use(Router)
 let router = []
 let children = []
 
-let r = ['','install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch','form','colorpicker',
+let r = ['','install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch','form','colorpicker','icon',
     'checkbox', 'radio', 'datepicker', 'table', 'layout', 'page', 'modal','kyui-loader','sponsor','about']
 r.map((x) => {
     children.push({
