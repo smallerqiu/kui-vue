@@ -1,3 +1,11 @@
-theme: jekyll-theme-architect
-url:"https://chuchur.github.io/kui/"
-root:"/doc-html/"
+# Site
+title: PC UI for VUE2.x
+subtitle:
+description:一款基于vue2.x的UI
+author: chuchur
+language:
+timezone: Asia/Shanghai
+
+# URL
+url: http://yoursite.com
+root: /
