@@ -1,8 +1,9 @@
 {
     "name": "kyui",
-    "version": "1.0.30",
+    "version": "1.0.31",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
+    "style": "dist/k-ui.css",
     "scripts": {
         "dev": "node ./build/dev-server.js",
         "build": "node build/build.js"
@@ -31,7 +32,22 @@
         "gulp-postcss": "^7.0.0"
     },
     "keywords": [
-        "vue2.0",
-        "kyui"
-    ]
+        "ui",
+        "kui",
+        "kyui",
+        "vue",
+        "vue.js",
+        "vue2.js",
+        "component",
+        "components",
+        "framework",
+        "vue2 ui",
+        "vue2 components",
+        "pc",
+        "pc ui"
+    ],
+    "files": [
+        "dist"
+    ],
+    "homepage": "https://kui.chuchur.com",
 }
