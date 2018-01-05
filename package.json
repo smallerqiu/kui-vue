@@ -3,6 +3,7 @@
     "version": "1.0.21",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
+    "style": "dist/k-ui.css",
     "scripts": {
         "dev": "node ./build/dev-server.js",
         "build": "node build/build.js"
@@ -46,7 +47,8 @@
         "vue-template-compiler": "^2.5.9",
         "webpack": "^3.10.0",
         "webpack-dev-middleware": "^1.12.2",
-        "webpack-hot-middleware": "^2.21.0"
+        "webpack-hot-middleware": "^2.21.0",
+        "webpack-merge": "^4.1.1"
     },
     "devDependencies": {
         "autoprefixer": "^7.1.6",

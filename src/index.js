@@ -12,6 +12,7 @@ import { Row, Col } from './grid'
 import { Form, FormItem } from './form'
 import ColorPicker from './colorPicker'
 import Icon from './icon'
+const pkg = require('../package.json');
 
 import '../styles';
 
@@ -42,6 +43,7 @@ const UI = {
     kTable: Table,
     kSwitch: Switch,
     kCol: Col,
+    Version: pkg.version,
 }
 const install = function (Vue, opts = {}) {
     Object.keys(UI).map((x) => {

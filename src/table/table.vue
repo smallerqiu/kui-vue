@@ -6,7 +6,7 @@
           <th v-for="(item,index) in columns" :key="index">
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
-                <Checkbox @change="checkAll" v-model="checked">全选</Checkbox>
+                <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
                 <!-- <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选 -->
               </label>
             </template>
@@ -19,7 +19,7 @@
           <td v-for="(sub,n) in columns" :key="n">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
-                <Checkbox v-model="item._checked" @change="check(item,m)"></Checkbox>
+                <k-checkbox v-model="item._checked" @change="check(item,m)"></k-checkbox>
                 <!-- <input type="checkbox" v-model="item._checked" @change="check(item,m)"> -->
               </label>
             </template>
@@ -40,11 +40,11 @@
   </div>
 </template>
 <script>
-import Checkbox from "../checkbox";
+import { Checkbox } from "../checkbox";
 import Expand from "./expand.js";
 // import utils from "../utils";
 export default {
-  components: { Expand: Expand },
+  components: { Expand: Expand, "k-checkbox": Checkbox },
   name: "Table",
   props: {
     noDataText: { type: String, default: "暂无数据..." },

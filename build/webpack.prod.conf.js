@@ -5,16 +5,26 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path');
+const pkg = require('../package.json');
 module.exports = {
-    entry: [
-        path.resolve(__dirname, '../src/index.js')
-    ],
+    entry: {
+        main:path.resolve(__dirname, '../src/index.js')
+    },
     output: {
         path: path.resolve(__dirname, "../dist"),
         publicPath: "../dist/",
-        filename: "k-ui.js"
+        filename: "k-ui.js",
+        library: 'kyui',
+        libraryTarget: 'umd',
     },
-    watch: true,
+    externals: {
+        vue: {
+            root: 'Vue',
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            amd: 'vue'
+        }
+    },
     module: {
         rules: [
             {
@@ -30,11 +40,6 @@ module.exports = {
                             })
                         }
                     }
-                }, {
-                    loader: 'kui-loader',
-                    options: {
-                        prefix: false
-                    }
                 }
                 ]
             },
@@ -49,19 +54,22 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: ['style', 'css', 'sass']
+                use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader'
+                ]
                 // 将样式抽取出来为独立的文件
-                use: ExtractTextPlugin.extract({
-                    fallback: "vue-style-loader",
-                    use: [
-                        { loader: "css-loader" },
-                    ],
-                }),
-                // loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader"),
-                // exclude: /node_modules/
+                // use: ExtractTextPlugin.extract({
+                //     fallback: "vue-style-loader",
+                //     use: [
+                //         { loader: "css-loader" },
+                //     ],
+                // }), 
             },
             //使用less-loader、css-loader和style-loade 加载 .less 结尾的文件
             {
@@ -109,8 +117,10 @@ module.exports = {
                 warnings: false
             }
         }),
+        new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
+
         // 允许错误不打断程序
-        new webpack.NoErrorsPlugin(),
+        // new webpack.NoErrorsPlugin(),
         new webpack.LoaderOptionsPlugin({
             minimize: true
         })
@@ -118,7 +128,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json', '.less'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
+            'vue': 'vue/dist/vue.esm.js',
         }
     }
 }
