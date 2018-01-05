@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: "Switch",
+  name: "kSwitch",
   props: {
     value: { type: Boolean, default: false },
     type: { type: String },

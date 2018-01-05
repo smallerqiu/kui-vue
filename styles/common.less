@@ -1,11 +1,21 @@
 // *, :after, :before {
 //    box-sizing: border-box;
 // }
+body {
+   font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+   font-size: 12px;
+   -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;   
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+   margin: 0;
+   padding: 0;
+}
 a, button, input, textarea {
    outline: none;
 }
 
-button, html input[type=button], input[type=date], select, input[type=reset], input[type=text], input[type=password], input[type=submit], textarea {
+button, input[type=button], input[type=date], select, input[type=reset], input[type=text], input[type=password], input[type=submit], textarea {
    -webkit-appearance: none;
    -moz-appearance: none;
    -o-appearance: none;
@@ -13,7 +23,6 @@ button, html input[type=button], input[type=date], select, input[type=reset], in
    appearance: none;
    cursor: pointer;
    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-   font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
    /* 点击高亮的颜色*/
    border-radius: 0;
    background: #fff;
