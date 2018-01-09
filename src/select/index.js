@@ -1,2 +1,3 @@
 import Select from './select'
-export default Select
+import Option from './option'
+export { Select, Option }

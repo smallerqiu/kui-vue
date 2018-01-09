@@ -2,6 +2,14 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem Icon="ios-cloud-upload">
+        <h3>1.0.34
+          <span> 2018-1-9 </span>
+        </h3>
+        <p>增加Option组件</p>
+        <p>修改Select组件数据结构</p>
+        <p>修复文档多处错误,完善文档数据结构</p>
+      </TimeLineItem>
       <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.31
           <span> 2018-1-7 </span>

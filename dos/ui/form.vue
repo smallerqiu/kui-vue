@@ -8,7 +8,9 @@
                 <Input v-model="form.input"></Input>
             </FormItem>
             <FormItem label="Select">
-                <Select v-model="form.select" :data="select"></Select>
+                <Select v-model="form.select">
+                    <Option v-for="(x,y) in select" :key="y" :value="x.value">{{x.label}}</Option>
+                </Select>
             </FormItem>
             <FormItem label="DatePicker">
                 <DatePicker v-model="form.datepicker"></DatePicker>
@@ -28,7 +30,7 @@
                 </CheckboxGroup>
             </FormItem>
             <FormItem label="Switch">
-                <Switch true-text="是" false-text="否"></Switch>
+                <Switch true-text="是" false-text="否" v-model="form.switch"></Switch>
             </FormItem>
             <FormItem label="Text">
                 <Input type="textarea" placeholder="情输入..."></Input>
@@ -54,18 +56,21 @@ export default {
         { label: "妖", value: "2" }
       ],
       form: {
+        switch: true,
         input: "",
         select: 0,
         datepicker: "",
         radio: "1",
-        checkbox: []
+        checkbox: ['0']
       },
-      demo1:`<Form :label-width="80">
+      demo1: `<Form :label-width="80">
 <FormItem label="Input">
     <Input v-model="form.input"></Input>
 </FormItem>
 <FormItem label="Select">
-    <Select v-model="form.select" :data="select"></Select>
+    <Select v-model="form.select">
+        <Option v-for="(x,y) in select" :key="y" :value="x.value">{{x.label}}</Option>
+    </Select>
 </FormItem>
 <FormItem label="DatePicker">
     <DatePicker v-model="form.datepicker"></DatePicker>
@@ -94,9 +99,29 @@ export default {
     <Button type="primary">Submit</Button>
     <Button style="margin-left: 10px">Cancel</Button>
 </FormItem>
-</Form>`
+</Form>
+<script>
+export default {
+  data(){
+      return{
+       select: [
+        { label: "男", value: "0" },
+        { label: "女", value: "1" },
+        { label: "妖", value: "2" }
+      ],
+      form: {
+        switch: true,
+        input: "",
+        select: 0,
+        datepicker: "",
+        radio: "1",
+        checkbox: ['0']
+      },
+      }
+  }
+}
+<\/script>`
     };
   }
 };
 </script>
-
