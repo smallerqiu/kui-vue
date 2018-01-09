@@ -86,15 +86,15 @@ export default {
       d2: true,
       m: false,
       m2: true,
-      demo1: `<Switch v-model="m"></Switch>`,
-      demo2: `<Switch v-model="m2"></Switch>
-<Switch v-model="m2" type="success"></Switch>
-<Switch v-model="m2" type="primary"></Switch>
-<Switch v-model="m2" type="warning"></Switch>`,
-      demo3: `<Switch v-model="m3" true-text="是" false-text="否"></Switch>`,
-      demo4: `<Switch v-model="d1" disabled></Switch>
-<Switch v-model="d2" disabled></Switch>
-<Switch v-model="d2" disabled true-text="是" false-text="否"></Switch>`
+      demo1: `<\Switch v-model="m"><\/Switch>`,
+      demo2: `<\Switch v-model="m2"><\/Switch>
+<\Switch v-model="m2" type="success"><\/Switch>
+<\Switch v-model="m2" type="primary"><\/Switch>
+<\Switch v-model="m2" type="warning"><\/Switch>`,
+      demo3: `<\Switch v-model="m3" true-text="是" false-text="否"><\/Switch>`,
+      demo4: `<\Switch v-model="d1" disabled><\/Switch>
+<\Switch v-model="d2" disabled><\/Switch>
+<\Switch v-model="d2" disabled true-text="是" false-text="否"><\/Switch>`
     };
   }
 };
