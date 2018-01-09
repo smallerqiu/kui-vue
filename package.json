@@ -1,6 +1,6 @@
 {
     "name": "kyui",
-    "version": "1.0.32",
+    "version": "1.0.33",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -26,10 +26,6 @@
         "vue-router": "^3.0.1",
         "vue-style-loader": "^3.0.3",
         "vue-template-compiler": "^2.5.9"
-    },
-    "devDependencies": {
-        "autoprefixer": "^7.1.6",
-        "gulp-postcss": "^7.0.0"
     },
     "keywords": [
         "ui",
