@@ -32,7 +32,7 @@
    }
 
    .k-calendar-head span:hover {
-      color: #1284e7;
+      color: @main;
    }
 
    .k-calendar-head .k-calendar-year-select, .k-calendar-head .k-calendar-month-select {
@@ -97,13 +97,13 @@
    }
 
    .k-calendar-date:hover, .k-calendar-date-on {
-      background: #eaf8fe;
+      background: fade(@main,30%);
    }
 
    .k-calendar-date-selected, .k-calendar-date-selected:hover {
       color: #fff;
       font-weight: bold;
-      background: #1284e7;
+      background: @main;
       border-radius: @radius;
    }
 
@@ -130,7 +130,7 @@
    }
 
    .k-calendar-hour a:hover, .k-calendar-hour a.on {
-      color: #1284e7;
+      color: @main;
    }
 
    .k-calendar-years, .k-calendar-months, .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {

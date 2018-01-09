@@ -10,6 +10,7 @@ import DatePicker from './datePicker'
 import { Modal, Toast } from './modal'
 import { Row, Col } from './grid'
 import { Form, FormItem } from './form'
+import { TimeLine, TimeLineItem } from './timeline'
 import ColorPicker from './colorPicker'
 import Icon from './icon'
 const pkg = require('../package.json');
@@ -32,7 +33,7 @@ const components = {
     Modal,
     Toast,
     Row, Col,
-    Icon,
+    Icon, TimeLine, TimeLineItem
 }
 const UI = {
     ...components,

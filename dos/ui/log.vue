@@ -1,29 +1,86 @@
 <template>
-  <div>
-    <h2># KYUI for vue2.0</h2>
-    <h3>#2017-12-19 v1.0.20</h3>
-    <p>1、新增switch 组件</p>
-    <p>2、完善select组件</p>
-    <p>3、完善page分页组件</p>
+  <div class="demo-logs">
+    <h2>更新日志</h2>
+    <TimeLine>
+      <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.31
+          <span> 2018-1-7 </span>
+        </h3>
+        <p>修复render模式下无法渲染的问题</p>
+        <p>修复表格组件冲突问题</p>
+        <p>完善文档</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="ios-cloud-upload">
+        <h3>1.0.30
+          <span> 2018-1-5 </span>
+        </h3>
+        <p>新增Icon组件</p>
+        <p>新增TimeLine</p>
+        <p>完善文档</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.28
+          <span> 2018-1-3 </span>
+        </h3>
+        <p>修复部分组件在禁用状态下显示异常的问题</p>
+        <p>新增表单组件</p>
+        <p>修复颜色组件内存泄漏问题</p>
+        <p>部分组件加入禁用状态</p>
+        <p>完善文档</p>
+      </TimeLineItem>
+      <TimeLineItem>
+        <h3>1.0.26
+          <span> 2017-12-19</span>
+        </h3>
+        <p>修复下拉组件绑定数据的问题</p>
+        <p>完善表单问题</p>
+        <p>新增Color组件</p>
+      </TimeLineItem>
+      <TimeLineItem  Icon="ios-cloud-upload">
+        <h3>1.0.20
+          <span>2017-12-19</span>
+        </h3>
+        <p>新增Switch 组件</p>
+        <p>完善Select组件</p>
+        <p>完善Page分页组件</p>
+        <p>完善Input组件 </p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.19
+          <span> 2017-12-18</span>
+        </h3>
+        <p>修复在ie下表格无法选中的bug</p>
+      </TimeLineItem>
+      <TimeLineItem  Icon="ios-cloud-upload">
+        <h3>1.0.20
+          <span> 2017-12-18</span>
+        </h3>
+        <p>新增Radio组件</p>
+        <p>新增Checkbox组件</p>
+        <p>修复Table 组件更新数据更新问题</p>
+        <p>新增Select 组件</p>
+        <p>完善Modal 回调问题</p>
+      </TimeLineItem>
+      <TimeLineItem>
+        <h3> 1.0.14
+          <span>2017-12-15</span>
+        </h3>
+        <p>日期控件新增回调</p>
+        <p>新增Row，Col 组件</p>
+      </TimeLineItem>
+      <TimeLineItem>
+        <h3>1.0.2
+          <span>2017-12-12</span>
+        </h3>
+        <p>完成Table，Page，Button，DatePicker等组件</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="erlenmeyer-flask">
+        <h3> 1.0.0
+          <span>2017-12-10</span>
+        </h3>
+        <p>着手开发</p>
+      </TimeLineItem>
+    </TimeLine>
 
-    <h3>#2017-12-18 v1.0.19</h3>
-    <p>1、修复在ie下表格无法选中的bug</p>
-
-    <h3>#2017-12-18 v1.0.18</h3>
-    <p>1、新增Radio组件</p>
-    <p>2、新增Checkbox组件</p>
-    <p>3、修复Table 组件更新数据更新问题</p>
-    <p>4、新增Select 组件</p>
-    <p>5、完善Modal 回调问题</p>
-
-    <h3>#2017-12-15 v1.0.14</h3>
-    <p>1、日期控件新增回调</p>
-    <p>2、新增Row，Col 组件</p>
-
-    <h3>#2017-12-12 </h3>
-    <p>1 、优化表格 组件</p>
-
-    <h3>#2017-12-10</h3>
-    <p>着手开发</p>
   </div>
 </template>

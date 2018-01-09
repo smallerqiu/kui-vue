@@ -61,9 +61,10 @@
       -webkit-user-select: none;
    }
    &>.k-datepicker-input.focus {
-      border-color: #3bb4f2;
-      box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
-      -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+      border-color: @main;
+      // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+      // -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+      box-shadow: 0 0 5px fade(@main, 75%);
    }
    &>.k-datepicker-input:disabled {
       cursor: not-allowed;

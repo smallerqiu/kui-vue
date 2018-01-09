@@ -16,8 +16,9 @@
       cursor: text;
       transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
       &:focus {
-         border-color: #3bb4f2;
-         box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+         // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+         box-shadow: 0 0 5px fade(@main, 75%);
+         border-color: @main;
       }
       &:disabled {
          background: #f5f5f5;
