@@ -40,12 +40,16 @@ export default {
   data() {
     return {
       nav: [
+        
         {
           title: "开始",
           child: [
+            { title: "KUI for React",link:'waiting'},
+            { title: "KUI for Angular",link:'waiting'},
             { title: "安装", link: "/install" },
             { title: "快速上手", link: "/start" },
             { title: "更新日志", link: "/log" },
+            { title: "定制主题", link: "/theme"},
             { title: "kyui-loader", link: "/kyui-loader" }
           ]
         },
@@ -65,6 +69,7 @@ export default {
             { title: "分页", sub: "Page", link: "/page",icon:'ios-skipforward' },
             { title: "对话框", sub: "Modal", link: "/modal",icon:'ios-browsers' },
             { title: "颜色", sub: "ColorPicker", link: "/colorpicker",icon:'android-color-palette' },
+            { title: "时间轴", sub: "TimeLine", link: "/timeline",icon:'ios-time' },
             { title: "表单", sub: "Form", link: "/form",icon:'ios-list' }
           ]
         },

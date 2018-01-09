@@ -395,3 +395,27 @@ footer {
       margin: 10px 0;
    }
 }
+
+.demo-logs {
+   h2, h3 {
+      margin: 0 0 10px 0;
+      span {
+         font-size: 13px;
+         color: #999;
+      }
+   }
+   p {
+      position: relative;
+      font-size: 13px;
+      &::before {
+         content: "";
+         width: 5px;
+         height: 5px;
+         border-radius: 50%;
+         border: 1px solid #bebebe;
+         position: relative;
+         display: inline-block;
+         margin-right: 8px;
+      }
+   }
+}

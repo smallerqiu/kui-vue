@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'Vue'
 import App from './app'
 import router from './router'
 import kui from '../src/index'
