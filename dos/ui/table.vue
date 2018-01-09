@@ -51,7 +51,7 @@
         </tr>
       </table>
     </div>
-    <h3>column</h3>
+    <h3>Column</h3>
     <div class="table-border">
       <table>
         <tr>

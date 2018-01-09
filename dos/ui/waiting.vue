@@ -1,5 +1,5 @@
 <template>
   <div>
-     <h3>正在开发中....</h3>
+     <h2>正在开发中....</h2>
   </div>
 </template>

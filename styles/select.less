@@ -65,6 +65,7 @@
       }
    }
    .k-select-dropdown {
+      user-select: none;
       border-radius: @radius;
       width: inherit;
       max-height: 200px;
@@ -97,6 +98,10 @@
          &:hover {
             background: @main;
          }
+      }
+      .k-select-item-disabled{
+         background: #f5f5f5;
+         color: #b2b2b2;
       }
    }
    .k-select-clearable {

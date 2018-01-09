@@ -117,7 +117,16 @@ export default {
   <Radio label="栗子🌰"></Radio>
   <Radio label="葡萄🍇" disabled></Radio>
   <Radio label="梨子🍐" disabled></Radio>
-</RadioGroup>`
+</RadioGroup>
+<script>
+export default {
+  data(){
+    return{
+      d:'苹果🍎'
+    }
+  }
+}
+<\/script>`
     };
   },
   methods: {
@@ -127,3 +136,4 @@ export default {
   }
 };
 </script>
+

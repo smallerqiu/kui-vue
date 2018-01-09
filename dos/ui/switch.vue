@@ -61,7 +61,7 @@
         </tr>
       </table>
     </div>
-    <h3>Page events</h3>
+    <h3>Switch events</h3>
     <div class="table-border">
       <table>
         <tr>

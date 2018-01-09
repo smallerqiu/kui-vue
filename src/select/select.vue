@@ -7,26 +7,27 @@
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
-      <div class="k-select-dropdown" v-if="isdrop" :style="dropdownStyles">
+      <div class="k-select-dropdown" v-show="isdrop" :style="dropdownStyles">
         <ul>
-          <li v-for="(item,index) in data" :key="index" :class="itemClasses(item)" @click="select(item)">{{item.label}}</li>
-          <li v-if="data.length==0" class="k-select-item">没有数据...</li>
+          <slot></slot>
+          <li class="k-select-item" v-if="children.length==0">暂无数据...</li>
         </ul>
       </div>
     </transition>
   </div>
 </template>
 <script>
+import utils from "../utils";
 export default {
   name: "Select",
   props: {
     placeholder: { type: String, default: "请选择" },
-    data: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    },
+    // data: {
+    //   type: Array,
+    //   default: () => {
+    //     return [];
+    //   }
+    // },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
     clearable: { type: Boolean, default: false },
@@ -36,21 +37,23 @@ export default {
     return {
       isdrop: false,
       dropdownWith: 0,
-      label: ""
+      label: "",
+      children: []
     };
   },
   beforeDestroy() {
     document.removeEventListener("click", this.dc);
   },
   mounted() {
+    this.children = utils.findChilds(this, "Option");
+    this.updateSelect();
     document.addEventListener("click", this.dc);
   },
-  watch: {
-    value(val) {
-      let item = this.isNotEmpty(val) ? this.data.filter(x => x.value == val)[0] : null;
-      this.label = item!=null ? item.label : "";
-    }
-  },
+  // watch: {
+  //   value(val) {
+  //     this.label = item != null ? item.label : "";
+  //   }
+  // },
   computed: {
     isclearable() {
       return this.clearable && !this.disabled && this.label;
@@ -72,22 +75,26 @@ export default {
     }
   },
   methods: {
+    updateSelect() {
+      this.children.map(child => {
+        if (this.isNotEmpty(this.value) && this.value == child.value) {
+          child.selected = true;
+          this.label =
+            child.label === undefined ? child.$el.innerHTML : child.label;
+        } else {
+          child.selected = false;
+        }
+      });
+    },
     isNotEmpty(obj) {
       return obj !== null && obj !== "" && obj !== undefined;
     },
     dc(e) {
       this.isdrop = this.$el.contains(e.target) && !this.disabled;
     },
-    itemClasses(item) {
-      return [
-        "k-select-item",
-        {
-          ["k-select-item-selected"]: item.value == this.value
-        }
-      ];
-    },
     clear() {
       !this.isNotEmpty(this.value) && (this.label = "");
+      this.children.map(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});
     },
@@ -100,10 +107,19 @@ export default {
       this.dropdownWith = this.$refs.select.offsetWidth;
     },
     select(item) {
-      setTimeout(() => (this.isdrop = !this.isdrop));
       !this.isNotEmpty(this.value) && (this.label = item.label);
       this.$emit("change", item);
       this.$emit("input", item.value);
+      this.children.map(child => {
+        if (item.value == child.value) {
+          child.selected = true;
+          this.label =
+            child.label === undefined ? child.$el.innerHTML : child.label;
+        } else {
+          child.selected = false;
+        }
+      });
+      setTimeout(() => (this.isdrop = !this.isdrop));
     }
   }
 };

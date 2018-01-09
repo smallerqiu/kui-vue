@@ -2,7 +2,7 @@ import Table from './table'
 import Page from './page'
 import { Button, ButtonGroup } from './button'
 import Input from './input'
-import Select from './select'
+import { Select, Option } from './select'
 import Switch from './switch'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import { Radio, RadioGroup } from './radio'
@@ -22,7 +22,7 @@ const components = {
     Page,
     DatePicker, ColorPicker,
     Button, ButtonGroup,
-    Select,
+    Select, Option,
     Input,
     Form,
     FormItem,
@@ -41,6 +41,7 @@ const UI = {
     kButton: Button,
     kInput: Input,
     kSelect: Select,
+    kOption: Option,
     kTable: Table,
     kSwitch: Switch,
     kCol: Col,
