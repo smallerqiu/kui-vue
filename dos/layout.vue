@@ -87,7 +87,7 @@ export default {
   },
   methods: {},
   created() {
-    console.log(this.$route.path);
+    // console.log(this.$route.path);
     this.nav.forEach(x => x.child.forEach(x => (x.selected = false)));
   }
 };
