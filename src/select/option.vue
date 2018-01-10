@@ -1,21 +1,15 @@
 <template>
-   <li :class="itemClasses" @click="select"><slot>{{showLabel}}</slot></li>
+  <li :class="itemClasses" @click="select">
+    <slot>{{label}}</slot>
+  </li>
 </template>
 <script>
 export default {
   name: "Option",
   props: {
-    value: {
-      type: [String, Number],
-      required: true
-    },
-    label: {
-      type: [String, Number]
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+    value: { type: [String, Number], required: true },
+    label: { type: [String, Number] },
+    disabled: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -31,15 +25,15 @@ export default {
           ["k-select-item-disabled"]: this.disabled
         }
       ];
-    },
-    showLabel() {
-      return this.label ? this.label : this.value;
     }
   },
   methods: {
     select() {
       if (this.disabled) return;
-      this.$parent.select({ value: this.value, label: this.showLabel });
+      this.$parent.select({
+        value: this.value,
+        label: this.label == undefined ? this.$el.innerHTML : this.label
+      });
     }
   }
 };
