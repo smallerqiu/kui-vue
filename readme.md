@@ -10,40 +10,5 @@ Docs: <a href="https://kui.chuchur.com"> http://kui.chuchur.com </a>
 Blog: <a href="https://www.chuchur.com"> http://www.chuchur.com </a> 
 
 ## 更新日志：
-## 2018-1-3 v1.0.28  
-1、修复部分组件在禁用状态下显示异常的问题  
-2、新增表单组件  
-3、修复颜色组件内存泄漏问题  
-4、部分组件加入禁用状态  
-5、完善文档  
 
-## 2017-12-19 v1.0.26  
-1、修复下拉组件绑定数据的问题  
-2、完善表单问题  
-
-## 2017-12-19 v1.0.20  
-1、新增switch 组件  
-2、完善select组件  
-3、完善page分页组件  
-4、完善Input组件  
-
-## 2017-12-18 v1.0.19  
-1、修复在ie下表格无法选中的bug  
-
-
-## 2017-12-18 v1.0.18  
-1、新增Radio组件  
-2、新增Checkbox组件  
-3、修复Table 组件更新数据更新问题  
-4、新增Select 组件  
-5、完善Modal 回调问题  
-
-## 2017-12-15 v1.0.14  
-1、日期控件新增回调  
-2、新增Row，Col 组件  
-
-## 2017-12-12 
-1 、优化表格 组件  
-
-## 2017-12-10
-着手开发  
+Logs: <a href="https://kui.chuchur.com/#/log"> http://kui.chuchur.com#/log </a>  
