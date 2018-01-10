@@ -24,7 +24,6 @@ export default {
     },
     classes() {
       let icon = this.Icon;
-      console.log(icon);
       return icon ? [`k-ion-${icon}`] : ["k-ion-ios-circle-outline"];
     }
   }

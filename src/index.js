@@ -59,4 +59,3 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 module.exports.default = module.exports = UI;
-// export default UI;

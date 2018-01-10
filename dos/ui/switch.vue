@@ -86,6 +86,7 @@ export default {
       d2: true,
       m: false,
       m2: true,
+      m3: true,
       demo1: `<\Switch v-model="m"><\/Switch>`,
       demo2: `<\Switch v-model="m2"><\/Switch>
 <\Switch v-model="m2" type="success"><\/Switch>
