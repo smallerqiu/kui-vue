@@ -5,18 +5,18 @@
     <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
     <h3>基础 </h3>
     <Select :width="200" v-model="v1">
-      <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
     </Select>
     <Code lang="xml html">{{demo1}}</Code>
     <h3>可清除</h3>
     <Select :width="200" clearable>
-      <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
     </Select>
     <Code lang="xml html">{{demo2}}</Code>
     <h3>禁用</h3>
     <Select disabled :width="200"></Select>&nbsp;&nbsp;
     <Select :width="200">
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label" :disabled="x.disabled"></Option>
+      <Option v-for="(x,y) in data3" :key="y" :value="x.value" :label="x.label" :disabled="x.disabled"></Option>
     </Select>
     <Code lang="xml html">{{demo3}}</Code>
     <h3>Select props</h3>
@@ -114,14 +114,15 @@ export default {
       d: "1",
       d1: "2",
       d2: "3",
-      data: [
+      data1: [],
+      data2: [
         { label: "苹果🍎", value: 0 },
         { label: "橘子🍊", value: 1 },
         { label: "香蕉🍌", value: 2 },
         { label: "栗子🌰", value: 3 },
         { label: "葡萄🍇", value: 4 }
       ],
-      data2: [
+      data3: [
         { label: "苹果🍎", value: 0 },
         { label: "橘子🍊", value: 1 },
         { label: "香蕉🍌", value: 2, disabled: true },

@@ -33,8 +33,14 @@ export default {
     clearable: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false }
   },
+  watch: {
+    childs() {
+      this.children = this.children = utils.findChilds(this, "Option");
+    }
+  },
   data() {
     return {
+      childs: this.$children,
       isdrop: false,
       dropdownWith: 0,
       label: "",
@@ -45,15 +51,10 @@ export default {
     document.removeEventListener("click", this.dc);
   },
   mounted() {
-    this.children = utils.findChilds(this, "Option");
     this.updateSelect();
     document.addEventListener("click", this.dc);
+    // this.children = utils.findChilds(this, "Option");
   },
-  // watch: {
-  //   value(val) {
-  //     this.label = item != null ? item.label : "";
-  //   }
-  // },
   computed: {
     isclearable() {
       return this.clearable && !this.disabled && this.label;

@@ -2,6 +2,13 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem Icon="bug">
+        <h3>1.0.35
+          <span> 2018-1-10 </span>
+        </h3>
+        <p>修复Select组件数据动态改变后无法选中的bug</p>
+        <p>修复Option组件label赋值的问题</p>
+      </TimeLineItem>
       <TimeLineItem Icon="ios-cloud-upload">
         <h3>1.0.34
           <span> 2018-1-9 </span>
@@ -44,7 +51,7 @@
         <p>完善表单问题</p>
         <p>新增Color组件</p>
       </TimeLineItem>
-      <TimeLineItem  Icon="ios-cloud-upload">
+      <TimeLineItem Icon="ios-cloud-upload">
         <h3>1.0.20
           <span>2017-12-19</span>
         </h3>
@@ -59,7 +66,7 @@
         </h3>
         <p>修复在ie下表格无法选中的bug</p>
       </TimeLineItem>
-      <TimeLineItem  Icon="ios-cloud-upload">
+      <TimeLineItem Icon="ios-cloud-upload">
         <h3>1.0.20
           <span> 2017-12-18</span>
         </h3>
