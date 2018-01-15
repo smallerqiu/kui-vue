@@ -1,6 +1,6 @@
 {
     "name": "kyui",
-    "version": "1.0.35",
+    "version": "1.0.36",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
