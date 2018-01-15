@@ -9,7 +9,7 @@
     <p>：通过设置col的span参数，指定跨越的范围，其范围是1到24</p>
     <p>：每个row中的col总和应该为24</p>
     <br>
-    <p>注意：非 template/render 模式下，需使用 k-col。</p>
+    <Alert>注意：非 template/render 模式下，需使用 k-col。</Alert>
     <h3>基础</h3>
     <Row>
       <Col span="12">12</Col>
@@ -43,7 +43,7 @@
       </Col>
     </Row>
     <Code lang="xml">{{pcol}}</Code>
-    <h3>Row props</h3>
+    <h3>Row API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -60,7 +60,7 @@
         </tr>
       </table>
     </div>
-    <h3>Col props</h3>
+    <h3>Col API</h3>
     <div class="table-border">
       <table>
         <tr>

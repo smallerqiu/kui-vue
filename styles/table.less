@@ -1,4 +1,4 @@
-.table {
+.k-table {
     background: #fff;
     width: 100%;
     margin: 10px 0;
@@ -39,7 +39,7 @@
                 background: #fff;
             }
             &:hover {
-                background: #eee;
+                background: tint(@main,93%);
             }
         }
     }
@@ -76,4 +76,14 @@
         text-align: center;
         padding: 10px 0;
     }
+}
+.k-table-border{
+    border-left: 1px solid #eee;
+    // border-right: 1px solid #eee;
+    th,td{
+        border-right:1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+    }
+
 }

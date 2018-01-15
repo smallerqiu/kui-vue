@@ -4,10 +4,10 @@
     <h3>基础</h3>
     <Page :total="1000" :curent="1" :pagesize="10"></Page>
     <Code lang="xml html">{{pages}}</Code>
-    <h3>尺寸</h3>    
+    <h3>尺寸</h3>
     <Page :total="60" :curent="1" :pagesize="10" mini @change="test"></Page>
     <Code lang="xml html">{{pages1}}</Code>
-    <h3>Page props</h3>
+    <h3>API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -40,20 +40,11 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>Page events</h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>属性</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
           <td>页码改变的回调，返回改变后的页码</td>
-          <td>页码改变的回调，返回改变后的页码 页码</td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>
@@ -64,7 +55,7 @@ export default {
   data() {
     return {
       pages: `<Page :total="100" :curent="1" :pagesize="10"></Page>`,
-      pages1:`<Page :total="60" :curent="1" :pagesize="10" mini></Page>`
+      pages1: `<Page :total="60" :curent="1" :pagesize="10" mini></Page>`
     };
   },
   methods: {

@@ -1,3 +1,5 @@
+import Alert from './alert'
+import { Message, Notice } from './message'
 import Table from './table'
 import Page from './page'
 import { Button, ButtonGroup } from './button'
@@ -18,6 +20,7 @@ const pkg = require('../package.json');
 import '../styles';
 
 const components = {
+    Alert, Message, Notice,
     Table,
     Page,
     DatePicker, ColorPicker,
@@ -51,6 +54,8 @@ const install = function (Vue, opts = {}) {
     Object.keys(UI).map((x) => {
         Vue.component(x, UI[x]);
     })
+    Vue.prototype.$Message = Message;
+    Vue.prototype.$Notice = Notice;
 }
 UI.install = install
 // auto install

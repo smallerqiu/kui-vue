@@ -9,7 +9,7 @@
       <Icon type="home" size="25" />&nbsp;&nbsp;
       <Icon type="home" size="25" color="red" />&nbsp;&nbsp;
       <Code>{{demo}}</Code>
-      <h3>Icon props</h3>
+      <h3>API</h3>
       <div class="table-border">
          <table>
             <tr>
@@ -38,6 +38,7 @@
             </tr>
          </table>
       </div>
+      <h3>图标列表</h3>
       <div class="icon-item">
          <span v-for="(x,y) in icons" :key="y">
             <Icon :type="x" />

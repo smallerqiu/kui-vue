@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div :class="classes">
     <table>
       <thead>
         <tr>
@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr v-for="(item,m) in data" :key="m">
-          <td v-for="(sub,n) in columns" :key="n">
+          <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
                 <k-checkbox v-model="item._checked" @change="check(item,m)"></k-checkbox>
@@ -47,12 +47,23 @@ export default {
   components: { Expand: Expand, "k-checkbox": Checkbox },
   name: "Table",
   props: {
+    border: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { required: false, default: () => [] }, // 表格数据
     columns: { required: false, default: () => [] }, // 表格类目
     // onselect: { type: Function, required: false,default:function(){} }, //单个选中触发
     // onselectAll: { type: Function, required: false,default:function(){} }, //所有选中触发
     onselection: { type: Function, required: false, default: function() {} } //选中的时候触发,
+  },
+  computed: {
+    classes() {
+      return [
+        "k-table",
+        {
+          ["k-table-border"]: this.border
+        }
+      ];
+    }
   },
   data() {
     return {
@@ -86,6 +97,12 @@ export default {
   }, */
 
   methods: {
+    tdStyle(align) {
+      console.log(align)
+      let obj = {};
+      if (align) obj["text-align"] = "right";
+      return obj;
+    },
     check(item, index) {
       let is_checked = item._checked;
       this.data[index]._checked = is_checked;

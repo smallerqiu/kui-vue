@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Switch 开关</h2>
-    <p>注意：没有使用 kui-loader 时，必须使用 k-switch 标签。</p>
+    <Alert>注意：没有使用 kui-loader 时，必须使用 k-switch 标签。</Alert>
     <h3>基本</h3>
     <p>{{m}}</p>
     <Switch v-model="m"></Switch>
@@ -20,7 +20,7 @@
     <Switch v-model="d2" disabled></Switch>&nbsp;&nbsp;
     <Switch v-model="d2" disabled true-text="是" false-text="否"></Switch>
     <Code lang="xml html">{{demo4}}</Code>
-    <h3>Switch props</h3>
+    <h3>API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -59,20 +59,11 @@
           <td>String</td>
           <td>-</td>
         </tr>
-      </table>
-    </div>
-    <h3>Switch events</h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>属性</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
-          <td>当value 改变时触发</td>
-          <td>true | false</td>
+          <td>当value 改变时触发,返回true | false</td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>

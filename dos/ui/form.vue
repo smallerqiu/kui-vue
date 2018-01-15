@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Form 表单</h2>
-        <p>注意：非 template/render 模式下，需使用 k-form。</p>
+        <Alert>注意：非 template/render 模式下，需使用 k-form。</Alert>
         <h3>基础</h3>
         <Form :label-width="80" style="width:500px">
             <FormItem label="Input">
