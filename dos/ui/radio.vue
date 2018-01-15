@@ -17,11 +17,11 @@
       <Radio label="橘子🍊"></Radio>
       <Radio label="香蕉🍌"></Radio>
       <Radio label="栗子🌰"></Radio>
-      <Radio label="葡萄🍇" ></Radio>
+      <Radio label="葡萄🍇"></Radio>
       <Radio label="梨子🍐" disabled></Radio>
     </RadioGroup>
     <Code lang="xml html">{{demo3}}</Code>
-    <h3>Radio props</h3>
+    <h3>Radio API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -48,24 +48,15 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>Radio events </h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
           <td>在选项状态发生改变时触发，返回当前状态</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
     </div>
-    <h3>RadioGroup props</h3>
+    <h3>RadioGroup API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -80,19 +71,10 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>RadioGroup events </h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
           <td>在选项状态发生改变时触发，返回当前选中的项</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
@@ -103,8 +85,8 @@
 export default {
   data() {
     return {
-      m:true,
-      m1:true,
+      m: true,
+      m1: true,
       d: "苹果🍎",
       m: false,
       demo1: `<Radio v-model="m" @change="test">测试</Radio>`,

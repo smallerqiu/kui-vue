@@ -2,6 +2,7 @@
 <template>
   <div>
     <h2>DatePicker 日期选择器</h2>
+    <Alert>注意：非 template/render 模式下，需使用 date-picker。</Alert>
     <h3>基础</h3>
     <DatePicker></DatePicker>
     <Code lang="xml html">{{demo1}}</Code>
@@ -48,10 +49,11 @@
     </Row>
     <Code lang="xml html">{{demo3}}</Code>
     <h3>多语言</h3>
-    英文：<DatePicker lang="en"></DatePicker>&nbsp;&nbsp;
-    中文：<DatePicker></DatePicker>
+    英文：
+    <DatePicker lang="en"></DatePicker>&nbsp;&nbsp; 中文：
+    <DatePicker></DatePicker>
     <Code lang="xml html">{{demo4}}</Code>
-    <h3>DatePicker props</h3>
+    <h3>API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -108,20 +110,11 @@
           <td>String</td>
           <td>YYYY-MM-DD</td>
         </tr>
-      </table>
-    </div>
-    <h3>DatePicker events</h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
-          <td>默认值改变之后的回调</td>
-          <td>返回当前选择的时间，字符串</td>
+          <td>默认值改变之后的回调，返回当前选择的时间，字符串</td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>

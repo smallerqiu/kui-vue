@@ -32,7 +32,7 @@ export default {
       if (this.disabled) return;
       this.$parent.select({
         value: this.value,
-        label: this.label == undefined ? this.$el.innerHTML : this.label
+        label: this.label === undefined ? this.$el.innerHTML : this.label
       });
     }
   }

@@ -17,7 +17,7 @@
       <Checkbox label="梨子🍐" disabled></Checkbox>
     </CheckboxGroup>
     <Code>{{demo}}</Code>
-    <h3>Checkbox props</h3>
+    <h3>API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -44,24 +44,15 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>Checkbox events </h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
           <td>在选项状态发生改变时触发，返回当前状态</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
     </div>
-    <h3>CheckboxGroup props</h3>
+    <h3>CheckboxGroup API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -76,19 +67,10 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>CheckboxGroup events </h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
           <td>在选项状态发生改变时触发，返回当前选中的项</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>

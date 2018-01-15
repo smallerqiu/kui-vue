@@ -1,13 +1,13 @@
 <template>
   <div class="">
     <h2>Table 表格</h2>
-    <p>注意：非 template/render 模式下，需使用 k-table。</p>
+    <Alert>注意：非 template/render 模式下，需使用 k-table。</Alert>
     <h3>基础／组件嵌套</h3>
-    <!-- <Button @click="test">tetew</Button>
-    <Button @click="test1">tetew</Button> -->
-    <Table :data="data" :columns="col" :onselection="test2"></Table>
+    <!-- <Button @click="test">tetew</Button>-->
+    <Button @click="border=!border" type="primary">表格边框</Button>
+    <Table :data="data" :columns="col" :onselection="test2" :border="border"></Table>
     <Code>{{demo}}</Code>
-    <h3>Table props</h3>
+    <h3>Table API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -17,16 +17,22 @@
           <th>默认值</th>
         </tr>
         <tr>
+          <td>border</td>
+          <td>是否显示边框</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>data</td>
           <td>显示的结构化数据</td>
           <td>Array</td>
-          <td>[]</td>
+          <td>[ ]</td>
         </tr>
         <tr>
           <td>columns</td>
           <td>表格列的配置描述，</td>
           <td>Array</td>
-          <td>[]</td>
+          <td>[ ]</td>
         </tr>
         <tr>
           <td>noDataText</td>
@@ -34,24 +40,15 @@
           <td>String </td>
           <td>暂无数据</td>
         </tr>
-      </table>
-    </div>
-    <h3>Table events</h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>onselection</td>
-          <td>多选或单选触发</td>
-          <td>多选：返回当前所有已经选择的项<br>单选：返回所有勾选和 当前选择单项 </td>
+          <td>多选或单选触发，多选：返回当前所有已经选择的项<br>单选：返回所有勾选和 当前选择单项 </td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>
-    <h3>Column</h3>
+    <h3>Column API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -69,6 +66,12 @@
         <tr>
           <td>title</td>
           <td>列头显示文字</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>textAlign</td>
+          <td>列文字对其方式 ，可选值left，center，right</td>
           <td>String</td>
           <td>-</td>
         </tr>
@@ -98,6 +101,7 @@
 export default {
   data() {
     return {
+      border: false,
       demo: `<Table :data="data" :columns="col"></Table>
 <script>
 export default {
@@ -112,7 +116,7 @@ export default {
       col: [
         { type: "selection" },
         { title: "姓名", key: "nick" },
-        { title: "性别", key: "gender" },
+        { title: "性别", key: "gender" ,textAlign:'right'},
         {
           title: "出生年月",
           key: "birthday",
@@ -158,15 +162,15 @@ export default {
 <\/script>
       `,
       data: [
-        { nick: "毛毛", gender: "男", birthday: "", action: "" },
-        { nick: "高总", gender: "男", birthday: "", action: "" },
-        { nick: "娟娟", gender: "男", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "男", birthday: "", action: "" }
+        { nick: "毛毛", gender: "右对其", birthday: "", action: "" },
+        { nick: "高总", gender: "右对其", birthday: "", action: "" },
+        { nick: "娟娟", gender: "右对其", birthday: "", action: "" },
+        { nick: "鱼雷", gender: "右对其", birthday: "", action: "" }
       ],
       col: [
         { type: "selection" },
         { title: "姓名", key: "nick" },
-        { title: "性别", key: "gender" },
+        { title: "文字对其", key: "gender",textAlign:'right' },
         {
           title: "出生年月",
           key: "birthday",

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Select 选择器</h2>
-    <p>注意：非 template/render 模式下，需使用 k-select</p>
+    <Alert>注意：非 template/render 模式下，需使用 k-select</Alert>
     <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
     <h3>基础 </h3>
     <Select :width="200" v-model="v1">
@@ -19,7 +19,7 @@
       <Option v-for="(x,y) in data3" :key="y" :value="x.value" :label="x.label" :disabled="x.disabled"></Option>
     </Select>
     <Code lang="xml html">{{demo3}}</Code>
-    <h3>Select props</h3>
+    <h3>Select API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -58,24 +58,15 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-      </table>
-    </div>
-    <h3>Select events </h3>
-    <div class="table-border">
-      <table>
-        <tr>
-          <th>事件名</th>
-          <th>说明</th>
-          <th>返回值</th>
-        </tr>
         <tr>
           <td>change</td>
-          <td>在选项状态发生改变时触发，返回选择项</td>
-          <td>{value:xx,label:xx}</td>
+          <td>在选项状态发生改变时触发，返回选择项{value:xx,label:xx}</td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>
-    <h3>Option props</h3>
+    <h3>Option API</h3>
     <div class="table-border">
       <table>
         <tr>

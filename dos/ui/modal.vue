@@ -19,7 +19,11 @@
       </div>
     </Modal>
     <Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>
-    <h3>Modal props</h3>
+    <h3>可拖动</h3>
+    <Button @click="d5=!d5">普通对话框</Button>
+    <Modal v-model="d5" isMove>我可以拖动的</Modal>
+    <Code lang="xml html">{{demo3}}</Code>
+    <h3>API</h3>
     <div class="table-border">
       <table>
         <tr>
@@ -58,29 +62,28 @@
           <td>String</td>
           <td>取消</td>
         </tr>
-      </table>
-    </div>
-    <h3>Modal events</h3>
-    <div class="table-border">
-      <table>
         <tr>
-          <th>名称</th>
-          <th>说明</th>
-          <th>返回值</th>
+          <td>isMove</td>
+          <td>弹框是否可拖动</td>
+          <td>Boolean</td>
+          <td>false</td>
         </tr>
         <tr>
           <td>ok</td>
           <td>点击确定的回调</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
         <tr>
           <td>cancel</td>
           <td>点击取消的回调</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
         <tr>
           <td>close</td>
           <td>窗口关闭的回调</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
@@ -95,7 +98,8 @@ export default {
       d2: false,
       d3: false,
       d4: false,
-      demo1:`<Modal v-model="d1"></Modal>`,
+      d5: false,
+      demo1: `<Modal v-model="d1"></Modal>`,
       demo: `<Button @click="d2=!d2">自定义宽度</Button>
 <Button @click="d3=!d3">内容和页脚</Button>
 <Button @click="d4=!d4">按钮文字</Button>
@@ -107,7 +111,8 @@ export default {
       <Button type="success">自定义2</Button>
    </div>
 </Modal>
-<Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>`
+<Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>`,
+      demo3: `<Modal v-model="d5" isMove>我可以拖动的</Modal>`
     };
   }
 };

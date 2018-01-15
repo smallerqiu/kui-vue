@@ -29,7 +29,7 @@ module.exports = merge(webpackBaseConfig, {
                     loader: 'vue-loader',
                     options: {
                         loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
-                        postLoaders: { html: 'babel-loader' }
+                        // postLoaders: { html: 'babel-loader' }
                     }
                 },
                 { loader: 'kui-loader', options: { prefix: false } }

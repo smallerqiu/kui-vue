@@ -22,7 +22,7 @@
          <TimeLineItem>发布1.0版本</TimeLineItem>
       </TimeLine>
       <Code lang="xml html">{{demo3}}</Code>
-      <h3>TimeLineItem props</h3>
+      <h3>API</h3>
       <div class="table-border">
          <table>
             <tr>

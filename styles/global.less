@@ -7,38 +7,55 @@
 @warning: #ffac13;
 @gray: #909399;
 @purple: #c13aff;
-
-
 @radius: ~'0px';
+
 //下拉动画
-@keyframes dropdown-in {
-   0% {
-      opacity: 0;
-      transform: scaleY(.8)
-   }
-   to {
-      opacity: 1;
-      transform: scaleY(1)
-   }
+@keyframes dropDownIn {
+   0% { opacity: 0; transform: scaleY(.8) }
+   to { opacity: 1; transform: scaleY(1) }
 }
 
-@keyframes dropdown-out {
-   0% {
-      opacity: 1;
-      transform: scaleY(1)
-   }
-   to {
-      opacity: 0;
-      transform: scaleY(.8)
-   }
+@keyframes dropDownOut {
+   0% { opacity: 1; transform: scaleY(1) }
+   to { opacity: 0; transform: scaleY(.8) }
 }
 
-.dropdown-enter-active {
-   transform-origin: 0 0;
-   animation: dropdown-in .2s cubic-bezier(.23, 1, .32, 1)
+@keyframes fadeInDown {
+   from { opacity: 0; transform: translate3d(0, -100%, 0); }
+   to { opacity: 1; transform: none; }
 }
+@keyframes fadeOutUp {
+  from { opacity: 1;  }
+  to { opacity: 0; transform: translate3d(0, -100%, 0);  }
+  // 0% {
+  //   opacity: 1;
+  //   margin-bottom: 16px;
+  //   padding-top: 16px 24px;
+  //   padding-bottom: 16px 24px;
+  //   max-height: 150px;
+  // }
+  // 100% {
+  //   opacity: 0;
+  //   margin-bottom: 0;
+  //   padding-top: 0;
+  //   padding-bottom: 0;
+  //   max-height: 0;
+  // }
+ }
+ @keyframes fadeInLeft {
+  from { opacity: 0; transform: translate3d(100%, 0, 0);  }
+  to { opacity: 1; transform: none;  }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translate3d(-100%, 0, 0);  }
+  to { opacity: 1; transform: none;  }
+}
+.fadeleft-enter-active { animation: fadeInLeft .3s cubic-bezier(.23, 1, .32, 1);}
+.fadeleft-leave-active { animation: fadeOutUp .3s cubic-bezier(.23, 1, .32, 1); }
 
-.dropdown-leave-active {
-   transform-origin: 0 0;
-   animation: dropdown-out .2s cubic-bezier(.755, .05, .855, .06)
-}
+
+.fadedown-enter-active { animation: fadeInDown .3s cubic-bezier(.23, 1, .32, 1);}
+.fadedown-leave-active { animation: fadeOutUp .3s cubic-bezier(.23, 1, .32, 1); }
+
+.dropdown-enter-active { transform-origin: 0 0; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
+.dropdown-leave-active { transform-origin: 0 0; animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}

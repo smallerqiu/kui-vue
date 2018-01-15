@@ -58,8 +58,8 @@
       position: relative;
       outline: 0;
       top: 100px;
-      width: 520;
-      animation: modal .3s ease-in-out;
+      width: 520px;
+      animation: fadeInDown .3s ease-in-out;
    }
    .modal-content {
       border-radius: @radius;
@@ -81,6 +81,7 @@
          border-bottom: 1px solid #e9eaec;
          padding: 14px 16px;
          line-height: 1;
+         user-select: none;
       }
       .modal-body {
          padding: 16px;
@@ -102,7 +103,7 @@
    .modal.closed {
       top: 0px;
       opacity: 0;
-      animation: modal_out .3s ease-in-out;
+      animation: fadeOutUp .3s ease-in-out;
    }
 }
 
