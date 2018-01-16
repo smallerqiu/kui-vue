@@ -81,9 +81,7 @@ export default {
       return this.dates.length === 2;
     }
     /* local() {
-      // console.log(this.lg)
       let x =  require(`./lang/${this.lang}.js`);
-      console.log(x)
     } */
     /*  text() {
       const val = this.value;
@@ -108,12 +106,9 @@ export default {
     show(v) {
       if (v) {
         //获取元素的位置
-        // console.log(this.$refs.colorBox.style)
         let obj = this.$refs.kInput;
         var pos = utils.getElementPos(obj);
         let cal = this.$refs.kCalendar;
-        // console.log(cal);
-        // console.log(y, document.body.clientHeight)
         if (pos.x > document.body.clientWidth - 215) {
           cal.style.right = "0";
         }
@@ -123,7 +118,6 @@ export default {
       }
     },
     value(val) {
-      // console.log(Array.isArray(val),val.join(this.rangeSeparator))
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
       this.text = d;
       this.change(this.text);

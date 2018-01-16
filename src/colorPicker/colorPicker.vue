@@ -118,10 +118,8 @@ export default {
     isOpen(v) {
       if (v) {
         //获取元素的位置
-        // console.log(this.$refs.colorBox.style)
         let obj = this.$refs.colorBtn;
         var pos = utils.getElementPos(obj);
-        // console.log(y, document.body.clientHeight)
         if (pos.x > document.body.clientWidth - 215) {
           this.$refs.colorBox.style.left = "-161px";
         }
