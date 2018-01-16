@@ -46,7 +46,6 @@ export default {
       if (!data.checked && i >= 0) {
         m.splice(i, 1);
       }
-      // console.log(m)
       this.updateModel(m);
     }
   }

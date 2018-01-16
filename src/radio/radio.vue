@@ -59,7 +59,6 @@ export default {
       const checked = event.target.checked;
       this.checked = checked;
       this.$emit("input", checked);
-      // console.log("change", checked);
 
       if (this.group && this.label !== undefined) {
         this.parent.change({

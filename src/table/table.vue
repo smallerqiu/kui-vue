@@ -98,7 +98,6 @@ export default {
 
   methods: {
     tdStyle(align) {
-      console.log(align)
       let obj = {};
       if (align) obj["text-align"] = "right";
       return obj;

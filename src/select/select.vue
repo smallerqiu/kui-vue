@@ -94,7 +94,7 @@ export default {
       this.isdrop = this.$el.contains(e.target) && !this.disabled;
     },
     clear() {
-      !this.isNotEmpty(this.value) && (this.label = "");
+      this.label = ""
       this.children.map(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});
@@ -108,7 +108,6 @@ export default {
       this.dropdownWith = this.$refs.select.offsetWidth;
     },
     select(item) {
-      !this.isNotEmpty(this.value) && (this.label = item.label);
       this.$emit("change", item);
       this.$emit("input", item.value);
       this.children.map(child => {

@@ -36,14 +36,14 @@ module.exports = merge(webpackBaseConfig, {
             ]
          },]
    },
-   externals: {
+ /*   externals: {
       vue: {
          root: 'Vue',
          commonjs: 'vue',
          commonjs2: 'vue',
          amd: 'vue'
       }
-   },
+   }, */
    plugins: [
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
       new HtmlWebpackPlugin({
@@ -62,7 +62,7 @@ module.exports = merge(webpackBaseConfig, {
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new ExtractTextPlugin("css/doc.css"),
-      new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false } }),
+      new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false,drop_debugger: true, drop_console: true } }),
       // new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
       // 允许错误不打断程序
       // new webpack.NoErrorsPlugin(),
