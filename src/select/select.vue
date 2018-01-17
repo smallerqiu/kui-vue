@@ -28,6 +28,7 @@ export default {
     //     return [];
     //   }
     // },
+    mini: Boolean,
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
     clearable: { type: Boolean, default: false },
@@ -35,7 +36,7 @@ export default {
   },
   watch: {
     value(val) {
-      this.updateSelect()
+      this.updateSelect();
     },
     childs() {
       this.children = this.children = utils.findChilds(this, "Option");
@@ -67,7 +68,8 @@ export default {
         "k-select",
         {
           ["k-select-disabled"]: this.disabled,
-          ["k-select-open"]: this.isdrop
+          ["k-select-open"]: this.isdrop,
+          ["k-select-mini"]: this.mini
         }
       ];
     },
@@ -80,10 +82,10 @@ export default {
   },
   methods: {
     updateSelect() {
-      if(!this.isNotEmpty(this.value)){
-        this.label = ''
-        this.children.map(child => child.selected = false)
-        return false
+      if (!this.isNotEmpty(this.value)) {
+        this.label = "";
+        this.children.map(child => (child.selected = false));
+        return false;
       }
       this.children.map(child => {
         if (this.isNotEmpty(this.value) && this.value == child.value) {

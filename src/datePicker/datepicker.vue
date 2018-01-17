@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">
+  <div :class="classes"  :style="styles">
     <input readonly :value="text" :class="inputClass" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
     <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
     <transition name="dropdown">
@@ -24,6 +24,8 @@ export default {
     Calendar: calendar
   },
   props: {
+    width: [String, Number],
+    mini: Boolean,
     name: [String],
     popupClass: [String],
     value: [Date, Array, String],
@@ -56,13 +58,16 @@ export default {
     };
   },
   computed: {
+    styles(){
+      return this.width > 0 ? { width: `${this.width}px` } : {};
+    },
     classes() {
       return [
         "k-datepicker",
         {
           ["k-datepicker-range"]: this.rangeSeparator,
-          ["k-datepicker-clearable"]:
-            this.clearable && !this.disabled
+          ["k-datepicker-clearable"]: this.clearable && !this.disabled,
+          ["k-datepicker-mini"]: this.mini
         }
       ];
     },
@@ -138,7 +143,7 @@ export default {
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
     cls() {
-      this.setText()
+      this.setText();
       this.$emit("input", this.range ? [] : "");
     },
     vi(val) {

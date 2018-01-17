@@ -170,7 +170,7 @@ export default {
       col: [
         { type: "selection" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender",textAlign:'right' },
+        { title: "文字对其", key: "gender", textAlign: "right" },
         {
           title: "出生年月",
           key: "birthday",
@@ -180,6 +180,8 @@ export default {
               {
                 props: {
                   value: this.d,
+                  mini: true,
+                  width:120,
                   lang: "en",
                   change: v => {
                     console.log("回调", v);

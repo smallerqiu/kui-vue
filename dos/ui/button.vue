@@ -96,7 +96,7 @@
         </tr>
         <tr>
           <td>mini</td>
-          <td>按钮大小</td>
+          <td>按钮尺寸大小</td>
           <td>Boolean </td>
           <td>false</td>
         </tr>

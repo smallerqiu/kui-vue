@@ -2,6 +2,14 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem>
+        <h3>1.0.38
+          <span> 2018-1-17 </span>
+        </h3>
+        <p>新增Select,DatePicker,mini属性，可以使用小尺寸</p>
+        <p>新增DatePicker width 属性，可以自定义宽度</p>
+        <p>完善文档说明</p>
+      </TimeLineItem>
       <TimeLineItem  Icon="bug" Color="red">
         <h3>1.0.37
           <span> 2018-1-17 </span>
