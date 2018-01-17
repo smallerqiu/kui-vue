@@ -7,6 +7,8 @@
     <Select :width="200" v-model="v1">
       <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
     </Select>
+    <Button @click="v1=''">清除</Button>
+    <Button @click="v1='1'">选中橘子</Button>
     <Code lang="xml html">{{demo1}}</Code>
     <h3>可清除</h3>
     <Select :width="200" clearable>

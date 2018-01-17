@@ -1,9 +1,17 @@
 <template>
   <div class="demo-logs">
     <h2>更新日志</h2>
-    <Alert type="warning" showIcon>手头事太多了，近段时间暂时停止更新...</Alert>
     <TimeLine>
-       <TimeLineItem Icon="ios-cloud-upload">
+      <TimeLineItem  Icon="bug" Color="red">
+        <h3>1.0.37
+          <span> 2018-1-17 </span>
+        </h3>
+        <p>修复Select组件无法赋值的问题</p>
+        <p>修复Input组件默认参数定义出错的问题</p>
+        <p>清理Table组件打印字符</p>
+        <p>完善文档说明</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="ios-cloud-upload">
         <h3>1.0.36
           <span> 2018-1-15 </span>
         </h3>

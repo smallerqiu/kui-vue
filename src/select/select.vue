@@ -34,6 +34,9 @@ export default {
     disabled: { type: Boolean, default: false }
   },
   watch: {
+    value(val) {
+      this.updateSelect()
+    },
     childs() {
       this.children = this.children = utils.findChilds(this, "Option");
     }
@@ -77,6 +80,11 @@ export default {
   },
   methods: {
     updateSelect() {
+      if(!this.isNotEmpty(this.value)){
+        this.label = ''
+        this.children.map(child => child.selected = false)
+        return false
+      }
       this.children.map(child => {
         if (this.isNotEmpty(this.value) && this.value == child.value) {
           child.selected = true;
@@ -94,7 +102,7 @@ export default {
       this.isdrop = this.$el.contains(e.target) && !this.disabled;
     },
     clear() {
-      this.label = ""
+      this.label = "";
       this.children.map(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});

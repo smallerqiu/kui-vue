@@ -16,6 +16,8 @@
       <Checkbox label="葡萄🍇" disabled></Checkbox>
       <Checkbox label="梨子🍐" disabled></Checkbox>
     </CheckboxGroup>
+    <Button @click="g=[]">清除</Button>
+    <Button @click="g=['苹果🍎']">选中苹果</Button>
     <Code>{{demo}}</Code>
     <h3>API</h3>
     <div class="table-border">
@@ -82,8 +84,8 @@ export default {
   data() {
     return {
       d: true,
-      g: ["苹果🍎", "香蕉🍌",'葡萄🍇'],
-      demo1:`<Checkbox v-model="d">单选框 </Checkbox>`,
+      g: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
+      demo1: `<Checkbox v-model="d">单选框 </Checkbox>`,
       demo: `<CheckboxGroup v-model="g">
       <Checkbox label="苹果🍎"></Checkbox>
       <Checkbox label="橘子🍊"></Checkbox>
