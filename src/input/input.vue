@@ -13,6 +13,9 @@
 export default {
   name: "Input",
   props: {
+    autofocus: [Boolean, String, Number],
+    spellcheck: Boolean,
+    elementId: String,
     mini: { type: Boolean, default: false },
     type: {
       validator(value) {

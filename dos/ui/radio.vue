@@ -5,6 +5,7 @@
     <p>单独使用可使用v-model双向绑定数据</p>
     <p>{{m}}</p>
     <Radio v-model="m" @change="test">测试</Radio>
+    <Button @click="m=!m">Click me</Button>
     <Code lang="xml html">{{demo1}}</Code>
     <h3>禁用</h3>
     <Radio label="葡萄🍇" disabled v-model="m1"></Radio>
@@ -20,6 +21,8 @@
       <Radio label="葡萄🍇"></Radio>
       <Radio label="梨子🍐" disabled></Radio>
     </RadioGroup>
+    <Button @click="d=''">清除</Button>
+    <Button @click="d='苹果🍎'">选中苹果</Button>
     <Code lang="xml html">{{demo3}}</Code>
     <h3>Radio API</h3>
     <div class="table-border">
@@ -97,7 +100,7 @@ export default {
   <Radio label="橘子🍊"></Radio>
   <Radio label="香蕉🍌"></Radio>
   <Radio label="栗子🌰"></Radio>
-  <Radio label="葡萄🍇" disabled></Radio>
+  <Radio label="葡萄🍇" ></Radio>
   <Radio label="梨子🍐" disabled></Radio>
 </RadioGroup>
 <script>
