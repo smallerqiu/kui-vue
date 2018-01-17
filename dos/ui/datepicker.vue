@@ -9,6 +9,10 @@
     <h3>可清除</h3>
     <DatePicker clearable></DatePicker>
     <Code lang="xml html">{{demo5}}</Code>
+    <h3>尺寸</h3>
+    <DatePicker></DatePicker>
+    <DatePicker mini></DatePicker>
+    <Code lang="xml html">{{mini}}</Code>
     <h3>日期单位</h3>
     <Row gutter="10">
       <Col span="8">
@@ -75,6 +79,12 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>mini</td>
+          <td>组件尺寸大小</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>rangeSeparator</td>
           <td>日期区间间隔符</td>
           <td>String</td>
@@ -126,6 +136,8 @@ export default {
     return {
       d: "",
       d2: [],
+      mini: `<DatePicker ></DatePicker>
+<DatePicker mini></DatePicker>`,
       demo1: `<DatePicker></DatePicker>`,
       demo2: `//年
 <DatePicker format="YYYY"></DatePicker>

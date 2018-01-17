@@ -10,6 +10,14 @@
     <Button @click="v1=''">清除</Button>
     <Button @click="v1='1'">选中橘子</Button>
     <Code lang="xml html">{{demo1}}</Code>
+    <h3>尺寸</h3>
+    <Select :width="200" v-model="v1">
+      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
+    </Select>
+    <Select :width="200" v-model="v1" mini>
+      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
+    </Select>
+    <Code lang="xml html">{{mini}}</Code>
     <h3>可清除</h3>
     <Select :width="200" clearable>
       <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
@@ -90,6 +98,12 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>mini</td>
+          <td>组件尺寸大小</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>disabled</td>
           <td>是否禁用当前项</td>
           <td>Boolean</td>
@@ -122,6 +136,12 @@ export default {
         { label: "栗子🌰", value: 3 },
         { label: "葡萄🍇", value: 4 }
       ],
+      mini: `<Select :width="200" v-model="v1">
+  <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
+</Select>
+<Select :width="200" v-model="v1" mini>
+  <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
+</Select>`,
       demo1: `<Select :width="200" v-model="v1">
   <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
 </Select>

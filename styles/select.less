@@ -99,7 +99,7 @@
             background: @main;
          }
       }
-      .k-select-item-disabled{
+      .k-select-item-disabled {
          background: #f5f5f5;
          color: #b2b2b2;
       }
@@ -134,6 +134,31 @@
             color: #555;
          }
       }
+   }
+}
+
+.k-select-mini {
+   .k-select-selection {
+      height: 25px;
+   }
+   .k-select-placeholder {
+      height: 25px;
+      line-height: 25px;
+   }
+   .k-select-arrow {
+      line-height: 25px;
+      height: 25px;
+      &::after {
+         line-height: 25px;
+         height: 25px;
+      }
+   }
+   .k-select-label {
+      line-height: 25px;
+      height: 25px;
+   }
+   .k-select-clearable{
+      top: 4px;
    }
 }
 
