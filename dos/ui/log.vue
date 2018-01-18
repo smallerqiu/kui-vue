@@ -2,6 +2,12 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem Icon="ios-cloud-upload">
+        <h3>1.0.39
+          <span> 2018-1-18 </span>
+        </h3>
+        <p>新增Upload组件</p>
+      </TimeLineItem>
       <TimeLineItem>
         <h3>1.0.38
           <span> 2018-1-17 </span>

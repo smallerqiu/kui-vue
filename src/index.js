@@ -15,6 +15,7 @@ import { Form, FormItem } from './form'
 import { TimeLine, TimeLineItem } from './timeline'
 import ColorPicker from './colorPicker'
 import Icon from './icon'
+import Upload from './upload'
 const pkg = require('../package.json');
 
 import '../styles';
@@ -35,7 +36,7 @@ const components = {
     RadioGroup,
     Modal,
     Toast,
-    Row, Col,
+    Row, Col,Upload,
     Icon, TimeLine, TimeLineItem
 }
 const UI = {
