@@ -73,7 +73,8 @@ export default {
             { title: "对话框", sub: "Modal", link: "/modal",icon:'ios-browsers' },
             { title: "颜色", sub: "ColorPicker", link: "/colorpicker",icon:'android-color-palette' },
             { title: "时间轴", sub: "TimeLine", link: "/timeline",icon:'ios-time' },
-            { title: "表单", sub: "Form", link: "/form",icon:'ios-list' }
+            { title: "表单", sub: "Form", link: "/form",icon:'ios-list' },
+            { title: "上传", sub: "Upload", link: "/upload",icon:'ios-cloud-upload' }
           ]
         },
         {
