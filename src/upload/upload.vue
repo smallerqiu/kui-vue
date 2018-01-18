@@ -65,10 +65,7 @@ export default {
       this.$refs["k-upload-form"].submit();
     },
     complite: function(fm) {
-      this.select = false;
       let doc = fm.contentWindow || fm.contentDocument;
-      this.$refs["k-upload-file"].value = "";
-      this.file = null;
       try {
         if (doc.document) {
           doc = doc.document;
@@ -76,6 +73,9 @@ export default {
           if (content) {
             let data = JSON.parse(content);
             this.$emit("complite", data);
+            this.$refs["k-upload-file"].value = "";
+            this.select = false;
+            this.file = null;
           }
         }
       } catch (e) {
