@@ -9,7 +9,7 @@
     <h3>主题</h3>
     <Switch v-model="m2"></Switch>&nbsp;&nbsp;
     <Switch v-model="m2" type="success"></Switch>&nbsp;&nbsp;
-    <Switch v-model="m2" type="primary"></Switch>&nbsp;&nbsp;
+    <Switch v-model="m2" type="danger"></Switch>&nbsp;&nbsp;
     <Switch v-model="m2" type="warning"></Switch>&nbsp;&nbsp;
     <Code lang="xml html">{{demo2}}</Code>
     <h3>文字</h3>
@@ -81,7 +81,7 @@ export default {
       demo1: `<\Switch v-model="m"><\/Switch>`,
       demo2: `<\Switch v-model="m2"><\/Switch>
 <\Switch v-model="m2" type="success"><\/Switch>
-<\Switch v-model="m2" type="primary"><\/Switch>
+<\Switch v-model="m2" type="danger"><\/Switch>
 <\Switch v-model="m2" type="warning"><\/Switch>`,
       demo3: `<\Switch v-model="m3" true-text="是" false-text="否"><\/Switch>`,
       demo4: `<\Switch v-model="d1" disabled><\/Switch>

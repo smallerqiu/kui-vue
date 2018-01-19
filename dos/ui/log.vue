@@ -2,6 +2,13 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem Icon="bug" Color="res">
+        <h3>1.0.40
+          <span> 2018-1-19 </span>
+        </h3>
+        <p>修复DataPicker时间选择完整性</p>
+        <p>修复完善文档多处文字错误</p>
+      </TimeLineItem>
       <TimeLineItem Icon="ios-cloud-upload">
         <h3>1.0.39
           <span> 2018-1-18 </span>

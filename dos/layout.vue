@@ -44,8 +44,8 @@ export default {
         {
           title: "开始",
           child: [
-            { title: "KUI for React",link:'waiting'},
-            { title: "KUI for Angular",link:'waiting'},
+            { title: "KUI for React",link:'/react-kui'},
+            { title: "KUI for Angular",link:'/angular-kui'},
             { title: "安装", link: "/install" },
             { title: "快速上手", link: "/start" },
             { title: "更新日志", link: "/log" },

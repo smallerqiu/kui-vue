@@ -5,21 +5,17 @@
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-
-
    &+.k-calendar {
       border-left: solid 1px #eaeaea;
       margin-left: 5px;
       padding-left: 5px;
    }
-
    .k-calendar-head {
       line-height: 34px;
       height: 34px;
       text-align: center;
       position: relative;
    }
-
    .k-calendar-head span {
       color: #666;
       font-weight: bold;
@@ -30,44 +26,35 @@
       padding: 0 5px;
       font-size: 16px;
    }
-
    .k-calendar-head span:hover {
       color: @main;
    }
-
    .k-calendar-head .k-calendar-year-select, .k-calendar-head .k-calendar-month-select {
       font-size: 12px;
       padding: 0 2px;
       position: relative;
    }
-
    .k-calendar-prev-decade-btn, .k-calendar-prev-year-btn {
       left: 6px;
    }
-
    .k-calendar-prev-month-btn {
       left: 24px;
    }
-
    .k-calendar-next-decade-btn, .k-calendar-next-year-btn {
       right: 6px;
    }
-
    .k-calendar-next-month-btn {
       right: 24px;
    }
-
    .k-calendar-body {
       position: relative;
       width: 196px;
       height: 196px;
    }
-
    .k-calendar-days {
       width: 100%;
       height: 100%;
    }
-
    .k-calendar-week, .k-calendar-date {
       font-weight: normal;
       width: 14.28%;
@@ -78,61 +65,50 @@
       overflow: hidden;
       float: left;
    }
-
    .k-calendar-week:before, .k-calendar-date:before {
       content: "";
       display: inline-block;
       height: 100%;
       vertical-align: middle;
    }
-
    .k-calendar-date {
       cursor: pointer;
-      color:#999;
+      color: #999;
       border-radius: @radius;
    }
-
    .k-calendar-date-out {
       color: #ccc;
    }
-
    .k-calendar-date:hover, .k-calendar-date-on {
-      background: fade(@main,30%);
+      background: fade(@main, 30%);
    }
-
    .k-calendar-date-selected, .k-calendar-date-selected:hover {
       color: #fff;
       font-weight: bold;
       background: @main;
       border-radius: @radius;
    }
-
    .k-calendar-date-disabled {
       cursor: not-allowed !important;
       color: #bcbcbc !important;
       background: #f3f3f3 !important;
    }
-
    .k-calendar-foot {
       margin-top: 5px;
    }
-
    .k-calendar-hour {
       display: inline-block;
       border: 1px solid #e6e5e5;
       color: #9e9e9e;
    }
-
-   .k-calendar-hour  span {
+   .k-calendar-hour span {
       display: inline-block;
       padding: 2px 4px;
       cursor: pointer;
    }
-
    .k-calendar-hour a:hover, .k-calendar-hour a.on {
       color: @main;
    }
-
    .k-calendar-years, .k-calendar-months, .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
       width: 100%;
       height: 100%;
@@ -141,27 +117,28 @@
       left: 0;
       top: 0;
    }
-
-   .k-calendar-months  span {
+   .k-calendar-months span {
       width: 33.33%;
       height: 25%;
    }
-
-   .k-calendar-years  span {
+   .k-calendar-years span {
       width: 33.33%;
       height: 25%;
    }
-
-   .k-calendar-hours  span {
+   .k-calendar-hours span {
       width: 20%;
       height: 20%;
    }
-
-   .k-calendar-minutes a, .k-calendar-seconds  span {
+   .k-calendar-minutes a, .k-calendar-seconds span {
       width: 16.66%;
       height: 10%;
+      line-height: 1.5;
    }
-
+   .k-calendar-minutes .k-calendar-date {
+      height: 10%;
+      line-height: 1.5;
+      width: 16.6%;
+   }
    .k-calendar-title {
       margin-top: -30px;
       height: 30px;
