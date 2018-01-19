@@ -10,12 +10,18 @@
     <p>Table: k-table</p>
     <p>Button: k-button</p>
     <p>Input: k-input</p>
-    <p>Switch: k-button</p>
+    <p>Switch: k-switch</p>
     <p>Select: k-select</p>
     <p>Option: k-option</p>
     <p>Col: k-col</p>
     <p>以下组件，在非 template/render 模式下，组件名要分隔</p>
-    <p>datePicker: date-picker</p>
+    <p>ButtonGroup: button-group</p>
+    <p>CheckboxGroup: checkbox-group</p>
+    <p>FormItem: form-item</p>
+    <p>DatePicker: date-picker</p>
+    <p>ColorPicker: color-picker</p>
+    <p>TimeLine: time-line</p>
+    <p>TimeLineItem: time-line-item</p>
 
   </div>
 </template>
