@@ -1,6 +1,6 @@
 <template>
   <div :class="classes"  :style="styles">
-    <input readonly :value="text" :class="inputClass" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
+    <input readonly :value="text" :class="inputClass" @click="toggleShow" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
     <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
     <transition name="dropdown">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="show" ref="kCalendar">
@@ -137,6 +137,9 @@ export default {
     }
   },
   methods: {
+    toggleShow(){
+      this.show =!this.show &&!this.disabled
+    },
     setText() {
       let date = this.dates.map(date => this.tf(date));
       let txt = date.join(` ${this.rangeSeparator} `);

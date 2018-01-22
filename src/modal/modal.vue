@@ -5,7 +5,7 @@
     </transition>
     <transition name="fadeease">
       <div class="k-modal-wrap" v-show="visible" @click="hide">
-        <div class="modal" ref="modal" @click.stop="()=>{}" :style="styles">
+        <div class="modal" ref="modal" @click="stop" :style="styles">
           <div class="k-modal-content">
             <a class="k-modal-close" @click="hide">&times;</a>
             <div class="k-modal-header" :style="headerStyle" @mousedown="mdown($event)" v-if="type=='modal'">
@@ -104,6 +104,10 @@ export default {
     }
   },
   methods: {
+    stop(e){
+      console.log(e)
+      e.cancelBubble = true
+    },
     getColor() {
       return this.color ? { color: this.color } : {};
     },

@@ -1,5 +1,5 @@
 <template>
-  <li :class="itemClasses" @click="select">
+  <li :class="itemClasses" @click.stop="select">
     <slot>{{label}}</slot>
   </li>
 </template>
