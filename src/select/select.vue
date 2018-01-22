@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="selectStyles">
-    <div class="k-select-selection" @click.stop="toggleDrop" ref="select">
+    <div class="k-select-selection" @click="toggleDrop" ref="select">
       <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span>
       <span class="k-select-label" v-if="label">{{label}}</span>
       <span class="k-select-arrow"></span>
@@ -10,7 +10,7 @@
       <div class="k-select-dropdown" v-show="isdrop" :style="dropdownStyles">
         <ul>
           <slot></slot>
-          <li class="k-select-item" v-if="children.length==0">暂无数据...</li>
+          <li class="k-select-item" v-if="children.length==0" @click.stop="()=>{}">暂无数据...</li>
         </ul>
       </div>
     </transition>
@@ -130,7 +130,16 @@ export default {
         }
       });
       setTimeout(() => (this.isdrop = !this.isdrop));
+    },
+    dc(e) {
+      this.isdrop = this.$el.contains(e.target) && !this.disabled;
     }
+  },
+  mounted() {
+    document.addEventListener("click", this.dc);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.dc);
   }
 };
 </script>

@@ -3,7 +3,9 @@
     <h2>Modal 对话框</h2>
     <h3>基础 </h3>
     <Button @click="d1=!d1">普通对话框</Button>
-    <Code lang="xml html">{{demo1}}</Code>
+    <Code lang="xml html">{{demo1}}
+
+    </Code>
     <h3>自定义</h3>
     <Button @click="d2=!d2">自定义宽度</Button>&nbsp;
     <Button @click="d3=!d3">内容和页脚</Button>&nbsp;
@@ -84,7 +86,8 @@
         </tr>
         <tr>
           <td>icon</td>
-          <td>弹框的图标，type为toast可用 ，默认可选值为success，warning,error,info,也可以自定义，参照 <a href="#/icon">Icon</a>值 </td>
+          <td>弹框的图标，type为toast可用 ，默认可选值为success，warning,error,info,也可以自定义，参照
+            <a href="#/icon">Icon</a>值 </td>
           <td>String</td>
           <td>success</td>
         </tr>
@@ -170,6 +173,9 @@ export default {
     };
   },
   methods: {
+    test(){
+      alert('')
+    },
     show(type) {
       this.icon = type;
       this.d6 = !this.d6;

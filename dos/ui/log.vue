@@ -2,9 +2,17 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.43
+          <span> 2018-1-22 </span>
+        </h3>
+        <p>修复多个下拉组件显示隐藏的问题</p>
+        <p>修复Modal组件冒泡显示移除的问题</p>
+        <p>修复Message组件显示隐藏警告提示的问题</p>
+      </TimeLineItem>
       <TimeLineItem Icon="ios-cloud-upload" Color="orange">
         <h3>1.0.42
-          <span> 2018-1-19 </span>
+          <span> 2018-1-22 </span>
         </h3>
         <p>废弃一些组件</p>
         <p>新增Modal Toast模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。<a href="#/modal">#体验</a></p>
