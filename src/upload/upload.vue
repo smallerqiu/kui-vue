@@ -46,10 +46,10 @@ export default {
       setTimeout(() => {
         const fm = this.$refs["k-upload-iframe"];
         fm.attachEvent
-          ? fm.attachEvent("onload", () => this.complite(fm))
-          : (fm.onload = () => this.complite(fm));
+          ? fm.attachEvent("onload", (e) => this.complite(fm,e))
+          : (fm.onload = (e) => this.complite(fm,e));
         this.$refs["k-upload-file"].click();
-      });
+      },300);
     },
     upload: function(e) {
       this.file = e.target.value;
@@ -64,7 +64,7 @@ export default {
       }
       this.$refs["k-upload-form"].submit();
     },
-    complite: function(fm) {
+    complite: function(fm,e) {
       let doc = fm.contentWindow || fm.contentDocument;
       try {
         if (doc.document) {
