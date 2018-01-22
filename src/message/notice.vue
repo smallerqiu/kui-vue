@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transitionName">
+  <transition :name="transitionName"  @enter="enter" @leave="leave">
     <div :class="classes" v-if="noticeType=='message'">
       <div class="k-message-notice-content">
         <i :class="icon"></i>
@@ -12,7 +12,7 @@
         <!-- <i :class="icon" v-if="type"></i> -->
         <div class="k-notice-title">{{title}}</div>
         <div class="k-notoce-desc" v-html="content"></div>
-        <a class="k-notice-close"  @click="close"></a>
+        <a class="k-notice-close" @click="close"></a>
       </div>
     </div>
   </transition>
@@ -52,11 +52,16 @@ export default {
         }
       ];
     }
+  },
+  methods: {
+    enter(e) {
+      e.style.height = e.scrollHeight-15 + "px";
+    },
+    leave(e) {
+      e.style.height = 0;
+      e.style.paddingTop = 0;
+      e.style.paddingBottom = 0;
+    }
   }
-  // methods:{
-  //   close(){
-  //     this.$emit('close')
-  //   }
-  // }
 };
 </script>

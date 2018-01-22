@@ -2,7 +2,7 @@
   <div>
     <h2>Select 选择器</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-select</Alert>
-    <p>由于没有太多考虑适用场景，简单粗暴的实现了基础功能。</p>
+    <p>由于没有太多考虑适用场景，只实现了基础功能。</p>
     <h3>基础 </h3>
     <Select :width="200" v-model="v1">
       <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>

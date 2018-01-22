@@ -9,9 +9,11 @@
    border: 1px solid #ddd;
    display: inline-block;
    vertical-align: middle;
-   transition: all .2s ease-in-out;
+   // transition: opacity .2s ease-in-out;
+   user-select: none;
    &:hover {
       opacity: .8;
+      zoom: 0%;
    }
    &:active {
       opacity: 1;
@@ -77,42 +79,42 @@
    // color: #409eff;
    // background: #ecf5ff;
    // border-color: #b3d8ff;
-   color: tint(@main,-10%);
-   background: tint(@main,90%);
-   border-color: tint(@main,70%);
+   color: tint(@main, -10%);
+   background: tint(@main, 90%);
+   border-color: tint(@main, 70%);
 }
 
 .k-button-success.is-hollow {
-   color: tint(@success,-10%);
-   background: tint(@success,90%);
-   border-color: tint(@success,70%);
+   color: tint(@success, -10%);
+   background: tint(@success, 90%);
+   border-color: tint(@success, 70%);
 }
 
 .k-button-gray.is-hollow {
    // color: #909399;
    // background: #f4f4f5;
    // border-color: #d3d4d6;
-   color: tint(@gray,-10%);
-   background: tint(@gray,90%);
-   border-color: tint(@gray,70%);
+   color: tint(@gray, -10%);
+   background: tint(@gray, 90%);
+   border-color: tint(@gray, 70%);
 }
 
 .k-button-warning.is-hollow {
    // color: #e6a23c;
    // background: #fdf6ec;
    // border-color: #f5dab1;
-   color: tint(@warning,-10%);
-   background: tint(@warning,90%);
-   border-color: tint(@warning,70%);
+   color: tint(@warning, -10%);
+   background: tint(@warning, 90%);
+   border-color: tint(@warning, 70%);
 }
 
 .k-button-danger.is-hollow {
    // color: #f56c6c;
    // background: #fef0f0;
    // border-color: #fbc4c4;
-   color: tint(@danger,-10%);
-   background: tint(@danger,90%);
-   border-color: tint(@danger,70%);
+   color: tint(@danger, -10%);
+   background: tint(@danger, 90%);
+   border-color: tint(@danger, 70%);
 }
 
 .k-btn-group {
@@ -124,7 +126,7 @@
       position: relative;
       margin-right: 0;
       float: left;
-      &:hover{
+      &:hover {
          border-color: @primary;
          color: @primary;
          opacity: 1;
