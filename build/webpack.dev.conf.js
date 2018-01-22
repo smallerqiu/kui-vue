@@ -12,33 +12,43 @@ const webpackBaseConfig = require('./webpack.base.conf.js');
 
 module.exports = merge(webpackBaseConfig, {
     entry: {
-        index: path.resolve(__dirname, '../dos/main.js'),
+        // index: [path.resolve(__dirname, '../dos/main.js')],
+        index: ['babel-polyfill', './dos/main.js'],
         vendors: ['vue', 'vue-router']
     },
     output: {
-        path: '/',
+        path: path.resolve(__dirname, '../dos-html'),
         filename: '[name].[hash].js',
         publicPath: '/',
         chunkFilename: '[id].[chunkhash].js'
     },
     module: {
-        rules: [
-            {
-                test: /\.vue$/,
-                use: [{
+        rules: [{
+            test: /\.vue$/,
+            use: [{
                     loader: 'vue-loader',
                     options: {
-                        loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
+                        loaders: {
+                            css: 'vue-style-loader!css-loader',
+                            less: 'vue-style-loader!css-loader!less-loader'
+                        },
                         // postLoaders: { html: 'babel-loader' }
                     }
                 },
-                { loader: 'kui-loader', options: { prefix: false } }
-                ]
-            },]
+                {
+                    loader: 'kui-loader',
+                    options: {
+                        prefix: false
+                    }
+                }
+            ]
+        }, ]
     },
     plugins: [
         // 位于开发环境下
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"development"'
+        }),
         // 自动生成html插件，如果创建多个HtmlWebpackPlugin的实例，就会生成多个页面
         new HtmlWebpackPlugin({
             // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
@@ -57,7 +67,11 @@ module.exports = merge(webpackBaseConfig, {
         new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin("css/[name].[contenthash].css"),
         // 提取入口文件里面的公共模块
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendors.js', path: 'js' }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            filename: 'vendors.js',
+            path: 'js'
+        }),
         // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         new webpack.optimize.OccurrenceOrderPlugin(),
         // 模块热替换插件
@@ -67,4 +81,4 @@ module.exports = merge(webpackBaseConfig, {
         new webpack.NoErrorsPlugin(),
         // new webpack.LoaderOptionsPlugin({ minimize: true }),
     ]
-}) 
+})
