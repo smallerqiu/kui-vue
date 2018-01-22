@@ -1,7 +1,7 @@
 <template>
-  <div :class='classes' @click="changeFile">
+  <div :class='classes' @click.stop="changeFile">
     <slot></slot>
-    <div class="k-upload-form" v-if="select">
+    <div class="k-upload-form">
       <iframe frameborder="0" :name="`k-upload-iframe-${span}`" style="display:none;" ref="k-upload-iframe"></iframe>
       <form :action="action" :method="method" enctype="multipart/form-data" style="display:none;" ref="k-upload-form" :target="`k-upload-iframe-${span}`">
         <input type="file" :name="name" :id="name" @change="upload($event)" ref="k-upload-file" />
@@ -34,22 +34,31 @@ export default {
   },
   data() {
     return {
-      select: false,
+      // select: false,
       file: null,
       span: Math.floor(Math.random() * 99999999)
     };
   },
+  mounted() {
+    const fm = this.$refs["k-upload-iframe"];
+    if (!fm) return;
+    if (fm.attachEvent) {
+      fm.attachEvent("onload", e => this.complite(fm, e));
+    } else {
+      fm.onload = e => this.complite(fm, e);
+    }
+  },
   methods: {
-    changeFile: function() {
+    changeFile: function(e) {
+      e.cancelBubble = true;
       if (this.disabled) return false;
-      this.select = true;
-      setTimeout(() => {
-        const fm = this.$refs["k-upload-iframe"];
-        fm.attachEvent
-          ? fm.attachEvent("onload", (e) => this.complite(fm,e))
-          : (fm.onload = (e) => this.complite(fm,e));
-        this.$refs["k-upload-file"].click();
-      },300);
+      // this.select = true;
+      // setTimeout(() => {
+
+      // this.$refs["k-upload-file"].click();
+      // }, 300);
+      this.$refs["k-upload-file"].click();
+      return false;
     },
     upload: function(e) {
       this.file = e.target.value;
@@ -64,7 +73,7 @@ export default {
       }
       this.$refs["k-upload-form"].submit();
     },
-    complite: function(fm,e) {
+    complite: function(fm, e) {
       let doc = fm.contentWindow || fm.contentDocument;
       try {
         if (doc.document) {
@@ -74,15 +83,13 @@ export default {
             let data = JSON.parse(content);
             this.$emit("complite", data);
             this.$refs["k-upload-file"].value = "";
-            this.select = false;
+            // this.select = false;
             this.file = null;
           }
         }
       } catch (e) {
         let msg =
-          e.message.indexOf("cross-origin") >= 0
-            ? "不支持跨域上传!"
-            : "上传文件格式不支持！";
+          e.message.indexOf("cross-origin") >= 0 ? "不支持跨域上传!" : "上传文件格式不支持！";
         this.$Message.error(msg);
       }
     }

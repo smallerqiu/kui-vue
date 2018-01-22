@@ -11,7 +11,7 @@
             <li v-for="(item ,x) in nav" :key="x">
               <em></em>
               <h5>{{item.title}}</h5>
-              <a :href="sub.weblink||`#${sub.link}`" :target="sub.weblink?'_blank':''" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">
+              <a :href="sub.weblink||`${sub.link}`" :target="sub.weblink?'_blank':''" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">
                 <Icon :type="sub.icon" v-if="sub.icon"></Icon>
                 {{sub.title}}
                 <span>{{sub.sub}}</span>

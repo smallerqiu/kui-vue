@@ -23,5 +23,6 @@ router.push({
 })
 
 export default new Router({
-    routes: router
+    routes: router,
+    mode:'history'
 })
