@@ -25,11 +25,11 @@
 export default {
   name: "Page",
   props: {
-    mini: { required: false, default: false, type: Boolean },
-    total: { required: false, default: 0, type: [Number, String] },
-    // onchange: { type: Function, required: false, default: function() {} },
-    pagesize: { default: 15, required: false, type: [Number, String] },
-    current: { default: 1, required: false, type: [Number, String] }
+    mini: { default: false, type: Boolean },
+    total: { default: 0, type: [Number, String] },
+    // onchange: { type: Function,  default: function() {} },
+    pagesize: { default: 15, type: [Number, String] },
+    current: { default: 1, type: [Number, String] }
   },
   data() {
     return {

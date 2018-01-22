@@ -9,7 +9,7 @@ import Switch from './switch'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import { Radio, RadioGroup } from './radio'
 import DatePicker from './datePicker'
-import { Modal, Toast } from './modal'
+import Modal from './modal'
 import { Row, Col } from './grid'
 import { Form, FormItem } from './form'
 import { TimeLine, TimeLineItem } from './timeline'
@@ -35,8 +35,7 @@ const components = {
     Radio,
     RadioGroup,
     Modal,
-    Toast,
-    Row, Col,Upload,
+    Row, Col, Upload,
     Icon, TimeLine, TimeLineItem
 }
 const UI = {

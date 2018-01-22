@@ -2,7 +2,15 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
-      <TimeLineItem Icon="bug" Color="res">
+      <TimeLineItem Icon="ios-cloud-upload" Color="orange">
+        <h3>1.0.42
+          <span> 2018-1-19 </span>
+        </h3>
+        <p>废弃一些组件</p>
+        <p>新增Modal Toast模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。<a href="#/modal">#体验</a></p>
+        <p>解决Message，Notice组件动画的流畅性。<a href="#/message">#体验Msessage</a>，<a href="#/notice">#体验Notice</a>，<a href="https://www.chuchur.com/article/vue-v-for-transition" target="_blank">#解决方案</a></p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.40
           <span> 2018-1-19 </span>
         </h3>
@@ -13,7 +21,7 @@
         <h3>1.0.39
           <span> 2018-1-18 </span>
         </h3>
-        <p>新增Upload组件</p>
+        <p>新增Upload组件。<a href="https://www.chuchur.com/article/ajax-upload-download" target="_blank">#解决方案</a></p>
       </TimeLineItem>
       <TimeLineItem>
         <h3>1.0.38

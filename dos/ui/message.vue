@@ -150,7 +150,7 @@ this.$Message.destroy()`
     config3() {
       this.$Message.config({
         type: "info",
-        duration: 5,
+        duration: 0,
         closable: true,
         content: "手动关闭"
       });

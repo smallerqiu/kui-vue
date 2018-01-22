@@ -1,36 +1,5 @@
-@keyframes mmask {
-   from {
-      opacity: 0
-   }
-   to {
-      opacity: 1
-   }
-}
-
-@keyframes modal {
-   from {
-      top: 0px;
-      opacity: 0
-   }
-   to {
-      top: 100px;
-      opacity: 1
-   }
-}
-
-@keyframes modal_out {
-   from {
-      top: 100px;
-      opacity: 1
-   }
-   to {
-      top: 0px;
-      opacity: 0
-   }
-}
-
 .k-modal {
-   .modal-mask {
+   .k-modal-mask {
       position: fixed;
       top: 0;
       bottom: 0;
@@ -39,9 +8,9 @@
       background-color: rgba(55, 55, 55, .6);
       height: 100%;
       z-index: 1000;
-      animation: mmask .5s ease-in-out;
+      // animation: mmask .5s ease-in-out;
    }
-   .modal-wrap {
+   .k-modal-wrap {
       position: fixed;
       overflow: auto;
       top: 0;
@@ -59,15 +28,15 @@
       outline: 0;
       top: 100px;
       width: 520px;
-      animation: fadeInDown .3s ease-in-out;
+      // animation: fadeIn .5s ease-in-out;
    }
-   .modal-content {
+   .k-modal-content {
       border-radius: @radius;
       position: relative;
       background-color: #fff;
       border: 0;
       background-clip: padding-box;
-      .modal-close {
+      .k-modal-close {
          font-size: 12px;
          position: absolute;
          right: 16px;
@@ -77,18 +46,20 @@
          font-size: 23px;
          color: #999;
       }
-      .modal-header {
+      .k-modal-header {
          border-bottom: 1px solid #e9eaec;
          padding: 14px 16px;
          line-height: 1;
+         font-size: 14px;
+         font-weight: 700;
          user-select: none;
       }
-      .modal-body {
+      .k-modal-body {
          padding: 16px;
          font-size: 12px;
          line-height: 1.5;
       }
-      .modal-footer {
+      .k-modal-footer {
          border-top: 1px solid #e9eaec;
          padding: 12px 18px;
          text-align: right;
@@ -100,34 +71,37 @@
          }
       }
    }
-   .modal.closed {
-      top: 0px;
-      opacity: 0;
-      animation: fadeOutUp .3s ease-in-out;
-   }
+   // .modal.closed {
+   //    top: 0px;
+   //    opacity: 0;
+   //    animation: fadeOutUp .3s ease-in-out;
+   // }
 }
 
-.k-modal.toast {
-   .toast-icon {
+.k-toast {
+   .k-toast-icon {
       font-size: 62px;
    }
-   .ik-ok {
-      color: #19be6b;
+   .k-ion-information-circled {
+      color: @main;
    }
-   .ik-error {
-      color: #f02d2d;
+   .k-ion-android-cancel {
+      color: @danger;
    }
-   .ik-danger {
-      color: #f0b22d;
+   .k-ion-checkmark-circled {
+      color: @success;
    }
-   .modal-content {
+   .k-ion-android-alert {
+      color: @warning;
+   }
+   .k-modal-content {
       padding: 40px 0;
-   }
-   .toast-content {
-      font-size: 16px;
       color: #666;
+      .k-modal-footer {
+         border: none;
+      }
    }
-   .modal-footer {
-      border: none;
+   .k-toast-content {
+      font-size: 15px;
    }
 }
