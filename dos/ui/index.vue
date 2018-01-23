@@ -6,7 +6,7 @@
       <p>取“酷友”拼音第一个字母，故命名为KYUI.</p>
       <p>欢迎批评、指正、吐槽、
          <a href="https://github.com/chuchur/kui" target="_blank">Star</a>和
-         <a href="#/sponsor">捐助</a>
+         <a href="/sponsor">捐助</a>
       </p>
       <br>
       <br>

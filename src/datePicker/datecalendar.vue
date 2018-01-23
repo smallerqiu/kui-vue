@@ -19,7 +19,7 @@
     </div>
     <div :class="`${pre}-body`">
       <div :class="`${pre}-days`">
-        <span :class="`${pre}-week`" v-for="(i,j) in local.weeks" :key="j">{{i}}</span>
+        <span :class="`${pre}-week`" v-for="(i,j) in local.weeks" :key="i">{{i}}</span>
         <span v-for="(j,x) in days" :key="x" @click="is($event)&&(day=j.i,ok(j))" :class="[(j.p||j.n)?`${pre}-date-out`:'',status(j.y,j.m,j.i,hour,minute,second,'YYYYMMDD')]">{{j.i}}</span>
       </div>
       <div :class="`${pre}-months`" v-show="showMonths">

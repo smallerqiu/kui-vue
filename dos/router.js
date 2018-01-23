@@ -21,8 +21,14 @@ router.push({
     component: resolve => require(['./layout'], resolve),
     children: children
 })
-
-export default new Router({
+let routers = new Router({
     routes: router,
-    mode:'history'
+    mode: 'history'
 })
+var _hmt = _hmt || [];(function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?2cd83ff4bed8ca08c9962d0c458d8e16"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();
+
+routers.beforeEach(function (to, from, next) {
+    typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+    next()
+})
+export default routers
