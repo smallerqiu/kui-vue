@@ -12,7 +12,7 @@ export default {
     labelAlign: { type: String },
     model: { type: Object },
     rules: { type: Object },
-    labelWidth: { type: [Number, String] }
+    labelWidth: { type: [Number, String],default:80 }
   },
   data() {
     return {};
