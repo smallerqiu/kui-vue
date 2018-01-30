@@ -5,10 +5,11 @@
     <h3>基础／组件嵌套</h3>
     <!-- <Button @click="test">tetew</Button>-->
     <Button @click="border=!border" type="primary">表格边框</Button>
-    <Table :data="data" :columns="col" :onselection="test2" :border="border"></Table>
+    <Button @click="mini=!mini" type="primary">mini</Button>
+    <Table :data="data" :columns="col" :mini="mini" :onselection="test2" :border="border"></Table>
     <Code>{{demo}}</Code>
     <h3>Table API</h3>
-    <div class="table-border">
+    <div class="table-border" style="overflow:visible;">
       <table>
         <tr>
           <th>属性</th>
@@ -20,6 +21,12 @@
           <td>border</td>
           <td>是否显示边框</td>
           <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>mini</td>
+          <td>表格是否为mini模式</td>
+          <td>Boolean </td>
           <td>false</td>
         </tr>
         <tr>
@@ -102,6 +109,7 @@ export default {
   data() {
     return {
       border: false,
+      mini: false,
       demo: `<Table :data="data" :columns="col"></Table>
 <script>
 export default {
@@ -121,37 +129,18 @@ export default {
           title: "出生年月",
           key: "birthday",
           render: (h, p) => {
-            return h(
-              "DatePicker",
-              {
-                props: {
-                  value: this.d,
-                  lang: "en",
-                  change: v => {
-                    console.log("回调", v);
-                  }
-                }
-              },
-              this.d
-            );
+            return h("DatePicker", { props: { value: this.d, lang: "en"},on:{change: v => {console.log("回调", v);}} }, this.d );
           }
         },
         {
           title: "操作",
           key: "action",
           render: (h, p) => {
-            return h(
-              "Button",
-              {
-                props: { type: "danger", mini: true },
-                on: {
-                  click: () => {
-                    this.data.splice(p.index, 1);
-                  }
-                }
-              },
-              "删除"
-            );
+            return h("Poptip", { props: { confirm: true,title:'是否删除数据？',placement:'left-bottom' }, on: {
+                    ok: () => { this.data.splice(p.index, 1); }
+                  } }, [
+              h("Button",{props: { type: "danger", mini: true },},"删除")
+            ]);
           }
         }
       ]
@@ -171,6 +160,10 @@ export default {
         { type: "selection" },
         { title: "姓名", key: "nick" },
         { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "姓名", key: "nick" },
+        { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "姓名", key: "nick" },
+        { title: "文字对其", key: "gender", textAlign: "right" },
         {
           title: "出生年月",
           key: "birthday",
@@ -181,8 +174,10 @@ export default {
                 props: {
                   value: this.d,
                   mini: true,
-                  width:120,
+                  width: 120,
                   lang: "en",
+                },
+                on:{
                   change: v => {
                     console.log("回调", v);
                     p.row.birthday = v;
@@ -197,18 +192,13 @@ export default {
           title: "操作",
           key: "action",
           render: (h, p) => {
-            return h(
-              "Button",
-              {
-                props: { type: "danger", mini: true },
-                on: {
-                  click: () => {
-                    this.data.splice(p.index, 1);
-                  }
-                }
-              },
-              "删除"
-            );
+            return h("Poptip", { props: { transfer:true,confirm: true,title:'是否删除数据？',placement:'left-bottom' }, on: {
+                    ok: () => {
+                      this.data.splice(p.index, 1);
+                    }
+                  } }, [
+              h("Button",{props: { type: "danger", mini: true },},"删除")
+            ]);
           }
         }
       ],
@@ -230,11 +220,8 @@ export default {
     },
     test2(v) {
       this.row = v;
-      console.log(v);
+      console.log('当前选中：',v);
     },
-    test1() {
-      console.log(this.row);
-    }
   }
 };
 </script>

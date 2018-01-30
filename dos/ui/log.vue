@@ -3,6 +3,19 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.45
+          <span> 2018-1-29 </span>
+        </h3>
+        <p>修复Table组件 border显示问题</p>
+        <p>优化Table组件 无数据时文字显示问题，优化表格表头字体大小</p>
+        <p>新增Table组件 mini显示模式</p>
+        <p>优化Select,DataPicker等组件mini模式 Icon显示问题</p>
+        <p>优化Select,DataPicker,colorPicker等组件点击隐藏的问题</p>
+        <p>新增Input 组件可以设置右侧图标<a href="/input">#体检</a></p>
+        <p>新增Button 组件可以设置图标<a href="/button">#体检</a></p>
+        <p>新增Poptip 组件 <a href="/toptip">#体检</a></p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.43
           <span> 2018-1-22 </span>
         </h3>

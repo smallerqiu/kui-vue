@@ -1,24 +1,26 @@
-import Alert from './alert'
-import { Message, Notice } from './message'
-import Table from './table'
-import Page from './page'
-import { Button, ButtonGroup } from './button'
-import Input from './input'
-import { Select, Option } from './select'
-import Switch from './switch'
-import { Checkbox, CheckboxGroup } from './checkbox'
-import { Radio, RadioGroup } from './radio'
-import DatePicker from './datePicker'
-import Modal from './modal'
-import { Row, Col } from './grid'
-import { Form, FormItem } from './form'
-import { TimeLine, TimeLineItem } from './timeline'
-import ColorPicker from './colorPicker'
-import Icon from './icon'
-import Upload from './upload'
+import Alert       from './components/alert'
+import Table       from './components/table'
+import Page        from './components/page'
+import Input       from './components/input'
+import Switch      from './components/switch'
+import DatePicker  from './components/datePicker'
+import Modal       from './components/modal'
+import ColorPicker from './components/colorPicker'
+import Icon        from './components/icon'
+import Upload      from './components/upload'
+import Poptip      from './components/poptip'
+import { Select,   Option        } from './components/select'
+import { Radio,    RadioGroup    } from './components/radio'
+import { Checkbox, CheckboxGroup } from './components/checkbox'
+import { Message,  Notice        } from './components/message'
+import { Button,   ButtonGroup   } from './components/button'
+import { Row,      Col           } from './components/grid'
+import { Form,     FormItem      } from './components/form'
+import { TimeLine, TimeLineItem  } from './components/timeline'
+
 const pkg = require('../package.json');
 
-import '../styles';
+import './styles';
 
 const components = {
     Alert, Message, Notice,
@@ -34,7 +36,7 @@ const components = {
     CheckboxGroup,
     Radio,
     RadioGroup,
-    Modal,
+    Modal, Poptip,
     Row, Col, Upload,
     Icon, TimeLine, TimeLineItem
 }
