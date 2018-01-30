@@ -1,6 +1,6 @@
 {
     "name": "kyui",
-    "version": "1.0.44",
+    "version": "1.0.45",
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -21,6 +21,7 @@
         "less-loader": "^4.0.5",
         "style-loader": "^0.19.0",
         "url-loader": "^0.6.2",
+        "user": "0.0.0",
         "vue": "^2.5.9",
         "vue-loader": "^13.5.0",
         "vue-router": "^3.0.1",
