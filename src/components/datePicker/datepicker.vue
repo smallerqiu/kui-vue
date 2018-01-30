@@ -2,7 +2,7 @@
   <div :class="classes" :style="styles" v-docClick="close">
     <input readonly :value="text" :class="inputClass" @click="toggleShow" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
     <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
-    <transition name="dropdown">
+    <transition :name="transName">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="show" ref="kCalendar" v-transferDom :data-transfer="transfer">
         <template v-if="range">
           <Calendar v-model="dates[0]" :left="true"></Calendar>
@@ -54,9 +54,11 @@ export default {
   },
   data() {
     return {
+      transName:'dropdown',
       text: "",
       show: false,
       left: 0,
+      fb:false,
       top: 0,
       dates: this.vi(this.value),
       local: {}
@@ -90,6 +92,9 @@ export default {
       // if (this.transfer) {
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
+      if(this.fb){
+        style['transform-origin']='center bottom 0px'
+      }
       // }
       return style;
     },
@@ -166,13 +171,15 @@ export default {
 
           let h = document.documentElement.clientHeight;
           let w = document.documentElement.clientWidth;
-
+          let s = document.documentElement.scrollTop  ;
           setTimeout(() => {
             let eh = dom.scrollHeight;
             let ew = dom.scrollWidth;
-            if (h - pos.y - rel.scrollHeight < eh) {
-              this.top = pos.y - eh -8;
+            if (h - (pos.y-s) - rel.scrollHeight < eh) {
+              this.fb = true
+              this.top = pos.y - eh -8; 
             } else {
+               this.fb = false
               this.top = pos.y + rel.scrollHeight + 2;
             }
             this.left = pos.x - 1;

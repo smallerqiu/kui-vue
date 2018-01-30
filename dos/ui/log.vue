@@ -8,12 +8,14 @@
         </h3>
         <p>修复Table组件 border显示问题</p>
         <p>优化Table组件 无数据时文字显示问题，优化表格表头字体大小</p>
-        <p>新增Table组件 mini显示模式</p>
+        <p>新增Table组件 mini显示模式<a href="/table">#体检</a></p>
         <p>优化Select,DataPicker等组件mini模式 Icon显示问题</p>
         <p>优化Select,DataPicker,colorPicker等组件点击隐藏的问题</p>
         <p>新增Input 组件可以设置右侧图标<a href="/input">#体检</a></p>
         <p>新增Button 组件可以设置图标<a href="/button">#体检</a></p>
         <p>新增Poptip 组件 <a href="/toptip">#体检</a></p>
+        <p>DatePicker，ColorPicker，Select等下拉组件新增transifer属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题 <a href="/table">#体检</a></p>
+        <p>增加了几个钩子，优化了一些显示细节</p>
       </TimeLineItem>
       <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.43
