@@ -170,7 +170,7 @@ export default {
       </table>
    </div>
 </Poptip>`,
-        demo4:`      <Poptip confirm title="您确认删除这条内容吗？" @ok="ok" @cancel="cancel"> <Button>删除</Button> </Poptip>
+        demo4:`<Poptip confirm title="您确认删除这条内容吗？" @ok="ok" @cancel="cancel"> <Button>删除</Button> </Poptip>
 <Poptip confirm title="Are you OK?" @ok="ok" @cancel="cancel" ok-text="yes" cancel-text="no"> <Button>自定义</Button> </Poptip>
 `,
      }
