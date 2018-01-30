@@ -1,0 +1,139 @@
+.k-datepicker {
+   display: inline-block;
+   position: relative;
+   &:before {
+      content: '\F3F3';
+      font-family: Ionicons;
+      display: block;
+      position: absolute;
+      width: 34px;
+      height: 100%;
+      top: 0;
+      right: 0;
+      font-size: 21px;
+      line-height: 35px;
+      text-align: center;
+      color: #7f7f7f;
+      // background: url('data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiPjxwYXRoIGQ9Ik01NjQgMTgwLjJINDQ4Yy04LjMgMC0xNS02LjctMTUtMTVzNi43LTE1IDE1LTE1aDExNmM4LjIgMCAxNSA2LjcgMTUgMTVzLTYuOCAxNS0xNSAxNXoiIGZpbGw9IiM5ODk4OTgiLz48cGF0aCBkPSJNOTQ1IDk1Mi4ySDgxLjJjLTguMiAwLTE1LTYuNy0xNS0xNVYxNjIuOGMwLTguMyA2LjgtMTUgMTUtMTVIMjk0YzguMiAwIDE1IDYuNyAxNSAxNXMtNi44IDE1LTE1IDE1SDk2LjJ2NzQ0LjRIOTMwVjE3Ny44SDcxMy42Yy04LjMgMC0xNS02LjctMTUtMTVzNi43LTE1IDE1LTE1SDk0NWM4LjIgMCAxNSA2LjcgMTUgMTV2Nzc0LjRjMCA4LjMtNi44IDE1LTE1IDE1eiIgZmlsbD0iIzk4OTg5OCIvPjxwYXRoIGQ9Ik0zMzMuMyA1NTFIMjE2Yy04LjIgMC0xNS02LjgtMTUtMTVzNi44LTE1IDE1LTE1aDExNy4zYzguMyAwIDE1IDYuNiAxNSAxNXMtNi43IDE1LTE1IDE1em0yMzAuMyAwSDQ0Ni4zYy04LjMgMC0xNS02LjgtMTUtMTVzNi43LTE1IDE1LTE1aDExNy4zYzguMiAwIDE1IDYuNiAxNSAxNXMtNi44IDE1LTE1IDE1em0yMzAuMiAwSDY3Ni42Yy04LjMgMC0xNS02LjgtMTUtMTVzNi43LTE1IDE1LTE1aDExNy4yYzguMyAwIDE1IDYuNiAxNSAxNXMtNi43IDE1LTE1IDE1ek0zMzMuMyA3NDBIMjE2Yy04LjIgMC0xNS02LjgtMTUtMTVzNi44LTE1IDE1LTE1aDExNy4zYzguMyAwIDE1IDYuNiAxNSAxNXMtNi43IDE1LTE1IDE1em0yMzAuMyAwSDQ0Ni4zYy04LjMgMC0xNS02LjgtMTUtMTVzNi43LTE1IDE1LTE1aDExNy4zYzguMiAwIDE1IDYuNiAxNSAxNXMtNi44IDE1LTE1IDE1em0yMzAuMiAwSDY3Ni42Yy04LjMgMC0xNS02LjgtMTUtMTVzNi43LTE1IDE1LTE1aDExNy4yYzguMyAwIDE1IDYuNiAxNSAxNXMtNi43IDE1LTE1IDE1ek0zNzAuOCAyNTguNmMtOC4zIDAtMTUtNi43LTE1LTE1Vjg2LjhjMC04LjIgNi43LTE1IDE1LTE1czE1IDYuOCAxNSAxNXYxNTYuOGMwIDguMy02LjcgMTUtMTUgMTV6bTI3MC4yIDBjLTguMyAwLTE1LTYuNy0xNS0xNVY4Ni44YzAtOC4yIDYuNy0xNSAxNS0xNXMxNSA2LjggMTUgMTV2MTU2LjhjMCA4LjMtNi43IDE1LTE1IDE1ek05NDUgMzcyLjJIODEuMmMtOC4yIDAtMTUtNi43LTE1LTE1czYuOC0xNSAxNS0xNUg5NDVjOC4yIDAgMTUgNi43IDE1IDE1cy02LjggMTUtMTUgMTV6IiBmaWxsPSIjOTg5ODk4Ii8+PC9zdmc+') no-repeat 50% 50%;
+   }
+   .k-datepicker-close {
+      display: none;
+      position: absolute;
+      width: 34px;
+      height: 100%;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+   }
+   .k-datepicker-close:before {
+      display: block;
+      content: "\F406";
+      font-family: Ionicons;
+      font-size: 20px;
+      position: absolute;
+      left: -1px;
+      top: 1px;
+      text-align: center;
+      color: #999;
+      width: 100%;
+      line-height: 32px;
+      background: #fff;
+      // background: #ccc url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3IDciIHdpZHRoPSI3IiBoZWlnaHQ9IjciPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik01LjU4LDVsMi44LTIuODFBLjQxLjQxLDAsMSwwLDcuOCwxLjZMNSw0LjQxLDIuMiwxLjZhLjQxLjQxLDAsMCwwLS41OC41OGgwTDQuNDIsNSwxLjYyLDcuOGEuNDEuNDEsMCwwLDAsLjU4LjU4TDUsNS41OCw3LjgsOC4zOWEuNDEuNDEsMCwwLDAsLjU4LS41OGgwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEuNSAtMS40OCkiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4NCg==') no-repeat 50% 50%;
+   }
+   .k-datepicker-close:hover:before {
+      // background-color: #afafaf;
+      color: #555;
+   }
+   &>.k-datepicker-input {
+      color: #666;
+      transition: all 200ms ease;
+      border: 1px solid #e5e5e5;
+      border-radius: @radius;
+      height: 34px;
+      box-sizing: border-box;
+      outline: none;
+      padding: 0 34px 0 12px;
+      font-size: 12.5px;
+      width: 100%;
+      user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+   }
+   &>.k-datepicker-input.focus {
+      border-color: @main;
+      // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+      // -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+      box-shadow: 0 0 5px fade(@main, 75%);
+   }
+   &>.k-datepicker-input:disabled {
+      cursor: not-allowed;
+      background-color: #eee;
+      // border-color: #999;
+      -webkit-box-shadow: none;
+      opacity: .5;
+      box-shadow: none;
+   }
+   .k-datepicker-range {
+      min-width: 200px
+   }
+   .k-datepicker-range .k-datepicker-popup {
+      width: 415px;
+   }
+   .k-datepicker-bottom {
+      float: left;
+      width: 100%;
+      text-align: right;
+   }
+   .k-datepicker-btn {
+      padding: 5px 10px;
+      background: #1284e7;
+      color: #fff;
+      border-radius: 2px;
+      display: inline-block;
+      cursor: pointer;
+   }
+}
+
+.k-datepicker-popup {
+   position: absolute;
+   transition: all 200ms ease;
+   opacity: 1;
+   transform: scaleY(1);
+   transform-origin: center top;
+   font-size: 12px;
+   background: #fff;
+   border: 1px solid #d9d9d9;
+   border-radius: @radius;
+   box-shadow: 0 1px 6px rgba(99, 99, 99, 0.2);
+   margin-top: 2px;
+   outline: 0;
+   padding: 5px;
+   overflow: hidden;
+   z-index: 999;
+}
+
+.k-datepicker-mini {
+   &>.k-datepicker-input {
+      height: 25px;
+      line-height: 25px;
+   }
+   .k-datepicker-close:before {
+      height: 23px;
+      line-height: 23px;
+   }
+   &::before {
+      height: 25px;
+      line-height: 25px;
+      width: 25px;
+      font-size: 16px;
+   }
+}
+
+.k-datepicker-clearable:hover:before {
+   display: none;
+}
+
+.k-datepicker-clearable:hover .k-datepicker-close {
+   display: block;
+}

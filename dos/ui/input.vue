@@ -5,10 +5,15 @@
     <h3>基础</h3>
     <Input type="text" width="200" placeholder="请输入内容..."></Input>
     <Code lang="xml html">{{demo1}}</Code>
+    <h3>带图标</h3>
+    <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @onClick="iconClick"></Input>
+    <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @onClick="iconClick"></Input>
+    <Code lang="xml html">{{demo5}}</Code>
     <h3>尺寸</h3>
     <div style="display:inline-block;">
-      <Input type="text" width="200" placeholder="请输入内容..." style="float:left;"></Input>
-      <Input type="text" width="200" mini placeholder="请输入内容..." style="margin-left:15px;float:left;"></Input>
+      <Input type="text" width="200" placeholder="请输入内容..."></Input>
+      <Input type="text" width="200" mini placeholder="请输入内容..."></Input>
+      <Input type="text" width="200" mini placeholder="请输入内容1..." icon="ios-person" @onClick="iconClick"></Input>
     </div>
     <Code lang="xml html">{{demo2}}</Code>
     <h3>文本域</h3>
@@ -45,6 +50,12 @@
           <td>value </td>
           <td>绑定的值，可使用 v-model 双向绑定 </td>
           <td>String | Number</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>icon </td>
+          <td>输入框尾部图标，仅在 text 类型下有效 </td>
+          <td>String</td>
           <td>-</td>
         </tr>
         <tr>
@@ -131,6 +142,12 @@
           <td>Function</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>onClick</td>
+          <td>icon的点击事件</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
       </table>
     </div>
   </div>
@@ -144,8 +161,20 @@ export default {
 <Input type="text" width="200"  mini placeholder="请输入内容..."></Input>`,
       demo3: `<Input  width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>`,
       demo4: `<Input  width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled></Input>
-<Input type="text" width="200"  placeholder="请输入内容..." disabled></Input>`
+<Input type="text" width="200"  placeholder="请输入内容..." disabled></Input>`,
+      demo5: `<Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @onClick="iconClick"></Input>
+<Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @onClick="iconClick"></Input>
+methods: {
+    iconClick() {
+      this.$Message.info("点击图标事件");
+    }
+}`
     };
+  },
+  methods: {
+    iconClick() {
+      this.$Message.info("点击图标事件");
+    }
   }
 };
 </script>
