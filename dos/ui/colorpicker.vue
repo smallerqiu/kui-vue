@@ -23,6 +23,12 @@
           <td>'#000000'</td>
         </tr>
         <tr>
+          <td>transfer</td>
+          <td>是否将弹层放置于 body 内，在 Tabs、带有 fixed 的 Table 列内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>change</td>
           <td>当绑定值变化时触发，返回当前值</td>
           <td>Function</td>
