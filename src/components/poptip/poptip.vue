@@ -100,52 +100,52 @@ export default {
           let dom = this.$refs.dom;
           switch (x) {
             case "top":
-              this.top = pos.y - dom.scrollHeight;
-              this.left = pos.x - (dom.scrollWidth - rel.scrollWidth) / 2;
+              this.top = pos.y - dom.offsetHeight-10;
+              this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) / 2;
               break;
             case "top-left":
-              this.top = pos.y - dom.scrollHeight;
+              this.top = pos.y - dom.offsetHeight-10;
               this.left = pos.x;
               break;
             case "top-right":
-              this.top = pos.y - dom.scrollHeight;
-              this.left = pos.x - (dom.scrollWidth - rel.scrollWidth);
+              this.top = pos.y - dom.offsetHeight-10;
+              this.left = pos.x - (dom.offsetWidth - rel.offsetWidth);
               break;
             case "bottom":
-              this.top = pos.y + rel.scrollHeight + 10;
-              this.left = pos.x - (dom.scrollWidth - rel.scrollWidth) / 2;
+              this.top = pos.y + rel.offsetHeight + 10;
+              this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) / 2;
               break;
             case "bottom-right":
-              this.top = pos.y + rel.scrollHeight + 10;
-              this.left = pos.x - (dom.scrollWidth - rel.scrollWidth);
+              this.top = pos.y + rel.offsetHeight + 10;
+              this.left = pos.x - (dom.offsetWidth - rel.offsetWidth);
               break;
             case "bottom-left":
-              this.top = pos.y + rel.scrollHeight + 10;
+              this.top = pos.y + rel.offsetHeight + 10;
               this.left = pos.x;
               break;
             case "left":
-              this.left = pos.x - dom.scrollWidth + 5;
-              this.top = pos.y - (dom.scrollHeight - rel.scrollHeight) / 2;
+              this.left = pos.x - dom.offsetWidth -10;
+              this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) / 2;
               break;
             case "left-top":
-              this.left = pos.x - dom.scrollWidth + 5;
+              this.left = pos.x - dom.offsetWidth - 10;
               this.top = pos.y;
               break;
             case "left-bottom":
-              this.left = pos.x - dom.scrollWidth + 5;
-              this.top = pos.y - (dom.scrollHeight - rel.scrollHeight);
+              this.left = pos.x - dom.offsetWidth -10;
+              this.top = pos.y - (dom.offsetHeight - rel.offsetHeight);
               break;
             case "right":
-              this.left = pos.x + rel.scrollWidth + 10;
-              this.top = pos.y - (dom.scrollHeight - rel.scrollHeight) / 2;
+              this.left = pos.x + rel.offsetWidth + 10;
+              this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) / 2;
               break;
             case "right-top":
-              this.left = pos.x + rel.scrollWidth + 10;
+              this.left = pos.x + rel.offsetWidth + 10;
               this.top = pos.y;
               break;
             case "right-bottom":
-              this.left = pos.x + rel.scrollWidth + 10;
-              this.top = pos.y - (dom.scrollHeight - rel.scrollHeight);
+              this.left = pos.x + rel.offsetWidth + 10;
+              this.top = pos.y - (dom.offsetHeight - rel.offsetHeight);
               break;
           }
         });
