@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      left: 0,
+      left: -1,
       fb: false,
       top: 0,
       // 面板打开状态
@@ -158,8 +158,8 @@ export default {
       let w = document.documentElement.clientWidth;
       let s = document.documentElement.scrollTop;
 
-      let dh = dom.scrollHeight;
-      let rh = rel.scrollHeight;
+      let dh = dom.offsetHeight;
+      let rh = rel.offsetHeight;
       if (this.transfer) this.left = pos.x-1;
       if (h - (pos.y - s) - rh < dh) {
         this.fb = true;

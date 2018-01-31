@@ -147,8 +147,8 @@ export default {
       let w = document.documentElement.clientWidth;
       let s = document.documentElement.scrollTop;
 
-      let dh = dom.scrollHeight;
-      let rh = rel.scrollHeight;
+      let dh = dom.offsetHeight;
+      let rh = rel.offsetHeight;
       if (this.transfer) this.left = pos.x;
       if (h - (pos.y - s) - rh < dh) {
         this.fb = true;
