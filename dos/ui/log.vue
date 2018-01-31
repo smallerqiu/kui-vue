@@ -3,6 +3,14 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.46
+          <span> 2018-1-31 </span>
+        </h3>
+        <p>加入了全局的document click，scroll指令优化显示一系列组件的下拉显示将更加人性化</p>
+        <p>修复了DatePicker组件层级显示问题</p>
+        <p>优化了Page组件在mini模式显示的问题</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.45
           <span> 2018-1-29 </span>
         </h3>

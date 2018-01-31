@@ -1,37 +1,37 @@
 <template>
-  <div :class="classes" ref="colorPicker" v-docClick="close">
+  <div :class="classes" v-docClick="close" v-winScroll="setPosition">
     <!-- 颜色显示小方块 -->
-    <div @click="isOpen = !isOpen">
-      <div class="k-color-button" ref="colorBtn" :style="{backgroundColor:showColor}"></div>
+    <div @click="toggleDrop" ref="rel">
+      <div class="k-color-button" :style="{backgroundColor:showColor}"></div>
       <div class="k-color-arrow"></div>
     </div>
     <!-- 用以激活HTML5颜色面板 -->
     <!-- <input type="color" ref="html5Color" v-model="html5Color" @change="updataValue(html5Color)"> -->
     <!-- 颜色色盘 -->
     <transition name="dropdown">
-      <div class="k-box" ref="colorBox" v-if="isOpen">
+      <div class="k-colorpicker-popup" ref="dom" v-if="visible" v-transferDom :data-transfer="transfer" :style="popupStyle">
         <div class="bd" v-if="!showMore">
           <h3>主题颜色</h3>
           <ul class="tColor">
-            <li v-for="(color,i) of tColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click="updataValue(color)"></li>
+            <li v-for="(color,i) of tColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
           </ul>
           <ul class="bColor">
             <li v-for="(item,i) of colorPanel" :key="i">
               <ul>
-                <li v-for="(color,i) of item" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click="updataValue(color)"></li>
+                <li v-for="(color,i) of item" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
               </ul>
             </li>
           </ul>
           <h3>标准颜色</h3>
           <ul class="tColor">
-            <li v-for="(color,i) of bColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click="updataValue(color)"></li>
+            <li v-for="(color,i) of bColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
           </ul>
         </div>
         <picker v-if="showMore" @updataValue="updataValue"></picker>
         <div class="k-more">
           <input type="text" class="k-value" v-model="showColor" />
-          <k-button type="danger" class="k-more-button" @click="hide">确定</k-button>
-          <k-button class="k-more-button" @click="showMore=!showMore">更多</k-button>
+          <k-button type="danger" class="k-more-button" @click.stop="hide">确定</k-button>
+          <k-button class="k-more-button" @click.stop="showMore=!showMore">更多</k-button>
         </div>
       </div>
     </transition>
@@ -41,22 +41,28 @@
 import picker from "./picker";
 import { Button } from "../button";
 import utils from "../../utils";
+import winScroll from "../../directives/winScroll";
+import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
 export default {
   components: { picker, "k-button": Button },
-  directives: { docClick },
+  directives: { docClick, transferDom,winScroll },
   name: "ColorPicker",
   props: {
     // 默认展示面板
     // 当前颜色值
     value: { type: String, default: "#000000", required: false },
     // 禁用状态
-    disabled: { type: Boolean, default: false }
+    disabled: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: false }
   },
   data() {
     return {
+      left: 0,
+      fb: false,
+      top: 0,
       // 面板打开状态
-      isOpen: false,
+      visible: false,
       showMore: false,
       // 鼠标经过的颜色块
       hoveColor: null,
@@ -104,11 +110,21 @@ export default {
     };
   },
   computed: {
+    popupStyle() {
+      let style = {};
+      this.range && (style.width = "405px");
+      style.left = `${this.left}px`;
+      style.top = `${this.top}px`;
+      if (this.fb) {
+        style["transform-origin"] = "center bottom 0px";
+      }
+      return style;
+    },
     classes() {
       return [
         "k-colorPicker",
         {
-          ["k-colorPicker-open"]: this.isOpen
+          ["k-colorPicker-open"]: this.visible
         }
       ];
     },
@@ -124,26 +140,38 @@ export default {
       return colorArr;
     }
   },
-  watch: {
-    isOpen(v) {
-      if (v) {
-        //获取元素的位置
-        let obj = this.$refs.colorBtn;
-        var pos = utils.getElementPos(obj);
-        if (pos.x > document.body.clientWidth - 215) {
-          this.$refs.colorBox.style.left = "-161px";
-        }
-        if (pos.y > document.body.clientHeight - 260) {
-          this.$refs.colorBox.style.top = "-255px";
-        }
-      }
-    }
-  },
   mounted() {},
   methods: {
+    toggleDrop() {
+      this.visible = !this.visible && !this.disabled;
+      if (this.visible) {
+        setTimeout(() => this.setPosition());
+      }
+    },
+    setPosition() {
+      let m = 3;
+      let rel = this.$refs.rel;
+      let dom = this.$refs.dom;
+      let pos = utils.getElementPos(rel);
+
+      let h = document.documentElement.clientHeight;
+      let w = document.documentElement.clientWidth;
+      let s = document.documentElement.scrollTop;
+
+      let dh = dom.scrollHeight;
+      let rh = rel.scrollHeight;
+      if (this.transfer) this.left = pos.x-1;
+      if (h - (pos.y - s) - rh < dh) {
+        this.fb = true;
+        this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      } else {
+        this.fb = false;
+        this.top = !this.transfer ? rh + m : pos.y + rh + m;
+      }
+    },
     hide() {
       setTimeout(() => {
-        this.isOpen = !this.isOpen;
+        this.visible = !this.visible;
         this.showMore = false;
       });
       this.$emit("input", this.showColor);
@@ -210,11 +238,18 @@ export default {
       return gradientColorArr;
     },
     close(e) {
-      this.isOpen = false;
-      this.showMore = false;
-      this.showColor = this.value;
-      this.$emit("input", this.showColor);
-      this.$emit("change", this.showColor);
+      if (!this.transfer) {
+        this.visible = false;
+      } else {
+        this.visible = this.$refs.dom.contains(e.target);
+      }
+
+      if (!this.visible) {
+        this.showMore = false;
+        this.showColor = this.value;
+        this.$emit("input", this.showColor);
+        this.$emit("change", this.showColor);
+      }
     }
   }
 };

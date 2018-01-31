@@ -1,9 +1,9 @@
 <template>
-  <div :class="classes" :style="styles" v-docClick="close">
-    <input readonly :value="text" :class="inputClass" @click="toggleShow" :disabled="disabled" :placeholder="placeholder" :name="name" ref="kInput" />
+  <div :class="classes" :style="styles" v-docClick="close" v-winScroll="setPosition">
+    <input readonly :value="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
     <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
     <transition :name="transName">
-      <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="show" ref="kCalendar" v-transferDom :data-transfer="transfer">
+      <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
           <Calendar v-model="dates[0]" :left="true"></Calendar>
           <Calendar v-model="dates[1]" :right="true"></Calendar>
@@ -17,17 +17,18 @@
 </template>
 <script>
 import calendar from "./datecalendar";
+import winScroll from "../../directives/winScroll";
 import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
 import utils from "../../utils";
 export default {
   name: "DatePicker",
-  directives: { docClick, transferDom },
+  directives: { docClick, transferDom, winScroll },
   components: {
     Calendar: calendar
   },
   props: {
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     width: [String, Number],
     mini: Boolean,
     name: [String],
@@ -54,11 +55,11 @@ export default {
   },
   data() {
     return {
-      transName:'dropdown',
+      transName: "dropdown",
       text: "",
-      show: false,
+      visible: false,
       left: 0,
-      fb:false,
+      fb: false,
       top: 0,
       dates: this.vi(this.value),
       local: {}
@@ -82,39 +83,23 @@ export default {
       return [
         "k-datepicker-input",
         {
-          ["focus"]: this.show
+          ["focus"]: this.visible
         }
       ];
     },
     popupStyle() {
       let style = {};
       this.range && (style.width = "405px");
-      // if (this.transfer) {
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
-      if(this.fb){
-        style['transform-origin']='center bottom 0px'
+      if (this.fb) {
+        style["transform-origin"] = "center bottom 0px";
       }
-      // }
       return style;
     },
     range() {
       return this.dates.length === 2;
     }
-    /* local() {
-      let x =  require(`./lang/${this.lang}.js`);
-    } */
-    /*  text() {
-      const val = this.value;
-      const txt = this.dates
-        .map(date => this.tf(date))
-        .join(` ${this.rangeSeparator} `);
-      if (Array.isArray(val)) {
-        return val.length > 1 ? txt : "";
-      } else {
-        return val ? txt : "";
-      }
-    } */
   },
   /* boforeCreated(){
     this.local = require(`./lang/${this.lang}.js`);
@@ -124,21 +109,6 @@ export default {
     this.value != "" && this.value != [] && this.setText();
   },
   watch: {
-    show(v) {
-      if (v) {
-        //获取元素的位置
-        // let obj = this.$refs.kInput;
-        // var pos = utils.getElementPos(obj);
-        // let cal = this.$refs.kCalendar;
-        // if (pos.x > document.body.clientWidth - 215) {
-        //   cal.style.right = "0";
-        // }
-        // if (pos.y > document.body.clientHeight - 260) {
-        //   cal.style.bottom = "36px";
-        // }
-       
-      }
-    },
     value(val) {
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
       this.text = d;
@@ -156,35 +126,36 @@ export default {
   methods: {
     close(e) {
       if (!this.transfer) {
-        this.show = false;
+        this.visible = false;
       } else {
-        this.show = this.$refs.kCalendar.contains(e.target);
+        this.visible = this.$refs.dom.contains(e.target);
       }
     },
-    toggleShow() {
-      this.show = !this.show && !this.disabled;
-      if(this.show){
-         if (this.transfer) {
-          let rel = this.$refs.kInput;
-          let dom = this.$refs.kCalendar;
-          let pos = utils.getElementPos(rel);
+    toggleDrop() {
+      this.visible = !this.visible && !this.disabled;
+      if (this.visible) {
+        setTimeout(() => this.setPosition());
+      }
+    },
+    setPosition() {
+      let m = 5;
+      let rel = this.$refs.rel;
+      let dom = this.$refs.dom;
+      let pos = utils.getElementPos(rel);
 
-          let h = document.documentElement.clientHeight;
-          let w = document.documentElement.clientWidth;
-          let s = document.documentElement.scrollTop  ;
-          setTimeout(() => {
-            let eh = dom.scrollHeight;
-            let ew = dom.scrollWidth;
-            if (h - (pos.y-s) - rel.scrollHeight < eh) {
-              this.fb = true
-              this.top = pos.y - eh -8; 
-            } else {
-               this.fb = false
-              this.top = pos.y + rel.scrollHeight + 2;
-            }
-            this.left = pos.x - 1;
-          });
-        }
+      let h = document.documentElement.clientHeight;
+      let w = document.documentElement.clientWidth;
+      let s = document.documentElement.scrollTop;
+
+      let dh = dom.scrollHeight;
+      let rh = rel.scrollHeight;
+      if (this.transfer) this.left = pos.x;
+      if (h - (pos.y - s) - rh < dh) {
+        this.fb = true;
+        this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      } else {
+        this.fb = false;
+        this.top = !this.transfer ? rh + m : pos.y + rh + m;
       }
     },
     setText() {
@@ -215,7 +186,7 @@ export default {
       this.$emit("input", date.length == 1 ? date[0] : date);
 
       setTimeout(() => {
-        this.show = this.range;
+        this.visible = this.range;
       });
     },
     tf(time, format) {

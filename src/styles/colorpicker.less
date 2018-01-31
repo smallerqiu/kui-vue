@@ -33,31 +33,28 @@
     .k-color-button.disabled {
         cursor: no-drop;
     }
-    .k-box {
-        border-radius: @radius;
-        z-index: 9999; // right: -49px;
-        // display: flex;
-        // flex-direction: column;
-        position: absolute;
-        width: 190px;
-        background: #fff;
-        border: 1px solid #ddd; // visibility: hidden; 
-        padding: 10px;
-        padding-bottom: 5px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, .15);
-        top: 31px;
-        left: -1px;
-        // display: none;
-        transition: all .3s ease;
-        h3 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: normal;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            line-height: 1;
-            color: #000;
-        }
+}
+
+.k-colorpicker-popup {
+    border-radius: @radius;
+    z-index: 1001; 
+    position: absolute;
+    width: 190px;
+    background: #fff;
+    border: 1px solid #ddd; 
+    padding: 10px;
+    padding-bottom: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+    top: 31px;
+    left: -1px;
+    h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: normal;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        line-height: 1;
+        color: #000;
     }
     .tColor {
         li {
@@ -110,10 +107,12 @@
         }
     }
 }
-.k-colorPicker-open{
+
+.k-colorPicker-open {
     border: 1px solid @main;
     box-shadow: 0 0 5px fade(@main, 75%);
 }
+
 .k-picker * {
     position: absolute;
     cursor: crosshair;
