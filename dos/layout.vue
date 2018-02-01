@@ -75,7 +75,9 @@ export default {
             { title: "时间轴", sub: "TimeLine", link: "/timeline",icon:'ios-time' },
             { title: "表单", sub: "Form", link: "/form",icon:'ios-list' },
             { title: "上传", sub: "Upload", link: "/upload",icon:'ios-cloud-upload' },
-            { title: "气泡提示", sub: "Poptip", link: "/poptip",icon:'ios-chatbubble' }
+            { title: "气泡提示", sub: "Poptip", link: "/poptip",icon:'ios-chatbubble' },
+            { title: "导航菜单", sub: "Menu", link: "/menu",icon:'ios-chatbubble' },
+            { title: "加载中", sub: "Loading", link: "/loading",icon:'ios-chatbubble' }
           ]
         },
         {
