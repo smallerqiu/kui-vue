@@ -9,6 +9,8 @@ import ColorPicker from './components/colorPicker'
 import Icon        from './components/icon'
 import Upload      from './components/upload'
 import Poptip      from './components/poptip'
+import Loading      from './components/loading'
+import { Tabs ,TabPane }     from './components/tabs'
 import { Select,   Option        } from './components/select'
 import { Radio,    RadioGroup    } from './components/radio'
 import { Checkbox, CheckboxGroup } from './components/checkbox'
@@ -17,6 +19,7 @@ import { Button,   ButtonGroup   } from './components/button'
 import { Row,      Col           } from './components/grid'
 import { Form,     FormItem      } from './components/form'
 import { TimeLine, TimeLineItem  } from './components/timeline'
+import { Menu } from './components/menu'
 
 const pkg = require('../package.json');
 
@@ -38,7 +41,10 @@ const components = {
     RadioGroup,
     Modal, Poptip,
     Row, Col, Upload,
-    Icon, TimeLine, TimeLineItem
+    Icon, TimeLine, TimeLineItem,
+    Tabs,TabPane,
+    Menu,
+    Loading
 }
 const UI = {
     ...components,
@@ -57,6 +63,7 @@ const install = function (Vue, opts = {}) {
         Vue.component(x, UI[x]);
     })
     Vue.prototype.$Message = Message;
+    Vue.prototype.$Loading = Loading;
     Vue.prototype.$Notice = Notice;
 }
 UI.install = install
