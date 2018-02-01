@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div class="k-loading-warp" :style="styles" v-show="visible">
-      <div :class="barClasses" v-if="type=='line'" :style="barStyles"></div>
+      <div :class="barClasses" v-if="mode=='line'" :style="barStyles"></div>
       <div class="k-loading-inner" v-else>
         <div :class="animateClasses"></div>
         <div class="k-loading-text" v-if="loadingText">{{loadingText}}</div>
@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    type: String,
+    type: {type:String,default:'line'},
     loadingText: { type: String },
     height: { type: [String, Number], default: 2 },
     color: String
@@ -29,14 +29,14 @@ export default {
   computed: {
     barStyles() {
       let style = {};
-      if (this.type == "line") {
+      if (this.mode == "line") {
         style.width = `${this.percent}%`;
         this.color && (style["background-color"] = this.color);
       }
       return style;
     },
     styles() {
-      return this.type == "line" ? { height: `${this.height}px` } : {};
+      return this.mode == "line" ? { height: `${this.height}px` } : {};
     },
     barClasses() {
       return [
@@ -50,7 +50,7 @@ export default {
       return [
         "k-loading-animate",
         {
-          [`k-loading-animate-${this.type}`]: this.type
+          [`k-loading-animate-${this.mode}`]: this.mode
         }
       ];
     }
