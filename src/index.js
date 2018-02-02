@@ -10,6 +10,7 @@ import Icon        from './components/icon'
 import Upload      from './components/upload'
 import Poptip      from './components/poptip'
 import Loading      from './components/loading'
+import Badge      from './components/badge'
 import { Tabs ,TabPane }     from './components/tabs'
 import { Select,   Option        } from './components/select'
 import { Radio,    RadioGroup    } from './components/radio'
@@ -27,7 +28,7 @@ import './styles';
 
 const components = {
     Alert, Message, Notice,
-    Table,
+    Table,Badge,
     Page,
     DatePicker, ColorPicker,
     Button, ButtonGroup,

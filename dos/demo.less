@@ -154,11 +154,10 @@ header {
             text-overflow: ellipsis;
             font-size: 13px;
             display: block;
-            padding: 11px 0 11px 25px;
-            text-indent: 10px;
+            padding: 11px 0 11px 35px;
             z-index: 99;
             position: relative;
-            span {
+            .sub {
                color: #ababab;
                margin-left: 5px;
             }
@@ -248,7 +247,9 @@ header {
 
 pre {
    line-height: 1px;
-   margin: 10px 0;
+   overflow: hidden;
+   // margin: 10px 0;
+   transition: height .3s ease-in-out;
 }
 
 code, kbd, samp {
@@ -258,10 +259,13 @@ code, kbd, samp {
 }
 
 .hljs {
-   background: #f1f1f1 !important;
+   background: rgba(241, 241, 241, 0.43) !important;
    padding: 15px !important;
 }
-
+.k-code{
+   border: 1px solid #eee;
+   margin: 10px 0;
+}
 table {
    border-collapse: collapse;
    border-spacing: 0;

@@ -6,7 +6,7 @@ let timer = null;
 let ftimer = null;
 
 let loadingbar = () => {
-    if (loading.mode != 'line') return;
+    if (loading.Type != 'line') return;
     loading.percent = 0
     loading.error = false
     timer = setInterval(() => {
@@ -21,14 +21,18 @@ let loadingbar = () => {
 }
 
 const mount = props => {
+
     if (loading) {
-        if (props.mode) loading.mode = props.mode
+        if (props.type) loading.Type = props.type
+        if (props.color) loading.Color = props.color
+        if (props.height) loading.Height = props.height
         loading.visible = true
         loadingbar()
         return;
     }
-    console.log(props)
-    const _props = props || {}
+
+    let _props = props || {}
+    console.log(_props)
     const Instance = new Vue({
         render(h) {
             return h(Load, {
@@ -40,7 +44,6 @@ const mount = props => {
     document.body.appendChild(component.$el)
     loading = Instance.$children[0];
     loadingbar()
-
 }
 
 let Loading = {
@@ -52,8 +55,8 @@ let Loading = {
         let t = ['line', 'zoom', 'flip', 'rotate', 'bounce'].indexOf(type) >= 0 ? type : ''
         options.loadingText = title || ''
         if (loading) {
-            t && (options.mode = t)
-        }else{
+            t && (options.type = t)
+        } else {
             options.type = t
         }
         mount(options);
@@ -62,7 +65,7 @@ let Loading = {
         clearInterval(timer)
         clearTimeout(ftimer)
         if (loading) {
-            if (loading.mode == 'line') {
+            if (loading.Type == 'line') {
                 loading.error = false;
                 loading.visible = true;
                 loading.percent = 100;
@@ -83,7 +86,7 @@ let Loading = {
                 type: 'line'
             });
         }
-        loading.mode = 'line'
+        loading.Type = 'line'
         loading.percent = 100
         loading.error = true
         loading.visible = true
@@ -94,7 +97,10 @@ let Loading = {
         }, 500)
     },
     upload(percent) {
-        if (loading && loading.percent) loading.percent = percent
+        if (loading && loading.percent >= 0 && loading.Type == 'line') {
+            loading.visible = true
+            loading.percent = percent
+        }
     },
     config(options) {
         mount(options);
