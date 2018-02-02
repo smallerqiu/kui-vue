@@ -3,7 +3,7 @@
     <h2>快速上手</h2>
     <h3>引入 KYUI</h3>
     <p>一般在 webpack 入口页面 main.js 中如下配置：</p>
-    <Code lang="js javascript">{{ins}}</Code>
+    <Code lang="js javascript" expand>{{ins}}</Code>
     <h3>使用规范</h3>
     <p>在非 template/render 模式下（例如使用 CDN 引用时），组件名要分隔，例如 Buton 必须要写成 k-button。</p>
     <p>以下组件，在非 template/render 模式下，需要加前缀 k-</p>

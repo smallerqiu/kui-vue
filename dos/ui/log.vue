@@ -3,6 +3,15 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem Icon="bug" Color="red">
+        <h3>1.0.48
+          <span> 2018-2-2 </span>
+        </h3>
+        <p>新增Loading组件<a href="/loading">#体验</a></p>
+        <p>新增Badge组件<a href="/badge">#体验</a></p>
+        <p>优化文档，加入了代码展示部分 展开折叠</p>
+        <p>修复了文档Table部分，日期下拉导致出现滚动条，部分被隐藏</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.46
           <span> 2018-1-31 </span>
         </h3>
@@ -16,13 +25,23 @@
         </h3>
         <p>修复Table组件 border显示问题</p>
         <p>优化Table组件 无数据时文字显示问题，优化表格表头字体大小</p>
-        <p>新增Table组件 mini显示模式<a href="/table">#体检</a></p>
+        <p>新增Table组件 mini显示模式
+          <a href="/table">#体检</a>
+        </p>
         <p>优化Select,DataPicker等组件mini模式 Icon显示问题</p>
         <p>优化Select,DataPicker,colorPicker等组件点击隐藏的问题</p>
-        <p>新增Input 组件可以设置右侧图标<a href="/input">#体检</a></p>
-        <p>新增Button 组件可以设置图标<a href="/button">#体检</a></p>
-        <p>新增Poptip 组件 <a href="/toptip">#体检</a></p>
-        <p>DatePicker，ColorPicker，Select等下拉组件新增transifer属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题 <a href="/table">#体检</a></p>
+        <p>新增Input 组件可以设置右侧图标
+          <a href="/input">#体检</a>
+        </p>
+        <p>新增Button 组件可以设置图标
+          <a href="/button">#体检</a>
+        </p>
+        <p>新增Poptip 组件
+          <a href="/toptip">#体检</a>
+        </p>
+        <p>DatePicker，ColorPicker，Select等下拉组件新增transifer属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题
+          <a href="/table">#体检</a>
+        </p>
         <p>增加了几个钩子，优化了一些显示细节</p>
       </TimeLineItem>
       <TimeLineItem Icon="bug" Color="red">
@@ -38,8 +57,14 @@
           <span> 2018-1-22 </span>
         </h3>
         <p>废弃一些组件</p>
-        <p>新增Modal Toast模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。<a href="/modal">#体验</a></p>
-        <p>解决Message，Notice组件动画的流畅性。<a href="/message">#体验Msessage</a>，<a href="/notice">#体验Notice</a>，<a href="https://www.chuchur.com/article/vue-v-for-transition" target="_blank">#解决方案</a></p>
+        <p>新增Modal Toast模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。
+          <a href="/modal">#体验</a>
+        </p>
+        <p>解决Message，Notice组件动画的流畅性。
+          <a href="/message">#体验Msessage</a>，
+          <a href="/notice">#体验Notice</a>，
+          <a href="https://www.chuchur.com/article/vue-v-for-transition" target="_blank">#解决方案</a>
+        </p>
       </TimeLineItem>
       <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.40
@@ -52,7 +77,9 @@
         <h3>1.0.39
           <span> 2018-1-18 </span>
         </h3>
-        <p>新增Upload组件。<a href="https://www.chuchur.com/article/ajax-upload-download" target="_blank">#解决方案</a></p>
+        <p>新增Upload组件。
+          <a href="https://www.chuchur.com/article/ajax-upload-download" target="_blank">#解决方案</a>
+        </p>
       </TimeLineItem>
       <TimeLineItem>
         <h3>1.0.38
@@ -62,7 +89,7 @@
         <p>新增DatePicker width 属性，可以自定义宽度</p>
         <p>完善文档说明</p>
       </TimeLineItem>
-      <TimeLineItem  Icon="bug" Color="red">
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.0.37
           <span> 2018-1-17 </span>
         </h3>

@@ -13,8 +13,12 @@
               <h5>{{item.title}}</h5>
               <a :href="sub.weblink||`${sub.link}`" :target="sub.weblink?'_blank':''" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">
                 <Icon :type="sub.icon" v-if="sub.icon"></Icon>
-                {{sub.title}}
-                <span>{{sub.sub}}</span>
+                <template v-if="sub.log">
+                  <Badge dot>{{sub.title}}<span>{{sub.sub}}</span></Badge>
+                </template>
+                <template v-else>
+                  {{sub.title}}<span class="sub">{{sub.sub}}</span>
+                </template>
               </a>
             </li>
           </menu>
@@ -48,7 +52,7 @@ export default {
             { title: "KUI for Angular",link:'/angular-kui'},
             { title: "安装", link: "/install" },
             { title: "快速上手", link: "/start" },
-            { title: "更新日志", link: "/log" },
+            { title: "更新日志", link: "/log",log:1 },
             { title: "定制主题", link: "/theme"},
             { title: "kyui-loader", link: "/kyui-loader" }
           ]
@@ -76,8 +80,10 @@ export default {
             { title: "表单", sub: "Form", link: "/form",icon:'ios-list' },
             { title: "上传", sub: "Upload", link: "/upload",icon:'ios-cloud-upload' },
             { title: "气泡提示", sub: "Poptip", link: "/poptip",icon:'ios-chatbubble' },
+            { title: "加载进度", sub: "Loading", link: "/loading",icon:'load-a' },
+            { title: "徽标", sub: "Badge", link: "/badge",icon:'email-unread' },
             { title: "导航菜单", sub: "Menu", link: "/menu",icon:'navicon' },
-            { title: "加载中", sub: "Loading", link: "/loading",icon:'load-a' }
+            { title: "标签页", sub: "Tabs", link: "/tabs",icon:'ios-photos' },
           ]
         },
         {

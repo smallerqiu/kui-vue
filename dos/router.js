@@ -10,7 +10,7 @@ let router = []
 let children = []
 
 let r = ['', 'install', 'start', 'log', 'index', 'input', 'button', 'select', 'switch', 'form', 'colorpicker','loading',
-    'icon', 'timeline', 'theme', 'react-kui', 'angular-kui', 'alert', 'message', 'notice', 'upload','poptip','menu',
+    'icon', 'timeline', 'theme', 'react-kui', 'angular-kui', 'alert', 'message', 'notice', 'upload','poptip','menu','tabs','badge',
     'checkbox', 'radio', 'datepicker', 'table', 'layout', 'page', 'modal', 'kyui-loader', 'sponsor', 'about']
 r.map((x) => {
     children.push({

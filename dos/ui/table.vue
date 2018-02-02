@@ -7,7 +7,7 @@
     <Button @click="border=!border" type="primary">表格边框</Button>
     <Button @click="mini=!mini" type="primary">mini</Button>
     <Table :data="data" :columns="col" :mini="mini" :onselection="test2" :border="border"></Table>
-    <Code>{{demo}}</Code>
+    <Code lang="xml html">{{demo}}</Code>
     <h3>Table API</h3>
     <div class="table-border" style="overflow:visible;">
       <table>
@@ -175,7 +175,7 @@ export default {
                   value: this.d,
                   mini: true,
                   width: 120,
-                  lang: "en",
+                  lang: "en",transfer:true,
                 },
                 on:{
                   change: v => {
