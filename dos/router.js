@@ -29,7 +29,7 @@ let routers = new Router({
 })
 
 routers.beforeEach(function (to, from, next) {
-    kui.Loading.start('rotate');
+    kui.Loading.start('line');
     typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
     next()
 })

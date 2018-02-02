@@ -13,9 +13,18 @@
    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px;
    white-space: nowrap;
    border-radius: @radius;
-   padding: 5px 10px;
    background: #fff;
    box-sizing: border-box;
+   padding: 15px;
+   [class^=k-ion] {
+      color: orange;
+      font-size: 14px;
+      margin-right: 5px;
+   }
+   .k-poptip-footer {
+      text-align: right;
+      padding-top: 10px;
+   }
    .k-poptip-title {
       font-size: 14px;
    }
@@ -137,21 +146,5 @@
       .k-poptip-arrow {
          bottom: 10px;
       }
-   }
-}
-
-.k-poptip-dom {
-   padding: 15px;
-   .k-poptip-title {
-      font-size: 12px;
-   }
-   [class^=k-ion] {
-      color: orange;
-      font-size: 14px;
-      margin-right: 5px;
-   }
-   .k-poptip-footer {
-      text-align: right;
-      padding-top: 10px;
    }
 }
