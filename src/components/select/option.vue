@@ -13,7 +13,8 @@ export default {
   },
   data() {
     return {
-      selected: false
+      selected: false,
+      index: 0
     };
   },
   computed: {
@@ -35,6 +36,13 @@ export default {
         label: this.label === undefined ? this.$el.innerHTML : this.label
       });
     }
+  },
+  mounted() {
+    this.index = this.$parent.children.length;
+    this.$parent.children.push(this);
+  },
+  beforeDestroy() {
+    this.$parent.children.splice(this.index, 1);
   }
 };
 </script>
