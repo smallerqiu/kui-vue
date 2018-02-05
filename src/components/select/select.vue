@@ -37,9 +37,6 @@ export default {
     value(val) {
       this.updateSelect();
     },
-    childs() {
-      this.children = this.children = utils.findChilds(this, "Option");
-    }
   },
   data() {
     return {

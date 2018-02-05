@@ -1,26 +1,26 @@
-import Alert       from './components/alert'
-import Table       from './components/table'
-import Page        from './components/page'
-import Input       from './components/input'
-import Switch      from './components/switch'
-import DatePicker  from './components/datePicker'
-import Modal       from './components/modal'
-import ColorPicker from './components/colorPicker'
-import Icon        from './components/icon'
-import Upload      from './components/upload'
-import Poptip      from './components/poptip'
+import Alert        from './components/alert'
+import Table        from './components/table'
+import Page         from './components/page'
+import Input        from './components/input'
+import Switch       from './components/switch'
+import DatePicker   from './components/datePicker'
+import Modal        from './components/modal'
+import ColorPicker  from './components/colorPicker'
+import Icon         from './components/icon'
+import Upload       from './components/upload'
+import Poptip       from './components/poptip'
 import Loading      from './components/loading'
-import Badge      from './components/badge'
-import { Tabs ,TabPane }     from './components/tabs'
-import { Select,   Option        } from './components/select'
-import { Radio,    RadioGroup    } from './components/radio'
-import { Checkbox, CheckboxGroup } from './components/checkbox'
-import { Message,  Notice        } from './components/message'
-import { Button,   ButtonGroup   } from './components/button'
-import { Row,      Col           } from './components/grid'
-import { Form,     FormItem      } from './components/form'
-import { TimeLine, TimeLineItem  } from './components/timeline'
-import { Menu } from './components/menu'
+import Badge        from './components/badge'
+import { Tabs      ,TabPane       }         from './components/tabs'
+import { Select,   Option         }         from './components/select'
+import { Radio,    RadioGroup     }         from './components/radio'
+import { Checkbox, CheckboxGroup  }         from './components/checkbox'
+import { Message,  Notice         }         from './components/message'
+import { Button,   ButtonGroup    }         from './components/button'
+import { Row,      Col            }         from './components/grid'
+import { Form,     FormItem       }         from './components/form'
+import { TimeLine, TimeLineItem   }         from './components/timeline'
+import { Menu      ,              MenuGroup ,    MenuItem ,SubMenu} from  './components/menu'
 
 const pkg = require('../package.json');
 
@@ -44,7 +44,7 @@ const components = {
     Row, Col, Upload,
     Icon, TimeLine, TimeLineItem,
     Tabs,TabPane,
-    Menu,
+    Menu,MenuGroup,MenuItem,SubMenu,
     Loading
 }
 const UI = {
@@ -57,6 +57,7 @@ const UI = {
     kTable: Table,
     kSwitch: Switch,
     kCol: Col,
+    kMenu:Menu,
     Version: pkg.version,
 }
 const install = function (Vue, opts = {}) {
