@@ -1,11 +1,15 @@
 import Code from './code'
 
-import Hljs from "highlight.js";
-import "highlight.js/styles/atom-one-light.css";
+// import Hljs from "highlight.js";
+// import "highlight.js/styles/atom-one-light.css";
+
+var Hljs = require('./highlight');
+Hljs.registerLanguage('xml', require('./lang/xml'));
+Hljs.registerLanguage('javascript', require('./lang/javascript'));
+import "./atom-one-light.css";
+
 
 const vueHljs = {};
-
-
 
 vueHljs.install = (Vue) => {
    Vue.component('Code', Code);
@@ -14,13 +18,13 @@ vueHljs.install = (Vue) => {
       Array.prototype.forEach.call(blocks, Hljs.highlightBlock);
    });
 };
-
+export default vueHljs
 //CommonJS
-if (typeof exports == "object") {
-   module.exports = vueHljs;
-}
-//using Vue.use()
-else if (window.Vue) {
-   window.VueHljs = vueHljs;
-   Vue.use(vueHljs);
-}
+// if (typeof exports == "object") {
+//    module.exports = vueHljs;
+// }
+// //using Vue.use()
+// else if (window.Vue) {
+//    window.VueHljs = vueHljs;
+//    Vue.use(vueHljs);
+// }

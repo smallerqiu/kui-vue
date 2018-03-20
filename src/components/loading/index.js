@@ -32,7 +32,6 @@ const mount = props => {
     }
 
     let _props = props || {}
-    console.log(_props)
     const Instance = new Vue({
         render(h) {
             return h(Load, {

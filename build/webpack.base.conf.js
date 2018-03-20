@@ -1,4 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const pkg = require('../package.json');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -51,6 +53,12 @@ module.exports = {
     extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
-    }
+    },
+    plugins: [
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.VERSION': `'${pkg.version}'`
+      }),
+    ]
   }
 }
