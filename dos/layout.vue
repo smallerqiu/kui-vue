@@ -1,7 +1,7 @@
 <template>
   <section class="body">
     <header>
-      <img :src="logo" />VUE KUI 使用文档
+      <a href="/"><img :src="logo" />KUI</a>
     </header>
     <section class="main">
       <Row>
@@ -44,7 +44,6 @@ export default {
   data() {
     return {
       nav: [
-        
         {
           title: "开始",
           child: [
@@ -91,7 +90,7 @@ export default {
           child: [
             { title: "github", weblink: "https://github.com/chuchur/kui",icon:'social-github', },
             { title: "支持作者", link: "/sponsor",icon:'social-usd' },
-            { title: "关于", link: "/index",icon:'android-happy' }
+            { title: "关于", link: "/about",icon:'android-happy' }
           ]
         }
       ],

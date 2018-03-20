@@ -13,7 +13,7 @@ const webpackBaseConfig = require('./webpack.base.conf.js');
 module.exports = merge(webpackBaseConfig, {
     entry: {
         // index: [path.resolve(__dirname, '../dos/main.js')],
-        index: ['babel-polyfill', './dos/main.js'],
+        index: ['./dos/main.js'],
         vendors: ['vue', 'vue-router']
     },
     output: {
@@ -64,7 +64,6 @@ module.exports = merge(webpackBaseConfig, {
             // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
             // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
         }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin("css/[name].[contenthash].css"),
         // 提取入口文件里面的公共模块
         new webpack.optimize.CommonsChunkPlugin({

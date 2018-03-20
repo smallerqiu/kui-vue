@@ -5,7 +5,6 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path');
-const pkg = require('../package.json');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 
@@ -44,10 +43,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
         new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin("k-ui.css"),
         new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false, drop_debugger: true, drop_console: true } }),
-        new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
+        // new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
         // 允许错误不打断程序
         // new webpack.NoErrorsPlugin(),
         new webpack.LoaderOptionsPlugin({ minimize: true })
