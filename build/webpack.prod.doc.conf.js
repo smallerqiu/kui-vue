@@ -24,11 +24,31 @@ module.exports = merge(webpackBaseConfig, {
     libraryTarget: 'umd',
   },
   module: {
-    rules: [ {
+    /* rules: [ {
       test: /\.vue$/, 
       loader: 'vue-loader',
       exclude: /node_modules/    
-  },]
+  },] */
+    rules: [{
+      test: /\.vue$/,
+      use: [{
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: 'vue-style-loader!css-loader',
+            less: 'vue-style-loader!css-loader!less-loader'
+          },
+          // postLoaders: { html: 'babel-loader' }
+        }
+      },
+      {
+        loader: 'kui-loader',
+        options: {
+          prefix: false
+        }
+      }
+      ]
+    },]
   },
   /*   externals: {
        vue: {

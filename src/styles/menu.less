@@ -1,57 +1,259 @@
 .k-menu {
-   display: block;
-   margin: 0;
-   padding: 0;
-   outline: 0;
-   list-style: none;
-   color: #495060;
-   font-size: 14px;
-   position: relative;
-   z-index: 900;
+  display: block;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  list-style: none;
+  color: #495060;
+  font-size: 14px;
+  position: relative;
+  // z-index: 1;
 }
 
-.k-menu-light {
-   background: #fff;
-   &::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: #dddee1;
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-   }
+.k-menu-horizontal.k-menu-light {
+  background: #fff;
+  >.k-menu-item, >.k-menu-submenu {
+    transition: all .2s ease-in-out;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      color: @main;
+      border-bottom: 2px solid @main;
+    }
+    .k-menu-dropdown {}
+  }
+  >.k-menu-item-active {
+    color: @main;
+    border-bottom: 2px solid @main;
+  }
+}
+
+.k-menu-horizontal.k-menu-dark {
+  background: #495060;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #495060;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+  }
+  >.k-menu-item, >.k-menu-submenu {
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      color: orange;
+      border-bottom: 2px solid orange;
+    }
+    .k-menu-dropdown {}
+  }
+  >.k-menu-item-active {
+    color: orange;
+    border-bottom: 2px solid orange;
+  }
+}
+
+.k-menu-horizontal.k-menu-primary {
+  background: @main;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: @main;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+  }
+  >.k-menu-item, >.k-menu-submenu {
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      background: tint(@main, 10%);
+      color: orange;
+      border-bottom: 2px solid transparent;
+    }
+    .k-menu-dropdown {}
+  }
+  >.k-menu-item-active {
+    background: tint(@main, 10%);
+    color: orange;
+    border-bottom: 2px solid transparent;
+  }
+}
+
+.k-menu-item, .k-menu-submenu {
+  display: block;
+  outline: 0;
+  list-style: none;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  i {
+    margin-right: 5px;
+  }
+  .k-ion-ios-arrow-down {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transition: transform .3s ease-in-out;
+  }
+  .k-menu-item-group-title {
+    padding: 7px;
+    box-sizing: border-box;
+    line-height: normal;
+    color: #999;
+    font-size: 12px;
+  }
 }
 
 .k-menu-horizontal {
-   height: 60px;
-   line-height: 60px;
-   .k-menu-item {
-      float: left;
-      padding: 0 20px;
-      position: relative;
-      cursor: pointer;
-      z-index: 3;
-      transition: all .2s ease-in-out;
-      border-bottom: 2px solid transparent;
-   }
-   .k-menu-item-active {
-      color: @main;
-      border-bottom: 2px solid @main;
-   }
+  height: 60px;
+  line-height: 60px;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #dddee1;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+  }
+  >.k-menu-item, >.k-menu-submenu {
+    float: left;
+    padding: 0 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 3;
+    .k-menu-dropdown {
+      left: 0;
+      margin: 5px 0;
+      // padding: 5px 0;
+      background-color: #fff;
+      box-sizing: border-box;
+      border-radius: @radius;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+      position: absolute;
+      z-index: 901;
+      width: 100%;
+      min-width: 120px;
+      .k-menu-item {
+        padding: 7px 16px 8px;
+        line-height: normal;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 120px;
+        color: initial;
+        &:hover {
+          background: #ddd;
+        }
+      }
+      .k-menu-item-active {
+        background: @main;
+        color: #fff;
+        &:hover {
+          background: @main;
+          color: #fff;
+        }
+      }
+    }
+    .k-menu-item-group {
+      .k-menu-item-active {
+        background: @main;
+        color: #fff;
+        &:hover {
+          background: @main;
+          color: #fff;
+        }
+      }
+    }
+  }
 }
 
-.k-menu-item {
-   display: block;
-   outline: 0;
-   list-style: none;
-   font-size: 14px;
-   position: relative;
-   z-index: 1;
-   cursor: pointer;
-   transition: all .2s ease-in-out;
-   &>i {
-      margin-right: 5px;
-   }
+.k-menu-vertical {
+  &::after {
+    content: "";
+    top: 0;
+    display: block;
+    width: 1px;
+    height: 100%;
+    background: #dddee1;
+    position: absolute;
+    right: 0px;
+  }
+  .k-menu-title {
+    padding: 14px 24px;
+    &:hover {
+      background: #f3f3f3;
+    }
+  }
+  .k-ion-ios-arrow-down {
+    float: right;
+    position: relative;
+    top: 4px;
+  }
+  .k-menu-item {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 45px;
+    min-width: 200px;
+    box-sizing: border-box;
+    &:hover {
+      background: #f3f3f3;
+    }
+  }
+  .k-menu-item-group-title {
+    padding: 7px 0 7px 45px;
+    line-height: normal;
+    font-size: 12px;
+    color: #909399;
+  }
+  .k-menu-dropdown {
+    transition: height .3s ease-in-out;
+    -webkit-transition: height .3s ease-in-out;
+  }
+  .k-menu-submenu, .k-menu-item-group {
+    overflow: hidden;
+    .k-menu-item {
+      border-right: 2px solid transparent;
+    }
+    .k-menu-item-active {
+      border-right: 2px solid @main;
+      color: @main;
+    }
+  }
+}
+
+.k-menu-vertical.k-menu-dark {
+  background: #495060;
+  .k-menu-title {
+    color: #fff;
+    background: rgba(120, 124, 134, 0.35);
+    &:hover {
+      background: rgba(120, 124, 134, 0.35);
+    }
+  }
+  .k-menu-item {
+    color: #fff;
+    &:hover {
+      color: @main;
+      background: inherit;
+    }
+  }
+  .k-menu-submenu,.k-menu-item-group {
+    .k-menu-item-active {
+      background: @main;
+      color: #fff;
+    }
+  }
+}
+
+.k-menu-item-opened {
+  .k-ion-ios-arrow-down {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg)
+  }
 }

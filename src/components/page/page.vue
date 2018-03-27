@@ -16,7 +16,7 @@
       </div>
       <div class="jump-page">跳至
         <input type="text" v-model="jump" maxlength="3" class="input-page" /> 页
-        <a class="submit" @click="goPage">确定</a>
+        <input type="button" class="submit" @click="goPage" value="确定" />
       </div>
     </div>
   </div>
@@ -103,8 +103,10 @@ export default {
   },
   methods: {
     goPage() {
-      if (!this.jump || this.page < 0 || this.jump > this.pageCount) return;
-      this.page = this.jump;
+      if(this.jump>=1){
+        if (!this.jump || this.page < 0 || this.jump > this.pageCount) return;
+        this.page = this.jump;
+      }
     },
     toPage(page) {
       this.page = page;

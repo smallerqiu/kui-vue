@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="setPosition">
-    <div class="k-select-selection" @click="toggleDrop" ref="rel">
+    <div :class="selectClass" @click="toggleDrop" ref="rel">
       <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span>
       <span class="k-select-label" v-if="label">{{label}}</span>
       <span class="k-select-arrow"></span>
@@ -64,9 +64,16 @@ export default {
         {
           ["k-select-disabled"]: this.disabled,
           ["k-select-open"]: this.visible,
-          ["k-select-mini"]: this.mini
+          ["k-select-mini"]: this.mini,
         }
       ];
+    },
+    selectClass(){
+      return [
+        'k-select-selection',{
+          ["k-select-isclearable"]: this.clearable && this.label
+        }
+      ]
     },
     selectStyles() {
       return this.width > 0 ? { width: `${this.width}px` } : {};

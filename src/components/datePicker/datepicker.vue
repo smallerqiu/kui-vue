@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="styles" v-docClick="close" v-winScroll="setPosition">
-    <input readonly :value="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
+    <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
     <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
     <transition :name="transName">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
