@@ -3,6 +3,17 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem Icon="bug" Color="red">
+        <h3>1.5
+          <span> 2018-3-27 </span>
+        </h3>
+        <p>新增Menu,MenuGroup,MenuItem,SubMenu 组件<a href="/menu">#体验</a></p>
+        <p>优化了文档的可读性</p>
+        <p>优化Select组件，可清空状态</p>
+        <p>优化datePicker在safari下展示怪异模式</p>
+        <p>修复Page组件跳转翻页的问题以及按钮字符换行的问题</p>
+        <p>优化Loading组件展示半透明模式</p>
+      </TimeLineItem>
+      <TimeLineItem Icon="bug" Color="red">
         <h3>1.4.9
           <span> 2018-3-20 </span>
         </h3>

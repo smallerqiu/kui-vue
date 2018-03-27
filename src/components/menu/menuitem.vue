@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       active: false,
-      index:0,
-      rootMenu : utils.findParent('Menu')
+      rootMenu:utils.findParent(this, "Menu")
+      // index:0,
     };
   },
   computed: {
@@ -31,20 +31,15 @@ export default {
       ];
     }
   },
-  mounted() {
-    let parent = this.$parent;
-    let pName = parent.$options.name;
-    if ("Menu" == pName) {
-      this.index = parent.length
-      parent.items.push(this);
-      this.active = parent.activeIndex == this.name;
-    }
-  },
-  beforDistory(){
-
+  beforDistory() {},
+  created(){
+    // console.log(this.rootMenu.activeName)
+    this.active = this.rootMenu.activeName==this.name
   },
   methods: {
-    handle() {}
+    handle() {
+      this.rootMenu.itemSelect(this.name);
+    }
   }
 };
 </script>

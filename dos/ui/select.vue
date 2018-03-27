@@ -14,12 +14,15 @@
     <Select :width="200" v-model="v1">
       <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
     </Select>
-    <Select :width="200" v-model="v1" mini>
+    <Select :width="200" v-model="v1" mini >
       <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
     </Select>
     <Code lang="xml html">{{mini}}</Code>
     <h3>可清除</h3>
     <Select :width="200" clearable>
+      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
+    </Select>
+    <Select :width="200" clearable mini>
       <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
     </Select>
     <Code lang="xml html">{{demo2}}</Code>

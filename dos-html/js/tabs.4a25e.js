@@ -1,2 +1,0 @@
-/*! kyui v1.4.9 by chuchur (c) 2018 Licensed ISC */
-webpackJsonp([30],{"1V9I":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=t("nDCs"),u=t("XyMi"),c=Object(u.a)(null,r.a,r.b,!1,null,null,null);n.default=c.exports},nDCs:function(e,n,t){"use strict";t.d(n,"a",function(){return r}),t.d(n,"b",function(){return u});var r=function(){var e=this,n=e.$createElement;e._self._c;return e._m(0)},u=[function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[t("h2",[e._v("Tabs 标签页")]),e._v(" "),t("p",[e._v("此组件还在紧急的开发当中...")])])}]}});

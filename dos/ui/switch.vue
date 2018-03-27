@@ -5,6 +5,7 @@
     <h3>基本</h3>
     <p>{{m}}</p>
     <Switch v-model="m"></Switch>
+    <Button @click="m=!m">test</Button>
     <Code lang="xml html">{{demo1}}</Code>
     <h3>主题</h3>
     <Switch v-model="m2"></Switch>&nbsp;&nbsp;
