@@ -16,51 +16,51 @@ let children = []
 r.map((x) => {
     children.push({
         path: `/${x}`,
-        component: resolve => require([x==''?'./ui/index':`./ui/${x}`], resolve),
-        // component: r => require.ensure([], () => r(require(x==''?'/ui/index':`./ui/${x}`)), x)
+        component: resolve => require([x==''?'./page/index':`./page/${x}`], resolve),
+        // component: r => require.ensure([], () => r(require(x==''?'/page/index':`./page/${x}`)), x)
     })
 }) */
 
 let R = {
-    'install': r => require.ensure([], () => r(require('./ui/install')), 'install'),
-    'start': r => require.ensure([], () => r(require('./ui/start')), 'start'),
-    'log': r => require.ensure([], () => r(require('./ui/log')), 'log'),
-    'input': r => require.ensure([], () => r(require('./ui/input')), 'input'),
-    'button': r => require.ensure([], () => r(require('./ui/button')), 'button'),
-    'select': r => require.ensure([], () => r(require('./ui/select')), 'select'),
-    'switch': r => require.ensure([], () => r(require('./ui/switch')), 'switch'),
-    'form': r => require.ensure([], () => r(require('./ui/form')), 'form'),
-    'colorpicker': r => require.ensure([], () => r(require('./ui/colorpicker')), 'colorpicker'),
-    'loading': r => require.ensure([], () => r(require('./ui/loading')), 'loading'),
-    'icon': r => require.ensure([], () => r(require('./ui/icon')), 'icon'),
-    'timeline': r => require.ensure([], () => r(require('./ui/timeline')), 'timeline'),
-    'theme': r => require.ensure([], () => r(require('./ui/theme')), 'theme'),
-    'react-kui': r => require.ensure([], () => r(require('./ui/react-kui')), 'react-kui'),
-    'angular-kui': r => require.ensure([], () => r(require('./ui/angular-kui')), 'angular-kui'),
-    'alert': r => require.ensure([], () => r(require('./ui/alert')), 'alert'),
-    'message': r => require.ensure([], () => r(require('./ui/message')), 'message'),
-    'notice': r => require.ensure([], () => r(require('./ui/notice')), 'notice'),
-    'upload': r => require.ensure([], () => r(require('./ui/upload')), 'upload'),
-    'poptip': r => require.ensure([], () => r(require('./ui/poptip')), 'poptip'),
-    'menu': r => require.ensure([], () => r(require('./ui/menu')), 'menu'),
-    'tabs': r => require.ensure([], () => r(require('./ui/tabs')), 'tabs'),
-    'badge': r => require.ensure([], () => r(require('./ui/badge')), 'badge'),
-    'checkbox': r => require.ensure([], () => r(require('./ui/checkbox')), 'checkbox'),
-    'radio': r => require.ensure([], () => r(require('./ui/radio')), 'radio'),
-    'datepicker': r => require.ensure([], () => r(require('./ui/datepicker')), 'datepicker'),
-    'table': r => require.ensure([], () => r(require('./ui/table')), 'table'),
-    'layout': r => require.ensure([], () => r(require('./ui/layout')), 'layout'),
-    'page': r => require.ensure([], () => r(require('./ui/page')), 'page'),
-    'modal': r => require.ensure([], () => r(require('./ui/modal')), 'modal'),
-    'kyui-loader': r => require.ensure([], () => r(require('./ui/kyui-loader')), 'kyui-loader'),
-    'sponsor': r => require.ensure([], () => r(require('./ui/sponsor')), 'sponsor'),
-    'about': r => require.ensure([], () => r(require('./ui/about')), 'about')
+    'install': r => require.ensure([], () => r(require('./page/install')), 'install'),
+    'start': r => require.ensure([], () => r(require('./page/start')), 'start'),
+    'log': r => require.ensure([], () => r(require('./page/log')), 'log'),
+    'input': r => require.ensure([], () => r(require('./page/input')), 'input'),
+    'button': r => require.ensure([], () => r(require('./page/button')), 'button'),
+    'select': r => require.ensure([], () => r(require('./page/select')), 'select'),
+    'switch': r => require.ensure([], () => r(require('./page/switch')), 'switch'),
+    'form': r => require.ensure([], () => r(require('./page/form')), 'form'),
+    'colorpicker': r => require.ensure([], () => r(require('./page/colorpicker')), 'colorpicker'),
+    'loading': r => require.ensure([], () => r(require('./page/loading')), 'loading'),
+    'icon': r => require.ensure([], () => r(require('./page/icon')), 'icon'),
+    'timeline': r => require.ensure([], () => r(require('./page/timeline')), 'timeline'),
+    'theme': r => require.ensure([], () => r(require('./page/theme')), 'theme'),
+    'react-kui': r => require.ensure([], () => r(require('./page/react-kui')), 'react-kui'),
+    'angular-kui': r => require.ensure([], () => r(require('./page/angular-kui')), 'angular-kui'),
+    'alert': r => require.ensure([], () => r(require('./page/alert')), 'alert'),
+    'message': r => require.ensure([], () => r(require('./page/message')), 'message'),
+    'notice': r => require.ensure([], () => r(require('./page/notice')), 'notice'),
+    'upload': r => require.ensure([], () => r(require('./page/upload')), 'upload'),
+    'poptip': r => require.ensure([], () => r(require('./page/poptip')), 'poptip'),
+    'menu': r => require.ensure([], () => r(require('./page/menu')), 'menu'),
+    'tabs': r => require.ensure([], () => r(require('./page/tabs')), 'tabs'),
+    'badge': r => require.ensure([], () => r(require('./page/badge')), 'badge'),
+    'checkbox': r => require.ensure([], () => r(require('./page/checkbox')), 'checkbox'),
+    'radio': r => require.ensure([], () => r(require('./page/radio')), 'radio'),
+    'datepicker': r => require.ensure([], () => r(require('./page/datepicker')), 'datepicker'),
+    'table': r => require.ensure([], () => r(require('./page/table')), 'table'),
+    'layout': r => require.ensure([], () => r(require('./page/layout')), 'layout'),
+    'page': r => require.ensure([], () => r(require('./page/page')), 'page'),
+    'modal': r => require.ensure([], () => r(require('./page/modal')), 'modal'),
+    'kyui-loader': r => require.ensure([], () => r(require('./page/kyui-loader')), 'kyui-loader'),
+    'sponsor': r => require.ensure([], () => r(require('./page/sponsor')), 'sponsor'),
+    'about': r => require.ensure([], () => r(require('./page/about')), 'about')
 };
 
 for (let x in R) {
     children.push({ path: `/${x}`, name: x, component: R[x] })
 }
-let index = r => require.ensure([], () => r(require('./ui/index')), 'home');
+let index = r => require.ensure([], () => r(require('./page/index')), 'home');
 
 router.push(
     { path: '/', component: index },

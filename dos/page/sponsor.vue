@@ -32,8 +32,8 @@
 export default {
   data() {
     return {
-      zfb: require("../zfb.jpg"),
-      wx: require("../wx.jpg"),
+      zfb: require("../assets/zfb.jpg"),
+      wx: require("../assets/wx.jpg"),
       data: [
         { type: "支付宝", name: "*如雷", money: "18.88", time: "2017-12-20" },
         { type: "微信", name: "匿名", money: "1.66", time: "2017-12-26" },
