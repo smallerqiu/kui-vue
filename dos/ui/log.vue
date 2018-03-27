@@ -191,7 +191,7 @@
         <p>修复在ie下表格无法选中的bug</p>
       </TimeLineItem>
       <TimeLineItem Icon="ios-cloud-upload">
-        <h3>1.2
+        <h3>1.1
           <span> 2017-12-18</span>
         </h3>
         <p>新增Radio组件</p>
@@ -201,14 +201,14 @@
         <p>完善Modal 回调问题</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3> 1.1.4
+        <h3> 1.0.4
           <span>2017-12-15</span>
         </h3>
         <p>日期控件新增回调</p>
         <p>新增Row，Col 组件</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3>1.2
+        <h3>1.0.2
           <span>2017-12-12</span>
         </h3>
         <p>完成Table，Page，Button，DatePicker等组件</p>
@@ -220,6 +220,5 @@
         <p>着手开发</p>
       </TimeLineItem>
     </TimeLine>
-
   </div>
 </template>
