@@ -1,23 +1,20 @@
 const rm = require('rimraf')
 const ora = require('ora')
 
-const webpackConfig = require('./webpack.prod.conf')
 const spinner = ora('开始构建...')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const path = require('path')
 
-// let buidDoc = process.argv.indexOf('doc') >= 0
+let isBuildDoc = process.argv.splice(2).length>0;
+let config = isBuildDoc ? require('./webpack.prod.doc.conf') : require('./webpack.prod.conf');
+let rmPath = isBuildDoc ? './dos-html' : './dist';
 
-// process.env.NODE_ENV = buidDoc ? 'prod' : 'dev'
-
-
-// return
 spinner.start()
 
-rm('/dist', (err) => {
+rm(rmPath, (err) => {
     if (err) throw err
-    webpack(webpackConfig, function (err, stats) {
+    webpack(config, function (err, stats) {
         spinner.stop()
         if (err) throw err
         process.stdout.write(stats.toString({
