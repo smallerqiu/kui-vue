@@ -6,9 +6,9 @@
     "style": "dist/k-ui.css",
     "scripts": {
         "test": "node build/dev.js",
-        "dev": "webpack-dev-server --content-base test/ --open --inline --hot --compress --history-api-fallback --port 7001 --config build/webpack.dev.conf.js",
-        "build:doc": "webpack --config build/webpack.prod.doc.conf.js",
-        "build": "webpack --config build/webpack.prod.conf.js"
+        "dev": "webpack-dev-server  --config build/webpack.dev.conf.js",
+        "build:doc": "node build/build.js doc",
+        "build": "node build/build.js "
     },
     "repository": {
         "type": "git",

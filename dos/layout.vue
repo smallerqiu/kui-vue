@@ -119,7 +119,7 @@ export default {
           ]
         }
       ],
-      logo: require("./logo.png"),activeName:''
+      logo: require("./assets/logo.png"),activeName:''
     };
   },
   methods: {

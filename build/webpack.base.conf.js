@@ -5,20 +5,6 @@ const webpack = require('webpack');
 module.exports = {
   module: {
     rules: [
-      // {
-      //   test: /\.vue$/,
-      //   use: [{
-      //     loader: 'vue-loader',
-      //     options: {
-      //       loaders: {
-      //         css: 'vue-style-loader!css-loader',
-      //         less: 'vue-style-loader!css-loader!less-loader'
-      //       },
-      //       postLoaders: { html: 'babel-loader' }
-      //     }
-      //   }
-      //   ]
-      // },
       {
         test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
         /* query: {

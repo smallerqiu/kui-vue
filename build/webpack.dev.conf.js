@@ -11,6 +11,23 @@ const merge = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 
 module.exports = merge(webpackBaseConfig, {
+    devServer: {
+        port: 7001,
+        hot: true,
+        open: true,
+        inline: true,
+        compress: true,
+        historyApiFallback: true,
+        proxy: {
+            '/rest': {
+                target: 'http://10.0.101.162:9596', //测试环境
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/rest': '' //本地没有rest
+                },
+            }
+        }
+    },
     entry: {
         // index: [path.resolve(__dirname, '../dos/main.js')],
         index: ['./dos/main.js'],
@@ -26,23 +43,23 @@ module.exports = merge(webpackBaseConfig, {
         rules: [{
             test: /\.vue$/,
             use: [{
-                    loader: 'vue-loader',
-                    options: {
-                        loaders: {
-                            css: 'vue-style-loader!css-loader',
-                            less: 'vue-style-loader!css-loader!less-loader'
-                        },
-                        // postLoaders: { html: 'babel-loader' }
-                    }
-                },
-                {
-                    loader: 'kui-loader',
-                    options: {
-                        prefix: false
-                    }
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        css: 'vue-style-loader!css-loader',
+                        less: 'vue-style-loader!css-loader!less-loader'
+                    },
+                    // postLoaders: { html: 'babel-loader' }
                 }
+            },
+            {
+                loader: 'kui-loader',
+                options: {
+                    prefix: false
+                }
+            }
             ]
-        }, ]
+        },]
     },
     plugins: [
         // 位于开发环境下

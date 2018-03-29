@@ -14,7 +14,7 @@ module.exports = merge(webpackBaseConfig, {
   entry: {
     index: ['./dos/main.js'],
     // index: path.resolve(__dirname, '../dos/main.js'),
-    // vendors: ['vue', 'vue-router']
+    vendors: ['vue', 'vue-router']
   },
   output: {
     path: path.resolve(__dirname, '../dos-html'),
@@ -24,11 +24,6 @@ module.exports = merge(webpackBaseConfig, {
     libraryTarget: 'umd',
   },
   module: {
-    /* rules: [ {
-      test: /\.vue$/, 
-      loader: 'vue-loader',
-      exclude: /node_modules/    
-  },] */
     rules: [{
       test: /\.vue$/,
       use: [{
@@ -46,18 +41,9 @@ module.exports = merge(webpackBaseConfig, {
         options: {
           prefix: false
         }
-      }
-      ]
+      }]
     },]
   },
-  /*   externals: {
-       vue: {
-          root: 'Vue',
-          commonjs: 'vue',
-          commonjs2: 'vue',
-          amd: 'vue'
-       }
-    }, */
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
@@ -70,7 +56,7 @@ module.exports = merge(webpackBaseConfig, {
         drop_console: true
       }
     }),
-    new ExtractTextPlugin("css/doc.css"),
+    new ExtractTextPlugin({ filename: "css/[name].[hash:5].css" }),
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
