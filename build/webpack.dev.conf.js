@@ -62,6 +62,8 @@ module.exports = merge(webpackBaseConfig, {
         },]
     },
     plugins: [
+        //热键替换，配合devServer => hot:true
+        new webpack.HotModuleReplacementPlugin(),
         // 位于开发环境下
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"development"'
@@ -93,8 +95,6 @@ module.exports = merge(webpackBaseConfig, {
         // 模块热替换插件
         // new webpack.HotModuleReplacementPlugin(),
         // new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false } }),
-        // 允许错误不打断程序
-        new webpack.NoErrorsPlugin(),
         // new webpack.LoaderOptionsPlugin({ minimize: true }),
     ]
 })

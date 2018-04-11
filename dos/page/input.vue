@@ -5,6 +5,9 @@
     <h3>基础</h3>
     <Input type="text" width="200" placeholder="请输入内容..."></Input>
     <Code lang="xml html">{{demo1}}</Code>
+     <h3>可清除</h3>
+    <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
+    <Code lang="xml html">{{demo6}}</Code>
     <h3>带图标</h3>
     <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @onClick="iconClick"></Input>
     <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @onClick="iconClick"></Input>
@@ -168,7 +171,8 @@ methods: {
     iconClick() {
       this.$Message.info("点击图标事件");
     }
-}`
+}`,
+  demo6:`<Input type="text" width="200" placeholder="请输入内容..." clearable></Input>`
     };
   },
   methods: {

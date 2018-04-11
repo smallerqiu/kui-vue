@@ -1,8 +1,8 @@
 <template>
   <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="setPosition">
     <div :class="selectClass" @click="toggleDrop" ref="rel">
-      <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span>
-      <span class="k-select-label" v-if="label">{{label}}</span>
+      <!-- <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span> -->
+      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" @keyup="handleKeyup" />
       <span class="k-select-arrow"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
@@ -10,7 +10,7 @@
       <div class="k-select-dropdown" ref="dom" v-show="visible" :style="dropdownStyles" v-transferDom :data-transfer="transfer">
         <ul>
           <slot></slot>
-          <li class="k-select-item" v-if="children.length==0" @click.stop="()=>{}">暂无数据...</li>
+          <li class="k-select-item" v-if="children.length==0||queryCount==0">暂无数据...</li>
         </ul>
       </div>
     </transition>
@@ -27,6 +27,7 @@ export default {
   props: {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
+    filterable: Boolean,
     transfer: { type: Boolean, default: false },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
@@ -36,23 +37,22 @@ export default {
   watch: {
     value(val) {
       this.updateSelect();
-    },
+    }
   },
   data() {
     return {
-      childs: this.$children,
       visible: false,
       dropdownWith: 0,
       left: 0,
       fb: false,
       top: 0,
       label: "",
-      children: []
+      children: [],
+      queryCount: 0
     };
   },
   mounted() {
     this.updateSelect();
-    // this.children = utils.findChilds(this, "Option");
   },
   computed: {
     isclearable() {
@@ -64,16 +64,17 @@ export default {
         {
           ["k-select-disabled"]: this.disabled,
           ["k-select-open"]: this.visible,
-          ["k-select-mini"]: this.mini,
+          ["k-select-mini"]: this.mini
         }
       ];
     },
-    selectClass(){
+    selectClass() {
       return [
-        'k-select-selection',{
+        "k-select-selection",
+        {
           ["k-select-isclearable"]: this.clearable && this.label
         }
-      ]
+      ];
     },
     selectStyles() {
       return this.width > 0 ? { width: `${this.width}px` } : {};
@@ -90,6 +91,11 @@ export default {
     }
   },
   methods: {
+    handleKeyup(e) {
+      if (!this.filterable) return;
+      this.children.map(x => x.query(e.target.value));
+      this.queryCount = this.children.filter(x=>x.visible).length
+    },
     close() {
       this.visible = false;
     },

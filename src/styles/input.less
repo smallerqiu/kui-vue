@@ -49,11 +49,39 @@
       }
    }
 }
-
+.k-input-clearable{
+    position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 10px;
+      height: 1px;
+      line-height: 10px;
+      text-align: center;
+    //   display: none;
+      &::before {
+         content: "\F406";
+         font-family: Ionicons;
+         font-size: 15px;
+         position: absolute;
+         left: 0;
+         top: 0;
+         text-align: center;
+         color: #999;
+      }
+      &:hover {
+         &::before {
+            color: #555;
+         }
+      }
+}
 .k-input-mini {
    .k-input {
       padding: 2px 7px;
       height: 25px;
+   }
+   .k-input-clearable{
+    top: 9px;
+    right: 9px;
    }
    [class^="k-ion"] {
       height: 26px;

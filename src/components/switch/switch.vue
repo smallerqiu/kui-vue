@@ -20,8 +20,7 @@ export default {
   },
   data() {
     return {
-      checked: this.value,
-      text: ""
+      checked: this.value
     };
   },
   watch: {
@@ -54,7 +53,6 @@ export default {
       this.checked = !this.checked;
       this.$emit("input", this.checked);
       this.$emit("change", this.checked);
-      this.text = this.checked ? this.trueText : this.falseText;
     }
   }
 };

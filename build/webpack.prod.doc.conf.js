@@ -56,7 +56,7 @@ module.exports = merge(webpackBaseConfig, {
         drop_console: true
       }
     }),
-    new ExtractTextPlugin({ filename: "css/[name].[hash:5].css" }),
+    new ExtractTextPlugin({ filename: "css/[name].[contenthash:5].css" }),
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白

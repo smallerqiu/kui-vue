@@ -1,8 +1,13 @@
 <template>
-  <div :style="styles" :class="classes">
+  <div :style="styles" :class="classes" @mousemove="handleMove" @mouseout="handleOut">
     <template v-if="type !== 'textarea'">
       <i :class="iconClasses" @click="iconClick" v-if="icon && type!=='textarea'"></i>
-      <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type" :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange">
+      <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type"
+       :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" 
+       :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus"
+        @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown"
+         @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange" >
+      <span class="k-input-clearable" v-if="type!='textarea'&&clearable&&clearableShow" @click.stop="clear"></span>
     </template>
     <textarea v-else :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="textarea" :class="textareaClasses" :placeholder="placeholder" :disabled="disabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput">
     </textarea>
@@ -17,6 +22,7 @@ export default {
     autofocus: [Boolean, String, Number],
     spellcheck: Boolean,
     elementId: String,
+    clearable: Boolean,
     mini: { type: Boolean, default: false },
     type: {
       validator(value) {
@@ -47,7 +53,10 @@ export default {
   },
   data() {
     return {
-      currentValue: ""
+      currentValue: "",
+      clearableShow: false,
+      isFocus: false,
+      isMove: false
     };
   },
   watch: {
@@ -59,8 +68,8 @@ export default {
     this.currentValue = this.value;
   },
   computed: {
-    iconClasses(){
-      return [`k-ion-${this.icon}`]
+    iconClasses() {
+      return [`k-ion-${this.icon}`];
     },
     classes() {
       return [
@@ -94,7 +103,21 @@ export default {
     }
   },
   methods: {
-    iconClick: function() {
+    clear() {
+      this.setCurrentValue("");
+      this.clearableShow = false;
+    },
+    handleMove() {
+      this.clearableShow = this.currentValue.length > 0;
+      this.isMove = true;
+    },
+    handleOut() {
+      this.isMove = false;
+      if (!this.isFocus) {
+        this.clearableShow = false;
+      }
+    },
+    iconClick() {
       !this.disabled && this.$emit("onClick");
     },
     handleEnter(event) {
@@ -110,13 +133,20 @@ export default {
       this.$emit("keyup", event);
     },
     handleFocus(event) {
+      this.clearableShow = this.currentValue.length > 0;
       this.$emit("focus", event);
+      this.isFocus = true;
     },
     handleBlur(event) {
+      if (!this.isMove) {
+        this.clearableShow = false;
+      }
+      this.isFocus = false
       this.$emit("blur", event);
     },
     handleInput(event) {
       let value = event.target.value;
+      this.clearableShow = value.length > 0;
       if (this.number)
         value = Number.isNaN(Number(value)) ? value : Number(value);
       this.$emit("input", value);
@@ -135,6 +165,7 @@ export default {
       } else {
         this.$refs.input.focus();
       }
+      this.isFocus = true;
     },
     blur() {
       if (this.type === "textarea") {
@@ -142,6 +173,7 @@ export default {
       } else {
         this.$refs.input.blur();
       }
+      this.isFocus = false;
     }
   }
 };
