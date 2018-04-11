@@ -1,97 +1,101 @@
 .k-radio-group {
-   display: inline-block;
-   font-size: 12px;
-   vertical-align: middle;
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: middle;
 }
+
 .k-radio-wp {
-   user-select: none;
-   cursor: pointer;
-   font-size: 12px;
-   display: inline-block;
-   margin-right: 8px;
-   .k-radio {
-      display: inline-block;
-      vertical-align: middle;
-      white-space: nowrap;
-      cursor: pointer;
-      outline: 0;
-      line-height: 1;
-      position: relative;
-      margin-right: 5px;
-      .k-radio-inner {
-         display: inline-block;
-         width: 14px;
-         height: 14px;
-         position: relative;
-         top: 0;
-         left: 0;
-         border: 1px solid #dddee1;
-         border-radius: 2px;
-         background-color: #fff;
-         transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
-         border-radius: 50%;
-         &:after {
-            width: 4px;
-            height: 4px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 12px;
+    display: inline-block;
+    margin-right: 8px;
+    .k-radio {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: nowrap;
+        cursor: pointer;
+        outline: 0;
+        line-height: 1;
+        position: relative;
+        margin-right: 5px;
+        .k-radio-inner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            position: relative;
+            top: 0;
+            left: 0;
+            border: 1px solid #dddee1;
+            border-radius: 2px;
+            background-color: #fff;
+            transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
+            border-radius: 50%;
+            &:after {
+                width: 4px;
+                height: 4px;
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                border-radius: 6px;
+                display: block;
+                content: " ";
+                opacity: 0;
+                background-color: @main;
+                transition: all .2s ease-in-out;
+            }
+        }
+        .k-radio-input {
+            width: 100%;
+            height: 100%;
             position: absolute;
-            left: 5px;
-            top: 5px;
-            border-radius: 6px;
-            display: block;
-            content: " ";
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            cursor: pointer;
             opacity: 0;
-            background-color: @main;
-            transition: all .2s ease-in-out;
-         }
-      }
-      .k-radio-input {
-         width: 100%;
-         height: 100%;
-         position: absolute;
-         top: 0;
-         bottom: 0;
-         left: 0;
-         right: 0;
-         z-index: 1;
-         cursor: pointer;
-         opacity: 0;
-      }
-   }
-   .k-radio-checked {
-      .k-radio-inner {
-         background: #fff;
-         border-color: @main;
-         position: relative;
-         &:after {
-            opacity: 1; 
-            width: 8px;
-            height: 8px;
-            left: 3px;
-            top: 3px;
-         }
-      }
-   }
-   .k-radio-disabled{
-      cursor: not-allowed;
-      .k-radio-inner{
-         background: #f3f3f3;
-         &:after {
-            background-color: #f3f3f3;
-         }
-      }
-   }
+        }
+    }
+    .k-radio-checked {
+        .k-radio-inner {
+            background: #fff;
+            border-color: @main;
+            position: relative;
+            &:after {
+                opacity: 1;
+                width: 8px;
+                height: 8px;
+                left: 3px;
+                top: 3px;
+            }
+        }
+    }
+    .k-radio-disabled {
+        cursor: not-allowed;
+        .k-radio-inner {
+            background: #f3f3f3;
+            &:after {
+                background-color: #f3f3f3;
+            }
+        }
+    }
 }
 
 .k-radio-disabled {
-   cursor: not-allowed;
-   opacity: .5;
-   .k-radio {
-      .k-radio-inner {
-         background: #f3f3f3;
-         border-color: #999;
-         &:after {
-            background-color: #999;
-         }
-      }
-   }
+    cursor: not-allowed;
+    opacity: .5;
+    .k-radio {
+        &:hover {
+            cursor: not-allowed;
+        }
+        .k-radio-inner {
+            background: #f3f3f3;
+            border-color: #d0d0d0;
+            &:after {
+                background-color: #999;
+            }
+        }
+    }
 }

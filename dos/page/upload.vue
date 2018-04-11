@@ -140,7 +140,7 @@ export default {
       this.$refs.upload.submit();
     },
     change(res) {
-      console.log(res);
+      this.$Message.info('选择了文件：'+res);
     },
     complite(res) {
       console.log(res);

@@ -71,7 +71,7 @@ export default {
           child: [
             { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
             { title: "按钮", sub: "Button", link: "/button",icon:'stop' },
-            { title: "布局", sub: "Layout", link: "/layout",icon:'social-buffer' },
+            { title: "布局", sub: "layout", link: "/layout",icon:'social-buffer' },
             // { title: "标签页", sub: "Tabs", link: "/tabs",icon:'ios-photos' },
           ]
         },
@@ -83,6 +83,7 @@ export default {
             { title: "单选框", sub: "Radio", link: "/radio",icon:'android-radio-button-on' },
             { title: "开关", sub: "Switch", link: "/switch",icon:'ios-toggle' },
             { title: "下拉框", sub: "Select", link: "/select",icon:'chevron-down' },
+            { title: "滑块", sub: "Slider", link: "/slider",icon:'android-options' },
             { title: "日期", sub: "datePicker", link: "/datepicker",icon:'ios-calendar-outline' },
             { title: "表格", sub: "Table", link: "/table",icon:'ios-grid-view' },
             { title: "表单", sub: "Form", link: "/form",icon:'ios-list' },

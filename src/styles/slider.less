@@ -1,0 +1,35 @@
+.k-slider {
+    .k-slider-wrap {
+        width: 100%;
+        height: 6px;
+        margin: 16px 0;
+        background-color: #e9eaec;
+        border-radius: 3px;
+        vertical-align: middle;
+        position: relative;
+        cursor: pointer;
+        .k-slider-bar {
+            height: 6px;
+            background-color: @main;
+            border-radius: 3px;
+            // border-top-left-radius: 3px;
+            // border-bottom-left-radius: 3px;
+        }
+        .k-slider-button {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #57a3f3;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: all .2s linear;
+            outline: 0;
+            transform: translateX(-50%);
+            top:-7px;
+            position: absolute;
+            left: 50%;
+            &:hover{
+                transform:translateX(-50%) scale(1.2)
+            }
+        }
+    }
+}

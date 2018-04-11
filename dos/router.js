@@ -28,6 +28,7 @@ let R = {
     'input': r => require.ensure([], () => r(require('./page/input')), 'input'),
     'button': r => require.ensure([], () => r(require('./page/button')), 'button'),
     'select': r => require.ensure([], () => r(require('./page/select')), 'select'),
+    'slider': r => require.ensure([], () => r(require('./page/slider')), 'slider'),
     'switch': r => require.ensure([], () => r(require('./page/switch')), 'switch'),
     'form': r => require.ensure([], () => r(require('./page/form')), 'form'),
     'colorpicker': r => require.ensure([], () => r(require('./page/colorpicker')), 'colorpicker'),

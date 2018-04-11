@@ -11,6 +11,7 @@ import Upload       from './components/upload'
 import Poptip       from './components/poptip'
 import Loading      from './components/loading'
 import Badge        from './components/badge'
+import Slider       from './components/slider'
 import { Tabs      ,TabPane       }         from './components/tabs'
 import { Select,   Option         }         from './components/select'
 import { Radio,    RadioGroup     }         from './components/radio'
@@ -45,7 +46,7 @@ const components = {
     Icon, TimeLine, TimeLineItem,
     Tabs,TabPane,
     Menu,MenuGroup,MenuItem,SubMenu,
-    Loading
+    Loading,Slider
 }
 const UI = {
     ...components,
