@@ -2,15 +2,16 @@
   <label :class="wpclasses">
     <span :class="classes">
       <span class="k-checkbox-inner"></span>
-      <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
+      <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="defaultDisabled" :checked="checked" @change="change($event)">
     </span>
     <slot>{{label}}</slot>
   </label>
 </template>
 <script>
-import utils from "../../utils";
+import emitter from "../../mixins/emitter";
 export default {
   name: "Checkbox",
+  mixins: [emitter],
   props: {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
@@ -22,7 +23,7 @@ export default {
       return [
         "k-checkbox-wp",
         {
-          ["k-checkbox-disabled"]: this.disabled
+          ["k-checkbox-disabled"]: this.defaultDisabled
         }
       ];
     },
@@ -37,22 +38,27 @@ export default {
   },
   data() {
     return {
-      checked: false,
+      defaultDisabled: this.disabled,
+      checked: this.value,
       group: false,
-      parent: utils.findParent(this, "CheckboxGroup")
     };
   },
-  mounted() {
-    if (this.parent) this.group = true;
-    if (!this.group) {
-      this.checked = this.value;
-    } else {
-      this.parent.update();
+  watch: {
+    value(v) {
+      this.checked = v;
     }
   },
+  mounted() {
+    this.$on('checkbox-update', this.update)
+    // this.dispatch('CheckboxGroup', 'checkbox-group-update')
+  },
   methods: {
+    update(params) {
+      this.checked = params.value.indexOf(this.label) >= 0;
+      this.group = params.group
+    },
     change(event) {
-      if (this.disabled) {
+      if (this.defaultDisabled) {
         return false;
       }
 
@@ -61,21 +67,13 @@ export default {
       this.$emit("input", checked);
 
       if (this.group && this.label !== undefined) {
-        this.parent.change({
-          value: this.label,
-          checked: this.checked
-        });
+        this.dispatch('CheckboxGroup', 'checkbox-group-change', { value: this.label, checked: this.checked })
       }
       if (!this.group) {
-        // this.onchange(checked)
         this.$emit("change", checked);
       }
     }
   },
-  watch: {
-    value(v) {
-      this.checked = v;
-    }
-  }
+
 };
 </script>

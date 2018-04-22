@@ -2,11 +2,15 @@
   <div>
     <h2>ColorPicker 颜色</h2>
     <Alert>注意：非 template/render 模式下，需使用 color-picker。</Alert>
-    <h3>基础</h3>
-    <p>数据模型是从offce 颜色组件扒下来的。</p>
-    <p>{{d}}</p>
-    <ColorPicker v-model="d"></ColorPicker>
-    <Code>{{demo}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <p>{{defaultColor}}</p>
+        <ColorPicker v-model="defaultColor"></ColorPicker>
+      </div>
+      <div slot="desc">数据模型是从offce 颜色组件扒下来的。</div>
+      <div slot="code">{{base}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -42,8 +46,8 @@
 export default {
   data() {
     return {
-      d: "#eeece1",
-      demo: `<ColorPicker v-model="d"></ColorPicker>`
+      defaultColor: "#eeece1",
+      base: `<ColorPicker v-model="defaultColor"></ColorPicker>`
     };
   }
 };

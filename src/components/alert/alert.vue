@@ -44,7 +44,7 @@ export default {
   methods: {
     close() {
       this.closed = true;
-      this.$emit("on-close");
+      this.$emit("close");
     }
   }
 };

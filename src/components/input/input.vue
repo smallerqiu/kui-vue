@@ -2,22 +2,30 @@
   <div :style="styles" :class="classes" @mousemove="handleMove" @mouseout="handleOut">
     <template v-if="type !== 'textarea'">
       <i :class="iconClasses" @click="iconClick" v-if="icon && type!=='textarea'"></i>
-      <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type"
-       :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" 
-       :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus"
-        @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown"
-         @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange" >
+      <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input"
+       :type="type" :class="inputClasses" :placeholder="placeholder" :disabled="disabled" 
+       :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :number="number" 
+       :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress"
+        @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange">
       <span class="k-input-clearable" v-if="type!='textarea'&&clearable&&clearableShow" @click.stop="clear"></span>
     </template>
-    <textarea v-else :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="textarea" :class="textareaClasses" :placeholder="placeholder" :disabled="disabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput">
+    <textarea v-else :id="elementId" :autocomplete="autocomplete" 
+    :spellcheck="spellcheck" ref="textarea" :class="textareaClasses"
+    :placeholder="placeholder" :disabled="disabled" :rows="rows" 
+    :maxlength="maxlength" :readonly="readonly" :name="name" 
+    :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" 
+    @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" 
+    @focus="handleFocus" @blur="handleBlur" @input="handleInput">
     </textarea>
   </div>
 
 </template>
 
 <script>
+import emitter from '../../mixins/emitter'
 export default {
   name: "Input",
+  mixins: [emitter],
   props: {
     autofocus: [Boolean, String, Number],
     spellcheck: Boolean,
@@ -118,7 +126,7 @@ export default {
       }
     },
     iconClick() {
-      !this.disabled && this.$emit("onClick");
+      !this.disabled && this.$emit("iconClick");
     },
     handleEnter(event) {
       this.$emit("enter", event);
@@ -143,6 +151,7 @@ export default {
       }
       this.isFocus = false
       this.$emit("blur", event);
+      this.dispatch('FormItem', 'form-item-blur', this.currentValue)
     },
     handleInput(event) {
       let value = event.target.value;
@@ -158,6 +167,7 @@ export default {
     setCurrentValue(value) {
       if (value === this.currentValue) return;
       this.currentValue = value;
+      this.dispatch('FormItem', 'form-item-change', this.currentValue)
     },
     focus() {
       if (this.type === "textarea") {

@@ -3,6 +3,7 @@
         <h2>Slider 滑块</h2>
         <h3>基础</h3>
         <Slider></Slider>
+        <p>//todo:...</p>
     </div>
 </template>
 <script>

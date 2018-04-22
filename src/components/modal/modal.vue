@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     stop(e){
-      console.log(e)
+      // console.log(e)
       e.cancelBubble = true
     },
     getColor() {

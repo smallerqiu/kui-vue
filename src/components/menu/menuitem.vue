@@ -1,15 +1,16 @@
 <template>
-  <li :class="classes" @click="handle">
+  <li :class="classes" @click.stop="handle">
     <Icon :type="icon" v-if="icon"></Icon>
     <slot></slot>
   </li>
 </template>
 <script>
 import Icon from "../icon";
-import utils from "../../utils";
+import emitter from '../../mixins/emitter'
 export default {
   name: "MenuItem",
   components: { Icon },
+  mixins: [emitter],
   props: {
     icon: String,
     name: { type: String, required: true }
@@ -17,7 +18,6 @@ export default {
   data() {
     return {
       active: false,
-      rootMenu:utils.findParent(this, "Menu")
       // index:0,
     };
   },
@@ -31,14 +31,19 @@ export default {
       ];
     }
   },
-  beforDistory() {},
-  created(){
-    // console.log(this.rootMenu.activeName)
-    this.active = this.rootMenu.activeName==this.name
+  beforDistory() { },
+  mounted() {
+    this.active = this.getParent('Menu').activeName == this.name
+    this.$on('menu-item-update', this.update)
   },
   methods: {
+    update(name) {
+      this.active = this.name == name
+    },
     handle() {
-      this.rootMenu.itemSelect(this.name);
+      this.active = true
+      this.dispatch('Menu', 'menu-select', this.name)
+      this.dispatch('SubMenu', 'menu-submenu-close', this.name)
     }
   }
 };

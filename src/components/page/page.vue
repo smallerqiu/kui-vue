@@ -27,7 +27,6 @@ export default {
   props: {
     mini: { default: false, type: Boolean },
     total: { default: 0, type: [Number, String] },
-    // onchange: { type: Function,  default: function() {} },
     pagesize: { default: 15, type: [Number, String] },
     current: { default: 1, type: [Number, String] }
   },

@@ -2,7 +2,7 @@
   <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="setPosition">
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span> -->
-      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" @keyup="handleKeyup" />
+      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" :disabled="disabled" @keyup="handleKeyup" ref="input" />
       <span class="k-select-arrow"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
@@ -17,26 +17,39 @@
   </div>
 </template>
 <script>
-import utils from "../../utils";
+import emitter from '../../mixins/emitter'
 import transferDom from "../../directives/transferDom";
 import winScroll from "../../directives/winScroll";
 import docClick from "../../directives/docClick";
 export default {
   name: "Select",
   directives: { docClick, transferDom, winScroll },
+  mixins: [emitter],
   props: {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
     filterable: Boolean,
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
     clearable: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false }
   },
   watch: {
-    value(val) {
+    value(n, o) {
       this.updateSelect();
+    },
+    visible(val) {
+      if (this.filterable) {
+        if (!val) {
+          setTimeout(() => {
+            this.children.forEach(x => (x.visible = true));
+          }, 300);
+
+          this.$refs.input.blur();
+          this.label = (this.selectItem && this.selectItem.label) || "";
+        }
+      }
     }
   },
   data() {
@@ -48,11 +61,15 @@ export default {
       top: 0,
       label: "",
       children: [],
-      queryCount: 0
+      queryCount: 0,
+      selectItem: null
     };
   },
-  mounted() {
+  created() {
     this.updateSelect();
+    this.$on('select-change', this.select)
+    this.$on('select-add', this.add)
+    this.$on('select-remove', this.remove)
   },
   computed: {
     isclearable() {
@@ -91,46 +108,40 @@ export default {
     }
   },
   methods: {
+    remove(obj) {
+      this.children.splice(this.children.indexOf(obj), 1)
+    },
+    add(obj) {
+      this.queryCount++
+      obj.index = this.children.length
+      this.children.push(obj)
+    },
     handleKeyup(e) {
       if (!this.filterable) return;
-      this.children.map(x => x.query(e.target.value));
-      this.queryCount = this.children.filter(x=>x.visible).length
+      this.children.forEach(x => x.query(e.target.value));
+      this.queryCount = this.children.filter(x => x.visible).length;
     },
     close() {
       this.visible = false;
     },
     updateSelect() {
-      if (!this.isNotEmpty(this.value)) {
-        this.label = "";
-        this.children.map(child => (child.selected = false));
-        return false;
-      }
-      this.children.map(child => {
-        if (this.isNotEmpty(this.value) && this.value == child.value) {
-          child.selected = true;
-          this.label =
-            child.label === undefined ? child.$el.innerHTML : child.label;
-        } else {
-          child.selected = false;
-        }
-      });
-    },
-    isNotEmpty(obj) {
-      return obj !== null && obj !== "" && obj !== undefined;
-    },
-    dc(e) {
-      this.visible = this.$el.contains(e.target) && !this.disabled;
+      let value = this.value
+      if (value === null || value === '' || value === undefined) this.label = ''
+      this.broadcast('Option', 'option-update', value)
     },
     clear() {
+      this.selectItem = null;
       this.label = "";
       this.children.map(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});
+      this.dispatch('FormItem', 'form-item-change', '')
     },
     toggleDrop() {
       if (this.disabled) {
         return false;
       }
+
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
       if (this.visible) {
@@ -141,8 +152,7 @@ export default {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let pos = utils.getElementPos(rel);
-
+      let pos = this.getElementPos(rel);
       let h = document.documentElement.clientHeight;
       let w = document.documentElement.clientWidth;
       let s = document.documentElement.scrollTop;
@@ -159,18 +169,12 @@ export default {
       }
     },
     select(item) {
+      this.selectItem = item;
       this.$emit("change", item);
       this.$emit("input", item.value);
-      this.children.map(child => {
-        if (item.value == child.value) {
-          child.selected = true;
-          this.label =
-            child.label === undefined ? child.$el.innerHTML : child.label;
-        } else {
-          child.selected = false;
-        }
-      });
-      setTimeout(() => (this.visible = !this.visible));
+      this.label = item.label
+      this.dispatch('FormItem', 'form-item-change', item.value)
+      setTimeout(() => (this.visible = false));
     }
   }
 };

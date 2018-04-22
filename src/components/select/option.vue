@@ -4,8 +4,10 @@
   </li>
 </template>
 <script>
+import emitter from '../../mixins/emitter'
 export default {
   name: "Option",
+  mixins: [emitter],
   props: {
     value: { type: [String, Number], required: true },
     label: { type: [String, Number] },
@@ -30,12 +32,24 @@ export default {
     }
   },
   methods: {
+    isNotEmpty(obj) {
+      return obj !== null && obj !== "" && obj !== undefined;
+    },
+    update(value) {
+      if (this.isNotEmpty(value) && value == this.value) {
+        // this.select()
+        this.selected = true;
+      } else {
+        this.selected = false;
+      }
+    },
     select() {
       if (this.disabled) return;
-      this.$parent.select({
+      this.selected = true
+      this.dispatch('Select', 'select-change', {
         value: this.value,
         label: this.label === undefined ? this.$el.innerHTML : this.label
-      });
+      })
     },
     query(query) {
       // query 转义查询里面的正则
@@ -46,14 +60,12 @@ export default {
       this.visible = new RegExp(parsedQuery, "i").test(this.label);
     }
   },
-  created() {},
-  mounted() {
-    this.index = this.$parent.children.length;
-    this.$parent.children.push(this);
-    this.$parent.queryCount++;
+  created() {
+    this.$on('option-update', this.update)
+    this.dispatch('Select', 'select-add', this)
   },
   beforeDestroy() {
-    this.$parent.children.splice(this.index, 1);
+    this.dispatch('Select', 'select-remove', this)
   }
 };
 </script>

@@ -10,39 +10,71 @@
     <p>：每个row中的col总和应该为24</p>
     <br>
     <Alert>注意：非 template/render 模式下，需使用 k-col。</Alert>
-    <h3>基础</h3>
-    <Row>
-      <Col span="12">12</Col>
-      <Col span="12">12</Col>
-    </Row>
-    <Row>
-      <Col span="8">8</Col>
-      <Col span="8">8</Col>
-      <Col span="8">8</Col>
-    </Row>
-    <Row>
-      <Col span="6">6</Col>
-      <Col span="6">6</Col>
-      <Col span="6">6</Col>
-      <Col span="6">6</Col>
-    </Row>
-    <Code lang="xml">{{col}}</Code>
-    <h3>分栏间隔</h3>
-    <Row gutter="10" class="pd">
-      <Col span="6">
-      <div>6</div>
-      </Col>
-      <Col span="6">
-      <div>6</div>
-      </Col>
-      <Col span="6">
-      <div>6</div>
-      </Col>
-      <Col span="6">
-      <div>6</div>
-      </Col>
-    </Row>
-    <Code lang="xml">{{pcol}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础">
+      <div slot="content">
+        <Row>
+          <Col span="12">col-12</Col>
+          <Col span="12">col-12</Col>
+        </Row>
+        <Row>
+          <Col span="8">col-8</Col>
+          <Col span="8">col-8</Col>
+          <Col span="8">col-8</Col>
+        </Row>
+        <Row>
+          <Col span="6">col-6</Col>
+          <Col span="6">col-6</Col>
+          <Col span="6">col-6</Col>
+          <Col span="6">col-6</Col>
+        </Row>
+      </div>
+      <div slot="desc">
+        <code>col</code>必须放在
+        <code>row</code>里面</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="分栏间隔">
+      <div slot="content">
+        <Row gutter="10" class="pd">
+          <Col span="6">
+          <div>col-6</div>
+          </Col>
+          <Col span="6">
+          <div>col-6</div>
+          </Col>
+          <Col span="6">
+          <div>col-6</div>
+          </Col>
+          <Col span="6">
+          <div>col-6</div>
+          </Col>
+        </Row>
+      </div>
+      <div slot="desc">使用
+        <code>gutter</code>熟悉来设置分栏的间隔</div>
+      <div slot="code">{{code.gutter}}</div>
+    </Demo>
+    <Demo title="栅格偏移">
+      <div slot="content">
+        <Row>
+          <Col span="8">col-8</Col>
+          <Col span="8" offset=8>col-8 | offset-8</Col>
+        </Row>
+        <Row>
+          <Col span="6">col-6</Col>
+          <Col span="6" offset=6>col-6 | offset-6</Col>
+          <Col span="6">col-6</Col>
+        </Row>
+        <Row>
+          <Col span="12" offset=12>col-12 offset-12</Col>
+        </Row>
+      </div>
+      <div slot="desc">通过设置
+        <code>offset</code>属性，将列进行左右偏移，偏移栅格数为
+        <code>offset</code>的值。</div>
+      <div slot="code">{{code.offset}}</div>
+    </Demo>
     <h3>Row API</h3>
     <div class="table-border">
       <table>
@@ -75,35 +107,22 @@
           <td>String,Number</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>offset</td>
+          <td>栅格左侧的间隔格数，可选值为1~24的整数</td>
+          <td>String,Number</td>
+          <td>-</td>
+        </tr>
       </table>
     </div>
   </div>
 </template>
 <script>
+import code from '../code/layout'
 export default {
   data() {
     return {
-      col: `<Row>
-  <Col span="12">12</Col>
-  <Col span="12">12</Col>
-</Row>
-<Row>
-  <Col span="8">8</Col>
-  <Col span="8">8</Col>
-  <Col span="8">8</Col>
-</Row>
-<Row>
-  <Col span="6">6</Col>
-  <Col span="6">6</Col>
-  <Col span="6">6</Col>
-  <Col span="6">6</Col>
-</Row>`,
-      pcol: `<Row gutter="10">
-  <Col span="6"><div>6</div></Col>
-  <Col span="6"><div>6</div></Col>
-  <Col span="6"><div>6</div></Col>
-  <Col span="6"><div>6</div></Col>
-</Row>`
+      code: code
     };
   }
 };

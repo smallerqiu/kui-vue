@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" :style="styles" v-docClick="close" v-winScroll="setPosition">
     <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
-    <a class="k-datepicker-close" @click.stop="cls" v-if="clearable&&!disabled"></a>
+    <a class="k-datepicker-close" @click.stop="clear" v-if="clearable&&!disabled"></a>
     <transition :name="transName">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
@@ -17,18 +17,19 @@
 </template>
 <script>
 import calendar from "./datecalendar";
+import emitter from '../../mixins/emitter'
 import winScroll from "../../directives/winScroll";
 import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
-import utils from "../../utils";
 export default {
   name: "DatePicker",
   directives: { docClick, transferDom, winScroll },
   components: {
     Calendar: calendar
   },
+  mixins:[emitter],
   props: {
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     width: [String, Number],
     mini: Boolean,
     name: [String],
@@ -113,8 +114,6 @@ export default {
       let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
       this.text = d;
       this.$emit("change", this.text);
-      // this.$emit("input", this.range ? [] : "");
-      // this.$emit("input", d);
     },
     dates(val) {
       let date = this.dates.map(date => this.tf(date));
@@ -141,7 +140,7 @@ export default {
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let pos = utils.getElementPos(rel);
+      let pos = this.getElementPos(rel);
 
       let h = document.documentElement.clientHeight;
       let w = document.documentElement.clientWidth;
@@ -163,9 +162,10 @@ export default {
       let txt = date.join(` ${this.rangeSeparator} `);
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
-    cls() {
+    clear() {
       this.setText();
       this.$emit("input", this.range ? [] : "");
+      this.dispatch('FormItem','form-item-change',this.range ? [] : "")
     },
     vi(val) {
       if (Array.isArray(val)) {
@@ -184,7 +184,8 @@ export default {
       this.text = date.length == 1 ? date[0] : txt;
 
       this.$emit("input", date.length == 1 ? date[0] : date);
-
+      this.dispatch('FormItem','form-item-change',date.length == 1 ? date[0] : date)
+      
       setTimeout(() => {
         this.visible = this.range;
       });

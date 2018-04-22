@@ -2,28 +2,28 @@
   <label :class="wpclasses">
     <span :class="classes">
       <span class="k-radio-inner"></span>
-      <input type="radio" class="k-radio-input" :name="name" :disabled="disabled" :checked="checked" @change="changed($event)">
+      <input type="radio" class="k-radio-input" :name="name" :disabled="disabled" :checked="defaultDisabled" @change="changed($event)">
     </span>
     <slot>{{label}}</slot>
   </label>
 </template>
 <script>
-import utils from "../../utils";
+import emitter from "../../mixins/emitter";
 export default {
   name: "Radio",
+  mixins: [emitter],
   props: {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String },
     label: { type: String }
-    // onchange: { type: Function, default: () => {} }
   },
   computed: {
     wpclasses() {
       return [
         "k-radio-wp",
         {
-          ["k-radio-disabled"]: this.disabled
+          ["k-radio-disabled"]: this.defaultDisabled
         }
       ];
     },
@@ -40,20 +40,20 @@ export default {
     return {
       checked: false,
       group: false,
-      parent: utils.findParent(this, "RadioGroup")
+      defaultDisabled: false
     };
   },
   mounted() {
-    if (this.parent) this.group = true;
-    if (!this.group) {
-      this.checked = this.value;
-    } else {
-      this.parent.update();
-    }
+    this.defaultDisabled = this.disabled;
+    this.$on('radio-update', this.update)
   },
   methods: {
+    update(params) {
+      this.checked = params.value == this.label
+      this.group = params.group
+    },
     changed(event) {
-      if (this.disabled) {
+      if (this.defaultDisabled) {
         return false;
       }
       const checked = event.target.checked;
@@ -61,13 +61,12 @@ export default {
       this.$emit("input", checked);
 
       if (this.group && this.label !== undefined) {
-        this.parent.change({
+        this.dispatch('RadioGroup', 'radio-group-change', {
           value: this.label,
           checked: this.checked
-        });
+        })
       }
       if (!this.group) {
-        // this.onchange(checked)
         this.$emit("change", checked);
       }
     }

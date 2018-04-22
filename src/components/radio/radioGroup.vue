@@ -4,11 +4,12 @@
   </div>
 </template>
 <script>
-import uitls from "../../utils";
+import emitter from '../../mixins/emitter'
 export default {
   name: "RadioGroup",
+  mixins:[emitter],
   props: {
-    value: { type: [String, Number], default: "" }
+    value: { type: [String, Number], default: "" },
   },
   data() {
     return {};
@@ -16,27 +17,24 @@ export default {
   watch: {
     value(v) {
       this.update();
-    }
+    },
   },
   mounted() {
     this.update();
+    this.$on('radio-group-change',this.change)
   },
   methods: {
     update() {
-      const value = this.value;
-      this.childrens = uitls.findChilds(this, "Radio");
-      if (this.childrens) {
-        this.childrens.forEach(child => {
-          child.checked = value == child.label;
-          // child.$emit("input", child.checked);
-          child.group = true;
-        });
-      }
+      this.broadcast('Radio','radio-update',{
+        value:this.value,
+        group:true,
+      })
     },
     change(data) {
       this.$emit("input", data.value);
-      this.$emit("change", this.value);
+      this.$emit("change", data.value);
       this.update();
+      this.dispatch('FormItem','form-item-change',data.value)
     }
   }
 };

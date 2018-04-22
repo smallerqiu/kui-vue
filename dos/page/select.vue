@@ -2,42 +2,68 @@
   <div>
     <h2>Select 选择器</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-select</Alert>
-    <Select width="200">
-    </Select>
-    <h3>基础 </h3>
-    <Select :width="200" v-model="v1">
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
-    </Select>
-    <Button @click="v1=''">清除</Button>
-    <Button @click="v1='1'">选中橘子</Button>
-    <Code lang="xml html">{{demo1}}</Code>
-    <h3>尺寸</h3>
-    <Select :width="200" v-model="v1">
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
-    </Select>
-    <Select :width="200" v-model="v1" mini >
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
-    </Select>
-    <Code lang="xml html">{{mini}}</Code>
-    <h3>可清除</h3>
-    <Select :width="200" clearable>
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
-    </Select>
-    <Select :width="200" clearable mini>
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
-    </Select>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>可搜索</h3>
-    <Select :width="200" filterable>
-      <Option v-for="(x,y) in data2" :key="y" :value="x.value" :label="x.label"></Option>
-    </Select>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>禁用</h3>
-    <Select disabled :width="200"></Select>&nbsp;&nbsp;
-    <Select :width="200">
-      <Option v-for="(x,y) in data3" :key="y" :value="x.value" :label="x.label" :disabled="x.disabled"></Option>
-    </Select>
-    <Code lang="xml html">{{demo3}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <Select :width="200" v-model="select">
+          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+        </Select>
+        <Button @click="select=''">清除</Button>
+        <Button @click="select='1'">选中橘子</Button>
+      </div>
+      <div slot="desc">通过
+        <code>v-model</code>进行数据双向绑定</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+
+    <Demo title="尺寸">
+      <div slot="content">
+        <Select :width="200" v-model="select">
+          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+        </Select>
+        <Select :width="200" v-model="select" mini>
+          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+        </Select>
+      </div>
+      <div slot="desc">通过
+        <code>width</code>和
+        <code>mini</code>可控制组件尺寸大小</div>
+      <div slot="code">{{code.size}}</div>
+    </Demo>
+    <h3></h3>
+
+    <Demo title="可清除">
+      <div slot="content">
+        <Select :width="200" clearable>
+          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+        </Select>
+        <Select :width="200" clearable mini>
+          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+        </Select>
+      </div>
+      <div slot="desc">通过
+        <code>clearable</code>可控制组件是否显示清除按钮</div>
+      <div slot="code">{{code.clearable}}</div>
+    </Demo>
+    <Demo title="可搜索">
+      <div slot="content">
+        <Select :width="200" filterable>
+          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+        </Select>
+      </div>
+      <div slot="desc">通过<code>filterable</code>可设置组件是否呈现搜索模式</div>
+      <div slot="code">{{code.search}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <Select disabled :width="200"></Select>
+        <Select :width="200">
+          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
+        </Select>
+      </div>
+      <div slot="desc">通过<code>disabled</code>可设置组件是否被禁用</div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
     <h3>Select API</h3>
     <div class="table-border">
       <table>
@@ -129,89 +155,19 @@
   </div>
 </template>
 <script>
+import code from '../code/select'
 export default {
   data() {
     return {
-      v1: "3",
-      d: "1",
-      d1: "2",
-      d2: "3",
-      data1: [],
-      data2: [
+      code: code,
+      select: "3",
+      data: [
         { label: "苹果🍎", value: 0 },
         { label: "橘子🍊", value: 1 },
         { label: "香蕉🍌", value: 2 },
         { label: "栗子🌰", value: 3 },
         { label: "葡萄🍇", value: 4 }
       ],
-      data3: [
-        { label: "苹果🍎", value: 0 },
-        { label: "橘子🍊", value: 1 },
-        { label: "香蕉🍌", value: 2, disabled: true },
-        { label: "栗子🌰", value: 3 },
-        { label: "葡萄🍇", value: 4 }
-      ],
-      mini: `<Select :width="200" v-model="v1">
-  <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
-</Select>
-<Select :width="200" v-model="v1" mini>
-  <Option v-for="(x,y) in data2" :key="y" :value="x.value">{{x.label}}</Option>
-</Select>`,
-      demo1: `<Select :width="200" v-model="v1">
-  <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-</Select>
-<script>
-export default {
-  data(){
-    return{
-      data: [
-        { label: "苹果🍎", value: 0 },
-        { label: "橘子🍊", value: 1 },
-        { label: "香蕉🍌", value: 2 },
-        { label: "栗子🌰", value: 3 },
-        { label: "葡萄🍇", value: 4 }
-      ]
-    }
-  }
-}
-<\/script>`,
-      demo2: `<Select :width="200" v-model="v1" clearable>
-  <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-</Select>
-<script>
-export default {
-  data(){
-    return{
-      data: [
-        { label: "苹果🍎", value: 0 },
-        { label: "橘子🍊", value: 1 },
-        { label: "香蕉🍌", value: 2 },
-        { label: "栗子🌰", value: 3 },
-        { label: "葡萄🍇", value: 4 }
-      ]
-    }
-  }
-}
-<\/script>`,
-      demo3: `<Select disabled :width="200"></Select>
-    <Select :width="200">
-<Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-</Select>
-<script>
-export default {
-  data(){
-    return{
-      data: [
-        { label: "苹果🍎", value: 0 },
-        { label: "橘子🍊", value: 1 },
-        { label: "香蕉🍌", value: 2, disabled:true },
-        { label: "栗子🌰", value: 3 },
-        { label: "葡萄🍇", value: 4 }
-      ]
-    }
-  }
-}
-<\/script>`
     };
   }
 };

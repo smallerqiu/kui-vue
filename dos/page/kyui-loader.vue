@@ -6,41 +6,22 @@
         <h3>使用方法</h3>
         <h4>安装</h4>
         <p>通过 npm 安装 kui-loader</p>
-        <Code expand>npm i kui-loader --save-dev</Code>
+        <Code lang="js">{{code.install}}</Code>
         <h4>配置</h4>
         <p>配置 webpack，修改 vue-loader 的配置，如下：</p>
-        <Code expand>{{webconfig}}</Code>
+        <Code lang="js">{{code.webconfig}}</Code>
         <h4>说明</h4>
         <p>可以直接写 &lt;Switch&gt; 标签；</p>
         <p>参数 prefix 设置为 true 后，所有 kyui 组件标签名都可以使用前缀 k-</p>
     </div>
 </template>
 <script>
+import code from '../code/vue-loader'
 export default {
-  data() {
-    return {
-      webconfig: `module: {
-    rules: [
-        {
-            test: /\.vue$/,
-            use: [
-                {
-                    loader: 'vue-loader',
-                    options: {
-                        
-                    }
-                },
-                {
-                    loader: 'kui-loader',
-                    options: {
-                        prefix: false
-                    }
-                }
-            ]
-        }
-    ]
-}`
-    };
-  }
+    data() {
+        return {
+            code: code
+        };
+    }
 };
 </script>

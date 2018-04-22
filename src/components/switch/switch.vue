@@ -2,8 +2,7 @@
   <span :class="classes" @click="change">
     <input type="hidden" v-model="checked">
     <span class="k-switch-inner">
-      <span v-if="checked">{{trueText}}</span>
-      <span v-if="!checked">{{falseText}}</span>
+      <span>{{checked?trueText:falseText}}</span>
     </span>
     <span class="k-switch-button"></span>
   </span>
@@ -29,11 +28,6 @@ export default {
     }
   },
   computed: {
-    // styles() {
-    //   return this.checked
-    //     ? { left: `${this.$refs.main.offsetWidth - 22}px` }
-    //     : {};
-    // },
     classes() {
       return [
         "k-switch",
@@ -46,13 +40,16 @@ export default {
     }
   },
   methods: {
-    change() {
+    change(e) {
+      e.preventDefault();
+
       if (this.disabled) {
         return false;
       }
-      this.checked = !this.checked;
-      this.$emit("input", this.checked);
-      this.$emit("change", this.checked);
+      const checked = !this.checked
+      this.checked = checked
+      this.$emit("input", checked);
+      this.$emit("change", checked);
     }
   }
 };

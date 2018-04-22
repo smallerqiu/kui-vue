@@ -3,60 +3,98 @@
   <div>
     <h2>DatePicker 日期选择器</h2>
     <Alert>注意：非 template/render 模式下，需使用 date-picker。</Alert>
-    <h3>基础</h3>
-    <DatePicker></DatePicker>
-    <Code lang="xml html">{{demo1}}</Code>
-    <h3>可清除</h3>
-    <DatePicker clearable></DatePicker>
-    <Code lang="xml html">{{demo5}}</Code>
-    <h3>尺寸</h3>
-    <DatePicker></DatePicker>
-    <DatePicker mini></DatePicker>
-    <Code lang="xml html">{{mini}}</Code>
-    <h3>日期单位</h3>
-    <Row gutter="10">
-      <Col span="8">
-      <h4>年</h4>
-      <DatePicker format="YYYY"></DatePicker>
-      </Col>
-      <Col span="8">
-      <h4>月</h4>
-      <DatePicker format="MM"></DatePicker>
-      </Col>
-      <Col span="8">
-      <h4>时间</h4>
-      <DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
-      </Col>
-    </Row>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>选择日期范围</h3>
-    <Row padding="10">
-      <Col span="8">
-      <h4>范围</h4>
-      <DatePicker v-model="d2"></DatePicker>
-      </Col>
-      <Col span="8">
-      <h4>范围符号</h4>
-      <DatePicker range-separator="至" v-model="d2"></DatePicker>
-      </Col>
-    </Row>
-    <h3>禁用</h3>
-    <Row padding="10">
-      <Col span="8">
-      <h4>局部禁用</h4>
-      <DatePicker :disabled-date="disabledDate" v-model="d"></DatePicker>
-      </Col>
-      <Col span="8">
-      <h4>禁用</h4>
-      <DatePicker disabled></DatePicker>
-      </Col>
-    </Row>
-    <Code lang="xml html">{{demo3}}</Code>
-    <h3>多语言</h3>
-    英文：
-    <DatePicker lang="en"></DatePicker>&nbsp;&nbsp; 中文：
-    <DatePicker></DatePicker>
-    <Code lang="xml html">{{demo4}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <DatePicker></DatePicker>
+      </div>
+      <div slot="desc">可使用
+        <code>v-model</code>进行数据双向绑定</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="可清除">
+      <div slot="content">
+        <DatePicker clearable></DatePicker>
+      </div>
+      <div slot="desc">
+        <div slot="desc">通过设置
+          <code>clearble</code>属性可控制是否显示清空按钮</div>
+      </div>
+      <div slot="code">{{code.clearable}}</div>
+    </Demo>
+    <Demo title="尺寸">
+      <div slot="content">
+        <DatePicker></DatePicker>
+        <DatePicker mini></DatePicker>
+      </div>
+      <div slot="desc">
+        <div slot="desc">通过设置
+          <code>mini</code>可设置组件大小，
+          <code>width</code>属性可控制组件宽度</div>
+      </div>
+      <div slot="code">{{code.size}}</div>
+    </Demo>
+    <Demo title="日期单位">
+      <div slot="content">
+        <Row gutter="10">
+          <Col span="6">
+          <h4>年</h4>
+          <DatePicker format="YYYY"></DatePicker>
+          </Col>
+          <Col span="6">
+          <h4>月</h4>
+          <DatePicker format="MM"></DatePicker>
+          </Col>
+          <Col span="6">
+          <h4>时间</h4>
+          <DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
+          </Col>
+        </Row>
+      </div>
+      <div slot="desc">通过<code>format</code>来控制显示年月日或者其他格式</div>
+      <div slot="code">{{code.date}}</div>
+    </Demo>
+    <Demo title="选择日期范围">
+      <div slot="content">
+        <Row padding="10">
+          <Col span="8">
+          <h4>范围</h4>
+          <DatePicker :value="[]"></DatePicker>
+          </Col>
+          <Col span="8">
+          <h4>范围符号</h4>
+          <DatePicker range-separator="至" :value="[]"></DatePicker>
+          </Col>
+        </Row>
+      </div>
+      <div slot="desc">可以通过<code>range-separator</code>来设置展示分隔符</div>
+      <div slot="code">{{code.range}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <Row padding="10">
+          <Col span="8">
+          <h4>局部禁用</h4>
+          <DatePicker :disabled-date="disabledDate"></DatePicker>
+          </Col>
+          <Col span="8">
+          <h4>禁用</h4>
+          <DatePicker disabled></DatePicker>
+          </Col>
+        </Row>
+      </div>
+      <div slot="desc"><div slot="desc">设置<code>disabled</code>属性来控制组件是否可用</div></div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
+    <Demo title="多语言">
+      <div slot="content">英文：
+        <DatePicker lang="en"></DatePicker>
+        中文：
+        <DatePicker></DatePicker>
+      </div>
+      <div slot="desc">通过<code>lang</code>来控制语言类型，目前有英文和中文两种，默认中文<code>zh-cn</code></div>
+      <div slot="code">{{code.lang}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -137,41 +175,14 @@
   </div>
 </template>
 <script>
+import code from '../code/datepicker'
 export default {
   data() {
     return {
-      d: "",
-      d2: [],
-      mini: `<DatePicker ></DatePicker>
-<DatePicker mini></DatePicker>`,
-      demo1: `<DatePicker></DatePicker>`,
-      demo2: `//年
-<DatePicker format="YYYY"></DatePicker>
-//月
-<DatePicker format="MM"></DatePicker>
-//时间
-<DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>`,
-      demo3: `<DatePicker :disabled-date="disabledDate" v-model="d"></DatePicker>
-<DatePicker disabled></DatePicker>
-<script>
-export default {
-    methods: {
-        disabledDate: time => {
-          var day = time.getDay();
-          return day === 0 || day === 6;
-        }
-    }
-}
-<\/script>`,
-      demo4: `<DatePicker lang="en"></DatePicker>
-<DatePicker></DatePicker>`,
-      demo5: `<DatePicker clearable></DatePicker>`
+      code: code,
     };
   },
   methods: {
-    test: v => {
-      alert("当前时间为：" + v);
-    },
     disabledDate: time => {
       var day = time.getDay();
       return day === 0 || day === 6;

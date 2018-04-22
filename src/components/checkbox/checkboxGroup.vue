@@ -1,52 +1,48 @@
 <template>
-   <div class="k-checkbox-group">
-      <slot></slot>
-   </div>
+  <div class="k-checkbox-group">
+    <slot></slot>
+  </div>
 </template>
 <script>
-import uitls from "../../utils";
+import emitter from "../../mixins/emitter";
 export default {
   name: "CheckboxGroup",
+  mixins: [emitter],
   props: {
-    value: { type: Array, default: ()=>[] }
+    value: { type: Array, default: () => [] },
   },
   data() {
-    return {};
+    return {
+      childrens: []
+    };
   },
   watch: {
     value(v) {
       this.update();
-    }
+    },
   },
   mounted() {
     this.update();
+    this.$on('checkbox-group-update', this.update)
+    this.$on('checkbox-group-change', this.change)
   },
   methods: {
     update() {
-      const value = this.value;
-      this.childrens = uitls.findChilds(this, "Checkbox");
-      if (this.childrens) {
-        this.childrens.forEach(child => {
-          child.checked = value.indexOf(child.label) >= 0;
-          child.group = true;
-        });
-      }
-    },
-    updateModel(model) {
-      this.$emit("input", model);
-      this.$emit("change", model);
-      this.update();
+      this.broadcast('Checkbox', 'checkbox-update', {
+        value: this.value,
+        group: true,
+      })
     },
     change(data) {
-      let m = JSON.parse(JSON.stringify(this.value));
-      let i = m.indexOf(data.value);
-      if (data.checked && i < 0) {
-        m.push(data.value);
+      let length = this.value.indexOf(data.value);
+      if (data.checked && length < 0) {
+        this.value.push(data.value);
+      } else {
+        this.value.splice(length, 1);
       }
-      if (!data.checked && i >= 0) {
-        m.splice(i, 1);
-      }
-      this.updateModel(m);
+      this.$emit("input", this.value);
+      this.$emit("change", this.value);
+      this.dispatch('FormItem', 'form-item-change', { field: this.value })
     }
   }
 };

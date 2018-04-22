@@ -2,25 +2,46 @@
   <div>
     <h2>Switch 开关</h2>
     <Alert>注意：没有使用 kui-loader 时，必须使用 k-switch 标签。</Alert>
-    <h3>基本</h3>
-    <p>{{m}}</p>
-    <Switch v-model="m"></Switch>
-    <Button @click="m=!m">test</Button>
-    <Code lang="xml html">{{demo1}}</Code>
-    <h3>主题</h3>
-    <Switch v-model="m2"></Switch>&nbsp;&nbsp;
-    <Switch v-model="m2" type="success"></Switch>&nbsp;&nbsp;
-    <Switch v-model="m2" type="danger"></Switch>&nbsp;&nbsp;
-    <Switch v-model="m2" type="warning"></Switch>&nbsp;&nbsp;
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>文字</h3>
-    <Switch v-model="m3" true-text="是" false-text="否"></Switch>
-    <Code lang="xml html">{{demo3}}</Code>
-    <h3>禁用</h3>
-    <Switch v-model="d1" disabled></Switch>&nbsp;&nbsp;
-    <Switch v-model="d2" disabled></Switch>&nbsp;&nbsp;
-    <Switch v-model="d2" disabled true-text="是" false-text="否"></Switch>
-    <Code lang="xml html">{{demo4}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基本用法">
+      <div slot="content">
+        <p>{{checked}}</p>
+        <Switch v-model="checked"></Switch>
+        <Button @click="test">test</Button>
+      </div>
+      <div slot="desc">可使用
+        <code>v-model</code>进行数据双向绑定</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="主题">
+      <div slot="content">
+        <Switch :value="true"></Switch>
+        <Switch :value="true" type="success"></Switch>
+        <Switch :value="true" type="danger"></Switch>
+        <Switch :value="true" type="warning"></Switch>
+      </div>
+      <div slot="desc">设置
+        <code>type</code>属性可改变组件主题</div>
+      <div slot="code">{{code.theme}}</div>
+    </Demo>
+    <Demo title="文字">
+      <div slot="content">
+        <Switch :value="false" true-text="是" false-text="否"></Switch>
+      </div>
+      <div slot="desc">通过
+        <code>true-text</code>和
+        <code>false-text</code>设置选中和非选中呈现文字</div>
+      <div slot="code">{{code.text}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <Switch :value="false" disabled></Switch>
+        <Switch :value="true" disabled></Switch>
+        <Switch :value="true" disabled true-text="是" false-text="否"></Switch>
+      </div>
+      <div slot="desc">通过<code>disabled</code>属性设置组件是否被禁用</div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -71,24 +92,19 @@
   </div>
 </template>
 <script>
+import code from '../code/switch'
 export default {
   data() {
     return {
-      d1: false,
-      d2: true,
-      m: false,
-      m2: true,
-      m3: true,
-      demo1: `<\Switch v-model="m"><\/Switch>`,
-      demo2: `<\Switch v-model="m2"><\/Switch>
-<\Switch v-model="m2" type="success"><\/Switch>
-<\Switch v-model="m2" type="danger"><\/Switch>
-<\Switch v-model="m2" type="warning"><\/Switch>`,
-      demo3: `<\Switch v-model="m3" true-text="是" false-text="否"><\/Switch>`,
-      demo4: `<\Switch v-model="d1" disabled><\/Switch>
-<\Switch v-model="d2" disabled><\/Switch>
-<\Switch v-model="d2" disabled true-text="是" false-text="否"><\/Switch>`
+      code: code,
+      checked: false,
     };
+  },
+  methods: {
+    test() {
+      const d = !this.checked
+      this.checked = d
+    }
   }
 };
 </script>

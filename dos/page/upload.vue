@@ -2,30 +2,53 @@
   <div>
     <h2>Upload 上传</h2>
     <Alert>为了兼容低版本（ie9）浏览器，上传采用模拟表单上传</Alert>
-    <h3>基础</h3>
-    <Upload :action="action">
-      <Button>上传文件</Button>
-    </Upload>
-    <Code lang="xml html">{{demo1}}</Code>
-    <h3>禁用</h3>
-    <Upload :action="action" disabled>
-      <Button>上传文件</Button>
-      <Button type="danger">上传文件</Button>
-      <Button>上传文件</Button>
-    </Upload>
-    <Code lang="xml html">{{demo}}</Code>
-    <h3>附带数据上传</h3>
-    <Alert>此操作非多此一举，在ajax上传模式中，除了上传文件外，可能会有其他附加参数一起附带表单提交</Alert>
-    <Upload :action="action" @change="change" @complite="complite" :data="data">
-      <Button>上传文件</Button>
-    </Upload>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>非自动上传模式</h3>
-    <Upload :action="action" @change="change" @complite="complite" ref="upload" :data="data" type="wait">
-      <Button>上传文件</Button>
-    </Upload>
-    <Button @click="upload">点我开始上传</Button>
-    <Code lang="xml html">{{demo3}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <Upload action="/rest/jcmro-sys-service/fileupload/uploadFile">
+          <Button>上传文件</Button>
+        </Upload>
+      </div>
+      <div slot="desc">
+        <code>action</code>配置上传接口路径</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <Upload :action="action" disabled>
+          <Button type="success">上传文件</Button>
+        </Upload>
+      </div>
+      <div slot="desc">
+        <div slot="desc">设置
+          <code>disabled</code>属性来控制组件是否可用</div>
+      </div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
+    <Demo title="附带数据上传">
+      <div slot="content">
+        <Upload action="/rest/jcmro-sys-service/fileupload/uploadFile" @change="change" @complite="complite" :data="data">
+          <Button>上传文件</Button>
+        </Upload>
+      </div>
+      <div slot="desc">此操作非多此一举，在ajax上传模式中，除了上传文件外，可能会有其他附加参数一起附带表单提交，传参
+        <code>data</code>为json</div>
+      <div slot="code">{{code.withData}}</div>
+    </Demo>
+    <Demo title="非自动上传模式">
+      <div slot="content">
+        <Upload :action="action" @change="change" @complite="complite" ref="upload" :data="data" type="wait">
+          <Button>上传文件</Button>
+        </Upload>
+        <Button @click="upload">点我开始上传</Button>
+      </div>
+      <div slot="desc">通过
+        <code>type</code>来控制是否选择文件就提交上传，
+        <code>complite</code>方法为上传完成成功或失败回调，返回数据取决于接口
+        <code>change</code>选择文件触发事件，返回选择的文件名
+      </div>
+      <div slot="code">{{code.mode}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -76,71 +99,21 @@
   </div>
 </template>
 <script>
+import code from '../code/upload'
 export default {
   data() {
     return {
+      code: code,
       action: "/rest/jcmro-sys-service/fileupload/uploadFile",
       data: { a: 1, b: 2, c: 3 },
-      demo: `<Upload :action="action" disabled>
-   <Button>上传文件</Button>
-</Upload>`,
-      demo1: `<Upload :action="action">
-   <Button>上传文件</Button>
-</Upload>`,
-      demo2: `<Upload :action="action" @change="change" @complite="complite" :data="data">
-   <Button>上传文件</Button>
-</Upload>
-<script>
-export default {
-  data() {
-    return {
-      action: "/rest/jcmro-sys-service/fileupload/uploadFile",
-      data: { a: 1, b: 2, c: 3 }, 
-    };
-  },
-  methods: { 
-    change(res) {
-      console.log(res);
-    },
-    complite(res) {
-      console.log(res);
-    }
-  }
-};
-<\/script>`,
-      demo3: `<Upload :action="action" @change="change" @complite="complite" :data="data" type="wait">
-   <Button>上传文件</Button>
-   <Button @click="upload">点我开始上传</Button>
-</Upload>
-<script>
-export default {
-  data() {
-    return {
-      action: "/rest/jcmro-sys-service/fileupload/uploadFile",
-      data: { a: 1, b: 2, c: 3 }, 
-    };
-  },
-  methods: { 
-    upload() {
-      this.$refs.upload.submit();
-    },
-    change(res) {
-      console.log(res);
-    },
-    complite(res) {
-      console.log(res);
-    }
-  }
-};
-<\/script>`
     };
   },
   methods: {
     upload() {
       this.$refs.upload.submit();
     },
-    change(res) {
-      this.$Message.info('选择了文件：'+res);
+    change(file) {
+      this.$Message.info('选择了文件：' + file);
     },
     complite(res) {
       console.log(res);
