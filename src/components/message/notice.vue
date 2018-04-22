@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transitionName"  @enter="enter" @leave="leave">
+  <transition :name="transitionName" @enter="enter" @leave="leave">
     <div :class="classes" v-if="noticeType=='message'">
       <div class="k-message-notice-content">
         <i :class="icon"></i>
@@ -27,7 +27,7 @@ export default {
     closable: { type: Boolean, default: false },
     transitionName: { type: String, default: "fadedown" },
     noticeType: { type: String, default: "message" },
-    close: { type: Function, default: () => {}, required: false }
+    close: Function
   },
   data() {
     return {
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     enter(e) {
-      e.style.height = e.scrollHeight-15 + "px";
+      e.style.height = e.scrollHeight - 15 + "px";
     },
     leave(e) {
       e.style.height = 0;

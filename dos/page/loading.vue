@@ -4,24 +4,35 @@
         <h3>用处</h3>
         <p>全局创建一个显示页面加载、异步请求、文件上传等的加载 或 进度条</p>
         <h3>在路由中使用</h3>
-        <Code>{{demo1}}</Code>
+        <Code lang="js sql">{{code.useInRouter}}</Code>
         <h3>在异步请求中使用</h3>
-        <Code>{{demo2}}</Code>
-        <h3>模拟请求</h3>
-        <Button @click="start('line')">start</Button>
-        <Button @click="finish">finish</Button>
-        <Button @click="error">error</Button>
-        <Button @click="config">config</Button>
-        <Button @click="upload(30)">upload 30</Button>
-        <Button @click="upload(80)">upload 80</Button>
-        <Code>{{demo3}}</Code>
-        <h3>主题</h3>
-        <Alert>用Loading来 表示异步加载，不只是单纯的加载进度，很多种情况下，在异步加载的时候，不允许用户再一次进行操作，所以这种情况，建议使用以下几种方式进行模拟，在此种模拟方式的时候，默认会弹出透明浮层，直到finish 才可以进行第二操作。</Alert>
-        <Button @click="loading('flip')">flip</Button>
-        <Button @click="loading('bounce')">bounce</Button>
-        <Button @click="loading('zoom')">zoom</Button>
-        <Button @click="loading('rotate')">rotate</Button>
-        <Code>{{demo4}}</Code>
+        <Code lang="js">{{code.useInAjax}}</Code>
+
+        <Demo title="模拟请求">
+            <div slot="content">
+                <Button @click="start('line')">start</Button>
+                <Button @click="finish">finish</Button>
+                <Button @click="error">error</Button>
+                <Button @click="config">config</Button>
+                <Button @click="upload(30)">upload 30</Button>
+                <Button @click="upload(80)">upload 80</Button>
+            </div>
+            <div slot="desc">
+                <code>start</code>触发开始，<code>finish</code>结束，<code>upload</code>可以手动更新进度
+            </div>
+            <div slot="code">{{code.test}}</div>
+        </Demo>
+        <Demo title="主题">
+            <div slot="content">
+                <Button @click="loading('flip')">flip</Button>
+                <Button @click="loading('bounce')">bounce</Button>
+                <Button @click="loading('zoom')">zoom</Button>
+                <Button @click="loading('rotate')">rotate</Button>
+            </div>
+            <div slot="desc">用<code>Loading</code>来 表示异步加载，不只是单纯的加载进度，很多种情况下，在异步加载的时候，不允许用户再一次进行操作，所以这种情况，建议使用以下几种方式进行模拟，在此种模拟方式的时候，默认会弹出透明浮层，直到<code>finish</code> 才可以进行第二操作。</div>
+            <div slot="code">{{code.theme}}</div>
+        </Demo>
+
         <h3>API</h3>
         <p>通过直接调用以下方法来使用组件：</p>
         <p>this.$Loading.start()</p>
@@ -31,7 +42,7 @@
         <p>另外提供了全局配置和全局销毁的方法：</p>
         <p>this.$Loading.config(options)</p>
         <p>this.$Loading.destroy()</p>
-       
+
         <div class="table-border">
             <table>
                 <tr>
@@ -93,114 +104,39 @@
     </div>
 </template>
 <script>
+import code from '../code/loading'
 export default {
-  data() {
-    return {
-      demo1: `import kui from 'kyui';
-Vue.use(kui);
-
-router.beforeEach((to, from, next) => {
-    kui.Loading.start();
-    next();
-});
-
-router.afterEach(route => {
-    kui.Loading.finish();
-});`,
-      demo2: `<script>
-// 以jQuery的Ajax为例，部分代码省略
-import $ from 'jquery';
-export default {
+    data() {
+        return {
+            code: code
+        };
+    },
     methods: {
-        getData () {
-            this.$Loading.start();
-            $.ajax({
-                url: '/api/someurl',
-                type: 'get',
-                success: () => {
-                    this.$Loading.finish();
-                }
-                error: () => {
-                    this.$Loading.error();
-                }
+        config() {
+            this.$Loading.config({
+                type: "line",
+                color: "orange",
+                height: 10
             });
+        },
+        upload(percent) {
+            this.$Loading.upload(percent);
+        },
+        start(type) {
+            this.$Loading.start(type);
+        },
+        loading(type) {
+            this.$Loading.start(type);
+            setTimeout(() => {
+                this.finish();
+            }, 3000);
+        },
+        finish() {
+            this.$Loading.finish();
+        },
+        error() {
+            this.$Loading.error();
         }
     }
-}
-<\/script>`,
-      demo3: `<Button @click="start()">start</Button>
-<Button @click="finish">finish</Button>
-<Button @click="error">error</Button>
-<Button @click="config">config</Button>
-<Button @click="upload(30)">upload 30</Button>
-<Button @click="upload(80)">upload 80</Button>
-<script>
-  methods: {
-    config() {
-      this.$Loading.config({
-        type: "line",
-        color: "orange",
-        height: 10
-      });
-    },
-    upload(percent){
-        this.$Loading.upload(percent);
-    },
-    start() {
-      this.$Loading.start();
-    },
-    finish() {
-      this.$Loading.finish();
-    },
-    error() {
-      this.$Loading.error();
-    }
-  }
-<\/script>`,
-      demo4: `<Button @click="loading('flip')">flip</Button>
-<Button @click="loading('bounce')">bounce</Button>
-<Button @click="loading('zoom')">zoom</Button>
-<Button @click="loading('rotate')">rotate</Button>
-<script>
-...
-methods: {
-    loading(type) {
-        this.$Loading.start(type);
-        setTimeout(() => {
-            this.finish();
-        }, 3000);
-    },
-}
-...
-<\/script>`
-    };
-  },
-  methods: {
-    config() {
-      this.$Loading.config({
-        type: "line",
-        color: "orange",
-        height: 10
-      });
-    },
-    upload(percent) {
-      this.$Loading.upload(percent);
-    },
-    start(type) {
-      this.$Loading.start(type);
-    },
-    loading(type) {
-      this.$Loading.start(type);
-      setTimeout(() => {
-        this.finish();
-      }, 3000);
-    },
-    finish() {
-      this.$Loading.finish();
-    },
-    error() {
-      this.$Loading.error();
-    }
-  }
 };
 </script>

@@ -4,15 +4,16 @@
   </ul>
 </template>
 <script>
-import utils from "../../utils";
+import emitter from '../../mixins/emitter'
 export default {
   name: "Menu",
+  mixins: [emitter],
   props: {
     theme: { type: String, default: "light" },
     mode: { type: String, default: "vertical" },
     activeName: String,
     accordion: Boolean,
-    width: { type: [Number, String],default:240 }
+    width: { type: [Number, String], default: 240 }
   },
   data() {
     return {
@@ -23,32 +24,8 @@ export default {
   },
   watch: {
     activeIndex(name) {
-      let items = this.$children;
-      items.map((x, i) => {
-        // console.log(x.$options.name)
-        if (x.$options.name == "MenuItem") {
-          x.active = x.name == name;
-          // x.name == name && (this.activeIndex = name);
-        } else if (x.$options.name == "SubMenu") {
-          let sub = utils.findChilds(x, "MenuItem");
-
-          sub.map(y => {
-            y.active = y.name == name;
-            // y.name == name && (this.activeIndex = name);
-          });
-          x.active =
-            sub.filter(s => {
-              return s.active == true;
-            }).length > 0;
-          x.closeMenu();
-        } else if (x.$options.name == "MenuGroup") {
-          let sub = utils.findChilds(x, "MenuItem");
-          sub.map(y => {
-            y.active = y.name == name;
-            // y.name == name && (this.activeIndex = name);
-          });
-        }
-      });
+      this.broadcast('MenuItem', 'menu-item-update', name)
+      this.broadcast('SubMenu', 'menu-submenu-close', name)
     }
   },
   computed: {
@@ -62,24 +39,23 @@ export default {
       ];
     },
     styles() {
-      return this.mode == "vertical" ? { width: this.width>0?`${this.width}px`:this.width  } : {};
+      return this.mode == "vertical" ? { width: this.width > 0 ? `${this.width}px` : this.width } : {};
     }
   },
   methods: {
     setAccordion(name) {
       if (this.accordion) {
-        let sub = utils.findChilds(this, "SubMenu");
-        sub.map(x => {
-          if (x.name != name && x.visible) x.accordion();
-        });
+        this.broadcast('SubMenu', 'menu-submenu-update', name)
       }
     },
     itemSelect(name) {
-      // let item = utils.findChilds(this, "MenuItem");
       this.activeIndex = name;
-      this.$emit("onSelect", name);
+      this.$emit("select", name);
     }
   },
-  mounted() {}
+  mounted() {
+    this.$on('menu-select', this.itemSelect)
+    this.$on('menu-accrodion', this.setAccordion)
+  }
 };
 </script>

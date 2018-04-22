@@ -1,38 +1,62 @@
 <template>
   <div>
     <h2>Modal 对话框</h2>
-    <h3>基础 </h3>
-    <Button @click="d1=!d1">普通对话框</Button>
-    <Code lang="xml html">{{demo1}}
-
-    </Code>
-    <h3>自定义</h3>
-    <Button @click="d2=!d2">自定义宽度</Button>&nbsp;
-    <Button @click="d3=!d3">内容和页脚</Button>&nbsp;
-    <Button @click="d4=!d4">按钮文字</Button>&nbsp;
-    <Code lang="xml html">{{demo}}</Code>
-    <Modal v-model="d1"></Modal>
-    <Modal v-model="d2" width="300"></Modal>
-    <Modal v-model="d3" title="我是自定义标题">
-      <p>我是自定义内容</p>
-      <div slot="footer">
-        <Button type="danger">自定义1</Button>
-        <Button type="success">自定义2</Button>
+    <h3> </h3>
+    <Demo title="基础">
+      <div slot="content">
+        <Button @click="d1=!d1">普通对话框</Button>
+        <Modal v-model="d1"></Modal>
       </div>
-    </Modal>
-    <Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>
-    <h3>可拖动</h3>
-    <Button @click="d5=!d5">普通对话框</Button>
-    <Modal v-model="d5" isMove>我可以拖动的</Modal>
-    <Code lang="xml html">{{demo3}}</Code>
-    <h3>Toast</h3>
-    <Button @click="show('success')">Success</Button>
-    <Button @click="show('error')">Error</Button>
-    <Button @click="show('warning')">Warning</Button>
-    <Button @click="show('info')">Info</Button>
-    <Button @click="show('happy')">happy</Button>
-    <Modal v-model="d6" isMove type="toast" :icon="icon" :color="color">恭喜你中了5000万...</Modal>
-    <Code lang="xml html">{{demo4}}</Code>
+      <div slot="desc">通过
+        <code>v-model</code>双向绑定
+        <code>Modal</code>是否展示</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="自定义">
+      <div slot="content">
+        <Button @click="d2=!d2">自定义宽度</Button>
+        <Button @click="d3=!d3">内容和页脚</Button>
+        <Button @click="d4=!d4">按钮文字</Button>
+        <Modal v-model="d2" width="300"></Modal>
+        <Modal v-model="d3" title="我是自定义标题">
+          <p>我是自定义内容</p>
+          <div slot="footer">
+            <Button type="danger">自定义1</Button>
+            <Button type="success">自定义2</Button>
+          </div>
+        </Modal>
+        <Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>
+      </div>
+      <div slot="desc">通过
+        <code>title</code>来设置标题，
+        <code>width</code>控制宽度， 还有
+        <code>slot</code>展示自定义内容
+      </div>
+      <div slot="code">{{code.custom}}</div>
+    </Demo>
+    <Demo title="可拖动">
+      <div slot="content">
+        <Button @click="d5=!d5">普通对话框</Button>
+        <Modal v-model="d5" isMove>我可以拖动的</Modal>
+      </div>
+      <div slot="desc">有人想要拖动
+        <code>Modal</code>，真奇葩，
+        <code>isMove</code>就可以搞定的</div>
+      <div slot="code">{{code.canMove}}</div>
+    </Demo>
+    <Demo title="Toast">
+      <div slot="content">
+        <Button @click="show('success')">Success</Button>
+        <Button @click="show('error')">Error</Button>
+        <Button @click="show('warning')">Warning</Button>
+        <Button @click="show('info')">Info</Button>
+        <Button @click="show('happy')">happy</Button>
+        <Modal v-model="d6" isMove type="toast" :icon="icon" :color="color">恭喜你中了5000万...</Modal>
+      </div>
+      <div slot="desc">这个模式只是用来展示最后的结果，
+        <code>type=toast</code>就可以了</div>
+      <div slot="code">{{code.mode}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -120,6 +144,7 @@
   </div>
 </template>
 <script>
+import code from '../code/modal'
 export default {
   data() {
     return {
@@ -131,49 +156,11 @@ export default {
       d4: false,
       d5: false,
       d6: false,
-      demo1: `<Modal v-model="d1"></Modal>`,
-      demo: `<Button @click="d2=!d2">自定义宽度</Button>
-<Button @click="d3=!d3">内容和页脚</Button>
-<Button @click="d4=!d4">按钮文字</Button>
-<Modal v-model="d2" width="300"></Modal>
-<Modal v-model="d3" title="我是自定义标题">
-   <p>我是自定义内容</p>
-   <div slot="footer">
-      <Button type="danger">自定义1</Button>
-      <Button type="success">自定义2</Button>
-   </div>
-</Modal>
-<Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>`,
-      demo3: `<Modal v-model="d5" isMove>我可以拖动的</Modal>`,
-      demo4: `<Button @click="show('success')">Success</Button>
-<Button @click="show('error')">Error</Button>
-<Button @click="show('warning')">Warning</Button>
-<Button @click="show('info')">Info</Button>
-<Button @click="show('happy')">happy</Button>
-<Modal v-model="d6" type="toast" :icon="icon" :color="color">恭喜你中了5000万...</Modal>
-<script>
-export default {
-  data() {
-    return {
-      color: "",
-      icon: "success",
-      d6: false,
-    }
-  },
-  methods: {
-    show(type) {
-      this.icon = type;
-      this.d6 = !this.d6;
-      this.color = type == "happy" ? "orange" : "";
-    }
-  }
-}
-<\/script>
-`
+      code: code
     };
   },
   methods: {
-    test(){
+    test() {
       alert('')
     },
     show(type) {

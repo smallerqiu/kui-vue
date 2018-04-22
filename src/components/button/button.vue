@@ -1,5 +1,5 @@
 <template>
-  <button :type="buttonType" :class="classes" :disabled="disabled" @click="handle">
+  <button :type="buttonType" :class="classes" :disabled="disabled" @click="click">
     <i :class="iconClasses" v-if="icon"></i>
     <span><slot></slot></span>
   </button>
@@ -52,9 +52,9 @@ export default {
       ];
     }
   },
-  methods: {
-    handle(event) {
-      this.$emit("click", event);
+  methods:{
+    click(e){
+      this.$emit('click',e)
     }
   }
 };

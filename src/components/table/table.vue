@@ -7,7 +7,6 @@
             <template v-if="item.type&&item.type=='selection'">
               <label for="k-checkbox-all">
                 <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
-                <!-- <input type="checkbox" id="k-checkbox-all" v-model="checked" @change="checkAll(checked)">全选 -->
               </label>
             </template>
             <template v-else>{{item.title}}</template>
@@ -20,7 +19,6 @@
             <template v-if="sub.type&&sub.type=='selection'">
               <label for="">
                 <k-checkbox v-model="item._checked" @change="check(item,m)"></k-checkbox>
-                <!-- <input type="checkbox" v-model="item._checked" @change="check(item,m)"> -->
               </label>
             </template>
             <template v-else-if="sub.type&&sub.type=='html'">
@@ -50,10 +48,7 @@ export default {
     mini: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
-    columns: { type: Array, default: () => [] }, // 表格类目
-    // onselect: { type: Function, default:function(){} }, //单个选中触发
-    // onselectAll: { type: Function, default:function(){} }, //所有选中触发
-    onselection: { type: Function, default: function() {} } //选中的时候触发,
+    columns: { type: Array, default: () => [] } // 表格类目
   },
   computed: {
     classes() {
@@ -79,19 +74,19 @@ export default {
   watch: {
     data: {
       handler(items) {
-        if(this.data.length==0){
-          this.$refs.table.scrollLeft = 0
+        // if(!data) return;
+        if (this.data.length == 0) {
+          this.$refs.table.scrollLeft = 0;
         }
         this.checked = false;
         this.selectRow = this.data.filter(x => x._checked == true);
-        this.onselection(this.selectRow);
+        this.$emit("selection", this.selectRow);
       },
       deep: true
     }
   },
   /* updated() {
     this.data.forEach(item => {
-      item._uuid = utils.uuid();
       item._checked = false;
     });
     var type = this.columns.filter(x => {
@@ -113,12 +108,13 @@ export default {
       let is_checked = item._checked;
       this.data[index]._checked = is_checked;
       this.selectRow = this.data.filter(x => x._checked == true);
-      this.onselection(this.selectRow, item);
+      this.$emit("selection", this.selectRow, item);
+      this.checked = this.selectRow.length == this.data.length
     },
     checkAll(ischecked) {
       this.data.forEach(item => (item._checked = ischecked));
       this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : [];
-      this.onselection(this.selectRow);
+      this.$emit("selection", this.selectRow);
     }
   }
 };

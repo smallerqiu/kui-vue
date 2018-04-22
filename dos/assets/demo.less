@@ -5,11 +5,35 @@
     list-style: none;
 }
 
-html, body, section {
-    font-size: 13px;
+html,
+body,
+.body {
+    height: 100%;
 }
 
-article, aside, audio, details, figcaption, figure, footer, header, img, main, mark, menu, nav, section, summary, time, video {
+html,
+body,
+section {
+    font-size: 14px;
+}
+
+article,
+aside,
+audio,
+details,
+figcaption,
+figure,
+footer,
+header,
+img,
+main,
+mark,
+menu,
+nav,
+section,
+summary,
+time,
+video {
     display: block;
     margin: 0;
     padding: 0
@@ -27,13 +51,19 @@ body {
     font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: 100%;
     font-weight: 400;
     color: #333;
 }
 
-fieldset, img {
+fieldset,
+img {
     border: 0
 }
 
@@ -53,7 +83,9 @@ h3 {
     margin: 50px 0 20px;
 }
 
-h2, h3, h4 {
+h2,
+h3,
+h4 {
     // margin: 10px 0;
 }
 
@@ -63,16 +95,17 @@ h4 {
 }
 
 body {
-    background: #f5f5f5;
+    background: #FFF; // overflow: hidden;
 }
+
+.body {}
 
 @keyframes showdown {
     from {
-        box-shadow:0 0 0 0 transparent ;
+        box-shadow: 0 0 0 0 transparent;
     }
     to {
-        box-shadow:-1px 32px 53px 1px #bbb;
-        
+        box-shadow: -1px 32px 53px 1px #bbb;
     }
 }
 
@@ -82,8 +115,7 @@ body {
         text-align: center;
         margin: 0 auto;
         width: 80px;
-        margin-top: 200px;
-        // -webkit-animation: showdown 1.5s ease-in-out infinite alternate;
+        margin-top: 200px; // -webkit-animation: showdown 1.5s ease-in-out infinite alternate;
         // animation: showdown 1.5s ease-in-out infinite alternate;
         img {
             width: 100%;
@@ -111,33 +143,25 @@ body {
         user-select: none;
         display: inline-block;
         margin: 20px 15px;
-        ;
     }
 }
 
-// .body {
-//    overflow: hidden;
-//    display: flex;
-//    flex-direction: column;
-// }
-.main {
-    // display: block;
-    // min-width: 1050px;
-    // height: 100%;
-}
-
 p {
-    line-height: 25px;
-    // margin: 10px 0;
+    line-height: 25px; // margin: 10px 0;
 }
 
 header {
-    height: 60px;
+    height: 62px;
     background: #fff;
     border-bottom: 1px solid #ddd;
     line-height: 60px;
     padding: 0 20px;
     font-size: 18px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    box-sizing: border-box;
     img {
         height: 30px;
         vertical-align: middle;
@@ -147,21 +171,37 @@ header {
 }
 
 .main {
-    background: #fff;
-    // width: 90%;
-    margin: 20px auto;
-    // border-radius: 3px;
+    background: #fff; // width: 90%;
+    // margin: 80px auto 20px;
+    // height: calc(~'100% - 85px'); // border-radius: 3px;
     // box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+    >.k-row {
+        height: 100%;
+        margin: 80px auto 20px;
+        .k-col {
+            height: 100%;
+            overflow: auto;
+            &::-webkit-scrollbar-thumb {
+                background: none;
+                transition: all .3s ease-in-out;
+                -webkit-transition: all .3s ease-in-out;
+                border-radius: 4px;
+            }
+            &:hover {
+                overflow: auto;
+                &::-webkit-scrollbar-thumb {
+                    background-color: rgba(95, 95, 95, 0.4);
+                }
+            }
+        }
+    }
     .nav {
-        overflow: auto;
-        // min-width: 218px;
+        overflow: auto; // min-width: 218px;
         // width: 218px;
         color: #555;
-        padding: 20px 0px;
-        // height: 100%; 
+        padding: 20px 0px; // height: 100%; 
         box-sizing: border-box;
-        position: relative;
-        // &:after {
+        position: relative; // &:after {
         //     content: "";
         //     display: block;
         //     width: 1px;
@@ -175,8 +215,7 @@ header {
             // margin-left: 20px;
             // border-left: 1px solid #e8e8e8;
             // height: 100%;
-        }
-        // li {
+        } // li {
         //     padding: 8px 0;
         //     position: relative;
         //     i {
@@ -206,11 +245,10 @@ header {
         //         padding: 11px 0 11px 35px;
         //         z-index: 99;
         //         position: relative;
-                .sub {
-                    color: #ababab;
-                    margin-left: 5px;
-                }
-        //         &:hover {
+        .sub {
+            color: #ababab;
+            margin-left: 5px;
+        } //         &:hover {
         //             background: #e8e8e8;
         //         }
         //     }
@@ -242,39 +280,44 @@ header {
             left: -1px;
         }
     }
-    .nav, .content {
+    .nav,
+    .content {
         &::-webkit-scrollbar {
-            width: 2px;
-            height: 2px;
-            background: hsla(0, 0%, 100%, .2);
+            // width: 2px;
+            // height: 2px;
+            // background: hsla(0, 0%, 100%, .2);
         }
         &::-webkit-scrollbar-thumb {
-            border-radius: 0;
-            background-color: rgba(95, 95, 95, .2);
-            -webkit-transition: background-color .15s;
-            transition: background-color .15s;
+            // border-radius: 0;
+            // background-color: rgba(95, 95, 95, .2);
+            // -webkit-transition: background-color .15s;
+            // transition: background-color .15s;
         }
         &::-webkit-scrollbar-track {
-            border-radius: 0;
+            // border-radius: 0;
         }
     }
 }
 
 // 此处为vue 的过度
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
     transition: opacity .3s
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
     opacity: 0
 }
 
 // 此处为nuxt 的过度
-.page-enter-active, .page-leave-active {
+.page-enter-active,
+.page-leave-active {
     transition: opacity .5s;
 }
 
-.page-enter, .page-leave-active {
+.page-enter,
+.page-leave-active {
     opacity: 0;
 }
 
@@ -295,13 +338,15 @@ header {
 }
 
 pre {
+    height: 100%;
     line-height: 1px;
-    overflow: hidden;
-    // margin: 10px 0;
+    overflow: hidden; // margin: 10px 0;
     transition: height .3s ease-in-out;
 }
 
-code, kbd, samp {
+code,
+kbd,
+samp {
     font-family: Consolas, Menlo, Courier, monospace;
     font-size: 14px;
     line-height: 25px;
@@ -310,24 +355,121 @@ code, kbd, samp {
 .hljs {
     background: rgba(241, 241, 241, 0.43) !important;
     padding: 15px !important;
+    height: 100%;
 }
 
-.k-code {
+.k-demo {
     border: 1px solid #eee;
     margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+    transition: height .3s ease-in-out;
+    .k-demo-main {
+        padding: 0 0 20px;
+        box-sizing: border-box;
+    }
+    .k-content,
+    .k-desc {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    .k-desc {
+        padding: 20px;
+        margin: 30px 0 0;
+        border-top: 1px solid #f1f1f1;
+        position: relative;
+        .k-desc-title {
+            position: absolute;
+            top: -16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #555;
+            background: #fff;
+            padding: 5px 10px;
+        }
+        .k-desc-content {
+            color: #666;
+        }
+    }
+    .k-demo-line {
+        border-bottom: 1px #e8e8e8 dashed;
+    }
+    .k-code-expan {
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+        font-size: 20px;
+        color: #555;
+        cursor: pointer;
+    }
+    .k-content {
+        padding: 20px; // overflow: hidden;
+        .k-button,
+        .k-select,
+        .k-input,
+        .k-datepicker,
+        .k-btn-group {
+            margin: 0 10px 10px 0;
+        }
+        td,
+        .k-btn-group,
+        .k-badge {
+            .k-button,
+            .k-select,
+            .k-input,
+            .k-datepicker {
+                margin: 0;
+            }
+        }
+    }
+}
+
+code {
+    background: #eee;
+    padding: 3px 8px;
+    margin: 0 5px;
+    color: orange;
+    border-radius: 3px;
+}
+.k-item-list{
+    padding-left: 30px;
+    li{
+        margin:5px;
+        list-style: disc;
+    }
+}
+.k-demo-left-right {
+    display: inline-block;
+    width: 100%;
+    .k-demo-main {
+        width: 50%;
+        float: left;
+    }
+    .k-code {
+        box-sizing: border-box;
+        width: 50%;
+        float: right;
+    }
+    .k-demo-line {
+        border-left: 1px #e8e8e8 dashed;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+    }
 }
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
-    tr, td {
+    tr,
+    td {
         font-size: 12px;
     }
 }
 
 .table-border {
-    margin: 10px 0;
-    // overflow: auto;
+    margin: 10px 0; // overflow: auto;
     table {
         background: #fff;
         width: 100%;
@@ -335,11 +477,11 @@ table {
             white-space: nowrap;
             text-align: left;
         }
-        td, th {
+        td,
+        th {
             font-size: 12px;
             border: 1px solid #eee;
-            padding: 11px;
-            // text-align: center;
+            padding: 11px; // text-align: center;
             box-sizing: border-box;
         }
         tr {
@@ -362,7 +504,8 @@ table {
     table {
         width: 100%
     }
-    tr, td {
+    tr,
+    td {
         border-collapse: collapse;
         border-spacing: 0;
         font-size: 12px;
@@ -384,8 +527,7 @@ table {
         padding: 0 !important;
     }
     td .select {
-        width: 100%;
-        // max-width:180px;
+        width: 100%; // max-width:180px;
     }
     td .mini {
         width: auto;
@@ -396,9 +538,6 @@ table {
 }
 
 .demo-button {
-    .k-button {
-        margin-right: 10px;
-    }
     .k-btn-group * {
         margin-right: 0;
     }
@@ -409,7 +548,8 @@ table {
         margin: 10px 0;
         .k-col {
             text-align: center;
-            padding: 5px 0;
+            padding: 10px 0;
+            color: #fff;
             &:nth-child(even) {
                 background: rgba(0, 153, 229, .7)
             }
@@ -422,6 +562,7 @@ table {
         .k-col {
             background: none !important;
             div {
+                padding: 10px 0;
                 &:nth-child(even) {
                     background: rgba(0, 153, 229, .7)
                 }
@@ -441,6 +582,7 @@ footer {
 
 .icon-item {
     display: inline-block;
+    width: 100%;
     span {
         font-size: 25px;
         text-align: center;
@@ -460,7 +602,8 @@ footer {
 }
 
 .demo-logs {
-    h2, h3 {
+    h2,
+    h3 {
         margin: 0 0 10px 0;
         span {
             font-size: 13px;
@@ -492,7 +635,8 @@ footer {
         padding: 0 5px;
         display: inline-block;
     }
-    .t1, .t2 {
+    .t1,
+    .t2 {
         font-size: 10px;
         color: #fff;
         padding: 2px 5px;

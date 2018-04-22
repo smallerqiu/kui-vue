@@ -7,7 +7,8 @@
 export default {
   name: "Col",
   props: {
-    span: [Number, String]
+    span: [Number, String],
+    offset: [Number, String]
   },
   data() {
     return {};
@@ -22,7 +23,10 @@ export default {
       return style;
     },
     classes() {
-      return [`k-col`, { [`k-col-${this.span}`]: this.span }];
+      return [`k-col`, {
+        [`k-col-${this.span}`]: this.span,
+        [`k-col-offset-${this.offset}`]: this.offset > 0 && this.offset <= 24
+      }];
     }
   }
 };

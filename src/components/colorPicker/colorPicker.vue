@@ -40,13 +40,14 @@
 <script>
 import picker from "./picker";
 import { Button } from "../button";
-import utils from "../../utils";
+import emitter from '../../mixins/emitter'
 import winScroll from "../../directives/winScroll";
 import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
 export default {
   components: { picker, "k-button": Button },
   directives: { docClick, transferDom,winScroll },
+  mixins:[emitter],
   name: "ColorPicker",
   props: {
     // 默认展示面板
@@ -54,7 +55,7 @@ export default {
     value: { type: String, default: "#000000", required: false },
     // 禁用状态
     disabled: { type: Boolean, default: false },
-    transfer: { type: Boolean, default: false }
+    transfer: { type: Boolean, default: true }
   },
   data() {
     return {
@@ -152,7 +153,7 @@ export default {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let pos = utils.getElementPos(rel);
+      let pos = this.getElementPos(rel);
 
       let h = document.documentElement.clientHeight;
       let w = document.documentElement.clientWidth;
@@ -182,8 +183,6 @@ export default {
       // this.value = value
       if (value != this.value) {
         this.showColor = value;
-        // this.$emit("input", value);
-        // this.$emit("change", value);
       }
     },
     // 格式化 hex 颜色值

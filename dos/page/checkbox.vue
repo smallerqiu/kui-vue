@@ -1,24 +1,34 @@
 <template>
   <div>
     <h2>Checkbox 多选框</h2>
-    <h3>基础 </h3>
-    <h4>单独使用 ,使用 v-model 可以双向绑定数据。</h4>
-    <p>{{d}}</p>
-    <Checkbox v-model="d">单选框 </Checkbox>
-    <Button @click="d=!d">Click me</Button>
-    <h3>组合使用</h3>
-    {{g}}
-    <CheckboxGroup v-model="g">
-      <Checkbox label="苹果🍎"></Checkbox>
-      <Checkbox label="橘子🍊"></Checkbox>
-      <Checkbox label="香蕉🍌"></Checkbox>
-      <Checkbox label="栗子🌰"></Checkbox>
-      <Checkbox label="葡萄🍇" disabled></Checkbox>
-      <Checkbox label="梨子🍐" disabled></Checkbox>
-    </CheckboxGroup>
-    <Button @click="g=[]">清除</Button>
-    <Button @click="g=['苹果🍎']">选中苹果</Button>
-    <Code>{{demo}}</Code>
+    <h3>代码示例 </h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <p>{{checked}}</p>
+        <Checkbox v-model="checked">单选框 </Checkbox>
+        <Button @click="checked=!checked">Click me</Button>
+      </div>
+      <div slot="desc">单独使用 ,使用 <code>v-model</code> 可以双向绑定数据。</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="组合使用">
+      <div slot="content">{{data}}<br/>
+        <CheckboxGroup v-model="data">
+          <Checkbox label="苹果🍎"></Checkbox>
+          <Checkbox label="橘子🍊"></Checkbox>
+          <Checkbox label="香蕉🍌"></Checkbox>
+          <Checkbox label="栗子🌰"></Checkbox>
+          <Checkbox label="葡萄🍇" disabled></Checkbox>
+          <Checkbox label="梨子🍐" disabled></Checkbox>
+        </CheckboxGroup>
+        <Button @click="data=[]">清除</Button>
+        <Button @click="data=['苹果🍎']">选中苹果</Button>
+      </div>
+      <div slot="desc">结合
+        <code>CheckboxGroup</code>来组合使用,通过<code>disabled</code>可以设置组件是否被禁用</div>
+      <div slot="code">{{code.group}}</div>
+    </Demo>
+
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -70,6 +80,12 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>disabled</td>
+          <td>是否禁用当前项</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>change</td>
           <td>在选项状态发生改变时触发，返回当前选中的项</td>
           <td>Function</td>
@@ -80,29 +96,13 @@
   </div>
 </template>
 <script>
+import code from '../code/checkbox'
 export default {
   data() {
     return {
-      d: true,
-      g: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
-      demo1: `<Checkbox v-model="d">单选框 </Checkbox>`,
-      demo: `<CheckboxGroup v-model="g">
-      <Checkbox label="苹果🍎"></Checkbox>
-      <Checkbox label="橘子🍊"></Checkbox>
-      <Checkbox label="香蕉🍌"></Checkbox>
-      <Checkbox label="葡萄🍇" disabled></Checkbox>
-      <Checkbox label="梨子🍐" disabled></Checkbox>
-</CheckboxGroup>
-<script>
-export default {
-  data() {
-    return {
-      d: true,
-      g: ["苹果🍎", "香蕉🍌",'葡萄🍇'],
-    }
-  }
-}
-<\/script>`
+      code: code,
+      checked: true,
+      data: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
     };
   }
 };

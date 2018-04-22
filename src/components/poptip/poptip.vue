@@ -25,7 +25,7 @@
 import Button from "../button";
 import docClick from "../../directives/docClick";
 import transferDom from "../../directives/transferDom";
-import utils from "../../utils";
+
 
 export default {
   compontes: { "k-button": Button },
@@ -34,7 +34,7 @@ export default {
   props: {
     trigger: { type: String, default: "click" },
     confirm: Boolean,
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     title: String,
     content: String,
     width: [String, Number],
@@ -92,7 +92,7 @@ export default {
       if (v) {
         let pos = { x: 0, y: 0 };
         if (this.transfer) {
-          pos = utils.getElementPos(this.$refs.rel);
+          pos = this.getElementPos(this.$refs.rel);
         }
         setTimeout(() => {
           let x = this.placement;

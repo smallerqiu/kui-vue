@@ -2,12 +2,16 @@
   <div class="">
     <h2>Table 表格</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-table。</Alert>
-    <h3>基础／组件嵌套</h3>
-    <!-- <Button @click="test">tetew</Button>-->
-    <Button @click="border=!border" type="primary">表格边框</Button>
-    <Button @click="mini=!mini" type="primary">mini</Button>
-    <Table :data="data" :columns="col" :mini="mini" :onselection="test2" :border="border"></Table>
-    <Code lang="xml html">{{demo}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础／组件嵌套" layout="up-down">
+      <div slot="content">
+        <Button @click="border=!border" type="primary">表格边框</Button>
+        <Button @click="mini=!mini" type="primary">mini</Button>
+        <Table :data="data" :columns="col" :mini="mini" @select="select" :border="border"></Table>
+      </div>
+      <div slot="desc">表格没做太复杂的展示，通过 <code>border</code>可以设置是否有边框，<code>mini</code>来设置表格大小模式</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
     <h3>Table API</h3>
     <div class="table-border" style="overflow:visible;">
       <table>
@@ -48,7 +52,7 @@
           <td>暂无数据</td>
         </tr>
         <tr>
-          <td>onselection</td>
+          <td>selection</td>
           <td>多选或单选触发，多选：返回当前所有已经选择的项<br>单选：返回所有勾选和 当前选择单项 </td>
           <td>Function</td>
           <td>-</td>
@@ -105,51 +109,13 @@
   </div>
 </template>
 <script>
+import code from '../code/table'
 export default {
   data() {
     return {
+      code: code,
       border: false,
       mini: false,
-      demo: `<Table :data="data" :columns="col"></Table>
-<script>
-export default {
-  data() {
-    return { 
-      data: [
-        { nick: "毛毛", gender: "男", birthday: "", action: "" },
-        { nick: "高总", gender: "男", birthday: "", action: "" },
-        { nick: "娟娟", gender: "男", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "男", birthday: "", action: "" }
-      ],
-      col: [
-        { type: "selection" },
-        { title: "姓名", key: "nick" },
-        { title: "性别", key: "gender" ,textAlign:'right'},
-        {
-          title: "出生年月",
-          key: "birthday",
-          render: (h, p) => {
-            return h("DatePicker", { props: { value: this.d, lang: "en"},on:{change: v => {console.log("回调", v);}} }, this.d );
-          }
-        },
-        {
-          title: "操作",
-          key: "action",
-          render: (h, p) => {
-            return h("Poptip", { props: { confirm: true,title:'是否删除数据？',placement:'left-bottom' }, on: {
-                    ok: () => { this.data.splice(p.index, 1); }
-                  } }, [
-              h("Button",{props: { type: "danger", mini: true },},"删除")
-            ]);
-          }
-        }
-      ]
-    };
-  },
-  methods: {}
-};
-<\/script>
-      `,
       data: [
         { nick: "毛毛", gender: "右对其", birthday: "", action: "" },
         { nick: "高总", gender: "右对其", birthday: "", action: "" },
@@ -159,32 +125,20 @@ export default {
       col: [
         { type: "selection" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "文字右对其", key: "gender", textAlign: "right" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "文字对其", key: "gender", textAlign: "center" },
         { title: "姓名", key: "nick" },
         { title: "文字对其", key: "gender", textAlign: "right" },
         {
           title: "出生年月",
           key: "birthday",
           render: (h, p) => {
-            return h(
-              "DatePicker",
+            return h("DatePicker",
               {
-                props: {
-                  value: this.d,
-                  mini: true,
-                  width: 120,
-                  lang: "en",transfer:true,
-                },
-                on:{
-                  change: v => {
-                    console.log("回调", v);
-                    p.row.birthday = v;
-                  }
-                }
+                props: { mini: true, width: 120, lang: "en", transfer: true },
+                on: { change: v => { console.log("回调", v); p.row.birthday = v; } }
               },
-              this.d
             );
           }
         },
@@ -192,13 +146,13 @@ export default {
           title: "操作",
           key: "action",
           render: (h, p) => {
-            return h("Poptip", { props: { transfer:true,confirm: true,title:'是否删除数据？',placement:'left-bottom' }, on: {
-                    ok: () => {
-                      this.data.splice(p.index, 1);
-                    }
-                  } }, [
-              h("Button",{props: { type: "danger", mini: true },},"删除")
-            ]);
+            return h("Poptip",
+              {
+                props: { transfer: true, confirm: true, title: "是否删除数据？", placement: "left-bottom" },
+                on: { ok: () => { this.data.splice(p.index, 1); } }
+              },
+              [h("Button", { props: { type: "danger", mini: true } }, "删除")]
+            );
           }
         }
       ],
@@ -206,22 +160,10 @@ export default {
     };
   },
   methods: {
-    test() {
-      // this.data[0].birthday ='2017-12-12'//
-      this.data = [
-        { nick: "毛毛1", gender: "男1", birthday: "", action: "" },
-        { nick: "高总", gender: "男", birthday: "", action: "" },
-        { nick: "娟娟", gender: "男", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "男", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "男", birthday: "", action: "" }
-      ];
-
-      // console.log(this.data)
-    },
-    test2(v) {
-      this.row = v;
-      console.log('当前选中：',v);
-    },
+    select(row) {
+      this.row = row;
+      console.log("当前选中：", row);
+    }
   }
 };
 </script>

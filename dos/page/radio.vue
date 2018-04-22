@@ -1,29 +1,42 @@
 <template>
   <div>
     <h2>Radio 单选框</h2>
-    <h3>基础</h3>
-    <p>单独使用可使用v-model双向绑定数据</p>
-    <p>{{m}}</p>
-    <Radio v-model="m" @change="test">测试</Radio>
-    <Button @click="m=!m">Click me</Button>
-    <Code lang="xml html">{{demo1}}</Code>
-    <h3>禁用</h3>
-    <Radio label="葡萄🍇" disabled v-model="m1"></Radio>
-    <Radio label="梨子🍐" disabled></Radio>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>组合使用</h3>
-    <p>{{d}}</p>
-    <RadioGroup v-model="d" @change="test">
-      <Radio label="苹果🍎"></Radio>
-      <Radio label="橘子🍊"></Radio>
-      <Radio label="香蕉🍌"></Radio>
-      <Radio label="栗子🌰"></Radio>
-      <Radio label="葡萄🍇"></Radio>
-      <Radio label="梨子🍐" disabled></Radio>
-    </RadioGroup>
-    <Button @click="d=''">清除</Button>
-    <Button @click="d='苹果🍎'">选中苹果</Button>
-    <Code lang="xml html">{{demo3}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础">
+      <div slot="content">
+        <p>{{checked}}</p>
+        <Radio v-model="checked" @change="change">测试</Radio>
+        <Button @click="checked=!checked">Click me</Button>
+      </div>
+      <div slot="desc">单独使用可使用
+        <code>v-model</code>双向绑定数据</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <Radio label="葡萄🍇" disabled :value="true"></Radio>
+        <Radio label="梨子🍐" disabled></Radio>
+      </div>
+      <div slot="desc">通过<code>disabled</code>设置组件是否被禁用</div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
+    <Demo title="组合使用">
+      <div slot="content">
+        <p>{{data}}</p>
+        <RadioGroup v-model="data" @change="change">
+          <Radio label="苹果🍎"></Radio>
+          <Radio label="橘子🍊"></Radio>
+          <Radio label="香蕉🍌"></Radio>
+          <Radio label="栗子🌰"></Radio>
+          <Radio label="葡萄🍇"></Radio>
+          <Radio label="梨子🍐" disabled></Radio>
+        </RadioGroup>
+        <Button @click="data=''">清除</Button>
+        <Button @click="data='苹果🍎'">选中苹果</Button>
+      </div>
+      <div slot="desc">结合<code>RadioGroup</code>可以组合使用</div>
+      <div slot="code">{{code.group}}</div>
+    </Demo>
     <h3>Radio API</h3>
     <div class="table-border">
       <table>
@@ -85,37 +98,17 @@
   </div>
 </template>
 <script>
+import code from '../code/radio'
 export default {
   data() {
     return {
-      m: true,
-      m1: true,
-      d: "苹果🍎",
-      m: false,
-      demo1: `<Radio v-model="m" @change="test">测试</Radio>`,
-      demo2: `<Radio label="葡萄🍇" disabled v-model="m"></Radio>
-<Radio label="梨子🍐" disabled></Radio>`,
-      demo3: `<RadioGroup v-model="d">
-  <Radio label="苹果🍎"></Radio>
-  <Radio label="橘子🍊"></Radio>
-  <Radio label="香蕉🍌"></Radio>
-  <Radio label="栗子🌰"></Radio>
-  <Radio label="葡萄🍇" ></Radio>
-  <Radio label="梨子🍐" disabled></Radio>
-</RadioGroup>
-<script>
-export default {
-  data(){
-    return{
-      d:'苹果🍎'
-    }
-  }
-}
-<\/script>`
+      code: code,
+      checked: true,
+      data: "苹果🍎",
     };
   },
   methods: {
-    test(v) {
+    change(v) {
       console.log(v);
     }
   }

@@ -23,7 +23,7 @@ export default {
       notice.duration = isNaN(Number(notice.duration)) ? 3 : notice.duration;
       let time;
       let close = () => {
-        notice.onClose && notice.onClose();
+        notice.onClose && notice.onClose()
         let index = this.notices.indexOf(notice);
         this.notices.splice(index, 1);
         clearTimeout(time);

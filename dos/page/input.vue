@@ -2,32 +2,63 @@
   <div>
     <h2>Input 输入框</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-input。</Alert>
-    <h3>基础</h3>
-    <Input type="text" width="200" placeholder="请输入内容..."></Input>
-    <Code lang="xml html">{{demo1}}</Code>
-     <h3>可清除</h3>
-    <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
-    <Code lang="xml html">{{demo6}}</Code>
-    <h3>带图标</h3>
-    <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @onClick="iconClick"></Input>
-    <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @onClick="iconClick"></Input>
-    <Code lang="xml html">{{demo5}}</Code>
-    <h3>尺寸</h3>
-    <div style="display:inline-block;">
-      <Input type="text" width="200" placeholder="请输入内容..."></Input>
-      <Input type="text" width="200" mini placeholder="请输入内容..."></Input>
-      <Input type="text" width="200" mini placeholder="请输入内容1..." icon="ios-person" @onClick="iconClick"></Input>
-    </div>
-    <Code lang="xml html">{{demo2}}</Code>
-    <h3>文本域</h3>
-    <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
-    <Code lang="xml html">{{demo3}}</Code>
-    <h3>禁用</h3>
-    <div style="display:inline-block;">
-      <Input width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled style="float:left;"></Input>
-      <Input type="text" width="200" placeholder="请输入内容..." disabled style="margin-left:15px;float:left;"></Input>
-    </div>
-    <Code lang="xml html">{{demo4}}</Code>
+    <h3>代码示例</h3>
+    <Demo title="基础用法">
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入内容..."></Input>
+      </div>
+      <div slot="desc">使用
+        <code>v-model</code>进行数据双向绑定</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="可清除">
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
+      </div>
+      <div slot="desc">通过设置
+        <code>clearble</code>属性可控制是否显示清空按钮</div>
+      <div slot="code">{{code.clearable}}</div>
+    </Demo>
+    <Demo title="带图标">
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @iconClick="iconClick"></Input>
+        <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
+      </div>
+      <div slot="desc">通过设置
+        <code>icon</code>属性，可设置按钮图标，<code>iconClick</code>可触发图标点击事件</div>
+      <div slot="code">{{code.withIcon}}</div>
+    </Demo>
+    <Demo title="尺寸">
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入内容..."></Input>
+        <Input type="text" width="200" mini placeholder="请输入内容..."></Input>
+        <Input type="text" width="200" mini placeholder="请输入内容1..." icon="ios-person" @iconClick="iconClick"></Input>
+      </div>
+      <div slot="desc">通过设置
+        <code>mini</code>可设置组件大小，
+        <code>width</code>属性可控制组件宽度</div>
+      <div slot="code">{{code.size}}</div>
+    </Demo>
+    <Demo title="文本域">
+      <div slot="content">
+        <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
+      </div>
+      <div slot="desc">当
+        <code>type</code>属性取值为
+        <code>textarea</code>时组件呈现文本玉</div>
+      <div slot="code">{{code.textArea}}</div>
+    </Demo>
+    <Demo title="禁用">
+      <div slot="content">
+        <div style="display:inline-block;">
+          <Input width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled style="float:left;"></Input>
+          <Input type="text" width="200" placeholder="请输入内容..." disabled style="margin-left:15px;float:left;"></Input>
+        </div>
+      </div>
+      <div slot="desc">设置
+        <code>disabled</code>属性来控制组件是否可用</div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -146,7 +177,7 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>onClick</td>
+          <td>iconClick</td>
           <td>icon的点击事件</td>
           <td>Function</td>
           <td>-</td>
@@ -156,24 +187,12 @@
   </div>
 </template>
 <script>
+import code from '../code/input'
 export default {
   data() {
     return {
-      demo1: `<Input type="text" width="200"  placeholder="请输入内容..."></Input>`,
-      demo2: `<Input type="text" width="200"  placeholder="请输入内容..."></Input>
-<Input type="text" width="200"  mini placeholder="请输入内容..."></Input>`,
-      demo3: `<Input  width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>`,
-      demo4: `<Input  width="300" type="textarea" :rows="4" placeholder="请输入银行卡密码" disabled></Input>
-<Input type="text" width="200"  placeholder="请输入内容..." disabled></Input>`,
-      demo5: `<Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @onClick="iconClick"></Input>
-<Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @onClick="iconClick"></Input>
-methods: {
-    iconClick() {
-      this.$Message.info("点击图标事件");
+      code: code
     }
-}`,
-  demo6:`<Input type="text" width="200" placeholder="请输入内容..." clearable></Input>`
-    };
   },
   methods: {
     iconClick() {

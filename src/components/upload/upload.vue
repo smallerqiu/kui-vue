@@ -4,7 +4,7 @@
     <div class="k-upload-form">
       <iframe frameborder="0" :name="`k-upload-iframe-${span}`" style="display:none;" ref="k-upload-iframe"></iframe>
       <form :action="action" :method="method" enctype="multipart/form-data" style="display:none;" ref="k-upload-form" :target="`k-upload-iframe-${span}`">
-        <input type="file" :name="name" :id="name" @change="upload($event)" ref="k-upload-file" />
+        <input type="file" :name="name" :id="id" @change="upload($event)" ref="k-upload-file" />
         <input type="hidden" :name="key" :id="key" :value="item" v-for="(item,key) in data" :key="key" />
       </form>
     </div>
@@ -14,12 +14,12 @@
 export default {
   name: "Upload",
   props: {
-    method: { type: String, default: "post" }, //post 还是get方法
-    name: { type: String, default: "file" }, //提交的 name值
+    method: { type: String, default: "post" }, 
+    name: { type: String }, //提交的 name值
+    id: { type: String }, //提交的 id值
     action: { type: String, required: true }, //url 要带/rest
     type: { type: String, default: "change" },
     data: { type: Object, default: () => {} },
-    change: Function,
     disabled: Boolean
   },
   computed: {
@@ -80,7 +80,7 @@ export default {
           doc = doc.document;
           let content = doc.body.textContent;
           if (content) {
-            let data = JSON.parse(content);
+            let data = eval("("+content+")");
             this.$emit("complite", data);
             this.$refs["k-upload-file"].value = "";
             // this.select = false;
@@ -88,8 +88,7 @@ export default {
           }
         }
       } catch (e) {
-        let msg =
-          e.message.indexOf("cross-origin") >= 0 ? "不支持跨域上传!" : "上传文件格式不支持！";
+        let msg = e.message.indexOf("cross-origin") >= 0 ? "不支持跨域上传!" : "上传文件格式不支持！";
         this.$Message.error(msg);
       }
     }
