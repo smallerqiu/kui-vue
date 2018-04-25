@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>快速上手</h2>
-    <h3>引入 KYUI</h3>
+    <h3>引入 KUI</h3>
     <p>一般在 webpack 入口页面 main.js 中如下配置：</p>
     <Code lang="js javascript">{{code.webpack}}</Code>
     <h3>使用规范</h3>

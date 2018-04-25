@@ -14,8 +14,10 @@
         <nav class="nav">
           <Menu @select="go" :activeName="activeName" width="auto">
             <MenuGroup :title="item.title" v-for="(item,x) in nav" :name="item.title" :key="x">
-              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.link||sub.weblink" :key="y">{{sub.title}}
-              <span class="sub">{{sub.sub}}</span>
+              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.link||sub.weblink" :key="y">
+              <Badge dot v-if="sub.link==='/log'">{{sub.title}}</Badge>
+              <template v-else>{{sub.title}}</template>
+              <span class="sub" v-if="sub.sub">{{sub.sub}}</span>
               </MenuItem>
             </MenuGroup>
           </Menu>
@@ -52,76 +54,11 @@
   </section>
 </template>
 <script>
+import nav from './code/menuData'
 export default {
   data() {
     return {
-      nav: [
-        {
-          title: "开始",
-          child: [
-            { title: "KUI for React", link: '/react-kui' },
-            { title: "KUI for Angular", link: '/angular-kui' },
-            { title: "安装", link: "/install" },
-            { title: "快速上手", link: "/start" },
-            { title: "更新日志", link: "/log", log: 1 },
-            { title: "定制主题", link: "/theme" },
-            { title: "kyui-loader", link: "/kyui-loader" }
-          ]
-        },
-        {
-          title: "基础组件",
-          child: [
-            { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
-            { title: "按钮", sub: "Button", link: "/button", icon: 'stop' },
-            { title: "布局", sub: "layout", link: "/layout", icon: 'social-buffer' },
-            // { title: "标签页", sub: "Tabs", link: "/tabs",icon:'ios-photos' },
-          ]
-        },
-        {
-          title: "表单",
-          child: [
-            { title: "输入框", sub: "Input", link: "/input", icon: 'ios-compose' },
-            { title: "多选框", sub: "Checkbox", link: "/checkbox", icon: 'android-checkbox' },
-            { title: "单选框", sub: "Radio", link: "/radio", icon: 'android-radio-button-on' },
-            { title: "开关", sub: "Switch", link: "/switch", icon: 'ios-toggle' },
-            { title: "下拉框", sub: "Select", link: "/select", icon: 'chevron-down' },
-            // { title: "滑块", sub: "Slider", link: "/slider", icon: 'android-options' },
-            { title: "日期", sub: "datePicker", link: "/datepicker", icon: 'ios-calendar-outline' },
-            { title: "表格", sub: "Table", link: "/table", icon: 'ios-grid-view' },
-            { title: "表单", sub: "Form", link: "/form", icon: 'ios-list' },
-            { title: "上传", sub: "Upload", link: "/upload", icon: 'ios-cloud-upload' },
-            { title: "颜色", sub: "ColorPicker", link: "/colorpicker", icon: 'android-color-palette' },
-          ]
-        },
-        {
-          title: '视图',
-          child: [
-            { title: "警告提示", sub: "Alert", link: "/alert", icon: 'android-alert' },
-            { title: "全局提示", sub: "Message", link: "/message", icon: 'android-textsms' },
-            { title: "通知提醒", sub: "Notice", link: "/notice", icon: 'android-notifications' },
-            { title: "对话框", sub: "Modal", link: "/modal", icon: 'ios-browsers' },
-            { title: "气泡提示", sub: "Poptip", link: "/poptip", icon: 'ios-chatbubble' },
-            { title: "时间轴", sub: "TimeLine", link: "/timeline", icon: 'ios-time' },
-            { title: "徽标", sub: "Badge", link: "/badge", icon: 'email-unread' },
-          ]
-        },
-        {
-          title: '导航',
-          child: [
-            { title: "导航菜单", sub: "Menu", link: "/menu", icon: 'navicon' },
-            { title: "分页", sub: "Page", link: "/page", icon: 'ios-skipforward' },
-            { title: "加载进度", sub: "Loading", link: "/loading", icon: 'load-a' },
-          ]
-        },
-        {
-          title: "其他",
-          child: [
-            { title: "github", weblink: "https://github.com/chuchur/kui", icon: 'social-github', },
-            { title: "支持作者", link: "/sponsor", icon: 'social-usd' },
-            { title: "关于", link: "/about", icon: 'android-happy' }
-          ]
-        }
-      ],
+      nav: nav,
       logo: require("./assets/logo.png"), activeName: ''
     };
   },

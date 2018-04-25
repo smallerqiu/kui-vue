@@ -4,7 +4,7 @@ code.base=`<Select :width="200" v-model="select">
 <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
 </Select>
 <Button @click="select=''">清除</Button>
-<Button @click="select='1'">选中橘子</Button>
+<Button @click="select=1">选中橘子</Button>
 data() {
     return {
       select: "3",

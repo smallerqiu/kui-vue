@@ -132,7 +132,7 @@ export default {
     clear() {
       this.selectItem = null;
       this.label = "";
-      this.children.map(child => (child.selected = false));
+      this.children.forEach(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});
       this.dispatch('FormItem', 'form-item-change', '')

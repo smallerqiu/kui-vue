@@ -49,10 +49,11 @@ export default {
              } */
 
             // 父级 为 overflow hidden， 就掉水沟了， 取值不准
-            var pos = { x: 0, y: 0 };
-            if (!element) return pos
+            var pos = { x: 0, y: 0, width: 0, height: 0 };
+            if (!element) return pos;
             pos.x = element.offsetLeft;
             pos.y = element.offsetTop;
+            
             var current = element.offsetParent;
             while (current !== null) {
                 pos.x += current.offsetLeft;

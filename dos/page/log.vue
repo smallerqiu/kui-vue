@@ -2,6 +2,14 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem >
+        <h3>1.6.1<span> 2018-4-25 </span></h3>
+        <p>新增<code>Tooltip</code><code>Tag</code><code>Breadcrumb</code><code>BackTop</code><code>Affix</code><code>Card</code>组件</p>
+        <p>修复<code>RadioGroup</code>无法选中的bug</p>
+        <p>修复<code>Select</code>无法赋值的bug</p>
+        <p>完善<code>Poptip</code>子元素有<code>margin</code>时无法对其的问题</p>
+        <p>完善表单文档</p>
+      </TimeLineItem>
       <TimeLineItem Icon="bug" Color="red">
         <h3>1.6<span> 2018-4-22 </span></h3>
         <p>为了有效区分和名称，框架更名为<code>kui-vue</code></p>

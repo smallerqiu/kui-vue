@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="k-demo-line"></div>
-        <Code :style="codeStyles" ref="code">
+        <Code :style="codeStyles" ref="code" :lang="lang">
             <slot name="code"></slot>
         </Code>
     </div>
@@ -28,6 +28,7 @@ export default {
     props: {
         layout: { type: String, default: 'left-right' },
         title: String,
+        lang: String,
     },
     data() {
         return {
@@ -63,7 +64,9 @@ export default {
         toggle() {
             let expand = this.expand
             this.expand = !expand
-            this.codeHeight = !this.expand ? 0 : 'auto';
+            if(this.layout=='up-down'){
+                this.codeHeight = !this.expand ? 0 : 'auto';
+            }
             // console.log(this.$refs.code.$el.scrollHeight)
         }
     },

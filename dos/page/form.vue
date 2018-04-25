@@ -126,7 +126,9 @@
                     </FormItem>
                 </Form>
             </div>
-            <div slot="desc">在<code>rules</code>里面设置<code>validator</code>方法，可以自定义验证</div>
+            <div slot="desc">在
+                <code>rules</code>里面设置
+                <code>validator</code>方法，可以自定义验证</div>
             <div slot="code">{{code.customValid}}</div>
         </Demo>
         <!-- <Demo title="动态验证">
@@ -154,6 +156,88 @@
             <div slot="desc"></div>
             <div slot="code"></div>
         </Demo> -->
+        <h3>Form API</h3>
+        <div class="table-border">
+            <table>
+                <tr>
+                    <th>属性</th>
+                    <th>说明</th>
+                    <th>类型</th>
+                    <th>默认值</th>
+                </tr>
+                <tr>
+                    <td>model</td>
+                    <td>表单数据对象</td>
+                    <td>Object</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>rules</td>
+                    <td>表单验证规则，</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td>label-width</td>
+                    <td>表单域标签的宽度，所有的 FormItem 都会继承 Form 组件的 label-width 的值</td>
+                    <td>Number,String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>label-align</td>
+                    <td>表单域标签的位置，可选值为 left、right、top</td>
+                    <td>String</td>
+                    <td>right</td>
+                </tr>
+                <tr>
+                    <td>validate</td>
+                    <td>对整个表单进行校验，参数为检验完的回调，会返回一个 Boolean 表示成功与失败，暂不支持异步验证</td>
+                    <td>Function</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>validateField</td>
+                    <td>对表单单个字段进行校验的方法</td>
+                    <td>Function</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>resetFields</td>
+                    <td>对整个表单进行重置，将所有字段值重置为空并移除校验结果</td>
+                    <td>Function</td>
+                    <td>-</td>
+                </tr>
+            </table>
+        </div>
+        <h3>FormItem API</h3>
+        <div class="table-border">
+            <table>
+                <tr>
+                    <th>属性</th>
+                    <th>说明</th>
+                    <th>类型</th>
+                    <th>默认值</th>
+                </tr>
+                <tr>
+                    <td>prop</td>
+                    <td>对应表单域 model 里的字段，表单验证必须字段</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>label</td>
+                    <td>标签文本</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>rules</td>
+                    <td>表单验证规则</td>
+                    <td>Array</td>
+                    <td>-</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 <script>

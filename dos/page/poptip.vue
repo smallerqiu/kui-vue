@@ -30,14 +30,14 @@
           </Poptip>
         </div>
         <div style="float:left;height:150px;width:80px;">
-          <Poptip title="标题" content="内容" placement="left-bottom">
-            <Button>左下</Button>
+          <Poptip title="标题" content="内容" placement="left-top">
+            <Button>左上</Button>
           </Poptip>
           <Poptip title="标题" content="内容" placement="left">
             <Button>左边</Button>
           </Poptip>
-          <Poptip title="标题" content="内容" placement="left-top">
-            <Button>左上</Button>
+          <Poptip title="标题" content="内容" placement="left-bottom">
+            <Button>左下</Button>
           </Poptip>
         </div>
         <div style="margin-left:300px;height:150px;width:80px;">
@@ -52,20 +52,20 @@
           </Poptip>
         </div>
         <div style="margin-left:80px;white-space: nowrap;">
-          <Poptip title="标题" content="内容" placement="bottom-right">
-            <Button>下右</Button>
+          <Poptip title="标题" content="内容" placement="bottom-left">
+            <Button>下左</Button>
           </Poptip>
           <Poptip title="标题" content="内容" placement="bottom">
             <Button>下边</Button>
           </Poptip>
-          <Poptip title="标题" content="内容" placement="bottom-left">
-            <Button>下左</Button>
+          <Poptip title="标题" content="内容" placement="bottom-right">
+            <Button>下右</Button>
           </Poptip>
-
         </div>
-
       </div>
-      <div slot="desc"><code>Poptip</code>的位置一共有12中，通过<code>placement</code>控制</div>
+      <div slot="desc">
+        <code>Poptip</code>的位置一共有12种，通过
+        <code>placement</code>控制</div>
       <div slot="code">{{code.position}}</div>
     </Demo>
     <Demo title="嵌套">
@@ -95,7 +95,8 @@
           </div>
         </Poptip>
       </div>
-      <div slot="desc">通过<code>slot=content</code>来自定义展示内容</div>
+      <div slot="desc">通过
+        <code>slot=content</code>来自定义展示内容</div>
       <div slot="code">{{code.slot}}</div>
     </Demo>
     <Demo title="确认框">
@@ -107,7 +108,8 @@
           <Button>自定义</Button>
         </Poptip>
       </div>
-      <div slot="desc">启用<code>confirm</code>来自定义一个确认框模式</div>
+      <div slot="desc">启用
+        <code>confirm</code>来自定义一个确认框模式</div>
       <div slot="code">{{code.confirm}}</div>
     </Demo>
     <h3>API</h3>
@@ -123,7 +125,7 @@
           <td>trigger</td>
           <td>触发方式，可选值为hover（悬停）click（点击）,在 confirm 模式下，只有 click 有效</td>
           <td>String</td>
-          <td>-</td>
+          <td>click</td>
         </tr>
         <tr>
           <td>title</td>

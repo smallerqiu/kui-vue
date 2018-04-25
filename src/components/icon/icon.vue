@@ -1,5 +1,5 @@
 <template>
-   <i :class="classes" :style="styles"></i>
+  <i :class="classes" :style="styles" @click="click"></i>
 </template>
 <script>
 export default {
@@ -22,6 +22,11 @@ export default {
         style.color = this.color;
       }
       return style;
+    }
+  },
+  methods: {
+    click(e) {
+      this.$emit('click', e)
     }
   }
 };
