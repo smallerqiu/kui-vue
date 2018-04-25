@@ -22,6 +22,8 @@ r.map((x) => {
 }) */
 
 let R = {
+    'breadcrumb': r => require.ensure([], () => r(require('./page/breadcrumb')), 'breadcrumb'),
+    'backtop': r => require.ensure([], () => r(require('./page/backtop')), 'backtop'),
     'install': r => require.ensure([], () => r(require('./page/install')), 'install'),
     'start': r => require.ensure([], () => r(require('./page/start')), 'start'),
     'log': r => require.ensure([], () => r(require('./page/log')), 'log'),
@@ -32,6 +34,7 @@ let R = {
     'switch': r => require.ensure([], () => r(require('./page/switch')), 'switch'),
     'form': r => require.ensure([], () => r(require('./page/form')), 'form'),
     'colorpicker': r => require.ensure([], () => r(require('./page/colorpicker')), 'colorpicker'),
+    'card': r => require.ensure([], () => r(require('./page/card')), 'card'),
     'loading': r => require.ensure([], () => r(require('./page/loading')), 'loading'),
     'icon': r => require.ensure([], () => r(require('./page/icon')), 'icon'),
     'timeline': r => require.ensure([], () => r(require('./page/timeline')), 'timeline'),
@@ -39,10 +42,12 @@ let R = {
     'react-kui': r => require.ensure([], () => r(require('./page/react-kui')), 'react-kui'),
     'angular-kui': r => require.ensure([], () => r(require('./page/angular-kui')), 'angular-kui'),
     'alert': r => require.ensure([], () => r(require('./page/alert')), 'alert'),
+    'affix': r => require.ensure([], () => r(require('./page/affix')), 'affix'),
     'message': r => require.ensure([], () => r(require('./page/message')), 'message'),
     'notice': r => require.ensure([], () => r(require('./page/notice')), 'notice'),
     'upload': r => require.ensure([], () => r(require('./page/upload')), 'upload'),
     'poptip': r => require.ensure([], () => r(require('./page/poptip')), 'poptip'),
+    'tooltip': r => require.ensure([], () => r(require('./page/tooltip')), 'tooltip'),
     'menu': r => require.ensure([], () => r(require('./page/menu')), 'menu'),
     'tabs': r => require.ensure([], () => r(require('./page/tabs')), 'tabs'),
     'badge': r => require.ensure([], () => r(require('./page/badge')), 'badge'),
@@ -50,6 +55,7 @@ let R = {
     'radio': r => require.ensure([], () => r(require('./page/radio')), 'radio'),
     'datepicker': r => require.ensure([], () => r(require('./page/datepicker')), 'datepicker'),
     'table': r => require.ensure([], () => r(require('./page/table')), 'table'),
+    'tag': r => require.ensure([], () => r(require('./page/tag')), 'tag'),
     'layout': r => require.ensure([], () => r(require('./page/layout')), 'layout'),
     'page': r => require.ensure([], () => r(require('./page/page')), 'page'),
     'modal': r => require.ensure([], () => r(require('./page/modal')), 'modal'),

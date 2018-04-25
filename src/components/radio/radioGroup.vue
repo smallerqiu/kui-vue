@@ -7,7 +7,7 @@
 import emitter from '../../mixins/emitter'
 export default {
   name: "RadioGroup",
-  mixins:[emitter],
+  mixins: [emitter],
   props: {
     value: { type: [String, Number], default: "" },
   },
@@ -16,25 +16,25 @@ export default {
   },
   watch: {
     value(v) {
-      this.update();
+      this.update({ value: this.value, group: true });
     },
   },
   mounted() {
-    this.update();
-    this.$on('radio-group-change',this.change)
+    this.update({ value: this.value, group: true });
+    this.$on('radio-group-change', this.change)
   },
   methods: {
-    update() {
-      this.broadcast('Radio','radio-update',{
-        value:this.value,
-        group:true,
+    update(data) {
+      this.broadcast('Radio', 'radio-update', {
+        value: data.value,
+        group: true,
       })
     },
     change(data) {
       this.$emit("input", data.value);
       this.$emit("change", data.value);
-      this.update();
-      this.dispatch('FormItem','form-item-change',data.value)
+      this.update(data);
+      this.dispatch('FormItem', 'form-item-change', data.value)
     }
   }
 };

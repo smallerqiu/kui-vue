@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import code from '../code/time-line'
+import code from '../code/timeline'
 export default {
   data() {
     return {

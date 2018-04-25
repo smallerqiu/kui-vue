@@ -95,7 +95,7 @@ h4 {
 }
 
 body {
-    background: #FFF; // overflow: hidden;
+    background: #f1f1f1; // overflow: hidden;
 }
 
 .body {}
@@ -159,7 +159,7 @@ header {
     font-size: 18px;
     position: fixed;
     width: 100%;
-    z-index: 100;
+    z-index: 801;
     top: 0;
     box-sizing: border-box;
     img {
@@ -175,24 +175,25 @@ header {
     // margin: 80px auto 20px;
     // height: calc(~'100% - 85px'); // border-radius: 3px;
     // box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+    
     >.k-row {
         height: 100%;
         margin: 80px auto 20px;
         .k-col {
             height: 100%;
-            overflow: auto;
-            &::-webkit-scrollbar-thumb {
-                background: none;
-                transition: all .3s ease-in-out;
-                -webkit-transition: all .3s ease-in-out;
-                border-radius: 4px;
-            }
-            &:hover {
-                overflow: auto;
-                &::-webkit-scrollbar-thumb {
-                    background-color: rgba(95, 95, 95, 0.4);
-                }
-            }
+            // overflow: auto;
+            // &::-webkit-scrollbar-thumb {
+            //     background: none;
+            //     transition: all .3s ease-in-out;
+            //     -webkit-transition: all .3s ease-in-out;
+            //     border-radius: 4px;
+            // }
+            // &:hover {
+            //     overflow: auto;
+            //     &::-webkit-scrollbar-thumb {
+            //         background-color: rgba(95, 95, 95, 0.4);
+            //     }
+            // }
         }
     }
     .nav {
@@ -356,6 +357,7 @@ samp {
     background: rgba(241, 241, 241, 0.43) !important;
     padding: 15px !important;
     height: 100%;
+    margin:0;
 }
 
 .k-demo {
@@ -408,11 +410,12 @@ samp {
         .k-select,
         .k-input,
         .k-datepicker,
+        .k-tag,
         .k-btn-group {
             margin: 0 10px 10px 0;
         }
         td,
-        .k-btn-group,
+        .k-btn-group,.k-affix,
         .k-badge {
             .k-button,
             .k-select,
@@ -431,13 +434,15 @@ code {
     color: orange;
     border-radius: 3px;
 }
-.k-item-list{
+
+.k-item-list {
     padding-left: 30px;
-    li{
-        margin:5px;
+    li {
+        margin: 5px;
         list-style: disc;
     }
 }
+
 .k-demo-left-right {
     display: inline-block;
     width: 100%;
@@ -456,6 +461,12 @@ code {
         left: 50%;
         top: 0;
         bottom: 0;
+    }
+}
+.k-demo-up-down{
+    .k-code{
+        margin-top:-1px;
+        transition: height .3s ease-in-out;
     }
 }
 

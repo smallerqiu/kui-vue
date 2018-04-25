@@ -36,12 +36,12 @@ export default {
       return obj !== null && obj !== "" && obj !== undefined;
     },
     update(value) {
-      if (this.isNotEmpty(value) && value == this.value) {
-        // this.select()
-        this.selected = true;
-      } else {
-        this.selected = false;
-      }
+      this.selected = value === this.value
+      if (this.selected)
+        this.dispatch('Select', 'select-change', {
+          value: this.value,
+          label: this.label === undefined ? this.$el.innerHTML : this.label
+        })
     },
     select() {
       if (this.disabled) return;

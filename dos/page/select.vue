@@ -9,7 +9,7 @@
           <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
         </Select>
         <Button @click="select=''">清除</Button>
-        <Button @click="select='1'">选中橘子</Button>
+        <Button @click="select=1">选中橘子</Button>
       </div>
       <div slot="desc">通过
         <code>v-model</code>进行数据双向绑定</div>
