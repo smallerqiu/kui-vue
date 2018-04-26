@@ -60,7 +60,9 @@
 </template>
 <script>
 import code from '../code/start'
+import Code from '../components/code'
 export default {
+  components: { Code },
   data() {
     return {
       code: code

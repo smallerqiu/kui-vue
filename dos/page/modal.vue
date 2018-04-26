@@ -145,7 +145,9 @@
 </template>
 <script>
 import code from '../code/modal'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       color: "",

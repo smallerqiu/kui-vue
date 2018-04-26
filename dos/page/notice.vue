@@ -6,7 +6,8 @@
       <div slot="content">
         <Button @click="info" type="primary">普通提示 </Button>
       </div>
-      <div slot="desc"><code>Notice</code>的基本用法</div>
+      <div slot="desc">
+        <code>Notice</code>的基本用法</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <Demo title="带图标的提醒">
@@ -63,7 +64,9 @@
 </template>
 <script>
 import code from '../code/notice'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

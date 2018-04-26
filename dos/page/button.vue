@@ -29,7 +29,11 @@
         <Button type="danger" circle>Danger</Button>
         <Button type="link" circle>link</Button>
       </div>
-      <div slot="desc">使用<code>type</code>、<code>hollow</code>、<code>circle</code>属性来定义 <code>Button</code> 的样式。</div>
+      <div slot="desc">使用
+        <code>type</code>、
+        <code>hollow</code>、
+        <code>circle</code>属性来定义
+        <code>Button</code> 的样式。</div>
       <div slot="code">{{code.base}} </div>
     </Demo>
     <Demo title="禁用">
@@ -51,7 +55,8 @@
           <Button disabled type="link" hollow>link</Button>
         </div>
       </div>
-      <div slot="desc">通过添加<code>disabled</code>属性可将按钮设置为不可用状态。</div>
+      <div slot="desc">通过添加
+        <code>disabled</code>属性可将按钮设置为不可用状态。</div>
       <div slot="code">{{code.disabled}}</div>
     </Demo>
 
@@ -102,7 +107,9 @@
           <Button>已签收</Button>
         </ButtonGroup>
       </div>
-      <div slot="desc">将多个<code>Button</code>放入<code>ButtonGroup</code>内，可实现按钮组合的效果。</div>
+      <div slot="desc">将多个
+        <code>Button</code>放入
+        <code>ButtonGroup</code>内，可实现按钮组合的效果。</div>
       <div slot="code">{{code.group}}</div>
     </Demo>
     <h3>API</h3>

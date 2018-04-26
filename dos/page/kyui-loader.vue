@@ -17,7 +17,10 @@
 </template>
 <script>
 import code from '../code/vue-loader'
+import Code from '../components/code'
+
 export default {
+    components: { Code },
     data() {
         return {
             code: code

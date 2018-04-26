@@ -17,7 +17,8 @@
         <Radio label="葡萄🍇" disabled :value="true"></Radio>
         <Radio label="梨子🍐" disabled></Radio>
       </div>
-      <div slot="desc">通过<code>disabled</code>设置组件是否被禁用</div>
+      <div slot="desc">通过
+        <code>disabled</code>设置组件是否被禁用</div>
       <div slot="code">{{code.disabled}}</div>
     </Demo>
     <Demo title="组合使用">
@@ -34,7 +35,8 @@
         <Button @click="data=''">清除</Button>
         <Button @click="data='苹果🍎'">选中苹果</Button>
       </div>
-      <div slot="desc">结合<code>RadioGroup</code>可以组合使用</div>
+      <div slot="desc">结合
+        <code>RadioGroup</code>可以组合使用</div>
       <div slot="code">{{code.group}}</div>
     </Demo>
     <h3>Radio API</h3>
@@ -99,7 +101,9 @@
 </template>
 <script>
 import code from '../code/radio'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

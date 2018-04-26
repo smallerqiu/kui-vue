@@ -51,7 +51,8 @@
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
         </Select>
       </div>
-      <div slot="desc">通过<code>filterable</code>可设置组件是否呈现搜索模式</div>
+      <div slot="desc">通过
+        <code>filterable</code>可设置组件是否呈现搜索模式</div>
       <div slot="code">{{code.search}}</div>
     </Demo>
     <Demo title="禁用">
@@ -61,7 +62,8 @@
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
         </Select>
       </div>
-      <div slot="desc">通过<code>disabled</code>可设置组件是否被禁用</div>
+      <div slot="desc">通过
+        <code>disabled</code>可设置组件是否被禁用</div>
       <div slot="code">{{code.disabled}}</div>
     </Demo>
     <h3>Select API</h3>
@@ -156,7 +158,9 @@
 </template>
 <script>
 import code from '../code/select'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

@@ -84,7 +84,9 @@
 </template>
 <script>
 import code from '../code/tag'
+import Demo from '../components/demo'
 export default {
+    components: { Demo },
     data() {
         return {
             code: code,

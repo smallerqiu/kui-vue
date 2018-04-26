@@ -3,13 +3,15 @@
     <h2>Table 表格</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-table。</Alert>
     <h3>代码示例</h3>
-    <Demo title="基础／组件嵌套" layout="up-down">
+    <Demo title="基础／组件嵌套" layout="vertical">
       <div slot="content">
         <Button @click="border=!border" type="primary">表格边框</Button>
         <Button @click="mini=!mini" type="primary">mini</Button>
         <Table :data="data" :columns="col" :mini="mini" @select="select" :border="border"></Table>
       </div>
-      <div slot="desc">表格没做太复杂的展示，通过 <code>border</code>可以设置是否有边框，<code>mini</code>来设置表格大小模式</div>
+      <div slot="desc">表格没做太复杂的展示，通过
+        <code>border</code>可以设置是否有边框，
+        <code>mini</code>来设置表格大小模式</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <h3>Table API</h3>
@@ -110,7 +112,9 @@
 </template>
 <script>
 import code from '../code/table'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

@@ -43,7 +43,9 @@
   </div>
 </template>
 <script>
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       defaultColor: "#eeece1",

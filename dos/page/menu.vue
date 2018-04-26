@@ -3,7 +3,7 @@
     <h2>Menu 导航菜单</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-menu。</Alert>
     <h3>代码示例</h3>
-    <Demo title="顶部导航" layout="up-down">
+    <Demo title="顶部导航" layout="vertical">
       <div slot="content">
         <Menu mode="horizontal" :theme='theme' active-name="1">
           <MenuItem name="1" icon="ios-paper">我的产品</MenuItem>
@@ -42,12 +42,12 @@
         </RadioGroup>
       </div>
       <div slot="desc">水平导航菜单，<br/>可通过
-        <code>theme</code>属性来设置菜单主题，水平导航提供3种， 垂直2种，<br/>
-        通过<code>select</code>事件可以取得点击菜单的name。
-        </div>
+        <code>theme</code>属性来设置菜单主题，水平导航提供3种， 垂直2种，<br/> 通过
+        <code>select</code>事件可以取得点击菜单的name。
+      </div>
       <div slot="code">{{code.base}}</div>
     </Demo>
-    <Demo title="侧栏导航" layout="up-down">
+    <Demo title="侧栏导航" layout="vertical">
       <div slot="content">
         <Row>
           <Col span="8">
@@ -137,7 +137,8 @@
         </Row>
       </div>
       <div slot="desc">
-        通过设置<code>mode</code>属性，切换菜单呈现。
+        通过设置
+        <code>mode</code>属性，切换菜单呈现。
       </div>
       <div slot="code">{{code.theme}}</div>
     </Demo>
@@ -249,8 +250,10 @@
   </div>
 </template>
 <script>
+import Demo from '../components/demo'
 import code from '../code/menu'
 export default {
+  components: { Demo },
   data() {
     return {
       theme: "light",

@@ -73,8 +73,10 @@
   </div>
 </template>
 <script>
+import Demo from '../components/demo'
 import code from '../code/alert'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

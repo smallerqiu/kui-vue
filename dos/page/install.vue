@@ -12,7 +12,9 @@
 </template>
 <script>
 import code from '../code/install'
+import Code from '../components/code'
 export default {
+    components: { Code },
     data() {
         return {
             code: code

@@ -4,11 +4,19 @@
     <p>采用了24栅格系统，将区域进行24等分，这样可以轻松应对大部分布局问题</p>
     <p>两个概念，行row和列col，具体使用方法如下：</p>
     <ul class="k-item-list">
-      <li>使用<code>row</code>在水平方向创建一行</li>
-      <li>将一组<code>col</code>插入在<code>row</code>中</li>
-      <li>在每个<code>col</code>中，键入自己的内容</li>
-      <li>通过设置<code>col</code>的<code>span</code>参数，指定跨越的范围，其范围是1到24</li>
-      <li>每个<code>row</code>中的<code>col</code>总和应该为24</li>
+      <li>使用
+        <code>row</code>在水平方向创建一行</li>
+      <li>将一组
+        <code>col</code>插入在
+        <code>row</code>中</li>
+      <li>在每个
+        <code>col</code>中，键入自己的内容</li>
+      <li>通过设置
+        <code>col</code>的
+        <code>span</code>参数，指定跨越的范围，其范围是1到24</li>
+      <li>每个
+        <code>row</code>中的
+        <code>col</code>总和应该为24</li>
     </ul>
     <Alert>注意：非 template/render 模式下，需使用 k-col。</Alert>
     <h3>代码示例</h3>
@@ -120,7 +128,9 @@
 </template>
 <script>
 import code from '../code/layout'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code
