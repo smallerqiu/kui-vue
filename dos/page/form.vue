@@ -16,7 +16,9 @@
                     </FormItem>
                     <FormItem label="Select">
                         <Select>
-                            <Option v-for="(x,y) in select" :key="y" :value="x.value">{{x.label}}</Option>
+                            <Option value="0">男</Option>
+                            <Option value="1">女</Option>
+                            <Option value="2">妖</Option>
                         </Select>
                     </FormItem>
                     <FormItem label="DatePicker">
@@ -69,7 +71,9 @@
                     </FormItem>
                     <FormItem label="Select" prop="select">
                         <Select v-model="form.select" clearable>
-                            <Option v-for="(x,y) in select" :key="y" :value="x.value">{{x.label}}</Option>
+                            <Option value="0">男</Option>
+                            <Option value="1">女</Option>
+                            <Option value="2">妖</Option>
                         </Select>
                     </FormItem>
                     <FormItem label="DatePicker" prop="datepicker">
@@ -242,7 +246,9 @@
 </template>
 <script>
 import code from '../code/form'
+import Demo from '../components/demo'
 export default {
+    components: { Demo },
     data() {
         const validatePass = (rule, value, callback) => {
             if (value === '') {

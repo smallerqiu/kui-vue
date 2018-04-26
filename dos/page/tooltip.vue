@@ -4,7 +4,7 @@
     <h3>代码示例</h3>
     <Demo title="基本">
       <div slot="content">
-        <Tooltip  content="我是提示内容">
+        <Tooltip content="我是提示内容">
           <p>鼠标划过，我是一段文字</p>
         </Tooltip>
       </div>
@@ -14,51 +14,53 @@
     <Demo title="位置">
       <div slot="content" style="overflow:hidden;">
         <div style="margin-left:80px;white-space: nowrap;">
-          <Tooltip  content="Tooltip的显示内容" placement="top-left">
+          <Tooltip content="Tooltip的显示内容" placement="top-left">
             <Button>上左</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="top">
+          <Tooltip content="Tooltip的显示内容" placement="top">
             <Button>上边</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="top-right">
+          <Tooltip content="Tooltip的显示内容" placement="top-right">
             <Button>上右</Button>
           </Tooltip>
         </div>
         <div style="float:left;height:150px;width:80px;">
-           <Tooltip  content="Tooltip的显示内容" placement="left-top">
+          <Tooltip content="Tooltip的显示内容" placement="left-top">
             <Button>左上</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="left">
+          <Tooltip content="Tooltip的显示内容" placement="left">
             <Button>左边</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="left-bottom">
+          <Tooltip content="Tooltip的显示内容" placement="left-bottom">
             <Button>左下</Button>
           </Tooltip>
         </div>
         <div style="margin-left:300px;height:150px;width:80px;">
-          <Tooltip  content="Tooltip的显示内容" placement="right-top">
+          <Tooltip content="Tooltip的显示内容" placement="right-top">
             <Button>右上</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="right">
+          <Tooltip content="Tooltip的显示内容" placement="right">
             <Button>右边</Button>
           </Tooltip>
-          <Tooltip  content="Tooltip的显示内容" placement="right-bottom">
+          <Tooltip content="Tooltip的显示内容" placement="right-bottom">
             <Button>右下</Button>
           </Tooltip>
         </div>
         <div style="margin-left:80px;white-space: nowrap;">
-          <Tooltip  content="Tooltip的显示内容" placement="bottom-left">
+          <Tooltip content="Tooltip的显示内容" placement="bottom-left">
             <Button>下左</Button>
           </Tooltip>
-            <Tooltip  content="Tooltip的显示内容" placement="bottom">
+          <Tooltip content="Tooltip的显示内容" placement="bottom">
             <Button>下边</Button>
           </Tooltip>
-           <Tooltip  content="Tooltip的显示内容" placement="bottom-right">
+          <Tooltip content="Tooltip的显示内容" placement="bottom-right">
             <Button>下右</Button>
           </Tooltip>
         </div>
       </div>
-      <div slot="desc"><code>Tooltip</code>的位置一共有12种，通过<code>placement</code>控制</div>
+      <div slot="desc">
+        <code>Tooltip</code>的位置一共有12种，通过
+        <code>placement</code>控制</div>
       <div slot="code">{{code.position}}</div>
     </Demo>
     <Demo title="多行显示">
@@ -71,7 +73,8 @@
           </div>
         </Tooltip>
       </div>
-      <div slot="desc">通过<code>slot=content</code>来自定义展示内容</div>
+      <div slot="desc">通过
+        <code>slot=content</code>来自定义展示内容</div>
       <div slot="code">{{code.slot}}</div>
     </Demo>
     <h3>API</h3>
@@ -118,8 +121,10 @@
   </div>
 </template>
 <script>
+import Demo from '../components/demo'
 import code from '../code/tooltip'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

@@ -68,6 +68,7 @@
     ],
     "homepage": "https://kui.chuchur.com",
     "devDependencies": {
+        "hljs": "^6.2.3",
         "webpack-dev-server": "^2.11.2"
     }
 }

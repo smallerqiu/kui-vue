@@ -39,7 +39,8 @@
         <Switch :value="true" disabled></Switch>
         <Switch :value="true" disabled true-text="是" false-text="否"></Switch>
       </div>
-      <div slot="desc">通过<code>disabled</code>属性设置组件是否被禁用</div>
+      <div slot="desc">通过
+        <code>disabled</code>属性设置组件是否被禁用</div>
       <div slot="code">{{code.disabled}}</div>
     </Demo>
     <h3>API</h3>
@@ -93,7 +94,9 @@
 </template>
 <script>
 import code from '../code/switch'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

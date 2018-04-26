@@ -5,7 +5,7 @@
         <h3>代码示例</h3>
         <Row>
             <Col span="12">
-            <Demo title="基本" layout="up-down">
+            <Demo title="基本" layout="vertical">
                 <div slot="content">
                     <Affix>
                         <Button>Affix top</Button>
@@ -21,7 +21,7 @@
             </Demo>
             </Col>
             <Col span="11" offset="1">
-            <Demo title="偏移" layout="up-down">
+            <Demo title="偏移" layout="vertical">
                 <div slot="content">
                     <Affix offsetTop="200">
                         <Button>200px to Affix top</Button>
@@ -82,7 +82,10 @@
 </template>
 <script>
 import code from '../code/affix'
+import Demo from '../components/demo'
+
 export default {
+    components: { Demo },
     data() {
         return {
             code: code

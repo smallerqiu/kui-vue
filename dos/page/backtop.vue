@@ -5,7 +5,7 @@
         <h3>代码示例</h3>
         <Row>
             <Col span="12">
-            <Demo title="基础用法" layout="up-down">
+            <Demo title="基础用法" layout="vertical">
                 <div slot="content">
                     向下滚动页面，灰色的按钮为默认效果。
                     <BackTop></BackTop>
@@ -17,7 +17,7 @@
             </Demo>
             </Col>
             <Col span="11" offset="1">
-            <Demo title="基础用法" layout="up-down">
+            <Demo title="基础用法" layout="vertical">
                 <div slot="content">
                     自定义按钮为蓝色的按钮
                     <BackTop bottom="90" right="100">
@@ -44,7 +44,8 @@
                 </tr>
                 <tr>
                     <td>height</td>
-                    <td>页面滚动高度达到该值时才显示<code>BackTop</code>组件 </td>
+                    <td>页面滚动高度达到该值时才显示
+                        <code>BackTop</code>组件 </td>
                     <td>String,Number</td>
                     <td>400</td>
                 </tr>
@@ -80,8 +81,10 @@
 }
 </style>
 <script>
+import Demo from '../components/demo'
 import code from '../code/backtop'
 export default {
+    components: { Demo },
     data() { return { code: code } }
 }
 </script>

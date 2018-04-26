@@ -21,12 +21,14 @@
     </div>
 </template>
 <script>
+import Code from '../code'
 import resize from '../../../src/directives/winScroll'
 export default {
     directives: { resize },
+    components: { Code },
     name: 'Demo',
     props: {
-        layout: { type: String, default: 'left-right' },
+        layout: { type: String, default: 'horizontal' },
         title: String,
         lang: String,
     },
@@ -48,15 +50,15 @@ export default {
             }]
         },
         styles() {
-            return this.layout == 'left-right' ? { height: this.expand ? `${this.domHeight}px` : `${this.demoHeight}px` } : {}
+            return this.layout == 'horizontal' ? { height: this.expand ? `${this.domHeight}px` : `${this.demoHeight}px` } : {}
         },
         codeStyles() {
-            return this.layout == 'left-right' ? {} : { height: `${this.codeHeight}` }
+            return this.layout == 'horizontal' ? {} : { height: `${this.codeHeight}` }
         }
     },
     methods: {
         setHeight() {
-            if (this.layout == 'left-right') {
+            if (this.layout == 'horizontal') {
                 this.domHeight = this.$refs.dom.scrollHeight
                 this.demoHeight = this.$refs.demo.scrollHeight
             }
@@ -64,7 +66,7 @@ export default {
         toggle() {
             let expand = this.expand
             this.expand = !expand
-            if(this.layout=='up-down'){
+            if (this.layout == 'vertical') {
                 this.codeHeight = !this.expand ? 0 : 'auto';
             }
             // console.log(this.$refs.code.$el.scrollHeight)

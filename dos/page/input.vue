@@ -25,7 +25,8 @@
         <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
       </div>
       <div slot="desc">通过设置
-        <code>icon</code>属性，可设置按钮图标，<code>iconClick</code>可触发图标点击事件</div>
+        <code>icon</code>属性，可设置按钮图标，
+        <code>iconClick</code>可触发图标点击事件</div>
       <div slot="code">{{code.withIcon}}</div>
     </Demo>
     <Demo title="尺寸">
@@ -188,7 +189,9 @@
 </template>
 <script>
 import code from '../code/input'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

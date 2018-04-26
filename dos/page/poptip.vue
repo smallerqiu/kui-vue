@@ -193,7 +193,9 @@
 </template>
 <script>
 import code from '../code/poptip'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

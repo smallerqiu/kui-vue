@@ -51,7 +51,8 @@
           </Col>
         </Row>
       </div>
-      <div slot="desc">通过<code>format</code>来控制显示年月日或者其他格式</div>
+      <div slot="desc">通过
+        <code>format</code>来控制显示年月日或者其他格式</div>
       <div slot="code">{{code.date}}</div>
     </Demo>
     <Demo title="选择日期范围">
@@ -67,7 +68,8 @@
           </Col>
         </Row>
       </div>
-      <div slot="desc">可以通过<code>range-separator</code>来设置展示分隔符</div>
+      <div slot="desc">可以通过
+        <code>range-separator</code>来设置展示分隔符</div>
       <div slot="code">{{code.range}}</div>
     </Demo>
     <Demo title="禁用">
@@ -83,7 +85,10 @@
           </Col>
         </Row>
       </div>
-      <div slot="desc"><div slot="desc">设置<code>disabled</code>属性来控制组件是否可用</div></div>
+      <div slot="desc">
+        <div slot="desc">设置
+          <code>disabled</code>属性来控制组件是否可用</div>
+      </div>
       <div slot="code">{{code.disabled}}</div>
     </Demo>
     <Demo title="多语言">
@@ -92,7 +97,10 @@
         中文：
         <DatePicker></DatePicker>
       </div>
-      <div slot="desc">通过<code>lang</code>来控制语言类型，目前有英文和中文两种，默认中文<code>zh-cn</code></div>
+      <div slot="desc">通过
+        <code>lang</code>来控制语言类型，目前有英文和中文两种，默认中文
+        <code>zh-cn</code>
+      </div>
       <div slot="code">{{code.lang}}</div>
     </Demo>
     <h3>API</h3>
@@ -176,7 +184,9 @@
 </template>
 <script>
 import code from '../code/datepicker'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

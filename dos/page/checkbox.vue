@@ -8,7 +8,8 @@
         <Checkbox v-model="checked">单选框 </Checkbox>
         <Button @click="checked=!checked">Click me</Button>
       </div>
-      <div slot="desc">单独使用 ,使用 <code>v-model</code> 可以双向绑定数据。</div>
+      <div slot="desc">单独使用 ,使用
+        <code>v-model</code> 可以双向绑定数据。</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <Demo title="组合使用">
@@ -25,7 +26,8 @@
         <Button @click="data=['苹果🍎']">选中苹果</Button>
       </div>
       <div slot="desc">结合
-        <code>CheckboxGroup</code>来组合使用,通过<code>disabled</code>可以设置组件是否被禁用</div>
+        <code>CheckboxGroup</code>来组合使用,通过
+        <code>disabled</code>可以设置组件是否被禁用</div>
       <div slot="code">{{code.group}}</div>
     </Demo>
 
@@ -97,7 +99,9 @@
 </template>
 <script>
 import code from '../code/checkbox'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code,

@@ -2,18 +2,23 @@
   <div>
     <h2>Page 分页</h2>
     <h3>代码示例</h3>
-    <Demo title="基础" layout="up-down">
+    <Demo title="基础" layout="vertical">
       <div slot="content">
         <Page :total="1000" :current="1" :pagesize="10"></Page>
       </div>
-      <div slot="desc">基本分页，<code>total</code>为总页数，<code>current</code>为当前页码，<code>pagesize</code>为页码分组</div>
+      <div slot="desc">基本分页，
+        <code>total</code>为总页数，
+        <code>current</code>为当前页码，
+        <code>pagesize</code>为页码分组</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
-    <Demo title="尺寸" layout="up-down">
+    <Demo title="尺寸" layout="vertical">
       <div slot="content">
         <Page :total="60" :current="1" :pagesize="10" mini @change="test"></Page>
       </div>
-      <div slot="desc">设置<code>mini</code>可设置组件小尺寸展示，<code>change</code>为页码改变触发事件</div>
+      <div slot="desc">设置
+        <code>mini</code>可设置组件小尺寸展示，
+        <code>change</code>为页码改变触发事件</div>
       <div slot="code">{{code.size}}</div>
     </Demo>
     <h3>API</h3>
@@ -60,8 +65,10 @@
   </div>
 </template>
 <script>
+import Demo from '../components/demo'
 import code from '../code/page'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

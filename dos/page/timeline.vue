@@ -68,7 +68,9 @@
 </template>
 <script>
 import code from '../code/timeline'
+import Demo from '../components/demo'
 export default {
+  components: { Demo },
   data() {
     return {
       code: code

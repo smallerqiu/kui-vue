@@ -18,7 +18,9 @@
                 <Button @click="upload(80)">upload 80</Button>
             </div>
             <div slot="desc">
-                <code>start</code>触发开始，<code>finish</code>结束，<code>upload</code>可以手动更新进度
+                <code>start</code>触发开始，
+                <code>finish</code>结束，
+                <code>upload</code>可以手动更新进度
             </div>
             <div slot="code">{{code.test}}</div>
         </Demo>
@@ -29,7 +31,9 @@
                 <Button @click="loading('zoom')">zoom</Button>
                 <Button @click="loading('rotate')">rotate</Button>
             </div>
-            <div slot="desc">用<code>Loading</code>来 表示异步加载，不只是单纯的加载进度，很多种情况下，在异步加载的时候，不允许用户再一次进行操作，所以这种情况，建议使用以下几种方式进行模拟，在此种模拟方式的时候，默认会弹出透明浮层，直到<code>finish</code> 才可以进行第二操作。</div>
+            <div slot="desc">用
+                <code>Loading</code>来 表示异步加载，不只是单纯的加载进度，很多种情况下，在异步加载的时候，不允许用户再一次进行操作，所以这种情况，建议使用以下几种方式进行模拟，在此种模拟方式的时候，默认会弹出透明浮层，直到
+                <code>finish</code> 才可以进行第二操作。</div>
             <div slot="code">{{code.theme}}</div>
         </Demo>
 
@@ -105,7 +109,10 @@
 </template>
 <script>
 import code from '../code/loading'
+import Demo from '../components/demo'
+import Code from '../components/code'
 export default {
+    components: { Demo, Code },
     data() {
         return {
             code: code

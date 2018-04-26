@@ -22,6 +22,7 @@ r.map((x) => {
 }) */
 
 let R = {
+    'test': r => require.ensure([], () => r(require('./page/test')), 'test'),
     'breadcrumb': r => require.ensure([], () => r(require('./page/breadcrumb')), 'breadcrumb'),
     'backtop': r => require.ensure([], () => r(require('./page/backtop')), 'backtop'),
     'install': r => require.ensure([], () => r(require('./page/install')), 'install'),
