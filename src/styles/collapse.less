@@ -1,0 +1,53 @@
+.k-collapse {
+    background-color: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: @radius;
+    border-bottom: 0;
+    &>.k-collapse-item {
+        border-bottom: 1px solid #d9d9d9;
+        &>.k-collapse-header {
+            line-height: 22px;
+            padding: 12px 0 12px 40px;
+            cursor: pointer;
+            position: relative;
+            &>i {
+                position: absolute;
+                left: 16px;
+                top: 0;
+                line-height: 46px;
+                transform: rotate(0);
+                transition: transform .3s ease-in-out;
+            }
+        }
+        .k-collapse-content {
+            background-color: #fff;
+            border-top: 1px solid #d9d9d9;
+            padding: 0 16px;
+            transition: height .3s ease-in-out;
+            box-sizing: border-box;
+            overflow: hidden;
+            .k-collapse-content-box {
+                padding: 16px 0;
+            }
+        }
+    }
+    &>.k-collapse-item-active {
+        &>.k-collapse-header>i {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.k-collaplse-sample {
+    border: none;
+    background: none;
+    .k-collapse-item {
+        background: #f5f5f5;
+        border: none;
+        margin-bottom: 10px;
+        .k-collapse-content {
+            border: none;
+            background: none;
+        }
+    }
+}

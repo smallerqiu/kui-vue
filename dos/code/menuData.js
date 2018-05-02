@@ -40,26 +40,30 @@ let nav = [
         title: '视图',
         child: [
             { title: "警告提示", sub: "Alert", link: "/alert", icon: 'android-alert' },
+            { title: "徽标", sub: "Badge", link: "/badge", icon: 'email-unread' },
             { title: "卡片", sub: "Card", link: "/card", icon: 'card' },
+            { title: "走马灯", sub: "Carousel", link: "/carousel", icon: 'ios-film' },
+            { title: "折叠面板", sub: "Collapse", link: "/collapse", icon: 'android-funnel' },
             { title: "全局提示", sub: "Message", link: "/message", icon: 'android-textsms' },
             { title: "通知提醒", sub: "Notice", link: "/notice", icon: 'android-notifications' },
             { title: "对话框", sub: "Modal", link: "/modal", icon: 'ios-browsers' },
-            { title: "文字提示", sub: "Tooltip", link: "/tooltip", icon: 'chatbubble-working' },
-            { title: "气泡提示", sub: "Poptip", link: "/poptip", icon: 'ios-chatbubble' },
             { title: "标签", sub: "Tag", link: "/tag", icon: 'ios-pricetag' },
             { title: "时间轴", sub: "TimeLine", link: "/timeline", icon: 'ios-time' },
-            { title: "徽标", sub: "Badge", link: "/badge", icon: 'email-unread' },
+            { title: "气泡提示", sub: "Poptip", link: "/poptip", icon: 'ios-chatbubble' },
+            { title: "文字提示", sub: "Tooltip", link: "/tooltip", icon: 'chatbubble-working' },
+            { title: "树形控件", sub: "Tree", link: "/tree", icon: 'merge' },
         ]
     },
     {
         title: '导航',
         child: [
-            { title: "导航菜单", sub: "Menu", link: "/menu", icon: 'navicon' },
-            { title: "分页", sub: "Page", link: "/page", icon: 'ios-skipforward' },
             { title: "图钉", sub: "Affix", link: "/affix", icon: 'pin' },
             { title: "面包屑", sub: "Breadcrumb", link: "/breadcrumb", icon: 'chevron-right' },
-            { title: "加载进度", sub: "Loading", link: "/loading", icon: 'load-a' },
             { title: "回到顶部", sub: "BackTop", link: "/backtop", icon: 'chevron-up' },
+            { title: "加载进度", sub: "Loading", link: "/loading", icon: 'load-a' },
+            { title: "导航菜单", sub: "Menu", link: "/menu", icon: 'navicon' },
+            { title: "分页", sub: "Page", link: "/page", icon: 'ios-skipforward' },
+            { title: "步骤条", sub: "Steps", link: "/steps", icon: 'android-done-all' },
         ]
     },
     {
