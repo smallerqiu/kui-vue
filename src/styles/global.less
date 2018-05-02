@@ -11,61 +11,73 @@
 
 //下拉动画
 @keyframes dropDownIn {
-   0% { opacity: 0; transform: scaleY(.8) }
-   to { opacity: 1; transform: scaleY(1) }
+  0% { opacity: 0; transform: scaleY(0) }
+  to { opacity: 1; transform: scaleY(1) }
 }
 
 @keyframes dropDownOut {
-   0% { opacity: 1; transform: scaleY(1) }
-   to { opacity: 0; transform: scaleY(.8) }
+  0% { opacity: 1; transform: scaleY(1) }
+  to { opacity: 0; transform: scaleY(0) }
 }
 
 @keyframes fadeInDown {
-   from { opacity: 0; transform: translate3d(0, -100%, 0); }
-   to { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translate3d(0, -100%, 0); }
+  to { opacity: 1; transform: none; }
 }
 @keyframes fadeOutUp {
-  from { opacity: 1;  }
-  to { opacity: 0; transform: translate3d(0, -100%, 0);  }
-  // 0% {
-  //   opacity: 1;
-  //   margin-bottom: 16px;
-  //   padding-top: 16px 24px;
-  //   padding-bottom: 16px 24px;
-  //   max-height: 150px;
-  // }
-  // 100% {
-  //   opacity: 0;
-  //   margin-bottom: 0;
-  //   padding-top: 0;
-  //   padding-bottom: 0;
-  //   max-height: 0;
-  // }
+ from { opacity: 1; }
+ to { opacity: 0; transform: translate3d(0, -100%, 0); }
+ // 0% {
+ //  opacity: 1;
+ //  margin-bottom: 16px;
+ //  padding-top: 16px 24px;
+ //  padding-bottom: 16px 24px;
+ //  max-height: 150px;
+ // }
+ // 100% {
+ //  opacity: 0;
+ //  margin-bottom: 0;
+ //  padding-top: 0;
+ //  padding-bottom: 0;
+ //  max-height: 0;
+ // }
  }
  @keyframes fadeInLeft {
-  from { opacity: 0; transform: translate3d(100%, 0, 0);  }
-  to { opacity: 1; transform: none;  }
+ from { opacity: 0; transform: translate3d(100%, 0, 0); }
+ to { opacity: 1; transform: none; }
 }
 @keyframes fadeInRight {
-  from { opacity: 0; transform: translate3d(-100%, 0, 0);  }
-  to { opacity: 1; transform: none;  }
+ from { opacity: 0; transform: translate3d(-100%, 0, 0); }
+ to { opacity: 1; transform: none; }
 }
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1;  }
+ from { opacity: 0; }
+ to { opacity: 1; }
 }
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+ from { opacity: 1; }
+ to { opacity: 0; }
 }
 @keyframes fadeEaseIn {
-  from { opacity: 0;transform: scale(1.1,1.1); }
-  to { opacity: 1;transform: scale(1);  }
+ from { opacity: 0;transform: scale(1.1,1.1); }
+ to { opacity: 1;transform: scale(1); }
 }
 @keyframes fadeEaseOut {
-  from { opacity: 1;transform: scale(1); }
-  to { opacity: 0;transform: scale(1.1); }
+ from { opacity: 1;transform: scale(1); }
+ to { opacity: 0;transform: scale(1.1); }
 }
+@-webkit-keyframes loadloop {
+ 0% {-webkit-transform: rotate(0);transform: rotate(0) }
+ 50% {-webkit-transform: rotate(180deg);transform: rotate(180deg) }
+ to {-webkit-transform: rotate(1turn);transform: rotate(1turn) }
+}
+
+@keyframes loadloop { 
+ 0% {-webkit-transform: rotate(0);transform: rotate(0) }
+ 50% {-webkit-transform: rotate(180deg);transform: rotate(180deg) }
+ to {-webkit-transform: rotate(1turn);transform: rotate(1turn) }
+}
+
 .fadeease-enter-active { transform-origin: center center;animation: fadeEaseIn .2s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear;}
 .fadeease-leave-active { transform-origin: center center;animation: fadeEaseOut .2s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear; }
 
@@ -78,8 +90,8 @@
 .fadedown-enter-active { animation: fadeInDown .3s cubic-bezier(.23, 1, .32, 1);}
 .fadedown-leave-active { animation: fadeOutUp .3s cubic-bezier(.23, 1, .32, 1); }
 
-.dropdown-enter-active { transform-origin:0 0;  animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
-.dropdown-leave-active {transform-origin:0 0;  animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}
+.dropdown-enter-active { transform-origin:0 0; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
+.dropdown-leave-active {transform-origin:0 0; animation: dropDownOut .3s cubic-bezier(.23, 1, .32, 1)}
 
 .dropdownBottom-enter-active { transform-origin:0 100%; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
 .dropdownBottom-leave-active { transform-origin: 0 0; animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}

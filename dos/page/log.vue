@@ -3,14 +3,19 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.6.2<span> 2018-5-1 </span></h3>
+        <p>新增<code>Carousel</code>，<code>Collapse</code>，<code>Tree</code>，<code>Steps</code>等组件</p>
+        <p>优化表单验证 双向排列验证提示</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.6.1<span> 2018-4-25 </span></h3>
-        <p>新增<code>Tooltip</code><code>Tag</code><code>Breadcrumb</code><code>BackTop</code><code>Affix</code><code>Card</code>组件</p>
+        <p>新增<code>Tooltip</code>，<code>Tag</code>，<code>Breadcrumb</code>，<code>BackTop</code>，<code>Affix</code>，<code>Card</code>等组件</p>
         <p>修复<code>RadioGroup</code>无法选中的bug</p>
         <p>修复<code>Select</code>无法赋值的bug</p>
         <p>完善<code>Poptip</code>子元素有<code>margin</code>时无法对其的问题</p>
         <p>完善表单文档</p>
       </TimeLineItem>
-      <TimeLineItem Icon="bug" Color="red">
+      <TimeLineItem icon="trophy" color="green">
         <h3>1.6<span> 2018-4-22 </span></h3>
         <p>为了有效区分和名称，框架更名为<code>kui-vue</code></p>
         <p>统一组件的事件回调</p>

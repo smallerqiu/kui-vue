@@ -1,32 +1,36 @@
 import Alert from './components/alert'
 import Affix from './components/affix'
 import { Breadcrumb, BreadcrumbItem } from './components/breadcrumb'
+import { Button, ButtonGroup } from './components/button'
 import BackTop from './components/backtop'
-import Table from './components/table'
+import ColorPicker from './components/colorPicker'
 import Card from './components/card'
+import { Carousel, CarouselItem } from './components/carousel'
+import { Collapse, Panel } from './components/collapse'
+import { Checkbox, CheckboxGroup } from './components/checkbox'
 import Page from './components/page'
 import Input from './components/input'
 import Switch from './components/switch'
 import DatePicker from './components/datePicker'
+import { Form, FormItem } from './components/form'
 import Modal from './components/modal'
-import ColorPicker from './components/colorPicker'
+import { Menu, MenuGroup, MenuItem, SubMenu } from './components/menu'
 import Icon from './components/icon'
+import { Message, Notice } from './components/message'
 import Upload from './components/upload'
 import Poptip from './components/poptip'
-import Tooltip from './components/tooltip'
 import Loading from './components/loading'
 import Badge from './components/badge'
+import { Radio, RadioGroup } from './components/radio'
 import Slider from './components/slider'
+import Table from './components/table'
+import Tooltip from './components/tooltip'
 import { Tabs, TabPane } from './components/tabs'
 import { Select, Option } from './components/select'
-import { Radio, RadioGroup } from './components/radio'
-import { Checkbox, CheckboxGroup } from './components/checkbox'
-import { Message, Notice } from './components/message'
-import { Button, ButtonGroup } from './components/button'
+import { Steps, Step } from './components/steps'
 import { Row, Col } from './components/grid'
-import { Form, FormItem } from './components/form'
 import { TimeLine, TimeLineItem } from './components/timeline'
-import { Menu, MenuGroup, MenuItem, SubMenu } from './components/menu'
+import Tree from './components/tree'
 import Tag from './components/tag'
 
 const pkg = require('../package.json');
@@ -35,28 +39,22 @@ import './styles';
 
 const components = {
     Alert, Affix, BackTop,
-    Breadcrumb, BreadcrumbItem,
-    Message, Notice,
-    Card,
-    Table, Badge,
+    Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
+    Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup,
+    DatePicker,
+    Modal, Message, Notice,
     Page,
-    DatePicker, ColorPicker,
-    Button, ButtonGroup,
     Select, Option,
     Input,
-    Form,
-    FormItem,
-    Checkbox,
-    CheckboxGroup,
-    Radio,
-    RadioGroup,
-    Modal, Poptip,
+    Form, FormItem,
+    Radio, RadioGroup,
+    Poptip, Panel,
     Row, Col, Upload,
-    Icon, TimeLine, TimeLineItem,
-    Tabs, TabPane,
+    Steps, Step,
+    Icon,
     Menu, MenuGroup, MenuItem, SubMenu,
     Loading, Slider,
-    Tag, Tooltip
+    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree,
 }
 const UI = {
     ...components,

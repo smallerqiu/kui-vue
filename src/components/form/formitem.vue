@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <label :style="labelStyles" class="k-form-item-label">{{label}}</label>
+    <label :style="labelStyles" class="k-form-item-label" v-if="this.label">{{label}}</label>
     <div class="k-form-item-content" :style="contentStyles">
       <slot></slot>
       <div class="k-form-item-error-tip" v-if="!valid">{{errorTip}}</div>
@@ -43,7 +43,7 @@ export default {
     },
     contentStyles() {
       let width = this.form.labelWidth;
-      return width && this.form.labelAlign != 'top' ? { marginLeft: `${width}px` } : {};
+      return width && this.form.labelAlign != 'top' && this.label != undefined ? { marginLeft: `${width}px` } : {};
     }
   },
   created() {
