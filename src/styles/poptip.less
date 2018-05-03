@@ -14,8 +14,7 @@
     white-space: nowrap;
     border-radius: @radius;
     background: #fff;
-    box-sizing: border-box;
-    //    padding: 15px;
+    box-sizing: border-box; //    padding: 15px;
     [class^=k-ion] {
         color: orange;
         font-size: 14px;
@@ -30,7 +29,7 @@
         margin: 0;
         padding: 8px 16px;
         position: relative;
-        border-bottom:1px solid #eee;
+        border-bottom: 1px solid #eee;
     }
     .k-poptip-content {
         padding: 8px 16px;
@@ -153,5 +152,19 @@
         .k-poptip-arrow {
             bottom: 10px;
         }
+    }
+}
+
+.k-poptip-confirm {
+    .k-poptip-title {
+        border: none;
+        padding: 16px 16px 8px;
+    }
+    .k-poptip-content {
+        display: none;
+    }
+    .k-poptip-footer {
+        text-align: right;
+        padding: 8px 16px 16px;
     }
 }

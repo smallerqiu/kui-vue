@@ -31,18 +31,7 @@ export default {
       ];
     }
   },
-  methods: {
-    isNotEmpty(obj) {
-      return obj !== null && obj !== "" && obj !== undefined;
-    },
-    update(value) {
-      this.selected = value === this.value
-      if (this.selected)
-        this.dispatch('Select', 'select-change', {
-          value: this.value,
-          label: this.label === undefined ? this.$el.innerHTML : this.label
-        })
-    },
+  methods: { 
     select() {
       if (this.disabled) return;
       this.selected = true
@@ -53,15 +42,11 @@ export default {
     },
     query(query) {
       // query 转义查询里面的正则
-      let parsedQuery = String(query).replace(
-        /(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g,
-        "\\$1"
-      );
+      let parsedQuery = String(query).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
       this.visible = new RegExp(parsedQuery, "i").test(this.label);
     }
   },
-  created() {
-    this.$on('option-update', this.update)
+  mounted() {
     this.dispatch('Select', 'select-add', this)
   },
   beforeDestroy() {
