@@ -1,57 +1,31 @@
 <template>
-    <div>
-        <Form :label-width="80" :labelAlign="labelAlign">
-            <FormItem label="Input">
-                <Input></Input>
-            </FormItem>
-            <FormItem label="Select">
-                <Select>
-                    <Option value="0">男</Option>
-                    <Option value="1">女</Option>
-                    <Option value="2">妖</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="DatePicker">
-                <DatePicker></DatePicker>
-            </FormItem>
-            <FormItem label="Radio">
-                <RadioGroup value="0">
-                    <Radio label="0">男</Radio>
-                    <Radio label="1">女</Radio>
-                    <Radio label="2">妖</Radio>
-                </RadioGroup>
-            </FormItem>
-            <FormItem label="Checkbox">
-                <CheckboxGroup :value="['0']">
-                    <Checkbox label="0">男</Checkbox>
-                    <Checkbox label="1">女</Checkbox>
-                    <Checkbox label="2">妖</Checkbox>
-                </CheckboxGroup>
-            </FormItem>
-            <!-- <FormItem label="Slider">
-                        <Slider ></Slider>
-                    </FormItem> -->
-            <FormItem label="Switch">
-                <Switch true-text="是" false-text="否"></Switch>
-            </FormItem>
-            <FormItem label="Text">
-                <Input type="textarea" placeholder="情输入..."></Input>
-            </FormItem>
-            <FormItem>
-                <Button type="primary">Submit</Button>
-                <Button style="margin-left: 10px">Cancel</Button>
-            </FormItem>
-        </Form>
+    <div style="width:700px;">
+        <Checkbox value="true"   indeterminate/>
         <Form :label-width="80" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
             <FormItem label="Input" prop="input">
                 <Input v-model="form.input"></Input>
             </FormItem>
-            <FormItem label="Select" prop="select">
-                <Select v-model="form.select" clearable>
-                    <Option value="0">男</Option>
-                    <Option value="1">女</Option>
-                    <Option value="2">妖</Option>
-                </Select>
+            <FormItem label="Select" class="k-form-item-required">
+                <Row>
+                    <Col span="6">
+                    <FormItem prop="select">
+                        <Select v-model="form.select" clearable>
+                            <Option value="0">男男男男男男男男男男男男男男男男男男男男男男男男男男男</Option>
+                            <Option value="1">女</Option>
+                            <Option value="2">妖</Option>
+                        </Select>
+                    </FormItem>
+                    </Col>
+                    <Col span="6" offset="1">
+                    <FormItem prop="select2">
+                        <Select v-model="form.select2" clearable>
+                            <Option value="0">男</Option>
+                            <Option value="1">女</Option>
+                            <Option value="2">妖</Option>
+                        </Select>
+                    </FormItem>
+                    </Col>
+                </Row>
             </FormItem>
             <FormItem label="DatePicker" prop="datepicker">
                 <DatePicker v-model="form.datepicker" clearable></DatePicker>
@@ -79,7 +53,8 @@
                 <Button style="margin-left: 10px" @click="resetForm('form')">Reset</Button>
             </FormItem>
         </Form>
-        <Form :model="customForm" :rules="customRules" labelWidth="80" ref="customForm">
+        <Button @click="test">test</Button>
+        <!-- <Form :model="customForm" :rules="customRules" labelWidth="80" ref="customForm">
             <FormItem label="userName" prop="userName">
                 <Input v-model="customForm.userName" />
             </FormItem>
@@ -93,7 +68,7 @@
                 <Button type="primary" @click="submitForm('customForm')">Submit</Button>
                 <Button style="margin-left: 10px" @click="resetForm('customForm')">Reset</Button>
             </FormItem>
-        </Form>
+        </Form> -->
     </div>
 </template>
 <script>
@@ -134,23 +109,20 @@ export default {
         return {
             labelAlign: 'right',
             code: code,
-            select: [
-                { label: "男", value: "0" },
-                { label: "女", value: "1" },
-                { label: "妖", value: "2" },
-            ],
             form: {
                 switch: true,
                 input: "",
-                select: '',
-                datepicker: "",
-                radio: "",
-                checkbox: [],
+                select: 0,
+                select2: 2,
+                datepicker: "2018-10-10",
+                radio: 0,
+                checkbox: ['0'],
                 textarea: ''
             },
             rules: {
-                input: [{ required: true, trigger: 'blur' }],
+                input: [{ required: true, trigger: 'blur' }, { pattner: /^[1][3,4,5,7,8][0-9]{9}$/, trigger: 'blur' }],
                 select: [{ required: true, trigger: 'change' }],
+                select2: [{ required: true, trigger: 'change' }],
                 datepicker: [{ required: true, trigger: 'change' }],
                 radio: [{ required: true, trigger: 'change' }],
                 checkbox: [{ required: true, trigger: 'change', min: 2, max: 3 }],
@@ -173,6 +145,10 @@ export default {
         };
     },
     methods: {
+        test() {
+            this.form.select = 2
+            this.form.select2 = 0
+        },
         add() {
             this.count++
             this.dynamicForm.items.push({ value: '', index: this.count })

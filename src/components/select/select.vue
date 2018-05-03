@@ -36,8 +36,8 @@ export default {
     disabled: { type: Boolean, default: false }
   },
   watch: {
-    value(n, o) {
-      this.updateSelect();
+    value(n, o) { 
+      this.updateSelect(n);
     },
     visible(val) {
       if (this.filterable) {
@@ -66,10 +66,12 @@ export default {
     };
   },
   created() {
-    this.updateSelect();
     this.$on('select-change', this.select)
     this.$on('select-add', this.add)
     this.$on('select-remove', this.remove)
+  },
+  mounted() {
+    this.updateSelect();
   },
   computed: {
     isclearable() {
@@ -127,7 +129,17 @@ export default {
     updateSelect() {
       let value = this.value
       if (value === null || value === '' || value === undefined) this.label = ''
-      this.broadcast('Option', 'option-update', value)
+      this.children.forEach(child => {
+        if (child.value !== '' && child.value !== null && child.value !== undefined) {
+          child.selected = child.value == this.value
+          if (child.selected) {
+            this.select({
+              value: child.value,
+              label: child.label === undefined ? child.$el.innerHTML : child.label
+            })
+          }
+        }
+      })
     },
     clear() {
       this.selectItem = null;
@@ -168,11 +180,11 @@ export default {
         this.top = !this.transfer ? rh + m : pos.y + rh + m;
       }
     },
-    select(item) {
+    select(item) { 
       this.selectItem = item;
       this.$emit("change", item);
       this.$emit("input", item.value);
-      this.label = item.label
+      this.label = item.label 
       this.dispatch('FormItem', 'form-item-change', item.value)
       setTimeout(() => (this.visible = false));
     }

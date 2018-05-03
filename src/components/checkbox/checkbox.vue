@@ -19,6 +19,7 @@ export default {
     label: { type: String },
     trueValue: { type: [String, Number, Boolean], default: true },
     falseValue: { type: [String, Number, Boolean], default: false },
+    indeterminate: Boolean,
   },
   computed: {
     wpclasses() {
@@ -33,7 +34,8 @@ export default {
       return [
         "k-checkbox",
         {
-          ["k-checkbox-checked"]: this.checked
+          ["k-checkbox-checked"]: this.checked,
+          ["k-checkbox-indeterminate"]: this.indeterminate
         }
       ];
     }
@@ -46,14 +48,14 @@ export default {
   },
   watch: {
     value(v) {
-        this.checked = v
+      this.checked = v
     }
   },
   mounted() {
     this.$on('checkbox-update', this.update)
     // this.dispatch('CheckboxGroup', 'checkbox-group-update')
   },
-  methods: { 
+  methods: {
     update(params) {
       this.checked = params.value.indexOf(this.label) >= 0;
       this.group = params.group

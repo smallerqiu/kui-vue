@@ -13,7 +13,7 @@ export default {
   name: "FormItem",
   mixins: [emitter],
   props: {
-    label: { type: String, default: "" },
+    label: String,
     rules: { type: Array },
     prop: String
   },
@@ -95,12 +95,13 @@ export default {
         valid = false
         message = rule.message || (type == '[object Array]' ? `Choose ${rule.max} items at best` : `Introduce no more than ${rule.max} words`)
       } else if (rule.pattner) {
-        valid = this.fieldValue.test(rule.pattner)
+        valid = rule.pattner.test(this.fieldValue)
+        message = rule.message || 'Incorrect email format'
       } else if (rule.type == 'mail') {
-        valid = this.fieldValue.test(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
+        valid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.fieldValue)
         message = rule.message || 'Incorrect email format'
       } else if (rule.type == 'mobile') {
-        valid = this.fieldValue.test(/^[1][3,4,5,7,8][0-9]{9}$/)
+        valid = /^[1][3,4,5,7,8][0-9]{9}$/.test(this.fieldValue)
         message = rule.message || 'Incorrect mobile format'
       } else if (rule.type == 'number') {
         valid = typeof value === 'number' && isNaN(value);
@@ -119,7 +120,7 @@ export default {
       return valid
     },
     validates(trigger, callback = function () { }) {
-      if (this.prop && this.Rules.length > 0) {
+      if (this.prop && this.Rules && this.Rules.length) {
         let valid = true
         this.Rules.forEach(rule => {
           trigger = !trigger ? rule.trigger || 'blur' : trigger

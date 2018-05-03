@@ -47,7 +47,8 @@ export default {
       }
     },
     resetFields() {
-      this.broadcast('FormItem', 'form-item-reset')
+      // this.broadcast('FormItem', 'form-item-reset')
+      this.fields.forEach(child => child.reset())
     },
     removeField(field) {
       if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
@@ -58,7 +59,7 @@ export default {
         if (!field.Rules && this.rules) {
           field.Rules = this.getProp(this.rules, field.prop).value
         }
-        field.required = field.Rules.filter(field => field.required).length > 0
+        field.required = field.Rules && field.Rules.filter(field => field.required).length > 0
         this.fields.push(field)
       }
     },

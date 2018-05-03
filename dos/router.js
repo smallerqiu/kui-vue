@@ -65,7 +65,8 @@ let R = {
     'timeline': r => require.ensure([], () => r(require('./page/timeline')), 'timeline'),
     'tooltip': r => require.ensure([], () => r(require('./page/tooltip')), 'tooltip'),
     'theme': r => require.ensure([], () => r(require('./page/theme')), 'theme'),
-    'tree': r => require.ensure([], () => r(require('./page/tree')), 'tree')
+    'tree': r => require.ensure([], () => r(require('./page/tree')), 'tree'),
+    'test': r => require.ensure([], () => r(require('./page/test')), 'test')
 };
 
 for (let x in R) {
