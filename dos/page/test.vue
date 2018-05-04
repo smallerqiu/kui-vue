@@ -1,9 +1,44 @@
 <template>
     <div style="width:700px;">
-        <Checkbox value="true"   indeterminate/>
+        <Modal :value="true" title="dsfsd">
+            <table>
+                <tr>
+                    <th>分单编号</th>
+                    <th>到货日期</th>
+                    <th>数量</th>
+                    <th>延迟事由</th>
+                </tr>
+                <tr v-for="n in 20" :key="n">
+                    <td>fdsafdsa</td>
+                    <td style="margin:20px 0;display:block;">
+                        <!-- <Select v-model="form.select2" clearable mini :transfer="false">
+                            <Option value="0">男</Option>
+                            <Option value="1">女</Option>
+                            <Option value="2">妖</Option>
+                        </Select> -->
+                         <date-picker   mini width="140" :transfer="false"></date-picker>
+                    </td>
+                    <td class="badge">
+                        <span class="badge" style="display: inline-block;">
+                            <k-input width="60" mini></k-input>
+                            <span class="badge-count delete">-</span>
+                        </span>
+                    </td>
+                    <td>
+                        <k-input placeholder="未延迟请留空..." mini></k-input>
+                    </td>
+                </tr>
+            </table>
+        </Modal>
+        <Select v-model="form.select2" clearable mini>
+            <Option value="0">男</Option>
+            <Option value="1">女</Option>
+            <Option value="2">妖</Option>
+        </Select>
+        <Checkbox value="true" :indeterminate="t" />
         <Form :label-width="80" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
             <FormItem label="Input" prop="input">
-                <Input v-model="form.input"></Input>
+                <Input v-model="form.input" clearable mini></Input>
             </FormItem>
             <FormItem label="Select" class="k-form-item-required">
                 <Row>
@@ -28,7 +63,7 @@
                 </Row>
             </FormItem>
             <FormItem label="DatePicker" prop="datepicker">
-                <DatePicker v-model="form.datepicker" clearable></DatePicker>
+                <DatePicker v-model="form.datepicker" clearable mini></DatePicker>
             </FormItem>
             <FormItem label="Radio" prop="radio">
                 <RadioGroup v-model="form.radio">
@@ -107,6 +142,7 @@ export default {
             }
         };
         return {
+            t: false,
             labelAlign: 'right',
             code: code,
             form: {
@@ -148,6 +184,7 @@ export default {
         test() {
             this.form.select = 2
             this.form.select2 = 0
+            this.t = !this.t
         },
         add() {
             this.count++

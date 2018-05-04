@@ -1,5 +1,5 @@
 export default {
-    bind(el, binding, ) {
+    bind(el, binding) {
         let scroll = (e) => {
             if (binding.expression) {
                 binding.value(e);

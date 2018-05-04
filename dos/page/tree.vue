@@ -108,13 +108,13 @@
                 </tr>
                 <tr>
                     <td>selected</td>
-                    <td>是否选中节点</td>
+                    <td>是否点选节点</td>
                     <td>Boolean</td>
                     <td>false</td>
                 </tr>
                 <tr>
                     <td>checked</td>
-                    <td>是否选中节点</td>
+                    <td>节点是否勾选</td>
                     <td>Boolean</td>
                     <td>false</td>
                 </tr>
@@ -177,7 +177,12 @@ export default {
                             title: 'tree 1-2',
                             expand: true,
                             children: [
-                                { title: 'leaf 1-2-1' },
+                                {
+                                    title: 'leaf 1-2-1', expand: true, children: [
+                                        { title: 'leaf 1-2-1-1',  },
+                                        { title: 'leaf 1-2-1-2' }
+                                    ]
+                                },
                                 { title: 'leaf 1-2-2' }
                             ]
                         }

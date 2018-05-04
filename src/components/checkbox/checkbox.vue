@@ -34,7 +34,7 @@ export default {
       return [
         "k-checkbox",
         {
-          ["k-checkbox-checked"]: this.checked,
+          ["k-checkbox-checked"]: this.checked && !this.indeterminate,
           ["k-checkbox-indeterminate"]: this.indeterminate
         }
       ];

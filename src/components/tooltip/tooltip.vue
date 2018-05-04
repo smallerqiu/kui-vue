@@ -1,6 +1,6 @@
 <template>
   <div class="k-tooltip" @mouseenter="mouseHandle" @mouseleave="mouseHandle">
-    <div class="k-tooltip-rel" ref="rel"  @click="relClick">
+    <div class="k-tooltip-rel" ref="rel" @click="relClick">
       <slot></slot>
     </div>
     <transition name="fade">
@@ -26,7 +26,7 @@ export default {
     transfer: { type: Boolean, default: true },
     trigger: { type: String, default: "hover" },
     width: [String, Number],
-    content: String,
+    content: [String,Number],
     placement: {
       validator(value) {
         return (
@@ -137,7 +137,7 @@ export default {
     }
   },
   methods: {
-   mouseHandle() {
+    mouseHandle() {
       if (this.trigger == "hover") {
         this.visible = !this.visible;
       }

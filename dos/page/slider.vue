@@ -1,11 +1,27 @@
 <template>
     <div>
         <h2>Slider 滑块</h2>
-        <h3>基础</h3>
-        <Slider></Slider>
-        <p>//todo:...</p>
+        <p>滑动型输入器，展示当前值和可选范围。</p>
+        <h3>代码示例</h3>
+        <Demo title="基础">
+            <div slot="content">
+                <Slider></Slider>
+            </div>
+            <div slot="desc"></div>
+            <div slot="code"></div>
+        </Demo>
+
     </div>
 </template>
 <script>
-export default {};
+import code from '../code/slider'
+import Demo from '../components/demo'
+export default {
+    components: { Demo },
+    data() {
+        return {
+            code: code
+        }
+    }
+};
 </script>

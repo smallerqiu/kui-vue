@@ -17,7 +17,7 @@
               </template>
               <template v-if="type=='toast'">
                 <div class="k-pull-center">
-                  <span :class="getIcon()" :style="getColor()"></span>
+                  <span :class="iconClasses" :style="iconStyles"></span>
                   <div class="k-toast-content">
                     <slot>我是内容</slot>
                   </div>
@@ -79,7 +79,25 @@ export default {
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
       return style;
-    }
+    },
+    iconClasses() {
+      let icons = {
+        info: "information-circled",
+        error: "android-cancel",
+        success: "checkmark-circled",
+        warning: "android-alert"
+      };
+      return [
+        "k-toast-icon",
+        {
+          [`k-ion-${icons[this.icon]}`]: icons[this.icon] && icon,
+          [`k-ion-${this.icon}`]: !icons[this.icon] && icon
+        }
+      ];
+    },
+    iconStyles() {
+      return this.color ? { color: this.color } : {};
+    },
   },
   data() {
     return {
@@ -98,32 +116,25 @@ export default {
     document.body.removeEventListener("keyup", this.dc);
   },
   watch: {
-    value(v) {
-      v ? (this.visible = v) : this.hide();
+    visible(v) {
+      if (v) {
+        this.visible = v
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+        this.hide();
+      }
+    }
+  },
+  mounted() {
+    if (this.visible) {
+      document.body.style.overflow = 'hidden'
     }
   },
   methods: {
-    stop(e){
+    stop(e) {
       // console.log(e)
       e.cancelBubble = true
-    },
-    getColor() {
-      return this.color ? { color: this.color } : {};
-    },
-    getIcon() {
-      let icons = {
-        info: "information-circled",
-        error: "android-cancel",
-        success: "checkmark-circled",
-        warning: "android-alert"
-      };
-      return [
-        "k-toast-icon",
-        {
-          [`k-ion-${icons[this.icon]}`]: icons[this.icon],
-          [`k-ion-${this.icon}`]: !icons[this.icon]
-        }
-      ];
     },
     mdown(e) {
       if (e.button == 0) {
