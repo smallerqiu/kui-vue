@@ -2,7 +2,7 @@
   <div :class="classes" :style="styles" v-docClick="close" v-winScroll="setPosition">
     <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
     <a class="k-datepicker-close" @click.stop="clear" v-if="clearable&&!disabled"></a>
-    <transition :name="transName">
+    <transition name="dropdown">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
           <Calendar v-model="dates[0]" :left="true"></Calendar>
@@ -27,7 +27,7 @@ export default {
   components: {
     Calendar: calendar
   },
-  mixins:[emitter],
+  mixins: [emitter],
   props: {
     transfer: { type: Boolean, default: true },
     width: [String, Number],
@@ -56,7 +56,6 @@ export default {
   },
   data() {
     return {
-      transName: "dropdown",
       text: "",
       visible: false,
       left: 0,
@@ -165,7 +164,7 @@ export default {
     clear() {
       this.setText();
       this.$emit("input", this.range ? [] : "");
-      this.dispatch('FormItem','form-item-change',this.range ? [] : "")
+      this.dispatch('FormItem', 'form-item-change', this.range ? [] : "")
     },
     vi(val) {
       if (Array.isArray(val)) {
@@ -184,8 +183,8 @@ export default {
       this.text = date.length == 1 ? date[0] : txt;
 
       this.$emit("input", date.length == 1 ? date[0] : date);
-      this.dispatch('FormItem','form-item-change',date.length == 1 ? date[0] : date)
-      
+      this.dispatch('FormItem', 'form-item-change', date.length == 1 ? date[0] : date)
+
       setTimeout(() => {
         this.visible = this.range;
       });

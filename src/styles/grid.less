@@ -6,13 +6,17 @@
     zoom: 1;
     display: block;
     box-sizing: border-box;
-    &:after {
-        clear: both;
-    }
     &:after,
     &:before {
         content: "";
         display: table;
+        box-sizing: border-box;
+    }
+    &:after {
+        clear: both;
+        visibility: hidden;
+        font-size: 0;
+        height: 0;
     }
 }
 

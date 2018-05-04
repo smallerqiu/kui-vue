@@ -30,7 +30,19 @@
         <code>disabled</code>可以设置组件是否被禁用</div>
       <div slot="code">{{code.group}}</div>
     </Demo>
-
+    <Demo title="全选">
+      <div slot="content">
+        <Checkbox :value="checkAll" :indeterminate="indeterminate" @click.prevent.native="handelCheckAll">全选</Checkbox>
+        <CheckboxGroup v-model="check" @change="handelCheck">
+          <Checkbox label="苹果🍎"></Checkbox>
+          <Checkbox label="橘子🍊"></Checkbox>
+          <Checkbox label="香蕉🍌"></Checkbox>
+          <Checkbox label="栗子🌰"></Checkbox>
+        </CheckboxGroup>
+      </div>
+      <div slot="desc"> </div>
+      <div slot="code">{{code.group}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -107,7 +119,38 @@ export default {
       code: code,
       checked: true,
       data: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
+      checkAll: false,
+      indeterminate: false,
+      check: []
     };
+  },
+  methods: {
+    handelCheckAll(v) {
+      if (this.indeterminate) {
+        this.checkAll = false;
+      } else {
+        this.checkAll = !this.checkAll;
+      }
+      this.indeterminate = false;
+
+      if (this.checkAll) {
+        this.check = ["苹果🍎", "香蕉🍌", "葡萄🍇", '栗子🌰'];
+      } else {
+        this.check = [];
+      }
+    },
+    handelCheck(data) {
+      if (data.length === 4) {
+        this.indeterminate = false;
+        this.checkAll = true;
+      } else if (data.length > 0) {
+        this.indeterminate = true;
+        this.checkAll = false;
+      } else {
+        this.indeterminate = false;
+        this.checkAll = false;
+      }
+    }
   }
 };
 </script>

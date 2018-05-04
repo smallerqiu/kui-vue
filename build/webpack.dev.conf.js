@@ -65,9 +65,7 @@ module.exports = merge(webpackBaseConfig, {
         //热键替换，配合devServer => hot:true
         new webpack.HotModuleReplacementPlugin(),
         // 位于开发环境下
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"development"'
-        }),
+        new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('development') } }),
         // 自动生成html插件，如果创建多个HtmlWebpackPlugin的实例，就会生成多个页面
         new HtmlWebpackPlugin({
             // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白

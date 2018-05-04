@@ -65,16 +65,33 @@
         </Demo>
         <Demo title="表单验证">
             <div slot="content">
-                <Form :label-width="80" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
+                <Form label-width="90" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
                     <FormItem label="Input" prop="input">
                         <Input v-model="form.input"></Input>
                     </FormItem>
-                    <FormItem label="Select" prop="select">
-                        <Select v-model="form.select" clearable>
-                            <Option value="0">男</Option>
-                            <Option value="1">女</Option>
-                            <Option value="2">妖</Option>
-                        </Select>
+                    <FormItem label="Select">
+                        <Row>
+                            <Col span="9">
+                            <FormItem  prop="province">
+                                <Select v-model="form.province" clearable>
+                                    <Option value="0">北京</Option>
+                                    <Option value="1">上海</Option>
+                                    <Option value="2">广州</Option>
+                                    <Option value="3">深圳</Option>
+                                </Select>
+                            </FormItem>
+                            </Col>
+                            <Col span="9" offset="1">
+                            <FormItem prop="city">
+                                <Select v-model="form.city" clearable>
+                                    <Option value="0">南山区</Option>
+                                    <Option value="1">龙华区</Option>
+                                    <Option value="2">福田区</Option>
+                                    <Option value="3">宝安区</Option>
+                                </Select>   
+                            </FormItem>
+                            </Col>
+                        </Row>
                     </FormItem>
                     <FormItem label="DatePicker" prop="datepicker">
                         <DatePicker v-model="form.datepicker" clearable></DatePicker>
@@ -132,7 +149,9 @@
             </div>
             <div slot="desc">在
                 <code>rules</code>里面设置
-                <code>validator</code>方法，可以自定义验证</div>
+                <code>validator</code>方法，可以自定义验证，详细查阅下方的
+                <code>rules API</code>
+            </div>
             <div slot="code">{{code.customValid}}</div>
         </Demo>
         <!-- <Demo title="动态验证">
@@ -242,6 +261,72 @@
                 </tr>
             </table>
         </div>
+        <h3>rules API</h3>
+        <div class="table-border">
+            <table>
+                <tr>
+                    <th>属性</th>
+                    <th>说明</th>
+                    <th>类型</th>
+                    <th>默认值</th>
+                </tr>
+                <tr>
+                    <td>required</td>
+                    <td>是否必填字段</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td>trigger</td>
+                    <td>校验触发方式，提供
+                        <code>blur</code>失去焦点，
+                        <code>change</code>值被改变两种方式触发</td>
+                    <td>String</td>
+                    <td>blur</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>校验不通过提示语</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>validator</td>
+                    <td>自定义校验方法，可参见示例</td>
+                    <td>Function</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>数据类型校验，提供三种校验方式
+                        <code>mobile</code>手机，
+                        <code>mail</code>邮箱，
+                        <code>number</code>数字类型判断</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>pattner</td>
+                    <td>自定义正则校验，比喻密码强度包含数字，字母，特殊符号可以这么写
+                        <code>/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/</code>
+                    </td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>字段长度最小值校验</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>字段长度最大值校验</td>
+                    <td>String</td>
+                    <td>-</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 <script>
@@ -293,6 +378,8 @@ export default {
                 switch: true,
                 input: "",
                 select: '',
+                province:'',
+                city:'',
                 datepicker: "",
                 radio: "",
                 checkbox: [],
@@ -301,6 +388,8 @@ export default {
             rules: {
                 input: [{ required: true, trigger: 'blur' }],
                 select: [{ required: true, trigger: 'change' }],
+                province: [{ required: true, trigger: 'change' }],
+                city: [{ required: true, trigger: 'change' }],
                 datepicker: [{ required: true, trigger: 'change' }],
                 radio: [{ required: true, trigger: 'change' }],
                 checkbox: [{ required: true, trigger: 'change', min: 2, max: 3 }],

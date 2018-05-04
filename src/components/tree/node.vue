@@ -6,8 +6,10 @@
                     <i class="k-ion-arrow-right-b" v-if="!data.loading"></i>
                     <i class="k-ion-load-c k-load-loop" v-if="data.loading"></i>
                 </span>
-                <Checkbox v-if="checkbox" :disabled="data.disabled" v-model="data.checked" @click.native.prevent="handelCheck" />
-                <span><Icon :type="data.icon" v-if="data.icon"></Icon></span>
+                <Checkbox v-if="checkbox" :disabled="data.disabled" v-model="data.checked" @click.native.prevent="handelCheck" :indeterminate="data.indeterminate" />
+                <span>
+                    <Icon :type="data.icon" v-if="data.icon"></Icon>
+                </span>
                 <span :class="titleClass" @click="handelSelect">{{data.title}}</span>
                 <TreeNode v-for="(item ,i) in data.children" :key="i" :data="item" v-if="data.expand" :checkbox="checkbox"></TreeNode>
             </li>
@@ -42,7 +44,9 @@ export default {
         }
     },
     mounted() {
-
+        // this.$set(this.data, 'indeterminate', false)
+        this.$set(this.data, '_pid', this.$parent._uid)
+        this.$set(this.data, '_uid', this._uid)
     },
     methods: {
         handelCheck(state) {
@@ -69,7 +73,7 @@ export default {
                         this.$set(this.data, 'expand', !this.data.expand)
                     }
                 })
-            } else if(this.data.children && this.data.children.length){
+            } else if (this.data.children && this.data.children.length) {
                 this.$set(this.data, 'expand', !this.data.expand)
             }
             this.dispatch('Tree', 'tree-expand', this.data)

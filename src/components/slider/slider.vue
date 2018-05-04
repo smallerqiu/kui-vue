@@ -7,15 +7,15 @@
     </div>
 </template>
 <script>
-import sbutton from "./button";
+import sliderButton from "./sliderButton";
 export default {
-  components: { sliderButton: sbutton },
-  porps: {
-    min: { type: Number, default: 0 },
-    max: { type: Number, default: 100 },
-    step: { type: Number, default: 1 },
-    value: { type: [Number, Array], default: 0 }
-  },
-  name: "Slider"
+    name: "Slider",
+    components: { sliderButton },
+    porps: {
+        min: { type: Number, default: 0 },
+        max: { type: Number, default: 100 },
+        step: { type: Number, default: 1 },
+        value: { type: [Number, Array], default: 0 }
+    },
 };
 </script>

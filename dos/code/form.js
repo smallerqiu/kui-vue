@@ -41,19 +41,14 @@ code.base =`<Form :label-width="80">
 export default {
   data(){
       return{
-       select: [
-        { label: "男", value: "0" },
-        { label: "女", value: "1" },
-        { label: "妖", value: "2" }
-      ],
-      form: {
-        switch: true,
-        input: "",
-        select: 0,
-        datepicker: "",
-        radio: "1",
-        checkbox: ['0']
-      },
+        form: {
+            switch: true,
+            input: "",
+            select: 0,
+            datepicker: "",
+            radio: "1",
+            checkbox: ['0']
+        },
       }
   }
 }
@@ -63,10 +58,29 @@ code.invalid =`<Form :label-width="80" ref="form" :model="form" :rules="rules" :
     <FormItem label="Input" prop="input">
         <Input v-model="form.input"></Input>
     </FormItem>
-    <FormItem label="Select" prop="select">
-        <Select v-model="form.select" clearable>
-            <Option v-for="(x,y) in select" :key="y" :value="x.value">{{x.label}}</Option>
-        </Select>
+    <FormItem label="Select">
+        <Row>
+            <Col span="12">
+            <FormItem  prop="province">
+                <Select v-model="form.province" clearable>
+                    <Option value="0">北京</Option>
+                    <Option value="1">上海</Option>
+                    <Option value="2">广州</Option>
+                    <Option value="3">深圳</Option>
+                </Select>
+            </FormItem>
+            </Col>
+            <Col span="11" offset="1">
+            <FormItem prop="city">
+                <Select v-model="form.city" clearable>
+                    <Option value="0">南山区</Option>
+                    <Option value="1">龙华区</Option>
+                    <Option value="2">福田区</Option>
+                    <Option value="3">宝安区</Option>
+                </Select>   
+            </FormItem>
+            </Col>
+        </Row>
     </FormItem>
     <FormItem label="DatePicker" prop="datepicker">
         <DatePicker v-model="form.datepicker" clearable></DatePicker>
@@ -108,6 +122,8 @@ export default {
             form: {
                 switch: true,
                 input: "",
+                province:'',
+                city:'',
                 select: '',
                 datepicker: "",
                 radio: "",
@@ -117,6 +133,8 @@ export default {
             rules: {
                 input: [{ required: true, trigger: 'blur' }],
                 select: [{ required: true, trigger: 'change' }],
+                province: [{ required: true, trigger: 'change' }],
+                city: [{ required: true, trigger: 'change' }],
                 datepicker: [{ required: true, trigger: 'change' }],
                 radio: [{ required: true, trigger: 'change' }],
                 checkbox: [{ required: true, trigger: 'change', min: 2, max: 3 }],

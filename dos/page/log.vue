@@ -3,6 +3,21 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.6.5<span> 2018-5-4 </span></h3>
+        <p>完善<code>tree</code>组件选中的问题</p>
+        <p>修复一部分组件mini模式怪异展示</p>
+        <p>完善<code>Modal</code>显示滚动条的问题</p>
+        <p><code>checkbox</code>组件新增<code>indeterminate</code>，协助全选展示</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.6.4<span> 2018-5-3 </span></h3>
+        <p>修复Select无法选中的问题，修复poptip confirm模式怪异问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.6.3<span> 2018-5-2 </span></h3>
+        <p>修复表单自定义类型验证</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.6.2<span> 2018-5-1 </span></h3>
         <p>新增<code>Carousel</code>，<code>Collapse</code>，<code>Tree</code>，<code>Steps</code>等组件</p>
         <p>优化表单验证 双向排列验证提示</p>
@@ -12,7 +27,7 @@
         <p>新增<code>Tooltip</code>，<code>Tag</code>，<code>Breadcrumb</code>，<code>BackTop</code>，<code>Affix</code>，<code>Card</code>等组件</p>
         <p>修复<code>RadioGroup</code>无法选中的bug</p>
         <p>修复<code>Select</code>无法赋值的bug</p>
-        <p>完善<code>Poptip</code>子元素有<code>margin</code>时无法对其的问题</p>
+        <p>完善<code>Poptip</code>子元素有<code>margin</code>时无法对齐的问题</p>
         <p>完善表单文档</p>
       </TimeLineItem>
       <TimeLineItem icon="trophy" color="green">
@@ -84,7 +99,7 @@
           <a href="/button">#体检</a>
         </p>
         <p>新增<code>Poptip</code> 组件
-          <a href="/toptip">#体检</a>
+          <a href="/poptip">#体检</a>
         </p>
         <p><code>DatePicker</code>，<code>ColorPicker</code>，<code>Select</code>等下拉组件新增<code>transifer</code>属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题
           <a href="/table">#体检</a>
@@ -230,9 +245,7 @@
         <p>完善<code>Modal</code> 回调问题</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3> 1.0.4
-          <span>2017-12-15</span>
-        </h3>
+        <h3> 1.0.4 <span>2017-12-15</span> </h3>
         <p>日期控件新增回调</p>
         <p>新增<code>Row</code>，<code>Col</code> 组件</p>
       </TimeLineItem>
