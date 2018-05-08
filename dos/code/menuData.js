@@ -8,7 +8,7 @@ let nav = [
             { title: "快速上手", link: "/start" },
             { title: "更新日志", link: "/log", log: 1 },
             { title: "定制主题", link: "/theme" },
-            { title: "kyui-loader", link: "/kyui-loader" }
+            { title: "kui-loader", link: "/kui-loader" }
         ]
     },
     {

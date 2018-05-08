@@ -1,6 +1,6 @@
 let code = {}
 
-code.useInRouter = `import kui from 'kyui';
+code.useInRouter = `import kui from 'kui-vue';
 Vue.use(kui);
 
 router.beforeEach((to, from, next) => {

@@ -12,7 +12,7 @@ let children = []
 // 此种编译后，无法实现按需加载，会打包在一个文件
 /* let r = ['','install', 'start', 'log', 'input', 'button', 'select', 'switch', 'form', 'colorpicker', 'loading',
     'icon', 'timeline', 'theme', 'react-kui', 'angular-kui', 'alert', 'message', 'notice', 'upload', 'poptip', 'menu', 'tabs', 'badge',
-    'checkbox', 'radio', 'datepicker', 'table', 'layout', 'page', 'modal', 'kyui-loader', 'sponsor', 'about'];
+    'checkbox', 'radio', 'datepicker', 'table', 'layout', 'page', 'modal', 'kui-loader', 'sponsor', 'about'];
 r.map((x) => {
     children.push({
         path: `/${x}`,
@@ -52,7 +52,7 @@ let R = {
     'radio': r => require.ensure([], () => r(require('./page/radio')), 'radio'),
     'layout': r => require.ensure([], () => r(require('./page/layout')), 'layout'),
     'page': r => require.ensure([], () => r(require('./page/page')), 'page'),
-    'kyui-loader': r => require.ensure([], () => r(require('./page/kyui-loader')), 'kyui-loader'),
+    'kui-loader': r => require.ensure([], () => r(require('./page/kui-loader')), 'kui-loader'),
     'select': r => require.ensure([], () => r(require('./page/select')), 'select'),
     'slider': r => require.ensure([], () => r(require('./page/slider')), 'slider'),
     'switch': r => require.ensure([], () => r(require('./page/switch')), 'switch'),

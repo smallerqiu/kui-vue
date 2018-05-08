@@ -3,7 +3,7 @@
         <h2>Collapse 折叠面板</h2>
         <p>可以折叠/展开的内容区域。</p>
         <h3>代码示例</h3>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="基础">
                 <div slot="content">
@@ -29,7 +29,7 @@
                 <div slot="code">{{code.base}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo layout="vertical" title="手风琴">
                 <div slot="content">
                     <Collapse v-model="acitve1" accrodion>
@@ -55,7 +55,7 @@
             </Demo>
             </Col>
         </Row>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="嵌套面板">
                 <div slot="content">
@@ -93,7 +93,7 @@
                 <div slot="code">{{code.collapse}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo layout="vertical" title="简洁模式">
                 <div slot="content">
                     <Collapse v-model="acitve1" sample>

@@ -3,7 +3,7 @@
         <h2>BackTop</h2>
         <p>当页面内容冗长，需要快捷返回顶部时使用，一般放置在页面右下角位置。</p>
         <h3>代码示例</h3>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo title="基础用法" layout="vertical">
                 <div slot="content">
@@ -16,7 +16,7 @@
                 <div slot="code">{{code.base}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo title="基础用法" layout="vertical">
                 <div slot="content">
                     自定义按钮为蓝色的按钮

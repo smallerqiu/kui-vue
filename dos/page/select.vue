@@ -18,10 +18,10 @@
 
     <Demo title="尺寸">
       <div slot="content">
-        <Select :width="200" v-model="select">
+        <Select :width="200" v-model="select1" :value="''">
           <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
         </Select>
-        <Select :width="200" v-model="select" mini>
+        <Select :width="200" v-model="select1" mini :value="''">
           <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
         </Select>
       </div>
@@ -34,10 +34,10 @@
 
     <Demo title="可清除">
       <div slot="content">
-        <Select :width="200" clearable>
+        <Select :width="200" clearable v-model="select2">
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
         </Select>
-        <Select :width="200" clearable mini>
+        <Select :width="200" clearable mini v-model="select2">
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
         </Select>
       </div>
@@ -47,7 +47,7 @@
     </Demo>
     <Demo title="可搜索">
       <div slot="content">
-        <Select :width="200" filterable>
+        <Select :width="200" filterable v-model="select3">
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
         </Select>
       </div>
@@ -58,7 +58,7 @@
     <Demo title="禁用">
       <div slot="content">
         <Select disabled :width="200"></Select>
-        <Select :width="200">
+        <Select :width="200" v-model="select4">
           <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
         </Select>
       </div>
@@ -165,6 +165,7 @@ export default {
     return {
       code: code,
       select: "3",
+      select1: 2, select2: 2, select3: 1, select4: 1,
       data: [
         { label: "苹果🍎", value: 0 },
         { label: "橘子🍊", value: 1 },

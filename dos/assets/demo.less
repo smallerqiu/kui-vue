@@ -175,13 +175,11 @@ header {
     // margin: 80px auto 20px;
     // height: calc(~'100% - 85px'); // border-radius: 3px;
     // box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-    
     >.k-row {
         height: 100%;
         margin: 80px auto 20px;
         .k-col {
-            height: 100%;
-            // overflow: auto;
+            height: 100%; // overflow: auto;
             // &::-webkit-scrollbar-thumb {
             //     background: none;
             //     transition: all .3s ease-in-out;
@@ -357,7 +355,7 @@ samp {
     background: rgba(241, 241, 241, 0.43) !important;
     padding: 15px !important;
     height: 100%;
-    margin:0;
+    margin: 0;
 }
 
 .k-demo {
@@ -415,7 +413,9 @@ samp {
             margin: 0 10px 10px 0;
         }
         td,
-        .k-btn-group,.k-affix,
+        .k-btn-group,
+        .k-affix,
+        .k-tabs-extra,
         .k-badge {
             .k-button,
             .k-select,
@@ -431,7 +431,7 @@ code {
     background: #eee;
     padding: 3px 8px;
     margin: 0 5px;
-    color: orange;
+    color: #ff5b4e;
     border-radius: 3px;
 }
 
@@ -463,9 +463,10 @@ code {
         bottom: 0;
     }
 }
-.k-demo-vertical{
-    .k-code{
-        margin-top:-1px;
+
+.k-demo-vertical {
+    .k-code {
+        margin-top: -1px;
         transition: height .3s ease-in-out;
     }
 }

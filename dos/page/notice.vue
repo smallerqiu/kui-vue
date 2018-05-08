@@ -64,9 +64,10 @@
 </template>
 <script>
 import code from '../code/notice'
+import Code from '../components/code'
 import Demo from '../components/demo'
 export default {
-  components: { Demo },
+  components: { Demo ,Code},
   data() {
     return {
       code: code
