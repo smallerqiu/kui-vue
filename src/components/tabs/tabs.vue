@@ -15,16 +15,18 @@
           <div class="k-tabs-nav-scroll">
             <div class="k-tabs-nav" ref="tabs">
               <div class="k-tabs-ink-bar" :style="inkStyles"></div>
-              <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="index" @click="change(item)">
-                <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
-                <Icon type="android-close" v-if="item.closable && card && closable" @click="remove(index)" />
-              </div>
+              <transition-group name="fade">
+                <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="item.activeName" @click="change(item)">
+                  <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
+                  <Icon type="android-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
+                </div>
+              </transition-group>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="k-tabs-content" :style="styles">
+    <div class="k-tabs-content" :style="styles" ref="panes">
       <slot></slot>
     </div>
   </div>
@@ -58,6 +60,7 @@ export default {
   },
   watch: {
     value(v) {
+      console.log('dd')
       this.activeName = v
       this.change()
     }
@@ -95,10 +98,14 @@ export default {
     this.left = index
   },
   methods: {
-    remove(index) {
-      this.children.splice(index, 1)
+    close(index, item) {
       this.$emit('remove', this.activeName)
-      // this.activeName = 
+      this.children.splice(index, 1)
+      this.$refs.panes.removeChild(this.$refs.panes.children[index])
+      if (this.children.length && this.activeName == item.activeName) {
+        this.activeName = this.children[index - 1].activeName
+        this.children[index - 1].active = true
+      }
     },
     change(item) {
       if (item && item.disabled) return;

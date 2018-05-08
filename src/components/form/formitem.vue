@@ -47,10 +47,12 @@ export default {
     }
   },
   created() {
-    this.prop && this.dispatch('Form', 'form-add-field', this)
     this.$on('form-item-change', this.change)
     this.$on('form-item-blur', this.blur)
     this.$on('form-item-reset', this.reset)
+  },
+  mounted(){
+    this.prop && this.dispatch('Form', 'form-add-field', this)
   },
   beforeDestroy() {
     this.dispatch('Form', 'form-remove-field', this)
