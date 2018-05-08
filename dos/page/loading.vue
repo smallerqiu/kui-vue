@@ -4,9 +4,9 @@
         <h3>用处</h3>
         <p>全局创建一个显示页面加载、异步请求、文件上传等的加载 或 进度条</p>
         <h3>在路由中使用</h3>
-        <Code lang="js sql">{{code.useInRouter}}</Code>
+        <Code lang="javascript">{{code.useInRouter}}</Code>
         <h3>在异步请求中使用</h3>
-        <Code lang="js">{{code.useInAjax}}</Code>
+        <Code lang="javascript">{{code.useInAjax}}</Code>
 
         <Demo title="模拟请求">
             <div slot="content">

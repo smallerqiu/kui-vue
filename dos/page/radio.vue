@@ -2,25 +2,31 @@
   <div>
     <h2>Radio 单选框</h2>
     <h3>代码示例</h3>
-    <Demo title="基础">
-      <div slot="content">
-        <p>{{checked}}</p>
-        <Radio v-model="checked" @change="change">测试</Radio>
-        <Button @click="checked=!checked">Click me</Button>
-      </div>
-      <div slot="desc">单独使用可使用
-        <code>v-model</code>双向绑定数据</div>
-      <div slot="code">{{code.base}}</div>
-    </Demo>
-    <Demo title="禁用">
-      <div slot="content">
-        <Radio label="葡萄🍇" disabled :value="true"></Radio>
-        <Radio label="梨子🍐" disabled></Radio>
-      </div>
-      <div slot="desc">通过
-        <code>disabled</code>设置组件是否被禁用</div>
-      <div slot="code">{{code.disabled}}</div>
-    </Demo>
+    <Row gutter="8">
+      <Col span="12">
+      <Demo title="基础" layout="vertical">
+        <div slot="content">
+          <span>{{checked}}</span>
+          <Radio v-model="checked" @change="change">测试</Radio>
+          <Button @click="checked=!checked" mini style="margin:0">Click me</Button>
+        </div>
+        <div slot="desc">单独使用可使用
+          <code>v-model</code>双向绑定数据</div>
+        <div slot="code">{{code.base}}</div>
+      </Demo>
+      </Col>
+      <Col span="12">
+      <Demo title="禁用" layout="vertical">
+        <div slot="content">
+          <Radio label="葡萄🍇" disabled :value="true"></Radio>
+          <Radio label="梨子🍐" disabled></Radio>
+        </div>
+        <div slot="desc">通过
+          <code>disabled</code>设置组件是否被禁用</div>
+        <div slot="code">{{code.disabled}}</div>
+      </Demo>
+      </Col>
+    </Row>
     <Demo title="组合使用">
       <div slot="content">
         <p>{{data}}</p>

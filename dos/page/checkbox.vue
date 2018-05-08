@@ -35,13 +35,13 @@
         <Checkbox :value="checkAll" :indeterminate="indeterminate" @click.prevent.native="handelCheckAll">全选</Checkbox>
         <CheckboxGroup v-model="check" @change="handelCheck">
           <Checkbox label="苹果🍎"></Checkbox>
-          <Checkbox label="橘子🍊"></Checkbox>
+          <Checkbox label="葡萄🍇"></Checkbox>
           <Checkbox label="香蕉🍌"></Checkbox>
           <Checkbox label="栗子🌰"></Checkbox>
         </CheckboxGroup>
       </div>
       <div slot="desc"> </div>
-      <div slot="code">{{code.group}}</div>
+      <div slot="code">{{code.checkAll}}</div>
     </Demo>
     <h3>API</h3>
     <div class="table-border">
@@ -134,7 +134,7 @@ export default {
       this.indeterminate = false;
 
       if (this.checkAll) {
-        this.check = ["苹果🍎", "香蕉🍌", "葡萄🍇", '栗子🌰'];
+        this.check = ["苹果🍎", "香蕉🍌", "葡萄🍇", "栗子🌰"];
       } else {
         this.check = [];
       }

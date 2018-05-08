@@ -1,27 +1,31 @@
 <template>
-   <div></div>
+  <div class="k-tabs-tabpane">
+    <slot></slot>
+  </div>
 </template>
 <script>
+import emitter from '../../mixins/emitter'
 export default {
   name: "Tabs",
+  mixins: [emitter],
   props: {
-    value: String,
-    type: { type: String, default: "line" },
-    closable: Boolean,
-    mini: Boolean,
-    animate: { type: Boolean, default: true }
+    name: [String, Number],
+    label: [String, Number],
+    icon: String,
+    disabled: Boolean,
+    closable: { type: Boolean, default: true }
   },
-  computed: {
-    classes() {
-      return [
-        "k-tabs",
-        {
-          ["k-tabs-mini"]: this.mini,
-          ["k-tabs-card"]: this.type === "card"
-        }
-      ];
+  data() {
+    return {
+      activeName: this.name,
+      active: false
     }
   },
-  data() {}
+  mounted() {
+    this.dispatch('Tabs', 'tabs-add', this)
+  },
+  beforeDestroy() {
+    this.dispatch('Tabs', 'tabs-remove', this)
+  }
 };
 </script>

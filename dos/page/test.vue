@@ -1,40 +1,14 @@
 <template>
     <div style="width:700px;">
-        <Modal :value="true" title="dsfsd">
-            <table>
-                <tr>
-                    <th>分单编号</th>
-                    <th>到货日期</th>
-                    <th>数量</th>
-                    <th>延迟事由</th>
-                </tr>
-                <tr v-for="n in 20" :key="n">
-                    <td>fdsafdsa</td>
-                    <td style="margin:20px 0;display:block;">
-                        <!-- <Select v-model="form.select2" clearable mini :transfer="false">
-                            <Option value="0">男</Option>
-                            <Option value="1">女</Option>
-                            <Option value="2">妖</Option>
-                        </Select> -->
-                         <date-picker   mini width="140" :transfer="false"></date-picker>
-                    </td>
-                    <td class="badge">
-                        <span class="badge" style="display: inline-block;">
-                            <k-input width="60" mini></k-input>
-                            <span class="badge-count delete">-</span>
-                        </span>
-                    </td>
-                    <td>
-                        <k-input placeholder="未延迟请留空..." mini></k-input>
-                    </td>
-                </tr>
-            </table>
-        </Modal>
-        <Select v-model="form.select2" clearable mini>
+       
+        <Select clearable mini width="200" @change="test1" v-model="b">
             <Option value="0">男</Option>
             <Option value="1">女</Option>
             <Option value="2">妖</Option>
         </Select>
+        <br/>
+        <br/>
+        <br/>
         <Checkbox value="true" :indeterminate="t" />
         <Form :label-width="80" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
             <FormItem label="Input" prop="input">
@@ -142,6 +116,8 @@ export default {
             }
         };
         return {
+            b:1,
+            a:true,
             t: false,
             labelAlign: 'right',
             code: code,
@@ -181,10 +157,14 @@ export default {
         };
     },
     methods: {
+        test1(v){
+            console.log(v)
+        },
         test() {
             this.form.select = 2
             this.form.select2 = 0
             this.t = !this.t
+            this.a = !this.a
         },
         add() {
             this.count++

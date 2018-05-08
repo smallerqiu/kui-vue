@@ -90,8 +90,8 @@ export default {
       return [
         "k-toast-icon",
         {
-          [`k-ion-${icons[this.icon]}`]: icons[this.icon] && icon,
-          [`k-ion-${this.icon}`]: !icons[this.icon] && icon
+          [`k-ion-${icons[this.icon]}`]: icons[this.icon] && this.icon,
+          [`k-ion-${this.icon}`]: !icons[this.icon] && this.icon
         }
       ];
     },
@@ -116,7 +116,7 @@ export default {
     document.body.removeEventListener("keyup", this.dc);
   },
   watch: {
-    visible(v) {
+    value(v) {
       if (v) {
         this.visible = v
         document.body.style.overflow = 'hidden'
@@ -127,6 +127,7 @@ export default {
     }
   },
   mounted() {
+    this.visible = this.value
     if (this.visible) {
       document.body.style.overflow = 'hidden'
     }

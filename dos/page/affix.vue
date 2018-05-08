@@ -3,7 +3,7 @@
         <h2>Affix 图钉</h2>
         <p>将页面元素钉在可视范围。</p>
         <h3>代码示例</h3>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo title="基本" layout="vertical">
                 <div slot="content">
@@ -20,7 +20,7 @@
                 <div slot="code">{{code.base}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo title="偏移" layout="vertical">
                 <div slot="content">
                     <Affix offsetTop="200">

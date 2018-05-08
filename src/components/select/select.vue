@@ -36,8 +36,8 @@ export default {
     disabled: { type: Boolean, default: false }
   },
   watch: {
-    value(n, o) { 
-      this.updateSelect(n);
+    value(v) {
+      this.updateSelect(v);
     },
     visible(val) {
       if (this.filterable) {
@@ -66,7 +66,7 @@ export default {
     };
   },
   created() {
-    this.$on('select-change', this.select)
+    this.$on('select-change', this.change)
     this.$on('select-add', this.add)
     this.$on('select-remove', this.remove)
   },
@@ -128,12 +128,12 @@ export default {
     },
     updateSelect() {
       let value = this.value
-      if (value === null || value === '' || value === undefined) this.label = ''
+      if (value === null || value === '' || value === undefined) { this.label = ''; this.selectItem = null; }
       this.children.forEach(child => {
         if (child.value !== '' && child.value !== null && child.value !== undefined) {
-          child.selected = child.value == this.value
+          child.selected = child.value == this.value && (this.value !== '' && this.value != undefined && this.value !== null)
           if (child.selected) {
-            this.select({
+            this.change({
               value: child.value,
               label: child.label === undefined ? child.$el.innerHTML : child.label
             })
@@ -171,7 +171,7 @@ export default {
 
       let dh = dom.offsetHeight;
       let rh = rel.offsetHeight;
-      if (this.transfer) this.left = pos.x;
+      if (this.transfer) this.left = pos.x + 1;
       if (h - (pos.y - s) - rh < dh) {
         this.fb = true;
         this.top = !this.transfer ? -dh - m : pos.y - dh - m;
@@ -180,11 +180,11 @@ export default {
         this.top = !this.transfer ? rh + m : pos.y + rh + m;
       }
     },
-    select(item) { 
+    change(item) {
       this.selectItem = item;
       this.$emit("change", item);
       this.$emit("input", item.value);
-      this.label = item.label 
+      this.label = item.label
       this.dispatch('FormItem', 'form-item-change', item.value)
       setTimeout(() => (this.visible = false));
     }

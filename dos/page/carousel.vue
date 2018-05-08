@@ -3,7 +3,7 @@
         <h2>Carousel 走马灯</h2>
         <p>就是传说中的大图轮播</p>
         <h3>代码示例</h3>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="基本">
                 <div slot="content">
@@ -18,7 +18,7 @@
                 <div slot="code">{{code.base}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo layout="vertical" title="垂直">
                 <div slot="content">
                     <Carousel vertical>
@@ -33,7 +33,7 @@
             </Demo>
             </Col>
         </Row>
-        <Row>
+        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="自动播放">
                 <div slot="content">
@@ -48,7 +48,7 @@
                 <div slot="code">{{code.autoplay}}</div>
             </Demo>
             </Col>
-            <Col span="11" offset="1">
+            <Col span="12">
             <Demo layout="vertical" title="圆形指示器">
                 <div slot="content">
                     <Carousel dotsType="radius">
