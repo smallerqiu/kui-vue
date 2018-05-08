@@ -3,6 +3,18 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.6.8<span> 2018-5-8 </span></h3>
+        <p>修复Form验证的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.6.7<span> 2018-5-7 </span></h3>
+        <p>修复Select选中的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.6.6<span> 2018-5-6 </span></h3>
+        <p>修复Modal图标展示的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.6.5<span> 2018-5-4 </span></h3>
         <p>完善<code>tree</code>组件选中的问题</p>
         <p>修复一部分组件mini模式怪异展示</p>

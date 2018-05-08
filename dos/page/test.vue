@@ -1,11 +1,11 @@
 <template>
     <div style="width:700px;">
-       
-        <Select clearable mini width="200" @change="test1" v-model="b">
-            <Option value="0">男</Option>
-            <Option value="1">女</Option>
-            <Option value="2">妖</Option>
-        </Select>
+
+      <RadioGroup v-model="form.radio">
+                    <Radio label="0">男</Radio>
+                    <Radio label="1">女</Radio>
+                    <Radio label="2">妖</Radio>
+                </RadioGroup>
         <br/>
         <br/>
         <br/>
@@ -116,8 +116,8 @@ export default {
             }
         };
         return {
-            b:1,
-            a:true,
+            b: 1,
+            a: true,
             t: false,
             labelAlign: 'right',
             code: code,
@@ -157,7 +157,7 @@ export default {
         };
     },
     methods: {
-        test1(v){
+        test1(v) {
             console.log(v)
         },
         test() {
