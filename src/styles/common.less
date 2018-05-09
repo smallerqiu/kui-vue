@@ -34,7 +34,7 @@ button, input[type=button], input[type=date], select, input[type=reset], input[t
     zoom: 1;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
     background: hsla(0, 0%, 100%, .6);
@@ -49,8 +49,11 @@ button, input[type=button], input[type=date], select, input[type=reset], input[t
 
 ::-webkit-scrollbar-track {
     border-radius: 0;
+} */
+::selection {
+    background: @main;
+    color: #fff;
 }
-
 .k-pull-center {
     text-align: center;
 }

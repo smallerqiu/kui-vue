@@ -21,6 +21,13 @@
         <code>change</code>为页码改变触发事件</div>
       <div slot="code">{{code.size}}</div>
     </Demo>
+    <Demo title="每页数量" layout="vertical">
+      <div slot="content">
+        <Page :total="60" :current="1" sizer :pagesize="10" mini @change="test"></Page>
+      </div>
+      <div slot="desc">可以切换每页显示的数量。</div>
+      <div slot="code">{{code.sizer}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -48,6 +55,18 @@
           <td>Number,String </td>
           <td>10</td>
         </tr>
+         <tr>
+          <td>sizer</td>
+          <td>是否显示页码组</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+         <tr>
+          <td>size-data</td>
+          <td>自定义页码组数据</td>
+          <td>Array </td>
+          <td>[10,15,20,30,40]</td>
+        </tr>
         <tr>
           <td>mini</td>
           <td>是否为迷你版</td>
@@ -57,6 +76,12 @@
         <tr>
           <td>change</td>
           <td>页码改变的回调，返回改变后的页码</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>page-size-change</td>
+          <td>切换页码组改变的回调，返回改变后的page-size</td>
           <td>Function</td>
           <td>-</td>
         </tr>

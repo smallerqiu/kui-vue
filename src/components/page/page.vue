@@ -1,22 +1,28 @@
-/** * by chuchur / chuchur@qq.com * page vue 组件,用作前端渲染 */
 <template>
   <div>
     <div :class="classes">
-      <div class="paging">
-        <a @click="prePage"> 上一页</a>
-        <a :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)">1</a>
-        <a v-if="showPrevMore">...</a>
-        <a v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)">{{pager}}</a>
-        <a v-if="showNextMore" class="">...</a>
-        <a :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)">{{ pageCount}}</a>
-        <a @click="nextPage">下一页</a>
+      <ul class="k-pager">
+        <li class="k-pager-item" @click="prePage"><span><Icon type="ios-arrow-left" /></span></li>
+        <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)"><span >1</span></li>
+        <li class="k-pager-item k-pager-more" v-if="showPrevMore"><span ><Icon type="more" /></span></li>
+        <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)"><span >{{pager}}</span></li>
+        <li class="k-pager-item k-pager-more" v-if="showNextMore"><span ><Icon type="more" /></span></li>
+        <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)"><span >{{ pageCount}}</span></li>
+        <li class="k-pager-item" @click="nextPage"><span><Icon type="ios-arrow-right" /></span></li>
+      </ul>
+      <div class="k-page-sizer" v-if="sizer">
+        <Select :mini="mini" v-model="defaultPageSize" @change="changeSize">
+          <Option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</Option>
+        </Select>
       </div>
-      <div class="page-number">
+      <div class="k-page-number">
         <span>共{{pageCount}}页</span>
       </div>
-      <div class="jump-page">跳至
-        <input type="text" v-model="jump" maxlength="3" class="input-page" /> 页
-        <input type="button" class="submit" @click="goPage" value="确定" />
+      <div class="k-page-options">
+        <span>跳至</span>
+        <Input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
+        <span>页</span>
+        <Button :mini="mini" class="k-page-options-action" @click="goPage">确定</Button>
       </div>
     </div>
   </div>
@@ -25,6 +31,8 @@
 export default {
   name: "Page",
   props: {
+    sizer:Boolean,
+    sizeData:{type:Array,default:()=>[10,15,20,30,40]},
     mini: { default: false, type: Boolean },
     total: { default: 0, type: [Number, String] },
     pagesize: { default: 15, type: [Number, String] },
@@ -32,11 +40,12 @@ export default {
   },
   data() {
     return {
-      jump: 0,
+      elevator: 0,
       pageCount: 0,
       page: 0,
       showPrevMore: false,
-      showNextMore: false
+      showNextMore: false,
+      defaultPageSize:this.pagesize
     };
   },
   computed: {
@@ -79,32 +88,37 @@ export default {
       return array;
     },
     classes() {
-      return ["k-pages", { ["k-pages-mini"]: this.mini }];
+      return ["k-page", { ["k-page-mini"]: this.mini }];
     }
   },
   watch: {
     total(v) {
-      this.pageCount = Math.ceil(this.total / this.pagesize) || 1;
-      this.current =
-        this.current > this.pageCount ? this.pageCount : this.current;
+      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+      this.current = this.current > this.pageCount ? this.pageCount : this.current;
       this.page = this.current;
     },
     page(page) {
-      this.jump = page;
+      this.elevator = page;
       this.$emit("change", page);
     }
   },
   mounted() {
-    this.pageCount = Math.ceil(this.total / this.pagesize) || 1;
-    this.jump = this.current;
+    this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+    this.elevator = this.current;
     this.page = this.current;
     this.groupCount = Math.ceil(this.pageCount / 5);
   },
   methods: {
+    changeSize(data){
+      this.defaultPageSize =data.value
+      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+      this.page=this.page>this.pageCount?this.pageCount:this.page
+      this.$emit('page-size-change',this.defaultPageSize)
+    },
     goPage() {
-      if(this.jump>=1){
-        if (!this.jump || this.page < 0 || this.jump > this.pageCount) return;
-        this.page = this.jump;
+      if (this.elevator >= 1) {
+        if (!this.elevator || this.page < 0 || this.elevator > this.pageCount) return;
+        this.page = this.elevator;
       }
     },
     toPage(page) {

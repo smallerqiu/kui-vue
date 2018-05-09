@@ -1,26 +1,24 @@
 <template>
-  <div :class="classes">
+  <div :class="classes" v-scroll="setScroll">
     <div class="k-tabs-bar">
-      <div class="k-tabs-extra">
+      <div class="k-tabs-extra" ref="extra">
         <slot name="extra"></slot>
       </div>
-      <div :class="['k-tabs-nav-container',{['k-tabs-nav-container-scroll']:this.scroll}]">
-        <span class="k-tabs-tab-prev">
+      <div :class="['k-tabs-nav-container',{['k-tabs-nav-container-scroll']:this.scrollable}]">
+        <span class="k-tabs-tab-prev" @click="scroll('prev')">
           <Icon type="ios-arrow-left" />
         </span>
-        <span class="k-tabs-tab-next">
+        <span class="k-tabs-tab-next" @click="scroll('next')">
           <Icon type="ios-arrow-right" />
         </span>
         <div class="k-tabs-nav-wrap">
-          <div class="k-tabs-nav-scroll">
+          <div class="k-tabs-nav-scroll" ref="scroll" :style="scrollStyle">
             <div class="k-tabs-nav" ref="tabs">
-              <div class="k-tabs-ink-bar" :style="inkStyles"></div>
-              <transition-group name="fade">
-                <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="item.activeName" @click="change(item)">
-                  <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
-                  <Icon type="android-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
-                </div>
-              </transition-group>
+              <div class="k-tabs-ink-bar" :style="inkStyles" v-if="!card"></div>
+              <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="index" @click="handelClick(item)">
+                <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
+                <Icon type="android-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
+              </div>
             </div>
           </div>
         </div>
@@ -32,53 +30,64 @@
   </div>
 </template>
 <script>
+import scroll from '../../directives/winScroll'
 export default {
+  directives: { scroll },
   name: "Tabs",
   props: {
-    value: String,
+    value: [String, Number],
     card: Boolean,
     closable: Boolean,
     mini: Boolean,
+    sample: Boolean,
     animated: Boolean,
   },
   computed: {
     styles() {
-      return { transform: `translateX(-${this.left * 100}%)` }
+      return { transform: `translateX(-${this.paneLeft * 100}%)` }
     },
     classes() {
       return [
         "k-tabs",
         {
           ["k-tabs-mini"]: this.mini,
-          ["k-tabs-card"]: this.card
+          ["k-tabs-card"]: this.card && !this.sample,
+          ["k-tabs-sample"]: this.sample && !this.card
         }
       ];
     },
     inkStyles() {
       return this.activeTab ? { width: `${this.activeTab.offsetWidth}px`, left: `${this.activeTab.offsetLeft}px` } : {}
+    },
+    scrollStyle() {
+      return { transform: `translate3d(${this.tabLeft}px,0,0)` }
     }
   },
   watch: {
     value(v) {
-      console.log('dd')
       this.activeName = v
-      this.change()
+      this.handelClick()
+    },
+    children() {
+      this.$nextTick(() => {
+        this.setScroll()
+      })
     }
   },
   data() {
     return {
       children: [],
       active: false,
-      left: 0,
+      paneLeft: 0,
+      tabLeft: 0,
       activeName: this.value,
       activeTab: null,
-      scroll: false
+      scrollable: false
     }
   },
   created() {
     this.$on('tabs-add', this.add)
     this.$on('tabs-remove', this.remove)
-
   },
   mounted() {
     let index = 0
@@ -88,8 +97,10 @@ export default {
       index = 0
     } else {
       this.children.forEach((child, i) => {
-        child.active = child.name == this.activeName
-        child.active && (index = i)
+        if (child.active) {
+          child.name == this.activeName
+          index = i
+        }
       })
     }
     this.$nextTick(() => {
@@ -98,24 +109,51 @@ export default {
     this.left = index
   },
   methods: {
+    scroll(t) {
+      let boxWidth = this.$refs.scroll.offsetWidth
+      let scrollWidth = this.$refs.scroll.scrollWidth
+      if (t == 'next') {
+        let last = scrollWidth + this.tabLeft - boxWidth //剩余的要偏移的长度
+        if (last == 0) return
+        this.tabLeft -= last > boxWidth ? boxWidth : last
+      } else {
+        if (this.tabLeft == 0) return;
+        this.tabLeft += -this.tabLeft > boxWidth ? boxWidth : -this.tabLeft;
+      }
+    },
+    setScroll() {
+      let boxWidth = this.$refs.scroll.offsetWidth
+      let scrollWidth = this.$refs.scroll.scrollWidth
+      let extraWidth = this.$refs.extra.offsetWidth
+      // console.log(boxWidth,scrollWidth,extraWidth)
+      let s = this.scrollable ? 39 * 2 - 10 : 0
+      this.scrollable = scrollWidth - extraWidth > boxWidth
+      //重置滚动
+      if (this.tabLeft < 0) {
+        if (-this.tabLeft + boxWidth > scrollWidth) {
+          this.tabLeft = -(scrollWidth - boxWidth)
+        }
+      }
+    },
     close(index, item) {
-      this.$emit('remove', this.activeName)
+      this.$emit('close', this.activeName)
       this.children.splice(index, 1)
       this.$refs.panes.removeChild(this.$refs.panes.children[index])
       if (this.children.length && this.activeName == item.activeName) {
         this.activeName = this.children[index - 1].activeName
         this.children[index - 1].active = true
+        this.paneLeft =index-1
       }
     },
-    change(item) {
+    handelClick(item) {
       if (item && item.disabled) return;
       if (item) {
         this.activeName = item.activeName
       }
       this.children.forEach((child, index) => {
         if (child.activeName == this.activeName) {
-          this.left = index
-          this.activeTab = this.$refs.tabs.children[index + 1]
+          this.paneLeft = index;
+          !this.card && (this.activeTab = this.$refs.tabs.children[index + 1])
           child.active = true
         } else {
           child.active = false
@@ -124,7 +162,10 @@ export default {
       this.$emit('click', this.activeName)
     },
     add(obj) {
-      if (obj.activeName === undefined) obj.activeName = this.children.length
+      if (obj.activeName === undefined)
+        obj.activeName = this.children.length
+      else
+        obj.active = obj.activeName == this.value
       this.children.push(obj)
     },
     remove(obj) {
