@@ -15,7 +15,7 @@
                         <Input></Input>
                     </FormItem>
                     <FormItem label="Select">
-                        <Select>
+                        <Select v-model="s1">
                             <Option value="0">男</Option>
                             <Option value="1">女</Option>
                             <Option value="2">妖</Option>
@@ -367,6 +367,7 @@ export default {
             }
         };
         return {
+            s1:'',
             labelAlign: 'right',
             code: code,
             select: [

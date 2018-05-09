@@ -6,6 +6,7 @@
          <a href="https://github.com/chuchur/kui" target="_blank">Star</a>和
          <a href="/sponsor">捐助</a>
       </p>
+      <p>欢迎一起交流：QQ群：729671035</p>
       <br>
       <br>
       <h2>兼容性</h2>

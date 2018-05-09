@@ -7,7 +7,9 @@
       <div class="k-modal-wrap" v-show="visible" @click="hide">
         <div class="modal" ref="modal" @click="stop" :style="styles">
           <div class="k-modal-content">
-            <a class="k-modal-close" @click="hide">&times;</a>
+            <a class="k-modal-close" @click="hide">
+              <Icon type="android-close" />
+            </a>
             <div class="k-modal-header" :style="headerStyle" @mousedown="mdown($event)" v-if="type=='modal'">
               <div class="k-modal-header-inner">{{title}}</div>
             </div>

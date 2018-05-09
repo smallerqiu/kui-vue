@@ -3,6 +3,13 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.6.9<span> 2018-5-9 </span></h3>
+        <p>重写了<code>Page</code>组件，保持队形</p>
+        <p>新增<code>Tabs</code>，<code>TabPane</code>组件</p>
+        <p>优化<code>Modal</code><code>Select</code>组件展示1像素的问题</p>
+        <p>修复文档表单展示问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.6.8<span> 2018-5-8 </span></h3>
         <p>修复Form验证的问题</p>
       </TimeLineItem>

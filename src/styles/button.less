@@ -1,158 +1,167 @@
 .k-button {
-   font-size: 14px;
-   height: 34px;
-   line-height: 32px;
-   padding: 0 15px;
-   box-sizing: border-box;
-   background: #f9f9f9;
-   border-radius: @radius;
-   border: 1px solid #ddd;
-   display: inline-block;
-   vertical-align: middle;
-   // transition: opacity .2s ease-in-out;
-   user-select: none;
-   &:hover {
-      opacity: .8;
-      zoom: 0%;
-   }
-   &:active {
-      opacity: 1;
-   }
-   &:disabled {
-      cursor: not-allowed;
-      opacity: .5;
-   }
+    font-size: 14px;
+    height: 34px;
+    line-height: 32px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    background: #f9f9f9;
+    border-radius: @radius;
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle; // transition: opacity .2s ease-in-out;
+    user-select: none;
+    &:hover {
+        opacity: .8;
+        zoom: 0%;
+    }
+    &:active {
+        opacity: 1;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
 }
 
 .k-button.is-mini {
-   height: 25px;
-   line-height: 23px;
-   font-size: 12px;
-   padding: 0 8px;
+    height: 25px;
+    line-height: 23px;
+    font-size: 12px;
+    padding: 0 8px;
 }
 
 .k-button.is-circle {
-   border-radius: 30px;
+    border-radius: 30px;
 }
 
 .k-button-success {
-   color: #fff;
-   background-color: @success;
-   border-color: @success;
+    color: #fff;
+    background-color: @success;
+    border-color: @success;
 }
 
 .k-button-primary {
-   background: @main;
-   color: #fff;
-   border-color: @main;
+    background: @main;
+    color: #fff;
+    border-color: @main;
 }
 
 .k-button-link {
-   background: none;
-   border: none !important;
-   color: @main;
+    background: none;
+    border: none !important;
+    color: @main;
 }
 
 .k-button-danger {
-   border-color: @danger;
-   color: #fff;
-   background: @danger;
-   .badge-count {
-      border-color: @danger;
-      color: @danger;
-   }
+    border-color: @danger;
+    color: #fff;
+    background: @danger;
+    .badge-count {
+        border-color: @danger;
+        color: @danger;
+    }
 }
 
 .k-button-warning {
-   background: @warning;
-   color: #fff;
-   border-color: @warning;
+    background: @warning;
+    color: #fff;
+    border-color: @warning;
 }
 
 .k-button-gray {
-   background-color: @gray;
-   border-color: @gray;
-   color: #fff;
+    background-color: @gray;
+    border-color: @gray;
+    color: #fff;
 }
 
 .k-button-primary.is-hollow {
-   // color: #409eff;
-   // background: #ecf5ff;
-   // border-color: #b3d8ff;
-   color: tint(@main, -10%);
-   background: tint(@main, 90%);
-   border-color: tint(@main, 70%);
+    // color: #409eff;
+    // background: #ecf5ff;
+    // border-color: #b3d8ff;
+    color: tint(@main, -10%);
+    background: tint(@main, 90%);
+    border-color: tint(@main, 70%);
 }
 
 .k-button-success.is-hollow {
-   color: tint(@success, -10%);
-   background: tint(@success, 90%);
-   border-color: tint(@success, 70%);
+    color: tint(@success, -10%);
+    background: tint(@success, 90%);
+    border-color: tint(@success, 70%);
 }
 
 .k-button-gray.is-hollow {
-   // color: #909399;
-   // background: #f4f4f5;
-   // border-color: #d3d4d6;
-   color: tint(@gray, -10%);
-   background: tint(@gray, 90%);
-   border-color: tint(@gray, 70%);
+    // color: #909399;
+    // background: #f4f4f5;
+    // border-color: #d3d4d6;
+    color: tint(@gray, -10%);
+    background: tint(@gray, 90%);
+    border-color: tint(@gray, 70%);
 }
 
 .k-button-warning.is-hollow {
-   // color: #e6a23c;
-   // background: #fdf6ec;
-   // border-color: #f5dab1;
-   color: tint(@warning, -10%);
-   background: tint(@warning, 90%);
-   border-color: tint(@warning, 70%);
+    // color: #e6a23c;
+    // background: #fdf6ec;
+    // border-color: #f5dab1;
+    color: tint(@warning, -10%);
+    background: tint(@warning, 90%);
+    border-color: tint(@warning, 70%);
 }
 
 .k-button-danger.is-hollow {
-   // color: #f56c6c;
-   // background: #fef0f0;
-   // border-color: #fbc4c4;
-   color: tint(@danger, -10%);
-   background: tint(@danger, 90%);
-   border-color: tint(@danger, 70%);
+    // color: #f56c6c;
+    // background: #fef0f0;
+    // border-color: #fbc4c4;
+    color: tint(@danger, -10%);
+    background: tint(@danger, 90%);
+    border-color: tint(@danger, 70%);
 }
 
 .k-btn-group {
-   position: relative;
-   display: inline-block;
-   vertical-align: middle;
-   .k-button {
-      margin-left: -1px;
-      position: relative;
-      margin-right: 0;
-      float: left;
-      &:hover {
-         border-color: @primary;
-         color: @primary;
-         opacity: 1;
-         z-index: 99;
-      }
-   }
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    .k-button {
+        margin-left: -1px;
+        position: relative;
+        margin-right: 0;
+        float: left;
+        border-radius: 0;
+        &:hover {
+            border-color: @primary;
+            color: @primary;
+            opacity: 1;
+            z-index: 99;
+        }
+        &:first-child {
+            border-top-left-radius: @radius;
+            border-bottom-left-radius: @radius;
+        }
+        &:last-child {
+            border-top-right-radius: @radius;
+            border-bottom-right-radius: @radius;
+        }
+    }
+   
 }
 
 .k-btn-group-mini {
-   .k-button {
-      height: 25px;
-      line-height: 25px;
-      font-size: 12px;
-      padding: 0 8px;
-   }
+    .k-button {
+        height: 25px;
+        line-height: 25px;
+        font-size: 12px;
+        padding: 0 8px;
+    }
 }
 
 .k-btn-group-circle {
-   .k-button {
-      &:first-child {
-         border-top-left-radius: 30px;
-         border-bottom-left-radius: 30px;
-      }
-      &:last-child {
-         border-top-right-radius: 30px;
-         border-bottom-right-radius: 30px;
-      }
-   }
+    .k-button {
+        &:first-child {
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+        &:last-child {
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+    }
 }

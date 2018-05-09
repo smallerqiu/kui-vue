@@ -17,7 +17,6 @@ let nav = [
             { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
             { title: "按钮", sub: "Button", link: "/button", icon: 'stop' },
             { title: "布局", sub: "layout", link: "/layout", icon: 'social-buffer' },
-            // { title: "标签页", sub: "Tabs", link: "/tabs",icon:'ios-photos' },
         ]
     },
     {
@@ -64,6 +63,7 @@ let nav = [
             { title: "导航菜单", sub: "Menu", link: "/menu", icon: 'navicon' },
             { title: "分页", sub: "Page", link: "/page", icon: 'ios-skipforward' },
             { title: "步骤条", sub: "Steps", link: "/steps", icon: 'android-done-all' },
+            { title: "标签页", sub: "Tabs", link: "/tabs",icon:'ios-photos' },
         ]
     },
     {

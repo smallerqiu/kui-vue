@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      currentValue: "",
+      currentValue: this.value,
       clearableShow: false,
       isFocus: false,
       isMove: false
@@ -103,7 +103,7 @@ export default {
       this.clearableShow = false;
     },
     handleMove() {
-      this.clearableShow = this.currentValue.length > 0;
+      this.clearableShow = this.currentValue && this.currentValue.length > 0;
       this.isMove = true;
     },
     handleOut() {
@@ -128,7 +128,7 @@ export default {
       this.$emit("keyup", event);
     },
     handleFocus(event) {
-      this.clearableShow = this.currentValue.length > 0;
+      this.clearableShow = this.currentValue && this.currentValue.length > 0;
       this.$emit("focus", event);
       this.isFocus = true;
     },
@@ -142,7 +142,7 @@ export default {
     },
     handleInput(event) {
       let value = event.target.value;
-      this.clearableShow = value.length > 0;
+      this.clearableShow = value && value.length > 0;
       if (this.number)
         value = Number.isNaN(Number(value)) ? value : Number(value);
       this.$emit("input", value);

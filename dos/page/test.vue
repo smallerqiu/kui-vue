@@ -1,11 +1,11 @@
 <template>
     <div style="width:700px;">
 
-      <RadioGroup v-model="form.radio">
-                    <Radio label="0">男</Radio>
-                    <Radio label="1">女</Radio>
-                    <Radio label="2">妖</Radio>
-                </RadioGroup>
+      <Tabs card>
+                    <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
+                    <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
+                    <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+                </Tabs>
         <br/>
         <br/>
         <br/>
@@ -15,8 +15,8 @@
                 <Input v-model="form.input" clearable mini></Input>
             </FormItem>
             <FormItem label="Select" class="k-form-item-required">
-                <Row>
-                    <Col span="6">
+                <Row gutter="8">
+                    <Col span="11">
                     <FormItem prop="select">
                         <Select v-model="form.select" clearable>
                             <Option value="0">男男男男男男男男男男男男男男男男男男男男男男男男男男男</Option>
@@ -25,7 +25,7 @@
                         </Select>
                     </FormItem>
                     </Col>
-                    <Col span="6" offset="1">
+                    <Col span="11">
                     <FormItem prop="select2">
                         <Select v-model="form.select2" clearable>
                             <Option value="0">男</Option>
