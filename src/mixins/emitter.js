@@ -41,26 +41,26 @@ export default {
         },
         getElementPos(element) {
 
-            /* //滚动无法取值
+            // 
               if (element) {
                  return element.getBoundingClientRect()
              } else {
                  throw new Error('找不到Pos emlement')
-             } */
+             }
 
             // 父级 为 overflow hidden， 就掉水沟了， 取值不准
-            var pos = { x: 0, y: 0, width: 0, height: 0 };
-            if (!element) return pos;
-            pos.x = element.offsetLeft;
-            pos.y = element.offsetTop;
+            // var pos = { x: 0, y: 0, width: 0, height: 0 };
+            // if (!element) return pos;
+            // pos.x = element.offsetLeft;
+            // pos.y = element.offsetTop;
             
-            var current = element.offsetParent;
-            while (current !== null) {
-                pos.x += current.offsetLeft;
-                pos.y += current.offsetTop;
-                current = current.offsetParent;
-            }
-            return pos;
+            // var parent = element.offsetParent;
+            // while (parent !== null) {
+            //     pos.x += parent.offsetLeft;
+            //     pos.y += parent.offsetTop;
+            //     parent = parent.offsetParent;
+            // }
+            // return pos;
         },
     }
 };

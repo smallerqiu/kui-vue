@@ -1,11 +1,130 @@
 <template>
     <div style="width:700px;">
+        <Modal title="确认订单" v-model="a" :width="740">
+            <div class="table-order">
+                <table>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
 
-      <Tabs card>
-                    <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
-                    <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
-                    <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
-                </Tabs>
+                </table>
+                <table>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>标准货期</td>
+                        <td>品牌/制造商</td>
+                        <td>标准货期</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div style="margin-top:30px;">
+                <h2 class="pull-left">货期</h2>
+                <span style="margin:0 10px;color:#aaa;">
+                    <i>*</i> 不需要拆分货期，直接确认即可；若拆分货期，则需要客户对拆分后货期进行确认。</span>
+                <Button @click="m++">拆分</Button>
+            </div>
+            <div class="table-border">
+                <table>
+                    <tr>
+                        <th>分单编号</th>
+                        <th>到货日期</th>
+                        <th>数量</th>
+                        <th>延迟事由</th>
+                    </tr>
+                    <tr v-for="x in m">
+                        <td>  <color-picker   mini width="140"  ></color-picker></td>
+                        <td>
+                            <date-picker   mini width="140"  value="2015-10-10 10:10:10"></date-picker>
+                        </td>
+                        <td class="badge">
+
+                        </td>
+                        <td>
+                            <Select>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                                <Option value="1">fdsafsa</Option>
+                            </Select>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </Modal>
+        <!--   <Tabs card>
+            <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
+            <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
+            <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+        </Tabs>
         <br/>
         <br/>
         <br/>
@@ -62,7 +181,7 @@
                 <Button style="margin-left: 10px" @click="resetForm('form')">Reset</Button>
             </FormItem>
         </Form>
-        <Button @click="test">test</Button>
+        <Button @click="test">test</Button> -->
         <!-- <Form :model="customForm" :rules="customRules" labelWidth="80" ref="customForm">
             <FormItem label="userName" prop="userName">
                 <Input v-model="customForm.userName" />
@@ -78,6 +197,73 @@
                 <Button style="margin-left: 10px" @click="resetForm('customForm')">Reset</Button>
             </FormItem>
         </Form> -->
+        <table>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+            <tr>
+                <td>商品ID</td>
+                <td>标准货期</td>
+                <td>品牌/制造商</td>
+                <td>标准货期</td>
+            </tr>
+
+        </table>
+        <table>
+            <tr>
+                <th>分单编号</th>
+                <th>到货日期</th>
+                <th>数量</th>
+                <th>延迟事由</th>
+            </tr>
+            <tr>
+                <td> </td>
+                <td>
+                    <!-- <date-picker   mini width="140"  ></date-picker> -->
+                </td>
+                <td class="badge">
+
+                </td>
+                <td>
+                    <Select>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                        <Option value="1">fdsafsa</Option>
+                    </Select>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 <script>
@@ -116,7 +302,7 @@ export default {
             }
         };
         return {
-            b: 1,
+            b: 1, m: 10,
             a: true,
             t: false,
             labelAlign: 'right',

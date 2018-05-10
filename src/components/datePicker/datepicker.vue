@@ -29,7 +29,7 @@ export default {
   },
   mixins: [emitter],
   props: {
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     width: [String, Number],
     mini: Boolean,
     name: [String],
@@ -59,7 +59,7 @@ export default {
       text: "",
       visible: false,
       left: 0,
-      fb: false,
+      fadeInBottom: false,
       top: 0,
       dates: this.vi(this.value),
       local: {}
@@ -92,7 +92,7 @@ export default {
       this.range && (style.width = "405px");
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
-      if (this.fb) {
+      if (this.fadeInBottom) {
         style["transform-origin"] = "center bottom 0px";
       }
       return style;
@@ -139,22 +139,30 @@ export default {
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let pos = this.getElementPos(rel);
+      let relPos = this.getElementPos(rel);
+      let clientH = window.innerHeight
+      let clientW = window.innerWidth
 
-      let h = document.documentElement.clientHeight;
-      let w = document.documentElement.clientWidth;
-      let s = document.documentElement.scrollTop;
+      let scrollTop = document.documentElement.scrollTop;
 
-      let dh = dom.offsetHeight;
-      let rh = rel.offsetHeight;
-      if (this.transfer) this.left = pos.x;
-      if (h - (pos.y - s) - rh < dh) {
-        this.fb = true;
-        this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      let domH = dom.offsetHeight;
+      let relH = rel.offsetHeight;
+      if (this.transfer) this.left = relPos.x + 1;
+      //new
+      if (clientH - relPos.y - relH - m < domH) {  //空出来的高度不足以放下dom
+        this.fadeInBottom = true
+        this.top = this.transfer ? relPos.y - m - domH + scrollTop : -(domH + m)
       } else {
-        this.fb = false;
-        this.top = !this.transfer ? rh + m : pos.y + rh + m;
+        this.fadeInBottom = false
+        this.top = this.transfer ? relPos.y + relH + m + scrollTop : relH + m
       }
+      // if (h - (pos.y - s) - rh < dh) {
+      //   this.fadeInBottom = true;
+      //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      // } else {
+      //   this.fadeInBottom = false;
+      //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
+      // }
     },
     setText() {
       let date = this.dates.map(date => this.tf(date));

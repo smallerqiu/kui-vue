@@ -3,6 +3,11 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.0<span> 2018-5-10 </span></h3>
+        <p>修复<code>Select</code>，<code>dataPicker</code><code>colorPicker</code>等组件在Modal组件内时，下拉位置偏移的问题</p>
+        <p><code>emitter</code>加入了滚动监听</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.6.9<span> 2018-5-9 </span></h3>
         <p>重写了<code>Page</code>组件，保持队形</p>
         <p>新增<code>Tabs</code>，<code>TabPane</code>组件</p>

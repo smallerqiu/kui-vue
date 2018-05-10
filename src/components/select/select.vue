@@ -57,7 +57,7 @@ export default {
       visible: false,
       dropdownWith: 0,
       left: 0,
-      fb: false,
+      fadeInBottom: false,
       top: 0,
       label: "",
       children: [],
@@ -103,7 +103,7 @@ export default {
       style.width = `${this.dropdownWith}px`;
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
-      if (this.fb) {
+      if (this.fadeInBottom) {
         style["transform-origin"] = "center bottom 0px";
       }
       return style;
@@ -164,21 +164,32 @@ export default {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let pos = this.getElementPos(rel);
-      let h = document.documentElement.clientHeight;
-      let w = document.documentElement.clientWidth;
-      let s = document.documentElement.scrollTop;
+      let relPos = this.getElementPos(rel);
+      let clientH = window.innerHeight
+      let clientW = window.innerWidth
 
-      let dh = dom.offsetHeight;
-      let rh = rel.offsetHeight;
-      if (this.transfer) this.left = pos.x + 1;
-      if (h - (pos.y - s) - rh < dh) {
-        this.fb = true;
-        this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      let scrollTop = document.documentElement.scrollTop;
+
+      let domH = dom.offsetHeight;
+      let relH = rel.offsetHeight;
+      if (this.transfer) this.left = relPos.x + 1;
+      //new
+      if (clientH - relPos.y - relH - m < domH) {  //空出来的高度不足以放下dom
+        this.fadeInBottom = true
+        this.top = this.transfer ? relPos.y - m - domH + scrollTop : -(domH + m)
       } else {
-        this.fb = false;
-        this.top = !this.transfer ? rh + m : pos.y + rh + m;
+        this.fadeInBottom = false
+        this.top = this.transfer ? relPos.y + relH + m + scrollTop : relH + m
       }
+      // console.log(this.fadeInBottom, clientH, relPos.y, relH, m, domH)
+      //old
+      // if (h - (pos.y - s) - rh < dh) {
+      //   this.fadeInBottom = true;
+      //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+      // } else {
+      //   this.fadeInBottom = false;
+      //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
+      // }
     },
     change(item) {
       this.selectItem = item;
