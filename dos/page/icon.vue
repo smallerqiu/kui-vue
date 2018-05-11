@@ -51,10 +51,14 @@
     <br/>
     <br/>
     <div class="icon-item">
-      <span v-for="(x,y) in list" :key="y" @click.stop="copy(x)">
-        <Icon :type="x" />
-        <p>{{x}}</p>
+
+      <span @click.stop="copy(x)" v-for="(x,y) in list" :key="y">
+        <Tooltip :content="x">
+          <Icon :type="x" />
+          <!-- <p>{{x}}</p> -->
+        </Tooltip>
       </span>
+
       <input type="text" v-model="copyhtml" ref="copyDom" style="position:absolute;left:-9999px;" />
     </div>
   </div>

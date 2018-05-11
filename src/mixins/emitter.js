@@ -40,20 +40,19 @@ export default {
             broadcast.call(this, componentName, eventName, params);
         },
         getElementPos(element) {
+            var pos = { x: 0, y: 0, width: 0, height: 0 };
 
             // 
-              if (element) {
-                 return element.getBoundingClientRect()
-             } else {
-                 throw new Error('找不到Pos emlement')
-             }
+            if (!element) return pos
+            
+            return element.getBoundingClientRect()
+
 
             // 父级 为 overflow hidden， 就掉水沟了， 取值不准
-            // var pos = { x: 0, y: 0, width: 0, height: 0 };
             // if (!element) return pos;
             // pos.x = element.offsetLeft;
             // pos.y = element.offsetTop;
-            
+
             // var parent = element.offsetParent;
             // while (parent !== null) {
             //     pos.x += parent.offsetLeft;
