@@ -5,6 +5,7 @@
       <Menu style="float:right;" mode="horizontal" activeName="/install" @select="go">
         <MenuItem name="/" icon="home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-settings-strong">组件</MenuItem>
+        <MenuItem name="https://github.com/chuchur/kui-vue/issues" icon="ios-help">提问</MenuItem>
         <MenuItem name="https://www.chuchur.com" icon="ios-person">Blog</MenuItem>
       </Menu>
     </header>

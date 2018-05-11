@@ -81,8 +81,9 @@
 <script>
 import code from '../code/message'
 import Demo from '../components/demo'
+import Code from '../components/code'
 export default {
-  components: { Demo },
+  components: { Demo,Code },
   data() {
     return {
       code: code
