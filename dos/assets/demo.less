@@ -600,15 +600,18 @@ footer {
     display: inline-block;
     width: 100%;
     span {
-        font-size: 25px;
         text-align: center;
-        width: 19%;
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
         color: #555;
-        height: 63px;
         float: left;
-        padding: 10px 0;
-        margin: 0 0px -1px -1px;
-        border: 1px solid #e8e8e8;
+        font-size: 30px;
+        cursor: pointer;
+        transition: color .3s ease-in-out;
+        &:hover{
+            color:#3a95ff;
+        }
     }
     p {
         font-size: 12px;

@@ -98,7 +98,7 @@
                     <tr v-for="x in m">
                         <td>  <color-picker   mini width="140"  ></color-picker></td>
                         <td>
-                            <date-picker   mini width="140"  value="2015-10-10 10:10:10"></date-picker>
+                            <date-picker clearable  mini width="140"  value="2015-10-10 10:10:10"></date-picker>
                         </td>
                         <td class="badge">
 

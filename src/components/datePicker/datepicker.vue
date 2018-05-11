@@ -29,7 +29,7 @@ export default {
   },
   mixins: [emitter],
   props: {
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     width: [String, Number],
     mini: Boolean,
     name: [String],

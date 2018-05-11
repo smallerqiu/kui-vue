@@ -15,7 +15,7 @@ export default {
     unbind(el, bind) {
         window.removeEventListener('resize', el._scroll)
         document.removeEventListener('scroll', el._resize)
-        document.removeEventListener('scroll', el._mousewhell)
+        window.removeEventListener('mousewheel', el._mousewhell)
         delete el._scroll
         delete el._resize
         delete el._mousewhell
