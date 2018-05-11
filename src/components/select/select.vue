@@ -157,8 +157,9 @@ export default {
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
       if (this.visible) {
-        setTimeout(() => this.setPosition());
+       // setTimeout(() => this.setPosition());
       }
+      this.$nextTick(()=>this.setPosition())
     },
     setPosition() {
       let m = 3;
@@ -168,7 +169,7 @@ export default {
       let clientH = window.innerHeight
       let clientW = window.innerWidth
 
-      let scrollTop = document.documentElement.scrollTop;
+      let scrollTop = window.scrollY;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;

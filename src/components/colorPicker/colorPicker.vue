@@ -145,9 +145,7 @@ export default {
   methods: {
     toggleDrop() {
       this.visible = !this.visible && !this.disabled;
-      if (this.visible) {
-        setTimeout(() => this.setPosition());
-      }
+      this.$nextTick(() => this.setPosition());
     },
     setPosition() {
       let m = 1;
@@ -157,7 +155,7 @@ export default {
       let clientH = window.innerHeight
       let clientW = window.innerWidth
 
-      let scrollTop = document.documentElement.scrollTop;
+      let scrollTop = window.scrollY;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
