@@ -1,6 +1,5 @@
 <template>
   <span :class="classes" @click="change">
-    <input type="hidden" v-model="checked">
     <span class="k-switch-inner">
       <span>{{checked?trueText:falseText}}</span>
     </span>
