@@ -38,11 +38,11 @@ export default {
       ];
     },
     labelStyles() {
-      let width = this.form.labelWidth;
+      let width = this.form && this.form.labelWidth || 0;
       return width ? { width: `${width}px` } : {};
     },
     contentStyles() {
-      let width = this.form.labelWidth;
+      let width = this.form && this.form.labelWidth || 0;
       return width && this.form.labelAlign != 'top' && this.label != undefined ? { marginLeft: `${width}px` } : {};
     }
   },
@@ -51,7 +51,7 @@ export default {
     this.$on('form-item-blur', this.blur)
     this.$on('form-item-reset', this.reset)
   },
-  mounted(){
+  mounted() {
     this.prop && this.dispatch('Form', 'form-add-field', this)
   },
   beforeDestroy() {
@@ -72,12 +72,12 @@ export default {
       if (this.prop) {
         this.dispatch('Form', 'form-reset-field', this.prop)
         this.valid = true
-        let prop = this.form.getProp(this.form.model, this.prop)
+        // let prop = this.form.getProp(this.form.model, this.prop)
         if (Array.isArray(this.fieldValue)) {
-          prop.model[prop.key] = []
+          // prop.model[prop.key] = []
           this.fieldValue = []
         } else {
-          prop.model[prop.key] = ''
+          // prop.model[prop.key] = ''
           this.fieldValue = ''
         }
       }
