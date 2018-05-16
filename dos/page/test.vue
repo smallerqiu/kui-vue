@@ -246,13 +246,14 @@
             <tr>
                 <td> </td>
                 <td>
-                    <!-- <date-picker   mini width="140"  ></date-picker> -->
+                    <date-picker   mini width="140" value="" clearable ></date-picker>
+                    <date-picker   mini width="340" :value="[]" clearable></date-picker>
                 </td>
                 <td class="badge">
 
                 </td>
                 <td>
-                    <Select v-model="b">
+                    <!-- <Select v-model="b">
                         <Option value="1">fdsafsa</Option>
                         <Option value="2">fdsafsa</Option>
                         <Option value="3">fdsafsa</Option>
@@ -260,7 +261,8 @@
                         <Option value="5">fdsafsa</Option>
                         <Option value="6">fdsafsa</Option>
                         <Option value="7">fdsafsa</Option>
-                    </Select>
+                    </Select> -->
+                    <!-- <Tree :data="data1" checkbox @check="select"></Tree> -->
                 </td>
             </tr>
         </table>
@@ -302,6 +304,7 @@ export default {
             }
         };
         return {
+            aa:['',''],
             b: 1, m: 10,
             a: true,
             t: false,
@@ -339,10 +342,42 @@ export default {
             count: 1,
             dynamicForm: {
                 items: [{ value: '', index: 1 }]
-            }
+            },
+            data1: [
+                {
+                    title: 'tree 1',
+                    expand: true,
+                    children: [
+                        {
+                            title: 'tree 1-1',
+                            expand: true,
+                            children: [
+                                { title: 'leaf 1-1-1', disabled: true },
+                                { title: 'leaf 1-1-2' }
+                            ]
+                        },
+                        {
+                            title: 'tree 1-2',
+                            expand: true,
+                            children: [
+                                {
+                                    title: 'leaf 1-2-1', expand: true, children: [
+                                        { title: 'leaf 1-2-1-1',  },
+                                        { title: 'leaf 1-2-1-2' }
+                                    ]
+                                },
+                                { title: 'leaf 1-2-2' }
+                            ]
+                        }
+                    ]
+                }
+            ],
         };
     },
     methods: {
+        select(v) {
+            // console.log(v)
+        },
         test1(v) {
             console.log(v)
         },

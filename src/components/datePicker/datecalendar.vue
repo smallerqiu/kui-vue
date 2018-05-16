@@ -80,14 +80,13 @@ export default {
   },
   watch: {
     value(val) {
-      const $this = this;
-      const time = $this.get(val);
-      $this.year = time.year;
-      $this.month = time.month;
-      $this.day = time.day;
-      $this.hour = time.hour;
-      $this.minute = time.minute;
-      $this.second = time.second;
+      const time = this.get(val);
+      this.year = time.year;
+      this.month = time.month;
+      this.day = time.day;
+      this.hour = time.hour;
+      this.minute = time.minute;
+      this.second = time.second;
     }
   },
   computed: {
@@ -119,11 +118,10 @@ export default {
     },
     days() {
       const days = [];
-      const $this = this;
-      const year = $this.year;
-      const month = $this.month;
+      const year = this.year;
+      const month = this.month;
       const time = new Date(year, month, 1);
-      const dow = $this.local.dow || 7;
+      const dow = this.local.dow || 7;
       time.setDate(0); // switch to the last day of last month
       let lastDay = time.getDate();
       const week = time.getDay() || 7;
@@ -159,6 +157,15 @@ export default {
   },
   methods: {
     get(time) {
+      if (!time) {
+        let d1 = this.$parent.dates[0] 
+        time = new Date()
+        if(this.right && !d1){
+          let d2 = new Date()
+          d2.setMonth(d2.getMonth()+1)
+          time = d2
+        }
+      }
       return {
         year: time.getFullYear(),
         month: time.getMonth(),
@@ -172,7 +179,6 @@ export default {
       return parseInt(num / 1000);
     },
     status(year, month, day, hour, minute, second, format) {
-      const $this = this;
       const maxDay = new Date(year, month + 1, 0).getDate();
       const time = new Date(
         year,
@@ -182,25 +188,28 @@ export default {
         minute,
         second
       );
-      const t = $this.parse(time);
-      const f = $this.$parent.tf;
+      const today = new Date();
+
+      const t = this.parse(time);
+      const f = this.$parent.tf;
       const classObj = {};
       let flag = false;
-      if (format === "YYYY") {
-        flag = year === $this.year;
-      } else if (format === "YYYYMM") {
-        flag = month === $this.month;
-      } else {
-        flag = f($this.value, format) === f(time, format);
+      let istoday = false
+      if(format=='YYYYMMDD'){
+        istoday = today.getFullYear()==year && today.getMonth()==month && today.getDate()==day
       }
-      classObj[`${$this.pre}-date`] = true;
-      classObj[`${$this.pre}-date-disabled`] =
-        ($this.right && t < $this.start) ||
-        ($this.left && t > $this.end) ||
-        $this.$parent.disabledDate(time);
-      classObj[`${$this.pre}-date-on`] =
-        ($this.left && t > $this.start) || ($this.right && t < $this.end);
-      classObj[`${$this.pre}-date-selected`] = flag;
+      if (format === "YYYY") {
+        flag = year === this.year;
+      } else if (format === "YYYYMM") {
+        flag = month === this.month;
+      } else {
+        flag = f(this.value, format) === f(time, format);
+      }
+      classObj[`${this.pre}-date`] = true;
+      classObj[`${this.pre}-date-disabled`] =        (this.right && t < this.start) ||        (this.left && t > this.end) ||        this.$parent.disabledDate(time);
+      classObj[`${this.pre}-date-on`] =        (this.left && t > this.start) || (this.right && t < this.end);
+      classObj[`${this.pre}-date-selected`] = flag;
+      classObj[`${this.pre}-date-today`] = istoday;
       return classObj;
     },
     nm() {
@@ -223,41 +232,42 @@ export default {
       return e.target.className.indexOf(`${this.pre}-date-disabled`) === -1;
     },
     ok(info) {
-      const $this = this;
       let year = "";
       let month = "";
-      info && info.n && $this.nm();
-      info && info.p && $this.pm();
+      info && info.n && this.nm();
+      info && info.p && this.pm();
       if (info === "h") {
-        const time = $this.get(this.value);
+        const time = this.get(this.value);
         year = time.year;
         month = time.month;
       }
       let d = new Date(
-        year || $this.year,
-        month || $this.month,
-        $this.day,
-        $this.hour,
-        $this.minute,
-        $this.second
+        year || this.year,
+        month || this.month,
+        this.day,
+        this.hour,
+        this.minute,
+        this.second
       );
-      $this.$emit("input", d);
-      $this.$parent.ok();
+      this.$emit("input", d);
+      let d1 = this.$parent.dates[0]
+      if(d1 && this.right || !this.$parent.range){
+        this.$parent.ok();
+      }
     }
   },
   mounted() {
-    const $this = this;
-    const is = c => $this.format.indexOf(c) !== -1;
+    const is = c => this.format.indexOf(c) !== -1;
     if (is("s") && is("m") && (is("h") || is("H"))) {
-      $this.m = "H";
+      this.m = "H";
     } else if (is("D")) {
-      $this.m = "D";
+      this.m = "D";
     } else if (is("M")) {
-      $this.m = "M";
-      $this.showMonths = true;
+      this.m = "M";
+      this.showMonths = true;
     } else if (is("Y")) {
-      $this.m = "Y";
-      $this.showYears = true;
+      this.m = "Y";
+      this.showYears = true;
     }
   }
 };

@@ -6,7 +6,7 @@
                     <i class="k-ion-arrow-right-b" v-if="!data.loading"></i>
                     <i class="k-ion-load-c k-load-loop" v-if="data.loading"></i>
                 </span>
-                <Checkbox v-if="checkbox" :disabled="data.disabled" v-model="data.checked" @click.native.prevent="handelCheck" :indeterminate="data.indeterminate" />
+                <Checkbox v-if="checkbox" :disabled="data.disabled" v-model="data.checked" @change="handelCheck" :indeterminate="data.indeterminate" />
                 <span>
                     <Icon :type="data.icon" v-if="data.icon"></Icon>
                 </span>
@@ -51,7 +51,7 @@ export default {
     methods: {
         handelCheck(state) {
             if (this.data.disabled) return
-            this.$set(this.data, 'checked', !this.data.checked)
+            // this.$set(this.data, 'checked', !this.data.checked)
             this.dispatch('Tree', 'tree-check', this.data)
         },
         handelSelect() {
