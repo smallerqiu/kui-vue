@@ -1,6 +1,6 @@
 <template>
     <div style="width:700px;">
-        <Modal title="确认订单" v-model="a" :width="740">
+        <!-- <Modal title="确认订单" :width="740">
             <div class="table-order">
                 <table>
                     <tr>
@@ -119,7 +119,7 @@
 
             </div>
 
-        </Modal>
+        </Modal> -->
         <!--   <Tabs card>
             <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
             <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
@@ -252,14 +252,14 @@
 
                 </td>
                 <td>
-                    <Select>
+                    <Select v-model="b">
                         <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
-                        <Option value="1">fdsafsa</Option>
+                        <Option value="2">fdsafsa</Option>
+                        <Option value="3">fdsafsa</Option>
+                        <Option value="4">fdsafsa</Option>
+                        <Option value="5">fdsafsa</Option>
+                        <Option value="6">fdsafsa</Option>
+                        <Option value="7">fdsafsa</Option>
                     </Select>
                 </td>
             </tr>

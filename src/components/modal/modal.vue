@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" @mousemove="mmove($event)" @mouseup="mup($event)">
+  <div :class="classes" @mousemove="handelMouseMove($event)" @mouseup="handelMouseUp($event)">
     <transition name="fade">
       <div class="k-modal-mask" ref="mask" v-show="visible"></div>
     </transition>
@@ -10,7 +10,7 @@
             <a class="k-modal-close" @click="hide">
               <Icon type="android-close" />
             </a>
-            <div class="k-modal-header" :style="headerStyle" @mousedown="mdown($event)" v-if="type=='modal'">
+            <div class="k-modal-header" :style="headerStyle" @mousedown="handelMouseDown($event)" v-if="type=='modal'">
               <div class="k-modal-header-inner">{{title}}</div>
             </div>
             <div class="k-modal-body">
@@ -111,11 +111,12 @@ export default {
       isMouseDown: false
     };
   },
-  mounted() {
-    document.body.addEventListener("keyup", this.dc);
+  created() {
+    // window.addEventListener("keyup", this.dc);
+    window.addEventListener('keyup',this.onKeyUp)
   },
   beforeDestory() {
-    document.body.removeEventListener("keyup", this.dc);
+    window.removeEventListener("keyup", this.onKeyUp);
   },
   watch: {
     value(v) {
@@ -139,14 +140,14 @@ export default {
       // console.log(e)
       e.cancelBubble = true
     },
-    mdown(e) {
+    handelMouseDown(e) {
       if (e.button == 0) {
         this.isMouseDown = true;
         this.x = this.$refs["modal"].offsetLeft;
         this.y = this.$refs["modal"].offsetTop;
       }
     },
-    mmove(e) {
+    handelMouseMove(e) {
       if (this.isMouseDown && this.isMove) {
         this.left += e.movementX;
         this.top = this.y + e.movementY;
@@ -154,15 +155,16 @@ export default {
         this.y = this.top;
       }
     },
-    mup() {
+    handelMouseUp() {
       this.isMouseDown = false;
     },
     ok() {
       this.$emit("ok");
       this.hide();
     },
-    dc(e) {
+    onKeyUp(e) {
       if (this.visible) {
+        console.log(e.keyCode)
         if (e.keyCode == 27) this.hide();
       }
     },

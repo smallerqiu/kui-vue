@@ -40,7 +40,7 @@ export default {
             broadcast.call(this, componentName, eventName, params);
         },
         getElementPos(element) {
-            var pos = { x: 0, y: 0, width: 0, height: 0 };
+            var pos = { left: 0, top: 0, width: 0, height: 0 };
 
             // 
             if (!element) return pos

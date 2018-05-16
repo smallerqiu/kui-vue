@@ -39,14 +39,17 @@
 
         <h3>API</h3>
         <p>通过直接调用以下方法来使用组件：</p>
-        <p>this.$Loading.start()</p>
-        <p>this.$Loading.finish()</p>
-        <p>this.$Loading.error()</p>
-        <p>this.$Loading.update(percent)</p>
+        <Code lang="js">
+this.$Loading.start()
+this.$Loading.finish()
+this.$Loading.error()
+this.$Loading.update(percent)
+        </Code>
         <p>另外提供了全局配置和全局销毁的方法：</p>
-        <p>this.$Loading.config(options)</p>
-        <p>this.$Loading.destroy()</p>
-
+        <Code lang="js">
+this.$Loading.config(options)
+this.$Loading.destroy()
+        </Code>
         <div class="table-border">
             <table>
                 <tr>

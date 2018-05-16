@@ -155,18 +155,18 @@ export default {
       let clientH = window.innerHeight
       let clientW = window.innerWidth
 
-      let scrollTop = window.scrollY;
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.x;
+      if (this.transfer) this.left = relPos.left;
       //new
-      if (clientH - relPos.y - relH - m < domH) {  //空出来的高度不足以放下dom
+      if (clientH - relPos.top - relH - m < domH) {  //空出来的高度不足以放下dom
         this.fadeInBottom = true
-        this.top = this.transfer ? relPos.y - m - domH + scrollTop : -(domH + m)
+        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m)
       } else {
         this.fadeInBottom = false
-        this.top = this.transfer ? relPos.y + relH + m + scrollTop : relH + m
+        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m
       }
     },
     hide() {

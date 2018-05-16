@@ -3,6 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.2<span> 2018-5-16 </span></h3>
+        <p>修复IE9+浏览器中的花式bug</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.1<span> 2018-5-11 </span></h3>
         <p>修复下拉组件在浏览器的一些兼容性问题</p>
       </TimeLineItem>
@@ -273,20 +277,16 @@
         <p>完善<code>Modal</code> 回调问题</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3> 1.0.4 <span>2017-12-15</span> </h3>
+        <h3>1. 0.4 <span>2017-12-15</span> </h3>
         <p>日期控件新增回调</p>
         <p>新增<code>Row</code>，<code>Col</code> 组件</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3>1.0.2
-          <span>2017-12-12</span>
-        </h3>
+        <h3>1.0.2 <span>2017-12-12</span> </h3>
         <p>完成<code>Table</code>，<code>Page</code>，<code>Button</code>，<code>DatePicker</code>等组件</p>
       </TimeLineItem>
       <TimeLineItem Icon="erlenmeyer-flask">
-        <h3> 1.0.0
-          <span>2017-12-10</span>
-        </h3>
+        <h3> 1. 0.0 <span>2017-12-10</span> </h3>
         <p>着手开发</p>
       </TimeLineItem>
     </TimeLine>

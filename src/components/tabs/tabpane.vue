@@ -1,10 +1,10 @@
 <template>
-  <div class="k-tabs-tabpane">
+  <div class="k-tabs-tabpane" :style="styles">
     <slot></slot>
   </div>
 </template>
 <script>
-import emitter from '../../mixins/emitter'
+import emitter from "../../mixins/emitter";
 export default {
   name: "Tabs",
   mixins: [emitter],
@@ -18,14 +18,20 @@ export default {
   data() {
     return {
       activeName: this.name,
-      active: false
+      active: false,
+      width: 0 //ie9
+    };
+  },
+  computed: {
+    styles() {
+      return this.width ? { width: `${this.width}px` } : {};
     }
   },
   mounted() {
-    this.dispatch('Tabs', 'tabs-add', this)
+    this.dispatch("Tabs", "tabs-add", this);
   },
   beforeDestroy() {
-    this.dispatch('Tabs', 'tabs-remove', this)
+    this.dispatch("Tabs", "tabs-remove", this);
   }
 };
 </script>

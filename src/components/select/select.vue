@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import emitter from '../../mixins/emitter'
+import emitter from "../../mixins/emitter";
 import transferDom from "../../directives/transferDom";
 import winScroll from "../../directives/winScroll";
 import docClick from "../../directives/docClick";
@@ -66,12 +66,16 @@ export default {
     };
   },
   created() {
-    this.$on('select-change', this.change)
-    this.$on('select-add', this.add)
-    this.$on('select-remove', this.remove)
+    this.$on("select-change", this.change);
+    this.$on("select-add", this.add);
+    this.$on("select-remove", this.remove);
   },
   mounted() {
-    this.updateSelect();
+    let value = this.value;
+    if (value === null || value === "" || value === undefined) {
+      this.label = "";
+      this.selectItem = null;
+    }
   },
   computed: {
     isclearable() {
@@ -111,12 +115,16 @@ export default {
   },
   methods: {
     remove(obj) {
-      this.children.splice(this.children.indexOf(obj), 1)
+      this.children.splice(this.children.indexOf(obj), 1);
     },
-    add(obj) {
-      this.queryCount++
-      obj.index = this.children.length
-      this.children.push(obj)
+    add(child) {
+      this.queryCount++;
+      child.index = this.children.length;
+      let value = this.value;
+      child.selected =
+        child.value == value &&
+        (value !== "" && value != undefined && value !== null);
+      this.children.push(child);
     },
     handleKeyup(e) {
       if (!this.filterable) return;
@@ -127,19 +135,21 @@ export default {
       this.visible = false;
     },
     updateSelect() {
-      let value = this.value
-      if (value === null || value === '' || value === undefined) { this.label = ''; this.selectItem = null; }
+      let value = this.value;
+      let isNotValue = value !== "" && value != undefined && value !== null;
       this.children.forEach(child => {
-        if (child.value !== '' && child.value !== null && child.value !== undefined) {
-          child.selected = child.value == this.value && (this.value !== '' && this.value != undefined && this.value !== null)
+        let value = child.value;
+        if (value !== "" && value !== null && value !== undefined) {
+          child.selected = value == this.value && isNotValue;
           if (child.selected) {
             this.change({
-              value: child.value,
-              label: child.label === undefined ? child.$el.innerHTML : child.label
-            })
+              value: value,
+              label:
+                child.label === undefined ? child.$el.innerHTML : child.label
+            });
           }
         }
-      })
+      });
     },
     clear() {
       this.selectItem = null;
@@ -147,7 +157,7 @@ export default {
       this.children.forEach(child => (child.selected = false));
       this.$emit("input", "");
       this.$emit("change", {});
-      this.dispatch('FormItem', 'form-item-change', '')
+      this.dispatch("FormItem", "form-item-change", "");
     },
     toggleDrop() {
       if (this.disabled) {
@@ -156,32 +166,36 @@ export default {
 
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
-      if (this.visible) {
-       // setTimeout(() => this.setPosition());
-      }
-      this.$nextTick(()=>this.setPosition())
+      // if (this.visible) {
+      // setTimeout(() => this.setPosition());
+      // }
+      this.$nextTick(() => this.setPosition());
     },
     setPosition() {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
       let relPos = this.getElementPos(rel);
-      let clientH = window.innerHeight
-      let clientW = window.innerWidth
-
-      let scrollTop = window.scrollY;
+      let clientH = window.innerHeight;
+      let clientW = window.innerWidth;
+      // console.log(relPos)
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.x + 1;
+      if (this.transfer) this.left = relPos.left + 1;
       //new
-      if (clientH - relPos.y - relH - m < domH) {  //空出来的高度不足以放下dom
-        this.fadeInBottom = true
-        this.top = this.transfer ? relPos.y - m - domH + scrollTop : -(domH + m)
+      if (clientH - relPos.top - relH - m < domH) {
+        //空出来的高度不足以放下dom
+        this.fadeInBottom = true;
+        this.top = this.transfer
+          ? relPos.top - m - domH + scrollTop
+          : -(domH + m);
       } else {
-        this.fadeInBottom = false
-        this.top = this.transfer ? relPos.y + relH + m + scrollTop : relH + m
+        this.fadeInBottom = false;
+        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
+      // console.log(this.top)
       // console.log(this.fadeInBottom, clientH, relPos.y, relH, m, domH)
       //old
       // if (h - (pos.y - s) - rh < dh) {
@@ -196,8 +210,8 @@ export default {
       this.selectItem = item;
       this.$emit("change", item);
       this.$emit("input", item.value);
-      this.label = item.label
-      this.dispatch('FormItem', 'form-item-change', item.value)
+      this.label = item.label;
+      this.dispatch("FormItem", "form-item-change", item.value);
       setTimeout(() => (this.visible = false));
     }
   }
