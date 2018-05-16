@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     setPos() {
-      let pos = { x: 0, y: 0 };
+      let pos = { left: 0, top: 0 };
       let rel = this.$children[0] && this.$children[0].$el || this.$refs.rel;
       if (this.transfer) {
         pos = this.getElementPos(rel);
@@ -110,57 +110,57 @@ export default {
       let child = this.$children[0] && this.$children[0].$el || rel
       let mr = 0//document.defaultView.getComputedStyle(child, null)['margin-right'].replace('px', '')
       let mb = 0//document.defaultView.getComputedStyle(child, null)['margin-bottom'].replace('px', '')
-      let scrollTop = window.scrollY;
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
       // console.log(mr, mb)
       switch (x) {
         case "top":
-          this.top = pos.y - dom.offsetHeight - 10 + scrollTop;
-          this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) / 2 - mr / 2;
+          this.top = pos.top - dom.offsetHeight - 10 + scrollTop;
+          this.left = pos.left - (dom.offsetWidth - rel.offsetWidth) / 2 - mr / 2;
           break;
         case "top-left":
-          this.top = pos.y - dom.offsetHeight - 10 + scrollTop;
-          this.left = pos.x;
+          this.top = pos.top - dom.offsetHeight - 10 + scrollTop;
+          this.left = pos.left;
           break;
         case "top-right":
-          this.top = pos.y - dom.offsetHeight - 10 + scrollTop;
-          this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) - mr;
+          this.top = pos.top - dom.offsetHeight - 10 + scrollTop;
+          this.left = pos.left - (dom.offsetWidth - rel.offsetWidth) - mr;
           break;
         case "bottom":
-          this.top = pos.y + rel.offsetHeight + 10 - mb + scrollTop;
-          this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) / 2 - mr / 2;
+          this.top = pos.top + rel.offsetHeight + 10 - mb + scrollTop;
+          this.left = pos.left - (dom.offsetWidth - rel.offsetWidth) / 2 - mr / 2;
           break;
         case "bottom-right":
-          this.top = pos.y + rel.offsetHeight + 10 - mb + scrollTop;
-          this.left = pos.x - (dom.offsetWidth - rel.offsetWidth) - mr;
+          this.top = pos.top + rel.offsetHeight + 10 - mb + scrollTop;
+          this.left = pos.left - (dom.offsetWidth - rel.offsetWidth) - mr;
           break;
         case "bottom-left":
-          this.top = pos.y + rel.offsetHeight + 10 - mb + scrollTop;
-          this.left = pos.x;
+          this.top = pos.top + rel.offsetHeight + 10 - mb + scrollTop;
+          this.left = pos.left;
           break;
         case "left":
-          this.left = pos.x - dom.offsetWidth - 10;
-          this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) / 2 - mb / 2 + scrollTop;
+          this.left = pos.left - dom.offsetWidth - 10;
+          this.top = pos.top - (dom.offsetHeight - rel.offsetHeight) / 2 - mb / 2 + scrollTop;
           break;
         case "left-top":
-          this.left = pos.x - dom.offsetWidth - 10;
-          this.top = pos.y + scrollTop;
+          this.left = pos.left - dom.offsetWidth - 10;
+          this.top = pos.top + scrollTop;
           break;
         case "left-bottom":
-          this.left = pos.x - dom.offsetWidth - 10;
-          this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) - mb + scrollTop;
+          this.left = pos.left - dom.offsetWidth - 10;
+          this.top = pos.top - (dom.offsetHeight - rel.offsetHeight) - mb + scrollTop;
           break;
         case "right":
-          this.left = pos.x + rel.offsetWidth + 10 - mr;
-          this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) / 2 - mb / 2 + scrollTop;
+          this.left = pos.left + rel.offsetWidth + 10 - mr;
+          this.top = pos.top - (dom.offsetHeight - rel.offsetHeight) / 2 - mb / 2 + scrollTop;
           break;
         case "right-top":
-          this.left = pos.x + rel.offsetWidth + 10 - mr;
-          this.top = pos.y + scrollTop;
+          this.left = pos.left + rel.offsetWidth + 10 - mr;
+          this.top = pos.top + scrollTop;
           break;
         case "right-bottom":
-          this.left = pos.x + rel.offsetWidth + 10 - mr;
-          this.top = pos.y - (dom.offsetHeight - rel.offsetHeight) - mb + scrollTop;
+          this.left = pos.left + rel.offsetWidth + 10 - mr;
+          this.top = pos.top - (dom.offsetHeight - rel.offsetHeight) - mb + scrollTop;
           break;
       }
     },

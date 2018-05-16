@@ -54,14 +54,14 @@ export default {
                 //unfixedBottom
                 if (this.offsetBottom >= 0) {
                     let bodyPos = document.body.getBoundingClientRect()
-                    if (pos.y + pos.height <= bodyPos.height) {
+                    if (pos.top + pos.height <= bodyPos.height) {
                         this.showBlob = false
                         this.$emit('change',false)
                     }
                     return;
                 }
                 //unfixedTop
-                if (pos.y >= this.offsetTop) {
+                if (pos.top >= this.offsetTop) {
                     this.showBlob = false
                     this.$emit('change',false)
                 }
@@ -71,7 +71,7 @@ export default {
                 if (this.offsetBottom >= 0) {
                     // console.log(pos)
                     let bodyPos = document.body.getBoundingClientRect()
-                    if (pos.y + pos.height >= bodyPos.height) {
+                    if (pos.top + pos.height >= bodyPos.height) {
                         this.showBlob = true
                         this.$emit('change',true)
                         this.width = pos.width
@@ -80,7 +80,7 @@ export default {
                     return; //只能存在一种状态 bottom优先
                 }
                 //fixedTop
-                if (pos.y <= this.offsetTop) {
+                if (pos.top <= this.offsetTop) {
                     this.$emit('change',true)
                     this.showBlob = true
                     this.width = pos.width

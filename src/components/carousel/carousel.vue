@@ -73,7 +73,7 @@ export default {
                 posX = this.currentIndex * this.itemWidth * -1
                 style.width = `${this.listWidth}px`
             }
-            style.transform = `translate3d(${posX}px,${posY}px,0)`
+            style.transform = `translateX(${posX}px) translateY(${posY}px)`
             return style
         }
     },
