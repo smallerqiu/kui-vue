@@ -26,6 +26,7 @@ export default {
             this.$emit('expand', obj)
         },
         check(obj) {
+            console.log(obj,'callback')
             let checked = []
             //递归子集，同步选中选中状态
             let checkChild = (data) => {

@@ -5,8 +5,8 @@
     <transition name="dropdown">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
-          <Calendar v-model="dates[0]" :left="true"></Calendar>
-          <Calendar v-model="dates[1]" :right="true"></Calendar>
+          <Calendar v-model="dates[0]" :left="true" class="k-calendar-left"></Calendar>
+          <Calendar v-model="dates[1]" :right="true" class="k-calendar-right"></Calendar>
         </template>
         <template v-else>
           <Calendar v-model="dates[0]"></Calendar>
@@ -17,7 +17,7 @@
 </template>
 <script>
 import calendar from "./datecalendar";
-import emitter from '../../mixins/emitter'
+import emitter from "../../mixins/emitter";
 import winScroll from "../../directives/winScroll";
 import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
@@ -33,7 +33,6 @@ export default {
     width: [String, Number],
     mini: Boolean,
     name: [String],
-    popupClass: [String],
     value: [Date, Array, String],
     disabled: [Boolean],
     rangeSeparator: { type: String, default: "~" },
@@ -98,7 +97,9 @@ export default {
       return style;
     },
     range() {
-      return this.dates.length === 2;
+      // return this.dates.length === 2;
+      // console.log(Array.isArray(this.dates),)
+      return Array.isArray(this.value)
     }
   },
   /* boforeCreated(){
@@ -123,11 +124,14 @@ export default {
   },
   methods: {
     close(e) {
-      if (!this.transfer) {
+      if(!this.$refs.dom.contains(e.target)){
         this.visible = false;
-      } else {
-        this.visible = this.$refs.dom.contains(e.target);
       }
+      // if (!this.transfer) {
+      //   this.visible = false;
+      // } else {
+      //   this.visible = this.$refs.dom.contains(e.target);
+      // }
     },
     toggleDrop() {
       this.visible = !this.visible && !this.disabled;
@@ -138,21 +142,25 @@ export default {
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
       let relPos = this.getElementPos(rel);
-      let clientH = window.innerHeight
-      let clientW = window.innerWidth
+      let clientH = window.innerHeight;
+      let clientW = window.innerWidth;
 
-      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      let scrollTop =
+        document.body.scrollTop || document.documentElement.scrollTop;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
       if (this.transfer) this.left = relPos.left + 1;
       //new
-      if (clientH - relPos.top - relH - m < domH) {  //空出来的高度不足以放下dom
-        this.fadeInBottom = true
-        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m)
+      if (clientH - relPos.top - relH - m < domH) {
+        //空出来的高度不足以放下dom
+        this.fadeInBottom = true;
+        this.top = this.transfer
+          ? relPos.top - m - domH + scrollTop
+          : -(domH + m);
       } else {
-        this.fadeInBottom = false
-        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m
+        this.fadeInBottom = false;
+        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
       // if (h - (pos.y - s) - rh < dh) {
       //   this.fadeInBottom = true;
@@ -168,19 +176,26 @@ export default {
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
     clear() {
-      this.setText();
+      this.dates = []
       this.$emit("input", this.range ? [] : "");
-      this.dispatch('FormItem', 'form-item-change', this.range ? [] : "")
+      this.setText();
+      this.dispatch("FormItem", "form-item-change", this.range ? [] : "");
     },
     vi(val) {
+      console.log(val,this.value)
+      //在ie浏览器里面new Date() 格式必须为yyy/MM/dd 其他格式均不识别
       if (Array.isArray(val)) {
         // var d1 = new Date();
-        // var d2 = new Date(d1.setMonth(d1.getMonth() + 1 + 1));
+        // var d2 = new Date();
+        // d2.setMonth(d2.getMonth()+1)
+
         return val.length > 1
-          ? val.map(item => new Date(item))
-          : [new Date(), new Date()];
+          ? val.map((item,i) => item?new Date(item.toString().replace(/-/g, "/")):'')
+          : [];
       } else {
-        return val ? new Array(new Date(val)) : [new Date()];
+        return val
+          ? new Array(new Date(val.toString().replace(/-/g, "/")))
+          : [];
       }
     },
     ok() {
@@ -189,13 +204,19 @@ export default {
       this.text = date.length == 1 ? date[0] : txt;
 
       this.$emit("input", date.length == 1 ? date[0] : date);
-      this.dispatch('FormItem', 'form-item-change', date.length == 1 ? date[0] : date)
-
-      setTimeout(() => {
-        this.visible = this.range;
-      });
+      this.dispatch(
+        "FormItem",
+        "form-item-change",
+        date.length == 1 ? date[0] : date
+      );
+     
+      // setTimeout(() => {
+        this.visible = false
+       console.log(this.visible)
+       // });
     },
     tf(time, format) {
+      if(!time) return '';
       const year = time.getFullYear();
       const month = time.getMonth();
       const day = time.getDate();
