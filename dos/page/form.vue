@@ -12,10 +12,10 @@
                 <br/>
                 <Form :label-width="80" :labelAlign="labelAlign">
                     <FormItem label="Input">
-                        <Input></Input>
+                        <Input width="200"></Input>
                     </FormItem>
                     <FormItem label="Select">
-                        <Select v-model="s1">
+                        <Select v-model="s1" width="200">
                             <Option value="0">男</Option>
                             <Option value="1">女</Option>
                             <Option value="2">妖</Option>
@@ -71,7 +71,7 @@
                     </FormItem>
                     <FormItem label="Select">
                         <Row>
-                            <Col span="9">
+                            <Col span="12">
                             <FormItem  prop="province">
                                 <Select v-model="form.province" clearable>
                                     <Option value="0">北京</Option>
@@ -81,7 +81,7 @@
                                 </Select>
                             </FormItem>
                             </Col>
-                            <Col span="9" offset="1">
+                            <Col span="11" offset="1">
                             <FormItem prop="city">
                                 <Select v-model="form.city" clearable>
                                     <Option value="0">南山区</Option>

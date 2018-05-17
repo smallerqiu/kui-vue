@@ -3,7 +3,7 @@
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span> -->
       <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" :disabled="disabled" @keyup="handleKeyup" ref="input" />
-      <span class="k-select-arrow"></span>
+      <span class="k-select-arrow" v-if="!isclearable"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
@@ -180,10 +180,11 @@ export default {
       let clientW = window.innerWidth;
       // console.log(relPos)
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left + 1;
+      if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
       //new
       if (clientH - relPos.top - relH - m < domH) {
         //空出来的高度不足以放下dom

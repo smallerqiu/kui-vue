@@ -15,16 +15,19 @@ export default {
   props: {
     label: String,
     rules: { type: Array },
-    prop: String
+    prop: String,
+    labelWidth:[String,Number]
   },
   data() {
     return {
       form: this.getParent('Form'),
+      formitem : this.getParent('FormItem'),
       required: false,
       valid: true,
       fieldValue: '',
       errorTip: '',
-      Rules: this.rules
+      Rules: this.rules,
+      width:this.labelWidth
     };
   },
   computed: {
@@ -38,12 +41,14 @@ export default {
       ];
     },
     labelStyles() {
-      let width = this.form && this.form.labelWidth || 0;
-      return width ? { width: `${width}px` } : {};
+      let formitem = this.getParent('FormItem')
+      let width = this.width || (this.form && this.form.labelWidth || 0);
+      return width && !formitem ? { width: `${width}px` } : {};
     },
     contentStyles() {
-      let width = this.form && this.form.labelWidth || 0;
-      return width && this.form.labelAlign != 'top' && this.label != undefined ? { marginLeft: `${width}px` } : {};
+      let formitem = this.getParent('FormItem')
+      let width = this.width || (this.form && this.form.labelWidth || 0);
+      return width && this.form.labelAlign != 'top' && !formitem  ? { marginLeft: `${width}px` } : {};
     }
   },
   created() {

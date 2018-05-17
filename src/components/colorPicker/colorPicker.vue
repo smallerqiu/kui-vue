@@ -148,7 +148,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      let m = 1;
+      let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
       let relPos = this.getElementPos(rel);
@@ -156,17 +156,18 @@ export default {
       let clientW = window.innerWidth
 
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left;
+      if (this.transfer) this.left = relPos.left + scrollLeft;
       //new
       if (clientH - relPos.top - relH - m < domH) {  //空出来的高度不足以放下dom
         this.fadeInBottom = true
         this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m)
       } else {
         this.fadeInBottom = false
-        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m
+        this.top = this.transfer ? relPos.top + relH + scrollTop : relH - m
       }
     },
     hide() {
