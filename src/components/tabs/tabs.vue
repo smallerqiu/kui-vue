@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" v-scroll="setScroll">
+  <div :class="classes" v-scroll="setScroll" ref="root">
     <div class="k-tabs-bar">
       <div class="k-tabs-extra" ref="extra">
         <slot name="extra"></slot>
@@ -127,8 +127,8 @@ export default {
     });
     this.left = index;
     this.paneLeft = index;
-    this.itemWidth = this.$refs.scroll.offsetWidth;
-    console.log(this.itemWidth);
+    this.itemWidth = this.$refs.root.offsetWidth;
+    // console.log(this.itemWidth);
     this.listWidth = this.itemWidth * this.children.length;
   },
   methods: {
@@ -149,7 +149,7 @@ export default {
       let scrollWidth = this.$refs.scroll.scrollWidth;
       let extraWidth = this.$refs.extra.offsetWidth;
       // console.log(boxWidth,scrollWidth,extraWidth)
-      let s = this.scrollable ? 39 * 2 - 10 : 0;
+      // let s = this.scrollable ? 39 * 2 - 10 : 0;
       this.scrollable = scrollWidth - extraWidth > boxWidth;
       //重置滚动
       if (this.tabLeft < 0) {
@@ -157,7 +157,8 @@ export default {
           this.tabLeft = -(scrollWidth - boxWidth);
         }
       }
-      this.itemWidth = boxWidth;
+      this.itemWidth = this.$refs.root.offsetWidth;
+      this.listWidth = this.itemWidth * this.children.length;
     },
     close(index, item) {
       this.$emit("close", this.activeName);
@@ -188,6 +189,7 @@ export default {
     add(obj) {
       if (obj.activeName === undefined) obj.activeName = this.children.length;
       else obj.active = obj.activeName == this.value;
+      obj.width  = this.itemWidth
       this.children.push(obj);
     },
     remove(obj) {

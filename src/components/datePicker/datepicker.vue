@@ -145,19 +145,17 @@ export default {
       let clientH = window.innerHeight;
       let clientW = window.innerWidth;
 
-      let scrollTop =
-        document.body.scrollTop || document.documentElement.scrollTop;
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
       let domH = dom.offsetHeight;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left + 1;
+      if (this.transfer) this.left = relPos.left + scrollLeft;
       //new
       if (clientH - relPos.top - relH - m < domH) {
         //空出来的高度不足以放下dom
         this.fadeInBottom = true;
-        this.top = this.transfer
-          ? relPos.top - m - domH + scrollTop
-          : -(domH + m);
+        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m);
       } else {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;

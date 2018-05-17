@@ -3,12 +3,14 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
-        <h3>1.7.3<span> 2018-5-16 </span></h3>
+        <h3>1.7.3<span> 2018-5-17 </span></h3>
         <p>修复IE9+<code>Tree</code>组件选中的问题</p>
         <p>优化<code>datePicker</code>更加友好展示</p>
+        <p>修复<code>Tabs</code>子集增加删除宽度错误的bug</p>
+        <p>优化一些其他的1像素的问题</p>
       </TimeLineItem>
       <TimeLineItem >
-        <h3>1.7.2<span> 2018-5-15 </span></h3>
+        <h3>1.7.2<span> 2018-5-16 </span></h3>
         <p>修复IE9+浏览器中的花式bug</p>
       </TimeLineItem>
       <TimeLineItem >
