@@ -156,6 +156,7 @@ export default {
             this.moveY = e.touches[0].clientY
         },
         touchMove(e) {
+            e.preventDefault();
             if (this.isBarMouseDown) {
                 let wrapHeight = this.wrapHeight
                 let innerHeight = this.innerHeight
