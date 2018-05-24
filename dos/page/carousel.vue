@@ -17,8 +17,6 @@
                 <div slot="desc">最基本的用法。</div>
                 <div slot="code">{{code.base}}</div>
             </Demo>
-            </Col>
-            <Col span="12">
             <Demo layout="vertical" title="垂直">
                 <div slot="content">
                     <Carousel vertical>
@@ -32,8 +30,6 @@
                 <div slot="code">{{code.vertical}}</div>
             </Demo>
             </Col>
-        </Row>
-        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="自动播放">
                 <div slot="content">
@@ -47,8 +43,6 @@
                 <div slot="desc">定时切换下一张。</div>
                 <div slot="code">{{code.autoplay}}</div>
             </Demo>
-            </Col>
-            <Col span="12">
             <Demo layout="vertical" title="圆形指示器">
                 <div slot="content">
                     <Carousel dotsType="radius">

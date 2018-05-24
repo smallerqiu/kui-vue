@@ -2,47 +2,65 @@
   <div>
     <h2>Checkbox 多选框</h2>
     <h3>代码示例 </h3>
-    <Demo title="基础用法">
-      <div slot="content">
-        <p>{{checked}}</p>
-        <Checkbox v-model="checked">单选框 </Checkbox>
-        <Button @click="checked=!checked">Click me</Button>
-      </div>
-      <div slot="desc">单独使用 ,使用
-        <code>v-model</code> 可以双向绑定数据。</div>
-      <div slot="code">{{code.base}}</div>
-    </Demo>
-    <Demo title="组合使用">
-      <div slot="content">{{data}}<br/>
-        <CheckboxGroup v-model="data">
-          <Checkbox label="苹果🍎"></Checkbox>
-          <Checkbox label="橘子🍊"></Checkbox>
-          <Checkbox label="香蕉🍌"></Checkbox>
-          <Checkbox label="栗子🌰"></Checkbox>
-          <Checkbox label="葡萄🍇" disabled></Checkbox>
-          <Checkbox label="梨子🍐" disabled></Checkbox>
-        </CheckboxGroup>
-        <Button @click="data=[]">清除</Button>
-        <Button @click="data=['苹果🍎']">选中苹果</Button>
-      </div>
-      <div slot="desc">结合
-        <code>CheckboxGroup</code>来组合使用,通过
-        <code>disabled</code>可以设置组件是否被禁用</div>
-      <div slot="code">{{code.group}}</div>
-    </Demo>
-    <Demo title="全选">
-      <div slot="content">
-        <Checkbox :value="checkAll" :indeterminate="indeterminate" @click.prevent.native="handelCheckAll">全选</Checkbox>
-        <CheckboxGroup v-model="check" @change="handelCheck">
-          <Checkbox label="苹果🍎"></Checkbox>
-          <Checkbox label="葡萄🍇"></Checkbox>
-          <Checkbox label="香蕉🍌"></Checkbox>
-          <Checkbox label="栗子🌰"></Checkbox>
-        </CheckboxGroup>
-      </div>
-      <div slot="desc"> </div>
-      <div slot="code">{{code.checkAll}}</div>
-    </Demo>
+    <Row gutter="8">
+      <Col span="12">
+      <Demo title="基础用法">
+        <div slot="content">
+          <p>{{checked}}</p>
+          <Checkbox v-model="checked">单选框 </Checkbox>
+          <Button @click="checked=!checked">Click me</Button>
+        </div>
+        <div slot="desc">单独使用 ,使用
+          <code>v-model</code> 可以双向绑定数据。</div>
+        <div slot="code">{{code.base}}</div>
+      </Demo>
+      <Demo title="组合使用">
+        <div slot="content">{{data}}<br/>
+          <CheckboxGroup v-model="data">
+            <Checkbox label="苹果🍎"></Checkbox>
+            <Checkbox label="橘子🍊"></Checkbox>
+            <Checkbox label="香蕉🍌"></Checkbox>
+            <Checkbox label="栗子🌰"></Checkbox>
+            <Checkbox label="葡萄🍇"></Checkbox>
+            <Checkbox label="梨子🍐"></Checkbox>
+          </CheckboxGroup>
+          <Button @click="data=[]">清除</Button>
+          <Button @click="data=['苹果🍎']">选中苹果</Button>
+        </div>
+        <div slot="desc">结合
+          <code>CheckboxGroup</code>来组合使用,通过
+          <code>disabled</code>可以设置组件是否被禁用</div>
+        <div slot="code">{{code.group}}</div>
+      </Demo>
+      </Col>
+      <Col span="12">
+      <Demo title="可不用">
+        <div slot="content">
+          <CheckboxGroup :value="['苹果🍎','香蕉🍌']">
+            <Checkbox label="苹果🍎" disabled></Checkbox>
+            <Checkbox label="葡萄🍇" disabled></Checkbox>
+            <Checkbox label="香蕉🍌" disabled></Checkbox>
+            <Checkbox label="栗子🌰" disabled></Checkbox>
+          </CheckboxGroup>
+        </div>
+        <div slot="desc">通过<code>disabled</code>设置不可用</div>
+        <div slot="code">{{code.disabled}}</div>
+      </Demo>
+      <Demo title="全选">
+        <div slot="content">
+          <Checkbox :value="checkAll" :indeterminate="indeterminate" @click.prevent.native="handelCheckAll">全选</Checkbox>
+          <CheckboxGroup v-model="check" @change="handelCheck">
+            <Checkbox label="苹果🍎"></Checkbox>
+            <Checkbox label="葡萄🍇"></Checkbox>
+            <Checkbox label="香蕉🍌"></Checkbox>
+            <Checkbox label="栗子🌰"></Checkbox>
+          </CheckboxGroup>
+        </div>
+        <div slot="desc">全选组合 </div>
+        <div slot="code">{{code.checkAll}}</div>
+      </Demo>
+      </Col>
+    </Row>
     <h3>API</h3>
     <div class="table-border">
       <table>

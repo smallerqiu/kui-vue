@@ -5,26 +5,32 @@
 let on = {
     beforeEnter(el) {
         el.style.height = 0
+        el.style.opacity = 0.1
     },
     enter(el) {
-        if (el.scrollHeight !== 0)
+        if (el.scrollHeight !== 0) {
             el.style.height = el.scrollHeight + 'px'
-        else {
+            el.style.opacity = 1
+        } else {
             el.style.height = ''
+            el.style.opacity = ''
         }
     },
     afterEnter(el) {
         el.style.height = ''
+        el.style.opacity = ''
     },
 
     beforeLeave(el) {
         el.style.height = el.scrollHeight + 'px'
+        el.style.opacity = 1
     },
     leave(el) {
-        if (el.scrollHeight !== 0) { el.style.height = 0 }
+        if (el.scrollHeight !== 0) { el.style.height = 0; el.style.opacity = 0.1 }
     },
     afterLeave(el) {
         el.style.height = ''
+        el.style.opacity = ''
     },
 }
 

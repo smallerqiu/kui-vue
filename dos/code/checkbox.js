@@ -11,6 +11,12 @@ export default {
       };
   }
 </script>`
+code.disabled = `<CheckboxGroup :value="['苹果🍎','香蕉🍌']">
+  <Checkbox label="苹果🍎" disabled></Checkbox>
+  <Checkbox label="葡萄🍇" disabled></Checkbox>
+  <Checkbox label="香蕉🍌" disabled></Checkbox>
+  <Checkbox label="栗子🌰" disabled></Checkbox>
+</CheckboxGroup>`
 
 code.group =`<CheckboxGroup v-model="data">
   <Checkbox label="苹果🍎"></Checkbox>

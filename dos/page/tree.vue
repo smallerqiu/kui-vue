@@ -3,35 +3,42 @@
         <h2>Tree 树形控件</h2>
         <p>文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用树控件可以完整展现其中的层级关系，并具有展开收起选择等交互功能。</p>
         <h3>代码示例</h3>
-        <Demo title="基本用法">
-            <div slot="content">
-                <Tree :data="data"></Tree>
-            </div>
-            <div slot="desc">最简单的用法，展示可选中，默认展开功能。</div>
-            <div slot="code">{{code.base}}</div>
-        </Demo>
-        <Demo title="可勾选">
-            <div slot="content">
-                <Tree :data="data1" checkbox @check="select"></Tree>
-            </div>
-            <div slot="desc">设置属性
-                <code>checkbox</code> 可以对节点进行勾选。</div>
-            <div slot="code">{{code.checked}}</div>
-        </Demo>
-        <Demo title="异步加载">
-            <div slot="content">
-                <Tree :data="data2" @loadData="loadData"></Tree>
-            </div>
-            <div slot="desc">点击展开节点，动态加载数据。。</div>
-            <div slot="code">{{code.async}}</div>
-        </Demo>
-        <Demo title="自定义图标">
-            <div slot="content">
-                <Tree :data="data3"></Tree>
-            </div>
-            <div slot="desc">可以针对不同的节点定制图标。</div>
-            <div slot="code">{{code.icon}}</div>
-        </Demo>
+        <Row gutter="8">
+            <Col span="12">
+            <Demo title="基本用法">
+                <div slot="content">
+                    <Tree :data="data"></Tree>
+                </div>
+                <div slot="desc">最简单的用法，展示可选中，默认展开功能。</div>
+                <div slot="code">{{code.base}}</div>
+            </Demo>
+            <Demo title="可勾选">
+                <div slot="content">
+                    <Tree :data="data1" checkbox @check="select"></Tree>
+                </div>
+                <div slot="desc">设置属性
+                    <code>checkbox</code> 可以对节点进行勾选。</div>
+                <div slot="code">{{code.checked}}</div>
+            </Demo>
+            </Col>
+            <Col span="12">
+            <Demo title="异步加载">
+                <div slot="content">
+                    <Tree :data="data2" @loadData="loadData"></Tree>
+                </div>
+                <div slot="desc">点击展开节点，动态加载数据。。</div>
+                <div slot="code">{{code.async}}</div>
+            </Demo>
+            <Demo title="自定义图标">
+                <div slot="content">
+                    <Tree :data="data3"></Tree>
+                </div>
+                <div slot="desc">可以针对不同的节点定制图标。</div>
+                <div slot="code">{{code.icon}}</div>
+            </Demo>
+            </Col>
+        </Row>
+
         <h3>TreeNode API</h3>
         <div class="table-border">
             <table>
@@ -179,7 +186,7 @@ export default {
                             children: [
                                 {
                                     title: 'leaf 1-2-1', expand: true, children: [
-                                        { title: 'leaf 1-2-1-1',  },
+                                        { title: 'leaf 1-2-1-1', },
                                         { title: 'leaf 1-2-1-2' }
                                     ]
                                 },

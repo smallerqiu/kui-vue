@@ -123,6 +123,8 @@ export default {
       if (v) {
         this.visible = v
         document.body.style.overflow = 'hidden'
+        this.left = 0;
+        this.top = 100;
       } else {
         document.body.style.overflow = ''
         this.hide();
@@ -163,8 +165,7 @@ export default {
       this.hide();
     },
     onKeyUp(e) {
-      if (this.visible) {
-        console.log(e.keyCode)
+      if (this.visible) { 
         if (e.keyCode == 27) this.hide();
       }
     },
@@ -175,11 +176,7 @@ export default {
     hide() {
       this.visible = false;
       this.$emit("input", false);
-      this.$emit("close");
-      setTimeout(() => {
-        this.left = 0;
-        this.top = 100;
-      }, 500);
+      this.$emit("close"); 
     }
   }
 };

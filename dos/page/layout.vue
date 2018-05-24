@@ -20,7 +20,7 @@
     </ul>
     <Alert>注意：非 template/render 模式下，需使用 k-col。</Alert>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基础" layout="vertical">
       <div slot="content">
         <Row>
           <Col span="12">col-12</Col>
@@ -43,7 +43,7 @@
         <code>row</code>里面</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
-    <Demo title="分栏间隔">
+    <Demo title="分栏间隔" layout="vertical">
       <div slot="content">
         <Row gutter="10" class="pd">
           <Col span="6">
@@ -64,7 +64,7 @@
         <code>gutter</code>熟悉来设置分栏的间隔</div>
       <div slot="code">{{code.gutter}}</div>
     </Demo>
-    <Demo title="栅格偏移">
+    <Demo title="栅格偏移" layout="vertical">
       <div slot="content">
         <Row>
           <Col span="8">col-8</Col>

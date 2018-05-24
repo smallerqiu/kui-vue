@@ -50,13 +50,13 @@ export default {
 
             // 父级 为 overflow hidden， 就掉水沟了， 取值不准
             // if (!element) return pos;
-            // pos.x = element.offsetLeft;
-            // pos.y = element.offsetTop;
+            // pos.left = element.offsetLeft;
+            // pos.top = element.offsetTop;
 
             // var parent = element.offsetParent;
             // while (parent !== null) {
-            //     pos.x += parent.offsetLeft;
-            //     pos.y += parent.offsetTop;
+            //     pos.left += parent.offsetLeft;
+            //     pos.top += parent.offsetTop;
             //     parent = parent.offsetParent;
             // }
             // return pos;

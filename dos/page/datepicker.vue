@@ -14,8 +14,6 @@
           <code>v-model</code>进行数据双向绑定</div>
         <div slot="code">{{code.base}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="可清除" layout="vertical">
         <div slot="content">
           <DatePicker clearable></DatePicker>
@@ -26,10 +24,6 @@
         </div>
         <div slot="code">{{code.clearable}}</div>
       </Demo>
-      </Col>
-    </Row>
-    <Row gutter="8">
-      <Col span="12">
       <Demo title="尺寸" layout="vertical">
         <div slot="content">
           <DatePicker></DatePicker>
@@ -42,19 +36,17 @@
         </div>
         <div slot="code">{{code.size}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="日期单位" layout="vertical">
         <div slot="content">
           <Row gutter="10">
-            <Col span="8">
-            年<DatePicker format="YYYY"></DatePicker>
+            <Col span="8"> 年
+            <DatePicker format="YYYY"></DatePicker>
             </Col>
-            <Col span="8">
-            月<DatePicker format="MM"></DatePicker>
+            <Col span="8"> 月
+            <DatePicker format="MM"></DatePicker>
             </Col>
-            <Col span="8">
-            时间<DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
+            <Col span="8"> 时间
+            <DatePicker format="YYYY-MM-DD HH:mm:ss"></DatePicker>
             </Col>
           </Row>
         </div>
@@ -63,8 +55,6 @@
         <div slot="code">{{code.date}}</div>
       </Demo>
       </Col>
-    </Row>
-    <Row gutter="8">
       <Col span="12">
       <Demo title="选择日期范围" layout="vertical">
         <div slot="content">
@@ -83,8 +73,6 @@
           <code>range-separator</code>来设置展示分隔符</div>
         <div slot="code">{{code.range}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="禁用" layout="vertical">
         <div slot="content">
           <Row padding="10">
@@ -104,20 +92,21 @@
         </div>
         <div slot="code">{{code.disabled}}</div>
       </Demo>
+      <Demo title="多语言" layout="vertical">
+        <div slot="content">英文：
+          <DatePicker lang="en"></DatePicker>
+          中文：
+          <DatePicker></DatePicker>
+        </div>
+        <div slot="desc">通过
+          <code>lang</code>来控制语言类型，目前有英文和中文两种，默认中文
+          <code>zh-cn</code>
+        </div>
+        <div slot="code">{{code.lang}}</div>
+      </Demo>
       </Col>
     </Row>
-    <Demo title="多语言"  layout="vertical">
-      <div slot="content">英文：
-        <DatePicker lang="en"></DatePicker>
-        中文：
-        <DatePicker></DatePicker>
-      </div>
-      <div slot="desc">通过
-        <code>lang</code>来控制语言类型，目前有英文和中文两种，默认中文
-        <code>zh-cn</code>
-      </div>
-      <div slot="code">{{code.lang}}</div>
-    </Demo>
+
     <h3>API</h3>
     <div class="table-border">
       <table>

@@ -15,20 +15,23 @@
             </div>
         </div>
         <div class="k-demo-line"></div>
-        <Code :style="codeStyles" ref="code" :lang="lang">
-            <slot name="code"></slot>
-        </Code>
+        <Collapse>
+            <Code v-show="expand" ref="code" :lang="lang">
+                <slot name="code"></slot>
+            </Code>
+        </Collapse>
     </div>
 </template>
 <script>
 import Code from '../code'
+import Collapse from '../../../src/components/collapse/collapse.js'
 import resize from '../../../src/directives/winScroll'
 export default {
     directives: { resize },
-    components: { Code },
+    components: { Code, Collapse },
     name: 'Demo',
     props: {
-        layout: { type: String, default: 'horizontal' },
+        layout: { type: String, default: 'vertical' },
         title: String,
         lang: String,
     },

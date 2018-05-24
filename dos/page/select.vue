@@ -3,69 +3,74 @@
     <h2>Select 选择器</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-select</Alert>
     <h3>代码示例</h3>
-    <Demo title="基础用法">
-      <div slot="content">
-        <Select :width="200" v-model="select">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
-        </Select>
-        <Button @click="select=''">清除</Button>
-        <Button @click="select=1">选中橘子</Button>
-      </div>
-      <div slot="desc">通过
-        <code>v-model</code>进行数据双向绑定</div>
-      <div slot="code">{{code.base}}</div>
-    </Demo>
+    <Row gutter="8">
+      <Col span="12">
+      <Demo title="基础用法">
+        <div slot="content">
+          <Select :width="200" v-model="select">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+          </Select>
+          <Button @click="select=''">清除</Button>
+          <Button @click="select=1">选中橘子</Button>
+        </div>
+        <div slot="desc">通过
+          <code>v-model</code>进行数据双向绑定</div>
+        <div slot="code">{{code.base}}</div>
+      </Demo>
 
-    <Demo title="尺寸">
-      <div slot="content">
-        <Select :width="200" v-model="select1" :value="''">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
-        </Select>
-        <Select :width="200" v-model="select1" mini :value="''">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
-        </Select>
-      </div>
-      <div slot="desc">通过
-        <code>width</code>和
-        <code>mini</code>可控制组件尺寸大小</div>
-      <div slot="code">{{code.size}}</div>
-    </Demo>
-    <h3></h3>
+      <Demo title="尺寸">
+        <div slot="content">
+          <Select :width="200" v-model="select1" :value="''">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+          </Select>
+          <Select :width="200" v-model="select1" mini :value="''">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
+          </Select>
+        </div>
+        <div slot="desc">通过
+          <code>width</code>和
+          <code>mini</code>可控制组件尺寸大小</div>
+        <div slot="code">{{code.size}}</div>
+      </Demo>
+      <Demo title="可清除">
+        <div slot="content">
+          <Select :width="200" clearable v-model="select2">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+          </Select>
+          <Select :width="200" clearable mini v-model="select2">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+          </Select>
+        </div>
+        <div slot="desc">通过
+          <code>clearable</code>可控制组件是否显示清除按钮</div>
+        <div slot="code">{{code.clearable}}</div>
+      </Demo>
+      </Col>
+      <Col span="12">
+      <Demo title="可搜索">
+        <div slot="content">
+          <Select :width="200" filterable v-model="select3">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
+          </Select>
+        </div>
+        <div slot="desc">通过
+          <code>filterable</code>可设置组件是否呈现搜索模式</div>
+        <div slot="code">{{code.search}}</div>
+      </Demo>
+      <Demo title="禁用">
+        <div slot="content">
+          <Select disabled :width="200"></Select>
+          <Select :width="200" v-model="select4">
+            <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
+          </Select>
+        </div>
+        <div slot="desc">通过
+          <code>disabled</code>可设置组件是否被禁用</div>
+        <div slot="code">{{code.disabled}}</div>
+      </Demo>
+      </Col>
+    </Row>
 
-    <Demo title="可清除">
-      <div slot="content">
-        <Select :width="200" clearable v-model="select2">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-        </Select>
-        <Select :width="200" clearable mini v-model="select2">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-        </Select>
-      </div>
-      <div slot="desc">通过
-        <code>clearable</code>可控制组件是否显示清除按钮</div>
-      <div slot="code">{{code.clearable}}</div>
-    </Demo>
-    <Demo title="可搜索">
-      <div slot="content">
-        <Select :width="200" filterable v-model="select3">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label"></Option>
-        </Select>
-      </div>
-      <div slot="desc">通过
-        <code>filterable</code>可设置组件是否呈现搜索模式</div>
-      <div slot="code">{{code.search}}</div>
-    </Demo>
-    <Demo title="禁用">
-      <div slot="content">
-        <Select disabled :width="200"></Select>
-        <Select :width="200" v-model="select4">
-          <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
-        </Select>
-      </div>
-      <div slot="desc">通过
-        <code>disabled</code>可设置组件是否被禁用</div>
-      <div slot="code">{{code.disabled}}</div>
-    </Demo>
     <h3>Select API</h3>
     <div class="table-border">
       <table>

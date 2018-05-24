@@ -15,8 +15,6 @@
           <code>action</code>配置上传接口路径</div>
         <div slot="code">{{code.base}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="禁用" layout="vertical">
         <div slot="content">
           <Upload :action="action" disabled>
@@ -30,8 +28,6 @@
         <div slot="code">{{code.disabled}}</div>
       </Demo>
       </Col>
-    </Row>
-    <Row gutter="8">
       <Col span="12">
       <Demo title="附带数据上传" layout="vertical">
         <div slot="content">
@@ -43,8 +39,6 @@
           <code>data</code>为json</div>
         <div slot="code">{{code.withData}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="非自动上传模式" layout="vertical">
         <div slot="content">
           <Upload :action="action" @change="change" @complite="complite" ref="upload" :data="data" type="wait">

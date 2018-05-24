@@ -14,8 +14,6 @@
           <code>Badge</code>基础使用</div>
         <div slot="code">{{code.base}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo layout="vertical" title="点">
         <div slot="content">
           <Badge dot>
@@ -32,10 +30,6 @@
           <code>dot</code>来展示一个点</div>
         <div slot="code">{{code.dot}}</div>
       </Demo>
-      </Col>
-    </Row>
-    <Row gutter="8">
-      <Col span="12">
       <Demo layout="vertical" title="数字隐藏">
         <div slot="content">
           <Badge count="100" max-count="99">
@@ -67,8 +61,6 @@
         <div slot="code">{{code.color}}</div>
       </Demo>
       </Col>
-    </Row>
-    <Row gutter="8">
       <Col span="12">
       <Demo layout="vertical" title="单独使用">
         <div slot="content">
@@ -78,8 +70,6 @@
         <div slot="desc"></div>
         <div slot="code">{{code.badge}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo layout="vertical" title="组合使用">
         <div slot="content">
           <div v-for="i in m" style="margin:15px 0;" :key="i">
