@@ -81,11 +81,17 @@ router.push(
         component: resolve => require(['./layout'], resolve),
         children: children
     })
-let routers = new Router({ routes: router, mode: 'history' })
-
+let routers = new Router({
+    routes: router, mode: 'history', scrollBehavior(to, from, savedPosition) {
+        // return 期望滚动到哪个的位置
+        return savedPosition || { x: 0, y: 0 }
+    }
+})
+let development = window.location.hostname != 'localhost' && window.location.hostname != '127.0.0.1'
 routers.beforeEach(function (to, from, next) {
     loading.start('line');
-    typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+    !development && typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+    // console.log(process)
     next()
 })
 routers.afterEach(route => {

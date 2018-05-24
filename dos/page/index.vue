@@ -10,8 +10,19 @@
       <a href="https://github.com/chuchur/kui" target="_blank">Github</a>
       <a href="https://www.chuchur.com">Blog</a>
     </nav>
+    <span v-for="n in 9" :key="n" :class="'blister blister'+n">
+      <span class="light"></span>
+      <span class="light2"></span>
+    </span>
+    <footer>
+      <p>Copyright ©2009-2018
+        <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
+    </footer>
   </section>
 </template>
+<style lang="less">
+
+</style>
 <script>
 export default {
   data() {

@@ -42,7 +42,7 @@ module.exports = merge(webpackBaseConfig, {
         }
     },
     plugins: [
-        new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
+        new webpack.DefinePlugin({ 'production': "'true'" }),
         new ExtractTextPlugin("k-ui.css"),
         new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false, drop_debugger: true, drop_console: true } }),
         // new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),

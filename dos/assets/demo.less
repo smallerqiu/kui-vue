@@ -7,6 +7,7 @@
 
 html,
 body,
+.main,
 .body {
     height: 100%;
 }
@@ -95,9 +96,14 @@ h4 {
 }
 
 body {
-    background: #f1f1f1; // overflow: hidden;
+    background: #f1f1f1;
 }
- 
+
+.body,
+.main {
+    display: inline-block;
+    width: 100%;
+}
 
 @keyframes showdown {
     from {
@@ -108,8 +114,147 @@ body {
     }
 }
 
+//index.ainimate
+.index {
+    background: linear-gradient(#acd9fb, #f2ffb3);
+    position: relative;
+    overflow: hidden;
+    .blister0 {
+        left: 10%;
+        animation-duration: 2s;
+        transform: rotate(10deg) scale(1);
+        animation-delay: 0s;
+    }
+    .blister1 {
+        left: 35%;
+        animation-duration: 12s;
+        transform: rotate(60deg) scale(.3);
+        animation-delay: 3s;
+    }
+    .blister2 {
+        left: 22%;
+        animation-duration: 8s;
+        transform: rotate(80deg) scale(.5);
+        animation-delay: 5s;
+    }
+    .blister3 {
+        left: 30%;
+        animation-duration: 10s;
+        transform: rotate(20deg) scale(1.2);
+        animation-delay: 1s;
+    }
+    .blister4 {
+        left: 77%;
+        animation-duration: 15s;
+        transform: rotate(120deg) scale(.6);
+        animation-delay: 6s;
+    }
+    .blister5 {
+        left: 54%;
+        animation-duration: 5s;
+        transform: rotate(160deg) scale(.7);
+        animation-delay: 7s;
+    }
+    .blister6 {
+        left: 60%;
+        animation-duration: 7s;
+        transform: rotate(180deg) scale(.9);
+        animation-delay: 8s;
+    }
+    .blister7 {
+        left: 87%;
+        animation-duration: 11s;
+        transform: rotate(120deg) scale(1.3);
+        animation-delay: 12s;
+    }
+    .blister8 {
+        left: 70%;
+        animation-duration: 12s;
+        transform: rotate(90deg) scale(.2);
+        animation-delay: 15s;
+    }
+    .blister9 {
+        left: 90%;
+        animation-duration: 10s;
+        transform: rotate(40deg) scale(.5);
+        animation-delay: 13s;
+    }
+    footer {
+        position: absolute;
+        bottom: 10px;
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        font-size: 12px;
+        color: #a0a0a0;
+        a {
+            color: #a0a0a0;
+        }
+    }
+}
+
+@keyframes up {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: -100px;
+    }
+}
+
+.blister {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    display: block;
+    border-radius: 50%; // left: 300px;
+    overflow: hidden;
+    animation: up 20s linear infinite;
+    bottom: -100%;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    &:hover {
+        animation-play-state: paused;
+    }
+    &::before {
+        content: "";
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        box-shadow: 0 0 20px #fff inset;
+        position: absolute;
+        border-radius: 50%;
+    }
+    .light {
+        border-radius: 50%;
+        width: 75px;
+        height: 54px;
+        transform: rotate(140deg);
+        top: -24px;
+        position: absolute;
+        left: -18px;
+        display: block;
+        background: radial-gradient(farthest-side, #fff, rgba(255, 255, 255, 0));
+    }
+    .light2 {
+        width: 24px;
+        height: 15px;
+        position: absolute;
+        bottom: 9px;
+        right: 15px;
+        transform: rotate(-25deg);
+        border-radius: 50%;
+        display: block;
+        background: radial-gradient(farthest-side, #fff, rgba(255, 255, 255, 0));
+    }
+}
+
 .index {
     text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
     .logo {
         text-align: center;
         margin: 0 auto;
@@ -166,18 +311,18 @@ header {
         vertical-align: middle;
         display: inline-block;
         margin-right: 10px;
-        width:30px;
+        width: 30px;
     }
 }
 
 .main {
     background: #fff; // width: 90%;
     // margin: 80px auto 20px;
-    // height: calc(~'100% - 85px'); // border-radius: 3px;
+    height: calc(~'100% - 83px'); // border-radius: 3px;
     // box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+    margin: 80px auto 0;
     >.k-row {
         height: 100%;
-        margin: 80px auto 20px;
         .k-col {
             height: 100%; // overflow: auto;
             // &::-webkit-scrollbar-thumb {
@@ -195,7 +340,6 @@ header {
         }
     }
     .nav {
-        overflow: auto; // min-width: 218px;
         // width: 218px;
         color: #555;
         padding: 20px 0px; // height: 100%; 
@@ -260,6 +404,9 @@ header {
         //         }
         //     }
         // }
+    }
+    .drawer-button {
+        display: none;
     }
     .content {
         padding: 50px 20px 10px;
@@ -351,10 +498,11 @@ samp {
     font-size: 14px;
     line-height: 25px;
 }
-.theme img{
+
+.theme img {
     max-width: 80%;
-    margin-top:20px;
-    box-shadow: 0 8px 20px rgba(143,168,191,.35);
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(143, 168, 191, .35);
 }
 
 .hljs {
@@ -597,9 +745,9 @@ table {
 }
 
 footer {
-    background: #fff;
-    padding: 10px;
-    text-align: center;
+    // background: #fff;
+    // padding: 10px;
+    // text-align: center;
 }
 
 .icon-item {
@@ -615,8 +763,8 @@ footer {
         font-size: 30px;
         cursor: pointer;
         transition: color .3s ease-in-out;
-        &:hover{
-            color:#3a95ff;
+        &:hover {
+            color: #3a95ff;
         }
     }
     p {
@@ -678,5 +826,42 @@ footer {
     }
     .t2 {
         background: #16aa6a;
+    }
+}
+
+@media(max-width:640px) {
+    header {
+        .k-menu-item {
+            padding: 0 10px !important;
+            font-size: 12px;
+            &:last-child {
+                display: none;
+            }
+        }
+    }
+    .k-col-4 {
+        position: absolute;
+        background: #fff;
+        z-index: 88;
+        width: 50%;
+        overflow: visible;
+        top: 0;
+        left: -50%;
+        transition:left .3s ease-in-out;
+        .drawer-button {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: -29px;
+            padding: 10px;
+            background: #fff;
+            box-shadow: 4px 2px 10px #8c8c8c87;
+            border-radius: 5px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+    .k-col-20 {
+        width: 100%;
     }
 }
