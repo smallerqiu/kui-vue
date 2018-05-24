@@ -3,88 +3,96 @@
         <h2>Tabs 标签页</h2>
         <p>选项卡切换组件。</p>
         <h3>代码示例</h3>
-        <Demo title="基础">
-            <div slot="content">
-                <Tabs :value="3">
-                    <TabPane label="Tab1" name="1">我是内容1....</TabPane>
-                    <TabPane label="Tab2" name="2">我是内容2....</TabPane>
-                    <TabPane label="Tab3" name="3">我是内容3....</TabPane>
-                </Tabs>
-            </div>
-            <div slot="desc">
-                <code>Value</code>和
-                <code>TabPane</code>的
-                <code>name</code>值匹配,默认选中第一项。可以使用 v-model 双向绑定数据。</div>
-            <div slot="code">{{code.base}}</div>
-        </Demo>
-        <Demo title="禁用">
-            <div slot="content">
-                <Tabs>
-                    <TabPane label="Tab1">我是内容1....</TabPane>
-                    <TabPane label="Tab2" disabled>我是内容2....</TabPane>
-                    <TabPane label="Tab3">我是内容3....</TabPane>
-                </Tabs>
-            </div>
-            <div slot="desc">禁用某一项。</div>
-            <div slot="code">{{code.disabled}}</div>
-        </Demo>
-        <Demo title="图标">
-            <div slot="content">
-                <Tabs>
-                    <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
-                    <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
-                    <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
-                </Tabs>
-            </div>
-            <div slot="desc">有图标的标签。</div>
-            <div slot="code">{{code.icon}}</div>
-        </Demo>
-        <Demo title="卡片式页签">
-            <div slot="content">
-                <Tabs card>
-                    <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
-                    <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
-                    <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
-                    <Button slot="extra" mini>Action</Button>
-                </Tabs>
-            </div>
-            <div slot="desc">设置 slot extra 可以在页签右边添加附加操作。</div>
-            <div slot="code">{{code.card}}</div>
-        </Demo>
-        <Demo title="新增和关闭页签">
-            <div slot="content">
-                <Tabs card closable>
-                    <TabPane :label="'Tab '+n" v-for="n in m" :closable="n!=1" :key="n">我是内容{{n}}....</TabPane>
-                    <Button slot="extra" mini @click="m++">+</Button>
-                </Tabs>
-            </div>
-            <div slot="desc">只有卡片样式支持新增和关闭。使用
-                <code>closable=false</code>禁止关闭。</div>
-            <div slot="code">{{code.closable}}</div>
-        </Demo>
-        <Demo title="简洁模式">
-            <div slot="content" style="padding:15px;background:#eee;">
-                <Tabs :value="1" sample>
-                    <TabPane label="TabTitle 1" name="1">
-                        <p>我是内容1....</p>
-                        <p>我是内容1....</p>
-                        <p>我是内容1....</p>
-                    </TabPane>
-                    <TabPane label="TabTitle 2" name="2">
-                        <p>我是内容2....</p>
-                        <p>我是内容2....</p>
-                        <p>我是内容2....</p>
-                    </TabPane>
-                    <TabPane label="TabTitle 3" name="3">
-                        <p>我是内容2....</p>
-                        <p>我是内容2....</p>
-                        <p>我是内容2....</p>
-                    </TabPane>
-                </Tabs>
-            </div>
-            <div slot="desc"><code>sample=true</code>开启简洁模式</div>
-            <div slot="code">{{code.sample}}</div>
-        </Demo>
+        <Row gutter="8">
+            <Col span="12">
+            <Demo title="基础">
+                <div slot="content">
+                    <Tabs :value="3">
+                        <TabPane label="Tab1" name="1">我是内容1....</TabPane>
+                        <TabPane label="Tab2" name="2">我是内容2....</TabPane>
+                        <TabPane label="Tab3" name="3">我是内容3....</TabPane>
+                    </Tabs>
+                </div>
+                <div slot="desc">
+                    <code>Value</code>和
+                    <code>TabPane</code>的
+                    <code>name</code>值匹配,默认选中第一项。可以使用 v-model 双向绑定数据。</div>
+                <div slot="code">{{code.base}}</div>
+            </Demo>
+            <Demo title="禁用">
+                <div slot="content">
+                    <Tabs>
+                        <TabPane label="Tab1">我是内容1....</TabPane>
+                        <TabPane label="Tab2" disabled>我是内容2....</TabPane>
+                        <TabPane label="Tab3">我是内容3....</TabPane>
+                    </Tabs>
+                </div>
+                <div slot="desc">禁用某一项。</div>
+                <div slot="code">{{code.disabled}}</div>
+            </Demo>
+            <Demo title="图标">
+                <div slot="content">
+                    <Tabs>
+                        <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
+                        <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
+                        <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+                    </Tabs>
+                </div>
+                <div slot="desc">有图标的标签。</div>
+                <div slot="code">{{code.icon}}</div>
+            </Demo>
+            </Col>
+            <Col span="12">
+            <Demo title="卡片式页签">
+                <div slot="content">
+                    <Tabs card>
+                        <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
+                        <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
+                        <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+                        <Button slot="extra" mini>Action</Button>
+                    </Tabs>
+                </div>
+                <div slot="desc">设置 slot extra 可以在页签右边添加附加操作。</div>
+                <div slot="code">{{code.card}}</div>
+            </Demo>
+            <Demo title="新增和关闭页签">
+                <div slot="content">
+                    <Tabs card closable>
+                        <TabPane :label="'Tab '+n" v-for="n in m" :closable="n!=1" :key="n">我是内容{{n}}....</TabPane>
+                        <Button slot="extra" mini @click="m++">+</Button>
+                    </Tabs>
+                </div>
+                <div slot="desc">只有卡片样式支持新增和关闭。使用
+                    <code>closable=false</code>禁止关闭。</div>
+                <div slot="code">{{code.closable}}</div>
+            </Demo>
+            <Demo title="简洁模式">
+                <div slot="content" style="padding:15px;background:#eee;">
+                    <Tabs :value="1" sample>
+                        <TabPane label="TabTitle 1" name="1">
+                            <p>我是内容1....</p>
+                            <p>我是内容1....</p>
+                            <p>我是内容1....</p>
+                        </TabPane>
+                        <TabPane label="TabTitle 2" name="2">
+                            <p>我是内容2....</p>
+                            <p>我是内容2....</p>
+                            <p>我是内容2....</p>
+                        </TabPane>
+                        <TabPane label="TabTitle 3" name="3">
+                            <p>我是内容2....</p>
+                            <p>我是内容2....</p>
+                            <p>我是内容2....</p>
+                        </TabPane>
+                    </Tabs>
+                </div>
+                <div slot="desc">
+                    <code>sample=true</code>开启简洁模式</div>
+                <div slot="code">{{code.sample}}</div>
+            </Demo>
+            </Col>
+        </Row>
+
         <h3>Tabs API</h3>
         <div class="table-border" style="overflow:visible;">
             <table>

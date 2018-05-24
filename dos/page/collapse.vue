@@ -28,8 +28,6 @@
                 <div slot="desc">默认可以同时展开一个或者多个面板</div>
                 <div slot="code">{{code.base}}</div>
             </Demo>
-            </Col>
-            <Col span="12">
             <Demo layout="vertical" title="手风琴">
                 <div slot="content">
                     <Collapse v-model="acitve1" accrodion>
@@ -54,8 +52,6 @@
                 <div slot="code">{{code.accrodion}}</div>
             </Demo>
             </Col>
-        </Row>
-        <Row gutter="8">
             <Col span="12">
             <Demo layout="vertical" title="嵌套面板">
                 <div slot="content">
@@ -92,8 +88,6 @@
                 <div slot="desc">嵌套折叠面板。</div>
                 <div slot="code">{{code.collapse}}</div>
             </Demo>
-            </Col>
-            <Col span="12">
             <Demo layout="vertical" title="简洁模式">
                 <div slot="content">
                     <Collapse v-model="acitve1" sample>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="styles" v-docClick="close" v-winScroll="setPosition">
+  <div :class="classes" :style="styles" v-docClick="close" v-winScroll="handleScroll">
     <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
     <a class="k-datepicker-close" @click.stop="clear" v-if="clearable&&!disabled"></a>
     <transition name="dropdown">
@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     close(e) {
-      if(!this.$refs.dom.contains(e.target)){
+      if (!this.$refs.dom.contains(e.target)) {
         this.visible = false;
       }
       // if (!this.transfer) {
@@ -135,6 +135,9 @@ export default {
     },
     toggleDrop() {
       this.visible = !this.visible && !this.disabled;
+      this.$nextTick(() => this.setPosition());
+    },
+    handleScroll() {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
@@ -180,7 +183,7 @@ export default {
       this.dispatch("FormItem", "form-item-change", this.range ? [] : "");
     },
     vi(val) {
-      console.log(val,this.value)
+      // console.log(val, this.value)
       //在ie浏览器里面new Date() 格式必须为yyy/MM/dd 其他格式均不识别
       if (Array.isArray(val)) {
         // var d1 = new Date();
@@ -188,7 +191,7 @@ export default {
         // d2.setMonth(d2.getMonth()+1)
 
         return val.length > 1
-          ? val.map((item,i) => item?new Date(item.toString().replace(/-/g, "/")):'')
+          ? val.map((item, i) => item ? new Date(item.toString().replace(/-/g, "/")) : '')
           : [];
       } else {
         return val
@@ -207,14 +210,10 @@ export default {
         "form-item-change",
         date.length == 1 ? date[0] : date
       );
-     
-      // setTimeout(() => {
-        this.visible = false
-       console.log(this.visible)
-       // });
+      this.visible = false
     },
     tf(time, format) {
-      if(!time) return '';
+      if (!time) return '';
       const year = time.getFullYear();
       const month = time.getMonth();
       const day = time.getDate();

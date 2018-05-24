@@ -13,8 +13,6 @@
           <code>v-model</code>进行数据双向绑定</div>
         <div slot="code">{{code.base}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="可清除" layout='vertical'>
         <div slot="content">
           <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
@@ -23,10 +21,6 @@
           <code>clearble</code>属性可控制是否显示清空按钮</div>
         <div slot="code">{{code.clearable}}</div>
       </Demo>
-      </Col>
-    </Row>
-    <Row gutter="8">
-      <Col span="12">
       <Demo title="带图标" layout='vertical'>
         <div slot="content">
           <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @iconClick="iconClick"></Input>
@@ -49,10 +43,6 @@
           <code>width</code>属性可控制组件宽度</div>
         <div slot="code">{{code.size}}</div>
       </Demo>
-      </Col>
-    </Row>
-    <Row gutter="8">
-      <Col span="12">
       <Demo title="文本域" layout='vertical'>
         <div slot="content">
           <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
@@ -63,8 +53,6 @@
           <code>textarea</code>时组件呈现文本玉</div>
         <div slot="code">{{code.textArea}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="禁用" layout='vertical'>
         <div slot="content">
           <div style="display:inline-block;">

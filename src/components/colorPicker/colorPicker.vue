@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" v-docClick="close" v-winScroll="setPosition">
+  <div :class="classes" v-docClick="close" v-winScroll="handleScroll">
     <!-- 颜色显示小方块 -->
     <div @click="toggleDrop" ref="rel">
       <div class="k-color-button" :style="{backgroundColor:showColor}"></div>
@@ -31,7 +31,7 @@
         <div class="k-more">
           <input type="text" class="k-value" v-model="showColor" />
           <k-button type="danger" class="k-more-button" @click.stop="hide">确定</k-button>
-          <k-button class="k-more-button" @click.stop="showMore=!showMore">更多</k-button>
+          <k-button class="k-more-button" @click.stop="handleShowMore">{{!showMore?'更多':'返回'}}</k-button>
         </div>
       </div>
     </transition>
@@ -46,8 +46,8 @@ import transferDom from "../../directives/transferDom";
 import docClick from "../../directives/docClick";
 export default {
   components: { picker, "k-button": Button },
-  directives: { docClick, transferDom,winScroll },
-  mixins:[emitter],
+  directives: { docClick, transferDom, winScroll },
+  mixins: [emitter],
   name: "ColorPicker",
   props: {
     // 默认展示面板
@@ -141,10 +141,17 @@ export default {
       return colorArr;
     }
   },
-  mounted() {},
+  mounted() { },
   methods: {
+    handleShowMore() {
+      this.showMore = !this.showMore
+      this.handleScroll()
+    },
     toggleDrop() {
       this.visible = !this.visible && !this.disabled;
+      this.$nextTick(() => this.setPosition());
+    },
+    handleScroll() {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
@@ -171,7 +178,7 @@ export default {
       }
     },
     hide() {
-      setTimeout(() => {
+      this.$nextTick(() => {
         this.visible = !this.visible;
         this.showMore = false;
       });

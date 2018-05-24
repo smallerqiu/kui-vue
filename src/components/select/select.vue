@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="setPosition">
+  <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="handleScroll">
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span> -->
       <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" :disabled="disabled" @keyup="handleKeyup" ref="input" />
@@ -42,9 +42,9 @@ export default {
     visible(val) {
       if (this.filterable) {
         if (!val) {
-          setTimeout(() => {
+          this.$nextTick(() => {
             this.children.forEach(x => (x.visible = true));
-          }, 300);
+          });
 
           this.$refs.input.blur();
           this.label = (this.selectItem && this.selectItem.label) || "";
@@ -130,6 +130,7 @@ export default {
       if (!this.filterable) return;
       this.children.forEach(x => x.query(e.target.value));
       this.queryCount = this.children.filter(x => x.visible).length;
+      this.handleScroll()
     },
     close() {
       this.visible = false;
@@ -166,9 +167,10 @@ export default {
 
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
-      // if (this.visible) {
-      // setTimeout(() => this.setPosition());
-      // }
+      
+      this.$nextTick(() => this.setPosition());
+    },
+    handleScroll() {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
@@ -213,7 +215,7 @@ export default {
       this.$emit("input", item.value);
       this.label = item.label;
       this.dispatch("FormItem", "form-item-change", item.value);
-      setTimeout(() => (this.visible = false));
+      this.$nextTick(() => (this.visible = false));
     }
   }
 };

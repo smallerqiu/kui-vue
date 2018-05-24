@@ -625,7 +625,7 @@ code {
 .k-demo-vertical {
     .k-code {
         margin-top: -1px;
-        transition: height .3s ease-in-out;
+        transition: height .3s ease-in-out,opacity .3s ease-in-out;
     }
 }
 
@@ -863,5 +863,16 @@ footer {
     }
     .k-col-20 {
         width: 100%;
+    }
+    .content{
+        .k-row > .k-col{
+            width:100%;
+            .k-col-12{
+                width:50%;
+            }
+            .k-col-11{
+                width:45.83333333%;
+            }
+        }
     }
 }

@@ -52,11 +52,7 @@ export default {
     changeFile: function(e) {
       e.cancelBubble = true;
       if (this.disabled) return false;
-      // this.select = true;
-      // setTimeout(() => {
-
-      // this.$refs["k-upload-file"].click();
-      // }, 300);
+      
       this.$refs["k-upload-file"].click();
       return false;
     },

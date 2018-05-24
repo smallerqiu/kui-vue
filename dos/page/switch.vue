@@ -15,8 +15,6 @@
           <code>v-model</code>进行数据双向绑定</div>
         <div slot="code">{{code.base}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="主题" layout="vertical">
         <div slot="content">
           <Switch :value="true"></Switch>
@@ -29,8 +27,6 @@
         <div slot="code">{{code.theme}}</div>
       </Demo>
       </Col>
-    </Row>
-    <Row gutter="8">
       <Col span="12">
       <Demo title="文字" layout="vertical">
         <div slot="content">
@@ -41,8 +37,6 @@
           <code>false-text</code>设置选中和非选中呈现文字</div>
         <div slot="code">{{code.text}}</div>
       </Demo>
-      </Col>
-      <Col span="12">
       <Demo title="禁用" layout="vertical">
         <div slot="content">
           <Switch :value="false" disabled></Switch>

@@ -1,5 +1,5 @@
 <template>
-    <div class="k-scroll" tabindex="0" @mousewheel="mouseWheel" ref="wrap" @keydown="keyDown" @mouseover="mouseOver" @resize="resize">
+    <div class="k-scroll" tabindex="0" @mousewheel="mouseWheel" ref="wrap" @keydown="keyDown" @keyup="keyUp" @mouseover="mouseOver" @resize="resize">
         <div class="k-scroll-view" :style="styles" ref="inner" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
             <slot></slot>
         </div>
@@ -27,7 +27,8 @@ export default {
             viewX: scrollX,
             isReload: false,
             isBarMouseDown: false,
-            moveY: 0
+            moveY: 0,
+            animaded: false
         }
     },
     watch: {
@@ -40,10 +41,10 @@ export default {
     },
     computed: {
         barStyles() {
-            return { height: `${this.barHeight}%`, top: `${this.barY}%`, transition: this.isBarMouseDown ? 'none' : '' }
+            return { height: `${this.barHeight}%`, top: `${this.barY}%`, transition: !this.animaded ? 'none' : '' }
         },
         styles() {
-            return { top: `${this.viewY}px`, transition: this.isBarMouseDown ? 'none' : '' }
+            return { top: `${this.viewY}px`, transition: !this.animaded ? 'none' : '' }
         }
     },
     mounted() {
@@ -58,9 +59,22 @@ export default {
         window.removeEventListener('resize', this.resize)
     },
     methods: {
-        resize(){
+        resize() {
+            this.animaded = false
             this.initBar()
-            this.setBar(1)
+            // this.setBar(0)
+            let wrapHeight = this.wrapHeight
+            let innerHeight = this.innerHeight
+            if (wrapHeight - this.viewY > innerHeight) {
+                this.viewY = (innerHeight - wrapHeight) * -1
+                this.barY = (this.viewY * wrapHeight / innerHeight) / wrapHeight * 100 * -1
+                return
+            }
+            if (this.viewY > 0) {
+                this.viewY = 0
+                this.barY = 0
+                return;
+            }
         },
         initBar() {
             this.wrapHeight = this.$refs.wrap.offsetHeight
@@ -94,11 +108,13 @@ export default {
             this.initBar()
         },
         mouseWheel(e) {
+            this.animaded = false
+            this.$emit('mousewheel', e)
             let y = e.deltaY
             this.setBar(y)
-            this.$emit('mousewheel', e)
         },
         keyDown(e) {
+            this.animaded = true
             let code = e.keyCode
             if (code == 38) { //up
                 this.setBar(-50)
@@ -112,6 +128,9 @@ export default {
                 this.setBar(200)
                 return
             }
+        },
+        keyUp() {
+            this.animaded = false
         },
         barMouseDown(e) {
             this.isBarMouseDown = true
@@ -141,8 +160,8 @@ export default {
                 let wrapHeight = this.wrapHeight
                 let innerHeight = this.innerHeight
                 let m = e.touches[0].clientY - this.moveY
-                let move = innerHeight * m / (wrapHeight - this.barHeight) // 更具移动的距离比 总移动距离 等比计算，得出实际将要移动的距离
-                this.setBar(move*-1)
+                // let move = innerHeight * m / (wrapHeight - this.barHeight) // 更具移动的距离比 总移动距离 等比计算，得出实际将要移动的距离
+                this.setBar(m * -1)
                 this.moveY = e.touches[0].clientY
             }
         },

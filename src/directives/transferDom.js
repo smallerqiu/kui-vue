@@ -4,12 +4,16 @@ export default {
         if (transfer !== 'true') return false;
         const parentNode = el.parentNode;
         if (!parentNode) return;
-        let home = document.createComment('')
+        let home = document.createComment('div')
+        // let home = document.createElement('div')
+        // home.style.cssText = 'position: absolute; top: 0px; left: 0px; width: 100%;'
+        // home.appendChild(el)
         parentNode.replaceChild(home, el)
         el._transferData = {
             parentNode: parentNode
         }
         document.body.appendChild(el)
+        // document.body.appendChild(home)
     },
     componentUpdated(el, binding) {
         // if (el.dataset.transfer !== 'true') return false;

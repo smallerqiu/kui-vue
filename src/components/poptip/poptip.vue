@@ -1,5 +1,5 @@
 <template>
-  <div class="k-poptip" @mouseenter="mouseHandle" @mouseleave="mouseHandle" v-docClick="hide" v-resize="setPos">
+  <div class="k-poptip" @mouseenter="mouseHandle" @mouseleave="mouseHandle" v-docClick="close" v-resize="handleScroll">
     <div class="k-poptip-rel" ref="rel" @click="relClick">
       <slot></slot>
     </div>
@@ -91,12 +91,15 @@ export default {
   watch: {
     visible(v) {
       if (v) {
-        this.$nextTick(() => this.setPos())
+        this.$nextTick(() => this.setPosition())
       }
     }
   },
   methods: {
-    setPos() {
+    handleScroll() {
+      this.$nextTick(() => this.setPosition());
+    },
+    setPosition() {
       let pos = { left: 0, top: 0 };
       let rel = this.$children[0] && this.$children[0].$el || this.$refs.rel;
       if (this.transfer) {
@@ -166,7 +169,7 @@ export default {
           break;
       }
     },
-    hide(e) {
+    close(e) {
       if (this.transfer) {
         this.visible = this.$refs.dom.contains(e.target);
       } else {

@@ -3,6 +3,16 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.5<span> 2018-5-24 </span></h3>
+        <p>优化<code>Poptip</code>等一些列组件的定位卡顿问题</p>
+        <p>优化<code>Menu</code>手风琴模式的展示卡顿问题</p>
+        <p>文档加入了自定义滚动容器 @海豚xxx，优化移动端阅读</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.7.4<span> 2018-5-20 </span></h3>
+        <p>优化一些细节</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.3<span> 2018-5-17 </span></h3>
         <p>修复IE9+<code>Tree</code>组件选中的问题</p>
         <p>优化<code>datePicker</code>更加友好展示</p>

@@ -5,7 +5,7 @@
       <a href="http://ionicons.com/" target="_blank">ionicons</a>
     </p>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基础" layout="vertical">
       <div slot="content">
         <Icon type="home" />
         <Icon type="home" size="25" />
