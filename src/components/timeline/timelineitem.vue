@@ -14,16 +14,16 @@
 export default {
   name: "TimeLineItem",
   props: {
-    Color: String,
-    Icon: String
+    color: String,
+    icon: String
   },
   computed: {
     styles() {
-      let color = this.Color;
+      let color = this.color;
       return color ? { color: color } : {};
     },
     classes() {
-      let icon = this.Icon;
+      let icon = this.icon;
       return icon ? [`k-ion-${icon}`] : ["k-ion-ios-circle-outline"];
     }
   }
