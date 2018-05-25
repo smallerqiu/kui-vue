@@ -3,7 +3,7 @@
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!label">{{placeholder}}</span> -->
       <input type="text" class="k-select-label" :placeholder="placeholder" v-model="label" :readonly="!filterable||disabled" :disabled="disabled" @keyup="handleKeyup" ref="input" />
-      <span class="k-select-arrow" v-if="!isclearable"></span>
+      <span class="k-select-arrow"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
@@ -113,6 +113,9 @@ export default {
       return style;
     }
   },
+  updated(){
+this.handleScroll();
+  },
   methods: {
     remove(obj) {
       this.children.splice(this.children.indexOf(obj), 1);
@@ -168,7 +171,7 @@ export default {
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
       
-      this.$nextTick(() => this.setPosition());
+      this.handleScroll();
     },
     handleScroll() {
       this.$nextTick(() => this.setPosition());
