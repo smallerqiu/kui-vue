@@ -9,8 +9,8 @@ export default {
         el._resize = scroll
         el._mousewhell = scroll
         window.addEventListener('resize', scroll)
-        document.addEventListener('scroll', scroll)
         window.addEventListener('mousewheel', scroll)
+        document.addEventListener('scroll', scroll)
     },
     unbind(el, bind) {
         window.removeEventListener('resize', el._scroll)

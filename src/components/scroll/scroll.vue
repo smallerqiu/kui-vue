@@ -28,7 +28,8 @@ export default {
             isReload: false,
             isBarMouseDown: false,
             moveY: 0,
-            animaded: false
+            animaded: false,
+            Events: null,
         }
     },
     watch: {
@@ -114,19 +115,20 @@ export default {
             this.setBar(y)
         },
         keyDown(e) {
-            this.animaded = true
+            // this.animaded = true  //事实上滚动的时候 是有一个动画的， 但是动画有延迟回影响自定义事件的触发，也一并延时了。所以这里干掉了动画
             let code = e.keyCode
+            this.emitEvent(e)
             if (code == 38) { //up
                 this.setBar(-50)
-                return
+                // return
             }
             if (code == 40) {  //down
                 this.setBar(50)
-                return
+                // return
             }
             if (code == 32) {  //space
                 this.setBar(200)
-                return
+                // return
             }
         },
         keyUp() {
@@ -141,6 +143,7 @@ export default {
         },
         barMouseMove(e) {
             if (this.isBarMouseDown) {
+                this.emitEvent(e)
                 let wrapHeight = this.wrapHeight
                 let innerHeight = this.innerHeight
                 let m = e.y - this.moveY
@@ -158,8 +161,9 @@ export default {
         touchMove(e) {
             e.preventDefault();
             if (this.isBarMouseDown) {
-                let wrapHeight = this.wrapHeight
-                let innerHeight = this.innerHeight
+                this.emitEvent(e)
+                // let wrapHeight = this.wrapHeight
+                // let innerHeight = this.innerHeight
                 let m = e.touches[0].clientY - this.moveY
                 // let move = innerHeight * m / (wrapHeight - this.barHeight) // 更具移动的距离比 总移动距离 等比计算，得出实际将要移动的距离
                 this.setBar(m * -1)
@@ -169,6 +173,18 @@ export default {
         touchEnd(e) {
             this.isBarMouseDown = false
         },
+        //创建一个滚动条事件，当view 滚动的时候，手动触发滚动条事件
+        emitEvent(e) {
+            this.$emit('mousewheel', e)
+            if (!this.Events) {
+                this.Events = document.createEvent('Events')
+                this.Events.initEvent('scroll', false, false);
+            }
+            this.$nextTick(() => {
+                document.dispatchEvent(this.Events)
+                window.dispatchEvent(this.Events)
+            })
+        }
     }
 }
 </script>
