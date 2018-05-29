@@ -19,21 +19,21 @@
     <Demo title="图标">
       <div slot="content">
         <TimeLine>
-          <TimeLineItem Icon="ribbon-b">发布2.0版本</TimeLineItem>
-          <TimeLineItem Icon="bug">修复bug</TimeLineItem>
+          <TimeLineItem icon="ribbon-b">发布2.0版本</TimeLineItem>
+          <TimeLineItem icon="bug">修复bug</TimeLineItem>
           <TimeLineItem>发布1.0版本</TimeLineItem>
         </TimeLine>
       </div>
       <div slot="desc">给
         <code>TimeLineItem</code>设置
-        <code>Icon</code>可以改变图标展示</div>
+        <code>icon</code>可以改变图标展示</div>
       <div slot="code">{{code.withIcon}}</div>
     </Demo>
     <Demo title="颜色">
       <div slot="content">
         <TimeLine>
-          <TimeLineItem Icon="ribbon-b" Color="#cba302">发布2.0版本</TimeLineItem>
-          <TimeLineItem Icon="bug" Color="red">修复bug</TimeLineItem>
+          <TimeLineItem icon="ribbon-b" color="#cba302">发布2.0版本</TimeLineItem>
+          <TimeLineItem icon="bug" color="red">修复bug</TimeLineItem>
           <TimeLineItem>发布1.0版本</TimeLineItem>
         </TimeLine>
       </div>
@@ -51,16 +51,22 @@
           <th>默认值</th>
         </tr>
         <tr>
-          <td>Icon</td>
+          <td>icon</td>
           <td>时间轴item 图标</td>
           <td>String</td>
           <td>-</td>
         </tr>
         <tr>
-          <td>Color</td>
+          <td>color</td>
           <td>时间轴item 颜色</td>
           <td>String</td>
-          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>dot</td>
+          <td>自定义时间轴点</td>
+          <td>slot</td>
+          <td>-</td>
         </tr>
       </table>
     </div>

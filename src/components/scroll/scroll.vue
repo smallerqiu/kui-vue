@@ -1,6 +1,6 @@
 <template>
     <div class="k-scroll" tabindex="0" @mousewheel="mouseWheel" ref="wrap" @keydown="keyDown" @keyup="keyUp" @mouseover="mouseOver" @resize="resize">
-        <div class="k-scroll-view" :style="styles" ref="inner" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+        <div class="k-scroll-view" :style="viewStyles" ref="inner" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
             <slot></slot>
         </div>
         <div class="k-scroll-vertical-bar" :style="barStyles" v-show="showVerticalBar" @mousedown="barMouseDown" @mouseup="barMouseUp" @mousemove="barMouseMove"></div>
@@ -44,7 +44,7 @@ export default {
         barStyles() {
             return { height: `${this.barHeight}%`, top: `${this.barY}%`, transition: !this.animaded ? 'none' : '' }
         },
-        styles() {
+        viewStyles() {
             return { top: `${this.viewY}px`, transition: !this.animaded ? 'none' : '' }
         }
     },
