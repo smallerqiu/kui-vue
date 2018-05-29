@@ -6,7 +6,7 @@
     </div>
     <!-- <transition name="dropdown"> -->
     <Collapse>
-      <ul class="k-menu-dropdown" v-show="visible"   ref="dom" @mouseover="show" >
+      <ul class="k-menu-dropdown" v-show="visible"   ref="dom"  >
         <slot></slot>
       </ul>
     </Collapse>
@@ -45,7 +45,6 @@ export default {
     },
     styleDrop() {
       let style = {};
-      // if (this.rootMenu.mode == "vertical") { style.height = this.height; }
       return style;
     }
   },
@@ -64,29 +63,20 @@ export default {
       if (name != this.name && this.visible) {
         //其他的折叠
         this.visible = !this.visible
-        // setTimeout(() => { this.height = this.visible ? this.$refs.dom.scrollHeight + "px" : 0; }, 100);
       }
     },
     accrodion() {
       this.visible = !this.visible
-      // setTimeout(() => { this.height = this.visible ? this.$refs.dom.scrollHeight + "px" : 0; }, 100);
       this.dispatch('Menu', 'menu-accrodion', this.name)
-    },
-    show() {
-      // clearTimeout(this.hideTime);
     },
     openMenu() {
       if (this.rootMenu.mode == "vertical") return;
-      // clearTimeout(this.hideTime);
       this.$nextTick(()=>this.visible = true)
       
     },
     closeMenu() {
       if (this.rootMenu.mode == "vertical") return;
-      // this.hideTime = setTimeout(() => {
       this.$nextTick(()=>this.visible = false)
-      // this.visible = false;
-      // }, 300);
     }
   }
 };

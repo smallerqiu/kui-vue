@@ -113,8 +113,8 @@ export default {
       return style;
     }
   },
-  updated(){
-this.handleScroll();
+  updated() {
+    this.handleScroll();
   },
   methods: {
     remove(obj) {
@@ -124,9 +124,8 @@ this.handleScroll();
       this.queryCount++;
       child.index = this.children.length;
       let value = this.value;
-      child.selected =
-        child.value == value &&
-        (value !== "" && value != undefined && value !== null);
+      child.selected = child.value == value && (value !== "" && value != undefined && value !== null);
+      if (child.selected) this.label = child.label === undefined ? child.$el.innerHTML : child.label
       this.children.push(child);
     },
     handleKeyup(e) {
@@ -138,22 +137,13 @@ this.handleScroll();
     close() {
       this.visible = false;
     },
-    updateSelect() {
-      let value = this.value;
+    updateSelect(value) {
       let isNotValue = value !== "" && value != undefined && value !== null;
       this.children.forEach(child => {
-        let value = child.value;
-        if (value !== "" && value !== null && value !== undefined) {
-          child.selected = value == this.value && isNotValue;
-          if (child.selected) {
-            this.change({
-              value: value,
-              label:
-                child.label === undefined ? child.$el.innerHTML : child.label
-            });
-          }
-        }
+        child.selected = isNotValue && value == child.value
+        if (child.selected) this.label = child.label === undefined ? child.$el.innerHTML : child.label
       });
+      if (!isNotValue) this.label = ''
     },
     clear() {
       this.selectItem = null;
@@ -170,7 +160,7 @@ this.handleScroll();
 
       this.dropdownWith = this.$refs.rel.offsetWidth;
       this.visible = !this.visible;
-      
+
       this.handleScroll();
     },
     handleScroll() {

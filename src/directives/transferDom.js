@@ -4,7 +4,7 @@ export default {
         if (transfer !== 'true') return false;
         const parentNode = el.parentNode;
         if (!parentNode) return;
-        let home = document.createComment('div')
+        let home = document.createComment('')
         // let home = document.createElement('div')
         // home.style.cssText = 'position: absolute; top: 0px; left: 0px; width: 100%;'
         // home.appendChild(el)

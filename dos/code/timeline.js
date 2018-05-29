@@ -6,13 +6,13 @@ code.base = `<TimeLine>
    <TimeLineItem>发布1.0版本</TimeLineItem>
 </TimeLine>`
 code.withIcon = `<TimeLine>
-   <TimeLineItem Icon="ribbon-b">发布2.0版本</TimeLineItem>
-   <TimeLineItem Icon="bug">修复bug</TimeLineItem>
+   <TimeLineItem icon="ribbon-b">发布2.0版本</TimeLineItem>
+   <TimeLineItem icon="bug">修复bug</TimeLineItem>
    <TimeLineItem>发布1.0版本</TimeLineItem>
 </TimeLine>`
 code.color = `<TimeLine>
-   <TimeLineItem Icon="ribbon-b" Color="#cba302">发布2.0版本</TimeLineItem>
-   <TimeLineItem Icon="bug" Color="red">修复bug</TimeLineItem>
+   <TimeLineItem icon="ribbon-b" color="#cba302">发布2.0版本</TimeLineItem>
+   <TimeLineItem icon="bug" color="red">修复bug</TimeLineItem>
    <TimeLineItem>发布1.0版本</TimeLineItem>
 </TimeLine>`
 
