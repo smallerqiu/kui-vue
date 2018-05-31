@@ -23,21 +23,6 @@
                 </MenuItem>
               </MenuGroup>
             </Menu>
-            <!-- <menu>
-              <li v-for="(item ,x) in nav" :key="x">
-                <em></em>
-                <h5>{{item.title}}</h5>
-                <a :href="sub.weblink||`${sub.link}`" :target="sub.weblink?'_blank':''" v-for="(sub,y) in item.child" :key="y" :class="{'active':$route.path==sub.link}">
-                  <Icon :type="sub.icon" v-if="sub.icon"></Icon>
-                  <template v-if="sub.log">
-                    <Badge dot>{{sub.title}}<span>{{sub.sub}}</span></Badge>
-                  </template>
-                  <template v-else>
-                    {{sub.title}}<span class="sub">{{sub.sub}}</span>
-                  </template>
-                </a>
-              </li>
-            </menu> -->
           </nav>
         </Scroll>
         <div class="drawer-button" @click="showNav">
@@ -91,8 +76,6 @@ export default {
           x.child.forEach(y => {
             if (y.link == path) {
               document.title = `${y.title} ${y.sub || ''} - KUI`
-              // document.body.scrollTop = document.documentElement.scrollTop = 0
-              // document.querySelector('.doc-content').scrollTop = 0
             }
           })
         })
@@ -105,7 +88,6 @@ export default {
       if (x.link == this.$route.path) {
         document.title = x.title + (x.sub || '') + ' - KUI'
         this.activeName = x.link
-        // console.log(this.activeName,x.link)
       }
     }));
   }

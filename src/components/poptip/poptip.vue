@@ -62,7 +62,6 @@ export default {
     },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
-    disabled: Boolean
   },
   data() {
     return {
@@ -116,64 +115,64 @@ export default {
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
       let top = pos.top + scrollTop
-      let left = pos.left +scrollLeft
+      let left = pos.left + scrollLeft
       // console.log(mr, mb)
       switch (x) {
         case "top":
-          this.top = top - dom.offsetHeight - 10 ;
+          this.top = top - dom.offsetHeight - 10;
           this.left = left - (dom.offsetWidth - rel.offsetWidth) / 2;
           break;
         case "top-left":
-          this.top = top - dom.offsetHeight - 10 ;
+          this.top = top - dom.offsetHeight - 10;
           this.left = left;
           break;
         case "top-right":
-          this.top = top - dom.offsetHeight - 10 ;
-          this.left = left - (dom.offsetWidth - rel.offsetWidth) ;
+          this.top = top - dom.offsetHeight - 10;
+          this.left = left - (dom.offsetWidth - rel.offsetWidth);
           break;
         case "bottom":
-          this.top = top + rel.offsetHeight + 10  ;
+          this.top = top + rel.offsetHeight + 10;
           this.left = left - (dom.offsetWidth - rel.offsetWidth) / 2;
           break;
         case "bottom-right":
-          this.top = top + rel.offsetHeight + 10  ;
-          this.left = left - (dom.offsetWidth - rel.offsetWidth) ;
+          this.top = top + rel.offsetHeight + 10;
+          this.left = left - (dom.offsetWidth - rel.offsetWidth);
           break;
         case "bottom-left":
-          this.top = top + rel.offsetHeight + 10  ;
+          this.top = top + rel.offsetHeight + 10;
           this.left = left;
           break;
         case "left":
           this.left = left - dom.offsetWidth - 10;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2 ;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2;
           break;
         case "left-top":
           this.left = left - dom.offsetWidth - 10;
-          this.top = top ;
+          this.top = top;
           break;
         case "left-bottom":
           this.left = left - dom.offsetWidth - 10;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight)  ;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight);
           break;
         case "right":
-          this.left = left + rel.offsetWidth + 10 ;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2 ;
+          this.left = left + rel.offsetWidth + 10;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2;
           break;
         case "right-top":
-          this.left = left + rel.offsetWidth + 10 ;
-          this.top = top ;
+          this.left = left + rel.offsetWidth + 10;
+          this.top = top;
           break;
         case "right-bottom":
-          this.left = left + rel.offsetWidth + 10 ;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight)  ;
+          this.left = left + rel.offsetWidth + 10;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight);
           break;
       }
     },
     close(e) {
       if (this.transfer) {
-        this.visible = this.$refs.dom.contains(e.target);
-      } else {
-        this.visible = false
+        if (!this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
+          this.visible = false
+        }
       }
     },
     ok() {

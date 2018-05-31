@@ -1,6 +1,8 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin') //for webpack 3
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const pkg = require('../package.json');
 const webpack = require('webpack');
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   module: {
@@ -15,12 +17,13 @@ module.exports = {
       { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'autoprefixer-loader']
+        use: ['style-loader', 'css-loader', /* 'autoprefixer-loader' */]
       },
       {
         test: /\.less$/,
-        // use: ['style-loader', 'css-loader', 'less-loader'],
-        use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+        // use: ['vue-style-loader', 'css-loader', 'less-loader'],
+        // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader','less-loader'],
         exclude: /node_modules/
       },
       {
@@ -35,18 +38,11 @@ module.exports = {
       },
     ]
   },
+ 
   resolve: {
     extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
     },
-    plugins: [
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.DefinePlugin({
-        // 'process.abc': `'${pkg.version}'`,
-        HOST:"'abc'",
-        // 'process.env.abc':"'true'",
-      }),
-    ]
   }
 }

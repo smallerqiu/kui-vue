@@ -18,8 +18,7 @@ export default {
   methods: {
     add(notice) {
       notice.name = Math.floor(Math.random() * 99999);
-      notice.transitionName =
-        notice.noticeType == "message" ? "fadedown" : "fadeleft";
+      notice.transitionName = notice.noticeType == "message" ? "fadedown" : "fadeleft";
       notice.duration = isNaN(Number(notice.duration)) ? 3 : notice.duration;
       let time;
       let close = () => {
