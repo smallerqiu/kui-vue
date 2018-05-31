@@ -3,17 +3,20 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
 const path = require('path');
 const pkg = require('../package.json');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 
 module.exports = merge(webpackBaseConfig, {
+  mode: 'production',
   entry: {
     index: ['./dos/main.js'],
-    // index: path.resolve(__dirname, '../dos/main.js'),
     vendors: ['vue', 'vue-router']
   },
   output: {
@@ -38,30 +41,43 @@ module.exports = merge(webpackBaseConfig, {
       },
       {
         loader: 'kui-loader',
-        options: {
-          prefix: false
-        }
+        options: { prefix: false }
       }]
     },]
   },
-  plugins: [
-    new webpack.DefinePlugin({ 'production': "'true'" }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      compress: {
-        warnings: false,
-        drop_debugger: true,
-        drop_console: true
+  optimization: {
+    splitChunks: {
+      name(module) {
+        return (
+          module.resource && /\.js$/.test(module.resource) &&
+          module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+        )
       }
-    }),
-    new ExtractTextPlugin({ filename: "css/[name].[contenthash:5].css" }),
+    },
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            // drop_debugger: true,
+            // drop_console: true
+          },
+          sourceMap: false
+        }
+      })
+    ]
+  },
+  plugins: [
+    new VueLoaderPlugin(), //for vue-loader 15
+    new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
       filename: 'index.html',
       // 源文件，路径相对于本文件所在的位置
       template: path.resolve(__dirname, '../dos/index.html'),
-      // 需要引入entry里面的哪几个入口，如果entry里有公共模块，记住一定要引入
+      // 需要引入entry里面的哪几个入口，如果entry里有公共模块，
       // chunks: ['index', 'vendors'],
       // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
       inject: true,
@@ -78,27 +94,9 @@ module.exports = merge(webpackBaseConfig, {
       // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
       // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
     }),
-    // new webpack.optimize.CommonsChunkPlugin({name:'vendor'}),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: function (module) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        )
-      }
-    }),
     new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
     // 允许错误不打断程序
     // new webpack.NoErrorsPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
+    new webpack.LoaderOptionsPlugin({ minimize: true })
   ],
-
 })

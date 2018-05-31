@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <h2>Table 表格</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-table。</Alert>
     <h3>代码示例</h3>

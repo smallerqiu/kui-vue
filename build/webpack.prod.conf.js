@@ -3,10 +3,14 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
+const pkg = require('../package.json');
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
+const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 
 module.exports = merge(webpackBaseConfig, {
     entry: {
@@ -16,7 +20,7 @@ module.exports = merge(webpackBaseConfig, {
         path: path.resolve(__dirname, "../dist"),
         publicPath: "",
         filename: "k-ui.js",
-        library: 'kyui',
+        library: 'kui-vue',
         libraryTarget: 'umd',
     },
     module: {
@@ -27,7 +31,7 @@ module.exports = merge(webpackBaseConfig, {
                     loader: 'vue-loader',
                     options: {
                         loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
-                        postLoaders: { html: 'babel-loader' }
+                        // postLoaders: { html: 'babel-loader' }
                     }
                 },
                 ]
@@ -41,11 +45,26 @@ module.exports = merge(webpackBaseConfig, {
             amd: 'vue'
         }
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        warnings: false,
+                        drop_debugger: true,
+                        drop_console: true
+                    },
+                    sourceMap: false
+                }
+            })
+        ]
+    },
     plugins: [
+        new VueLoaderPlugin(), //for vue-loader 15
         new webpack.DefinePlugin({ 'production': "'true'" }),
-        new ExtractTextPlugin("k-ui.css"),
-        new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false, drop_debugger: true, drop_console: true } }),
-        // new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
+        new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
+        new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
         // 允许错误不打断程序
         // new webpack.NoErrorsPlugin(),
         new webpack.LoaderOptionsPlugin({ minimize: true })

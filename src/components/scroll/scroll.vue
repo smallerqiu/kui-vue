@@ -117,19 +117,18 @@ export default {
         keyDown(e) {
             // this.animaded = true  //事实上滚动的时候 是有一个动画的， 但是动画有延迟回影响自定义事件的触发，也一并延时了。所以这里干掉了动画
             let code = e.keyCode
-            this.emitEvent(e)
+            let move = 0
             if (code == 38) { //up
-                this.setBar(-50)
-                // return
+                move = -50
             }
             if (code == 40) {  //down
-                this.setBar(50)
-                // return
+                move = 50
             }
             if (code == 32) {  //space
-                this.setBar(200)
-                // return
+                move = 500
             }
+            this.setBar(move)
+            this.emitEvent(e)
         },
         keyUp() {
             this.animaded = false

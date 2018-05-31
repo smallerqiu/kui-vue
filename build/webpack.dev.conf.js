@@ -3,30 +3,32 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
-
 const webpackBaseConfig = require('./webpack.base.conf.js');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = merge(webpackBaseConfig, {
+    mode: 'development',
     devServer: {
+        contentBase: path.resolve(__dirname, '../dos-html'),
         port: 7001,
         hot: true,
-        open: true,
+        // open: false,
         inline: true,
         compress: true,
         historyApiFallback: true,
-        proxy: {
-            '/rest': {
-                target: 'http://10.0.101.162:9596', //测试环境
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/rest': '' //本地没有rest
-                },
-            }
-        }
+        // proxy: {
+        //     '/rest': {
+        //         target: 'http://10.0.101.162:9596', //测试环境
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //             '^/rest': '' //本地没有rest
+        //         },
+        //     }
+        // }
     },
     entry: {
         // index: [path.resolve(__dirname, '../dos/main.js')],
@@ -36,7 +38,7 @@ module.exports = merge(webpackBaseConfig, {
     output: {
         path: path.resolve(__dirname, '../dos-html'),
         filename: '[name].[hash].js',
-        publicPath: '/',
+        // publicPath: '/',
         chunkFilename: '[id].[chunkhash].js'
     },
     module: {
@@ -49,23 +51,23 @@ module.exports = merge(webpackBaseConfig, {
                         css: 'vue-style-loader!css-loader',
                         less: 'vue-style-loader!css-loader!less-loader'
                     },
-                    // postLoaders: { html: 'babel-loader' }
                 }
             },
             {
                 loader: 'kui-loader',
-                options: {
-                    prefix: false
-                }
+                options: { prefix: false }
             }
             ]
         },]
     },
+    optimization: {
+        minimize: false,
+    },
     plugins: [
-        //热键替换，配合devServer => hot:true
+        new VueLoaderPlugin(), //for vue-loader 15
+        // 热键替换，配合devServer => hot:true
         new webpack.HotModuleReplacementPlugin(),
         // 位于开发环境下
-        // new webpack.DefinePlugin({ 'development':"'true'" }),
         // 自动生成html插件，如果创建多个HtmlWebpackPlugin的实例，就会生成多个页面
         new HtmlWebpackPlugin({
             // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
@@ -81,18 +83,10 @@ module.exports = merge(webpackBaseConfig, {
             // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
             // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
         }),
-        new ExtractTextPlugin("css/[name].[contenthash].css"),
-        // 提取入口文件里面的公共模块
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
-            filename: 'vendors.js',
-            path: 'js'
-        }),
+       
         // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         new webpack.optimize.OccurrenceOrderPlugin(),
         // 模块热替换插件
-        // new webpack.HotModuleReplacementPlugin(),
-        // new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false } }),
         // new webpack.LoaderOptionsPlugin({ minimize: true }),
     ]
 })
