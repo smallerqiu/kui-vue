@@ -4,6 +4,9 @@
     "description": "UI for vue2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "webpack-dev-server --config build/test.js",
         "dev": "webpack-dev-server  --config build/webpack.dev.conf.js",
@@ -16,8 +19,28 @@
     },
     "author": "chuchur",
     "license": "ISC",
-    "dependencies": {
-        "autoprefixer-loader": "^3.2.0",
+    "dependencies": {},
+    "keywords": [
+        "ui",
+        "kui",
+        "kyui",
+        "vue",
+        "vue.js",
+        "vue2.js",
+        "component",
+        "components",
+        "framework",
+        "vue2 ui",
+        "vue2 components",
+        "pc",
+        "pc ui"
+    ],
+    "homepage": "https://kui.chuchur.com",
+    "bugs": {
+        "url": "https://github.com/chuchur/kui-vue/issues",
+        "email": "chuchur@qq.com"
+    },
+    "devDependencies": {
         "babel": "^6.23.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.2",
@@ -35,8 +58,10 @@
         "kui-loader": "^1.0.2",
         "less": "^3.0.4",
         "less-loader": "^4.1.0",
+        "mini-css-extract-plugin": "^0.4.0",
         "opn": "^5.0.0",
         "ora": "^2.1.0",
+        "postcss-loader": "^2.1.5",
         "rimraf": "^2.6.2",
         "style-loader": "^0.21.0",
         "url-loader": "^1.0.1",
@@ -47,30 +72,8 @@
         "vue-style-loader": "^4.1.0",
         "vue-template-compiler": "^2.5.9",
         "webpack": "^4.10.2",
-        "webpack-merge": "^4.1.1"
-    },
-    "keywords": [
-        "ui",
-        "kui",
-        "kyui",
-        "vue",
-        "vue.js",
-        "vue2.js",
-        "component",
-        "components",
-        "framework",
-        "vue2 ui",
-        "vue2 components",
-        "pc",
-        "pc ui"
-    ],
-    "files": [
-        "dist"
-    ],
-    "homepage": "https://kui.chuchur.com",
-    "devDependencies": {
-        "mini-css-extract-plugin": "^0.4.0",
         "webpack-cli": "^2.1.4",
-        "webpack-dev-server": "^3.1.4"
+        "webpack-dev-server": "^3.1.4",
+        "webpack-merge": "^4.1.1"
     }
 }

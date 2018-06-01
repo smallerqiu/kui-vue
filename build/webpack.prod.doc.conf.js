@@ -27,23 +27,30 @@ module.exports = merge(webpackBaseConfig, {
     libraryTarget: 'umd',
   },
   module: {
-    rules: [{
-      test: /\.vue$/,
-      use: [{
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            css: 'vue-style-loader!css-loader',
-            less: 'vue-style-loader!css-loader!less-loader'
-          },
-          // postLoaders: { html: 'babel-loader' }
-        }
+    rules: [
+      {
+        test: /\.less$/,
+        // use: ['vue-style-loader', 'css-loader', 'less-loader'],
+        // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
       },
       {
-        loader: 'kui-loader',
-        options: { prefix: false }
-      }]
-    },]
+        test: /\.vue$/,
+        use: [{
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              css: 'vue-style-loader!css-loader',
+              less: 'vue-style-loader!css-loader!less-loader'
+            },
+            // postLoaders: { html: 'babel-loader' }
+          }
+        },
+        {
+          loader: 'kui-loader',
+          options: { prefix: false }
+        }]
+      },]
   },
   optimization: {
     splitChunks: {
