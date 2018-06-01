@@ -37,34 +37,40 @@ module.exports = merge(webpackBaseConfig, {
     },
     output: {
         path: path.resolve(__dirname, '../dos-html'),
-        filename: '[name].[hash].js',
-        // publicPath: '/',
-        chunkFilename: '[id].[chunkhash].js'
+        filename: 'js/[name].[hash:5].js',
+        publicPath: '/',
+        chunkFilename: 'js/[name].[chunkhash:5].js',
     },
     module: {
-        rules: [{
-            test: /\.vue$/,
-            use: [{
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        css: 'vue-style-loader!css-loader',
-                        less: 'vue-style-loader!css-loader!less-loader'
-                    },
-                }
+        rules: [
+            {
+                test: /\.vue$/,
+                use: [{
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            css: 'vue-style-loader!css-loader',
+                            less: 'vue-style-loader!css-loader!less-loader'
+                        },
+                    }
+                },
+                { loader: 'kui-loader', options: { prefix: false } }
+                ]
             },
             {
-                loader: 'kui-loader',
-                options: { prefix: false }
-            }
-            ]
-        },]
+                test: /\.less$/,
+                // use: ['vue-style-loader', 'css-loader', 'less-loader'],
+                // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+                use: ['vue-style-loader', 'css-loader', 'less-loader'], // : MiniCssExtractPlugin.loader, 
+            },
+        ]
     },
     optimization: {
         minimize: false,
     },
     plugins: [
         new VueLoaderPlugin(), //for vue-loader 15
+        new webpack.DefinePlugin({ DEVLEPOMENT: JSON.stringify(true) }),
         // 热键替换，配合devServer => hot:true
         new webpack.HotModuleReplacementPlugin(),
         // 位于开发环境下
@@ -83,7 +89,7 @@ module.exports = merge(webpackBaseConfig, {
             // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
             // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
         }),
-       
+
         // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         new webpack.optimize.OccurrenceOrderPlugin(),
         // 模块热替换插件

@@ -8,24 +8,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
+        test: /\.js$/, exclude: /node_modules/,loader: 'babel-loader',
         /* query: {
           presets: ['es2015', 'stage-3'],
           plugins: ['transform-runtime']
         } */
       },
-      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.scss$/, use: ['vue-style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.sass$/, use: ['vue-style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.styl(us)?$/, use: ['vue-style-loader', 'css-loader', 'stylus-loader'] },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', /* 'autoprefixer-loader' */]
+        use: ['vue-style-loader', 'css-loader', 'postcss-loader']
       },
-      {
-        test: /\.less$/,
-        // use: ['vue-style-loader', 'css-loader', 'less-loader'],
-        // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
-        use: [MiniCssExtractPlugin.loader, 'css-loader','less-loader'],
-        exclude: /node_modules/
-      },
+
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'url-loader',
@@ -38,7 +34,7 @@ module.exports = {
       },
     ]
   },
- 
+
   resolve: {
     extensions: ['.js', '.vue', '.json', '.less'],
     alias: {

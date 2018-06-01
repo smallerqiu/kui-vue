@@ -13,6 +13,7 @@ const merge = require('webpack-merge');
 const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 
 module.exports = merge(webpackBaseConfig, {
+    mode: 'production',
     entry: {
         main: path.resolve(__dirname, '../src/index.js')
     },
@@ -25,6 +26,12 @@ module.exports = merge(webpackBaseConfig, {
     },
     module: {
         rules: [
+            {
+                test: /\.less$/,
+                // use: ['vue-style-loader', 'css-loader', 'less-loader'],
+                // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
+            },
             {
                 test: /\.vue$/,
                 use: [{
@@ -62,7 +69,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
         new VueLoaderPlugin(), //for vue-loader 15
-        new webpack.DefinePlugin({ 'production': "'true'" }),
+        new webpack.DefinePlugin({ PRODUCTION: "'true'" }),
         new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
         new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
         // 允许错误不打断程序
