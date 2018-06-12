@@ -3,6 +3,12 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.7<span> 2018-6-12 </span></h3>
+        <p>修复<code>Tree，TreeSelect</code>异步加载的问题</p>
+        <p><code>Tooltip</code>组件新增<code>breaked</code>属性，文字过长强制换行</p>
+        <p><code>Table</code>组件新增<code>overflow，tooltip</code>属性</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.6<span> 2018-6-12 </span></h3>
         <p>新增<code>TreeSelect</code>组件</p>
         <p>优化一些细节，规范一些组件名称和函数定义</p>

@@ -1,94 +1,98 @@
 .k-table {
-    background: #fff;
+  background: #fff;
+  width: 100%;
+  margin: 10px 0;
+  overflow: auto;
+  box-sizing: border-box;
+  table {
     width: 100%;
-    margin: 10px 0;
-    overflow: auto;
-    box-sizing: border-box;
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        thead {
-            background: #f9f9f9;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-        tr th {
-            font-weight: 700;
-            font-size: 14px;
-            padding: 13px;
-        }
-        th, td {
-            // 
-            font-size: 12px;
-            text-align: left;
-            white-space: nowrap;
-        }
-        td {
-            padding: 10px 13px;
-            /*  div{
-                overflow: hidden;
-                text-overflow: ellipsis;
-            } */
-        }
-        tbody tr {
-            &:nth-child(even) {
-                background: #f9f9f9;
-            }
-            &:nth-child(odd) {
-                background: #fff;
-            }
-            &:hover {
-                background: tint(@main, 93%);
-            }
-        }
+    border-collapse: collapse;
+    border-spacing: 0;
+    thead {
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
-    .selection {
-        border-left: 1px solid #eee;
-        border-right: 1px solid #eee;
-        white-space: nowrap;
+    tr th {
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px;
     }
-    
-    th>a, td>a {
-        color: #3a95ff;
+    th,
+    td {
+      // 
+      font-size: 12px;
+      text-align: left;
+      white-space: nowrap;
     }
-    .mini {
-        height: 22px !important;
-        line-height: 20px;
-        padding: 0 5px!important;
+    td {
+      padding: 10px 13px;
+      .td-hidden {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
-   
-    .no-data {
-        text-align: center;
-        padding: 10px 0;
+    tbody tr {
+      &:nth-child(even) {
+        background: #f9f9f9;
+      }
+      &:nth-child(odd) {
+        background: #fff;
+      }
+      &:hover {
+        background: tint(@main, 93%);
+      }
     }
+  }
+  .selection {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    white-space: nowrap;
+  }
+  th>a,
+  td>a {
+    color: #3a95ff;
+  }
+  .mini {
+    height: 22px !important;
+    line-height: 20px;
+    padding: 0 5px !important;
+  }
+  .no-data {
+    text-align: center;
+    padding: 10px 0;
+  }
 }
 
 .k-table-mini {
-    table {
-        tr th {
-            padding: 6px;
-            font-size: 12px;
-        }
-        td {
-            padding: 5px 6px;
-        }
+  table {
+    tr th {
+      padding: 6px;
+      font-size: 12px;
     }
+    td {
+      padding: 5px 6px;
+    }
+  }
 }
 
 .k-table-bordered {
+  border: 1px solid #eee; // border-right: 1px solid #eee;
+  th,
+  td {
     border: 1px solid #eee;
-    // border-right: 1px solid #eee;
-    th, td {
-        border: 1px solid #eee;
-    }
-    tr td:first-child, tr th:first-child {
-        border-left: none;
-    }
-    tr td:last-child, tr th:last-child {
-        border-right: none;
-    }
-    tr th:first-child, table thead, tr th {
-        border-top: none;
-    }
+  }
+  tr td:first-child,
+  tr th:first-child {
+    border-left: none;
+  }
+  tr td:last-child,
+  tr th:last-child {
+    border-right: none;
+  }
+  tr th:first-child,
+  table thead,
+  tr th {
+    border-top: none;
+  }
 }

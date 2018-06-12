@@ -2,7 +2,7 @@
   <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="handleScroll">
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!showLabel">{{placeholder}}</span> -->
-      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="showLabel" :readonly="disabled" :disabled="disabled" ref="input" />
+      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="showLabel" :readonly="readonly" :disabled="disabled" ref="input" />
       <span class="k-select-arrow"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
@@ -12,7 +12,7 @@
           <input class="k-treeselect-input" :placeholder="queryPlaceholder" v-model="queryKey" />
           <input type="button" value="搜索" class="k-treeselect-btn" @click="queryChange" />
         </div>
-        <Tree :data="data" @loadData="loadData" @select="treeSelect" @expand="expand"></Tree>
+        <Tree :data="data" @load-data="loadData" @select="treeSelect" @expand="expand"></Tree>
       </div>
     </transition>
   </div>
@@ -22,11 +22,11 @@ import emitter from "../../mixins/emitter";
 import transferDom from "../../directives/transferDom";
 import winScroll from "../../directives/winScroll";
 import docClick from "../../directives/docClick";
-import Input from '../input';
+import Tree from '../tree';
 export default {
   name: "TreeSelect",
   directives: { docClick, transferDom, winScroll },
-  components: { Input },
+  components: { Tree },
   mixins: [emitter],
   props: {
     placeholder: { type: String, default: "请选择" },
@@ -90,10 +90,10 @@ export default {
   },
   methods: {
     loadData(item, callback) {
-      this.$emit('loadData', item, callback)
+      this.$emit('load-data', item, callback)
     },
     queryChange() {
-      this.$emit('queryChange', this.queryKey)
+      this.$emit('query-change', this.queryKey)
     },
     treeSelect(item) {
       let change = this.$listeners.change;

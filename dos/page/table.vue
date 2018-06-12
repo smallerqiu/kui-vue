@@ -101,6 +101,18 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>overflow</td>
+          <td>当设置列宽<code>width</code>之后，超出文字是否隐藏以点点点显示</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>tooltip</td>
+          <td>文字过长隐藏之后，鼠标划过 是否展示title</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>render</td>
           <td>自定义渲染列，使用 Vue 的 Render 函数。传入两个参数，第一个是 h，第二个为对象，包含 row、column 和 index，分别指当前行数据，当前列数据，当前行索引</td>
           <td>Function </td>
@@ -121,10 +133,10 @@ export default {
       bordered: false,
       mini: false,
       data: [
-        { nick: "毛毛", gender: "右对其", birthday: "", action: "" },
-        { nick: "高总", gender: "右对其", birthday: "", action: "" },
-        { nick: "娟娟", gender: "右对其", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "右对其", birthday: "", action: "" }
+        { nick: "毛毛", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "高总", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "娟娟", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "鱼雷", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
       ],
       col: [
         { type: "selection" },
@@ -133,7 +145,7 @@ export default {
         { title: "姓名", key: "nick" },
         { title: "文字对其", key: "gender", textAlign: "center" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "文字提示", key: "tip", width: '200',overflow:'hidden',tooltip:true },
         {
           title: "出生年月",
           key: "birthday",

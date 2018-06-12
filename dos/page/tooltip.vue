@@ -105,6 +105,12 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>breaked</td>
+          <td>显示的正文内容强制换行</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>placement</td>
           <td>提示框出现的位置，可选值为top，top-left，top-right，bottom，bottom-left，bottom-right，left，left-top，left-bottom，right，right-top，right-bottom</td>
           <td>String </td>

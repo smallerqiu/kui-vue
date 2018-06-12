@@ -28,7 +28,14 @@
               <Expand :render="sub.render" :row="item" :column="sub" :index="m"></Expand>
             </template>
             <template v-else>
-              <div :style="`width:${sub.width}px;`">{{item[sub.key]}}</div>
+              <template v-if="sub.tooltip">
+                <Tooltip :content="item[sub.key]" breaked>
+                  <div :style="`width:${sub.width}px;`" :class="{'td-hidden':sub.overflow=='hidden'}"> {{item[sub.key]}}</div>
+                </Tooltip>
+              </template>
+              <template v-else>
+                <div :style="`width:${sub.width}px;`" :class="{'td-hidden':sub.overflow=='hidden'}"> {{item[sub.key]}}</div>
+              </template>
             </template>
           </td>
         </tr>
@@ -39,9 +46,10 @@
 </template>
 <script>
 import { Checkbox } from "../checkbox";
+import Tooltip from "../tooltip";
 import Expand from "./expand.js";
 export default {
-  components: { Expand: Expand, "k-checkbox": Checkbox },
+  components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip },
   name: "Table",
   props: {
     bordered: Boolean,

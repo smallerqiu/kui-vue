@@ -6,7 +6,7 @@
     <transition name="fade">
       <div class="k-tooltip-dom" v-show="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
-        <div>
+        <div :class="classes">
           <slot name="content">{{content}}</slot>
         </div>
       </div>
@@ -24,6 +24,7 @@ export default {
   name: "Tooltip",
   props: {
     transfer: { type: Boolean, default: true },
+    breaked: { type: Boolean },
     trigger: { type: String, default: "hover" },
     width: [String, Number],
     content: [String, Number],
@@ -58,9 +59,14 @@ export default {
     };
   },
   computed: {
+    classes() {
+      return ['k-tooltip-content', {
+        ['k-tooltip-content-breaked']: this.breaked
+      }]
+    },
     styles() {
       let style = {};
-      this.width && (style.width = `${this.width}px`);
+      style.width = `${this.width}px`
       style.top = `${this.top}px`;
       style.left = `${this.left}px`;
       return style;
