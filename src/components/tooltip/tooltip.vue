@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <transition name="fade">
-      <div class="k-tooltip-dom" v-show="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
+      <div class="k-tooltip-dom" v-if="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
         <div :class="classes">
           <slot name="content">{{content}}</slot>
@@ -91,6 +91,7 @@ export default {
       // }
       let x = this.placement;
       let dom = this.$refs.dom;
+      if(!dom) return;
       // console.log(this.$children)
       //取子元素的margin,计算的时候要进行运算
       // let child = this.$children[0] && this.$children[0].$el || rel

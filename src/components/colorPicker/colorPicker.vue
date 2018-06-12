@@ -9,7 +9,7 @@
     <!-- <input type="color" ref="html5Color" v-model="html5Color" @change="updataValue(html5Color)"> -->
     <!-- 颜色色盘 -->
     <transition name="dropdown">
-      <div class="k-colorpicker-popup" ref="dom" v-show="visible" v-transferDom :data-transfer="transfer" :style="popupStyle">
+      <div class="k-colorpicker-popup" ref="dom" v-if="visible" v-transferDom :data-transfer="transfer" :style="popupStyle">
         <div class="bd" v-if="!showMore">
           <h3>主题颜色</h3>
           <ul class="tColor">
@@ -158,6 +158,7 @@ export default {
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
+      if(!dom) return;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight
       let clientW = window.innerWidth

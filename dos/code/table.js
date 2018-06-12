@@ -10,10 +10,10 @@ export default {
       border: false,
       mini: false,
       data: [
-        { nick: "毛毛", gender: "右对其", birthday: "", action: "" },
-        { nick: "高总", gender: "右对其", birthday: "", action: "" },
-        { nick: "娟娟", gender: "右对其", birthday: "", action: "" },
-        { nick: "鱼雷", gender: "右对其", birthday: "", action: "" }
+        { nick: "毛毛", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "高总", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "娟娟", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "鱼雷", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
       ],
       col: [
         { type: "selection" },
@@ -22,7 +22,7 @@ export default {
         { title: "姓名", key: "nick" },
         { title: "文字对其", key: "gender", textAlign: "right" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender", textAlign: "right" },
+        { title: "文字提示", key: "tip", width: '200',overflow:'hidden',tooltip:true },
         {
           title: "出生年月",
           key: "birthday",

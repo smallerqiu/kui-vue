@@ -3,6 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.8<span> 2018-6-12 </span></h3>
+        <p>优化transfer性能问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.7<span> 2018-6-12 </span></h3>
         <p>修复<code>Tree，TreeSelect</code>异步加载的问题</p>
         <p><code>Tooltip</code>组件新增<code>breaked</code>属性，文字过长强制换行</p>

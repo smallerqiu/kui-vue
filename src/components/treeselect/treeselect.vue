@@ -2,7 +2,7 @@
   <div :class="classes" :style="selectStyles" v-docClick="close" v-winScroll="handleScroll">
     <div :class="selectClass" @click="toggleDrop" ref="rel">
       <!-- <span class="k-select-placeholder" v-if="!showLabel">{{placeholder}}</span> -->
-      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="showLabel" :readonly="readonly" :disabled="disabled" ref="input" />
+      <input type="text" class="k-select-label" :placeholder="placeholder" v-model="showLabel" readonly="readonly" :disabled="disabled" ref="input" />
       <span class="k-select-arrow"></span>
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
@@ -51,6 +51,13 @@ export default {
       showLabel: this.label,
       queryKey: ''
     };
+  },
+  watch: {
+    value(val) {
+      if (val === '' || value === undefined || value === null) {
+        this.showLabel = ''
+      }
+    }
   },
   computed: {
     isclearable() {
@@ -111,13 +118,14 @@ export default {
       }
       this.showLabel = item.title
       this.$emit('input', item.value || '')
-      this.visible = false;
+      this.$nextTick(() => this.visible = false);
+      
     },
     expand(e) {
       this.handleScroll()
     },
     close(e) {
-      if (!this.$refs.dom.contains(e.target))
+      if (this.$refs.dom && !this.$refs.dom.contains(e.target))
         this.visible = false;
     },
     clear() {
@@ -141,6 +149,7 @@ export default {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
+      if (!dom) return;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight;
       let clientW = window.innerWidth;

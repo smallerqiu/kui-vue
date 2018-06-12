@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <transition name="fade">
-      <div :class="classes" v-show="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
+      <div :class="classes" v-if="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
         <div class="k-poptip-title" v-if="title">
           <i class="k-ion-help-circled" v-if="confirm"></i>
@@ -108,6 +108,7 @@ export default {
       let x = this.placement;
       // let rel = this.$refs.rel;
       let dom = this.$refs.dom;
+      if(!dom) return;
       //取子元素的margin,计算的时候要进行运算
       // let child = this.$children[0] && this.$children[0].$el || rel
       // let mr = 0//document.defaultView.getComputedStyle(child, null)['margin-right'].replace('px', '')
@@ -170,7 +171,7 @@ export default {
     },
     close(e) {
       if (this.transfer) {
-        if (!this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
+        if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
           this.visible = false
         }
       }
