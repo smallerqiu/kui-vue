@@ -12,14 +12,14 @@ Vue.use(kui);
 
 // The routing configuration
 const RouterConfig = {
-    routes: Routers
+  routes: Routers
 };
 const router = new VueRouter(RouterConfig);
 
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  render: h => h(App)
 });`
 
 export default code

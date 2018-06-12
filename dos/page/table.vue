@@ -5,12 +5,12 @@
     <h3>代码示例</h3>
     <Demo title="基础／组件嵌套" layout="vertical">
       <div slot="content">
-        <Button @click="border=!border" type="primary">表格边框</Button>
+        <Button @click="bordered=!bordered" type="primary">表格边框</Button>
         <Button @click="mini=!mini" type="primary">mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @select="select" :border="border"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @select="select" :bordered="bordered"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
-        <code>border</code>可以设置是否有边框，
+        <code>bordered</code>可以设置是否有边框，
         <code>mini</code>来设置表格大小模式</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
@@ -24,7 +24,7 @@
           <th>默认值</th>
         </tr>
         <tr>
-          <td>border</td>
+          <td>bordered</td>
           <td>是否显示边框</td>
           <td>Boolean</td>
           <td>false</td>
@@ -118,7 +118,7 @@ export default {
   data() {
     return {
       code: code,
-      border: false,
+      bordered: false,
       mini: false,
       data: [
         { nick: "毛毛", gender: "右对其", birthday: "", action: "" },

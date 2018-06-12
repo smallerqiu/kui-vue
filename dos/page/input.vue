@@ -7,7 +7,8 @@
       <Col span="12" >
       <Demo title="基础用法" layout='vertical'>
         <div slot="content">
-          <Input type="text" width="200" placeholder="请输入内容..."></Input>
+          <Input width="200" placeholder="请输入内容..." /> <br/>
+          <Input width="200" placeholder="disabled..." disabled />
         </div>
         <div slot="desc">使用
           <code>v-model</code>进行数据双向绑定</div>
@@ -36,7 +37,7 @@
       <Demo title="尺寸" layout='vertical'>
         <div slot="content">
           <Input type="text" width="200" placeholder="请输入内容..."></Input>
-          <Input type="text" width="200" mini placeholder="请输入内容1..." icon="ios-person" @iconClick="iconClick"></Input>
+          <Input type="text" width="200" mini placeholder="mini" icon="ios-person" @iconClick="iconClick"></Input>
         </div>
         <div slot="desc">通过设置
           <code>mini</code>可设置组件大小，
@@ -52,17 +53,6 @@
           <code>type</code>属性取值为
           <code>textarea</code>时组件呈现文本玉</div>
         <div slot="code">{{code.textArea}}</div>
-      </Demo>
-      <Demo title="禁用" layout='vertical'>
-        <div slot="content">
-          <div style="display:inline-block;">
-            <Input width="300" type="textarea" disabled :rows="4" placeholder="请输入银行卡密码" />
-            <Input type="text" width="200" disabled placeholder="请输入内容..." />
-          </div>
-        </div>
-        <div slot="desc">设置
-          <code>disabled</code>属性来控制组件是否可用</div>
-        <div slot="code">{{code.disabled}}</div>
       </Demo>
       </Col>
     </Row>

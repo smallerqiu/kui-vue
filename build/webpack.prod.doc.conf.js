@@ -3,7 +3,7 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
+const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
 const path = require('path');
@@ -28,6 +28,10 @@ module.exports = merge(webpackBaseConfig, {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }], }),
+      // },
       {
         test: /\.less$/,
         // use: ['vue-style-loader', 'css-loader', 'less-loader'],
@@ -87,6 +91,7 @@ module.exports = merge(webpackBaseConfig, {
       // 需要引入entry里面的哪几个入口，如果entry里有公共模块，
       // chunks: ['index', 'vendors'],
       // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
+      favicon: path.join(__dirname, '../dos/assets/logo.png'),
       inject: true,
       // 生成html文件的标题
       // title: 'KUI 使用文档',

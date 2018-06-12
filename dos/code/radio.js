@@ -18,14 +18,14 @@ code.group = `<p>{{data}}</p>
 <Button @click="data=''">清除</Button>
 <Button @click="data='苹果🍎'">选中苹果</Button>
 data() {
-    return {
-      checked:true,
-      data: "苹果🍎",
-    };
-  },
-  methods: {
-    change(v) {
-      console.log(v);
-    }
-  }`
+  return {
+    checked:true,
+    data: "苹果🍎",
+  };
+},
+methods: {
+  change(v) {
+    console.log(v);
+  }
+}`
 export default code

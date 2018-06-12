@@ -4,10 +4,10 @@
       <div class="k-modal-mask" ref="mask" v-show="visible"></div>
     </transition>
     <transition name="fadeease">
-      <div class="k-modal-wrap" v-show="visible" @click="hide">
-        <div class="modal" ref="modal" @click="stop" :style="styles">
+      <div class="k-modal-wrap" v-show="visible" @click="clickMastToClose">
+        <div class="modal" ref="modal" :style="styles">
           <div class="k-modal-content">
-            <a class="k-modal-close" @click="hide">
+            <a class="k-modal-close" @click="close">
               <Icon type="android-close" />
             </a>
             <div class="k-modal-header" :style="headerStyle" @mousedown="handelMouseDown($event)" v-if="type=='modal'">
@@ -105,15 +105,14 @@ export default {
     return {
       visible: this.value,
       left: 0,
-      top: "",
-      x: 0,
-      y: 0,
+      top: 100,
+      startPos: { x: 0, y: 0 },
       isMouseDown: false
     };
   },
   created() {
     // window.addEventListener("keyup", this.dc);
-    window.addEventListener('keyup',this.onKeyUp)
+    window.addEventListener('keyup', this.onKeyUp)
   },
   beforeDestory() {
     window.removeEventListener("keyup", this.onKeyUp);
@@ -127,7 +126,7 @@ export default {
         this.top = 100;
       } else {
         document.body.style.overflow = ''
-        this.hide();
+        this.close();
       }
     }
   },
@@ -138,23 +137,22 @@ export default {
     }
   },
   methods: {
-    stop(e) {
-      // console.log(e)
-      e.cancelBubble = true
+    clickMastToClose(e) {
+      if (!this.$refs.modal.contains(e.target) && !this.isMove) {
+        this.close()
+      }
     },
     handelMouseDown(e) {
       if (e.button == 0) {
         this.isMouseDown = true;
-        this.x = this.$refs["modal"].offsetLeft;
-        this.y = this.$refs["modal"].offsetTop;
+        this.startPos = { x: e.clientX, y: e.clientY }
       }
     },
     handelMouseMove(e) {
       if (this.isMouseDown && this.isMove) {
-        this.left += e.movementX;
-        this.top = this.y + e.movementY;
-        this.x = this.left;
-        this.y = this.top;
+        this.left += (e.clientX - this.startPos.x);
+        this.top += (e.clientY - this.startPos.y);
+        this.startPos = { x: e.clientX, y: e.clientY }
       }
     },
     handelMouseUp() {
@@ -162,21 +160,21 @@ export default {
     },
     ok() {
       this.$emit("ok");
-      this.hide();
+      this.close();
     },
     onKeyUp(e) {
-      if (this.visible) { 
-        if (e.keyCode == 27) this.hide();
+      if (this.visible) {
+        if (e.keyCode == 27) this.close();
       }
     },
     cancel() {
       this.$emit("cancel");
-      this.hide();
+      this.close();
     },
-    hide() {
+    close() {
       this.visible = false;
       this.$emit("input", false);
-      this.$emit("close"); 
+      this.$emit("close");
     }
   }
 };

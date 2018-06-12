@@ -66,6 +66,7 @@ let R = {
     'tooltip': r => require.ensure([], () => r(require('./page/tooltip')), 'tooltip'),
     'theme': r => require.ensure([], () => r(require('./page/theme')), 'theme'),
     'tree': r => require.ensure([], () => r(require('./page/tree')), 'tree'),
+    'treeselect': r => require.ensure([], () => r(require('./page/treeselect')), 'treeselect'),
     'test': r => require.ensure([], () => r(require('./page/test')), 'test')
 };
 

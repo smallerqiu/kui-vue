@@ -8,8 +8,8 @@ code.custom = `<Button @click="d2=!d2">自定义宽度</Button>
 <Modal v-model="d3" title="我是自定义标题">
    <p>我是自定义内容</p>
    <div slot="footer">
-      <Button type="danger">自定义1</Button>
-      <Button type="success">自定义2</Button>
+    <Button type="danger">自定义1</Button>
+    <Button type="success">自定义2</Button>
    </div>
 </Modal>
 <Modal v-model="d4" width="300" cancelText="不要取消" okText="别点我"></Modal>`

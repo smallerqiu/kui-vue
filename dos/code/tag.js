@@ -17,11 +17,11 @@ code.custom=`<Tag color="blue" closeable v-for="m in count" :key="m">标签{{m}}
 <Tag @click="count++">增加</Tag>
 <script>
 export default {
-    data() {
-        return {
-            count: 3
-        }
+  data() {
+    return {
+      count: 3
     }
+  }
 }
 </script>
 `

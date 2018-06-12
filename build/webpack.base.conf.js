@@ -1,8 +1,7 @@
 // const ExtractTextPlugin = require('extract-text-webpack-plugin') //for webpack 3
-const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
-const pkg = require('../package.json');
-const webpack = require('webpack');
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
+// const pkg = require('../package.json');
+// const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -19,7 +18,7 @@ module.exports = {
       { test: /\.styl(us)?$/, use: ['vue-style-loader', 'css-loader', 'stylus-loader'] },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader', 'postcss-loader']
+        use: ['vue-style-loader', 'css-loader', /* 'postcss-loader' */]
       },
 
       {

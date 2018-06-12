@@ -2,7 +2,7 @@
     <div class="k-tree">
         <TreeNode v-for="(item,i) in data" :data="item" :key="i" :checkbox="checkbox">
         </TreeNode>
-        <span v-if="!data||!data.length">暂无数据...</span>
+        <span v-if="!data||!data.length" class="tree-nodata">暂无数据...</span>
     </div>
 </template>
 <script>
@@ -20,8 +20,18 @@ export default {
         this.$on('tree-selected', this.selected)
         this.$on('tree-check', this.check)
         this.$on('tree-expand', this.expand)
+        this.$on('tree-load', this.load)
     },
     methods: {
+        load(obj) {
+            this.$emit('loadData', obj, children => {
+                this.$set(obj, 'loading', false)
+                if (children && children.length) {
+                    obj.children = children
+                    this.$set(obj, 'expand', !obj.expand)
+                }
+            })
+        },
         expand(obj) {
             this.$emit('expand', obj)
         },

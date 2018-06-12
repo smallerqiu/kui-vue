@@ -1,16 +1,14 @@
 <template>
   <li :class="classes" @mouseover="openMenu" @mouseout="closeMenu">
-    <div class="k-menu-title" @click.stop="accrodion" >
+    <div class="k-menu-title" @click.stop="accrodion">
       <slot name="title"></slot>
       <i class="k-ion-ios-arrow-down"></i>
     </div>
-    <!-- <transition name="dropdown"> -->
     <Collapse>
-      <ul class="k-menu-dropdown" v-show="visible"   ref="dom"  >
+      <ul class="k-menu-dropdown" v-show="visible">
         <slot></slot>
       </ul>
     </Collapse>
-    <!-- </transition> -->
   </li>
 </template> 
 <script>
@@ -21,7 +19,6 @@ export default {
   mixins: [emitter],
   components: { Collapse },
   props: {
-    icon: String,
     name: { type: String, required: true }
   },
   data() {
@@ -42,11 +39,7 @@ export default {
           ["k-menu-item-opened"]: this.visible
         }
       ];
-    },
-    styleDrop() {
-      let style = {};
-      return style;
-    }
+    }, 
   },
   mounted() {
     this.$on('menu-submenu-update', this.update)
@@ -71,12 +64,12 @@ export default {
     },
     openMenu() {
       if (this.rootMenu.mode == "vertical") return;
-      this.$nextTick(()=>this.visible = true)
-      
+      this.$nextTick(() => this.visible = true)
+
     },
     closeMenu() {
       if (this.rootMenu.mode == "vertical") return;
-      this.$nextTick(()=>this.visible = false)
+      this.$nextTick(() => this.visible = false)
     }
   }
 };

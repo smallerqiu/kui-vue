@@ -44,7 +44,7 @@ export default {
   components: { Expand: Expand, "k-checkbox": Checkbox },
   name: "Table",
   props: {
-    border: Boolean,
+    bordered: Boolean,
     mini: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
@@ -55,7 +55,7 @@ export default {
       return [
         "k-table",
         {
-          ["k-table-border"]: this.border,
+          ["k-table-bordered"]: this.bordered,
           ["k-table-mini"]: this.mini
         }
       ];

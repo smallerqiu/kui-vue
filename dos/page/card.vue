@@ -26,7 +26,7 @@
             <Col span="12">
             <Demo title="边框" layout="vertical">
                 <div slot="content">
-                    <Card title="卡片标题" icon="android-favorite-outline" border>
+                    <Card title="卡片标题" icon="android-favorite-outline" bordered>
                         <span slot="extra">摇一摇</span>
                         <p>内容随便写， 欢迎使用</p>
                         <p>内容随便写， 欢迎使用</p>
@@ -37,7 +37,7 @@
                     </Card>
                 </div>
                 <div slot="desc">
-                    <code>border</code>可以设置是否显示边框</div>
+                    <code>bordered</code>可以设置是否显示边框</div>
                 <div slot="code">{{code.border}}</div>
             </Demo>
             </Col>
@@ -64,7 +64,7 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>border</td>
+                    <td>bordered</td>
                     <td>卡片是否显示边框</td>
                     <td>Boolean</td>
                     <td>false</td>

@@ -58,7 +58,7 @@
         </tr>
         <tr>
           <td>duration</td>
-          <td>自动关闭的延时，单位秒</td>
+          <td>自动关闭的延时，单位秒，0为 不自动关闭</td>
           <td>Number</td>
           <td>3</td>
         </tr>
