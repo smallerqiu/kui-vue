@@ -3,7 +3,7 @@
     <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
     <a class="k-datepicker-close" @click.stop="clear" v-if="clearable&&!disabled"></a>
     <transition name="dropdown">
-      <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-show="visible" ref="dom" v-transferDom :data-transfer="transfer">
+      <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-if="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
           <Calendar v-model="dates[0]" :left="true" class="k-calendar-left"></Calendar>
           <Calendar v-model="dates[1]" :right="true" class="k-calendar-right"></Calendar>
@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     close(e) {
-      if (!this.$refs.dom.contains(e.target)) {
+      if (this.$refs.dom && !this.$refs.dom.contains(e.target)) {
         this.visible = false;
       }
       // if (!this.transfer) {
@@ -144,6 +144,7 @@ export default {
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
+      if (!dom) return;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight;
       let clientW = window.innerWidth;

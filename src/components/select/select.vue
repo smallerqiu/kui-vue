@@ -7,7 +7,7 @@
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
-      <div class="k-select-dropdown" ref="dom" v-show="visible" :style="dropdownStyles" v-transferDom :data-transfer="transfer">
+      <div class="k-select-dropdown" ref="dom" v-if="visible" :style="dropdownStyles" v-transferDom :data-transfer="transfer">
         <ul>
           <slot></slot>
           <li class="k-select-item" v-if="children.length==0||queryCount==0">暂无数据...</li>
@@ -170,6 +170,7 @@ export default {
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
+      if (!dom) return;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight;
       let clientW = window.innerWidth;
