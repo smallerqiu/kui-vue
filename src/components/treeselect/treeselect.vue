@@ -54,7 +54,7 @@ export default {
   },
   watch: {
     value(val) {
-      if (val === '' || value === undefined || value === null) {
+      if (val === '' || val === undefined || val === null) {
         this.showLabel = ''
       }
     }
