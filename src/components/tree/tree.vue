@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         load(obj) {
-            this.$emit('loadData', obj, children => {
+            this.$emit('load-data', obj, children => {
                 this.$set(obj, 'loading', false)
                 if (children && children.length) {
                     obj.children = children

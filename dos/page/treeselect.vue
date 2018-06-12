@@ -26,7 +26,7 @@
       <Col span="12">
       <Demo title="异步和搜索">
         <div slot="content">
-          <TreeSelect :data="data1" clearable queryable @queryChange="queryChange" @loadData="loadData" />
+          <TreeSelect :data="data1" clearable queryable @query-change="queryChange" @load-data="loadData" />
         </div>
         <div slot="code">{{code.async}}</div>
         <div slot="desc">Tree的一步加载和组件
@@ -81,19 +81,19 @@
           <td>false</td>
         </tr>
         <tr>
-          <td>queryPlaceholder</td>
+          <td>query-placeholder</td>
           <td>搜索框提示文字</td>
           <td>String</td>
           <td>请输入关键字查询</td>
         </tr>
         <tr>
-          <td>loadData</td>
+          <td>load-data</td>
           <td>异步加载数据的方法</td>
           <td>Function</td>
           <td>-</td>
         </tr>
         <tr>
-          <td>queryChange</td>
+          <td>query-change</td>
           <td>搜索查询回调</td>
           <td>Function</td>
           <td>-</td>

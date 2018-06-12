@@ -24,7 +24,7 @@
       <Col span="12">
       <Demo title="异步加载">
         <div slot="content">
-          <Tree :data="data2" @loadData="loadData"></Tree>
+          <Tree :data="data2" @load-data="loadData"></Tree>
         </div>
         <div slot="desc">点击展开节点，动态加载数据。。</div>
         <div slot="code">{{code.async}}</div>
@@ -61,7 +61,7 @@
           <td>false</td>
         </tr>
         <tr>
-          <td>loadData</td>
+          <td>load-data</td>
           <td>异步加载数据的方法</td>
           <td>Function</td>
           <td>-</td>
