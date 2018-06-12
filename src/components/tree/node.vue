@@ -61,23 +61,25 @@ export default {
         },
         handelExpand() {
             if (this.data.disabled) return;
-            let root = this.getParent('Tree')
-            let loadData = root.$listeners.loadData
+            // let root = this.getParent('Tree')
+            // let loadData = root.$listeners.loadData
             //async load
-            if (loadData && (!this.data.children || !this.data.children.length)) {
+            if (this.data.loading!==undefined && (!this.data.children || !this.data.children.length)) {
                 this.$set(this.data, 'loading', true)
-                loadData(this.data, children => {
-                    this.$set(this.data, 'loading', false)
-                    if (children && children.length) {
-                        this.data.children = children
-                        this.$set(this.data, 'expand', !this.data.expand)
-                    }
-                })
+                this.dispatch('Tree', 'tree-load', this.data)
+
+                // this.$emit('loadData', this.data, children => {
+                //     this.$set(this.data, 'loading', false)
+                //     if (children && children.length) {
+                //         this.data.children = children
+                //         this.$set(this.data, 'expand', !this.data.expand)
+                //     }
+                // })
+                // loadData()
             } else if (this.data.children && this.data.children.length) {
                 this.$set(this.data, 'expand', !this.data.expand)
             }
             this.dispatch('Tree', 'tree-expand', this.data)
-            this.dispatch('Tree', 'tree-load', this.data)
         }
     }
 }

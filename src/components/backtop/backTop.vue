@@ -1,11 +1,11 @@
 <template>
-    <div class="k-backtop" @click="handle" v-show="visible" v-scroll="scroll" :style="styles">
-        <slot>
-            <div class="k-backtop-content">
-                <Icon type="chevron-up" />
-            </div>
-        </slot>
-    </div>
+  <div class="k-backtop" @click="handle" v-show="visible" v-scroll="scroll" :style="styles">
+    <slot>
+      <div class="k-backtop-content">
+        <Icon type="chevron-up" />
+      </div>
+    </slot>
+  </div>
 </template>
 <script>
 import scroll from "../../directives/winScroll";
@@ -13,7 +13,7 @@ export default {
   name: "BackTop",
   directives: { scroll },
   props: {
-    height: { type: [String, Number], default: 400 },
+    height: { type: [String, Number], default: 100 },
     right: [String, Number],
     bottom: [String, Number]
   },
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     scroll() {
-      let top = document.body.scrollTop || document.documentElement.scrollTop;
+      let top = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
       this.visible = top >= this.height;
     },
     handle(e) {
@@ -43,11 +43,11 @@ export default {
       }
       let height = 80;
       this.timer = setInterval(() => {
-        var oTop =
-          document.body.scrollTop || document.documentElement.scrollTop;
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
         if (oTop > 0) {
-          document.body.scrollTop = document.documentElement.scrollTop =
-            oTop - height;
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - height;
+          window.setWindowScroll(-height)
+          this.scroll()
         } else {
           clearInterval(this.timer);
         }

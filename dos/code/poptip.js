@@ -21,31 +21,31 @@ code.position = `<Poptip title="标题" content="内容" placement="top-left"><B
 code.slot = `<Poptip content="内容" placement="right-top">
    <Button>Click me</Button>
    <div slot="content" class="k-table k-table-border">
-      <table>
-         <thead>
-         <tr>
-            <th>姓名</th>
-            <th>电话</th>
-            <th>住址</th>
-         </tr>
-         </thead>
-            <tr>
-            <td>张山</td>
-            <td>13256652545</td>
-            <td>广东省深圳市宝安区软件产业基地三诺大厦19楼</td>
-         </tr> <tr>
-            <td>王二</td>
-            <td>36254525658</td>
-            <td>浙江省杭州市阿里西溪园区3A18楼</td>
-         </tr>
-      </table>
+    <table>
+     <thead>
+     <tr>
+      <th>姓名</th>
+      <th>电话</th>
+      <th>住址</th>
+     </tr>
+     </thead>
+      <tr>
+      <td>张山</td>
+      <td>13256652545</td>
+      <td>广东省深圳市宝安区软件产业基地三诺大厦19楼</td>
+     </tr> <tr>
+      <td>王二</td>
+      <td>36254525658</td>
+      <td>浙江省杭州市阿里西溪园区3A18楼</td>
+     </tr>
+    </table>
    </div>
 </Poptip>`
 code.confirm = `<Poptip confirm title="您确认删除这条内容吗？" @ok="ok" @cancel="cancel"> 
-    <Button>删除</Button> 
+  <Button>删除</Button> 
 </Poptip>
 <Poptip confirm title="Are you OK?" @ok="ok" @cancel="cancel" ok-text="yes" cancel-text="no"> 
-    <Button>自定义</Button>
+  <Button>自定义</Button>
  </Poptip>`
 
 export default code

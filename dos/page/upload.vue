@@ -7,7 +7,7 @@
       <Col span="12">
       <Demo title="基础用法" layout="vertical">
         <div slot="content">
-          <Upload action="/rest/jcmro-sys-service/fileupload/uploadFile">
+          <Upload action="/rest/uploadFile">
             <Button>上传文件</Button>
           </Upload>
         </div>
@@ -17,7 +17,7 @@
       </Demo>
       <Demo title="禁用" layout="vertical">
         <div slot="content">
-          <Upload :action="action" disabled>
+          <Upload action="/rest/uploadFile" disabled>
             <Button type="success">上传文件</Button>
           </Upload>
         </div>
@@ -31,7 +31,7 @@
       <Col span="12">
       <Demo title="附带数据上传" layout="vertical">
         <div slot="content">
-          <Upload action="/rest/jcmro-sys-service/fileupload/uploadFile" @change="change" @complite="complite" :data="data">
+          <Upload action="/rest/uploadFile" @change="change" @complite="complite" :data="data">
             <Button>上传文件</Button>
           </Upload>
         </div>
@@ -41,7 +41,7 @@
       </Demo>
       <Demo title="非自动上传模式" layout="vertical">
         <div slot="content">
-          <Upload :action="action" @change="change" @complite="complite" ref="upload" :data="data" type="wait">
+          <Upload action="/rest/uploadFile" @change="change" @complite="complite" ref="upload" :data="data" type="wait">
             <Button>上传文件</Button>
           </Upload>
           <Button @click="upload">点我开始上传</Button>
@@ -111,8 +111,7 @@ export default {
   components: { Demo },
   data() {
     return {
-      code: code,
-      action: "/rest/jcmro-sys-service/fileupload/uploadFile",
+      code: code, 
       data: { a: 1, b: 2, c: 3 },
     };
   },

@@ -27,6 +27,7 @@ import { Select, Option } from './components/select'
 import { Steps, Step } from './components/steps'
 import Table from './components/table'
 import Tooltip from './components/tooltip'
+import TreeSelect from './components/treeselect'
 import { Tabs, TabPane } from './components/tabs'
 import { TimeLine, TimeLineItem } from './components/timeline'
 import Tree from './components/tree'
@@ -52,7 +53,7 @@ const components = {
     Page, Poptip, Panel,
     Row, Radio, RadioGroup,
     Scroll, Steps, Step, Select, SubMenu,Slider,
-    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree,
+    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree,TreeSelect,
     Upload,
 }
 const UI = {

@@ -7,7 +7,7 @@
       <Col span="12">
       <Demo title="基本用法" layout="vertical">
         <div slot="content">
-          <span>{{checked}}</span>
+          <span style="padding:0 10px;width:50px;display:inline-block">{{checked}}</span>
           <Switch v-model="checked"></Switch>
           <!-- <Button @click="test" mini>test</Button> -->
         </div>

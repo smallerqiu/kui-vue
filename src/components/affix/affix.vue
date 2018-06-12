@@ -52,18 +52,18 @@ export default {
             if (this.showBlob) {
                 let pos = this.$refs.blob.getBoundingClientRect()
                 //unfixedBottom
-                if (this.offsetBottom >= 0) {
+                if (this.offsetBottom !== undefined && this.offsetBottom >= 0) {
                     let bodyPos = document.body.getBoundingClientRect()
                     if (pos.top + pos.height <= bodyPos.height) {
                         this.showBlob = false
-                        this.$emit('change',false)
+                        this.$emit('change', false)
                     }
                     return;
                 }
                 //unfixedTop
                 if (pos.top >= this.offsetTop) {
                     this.showBlob = false
-                    this.$emit('change',false)
+                    this.$emit('change', false)
                 }
             } else {
                 let pos = this.$refs.affix.getBoundingClientRect()
@@ -73,7 +73,7 @@ export default {
                     let bodyPos = document.body.getBoundingClientRect()
                     if (pos.top + pos.height >= bodyPos.height) {
                         this.showBlob = true
-                        this.$emit('change',true)
+                        this.$emit('change', true)
                         this.width = pos.width
                         this.height = pos.height
                     }
@@ -81,7 +81,7 @@ export default {
                 }
                 //fixedTop
                 if (pos.top <= this.offsetTop) {
-                    this.$emit('change',true)
+                    this.$emit('change', true)
                     this.showBlob = true
                     this.width = pos.width
                     this.height = pos.height

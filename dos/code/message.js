@@ -3,7 +3,7 @@ let code = {}
 code.base = `<Button @click="info" type="primary">普通提示 </Button>
 <script>
 info() {
-    this.$Message.info("普通提示");
+  this.$Message.info("普通提示");
 }
 <\/script>`
 
@@ -12,7 +12,7 @@ code.type = `<Button @click="warning" type="warning">警告提示 </Button>
 <Button @click="error" type="danger">错误提示 </Button>
 <script>
 warning() {
-    this.$Message.warning("警告提示");
+  this.$Message.warning("警告提示");
   },
 success() {
   this.$Message.success("成功提示");
@@ -37,13 +37,13 @@ config2() {
   });
 },
 config3() {
-      this.$Message.config({
-        type: "info",
-        duration: 5,
-        closable: true,
-        content: "手动关闭"
-      });
-    }
+  this.$Message.config({
+    type: "info",
+    duration: 5,
+    closable: true,
+    content: "手动关闭"
+  });
+}
 <\/script>`
 code.static = `this.$Message.info(content, [duration], onClose)
 this.$Message.success(content, [duration], onClose)

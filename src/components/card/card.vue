@@ -17,14 +17,14 @@
 export default {
     name: 'Card',
     props: {
-        border: Boolean,
+        bordered: Boolean,
         title: String,
         icon: String
     },
     computed: {
         classes() {
             return ['k-card', {
-                ['k-card-border']: this.border
+                ['k-card-bordered']: this.bordered
             }]
         }
     }

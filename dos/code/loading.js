@@ -4,32 +4,32 @@ code.useInRouter = `import kui from 'kui-vue';
 Vue.use(kui);
 
 router.beforeEach((to, from, next) => {
-    kui.Loading.start();
-    next();
+  kui.Loading.start();
+  next();
 });
 
 router.afterEach(route => {
-    kui.Loading.finish();
+  kui.Loading.finish();
 });`
 code.useInAjax = `<script>
 // 以jQuery的Ajax为例，部分代码省略
 import $ from 'jquery';
 export default {
-    methods: {
-        getData () {
-            this.$Loading.start();
-            $.ajax({
-                url: '/api/someurl',
-                type: 'get',
-                success: () => {
-                    this.$Loading.finish();
-                }
-                error: () => {
-                    this.$Loading.error();
-                }
-            });
+  methods: {
+    getData () {
+      this.$Loading.start();
+      $.ajax({
+        url: '/api/someurl',
+        type: 'get',
+        success: () => {
+          this.$Loading.finish();
         }
+        error: () => {
+          this.$Loading.error();
+        }
+      });
     }
+  }
 }
 <\/script>`
 code.test = `<Button @click="start()">start</Button>
@@ -42,13 +42,13 @@ code.test = `<Button @click="start()">start</Button>
   methods: {
     config() {
       this.$Loading.config({
-        type: "line",
-        color: "orange",
-        height: 10
+      type: "line",
+      color: "orange",
+      height: 10
       });
     },
     upload(percent){
-        this.$Loading.upload(percent);
+      this.$Loading.upload(percent);
     },
     start() {
       this.$Loading.start();
@@ -68,12 +68,12 @@ code.theme = `<Button @click="loading('flip')">flip</Button>
 <script>
 ...
 methods: {
-    loading(type) {
-        this.$Loading.start(type);
-        setTimeout(() => {
-            this.finish();
-        }, 3000);
-    },
+  loading(type) {
+    this.$Loading.start(type);
+    setTimeout(() => {
+      this.$Loading.finish();
+    }, 3000);
+  },
 }
 ...
 <\/script>`

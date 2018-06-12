@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span class="k-breadcrumb-item">
         <span class="k-breadcrumb-link" @click="toPath">
             <Icon :type="icon" v-if="icon" />
             <slot></slot>

@@ -74,7 +74,7 @@
         <div slot="content">
           <div v-for="i in m" style="margin:15px 0;" :key="i">
             <Badge count="+" @onClick="()=>{m++}">
-              <Button>增加</Button>
+              <Button>Item{{i}}:</Button>
             </Badge>
             <Badge count="-" @onClick="()=>{m!=1&&m--}" style="margin-left:20px;">
               <Input width="200"></Input>

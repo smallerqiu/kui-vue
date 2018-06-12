@@ -13,7 +13,7 @@ export default {
     props: {
         scrollX: { type: [Number, String], default: 0 },
         scrollY: { type: [Number, String], default: 0 },
-        router: Boolean,
+        target: String,
     },
     data() {
         return {
@@ -34,10 +34,7 @@ export default {
     },
     watch: {
         $route(a, b) {
-            if (this.router) {
-                this.viewY = 0
-                this.barY = 0
-            }
+            if(a.path!==b.path && this.target=='window') this.reset()
         }
     },
     computed: {
@@ -53,13 +50,19 @@ export default {
         window.addEventListener('mousemove', this.barMouseMove)
         window.addEventListener('mouseup', this.barMouseUp)
         window.addEventListener('resize', this.resize)
+        window.setWindowScroll = this.setBar
     },
     beforeDestroy() {
         window.removeEventListener('mousemove', this.barMouseMove)
         window.removeEventListener('mouseup', this.barMouseUp)
         window.removeEventListener('resize', this.resize)
+        // window.setWindowScroll = null
     },
     methods: {
+        reset() {
+            this.viewY = 0
+            this.barY = 0
+        },
         resize() {
             this.animaded = false
             this.initBar()
@@ -83,29 +86,42 @@ export default {
             this.barHeight = (this.wrapHeight / this.innerHeight) * 100
             this.showVerticalBar = this.wrapHeight < this.innerHeight
         },
+        setWindowScroll(x, y) {
+            if (this.target == 'window') {
+                window.scrollX = x || 0
+                window.scrollY = y
+            }
+        },
         setBar(moveY, moveX) {
+            // console.log(moveY,moveX)
             //todo 横向滚动 还没时间写，
             let wrapHeight = this.wrapHeight
             let innerHeight = this.innerHeight
             if (wrapHeight >= innerHeight) return;
+            let scrollY = 0
             if (moveY > 0) { //向上滚动
                 if (wrapHeight - this.viewY > innerHeight || wrapHeight - this.viewY + moveY > innerHeight) {
                     this.viewY = (innerHeight - wrapHeight) * -1
-                    this.barY = (this.viewY * wrapHeight / innerHeight) / wrapHeight * 100 * -1
+                    scrollY = (this.viewY * wrapHeight / innerHeight) * -1
+                    this.setWindowScroll(0, scrollY)
+                    this.barY = scrollY / wrapHeight * 100
                     return
                 }
             } else { //向下滚动
                 if (this.viewY > 0 || this.viewY - moveY > 0) {
                     this.viewY = 0
                     this.barY = 0
+                    this.setWindowScroll(0, 0)
                     return;
                 }
             }
             this.viewY -= moveY
-            this.barY = (this.viewY * wrapHeight / innerHeight) / wrapHeight * 100 * -1 //移动的距离占总距离的百分比计算
+            scrollY = (this.viewY * wrapHeight / innerHeight) * -1
+            this.setWindowScroll(0, scrollY)
+            this.barY = scrollY / wrapHeight * 100  //移动的距离占总距离的百分比计算
         },
         mouseOver() {
-            this.$refs.wrap.focus()
+            // this.$refs.wrap.focus()
             this.initBar()
         },
         mouseWheel(e) {
@@ -174,7 +190,7 @@ export default {
         },
         //创建一个滚动条事件，当view 滚动的时候，手动触发滚动条事件
         emitEvent(e) {
-            this.$emit('mousewheel', e)
+            this.$emit('mousewheel', e, this.viewY, this.barY)
             if (!this.Events) {
                 this.Events = document.createEvent('Events')
                 this.Events.initEvent('scroll', false, false);

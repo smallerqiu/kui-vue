@@ -6,7 +6,7 @@
       <Col span="12">
       <Demo title="基础" layout="vertical">
         <div slot="content">
-          <span>{{checked}}</span>
+          <span>{{checked}}</span><br/>
           <Radio v-model="checked" @change="change">测试</Radio>
           <Button @click="checked=!checked" mini style="margin:0">Click me</Button>
         </div>

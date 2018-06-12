@@ -135,12 +135,6 @@
                     <td>false</td>
                 </tr>
                 <tr>
-                    <td>autoplay</td>
-                    <td>是否自动切换</td>
-                    <td>Boolean</td>
-                    <td>false</td>
-                </tr>
-                <tr>
                     <td>sample</td>
                     <td>是否开启简洁模式</td>
                     <td>Boolean</td>
@@ -148,7 +142,7 @@
                 </tr>
                 <tr>
                     <td>change</td>
-                    <td>切换面板时触发回调，返回当前选择的element</td>
+                    <td>切换面板时触发回调，返回当前选项卡的展开折叠状态</td>
                     <td>Function</td>
                     <td>-</td>
                 </tr>

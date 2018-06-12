@@ -3,6 +3,13 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.6<span> 2018-6-12 </span></h3>
+        <p>新增<code>TreeSelect</code>组件</p>
+        <p>优化一些细节，规范一些组件名称和函数定义</p>
+        <p>修复文档部分示例展示错误</p>
+        <p>打包编译升级webpack4</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.5<span> 2018-5-24 </span></h3>
         <p>优化<code>Poptip</code>等一些列组件的定位卡顿问题</p>
         <p>优化<code>Menu</code>手风琴模式的展示卡顿问题</p>
@@ -134,7 +141,7 @@
         <h3>1.4.5
           <span> 2018-1-29 </span>
         </h3>
-        <p>修复<code>Table</code>组件 <code>border</code>显示问题</p>
+        <p>修复<code>Table</code>组件 <code>bordered</code>显示问题</p>
         <p>优化<code>Table</code>组件 无数据时文字显示问题，优化表格表头字体大小</p>
         <p>新增<code>Table</code>组件 <code>mini</code>显示模式
           <a href="/table">#体检</a>

@@ -6,9 +6,9 @@ code.base=`<p>{{checked}}</p>
 <script>
 export default {
   data() {
-      return {
-        checked: true,
-      };
+    return {
+      checked: true,
+    };
   }
 </script>`
 code.disabled = `<CheckboxGroup :value="['苹果🍎','香蕉🍌']">
@@ -31,10 +31,10 @@ code.group =`<CheckboxGroup v-model="data">
 <script>
 export default {
   data() {
-      return {
-        checked: true,
-        data: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
-      };
+    return {
+      checked: true,
+      data: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
+    };
   }
 </script>
 `
@@ -49,39 +49,39 @@ code.checkAll =`<Checkbox :value="checkAll" :indeterminate="indeterminate" @clic
 <script>
 export default {
   data() {
-    return {
-      checkAll: false,
-      indeterminate: false,
-      check: []
-    };
+  return {
+    checkAll: false,
+    indeterminate: false,
+    check: []
+  };
   },
   methods: {
-    handelCheckAll(v) {
-      if (this.indeterminate) {
-        this.checkAll = false;
-      } else {
-        this.checkAll = !this.checkAll;
-      }
-      this.indeterminate = false;
-
-      if (this.checkAll) {
-        this.check = ["苹果🍎", "香蕉🍌", "葡萄🍇", "栗子🌰"];
-      } else {
-        this.check = [];
-      }
-    },
-    handelCheck(data) {
-      if (data.length === 4) {
-        this.indeterminate = false;
-        this.checkAll = true;
-      } else if (data.length > 0) {
-        this.indeterminate = true;
-        this.checkAll = false;
-      } else {
-        this.indeterminate = false;
-        this.checkAll = false;
-      }
+  handelCheckAll(v) {
+    if (this.indeterminate) {
+      this.checkAll = false;
+    } else {
+      this.checkAll = !this.checkAll;
     }
+    this.indeterminate = false;
+
+    if (this.checkAll) {
+      this.check = ["苹果🍎", "香蕉🍌", "葡萄🍇", "栗子🌰"];
+    } else {
+      this.check = [];
+    }
+  },
+  handelCheck(data) {
+    if (data.length === 4) {
+      this.indeterminate = false;
+      this.checkAll = true;
+    } else if (data.length > 0) {
+      this.indeterminate = true;
+      this.checkAll = false;
+    } else {
+      this.indeterminate = false;
+      this.checkAll = false;
+    }
+  }
   }
 };
 </script>
