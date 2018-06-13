@@ -16,6 +16,8 @@ let nav = [
     child: [
       { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
       { title: "按钮", sub: "Button", link: "/button", icon: 'stop' },
+      // { title: "颜色", sub: "Color", link: "/color", icon: 'color' },
+      // { title: "字体", sub: "Font", link: "/font", icon: 'font' },
       { title: "布局", sub: "layout", link: "/layout", icon: 'social-buffer' },
     ]
   },

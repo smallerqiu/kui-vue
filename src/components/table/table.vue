@@ -1,40 +1,58 @@
 <template>
-  <div :class="classes" :style="styles" ref="table">
-    <table>
+  <div :class="classes" :style="styles" ref="table" v-scroll="scroll">
+    <table class="k-table-header" v-if="headerFixed && fixed" :style="`top:${fixedTop}px;width:${fixedWidth}px`">
+      <thead>
+        <tr>
+          <th v-for="(item,index) in columns" :key="index" :style="`width:${colWidths[index]}px`">
+            <div class="k-table-cell">
+              <template v-if="item.type&&item.type=='selection'">
+                <label for="k-checkbox-all">
+                  <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
+                </label>
+              </template>
+              <template v-else>{{item.title}}</template>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <table ref="dom">
       <thead>
         <tr>
           <th v-for="(item,index) in columns" :key="index">
-            <template v-if="item.type&&item.type=='selection'">
-              <label for="k-checkbox-all">
-                <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
-              </label>
-            </template>
-            <template v-else>{{item.title}}</template>
+            <div class="k-table-cell">
+              <template v-if="item.type&&item.type=='selection'">
+                <label for="k-checkbox-all">
+                  <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
+                </label>
+              </template>
+              <template v-else>{{item.title}}</template>
+            </div>
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item,m) in data" :key="m">
           <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
-            <template v-if="sub.type&&sub.type=='selection'">
+            <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
                 <k-checkbox v-model="item._checked" @change="check(item,m)"></k-checkbox>
               </label>
-            </template>
+            </div>
             <template v-else-if="sub.type&&sub.type=='html'">
-              <div v-html="item[sub.key]"></div>
+              <div v-html="item[sub.key]" class="k-table-cell"></div>
             </template>
-            <template v-else-if="sub.render">
+            <div v-else-if="sub.render" class="k-table-cell" :style="`width:${sub.width}px;overflow:hidden;`">
               <Expand :render="sub.render" :row="item" :column="sub" :index="m"></Expand>
-            </template>
+            </div>
             <template v-else>
               <template v-if="sub.tooltip">
                 <Tooltip :content="item[sub.key]" breaked>
-                  <div :style="`width:${sub.width}px;`" :class="{'td-hidden':sub.overflow=='hidden'}"> {{item[sub.key]}}</div>
+                  <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'td-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
                 </Tooltip>
               </template>
               <template v-else>
-                <div :style="`width:${sub.width}px;`" :class="{'td-hidden':sub.overflow=='hidden'}"> {{item[sub.key]}}</div>
+                <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'td-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
               </template>
             </template>
           </td>
@@ -48,11 +66,14 @@
 import { Checkbox } from "../checkbox";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
+import scroll from '../../directives/winScroll.js'
 export default {
-  components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip },
+  components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip, },
   name: "Table",
+  directives: { scroll },
   props: {
     bordered: Boolean,
+    headerFixed: Boolean,
     mini: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
@@ -64,16 +85,24 @@ export default {
         "k-table",
         {
           ["k-table-bordered"]: this.bordered,
-          ["k-table-mini"]: this.mini
+          ["k-table-mini"]: this.mini,
+          ["k-table-fixed"]: this.headerFixed
         }
       ];
     },
     styles() {
-      return this.data.length == 0 ? { overflow: "hidden" } : {};
+      let style = {}
+      style.overflow = this.data.length == 0 ? 'hidden' : ''
+      style.position = this.fixed ? 'relative' : ''
+      return style
     }
   },
   data() {
     return {
+      colWidths: [],
+      fixed: false,
+      fixedTop: 0,
+      fixedWidth:0,
       checked: false,
       selectRow: [] //所有选择的数据
       // selectRow:{}  //当前单选出发所选择的数据
@@ -107,9 +136,29 @@ export default {
   }, */
 
   methods: {
+    setWidths() {
+      if (this.headerFixed && this.columns && this.columns.length && this.data && this.data.length) {
+        let td = this.$refs.dom.childNodes[2].lastElementChild.childNodes
+        let colWidths = []
+        td.forEach(x => {
+          colWidths.push(x.offsetWidth)
+        })
+        this.colWidths = colWidths
+      }
+    },
+    scroll() {
+      if (!this.headerFixed) return;
+      let t = this.$refs.table.getBoundingClientRect().top
+      this.fixedTop = t * -1;
+      this.fixedWidth = this.$refs.dom.offsetWidth;
+      if (this.headerFixed && t < 0) {
+        this.setWidths()
+      }
+      this.fixed = t < 0
+    },
     tdStyle(align) {
       let obj = {};
-      if (align) obj["text-align"] = "right";
+      if (align) obj["text-align"] = align;
       return obj;
     },
     check(item, index) {

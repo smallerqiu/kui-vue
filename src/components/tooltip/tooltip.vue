@@ -1,5 +1,5 @@
 <template>
-  <div class="k-tooltip" @mouseenter="mouseHandle" @mouseleave="mouseHandle" v-winScroll="handleScroll">
+  <div class="k-tooltip" @mouseenter="mouseEnter" @mouseleave="mouseLeave" v-winScroll="handleScroll">
     <div class="k-tooltip-rel" ref="rel" @click="relClick">
       <slot></slot>
     </div>
@@ -72,13 +72,6 @@ export default {
       return style;
     }
   },
-  watch: {
-    visible(v) {
-      if (v) {
-        this.handleScroll()
-      }
-    }
-  },
   methods: {
     handleScroll() {
       this.$nextTick(() => this.setPostion())
@@ -91,7 +84,7 @@ export default {
       // }
       let x = this.placement;
       let dom = this.$refs.dom;
-      if(!dom) return;
+      if (!dom) return;
       // console.log(this.$children)
       //取子元素的margin,计算的时候要进行运算
       // let child = this.$children[0] && this.$children[0].$el || rel
@@ -153,9 +146,15 @@ export default {
           break;
       }
     },
-    mouseHandle() {
+    mouseEnter() {
+      if (this.trigger == "hover") this.visible = true
+      this.handleScroll();
+    },
+    mouseLeave(e) {
       if (this.trigger == "hover") {
-        this.visible = !this.visible;
+        this.visible = false
+        // console.log(e)
+        // !this.$refs.dom.contains(e.target) && ()
       }
     },
     relClick() {

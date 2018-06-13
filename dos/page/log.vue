@@ -3,6 +3,11 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.9<span> 2018-6-13 </span></h3>
+        <p><code>Table</code>组件新增表头固定</p>
+        <p>修复<code>Tooltip</code>组件显示隐藏的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.8<span> 2018-6-12 </span></h3>
         <p>优化transfer性能问题</p>
       </TimeLineItem>
