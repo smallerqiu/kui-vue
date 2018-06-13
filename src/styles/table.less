@@ -15,8 +15,12 @@
     }
     tr th {
       font-weight: 700;
-      font-size: 14px;
-      padding: 13px;
+      font-size: 14px; // padding: 13px;
+      height: 40px;
+      .k-table-cell {
+        padding: 0 13px;
+        box-sizing: border-box;
+      }
     }
     th,
     td {
@@ -26,7 +30,11 @@
       white-space: nowrap;
     }
     td {
-      padding: 10px 13px;
+      height: 45px;
+      .k-table-cell {
+        padding: 0 13px;
+        box-sizing: border-box;
+      }
       .td-hidden {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -67,17 +75,27 @@
 .k-table-mini {
   table {
     tr th {
-      padding: 6px;
+      height: 30px;
       font-size: 12px;
     }
     td {
-      padding: 5px 6px;
+      height: 30px;
     }
   }
 }
-
+.k-table-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
 .k-table-bordered {
   border: 1px solid #eee; // border-right: 1px solid #eee;
+  border-bottom: none;
+
+  .no-data {
+    border-bottom: 1px solid #eee;
+  }
   th,
   td {
     border: 1px solid #eee;
@@ -94,5 +112,16 @@
   table thead,
   tr th {
     border-top: none;
+  }
+}
+
+.k-table-fixed {
+  th,
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+    box-sizing: border-box;
   }
 }

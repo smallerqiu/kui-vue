@@ -5,9 +5,9 @@
     <h3>代码示例</h3>
     <Demo title="基础／组件嵌套" layout="vertical">
       <div slot="content">
-        <Button @click="bordered=!bordered" type="primary">表格边框</Button>
-        <Button @click="mini=!mini" type="primary">mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @select="select" :bordered="bordered"></Table>
+        <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
+        <Button @click="mini=!mini" type="primary" mini>mini</Button>
+        <Table :data="data" :columns="col" :mini="mini" @select="select"  :bordered="bordered"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -29,6 +29,12 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
+        <tr>
+          <td>header-fixed</td>
+          <td>是否固定表头</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr> 
         <tr>
           <td>mini</td>
           <td>表格是否为mini模式</td>
@@ -125,7 +131,7 @@
 <script>
 import code from '../code/table'
 import Demo from '../components/demo'
-export default {
+export default { 
   components: { Demo },
   data() {
     return {
@@ -141,14 +147,15 @@ export default {
       col: [
         { type: "selection" },
         { title: "姓名", key: "nick" },
-        { title: "文字右对其", key: "gender", textAlign: "right" },
+        { title: "右对其", key: "gender", textAlign: "right" },
         { title: "姓名", key: "nick" },
-        { title: "文字对其", key: "gender", textAlign: "center" },
+        { title: "居中", key: "gender", textAlign: "center" },
         { title: "姓名", key: "nick" },
         { title: "文字提示", key: "tip", width: '200',overflow:'hidden',tooltip:true },
         {
           title: "出生年月",
           key: "birthday",
+          width:150,
           render: (h, p) => {
             return h("DatePicker",
               {
@@ -161,6 +168,7 @@ export default {
         {
           title: "操作",
           key: "action",
+          width:100,
           render: (h, p) => {
             return h("Poptip",
               {

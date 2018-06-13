@@ -4,11 +4,11 @@ export default {
         if (transfer !== 'true') return false;
         const parentNode = el.parentNode;
         if (!parentNode) return;
-        let home = document.createComment('')
+        // el.home =  el.home || document.createComment('')
         // let home = document.createElement('div')
         // home.style.cssText = 'position: absolute; top: 0px; left: 0px; width: 100%;'
         // home.appendChild(el)
-        parentNode.replaceChild(home, el)
+        // parentNode.replaceChild(el.home, el)
         el._transferData = {
             parentNode: parentNode
         }
@@ -23,5 +23,6 @@ export default {
         if (transfer !== 'true') return false;
         el._transferData.parentNode.appendChild(el)
         el._transferData = null
+        // document.body.removeChild(el.home)
     }
 }
