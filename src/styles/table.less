@@ -20,6 +20,9 @@
       .k-table-cell {
         padding: 0 13px;
         box-sizing: border-box;
+        a {
+          color: @main;
+        }
       }
     }
     th,
@@ -34,6 +37,9 @@
       .k-table-cell {
         padding: 0 13px;
         box-sizing: border-box;
+        a {
+          color: @main;
+        }
       }
       .td-hidden {
         overflow: hidden;
@@ -83,16 +89,17 @@
     }
   }
 }
+
 .k-table-header {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
 }
+
 .k-table-bordered {
   border: 1px solid #eee; // border-right: 1px solid #eee;
   border-bottom: none;
-
   .no-data {
     border-bottom: 1px solid #eee;
   }
