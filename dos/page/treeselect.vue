@@ -67,7 +67,7 @@
           <td>默认提示文字</td>
           <td>String</td>
           <td>请选择</td>
-        </tr> 
+        </tr>
         <tr>
           <td>clearable</td>
           <td>是否显示清空按钮</td>
@@ -189,7 +189,7 @@ export default {
         let data = [
           {
             title: 'children',
-            loading: false,
+            loading: false, 
             children: []
           },
           {

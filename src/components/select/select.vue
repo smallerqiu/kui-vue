@@ -7,7 +7,7 @@
       <span class="k-select-clearable" v-if="isclearable" @click.stop="clear"></span>
     </div>
     <transition name="dropdown">
-      <div class="k-select-dropdown" ref="dom" v-if="visible" :style="dropdownStyles" v-transferDom :data-transfer="transfer">
+      <div class="k-select-dropdown" ref="dom" v-show="visible" :style="dropdownStyles" v-transferDom :data-transfer="transfer">
         <ul>
           <slot></slot>
           <li class="k-select-item" v-if="children.length==0||queryCount==0">暂无数据...</li>
@@ -125,7 +125,10 @@ export default {
       child.index = this.children.length;
       let value = this.value;
       child.selected = child.value == value && (value !== "" && value != undefined && value !== null);
-      if (child.selected) this.label = child.label === undefined ? child.$el.innerHTML : child.label
+      if (child.selected) {
+        this.label = child.label === undefined ? child.$el.innerHTML : child.label
+        this.selectItem = { label: this.label, value: child.value }
+      }
       this.children.push(child);
     },
     handleKeyup(e) {

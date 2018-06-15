@@ -3,6 +3,11 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.7.9<span> 2018-6-15 </span></h3>
+        <p><code>Select</code>无法赋值，和搜索的问题</p>
+        <p>修复<code>TreeSelect</code>lable 无法更改的bug</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.9<span> 2018-6-13 </span></h3>
         <p><code>Table</code>组件新增表头固定</p>
         <p>修复<code>Tooltip</code>组件显示隐藏的问题</p>

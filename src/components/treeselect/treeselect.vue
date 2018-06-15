@@ -57,6 +57,9 @@ export default {
       if (val === '' || val === undefined || val === null) {
         this.showLabel = ''
       }
+    },
+    label(label){
+      this.showLabel = label
     }
   },
   computed: {
