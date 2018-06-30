@@ -21,11 +21,9 @@ code.mode = `<Upload action="/rest/uploadFile" @change="change" @complite="compl
 </Upload>
 <Button @click="upload">点我开始上传</Button>
 <script>
-  import code from '../code/upload'
   export default {
     data() {
       return {
-        code: code, 
         data: { a: 1, b: 2, c: 3 },
       };
     },

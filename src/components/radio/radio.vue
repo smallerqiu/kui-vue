@@ -2,7 +2,7 @@
   <label :class="wpclasses">
     <span :class="classes">
       <span class="k-radio-inner"></span>
-      <input type="radio" class="k-radio-input" :name="name" :disabled="disabled" :checked="disabled" @change="changed($event)">
+      <input type="radio" class="k-radio-input" :name="name" :disabled="disable" :checked="disabled" @change="changed($event)">
     </span>
     <slot>{{label}}</slot>
   </label>
@@ -23,7 +23,7 @@ export default {
       return [
         "k-radio-wp",
         {
-          ["k-radio-disabled"]: this.disabled
+          ["k-radio-disabled"]: this.disable
         }
       ];
     },
@@ -39,19 +39,14 @@ export default {
   data() {
     return {
       checked: this.value,
-      group: false, 
+      group: false,
+      disable: this.disabled
     };
   },
-  mounted() { 
-    this.$on('radio-update', this.update)
-  },
   methods: {
-    update(params) {
-      this.checked = params.value == this.label
-      this.group = params.group
-    },
+
     changed(event) {
-      if (this.disabled) {
+      if (this.disable) {
         return false;
       }
       const checked = event.target.checked;
@@ -61,7 +56,6 @@ export default {
       if (this.group && this.label !== undefined) {
         this.dispatch('RadioGroup', 'radio-group-change', {
           value: this.label,
-          checked: this.checked
         })
       }
       if (!this.group) {

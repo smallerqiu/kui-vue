@@ -7,9 +7,11 @@
       <Col span="12">
       <Demo title="基础用法">
         <div slot="content">对齐方式 :
-          <Button @click="labelAlign='left'">Left</Button>
-          <Button @click="labelAlign='right'">right</Button>
-          <Button @click="labelAlign='top'">top</Button>
+          <RadioGroup v-model="data3" @change="(value)=>{labelAlign=value}" mini>
+            <RadioButton label="left">Left</RadioButton>
+            <RadioButton label="right">Right</RadioButton>
+            <RadioButton label="top">Top</RadioButton>
+          </RadioGroup>
           <br/>
           <br/>
           <Form :label-width="80" :labelAlign="labelAlign">

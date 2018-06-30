@@ -10,24 +10,35 @@ export default {
   mixins: [emitter],
   props: {
     value: { type: [String, Number], default: "" },
-  },
-  data() {
-    return {};
+    disabled: Boolean,
+    mini: Boolean
   },
   watch: {
     value(v) {
-      this.update({ value: this.value, group: true });
+      this.update({ value: this.value, });
     },
   },
   mounted() {
     this.update({ value: this.value, group: true });
     this.$on('radio-group-change', this.change)
+
   },
   methods: {
     update(data) {
-      this.broadcast('Radio', 'radio-update', {
-        value: data.value,
-        group: true,
+      console.log(this.disabled)
+      this.$children.map(child => {
+        let disabled = child.disabled ||this.disabled  
+        let name = child.$options.name
+        if (name == 'RadioButton') {
+          child.disabled = disabled
+          child.mini = this.mini
+          child.actived = data.value == child.label
+        }
+        if (name == 'Radio') {
+          child.disable = disabled
+          child.checked = data.value == child.label
+        }
+        child.group = true
       })
     },
     change(data) {

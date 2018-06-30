@@ -19,7 +19,7 @@ import { Menu, MenuGroup, MenuItem, SubMenu } from './components/menu'
 import { Message, Notice } from './components/message'
 import Page from './components/page'
 import Poptip from './components/poptip'
-import { Radio, RadioGroup } from './components/radio'
+import { Radio, RadioGroup, RadioButton } from './components/radio'
 import Scroll from './components/scroll'
 import Slider from './components/slider'
 import Switch from './components/switch'
@@ -41,19 +41,19 @@ import './styles';
 
 const components = {
     Alert, Affix,
-    BackTop,Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
-    Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup,Col,
+    BackTop, Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
+    Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
     DatePicker,
     Form, FormItem,
-    Input,Icon,
-    Loading, 
-    Menu, MenuGroup, MenuItem,Modal, Message, 
+    Input, Icon,
+    Loading,
+    Menu, MenuGroup, MenuItem, Modal, Message,
     Notice,
-    Option, 
+    Option,
     Page, Poptip, Panel,
-    Row, Radio, RadioGroup,
-    Scroll, Steps, Step, Select, SubMenu,Slider,
-    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree,TreeSelect,
+    Row, Radio, RadioGroup, RadioButton,
+    Scroll, Steps, Step, Select, SubMenu, Slider,
+    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
     Upload,
 }
 const UI = {

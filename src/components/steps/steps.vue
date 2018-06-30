@@ -25,15 +25,7 @@ export default {
     },
     watch: {
         current(v) {
-            this.children.forEach((child, index) => {
-                if (index == this.current) {
-                    child.state = this.status == 'error' ? 'error' : 'process'
-                } else if (index > this.current) {
-                    child.state = 'wait'
-                } else if (index < this.current) {
-                    child.state = 'finish'
-                }
-            })
+            this.setState()
         }
     },
     computed: {
@@ -49,18 +41,21 @@ export default {
         this.$on('steps-remove', this.remove)
     },
     mounted() {
-        this.children.forEach((child, index) => {
-            child.width = !this.vertical ? 100 / this.children.length : 0;
-            if (index == this.current) {
-                child.state = this.status == 'error' ? 'error' : 'process'
-            } else if (index > this.current) {
-                child.state = 'wait'
-            } else if (index < this.current) {
-                child.state = 'finish'
-            }
-        })
+        this.setState()
     },
     methods: {
+        setState() {
+            this.children.forEach((child, index) => {
+                child.width = !this.vertical ? 100 / this.children.length : 0;
+                if (index == this.current) {
+                    child.state = this.status == 'error' ? 'error' : 'process'
+                } else if (index > this.current) {
+                    child.state = 'wait'
+                } else if (index < this.current) {
+                    child.state = 'finish'
+                }
+            })
+        },
         add(obj) {
             this.children.push(obj)
             obj.step = this.children.length

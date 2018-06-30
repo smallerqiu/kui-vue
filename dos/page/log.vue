@@ -3,6 +3,11 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.8.1<span> 2018-7-1 </span></h3>
+        <p>重写了部分组件，优化和修复一些问题</p>
+        <p>KUI for React1.0 发布了</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.7.9<span> 2018-6-15 </span></h3>
         <p><code>Select</code>无法赋值，和搜索的问题</p>
         <p>修复<code>TreeSelect</code>lable 无法更改的bug</p>

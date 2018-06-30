@@ -174,6 +174,7 @@ export default {
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
       if (!dom) return;
+      this.dropdownWith = rel.offsetWidth;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight;
       let clientW = window.innerWidth;
