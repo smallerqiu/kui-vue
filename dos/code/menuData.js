@@ -2,7 +2,7 @@ let nav = [
   {
     title: "开始",
     child: [
-      { title: "KUI for React", link: '/react-kui' },
+      { title: "KUI for React", link: 'https://react.k-ui.xyz/start' },
       { title: "KUI for Angular", link: '/angular-kui' },
       { title: "安装", link: "/install" },
       { title: "快速上手", link: "/start" },

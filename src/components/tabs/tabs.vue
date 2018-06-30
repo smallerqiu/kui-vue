@@ -75,9 +75,9 @@ export default {
     inkStyles() {
       return this.activeTab
         ? {
-            width: `${this.activeTab.offsetWidth}px`,
-            left: `${this.activeTab.offsetLeft}px`
-          }
+          width: `${this.activeTab.offsetWidth}px`,
+          left: `${this.activeTab.offsetLeft}px`
+        }
         : {};
     },
     scrollStyle() {
@@ -168,6 +168,8 @@ export default {
         this.activeName = this.children[index - 1].activeName;
         this.children[index - 1].active = true;
         this.paneLeft = index - 1;
+      } else if (index < this.paneLeft) {
+        this.paneLeft--
       }
     },
     handelClick(item) {
@@ -189,7 +191,7 @@ export default {
     add(obj) {
       if (obj.activeName === undefined) obj.activeName = this.children.length;
       else obj.active = obj.activeName == this.value;
-      obj.width  = this.itemWidth
+      obj.width = this.itemWidth
       this.children.push(obj);
     },
     remove(obj) {

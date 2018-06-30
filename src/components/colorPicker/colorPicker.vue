@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" v-docClick="close" v-winScroll="handleScroll">
+  <div :class="classes" v-docClick="hidePopup" v-winScroll="handleScroll">
     <!-- 颜色显示小方块 -->
     <div @click="toggleDrop" ref="rel">
       <div class="k-color-button" :style="{backgroundColor:showColor}"></div>
@@ -13,7 +13,7 @@
         <div class="bd" v-if="!showMore">
           <h3>主题颜色</h3>
           <ul class="tColor">
-            <li v-for="(color,i) of tColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
+            <li v-for="(color,i) of primaryColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
           </ul>
           <ul class="bColor">
             <li v-for="(item,i) of colorPanel" :key="i">
@@ -24,13 +24,13 @@
           </ul>
           <h3>标准颜色</h3>
           <ul class="tColor">
-            <li v-for="(color,i) of bColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
+            <li v-for="(color,i) of baseColor" :key="i" :style="{ backgroundColor: color }" @mouseover="hoveColor = color" @mouseout="hoveColor = null" @click.stop="updataValue(color)"></li>
           </ul>
         </div>
         <picker v-if="showMore" @updataValue="updataValue"></picker>
         <div class="k-more">
           <input type="text" class="k-value" v-model="showColor" />
-          <k-button type="danger" class="k-more-button" @click.stop="hide">确定</k-button>
+          <k-button type="danger" class="k-more-button" @click.stop="close">确定</k-button>
           <k-button class="k-more-button" @click.stop="handleShowMore">{{!showMore?'更多':'返回'}}</k-button>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default {
       // 鼠标经过的颜色块
       hoveColor: null,
       // 主题颜色
-      tColor: [
+      primaryColor: [
         "#000",
         "#fff",
         "#eeece1",
@@ -94,7 +94,7 @@ export default {
         ["#99490f", "#fee9da"]
       ],
       // 标准颜色
-      bColor: [
+      baseColor: [
         "#c21401",
         "#ff1e02",
         "#ffc12a",
@@ -106,14 +106,12 @@ export default {
         "#00215f",
         "#72349d"
       ],
-      html5Color: this.value,
       showColor: this.hoveColor || this.value
     };
   },
   computed: {
     popupStyle() {
       let style = {};
-      this.range && (style.width = "405px");
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
       if (this.fadeInBottom) {
@@ -178,7 +176,7 @@ export default {
         this.top = this.transfer ? relPos.top + relH + scrollTop : relH - m
       }
     },
-    hide() {
+    close() {
       this.$nextTick(() => {
         this.visible = !this.visible;
         this.showMore = false;
@@ -244,11 +242,11 @@ export default {
       }
       return gradientColorArr;
     },
-    close(e) {
+    hidePopup(e) {
       if (!this.transfer) {
         this.visible = false;
       } else {
-        this.visible = this.$refs.dom.contains(e.target);
+        this.visible = this.$refs.dom && this.$refs.dom.contains(e.target);
       }
 
       if (!this.visible) {

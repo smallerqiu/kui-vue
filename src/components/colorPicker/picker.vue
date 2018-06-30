@@ -99,8 +99,8 @@ export default {
       } else {
         // 使用绝对坐标
         var pos = this.absolutePosition(reference);
-        //     x = (event.pageX || 0 * (event.clientX + $('html').get(0).scrollLeft)) - pos.x;
-        //     y = (event.pageY || 0 * (event.clientY + $('html').get(0).scrollTop)) - pos.y;
+        x = (event.pageX || 0 * (event.clientX + $('html').get(0).scrollLeft)) - pos.x;
+        y = (event.pageY || 0 * (event.clientY + $('html').get(0).scrollTop)) - pos.y;
       }
       // 减去中间距离
       return { x: x - this.width / 2, y: y - this.width / 2 };

@@ -116,7 +116,7 @@ export default {
       this.$emit("change", this.text);
     },
     dates(val) {
-      let date = this.dates.map(date => this.tf(date));
+      let date = this.dates.map(date => this.formatDate(date));
       let txt = date.join(` ${this.rangeSeparator} `);
       let text = date.length == 1 ? date[0] : txt;
       this.$emit("change", text);
@@ -134,8 +134,10 @@ export default {
       // }
     },
     toggleDrop() {
-      this.visible = !this.visible && !this.disabled;
-      this.$nextTick(() => this.setPosition());
+      if (!this.disabled) {
+        this.visible = !this.visible
+        this.$nextTick(() => this.setPosition());
+      }
     },
     handleScroll() {
       this.$nextTick(() => this.setPosition());
@@ -164,16 +166,9 @@ export default {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
-      // if (h - (pos.y - s) - rh < dh) {
-      //   this.fadeInBottom = true;
-      //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
-      // } else {
-      //   this.fadeInBottom = false;
-      //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
-      // }
     },
     setText() {
-      let date = this.dates.map(date => this.tf(date));
+      let date = this.dates.map(date => this.formatDate(date));
       let txt = date.join(` ${this.rangeSeparator} `);
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
@@ -184,13 +179,8 @@ export default {
       this.dispatch("FormItem", "form-item-change", this.range ? [] : "");
     },
     vi(val) {
-      // console.log(val, this.value)
       //在ie浏览器里面new Date() 格式必须为yyy/MM/dd 其他格式均不识别
       if (Array.isArray(val)) {
-        // var d1 = new Date();
-        // var d2 = new Date();
-        // d2.setMonth(d2.getMonth()+1)
-
         return val.length > 1
           ? val.map((item, i) => item ? new Date(item.toString().replace(/-/g, "/")) : '')
           : [];
@@ -201,7 +191,7 @@ export default {
       }
     },
     ok() {
-      let date = this.dates.map(date => this.tf(date));
+      let date = this.dates.map(date => this.formatDate(date));
       let txt = date.join(` ${this.rangeSeparator} `);
       this.text = date.length == 1 ? date[0] : txt;
 
@@ -213,7 +203,7 @@ export default {
       );
       this.visible = false
     },
-    tf(time, format) {
+    formatDate(time, format) {
       if (!time) return '';
       const year = time.getFullYear();
       const month = time.getMonth();

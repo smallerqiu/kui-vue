@@ -3,7 +3,9 @@
     <label :style="labelStyles" class="k-form-item-label" v-if="this.label">{{label}}</label>
     <div class="k-form-item-content" :style="contentStyles">
       <slot></slot>
-      <div class="k-form-item-error-tip" v-if="!valid">{{errorTip}}</div>
+      <transition name="dropdown">
+        <div class="k-form-item-error-tip" v-if="!valid">{{errorTip}}</div>
+      </transition>
     </div>
   </div>
 </template>
@@ -16,18 +18,18 @@ export default {
     label: String,
     rules: { type: Array },
     prop: String,
-    labelWidth:[String,Number]
+    labelWidth: [String, Number]
   },
   data() {
     return {
       form: this.getParent('Form'),
-      formitem : this.getParent('FormItem'),
+      formitem: this.getParent('FormItem'),
       required: false,
       valid: true,
       fieldValue: '',
       errorTip: '',
       Rules: this.rules,
-      width:this.labelWidth
+      width: this.labelWidth
     };
   },
   computed: {
@@ -48,7 +50,7 @@ export default {
     contentStyles() {
       let formitem = this.getParent('FormItem')
       let width = this.width || (this.form && this.form.labelWidth || 0);
-      return width && this.form.labelAlign != 'top' && !formitem  ? { marginLeft: `${width}px` } : {};
+      return width && this.form.labelAlign != 'top' && !formitem ? { marginLeft: `${width}px` } : {};
     }
   },
   created() {
@@ -87,7 +89,7 @@ export default {
         }
       }
     },
-    validate(rule, trigger) {
+    test(rule, trigger) {
       let valid = true
       let message = rule.message || 'This field must required'
       let type = Object.prototype.toString.call(this.fieldValue)
@@ -136,7 +138,7 @@ export default {
               callback(valid)
               return false;
             }
-            valid = this.validate(rule, trigger)
+            valid = this.test(rule, trigger)
             callback(valid)
           }
         })

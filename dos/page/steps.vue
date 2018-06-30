@@ -165,10 +165,7 @@ export default {
   },
   methods: {
     step(t) {
-      if (t == 'next')
-        this.current = this.current >= 3 ? 3 : this.current + 1
-      else
-        this.current = this.current <= 0 ? 0 : this.current - 1
+      this.current = t == 'next' ? (this.current >= 3 ? 3 : this.current + 1) : (this.current <= 0 ? 0 : this.current - 1)
     }
   }
 }

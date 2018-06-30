@@ -3,7 +3,7 @@
     <div :class="`${pre}-head`">
       <span :class="`${pre}-prev-decade-btn`" v-show="showYears" @click="year-=10">«</span>
       <span :class="`${pre}-prev-year-btn`" v-show="!showYears" @click="year--">«</span>
-      <span :class="`${pre}-prev-month-btn`" v-show="!showYears&&!showMonths" @click="pm">‹</span>
+      <span :class="`${pre}-prev-month-btn`" v-show="!showYears&&!showMonths" @click="prevMonth">‹</span>
       <span :class="`${pre}-year-select`" v-show="showYears">{{ys+'-'+ye}}</span>
       <template v-if="local.yearSuffix">
         <span :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}{{local.yearSuffix}}</span>
@@ -13,7 +13,7 @@
         <span :class="`${pre}-month-select`" @click="showMonths=!showMonths" v-show="!showYears&&!showMonths">{{local.monthsHead[month]}}</span>
         <span :class="`${pre}-year-select`" @click="showYears=!showYears" v-show="!showYears">{{year}}</span>
       </template>
-      <span :class="`${pre}-next-month-btn`" v-show="!showYears&&!showMonths" @click="nm">›</span>
+      <span :class="`${pre}-next-month-btn`" v-show="!showYears&&!showMonths" @click="nextMonth">›</span>
       <span :class="`${pre}-next-year-btn`" v-show="!showYears" @click="year++">»</span>
       <span :class="`${pre}-next-decade-btn`" v-show="showYears" @click="year+=10">»</span>
     </div>
@@ -158,11 +158,11 @@ export default {
   methods: {
     get(time) {
       if (!time) {
-        let d1 = this.$parent.dates[0] 
+        let d1 = this.$parent.dates[0]
         time = new Date()
-        if(this.right && !d1){
+        if (this.right && !d1) {
           let d2 = new Date()
-          d2.setMonth(d2.getMonth()+1)
+          d2.setMonth(d2.getMonth() + 1)
           time = d2
         }
       }
@@ -191,12 +191,12 @@ export default {
       const today = new Date();
 
       const t = this.parse(time);
-      const f = this.$parent.tf;
+      const f = this.$parent.formatDate;
       const classObj = {};
       let flag = false;
       let istoday = false
-      if(format=='YYYYMMDD'){
-        istoday = today.getFullYear()==year && today.getMonth()==month && today.getDate()==day
+      if (format == 'YYYYMMDD') {
+        istoday = today.getFullYear() == year && today.getMonth() == month && today.getDate() == day
       }
       if (format === "YYYY") {
         flag = year === this.year;
@@ -206,13 +206,13 @@ export default {
         flag = f(this.value, format) === f(time, format);
       }
       classObj[`${this.pre}-date`] = true;
-      classObj[`${this.pre}-date-disabled`] =        (this.right && t < this.start) ||        (this.left && t > this.end) ||        this.$parent.disabledDate(time);
-      classObj[`${this.pre}-date-on`] =        (this.left && t > this.start) || (this.right && t < this.end);
+      classObj[`${this.pre}-date-disabled`] = (this.right && t < this.start) || (this.left && t > this.end) || this.$parent.disabledDate(time);
+      classObj[`${this.pre}-date-on`] = (this.left && t > this.start) || (this.right && t < this.end);
       classObj[`${this.pre}-date-selected`] = flag;
       classObj[`${this.pre}-date-today`] = istoday;
       return classObj;
     },
-    nm() {
+    nextMonth() {
       if (this.month < 11) {
         this.month++;
       } else {
@@ -220,7 +220,7 @@ export default {
         this.year++;
       }
     },
-    pm() {
+    prevMonth() {
       if (this.month > 0) {
         this.month--;
       } else {
@@ -234,8 +234,8 @@ export default {
     ok(info) {
       let year = "";
       let month = "";
-      info && info.n && this.nm();
-      info && info.p && this.pm();
+      info && info.n && this.nextMonth();
+      info && info.p && this.prevMonth();
       if (info === "h") {
         const time = this.get(this.value);
         year = time.year;
@@ -251,7 +251,7 @@ export default {
       );
       this.$emit("input", d);
       let d1 = this.$parent.dates[0]
-      if(d1 && this.right || !this.$parent.range){
+      if (d1 && this.right || !this.$parent.range) {
         this.$parent.ok();
       }
     }

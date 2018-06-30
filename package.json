@@ -1,7 +1,7 @@
 {
     "name": "kui-vue",
-    "version": "1.8.0",
-    "description": "UI for vue2.0",
+    "version": "1.8.1",
+    "description": "A UI for Vue",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
     "files": [
@@ -35,7 +35,7 @@
         "pc",
         "pc ui"
     ],
-    "homepage": "https://kui.chuchur.com",
+    "homepage": "https://k-ui.xyz",
     "bugs": {
         "url": "https://github.com/chuchur/kui-vue/issues",
         "email": "chuchur@qq.com"
@@ -47,6 +47,7 @@
         "babel-plugin-transform-runtime": "^6.23.0",
         "babel-polyfill": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
+        "babel-preset-stage-1": "^6.24.1",
         "babel-preset-stage-3": "^6.24.1",
         "chalk": "^2.4.1",
         "css-loader": "^0.28.11",
@@ -67,13 +68,13 @@
         "url-loader": "^1.0.1",
         "vue": "^2.5.9",
         "vue-hljs": "^1.0.0",
-        "vue-loader": "^15.2.2",
+        "vue-loader": "^15.2.4",
         "vue-router": "^3.0.1",
         "vue-style-loader": "^4.1.0",
         "vue-template-compiler": "^2.5.9",
-        "webpack": "^4.10.2",
-        "webpack-cli": "^2.1.4",
+        "webpack": "^4.12.2",
+        "webpack-cli": "^3.0.8",
         "webpack-dev-server": "^3.1.4",
-        "webpack-merge": "^4.1.1"
+        "webpack-merge": "^4.1.3"
     }
 }

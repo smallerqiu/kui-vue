@@ -176,7 +176,6 @@ code.customValid = `<Form :model="customForm" :rules="customRules" labelWidth="8
   </FormItem>
 </Form>
 <script>
-import code from '../code/form'
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -212,7 +211,6 @@ export default {
     };
     return {
       labelAlign: 'right',
-      code: code,
       select: [
         { label: "男", value: "0" },
         { label: "女", value: "1" },

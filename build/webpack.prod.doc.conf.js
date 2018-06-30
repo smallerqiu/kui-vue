@@ -91,7 +91,7 @@ module.exports = merge(webpackBaseConfig, {
       // 需要引入entry里面的哪几个入口，如果entry里有公共模块，
       // chunks: ['index', 'vendors'],
       // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
-      favicon: path.join(__dirname, '../dos/assets/logo.png'),
+      favicon: path.join(__dirname, '../dos/assets/kui-vue.png'),
       inject: true,
       // 生成html文件的标题
       // title: 'KUI 使用文档',

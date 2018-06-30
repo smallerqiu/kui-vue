@@ -34,7 +34,7 @@ export default {
     },
     watch: {
         $route(a, b) {
-            if(a.path!==b.path && this.target=='window') this.reset()
+            if (a.path !== b.path && this.target == 'window') this.reset()
         }
     },
     computed: {
@@ -69,6 +69,7 @@ export default {
             // this.setBar(0)
             let wrapHeight = this.wrapHeight
             let innerHeight = this.innerHeight
+            if (wrapHeight > innerHeight) return;
             if (wrapHeight - this.viewY > innerHeight) {
                 this.viewY = (innerHeight - wrapHeight) * -1
                 this.barY = (this.viewY * wrapHeight / innerHeight) / wrapHeight * 100 * -1
