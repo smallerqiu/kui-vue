@@ -1,4 +1,4 @@
-# PC UI for vue2.x
+# KUI for Vue
   基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
   欢迎批评、指正、吐槽、 Star和 <a href="https://vue.k-ui.xyz/sponsor">捐助 </a> 
 ## 文档
