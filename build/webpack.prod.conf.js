@@ -24,6 +24,9 @@ module.exports = merge(webpackBaseConfig, {
         library: 'kui-vue',
         libraryTarget: 'umd',
     },
+    performance: {
+        hints : false
+    },
     module: {
         rules: [
             {
