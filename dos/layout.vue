@@ -11,7 +11,7 @@
     </header>
     <section class="main">
       <Row>
-        <Col span="4" :style="navStyles">
+        <Col span="4" :style="navStyles" class="colNav">
         <Scroll>
           <nav class="nav">
             <Menu @select="go" :activeName="activeName" width="auto">
@@ -29,7 +29,7 @@
           <Icon type="android-menu" />
         </div>
         </Col>
-        <Col span="20">
+        <Col span="20" class="colMain">
         <Scroll target="window">
           <div class="content">
             <transition name="fade" mode="out-in">
@@ -65,9 +65,9 @@ export default {
   methods: {
     showNav() {
       this.isShowNav = !this.isShowNav
-      console.log('d')
     },
     go(path) {
+      this.showNav()
       if (path.indexOf('http') >= 0) {
         window.open(path)
       } else {
