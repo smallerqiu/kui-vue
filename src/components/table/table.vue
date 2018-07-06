@@ -159,6 +159,7 @@ export default {
       return obj;
     },
     checkChange(checked, index) {
+      this.$set(item, 'checked', checked)
       // this.data[index].checked = checked
       this.selectRow = this.data.filter(x => x.checked == true);
       this.$emit("selection", this.selectRow,this.data[index]);
