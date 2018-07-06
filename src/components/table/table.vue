@@ -36,7 +36,7 @@
           <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
             <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
-                <k-checkbox v-model="item.checked" @change="(checked)=>checkChange(checked,index)"></k-checkbox>
+                <k-checkbox v-model="item.checked" @change="checkChange(item)"></k-checkbox>
               </label>
             </div>
             <template v-else-if="sub.type&&sub.type=='html'">
@@ -158,11 +158,11 @@ export default {
       if (align) obj["text-align"] = align;
       return obj;
     },
-    checkChange(checked, index) {
-      this.$set(item, 'checked', checked)
+    checkChange(item) {
+      this.$set(item, 'checked', item.checked)
       // this.data[index].checked = checked
-      this.selectRow = this.data.filter(x => x.checked == true);
-      this.$emit("selection", this.selectRow,this.data[index]);
+      this.selectRow = this.data.filter(item => item.checked == true);
+      this.$emit("selection", this.selectRow, item);
       this.checkedAll = (this.selectRow.length == this.data.length)
     },
     checkAll(checked) {

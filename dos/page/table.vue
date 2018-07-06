@@ -7,7 +7,7 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @select="select" :bordered="bordered"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @selection="select" :bordered="bordered"></Table>
         <Button @click="test">test</Button>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
@@ -194,9 +194,9 @@ export default {
       //   { nick: "鱼雷", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
       // ]
     },
-    select(row) {
+    select(row,item) {
       this.row = row;
-      // console.log("当前选中：", row);
+      console.log("当前选中：", row,item);
     }
   }
 };
