@@ -8,6 +8,7 @@
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
         <Table :data="data" :columns="col" :mini="mini" @select="select" :bordered="bordered"></Table>
+        <Button @click="test">test</Button>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -160,8 +161,8 @@ export default {
           render: (h, p) => {
             return h("DatePicker",
               {
-                props: { mini: true, width: 120, lang: "en", transfer: true,value:p.row.birthday },
-                on: { change: v => { p.row.birthday = v;console.log('回调',this.data) } }
+                props: { mini: true, width: 120, lang: "en", transfer: true, value: p.row.birthday },
+                on: { change: v => { p.row.birthday = v; console.log('回调', this.data) } }
               },
             );
           }
@@ -185,6 +186,14 @@ export default {
     };
   },
   methods: {
+    test() {
+      // this.data = [
+      //   { nick: new Date() * 1, gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+      //   { nick: "高总", gender: "右对其", checked: true, birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+      //   { nick: "娟娟", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+      //   { nick: "鱼雷", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
+      // ]
+    },
     select(row) {
       this.row = row;
       // console.log("当前选中：", row);

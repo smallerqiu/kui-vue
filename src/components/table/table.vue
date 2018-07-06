@@ -161,7 +161,7 @@ export default {
     checkChange(checked, index) {
       // this.data[index].checked = checked
       this.selectRow = this.data.filter(x => x.checked == true);
-      this.$emit("selection", this.selectRow);
+      this.$emit("selection", this.selectRow,this.data[index]);
       this.checkedAll = (this.selectRow.length == this.data.length)
     },
     checkAll(checked) {
