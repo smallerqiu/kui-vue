@@ -2,7 +2,7 @@ let nav = [
   {
     title: "开始",
     child: [
-      { title: "KUI for React", link: 'https://react.k-ui.xyz/start' },
+      { title: "KUI for React", weblink: 'https://react.k-ui.xyz/start' },
       { title: "KUI for Angular", link: '/angular-kui' },
       { title: "安装", link: "/install" },
       { title: "快速上手", link: "/start" },
@@ -16,8 +16,9 @@ let nav = [
     child: [
       { title: "图标", sub: "Icon", link: "/icon", icon: "heart" },
       { title: "按钮", sub: "Button", link: "/button", icon: 'stop' },
-      // { title: "颜色", sub: "Color", link: "/color", icon: 'color' },
+      { title: "颜色", sub: "ColorPicker", link: "/colorpicker", icon: 'android-color-palette' },
       // { title: "字体", sub: "Font", link: "/font", icon: 'font' },
+      { title: "栅格", sub: "grid", link: "/grid", icon: 'ios-grid-view' },
       { title: "布局", sub: "layout", link: "/layout", icon: 'social-buffer' },
     ]
   },
@@ -33,7 +34,7 @@ let nav = [
       { title: "日期", sub: "datePicker", link: "/datepicker", icon: 'ios-calendar-outline' },
       { title: "表格", sub: "Table", link: "/table", icon: 'ios-grid-view' },
       { title: "上传", sub: "Upload", link: "/upload", icon: 'ios-cloud-upload' },
-      { title: "颜色", sub: "ColorPicker", link: "/colorpicker", icon: 'android-color-palette' },
+      
       { title: "表单", sub: "Form", link: "/form", icon: 'ios-list' },
     ]
   },
@@ -72,7 +73,8 @@ let nav = [
   {
     title: "其他",
     child: [
-      { title: "github", weblink: "https://github.com/chuchur/kui", icon: 'social-github', },
+      { title: "码云", weblink: "https://gitee.com/chuchur/kui-vue", icon: 'social-github', },
+      { title: "github", weblink: "https://github.com/chuchur/kui-vue", icon: 'social-github', },
       { title: "支持作者", link: "/sponsor", icon: 'social-usd' },
       { title: "关于", link: "/about", icon: 'android-happy' }
     ]

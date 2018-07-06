@@ -14,6 +14,7 @@ import { Form, FormItem } from './components/form'
 import Icon from './components/icon'
 import Input from './components/input'
 import Loading from './components/loading'
+import { Layout, Header, Footer, Content, Sider } from './components/layout'
 import Modal from './components/modal'
 import { Menu, MenuGroup, MenuItem, SubMenu } from './components/menu'
 import { Message, Notice } from './components/message'
@@ -48,6 +49,7 @@ const components = {
     Input, Icon,
     Loading,
     Menu, MenuGroup, MenuItem, Modal, Message,
+    Layout, Header, Footer, Content, Sider,
     Notice,
     Option,
     Page, Poptip, Panel,
