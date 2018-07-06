@@ -7,7 +7,7 @@
             <div class="k-table-cell">
               <template v-if="item.type&&item.type=='selection'">
                 <label for="k-checkbox-all">
-                  <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
+                  <k-checkbox @change="checkAll" v-model="checkedAll">全选</k-checkbox>
                 </label>
               </template>
               <template v-else>{{item.title}}</template>
@@ -23,7 +23,7 @@
             <div class="k-table-cell">
               <template v-if="item.type&&item.type=='selection'">
                 <label for="k-checkbox-all">
-                  <k-checkbox @change="checkAll" v-model="checked">全选</k-checkbox>
+                  <k-checkbox @change="checkAll" v-model="checkedAll">全选</k-checkbox>
                 </label>
               </template>
               <template v-else>{{item.title}}</template>
@@ -32,18 +32,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,m) in data" :key="m">
+        <tr v-for="(item,index) in data" :key="index">
           <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
             <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
-                <k-checkbox v-model="item._checked" @change="check(item,m)"></k-checkbox>
+                <k-checkbox v-model="item.checked" @change="(checked)=>checkChange(checked,index)"></k-checkbox>
               </label>
             </div>
             <template v-else-if="sub.type&&sub.type=='html'">
               <div v-html="item[sub.key]" class="k-table-cell"></div>
             </template>
             <div v-else-if="sub.render" class="k-table-cell" :style="`width:${sub.width}px;overflow:hidden;`">
-              <Expand :render="sub.render" :row="item" :column="sub" :index="m"></Expand>
+              <Expand :render="sub.render" :row="item" :column="sub" :index="Number(index)"></Expand>
             </div>
             <template v-else>
               <template v-if="sub.tooltip">
@@ -67,6 +67,21 @@ import { Checkbox } from "../checkbox";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
 import scroll from '../../directives/winScroll.js'
+let copyData = (data) => {
+  const t = Object.prototype.toString.call(data)
+  let o = t === '[object Array]' ? [] : (t === '[object Object]' ? {} : data)
+
+  if (t === '[object Array]') {
+    for (let i = 0; i < data.length; i++) {
+      o.push(copyData(data[i]));
+    }
+  } else if (t === '[object Object]') {
+    for (let i in data) {
+      o[i] = copyData(data[i]);
+    }
+  }
+  return o;
+}
 export default {
   components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip, },
   name: "Table",
@@ -102,39 +117,21 @@ export default {
       colWidths: [],
       fixed: false,
       fixedTop: 0,
-      fixedWidth:0,
-      checked: false,
+      fixedWidth: 0,
+      checkedAll: false,
       selectRow: [] //所有选择的数据
       // selectRow:{}  //当前单选出发所选择的数据
     };
   },
   watch: {
     data: {
-      handler(items) {
-        // if(!data) return;
-        if (this.data.length == 0) {
-          this.$refs.table.scrollLeft = 0;
-        }
-        this.checked = false;
-        this.selectRow = this.data.filter(x => x._checked == true);
-        this.$emit("selection", this.selectRow);
+      handler(r1, r2) {
+        let count = this.data.filter(x => x.checked == true).length
+        this.checkedAll = (count == this.data.length)
       },
       deep: true
     }
   },
-  /* updated() {
-    this.data.forEach(item => {
-      item._checked = false;
-    });
-    var type = this.columns.filter(x => {
-      return x.type == "selection";
-    });
-    if (type.length > 0) {
-      this.checkAll(false);
-      this.is_all_check = false;
-    }
-  }, */
-
   methods: {
     setWidths() {
       if (this.headerFixed && this.columns && this.columns.length && this.data && this.data.length) {
@@ -161,16 +158,17 @@ export default {
       if (align) obj["text-align"] = align;
       return obj;
     },
-    check(item, index) {
-      let is_checked = item._checked;
-      this.data[index]._checked = is_checked;
-      this.selectRow = this.data.filter(x => x._checked == true);
-      this.$emit("selection", this.selectRow, item);
-      this.checked = this.selectRow.length == this.data.length
+    checkChange(checked, index) {
+      // this.data[index].checked = checked
+      this.selectRow = this.data.filter(x => x.checked == true);
+      this.$emit("selection", this.selectRow);
+      this.checkedAll = (this.selectRow.length == this.data.length)
     },
-    checkAll(ischecked) {
-      this.data.forEach(item => (item._checked = ischecked));
-      this.selectRow = ischecked ? JSON.parse(JSON.stringify(this.data)) : [];
+    checkAll(checked) {
+      this.data.forEach(item => {
+        this.$set(item, 'checked', checked)
+      })
+      this.selectRow = checked ? JSON.parse(JSON.stringify(this.data)) : [];
       this.$emit("selection", this.selectRow);
     }
   }

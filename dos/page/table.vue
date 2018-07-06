@@ -7,7 +7,7 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @select="select"  :bordered="bordered"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @select="select" :bordered="bordered"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -34,7 +34,7 @@
           <td>是否固定表头</td>
           <td>Boolean</td>
           <td>false</td>
-        </tr> 
+        </tr>
         <tr>
           <td>mini</td>
           <td>表格是否为mini模式</td>
@@ -108,7 +108,8 @@
         </tr>
         <tr>
           <td>overflow</td>
-          <td>当设置列宽<code>width</code>之后，超出文字是否隐藏以点点点显示</td>
+          <td>当设置列宽
+            <code>width</code>之后，超出文字是否隐藏以点点点显示</td>
           <td>Boolean</td>
           <td>false</td>
         </tr>
@@ -131,7 +132,7 @@
 <script>
 import code from '../code/table'
 import Demo from '../components/demo'
-export default { 
+export default {
   components: { Demo },
   data() {
     return {
@@ -151,16 +152,16 @@ export default {
         { title: "姓名", key: "nick" },
         { title: "居中", key: "gender", textAlign: "center" },
         { title: "姓名", key: "nick" },
-        { title: "文字提示", key: "tip", width: '200',overflow:'hidden',tooltip:true },
+        { title: "文字提示", key: "tip", width: '200', overflow: 'hidden', tooltip: true },
         {
           title: "出生年月",
           key: "birthday",
-          width:150,
+          width: 150,
           render: (h, p) => {
             return h("DatePicker",
               {
-                props: { mini: true, width: 120, lang: "en", transfer: true },
-                on: { change: v => { console.log("回调", v); p.row.birthday = v; } }
+                props: { mini: true, width: 120, lang: "en", transfer: true,value:p.row.birthday },
+                on: { change: v => { p.row.birthday = v;console.log('回调',this.data) } }
               },
             );
           }
@@ -168,7 +169,7 @@ export default {
         {
           title: "操作",
           key: "action",
-          width:100,
+          width: 100,
           render: (h, p) => {
             return h("Poptip",
               {
@@ -186,7 +187,7 @@ export default {
   methods: {
     select(row) {
       this.row = row;
-      console.log("当前选中：", row);
+      // console.log("当前选中：", row);
     }
   }
 };

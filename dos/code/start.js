@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 import App from 'components/app.vue';
 import Routers from './router.js';
 import kui from 'kui-vue'; 
-import 'kui/k-ui.css'; 
+import 'kui-vue/dist/k-ui.css'; 
 
 Vue.use(VueRouter);
 Vue.use(kui);

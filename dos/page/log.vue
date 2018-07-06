@@ -3,6 +3,13 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.8.2<span> 2018-7-6 </span></h3>
+        <p>修复<code>poptip</code>等一系列组件特定情况下无法销毁的问题</p>
+        <p>修复<code>Table</code>全选反选的问题</p>
+        <p>新增布局组件<code>Layout</code>等一些列组件和子组件</p>
+        <p>修复transfer钩子无法销毁的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.8.1<span> 2018-7-1 </span></h3>
         <p>重写了部分组件，优化和修复一些问题</p>
         <p>KUI for React1.0 发布了</p>
