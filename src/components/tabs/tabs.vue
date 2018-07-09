@@ -30,9 +30,11 @@
   </div>
 </template>
 <script>
+import Icon from '../icon'
 import scroll from "../../directives/winScroll";
 export default {
   directives: { scroll },
+  components: { Icon },
   name: "Tabs",
   props: {
     value: [String, Number],

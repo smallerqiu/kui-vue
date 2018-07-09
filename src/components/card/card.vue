@@ -14,7 +14,9 @@
     </div>
 </template>
 <script>
+import Icon from "../icon";
 export default {
+    components: { Icon },
     name: 'Card',
     props: {
         bordered: Boolean,

@@ -1,12 +1,14 @@
 <template>
-  <Button :type="actived?'primary':'default'" :disabled="disabled" :mini="mini" @click="click">
+  <k-button :type="actived?'primary':'default'" :disabled="disabled" :mini="mini" @click="click">
     <slot>{{label}}</slot>
-  </Button>
+  </k-button>
 </template>
 <script>
+import { Button } from '../button'
 import emitter from '../../mixins/emitter'
 export default {
   name: 'RadioButton',
+  components: { 'k-button': Button },
   mixins: [emitter],
   props: {
     label: String,

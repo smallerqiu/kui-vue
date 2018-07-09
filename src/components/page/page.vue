@@ -2,37 +2,70 @@
   <div>
     <div :class="classes">
       <ul class="k-pager">
-        <li class="k-pager-item" @click="prePage"><span><Icon type="ios-arrow-left" /></span></li>
-        <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)"><span >1</span></li>
-        <li class="k-pager-item k-pager-more" v-if="showPrevMore"><span ><Icon type="more" /></span></li>
-        <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)"><span >{{pager}}</span></li>
-        <li class="k-pager-item k-pager-more" v-if="showNextMore"><span ><Icon type="more" /></span></li>
-        <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)"><span >{{ pageCount}}</span></li>
-        <li class="k-pager-item" @click="nextPage"><span><Icon type="ios-arrow-right" /></span></li>
+        <li class="k-pager-item" @click="prePage">
+          <span>
+            <Icon type="ios-arrow-left" />
+          </span>
+        </li>
+        <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)">
+          <span>1</span>
+        </li>
+        <li class="k-pager-item k-pager-more" v-if="showPrevMore">
+          <span>
+            <Icon type="more" />
+          </span>
+        </li>
+        <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)">
+          <span>{{pager}}</span>
+        </li>
+        <li class="k-pager-item k-pager-more" v-if="showNextMore">
+          <span>
+            <Icon type="more" />
+          </span>
+        </li>
+        <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)">
+          <span>{{ pageCount}}</span>
+        </li>
+        <li class="k-pager-item" @click="nextPage">
+          <span>
+            <Icon type="ios-arrow-right" />
+          </span>
+        </li>
       </ul>
       <div class="k-page-sizer" v-if="sizer">
-        <Select :mini="mini" v-model="defaultPageSize" @change="changeSize">
-          <Option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</Option>
-        </Select>
+        <k-select :mini="mini" v-model="defaultPageSize" @change="changeSize">
+          <k-option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</k-option>
+        </k-select>
       </div>
       <div class="k-page-number">
         <span>共{{pageCount}}页</span>
       </div>
       <div class="k-page-options">
         <span>跳至</span>
-        <Input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
+        <k-input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
         <span>页</span>
-        <Button :mini="mini" class="k-page-options-action" @click="goPage">确定</Button>
+        <k-button :mini="mini" class="k-page-options-action" @click="goPage">确定</k-button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { Select, Option } from '../select'
+import Button from '../button'
+import Input from '../input'
+import Icon from '../icon'
 export default {
   name: "Page",
+  components: {
+    'k-select': Select,
+    'k-option': Option,
+    Icon,
+    'k-input': Input,
+    'k-button': Button
+  },
   props: {
-    sizer:Boolean,
-    sizeData:{type:Array,default:()=>[10,15,20,30,40]},
+    sizer: Boolean,
+    sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     mini: { default: false, type: Boolean },
     total: { default: 0, type: [Number, String] },
     pagesize: { default: 15, type: [Number, String] },
@@ -45,7 +78,7 @@ export default {
       page: 0,
       showPrevMore: false,
       showNextMore: false,
-      defaultPageSize:this.pagesize
+      defaultPageSize: this.pagesize
     };
   },
   computed: {
@@ -109,11 +142,11 @@ export default {
     this.groupCount = Math.ceil(this.pageCount / 5);
   },
   methods: {
-    changeSize(data){
-      this.defaultPageSize =data.value
+    changeSize(data) {
+      this.defaultPageSize = data.value
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-      this.page=this.page>this.pageCount?this.pageCount:this.page
-      this.$emit('page-size-change',this.defaultPageSize)
+      this.page = this.page > this.pageCount ? this.pageCount : this.page
+      this.$emit('page-size-change', this.defaultPageSize)
     },
     goPage() {
       if (this.elevator >= 1) {
