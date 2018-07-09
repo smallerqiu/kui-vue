@@ -1,7 +1,7 @@
 <template>
   <transition name="dropdown" v-if="!closed">
     <div :class="classes">
-      <k-icon :type="icon" v-if="showIcon"></k-icon>
+      <Icon :type="icon" v-if="showIcon" />
       <a class="k-alert-close" v-if="closable" @click="close"></a>
       <slot></slot>
     </div>
@@ -10,7 +10,7 @@
 <script>
 import Icon from "../icon";
 export default {
-  components: { "k-icon": Icon },
+  components: { Icon },
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },

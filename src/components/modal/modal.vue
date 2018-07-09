@@ -45,10 +45,11 @@
 </template>
 <script>
 import { Button } from "../button";
+import Icon from "../icon";
 export default {
   name: "Modal",
   components: {
-    "k-button": Button
+    "k-button": Button, Icon
   },
   props: {
     type: { type: String, default: "modal" },

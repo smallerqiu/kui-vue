@@ -12,12 +12,13 @@
     </div>
 </template>
 <script>
+import Icon from "../icon";
 import emitter from '../../mixins/emitter'
 import Collapse from './collapse.js'
 export default {
     name: 'Panel',
     mixins: [emitter],
-    components: { Collapse },
+    components: { Collapse, Icon },
     props: {
         title: { type: String, required: true },
         name: String

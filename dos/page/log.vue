@@ -3,6 +3,19 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.8.5<span> 2018-7-9 </span></h3>
+        <p>修复下拉transfer多组件干扰的问题</p>
+        <p>组件内部调用隔离，用于兼容第三方UI组件库</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.8.4<span> 2018-7-8 </span></h3>
+        <p>修复一些问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
+        <h3>1.8.3<span> 2018-7-7 </span></h3>
+        <p>修复一些问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.8.2<span> 2018-7-6 </span></h3>
         <p>修复<code>poptip</code>等一系列组件特定情况下无法销毁的问题</p>
         <p>修复<code>Table</code>全选反选的问题</p>

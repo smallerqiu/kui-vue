@@ -15,9 +15,11 @@
     </div>
 </template>
 <script>
+import Icon from "../icon";
 import resize from '../../directives/winScroll'
 export default {
     name: 'Carousel',
+    components: { Icon },
     directives: { resize },
     props: {
         value: { type: [Number, String], default: 0 },

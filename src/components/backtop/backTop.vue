@@ -8,9 +8,11 @@
   </div>
 </template>
 <script>
+import Icon from "../icon";
 import scroll from "../../directives/winScroll";
 export default {
   name: "BackTop",
+  components: { Icon },
   directives: { scroll },
   props: {
     height: { type: [String, Number], default: 100 },
