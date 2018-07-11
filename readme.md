@@ -3,8 +3,9 @@
 欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://vue.k-ui.xyz/sponsor)   
 
 ## 文档
-Docs:  [http://k-ui.xyz](https://k-ui.xyz)
-Blog:  [http://chuchur.com](http://chuchur.com)
+Docs:  [http://k-ui.xyz](https://k-ui.xyz)   
+Blog:  [http://chuchur.com](http://chuchur.com)   
+GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 ## 特性   
 漂亮的UI，可定制主题   
 兼容IE9+   
