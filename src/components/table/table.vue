@@ -46,13 +46,13 @@
               <Expand :render="sub.render" :row="item" :column="sub" :index="Number(index)"></Expand>
             </div>
             <template v-else>
-              <template v-if="sub.tooltip">
+              <template v-if="isShowTip(item,sub)">
                 <Tooltip :content="item[sub.key]" breaked>
-                  <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'td-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
+                  <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden"> {{item[sub.key]}}</div>
                 </Tooltip>
               </template>
               <template v-else>
-                <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'td-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
+                <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'k-table-cell-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
               </template>
             </template>
           </td>
@@ -92,7 +92,8 @@ export default {
     mini: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
-    columns: { type: Array, default: () => [] } // 表格类目
+    columns: { type: Array, default: () => [] }, // 表格类目
+    textMaxLength: { type: Number, default: 0 }
   },
   computed: {
     classes() {
@@ -133,6 +134,10 @@ export default {
     }
   },
   methods: {
+    isShowTip(item, sub) {
+      if (!item || !sub || !sub.key) return false
+      return (this.textMaxLength && (item[sub.key] && item[sub.key].length > this.textMaxLength)) || sub.tooltip;
+    },
     setWidths() {
       if (this.headerFixed && this.columns && this.columns.length && this.data && this.data.length) {
         let td = this.$refs.dom.childNodes[2].lastElementChild.childNodes
