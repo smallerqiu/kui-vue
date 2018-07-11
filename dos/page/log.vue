@@ -4,6 +4,7 @@
     <TimeLine>
       <TimeLineItem >
         <h3>1.8.6<span> 2018-7-11 </span></h3>
+        <p><code>Upload</code>组件新增beforeUpload，afterUpload事件</p>
         <p>修复<code>DatePicker</code>组件特定情况下换行的问题</p>
         <p>修复<code>Page</code>组件打印错误的bug</p>
         <p>修复<code>Table</code>组件数据为空时全选的问题</p>

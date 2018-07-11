@@ -100,6 +100,18 @@
           <td>Function</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>beforUpload</td>
+          <td>开始执行上传之前触发事件</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>afterUpload</td>
+          <td>上传完成之后触发事件</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
       </table>
     </div>
   </div>
