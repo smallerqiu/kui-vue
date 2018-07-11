@@ -7,7 +7,7 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @selection="select" :bordered="bordered"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @selection="select" :text-max-length="20" :bordered="bordered"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -89,9 +89,15 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>textAlign</td>
+          <td>text-align</td>
           <td>列文字对其方式 ，可选值left，center，right</td>
           <td>String</td>
+          <td>-</td>
+        </tr>
+         <tr>
+          <td>text-max-length</td>
+          <td>表格的字符最大限度，超过部分会以点点点显示</td>
+          <td>Number</td>
           <td>-</td>
         </tr>
         <tr>
@@ -152,7 +158,7 @@ export default {
         { title: "姓名", key: "nick" },
         { title: "居中", key: "gender", textAlign: "center" },
         { title: "姓名", key: "nick" },
-        { title: "文字提示", key: "tip", width: '200', overflow: 'hidden', tooltip: true },
+        { title: "文字提示", key: "tip", },
         {
           title: "出生年月",
           key: "birthday",
