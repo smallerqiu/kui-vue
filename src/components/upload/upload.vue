@@ -14,12 +14,12 @@
 export default {
   name: "Upload",
   props: {
-    method: { type: String, default: "post" }, 
+    method: { type: String, default: "post" },
     name: { type: String }, //提交的 name值
     id: { type: String }, //提交的 id值
     action: { type: String, required: true }, //url 要带/rest
     type: { type: String, default: "change" },
-    data: { type: Object, default: () => {} },
+    data: { type: Object, default: () => { } },
     disabled: Boolean
   },
   computed: {
@@ -49,34 +49,36 @@ export default {
     }
   },
   methods: {
-    changeFile: function(e) {
+    changeFile: function (e) {
       e.cancelBubble = true;
       if (this.disabled) return false;
-      
+
       this.$refs["k-upload-file"].click();
       return false;
     },
-    upload: function(e) {
+    upload: function (e) {
       this.file = e.target.value;
       this.file && this.$emit("change", this.file);
       this.type === "change" && this.file && this.submit();
     },
-    submit: function() {
+    submit: function () {
       if (this.type !== "change" && this.type !== "wait") return false;
       if (!this.file) {
         this.$Message.error("请选择上传文件");
         return false;
       }
+      this.$emit('beforeUpload')
       this.$refs["k-upload-form"].submit();
     },
-    complite: function(fm, e) {
+    complite: function (fm, e) {
       let doc = fm.contentWindow || fm.contentDocument;
+      let data = ''
       try {
         if (doc.document) {
           doc = doc.document;
           let content = doc.body.textContent;
           if (content) {
-            let data = eval("("+content+")");
+            data = eval("(" + content + ")");
             this.$emit("complite", data);
             this.$refs["k-upload-file"].value = "";
             // this.select = false;
@@ -86,7 +88,9 @@ export default {
       } catch (e) {
         let msg = e.message.indexOf("cross-origin") >= 0 ? "不支持跨域上传!" : "上传文件格式不支持！";
         this.$Message.error(msg);
+        data = e.message
       }
+      this.$emit('afterUpload', data)
     }
   }
 };

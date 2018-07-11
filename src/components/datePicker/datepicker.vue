@@ -88,7 +88,7 @@ export default {
     },
     popupStyle() {
       let style = {};
-      this.range && (style.width = "405px");
+      this.range && (style.width = "415px");
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
       if (this.fadeInBottom) {
