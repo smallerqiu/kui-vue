@@ -3,6 +3,12 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.8.6<span> 2018-7-11 </span></h3>
+        <p>修复<code>DatePicker</code>组件特定情况下换行的问题</p>
+        <p>修复<code>Page</code>组件打印错误的bug</p>
+        <p>修复<code>Table</code>组件数据为空时全选的问题</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.8.5<span> 2018-7-9 </span></h3>
         <p>修复下拉transfer多组件干扰的问题</p>
         <p>组件内部调用隔离，用于兼容第三方UI组件库</p>

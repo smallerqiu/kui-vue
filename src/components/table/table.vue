@@ -127,7 +127,7 @@ export default {
     data: {
       handler(r1, r2) {
         let count = this.data.filter(x => x.checked == true).length
-        this.checkedAll = (count == this.data.length)
+        this.checkedAll = !count && count == this.data.length
       },
       deep: true
     }
@@ -163,7 +163,7 @@ export default {
       // this.data[index].checked = checked
       this.selectRow = this.data.filter(item => item.checked == true);
       this.$emit("selection", this.selectRow, item);
-      this.checkedAll = (this.selectRow.length == this.data.length)
+      this.checkedAll = !this.selectRow.length && this.selectRow.length == this.data.length
     },
     checkAll(checked) {
       this.data.forEach(item => {

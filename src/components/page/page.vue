@@ -51,7 +51,7 @@
 </template>
 <script>
 import { Select, Option } from '../select'
-import Button from '../button'
+import { Button } from '../button'
 import Input from '../input'
 import Icon from '../icon'
 export default {
