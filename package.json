@@ -1,7 +1,7 @@
 {
     "name": "kui-vue",
-    "version": "1.8.7",
-    "description": "A UI for Vue",
+    "version": "1.8.8",
+    "description": "A high quality UI components Library with Vue.js",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
     "files": [
@@ -32,6 +32,7 @@
         "framework",
         "vue2 ui",
         "vue2 components",
+        "ui components",
         "pc",
         "pc ui"
     ],

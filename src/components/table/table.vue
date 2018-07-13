@@ -40,7 +40,12 @@
               </label>
             </div>
             <template v-else-if="sub.type&&sub.type=='html'">
-              <div v-html="item[sub.key]" class="k-table-cell"></div>
+              <template v-if="isShowTip(item,sub)">
+                <Tooltip :content="item[sub.key].replace(/<\/?.+?>/g,'')" breaked>
+                  <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden" v-html="item[sub.key]"> </div>
+                </Tooltip>
+              </template>
+              <div v-html="item[sub.key]" class="k-table-cell" v-else></div>
             </template>
             <div v-else-if="sub.render" class="k-table-cell" :style="`width:${sub.width}px;overflow:hidden;`">
               <Expand :render="sub.render" :row="item" :column="sub" :index="Number(index)"></Expand>
@@ -128,7 +133,7 @@ export default {
     data: {
       handler(r1, r2) {
         let count = this.data.filter(x => x.checked == true).length
-        this.checkedAll = !count && count == this.data.length
+        this.checkedAll = this.data.length && count == this.data.length
       },
       deep: true
     }
@@ -168,7 +173,7 @@ export default {
       // this.data[index].checked = checked
       this.selectRow = this.data.filter(item => item.checked == true);
       this.$emit("selection", this.selectRow, item);
-      this.checkedAll = !this.selectRow.length && this.selectRow.length == this.data.length
+      this.checkedAll = this.data.length && this.selectRow.length == this.data.length
     },
     checkAll(checked) {
       this.data.forEach(item => {

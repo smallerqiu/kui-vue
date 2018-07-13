@@ -146,18 +146,16 @@ export default {
       bordered: false,
       mini: false,
       data: [
-        { nick: "毛毛", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
-        { nick: "高总", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
-        { nick: "娟娟", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
-        { nick: "鱼雷", gender: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
+        { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中",right: "右对其", birthday: "", tip: '短文字提示', action: "" },
+        { nick: "高总", center: "居中",right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "娟娟", center: "居中",right: "右对其", birthday: "", tip: '短文字提示', action: "" },
+        { nick: "鱼雷", center: "居中",right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
       ],
       col: [
         { type: "selection" },
-        { title: "姓名", key: "nick" },
-        { title: "右对其", key: "gender", textAlign: "right" },
-        { title: "姓名", key: "nick" },
-        { title: "居中", key: "gender", textAlign: "center" },
-        { title: "姓名", key: "nick" },
+        { title: "姓名", key: "nick",type:'html' },
+        { title: "右对其", key: "right", textAlign: "right" },
+        { title: "居中", key: "center", textAlign: "center" },
         { title: "文字提示", key: "tip", },
         {
           title: "出生年月",
