@@ -89,7 +89,7 @@
         </tr>
         <tr>
           <td>type</td>
-          <td>按钮类型，可选值为primary、ghost、link、success、warning、danger或者不设置</td>
+          <td>按钮类型，可选值为primary、link、success、warning、danger或者不设置</td>
           <td>String</td>
           <td>-</td>
         </tr>

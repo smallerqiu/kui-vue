@@ -3,6 +3,15 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem >
+        <h3>1.8.8<span> 2018-7-13 </span></h3>
+        <p><code>Table</code>文字处理完善</p>
+        <p><code>Menu</code>完善在特定情况下显示不全的问题</p>
+      </TimeLineItem>
+       <TimeLineItem >
+        <h3>1.8.7<span> 2018-7-12 </span></h3>
+        <p><code>Table</code>组件新增text-max-length 属性，统一处理文字限制</p>
+      </TimeLineItem>
+      <TimeLineItem >
         <h3>1.8.6<span> 2018-7-11 </span></h3>
         <p><code>Upload</code>组件新增beforeUpload，afterUpload事件</p>
         <p>修复<code>DatePicker</code>组件特定情况下换行的问题</p>
