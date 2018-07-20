@@ -50,6 +50,7 @@ export default {
           this.label = (this.selectItem && this.selectItem.label) || "";
         }
       }
+      this.$emit('open-change', val);
     }
   },
   data() {
