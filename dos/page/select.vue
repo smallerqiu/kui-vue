@@ -116,6 +116,12 @@
           <td>Function</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>openChange</td>
+          <td>下拉框展开或收起时触发</td>
+          <td>Function</td>
+          <td>true / false</td>
+        </tr>
       </table>
     </div>
     <h3>Option API</h3>
