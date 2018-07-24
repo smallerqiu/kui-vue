@@ -12,6 +12,7 @@
         "start": "npm run dev",
         "test": "webpack-dev-server --config build/test.js",
         "dev": "webpack-dev-server  --config build/webpack.dev.conf.js",
+        "start": "npm run dev",
         "build:doc": "node build/build.js doc",
         "build": "node build/build.js "
     },
