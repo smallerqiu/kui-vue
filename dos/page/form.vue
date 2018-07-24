@@ -376,6 +376,7 @@ export default {
       }
     };
     return {
+      data3:'left',
       s1: '',
       labelAlign: 'right',
       code: code,

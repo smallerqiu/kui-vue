@@ -39,6 +39,7 @@ import Upload from './components/upload'
 const pkg = require('../package.json');
 
 import './styles';
+// import './styles/cover';
 
 const components = {
     Alert, Affix,

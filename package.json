@@ -5,9 +5,11 @@
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
     "files": [
-        "dist"
+        "dist",
+        "src/styles"
     ],
     "scripts": {
+        "start": "npm run dev",
         "test": "webpack-dev-server --config build/test.js",
         "dev": "webpack-dev-server  --config build/webpack.dev.conf.js",
         "build:doc": "node build/build.js doc",
