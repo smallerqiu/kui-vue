@@ -16,11 +16,11 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
-    index: ['./dos/main.js'],
+    index: ['./docs/main.js'],
     vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, '../dos-html'),
+    path: path.resolve(__dirname, '../docs-html'),
     filename: 'js/[name].[hash:5].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
@@ -90,11 +90,11 @@ module.exports = merge(webpackBaseConfig, {
       // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
       filename: 'index.html',
       // 源文件，路径相对于本文件所在的位置
-      template: path.resolve(__dirname, '../dos/index.html'),
+      template: path.resolve(__dirname, '../docs/index.html'),
       // 需要引入entry里面的哪几个入口，如果entry里有公共模块，
       // chunks: ['index', 'vendors'],
       // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
-      favicon: path.join(__dirname, '../dos/assets/kui-vue.png'),
+      favicon: path.join(__dirname, '../docs/assets/favicon.png'),
       inject: true,
       // 生成html文件的标题
       // title: 'KUI 使用文档',
