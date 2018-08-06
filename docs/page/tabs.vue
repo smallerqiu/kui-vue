@@ -33,9 +33,9 @@
       <Demo title="图标">
         <div slot="content">
           <Tabs>
-            <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
-            <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
-            <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+            <TabPane label="Tab1" icon="logo-windows">我是内容1....</TabPane>
+            <TabPane label="Tab2" icon="logo-apple">我是内容2....</TabPane>
+            <TabPane label="Tab3" icon="logo-android">我是内容3....</TabPane>
           </Tabs>
         </div>
         <div slot="desc">有图标的标签。</div>
@@ -46,9 +46,9 @@
       <Demo title="卡片式页签">
         <div slot="content">
           <Tabs card>
-            <TabPane label="Tab1" icon="social-windows">我是内容1....</TabPane>
-            <TabPane label="Tab2" icon="social-apple">我是内容2....</TabPane>
-            <TabPane label="Tab3" icon="social-android">我是内容3....</TabPane>
+            <TabPane label="Tab1" icon="logo-windows">我是内容1....</TabPane>
+            <TabPane label="Tab2" icon="logo-apple">我是内容2....</TabPane>
+            <TabPane label="Tab3" icon="logo-android">我是内容3....</TabPane>
             <Button slot="extra" mini>Action</Button>
           </Tabs>
         </div>

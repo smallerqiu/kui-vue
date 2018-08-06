@@ -29,9 +29,9 @@
     <Demo title="自定义图标" layout="vertical">
       <div slot="content">
         <Steps current="1">
-          <Step title="登陆" icon="unlocked"></Step>
-          <Step title="绑定手机" icon="iphone"></Step>
-          <Step title="绑定邮箱" icon="email"></Step>
+          <Step title="登陆" icon="md-lock"></Step>
+          <Step title="绑定手机" icon="md-phone-portrait"></Step>
+          <Step title="绑定邮箱" icon="md-mail"></Step>
         </Steps>
       </div>
       <div slot="desc">可以启用自定义图标。自定义

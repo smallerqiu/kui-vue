@@ -7,7 +7,7 @@
       <div :class="classes" v-if="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
         <div class="k-poptip-title" v-if="title">
-          <i class="k-ion-help-circled" v-if="confirm"></i>
+          <i class="k-ion-ios-help-circle" v-if="confirm"></i>
           <span>{{title}}</span>
         </div>
         <div class="k-poptip-content">

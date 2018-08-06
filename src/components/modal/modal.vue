@@ -8,7 +8,7 @@
         <div class="modal" ref="modal" :style="styles">
           <div class="k-modal-content">
             <a class="k-modal-close" @click="close">
-              <Icon type="android-close" />
+              <Icon type="md-close" />
             </a>
             <div class="k-modal-header" :style="headerStyle" @mousedown="handelMouseDown($event)" v-if="type=='modal'">
               <div class="k-modal-header-inner">{{title}}</div>

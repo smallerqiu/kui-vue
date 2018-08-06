@@ -36,7 +36,8 @@ export default {
     disabled: { type: Boolean, default: false }
   },
   watch: {
-    value(v) {
+    value(v,v2) {
+      console.log(v,v2)
       this.updateSelect(v);
     },
     visible(val) {
@@ -147,7 +148,7 @@ export default {
         child.selected = isNotValue && value == child.value
         if (child.selected) this.label = child.label === undefined ? child.$el.innerHTML : child.label
       });
-      if (!isNotValue) this.label = ''
+      if (value === "" || value === undefined || value === null) this.label = ''
     },
     clear() {
       this.selectItem = null;
@@ -210,9 +211,16 @@ export default {
     },
     change(item) {
       this.selectItem = item;
-      this.$emit("change", item);
-      this.$emit("input", item.value);
       this.label = item.label;
+      //针对value没有定义的情况
+      this.$emit("input", item.value);
+      if (this.value === '') {
+        this.children.forEach(child => {
+          child.selected = item.value == child.value
+        });
+      }
+      this.$emit("change", item);
+
       this.dispatch("FormItem", "form-item-change", item.value);
       this.$nextTick(() => (this.visible = false));
     }

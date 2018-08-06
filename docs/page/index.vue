@@ -35,7 +35,7 @@
       <h1>一枚基于Vue.js的高质量UI组件库</h1>
       <div class="btn-content">
         <Button class="start" @click="start">开始使用</Button>
-        <Button icon="social-github" class="github" @click="github">Github</Button>
+        <Button icon="logo-github" class="github" @click="github">Github</Button>
       </div>
     </section>
     <footer>
@@ -50,7 +50,7 @@
 export default {
   data() {
     return {
-      logo: require("../assets/logo.png"),
+      logo: require("../assets/logo.svg"),
       // react: require("../assets/kui-react.png"),
       // angular: require("../assets/kui-angular.png")
     };

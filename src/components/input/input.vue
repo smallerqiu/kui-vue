@@ -29,6 +29,7 @@ export default {
       default: 'text'
     },
     icon: String,
+    iconAlign: { type: String, default: 'right' },
     value: { type: [String, Number], default: "" },
     placeholder: { type: String, default: "" },
     maxlength: { type: Number },
@@ -70,7 +71,8 @@ export default {
       return [
         "k-input-wp",
         {
-          ["k-input-mini"]: this.mini
+          ["k-input-mini"]: this.mini,
+          ["k-input-icon-left"]: this.icon && this.iconAlign == 'left'
         }
       ];
     },

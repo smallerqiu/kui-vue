@@ -12,6 +12,7 @@ export default {
     theme: { type: String, default: "light" },
     mode: { type: String, default: "vertical" },
     activeName: String,
+    openName: String,
     accordion: Boolean,
     width: { type: [Number, String], default: 240 }
   },
@@ -26,6 +27,10 @@ export default {
     activeIndex(name) {
       this.broadcast('MenuItem', 'menu-item-update', name)
       this.broadcast('SubMenu', 'menu-submenu-close', name)
+    },
+    openName(name) {
+      console.log(name)
+      this.broadcast('SubMenu', 'menu-submenu-update', name)
     }
   },
   computed: {
@@ -44,6 +49,7 @@ export default {
   },
   methods: {
     setAccordion(name) {
+      this.openName = name
       if (this.accordion) {
         this.broadcast('SubMenu', 'menu-submenu-update', name)
       }

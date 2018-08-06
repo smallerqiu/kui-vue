@@ -4,7 +4,7 @@
       <ul class="k-pager">
         <li class="k-pager-item" @click="prePage">
           <span>
-            <Icon type="ios-arrow-left" />
+            <Icon type="ios-arrow-back" />
           </span>
         </li>
         <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)">
@@ -12,7 +12,7 @@
         </li>
         <li class="k-pager-item k-pager-more" v-if="showPrevMore">
           <span>
-            <Icon type="more" />
+            <Icon type="ios-more" />
           </span>
         </li>
         <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)">
@@ -20,7 +20,7 @@
         </li>
         <li class="k-pager-item k-pager-more" v-if="showNextMore">
           <span>
-            <Icon type="more" />
+            <Icon type="ios-more" />
           </span>
         </li>
         <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)">
@@ -28,7 +28,7 @@
         </li>
         <li class="k-pager-item" @click="nextPage">
           <span>
-            <Icon type="ios-arrow-right" />
+            <Icon type="ios-arrow-forward" />
           </span>
         </li>
       </ul>

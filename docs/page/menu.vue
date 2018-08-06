@@ -9,7 +9,7 @@
           <MenuItem name="1" icon="ios-paper">我的产品</MenuItem>
           <SubMenu name="1">
             <template slot="title">
-              <Icon type="android-walk" />商品管理
+              <Icon type="md-walk" />商品管理
             </template>
             <MenuItem name="1-1">商品信息</MenuItem>
             <MenuItem name="1-2">商品列表</MenuItem>
@@ -18,7 +18,7 @@
           </SubMenu>
           <SubMenu name="2">
             <template slot="title">
-              <Icon type="android-walk" />用户管理
+              <Icon type="md-walk" />用户管理
             </template>
             <MenuGroup title="超级管理">
               <MenuItem name="2-1">用户信息</MenuItem>
@@ -29,8 +29,8 @@
               <MenuItem name="2-4">用户筛选</MenuItem>
             </MenuGroup>
           </SubMenu>
-          <MenuItem name="4" icon="social-apple">新闻管理</MenuItem>
-          <MenuItem name="5" icon="locked">权限管理</MenuItem>
+          <MenuItem name="4" icon="logo-apple">新闻管理</MenuItem>
+          <MenuItem name="5" icon="ios-locke">权限管理</MenuItem>
         </Menu>
         <br/>
         <p>切换主题</p>
@@ -51,7 +51,7 @@
       <div slot="content">
         <Row>
           <Col span="8">
-          <Menu :theme='theme' active-name="1">
+          <Menu :theme='theme' active-name="0-1" open-name="0">
             <SubMenu name="0">
               <template slot="title">
                 <Icon type="ios-paper" />我的产品
@@ -63,7 +63,7 @@
             </SubMenu>
             <SubMenu name="1">
               <template slot="title">
-                <Icon type="social-apple" />商品管理
+                <Icon type="logo-apple" />商品管理
               </template>
               <MenuItem name="1-1">商品信息</MenuItem>
               <MenuItem name="1-2">商品列表</MenuItem>
@@ -73,7 +73,7 @@
 
             <SubMenu name="2">
               <template slot="title">
-                <Icon type="android-walk" />用户管理
+                <Icon type="md-walk" />用户管理
               </template>
               <MenuGroup title="超级管理">
                 <MenuItem name="2-1">用户信息</MenuItem>
@@ -87,7 +87,7 @@
           </Menu>
           </Col>
           <Col span="8">
-          <Menu :theme='theme' active-name="1" accordion>
+          <Menu :theme='theme' active-name="0-1" accordion open-name="0">
             <SubMenu name="0">
               <template slot="title">
                 <Icon type="ios-paper" />我的产品
@@ -99,7 +99,7 @@
             </SubMenu>
             <SubMenu name="1">
               <template slot="title">
-                <Icon type="social-apple" />商品管理
+                <Icon type="logo-apple" />商品管理
               </template>
               <MenuItem name="1-1">商品信息</MenuItem>
               <MenuItem name="1-2">商品列表</MenuItem>
@@ -109,7 +109,7 @@
 
             <SubMenu name="2">
               <template slot="title">
-                <Icon type="android-walk" />用户管理
+                <Icon type="md-walk" />用户管理
               </template>
               <MenuGroup title="超级管理">
                 <MenuItem name="2-1">用户信息</MenuItem>
@@ -123,7 +123,7 @@
           </Menu>
           </Col>
           <Col span="8">
-          <Menu :theme='theme'>
+          <Menu :theme='theme' activeName="2-1">
             <MenuGroup title="超级管理">
               <MenuItem name="2-1">用户信息</MenuItem>
               <MenuItem name="2-2">用户列表</MenuItem>
@@ -165,8 +165,14 @@
           <td>light</td>
         </tr>
         <tr>
-          <td>activeName</td>
+          <td>active-name</td>
           <td>激活菜单的 name 值</td>
+          <td>String | Number </td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>open-name</td>
+          <td>展开的菜单的 name 值，只针对mode=vertical 有效</td>
           <td>String | Number </td>
           <td>-</td>
         </tr>

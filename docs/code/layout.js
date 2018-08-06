@@ -35,16 +35,16 @@ code.tmb =`<Layout>
   <Header>
     <Menu mode="horizontal" theme="dark" activeName="1" style="line-height:62px;">
       <div style="width:120px;height:31px;background:#848b9c;float:left;margin: 15px 30px 0 0;"></div>
-      <MenuItem name="1" icon="home">首页</MenuItem>
-      <MenuItem name="2" icon="social-buffer">文章</MenuItem>
-      <MenuItem name="3" icon="heart">评论</MenuItem>
+      <MenuItem name="1" icon="ios-home">首页</MenuItem>
+      <MenuItem name="2" icon="logo-buffer">文章</MenuItem>
+      <MenuItem name="3" icon="ios-heart">评论</MenuItem>
     </Menu>
   </Header>
   <Content style="padding:0 50px;">
     <Breadcrumb style="margin:20px 0;">
-      <BreadcrumbItem to="/" icon="home">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/breadcrumb" icon="social-buffer">breadcrumb</BreadcrumbItem>
-      <BreadcrumbItem icon="heart">other</BreadcrumbItem>
+      <BreadcrumbItem to="/" icon="ios-home">Home</BreadcrumbItem>
+      <BreadcrumbItem to="/breadcrumb" icon="logo-buffer">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem icon="ios-heart">other</BreadcrumbItem>
     </Breadcrumb>
     <div style="border:1px solid #eee;padding:20px;height:200px;background:#fff">
       Content
@@ -59,9 +59,9 @@ code.tlc =`<Layout>
   <Header>
     <Menu mode="horizontal" theme="dark" activeName="1" style="line-height:62px;">
       <div style="width:120px;height:31px;background:#848b9c;float:left;margin: 15px 30px 0 0;"></div>
-      <MenuItem name="1" icon="home">首页</MenuItem>
-      <MenuItem name="2" icon="social-buffer">文章</MenuItem>
-      <MenuItem name="3" icon="heart">评论</MenuItem>
+      <MenuItem name="1" icon="ios-home">首页</MenuItem>
+      <MenuItem name="2" icon="logo-buffer">文章</MenuItem>
+      <MenuItem name="3" icon="ios-heart">评论</MenuItem>
     </Menu>
   </Header>
   <Layout>
@@ -78,7 +78,7 @@ code.tlc =`<Layout>
         </SubMenu>
         <SubMenu name="1">
           <template slot="title">
-            <Icon type="social-apple" />商品管理
+            <Icon type="logo-apple" />商品管理
           </template>
           <MenuItem name="1-1">商品信息</MenuItem>
           <MenuItem name="1-2">商品列表</MenuItem>
@@ -88,7 +88,7 @@ code.tlc =`<Layout>
 
         <SubMenu name="2">
           <template slot="title">
-            <Icon type="android-walk" />用户管理
+            <Icon type="md-walk" />用户管理
           </template>
           <MenuGroup title="超级管理">
             <MenuItem name="2-1">用户信息</MenuItem>
@@ -103,9 +103,9 @@ code.tlc =`<Layout>
     </Sider>
     <Content style="padding:20px 50px;">
       <Breadcrumb style="margin:0 0 20px 0;">
-        <BreadcrumbItem to="/" icon="home">Home</BreadcrumbItem>
-        <BreadcrumbItem to="/breadcrumb" icon="social-buffer">breadcrumb</BreadcrumbItem>
-        <BreadcrumbItem icon="heart">other</BreadcrumbItem>
+        <BreadcrumbItem to="/" icon="ios-home">Home</BreadcrumbItem>
+        <BreadcrumbItem to="/breadcrumb" icon="logo-buffer">breadcrumb</BreadcrumbItem>
+        <BreadcrumbItem icon="ios-heart">other</BreadcrumbItem>
       </Breadcrumb>
       <div style="border:1px solid #eee;padding:20px;height:200px;background:#fff">
         Content
