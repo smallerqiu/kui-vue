@@ -6,10 +6,10 @@
       </div>
       <div :class="['k-tabs-nav-container',{['k-tabs-nav-container-scroll']:this.scrollable}]">
         <span class="k-tabs-tab-prev" @click="scroll('prev')">
-          <Icon type="ios-arrow-left" />
+          <Icon type="ios-arrow-back" />
         </span>
         <span class="k-tabs-tab-next" @click="scroll('next')">
-          <Icon type="ios-arrow-right" />
+          <Icon type="ios-arrow-forward" />
         </span>
         <div class="k-tabs-nav-wrap">
           <div class="k-tabs-nav-scroll" ref="scroll" :style="scrollStyle">
@@ -17,7 +17,7 @@
               <div class="k-tabs-ink-bar" :style="inkStyles" v-if="!card"></div>
               <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="index" @click="handelClick(item)">
                 <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
-                <Icon type="android-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
+                <Icon type="md-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ export default {
     },
     classes() {
       let icon = this.icon;
-      return icon ? [`k-ion-${icon}`] : ["k-ion-ios-circle-outline"];
+      return icon ? [`k-ion-${icon}`] : ["k-ion-ios-radio-button-off"];
     }
   }
 };

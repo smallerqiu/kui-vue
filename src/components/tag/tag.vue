@@ -4,7 +4,7 @@
             <span class="k-tag-text">
                 <slot></slot>
             </span>
-            <i class="k-ion-android-close" v-if="closeable" @click="close" />
+            <i class="k-ion-md-close" v-if="closeable" @click="close" />
         </div>
     </transition>
 </template>

@@ -42,8 +42,9 @@ export default {
     },
     query(query) {
       // query 转义查询里面的正则
+      let label = this.label === undefined ? this.$el.innerHTML : this.label
       let parsedQuery = String(query).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-      this.visible = new RegExp(parsedQuery, "i").test(this.label);
+      this.visible = new RegExp(parsedQuery, "i").test(label);
     }
   },
   mounted() {

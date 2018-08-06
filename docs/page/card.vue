@@ -7,7 +7,7 @@
             <Col span="12">
             <Demo title="基础"  layout="vertical">
                 <div slot="content" style="background:#eee;padding:15px;">
-                    <Card title="卡片标题" icon="android-favorite-outline">
+                    <Card title="卡片标题" icon="ios-heart">
                         <span slot="extra" @click="$Message.info('刚刚摇了下')">摇一摇</span>
                         <p>内容随便写， 欢迎使用</p>
                         <p>内容随便写， 欢迎使用</p>
@@ -26,7 +26,7 @@
             <Col span="12">
             <Demo title="边框" layout="vertical">
                 <div slot="content">
-                    <Card title="卡片标题" icon="android-favorite-outline" bordered>
+                    <Card title="卡片标题" icon="ios-heart" bordered>
                         <span slot="extra">摇一摇</span>
                         <p>内容随便写， 欢迎使用</p>
                         <p>内容随便写， 欢迎使用</p>

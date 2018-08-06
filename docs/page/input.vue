@@ -24,11 +24,11 @@
       </Demo>
       <Demo title="带图标" layout='vertical'>
         <div slot="content">
-          <Input type="text" width="200" placeholder="请输入内容..." icon="ios-person" @iconClick="iconClick"></Input>
+          <Input type="text" width="200" placeholder="请输入用户名..."  icon-align="left" icon="ios-person" @iconClick="iconClick"></Input>
           <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
         </div>
         <div slot="desc">通过设置
-          <code>icon</code>属性，可设置按钮图标，
+          <code>icon</code>属性，可设置按钮图标，<code>icon-align</code> 设置显示位置
           <code>iconClick</code>可触发图标点击事件</div>
         <div slot="code">{{code.withIcon}}</div>
       </Demo>
@@ -36,7 +36,7 @@
       <Col span="12">
       <Demo title="尺寸" layout='vertical'>
         <div slot="content">
-          <Input type="text" width="200" placeholder="请输入内容..."></Input>
+          <Input type="text" width="200" placeholder="请输入..."></Input>
           <Input type="text" width="200" mini placeholder="mini" icon="ios-person" @iconClick="iconClick"></Input>
         </div>
         <div slot="desc">通过设置
@@ -85,9 +85,15 @@
         </tr>
         <tr>
           <td>icon </td>
-          <td>输入框尾部图标，仅在 text 类型下有效 </td>
+          <td>输入框图标，仅在 text 类型下有效 </td>
           <td>String</td>
           <td>-</td>
+        </tr>
+          <tr>
+          <td>icon-align </td>
+          <td>输入框图标位置，可选值为left、right，仅在 text 类型下有效 </td>
+          <td>String</td>
+          <td>right</td>
         </tr>
         <tr>
           <td>placeholder</td>

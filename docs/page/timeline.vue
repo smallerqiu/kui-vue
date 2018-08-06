@@ -19,7 +19,7 @@
     <Demo title="图标">
       <div slot="content">
         <TimeLine>
-          <TimeLineItem icon="ribbon-b">发布2.0版本</TimeLineItem>
+          <TimeLineItem icon="ios-ribbon">发布2.0版本</TimeLineItem>
           <TimeLineItem icon="bug">修复bug</TimeLineItem>
           <TimeLineItem>发布1.0版本</TimeLineItem>
         </TimeLine>
@@ -32,7 +32,7 @@
     <Demo title="颜色">
       <div slot="content">
         <TimeLine>
-          <TimeLineItem icon="ribbon-b" color="#cba302">发布2.0版本</TimeLineItem>
+          <TimeLineItem icon="ios-ribbon" color="#cba302">发布2.0版本</TimeLineItem>
           <TimeLineItem icon="bug" color="red">修复bug</TimeLineItem>
           <TimeLineItem>发布1.0版本</TimeLineItem>
         </TimeLine>

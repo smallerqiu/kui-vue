@@ -122,8 +122,8 @@ export default {
               expand: true,
               icon: 'flag',
               children: [
-                { title: 'leaf 1-1-1', icon: 'flame' },
-                { title: 'leaf 1-1-2', icon: 'folder' }
+                { title: 'leaf 1-1-1', icon: 'ios-flame' },
+                { title: 'leaf 1-1-2', icon: 'ios-folder' }
               ]
             },
             {
@@ -131,8 +131,8 @@ export default {
               expand: true,
               icon: 'flag',
               children: [
-                { title: 'leaf 1-2-1', icon: 'folder' },
-                { title: 'leaf 1-2-2', icon: 'folder' }
+                { title: 'leaf 1-2-1', icon: 'ios-folder' },
+                { title: 'leaf 1-2-2', icon: 'ios-folder' }
               ]
             }
           ]

@@ -8,8 +8,8 @@
             <Icon :type="icon" v-if="icon"></Icon>
             <div class="k-step-icon-inner" v-if="!icon">
                 <span v-if="state!='finish' && !icon && state!='error'">{{step}}</span>
-                <Icon type="android-done" v-if="!icon && state=='finish'" />
-                <Icon type="android-close" v-if="!icon && state=='error'" />
+                <Icon type="md-checkmark" v-if="!icon && state=='finish'" />
+                <Icon type="ios-close" v-if="!icon && state=='error'" />
             </div>
         </div>
         <div class="k-step-main">

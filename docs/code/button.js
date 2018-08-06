@@ -10,11 +10,11 @@ code.disabled=`<Button type="primary">Primary</Button>
 <Button disabled type="primary">disabled</Button>`
 
 code.withIcon = `<Button type="primary" icon="ios-search">搜索</Button>
-<Button type="success" icon="ios-cloud-upload-outline">上传</Button>
-<Button type="danger" icon="ios-cloud-download-outline">下载</Button>
-<Button type="primary" icon="play"/>
-<Button type="primary" icon="pause"></Button>
-<Button type="primary" icon="stop"></Button>`
+<Button type="success" icon="ios-cloud-upload">上传</Button>
+<Button type="danger" icon="ios-cloud-download">下载</Button>
+<Button type="primary" icon="ios-play"/>
+<Button type="primary" icon="ios-pause"></Button>
+<Button type="primary" icon="ios-square"></Button>`
 
 code.size =`<Button type="primary">Primary</Button>
 <Button type="primary" mini>mini</Button>`

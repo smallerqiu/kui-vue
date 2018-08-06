@@ -61,7 +61,7 @@ body {
   -moz-font-feature-setting: 'liga', 'kern';
   background-color: #c5cace;
   color: #252525; // font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-  font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+  font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif !important;
 }
 
 h1,
@@ -107,6 +107,18 @@ body {
 }
 
 .body {
+  .search-component {
+    width: 280px;
+    float: left;
+    margin-left: 130px;
+    .k-select-selection {
+      font-size: 15px;
+      border:none;
+    }
+    .k-select-arrow {
+      display: none;
+    }
+  }
   header .logo {
     font-weight: bold;
     font-size: 16px;
@@ -122,7 +134,9 @@ body {
     width: 100%;
     .ft-left {
       float: left;
-      ul{overflow: hidden;}
+      ul {
+        overflow: hidden;
+      }
       li {
         &:first-child {
           font-size: 18px;
@@ -146,11 +160,11 @@ body {
         margin-left: 20px;
       }
       img {
-        height: 40px;
+        height: 30px;
         margin: 0 auto 15px auto;
       }
-      .k-ion-social-github {
-        font-size: 42px;
+      .k-ion-logo-github {
+        font-size: 32px;
         display: block;
         margin: 0 0 13px 0;
         color: #52a6f6;
@@ -163,7 +177,7 @@ body {
 .main {
   display: inline-block;
   width: 100%;
-  .k-menu-vertical .k-menu-item-group-title{
+  .nav .k-menu-vertical .k-menu-item-group-title {
     font-size: 16px;
     font-weight: bold;
     color: #000;
@@ -184,6 +198,9 @@ body {
   // background: linear-gradient(#acd9fb, #f2ffb3);
   position: relative;
   overflow: hidden;
+  span {
+    font-family: CenturyGothic;
+  }
   .blister0 {
     left: 10%;
     animation-duration: 8s;
@@ -355,6 +372,7 @@ body {
       margin-top: 120px;
       img {
         margin: 0 auto;
+        height: 120px;
       }
     }
     h1 {
@@ -368,10 +386,11 @@ body {
       height: 56px;
       margin: 0 35px;
       font-size: 18px;
-      line-height: 56px;
+      line-height: 54px;
       border-radius: 28px;
       transition: all 0.3s;
       cursor: pointer;
+     
     }
     .start {
       background: #57adf5;
@@ -382,6 +401,9 @@ body {
     .github {
       color: #39495f;
       border: 1px solid #57adf5;
+      i{
+        margin-right: 10px;
+      }
     }
   }
 }
@@ -847,6 +869,30 @@ footer {
   // text-align: center;
 }
 
+.icon-head {
+  h3 {
+    float: left;
+    margin: 0;
+    line-height: 60px;
+  }
+}
+
+.icon-title {
+  float: right;
+}
+
+.icon-search-box {
+  width: 80%;
+  margin: 0 auto;
+  display: inherit;
+  .k-input {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+  }
+}
+
 .icon-item {
   display: inline-block;
   width: 100%;
@@ -862,6 +908,8 @@ footer {
     transition: color .3s ease-in-out;
     &:hover {
       color: #3a95ff;
+      background: #f5f5f5;
+      box-shadow: 0 0 15px #ddd
     }
     .k-tooltip {
       width: 100%;

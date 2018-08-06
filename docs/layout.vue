@@ -4,11 +4,16 @@
       <div class="logo">
         <a href="/"><img :src="favicon" />K UIKIT</a>
       </div>
+      <div class="search-component">
+        <Select placeholder="搜索组件..." filterable v-model="key" @change="change">
+          <Option v-for="(com,index) in components" :key="index" :value="com.name">{{com.name}} {{com.title}}</Option>
+        </Select>
+      </div>
       <Menu style="float:right;" mode="horizontal" activeName="/install" @select="go">
-        <MenuItem name="/" icon="home">首页</MenuItem>
-        <MenuItem name="/install" icon="ios-settings-strong">组件</MenuItem>
-        <MenuItem name="https://github.com/chuchur/kui-vue/issues" icon="ios-help">提问</MenuItem>
-        <MenuItem name="https://www.chuchur.com" icon="ios-person">Blog</MenuItem>
+        <MenuItem name="/" icon="md-home">首页</MenuItem>
+        <MenuItem name="/install" icon="ios-options">组件</MenuItem>
+        <MenuItem name="https://github.com/chuchur/kui-vue/issues" icon="ios-help-circle">提问</MenuItem>
+        <MenuItem name="https://www.chuchur.com" icon="ios-leaf">Blog</MenuItem>
       </Menu>
     </header>
     <section class="main">
@@ -70,7 +75,7 @@
           </li>
           <li>
             <a href="//github.com/chuchur/kui-vue" target="_blank">
-              <Icon type="social-github" />
+              <Icon type="logo-github" />
               <span>github</span>
             </a>
           </li>
@@ -82,15 +87,17 @@
 
 </template>
 <script>
-import nav from './code/menuData'
+import code from './code/menuData'
 export default {
   data() {
     return {
-      nav: nav,
+      key: '',
+      nav: code.nav,
       favicon: require("./assets/favicon.png"),
       logo: require("./assets/logo.png"),
       activeName: '',
-      isShowNav: false
+      isShowNav: false,
+      components: code.components
     };
   },
   computed: {
@@ -99,10 +106,17 @@ export default {
     }
   },
   methods: {
+    change(v) {
+      let path = v.value.toLowerCase()
+      this.activeName = '/' + path
+      this.$router.push(path)
+      setTimeout(()=>this.key='',500)
+    },
     showNav() {
       this.isShowNav = !this.isShowNav
     },
     go(path) {
+      this.key = ''
       this.showNav()
       if (path.indexOf('http') >= 0) {
         window.open(path)

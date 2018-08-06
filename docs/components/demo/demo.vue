@@ -45,7 +45,7 @@ export default {
     },
     computed: {
         icons() {
-            return this.expand ? 'code-working' : 'code'
+            return this.expand ? 'ios-code-working' : 'ios-code'
         },
         classes() {
             return ['k-demo', {

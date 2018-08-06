@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "1.8.8",
+    "version": "1.8.9",
     "description": "A high quality UI components Library with Vue.js",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",

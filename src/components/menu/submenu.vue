@@ -2,7 +2,7 @@
   <li :class="classes" @mouseover="openMenu" @mouseout="closeMenu">
     <div class="k-menu-title" @click.stop="accrodion">
       <slot name="title"></slot>
-      <i class="k-ion-ios-arrow-down"></i>
+      <i class="k-ion-ios-arrow-down k-menu-arrow"></i>
     </div>
     <Collapse>
       <ul class="k-menu-dropdown" v-show="visible">
@@ -39,9 +39,10 @@ export default {
           ["k-menu-item-opened"]: this.visible
         }
       ];
-    }, 
+    },
   },
   mounted() {
+    this.visible = this.rootMenu.openName == this.name && this.rootMenu.mode != 'horizontal'
     this.$on('menu-submenu-update', this.update)
     this.$on('menu-submenu-close', this.close)
   },
@@ -65,7 +66,6 @@ export default {
     openMenu() {
       if (this.rootMenu.mode == "vertical") return;
       this.$nextTick(() => this.visible = true)
-
     },
     closeMenu() {
       if (this.rootMenu.mode == "vertical") return;

@@ -2,7 +2,7 @@
   <div class="k-backtop" @click="handle" v-show="visible" v-scroll="scroll" :style="styles">
     <slot>
       <div class="k-backtop-content">
-        <Icon type="chevron-up" />
+        <Icon type="md-arrow-round-up" />
       </div>
     </slot>
   </div>
@@ -48,7 +48,7 @@ export default {
         var oTop = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
         if (oTop > 0) {
           document.body.scrollTop = document.documentElement.scrollTop = oTop - height;
-          window.setWindowScroll(-height)
+          // window.setWindowScroll(-height)
           this.scroll()
         } else {
           clearInterval(this.timer);

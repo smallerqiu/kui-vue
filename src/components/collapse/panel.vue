@@ -1,7 +1,7 @@
 <template>
     <div :class="classes">
         <div class="k-collapse-header" @click="handelClick">
-            <Icon type="ios-arrow-right" />{{title}}</div>
+            <Icon type="ios-arrow-forward" />{{title}}</div>
         <Collapse>
             <div class="k-collapse-content" v-show="active">
                 <div class="k-collapse-content-box">

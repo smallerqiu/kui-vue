@@ -61,7 +61,14 @@ code.search=`<Select :width="200" filterable  v-model="select">
   export default {
     data() {
       return {
-        select: ""
+        select: "",
+        data: [
+          { label: "苹果🍎", value: 0 },
+          { label: "橘子🍊", value: 1 },
+          { label: "香蕉🍌", value: 2 },
+          { label: "栗子🌰", value: 3 },
+          { label: "葡萄🍇", value: 4 }
+        ],
       };
     }
   }
