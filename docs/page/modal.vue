@@ -50,7 +50,7 @@
         <Button @click="show('error')">Error</Button>
         <Button @click="show('warning')">Warning</Button>
         <Button @click="show('info')">Info</Button>
-        <Button @click="show('happy')">happy</Button>
+        <Button @click="show('ios-happy')">happy</Button>
         <Modal v-model="d6" isMove type="toast" :icon="icon" :color="color">恭喜你中了5000万...</Modal>
       </div>
       <div slot="desc">这个模式只是用来展示最后的结果，
