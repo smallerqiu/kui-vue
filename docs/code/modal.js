@@ -18,7 +18,7 @@ code.mode = `<Button @click="show('success')">Success</Button>
 <Button @click="show('error')">Error</Button>
 <Button @click="show('warning')">Warning</Button>
 <Button @click="show('info')">Info</Button>
-<Button @click="show('happy')">happy</Button>
+<Button @click="show('ios-happy')">happy</Button>
 <Modal v-model="d6" type="toast" :icon="icon" :color="color">恭喜你中了5000万...</Modal>
 <script>
 export default {
