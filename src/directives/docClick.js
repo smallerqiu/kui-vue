@@ -1,5 +1,5 @@
 export default {
-    bind(el, binding, ) {
+    bind(el, binding) {
         let docClick = (e) => {
             if (el.contains(e.target)) {
                 return false;

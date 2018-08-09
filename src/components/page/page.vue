@@ -32,15 +32,15 @@
           </span>
         </li>
       </ul>
-      <div class="k-page-sizer" v-if="sizer">
+      <div class="k-page-sizer" v-if="showSizer">
         <k-select :mini="mini" v-model="defaultPageSize" @change="changeSize">
           <k-option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</k-option>
         </k-select>
       </div>
-      <div class="k-page-number">
+      <div class="k-page-number" v-if="showTotal">
         <span>共{{pageCount}}页</span>
       </div>
-      <div class="k-page-options">
+      <div class="k-page-options" v-if="showElevator">
         <span>跳至</span>
         <k-input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
         <span>页</span>
@@ -64,7 +64,9 @@ export default {
     'k-button': Button
   },
   props: {
-    sizer: Boolean,
+    showSizer: Boolean,
+    showTotal: Boolean,
+    showElevator: Boolean,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     mini: { default: false, type: Boolean },
     total: { default: 0, type: [Number, String] },

@@ -3,7 +3,7 @@
     <ul ref="children" class="k-tree-children">
       <li>
         <span :class="arrowClass" @click="handelExpand">
-          <i :class="!data.loading?'k-ion-md-arrow-dropright':'k-ion-ios-sync k-load-loop'"></i>
+          <i :class="!data.loading?'k-ion-ios-arrow-forward':'k-ion-ios-sync k-load-loop'"></i>
         </span>
         <Checkbox v-if="checkbox" :disabled="data.disabled" v-model="data.checked" @change="handelCheck" :indeterminate="data.indeterminate" />
         <span>

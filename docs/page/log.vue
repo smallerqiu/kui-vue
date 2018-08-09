@@ -2,13 +2,16 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
-      <TimeLineItem >
-        <h3>1.8.9<span> 2018-8-6 </span></h3>
+      <TimeLineItem icon="ios-ribbon" color="green">
+        <h3>1.9.0<span> 2018-8-8 </span></h3>
         <p>把原来的辣眼睛的logo 重新设计了，换上新的，组件风格统一了圆角4px</p>
         <p><code>Icon</code>库升级到4.3.0，使用更加规范，有效区分了ios和安卓粗细线条</p>
         <p><code>Input</code>新增icon-align属性控制图标显示位置</p>
         <p>修复<code>Select</code>组件几处bug</p>
         <p>修复<code>Menu</code>组件初始化的问题，新增open-name 属性，可以默认展开子菜单</p>
+        <p><code>page</code>组件新增了一些属性控制辅助显示</p>
+        <p><code>Tabs</code>新增animated属性控制切换动画</p>
+        <p>去掉了一部分组件的事件绑定</p>
         <p>文档可以搜索组件，去掉了左右分裂滚动，因为会导致很多奇葩的问题</p>
       </TimeLineItem>
       <TimeLineItem >
@@ -26,7 +29,6 @@
         <p>修复下拉transfer多组件干扰的问题</p>
         <p>组件内部调用隔离，用于兼容第三方UI组件库</p>
         <p>修复一些问题</p>
-        <p>修复一些问题</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
         <h3>1.8.0<span> 2018-7-6 </span></h3>
@@ -40,7 +42,7 @@
       <TimeLineItem >
         <h3>1.7.9<span> 2018-6-15 </span></h3>
         <p><code>Select</code>无法赋值，和搜索的问题</p>
-        <p>修复<code>TreeSelect</code>lable 无法更改的ios-bug</p>
+        <p>修复<code>TreeSelect</code>lable 无法更改的bug</p>
         <p><code>Table</code>组件新增表头固定</p>
         <p>修复<code>Tooltip</code>组件显示隐藏的问题</p>
         <p>优化transfer性能问题</p>
@@ -69,7 +71,7 @@
         <h3>1.7.3<span> 2018-5-17 </span></h3>
         <p>修复IE9+<code>Tree</code>组件选中的问题</p>
         <p>优化<code>datePicker</code>更加友好展示</p>
-        <p>修复<code>Tabs</code>子集增加删除宽度错误的ios-bug</p>
+        <p>修复<code>Tabs</code>子集增加删除宽度错误的bug</p>
         <p>优化一些其他的1像素的问题</p>
       </TimeLineItem>
       <TimeLineItem icon="ribbon">
@@ -77,7 +79,7 @@
         <p>修复<code>Select</code>，<code>dataPicker</code><code>colorPicker</code>等组件在Modal组件内时，下拉位置偏移的问题</p>
         <p><code>emitter</code>加入了滚动监听</p>
         <p>修复下拉组件在浏览器的一些兼容性问题</p>
-        <p>修复IE9+浏览器中的花式ios-bug</p>
+        <p>修复IE9+浏览器中的花式bug</p>
       </TimeLineItem>
       <TimeLineItem >
         <h3>1.6.9<span> 2018-5-9 </span></h3>
@@ -103,7 +105,7 @@
       <TimeLineItem >
         <h3>1.6.1<span> 2018-4-25 </span></h3>
         <p>新增<code>Tooltip</code>，<code>Tag</code>，<code>Breadcrumb</code>，<code>BackTop</code>，<code>Affix</code>，<code>Card</code>等组件</p>
-        <p>修复<code>RadioGroup</code>无法选中的ios-bug</p>
+        <p>修复<code>RadioGroup</code>无法选中的bug</p>
         <p>修复<code>Select</code>无法赋值的ios-bug</p>
         <p>完善<code>Poptip</code>子元素有<code>margin</code>时无法对齐的问题</p>
         <p>完善表单文档</p>
@@ -217,7 +219,6 @@
         </p>
         <p>新增<code>Select</code>,<code>DatePicker</code>,<code>mini</code>属性，可以使用小尺寸</p>
         <p>新增<code>DatePicker</code> width 属性，可以自定义宽度</p>
-        <p>完善文档说明</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>1.3.7
@@ -242,17 +243,15 @@
         <h3>1.3.5
           <span> 2018-1-10 </span>
         </h3>
-        <p>修复<code>Select</code>组件数据动态改变后无法选中的ios-bug</p>
+        <p>修复<code>Select</code>组件数据动态改变后无法选中的bug</p>
         <p>修复<code>Option</code>组件<code>label</code>赋值的问题</p>
         <p>增加<code>Option</code>组件</p>
         <p>修改<code>Select</code>组件数据结构</p>
         <p>修复文档多处错误,完善文档数据结构</p>
         <p>修复<code>render</code>模式下无法渲染的问题</p>
         <p>修复表格组件冲突问题</p>
-        <p>完善文档</p>
         <p>新增<code>icon</code>组件</p>
         <p>新增<code>TimeLine</code></p>
-        <p>完善文档</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>1.2.8
@@ -280,7 +279,7 @@
         <p>完善<code>Select</code>组件</p>
         <p>完善<code>Page</code>分页组件</p>
         <p>完善<code>Input</code>组件 </p>
-        <p>修复在ie下表格无法选中的ios-bug</p>
+        <p>修复在ie下表格无法选中的bug</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-cloud-upload">
         <h3>1.1

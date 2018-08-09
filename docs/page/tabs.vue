@@ -7,7 +7,8 @@
       <Col span="12">
       <Demo title="基础">
         <div slot="content">
-          <Tabs :value="3">
+          <Checkbox v-model="animated">animated</Checkbox>
+          <Tabs :value="3" :animated="animated">
             <TabPane label="Tab1" name="1">我是内容1....</TabPane>
             <TabPane label="Tab2" name="2">我是内容2....</TabPane>
             <TabPane label="Tab3" name="3">我是内容3....</TabPane>
@@ -168,6 +169,12 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>animated</td>
+          <td>切换tab是否展示动画</td>
+          <td>Boolean</td>
+          <td>true</td>
+        </tr>
+        <tr>
           <td>disabled</td>
           <td>是否禁用该选项卡</td>
           <td>Boolean</td>
@@ -192,6 +199,7 @@ export default {
     return {
       code: code,
       m: 3,
+      animated:true
     }
   }
 }

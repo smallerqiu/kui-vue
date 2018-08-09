@@ -4,10 +4,10 @@
             <slot></slot>
         </div>
         <span class="k-carousel-arrow-left" @click="setCurrent('left')" v-if="!vertical">
-            <Icon type="chevron-left" />
+            <Icon type="ios-arrow-back" />
         </span>
         <span class="k-carousel-arrow-right" @click="setCurrent('right')" v-if="!vertical">
-            <Icon type="chevron-right" />
+            <Icon type="ios-arrow-forward" />
         </span>
         <ul :class="dotsClass">
             <li v-for="(dot,index) in children" :key="index" :class="[{'k-carousel-dots-active':currentIndex==index}]" @click="check(index)"></li>

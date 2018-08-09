@@ -5,7 +5,7 @@
     <p>在页面上引入 js 和 css 文件即可开始使用：</p>
     <Code expand>{{code.import}}</Code>
     <h3>示例</h3>
-    <Code class="html javascript" expand>{{code.demo}}</Code>
+    <Code lang="html" expand>{{code.demo}}</Code>
     <h3>NPM 安装</h3>
     <Code lang="js">{{code.install}}</Code>
   </div>

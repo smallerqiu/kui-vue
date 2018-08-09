@@ -1,6 +1,6 @@
 let code = {}
 
-code.base =`<Button @click="border=!border" type="primary">表格边框</Button>
+code.base =`<Button @click="bordered=!bordered" type="primary">表格边框</Button>
 <Button @click="mini=!mini" type="primary">mini</Button>
 <Table :data="data" :columns="col" :mini="mini" @selection="select" :text-max-length="20" :bordered="bordered"></Table>
 <script>

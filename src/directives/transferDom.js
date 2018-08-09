@@ -3,11 +3,11 @@ export default {
     let transfer = el.getAttribute ? el.getAttribute('data-transfer') : el.dataset.transfer
     if (transfer !== 'true') return false;
     let id = 'k-transfer-' + new Date() * 1
-    const box = document.getElementById('k-transfer') || document.createElement('span')
-    box.id = id
+    const popup = document.getElementById('k-transfer') || document.createElement('span')
+    popup.id = id
     el.data = { id: id }
-    box.appendChild(el)
-    document.body.appendChild(box)
+    popup.appendChild(el)
+    document.body.appendChild(popup)
   },
   componentUpdated(el, binding) {
     // if (el.dataset.transfer !== 'true') return false;

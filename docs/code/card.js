@@ -9,7 +9,7 @@ code.base = `<Card title="卡片标题" icon="ios-heart">
   <p>内容随便写， 欢迎使用</p>
 </Card>`
 
-code.border = `<Card title="卡片标题" icon="ios-heart" border>
+code.border = `<Card title="卡片标题" icon="ios-heart" bordered>
   <span slot="extra">摇一摇</span>
   <p>内容随便写， 欢迎使用</p>
   <p>内容随便写， 欢迎使用</p>

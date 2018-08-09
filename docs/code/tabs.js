@@ -1,10 +1,20 @@
 let code = {}
 
-code.base = `<Tabs :value="3">
+code.base = `<Checkbox v-model="animated">animated</Checkbox>
+<Tabs :value="3" :animated="animated">
   <TabPane label="Tab1" name="1">我是内容1....</TabPane>
   <TabPane label="Tab2" name="2">我是内容2....</TabPane>
   <TabPane label="Tab3" name="3">我是内容3....</TabPane>
-</Tabs>`
+</Tabs>
+<script>
+export default {
+  data() {
+    return {
+      animated:true,
+    }
+  }
+}
+</script>`
 
 code.disabled = `<Tabs>
   <TabPane label="Tab1">我是内容1....</TabPane>
