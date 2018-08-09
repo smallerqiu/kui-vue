@@ -91,7 +91,7 @@
         </tr>
           <tr>
           <td>icon-align </td>
-          <td>输入框图标位置，可选值为left、right，仅在 text 类型下有效 </td>
+          <td>输入框图标位置，可选值为left、right，仅在 type=text 类型下有效 </td>
           <td>String</td>
           <td>right</td>
         </tr>

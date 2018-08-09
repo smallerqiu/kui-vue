@@ -45,7 +45,7 @@
           <code>disabled</code>设置组件是否被禁用</div>
         <div slot="code">{{code.disabled}}</div>
       </Demo>
-      <Demo title="组合使用">
+      <Demo title="组合Button使用">
         <div slot="content">
           <RadioGroup v-model="data1" @change="change">
             <RadioButton label="苹果"></RadioButton>
@@ -71,7 +71,7 @@
           </RadioGroup>
         </div>
         <div slot="desc">结合
-          <code>RadioGroup</code>可以组合使用</div>
+          <code>RadioGroup</code>,<code>RadioButton</code>可以组合使用</div>
         <div slot="code">{{code.groupbutton}}</div>
       </Demo>
       </Col>

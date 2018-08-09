@@ -7,11 +7,11 @@
     <h3>覆盖定制</h3>
     <p>如果项目使用webpack构建，可以通过覆盖less变量来定制主题</p>
     <p>新建一个less 文件 如：'assets/styles/custom.less',写下如下内容：</p>
-    <Code>
+    <Code lang="js">
       {{a}}
     </Code>
     <p>然后在入口文件 main.js 内导入这个 less 文件即可：</p>
-    <Code>
+    <Code  lang="js">
       {{b}}
     </Code>
   </div>

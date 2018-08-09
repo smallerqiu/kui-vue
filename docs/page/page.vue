@@ -21,9 +21,9 @@
         <code>change</code>为页码改变触发事件</div>
       <div slot="code">{{code.size}}</div>
     </Demo>
-    <Demo title="每页数量" layout="vertical">
+    <Demo title="辅助分页" layout="vertical">
       <div slot="content">
-        <Page :total="60" :current="1" sizer :pagesize="10" mini @change="test"></Page>
+        <Page :total="60" :current="1" show-sizer show-total show-elevator :pagesize="10" mini @change="test"></Page>
       </div>
       <div slot="desc">可以切换每页显示的数量。</div>
       <div slot="code">{{code.sizer}}</div>
@@ -56,8 +56,20 @@
           <td>10</td>
         </tr>
          <tr>
-          <td>sizer</td>
+          <td>show-sizer</td>
           <td>是否显示页码组</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>show-total</td>
+          <td>是否显示总数</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>show-elevator</td>
+          <td>是否显示页码阶梯</td>
           <td>Boolean </td>
           <td>false</td>
         </tr>

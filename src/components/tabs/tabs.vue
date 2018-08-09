@@ -42,7 +42,7 @@ export default {
     closable: Boolean,
     mini: Boolean,
     sample: Boolean,
-    animated: Boolean
+    animated: { type: Boolean, default: true }
   },
   data() {
     return {
@@ -69,6 +69,7 @@ export default {
         "k-tabs",
         {
           ["k-tabs-mini"]: this.mini,
+          ["k-tabs-no-animate"]: !this.animated,
           ["k-tabs-card"]: this.card && !this.sample,
           ["k-tabs-sample"]: this.sample && !this.card
         }

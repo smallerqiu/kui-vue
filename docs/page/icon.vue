@@ -63,10 +63,10 @@
       <div class="icon-head">
         <h3>App icons </h3>
         <div class="icon-title">
-          <Menu activeName="ios" mode="horizontal" @select="switchIcon">
-            <MenuItem name="ios">IOS</MenuItem>
-            <MenuItem name="material">Material</MenuItem>
-          </Menu>
+          <RadioGroup value="ios" @change="switchIcon">
+            <RadioButton label="ios">IOS</RadioButton>
+            <RadioButton label="Material">Material</RadioButton>
+          </RadioGroup>
         </div>
       </div>
       <div class="icon-item">
