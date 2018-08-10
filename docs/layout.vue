@@ -55,6 +55,9 @@
             <a href="//github.com/chuchur/kui-vue" target="_blank">仓库代码</a>
           </li>
           <li>
+            <a href="//react.k-ui.xyz" target="_blank">KUI REACT</a>
+          </li>
+          <li>
             <a href="/sponsor">支持作者</a>
           </li>
           <li>
@@ -87,59 +90,61 @@
 
 </template>
 <script>
-import code from './code/menuData'
+import code from "./code/menuData";
 export default {
   data() {
     return {
-      key: '',
+      key: "",
       nav: code.nav,
       favicon: require("./assets/favicon.png"),
       logo: require("./assets/logo.png"),
-      activeName: '',
+      activeName: "",
       isShowNav: false,
       components: code.components
     };
   },
   computed: {
     navStyles() {
-      return this.isShowNav ? { left: 0 } : {}
+      return this.isShowNav ? { left: 0 } : {};
     }
   },
   methods: {
     change(v) {
-      let path = v.value.toLowerCase()
-      this.activeName = '/' + path
-      this.$router.push(path)
-      setTimeout(()=>this.key='',500)
+      let path = v.value.toLowerCase();
+      this.activeName = "/" + path;
+      this.$router.push(path);
+      setTimeout(() => (this.key = ""), 500);
     },
     showNav() {
-      this.isShowNav = !this.isShowNav
+      this.isShowNav = !this.isShowNav;
     },
     go(path) {
-      this.key = ''
-      this.showNav()
-      if (path.indexOf('http') >= 0) {
-        window.open(path)
+      this.key = "";
+      this.showNav();
+      if (path.indexOf("http") >= 0) {
+        window.open(path);
       } else {
-        this.$router.push({ path: path })
+        this.$router.push({ path: path });
         this.nav.forEach(x => {
           x.child.forEach(y => {
             if (y.link == path) {
-              document.title = `${y.title} ${y.sub || ''} - KUI`
+              document.title = `${y.title} ${y.sub || ""} - KUI`;
             }
-          })
-        })
+          });
+        });
       }
     }
   },
   created() {
-    this.nav.forEach(y => y.child.forEach(x => {
-      x.selected = false;
-      if (x.link == this.$route.path) {
-        document.title = x.title + (x.sub || '') + ' - KUI'
-        this.activeName = x.link
-      }
-    }));
+    this.nav.forEach(y =>
+      y.child.forEach(x => {
+        x.selected = false;
+        if (x.link == this.$route.path) {
+          document.title = x.title + (x.sub || "") + " - KUI";
+          this.activeName = x.link;
+        }
+      })
+    );
   }
 };
 </script>
