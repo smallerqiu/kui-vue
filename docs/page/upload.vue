@@ -71,6 +71,18 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>max-file-size</td>
+          <td>上传文件大小限制（单位MB）,不填写则不限制</td>
+          <td>String|Number</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>file-extension</td>
+          <td>上传文件后缀名限制，单个：'.jpg'，多个以|隔开：'.jpg|.png|.gif|.pdf'，不填写则不限制</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
           <td>data</td>
           <td>上传附带参数</td>
           <td>Oject</td>
@@ -117,14 +129,14 @@
   </div>
 </template>
 <script>
-import code from '../code/upload'
-import Demo from '../components/demo'
+import code from "../code/upload";
+import Demo from "../components/demo";
 export default {
   components: { Demo },
   data() {
     return {
-      code: code, 
-      data: { a: 1, b: 2, c: 3 },
+      code: code,
+      data: { a: 1, b: 2, c: 3 }
     };
   },
   methods: {
@@ -132,7 +144,7 @@ export default {
       this.$refs.upload.submit();
     },
     change(file) {
-      this.$Message.info('选择了文件：' + file);
+      this.$Message.info("选择了文件：" + file);
     },
     complite(res) {
       console.log(res);

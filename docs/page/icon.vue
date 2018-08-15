@@ -69,6 +69,8 @@
           </RadioGroup>
         </div>
       </div>
+      <br/>
+      <br/>
       <div class="icon-item">
         <span @click.stop="copy(x)" v-for="(x,y) in applist" :key="y">
           <Icon :type="x" />

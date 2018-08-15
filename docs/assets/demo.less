@@ -18,35 +18,15 @@
   list-style: none;
 }
 
-html,
-body,
-.body {
+html, body, .body {
   height: 100%;
 }
 
-html,
-body,
-section {
+html, body, section {
   font-size: 14px;
 }
 
-article,
-aside,
-audio,
-details,
-figcaption,
-figure,
-footer,
-header,
-img,
-main,
-mark,
-menu,
-nav,
-section,
-summary,
-time,
-video {
+article, aside, audio, details, figcaption, figure, footer, header, img, main, mark, menu, nav, section, summary, time, video {
   display: block;
   margin: 0;
   padding: 0
@@ -64,19 +44,13 @@ body {
   font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
   font-weight: 400;
   color: #333;
 }
 
-fieldset,
-img {
+fieldset, img {
   border: 0
 }
 
@@ -113,7 +87,7 @@ body {
     margin-left: 130px;
     .k-select-selection {
       font-size: 15px;
-      border:none;
+      border: none;
     }
     .k-select-arrow {
       display: none;
@@ -173,8 +147,7 @@ body {
   }
 }
 
-.body,
-.main {
+.body, .main {
   display: inline-block;
   width: 100%;
   .nav .k-menu-vertical .k-menu-item-group-title {
@@ -194,8 +167,10 @@ body {
 }
 
 //index.ainimate
-.index {
+
+/* .index {
   // background: linear-gradient(#acd9fb, #f2ffb3);
+  background: url(back.jpg);
   position: relative;
   overflow: hidden;
   span {
@@ -273,7 +248,7 @@ body {
       color: #a0a0a0;
     }
   }
-}
+} */
 
 @keyframes up {
   0% {
@@ -284,7 +259,7 @@ body {
   }
 }
 
-.blister {
+/* .blister {
   position: absolute;
   width: 80px;
   height: 80px;
@@ -330,10 +305,12 @@ body {
     display: block;
     background: radial-gradient(farthest-side, #fff, rgba(255, 255, 255, 0));
   }
-}
+} */
 
 .index {
-  background: #fff;
+  // background: #fff;
+  background-image: url(back.jpg);
+  background-size: cover;
   text-align: center;
   display: inline-block;
   width: 100%;
@@ -365,32 +342,42 @@ body {
     }
   }
   .index-content {
-    margin-top: 80px;
-    text-align: center;
+    width: 50%;
+    color: #005388;
+    font-family: -apple-system, "BlinkMacSystemFont", "Open Sans", "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 65%;
     display: inline-block;
+    margin: auto;
     .logo {
       margin-top: 120px;
-      img {
-        margin: 0 auto;
-        height: 120px;
-      }
+      // display: none;
+      font-size: 60px;
+      // img {
+      //   margin: 0 auto;
+      //   height: 120px;
+      // }
     }
     h1 {
+      font-weight: 300;
       font-size: 34px;
-      color: #39495f;
+      color: #005388;
       margin: 80px 0;
     }
     .k-button {
       display: inline-block;
-      width: 190px;
-      height: 56px;
-      margin: 0 35px;
-      font-size: 18px;
-      line-height: 54px;
+      width: 120px;
+      height: 36px;
+      margin-left: 35px;
+      line-height: 32px;
       border-radius: 28px;
       transition: all 0.3s;
       cursor: pointer;
-     
     }
     .start {
       background: #57adf5;
@@ -399,11 +386,9 @@ body {
       border: none;
     }
     .github {
-      color: #39495f;
+      color: #57adf5;
       border: 1px solid #57adf5;
-      i{
-        margin-right: 10px;
-      }
+      background: none;
     }
   }
 }
@@ -544,8 +529,7 @@ header {
       left: -1px;
     }
   }
-  .nav,
-  .content {
+  .nav, .content {
     &::-webkit-scrollbar {
       // width: 2px;
       // height: 2px;
@@ -564,24 +548,20 @@ header {
 }
 
 // 此处为vue 的过度
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity .3s
 }
 
-.fade-enter,
-.fade-leave-to {
+.fade-enter, .fade-leave-to {
   opacity: 0
 }
 
 // 此处为nuxt 的过度
-.page-enter-active,
-.page-leave-active {
+.page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
 
-.page-enter,
-.page-leave-active {
+.page-enter, .page-leave-active {
   opacity: 0;
 }
 
@@ -609,9 +589,7 @@ pre {
   transition: height .3s ease-in-out;
 }
 
-code,
-kbd,
-samp {
+code, kbd, samp {
   font-family: Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 25px;
@@ -640,8 +618,7 @@ samp {
     padding: 0 0 20px;
     box-sizing: border-box;
   }
-  .k-content,
-  .k-desc {
+  .k-content, .k-desc {
     padding: 0 20px;
     box-sizing: border-box;
   }
@@ -676,27 +653,11 @@ samp {
   }
   .k-content {
     padding: 20px; // overflow: hidden;
-    .k-button,
-    .k-select,
-    .k-input,
-    .k-datepicker,
-    .k-tag,
-    .k-switch,
-    .k-btn-group {
+    .k-button, .k-select, .k-input, .k-datepicker, .k-tag, .k-switch, .k-btn-group {
       margin: 0 10px 10px 0;
     }
-    td,
-    .k-btn-group,
-    .k-affix,
-    .k-tabs-extra,
-    .k-page,
-    .k-form,
-    .k-radio-group,
-    .k-badge {
-      .k-button,
-      .k-select,
-      .k-input,
-      .k-datepicker {
+    td, .k-btn-group, .k-affix, .k-tabs-extra, .k-page, .k-form, .k-radio-group, .k-badge {
+      .k-button, .k-select, .k-input, .k-datepicker {
         margin: 0;
       }
     }
@@ -752,8 +713,7 @@ code {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  tr,
-  td {
+  tr, td {
     font-size: 12px;
   }
 }
@@ -767,8 +727,7 @@ table {
       white-space: nowrap;
       text-align: left;
     }
-    td,
-    th {
+    td, th {
       font-size: 12px;
       border: 1px solid #eee;
       padding: 11px; // text-align: center;
@@ -794,8 +753,7 @@ table {
   table {
     width: 100%
   }
-  tr,
-  td {
+  tr, td {
     border-collapse: collapse;
     border-spacing: 0;
     font-size: 12px;
@@ -923,8 +881,7 @@ footer {
 }
 
 .demo-logs {
-  h2,
-  h3 {
+  h2, h3 {
     margin: 0 0 10px 0;
     span {
       font-size: 13px;
@@ -957,8 +914,7 @@ footer {
     padding: 0 5px;
     display: inline-block;
   }
-  .t1,
-  .t2 {
+  .t1, .t2 {
     font-size: 10px;
     color: #fff;
     padding: 2px 5px;
@@ -985,8 +941,7 @@ footer {
   .k-layout {
     color: #fff;
   }
-  .k-layout-header,
-  .k-layout-footer {
+  .k-layout-header, .k-layout-footer {
     background-color: tint(@main, 50%);
     text-align: center;
   }

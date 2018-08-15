@@ -94,11 +94,10 @@ let routers = new Router({
 let development = window.location.hostname != 'localhost' && window.location.hostname != '127.0.0.1'
 routers.beforeEach(function (to, from, next) {
     loading.start('line');
-    !development && typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
-    // console.log(process)
     next()
 })
-routers.afterEach(route => {
+routers.afterEach((to, from, next) => {
+    !development && typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
     loading.finish();
 });
 export default routers
