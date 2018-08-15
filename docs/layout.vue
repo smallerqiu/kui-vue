@@ -12,8 +12,9 @@
       <Menu style="float:right;" mode="horizontal" activeName="/install" @select="go">
         <MenuItem name="/" icon="md-home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-options">组件</MenuItem>
-        <MenuItem name="https://github.com/chuchur/kui-vue/issues" icon="ios-help-circle">提问</MenuItem>
-        <MenuItem name="https://www.chuchur.com" icon="ios-leaf">Blog</MenuItem>
+        <MenuItem name="https://github.com/chuchur/kui-vue" icon="logo-github">GITHUB</MenuItem>
+        <MenuItem name="https://react.k-ui.xyz" icon="ios-snow">KUI REACT</MenuItem>
+        <MenuItem name="https://www.chuchur.com" icon="ios-leaf">BLOG</MenuItem>
       </Menu>
     </header>
     <section class="main">
@@ -72,7 +73,7 @@
       <div class="ft-right">
         <ul>
           <li>
-            <a href="//chuchur.com" target="_blank"><img :src="logo" />
+            <a href="//chuchur.com" target="_blank"><img src="//chuchur.com/favicon.png" />
               <span>chuchur</span>
             </a>
           </li>
@@ -83,7 +84,6 @@
             </a>
           </li>
         </ul>
-
       </div>
     </footer>
   </section>

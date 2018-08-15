@@ -19,6 +19,9 @@
               <a href="/start">组件</a>
             </li>
             <li>
+              <a href="//react.k-ui.xyz" target="_blank">KUI REACT</a>
+            </li>
+            <li>
               <a href="//github.com/chuchur/kui-vue">GITHUB</a>
             </li>
             <li>
@@ -30,7 +33,8 @@
     </header>
     <section class="index-content">
       <div class="logo">
-        <img :src="logo" />
+        K UI
+        <!-- <img :src="logo" /> -->
       </div>
       <h1>一枚基于Vue.js的高质量UI组件库</h1>
       <div class="btn-content">
@@ -38,10 +42,10 @@
         <Button icon="logo-github" class="github" @click="github">Github</Button>
       </div>
     </section>
-    <footer>
+    <!-- <footer>
       <p>Copyright ©2009-2018
         <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
-    </footer>
+    </footer> -->
   </section>
 </template>
 <style lang="less">

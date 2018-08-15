@@ -2,6 +2,10 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem>
+        <h3>1.9.1<span> 2018-8-15 </span></h3>
+        <p><code>Upload</code>组件新增max-file-size,和file-extension属性分别控制上次大小和上次扩展名</p>
+      </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
         <h3>1.9.0<span> 2018-8-8 </span></h3>
         <p>把原来的辣眼睛的logo 重新设计了，换上新的，组件风格统一了圆角4px</p>
@@ -119,9 +123,7 @@
         <p>完善文档，分离代码示例和模版</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.5
-          <span> 2018-3-27 </span>
-        </h3>
+        <h3>1.5<span> 2018-3-27 </span></h3>
         <p>新增<code>Menu</code>,<code>MenuGroup</code>,<code>MenuItem</code>,<code>SubMenu</code> 组件
           <a href="/menu">#体验</a>
         </p>
@@ -132,18 +134,14 @@
         <p>优化<code>Loading</code>组件展示半透明模式</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.9
-          <span> 2018-3-20 </span>
-        </h3>
+        <h3>1.4.9<span> 2018-3-20 </span></h3>
         <p>修复<code>colorPicker</code>组件，当页面滚动时找不到对象的错误</p>
         <p>优化了文档页面首次载入过慢的问题
           <a href="https://www.chuchur.com/article/vue-code-optimization" target="_blank">#解决方案</a>
         </p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.8
-          <span> 2018-2-2 </span>
-        </h3>
+        <h3>1.4.8 <span> 2018-2-2 </span> </h3>
         <p>新增<code>Loading</code>组件
           <a href="/loading">#体验</a>
         </p>
@@ -154,17 +152,13 @@
         <p>修复了文档<code>Table</code>部分，日期下拉导致出现滚动条，部分被隐藏</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.6
-          <span> 2018-1-31 </span>
-        </h3>
+        <h3>1.4.6 <span> 2018-1-31 </span> </h3>
         <p>加入了全局的<code>document click，scroll</code>指令优化显示一系列组件的下拉显示将更加人性化</p>
         <p>修复了<code>DatePicker</code>组件层级显示问题</p>
         <p>优化了<code>Page</code>组件在<code>mini</code>模式显示的问题</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.5
-          <span> 2018-1-29 </span>
-        </h3>
+        <h3>1.4.5 <span> 2018-1-29 </span> </h3>
         <p>修复<code>Table</code>组件 <code>bordered</code>显示问题</p>
         <p>优化<code>Table</code>组件 无数据时文字显示问题，优化表格表头字体大小</p>
         <p>新增<code>Table</code>组件 <code>mini</code>显示模式
@@ -187,17 +181,13 @@
         <p>增加了几个钩子，优化了一些显示细节</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.3
-          <span> 2018-1-22 </span>
-        </h3>
+        <h3>1.4.3 <span> 2018-1-22 </span> </h3>
         <p>修复多个下拉组件显示隐藏的问题</p>
         <p>修复<code>Modal</code>组件冒泡显示移除的问题</p>
         <p>修复<code>Message</code>组件显示隐藏警告提示的问题</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-cloud-upload" color="orange">
-        <h3>1.4.2
-          <span> 2018-1-22 </span>
-        </h3>
+        <h3>1.4.2 <span> 2018-1-22 </span> </h3>
         <p>废弃一些组件</p>
         <p>新增<code>Modal</code> <code>Toast</code>模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。
           <a href="/modal">#体验</a>
@@ -209,9 +199,7 @@
         </p>
       </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
-        <h3>1.4
-          <span> 2018-1-19 </span>
-        </h3>
+        <h3>1.4 <span> 2018-1-19 </span> </h3>
         <p>修复<code>DataPicker</code>时间选择完整性</p>
         <p>修复完善文档多处文字错误</p>
         <p>新增Upload组件。
@@ -221,18 +209,14 @@
         <p>新增<code>DatePicker</code> width 属性，可以自定义宽度</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.3.7
-          <span> 2018-1-17 </span>
-        </h3>
+        <h3>1.3.7 <span> 2018-1-17 </span> </h3>
         <p>修复<code>Select</code>组件无法赋值的问题</p>
         <p>修复<code>Input</code>组件默认参数定义出错的问题</p>
         <p>清理<code>Table</code>组件打印字符</p>
         <p>完善文档说明</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-cloud-upload">
-        <h3>1.3.6
-          <span> 2018-1-15 </span>
-        </h3>
+        <h3>1.3.6 <span> 2018-1-15 </span> </h3>
         <p>新增<code>Alert</code>组件</p>
         <p>新增<code>Message</code>组件</p>
         <p>新增<code>Notice</code>组件</p>
@@ -240,9 +224,7 @@
         <p><code>Modal</code>组件新增可拖动属性</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.3.5
-          <span> 2018-1-10 </span>
-        </h3>
+        <h3>1.3.5 <span> 2018-1-10 </span> </h3>
         <p>修复<code>Select</code>组件数据动态改变后无法选中的bug</p>
         <p>修复<code>Option</code>组件<code>label</code>赋值的问题</p>
         <p>增加<code>Option</code>组件</p>
@@ -254,9 +236,7 @@
         <p>新增<code>TimeLine</code></p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.2.8
-          <span> 2018-1-3 </span>
-        </h3>
+        <h3>1.2.8 <span> 2018-1-3 </span> </h3>
         <p>修复部分组件在禁用状态下显示异常的问题</p>
         <p>新增<code>Form</code>组件</p>
         <p>修复<code>colorPicker</code>组件内存泄漏问题</p>
@@ -264,17 +244,13 @@
         <p>完善文档</p>
       </TimeLineItem>
       <TimeLineItem>
-        <h3>1.2.6
-          <span> 2017-12-19</span>
-        </h3>
+        <h3>1.2.6 <span> 2017-12-19</span> </h3>
         <p>修复下拉组件绑定数据的问题</p>
         <p>完善表单问题</p>
         <p>新增<code>color</code>组件</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-cloud-upload">
-        <h3>1.2
-          <span>2017-12-19</span>
-        </h3>
+        <h3>1.2 <span>2017-12-19</span> </h3>
         <p>新增<code>Switch</code> 组件</p>
         <p>完善<code>Select</code>组件</p>
         <p>完善<code>Page</code>分页组件</p>
@@ -282,9 +258,7 @@
         <p>修复在ie下表格无法选中的bug</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-cloud-upload">
-        <h3>1.1
-          <span> 2017-12-18</span>
-        </h3>
+        <h3>1.1 <span> 2017-12-18</span> </h3>
         <p>新增<code>Radio</code>组件</p>
         <p>新增<code>Checkbox</code>组件</p>
         <p>修复<code>Table</code> 组件更新数据更新问题</p>

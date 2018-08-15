@@ -5,11 +5,11 @@ code.nav = [
     child: [
       // { title: "KUI for React", weblink: 'https://react.k-ui.xyz/start' },
       // { title: "KUI for Angular", link: '/angular-kui' },
-      { title: "安装", link: "/install" },
+      { title: "安装", link: "/install", icon: 'ios-cog' },
       { title: "快速上手", link: "/start", icon: 'ios-walk' },
-      { title: "更新日志", link: "/log", log: 1 },
+      { title: "更新日志", link: "/log", log: 1, icon: 'ios-paper' },
       { title: "定制主题", link: "/theme", icon: "md-shirt" },
-      { title: "kui-loader", link: "/kui-loader" }
+      { title: "kui-loader", link: "/kui-loader", icon: "ios-link" }
     ]
   },
   {
