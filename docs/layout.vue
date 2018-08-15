@@ -13,7 +13,7 @@
         <MenuItem name="/" icon="md-home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-options">组件</MenuItem>
         <MenuItem name="https://github.com/chuchur/kui-vue" icon="logo-github">GITHUB</MenuItem>
-        <MenuItem name="https://react.k-ui.xyz" icon="ios-snow">KUI REACT</MenuItem>
+        <MenuItem name="https://react.k-ui.xyz"><img :src="react" style="height:15px;margin:0;"/>KUI REACT</MenuItem>
         <MenuItem name="https://www.chuchur.com" icon="ios-leaf">BLOG</MenuItem>
       </Menu>
     </header>
@@ -98,6 +98,7 @@ export default {
       nav: code.nav,
       favicon: require("./assets/favicon.png"),
       logo: require("./assets/logo.png"),
+      react:require('./assets/react.svg'),
       activeName: "",
       isShowNav: false,
       components: code.components
