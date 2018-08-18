@@ -80,7 +80,8 @@ export default {
         // } else {
         fileSize = e.target.files[0].size;
         // }
-        if (fileSize / 1024 > this.maxFileSize) {
+        if (fileSize / 1024 / 1024 > this.maxFileSize) {
+          e.target.value = ''
           this.$Message.error(`上传文件不能大于${this.maxFileSize}MB,请重新选择`);
           return;
         }
@@ -90,6 +91,7 @@ export default {
         var fileExt = file.substring(file.lastIndexOf(".")).toLowerCase();
         // '.jpg'.match('/.jpg|.gif|.png|.bmp/g')
         if (!fileExt.match(`/${this.fileExtension}/g`)) {
+          e.target.value = ''
           this.$Message.error(`上传格式只支持${this.fileExtension}等格式`);
           return false;
         }
@@ -124,6 +126,7 @@ export default {
             ? "不支持跨域上传!"
             : "上传文件格式不支持！";
         this.$Message.error(msg);
+        this.$refs["k-upload-file"].value = "";
         data = e.message;
       }
       this.$emit("afterUpload", data);
