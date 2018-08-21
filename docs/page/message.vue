@@ -69,7 +69,7 @@
           <td>false</td>
         </tr>
         <tr>
-          <td>onClose</td>
+          <td>close</td>
           <td>关闭时的回调</td>
           <td>Function</td>
           <td>-</td>
@@ -124,7 +124,7 @@ export default {
         duration: 0,
         closable: true,
         content: "手动关闭",
-        onClose: () => { alert('callback') }
+        close: () => { this.$Message.success("我是回调"); }
       });
     }
   }

@@ -73,10 +73,10 @@
       <Demo layout="vertical" title="组合使用">
         <div slot="content">
           <div v-for="i in m" style="margin:15px 0;" :key="i">
-            <Badge count="+" @onClick="()=>{m++}">
+            <Badge count="+" @click="()=>{m++}">
               <Button>Item{{i}}:</Button>
             </Badge>
-            <Badge count="-" @onClick="()=>{m!=1&&m--}" style="margin-left:20px;">
+            <Badge count="-" @click="()=>{m!=1&&m--}" style="margin-left:20px;">
               <Input width="200"></Input>
             </Badge>
           </div>
@@ -112,12 +112,6 @@
           <td>不展示数字，只有一个小红点</td>
           <td>Boolean</td>
           <td>false</td>
-        </tr>
-        <tr>
-          <td>onClick</td>
-          <td>点击事件的回调</td>
-          <td>Function</td>
-          <td>-</td>
         </tr>
       </table>
     </div>

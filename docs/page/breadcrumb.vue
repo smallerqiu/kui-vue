@@ -74,12 +74,6 @@
                     <td>false</td>
                 </tr>
                 <tr>
-                    <td>hollow</td>
-                    <td>按钮是否颜色镂空</td>
-                    <td>Boolean </td>
-                    <td>false</td>
-                </tr>
-                <tr>
                     <td>icon</td>
                     <td>按钮的图标</td>
                     <td>String </td>

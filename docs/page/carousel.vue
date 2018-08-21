@@ -78,6 +78,12 @@
                     <td>Boolean</td>
                     <td>true</td>
                 </tr>
+                 <tr>
+                    <td>vertical</td>
+                    <td>是否垂直模式显示</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                </tr>
                 <tr>
                     <td>autoplay</td>
                     <td>是否自动切换</td>
@@ -92,7 +98,9 @@
                 </tr>
                 <tr>
                     <td>dots-type</td>
-                    <td>指示器的类型，<code>rect</code> 为方块，<code>radius</code>为圆点</td>
+                    <td>指示器的类型，
+                        <code>rect</code> 为方块，
+                        <code>radius</code>为圆点</td>
                     <td>Number</td>
                     <td>2000</td>
                 </tr>

@@ -4,7 +4,7 @@
       <div class="k-message-notice-content">
         <i :class="icon"></i>
         <span v-html="content"></span>
-        <a class="k-message-close" v-if="closable" @click="close"></a>
+        <a class="k-message-close" v-if="closable" @click="onClose"></a>
       </div>
     </div>
     <div :class="classes" v-else>
@@ -12,7 +12,7 @@
         <!-- <i :class="icon" v-if="type"></i> -->
         <div class="k-notice-title">{{title}}</div>
         <div class="k-notoce-desc" v-html="content"></div>
-        <a class="k-notice-close" @click="close"></a>
+        <a class="k-notice-close" @click="onClose"></a>
       </div>
     </div>
   </transition>
@@ -27,7 +27,7 @@ export default {
     closable: { type: Boolean, default: false },
     transitionName: { type: String, default: "fadedown" },
     noticeType: { type: String, default: "message" },
-    close: Function
+    onClose: { type: Function, default: () => { } }
   },
   data() {
     return {
