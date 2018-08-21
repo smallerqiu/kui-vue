@@ -1,5 +1,5 @@
 node_modules/
-publish/
+docs-html/
 *.cmd
 .DS_Store
 
