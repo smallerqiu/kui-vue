@@ -53,7 +53,7 @@
           <td>3</td>
         </tr>
         <tr>
-          <td>onClose</td>
+          <td>close</td>
           <td>关闭时的回调</td>
           <td>Function</td>
           <td>-</td>

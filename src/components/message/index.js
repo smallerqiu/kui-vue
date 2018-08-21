@@ -36,7 +36,7 @@ const message = (noticeType, type, title, content, duration, onClose) => {
       duration: duration,
       content: content,
       type: type,
-      onClose: onClose,
+      close: onClose,
    });
 }
 

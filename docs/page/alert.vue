@@ -51,7 +51,7 @@
           <td>warning</td>
         </tr>
         <tr>
-          <td>showIcon</td>
+          <td>show-icon</td>
           <td>是否显示图标</td>
           <td>Boolean </td>
           <td>false</td>

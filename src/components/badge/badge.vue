@@ -1,7 +1,7 @@
 <template>
    <span class="k-badge">
       <slot></slot>
-      <sub class="k-badge-count" v-if="!dot" @click="onClick" :style="styles">{{getCount}}</sub>
+      <sub class="k-badge-count" v-if="!dot" @click.stop="click" :style="styles">{{getCount}}</sub>
       <sub class="k-badge-dot" v-if="dot" :style="styles"></sub>
    </span>
 </template>
@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    onClick() {
-      this.$emit("onClick");
+    click(e) {
+      this.$emit("click",e);
     }
   }
 };

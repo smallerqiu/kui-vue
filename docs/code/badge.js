@@ -32,10 +32,10 @@ code.badge = `<Badge count="10" style="margin-left:20px;"></Badge>
 <Badge count="20" color="blue" style="margin-left:40px;"></Badge>`
 
 code.other = `<div v-for="i in m" style="margin:15px 0;" :key="i">
-<Badge count="+" @onClick="add">
+<Badge count="+" @click="add">
    <Button>增加</Button>
 </Badge>
-<Badge count="-" @onClick="del" style="margin-left:20px;">
+<Badge count="-" @click="del" style="margin-left:20px;">
    <Input width="200"></Input>
 </Badge>
 </div>

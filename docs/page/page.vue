@@ -81,7 +81,7 @@
         </tr>
         <tr>
           <td>mini</td>
-          <td>是否为迷你版</td>
+          <td>是否呈现迷你模式</td>
           <td>Boolean</td>
           <td>false</td>
         </tr>

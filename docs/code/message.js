@@ -41,7 +41,8 @@ config3() {
     type: "info",
     duration: 5,
     closable: true,
-    content: "手动关闭"
+    content: "手动关闭",
+    close: () => { this.$Message.success("我是回调"); }
   });
 }
 <\/script>`
