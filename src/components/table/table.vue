@@ -98,7 +98,8 @@ export default {
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
-    textMaxLength: { type: Number, default: 0 }
+    textMaxLength: { type: Number, default: 0 },
+    scrollbarFixed: Boolean
   },
   computed: {
     classes() {
@@ -115,6 +116,7 @@ export default {
       let style = {}
       style.overflow = this.data.length == 0 ? 'hidden' : ''
       style.position = this.fixed ? 'relative' : ''
+      style.height = this.scrollbarFixed ? this.barHeight : 'auto'
       return style
     }
   },
@@ -125,9 +127,13 @@ export default {
       fixedTop: 0,
       fixedWidth: 0,
       checkedAll: false,
-      selectRow: [] //所有选择的数据
-      // selectRow:{}  //当前单选出发所选择的数据
+      selectRow: [], //所有选择的数据
+      barHeight: 0,
+      tableHeight: ''
     };
+  },
+  mounted() {
+    this.tableHeight = this.$refs.table.getBoundingClientRect().height
   },
   watch: {
     data: {
@@ -154,14 +160,28 @@ export default {
       }
     },
     scroll() {
-      if (!this.headerFixed) return;
       let t = this.$refs.table.getBoundingClientRect().top
-      this.fixedTop = t * -1;
-      this.fixedWidth = this.$refs.dom.offsetWidth;
-      if (this.headerFixed && t < 0) {
-        this.setWidths()
+
+      if (this.headerFixed) {
+        this.fixedTop = t * -1;
+        this.fixedWidth = this.$refs.dom.offsetWidth;
+        if (this.headerFixed && t < 0) {
+          this.setWidths()
+        }
+        this.fixed = t < 0
       }
-      this.fixed = t < 0
+      if (this.scrollbarFixed) {
+        let b = this.$refs.table.getBoundingClientRect().bottom
+        let clientHeight = document.body.clientHeight
+        // b > 0: 表格不在可视区下方
+        // clientHeight > t： 表格不在可视区上方
+        if (clientHeight > t && b > 0) {
+          this.barHeight = clientHeight - t + 'px'
+          if (this.tableHeight < parseInt(this.barHeight)) {
+            this.barHeight = this.tableHeight
+          }
+        }
+      }
     },
     tdStyle(align) {
       let obj = {};

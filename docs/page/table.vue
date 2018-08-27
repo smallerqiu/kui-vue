@@ -35,6 +35,12 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
+         <tr>
+          <td>scrollbar-fixed</td>
+          <td>是否表格底部固定横向滚动条</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
         <tr>
           <td>mini</td>
           <td>表格是否为mini模式</td>
