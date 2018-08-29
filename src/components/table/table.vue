@@ -128,8 +128,8 @@ export default {
       fixedWidth: 0,
       checkedAll: false,
       selectRow: [], //所有选择的数据
-      barHeight: 0,
-      tableHeight: ''
+      barHeight: '',
+      tableHeight: 0
     };
   },
   mounted() {
