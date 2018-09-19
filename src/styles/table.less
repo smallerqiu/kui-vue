@@ -76,6 +76,46 @@
     text-align: center;
     padding: 10px 0;
   }
+  .sort {
+    cursor: pointer;
+  }
+  .k-table-sort {
+    position: relative;
+    margin-left: 5px;
+    span {
+      border: 3px solid #ddd;
+      border-color: transparent;
+      position: absolute;
+      top: 0;
+      height: 0;
+      cursor: pointer;
+    }
+    .k-table-sort-asc,
+      {
+      border-bottom-color: #ddd;
+      border-top-width: 0;
+      border-bottom-width: 5px;
+      top: 2px;
+      &:hover {
+        border-bottom-color: @main;
+      }
+    }
+    .k-table-sort-asc.active {
+      border-bottom-color: @main;
+    }
+    .k-table-sort-desc.active {
+      border-top-color: @main;
+    }
+    .k-table-sort-desc {
+      border-bottom-width: 0;
+      border-top-color: #ddd;
+      top: 10px;
+      border-top-width: 5px;
+      &:hover {
+        border-top-color: @main;
+      }
+    }
+  }
 }
 
 .k-table-mini {

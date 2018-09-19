@@ -26,13 +26,19 @@
                   <k-checkbox @change="checkAll" v-model="checkedAll">全选</k-checkbox>
                 </label>
               </template>
-              <template v-else>{{item.title}}</template>
+              <template v-else>
+                <span :class="{'sort':item.sortable}" @click="sort(item)">{{item.title}}</span>
+                <span v-if="item.sortable" class="k-table-sort">
+                  <span :class="['k-table-sort-asc',{'active':item._sort=='ASC'}]" @click="sort(item,'ASC')"></span>
+                  <span :class="['k-table-sort-desc',{'active':item._sort=='DESC'}]" @click="sort(item,'DESC')"></span>
+                </span>
+              </template>
             </div>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in data" :key="index">
+        <tr v-for="(item,index) in data" :key="index" @click="rowClick(item,index,$event)">
           <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
             <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
@@ -99,7 +105,7 @@ export default {
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
     textMaxLength: { type: Number, default: 0 },
-    scrollbarFixed: Boolean
+    sortSingle: Boolean,
   },
   computed: {
     classes() {
@@ -116,7 +122,6 @@ export default {
       let style = {}
       style.overflow = this.data.length == 0 ? 'hidden' : ''
       style.position = this.fixed ? 'relative' : ''
-      style.height = this.scrollbarFixed ? this.barHeight : 'auto'
       return style
     }
   },
@@ -128,12 +133,9 @@ export default {
       fixedWidth: 0,
       checkedAll: false,
       selectRow: [], //所有选择的数据
-      barHeight: '',
-      tableHeight: 0
     };
   },
   mounted() {
-    this.tableHeight = this.$refs.table.getBoundingClientRect().height
   },
   watch: {
     data: {
@@ -145,6 +147,20 @@ export default {
     }
   },
   methods: {
+    sort(item, sort) {
+      if (this.data && this.data.length && item.sortable) {
+        if (this.sortSingle) {
+          this.columns.map(d => item != d && (d._sort = ''))
+        }
+        let value = !sort ? (item._sort == 'ASC' ? 'DESC' : 'ASC') : sort
+        this.$set(item, '_sort', value)
+        this.$emit('sort-change', item.key, value)
+      }
+    },
+    rowClick(item, index, e) {
+      console.log(index)
+      this.$emit('row-click', item, index)
+    },
     isShowTip(item, sub) {
       if (!item || !sub || !sub.key) return false
       return (this.textMaxLength && (item[sub.key] && item[sub.key].length > this.textMaxLength)) || sub.tooltip;
@@ -169,18 +185,6 @@ export default {
           this.setWidths()
         }
         this.fixed = t < 0
-      }
-      if (this.scrollbarFixed) {
-        let b = this.$refs.table.getBoundingClientRect().bottom
-        let clientHeight = document.body.clientHeight
-        // b > 0: 表格不在可视区下方
-        // clientHeight > t： 表格不在可视区上方
-        if (clientHeight > t && b > 0) {
-          this.barHeight = clientHeight - t + 'px'
-          if (this.tableHeight < parseInt(this.barHeight)) {
-            this.barHeight = this.tableHeight
-          }
-        }
       }
     },
     tdStyle(align) {

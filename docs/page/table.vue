@@ -7,7 +7,7 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @selection="select" :text-max-length="20" :bordered="bordered"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @selection="select" @sort-change="change" :text-max-length="20" :bordered="bordered" @row-click="rowClick"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -35,7 +35,7 @@
           <td>Boolean</td>
           <td>false</td>
         </tr>
-         <tr>
+        <tr>
           <td>scrollbar-fixed</td>
           <td>是否表格底部固定横向滚动条</td>
           <td>Boolean</td>
@@ -71,6 +71,24 @@
           <td>Function</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>row-click</td>
+          <td>单击某一行时触发 </td>
+          <td>Function</td>
+          <td>返回当前行的数据，index</td>
+        </tr>
+        <tr>
+          <td>sort-change</td>
+          <td>排序发生改变时处罚 </td>
+          <td>Function</td>
+          <td>返回当前key值和排序的顺序 asc / desc</td>
+        </tr>
+        <tr>
+          <td>sort-single</td>
+          <td>是否单个排序，当异步执行时，当前触发的排序生效，其他排序不生效</td>
+          <td>Boolen</td>
+          <td>false</td>
+        </tr>
       </table>
     </div>
     <h3>Column API</h3>
@@ -100,7 +118,7 @@
           <td>String</td>
           <td>-</td>
         </tr>
-         <tr>
+        <tr>
           <td>text-max-length</td>
           <td>表格的字符最大限度，超过部分会以点点点显示</td>
           <td>Number</td>
@@ -152,21 +170,21 @@ export default {
       bordered: false,
       mini: false,
       data: [
-        { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中",right: "右对其", birthday: "", tip: '短文字提示', action: "" },
-        { nick: "高总", center: "居中",right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
-        { nick: "娟娟", center: "居中",right: "右对其", birthday: "", tip: '短文字提示', action: "" },
-        { nick: "鱼雷", center: "居中",right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
+        { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "" },
+        { nick: "高总", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
+        { nick: "娟娟", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "" },
+        { nick: "鱼雷", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
       ],
       col: [
         { type: "selection" },
-        { title: "姓名", key: "nick",type:'html' },
-        { title: "右对其", key: "right", textAlign: "right" },
-        { title: "居中", key: "center", textAlign: "center" },
-        { title: "文字提示", key: "tip", },
+        { title: "姓名", key: "nick", type: 'html', sortable: true },
+        { title: "右对其", key: "right", textAlign: "right", sortable: true },
+        { title: "居中", key: "center", textAlign: "center", sortable: true },
+        { title: "文字提示", key: "tip", sortable: true },
         {
           title: "出生年月",
           key: "birthday",
-          width: 150,
+          width: 150, sortable: true,
           render: (h, p) => {
             return h("DatePicker",
               {
@@ -195,9 +213,15 @@ export default {
     };
   },
   methods: {
-    select(row,item) {
+    rowClick(row) {
+      console.log(row)
+    },
+    change(a, b) {
+      this.$Message.info(a + ':' + b)
+    },
+    select(row, item) {
       this.row = row;
-      console.log("当前选中：", row,item);
+      console.log("当前选中：", row, item);
     }
   }
 };
