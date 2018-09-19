@@ -2,6 +2,11 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+       <TimeLineItem>
+        <h3>1.9.6<span> 2018-9-19 </span></h3>
+        <p>移除了一些不必要的处罚事件，和奇葩的设计要求</p>
+        <p><code>Table</code>组件新增排序,和rowclick行点击事件</p>
+      </TimeLineItem>
       <TimeLineItem>
         <h3>1.9.1<span> 2018-8-15 </span></h3>
         <p><code>Upload</code>组件新增max-file-size,和file-extension属性分别控制上次大小和上次扩展名</p>
