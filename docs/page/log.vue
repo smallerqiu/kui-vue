@@ -4,7 +4,7 @@
     <TimeLine>
        <TimeLineItem>
         <h3>1.9.6<span> 2018-9-19 </span></h3>
-        <p>移除了一些不必要的处罚事件，和奇葩的设计要求</p>
+        <p>移除优化了一些不必要的组件事件，和奇葩的设计要求</p>
         <p><code>Table</code>组件新增排序,和rowclick行点击事件</p>
       </TimeLineItem>
       <TimeLineItem>
