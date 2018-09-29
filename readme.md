@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://k-ui.xyz">
-        <img width="100" src="https://k-ui.xyz/img/logo.svg">
+        <img width="100" src="http://k-ui.xyz/img/logo.svg">
     </a>
 </p>
 
