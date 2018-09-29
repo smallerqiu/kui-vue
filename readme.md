@@ -16,7 +16,12 @@ GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 ## 特性   
 漂亮的UI，可定制主题   
 兼容IE9+   
-组件丰富，功能强大
+支持SSR   
+支持Nuxt   
+组件丰富   
+
+## For React
+[kui-react](https://react.k-ui.xyz)
 
 ## 更新日志：
 
