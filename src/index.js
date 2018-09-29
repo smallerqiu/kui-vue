@@ -22,7 +22,7 @@ import Page from './components/page'
 import Poptip from './components/poptip'
 import { Radio, RadioGroup, RadioButton } from './components/radio'
 import Scroll from './components/scroll'
-import Slider from './components/slider'
+// import Slider from './components/slider'
 import Switch from './components/switch'
 import { Select, Option } from './components/select'
 import { Steps, Step } from './components/steps'
@@ -55,7 +55,7 @@ const components = {
     Option,
     Page, Poptip, Panel,
     Row, Radio, RadioGroup, RadioButton,
-    Scroll, Steps, Step, Select, SubMenu, Slider,
+    Scroll, Steps, Step, Select, SubMenu, //Slider,
     Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
     Upload,
 }
@@ -73,9 +73,9 @@ const UI = {
     Version: pkg.version,
 }
 const install = function (Vue, opts = {}) {
-    Object.keys(UI).map((x) => {
-        Vue.component(x, UI[x]);
-    })
+    for(let key in UI){
+      Vue.component(key, UI[key]);
+    }
     Vue.prototype.$Message = Message;
     Vue.prototype.$Loading = Loading;
     Vue.prototype.$Notice = Notice;
@@ -85,5 +85,4 @@ UI.install = install
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
-
-module.exports.default = module.exports = UI;
+export default UI

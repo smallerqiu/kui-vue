@@ -79,7 +79,9 @@ h4 {
 body {
   background: #f1f1f1;
 }
-
+p,.k-code{
+  margin-bottom:10px;
+}
 .body {
   .search-component {
     width: 280px;
@@ -957,4 +959,8 @@ footer {
     background-color: tint(@main, 30%);
     text-align: center;
   }
+}
+
+@media(max-width:1070px){
+  .search-component{display: none;}
 }

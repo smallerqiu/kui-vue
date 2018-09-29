@@ -7,6 +7,7 @@ code.nav = [
       // { title: "KUI for Angular", link: '/angular-kui' },
       { title: "安装", link: "/install", icon: 'ios-cog' },
       { title: "快速上手", link: "/start", icon: 'ios-walk' },
+      { title: "SSR 支持", link: "/ssr", icon: 'ios-cloud' },
       { title: "更新日志", link: "/log", log: 1, icon: 'ios-paper' },
       { title: "定制主题", link: "/theme", icon: "md-shirt" },
       { title: "kui-loader", link: "/kui-loader", icon: "ios-link" }
