@@ -14,6 +14,8 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
 import transferDom from "../../directives/transferDom";
 import emitter from "../../mixins/emitter";
 import winScroll from "../../directives/winScroll";
@@ -77,6 +79,7 @@ export default {
       this.$nextTick(() => this.setPostion())
     },
     setPostion() {
+      if(SSR)return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
       // if (this.transfer) {

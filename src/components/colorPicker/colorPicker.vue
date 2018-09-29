@@ -38,6 +38,8 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
 import picker from "./picker";
 import { Button } from "../button";
 import emitter from '../../mixins/emitter'
@@ -153,10 +155,11 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
+      if (SSR) return;
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      if(!dom) return;
+      if (!dom) return;
       let relPos = this.getElementPos(rel);
       let clientH = window.innerHeight
       let clientW = window.innerWidth

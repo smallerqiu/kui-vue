@@ -3,13 +3,18 @@
     <h2>更新日志</h2>
     <TimeLine>
        <TimeLineItem>
+        <h3>1.9.7<span> 2018-9-29 </span></h3>
+        <p>优化webpack的编译，组件体积更小</p>
+        <p>增加了对SSR服务端渲染的支持（for Nuxt），可以更愉快的玩耍了😊</p>
+      </TimeLineItem>
+       <TimeLineItem>
         <h3>1.9.6<span> 2018-9-19 </span></h3>
         <p>移除优化了一些不必要的组件事件，和奇葩的设计要求</p>
         <p><code>Table</code>组件新增排序,和rowclick行点击事件</p>
       </TimeLineItem>
       <TimeLineItem>
         <h3>1.9.1<span> 2018-8-15 </span></h3>
-        <p><code>Upload</code>组件新增max-file-size,和file-extension属性分别控制上次大小和上次扩展名</p>
+        <p><code>Upload</code>组件新增max-file-size,和file-extension属性分别控制上传大小和上传扩展名</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
         <h3>1.9.0<span> 2018-8-8 </span></h3>

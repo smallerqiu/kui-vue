@@ -16,6 +16,8 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
 import calendar from "./datecalendar";
 import emitter from "../../mixins/emitter";
 import winScroll from "../../directives/winScroll";
@@ -143,6 +145,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
+      if (SSR) return;
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;

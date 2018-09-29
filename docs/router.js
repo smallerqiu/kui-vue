@@ -54,7 +54,7 @@ let R = {
     'radio': r => require.ensure([], () => r(require('./page/radio')), 'radio'),
     'react-kui': r => require.ensure([], () => r(require('./page/react-kui')), 'react-kui'),
     'select': r => require.ensure([], () => r(require('./page/select')), 'select'),
-    'slider': r => require.ensure([], () => r(require('./page/slider')), 'slider'),
+    'ssr': r => require.ensure([], () => r(require('./page/ssr')), 'ssr'),
     'switch': r => require.ensure([], () => r(require('./page/switch')), 'switch'),
     'start': r => require.ensure([], () => r(require('./page/start')), 'start'),
     'steps': r => require.ensure([], () => r(require('./page/steps')), 'steps'),

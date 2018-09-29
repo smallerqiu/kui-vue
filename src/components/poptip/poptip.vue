@@ -22,7 +22,9 @@
   </div>
 </template>
 <script>
-import Button from "../button";
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
+import {Button} from "../button";
 import docClick from "../../directives/docClick";
 import transferDom from "../../directives/transferDom";
 import emitter from '../../mixins/emitter'
@@ -99,6 +101,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
+      if(SSR)return;
       let pos = { left: 0, top: 0 };
       let rel = this.$children[0] && this.$children[0].$el || this.$refs.rel;
       if (this.transfer) {
