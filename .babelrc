@@ -4,7 +4,9 @@
       "@babel/preset-env",
       {
         "targets": {
-          "esmodules": true
+          "esmodules": true,
+          "chrome": "50",
+          "ie": "9"
         }
       }
     ]

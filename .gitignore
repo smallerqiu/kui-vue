@@ -16,5 +16,5 @@ package-lock.json
 *.njsproj
 *.sln
 *.zip
-
+*.sh
 yarn.lock

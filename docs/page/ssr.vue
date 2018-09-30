@@ -46,7 +46,7 @@ import 'kui-vue/dist/k-ui.css';`,
     ]
   },
   plugins: [
-      {src: '~plugins/iview', ssr: true}
+      {src: '~plugins/kui', ssr: true}
   ],
   //....
 }`
