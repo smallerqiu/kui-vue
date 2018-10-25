@@ -70,7 +70,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
         new VueLoaderPlugin(), //for vue-loader 15
-        new webpack.DefinePlugin({ DEVLEPOMENT: JSON.stringify(true) }),
+        new webpack.DefinePlugin({ DEVELOPMENT: JSON.stringify(true) }),
         // 热键替换，配合devServer => hot:true
         new webpack.HotModuleReplacementPlugin(),
         // 位于开发环境下
