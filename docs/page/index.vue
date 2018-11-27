@@ -16,7 +16,7 @@
               <a href="/">首页</a>
             </li>
             <li>
-              <a href="/start">组件</a>
+              <a href="#/start">组件</a>
             </li>
             <li>
               <a href="//react.k-ui.xyz" target="_blank">KUI REACT</a>

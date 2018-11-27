@@ -1,16 +1,16 @@
 <p align="center">
-    <a href="https://k-ui.xyz">
-        <img width="100" src="http://k-ui.xyz/img/logo.svg">
+    <a href="https://vue-kui.github.io">
+        <img width="100" src="https://vue-kui.github.io/img/logo.svg">
     </a>
 </p>
 
 # KUI for Vue   
 
 基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
-欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://vue.k-ui.xyz/sponsor)   
+欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://vue-kui.github.io/#sponsor)   
 
 ## 文档
-Docs:  [http://k-ui.xyz](https://k-ui.xyz)   
+Docs:  [https://vue-kui.github.io](https://vue-kui.github.io)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
 GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 ## 特性   
@@ -21,11 +21,11 @@ GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 组件丰富   
 
 ## For React
-[kui-react](https://react.k-ui.xyz)
+[kui-react](https://react-kui.github.io)
 
 ## 更新日志：
 
-Logs: [http://vue.k-ui.xyz/log](https://vue.k-ui.xyz/log)
+Logs: [https://vue-kui.github.io/#log](https://vue-kui.github.io/#log)
 
 ## 安装   
 

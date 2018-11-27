@@ -86,7 +86,7 @@ router.push(
         children: children
     })
 let routers = new Router({
-    routes: router, mode: 'history', scrollBehavior(to, from, savedPosition) {
+    routes: router, mode: 'hash', scrollBehavior(to, from, savedPosition) {
         // return 期望滚动到哪个的位置
         return savedPosition || { x: 0, y: 0 }
     }
