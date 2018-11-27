@@ -3,6 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
        <TimeLineItem>
+        <h3>1.9.8<span> 2018-11-27 </span></h3>
+        <p>修复<code>Menu</code>组件展开折叠的bug</p>
+      </TimeLineItem>
+       <TimeLineItem>
         <h3>1.9.7<span> 2018-9-29 </span></h3>
         <p>优化webpack的编译，组件体积更小</p>
         <p>增加了对SSR服务端渲染的支持（for Nuxt），可以更愉快的玩耍了😊</p>
@@ -129,13 +133,13 @@
         <p>为了有效区分和名称，框架更名为<code>kui-vue</code></p>
         <p>统一组件的事件回调</p>
         <p>重写了<code>Checkbox</code>，<code>Radio</code>，<code>Select</code><code>Menu</code>等一系列组件</p>
-        <p>完成了<code>Form</code>表单验证 <a href="/form">#体验</a></p>
+        <p>完成了<code>Form</code>表单验证 <a href="#/form">#体验</a></p>
         <p>完善文档，分离代码示例和模版</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>1.5<span> 2018-3-27 </span></h3>
         <p>新增<code>Menu</code>,<code>MenuGroup</code>,<code>MenuItem</code>,<code>SubMenu</code> 组件
-          <a href="/menu">#体验</a>
+          <a href="#/menu">#体验</a>
         </p>
         <p>优化了文档的可读性</p>
         <p>优化<code>Select</code>组件，可清空状态</p>
@@ -153,10 +157,10 @@
       <TimeLineItem icon="ios-bug" color="red">
         <h3>1.4.8 <span> 2018-2-2 </span> </h3>
         <p>新增<code>Loading</code>组件
-          <a href="/loading">#体验</a>
+          <a href="#/loading">#体验</a>
         </p>
         <p>新增<code>Badge</code>组件
-          <a href="/badge">#体验</a>
+          <a href="#/badge">#体验</a>
         </p>
         <p>优化文档，加入了代码展示部分 展开折叠</p>
         <p>修复了文档<code>Table</code>部分，日期下拉导致出现滚动条，部分被隐藏</p>
@@ -172,21 +176,21 @@
         <p>修复<code>Table</code>组件 <code>bordered</code>显示问题</p>
         <p>优化<code>Table</code>组件 无数据时文字显示问题，优化表格表头字体大小</p>
         <p>新增<code>Table</code>组件 <code>mini</code>显示模式
-          <a href="/table">#体检</a>
+          <a href="#/table">#体检</a>
         </p>
         <p>优化<code>Select</code>,<code>DataPicker等组件mini</code>模式 <code>icon</code>显示问题</p>
         <p>优化<code>Select</code>,<code>DataPicker</code>,<code>colorPicker</code>等组件点击隐藏的问题</p>
         <p>新增<code>Input</code> 组件可以设置右侧图标
-          <a href="/input">#体检</a>
+          <a href="#/input">#体检</a>
         </p>
         <p>新增<code>Button</code> 组件可以设置图标
-          <a href="/button">#体检</a>
+          <a href="#/button">#体检</a>
         </p>
         <p>新增<code>Poptip</code> 组件
-          <a href="/poptip">#体检</a>
+          <a href="#/poptip">#体检</a>
         </p>
         <p><code>DatePicker</code>，<code>colorPicker</code>，<code>Select</code>等下拉组件新增<code>transifer</code>属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题
-          <a href="/table">#体检</a>
+          <a href="#/table">#体检</a>
         </p>
         <p>增加了几个钩子，优化了一些显示细节</p>
       </TimeLineItem>
@@ -200,11 +204,11 @@
         <h3>1.4.2 <span> 2018-1-22 </span> </h3>
         <p>废弃一些组件</p>
         <p>新增<code>Modal</code> <code>Toast</code>模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。
-          <a href="/modal">#体验</a>
+          <a href="#/modal">#体验</a>
         </p>
         <p>解决<code>Message</code>，<code>Notice</code>组件动画的流畅性。
-          <a href="/message">#体验Msessage</a>，
-          <a href="/notice">#体验Notice</a>，
+          <a href="#/message">#体验Msessage</a>，
+          <a href="#/notice">#体验Notice</a>，
           <a href="https://www.chuchur.com/article/vue-v-for-transition" target="_blank">#解决方案</a>
         </p>
       </TimeLineItem>

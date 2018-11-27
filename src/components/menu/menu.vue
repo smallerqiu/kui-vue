@@ -1,5 +1,8 @@
 <template>
-  <ul :class="classes" :style="styles">
+  <ul
+    :class="classes"
+    :style="styles"
+  >
     <slot></slot>
   </ul>
 </template>
@@ -20,7 +23,8 @@ export default {
     return {
       activeIndex: this.activeName,
       items: [],
-      submenus: []
+      submenus: [],
+      open_name: this.openName
     };
   },
   watch: {
@@ -28,8 +32,8 @@ export default {
       this.broadcast('MenuItem', 'menu-item-update', name)
       this.broadcast('SubMenu', 'menu-submenu-close', name)
     },
-    openName(name) {
-      console.log(name)
+    open_name(name) {
+      // console.log(name)
       this.broadcast('SubMenu', 'menu-submenu-update', name)
     }
   },
@@ -49,7 +53,7 @@ export default {
   },
   methods: {
     setAccordion(name) {
-      this.openName = name
+      this.open_name = name
       if (this.accordion) {
         this.broadcast('SubMenu', 'menu-submenu-update', name)
       }

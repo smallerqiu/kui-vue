@@ -59,13 +59,13 @@
             <a href="//react.k-ui.xyz" target="_blank">KUI REACT</a>
           </li>
           <li>
-            <a href="/sponsor">支持作者</a>
+            <a href="#/sponsor">支持作者</a>
           </li>
           <li>
             <a href="//gitee.com/chuchur/kui-vue" target="_blank">码云</a>
           </li>
           <li>
-            <a href="/about">关于</a>
+            <a href="#/about">关于</a>
           </li>
         </ul>
         <p>© 2018 Created by chuchur.com</p>
