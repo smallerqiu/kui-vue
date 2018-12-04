@@ -15,7 +15,7 @@
         <div slot="code">{{code.base}}</div>
       </Demo>
       <Demo title="组合使用">
-        <div slot="content">{{data}}<br/>
+        <div slot="content">{{data}}<br />
           <CheckboxGroup v-model="data">
             <Checkbox label="苹果🍎"></Checkbox>
             <Checkbox label="橘子🍊"></Checkbox>
@@ -54,6 +54,16 @@
             <Checkbox label="葡萄🍇"></Checkbox>
             <Checkbox label="香蕉🍌"></Checkbox>
             <Checkbox label="栗子🌰"></Checkbox>
+          </CheckboxGroup>
+        </div>
+        <div slot="desc">全选组合 </div>
+        <div slot="code">{{code.checkAll}}</div>
+      </Demo>
+      <Demo title="全选">
+        <div slot="content">
+          {{check1}}
+          <CheckboxGroup v-model="check1" @change="test1">
+            <Checkbox :label="k" v-for="(k,i) in test" :key="i" />
           </CheckboxGroup>
         </div>
         <div slot="desc">全选组合 </div>
@@ -139,11 +149,21 @@ export default {
       data: ["苹果🍎", "香蕉🍌", "葡萄🍇"],
       checkAll: false,
       indeterminate: false,
-      check: []
+      check: [], test: [],
+      check1: []
     };
   },
+  mounted() {
+    setTimeout(o => {
+      this.test = ["122", "2🍌", "3🍇"]
+    }, 3000)
+  },
   methods: {
+    test1(v) {
+      console.log(v)
+    },
     handelCheckAll(v) {
+      console.log(v)
       if (this.indeterminate) {
         this.checkAll = false;
       } else {

@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     this.$on('checkbox-update', this.update)
-    // this.dispatch('CheckboxGroup', 'checkbox-group-update')
+    this.dispatch('CheckboxGroup', 'checkbox-group-update')
   },
   methods: {
     update(params) {
