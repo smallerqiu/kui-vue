@@ -2,16 +2,17 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
-       <TimeLineItem>
-        <h3>1.9.8<span> 2018-11-27 </span></h3>
+      <TimeLineItem>
+        <h3>1.9.9<span> 2018-12-4 </span></h3>
         <p>修复<code>Menu</code>组件展开折叠的bug</p>
+        <p>修复<code>Checkbox</code>组件动态赋值不触发change事件的问题</p>
       </TimeLineItem>
-       <TimeLineItem>
+      <TimeLineItem>
         <h3>1.9.7<span> 2018-9-29 </span></h3>
         <p>优化webpack的编译，组件体积更小</p>
         <p>增加了对SSR服务端渲染的支持（for Nuxt），可以更愉快的玩耍了😊</p>
       </TimeLineItem>
-       <TimeLineItem>
+      <TimeLineItem>
         <h3>1.9.6<span> 2018-9-19 </span></h3>
         <p>移除优化了一些不必要的组件事件，和奇葩的设计要求</p>
         <p><code>Table</code>组件新增排序,和rowclick行点击事件</p>
@@ -32,13 +33,13 @@
         <p>去掉了一部分组件的事件绑定</p>
         <p>文档可以搜索组件，去掉了左右分裂滚动，因为会导致很多奇葩的问题</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.8.8<span> 2018-7-13 </span></h3>
         <p><code>Table</code>文字处理完善</p>
         <p><code>Menu</code>完善在特定情况下显示不全的问题</p>
         <p><code>Table</code>组件新增text-max-length 属性，统一处理文字限制</p>
       </TimeLineItem>
-      <TimeLineItem  icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="red">
         <h3>1.8.6<span> 2018-7-11 </span></h3>
         <p><code>Upload</code>组件新增beforeUpload，afterUpload事件</p>
         <p>修复<code>DatePicker</code>组件特定情况下换行的问题</p>
@@ -57,7 +58,7 @@
         <p>新增布局组件<code>Layout</code>等一些列组件和子组件</p>
         <p>修复transfer钩子无法销毁的问题</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.7.9<span> 2018-6-15 </span></h3>
         <p><code>Select</code>无法赋值，和搜索的问题</p>
         <p>修复<code>TreeSelect</code>lable 无法更改的bug</p>
@@ -65,27 +66,27 @@
         <p>修复<code>Tooltip</code>组件显示隐藏的问题</p>
         <p>优化transfer性能问题</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.7.7<span> 2018-6-12 </span></h3>
         <p>修复<code>Tree，TreeSelect</code>异步加载的问题</p>
         <p><code>Tooltip</code>组件新增<code>breaked</code>属性，文字过长强制换行</p>
         <p><code>Table</code>组件新增<code>overflow，tooltip</code>属性</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.7.6<span> 2018-6-12 </span></h3>
         <p>新增<code>TreeSelect</code>组件</p>
         <p>优化一些细节，规范一些组件名称和函数定义</p>
         <p>修复文档部分示例展示错误</p>
         <p>打包编译升级webpack4</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.7.5<span> 2018-5-24 </span></h3>
         <p>优化<code>Poptip</code>等一些列组件的定位卡顿问题</p>
         <p>优化<code>Menu</code>手风琴模式的展示卡顿问题</p>
         <p>文档加入了自定义滚动容器 @海豚xxx，优化移动端阅读</p>
         <p>优化一些细节</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.7.3<span> 2018-5-17 </span></h3>
         <p>修复IE9+<code>Tree</code>组件选中的问题</p>
         <p>优化<code>datePicker</code>更加友好展示</p>
@@ -99,14 +100,14 @@
         <p>修复下拉组件在浏览器的一些兼容性问题</p>
         <p>修复IE9+浏览器中的花式bug</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.6.9<span> 2018-5-9 </span></h3>
         <p>重写了<code>Page</code>组件，保持队形</p>
         <p>新增<code>Tabs</code>，<code>TabPane</code>组件</p>
         <p>优化<code>Modal</code><code>Select</code>组件展示1像素的问题</p>
         <p>修复文档表单展示问题</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.6.8<span> 2018-5-8 </span></h3>
         <p>修复Form验证的问题</p>
         <p>修复Select选中的问题</p>
@@ -120,7 +121,7 @@
         <p>新增<code>Carousel</code>，<code>Collapse</code>，<code>Tree</code>，<code>Steps</code>等组件</p>
         <p>优化表单验证 双向排列验证提示</p>
       </TimeLineItem>
-      <TimeLineItem >
+      <TimeLineItem>
         <h3>1.6.1<span> 2018-4-25 </span></h3>
         <p>新增<code>Tooltip</code>，<code>Tag</code>，<code>Breadcrumb</code>，<code>BackTop</code>，<code>Affix</code>，<code>Card</code>等组件</p>
         <p>修复<code>RadioGroup</code>无法选中的bug</p>
