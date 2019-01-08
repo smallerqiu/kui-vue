@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://vue-kui.github.io">
-        <img width="100" src="https://vue-kui.github.io/img/logo.svg">
+        <img width="100" src="https://vue-kui.github.io/favicon.png">
     </a>
 </p>
 
