@@ -3,9 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem>
-        <h3>1.9.9<span> 2018-12-4 </span></h3>
-        <p>修复<code>Menu</code>组件展开折叠的bug</p>
+        <h3>2.0<span> 2019-1-9 </span></h3>
+        <p>修复<code>Menu</code>组件展开折叠和accordion不生效的问题</p>
         <p>修复<code>Checkbox</code>组件动态赋值不触发change事件的问题</p>
+        <p>完善文档目录结构</p>
       </TimeLineItem>
       <TimeLineItem>
         <h3>1.9.7<span> 2018-9-29 </span></h3>
