@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://chuchur.github.io/kui-vue/">
-        <img width="100" src="https://chuchur.github.io/kui-vue/src/assets/logo.png">
+        <img width="100" src="https://chuchur.github.io/kui-vue/src/assets/logo.svg">
     </a>
 </p>
 
