@@ -3,7 +3,6 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
 const pkg = require('../package.json');

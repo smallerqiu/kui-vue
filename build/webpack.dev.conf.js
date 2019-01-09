@@ -35,9 +35,9 @@ module.exports = merge(webpackBaseConfig, {
         vendors: ['vue', 'vue-router']
     },
     output: {
-        path: path.resolve(__dirname, '../docs'),
+        path: path.resolve(__dirname, '../docs/dist'),
         filename: 'js/[name].[hash:5].js',
-        publicPath: '/',
+        publicPath: './dist/',
         chunkFilename: 'js/[name].[chunkhash:5].js',
     },
     module: {
