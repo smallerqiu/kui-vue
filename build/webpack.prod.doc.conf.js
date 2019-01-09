@@ -3,7 +3,7 @@
  * 打包vue 组件
  */
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
 const path = require('path');
@@ -16,11 +16,11 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
-    index: ['./docs/main.js'],
+    index: ['./docs/src/main.js'],
     // vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, '../docs-html'),
+    path: path.resolve(__dirname, '../docs/dist'),
     filename: 'js/[name].[hash:5].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
@@ -31,15 +31,10 @@ module.exports = merge(webpackBaseConfig, {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }], }),
-      // },
       {
         test: /\.less$/,
-        // use: ['vue-style-loader', 'css-loader', 'less-loader'],
         // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
       },
       {
         test: /\.vue$/,
@@ -61,12 +56,6 @@ module.exports = merge(webpackBaseConfig, {
   },
   optimization: {
     splitChunks: {
-      // name(module) {
-      //   return (
-      //     module.resource && /\.js$/.test(module.resource) &&
-      //     module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-      //   )
-      // }
       chunks: 'async',
       minSize: 30000, //分离前的最小块文件大小，单位为字节
       minChunks: 1, //分离前，该块被引入的次数
@@ -103,13 +92,13 @@ module.exports = merge(webpackBaseConfig, {
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
-      filename: 'index.html',
+      filename: '../index.html',
       // 源文件，路径相对于本文件所在的位置
-      template: path.resolve(__dirname, '../docs/index.html'),
+      template: path.resolve(__dirname, '../docs/src/index.html'),
       // 需要引入entry里面的哪几个入口，如果entry里有公共模块，
       // chunks: ['index', 'vendors'],
       // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
-      favicon: path.join(__dirname, '../docs/assets/favicon.png'),
+      favicon: path.join(__dirname, '../docs/src/assets/favicon.png'),
       inject: true,
       // 生成html文件的标题
       // title: 'KUI 使用文档',

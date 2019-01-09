@@ -8,7 +8,7 @@ const path = require('path')
 
 let isBuildDoc = process.argv.splice(2).length>0;
 let config = isBuildDoc ? require('./webpack.prod.doc.conf') : require('./webpack.prod.conf');
-let rmPath = isBuildDoc ? './docs-html' : './dist';
+let rmPath = isBuildDoc ? './docs/dist' : './dist';
 
 spinner.start()
 

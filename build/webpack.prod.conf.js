@@ -25,14 +25,12 @@ module.exports = merge(webpackBaseConfig, {
         libraryTarget: 'umd',
     },
     performance: {
-        hints : false
+        hints: false
     },
     module: {
         rules: [
             {
-                test: /\.less$/,
-                // use: ['vue-style-loader', 'css-loader', 'less-loader'],
-                // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
+                test: /\.(c|le)ss$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
             },
             {
