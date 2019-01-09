@@ -7,7 +7,7 @@
 # KUI for Vue   
 
 基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
-欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://vue-kui.github.io/#sponsor)   
+欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://chuchur.github.io/kui-vue/#sponsor)   
 
 ## 文档
 Docs:  [https://chuchur.github.io/kui-vue/](https://chuchur.github.io/kui-vue/)   
