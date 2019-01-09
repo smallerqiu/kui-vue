@@ -1,26 +1,25 @@
-// const ExtractTextPlugin = require('extract-text-webpack-plugin') //for webpack 3
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
-// const pkg = require('../package.json');
-// const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, exclude: /node_modules/,loader: 'babel-loader',
+        test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
         /* query: {
           presets: ['es2015', 'stage-3'],
           plugins: ['transform-runtime']
         } */
       },
-      { test: /\.scss$/, use: ['vue-style-loader', 'css-loader', 'sass-loader'] },
-      { test: /\.sass$/, use: ['vue-style-loader', 'css-loader', 'sass-loader'] },
-      { test: /\.styl(us)?$/, use: ['vue-style-loader', 'css-loader', 'stylus-loader'] },
+      { test: /\.s(a|c)ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.styl(us)?$/, use: ['style-loader', 'css-loader', 'stylus-loader'] },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader', /* 'postcss-loader' */]
+        use: ['style-loader', 'css-loader', /* 'postcss-loader' */]
       },
-
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'url-loader',
@@ -38,6 +37,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname, '../src'),
     },
   }
 }

@@ -1,8 +1,5 @@
 <template>
-  <ul
-    :class="classes"
-    :style="styles"
-  >
+  <ul :class="classes" :style="styles">
     <slot></slot>
   </ul>
 </template>
@@ -34,7 +31,9 @@ export default {
     },
     open_name(name) {
       // console.log(name)
-      this.broadcast('SubMenu', 'menu-submenu-update', name)
+      if (this.accordion) {
+        this.broadcast('SubMenu', 'menu-submenu-update', name)
+      }
     }
   },
   computed: {
@@ -54,9 +53,7 @@ export default {
   methods: {
     setAccordion(name) {
       this.open_name = name
-      if (this.accordion) {
-        this.broadcast('SubMenu', 'menu-submenu-update', name)
-      }
+
     },
     itemSelect(name) {
       this.activeIndex = name;
