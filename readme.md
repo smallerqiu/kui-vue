@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://vue-kui.github.io">
-        <img width="100" src="https://vue-kui.github.io/favicon.png">
+    <a href="https://chuchur.github.io/kui-vue/">
+        <img width="100" src="https://chuchur.github.io/kui-vue/src/assets/logo.png">
     </a>
 </p>
 
@@ -10,7 +10,7 @@
 欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://vue-kui.github.io/#sponsor)   
 
 ## 文档
-Docs:  [https://vue-kui.github.io](https://vue-kui.github.io)   
+Docs:  [https://chuchur.github.io/kui-vue/](https://chuchur.github.io/kui-vue/)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
 GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 ## 特性   
