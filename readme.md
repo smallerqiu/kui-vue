@@ -9,6 +9,19 @@
 基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
 欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://chuchur.github.io/kui-vue/#sponsor)   
 
+## 开发   
+```xml
+npm run dev
+```
+
+## 编译   
+```xml
+//编译文档
+npm run build:docs
+//编译组件
+npm run build
+```
+
 ## 文档
 Docs:  [https://chuchur.github.io/kui-vue/](https://chuchur.github.io/kui-vue/)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
