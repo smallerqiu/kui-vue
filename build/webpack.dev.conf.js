@@ -12,33 +12,24 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = merge(webpackBaseConfig, {
     mode: 'development',
     devServer: {
-        contentBase: path.resolve(__dirname, '../docs'),
+        contentBase: path.resolve(__dirname, 'docs'),
         port: 7001,
+        clientLogLevel: 'none',
         hot: true,
         // open: false,
         inline: true,
         compress: true,
         historyApiFallback: true,
-        // proxy: {
-        //     '/rest': {
-        //         target: 'http://10.0.101.162:9596', //测试环境
-        //         changeOrigin: true,
-        //         pathRewrite: {
-        //             '^/rest': '' //本地没有rest
-        //         },
-        //     }
-        // }
     },
     entry: {
-        // index: [path.resolve(__dirname, '../docs/src/main.js')],
         index: ['./docs/src/main.js'],
         vendors: ['vue', 'vue-router']
     },
     output: {
-        path: path.resolve(__dirname, '../docs/dist'),
-        filename: 'js/[name].[hash:5].js',
-        publicPath: './dist/',
-        chunkFilename: 'js/[name].[chunkhash:5].js',
+        path: path.resolve(__dirname, 'docs'),
+        filename: '[name].[hash:5].js',
+        publicPath: '/',
+        chunkFilename: '[name].[chunkhash:5].js',
     },
     module: {
         rules: [
@@ -63,9 +54,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
         new VueLoaderPlugin(), //for vue-loader 15
-        new webpack.DefinePlugin({ DEVELOPMENT: JSON.stringify(true) }),
-        // 热键替换，配合devServer => hot:true
         new webpack.HotModuleReplacementPlugin(),
+
+        new webpack.DefinePlugin({ DEVELOPMENT: JSON.stringify(true) }),
         // 位于开发环境下
         // 自动生成html插件，如果创建多个HtmlWebpackPlugin的实例，就会生成多个页面
         new HtmlWebpackPlugin({
