@@ -16,7 +16,7 @@
 </template>
 <script>
 import Icon from "../icon";
-import resize from '../../directives/winScroll'
+import resize from '@/directives/winScroll'
 export default {
     name: 'Carousel',
     components: { Icon },

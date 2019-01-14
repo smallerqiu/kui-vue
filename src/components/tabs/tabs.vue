@@ -31,7 +31,7 @@
 </template>
 <script>
 import Icon from '../icon'
-import scroll from "../../directives/winScroll";
+import scroll from "@/directives/winScroll";
 export default {
   directives: { scroll },
   components: { Icon },

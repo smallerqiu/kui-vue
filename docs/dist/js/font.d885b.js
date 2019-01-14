@@ -1,2 +1,2 @@
-/*! kui-vue v2.0.0 by chuchur (c) 2019 Licensed ISC */
+/*! kui-vue v2.0.1 by chuchur (c) 2019 Licensed ISC */
 (window.webpackJsonp=window.webpackJsonp||[]).push([[16],{yJfx:function(n,e,t){"use strict";t.r(e);var i=t("KHd+"),l=Object(i.a)({},function(){var n=this.$createElement;return(this._self._c||n)("div")},[],!1,null,null,null);l.options.__file="font.vue";e.default=l.exports}}]);

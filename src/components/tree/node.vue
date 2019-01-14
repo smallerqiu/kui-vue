@@ -16,7 +16,7 @@
   </Collapse>
 </template>
 <script>
-import emitter from '../../mixins/emitter'
+import emitter from '@/mixins/emitter'
 import Collapse from '../collapse/collapse.js'
 export default {
   name: 'TreeNode',

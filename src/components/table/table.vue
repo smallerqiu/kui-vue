@@ -77,7 +77,7 @@
 import { Checkbox } from "../checkbox";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
-import scroll from '../../directives/winScroll.js'
+import scroll from '@/directives/winScroll.js'
 let copyData = (data) => {
   const t = Object.prototype.toString.call(data)
   let o = t === '[object Array]' ? [] : (t === '[object Object]' ? {} : data)

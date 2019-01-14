@@ -6,9 +6,12 @@
    -ms-user-select: none;
    user-select: none;
    &+.k-calendar {
-      border-left: solid 1px #eaeaea;
+      // border-left: solid 1px #eaeaea;
       margin-left: 5px;
       padding-left: 5px;
+      .k-calendar-time {
+         border-left: solid 5px #efefef;
+      }
    }
    .k-calendar-head {
       line-height: 34px;
@@ -48,8 +51,8 @@
    }
    .k-calendar-body {
       position: relative;
-      width: 196px;
-      height: 196px;
+      width: 210px;
+      min-height: 210px;
    }
    .k-calendar-days {
       width: 100%;
@@ -57,13 +60,14 @@
    }
    .k-calendar-week, .k-calendar-date {
       font-weight: normal;
-      width: 14.28%;
-      height: 14.28%;
+      width: 28px;
+      height: 28px;
       text-align: center;
       box-sizing: border-box;
       display: inline-block;
       overflow: hidden;
-      float: left;
+      // float: left;
+      margin: 0 1px;
    }
    .k-calendar-week:before, .k-calendar-date:before {
       content: "";
@@ -73,43 +77,82 @@
    }
    .k-calendar-date {
       cursor: pointer;
-      color: #999;
+      color: #666;
       border-radius: @radius;
       position: relative;
    }
    .k-calendar-date-out {
       color: #ccc;
+      background: none;
    }
    .k-calendar-date:hover, .k-calendar-date-on {
       background: fade(@main, 30%);
+      border-radius: @radius;
    }
-   .k-calendar-date-today:after{
-        content:'';
-        position: absolute;
-        width:5px;
-        height: 5px;
-        background: @main;
-        right:5px;
-        top:5px;  
-        border-radius: 50%;
-    }
+   .k-calendar-date-on {
+      border-radius: 0;
+   }
+   .k-calendar-date-today {
+      // background: fade(@main, 30%);
+      &:after {
+         content: '';
+         position: absolute;
+         width: 5px;
+         height: 5px;
+         background: @main;
+         right: 5px;
+         top: 5px;
+         border-radius: 50%;
+      }
+   }
    .k-calendar-date-selected, .k-calendar-date-selected:hover {
       color: #fff;
       font-weight: bold;
       background: @main;
       border-radius: @radius;
-      &::after{
-        background: #fff;
+      &::after {
+         background: #fff;
       }
    }
-   
    .k-calendar-date-disabled {
       cursor: not-allowed !important;
       color: #bcbcbc !important;
       background: #f3f3f3 !important;
+      border-radius: 0;
    }
    .k-calendar-foot {
-      margin-top: 5px;
+      padding: 7px 7px 2px 7px;
+      line-height: 25px;
+      border-top: 1px solid #efefef;
+      margin: 1px -5px 0 -5px;
+      .k-calendar-timetip {
+         margin-left: 8px;
+         cursor: pointer;
+      }
+      .k-calendar-btn {
+         float: right;
+      }
+      .disabled {
+         cursor: not-allowed;
+         color: #ccc;
+      }
+   }
+   .k-calendar-time {
+      position: absolute;
+      top: 0;
+      left: -5px;
+      height: 100%;
+      border-top: 1px solid #efefef;
+      right: -5px;
+      overflow: hidden;
+   }
+   .k-calendar-time-title {
+      font-size: 14px;
+      font-weight: 600;
+      //    text-align: center;
+      //    background: #fff;
+      //    padding: 3px 0;
+      //    border-bottom:1px solid #efefef;
    }
    .k-calendar-hour {
       display: inline-block;
@@ -118,13 +161,32 @@
    }
    .k-calendar-hour span {
       display: inline-block;
-      padding: 2px 4px;
+      // padding: 2px 4px;
       cursor: pointer;
    }
    .k-calendar-hour a:hover, .k-calendar-hour a.on {
       color: @main;
    }
-   .k-calendar-years, .k-calendar-months, .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      width: 72px;
+      height: 100%;
+      float: left;
+      // position: absolute;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+      &:hover {
+         overflow-y: scroll;
+      }
+   }
+   .k-calendar-minutes{
+      border-left: 1px solid #efefef;
+      border-right: 1px solid #efefef;
+   }
+   .k-calendar-seconds {
+      border: none;
+   }
+   .k-calendar-years, .k-calendar-months {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -133,26 +195,33 @@
       top: 0;
    }
    .k-calendar-months span {
-      width: 33.33%;
-      height: 25%;
+      width: 68px;
+      height: 35px;
+      margin: 8px 0;
    }
    .k-calendar-years span {
-      width: 33.33%;
-      height: 25%;
+      width: 68px;
+      height: 35px;
+      margin: 8px 0;
    }
-   .k-calendar-hours span {
-      width: 20%;
-      height: 20%;
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      span {
+         height: 20px;
+         line-height: 20px;
+         margin: 0;
+         width: 100%;
+         border-radius: 0;
+         text-align: left;
+         padding-left:31px;
+         &:hover{
+           border-radius: 0;
+         }
+      }
    }
-   .k-calendar-minutes a, .k-calendar-seconds span {
-      width: 16.66%;
-      height: 10%;
+   .k-calendar-date {
+      height: 28px;
       line-height: 1.5;
-   }
-   .k-calendar-minutes .k-calendar-date {
-      height: 10%;
-      line-height: 1.5;
-      width: 16.6%;
+      width: 28px;
    }
    .k-calendar-title {
       margin-top: -30px;
@@ -162,6 +231,11 @@
       text-align: center;
       font-weight: bold;
    }
+}
+.k-calendar-right,.k-calendar-left{
+       .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+          width: 71px;
+       }
 }
 // .k-calendar-right {
 //     margin-left: 5px;

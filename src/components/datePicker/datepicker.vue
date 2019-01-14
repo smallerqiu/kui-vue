@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" :style="styles" v-docClick="close" v-winScroll="handleScroll">
     <input readonly :value="text" type="text" :class="inputClass" @click="toggleDrop" :disabled="disabled" :placeholder="placeholder" :name="name" ref="rel" />
-    <a class="k-datepicker-close" @click.stop="clear" v-if="clearable&&!disabled"></a>
+    <a class="k-datepicker-close" @click.stop="clear" v-if="showClose"></a>
     <transition name="dropdown">
       <div class="k-datepicker-popup" :style="popupStyle" tabindex="-1" v-if="visible" ref="dom" v-transferDom :data-transfer="transfer">
         <template v-if="range">
@@ -19,16 +19,15 @@
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 import calendar from "./datecalendar";
-import emitter from "../../mixins/emitter";
-import winScroll from "../../directives/winScroll";
-import transferDom from "../../directives/transferDom";
-import docClick from "../../directives/docClick";
+import emitter from "@/mixins/emitter";
+import winScroll from "@/directives/winScroll";
+import transferDom from "@/directives/transferDom";
+import docClick from "@/directives/docClick";
+import lang from './lang'
 export default {
   name: "DatePicker",
   directives: { docClick, transferDom, winScroll },
-  components: {
-    Calendar: calendar
-  },
+  components: { Calendar: calendar },
   mixins: [emitter],
   props: {
     transfer: { type: Boolean, default: true },
@@ -63,10 +62,14 @@ export default {
       fadeInBottom: false,
       top: 0,
       dates: this.vi(this.value),
-      local: {}
+      local: {},
+      childrens: []
     };
   },
   computed: {
+    showClose() {
+      return this.clearable && !this.disabled && this.text
+    },
     styles() {
       return this.width > 0 ? { width: `${this.width}px` } : {};
     },
@@ -90,7 +93,7 @@ export default {
     },
     popupStyle() {
       let style = {};
-      this.range && (style.width = "415px");
+      this.range && (style.width = "442px");
       style.left = `${this.left}px`;
       style.top = `${this.top}px`;
       if (this.fadeInBottom) {
@@ -99,16 +102,14 @@ export default {
       return style;
     },
     range() {
-      // return this.dates.length === 2;
-      // console.log(Array.isArray(this.dates),)
       return Array.isArray(this.value)
-    }
+    },
   },
   /* boforeCreated(){
     this.local = require(`./lang/${this.lang}.js`);
   }, */
   created() {
-    this.local = require(`./lang/${this.lang}.js`);
+    this.local = lang[this.lang]
     this.value != "" && this.value != [] && this.setText();
   },
   watch: {
@@ -158,7 +159,9 @@ export default {
       let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
       let domH = dom.offsetHeight;
+      let domW = dom.offsetWidth;
       let relH = rel.offsetHeight;
+      let relW = rel.offsetWidth;
       if (this.transfer) this.left = relPos.left + scrollLeft;
       //new
       if (clientH - relPos.top - relH - m < domH) {
@@ -169,6 +172,9 @@ export default {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
+      if (clientW - relPos.left - relW - m < domW) {
+        this.left = relPos.left - domW + relW
+      }
     },
     setText() {
       let date = this.dates.map(date => this.formatDate(date));
@@ -176,6 +182,7 @@ export default {
       this.text = this.value ? (date.length == 1 ? date[0] : txt) : "";
     },
     clear() {
+      this.visible = false
       this.dates = []
       this.$emit("input", this.range ? [] : "");
       this.setText();
@@ -194,16 +201,21 @@ export default {
       }
     },
     ok() {
+      if (this.range && (!this.dates[0] || !this.dates[1])) {
+        this.visible = false
+        return;
+      }
+      if (this.range && this.dates[1] < this.dates[0]) {
+        let date0 = this.dates[0]
+        this.dates[0] = this.dates[1]
+        this.dates[1] = date0
+      }
       let date = this.dates.map(date => this.formatDate(date));
       let txt = date.join(` ${this.rangeSeparator} `);
-      this.text = date.length == 1 ? date[0] : txt;
+      this.text = !this.range ? date[0] : txt;
 
-      this.$emit("input", date.length == 1 ? date[0] : date);
-      this.dispatch(
-        "FormItem",
-        "form-item-change",
-        date.length == 1 ? date[0] : date
-      );
+      this.$emit("input", this.range ? date[0] : date);
+      this.dispatch("FormItem", "form-item-change", this.range ? date[0] : date);
       this.visible = false
     },
     formatDate(time, format) {
@@ -235,11 +247,13 @@ export default {
         s: seconds,
         S: milliseconds
       };
-      return (format || this.format).replace(
-        /Y+|M+|D+|H+|h+|m+|s+|S+/g,
-        str => map[str]
-      );
+      return (format || this.format).replace(/Y+|M+|D+|H+|h+|m+|s+|S+/g, str => map[str]);
+    },
+    update(value) {
+      this.childrens.forEach(c => {
+        c.update(value)
+      })
     }
-  }
+  },
 };
 </script>
