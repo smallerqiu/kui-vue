@@ -3,7 +3,7 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem  icon="ios-bug" color="red">
-        <h3>2.0.1<span> 2019-1-14 </span></h3>
+        <h3>2.0.2<span> 2019-1-14 </span></h3>
         <p>完善<code>DatePicker</code>组件的问题,非常感谢用户`@醒`提出问题</p>
         <p>优化<code>Table</code>组件,选中表格内容</p>
       </TimeLineItem>
