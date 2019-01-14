@@ -25,10 +25,10 @@
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 import {Button} from "../button";
-import docClick from "../../directives/docClick";
-import transferDom from "../../directives/transferDom";
-import emitter from '../../mixins/emitter'
-import resize from '../../directives/winScroll'
+import docClick from "@/directives/docClick";
+import transferDom from "@/directives/transferDom";
+import emitter from '@/mixins/emitter'
+import resize from '@/directives/winScroll'
 export default {
   compontes: { "k-button": Button },
   directives: { docClick, transferDom, resize },

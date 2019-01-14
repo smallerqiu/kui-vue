@@ -42,10 +42,10 @@ import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 import picker from "./picker";
 import { Button } from "../button";
-import emitter from '../../mixins/emitter'
-import winScroll from "../../directives/winScroll";
-import transferDom from "../../directives/transferDom";
-import docClick from "../../directives/docClick";
+import emitter from '@/mixins/emitter'
+import winScroll from "@/directives/winScroll";
+import transferDom from "@/directives/transferDom";
+import docClick from "@/directives/docClick";
 export default {
   components: { picker, "k-button": Button },
   directives: { docClick, transferDom, winScroll },

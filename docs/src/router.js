@@ -80,6 +80,7 @@ let index = r => require.ensure([], () => r(require('./views/index')), 'home');
 
 router.push(
     { path: '/', component: index },
+    { path: '/test', component: resolve => require(['./test'], resolve) },
     {
         path: '/',
         component: resolve => require(['./layout'], resolve),

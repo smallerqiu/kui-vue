@@ -2,10 +2,15 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem  icon="ios-bug" color="red">
+        <h3>2.0.1<span> 2019-1-14 </span></h3>
+        <p>完善<code>DatePicker</code>组件的问题,非常感谢用户`@醒`提出问题</p>
+        <p>优化<code>Table</code>组件,选中表格内容</p>
+      </TimeLineItem>
       <TimeLineItem>
         <h3>2.0<span> 2019-1-9 </span></h3>
-        <p>修复<code>Menu</code>组件展开折叠和accordion不生效的问题</p>
-        <p>修复<code>Checkbox</code>组件动态赋值不触发change事件的问题</p>
+        <p>修复<code>Menu</code>组件展开折叠和accordion不生效的问题,非常感谢用户`@^_^¦¦¦`提出问题</p>
+        <p>修复<code>Checkbox</code>组件动态赋值不触发change事件的问题,非常感谢用户`@^_^¦¦¦`提出问题</p>
         <p>完善文档目录结构</p>
       </TimeLineItem>
       <TimeLineItem>
@@ -158,12 +163,8 @@
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>1.4.8 <span> 2018-2-2 </span> </h3>
-        <p>新增<code>Loading</code>组件
-          <a href="#/loading">#体验</a>
-        </p>
-        <p>新增<code>Badge</code>组件
-          <a href="#/badge">#体验</a>
-        </p>
+        <p>新增<code>Loading</code>组件 <a href="#/loading">#体验</a> </p>
+        <p>新增<code>Badge</code>组件 <a href="#/badge">#体验</a> </p>
         <p>优化文档，加入了代码展示部分 展开折叠</p>
         <p>修复了文档<code>Table</code>部分，日期下拉导致出现滚动条，部分被隐藏</p>
       </TimeLineItem>
@@ -177,20 +178,14 @@
         <h3>1.4.5 <span> 2018-1-29 </span> </h3>
         <p>修复<code>Table</code>组件 <code>bordered</code>显示问题</p>
         <p>优化<code>Table</code>组件 无数据时文字显示问题，优化表格表头字体大小</p>
-        <p>新增<code>Table</code>组件 <code>mini</code>显示模式
-          <a href="#/table">#体检</a>
-        </p>
+        <p>新增<code>Table</code>组件 <code>mini</code>显示模式 <a href="#/table">#体检</a> </p>
         <p>优化<code>Select</code>,<code>DataPicker等组件mini</code>模式 <code>icon</code>显示问题</p>
         <p>优化<code>Select</code>,<code>DataPicker</code>,<code>colorPicker</code>等组件点击隐藏的问题</p>
         <p>新增<code>Input</code> 组件可以设置右侧图标
           <a href="#/input">#体检</a>
         </p>
-        <p>新增<code>Button</code> 组件可以设置图标
-          <a href="#/button">#体检</a>
-        </p>
-        <p>新增<code>Poptip</code> 组件
-          <a href="#/poptip">#体检</a>
-        </p>
+        <p>新增<code>Button</code> 组件可以设置图标 <a href="#/button">#体检</a> </p>
+        <p>新增<code>Poptip</code> 组件 <a href="#/poptip">#体检</a> </p>
         <p><code>DatePicker</code>，<code>colorPicker</code>，<code>Select</code>等下拉组件新增<code>transifer</code>属性，下拉组件可以append到body尾部，解决了父级overflow遮挡的问题
           <a href="#/table">#体检</a>
         </p>

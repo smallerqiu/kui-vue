@@ -13,7 +13,7 @@
 </template> 
 <script>
 import Collapse from '../collapse/collapse.js'
-import emitter from '../../mixins/emitter'
+import emitter from '@/mixins/emitter'
 export default {
   name: "SubMenu",
   mixins: [emitter],

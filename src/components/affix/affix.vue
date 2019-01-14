@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import winScroll from '../../directives/winScroll'
-import emitter from '../../mixins/emitter'
+import winScroll from '@/directives/winScroll'
+import emitter from '@/mixins/emitter'
 export default {
     name: 'Affix',
     directives: {

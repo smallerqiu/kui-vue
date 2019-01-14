@@ -16,9 +16,9 @@
 <script>
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
-import transferDom from "../../directives/transferDom";
-import emitter from "../../mixins/emitter";
-import winScroll from "../../directives/winScroll";
+import transferDom from "@/directives/transferDom";
+import emitter from "@/mixins/emitter";
+import winScroll from "@/directives/winScroll";
 
 export default {
   directives: { transferDom, winScroll },

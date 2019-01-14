@@ -4,7 +4,7 @@
     </Tooltip>
 </template>
 <script>
-import emitter from '../../mixins/emitter'
+import emitter from '@/mixins/emitter'
 export default {
     name: 'sliderButton',
     mixins: [emitter],

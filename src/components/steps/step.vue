@@ -20,7 +20,7 @@
 </template>
 <script>
 import Icon from '../icon'
-import emitter from '../../mixins/emitter'
+import emitter from '@/mixins/emitter'
 export default {
     name: 'Step',
     components: { Icon },

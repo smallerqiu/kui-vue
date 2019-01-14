@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import emitter from '../../mixins/emitter'
+import emitter from '@/mixins/emitter'
 import TreeNode from './node'
 export default {
   name: 'Tree',

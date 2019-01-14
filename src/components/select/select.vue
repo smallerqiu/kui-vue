@@ -19,10 +19,10 @@
 <script>
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
-import emitter from "../../mixins/emitter";
-import transferDom from "../../directives/transferDom";
-import winScroll from "../../directives/winScroll";
-import docClick from "../../directives/docClick";
+import emitter from "@/mixins/emitter";
+import transferDom from "@/directives/transferDom";
+import winScroll from "@/directives/winScroll";
+import docClick from "@/directives/docClick";
 export default {
   name: "Select",
   directives: { docClick, transferDom, winScroll },
