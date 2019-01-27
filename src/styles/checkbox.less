@@ -13,7 +13,9 @@
         line-height: 1;
         position: relative;
         margin-right: 5px;
+        box-sizing: content-box;
         .k-checkbox-inner {
+            box-sizing: content-box;
             display: inline-block;
             width: 14px;
             height: 14px;
@@ -44,6 +46,7 @@
             border-color: @main;
             position: relative;
             &::after {
+                box-sizing: content-box;
                 position: absolute;
                 content: '\f2bc';
                 font-family: Ionicons;
@@ -63,6 +66,7 @@
             border-color: @main;
             position: relative;
             &:after {
+                box-sizing: content-box;
                 background-color: #fff;
                 position: absolute;
                 width: 10px;
@@ -76,13 +80,11 @@
     }
 }
 
-
-
 .k-checkbox-disabled {
     cursor: not-allowed;
     opacity: .5;
     .k-checkbox {
-        .k-checkbox-input{
+        .k-checkbox-input {
             cursor: not-allowed;
         }
         .k-checkbox-inner {

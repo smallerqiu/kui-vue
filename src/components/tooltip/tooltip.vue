@@ -76,9 +76,9 @@ export default {
   },
   methods: {
     handleScroll() {
-      this.$nextTick(() => this.setPostion())
+      this.$nextTick(() => this.setPosition())
     },
-    setPostion() {
+    setPosition() {
       if(SSR)return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
