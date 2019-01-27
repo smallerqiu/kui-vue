@@ -3,10 +3,15 @@
  
 <template>
   <div style="padding:100px; 200px">
-    年月日<DatePicker lang="zh"></DatePicker>
-    年<DatePicker format="YYYY"></DatePicker>
-    月<DatePicker format="MM" clearable></DatePicker>
-    月<DatePicker format="YYYY-MM-DD HH:mm:ss" clearable mini></DatePicker>
-    时间<DatePicker :value="[]" format="YYYY-MM-DD HH:mm:ss" width="360" clearable></DatePicker>
+  <Poptip confirm title="您确认删除这条内容吗？"  placement="right"> <div>删除</div> </Poptip> 
   </div>
 </template>
+
+<script>
+export default {
+  methods:{
+
+  }
+}
+</script>
+

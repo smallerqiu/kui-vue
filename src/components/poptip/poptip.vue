@@ -103,7 +103,7 @@ export default {
     setPosition() {
       if(SSR)return;
       let pos = { left: 0, top: 0 };
-      let rel = this.$children[0] && this.$children[0].$el || this.$refs.rel;
+      let rel = this.$refs.rel.children[0] || this.$refs.rel;
       if (this.transfer) {
         pos = this.getElementPos(rel);
       }

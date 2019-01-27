@@ -36,6 +36,7 @@
 }
 
 .k-colorpicker-popup {
+    box-sizing: content-box;
     border-radius: @radius;
     z-index: 1001; 
     position: absolute;
@@ -58,12 +59,14 @@
     }
     .tColor {
         li {
+            box-sizing: content-box;
             width: 13px;
             height: 13px;
             display: inline-block;
             margin: 0 2px;
             transition: all .3s ease;
             border: 1px solid #8a8a8a;
+            box-sizing: content-box;
         }
         li:hover {
             box-shadow: 0 0 5px rgba(0, 0, 0, .4);
