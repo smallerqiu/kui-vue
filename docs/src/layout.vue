@@ -12,8 +12,8 @@
       <Menu style="float:right;" mode="horizontal" activeName="/install" @select="go">
         <MenuItem name="/" icon="md-home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-options">组件</MenuItem>
-        <MenuItem name="https://github.com/chuchur/kui-vue" icon="logo-github">GITHUB</MenuItem>
-        <MenuItem name="https://chuchur.github.io/kui-react"><img src="./assets/react.svg" style="height:15px;margin:0;"/>KUI REACT</MenuItem>
+        <MenuItem name="https://gitee.com/chuchur/kui-vue" icon="ios-cloud">码云</MenuItem>
+        <MenuItem name="https://chuchur.com/kui/react/"><img src="./assets/react.svg" style="height:15px;margin:0;"/>KUI REACT</MenuItem>
         <MenuItem name="https://www.chuchur.com" icon="ios-leaf">BLOG</MenuItem>
       </Menu>
     </header>
@@ -52,18 +52,15 @@
       <div class="ft-left">
         <ul>
           <li>链接</li>
-          <li>
-            <a href="//github.com/chuchur/kui-vue" target="_blank">仓库代码</a>
+           <li>
+            <a href="//gitee.com/chuchur/kui-vue" target="_blank">码云</a>
           </li>
           <li>
-            <a href="//react.k-ui.xyz" target="_blank">KUI REACT</a>
+            <a href="//chuchur.com/kui/react/" target="_blank">KUI REACT</a>
           </li>
           <li>
             <a href="#/sponsor">支持作者</a>
-          </li>
-          <li>
-            <a href="//gitee.com/chuchur/kui-vue" target="_blank">码云</a>
-          </li>
+          </li> 
           <li>
             <a href="#/about">关于</a>
           </li>
@@ -78,9 +75,9 @@
             </a>
           </li>
           <li>
-            <a href="//github.com/chuchur/kui-vue" target="_blank">
-              <Icon type="logo-github" />
-              <span>github</span>
+            <a href="//gitee.com/chuchur/kui-vue" target="_blank">
+              <Icon type="ios-cloud" />
+              <span>gitee</span>
             </a>
           </li>
         </ul>
