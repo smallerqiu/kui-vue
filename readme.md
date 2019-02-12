@@ -1,13 +1,13 @@
 <p align="center">
-    <a href="https://chuchur.github.io/kui-vue/">
-        <img width="100" src="https://chuchur.github.io/kui-vue/src/assets/logo.svg">
+    <a href="https://chuchur.com/kui/vue/">
+        <img width="100" src="https://chuchur.com/kui/vue/logo.svg">
     </a>
 </p>
 
 # KUI for Vue   
 
 基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
-欢迎批评、指正、吐槽、[Star](https://github.com/chuchur/kui-vue) 和 [捐助](https://chuchur.github.io/kui-vue/#sponsor)   
+欢迎批评、指正、吐槽、[Star](https://gitee.com/chuchur/kui-vue) 和 [捐助](https://chuchur.com/kui/vue/#sponsor)   
 
 ## 开发   
 ```xml
@@ -23,9 +23,9 @@ npm run build
 ```
 
 ## 文档
-Docs:  [https://chuchur.github.io/kui-vue/](https://chuchur.github.io/kui-vue/)   
+Docs:  [https://chuchur.com/kui/vue/](https://chuchur.com/kui/vue/)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
-GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
+Gitee: [https://gitee.com/chuchur/kui-vue](https://gitee.com/chuchur/kui-vue)
 ## 特性   
 漂亮的UI，可定制主题   
 兼容IE9+   
@@ -34,11 +34,11 @@ GitHub: [https://github.com/chuchur/kui-vue](https://github.com/chuchur/kui-vue)
 组件丰富   
 
 ## For React
-[kui-react](https://react-kui.github.io)
+[kui-react](https://chuchur.com/kui/react/)
 
 ## 更新日志：
 
-Logs: [https://vue-kui.github.io/#log](https://vue-kui.github.io/#log)
+Logs: [https://chuchur.com/kui/vue/#log](https://chuchur.com/kui/vue/#log)
 
 ## 安装   
 

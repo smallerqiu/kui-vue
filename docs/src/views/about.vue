@@ -3,7 +3,7 @@
     <h2>关于</h2>
     <p>基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。</p>
     <p>欢迎批评、指正、吐槽、
-      <a href="https://github.com/chuchur/kui" target="_blank">Star</a>和
+      <a href="https://gitee.com/chuchur/kui-vue" target="_blank">Star</a>和
       <a href="#/sponsor">捐助</a>
     </p>
     <p>欢迎一起交流：QQ群：729671035</p>

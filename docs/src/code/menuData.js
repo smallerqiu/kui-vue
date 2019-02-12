@@ -69,15 +69,6 @@ code.nav = [
       { title: "标签页", sub: "Tabs", link: "/tabs", icon: 'ios-photos' },
     ]
   },
-  // {
-  //   title: "其他",
-  //   child: [
-  //     { title: "码云", weblink: "https://gitee.com/chuchur/kui-vue", icon: 'social-github', },
-  //     { title: "github", weblink: "https://github.com/chuchur/kui-vue", icon: 'social-github', },
-  //     { title: "支持作者", link: "/sponsor", icon: 'social-usd' },
-  //     { title: "关于", link: "/about", icon: 'ios-happy' }
-  //   ]
-  // }
 ]
 code.components = [
   { title: "图标", name: "Icon", },
