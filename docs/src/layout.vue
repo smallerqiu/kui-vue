@@ -53,10 +53,10 @@
         <ul>
           <li>链接</li>
            <li>
-            <a href="//gitee.com/chuchur/kui-vue" target="_blank">码云</a>
+            <a href="https://gitee.com/chuchur/kui-vue" target="_blank">码云</a>
           </li>
           <li>
-            <a href="//chuchur.com/kui/react/" target="_blank">KUI REACT</a>
+            <a href="https://react.k-ui.cn" target="_blank">KUI REACT</a>
           </li>
           <li>
             <a href="#/sponsor">支持作者</a>
@@ -65,17 +65,17 @@
             <a href="#/about">关于</a>
           </li>
         </ul>
-        <p>© 2018 Created by chuchur.com</p>
+        <p>© 2015-2019 Created by chuchur.com</p>
       </div>
       <div class="ft-right">
         <ul>
           <li>
-            <a href="//chuchur.com" target="_blank"><img src="//chuchur.com/favicon.png" />
+            <a href="https://chuchur.com" target="_blank"><img src="//chuchur.com/favicon.png" />
               <span>chuchur</span>
             </a>
           </li>
           <li>
-            <a href="//gitee.com/chuchur/kui-vue" target="_blank">
+            <a href="https://gitee.com/chuchur/kui-vue" target="_blank">
               <Icon type="ios-cloud" />
               <span>gitee</span>
             </a>

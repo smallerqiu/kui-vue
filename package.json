@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "A high quality UI components Library with Vue.js",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -40,7 +40,7 @@
         "pc",
         "pc ui"
     ],
-    "homepage": "https://chuchur.com/kui/vue/",
+    "homepage": "https://vue.k-ui.cn",
     "bugs": {
         "url": "https://gitee.com/chuchur/kui-vue/issues",
         "email": "chuchur@qq.com"

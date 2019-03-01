@@ -14,9 +14,9 @@
           <ul>
             <li><a href="/">首页</a></li>
             <li><a href="#/start">组件</a></li>
-            <li><a href="//chuchur.com/kui/react/" target="_blank">KUI REACT</a></li>
-            <li><a href="//gitee.com/chuchur/kui-vue">Gitee</a></li>
-            <li><a href="//chuchur.com">BLOG</a></li>
+            <li><a href="https://react.k-ui.cn" target="_blank">KUI REACT</a></li>
+            <li><a href="https://gitee.com/chuchur/kui-vue">Gitee</a></li>
+            <li><a href="https://chuchur.com">BLOG</a></li>
           </ul>
         </div>
       </div>
