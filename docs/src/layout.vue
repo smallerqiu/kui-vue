@@ -13,7 +13,7 @@
         <MenuItem name="/" icon="md-home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-options">组件</MenuItem>
         <MenuItem name="https://gitee.com/chuchur/kui-vue" icon="ios-cloud">码云</MenuItem>
-        <MenuItem name="https://chuchur.com/kui/react/"><img src="./assets/react.svg" style="height:15px;margin:0;"/>KUI REACT</MenuItem>
+        <MenuItem name="https://react.k-ui.cn"><img src="./assets/react.svg" style="height:15px;margin:0;"/>KUI REACT</MenuItem>
         <MenuItem name="https://www.chuchur.com" icon="ios-leaf">BLOG</MenuItem>
       </Menu>
     </header>
