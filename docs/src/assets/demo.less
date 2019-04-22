@@ -17,14 +17,17 @@
   outline: none;
   list-style: none;
 }
+
 *, :after, :before {
   box-sizing: border-box;
   margin: 0;
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
+
 html, body, .body {
   height: 100%;
+  overflow: hidden;
 }
 
 html, body, section {
@@ -84,9 +87,11 @@ h4 {
 body {
   background: #f1f1f1;
 }
-p,.k-code{
-  margin-bottom:10px;
+
+p, .k-code {
+  margin-bottom: 10px;
 }
+
 .body {
   .search-component {
     width: 280px;
@@ -107,7 +112,7 @@ p,.k-code{
     float: left;
   }
   footer {
-    margin-top: 15px;
+    margin-top: 8px;
     background: #fff;
     padding: 15px 150px;
     box-sizing: border-box;
@@ -127,6 +132,7 @@ p,.k-code{
         padding:5px 0;
         float: left;
         margin-right: 30px;
+        white-space: nowrap;
       }
       p {
         color: #92b0d2;
@@ -142,9 +148,9 @@ p,.k-code{
       }
       img {
         height: 30px;
-        margin: 0 auto 15px auto;
+        margin: 2px auto 12px auto;
       }
-      .k-ion-ios-cloud {
+      .k-ion-logo-github {
         font-size: 32px;
         display: block;
         margin: 0 0 13px 0;
@@ -152,6 +158,10 @@ p,.k-code{
       }
     }
   }
+}
+
+button * {
+  vertical-align: middle;
 }
 
 .body, .main {
@@ -429,27 +439,42 @@ header {
 .main {
   background: #fff; // width: 90%;
   // margin: 80px auto 20px;
-  // height: calc(~'100% - 83px'); // border-radius: 3px;
+  height: calc(~'100% - 68px - 100px'); // border-radius: 3px;
+  overflow: hidden;
+  // overflow: auto;
   // box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-  margin: 80px auto 0;
+  margin: 68px auto 0;
   >.k-row {
     height: 100%;
     .k-col {
-      height: 100%; // overflow: auto;
-      // &::-webkit-scrollbar-thumb {
-      //     background: none;
-      //     transition: all .3s ease-in-out;
-      //     -webkit-transition: all .3s ease-in-out;
-      //     border-radius: 4px;
-      // }
-      // &:hover {
-      //     overflow: auto;
-      //     &::-webkit-scrollbar-thumb {
-      //         background-color: rgba(95, 95, 95, 0.4);
-      //     }
-      // }
+      height: 100%;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        //定义整体宽高
+        // margin: 4px;
+        padding: 5px;
+        width: 8px;
+        background: transparent;
+      }
+      &:hover {
+        &::-webkit-scrollbar-thumb {
+          //滑块
+          background: #ddd;
+          transition: all .3s ease-in-out;
+          -webkit-transition: all .3s ease-in-out;
+          border-radius: 4px;
+        }
+        &::-webkit-scrollbar-track {
+          //轨道
+          // background: #f1f1f1;
+        }
+      }
     }
   }
+  // .colNav{
+  // }
+  // .colMain{
+  // }
   .nav {
     // width: 218px;
     color: #555;
@@ -966,6 +991,8 @@ footer {
   }
 }
 
-@media(max-width:1070px){
-  .search-component{display: none;}
+@media(max-width:1070px) {
+  .search-component {
+    display: none;
+  }
 }
