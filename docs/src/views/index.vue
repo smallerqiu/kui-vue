@@ -14,9 +14,9 @@
           <ul>
             <li><a href="/">首页</a></li>
             <li><a href="#/start">组件</a></li>
-            <li><a href="https://react.k-ui.cn" target="_blank">KUI REACT</a></li>
-            <li><a href="https://gitee.com/chuchur/kui-vue">Gitee</a></li>
-            <li><a href="https://chuchur.com">BLOG</a></li>
+            <li><a href="https://react.k-ui.cn" target="_blank">KUI React</a></li>
+            <li><a href="https://github.com/chuchur-china/kui-vue">Github</a></li>
+            <li><a href="https://chuchur.com">Blog</a></li>
           </ul>
         </div>
       </div>
@@ -26,7 +26,7 @@
       <h1>一枚基于Vue.js的高质量UI组件库</h1>
       <div class="btn-content">
         <Button class="start" @click="start">开始使用</Button>
-        <Button icon="ios-cloud" class="github" @click="gitee">Gitee</Button>
+        <Button icon="logo-github" class="github" @click="git">Github</Button>
       </div>
     </section>
     <!-- <footer>
@@ -43,8 +43,8 @@ export default {
     start() {
       this.$router.push('/start')
     },
-    gitee() {
-      window.open('//gitee.com/chuchur/kui-vue')
+    git() {
+      window.open('//github.com/chuchur-china/kui-vue')
     },
   }
 };
