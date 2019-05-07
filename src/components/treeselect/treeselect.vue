@@ -12,7 +12,7 @@
           <input class="k-treeselect-input" :placeholder="queryPlaceholder" v-model="queryKey" />
           <input type="button" value="搜索" class="k-treeselect-btn" @click="queryChange" />
         </div>
-        <Tree :data="data" @load-data="loadData" @select="treeSelect" @expand="expand"></Tree>
+        <Tree :data="Tdata" @load-data="loadData" @select="treeSelect" @expand="expand"></Tree>
       </div>
     </transition>
   </div>
@@ -45,6 +45,7 @@ export default {
   },
   data() {
     return {
+      Tdata: this.data,
       visible: false,
       dropdownWith: 0,
       left: 0,
@@ -55,12 +56,15 @@ export default {
     };
   },
   watch: {
+    data(val) {
+      this.Tdata = val
+    },
     value(val) {
       if (val === '' || val === undefined || val === null) {
         this.showLabel = ''
       }
     },
-    label(label){
+    label(label) {
       this.showLabel = label
     }
   },
@@ -124,7 +128,7 @@ export default {
       this.showLabel = item.title
       this.$emit('input', item.value || '')
       this.$nextTick(() => this.visible = false);
-      
+
     },
     expand(e) {
       this.handleScroll()
