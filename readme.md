@@ -6,8 +6,8 @@
 
 # KUI for Vue   
 
-基于VUE 2.x 开发，在追求完美视觉体验的同时也保证了其性能高效。  
-欢迎批评、指正、吐槽、[Star](https://gitee.com/chuchur/kui-vue) 和 [捐助](https://vue.k-ui.cn/#/sponsor)   
+基于VUE 2.x 开发，漂亮的UI，可定制主题 ,组件丰富,支持SSR , 支持Nuxt ,兼容IE9。  
+欢迎批评、指正、吐槽、[Star](https://github.com/chuchur-china/kui-vue) 和 [捐助](https://vue.k-ui.cn/#/sponsor)   
 
 ## 开发   
 ```xml
@@ -25,7 +25,7 @@ npm run build
 ## 文档
 Docs:  [https://vue.k-ui.cn](https://vue.k-ui.cn)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
-Gitee: [https://gitee.com/chuchur/kui-vue](https://gitee.com/chuchur/kui-vue)
+Github: [https://github.com/chuchur-china/kui-vue](https://github.com/chuchur-china/kui-vue)
 ## 特性   
 漂亮的UI，可定制主题   
 兼容IE9+   
