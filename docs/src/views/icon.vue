@@ -2,7 +2,7 @@
   <div>
     <h2>Icon 图标</h2>
     <p>kui 的图标使用开源项目
-      <a href="http://ionicons.com/" target="_blank">ionicons</a>，当前版本4.3.0
+      <a href="http://ionicons.com/" target="_blank">ionicons</a>，当前版本4.5.6
     </p>
     <h3>代码示例</h3>
     <Demo title="基础" layout="vertical">

@@ -3,6 +3,12 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
+        <h3>2.0.6<span> 2019-5-7 </span></h3>
+        <p>修复<code>loading</code>组件显示异常的问题</p>
+        <p>修复<code>Radio</code>组件无法选中的问题</p>
+        <p><code>Icon</code>库升级到4.5.6</p>
+      </TimeLineItem>
+      <TimeLineItem icon="ios-bug" color="red">
         <h3>2.0.3<span> 2019-1-27 </span></h3>
         <p>修复<code>Poptip,Tooltip</code>显示坐标错误的问题,非常感谢用户`@tiantian8144`提出问题</p>
         <p>修复一些组件在box-sizing: border-box;模式下展示怪异的问题</p>

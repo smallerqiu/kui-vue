@@ -2,7 +2,7 @@
   <label :class="wpclasses">
     <span :class="classes">
       <span class="k-radio-inner"></span>
-      <input type="radio" class="k-radio-input" :name="name" :disabled="disable" :checked="disabled" @change="changed($event)">
+      <input type="radio" class="k-radio-input" :name="name" :disabled="disable" :checked="checked" @change="changed($event)">
     </span>
     <slot>{{label}}</slot>
   </label>
