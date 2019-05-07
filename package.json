@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "A high quality UI components Library with Vue.js",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -17,7 +17,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://gitee.com/chuchur-china/kui-vue.git"
+        "url": "https://github.com/chuchur-china/kui-vue.git"
     },
     "author": "chuchur",
     "license": "ISC",
@@ -42,7 +42,7 @@
     ],
     "homepage": "https://vue.k-ui.cn",
     "bugs": {
-        "url": "https://gitee.com/chuchur-china/kui-vue/issues",
+        "url": "https://github.com/chuchur-china/kui-vue/issues",
         "email": "chuchur@qq.com"
     },
     "devDependencies": {
