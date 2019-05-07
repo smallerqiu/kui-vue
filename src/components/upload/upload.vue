@@ -124,7 +124,7 @@ export default {
         let msg =
           e.message.indexOf("cross-origin") >= 0
             ? "不支持跨域上传!"
-            : "上传文件格式不支持！";
+            : "上传失败！";
         this.$Message.error(msg);
         this.$refs["k-upload-file"].value = "";
         data = e.message;

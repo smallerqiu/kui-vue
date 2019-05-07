@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Upload 上传</h2>
-    <Alert>为了兼容低版本（ie9）浏览器，上传采用模拟表单上传</Alert>
+    <Alert>为了兼容低版本（ie9）浏览器，上传采用模拟表单上传,跨域上传请自行配置反相代理</Alert>
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">

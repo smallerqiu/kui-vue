@@ -25,9 +25,9 @@ export default {
   },
   methods: {
     update(data) {
-      console.log(this.disabled)
+      // console.log(this.disabled)
       this.$children.map(child => {
-        let disabled = child.disabled ||this.disabled  
+        let disabled = child.disabled || this.disabled
         let name = child.$options.name
         if (name == 'RadioButton') {
           child.disabled = disabled
