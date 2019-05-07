@@ -38,8 +38,8 @@ export default {
     disabled: { type: Boolean, default: false }
   },
   watch: {
-    value(v,v2) {
-      console.log(v,v2)
+    value(v, v2) {
+      console.log(v, v2)
       this.updateSelect(v);
     },
     visible(val) {
@@ -148,7 +148,10 @@ export default {
       let isNotValue = value !== "" && value != undefined && value !== null;
       this.children.forEach(child => {
         child.selected = isNotValue && value == child.value
-        if (child.selected) this.label = child.label === undefined ? child.$el.innerHTML : child.label
+        if (child.selected) {
+          this.label = child.label === undefined ? child.$el.innerHTML : child.label
+          this.dispatch("FormItem", "form-item-change", value);
+        }
       });
       if (value === "" || value === undefined || value === null) this.label = ''
     },

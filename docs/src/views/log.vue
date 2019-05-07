@@ -3,9 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.0.6<span> 2019-5-7 </span></h3>
+        <h3>2.0.8<span> 2019-5-7 </span></h3>
         <p>修复<code>loading</code>组件显示异常的问题</p>
         <p>修复<code>Radio</code>组件无法选中的问题</p>
+        <p>修复<code>Select</code>组件在表单中值改变后的验证问题</p>
         <p><code>Icon</code>库升级到4.5.6</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
