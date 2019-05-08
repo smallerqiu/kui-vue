@@ -13,7 +13,7 @@
         <MenuItem name="/" icon="md-home">首页</MenuItem>
         <MenuItem name="/install" icon="ios-options">组件</MenuItem>
         <MenuItem name="https://github.com/chuchur-china/kui-vue" icon="logo-github">Github</MenuItem>
-        <MenuItem name="https://react.k-ui.cn"><img src="./assets/react.svg" style="height:15px;margin:0;"/>KUI React</MenuItem>
+        <MenuItem name="https://react.k-ui.cn"><img src="./assets/react.svg" style="height:15px;margin:0;" />KUI React</MenuItem>
         <MenuItem name="https://www.chuchur.com" icon="ios-leaf">Blog</MenuItem>
       </Menu>
     </header>
@@ -48,41 +48,6 @@
         </Col>
       </Row>
     </section>
-    <footer>
-      <div class="ft-left">
-        <ul>
-          <li>链接</li>
-           <li>
-            <a href="https://github.com/chuchur-china/kui-vue" target="_blank">Github</a>
-          </li>
-          <li>
-            <a href="https://react.k-ui.cn" target="_blank">KUI React</a>
-          </li>
-          <li>
-            <a href="#/sponsor">支持作者</a>
-          </li> 
-          <li>
-            <a href="#/about">关于</a>
-          </li>
-        </ul>
-        <p>© 2015-2019 Created by chuchur.com</p>
-      </div>
-      <div class="ft-right">
-        <ul>
-          <li>
-            <a href="https://chuchur.com" target="_blank"><img src="//chuchur.com/favicon.png" />
-              <span>chuchur</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/chuchur-china/kui-vue" target="_blank">
-              <Icon type="logo-github" />
-              <span>Github</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </footer>
   </section>
 
 </template>

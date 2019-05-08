@@ -12,6 +12,7 @@ const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
@@ -34,7 +35,13 @@ module.exports = merge(webpackBaseConfig, {
       {
         test: /\.less$/,
         // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
-        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader, options: {
+              publicPath: '../'
+            }
+          },
+          'css-loader', 'less-loader'],
       },
       {
         test: /\.vue$/,
@@ -83,7 +90,8 @@ module.exports = merge(webpackBaseConfig, {
           },
           sourceMap: false
         }
-      })
+      }),
+      new OptimizeCSSAssetsPlugin({})
     ]
   },
   plugins: [
