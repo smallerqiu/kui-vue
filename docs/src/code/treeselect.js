@@ -58,7 +58,7 @@ export default {
       let computers = ['mac pro', '戴尔E50', '联想600', '宏基S40', '联想小新', '小米air', 'mac air', 'suffice',]
       //模拟异步请求
       setTimeout(() => {
-        this.data1 = [
+        this.data = [
           {
             title: '商品分类',
             expand: true,

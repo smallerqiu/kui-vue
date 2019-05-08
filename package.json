@@ -22,6 +22,7 @@
     "author": "chuchur",
     "license": "ISC",
     "dependencies": {
+        "optimize-css-assets-webpack-plugin": "^5.0.1",
         "uglifyjs-webpack-plugin": "^2.1.2"
     },
     "keywords": [

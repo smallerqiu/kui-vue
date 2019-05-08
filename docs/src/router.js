@@ -90,7 +90,8 @@ let routers = new Router({
     routes: router, mode: 'hash', scrollBehavior(to, from, savedPosition) {
         // return 期望滚动到哪个的位置
         // return savedPosition || { x: 0, y: 0 }
-        document.querySelector('.colMain').scrollTop = 0
+
+        document.querySelector('.colMain') && (document.querySelector('.colMain').scrollTop = 0)
     }
 })
 let development = window.location.hostname != 'localhost' && window.location.hostname != '127.0.0.1'

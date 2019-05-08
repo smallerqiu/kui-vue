@@ -1,12 +1,6 @@
 <template>
-  <li
-    :class="classes"
-    @click.stop="handle"
-  >
-    <Icon
-      :type="icon"
-      v-if="icon"
-    ></Icon>
+  <li :class="classes" @click.stop="handle">
+    <Icon :type="icon" v-if="icon"></Icon>
     <slot></slot>
   </li>
 </template>

@@ -10,6 +10,7 @@ const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(webpackBaseConfig, {
     mode: 'production',
@@ -65,7 +66,8 @@ module.exports = merge(webpackBaseConfig, {
                     },
                     sourceMap: false
                 }
-            })
+            }),
+            new OptimizeCSSAssetsPlugin({})
         ]
     },
     plugins: [
