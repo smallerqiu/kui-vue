@@ -63,7 +63,7 @@ export default {
       // react:require('./assets/react.svg'),
       activeName: "",
       isShowNav: false,
-      components: code.components
+      components: []
     };
   },
   computed: {
@@ -99,13 +99,14 @@ export default {
     }
   },
   created() {
-    this.nav.forEach(y =>
+    this.nav.forEach((y, i) =>
       y.child.forEach(x => {
         x.selected = false;
         if (x.link == this.$route.path) {
           document.title = x.title + (x.sub || "") + " - KUI";
           this.activeName = x.link;
         }
+        i > 0 && this.components.push({ title: x.title, name: x.sub })
       })
     );
   }

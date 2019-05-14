@@ -8,7 +8,8 @@
       <Col span="12">
       <Demo title="基础用法" layout="vertical">
         <div slot="content">
-          <DatePicker></DatePicker>
+          <DatePicker v-model="base"></DatePicker>
+          {{base}}
         </div>
         <div slot="desc">可使用
           <code>v-model</code>进行数据双向绑定</div>
@@ -193,6 +194,7 @@ export default {
   components: { Demo },
   data() {
     return {
+      base:'',
       code: code,
     };
   },
