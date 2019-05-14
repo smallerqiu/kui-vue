@@ -8,6 +8,8 @@
         <p>修复<code>Radio</code>组件无法选中的问题</p>
         <p>修复<code>Select</code>组件在表单中值改变后的验证问题</p>
         <p>修复<code>DatePicker</code>组件赋值错误导致显示异常的问题</p>
+        <p>修复<code>DatePicker</code>表单验证的问题</p>
+        <p><code>DatePicker</code>支持时间戳格式</p>
         <p><code>Icon</code>库升级到4.5.6</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">

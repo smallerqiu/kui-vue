@@ -12,8 +12,8 @@
             <RadioButton label="right">Right</RadioButton>
             <RadioButton label="top">Top</RadioButton>
           </RadioGroup>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <Form :label-width="80" :labelAlign="labelAlign">
             <FormItem label="Input">
               <Input width="200"></Input>
@@ -26,7 +26,7 @@
               </Select>
             </FormItem>
             <FormItem label="DatePicker">
-              <DatePicker></DatePicker>
+              <DatePicker ></DatePicker>
             </FormItem>
             <FormItem label="Radio">
               <RadioGroup value="0">
@@ -100,7 +100,7 @@
               </Row>
             </FormItem>
             <FormItem label="DatePicker" prop="datepicker">
-              <DatePicker v-model="form.datepicker" clearable></DatePicker>
+              <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
             </FormItem>
             <FormItem label="Radio" prop="radio">
               <RadioGroup v-model="form.radio">
@@ -376,7 +376,7 @@ export default {
       }
     };
     return {
-      data3:'left',
+      data3: 'left',
       s1: '',
       labelAlign: 'right',
       code: code,
@@ -422,6 +422,11 @@ export default {
       }
     };
   },
+  mounted() {
+    // setTimeout(e => {
+    //   this.form.datepicker = new Date()*1
+    // }, 2000)
+  },
   methods: {
     add() {
       this.count++
@@ -431,7 +436,7 @@ export default {
       this.dynamicForm.items.splice(index, 1)
     },
     submitForm(name) {
-      console.log(this.$refs[name].model)
+      // console.log(this.$refs[name].model)
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$Message.success('验证通过')

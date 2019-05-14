@@ -93,7 +93,9 @@ export default {
       let valid = true
       let message = rule.message || 'This field must required'
       let type = Object.prototype.toString.call(this.fieldValue)
-      if (this.fieldValue === '' && type == '[object String]' && rule.required) {
+      if (rule.required && type == '[object Undefined]') {
+        valid = false
+      } else if (this.fieldValue === '' && type == '[object String]' && rule.required) {
         valid = false
       } else if (this.fieldValue.length == 0 && type == '[object Array]' && rule.required) {
         valid = false
