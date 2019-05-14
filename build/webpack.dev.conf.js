@@ -13,7 +13,7 @@ module.exports = merge(webpackBaseConfig, {
     mode: 'development',
     devServer: {
         contentBase: path.resolve(__dirname, 'docs'),
-        port: 7001,
+        port: 7005,
         clientLogLevel: 'none',
         hot: true,
         // open: false,

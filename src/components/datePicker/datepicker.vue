@@ -34,7 +34,7 @@ export default {
     width: [String, Number],
     mini: Boolean,
     name: [String],
-    value: [Date, Array, String],
+    value: [Date, Array, String, Number],
     disabled: [Boolean],
     rangeSeparator: { type: String, default: "~" },
     clearable: { type: Boolean, default: false },
@@ -113,10 +113,17 @@ export default {
     this.value != "" && this.value != [] && this.setText();
   },
   watch: {
-    value(val) {
-      let d = Array.isArray(val) ? val.join(this.rangeSeparator) : val;
-      this.text = d;
-      this.$emit("change", this.text);
+    value(val, old) {
+      if (val != old) {
+        let range = Array.isArray(val)
+        let dates = range ? val.map(date => this.formatDate(date)) : this.formatDate(val)
+        let d = range ? dates.join(this.rangeSeparator) : dates;
+        this.text = d;
+        this.$emit("change", this.text);
+        if (this.text && this.text.length) {
+          this.dispatch("FormItem", "form-item-change", dates);
+        }
+      }
     },
     dates(val) {
       let date = this.dates.map(date => this.formatDate(date));
@@ -220,6 +227,7 @@ export default {
     },
     formatDate(time, format) {
       if (!time) return '';
+      time = new Date(time)
       const year = time.getFullYear();
       const month = time.getMonth();
       const day = time.getDate();

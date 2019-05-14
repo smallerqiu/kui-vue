@@ -21,7 +21,7 @@
         </div>
         <div slot="desc">
           <div slot="desc">通过设置
-            <code>clearble</code>属性可控制是否显示清空按钮</div>
+            <code>clearable</code>属性可控制是否显示清空按钮</div>
         </div>
         <div slot="code">{{code.clearable}}</div>
       </Demo>
