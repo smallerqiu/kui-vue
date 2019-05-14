@@ -214,8 +214,8 @@ export default {
       let txt = date.join(` ${this.rangeSeparator} `);
       this.text = !this.range ? date[0] : txt;
 
-      this.$emit("input", this.range ? date[0] : date);
-      this.dispatch("FormItem", "form-item-change", this.range ? date[0] : date);
+      this.$emit("input", !this.range ? date[0] : date);
+      this.dispatch("FormItem", "form-item-change", !this.range ? date[0] : date);
       this.visible = false
     },
     formatDate(time, format) {

@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.0.9",
+    "version": "2.1.0",
     "description": "A high quality UI components Library with Vue.js",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -22,6 +22,7 @@
     "author": "chuchur",
     "license": "ISC",
     "dependencies": {
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
         "uglifyjs-webpack-plugin": "^2.1.2"
     },

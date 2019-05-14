@@ -10,6 +10,7 @@ import { Carousel, CarouselItem } from './components/carousel'
 import { Collapse, Panel } from './components/collapse'
 import { Checkbox, CheckboxGroup } from './components/checkbox'
 import DatePicker from './components/datePicker'
+import { Dropdown, DropdownItem } from './components/dropdown'
 import { Form, FormItem } from './components/form'
 import Icon from './components/icon'
 import Input from './components/input'
@@ -45,7 +46,7 @@ const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker,
+    DatePicker, Dropdown, DropdownItem,
     Form, FormItem,
     Input, Icon,
     Loading,
@@ -73,8 +74,8 @@ const UI = {
     Version: pkg.version,
 }
 const install = function (Vue, opts = {}) {
-    for(let key in UI){
-      Vue.component(key, UI[key]);
+    for (let key in UI) {
+        Vue.component(key, UI[key]);
     }
     Vue.prototype.$Message = Message;
     Vue.prototype.$Loading = Loading;
