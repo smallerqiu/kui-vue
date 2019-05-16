@@ -30,7 +30,6 @@ export default {
     update() {
       this.broadcast('Checkbox', 'checkbox-update', {
         value: this.value,
-        group: true,
       })
     },
     change(data) {

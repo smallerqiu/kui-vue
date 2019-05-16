@@ -99,10 +99,10 @@ export default {
         valid = false
       } else if (this.fieldValue.length == 0 && type == '[object Array]' && rule.required) {
         valid = false
-      } else if (rule.min && this.fieldValue.length < rule.min) {
+      } else if (rule.min && this.fieldValue.length < rule.min && rule.type != 'number') {
         valid = false
         message = rule.message || (type == '[object Array]' ? `Choose at least ${rule.min} item` : `Introduce no less than ${rule.min} words`)
-      } else if (rule.max && this.fieldValue.length > rule.max) {
+      } else if (rule.max && this.fieldValue.length > rule.max && rule.type != 'number') {
         valid = false
         message = rule.message || (type == '[object Array]' ? `Choose ${rule.max} items at best` : `Introduce no more than ${rule.max} words`)
       } else if (rule.pattner) {
@@ -115,8 +115,16 @@ export default {
         valid = /^[1][3,4,5,7,8][0-9]{9}$/.test(this.fieldValue)
         message = rule.message || 'Incorrect mobile format'
       } else if (rule.type == 'number') {
-        valid = typeof value === 'number' && isNaN(value);
+        valid = typeof this.fieldValue === 'number' && !isNaN(this.fieldValue);
         message = rule.message || 'Incorrect number format'
+        if (valid && rule.min !== undefined) {
+          valid = this.fieldValue >= rule.min
+          message = rule.message || `This field must be greater than ${rule.min}`
+        }
+        if (valid && rule.max !== undefined) {
+          valid = this.fieldValue <= rule.max
+          message = rule.message || `This field must be less than ${rule.max}`
+        }
       } else if (rule.validator && typeof rule.validator == 'function') {
         rule.validator(this.rule, this.fieldValue, error => {
           if (error) {

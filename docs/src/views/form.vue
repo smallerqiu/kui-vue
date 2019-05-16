@@ -26,7 +26,7 @@
               </Select>
             </FormItem>
             <FormItem label="DatePicker">
-              <DatePicker ></DatePicker>
+              <DatePicker></DatePicker>
             </FormItem>
             <FormItem label="Radio">
               <RadioGroup value="0">
@@ -74,6 +74,9 @@
           <Form label-width="90" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
             <FormItem label="Input" prop="input">
               <Input v-model="form.input"></Input>
+            </FormItem>
+            <FormItem label="Number" prop="number">
+              <Input v-model="form.number" number></Input>
             </FormItem>
             <FormItem label="Select">
               <Row>
@@ -164,30 +167,30 @@
     </Row>
 
     <!-- <Demo title="动态验证">
-            <div slot="content">
-                <Form :model="dynamicForm"  labelWidth="80" ref="dynamicForm">
-                    <FormItem :label="'item '+x.index" :key="i" :prop="'items.'+i+'.value'" :rules="[{required:true,message:'必填',trigger:'blur'}]" v-for="(x,i) in dynamicForm.items">
-                        <Row>
-                            <Col span="19">
-                            <Input v-model="x.value" />
-                            </Col>
-                            <Col span="4" offset="1">
-                            <Button type="danger" @click="del(i)">删除</Button>
-                            </Col>
-                        </Row>
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" @click="add">新增</Button>
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" @click="submitForm('dynamicForm')">Submit</Button>
-                        <Button style="margin-left: 10px" @click="resetForm('dynamicForm')">Reset</Button>
-                    </FormItem>
-                </Form>
-            </div>
-            <div slot="desc"></div>
-            <div slot="code"></div>
-        </Demo> -->
+        <div slot="content">
+            <Form :model="dynamicForm"  labelWidth="80" ref="dynamicForm">
+                <FormItem :label="'item '+x.index" :key="i" :prop="'items.'+i+'.value'" :rules="[{required:true,message:'必填',trigger:'blur'}]" v-for="(x,i) in dynamicForm.items">
+                    <Row>
+                        <Col span="19">
+                        <Input v-model="x.value" />
+                        </Col>
+                        <Col span="4" offset="1">
+                        <Button type="danger" @click="del(i)">删除</Button>
+                        </Col>
+                    </Row>
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" @click="add">新增</Button>
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" @click="submitForm('dynamicForm')">Submit</Button>
+                    <Button style="margin-left: 10px" @click="resetForm('dynamicForm')">Reset</Button>
+                </FormItem>
+            </Form>
+        </div>
+        <div slot="desc"></div>
+        <div slot="code"></div>
+    </Demo> -->
     <h3>Form API</h3>
     <div class="table-border">
       <table>
@@ -388,6 +391,7 @@ export default {
       form: {
         switch: true,
         input: "",
+        number: "",
         select: '',
         province: '',
         city: '',
@@ -398,6 +402,7 @@ export default {
       },
       rules: {
         input: [{ required: true, trigger: 'blur' }],
+        number: [{ required: true, trigger: 'blur', type: 'number', min: 1, max: 10 }],
         select: [{ required: true, trigger: 'change' }],
         province: [{ required: true, trigger: 'change' }],
         city: [{ required: true, trigger: 'change' }],

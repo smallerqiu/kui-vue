@@ -13,6 +13,11 @@ export default {
     disabled: Boolean,
     mini: Boolean
   },
+  data() {
+    return {
+      childs: []
+    }
+  },
   watch: {
     value(v) {
       this.update({ value: this.value, });
@@ -21,11 +26,9 @@ export default {
   mounted() {
     this.update({ value: this.value, group: true });
     this.$on('radio-group-change', this.change)
-
   },
   methods: {
     update(data) {
-      // console.log(this.disabled)
       this.$children.map(child => {
         let disabled = child.disabled || this.disabled
         let name = child.$options.name
@@ -38,7 +41,6 @@ export default {
           child.disable = disabled
           child.checked = data.value == child.label
         }
-        child.group = true
       })
     },
     change(data) {
