@@ -16,7 +16,7 @@ export default {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String },
-    label: { type: String },
+    label: { type: [String,Number] },
     trueValue: { type: [String, Number, Boolean], default: true },
     falseValue: { type: [String, Number, Boolean], default: false },
     indeterminate: Boolean,
@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       checked: this.value,
-      group: false,
     };
   },
   watch: {
@@ -58,7 +57,6 @@ export default {
   methods: {
     update(params) {
       this.checked = params.value.indexOf(this.label) >= 0;
-      this.group = params.group
     },
     change(event) {
       if (this.disabled) {
@@ -69,13 +67,12 @@ export default {
       this.checked = checked;
       // const value = checked ? this.trueValue : this.falseValue
       this.$emit("input", checked);
-
-      if (this.group && this.label !== undefined) {
+      let isgroup = this.$parent.$options.name == 'CheckboxGroup'
+      if (isgroup && this.label !== undefined) {
         this.dispatch('CheckboxGroup', 'checkbox-group-change', { value: this.label, checked: checked })
+        return;
       }
-      if (!this.group) {
-        this.$emit("change", checked);
-      }
+      this.$emit("change", checked);
     }
   },
 

@@ -59,16 +59,6 @@
         <div slot="desc">全选组合 </div>
         <div slot="code">{{code.checkAll}}</div>
       </Demo>
-      <Demo title="全选">
-        <div slot="content">
-          {{check1}}
-          <CheckboxGroup v-model="check1" @change="test1">
-            <Checkbox :label="k" v-for="(k,i) in test" :key="i" />
-          </CheckboxGroup>
-        </div>
-        <div slot="desc">全选组合 </div>
-        <div slot="code">{{code.checkAll}}</div>
-      </Demo>
       </Col>
     </Row>
     <h3>API</h3>

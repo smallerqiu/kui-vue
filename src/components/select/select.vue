@@ -39,7 +39,7 @@ export default {
   },
   watch: {
     value(v, v2) {
-      console.log(v, v2)
+      // console.log(v, v2)
       this.updateSelect(v);
     },
     visible(val) {
