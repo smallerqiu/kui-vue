@@ -12,6 +12,7 @@ import { Checkbox, CheckboxGroup } from './components/checkbox'
 import DatePicker from './components/datePicker'
 import { Dropdown, DropdownItem } from './components/dropdown'
 import { Form, FormItem } from './components/form'
+import ImagePreview from './components/imagePreview'
 import Icon from './components/icon'
 import Input from './components/input'
 import Loading from './components/loading'
@@ -48,7 +49,7 @@ const components = {
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
     DatePicker, Dropdown, DropdownItem,
     Form, FormItem,
-    Input, Icon,
+    ImagePreview,Input, Icon,
     Loading,
     Menu, MenuGroup, MenuItem, Modal, Message,
     Layout, Header, Footer, Content, Sider,

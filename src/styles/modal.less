@@ -19,9 +19,12 @@
         z-index: 1000;
         -webkit-overflow-scrolling: touch;
         outline: 0; // pointer-events: none;
+        text-align: center;
     }
     .modal {
+        text-align: left;
         margin: 0 auto;
+        display: inline-block;
         position: relative;
         outline: 0;
         top: 100px;
@@ -40,9 +43,10 @@
             cursor: pointer;
             font-size: 20px;
             color: #999;
-            padding: 5px 0 9px;
+            // padding: 5px 0 9px;
+            line-height: 43px;
             top: 0;
-            &:hover{
+            &:hover {
                 color: @danger;
             }
         }
@@ -75,6 +79,31 @@
     //    opacity: 0;
     //    animation: fadeOutUp .3s ease-in-out;
     // }
+}
+
+.k-modal-max {
+    .modal {
+        height: 100%;
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        .k-modal-content{
+            height: 100%;
+            border-radius: 0;
+        }
+        .k-modal-footer{
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            background: #fff;
+        }
+        .k-modal-body{
+            // height: 100%;
+            height: calc(100% - 43px - 59px);
+            padding: 0;
+        }
+    }
 }
 
 .k-toast {

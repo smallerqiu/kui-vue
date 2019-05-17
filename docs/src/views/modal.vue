@@ -34,14 +34,23 @@
       </div>
       <div slot="code">{{code.custom}}</div>
     </Demo>
-    <Demo title="可拖动">
+    <Demo title="扩展属性">
       <div slot="content">
-        <Button @click="d5=!d5">普通对话框</Button>
+        <Button @click="d5=true">拖动的弹框</Button>
+        <Button @click="d51=true">居中对弹框</Button>
+        <Button @click="d52=true">自定义动画</Button>
+        <Button @click="d53=true">最大化</Button>
         <Modal v-model="d5" isMove>我可以拖动的</Modal>
+        <Modal v-model="d51" isCenter>我可以居中的</Modal>
+        <Modal v-model="d52" animateIn="flipInX" animateOut='flipOutY'>自定义动画</Modal>
+        <Modal v-model="d53" isMax title="窗口最大化"> <div style="padding:20px">可以最大化</div></Modal>
       </div>
-      <div slot="desc">有人想要拖动
-        <code>Modal</code>，真奇葩，
-        <code>isMove</code>就可以搞定的</div>
+      <div slot="desc">，
+        <code>isMove</code>可以控制Modal是否可以拖动,
+        <code>isCenter</code>窗口显示居中，
+        <code>isMax</code>窗口最大化，
+        <code>animateIn，animateOut</code>结合<a href="https://daneden.github.io/animate.css/" target="_blank">Animate</a>库来控制窗口入场，出场动画，
+        </div>
       <div slot="code">{{code.canMove}}</div>
     </Demo>
     <Demo title="Toast">
@@ -103,6 +112,30 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>isCenter</td>
+          <td>窗口是否可以居中</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>isMax</td>
+          <td>弹框是否可以最大化显示</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>animateIn</td>
+          <td>弹框入场动画</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>animateOut</td>
+          <td>弹框出场动画</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>type</td>
           <td>弹框的模式，可选值为 modal，toast </td>
           <td>String</td>
@@ -152,12 +185,7 @@ export default {
     return {
       color: "",
       icon: "success",
-      d1: false,
-      d2: false,
-      d3: false,
-      d4: false,
-      d5: false,
-      d6: false,
+      d1: false, d2: false, d3: false, d4: false, d5: false, d6: false, d51: false, d52: false,d53:false ,
       code: code
     };
   },

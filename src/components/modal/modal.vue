@@ -3,9 +3,9 @@
     <transition name="fade">
       <div class="k-modal-mask" ref="mask" v-show="visible"></div>
     </transition>
-    <transition name="fadeease">
-      <div class="k-modal-wrap" v-show="visible" @click="clickMastToClose">
-        <div class="modal" ref="modal" :style="styles">
+    <div class="k-modal-wrap" v-show="visiblew" @click="clickMastToClose">
+      <transition :enter-active-class="animateIn" :leave-active-class="animateOut">
+        <div class="modal animated" ref="modal" v-show="visible" :style="styles">
           <div class="k-modal-content">
             <a class="k-modal-close" @click="close">
               <Icon type="md-close" />
@@ -39,8 +39,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
@@ -60,14 +60,19 @@ export default {
     width: { default: 520, type: [Number, String] },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
-    isMove: { type: Boolean, default: false }
+    isMove: { type: Boolean, default: false },
+    isMax: { type: Boolean, default: false },
+    isCenter: { type: Boolean, default: false },
+    animateIn: { type: String, default: 'fadeease-enter-active' },
+    animateOut: { type: String, default: 'fadeease-leave-active' },
   },
   computed: {
     classes() {
       return [
         "k-modal",
         {
-          ["k-toast"]: this.type == "toast"
+          ["k-toast"]: this.type == "toast",
+          ["k-modal-max"]: this.isMax && !this.isMove
         }
       ];
     },
@@ -80,7 +85,12 @@ export default {
       let style = {};
       style.width = `${this.width}px`;
       style.left = `${this.left}px`;
-      style.top = `${this.top}px`;
+      if (this.isCenter) {
+        style.top = '50%'
+        style.transform = 'translateY(-50%)'
+      } else {
+        style.top = `${this.top}px`;
+      }
       return style;
     },
     iconClasses() {
@@ -104,7 +114,7 @@ export default {
   },
   data() {
     return {
-      visible: this.value,
+      visible: this.value, visiblew: this.value,
       left: 0,
       top: 100,
       startPos: { x: 0, y: 0 },
@@ -113,6 +123,9 @@ export default {
   },
   created() {
     // window.addEventListener("keyup", this.dc);
+    if (this.isCenter && this.visible) {
+      this.top = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetHeight) / 2
+    }
     window.addEventListener('keyup', this.onKeyUp)
   },
   beforeDestory() {
@@ -122,12 +135,16 @@ export default {
     value(v) {
       if (v) {
         this.visible = v
+        this.visiblew = v
         document.body.style.overflow = 'hidden'
         this.left = 0;
         this.top = 100;
       } else {
         document.body.style.overflow = ''
         this.close();
+        this.timer = setTimeout(e => {
+          this.visiblew = false
+        },500)
       }
     }
   },
@@ -151,8 +168,16 @@ export default {
     },
     handelMouseMove(e) {
       if (this.isMouseDown && this.isMove) {
-        this.left += (e.clientX - this.startPos.x);
+        this.left += e.clientX - this.startPos.x;
+        let r = (document.body.getBoundingClientRect().width - this.width) / 2
+        let b = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetHeight)
+        this.left = Math.min(r, this.left) //限制右边
+        this.left = Math.max(r * -1, this.left) //限制左边
+
         this.top += (e.clientY - this.startPos.y);
+        this.top = Math.max(0, this.top)//限制上边
+        this.top = Math.min(b, this.top)//限制上边
+
         this.startPos = { x: e.clientX, y: e.clientY }
       }
     },

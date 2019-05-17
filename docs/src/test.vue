@@ -14,6 +14,10 @@
     <CheckboxGroup v-model="cr">
       <Checkbox v-for="(x,i) in test" :key="i" :label="x.b">{{x.a}}</Checkbox>
     </CheckboxGroup>
+    <Modal isMax v-model="a">
+      <iframe src="https://www.baidu.com" style="height:100%;width:100%;"></iframe>
+    </Modal>
+    <Button @click="a=true">test</Button>
   </div>
 </template>
 
@@ -21,6 +25,7 @@
 export default {
   data() {
     return {
+      a: true,
       cr: [],
       test: [],
       t: '',
