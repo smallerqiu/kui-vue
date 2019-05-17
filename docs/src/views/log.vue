@@ -3,7 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.1.6<span> 2019-5-17 </span></h3>
+        <h3>2.1.7<span> 2019-5-18 </span></h3>
+        <p>新增<code>ImagePreview</code>组件</p>
+        <p><code>Modal</code>组件,新增一些属性，可以最大化，居中显示，和自定义显示动画</p>
+        <p>优化<code>Modal</code>组件拖动</p>
         <p>修复<code>Checkbox,Radio</code>组件动态赋值的问题</p>
         <p>修复<code>Input</code>组件type为number时表单验证不通过的问题</p>
         <p>修复<code>loading</code>组件显示异常的问题</p>
@@ -18,14 +21,8 @@
         <h3>2.0.3<span> 2019-1-27 </span></h3>
         <p>修复<code>Poptip,Tooltip</code>显示坐标错误的问题,非常感谢用户`@tiantian8144`提出问题</p>
         <p>修复一些组件在box-sizing: border-box;模式下展示怪异的问题</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.0.2<span> 2019-1-14 </span></h3>
         <p>完善<code>DatePicker</code>组件的问题,非常感谢用户`@醒`提出问题</p>
         <p>优化<code>Table</code>组件,选中表格内容</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>2.0<span> 2019-1-9 </span></h3>
         <p>修复<code>Menu</code>组件展开折叠和accordion不生效的问题,非常感谢用户`@^_^¦¦¦`提出问题</p>
         <p>修复<code>Checkbox</code>组件动态赋值不触发change事件的问题,非常感谢用户`@^_^¦¦¦`提出问题</p>
         <p>完善文档目录结构</p>
@@ -34,14 +31,8 @@
         <h3>1.9.7<span> 2018-9-29 </span></h3>
         <p>优化webpack的编译，组件体积更小</p>
         <p>增加了对SSR服务端渲染的支持（for Nuxt），可以更愉快的玩耍了😊</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.9.6<span> 2018-9-19 </span></h3>
         <p>移除优化了一些不必要的组件事件，和奇葩的设计要求</p>
         <p><code>Table</code>组件新增排序,和rowclick行点击事件</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.9.1<span> 2018-8-15 </span></h3>
         <p><code>Upload</code>组件新增max-file-size,和file-extension属性分别控制上传大小和上传扩展名</p>
       </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
@@ -61,9 +52,6 @@
         <p><code>Table</code>文字处理完善</p>
         <p><code>Menu</code>完善在特定情况下显示不全的问题</p>
         <p><code>Table</code>组件新增text-max-length 属性，统一处理文字限制</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.8.6<span> 2018-7-11 </span></h3>
         <p><code>Upload</code>组件新增beforeUpload，afterUpload事件</p>
         <p>修复<code>DatePicker</code>组件特定情况下换行的问题</p>
         <p>修复<code>Page</code>组件打印错误的ios-bug</p>
@@ -80,9 +68,6 @@
         <p>修复<code>Table</code>全选反选的问题</p>
         <p>新增布局组件<code>Layout</code>等一些列组件和子组件</p>
         <p>修复transfer钩子无法销毁的问题</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.7.9<span> 2018-6-15 </span></h3>
         <p><code>Select</code>无法赋值，和搜索的问题</p>
         <p>修复<code>TreeSelect</code>lable 无法更改的bug</p>
         <p><code>Table</code>组件新增表头固定</p>
@@ -94,9 +79,6 @@
         <p>修复<code>Tree，TreeSelect</code>异步加载的问题</p>
         <p><code>Tooltip</code>组件新增<code>breaked</code>属性，文字过长强制换行</p>
         <p><code>Table</code>组件新增<code>overflow，tooltip</code>属性</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.7.6<span> 2018-6-12 </span></h3>
         <p>新增<code>TreeSelect</code>组件</p>
         <p>优化一些细节，规范一些组件名称和函数定义</p>
         <p>修复文档部分示例展示错误</p>
@@ -108,9 +90,6 @@
         <p>优化<code>Menu</code>手风琴模式的展示卡顿问题</p>
         <p>文档加入了自定义滚动容器 @海豚xxx，优化移动端阅读</p>
         <p>优化一些细节</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.7.3<span> 2018-5-17 </span></h3>
         <p>修复IE9+<code>Tree</code>组件选中的问题</p>
         <p>优化<code>datePicker</code>更加友好展示</p>
         <p>修复<code>Tabs</code>子集增加删除宽度错误的bug</p>
@@ -122,9 +101,6 @@
         <p><code>emitter</code>加入了滚动监听</p>
         <p>修复下拉组件在浏览器的一些兼容性问题</p>
         <p>修复IE9+浏览器中的花式bug</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.6.9<span> 2018-5-9 </span></h3>
         <p>重写了<code>Page</code>组件，保持队形</p>
         <p>新增<code>Tabs</code>，<code>TabPane</code>组件</p>
         <p>优化<code>Modal</code><code>Select</code>组件展示1像素的问题</p>
@@ -177,9 +153,6 @@
         <p>优化了文档页面首次载入过慢的问题
           <a href="https://www.chuchur.com/article/vue-code-optimization" target="_blank">#解决方案</a>
         </p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.4.8 <span> 2018-2-2 </span> </h3>
         <p>新增<code>Loading</code>组件 <a href="#/loading">#体验</a> </p>
         <p>新增<code>Badge</code>组件 <a href="#/badge">#体验</a> </p>
         <p>优化文档，加入了代码展示部分 展开折叠</p>
@@ -213,9 +186,6 @@
         <p>修复多个下拉组件显示隐藏的问题</p>
         <p>修复<code>Modal</code>组件冒泡显示移除的问题</p>
         <p>修复<code>Message</code>组件显示隐藏警告提示的问题</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-cloud-upload" color="orange">
-        <h3>1.4.2 <span> 2018-1-22 </span> </h3>
         <p>废弃一些组件</p>
         <p>新增<code>Modal</code> <code>Toast</code>模式，优化动画流畅性，加入点击Mask，和ESC键关闭弹框。
           <a href="#/modal">#体验</a>
@@ -242,9 +212,6 @@
         <p>修复<code>Input</code>组件默认参数定义出错的问题</p>
         <p>清理<code>Table</code>组件打印字符</p>
         <p>完善文档说明</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-cloud-upload">
-        <h3>1.3.6 <span> 2018-1-15 </span> </h3>
         <p>新增<code>Alert</code>组件</p>
         <p>新增<code>Message</code>组件</p>
         <p>新增<code>Notice</code>组件</p>
@@ -270,9 +237,6 @@
         <p>修复<code>colorPicker</code>组件内存泄漏问题</p>
         <p>部分组件加入禁用状态</p>
         <p>完善文档</p>
-      </TimeLineItem>
-      <TimeLineItem>
-        <h3>1.2.6 <span> 2017-12-19</span> </h3>
         <p>修复下拉组件绑定数据的问题</p>
         <p>完善表单问题</p>
         <p>新增<code>color</code>组件</p>
