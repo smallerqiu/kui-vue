@@ -59,8 +59,8 @@
  to {-webkit-transform: rotate(1turn);transform: rotate(1turn) }
 }
 
-.fadeease-enter-active { animation: fadeEaseIn .2s cubic-bezier(.23, 1, .32, 1);}
-.fadeease-leave-active { animation: fadeEaseOut .2s cubic-bezier(.23, 1, .32, 1);}
+.fadeease-enter-active { animation: fadeEaseIn .3s cubic-bezier(.23, 1, .32, 1);}
+.fadeease-leave-active { animation: fadeEaseOut .3s cubic-bezier(.23, 1, .32, 1);}
 
 .fade-enter-active { animation: fadeIn .4s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear;}
 .fade-leave-active { animation: fadeOut .4s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear; }
@@ -76,3 +76,19 @@
 
 .dropdownBottom-enter-active { transform-origin:0 100%; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
 .dropdownBottom-leave-active { transform-origin: 0 0; animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}
+.zoomInX ,.zoomOutX{
+  &.animated{
+    animation-duration: .3s;
+  }
+}
+@keyframes zoomInX {
+  from { opacity: 0; transform: scale3d(1.3, 1.3, 1.3);filter: blur(5px)  }
+  50% { opacity: 1;  }
+}
+@keyframes zoomOutX {
+  from { opacity: 1;   }
+  to { opacity:0;transform: scale3d(1.3, 1.3, 1.3);filter: blur(5px)  }
+}
+
+.zoomInX { animation-name: zoomInX;}
+.zoomOutX { animation-name: zoomOutX;}

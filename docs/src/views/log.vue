@@ -3,7 +3,9 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.1.7<span> 2019-5-18 </span></h3>
+        <h3>2.1.8<span> 2019-5-22 </span></h3>
+        <p><code>Table</code>组件新增可编辑模式</p>
+        <p>修复<code>Page</code>组件，当Total改变时page重置的问题</p>
         <p>新增<code>ImagePreview</code>组件</p>
         <p><code>Modal</code>组件,新增一些属性，可以最大化，居中显示，和自定义显示动画</p>
         <p>优化<code>Modal</code>组件拖动</p>
