@@ -38,8 +38,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in data" :key="index" @click="rowClick(item,index,$event)">
-          <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)">
+        <tr v-for="(item,index) in data" :key="index">
+          <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)" @click="rowClick(item,index,$event)">
             <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
                 <k-checkbox v-model="item.checked" @change="checkChange(item)"></k-checkbox>
@@ -59,12 +59,13 @@
             <template v-else>
               <template v-if="isShowTip(item,sub)">
                 <Tooltip :content="item[sub.key]" breaked>
-                  <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden"> {{item[sub.key]}}</div>
+                  <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden" v-if="!item[sub.key+'_editor']" @click="showEditor(item,sub,$event)"> {{item[sub.key]}}</div>
                 </Tooltip>
               </template>
               <template v-else>
-                <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'k-table-cell-hidden':sub.overflow=='hidden'}]"> {{item[sub.key]}}</div>
+                <div :style="`width:${sub.width}px;`" :class="['k-table-cell',{'k-table-cell-hidden':sub.overflow=='hidden'}]" v-if="!item[sub.key+'_editor']" @click="showEditor(item,sub,$event)"> {{item[sub.key]}}</div>
               </template>
+              <Input :mini="mini" :value="item[sub.key]" v-show="item[sub.key+'_editor']" @blur="editorChange(item,sub,index,$event)" autofocus />
             </template>
           </td>
         </tr>
@@ -75,6 +76,7 @@
 </template>
 <script>
 import { Checkbox } from "../checkbox";
+import Input from "../input";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
 import scroll from '@/directives/winScroll.js'
@@ -94,7 +96,7 @@ let copyData = (data) => {
   return o;
 }
 export default {
-  components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip, },
+  components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip, Input },
   name: "Table",
   directives: { scroll },
   props: {
@@ -147,6 +149,26 @@ export default {
     }
   },
   methods: {
+    editorChange(item, sub, index, e) {
+      item[sub.key] = e.target.value
+      this.$set(item, sub.key + '_editor', false)
+      delete item[sub.key + '_editor']
+      // e.target.style.display = 'none'
+      // e.target.tagName == 'INPUT' && ()
+      // this.$set(item, item[sub.key], e.target.value)
+      this.$emit('editor-change', item, index)
+    },
+    showEditor(item, sub, e) {
+      if (sub.type == 'editor' && !item[sub.key + '_editor']) {
+        this.$set(item, sub.key + '_editor', true)
+        let input = e.target.parentNode.querySelector('input')
+        this.$nextTick(a => {
+          input.focus()
+        })
+        // console.log()
+        // console.log(e.target.parentNode.querySelector('input').select())
+      }
+    },
     sort(item, sort) {
       if (this.data && this.data.length && item.sortable) {
         if (this.sortSingle) {
@@ -158,7 +180,6 @@ export default {
       }
     },
     rowClick(item, index, e) {
-      console.log(index)
       this.$emit('row-click', item, index)
     },
     isShowTip(item, sub) {

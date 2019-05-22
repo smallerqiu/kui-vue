@@ -129,17 +129,17 @@ export default {
   watch: {
     total(v) {
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-      this.current = this.current > this.pageCount ? this.pageCount : this.current;
-      this.page = this.current;
+      this.elevator = this.elevator > this.pageCount ? this.pageCount : this.elevator;
+      this.page = this.elevator;
     },
     page(page) {
       this.elevator = page;
+      // this.current = page
       this.$emit("change", page);
     }
   },
   mounted() {
     this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-    this.elevator = this.current;
     this.page = this.current;
     this.groupCount = Math.ceil(this.pageCount / 5);
   },

@@ -63,8 +63,8 @@ export default {
     isMove: { type: Boolean, default: false },
     isMax: { type: Boolean, default: false },
     isCenter: { type: Boolean, default: false },
-    animateIn: { type: String, default: 'fadeease-enter-active' },
-    animateOut: { type: String, default: 'fadeease-leave-active' },
+    animateIn: { type: String, default: 'zoomInX' },
+    animateOut: { type: String, default: 'zoomOutX' },
   },
   computed: {
     classes() {
@@ -91,6 +91,11 @@ export default {
       } else {
         style.top = `${this.top}px`;
       }
+      // this.$nextTick(e => {
+      //   let y = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetTop) + 'px '
+      //   this.$refs.modal.style.transformOrigin = 'center ' + y
+      // })
+
       return style;
     },
     iconClasses() {
@@ -123,9 +128,9 @@ export default {
   },
   created() {
     // window.addEventListener("keyup", this.dc);
-    if (this.isCenter && this.visible) {
-      this.top = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetHeight) / 2
-    }
+    // if (this.isCenter && this.visible) {
+    //   // this.top = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetHeight) / 2
+    // }
     window.addEventListener('keyup', this.onKeyUp)
   },
   beforeDestory() {
@@ -137,14 +142,19 @@ export default {
         this.visible = v
         this.visiblew = v
         document.body.style.overflow = 'hidden'
-        this.left = 0;
-        this.top = 100;
+        // this.$nextTick(e => {
+        //   let x = (document.body.getBoundingClientRect().width - this.width) / 2
+        //   console.log(document.body.getBoundingClientRect().width, this.$refs.modal.offsetHeight)
+        //   let y =  this.$refs.modal.offsetTop //+ this.$refs.modal.offsetHeight
+        // this.$refs.modal.style.transformOrigin = 'center bottom'
+        // })
+
       } else {
         document.body.style.overflow = ''
         this.close();
         this.timer = setTimeout(e => {
           this.visiblew = false
-        },500)
+        }, 500)
       }
     }
   },

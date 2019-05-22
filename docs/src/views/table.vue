@@ -7,11 +7,12 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @selection="select" @sort-change="change" :text-max-length="20" :bordered="bordered" @row-click="rowClick"></Table>
+        <Table :data="data" :columns="col" :mini="mini" @selection="select" @sort-change="change" :text-max-length="20" :bordered="bordered" @row-click="rowClick" @editor-change="editorChange"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
-        <code>mini</code>来设置表格大小模式</div>
+        <code>mini</code>来设置表格大小模式,
+        type等于<code>editor</code>时，数值可以编辑</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <h3>Table API</h3>
@@ -78,6 +79,12 @@
           <td>返回当前行的数据，index</td>
         </tr>
         <tr>
+          <td>editor-change</td>
+          <td>当编辑框离开焦点时触发 ，type 为editor 有效</td>
+          <td>Function</td>
+          <td>返回当前行的数据，index</td>
+        </tr>
+        <tr>
           <td>sort-change</td>
           <td>排序发生改变时处罚 </td>
           <td>Function</td>
@@ -102,7 +109,7 @@
         </tr>
         <tr>
           <td>type</td>
-          <td>列类型，可选值为 selection、html</td>
+          <td>列类型，可选值为 selection、html、editor</td>
           <td>String</td>
           <td>-</td>
         </tr>
@@ -170,10 +177,10 @@ export default {
       bordered: false,
       mini: false,
       data: [
-        { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "" },
-        { nick: "高总", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" },
-        { nick: "娟娟", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "" },
-        { nick: "鱼雷", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "" }
+        { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "高总", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' },
+        { nick: "娟娟", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "鱼雷", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' }
       ],
       col: [
         { type: "selection" },
@@ -181,6 +188,7 @@ export default {
         { title: "右对其", key: "right", textAlign: "right", sortable: true },
         { title: "居中", key: "center", textAlign: "center", sortable: true },
         { title: "文字提示", key: "tip", sortable: true },
+        { title: "可以编辑", key: "edit", sortable: true, type: 'editor' },
         {
           title: "出生年月",
           key: "birthday",
@@ -213,6 +221,10 @@ export default {
     };
   },
   methods: {
+    editorChange(a, b) {
+      this.$Message.info(a.edit)
+      console.log(a, b)
+    },
     rowClick(row) {
       console.log(row)
     },
