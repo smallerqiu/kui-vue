@@ -82,7 +82,7 @@
           <td>editor-change</td>
           <td>当编辑框离开焦点时触发 ，type 为editor 有效</td>
           <td>Function</td>
-          <td>返回当前行的数据，index</td>
+          <td>返回当前行的数据，当前列的key、index</td>
         </tr>
         <tr>
           <td>sort-change</td>
@@ -222,7 +222,7 @@ export default {
   },
   methods: {
     editorChange(a, b) {
-      this.$Message.info(a.edit)
+      this.$Message.info(a.edit,b,+','+c)
       console.log(a, b)
     },
     rowClick(row) {
