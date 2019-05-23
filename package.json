@@ -1,7 +1,7 @@
 {
     "name": "kui-vue",
-    "version": "2.1.8",
-    "description": "A high quality UI components Library with Vue.js",
+    "version": "2.1.9",
+    "description": "A high quality UI Toolkit built on Vue.js 2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
     "files": [
@@ -24,7 +24,7 @@
     "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
-        "uglifyjs-webpack-plugin": "^2.1.2"
+        "uglifyjs-webpack-plugin": "^2.1.3"
     },
     "keywords": [
         "kui",
@@ -49,10 +49,10 @@
         "email": "chuchur@qq.com"
     },
     "devDependencies": {
-        "@babel/core": "^7.4.4",
+        "@babel/core": "^7.4.5",
         "@babel/polyfill": "^7.4.4",
-        "@babel/preset-env": "^7.4.4",
-        "babel-loader": "^8.0.5",
+        "@babel/preset-env": "^7.4.5",
+        "babel-loader": "^8.0.6",
         "chalk": "^2.4.2",
         "css-loader": "^2.1.1",
         "file-loader": "^3.0.1",
@@ -73,9 +73,9 @@
         "vue-router": "^3.0.6",
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.10",
-        "webpack": "^4.30.0",
+        "webpack": "^4.32.2",
         "webpack-cli": "^3.3.2",
-        "webpack-dev-server": "^3.3.1",
+        "webpack-dev-server": "^3.4.1",
         "webpack-merge": "^4.2.1"
     }
 }

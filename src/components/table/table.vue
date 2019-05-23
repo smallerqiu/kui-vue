@@ -156,7 +156,7 @@ export default {
       // e.target.style.display = 'none'
       // e.target.tagName == 'INPUT' && ()
       // this.$set(item, item[sub.key], e.target.value)
-      this.$emit('editor-change', item, index)
+      this.$emit('editor-change', item, sub.key, index)
     },
     showEditor(item, sub, e) {
       if (sub.type == 'editor' && !item[sub.key + '_editor']) {

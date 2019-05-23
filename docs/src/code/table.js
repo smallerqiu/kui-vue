@@ -55,9 +55,9 @@ export default {
     };
   },
   methods: {
-    editorChange(a,b){
-      this.$Message.info(a.edit)
-      console.log(a,b,)
+    editorChange(a,b,c){
+      this.$Message.info(a.edit,b,c)
+      console.log(a,b,c)
     },
     rowClick(row) {
       console.log(row)
