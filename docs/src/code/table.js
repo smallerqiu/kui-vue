@@ -55,9 +55,8 @@ export default {
     };
   },
   methods: {
-    editorChange(a,b,c){
-      this.$Message.info(a.edit,b,c)
-      console.log(a,b,c)
+    editorChange(key, item, olditem, index) {
+      // this.$Message.info('key:'+key+, value: '+item[key]+' , old_value:  '+olditem[key]+', index: '+index)
     },
     rowClick(row) {
       console.log(row)
