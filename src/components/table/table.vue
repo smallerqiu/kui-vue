@@ -150,13 +150,16 @@ export default {
   },
   methods: {
     editorChange(item, sub, index, e) {
+      let olditem = JSON.parse(JSON.stringify(this.data[index]))
       item[sub.key] = e.target.value
       this.$set(item, sub.key + '_editor', false)
       delete item[sub.key + '_editor']
       // e.target.style.display = 'none'
       // e.target.tagName == 'INPUT' && ()
       // this.$set(item, item[sub.key], e.target.value)
-      this.$emit('editor-change', item, sub.key, index)
+      if (item[sub.key] != olditem[sub.key]) {
+        this.$emit('editor-change', sub.key, item, olditem, index)
+      }
     },
     showEditor(item, sub, e) {
       if (sub.type == 'editor' && !item[sub.key + '_editor']) {

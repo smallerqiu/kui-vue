@@ -82,7 +82,7 @@
           <td>editor-change</td>
           <td>当编辑框离开焦点时触发 ，type 为editor 有效</td>
           <td>Function</td>
-          <td>返回当前行的数据，当前列的key、index</td>
+          <td>依次返回当前列的key，当前行修改之后的数据，当前行修改之前的数据，当前行的index</td>
         </tr>
         <tr>
           <td>sort-change</td>
@@ -221,9 +221,8 @@ export default {
     };
   },
   methods: {
-    editorChange(a, b) {
-      this.$Message.info(a.edit,b,+','+c)
-      console.log(a, b)
+    editorChange(key, item, olditem, index) {
+      this.$Message.info(`key:${key}, value:${item[key]}, old_value:${olditem[key]}, index:${index}`)
     },
     rowClick(row) {
       console.log(row)
