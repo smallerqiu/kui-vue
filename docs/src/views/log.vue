@@ -2,6 +2,12 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+       <TimeLineItem icon="ios-bug" color="red">
+        <h3>2.1.11<span> 2019-6-1 </span></h3>
+        <p>优化<code>Notice,Message</code>组件显示隐藏动画展示的问题</p>
+        <p>优化<code>Select,DatePikcer</code>组件下拉展示的问题</p>
+        <p>修复<code>Poptip</code>内容或标题过长展示的问题</p>
+      </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>2.1.8<span> 2019-5-22 </span></h3>
         <p><code>Table</code>组件新增可编辑模式</p>
@@ -137,9 +143,6 @@
         <p>重写了<code>Checkbox</code>，<code>Radio</code>，<code>Select</code><code>Menu</code>等一系列组件</p>
         <p>完成了<code>Form</code>表单验证 <a href="#/form">#体验</a></p>
         <p>完善文档，分离代码示例和模版</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
-        <h3>1.5<span> 2018-3-27 </span></h3>
         <p>新增<code>Menu</code>,<code>MenuGroup</code>,<code>MenuItem</code>,<code>SubMenu</code> 组件
           <a href="#/menu">#体验</a>
         </p>
