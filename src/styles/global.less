@@ -22,7 +22,7 @@
 
 @keyframes fadeInDown {
   from { opacity: 0; transform: translate3d(0, -100%, 0); }
-  to { opacity: 1; transform: none; }
+  to { opacity: 1;  }
 }
 @keyframes fadeOutUp {
  from { opacity: 1; }
@@ -30,11 +30,11 @@
  }
  @keyframes fadeInLeft {
  from { opacity: 0; transform: translate3d(100%, 0, 0); }
- to { opacity: 1; transform: none; }
+ to { opacity: 1; }
 }
 @keyframes fadeInRight {
  from { opacity: 0; transform: translate3d(-100%, 0, 0); }
- to { opacity: 1; transform: none; }
+ to { opacity: 1; }
 }
 @keyframes fadeIn {
  from { opacity: 0; }
@@ -59,22 +59,22 @@
  to {-webkit-transform: rotate(1turn);transform: rotate(1turn) }
 }
 
-.fadeease-enter-active { animation: fadeEaseIn .3s cubic-bezier(.23, 1, .32, 1);}
-.fadeease-leave-active { animation: fadeEaseOut .3s cubic-bezier(.23, 1, .32, 1);}
+.fadeease-enter-active { animation: fadeEaseIn .3s ;}
+.fadeease-leave-active { animation: fadeEaseOut .3s ;}
 
-.fade-enter-active { animation: fadeIn .4s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear;}
-.fade-leave-active { animation: fadeOut .4s cubic-bezier(.23, 1, .32, 1);animation-timing-function: linear; }
+.fade-enter-active { animation: fadeIn .4s ;animation-timing-function: linear;}
+.fade-leave-active { animation: fadeOut .4s ;animation-timing-function: linear; }
 
-.fadeleft-enter-active { animation: fadeInLeft .3s cubic-bezier(.23, 1, .32, 1);}
-.fadeleft-leave-active { animation: fadeOutUp .3s cubic-bezier(.23, 1, .32, 1); }
+.fadeleft-enter-active { animation: fadeInLeft .3s ;}
+.fadeleft-leave-active { animation: fadeOutUp .3s ; }
 
-.fadedown-enter-active { animation: fadeInDown .3s cubic-bezier(.23, 1, .32, 1);}
-.fadedown-leave-active { animation: fadeOutUp .3s cubic-bezier(.23, 1, .32, 1); }
+.fadedown-enter-active { animation: fadeInDown .4s ;}
+.fadedown-leave-active { animation: fadeOutUp .3s ; }
 
-.dropdown-enter-active { transform-origin:0 0; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
-.dropdown-leave-active {transform-origin:0 0; animation: dropDownOut .3s cubic-bezier(.23, 1, .32, 1)}
+.dropdown-enter-active { transform-origin:0 0; animation: dropDownIn .3s }
+.dropdown-leave-active {transform-origin:0 0; animation: dropDownOut .3s }
 
-.dropdownBottom-enter-active { transform-origin:0 100%; animation: dropDownIn .3s cubic-bezier(.23, 1, .32, 1)}
+.dropdownBottom-enter-active { transform-origin:0 100%; animation: dropDownIn .3s }
 .dropdownBottom-leave-active { transform-origin: 0 0; animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}
 .zoomInX ,.zoomOutX{
   &.animated{

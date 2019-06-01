@@ -6,12 +6,14 @@
     <transition name="fade">
       <div :class="classes" v-if="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
-        <div class="k-poptip-title" v-if="title">
-          <i class="k-ion-ios-help-circle" v-if="confirm"></i>
+        <div class="k-poptip-title" v-if="title&&!confirm">
           <span>{{title}}</span>
         </div>
         <div class="k-poptip-content">
-          <slot name="content">{{content}}</slot>
+          <i class="k-ion-ios-help-circle" v-if="confirm"></i>
+          <div class="k-poptip-message">
+            <slot name="content">{{confirm?title:content}}</slot>
+          </div>
         </div>
         <div class="k-poptip-footer" v-if="confirm">
           <k-button type="link" mini @click.stop="cancel">{{cancelText}}</k-button>
@@ -24,7 +26,7 @@
 <script>
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
-import {Button} from "../button";
+import { Button } from "../button";
 import docClick from "@/directives/docClick";
 import transferDom from "@/directives/transferDom";
 import emitter from '@/mixins/emitter'
@@ -44,20 +46,7 @@ export default {
     placement: {
       validator(value) {
         return (
-          [
-            "top",
-            "top-left",
-            "top-right",
-            "bottom",
-            "bottom-left",
-            "bottom-right",
-            "left",
-            "left-bottom",
-            "left-top",
-            "right",
-            "right-top",
-            "right-bottom"
-          ].indexOf(value) >= 0
+          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
         );
       },
       default: "top"
@@ -101,7 +90,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      if(SSR)return;
+      if (SSR) return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
       if (this.transfer) {
@@ -111,7 +100,7 @@ export default {
       let x = this.placement;
       // let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      if(!dom) return;
+      if (!dom) return;
       //取子元素的margin,计算的时候要进行运算
       // let child = this.$children[0] && this.$children[0].$el || rel
       // let mr = 0//document.defaultView.getComputedStyle(child, null)['margin-right'].replace('px', '')

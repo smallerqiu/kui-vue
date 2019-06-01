@@ -178,10 +178,18 @@
       overflow: hidden;
       position: relative;
       &:hover {
-         overflow-y: scroll;
+         overflow-y: auto;
+      }
+      &::-webkit-scrollbar {
+         width: 8px;
+         height: 8px;
+      }
+      &::-webkit-scrollbar-thumb {
+         background: #e6e5e5;
+         border-radius: 4px;
       }
    }
-   .k-calendar-minutes{
+   .k-calendar-minutes {
       box-sizing: content-box;
       border-left: 1px solid #efefef;
       border-right: 1px solid #efefef;
@@ -215,9 +223,9 @@
          width: 100%;
          border-radius: 0;
          text-align: left;
-         padding-left:31px;
-         &:hover{
-           border-radius: 0;
+         padding-left: 31px;
+         &:hover {
+            border-radius: 0;
          }
       }
    }
@@ -235,11 +243,13 @@
       font-weight: bold;
    }
 }
-.k-calendar-right,.k-calendar-left{
-       .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
-          width: 71px;
-       }
+
+.k-calendar-right, .k-calendar-left {
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      width: 71px;
+   }
 }
+
 // .k-calendar-right {
 //     margin-left: 5px;
 //     padding-left: 5px;

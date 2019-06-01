@@ -116,9 +116,26 @@
           <code>confirm</code>来自定义一个确认框模式</div>
         <div slot="code">{{code.confirm}}</div>
       </Demo>
+      <Demo title="长文本">
+      <div slot="content">
+        <Poptip title="我是一个非常长的标题题题题题题题题题题题题题题" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+          <Button>长文本</Button>
+        </Poptip>
+        <Poptip width="200"  content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+          <Button>长内容</Button>
+        </Poptip>
+        <Poptip confirm title="缺定要删除吗，删除了不能撤回，删库跑路的绝佳操作,码农必备技能啊。" @ok="ok" @cancel="cancel" >
+          <Button>长文本确认</Button>
+        </Poptip>
+      </div>
+      <div slot="desc">启用
+        <code>confirm</code>来自定义一个确认框模式</div>
+      <div slot="code">{{code.longtext}}</div>
+    </Demo>
       </Col>
+    </Row> 
+    </Col>
     </Row>
-
     <h3>API</h3>
     <div class="table-border">
       <table>

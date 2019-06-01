@@ -48,4 +48,13 @@ code.confirm = `<Poptip confirm title="您确认删除这条内容吗？" @ok="o
   <Button>自定义</Button>
  </Poptip>`
 
+code.longtext=`<Poptip title="我是一个非常长的标题题题题题题题题题题题题题题" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+   <Button>长文本</Button>
+</Poptip>
+<Poptip width="200"  content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+   <Button>长内容</Button>
+</Poptip>
+<Poptip confirm title="缺定要删除吗，删除了不能撤回，删库跑路的绝佳操作,码农必备技能啊。" @ok="ok" @cancel="cancel" >
+   <Button>长文本确认</Button>
+</Poptip>`
 export default code
