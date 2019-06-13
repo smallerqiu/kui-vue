@@ -83,7 +83,7 @@ export default {
     },
     styles() {
       let style = {
-        width: this.width.indexOf('%') >= 0 ? this.width : `${this.width}px`,
+        width: this.width.toString().indexOf('%') >= 0 ? this.width : `${this.width}px`,
         left: `${this.left}px`
       };
 
