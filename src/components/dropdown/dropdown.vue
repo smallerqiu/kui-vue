@@ -76,7 +76,7 @@ export default {
     },
     mleave(e) {
       if (this.trigger != 'custom') {
-        if (!this.transfer){
+        if (!this.transfer) {
           this.show = false
         }
         else {
@@ -92,8 +92,8 @@ export default {
     },
     setPosition() {
       if (SSR) return;
-      let m = 5;
-      let rel = this.$refs.rel.children[0] || this.$refs.rel;
+      let m = 2;
+      let rel = /* this.$refs.rel.children[0] ||  */this.$refs.rel;
       let dom = this.$refs.dom;
       if (!dom) return;
       let relPos = this.getElementPos(rel);
@@ -113,7 +113,7 @@ export default {
         //空出来的高度不足以放下dom
         this.fadeInBottom = true;
         this.left = this.transfer ? relPos.left - 10 : -10;
-        this.top = this.transfer ? relPos.top - m - domH + scrollTop+10 : -(domH + m - 10);
+        this.top = this.transfer ? relPos.top - m - domH + scrollTop + 10 : -(domH + m - 10);
       } else {
         this.fadeInBottom = false;
         this.left = this.transfer ? relPos.left - 10 : -10;

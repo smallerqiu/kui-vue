@@ -5,8 +5,11 @@
   <div style="padding:300px;">
     <!-- <DatePicker format="YYYY-MM-DD HH:mm:ss" v-model="e"></DatePicker> -->
     <!-- <AAA v-for="x in a" :key="x.x"></AAA> -->
-    <Dropdown>
-      <Button @click="t">tttttt</Button>
+    <Dropdown trigger="click">
+      <span>
+        <img src="http://seeease.oss-cn-hangzhou.aliyuncs.com/seeease-erp/fogukp5jq5wjiqweobkr1d.png" style="height:40px;vertical:middle;display:inline-block;" />
+        <span>chuchur</span>
+      </span>
       <DropdownMenu slot="list">
         <DropdownItem>wrewrew</DropdownItem>
         <DropdownItem selected>wrewrew</DropdownItem>
@@ -18,7 +21,10 @@
     </Dropdown>
     <br />
     <Dropdown trigger="click">
-      <a>test</a>
+      <span>
+        <a>test</a>
+        <a>test</a>
+      </span>
       <DropdownMenu slot="list">
         <DropdownItem>wrewrew</DropdownItem>
         <DropdownItem>wrewrew</DropdownItem>
@@ -28,6 +34,10 @@
     </Dropdown>
     <br />
     <br />
+    <Poptip trigger="hover" title="标题" content="内容">
+      <div style="width:100px;height:200px;">hover激活</div>
+      <div style="width:100px;height:200px;">hover激活</div>
+    </Poptip>
     <br />
     <Dropdown :visible="tt">
       <a>test</a>

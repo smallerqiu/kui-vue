@@ -11,6 +11,7 @@ const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const progress = require('webpack-simple-progress-plugin');
 
 module.exports = merge(webpackBaseConfig, {
     mode: 'production',
@@ -71,6 +72,7 @@ module.exports = merge(webpackBaseConfig, {
         ]
     },
     plugins: [
+        new progress(),
         new VueLoaderPlugin(), //for vue-loader 15
         new webpack.DefinePlugin({ PRODUCTION: "'true'" }),
         new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
