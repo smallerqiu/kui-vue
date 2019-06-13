@@ -10,7 +10,7 @@ import { Carousel, CarouselItem } from './components/carousel'
 import { Collapse, Panel } from './components/collapse'
 import { Checkbox, CheckboxGroup } from './components/checkbox'
 import DatePicker from './components/datePicker'
-import { Dropdown, DropdownItem } from './components/dropdown'
+import { Dropdown, DropdownItem, DropdownMenu } from './components/dropdown'
 import { Form, FormItem } from './components/form'
 import ImagePreview from './components/imagePreview'
 import Icon from './components/icon'
@@ -47,9 +47,9 @@ const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, Dropdown, DropdownItem,
+    DatePicker, Dropdown, DropdownItem, DropdownMenu,
     Form, FormItem,
-    ImagePreview,Input, Icon,
+    ImagePreview, Input, Icon,
     Loading,
     Menu, MenuGroup, MenuItem, Modal, Message,
     Layout, Header, Footer, Content, Sider,

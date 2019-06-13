@@ -5,6 +5,9 @@ code.base = `<Poptip trigger="hover" title="标题" content="内容">
 </Poptip>
 <Poptip trigger="click" title="标题" content="内容">
    <Button>click激活</Button>
+</Poptip>
+<Poptip trigger="click" title="标题" content="内容" dark>
+   <Button>click激活</Button>
 </Poptip>`
 code.position = `<Poptip title="标题" content="内容" placement="top-left"><Button>上左</Button></Poptip>
 <Poptip title="标题" content="内容" placement="top"><Button>上</Button></Poptip>

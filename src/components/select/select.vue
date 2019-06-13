@@ -31,7 +31,7 @@ export default {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
     filterable: Boolean,
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
     clearable: { type: Boolean, default: false },
@@ -197,23 +197,11 @@ export default {
       if (clientH - relPos.top - relH - m < domH) {
         //空出来的高度不足以放下dom
         this.fadeInBottom = true;
-        this.top = this.transfer
-          ? relPos.top - m - domH + scrollTop
-          : -(domH + m);
+        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m);
       } else {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
-      }
-      // console.log(this.top)
-      // console.log(this.fadeInBottom, clientH, relPos.y, relH, m, domH)
-      //old
-      // if (h - (pos.y - s) - rh < dh) {
-      //   this.fadeInBottom = true;
-      //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
-      // } else {
-      //   this.fadeInBottom = false;
-      //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
-      // }
+      } 
     },
     change(item) {
       this.selectItem = item;

@@ -30,7 +30,7 @@ export default {
   components: { Calendar: calendar },
   mixins: [emitter],
   props: {
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     width: [String, Number],
     mini: Boolean,
     name: [String],
@@ -108,20 +108,22 @@ export default {
   /* boforeCreated(){
     this.local = require(`./lang/${this.lang}.js`);
   }, */
-  created() {
+  mounted() {
     this.local = lang[this.lang]
-    this.value != "" && this.value != [] && this.setText();
+    if (this.value || (Array.isArray(this.value) && this.value.length)) {
+      this.setText();
+    }
   },
   watch: {
     value(val, old) {
       if (val != old) {
         let range = Array.isArray(val)
-        let dates = range ? val.map(date => this.formatDate(date)) : this.formatDate(val)
+        let dates = range ? val.map(date => this.formatDate(date)) : this.formatDate(val);
         let d = range ? dates.join(this.rangeSeparator) : dates;
         this.text = d;
-        this.$emit("change", this.text);
+        this.$emit("change", dates);
         if (this.text && this.text.length) {
-          this.dispatch("FormItem", "form-item-change", dates);
+          this.dispatch("FormItem", "form-item-change", this.text);
         }
       }
     },
@@ -179,8 +181,8 @@ export default {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
-      if (clientW - relPos.left - relW - m < domW) {
-        this.left = relPos.left - domW + relW
+      if (clientW - relPos.left - domW - m < domW) {
+        this.left = this.transfer ? (relPos.left - domW + relW) : (- (domW - relW - 1))
       }
     },
     setText() {
@@ -196,14 +198,12 @@ export default {
       this.dispatch("FormItem", "form-item-change", this.range ? [] : "");
     },
     vi(val) {
-      //在ie浏览器里面new Date() 格式必须为yyy/MM/dd 其他格式均不识别
+      //在ie,safari浏览器里面new Date() 格式必须为yyy/MM/dd 其他格式均不识别
       if (Array.isArray(val)) {
-        return val.length > 1
-          ? val.map((item, i) => item ? new Date(item.toString().replace(/-/g, "/")) : '')
-          : [];
+        return val.map((item, i) => item > 0 ? new Date(item) : new Date(item.toString().replace(/-/g, "/")))
       } else {
         return val
-          ? new Array(new Date(val.toString().replace(/-/g, "/")))
+          ? new Array(val > 0 ? new Date(val) : new Date(val.toString().replace(/-/g, "/")))
           : [];
       }
     },
@@ -227,7 +227,7 @@ export default {
     },
     formatDate(time, format) {
       if (!time) return '';
-      time = new Date(time)
+      time = new Date(time > 0 ? time : time.toString().replace(/-/g, "/"))
       const year = time.getFullYear();
       const month = time.getMonth();
       const day = time.getDate();

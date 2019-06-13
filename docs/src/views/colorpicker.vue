@@ -1,7 +1,8 @@
 <template>
   <div>
     <h2>ColorPicker 颜色</h2>
-    <Alert>注意：非 template/render 模式下，需使用 color-picker。</Alert>
+    <Alert type="info">注意：非 template/render 模式下，需使用 color-picker。</Alert>
+    <Alert>注意：若下拉被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
     <Demo title="基础用法">
       <div slot="content">

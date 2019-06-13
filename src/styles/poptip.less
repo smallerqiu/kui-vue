@@ -4,7 +4,7 @@
 }
 
 .k-poptip-dom {
-    min-width: 150px;
+    min-width: 200px;
     max-width: 300px;
     font-size: 12px;
     line-height: 1.5;
@@ -15,6 +15,7 @@
     border-radius: @radius;
     background: #fff;
     box-sizing: border-box; //    padding: 15px;
+    // margin: 10px;
     [class^=k-ion] {
         color: orange;
         font-size: 20px;
@@ -36,13 +37,13 @@
     }
     .k-poptip-content {
         padding: 8px 16px;
-        white-space: normal; 
+        white-space: normal;
     }
     .k-poptip-arrow {
         position: absolute;
         width: 0;
         height: 0;
-        bottom: -12px;
+        bottom: -13px;
         margin-left: -6px;
         border: 6px solid transparent;
         &::after {
@@ -159,17 +160,53 @@
     }
 }
 
+.k-poptip-dark {
+    background-color: @dark;
+    color: #fff;
+    .k-poptip-title {
+        border-bottom: 1px solid rgba(0, 0, 0,.2);
+    }
+    &[k-placement^=top] {
+        .k-poptip-arrow {
+            &::after {
+                border-top-color: @dark;
+            }
+        }
+    }
+    &[k-placement^=bottom] {
+        .k-poptip-arrow {
+            &::after {
+                border-bottom-color: @dark;
+            }
+        }
+    }
+    &[k-placement^=left] {
+        .k-poptip-arrow {
+            &::after {
+                border-left-color: @dark;
+            }
+        }
+    }
+    &[k-placement^=right] {
+        .k-poptip-arrow {
+            &::after {
+                border-right-color: @dark;
+            }
+        }
+    }
+}
+
 .k-poptip-confirm {
     .k-poptip-title {
         border: none;
         padding: 16px 16px 8px;
     }
-    .k-poptip-content{
+    .k-poptip-content {
         padding: 16px 16px 0;
     }
-     .k-poptip-message {
-     padding-left: 20px;
- }
+    .k-poptip-message {
+        padding-left: 20px;
+    }
     .k-poptip-footer {
         text-align: right;
         padding: 8px 16px 16px;

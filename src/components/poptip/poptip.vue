@@ -39,7 +39,8 @@ export default {
   props: {
     trigger: { type: String, default: "click" },
     confirm: Boolean,
-    transfer: { type: Boolean, default: true },
+    dark: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: false },
     title: String,
     content: String,
     width: [String, Number],
@@ -66,7 +67,8 @@ export default {
       return [
         "k-poptip-dom",
         {
-          ["k-poptip-confirm"]: this.confirm
+          ["k-poptip-confirm"]: this.confirm,
+          ["k-poptip-dark"]: this.dark
         }
       ];
     },
@@ -166,6 +168,8 @@ export default {
         if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
           this.visible = false
         }
+      } else {
+        this.visible = false
       }
     },
     ok() {

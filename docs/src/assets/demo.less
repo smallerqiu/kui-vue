@@ -89,7 +89,7 @@ body {
   background: #f1f1f1;
 }
 
-p, .k-code {
+p {
   margin-bottom: 10px;
 }
 
@@ -449,7 +449,6 @@ header {
     height: 100%;
     .k-col {
       height: 100%;
-      overflow: auto;
       &::-webkit-scrollbar {
         //定义整体宽高
         // margin: 4px;
@@ -476,6 +475,9 @@ header {
   // }
   // .colMain{
   // }
+  .k-col-20, .k-col-4 {
+    overflow: auto;
+  }
   .nav {
     // width: 218px;
     color: #555;
@@ -560,10 +562,14 @@ header {
   }
 }
 
-pre {
+.k-modal .k-modal-content .k-modal-body {
+  padding: 0
+}
+
+.k-code-pre {
   height: 100%;
   min-height: 100%;
-  line-height: 1px;
+  font-size: 0;
   overflow: hidden; // margin: 10px 0;
   transition: height .3s ease-in-out;
 }
@@ -585,17 +591,18 @@ code, kbd, samp {
   padding: 15px !important;
   height: 100%;
   margin: 0;
+  font-size: 13px;
 }
 
 .k-demo {
   border: 1px solid #eee;
   margin: 10px 0;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   transition: height .3s ease-in-out;
   .k-demo-main {
-    padding: 0 0 20px;
-    box-sizing: border-box;
+    // padding: 0 0 20px;
+    // box-sizing: border-box;
   }
   .k-content, .k-desc {
     padding: 0 20px;
@@ -625,17 +632,20 @@ code, kbd, samp {
   .k-code-expan {
     position: absolute;
     right: 10px;
-    bottom: 0;
-    font-size: 20px;
-    color: #555;
+    bottom: 10px;
+    font-size: 12px;
+    color: #7d7d7d;
     cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 3px 5px;
+    border-radius: 5px;
   }
   .k-content {
     padding: 20px; // overflow: hidden;
     .k-button, .k-select, .k-input, .k-datepicker, .k-tag, .k-switch, .k-btn-group {
       margin: 0 10px 10px 0;
     }
-    td, .k-btn-group, .k-affix, .k-tabs-extra, .k-page, .k-form, .k-radio-group, .k-badge {
+    td, .k-btn-group, .k-affix, .k-tabs-extra, .k-page, .k-form, .k-radio-group, .k-badge,.k-poptip-dom {
       .k-button, .k-select, .k-input, .k-datepicker {
         margin: 0;
       }
@@ -656,6 +666,27 @@ code {
   li {
     margin: 5px;
     list-style: disc;
+  }
+}
+
+.k-code {
+  position: relative;
+  .k-code-tools {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    .k-tooltip {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      color: #999;
+      font-size: 16px;
+      cursor: pointer;
+      &:hover {
+        color: #333;
+      }
+    }
   }
 }
 

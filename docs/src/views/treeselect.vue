@@ -2,6 +2,7 @@
   <div>
     <h2>TreeSelect 树选择</h2>
     <p>类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。</p>
+    <Alert>注意：若下拉展开内容被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">

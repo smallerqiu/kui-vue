@@ -2,7 +2,17 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
-       <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="red">
+        <h3>2.2.1<span> 2019-6-12 </span></h3>
+        <p>为了移动端更好的体验，默认取消全局定位，本次改动受影响的组件<code>ColorPicker,DatePicker,Poptip,Select,Tooltip,TreeSelect</code>，如果发现组件下拉部分被遮挡，请给设置组件<code>transfer='true'</code></p>
+        <p>文档代码展示模块新增了复制代码和放大显示</p>
+        <p>新增了<code>Dropdown</code>组件</p>
+        <p><code>Modal</code>组件新增宽度支持百分比`width="80%"`显示，优化关闭按钮显示</p>
+        <p><code>Poptip</code>组件新增了暗黑模式，默认宽度由150px改为200px</p>
+        <p>优化<code>ToolTip</code>显示隐藏的问题</p>
+        <p>修复<code>DatePicker</code>在IE，Safari等浏览器下无法设置时间的问题。</p>
+      </TimeLineItem>
+      <TimeLineItem icon="ios-bug" color="red">
         <h3>2.1.11<span> 2019-6-1 </span></h3>
         <p>优化<code>Notice,Message</code>组件显示隐藏动画展示的问题</p>
         <p>优化<code>Select,DatePikcer</code>组件下拉展示的问题</p>

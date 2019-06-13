@@ -82,9 +82,11 @@ export default {
       return style;
     },
     styles() {
-      let style = {};
-      style.width = `${this.width}px`;
-      style.left = `${this.left}px`;
+      let style = {
+        width: this.width.indexOf('%') >= 0 ? this.width : `${this.width}px`,
+        left: `${this.left}px`
+      };
+
       if (this.isCenter) {
         style.top = '50%'
         style.transform = 'translateY(-50%)'

@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <transition name="fade">
-      <div class="k-tooltip-dom" v-if="visible" :style="styles" ref="dom" :k-placement="placement" v-transferDom :data-transfer="transfer">
+      <div class="k-tooltip-dom" v-if="visible" :style="styles" ref="dom" @mouseleave="mouseLeave2" :k-placement="placement" v-transferDom :data-transfer="transfer">
         <div class="k-poptip-arrow"></div>
         <div :class="classes">
           <slot name="content">{{content}}</slot>
@@ -25,7 +25,7 @@ export default {
   mixins: [emitter],
   name: "Tooltip",
   props: {
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     breaked: { type: Boolean },
     trigger: { type: String, default: "hover" },
     width: [String, Number],
@@ -34,18 +34,8 @@ export default {
       validator(value) {
         return (
           [
-            "top",
-            "top-left",
-            "top-right",
-            "bottom",
-            "bottom-left",
-            "bottom-right",
-            "left",
-            "left-bottom",
-            "left-top",
-            "right",
-            "right-top",
-            "right-bottom"
+            "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom",
+            "left-top", "right", "right-top", "right-bottom"
           ].indexOf(value) >= 0
         );
       },
@@ -79,12 +69,12 @@ export default {
       this.$nextTick(() => this.setPosition())
     },
     setPosition() {
-      if(SSR)return;
+      if (SSR) return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
-      // if (this.transfer) {
-      pos = this.getElementPos(rel);
-      // }
+      if (this.transfer) {
+        pos = this.getElementPos(rel);
+      }
       let x = this.placement;
       let dom = this.$refs.dom;
       if (!dom) return;
@@ -98,54 +88,55 @@ export default {
       let top = pos.top + scrollTop;
       let left = pos.left + scrollLeft;
       // console.log(mr, mb)
+      let p = 20;
       switch (x) {
         case "top":
-          this.top = top - dom.offsetHeight - 10;
+          this.top = top - dom.offsetHeight + 1;
           this.left = left - (dom.offsetWidth - rel.offsetWidth) / 2;
           break;
         case "top-left":
-          this.top = top - dom.offsetHeight - 10;
-          this.left = left;
+          this.top = top - dom.offsetHeight + 1;
+          this.left = left - 10;
           break;
         case "top-right":
-          this.top = top - dom.offsetHeight - 10;
-          this.left = left - (dom.offsetWidth - rel.offsetWidth);
+          this.top = top - dom.offsetHeight + 1;
+          this.left = left - (dom.offsetWidth - rel.offsetWidth) + 10;
           break;
         case "bottom":
-          this.top = top + rel.offsetHeight + 10;
+          this.top = top + rel.offsetHeight;
           this.left = left - (dom.offsetWidth - rel.offsetWidth) / 2;
           break;
         case "bottom-right":
-          this.top = top + rel.offsetHeight + 10;
-          this.left = left - (dom.offsetWidth - rel.offsetWidth);
+          this.top = top + rel.offsetHeight;
+          this.left = left - (dom.offsetWidth - rel.offsetWidth) + 10;
           break;
         case "bottom-left":
-          this.top = top + rel.offsetHeight + 10;
-          this.left = left;
+          this.top = top + rel.offsetHeight;
+          this.left = left - 10;
           break;
         case "left":
-          this.left = left - dom.offsetWidth - 10;
+          this.left = left - dom.offsetWidth;
           this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2;
           break;
         case "left-top":
-          this.left = left - dom.offsetWidth - 10;
-          this.top = top;
+          this.left = left - dom.offsetWidth;
+          this.top = top - 10;
           break;
         case "left-bottom":
-          this.left = left - dom.offsetWidth - 10;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight);
+          this.left = left - dom.offsetWidth;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight) + 10;
           break;
         case "right":
-          this.left = left + rel.offsetWidth + 10;
+          this.left = left + rel.offsetWidth;
           this.top = top - (dom.offsetHeight - rel.offsetHeight) / 2;
           break;
         case "right-top":
-          this.left = left + rel.offsetWidth + 10;
-          this.top = top;
+          this.left = left + rel.offsetWidth
+          this.top = top - 10;
           break;
         case "right-bottom":
-          this.left = left + rel.offsetWidth + 10;
-          this.top = top - (dom.offsetHeight - rel.offsetHeight);
+          this.left = left + rel.offsetWidth;
+          this.top = top - (dom.offsetHeight - rel.offsetHeight) + 10;
           break;
       }
     },
@@ -153,11 +144,20 @@ export default {
       if (this.trigger == "hover") this.visible = true
       this.handleScroll();
     },
+    mouseLeave2() {
+      if (this.transfer) {
+        this.visible = false
+      }
+    },
     mouseLeave(e) {
       if (this.trigger == "hover") {
-        this.visible = false
-        // console.log(e)
-        // !this.$refs.dom.contains(e.target) && ()
+        if (this.transfer) {
+          let pos = this.getElementPos(this.$refs.dom)
+          let x = e.clientX, y = e.clientY;
+          let show = (x >= pos.left && x <= pos.right && y >= pos.top && y <= pos.bottom)
+          this.visible = !!show
+        } else
+          this.visible = false
       }
     },
     relClick() {
