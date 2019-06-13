@@ -7,22 +7,25 @@
 }
 
 .k-tooltip-dom {
-  font-size: 14px;
-  line-height: 1.5;
-  position: absolute;
   z-index: 800;
-  max-width: 250px;
-  padding: 6px 8px;
-  color: #fff;
-  text-align: left;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, .75);
-  border-radius: @radius; // -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
-  // box-shadow: 0 2px 8px rgba(0,0,0,.15);
-  min-height: 32px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  .k-tooltip-content-breaked{
+  padding: 10px;
+  position: absolute;
+  .k-tooltip-content {
+    padding: 6px 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 250px;
+    color: #fff;
+    text-align: left;
+    text-decoration: none;
+    background-color: @dark;
+    border-radius: @radius; // -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    // box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    min-height: 32px;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+  .k-tooltip-content-breaked {
     word-break: break-all;
     white-space: normal;
   }
@@ -30,58 +33,60 @@
     position: absolute;
     width: 0;
     height: 0;
-    bottom: -6px;
-    margin-left: -6px;
+    bottom: 4px;
+    margin-left: 4px;
     border: 6px solid transparent;
     border-style: solid; // border-top-color:  rgba(0, 0, 0, .75);
   }
   &[k-placement^=top] {
     .k-poptip-arrow {
       border-width: 6px 6px 0;
-      border-top-color: rgba(0, 0, 0, 0.75);
+      border-top-color: @dark;
     }
   }
   &[k-placement=top] {
     .k-poptip-arrow {
       left: 50%;
+      margin-left: -6px;
     }
   }
   &[k-placement=top-right] {
     .k-poptip-arrow {
-      right: 10px;
+      right: 15px;
     }
   }
   &[k-placement=top-left] {
     .k-poptip-arrow {
-      left: 20px;
+      left: 15px;
     }
   }
   &[k-placement^=bottom] {
     .k-poptip-arrow {
-      border-bottom-color: rgba(0, 0, 0, 0.75);
+      border-bottom-color: @dark;
       border-width: 0 6px 6px 6px;
-      top: -6px;
+      top: 4px;
     }
   }
   &[k-placement=bottom] {
     .k-poptip-arrow {
       left: 50%;
+      margin-left: -6px;
     }
   }
   &[k-placement=bottom-left] {
     .k-poptip-arrow {
-      left: 16px;
+      left: 15px;
     }
   }
   &[k-placement=bottom-right] {
     .k-poptip-arrow {
-      right: 10px;
+      right: 15px;
     }
   }
   &[k-placement^=left] {
     .k-poptip-arrow {
-      right: -12px;
-      border-left-color: rgba(0, 0, 0, 0.75);
+      right: -2px;
+      border-left-color: @dark;
     }
   }
   &[k-placement=left] {
@@ -92,19 +97,19 @@
   }
   &[k-placement=left-bottom] {
     .k-poptip-arrow {
-      bottom: 10px;
+      bottom: 15px;
     }
   }
   &[k-placement=left-top] {
     .k-poptip-arrow {
-      top: 10px;
+      top: 15px;
     }
   } //ok
   &[k-placement^=right] {
     .k-poptip-arrow {
       left: 0px;
       border-width: 6px 6px 6px 0;
-      border-right-color: rgba(0, 0, 0, 0.75);
+      border-right-color: @dark;
     }
   }
   &[k-placement=right] {
@@ -115,12 +120,12 @@
   }
   &[k-placement=right-top] {
     .k-poptip-arrow {
-      top: 10px;
+      top: 15px;
     }
   }
   &[k-placement=right-bottom] {
     .k-poptip-arrow {
-      bottom: 10px;
+      bottom: 15px;
     }
   }
 }

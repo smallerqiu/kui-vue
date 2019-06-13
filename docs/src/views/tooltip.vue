@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Tooltip 文字提示</h2>
+    <Alert>注意：若下拉展开内容被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">
@@ -30,7 +31,7 @@
       </Col>
       <Col span="12">
       <Demo title="位置">
-        <div slot="content" style="overflow:hidden;">
+        <div slot="content">
           <div style="margin-left:80px;white-space: nowrap;">
             <Tooltip content="Tooltip的显示内容" placement="top-left">
               <Button>上左</Button>

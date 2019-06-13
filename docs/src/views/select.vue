@@ -1,7 +1,8 @@
 <template>
   <div>
     <h2>Select 选择器</h2>
-    <Alert>注意：非 template/render 模式下，需使用 k-select</Alert>
+    <Alert type="info">注意：非 template/render 模式下，需使用 k-select</Alert>
+    <Alert>注意：若下拉展开内容被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">

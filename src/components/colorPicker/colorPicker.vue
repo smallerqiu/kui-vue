@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" v-docClick="hidePopup" v-winScroll="handleScroll">
     <!-- 颜色显示小方块 -->
-    <div @click="toggleDrop" ref="rel">
+    <div @click="toggleDrop" ref="rel" class="k-color-rel">
       <div class="k-color-button" :style="{backgroundColor:showColor}"></div>
       <div class="k-color-arrow"></div>
     </div>
@@ -57,7 +57,7 @@ export default {
     value: { type: String, default: "#000000", required: false },
     // 禁用状态
     disabled: { type: Boolean, default: false },
-    transfer: { type: Boolean, default: true }
+    transfer: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -156,27 +156,34 @@ export default {
     },
     setPosition() {
       if (SSR) return;
-      let m = 5;
+      let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;
       if (!dom) return;
+      this.dropdownWith = rel.offsetWidth;
       let relPos = this.getElementPos(rel);
-      let clientH = window.innerHeight
-      let clientW = window.innerWidth
-
+      let clientH = window.innerHeight;
+      let clientW = window.innerWidth;
+      // console.log(relPos)
       let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
       let domH = dom.offsetHeight;
+      let domW = dom.offsetWidth;
+      let relW = rel.offsetWidth;
       let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left + scrollLeft;
+      if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
       //new
-      if (clientH - relPos.top - relH - m < domH) {  //空出来的高度不足以放下dom
-        this.fadeInBottom = true
-        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m)
+      if (clientH - relPos.top - relH - m < domH) {
+        //空出来的高度不足以放下dom
+        this.fadeInBottom = true;
+        this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m);
       } else {
-        this.fadeInBottom = false
-        this.top = this.transfer ? relPos.top + relH + scrollTop : relH - m
+        this.fadeInBottom = false;
+        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
+      }
+      if (clientW - relPos.left - domW - m < domW) {
+        this.left = this.transfer ? (relPos.left - domW + relW) : (- (domW - relW))
       }
     },
     close() {
@@ -197,14 +204,7 @@ export default {
     // 格式化 hex 颜色值
     parseColor(hexStr) {
       if (hexStr.length === 4) {
-        hexStr =
-          "#" +
-          hexStr[1] +
-          hexStr[1] +
-          hexStr[2] +
-          hexStr[2] +
-          hexStr[3] +
-          hexStr[3];
+        hexStr = "#" + hexStr[1] + hexStr[1] + hexStr[2] + hexStr[2] + hexStr[3] + hexStr[3];
       } else {
         return hexStr;
       }
@@ -236,11 +236,7 @@ export default {
       // 计算每一步的hex值
       for (let i = 0; i < step; i++) {
         gradientColorArr.push(
-          this.rgbToHex(
-            parseInt(rStep * i + sColor[0]),
-            parseInt(gStep * i + sColor[1]),
-            parseInt(bStep * i + sColor[2])
-          )
+          this.rgbToHex(parseInt(rStep * i + sColor[0]), parseInt(gStep * i + sColor[1]), parseInt(bStep * i + sColor[2]))
         );
       }
       return gradientColorArr;

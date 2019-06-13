@@ -34,7 +34,7 @@ export default {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
     queryable: Boolean,
-    transfer: { type: Boolean, default: true },
+    transfer: { type: Boolean, default: false },
     width: { type: [Number, String], default: 0 },
     value: { type: [String, Number], default: "" },
     label: { type: [String, Number], default: "" },

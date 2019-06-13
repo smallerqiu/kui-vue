@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.1.11",
+    "version": "2.2.1",
     "description": "A high quality UI Toolkit built on Vue.js 2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -68,6 +68,7 @@
         "style-loader": "^0.23.1",
         "url-loader": "^1.1.2",
         "vue": "^2.6.10",
+        "vue-clipboard2": "^0.3.0",
         "vue-hljs": "^1.1.2",
         "vue-loader": "^15.7.0",
         "vue-router": "^3.0.6",
