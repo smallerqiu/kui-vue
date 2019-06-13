@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "description": "A high quality UI Toolkit built on Vue.js 2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -77,6 +77,7 @@
         "webpack": "^4.32.2",
         "webpack-cli": "^3.3.2",
         "webpack-dev-server": "^3.4.1",
-        "webpack-merge": "^4.2.1"
+        "webpack-merge": "^4.2.1",
+        "webpack-simple-progress-plugin": "0.0.4"
     }
 }

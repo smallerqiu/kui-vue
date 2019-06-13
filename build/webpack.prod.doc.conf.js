@@ -13,6 +13,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const progress = require('webpack-simple-progress-plugin');
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
@@ -95,6 +96,7 @@ module.exports = merge(webpackBaseConfig, {
     ]
   },
   plugins: [
+    new progress(),
     new VueLoaderPlugin(), //for vue-loader 15
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
     new webpack.HashedModuleIdsPlugin(),
