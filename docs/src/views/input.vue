@@ -19,7 +19,7 @@
           <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
         </div>
         <div slot="desc">通过设置
-          <code>clearble</code>属性可控制是否显示清空按钮</div>
+          <code>clearable</code>属性可控制是否显示清空按钮</div>
         <div slot="code">{{code.clearable}}</div>
       </Demo>
       <Demo title="带图标" layout='vertical'>
