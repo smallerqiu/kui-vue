@@ -58,6 +58,7 @@
    .k-calendar-days {
       width: 100%;
       height: 100%;
+      line-height: 1.5;
    }
    .k-calendar-week, .k-calendar-date {
       font-weight: normal;
@@ -67,8 +68,8 @@
       box-sizing: border-box;
       display: inline-block;
       overflow: hidden;
-      // float: left;
-      margin: 0 1px;
+      float: left;
+      margin: 2px 1px 0 1px;
    }
    .k-calendar-week:before, .k-calendar-date:before {
       content: "";
@@ -218,13 +219,14 @@
    }
    .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
       span {
-         height: 20px;
-         line-height: 20px;
+         height: 25px;
+         line-height: 25px;
          margin: 0;
          width: 100%;
          border-radius: 0;
          text-align: left;
          padding-left: 31px;
+         float: left;
          &:hover {
             border-radius: 0;
          }
