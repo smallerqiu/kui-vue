@@ -47,7 +47,7 @@
             </div>
             <template v-else-if="sub.type&&sub.type=='html'">
               <template v-if="isShowTip(item,sub)">
-                <Tooltip :content="item[sub.key].replace(/<\/?.+?>/g,'')" breaked>
+                <Tooltip :content="item[sub.key].replace(/<\/?.+?>/g,'')" breaked transfer>
                   <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden" v-html="item[sub.key]"> </div>
                 </Tooltip>
               </template>
@@ -58,7 +58,7 @@
             </div>
             <template v-else>
               <template v-if="isShowTip(item,sub)">
-                <Tooltip :content="item[sub.key]" breaked>
+                <Tooltip :content="item[sub.key]" breaked transfer>
                   <div :style="`width:${sub.width||textMaxLength*12}px;`" class="k-table-cell k-table-cell-hidden" v-if="!item[sub.key+'_editor']" @click="showEditor(item,sub,$event)"> {{item[sub.key]}}</div>
                 </Tooltip>
               </template>

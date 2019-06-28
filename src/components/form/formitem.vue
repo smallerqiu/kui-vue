@@ -78,7 +78,6 @@ export default {
     reset() {
       if (this.prop) {
         this.dispatch('Form', 'form-reset-field', this.prop)
-        this.valid = true
         // let prop = this.form.getProp(this.form.model, this.prop)
         if (Array.isArray(this.fieldValue)) {
           // prop.model[prop.key] = []
@@ -87,6 +86,7 @@ export default {
           // prop.model[prop.key] = ''
           this.fieldValue = ''
         }
+        this.valid = true
       }
     },
     test(rule, trigger) {
@@ -95,16 +95,12 @@ export default {
       let type = Object.prototype.toString.call(this.fieldValue)
       if (rule.required && type == '[object Undefined]') {
         valid = false
+      } else if (this.fieldValue === '' && type == '[object Boolean]' && rule.required) {
+        valid = false
       } else if (this.fieldValue === '' && type == '[object String]' && rule.required) {
         valid = false
       } else if (this.fieldValue.length == 0 && type == '[object Array]' && rule.required) {
         valid = false
-      } else if (rule.min && this.fieldValue.length < rule.min && rule.type != 'number') {
-        valid = false
-        message = rule.message || (type == '[object Array]' ? `Choose at least ${rule.min} item` : `Introduce no less than ${rule.min} words`)
-      } else if (rule.max && this.fieldValue.length > rule.max && rule.type != 'number') {
-        valid = false
-        message = rule.message || (type == '[object Array]' ? `Choose ${rule.max} items at best` : `Introduce no more than ${rule.max} words`)
       } else if (rule.pattner) {
         valid = rule.pattner.test(this.fieldValue)
         message = rule.message || 'Incorrect email format'
@@ -132,6 +128,25 @@ export default {
             message = error.message
           }
         })
+      } else {
+        if (rule.min != undefined) {
+          if (rule.type == 'number') {
+            valid = this.fieldValue >= rule.min
+            message = rule.message || 'Value not less than ' + rule.min
+          } else {
+            valid = this.fieldValue.length >= rule.min
+            message = rule.message || (type == '[object Array]' ? `Choose at least ${rule.min} item` : `Introduce no less than ${rule.min} words`)
+          }
+        }
+        if (rule.max != undefined && valid) {
+          if (type == 'number') {
+            valid = this.fieldValue <= rule.max
+            message = rule.message || 'Value cannot be greater than' + rule.max
+          } else {
+            valid = this.fieldValue.length <= rule.max
+            message = rule.message || (type == '[object Array]' ? `Choose ${rule.max} items at best` : `Introduce no more than ${rule.max} words`)
+          }
+        }
       }
 
       this.valid = valid

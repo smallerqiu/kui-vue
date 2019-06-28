@@ -10,12 +10,12 @@ let isBuildDoc = process.argv.splice(2).length>0;
 let config = isBuildDoc ? require('./webpack.prod.doc.conf') : require('./webpack.prod.conf');
 let rmPath = isBuildDoc ? './docs/dist' : './dist';
 
-spinner.start()
+// spinner.start()
 
 rm(rmPath, (err) => {
     if (err) throw err
     webpack(config, function (err, stats) {
-        spinner.stop()
+        // spinner.stop()
         if (err) throw err
         process.stdout.write(stats.toString({
             colors: true,

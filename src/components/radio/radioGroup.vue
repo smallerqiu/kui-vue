@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     value(v) {
-      this.update({ value: this.value, });
+      this.update({ value: v, });
     },
   },
   mounted() {
@@ -29,25 +29,29 @@ export default {
   },
   methods: {
     update(data) {
+      let value = data.value
+      if (value !== '' && value !== null && value != undefined)
+        this.dispatch('FormItem', 'form-item-change', value)
       this.$children.map(child => {
         let disabled = child.disabled || this.disabled
         let name = child.$options.name
         if (name == 'RadioButton') {
           child.disabled = disabled
           child.mini = this.mini
-          child.actived = data.value == child.label
+          child.actived = value == child.label
         }
         if (name == 'Radio') {
           child.disable = disabled
-          child.checked = data.value == child.label
+          child.checked = value == child.label
         }
       })
     },
     change(data) {
-      this.$emit("input", data.value);
-      this.$emit("change", data.value);
+      let value = data.value
+      this.$emit("input", value);
+      this.$emit("change", value);
       this.update(data);
-      this.dispatch('FormItem', 'form-item-change', data.value)
+
     }
   }
 };

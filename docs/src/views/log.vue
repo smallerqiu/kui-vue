@@ -3,6 +3,14 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
+        <h3>2.2.5<span> 2019-6-28 </span></h3>
+        <h4>全面修复完善表单验证组件如下:</h4>
+        <p>Input 组件，数字类型和最大值最小值验证</p>
+        <p>Input 清除之后的验证</p>
+        <p>Chebox单独使用和组合使用的验证</p>
+        <p>Radio单独使用和组合使用的验证</p>
+      </TimeLineItem>
+      <TimeLineItem icon="ios-bug" color="red">
         <h3>2.2.2<span> 2019-6-13 </span></h3>
         <p>为了移动端更好的体验，默认取消全局定位，本次改动受影响的组件<code>ColorPicker,DatePicker,Poptip,Select,Tooltip,TreeSelect</code>，如果发现组件下拉部分被遮挡，请给设置组件<code>transfer='true'</code></p>
         <p>文档代码展示模块新增了复制代码和放大显示</p>
@@ -11,9 +19,6 @@
         <p><code>Poptip</code>组件新增了暗黑模式，默认宽度由150px改为200px</p>
         <p>优化<code>ToolTip</code>显示隐藏的问题</p>
         <p>修复<code>DatePicker</code>在IE，Safari等浏览器下无法设置时间的问题。</p>
-      </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.1.11<span> 2019-6-1 </span></h3>
         <p>优化<code>Notice,Message</code>组件显示隐藏动画展示的问题</p>
         <p>优化<code>Select,DatePikcer</code>组件下拉展示的问题</p>
         <p>修复<code>Poptip</code>内容或标题过长展示的问题</p>

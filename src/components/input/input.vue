@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles" :class="classes" @mousemove="handleMove" @mouseout="handleOut">
+  <div :style="styles" :class="classes" @mouseenter="handleMove" @mouseleave="handleOut">
     <template v-if="type !== 'textarea'">
       <i :class="iconClasses" @click="iconClick" v-if="icon && type!=='textarea'"></i>
       <input :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="input" :type="type" :class="inputClasses" :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :number="number" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange">
@@ -8,7 +8,6 @@
     <textarea v-else :id="elementId" :autocomplete="autocomplete" :spellcheck="spellcheck" ref="textarea" :class="textareaClasses" :placeholder="placeholder" :disabled="disabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @input="handleInput">
     </textarea>
   </div>
-
 </template>
 
 <script>
@@ -105,7 +104,7 @@ export default {
       this.clearableShow = false;
     },
     handleMove() {
-      this.clearableShow = this.currentValue && this.currentValue.length > 0;
+      this.clearableShow = (this.currentValue && this.currentValue.toString().length > 0);
       this.isMove = true;
     },
     handleOut() {
@@ -130,7 +129,7 @@ export default {
       this.$emit("keyup", event);
     },
     handleFocus(event) {
-      this.clearableShow = this.currentValue && this.currentValue.length > 0;
+      this.clearableShow = this.currentValue && this.currentValue.toString().length > 0;
       this.$emit("focus", event);
       this.isFocus = true;
     },
@@ -156,6 +155,7 @@ export default {
     setCurrentValue(value) {
       if (value === this.currentValue) return;
       this.currentValue = value;
+      this.$emit("input", value);
       this.dispatch('FormItem', 'form-item-change', this.currentValue)
     },
     focus() {
