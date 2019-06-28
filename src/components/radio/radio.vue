@@ -44,11 +44,13 @@ export default {
       const checked = event.target.checked;
       this.checked = checked;
       this.$emit("input", checked);
-      if (this.$parent.$options.name == 'RadioGroup' && this.label !== undefined) {
-        this.dispatch('RadioGroup', 'radio-group-change', {
-          value: this.label,
-        })
-        return;
+      if (this.$parent.$options.name == 'RadioGroup') {
+        if (this.label !== undefined) {
+          this.dispatch('RadioGroup', 'radio-group-change', {
+            value: this.label,
+          })
+          return;
+        }
       }
       this.$emit("change", checked);
     }
@@ -56,6 +58,8 @@ export default {
   watch: {
     value(v) {
       this.checked = v;
+      if (v !== '' && v !== null && v != undefined)
+        this.dispatch('FormItem', 'form-item-change', v)
     },
   }
 };

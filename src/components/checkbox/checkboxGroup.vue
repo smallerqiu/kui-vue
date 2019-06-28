@@ -28,9 +28,12 @@ export default {
   },
   methods: {
     update() {
+      let value = this.value
       this.broadcast('Checkbox', 'checkbox-update', {
-        value: this.value,
+        value: value,
       })
+      if (value.length)
+        this.dispatch('FormItem', 'form-item-change', { field: value })
     },
     change(data) {
       let length = this.value.indexOf(data.value);
@@ -41,7 +44,6 @@ export default {
       }
       this.$emit("input", this.value);
       this.$emit("change", this.value);
-      this.dispatch('FormItem', 'form-item-change', { field: this.value })
     }
   }
 };

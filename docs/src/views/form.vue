@@ -71,12 +71,12 @@
       <Col span="12">
       <Demo title="表单验证">
         <div slot="content">
-          <Form label-width="90" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
+          <Form label-width="150" ref="form" :model="form" :rules="rules" :labelAlign="labelAlign">
             <FormItem label="Input" prop="input">
-              <Input v-model="form.input"></Input>
+              <Input v-model="form.input" clearable></Input>
             </FormItem>
             <FormItem label="Number" prop="number">
-              <Input v-model="form.number" number></Input>
+              <Input v-model="form.number" number clearable></Input>
             </FormItem>
             <FormItem label="Select">
               <Row>
@@ -106,18 +106,24 @@
               <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
             </FormItem>
             <FormItem label="Radio" prop="radio">
-              <RadioGroup v-model="form.radio">
+              <Radio v-model="form.radio">男</Radio>
+            </FormItem>
+            <FormItem label="RadioGroup" prop="radios">
+              <RadioGroup v-model="form.radios">
                 <Radio label="0">男</Radio>
                 <Radio label="1">女</Radio>
                 <Radio label="2">妖</Radio>
               </RadioGroup>
             </FormItem>
             <FormItem label="Checkbox" prop="checkbox">
-              <CheckboxGroup v-model="form.checkbox">
-                <Checkbox label="0">男</Checkbox>
-                <Checkbox label="1">女</Checkbox>
-                <Checkbox label="2">妖</Checkbox>
-                <Checkbox label="3">鲛人</Checkbox>
+              <Checkbox v-model="form.checkbox">男</Checkbox>
+            </FormItem>
+            <FormItem label="CheckboxGroup" prop="checkboxs">
+              <CheckboxGroup v-model="form.checkboxs">
+                <Checkbox label="男">男</Checkbox>
+                <Checkbox label="女">女</Checkbox>
+                <Checkbox label="妖">妖</Checkbox>
+                <Checkbox label="鲛人">鲛人</Checkbox>
               </CheckboxGroup>
             </FormItem>
             <FormItem label="Text" prop="textarea">
@@ -395,20 +401,24 @@ export default {
         select: '',
         province: '',
         city: '',
+        radio: '',
+        checkbox: '',
         datepicker: "",
-        radio: "",
-        checkbox: [],
+        radios: "",
+        checkboxs: [],
         textarea: ''
       },
       rules: {
         input: [{ required: true, trigger: 'blur' }],
-        number: [{ required: true, trigger: 'blur', type: 'number', min: 1, max: 10 }],
+        number: [{ required: true, trigger: 'blur', type: 'number', min: 5, max: 10 }],
         select: [{ required: true, trigger: 'change' }],
         province: [{ required: true, trigger: 'change' }],
         city: [{ required: true, trigger: 'change' }],
         datepicker: [{ required: true, trigger: 'change' }],
+        radios: [{ required: true, trigger: 'change' }],
         radio: [{ required: true, trigger: 'change' }],
-        checkbox: [{ required: true, trigger: 'change', min: 2, max: 3 }],
+        checkbox: [{ required: true, trigger: 'change' }],
+        checkboxs: [{ required: true, trigger: 'change', min: 2, max: 3, message: '长度为2-3个字符', }],
         textarea: [{ required: true, message: '必填', trigger: 'blur' }, { min: 2, max: 5, message: '长度为2-5个字符', trigger: 'blur' }],
       },
       customRules: {
@@ -441,7 +451,6 @@ export default {
       this.dynamicForm.items.splice(index, 1)
     },
     submitForm(name) {
-      // console.log(this.$refs[name].model)
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$Message.success('验证通过')

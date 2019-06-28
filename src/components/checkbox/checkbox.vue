@@ -16,7 +16,7 @@ export default {
     value: { type: [String, Number, Boolean], default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String },
-    label: { type: [String,Number] },
+    label: { type: [String, Number] },
     trueValue: { type: [String, Number, Boolean], default: true },
     falseValue: { type: [String, Number, Boolean], default: false },
     indeterminate: Boolean,
@@ -48,6 +48,8 @@ export default {
   watch: {
     value(v) {
       this.checked = v
+      if (v !== '' && v !== null && v != undefined)
+        this.dispatch('FormItem', 'form-item-change', v)
     }
   },
   mounted() {
