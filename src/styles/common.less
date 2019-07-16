@@ -17,7 +17,7 @@ a, button, input, textarea {
     outline: none;
 }
 
-button, input[type=button], input[type=date], select, input[type=reset], input[type=text], input[type=password], input[type=submit], textarea {
+button, input, input[type=button], input[type=date], select, input[type=reset], input[type=text], input[type=password], input[type=submit], textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
@@ -33,6 +33,7 @@ button, input[type=button], input[type=date], select, input[type=reset], input[t
     resize: none;
     zoom: 1;
 }
+
 
 /* ::-webkit-scrollbar {
     width: 8px;
@@ -50,12 +51,20 @@ button, input[type=button], input[type=date], select, input[type=reset], input[t
 ::-webkit-scrollbar-track {
     border-radius: 0;
 } */
-::-ms-clear{display:none;}
-::-ms-reveal{display:none;}
+
+::-ms-clear {
+    display: none;
+}
+
+::-ms-reveal {
+    display: none;
+}
+
 ::selection {
     background: @main;
     color: #fff;
 }
+
 .k-pull-center {
     text-align: center;
 }
@@ -63,6 +72,7 @@ button, input[type=button], input[type=date], select, input[type=reset], input[t
 .k-pull-right {
     text-align: right;
 }
-input[disabled='disabled'],button[disabled='disabled'],textarea[disabled='disabled']{
-    cursor:not-allowed;
+
+input[disabled='disabled'], button[disabled='disabled'], textarea[disabled='disabled'] {
+    cursor: not-allowed;
 }
