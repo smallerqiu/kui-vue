@@ -13,11 +13,12 @@
 .k-dropdown-menu {
   user-select: none;
   border-radius: @radius;
-  max-height: 500px;
+  max-height: 300px;
   max-width: 500px;
   background-color: #fff;
   box-sizing: border-box;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+  overflow: auto;
   .k-dropdown-item {
     margin: 0;
     line-height: normal;
@@ -69,9 +70,8 @@
       background: @main;
     }
   }
-  &:hover {
-    overflow: auto;
-  }
+  
+  
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

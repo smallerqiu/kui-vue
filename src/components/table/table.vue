@@ -1,6 +1,6 @@
 <template>
-  <div :class="classes" :style="styles" ref="table" v-scroll="scroll">
-    <table class="k-table-header" v-if="headerFixed && fixed" :style="`top:${fixedTop}px;width:${fixedWidth}px`">
+  <div :class="classes" :style="styles" ref="table">
+    <table class="k-table-header" v-if="headerFixed">
       <thead>
         <tr>
           <th v-for="(item,index) in columns" :key="index" :style="`width:${colWidths[index]}px`">
@@ -100,6 +100,8 @@ export default {
   name: "Table",
   directives: { scroll },
   props: {
+    width: [String, Number],
+    height: [String, Number],
     bordered: Boolean,
     headerFixed: Boolean,
     mini: Boolean,
@@ -121,18 +123,15 @@ export default {
       ];
     },
     styles() {
-      let style = {}
+      let style = { width: this.width+'px', height: this.height+'px' }
       style.overflow = this.data.length == 0 ? 'hidden' : ''
-      style.position = this.fixed ? 'relative' : ''
+      style.position = this.headerFixed ? 'relative' : ''
       return style
     }
   },
   data() {
     return {
       colWidths: [],
-      fixed: false,
-      fixedTop: 0,
-      fixedWidth: 0,
       checkedAll: false,
       selectRow: [], //所有选择的数据
     };
@@ -144,6 +143,7 @@ export default {
       handler(r1, r2) {
         let count = this.data.filter(x => x.checked == true).length
         this.checkedAll = this.data.length && count == this.data.length
+        this.setWidths()
       },
       deep: true
     }
@@ -190,25 +190,14 @@ export default {
       return (this.textMaxLength && (item[sub.key] && item[sub.key].length > this.textMaxLength)) || sub.tooltip;
     },
     setWidths() {
-      if (this.headerFixed && this.columns && this.columns.length && this.data && this.data.length) {
+      if (this.headerFixed && this.columns && this.columns.length) {
         let td = this.$refs.dom.childNodes[2].lastElementChild.childNodes
         let colWidths = []
         td.forEach(x => {
           colWidths.push(x.offsetWidth)
         })
+        console.log(colWidths)
         this.colWidths = colWidths
-      }
-    },
-    scroll() {
-      let t = this.$refs.table.getBoundingClientRect().top
-
-      if (this.headerFixed) {
-        this.fixedTop = t * -1;
-        this.fixedWidth = this.$refs.dom.offsetWidth;
-        if (this.headerFixed && t < 0) {
-          this.setWidths()
-        }
-        this.fixed = t < 0
       }
     },
     tdStyle(align) {

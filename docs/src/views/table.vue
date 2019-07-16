@@ -180,7 +180,13 @@ export default {
         { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
         { nick: "高总", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' },
         { nick: "娟娟", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
-        { nick: "鱼雷", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' }
+        { nick: "鱼雷", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' },
+        { nick: "娟娟", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "康师傅", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "汉林", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "浩浩", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+        { nick: "聪聪", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
+
       ],
       col: [
         { type: "selection" },
@@ -188,7 +194,7 @@ export default {
         { title: "右对其", key: "right", textAlign: "right", sortable: true },
         { title: "居中", key: "center", textAlign: "center", sortable: true },
         { title: "文字提示", key: "tip", sortable: true },
-        { title: "可以编辑", key: "edit", sortable: true, type: 'editor' },
+        { title: "可以编辑", key: "edit", sortable: true, type: 'editor', width: 200 },
         {
           title: "出生年月",
           key: "birthday",
