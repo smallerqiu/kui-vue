@@ -22,6 +22,11 @@ export default {
     value(v) {
       this.update({ value: v, });
     },
+    disabled(v) {
+      this.$children.map(child => {
+        child.disable = v
+      })
+    },
   },
   mounted() {
     this.update({ value: this.value, group: true });
@@ -36,7 +41,7 @@ export default {
         let disabled = child.disabled || this.disabled
         let name = child.$options.name
         if (name == 'RadioButton') {
-          child.disabled = disabled
+          child.disable = disabled
           child.mini = this.mini
           child.actived = value == child.label
         }
@@ -51,7 +56,6 @@ export default {
       this.$emit("input", value);
       this.$emit("change", value);
       this.update(data);
-
     }
   }
 };

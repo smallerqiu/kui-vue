@@ -3,7 +3,9 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-bug" color="red">
-        <h3>2.2.5<span> 2019-6-28 </span></h3>
+        <h3>2.2.7<span> 2019-7-23 </span></h3>
+        <p>统一表单组件大小</p>
+        <p>修复<code>Radio,Checkbox</code>等组件的<code>disabled</code>属性动态属性问题</p>
         <h4>全面修复完善表单验证组件如下:</h4>
         <p>Input 组件，数字类型和最大值最小值验证</p>
         <p>Input 清除之后的验证</p>

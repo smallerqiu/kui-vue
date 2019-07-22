@@ -9,6 +9,7 @@ export default {
   name: "CheckboxGroup",
   mixins: [emitter],
   props: {
+    disabled: Boolean,
     value: { type: Array, default: () => [] },
   },
   data() {
@@ -20,11 +21,21 @@ export default {
     value(v) {
       this.update();
     },
+    disabled(v) {
+      this.$children.map(child => {
+        child.disable = v
+      })
+    },
   },
   mounted() {
     this.update();
     this.$on('checkbox-group-update', this.update)
     this.$on('checkbox-group-change', this.change)
+    if (this.disabled) {
+      this.$children.map(child => {
+        child.disable = this.disabled
+      })
+    }
   },
   methods: {
     update() {

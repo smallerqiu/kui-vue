@@ -56,6 +56,9 @@ export default {
     }
   },
   watch: {
+    disabled(v) {
+      this.disable = v
+    },
     value(v) {
       this.checked = v;
       if (v !== '' && v !== null && v != undefined)
