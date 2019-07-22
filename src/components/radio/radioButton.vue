@@ -1,5 +1,5 @@
 <template>
-  <k-button :type="actived?'primary':'default'" :disabled="disabled" :mini="mini" @click="click">
+  <k-button :type="actived?'primary':'default'" :disabled="disable" :mini="mini" @click="click">
     <slot>{{label}}</slot>
   </k-button>
 </template>
@@ -11,17 +11,26 @@ export default {
   components: { 'k-button': Button },
   mixins: [emitter],
   props: {
+    disabled: { type: Boolean, default: false },
     label: String,
   },
   data() {
     return {
-      disabled: false,
+      disable: this.disabled,
       mini: false,
       actived: false
     }
   },
+  watch: {
+    disabled(v) {
+      this.disable = v
+    },
+  },
   methods: {
     click() {
+      if (this.disable) {
+        return false;
+      }
       !this.selected && this.dispatch('RadioGroup', 'radio-group-change', {
         value: this.label,
       })

@@ -118,7 +118,7 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>openChange</td>
+          <td>open-change</td>
           <td>下拉框展开或收起时触发</td>
           <td>Function</td>
           <td>true / false</td>

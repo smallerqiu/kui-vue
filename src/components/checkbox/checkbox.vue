@@ -2,7 +2,7 @@
   <label :class="wpclasses">
     <span :class="classes">
       <span class="k-checkbox-inner"></span>
-      <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disabled" :checked="checked" @change="change($event)">
+      <input type="checkbox" class="k-checkbox-input" :name="name" :disabled="disable" :checked="checked" @change="change($event)">
     </span>
     <slot>{{label}}</slot>
   </label>
@@ -26,7 +26,7 @@ export default {
       return [
         "k-checkbox-wp",
         {
-          ["k-checkbox-disabled"]: this.disabled
+          ["k-checkbox-disabled"]: this.disable
         }
       ];
     },
@@ -43,9 +43,13 @@ export default {
   data() {
     return {
       checked: this.value,
+      disable: this.disabled,
     };
   },
   watch: {
+    disabled(v) {
+      this.disable = v
+    },
     value(v) {
       this.checked = v
       if (v !== '' && v !== null && v != undefined)
@@ -61,7 +65,7 @@ export default {
       this.checked = params.value.indexOf(this.label) >= 0;
     },
     change(event) {
-      if (this.disabled) {
+      if (this.disable) {
         return false;
       }
 

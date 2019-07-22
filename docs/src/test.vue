@@ -4,17 +4,17 @@
 <template>
   <div style="padding:0px;">
     <Form label-width="150" ref="form" :model="form" :rules="rules">
-       <FormItem label="Input" prop="input">
-        <Input v-model="form.input" clearable icon="ios-home"></Input>
+      <FormItem label="Input" prop="input">
+        <Input v-model="form.input" clearable icon="ios-home" :disabled="disabled"></Input>
       </FormItem>
       <FormItem label="Number" prop="number">
-        <Input v-model="form.number" number clearable></Input>
+        <Input v-model="form.number" number clearable :disabled="disabled"></Input>
       </FormItem>
       <FormItem label="Select">
         <Row>
           <Col span="12">
           <FormItem prop="province">
-            <Select v-model="form.province" clearable>
+            <Select v-model="form.province" clearable :disabled="disabled">
               <Option value="0">北京</Option>
               <Option value="1">上海</Option>
               <Option value="2">广州</Option>
@@ -24,7 +24,7 @@
           </Col>
           <Col span="11" offset="1">
           <FormItem prop="city">
-            <Select v-model="form.city" clearable>
+            <Select v-model="form.city" clearable :disabled="disabled">
               <Option value="0">南山区</Option>
               <Option value="1">龙华区</Option>
               <Option value="2">福田区</Option>
@@ -35,23 +35,23 @@
         </Row>
       </FormItem>
       <FormItem label="DatePicker" prop="datepicker">
-        <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
+        <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss" :disabled="disabled"></DatePicker>
       </FormItem>
       <FormItem label="Radio" prop="radio">
-         <Radio v-model="form.radio">男</Radio>
-      </FormItem> 
-       <FormItem label="RadioGroup" prop="radios">
-        <RadioGroup v-model="form.radios">
-          <Radio label="0">男</Radio>
-          <Radio label="1">女</Radio>
-          <Radio label="2">妖</Radio>
-        </RadioGroup>
-      </FormItem> 
-       <FormItem label="Checkbox" prop="checkbox">
-         <Checkbox v-model="form.checkbox">男</Checkbox>
+        <Radio v-model="form.radio" :disabled="disabled">男</Radio>
       </FormItem>
-      <FormItem label="CheckboxGroup" prop="checkboxs">
-        <CheckboxGroup v-model="form.checkboxs">
+      <FormItem label="RadioGroup" prop="radios">
+        <RadioGroup v-model="form.radios" :disabled="disabled">
+          <RadioButton label="0">男</RadioButton>
+          <RadioButton label="1">女</RadioButton>
+          <RadioButton label="2">妖</RadioButton>
+        </RadioGroup>
+      </FormItem>
+      <FormItem label="Checkbox" prop="checkbox">
+        <Checkbox v-model="form.checkbox" :disabled="disabled">男</Checkbox>
+      </FormItem>
+      <FormItem label="CheckboxGroup" prop="checkboxs" >
+        <CheckboxGroup v-model="form.checkboxs" :disabled="disabled">
           <Checkbox label="男">男</Checkbox>
           <Checkbox label="女">女</Checkbox>
           <Checkbox label="妖">妖</Checkbox>
@@ -59,13 +59,14 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Text" prop="textarea">
-        <Input type="textarea" placeholder="情输入..." v-model="form.textarea"></Input>
+        <Input type="textarea" placeholder="情输入..." v-model="form.textarea" :disabled="disabled"></Input>
       </FormItem>
       <FormItem>
-        <Button type="primary" @click="submitForm('form')">Submit</Button>
+        <Button type="primary" @click="submitForm('form')" :disabled="disabled">Submit</Button>
         <Button style="margin-left: 10px" @click="resetForm('form')">Reset</Button>
-      </FormItem> 
+      </FormItem>
     </Form>
+    <Button @click="disabled=!disabled">disabled</Button>
   </div>
 </template>
 
@@ -73,6 +74,7 @@
 export default {
   data() {
     return {
+      disabled:true,
       form: {
         switch: true,
         input: "",
@@ -80,8 +82,8 @@ export default {
         select: '',
         province: '',
         city: '',
-        radio:'',
-        checkbox:'',
+        radio: '',
+        checkbox: '',
         datepicker: "",
         radios: "",
         checkboxs: [],
@@ -103,6 +105,7 @@ export default {
     }
   },
   mounted() {
+    return
     setTimeout(e => {
       this.form = {
         switch: true,
@@ -113,9 +116,9 @@ export default {
         city: '2',
         datepicker: "2010-10-10",
         radios: "1",
-        checkbox:true,
-        radio:true,
-        checkboxs: ['男','女'],
+        checkbox: true,
+        radio: true,
+        checkboxs: ['男', '女'],
         textarea: '123123232'
       }
     }, 2000)

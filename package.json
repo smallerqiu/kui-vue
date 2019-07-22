@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.2.6",
+    "version": "2.2.7",
     "description": "A high quality UI Toolkit built on Vue.js 2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
