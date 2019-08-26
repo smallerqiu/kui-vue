@@ -8,7 +8,7 @@
       <Col span="12">
       <Demo title="基础用法">
         <div slot="content">
-          <Select :width="200" v-model="select">
+          <Select :width="200" v-model="select" transfer>
             <Option v-for="(x,y) in data" :key="y" :value="x.value">{{x.label}}</Option>
           </Select>
           <Button @click="select=''">清除</Button>

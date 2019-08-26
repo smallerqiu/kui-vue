@@ -73,6 +73,7 @@
   </div>
 </template>
 <script>
+import './calendar.less'
 import { Button } from '../button'
 export default {
   name: "Calendar",

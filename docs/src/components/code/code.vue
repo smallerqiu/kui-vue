@@ -9,18 +9,18 @@
       </ToolTip>
     </div>
     <pre class="k-code-pre">
-    <code :class="lang" ref="code">
+    <div :class="lang" ref="code">
       <slot></slot>
-    </code>
+    </div>
     </pre>
-    <Modal title="Code" v-model="show" class="k-code-modal" width="60%">
+    <Modal title="Code" v-model="show" class="k-code-modal k-code" width="60%">
       <pre class="k-code-pre">
       <div ref="Code" class="k-code"></div>
       </pre>
     </Modal>
   </div>
-</template>
-<script>
+</template> 
+<script> 
 import hljs from './highlight';
 hljs.registerLanguage('xml', require('./lang/xml'));
 hljs.registerLanguage('javascript', require('./lang/javascript'));

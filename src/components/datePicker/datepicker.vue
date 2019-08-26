@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import './datepicker.less'
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 import calendar from "./datecalendar";
@@ -152,7 +153,7 @@ export default {
       }
     },
     handleScroll() {
-      this.$nextTick(() => this.setPosition());
+      this.setPosition()
     },
     setPosition() {
       if (SSR) return;

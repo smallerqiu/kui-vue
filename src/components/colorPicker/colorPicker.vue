@@ -29,9 +29,9 @@
         </div>
         <picker v-if="showMore" @updataValue="updataValue"></picker>
         <div class="k-more">
-          <input type="text" class="k-value" v-model="showColor" />
-          <k-button type="danger" class="k-more-button" @click.stop="close">确定</k-button>
-          <k-button class="k-more-button" @click.stop="handleShowMore">{{!showMore?'更多':'返回'}}</k-button>
+          <k-input type="text" mini class="k-value" v-model="showColor" />
+          <k-button type="danger" mini class="k-more-button" @click.stop="close">确定</k-button>
+          <k-button class="k-more-button" mini @click.stop="handleShowMore">{{!showMore?'更多':'返回'}}</k-button>
         </div>
       </div>
     </transition>
@@ -41,13 +41,14 @@
 import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 import picker from "./picker";
+import Input from "../input";
 import { Button } from "../button";
 import emitter from '@/mixins/emitter'
 import winScroll from "@/directives/winScroll";
 import transferDom from "@/directives/transferDom";
 import docClick from "@/directives/docClick";
 export default {
-  components: { picker, "k-button": Button },
+  components: { picker, "k-button": Button, "k-input": Input },
   directives: { docClick, transferDom, winScroll },
   mixins: [emitter],
   name: "ColorPicker",

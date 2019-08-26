@@ -2,14 +2,14 @@
   <div>
     <h2>Icon 图标</h2>
     <p>kui 的图标使用开源项目
-      <a href="http://ionicons.com/" target="_blank">ionicons</a>，当前版本4.5.6
+      <a href="http://ionicons.com/" target="_blank">ionicons</a>，当前版本4.5.10
     </p>
     <h3>代码示例</h3>
     <Demo title="基础" layout="vertical">
       <div slot="content">
-        <Icon type="ios-home" />
-        <Icon type="ios-home" size="25" />
-        <Icon type="ios-home" size="25" color="red" />
+        <Icon type="logo-apple" />
+        <Icon type="logo-apple" size="25" />
+        <Icon type="logo-apple" size="30" color="green" />
       </div>
       <div slot="desc">可以通过
         <code>type</code>,
@@ -47,43 +47,41 @@
       </table>
     </div>
     <h3>图标列表</h3>
-    <Input placeholder="搜索图标，点击图标即可复制" v-model="key" class="icon-search-box" @keyup="search" />
-    <br/>
-    <br/>
-    <div class="search-icons" v-if="searchList.length">
-      <h3>Search icons </h3>
-      <div class="icon-item">
-        <span @click.stop="copy(x)" v-for="(x,y) in searchList" :key="y">
-          <Icon :type="x" />
-          <!-- <p>{{x}}</p> -->
-        </span>
-      </div>
-    </div>
-    <div class="show-icons" v-if="!searchList.length">
-      <div class="icon-head">
-        <h3>App icons </h3>
-        <div class="icon-title">
-          <RadioGroup value="ios" @change="switchIcon">
-            <RadioButton label="ios">IOS</RadioButton>
-            <RadioButton label="Material">Material</RadioButton>
-          </RadioGroup>
+    <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" style="width:80%;margin:0 auto;display:inherit" large @input="search" clearable />
+    <br />
+    <br />
+    <div class="show-icons">
+      <template v-if="applist.length">
+        <div class="icon-head">
+          <h3>App icons </h3>
+          <div class="icon-title" style="text-align: center;">
+            <RadioGroup v-model="type" @change="switchIcon">
+              <RadioButton label="ios">IOS</RadioButton>
+              <RadioButton label="Material">Material</RadioButton>
+            </RadioGroup>
+          </div>
         </div>
-      </div>
-      <br/>
-      <br/>
-      <div class="icon-item">
-        <span @click.stop="copy(x)" v-for="(x,y) in applist" :key="y">
-          <Icon :type="x" />
-          <!-- <p>{{x}}</p> -->
-        </span>
-      </div>
-      <h3>Logos</h3>
-      <div class="icon-item">
-        <span @click.stop="copy(x)" v-for="(x,y) in code.icons.logo" :key="y">
-          <Icon :type="x" />
-          <!-- <p>{{x}}</p> -->
-        </span>
-      </div>
+        <br />
+        <br />
+        <div class="icon-item">
+          <span @click.stop="copy(x)" v-for="(x,y) in applist" :key="y">
+            <Icon :type="x" />
+            <!-- <p>{{x}}</p> -->
+          </span>
+        </div>
+      </template>
+      <template v-if="logos.length">
+        <h3>Logos</h3>
+        <div class="icon-item">
+          <span @click.stop="copy(x)" v-for="(x,y) in logos" :key="y">
+            <Icon :type="x" />
+            <!-- <p>{{x}}</p> -->
+          </span>
+        </div>
+      </template>
+       <h3 v-if="!applist.length && !logos.length" style="text-align:center;">
+        No results for "{{key}}"
+      </h3>
     </div>
 
     <input type="text" v-model="copyhtml" ref="copyDom" style="position:absolute;left:-9999px;" />
@@ -98,22 +96,39 @@ export default {
     return {
       code: code,
       key: '',
-      all: [],
+      type: 'ios',
+      logos: [],
       applist: [],
-      searchList: [],
       copyhtml: ''
     };
   },
   mounted() {
-    this.all = [...code.icons.ios, ...code.icons.md, ...code.icons.logo]
+    this.logos = code.icons.logo
     this.applist = code.icons.ios
   },
   methods: {
-    switchIcon(name) {
-      this.applist = name == 'ios' ? code.icons.ios : code.icons.md;
+    switchIcon() {
+      this.filter(this.key)
     },
     search(e) {
-      this.searchList = this.all.filter(x => { return x.indexOf(this.key) >= 0 })
+      let key = this.key//e.target.value
+      key = key.replace(/ /g, '')
+      this.filter(key)
+    },
+    filter(key) {
+      if (key) {
+        let oriapp = this.type == 'ios' ? code.icons.ios : code.icons.md;
+        this.applist = oriapp.filter(x => {
+          return x.indexOf(key) >= 0
+        })
+        let orilogo = code.icons.logo
+        this.logos = orilogo.filter(x => {
+          return x.indexOf(key) >= 0
+        })
+      }else{
+        this.applist = this.type == 'ios' ? code.icons.ios : code.icons.md;
+        this.logos = code.icons.logo
+      }
     },
     copy(x) {
       this.copyhtml = `<Icon type="${x}" />`
@@ -122,7 +137,6 @@ export default {
         document.execCommand("copy");
         this.$Message.success('复制成功！')
       })
-
     }
   }
 };

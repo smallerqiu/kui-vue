@@ -9,6 +9,7 @@
         <div slot="content">
           <span style="padding:0 10px;width:50px;display:inline-block">{{checked}}</span>
           <Switch v-model="checked"></Switch>
+          <Switch v-model="checked" mini></Switch>
           <!-- <Button @click="test" mini>test</Button> -->
         </div>
         <div slot="desc">可使用
@@ -75,6 +76,12 @@
           <td>主题颜色 可传入 success，warning，danger，primary </td>
           <td>String</td>
           <td>-</td>
+        </tr>
+        <tr>
+          <td>mini</td>
+          <td>是否展示迷你模式</td>
+          <td>Boolean</td>
+          <td>false</td>
         </tr>
         <tr>
           <td>true-text</td>

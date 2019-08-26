@@ -10,16 +10,19 @@ code.disabled=`<Button type="primary">Primary</Button>
 <Button disabled type="primary">disabled</Button>`
 
 code.withIcon = `<Button type="primary" icon="ios-search">搜索</Button>
-<Button type="success" icon="ios-cloud-upload">上传</Button>
-<Button type="danger" icon="ios-cloud-download">下载</Button>
-<Button type="primary" icon="ios-play"/>
-<Button type="primary" icon="ios-pause"></Button>
-<Button type="primary" icon="ios-square"></Button>`
+<Button type="success" icon="ios-arrow-back">Backward</Button>
+<Button type="danger" icon="ios-arrow-forward" icon-align="right">Forward</Button>
+<Button type="primary" icon="ios-play" circle />
+<Button type="primary" icon="ios-pause" />
+<Button type="primary" icon="ios-square" />
+<Button type="primary" icon="ios-search" loading>loading</Button>
+<Button type="primary" :loading="loading" @click="loading=true">loading</Button>`
 
-code.size =`<Button type="primary">Primary</Button>
-<Button type="primary" mini>mini</Button>`
+code.size =`<Button type="primary" large>Large</Button>
+<Button type="primary">Base</Button>
+<Button type="primary" mini>Mini</Button>`
 
-code.group=`<ButtonGroup>
+code.group=`<ButtonGroup large>
   <Button>待发货</Button>
   <Button>已发货</Button>
   <Button>已签收</Button>

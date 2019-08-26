@@ -11,6 +11,7 @@ import { Collapse, Panel } from './components/collapse'
 import { Checkbox, CheckboxGroup } from './components/checkbox'
 import DatePicker from './components/datePicker'
 import { Dropdown, DropdownItem, DropdownMenu } from './components/dropdown'
+import Drawer from './components/drawer'
 import { Form, FormItem } from './components/form'
 import ImagePreview from './components/imagePreview'
 import Icon from './components/icon'
@@ -38,16 +39,16 @@ import Tag from './components/tag'
 import { Row, Col } from './components/grid'
 import Upload from './components/upload'
 
-const pkg = require('../package.json');
+const { version } = require('../package.json');
 
-import './styles';
+// import './styles';
 // import './styles/cover';
 
 const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, Dropdown, DropdownItem, DropdownMenu,
+    DatePicker, Dropdown, DropdownItem, DropdownMenu, Drawer,
     Form, FormItem,
     ImagePreview, Input, Icon,
     Loading,
@@ -72,7 +73,7 @@ const UI = {
     kSwitch: Switch,
     kCol: Col,
     kMenu: Menu,
-    Version: pkg.version,
+    Version: version,
 }
 const install = function (Vue, opts = {}) {
     for (let key in UI) {
@@ -81,6 +82,8 @@ const install = function (Vue, opts = {}) {
     Vue.prototype.$Message = Message;
     Vue.prototype.$Loading = Loading;
     Vue.prototype.$Notice = Notice;
+    Vue.prototype.$Modal = Modal;
+    Vue.prototype.$ImagePreview = ImagePreview;
 }
 UI.install = install
 // auto install

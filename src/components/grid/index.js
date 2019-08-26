@@ -1,3 +1,4 @@
+import './grid.less'
 import Row from './row.vue';
 import Col from './col.vue';
 

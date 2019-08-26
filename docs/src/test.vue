@@ -3,6 +3,9 @@
  
 <template>
   <div style="padding:0px;">
+    <!--  <Modal title="122" v-model="form.switch">
+      fdsafs
+    </Modal>
     <Form label-width="150" ref="form" :model="form" :rules="rules">
       <FormItem label="Input" prop="input">
         <Input v-model="form.input" clearable icon="ios-home" :disabled="disabled"></Input>
@@ -14,7 +17,7 @@
         <Row>
           <Col span="12">
           <FormItem prop="province">
-            <Select v-model="form.province" clearable :disabled="disabled">
+            <Select v-model="form.province" clearable :disabled="disabled" transfer>
               <Option value="0">北京</Option>
               <Option value="1">上海</Option>
               <Option value="2">广州</Option>
@@ -66,15 +69,24 @@
         <Button style="margin-left: 10px" @click="resetForm('form')">Reset</Button>
       </FormItem>
     </Form>
-    <Button @click="disabled=!disabled">disabled</Button>
+    <Button @click="disabled=!disabled">disabled</Button>-->
+    <Modal v-model="disabled" />
+    <Button @click="disabled=true">hhhhhh</Button>
+
+    <Button @click="$Modal.info({title:'a',content:'b',onOk:test})">info</Button>
+    <Button @click="$Modal.success()">success</Button>
+    <Button @click="$Modal.error()">error</Button>
+    <Button @click="$Modal.warning()">warning</Button>
+    <Button @click="$Modal.comfirm({loading:true,onOk:test1})">warning</Button>
   </div>
+
 </template>
 
 <script> 
 export default {
   data() {
     return {
-      disabled:true,
+      disabled: false,
       form: {
         switch: true,
         input: "",
@@ -124,6 +136,15 @@ export default {
     }, 2000)
   },
   methods: {
+    test1() {
+      setTimeout(e => {
+        this.$Modal.close()
+      }, 3000)
+    },
+    test() {
+      // this.$router.push('/modal')
+      this.$Message.info('ee')
+    },
     submitForm(name) {
       // console.log(this.$refs[name].model)
       this.$refs[name].validate(valid => {

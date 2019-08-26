@@ -37,6 +37,7 @@ let children = [
     { path: 'badge', component: () => import(/*webpackChunkName:'badge'*/'./views/badge'), },
     { path: 'datepicker', component: () => import(/*webpackChunkName:'datepicker'*/'./views/datepicker'), },
     { path: 'dropdown', component: () => import(/*webpackChunkName:'dropdown'*/'./views/dropdown'), },
+    { path: 'drawer', component: () => import(/*webpackChunkName:'drawer'*/'./views/drawer'), },
     { path: 'form', component: () => import(/*webpackChunkName:'form'*/'./views/form'), },
     { path: 'font', component: () => import(/*webpackChunkName:'font'*/'./views/font'), },
     { path: 'grid', component: () => import(/*webpackChunkName:'grid'*/'./views/grid'), },

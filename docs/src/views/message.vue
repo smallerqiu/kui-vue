@@ -33,6 +33,7 @@
     <h3>API</h3>
     <Alert>组件提供了一些静态方法，使用方式如下</Alert>
     <Code lang="js">{{code.static}}</Code>
+    <br/>
     <Alert>另外提供了全局配置和全局销毁的方法：</Alert>
     <Code lang="js">{{code.destory}}</Code>
     <p>参数 options 为对象，具体说明如下：</p>

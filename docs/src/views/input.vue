@@ -4,10 +4,10 @@
     <Alert>注意：非 template/render 模式下，需使用 k-input。</Alert>
     <h3>代码示例</h3>
     <Row gutter="8">
-      <Col span="12" >
+      <Col span="12">
       <Demo title="基础用法" layout='vertical'>
         <div slot="content">
-          <Input width="200" placeholder="请输入内容..." /> <br/>
+          <Input width="200" placeholder="请输入内容..." /> <br />
           <Input width="200" placeholder="disabled..." disabled />
         </div>
         <div slot="desc">使用
@@ -24,7 +24,7 @@
       </Demo>
       <Demo title="带图标" layout='vertical'>
         <div slot="content">
-          <Input type="text" width="200" placeholder="请输入用户名..."  icon-align="left" icon="ios-person" @iconClick="iconClick"></Input>
+          <Input type="text" width="200" placeholder="请输入用户名..." icon-align="left" icon="ios-person" @iconClick="iconClick"></Input>
           <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
         </div>
         <div slot="desc">通过设置
@@ -36,18 +36,19 @@
       <Col span="12">
       <Demo title="尺寸" layout='vertical'>
         <div slot="content">
-          <Input type="text" width="200" placeholder="请输入..."></Input>
-          <Input type="text" width="200" mini placeholder="mini" icon="ios-person" @iconClick="iconClick"></Input>
+          <Input type="text" width="300" placeholder="Large Input" large icon="logo-apple" clearable /><br />
+          <Input type="text" width="300" placeholder="Base Input" icon="logo-apple" clearable icon-align="left" /><br />
+          <Input type="text" width="300" mini placeholder="Mini Input" icon="logo-apple" @iconClick="iconClick" clearable icon-align="left" />
         </div>
-        <div slot="desc">通过设置
-          <code>mini</code>可设置组件大小，
-          <code>width</code>属性可控制组件宽度</div>
+        <div slot="desc">
+          <code>large</code>为大尺寸，
+          <code>mini</code>为小尺寸</div>
         <div slot="code">{{code.size}}</div>
       </Demo>
       <Demo title="文本域" layout='vertical'>
         <div slot="content">
           <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
-          <Input width="300" type="textarea"  :rows="1" placeholder="请输入内容..."></Input>
+          <Input width="300" type="textarea" :rows="1" placeholder="请输入内容..."></Input>
         </div>
         <div slot="desc">当
           <code>type</code>属性取值为
@@ -84,12 +85,24 @@
           <td>-</td>
         </tr>
         <tr>
+          <td>mini </td>
+          <td>是否展示小尺寸，仅在 text 类型下有效 </td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>large</td>
+          <td>是否展示大尺寸，仅在 text 类型下有效 </td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
           <td>icon </td>
           <td>输入框图标，仅在 text 类型下有效 </td>
           <td>String</td>
           <td>-</td>
         </tr>
-          <tr>
+        <tr>
           <td>icon-align </td>
           <td>输入框图标位置，可选值为left、right，仅在 type=text 类型下有效 </td>
           <td>String</td>

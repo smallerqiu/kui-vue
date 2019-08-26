@@ -1,8 +1,8 @@
 let code = {}
 
-code.base = `<Icon type="ios-home" />
-<Icon type="ios-home" size="25"/>
-<Icon type="ios-home" size="25" color="red"/>`
+code.base = `<Icon type="logo-apple" />
+<Icon type="logo-apple" size="25" />
+<Icon type="logo-apple" size="30" color="green" />`
 let icons = {}
 
 icons.ios = [

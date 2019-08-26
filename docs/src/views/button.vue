@@ -10,7 +10,7 @@
           <Button>Default</Button>
           <Button type="primary">Primary</Button>
           <Button type="primary" hollow>hollow</Button>
-          <Button type="primary" circle>circle</Button> 
+          <Button type="primary" circle>circle</Button>
           <Button type="link" circle>link</Button>
         </div>
         <div slot="desc">使用
@@ -23,11 +23,13 @@
       <Demo title="带图标" layout="vertical">
         <div slot="content">
           <Button type="primary" icon="ios-search">搜索</Button>
-          <Button type="success" icon="ios-cloud-upload">上传</Button>
-          <Button type="danger" icon="ios-cloud-download">下载</Button>
-          <Button type="primary" icon="ios-play"/>
-          <Button type="primary" icon="ios-pause"></Button>
-          <Button type="primary" icon="ios-square"></Button>
+          <Button type="success" icon="ios-arrow-back">Backward</Button>
+          <Button type="danger" icon="ios-arrow-forward" icon-align="right">Forward</Button>
+          <Button type="primary" icon="ios-play" circle />
+          <Button type="primary" icon="ios-pause" />
+          <Button type="primary" icon="ios-square" />
+          <Button type="primary" icon="ios-search" loading>loading</Button>
+          <Button type="primary" :loading="loading" @click="loading=true">loading</Button>
         </div>
         <div slot="desc">通过添加
           <code>icon</code>属性 设置按钮按钮图标。</div>
@@ -46,18 +48,20 @@
       </Demo>
       <Demo title="尺寸" layout="vertical">
         <div slot="content">
-          <Button type="primary">Primary</Button>
-          <Button type="primary" mini>mini</Button>
+          <Button type="primary" large>Large</Button>
+          <Button type="primary">Base</Button>
+          <Button type="primary" mini>Mini</Button>
         </div>
-        <div slot="desc">通过添加
-          <code>mini</code>属性 设置按钮尺寸大小。</div>
+        <div slot="desc">
+          <code>mini</code>为小尺寸，
+          <code>large</code>为大尺寸</div>
         <div slot="code">{{code.size}}</div>
       </Demo>
       </Col>
     </Row>
     <Demo title="按钮组合" layout="vertical">
       <div slot="content">
-        <ButtonGroup>
+        <ButtonGroup large>
           <Button>待发货</Button>
           <Button>已发货</Button>
           <Button>已签收</Button>
@@ -95,7 +99,13 @@
         </tr>
         <tr>
           <td>mini</td>
-          <td>按钮尺寸大小</td>
+          <td>按钮显示小尺寸</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>large</td>
+          <td>按钮显示大尺寸</td>
           <td>Boolean </td>
           <td>false</td>
         </tr>
@@ -117,6 +127,18 @@
           <td>String </td>
           <td>-</td>
         </tr>
+        <tr>
+          <td>icon-align</td>
+          <td>图标位置，提供left，right选项</td>
+          <td>String</td>
+          <td>left</td>
+        </tr>
+        <tr>
+          <td>loading</td>
+          <td>按钮是否进入加载模式</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
       </table>
     </div>
   </div>
@@ -128,7 +150,8 @@ export default {
   components: { Demo },
   data() {
     return {
-      code: code
+      code: code,
+      loading: false
     }
   }
 };

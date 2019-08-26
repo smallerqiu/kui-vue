@@ -1,0 +1,270 @@
+@import '../../styles/global.less';
+.k-calendar {
+   float: left;
+   display: inline-block;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   &+.k-calendar {
+      // border-left: solid 1px #eaeaea;
+      margin-left: 5px;
+      padding-left: 5px;
+      .k-calendar-time {
+         border-left: solid 5px #efefef;
+         box-sizing: content-box;
+      }
+   }
+   .k-calendar-head {
+      line-height: 32px;
+      height: 32px;
+      text-align: center;
+      position: relative;
+   }
+   .k-calendar-head span {
+      color: #666;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+      position: absolute;
+      padding: 0 5px;
+      font-size: 16px;
+   }
+   .k-calendar-head span:hover {
+      color: @main;
+   }
+   .k-calendar-head .k-calendar-year-select, .k-calendar-head .k-calendar-month-select {
+      font-size: 12px;
+      padding: 0 2px;
+      position: relative;
+   }
+   .k-calendar-prev-decade-btn, .k-calendar-prev-year-btn {
+      left: 6px;
+   }
+   .k-calendar-prev-month-btn {
+      left: 24px;
+   }
+   .k-calendar-next-decade-btn, .k-calendar-next-year-btn {
+      right: 6px;
+   }
+   .k-calendar-next-month-btn {
+      right: 24px;
+   }
+   .k-calendar-body {
+      position: relative;
+      width: 210px;
+      min-height: 210px;
+   }
+   .k-calendar-days {
+      width: 100%;
+      height: 100%;
+      line-height: 1.5;
+   }
+   .k-calendar-week, .k-calendar-date {
+      font-weight: normal;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      box-sizing: border-box;
+      display: inline-block;
+      overflow: hidden;
+      float: left;
+      margin: 2px 1px 0 1px;
+   }
+   .k-calendar-week:before, .k-calendar-date:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+   }
+   .k-calendar-date {
+      cursor: pointer;
+      color: #666;
+      border-radius: @radius;
+      position: relative;
+   }
+   .k-calendar-date-out {
+      color: #ccc;
+      background: none;
+   }
+   .k-calendar-date:hover, .k-calendar-date-on {
+      background: fade(@main, 30%);
+      border-radius: @radius;
+   }
+   .k-calendar-date-on {
+      border-radius: 0;
+   }
+   .k-calendar-date-today {
+      // background: fade(@main, 30%);
+      &:after {
+         content: '';
+         position: absolute;
+         width: 5px;
+         height: 5px;
+         background: @main;
+         right: 5px;
+         top: 5px;
+         border-radius: 50%;
+      }
+   }
+   .k-calendar-date-selected, .k-calendar-date-selected:hover {
+      color: #fff;
+      font-weight: bold;
+      background: @main;
+      border-radius: @radius;
+      &::after {
+         background: #fff;
+      }
+   }
+   .k-calendar-date-disabled {
+      cursor: not-allowed !important;
+      color: #bcbcbc !important;
+      background: #f3f3f3 !important;
+      border-radius: 0;
+   }
+   .k-calendar-foot {
+      padding: 7px 7px 2px 7px;
+      line-height: 25px;
+      box-sizing: content-box;
+      border-top: 1px solid #efefef;
+      margin: 1px -5px 0 -5px;
+      .k-calendar-timetip {
+         margin-left: 8px;
+         cursor: pointer;
+      }
+      .k-calendar-btn {
+         float: right;
+      }
+      .disabled {
+         cursor: not-allowed;
+         color: #ccc;
+      }
+   }
+   .k-calendar-time {
+      position: absolute;
+      top: 0;
+      left: -5px;
+      height: 100%;
+      border-top: 1px solid #efefef;
+      right: -5px;
+      overflow: hidden;
+   }
+   .k-calendar-time-title {
+      font-size: 14px;
+      font-weight: 600;
+      //    text-align: center;
+      //    background: #fff;
+      //    padding: 3px 0;
+      //    border-bottom:1px solid #efefef;
+   }
+   .k-calendar-hour {
+      display: inline-block;
+      border: 1px solid #e6e5e5;
+      color: #9e9e9e;
+   }
+   .k-calendar-hour span {
+      display: inline-block;
+      // padding: 2px 4px;
+      cursor: pointer;
+   }
+   .k-calendar-hour a:hover, .k-calendar-hour a.on {
+      color: @main;
+   }
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      width: 72px;
+      height: 100%;
+      float: left;
+      // position: absolute;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+      &:hover {
+         overflow-y: auto;
+      }
+      &::-webkit-scrollbar {
+         width: 8px;
+         height: 8px;
+         background: none;
+      }
+      &::-webkit-scrollbar-thumb {
+         background: #e6e5e5;
+         border-radius: 4px;
+      }
+   }
+   .k-calendar-minutes {
+      box-sizing: content-box;
+      border-left: 1px solid #efefef;
+      border-right: 1px solid #efefef;
+   }
+   .k-calendar-seconds {
+      border: none;
+   }
+   .k-calendar-years, .k-calendar-months {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: #fff;
+      left: 0;
+      top: 0;
+   }
+   .k-calendar-months span {
+      width: 68px;
+      height: 35px;
+      margin: 8px 0;
+   }
+   .k-calendar-years span {
+      width: 68px;
+      height: 35px;
+      margin: 8px 0;
+   }
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      span {
+         height: 25px;
+         line-height: 25px;
+         margin: 0;
+         width: 100%;
+         border-radius: 0;
+         text-align: left;
+         padding-left: 31px;
+         float: left;
+         &:hover {
+            border-radius: 0;
+         }
+      }
+   }
+   .k-calendar-date {
+      height: 28px;
+      line-height: 1.5;
+      width: 28px;
+   }
+   .k-calendar-title {
+      margin-top: -30px;
+      height: 30px;
+      line-height: 30px;
+      background: #fff;
+      text-align: center;
+      font-weight: bold;
+   }
+}
+
+.k-calendar-right, .k-calendar-left {
+   .k-calendar-hours, .k-calendar-minutes, .k-calendar-seconds {
+      width: 71px;
+   }
+}
+
+// .k-calendar-right {
+//     margin-left: 5px;
+//     padding-left: 5px;
+//     .k-calendar-head{
+//         .k-calendar-prev-year-btn,.k-calendar-prev-month-btn{
+//             display: none;
+//         }
+//     }
+// }
+// .k-calendar-left .k-calendar-head{
+//     .k-calendar-next-month-btn,.k-calendar-next-year-btn{
+//         display: none;
+//     }
+// }

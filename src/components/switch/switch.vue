@@ -1,6 +1,6 @@
 <template>
   <span :class="classes" @click="change">
-    <span class="k-switch-inner">
+    <span class="k-switch-inner" v-if="!mini">
       <span>{{checked?trueText:falseText}}</span>
     </span>
     <span class="k-switch-button"></span>
@@ -10,9 +10,10 @@
 export default {
   name: "kSwitch",
   props: {
-    value: { type: Boolean, default: false },
-    type: { type: String },
-    disabled: { type: Boolean, default: false },
+    value: Boolean,
+    type:String,
+    disabled: Boolean,
+    mini:Boolean,
     trueText: { type: String },
     falseText: { type: String }
   },
@@ -33,7 +34,8 @@ export default {
         {
           ["k-switch-checked"]: this.checked,
           ["k-switch-disabled"]: this.disabled,
-          [`k-switch-${this.type}`]: !!this.type
+          [`k-switch-${this.type}`]: !!this.type,
+          ["k-switch-mini"]: this.mini,
         }
       ];
     }

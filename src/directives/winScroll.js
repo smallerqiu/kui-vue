@@ -12,13 +12,13 @@ export default {
     el._resize = scroll
     // el._mousewhell = scroll
     window.addEventListener('resize', scroll)
-    // window.addEventListener('mousewheel', scroll)
+    document.addEventListener('scroll', scroll)
     document.addEventListener('mousewheel', scroll)
   },
   unbind(el, bind) {
     window.removeEventListener('resize', el._scroll)
-    document.removeEventListener('mousewheel', el._resize)
-    // window.removeEventListener('mousewheel', el._mousewhell)
+    document.removeEventListener('scroll', el._resize)
+    document.removeEventListener('mousewheel', el._mousewhell)
     delete el._scroll
     delete el._resize
     // delete el._mousewhell
