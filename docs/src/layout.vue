@@ -19,8 +19,7 @@
     </header>
     <section class="main">
       <Row>
-        <Col span="4" :style="navStyles" class="colNav">
-        <!-- <Scroll> -->
+        <Col span="4" class="colNav">
         <nav class="nav">
           <Menu @select="go" :activeName="activeName" width="auto">
             <MenuGroup :title="item.title" v-for="(item,x) in nav" :name="item.title" :key="x">
@@ -32,19 +31,13 @@
             </MenuGroup>
           </Menu>
         </nav>
-        <!-- </Scroll> -->
-        <div class="drawer-button" @click="showNav">
-          <Icon type="android-menu" />
-        </div>
         </Col>
         <Col span="20" class="colMain">
-        <!-- <Scroll target="window"> -->
         <div class="content">
           <transition name="fade" mode="out-in">
             <router-view></router-view>
           </transition>
         </div>
-        <!-- </Scroll> -->
         </Col>
       </Row>
     </section>
@@ -58,19 +51,11 @@ export default {
     return {
       key: "",
       nav: code.nav,
-      // favicon: require("./assets/favicon.png"),
-      // logo: require("./assets/logo.png"),
-      // react:require('./assets/react.svg'),
       activeName: "",
-      isShowNav: false,
       components: []
     };
   },
-  computed: {
-    navStyles() {
-      return this.isShowNav ? { left: 0 } : {};
-    }
-  },
+
   methods: {
     change(v) {
       let path = v.value.toLowerCase();
@@ -78,12 +63,8 @@ export default {
       this.$router.push(path);
       setTimeout(() => (this.key = ""), 500);
     },
-    showNav() {
-      this.isShowNav = !this.isShowNav;
-    },
     go(path) {
       this.key = "";
-      this.showNav();
       if (path.indexOf("http") >= 0) {
         window.open(path);
       } else {

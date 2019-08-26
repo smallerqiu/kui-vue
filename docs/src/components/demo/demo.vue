@@ -21,8 +21,10 @@
       </Code>
     </Collapse>
   </div>
-</template>
+</template> 
+
 <script>
+import './demo.less'
 import Code from '../code'
 import Collapse from '@/components/collapse/collapse.js'
 import resize from '@/directives/winScroll'
@@ -39,7 +41,6 @@ export default {
     return {
       domHeight: 0,
       demoHeight: 0,
-      codeHeight: '0',
       expand: false,
     }
   },
@@ -55,9 +56,6 @@ export default {
     styles() {
       return this.layout == 'horizontal' ? { height: this.expand ? `${this.domHeight}px` : `${this.demoHeight}px` } : {}
     },
-    codeStyles() {
-      return this.layout == 'horizontal' ? {} : { height: `${this.codeHeight}` }
-    }
   },
   methods: {
     setHeight() {
@@ -67,11 +65,10 @@ export default {
       }
     },
     toggle() {
-      let expand = this.expand
-      this.expand = !expand
-      if (this.layout == 'vertical') {
-        this.codeHeight = !this.expand ? 0 : 'auto';
-      }
+      this.expand = !this.expand
+      // if (this.layout == 'vertical') {
+      //   this.codeHeight = !this.expand ? 0 : 'auto';
+      // }
       // console.log(this.$refs.code.$el.scrollHeight)
     }
   },

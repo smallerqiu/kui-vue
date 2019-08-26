@@ -1,3 +1,4 @@
+import './menu.less'
 import Menu from './menu'
 import MenuGroup from './menugroup'
 import MenuItem from './menuitem'

@@ -78,17 +78,22 @@ code.disabled=`<Select disabled :width="200"  v-model="select"></Select>
 <Select :width="200">
   <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" :disabled="y==3"></Option>
 </Select>
-data() {
-  return {
-    select: "3",
-    data: [
-      { label: "苹果🍎", value: 0 },
-      { label: "橘子🍊", value: 1 },
-      { label: "香蕉🍌", value: 2 },
-      { label: "栗子🌰", value: 3 },
-      { label: "葡萄🍇", value: 4 }
-    ],
-  };
-}`
+<script>
+export default {
+  data() {
+    return {
+      select: "3",
+      data: [
+        { label: "苹果🍎", value: 0 },
+        { label: "橘子🍊", value: 1 },
+        { label: "香蕉🍌", value: 2 },
+        { label: "栗子🌰", value: 3 },
+        { label: "葡萄🍇", value: 4 }
+      ],
+    };
+  }
+}
+</script>`
+
 
 export default code

@@ -10,7 +10,9 @@
           <Icon :type="data.icon" v-if="data.icon"></Icon>
         </span>
         <span :class="titleClass" @click="handelSelect">{{data.title}}</span>
-        <TreeNode v-for="(item ,i) in data.children" :key="i" :data="item" v-if="data.expand" :checkbox="checkbox"></TreeNode>
+        <template v-if="data.expand">
+          <TreeNode v-for="(item ,i) in data.children" :key="i" :data="item" :checkbox="checkbox"></TreeNode>
+        </template>
       </li>
     </ul>
   </Collapse>

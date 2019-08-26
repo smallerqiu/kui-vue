@@ -1,0 +1,65 @@
+.k-demo {
+  border: 1px solid #eee;
+  margin: 10px 0;
+  position: relative;
+  // overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  .k-demo-main {
+    // padding: 0 0 20px;
+    // box-sizing: border-box;
+  }
+  .k-content, .k-desc {
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  .k-desc {
+    padding: 20px;
+    margin: 30px 0 0;
+    border-top: 1px solid #f1f1f1;
+    position: relative;
+    .k-desc-title {
+      position: absolute;
+      top: -16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+      background: #fff;
+      padding: 5px 10px;
+    }
+    .k-desc-content {
+      color: #666;
+    }
+  }
+  .k-demo-line {
+    border-bottom: 1px #e8e8e8 dashed;
+  }
+  .k-code-expan {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #7d7d7d;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  .k-content {
+    padding: 20px; // overflow: hidden;
+    .k-btn, .k-select, .k-input, .k-datepicker, .k-tag, .k-switch, .k-btn-group {
+      margin: 0 10px 10px 0;
+    }
+    td, .k-btn-group, .k-affix, .k-tabs-extra, .k-page, .k-form, .k-radio-group, .k-badge, .k-poptip-dom, .k-calendar, .k-dropdown-rel, .k-colorPicker {
+      .k-btn, .k-select, .k-input, .k-datepicker {
+        margin: 0;
+      }
+    }
+  }
+  code {
+    background: #eee;
+    padding: 3px 8px;
+    margin: 0 5px;
+    color: #ff5b4e;
+    border-radius: 3px;
+  }
+}

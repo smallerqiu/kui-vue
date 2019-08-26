@@ -45,6 +45,7 @@ code.nav = [
       { title: "卡片", sub: "Card", link: "/card", icon: 'ios-card' },
       { title: "走马灯", sub: "Carousel", link: "/carousel", icon: 'ios-film' },
       { title: "折叠面板", sub: "Collapse", link: "/collapse", icon: 'ios-funnel' },
+      { title: "抽屉", sub: "Drawer", link: "/drawer", icon: 'ios-map' },
       { title: "图片预览", sub: "imagePreview", link: "/imagepreview", icon: 'ios-images' },
       { title: "全局提示", sub: "Message", link: "/message", icon: 'ios-chatboxes' },
       { title: "通知提醒", sub: "Notice", link: "/notice", icon: 'ios-notifications' },

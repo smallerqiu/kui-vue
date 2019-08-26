@@ -1,19 +1,21 @@
+import './notice.less'
+import './message.less'
 import Notices from './notices'
 import Vue from 'vue';
 
-Notices.Instance = properties => {
-   const _props = properties || {};
-   const Instance = new Vue({
+Notices.Create = options => {
+   const props = options || {};
+   const Notice = new Vue({
       render(h) {
          return h(Notices, {
-            props: _props
+            props: props
          });
       }
    });
 
-   const component = Instance.$mount();
+   const component = Notice.$mount();
    document.body.appendChild(component.$el);
-   const notice = Instance.$children[0];
+   const notice = Notice.$children[0];
    return notice
 };
 
@@ -22,21 +24,16 @@ let noticeInstance;
 
 const getInstance = (type) => {
    if (type == 'message') {
-      messageInstance = messageInstance || Notices.Instance({ type: type })
+      messageInstance = messageInstance || Notices.Create({ type })
       return messageInstance
    } else {
-      noticeInstance = noticeInstance || Notices.Instance({ type: type })
+      noticeInstance = noticeInstance || Notices.Create({ type })
       return noticeInstance
    }
 };
-const message = (noticeType, type, title, content, duration, onClose) => {
+const message = (noticeType, type, title, content, duration, close) => {
    getInstance(noticeType).add({
-      title: title,
-      noticeType: noticeType,
-      duration: duration,
-      content: content,
-      type: type,
-      close: onClose,
+      title, noticeType, duration, content, type, close
    });
 }
 
@@ -59,7 +56,7 @@ let Message = {
       getInstance('message').add(options);
    },
    destroy() {
-      Instance = null;
+      messageInstance = null;
       document.body.removeChild(document.getElementsByClassName('k-message'));
    }
 };

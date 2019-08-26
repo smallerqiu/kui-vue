@@ -21,6 +21,7 @@ export default {
     elementId: String,
     clearable: Boolean,
     mini: { type: Boolean, default: false },
+    large: { type: Boolean, default: false },
     type: {
       validator(value) {
         return (["text", "textarea", "password", "url", "email", "date"].indexOf(value) >= 0);
@@ -70,7 +71,8 @@ export default {
       return [
         "k-input-wp",
         {
-          ["k-input-mini"]: this.mini,
+          ["k-input-mini"]: this.mini && this.type != 'textarea',
+          ["k-input-lg"]: this.large && !this.mini && this.type != 'textarea',
           ["k-input-icon-left"]: this.icon && this.iconAlign == 'left'
         }
       ];
@@ -101,6 +103,7 @@ export default {
   methods: {
     clear() {
       this.setCurrentValue("");
+      this.$emit("input", '');
       this.clearableShow = false;
     },
     handleMove() {
@@ -155,7 +158,7 @@ export default {
     setCurrentValue(value) {
       if (value === this.currentValue) return;
       this.currentValue = value;
-      this.$emit("input", value);
+      // this.$emit("input", value);
       this.dispatch('FormItem', 'form-item-change', this.currentValue)
     },
     focus() {

@@ -2,6 +2,28 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem icon="ios-ribbon" color="green">
+        <h3>2.2.8<span> 2019-8-26 </span></h3>
+        <p>组件库整体优化，组件按需加载体积更小</p>
+        <p>图标库升级到5.6.10版本</p>
+        <p>修复Form组件特殊情况的验证问题</p>
+        <p><code>ImagePreview</code>组件增加全局显示模式</p>
+        <p><code>Switch</code>组件新增mini模式</p>
+        <p>新增抽屉<code>Drawer</code>组件，<a href="#/drawer">#体验</a></p>
+        <h4>Modal组件优化</h4>
+        <p>优化展示隐藏动画 <a href="#/modal">#体验</a></p>
+        <p>删除toast模式，新增提示框、confrim模式</p>
+        <p>新增<code>info，success，warning，error，show</code>等全局模式</p>
+        <p>新增异步回调</p>
+        <h4>Input</h4>
+        <p>修复@input事件调用两次的问题</p>
+        <p>增加大尺寸模式</p>
+        <p>优化图标左右位置显示</p>
+        <h4>Button</h4>
+        <p>增加大尺寸模式</p>
+        <p>增加图标位置显示，左右可控</p>
+        <p>增加按钮loading模式</p>
+      </TimeLineItem>
       <TimeLineItem icon="ios-bug" color="red">
         <h3>2.2.7<span> 2019-7-23 </span></h3>
         <p>统一表单组件大小</p>

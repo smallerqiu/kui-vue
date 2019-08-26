@@ -1,0 +1,90 @@
+@import '../../styles/global.less';
+.k-notice {
+   font-size: 14px;
+   line-height: 1.5;
+   color: rgba(0, 0, 0, 0.65);
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   position: fixed;
+   z-index: 1010;
+   width: 384px;
+   max-width: calc(100vw - 32px);
+   margin-right: 24px;
+   right: 0px;
+   top: 24px;
+   bottom: auto;
+   .k-notice-notice {
+      box-sizing: content-box;
+      transition: all .3s ease-in-out;
+      padding: 16px;
+      border-radius: @radius;
+      -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: #fff;
+      line-height: 1.5;
+      position: relative;
+      margin-bottom: 16px;
+      overflow: hidden;
+   }
+   .k-notice-title {
+      margin-right: 16px;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.85);
+      margin-bottom: 8px;
+      line-height: 24px;
+      display: inline-block;
+   }
+   .k-notice-close {
+      position: absolute;
+      right: 22px;
+      top: 16px;
+      outline: none;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 14px;
+      &::before {
+         content: '\f2c0';
+         font-family: Ionicons;
+         color: #999;
+      }
+   }
+   .k-notice-info, .k-notice-error, .k-notice-success, .k-notice-warning {
+      .k-notice-notice-content {
+         padding-left: 35px;
+         &::before {
+            position: absolute;
+            left: 22px;
+            top: 17px;
+            font-family: Ionicons;
+            font-size: 24px;
+         }
+      }
+   }
+   .k-notice-info .k-notice-notice-content {
+      &::before {
+         color: @main;
+         content: '\f1a0';
+      }
+   }
+   .k-notice-error .k-notice-notice-content {
+      &::before {
+         content: '\f14e';
+         color: @danger;
+      }
+   }
+   .k-notice-success .k-notice-notice-content {
+      &::before {
+         content: '\f14a';
+         color: @success;
+      }
+   }
+   .k-notice-warning .k-notice-notice-content {
+      &::before {
+         content: '\f104';
+         color: @warning;
+      }
+   }
+}

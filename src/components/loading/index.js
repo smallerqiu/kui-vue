@@ -1,4 +1,5 @@
-import Load from './loading'
+import './loading.less'
+import Load from './loading.vue'
 import Vue from 'vue';
 
 let loading = null;

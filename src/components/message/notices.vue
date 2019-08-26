@@ -1,9 +1,9 @@
 <template>
   <div :class="`k-${type}`">
-  <transition-group :name="type=='message'?'fadedown':'fadeleft'" @enter="enter" @leave="leave">
-    <k-notice v-for="(item) in notices" :key="item.name" :type="item.type" :visible="item.visible" :title="item.title" :transition-name="item.transitionName" :content="item.content" :closable="item.closable" :onClose="item.onClose" :noticeType="item.noticeType">
-    </k-notice>
-  </transition-group>
+    <transition-group :name="type=='message'?'fadedown':'fadeleft'" @enter="enter" @leave="leave">
+      <k-notice v-for="(item) in notices" :key="item.name" :type="item.type" :visible="item.visible" :title="item.title" :transition-name="item.transitionName" :content="item.content" :closable="item.closable" :onClose="item.onClose" :noticeType="item.noticeType">
+      </k-notice>
+    </transition-group>
   </div>
 </template>
 <script>
@@ -35,7 +35,7 @@ export default {
         let index = this.notices.indexOf(notice)
         notice.index = index
         // this.$set(notice, 'visible', false)    
-        this.notices.splice(index,1)   
+        this.notices.splice(index, 1)
         clearTimeout(time);
         time = null;
       };

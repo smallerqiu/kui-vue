@@ -1,0 +1,82 @@
+@import '../../styles/global.less';
+.k-message {
+   font-size: 14px;
+   line-height: 1.5;
+   color: rgba(0, 0, 0, 0.65);
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   position: fixed;
+   z-index: 1010;
+   width: 100%;
+   top: 16px;
+   left: 0;
+   pointer-events: none;
+   .k-message-notice {
+      box-sizing: content-box;
+      padding: 8px;
+      text-align: center;
+      transition: all .3s;
+      // overflow: hidden;
+      &:first-child {
+         // margin-top: -8px;
+      }
+   }
+   .k-message-notice-content {
+      box-sizing: content-box;
+      line-height: 1.5;
+      padding: 10px 16px;
+      border-radius: @radius;
+      -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: #fff;
+      display: inline-block;
+      pointer-events: all;
+      &>[class^="k-ion"], [class*=" k-ion"] {
+         margin-right: 5px;
+         font-size: 18px;
+         vertical-align: middle;
+      }
+   }
+   .k-message-close {
+      font-size: 12px;
+      line-height: 1.5;
+      overflow: hidden;
+      cursor: pointer;
+      float: right;
+      margin-left: 15px;
+      &::before {
+         content: '\f2c0';
+         font-family: Ionicons;
+         color: #999;
+         font-size: 15px;
+         vertical-align: middle;
+      }
+   }
+}
+
+.k-message-success .k-message-notice-content {
+   &>[class^="k-ion"], [class*=" k-ion"] {
+      color: @success;
+   }
+}
+
+.k-message-error .k-message-notice-content {
+   &>[class^="k-ion"], [class*=" k-ion"] {
+      color: @danger;
+   }
+}
+
+.k-message-info .k-message-notice-content {
+   &>[class^="k-ion"], [class*=" k-ion"] {
+      color: @main;
+   }
+}
+
+.k-message-warning .k-message-notice-content {
+   &>[class^="k-ion"], [class*=" k-ion"] {
+      color: @warning;
+   }
+}
