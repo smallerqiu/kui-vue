@@ -1,51 +1,49 @@
 <template>
-  <div>
-    <div :class="classes">
-      <ul class="k-pager">
-        <li class="k-pager-item" @click="prePage">
-          <span>
-            <Icon type="ios-arrow-back" />
-          </span>
-        </li>
-        <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)">
-          <span>1</span>
-        </li>
-        <li class="k-pager-item k-pager-more" v-if="showPrevMore">
-          <span>
-            <Icon type="ios-more" />
-          </span>
-        </li>
-        <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)">
-          <span>{{pager}}</span>
-        </li>
-        <li class="k-pager-item k-pager-more" v-if="showNextMore">
-          <span>
-            <Icon type="ios-more" />
-          </span>
-        </li>
-        <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)">
-          <span>{{ pageCount}}</span>
-        </li>
-        <li class="k-pager-item" @click="nextPage">
-          <span>
-            <Icon type="ios-arrow-forward" />
-          </span>
-        </li>
-      </ul>
-      <div class="k-page-sizer" v-if="showSizer">
-        <k-select :mini="mini" v-model="defaultPageSize" @change="changeSize">
-          <k-option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</k-option>
-        </k-select>
-      </div>
-      <div class="k-page-number" v-if="showTotal">
-        <span>共{{pageCount}}页</span>
-      </div>
-      <div class="k-page-options" v-if="showElevator">
-        <span>跳至</span>
-        <k-input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
-        <span>页</span>
-        <k-button :mini="mini" class="k-page-options-action" @click="goPage">确定</k-button>
-      </div>
+  <div :class="classes">
+    <ul class="k-pager">
+      <li class="k-pager-item" @click="prePage">
+        <span>
+          <Icon type="ios-arrow-back" />
+        </span>
+      </li>
+      <li class="k-pager-item" :class="{active:page==1}" v-if="pageCount > 0" @click="toPage(1)">
+        <span>1</span>
+      </li>
+      <li class="k-pager-item k-pager-more" v-if="showPrevMore">
+        <span>
+          <Icon type="ios-more" />
+        </span>
+      </li>
+      <li class="k-pager-item" v-for="(pager,i) in pagers" :key="i" :class="{active:page==pager}" @click="toPage(pager)">
+        <span>{{pager}}</span>
+      </li>
+      <li class="k-pager-item k-pager-more" v-if="showNextMore">
+        <span>
+          <Icon type="ios-more" />
+        </span>
+      </li>
+      <li class="k-pager-item" :class="{ active: page==pageCount }" v-if="pageCount > 1" @click="toPage(pageCount)">
+        <span>{{ pageCount}}</span>
+      </li>
+      <li class="k-pager-item" @click="nextPage">
+        <span>
+          <Icon type="ios-arrow-forward" />
+        </span>
+      </li>
+    </ul>
+    <div class="k-page-sizer" v-if="showSizer">
+      <k-select :mini="mini" v-model="defaultPageSize" @change="changeSize">
+        <k-option v-for="p in sizeData" :key="p" :value="p">{{p}}条/页</k-option>
+      </k-select>
+    </div>
+    <div class="k-page-number" v-if="showTotal">
+      <span>共{{total}}条</span>
+    </div>
+    <div class="k-page-options" v-if="showElevator">
+      <span>跳至</span>
+      <k-input v-model="elevator" :mini="mini" class="k-page-options-elevator" />
+      <span>页</span>
+      <k-button :mini="mini" class="k-page-options-action" @click="goPage">确定</k-button>
     </div>
   </div>
 </template>

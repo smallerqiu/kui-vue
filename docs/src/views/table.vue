@@ -7,7 +7,8 @@
       <div slot="content">
         <Button @click="bordered=!bordered" type="primary" mini>表格边框</Button>
         <Button @click="mini=!mini" type="primary" mini>mini</Button>
-        <Table :data="data" :columns="col" :mini="mini" @selection="select" @sort-change="change" :text-max-length="20" :bordered="bordered" @row-click="rowClick" @editor-change="editorChange"></Table>
+        <Button @click="loading=!loading" type="primary" mini>Loading</Button>
+        <Table :data="data" :columns="col" :mini="mini" :loading="loading" @selection="select" @sort-change="change" :text-max-length="20" :bordered="bordered" @row-click="rowClick" @editor-change="editorChange"></Table>
       </div>
       <div slot="desc">表格没做太复杂的展示，通过
         <code>bordered</code>可以设置是否有边框，
@@ -45,6 +46,12 @@
         <tr>
           <td>mini</td>
           <td>表格是否为mini模式</td>
+          <td>Boolean </td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>loading</td>
+          <td>表格异步加载模式</td>
           <td>Boolean </td>
           <td>false</td>
         </tr>
@@ -175,7 +182,7 @@ export default {
     return {
       code: code,
       bordered: false,
-      mini: false,
+      mini: false, loading: false,
       data: [
         { nick: "<a>链接文字长--链接文字长--链接文字长--</a>", center: "居中", right: "右对其", birthday: "", tip: '短文字提示', action: "", edit: '点我编辑' },
         { nick: "高总", center: "居中", right: "右对其", birthday: "", tip: '我是很长很长很长很长很长很长很长很长很长一段文字', action: "", edit: '点我编辑' },

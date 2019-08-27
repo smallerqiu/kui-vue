@@ -3,10 +3,11 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem icon="ios-ribbon" color="green">
-        <h3>2.2.8<span> 2019-8-26 </span></h3>
+        <h3>2.2.9<span> 2019-8-26 </span></h3>
         <p>组件库整体优化，组件按需加载体积更小</p>
         <p>图标库升级到5.6.10版本</p>
         <p>修复Form组件特殊情况的验证问题</p>
+        <p><code>Table</code>新增Loading模式</p>
         <p><code>ImagePreview</code>组件增加全局显示模式</p>
         <p><code>Switch</code>组件新增mini模式</p>
         <p>新增抽屉<code>Drawer</code>组件，<a href="#/drawer">#体验</a></p>

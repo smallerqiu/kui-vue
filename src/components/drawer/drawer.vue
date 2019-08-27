@@ -7,7 +7,7 @@
       <transition :name="placement=='left'?'faderight':'fadeleft'">
         <div class="drawer animated" ref="drawer" v-show="visible" :style="styles" @mousedown="mouseInRect=true">
           <div class="k-drawer-content">
-            <a class="k-drawer-close" @click="close" v-if="closable && type=='form'">
+            <a class="k-drawer-close" @click="close" v-if="closable">
               <Icon type="md-close" />
             </a>
             <div class="k-drawer-header">

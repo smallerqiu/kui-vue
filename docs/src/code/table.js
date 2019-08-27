@@ -2,7 +2,10 @@ let code = {}
 
 code.base =`<Button @click="bordered=!bordered" type="primary">表格边框</Button>
 <Button @click="mini=!mini" type="primary">mini</Button>
-<Table :data="data" :columns="col" :mini="mini" @selection="select" @row-click="rowClick" :text-max-length="20" :bordered="bordered" @editor-change="editorChange"></Table>
+<Button @click="loading=!loading" type="primary">Loading</Button>
+<Table :data="data" :columns="col" :mini="mini" :loading="loading" 
+@selection="select" @row-click="rowClick" :text-max-length="20" 
+:bordered="bordered" @editor-change="editorChange"></Table>
 <script>
 export default {
   data() {
