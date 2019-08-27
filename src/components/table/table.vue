@@ -7,7 +7,7 @@
             <div class="k-table-cell">
               <template v-if="item.type&&item.type=='selection'">
                 <label for="k-checkbox-all">
-                  <k-checkbox @change="checkAll" v-model="checkedAll">全选</k-checkbox>
+                  <k-checkbox @change="checkAll" v-model="checkedAll"></k-checkbox>
                 </label>
               </template>
               <template v-else>{{item.title}}</template>
@@ -23,7 +23,7 @@
             <div class="k-table-cell">
               <template v-if="item.type&&item.type=='selection'">
                 <label for="k-checkbox-all">
-                  <k-checkbox @change="checkAll" v-model="checkedAll">全选</k-checkbox>
+                  <k-checkbox @change="checkAll" v-model="checkedAll"></k-checkbox>
                 </label>
               </template>
               <template v-else>
@@ -72,6 +72,11 @@
       </tbody>
     </table>
     <div v-if="!data||data.length==0" class="no-data">{{noDataText}}</div>
+    <div class="k-loading-warp" v-if="isloading">
+      <div class="k-loading-inner">
+        <div class="k-loading-animate k-loading-animate-zoom"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -79,7 +84,7 @@ import { Checkbox } from "../checkbox";
 import Input from "../input";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
-import scroll from '@/directives/winScroll.js'
+// import scroll from '@/directives/winScroll.js'
 let copyData = (data) => {
   const t = Object.prototype.toString.call(data)
   let o = t === '[object Array]' ? [] : (t === '[object Object]' ? {} : data)
@@ -98,13 +103,14 @@ let copyData = (data) => {
 export default {
   components: { Expand: Expand, "k-checkbox": Checkbox, Tooltip, Input },
   name: "Table",
-  directives: { scroll },
+  // directives: { scroll },
   props: {
     width: [String, Number],
     height: [String, Number],
     bordered: Boolean,
     headerFixed: Boolean,
     mini: Boolean,
+    loading: Boolean,
     noDataText: { type: String, default: "暂无数据..." },
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
@@ -123,8 +129,8 @@ export default {
       ];
     },
     styles() {
-      let style = { width: this.width+'px', height: this.height+'px' }
-      style.overflow = this.data.length == 0 ? 'hidden' : ''
+      let style = { width: this.width + 'px', height: this.height + 'px' }
+      style.overflow = (this.data.length == 0 || this.isloading) ? 'hidden' : ''
       style.position = this.headerFixed ? 'relative' : ''
       return style
     }
@@ -133,12 +139,19 @@ export default {
     return {
       colWidths: [],
       checkedAll: false,
+      isloading: this.loading,
       selectRow: [], //所有选择的数据
     };
   },
   mounted() {
   },
   watch: {
+    loading(v) {
+      this.isloading = v
+      if (v) {
+        this.$refs.table.scrollLeft = 0
+      }
+    },
     data: {
       handler(r1, r2) {
         let count = this.data.filter(x => x.checked == true).length

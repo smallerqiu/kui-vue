@@ -24,7 +24,7 @@ import { Message, Notice } from './components/message'
 import Page from './components/page'
 import Poptip from './components/poptip'
 import { Radio, RadioGroup, RadioButton } from './components/radio'
-import Scroll from './components/scroll'
+// import Scroll from './components/scroll'
 // import Slider from './components/slider'
 import Switch from './components/switch'
 import { Select, Option } from './components/select'
@@ -58,7 +58,7 @@ const components = {
     Option,
     Page, Poptip, Panel,
     Row, Radio, RadioGroup, RadioButton,
-    Scroll, Steps, Step, Select, SubMenu, //Slider,
+    /* Scroll, */ Steps, Step, Select, SubMenu, //Slider,
     Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
     Upload,
 }

@@ -140,7 +140,7 @@ export default {
         this.visible = v
         this.$nextTick(e => {
           this.setPos()
-          if (this.$refs.modal.scrollHeight > document.body.clientHeight) {
+          if (this.$refs.modal.scrollHeight > document.body.clientHeight && !this.isMax) {
             this.height = 80
           }
         })
