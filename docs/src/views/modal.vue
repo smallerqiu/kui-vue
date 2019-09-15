@@ -133,6 +133,12 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>mask-closable</td>
+          <td>是否点击遮罩关闭弹窗, 为否时Esc键将失效</td>
+          <td>Boolean</td>
+          <td>true</td>
+        </tr>
+        <tr>
           <td>animateIn</td>
           <td><s>弹框入场动画</s><code>2.3.0版本废弃</code></td>
           <td>Boolean</td>

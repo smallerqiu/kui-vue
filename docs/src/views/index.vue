@@ -23,10 +23,10 @@
     </header>
     <section class="index-content">
       <div class="logo">K UI</div>
-      <h1>一枚基于Vue.js的高质量UI组件库</h1>
+      <h1>一套基于Vue.js的高质量UI组件库</h1>
       <div class="btn-content">
-        <Button class="start" @click="start">开始使用</Button>
-        <Button icon="logo-github" class="github" @click="git">Github</Button>
+        <Button class="start" @click="start" large>开始使用</Button>
+        <Button icon="logo-github" @click="git" large>Github</Button>
       </div>
     </section>
     <!-- <footer>

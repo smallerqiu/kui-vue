@@ -67,6 +67,7 @@ export default {
     isMove: { type: Boolean, default: false },
     isMax: { type: Boolean, default: false },
     isCenter: { type: Boolean, default: false },
+    maskClosable: { type: Boolean, default: true }
   },
   computed: {
     classes() {
@@ -174,6 +175,7 @@ export default {
       }
     },
     clickMastToClose(e) {
+      if (!this.maskClosable) return;
       if (this.mouseInRect) {
         this.mouseInRect = false;
         return;
@@ -217,7 +219,7 @@ export default {
       this.close();
     },
     onKeyUp(e) {
-      if (this.visible) {
+      if (this.visible && this.maskClosable) {
         if (e.keyCode == 27) this.close();
       }
     },

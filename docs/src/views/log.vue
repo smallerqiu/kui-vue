@@ -2,6 +2,14 @@
   <div class="demo-logs">
     <h2>更新日志</h2>
     <TimeLine>
+      <TimeLineItem>
+        <h3>2.3.1<span> 2019-9-15 </span></h3>
+        <p>优化button组件组合使用的颜色问题</p>
+        <p>表单Form组件优化,错误拼写更正</p>
+        <p>Menu组件优化,长的好看了些,</p>
+        <p>Modal组件 新增了mask-closable 属性,点遮罩阻止关闭</p>
+        <p>Input组件 修正了文字大小不统一的问题</p>
+      </TimeLineItem>
       <TimeLineItem icon="ios-ribbon" color="green">
         <h3>2.2.9<span> 2019-8-26 </span></h3>
         <p>组件库整体优化，组件按需加载体积更小</p>
