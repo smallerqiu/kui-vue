@@ -10,6 +10,17 @@
 @dark: rgba(0, 0, 0, .75);
 @radius: ~'2px';
 
+::selection {
+  background: @main;
+  color: #fff;
+}
+
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
 //下拉动画
 @keyframes dropDownIn {
   0% { opacity: 0; transform: scaleY(0) }
@@ -110,7 +121,3 @@
 .dropdownBottom-enter-active { transform-origin:0 100%; animation: dropDownIn .3s }
 .dropdownBottom-leave-active { transform-origin: 0 0; animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)}
 
-::selection {
-  background: @main;
-  color: #fff;
-}

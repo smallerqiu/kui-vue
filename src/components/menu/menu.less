@@ -23,19 +23,25 @@
 
 .k-menu-horizontal.k-menu-light {
     background: #fff;
-    >.k-menu-item,
-    >.k-menu-submenu {
+    >.k-menu-item, >.k-menu-submenu {
         transition: all .2s ease-in-out;
-        border-bottom: 2px solid transparent;
+        // border-bottom: 2px solid transparent;
+        position: relative;
         &:hover {
             color: @main;
-            border-bottom: 2px solid @main;
+            // border-bottom: 2px solid @main;
+            &::after {
+                border-bottom: 2px solid @main;
+            }
         }
         .k-menu-dropdown {}
     }
     >.k-menu-item-active {
         color: @main;
-        border-bottom: 2px solid @main;
+        &::after {
+            border-bottom: 2px solid @main;
+        }
+        // border-bottom: 2px solid @main;
     }
 }
 
@@ -51,20 +57,23 @@
         bottom: -2px;
         left: 0;
     }
-    >.k-menu-item,
-    >.k-menu-submenu {
+    >.k-menu-item, >.k-menu-submenu {
         color: #fff;
-        border-bottom: 2px solid transparent;
         &:hover {
             color: orange;
-            border-bottom: 2px solid orange;
+            background: #586072;
+            &::after {
+                border-bottom: 2px solid orange;
+            }
         }
         .k-menu-dropdown {}
     }
     >.k-menu-item-active {
         color: orange;
-        border-bottom: 2px solid orange;
-        background: #555d71;
+        background: #586072;
+        &::after {
+            border-bottom: 2px solid orange;
+        }
     }
 }
 
@@ -80,21 +89,23 @@
         bottom: -2px;
         left: 0;
     }
-    >.k-menu-item,
-    >.k-menu-submenu {
+    >.k-menu-item, >.k-menu-submenu {
         color: #fff;
-        border-bottom: 2px solid transparent;
         &:hover {
             background: tint(@main, 10%);
-            color: orange;
-            border-bottom: 2px solid transparent;
+            color: black;
+            &::after {
+                border-bottom: 2px solid black;
+            }
         }
         .k-menu-dropdown {}
     }
     >.k-menu-item-active {
         background: tint(@main, 10%);
-        color: orange;
-        border-bottom: 2px solid transparent;
+        color: #000;
+        &::after {
+            border-bottom: 2px solid black;
+        }
     }
 }
 
@@ -104,8 +115,7 @@
     text-overflow: ellipsis;
 }
 
-.k-menu-item,
-.k-menu-submenu {
+.k-menu-item, .k-menu-submenu {
     display: block;
     outline: 0;
     list-style: none;
@@ -132,15 +142,14 @@
 }
 
 .k-menu-horizontal {
-    height: 60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
     &::after {
         content: "";
         display: block;
         width: 100%;
     }
-    >.k-menu-item,
-    >.k-menu-submenu {
+    >.k-menu-item, >.k-menu-submenu {
         float: left;
         padding: 0 20px;
         position: relative;
@@ -157,8 +166,8 @@
             z-index: 901;
             width: 100%;
             min-width: 120px;
-            transition: height .3s ease-in-out,opacity .3s ease-in-out;
-            -webkit-transition: height .3s ease-in-out,opacity .3s ease-in-out;
+            transition: height .3s ease-in-out, opacity .3s ease-in-out;
+            -webkit-transition: height .3s ease-in-out, opacity .3s ease-in-out;
             overflow: hidden;
             .k-menu-item {
                 padding: 7px 16px 8px;
@@ -190,7 +199,17 @@
                 }
             }
         }
+        &::after {
+            position: absolute;
+            content: '';
+            height: 0;
+            bottom: 0;
+            width: 30px;
+            margin-left: -15px;
+            left: 50%;
+        }
     }
+    >.k-menu-item {}
 }
 
 .k-menu-vertical {
@@ -207,7 +226,8 @@
     .k-menu-title {
         padding: 14px 24px;
         &:hover {
-            background: #f3f3f3;
+            color: @main;
+            // background: #f3f3f3;
         }
     }
     .k-menu-arrow {
@@ -234,11 +254,10 @@
         color: #909399;
     }
     .k-menu-dropdown {
-      transition: height .3s ease-in-out,opacity .3s ease-in-out;
-      -webkit-transition: height .3s ease-in-out,opacity .3s ease-in-out;
+        transition: height .3s ease-in-out, opacity .3s ease-in-out;
+        -webkit-transition: height .3s ease-in-out, opacity .3s ease-in-out;
     }
-    .k-menu-submenu,
-    .k-menu-item-group {
+    .k-menu-submenu, .k-menu-item-group {
         overflow: hidden;
         .k-menu-item {
             border-right: 2px solid transparent;
@@ -266,10 +285,9 @@
             background: inherit;
         }
     }
-    .k-menu-submenu,
-    .k-menu-item-group {
+    .k-menu-submenu, .k-menu-item-group {
         .k-menu-item-active {
-            background: @main;
+            background: #586072;
             color: #fff;
         }
     }

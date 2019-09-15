@@ -71,10 +71,10 @@
           <Button>已发货</Button>
           <Button>已签收</Button>
         </ButtonGroup>
-        <ButtonGroup mini>
-          <Button>待发货</Button>
-          <Button>已发货</Button>
-          <Button>已签收</Button>
+        <ButtonGroup mini circle>
+          <Button  type="success">编辑</Button>
+          <Button  type="danger">删除</Button>
+          <Button  type="primary">保存</Button>
         </ButtonGroup>
       </div>
       <div slot="desc">将多个

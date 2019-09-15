@@ -91,7 +91,7 @@ export default {
     },
     test(rule, trigger) {
       let valid = true
-      let message = rule.message || 'This field must required'
+      let message = rule.message || 'This field is required'
       let type = Object.prototype.toString.call(this.fieldValue)
       if (rule.required) {
         if ((type == '[object Undefined]' || type == '[object Null]') ||
@@ -101,8 +101,8 @@ export default {
           valid = false
         }
       } else {
-        if (rule.pattner) {
-          valid = rule.pattner.test(this.fieldValue)
+        if (rule.pattern) {
+          valid = rule.pattern.test(this.fieldValue)
           message = rule.message || 'Incorrect email format'
         } else if (rule.type == 'mail') {
           valid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.fieldValue)

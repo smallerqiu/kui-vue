@@ -30,7 +30,7 @@
             </MenuGroup>
           </SubMenu>
           <MenuItem name="4" icon="logo-apple">新闻管理</MenuItem>
-          <MenuItem name="5" icon="ios-locke">权限管理</MenuItem>
+          <MenuItem name="5" icon="ios-lock">权限管理</MenuItem>
         </Menu>
         <br/>
         <p>切换主题</p>
