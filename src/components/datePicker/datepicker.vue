@@ -16,9 +16,7 @@
   </div>
 </template>
 <script>
-import './datepicker.less'
-import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
+import './datepicker.less' 
 import calendar from "./datecalendar";
 import emitter from "@/mixins/emitter";
 import winScroll from "@/directives/winScroll";
@@ -156,7 +154,7 @@ export default {
       this.setPosition()
     },
     setPosition() {
-      if (SSR) return;
+      if (this.$isServer) return;
       let m = 5;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;

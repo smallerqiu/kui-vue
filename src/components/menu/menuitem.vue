@@ -17,33 +17,30 @@ export default {
   },
   data() {
     return {
-      active: false,
+      actived: false,
       // index:0,
     };
   },
   computed: {
     classes() {
-      return [
-        "k-menu-item",
-        {
-          ["k-menu-item-active"]: this.active
-        }
-      ];
+      return ["k-menu-item", { ["k-menu-item-actived"]: this.actived }];
     }
   },
-  beforDistory() { },
+  beforDistory() {
+    let parentName = this.$parent.$options.name
+    if (parentName == 'Menu' || parentName == 'SubMenu' || parentName == 'MenuGroup') {
+      this.$parent.remove(this)
+    }
+  },
   mounted() {
-    this.active = this.getParent('Menu').activeName == this.name
-    this.$on('menu-item-update', this.update)
+    let parentName = this.$parent.$options.name
+    if (parentName == 'Menu' || parentName == 'SubMenu' || parentName == 'MenuGroup') {
+      this.$parent.add(this)
+    }
   },
   methods: {
-    update(name) {
-      this.active = this.name == name
-    },
     handle() {
-      this.active = true
-      this.dispatch('Menu', 'menu-select', this.name)
-      this.dispatch('SubMenu', 'menu-submenu-close', this.name)
+      this.$parent.setActived(this.name)
     }
   }
 };

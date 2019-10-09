@@ -1,7 +1,10 @@
 let code = {}
 
-code.base =`<Tooltip  content="我是提示内容">
-  <p>鼠标划过，我是一段文字</p>
+code.base =`<Tooltip content="我是提示内容">
+  <Button>我是一段文字</Button>
+</Tooltip>
+<Tooltip content="我是提示内容" dark>
+  <Button>我是一段文字</Button>
 </Tooltip>`
 
 code.position =`<div style="margin-left:80px;white-space: nowrap;">
@@ -52,8 +55,8 @@ code.position =`<div style="margin-left:80px;white-space: nowrap;">
 code.slot = `<Tooltip trigger="click">
 <Button>我是个演员</Button>
 <div slot="content">
-  <p>我独占一行，然后....</p>
-  <p>我独占一行，然后....</p>
+  我独占一行，然后....<br/>
+  我独占一行，然后....
 </div>
 </Tooltip>`
 

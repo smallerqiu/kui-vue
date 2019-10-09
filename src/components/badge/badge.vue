@@ -1,9 +1,8 @@
 <template>
-   <span class="k-badge">
-      <slot></slot>
-      <sub class="k-badge-count" v-if="!dot" @click.stop="click" :style="styles">{{getCount}}</sub>
-      <sub class="k-badge-dot" v-if="dot" :style="styles"></sub>
-   </span>
+  <div class="k-badge">
+    <slot></slot>
+    <sub :class="classes" :style="styles">{{countText}}</sub>
+  </div>
 </template>
 <script>
 export default {
@@ -11,21 +10,44 @@ export default {
   props: {
     count: [String, Number],
     dot: Boolean,
+    mark: Boolean,
     color: String,
     maxCount: [String, Number]
   },
+  watch: {
+    count(v) {
+      this.setText()
+    }
+  },
+  data() {
+    return {
+      countText: ''
+    }
+  },
+  mounted() {
+    this.setText()
+  },
+  methods: {
+    setText() {
+      let { maxCount, count, dot } = this
+      if (maxCount) {
+        this.countText = ~~count >= ~~maxCount ? (maxCount + '+') : count
+      } else if (!dot) {
+        this.countText = count
+      }
+    }
+  },
   computed: {
+    classes() {
+      return {
+        'k-badge-count': !this.dot && !this.mark,
+        'k-badge-dot': this.dot,
+        'k-badge-mark': this.mark,
+      }
+    },
     styles() {
       return this.color ? { "background-color": this.color } : {};
     },
-    getCount() {
-      return this.maxCount > this.count ? `${this.maxCount}+` : this.count;
-    }
   },
-  methods: {
-    click(e) {
-      this.$emit("click",e);
-    }
-  }
 };
 </script>

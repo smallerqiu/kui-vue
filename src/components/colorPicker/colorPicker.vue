@@ -37,9 +37,7 @@
     </transition>
   </div>
 </template>
-<script>
-import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
+<script>  
 import picker from "./picker";
 import Input from "../input";
 import { Button } from "../button";
@@ -156,7 +154,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      if (SSR) return;
+      if (this.$isServer) return;
       let m = 3;
       let rel = this.$refs.rel;
       let dom = this.$refs.dom;

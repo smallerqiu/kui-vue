@@ -7,8 +7,7 @@
       <Col span="12">
       <Demo title="基础">
         <div slot="content">
-          <Checkbox v-model="animated">animated</Checkbox>
-          <Tabs :value="3" :animated="animated">
+          <Tabs :value="3">
             <TabPane label="Tab1" name="1">我是内容1....</TabPane>
             <TabPane label="Tab2" name="2">我是内容2....</TabPane>
             <TabPane label="Tab3" name="3">我是内容3....</TabPane>
@@ -81,9 +80,9 @@
               <p>我是内容2....</p>
             </TabPane>
             <TabPane label="TabTitle 3" name="3">
-              <p>我是内容2....</p>
-              <p>我是内容2....</p>
-              <p>我是内容2....</p>
+              <p>我是内容3....</p>
+              <p>我是内容3....</p>
+              <p>我是内容3....</p>
             </TabPane>
           </Tabs>
         </div>
@@ -122,10 +121,16 @@
           <td>false</td>
         </tr>
         <tr>
-          <td>click</td>
+          <td>tab-click</td>
           <td>tab 被点击时触发，返回 name</td>
           <td>Fucntion</td>
           <td>-</td>
+        </tr>
+        <tr>
+          <td>animated</td>
+          <td>切换tab是否展示动画, 当组件展示在Modal中默认动画将不展示</td>
+          <td>Boolean</td>
+          <td>true</td>
         </tr>
         <tr>
           <td>colose</td>
@@ -169,12 +174,6 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>animated</td>
-          <td>切换tab是否展示动画</td>
-          <td>Boolean</td>
-          <td>true</td>
-        </tr>
-        <tr>
           <td>disabled</td>
           <td>是否禁用该选项卡</td>
           <td>Boolean</td>
@@ -199,7 +198,7 @@ export default {
     return {
       code: code,
       m: 3,
-      animated:true
+      animated: true
     }
   }
 }

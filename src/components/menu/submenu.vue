@@ -1,13 +1,22 @@
 <template>
-  <li :class="classes" @mouseover="openMenu" @mouseout="closeMenu">
-    <div class="k-menu-title" @click.stop="accrodion">
+  <li :class="classes" @mouseleave="mouseleave">
+    <div class="k-menu-title" @click.stop="handle" @mouseenter="openMenu">
       <slot name="title"></slot>
       <i class="k-ion-ios-arrow-down k-menu-arrow"></i>
     </div>
-    <Collapse>
-      <ul class="k-menu-dropdown" v-show="visible">
-        <slot></slot>
-      </ul>
+    <transition name="dropdown" v-if="mode=='horizontal'">
+      <div class="k-menu-dropdown" v-show="visible">
+        <ul class="k-menu-popup">
+          <slot></slot>
+        </ul>
+      </div>
+    </transition>
+    <Collapse v-else>
+      <div class="k-menu-dropdown" v-show="visible">
+        <ul class="k-menu-popup">
+          <slot></slot>
+        </ul>
+      </div>
     </Collapse>
   </li>
 </template> 
@@ -23,11 +32,11 @@ export default {
   },
   data() {
     return {
-      active: false,
+      actived: false,
       visible: false,
-      height: 0,
-      hideTime: null,
-      rootMenu: this.getParent("Menu"),
+      mode: '',
+      accordion: null,
+      children: []
     };
   },
   computed: {
@@ -35,42 +44,80 @@ export default {
       return [
         "k-menu-submenu",
         {
-          ["k-menu-item-active"]: this.active,
+          ["k-menu-item-actived"]: this.actived,
           ["k-menu-item-opened"]: this.visible
         }
       ];
     },
   },
   mounted() {
-    this.visible = this.rootMenu.openName == this.name && this.rootMenu.mode != 'horizontal'
-    this.$on('menu-submenu-update', this.update)
-    this.$on('menu-submenu-close', this.close)
+    let parentName = this.$parent.$options.name
+    if (parentName == 'Menu' || parentName == 'SubMenu') {
+      this.$parent.add(this)
+    }
+  },
+  beforeDestroy() {
+    let parentName = this.$parent.$options.name
+    if (parentName == 'Menu' || parentName == 'SubMenu') {
+      this.$parent.remove(this)
+    }
   },
   methods: {
-    close() {
-      if (this.rootMenu.mode == "vertical") return;
-      this.visible = false;
-      let childs = this.getChilds(this, 'MenuItem')
-      this.active = childs.filter(c => c.active).length > 0
+    Each(arr, activeName) {
+      arr.forEach(child => {
+        if (child.$options.name == 'MenuItem') {
+          child.actived = child.name == activeName
+          if (child.actived) {
+            this.actived = true
+            child.$parent.actived = true
+            if (this.$parent.mode == 'vertical') {
+              this.visible = true
+            }
+          }
+        } else if (child.$options.name == 'SubMenu') {
+          child.actived = false
+          this.Each(child.children, activeName)
+        } else if (child.$options.name == 'MenuGroup') {
+          child.actived = false
+          this.Each(child.children, activeName)
+        }
+      })
     },
-    update(name) {
-      if (name != this.name && this.visible) {
-        //其他的折叠
-        this.visible = !this.visible
+    updateChild(activeName) {
+      this.actived = false
+      this.Each(this.children, activeName)
+    },
+    setActived(activeName, openName) {
+      this.$parent.setActived(activeName)
+      if (this.$parent.mode == 'horizontal') {
+        this.visible = false
       }
     },
-    accrodion() {
-      this.visible = !this.visible
-      this.dispatch('Menu', 'menu-accrodion', this.name)
+    add(child) {
+      this.children.push(child)
     },
+    remove(child) {
+      this.children.splice(this.children.indexOf(child), 1)
+    },
+    handle() {
+      if (this.$parent.mode == 'vertical') {
+        this.visible = !this.visible
+        this.$parent.accordion && this.$parent.setActived('', this.name)
+      }
+    }, 
     openMenu() {
-      if (this.rootMenu.mode == "vertical") return;
-      this.$nextTick(() => this.visible = true)
+      if (this.$parent.mode == 'horizontal') {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(e => this.visible = true, 300)
+      }
     },
-    closeMenu() {
-      if (this.rootMenu.mode == "vertical") return;
-      this.$nextTick(() => this.visible = false)
-    }
+    mouseleave() {
+      if (this.$parent.mode == "horizontal") {
+        clearTimeout(this.timer)
+        clearTimeout(this.timer2)
+        this.timer2 = setTimeout(e => this.visible = false, 300)
+      }
+    },
   }
 };
 </script>

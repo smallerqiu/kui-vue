@@ -3,7 +3,12 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem>
-        <h3>2.3.1<span> 2019-9-15 </span></h3>
+        <h3>2.3.3<span> 2019-10-9 </span></h3>
+        <p>重写了<code>Menu</code><code>MenuItem</code>一系列组件,增加了二级菜单</p>
+        <p>重写了<code>Badge</code>组件,修复了一些显示问题</p>
+        <p>重写了<code>Tab</code>组件,修复了在Modal中显示不完整的问题</p>
+        <p>优化了<code>Tooltip</code>等组件,加入了浅色显示</p>
+        <p>Input组件 修正了文字大小不统一的问题</p>
         <p>优化button组件组合使用的颜色问题</p>
         <p>表单Form组件优化,错误拼写更正</p>
         <p>Menu组件优化,长的好看了些,</p>

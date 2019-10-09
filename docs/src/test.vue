@@ -3,81 +3,43 @@
  
 <template>
   <div style="padding:0px;">
-    <!--  <Modal title="122" v-model="form.switch">
-      fdsafs
-    </Modal>
-    <Form label-width="150" ref="form" :model="form" :rules="rules">
-      <FormItem label="Input" prop="input">
-        <Input v-model="form.input" clearable icon="ios-home" :disabled="disabled"></Input>
-      </FormItem>
-      <FormItem label="Number" prop="number">
-        <Input v-model="form.number" number clearable :disabled="disabled"></Input>
-      </FormItem>
-      <FormItem label="Select">
-        <Row>
-          <Col span="12">
-          <FormItem prop="province">
-            <Select v-model="form.province" clearable :disabled="disabled" transfer>
-              <Option value="0">北京</Option>
-              <Option value="1">上海</Option>
-              <Option value="2">广州</Option>
-              <Option value="3">深圳</Option>
-            </Select>
-          </FormItem>
-          </Col>
-          <Col span="11" offset="1">
-          <FormItem prop="city">
-            <Select v-model="form.city" clearable :disabled="disabled">
-              <Option value="0">南山区</Option>
-              <Option value="1">龙华区</Option>
-              <Option value="2">福田区</Option>
-              <Option value="3">宝安区</Option>
-            </Select>
-          </FormItem>
-          </Col>
-        </Row>
-      </FormItem>
-      <FormItem label="DatePicker" prop="datepicker">
-        <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss" :disabled="disabled"></DatePicker>
-      </FormItem>
-      <FormItem label="Radio" prop="radio">
-        <Radio v-model="form.radio" :disabled="disabled">男</Radio>
-      </FormItem>
-      <FormItem label="RadioGroup" prop="radios">
-        <RadioGroup v-model="form.radios" :disabled="disabled">
-          <RadioButton label="0">男</RadioButton>
-          <RadioButton label="1">女</RadioButton>
-          <RadioButton label="2">妖</RadioButton>
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Checkbox" prop="checkbox">
-        <Checkbox v-model="form.checkbox" :disabled="disabled">男</Checkbox>
-      </FormItem>
-      <FormItem label="CheckboxGroup" prop="checkboxs" >
-        <CheckboxGroup v-model="form.checkboxs" :disabled="disabled">
-          <Checkbox label="男">男</Checkbox>
-          <Checkbox label="女">女</Checkbox>
-          <Checkbox label="妖">妖</Checkbox>
-          <Checkbox label="鲛人">鲛人</Checkbox>
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="Text" prop="textarea">
-        <Input type="textarea" placeholder="情输入..." v-model="form.textarea" :disabled="disabled"></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="primary" @click="submitForm('form')" :disabled="disabled">Submit</Button>
-        <Button style="margin-left: 10px" @click="resetForm('form')">Reset</Button>
-      </FormItem>
-    </Form>
-    <Button @click="disabled=!disabled">disabled</Button>-->
-    <Modal v-model="disabled" />
-    <Button @click="disabled=true">hhhhhh</Button>
-
-    <Button @click="$Modal.info({title:'a',content:'b',onOk:test})">info</Button>
-    <Button @click="$Modal.success()">success</Button>
-    <Button @click="$Modal.error()">error</Button>
-    <Button @click="$Modal.warning()">warning</Button>
-    <Button @click="$Modal.comfirm({loading:true,onOk:test1})">warning</Button>
+    <Menu mode="vertical" :theme='theme' active-name="1">
+      <MenuItem name="1" icon="ios-speedometer">盘仪表</MenuItem>
+      <SubMenu name="2">
+        <template slot="title">
+          <Icon type="ios-gift" />商品管理
+        </template>
+        <MenuItem name="2-1">商品信息</MenuItem>
+        <MenuItem name="2-2">商品列表</MenuItem>
+        <MenuItem name="2-3">商品新增</MenuItem>
+        <SubMenu name="3-4">
+          <template slot="title">商品管理</template>
+          <MenuItem name="3-4-1">商品信息</MenuItem>
+          <MenuItem name="3-4-2">商品列表</MenuItem>
+        </SubMenu>
+      </SubMenu>
+      <!-- <SubMenu name="2">
+            <template slot="title">
+              <Icon type="ios-person" />用户管理
+            </template>
+            <MenuGroup title="超级管理">
+              <MenuItem name="2-1">用户信息</MenuItem>
+              <MenuItem name="2-2">用户列表</MenuItem>
+            </MenuGroup>
+            <MenuGroup title="普通管理">
+              <MenuItem name="2-3">用户新增</MenuItem>
+              <MenuItem name="2-4">用户筛选</MenuItem>
+            </MenuGroup>
+          </SubMenu> -->
+      <MenuItem name="3" icon="ios-list-box">新闻管理</MenuItem>
+      <MenuItem name="4" icon="ios-settings" disabled>系统设置</MenuItem>
+    </Menu>
+    <p>切换主题</p>
+    <RadioGroup v-model="theme">
+      <Radio label="light"></Radio>
+      <Radio label="dark"></Radio>
+      <Radio label="primary"></Radio>
+    </RadioGroup>
   </div>
 
 </template>
@@ -86,78 +48,20 @@
 export default {
   data() {
     return {
-      disabled: false,
-      form: {
-        switch: true,
-        input: "",
-        number: "",
-        select: '',
-        province: '',
-        city: '',
-        radio: '',
-        checkbox: '',
-        datepicker: "",
-        radios: "",
-        checkboxs: [],
-        textarea: ''
-      },
-      rules: {
-        input: [{ required: true, trigger: 'blur' }],
-        number: [{ required: true, trigger: 'blur', type: 'number', min: 5, max: 10 }],
-        select: [{ required: true, trigger: 'change' }],
-        province: [{ required: true, trigger: 'change' }],
-        city: [{ required: true, trigger: 'change' }],
-        datepicker: [{ required: true, trigger: 'change' }],
-        radios: [{ required: true, trigger: 'change' }],
-        radio: [{ required: true, trigger: 'change' }],
-        checkbox: [{ required: true, trigger: 'change' }],
-        checkboxs: [{ required: true, trigger: 'change', min: 2, max: 3, message: '长度为2-3个字符', }],
-        textarea: [{ required: true, message: '必填', trigger: 'blur' }, { min: 2, max: 5, message: '长度为2-5个字符', trigger: 'blur' }],
-      },
+      theme: 'light',
     }
   },
   mounted() {
     return
-    setTimeout(e => {
-      this.form = {
-        switch: true,
-        input: 123,
-        number: 10,
-        select: '2',
-        province: '3',
-        city: '2',
-        datepicker: "2010-10-10",
-        radios: "1",
-        checkbox: true,
-        radio: true,
-        checkboxs: ['男', '女'],
-        textarea: '123123232'
-      }
-    }, 2000)
+
   },
   methods: {
-    test1() {
-      setTimeout(e => {
-        this.$Modal.close()
-      }, 3000)
+    test2() {
+      this.a = true
     },
     test() {
-      // this.$router.push('/modal')
-      this.$Message.info('ee')
-    },
-    submitForm(name) {
-      // console.log(this.$refs[name].model)
-      this.$refs[name].validate(valid => {
-        if (valid) {
-          this.$Message.success('验证通过')
-        } else {
-          this.$Message.error('验证失败')
-        }
-      })
-    },
-    resetForm(name) {
-      this.$refs[name].resetFields()
-    },
+      this.b = 3
+    }
   }
 }
 </script>

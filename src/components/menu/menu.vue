@@ -18,23 +18,10 @@ export default {
   },
   data() {
     return {
-      activeIndex: this.activeName,
-      items: [],
-      submenus: [],
+      currentName: this.activeName,
+      children: [],
       open_name: this.openName
     };
-  },
-  watch: {
-    activeIndex(name) {
-      this.broadcast('MenuItem', 'menu-item-update', name)
-      this.broadcast('SubMenu', 'menu-submenu-close', name)
-    },
-    open_name(name) {
-      // console.log(name)
-      if (this.accordion) {
-        this.broadcast('SubMenu', 'menu-submenu-update', name)
-      }
-    }
   },
   computed: {
     classes() {
@@ -53,16 +40,45 @@ export default {
   methods: {
     setAccordion(name) {
       this.open_name = name
+    },
+    setActived(name, openName) {
+      this.children.forEach(child => {
+        if (child.$options.name == 'MenuItem') {
+          child.actived = child.name == name
+        } else if (child.$options.name == 'SubMenu') {
+          if (this.accordion && this.mode == 'vertical' && openName && child.name != openName) {
+            child.visible = false
+            return;
+          }
+          child.updateChild(name)
+        } else if (child.$options.name == 'MenuGroup') {
+          child.updateChild(name)
+        }
+      })
+      this.currentName = name;
+      this.$emit("select", name);
+    },
+    add(child) {
+      let name = child.$options.name
+      if (name == 'MenuItem') {
+        if (child.name == this.currentName) {
+          child.actived = true
+        }
+      } else if (name == 'SubMenu') {
+        child.mode = this.mode
+        child.accordion = this.accordion
+        child.updateChild(this.currentName, this.open_name)
+      } else if (name == 'MenuGroup') {
+        child.accordion = this.accordion
+        child.mode = this.mode
+        child.updateChild(this.currentName)
+      }
+      this.children.push(child)
 
     },
-    itemSelect(name) {
-      this.activeIndex = name;
-      this.$emit("select", name);
+    remove(child) {
+      this.children.splice(this.children.indexOf(child), 1);
     }
   },
-  mounted() {
-    this.$on('menu-select', this.itemSelect)
-    this.$on('menu-accrodion', this.setAccordion)
-  }
 };
 </script>

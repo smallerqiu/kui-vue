@@ -16,10 +16,11 @@
     font-size: 14px;
     line-height: 1.5;
     max-width: 250px;
-    color: #fff;
+    color: #000;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px;
     text-align: left;
     text-decoration: none;
-    background-color: @dark;
+    background-color: white;
     border-radius: @radius; // -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
     // box-shadow: 0 2px 8px rgba(0,0,0,.15);
     min-height: 32px;
@@ -32,17 +33,28 @@
   }
   .k-poptip-arrow {
     position: absolute;
-    width: 0;
-    height: 0;
-    bottom: 4px;
-    margin-left: 4px;
-    border: 6px solid transparent;
-    border-style: solid; // border-top-color:  rgba(0, 0, 0, .75);
+    width: 17px;
+    height: 17px;
+    bottom: 0;
+    overflow: hidden;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      transform: rotate(-45deg);
+      background: #fff;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px;
+    }
   }
   &[k-placement^=top] {
     .k-poptip-arrow {
-      border-width: 6px 6px 0;
-      border-top-color: @dark;
+      height: 6px;
+      bottom: 4px;
+      &::after {
+        top: -10px;
+        left: 2px;
+      }
     }
   }
   &[k-placement=top] {
@@ -63,9 +75,11 @@
   }
   &[k-placement^=bottom] {
     .k-poptip-arrow {
-      border-bottom-color: @dark;
-      border-width: 0 6px 6px 6px;
       top: 4px;
+      height: 6px;
+      &::after {
+        top: 4px;
+      }
     }
   }
   &[k-placement=bottom] {
@@ -86,8 +100,12 @@
   }
   &[k-placement^=left] {
     .k-poptip-arrow {
-      right: -2px;
-      border-left-color: @dark;
+      right: 4px;
+      width: 6px;
+      &::after {
+        top: 0px;
+        left: -10px;
+      }
     }
   }
   &[k-placement=left] {
@@ -108,9 +126,12 @@
   } //ok
   &[k-placement^=right] {
     .k-poptip-arrow {
-      left: 0px;
-      border-width: 6px 6px 6px 0;
-      border-right-color: @dark;
+      left: 4px;
+      width: 6px;
+      &::after {
+        top: 0px;
+        left: 4px;
+      }
     }
   }
   &[k-placement=right] {
@@ -127,6 +148,19 @@
   &[k-placement=right-bottom] {
     .k-poptip-arrow {
       bottom: 15px;
+    }
+  }
+}
+
+.k-tooltip-dark {
+  .k-tooltip-dom {
+    .k-tooltip-content {
+      background: @dark;
+      color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px;
+    }
+    .k-poptip-arrow::after {
+      background: rgba(0, 0, 0, 0.75);
     }
   }
 }

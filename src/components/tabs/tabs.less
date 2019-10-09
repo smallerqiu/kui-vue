@@ -4,8 +4,7 @@
   .k-tabs-bar {
     border-bottom: 1px solid #e8e8e8;
     margin: 0 0 16px;
-    .k-tabs-tab-next,
-    .k-tabs-tab-prev {
+    .k-tabs-tab-next, .k-tabs-tab-prev {
       position: absolute;
       line-height: 39px;
       cursor: pointer;
@@ -38,8 +37,7 @@
       .k-tabs-nav-scroll {
         transition: transform .3s ease-in-out;
       }
-      .k-tabs-tab-next,
-      .k-tabs-tab-prev {
+      .k-tabs-tab-next, .k-tabs-tab-prev {
         display: block;
       }
     }
@@ -63,12 +61,23 @@
         text-align: center;
         color: #999;
         &:hover {
-          color: @danger  !important;
+          color: @danger !important;
         }
       }
     }
-    .k-tabs-tab-active,
-    .k-tabs-tab:hover {
+    .k-tabs-tab-active {
+      position: relative;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        content: '';
+        left: 0;
+        height: 2px;
+        background: @main;
+        width: 100%;
+      }
+    }
+    .k-tabs-tab-active, .k-tabs-tab:hover {
       color: @main;
       .k-ion-android-close {
         color: #999;
@@ -91,18 +100,21 @@
   }
   .k-tabs-content {
     width: 100%;
-    display: flex;
     transition: transform .3s ease-in-out;
     .k-tabs-tabpane {
-      // flex: 100% 0 0;
-      float: left;
+      // float: left;
     }
   }
 }
 
-.k-tabs-no-animate {
+.k-tabs-animated {
+  .k-tabs-bar .k-tabs-tab-active::after {
+    display: none;
+  }
   .k-tabs-content {
-    transition: none;
+    .k-tabs-tabpane {
+      float: left;
+    }
   }
 }
 
@@ -120,6 +132,9 @@
     .k-tabs-tab-active {
       background: #fff;
       border-bottom-color: transparent;
+      &::after {
+        display: none;
+      }
     }
   }
 }
@@ -135,6 +150,9 @@
     }
     .k-tabs-tab-active {
       background: #fff;
+      &::after {
+        display: none;
+      }
     }
     .k-tabs-ink-bar {
       display: none;
