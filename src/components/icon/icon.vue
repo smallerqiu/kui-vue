@@ -14,14 +14,10 @@ export default {
       return `k-ion-${this.type}`;
     },
     styles() {
-      let style = {};
-      if (this.size) {
-        style["font-size"] = `${this.size}px`;
-      }
-      if (this.color) {
-        style.color = this.color;
-      }
-      return style;
+      return {
+        fontSize: `${this.size}px`,
+        color: this.color
+      };
     }
   },
   methods: {

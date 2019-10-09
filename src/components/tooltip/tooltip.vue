@@ -1,5 +1,5 @@
 <template>
-  <div class="k-tooltip" @mouseenter="mouseEnter" @mouseleave="mouseLeave" v-winScroll="handleScroll">
+  <div :class="['k-tooltip',{'k-tooltip-dark':dark}]" @mouseenter="mouseEnter" @mouseleave="mouseLeave" v-winScroll="handleScroll">
     <div class="k-tooltip-rel" ref="rel" @click="relClick">
       <slot></slot>
     </div>
@@ -13,9 +13,7 @@
     </transition>
   </div>
 </template>
-<script>
-import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
+<script> 
 import transferDom from "@/directives/transferDom";
 import emitter from "@/mixins/emitter";
 import winScroll from "@/directives/winScroll";
@@ -30,6 +28,7 @@ export default {
     trigger: { type: String, default: "hover" },
     width: [String, Number],
     content: [String, Number],
+    dark: Boolean,
     placement: {
       validator(value) {
         return (
@@ -69,7 +68,7 @@ export default {
       this.$nextTick(() => this.setPosition())
     },
     setPosition() {
-      if (SSR) return;
+      if (this.$isServer) return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
       if (this.transfer) {

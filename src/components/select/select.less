@@ -44,6 +44,7 @@
         background: transparent;
         box-sizing: border-box;
         width: 100%;
+        cursor: pointer;
     }
     .k-select-arrow {
         font-size: 18px;
@@ -138,6 +139,7 @@
     .k-select-item-disabled {
         background: #f5f5f5;
         color: #b2b2b2;
+        cursor: not-allowed;
     }
     // &:hover{
     //     overflow: auto;
@@ -201,6 +203,9 @@
 }
 
 .k-select-disabled {
+    .k-select-label {
+        cursor: not-allowed;
+    }
     .k-select-selection {
         background: #f5f5f5;
         cursor: not-allowed;

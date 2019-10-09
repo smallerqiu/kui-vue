@@ -23,9 +23,7 @@
     </transition>
   </div>
 </template>
-<script>
-import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
+<script> 
 import { Button } from "../button";
 import docClick from "@/directives/docClick";
 import transferDom from "@/directives/transferDom";
@@ -92,7 +90,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      if (SSR) return;
+      if (this.$isServer) return;
       let pos = { left: 0, top: 0 };
       let rel = this.$refs.rel.children[0] || this.$refs.rel;
       if (this.transfer) {

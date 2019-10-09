@@ -10,9 +10,7 @@
     </transition>
   </div>
 </template>
-<script>
-import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
+<script> 
 import emitter from "@/mixins/emitter";
 import transferDom from "@/directives/transferDom";
 import winScroll from "@/directives/winScroll";
@@ -91,7 +89,7 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      if (SSR) return;
+      if (this.$isServer) return;
       let m = 2;
       let rel = /* this.$refs.rel.children[0] ||  */this.$refs.rel;
       let dom = this.$refs.dom;

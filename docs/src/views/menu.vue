@@ -3,51 +3,55 @@
     <h2>Menu 导航菜单</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-menu。</Alert>
     <h3>代码示例</h3>
-    <Demo title="顶部导航" layout="vertical">
+    <Demo title="顶部导航" mode="vertical">
       <div slot="content">
         <Menu mode="horizontal" :theme='theme' active-name="1">
-          <MenuItem name="1" icon="ios-paper">我的产品</MenuItem>
-          <SubMenu name="1">
-            <template slot="title">
-              <Icon type="md-walk" />商品管理
-            </template>
-            <MenuItem name="1-1">商品信息</MenuItem>
-            <MenuItem name="1-2">商品列表</MenuItem>
-            <MenuItem name="1-3">商品新增</MenuItem>
-            <MenuItem name="1-4">商品筛选</MenuItem>
-          </SubMenu>
+          <MenuItem name="1" icon="ios-speedometer">盘仪表</MenuItem>
           <SubMenu name="2">
             <template slot="title">
-              <Icon type="md-walk" />用户管理
+              <Icon type="ios-gift" />商品管理
+            </template>
+            <MenuItem name="2-1">商品信息</MenuItem>
+            <MenuItem name="2-2">商品列表</MenuItem>
+            <MenuItem name="2-3">商品新增</MenuItem>
+            <SubMenu name="3-4">
+              <template slot="title">商品管理</template>
+              <MenuItem name="3-4-1">商品信息</MenuItem>
+              <MenuItem name="3-4-2">商品列表</MenuItem>
+            </SubMenu>
+          </SubMenu>
+          <SubMenu name="3">
+            <template slot="title">
+              <Icon type="ios-person" />用户管理
             </template>
             <MenuGroup title="超级管理">
-              <MenuItem name="2-1">用户信息</MenuItem>
-              <MenuItem name="2-2">用户列表</MenuItem>
+              <MenuItem name="3-1">用户信息</MenuItem>
+              <MenuItem name="3-2">用户列表</MenuItem>
             </MenuGroup>
             <MenuGroup title="普通管理">
-              <MenuItem name="2-3">用户新增</MenuItem>
-              <MenuItem name="2-4">用户筛选</MenuItem>
+              <MenuItem name="3-3">用户新增</MenuItem>
+              <MenuItem name="3-4">用户筛选</MenuItem>
             </MenuGroup>
           </SubMenu>
-          <MenuItem name="4" icon="logo-apple">新闻管理</MenuItem>
-          <MenuItem name="5" icon="ios-lock">权限管理</MenuItem>
+          <MenuItem name="4" icon="ios-list-box">新闻管理</MenuItem>
+          <MenuItem name="5" icon="ios-settings" disabled>系统设置</MenuItem>
         </Menu>
-        <br/>
+        <br />
         <p>切换主题</p>
-        <br/>
+        <br />
         <RadioGroup v-model="theme">
           <Radio label="light"></Radio>
           <Radio label="dark"></Radio>
           <Radio label="primary"></Radio>
         </RadioGroup>
       </div>
-      <div slot="desc">水平导航菜单，<br/>可通过
-        <code>theme</code>属性来设置菜单主题，水平导航提供3种， 垂直2种，<br/> 通过
+      <div slot="desc">水平导航菜单，<br />可通过
+        <code>theme</code>属性来设置菜单主题，水平导航提供3种， 垂直2种，<br /> 通过
         <code>select</code>事件可以取得点击菜单的name。
       </div>
       <div slot="code">{{code.base}}</div>
     </Demo>
-    <Demo title="侧栏导航" layout="vertical">
+    <Demo title="侧栏导航" mode="vertical">
       <div slot="content">
         <Row>
           <Col span="8">
@@ -63,17 +67,21 @@
             </SubMenu>
             <SubMenu name="1">
               <template slot="title">
-                <Icon type="logo-apple" />商品管理
+                <Icon type="ios-gift" />商品管理
               </template>
               <MenuItem name="1-1">商品信息</MenuItem>
               <MenuItem name="1-2">商品列表</MenuItem>
               <MenuItem name="1-3">商品新增</MenuItem>
-              <MenuItem name="1-4">商品筛选</MenuItem>
+              <SubMenu name="1-4">
+                <template slot="title">商品管理</template>
+                <MenuItem name="1-4-1">商品信息</MenuItem>
+                <MenuItem name="1-4-2">商品列表</MenuItem>
+              </SubMenu>
             </SubMenu>
 
             <SubMenu name="2">
               <template slot="title">
-                <Icon type="md-walk" />用户管理
+                <Icon type="ios-person" />用户管理
               </template>
               <MenuGroup title="超级管理">
                 <MenuItem name="2-1">用户信息</MenuItem>
@@ -99,7 +107,7 @@
             </SubMenu>
             <SubMenu name="1">
               <template slot="title">
-                <Icon type="logo-apple" />商品管理
+                <Icon type="ios-gift" />商品管理
               </template>
               <MenuItem name="1-1">商品信息</MenuItem>
               <MenuItem name="1-2">商品列表</MenuItem>
@@ -109,7 +117,7 @@
 
             <SubMenu name="2">
               <template slot="title">
-                <Icon type="md-walk" />用户管理
+                <Icon type="ios-person" />用户管理
               </template>
               <MenuGroup title="超级管理">
                 <MenuItem name="2-1">用户信息</MenuItem>
@@ -123,14 +131,14 @@
           </Menu>
           </Col>
           <Col span="8">
-          <Menu :theme='theme' activeName="2-1">
+          <Menu :theme='theme' activeName="3-1">
             <MenuGroup title="超级管理">
-              <MenuItem name="2-1">用户信息</MenuItem>
-              <MenuItem name="2-2">用户列表</MenuItem>
+              <MenuItem name="3-1">用户信息</MenuItem>
+              <MenuItem name="3-2">用户列表</MenuItem>
             </MenuGroup>
             <MenuGroup title="普通管理">
-              <MenuItem name="2-3">用户新增</MenuItem>
-              <MenuItem name="2-4">用户筛选</MenuItem>
+              <MenuItem name="3-3">用户新增</MenuItem>
+              <MenuItem name="3-4">用户筛选</MenuItem>
             </MenuGroup>
           </Menu>
           </Col>

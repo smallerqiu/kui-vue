@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" v-scroll="setScroll" ref="root">
+  <div :class="classes" ref="root">
     <div class="k-tabs-bar">
       <div class="k-tabs-extra" ref="extra">
         <slot name="extra"></slot>
@@ -14,8 +14,8 @@
         <div class="k-tabs-nav-wrap">
           <div class="k-tabs-nav-scroll" ref="scroll" :style="scrollStyle">
             <div class="k-tabs-nav" ref="tabs">
-              <div class="k-tabs-ink-bar" :style="inkStyles" v-if="!card"></div>
-              <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.active,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="index" @click="handelClick(item)">
+              <div class="k-tabs-ink-bar" :style="inkStyles" v-if="!card && animated"></div>
+              <div :class="['k-tabs-tab',{['k-tabs-tab-active']:item.actived,['k-tabs-tab-disabled']:item.disabled}]" v-for="(item,index) in children" :key="index" @click="tabClick(item)">
                 <Icon :type="item.icon" v-if="item.icon" />{{item.label}}
                 <Icon type="md-close" v-if="item.closable && card && closable" @click.stop="close(index,item)" />
               </div>
@@ -37,7 +37,7 @@ export default {
   components: { Icon },
   name: "Tabs",
   props: {
-    value: [String, Number],
+    value: { type: [String, Number], default: 0 },
     card: Boolean,
     closable: Boolean,
     mini: Boolean,
@@ -47,117 +47,113 @@ export default {
   data() {
     return {
       children: [],
-      active: false,
-      paneLeft: 0,
+      currentIndex: 0,
       tabLeft: 0,
       activeName: this.value,
-      activeTab: null,
       scrollable: false,
       listWidth: 0,
-      itemWidth: 0
+      itemWidth: 0,
+      isAnimated: this.animated,
+      lineWidth: 0, lineLeft: 0,
     };
   },
   computed: {
     styles() {
-      return {
-        transform: `translateX(${this.paneLeft * this.itemWidth * -1}px)`,
-        width: `${this.listWidth}px`
-      };
+      if (this.isAnimated) {
+        let { currentIndex, itemWidth, listWidth } = this
+        // console.log(currentIndex,itemWidth,listWidth)
+        return {
+          transform: `translateX(${currentIndex * itemWidth * -1}px)`,
+          width: `${listWidth}px`
+        };
+      }
+      return {}
     },
     classes() {
       return [
         "k-tabs",
         {
           ["k-tabs-mini"]: this.mini,
-          ["k-tabs-no-animate"]: !this.animated,
+          ["k-tabs-animated"]: this.isAnimated,
           ["k-tabs-card"]: this.card && !this.sample,
           ["k-tabs-sample"]: this.sample && !this.card
         }
       ];
     },
     inkStyles() {
-      return this.activeTab
-        ? {
-          width: `${this.activeTab.offsetWidth}px`,
-          left: `${this.activeTab.offsetLeft}px`
-        }
-        : {};
+      let { lineWidth, lineLeft } = this
+      return { width: `${lineWidth}px`, left: `${lineLeft}px` }
     },
     scrollStyle() {
       return {
-        transform: `translateX(${this.tabLeft}px)`
+        transform: `translate3d(${this.tabLeft}px,0,0)`
       };
     }
   },
   watch: {
-    value(v) {
-      this.activeName = v;
-      this.handelClick();
+    value(v1, v2) {
+      if (v1 != v2) {
+        this.activeName = v1;
+        this.changeTab()
+      }
     },
-    itemWidth(w) {
-      this.listWidth = w * this.children.length;
-      this.children.forEach(child => {
-        child.width = w;
-      });
-    },
-    children() {
-      this.$nextTick(() => {
-        this.setScroll();
-      });
-    }
   },
 
   created() {
     this.$on("tabs-add", this.add);
     this.$on("tabs-remove", this.remove);
+    window.addEventListener('resize', this.resize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resize)
+    clearTimeout(this.timer)
   },
   mounted() {
-    let index = 0;
-    if (this.activeName === undefined) {
-      this.activeName = this.children[0].activeName;
-      this.children[0].active = true;
-      index = 0;
-    } else {
-      this.children.forEach((child, i) => {
-        if (child.active) {
-          child.name == this.activeName;
-          index = i;
-        }
-      });
-    }
-    this.$nextTick(() => {
-      this.activeTab = this.$refs.tabs.children[index + 1];
-    });
-    this.left = index;
-    this.paneLeft = index;
-    this.itemWidth = this.$refs.root.offsetWidth;
-    // console.log(this.itemWidth);
-    this.listWidth = this.itemWidth * this.children.length;
+    this.$nextTick(e => this.setLine())
   },
   methods: {
+    resize() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(e => {
+        this.setScroll()
+        if (this.isAnimated) {
+          this.children.forEach(c => c.width = this.$refs.root.offsetWidth)
+        }
+      }, 300)
+    },
+    setLine() {
+      if (this.isAnimated) {
+        let tab = this.$refs.tabs.children[this.currentIndex + 1];
+        if (tab) {
+          this.lineWidth = tab.offsetWidth
+          this.lineLeft = tab.offsetLeft
+        }
+        tab = null
+      }
+    },
     scroll(t) {
-      let boxWidth = this.$refs.scroll.offsetWidth;
-      let scrollWidth = this.$refs.scroll.scrollWidth;
+      if (!this.$refs.root) return;
+      let { offsetWidth, scrollWidth } = this.$refs.scroll
       if (t == "next") {
-        let last = scrollWidth + this.tabLeft - boxWidth; //剩余的要偏移的长度
+        let last = scrollWidth + this.tabLeft - offsetWidth; //剩余的要偏移的长度
         if (last == 0) return;
-        this.tabLeft -= last > boxWidth ? boxWidth : last;
+        this.tabLeft -= last > offsetWidth ? offsetWidth : last;
       } else {
         if (this.tabLeft == 0) return;
-        this.tabLeft += -this.tabLeft > boxWidth ? boxWidth : -this.tabLeft;
+        this.tabLeft += -this.tabLeft > offsetWidth ? offsetWidth : -this.tabLeft;
       }
     },
     setScroll() {
-      let boxWidth = this.$refs.scroll.offsetWidth;
-      let scrollWidth = this.$refs.scroll.scrollWidth;
+      if (!this.$refs.root) return;
+      let { offsetWidth, scrollWidth } = this.$refs.scroll
       let extraWidth = this.$refs.extra.offsetWidth;
       // console.log(boxWidth,scrollWidth,extraWidth)
       // let s = this.scrollable ? 39 * 2 - 10 : 0;
-      this.scrollable = scrollWidth - extraWidth > boxWidth;
+      this.scrollable = scrollWidth - extraWidth > offsetWidth;
       //重置滚动
       if (this.tabLeft < 0) {
-        if (-this.tabLeft + boxWidth > scrollWidth) {
-          this.tabLeft = -(scrollWidth - boxWidth);
+        if (-this.tabLeft + offsetWidth > scrollWidth) {
+          this.tabLeft = -(scrollWidth - offsetWidth);
         }
       }
       this.itemWidth = this.$refs.root.offsetWidth;
@@ -166,39 +162,67 @@ export default {
     close(index, item) {
       this.$emit("close", this.activeName);
       this.children.splice(index, 1);
-      this.$refs.panes.removeChild(this.$refs.panes.children[index]);
+      let panes = this.$refs.panes
+      if (panes.children[index]) {
+        panes.removeChild(panes.children[index]);
+      }
       if (this.children.length && this.activeName == item.activeName) {
         this.activeName = this.children[index - 1].activeName;
-        this.children[index - 1].active = true;
-        this.paneLeft = index - 1;
-      } else if (index < this.paneLeft) {
-        this.paneLeft--
+        this.children[index - 1].actived = true;
+        this.currentIndex = index - 1;
+      } else if (index < this.currentIndex) {
+        this.currentIndex--
+      }
+      this.$nextTick(e => this.setScroll());
+    },
+    tabClick(item) {
+      if (item.disabled) return;
+      this.activeName = item.activeName;
+      this.$emit('input', item.activeName)
+
+      this.$emit("tab-click", this.activeName);
+      if (this.value !== undefined) {
+        this.changeTab()
       }
     },
-    handelClick(item) {
-      if (item && item.disabled) return;
-      if (item) {
-        this.activeName = item.activeName;
-      }
+    changeTab() {
       this.children.forEach((child, index) => {
         if (child.activeName == this.activeName) {
-          this.paneLeft = index;
-          !this.card && (this.activeTab = this.$refs.tabs.children[index + 1]);
-          child.active = true;
+          this.currentIndex = index;
+          child.actived = true;
         } else {
-          child.active = false;
+          child.actived = false;
+        }
+        if (!this.isAnimated) {
+          child.visible = child.actived
         }
       });
-      this.$emit("click", this.activeName);
+      this.setLine()
     },
     add(obj) {
-      if (obj.activeName === undefined) obj.activeName = this.children.length;
-      else obj.active = obj.activeName == this.value;
-      obj.width = this.itemWidth
+      obj.index = this.children.length;
+      obj.activeName = obj.activeName || obj.index
+      obj.actived = obj.activeName == this.value;
+      if (obj.actived) {
+        this.currentIndex = this.children.length
+      }
+      if (this.isAnimated) {
+        if (!obj.$el.offsetWidth) {
+          obj.visible = obj.actived
+          this.isAnimated = false
+        } else {
+          obj.width = this.itemWidth = this.$refs.root.offsetWidth
+        }
+      } else {
+        obj.visible = obj.actived
+      }
+
       this.children.push(obj);
+      this.$nextTick(e => this.setScroll());
     },
     remove(obj) {
       this.children.splice(this.children.indexOf(obj), 1);
+      this.$nextTick(e => this.setScroll());
     }
   }
 };

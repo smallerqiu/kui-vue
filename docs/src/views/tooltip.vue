@@ -8,7 +8,10 @@
       <Demo title="基本">
         <div slot="content">
           <Tooltip content="我是提示内容">
-            <p>鼠标划过，我是一段文字</p>
+            <Button>我是一段文字</Button>
+          </Tooltip>
+          <Tooltip content="我是提示内容" dark>
+            <Button>我是一段文字</Button>
           </Tooltip>
         </div>
         <div slot="desc">Tooltip基本使用</div>
@@ -19,8 +22,8 @@
           <Tooltip>
             <Button>我是个演员</Button>
             <div slot="content">
-              <p>我独占一行，然后....</p>
-              <p>我独占一行，然后....</p>
+              我独占一行，然后.... <br />
+              我独占一行，然后....
             </div>
           </Tooltip>
         </div>
@@ -122,6 +125,12 @@
           <td>宽度，最小宽度为 150px</td>
           <td>String，Number </td>
           <td>-</td>
+        </tr>
+        <tr>
+          <td>dark</td>
+          <td>是否展示深色模式</td>
+          <td>Boolean </td>
+          <td>false</td>
         </tr>
         <tr>
           <td>transfer</td>
