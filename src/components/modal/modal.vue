@@ -216,7 +216,7 @@ export default {
     },
     ok() {
       this.$emit("ok");
-      this.close();
+      // this.close();
     },
     onKeyUp(e) {
       if (this.visible && this.maskClosable) {
