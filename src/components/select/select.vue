@@ -39,6 +39,7 @@ export default {
     value(v, v2) {
       // console.log(v, v2)
       this.updateSelect(v);
+      this.dispatch("FormItem", "form-item-change", v);
     },
     visible(val) {
       if (this.filterable) {
@@ -148,7 +149,6 @@ export default {
         child.selected = isNotValue && value == child.value
         if (child.selected) {
           this.label = child.label === undefined ? child.$el.innerHTML : child.label
-          this.dispatch("FormItem", "form-item-change", value);
         }
       });
       if (value === "" || value === undefined || value === null) this.label = ''
@@ -211,9 +211,7 @@ export default {
           child.selected = item.value == child.value
         });
       }
-      this.$emit("change", item);
-
-      this.dispatch("FormItem", "form-item-change", item.value);
+      this.$emit("change", item); 
       this.$nextTick(() => (this.visible = false));
     }
   }

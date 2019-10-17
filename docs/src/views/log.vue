@@ -3,6 +3,10 @@
     <h2>更新日志</h2>
     <TimeLine>
       <TimeLineItem>
+        <h3>2.3.5<span> 2019-10-17 </span></h3>
+        <p>优化<code>Modal</code>关闭动画</p>
+        <p>修复<code>Select</code>组件表单验证的问题</p>
+        <p>完善<code>Table</code>`row-click`冒泡不执行的问题</p>
         <h3>2.3.4<span> 2019-10-9 </span></h3>
         <p>重写了<code>Menu</code><code>MenuItem</code>一系列组件,增加了二级菜单</p>
         <p>重写了<code>Badge</code>组件,修复了一些显示问题</p>

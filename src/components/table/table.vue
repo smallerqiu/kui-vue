@@ -39,7 +39,7 @@
       </thead>
       <tbody>
         <tr v-for="(item,index) in data" :key="index">
-          <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)" @click="rowClick(item,index,$event)">
+          <td v-for="(sub,n) in columns" :key="n" :style="tdStyle(sub.textAlign)" @click="rowClick(sub,item,index,$event)">
             <div v-if="sub.type&&sub.type=='selection'" class="k-table-cell">
               <label for="">
                 <k-checkbox v-model="item.checked" @change="checkChange(item)"></k-checkbox>
@@ -195,8 +195,9 @@ export default {
         this.$emit('sort-change', item.key, value)
       }
     },
-    rowClick(item, index, e) {
-      this.$emit('row-click', item, index)
+    rowClick(sub, item, index, e) {
+      if (sub.type == 'editor' || sub.type == 'selection' || sub.type == 'action') return;
+      this.$emit('row-click', item, index, e)
     },
     isShowTip(item, sub) {
       if (!item || !sub || !sub.key) return false
