@@ -83,7 +83,8 @@ const createModal = options => {
         this.closing = true
       },
       remove() {
-        this.$children[0].ok()
+        // modal.close()
+        this.$children[0].close()
         clearTimeout(this.timer)
         this.timer = setTimeout(e => {
           document.body.removeChild(this.$el)
