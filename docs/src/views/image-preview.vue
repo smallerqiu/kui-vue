@@ -3,7 +3,7 @@
     <h2>ImagePreview 图片预览</h2>
     <p>使用场景：后台有一个商品，使用Table组件以列表形式显示，商品有缩略图，点击缩略图看大图，达到预览目的</p>
     <h3>代码示例</h3>
-    <Demo title="基础" layout="vertical">
+    <Demo title="基本用法" layout="vertical">
       <div slot="content">
         <Button @click="$ImagePreview.show('https://chuchur.com/upload/2017-11-3/kui-for-vue.jpg')">预览</Button>
         <br/>

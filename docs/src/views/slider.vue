@@ -3,7 +3,7 @@
     <h2>Slider 滑块</h2>
     <p>滑动型输入器，展示当前值和可选范围。</p>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <Slider></Slider>
       </div>

@@ -2,7 +2,7 @@
   <div>
     <h2>Alert 警告提示</h2>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <Alert type="success">Success Text</Alert>
         <Alert type="info">Info Text</Alert>

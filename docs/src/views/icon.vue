@@ -5,16 +5,17 @@
       <a href="http://ionicons.com/" target="_blank">ionicons</a>，当前版本4.5.10
     </p>
     <h3>代码示例</h3>
-    <Demo title="基础" layout="vertical">
+    <Demo title="基本用法" layout="vertical">
       <div slot="content">
         <Icon type="logo-apple" />
         <Icon type="logo-apple" size="25" />
         <Icon type="logo-apple" size="30" color="green" />
+        <Icon type="ios-sync" spin size="25" />
       </div>
       <div slot="desc">可以通过
         <code>type</code>,
         <code>size</code>
-        <code>color</code>属性分别设置图标的类型、大小、颜色</div>
+        <code>color</code>属性分别设置图标的类型、大小、颜色,也可以通过设置 <code>spin</code> 属性来实现动画旋转效果。</div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <h3>API</h3>
@@ -43,6 +44,12 @@
           <td>图标的颜色</td>
           <td>String </td>
           <td>-</td>
+        </tr>
+        <tr>
+          <td>spin</td>
+          <td>图标是否选择</td>
+          <td>Boolen </td>
+          <td>false</td>
         </tr>
       </table>
     </div>
@@ -79,7 +86,7 @@
           </span>
         </div>
       </template>
-       <h3 v-if="!applist.length && !logos.length" style="text-align:center;">
+      <h3 v-if="!applist.length && !logos.length" style="text-align:center;">
         No results for "{{key}}"
       </h3>
     </div>
@@ -125,7 +132,7 @@ export default {
         this.logos = orilogo.filter(x => {
           return x.indexOf(key) >= 0
         })
-      }else{
+      } else {
         this.applist = this.type == 'ios' ? code.icons.ios : code.icons.md;
         this.logos = code.icons.logo
       }

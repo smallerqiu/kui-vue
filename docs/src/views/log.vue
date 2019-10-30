@@ -7,6 +7,8 @@
         <p>优化<code>Modal</code>关闭动画</p>
         <p>修复<code>Select</code>组件表单验证的问题</p>
         <p>完善<code>Table</code>`row-click`冒泡不执行的问题</p>
+      </TimeLineItem>
+      <TimeLineItem>
         <h3>2.3.4<span> 2019-10-9 </span></h3>
         <p>重写了<code>Menu</code><code>MenuItem</code>一系列组件,增加了二级菜单</p>
         <p>重写了<code>Badge</code>组件,修复了一些显示问题</p>
@@ -41,7 +43,7 @@
         <p>增加图标位置显示，左右可控</p>
         <p>增加按钮loading模式</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>2.2.7<span> 2019-7-23 </span></h3>
         <p>统一表单组件大小</p>
         <p>修复<code>Radio,Checkbox</code>等组件的<code>disabled</code>属性动态属性问题</p>
@@ -51,7 +53,7 @@
         <p>Chebox单独使用和组合使用的验证</p>
         <p>Radio单独使用和组合使用的验证</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>2.2.2<span> 2019-6-13 </span></h3>
         <p>为了移动端更好的体验，默认取消全局定位，本次改动受影响的组件<code>ColorPicker,DatePicker,Poptip,Select,Tooltip,TreeSelect</code>，如果发现组件下拉部分被遮挡，请给设置组件<code>transfer='true'</code></p>
         <p>文档代码展示模块新增了复制代码和放大显示</p>
@@ -64,7 +66,7 @@
         <p>优化<code>Select,DatePikcer</code>组件下拉展示的问题</p>
         <p>修复<code>Poptip</code>内容或标题过长展示的问题</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>2.1.8<span> 2019-5-22 </span></h3>
         <p><code>Table</code>组件新增可编辑模式</p>
         <p>修复<code>Page</code>组件，当Total改变时page重置的问题</p>
@@ -81,7 +83,7 @@
         <p><code>DatePicker</code>支持时间戳格式</p>
         <p><code>Icon</code>库升级到4.5.6</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>2.0.3<span> 2019-1-27 </span></h3>
         <p>修复<code>Poptip,Tooltip</code>显示坐标错误的问题,非常感谢用户`@tiantian8144`提出问题</p>
         <p>修复一些组件在box-sizing: border-box;模式下展示怪异的问题</p>
@@ -208,7 +210,7 @@
         <p>修复<code>Page</code>组件跳转翻页的问题以及按钮字符换行的问题</p>
         <p>优化<code>Loading</code>组件展示半透明模式</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.4.9<span> 2018-3-20 </span></h3>
         <p>修复<code>colorPicker</code>组件，当页面滚动时找不到对象的错误</p>
         <p>优化了文档页面首次载入过慢的问题
@@ -219,13 +221,13 @@
         <p>优化文档，加入了代码展示部分 展开折叠</p>
         <p>修复了文档<code>Table</code>部分，日期下拉导致出现滚动条，部分被隐藏</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.4.6 <span> 2018-1-31 </span> </h3>
         <p>加入了全局的<code>document click，scroll</code>指令优化显示一系列组件的下拉显示将更加人性化</p>
         <p>修复了<code>DatePicker</code>组件层级显示问题</p>
         <p>优化了<code>Page</code>组件在<code>mini</code>模式显示的问题</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.4.5 <span> 2018-1-29 </span> </h3>
         <p>修复<code>Table</code>组件 <code>bordered</code>显示问题</p>
         <p>优化<code>Table</code>组件 无数据时文字显示问题，优化表格表头字体大小</p>
@@ -242,7 +244,7 @@
         </p>
         <p>增加了几个钩子，优化了一些显示细节</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.4.3 <span> 2018-1-22 </span> </h3>
         <p>修复多个下拉组件显示隐藏的问题</p>
         <p>修复<code>Modal</code>组件冒泡显示移除的问题</p>
@@ -267,7 +269,7 @@
         <p>新增<code>Select</code>,<code>DatePicker</code>,<code>mini</code>属性，可以使用小尺寸</p>
         <p>新增<code>DatePicker</code> width 属性，可以自定义宽度</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.3.7 <span> 2018-1-17 </span> </h3>
         <p>修复<code>Select</code>组件无法赋值的问题</p>
         <p>修复<code>Input</code>组件默认参数定义出错的问题</p>
@@ -279,7 +281,7 @@
         <p><code>Table</code>组件新增文字对其属性</p>
         <p><code>Modal</code>组件新增可拖动属性</p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.3.5 <span> 2018-1-10 </span> </h3>
         <p>修复<code>Select</code>组件数据动态改变后无法选中的bug</p>
         <p>修复<code>Option</code>组件<code>label</code>赋值的问题</p>
@@ -291,7 +293,7 @@
         <p>新增<code>icon</code>组件</p>
         <p>新增<code>TimeLine</code></p>
       </TimeLineItem>
-      <TimeLineItem icon="ios-bug" color="red">
+      <TimeLineItem icon="ios-bug" color="#d00000">
         <h3>1.2.8 <span> 2018-1-3 </span> </h3>
         <p>修复部分组件在禁用状态下显示异常的问题</p>
         <p>新增<code>Form</code>组件</p>

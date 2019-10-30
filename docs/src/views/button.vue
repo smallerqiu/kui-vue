@@ -3,62 +3,56 @@
     <h2>Button 按钮</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-button。</Alert>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo title="基础" layout="vertical">
-        <div slot="content">
-          <Button>Default</Button>
-          <Button type="primary">Primary</Button>
-          <Button type="primary" hollow>hollow</Button>
-          <Button type="primary" circle>circle</Button>
-          <Button type="link" circle>link</Button>
-        </div>
-        <div slot="desc">使用
-          <code>type</code>、
-          <code>hollow</code>、
-          <code>circle</code>属性来定义
-          <code>Button</code> 的样式。</div>
-        <div slot="code">{{code.base}} </div>
-      </Demo>
-      <Demo title="带图标" layout="vertical">
-        <div slot="content">
-          <Button type="primary" icon="ios-search">搜索</Button>
-          <Button type="success" icon="ios-arrow-back">Backward</Button>
-          <Button type="danger" icon="ios-arrow-forward" icon-align="right">Forward</Button>
-          <Button type="primary" icon="ios-play" circle />
-          <Button type="primary" icon="ios-pause" />
-          <Button type="primary" icon="ios-square" />
-          <Button type="primary" icon="ios-search" loading>loading</Button>
-          <Button type="primary" :loading="loading" @click="loading=true">loading</Button>
-        </div>
-        <div slot="desc">通过添加
-          <code>icon</code>属性 设置按钮按钮图标。</div>
-        <div slot="code">{{code.withIcon}}</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo title="禁用" layout="vertical">
-        <div slot="content">
-          <Button type="primary">Primary</Button>
-          <Button disabled type="primary">disabled</Button>
-        </div>
-        <div slot="desc">通过添加
-          <code>disabled</code>属性可将按钮设置为不可用状态。</div>
-        <div slot="code">{{code.disabled}}</div>
-      </Demo>
-      <Demo title="尺寸" layout="vertical">
-        <div slot="content">
-          <Button type="primary" large>Large</Button>
-          <Button type="primary">Base</Button>
-          <Button type="primary" mini>Mini</Button>
-        </div>
-        <div slot="desc">
-          <code>mini</code>为小尺寸，
-          <code>large</code>为大尺寸</div>
-        <div slot="code">{{code.size}}</div>
-      </Demo>
-      </Col>
-    </Row>
+    <Demo title="基本用法" layout="vertical">
+      <div slot="content">
+        <Button>Default</Button>
+        <Button type="primary">Primary</Button>
+        <Button type="primary" hollow>hollow</Button>
+        <Button type="primary" circle>circle</Button>
+        <Button type="link" circle>link</Button>
+      </div>
+      <div slot="desc">使用
+        <code>type</code>、
+        <code>hollow</code>、
+        <code>circle</code>属性来定义
+        <code>Button</code> 的样式。</div>
+      <div slot="code">{{code.base}} </div>
+    </Demo>
+    <Demo title="带图标" layout="vertical">
+      <div slot="content">
+        <Button type="primary" icon="ios-search">搜索</Button>
+        <Button type="success" icon="ios-arrow-back">Backward</Button>
+        <Button type="danger" icon="ios-arrow-forward" icon-align="right">Forward</Button>
+        <Button type="primary" icon="ios-play" circle />
+        <Button type="primary" icon="ios-pause" />
+        <Button type="primary" icon="ios-square" />
+        <Button type="primary" icon="ios-search" loading>loading</Button>
+        <Button type="primary" :loading="loading" @click="loading=true">loading</Button>
+      </div>
+      <div slot="desc">通过添加
+        <code>icon</code>属性 设置按钮按钮图标。</div>
+      <div slot="code">{{code.withIcon}}</div>
+    </Demo>
+    <Demo title="禁用" layout="vertical">
+      <div slot="content">
+        <Button type="primary">Primary</Button>
+        <Button disabled type="primary">disabled</Button>
+      </div>
+      <div slot="desc">通过添加
+        <code>disabled</code>属性可将按钮设置为不可用状态。</div>
+      <div slot="code">{{code.disabled}}</div>
+    </Demo>
+    <Demo title="尺寸" layout="vertical">
+      <div slot="content">
+        <Button type="primary" large>Large</Button>
+        <Button type="primary">Base</Button>
+        <Button type="primary" mini>Mini</Button>
+      </div>
+      <div slot="desc">
+        <code>mini</code>为小尺寸，
+        <code>large</code>为大尺寸</div>
+      <div slot="code">{{code.size}}</div>
+    </Demo>
     <Demo title="按钮组合" layout="vertical">
       <div slot="content">
         <ButtonGroup large>
@@ -72,9 +66,9 @@
           <Button>已签收</Button>
         </ButtonGroup>
         <ButtonGroup mini circle>
-          <Button  type="success">编辑</Button>
-          <Button  type="danger">删除</Button>
-          <Button  type="primary">保存</Button>
+          <Button type="success">编辑</Button>
+          <Button type="danger">删除</Button>
+          <Button type="primary">保存</Button>
         </ButtonGroup>
       </div>
       <div slot="desc">将多个

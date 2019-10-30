@@ -2,7 +2,7 @@
   <div>
     <h2>Page 分页</h2>
     <h3>代码示例</h3>
-    <Demo title="基础" layout="vertical">
+    <Demo title="基本用法" layout="vertical">
       <div slot="content">
         <Page :total="1000" :current="1" :pagesize="10"></Page>
       </div>

@@ -7,11 +7,12 @@ export default {
   props: {
     type: String,
     size: [String, Number],
-    color: [String]
+    color: [String],
+    spin: Boolean
   },
   computed: {
     classes() {
-      return `k-ion-${this.type}`;
+      return [`k-ion-${this.type}`, { 'k-load-loop': this.spin }];
     },
     styles() {
       return {

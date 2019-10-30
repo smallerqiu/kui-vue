@@ -5,7 +5,7 @@
         <h3>代码示例</h3>
         <Row gutter="8">
             <Col span="12">
-            <Demo title="基础"  layout="vertical">
+            <Demo title="基本用法"  layout="vertical">
                 <div slot="content" style="background:#eee;padding:15px;">
                     <Card title="卡片标题" icon="ios-heart">
                         <span slot="extra" @click="$Message.info('刚刚摇了下')">摇一摇</span>

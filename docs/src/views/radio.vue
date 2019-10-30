@@ -4,7 +4,7 @@
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">
-      <Demo title="基础" layout="vertical">
+      <Demo title="基本用法" layout="vertical">
         <div slot="content">
           <span>{{checked}}</span><br/>
           <Radio v-model="checked" @change="change">测试</Radio>

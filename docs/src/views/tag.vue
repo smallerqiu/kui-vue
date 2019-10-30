@@ -3,7 +3,7 @@
     <h2>Tag 标签</h2>
     <p>进行标记和分类的小标签。</p>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <Tag>标签1</Tag>
         <Tag>标签2</Tag>
