@@ -5,7 +5,7 @@
         <h3>代码示例</h3>
         <Row gutter="8">
             <Col span="12">
-            <Demo layout="vertical" title="基础">
+            <Demo layout="vertical" title="基本用法">
                 <div slot="content">
                     <Collapse v-model="acitve">
                         <Panel title="我是标题" name="1">

@@ -2,7 +2,7 @@
   <div>
     <h2>Badge 徽标</h2>
     <h3>代码示例</h3>
-    <Demo layout="vertical" title="基础">
+    <Demo layout="vertical" title="基本用法">
       <div slot="content">
         <Badge count="3">
           <Button>最新消息</Button>

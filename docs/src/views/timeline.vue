@@ -2,7 +2,7 @@
   <div>
     <h2>TimeLine 时间轴</h2>
     <h3>代码示例</h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <TimeLine>
           <TimeLineItem>发布1.0版本</TimeLineItem>

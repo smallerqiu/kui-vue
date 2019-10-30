@@ -4,7 +4,6 @@
 //   font-family: CenturyGothic;
 //   src: url(./fonts/CenturyGothic.ttf)
 // }
-
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +16,7 @@
   margin: 0;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+    font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
 }
 
 html, body, .body {
@@ -42,14 +42,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-setting: 'liga', 'kern';
   background-color: #c5cace;
-  color: #252525;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  color: #333;
+  // font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   // font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-  font-weight: 400;
+  font-weight: 500;
   color: #333;
 }
 
@@ -432,7 +432,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   tr, td {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
@@ -446,10 +446,16 @@ table {
       text-align: left;
     }
     td, th {
-      font-size: 12px;
+      font-size: 14px;
       border: 1px solid #eee;
       padding: 11px; // text-align: center;
       box-sizing: border-box;
+    }
+    td:first-child {
+      color: #005388;
+    }
+    td:nth-child(3) {
+      color: #b05e00;
     }
     tr {
       &:first-child {
@@ -670,7 +676,6 @@ table {
     }
   }
   code, kbd, samp {
-    font-family: Consolas, Menlo, Courier, monospace;
     font-size: 14px;
     line-height: 25px;
   }

@@ -2,7 +2,7 @@
   <div>
     <h2>Modal 对话框</h2>
     <h3>代码示例 </h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <Button @click="d1=!d1">普通对话框</Button>
         <Modal v-model="d1"></Modal>

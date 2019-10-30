@@ -20,7 +20,7 @@
     </ul>
     <Alert>注意：非 template/render 模式下，需使用 k-col。</Alert>
     <h3>代码示例</h3>
-    <Demo title="基础" layout="vertical">
+    <Demo title="基本用法" layout="vertical">
       <div slot="content">
         <Row>
           <Col span="12">col-12</Col>

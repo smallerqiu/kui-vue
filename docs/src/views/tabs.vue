@@ -5,7 +5,7 @@
     <h3>代码示例</h3>
     <Row gutter="8">
       <Col span="12">
-      <Demo title="基础">
+      <Demo title="基本用法">
         <div slot="content">
           <Tabs :value="3">
             <TabPane label="Tab1" name="1">我是内容1....</TabPane>

@@ -1,7 +1,7 @@
 <template>
   <button :type="buttonType" :class="classes" :disabled="disabled" @click="click">
     <Icon :type="icon" :class="iconClasses" v-if="icon&&iconAlign=='left'&&!loading" />
-    <Icon type="ios-sync" class="k-load-loop" v-if="loading" />
+    <Icon type="ios-sync" spin v-if="loading" />
     <span v-if="showSlot">
       <slot></slot>
     </span>

@@ -7,7 +7,7 @@
     <p>当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。</p>
     <p>当需要在当前任务流中插入临时任务，创建或预览附加内容。比如展示协议条款，创建子对象。</p>
     <h3>代码示例 </h3>
-    <Demo title="基础">
+    <Demo title="基本用法">
       <div slot="content">
         <Button @click="d1=!d1">普通抽屉</Button>
         <Drawer v-model="d1"></Drawer>
