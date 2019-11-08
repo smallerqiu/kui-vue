@@ -1,43 +1,88 @@
+const webpack = require('webpack')
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const pkg = require('../package.json');
 
+const markdown = require('./md-loader/render')
+
+const vueLoaderOptions = {
+  loaders: {
+    js: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env'],
+          plugins: ['transform-vue-jsx', 'transform-object-rest-spread'],
+        },
+      },
+    ],
+  },
+};
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
-        /* query: {
-          presets: ['es2015', 'stage-3'],
-          plugins: ['transform-runtime']
-        } */
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'vue-loader', // 这里的使用的最新的 v15 版本
+          },
+          {
+            loader: 'kui-loader', options: { prefix: false }
+          },
+          {
+            loader: './build/md-loader',
+            options: markdown
+          },
+
+        ]
       },
-      { test: /\.s(a|c)ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
-      { test: /\.styl(us)?$/, use: ['style-loader', 'css-loader', 'stylus-loader'] },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', /* 'postcss-loader' */]
+        use: ['vue-style-loader', 'css-loader'],
       },
       {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader'],
+        test: /\.vue$/,
+        use: [{
+          loader: 'vue-loader',
+          options: vueLoaderOptions
+          // options: {
+          //   loaders: {
+          //     css: 'vue-style-loader!css-loader',
+          //     less: 'vue-style-loader!css-loader!less-loader'
+          //   },
+          // }
+        },
+        { loader: 'kui-loader', options: { prefix: false } }
+        ]
+      },
+      {
+        test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader',
       },
       {
         test: /\.(png|jpg|gif)$/,
         loader: 'url-loader',
-        query: { limit: 13000, name: 'img/[name].[ext]?[hash:7]' }
+        options: { limit: 10000, name: 'img/[name].[ext]?[hash:7]' }
       },
       {
         test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
         loader: 'file-loader',
-        query: { limit: 10000, name: 'fonts/[name].[ext]?[hash:7]', prefix: 'font' }
+        query: { name: 'fonts/[name].[ext]?[hash:7]', prefix: 'font' }
       },
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.vue', '.json', '.less'],
+    extensions: ['.js', '.jsx', '.vue', '.json', '.less', '.md'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, '../src'),
+      '@': path.join(__dirname, '../'),
     },
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin(),
+    new webpack.BannerPlugin(`${pkg.name} v${pkg.version} 
+Copyright 2017-present, kui-vue.
+All rights reserved.
+        `),],
 }
