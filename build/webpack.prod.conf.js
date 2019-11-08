@@ -2,16 +2,12 @@
  * by chuchur /chuchur@qq.com
  * 打包vue 组件
  */
-const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
-const pkg = require('../package.json');
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
-const VueLoaderPlugin = require('vue-loader/lib/plugin') //for vue-loader 15
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const progress = require('webpack-simple-progress-plugin');
 
 module.exports = merge(webpackBaseConfig, {
     mode: 'production',
@@ -32,7 +28,7 @@ module.exports = merge(webpackBaseConfig, {
     module: {
         rules: [
             {
-                test: /\.(c|le)ss$/,
+                test: /\.less$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
             },
             {
@@ -56,30 +52,43 @@ module.exports = merge(webpackBaseConfig, {
         }
     },
     optimization: {
-        minimize: true,
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    name: `chunk-vendors`,
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    chunks: 'initial',
+                },
+                common: {
+                    name: `chunk-common`,
+                    minChunks: 2,
+                    priority: -20,
+                    chunks: 'initial',
+                    reuseExistingChunk: true,
+                },
+            },
+        },
         minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions: {
-                    compress: {
-                        // warnings: false,
-                        drop_debugger: true,
-                        drop_console: true
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true,
+                    uglifyOptions: {
+                        warnings: false,
                     },
-                    sourceMap: false
                 }
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
     },
     plugins: [
-        new progress(),
-        new VueLoaderPlugin(), //for vue-loader 15
-        new webpack.DefinePlugin({ PRODUCTION: "'true'" }),
+        new WebpackBar({
+            name: '🚙  K UI a vue components',
+            color: 'green',
+        }),
         new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
-        new webpack.BannerPlugin(pkg.name + ' v' + pkg.version + ' by chuchur (c) ' + new Date().getFullYear() + ' Licensed ' + pkg.license),
-        // 允许错误不打断程序
-        // new webpack.NoErrorsPlugin(),
-        new webpack.LoaderOptionsPlugin({ minimize: true })
     ],
 
 })

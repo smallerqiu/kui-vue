@@ -1,10 +1,7 @@
 const rm = require('rimraf')
-const ora = require('ora')
 
-const spinner = ora('开始构建...')
 const chalk = require('chalk')
 const webpack = require('webpack')
-const path = require('path')
 
 let isBuildDoc = process.argv.splice(2).length>0;
 let config = isBuildDoc ? require('./webpack.prod.doc.conf') : require('./webpack.prod.conf');

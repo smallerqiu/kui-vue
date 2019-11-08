@@ -1,0 +1,55 @@
+.k-demo {
+  border: 1px solid #eee;
+  margin: 10px 0;
+  position: relative;
+  // overflow: hidden;
+  transition: all 0.3s;
+  .k-demo-main {
+    // padding: 0 0 20px;
+    // box-sizing: border-box;
+  }
+  .k-content, .k-desc {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .k-desc {
+    margin: 30px 0 0;
+    border-top: 1px solid #f1f1f1;
+    position: relative;
+    h4 {
+      position: absolute;
+      top: -65px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+      background: #fff;
+      padding: 5px 10px;
+    }
+    .k-desc-content {
+      color: #666;
+      padding-right: 50px;
+      position: relative;
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  .k-code {
+    transition: all .3s ease;
+  }
+  .k-code-expan {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 24px;
+    color: #7d7d7d;
+    cursor: pointer;
+  }
+  .k-collapse {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+}

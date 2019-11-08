@@ -1,0 +1,16 @@
+<cn>
+#### 基础用法
+通过 `to` 添加跳转链接
+</cn>
+
+```tpl
+<template>
+  <div>
+    <Breadcrumb>
+      <BreadcrumbItem to="/">Home</BreadcrumbItem>
+      <BreadcrumbItem to="/breadcrumb">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem>other</BreadcrumbItem>
+    </Breadcrumb>
+  </div>
+</template>
+```
