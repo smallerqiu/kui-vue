@@ -2,7 +2,7 @@
 import Base from './base' 
 import Color from './color' 
 import Dynamic from './dynamic' 
-import Api from '../index.md'
+import CN from '../index.md'
 export default {
   render() {
     return (
@@ -10,7 +10,7 @@ export default {
         <Base />
         <Color />
         <Dynamic />
-        <Api />
+        <api><CN/></api>
       </div>
     )
   }

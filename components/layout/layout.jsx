@@ -68,12 +68,15 @@ const Layout = createComponent('layout', 'Layout')(layoutBase)
 
 const siderBase = {
   props: { suffixCls: String },
-  inject: ['addSider', 'removeSider'],
+  inject: {
+    addSider: { default: e => { } },
+    removeSider: { default: e => { } }
+  },
   mounted() {
-    this.addSider && this.addSider()
+    this.addSider()
   },
   beforeDestroy() {
-    this.removeSider && this.removeSider()
+    this.removeSider()
   },
   render() {
     const { $slots, suffixCls } = this

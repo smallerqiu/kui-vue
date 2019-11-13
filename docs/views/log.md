@@ -31,16 +31,22 @@
 - 🌟 `ImagePreview` 组件新增全局显示模式
 - 🌟 `Switch` 组件新增 `mini` 模式
 - 🌟 新增抽屉 `Drawer` 组件，[#体验](https://k-ui.cn/components/drawer)
-- 👏 `Modal`
+
+`Modal`
+
   - 👏 优化展示隐藏动画 [#体验](https://k-ui.cn/components/modal)
   - 🌟 删除 `toast` 模式，新增提示框、 `confrim` 模式
   - 🌟 新增 `info，success，warning，error，show` 等全局模式
   - 🌟 新增异步回调
-- `Input`
+
+`Input`
+
   - 🐞 修复 `@input` 事件调用两次的问题
   - 🌟 新增大尺寸模式
   - 👏 优化图标左右位置显示
-- `Button`
+
+`Button`
+
   - 🌟 新增大尺寸模式
   - 🌟 新增图标位置显示，左右可控
   - 🌟 新增按钮 `loading` 模式

@@ -1,4 +1,4 @@
-import Radio from './radio'
-import RadioGroup from './radioGroup'
-import RadioButton from './radioButton'
+import Radio from './radio.jsx'
+import RadioGroup from './group.jsx'
+import RadioButton from './button.jsx'
 export { Radio, RadioGroup, RadioButton }

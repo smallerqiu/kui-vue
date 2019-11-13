@@ -3,27 +3,39 @@
   display: inline-block;
   font-size: 0;
   vertical-align: middle;
+  white-space: nowrap;
   .k-btn {
     position: relative;
     margin-left: -1px !important;
     z-index: 0;
     border-radius: 0;
-    float: left;
+    &:focus {
+      z-index: 2;
+    }
     &:first-child {
       border-top-left-radius: @radius;
       border-bottom-left-radius: @radius;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
     }
     &:last-child {
       border-top-right-radius: @radius;
       border-bottom-right-radius: @radius;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
     }
   }
-  .k-btn-primary {
-    z-index: 1
+  .k-btn-primary.k-btn-hollow {
+    z-index: 1;
+    color: @main;
+    border-color: @main;
+  }
+}
+
+.k-radio-cirle {
+  .k-btn:first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+  .k-btn:last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
 }
 
@@ -50,7 +62,7 @@
       position: relative;
       top: 0;
       left: 0;
-      border: 1px solid #dddee1;
+      border: 1px solid @borderColor;
       border-radius: 2px;
       background-color: #fff;
       transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
@@ -97,29 +109,21 @@
       }
     }
   }
-  .k-radio-disabled {
-    cursor: not-allowed;
-    .k-radio-inner {
-      background: #f3f3f3;
-      &:after {
-        background-color: #f3f3f3;
-      }
-    }
-  }
 }
 
 .k-radio-disabled {
   cursor: not-allowed;
-  opacity: .5;
+  // opacity: .5;
+  color: @disableColor;
   .k-radio {
     .k-radio-input {
       cursor: not-allowed;
     }
     .k-radio-inner {
-      background: #f3f3f3;
-      border-color: #d0d0d0;
+      background: @disableBack;
+      border-color: @disableBorder;
       &:after {
-        background-color: #999;
+        background-color: @disableBorder;
       }
     }
   }

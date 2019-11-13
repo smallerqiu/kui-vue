@@ -1,27 +1,25 @@
-let code = {}
-code.nav = [
-  {
-    title: "开始",
-    child: [
-      // { title: "KUI for React", weblink: 'https://react.k-ui.xyz/start' },
-      // { title: "KUI for Angular", link: '/angular-kui' },
-      { title: "快速上手", name: "start", icon: 'ios-cog' },
-      { title: "SSR 支持", name: "ssr", icon: 'ios-cloud' },
-      { title: "更新日志", name: "log", log: 1, icon: 'ios-paper' },
-      { title: "定制主题", name: "theme", icon: "md-shirt" },
-      { title: "kui-loader", name: "kui-loader", icon: "ios-link" }
-    ]
-  },
-  {
-    title: "基础组件",
-    child: [
-      { title: "图标", sub: "Icon", name: "icon", icon: "ios-heart" },
-      { title: "按钮", sub: "Button", name: "button", icon: 'ios-square' },
-      { title: "颜色", sub: "ColorPicker", name: "colorpicker", icon: 'ios-color-palette' },
-      { title: "栅格", sub: "Grid", name: "grid", icon: 'ios-grid' },
-      { title: "布局", sub: "Layout", name: "layout", icon: 'ios-albums' },
-    ]
-  },
+const Nav = [
+  // {
+  //   title: "开始",
+  //   child: [
+  //     // { title: "KUI for React", weblink: 'https://react.k-ui.xyz/start' },
+  //     { title: "快速上手", name: "start", icon: 'ios-cog' },
+  //     { title: "SSR 支持", name: "ssr", icon: 'ios-cloud' },
+  //     { title: "更新日志", name: "log", log: 1, icon: 'ios-paper' },
+  //     { title: "定制主题", name: "theme", icon: "md-shirt" },
+  //     { title: "kui-loader", name: "kui-loader", icon: "ios-link" }
+  //   ]
+  // },
+  // {
+  //   title: "基础组件",
+  //   child: [
+  //     { title: "图标", sub: "Icon", name: "icon", icon: "ios-heart" },
+  //     { title: "按钮", sub: "Button", name: "button", icon: 'ios-square' },
+  //     { title: "颜色", sub: "ColorPicker", name: "colorpicker", icon: 'ios-color-palette' },
+  //     { title: "栅格", sub: "Grid", name: "grid", icon: 'ios-grid' },
+  //     { title: "布局", sub: "Layout", name: "layout", icon: 'ios-albums' },
+  //   ]
+  // },
   {
     title: "表单",
     child: [
@@ -30,7 +28,7 @@ code.nav = [
       { title: "单选框", sub: "Radio", name: "radio", icon: 'ios-checkmark-circle' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'ios-switch' },
       { title: "下拉框", sub: "Select", name: "select", icon: 'ios-arrow-down' },
-      { title: "日期", sub: "datePicker", name: "datepicker", icon: 'ios-calendar' },
+      { title: "日期", sub: "DatePicker", name: "datepicker", icon: 'ios-calendar' },
       { title: "表格", sub: "Table", name: "table", icon: 'ios-grid' },
       { title: "上传", sub: "Upload", name: "upload", icon: 'ios-cloud-upload' },
       { title: "表单", sub: "Form", name: "form", icon: 'ios-list' },
@@ -45,7 +43,7 @@ code.nav = [
       { title: "走马灯", sub: "Carousel", name: "carousel", icon: 'ios-film' },
       { title: "折叠面板", sub: "Collapse", name: "collapse", icon: 'ios-funnel' },
       { title: "抽屉", sub: "Drawer", name: "drawer", icon: 'ios-map' },
-      { title: "图片预览", sub: "imagePreview", name: "imagepreview", icon: 'ios-images' },
+      { title: "图片预览", sub: "ImagePreview", name: "imagepreview", icon: 'ios-images' },
       { title: "全局提示", sub: "Message", name: "message", icon: 'ios-chatboxes' },
       { title: "通知提醒", sub: "Notice", name: "notice", icon: 'ios-notifications' },
       { title: "对话框", sub: "Modal", name: "modal", icon: 'ios-chatbubbles' },
@@ -72,4 +70,4 @@ code.nav = [
     ]
   },
 ]
-export default code
+export default Nav

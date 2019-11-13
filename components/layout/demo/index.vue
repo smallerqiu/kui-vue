@@ -7,7 +7,7 @@ export default {
   render() {
     return (
       <div>
-        <Info />
+        <Info class="typo"/>
         <Base />
         <TopMiddleBottom />
         <TopSiderContent />

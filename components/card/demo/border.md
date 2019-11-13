@@ -7,13 +7,15 @@
 <template>
   <div>
     <Card title="卡片标题" icon="ios-heart" bordered>
-      <span slot="extra">摇一摇</span>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
+      <div slot="extra">
+        <Tooltip content="我是一个苹果"><Icon type="logo-apple" size="20"/></Tooltip>
+      </div>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
     </Card>
   </div>
 </template>

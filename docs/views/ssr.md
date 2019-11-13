@@ -1,5 +1,5 @@
-## 服务端渲染的支持</h2>
-### nuxt 环境构建</h3>
+## 服务端渲染的支持
+### nuxt 环境构建
 使用npx 或者 yarn 初始化项目,使用npm i npx -g 安装npx 或 yarn
 
 ```sh

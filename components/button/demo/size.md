@@ -1,6 +1,6 @@
 <cn>
-#### 基本用法
-使用type、hollow、circle属性来定义Button 的样式。
+#### 尺寸
+`mini` 为小尺寸， `large` 为大尺寸
 </cn>
 
 ```tpl

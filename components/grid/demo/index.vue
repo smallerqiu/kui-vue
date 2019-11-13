@@ -3,7 +3,7 @@ import Info from './info.md'
 import Base from './base.md'
 import Gutter from './gutter.md'
 import Offset from './offset.md'
-import API from '../index.md'
+import CN from '../index.md'
 export default {
   mounted() {
 
@@ -15,7 +15,7 @@ export default {
         <Base />
         <Gutter />
         <Offset />
-        <API />
+        <api><CN /></api>
       </div>
     )
   }
