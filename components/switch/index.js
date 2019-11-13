@@ -1,2 +1,2 @@
-import Switch from './switch'
+import Switch from './switch.jsx'
 export default Switch

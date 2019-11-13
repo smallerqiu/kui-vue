@@ -12,7 +12,7 @@
     line-height: 1.5;
     padding: 4px 7px;
     font-size: 12px;
-    border: 1px solid #dddee1;
+    border: 1px solid @borderColor;
     border-radius: @radius;
     color: #495060;
     background-color: #fff;
@@ -26,8 +26,13 @@
       border-color: @main;
     }
     &:disabled {
-      background: #f5f5f5;
       cursor: not-allowed;
+      color: @disableColor;
+      background: @disableBack;
+      border-color: @disableBorder;
+      &::placeholder{
+        color: @disableColor;
+      }
     }
   }
   .k-textarea {
@@ -53,8 +58,6 @@
     }
   }
 }
-
-
 
 .k-input-clearable {
   position: absolute;
@@ -84,6 +87,7 @@
     }
   }
 }
+
 .k-input-icon-left {
   [class^="k-ion"] {
     left: 0;
@@ -119,6 +123,7 @@
     }
   }
 }
+
 .k-input-lg {
   .k-input {
     padding: 2px 7px;
@@ -145,6 +150,7 @@
     }
   }
 }
+
 .k-input-lg.k-input-icon-left {
   [class^="k-ion"] {
     left: 0;
@@ -154,6 +160,7 @@
     }
   }
 }
+
 .k-input-mini.k-input-icon-left {
   [class^="k-ion"] {
     left: 0;
@@ -163,14 +170,11 @@
     }
   }
 }
+
 ::-ms-clear {
   display: none;
 }
 
 ::-ms-reveal {
   display: none;
-}
-
-input[disabled='disabled'], textarea[disabled='disabled'] {
-  cursor: not-allowed;
 }

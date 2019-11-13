@@ -1,0 +1,58 @@
+@import './markdown.less';
+@import './atom-one-light.css';
+.k-layout {
+  .header {
+    height: 50px;
+    line-height: 50px;
+    background: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 0 10px #ddd;
+    .logo {
+      float: left;
+      a {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        text-decoration: none;
+      }
+      img {
+        height: 30px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 10px;
+        width: 30px;
+      }
+    }
+    .top-menu {
+      float: right;
+    }
+    .search-component {
+      width: 280px;
+      float: left;
+      margin-left: 130px;
+      .k-select-selection {
+        font-size: 15px;
+        border: none !important;
+      }
+      .k-select-arrow {
+        display: none;
+      }
+    }
+  }
+  .main {
+    background: #fff;
+    padding-top: 50px;
+    .k-layout-sider {
+      background: #fff;
+      .left-menu {
+        height: 100%;
+      }
+    }
+    & > .k-layout-content {
+      padding: 30px 20px 10px;
+    }
+  }
+}

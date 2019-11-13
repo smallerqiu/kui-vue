@@ -28,12 +28,10 @@ module.exports = {
             loader: 'vue-loader', // 这里的使用的最新的 v15 版本
           },
           {
-            loader: 'kui-loader', options: { prefix: false }
-          },
-          {
             loader: './build/md-loader',
             options: markdown
           },
+          { loader: 'kui-loader', options: { prefix: false } }
 
         ]
       },

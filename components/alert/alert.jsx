@@ -3,7 +3,7 @@ import Icon from "../icon";
 import { getChild } from '../_tool/utils'
 import Transition from '../collapse/collapse.jsx'
 export default {
-  components: { Icon},
+  components: { Icon },
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
@@ -27,10 +27,7 @@ export default {
     },
     classes() {
       return [
-        "k-alert",
-        {
-          [`k-alert-${this.type}`]: this.type
-        }
+        "k-alert", { [`k-alert-${this.type}`]: this.type }
       ];
     }
   },

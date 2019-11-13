@@ -35,6 +35,7 @@
 }
 .demo-dot .k-badge{
   margin-right:30px;
+  margin-bottom:30px;
 }
 </style>
 ```

@@ -10,7 +10,7 @@
       <div class="box"></div>
     </Badge>
     <Badge dot>
-      <Icon type="ios-archive" size="30"></Icon>
+      <Icon type="ios-notifications-outline" />
     </Badge>
     <Badge dot>
       <a href="#">我是一个连接</a>

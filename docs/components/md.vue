@@ -21,9 +21,6 @@ marked.setOptions({
 });
 export default {
   name: 'MD',
-  // inject: {
-  //   demoContext: { default: {} },
-  // },
   data() {
     let text = '';
     if (this.$slots.default && this.$slots.default[0] && this.$slots.default[0].text) {

@@ -33,6 +33,6 @@ module: {
 ```
 
 #### 说明
-可以直接写 <Switch>标签；
-参数 prefix 设置为 true 后，所有 kui 组件标签名都可以使用前缀 k-
+使用 `kui-loader` 之后， 可以直接写 `Switch` 标签；
+参数 `prefix` 设置为 `true` 后，所有 `kui` 组件标签 名称都可以使用前缀 `k-`
  

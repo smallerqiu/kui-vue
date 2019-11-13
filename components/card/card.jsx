@@ -6,27 +6,18 @@ export default {
     title: String,
     icon: String
   },
-  computed: {
-    classes() {
-      return ['k-card', {
-        ['k-card-bordered']: this.bordered
-      }]
-    }
-  },
   render() {
-    const { title, classes, icon, $slots } = this
+    const { title, icon, $slots, bordered } = this
+    const classes = ['k-card', {
+      ['k-card-bordered']: bordered
+    }]
+    const extra = $slots.extra ? <div class="k-card-extra">{$slots.extra}</div> : null
+    const iconNode = icon ? <Icon type={icon} /> : null
+    const titleNode = title ? <span class="k-card-title">{title}</span> : $slots.title || null
     return (
       <div class={classes}>
-        <div class="k-card-head">
-          {icon ? <Icon type={icon} /> : null}
-          {title ? <p>{title}</p> : $slots.title || null}
-        </div>
-        {$slots.extra ?
-          <div class="k-card-extra">{$slots.extra}</div>
-          : null}
-        {$slots.default ?
-          <div class="k-card-body">{$slots.default}</div>
-          : null}
+        <div class="k-card-head">{iconNode}{titleNode}{extra}</div>
+        {$slots.default ? <div class="k-card-body">{$slots.default}</div> : null}
       </div>
     )
   }

@@ -7,13 +7,15 @@
 <template>
   <div class="demo-card">
     <Card title="卡片标题" icon="ios-heart">
-      <span slot="extra" @click="$Message.info('刚刚摇了下')">摇一摇</span>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
-      <p>内容随便写， 欢迎使用</p>
+      <div slot="extra" @click="$Message.info('click')">
+        <span>年</span>-<span>月</span>-<span>日</span>
+      </div>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
+      <p>card content</p>
     </Card>
   </div>
 </template>

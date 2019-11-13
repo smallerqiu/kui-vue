@@ -17,6 +17,11 @@
     <transition @enter="enter" @leave="leave" @beforeEnter="beforeEnter">
       <!-- <Code v-show="expand" ref="code" :lang="lang"> -->
       <div v-show="expand" class="k-code">
+        <div class="k-code-tools">
+          <ToolTip content="复制代码">
+            <Icon type="ios-copy" @click="copy" />
+          </ToolTip>
+        </div>
         <slot name="code"></slot>
       </div>
       <!-- </Code> -->
@@ -28,8 +33,10 @@
 import './demo.less'
 // import Code from '../code'
 import Collapse from '@/components/collapse/collapse.js'
+import ToolTip from '@/components/tooltip'
+import {Message} from '@/components/message'
 export default {
-  components: { Collapse },
+  components: { Collapse, ToolTip,Message },
   data() {
     return {
       expand: false
@@ -40,9 +47,18 @@ export default {
     data: { Object, Array }
   },
   methods: {
+    copy() {
+      let { sourceCode } = this.data
+      this.$copyText(sourceCode).then(function (e) {
+        Message.success('代码复制成功！')
+      }, function (e) {
+        Message.error('复制代码失败，请手动复制')
+        console.log(e)
+      })
+    },
     beforeEnter(el) {
-        el.style.height = 0
-        el.style.opacity = 0.1
+      el.style.height = 0
+      el.style.opacity = 0.1
     },
     enter(el) {
       if (el.scrollHeight !== 0) {

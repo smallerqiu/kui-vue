@@ -29,14 +29,14 @@ const render = (md, options) => {
       if (token.type === 'html_block') {
         if (token.content.match(cnReg)) {
           cn = getDomHtml(token.content, 'cn');
-          token.content = null
+          token.content = ''
         }
         /* if (token.content.match(usReg)) {
              us = getDomHtml(token.content, 'us');
              token.content = '';
            } */
       }
-      if (token.type === 'fence' && token.info === 'tpl' && token.markup === '```') {
+      if (token.info === 'tpl') {
         sourceCode = token.content;
         code = '````html\n' + token.content + '````';
         template = getDomHtml(token.content, 'template');
@@ -105,6 +105,7 @@ var markdown = require('markdown-it')({
 markdown
   .use(anchor, {
     level: 2,
+    slugify: string => string.trim().split(' ').join('-'),
     permalink: true,
     permalinkClass: 'anchor',
     permalinkSymbol: '#',

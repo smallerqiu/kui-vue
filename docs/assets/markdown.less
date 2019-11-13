@@ -3,11 +3,11 @@
 /* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
 
 html {
-  color: #333;
+  color: rgba(0, 0, 0, .65);
   background: #fff;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  // text-rendering: optimizelegibility;
+  text-rendering: optimizelegibility;
 }
 
 
@@ -45,7 +45,7 @@ audio, canvas, video {
 /* 要注意表单元素并不继承父级 font 的问题 */
 
 body, button, input, select, textarea {
-  font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  font: 300 1em/1.8  PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
 }
 
 button::-moz-focus-inner, input::-moz-focus-inner {
@@ -167,8 +167,12 @@ a:hover {
 
 .typo a {
   // border-bottom: 1px solid #1abc9c;
-  opacity: 0;
   transition: all .3s ease;
+}
+
+.typo .anchor {
+  transition: all .3s ease;
+  opacity: 0;
 }
 
 .typo a:hover {
@@ -210,25 +214,26 @@ mark {
 
 /* 代码片断 */
 
-pre, code, pre tt {
-  font-family: Courier, 'Courier New', monospace;
+pre, code, pre tt, kbd, samp {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace
 }
 
 pre {
-  background: #f8f8f8;
-  // border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-top: 1px dashed #eee;
   padding: 1em 1.5em;
   display: block;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-p >code ,li>code{
+p >code, li>code, td>code {
   background: #f8f8f8;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
   border: 1px solid #eee;
+  // font-family: Courier, 'Courier New', monospace;
 }
 
 
@@ -317,6 +322,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 1.2em;
   margin-bottom: 0.6em;
   line-height: 1.35;
+  &:hover .anchor {
+    opacity: 1;
+  }
 }
 
 .typo h1, .typo-h1 {
@@ -363,6 +371,22 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* 同 ul/ol，在文章中应用 table 基本格式 */
+
+.typo table {
+  width: 100%;
+}
+
+.typo table td:first-child {
+  color: #005388;
+}
+
+.typo table td:nth-child(3) {
+  color: #b05e00;
+}
+
+.typo table td:nth-child(4) {
+  color: #50a14f;
+}
 
 .typo table th, .typo table td, .typo-table th, .typo-table td, .typo table caption {
   border: 1px solid #ddd;

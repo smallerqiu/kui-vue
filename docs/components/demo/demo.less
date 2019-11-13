@@ -18,7 +18,7 @@
     position: relative;
     h4 {
       position: absolute;
-      top: -65px;
+      top: -55px;
       font-size: 15px;
       font-weight: 600;
       color: #555;
@@ -37,6 +37,43 @@
   }
   .k-code {
     transition: all .3s ease;
+    position: relative;
+    // font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
+    .k-code-pre {
+      height: 100%;
+      min-height: 100%;
+      font-size: 0;
+      overflow: hidden; // margin: 10px 0;
+      transition: height 0.3s ease-in-out;
+      line-height: 1.5;
+    }
+    .k-code-tools {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      .k-tooltip {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #999;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+    code, kbd, samp {
+      font-size: 14px;
+      // line-height: 25px;
+    }
+    .hljs {
+      // background: rgba(241, 241, 241, 0.43) !important;
+      height: 100%;
+      margin: 0;
+      font-size: 13px;
+    }
   }
   .k-code-expan {
     position: absolute;

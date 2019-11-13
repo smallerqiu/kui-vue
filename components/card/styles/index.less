@@ -1,31 +1,35 @@
 @import '../../styles/global.less';
 .k-card {
-    background: #fff;
+  background: #fff;
+  position: relative;
+  border-radius: @radius;
+  .k-card-head {
     position: relative;
-    border-radius: @radius;
-    .k-card-head {
-        border-bottom: 1px solid #e9eaec;
-        padding: 14px 16px;
-        line-height: 1;
-        [class^="k-ion"] {
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        p {
-            display: inline;
-            font-weight: 700;
-        }
+    border-bottom: 1px solid #e9eaec;
+    padding: 14px 16px;
+    line-height: 1;
+    [class^="k-ion"] {
+      vertical-align: middle;
+      margin-right: 8px;
     }
-    .k-card-extra {
-        position: absolute;
-        right: 16px;
-        top: 14px;
+    .k-card-title {
+      display: inline;
+      font-weight: 700;
     }
-    .k-card-body {
-        padding: 16px;
-    }
+  }
+  .k-card-extra {
+    position: absolute;
+    right: 16px;
+    cursor: default;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    user-select: none;
+  }
+  .k-card-body {
+    padding: 16px;
+  }
 }
 
 .k-card-bordered {
-    border: 1px solid #eee;
+  border: 1px solid #eee;
 }

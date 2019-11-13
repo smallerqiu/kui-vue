@@ -33,8 +33,8 @@ module.exports = merge(webpackBaseConfig, {
         test: /\.less$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'less-loader', options: { sourceMap: true, javascriptEnabled: true } }
+          { loader: 'css-loader', options: { sourceMap: false } },
+          { loader: 'less-loader', options: { sourceMap: false, javascriptEnabled: true } }
         ],
       },
     ]
@@ -42,7 +42,7 @@ module.exports = merge(webpackBaseConfig, {
   performance: {
     hints: false,
   },
-  devtool: '#source-map',
+  // devtool: '#source-map',
   plugins: [
     new HtmlWebpackPlugin({
       favicon: './docs/assets/favicon.png',

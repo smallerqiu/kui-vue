@@ -2,7 +2,6 @@ import Icon from '../icon'
 import { getChild } from '../_tool/utils'
 export default {
   name: "Button",
-  components: { Icon },
   props: {
     buttonType: {
       default: "button",
@@ -21,7 +20,8 @@ export default {
         return (
           ["danger", "primary", "warning", "success", "gray", "link", "default"].indexOf(value) >= 0
         );
-      }
+      },
+      default: 'default'
     },
     disabled: Boolean
   },
@@ -62,7 +62,7 @@ export default {
       }
     }
     const iconType = loading ? 'ios-sync' : icon;
-    const iconNode = iconType ? <Icon type={iconType} /> : null
+    const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
     const kid = child.map(c => {
       if (typeof c.text == 'string') {

@@ -2,7 +2,7 @@
 import Base from './base'
 import Info from './info'
 import Search from './search.vue'
-import Api from '../index.md'
+import CN from '../index.md'
 export default {
   mounted() {
 
@@ -12,7 +12,7 @@ export default {
       <div>
         <Info />
         <Base />
-        <Api />
+        <api><CN /></api>
         <Search />
       </div>
     )

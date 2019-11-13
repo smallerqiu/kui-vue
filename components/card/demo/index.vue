@@ -1,17 +1,16 @@
 <script>
 import Base from './base'
 import Border from './border'
-import Api from '../index.md'
+import CN from '../index.md'
 export default {
   render() {
     return (
       <div>
         <Base />
         <Border />
-        <Api />
+        <api><CN /></api>
       </div>
     )
   }
 }
-
 </script> 

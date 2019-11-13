@@ -1,10 +1,5 @@
 @import './markdown.less';
-// @import './ani.less';
 @main: #3a95ff;
-// @font-face {
-//   font-family: CenturyGothic;
-//   src: url(./fonts/CenturyGothic.ttf)
-// }
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +17,6 @@
 
 html, body, .body {
   height: 100%;
-  overflow: hidden;
 }
 
 html, body, section {
@@ -38,11 +32,10 @@ article, aside, audio, details, figcaption, figure, footer, header, img, main, m
 body {
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  // text-rendering: optimizeLegibility;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-setting: 'liga', 'kern';
-  background-color: #c5cace;
   color: #333;
   // font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   // font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif !important;
@@ -78,10 +71,6 @@ h4 {
   font-size: 16px;
   margin-bottom: 10px;
   margin-top: 20px;
-}
-
-body {
-  background: #f1f1f1;
 }
 
 p {
@@ -161,8 +150,6 @@ button * {
 }
 
 .body, .main {
-  display: inline-block;
-  width: 100%;
   .nav .k-menu-vertical .k-menu-item-group-title {
     font-size: 16px;
     font-weight: bold;
@@ -179,110 +166,7 @@ button * {
   }
 }
 
-.index {
-  // background: #fff;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  &::after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: url(back.jpg);
-    background-size: cover;
-    text-align: center;
-    top: 0;
-    bottom: 0;
-    filter: blur(5px);
-    transform: scale(1.3);
-    opacity: .5;
-  }
-  .header {
-    background: none;
-    border: none;
-    box-shadow: none;
-    .nav-left {
-      float: left;
-      .logo {
-        margin-left: 40px;
-        color: #39495f;
-        font-weight: bold;
-        font-size: 16px;
-      }
-    }
-    .nav-right {
-      float: right;
-      margin-right: 50px;
-      li {
-        float: left;
-        position: relative;
-        display: inline-block;
-        margin: 0 24px;
-        cursor: pointer;
-        transition: color .3s;
-        font-size: 14px;
-      }
-    }
-  }
-  .index-content {
-    width: 50%;
-    color: #005388;
-    font-family: -apple-system, "BlinkMacSystemFont", "Open Sans", "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-weight: 300;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 65%;
-    display: inline-block;
-    margin: auto;
-    .logo {
-      margin-top: 120px;
-      // display: none;
-      font-size: 60px;
-      background: url(./v-logo.png) no-repeat center center;
-      background-size: contain;
-      height: 40px;
-      display: block;
-      font-size: 0;
-      // font-weight: 100;
-      // font-family: "Arial Rounded MT"
-      // img {
-      //   margin: 0 auto;
-      //   height: 120px;
-      // }
-    }
-    h1 {
-      // font-weight: 300;
-      font-size: 34px;
-      color: #005388;
-      margin: 80px 0;
-      text-align: center;
-    }
-    .btn-content {
-      text-align: center;
-      .k-btn {
-        display: inline-block;
-        width: 120px;
-        margin-left: 35px;
-        transition: all 0.3s;
-        border-radius: 20px;
-        cursor: pointer;
-        border: none;
-      }
-      .start {
-        // background: #65b87f;
-        background: linear-gradient(45deg, #65b87f, #008028);
-        color: #fff;
-      }
-    }
-  }
-}
+
 
 p {
   line-height: 25px; // margin: 10px 0;
@@ -312,9 +196,6 @@ header {
 
 .main {
   background: #fff; // width: 90%;
-  // margin: 80px auto 20px;
-  height: calc(~'100% - 50px'); // border-radius: 3px;
-  overflow: hidden;
   margin: 50px auto 0;
   >.k-row {
     height: 100%;
@@ -350,7 +231,6 @@ header {
     }
   }
   .colMain {
-    width: calc(100% - 300px);
     overflow: auto
   }
   .nav {
@@ -598,44 +478,7 @@ table {
   }
 }
 
-.k-code {
-  position: relative;
-  .k-code-pre {
-    height: 100%;
-    min-height: 100%;
-    font-size: 0;
-    overflow: hidden; // margin: 10px 0;
-    transition: height 0.3s ease-in-out;
-    line-height: 1.5;
-  }
-  .k-code-tools {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    .k-tooltip {
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      text-align: center;
-      color: #999;
-      font-size: 16px;
-      cursor: pointer;
-      &:hover {
-        color: #333;
-      }
-    }
-  }
-  code, kbd, samp {
-    font-size: 14px;
-    line-height: 25px;
-  }
-  .hljs {
-    // background: rgba(241, 241, 241, 0.43) !important;
-    height: 100%;
-    margin: 0;
-    font-size: 13px;
-  }
-}
+
 
 @media(max-width:1070px) {
   .search-component {

@@ -2,7 +2,7 @@
 import Base from './base'
 import Icon from './icon'
 import Separator from './separator'
-import Api from '../index.md'
+import CN from '../index.md'
 export default {
   render() {
     return (
@@ -10,7 +10,7 @@ export default {
         <Base />
         <Icon />
         <Separator />
-        <Api />
+        <api><CN/></api>
       </div>
     )
   }
