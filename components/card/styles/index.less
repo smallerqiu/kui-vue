@@ -11,10 +11,17 @@
     [class^="k-ion"] {
       vertical-align: middle;
       margin-right: 8px;
+      font-size: 14px;
     }
     .k-card-title {
-      display: inline;
       font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 80%;
+      display: inline-block;
+      font-size: 14px;
+      vertical-align: middle;
     }
   }
   .k-card-extra {
@@ -22,11 +29,13 @@
     right: 16px;
     cursor: default;
     top: 50%;
+    font-size: 12px;
     transform: translate3d(0, -50%, 0);
     user-select: none;
   }
   .k-card-body {
     padding: 16px;
+    font-size: 12px;
   }
 }
 

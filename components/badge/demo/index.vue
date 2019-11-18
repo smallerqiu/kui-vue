@@ -1,13 +1,15 @@
 <script>
-import Base from './base.md'
-import Dot from './dot.md'
-import Max from './max.md'
-import Dynamic from './dynamic.md'
+import Base from './base'
+import Info from './info'
+import Dot from './dot'
+import Max from './max'
+import Dynamic from './dynamic'
 import CN from '../index.md'
 export default {
   render() {
     return (
       <div>
+        <Info class="typo" />
         <Base />
         <Dot />
         <Max />

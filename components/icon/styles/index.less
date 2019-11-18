@@ -18,6 +18,22 @@
   font-style: normal
 }
 
+@keyframes loadloop {
+  0% {
+    transform: rotate(0)
+  }
+  50% {
+    transform: rotate(180deg)
+  }
+  to {
+    transform: rotate(1turn)
+  }
+}
+
+.k-load-loop {
+  animation: loadloop 1s linear infinite
+}
+
 [class^="k-ion"], [class*=" k-ion"] {
   &::before {
     display: inline-block;

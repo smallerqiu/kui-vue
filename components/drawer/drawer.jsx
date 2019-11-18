@@ -1,69 +1,36 @@
 import Button from "../button";
 import Icon from "../icon";
-import transferDom from "../_tool/transferDom";
+import transfer from "../_tool/transfer";
 export default {
   name: "Drawer",
-  directives: { transferDom },
+  directives: { transfer },
   props: {
-    type: { type: String, default: "static" },
     value: { type: Boolean, default: false },
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
+    height: { default: 256, type: [Number, String] },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
     placement: { type: String, default: 'right' },
-    closable: { type: Boolean, default: true }
+    closable: { type: Boolean, default: true },
+    footer: Boolean,
+    maskClosable: { type: Boolean, default: true },
   },
-  computed: {
-    styles() {
-      let style = {
-        width: `${this.width}px`
-      };
-      return style;
+  watch: {
+    value(v) {
+      // this.visible = v
+      document.body.style.overflow = v ? 'hidden' : ''
+      this.init = true
+      this.$nextTick(e => this.visible = v)
     },
-    wrapCls() {
-      const { type, placement } = this
-      return ['k-drawer-wrap', { 'k-drawer-form': type == 'form', 'k-drawer-left': placement == 'left' }]
-    }
   },
   data() {
     return {
       visible: this.value,
-      visiblew: this.value,
-      mouseInRect: false
+      init: false
     };
   },
-  watch: {
-    value(v) {
-      if (v) {
-        document.body.style.overflow = 'hidden'
-        this.visible = v
-        this.visiblew = v
-      } else {
-        document.body.style.overflow = ''
-        this.close();
-        this.timer = setTimeout(e => {
-          this.visiblew = false
-        }, 300)
-      }
-    }
-  },
-  mounted() {
-    this.visible = this.value
-    if (this.visible) {
-      document.body.style.overflow = 'hidden'
-    }
-  },
   methods: {
-    clickMastToClose(e) {
-      if (this.mouseInRect) {
-        this.mouseInRect = false;
-        return;
-      }
-      if (!this.$refs.drawer.contains(e.target)) {
-        this.close()
-      }
-    },
     ok() {
       this.$emit("ok");
     },
@@ -80,44 +47,58 @@ export default {
       this.visible = false;
       this.$emit("input", false);
       this.$emit("close");
+    },
+    maskToClose() {
+      if (this.maskClosable) {
+        this.close()
+      }
     }
   },
   render() {
-    const { title, visible, visiblew, mouseInRect, cancelText, okText, ok,
-      placement, styles, cancel, type, $slots,
-      closable, close, clickMastToClose, wrapCls } = this
-
+    const { title, visible, cancelText, okText, ok,
+      placement, cancel, $slots,
+      closable, close, } = this
+    const hasFooter = this.footer || $slots.footer
+    const canelBtn = <Button onClick={cancel}>{cancelText}</Button>
+    const okBtn = <Button type="primary" onClick={ok}>{okText}</Button>
     const footNode = (
-      type == 'form' ? <div class="k-drawer-footer">
-        <slot name="footer">
-          <Button onClick={cancel}>{cancelText}</Button>
-          <Button type="primary" onClick={ok}>{okText}</Button>
-        </slot>
+      hasFooter ? <div class="k-drawer-footer">
+        {$slots.footer}
+        {!$slots.footer && canelBtn}
+        {!$slots.footer && okBtn}
       </div> : null
     )
-    const closeNode = closable ? <a class="k-drawer-close" onClick={close}><Icon type="md-close" /></a> : null
-    const showAni = placement == 'left' ? 'faderight' : 'fadeleft'
-    const titleNode = <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>
+    const closeNode = closable
+      ? <span class="k-drawer-close" onClick={close}><Icon type="md-close" /></span>
+      : null
+    const transitionName = `k-drawer-${placement}`
+
+    const classes = ['k-drawer', `k-drawer-${placement}`,
+      { 'k-drawer-open': visible },
+      { 'k-drawer-has-footer': hasFooter },
+    ]
+    let styles = {}
+    if (placement == 'left' || placement == 'right') styles.width = this.width + 'px'
+    if (placement == 'top' || placement == 'bottom') styles.height = this.height + 'px'
+    // const wrapCls =
     return (
-      <div class="k-drawer" v-transferDom data-transfer="true">
+      this.init ? <div class={classes} v-transfer={true}>
         <transition name="fade">
-          <div class="k-drawer-mask" ref="mask" v-show={visible}></div>
+          <div class="k-drawer-mask" ref="mask" v-show={visible} onClick={this.maskToClose}></div>
         </transition>
-        <div class={wrapCls} v-show={visiblew} onClick={clickMastToClose}>
-          <transition name={showAni}>
-            <div class="drawer animated" ref="drawer" v-show="visible" style={styles} onMouseDown={mouseInRect}>
-              <div class="k-drawer-content">
-                {closeNode}
-                {titleNode}
-                <div class="k-drawer-body">
-                  {$slots.default}
-                </div>
-                {footNode}
+        <transition name={transitionName}>
+          <div class="k-drawer-box" ref="drawer" v-show={visible} style={styles}>
+            <div class="k-drawer-content">
+              {closeNode}
+              <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>
+              <div class="k-drawer-body">
+                {$slots.default}
               </div>
+              {footNode}
             </div>
-          </transition>
-        </div>
-      </div>
+          </div>
+        </transition>
+      </div> : ''
     )
   }
 };

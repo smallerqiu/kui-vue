@@ -9,7 +9,7 @@
 </template>
 <script>
 import Icon from "../icon";
-import scroll from "../_tool/winScroll";
+import scroll from "../_tool/resize";
 export default {
   name: "BackTop",
   components: { Icon },

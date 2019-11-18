@@ -1,3 +1,3 @@
-import Carousel from './carousel'
-import CarouselItem from './carouselItem'
+import Carousel from './carousel.jsx'
+import CarouselItem from './carouselItem.jsx'
 export { Carousel, CarouselItem }

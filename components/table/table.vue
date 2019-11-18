@@ -84,7 +84,6 @@ import { Checkbox } from "../checkbox";
 import Input from "../input";
 import Tooltip from "../tooltip";
 import Expand from "./expand.js";
-// import scroll from '../_tool/winScroll.js'
 let copyData = (data) => {
   const t = Object.prototype.toString.call(data)
   let o = t === '[object Array]' ? [] : (t === '[object Object]' ? {} : data)

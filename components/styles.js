@@ -24,6 +24,7 @@ import './modal/styles';
 import './message/styles';
 import './message/styles';
 import './menu/styles';
+import './notice/styles';
 import './page/styles';
 import './poptip/styles';
 import './radio/styles';

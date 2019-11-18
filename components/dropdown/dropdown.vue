@@ -13,7 +13,7 @@
 <script> 
 import emitter from "@/mixins/emitter";
 import transferDom from "../_tool/transferDom";
-import winScroll from "../_tool/winScroll";
+import winScroll from "../_tool/resize";
 export default {
   name: 'Dropdown',
   mixins: [emitter],

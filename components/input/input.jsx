@@ -1,182 +1,143 @@
+import Icon from '../icon'
+import baseProps from './porps'
+import { hasProp } from '../_tool/utils'
 export default {
   name: "Input",
-  props: {
-    clearable: Boolean,
-    mini: { type: Boolean, default: false },
-    large: { type: Boolean, default: false },
-    value: [String, Number],
-    type: {
-      validator(value) {
-        return (["text", "textarea", "password", "url", "email", "date"].indexOf(value) >= 0);
-      },
-      default: 'text'
-    },
-    icon: String,
-    iconAlign: { type: String, default: 'right' },
-    rows: { type: [Number, String], default: 2 },
-    name: { type: String },
-    number: { type: Boolean, default: false },
-    width: { type: [Number, String] }
-  },
+  props: { ...baseProps },
   data() {
     return {
       currentValue: this.value,
-      clearableShow: false,
       isFocus: false,
-      isMove: false
+      isEnter: false,
+      isPassword: true,
     };
   },
   watch: {
-    value(val) {
-      this.setCurrentValue(val);
-    }
-  },
-  mounted() {
-    this.currentValue = this.value;
-  },
-  computed: {
-    iconClasses() {
-      return [`k-ion-${this.icon}`];
-    },
-    classes() {
-      return [
-        "k-input-wp",
-        {
-          ["k-input-mini"]: this.mini && this.type != 'textarea',
-          ["k-input-lg"]: this.large && !this.mini && this.type != 'textarea',
-          ["k-input-icon-left"]: this.icon && this.iconAlign == 'left'
-        }
-      ];
-    },
-    styles() {
-      return this.width && this.width > 0 ? { width: `${this.width}px` } : {};
-    },
-    inputClasses() {
-      return [
-        "k-input",
-        {
-          ["k-input-mini"]: !!this.mini,
-          ["k-input-disabled"]: this.disabled
-        }
-      ];
-    },
-    textareaClasses() {
-      return [
-        "k-input",
-        {
-          ["k-input-mini"]: !!this.mini,
-          ["k-input-disabled"]: this.disabled,
-          ["k-textarea"]: this.type == "textarea"
-        }
-      ];
+    value(v) {
+      this.currentValue = v
     }
   },
   methods: {
+    focus() {
+      this.$nextTick(e => this.$refs.input.focus())
+    },
+    blur(e) {
+      this.$nextTick(e => this.$refs.input.blur())
+    },
     clear() {
-      this.setCurrentValue("");
-      this.$emit("input", '');
-      this.clearableShow = false;
-    },
-    handleMove() {
-      this.clearableShow = (this.currentValue && this.currentValue.toString().length > 0);
-      this.isMove = true;
-    },
-    handleOut() {
-      this.isMove = false;
-      if (!this.isFocus) {
-        this.clearableShow = false;
-      }
+      this.setValue('')
+      this.$nextTick(e => this.$refs.input.focus())
     },
     iconClick() {
       !this.disabled && this.$emit("icon-click");
     },
-    handleFocus(event) {
-      this.clearableShow = this.currentValue && this.currentValue.toString().length > 0;
-      this.$emit("focus", event);
-      this.isFocus = true;
+    handleFocus(e) {
+      this.isFocus = true
+      this.$emit('focus', e)
     },
-    handleBlur(event) {
-      if (!this.isMove) {
-        this.clearableShow = false;
-      }
+    handleBlur(e) {
       this.isFocus = false
-      this.$emit("blur", event);
-      // this.dispatch('FormItem', 'form-item-blur', this.currentValue)
+      this.$emit('blur', e)
     },
-    handleInput(event) {
-      let value = event.target.value;
-      this.clearableShow = value && value.length > 0;
-      if (this.number)
-        value = Number.isNaN(Number(value)) ? value : Number(value);
-      this.$emit("input", value);
-      this.setCurrentValue(value);
+    handleInput(e) {
+      this.setValue(e.target.value, e)
     },
-    handleChange(event) {
-      this.$emit("change", event.target.value);
+    changeType() {
+      let type = ''
+      if (!this.isPassword) {
+        type = 'password'
+      } else {
+        type = 'text'
+      }
+      this.isPassword = !this.isPassword
+      this.$refs.input.type = type
     },
-    setCurrentValue(value) {
-      if (value === this.currentValue) return;
-      this.currentValue = value;
-      // this.$emit("input", value);
-      // this.dispatch('FormItem', 'form-item-change', this.currentValue)
+    // handleChange(e) {
+    //   this.$emit('change', e)
+    // },
+    setValue(value, e) {
+      if (this.number) {
+        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/
+        if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+          value = value;
+        }
+      }
+      if (!hasProp(this, 'value')) {
+        this.currentValue = value
+      }
+      this.$emit('input', value)
+      this.$emit('change', e)
     },
-    focus() {
-      this.$refs.input.focus();
-      this.isFocus = true;
-    },
-    blur() {
-      this.$refs.input.blur();
-      this.isFocus = false;
+    getSuffix() {
+      let { $listeners } = this
+      const Search = ('search' in $listeners)
+        ? <Icon type='ios-search' onClick={$listeners.search} /> : null
+      const Password =
+
+        (this.type == 'password')
+          ? <Icon type={this.isPassword ? 'ios-eye' : 'ios-eye-off'} onClick={this.changeType} /> : null
+
+      return Password || Search || this.$slots.suffix
     },
     renderInput() {
       const {
         $listeners, getProp,
-        inputClasses, $attrs,
-        handleFocus, handleBlur, handleInput, handleChange, currentValue,
-        icon, iconClick, iconClasses,
-        clearable, clearableShow, clear
+        $attrs, disabled, placeholder, type,
+        handleFocus, handleBlur, handleInput, currentValue,
+        icon, iconClick, clear
       } = this
       const inputProps = {
         domProps: {
           value: currentValue
         },
-        class: inputClasses,
+        class: 'k-input',
+        ref: 'input',
         attrs: {
           ...$attrs,
+          disabled, type,
+          placeholder,
         },
         on: {
           ...$listeners,
           focus: handleFocus,
           blur: handleBlur,
           input: handleInput,
-          change: handleChange
+          // change: handleChange
         }
       }
       const props = getProp()
+      const clearableShow = this.clearable && (this.isFocus || this.isEnter)
+        && currentValue !== undefined && currentValue !== null && currentValue !== ''
+
+      let suffix = this.getSuffix()
+      suffix = suffix ? <div class="k-input-suffix">{suffix}</div> : null
       return (
         <div {...props}>
-          {icon ? <i class={iconClasses} onClick={iconClick} /> : null}
+          {icon ? <Icon type={icon} class="k-input-icon" onClick={iconClick} /> : null}
           <input ref="input"  {...inputProps} />
-          {clearable && clearableShow ? <span class="k-input-clearable" onClick={clear} /> : null}
+          {suffix}
+          {clearableShow ? <span class="k-input-clearable" onClick={clear} /> : null}
         </div>
       )
     },
     renderTextArea() {
       const {
-        textareaClasses, rows, $attrs, getProp, $listeners, currentValue,
-        handleBlur, handleInput
+        rows, $attrs, getProp, $listeners, currentValue,
+        handleInput, disabled, placeholder
       } = this
       const inputProps = {
         domProps: {
           value: currentValue
         },
-        class: textareaClasses,
+        class: 'k-textarea',
         attrs: {
-          rows, ...$attrs
+          rows, ...$attrs,
+          placeholder,
+          disabled
         },
+        ref: 'input',
         on: {
           ...$listeners,
-          blur: handleBlur,
           input: handleInput
         }
       }
@@ -186,14 +147,25 @@ export default {
       )
     },
     getProp() {
-      const { classes, styles, handleMove, handleOut } = this
+      const { mini, disabled, type, large, width, $listeners } = this
+      let isTextArea = type == 'textarea'
+      let isSuffix = ('search' in $listeners) || this.$slots.suffix || type == 'password'
+      const classes = [
+        "k-input-wrapper",
+        {
+          ["k-input-disabled"]: disabled,
+          ["k-input-has-suffix"]: isSuffix,
+          ["k-input-mini"]: mini && !isTextArea,
+          ["k-input-lg"]: large && !mini && !isTextArea,
+        }
+      ];
+
       const props = {
         class: classes,
-        style: styles,
-        attrs: {},
+        style: { width: width + 'px' },
         on: {
-          mouseenter: handleMove,
-          mouseleave: handleOut
+          mouseenter: e => this.isEnter = true,
+          mouseleave: e => this.isEnter = false
         }
       }
       return props

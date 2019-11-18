@@ -4,18 +4,7 @@ export default {
     type: String,
     size: [String, Number],
     color: [String],
-    spin: Boolean
-  },
-  computed: {
-    classes() {
-      return [`k-ion-${this.type}`, { 'k-load-loop': this.spin }];
-    },
-    styles() {
-      return {
-        fontSize: `${this.size}px`,
-        color: this.color
-      };
-    }
+    spin: Boolean,
   },
   methods: {
     click(e) {
@@ -23,17 +12,20 @@ export default {
     }
   },
   render() {
-    const { classes, styles, $listeners } = this
+    const { $listeners, click, type, spin, color, size } = this
+    const classes = [`k-ion-${type}`, { 'k-load-loop': spin }];
+    const styles = {
+      fontSize: `${size}px`,
+      color: color
+    };
     const props = {
       style: styles,
       class: classes,
       on: {
         ...$listeners,
-        click: this.click
+        click: click
       }
     }
-    return (
-      <i {...props} ></i >
-    )
+    return (      <i {...props} />   )
   }
 };

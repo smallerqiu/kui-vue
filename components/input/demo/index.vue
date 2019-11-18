@@ -1,17 +1,16 @@
 <script>
 import Base from './base.md' 
+import Info from './info.md' 
 import Icon from './icon.md' 
 import Clearable from './clearable.md' 
 import Size from './size.md' 
 import TextArea from './textarea.md' 
 import CN from '../index.md'
 export default {
-  mounted() {
-
-  },
   render() {
     return (
       <div class="demo-input">
+        <Info class="typo"/>
         <Base />
         <Icon />
         <Clearable />
@@ -24,7 +23,7 @@ export default {
 }
 </script> 
 <style lang="less">
-.demo-input .k-input{
+.demo-input .k-input-wrapper{
   margin-bottom: 10px;
 }
 </style>

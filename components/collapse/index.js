@@ -1,3 +1,3 @@
-import Collapse from './collapse.vue'
-import Panel from './panel.vue'
+import Collapse from './collapse.jsx'
+import Panel from './panel.jsx'
 export { Collapse, Panel }

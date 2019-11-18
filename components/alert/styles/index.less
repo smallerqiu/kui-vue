@@ -2,16 +2,54 @@
 .k-alert {
    border-radius: @radius;
    margin-bottom: 16px;
-   padding: 8px 35px 8px 15px;
+   padding: 8px 15px;
    box-sizing: border-box;
    position: relative;
    line-height: 1.5;
+   font-size: 12px;
    transition: all .3s;
    overflow: hidden;
-   &>[class^="k-ion"], [class*=" k-ion"] {
-      margin-right: 5px;
+   background: tint(@warning, 90%);
+   border: 1px solid tint(@warning, 70%);
+   .k-alert-icon {
+      color: @warning;
+      position: absolute;
+      top: 8px;
+      left: 15px;
       font-size: 20px;
-      vertical-align: middle;
+   }
+}
+
+.k-alert-has-icon {
+   padding-left: 38px;
+}
+
+.k-alert-has-close {
+   padding-right: 30px;
+}
+
+.k-alert-has-description {
+   padding: 15px;
+   .k-alert-icon {
+      font-size: 30px;
+      top: 15px;
+   }
+   .k-alert-close {
+      font-size: 18px;
+   }
+   .k-alert-message {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+   }
+   .k-alert-description{
+      font-size: 14px;
+   }
+   &.k-alert-has-icon {
+      padding-left: 50px;
+   }
+   &.k-alert-has-close {
+      padding-right: 35px;
    }
 }
 
@@ -20,46 +58,58 @@
    position: absolute;
    right: 8px;
    top: 8px;
-   width: 22px;
-   text-align: center;
-   line-height: 22px;
-   overflow: hidden;
    cursor: pointer;
+   text-decoration: none;
+   color: @color;
+   padding: 0px 5px;
    &::before {
       content: '\f2c0';
       font-family: Ionicons;
-      color: #999;
+   }
+   &:hover {
+      text-decoration: none;
+      color: @danger;
    }
 }
 
 .k-alert-success {
    background: tint(@success, 90%);
-   border: 1px solid tint(@success, 70%);
-   &>[class^="k-ion"], [class*=" k-ion"] {
+   border-color: tint(@success, 70%);
+   .k-alert-icon {
       color: @success;
    }
 }
 
 .k-alert-error {
    background: tint(@danger, 90%);
-   border: 1px solid tint(@danger, 70%);
-   &>[class^="k-ion"], [class*=" k-ion"] {
+   border-color: tint(@danger, 70%);
+   .k-alert-icon {
       color: @danger;
    }
 }
 
 .k-alert-info {
    background: tint(@main, 90%);
-   border: 1px solid tint(@main, 70%);
-   &>[class^="k-ion"], [class*=" k-ion"] {
+   border-color: tint(@main, 70%);
+   .k-alert-icon {
       color: @main;
    }
 }
 
-.k-alert-warning {
-   background: tint(@warning, 90%);
-   border: 1px solid tint(@warning, 70%);
-   &>[class^="k-ion"], [class*=" k-ion"] {
-      color: @warning;
+.k-alert-slide-leave-to {
+   animation: slideOut 0.3s ease-in-out;
+   animation-fill-mode: both;
+}
+
+@keyframes slideOut {
+   0% {
+      transform: scaleY(1);
+      transform-origin: 0% 0%;
+      opacity: 1;
+   }
+   100% {
+      transform: scaleY(0);
+      transform-origin: 0% 0%;
+      opacity: 0;
    }
 }

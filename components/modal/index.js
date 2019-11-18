@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Modal from './modal.vue'
+import Modal from './modal'
 import Button from '../button'
 
 let modalInstance;

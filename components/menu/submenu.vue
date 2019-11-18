@@ -21,7 +21,7 @@
   </li>
 </template> 
 <script>
-import Collapse from '../collapse/collapse.js'
+import Collapse from '../_tool/collapse.js'
 import emitter from '@/mixins/emitter'
 export default {
   name: "SubMenu",

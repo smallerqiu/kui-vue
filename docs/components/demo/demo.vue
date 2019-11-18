@@ -15,7 +15,6 @@
       </div>
     </div>
     <transition @enter="enter" @leave="leave" @beforeEnter="beforeEnter">
-      <!-- <Code v-show="expand" ref="code" :lang="lang"> -->
       <div v-show="expand" class="k-code">
         <div class="k-code-tools">
           <ToolTip content="复制代码">
@@ -24,7 +23,6 @@
         </div>
         <slot name="code"></slot>
       </div>
-      <!-- </Code> -->
     </transition>
   </div>
 </template> 
@@ -32,11 +30,10 @@
 <script>
 import './demo.less'
 // import Code from '../code'
-import Collapse from '@/components/collapse/collapse.js'
 import ToolTip from '@/components/tooltip'
-import {Message} from '@/components/message'
+import Message from '@/components/message'
 export default {
-  components: { Collapse, ToolTip,Message },
+  components: { ToolTip },
   data() {
     return {
       expand: false

@@ -1,3 +1,4 @@
+import { getChild } from '../_tool/utils'
 import Radio from './radio.jsx';
 import Button from './button.jsx';
 export default {
@@ -26,7 +27,7 @@ export default {
   },
   render() {
     const { options, $slots, type } = this
-    let kid = $slots.default
+    let kid = getChild($slots.default)
     if (options && options.length) {
       kid = options.map(option => {
         return type == 'button' ? (

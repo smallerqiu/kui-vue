@@ -1,3 +1,4 @@
+import { getChild } from '../_tool/utils'
 export default {
   name: "ButtonGroup",
   props: {
@@ -24,7 +25,7 @@ export default {
   render() {
     return (
       <div class={this.classes}>
-        {this.$slots.default}
+        {getChild(this.$slots.default)}
       </div>
     )
   }

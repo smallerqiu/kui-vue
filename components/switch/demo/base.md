@@ -10,9 +10,7 @@
     <Switch v-model="checked" />
     <Button @click="checked=!checked" mini>click me</Button>
     <br/>
-    <br/>
     <Switch checked />
-
   </div>
 </template>
 <script>

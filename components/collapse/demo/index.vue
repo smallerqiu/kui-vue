@@ -1,0 +1,22 @@
+<script>
+import Info from './info'
+import Base from './base'
+import Accrodion from './accrodion'
+import Nesting from './nesting'
+import Sample from './sample'
+import CN from '../index.md'
+export default {
+  render() {
+    return (
+      <div>
+        <Info class="typo" />
+        <Base />
+        <Accrodion />
+        <Nesting />
+        <Sample />
+        <api><CN /></api>
+      </div>
+    )
+  }
+}
+</script> 

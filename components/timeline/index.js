@@ -1,5 +1,5 @@
-import TimeLine from './timeline';
-import TimeLineItem from './timelineitem';
+import TimeLine from './timeline.jsx';
+import TimeLineItem from './timelineitem.jsx';
 
 
 export { TimeLine, TimeLineItem } 

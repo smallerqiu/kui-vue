@@ -1,0 +1,112 @@
+@import '../../styles/global.less';
+.k-notice {
+  font-size: 14px;
+  line-height: 1.5;
+  color: @color;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: fixed;
+  z-index: 1010;
+  width: 384px;
+  max-width: calc(100vw - 32px);
+  margin-right: 24px;
+  right: 0px;
+  top: 24px;
+  bottom: auto;
+  .k-notice-box {
+    box-sizing: content-box;
+    transition: all .3s ease-in-out;
+    padding: 16px 35px 16px 16px;
+    border-radius: @radius;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    line-height: 1.5;
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .k-notice-has-icon {
+    padding-left: 45px;
+  }
+  .k-notice-title {
+    font-size: 16px;
+    color: @titleColor;
+    margin-bottom: 8px;
+    line-height: 22px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .k-notice-icon {
+    font-size: 22px;
+    margin-right: 8px;
+    position: absolute;
+    top: 17px;
+    left: 16px;
+  }
+  .k-notoce-desc {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .k-notice-close {
+    position: absolute;
+    right: 12px;
+    top: 13px;
+    outline: none;
+    cursor: pointer;
+    color: @color;
+    font-size: 14px;
+    display: block;
+    padding: 0 5px;
+    &::before {
+      content: '\f2c0';
+      font-family: Ionicons;
+    }
+    &:hover {
+      color: @danger;
+    }
+  }
+  .k-notice-info .k-notice-icon {
+    color: @main;
+  }
+  .k-notice-error .k-notice-icon {
+    color: @danger;
+  }
+  .k-notice-success .k-notice-icon {
+    color: @success;
+  }
+  .k-notice-warning .k-notice-icon {
+    color: @warning;
+  }
+}
+
+@keyframes noticeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes noticeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(.5);
+  }
+}
+
+.k-notice-slide-enter-active {
+  animation: noticeIn .3s ease;
+}
+
+.k-notice-slide-leave-active {
+  animation: noticeOut .3s ease;
+}

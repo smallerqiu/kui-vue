@@ -20,7 +20,7 @@
 <script> 
 import emitter from "@/mixins/emitter";
 import transferDom from "../_tool/transferDom";
-import winScroll from "../_tool/winScroll";
+import winScroll from "../_tool/resize";
 import docClick from "../_tool/docClick";
 import Tree from '../tree';
 export default {
