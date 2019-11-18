@@ -7,7 +7,8 @@
 <template>
   <div>
     <Input type="textarea" rows="4" placeholder="请输入内容..." />
-    <Input type="textarea" rows="1" placeholder="请输入内容..." />
+    <Input type="textarea" rows="2" placeholder="请输入内容..." />
+    <Input type="textarea" rows="2" placeholder="disabled..." disabled/>
   </div>
 </template>
 ```

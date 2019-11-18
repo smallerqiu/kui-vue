@@ -1,37 +1,96 @@
 @import '../../styles/global.less';
 .k-timeline {
-   background-color: #fff;
-   font-size: 13px;
-   overflow: hidden;
-   position: relative;
-   z-index: 1;
-   .k-time-line-item {
-      position: relative;
-      &:not(:last-child):before {
-         position: absolute;
-         width: 1px;
-         background: #ddd;
-         left: 7px;
-         content: "";
-         height: 100%;
-         top: 5px;
-      }
-   }
-   .k-time-line-dot {
+  background-color: #fff;
+  font-size: 13px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .k-time-line-item {
+    position: relative;
+    &:before {
       position: absolute;
-      background: #fff;
-      top: 0;
-      left: 1px;
-      font-size: 16px;
-      width: auto;
-      height: 16px;
-      line-height: 16px;
-      color: @main;
-   }
-   .k-time-line-item-content {
-      padding: 1px 1px 10px 24px;
-      font-size: 12px;
-      position: relative;
-      top: 0;
-   }
+      width: 1px;
+      background: @borderColor;
+      left: 7px;
+      content: "";
+      height: 100%;
+      top: 8px;
+    }
+    &:last-child:before {
+      display: none;
+    }
+  }
+  .k-time-line-dot {
+    position: absolute;
+    background: #fff;
+    top: 4px;
+    left: 1px;
+    font-size: 16px;
+    color: @main;
+    line-height: 1;
+    border-radius: 50%;
+  }
+  .k-time-line-icon-default {
+    font-size: 12px;
+    left: 2.5px;
+    top: 5.5px;
+  }
+  .k-time-line-item-content {
+    padding: 0 0 20px 18px;
+    font-size: 13px;
+    position: relative;
+    line-height: 22px;
+    top: 0;
+    box-sizing: border-box;
+  }
+}
+
+.k-timeline-center {
+  width: 100%;
+  display: inline-block;
+  .k-time-line-item {
+    width: 50%;
+    &:nth-child(odd) {
+      left: 50%;
+      margin-left: -8px;
+    }
+    &:nth-child(even) {
+      text-align: right;
+      .k-time-line-dot {
+        left: 100%;
+        transform: translateX(-50%);
+      }
+      .k-time-line-item-content {
+        padding: 0 12px 20px 0;
+      }
+      &:before {
+        left: 100%;
+        margin-left: -1px;
+        z-index: 0;
+      }
+    }
+  }
+}
+
+.k-timeline-right {
+  text-align: right;
+  .k-time-line-item {
+    &:before {
+      left: 100%;
+      margin-left: -7px;
+    }
+  }
+  .k-time-line-dot {
+    left: 100%;
+    margin-left: -13px;
+  }
+  .k-time-line-icon-default {
+    margin-left: -11px;
+  }
+  .k-time-line-item-content {
+    padding-right: 18px
+  }
 }

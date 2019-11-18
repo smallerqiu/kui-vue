@@ -5,9 +5,13 @@
 @success: #00bb5d;
 @danger: #ff3300;
 @warning: #ffa500;
-@gray: #969696;
 @purple: #c13aff;
+@gray: #969696;
+@light: #f5f5f5;
 @dark: rgba(0, 0, 0, .75);
+@color: rgba(0, 0, 0, .75);
+@titleColor:rgba(0, 0, 0, .85);
+@maskColor:rgba(0, 0, 0, .6);
 @radius: ~'2px';
 @borderColor: #ddd;
 @disableBorder: #d0d0d0;
@@ -17,14 +21,12 @@
 //   background: @main;
 //   color: #fff;
 // }
-
 // *, :after, :before {
 //   box-sizing: border-box;
 //   margin: 0;
 //   -webkit-tap-highlight-color: transparent;
 //   outline: none;
 // }
-
 //下拉动画
 @keyframes dropDownIn {
   0% {
@@ -68,45 +70,9 @@
   }
 }
 
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-  }
-}
 
-@keyframes fadeOutRight {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-}
 
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-  }
-}
 
-@keyframes fadeOutLeft {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-}
 
 @keyframes fadeIn {
   from {
@@ -147,62 +113,9 @@
     filter: blur(5px)
   }
 }
+ 
+ 
 
-@keyframes loadloop {
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0)
-  }
-  50% {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg)
-  }
-  to {
-    -webkit-transform: rotate(1turn);
-    transform: rotate(1turn)
-  }
-}
-
-.zoomInX, .zoomOutX {
-  &.animated {
-    animation-duration: .3s;
-  }
-}
-
-@keyframes zoomInX {
-  from {
-    opacity: 0;
-    transform: scale3d(.3, .3, .3);
-    filter: blur(5px)
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomOutX {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: scale3d(.3, .3, .3);
-    filter: blur(5px)
-  }
-}
-
-.zoomInX {
-  animation-name: zoomInX;
-}
-
-.zoomOutX {
-  animation-name: zoomOutX;
-}
-
-.k-load-loop {
-  -webkit-animation: loadloop 1s linear infinite;
-  animation: loadloop 1s linear infinite
-}
 
 .fadeease-enter-active {
   animation: fadeEaseIn .3s;

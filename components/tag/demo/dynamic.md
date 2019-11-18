@@ -6,15 +6,32 @@
 ```tpl
 <template>
   <div>
-    <Tag color="blue" closeable v-for="m in count" :key="m">标签{{m}}</Tag>
-    <Tag @click="count++">增加</Tag>
+    <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
+    <Input v-show="showInput" @blur="add" mini width="81" ref="input" :value="tag"/>
+    <Button @click="show" mini icon="ios-bookmark" v-show="!showInput">New Tag</Button>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      count: 3
+      showInput:false,
+      tag:'',
+      tags:['Apple','Banana','Cat','Dog']
+    }
+  },
+  methods:{
+    show(){
+      this.showInput=true
+      this.$refs.input.focus()
+    },
+    add(e){
+      let value = e.target.value.trim()
+      if(value && this.tags.indexOf(value)===-1){
+        this.tags.push(value)
+      }
+      this.tag = ''
+      this.showInput = false
     }
   }
 }

@@ -42,7 +42,7 @@ export default {
         _value = groupContext.currentValue
       }
       if (groupContext.multiple) {
-        selected = _value.split(',').indexOf(value) !== -1
+        selected = _value.indexOf(value) !== -1
 
         iconNode = <Icon type="md-checkmark" />
       } else {

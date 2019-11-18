@@ -1,124 +1,127 @@
 @import '../../styles/global.less';
 .k-carousel {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    &:hover {
-        [class*='k-carousel-arrow'] {
-            opacity: .2;
-        }
-    }
-    .k-carousel-list {
-        transition: transform .5s ease-in-out;
-    }
-    .k-carousel-item {
-        float: left;
-        height: 100%;
-        min-height: 1px;
-        display: block;
-    }
-    .k-carousel-dots {
-        width: 100%;
-        height: 17px;
-        text-align: center;
-        list-style: none;
-        z-index: 10;
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        li {
-            display: inline-block;
-            background: #fff;
-            width: 16px;
-            height: 3px;
-            margin: 0 3px;
-            opacity: .3;
-            border-radius: 1px;
-            transition: all .5s ease-in-out;
-            cursor: pointer;
-            &:hover {
-                opacity: .8;
-            }
-        }
-        .k-carousel-dots-active {
-            width: 25px;
-            opacity: 1;
-        }
-    }
-    .k-carousel-dots-radius {
-        li {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-        .k-carousel-dots-active {
-            width: 8px;
-            opacity: 1;
-        }
-    }
-    [class*='k-carousel-arrow'] {
-        position: absolute;
-        top: 50%;
-        z-index: 100;
-        left: 10px;
-        background: #000;
-        border-radius: 50%;
-        display: block;
-        height: 36px;
-        width: 36px;
-        text-align: center;
-        line-height: 36px;
-        opacity: 0;
-        margin-top: -18px;
-        cursor: pointer;
-        color: #fff;
-        transition: opacity .3s ease-in-out;
-        &:hover {
-            opacity: .5;
-        }
-    }
-    .k-carousel-arrow-right {
-        left: auto;
-        right: 10px;
-    }
+	position: relative;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	&:hover {
+		[class*='k-carousel-arrow'] {
+			opacity: .2;
+		}
+	}
+	.k-carousel-warpper {
+		transition: transform .5s ease-in-out;
+		width: 100%;
+		height: 100%;  
+	}
+	.k-carousel-item {
+		float: left;
+		height: 100%;
+		min-height: 1px;
+		display: block;
+	}
+	.k-carousel-dots {
+		width: 100%;
+		text-align: center;
+		list-style: none;
+		z-index: 10;
+		position: absolute;
+		line-height: 1;
+		bottom: 10px;
+		left: 0;
+		li {
+			display: inline-block;
+			background: #fff;
+			width: 16px;
+			height: 3px;
+			margin: 0 3px;
+			opacity: .3;
+			border-radius: 1px;
+			// transition: all .5s ease-in-out;
+			cursor: pointer;
+			&:hover {
+				opacity: .8;
+			}
+		}
+		.k-carousel-dots-active {
+			width: 25px;
+			opacity: 1;
+		}
+	}
+	.k-carousel-dots-radius {
+		li {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+		}
+		.k-carousel-dots-active {
+			width: 8px;
+			opacity: 1;
+		}
+	}
+	[class*='k-carousel-arrow'] {
+		position: absolute;
+		top: 50%;
+		z-index: 100;
+		left: 10px;
+		background: #000;
+		border-radius: 50%;
+		display: block;
+		height: 36px;
+		width: 36px;
+		text-align: center;
+		line-height: 36px;
+		opacity: 0;
+		margin-top: -18px;
+		cursor: pointer;
+		color: #fff;
+		transition: opacity .3s ease-in-out;
+		&:hover {
+			opacity: .5;
+		}
+	}
+	.k-carousel-arrow-right {
+		left: auto;
+		right: 10px;
+	}
 }
 
 .k-carousel-vertical {
-    .k-carousel-item {
-        float: auto;
-        width: 100%;
-        height: auto;
-    }
-    .k-carousel-dots {
-        bottom: auto;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 0;
-        height: auto;
-        width: 17px;
-        left: auto;
-        li {
-            width: 3px;
-            height: 16px;
-            margin: 5px 0;
-            display: block;
-        }
-        .k-carousel-dots-active {
-            height: 25px;
-            width: 3px;
-            opacity: 1;
-        }
-    }
-    .k-carousel-dots-radius {
-        li {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-        .k-carousel-dots-active {
-            height: 8px;
-            width: 8px;
-            opacity: 1;
-        }
-    }
+	.k-carousel-item {
+		float: auto;
+		width: 100%;
+		height: auto;
+	}
+	.k-carousel-dots {
+		bottom: auto;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 0;
+		height: auto;
+		width: 17px;
+		left: auto;
+		li {
+			width: 3px;
+			height: 16px;
+			margin: 5px 0;
+			display: block;
+		}
+		.k-carousel-dots-active {
+			height: 25px;
+			width: 3px;
+			opacity: 1;
+		}
+	}
+	.k-carousel-dots-radius {
+		li {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+		}
+		.k-carousel-dots-active {
+			height: 8px;
+			width: 8px;
+			opacity: 1;
+		}
+	}
 }

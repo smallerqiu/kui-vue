@@ -18,7 +18,7 @@
 <script>
 import calendar from "./datecalendar";
 import emitter from "@/mixins/emitter";
-import winScroll from "../_tool/winScroll";
+import winScroll from "../_tool/resize";
 import transferDom from "../_tool/transferDom";
 import docClick from "../_tool/docClick";
 import lang from './lang'

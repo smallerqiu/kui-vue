@@ -12,11 +12,12 @@ export function hasProp(context, key) {
 }
 
 export function getElementPos(element) {
-  var parent = element.offsetParent;
+  var parent = element//.offsetParent;
   let pos = {
-    left:0,
+    left: 0,
     top: 0,
-    width: parent.offsetWidth
+    width: parent.offsetWidth,
+    height: parent.offsetHeight,
   }
   while (parent !== null) {
     pos.left += parent.offsetLeft;

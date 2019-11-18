@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import winScroll from '../_tool/winScroll'
+import winScroll from '../_tool/resize'
 import emitter from '@/mixins/emitter'
 export default {
     name: 'Affix',

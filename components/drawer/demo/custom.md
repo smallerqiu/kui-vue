@@ -6,18 +6,22 @@
 ```tpl
 <template>
   <div>
-    <Button @click="show1=true">自定义宽度</Button>
-    <Button @click="show2=true">Open left</Button>
-    <Drawer v-model="show1" width="300"></Drawer>
-    <Drawer v-model="show2" width="300" placement="left" title="What's your name? " cancelText="cancel" okText="Ok">My name is chuchur.</Drawer>
+    <RadioGroup v-model="placement">
+      <Radio label="left" value="left"/>
+      <Radio label="top" value="top"/>
+      <Radio label="right" value="right"/>
+      <Radio label="bottom" value="bottom"/>
+    </RadioGroup>
+    <Button @click="show=true" >Open</Button>
+    <Drawer v-model="show" width="300" :placement="placement" title="What's your name? " cancelText="cancel" okText="Ok">My name is chuchur.</Drawer>
   </div>
 </template>
 <script>
 export default{
   data(){
     return{
-      show1:false,
-      show2:false,
+      show:false,
+      placement:'left'
     }
   }
 }

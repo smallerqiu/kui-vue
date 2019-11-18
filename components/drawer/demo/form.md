@@ -1,6 +1,6 @@
 <cn>
 #### 表单模式
-`type` 值为 `form` 时内容将呈现表单模式，有页头和页尾, 可自定义页尾
+内容将呈现表单模式，有页头和页尾, 可自定义页尾
 </cn>
 
 ```tpl
@@ -8,7 +8,7 @@
   <div>
     <Button @click="show1=true">普通表单</Button>
     <Button @click="show2=true">自定义</Button>
-    <Drawer v-model="show1" title="表单验证" type="form" @ok="submitForm" @cancel="resetForm">
+    <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
       <Form label-width="100" ref="form" :model="form" :rules="rules" label-align="left">
         <FormItem label="Input" prop="input">
           <Input v-model="form.input" clearable icon="ios-home"></Input>
@@ -69,7 +69,7 @@
         </FormItem>
       </Form>
     </Drawer>
-    <Drawer v-model="show2" title="我是自定义标题" type="form">
+    <Drawer v-model="show2" title="我是自定义标题">
       <p>我是自定义内容</p>
       <div slot="footer">
         <Button>取消</Button>

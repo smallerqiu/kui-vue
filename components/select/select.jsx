@@ -7,12 +7,14 @@ export default {
   props: {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
-    multiple: Boolean,
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     width: [Number, String],
-    value: [String, Number],
+    value: [String, Number, Array],
     clearable: Boolean,
-    disabled: Boolean
+    filterable: Boolean,
+    disabled: Boolean,
+    multiple: Boolean,
+    loading: Boolean
   },
   provide() {
     return {
@@ -21,16 +23,9 @@ export default {
   },
   data() {
     return {
-      visible: false,
-      dropdownWith: 0,
       left: 0,
-      fadeInBottom: false,
       top: 0,
       label: "",
-      children: [],
-      queryCount: 0,
-      selectItem: null,
-
       showDrop: false,
       showDropInit: false,
       currentValue: this.value || ''
@@ -47,45 +42,36 @@ export default {
       }
     }
   },
-  computed: {
-    isclearable() {
-      return this.clearable && !this.disabled && this.label;
-    },
-  },
-
   methods: {
     setLabel() {
-      if (this.$slots.default) {
+      let kid = this.$slots.default
+      if (kid) {
         let Label = this.label || ''
-        let Value = this.value || ''
+        let Value = this.value
         if (this.multiple) {
-          Label = Label ? Label.split(',') : []
-          Value = Value.split(',')
+          Label = []
+          Value = Value || []
         }
-        this.$slots.default.forEach(c => {
-          // console.log(x, this.value)
+        kid.forEach(c => {
           if (c.tag) {
             let { value, label } = c.componentOptions.propsData
-            label = label || c.componentOptions.children[0].text
-
+            label = label || (c.componentOptions.children[0].text || '').trim()
             if (this.multiple) {
-              if (Value.indexOf(value) !== -1) {
-                Label.push(value)
+              if (Value.indexOf(value) >= 0) {
+                Label.push(label)
               }
             } else if (Value === value) {
-              this.label = label
+              Label = label
               return false
             }
           }
         })
-        if (this.multiple) {
-          this.label = Label.map(l => l).join(',')
-        }
+        this.label = Label
       }
     },
-
     clear(e) {
       this.label = ''
+      this.currentValue = ''
       this.$emit("input", "");
       this.$emit("change", {});
       e.stopPropagation()
@@ -95,40 +81,25 @@ export default {
         return false;
       }
 
-      this.test()
+      this.setPosition()
       this.showDrop = !this.showDrop;
       this.showDropInit = true
-    },
-    test() {
-      if (!hasProp(this, 'width')) {
-        this.width = this.$el.offsetWidth
-      }
-
-      if (this.transfer) {
-        let { top, left } = getElementPos(this.$el)
-        this.top = top
-        this.left = left
-      } else {
-        this.top = this.$el.offsetHeight + 3
+      if (this.filterable || ('search' in this.$listeners)) {
+        this.$refs.search.focus()
       }
     },
     setPosition() {
-      let m = 3;
-      let rel = this.$refs.rel;
-      let dom = this.$refs.dom;
-
-      this.dropdownWith = rel.offsetWidth;
-      let relPos = this.getElementPos(rel);
-      let clientH = window.innerHeight;
-      let clientW = window.innerWidth;
-      // console.log(relPos)
-      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
-
-      let domH = dom.offsetHeight;
-      let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
-      //new
+      if (!hasProp(this, 'width')) {
+        this.width = this.$el.offsetWidth
+      }
+      let _top = 0, _left = 0;
+      if (this.transfer) {
+        let { top, left, height } = getElementPos(this.$el)
+        _top = top + height + 3
+        _left = left + 1
+      } else {
+        _top = this.$el.offsetHeight + 3
+      }
       if (clientH - relPos.top - relH - m < domH) {
         //空出来的高度不足以放下dom
         this.fadeInBottom = true;
@@ -137,21 +108,47 @@ export default {
         this.fadeInBottom = false;
         this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
       }
+      this.top = _top
+      this.left = _left
+    },
+    setPosition1() {
+      // let m = 3;
+      // let rel = this.$refs.rel;
+      // let dom = this.$refs.dom;
+
+      // this.dropdownWith = rel.offsetWidth;
+      // let relPos = this.getElementPos(rel);
+      // let clientH = window.innerHeight;
+      // let clientW = window.innerWidth;
+      // // console.log(relPos)
+      // let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      // let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+
+      // let domH = dom.offsetHeight;
+      // let relH = rel.offsetHeight;
+      // if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
+      // //new
+      // if (clientH - relPos.top - relH - m < domH) {
+      //   //空出来的高度不足以放下dom
+      //   this.fadeInBottom = true;
+      //   this.top = this.transfer ? relPos.top - m - domH + scrollTop : -(domH + m);
+      // } else {
+      //   this.fadeInBottom = false;
+      //   this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
+      // }
     },
     change(item) {
       let { multiple, value, currentValue } = this
       if (multiple) {
         if (!hasProp(this, 'value')) {
-          value = currentValue
+          value = currentValue || []
         }
-        value = value.split(',')
         let index = value.indexOf(item.value)
         if (index === -1) {
           value.push(item.value)
         } else {
           value.splice(index, 1)
         }
-        value = value.join(',')
       } else {
         value = item.value
       }
@@ -159,15 +156,14 @@ export default {
         if (!multiple)
           this.label = item.label
         else {
-          let Label = this.label || ''
-          Label = Label ? Label.split(',') : []
+          let Label = this.label || []
           let index = Label.indexOf(item.label)
           if (index === -1) {
             Label.push(item.label)
           } else {
             Label.splice(index, 1)
           }
-          this.label = Label.map(l => l).join(',')
+          this.label = Label
         }
         this.currentValue = value
       }
@@ -176,34 +172,25 @@ export default {
       this.$emit("change", item);
       if (!multiple)
         this.showDrop = false
-
-
-      this.$nextTick(e => this.test());
+      this.$nextTick(e => this.setPosition());
     },
-    removeTag(l) {
-      let label = this.label.split(',')
-      let index = label.indexOf(l)
-      if (index === -1) {
-        label.push(item.label)
-      } else {
-        label.splice(index, 1)
-      }
-      this.label = label.map(l => l).join(',')
+    removeTag(e, i) {
+      let values = this.value || this.currentValue || []
+      let labels = this.label || []
+      this.change({ value: values[i], label: labels[i] })
+      setTimeout(e => this.setPosition(), 250)
+      e.stopPropagation()
     },
-    getCloseIcon(child){
-      console.log(child)
-      return <div></div>
-    }
   },
   mounted() {
-    this.setLabel()
+    this.$nextTick(e => this.setLabel())
   },
   render() {
     // console.log(h)
     let { disabled, mini, multiple,
       width, top, left, showDrop, showDropInit, $slots, placeholder,
       clear, removeTag,
-      clearable, label, value, toggleDrop, transfer } = this
+      clearable, label, toggleDrop, transfer } = this
     const classes = [
       "k-select",
       {
@@ -229,26 +216,29 @@ export default {
       // style["transform-origin"] = "center bottom 0px";
     }
     const empty = (
-      <div class="k-empty"><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></div>
+      !$slots.default
+        ? <div class="k-empty"><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></div>
+        : null
     )
     const drop = (
       showDropInit ? <div class="k-select-dropdown" ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer}>
         <ul>
           {$slots.default}
-          {/* <li class="k-select-item" v-if="children.length==0||queryCount==0">暂无数据...</li> */}
+          {empty}
         </ul>
       </div> : null
     )
-
-    const placeNode = (placeholder && !label
+    label = multiple ? (label || []) : label
+    const placeNode = (placeholder && (!label || !label.length)
       ? <div class="k-select-placeholder">{placeholder}</div>
       : null
     )
+    const tags = multiple ? label.map((c, i) => <span class="k-select-tag" key={c}>{c}<Icon type="ios-close" onClick={e => removeTag(e, i)} /></span>) : null
+
     const labelsNode = (multiple
       ? (
         <div class="k-select-labels">
-          {label && (label.split(',')).map(c => <span class="k-select-tag">{c}<Icon type="ios-close" onClick={e=>removeTag(c)} /></span>)}
-          <input autoComplete="off" class="k-select-search" />
+          <transition-group name="k-select-tag">{tags}</transition-group>
         </div>
       )
       : <div class="k-select-label">{label}</div>
@@ -261,9 +251,9 @@ export default {
         <div class={selectCls} onClick={toggleDrop} ref="rel">
           {placeNode}
           {labelsNode}
-          {/* <input type="text" class="k-select-label" v-model={label} readonly="!filterable||disabled" disabled={disabled} keyup="handleKeyup" ref="input" /> */}
-          {!multiple ? <span class="k-select-arrow"></span> : null}
+          {<span class="k-select-arrow"></span>}
           {clearNode}
+          {this.filterable ? <input autoComplete="off" class="k-select-search" ref="search" /> : null}
         </div >
         <transition name="dropdown">
           {drop}

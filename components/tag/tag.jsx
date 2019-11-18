@@ -40,14 +40,14 @@ export default {
       style: styles
     }
     return (
-      visible ? <transition name="fade">
-        <div {...props}>
+      <transition name="k-tag">
+        <div {...props} v-show={visible}>
           <span class="k-tag-text">
             {$slots.default}
           </span>
           {closeable ? <i class="k-ion-md-close" onClick={close} /> : null}
         </div>
-      </transition> : null
+      </transition>
     )
   }
 }

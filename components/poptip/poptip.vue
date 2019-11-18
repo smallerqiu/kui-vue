@@ -28,7 +28,7 @@ import Button from "../button";
 import docClick from "../_tool/docClick";
 import transferDom from "../_tool/transferDom";
 import emitter from '@/mixins/emitter'
-import resize from '../_tool/winScroll'
+import resize from '../_tool/resize'
 export default {
   compontes: { "k-button": Button },
   directives: { docClick, transferDom, resize },

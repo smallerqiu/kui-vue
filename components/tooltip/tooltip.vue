@@ -16,7 +16,7 @@
 <script> 
 import transferDom from "../_tool/transferDom";
 import emitter from "@/mixins/emitter";
-import winScroll from "../_tool/winScroll";
+import winScroll from "../_tool/resize";
 
 export default {
   directives: { transferDom, winScroll },

@@ -1,35 +1,20 @@
 
 import Icon from "../icon";
-import { getChild } from '../_tool/utils'
-import Transition from '../collapse/collapse.jsx'
+import { getTranstionProp } from '../_tool/transition'
 export default {
   components: { Icon },
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
     closable: Boolean,
-    showIcon: Boolean
+    showIcon: Boolean,
+    message: String,
+    description: String,
   },
   data() {
     return {
       closed: false
     };
-  },
-  computed: {
-    icon() {
-      let icons = {
-        info: "ios-information-circle",
-        error: "ios-close-circle",
-        success: "ios-checkmark-circle",
-        warning: "ios-alert"
-      };
-      return icons[this.type];
-    },
-    classes() {
-      return [
-        "k-alert", { [`k-alert-${this.type}`]: this.type }
-      ];
-    }
   },
   methods: {
     close() {
@@ -39,19 +24,36 @@ export default {
   },
   render() {
 
-    let { closed, classes, icon, showIcon, closable, close, $slots } = this
-    let iconNode = showIcon ? <Icon type={icon} /> : null
-    let closeIcon = closable ? <a class="k-alert-close" onClick={close} /> : null
-    let kid = getChild($slots.default)
-
+    let { closed, showIcon, closable, close, $slots, type, description, message } = this
+    const classes = [
+      "k-alert", {
+        [`k-alert-${this.type}`]: type,
+        'k-alert-has-icon': showIcon,
+        'k-alert-has-close': closable,
+        'k-alert-has-description': description
+      }
+    ];
+    let icons = {
+      info: "ios-information-circle",
+      error: "ios-close-circle",
+      success: "ios-checkmark-circle",
+      warning: "ios-alert"
+    };
+    const iconNode = showIcon ? <Icon type={icons[this.type]} class="k-alert-icon" /> : null
+    const closeIcon = closable ? <span class="k-alert-close" onClick={close} /> : null
+      description = <div class="k-alert-description">{description}</div>
+    const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
+    const aniprop = getTranstionProp('k-alert-slide')
+    console.log(aniprop)
     return (
-      <Transition>
+      <transition {...aniprop} name='k-alert-slide'>
         <div class={classes} v-show={!closed}>
           {iconNode}
-          {kid}
+          {msg}
+          {description}
           {closeIcon}
         </div >
-      </Transition >
+      </transition >
     )
   }
 }; 

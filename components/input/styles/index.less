@@ -1,10 +1,9 @@
 @import '../../styles/global.less';
-.k-input-wp {
+.k-input-wrapper {
   position: relative;
   display: inline-block;
   width: 100%;
-  font-size: 0;
-  .k-input {
+  .k-input, .k-textarea {
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
@@ -14,7 +13,7 @@
     font-size: 12px;
     border: 1px solid @borderColor;
     border-radius: @radius;
-    color: #495060;
+    color: @color;
     background-color: #fff;
     background-image: none;
     position: relative;
@@ -24,14 +23,18 @@
       // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
       box-shadow: 0 0 5px fade(@main, 75%);
       border-color: @main;
+      outline: none;
     }
     &:disabled {
       cursor: not-allowed;
       color: @disableColor;
       background: @disableBack;
       border-color: @disableBorder;
-      &::placeholder{
+      &::placeholder {
         color: @disableColor;
+      }
+      &:hover{
+        border-color: @disableBorder;
       }
     }
   }
@@ -41,59 +44,70 @@
     vertical-align: bottom;
     font-size: 12px;
     resize: none;
+    outline: none;
   }
-  [class^="k-ion"] {
+  .k-input-icon {
     position: absolute;
     top: 0;
-    right: 0;
-    height: 32px;
-    line-height: 30px;
-    width: 32px;
-    text-align: center;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 20px;
     color: #999;
+    line-height: 1;
     z-index: 1;
     &+.k-input {
-      padding-right: 32px;
+      padding-left: 32px;
     }
+  }
+  &:hover {
+    .k-input, .k-textarea {
+      border-color: @main;
+    }
+  }
+  [class^="k-ion"], [class*=" k-ion"] {
+    font-size: 18px;
+  }
+}
+
+.k-input-has-suffix {
+  .k-input {
+    padding-right: 32px;
+  }
+}
+
+.k-input-suffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  font-size: 12px;
+  transform: translateY(-50%);
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    color: #000;
   }
 }
 
 .k-input-clearable {
   position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 32px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center; //   display: none;
+  right: 12px;
   cursor: pointer;
   z-index: 10;
-  background: #fff;
+  line-height: 1;
+  top: 50%;
+  font-size: 15px;
+  transform: translateY(-50%);
   &::before {
     content: "\f14e";
     font-family: Ionicons;
-    font-size: 15px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    text-align: center;
     color: #999;
-    width: 100%;
+    line-height: 1;
   }
   &:hover {
     &::before {
       color: #555;
-    }
-  }
-}
-
-.k-input-icon-left {
-  [class^="k-ion"] {
-    left: 0;
-    &+.k-input {
-      padding-left: 32px;
-      padding-right: 0;
     }
   }
 }
@@ -105,21 +119,16 @@
     line-height: 23px;
   }
   .k-input-clearable {
-    text-align: center;
-    height: 23px;
-    line-height: 23px;
-    width: 25px;
+    right: 9px;
     &::before {
       font-size: 11px;
     }
   }
-  [class^="k-ion"] {
-    height: 26px;
-    line-height: 24px;
-    width: 26px;
+  .k-input-icon {
+    left: 9px;
     font-size: 16px;
     &+.k-input {
-      padding-right: 26px;
+      padding-left: 24px;
     }
   }
 }
@@ -132,41 +141,16 @@
     font-size: 14px;
   }
   .k-input-clearable {
-    text-align: center;
-    height: 38px;
-    line-height: 38px;
-    width: 40px;
+    right: 15px;
     &::before {
       font-size: 18px;
     }
   }
-  [class^="k-ion"] {
-    height: 40px;
-    line-height: 38px;
-    width: 40px;
+  .k-input-icon {
     font-size: 25px;
-    &+.k-input {
-      padding-right: 40px;
-    }
-  }
-}
-
-.k-input-lg.k-input-icon-left {
-  [class^="k-ion"] {
-    left: 0;
+    left: 14px;
     &+.k-input {
       padding-left: 40px;
-      padding-right: 0;
-    }
-  }
-}
-
-.k-input-mini.k-input-icon-left {
-  [class^="k-ion"] {
-    left: 0;
-    &+.k-input {
-      padding-left: 26px;
-      padding-right: 0;
     }
   }
 }

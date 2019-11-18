@@ -1,5 +1,6 @@
 <script>
 import Base from './base'
+import Info from './info'
 import Color from './color'
 import Text from './text'
 import Disabled from './disabled'
@@ -7,7 +8,8 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="switch-demo">
+        <Info class="typo" />
         <Base />
         <Color />
         <Text />
@@ -19,3 +21,8 @@ export default {
 }
 
 </script> 
+<style lang="less">
+.switch-demo .k-switch {
+  margin: 0 10px 10px 0;
+}
+</style>

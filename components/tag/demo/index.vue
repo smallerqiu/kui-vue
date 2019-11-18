@@ -1,4 +1,5 @@
 <script>
+import Info from './info' 
 import Base from './base' 
 import Color from './color' 
 import Dynamic from './dynamic' 
@@ -7,6 +8,7 @@ export default {
   render() {
     return (
       <div>
+        <Info class="typo" />
         <Base />
         <Color />
         <Dynamic />

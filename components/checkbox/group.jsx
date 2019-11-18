@@ -1,5 +1,5 @@
 import Checkbox from './checkbox';
-
+import { getChild } from '../_tool/utils'
 export default {
   name: "CheckboxGroup",
   props: {
@@ -27,7 +27,7 @@ export default {
   },
   render() {
     const { options, $slots } = this
-    let kid = $slots.default
+    let kid = getChild($slots.default)
 
     if (options && options.length) {
       kid = options.map(option => (
@@ -39,10 +39,6 @@ export default {
         />
       ))
     }
-    return (
-      <div class="k-checkbox-group">
-        {kid}
-      </div>
-    )
+    return (<div class="k-checkbox-group">{kid}</div>)
   }
 }
