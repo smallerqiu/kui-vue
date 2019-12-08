@@ -8,7 +8,7 @@
   <div>
     <Input placeholder="User Name..." icon="ios-person" width="300"/>
     <br/>
-    <Input type="password" placeholder="Password..." icon="ios-lock" width="300"/>
+    <Input type="password" placeholder="Password..." icon="ios-lock" width="300" />
     <br/>
     <Input placeholder="请输入验证码" icon="ios-disc" width="300">
       <template slot="suffix">

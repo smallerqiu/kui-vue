@@ -5,18 +5,19 @@ export default {
       const parentNode = el.parentNode
       if (!parentNode) return false;
 
-      let empty = document.createComment('')
+      // let empty = document.createComment('')
       let box = document.createElement('div')
       box.style.top = 0
       box.style.left = 0
       box.style.width = '100%'
       box.style.position = 'absolute'
-      parentNode.replaceChild(empty, el)
+      let height = el.offsetHeight
+
+      // parentNode.replaceChild(empty, el)
       box.appendChild(el)
       document.body.appendChild(box)
-
       if (!el.__data) {
-        el.__data = { parentNode, empty, box }
+        el.__data = { parentNode, box, height }
       }
     }
   },

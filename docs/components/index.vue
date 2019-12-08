@@ -8,7 +8,7 @@ export default {
       <div>
         <Info class="typo" />
         <Base />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

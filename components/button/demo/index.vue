@@ -11,14 +11,14 @@ export default {
   render() {
     return (
       <div class="demo-button">
-        <Info />
+        <Info class="typo" />
         <Base />
         <Disabled />
         <Size />
         <WithIcon />
         <Loading />
         <Group />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

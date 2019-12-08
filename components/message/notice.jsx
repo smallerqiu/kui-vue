@@ -28,7 +28,7 @@ export default {
         <div class="k-message-content">
           {iconNode}
           <span>{content}</span>
-          {closable ? <span class="k-message-close" onClick={onClose}></span> : null}
+          {closable ? <Icon class="k-message-close" type="ios-close" onClick={onClose} /> : null}
         </div>
       )
     } else {
@@ -37,7 +37,7 @@ export default {
           {iconNode}
           <div class="k-notice-title">{title}</div>
           <div class="k-notoce-desc">{content}</div>
-          <span class="k-notice-close" onClick={onClose}></span>
+          <Icon class="k-notice-close" type="ios-close" onClick={onClose} />
         </div>
       )
     }

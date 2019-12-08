@@ -10,6 +10,7 @@ export default {
       }
     },
     icon: String,
+    block: Boolean,
     mini: { type: Boolean, default: false },
     large: { type: Boolean, default: false },
     loading: Boolean,
@@ -34,6 +35,7 @@ export default {
         {
           [`k-btn-${type}`]: !!type,
           ["k-btn-mini"]: !!mini,
+          ["k-btn-block"]: !!this.block,
           ["k-btn-loading"]: loading,
           ["k-btn-icon-only"]: onlyIcon,
           ["k-btn-lg"]: !!large && !mini,

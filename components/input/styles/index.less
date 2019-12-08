@@ -3,6 +3,7 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  max-width: 100%;
   .k-input, .k-textarea {
     box-sizing: border-box;
     display: inline-block;
@@ -33,7 +34,7 @@
       &::placeholder {
         color: @disableColor;
       }
-      &:hover{
+      &:hover {
         border-color: @disableBorder;
       }
     }
@@ -49,12 +50,11 @@
   .k-input-icon {
     position: absolute;
     top: 0;
-    left: 12px;
+    left: 7px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-    color: #999;
-    line-height: 1;
+    color: @iconColor;
     z-index: 1;
     &+.k-input {
       padding-left: 32px;
@@ -65,12 +65,9 @@
       border-color: @main;
     }
   }
-  [class^="k-ion"], [class*=" k-ion"] {
-    font-size: 18px;
-  }
 }
 
-.k-input-has-suffix {
+.k-input-has-suffix, .k-input-has-clear {
   .k-input {
     padding-right: 32px;
   }
@@ -78,37 +75,33 @@
 
 .k-input-suffix {
   position: absolute;
-  right: 12px;
+  right: 7px;
   top: 50%;
   font-size: 12px;
   transform: translateY(-50%);
   line-height: 1;
   cursor: pointer;
   user-select: none;
+  background: #fff;
   &:hover {
-    color: #000;
+    color: @color;
+  }
+  .k-icon {
+    font-size: 16px;
   }
 }
 
 .k-input-clearable {
   position: absolute;
-  right: 12px;
+  right: 8px;
   cursor: pointer;
   z-index: 10;
-  line-height: 1;
   top: 50%;
   font-size: 15px;
   transform: translateY(-50%);
-  &::before {
-    content: "\f14e";
-    font-family: Ionicons;
-    color: #999;
-    line-height: 1;
-  }
+  color: @gray;
   &:hover {
-    &::before {
-      color: #555;
-    }
+    color: @color;
   }
 }
 
@@ -120,15 +113,22 @@
   }
   .k-input-clearable {
     right: 9px;
-    &::before {
-      font-size: 11px;
-    }
+    font-size: 11px;
   }
   .k-input-icon {
-    left: 9px;
+    left: 5px;
     font-size: 16px;
     &+.k-input {
       padding-left: 24px;
+    }
+  }
+  &.k-input-has-clear .k-input {
+    padding-right: 25px;
+  }
+  .k-input-suffix {
+    right: 5px;
+    .k-icon {
+      font-size: 12px;
     }
   }
 }
@@ -141,16 +141,23 @@
     font-size: 14px;
   }
   .k-input-clearable {
-    right: 15px;
-    &::before {
-      font-size: 18px;
-    }
+    right: 10px;
+    font-size: 18px;
   }
   .k-input-icon {
     font-size: 25px;
-    left: 14px;
+    left: 8px;
     &+.k-input {
       padding-left: 40px;
+    }
+  }
+  &.k-input-has-clear .k-input {
+    padding-right: 40px;
+  }
+  .k-input-suffix {
+    right: 15px;
+    .k-icon {
+      font-size: 18px;
     }
   }
 }

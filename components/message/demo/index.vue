@@ -12,7 +12,7 @@ export default {
         <Base />
         <Types />
         <Close />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

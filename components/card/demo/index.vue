@@ -10,7 +10,7 @@ export default {
         <Info class="typo" />
         <Base />
         <Border />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

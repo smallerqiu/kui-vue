@@ -23,14 +23,7 @@ export default {
         // }
       }
     },
-    query(query) {
-      // query 转义查询里面的正则
-      let label = this.label === undefined ? this.$el.innerHTML : this.label
-      let parsedQuery = String(query).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-      this.visible = new RegExp(parsedQuery, "i").test(label);
-    }
   },
-
   render() {
     let { disabled, groupContext, value, label, $slots, select } = this
     let selected = false;
@@ -57,6 +50,7 @@ export default {
       }
     ];
     const kid = <span>{label}{iconNode}</span>
+
     return (
       <li class={classes} onClick={select}>{kid}</li>
     )

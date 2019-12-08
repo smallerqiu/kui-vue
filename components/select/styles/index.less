@@ -2,6 +2,7 @@
 .k-select {
   display: inline-block;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   vertical-align: middle;
   color: #495060;
@@ -25,6 +26,25 @@
     min-height: 32px;
     position: relative;
   }
+  .k-select-search-wrap {
+    position: absolute;
+    left: 5px;
+    z-index: 1;
+    top: 50%;
+    background: none;
+    transform: translateY(-50%);
+    .k-select-search {
+      // border: 1px solid #eee;
+      border:none;
+      width: 0.75em;
+      min-width: 0.75em;
+      height: 20px;
+      padding: 0;
+      background: none;
+      outline: none;
+      font-size: 12px;
+    }
+  }
   .k-select-labels {
     padding: 3px 32px 0 0;
     overflow: hidden;
@@ -37,11 +57,10 @@
       position: relative;
       line-height: 18px;
       overflow: hidden;
-      .k-ion-ios-close {
+      .k-icon {
         position: absolute;
         right: 3px;
         font-size: 20px;
-        width: 15px;
         text-align: center;
         display: block;
         top: 50%;
@@ -51,22 +70,29 @@
         }
       }
     }
-  }
-  .k-select-search {
-    border: none;
-    width: 0.75em;
-    height: 20px;
-    padding: 0;
-    left: 5px;
-    top:50%;
-    background: none;
-    transform: translateY(-50%);
-    z-index: 10;
-    position: absolute;
-    &:focus {
-      // border: none;
-      outline: none;
+    .k-select-search-wrap {
+      float: left;
+      position: relative;
+      transform: none;
+      top: 0;
+      // .k-select-search {
+      //   // border: none;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      //   z-index: 10;
+      //   position: absolute;
+      // }
     }
+  }
+  .k-select-search-mirror {
+    opacity: 0;
+    white-space: pre;
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    font-size: 12px;
   }
   .k-select-placeholder {
     position: absolute;
@@ -102,37 +128,27 @@
     cursor: pointer;
   }
   .k-select-arrow {
-    font-size: 18px;
+    // font-size: 18px;
     position: absolute;
     top: 50%;
-    right: 12px;
-    line-height: 1;
+    right: 9px;
+    font-size: 14px;
     box-sizing: border-box;
     transform: translateY(-50%) rotate(0deg);
     transform-origin: center;
     transition: transform .3s ease-in-out;
-    &:after {
-      content: '\F3D0';
-      font-family: Ionicons;
-    }
+    color: @iconColor;
   }
   .k-select-clearable {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 9px;
     transform: translateY(-50%);
     display: none;
-    color: #999;
     font-size: 15px;
-    background: #fff;
-    &::before {
-      content: "\f14e";
-      font-family: Ionicons;
-    }
+    color: @iconColor;
     &:hover {
-      &::before {
-        color: #555;
-      }
+      color: @color;
     }
   }
   &:hover, &:focus {
@@ -159,6 +175,16 @@
     list-style: none;
     left: 0;
   }
+  .k-select-loading {
+    padding: 10px;
+    font-size: 12px;
+    .k-icon {
+      font-size: 14px;
+    }
+    span {
+      margin-left: 8px;
+    }
+  }
   .k-select-item {
     margin: 0;
     line-height: normal;
@@ -177,7 +203,7 @@
     &:hover {
       background: @light;
     }
-    [class^="k-ion"], [class*=" k-ion"] {
+    .k-icon {
       position: absolute;
       top: 0;
       right: 9px;
@@ -185,8 +211,9 @@
       top: 50%;
       transform: translateY(-50%);
       display: none;
+      color: @iconColor;
     }
-    &:hover [class^="k-ion"], [class*=" k-ion"] {
+    &:hover .k-icon, .k-icon {
       display: block;
     }
   }
@@ -197,7 +224,8 @@
     &:hover {
       background: @light;
     }
-    [class^="k-ion"], [class*=" k-ion"] {
+    .k-icon {
+      color: @main;
       display: block;
     }
   }
@@ -206,17 +234,31 @@
     color: @disableColor;
     cursor: not-allowed;
   }
+  .k-select-empty {
+    text-align: center;
+    color: @disableColor;
+    padding-bottom: 10px;
+    font-size: 12px;
+    cursor: not-allowed;
+    i {
+      font-size: 30px;
+      padding: 10px 0;
+    }
+  }
   // &:hover{
   //     overflow: auto;
   // }
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #e6e5e5;
-    border-radius: 4px;
-  }
+  // &::-webkit-scrollbar {
+  // width: 8px;
+  // height: 8px;
+  // border-left: 1px solid @borderColor;
+  // padding: 0 2px;
+  // background: rgba(211, 211, 211, 0.568);
+  // }
+  // &::-webkit-scrollbar-thumb {
+  // background: #ddd;
+  // border-radius: 3px;
+  // }
 }
 
 .k-select-mini {
@@ -225,18 +267,16 @@
   }
   .k-select-arrow {
     font-size: 12px;
-    right: 8px;
+    right: 5px;
+  }
+  .k-select-clearable {
+    right: 5px;
+    font-size: 12px;
   }
   .k-select-label {
     line-height: 23px;
     height: 23px;
     padding-right: 23px;
-  }
-  .k-select-clearable {
-    right: 9px;
-    &::before {
-      font-size: 12px;
-    }
   }
   .k-select-labels {
     padding: 2px 23px 0 0;
@@ -244,17 +284,15 @@
       padding: 2px 22px 2px 5px;
       margin: 0 0 3px 4px;
       line-height: 1;
-      .k-ion-ios-close {
-        right: 3px;
-        font-size: 20px;
-        width: 15px;
+      .k-icon {
+        font-size: 18px;
       }
     }
     .k-select-search {
-      height: 20px;
-      line-height: 20px;
-      margin-left: 5px;
-      margin-top: -5px;
+      height: 18px;
+      line-height: 18px;
+      left: 0;
+      float: left;
     }
   }
 }
@@ -280,7 +318,10 @@
     cursor: not-allowed;
   }
   .k-select-arrow {
-    background: @disableBack;
+    color: @disableBorder;
+  }
+  &:hover .k-select-selection {
+    border-color: @disableBorder;
   }
 }
 

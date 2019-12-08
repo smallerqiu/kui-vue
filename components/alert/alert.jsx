@@ -40,7 +40,7 @@ export default {
       warning: "ios-alert"
     };
     const iconNode = showIcon ? <Icon type={icons[this.type]} class="k-alert-icon" /> : null
-    const closeIcon = closable ? <span class="k-alert-close" onClick={close} /> : null
+    const closeIcon = closable ? <Icon class="k-alert-close" type="ios-close" onClick={close} /> : null
       description = <div class="k-alert-description">{description}</div>
     const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
     const aniprop = getTranstionProp('k-alert-slide')

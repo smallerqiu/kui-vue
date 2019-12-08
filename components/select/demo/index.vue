@@ -4,6 +4,7 @@ import Base from './base'
 import Size from './size'
 import Clearable from './clearable'
 import Multiple from './multiple'
+import Filterable from './filterable'
 import Search from './search'
 import CN from '../index.md'
 export default {
@@ -15,15 +16,18 @@ export default {
         <Size />
         <Clearable />
         <Multiple />
+        <Filterable />
         <Search />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }
 }
 </script> 
-<style>
-.demo-select .k-select{
-  margin: 0 10px 10px 0;
+<style lang="less">
+.demo-select {
+  .k-select {
+    margin: 0 10px 10px 0;
+  }
 }
 </style>

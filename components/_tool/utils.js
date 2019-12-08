@@ -1,8 +1,12 @@
 export function isEmptyNode(vnode = {}) {
-  return !(vnode.tag || (vnode.text && vnode.text.trim().length))
+  return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim().length))
 }
 export function getChild(child = []) {
   return child.filter(c => !isEmptyNode(c))
+}
+
+export function isNotEmpty(str) {
+  return str !== '' && str !== undefined && str !== null
 }
 
 export function hasProp(context, key) {

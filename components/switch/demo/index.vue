@@ -14,7 +14,7 @@ export default {
         <Color />
         <Text />
         <Disabled />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

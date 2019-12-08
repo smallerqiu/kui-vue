@@ -14,7 +14,7 @@ export default {
         <Accrodion />
         <Nesting />
         <Sample />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

@@ -14,7 +14,7 @@ export default {
         <Disabled />
         <Group />
         <Button />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }
