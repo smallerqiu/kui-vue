@@ -14,7 +14,7 @@ export default {
         <Dot />
         <Max />
         <Dynamic />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

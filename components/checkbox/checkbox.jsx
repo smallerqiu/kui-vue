@@ -1,4 +1,5 @@
 import { hasProp } from '../_tool/utils'
+import Icon from '../icon'
 export default {
   name: "Checkbox",
   props: {
@@ -63,10 +64,11 @@ export default {
         ["k-checkbox-indeterminate"]: indeterminate
       }
     ];
+    let inner = checked ? <Icon type="ios-checkmark" /> : null
     return (
       <label class={wpclasses}>
         <span class={classes}>
-          <span class="k-checkbox-inner"></span>
+          <span class="k-checkbox-inner">{inner}</span>
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
         </span>
         <span>{label || $slots.default}</span>

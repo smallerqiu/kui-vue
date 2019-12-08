@@ -116,7 +116,7 @@ export default {
           {icon ? <Icon type={icon} class="k-input-icon" onClick={iconClick} /> : null}
           <input ref="input"  {...inputProps} />
           {suffix}
-          {clearableShow ? <span class="k-input-clearable" onClick={clear} /> : null}
+          {clearableShow ? <Icon type="ios-close-circle" class="k-input-clearable" onClick={clear} /> : null}
         </div>
       )
     },
@@ -155,6 +155,7 @@ export default {
         {
           ["k-input-disabled"]: disabled,
           ["k-input-has-suffix"]: isSuffix,
+          ["k-input-has-clear"]: this.clearable,
           ["k-input-mini"]: mini && !isTextArea,
           ["k-input-lg"]: large && !mini && !isTextArea,
         }

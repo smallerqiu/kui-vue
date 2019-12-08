@@ -1,29 +1,9 @@
 <template>
-  <section class="index">
-    <header class="header">
-      <div class="nav">
-        <div class="nav-left">
-          <div class="logo">
-            <a href="/">
-              <img src="./assets/favicon.png" alt="Vue K UIKIT">
-              <span>K UIKIT</span>
-            </a>
-          </div>
-        </div>
-        <div class="nav-right">
-          <ul>
-            <li><a href="/">首页</a></li>
-            <li><a href="#/start">组件</a></li>
-            <li><a href="https://react.k-ui.cn" target="_blank">KUI React</a></li>
-            <li><a href="https://github.com/chuchur-china/kui-vue">Github</a></li>
-            <li><a href="https://chuchur.com">Blog</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
+  <Layout class="index"> 
+    <Header />
     <section class="index-content">
       <div class="logo">K UI</div>
-      <h1>一套基于Vue.js的高质量UI组件库</h1>
+      <h1>一套基于Vue.js的桌面UI组件库</h1>
       <div class="btn-content">
         <Button class="start" @click="start" large>开始使用</Button>
         <Button icon="logo-github" @click="git" large>Github</Button>
@@ -33,10 +13,12 @@
       <p>Copyright ©2009-2018
         <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
     </footer> -->
-  </section>
+  </Layout>
 </template>
 <script>
+import Header from './components/header'
 export default {
+  components: { Header },
   methods: {
     start() {
       this.$router.push('/docs/start')
@@ -47,54 +29,52 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
 .index {
   // background: #fff;
-  display: inline-block;
+  // display: inline-block;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  &::after {
+  background: none;
+  &::after{
+    display: none;
+  }
+  &::before {
     z-index: -1;
     content: "";
     position: absolute;
     height: 100%;
     width: 100%;
-    background-image: url(./assets/back.jpg);
+    background-image: url(./assets/back.jpg) !important;
     background-size: cover;
     text-align: center;
     top: 0;
     bottom: 0;
-    filter: blur(5px);
+    filter: blur(3px);
     transform: scale(1.3);
-    opacity: 0.5;
+    opacity: .5;
+    overflow: hidden;
+  }
+  canvas{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
   }
   .header {
     background: none;
-    border: none;
     box-shadow: none;
-    .nav-left {
-      float: left;
-      .logo {
-        margin-left: 40px;
-        color: #39495f;
-        font-weight: bold;
-        font-size: 16px;
-      }
-    }
-    .nav-right {
-      float: right;
-      margin-right: 50px;
-      li {
-        float: left;
-        position: relative;
-        display: inline-block;
-        margin: 0 24px;
-        cursor: pointer;
-        transition: color 0.3s;
-        font-size: 14px;
-      }
+    .top-menu {
+      background: none;
     }
   }
   .index-content {

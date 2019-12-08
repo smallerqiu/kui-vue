@@ -3,18 +3,19 @@
     <h3>图标快速检索</h3>
     <br />
     <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" style="width:80%;margin:0 auto;display:inherit" large @input="search" clearable />
+    <br />
+    <br />
     <div class="show-icons">
       <template v-if="applist.length">
         <div class="icon-head">
-          <h3>App icons </h3>
           <div class="icon-title" style="text-align: center;">
             <RadioGroup v-model="type" @change="switchIcon">
-              <RadioButton label="ios">IOS</RadioButton>
-              <RadioButton label="Material">Material</RadioButton>
+              <RadioButton value="ios">IOS</RadioButton>
+              <RadioButton value="Material">Material</RadioButton>
             </RadioGroup>
           </div>
+          <h3><span>App icons</span></h3>
         </div>
-        <br />
         <br />
         <div class="icon-item">
           <span @click.stop="copy(x)" v-for="(x,y) in applist" :key="y">
@@ -38,8 +39,29 @@
   </div>
 
 </template>
+<style lang="less">
+.icon-item {
+  overflow: hidden;
+  span {
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    color: #555;
+    float: left;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    &:hover {
+      color: #3a95ff;
+      background: #f5f5f5;
+      box-shadow: 0 0 15px #ddd;
+    }
+  }
+}
+</style>
 <script>
-import { ios, logo, md } from './icon.js'
+import icons from '../dist.json'
 export default {
   data() {
     return {
@@ -47,11 +69,17 @@ export default {
       type: 'ios',
       logos: [],
       applist: [],
+      md: [],
+      ios: [],
+      logo: []
     }
   },
   mounted() {
-    this.logos = logo || []
-    this.applist = ios || []
+    let all = Object.keys(icons)
+    this.logo = this.logos = all.filter(x => x.indexOf('logo') >= 0)
+    this.applist = all.filter(x => x.indexOf('ios') >= 0)
+    this.ios = all.filter(x => x.indexOf('ios') >= 0)
+    this.md = all.filter(x => x.indexOf('md') >= 0)
   },
   methods: {
     switchIcon() {
@@ -63,6 +91,7 @@ export default {
       this.filter(key)
     },
     filter(key) {
+      let { ios, md, logo } = this
       if (key) {
         let oriapp = this.type == 'ios' ? ios : md;
         this.applist = oriapp.filter(x => {

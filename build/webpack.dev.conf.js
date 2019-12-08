@@ -42,7 +42,7 @@ module.exports = merge(webpackBaseConfig, {
   performance: {
     hints: false,
   },
-  // devtool: '#source-map',
+  devtool: '#source-map',
   plugins: [
     new HtmlWebpackPlugin({
       favicon: './docs/assets/favicon.png',

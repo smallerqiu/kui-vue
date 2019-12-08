@@ -12,7 +12,7 @@
   user-select: none;
   z-index: 9;
   outline: none;
-  border:1px solid transparent;
+  border: 1px solid transparent;
   &:hover {
     opacity: .8;
     zoom: 0%;
@@ -20,9 +20,18 @@
   &:active {
     opacity: 1;
   }
-  &>[class^="k-ion"] +span, span +[class^="k-ion"] {
-    margin-left: 8px;
+  &>.k-icon +span, span +.k-icon {
+    margin-left: 4px;
   }
+  .k-icon {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-top: -2px;
+  }
+}
+
+.k-btn-block {
+  width: 100%;
 }
 
 .k-btn-default {
@@ -49,6 +58,9 @@
   line-height: 23px;
   font-size: 12px;
   padding: 0 8px;
+  [class^="k-ion"] {
+    font-size: 12px;
+  }
 }
 
 .k-btn-lg {
@@ -56,6 +68,9 @@
   line-height: 38px;
   font-size: 14px;
   padding: 0 15px;
+  .k-icon {
+    font-size: 20px;
+  }
 }
 
 .k-btn-circle {
@@ -76,6 +91,9 @@
   background: none;
   border: none !important;
   color: @main;
+  &[disabled='disabled']{
+    background: none;
+  }
 }
 
 .k-btn-danger {

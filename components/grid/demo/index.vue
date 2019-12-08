@@ -11,11 +11,11 @@ export default {
   render() {
     return (
       <div>
-        <Info />
+        <Info class="typo" />
         <Base />
         <Gutter />
         <Offset />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

@@ -1,81 +1,82 @@
 @import '../../styles/global.less';
 .k-tag {
-    display: inline-block;
-    line-height: 20px;
-    height: 22px;
-    padding: 0 7px;
-    border: 1px solid #d9d9d9;
-    background: #fafafa;
-    font-size: 12px;
-    border-radius: @radius;
-    box-sizing: border-box;
-    white-space: nowrap;
-    margin-right: 8px;
-    vertical-align: middle;
-    cursor: pointer;
-    .k-ion-md-close {
-        font-size: 12px;
-        margin-left: 8px;
-        margin-top: -1px;
-        &:hover {
-            color: @danger;
-        }
+  display: inline-block;
+  line-height: 20px;
+  height: 22px;
+  padding: 0 7px;
+  border: 1px solid #d9d9d9;
+  background: #fafafa;
+  font-size: 12px;
+  border-radius: @radius;
+  box-sizing: border-box;
+  white-space: nowrap;
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+  .k-tag-close {
+    font-size: 16px;
+    margin-left: 4px;
+    vertical-align: -4px;
+    &:hover {
+      color: @danger;
     }
+  }
 }
 
 .k-tag-has-color {
+  color: #fff;
+  border-color: transparent;
+  .k-tag-close {
     color: #fff;
-    border-color: transparent;
-    .k-ion-md-close {
-        color: #fff;
-    }
+  }
 }
 
 .k-tag-blue {
-    background: @primary;
+  background: @primary;
 }
 
 .k-tag-gray {
-    background: @gray;
+  background: @gray;
 }
 
 .k-tag-green {
-    background: @success;
+  background: @success;
 }
 
 .k-tag-red {
-    background: @danger;
+  background: @danger;
 }
 
 .k-tag-orange {
-    background: @warning;
+  background: @warning;
 }
+
 @keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale(0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
 }
 
 @keyframes zoomOut {
-    from {
-        opacity: 1;
-        transform: scale(1, 1);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0, 0);
-    }
+  from {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
 }
 
 .k-tag-enter-active {
-    animation: zoomIn .2s ease-out;
+  animation: zoomIn .2s ease-out;
 }
 
 .k-tag-leave-active {
-    animation: zoomOut .2s ease-out;
+  animation: zoomOut .2s ease-out;
 }

@@ -13,10 +13,10 @@
     <Button @click="select=1" mini>Choose orange</Button>
     <br />
     <Select :width="200">
-      <Option value="1" label="Apple" />
-      <Option value="2" label="Orange" />
-      <Option value="3" label="Banana" disabled/>
-      <Option value="4" label="Pear" />
+      <Option :value="1" label="Apple" />
+      <Option :value="2" label="Orange" />
+      <Option :value="3" label="Banana" disabled/>
+      <Option :value="4" label="Pear" />
     </Select>
     <br />
     <Select :width="200" value="1" disabled>

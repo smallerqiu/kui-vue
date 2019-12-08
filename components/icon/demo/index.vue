@@ -7,9 +7,9 @@ export default {
   render() {
     return (
       <div>
-        <Info />
+        <Info class="typo"/>
         <Base />
-        <api><CN /></api>
+        <CN class="typo"/>
         <Search />
       </div>
     )

@@ -10,7 +10,7 @@ export default {
         <Info class="typo"/>
         <Base />
         <Icon />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

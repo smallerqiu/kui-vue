@@ -16,7 +16,7 @@ export default {
         <Clearable />
         <Size />
         <TextArea />
-        <api><CN /></api>
+        <CN class="typo"/>
       </div>
     )
   }

@@ -1,3 +1,4 @@
+import Icon from '../icon'
 export default {
   name: 'Tag',
   props: {
@@ -45,7 +46,7 @@ export default {
           <span class="k-tag-text">
             {$slots.default}
           </span>
-          {closeable ? <i class="k-ion-md-close" onClick={close} /> : null}
+          {closeable ? <Icon class="k-tag-close" type="ios-close" onClick={close} /> : null}
         </div>
       </transition>
     )
