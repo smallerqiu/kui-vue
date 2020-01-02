@@ -14,9 +14,7 @@ export default {
         <Vertical />
         <AutoPlay />
         <DotType />
-        <api>
-          <CN />
-        </api>
+        <CN class="typo" />
       </div>
     )
   }

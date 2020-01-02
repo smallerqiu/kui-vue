@@ -19,20 +19,15 @@ const vueLoaderOptions = {
   },
 };
 module.exports = {
+  bail: true,
   module: {
     rules: [
       {
         test: /\.md$/,
         use: [
-          {
-            loader: 'vue-loader', // 这里的使用的最新的 v15 版本
-          },
-          {
-            loader: './build/md-loader',
-            options: markdown
-          },
+          { loader: 'vue-loader', },
+          { loader: './build/md-loader', options: markdown },
           { loader: 'kui-loader', options: { prefix: false } }
-
         ]
       },
       {
@@ -59,13 +54,8 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader',
-        options: { limit: 10000, name: 'img/[name].[ext]?[hash:7]' }
-      },
-      {
-        test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
         loader: 'file-loader',
-        query: { name: 'fonts/[name].[ext]?[hash:7]', prefix: 'font' }
+        options: { limit: 8192, name: 'img/[name].[ext]?[hash:7]', esModule: false }
       },
     ]
   },

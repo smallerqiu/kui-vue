@@ -6,28 +6,11 @@
 ```tpl
 <template>
   <div>
-    {{date}}
+    <DatePicker />
     <br/>
-    <DatePicker showTime v-model="date" :disabledDate="disabledDate"/>
+    <DatePicker mode="month" placeholder="请选择月份"/>
     <br/>
-    <br/>
-    <br/>
-    <DatePicker v-model="date"/>   
+    <DatePicker mode="range" />
   </div>
 </template>
-<script>
-import moment from 'moment';
-export default {
-  data(){
-    return{
-      date:''
-    }
-  },
-  methods:{
-    disabledDate(current){
-      return current && current < moment().endOf('day');
-    }
-  }
-}
-</script>
 ```

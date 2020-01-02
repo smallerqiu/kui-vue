@@ -1,143 +1,145 @@
 @import '../../styles/global.less';
 .k-datepicker {
-    display: inline-block;
-    position: relative;
-    &:before {
-        content: '\F3F4';
-        font-family: Ionicons;
-        display: block;
-        position: absolute;
-        width: 32px;
-        height: 100%;
-        top: 0;
-        right: 0;
-        font-size: 21px;
-        line-height: 30px;
-        text-align: center;
-        color: #7f7f7f;
-    }
-    .k-datepicker-close {
-        background: #fff;
-        display: none;
-        position: absolute;
-        width: 30px;
-        height: 28px;
-        top: 3px;
-        right: 3px;
-        cursor: pointer;
-        &:before {
-            background: #fff;
-            // background: rgba(255, 0, 0, 0.37);
-            display: block;
-            content: "\f14e";
-            font-family: Ionicons;
-            font-size: 15px;
-            position: absolute;
-            text-align: center;
-            color: #999;
-            width: 100%;
-            height: 100%;
-            line-height: 28px;
-            border-radius: @radius;
-        }
-        &:hover:before {
-            // background-color: #afafaf;
-            color: #555;
-        }
-    }
-    &>.k-datepicker-input {
-        color: #666;
-        transition: all 200ms ease;
-        border: 1px solid #e5e5e5;
-        border-radius: @radius;
-        height: 32px;
-        box-sizing: border-box;
-        outline: none;
-        padding: 0 32px 0 12px;
-        font-size: 12.5px;
-        width: 100%;
-        user-select: none;
-        -ms-user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-    }
-    &>.k-datepicker-input.focus {
-        border-color: @main; // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
-        // -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
-        box-shadow: 0 0 5px fade(@main, 75%);
-    }
-    &>.k-datepicker-input:disabled {
-        cursor: not-allowed;
-        background-color: #eee; // border-color: #999;
-        -webkit-box-shadow: none;
-        opacity: .5;
-        box-shadow: none;
-    }
-    .k-datepicker-range {
-        min-width: 200px
-    }
-    .k-datepicker-range .k-datepicker-popup {
-        width: 415px;
-    }
-    .k-datepicker-bottom {
-        float: left;
-        width: 100%;
-        text-align: right;
-    }
-    .k-datepicker-btn {
-        padding: 5px 10px;
-        background: #1284e7;
-        color: #fff;
-        border-radius: 2px;
-        display: inline-block;
-        cursor: pointer;
-    }
+	display: inline-block;
+	// width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	vertical-align: middle;
+	color: #495060;
+	background: #fff;
+	font-size: 12px;
+	position: relative;
+	border: 1px solid @borderColor;
+	min-height: 32px;
+	border-radius: @radius;
+	cursor: default;
+	user-select: none;
+	min-width: 175px;
+	transition: all .3s;
+	&:hover {
+		border-color: @main;
+	}
+	.k-datepicker-selection {
+		padding: 0 30px 0 9px;
+	}
+	.k-icon {
+		position: absolute;
+		right: 8px;
+		top: 50%;
+		transform: translateY(-50%);
+		color: @iconColor;
+		font-size: 14px;
+		transition: all .3s;
+	}
+	.k-datepicker-placeholder, .k-datepicker-value {
+		transition: all .3s;
+		line-height: 30px;
+		color: @disableColor;
+		box-sizing: border-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-size: 12px;
+	}
+	.k-datepicker-value {
+		color: @color;
+	}
+	.k-datepicker-has-clear {
+		.k-datepicker-clearable {
+			display: none;
+			&:hover {
+				color: @color;
+			}
+		}
+		&:hover {
+			.k-datepicker-clearable {
+				display: block;
+			}
+			.k-icon-calendar {
+				display: none;
+			}
+		}
+	}
 }
 
-.k-datepicker-popup {
-    position: absolute;
-    //    transition: all 200ms ease;
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: center top;
-    font-size: 12px;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: @radius;
-    box-shadow: 0 1px 6px rgba(99, 99, 99, 0.2);
-    outline: 0;
-    padding: 5px;
-    overflow: hidden;
-    z-index: 1001;
+.k-datepicker-range {
+	min-width: 307px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		display: inline-block;
+		// padding: 0 9px;
+		vertical-align: middle;
+		min-width: 130px;
+		text-align: center;
+	}
+	.k-datepicker-separator {
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0 5px;
+	}
+	&.k-datepicker-large {
+		min-width: 347px;
+	}
+}
+
+.k-datepicker-range-dropdown {
+	width: 430px;
+}
+
+.k-datepicker-open {
+	border-color: @main;
+	box-shadow: 0 0 5px fade(@main, 75%);
+}
+
+.k-datepicker-dropdown {
+	position: absolute;
+	z-index: 1;
+	background: #fff;
 }
 
 .k-datepicker-mini {
-    line-height: 23px;
-    &>.k-datepicker-input {
-        height: 25px;
-        line-height: 23px;
-    }
-    .k-datepicker-close {
-        width: 23px;
-        height: 21px;
-        right: 2px;
-        &:before {
-            font-size: 12px;
-            height: 21px;
-            line-height: 21px;
-        }
-    }
-    &::before {
-        line-height: 25px;
-        width: 25px;
-        font-size: 16px;
-    }
+	min-height: 25px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		line-height: 23px;
+	}
+	.k-icon {
+		font-size: 12px;
+	}
+	.k-datepicker-selection {
+		padding: 0 23px 0 9px;
+	}
 }
 
-.k-datepicker-clearable:hover:before {
-    // display: none;
+.k-datepicker-large {
+	min-height: 40px;
+	min-width: 190px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		line-height: 38px;
+		font-size: 14px;
+	}
+	.k-icon {
+		font-size: 16px;
+		right: 10px;
+	}
+	.k-datepicker-selection {
+		padding: 0 38px 0 9px;
+	}
 }
 
-.k-datepicker-clearable:hover .k-datepicker-close {
-    display: block;
+.k-datepicker-disabled {
+	border-color: @disableBorder;
+	color: @disableColor;
+	cursor: not-allowed;
+	background: @disableBack;
+	&:hover {
+		border-color: @disableBorder;
+	}
+	.k-datepicker-value {
+		color: @disableColor;
+	}
+}
+
+.k-datepicker-dropdown {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	border-radius: @radius;
+	overflow: hidden;
 }

@@ -6,24 +6,27 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.conf.js');
+// const webpack = require('webpack')
 
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'development',
   devServer: {
-    contentBase: path.resolve(__dirname, 'docs'),
+    contentBase: '/',
+    inline: true,
+    compress: true,
     port: 7005,
     host: '0.0.0.0',
     hot: true,
     disableHostCheck: true,
-    historyApiFallback: { rewrites: [{ from: /./, to: '/index.html' }], }
+    historyApiFallback: true,
   },
   entry: {
     index: ['./docs/main.js'],
     vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, 'docs'),
+    path: path.resolve(__dirname, 'docs/dist'),
     filename: '[name].[hash:5].js',
     publicPath: '/',
   },

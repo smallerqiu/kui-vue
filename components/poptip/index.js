@@ -1,2 +1,2 @@
-import Poptip from './poptip'
+import Poptip from './poptip.jsx'
 export default Poptip
