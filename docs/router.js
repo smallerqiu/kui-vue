@@ -9,11 +9,11 @@ Vue.use(Router)
 let router = []
 
 let docs = [
-    // { path: 'start', component: () => import(/*webpackChunkName:'start'*/'./views/start') },
-    // { path: 'log', component: () => import(/*webpackChunkName:'log'*/'./views/log') },
-    // { path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr') },
-    // { path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme') },
-    // { path: 'kui-loader', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/kui-loader') },
+    { path: 'start', component: () => import(/*webpackChunkName:'start'*/'./views/start') },
+    { path: 'log', component: () => import(/*webpackChunkName:'log'*/'./views/log') },
+    { path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr') },
+    { path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme') },
+    { path: 'kui-loader', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/kui-loader') },
 ]
 let components = [
     //     { path: 'about', component: () => import(/*webpackChunkName:'about'*/'../components/about'), },
@@ -26,19 +26,19 @@ let components = [
     //     { path: 'colorpicker', component: () => import(/*webpackChunkName:'colorpicker'*/'../components/colorpicker'/demo), },
     //     { path: 'color', component: () => import(/*webpackChunkName:'color'*/'../components/color/demo'), },
     // { path: 'checkbox', component: () => import(/*webpackChunkName:'checkbox'*/'../components/checkbox/demo'), },
-    // { path: 'button', component: () => import(/*webpackChunkName:'button'*/'../components/button/demo'), },
+    { path: 'button', component: () => import(/*webpackChunkName:'button'*/'../components/button/demo'), },
     // { path: 'breadcrumb', component: () => import(/*webpackChunkName:'breadcrumb'*/'../components/breadcrumb/demo'), },
     //     { path: 'backtop', component: () => import(/*webpackChunkName:'backtop'*/'../components/backtop'/demo), },
     // { path: 'badge', component: () => import(/*webpackChunkName:'badge'*/'../components/badge/demo'), },
-        { path: 'datepicker', component: () => import(/*webpackChunkName:'datepicker'*/'../components/datepicker/demo'), },
-    //     { path: 'dropdown', component: () => import(/*webpackChunkName:'dropdown'*/'../components/dropdown'/demo), },
+        { path: 'datepicker', component: () => import(/*webpackChunkName:'datepicker'*/'../components/datePicker/demo'), },
+        { path: 'dropdown', component: () => import(/*webpackChunkName:'dropdown'*/'../components/dropdown/demo'), },
     // { path: 'drawer', component: () => import(/*webpackChunkName:'drawer'*/'../components/drawer/demo'), },
     //     { path: 'form', component: () => import(/*webpackChunkName:'form'*/'../components/form'/demo), },
     //     { path: 'font', component: () => import(/*webpackChunkName:'font'*/'../components/font/demo'), },
     // { path: 'grid', component: () => import(/*webpackChunkName:'grid'*/'../components/grid/demo'), },
     //     { path: 'imagepreview', component: () => import(/*webpackChunkName:'image-preview'*/'../components/image-preview/demo'), },
     // { path: 'input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },
-    // { path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
+    { path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
     //     { path: 'kui-loader', component: () => import(/*webpackChunkName:'kui-loader'*/'../components/kui-loader/demo'), },
     //     { path: 'log', component: () => import(/*webpackChunkName:'log'*/'../components/log/demo'), },
     { path: 'layout', component: () => import(/*webpackChunkName:'layout'*/'../components/layout/demo'), },
@@ -49,7 +49,7 @@ let components = [
     // { path: 'notice', component: () => import(/*webpackChunkName:'notice'*/'../components/notice/demo'), },
     // { path: 'radio', component: () => import(/*webpackChunkName:'radio'*/'../components/radio/demo'), },
     //     { path: 'react-kui', component: () => import(/*webpackChunkName:'react-kui'*/'../components/react-kui/demo'), },
-    // { path: 'select', component: () => import(/*webpackChunkName:'select'*/'../components/select/demo'), },
+    { path: 'select', component: () => import(/*webpackChunkName:'select'*/'../components/select/demo'), },
     //     { path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'../components/ssr/demo'), },
     // { path: 'switch', component: () => import(/*webpackChunkName:'switch'*/'../components/switch/demo'), },
     //     { path: 'start', component: () => import(/*webpackChunkName:'start'*/'../components/start/demo'), },
@@ -59,28 +59,31 @@ let components = [
     // { path: 'tag', component: () => import(/*webpackChunkName:'tag'*/'../components/tag/demo'), },
     //     { path: 'tabs', component: () => import(/*webpackChunkName:'tabs'*/'../components/tabs/demo'), },
     // { path: 'timeline', component: () => import(/*webpackChunkName:'timeline'*/'../components/timeline/demo'), },
-    //     { path: 'tooltip', component: () => import(/*webpackChunkName:'tooltip'*/'../components/tooltip/demo'), },
+        { path: 'tooltip', component: () => import(/*webpackChunkName:'tooltip'*/'../components/tooltip/demo'), },
     //     { path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'../components/theme/demo'), },
     //     { path: 'tree', component: () => import(/*webpackChunkName:'tree'*/'../components/tree/demo'), },
     //     { path: 'treeselect', component: () => import(/*webpackChunkName:'treeselect'*/'../components/treeselect'), },
     //     { path: 'test', component: () => import(/*webpackChunkName:'test'*/'../components/test'), },
-    //     { path: 'poptip', component: () => import(/*webpackChunkName:'poptip'*/'../components/poptip/demo'), },
+    { path: 'poptip', component: () => import(/*webpackChunkName:'poptip'*/'../components/poptip/demo'), },
+    { path: 'popconfirm', component: () => import(/*webpackChunkName:'popconfirm'*/'../components/popconfirm/demo'), },
     //     { path: 'page', component: () => import(/*webpackChunkName:'page'*/'../components/page/demo'), },
     //     { path: 'upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
 ];
 
+import layout from './layout'
 
 router.push(
     { path: '/', component: () => import(/*webpackChunkName:'home'*/'./index') },
     { path: '/test', component: () => import(/*webpackChunkName:'test'*/'./test') },
+    // { path: '/wwocao', component: () => import(/*webpackChunkName:'test'*/'./views/start') },
     {
-        path: '/components/',
-        component: () => import(/*webpackChunkName:'components'*/'./layout'),
+        path: '/components',
+        component: layout,
         children: components
     },
     {
-        path: '/docs/',
-        component: () => import(/*webpackChunkName:'docs'*/'./layout'),
+        path: '/docs',
+        component: layout,
         children: docs
     }
 )

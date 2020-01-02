@@ -14,7 +14,7 @@ export default {
   props: {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
-    transfer: { type: Boolean, default: false },
+    transfer: { type: Boolean, default: true },
     width: [Number, String],
     value: [String, Number, Array],
     clearable: Boolean,
@@ -151,36 +151,38 @@ export default {
       }
     },
     setPosition() {
-      let _top = 0, _left = 0, _height = this.$el.offsetHeight, offset = 3;
+      let top = 0, left = 0, height = this.$el.offsetHeight, offset = 3;
       if (!hasProp(this, 'width')) {
         this.selectWidth = this.$el.offsetWidth
       }
-      let { top, left } = getElementPos(this.$el)
       if (this.transfer) {
-        _top = top + _height + offset
-        _left = left + 1
+        let pos = getElementPos(this.$el)
+        top = pos.top + height + offset
+        left = pos.left + 1
       } else {
-        _top = _height + offset
+        top = height + offset
       }
       if (this.$refs.dom) {
         let clientH = document.body.scrollHeight
         let domH = this.$refs.dom.offsetHeight
-        if (clientH - top - _height - offset < domH + 5) {
-          _top = this.transfer ? top - domH - offset : -(domH + 3)
+        if (clientH - top - height - offset < domH + 5) {
+          top = this.transfer ? top - domH - offset : -(domH + 3)
           this.placement = 'top'
         } else {
           this.placement = 'bottom'
         }
       }
 
-      this.top = _top
-      this.left = _left
+      this.top = top
+      this.left = left
     },
     change(item) {
       let { multiple, value, currentValue } = this
-      this.queryKey = ''
-      this.$refs.search.value = ''
-      this.$refs.search.style.width = ''
+      if (this.showSearch) {
+        this.queryKey = ''
+        this.$refs.search.value = ''
+        this.$refs.search.style.width = ''
+      }
       if (!multiple) {
         this.showDrop = false
         this.showSearch = false

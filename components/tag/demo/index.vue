@@ -12,7 +12,7 @@ export default {
         <Base />
         <Color />
         <Dynamic />
-        <api><CN/></api>
+        <CN class="typo" />
       </div>
     )
   }

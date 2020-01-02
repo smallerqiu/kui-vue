@@ -1,2 +1,2 @@
-import Tooltip from './tooltip'
+import Tooltip from './tooltip.jsx'
 export default Tooltip

@@ -5,8 +5,15 @@ export function getChild(child = []) {
   return child.filter(c => !isEmptyNode(c))
 }
 
+export function contains(ele, target) {
+  //ele是内部元素，target是你想找到的包裹元素
+  console.log(ele, '--', target, '111')
+  if (!ele || ele === document || !target) return false;
+  return ele === target ? true : contains(ele.parentNode, target);
+}
+
 export function isNotEmpty(str) {
-  return str !== '' && str !== undefined && str !== null
+  return str !== '' && str !== undefined && str !== null && str.length > 0
 }
 
 export function hasProp(context, key) {

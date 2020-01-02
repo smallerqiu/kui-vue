@@ -23,7 +23,6 @@ module.exports = merge(webpackBaseConfig, {
     filename: 'js/[name].[hash:5].js',
     publicPath: './dist/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
-    libraryTarget: 'umd',
   },
   performance: {
     hints: false

@@ -5,7 +5,7 @@ import router from './router'
 // import kui from '@/index'
 // import './assets/demo.less'
 // import './assets/atom-one-light.css'
-import '../components/styles'
+import '../components/styles.js'
 
 import './assets/index.less'
 
@@ -14,12 +14,9 @@ import kui from '../components'
 import Copy from 'vue-clipboard2'
 
 import Demo from './components/demo'
-import Api from './components/api'
 // import MD from './components/md'
 
 Vue.component('demo', Demo)
-// Vue.component('MD', MD)
-Vue.component('Api', Api)
 
 Vue.use(Copy)
 Vue.use(kui)

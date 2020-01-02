@@ -12,7 +12,7 @@ export default {
         <Base />
         <Custom />
         <Form />
-        <api><CN/></api>
+        <CN class="typo" />
       </div>
     )
   }
