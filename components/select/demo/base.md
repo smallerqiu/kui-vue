@@ -6,8 +6,8 @@
 ```tpl
 <template>
   <div>
-    <Select :width="200" v-model="select">
-      <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" />
+    <Select :width="200" v-model="select" :options="data">
+      <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
     </Select>
     <Button @click="select=''" mini>Clear</Button>
     <Button @click="select=1" mini>Choose orange</Button>
@@ -20,7 +20,7 @@
     </Select>
     <br />
     <Select :width="200" value="1" disabled>
-      <Option value="1" label="Chuchur" />
+      <Option value="1" label="disabled" />
     </Select>
   </div>
 </template>

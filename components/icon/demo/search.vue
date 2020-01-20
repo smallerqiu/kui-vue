@@ -41,7 +41,8 @@
 </template>
 <style lang="less">
 .icon-item {
-  overflow: hidden;
+  // overflow: hidden;
+  display: inline-block;
   span {
     text-align: center;
     width: 80px;

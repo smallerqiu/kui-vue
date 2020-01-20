@@ -1,14 +1,14 @@
 <cn>
-#### 基本用法
-通过 `title` 和 `icon` 可设置标题和图标
+#### 边框
+`bordered` 可以设置是否显示边框
 </cn>
 
 ```tpl
 <template>
-  <div>
-    <Card title="卡片标题" icon="ios-heart" bordered>
-      <div slot="extra">
-        <Tooltip content="我是一个苹果"><Icon type="logo-apple" size="20"/></Tooltip>
+  <div class="demo-card">
+    <Card title="卡片标题" icon="ios-heart">
+      <div slot="extra" @click="$Message.info('click')">
+        <span>年</span>-<span>月</span>-<span>日</span>
       </div>
       <p>card content</p>
       <p>card content</p>
@@ -19,4 +19,10 @@
     </Card>
   </div>
 </template>
+<style scoped>
+.demo-card{
+  background:#efefef;
+  padding:20px;
+}
+</style>
 ```

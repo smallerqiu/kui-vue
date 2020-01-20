@@ -4,16 +4,24 @@
       <a href="/"><img src="../assets/favicon.png" />K UIKIT</a>
     </div>
     <div class="search-component">
-      <!-- <Select placeholder="搜索组件..." filterable v-model="key" @change="change">
-          <Option v-for="(com,index) in components" :key="index" :value="com.name">{{com.title}} {{com.sub}}</Option>
-        </Select> -->
+      <Select placeholder="搜索组件..." filterable v-model="key" @change="change" :transfer="false">
+        <Option v-for="(com,index) of components" :key="index" :value="com.name">{{com.title}} {{com.sub}}</Option>
+      </Select>
     </div>
     <Menu mode="horizontal" activeName="/install" @select="go" class="top-menu">
-      <MenuItem name="/" icon="md-home">首页</MenuItem>
-      <MenuItem name="/start" icon="ios-options">组件</MenuItem>
-      <MenuItem name="https://github.com/chuchur-china/kui-vue" icon="logo-github">Github</MenuItem>
-      <MenuItem name="https://react.k-ui.cn">KUI React</MenuItem>
-      <MenuItem name="https://www.chuchur.com" icon="ios-leaf">Blog</MenuItem>
+      <MenuItem name="/start">组件</MenuItem>
+      <SubMenu name="2">
+        <template slot="title">生态相关</template>
+        <MenuItem name="https://github.com/chuchur-china/kui-vue">Github</MenuItem>
+        <MenuItem name="https://react.k-ui.cn">KUI React</MenuItem>
+        <MenuItem name="https://www.chuchur.com">Blog</MenuItem>
+        <MenuItem name="https://www.chuchur.com">微信</MenuItem>
+        <MenuItem name="https://www.chuchur.com">QQ</MenuItem>
+      </SubMenu>
+      <!-- <Select mini width="100" :value="3" :transfer="false">
+        <Option value="3">3.0.x</Option>
+        <Option value="2">2.0.x</Option>
+      </Select> -->
     </Menu>
   </Header>
 </template>
@@ -22,8 +30,11 @@ import Nav from "../menu";
 export default {
   data() {
     return {
-      Nav,
+      components: [],key:''
     }
+  },
+  mounted() {
+    Nav.slice(1, 5).forEach(x => this.components.push(...x.child))
   },
   methods: {
     getPath(name) {

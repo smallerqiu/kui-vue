@@ -1,2 +1,2 @@
-import Affix from './affix'
+import Affix from './affix.jsx'
 export default Affix

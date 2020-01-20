@@ -1,146 +1,194 @@
 @import '../../styles/global.less';
-.k-colorPicker {
-    position: relative;
-    font-size: 14px;
-    display: inline-block;
-    height: 28px;
-    width: 50px;
-    border: 1px solid #ddd;
-    border-radius: @radius;
-    .k-color-button {
-        border: 1px solid #f1f1f1;
-        padding: 1px;
-        display: inline-block;
-        height: 15px;
-        width: 15px;
-        margin: 5px;
-    }
-    .k-color-arrow {
-        position: absolute;
-        right: 5px;
-        top: 6px;
-        width: 16px;
-        height: 17px;
-        &::before {
-            content: '\F3D0';
-            font-family: Ionicons;
-            position: absolute;
-            line-height: 17px;
-            text-align: center;
-            width: 17px;
-            color: #999;
-        }
-    }
-    .k-color-button.disabled {
-        cursor: no-drop;
-    }
+.k-color-picker {
+	width: 55px;
+	height: 30px;
+	border: 1px solid @borderColor;
+	border-radius: @radius;
+	position: relative;
+	display: inline-block;
+	.k-color-picker-color {
+		height: 26px;
+		width: 26px;
+		border-radius: @radius;
+		margin: 2px;
+		overflow: hidden;
+		background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+		background-size: 11px 11px;
+		background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
+		.k-color-picker-color-inner {
+			height: 100%;
+			width: 100%;
+		}
+	}
+	.k-icon {
+		position: absolute;
+		right: 5px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 16px;
+		color: @iconColor;
+	}
 }
 
-.k-colorpicker-popup {
-    box-sizing: content-box;
-    border-radius: @radius;
-    z-index: 1001; 
-    position: absolute;
-    width: 190px;
-    background: #fff;
-    border: 1px solid #ddd; 
-    padding: 10px;
-    padding-bottom: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
-    top: 31px;
-    left: -1px;
-    h3 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: normal;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        line-height: 1;
-        color: #000;
-    }
-    .tColor {
-        li {
-            box-sizing: content-box;
-            width: 13px;
-            height: 13px;
-            display: inline-block;
-            margin: 0 2px;
-            transition: all .3s ease;
-            border: 1px solid #8a8a8a;
-            box-sizing: content-box;
-        }
-        li:hover {
-            box-shadow: 0 0 5px rgba(0, 0, 0, .4);
-            transform: scale(1.3);
-        }
-    }
-    .bColor {
-        li {
-            width: 15px;
-            display: inline-block;
-            margin: 0 2px;
-            li {
-                display: block;
-                width: 15px;
-                height: 15px;
-                transition: all .3s ease;
-                margin: 0;
-            }
-            li:hover {
-                box-shadow: 0 0 5px rgba(0, 0, 0, .4);
-                transform: scale(1.3);
-            }
-        }
-    }
-    .k-more {
-        display: inline-block;
-        margin-top: 10px;
-        width: 100%;
-        .k-value {
-            width: 95px;
-        }
-        .k-more-button {
-        }
-    }
+.k-color-picker-large {
+	width: 70px;
+	height: 40px;
+	.k-color-picker-color {
+		width: 35.5px;
+		height: 35.5px;
+	}
+	.k-icon {
+		font-size: 22px;
+	}
 }
 
-.k-colorPicker-open {
-    border: 1px solid @main;
-    box-shadow: 0 0 5px fade(@main, 75%);
+.k-color-picker-mini {
+	width: 45px;
+	height: 25px;
+	.k-color-picker-color {
+		width: 21px;
+		height: 21px;
+	}
+	.k-icon {
+		font-size: 14px;
+	}
 }
 
-.k-picker * {
-    position: absolute;
-    cursor: crosshair;
-}
-
-.k-picker {
-    position: relative;
-    width: 195px;
-    height: 195px;
-    .k-picker-color, .k-picker-overlay {
-        top: 47px;
-        left: 47px;
-        width: 101px;
-        height: 101px;
-    }
-    .k-picker-wheel {
-        background: url('../img/wheel.png') no-repeat;
-        width: 195px;
-        height: 195px;
-    }
-    .k-picker-overlay {
-        background: url('../img/mask.png') no-repeat;
-    }
-    .marker {
-        width: 17px;
-        height: 17px;
-        margin: -8px 0 0 -8px;
-        overflow: hidden;
-        background: url('../img/marker.png') no-repeat;
-    }
-    .k-picker-wheel {
-        width: 195px;
-        height: 195px;
-    }
+.k-color-picker-dropdown {
+	width: 254px;
+	font-size: 0;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	position: relative;
+	border-radius: @radius;
+	background: #fff;
+	.k-color-picker-paint-dot {
+		width: 15px;
+		height: 15px;
+		display: block;
+		position: absolute;
+		background: #fff;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+		border-radius: 50%;
+		top: 10px;
+		left: 10px;
+		pointer-events: none;
+	}
+	.k-color-picker-paint {
+		width: 254px;
+		height: 136px;
+	}
+	.k-color-picker-bar {
+		padding: 14px 16px 0 16px;
+		display: inline-block;
+	}
+	.k-color-picker-avatar {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		float: left;
+		background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+		background-size: 11px 11px;
+		background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
+		.k-color-picker-avatar-inner {
+			border-radius: 50%;
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.k-color-picker-bar-box {
+		margin-left: 16px;
+		width: 170px;
+		float: right;
+		position: relative;
+		canvas {
+			height: 13px;
+			width: 170px;
+			border-radius: 2px;
+		}
+		.k-color-picker-alpha {
+			margin-top: 10px;
+			background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+			background-size: 11px 11px;
+			background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
+		}
+		span {
+			width: 15px;
+			height: 15px;
+			display: block;
+			position: absolute;
+			background: #fff;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		.k-color-picker-hue-dot {
+			top: -1px;
+		}
+		.k-color-picker-alpha-dot {
+			top: 22px;
+		}
+	}
+	.k-color-picker-mode {
+		position: relative;
+		margin-left: 16px;
+		margin-top: 16px;
+		.k-btn {
+			position: absolute;
+			z-index: 1;
+			right: 10px;
+			top: 10px;
+		}
+		.k-input {
+			text-align: center;
+		}
+		.k-color-picker-key {
+			text-align: center;
+			font-size: 12px;
+			line-height: 1;
+			width: 195px;
+		}
+	}
+	.k-color-picker-rgba, .k-color-picker-hsla {
+		.k-input-wrapper {
+			width: 44px;
+			margin-right: 4px;
+		}
+		.k-color-picker-key {
+			span {
+				width: 44px;
+				display: inline-block;
+				margin-right: 4px;
+				color: #8b8b8b;
+			}
+		}
+	}
+	.k-color-picker-hex {
+		.k-input-wrapper {
+			width: 188px;
+		}
+	}
+	.k-color-picker-val {
+		margin: 0 0 9px 0;
+	}
+	.k-coclor-picker-defaults {
+		position: relative;
+		box-sizing: border-box;
+		padding: 13px 40px 10px 16px;
+		margin-top: 13px;
+		min-height: 62px;
+		border-top: 1px solid @borderColor;
+		span {
+			display: inline-block;
+			width: 13px;
+			height: 13px;
+			border-radius: 2px;
+			margin: 0 6px 6px 0;
+			cursor: pointer;
+		}
+		.k-btn {
+			position: absolute;
+			top: 14px;
+			right: 10px;
+		}
+	}
 }
