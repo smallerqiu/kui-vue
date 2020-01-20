@@ -25,6 +25,7 @@ import Notice from './notice'
 import Page from './page'
 import Poptip from './poptip'
 import Popconfirm from './popconfirm'
+import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
 // import Scroll from './scroll'
 // import Slider from './slider'
@@ -58,7 +59,7 @@ const components = {
     Layout, Header, Footer, Content, Sider,
     Notice,
     Option,
-    Page, Poptip, Popconfirm, Panel,
+    Page, Poptip, Popconfirm, Panel, Progress,
     Row, Radio, RadioGroup, RadioButton,
     /* Scroll, */ Steps, Step, Select, SubMenu, //Slider,
     Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,

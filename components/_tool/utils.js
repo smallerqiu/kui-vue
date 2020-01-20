@@ -13,7 +13,7 @@ export function contains(ele, target) {
 }
 
 export function isNotEmpty(str) {
-  return str !== '' && str !== undefined && str !== null && str.length > 0
+  return str !== '' && str !== undefined && str !== null
 }
 
 export function hasProp(context, key) {

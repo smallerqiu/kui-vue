@@ -1,7 +1,6 @@
 <script>
 import Info from './info'
 import Base from './base.md'
-import Embed from './embed.md'
 import Placement from './placement.md'
 import CN from '../index.md'
 export default {
@@ -10,7 +9,6 @@ export default {
       <div class="demo-popconfirm">
         <Info class="typo" />
         <Base />
-        <Embed />
         <Placement />
         <CN class="typo" />
       </div>

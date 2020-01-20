@@ -35,7 +35,7 @@
     transform: translateY(-50%);
     .k-select-search {
       // border: 1px solid #eee;
-      border:none;
+      border: none;
       width: 0.75em;
       min-width: 0.75em;
       height: 20px;
@@ -191,7 +191,7 @@
   .k-select-item {
     margin: 0;
     line-height: normal;
-    padding: 7px 31px 7px 16px;
+    padding: 7px 16px;
     clear: both;
     color: #495060;
     font-size: 12px !important;
@@ -247,6 +247,9 @@
       font-size: 30px;
       padding: 10px 0;
     }
+    .k-empty-desc {
+      line-height: 1.5;
+    }
   }
   // &:hover{
   //     overflow: auto;
@@ -262,6 +265,12 @@
   // background: #ddd;
   // border-radius: 3px;
   // }
+}
+
+.k-select-dropdown-multiple {
+  .k-select-item {
+    padding-right: 31px;
+  }
 }
 
 .k-select-mini {
@@ -289,6 +298,42 @@
       line-height: 1;
       .k-icon {
         font-size: 18px;
+      }
+    }
+    .k-select-search {
+      height: 18px;
+      line-height: 18px;
+      left: 0;
+      float: left;
+    }
+  }
+}
+
+.k-select-large {
+  .k-select-selection {
+    min-height: 40px;
+  }
+  .k-select-arrow {
+    font-size: 18px;
+    right: 10px;
+  }
+  .k-select-clearable {
+    right: 10px;
+    font-size: 18px;
+  }
+  .k-select-label {
+    line-height: 38px;
+    height: 38px;
+    padding-right: 32px;
+  }
+  .k-select-labels {
+    padding: 4px 32px 0 0;
+    .k-select-tag {
+      padding: 8px 28px 8px 5px;
+      margin: 0 0 3px 4px;
+      line-height: 1;
+      .k-icon {
+        font-size: 22px;
       }
     }
     .k-select-search {

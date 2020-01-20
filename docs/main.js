@@ -3,7 +3,6 @@ import Vue from 'vue'
 import App from './app'
 import router from './router'
 // import kui from '@/index'
-// import './assets/demo.less'
 // import './assets/atom-one-light.css'
 import '../components/styles.js'
 

@@ -1,5 +1,6 @@
 import transfer from "../_tool/transfer";
 import Resize from "../_tool/resize";
+import Option from './option'
 import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
 import { hasProp, getElementPos, getChild, isNotEmpty } from '../_tool/utils'
@@ -14,6 +15,7 @@ export default {
   props: {
     placeholder: { type: String, default: "请选择" },
     mini: Boolean,
+    large: Boolean,
     transfer: { type: Boolean, default: true },
     width: [Number, String],
     value: [String, Number, Array],
@@ -21,7 +23,8 @@ export default {
     filterable: Boolean,
     disabled: Boolean,
     multiple: Boolean,
-    loading: Boolean
+    loading: Boolean,
+    options: Array
   },
   provide() {
     return {
@@ -44,12 +47,12 @@ export default {
   },
   watch: {
     value(v) {
-      if (!isNotEmpty(v)) {
-        this.label = ''
-        this.currentValue = ''
-      } else {
+      if (isNotEmpty(v)) {
         this.currentValue = v
         this.setLabel()
+      } else {
+        this.label = ''
+        this.currentValue = ''
       }
     }
   },
@@ -66,38 +69,38 @@ export default {
       }
     },
     setLabel() {
-      let Value = this.value || this.currentValue
-      // if (!isNotEmpty(Value) || Value.length == 0) return;
-      let kid = getChild(this.$slots.default)
+      let currentValue = this.value || this.currentValue
+      // if (!isNotEmpty(currentValue) || currentValue.length == 0) return;
+      let kid = this.getOptions()
       if (kid) {
-        let Label = this.label || ''
+        let currentLabel = this.label || ''
         if (this.multiple) {
-          Label = Label || []
-          Value = Value || []
+          currentLabel = currentLabel || []
+          currentValue = currentValue || []
         }
         kid.forEach(c => {
           if (c.tag) {
             let { value, label } = c.componentOptions.propsData
             label = label || (c.componentOptions.children[0].text || '').trim()
             if (this.multiple) {
-              let index = Label.map(v => v.label).indexOf(label)
-              if (Value.indexOf(value) >= 0) {
+              let index = currentLabel.map(v => v.label).indexOf(label)
+              if (currentValue.indexOf(value) >= 0) {
                 if (index === -1) {
                   let key = getUuid()
-                  Label.push({ label, key })
+                  currentLabel.push({ label, key })
                 }
               } else {
                 if (index >= 0) {
-                  Label.splice(index, 1)
+                  currentLabel.splice(index, 1)
                 }
               }
-            } else if (Value === value) {
-              Label = label
+            } else if (currentValue === value) {
+              currentLabel = label
               return false
             }
           }
         })
-        this.label = Label
+        this.label = currentLabel
       }
       setTimeout(e => { this.setPosition() }, 230);
 
@@ -211,25 +214,24 @@ export default {
       //set label
       if (!hasValue) {
         if (multiple) {
-          let Label = this.label || []
-          let index = Label.map(x => x.label).indexOf(item.label)
+          let currentLabel = this.label || []
+          let index = currentLabel.map(x => x.label).indexOf(item.label)
           if (index === -1) {
-            Label.push({ label: item.label, key: getUuid() })
+            currentLabel.push({ label: item.label, key: getUuid() })
           } else {
-            Label.splice(index, 1)
+            currentLabel.splice(index, 1)
           }
-          this.label = Label
+          this.label = currentLabel
         } else {
           this.label = item.label
         }
-        this.$nextTick(e => this.setPosition())
         setTimeout(e => { this.setPosition() }, 230);
       } else {
-        this.$emit("input", value);
-        this.$emit("change", item);
 
         this.$nextTick(e => this.setPosition())
       }
+      this.$emit("input", value);
+      this.$emit("change", item);
 
     },
     removeTag(e, i) {
@@ -270,6 +272,31 @@ export default {
       if (this.showSearch) {
         this.$nextTick(e => this.$refs.search.focus())
       }
+    },
+    getOptions() {
+      let { queryKey, options, $slots } = this
+      let kid = null
+      if (Array.isArray(options)) {
+        kid = options.map((k, i) => {
+          let prop = {
+            props: { ...k },
+            key: i
+          }
+          return <Option {...prop} />
+        })
+      } else {
+        kid = getChild($slots.default)
+      }
+      if (this.filterable && queryKey) {
+        let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
+        let Reg = new RegExp(parsedQuery, 'i')
+
+        kid = kid.filter(c => {
+          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text
+          return Reg.test(label)
+        })
+      }
+      return kid
     }
   },
   mounted() {
@@ -279,7 +306,7 @@ export default {
   render() {
     // console.log(h)
     let { disabled, mini, multiple,
-      showDrop, showDropInit, $slots, placeholder,
+      showDrop, showDropInit, placeholder,
       clear, removeTag, queryKey,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
@@ -289,6 +316,7 @@ export default {
       {
         ["k-select-disabled"]: disabled,
         ["k-select-open"]: showDrop,
+        ["k-select-large"]: this.large && !mini,
         ["k-select-mini"]: mini
       }
     ]
@@ -324,15 +352,7 @@ export default {
 
     let drop;
     if (showDropInit) {
-      let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-      let kid = getChild($slots.default).filter(c => {
-        let show = true
-        if (this.filterable && queryKey) {
-          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text
-          show = new RegExp(parsedQuery, "i").test(label);
-        }
-        if (show) return c
-      })
+      let kid = this.getOptions()
       kid = (
         !kid.length
           ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></li>
@@ -341,7 +361,7 @@ export default {
       const loadingNode = <li class="k-select-loading"><Icon type="ios-sync" spin /><span>加载中...</span></li>
       drop = (
         <transition name="dropdown">
-          <div class="k-select-dropdown" ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
+          <div class={['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]} ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
             <ul>
               {this.loading ? loadingNode : kid}
             </ul>

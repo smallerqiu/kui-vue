@@ -3,15 +3,17 @@
     <Header />
     <Layout class="main">
       <Sider>
-        <Menu :activeName="activeName" @select="go" class="left-menu">
-          <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="x">
-            <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.name" :key="y">
-            <span v-if="sub.sub">{{sub.sub}}</span>
-            <Badge dot v-if="sub.log">{{sub.title}}</Badge>
-            <span class="sub" v-else>{{sub.title}}</span>
-            </MenuItem>
-          </MenuGroup>
-        </Menu>
+        <!-- <Affix :offsetTop="90"> -->
+          <Menu :activeName="activeName" @select="go" class="left-menu">
+            <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="x">
+              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.name" :key="y">
+              <span v-if="sub.sub">{{sub.sub}}</span>
+              <Badge dot v-if="sub.log">{{sub.title}}</Badge>
+              <span class="sub" v-else>{{sub.title}}</span>
+              </MenuItem>
+            </MenuGroup>
+          </Menu>
+        <!-- </Affix> -->
       </Sider>
       <Content :class="{'typo':typo}">
         <transition name="fade" mode="out-in">

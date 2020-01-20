@@ -10,7 +10,7 @@
     <br/>
     <Input type="password" placeholder="Password..." icon="ios-lock" width="300" />
     <br/>
-    <Input placeholder="请输入验证码" icon="ios-disc" width="300">
+    <Input placeholder="请输入验证码" icon="ios-disc" width="300" maxlength="8">
       <template slot="suffix">
         <span v-if="time==60" @click="sendCode">获取验证码</span>
         <span v-else>{{time}}(s)</span>
@@ -19,7 +19,7 @@
     <br/>
      <Input placeholder="请填写你要喝的Coffee" icon="ios-cafe" width="300">
       <template slot="suffix">
-         <Tooltip content="我是一杯Coffee,如果不知道怎么填，请咨询管理员">
+         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
             <Icon type="ios-information-circle-outline" color="orange"/>
          <Tooltip>  
       </template>

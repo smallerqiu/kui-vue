@@ -2,8 +2,6 @@
 import Button from '../button'
 import moment from 'moment'
 import animate from '../_tool/animate'
-import { isNotEmpty } from '../_tool/utils'
-import datepicker from './datepicker';
 export default {
   name: "Calendar",
   props: {
