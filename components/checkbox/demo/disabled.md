@@ -8,7 +8,7 @@
   <div>
     <Checkbox disabled>disabled</Checkbox>
     <Checkbox disabled :value="true">disabled</Checkbox>
-    <Checkbox :value="true" indeterminate disabled>indeterminate</Checkbox>
+    <Checkbox indeterminate disabled>indeterminate</Checkbox>
     <br/>
     <br/>
     <Checkbox :disabled="disabled" v-model="checked">{{checked?'Checked':'Uncheck'}}</Checkbox>

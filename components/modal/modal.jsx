@@ -1,216 +1,159 @@
-import Button from "../button";
+import Icon from '../icon'
+import Button from '../button'
 import transfer from "../_tool/transfer";
-import Icon from "../icon";
+
 export default {
-  name: "Modal",
   directives: { transfer },
   props: {
-    type: { type: String, default: "modal" },
-    color: String,
-    icon: { type: String, default: "success" },
-    value: { type: Boolean, default: false },
-    title: { default: "我是一个标题", type: String },
-    width: { default: 520, type: [Number, String] },
-    top: { default: 100, type: [Number, String] },
-    okText: { type: String, default: "确定" },
-    cancelText: { type: String, default: "取消" },
-    isMove: { type: Boolean, default: false },
-    isMax: { type: Boolean, default: false },
-    isCenter: { type: Boolean, default: false },
-    maskClosable: { type: Boolean, default: true }
-  },
-  computed: {
-
-    headerStyle() {
-      let style = {};
-      style.cursor = this.isMove ? "move" : "";
-      return style;
-    },
-    styles() {
-      let style = {
-        width: this.type == 'modal' ? (!this.isMax ? (this.width.toString().indexOf('%') >= 0 ? this.width : `${this.width}px`) : '') : '',
-        top: (this.isCenter || this.isMax) ? 0 : `${this.Top}px`,
-        position: this.isMove ? 'absolute' : '',
-        'transform-origin': `${this.x}px ${this.y}px`,
-        left: this.isMove ? `${this.left}px` : '',
-        height: `${this.height}%`
-      };
-      return style;
-    },
-
+    value: Boolean,
+    title: String,
+    okText: { type: String, default: '确定' },
+    cancelText: { type: String, default: '取消' },
+    top: Number,
+    width: Number,
+    mask: { type: Boolean, default: true },
+    maskClosable: { type: Boolean, default: true },
+    isMax: Boolean,
+    isCenter: Boolean,
+    canMove: Boolean,
+    loading: Boolean
+    // mode: { type: String, default: 'modal' }
   },
   data() {
     return {
-      visible: this.value, visiblew: this.value,
-      left: 0,
-      Top: this.top,
-      x: 0, y: 0,
-      showPos: { x: 0, y: 0 },
-      startPos: { x: 0, y: 0 },
+      show: this.value,
+      showInner: this.value,
+      left: '',
+      currentTop: this.top,
       isMouseDown: false,
-      mouseInRect: false,
-      height: ''
-    };
-  },
-  created() {
-    if (this.type == 'modal') {
-      window.addEventListener('keyup', this.onKeyUp)
-      document.addEventListener('mousedown', this.getPos)
-      document.addEventListener('mousemove', this.handelMouseMove)
-      document.addEventListener('mouseup', this.handelMouseUp)
-    }
-  },
-  beforeDestory() {
-    if (this.type == 'modal') {
-      window.removeEventListener("keyup", this.onKeyUp);
-      document.removeEventListener("mousedown", this.getPos);
-      document.removeEventListener('mousemove', this.handelMouseMove)
-      document.removeEventListener('mouseup', this.handelMouseUp)
+      startPos: { x: 0, y: 0 },
+      showPos: { x: 0, y: 0 }
     }
   },
   watch: {
+    // loading(l) {
+    //   this.loading = l
+    // },
     value(v) {
       if (v) {
-        document.body.style.overflow = 'hidden'
-        if (this.isMove) {
-          this.left = (document.body.offsetWidth - this.width) / 2
-          this.Top = 100;
-          this.$refs.modal.style.left = this.left + 'px'
-          this.$refs.modal.style.top = this.Top + 'px'
-        }
-
-        this.visiblew = v
-        this.visible = v
-        this.$nextTick(e => {
-          this.setPos()
-          if (this.$refs.modal.scrollHeight > document.body.clientHeight && !this.isMax) {
-            this.height = 80
-          }
-        })
+        this.show = v
+        this.showInner = v
       } else {
-        document.body.style.overflow = ''
-        this.close();
-        this.timer = setTimeout(e => {
-          this.visiblew = false
-        }, 300)
+        this.show = false
+        setTimeout(() => {
+          this.showInner = false
+        }, 300);
       }
-    }
-  },
-  mounted() {
-    this.visible = this.value
-    if (this.visible) {
-      document.body.style.overflow = 'hidden'
     }
   },
   methods: {
-    setPos() {
-      let width = this.width.toString().indexOf('%') >= 0 ? ((this.width.replace('%', '') / 100) * document.body.offsetWidth) : this.width
-      let x = this.showPos.x - (document.body.offsetWidth - width) / 2
-      let y = this.showPos.y - (this.isCenter ? ((document.body.offsetHeight - this.$refs.modal.offsetHeight) / 2) - this.Top : this.Top)
-      // this.$refs.modal.style['transform-origin'] = `${x}px ${y}px`
-      this.x = x
-      this.y = y
+    ok() {
+      this.$emit('ok')
+      this.$nextTick(e => {
+        if (!this.loading) {
+          this.$emit('input', false)
+          this.$emit('close', false)
+        }
+      })
     },
-    getPos(e) {
-      if (!this.value) {
-        this.showPos = { x: e.clientX, y: e.clientY }
-      }
+    cancel() {
+      this.$emit('input', false)
+      this.$emit('cancel')
+      this.$emit('close')
     },
-    clickMastToClose(e) {
-      if (!this.maskClosable) return;
-      if (this.mouseInRect) {
-        this.mouseInRect = false;
-        return;
-      }
-      if (!this.$refs.modal.contains(e.target) && !this.isMove && this.type == 'modal') {
+    close() {
+      this.$emit('input', false)
+      this.$emit('close')
+    },
+    closeMaskToClose(e) {
+      if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target)) {
         this.close()
       }
     },
-    handelMouseDown(e) {
+    mousemove(e) {
+      if (this.isMouseDown && this.canMove) {
+        let { x, y } = this.startPos
+        this.left += e.clientX - x
+        this.currentTop = this.currentTop || 100
+        this.currentTop += e.clientY - y
+        this.startPos = { x: e.clientX, y: e.clientY }
+      }
+    },
+    mouseup(e) {
+      this.isMouseDown = false
+      document.removeEventListener('mousemove', this.mousemove)
+      document.removeEventListener('mouseup', this.mouseup)
+    },
+    mousedown(e) {
       if (e.button == 0) {
-        this.isMouseDown = true;
+        this.isMouseDown = true
         this.startPos = { x: e.clientX, y: e.clientY }
+        this.mousemove(e)
+        document.addEventListener('mousemove', this.mousemove)
+        document.addEventListener('mouseup', this.mouseup)
       }
-    },
-    handelMouseMove(e) {
-      if (this.isMouseDown && this.isMove) {
-        this.left += (e.clientX - this.startPos.x);
-        // let r = (document.body.getBoundingClientRect().width - this.width) / 2
-        // let b = (document.body.getBoundingClientRect().height - this.$refs.modal.offsetHeight)
-        // this.left = Math.min(r, this.left) //限制右边
-        // this.left = Math.max(r * -1, this.left) //限制左边
-
-        this.Top += (e.clientY - this.startPos.y);
-        // this.top = Math.max(0, this.top)//限制上边
-        // this.top = Math.min(b, this.top)//限制上边
-        let s = this.$refs.modal.style['transform-origin'].replace(/px/g, '').split(' ')
-        let x = s[0] - 0, y = s[1] - 0
-        x += - (e.clientX - this.startPos.x)
-        y += -(e.clientY - this.startPos.y)
-        // this.$refs.modal.style['transform-origin'] = `${x}px ${y}px`
-        this.x = x
-        this.y = y
-        this.startPos = { x: e.clientX, y: e.clientY }
-      }
-    },
-    handelMouseUp() {
-      this.isMouseDown = false;
-    },
-    ok() {
-      this.$emit("ok");
-      // this.close();
-    },
-    onKeyUp(e) {
-      if (this.visible && this.maskClosable) {
-        if (e.keyCode == 27) this.close();
-      }
-    },
-    cancel() {
-      this.$emit("cancel");
-      this.close();
-    },
-    close() {
-      this.visible = false;
-      this.$emit("input", false);
-      this.$emit("close");
     }
   },
+  beforDestory() {
+    document.removeEventListener('mousedown', this.mousedown())
+  },
+  mounted() {
+    document.addEventListener('mousedown', this.mousedown)
+  },
   render() {
-    const classes = ["k-modal",
-      {
-        ["k-toast"]: this.type == "toast",
-        ["k-modal-max"]: this.isMax && !this.isMove
+    let { $slots, show, showInner, canMove } = this
+    let node = []
+    //mask
+    let maskNode = null
+    if (this.mask) {
+      maskNode = <transition name="k-modal-fade"><div class="k-modal-mask" v-show={show} /></transition>
+    }
+
+
+    //content
+    let contentNode = $slots.content
+    if (!contentNode) {
+      const contents = []
+      contents.push(<Icon type="md-close" class="k-modal-close" onClick={this.close} />)
+      contents.push(<div class="k-modal-header"><div class="k-modal-header-inner">{this.title}</div></div>)
+      contents.push(<div class="k-modal-body">{$slots.default}</div>)
+
+      //footer
+      let footer = $slots.footer
+      if (!footer) {
+        footer = [<Button onClick={this.cancel}>{this.cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{this.okText}</Button>]
       }
-    ];
-    return (
-      <div class={classes} v-transfer={true}>
-        <transition name="fade">
-          <div class="k-modal-mask" ref="mask" v-show="visible"></div>
+      const footerNode = <div class="k-modal-footer">{footer}</div>
+
+      contents.push(footerNode)
+      contentNode = <div class="k-modal-content">{contents}</div>
+    }
+
+    node.push(contentNode)
+    if (canMove) {
+      this.left = this.left || (document.body.offsetWidth - (this.width || 520)) / 2
+    }
+    const style = {
+      width: `${this.width}px`,
+      top: `${this.currentTop}px`,
+      left: `${this.left}px`
+    }
+    const classes = [
+      'k-modal', {
+        'k-modal-can-move': canMove,
+        'k-modal-max': this.isMax,
+        'k-modal-center': this.isCenter,
+      }
+    ]
+    return (<div class={classes} v-transfer={true}>
+      {maskNode}
+      <div class="k-modal-wrap" v-show={showInner} onClick={this.closeMaskToClose}>
+        <transition name="k-modal-zoom">
+          <div class="k-modal-inner" ref="modal" v-show={show} style={style}>
+            {node}
+          </div>
         </transition>
-        <div class="['k-modal-wrap',{'k-modal-centered':isCenter}]" v-show="visiblew" onClick="clickMastToClose">
-          <transition enter-active-class="zoomInX" leave-active-class="zoomOutX">
-            <div class="modal" ref="modal" v-show="visible" style="styles" >
-              <slot name="content">
-                <div class="k-modal-content">
-                  <Icon type="md-close" class="k-modal-close" onClick="close" />
-                  <div class="k-modal-header" style="headerStyle" mousedown="handelMouseDown($event)">
-                    <div class="k-modal-header-inner">{title}</div>
-                  </div>
-                  <div class="k-modal-body">
-                    <slot>我是内容</slot>
-                  </div>
-                  <div class="k-modal-footer">
-                    <slot name="footer">
-                      <Button onClick="cancel">{cancelText}</Button>
-                      <Button type="primary" onClick="ok">{okText}</Button>
-                    </slot>
-                  </div>
-                </div>
-              </slot >
-            </div >
-          </transition >
-        </div >
-      </div >
-    )
+      </div>
+    </div>)
   }
-};
+}

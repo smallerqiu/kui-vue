@@ -1,16 +1,14 @@
 <cn>
-#### 基础用法
-最简单的用法，浮层的大小由内容区域决定。
+#### 进度条
+标准的进度条。
 </cn>
 
 ```tpl
 <template>
-  <Poptip title="标题">
-    <template slot="content">
-      <p>明月几时有,把酒问青天!</p>
-      <p>明月几时有,把酒问青天!</p>
-    </template>
-    <Button type="primary">Hover me</Button>
-  </Poptip>
+  <Progress :percent="30" />
+  <Progress :percent="50" status="active" />
+  <Progress :percent="70" status="exception" />
+  <Progress :percent="100" />
+  <Progress :percent="50" :showInfo="false" />
 </template>
 ```

@@ -11,12 +11,13 @@ export default {
   },
   model: {
     prop: 'checked',
+    // event: 'change'
   },
   inject: {
     groupContext: { default: null },
   },
   data() {
-    const checked = hasProp(this, 'checked') ? this.checked : false
+    const checked = hasProp(this, 'checked') ? this.checked : (this.value === true && !this.indeterminate)
     return {
       isChecked: checked,
     }
@@ -50,12 +51,7 @@ export default {
       }
     }
     // console.log(checked)
-    const wpclasses = [
-      "k-checkbox-wp",
-      {
-        ["k-checkbox-disabled"]: disabled
-      }
-    ];
+    const wpclasses = ["k-checkbox-wp", { ["k-checkbox-disabled"]: disabled }];
 
     const classes = [
       "k-checkbox",

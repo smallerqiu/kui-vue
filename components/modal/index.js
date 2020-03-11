@@ -1,156 +1,103 @@
-import Vue from 'vue';
-import Modal from './modal'
+import Modal from './modal.jsx'
+import Icon from '../icon'
+import Vue from 'vue'
 import Button from '../button'
 
+
 let modalInstance;
-let showPos = {}
-let mousedown = e => {
-  if (!modalInstance) {
-    showPos = { x: e.clientX, y: e.clientY }
-  }
-}
-if (typeof window != 'undefined') {
-  document.addEventListener('mousedown', mousedown)
-}
-const createModal = options => {
-  const props = options || {}
-  const Instance = new Vue({
-    data: Object.assign({}, props, { isLoading: false, closing: false }),
-    computed: {
-      iconClasses() {
-        let icons = {
-          info: "ios-information-circle",
-          error: "ios-close-circle",
-          success: "ios-checkmark-circle",
-          warning: "ios-alert"
-        };
-        let cls = ["k-toast-icon"]
-        if (this.icon) {
-          if (icons[this.icon]) {
-            cls.push(`k-ion-${icons[this.icon]}`)
-          } else {
-            cls.push(`k-ion-${this.icon}`)
-          }
-        }
-        return cls;
-      },
-      iconStyles() {
-        return this.color ? { color: this.color } : {};
-      },
-    },
-    beforeDestroy() {
-      document.removeEventListener('mousedown', mousedown)
-    },
+
+let createInstance = (props = {}) => {
+  const instance = new Vue({
+    data: { loading: false },
     render(h) {
+      //icons
+      let { icon, title, content, color, cancelText, okText } = props
+      let icons = {
+        info: "ios-information-circle",
+        error: "ios-close-circle",
+        success: "ios-checkmark-circle",
+        warning: "ios-alert",
+        confirm: 'ios-help-circle'
+      }
+      let type = icons[icon] || icon
       //header 
       let header = h('div', { attrs: { class: 'k-toast-header' } }, [
-        h('span', { style: this.iconStyles, class: this.iconClasses }),
-        h('span', { attrs: { class: 'k-toast-title' } }, this.title || '温馨提示')
+        h(Icon, { style: { color: color }, class: 'k-toast-icon', props: { type } }),
+        h('div', { attrs: { class: 'k-toast-title' } }, title)
       ])
 
       //body
-      let body = h('div', { attrs: { class: 'k-toast-content' } }, [this.content || '我是内容'])
+      let body = h('div', { attrs: { class: 'k-toast-content' } }, [content])
       //footer
       let footerNode = [h(Button, {
-        props: { type: 'primary', icon: this.loading ? 'ios-sync' : '' },
-        class: [this.loading ? (this.isLoading ? 'k-btn-icon-loop' : '') : ''],
+        props: { type: 'primary', loading: this.loading },
         on: { click: this.ok }
-      }, this.okText || '确定')]
+      }, okText || '确定')]
 
-      if (this.confrim) {
-        footerNode.unshift(h(Button, { on: { click: this.cancel } }, this.cancelText || '取消'))
+      if (icon == 'confirm') {
+        footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || '取消'))
       }
       let footer = h('div', { attrs: { class: 'k-toast-footer' } }, footerNode)
 
-      let content = h('template', { slot: 'content' }, [header, body, footer])
-
-      return h(Modal, { props: { type: 'toast' }, }, [content]);
+      let contentNode = h('template', { slot: 'content' }, [header, body, footer])
+      let classes = 'k-modal k-toast ' + (icons[icon] ? 'k-toast-' + icon : '')
+      return h(Modal, { attrs: { class: classes } }, [contentNode]);
     },
     methods: {
-      cancel() {
-        this.onCancel && this.onCancel()
-        this.remove()
-      },
       ok() {
-        if (this.closing) return;
-        if (this.loading) {
-          this.isLoading = true
+        let { onOk } = props;
+        (typeof onOk == 'function') && onOk()
+        if (props.loading) {
+          this.loading = true
         } else {
-          this.remove()
+          this.destroy()
         }
-        this.onOk && this.onOk()
-        this.closing = true
       },
-      remove() {
-        // modal.close()
-        this.$children[0].close()
+      cancel() {
+        let { onCancel } = props;
+        (typeof onCancel == 'function') && onCancel()
+        this.destroy()
+      },
+      destroy() {
+        this.$children[0].show = false
         clearTimeout(this.timer)
         this.timer = setTimeout(e => {
+          this.$children[0].showInner = false
           document.body.removeChild(this.$el)
-          this.destory()
+          modalInstance = null
         }, 300)
       }
     }
   })
-  const component = Instance.$mount()
-  document.body.appendChild(component.$el)
-  let modal = Instance.$children[0];
+  const compoent = instance.$mount()
+  document.body.appendChild(compoent.$el)
+  let modal = instance.$children[0]
   return {
     show() {
-      modal.showPos = showPos
-      modal.setPos()
-      modal.visiblew = true;
-      modal.visible = true;
+      modal.show = true
+      modal.showInner = true
     },
-    remove() {
-      modal.close()
-      modal.$parent.remove()
+    destroy() {
+      modal.$parent.destroy()
     }
   }
 }
 
-
-
 let getModal = (props = {}) => {
-  props.showPos = showPos
-  props.destory = () => {
-    modalInstance = null;
-  }
-  modalInstance = modalInstance || createModal(props)
-  // modalInstance.value = true
+  modalInstance = modalInstance || createInstance(props)
   modalInstance.show()
   return modalInstance
 }
+
+['info', 'success', 'warning', 'error', 'confirm'].forEach(type => {
+  Modal[type] = (props = {}) => getModal(Object.assign({ icon: type }, props))
+})
+
 Modal.show = (props = {}) => {
   return getModal(props)
 }
-
-Modal.info = (props = {}) => {
-  props.icon = 'info'
-  return getModal(props)
+Modal.destroy = e => {
+  if (modalInstance) modalInstance.destroy()
 }
 
-Modal.success = (props = {}) => {
-  props.icon = 'success'
-  return getModal(props)
-}
-Modal.warning = (props = {}) => {
-  props.icon = 'warning'
-  return getModal(props)
-}
-Modal.error = (props = {}) => {
-  props.icon = 'error'
-  return getModal(props)
-}
-Modal.comfirm = (props = {}) => {
-  props.icon = 'ios-help-circle'
-  props.confrim = true
-  return getModal(props)
-}
-Modal.close = () => {
-  if (modalInstance) {
-    let t = getModal()
-    t.remove()
-  }
-}
 export default Modal

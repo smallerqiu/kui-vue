@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       checked: true,
-      data: ['apple','banana'],
+      data: ['apple','grape'],
       options: [
         { label: '北京', value: 'beijing' },
         { label: '深圳', value: 'shenzhen' },
