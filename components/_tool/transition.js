@@ -3,7 +3,7 @@
 //by chuchur
 export function getTranstionProp(name) {
   return {
-    name: name,
+    name:name,
     on: {
       beforeEnter(el) {
         // el.style.overflow = 'hidden';

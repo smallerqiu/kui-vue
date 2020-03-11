@@ -27,6 +27,7 @@ import './notice/styles';
 import './page/styles';
 import './poptip/styles';
 import './popconfirm/styles';
+import './progress/styles';
 import './radio/styles';
 // import './scroll/scroll';
 import './select/styles';

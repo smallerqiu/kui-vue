@@ -14,7 +14,7 @@ export default {
     prop: 'checked',
   },
   data() {
-    const checked = hasProp(this, 'checked') ? this.checked : false
+    const checked = hasProp(this, 'checked') ? this.checked : this.value === true
     return {
       isChecked: checked,
     }

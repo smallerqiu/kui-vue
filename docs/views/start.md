@@ -17,7 +17,7 @@ $ yarn global add @vue/cli
 #### 2. 初始化一个项目
 
 ```sh
-$ vue create antd-demo
+$ vue create kui-demo
 ```
 
 #### 3. 使用组件
@@ -72,7 +72,7 @@ Kui Vue 支持所有的现代浏览器和 IE9+。
 可以通过以下的写法来按需加载组件。
 
 ```js
-import Button from 'ant-design-vue/lib/button';
+import Button from 'kui-vue/components/button';
 import 'kui-vue/components/button/style'; 
 ```
 
