@@ -37,7 +37,7 @@ module.exports = merge(webpackBaseConfig, {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: false } },
-          { loader: 'less-loader', options: { sourceMap: false, javascriptEnabled: true } }
+          { loader: 'less-loader', options: { sourceMap: false } }
         ],
       },
     ]

@@ -80,9 +80,6 @@ body {
   .index-content {
     width: 50%;
     color: #005388;
-    font-family: -apple-system, "BlinkMacSystemFont", "Open Sans", "Raleway",
-      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-weight: 300;
     position: absolute;
     left: 0;
     right: 0;
@@ -99,13 +96,7 @@ body {
       background-size: contain;
       height: 40px;
       display: block;
-      font-size: 0;
-      // font-weight: 100;
-      // font-family: "Arial Rounded MT"
-      // img {
-      //   margin: 0 auto;
-      //   height: 120px;
-      // }
+      font-size: 0; 
     }
     h1 {
       // font-weight: 300;
