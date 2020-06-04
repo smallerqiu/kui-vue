@@ -3,9 +3,11 @@ import Icon from '../icon'
 import Vue from 'vue'
 import Button from '../button'
 
+function isPromise(obj) {
+  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+}
 
-let modalInstance;
-
+let modalList = [];
 let createInstance = (props = {}) => {
   const instance = new Vue({
     data: { loading: false },
@@ -22,7 +24,7 @@ let createInstance = (props = {}) => {
       let type = icons[icon] || icon
       //header 
       let header = h('div', { attrs: { class: 'k-toast-header' } }, [
-        h(Icon, { style: { color: color }, class: 'k-toast-icon', props: { type } }),
+        type ? h(Icon, { style: { color: color }, class: 'k-toast-icon', props: { type } }) : null,
         h('div', { attrs: { class: 'k-toast-title' } }, title)
       ])
 
@@ -46,9 +48,14 @@ let createInstance = (props = {}) => {
     methods: {
       ok() {
         let { onOk } = props;
-        (typeof onOk == 'function') && onOk()
-        if (props.loading) {
+        let fun = onOk ? onOk() : {}
+        if (isPromise(fun)) {
           this.loading = true
+          fun.then(e => {
+            this.destroy()
+          }).catch(e => {
+
+          })
         } else {
           this.destroy()
         }
@@ -59,18 +66,19 @@ let createInstance = (props = {}) => {
         this.destroy()
       },
       destroy() {
-        this.$children[0].show = false
-        clearTimeout(this.timer)
-        this.timer = setTimeout(e => {
-          this.$children[0].showInner = false
-          document.body.removeChild(this.$el)
-          modalInstance = null
+        let instance = this.$children[0]
+        instance.show = false
+        setTimeout(e => {
+          instance.showInner = false
+          if (this.$el.parentElement == document.body) {
+            document.body.removeChild(this.$el)
+          }
         }, 300)
       }
     }
   })
-  const compoent = instance.$mount()
-  document.body.appendChild(compoent.$el)
+  const component = instance.$mount()
+  document.body.appendChild(component.$el)
   let modal = instance.$children[0]
   return {
     show() {
@@ -84,9 +92,10 @@ let createInstance = (props = {}) => {
 }
 
 let getModal = (props = {}) => {
-  modalInstance = modalInstance || createInstance(props)
-  modalInstance.show()
-  return modalInstance
+  let instance = createInstance(props)
+  instance.show()
+  modalList.push(instance)
+  return instance
 }
 
 ['info', 'success', 'warning', 'error', 'confirm'].forEach(type => {
@@ -96,8 +105,12 @@ let getModal = (props = {}) => {
 Modal.show = (props = {}) => {
   return getModal(props)
 }
-Modal.destroy = e => {
-  if (modalInstance) modalInstance.destroy()
+
+Modal.destroyAll = e => {
+  modalList.forEach(modal => {
+    modal.destroy()
+  })
+  modalList = []
 }
 
 export default Modal

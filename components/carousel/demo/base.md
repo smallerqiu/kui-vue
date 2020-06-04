@@ -6,7 +6,7 @@
 ```tpl
 <template>
   <div>
-    <Carousel :value="5">
+    <Carousel :value="2">
       <CarouselItem>1</CarouselItem>
       <CarouselItem>2</CarouselItem>
       <CarouselItem>3</CarouselItem>

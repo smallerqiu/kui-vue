@@ -9,6 +9,7 @@
     <Button @click="confirm()">标准调用</Button>
     <Button @click="custom()">国际化</Button>
     <Button @click="Async()">异步关闭</Button>
+    <Button @click="closeAll()">Close All</Button>
   </div>
 </template>
 <script>
@@ -38,11 +39,10 @@ export default{
       this.$Modal.confirm({
         title: '您确认要这么做吗',
         content: '此操作不可逆转，谨慎！！！',
-        loading: true,
         onOk: () => {
-          this.timer = setTimeout(e => {
-            this.$Modal.destroy()
-          }, 2000)
+          return new Promise((resolve , reject)=>{
+            setTimeout(resolve,2000)
+          })
         },
         onCancel: () => {
           //用户点了取消 应该中断 异步执行
@@ -50,7 +50,26 @@ export default{
         }
       })
     },
+    closeAll() {
+      for(var o = 0; o < 3; o++){
+        setTimeout(e=>{
+          this.$Modal.confirm({
+            content:'Close All',
+            cancelText:'Close All',
+            onCancel: () => {
+              this.$Modal.destroyAll()
+            },
+            onOk:()=>{
+              return new Promise((resolve , reject)=>{
+                setTimeout(resolve,2000)
+              })
+            }
+          })
+        },o*500)
+      }
+
+    },
   }
-} 
+}
 </script>
 ```

@@ -1,0 +1,131 @@
+@import '../../styles/global.less';
+@spinColor: rgba(255, 255, 255, 0.7);
+.k-spin {
+  min-width: 50px;
+  min-height: 50px;
+  &-flip {
+    position: relative;
+    background-color: @spinColor;
+    &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+      background-color: @main;
+      animation: k-spin-animate-flip 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+    }
+  }
+  &-bounce {
+    position: relative;
+    background-color: @spinColor;
+    &::before, &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: @main;
+      opacity: 0.6;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+      animation: k-spin-animate-bounce 2.0s infinite ease-in-out;
+    }
+    &::before {
+      animation-delay: -1.0s;
+    }
+  }
+  &-zoom {
+    position: relative;
+    background-color: @spinColor;
+    &::before, &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: @main;
+      opacity: 0.6;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+      animation: k-spin-animate-zoom 2s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+      // animation: zoom 2.0s infinite ease-in-out;
+    }
+    &::before {
+      animation-delay: -1.0s;
+    }
+  }
+  &-rotate {
+    position: relative;
+    background-color: @spinColor;
+    &::before, &::after {
+      border: 5px solid tint(@main, 80%);
+      border-radius: 50%;
+      content: '';
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+    }
+    &::after {
+      border: 5px solid transparent;
+      border-top-color: @main;
+      animation: k-spin-animate-rotate .5s infinite linear;
+      box-sizing: content-box;
+    }
+  }
+}
+
+@keyframes k-spin-animate-flip {
+  25% {
+    transform: perspective(100px) rotateX(180deg) rotateY(0);
+  }
+  50% {
+    transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    transform: perspective(100px) rotateX(0) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(100px) rotateX(0) rotateY(0);
+  }
+}
+
+@keyframes k-spin-animate-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes k-spin-animate-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+  }
+  50% {
+    transform: scale(1.0);
+  }
+}
+
+@keyframes k-spin-animate-zoom {
+  0% {
+    transform: scale(0.0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0
+  }
+}

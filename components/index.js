@@ -12,6 +12,7 @@ import { Checkbox, CheckboxGroup } from './checkbox'
 import DatePicker from './datePicker'
 import { Dropdown, DropdownItem, DropdownMenu } from './dropdown'
 import Drawer from './drawer'
+import Empty from './empty'
 import { Form, FormItem } from './form'
 import ImagePreview from './imagePreview'
 import Icon from './icon'
@@ -29,6 +30,7 @@ import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
 // import Scroll from './scroll'
 // import Slider from './slider'
+import Spin from './spin'
 import Switch from './switch'
 import { Select, Option } from './select'
 import { Steps, Step } from './steps'
@@ -42,8 +44,7 @@ import Tag from './tag'
 import { Row, Col } from './grid'
 import Upload from './upload'
 
-const { version } = require('../package.json');
-
+import { version } from '../package.json'
 // import './styles';
 // import './styles/cover';
 
@@ -52,6 +53,7 @@ const components = {
     BackTop, Badge, Button, ButtonGroup: Button.Group, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
     DatePicker, Dropdown, DropdownItem, DropdownMenu, Drawer,
+    Empty,
     Form, FormItem,
     ImagePreview, Input, Icon,
     Loading,
@@ -61,7 +63,7 @@ const components = {
     Option,
     Page, Poptip, Popconfirm, Panel, Progress,
     Row, Radio, RadioGroup, RadioButton,
-    /* Scroll, */ Steps, Step, Select, SubMenu, //Slider,
+    /* Scroll, */Spin, Steps, Step, Select, SubMenu, //Slider,
     Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
     Upload,
 }

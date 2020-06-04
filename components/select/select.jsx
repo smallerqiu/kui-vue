@@ -3,6 +3,7 @@ import Resize from "../_tool/resize";
 import Option from './option'
 import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
+import Empty from '../empty';
 import { hasProp, getElementPos, getChild, isNotEmpty } from '../_tool/utils'
 let timestamp = Date.now()
 let count = 0
@@ -353,20 +354,18 @@ export default {
     let drop;
     if (showDropInit) {
       let kid = this.getOptions()
-      kid = (
-        !kid.length
-          ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></li>
-          : kid
-      )
-      const loadingNode = <li class="k-select-loading"><Icon type="ios-sync" spin /><span>加载中...</span></li>
+      // kid = (
+      //   !kid.length
+      //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></li>
+      //     : kid
+      // )
+      const loadingNode = <div class="k-select-loading"><Icon type="ios-sync" spin /><span>加载中...</span></div>
       drop = (
         <transition name="dropdown">
           <div class={['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]} ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
-            <ul>
-              {this.loading ? loadingNode : kid}
-            </ul>
+            {this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick}/> : <ul>{kid}</ul>)}
           </div>
-        </transition >
+        </transition>
       )
     }
     label = multiple ? (label || []) : label

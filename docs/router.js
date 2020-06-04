@@ -1,6 +1,4 @@
 import Vue from 'vue'
-// import loading from '@/components/loading'
-//Vue.use(kui);
 import Router from 'vue-router'
 
 Vue.use(Router)
@@ -82,19 +80,19 @@ router.push(
     }
 )
 let routers = new Router({
-    routes: router, mode: 'history', scrollBehavior(to, from, savedPosition) {
-        //return期望滚动到哪个的位置
+    routes: router,
+    mode: 'history',
+    scrollBehavior(to, from, savedPosition) {
         return savedPosition || { x: 0, y: 0 }
-        // document.querySelector('.colMain') && (document.querySelector('.colMain').scrollTop = 0)
     }
 })
-routers.beforeEach(function (to, from, next) {
-    // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
-    // loading.start('line');
-    next()
-})
-routers.afterEach((to, from, next) => {
-    // (process.env.NODE_ENV == 'development') &&
-    // loading.finish();
-});
+// routers.beforeEach(function (to, from, next) {
+//     // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+//     // loading.start('line');
+//     next()
+// })
+// routers.afterEach((to, from, next) => {
+//     // (process.env.NODE_ENV == 'development') &&
+//     // loading.finish();
+// });
 export default routers

@@ -62,7 +62,7 @@
 }
 </style>
 <script>
-import icons from '../dist.json'
+import icons from 'kui-icons'
 export default {
   data() {
     return {

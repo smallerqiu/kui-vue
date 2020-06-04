@@ -66,7 +66,7 @@ export default {
       child = <div class="k-backtop-content"><Icon type="md-arrow-round-up" /></div>
     }
     return (
-      <transition name="backtop-fade">
+      <transition name="k-backtop-fade">
         <div class="k-backtop" onClick={this.handle} v-show={this.visible} v-scroll={this.scroll} style={this.styles} >
           {child}
         </div>

@@ -10,7 +10,6 @@ export default {
 		autoplay: Boolean,
 		delay: { type: [String, Number], default: 3000 },
 		vertical: Boolean,
-		dotsType: { type: String, default: 'rect' },
 		dots: { type: Boolean, default: true }
 	},
 	data() {
@@ -94,15 +93,12 @@ export default {
 		let kid = getChild(this.$slots.default)
 		currentIndex = Math.min(kid.length - 1, currentIndex)
 		currentIndex = Math.max(0, currentIndex)
-		const dotsClass = ['k-carousel-dots', {
-			'k-carousel-dots-radius': this.dotsType == 'cricle'
-		}]
 		const classes = ['k-carousel', {
 			'k-carousel-vertical': vertical
 		}]
 
 		const dotsNode = (
-			<ul class={dotsClass}>
+			<ul class="k-carousel-dots">
 				{kid.map((e, i) => <li class={{ 'k-carousel-dots-active': currentIndex == i }} onClick={e => change(i)}></li>)}
 			</ul>
 		)

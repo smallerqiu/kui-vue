@@ -6,4 +6,3 @@
 | vertical  | 是否垂直模式显示                            | Boolean       | false |
 | autoplay  | 是否自动切换                              | Boolean       | false |
 | speed     | 自动切换的时间间隔，单位为毫秒                     | Number        | 2000  |
-| dots-type | 指示器的类型， `rect` 为方块， `radius` 为圆点    | Number        | 2000  |

@@ -3,7 +3,6 @@ import Info from './info'
 import Base from './base.md'
 import Vertical from './vertical.md'
 import AutoPlay from './autoplay.md'
-import DotType from './dottype.md'
 import CN from '../index.md'
 export default {
   render() {
@@ -13,7 +12,6 @@ export default {
         <Base />
         <Vertical />
         <AutoPlay />
-        <DotType />
         <CN class="typo" />
       </div>
     )
