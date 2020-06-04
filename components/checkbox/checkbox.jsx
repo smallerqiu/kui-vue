@@ -51,7 +51,7 @@ export default {
       }
     }
     // console.log(checked)
-    const wpclasses = ["k-checkbox-wp", { ["k-checkbox-disabled"]: disabled }];
+    const wpclasses = ["k-checkbox-wrapper", { ["k-checkbox-disabled"]: disabled }];
 
     const classes = [
       "k-checkbox",
@@ -61,13 +61,14 @@ export default {
       }
     ];
     let inner = checked ? <Icon type="ios-checkmark" /> : null
+    const labelNode = label || $slots.default
     return (
       <label class={wpclasses}>
         <span class={classes}>
           <span class="k-checkbox-inner">{inner}</span>
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
         </span>
-        <span>{label || $slots.default}</span>
+        {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
       </label>
     )
   }

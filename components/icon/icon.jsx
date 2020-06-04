@@ -1,4 +1,5 @@
-const icons = require('./dist.json')
+import icons from 'kui-icons'
+
 export default {
   name: "Icon",
   props: {

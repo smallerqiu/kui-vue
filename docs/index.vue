@@ -1,5 +1,5 @@
 <template>
-  <Layout class="index"> 
+  <Layout class="index">
     <Header />
     <section class="index-content">
       <div class="logo">K UI</div>
@@ -7,6 +7,7 @@
       <div class="btn-content">
         <Button class="start" @click="start" large>开始使用</Button>
         <Button icon="logo-github" @click="git" large>Github</Button>
+        <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
       </div>
     </section>
     <!-- <footer>
@@ -22,6 +23,9 @@ export default {
   methods: {
     start() {
       this.$router.push('/docs/start')
+    },
+    gitee() {
+      window.open('//gitee.com/chuchur/kui-vue')
     },
     git() {
       window.open('//github.com/chuchur-china/kui-vue')
@@ -43,7 +47,7 @@ body {
   position: relative;
   overflow: hidden;
   background: none;
-  &::after{
+  &::after {
     display: none;
   }
   &::before {
@@ -59,16 +63,8 @@ body {
     bottom: 0;
     filter: blur(3px);
     transform: scale(1.3);
-    opacity: .5;
+    opacity: 0.5;
     overflow: hidden;
-  }
-  canvas{
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
   }
   .header {
     background: none;
@@ -96,7 +92,7 @@ body {
       background-size: contain;
       height: 40px;
       display: block;
-      font-size: 0; 
+      font-size: 0;
     }
     h1 {
       // font-weight: 300;

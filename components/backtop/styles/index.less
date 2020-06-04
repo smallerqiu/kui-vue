@@ -14,7 +14,7 @@
 	display: block;
 	overflow: hidden;
 	border-radius: @radius;
-	.k-backtop-content {
+	&-content {
 		background-color: rgba(0, 0, 0, .45);
 		opacity: .5;
 		height: 40px;
@@ -32,7 +32,7 @@
 	}
 }
 
-@keyframes backtopIn {
+@keyframes k-backtop-fade-in {
 	from {
 		opacity: 0;
 	}
@@ -41,7 +41,7 @@
 	}
 }
 
-@keyframes backtopOut {
+@keyframes k-backtop-fade-out {
 	from {
 		opacity: 1;
 	}
@@ -50,10 +50,10 @@
 	}
 }
 
-.backtop-fade-enter-active {
-	animation: backtopIn .4s;
+.k-backtop-fade-enter-active {
+	animation: k-backtop-fade-in .4s;
 }
 
-.backtop-fade-leave-active {
-	animation: backtopOut .4s;
+.k-backtop-fade-leave-active {
+	animation: k-backtop-fade-out .4s;
 }

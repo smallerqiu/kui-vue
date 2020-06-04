@@ -26,12 +26,12 @@ export default{
         '床前明月光，疑是地上霜，举头望明月，低头思故乡！'
       ]
       let m = ['success','error','warning','info']
-      
+
       i==4 ?
       this.$Modal.show({ title:t[i], content:c[i],icon:'ios-moon',color:'#eccb23' }) :
       this.$Modal[m[i]]({ title:t[i], content:c[i] })
-    }
+    },
   }
-} 
+}
 </script>
 ```

@@ -1,9 +1,8 @@
 @import '../../styles/global.less';
-.k-checkbox-wp {
+.k-checkbox-wrapper {
 	cursor: pointer;
 	font-size: 12px;
 	display: inline-block;
-	margin-right: 8px;
 	user-select: none;
 	line-height: 1;
 	.k-checkbox {
@@ -14,7 +13,7 @@
 		outline: 0;
 		line-height: 1;
 		position: relative;
-		margin-right: 5px;
+		margin: 0;
 		box-sizing: content-box;
 		font-size: 0;
 		.k-checkbox-inner {
@@ -81,6 +80,9 @@
 	}
 	&:hover .k-checkbox-inner {
 		border-color: @main;
+	}
+	.k-checkbox-label {
+		padding:0 5px;
 	}
 }
 

@@ -3,7 +3,7 @@
     <Header />
     <Layout class="main">
       <Sider>
-        <!-- <Affix :offsetTop="90"> -->
+        <Affix :offsetTop="30">
           <Menu :activeName="activeName" @select="go" class="left-menu">
             <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="x">
               <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.name" :key="y">
@@ -13,7 +13,7 @@
               </MenuItem>
             </MenuGroup>
           </Menu>
-        <!-- </Affix> -->
+        </Affix>
       </Sider>
       <Content :class="{'typo':typo}">
         <transition name="fade" mode="out-in">
@@ -34,10 +34,13 @@ export default {
       key: "",
       typo: false,
       activeName: "",
-      components: []
+      components: [],
     };
   },
   methods: {
+    target() {
+      return document.querySelector('.main')
+    },
     go(name) {
       let { title, sub } = this.getPath(name)
 

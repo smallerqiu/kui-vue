@@ -109,12 +109,11 @@ export default {
       maskNode = <transition name="k-modal-fade"><div class="k-modal-mask" v-show={show} /></transition>
     }
 
-
     //content
     let contentNode = $slots.content
     if (!contentNode) {
       const contents = []
-      contents.push(<Icon type="md-close" class="k-modal-close" onClick={this.close} />)
+      contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="md-close" /></span>)
       contents.push(<div class="k-modal-header"><div class="k-modal-header-inner">{this.title}</div></div>)
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 

@@ -1,5 +1,4 @@
 
-import scroll from '../_tool/scroll'
 import resize from '../_tool/resize'
 
 function getOffset(element, target) {
@@ -8,8 +7,12 @@ function getOffset(element, target) {
   let targetRect = (target !== window) ? target.getBoundingClientRect() : { top: 0, let: 0, bottom: 0 }
 
   let scrollTop = (target !== window) ? target.scrollTop : target.pageYOffset
+  if (target !== window) {
+    top = element.offsetTop - element.parentElement.offsetTop
+  }
   return {
     top, height, width, scrollTop,
+    targetTop: targetRect.top,
     targetHeight: targetRect.height,
     targetInnerHeight: target.innerHeight || target.clientHeight
   }
@@ -17,19 +20,21 @@ function getOffset(element, target) {
 
 export default {
   name: 'Affix',
-  directives: { scroll, resize },
+  directives: { resize },
   props: {
     offsetTop: { type: Number, default: 0 },
     offsetBottom: Number,
-    target: { type: Function, default: () => { } }
+    target: { type: Function, default: () => { return window } }
   },
   data() {
     return {
-      showBlob: false,
+      fixed: false,
       width: 0,
       height: 0,
       offsetModeOfTop: false,
-      offsetModeOfBottom: false
+      offsetModeOfBottom: false,
+      offsetTopValue: this.offsetTop,
+      offsetBottomValue: this.offsetBottom
     }
   },
 
@@ -38,46 +43,60 @@ export default {
     if (target) {
       target.addEventListener('scroll', e => {
         // console.log(e)
+        this.updatePosition(e)
+        // console.log(e)
       })
     }
-    this.updatePosition(window)
+    // this.updatePosition(target)
   },
   methods: {
     updatePosition(e) {
       // console.log(e)
       let { offsetBottom, offsetTop, $refs } = this
-      if (this.showBlob) {
-        let { top, height, targetInnerHeight } = getOffset($refs.blob, document)
+      if (!$refs.blob) return;
+
+      let target = this.target()
+
+      let { top, height, width, targetInnerHeight, scrollTop, targetTop } = getOffset($refs.blob, target)
+
+      offsetTop = target === window ? offsetTop : scrollTop
+      if (this.fixed) {
 
         if (typeof offsetBottom != undefined && offsetBottom >= 0) {
           // unfixedBottom
           // this.offsetModeOfBottom = false
           if (0 >= top + height + offsetBottom - targetInnerHeight) {
             this.offsetModeOfBottom = false
-            this.showBlob = false
+            this.fixed = false
           }
         } else if (top >= offsetTop) { // unfixedTop
           this.offsetModeOfTop = false
-          this.showBlob = false
+          this.fixed = false
         }
-        if (!this.showBlob) {
-          this.showBlob = false
+        if (target !== window && top !== targetTop) {
+          this.offsetTopValue = targetTop
+        }
+        if (!this.fixed) {
+          this.fixed = false
           this.$emit('change', false)
         }
       } else {
-        let { top, height, width, targetInnerHeight } = getOffset($refs.blob, document)
         if (typeof offsetBottom != undefined && offsetBottom >= 0) {
           //fixedBottom
           if (0 <= top + height + offsetBottom - targetInnerHeight) {
             this.offsetModeOfBottom = true
-            this.showBlob = true
+            this.fixed = true
           }
-        } else if (top <= offsetTop) { //fixedTop
-          this.showBlob = true
-          this.offsetModeOfTop = true
+        } else {
+          if (top <= offsetTop) { //fixedTop
+            this.fixed = true
+            this.offsetModeOfTop = true
+            if (target !== window) {
+              this.offsetTopValue = targetTop
+            }
+          }
         }
-        if (this.showBlob) {
-          this.showBlob = true
+        if (this.fixed) {
           this.$emit('change', true)
           this.width = width
           this.height = height
@@ -87,7 +106,7 @@ export default {
   },
   render() {
     let blobStyle = null, fixedStyle = null, classes = null;
-    if (this.showBlob) {
+    if (this.fixed) {
       blobStyle = {
         width: `${this.width}px`,
         height: `${this.height}px`
@@ -100,17 +119,17 @@ export default {
         fixedStyle.bottom = `${this.offsetBottom}px`
       }
       if (this.offsetModeOfTop) {
-        fixedStyle.top = `${this.offsetTop}px`
+        fixedStyle.top = `${this.offsetTopValue}px`
       }
-      classes = { ['k-affix']: this.showBlob }
+      classes = { ['k-affix']: this.fixed }
     }
 
     return (
-      <div style={blobStyle} v-scroll={this.updatePosition} ref="blob" v-resize={this.updatePosition}>
+      <div style={blobStyle} ref="blob" v-resize={this.updatePosition}>
         <div style={fixedStyle} class={classes} ref="affix" >
           {this.$slots.default}
         </div>
-      </div >
+      </div>
     )
   }
 }

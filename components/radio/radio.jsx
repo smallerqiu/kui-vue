@@ -48,18 +48,19 @@ export default {
       }
     }
     const wpclasses = [
-      "k-radio-wp", { ["k-radio-disabled"]: disabled }
+      "k-radio-wrapper", { ["k-radio-disabled"]: disabled }
     ];
     const classes = [
       "k-radio", { ["k-radio-checked"]: checked }
     ];
+    const labelNode = label || $slots.default
     return (
       <label class={wpclasses}>
         <span class={classes}>
           <span class="k-radio-inner"></span>
           <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
         </span>
-        <span>{label || $slots.default}</span>
+        {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
       </label>
     )
   }

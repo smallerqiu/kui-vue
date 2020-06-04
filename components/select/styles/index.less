@@ -8,7 +8,7 @@
   color: #495060;
   font-size: 12px;
   position: relative;
-  .k-select-selection {
+  &-selection {
     border-radius: @radius;
     overflow: hidden;
     display: block;
@@ -26,7 +26,7 @@
     min-height: 32px;
     position: relative;
   }
-  .k-select-search-wrap {
+  &-search-wrap {
     position: absolute;
     left: 5px;
     z-index: 1;
@@ -45,7 +45,7 @@
       font-size: 12px;
     }
   }
-  .k-select-labels {
+  &-labels {
     padding: 3px 32px 0 0;
     overflow: hidden;
     .k-select-tag {
@@ -236,20 +236,6 @@
     background: @disableBack;
     color: @disableColor;
     cursor: not-allowed;
-  }
-  .k-select-empty {
-    text-align: center;
-    color: @disableColor;
-    padding-bottom: 10px;
-    font-size: 12px;
-    cursor: not-allowed;
-    i {
-      font-size: 30px;
-      padding: 10px 0;
-    }
-    .k-empty-desc {
-      line-height: 1.5;
-    }
   }
   // &:hover{
   //     overflow: auto;
