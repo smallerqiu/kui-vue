@@ -6,9 +6,9 @@
 ```tpl
 <template>
   <div>
-    <p>{{checked}}</p>
+    <p>value:{{checked}}</p>
     <Switch v-model="checked" />
-    <Button @click="checked=!checked" mini>click me</Button>
+    <Button @click="checked=!checked" mini>{{checked?'Uncheck':'Check'}}</Button>
     <br/>
     <Switch checked />
   </div>

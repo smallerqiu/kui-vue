@@ -8,7 +8,7 @@
   <Table :data="data" :columns="columns" bordered>
     <a slot="name" slot-scope="text">{{text}}</a>
 
-    <template slot="price" slot-scope="text">￥{{text}}/㎡</template>
+    <template slot="price" slot-scope="text"><span :class="{'test-table-price':text>20000}">￥{{text}}/㎡</span></template>
 
     <template slot="header">
      Header
@@ -30,7 +30,7 @@ export default{
       ],
       columns:[
         {title:'Name', key:'name' },
-        {title:'House price', key:'price' ,className:'test-table-price'},
+        {title:'House price', key:'price',className:'test-table-cell' },
         {title:'Address', key:'address' },
       ]
     }
@@ -38,9 +38,13 @@ export default{
 }
 </script>
 <style>
-  .test-table-price{
+  .test-table-cell{
     text-align:right;
+  }
+  .test-table-price{
     color:red;
+    background:yellow;
+    font-weight:bold;
   }
 </sytle>
 ```

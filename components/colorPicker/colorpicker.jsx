@@ -1,4 +1,4 @@
-import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex } from './canvasHelper'
+import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
 import Input from '../input'
 import Button from '../button'
 import Icon from '../icon'
@@ -32,8 +32,9 @@ export default {
   },
   watch: {
     value(v1, v2) {
-      if (v1 != v2)
-        this.valueChange('COLOR', v)
+      if (v1 != this.currentColor) {
+        this.valueChange('COLOR', v1)
+      }
     }
   },
   data() {
@@ -157,15 +158,15 @@ export default {
           break;
         case 'HUE':
           this.H = value;
-          [this.R, this.G, this.B] = hslToRgb(this.H, this.S, this.L)
-          this.paintHelper.setHue(value)
-          this.alphaCanvsSetHue(this.$refs.alpha)
+          [this.R, this.G, this.B] = hslToRgb(this.H, this.S, this.L);
+          this.paintHelper.setHue(value);
+          this.alphaCanvsSetHue(this.$refs.alpha);
           break;
         case 'RGB':
-          [this.R, this.G, this.B] = value
-          // [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
-          let colors = rgbToHsl(this.R, this.G, this.B);
-          [this.H, this.S, this.L] = colors
+          [this.R, this.G, this.B] = value;
+          [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
+          // let colors = rgbToHsl(this.R, this.G, this.B);
+          // [this.H, this.S, this.L] = colors
           this.alphaCanvsSetHue(this.$refs.alpha)
           break;
         case 'ALPHA':
@@ -183,18 +184,18 @@ export default {
       this.currentColor = this.HEX
     },
     updateValue() {
-      let { mode } = this.mode,
-        value = null;
-      if (mode == 'hex') {
+      let { currentMode, R, G, B, A, H, S, L, } = this, value = null;
+      if (currentMode == 'hex') {
         value = this.HEX
-      } else if (mode == 'rgba') {
-        value = `rgba(${this.R},${this.G},${this.B},${this.A})`
+      } else if (currentMode == 'rgba') {
+        value = `rgba(${R},${G},${B},${A})`
       } else {
-        value = `hsla(${this.H},${this.S}%,${this.L}%,${this.A})`
+        value = A < 1 ? `hsla(${H},${S}%,${L}%,${A})` : `hsl(${H},${S}%,${L}%)`
       }
-      this.currentColor = value
+      // console.log(value)
       this.$emit('input', value)
       this.$emit('change', value)
+      this.currentColor = value
       this.showDrop = false
     },
     setMode() {
@@ -335,16 +336,36 @@ export default {
     },
     renderValueInput(key) {
       let prop = {
+        attrs: {
+          maxlength: key == 'HEX' ? 9 : 4
+        },
         props: {
           value: this[key] + ('SL'.indexOf(key) >= 0 ? '%' : ''),
           mini: true,
         },
         on: {
           "input": e => {
-            this[key] = e.replace('%', '')
+            let value = e.replace('%', '')
+            if (!value) return;
+            if (key == 'HEX') {
+              value = value.toString().toLowerCase()
+              if (/^#([0-9A-F]{6}|[0-9A-F]{3}|[0-9A-F]{8})$/i.test(value)) {
+                [this.R, this.G, this.B, this.A] = cssColorToRgba(value) || [this.R, this.G, this.B, this.A];
+                [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
+              } else {
+                return;
+              }
+            } else if (key == 'A') {
+              if (!/^\d(.)\d*$/.test(value) || value > 1) return;
+            } else {
+              if (!/^\d*$/.test(value)) return;
+            }
+
+            this[key] = value
             // console.log(e,key)
-            if ('RGB'.indexOf(key) >= 0)
+            if ('RGB'.indexOf(key) >= 0) {
               [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
+            }
             this.updatePostion()
             this.paintHelper.setHue(this.H)
             this.alphaCanvsSetHue(this.$refs.alpha)

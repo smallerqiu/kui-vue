@@ -7,16 +7,16 @@
 ```tpl
 <template>
   <div>
-    <p>{{data}}</p>
+    <p>Selected:{{data}}</p>
     <RadioGroup v-model="data">
-      <Radio label="苹果🍎" value="apple" />
-      <Radio label="橘子🍊" value="orange" />
-      <Radio label="香蕉🍌" value="banana" />
-      <Radio label="葡萄🍇" value="grape" disabled/>
-      <Radio label="梨子🍐" value="pear" disabled/>
+      <Radio label="Apple" value="apple" />
+      <Radio label="Orange" value="orange" />
+      <Radio label="Banana" value="banana" />
+      <Radio label="Grape" value="grape" disabled/>
+      <Radio label="Pear" value="pear" disabled/>
     </RadioGroup>
-    <Button @click="data=''" mini>清除</Button>
-    <Button @click="data='apple'" mini>选中苹果</Button>
+    <Button @click="data=''" mini>Clear</Button>
+    <Button @click="data='apple'" mini>Select apple</Button>
     <br/>
     <br/>
     <p>{{cities}}</p>
@@ -30,11 +30,11 @@ export default {
       checked: true,
       data: 'apple',
       options: [
-        { label: '北京', value: 'beijing' },
-        { label: '深圳', value: 'shenzhen' },
-        { label: '上海', value: 'shanghai' },
-        { label: '广州', value: 'guangzhou' },
-        { label: '武汉', value: 'wuhan' },
+        { label: 'Beijing', value: 'beijing' },
+        { label: 'Shenzhen', value: 'shenzhen' },
+        { label: 'Shanghai', value: 'shanghai' },
+        { label: 'Guangzhou', value: 'guangzhou' },
+        { label: 'Wuhan', value: 'wuhan' },
       ],
       cities:'wuhan'
     };

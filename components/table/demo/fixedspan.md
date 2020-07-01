@@ -5,14 +5,14 @@ columns[n] 可以内嵌 children，以渲染分组表头。
 
 ```tpl
 <template>
-  <Table :data="data" :columns="columns" >
+  <Table :data="data" :columns="columns" bordered :height="300" :width="1800" @change="change">
       <a slot="action">action</a>
   </Table>
 </template>
 <script>
 export default{
   data(){
-     const data = [];
+    const data = [];
     for (let i = 0; i < 10; i++) {
       data.push({
         key: i,
@@ -33,7 +33,7 @@ export default{
           title: 'Name',
           key: 'name',
           width: 100,
-          // fixed: 'left',
+          fixed: 'left',
         },
         {
           title: 'Other',
@@ -42,6 +42,7 @@ export default{
               title: 'Age',
               key: 'age',
               width: 200,
+              sorter:true,
             },
             {
               title: 'Address',
@@ -88,10 +89,18 @@ export default{
           title: 'Gender',
           key: 'gender',
           width: 80,
-          // fixed: 'right',
+          fixed: 'right',
         },
       ]
     }
+  },
+  methods:{
+    change(filters,{ key, order }){
+      console.log(filters,key,order)
+      this.data.sort((a,b) => {
+        return order=='asc'? b[key]-a[key] : a[key]-b[key]
+      })
+    },
   }
 }
 </script>

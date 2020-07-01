@@ -9,14 +9,14 @@
   <div>
     <p>{{data}}</p>
     <CheckboxGroup v-model="data">
-      <Checkbox label="苹果🍎" value="apple" />
-      <Checkbox label="橘子🍊" value="orange" />
-      <Checkbox label="香蕉🍌" value="banana" />
-      <Checkbox label="葡萄🍇" value="grape" disabled/>
-      <Checkbox label="梨子🍐" value="pear" disabled/>
+      <Checkbox label="Apple" value="apple" />
+      <Checkbox label="Orange" value="orange" />
+      <Checkbox label="Banana" value="banana" />
+      <Checkbox label="Grape" value="grape" disabled/>
+      <Checkbox label="Pear" value="pear" disabled/>
     </CheckboxGroup>
-    <Button @click="data=[]" mini>清除</Button>
-    <Button @click="data=['apple']" mini>选中苹果</Button>
+    <Button @click="data=[]" mini>Clear</Button>
+    <Button @click="data=['apple']" mini>Select apple</Button>
     <br/>
     <br/>
     <p>{{cities}}</p>
@@ -30,12 +30,12 @@ export default {
       checked: true,
       data: ['apple','grape'],
       options: [
-        { label: '北京', value: 'beijing' },
-        { label: '深圳', value: 'shenzhen' },
-        { label: '上海', value: 'shanghai' },
-        { label: '广州', value: 'guangzhou' },
-        { label: '武汉', value: 'wuhan' },
-        { label: '其他', value: 'other',disabled:true },
+        { label: 'Beijing', value: 'beijing' },
+        { label: 'Shenzhen', value: 'shenzhen' },
+        { label: 'Shanghai', value: 'shanghai' },
+        { label: 'Guangzhou', value: 'guangzhou' },
+        { label: 'Wuhan', value: 'wuhan' },
+        { label: 'Other', value: 'other',disabled:true },
       ],
       cities:['wuhan']
     };

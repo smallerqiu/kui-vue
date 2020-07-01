@@ -11,9 +11,9 @@
     <Checkbox indeterminate disabled>indeterminate</Checkbox>
     <br/>
     <br/>
-    <Checkbox :disabled="disabled" v-model="checked">{{checked?'Checked':'Uncheck'}}</Checkbox>
-    <Button @click="checked=!checked" mini>Check</Button>
-    <Button @click="disabled=!disabled" mini>Disable</Button>
+    <Checkbox :disabled="disabled" v-model="checked">Checkbox</Checkbox>
+    <Button @click="checked=!checked" mini>{{checked?'Checked':'Uncheck'}}</Button>
+    <Button @click="disabled=!disabled" mini>{{disabled?'Enable':'Disabled'}}</Button>
   </div>
 </template>
 <script>

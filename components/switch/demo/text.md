@@ -6,11 +6,11 @@
 ```tpl
 <template>
   <div>
-    <Switch true-text="是" false-text="否" />
+    <Switch true-text="Yes" false-text="No" />
     <br />
     <Switch true-text="1" false-text="0" />
     <br />
-    <Switch true-text="正确" false-text="错误" />
+    <Switch true-text="On" false-text="Off" />
     <br />
     <br />
     <Switch>

@@ -15,14 +15,14 @@ export default{
   data(){
      const data = [],columns = [];
      for(let i = 0; i < 10; i++){
-       columns.push({ title:'Col'+i, key:'name' })
+       columns.push({ title:'Col'+i, key:'address' })
      }
     return{
       data:[
-        { key:0, name:'Han Lin', age:28, },
-        { key:1, name:'Liu Hao', age:28, },
-        { key:2, name:'Wang Kang', age:28,  },
-        { key:3, name:'Hu Cong', age:28,  }
+        { key:0, name:'Han Lin', age:28, address:'Hubei Wuhan Guanggu SoftBase No.128' },
+        { key:1, name:'Liu Hao', age:28, address:'Hubei'},
+        { key:2, name:'Wang Kang', age:28, address:'Hubei Wuhan Guanggu Nanhu No.128'},
+        { key:3, name:'Hu Cong', age:28, address:'Hubei Wuhan Guanggu Hongshan No.128'}
       ],
       columns:[
         {title:'Name', key:'name', width:100 , fixed:'left' },

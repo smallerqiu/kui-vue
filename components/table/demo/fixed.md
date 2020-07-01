@@ -6,7 +6,7 @@
 
 ```tpl
 <template>
-  <Table :data="data" :columns="columns" :width="1800" :height="300">
+  <Table :data="data" :columns="columns" :width="1900" :height="300">
       <a slot="action">action</a>
   </Table>
 </template>

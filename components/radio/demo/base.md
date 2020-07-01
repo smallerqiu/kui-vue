@@ -7,11 +7,11 @@
 <template>
   <div>
     <p>{{checked}}</p>
-    <Radio v-model="checked">测试</Radio>
-    <Button @click="checked=!checked" mini>Click me</Button>
+    <Radio v-model="checked">Radio</Radio>
+    <Button @click="checked=!checked" mini>{{checked?'Uncheck':'Check'}}</Button>
     <br/>
     <br/>
-    <Radio label="无状态"/>
+    <Radio label="Radio"/>
   </div>
 </template>
 <script>

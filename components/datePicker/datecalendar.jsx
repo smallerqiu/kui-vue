@@ -140,7 +140,7 @@ export default {
     },
     classes(Y, M, D, out, format) {
       const time = new Date(Y, M, D), fmtTime = moment(time).format(format)
-      console.log(format, fmtTime)
+      // console.log(format, fmtTime)
       let istoday = fmtTime == moment(this.today).format(format),
         isselected = false,
         on = false;

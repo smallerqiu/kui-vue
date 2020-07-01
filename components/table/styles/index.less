@@ -17,13 +17,13 @@
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    background:#fff;
+    background: #fff;
     thead {
       background: @light;
       border-bottom: 1px solid @borderColor;
     }
     tr>th {
-      font-weight: 500;
+      // font-weight: 500;
       overflow-wrap: break-word;
       &[colspan]:not([colspan="1"]) {
         text-align: center;
@@ -55,14 +55,14 @@
         display: block;
         font-size: 16px;
         &:first-child {
-          margin-bottom: -.5em;
+          margin-bottom: -.6em;
         }
       }
       .actived {
         color: @main;
       }
     }
-    tbody tr {
+    tbody>tr {
       border-bottom: 1px solid @borderColor;
       &:nth-child(even) {
         background: @light;
@@ -71,6 +71,22 @@
         // background: #fff;
       }
       &:hover {
+        background: tint(@main, 93%);
+      }
+      &.k-table-row-hover {
+        background: tint(@main, 93%);
+      }
+    }
+    .k-table-expand-row {
+      &:hover {
+        background: @light;
+      }
+    }
+    td table {
+      tr:last-child {
+        border-bottom: none;
+      }
+      tbody>tr:hover {
         background: tint(@main, 93%);
       }
     }
@@ -122,6 +138,9 @@
       overflow-x: hidden;
       overflow-y: scroll;
     }
+    table {
+      width: auto; //针对  table-layout: fixed;
+    }
   }
   &-fixed-left {
     left: 0;
@@ -129,7 +148,7 @@
       overflow: hidden;
     }
     table {
-      width: auto;
+      width: auto; //针对  table-layout: fixed;
     }
   }
   &-scroll-left {
@@ -150,6 +169,13 @@
       box-shadow: 6px 0 6px -4px rgba(0, 0, 0, .15);
     }
   }
+  &-mini {
+    table tr {
+      th, td {
+        padding: 5px 8px;
+      }
+    }
+  }
   .k-table {
     margin: -10px;
     width: auto;
@@ -166,6 +192,12 @@
     .k-table-footer {
       border-top: 1px solid @borderColor;
       border-bottom: none;
+    }
+    thead {
+      th {
+        border-bottom: 1px solid @borderColor;
+        border-right: 1px solid @borderColor;
+      }
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
       &::-webkit-scrollbar {
@@ -214,28 +246,23 @@
       border-right: none;
     }
   }
-  .k-table-cell-selection {
+  &-cell-selection {
     text-align: center;
   }
-  .k-table-selection-col {
+  &-selection-col {
     width: 50px
   }
-  .k-table-expand-icon-col {
+  &-expand-icon-col {
     width: 50px;
     min-width: 50px;
   }
-  .k-table-row-expand-icon-cell {
+  &-row-expand-icon-cell {
     text-align: center;
     .k-icon {
       cursor: pointer;
       &:hover {
         color: @main;
       }
-    }
-  }
-  .k-table-expand-row {
-    &:hover {
-      background: @light;
     }
   }
 }
