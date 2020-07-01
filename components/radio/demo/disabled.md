@@ -10,9 +10,9 @@
     <Radio disabled :value="true">disabled</Radio>
     <br/>
     <br/>
-    <Radio :disabled="disabled" v-model="checked">{{checked?'Checked':'Uncheck'}}</Radio>
-    <Button @click="checked=!checked" mini>Check</Button>
-    <Button @click="disabled=!disabled" mini>Disable</Button>
+    <Radio :disabled="disabled" v-model="checked">Radio</Radio>
+    <Button @click="checked=!checked" mini>{{checked?'Checked':'Uncheck'}}</Button>
+    <Button @click="disabled=!disabled" mini>{{disabled?'Enable':'Disabled'}}</Button>
   </div>
 </template>
 <script>

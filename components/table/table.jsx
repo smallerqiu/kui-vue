@@ -3,9 +3,9 @@ import Icon from '../icon'
 import Spin from '../spin'
 import { Checkbox } from '../checkbox'
 import ExtendTable from './extend'
-const hasChild = (data) => {
-  return data ? data.filter(x => x.children && x.children.length > 0).length > 0 : false
-}
+import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
+
+
 export default {
   name: 'Table',
   props: {
@@ -27,126 +27,47 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$refs.mainTable.a)
+    this.renderEnd = true
+    this.resetHeight()
+    window.addEventListener('resize', this.autoResize)
+  },
+  beforeDestory() {
+    window.removeEventListener('resize', this.autoResize)
+  },
+  updated() {
+    this.autoResize()
   },
   render(h) {
-    let { $slots, columns, data, $scopedSlots, loading, bordered, height, width } = this
+    let { $slots, data, $scopedSlots, loading, height, width, indeterminate, checkAll } = this
     // bordered = true
     const { header, footer } = $slots
 
-    let isTableFixed = false
-    const cols = [], colsL = [], colsR = [], content = [],
-      head = [], headL = [], headR = [],
-      tbody = [], tbodyL = [], tbodyR = [];
+    let isTableFixed = width || height
+    const content = [], tbody = [], tbodyL = [], tbodyR = [];
 
     //custom head
     if (header) {
       content.push(<div class="k-table-header" > {header}</div>)
     }
 
-    let getSort = (t) => {
-      return t.sorter ? (<span class="k-table-sorter">
-        <Icon type="md-arrow-dropup" class={{ actived: t._order == 'asc' }} />
-        <Icon type="md-arrow-dropdown" class={{ actived: t._order == 'desc' }} />
-      </span>) : null
-    }
-    const isFixedHeader = height > 0
+    const isFixedHeader = height
 
-    let expand = $scopedSlots['expandedRowRender']
+    let expandNode = $scopedSlots['expandedRowRender']
 
     //重新排序
-    let leftCol = [], middleCol = [], rightCol = [];
 
-    columns.forEach((c) => {
-      if (c.fixed == 'left') {
-        leftCol.push(c)
-      } else if (c.fixed == 'right') {
-        rightCol.push(c)
-      } else {
-        middleCol.push(c)
-      }
-    })
-    columns = [].concat(leftCol, middleCol, rightCol)
+    let { columns, hasFixed } = sortFixedCol(this.columns)
 
-    const pushCol = (c, props) => {
-      if (c.children && c.children.length > 0) {
-        c.children.forEach(j => {
-          pushCol(j, props)
-        })
-      } else {
-        props = Object.assign(props, {
-          style: { width: `${c.width}px`, 'min-width': `${c.width}px` },
-        })
-        cols.push(<col {...props} />)
-      }
+    let _columns = columns
+
+    if (hasChild(this.columns)) {
+      _columns = sortColumnsOnline(columns)
     }
-
-    //set Cols and thead
-    columns.forEach((c, i) => {
-      let w = c.width || (isFixedHeader ? 150 : '')
-      let hasCheckbox = c.type == 'selection'
-
-      if (isFixedHeader && i == columns.length - 2) w = ''
-
-      // set Cols
-      let colProps = {
-        style: { width: `${w}px`, 'min-width': `${w}px` },
-        class: hasCheckbox ? 'k-table-selection-col' : null
-      }
-      pushCol(c, colProps)
-
-      if (c.fixed == 'left') {
-        colsL.push(<col {...colProps} />)
-      }
-      if (c.fixed == 'right') {
-        colProps.style = { width: `${w || 100}px`, 'min-width': `${w || 100}px` }
-        colsR.push(<col {...colProps} />)
-      }
-      // set Head
-      let props = {
-        class: {
-          'k-table-cell-ellipsis': c.ellipsis,
-          'k-table-cell-selection': hasCheckbox,
-          'k-table-cell-sorter': c.sorter,
-          [c.className]: c.className
-        },
-        attrs: { key: c.key, colSpan: c.colSpan > 1 ? c.colSpan : null },
-        on: {
-          click: e => this.sorter(c)
-        }
-      }
-      let inner = hasCheckbox ? <Checkbox indeterminate={this.indeterminate} value={this.checkAll} onChange={this.onSelectAll} /> : c.title
-      let th = (
-        <th {...props}>
-          <span class="k-table-header-col">
-            <span class="k-table-header-title">{inner}</span>
-            {getSort(c)}
-          </span>
-        </th>
-      )
-      if (c.fixed == 'left') {
-        headL.push(th)
-      }
-      if (c.fixed == 'right') {
-        headR.push(th)
-      }
-      if (c.colSpan !== 0) {
-        head.push(th)
-      }
-    })
-
-    if (expand) {
-      head.unshift(<th></th>)
-      cols.unshift(<col class="k-table-expand-icon-col"></col>)
-    }
-
     //Set Data 
     data.forEach((d, i) => {
 
-
       let tr = [], trL = [], trR = [];
-
-      columns.forEach((c, j) => {
+      _columns.forEach((c, j) => {
         // $scopedSlots[c.key]({ text: d[c.key] })
         if (c.key || c.type) {
           let $scope = d[c.key]
@@ -198,54 +119,74 @@ export default {
           }
         }
       })
-      if (expand) {
+      if (expandNode) {
         tr.unshift(<td class="k-table-row-expand-icon-cell"><Icon onClick={e => this.onExpand(d)} type={d._expanded ? 'md-remove' : 'md-add'} /></td>)
       }
+      let trProps = {
+        class: { 'k-table-row-hover': d._hover },
+        key: d.key.toString(),
+      }
+      if (hasFixed) {
+        trProps.on = {
+          mouseenter: () => {
+            this.$set(d, '_hover', true)
+          },
+          mouseleave: () => {
+            this.$set(d, '_hover', false)
+          }
+        }
+      }
       if (tr.length) {
-        tbody.push(<tr key={d.key}>{tr}</tr>)
+        tbody.push(<tr {...trProps}>{tr}</tr>)
       }
       if (trL.length) {
-        tbodyL.push(<tr key={d.key}>{trL}</tr>)
+        tbodyL.push(<tr {...trProps}>{trL}</tr>)
       }
       if (trR.length) {
-        tbodyR.push(<tr key={d.key}>{trR}</tr>)
+        tbodyR.push(<tr {...trProps}>{trR}</tr>)
       }
 
-      if (expand) {
-        tbody.push(<tr v-show={d._expanded} class="k-table-expand-row"><td></td><td colSpan={middleCol.length}>{expand(d)}</td></tr>)
+      if (expandNode) {
+        tbody.push(<tr v-show={d._expanded} class="k-table-expand-row"><td></td><td colSpan={_columns.length}>{expandNode(d)}</td></tr>)
       }
     })
 
-    if (colsL.length) {
+    if (tbodyL.length) {
       const props = {
         props: {
-          cols: colsL,
-          head: headL,
+          columns: columns.filter(x => x.fixed == 'left'),
           body: tbodyL,
           mode: 'left',
           height,
+          indeterminate,
+          checkAll,
         },
         ref: 'leftTable',
         on: {
           scroll: this.fixedScroll,
+          sorter: this.sorter,
+          'select-all': this.onSelectAll,
           mouseenter: () => this.scrollFocus = `fixed-left`,
           mouseleave: () => this.scrollFocus = 'body'
         }
       }
       content.push(<ExtendTable {...props} />)
     }
-    if (colsR.length) {
+    if (tbodyR.length) {
       const props = {
         props: {
-          cols: colsR,
-          head: headR,
+          columns: columns.filter(x => x.fixed == 'right'),
           body: tbodyR,
           mode: 'right',
           height,
+          indeterminate,
+          checkAll,
         },
         ref: 'rightTable',
         on: {
           scroll: this.fixedScroll,
+          sorter: this.sorter,
+          'select-all': this.onSelectAll,
           mouseenter: e => {
             this.scrollFocus = `fixed-right`
           },
@@ -257,28 +198,34 @@ export default {
       content.push(<ExtendTable {...props} />)
     }
 
-
     let mainProps = {
       props: {
         mode: 'main',
-        cols,
-        head,
+        columns: columns,
+        columns2: _columns,
         body: tbody,
         height,
+        indeterminate,
+        checkAll,
         width,
+        hasExpand: expandNode != null
       },
       ref: 'mainTable',
       on: {
         scroll: this.scroll,
+        sorter: this.sorter,
+        'select-all': this.onSelectAll,
+        // resize: this.resetHeight
       }
     }
     content.push(<ExtendTable {...mainProps} />)
 
-    let rootProps = {
+    const rootProps = {
       class: ["k-table", {
         'k-table-fixed': isTableFixed,
+        'k-table-mini': this.mini,
         'k-table-fixed-header': isFixedHeader,
-        'k-table-bordered': bordered,
+        'k-table-bordered': this.bordered,
         [`k-table-scroll-${this.scrollType}`]: width
       }]
     }
@@ -288,14 +235,67 @@ export default {
     }
     //custom footer
     if (footer) {
-      content.push(<div class="k-table-footer" > {footer}</div>)
+      content.push(<div class="k-table-footer">{footer}</div>)
     }
     if (loading) {
       content.push(<Spin />)
     }
     return (<div {...rootProps}>{content}</div >)
   },
+
   methods: {
+    sorter(item) {
+
+      let { key, _order } = item
+      this.$emit('change', this.filters, { key, order: _order })
+    },
+    autoResize() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.resetHeight()
+      }, 300);
+    },
+    resetHeight() {
+      let { mainTable, leftTable, rightTable } = this.$refs
+      if (!this.renderEnd || !mainTable) return
+      let headHeight = mainTable.$refs.head.offsetHeight
+      let leftChild = [], rightChild = [];
+
+      if (leftTable) {
+        leftTable.$refs.head.firstChild.style.height = `${headHeight}px`
+        leftChild = leftTable.$refs.tbody.children
+        //   if (leftTable.$refs.body && this.width) {
+        //     leftTable.$refs.body.style.height = `${this.height - scrollBarHeight}px`
+        //   }
+      }
+
+      if (rightTable) {
+        rightTable.$refs.head.firstChild.style.height = `${headHeight}px`
+        rightChild = rightTable.$refs.tbody.children
+        //   if (rightTable.$refs.body && this.width) {
+        //     rightTable.$refs.body.style.height = `${this.height - scrollBarHeight}px`
+        //   }
+      }
+
+      const mainChild = mainTable.$refs.tbody.children
+      // reset tbody's height
+      for (let i = 0; i < mainChild.length; i++) {
+        let leftHeight = (leftChild[i] || {}).offsetHeight || 0
+        let mainHeight = mainChild[i].offsetHeight
+        let rightHeight = (rightChild[i] || {}).offsetHeight || 0
+        let maxHeight = Math.max(leftHeight, mainHeight, rightHeight)
+        if (leftHeight && leftHeight < maxHeight) {
+          leftChild[i].style.height = `${maxHeight}px`
+        }
+        if (rightHeight && rightHeight < maxHeight) {
+          rightChild[i].style.height = `${maxHeight}px`
+        }
+        if (mainHeight < maxHeight) {
+          mainChild[i].style.height = `${maxHeight}px`
+        }
+      }
+
+    },
     onExpand(item) {
       this.$set(item, '_expanded', !item._expanded)
     },
@@ -335,8 +335,8 @@ export default {
     fixedScroll({ target }) {
       let { mainTable, leftTable, rightTable } = this.$refs
       if (this.scrollFocus == 'fixed-right') {
-        mainTable.$body.scrollTo(mainTable.$body.scrollLeft, target.scrollTop)
-        leftTable && leftTable.$body.scrollTo(leftTable.$body.scrollLeft, target.scrollTop)
+        mainTable.$refs.body && mainTable.$refs.body.scrollTo(mainTable.$refs.body.scrollLeft, target.scrollTop)
+        leftTable && leftTable.$refs.body && leftTable.$refs.body.scrollTo(leftTable.$refs.body.scrollLeft, target.scrollTop)
       }
     },
     scroll({ target }) {
@@ -352,30 +352,16 @@ export default {
       } else if (scrollLeft >= max) {
         this.scrollType = 'right'
       }
+
       //同步thead scroll
-      if (mainTable) {
-        mainTable.$thead.scrollTo(scrollLeft, 0)
+      if (mainTable && mainTable.$refs.thead) {
+        mainTable.$refs.thead.scrollTo(scrollLeft, 0)
       }
       if (this.scrollFocus == 'body') {
-        leftTable && leftTable.$body.scrollTo(0, scrollTop);
-        rightTable && rightTable.$body.scrollTo(0, scrollTop);
+        leftTable && leftTable.$refs.body && leftTable.$refs.body.scrollTo(0, scrollTop);
+        rightTable && rightTable.$refs.body && rightTable.$refs.body.scrollTo(0, scrollTop);
       }
 
-    },
-    sorter(item) {
-      let { key, _order, sorter } = item
-      if (sorter) {
-        if (!_order) {
-          _order = 'asc'
-        } else if (_order == 'desc') {
-          _order = null
-        } else {
-          _order = 'desc'
-        }
-
-        this.$set(item, '_order', _order)
-        this.$emit('change', this.filters, { key, order: _order })
-      }
     }
   }
 }

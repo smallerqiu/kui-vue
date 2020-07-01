@@ -89,8 +89,7 @@ export function intToRgb(int) {
     int & 255 //b
   ];
 }
-export function parseColor(color, outFormat) {
-  outFormat = (outFormat || 'rgb');
+export function parseColor(color, outFormat = 'rgb') {
   if (color !== null && color !== undefined) {
     let pp;
     if ((pp = parseColorToRgba(color)) ||
@@ -166,6 +165,39 @@ export function parseColorToHsla(color) {
     return parsed;
   }
 }
+export function cssRgbaToRgba(rgba) {
+  if (rgba) {
+    // in CSS Colors Level 4 rgba() è un alias di rgb()
+    // rgb[a](int, int, int[, dec])
+    const [m, r, g, b, , a] = /^rgba?\((\d+)\s*[\s,]\s*(\d+)\s*[\s,]\s*(\d+)(\s*[\s,]\s*(\d*(.\d+)?))?\)/i.exec(rgba) || [];
+    return m ? [limit(r, 0, 255), limit(g, 0, 255), limit(b, 0, 255), limit(nvl(a, 1), 0, 1)] : undefined;
+  }
+  return undefined;
+}
+export function cssColorToRgba(color) {
+  if (color) {
+    const colorByName = COLOR_NAMES[color.toString().toLowerCase()];
+    // considero sia il formato esteso #RRGGGBB[AA] che quello corto #RGB[A]
+    // provo a estrarre i valori da colorByName solo se questo è valorizzato, altrimenti uso direttamente color
+    const [, , , r, g, b, a, , rr, gg, bb, aa] = /^\s*#?((([0-9A-F])([0-9A-F])([0-9A-F])([0-9A-F])?)|(([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})?))\s*$/i.exec(colorByName || color) || [];
+    if (r !== undefined) {
+      return [
+        parseInt(r + r, 16),
+        parseInt(g + g, 16),
+        parseInt(b + b, 16),
+        a ? +((parseInt(a + a, 16)) / 255).toFixed(2) : 1
+      ];
+    } else if (rr !== undefined) {
+      return [
+        parseInt(rr, 16),
+        parseInt(gg, 16),
+        parseInt(bb, 16),
+        aa ? +((parseInt(aa, 16)) / 255).toFixed(2) : 1
+      ];
+    }
+  }
+  return undefined;
+}
 
 export function parseColorToRgba(color) {
   if (Array.isArray(color)) {
@@ -202,30 +234,7 @@ export function cssHslaToHsla(hsla) {
   }
   return undefined;
 }
-export function cssColorToRgba(color) {
-  if (color) {
-    const colorByName = COLOR_NAMES[color.toString().toLowerCase()];
-    // considero sia il formato esteso #RRGGGBB[AA] che quello corto #RGB[A]
-    // provo a estrarre i valori da colorByName solo se questo è valorizzato, altrimenti uso direttamente color
-    const [, , , r, g, b, a, , rr, gg, bb, aa] = /^\s*#?((([0-9A-F])([0-9A-F])([0-9A-F])([0-9A-F])?)|(([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})?))\s*$/i.exec(colorByName || color) || [];
-    if (r !== undefined) {
-      return [
-        parseInt(r + r, 16),
-        parseInt(g + g, 16),
-        parseInt(b + b, 16),
-        a ? +((parseInt(a + a, 16)) / 255).toFixed(2) : 1
-      ];
-    } else if (rr !== undefined) {
-      return [
-        parseInt(rr, 16),
-        parseInt(gg, 16),
-        parseInt(bb, 16),
-        aa ? +((parseInt(aa, 16)) / 255).toFixed(2) : 1
-      ];
-    }
-  }
-  return undefined;
-}
+
 export function limit(value, min, max) {
   value = +value;
   return isNaN(value) ? min : (value < min ? min : (value > max ? max : value));

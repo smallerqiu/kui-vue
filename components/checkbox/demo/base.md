@@ -7,11 +7,11 @@
 <template>
   <div>
     <p>{{checked}}</p>
-    <Checkbox v-model="checked">单选框</Checkbox>
-    <Button @click="checked=!checked" mini>Click me</Button>
+    <Checkbox v-model="checked">Checkbox</Checkbox>
+    <Button @click="checked=!checked" mini>{{checked?'Uncheck':'Check'}}</Button>
     <br/>
     <br/>
-    <Checkbox label="无状态"/>
+    <Checkbox label="Checkbox"/>
   </div>
 </template>
 <script>

@@ -6,7 +6,7 @@
 ```tpl
 <template>
   <div>
-    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handelCheckAll">全选</Checkbox>
+    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handelCheckAll">Check all</Checkbox>
     <br/>
     <CheckboxGroup :options="options" v-model="cities" @change="change"/>
   </div>
@@ -18,11 +18,11 @@ export default {
       checkAll: false,
       indeterminate: false,
       options: [
-        { label: '北京', value: 'beijing' },
-        { label: '深圳', value: 'shenzhen' },
-        { label: '上海', value: 'shanghai' },
-        { label: '广州', value: 'guangzhou' },
-        { label: '武汉', value: 'wuhan' },
+        { label: 'Beijing', value: 'beijing' },
+        { label: 'Shenzhen', value: 'shenzhen' },
+        { label: 'Shanghai', value: 'shanghai' },
+        { label: 'Guangzhou', value: 'guangzhou' },
+        { label: 'Wuhan', value: 'wuhan' },
       ],
       cities:[]
     };
