@@ -1,7 +1,7 @@
-import Menu from './menu'
-import MenuGroup from './menugroup'
-import MenuItem from './menuitem'
-import SubMenu from './submenu'
+import Menu from './menu.jsx'
+import MenuGroup from './menugroup.jsx'
+import MenuItem from './menuitem.jsx'
+import SubMenu from './submenu.jsx'
 export {
    Menu,
    MenuGroup,

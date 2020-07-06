@@ -1,6 +1,12 @@
+<cn>
+#### 顶部导航
+水平的顶部导航菜单。
+</cn>
+
+```tpl
 <template>
-  <div style="width:256px">
-    <Menu v-model="current">
+  <div>
+    <Menu mode="horizontal" v-model="current">
       <MenuItem key="1" icon="md-mail">Navigation One</MenuItem>
       <MenuItem key="2" icon="ios-keypad" disabled>Navigation Two</MenuItem>
       <SubMenu key="3">
@@ -29,9 +35,6 @@ export default {
       current: ['1']
     }
   },
-  methods: {
-
-  },
-
 }
 </script> 
+```
