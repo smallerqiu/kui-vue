@@ -66,7 +66,7 @@ import layout from './layout'
 
 router.push(
     { path: '/', component: () => import(/*webpackChunkName:'home'*/'./index') },
-    // { path: '/test', component: () => import(/*webpackChunkName:'test'*/'./test') },
+    { path: '/test', component: () => import(/*webpackChunkName:'test'*/'./test') },
     // { path: '/wwocao', component: () => import(/*webpackChunkName:'test'*/'./views/start') },
     {
         path: '/components',

@@ -9,18 +9,19 @@
 @light: #f5f5f5;
 @dark: rgba(0, 0, 0, .75);
 @color: rgba(0, 0, 0, .75);
-@titleColor:rgba(0, 0, 0, .85);
-@maskColor:rgba(0, 0, 0, .6);
-@iconColor:rgba(0, 0, 0, .4);
+@titleColor: rgba(0, 0, 0, .85);
+@maskColor: rgba(0, 0, 0, .6);
+@iconColor: rgba(0, 0, 0, .4);
 @radius: ~'2px';
 @borderColor: #ddd;
 @disableBorder: #d0d0d0;
 @disableColor: rgba(0, 0, 0, .3);
 @disableBack: #f3f3f3;
-// ::selection {
-//   background: @main;
-//   color: #fff;
-// }
+::selection {
+  background: @main;
+  color: #fff;
+}
+
 // *, :after, :before {
 //   box-sizing: border-box;
 //   margin: 0;
@@ -50,103 +51,12 @@
   }
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-}
-
-
-
-@keyframes fadeEaseIn {
-  from {
-    opacity: 0;
-    transform: scale(1.1);
-    filter: blur(5px)
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeEaseOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: scale(1.1);
-    filter: blur(5px)
-  }
-}
- 
- 
-
-
-.fadeease-enter-active {
-  animation: fadeEaseIn .3s;
-}
-
-.fadeease-leave-active {
-  animation: fadeEaseOut .3s;
-}
-
-
-
-.fadeleft-enter-active {
-  animation: fadeInLeft .3s;
-}
-
-.fadeleft-leave-active {
-  animation: fadeOutRight .3s;
-}
-
-.faderight-enter-active {
-  animation: fadeInRight .3s;
-}
-
-.faderight-leave-active {
-  animation: fadeOutLeft .3s;
-}
-
-.fadedown-enter-active {
-  animation: fadeInDown .4s;
-}
-
-.fadedown-leave-active {
-  animation: fadeOutUp .3s;
-}
-
 .dropdown-enter-active {
   transform-origin: 0 0;
-  animation: dropDownIn .3s
+  animation: dropDownIn .3s;
 }
 
 .dropdown-leave-active {
   transform-origin: 0 0;
   animation: dropDownOut .3s
-}
-
-.dropdownBottom-enter-active {
-  transform-origin: 0 100%;
-  animation: dropDownIn .3s
-}
-
-.dropdownBottom-leave-active {
-  transform-origin: 0 0;
-  animation: dropDownOut .3s cubic-bezier(.755, .05, .855, .06)
 }
