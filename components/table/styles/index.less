@@ -20,7 +20,7 @@
     background: #fff;
     thead {
       background: @light;
-      border-bottom: 1px solid @borderColor;
+      border-bottom: 1px solid @border-color;
     }
     tr>th {
       // font-weight: 500;
@@ -44,7 +44,7 @@
       cursor: pointer;
       user-select: none;
       &:hover {
-        background: @borderColor;
+        background: @border-color;
       }
       .k-table-sorter {
         display: inline-block;
@@ -63,7 +63,7 @@
       }
     }
     tbody>tr {
-      border-bottom: 1px solid @borderColor;
+      border-bottom: 1px solid @border-color;
       &:nth-child(even) {
         background: @light;
       }
@@ -93,11 +93,11 @@
   }
   &-header {
     padding: 10px;
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid @border-color;
   }
   &-footer {
     padding: 10px;
-    border-bottom: 1px solid @borderColor;
+    border-bottom: 1px solid @border-color;
     background-color: @light;
   }
   th>a, td>a {
@@ -119,8 +119,8 @@
       margin-bottom: -20px;
       &::-webkit-scrollbar {
         background-color: @light;
-        // border-top: 1px solid @borderColor;
-        border-bottom: 1px solid @borderColor;
+        // border-top: 1px solid @border-color;
+        border-bottom: 1px solid @border-color;
       }
     }
     .k-table-fixed-left-thead {
@@ -188,15 +188,15 @@
     }
   }
   &-bordered {
-    border: 1px solid @borderColor;
+    border: 1px solid @border-color;
     .k-table-footer {
-      border-top: 1px solid @borderColor;
+      border-top: 1px solid @border-color;
       border-bottom: none;
     }
     thead {
       th {
-        border-bottom: 1px solid @borderColor;
-        border-right: 1px solid @borderColor;
+        border-bottom: 1px solid @border-color;
+        border-right: 1px solid @border-color;
       }
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
@@ -205,10 +205,10 @@
       }
     }
     // .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
-    //   border-bottom: 1px solid @borderColor;
+    //   border-bottom: 1px solid @border-color;
     // }
     .k-table-header {
-      border-bottom: 1px solid @borderColor;
+      border-bottom: 1px solid @border-color;
       border-top: none;
     }
     // .k-table-body tr:first-child td {
@@ -216,7 +216,7 @@
     // }
     // // border-bottom: none;
     th, td {
-      border: 1px solid @borderColor;
+      border: 1px solid @border-color;
     }
     tr {
       &:first-child td {
@@ -239,7 +239,7 @@
       border-top: none;
     }
     .k-table-fixed-right {
-      border-left: 1px solid @borderColor;
+      border-left: 1px solid @border-color;
     }
     & .k-table {
       margin: -11px -10px -11px -11px;

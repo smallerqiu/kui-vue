@@ -4,7 +4,7 @@
     <Layout class="main">
       <Sider>
         <Affix :offsetTop="30">
-          <Menu :activeName="activeName" @select="go" class="left-menu">
+          <Menu :activeName="activeName" @select="go" class="left-menu" mode="inline">
             <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="x">
               <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.name" :key="y">
               <span v-if="sub.sub">{{sub.sub}}</span>

@@ -1,21 +1,18 @@
 <cn>
-#### 只展开当前父级菜单
-点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
+#### 切换菜单类型
+展示动态切换模式。
 </cn>
 
 ```tpl
 <template>
-  <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" @open-change="openChange" accordion mode="inline">
-      <SubMenu key="sub1">
-        <template slot="title">
-          <Icon type="md-mail" />Navigation One
-        </template>
-        <MenuItem key="1-1">Option 1</MenuItem>
-        <MenuItem key="1-2">Option 2</MenuItem>
-        <MenuItem key="1-3">Option 3</MenuItem>
-        <MenuItem key="1-4">Option 4</MenuItem>
-      </SubMenu>
+  <div>
+    <Switch @change="changeMode"/> Change Mode
+    <Switch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
+    <br/>
+    <br/>
+    <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode" :style="{width:mode=='horizontal'?null:'256px'}">
+      <MenuItem key="1-1" icon="md-mail">Option 1</MenuItem>
+      <MenuItem key="1-2" icon="ios-calendar">Option 2</MenuItem>
       <SubMenu key="sub2">
         <template slot="title">
           <Icon type="ios-keypad" />Navigation Two
@@ -48,13 +45,17 @@ export default {
   data() {
     return {
       current: ['1-1'],
-      rootSubmenuKeys:['sub1','sub2','sub3'],
-      openKeys:['sub1']
+      openKeys:['sub1'],
+      theme:'light',
+      mode:'inline'
     }
   },
   methods:{
-    openChange(openKeys){
-      console.log(openKeys)
+    changeMode(checked){
+      this.mode = checked ? 'vertical' : 'inline'
+    },
+    changeTheme(checked){
+      this.theme = checked ? 'dark' : 'light';
     }
   }
 }

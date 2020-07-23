@@ -7,19 +7,8 @@
 <template>
   <div style="width:256px">
     <Menu v-model="current" :open-keys="openKeys" mode="vertical">
-      <SubMenu key="sub1">
-        <template slot="title">
-          <Icon type="md-mail" />Navigation One
-        </template>
-        <MenuGroup title="Item 1">
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="1-3">Option 3</MenuItem>
-          <MenuItem key="1-4">Option 4</MenuItem>
-        </MenuGroup>
-      </SubMenu>
+      <MenuItem key="1-1" icon="md-mail">Option 1</MenuItem>
+      <MenuItem key="1-2" icon="ios-calendar">Option 2</MenuItem>
       <SubMenu key="sub2">
         <template slot="title">
           <Icon type="ios-keypad" />Navigation Two

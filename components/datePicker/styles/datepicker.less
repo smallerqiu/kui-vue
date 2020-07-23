@@ -9,7 +9,7 @@
 	background: #fff;
 	font-size: 12px;
 	position: relative;
-	border: 1px solid @borderColor;
+	border: 1px solid @border-color;
 	min-height: 32px;
 	border-radius: @radius;
 	cursor: default;
@@ -27,14 +27,14 @@
 		right: 8px;
 		top: 50%;
 		transform: translateY(-50%);
-		color: @iconColor;
+		color: @icon-color;
 		font-size: 14px;
 		transition: all .3s;
 	}
 	.k-datepicker-placeholder, .k-datepicker-value {
 		transition: all .3s;
 		line-height: 30px;
-		color: @disableColor;
+		color: @disable-color;
 		box-sizing: border-box;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -126,15 +126,15 @@
 }
 
 .k-datepicker-disabled {
-	border-color: @disableBorder;
-	color: @disableColor;
+	border-color: @disable-border;
+	color: @disable-color;
 	cursor: not-allowed;
-	background: @disableBack;
+	background: @disable-back;
 	&:hover {
-		border-color: @disableBorder;
+		border-color: @disable-border;
 	}
 	.k-datepicker-value {
-		color: @disableColor;
+		color: @disable-color;
 	}
 }
 

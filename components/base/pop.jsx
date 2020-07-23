@@ -3,7 +3,8 @@ import Icon from "../icon";
 import transfer from "../_tool/transfer";
 import resize from "../_tool/resize";
 import outsideclick from "../_tool/outsiteclick";
-import { getElementPos, getChild } from "../_tool/utils";
+import { getElementPos, getChild, cloneVNode, isVnode } from "../_tool/utils";
+import Vue from 'vue'
 
 export default {
   directives: { transfer, resize, outsideclick },
@@ -44,7 +45,8 @@ export default {
     setPosition() {
       // let rel = this.$refs.rel;
       let dom = this.$refs.dom;
-      let rel = this.$refs.rel.children[0] || this.$refs.rel
+      // let rel = this.$refs.rel.children[0] || this.$refs.rel
+      let rel = this.$el
       if (!dom) return;
       let top = 0, left = 0;
 
@@ -69,7 +71,8 @@ export default {
     },
     hidedrop(e) {
       if (this.transfer) {
-        if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
+        // if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
+        if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$el.contains(e.target)) {
           this.showPop = false
         }
       } else {
@@ -97,7 +100,8 @@ export default {
       }
     },
     domMouseLeave(e) {
-      if (!this.$refs.rel.contains(e.target) && !this.confirm && this.trigger == 'hover') {
+      // if (!this.$refs.rel.contains(e.target) && !this.confirm && this.trigger == 'hover') {
+      if (!this.$el.contains(e.target) && !this.confirm && this.trigger == 'hover') {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.showPop = false
@@ -136,65 +140,97 @@ export default {
         bottom: 'center top', 'bottom-left': 'left top', 'bottom-right': 'right top'
       }
       return origins[this.placement]
-    }
+    },
+    renderPopup() {
+      let { placement, title, preCls, $slots } = this
+      let footerNode, titleNode, contentNode, cnode = [], drop = null, inner = [];
+      title = title || $slots.title
+
+      if (this.confirm) {
+        let fnode = []
+        fnode.push(<Button mini onClick={this.cancel}>{this.cancelText}</Button>)
+        fnode.push(<Button type="primary" mini onClick={this.ok}>{this.okText}</Button>)
+        footerNode = <div class={`k-${preCls}-footer`}>{fnode}</div>
+        cnode.push(<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>)
+      } else {
+        titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : ''
+        $slots.content && cnode.push($slots.content)
+      }
+      // cnode.push(this.$slots.content)
+      contentNode = cnode.length ? <div class={`k-${preCls}-inner-content`}>{cnode}</div> : null
+      inner.push(titleNode, contentNode, footerNode)
+      if (this.showInit) {
+        const dropStyle = {
+          left: `${this.left}px`,
+          top: `${this.top}px`,
+          width: `${this.width}px`,
+          transformOrigin: this.getOrigin()
+        }
+        let dropClass = [`k-${preCls}-content`,
+        {
+          // [`k-${preCls}-confirm`]: confirm,
+          // ["k-${preCls}-dark"]: this.dark
+        }
+        ];
+        const props = {
+          class: dropClass,
+          style: dropStyle,
+          ref: 'dom',
+          attrs: {
+            'k-placement': placement
+          },
+          on: {
+            mouseenter: e => this.domMouseEnter(e),
+            mouseleave: e => this.domMouseLeave(e)
+          }
+        }
+        drop = (
+          <transition name={`k-${preCls}-fade`}>
+            <div {...props} v-show={this.showPop} v-transfer={this.transfer} v-resize={this.setPosition} v-outsideclick={this.hidedrop}>
+              <div class={`k-${preCls}-arrow`}></div>
+              <div class={`k-${preCls}-inner`}>{inner}</div>
+            </div>
+          </transition>
+        )
+      }
+      return drop
+    },
   },
+
   render() {
-    let { placement, title, preCls ,$slots} = this
-    let footerNode, titleNode, contentNode, cnode = [], drop, inner = [];
-    if (this.confirm) {
-      let fnode = []
-      fnode.push(<Button mini onClick={this.cancel}>{this.cancelText}</Button>)
-      fnode.push(<Button type="primary" mini onClick={this.ok}>{this.okText}</Button>)
-      footerNode = <div class={`k-${preCls}-footer`}>{fnode}</div>
-      cnode.push(<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title || $slots.title}</div>)
-    } else {
-      titleNode = (title || $slots.title) ? <div class={`k-${preCls}-title`}>{title || $slots.title}</div> : ''
-      $slots.content && cnode.push($slots.content)
-    }
-    // cnode.push(this.$slots.content)
-    contentNode = cnode.length ? <div class={`k-${preCls}-inner-content`}>{cnode}</div> : null
-    inner.push(titleNode, contentNode, footerNode)
-    if (this.showInit) {
-      const dropStyle = {
-        left: `${this.left}px`,
-        top: `${this.top}px`,
-        width: `${this.width}px`,
-        transformOrigin: this.getOrigin()
-      }
-      let dropClass = [`k-${preCls}-content`,
-      {
-        // [`k-${preCls}-confirm`]: confirm,
-        // ["k-${preCls}-dark"]: this.dark
-      }
-      ];
-      const props = {
-        class: dropClass,
-        style: dropStyle,
-        ref: 'dom',
-        attrs: {
-          'k-placement': placement
+    let { $slots } = this
+
+    let child = ($slots.default || []).filter(c => c.tag || c.text.trim() !== '');
+    child = child.length === 1 ? child[0] : child;
+    if (!child) {
+      return null;
+    };
+    child = isVnode(child) ? child : <span>{child}</span>;
+    let popup = this.renderPopup()
+
+
+    const props = {
+      children: popup,
+      on: {
+        'mouseenter': e => {
+          this.mouseEnter()
         },
-        on: {
-          mouseenter: e => this.domMouseEnter(e),
-          mouseleave: e => this.domMouseLeave(e)
+        'mouseleave': e => {
+          this.mouseLeave()
+        },
+        'click': e => {
+          this.relClick()
         }
       }
-      drop = (
-        <transition name={`k-${preCls}-fade`}>
-          <div {...props} v-show={this.showPop} v-transfer={this.transfer} v-resize={this.setPosition}>
-            <div class={`k-${preCls}-arrow`}></div>
-            <div class={`k-${preCls}-inner`}>{inner}</div>
-          </div>
-        </transition>
-      )
     }
-    return (
-      <div class={`k-${preCls}`} onMouseenter={this.mouseEnter} onMouseleave={this.mouseLeave} v-outsideclick={this.hidedrop}>
-        <div class={`k-${preCls}-rel`} onClick={this.relClick} ref="rel">
-          {this.$slots.default}
-        </div>
-        {drop}
-      </div>
-    )
+    return cloneVNode(child, props)
+    // return (
+    //   <div class={`k-${preCls}`} onMouseenter={this.mouseEnter} onMouseleave={this.mouseLeave} >
+    //     <div class={`k-${preCls}-rel`} onClick={this.relClick} ref="rel">
+    //       {$slots.default}
+    //     </div>
+    //     {drop}
+    //   </div>
+    // )
   }
 };

@@ -6,7 +6,7 @@
 ```tpl
 <template>
   <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys">
+    <Menu v-model="current" :open-keys="openKeys" mode="inline">
       <SubMenu key="sub1">
         <template slot="title">
           <Icon type="md-mail" />Navigation One

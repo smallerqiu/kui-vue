@@ -37,3 +37,80 @@ export function getElementPos(element) {
   }
   return pos;
 }
+
+export function cloneVNode(vnode, opts = {}) {
+  const componentOptions = vnode.componentOptions;
+  const data = vnode.data;
+
+  let listeners = {};
+  if (componentOptions && componentOptions.listeners) {
+    listeners = { ...componentOptions.listeners };
+  }
+
+  let on = {...opts.on};
+  if (data && data.on) {
+    on = { ...data.on };
+    // on = Object.assign(data.on, );
+
+    // merge event ,mouseenter & mouseleave & click 
+    let { mouseenter, mouseleave, click } = on
+    on.mouseenter = e => {
+      opts.on.mouseenter();
+      mouseenter && mouseenter();
+    }
+    on.mouseleave = e => {
+      opts.on.mouseleave();
+      mouseleave && mouseleave();
+    }
+    on.click = e => {
+      opts.on.click();
+      click && click();
+    }
+
+  }
+  let children = vnode.children || []
+  if (opts.children)
+    children = children.concat(opts.children)
+
+  // console.log(children)
+  const cloned = new vnode.constructor(
+    vnode.tag,
+    // data ? { ...data, on } : data,
+    { ...data, on },
+    // vnode.children,
+    children,
+    vnode.text,
+    vnode.elm,
+    vnode.context,
+    componentOptions ? { ...componentOptions, listeners } : componentOptions,
+    vnode.asyncFactory,
+  );
+  cloned.ns = vnode.ns;
+  cloned.isStatic = vnode.isStatic;
+  cloned.key = vnode.key;
+  cloned.isComment = vnode.isComment;
+  cloned.fnContext = vnode.fnContext;
+  cloned.fnOptions = vnode.fnOptions;
+  cloned.fnScopeId = vnode.fnScopeId;
+  cloned.isCloned = true;
+  // if (deep) {
+  //   if (vnode.children) {
+  //     cloned.children = cloneVNodes(vnode.children, true);
+  //   }
+  //   if (componentOptions && componentOptions.children) {
+  //     componentOptions.children = cloneVNodes(componentOptions.children, true);
+  //   }
+  // }
+  return cloned;
+}
+
+
+export function isVnode(element) {
+  return (
+    element &&
+    typeof element === 'object' &&
+    'componentOptions' in element &&
+    'context' in element &&
+    element.tag !== undefined
+  );
+}

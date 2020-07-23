@@ -1,5 +1,7 @@
 import Icon from "../icon";
 import { getParent } from './utils.js'
+import Tooltip from '../tooltip'
+// import PopBase from '../base/pop'
 export default {
   name: "MenuItem",
   props: {
@@ -21,9 +23,9 @@ export default {
   render() {
 
     const { icon, disabled, Menu, SubMenu } = this
-    let selected;
+    let selected, root = {}
     if (Menu) {
-      let root = getParent(Menu, 'Menu')
+      root = getParent(Menu, 'Menu')
       // console.log(root.mode, root.selectedKeys, 'item')
       selected = root.selectedKeys.indexOf(this.$vnode.key) >= 0
     }
@@ -52,24 +54,23 @@ export default {
               item: this,
               event: e
             }
-
-            if (SubMenu) {
-              SubMenu.handleClick(options)
-              return;
-            }
-
-            if (Menu) {
-              Menu.handleClick(options)
+            let parent = SubMenu || Menu
+            if (parent) {
+              parent.handleClick(options)
             }
           }
         },
       }
     }
+    const showTooltip = this.$parent == root && root.inlineCollapsed
     return (
-      <li {...props}  >
-        {icon ? <Icon type={icon} /> : null}
-        {this.$slots.default}
-      </li >
+      <Tooltip placement="right">
+        <li {...props}>
+          {icon ? <Icon type={icon} class="k-menu-item-icon" /> : null}
+          {this.$slots.default}
+        </li>
+        {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
+      </Tooltip>
     )
   },
 };

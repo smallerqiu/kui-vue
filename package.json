@@ -1,6 +1,6 @@
 {
     "name": "kui-vue",
-    "version": "2.3.5",
+    "version": "3.0.0",
     "description": "A high quality UI Toolkit built on Vue.js 2.0",
     "main": "dist/k-ui.js",
     "style": "dist/k-ui.css",
@@ -55,18 +55,19 @@
         "babel-plugin-transform-vue-jsx": "^4.0.1",
         "babel-preset-env": "^1.7.0",
         "chalk": "^4.1.0",
+        "cheerio": "^1.0.0-rc.3",
         "css-loader": "^3.6.0",
         "file-loader": "^6.0.0",
         "html-webpack-plugin": "^4.3.0",
         "kui-loader": "^1.0.2",
         "less": "^3.11.3",
         "less-loader": "^6.1.2",
+        "markdown-it": "^11.0.0",
+        "markdown-it-anchor": "^5.3.0",
         "mini-css-extract-plugin": "^0.9.0",
         "opn": "^6.0.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
-        "ora": "^4.0.4",
         "postcss-loader": "^3.0.0",
-        "rimraf": "^3.0.2",
         "style-loader": "^1.2.1",
         "uglifyjs-webpack-plugin": "^2.2.0",
         "url-loader": "^4.1.0",
@@ -86,10 +87,8 @@
     },
     "dependencies": {
         "kui-icons": "^1.0.2",
-        "markdown-it-anchor": "^5.3.0",
         "marked": "^1.1.0",
         "moment": "^2.27.0",
-        "vue-antd-md-loader": "^1.2.0",
         "vue-markdown-loader": "^2.4.1"
     }
 }

@@ -2,6 +2,12 @@ import Collapse from '../_tool/collapse'
 import Menu from './menu.jsx'
 import { getParent } from './utils.js'
 import Icon from '../icon'
+const animateNames = {
+  horizontal: 'dropdown',
+  inline: 'k-collaplse-slide',
+  vertical: 'k-menu-submenu-fade'
+}
+
 export default {
   name: "SubMenu",
   props: {
@@ -20,22 +26,31 @@ export default {
     return {
       active: false,
       opened: false,
+      left: null,
+      minWidth: null,
+      currentMode: null
     };
   },
   render() {
     const { $slots, disabled } = this
 
-    let selected, root = getParent(this.Menu, 'Menu'), opened = this.opened
-
-    if (root.selectedKeys) {
+    let selected, root = getParent(this.Menu, 'Menu'), opened = this.opened;
+    const { currentMode, theme, selectedKeys } = root
+    if (selectedKeys) {
       // console.log(this.Menu.selectedKeys, 'submenu')
-      selected = root.selectedKeys.indexOf(this.$vnode.key) >= 0
+      selected = selectedKeys.indexOf(this.$vnode.key) >= 0
     }
-
-    if (root.mode == 'inline') {
+    if (currentMode == 'inline') {
       opened = root.defaultOpenKeys.indexOf(this.$vnode.key) >= 0
     }
-
+    // opened = true
+    let mode = currentMode
+    if (currentMode == 'horizontal') {
+      this.currentMode = 'vertical'
+      // this.left = null
+    } else {
+      this.currentMode = mode
+    }
     const props = {
       class: [
         "k-menu-submenu",
@@ -50,13 +65,24 @@ export default {
         mouseenter: () => {
           if (disabled) return;
           this.active = true
-          if (root.mode == 'inline') return;
+          if (currentMode == 'inline') return;
+          let width = this.$el.offsetWidth
+          this.minWidth = null
+          this.left = null
+          if (currentMode == 'vertical') {
+            this.left = width
+          } else if (this.currentMode == 'vertical') {
+            this.left = !this.SubMenu ? null : width
+            if (!this.SubMenu) {
+              this.minWidth = width
+            }
+          }
           this.opened = true;
           clearTimeout(this.timer)
         },
         mouseleave: () => {
           this.active = false
-          if (root.mode == 'inline') return;
+          if (currentMode == 'inline') return;
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {
             this.opened = false
@@ -64,12 +90,19 @@ export default {
         }
       }
     }
+
+    // console.log(subProps)
+    let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode]
+
     return (
       <li {...props}>
-        <div class="k-menu-title" onClick={this.openChange}>{$slots.title}<Icon type="ios-arrow-down" class="k-menu-submenu-arrow" /></div>
-        <Collapse name={root.mode == 'horizontal' ? 'dropdown' : 'k-collaplse-slide'} >
-          <div class="k-menu-popup" v-show={opened}>
-            <Menu>{$slots.default}</Menu>
+        <div class="k-menu-submenu-title" onClick={this.openChange}>
+          <span class="k-menu-submenu-inner">{$slots.title || this.title}</span>
+          <Icon type={currentMode == 'vertical' ? 'ios-arrow-forward' : "ios-arrow-down"} class="k-menu-submenu-arrow" />
+        </div>
+        <Collapse name={aniName}>
+          <div class="k-menu-popup" v-show={opened} style={{ left: `${this.left}px`, 'min-width': `${this.minWidth}px` }}>
+            <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
           </div>
         </Collapse>
       </li>
@@ -77,16 +110,15 @@ export default {
   },
   methods: {
     openChange() {
-
       if (this.Menu) {
         let root = getParent(this.Menu, 'Menu')
+        if (root.currentMode != 'inline') return;
         let openKeys = root.defaultOpenKeys
         let key = this.$vnode.key
         let index = openKeys.indexOf(key)
         //accordion
         if (root.accordion) {
           let rootSub = getParent(this.SubMenu, 'SubMenu')
-          console.log(rootSub)
           if (!rootSub._uid) {
             root.openChange(index >= 0 ? [] : [key])
             return;
@@ -102,16 +134,21 @@ export default {
         root.openChange(openKeys)
       }
     },
-    handleClick(options) {
-      // console.log(this.Menu.defaultSelectedKeys)
-      options.keyPath.unshift(this.$vnode.key)
+    closeSub() {
+      this.opened = false
+      if (this.SubMenu) this.SubMenu.closeSub()
+    },
+    handleClick(options) { //item click event
 
-      if (this.SubMenu) {
-        this.SubMenu.handleClick(options)
-        return;
+      options.keyPath.unshift(this.$vnode.key)
+      let parent = this.SubMenu || this.Menu
+      if (parent) {
+        parent.handleClick(options)
       }
-      if (this.Menu) {
-        this.Menu.handleClick(options)
+
+      let root = getParent(this.Menu, 'Menu')
+      if (root.currentMode == 'horizontal' || root.currentMode == 'vertical') {
+        this.closeSub()
       }
     }
   }

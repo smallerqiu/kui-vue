@@ -11,8 +11,8 @@ export default {
 	},
 	// functional: true, //为true 表示 无状态 data 无 无实例 没有this
 	render() {
-		if (this.name == 'dropdown') {
-			return (<transition name="dropdown">{this.$slots.default}</transition>)
+		if (this.name != 'k-collaplse-slide') {
+			return (<transition name={this.name}>{this.$slots.default}</transition>)
 		}
 		const props = getTranstionProp(name)
 		return (<transition {...props}>{this.$slots.default}</transition>)

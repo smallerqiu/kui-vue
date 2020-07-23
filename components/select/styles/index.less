@@ -21,7 +21,7 @@
     cursor: pointer;
     position: relative;
     background-color: #fff;
-    border: 1px solid @borderColor;
+    border: 1px solid @border-color;
     transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
     min-height: 32px;
     position: relative;
@@ -50,7 +50,7 @@
     overflow: hidden;
     .k-select-tag {
       padding: 2px 22px 2px 5px;
-      border: 1px solid @borderColor;
+      border: 1px solid @border-color;
       border-radius: @radius;
       margin: 0 0 3px 5px;
       float: left;
@@ -103,7 +103,7 @@
     padding-right: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: @disableColor;
+    color: @disable-color;
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;
@@ -140,7 +140,7 @@
     transform: translateY(-50%) rotate(0deg);
     transform-origin: center;
     transition: transform .3s ease-in-out;
-    color: @iconColor;
+    color: @icon-color;
   }
   .k-select-clearable {
     position: absolute;
@@ -149,7 +149,7 @@
     transform: translateY(-50%);
     display: none;
     font-size: 15px;
-    color: @iconColor;
+    color: @icon-color;
     &:hover {
       color: @color;
     }
@@ -214,7 +214,7 @@
       top: 50%;
       transform: translateY(-50%);
       display: none;
-      color: @iconColor;
+      color: @icon-color;
     }
     &:hover .k-icon, .k-icon {
       display: block;
@@ -233,8 +233,8 @@
     }
   }
   .k-select-item-disabled {
-    background: @disableBack;
-    color: @disableColor;
+    background: @disable-back;
+    color: @disable-color;
     cursor: not-allowed;
   }
   // &:hover{
@@ -243,7 +243,7 @@
   // &::-webkit-scrollbar {
   // width: 8px;
   // height: 8px;
-  // border-left: 1px solid @borderColor;
+  // border-left: 1px solid @border-color;
   // padding: 0 2px;
   // background: rgba(211, 211, 211, 0.568);
   // }
@@ -343,19 +343,19 @@
 }
 
 .k-select-disabled {
-  color: @disableColor;
+  color: @disable-color;
   .k-select-label {
     cursor: not-allowed;
   }
   .k-select-selection {
-    background: @disableBack;
+    background: @disable-back;
     cursor: not-allowed;
   }
   .k-select-arrow {
-    color: @disableBorder;
+    color: @disable-border;
   }
   &:hover .k-select-selection {
-    border-color: @disableBorder;
+    border-color: @disable-border;
   }
 }
 
