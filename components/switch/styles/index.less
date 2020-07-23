@@ -14,11 +14,11 @@
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-   transition: all .2s ease-in-out;
+   transition: all .36s cubic-bezier(.78,.14,.15,.86);
    display: inline-block;
    box-sizing: border-box;
    overflow: hidden;
-   .k-icon{
+   .k-icon {
       font-size: 22px;
    }
    &:after {
@@ -29,10 +29,10 @@
       background-color: #fff;
       position: absolute;
       left: 1px;
-      top: 1px;
+      top: 50%;
       cursor: pointer;
-      transform: translate3d(0, 0, 0);
-      transition: all .2s ease-in-out; // .2s ease-in-out;
+      transform: translate3d(0, -50%, 0);
+      transition: all .36s cubic-bezier(.78, .14, .15, .86);
    }
    .k-switch-inner {
       color: #fff;
@@ -68,7 +68,7 @@
    border-color: @main;
    &:after {
       left: 100%;
-      transform: translate3d(-100%, 0, 0);
+      transform: translate3d(-100%, -50%, 0);
       margin-left: -1px;
    }
    .k-switch-inner {

@@ -24,7 +24,7 @@
 			position: relative;
 			top: 0;
 			left: 0;
-			border: 1px solid @borderColor;
+			border: 1px solid @border-color;
 			border-radius: 2px;
 			background-color: #fff;
 			transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
@@ -88,23 +88,23 @@
 
 .k-checkbox-disabled {
 	cursor: not-allowed;
-	color: @disableColor;
+	color: @disable-color;
 	.k-checkbox {
 		.k-checkbox-input {
 			cursor: not-allowed;
 		}
 		.k-checkbox-inner {
-			background: @disableBack;
-			border-color: @disableBorder;
-			color: @disableColor;
+			background: @disable-back;
+			border-color: @disable-border;
+			color: @disable-color;
 			&:after {
-				background-color: @disableBack;
-				color: @disableColor;
+				background-color: @disable-back;
+				color: @disable-color;
 			}
 		}
 	}
 	.k-checkbox-indeterminate .k-checkbox-inner:after {
-		background-color: @disableBorder;
+		background-color: @disable-border;
 	}
 }
 

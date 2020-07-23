@@ -12,7 +12,7 @@
     line-height: 1.5;
     padding: 4px 7px;
     font-size: 12px;
-    border: 1px solid @borderColor;
+    border: 1px solid @border-color;
     border-radius: @radius;
     color: @color;
     background-color: #fff;
@@ -28,14 +28,14 @@
     }
     &:disabled {
       cursor: not-allowed;
-      color: @disableColor;
-      background: @disableBack;
-      border-color: @disableBorder;
+      color: @disable-color;
+      background: @disable-back;
+      border-color: @disable-border;
       &::placeholder {
-        color: @disableColor;
+        color: @disable-color;
       }
       &:hover {
-        border-color: @disableBorder;
+        border-color: @disable-border;
       }
     }
   }
@@ -54,7 +54,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-    color: @iconColor;
+    color: @icon-color;
     z-index: 1;
     &+.k-input {
       padding-left: 32px;

@@ -19,11 +19,12 @@ export default {
     let props = {
       props: { preCls: 'tooltip', ...this.$props },
     }
-    return (
+    const title = this.$slots.title || this.title
+    return (title ?
       <PopBase {...props}>
         {this.$slots.default}
-        <template slot="title">{this.$slots.title}</template>
-      </PopBase>
+        <template slot="title">{title}</template>
+      </PopBase> : this.$slots.default
     )
   }
 };

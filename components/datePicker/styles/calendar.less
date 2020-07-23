@@ -13,7 +13,7 @@
     //     box-sizing: content-box;
     //   }
     .k-calendar-time-picker {
-      border-left: 1px solid @borderColor;
+      border-left: 1px solid @border-color;
     }
   }
   .k-calendar-body {
@@ -37,7 +37,7 @@
     }
     .k-calendar-prev-month-btn, .k-calendar-next-month-btn, .k-calendar-prev-year-btn, .k-calendar-next-year-btn {
       position: absolute;
-      color: @iconColor;
+      color: @icon-color;
       padding: 0 5px;
       font-size: 16px;
     }
@@ -95,7 +95,7 @@
     }
   }
   .k-calendar-footer {
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid @border-color;
     position: relative;
     z-index: 1;
     padding: 5px 8px;
@@ -125,7 +125,7 @@
     background: fade(@main, 15%);
   }
   .k-calendar-date-out {
-    color: @iconColor;
+    color: @icon-color;
     background: none;
   }
   span.k-calendar-date-today {
@@ -147,10 +147,10 @@
     background: @main;
     border-radius: @radius;
     &.k-calendar-date-disabled {
-      border: 1px solid @disableBorder;
+      border: 1px solid @disable-border;
       box-sizing: border-box;
       &::after {
-        background: @disableBorder;
+        background: @disable-border;
       }
     }
     &:hover {
@@ -162,16 +162,16 @@
   }
   span.k-calendar-date-disabled {
     cursor: not-allowed;
-    color: @disableColor;
-    background: @disableBack;
+    color: @disable-color;
+    background: @disable-back;
     &.k-calendar-date-today {
-      border-color: @disableBorder;
+      border-color: @disable-border;
       &::after{
-        background: @disableBorder;
+        background: @disable-border;
       }
     }
     &:hover {
-      background: @disableBack;
+      background: @disable-back;
     }
   }
   .k-calendar-time-picker {
@@ -181,13 +181,13 @@
     left: 0;
     top: 0;
     background: #fff;
-    border-top: 1px solid @borderColor;
+    border-top: 1px solid @border-color;
     .k-calendar-time-picker-select {
       width: 33.333%;
       font-size: 0;
       overflow: hidden;
       height: 215px;
-      border-right: 1px solid @borderColor;
+      border-right: 1px solid @border-color;
       box-sizing: border-box;
       float: left;
       &:hover {
@@ -224,7 +224,7 @@
         border: none;
       }
       li.k-calendar-time-disabled {
-        color: @disableColor;
+        color: @disable-color;
         cursor: not-allowed;
       }
     }

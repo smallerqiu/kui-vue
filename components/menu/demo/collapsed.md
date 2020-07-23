@@ -1,24 +1,20 @@
 <cn>
-#### 只展开当前父级菜单
-点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
+#### 缩起内嵌菜单
+内嵌菜单可以被缩起/展开。
 </cn>
 
 ```tpl
 <template>
   <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" @open-change="openChange" accordion mode="inline">
-      <SubMenu key="sub1">
-        <template slot="title">
-          <Icon type="md-mail" />Navigation One
-        </template>
-        <MenuItem key="1-1">Option 1</MenuItem>
-        <MenuItem key="1-2">Option 2</MenuItem>
-        <MenuItem key="1-3">Option 3</MenuItem>
-        <MenuItem key="1-4">Option 4</MenuItem>
-      </SubMenu>
+    <Button @click="change" :icon="collapsed?'md-list':'md-menu'" type="primary"></Button>
+    <br/>
+    <br/>
+    <Menu v-model="current" :open-keys="openKeys" theme="dark" :inline-collapsed="collapsed" mode="inline">
+      <MenuItem key="1-1" icon="md-mail"><span>Option 1</span></MenuItem>
+      <MenuItem key="1-2" icon="ios-calendar"><span>Option 2</span></MenuItem>
       <SubMenu key="sub2">
         <template slot="title">
-          <Icon type="ios-keypad" />Navigation Two
+          <Icon type="ios-keypad" /><span>Navigation Two</span>
         </template>
           <MenuItem key="2-1">Option 5</MenuItem>
           <MenuItem key="2-2">Option 6</MenuItem>
@@ -32,7 +28,7 @@
       </SubMenu>
        <SubMenu key="sub3">
         <template slot="title">
-          <Icon type="ios-settings" />Navigation Three
+          <Icon type="ios-settings" /><span>Navigation Three</span>
         </template>
         <MenuItem key="3-1">Option 9</MenuItem>
         <MenuItem key="3-2">Option 10</MenuItem>
@@ -48,13 +44,13 @@ export default {
   data() {
     return {
       current: ['1-1'],
-      rootSubmenuKeys:['sub1','sub2','sub3'],
-      openKeys:['sub1']
+      openKeys:['sub1'],
+      collapsed: false
     }
   },
   methods:{
-    openChange(openKeys){
-      console.log(openKeys)
+    change(){
+      this.collapsed = !this.collapsed
     }
   }
 }

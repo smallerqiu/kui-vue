@@ -32,7 +32,7 @@ export default {
         this.isChecked = checked
       }
       this.$emit("input", checked);
-      this.$emit("change", e);
+      this.$emit("change", this.isChecked);
     }
   },
   render() {

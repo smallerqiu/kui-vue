@@ -19,7 +19,7 @@
 			text-align: center;
 			display: inline-block;
 			box-sizing: content-box;
-			border: 1px solid @borderColor;
+			border: 1px solid @border-color;
 			// transition: all 0.2s ease-in-out 0s;
 			margin-left: -1px;
 			font-size: 14px;
@@ -41,7 +41,7 @@
 				margin: 0 5px;
 			}
 			.k-icon {
-				color: @iconColor;
+				color: @icon-color;
 				position: absolute;
 				top: 50%;
 				left: 50%;
@@ -56,15 +56,15 @@
 			}
 		}
 		.k-pager-item-disabled {
-			border-color: @disableBorder;
+			border-color: @disable-border;
 			cursor: not-allowed;
 			.k-icon {
-				color: @disableColor;
+				color: @disable-color;
 			}
 			&:hover {
-				border-color: @disableBorder;
+				border-color: @disable-border;
 				.k-icon {
-					color: @disableColor;
+					color: @disable-color;
 				}
 			}
 		}

@@ -3,11 +3,11 @@ export default {
   name: "Menu",
   props: {
     theme: { type: String, default: "light" },
-    mode: { type: String, default: "inline" },
+    mode: { type: String, default: "vertical" },
     value: { type: Array, default: () => [] },
     accordion: Boolean,
+    inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
-    width: { type: [Number, String], default: 240 }
   },
   inject: {
     Menu: { default: null },
@@ -18,21 +18,36 @@ export default {
       Menu: this
     }
   },
+  watch: {
+    mode(mode) {
+      this.currentMode = mode
+    },
+    inlineCollapsed(collapsed) {
+      // if (this.defaultOpenKeys.length)
+      // this.originOpenKeys = JSON.parse(JSON.stringify(this.defaultOpenKeys))
+
+      if (!this.originMode) this.originMode = this.currentMode
+      this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.currentMode = collapsed ? 'vertical' : this.originMode
+      }, 300);
+    }
+  },
   data() {
     return {
       selectedKeys: this.value,
-      defaultOpenKeys: this.openKeys
+      defaultOpenKeys: this.openKeys,
+      currentMode: this.mode,
+      originOpenKeys: [],
+      originMode: null
     };
   },
   render() {
-    const { theme, mode } = this
-    const cls = [
-      "k-menu",
-      {
-        [`k-menu-${theme}`]: theme == 'dark',
-        [`k-menu-${mode}`]: mode
-      }
-    ];
+    const { theme, currentMode } = this
+    const cls = [`k-menu k-menu-${theme} k-menu-${currentMode}`, {
+      'k-menu-inline-collapased': this.inlineCollapsed
+    }];
     return (<ul class={cls}>{this.$slots.default}</ul>)
   },
   methods: {

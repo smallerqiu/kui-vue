@@ -104,7 +104,7 @@ export default{
     return{
       title:'明月几时有,把酒问青天 !',
     }
-  }
+  },
 }
 </script>
 ```
