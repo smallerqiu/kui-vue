@@ -7,6 +7,7 @@ export default {
     label: [String, Number],
   },
   inject: {
+    FormItem: { default: null },
     groupContext: { default: null },
   },
   data() {
@@ -16,11 +17,15 @@ export default {
   },
   methods: {
     change() {
-      const { value, $slots, label, groupContext } = this
+      let { value, $slots, label, groupContext } = this
       this.checked = true
       if (groupContext) {
-        let _label = label || $slots.default.text
-        groupContext.change({ label: _label, value })
+        label = label || $slots.default.text
+        groupContext.change({ label, value })
+      } else {
+        this.$emit("input", checked);
+        this.$emit("change", e);
+        this.FormItem && this.FormItem.testValue(checked)
       }
     }
   },

@@ -2,35 +2,40 @@
 export default {
   name: "Row",
   props: {
-    gutter: {
-      type: [Number, String],
-      default: 0
-    }
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    styles() {
-      const gutter = this.gutter
-      if (gutter) {
-        return {
-          marginLeft: gutter / -2 + "px",
-          marginRight: gutter / -2 + "px"
-        };
+    gutter: Number,
+    type: String,
+    justify: {
+      type: String,
+      validator: (value) => {
+        return ['start', 'end', 'center', 'space-around', 'space-between'].indexOf(value) > -1
+      }
+    },
+    align: {
+      type: String,
+      validator: (value) => {
+        return ['top', 'middle', 'bottom'].indexOf(value) > -1
       }
     }
   },
-  render() {
-    let { $slots, styles } = this
-    let props = {
-      class: 'k-row',
-      style: styles
+  provide() {
+    return {
+      Row: this
     }
-    return (
-      <div {...props}>
-        {$slots.default}
-      </div>
-    )
+  },
+  render() {
+    let { $slots, align, justify, gutter } = this
+    let props = {
+      class: ['k-row', {
+        'k-row-flex': this.type == 'flex',
+        [`k-row-flex-${justify}`]: justify,
+        [`k-row-flex-${align}`]: align,
+
+      }],
+      style: {
+        marginLeft: gutter / -2 + "px",
+        marginRight: gutter / -2 + "px"
+      }
+    }
+    return (<div {...props}>{$slots.default}</div >)
   }
 }; 

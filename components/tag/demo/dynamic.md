@@ -7,7 +7,7 @@
 <template>
   <div>
     <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
-    <Input v-show="showInput" @blur="add" mini width="81" ref="input" :value="tag"/>
+    <Input v-show="showInput" @blur="add" mini style="width:81px" ref="input" :value="tag"/>
     <Button @click="show" mini icon="ios-bookmark" v-show="!showInput">New Tag</Button>
   </div>
 </template>

@@ -1,90 +1,101 @@
 @import '../../styles/global.less';
 .k-form {
+  .k-form-item {
+    margin-bottom: 24px;
+    vertical-align: top;
+    zoom: 1;
+    // margin-bottom: 5px;
+    &::before, &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
     .k-form-item {
-        margin-bottom: 24px;
-        vertical-align: top;
-        zoom: 1;
-        .k-form-item {
-            margin-bottom: 0;
-        }
+      margin: 0;
     }
+  }
+  .k-form-item-label {
+    float: left;
+    text-align: right;
+    vertical-align: middle;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+    line-height: 1;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .k-form-item-content {
+    position: relative;
+    line-height: 32px;
+  }
+  .k-form-item-error-tip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: @danger;
+    line-height: 1.5;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .k-form-item-required {
     .k-form-item-label {
-        float: left;
-        text-align: right;
-        vertical-align: middle;
-        padding: 10px 12px 10px 0;
-        box-sizing: border-box;
+      &::before {
+        content: "*";
+        display: inline;
+        margin-right: 4px;
         line-height: 1;
-    }
-    .k-form-item-content {
-        position: relative;
-        line-height: 32px;
-    }
-    .k-form-item-error-tip {
-        position: absolute;
-        top: 100%;
-        left: 0;
+        font-family: SimSun;
+        font-size: 12px;
         color: @danger;
-        line-height: 1;
-        margin-top: 5px;
+      }
     }
-    .k-form-item-required {
-        .k-form-item-label {
-            &::before {
-                content: "*";
-                display: inline;
-                margin-right: 4px;
-                line-height: 1;
-                font-family: SimSun;
-                font-size: 12px;
-                color: @danger;
-            }
-        }
+  }
+  .k-form-item-error {
+    .k-input, .k-textarea, .k-datepicker {
+      border: 1px solid @danger;
+      &:focus {
+        border: 1px solid @danger;
+        box-shadow: 0 0 5px fade(@danger, 75%);
+      }
     }
-    .k-form-item-error {
-        .k-input {
-            border: 1px solid @danger;
-            &:focus {
-                box-shadow: 0 0 5px fade(@danger, 75%);
-            }
-        }
-        .k-select-selection {
-            border: 1px solid @danger;
-        }
-        .k-select-open .k-select-selection {
-            border: 1px solid @danger;
-            box-shadow: 0 0 5px fade(@danger, 75%);
-        }
-        .k-datepicker > .k-datepicker-input {
-            border: 1px solid @danger;
-        }
-        .k-datepicker > .k-datepicker-input.focus {
-            border: 1px solid @danger;
-            box-shadow: 0 0 5px fade(@danger, 75%);
-        }
+    .k-select {
+      .k-select-selection {
+        border: 1px solid @danger;
+      }
+      .k-select-arrow {
+        color: @danger;
+      }
     }
+    .k-select-open .k-select-selection {
+      box-shadow: 0 0 5px fade(@danger, 75%);
+    }
+    .k-datepicker-open {
+      box-shadow: 0 0 5px fade(@danger, 75%);
+    }
+  }
 }
 
-.k-form-right {
-    .k-form-item-label {
-        text-align: right
-    }
+.k-form-label-right {
+  .k-form-item-label {
+    text-align: right
+  }
 }
 
-.k-form-left {
-    .k-form-item-label {
-        text-align: left
-    }
+.k-form-label-left {
+  .k-form-item-label {
+    text-align: left
+  }
 }
 
-.k-form-top {
-    .k-form-item-label {
-        float: none;
-        display: inline-block;
-        padding: 0 0 10px;
-        text-align: left;
-    }
-    .k-form-item-content {
-        margin-left: 0;
-    }
+.k-form-label-top {
+  .k-form-item-label {
+    float: none;
+    display: inline-block;
+    padding: 0 0 10px;
+    text-align: left;
+  }
+  .k-form-item-content {
+    margin-left: 0;
+  }
 }

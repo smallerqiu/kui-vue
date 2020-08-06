@@ -4,7 +4,7 @@ export default {
   name: "Checkbox",
   props: {
     value: [String, Number, Boolean],
-    disabled: { type: Boolean, default: false },
+    disabled: Boolean,
     label: { type: [String, Number] },
     indeterminate: Boolean,
     checked: [Boolean, Number]
@@ -14,6 +14,7 @@ export default {
     // event: 'change'
   },
   inject: {
+    FormItem: { default: null },
     groupContext: { default: null },
   },
   data() {
@@ -32,10 +33,11 @@ export default {
       this.isChecked = checked;
       if (groupContext) {
         label = label || $slots.default.text
-        this.groupContext.change({ label, value })
+        this.groupContext.change({ label, value })  
       } else {
         this.$emit("input", checked);
         this.$emit("change", e);
+        this.FormItem && this.FormItem.testValue(checked)
       }
     }
   },
@@ -65,8 +67,8 @@ export default {
     return (
       <label class={wpclasses}>
         <span class={classes}>
-          <span class="k-checkbox-inner">{inner}</span>
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
+          <span class="k-checkbox-inner">{inner}</span>
         </span>
         {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
       </label>

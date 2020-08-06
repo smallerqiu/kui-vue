@@ -26,7 +26,7 @@
     </Modal>
 
     <Modal title="提交表单" v-model="show4" :loading="loading" @ok="submit" @close="close">
-      <p>Name：<Input placeholder="Please input your name" width="200"/></p>
+      <p>Name：<Input placeholder="Please input your name" style="width:200px"/></p>
     </Modal>
   </div>
 </template>

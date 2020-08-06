@@ -6,19 +6,19 @@
 ```tpl
 <template>
   <div class="demo-dot">
-    <Badge :dot="dot">
+    <Badge :dot="show">
       <div class="box"></div>
     </Badge>
-    <Badge :dot="dot">
+    <Badge :dot="show">
       <Icon type="ios-notifications-outline" />
     </Badge>
-    <Badge :dot="dot">
+    <Badge :dot="show">
       <a href="#">我是一个连接</a>
     </Badge>
-    <Button mini @click="dot=!dot">click me</Button>
+    <Switch @change="show=!show" />
     <br/>
     <br/>
-    <Badge :count="count" max-count="20">
+    <Badge :count="count" :max-count="20">
       <div class="box"></div>
     </Badge>
     <ButtonGroup circle>
@@ -31,7 +31,7 @@
 export default{
   data(){
     return{
-      dot:true,
+      show:true,
       count:15
     }
   }

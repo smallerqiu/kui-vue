@@ -1,37 +1,53 @@
 <template>
-  <div style="width:256px">
-    <Menu v-model="current">
-      <MenuItem key="1" icon="md-mail">Navigation One</MenuItem>
-      <MenuItem key="2" icon="ios-keypad" disabled>Navigation Two</MenuItem>
-      <SubMenu key="3">
-        <template slot="title">
-          <Icon type="ios-settings" />Navigation - Submenu
-        </template>
-        <MenuGroup title="Item 1">
-          <MenuItem key="3-1">Option 1</MenuItem>
-          <MenuItem key="3-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="3-3">Option 1</MenuItem>
-          <MenuItem key="3-4">Option 2</MenuItem>
-        </MenuGroup>
-      </SubMenu>
-      <MenuItem key="4">
-      <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
-      </MenuItem>
-    </Menu>
+  <div style="width:256px;padding:200px;">
+    <Button icon="logo-apple" @click="show=true" />
+
+    <select>
+      <option>fdafdasfdsaf</option>
+      <option>fdafdasfdsaf</option>
+      <option>fdafdasfdsaf</option>
+      <option>fdafdasfdsaf</option>
+    </select>
+    <button>test</button>
+    <Button type="primary">test</Button>
+    <Select>
+      <Option :value="1">dddd</Option>
+      <Option :value="2">dddd</Option>
+      <Option :value="3">dddd</Option>
+      <Option :value="4">dddd</Option>
+      <Option :value="5">dddd</Option>
+    </Select>
+    <Modal v-model="show" title="333"></Modal>
   </div>
 </template>
-<script> 
+<script>
 export default {
   data() {
     return {
-      current: ['1']
-    }
+      show: false,
+      time: 60,
+      timer: null
+    };
+  },
+  beforDestory() {
+    clearInterval(this.timer);
   },
   methods: {
-
-  },
-
-}
-</script> 
+    search() {
+      this.$Message.info("This is search event");
+    },
+    sendCode() {
+      this.time = 59;
+      this.$Message.success("验证码发送成功，请注意查收");
+      this.timer = setInterval(e => {
+        if (this.time < 0) {
+          clearInterval(this.timer);
+          this.time = 60;
+        } else {
+          this.time--;
+        }
+      }, 1000);
+    }
+  }
+};
+</script>

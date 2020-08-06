@@ -1,5 +1,5 @@
 import { Select, Option } from '../select'
-import Input from '../input'
+import { Input } from '../input'
 import Icon from '../icon'
 
 export default {
@@ -10,9 +10,9 @@ export default {
     showElevator: Boolean,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     mini: { default: false, type: Boolean },
-    total: { default: 0, type: [Number] },
-    pageSize: { default: 10, type: [Number] },
-    current: { default: 1, type: [Number] }
+    total: { default: 0, type: Number },
+    pageSize: { default: 10, type: Number },
+    current: { default: 1, type: Number }
   },
   data() {
     return {
@@ -82,7 +82,7 @@ export default {
     toPage(page) {
       this.page = page
     },
-    changeSize({value}) {
+    changeSize({ value }) {
       console.log(value)
       this.defaultPageSize = value
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;

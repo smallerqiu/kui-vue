@@ -3,17 +3,16 @@ import Icon from "../icon";
 import transfer from "../_tool/transfer";
 import resize from "../_tool/resize";
 import outsideclick from "../_tool/outsiteclick";
-import { getElementPos, getChild, cloneVNode, isVnode } from "../_tool/utils";
-import Vue from 'vue'
+import { getElementPos, cloneVNode, isVnode } from "../_tool/utils";
 
 export default {
   directives: { transfer, resize, outsideclick },
-  name: 'popBase',
+  name: 'BasePop',
   props: {
     preCls: String,
     trigger: { type: String, default: "hover" },
     confirm: Boolean,
-    dark: { type: Boolean, default: false },
+    dark: Boolean,
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],

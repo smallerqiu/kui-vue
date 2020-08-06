@@ -15,8 +15,8 @@ export default {
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
-    name: { type: String }, //提交的 name值
-    id: { type: String }, //提交的 id值
+    name: String, //提交的 name值
+    id: String, //提交的 id值
     action: { type: String, required: true }, //url 要带/rest
     type: { type: String, default: "change" },
     data: { type: Object, default: () => {} },

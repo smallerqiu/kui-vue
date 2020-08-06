@@ -2,7 +2,7 @@ import PopBase from '../base/pop'
 export default {
   name: 'Popconfirm',
   props: {
-    dark: { type: Boolean, default: false },
+    dark: Boolean,
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],

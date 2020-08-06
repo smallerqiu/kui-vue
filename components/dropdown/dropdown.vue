@@ -22,7 +22,7 @@ export default {
     trigger: { type: String, default: 'hover' },
     visible: Boolean,
     // placement: { type: String, default: 'left' },
-    transfer: { type: Boolean, default: false }
+    transfer: Boolean
   },
   data() {
     return {

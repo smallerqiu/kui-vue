@@ -16,6 +16,7 @@
 	user-select: none;
 	min-width: 175px;
 	transition: all .3s;
+	outline: none;
 	&:hover {
 		border-color: @main;
 	}
@@ -85,14 +86,14 @@
 	width: 430px;
 }
 
-.k-datepicker-open {
+.k-datepicker:focus, .k-datepicker-open {
 	border-color: @main;
 	box-shadow: 0 0 5px fade(@main, 75%);
 }
 
 .k-datepicker-dropdown {
 	position: absolute;
-	z-index: 1;
+	z-index: 1003;
 	background: #fff;
 }
 

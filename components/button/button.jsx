@@ -11,11 +11,11 @@ export default {
     },
     icon: String,
     block: Boolean,
-    mini: { type: Boolean, default: false },
-    large: { type: Boolean, default: false },
+    mini: Boolean,
+    large: Boolean,
     loading: Boolean,
-    circle: { type: Boolean, default: false },
-    hollow: { type: Boolean, default: false },
+    circle: Boolean,
+    hollow: Boolean,
     type: {
       validator(value) {
         return (

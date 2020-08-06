@@ -28,7 +28,7 @@
 | className | 单元格的 class 名                                                                                                                                                                   | String   | -      |
 | render    | 自定义渲染，可传入`class`,`attrs`,`children`,`on` ，可参阅[深入数据对象](https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1) | Function | -      |
 
-## Data API
+## Data.Item API
 
 | 属性       | 说明             | 类型    | 默认值 |
 | ---------- | ---------------- | ------- | ------ |

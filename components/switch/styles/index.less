@@ -14,10 +14,15 @@
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-   transition: all .36s cubic-bezier(.78,.14,.15,.86);
+   transition: all .36s cubic-bezier(.78, .14, .15, .86);
    display: inline-block;
    box-sizing: border-box;
    overflow: hidden;
+   outline: none;
+   &:focus {
+      // border: 1px solid @main;
+      box-shadow: 0 0 5px fade(@main, 75%);
+   }
    .k-icon {
       font-size: 22px;
    }

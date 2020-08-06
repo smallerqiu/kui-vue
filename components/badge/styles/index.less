@@ -6,21 +6,20 @@
    vertical-align: middle;
    &-count {
       position: absolute;
-      transform: translateY(-50%) translateX(100%);
+      transform: translate(50%, -50%);
+      transform-origin: 100% 0;
       top: 0px;
-      right: 10px;
+      right: 0;
       height: 20px;
       border-radius: 10px;
       min-width: 20px;
       background: #ed3f14;
-      border: 1px solid transparent;
       color: #fff;
       line-height: 18px;
       text-align: center;
       padding: 0 6px;
       font-size: 12px;
       white-space: nowrap;
-      transform-origin: -10% center;
       z-index: 10;
       box-shadow: 0 0 0 1px #fff;
       box-sizing: border-box;
@@ -45,15 +44,86 @@
    }
    &-dot {
       position: absolute;
-      transform: translateX(-50%);
-      transform-origin: 0 center;
-      top: -4px;
-      right: -8px;
-      height: 8px;
-      width: 8px;
-      border-radius: 100%;
+      // transform: translateX(-50%);
+      // transform-origin: 0 center;
+      // top: -4px;
+      // right: -8px;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+      transform-origin: 100% 0;
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
       background: @danger;
       z-index: 10;
       box-shadow: 0 0 0 1px #fff;
+   }
+   &-status-dot {
+      position: relative;
+      top: -1px;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      vertical-align: middle;
+      border-radius: 50%;
+   }
+   &-status-text {
+      color: @color;
+      font-size: 14px;
+      margin-left: 8px;
+   }
+   &-status-success {
+      background-color: @success;
+   }
+   &-status-error {
+      background-color: @danger;
+   }
+   &-status-warning {
+      background-color: @warning;
+   }
+   &-status-default {
+      background-color: #ddd;
+   }
+
+
+   &-status-pink {
+      background-color: @pink;
+   }
+   &-status-red {
+      background-color: @red;
+   }
+   &-status-yellow {
+      background-color: @yellow;
+   }
+   &-status-orange {
+      background-color: @orange;
+   }
+   &-status-cyan {
+      background-color: @cyan;
+   }
+   &-status-green {
+      background-color: @green;
+   }
+   &-status-blue {
+      background-color: @blue;
+   }
+   &-status-purple {
+      background-color: @purple;
+   }
+   &-status-geekblue {
+      background-color: @geekblue;
+   }
+   &-status-magenta {
+      background-color: @magenta;
+   }
+   &-status-volcano {
+      background-color: @volcano;
+   }
+   &-status-gold {
+      background-color: @gold;
+   }
+   &-status-lime {
+      background-color: @lime;
    }
 }

@@ -28,6 +28,9 @@ export default {
       DatePicker: this,
     }
   },
+  inject: {
+    FormItem: { default: null },
+  },
   data() {
     return {
       showDropInit: false,
@@ -51,7 +54,10 @@ export default {
   },
   watch: {
     value(v) {
-      this.currentValue = v
+      if (this.v != this.currentValue) {
+        this.currentValue = v
+        this.FormItem && this.FormItem.testValue(v)
+      }
     }
   },
   methods: {
@@ -101,13 +107,11 @@ export default {
       if (Array.isArray(this.currentValue)) {
         this.currentValue = []
         this.temp_range_one = null
-        this.$emit("input", []);
-        this.$emit("change", []);
       } else {
         this.currentValue = ''
-        this.$emit("input", "");
-        this.$emit("change", '');
       }
+      this.$emit("input", this.currentValue);
+      this.$emit("change", this.currentValue);
       e.stopPropagation()
     },
     hidedrop(e) {
@@ -264,7 +268,7 @@ export default {
       { 'k-datepicker-disabled': disabled },
     ]
     return (
-      <div class={classes} v-outsideclick={this.hidedrop}>
+      <div tabIndex="0" class={classes} v-outsideclick={this.hidedrop}>
         <div class={selectCls} onClick={this.toggleDrop}>
           {childNode}
         </div>

@@ -8,6 +8,7 @@ export default {
     label: [String, Number]
   },
   inject: {
+    FormItem: { default: null },
     groupContext: { default: null },
   },
   model: {
@@ -21,18 +22,19 @@ export default {
   },
   methods: {
     change(e) {
-      const { disabled, value, $slots, label, groupContext } = this
+      let { disabled, value, $slots, label, groupContext } = this
       if (disabled) {
         return false;
       }
       const checked = e.target.checked;
       this.isChecked = checked;
       if (groupContext) {
-        let _label = label || $slots.default.text
-        this.groupContext.change({ label: _label, value })
+        label = label || $slots.default.text
+        this.groupContext.change({ label, value })
       } else {
         this.$emit("input", checked);
         this.$emit("change", e);
+        this.FormItem && this.FormItem.testValue(checked)
       }
     }
   },
@@ -57,8 +59,8 @@ export default {
     return (
       <label class={wpclasses}>
         <span class={classes}>
-          <span class="k-radio-inner"></span>
           <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
+          <span class="k-radio-inner"></span>
         </span>
         {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
       </label>

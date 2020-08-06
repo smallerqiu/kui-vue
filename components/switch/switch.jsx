@@ -53,7 +53,7 @@ export default {
       !mini ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
     )
     return (
-      <span class={classes} onClick={change}>{textNode}</span >
+      <button class={classes} onClick={change} type="button">{textNode}</button>
     )
   }
 };

@@ -6,16 +6,16 @@
 ```tpl
 <template>
   <div class="demo-dot">
-   <Badge count="99">
+   <Badge :count="99">
       <div class="box"></div>
     </Badge>
-    <Badge count="100" max-count="99" color="orange">
+    <Badge :count="100">
       <div class="box"></div>
     </Badge>
-    <Badge count="20" max-count="10" color="orange">
+    <Badge :count="20" :max-count="10">
       <div class="box"></div>
     </Badge>
-    <Badge count="1000" max-count="999" color="orange">
+    <Badge :count="1000" :max-count="999">
       <div class="box"></div>
     </Badge>
     <Badge count="hot">

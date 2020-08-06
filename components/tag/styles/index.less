@@ -2,10 +2,10 @@
 .k-tag {
   display: inline-block;
   line-height: 20px;
-  height: 22px;
+  height: auto;
   padding: 0 7px;
-  border: 1px solid #d9d9d9;
-  background: #fafafa;
+  border: 1px solid @border-color;
+  background-color: @back-color;
   font-size: 12px;
   border-radius: @radius;
   box-sizing: border-box;
@@ -21,6 +21,71 @@
       color: @danger;
     }
   }
+  &-pink {
+    color: @pink;
+    border-color: @pink;
+    background-color: tint(@pink, 90);
+  }
+  &-red {
+    color: @red;
+    border-color: @red;
+    background-color: tint(@red, 90);
+  }
+  &-yellow {
+    color: saturate(@yellow, 30%);
+    border-color: @yellow;
+    background-color: tint(@yellow, 90);
+  }
+  &-orange {
+    color: @orange;
+    border-color: @orange;
+    background-color: tint(@orange, 90);
+  }
+  &-cyan {
+    color: @cyan;
+    border-color: @cyan;
+    background-color: tint(@cyan, 90);
+  }
+  &-green {
+    color: @green;
+    border-color: @green;
+    background-color: tint(@green, 90);
+  }
+  &-blue {
+    color: @blue;
+    border-color: @blue;
+    background-color: tint(@blue, 90);
+  }
+  &-purple {
+    color: @purple;
+    border-color: @purple;
+    background-color: tint(@purple, 90);
+  }
+  &-geekblue {
+    color: @geekblue;
+    border-color: @geekblue;
+    background-color: tint(@geekblue, 90);
+  }
+  &-magenta {
+    color: @magenta;
+    border-color: @magenta;
+    background-color: tint(@magenta, 90);
+  }
+  &-volcano {
+    color: @volcano;
+    border-color: @volcano;
+    background-color: tint(@volcano, 90);
+  }
+  &-gold {
+    color: @gold;
+    border-color: @gold;
+    background-color: tint(@gold, 90);
+  }
+  &-lime {
+    color: @lime;
+    border-color: @lime;
+    background-color: tint(@lime, 90);
+  }
 }
 
 .k-tag-has-color {
@@ -29,26 +94,6 @@
   .k-tag-close {
     color: #fff;
   }
-}
-
-.k-tag-blue {
-  background: @primary;
-}
-
-.k-tag-gray {
-  background: @gray;
-}
-
-.k-tag-green {
-  background: @success;
-}
-
-.k-tag-red {
-  background: @danger;
-}
-
-.k-tag-orange {
-  background: @warning;
 }
 
 @keyframes zoomIn {

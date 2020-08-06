@@ -1,6 +1,10 @@
 import Icon from '../icon'
 import Button from '../button'
 import transfer from "../_tool/transfer";
+import { measureScrollBar, getOffset } from '../_tool/utils'
+
+let cacheBodyOverflow = {};
+
 
 export default {
   directives: { transfer },
@@ -16,56 +20,96 @@ export default {
     isMax: Boolean,
     isCenter: Boolean,
     canMove: Boolean,
-    loading: Boolean
+    loading: Boolean,
     // mode: { type: String, default: 'modal' }
   },
   data() {
     return {
+      init: false,
       show: this.value,
       showInner: this.value,
       left: '',
       currentTop: this.top,
       isMouseDown: false,
       startPos: { x: 0, y: 0 },
-      showPos: { x: 0, y: 0 }
+      showPoint: { x: 0, y: 0 }
     }
   },
   watch: {
-    // loading(l) {
-    //   this.loading = l
-    // },
-    value(v) {
-      if (v) {
-        this.show = v
-        this.showInner = v
+    value(value) {
+      this.updateProp(value)
+    }
+  },
+  updated() {
+    if (this.show) {
+      this.setPos()
+    }
+  },
+  methods: {
+    updateProp(visible) {
+      if (visible) {
+        this.init = true
+        this.$nextTick(e => {
+          this.show = visible
+          this.showInner = visible
+        })
       } else {
         this.show = false
         setTimeout(() => {
           this.showInner = false
         }, 300);
       }
-    }
-  },
-  methods: {
+      this.resetBodyStyle(visible)
+    },
+    resetBodyStyle(opened) {
+      if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+        cacheBodyOverflow = {
+          width: document.body.width,
+          overflow: document.body.overflow,
+          overflowX: document.body.overflowX,
+          overflowY: document.body.overflowY,
+        }
+      }
+      if (opened) {
+        let barWidth = measureScrollBar(true)
+        if (barWidth) {
+          document.body.style.width = `calc(100% - ${barWidth}px)`
+          document.body.style.overflow = `hidden`
+        }
+      } else {
+        setTimeout(() => {
+          Object.keys(cacheBodyOverflow).forEach(key => {
+            document.body.style[key] = cacheBodyOverflow[key] || ''
+            delete cacheBodyOverflow[key]
+          })
+        }, 300)
+      }
+    },
+    setPos() {
+      if (this.show) {
+        let { showPoint: { x, y } } = this
+        // let { x, y } = showPoint
+        let { left, top } = getOffset(this.$refs.modal)
+        this.$refs.modal.style['transform-origin'] = `${x - left}px ${y - top}px`
+      }
+    },
     ok() {
       this.$emit('ok')
       this.$nextTick(e => {
         if (!this.loading) {
-          this.$emit('input', false)
-          this.$emit('close', false)
+          this.close()
         }
       })
     },
     cancel() {
-      this.$emit('input', false)
+      this.close()
       this.$emit('cancel')
-      this.$emit('close')
     },
     close() {
       this.$emit('input', false)
       this.$emit('close')
     },
-    closeMaskToClose(e) {
+    clickMaskToClose(e) {
       if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target)) {
         this.close()
       }
@@ -77,6 +121,7 @@ export default {
         this.currentTop = this.currentTop || 100
         this.currentTop += e.clientY - y
         this.startPos = { x: e.clientX, y: e.clientY }
+        this.setPos()
       }
     },
     mouseup(e) {
@@ -85,7 +130,10 @@ export default {
       document.removeEventListener('mouseup', this.mouseup)
     },
     mousedown(e) {
-      if (e.button == 0) {
+      if (!this.show) {
+        this.showPoint = { x: e.clientX, y: e.clientY }
+      }
+      if (e.button == 0 && this.canMove === true) {
         this.isMouseDown = true
         this.startPos = { x: e.clientX, y: e.clientY }
         this.mousemove(e)
@@ -95,14 +143,18 @@ export default {
     }
   },
   beforDestory() {
-    document.removeEventListener('mousedown', this.mousedown())
+    document.removeEventListener('mousedown', this.mousedown)
+    this.resetBodyStyle(false)
   },
+
   mounted() {
     document.addEventListener('mousedown', this.mousedown)
+    if (this.value) this.init = true
   },
   render() {
     let { $slots, show, showInner, canMove } = this
     let node = []
+
     //mask
     let maskNode = null
     if (this.mask) {
@@ -135,7 +187,7 @@ export default {
     const style = {
       width: `${this.width}px`,
       top: `${this.currentTop}px`,
-      left: `${this.left}px`
+      left: `${this.left}px`,
     }
     const classes = [
       'k-modal', {
@@ -144,15 +196,15 @@ export default {
         'k-modal-center': this.isCenter,
       }
     ]
-    return (<div class={classes} v-transfer={true}>
+    return this.init ? (<div class={classes} v-transfer={true}>
       {maskNode}
-      <div class="k-modal-wrap" v-show={showInner} onClick={this.closeMaskToClose}>
+      <div class="k-modal-wrap" v-show={showInner} onClick={this.clickMaskToClose}>
         <transition name="k-modal-zoom">
           <div class="k-modal-inner" ref="modal" v-show={show} style={style}>
             {node}
           </div>
         </transition>
       </div>
-    </div>)
+    </div>) : null
   }
 }

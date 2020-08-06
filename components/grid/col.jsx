@@ -2,32 +2,37 @@
 export default {
   name: "Col",
   props: {
-    span: [Number, String],
-    offset: [Number, String]
+    span: Number,
+    offset: Number,
+    flex: [String, Number],
   },
-  data() {
-    return {};
+  inject: {
+    Row: { default: () => { } }
   },
-  computed: {
-    styles() {
-      const gutter = this.$parent.gutter
-      if (gutter) {
-        return { paddingLeft: gutter / 2 + "px", paddingRight: gutter / 2 + "px" };
+  methods: {
+    parseFlex(flex) {
+      if (typeof flex === 'number') {
+        return `${flex} ${flex} auto`;
       }
+      if (/^\d+(\.\d+)?(px|em|rem|%)$/.test(flex)) {
+        return `0 0 ${flex}`;
+      }
+      return flex;
     },
-    classes() {
-      let { span, offset } = this
-      return [`k-col`, {
-        [`k-col-${span}`]: span,
-        [`k-col-offset-${offset}`]: offset > 0 && offset <= 24
-      }];
-    }
   },
   render() {
-    let { classes, styles, $slots } = this
+    let { offset, span, $slots, flex } = this
+    const gutter = this.Row.gutter
     const props = {
-      class: classes,
-      style: styles
+      class: [`k-col`, {
+        [`k-col-${span}`]: span,
+        [`k-col-offset-${offset}`]: offset > 0 && offset <= 24
+      }],
+      style: {
+        paddingLeft: `${gutter / 2}px`,
+        paddingRight: `${gutter / 2}px`,
+        flex: flex ? this.parseFlex(flex) : null
+      }
     }
     return (
       <div {...props}>

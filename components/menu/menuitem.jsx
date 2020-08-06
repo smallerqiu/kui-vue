@@ -6,7 +6,6 @@ export default {
   name: "MenuItem",
   props: {
     icon: String,
-    title: String,
     disabled: Boolean
   },
   inject: {
@@ -29,6 +28,7 @@ export default {
       // console.log(root.mode, root.selectedKeys, 'item')
       selected = root.selectedKeys.indexOf(this.$vnode.key) >= 0
     }
+    const item = this
     const props = {
       class: ["k-menu-item", {
         ["k-menu-item-active"]: this.active,
@@ -51,7 +51,7 @@ export default {
             let options = {
               key,
               keyPath: [key],
-              item: this,
+              item,
               event: e
             }
             let parent = SubMenu || Menu

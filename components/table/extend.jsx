@@ -1,4 +1,5 @@
-import { hasChild, sortHeaderCols, findItem } from './utils'
+import { hasChild, sortHeaderCols, findItem, } from './utils'
+import { measureScrollBar } from '../_tool/utils'
 import { Checkbox } from '../checkbox'
 import Icon from '../icon'
 export default {
@@ -24,7 +25,8 @@ export default {
     let { thead } = this.$refs
     if (thead) {
       // thead.style.marginBottom = `-${thead.offsetHeight - thead.scrollHeight}px`
-      this.scrollBarHeight = thead.offsetHeight - thead.scrollHeight
+      let size = measureScrollBar()
+      this.scrollBarHeight = size
     }
   },
   methods: {

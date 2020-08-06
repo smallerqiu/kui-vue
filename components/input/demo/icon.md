@@ -5,27 +5,23 @@
 
 ```tpl
 <template>
-  <div>
-    <Input placeholder="User Name..." icon="ios-person" width="300"/>
-    <br/>
-    <Input type="password" placeholder="Password..." icon="ios-lock" width="300" />
-    <br/>
-    <Input placeholder="请输入验证码" icon="ios-disc" width="300" maxlength="8">
+  <div style="width:512px;">
+    <Input placeholder="User Name..." icon="ios-person" />
+    <Input type="password" placeholder="Password..." icon="ios-lock"  />
+    <Input placeholder="请输入验证码" icon="ios-disc"  :maxlength="8">
       <template slot="suffix">
         <span v-if="time==60" @click="sendCode">获取验证码</span>
         <span v-else>{{time}}(s)</span>
       </template>
     </Input>
-    <br/>
-     <Input placeholder="请填写你要喝的Coffee" icon="ios-cafe" width="300">
-      <template slot="suffix">
-         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-            <Icon type="ios-information-circle-outline" color="orange"/>
-         <Tooltip>  
-      </template>
+    <Input placeholder="请填写你要喝的Coffee" icon="ios-cafe" >
+    <template slot="suffix">
+        <Tooltip title="此处如果不知道怎么填，请咨询管理员">
+          <Icon type="ios-information-circle-outline" color="orange"/>
+        <Tooltip>  
+    </template>
     </Input>
-    <br/>
-    <Input type="text" placeholder="请输入关进行搜索键字..."  @search="search" width="500"/>
+    <Input placeholder="请输入关进行搜索键字..."  @search="search" width="500"/>
   </div>
 </template>
 <script>  
