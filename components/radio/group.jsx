@@ -18,11 +18,15 @@ export default {
       groupContext: this,
     }
   },
+  inject: {
+    FormItem: { default: null },
+  },
   methods: {
     change(data) {
       let value = data.value
       this.$emit("input", value);
       this.$emit("change", value);
+      this.FormItem && this.FormItem.testValue(value)
     }
   },
   render() {

@@ -47,7 +47,7 @@ export function cloneVNode(vnode, opts = {}) {
     listeners = { ...componentOptions.listeners };
   }
 
-  let on = {...opts.on};
+  let on = { ...opts.on };
   if (data && data.on) {
     on = { ...data.on };
     // on = Object.assign(data.on, );
@@ -113,4 +113,52 @@ export function isVnode(element) {
     'context' in element &&
     element.tag !== undefined
   );
+}
+
+export function getOffset(el) {
+  // const rect = el.getBoundingClientRect();
+  const pos = {
+    left: el.offsetLeft,//rect.left,
+    top: el.offsetTop,
+  };
+  return pos;
+}
+
+// 
+
+let _scrollBarWidth;
+let _scrollBarHeight;
+export function measureScrollBar(direction = 'vertical') {
+  if (typeof document === 'undefined' || typeof window === 'undefined') {
+    return 0;
+  }
+  const isVertical = direction = 'vertical'
+
+  if (isVertical && _scrollBarWidth) return _scrollBarWidth
+  if (!isVertical && _scrollBarHeight) return _scrollBarHeight
+
+  const div = document.createElement('div')
+  const style = {
+    position: 'absolute',
+    top: '-9999px',
+    width: '50px',
+    height: '50px',
+  }
+  Object.keys(style).forEach(st => {
+    div.style[st] = style[st];
+  });
+  if (isVertical) {
+    div.style.overflowY = 'scroll';
+  } else {
+    div.style.overflowX = 'scroll';
+  }
+  document.body.appendChild(div);
+  let size = 0;
+  if (isVertical) {
+    size = _scrollBarWidth = div.offsetWidth - div.clientWidth;
+  } else {
+    size = _scrollBarHeight = div.offsetHeight - div.clientHeight;
+  }
+  document.body.removeChild(div);
+  return size;
 }

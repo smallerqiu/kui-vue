@@ -7,10 +7,20 @@ function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
 
+let showPoint = {}
+let mousedown = e => {
+  showPoint = { x: e.clientX, y: e.clientY }
+}
+if (typeof window !== undefined) {
+  document.addEventListener('mousedown', mousedown)
+}
+
+
 let modalList = [];
 let createInstance = (props = {}) => {
+
   const instance = new Vue({
-    data: { loading: false },
+    data: { loading: false, show: false },
     render(h) {
       //icons
       let { icon, title, content, color, cancelText, okText } = props
@@ -67,25 +77,43 @@ let createInstance = (props = {}) => {
       },
       destroy() {
         let instance = this.$children[0]
-        instance.show = false
-        setTimeout(e => {
-          instance.showInner = false
-          if (this.$el.parentElement == document.body) {
-            document.body.removeChild(this.$el)
-          }
-        }, 300)
+        if (instance) {
+          instance.show = false
+
+          clearTimeout(this.timer)
+          this.timer = setTimeout(e => {
+            instance.showInner = false
+            instance.$destroy()
+            setTimeout(() => {
+              document.body.removeChild(this.$el)
+            });
+            modalList.splice(modalList.indexOf(instance), 1)
+
+            if (modalList.length == 0) {
+              modal.resetBodyStyle(false)
+            }
+          }, 300)
+        }
       }
     }
   })
   const component = instance.$mount()
   document.body.appendChild(component.$el)
+
   let modal = instance.$children[0]
+  modal.init = true
+
   return {
     show() {
-      modal.show = true
-      modal.showInner = true
+      modal.showPoint = showPoint
+      modal.$nextTick(e => {
+        modal.show = true
+        modal.showInner = true
+        modal.resetBodyStyle(true)
+      })
     },
     destroy() {
+      // document.removeEventListener('mousedown', mousedown)
       modal.$parent.destroy()
     }
   }
@@ -110,7 +138,9 @@ Modal.destroyAll = e => {
   modalList.forEach(modal => {
     modal.destroy()
   })
-  modalList = []
 }
+Modal.install = function (Vue) {
 
+  Vue.component(Modal.name, Modal);
+};
 export default Modal

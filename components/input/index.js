@@ -1,2 +1,3 @@
 import Input from './input.jsx'
-export default Input
+import TextArea from './textarea.jsx'
+export { Input, TextArea }

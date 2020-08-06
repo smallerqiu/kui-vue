@@ -5,7 +5,7 @@ export default {
   props: {
     value: { type: [String, Number], required: true },
     label: { type: [String, Number] },
-    disabled: { type: Boolean, default: false }
+    disabled: Boolean
   },
   inject: {
     groupContext: { default: null }

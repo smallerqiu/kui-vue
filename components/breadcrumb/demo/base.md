@@ -8,7 +8,7 @@
   <div>
     <Breadcrumb>
       <BreadcrumbItem to="/">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/breadcrumb">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem to="/components/breadcrumb">breadcrumb</BreadcrumbItem>
       <BreadcrumbItem>other</BreadcrumbItem>
     </Breadcrumb>
   </div>

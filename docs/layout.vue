@@ -4,12 +4,17 @@
     <Layout class="main">
       <Sider>
         <Affix :offsetTop="30">
-          <Menu :activeName="activeName" @select="go" class="left-menu" mode="inline">
-            <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="x">
-              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :name="sub.name" :key="y">
-              <span v-if="sub.sub">{{sub.sub}}</span>
-              <Badge dot v-if="sub.log">{{sub.title}}</Badge>
-              <span class="sub" v-else>{{sub.title}}</span>
+          <Menu v-model="activeName" @click="go" class="left-menu" mode="inline">
+            <MenuGroup
+              :title="item.title"
+              v-for="(item,x) in Nav"
+              :name="item.title"
+              :key="'sub'+x"
+            >
+              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :key="sub.name">
+                <span v-if="sub.sub">{{sub.sub}}</span>
+                <Badge dot v-if="sub.log">{{sub.title}}</Badge>
+                <span class="sub" v-else>{{sub.title}}</span>
               </MenuItem>
             </MenuGroup>
           </Menu>
@@ -24,52 +29,50 @@
   </Layout>
 </template>
 <script>
-import Header from './components/header'
+import Header from "./components/header";
 import Nav from "./menu";
 export default {
   components: { Header },
   data() {
     return {
       Nav,
-      key: "",
       typo: false,
-      activeName: "",
-      components: [],
+      activeName: []
     };
   },
   methods: {
     target() {
-      return document.querySelector('.main')
+      return document.querySelector(".main");
     },
-    go(name) {
-      let { title, sub } = this.getPath(name)
+    go({ key, keyPath, item }) {
+      // console.log(key);
+      // return;
+      let { title, sub, name } = this.getPath(key);
 
-      this.key = "";
       document.title = `${title} ${sub || ""} - KUI`;
 
-      let path = (sub ? '/components/' : '/docs/') + name
+      let path = (sub ? "/components/" : "/docs/") + key;
       this.$router.push({ path });
-      this.typo = !sub
-
+      this.typo = !sub;
     },
     getPath(name) {
-      return Nav.map(x => x.child)
-        .reduce((x, y) => x.concat(y), [])
-        .filter(x => x.name == name)[0] || {}
-    },
+      return (
+        Nav.map(x => x.child)
+          .reduce((x, y) => x.concat(y), [])
+          .filter(x => x.name == name)[0] || {}
+      );
+    }
   },
   created() {
-    let { path } = this.$route
-    path = path.replace('/docs/', '').replace('/components/', '').toLowerCase()
-    let { title, sub, name } = this.getPath(path)
-    this.typo = !sub
+    let { path } = this.$route;
+    path = path
+      .replace("/docs/", "")
+      .replace("/components/", "")
+      .toLowerCase();
+    let { title, sub, name } = this.getPath(path);
+    this.typo = !sub;
     document.title = `${title} ${sub || ""} - KUI`;
-    this.activeName = name;
-
-    this.components = Nav.map(x => x.child)
-      .reduce((x, y) => x.concat(y), [])
-      .filter(x => x.sub)
-
+    this.activeName = [name];
   }
 };
 </script>

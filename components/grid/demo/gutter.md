@@ -6,17 +6,17 @@
 ```tpl
 <template>
   <div class="demo-grid">
-    <Row gutter="10" class="pd">
-      <Col span="6">
+    <Row :gutter="10" class="row-gutter">
+      <Col :span="6">
         <div>col-6</div>
       </Col>
-      <Col span="6">
+      <Col :span="6">
         <div>col-6</div>
       </Col>
-      <Col span="6">
+      <Col :span="6">
         <div>col-6</div>
       </Col>
-      <Col span="6">
+      <Col :span="6">
         <div>col-6</div>
       </Col>
     </Row>

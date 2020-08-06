@@ -114,9 +114,15 @@
   }
   &-fixed-header {
     word-break: break-all;
+    .k-table-fixed-main-thead {
+      &::-webkit-scrollbar {
+        // border-left: 1px solid  @light;
+      }
+    }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
       overflow: scroll;
       margin-bottom: -20px;
+      background-color: @light;
       &::-webkit-scrollbar {
         background-color: @light;
         // border-top: 1px solid @border-color;

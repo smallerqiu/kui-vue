@@ -1,3 +1,3 @@
-import Form from './form'
-import FormItem from './formitem'
+import Form from './form.jsx'
+import FormItem from './formitem.jsx'
 export { Form, FormItem }

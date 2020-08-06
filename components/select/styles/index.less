@@ -8,6 +8,13 @@
   color: #495060;
   font-size: 12px;
   position: relative;
+  outline: none;
+  &:focus {
+    .k-select-selection {
+      border: 1px solid @border-color;
+      box-shadow: 0 0 5px fade(@main, 75%);
+    }
+  }
   &-selection {
     border-radius: @radius;
     overflow: hidden;
@@ -98,6 +105,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    font-size: 12px;
     z-index: 0;
     padding-left: 9px;
     padding-right: 30px;
@@ -129,6 +137,7 @@
     box-sizing: border-box;
     width: 100%;
     cursor: pointer;
+    font-size: 12px;
   }
   .k-select-arrow {
     // font-size: 18px;
@@ -171,7 +180,7 @@
   box-sizing: border-box;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
   position: absolute;
-  z-index: 1;
+  z-index: 1003;
   ul {
     padding: 0;
     margin: 0;
@@ -275,6 +284,10 @@
     line-height: 23px;
     height: 23px;
     padding-right: 23px;
+    font-size: 12px;
+  }
+  .k-select-placeholder {
+    font-size: 12px;
   }
   .k-select-labels {
     padding: 2px 23px 0 0;
@@ -296,7 +309,11 @@
 }
 
 .k-select-large {
+  .k-select-placeholder {
+    font-size: 14px;
+  }
   .k-select-selection {
+    font-size: 14px;
     min-height: 40px;
   }
   .k-select-arrow {
@@ -311,6 +328,7 @@
     line-height: 38px;
     height: 38px;
     padding-right: 32px;
+    font-size: 14px;
   }
   .k-select-labels {
     padding: 4px 32px 0 0;

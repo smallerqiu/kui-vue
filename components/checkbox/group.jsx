@@ -12,6 +12,9 @@ export default {
       groupContext: this,
     }
   },
+  inject: {
+    FormItem: { default: null },
+  },
   methods: {
     change(data) {
       let value = this.value
@@ -23,6 +26,7 @@ export default {
       }
       this.$emit("input", value);
       this.$emit("change", value);
+      this.FormItem && this.FormItem.testValue(value)
     }
   },
   render() {
@@ -31,11 +35,11 @@ export default {
 
     if (options && options.length) {
       kid = options.map(option => (
-        <Checkbox 
-         key={option.value}
-         value={option.value}
-         label={option.label}
-         disabled={option.disabled}
+        <Checkbox
+          key={option.value}
+          value={option.value}
+          label={option.label}
+          disabled={option.disabled}
         />
       ))
     }

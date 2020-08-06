@@ -44,7 +44,7 @@ export default {
       description = <div class="k-alert-description">{description}</div>
     const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
     const aniprop = getTranstionProp('k-alert-slide')
-    console.log(aniprop)
+    // console.log(aniprop)
     return (
       <transition {...aniprop} name='k-alert-slide'>
         <div class={classes} v-show={!closed}>

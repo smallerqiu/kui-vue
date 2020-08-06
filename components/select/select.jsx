@@ -32,6 +32,9 @@ export default {
       groupContext: this
     }
   },
+  inject: {
+    FormItem: { default: null },
+  },
   data() {
     return {
       left: 0,
@@ -47,14 +50,15 @@ export default {
     };
   },
   watch: {
-    value(v) {
-      if (isNotEmpty(v)) {
-        this.currentValue = v
+    value(value) {
+      if (isNotEmpty(value)) {
+        this.currentValue = value
         this.setLabel()
       } else {
         this.label = ''
         this.currentValue = ''
       }
+      this.FormItem && this.FormItem.testValue(value)
     }
   },
   methods: {
@@ -363,7 +367,7 @@ export default {
       drop = (
         <transition name="dropdown">
           <div class={['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]} ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
-            {this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick}/> : <ul>{kid}</ul>)}
+            {this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}
           </div>
         </transition>
       )
@@ -403,7 +407,7 @@ export default {
     showClear && childNode.push(<Icon class="k-select-clearable" type="ios-close-circle" onClick={clear} />)
 
     return (
-      <div class={classes} style={styles} v-outsideclick={this.hidedrop}>
+      <div tabIndex="0" class={classes} style={styles} v-outsideclick={this.hidedrop}>
         <div class={selectCls} onClick={toggleDrop} ref="rel">
           {childNode}
         </div >

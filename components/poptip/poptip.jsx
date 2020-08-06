@@ -1,9 +1,9 @@
-import PopBase from '../base/pop'
+import BasePop from '../base/pop'
 export default {
   name: 'Poptip',
   props: {
     trigger: { type: String, default: "hover" },
-    dark: { type: Boolean, default: false },
+    dark: Boolean,
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],
@@ -21,10 +21,10 @@ export default {
       props: { preCls: 'poptip', ...this.$props }
     }
     return (
-      <PopBase {...props}>
+      <BasePop {...props}>
         {this.$slots.default}
         <template slot="content">{this.$slots.content}</template>
-      </PopBase>
+      </BasePop>
     )
   }
 };

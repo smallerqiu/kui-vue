@@ -6,7 +6,7 @@ export default {
 	directives: { resize },
 	props: {
 		value: { type: [Number, String], default: 0 },
-		loop: { type: Boolean, default: false },
+		loop: Boolean,
 		autoplay: Boolean,
 		delay: { type: [String, Number], default: 3000 },
 		vertical: Boolean,

@@ -2,24 +2,12 @@ import Icon from '../icon'
 export default {
   name: 'Tag',
   props: {
-    closeable: { type: Boolean, default: false },
+    closeable: Boolean,
     color: String
   },
   data() {
     return {
       visible: true,
-      isDefaultColor: ['blue', 'red', 'orange', 'gray', 'green'].indexOf(this.color) >= 0
-    }
-  },
-  computed: {
-    classes() {
-      return ['k-tag', {
-        [`k-tag-${this.color}`]: this.isDefaultColor,
-        ['k-tag-has-color']: this.color
-      }]
-    },
-    styles() {
-      return this.isDefaultColor ? {} : { backgroundColor: this.color }
     }
   },
   methods: {
@@ -32,13 +20,16 @@ export default {
     }
   },
   render() {
-    const { visible, styles, handle, $slots, close, classes, closeable } = this
+    const { visible, styles, handle, color, $slots, close, classes, closeable } = this
     const props = {
       on: {
         click: handle
       },
-      class: classes,
-      style: styles
+      class: ['k-tag', {
+        [`k-tag-${color}`]: color && !/^#/.test(color),
+        ['k-tag-has-color']: /^#/.test(color)
+      }],
+      style: { backgroundColor: /^#/.test(color) ? color : null }
     }
     return (
       <transition name="k-tag">

@@ -16,7 +16,7 @@ import Empty from './empty'
 import { Form, FormItem } from './form'
 import ImagePreview from './imagePreview'
 import Icon from './icon'
-import Input from './input'
+import { Input, TextArea } from './input'
 import Loading from './loading'
 import { Layout, Header, Footer, Content, Sider } from './layout'
 import Modal from './modal'
@@ -64,7 +64,7 @@ const components = {
     Page, Poptip, Popconfirm, Panel, Progress,
     Row, Radio, RadioGroup, RadioButton,
     /* Scroll, */Spin, Steps, Step, Select, SubMenu, //Slider,
-    Table, Tabs, TabPane, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
+    Table, Tabs, TabPane, TextArea, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
     Upload,
 }
 const UI = {

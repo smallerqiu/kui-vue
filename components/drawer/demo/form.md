@@ -9,7 +9,7 @@
     <Button @click="show1=true">普通表单</Button>
     <Button @click="show2=true">自定义</Button>
     <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
-      <Form label-width="100" ref="form" :model="form" :rules="rules" label-align="left">
+      <Form :label-width="128" ref="form" :model="form" :rules="rules" label-align="left">
         <FormItem label="Input" prop="input">
           <Input v-model="form.input" clearable icon="ios-home"></Input>
         </FormItem>
@@ -17,24 +17,24 @@
           <Input v-model="form.number" number clearable></Input>
         </FormItem>
         <FormItem label="Select">
-          <Row>
-            <Col span="12">
+          <Row type="flex" :gutter="8">
+            <Col :span="12">
             <FormItem prop="province">
-              <Select v-model="form.province" clearable transfer>
-                <Option value="0">北京</Option>
-                <Option value="1">上海</Option>
-                <Option value="2">广州</Option>
-                <Option value="3">深圳</Option>
+              <Select v-model="form.province" clearable>
+                <Option value="0" label="北京" />
+                <Option value="1" label="上海" />
+                <Option value="2" label="广州" />
+                <Option value="3" label="深圳" />
               </Select>
             </FormItem>
             </Col>
-            <Col span="11" offset="1">
+            <Col :span="12" >
             <FormItem prop="city">
               <Select v-model="form.city" clearable>
-                <Option value="0">南山区</Option>
-                <Option value="1">龙华区</Option>
-                <Option value="2">福田区</Option>
-                <Option value="3">宝安区</Option>
+                <Option value="0" label="南山区" />
+                <Option value="1" label="龙华区" />
+                <Option value="2" label="福田区" />
+                <Option value="3" label="宝安区" />
               </Select>
             </FormItem>
             </Col>
@@ -48,9 +48,9 @@
         </FormItem>
         <FormItem label="RadioGroup" prop="radios">
           <RadioGroup v-model="form.radios">
-            <Radio label="0">男</Radio>
-            <Radio label="1">女</Radio>
-            <Radio label="2">妖</Radio>
+            <Radio value="0" label="武汉"/>
+            <Radio value="1" label="深圳"/>
+            <Radio value="2" label="杭州"/>
           </RadioGroup>
         </FormItem>
         <FormItem label="Checkbox" prop="checkbox">
@@ -58,14 +58,14 @@
         </FormItem>
         <FormItem label="CheckboxGroup" prop="checkboxs">
           <CheckboxGroup v-model="form.checkboxs">
-            <Checkbox label="男">男</Checkbox>
-            <Checkbox label="女">女</Checkbox>
-            <Checkbox label="妖">妖</Checkbox>
-            <Checkbox label="鲛人">鲛人</Checkbox>
+            <Checkbox value="0" label="武汉" />
+            <Checkbox value="1" label="杭州"/>
+            <Checkbox value="2" label="上海" />
+            <Checkbox value="3" label="北京"/>
           </CheckboxGroup>
         </FormItem>
         <FormItem label="Text" prop="textarea">
-          <Input type="textarea" placeholder="情输入..." v-model="form.textarea"></Input>
+          <TextArea placeholder="情输入..." v-model="form.textarea" />
         </FormItem>
       </Form>
     </Drawer>
@@ -91,25 +91,25 @@ export default {
         select: '',
         province: '',
         city: '',
-        radio: '',
-        checkbox: '',
+        radio: true,
+        checkbox: true,
         datepicker: "",
         radios: "",
         checkboxs: [],
         textarea: ''
       },
       rules: {
-        input: [{ required: true, trigger: 'blur' }],
-        number: [{ required: true, trigger: 'blur', type: 'number', min: 5, max: 10 }],
-        select: [{ required: true, trigger: 'change' }],
-        province: [{ required: true, trigger: 'change' }],
-        city: [{ required: true, trigger: 'change' }],
-        datepicker: [{ required: true, trigger: 'change' }],
-        radios: [{ required: true, trigger: 'change' }],
-        radio: [{ required: true, trigger: 'change' }],
-        checkbox: [{ required: true, trigger: 'change' }],
-        checkboxs: [{ required: true, trigger: 'change', min: 2, max: 3, message: '长度为2-3个字符', }],
-        textarea: [{ required: true, message: '必填', trigger: 'blur' }, { min: 2, max: 5, message: '长度为2-5个字符', trigger: 'blur' }],
+        input: [{ required: true }],
+        number: [{ required: true}],
+        select: [{ required: true }],
+        province: [{ required: true }],
+        city: [{ required: true }],
+        datepicker: [{ required: true }],
+        radios: [{ required: true }],
+        radio: [{ required: true }],
+        checkbox: [{ required: true }],
+        checkboxs: [{ required: true }],
+        textarea: [{ required: true, message: '必填', trigger: 'blur' }, { min: 2, max: 5, message: '长度为2-5个字符'}],
       },
     }
   },
@@ -125,7 +125,7 @@ export default {
       })
     },
     resetForm() {
-      this.$refs.form.resetFields()
+      this.$refs.form.reset()
     },    
   }
 }

@@ -3,11 +3,11 @@ import Info from './info.md'
 import Base from './base.md'
 import Gutter from './gutter.md'
 import Offset from './offset.md'
+import Align from './align.md'
+import Flex from './flex.md'
+import Fill from './fill.md'
 import CN from '../index.md'
 export default {
-  mounted() {
-
-  },
   render() {
     return (
       <div>
@@ -15,6 +15,9 @@ export default {
         <Base />
         <Gutter />
         <Offset />
+        <Align />
+        <Flex />
+        <Fill />
         <CN class="typo"/>
       </div>
     )
@@ -23,6 +26,26 @@ export default {
 </script>
 <style lang="less">
 .demo-grid {
+  .h-64{
+    height:64px;
+    line-height: 64px;
+  }
+  .h-96{
+    height:96px;
+    line-height: 96px;
+  }
+  .h-128{
+    height:128px;
+    line-height: 128px;
+  }
+  .h-72{
+    height:72px;
+    line-height: 72px;
+  }
+  .k-row-flex{
+    padding: 10px 0;
+    background: #f1f1f1;
+  }
   .k-row {
     margin: 10px 0;
     .k-col {
@@ -37,11 +60,12 @@ export default {
       }
     }
   }
-  .pd {
+  .k-row.row-gutter {
     .k-col {
-      background: none !important;
+      background: transparent;
       div {
-        padding: 10px 0;
+        box-sizing: border-box;
+        line-height: 45px;
         &:nth-child(even) {
           background: rgba(0, 153, 229, 0.7);
         }

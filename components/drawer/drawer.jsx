@@ -5,7 +5,7 @@ export default {
   name: "Drawer",
   directives: { transfer },
   props: {
-    value: { type: Boolean, default: false },
+    value: Boolean,
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
     height: { default: 256, type: [Number, String] },

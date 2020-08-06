@@ -13,7 +13,7 @@
 export default {
   props: {
     type: {type:String,default:'line'},
-    loadingText: { type: String },
+    loadingText: String,
     height: { type: [String, Number], default: 2 },
     color: String
   },

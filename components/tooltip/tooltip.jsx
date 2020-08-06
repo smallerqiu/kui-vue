@@ -1,8 +1,8 @@
-import PopBase from '../base/pop'
+import BasePop from '../base/pop'
 export default {
   name: 'Tooltip',
   props: {
-    dark: { type: Boolean, default: false },
+    dark: Boolean,
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],
@@ -21,10 +21,10 @@ export default {
     }
     const title = this.$slots.title || this.title
     return (title ?
-      <PopBase {...props}>
+      <BasePop {...props}>
         {this.$slots.default}
         <template slot="title">{title}</template>
-      </PopBase> : this.$slots.default
+      </BasePop> : this.$slots.default
     )
   }
 };

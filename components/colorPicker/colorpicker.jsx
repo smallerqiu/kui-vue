@@ -1,5 +1,5 @@
 import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
-import Input from '../input'
+import { Input } from '../input'
 import Button from '../button'
 import Icon from '../icon'
 
@@ -17,7 +17,7 @@ export default {
   props: {
     value: String,
     transfer: { type: Boolean, default: true },
-    showMode: { type: Boolean, default: false },
+    showMode: Boolean,
     large: Boolean,
     mini: Boolean,
     mode: {

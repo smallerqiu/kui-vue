@@ -8,7 +8,7 @@
   <div>
     <Breadcrumb>
       <BreadcrumbItem to="/" icon="ios-home" separator="~">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/breadcrumb" icon="logo-buffer" separator="~">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem to="/components/breadcrumb" icon="logo-buffer" separator="~">breadcrumb</BreadcrumbItem>
       <BreadcrumbItem icon="ios-heart" separator="~">other</BreadcrumbItem>
     </Breadcrumb>
   </div>

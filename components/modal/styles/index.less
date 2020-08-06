@@ -19,7 +19,7 @@
 		right: 0;
 		background-color: rgba(55, 55, 55, .6);
 		height: 100%;
-		z-index: 1000;
+		z-index: 1001;
 		overflow: hidden;
 	}
 	.k-modal-inner {
@@ -244,9 +244,9 @@
 }
 
 .k-modal-zoom-enter-active {
-	animation: k-modal-zoom-in .2s linear;
+	animation: k-modal-zoom-in .25s cubic-bezier(.78,.14,.15,.86);
 }
 
 .k-modal-zoom-leave-active {
-	animation: k-modal-zoom-out .2s linear;
+	animation: k-modal-zoom-out .25s cubic-bezier(.78,.14,.15,.86);
 }

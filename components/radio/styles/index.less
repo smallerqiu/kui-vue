@@ -2,7 +2,7 @@
 .k-radio-group {
   display: inline-block;
   font-size: 0;
-  vertical-align: middle;
+  // vertical-align: middle;
   white-space: nowrap;
   .k-btn {
     position: relative;
@@ -94,6 +94,12 @@
       z-index: 1;
       cursor: pointer;
       opacity: 0;
+      &:focus {
+        +.k-radio-inner {
+          border: 1px solid @main;
+          box-shadow: 0 0 5px fade(@main, 75%);
+        }
+      }
     }
   }
   .k-radio-checked {
