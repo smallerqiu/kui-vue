@@ -8,14 +8,6 @@ export default {
     color: { type: String, default: 'currentColor' },
     spin: Boolean,
   },
-  methods: {
-    click(e) {
-      this.$emit('click', e)
-    },
-    getPath(path) {
-      return
-    }
-  },
   render() {
     const { $listeners, click, type, spin, color, size } = this
     const classes = ['k-icon', { 'k-load-loop': spin }];
@@ -28,7 +20,7 @@ export default {
       class: classes,
       on: {
         ...$listeners,
-        click: click
+        click: e => this.$emit('click', e)
       }
     }
     // const pathNode = icons[type].map(d => {
@@ -37,7 +29,7 @@ export default {
     //   else
     //     return <path d={d} />
     // })
-    const pathNode = <path d={icons[type]}/>
+    const pathNode = <path d={icons[type]} />
     return (<i {...props}><svg viewBox='0 0 512 512' width="1em" height="1em" fill={color}>{pathNode}</svg></i>)
   }
 };

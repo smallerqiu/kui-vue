@@ -22,13 +22,12 @@ export default {
       errorMessage: '',
     };
   },
-  befordestory() {
+  beforeDestroy() {
     this.collectFormItems(this, 'delete')
   },
   created() {
-    let { prop } = this
     //valid prop
-    if (prop) {
+    if (this.prop) {
       this.collectFormItems(this, 'add')
     }
   },

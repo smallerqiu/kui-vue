@@ -2,24 +2,31 @@
 .k-tabs {
   overflow: hidden;
   .k-tabs-bar {
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid @border-color;
     margin: 0 0 16px;
-    .k-tabs-tab-next, .k-tabs-tab-prev {
+    .k-tabs-tab-btn-next, .k-tabs-tab-btn-prev {
       position: absolute;
       line-height: 39px;
       cursor: pointer;
       left: 0;
       width: 32px;
       text-align: center;
-      display: none;
       font-size: 20px;
+      color: @icon-color;
+      bottom: 0;
     }
-    .k-tabs-tab-next {
+    .k-tabs-tab-btn-next-disabed, .k-tabs-tab-btn-prev-disabed {
+      color: @disable-color;
+      cursor:not-allowed;
+    }
+    .k-tabs-tab-btn-next {
       right: 2px;
       left: auto;
     }
     .k-tabs-extra {
       float: right;
+      line-height: 45px;
+      padding-left: 6px;
     }
     .k-tabs-nav-container {
       margin-bottom: -1px;
@@ -28,17 +35,18 @@
       overflow: hidden;
       font-size: 14px;
       line-height: 1.5;
-    }
-    .k-tabs-nav-wrap {
-      overflow: hidden;
+      .k-tabs-nav-wrap {
+        overflow: hidden;
+      }
+      .k-tabs-nav{
+        display: inline-block;
+        transition: transform .3s;
+      }
     }
     .k-tabs-nav-container-scroll {
       padding: 0 32px;
       .k-tabs-nav-scroll {
-        transition: transform .3s ease-in-out;
-      }
-      .k-tabs-tab-next, .k-tabs-tab-prev {
-        display: block;
+        transition: transform .3s;
       }
     }
     .k-tabs-tab {
@@ -46,48 +54,38 @@
       height: 100%;
       margin: 0 32px 0 0;
       padding: 12px 16px;
+      font-size: 14px;
       cursor: pointer;
       user-select: none;
-      transition: all .3s ease-in-out;
+      transition: color .3s;
       border-top-left-radius: @radius;
       border-top-right-radius: @radius;
-      i {
-        margin-right: 8px;
-        font-size: 14px;
-      }
-      .k-ion-md-close {
+      color: @color;
+      .k-tabs-close {
         margin: 0 -5px 0 0;
         width: 16px;
         text-align: center;
-        color: #999;
+        color: @icon-color;
         &:hover {
-          color: @danger !important;
+          color: @danger;
         }
+      }
+      &:last-child{
+        margin: 0 2px 0 0;
+      }
+      &:hover {
+        color: @main;
       }
     }
     .k-tabs-tab-active {
-      position: relative;
-      &::after {
-        position: absolute;
-        bottom: 0;
-        content: '';
-        left: 0;
-        height: 2px;
-        background: @main;
-        width: 100%;
-      }
-    }
-    .k-tabs-tab-active, .k-tabs-tab:hover {
       color: @main;
-      .k-ion-android-close {
-        color: #999;
-      }
+      font-weight: bold;
     }
     .k-tabs-tab-disabled {
-      color: @gray;
-      cursor: default;
+      color: @disable-color;
+      cursor: not-allowed;
       &:hover {
-        color: @gray;
+        color: @disable-color;
       }
     }
     .k-tabs-ink-bar {
@@ -95,14 +93,19 @@
       height: 2px;
       background: @main;
       bottom: 0;
-      transition: width .3s ease-in-out, left .3s ease-in-out;
+      transition: transform .3s ease-in-out,
     }
   }
   .k-tabs-content {
     width: 100%;
-    transition: transform .3s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    transition: margin-left .3s cubic-bezier(.645, .045, .355, 1);
+    will-change: margin-left;
     .k-tabs-tabpane {
-      // float: left;
+      flex-shrink: 0;
+      width: 100%;
+      opacity: 1;
     }
   }
 }
@@ -114,15 +117,16 @@
   .k-tabs-content {
     .k-tabs-tabpane {
       float: left;
+      transition: opacity .45s;
     }
   }
 }
 
 .k-tabs-card {
-  .k-tabs-ink-bar {
-    display: none;
-  }
   .k-tabs-bar {
+    .k-tabs-extra {
+      line-height: 38px;
+    }
     .k-tabs-tab {
       margin-right: 2px;
       border: 1px solid @border-color;
@@ -135,6 +139,16 @@
       &::after {
         display: none;
       }
+    }
+  }
+  .k-tabs-content {
+    display: block;
+    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
     }
   }
 }
@@ -154,13 +168,21 @@
         display: none;
       }
     }
-    .k-tabs-ink-bar {
-      display: none;
-    }
   }
-  .k-tabs-tabpane {
-    padding: 16px;
-    background: #fff;
-    box-sizing: border-box;
+  .k-tabs-content {
+    display: block;
+    .k-tabs-tabpane {
+      padding: 16px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: none;
+    }
   }
 }
