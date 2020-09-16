@@ -7,6 +7,7 @@ import router from './router'
 import '../components/styles.js'
 
 import './assets/index.less'
+import './assets/theme.jpg'
 
 import kui from '../components'
 

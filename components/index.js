@@ -10,11 +10,11 @@ import { Carousel, CarouselItem } from './carousel'
 import { Collapse, Panel } from './collapse'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import DatePicker from './datePicker'
-import { Dropdown, DropdownItem, DropdownMenu } from './dropdown'
+// import { Dropdown, DropdownItem, DropdownMenu } from './dropdown'
 import Drawer from './drawer'
 import Empty from './empty'
 import { Form, FormItem } from './form'
-import ImagePreview from './imagePreview'
+// import ImagePreview from './imagePreview'
 import Icon from './icon'
 import { Input, TextArea } from './input'
 import Loading from './loading'
@@ -36,26 +36,26 @@ import { Select, Option } from './select'
 import { Steps, Step } from './steps'
 import Table from './table'
 import Tooltip from './tooltip'
-import TreeSelect from './treeselect'
+// import TreeSelect from './treeselect'
 import { Tabs, TabPane } from './tabs'
 import { TimeLine, TimeLineItem } from './timeline'
 import Tree from './tree'
 import Tag from './tag'
 import { Row, Col } from './grid'
-import Upload from './upload'
+// import Upload from './upload'
 
 import { version } from '../package.json'
+
 // import './styles';
-// import './styles/cover';
 
 const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup: Button.Group, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, Dropdown, DropdownItem, DropdownMenu, Drawer,
+    DatePicker, /* Dropdown, DropdownItem, DropdownMenu, */ Drawer,
     Empty,
     Form, FormItem,
-    ImagePreview, Input, Icon,
+    /* ImagePreview, */ Input, Icon,
     Loading,
     Menu, MenuGroup, MenuItem, Modal, Message,
     Layout, Header, Footer, Content, Sider,
@@ -64,8 +64,8 @@ const components = {
     Page, Poptip, Popconfirm, Panel, Progress,
     Row, Radio, RadioGroup, RadioButton,
     /* Scroll, */Spin, Steps, Step, Select, SubMenu, //Slider,
-    Table, Tabs, TabPane, TextArea, TimeLine, TimeLineItem, Tag, Tooltip, Tree, TreeSelect,
-    Upload,
+    Table, Tabs, TabPane, TextArea, TimeLine, TimeLineItem, Tag, Tooltip, Tree, /* TreeSelect, */
+    /* Upload */
 }
 const UI = {
     ...components,
@@ -88,7 +88,7 @@ const install = function (Vue, opts = {}) {
     Vue.prototype.$Loading = Loading;
     Vue.prototype.$Notice = Notice;
     Vue.prototype.$Modal = Modal;
-    Vue.prototype.$ImagePreview = ImagePreview;
+    // Vue.prototype.$ImagePreview = ImagePreview;
 }
 UI.install = install
 // auto install

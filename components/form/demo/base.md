@@ -34,15 +34,15 @@
         <Checkbox value="2" label="Orange" />
       </CheckboxGroup>
     </FormItem>
-    <FormItem label="Switc1h">
+    <FormItem label="Switch">
      <k-switch true-text="Yes" false-text="No" />
     </FormItem>
     <FormItem label="Text">
       <TextArea placeholder="Please input..."/>
     </FormItem>
     <FormItem>
-      <Button type="primary">Submit</Button>
-      <Button style="margin-left: 10px">Cancel</Button>
+      <Button type="primary" circle>Submit</Button>
+      <Button style="margin-left: 10px" circle>Cancel</Button>
     </FormItem>
     </Form>
   </div>

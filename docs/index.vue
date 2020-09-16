@@ -1,44 +1,45 @@
 <template>
-  <Layout class="index">
-    <Header />
-    <section class="index-content">
-      <div class="logo">K UI</div>
-      <h1>一套基于Vue.js的桌面UI组件库</h1>
-      <div class="btn-content">
-        <Button class="start" @click="start" large>开始使用</Button>
-        <Button icon="logo-github" @click="git" large>Github</Button>
-        <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
-      </div>
-    </section>
-    <!-- <footer>
+<Layout class="index">
+  <Header />
+  <section class="index-content">
+    <div class="logo">K UI</div>
+    <h1>一套基于Vue.js的桌面UI组件库</h1>
+    <div class="btn-content">
+      <Button class="start" @click="start" large>开始使用</Button>
+      <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
+    </div>
+  </section>
+  <!-- <footer>
       <p>Copyright ©2009-2018
         <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
-    </footer> -->
-  </Layout>
+    </footer>-->
+</Layout>
 </template>
+
 <script>
-import Header from './components/header'
+import Header from "./components/header";
 export default {
-  components: { Header },
+  components: {
+    Header,
+  },
   methods: {
     start() {
-      this.$router.push('/docs/start')
+      this.$router.push("/docs/start");
     },
     gitee() {
-      window.open('//gitee.com/chuchur/kui-vue')
+      window.open("//gitee.com/chuchur/kui-vue");
     },
-    git() {
-      window.open('//github.com/chuchur-china/kui-vue')
-    },
-  }
+  },
 };
 </script>
+
 <style lang="less">
 html,
 body {
   height: 100%;
   width: 100%;
 }
+
 .index {
   // background: #fff;
   // display: inline-block;
@@ -47,9 +48,11 @@ body {
   position: relative;
   overflow: hidden;
   background: none;
+
   &::after {
     display: none;
   }
+
   &::before {
     z-index: -1;
     content: "";
@@ -66,13 +69,18 @@ body {
     opacity: 0.5;
     overflow: hidden;
   }
+
   .header {
-    background: none;
+    background: rgba(255, 255, 255, 0.3);
     box-shadow: none;
+    backdrop-filter: blur(5px);
+
     .top-menu {
       background: none;
+      border: none;
     }
   }
+
   .index-content {
     width: 50%;
     color: #005388;
@@ -84,6 +92,7 @@ body {
     height: 65%;
     display: inline-block;
     margin: auto;
+
     .logo {
       margin-top: 120px;
       // display: none;
@@ -94,6 +103,7 @@ body {
       display: block;
       font-size: 0;
     }
+
     h1 {
       // font-weight: 300;
       font-size: 34px;
@@ -101,8 +111,10 @@ body {
       margin: 80px 0;
       text-align: center;
     }
+
     .btn-content {
       text-align: center;
+
       .k-btn {
         display: inline-block;
         width: 120px;
@@ -112,6 +124,7 @@ body {
         cursor: pointer;
         border: none;
       }
+
       .start {
         // background: #65b87f;
         background: linear-gradient(45deg, #65b87f, #008028);

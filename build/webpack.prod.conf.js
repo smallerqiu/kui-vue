@@ -8,11 +8,13 @@ const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackBar = require('webpackbar')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = merge(webpackBaseConfig, {
 	mode: 'production',
 	entry: {
-		main: path.resolve(__dirname, '../src/index.js')
+		main: path.resolve(__dirname, '../components/index.js')
 	},
 	output: {
 		path: path.resolve(__dirname, "../dist"),
@@ -44,31 +46,12 @@ module.exports = merge(webpackBaseConfig, {
 			},]
 	},
 	externals: {
-		vue: {
-			root: 'Vue',
-			commonjs: 'vue',
-			commonjs2: 'vue',
-			amd: 'vue'
-		}
+		"vue": "Vue",
+		'vue-router': 'VueRouter',
+		"kui-icons": "KuiIcons",
+		'moment': 'moment'
 	},
 	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					name: `chunk-vendors`,
-					test: /[\\/]node_modules[\\/]/,
-					priority: -10,
-					chunks: 'initial',
-				},
-				common: {
-					name: `chunk-common`,
-					minChunks: 2,
-					priority: -20,
-					chunks: 'initial',
-					reuseExistingChunk: true,
-				},
-			},
-		},
 		minimizer: [
 			new UglifyJsPlugin({
 				uglifyOptions: {
@@ -89,6 +72,7 @@ module.exports = merge(webpackBaseConfig, {
 			color: 'green',
 		}),
 		new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
+		new CleanWebpackPlugin()
 	],
 
 })

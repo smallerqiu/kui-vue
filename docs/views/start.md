@@ -20,6 +20,13 @@ $ yarn global add @vue/cli
 $ vue create kui-demo
 ```
 
+从 yarn 或 npm 安装并引入 kui-vue。
+
+```sh
+$ npm install kuiv-ue
+#or
+$ yarn add kui-vue
+```
 #### 3. 使用组件
 
 一般在 **webpack** 入口页面` main.js` 中如下配置：
