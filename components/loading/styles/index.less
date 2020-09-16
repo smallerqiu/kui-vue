@@ -1,0 +1,33 @@
+@import '../../styles/global.less';
+
+.k-loading-warp{
+   position: fixed;
+   z-index: 1001;
+   left: 0;
+   top:0;
+   bottom: 0;
+   right: 0;
+   background: rgba(255, 255, 255, 0.6);
+   .k-loading-line{
+      height: 100%;
+      transition:width .2s ease-in-out;
+      background-color: @main;
+   }
+   .k-loading-line-error{
+    background-color: @danger !important;
+   }
+   .k-loading-inner{
+      margin: 0 auto;
+      position: relative;
+      text-align: center;
+      top: 50%;
+      margin-top: -17.5px;
+   } 
+   .k-loading-animate{
+      width: 35px;
+      height: 35px;
+      margin: 0 auto;
+   }
+  
+}
+

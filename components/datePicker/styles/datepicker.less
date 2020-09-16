@@ -1,0 +1,146 @@
+@import '../../styles/global.less';
+.k-datepicker {
+	display: inline-block;
+	// width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	vertical-align: middle;
+	color: #495060;
+	background: #fff;
+	font-size: 12px;
+	position: relative;
+	border: 1px solid @border-color;
+	min-height: 32px;
+	border-radius: @radius;
+	cursor: default;
+	user-select: none;
+	min-width: 175px;
+	transition: all .3s;
+	outline: none;
+	&:hover {
+		border-color: @main;
+	}
+	.k-datepicker-selection {
+		padding: 0 30px 0 9px;
+	}
+	.k-icon {
+		position: absolute;
+		right: 8px;
+		top: 50%;
+		transform: translateY(-50%);
+		color: @icon-color;
+		font-size: 14px;
+		transition: all .3s;
+	}
+	.k-datepicker-placeholder, .k-datepicker-value {
+		transition: all .3s;
+		line-height: 30px;
+		color: @disable-color;
+		box-sizing: border-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-size: 12px;
+	}
+	.k-datepicker-value {
+		color: @color;
+	}
+	.k-datepicker-has-clear {
+		.k-datepicker-clearable {
+			display: none;
+			&:hover {
+				color: @color;
+			}
+		}
+		&:hover {
+			.k-datepicker-clearable {
+				display: block;
+			}
+			.k-icon-calendar {
+				display: none;
+			}
+		}
+	}
+}
+
+.k-datepicker-range {
+	min-width: 307px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		display: inline-block;
+		// padding: 0 9px;
+		vertical-align: middle;
+		min-width: 130px;
+		text-align: center;
+	}
+	.k-datepicker-separator {
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0 5px;
+	}
+	&.k-datepicker-large {
+		min-width: 347px;
+	}
+}
+
+.k-datepicker-range-dropdown {
+	width: 430px;
+}
+
+.k-datepicker:focus, .k-datepicker-open {
+	border-color: @main;
+	box-shadow: 0 0 5px fade(@main, 75%);
+}
+
+.k-datepicker-dropdown {
+	position: absolute;
+	z-index: 1003;
+	background: #fff;
+}
+
+.k-datepicker-mini {
+	min-height: 25px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		line-height: 23px;
+	}
+	.k-icon {
+		font-size: 12px;
+	}
+	.k-datepicker-selection {
+		padding: 0 23px 0 9px;
+	}
+}
+
+.k-datepicker-large {
+	min-height: 40px;
+	min-width: 190px;
+	.k-datepicker-placeholder, .k-datepicker-value {
+		line-height: 38px;
+		font-size: 14px;
+	}
+	.k-icon {
+		font-size: 16px;
+		right: 10px;
+	}
+	.k-datepicker-selection {
+		padding: 0 38px 0 9px;
+	}
+}
+
+.k-datepicker-disabled {
+	border-color: @disable-border;
+	color: @disable-color;
+	cursor: not-allowed;
+	background: @disable-back;
+	&:hover {
+		border-color: @disable-border;
+	}
+	.k-datepicker-value {
+		color: @disable-color;
+	}
+}
+
+.k-datepicker-dropdown {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	border-radius: @radius;
+	overflow: hidden;
+}

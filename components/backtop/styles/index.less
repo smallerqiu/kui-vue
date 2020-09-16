@@ -1,0 +1,59 @@
+@import '../../styles/global.less';
+.k-backtop {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	z-index: 10;
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	height: 40px;
+	width: 40px;
+	cursor: pointer;
+	display: block;
+	overflow: hidden;
+	border-radius: @radius;
+	&-content {
+		background-color: rgba(0, 0, 0, .45);
+		opacity: .5;
+		height: 40px;
+		transition: opacity .3s ease-in-out;
+		text-align: center;
+		line-height: 40px;
+		color: #fff;
+		&:hover {
+			opacity: 1;
+		}
+		.k-ion {
+			font-size: 20px;
+			color: #fff;
+		}
+	}
+}
+
+@keyframes k-backtop-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes k-backtop-fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.k-backtop-fade-enter-active {
+	animation: k-backtop-fade-in .4s;
+}
+
+.k-backtop-fade-leave-active {
+	animation: k-backtop-fade-out .4s;
+}

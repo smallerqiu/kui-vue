@@ -1,0 +1,104 @@
+@import '../../styles/global.less';
+.k-switch {
+   min-width: 44px;
+   height: 24px;
+   line-height: 22px;
+   border-radius: 24px;
+   vertical-align: middle;
+   border: 1px solid #ccc;
+   background-color: #ccc;
+   font-size: 12px;
+   position: relative;
+   cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   transition: all .36s cubic-bezier(.78, .14, .15, .86);
+   display: inline-block;
+   box-sizing: border-box;
+   overflow: hidden;
+   outline: none;
+   &:focus {
+      // border: 1px solid @main;
+      box-shadow: 0 0 5px fade(@main, 75%);
+   }
+   .k-icon {
+      font-size: 22px;
+   }
+   &:after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      background-color: #fff;
+      position: absolute;
+      left: 1px;
+      top: 50%;
+      cursor: pointer;
+      transform: translate3d(0, -50%, 0);
+      transition: all .36s cubic-bezier(.78, .14, .15, .86);
+   }
+   .k-switch-inner {
+      color: #fff;
+      margin-left: 25px;
+      margin-right: 8px;
+      display: block;
+      line-height: 22px;
+   }
+   &:active {
+      &:after {
+         width: 25px;
+      }
+   }
+}
+
+.k-switch-mini {
+   min-width: 28px;
+   height: 16px;
+   &:after {
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+   }
+   &:active {
+      &:after {
+         width: 15px;
+      }
+   }
+}
+
+.k-switch-checked {
+   background: @main;
+   border-color: @main;
+   &:after {
+      left: 100%;
+      transform: translate3d(-100%, -50%, 0);
+      margin-left: -1px;
+   }
+   .k-switch-inner {
+      margin-left: 8px;
+      margin-right: 25px;
+   }
+   &.k-switch-success {
+      background: #19be6b;
+      border-color: #19be6b;
+   }
+   &.k-switch-primary {
+      background: #3a95ff;
+      border-color: #3a95ff;
+   }
+   &.k-switch-danger {
+      background: #ed3f14;
+      border-color: #ed3f14;
+   }
+   &.k-switch-warning {
+      background: #ffac13;
+      border-color: #ffac13;
+   }
+}
+
+.k-switch-disabled {
+   opacity: .5;
+   cursor: not-allowed;
+}

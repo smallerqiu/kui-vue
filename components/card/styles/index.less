@@ -1,0 +1,44 @@
+@import '../../styles/global.less';
+.k-card {
+  background: #fff;
+  position: relative;
+  border-radius: @radius;
+  .k-card-head {
+    position: relative;
+    border-bottom: 1px solid #e9eaec;
+    padding: 14px 16px;
+    line-height: 1;
+    .k-icon {
+      vertical-align: middle;
+      margin-right: 6px;
+      font-size: 14px;
+    }
+    .k-card-title {
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 80%;
+      display: inline-block;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+  .k-card-extra {
+    position: absolute;
+    right: 16px;
+    cursor: default;
+    top: 50%;
+    font-size: 12px;
+    transform: translate3d(0, -50%, 0);
+    user-select: none;
+  }
+  .k-card-body {
+    padding: 16px;
+    font-size: 12px;
+  }
+}
+
+.k-card-bordered {
+  border: 1px solid #eee;
+}

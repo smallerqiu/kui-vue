@@ -1,0 +1,115 @@
+@import '../../styles/global.less';
+.k-progress {
+  .k-progress-inner {
+    display: inline-block;
+    border-radius: 10px;
+    background-color: @disable-back;
+    stroke: @disable-back;
+    overflow: hidden;
+    vertical-align: middle;
+    width: calc(100% - 38px);
+    margin-right: 8px;
+  }
+  .k-progress-bg {
+    height: 8px;
+    border-radius: 10px;
+    background-color: @main;
+    stroke: @main;
+    width: 30%;
+    transition: all .3s ease-in-out;
+  }
+  .k-progress-text {
+    display: inline-block;
+    width: 30px;
+    font-size: 12px;
+    color: @color;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    .k-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+.k-progress-hide-info {
+  .k-progress-inner {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.k-progress-circle, .k-progress-dashboard {
+  width: 120px;
+  height: 120px;
+  display: inline-block;
+  position: relative;
+  .k-progress-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
+
+@keyframes k-progress-active {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  80% {
+    opacity: .3;
+    width: 80%;
+  }
+  100% {
+    opacity: 0;
+    width: 100%;
+  }
+}
+
+.k-progress-active {
+  .k-progress-bg {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background-color: #fff;
+      opacity: 0;
+      border-radius: 10px;
+      animation: k-progress-active 2.4s linear infinite;
+    }
+  }
+}
+
+.k-progress-exception {
+  .k-progress-inner {
+    .k-progress-bg {
+      background-color: @danger;
+    }
+  }
+  .k-icon {
+    color: @danger;
+  }
+  .k-progress-bg {
+    stroke: @danger;
+  }
+}
+
+.k-progress-success {
+  .k-progress-inner {
+    .k-progress-bg {
+      background-color: @success;
+    }
+  }
+  .k-icon {
+    color: @success;
+  }
+  .k-progress-bg {
+    stroke: @success;
+  }
+}

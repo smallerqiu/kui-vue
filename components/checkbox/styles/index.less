@@ -1,0 +1,119 @@
+@import '../../styles/global.less';
+.k-checkbox-wrapper {
+	cursor: pointer;
+	font-size: 12px;
+	display: inline-block;
+	user-select: none;
+	line-height: 1;
+	.k-checkbox {
+		display: inline-block;
+		vertical-align: middle;
+		white-space: nowrap;
+		cursor: pointer;
+		outline: 0;
+		line-height: 1;
+		position: relative;
+		margin: 0;
+		box-sizing: content-box;
+		font-size: 0;
+		.k-checkbox-inner {
+			box-sizing: content-box;
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			position: relative;
+			top: 0;
+			left: 0;
+			border: 1px solid @border-color;
+			border-radius: 2px;
+			background-color: #fff;
+			transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
+			overflow: hidden;
+			color: #fff;
+			.k-icon {
+				font-size: 18px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+			}
+		}
+		.k-checkbox-input {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 1;
+			cursor: pointer;
+			opacity: 0;
+			&:focus {
+				+.k-checkbox-inner {
+					border: 1px solid @main;
+					box-shadow: 0 0 5px fade(@main, 75%);
+				}
+			}
+		}
+	}
+	.k-checkbox-checked {
+		.k-checkbox-inner {
+			background: @main;
+			border-color: @main;
+			position: relative;
+		}
+	}
+	.k-checkbox-indeterminate {
+		.k-checkbox-inner {
+			// background: @main;
+			// border-color: @main;
+			position: relative;
+			&:after {
+				box-sizing: content-box;
+				background-color: @main;
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				content: '';
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				transition: all .2s ease-in-out;
+				// border-radius: 2px;
+			}
+		}
+	}
+	&:hover .k-checkbox-inner {
+		border-color: @main;
+	}
+	.k-checkbox-label {
+		padding: 0 8px;
+	}
+}
+
+.k-checkbox-disabled {
+	cursor: not-allowed;
+	color: @disable-color;
+	.k-checkbox {
+		.k-checkbox-input {
+			cursor: not-allowed;
+		}
+		.k-checkbox-inner {
+			background: @disable-back;
+			border-color: @disable-border;
+			color: @disable-color;
+			&:after {
+				background-color: @disable-back;
+				color: @disable-color;
+			}
+		}
+	}
+	.k-checkbox-indeterminate .k-checkbox-inner:after {
+		background-color: @disable-border;
+	}
+}
+
+.k-checkbox-group {
+	display: inline-block;
+}

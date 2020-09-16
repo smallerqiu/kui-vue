@@ -1,0 +1,79 @@
+//颜色
+@main: #3a95ff;
+// @main:#7546c9;
+@primary: #3a95ff;
+@success: #00bb5d;
+@danger: #ff3300;
+@warning: #ffa500;
+@pink: lighten( purple, 45%);
+@red: lighten(red, 5%);
+@yellow: mix(yellow, orange, 50%);
+@orange: lighten(orange, 8%);
+@cyan: darken(cyan, 10%);
+@green: lighten(green, 15%);
+@blue: mix(blue, cyan, 50%);
+@purple: lighten(mix(purple,blue, 60%),30%);
+@geekblue: mix(blue, cyan, 70%); //极客蓝
+@magenta: mix(pink, red, 40%); //洋红
+@volcano: mix(red, orange, 60%); //火红
+@gold: lighten(gold, 10%);
+@lime: mix(green, yellow, 40%); //绿黄色
+@gray: #969696;
+@light: #f5f5f5;
+@dark: rgba(0, 0, 0, .75);
+@color: rgba(0, 0, 0, .75);
+@color-light: rgba(255, 255, 255, .75);
+@title-color: rgba(0, 0, 0, .85);
+@back-color: #fafafa;
+@mask-color: rgba(0, 0, 0, .6);
+@icon-color: rgba(0, 0, 0, .4);
+@radius: ~'5px';
+@border-color: #ddd;
+@disable-border: #d0d0d0;
+@disable-color: rgba(0, 0, 0, .3);
+@disable-light-color: rgba(255, 255, 255, .3);
+@disable-back: #f3f3f3;
+@dark-back: #22303f;
+::selection {
+  background: @main;
+  color: #fff;
+}
+
+// *, :after, :before {
+//   box-sizing: border-box;
+//   margin: 0;
+//   -webkit-tap-highlight-color: transparent;
+//   outline: none;
+// }
+//下拉动画
+@keyframes dropDownIn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0)
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1)
+  }
+}
+
+@keyframes dropDownOut {
+  0% {
+    opacity: 1;
+    transform: scaleY(1)
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0)
+  }
+}
+
+.dropdown-enter-active {
+  transform-origin: 0 0;
+  animation: dropDownIn .3s;
+}
+
+.dropdown-leave-active {
+  transform-origin: 0 0;
+  animation: dropDownOut .3s
+}
