@@ -20,6 +20,19 @@
         <MenuGroup title="Item 2">
           <MenuItem key="3-3">Option 1</MenuItem>
           <MenuItem key="3-4">Option 2</MenuItem>
+           <SubMenu key="3">
+              <template slot="title">
+                <Icon type="ios-settings" />Navigation - Submenu
+              </template>
+              <MenuGroup title="Item 1">
+                <MenuItem key="3-1">Option 1</MenuItem>
+                <MenuItem key="3-2">Option 2</MenuItem>
+              </MenuGroup>
+              <MenuGroup title="Item 2">
+                <MenuItem key="3-3">Option 1</MenuItem>
+                <MenuItem key="3-4">Option 2</MenuItem>
+              </MenuGroup>
+          </SubMenu>
         </MenuGroup>
       </SubMenu>
       <MenuItem key="4">

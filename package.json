@@ -6,7 +6,7 @@
     "style": "dist/k-ui.css",
     "files": [
         "dist",
-        "src"
+        "components"
     ],
     "scripts": {
         "start": "npm run dev",
@@ -17,7 +17,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/chuchur-china/kui-vue.git"
+        "url": "https://gitee.com/chuchur/kui-vue"
     },
     "author": "chuchur",
     "license": "ISC",
@@ -38,9 +38,9 @@
         "pc",
         "pc ui"
     ],
-    "homepage": "https://vue.k-ui.cn",
+    "homepage": "https://k-ui.cn",
     "bugs": {
-        "url": "https://github.com/chuchur-china/kui-vue/issues",
+        "url": "https://gitee.com/chuchur/kui-vue/issues",
         "email": "chuchur@qq.com"
     },
     "devDependencies": {
@@ -56,10 +56,10 @@
         "babel-preset-env": "^1.7.0",
         "chalk": "^4.1.0",
         "cheerio": "^1.0.0-rc.3",
+        "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^3.6.0",
         "file-loader": "^6.0.0",
         "html-webpack-plugin": "^4.3.0",
-        "kui-loader": "^1.0.2",
         "less": "^3.11.3",
         "less-loader": "^6.1.2",
         "markdown-it": "^11.0.0",
@@ -83,12 +83,15 @@
         "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^4.2.2",
         "webpack-simple-progress-plugin": "0.0.4",
-        "webpackbar": "^4.0.0"
+        "webpackbar": "^4.0.0",
+        "marked": "^1.1.0",
+        "vue-markdown-loader": "^2.4.1",
+        "terser-webpack-plugin": "^4.2.1",
+
     },
     "dependencies": {
         "kui-icons": "^1.0.2",
-        "marked": "^1.1.0",
         "moment": "^2.27.0",
-        "vue-markdown-loader": "^2.4.1"
+        "kui-loader": "^1.0.2"
     }
 }

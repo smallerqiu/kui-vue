@@ -12,6 +12,7 @@
 | openChange       | SubMenu 展开/关闭的回调                  | Fun(openKeys: String[])                           | -        |
 | accordion        | 是否只允许菜单展开一项                   | Boolean                                           | false    |
 | inline-collapsed | inline 时菜单是否收起状态                | Boolean                                           | false    |
+| vertical-affixed | 菜单是否支持收藏 (vertical模式有效)      | Boolean                                           | false    |
 
 ### Menu.Item
 
@@ -19,6 +20,7 @@
 |----------|--------------------------|---------|--------|
 | icon     | item的图标               | String  | -      |
 | disabled | 是否禁用                 | Boolean | false  |
+| affixed  | 是否收藏                 | Boolean | false  |
 | key      | item 的唯一标志          | String  | -      |
 | title    | 设置收缩时展示的悬浮标题 | String  | -      |
  
@@ -32,6 +34,6 @@
 
 ### Menu.MenuGroup
 
-| 属性  | 说明       | 类型         | 默认值 |
-|-------|------------|--------------|--------|
+| 属性  | 说明     | 类型         | 默认值 |
+|-------|----------|--------------|--------|
 | title | 分组标题 | String,slots | -      |

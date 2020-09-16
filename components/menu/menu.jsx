@@ -7,6 +7,7 @@ export default {
     value: { type: Array, default: () => [] },
     accordion: Boolean,
     inlineCollapsed: Boolean,
+    verticalAffixed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
   inject: {

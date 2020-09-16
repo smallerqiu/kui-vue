@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://vue.k-ui.cn">
+    <a href="https://k-ui.cn">
         <img width="100" src="https://chuchur.com/kui/vue/logo.svg">
     </a>
 </p>
@@ -7,7 +7,7 @@
 # KUI for Vue   
 
 基于VUE 2.x 开发，漂亮的UI，可定制主题 ,组件丰富,支持SSR , 支持Nuxt ,兼容IE9。  
-欢迎批评、指正、吐槽、[Star](https://github.com/chuchur-china/kui-vue) 和 [捐助](https://vue.k-ui.cn/#/sponsor)   
+欢迎批评、指正    
 
 ## 开发   
 ```xml
@@ -25,7 +25,7 @@ npm run build
 ## 文档
 Docs:  [https://vue.k-ui.cn](https://vue.k-ui.cn)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
-Github: [https://github.com/chuchur-china/kui-vue](https://github.com/chuchur-china/kui-vue)
+代码仓库: [https://gitee.com/chuchur/kui-vue](https://gitee.com/chuchur/kui-vue)
 ## 特性   
 漂亮的UI，可定制主题   
 兼容IE9+   
@@ -38,7 +38,7 @@ Github: [https://github.com/chuchur-china/kui-vue](https://github.com/chuchur-ch
 
 ## 更新日志：
 
-Logs: [https://vue.k-ui.cn/#log](https://vue.k-ui.cn/#log)
+Logs: [https://k-ui.cn/#log](https://k-ui.cn/#log)
 
 ## 安装   
 

@@ -21,11 +21,11 @@
       :label="'网址' + i" 
       :prop="'webs.' + i + '.value'" 
       v-for="(item,i) in form.webs" 
-      :key="i"
+      :key="item.key"
       :rules="{required: true, message: '网址不能为空'}"
     >
       <Input v-model="item.value" style="width:230px"/>
-      <Button @click="remove" v-if="i>0">Delete</Button>
+      <Button @click="e=>remove(item.key)" v-if="i>0">Delete</Button>
     </FormItem>
     <FormItem>
       <Button type="primary" @click="submit">Submit</Button>
@@ -45,19 +45,23 @@ export default{
       callback()
     };
     return {
+      count:1,
       form: {
         fullname:'',
         webs:[
-          { value:'', key:'' }
+          { value:'', key:'a1' }
         ] ,
       },
     }
   },
   methods:{
     add(){
-      this.form.webs.push({value:'', key:Date.now()})
+      this.count+=1
+      this.form.webs.push({value:'', key:'a'+this.count})
     },
-    remove(index){
+    remove(key){
+      let item = this.form.webs.filter(x=>x.key==key)[0]
+      let index = this.form.webs.indexOf(item)
       this.form.webs.splice(index, 1)
     },
     submit(){

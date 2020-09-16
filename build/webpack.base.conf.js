@@ -72,5 +72,14 @@ module.exports = {
     new webpack.BannerPlugin(`${pkg.name} v${pkg.version} 
 Copyright 2017-present, kui-vue.
 All rights reserved.
-        `),],
+Author: chuchur@qq.com / www.chuchur.com
+        `),
+    new webpack.ContextReplacementPlugin(
+      /moment[\\\/]locale$/,
+      /^\.\/(zh-cn)$/
+    ),
+  ],
+
+
+
 }

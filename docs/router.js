@@ -3,11 +3,17 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+// 解决 vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 let router = []
 
 let docs = [
     { path: 'start', component: () => import(/*webpackChunkName:'start'*/'./views/start') },
+    { path: 'use-in-vue', component: () => import(/*webpackChunkName:'use-in-vue'*/'./views/use-in-vue') },
     { path: 'log', component: () => import(/*webpackChunkName:'log'*/'./views/log') },
     { path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr') },
     { path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme') },
@@ -20,7 +26,6 @@ let components = [
     { path: 'carousel', component: () => import(/*webpackChunkName:'carousel'*/'../components/carousel/demo'), },
     { path: 'collapse', component: () => import(/*webpackChunkName:'collapse'*/'../components/collapse/demo'), },
     { path: 'colorpicker', component: () => import(/*webpackChunkName:'colorpicker'*/'../components/colorPicker/demo'), },
-    // // { path: 'color', component: () => import(/*webpackChunkName:'color'*/'../components/color/demo'), },
     { path: 'checkbox', component: () => import(/*webpackChunkName:'checkbox'*/'../components/checkbox/demo'), },
     { path: 'button', component: () => import(/*webpackChunkName:'button'*/'../components/button/demo'), },
     { path: 'breadcrumb', component: () => import(/*webpackChunkName:'breadcrumb'*/'../components/breadcrumb/demo'), },
@@ -30,31 +35,27 @@ let components = [
     { path: 'dropdown', component: () => import(/*webpackChunkName:'dropdown'*/'../components/dropdown/demo'), },
     { path: 'drawer', component: () => import(/*webpackChunkName:'drawer'*/'../components/drawer/demo'), },
     { path: 'form', component: () => import(/*webpackChunkName:'form'*/'../components/form/demo'), },
-    // { path: 'font', component: () => import(/*webpackChunkName:'font'*/'../components/font/demo'), },
     { path: 'grid', component: () => import(/*webpackChunkName:'grid'*/'../components/grid/demo'), },
     // { path: 'imagepreview', component: () => import(/*webpackChunkName:'image-preview'*/'../components/image-preview/demo'), },
     { path: 'input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },
     { path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
     { path: 'layout', component: () => import(/*webpackChunkName:'layout'*/'../components/layout/demo'), },
-    // { path: 'loading', component: () => import(/*webpackChunkName:'loading'*/'../components/loading/demo'), },
     { path: 'message', component: () => import(/*webpackChunkName:'message'*/'../components/message/demo'), },
     { path: 'modal', component: () => import(/*webpackChunkName:'modal'*/'../components/modal/demo'), },
     { path: 'menu', component: () => import(/*webpackChunkName:'menu'*/'../components/menu/demo'), },
     { path: 'notice', component: () => import(/*webpackChunkName:'notice'*/'../components/notice/demo'), },
     { path: 'radio', component: () => import(/*webpackChunkName:'radio'*/'../components/radio/demo'), },
-    // { path: 'react-kui', component: () => import(/*webpackChunkName:'react-kui'*/'../components/react-kui/demo'), },
     { path: 'select', component: () => import(/*webpackChunkName:'select'*/'../components/select/demo'), },
+    { path: 'spin', component: () => import(/*webpackChunkName:'spin'*/'../components/spin/demo'), },
     { path: 'switch', component: () => import(/*webpackChunkName:'switch'*/'../components/switch/demo'), },
     // { path: 'steps', component: () => import(/*webpackChunkName:'steps'*/'../components/steps/demo'), },
-    // { path: 'sponsor', component: () => import(/*webpackChunkName:'sponsor'*/'../components/sponsor/demo'), },
     { path: 'table', component: () => import(/*webpackChunkName:'table'*/'../components/table/demo'), },
     { path: 'tag', component: () => import(/*webpackChunkName:'tag'*/'../components/tag/demo'), },
     { path: 'tabs', component: () => import(/*webpackChunkName:'tabs'*/'../components/tabs/demo'), },
     { path: 'timeline', component: () => import(/*webpackChunkName:'timeline'*/'../components/timeline/demo'), },
     { path: 'tooltip', component: () => import(/*webpackChunkName:'tooltip'*/'../components/tooltip/demo'), },
     { path: 'tree', component: () => import(/*webpackChunkName:'tree'*/'../components/tree/demo'), },
-    { path: 'treeselect', component: () => import(/*webpackChunkName:'treeselect'*/'../components/treeselect'), },
-    // { path: 'test', component: () => import(/*webpackChunkName:'test'*/'../components/test'), },
+    // { path: 'treeselect', component: () => import(/*webpackChunkName:'treeselect'*/'../components/treeselect'), },
     { path: 'poptip', component: () => import(/*webpackChunkName:'poptip'*/'../components/poptip/demo'), },
     { path: 'popconfirm', component: () => import(/*webpackChunkName:'popconfirm'*/'../components/popconfirm/demo'), },
     { path: 'progress', component: () => import(/*webpackChunkName:'progress'*/'../components/progress/demo'), },
@@ -86,6 +87,8 @@ let routers = new Router({
         return savedPosition || { x: 0, y: 0 }
     }
 })
+
+
 // routers.beforeEach(function (to, from, next) {
 //     // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
 //     // loading.start('line');

@@ -4,18 +4,22 @@
  */
 // const ExtractTextPlugin = require('extract-text-webpack-plugin')//for webpack 3
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const progress = require('webpack-simple-progress-plugin');
+const WebpackBar = require('webpackbar')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
-    index: ['./docs/src/main.js'],
+    index: ['./docs/main.js'],
     // vendors: ['vue', 'vue-router']
   },
   output: {
@@ -77,15 +81,26 @@ module.exports = merge(webpackBaseConfig, {
       },
     },
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          cache: true,
-          parallel: true,
-          sourceMap: true,
-          uglifyOptions: {
-            warnings: false,
+      // new UglifyJsPlugin({
+      //   uglifyOptions: {
+      //     cache: true,
+      //     parallel: true,
+      //     sourceMap: true,
+      //     uglifyOptions: {
+      //       warnings: false,
+      //     },
+      //   }
+      // }),
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+        terserOptions: {
+          output: {
+            // comments: /kui-vue.WH/i,
           },
-        }
+        },
+        extractComments: false,
       }),
       new OptimizeCSSAssetsPlugin({})
     ]
@@ -98,8 +113,8 @@ module.exports = merge(webpackBaseConfig, {
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: path.resolve(__dirname, '../docs/src/index.html'),
-      favicon: path.join(__dirname, '../docs/src/assets/favicon.png'),
+      template: path.resolve(__dirname, '../docs/index.html'),
+      favicon: path.join(__dirname, '../docs/assets/favicon.png'),
       inject: true,
       minify: {
         removeComments: true,
@@ -107,5 +122,6 @@ module.exports = merge(webpackBaseConfig, {
         removeAttributeQuotes: true
       },
     }),
+    new CleanWebpackPlugin()
   ],
 })

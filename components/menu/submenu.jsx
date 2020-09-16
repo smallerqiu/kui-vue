@@ -15,7 +15,11 @@ export default {
   },
   provide() {
     return {
-      SubMenu: this
+      SubMenu: this,
+      collectAffixItem: (context, type) => {
+        const childs = this.affixChilds
+        type === 'delete' ? childs.splice(childs.indexOf(context), 1) : childs.push(context)
+      }
     }
   },
   inject: {
@@ -28,7 +32,8 @@ export default {
       opened: false,
       left: null,
       minWidth: null,
-      currentMode: null
+      currentMode: null,
+      affixChilds: []
     };
   },
   render() {
@@ -63,40 +68,24 @@ export default {
       ],
       on: {
         mouseenter: () => {
-          if (disabled) return;
-          this.active = true
-          if (currentMode == 'inline') return;
-          let width = this.$el.offsetWidth
-          this.minWidth = null
-          this.left = null
-          if (currentMode == 'vertical') {
-            this.left = width
-          } else if (this.currentMode == 'vertical') {
-            this.left = !this.SubMenu ? null : width
-            if (!this.SubMenu) {
-              this.minWidth = width
-            }
-          }
-          this.opened = true;
-          clearTimeout(this.timer)
+          this.showPopupMenu(currentMode)
         },
-        mouseleave: () => {
-          this.active = false
-          if (currentMode == 'inline') return;
-          clearTimeout(this.timer)
-          this.timer = setTimeout(() => {
-            this.opened = false
-          }, 300);
-        }
+        mouseleave: () => this.hidePopupMenu(currentMode)
       }
     }
-
+    let groupProps = {
+      class: "k-menu-submenu-title",
+      on: {
+        mouseenter: () => { this.showPopupMenu(currentMode) },
+        click: e => this.openChange()
+      }
+    }
     // console.log(subProps)
     let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode]
-
+    const hasRenderAffix = this.$parent == root && root.mode == 'vertical' && root.verticalAffixed
     return (
       <li {...props}>
-        <div class="k-menu-submenu-title" onClick={this.openChange}>
+        <div {...groupProps}>
           <span class="k-menu-submenu-inner">{$slots.title || this.title}</span>
           <Icon type={currentMode == 'vertical' ? 'ios-arrow-forward' : "ios-arrow-down"} class="k-menu-submenu-arrow" />
         </div>
@@ -105,10 +94,74 @@ export default {
             <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
           </div>
         </Collapse>
+        {this.renderAffix(hasRenderAffix, root, currentMode)}
       </li>
     )
   },
   methods: {
+    hidePopupMenu(currentMode) {
+      this.active = false
+      if (currentMode == 'inline') return;
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.opened = false
+      }, 300);
+    },
+    showPopupMenu(currentMode) {
+      if (this.disabled) return;
+      this.active = true
+      if (currentMode == 'inline') return;
+      let width = this.$el.offsetWidth
+      this.minWidth = null
+      this.left = null
+      if (currentMode == 'vertical') {
+        this.left = width
+      } else if (this.currentMode == 'vertical') {
+        this.left = !this.SubMenu ? null : width
+        if (!this.SubMenu) {
+          this.minWidth = width
+        }
+      }
+      this.opened = true;
+      clearTimeout(this.timer)
+    },
+    renderAffix(isRender, root, currentMode) {
+      const itemClick = (item, e) => {
+        if (!item.disabled) {
+          // this.selected = true
+          let key = item.$vnode.key
+
+          let options = {
+            key,
+            keyPath: [key],
+            item,
+            event: e
+          }
+          let parent = this.SubMenu || this.Menu
+          if (parent) {
+            parent.handleClick(options)
+          }
+        }
+      }
+      const child = this.affixChilds.map(item => {
+        return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(item.$vnode.key) >= 0 }]} key={item.$vnode.key}>
+          <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{item.$slots.default}</span>
+        </li>
+      })
+      if (isRender) {
+        const props = {
+          class: "k-menu-submenu-affix",
+          on: {
+            mouseenter: e => {
+              e.stopPropagation()
+              this.hidePopupMenu(currentMode)
+            }
+          }
+        }
+        return <div {...props}>{child}</div>
+      }
+      return null
+    },
     openChange() {
       if (this.Menu) {
         let root = getParent(this.Menu, 'Menu')

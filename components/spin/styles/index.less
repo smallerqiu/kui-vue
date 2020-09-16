@@ -1,10 +1,17 @@
 @import '../../styles/global.less';
 @spinColor: rgba(255, 255, 255, 0.7);
 .k-spin {
-  min-width: 50px;
-  min-height: 50px;
+  // min-width: 50px;
+  // min-height: 50px;
+  display: inline-block;
+  position: relative;
+  &-loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all .3s;
+  }
   &-flip {
-    position: relative;
     background-color: @spinColor;
     &::after {
       content: '';
@@ -20,7 +27,6 @@
     }
   }
   &-bounce {
-    position: relative;
     background-color: @spinColor;
     &::before, &::after {
       content: '';
@@ -41,7 +47,6 @@
     }
   }
   &-zoom {
-    position: relative;
     background-color: @spinColor;
     &::before, &::after {
       content: '';
@@ -63,7 +68,6 @@
     }
   }
   &-rotate {
-    position: relative;
     background-color: @spinColor;
     &::before, &::after {
       border: 5px solid tint(@main, 80%);
