@@ -1,0 +1,90 @@
+@import '../../styles/global.less';
+.k-message {
+  font-size: 14px;
+  line-height: 1.5;
+  color: @color;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 1010;
+  width: 100%;
+  top: 16px;
+  left: 0;
+  pointer-events: none;
+  .k-message-box {
+    box-sizing: content-box;
+    padding: 0 12px 14px 12px;
+    text-align: center;
+    transition: all .3s;
+    // margin-top: -8px;
+  }
+  .k-message-content {
+    box-sizing: content-box;
+    line-height: 1.5;
+    padding: 10px 16px;
+    border-radius: @radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    display: inline-block;
+    pointer-events: all;
+    .k-message-icon {
+      margin-right: 8px;
+      font-size: 18px;
+      vertical-align: middle;
+    }
+  }
+  .k-message-close {
+    overflow: hidden;
+    cursor: pointer;
+    float: right;
+    margin-left: 15px;
+    font-size: 20px;
+  }
+}
+
+.k-message-success .k-message-icon {
+  color: @success;
+}
+
+.k-message-error .k-message-icon {
+  color: @danger;
+}
+
+.k-message-info .k-message-icon {
+  color: @main;
+}
+
+.k-message-warning .k-message-icon {
+  color: @warning;
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    margin-top: -55px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
+@keyframes msgOut {
+  from {
+    opacity: 1;
+    margin-top: -55px;
+  }
+  to {
+    opacity: 0;
+    margin-top: 0;
+  }
+}
+
+.k-message-slide-enter-active {
+  animation: msgIn .3s ease;
+}
+
+.k-message-slide-leave-active {
+  animation: msgOut .3s ease;
+}

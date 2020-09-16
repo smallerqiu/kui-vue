@@ -1,0 +1,48 @@
+.k-layout {
+  background: #f0f2f5;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  &::before {
+    content: "";
+    display: table;
+    box-sizing: border-box;
+  }
+  &::after {
+    content: "";
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0;
+  }
+  .k-layout-header {
+    height: 64px;
+    line-height: 64px;
+    padding: 0 50px;
+    background: #22303f;
+    box-sizing: border-box;
+  }
+  .k-layout-content {
+    flex: 1;
+    overflow: hidden;
+  }
+  .k-layout-sider {
+    position: relative;
+    min-width: 0;
+    transition: all 0.2s;
+    background: #646d82;
+  }
+  .k-layout-footer {
+    background: #f0f2f5;
+    padding: 24px 50px;
+    font-size: 14px;
+  }
+}
+
+.k-layout-has-sider {
+  flex-direction: row;
+  width: 100%;
+  .k-layout {
+    flex: 1;
+  }
+}

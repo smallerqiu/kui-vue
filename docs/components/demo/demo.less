@@ -1,0 +1,82 @@
+.k-demo {
+  border: 1px solid #eee;
+  margin: 10px 0;
+  position: relative;
+  // overflow: hidden;
+  transition: all 0.3s;
+  .k-content, .k-desc {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .k-desc {
+    margin: 30px 0 0;
+    border-top: 1px solid #f1f1f1;
+    position: relative;
+    h4 {
+      position: absolute;
+      top: -55px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+      background: #fff;
+      padding: 5px 10px;
+    }
+    .k-desc-content {
+      color: #666;
+      padding-right: 50px;
+      position: relative;
+      p {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+      }
+    }
+  }
+  .k-code {
+    transition: all .3s ease;
+    position: relative;
+    .k-code-pre {
+      height: 100%;
+      min-height: 100%;
+      font-size: 0;
+      overflow: hidden; // margin: 10px 0;
+      transition: height 0.3s ease-in-out;
+      line-height: 1.5;
+    }
+    .k-code-tools {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      .k-tooltip {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #999;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+    code, kbd, samp {
+      font-size: 14px;
+      // line-height: 25px;
+    }
+    .hljs {
+      // background: rgba(241, 241, 241, 0.43) !important;
+      height: 100%;
+      margin: 0;
+      font-size: 13px;
+    }
+  }
+  .k-code-expan {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 24px;
+    color: #7d7d7d;
+    cursor: pointer;
+  }
+}

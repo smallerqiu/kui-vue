@@ -1,0 +1,77 @@
+@import '../../styles/global.less';
+.k-row {
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  height: auto;
+  zoom: 1;
+  display: block;
+  box-sizing: border-box;
+  &:after, &:before {
+    content: "";
+    display: table;
+    box-sizing: border-box;
+  }
+  &:after {
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0;
+  }
+}
+
+@fix :~'k-col';
+@counts :24;
+.makecol(@index) when(@index>0) {
+  .@{fix}-@{index} {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    width: percentage((@index / @counts));
+  }
+  .@{fix}-offset-@{index} {
+    margin-left: percentage((@index / @counts));
+  }
+  .makecol((@index - 1));
+}
+
+.makecol(@counts);
+.k-row-flex {
+  display: flex;
+  flex-flow: row wrap;
+  &::after,&::before{
+    display: none;
+  }
+}
+
+.k-row-flex-top {
+  align-items: flex-start;
+}
+
+.k-row-flex-middle {
+  align-items: center;
+}
+
+.k-row-flex-bottom {
+  align-items: flex-end;
+}
+
+.k-row-flex-start {
+  justify-content: flex-start;
+}
+
+.k-row-flex-end {
+  justify-content: flex-end;
+}
+
+.k-row-flex-center {
+  justify-content: center;
+}
+
+.k-row-flex-space-around {
+  justify-content: space-around;
+}
+
+.k-row-flex-space-between {
+  justify-content: space-between;
+}

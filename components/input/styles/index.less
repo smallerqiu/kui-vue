@@ -1,0 +1,185 @@
+@import '../../styles/global.less';
+.k-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  .k-input-icon {
+    position: absolute;
+    top: 0;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: @icon-color;
+    z-index: 1;
+    &+.k-input {
+      padding-left: 32px;
+    }
+  }
+}
+
+.k-input, .k-textarea {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  line-height: 1.5;
+  padding: 4px 7px;
+  font-size: 12px;
+  margin: 0;
+  border: 1px solid @border-color;
+  border-radius: @radius;
+  color: @color;
+  background-color: #fff;
+  background-image: none;
+  position: relative;
+  cursor: text;
+  transition: border .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  &:focus {
+    // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
+    box-shadow: 0 0 5px fade(@main, 75%);
+    border-color: @main;
+    outline: none;
+  }
+  &:hover {
+    border-color: @main;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    color: @disable-color;
+    background: @disable-back;
+    border-color: @disable-border;
+    &::placeholder {
+      color: @disable-color;
+    }
+    &:hover {
+      border-color: @disable-border;
+    }
+  }
+}
+
+.k-textarea {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+  font-size: 12px;
+  resize: none;
+  outline: none;
+}
+
+.k-input-has-suffix, .k-input-has-clear {
+  .k-input {
+    padding-right: 32px;
+  }
+}
+
+.k-input-suffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  font-size: 12px;
+  transform: translateY(-50%);
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  // background: #fff;
+  &:hover {
+    color: @color;
+  }
+  .k-icon {
+    font-size: 16px;
+  }
+}
+
+.k-input-clearable {
+  position: absolute;
+  right: 8px;
+  cursor: pointer;
+  z-index: 10;
+  top: 50%;
+  font-size: 15px;
+  transform: translateY(-50%);
+  color: @gray;
+  &:hover {
+    color: @color;
+  }
+}
+
+input.k-input-mini {
+  padding: 2px 7px;
+  height: 25px;
+  line-height: 23px;
+}
+
+.k-input-mini {
+  .k-input {
+    padding: 2px 7px;
+    height: 25px;
+    line-height: 23px;
+  }
+  .k-input-clearable {
+    right: 9px;
+    font-size: 11px;
+  }
+  .k-input-icon {
+    left: 5px;
+    font-size: 16px;
+    &+.k-input {
+      padding-left: 24px;
+    }
+  }
+  &.k-input-has-clear .k-input {
+    padding-right: 25px;
+  }
+  .k-input-suffix {
+    right: 5px;
+    .k-icon {
+      font-size: 12px;
+    }
+  }
+}
+
+input.k-input-lg {
+  padding: 2px 7px;
+  height: 40px;
+  line-height: 38px;
+  font-size: 14px;
+}
+
+.k-input-lg {
+  .k-input {
+    padding: 2px 7px;
+    height: 40px;
+    line-height: 38px;
+    font-size: 14px;
+  }
+  .k-input-clearable {
+    right: 10px;
+    font-size: 18px;
+  }
+  .k-input-icon {
+    font-size: 25px;
+    left: 8px;
+    &+.k-input {
+      padding-left: 40px;
+    }
+  }
+  &.k-input-has-clear .k-input {
+    padding-right: 40px;
+  }
+  .k-input-suffix {
+    right: 15px;
+    .k-icon {
+      font-size: 18px;
+    }
+  }
+}
+
+::-ms-clear {
+  display: none;
+}
+
+::-ms-reveal {
+  display: none;
+}

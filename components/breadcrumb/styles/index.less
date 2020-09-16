@@ -1,0 +1,32 @@
+@import '../../styles/global.less';
+.k-breadcrumb {
+  line-height: 1.5;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+  &-item {
+    .k-icon {
+      margin-right: 4px;
+    }
+    &:hover {
+      color: @main;
+    }
+  }
+  &-link {
+    cursor: pointer;
+  }
+  >span {
+    &:last-child {
+      color: rgba(0, 0, 0, .65);
+      .k-breadcrumb-separator {
+        display: none;
+      }
+    }
+  }
+  &-separator {
+    margin: 0 5px;
+  }
+}
