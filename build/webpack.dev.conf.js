@@ -5,7 +5,7 @@
 const webpack = require('webpack')
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
