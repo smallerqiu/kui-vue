@@ -77,7 +77,6 @@
         "vue-clipboard2": "^0.3.1",
         "vue-hljs": "^1.1.2",
         "vue-loader": "^15.9.3",
-        "vue-markdown-loader": "^2.4.1",
         "vue-router": "^3.4.3",
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.12",

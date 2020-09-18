@@ -17,64 +17,6 @@ const getDomHtml = (str, tag, scoped) => {
   return $(tag).html() || '';
 };
 
-const render = (md, options) => {
-
-  md.core.ruler.push('render', ({ tokens }) => {
-    let cn, template, script, style, scopedStyle, code, sourceCode;
-
-
-    tokens.forEach(token => {
-      if (token.type === 'html_block') {
-        if (token.content.match(cnReg)) {
-          cn = getDomHtml(token.content, 'cn');
-          token.content = ''
-        }
-        /* if (token.content.match(usReg)) {
-             us = getDomHtml(token.content, 'us');
-             token.content = '';
-           } */
-      }
-      if (token.info === 'tpl') {
-        sourceCode = token.content;
-        code = '````html\n' + token.content + '````';
-        template = getDomHtml(token.content, 'template');
-        script = getDomHtml(token.content, 'script');
-        style = getDomHtml(token.content, 'style');
-        scopedStyle = getDomHtml(token.content, 'style', true);
-        token.content = '';
-        token.type = 'html_block';
-      }
-    });
-    if (template) {
-      // let data = { html: template, script, style,  cn, sourceCode, };
-
-      let source_code = md.utils.escapeHtml(JSON.stringify(sourceCode));
-
-      const codeHtml = code ? md.render(code) : '';
-
-      const cnHtml = cn ? md.render(cn) : '';
-
-      let newContent = `
-      <template>
-        <demo :source-code="${source_code}">
-          <template slot="component">${template}</template>
-          <template slot="description">${cnHtml}</template>
-          <template slot="code">${codeHtml}</template>
-        </demo>
-      </template>`;
-      newContent += script ? `
-      <script>
-      ${script || ''}
-      </script>
-      `: '';
-      newContent += style ? `<style>${style || ''}</style>` : '';
-      newContent += scopedStyle ? `<style scoped>${scopedStyle || ''}</style>` : '';
-      const tk = new Token('html_block', '', 0);
-      tk.content = newContent;
-      tokens.push(tk);
-    }
-  });
-}
 
 //options
 
@@ -105,11 +47,67 @@ var markdown = require('markdown-it')({
   permalinkSymbol: '#',
   permalinkBefore: false,
 })
-  .use(render)
 
-markdown = Object.assign(markdown, {
+
+markdown.core.ruler.push('render', ({ tokens }) => {
+  let cn, template, script, style, scopedStyle, code, sourceCode;
+
+
+  tokens.forEach(token => {
+    if (token.type === 'html_block') {
+      if (token.content.match(cnReg)) {
+        cn = getDomHtml(token.content, 'cn');
+        token.content = ''
+      }
+      /* if (token.content.match(usReg)) {
+           us = getDomHtml(token.content, 'us');
+           token.content = '';
+         } */
+    }
+    if (token.info === 'tpl') {
+      sourceCode = token.content;
+      code = '````html\n' + token.content + '````';
+      template = getDomHtml(token.content, 'template');
+      script = getDomHtml(token.content, 'script');
+      style = getDomHtml(token.content, 'style');
+      scopedStyle = getDomHtml(token.content, 'style', true);
+      token.content = '';
+      token.type = 'html_block';
+    }
+  });
+  if (template) {
+    let data = { html: template, script, style,  cn, sourceCode, };
+
+    let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
+
+    const codeHtml = code ? markdown.render(code) : '';
+
+    const cnHtml = cn ? markdown.render(cn) : '';
+
+    let newContent = `
+    <template>
+      <demo :source-code="${source_code}">
+        <template slot="component">${template}</template>
+        <template slot="description">${cnHtml}</template>
+        <template slot="code">${codeHtml}</template>
+      </demo>
+    </template>`;
+    newContent += script ? `
+    <script>
+    ${script || ''}
+    </script>
+    `: '';
+    newContent += style ? `<style>${style || ''}</style>` : '';
+
+    newContent += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';
+    const tk = new Token('html_block', '', 0);
+    tk.content = newContent;
+    tokens.push(tk);
+  }
+});
+
+
+module.exports = Object.assign(markdown, {
   raw: true,
   wrapper: 'div'
-})
-
-module.exports = markdown
+}) 

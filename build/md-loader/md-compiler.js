@@ -54,9 +54,7 @@ var renderVueTemplate = function (html, wrapper) {
   } else {
     result = `<template>` + $.html() + `</template>\n`
   }
-  // console.log(output)
   result += output.style + '\n' + output.script;
-
   return result;
 };
 
@@ -75,15 +73,12 @@ module.exports = function (source) {
   if (typeof opts.render === 'function') {
     parser = opts;
   } else {
-    opts = Object.assign(
-      {
-        preset: 'default',
-        html: true,
-        highlight: renderHighlight,
-        wrapper: 'section'
-      },
-      opts
-    );
+    opts = Object.assign({
+      preset: 'default',
+      html: true,
+      highlight: renderHighlight,
+      wrapper: 'section'
+    }, opts);
 
     var plugins = opts.use;
     preprocess = opts.preprocess;
@@ -94,23 +89,24 @@ module.exports = function (source) {
     parser = markdown(opts.preset, opts);
 
     //add ruler:extract script and style tags from html token content
-    !preventExtract && parser.core.ruler.push('extract_script_or_style', function replace(state) {
-      let tag_reg = new RegExp('<(script|style)(?:[^<]|<)+</\\1>', 'g');
-      let newTokens = [];
-      state.tokens
-        .filter(token => token.type == 'fence' && token.info == 'html')
-        .forEach(token => {
-          let tokens = (token.content.match(tag_reg) || []).map(content => {
-            let t = new Token('html_block', '', 0);
-            t.content = content;
-            return t;
+    !preventExtract &&
+      parser.core.ruler.push("extract_script_or_style", function replace(state) {
+        let tag_reg = new RegExp("<(script|style)(?:[^<]|<)+</\\1>", "g");
+        let newTokens = [];
+        state.tokens
+          .filter(token => token.type == "fence" && token.info == "html")
+          .forEach(token => {
+            let tokens = (token.content.match(tag_reg) || []).map(content => {
+              let t = new Token("html_block", "", 0);
+              t.content = content;
+              return t;
+            });
+            if (tokens.length > 0) {
+              newTokens.push.apply(newTokens, tokens);
+            }
           });
-          if (tokens.length > 0) {
-            newTokens.push.apply(newTokens, tokens);
-          }
-        });
-      state.tokens.push.apply(state.tokens, newTokens);
-    });
+        state.tokens.push.apply(state.tokens, newTokens);
+      });
 
     if (plugins) {
       plugins.forEach(function (plugin) {
@@ -146,11 +142,11 @@ module.exports = function (source) {
   if (preprocess) {
     source = preprocess.call(this, parser, source);
   }
- 
+
 
   var content = parser.render(source)
   var result = renderVueTemplate(content, opts.wrapper);
-
+  
   if (opts.raw) {
     return result;
   } else {
