@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBar = require('webpackbar')
@@ -20,12 +20,12 @@ module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
     index: ['./docs/main.js'],
-    // vendors: ['vue', 'vue-router']
+    vendors: ['vue', 'vue-router']
   },
   output: {
     path: path.resolve(__dirname, '../docs/dist'),
     filename: 'js/[name].[hash:5].js',
-    publicPath: './dist/',
+    publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
   },
   performance: {
@@ -38,29 +38,11 @@ module.exports = merge(webpackBaseConfig, {
         // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
         use: [
           {
-            loader: MiniCssExtractPlugin.loader, options: {
-              publicPath: '../'
-            }
+            loader: MiniCssExtractPlugin.loader
           },
           'css-loader', 'less-loader'],
       },
-      {
-        test: /\.vue$/,
-        use: [{
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              css: 'vue-style-loader!css-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
-            },
-            // postLoaders: { html: 'babel-loader' }
-          }
-        },
-        {
-          loader: 'kui-loader',
-          options: { prefix: false }
-        }]
-      },]
+    ]
   },
   optimization: {
     splitChunks: {
@@ -97,7 +79,7 @@ module.exports = merge(webpackBaseConfig, {
         sourceMap: true,
         terserOptions: {
           output: {
-            // comments: /kui-vue.WH/i,
+            // comments: /kui-vue/i,
           },
         },
         extractComments: false,
@@ -112,14 +94,17 @@ module.exports = merge(webpackBaseConfig, {
     }),
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: path.resolve(__dirname, '../docs/index.html'),
-      favicon: path.join(__dirname, '../docs/assets/favicon.png'),
+      favicon: './docs/assets/favicon.png',
+      filename: 'index.html',
+      template: './docs/assets/index.html',
+      chunks: ['vendors', 'index'],
       inject: true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        minifyJS: true,
+        minifyCSS: true
       },
     }),
     new CleanWebpackPlugin()

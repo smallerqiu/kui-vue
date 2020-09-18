@@ -1,21 +1,20 @@
 <template>
-<Layout class="index">
-  <Header />
-  <section class="index-content">
-    <div class="logo">K UI</div>
-    <h1>一套基于Vue.js的桌面UI组件库</h1>
-    <div class="btn-content">
-      <Button class="start" @click="start" large>开始使用</Button>
-      <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
-    </div>
-  </section>
-  <!-- <footer>
+  <Layout class="index">
+    <Header />
+    <section class="index-content">
+      <div class="logo">K UI</div>
+      <h1>一套基于Vue.js的桌面UI组件库</h1>
+      <div class="btn-content">
+        <Button class="start" @click="start" large>开始使用</Button>
+        <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
+      </div>
+    </section>
+    <!-- <footer>
       <p>Copyright ©2009-2018
         <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
     </footer>-->
-</Layout>
+  </Layout>
 </template>
-
 <script>
 import Header from "./components/header";
 export default {

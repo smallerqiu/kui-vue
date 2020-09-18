@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBar = require('webpackbar')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -33,17 +33,18 @@ module.exports = merge(webpackBaseConfig, {
 				test: /\.less$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
 			},
-			{
-				test: /\.vue$/,
-				use: [{
-					loader: 'vue-loader',
-					options: {
-						loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
-						// postLoaders: { html: 'babel-loader' }
-					}
-				},
-				]
-			},]
+			// {
+			// 	test: /\.vue$/,
+			// 	use: [{
+			// 		loader: 'vue-loader',
+			// 		options: {
+			// 			loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
+			// 			// postLoaders: { html: 'babel-loader' }
+			// 		}
+			// 	},
+			// 	]
+			// },
+		]
 	},
 	externals: {
 		"vue": "Vue",

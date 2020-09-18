@@ -87,16 +87,6 @@
     </Layout>
   </div>
 </template>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['1-1'],
-    }
-  },
-}
-</script>
 <style scoped> 
 .k-demo-layout .dashboard{
    text-align:center;
@@ -141,4 +131,15 @@ export default{
   color:#999;
  }
 </style>
+<script>
+export default{
+  data(){
+    return{
+      top:['t1'],
+      left:['1-1'],
+    }
+  },
+}
+</script>
+
 ```
