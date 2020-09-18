@@ -1,4 +1,5 @@
-## KUI-Loader</h2>
+# KUI-Loader
+
 ### 用途
 在vue 里面，自定义组件名称是无法和 原生的html组件 重名的， 在vue1.x 版本有这个限制，但是在vue2.x 以后，有虚拟DOM ，所以可以使用原生组件来命名自定义组件，但是有大小写区分(template/render模式)
 ### 使用方法

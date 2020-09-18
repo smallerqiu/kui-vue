@@ -16,7 +16,7 @@
   Loading state：<Switch v-model="spinning" @change="change"/>
 </div>
 </template>
-<style>
+<style scoped>
 .deme-spin-container{
   padding:100px 50px;
   background:#f5f5f5;

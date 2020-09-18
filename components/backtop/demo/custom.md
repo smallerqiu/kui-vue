@@ -12,7 +12,7 @@
     自定义按钮为蓝色的按钮
   </div>
 </template>
-<style>
+<style scoped>
 .custom-backtop {
   background: #2d94ff;
   height: 40px;

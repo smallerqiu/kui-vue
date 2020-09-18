@@ -1,4 +1,4 @@
-## 快速上手
+# 快速上手
 
 在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vue-cli](https://cli.vuejs.org/),[vue-devtools](https://github.com/vuejs/vue-devtools)
 
