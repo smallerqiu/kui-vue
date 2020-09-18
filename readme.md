@@ -23,7 +23,7 @@ npm run build
 ```
 
 ## 文档
-Docs:  [https://vue.k-ui.cn](https://vue.k-ui.cn)   
+Docs:  [https://k-ui.cn](https://vue.k-ui.cn)   
 Blog:  [http://chuchur.com](http://chuchur.com)   
 代码仓库: [https://gitee.com/chuchur/kui-vue](https://gitee.com/chuchur/kui-vue)
 ## 特性   
@@ -38,7 +38,7 @@ Blog:  [http://chuchur.com](http://chuchur.com)
 
 ## 更新日志：
 
-Logs: [https://k-ui.cn/#log](https://k-ui.cn/#log)
+Logs: [https://k-ui.cn/log](https://k-ui.cn/log)
 
 ## 安装   
 

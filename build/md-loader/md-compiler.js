@@ -42,7 +42,6 @@ var renderVueTemplate = function (html, wrapper) {
 
   var output = {
     style: $.html('style'),
-    // get only the first script child. Causes issues if multiple script files in page.
     script: $.html($('script').first())
   };
   var result;
@@ -51,32 +50,20 @@ var renderVueTemplate = function (html, wrapper) {
   $('script').remove();
 
   if (wrapper) {
-    result =
-      `<template><${wrapper}>` +
-      $.html() +
-      `</${wrapper}></template>\n`
+    result = `<template><${wrapper}>` + $.html() + `</${wrapper}></template>\n`
   } else {
-    result =
-      `<template>` +
-      $.html() +
-      `</template>\n`
+    result = `<template>` + $.html() + `</template>\n`
   }
   result += output.style + '\n' + output.script;
-
   return result;
 };
 
 module.exports = function (source) {
   this.cacheable && this.cacheable();
   var parser, preprocess;
-  // var params = loaderUtils.getOptions(this) || {};
-  // var vueMarkdownOptions = this._compilation.__vueMarkdownOptions__;
-  // var opts = vueMarkdownOptions ? Object.create(vueMarkdownOptions.__proto__) : {}; // inherit prototype
   var opts = loaderUtils.getOptions(this);
 
   var preventExtract = false;
-
-  // opts = Object.assign(opts, params, vueMarkdownOptions); // assign attributes
 
   if (opts.preventExtract) {
     delete opts.preventExtract;
@@ -86,15 +73,12 @@ module.exports = function (source) {
   if (typeof opts.render === 'function') {
     parser = opts;
   } else {
-    opts = Object.assign(
-      {
-        preset: 'default',
-        html: true,
-        highlight: renderHighlight,
-        wrapper: 'section'
-      },
-      opts
-    );
+    opts = Object.assign({
+      preset: 'default',
+      html: true,
+      highlight: renderHighlight,
+      wrapper: 'section'
+    }, opts);
 
     var plugins = opts.use;
     preprocess = opts.preprocess;
@@ -106,16 +90,14 @@ module.exports = function (source) {
 
     //add ruler:extract script and style tags from html token content
     !preventExtract &&
-      parser.core.ruler.push('extract_script_or_style', function replace(
-        state
-      ) {
-        let tag_reg = new RegExp('<(script|style)(?:[^<]|<)+</\\1>', 'g');
+      parser.core.ruler.push("extract_script_or_style", function replace(state) {
+        let tag_reg = new RegExp("<(script|style)(?:[^<]|<)+</\\1>", "g");
         let newTokens = [];
         state.tokens
-          .filter(token => token.type == 'fence' && token.info == 'html')
+          .filter(token => token.type == "fence" && token.info == "html")
           .forEach(token => {
             let tokens = (token.content.match(tag_reg) || []).map(content => {
-              let t = new Token('html_block', '', 0);
+              let t = new Token("html_block", "", 0);
               t.content = content;
               return t;
             });
@@ -161,11 +143,10 @@ module.exports = function (source) {
     source = preprocess.call(this, parser, source);
   }
 
-  source = source.replace(/@/g, '__at__');
 
-  var content = parser.render(source).replace(/__at__/g, '@');
+  var content = parser.render(source)
   var result = renderVueTemplate(content, opts.wrapper);
-
+  
   if (opts.raw) {
     return result;
   } else {

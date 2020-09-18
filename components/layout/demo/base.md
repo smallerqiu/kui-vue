@@ -27,7 +27,6 @@
       </Layout>
       <Footer>Footer</Footer>
     </Layout>
-
     <Layout>
       <Sider>Sider</Sider>
       <Layout>

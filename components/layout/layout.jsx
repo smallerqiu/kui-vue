@@ -39,11 +39,8 @@ const layoutBase = {
   },
   provide() {
     return {
-      addSider: e => {
-        this.siders++
-      },
-      removeSider: e => {
-        this.siders--
+      collectSider: (ismount) => {
+        ismount ? this.siders++ : this.siders--
       }
     }
   },
@@ -69,14 +66,13 @@ const Layout = createComponent('layout', 'Layout')(layoutBase)
 const siderBase = {
   props: { suffixCls: String },
   inject: {
-    addSider: { default: e => { } },
-    removeSider: { default: e => { } }
+    collectSider: { default: e => { } },
   },
   mounted() {
-    this.addSider()
+    this.collectSider(true)
   },
   beforeDestroy() {
-    this.removeSider()
+    this.collectSider()
   },
   render() {
     const { $slots, suffixCls } = this
