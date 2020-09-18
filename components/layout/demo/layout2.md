@@ -60,16 +60,6 @@
     </Layout>
   </div>
 </template>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
-</script>
 <style scoped>
  .k-demo-layout .logo{
     width: 120px;
@@ -106,4 +96,15 @@ export default{
   color:#999;
  }
  </style>
+<script>
+export default{
+  data(){
+    return{
+      top:['t1'],
+      left:['0-1']
+    }
+  }
+}
+</script>
+
 ```

@@ -4,7 +4,7 @@
  */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 // const webpack = require('webpack')
 
@@ -26,9 +26,10 @@ module.exports = merge(webpackBaseConfig, {
     vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, 'docs/dist'),
-    filename: '[name].[hash:5].js',
+    path: path.resolve(__dirname, '../docs/dist'),
+    filename: 'js/[name].[hash:5].js',
     publicPath: '/',
+    chunkFilename: 'js/[name].[chunkhash:5].js',
   },
   module: {
     rules: [
@@ -40,6 +41,21 @@ module.exports = merge(webpackBaseConfig, {
           { loader: 'less-loader', options: { sourceMap: false } }
         ],
       },
+    //   {
+    //     test: /\.vue$/,
+    //     use: [{
+    //       loader: 'vue-loader',
+    //       options: {
+    //         loaders: {
+    //           css: 'vue-style-loader!css-loader',
+    //           less: 'vue-style-loader!css-loader!less-loader'
+    //         },
+    //         // postcss: postcss
+    //       }
+    //     },
+    //     { loader: 'kui-loader', options: { prefix: false } }
+    //     ]
+    //   }
     ]
   },
   performance: {
@@ -50,7 +66,7 @@ module.exports = merge(webpackBaseConfig, {
     new HtmlWebpackPlugin({
       favicon: './docs/assets/favicon.png',
       filename: 'index.html',
-      template: './docs/index.html',
+      template: './docs/assets/index.html',
       chunks: ['vendors', 'index'],
       inject: true,
     }),
