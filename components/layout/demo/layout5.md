@@ -44,23 +44,6 @@
     </Layout>
   </div>
 </template>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['0-1'],
-      open:['l0'],
-      collapsed:false
-    }
-  },
-  methods:{
-    toggle(){
-      this.collapsed = !this.collapsed
-    }
-  }
-}
-</script>
 <style scoped> 
 .k-demo-layout{
   
@@ -101,4 +84,22 @@ export default{
   color:#999;
  }
 </style>
+<script>
+export default{
+  data(){
+    return{
+      top:['t1'],
+      left:['0-1'],
+      open:['l0'],
+      collapsed:false
+    }
+  },
+  methods:{
+    toggle(){
+      this.collapsed = !this.collapsed
+    }
+  }
+}
+</script>
+
 ```

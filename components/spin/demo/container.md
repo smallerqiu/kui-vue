@@ -16,6 +16,12 @@
   Loading state：<Switch v-model="spinning" @change="change"/>
 </div>
 </template>
+<style>
+.deme-spin-container{
+  padding:100px 50px;
+  background:#f5f5f5;
+}
+</style>
 <script>
 export default{
   data(){
@@ -30,10 +36,5 @@ export default{
   }
 }
 </script>
+
 ```
-<style>
-.deme-spin-container{
-  padding:100px 50px;
-  background:#f5f5f5;
-}
-</style>

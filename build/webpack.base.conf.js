@@ -25,7 +25,7 @@ module.exports = {
       {
         test: /\.md$/,
         use: [
-          { loader: 'vue-loader', },
+          { loader: 'vue-loader' },
           { loader: './build/md-loader', options: markdown },
           { loader: 'kui-loader', options: { prefix: false } }
         ]
@@ -35,22 +35,7 @@ module.exports = {
         use: ['vue-style-loader', 'css-loader'],
       },
       {
-        test: /\.vue$/,
-        use: [{
-          loader: 'vue-loader',
-          options: vueLoaderOptions
-          // options: {
-          //   loaders: {
-          //     css: 'vue-style-loader!css-loader',
-          //     less: 'vue-style-loader!css-loader!less-loader'
-          //   },
-          // }
-        },
-        { loader: 'kui-loader', options: { prefix: false } }
-        ]
-      },
-      {
-        test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader',
+        test: /\.j(s|sx)$/, exclude: /node_modules/, loader: 'babel-loader',
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -65,6 +50,7 @@ module.exports = {
     alias: {
       'vue': 'vue/dist/vue.esm.js',
       '@': path.join(__dirname, '../'),
+      'kui-vue': path.join(__dirname, '../components'),
     },
   },
   plugins: [
