@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .demo-affix-scroll{
   height:100px;
   overflow-y:scroll;

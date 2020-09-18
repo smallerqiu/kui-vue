@@ -40,7 +40,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .demo-tabs-sample{
   background:#f2f2f2;
   padding:10px;
