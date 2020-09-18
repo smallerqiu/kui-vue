@@ -3,10 +3,12 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const pkg = require('../package.json');
 
-const markdown = require('./md-loader/render')
+const mdRender = require('./md-loader/render')
 
 const vueLoaderOptions = {
   loaders: {
+    css: 'vue-style-loader!css-loader',
+    less: 'vue-style-loader!css-loader!less-loader',
     js: [
       {
         loader: 'babel-loader',
@@ -25,9 +27,18 @@ module.exports = {
       {
         test: /\.md$/,
         use: [
-          { loader: 'vue-loader' },
-          { loader: './build/md-loader', options: markdown },
+          { loader: 'vue-loader', options: vueLoaderOptions },
+          { loader: './build/md-loader', options: mdRender },
           { loader: 'kui-loader', options: { prefix: false } }
+        ]
+      },
+      {
+        test: /\.vue$/,
+        use: [{
+          loader: 'vue-loader',
+          options: vueLoaderOptions
+        },
+        { loader: 'kui-loader', options: { prefix: false } }
         ]
       },
       {
@@ -51,6 +62,7 @@ module.exports = {
       'vue': 'vue/dist/vue.esm.js',
       '@': path.join(__dirname, '../'),
       'kui-vue': path.join(__dirname, '../components'),
+      'md-loader': path.join(__dirname, './build/md-loader'),
     },
   },
   plugins: [

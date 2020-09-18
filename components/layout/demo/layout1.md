@@ -61,7 +61,7 @@
     </Layout>
   </div>
 </template>
-<style>
+<style scoped>
  .k-demo-layout .logo{
     width: 120px;
     height: 31px;

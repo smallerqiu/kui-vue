@@ -41,21 +41,21 @@ module.exports = merge(webpackBaseConfig, {
           { loader: 'less-loader', options: { sourceMap: false } }
         ],
       },
-      {
-        test: /\.vue$/,
-        use: [{
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              css: 'vue-style-loader!css-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
-            },
-            // postcss: postcss
-          }
-        },
-        { loader: 'kui-loader', options: { prefix: false } }
-        ]
-      }
+    //   {
+    //     test: /\.vue$/,
+    //     use: [{
+    //       loader: 'vue-loader',
+    //       options: {
+    //         loaders: {
+    //           css: 'vue-style-loader!css-loader',
+    //           less: 'vue-style-loader!css-loader!less-loader'
+    //         },
+    //         // postcss: postcss
+    //       }
+    //     },
+    //     { loader: 'kui-loader', options: { prefix: false } }
+    //     ]
+    //   }
     ]
   },
   performance: {

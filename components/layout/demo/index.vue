@@ -7,7 +7,6 @@ import Layout3 from "./layout3.md";
 import Layout4 from "./layout4.md";
 import Layout5 from "./layout5.md";
 import Layout6 from "./layout6.md";
-// import CN from "../index.md";
 export default {
   render() {
     return (
