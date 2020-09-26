@@ -8,7 +8,7 @@
 新建一个less 文件 如：'assets/styles/custom.less',写下如下内容：
 ```js
 //引入 styles
-@import '~kui-vue/src/styles/index.less';
+@import '~kui-vue/components/styles/index.less';
 
 // 主色覆盖为 ff0055
 @main :#ff0055;
