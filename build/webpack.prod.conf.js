@@ -49,7 +49,7 @@ module.exports = merge(webpackBaseConfig, {
 	externals: {
 		"vue": "Vue",
 		'vue-router': 'VueRouter',
-		"kui-icons": "KuiIcons",
+		"kui-icons":"kui-icons",
 		'moment': 'moment'
 	},
 	optimization: {
