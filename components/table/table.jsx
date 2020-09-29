@@ -65,7 +65,9 @@ export default {
     }
     //Set Data 
     data.forEach((d, i) => {
-
+      if (!d.key) {
+        console.warn('最好给Data列值设置key,可以加快渲染速度，以及表格单列子集动画的执行')
+      }
       let tr = [], trL = [], trR = [];
       _columns.forEach((c, j) => {
         // $scopedSlots[c.key]({ text: d[c.key] })
@@ -84,9 +86,7 @@ export default {
           }
 
           if (c.render) {
-            let { children, attrs } = c.render($scope, d, i)
-            props = Object.assign(props, { attrs })
-            $scope = children || $scope
+            $scope = c.render(h, d, i)
           } else if ($scopedSlots[c.key]) {
             $scope = $scopedSlots[c.key](d[c.key], d, c)
           } else if (c.type == 'selection') {
@@ -124,7 +124,7 @@ export default {
       }
       let trProps = {
         class: { 'k-table-row-hover': d._hover },
-        key: d.key.toString(),
+        key: (d.key || i).toString(),
       }
       if (hasFixed) {
         trProps.on = {

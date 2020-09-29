@@ -43,7 +43,7 @@ export default {
     };
   },
   mounted() {
-    Nav.slice(1, 5).forEach((x) => this.components.push(...x.child));
+    Nav.forEach((x) => this.components.push(...x.child));
   },
   methods: {
     go({ key, keyPath, item }) {

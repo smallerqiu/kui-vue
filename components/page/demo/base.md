@@ -6,7 +6,7 @@
 ```tpl
 <template>
   <div class="demo-collapse">
-    <Page :current="1" :total="50"/>
+    <Page :current="1" :total="13"/>
   </div>
 </template>
 ```
