@@ -1,5 +1,6 @@
 <script>
 import Base from './base'
+import BaseRender from './base-render'
 import Info from './info'
 import Ellipsis from './ellipsis'
 import Filter from './filter'
@@ -21,6 +22,7 @@ export default {
       <div class="switch-demo">
         <Info class="typo" />
         <Base />
+        <BaseRender />
         <Ellipsis />
         <Filter />
         <Bordered />

@@ -21,6 +21,11 @@ export default {
       defaultPageSize: this.pageSize
     }
   },
+  watch: {
+    total(v) {
+      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+    }
+  },
   mounted() {
     this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
   },
@@ -98,7 +103,7 @@ export default {
     },
     renderLast() {
       let { pageCount } = this
-      if (pageCount > 0) {
+      if (pageCount > 1) {
         return <li class={['k-pager-item', { 'active': this.page == pageCount }]} onClick={e => this.toPage(pageCount)} >
           <span>{pageCount}</span>
         </li>
