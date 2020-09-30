@@ -3,7 +3,7 @@ import transfer from "../_tool/transfer";
 import Resize from "../_tool/resize";
 import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
-import { isNotEmpty, getElementPos } from '../_tool/utils'
+import { isNotEmpty, setPosition } from '../_tool/utils'
 import moment from 'moment'
 
 export default {
@@ -93,6 +93,7 @@ export default {
     },
     updateValue(value) {
       let date = this.getDate(value)
+      console.log(date)
       this.$emit('input', date)
       this.$emit('change', date)
       this.currentValue = date
@@ -146,33 +147,20 @@ export default {
       this.$nextTick(e => this.setPosition())
     },
     setPosition() {
-      let top = 0, left = 0, height = this.$el.offsetHeight, offset = 3;
-      // this.selectWidth = this.$el.offsetWidth
+      let picker = this.$refs.dom
+      let selection = this.$el
+      let transfer = this.transfer
 
-      if (this.transfer) {
-        let pos = getElementPos(this.$el)
-        top = pos.top + height + offset
-        left = pos.left + 1
-      } else {
-        top = height + offset
-      }
-      if (this.$refs.dom) {
-        let clientH = document.body.scrollHeight
-        let domH = this.$refs.dom.offsetHeight
-        if (clientH - top - height - offset < domH + 5) {
-          top = this.transfer ? top - domH - offset : -(domH + 3)
-          this.placement = 'top'
-        } else {
-          this.placement = 'bottom'
-        }
-      }
+      setPosition(selection, picker, transfer, (top, left, placement) => {
+        this.top = top
+        this.left = left
+        this.placement = placement
+      })
 
-      this.top = top
-      this.left = left
     },
   },
   render() {
-    let { currentValue, placeholder, disabled, clearable, showDrop, mini, label, mode } = this
+    let { currentValue, placeholder, disabled, clearable, showDrop, mini, label, mode, transfer } = this
     let childNode = [], isRange = mode == 'range';
 
     childNode.push(<Icon type="ios-calendar" class="k-icon-calendar" />)
@@ -235,9 +223,7 @@ export default {
           props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue },
           on: {
             input: e => {
-              this.$emit('input', e)
-              this.$emit('change', e)
-              this.currentValue = e
+              this.updateValue(e);
               this.showDrop = false
             }
           }

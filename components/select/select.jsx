@@ -4,7 +4,7 @@ import Option from './option'
 import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
 import Empty from '../empty';
-import { hasProp, getElementPos, getChild, isNotEmpty } from '../_tool/utils'
+import { hasProp, getChild, isNotEmpty, setPosition } from '../_tool/utils'
 let timestamp = Date.now()
 let count = 0
 function getUuid() {
@@ -159,30 +159,19 @@ export default {
       }
     },
     setPosition() {
-      let top = 0, left = 0, height = this.$el.offsetHeight, offset = 3;
       if (!hasProp(this, 'width')) {
         this.selectWidth = this.$el.offsetWidth
       }
-      if (this.transfer) {
-        let pos = getElementPos(this.$el)
-        top = pos.top + height + offset
-        left = pos.left + 1
-      } else {
-        top = height + offset
-      }
-      if (this.$refs.dom) {
-        let clientH = document.body.scrollHeight
-        let domH = this.$refs.dom.offsetHeight
-        if (clientH - top - height - offset < domH + 5) {
-          top = this.transfer ? top - domH - offset : -(domH + 3)
-          this.placement = 'top'
-        } else {
-          this.placement = 'bottom'
-        }
-      }
 
-      this.top = top
-      this.left = left
+      let picker = this.$refs.dom
+      let selection = this.$el
+      let transfer = this.transfer
+
+      setPosition(selection, picker, transfer, (top, left, placement) => {
+        this.top = top
+        this.left = left
+        this.placement = placement
+      })
     },
     change(item) {
       let { multiple, value, currentValue } = this

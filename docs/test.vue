@@ -1,101 +1,49 @@
 <template>
-<div style="width:256px;padding:200px;">
-  <Button icon="logo-apple" @click="show=true" />
+  <Modal v-model="show">
+    <div style="width:556px;padding:800px 200px; ">
+      date1:{{date1}},<br />
+      date2:{{date2}},<br />
+      date3:{{date3}},<br />
+      date4:{{date4}},<br />
+      date5:{{date5}},<br />
+      date6:{{date6}},<br />
+      <DatePicker mode='year' placeholder="请选择年份" v-model="date1" :transfer="true" />
+      <br />
+      <DatePicker mode='month' placeholder="请选择月份" v-model="date2" />
+      <br />
+      <DatePicker v-model="date3" />
+      <br />
+      <DatePicker placeholder="请选择时间" showTime v-model="date4" />
+      <br />
+      <DatePicker :placeholder="['Start Date','End Date']" mode="range" v-model="date5" />
+      <br />
+      <DatePicker :placeholder="['Start Time','End Time']" mode="range" showTime v-model="date6" />
+      <br />
 
-  <select>
-    <option>fdafdasfdsaf</option>
-    <option>fdafdasfdsaf</option>
-    <option>fdafdasfdsaf</option>
-    <option>fdafdasfdsaf</option>
-  </select>
-  <button>test</button>
-  <Button type="primary">test</Button>
-  <Select>
-    <Option :value="1">dddd</Option>
-    <Option :value="2">dddd</Option>
-    <Option :value="3">dddd</Option>
-    <Option :value="4">dddd</Option>
-    <Option :value="5">dddd</Option>
-  </Select>
-
-  <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" mode="vertical" verticalAffixed @click="test">
-      <SubMenu key="sub1">
-        <template slot="title">
-          <Icon type="md-mail" />Navigation One
-        </template>
-        <MenuGroup title="Item 1">
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="1-3">Option 3</MenuItem>
-          <MenuItem key="1-4">Option 4</MenuItem>
-        </MenuGroup>
-      </SubMenu>
-      <SubMenu key="sub2">
-        <template slot="title">
-          <Icon type="ios-keypad" />Navigation Two
-        </template>
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu title="Item 2" key="sub2-1">
-          <template slot="title">
-            <Icon type="ios-keypad" />SubMenu
-          </template>
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub3">
-        <template slot="title">
-          <Icon type="ios-settings" />Navigation Three
-        </template>
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-        </MenuGroup>
-      </SubMenu>
-    </Menu>
-  </div>
-  <Modal v-model="show" title="333"></Modal>
-</div>
+      <Select :transfer="false" />
+      <ColorPicker :transfer="false" />
+    </div>
+  </Modal>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      show: false,
-      time: 60,
-      timer: null,
-      current: ['1-1'],
-      openKeys: ['sub1']
+      show: true,
+      date1: '',
+      date2: '',
+      date3: '',
+      date4: '',
+      date5: [],
+      date6: []
     };
   },
-  beforDestory() {
-    clearInterval(this.timer);
-  },
+
   methods: {
     test() {
       console.log('fdsfa')
     },
-    search() {
-      this.$Message.info("This is search event");
-    },
-    sendCode() {
-      this.time = 59;
-      this.$Message.success("验证码发送成功，请注意查收");
-      this.timer = setInterval(e => {
-        if (this.time < 0) {
-          clearInterval(this.timer);
-          this.time = 60;
-        } else {
-          this.time--;
-        }
-      }, 1000);
-    }
   }
 };
 </script>
