@@ -22,6 +22,16 @@ export function hasProp(context, key) {
   return key in props
 }
 
+export function getElementPosBody(element) {
+  let pos = {
+    left: 0, top: 0, width: 0, height: 0
+  }
+  if (element) {
+    pos = element.getBoundingClientRect()
+  }
+  return pos
+}
+
 export function getElementPos(element) {
   var parent = element//.offsetParent;
   let pos = {
@@ -114,7 +124,42 @@ export function isVnode(element) {
     element.tag !== undefined
   );
 }
+export function setPosition(selection, picker, transfer, callback) {
+  let top = 0, left = 0, offset = 3, placement = 'bottom';
 
+  if (picker) {
+
+    let selectionRect = selection.getBoundingClientRect();
+    let pickerHeight = picker.offsetHeight
+
+    let showInTop = document.documentElement.clientHeight - selectionRect.top - selectionRect.height > pickerHeight //是否从上往下展示，默认
+
+    let scrollTop = document.documentElement.scrollTop
+
+    if (showInTop) { //正常
+      placement = 'bottom'
+      if (transfer) {
+        top = selectionRect.bottom + offset + scrollTop;
+        left = selectionRect.left + 1;
+      } else {
+        top = selectionRect.height + offset;
+        left = 0;
+      }
+    } else {
+      placement = 'top'
+      if (transfer) {
+        left = selectionRect.left + 1;
+        top = selectionRect.top - pickerHeight - offset + scrollTop
+      } else {
+        top = -(pickerHeight + offset);
+        left = 0;
+      }
+    }
+  }
+  if (callback) {
+    callback(top, left, placement)
+  }
+}
 export function getOffset(el) {
   // const rect = el.getBoundingClientRect();
   const pos = {

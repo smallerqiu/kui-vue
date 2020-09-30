@@ -3,7 +3,7 @@ import { Input } from '../input'
 import Button from '../button'
 import Icon from '../icon'
 
-import { getElementPos } from '../_tool/utils'
+import { setPosition } from '../_tool/utils'
 
 import transfer from "../_tool/transfer";
 import Resize from "../_tool/resize";
@@ -65,28 +65,15 @@ export default {
   },
   methods: {
     setPosition() {
-      let top = 0, left = 0, height = this.$el.offsetHeight, offset = 3;
+      let picker = this.$refs.dom
+      let selection = this.$el
+      let transfer = this.transfer
 
-      if (this.transfer) {
-        let pos = getElementPos(this.$el)
-        top = pos.top + height + offset
-        left = pos.left + 1
-      } else {
-        top = height + offset
-      }
-      if (this.$refs.dom) {
-        let clientH = document.body.scrollHeight
-        let domH = this.$refs.dom.offsetHeight
-        if (clientH - top - height - offset < domH + 5) {
-          top = this.transfer ? top - domH - offset : -(domH + 3)
-          this.placement = 'top'
-        } else {
-          this.placement = 'bottom'
-        }
-      }
-
-      this.top = top
-      this.left = left
+      setPosition(selection, picker, transfer, (top, left, placement) => {
+        this.top = top
+        this.left = left
+        this.placement = placement
+      })
     },
     hidedrop(e) {
       if (this.showDropInit && this.showDrop && !this.isMouseDown && !this.$el.contains(e.target) && !this.$refs.dom.contains(e.target)) {
@@ -415,7 +402,7 @@ export default {
         transformOrigin: this.placement == 'top' ? 'center bottom' : ''
       }
       return (
-        <div class="k-color-picker-dropdown" ref="dom" v-show={this.showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
+        <div class="k-color-picker-dropdown" ref="dom" v-show={this.showDrop} style={dropStyle} v-transfer={this.transfer} v-resize={this.setPosition}>
           {paint}
           < span class="k-color-picker-paint-dot" style={'left:' + this.paintPointer.x + 'px;top:' + this.paintPointer.y + 'px'} ></span >
           <div class="k-color-picker-bar">
