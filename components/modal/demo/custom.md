@@ -3,7 +3,7 @@
 自定义 `Modal`
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="show1=true" type="primary">Width 300px</Button>

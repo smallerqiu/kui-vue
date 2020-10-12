@@ -3,7 +3,7 @@
 使用 `v-model` 进行数据双向绑定
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="visible=true" type="primary">Open Modal</Button>

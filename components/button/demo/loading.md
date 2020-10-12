@@ -3,7 +3,7 @@
 添加 `loading` 属性即可让按钮处于加载状态
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button type="primary" icon="ios-search" loading>loading</Button>

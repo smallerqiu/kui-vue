@@ -3,7 +3,7 @@
 快速跳转到某一页。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Page :current="10" :total="200" show-elevator/>

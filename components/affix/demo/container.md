@@ -1,9 +1,9 @@
 <cn>
-#### 基本 
-最简单的用法。
+#### 滚动容器
+用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-affix-scroll" ref="container">
      <div class="demo-affix-inner" >

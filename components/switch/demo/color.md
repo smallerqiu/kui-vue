@@ -3,7 +3,7 @@
 设置 `type` 属性可改变组件主题
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Switch />

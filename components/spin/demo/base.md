@@ -3,7 +3,7 @@
 一个简单的 loading 状态。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Spin />

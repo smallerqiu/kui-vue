@@ -4,7 +4,7 @@
 通过 `v-model` 双向绑定 `Drawer` 是否展示
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="show=!show">普通抽屉</Button>

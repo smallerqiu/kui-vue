@@ -3,7 +3,7 @@
 通过 `closeable` 显示关闭按钮
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>

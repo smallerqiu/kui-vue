@@ -3,7 +3,7 @@
 通过 `separator` 设置分隔符
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Breadcrumb>

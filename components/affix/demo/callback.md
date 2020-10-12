@@ -3,7 +3,7 @@
 可以获得是否固定的状态。
 </cn>
 
-```tpl
+```vue
 <template>
   <Affix @change="change" :offsetTop="200">
     <Button type="primary">200px to affix top</Button>

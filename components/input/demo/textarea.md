@@ -3,7 +3,7 @@
 通过设置 `rows` 来控制行数
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <TextArea :rows="4" placeholder="请输入内容..." />

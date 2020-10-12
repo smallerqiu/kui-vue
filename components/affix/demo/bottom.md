@@ -3,7 +3,7 @@
 最简单的用法。
 </cn>
 
-```tpl
+```vue
 <template>
   <Affix :offsetBottom="10">
     <Button type="primary">10px to affix bottom</Button>

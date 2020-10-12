@@ -3,7 +3,7 @@
 子菜单是弹出的形式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:256px">
     <Menu v-model="current" :open-keys="openKeys" mode="vertical">

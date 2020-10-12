@@ -3,7 +3,7 @@
 通过 `clearable` 可控制组件是否显示清除按钮
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Select :width="200" clearable v-model="value1">

@@ -3,7 +3,7 @@
 使用 `v-model` 进行数据双向绑定
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" />

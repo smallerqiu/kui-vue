@@ -3,7 +3,7 @@
 通过 `type` 来控制展示类型
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Alert type="success">Success Text</Alert>

@@ -3,7 +3,7 @@
 `showIcon` 来设置是否显示图标
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Alert type="success" showIcon>Success Text</Alert> 

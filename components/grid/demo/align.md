@@ -3,7 +3,7 @@
 Flex 子元素垂直对齐。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-grid">
     <p>Align Top</p>

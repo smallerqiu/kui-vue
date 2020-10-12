@@ -3,7 +3,7 @@
 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="config" type="success">10秒后关闭</Button>

@@ -3,7 +3,7 @@
 `mini` 为小尺寸， `large` 为大尺寸
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button type="primary" large>Large</Button>

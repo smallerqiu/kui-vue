@@ -3,7 +3,7 @@
 通过调用不同的方法，可展示不同的类型
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="notice('info')" type="primary">消息提示 </Button>

@@ -3,7 +3,7 @@
 通过 `title` 来设置标题， `width` 控制宽度， 还有 `placement` 控制方向
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <RadioGroup v-model="placement">

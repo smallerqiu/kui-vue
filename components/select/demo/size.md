@@ -3,7 +3,7 @@
 通过 `width` 和 `mini` 可控制组件尺寸大小
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Select :width="200" large clearable>

@@ -3,7 +3,7 @@
 Col 提供 flex 属性以支持填充。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-grid">
     <p>Percentage columns</p>

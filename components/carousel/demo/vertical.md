@@ -3,7 +3,7 @@
 通过设置 `vertical` 呈现垂直模式,此时不显示左右箭头
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Carousel vertical>

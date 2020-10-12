@@ -3,7 +3,7 @@
 当内容较长时，使用固定侧边栏可以提供更好的体验。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="k-demo-layout">
     <Layout>

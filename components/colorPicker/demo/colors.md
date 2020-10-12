@@ -3,7 +3,7 @@
 可以定义默认的颜色盘
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <ColorPicker showMode v-model="color" :defalut-colors="colors" />

@@ -3,7 +3,7 @@
 将多个 `Button` 放入 `ButtonGroup` 内，可实现按钮组合的效果。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <ButtonGroup large circle>

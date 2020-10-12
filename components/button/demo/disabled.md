@@ -3,7 +3,7 @@
 通过添加 `disabled` 属性可将按钮设置为不可用状态。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button type="primary">Primary</Button>

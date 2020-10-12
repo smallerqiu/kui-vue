@@ -83,14 +83,14 @@ export default {
       this.$emit('input', value)
       this.$emit('change', e)
     },
+    searchEvent(){
+      this.$listeners.search(this.currentValue)
+    },
     getSuffix() {
       let { $listeners } = this
       const Search = ('search' in $listeners)
-        ? <Icon type='ios-search' onClick={$listeners.search} /> : null
-      const Password =
-
-        (this.type == 'password')
-          ? <Icon type={!this.isPassword ? 'md-eye' : 'md-eye-off'} onClick={this.showPassword} /> : null
+        ? <Icon type='ios-search' onClick={this.searchEvent} /> : null
+      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? 'md-eye' : 'md-eye-off'} onClick={this.showPassword} /> : null
 
       return Password || Search || this.$slots.suffix
     },

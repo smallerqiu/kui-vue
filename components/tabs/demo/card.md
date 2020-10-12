@@ -3,7 +3,7 @@
 另一种样式的页签。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tabs v-model="current" card>
     <TabPane key="1" title="Tab 1">

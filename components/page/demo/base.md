@@ -3,7 +3,7 @@
 基础分页。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Page :current="1" :total="50"/>

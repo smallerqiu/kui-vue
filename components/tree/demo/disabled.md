@@ -3,7 +3,7 @@
 设置属性 `disabled` 可以禁用节点。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tree :data="data" checkable @check="select"/>
 </template>
@@ -40,7 +40,7 @@ export default{
   },
   methods:{
     select(data){
-      console.log(data)
+      // console.log(data)
     }
   }
 }

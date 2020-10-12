@@ -3,7 +3,7 @@
 典型的页面布局。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-k-layout">
     <Layout>

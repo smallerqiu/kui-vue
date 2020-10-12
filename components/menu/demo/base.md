@@ -3,7 +3,7 @@
 水平的顶部导航菜单。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Menu mode="horizontal" v-model="current">

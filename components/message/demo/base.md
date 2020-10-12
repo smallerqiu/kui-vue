@@ -3,7 +3,7 @@
 信息提醒反馈。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="info" type="primary">Show base info </Button>

@@ -3,7 +3,7 @@
 同样拥有顶部导航及侧边栏，区别是两边未留边距，多用于应用型的网站。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="k-demo-layout">
     <Layout>

@@ -3,7 +3,7 @@
 可以切换颜色模式,使用 `show-mode` 来展示 颜色模式
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <ColorPicker showMode v-model="color1"/>

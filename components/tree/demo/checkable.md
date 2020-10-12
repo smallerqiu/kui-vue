@@ -3,7 +3,7 @@
 设置属性 `checkable` 可以对节点进行勾选。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tree :data="data" checkable @check="select" @select="select"/>
 </template>

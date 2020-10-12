@@ -3,7 +3,7 @@
 单独使用可使用 `v-model` 双向绑定数据
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <p>{{checked}}</p>

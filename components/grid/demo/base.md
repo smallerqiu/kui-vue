@@ -3,7 +3,7 @@
 `col` 必须放在 `row` 里面
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-grid">
     <Row>

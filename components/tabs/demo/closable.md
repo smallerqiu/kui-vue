@@ -4,7 +4,7 @@
 使用 `closable={false}` 禁止关闭。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tabs v-model="activeKey" card @remove="remove">
     <TabPane :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">

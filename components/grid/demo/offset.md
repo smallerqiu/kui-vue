@@ -3,7 +3,7 @@
 通过设置 `offset` 属性，将列进行左右偏移，偏移栅格数为 `offset` 的值。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-grid">
     <Row>

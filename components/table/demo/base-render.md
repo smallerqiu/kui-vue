@@ -1,27 +1,18 @@
 <cn>
-#### 基本用法
+#### 基本用法(使用render)
 使用自定义`render`来初始化表格
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns" />
-
-  <Modal title="More" v-model="showMore">
-    <p>Name: {{item.name}}</p>
-    <p>Age: {{item.age}}</p>
-    <p>Gender: {{item.gender==0?'男':'女'}}</p>
-    <p>Address: {{item.address}}</p>
-  </Modal> 
 </template>
 <script>
 export default{
   data(){
     return{
-      item:{},
-      showMore: false,
       data:[
-        { key:'0', name:'Han Lin' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
+        { key:'0', name:'Li Lei' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
         { key:'1', name:'Liu Hao' ,gender: 1 , age:28 , address:'Wu Han Hongshan No. 128', tags:['Python','Java'] },
         { key:'2', name:'Hu Cong' ,gender: 0 , age:28 , address:'Wu Han Nanhu No. 198', tags:['JS','CSS'] },
         { key:'3', name:'Chuchur' ,gender: 1 , age:28 , address:'Wu Han Nanhu No. 188', tags:['Go','Python'] },
@@ -54,16 +45,17 @@ export default{
         },
         { 
           title:'Action', key:'action',
-          render:(h,row,i)=>{
+          render:(h,record,i)=>{
             return h('Button',{
               props:{
                 mini:true,
               },
               on:{
                 'click': e=>{
-                  console.log(this.item)
-                  this.showMore = true
-                  this.item = row
+                  this.$Modal.info({
+                    title:'More',
+                    content: `Name:${record.name} <br/>Aage:${record.age} <br/>Gender:${record.gender==0?'boy':'gril'} <br/>Address:${record.address}`,
+                  })
                 }
               },
             },'more')

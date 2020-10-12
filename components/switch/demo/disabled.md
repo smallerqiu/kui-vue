@@ -3,7 +3,7 @@
 通过 `disabled` 属性设置组件是否被禁用
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Switch disabled />

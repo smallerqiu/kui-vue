@@ -3,7 +3,7 @@
 通过设置 `multiple` 值来呈现多选模式
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <p>Select value:{{data}}</p>

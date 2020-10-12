@@ -3,7 +3,7 @@
 使用 `okText` 和 `cancelText` 自定义按钮文字。
 </cn>
 
-```tpl
+```vue
 <template>
   <Popconfirm 
     title="您确认删除这条内容吗?"

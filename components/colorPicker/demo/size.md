@@ -3,7 +3,7 @@
 `mini` 为小尺寸， `large` 为大尺寸
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <ColorPicker showMode v-model="color1" large/>

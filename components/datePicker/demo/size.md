@@ -3,7 +3,7 @@
 通过 `mini` `large` 来设置选择框的大小呈现
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <RadioGroup v-model="size">

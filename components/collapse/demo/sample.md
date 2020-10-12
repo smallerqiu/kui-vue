@@ -3,7 +3,7 @@
 设置 `sample` 呈现没有边框的简洁样式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Collapse :value="['1']" sample>

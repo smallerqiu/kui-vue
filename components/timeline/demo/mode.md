@@ -3,7 +3,7 @@
 指定 `mode` 可以改变呈现方向
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <RadioGroup v-model="mode">

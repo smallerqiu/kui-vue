@@ -3,7 +3,7 @@
 通过 `to` 添加跳转链接
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Breadcrumb>

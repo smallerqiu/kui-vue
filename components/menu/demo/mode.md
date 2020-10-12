@@ -3,7 +3,7 @@
 展示动态切换模式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Switch @change="changeMode"/> Change Mode

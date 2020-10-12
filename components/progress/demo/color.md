@@ -3,7 +3,7 @@
 自定义颜色和自定义格式。
 </cn>
 
-```tpl
+```vue
 <template>
   <Progress :percent="percent" :format="format1" :color="color"/>
   <Progress :percent="percent" type="circle" :format="format2" :color="color" />

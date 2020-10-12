@@ -22,8 +22,6 @@ export default {
       scrollType: 'left',
       filters: {},
       scrollFocus: 'body',
-      indeterminate: false,
-      checkAll: false,
     }
   },
   mounted() {
@@ -38,10 +36,9 @@ export default {
     this.autoResize()
   },
   render(h) {
-    let { $slots, data, $scopedSlots, loading, height, width, indeterminate, checkAll } = this
+    let { $slots, data, $scopedSlots, loading, height, width } = this
     // bordered = true
     const { header, footer } = $slots
-
     let isTableFixed = width || height
     const content = [], tbody = [], tbodyL = [], tbodyR = [];
 
@@ -58,17 +55,31 @@ export default {
 
     let { columns, hasFixed } = sortFixedCol(this.columns)
 
+    //reset custom header
+    columns.forEach(col => {
+      if (col.renderHeader) {
+        col.$title = col.renderHeader(h, col.title)
+      } else if ($scopedSlots[`header-${col.key}`]) {
+        col.$title = $scopedSlots[`header-${col.key}`](col.title)
+      }
+    })
+
     let _columns = columns
 
     if (hasChild(this.columns)) {
       _columns = sortColumnsOnline(columns)
     }
+
+    let checkAll = data.filter(x => x._checked).length == data.length;
+
+    let indeterminate = data.filter(x => x._checked).length > 0 && !checkAll;
     //Set Data 
     data.forEach((d, i) => {
       if (!d.key) {
         console.warn('最好给Data列值设置key,可以加快渲染速度，以及表格单列子集动画的执行')
       }
       let tr = [], trL = [], trR = [];
+
       _columns.forEach((c, j) => {
         // $scopedSlots[c.key]({ text: d[c.key] })
         if (c.key || c.type) {
@@ -86,7 +97,16 @@ export default {
           }
 
           if (c.render) {
-            $scope = c.render(h, d, i)
+            let scope = c.render(h, d, i, c.key)
+
+            // let { children, attrs } = c.render($scope, d, i)
+            let { children, attrs } = scope
+            if (attrs) {
+              props = Object.assign(props, { attrs })
+              $scope = children || $scope
+            } else {
+              $scope = scope
+            }
           } else if ($scopedSlots[c.key]) {
             $scope = $scopedSlots[c.key](d[c.key], d, c)
           } else if (c.type == 'selection') {
@@ -245,7 +265,6 @@ export default {
 
   methods: {
     sorter(item) {
-
       let { key, _order } = item
       this.$emit('change', this.filters, { key, order: _order })
     },
@@ -301,19 +320,11 @@ export default {
     },
     onSelect(item, e) {
       let checked = e.target.checked
-      this.$set(item, '_checked', checked)
       // console.log(item._checked)
-      let checkedItem = this.data.filter(x => x._checked)
-      let checkCount = checkedItem.length
-      if (checkCount == this.data.length && checkCount > 0) {
-        this.checkAll = true
-        this.indeterminate = false
-      } else if (checkCount > 0 && checkCount < this.data.length) {
-        this.indeterminate = true
-      } else if (checkCount == 0) {
-        this.indeterminate = false
-        this.checkAll = false
-      }
+      this.$set(item, '_checked', checked)
+      let checkedItem = this.data.filter(x => x._checked == true)
+
+
       this.$emit('on-select', item, checked, checkedItem)
       let keys = checkedItem.map(x => x.key).join()
       this.$emit('on-change', keys, checkedItem, e)
@@ -321,16 +332,20 @@ export default {
     },
     onSelectAll(e) {
       let { checked } = e.target
+      this.selectAll(checked, e)
+    },
+    selectAll(checked, e) {
       this.data.forEach(d => {
-        this.$set(d, '_checked', checked)
+        !d._disabled && this.$set(d, '_checked', checked)
       })
-      this.indeterminate = false
-      let checkData = checked ? this.data : []
+      // this.indeterminate = false
+      let checkData = checked ? this.data.filter(x => x._checked) : []
       this.$emit('on-select-all', checked, checkData)
 
       let keys = checkData.map(x => x.key).join()
 
       this.$emit('on-change', keys, checkData, e)
+      this.checkAll = checked
     },
     fixedScroll({ target }) {
       let { mainTable, leftTable, rightTable } = this.$refs

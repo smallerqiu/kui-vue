@@ -3,7 +3,7 @@
 标准的进度条。
 </cn>
 
-```tpl
+```vue
 <template>
   <Progress :percent="30" />
   <Progress :percent="50" status="active" />

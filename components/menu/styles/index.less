@@ -66,10 +66,15 @@
         overflow: hidden;
         border-radius: 2px;
         cursor: pointer;
+        border: 1px solid transparent;
+        &:hover {
+          color: @main;
+          border: 1px solid fade(@main, 30%);
+        }
       }
     }
     .k-menu-submenu-affix-item-active {
-      .k-menu-submenu-affix-item-text {
+      .k-menu-submenu-affix-item-text, .k-menu-submenu-affix-item-text:hover {
         border: 1px solid @main;
         color: @main;
       }
@@ -240,7 +245,7 @@
       min-width: 160px;
       box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
       border-radius: @radius;
-      .k-menu-item-group-list{
+      .k-menu-item-group-list {
         margin: 0;
       }
       .k-menu {
@@ -324,13 +329,13 @@
       }
       .k-menu-submenu {
         .k-menu-item-selected {
-          background-color: tint(@main, 90);
+          background-color: tint(@main, 90%);
         }
       }
     }
     &.k-menu-inline {
       .k-menu-item-selected {
-        background-color: tint(@main, 90);
+        background-color: tint(@main, 90%);
         &::after {
           top: 0;
           height: 100%;
@@ -340,7 +345,17 @@
     }
     &.k-menu-vertical {
       .k-menu-item-selected {
-        background-color: tint(@main, 90);
+        background-color: tint(@main, 90%);
+      }
+      .k-menu-submenu-affix-item-active {
+        .k-menu-submenu-affix-item-text {
+          background-color: #fff;
+          color: #333;
+          border: none;
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+          }
+        }
       }
     }
     >.k-menu-item>a {
@@ -362,7 +377,7 @@
       font-size: 12px;
       color: @color-light;
     }
-    .k-menu-item-active, .k-menu-submenu-active .k-menu-submenu-title{
+    .k-menu-item-active, .k-menu-submenu-active .k-menu-submenu-title {
       color: #fff;
     }
     .k-menu-submenu-selected {
@@ -392,11 +407,20 @@
       .k-menu-item-icon-affix {
         color: #fff;
       }
+      .k-menu-submenu-affix-item .k-menu-submenu-affix-item-text:hover {
+        border-color: transparent;
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
       .k-menu-submenu-affix-item-active {
         .k-menu-submenu-affix-item-text {
           background-color: #fff;
           color: #333;
-          border: none;
+          border-color: #fff;
+          &:hover {
+            background-color: #fff;
+            color: #333;
+          }
         }
       }
     }
