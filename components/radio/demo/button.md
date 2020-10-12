@@ -3,7 +3,7 @@
 结合 `RadioGroup`,`RadioButton` 可以组合使用
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <RadioGroup v-model="large" large>

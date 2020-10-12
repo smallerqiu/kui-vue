@@ -3,7 +3,7 @@
 圆形的进度条。
 </cn>
 
-```tpl
+```vue
 <template>
   <Progress type="circle" :percent="50" />
   <Progress type="circle" :percent="70" status="exception" />

@@ -3,7 +3,7 @@
 通过 `icon` 设置图标
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Breadcrumb>

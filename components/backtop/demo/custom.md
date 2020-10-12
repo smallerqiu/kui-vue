@@ -3,7 +3,7 @@
 可以自定义回到顶部按钮的样式 `bottom` 为 `100px` 
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <BackTop bottom="100">

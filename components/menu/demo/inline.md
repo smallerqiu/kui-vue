@@ -3,7 +3,7 @@
 垂直菜单，子菜单内嵌在菜单区域。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:256px">
     <Menu v-model="current" :open-keys="openKeys" mode="inline">

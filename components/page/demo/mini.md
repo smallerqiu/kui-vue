@@ -3,7 +3,7 @@
 展示小尺寸。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Page :current="1" :total="50" mini/>

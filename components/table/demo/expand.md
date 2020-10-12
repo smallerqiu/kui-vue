@@ -3,7 +3,7 @@
 当表格内容较多不能一次性完全展示时。
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns">
     <template slot="expandedRowRender" slot-scope="record">
@@ -24,7 +24,7 @@ export default{
   data(){
     return{
       data:[
-        { key:'0', name:'Han Lin' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
+        { key:'0', name:'Li Lei' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
         { key:'1', name:'Liu Hao' ,gender: 1 , age:28 , address:'Wu Han Hongshan No. 128', tags:['Python','Java'] },
         { key:'2', name:'Hu Cong' ,gender: 0 , age:28 , address:'Wu Han Nanhu No. 198', tags:['JS','CSS'] },
         { key:'3', name:'Chuchur' ,gender: 1 , age:28 , address:'Wu Han Nanhu No. 188', tags:['Go','Python'] },

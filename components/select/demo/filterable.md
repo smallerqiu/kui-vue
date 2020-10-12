@@ -3,7 +3,7 @@
 通过设置 `filterable` 值来呈现过滤模式
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-select">
     <p>Selected value:{{data}}</p>

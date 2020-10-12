@@ -3,7 +3,7 @@
 `large` 为大尺寸， `mini` 为小尺寸
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Input placeholder="Large Input" large icon="logo-apple" icon-align="left" clearable/>

@@ -3,7 +3,7 @@
 `bordered` 可以设置是否显示边框
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-card">
     <Card title="卡片标题" icon="ios-heart">

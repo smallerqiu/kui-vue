@@ -18,9 +18,15 @@ export default {
     groupContext: { default: null },
   },
   data() {
-    const checked = hasProp(this, 'checked') ? this.checked : (this.value === true && !this.indeterminate)
+    const checked = hasProp(this, 'checked') ? this.checked : (this.checked === true && !this.indeterminate)
     return {
       isChecked: checked,
+    }
+  },
+  watch: {
+    checked(checked) {
+      // this.$emit("input", checked);
+      // this.$emit("change", { target: { checked } });
     }
   },
   methods: {
@@ -33,7 +39,7 @@ export default {
       this.isChecked = checked;
       if (groupContext) {
         label = label || $slots.default.text
-        this.groupContext.change({ label, value })  
+        this.groupContext.change({ label, value })
       } else {
         this.$emit("input", checked);
         this.$emit("change", e);

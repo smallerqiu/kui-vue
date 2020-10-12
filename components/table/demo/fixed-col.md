@@ -4,7 +4,7 @@
 > 如果布局被破坏，请把宽度 `width` 值改大。
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns" :width="1800">
       <a slot="action">action</a>
@@ -19,7 +19,7 @@ export default{
      }
     return{
       data:[
-        { key:0, name:'Han Lin', age:28, address:'Hubei Wuhan Guanggu SoftBase No.128' },
+        { key:0, name:'Li Lei', age:28, address:'Hubei Wuhan Guanggu SoftBase No.128' },
         { key:1, name:'Liu Hao', age:28, address:'Hubei'},
         { key:2, name:'Wang Kang', age:28, address:'Hubei Wuhan Guanggu Nanhu No.128'},
         { key:3, name:'Hu Cong', age:28, address:'Hubei Wuhan Guanggu Hongshan No.128'}

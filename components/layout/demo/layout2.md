@@ -3,7 +3,7 @@
 拥有顶部导航及侧边栏的页面，多用于展示类网站。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="k-demo-layout">
     <Layout>

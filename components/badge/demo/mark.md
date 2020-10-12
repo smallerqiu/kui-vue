@@ -4,7 +4,7 @@
 在右上角的 badge 则限定为红色。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Badge :count="3" />

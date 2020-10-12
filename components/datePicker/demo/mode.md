@@ -3,7 +3,7 @@
 使用 `mode` 属性，可以自定义日期显示类型，提供 `year` `month` `date` `range`。
 </cn>
 
-```tpl
+```vue
 <template>
   <div> 
     <DatePicker mode='year' placeholder="请选择年份" />

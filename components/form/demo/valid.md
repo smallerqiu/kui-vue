@@ -3,7 +3,7 @@
 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:600px;">
    <Form :label-width="256" :model="form" :rules="rules" ref="form">

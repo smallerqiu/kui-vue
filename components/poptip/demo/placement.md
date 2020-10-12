@@ -3,7 +3,7 @@
 通过 `placement`控制方向, 位置有十二个方向。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="margin-left:70px;white-space: nowrap;">
     <Poptip title="标题" placement="top-left">

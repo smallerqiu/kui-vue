@@ -18,7 +18,7 @@ export default {
         <WithIcon />
         <Loading />
         <Group />
-        <CN class="typo"/>
+        <CN class="typo" />
       </div>
     )
   }

@@ -3,7 +3,7 @@
 `closable` 来控制是否显示可关闭按钮,平滑、自然隐藏关闭
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Alert type="success" showIcon closable>Success Text</Alert>

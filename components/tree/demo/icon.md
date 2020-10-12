@@ -3,7 +3,7 @@
 可以针对不同的节点定制图标。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tree :data="data" @expand="expand"/>
 </template>

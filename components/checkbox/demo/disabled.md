@@ -3,11 +3,11 @@
 通过 `disabled` 设置不可用
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Checkbox disabled>disabled</Checkbox>
-    <Checkbox disabled :value="true">disabled</Checkbox>
+    <Checkbox disabled :checked="true">disabled</Checkbox>
     <Checkbox indeterminate disabled>indeterminate</Checkbox>
     <br/>
     <br/>

@@ -3,7 +3,7 @@
 带单元格编辑功能的表格。
 </cn>
 
-```tpl
+```vue
 <template>
   <Button @click="add">Add</Button>
   <Table :data="data" :columns="columns" bordered>
@@ -23,7 +23,7 @@ export default{
   data(){
     return{
       data:[
-        { key:'0', name:'Han Lin' ,age:28 , address:'Wu Han Guanggu No. 328' },
+        { key:'0', name:'Li Lei' ,age:28 , address:'Wu Han Guanggu No. 328' },
         { key:'1', name:'Liu Hao' ,age:30 , address:'Wu Han Hongshan No. 128' },
         { key:'2', name:'Hu Cong' ,age:28 , address:'Wu Han Nanhu No. 198' },
         { key:'3', name:'Chuchur' ,age:32 , address:'Wu Han Nanhu No. 188' },

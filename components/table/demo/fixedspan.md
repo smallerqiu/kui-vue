@@ -3,7 +3,7 @@
 columns[n] 可以内嵌 children，以渲染分组表头。
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns" bordered :height="300" :width="1800" @change="change">
       <a slot="action">action</a>

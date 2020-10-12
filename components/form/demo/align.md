@@ -3,7 +3,7 @@
 根据具体目标和制约因素，选择最佳的标签对齐方式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:512px;">
     <RadioGroup v-model="form.align">

@@ -3,90 +3,86 @@
         <img width="100" src="https://chuchur.com/kui/vue/logo.svg">
     </a>
 </p>
+<h1 align="center">
+   KUI for Vue   
+</h1>
 
-# KUI for Vue   
+<div align="center">
 
-基于VUE 2.x 开发，漂亮的UI，可定制主题 ,组件丰富,支持SSR , 支持Nuxt ,兼容IE9。  
-欢迎批评、指正    
+A high quality UI components Library with Vue.js
 
-## 开发   
-```xml
-npm run dev
-```
+[![View UI](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)](https://www.npmjs.org/package/kui-vue)
+[![NPM downloads](http://img.shields.io/npm/dm/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
+[![NPM downloads](https://img.shields.io/npm/dt/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
+![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/k-ui.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
+![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/k-ui.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
 
-## 编译   
-```xml
-//编译文档
-npm run build:docs
-//编译组件
-npm run build
-```
+![](https://k-ui.cn/img/theme.jpg)
+</div>
 
-## 文档
-Docs:  [https://k-ui.cn](https://k-ui.cn)   
-Blog:  [http://chuchur.com](http://chuchur.com)   
-代码仓库: [https://gitee.com/chuchur/kui-vue](https://gitee.com/chuchur/kui-vue)
-## 特性   
-漂亮的UI，可定制主题   
-兼容IE9+   
-支持SSR   
-支持Nuxt   
-组件丰富   
+## Docs   
+[3.x](https://k-ui.cn) | [2.x](https://v2.k-ui.cn)
 
-## For React
-[kui-react](https://react.k-ui.cn)
+## Features
+Dozens of useful and beautiful components.    
+Friendly API. It's made for people with any skill level.    
+Extensive documentation and demos.    
+It is quite beautiful.   
 
-## 更新日志：
 
-Logs: [https://k-ui.cn/docs/log](https://k-ui.cn/docs/log)
+## Compatibility
+Supports Vue.js 2.x   
+Supports SSR   
+Supports [Nuxt.js](https://nuxtjs.org/)   
+Supports TypeScript   
+Supports Electron   
+Most components and features support IE9 and above browsers, some   components and features do not support IE
 
-## 安装   
+## Install
 
-### 使用npm
-```xml
+Using npm:
+```sh
 npm install kui-vue --save
 ```
+Using a script tag for global use:
 
-### 使用CDN   
 ```html
-<!-- import Vue.js -->
-<script src="//vuejs.org/js/vue.min.js"></script>
 <!-- import stylesheet -->
 <link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css">
 <!-- import kui -->
 <script src="//unpkg.com/kui-vue/dist/k-ui.js"></script>
 ```
 
-### 示例
-
+## Usage
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>kui example</title>
-  <link rel="stylesheet" type="text/css" href="http://unpkg.com/kui-vue/dist/k-ui.css">
-  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
-  <script type="text/javascript" src="http://unpkg.com/kui-vue/dist/k-ui.js"></script>
-</head>
-<body>
-<div id="app">
-  <k-button @click="show">Click me!</k-button>
-  <Modal v-model="visible" title="Welcome">Welcome to use kui</Modal>
-</div>
+<template>
+  <div>
+    <Button type="primary" @click="test">Primary</Button>
+  </div>
+</template>
 <script>
-  new Vue({
-    el: '#app',
-    data: {
-      visible: false
-    },
-    methods: {
-      show: function () {
-        this.visible = true;
-      }
+export default{
+  data(){
+    return{
+
     }
-  })
-  </script>
-</body>
-</html>
+  },
+  methods:{
+    test(){
+      this.$Message.info('test')
+    }
+  }
+}
+</script>
 ```
+
+## Ecosystem Links
+[KUI for react](https://react.k-ui.cn)    
+
+[KUI for mobile](https://gitee.com/chuchur/kui-vue-mobile)
+
+
+## License
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2017-present, Chuchur

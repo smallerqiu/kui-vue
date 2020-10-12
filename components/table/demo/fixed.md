@@ -4,7 +4,7 @@
 > 如果布局被破坏，请把宽度 `width` 值改大。
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns" :width="1900" :height="300">
       <a slot="action">action</a>
@@ -16,7 +16,7 @@ export default{
      const data = [],columns = [];
      for(let i = 0; i < 10; i++){
        columns.push({ title:'Col'+i, key:'name' })
-       data.push({ key:i, name:'Han Lin', age:28, address:'Wu Han Guanggu No.'+i })
+       data.push({ key:i, name:'Li Lei', age:28, address:'Wu Han Guanggu No.'+i })
      }
     return{
       data,

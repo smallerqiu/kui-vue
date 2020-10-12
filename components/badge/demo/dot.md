@@ -3,7 +3,7 @@
 设置 `dot` 来展示一个点
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-dot">
    <Badge dot>

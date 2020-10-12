@@ -39,7 +39,7 @@ let createInstance = (props = {}) => {
       ])
 
       //body
-      let body = h('div', { attrs: { class: 'k-toast-content' } }, [content])
+      let body = h('div', { attrs: { class: 'k-toast-content' }, domProps: { innerHTML: [content] } })
       //footer
       let footerNode = [h(Button, {
         props: { type: 'primary', loading: this.loading },

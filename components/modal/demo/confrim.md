@@ -3,7 +3,7 @@
 全局的确认提示框，可以异步关闭
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="confirm()">标准调用</Button>

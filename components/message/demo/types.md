@@ -3,7 +3,7 @@
 通过 `type` 来设置提示类型
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="warning" type="warning">Warning </Button>

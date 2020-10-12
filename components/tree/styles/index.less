@@ -11,26 +11,28 @@
 	.k-tree-children {
 		margin: 0;
 		.k-tree-children {
-			padding: 0 0 0 24px;
+			margin: 0 0 0 12px;
 		}
 	}
 	.k-tree-commes {
 		display: inline-block;
-		width: 12px;
+		width: 24px;
 	}
 	.k-checkbox-wp {
 		margin: 0;
 	}
 	.k-tree-icon {
+		margin-right: 5px;
 		vertical-align: middle;
 	}
 	.k-tree-title {
 		display: inline-block;
-		margin: 0;
 		padding: 0 4px;
-		border-radius: 3px;
+		margin: 0 4px;
+		border-radius: 2px;
 		cursor: pointer;
 		color: @color;
+		line-height: 24px;
 		// transition: all .2s ease-in-out;
 		&:hover, &:focus {
 			background: tint(@main, 90%);
@@ -50,7 +52,7 @@
 		}
 	}
 	.k-tree-arrow {
-		// font-size: 20px;
+		font-size: 14px;
 		width: 24px;
 		height: 24px;
 		line-height: 24px;
@@ -61,6 +63,7 @@
 		transform: rotate(0deg);
 		transition: transform .2s ease-in-out;
 		cursor: pointer;
+		// background-color: #fff;
 	}
 	.k-tree-arrow-open {
 		transform: rotate(90deg)
@@ -74,5 +77,23 @@
 		display: block;
 		color: @disable-color;
 		font-size: 12px;
+	}
+}
+
+.k-tree-show-line {
+	.k-tree-children-has-child {
+		&:not(:last-child) {
+			position: relative;
+			&::before {
+				position: absolute;
+				left: 13px;
+				width: 1px;
+				height: 100%;
+				height: calc(100% - 22px);
+				margin: 25px 0 0;
+				border-left: 1px solid #d9d9d9;
+				content: "";
+			}
+		}
 	}
 }

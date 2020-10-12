@@ -3,7 +3,7 @@
 默认可以同时展开一个或者多个面板
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Collapse :value="['1']">

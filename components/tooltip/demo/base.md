@@ -3,7 +3,7 @@
 最简单的用法，浮层的大小由内容区域决定。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tooltip>
     <template slot="title">

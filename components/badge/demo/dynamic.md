@@ -3,7 +3,7 @@
 动态控制
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-dot">
     <Badge :dot="show">

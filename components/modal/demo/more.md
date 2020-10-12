@@ -3,7 +3,7 @@
 更多属性
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="show1=true" type="primary">Can move</Button>

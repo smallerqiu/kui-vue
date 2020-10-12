@@ -3,7 +3,7 @@
 通过 `title` 和 `icon` 可设置标题和图标
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Card title="卡片标题" icon="ios-heart" bordered>

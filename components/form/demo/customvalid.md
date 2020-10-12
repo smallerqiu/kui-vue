@@ -3,7 +3,7 @@
 自定义验证规则来完成表单验证。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:600px;">
    <Form :label-width="256" :model="form" :rules="rules" ref="form">

@@ -3,7 +3,7 @@
 适用于菜单单繁杂的情况,可以尝试,把重要的经常使用的功能收藏起来直接展示,方便查找和使用
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:256px">
     <Menu v-model="current" mode="vertical" vertical-affixed theme="dark">

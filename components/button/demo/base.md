@@ -3,7 +3,7 @@
 使用 `type`、`hollow`、`circle` 属性来定义 `Button` 的样式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button>Default</Button>

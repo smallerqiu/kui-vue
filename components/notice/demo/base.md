@@ -4,7 +4,7 @@
 `Notice` 的基本用法
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="info" type="primary">普通提示</Button>

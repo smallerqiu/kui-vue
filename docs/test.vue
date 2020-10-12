@@ -1,49 +1,58 @@
 <template>
-  <Modal v-model="show">
-    <div style="width:556px;padding:800px 200px; ">
-      date1:{{date1}},<br />
-      date2:{{date2}},<br />
-      date3:{{date3}},<br />
-      date4:{{date4}},<br />
-      date5:{{date5}},<br />
-      date6:{{date6}},<br />
-      <DatePicker mode='year' placeholder="请选择年份" v-model="date1" :transfer="true" />
-      <br />
-      <DatePicker mode='month' placeholder="请选择月份" v-model="date2" />
-      <br />
-      <DatePicker v-model="date3" />
-      <br />
-      <DatePicker placeholder="请选择时间" showTime v-model="date4" />
-      <br />
-      <DatePicker :placeholder="['Start Date','End Date']" mode="range" v-model="date5" />
-      <br />
-      <DatePicker :placeholder="['Start Time','End Time']" mode="range" showTime v-model="date6" />
-      <br />
-
-      <Select :transfer="false" />
-      <ColorPicker :transfer="false" />
-    </div>
-  </Modal>
+  <div>
+    <Table :data="datas" :columns="columns" @on-select="onSelect" @on-change="onChange" ref="selection">
+      <template slot="tags" slot-scope="tags">
+        <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+      </template>
+      <Icon :type="text==1?'ios-male':'ios-female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15" />
+      <template slot="action">
+        <a href="javascript:;">Edit</a>
+        <a href="javascript:;">Delete</a>
+      </template>
+    </Table>
+    <Button @click="selectAll(true)">Check All</Button>
+    <Button @click="changeChecked">Change Checked</Button>
+    <Button @click="changeDisabled">Change Disabled</Button>
+    <Button @click="selectAll(false)">UnCheck All</Button>
+  </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
-      show: true,
-      date1: '',
-      date2: '',
-      date3: '',
-      date4: '',
-      date5: [],
-      date6: []
-    };
+      datas: [
+        { key: '0', name: 'Li Lei', gender: 0, age: 32, address: 'Wu Han Guanggu No. 328', tags: ['Python', 'Java'] },
+        { key: '1', name: 'Liu Hao', gender: 1, age: 28, address: 'Wu Han Hongshan No. 128', tags: ['Python', 'Java'] },
+        { key: '2', name: 'Hu Cong', gender: 0, age: 28, address: 'Wu Han Nanhu No. 198', tags: ['JS', 'CSS'] },
+        { key: '3', name: 'Chuchur', gender: 1, age: 28, address: 'Wu Han Nanhu No. 188', tags: ['Go', 'Python'], _checked: true },
+      ],
+      columns: [
+        { type: 'selection', fixed: 'left' },
+        { title: 'Name', key: 'name' },
+        { title: 'Age', key: 'age', },
+        { title: 'Gender', key: 'gender', },
+        { title: 'Address', key: 'address' },
+        { title: 'Tags', key: 'tags' },
+        { title: 'Action', key: 'action' },
+      ]
+    }
   },
-
   methods: {
-    test() {
-      console.log('fdsfa')
+    changeChecked() {
+      this.$set(this.datas[2], '_checked', !this.datas[2]._checked)
     },
+    changeDisabled() {
+      this.$set(this.datas[3], '_disabled', !this.datas[3]._disabled)
+    },
+    selectAll(status) {
+      this.$refs.selection.selectAll(status)
+    },
+    onChange(keys, selected, selectedRows) {
+      console.log(keys, selected, selectedRows)
+    },
+    onSelect(key, selectedRows) {
+      console.log(key, selectedRows)
+    }
   }
-};
+}
 </script>

@@ -1,6 +1,7 @@
 <script>
 import Base from './base'
 import BaseRender from './base-render'
+import CustomHeader from './custom-header'
 import Info from './info'
 import Ellipsis from './ellipsis'
 import Filter from './filter'
@@ -23,9 +24,10 @@ export default {
         <Info class="typo" />
         <Base />
         <BaseRender />
+        <CustomHeader />
+        <Bordered />
         <Ellipsis />
         <Filter />
-        <Bordered />
         <Span />
         <Edit />
         <FixedHead />

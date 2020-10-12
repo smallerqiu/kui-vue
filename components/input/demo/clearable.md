@@ -3,7 +3,7 @@
 通过设置 `clearable` 属性可控制是否显示清空按钮
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Input type="text" placeholder="请输入内容..." clearable />

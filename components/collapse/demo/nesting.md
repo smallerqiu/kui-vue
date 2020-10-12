@@ -3,7 +3,7 @@
 嵌套折叠面板。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Collapse :value="['1']">

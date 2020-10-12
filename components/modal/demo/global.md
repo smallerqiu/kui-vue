@@ -3,7 +3,7 @@
 使用 全局模式
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="show(0)" type="success">Success</Button>

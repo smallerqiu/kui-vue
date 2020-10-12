@@ -3,7 +3,7 @@
 简单的卡片呈现模式。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-tabs-sample">
     <Tabs v-model="current" sample>

@@ -3,7 +3,7 @@
 使用 `gutter` 熟悉来设置分栏的间隔
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-grid">
     <Row :gutter="10" class="row-gutter">

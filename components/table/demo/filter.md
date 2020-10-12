@@ -3,7 +3,7 @@
 设置 `filters` 和 `sorter` 来排序和过滤数据
 </cn>
 
-```tpl
+```vue
 <template>
   <Table :data="data" :columns="columns" :loading="loading" @change="change">
   </Table>
@@ -36,7 +36,7 @@ export default{
         this.loading = false
         let data = [
             { key:'0', name:'Chuchur' , age:32 , mail:'chuchur@qq.com' },
-            { key:'1', name:'Han Lin' , age:33 , mail:'hanlin@hotmail.com'},
+            { key:'1', name:'Li Lei' , age:33 , mail:'hanlin@hotmail.com'},
             { key:'2', name:'Liu Hao' , age:27 , mail:'liuhao@162.com' },
             { key:'3', name:'Wang Kang', age:26 , mail:'wangkang@gmail.com' },
             { key:'4', name:'Hu Cong' , age:25 , mail:'hucong@163.com' },

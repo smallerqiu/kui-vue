@@ -3,7 +3,7 @@
 内建了两套主题 `light|dark`，默认 `light`。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:256px">
     <Switch true-text="dark" false-text="light" @change="change" :checked="theme=='dark'"/>

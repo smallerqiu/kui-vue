@@ -3,7 +3,7 @@
 内嵌菜单可以被缩起/展开。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:256px">
     <Button @click="change" :icon="collapsed?'md-list':'md-menu'" type="primary"></Button>

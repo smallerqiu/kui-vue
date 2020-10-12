@@ -3,7 +3,7 @@
 通过设置 `search` 值来呈现过滤模式,设置 `loading` 展示加载模式
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-select">
     <p>Selected value:{{s1}}</p>

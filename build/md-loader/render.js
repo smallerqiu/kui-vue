@@ -64,7 +64,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
            token.content = '';
          } */
     }
-    if (token.info === 'tpl') {
+    if (token.info === 'vue') {
       sourceCode = token.content;
       code = '````html\n' + token.content + '````';
       template = getDomHtml(token.content, 'template');
@@ -76,7 +76,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
     }
   });
   if (template) {
-    let data = { html: template, script, style,  cn, sourceCode, };
+    // let data = { html: template, script, style,  cn, sourceCode, };
 
     let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
 
@@ -92,11 +92,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
         <template slot="code">${codeHtml}</template>
       </demo>
     </template>`;
-    newContent += script ? `
-    <script>
-    ${script || ''}
-    </script>
-    `: '';
+    newContent += script ? `<script>${script || ''}</script>` : '';
     newContent += style ? `<style>${style || ''}</style>` : '';
 
     newContent += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';

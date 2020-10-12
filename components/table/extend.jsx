@@ -102,7 +102,13 @@ export default {
       if (hasSort) {
         props.on.click = () => this.sorter(col)
       }
-      let inner = hasCheckbox ? <Checkbox indeterminate={this.indeterminate} value={this.checkAll} onChange={this.onSelectAll} /> : col.title
+
+      // if (hasCheckbox) {
+      //   console.log(this.checkAll, this.indeterminate)
+      // }
+
+      let inner = hasCheckbox ? <Checkbox indeterminate={this.indeterminate} checked={this.checkAll} onChange={this.onSelectAll} /> : (col.$title || col.title)
+
       return (
         <th {...props}>
           <span class="k-table-header-col">

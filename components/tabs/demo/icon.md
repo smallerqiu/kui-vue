@@ -3,7 +3,7 @@
 有图标的标签。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tabs v-model="current">
     <TabPane key="1" title="Tab 1" icon="logo-apple">

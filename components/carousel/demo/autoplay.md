@@ -3,7 +3,7 @@
 通过设置 `autoplay` ，可实现定时自动播放，通过 `delay` 设置间隔播放时间，默认 `3000` ，单位毫秒 
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Carousel autoplay>

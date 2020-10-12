@@ -3,7 +3,7 @@
 通过 `disabled` 设置不可用
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Radio disabled>disabled</Radio>

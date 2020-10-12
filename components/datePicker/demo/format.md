@@ -3,7 +3,7 @@
 使用 `format` 属性，可以自定义日期显示格式，详见  [moment.js](http://momentjs.com/)。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" showTime/>

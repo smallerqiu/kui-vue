@@ -3,7 +3,7 @@
 改变每页显示条目数。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-collapse">
     <Page :current="3" :total="200" showSizer/>

@@ -3,7 +3,7 @@
 点击展开节点，动态加载数据。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tree :data="data" @load-data="loadData" />
 </template>

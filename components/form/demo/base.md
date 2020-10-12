@@ -3,7 +3,7 @@
 包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:512px;">
    <Form :label-width="100">

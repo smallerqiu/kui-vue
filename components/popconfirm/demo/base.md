@@ -3,7 +3,7 @@
 最简单的用法。
 </cn>
 
-```tpl
+```vue
 <template>
   <Popconfirm 
     title="Are you sure delete this task?"

@@ -3,7 +3,7 @@
 通过 `closeable` 显示关闭按钮，点击隐藏标签，触发 `close` 回调
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Tag>标签1</Tag>

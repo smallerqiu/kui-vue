@@ -3,7 +3,7 @@
 内容将呈现表单模式，有页头和页尾, 可自定义页尾
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button @click="show1=true">普通表单</Button>

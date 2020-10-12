@@ -3,7 +3,7 @@
 默认选中第一项。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tabs v-model="current">
     <TabPane key="1" title="Tab 1">

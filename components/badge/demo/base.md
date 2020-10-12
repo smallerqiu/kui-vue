@@ -3,7 +3,7 @@
 `Badge` 基础使用
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Badge :count="3">

@@ -3,7 +3,7 @@
 全选组合
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handelCheckAll">Check all</Checkbox>

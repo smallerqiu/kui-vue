@@ -3,7 +3,7 @@
 用于表示状态的小圆点。
 </cn>
 
-```tpl
+```vue
 <template>
   <div class="demo-dot">
     <Badge status="success" />
@@ -21,12 +21,6 @@
   </div>
 </template>
 <style scoped>
-.demo-dot .box{
-  width:50px;
-  height:50px;
-  background:#ddd;
-  border-radius:5px;
-}
 .demo-dot .k-badge{
   margin-right:20px;
 }

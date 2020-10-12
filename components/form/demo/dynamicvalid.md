@@ -3,7 +3,7 @@
 根据不同情况执行不同的校验规则。
 </cn>
 
-```tpl
+```vue
 <template>
   <div style="width:600px;">
    <Form :label-width="256" :model="form" ref="form">

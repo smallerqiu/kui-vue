@@ -3,7 +3,7 @@
 会动的进度条才是好进度条。
 </cn>
 
-```tpl
+```vue
 <template>
   <Progress :percent="percent" />
   <Progress :percent="percent" type="circle"/>

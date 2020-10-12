@@ -5,7 +5,9 @@ export default {
   props: {
     data: Array,
     checkable: Boolean,
-    dragable: Boolean
+    dragable: Boolean,
+    showLine: Boolean,
+    renderContent: Function
   },
   provide() {
     return {
@@ -28,20 +30,22 @@ export default {
     parentChecked(parents, item) {
       parents.forEach(childs => {
         let { children, disabled } = childs
-        if (!disabled) {
-          if (children && children.indexOf(item) >= 0) {
-            let checkLen = children.filter(child => child.checked).length
-            let halfLen = children.filter(child => child.indeterminate).length
-            let isCheckAll = children.length == checkLen
-            this.$set(childs, 'checked', isCheckAll)
-            this.$set(childs, 'indeterminate', (checkLen > 0 || halfLen > 0) && !isCheckAll)
-            this.parentChecked(this.data, childs)
-          } else {
-            if (children && children.length > 0) {
-              this.parentChecked(children, item)
-            }
+        // if (!disabled) {
+        if (children && children.indexOf(item) >= 0) {
+          //当前父级
+          let checkLen = children.filter(child => child.checked).length
+          let halfLen = children.filter(child => child.indeterminate).length
+          let isCheckAll = children.length == checkLen && checkLen > 0
+          this.$set(childs, 'checked', isCheckAll)
+          this.$set(childs, 'indeterminate', (checkLen > 0 || halfLen > 0) && !isCheckAll)
+          // console.log(halfLen, childs.title)
+          this.parentChecked(this.data, childs)
+        } else {
+          if (children && children.length > 0) {
+            this.parentChecked(children, item)
           }
         }
+        // }
       })
     },
     checked(data) {
@@ -65,7 +69,7 @@ export default {
     }
   },
   render() {
-    return (<div class="k-tree">
+    return (<div class={["k-tree", { 'k-tree-show-line': this.showLine }]}>
       {this.data.map((t, i) => <TreeNode data={t} key={i} checkable={this.checkable} />)}
     </div>)
   }

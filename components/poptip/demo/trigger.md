@@ -3,7 +3,7 @@
 通过 `trigger`来控制触发模式, 鼠标移入 `hover`、点击 `click`。
 </cn>
 
-```tpl
+```vue
 <template>
   <Poptip title="标题">
     <template slot="content">

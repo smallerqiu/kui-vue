@@ -3,7 +3,7 @@
 通过添加 `icon` 属性 设置按钮按钮图标。
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <Button type="primary" icon="ios-search">搜索</Button>

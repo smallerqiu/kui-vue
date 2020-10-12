@@ -7,8 +7,8 @@ const mdRender = require('./md-loader/render')
 
 const vueLoaderOptions = {
   loaders: {
-    css: 'vue-style-loader!css-loader',
-    less: 'vue-style-loader!css-loader!less-loader',
+    css: ['vue-style-loader', 'css-loader'],
+    less: ['vue-style-loader', 'css-loader', 'less-loader'],
     js: [
       {
         loader: 'babel-loader',

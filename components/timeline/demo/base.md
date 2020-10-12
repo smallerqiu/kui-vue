@@ -3,7 +3,7 @@
 `TimeLine` 内部必须包含 `TimeLineItem`
 </cn>
 
-```tpl
+```vue
 <template>
   <div>
     <TimeLine>

@@ -3,7 +3,7 @@
 可以在页签右边添加附加操作。
 </cn>
 
-```tpl
+```vue
 <template>
   <Tabs v-model="current">
     <TabPane key="1" title="Tab 1">
