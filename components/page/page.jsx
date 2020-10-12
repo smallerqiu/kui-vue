@@ -80,18 +80,21 @@ export default {
     },
     prePage() {
       this.page > 1 && this.page--;
+      this.$emit('change', this.page)
     },
     nextPage() {
       this.page < this.pageCount && this.page++;
+      this.$emit('change', this.page)
     },
     toPage(page) {
       this.page = page
+      this.$emit('change', page)
     },
     changeSize({ value }) {
-      console.log(value)
+      // console.log(value)
       this.defaultPageSize = value
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-
+      this.$emit('page-size-change', value)
     },
     renderFirst() {
       if (this.pageCount > 0) {
@@ -135,11 +138,15 @@ export default {
         props: { mini, value: this.page },
         on: {
           blur: e => {
-            let page = e.target.value
+            let page = e.target.value;
             let { pageCount } = this
-            if (page >= 1 || page <= pageCount) this.page = page
-            if (page > pageCount) this.page = pageCount
-            if (page < 1) this.page = 1
+            if (page > pageCount) topage = pageCount
+            if (page < 1) topage = 1
+
+            if ((page >= 1 || page <= pageCount) && this.page != page) {
+              this.page = page
+              this.$emit('change', page)
+            }
           },
           // change: e => this.page = e
         }
