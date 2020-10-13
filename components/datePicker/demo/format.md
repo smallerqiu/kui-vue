@@ -12,7 +12,7 @@
     <br/>
     <DatePicker value="2019-10-12" format="YYYY.MM.DD"/>
     <br/>
-    <DatePicker v-model="date" format="YYYY.MM.DD" mode="range" @change="change"/>
+    <DatePicker v-model="date" format="YYYY.MM.DD" mode="range" @change="change"/>{{date}}
   </div>
 </template>
 <script>

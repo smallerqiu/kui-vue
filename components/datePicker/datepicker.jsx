@@ -96,7 +96,7 @@ export default {
       console.log(date)
       this.$emit('input', date)
       this.$emit('change', date)
-      this.currentValue = date
+      this.currentValue = value
       this.showDrop = false
       this.temp_date_hover = {};
       this.temp_range_one = null

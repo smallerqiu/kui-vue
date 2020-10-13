@@ -16,7 +16,7 @@ const Nav = [
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: 'ios-checkbox' },
       { title: "单选框", sub: "Radio", name: "radio", icon: 'ios-checkmark-circle' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'ios-switch' },
-      { title: "下拉框", sub: "Select", name: "select", icon: 'ios-arrow-down' },
+      { title: "选择器", sub: "Select", name: "select", icon: 'ios-arrow-down' },
       { title: "日期选择框", sub: "DatePicker", name: "datepicker", icon: 'ios-calendar' },
       { title: "表格", sub: "Table", name: "table", icon: 'ios-grid' },
       // { title: "上传", sub: "Upload", name: "upload", icon: 'ios-cloud-upload' },
@@ -52,13 +52,20 @@ const Nav = [
     child: [
       { title: "图钉", sub: "Affix", name: "affix", icon: 'ios-pin' },
       { title: "面包屑", sub: "Breadcrumb", name: "breadcrumb", icon: 'ios-arrow-forward' },
-      { title: "回到顶部", sub: "BackTop", name: "backtop", icon: 'md-arrow-up' },
       // { title: "下拉菜单", sub: "Dropdown", name: "dropdown", icon: 'ios-arrow-dropdown-circle' },
       // { title: "加载进度", sub: "Loading", name: "loading", icon: 'ios-pulse' },
       { title: "导航菜单", sub: "Menu", name: "menu", icon: 'ios-list' },
       { title: "分页", sub: "Page", name: "page", icon: 'ios-fastforward' },
       // { title: "步骤条", sub: "Steps", name: "steps", icon: 'ios-done-all' },
       { title: "标签页", sub: "Tabs", name: "tabs", icon: 'ios-photos' },
+    ]
+  },
+  {
+    title: 'Other',
+    child: [
+      { title: "回到顶部", sub: "BackTop", name: "backtop", icon: 'md-arrow-up' },
+      { title: "分割线", sub: "Divider", name: "divider", icon: 'md-remove' },
+
     ]
   },
 ]
