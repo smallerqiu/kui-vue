@@ -32,6 +32,13 @@
       }
     }
   }
+  .k-code-actions {
+    padding: 5px;
+    border-top: 1px dashed #eee;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+  }
   .k-code {
     transition: all .3s ease;
     position: relative;
@@ -42,24 +49,6 @@
       overflow: hidden; // margin: 10px 0;
       transition: height 0.3s ease-in-out;
       line-height: 1.5;
-    }
-    .k-code-tools {
-      position: absolute;
-      right: 15px;
-      top: 5px;
-      cursor: pointer;
-      .k-tooltip {
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        text-align: center;
-        color: #999;
-        font-size: 16px;
-        cursor: pointer;
-        &:hover {
-          color: #333;
-        }
-      }
     }
     code, kbd, samp {
       font-size: 14px;
@@ -73,9 +62,6 @@
     }
   }
   .k-code-expan {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
     font-size: 24px;
     color: #7d7d7d;
     cursor: pointer;

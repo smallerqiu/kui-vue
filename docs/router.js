@@ -34,6 +34,7 @@ let components = [
     { path: 'datepicker', component: () => import(/*webpackChunkName:'datepicker'*/'../components/datePicker/demo'), },
     { path: 'dropdown', component: () => import(/*webpackChunkName:'dropdown'*/'../components/dropdown/demo'), },
     { path: 'drawer', component: () => import(/*webpackChunkName:'drawer'*/'../components/drawer/demo'), },
+    { path: 'divider', component: () => import(/*webpackChunkName:'divider'*/'../components/divider/demo'), },
     { path: 'form', component: () => import(/*webpackChunkName:'form'*/'../components/form/demo'), },
     { path: 'grid', component: () => import(/*webpackChunkName:'grid'*/'../components/grid/demo'), },
     // { path: 'imagepreview', component: () => import(/*webpackChunkName:'image-preview'*/'../components/image-preview/demo'), },

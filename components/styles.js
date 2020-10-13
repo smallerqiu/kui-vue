@@ -11,6 +11,7 @@ import './carousel/styles';
 import './checkbox/styles';
 import './datePicker/styles';
 import './drawer/styles';
+import './divider/styles';
 // import './dropdown/styles';
 import './form/styles';
 import './empty/styles';

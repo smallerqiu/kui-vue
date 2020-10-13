@@ -12,6 +12,7 @@ import { Checkbox, CheckboxGroup } from './checkbox'
 import DatePicker from './datePicker'
 // import { Dropdown, DropdownItem, DropdownMenu } from './dropdown'
 import Drawer from './drawer'
+import Divider from './divider'
 import Empty from './empty'
 import { Form, FormItem } from './form'
 // import ImagePreview from './imagePreview'
@@ -52,7 +53,7 @@ const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup: Button.Group, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, /* Dropdown, DropdownItem, DropdownMenu, */ Drawer,
+    DatePicker, /* Dropdown, DropdownItem, DropdownMenu, */ Drawer, Divider,
     Empty,
     Form, FormItem,
     /* ImagePreview, */ Input, Icon,

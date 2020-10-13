@@ -8,19 +8,18 @@
         <div class="k-desc-content typo">
           <slot name="description"></slot>
         </div>
-        <span class="k-code-expan" @click="expand=!expand">
-          <!-- {{textTip}} -->
-          <Icon :type="'ios-code'+(expand?'-working':'')" />
-        </span>
+      </div>
+      <div class="k-code-actions">
+        <ToolTip title="Copy code">
+          <Icon type="md-copy" @click="copy" />
+        </ToolTip>
+        <ToolTip :title="expand?'Hide code':'Show code'">
+          <Icon :type="'md-code'+(expand?'-working':'')" @click="expand=!expand" />
+        </ToolTip>
       </div>
     </div>
     <transition @enter="enter" @leave="leave" @beforeEnter="beforeEnter">
       <div v-show="expand" class="k-code">
-        <div class="k-code-tools">
-          <ToolTip title="复制代码">
-            <Icon type="ios-copy" @click="copy" />
-          </ToolTip>
-        </div>
         <slot name="code"></slot>
       </div>
     </transition>
@@ -36,6 +35,7 @@ export default {
   data() {
     return {
       expand: false,
+      copied: false,
     };
   },
   name: "Demo",
@@ -44,14 +44,12 @@ export default {
   },
   methods: {
     copy() {
-      // let { sourceCode } = this.data;
       this.$copyText(this.sourceCode).then(
-        function (e) {
-          Message.success("代码复制成功！");
+        e => {
+          this.$Message.success('Copied!')
         },
         function (e) {
           Message.error("复制代码失败，请手动复制");
-          console.log(e);
         }
       );
     },

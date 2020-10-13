@@ -12,7 +12,7 @@
         >
           <MenuItem v-for="m in baseNav" :key="m.name">{{m.title}}</MenuItem>
           <SubMenu key="components">
-            <template slot="title">Components(59)</template>
+            <template slot="title">Components(60)</template>
             <MenuGroup
               :title="item.title"
               v-for="(item,x) in Nav"
