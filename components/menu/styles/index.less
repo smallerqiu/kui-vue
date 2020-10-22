@@ -1,4 +1,5 @@
 @import '../../styles/global.less';
+@import 'dropmenu.less';
 .k-menu {
   display: block;
   margin: 0;
@@ -16,6 +17,13 @@
   &:after, &:before {
     content: "";
     display: table;
+  }
+  .k-menu-item-divider {
+    height: 1px;
+    margin: 4px 0;
+    overflow: hidden;
+    line-height: 0;
+    background-color: #e8e8e8;
   }
   .k-menu-item-icon, .k-menu-submenu-inner .k-icon {
     margin-right: 8px;
@@ -380,14 +388,14 @@
     .k-menu-item-active, .k-menu-submenu-active .k-menu-submenu-title {
       color: #fff;
     }
-    .k-menu-submenu-selected {
+    .k-menu-submenu-selected, .k-menu-selected {
       color: #fff;
       a {
         color: #fff;
       }
     }
-    .k-menu-item-selected {
-      // color: #fff;
+    .k-menu-item.k-menu-item-selected {
+      color: #fff;
       background-color: @main;
       a {
         color: #fff;

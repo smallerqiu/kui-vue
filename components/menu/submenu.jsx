@@ -11,7 +11,8 @@ const animateNames = {
 export default {
   name: "SubMenu",
   props: {
-    disabled: Boolean
+    disabled: Boolean,
+    title: String,
   },
   provide() {
     return {
@@ -56,41 +57,53 @@ export default {
     } else {
       this.currentMode = mode
     }
+    let isDropdown = root.$options.propsData.parentName == 'dropdown'
+
+    const preCls = isDropdown ? 'dropdown-menu' : 'menu';
+
     const props = {
       class: [
-        "k-menu-submenu",
+        `k-${preCls}-submenu`,
         {
-          ["k-menu-submenu-active"]: this.active,
-          ["k-menu-submenu-selected"]: selected,
-          ["k-menu-submenu-opened"]: opened,
-          ["k-menu-submenu-disabled"]: disabled
+          [`k-${preCls}-active`]: this.active,
+          [`k-${preCls}-selected`]: selected && !isDropdown,
+          [`k-${preCls}-opened`]: opened,
+          [`k-${preCls}-disabled`]: disabled
         }
       ],
-      on: {
-        mouseenter: () => {
-          this.showPopupMenu(currentMode)
-        },
-        mouseleave: () => this.hidePopupMenu(currentMode)
-      }
     }
-    let groupProps = {
-      class: "k-menu-submenu-title",
+    let innerProps = {
+      class: `k-${preCls}-submenu-title`,
       on: {
         mouseenter: () => { this.showPopupMenu(currentMode) },
+        mouseleave: () => this.hidePopupMenu(currentMode),
         click: e => this.openChange()
       }
     }
     // console.log(subProps)
     let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode]
     const hasRenderAffix = this.$parent == root && root.mode == 'vertical' && root.verticalAffixed
+    const popupProps = {
+      class: `k-${preCls}-popup`,
+      style: { left: `${this.left}px`, 'min-width': `${this.minWidth}px` },
+      on: {
+        mouseenter: () => {
+          clearTimeout(this.timer);
+          this.activet = true;
+        },
+        mouseleave: () => {
+          this.hidePopupMenu(currentMode)
+        }
+      }
+    }
     return (
       <li {...props}>
-        <div {...groupProps}>
-          <span class="k-menu-submenu-inner">{$slots.title || this.title}</span>
-          <Icon type={currentMode == 'vertical' ? 'ios-arrow-forward' : "ios-arrow-down"} class="k-menu-submenu-arrow" />
+        <div {...innerProps}>
+          <span class={`k-${preCls}-submenu-inner`}>{$slots.title || this.title}</span>
+          <Icon type={currentMode == 'vertical' ? 'ios-arrow-forward' : "ios-arrow-down"} class={`k-${preCls}-submenu-arrow`} />
         </div>
         <Collapse name={aniName}>
-          <div class="k-menu-popup" v-show={opened} style={{ left: `${this.left}px`, 'min-width': `${this.minWidth}px` }}>
+          <div v-show={opened}  {...popupProps}>
             <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
           </div>
         </Collapse>
@@ -108,6 +121,7 @@ export default {
       }, 300);
     },
     showPopupMenu(currentMode) {
+      clearTimeout(this.timer)
       if (this.disabled) return;
       this.active = true
       if (currentMode == 'inline') return;
@@ -123,7 +137,6 @@ export default {
         }
       }
       this.opened = true;
-      clearTimeout(this.timer)
     },
     renderAffix(isRender, root, currentMode) {
       const itemClick = (item, e) => {
@@ -149,16 +162,7 @@ export default {
         </li>
       })
       if (isRender) {
-        const props = {
-          class: "k-menu-submenu-affix",
-          on: {
-            mouseenter: e => {
-              e.stopPropagation()
-              this.hidePopupMenu(currentMode)
-            }
-          }
-        }
-        return <div {...props}>{child}</div>
+        return <div class="k-menu-submenu-affix">{child}</div>
       }
       return null
     },

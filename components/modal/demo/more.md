@@ -12,23 +12,23 @@
     <Button @click="show4=true" type="primary">Open max</Button>
     <Button @click="show5=true" type="primary">No mask</Button>
 
-    <Modal title="Can move" v-model="show1" can-move>
+    <Modal title="Can move" v-model="show1" can-move @ok="show1=false">
       <p>content</p>
     </Modal>
 
-    <Modal title="Open in center" v-model="show2" is-center>
+    <Modal title="Open in center" v-model="show2" is-center @ok="show2=false">
       <p>content</p>
     </Modal>
 
-    <Modal title="Top 200px" v-model="show3" :top="200">
+    <Modal title="Top 200px" v-model="show3" :top="200" @ok="show3=false">
       <p>content</p>
     </Modal>
 
-    <Modal title="Open max" v-model="show4" is-max>
+    <Modal title="Open max" v-model="show4" is-max @ok="show4=false">
       <p>content</p>
     </Modal>
 
-    <Modal title="Open max" v-model="show5" :mask="false" :mask-closable="false">
+    <Modal title="Open max" v-model="show5" :mask="false" :mask-closable="false" @ok="show5=false">
       <p>content</p>
     </Modal>
   </div>

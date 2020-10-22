@@ -159,11 +159,15 @@ sub {
 
 a {
   color: #1abc9c;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover, &:active {
+    text-decoration: none;
+    outline: none;
+  }
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 .typo a {
   // border-bottom: 1px solid #1abc9c;

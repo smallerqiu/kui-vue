@@ -14,6 +14,4 @@ export default {
       </li>
     )
   },
-  methods: {
-  },
 }; 

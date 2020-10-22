@@ -1,12 +1,9 @@
 import Button from "../button";
 import Icon from "../icon";
-import transfer from "../_tool/transfer";
-import resize from "../_tool/resize";
-import outsideclick from "../_tool/outsiteclick";
-import { getElementPos, cloneVNode, isVnode } from "../_tool/utils";
+import { cloneVNode, isVnode, hasProp } from "../_tool/utils";
+import Drop from './drop'
 
 export default {
-  directives: { transfer, resize, outsideclick },
   name: 'BasePop',
   props: {
     preCls: String,
@@ -14,7 +11,9 @@ export default {
     confirm: Boolean,
     dark: Boolean,
     transfer: { type: Boolean, default: true },
+    value: { type: Boolean, default: false },
     title: String,
+    showPlacementArrow: { type: Boolean, default: true },
     width: [Number, String],
     placement: {
       validator(value) {
@@ -29,54 +28,19 @@ export default {
   },
   data() {
     return {
-      showPop: false,
-      left: 0,
-      top: 0,
+      showPop: this.value,
       showInit: false,
-      timer: null
+      timer: null,
     };
+  },
+  watch: {
+    value(show) {
+      this.showPop = show
+    }
   },
   methods: {
     setShowPop() {
       this.showPop = !this.showPop;
-      this.$nextTick(e => this.setPosition())
-    },
-    setPosition() {
-      // let rel = this.$refs.rel;
-      let dom = this.$refs.dom;
-      // let rel = this.$refs.rel.children[0] || this.$refs.rel
-      let rel = this.$el
-      if (!dom) return;
-      let top = 0, left = 0;
-
-      if (this.transfer) {
-        let pos = getElementPos(this.$el)
-        top = pos.top
-        left = pos.left
-      }
-      let p = this.placement;
-      if (p.slice(0, 3) == 'top') { top -= dom.offsetHeight; }
-      if (p.slice(0, 6) == 'bottom') { top += rel.offsetHeight; }
-      if (p == 'left' || p == 'right') { top -= (dom.offsetHeight - rel.offsetHeight) / 2 }
-      if (p.slice(-7) == '-bottom') { top -= (dom.offsetHeight - rel.offsetHeight); }
-
-      if (p.slice(0, 4) == 'left') { left -= dom.offsetWidth; }
-      if (p.slice(0, 5) == 'right') { left += rel.offsetWidth; }
-      if (p == 'top' || p == 'bottom') { left -= (dom.offsetWidth - rel.offsetWidth) / 2; }
-      if (p.slice(-6) == '-right') { left -= (dom.offsetWidth - rel.offsetWidth); }
-
-      this.top = top
-      this.left = left
-    },
-    hidedrop(e) {
-      if (this.transfer) {
-        // if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$refs.rel.contains(e.target)) {
-        if (this.$refs.dom && !this.$refs.dom.contains(e.target) && !this.$el.contains(e.target)) {
-          this.showPop = false
-        }
-      } else {
-        this.showPop = false
-      }
     },
     ok() {
       this.showPop = false;
@@ -91,108 +55,126 @@ export default {
         this.showInit = true
         this.$nextTick(e => {
           this.showPop = !this.showPop;
-          this.$nextTick(e => this.setPosition())
         })
       } else {
         this.showPop = !this.showPop;
-        this.$nextTick(e => this.setPosition())
       }
     },
-    domMouseLeave(e) {
-      // if (!this.$refs.rel.contains(e.target) && !this.confirm && this.trigger == 'hover') {
-      if (!this.$el.contains(e.target) && !this.confirm && this.trigger == 'hover') {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.showPop = false
-        }, 200);
-      }
-    },
-    domMouseEnter(e) {
-      if (this.$refs.dom.contains(e.target) && !this.confirm && this.trigger == 'hover') {
-        clearTimeout(this.timer)
-      }
-    },
-    mouseEnter() {
+    mouseEnter(e) {
       clearTimeout(this.timer)
       if (this.trigger == "hover" && !this.confirm && !this.showPop) {
         this.setPopShow()
       }
     },
     mouseLeave(e) {
-      if (this.trigger == 'hover' && !this.confirm && this.showPop) {
+      if (this.trigger == 'hover' &&
+        !this.confirm &&
+        this.showPop
+      ) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.showPop = false
         }, 200);
       }
     },
-    relClick() {
+    mouseEvent(e) {
+      if (this.trigger == 'contextmenu' && e.which == 3) {
+        if (!this.showInit) {
+          this.showInit = true
+          this.$nextTick(() => {
+            this.showPop = true
+            this.$nextTick(() => {
+              this.$refs.overlay.baseContextmenu(e)
+            })
+          })
+        } else {
+          this.showPop = true
+          this.$nextTick(() => {
+            this.$refs.overlay.baseContextmenu(e)
+          })
+        }
+
+        e.preventDefault();
+        return false;
+      }
       if (this.trigger == "click" || this.confirm) {
         this.setPopShow()
       }
     },
-    getOrigin() {
-      let origins = {
-        top: 'center bottom', 'top-left': 'left bottom', 'top-right': 'right bottom',
-        left: 'right center', 'left-top': 'right top', 'left-bottom': 'right bottom',
-        right: 'left center', 'right-top': 'left top', 'right-bottom': 'left bottom',
-        bottom: 'center top', 'bottom-left': 'left top', 'bottom-right': 'right top'
-      }
-      return origins[this.placement]
-    },
     renderPopup() {
-      let { placement, title, preCls, $slots } = this
-      let footerNode, titleNode, contentNode, cnode = [], drop = null, inner = [];
-      title = title || $slots.title
+      let { placement, title, preCls, $slots } = this, childNode;
 
-      if (this.confirm) {
-        let fnode = []
-        fnode.push(<Button mini onClick={this.cancel}>{this.cancelText}</Button>)
-        fnode.push(<Button type="primary" mini onClick={this.ok}>{this.okText}</Button>)
-        footerNode = <div class={`k-${preCls}-footer`}>{fnode}</div>
-        cnode.push(<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>)
+      title = title || $slots.title
+      if (this.showPlacementArrow) {
+        let titleNode, contentNode, footerNode;
+        if (this.confirm) {
+          contentNode = [<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
+
+          footerNode = <div class={`k-${preCls}-footer`}>
+            <Button mini onClick={this.cancel}>{this.cancelText}</Button>
+            <Button type="primary" mini onClick={this.ok}>{this.okText}</Button>
+          </div>
+        } else {
+          titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : ''
+          contentNode = $slots.content
+        }
+        contentNode = contentNode ? <div class={`k-${preCls}-inner-content`}>{contentNode}</div> : null;
+
+        childNode = [<div class={`k-${preCls}-arrow`}></div>,
+        <div class={`k-${preCls}-inner`}>{[titleNode, contentNode, footerNode]}</div>]
+
       } else {
-        titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : ''
-        $slots.content && cnode.push($slots.content)
+        childNode = $slots.content
       }
-      // cnode.push(this.$slots.content)
-      contentNode = cnode.length ? <div class={`k-${preCls}-inner-content`}>{cnode}</div> : null
-      inner.push(titleNode, contentNode, footerNode)
-      if (this.showInit) {
-        const dropStyle = {
-          left: `${this.left}px`,
-          top: `${this.top}px`,
-          width: `${this.width}px`,
-          transformOrigin: this.getOrigin()
-        }
-        let dropClass = [`k-${preCls}-content`,
-        {
-          // [`k-${preCls}-confirm`]: confirm,
-          // ["k-${preCls}-dark"]: this.dark
-        }
-        ];
-        const props = {
-          class: dropClass,
-          style: dropStyle,
-          ref: 'dom',
-          attrs: {
-            'k-placement': placement
+
+      const props = {
+        ref: 'overlay',
+        props: {
+          // transfer: false,
+          transfer: this.transfer,
+          show: this.showPop,
+          className: `k-${preCls}-content`,
+          width: this.width,
+          placement: placement,
+          trigger: this.trigger,
+          transitionName: `k-${preCls}-fade`
+        },
+        // attrs: {
+        //   'k-placement': placement
+        // },
+        on: {
+          mouseenter: e => {
+            if (this.$refs.overlay.$el.contains(e.target)) {
+              clearTimeout(this.timer)
+            }
           },
-          on: {
-            mouseenter: e => this.domMouseEnter(e),
-            mouseleave: e => this.domMouseLeave(e)
+          mouseleave: e => {
+            if (this.trigger == 'hover') {
+              this.showPop = false
+            }
+          },
+
+          click: e => {
+            //   this.$emit('click', e) //子集点击
+            console.log('click');
+            if (hasProp(this, 'value')) {
+              this.$emit('input', false);
+            } else {
+              this.showPop = false
+            }
+          },
+          input: (e) => {
+            console.log('input');
+            if (hasProp(this, 'value')) {
+              this.$emit('input', e);
+            } else {
+              this.showPop = e
+            }
           }
         }
-        drop = (
-          <transition name={`k-${preCls}-fade`}>
-            <div {...props} v-show={this.showPop} v-transfer={this.transfer} v-resize={this.setPosition} v-outsideclick={this.hidedrop}>
-              <div class={`k-${preCls}-arrow`}></div>
-              <div class={`k-${preCls}-inner`}>{inner}</div>
-            </div>
-          </transition>
-        )
       }
-      return drop
+      let x;
+      return this.showInit ? <Drop {...props}>{childNode}</Drop> : null
     },
   },
 
@@ -211,25 +193,12 @@ export default {
     const props = {
       children: popup,
       on: {
-        'mouseenter': e => {
-          this.mouseEnter()
-        },
-        'mouseleave': e => {
-          this.mouseLeave()
-        },
-        'click': e => {
-          this.relClick()
-        }
+        'contextmenu': e => this.mouseEvent(e),
+        'mouseenter': e => this.mouseEnter(e),
+        'mouseleave': e => this.mouseLeave(e),
+        'click': e => this.mouseEvent(e)
       }
     }
     return cloneVNode(child, props)
-    // return (
-    //   <div class={`k-${preCls}`} onMouseenter={this.mouseEnter} onMouseleave={this.mouseLeave} >
-    //     <div class={`k-${preCls}-rel`} onClick={this.relClick} ref="rel">
-    //       {$slots.default}
-    //     </div>
-    //     {drop}
-    //   </div>
-    // )
   }
 };

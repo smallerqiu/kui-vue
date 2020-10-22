@@ -2,18 +2,12 @@ import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColor
 import { Input } from '../input'
 import Button from '../button'
 import Icon from '../icon'
-
-import { setPosition } from '../_tool/utils'
-
-import transfer from "../_tool/transfer";
-import Resize from "../_tool/resize";
-import outsideclick from "../_tool/outsiteclick";
+import Drop from '../base/drop'
 
 const modes = ['rgba', 'hex', 'hsla']
 
 export default {
   name: 'ColorPicker',
-  directives: { transfer, Resize, outsideclick },
   props: {
     value: String,
     transfer: { type: Boolean, default: true },
@@ -55,28 +49,14 @@ export default {
       paintPointer: {
         x: 0, y: 0
       },
-      placement: 'bottom',
       showDrop: false,
       showDropInit: false,
-      left: 0,
-      top: 0,
       isMouseDown: false
     }
   },
   methods: {
-    setPosition() {
-      let picker = this.$refs.dom
-      let selection = this.$el
-      let transfer = this.transfer
-
-      setPosition(selection, picker, transfer, (top, left, placement) => {
-        this.top = top
-        this.left = left
-        this.placement = placement
-      })
-    },
     hidedrop(e) {
-      if (this.showDropInit && this.showDrop && !this.isMouseDown && !this.$el.contains(e.target) && !this.$refs.dom.contains(e.target)) {
+      if (this.showDropInit && this.showDrop && !this.isMouseDown) {
         this.showDrop = false
         this.currentColor = this.value || '#000'
       }
@@ -107,7 +87,7 @@ export default {
     setShowDrop() {
       this.showDrop = !this.showDrop;
       if (this.showDrop) {
-        this.$nextTick(e => this.setPosition())
+        this.$nextTick(e => this.$refs.overlay.setPosition())
       } else {
         this.currentColor = this.value || '#000'
       }
@@ -396,13 +376,21 @@ export default {
       // let colors = this.renderDefaultColor()
       let valueNode = this.renderValue()
 
-      const dropStyle = {
-        left: `${this.left}px`,
-        top: `${this.top}px`,
-        transformOrigin: this.placement == 'top' ? 'center bottom' : ''
+      const props = {
+        ref: 'overlay',
+        props: {
+          transfer: this.transfer,
+          show: this.showDrop,
+          className: 'k-color-picker-dropdown'
+        },
+        on: {
+          input: e => this.showDrop = e,
+          hide: e => this.hide
+        }
       }
       return (
-        <div class="k-color-picker-dropdown" ref="dom" v-show={this.showDrop} style={dropStyle} v-transfer={this.transfer} v-resize={this.setPosition}>
+        // <Drop class="k-color-picker-dropdown" ref="dom" v-show={this.showDrop} style={dropStyle} v-transfer={this.transfer} v-resize={this.setPosition}>
+        <Drop {...props}>
           {paint}
           < span class="k-color-picker-paint-dot" style={'left:' + this.paintPointer.x + 'px;top:' + this.paintPointer.y + 'px'} ></span >
           <div class="k-color-picker-bar">
@@ -417,7 +405,7 @@ export default {
           </div>
           {valueNode}
           {this.renderDefaultColor()}
-        </div>
+        </Drop>
       )
     }
   },
@@ -425,7 +413,7 @@ export default {
   render() {
     let drop;
     if (this.showDropInit) {
-      drop = <transition name="dropdown">{this.renderDrop()}</transition >
+      drop = this.renderDrop()
     }
     let style = [
       'k-color-picker',
@@ -434,7 +422,7 @@ export default {
         'k-color-picker-large': this.large && !this.mini
       },
     ]
-    return (<div class={style} v-outsideclick={this.hidedrop}>
+    return (<div class={style}>
       <div class="k-color-picker-selection" onClick={this.toggleDrop}>
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>

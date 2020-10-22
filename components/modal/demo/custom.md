@@ -6,26 +6,26 @@
 ```vue
 <template>
   <div>
-    <Button @click="show1=true" type="primary">Width 300px</Button>
-    <Button @click="show2=true" type="primary">Custom footer</Button>
-    <Button @click="show3=true" type="primary">国际化</Button>
-    <Button @click="show4=true" type="primary">异步关闭</Button>
-    <Modal title="Width 300px" v-model="show1" :width="300">
+    <Button @click="visible1=true" type="primary">Width 300px</Button>
+    <Button @click="visible2=true" type="primary">Custom footer</Button>
+    <Button @click="visible3=true" type="primary">国际化</Button>
+    <Button @click="visible4=true" type="primary">异步关闭</Button>
+    <Modal title="Width 300px" v-model="visible1" :width="300" @ok="visible1=false">
       <p>content</p>
     </Modal>
 
-    <Modal title="Custom footer" v-model="show2">
+    <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template slot="footer">
-        <Button icon="ios-save" @click="show2=false" type="primary">Save</Button>
+        <Button icon="ios-save" @click="visible2=false" type="primary">Save</Button>
       </template> 
     </Modal>
 
-    <Modal title="Are you ok ?" v-model="show3" ok-text="Ok" cancel-text="cancel">
+    <Modal title="Are you ok ?" v-model="visible3" ok-text="Ok" cancel-text="cancel" @ok="okHandle">
       <p>Yes , I'm fine !</p>
     </Modal>
 
-    <Modal title="提交表单" v-model="show4" :loading="loading" @ok="submit" @close="close">
+    <Modal title="提交表单" v-model="visible4" :loading="loading" @ok="submit" @close="close">
       <p>Name：<Input placeholder="Please input your name" style="width:200px"/></p>
     </Modal>
   </div>
@@ -34,19 +34,22 @@
 export default{
   data(){
     return{
-      show1:false,
-      show2:false,
-      show3:false,
-      show4:false,
+      visible1:false,
+      visible2:false,
+      visible3:false,
+      visible4:false,
       loading:false,
     }
   },
   methods:{
+    okHandle(){
+      this.visible3 = false
+    },  
     submit(){
       this.loading = true
       this.timer = setTimeout(e=>{
         this.loading = false
-        this.show4 = false
+        this.visible4 = false
       },2000)
     },
     close(){

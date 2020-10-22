@@ -5,29 +5,55 @@
 
 ```vue
 <template>
-  <div>
-    {{date}}
-    <br/>
-    <DatePicker showTime v-model="date" :disabledDate="disabledDate"/>
-    <br/>
-    <br/>
-    <br/>
-    <DatePicker v-model="date"/>
-  </div>
+  <Dropdown>
+    <a href="#">
+      Hover me <Icon type="ios-arrow-down" />
+    </a>
+    <Menu slot="content">
+      <MenuItem>
+        <a href="javascript:;">1st menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">2nd menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">3rd menu item</a>
+      </MenuItem>
+    </Menu>
+  </Dropdown>
+  <Dropdown show-placement-arrow >
+    <Button >
+      show arrow <Icon type="ios-arrow-down" />
+    </Button>
+    <Menu slot="content">
+      <MenuItem>
+        <a href="javascript:;">1st menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">2nd menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">3rd menu item</a>
+      </MenuItem>
+    </Menu>
+  </Dropdown>
+
+  <Dropdown trigger="click" >
+    <Button >
+      Click me <Icon type="ios-arrow-down" />
+    </Button>
+    <Menu slot="content">
+      <MenuItem>
+        <a href="javascript:;">1st menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">2nd menu item</a>
+      </MenuItem>
+      <MenuItem>
+        <a href="javascript:;">3rd menu item</a>
+      </MenuItem>
+    </Menu>
+  </Dropdown>
 </template>
-<script>
-import moment from 'moment';
-export default {
-  data(){
-    return{
-      date:''
-    }
-  },
-  methods:{
-    disabledDate(current){
-      return current && current < moment().endOf('day');
-    }
-  }
-}
-</script>
+
 ```

@@ -11,7 +11,7 @@
 | is-center     | 窗口是否可以居中 , confirm模式不可用          | Boolean        | false  |
 | is-max        | 弹框是否可以最大化显示 , confirm模式不可用    | Boolean        | false  |
 | mask-closable | 是否点击遮罩关闭弹窗, 为否时Esc键将失效       | Boolean        | true   |
-| ok            | 点击确定的回调                                | Function       | -      |
+| ok            | 点击确定的回调，`注意：不会关闭 Modal `                              | Function       | -      |
 | cancel        | 点击取消的回调                                | Function       | -      |
 | close         | 窗口关闭的回调                                | Function       | -      |
   

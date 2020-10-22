@@ -1,0 +1,28 @@
+<cn>
+#### 基础用法
+通过 `v-model` 进行数据双向绑定
+</cn>
+
+```vue
+<template>
+  <Dropdown>
+    <a>
+      Cascading menu <Icon type="ios-arrow-down" />
+    </a>
+    <Menu slot="content">
+      <MenuItem>1st menu item</MenuItem>
+      <MenuItem>2nd menu item</MenuItem>
+      <SubMenu key="test" title="sub menu">
+        <MenuItem>3rd menu item</MenuItem>
+        <MenuItem>4th menu item</MenuItem>
+      </SubMenu>
+      <SubMenu title="disabled sub menu" disabled>
+        <MenuItem>5d menu item</MenuItem>
+        <MenuItem>6th menu item</MenuItem>
+      </SubMenu>
+    </Menu>
+  </Dropdown>
+</template>
+
+
+```

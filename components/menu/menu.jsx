@@ -1,4 +1,5 @@
 
+import { getParent } from './utils.js'
 export default {
   name: "Menu",
   props: {
@@ -44,10 +45,15 @@ export default {
       originMode: null
     };
   },
+  mounted() {
+    // console.log(this.$options.propsData.wocao)
+  },
   render() {
-    const { theme, currentMode } = this
-    const cls = [`k-menu k-menu-${theme} k-menu-${currentMode}`, {
-      'k-menu-inline-collapased': this.inlineCollapsed
+    const { theme, currentMode, Menu } = this
+    const root = Menu ? getParent(Menu, 'Menu') : this;
+    const preCls = root && root.$options.propsData.parentName == 'dropdown' ? 'dropdown-menu' : 'menu';
+    const cls = [`k-${preCls} k-${preCls}-${theme} k-${preCls}-${currentMode}`, {
+      [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
     }];
     return (<ul class={cls}>{this.$slots.default}</ul>)
   },
