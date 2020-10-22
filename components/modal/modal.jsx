@@ -31,6 +31,7 @@ export default {
       left: '',
       currentTop: this.top,
       isMouseDown: false,
+      mousedownIn: false,
       startPos: { x: 0, y: 0 },
       showPoint: { x: 0, y: 0 }
     }
@@ -45,6 +46,7 @@ export default {
       this.setPos()
     }
   },
+  
   methods: {
     updateProp(visible) {
       if (visible) {
@@ -95,11 +97,11 @@ export default {
     },
     ok() {
       this.$emit('ok')
-      this.$nextTick(e => {
-        if (!this.loading) {
-          this.close()
-        }
-      })
+      // this.$nextTick(e => {
+      //   if (!this.loading) {
+      //     this.close()
+      //   }
+      // })
     },
     cancel() {
       this.close()
@@ -110,7 +112,8 @@ export default {
       this.$emit('close')
     },
     clickMaskToClose(e) {
-      if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target)) {
+      console.log(this.mousedownIn)
+      if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target) && !this.mousedownIn) {
         this.close()
       }
     },
@@ -140,15 +143,17 @@ export default {
         document.addEventListener('mousemove', this.mousemove)
         document.addEventListener('mouseup', this.mouseup)
       }
+
+      this.mousedownIn = this.show && this.$refs.modal.contains(e.target)
     }
   },
   beforDestory() {
-    document.removeEventListener('mousedown', this.mousedown)
+    document.removeEventListener('mousedown', this.mousedown) 
     this.resetBodyStyle(false)
   },
 
   mounted() {
-    document.addEventListener('mousedown', this.mousedown)
+    document.addEventListener('mousedown', this.mousedown) 
     if (this.value) this.init = true
   },
   render() {

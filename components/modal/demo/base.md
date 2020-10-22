@@ -7,7 +7,7 @@
 <template>
   <div>
     <Button @click="visible=true" type="primary">Open Modal</Button>
-    <Modal title="Title" v-model="visible">Content</Modal>
+    <Modal title="Title" v-model="visible" @ok="okHandle">Content</Modal>
   </div>
 </template>
 <script>
@@ -15,6 +15,11 @@ export default{
   data(){
     return{
       visible:false
+    }
+  },
+  methods:{
+    okHandle(){
+      this.visible = false
     }
   }
 } 

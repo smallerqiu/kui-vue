@@ -1,14 +1,11 @@
 import Calendar from './datecalendar'
-import transfer from "../_tool/transfer";
-import Resize from "../_tool/resize";
-import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
-import { isNotEmpty, setPosition } from '../_tool/utils'
+import { isNotEmpty } from '../_tool/utils'
 import moment from 'moment'
+import Drop from '../base/drop'
 
 export default {
   name: 'DatePicker',
-  directives: { transfer, Resize, outsideclick },
   props: {
     value: [String, Date, Number, Array],
     mode: { type: String, default: 'date' },
@@ -35,8 +32,6 @@ export default {
     return {
       showDropInit: false,
       showDrop: false,
-      left: 0,
-      top: 0,
       currentValue: this.value,
       leftPicker: null,
       rightPicker: null,
@@ -115,20 +110,13 @@ export default {
       this.$emit("change", this.currentValue);
       e.stopPropagation()
     },
-    hidedrop(e) {
-      if (this.showDropInit && typeof (e.target.className) === 'string') {
-        if (!this.$el.contains(e.target) &&
-          !this.$refs.dom.contains(e.target) &&
-          e.target.className.indexOf('k-calendar-date') < 0 &&
-          e.target.className.indexOf('k-calendar-month-select') < 0
-        ) {
-          this.showDrop = false
-          this.temp_date_hover = {};
-          this.temp_range_one = null
-          this.temp_range_left = null
-          this.temp_range_right = null
-          this.temp_range_showtime = false
-        }
+    hide() {
+      if (this.showDropInit) {
+        this.temp_date_hover = {};
+        this.temp_range_one = null
+        this.temp_range_left = null
+        this.temp_range_right = null
+        this.temp_range_showtime = false
       }
     },
     toggleDrop() {
@@ -144,19 +132,6 @@ export default {
     },
     setShowDrop() {
       this.showDrop = !this.showDrop;
-      this.$nextTick(e => this.setPosition())
-    },
-    setPosition() {
-      let picker = this.$refs.dom
-      let selection = this.$el
-      let transfer = this.transfer
-
-      setPosition(selection, picker, transfer, (top, left, placement) => {
-        this.top = top
-        this.left = left
-        this.placement = placement
-      })
-
     },
   },
   render() {
@@ -192,12 +167,8 @@ export default {
       }
     }
 
-    let drop;
-    const dropStyle = {
-      left: `${this.left}px`,
-      top: `${this.top}px`,
-      transformOrigin: this.placement == 'top' ? 'center bottom' : ''
-    }
+    let overlay;
+
     if (this.showDropInit) {
       let { format, mode, disabledTime, disabledDate, showTime } = this.$props
       let calendar = []
@@ -230,14 +201,18 @@ export default {
         }
         calendar.push(<Calendar {...props} />)
       }
-      const dropClass = ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }]
-      drop = (
-        <transition name="dropdown">
-          <div class={dropClass} ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
-            {calendar}
-          </div>
-        </transition >
-      )
+      const props = {
+        props: {
+          className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
+          transfer: transfer,
+          show: this.showDrop
+        },
+        on: {
+          hide: this.hide,
+          input: e => this.showDrop = e
+        }
+      }
+      overlay = <Drop {...props}>{calendar}</Drop >
     }
     let showClear = !disabled && clearable && isNotEmpty(label)
     showClear && childNode.push(<Icon class="k-datepicker-clearable" type="ios-close-circle" onClick={this.clear} />)
@@ -254,11 +229,11 @@ export default {
       { 'k-datepicker-disabled': disabled },
     ]
     return (
-      <div tabIndex="0" class={classes} v-outsideclick={this.hidedrop}>
+      <div tabIndex="0" class={classes}>
         <div class={selectCls} onClick={this.toggleDrop}>
           {childNode}
         </div>
-        {drop}
+        {overlay}
       </div>
     )
   }

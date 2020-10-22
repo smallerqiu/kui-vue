@@ -52,7 +52,7 @@ const Nav = [
     child: [
       { title: "图钉", sub: "Affix", name: "affix", icon: 'ios-pin' },
       { title: "面包屑", sub: "Breadcrumb", name: "breadcrumb", icon: 'ios-arrow-forward' },
-      // { title: "下拉菜单", sub: "Dropdown", name: "dropdown", icon: 'ios-arrow-dropdown-circle' },
+      { title: "下拉菜单", sub: "Dropdown", name: "dropdown", icon: 'ios-arrow-dropdown-circle' },
       // { title: "加载进度", sub: "Loading", name: "loading", icon: 'ios-pulse' },
       { title: "导航菜单", sub: "Menu", name: "menu", icon: 'ios-list' },
       { title: "分页", sub: "Page", name: "page", icon: 'ios-fastforward' },

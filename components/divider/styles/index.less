@@ -1,3 +1,4 @@
+@border: #e8e8e8;
 .k-divider {
   box-sizing: border-box;
   margin: 0;
@@ -6,14 +7,14 @@
   font-size: 14px;
   line-height: 1.5;
   list-style: none;
-  background: #e8e8e8;
+  background: @border;
   .k-divider-inner-text {
     display: inline-block;
     padding: 0 24px
   }
   &-dashed {
     background: none;
-    border: dashed #e8e8e8;
+    border: dashed @border;
     border-width: 1px 0 0
   }
   &, &-vertical {
@@ -31,7 +32,7 @@
   }
   &-dashed {
     background: none;
-    border: dashed #e8e8e8;
+    border: dashed @border;
     border-width: 1px 0 0;
   }
   &-vertical {
@@ -60,7 +61,7 @@
         top: 50%;
         display: table-cell;
         width: 50%;
-        border-top: 1px solid #e8e8e8;
+        border-top: 1px solid @border;
         transform: translateY(50%);
         content: "";
       }
@@ -69,7 +70,7 @@
         top: 50%;
         display: table-cell;
         width: 50%;
-        border-top: 1px solid #e8e8e8;
+        border-top: 1px solid @border;
         transform: translateY(50%);
         content: ""
       }

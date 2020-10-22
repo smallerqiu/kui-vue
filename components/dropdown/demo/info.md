@@ -1,33 +1,7 @@
-<cn>
-#### 基础用法
-通过 `v-model` 进行数据双向绑定
-</cn>
+# Dropdown 下拉菜单
+向下弹出的列表。
 
-```vue
-<template>
-  <div>
-    {{date}}
-    <br/>
-    <DatePicker showTime v-model="date" :disabledDate="disabledDate"/>
-    <br/>
-    <br/>
-    <br/>
-    <DatePicker v-model="date"/>
-  </div>
-</template>
-<script>
-import moment from 'moment';
-export default {
-  data(){
-    return{
-      date:''
-    }
-  },
-  methods:{
-    disabledDate(current){
-      return current && current < moment().endOf('day');
-    }
-  }
-}
-</script>
-```
+## 何时使用
+当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。
+
+## 代码演示

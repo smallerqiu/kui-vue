@@ -1,17 +1,11 @@
-import transfer from "../_tool/transfer";
-import Resize from "../_tool/resize";
 import Option from './option'
-import outsideclick from "../_tool/outsiteclick";
 import Icon from "../icon";
 import Empty from '../empty';
-import { hasProp, getChild, isNotEmpty, setPosition } from '../_tool/utils'
-let timestamp = Date.now()
-let count = 0
-function getUuid() {
-  return `k-select-lable__${timestamp}__${count++}`
-}
+import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
+
+import Drop from '../base/drop'
+
 export default {
-  directives: { transfer, Resize, outsideclick },
   name: "Select",
   props: {
     placeholder: { type: String, default: "请选择" },
@@ -37,13 +31,10 @@ export default {
   },
   data() {
     return {
-      left: 0,
-      top: 0,
       label: "",
       showDrop: false,
       showDropInit: false,
       currentValue: this.value || '',
-      placement: 'bottom',
       showSearch: false,
       queryKey: '',
       selectWidth: this.width
@@ -62,51 +53,52 @@ export default {
     }
   },
   methods: {
-    hidedrop(e) {
-      if (this.showDropInit && !this.$el.contains(e.target) && !this.$refs.dom.contains(e.target)) {
+    hidedrop() {
+      if (this.showDropInit) {
         if (this.showSearch) {
           this.queryKey = ''
           this.$refs.search.value = ''
           this.$refs.search.style.width = ''
         }
-        this.showDrop = false
         this.showSearch = false
       }
+    },
+    getLabel(kid, labelValue) {
+      let Label = '';
+      kid.forEach(c => {
+        let { value, label } = c.componentOptions.propsData
+        label = label || (c.componentOptions.children[0].text || '').trim()
+        if (labelValue === value) {
+          Label = label
+          return;
+        }
+      })
+      return Label;
     },
     setLabel() {
       let currentValue = this.value || this.currentValue
       // if (!isNotEmpty(currentValue) || currentValue.length == 0) return;
       let kid = this.getOptions()
-      if (kid) {
-        let currentLabel = this.label || ''
-        if (this.multiple) {
-          currentLabel = currentLabel || []
-          currentValue = currentValue || []
+      let currentLabel = this.label || ''
+      if (this.multiple) {
+        currentLabel = currentLabel || []
+        currentValue = currentValue || []
+        if (currentValue.length) {
+          let labels = []
+          currentValue.forEach((value, index) => {
+            let Label = this.getLabel(kid, value)
+            labels.push({ label: Label, key: Label + value, value })
+          })
+          currentLabel = labels
+        } else {
+          currentLabel = []
         }
-        kid.forEach(c => {
-          if (c.tag) {
-            let { value, label } = c.componentOptions.propsData
-            label = label || (c.componentOptions.children[0].text || '').trim()
-            if (this.multiple) {
-              let index = currentLabel.map(v => v.label).indexOf(label)
-              if (currentValue.indexOf(value) >= 0) {
-                if (index === -1) {
-                  let key = getUuid()
-                  currentLabel.push({ label, key })
-                }
-              } else {
-                if (index >= 0) {
-                  currentLabel.splice(index, 1)
-                }
-              }
-            } else if (currentValue === value) {
-              currentLabel = label
-              return false
-            }
-          }
-        })
-        this.label = currentLabel
+
+      } else {
+        currentLabel = this.getLabel(kid, currentValue)
       }
+      this.label = currentLabel
+
       setTimeout(e => { this.setPosition() }, 230);
 
     },
@@ -162,16 +154,9 @@ export default {
       if (!hasProp(this, 'width')) {
         this.selectWidth = this.$el.offsetWidth
       }
-
-      let picker = this.$refs.dom
-      let selection = this.$el
-      let transfer = this.transfer
-
-      setPosition(selection, picker, transfer, (top, left, placement) => {
-        this.top = top
-        this.left = left
-        this.placement = placement
-      })
+      if (this.showDrop) {
+        this.$refs.overlay.setPosition()
+      }
     },
     change(item) {
       let { multiple, value, currentValue } = this
@@ -209,9 +194,9 @@ export default {
       if (!hasValue) {
         if (multiple) {
           let currentLabel = this.label || []
-          let index = currentLabel.map(x => x.label).indexOf(item.label)
+          let index = currentLabel.findIndex(x => x.value === item.value)//  .map(x => x.label).indexOf(item.label)
           if (index === -1) {
-            currentLabel.push({ label: item.label, key: getUuid() })
+            currentLabel.push({ label: item.label, key: item.label + item.value, value: item.value })
           } else {
             currentLabel.splice(index, 1)
           }
@@ -243,11 +228,8 @@ export default {
       if ('search' in this.$listeners) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          // let kid = getChild(this.$slots.default)
-          // if (kid.length) {
           this.showDrop = true;
           this.$emit('search', e)
-          // }
         }, 500);
       }
     },
@@ -274,7 +256,7 @@ export default {
         kid = options.map((k, i) => {
           let prop = {
             props: { ...k },
-            key: i
+            key: k.label + k.value
           }
           return <Option {...prop} />
         })
@@ -298,7 +280,6 @@ export default {
       this.setLabel()
   },
   render() {
-    // console.log(h)
     let { disabled, mini, multiple,
       showDrop, showDropInit, placeholder,
       clear, removeTag, queryKey,
@@ -315,20 +296,6 @@ export default {
       }
     ]
 
-    const styles = { width: `${this.width}px` }
-    let showClear = !disabled && clearable && label && !multiple
-    const selectCls = [
-      "k-select-selection", {
-        "k-select-has-clear": showClear
-      }
-    ]
-
-    const dropStyle = {
-      width: `${this.selectWidth}px`,
-      left: `${this.left}px`,
-      top: `${this.top}px`,
-      transformOrigin: this.placement == 'top' ? 'center bottom' : ''
-    }
 
     const queryProps = {
       on: {
@@ -344,7 +311,7 @@ export default {
     }
     const queryNode = <div v-show={this.showSearch} key="search" class="k-select-search-wrap"><input {...queryProps} /><span class="k-select-search-mirror" ref="mirror">{queryKey}</span></div>
 
-    let drop;
+    let overlay;
     if (showDropInit) {
       let kid = this.getOptions()
       // kid = (
@@ -353,13 +320,21 @@ export default {
       //     : kid
       // )
       const loadingNode = <div class="k-select-loading"><Icon type="ios-sync" spin /><span>加载中...</span></div>
-      drop = (
-        <transition name="dropdown">
-          <div class={['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]} ref="dom" v-show={showDrop} style={dropStyle} v-transfer={transfer} v-resize={this.setPosition}>
-            {this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}
-          </div>
-        </transition>
-      )
+      const props = {
+        ref: 'overlay',
+        props: {
+          width: this.selectWidth,
+          show: showDrop,
+          // transfer: false,
+          transfer: transfer,
+          className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
+        },
+        on: {
+          hide: this.hidedrop,
+          input: e => this.showDrop = e
+        }
+      }
+      overlay = <Drop {...props}>{this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}</Drop>
     }
     label = multiple ? (label || []) : label
     const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
@@ -393,14 +368,22 @@ export default {
     if ((this.filterable || isSearch) && !multiple) {
       childNode.push(queryNode)
     }
+
+    const styles = { width: `${this.width}px` }
+    let showClear = !disabled && clearable && label && !multiple
+    const selectCls = [
+      "k-select-selection", {
+        "k-select-has-clear": showClear
+      }
+    ]
     showClear && childNode.push(<Icon class="k-select-clearable" type="ios-close-circle" onClick={clear} />)
 
     return (
-      <div tabIndex="0" class={classes} style={styles} v-outsideclick={this.hidedrop}>
+      <div tabIndex="0" class={classes} style={styles}>
         <div class={selectCls} onClick={toggleDrop} ref="rel">
           {childNode}
         </div >
-        {drop}
+        {overlay}
       </div >
     )
   }

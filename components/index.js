@@ -10,7 +10,7 @@ import { Carousel, CarouselItem } from './carousel'
 import { Collapse, Panel } from './collapse'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import DatePicker from './datePicker'
-// import { Dropdown, DropdownItem, DropdownMenu } from './dropdown'
+import Dropdown from './dropdown'
 import Drawer from './drawer'
 import Divider from './divider'
 import Empty from './empty'
@@ -21,7 +21,7 @@ import { Input, TextArea } from './input'
 import Loading from './loading'
 import { Layout, Header, Footer, Content, Sider } from './layout'
 import Modal from './modal'
-import { Menu, MenuGroup, MenuItem, SubMenu } from './menu'
+import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import Message from './message'
 import Notice from './notice'
 import Page from './page'
@@ -29,7 +29,6 @@ import Poptip from './poptip'
 import Popconfirm from './popconfirm'
 import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
-// import Scroll from './scroll'
 // import Slider from './slider'
 import Spin from './spin'
 import Switch from './switch'
@@ -53,18 +52,18 @@ const components = {
     Alert, Affix,
     BackTop, Badge, Button, ButtonGroup: Button.Group, Breadcrumb, BreadcrumbItem,
     Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, /* Dropdown, DropdownItem, DropdownMenu, */ Drawer, Divider,
+    DatePicker, Dropdown, Drawer, Divider,
     Empty,
     Form, FormItem,
     /* ImagePreview, */ Input, Icon,
     Loading,
-    Menu, MenuGroup, MenuItem, Modal, Message,
+    Menu, MenuGroup, MenuItem, MenuDivider, Modal, Message,
     Layout, Header, Footer, Content, Sider,
     Notice,
     Option,
     Page, Poptip, Popconfirm, Panel, Progress,
     Row, Radio, RadioGroup, RadioButton,
-    /* Scroll, */Spin, Steps, Step, Select, SubMenu, //Slider,
+    Spin, Steps, Step, Select, SubMenu, //Slider,
     Table, Tabs, TabPane, TextArea, TimeLine, TimeLineItem, Tag, Tooltip, Tree, /* TreeSelect, */
     /* Upload */
 }

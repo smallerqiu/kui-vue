@@ -196,6 +196,7 @@ export default {
       return classes
     },
     setMonth(e, m) {
+      e.stopPropagation();
       if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
         return
       }
@@ -207,6 +208,7 @@ export default {
         this.showMonths = 0
     },
     setYear(e, y) {
+      e.stopPropagation();
       if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
         return
       }
@@ -226,6 +228,7 @@ export default {
       }
     },
     setDay(e, j) {
+      e.stopPropagation();
       if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
         return
       }
@@ -306,10 +309,12 @@ export default {
     setShowYear() {
       !this.showTimes && (this.showYears = true)
     },
-    setShowMonth() {
+    setShowMonth(e) {
+      e.stopPropagation()
       !this.showTimes && (this.showMonths = 1)
     },
     setTime(v, t, e) {
+      e.stopPropagation();
       if (e.target.className.indexOf('k-calendar-time-disabled') >= 0) {
         return;
       }

@@ -124,40 +124,121 @@ export function isVnode(element) {
     element.tag !== undefined
   );
 }
-export function setPosition(selection, picker, transfer, callback) {
-  let top = 0, left = 0, offset = 3, placement = 'bottom';
+export function getPosition(selection, picker, transfer, placement = 'bottom-left', callback) {
+  let top = 0, left = 0, offset = 3;
+  let origins = {
+    top: 'center bottom', 'top-left': 'left bottom', 'top-right': 'right bottom',
+    left: 'right center', 'left-top': 'right top', 'left-bottom': 'right bottom',
+    right: 'left center', 'right-top': 'left top', 'right-bottom': 'left bottom',
+    bottom: 'center top', 'bottom-left': 'left top', 'bottom-right': 'right top'
+  }
+  let origin = origins[placement]
+
 
   if (picker) {
 
     let selectionRect = selection.getBoundingClientRect();
     let pickerHeight = picker.offsetHeight
-
-    let showInTop = document.documentElement.clientHeight - selectionRect.top - selectionRect.height > pickerHeight //是否从上往下展示，默认
-
+    let pickerWidth = picker.offsetWidth
+    let clientHeight = document.documentElement.clientHeight
+    let clientWidth = document.documentElement.clientWidth
     let scrollTop = document.documentElement.scrollTop
+    let scrollLeft = document.documentElement.scrollLeft
+    //是否有足够的空间
+    //底部
+    let showInBottom = clientHeight - selectionRect.bottom > pickerHeight
+    //上面
+    let showInTop = clientHeight - (clientHeight - selectionRect.top) > pickerHeight
+    //左边
+    let showInLeft = clientWidth - (clientWidth - selectionRect.left) > pickerWidth
+    //右边
+    let showInRight = clientWidth - selectionRect.right > pickerWidth
 
-    if (showInTop) { //正常
-      placement = 'bottom'
-      if (transfer) {
-        top = selectionRect.bottom + offset + scrollTop;
-        left = selectionRect.left + 1;
-      } else {
-        top = selectionRect.height + offset;
-        left = 0;
+
+    // console.log(placement, 'showInTop:', showInTop, 'showInBottom:', showInBottom, clientHeight, scrollTop, selectionRect.top, pickerHeight)
+
+    let hasBottom = placement.slice(0, 6) == 'bottom'
+    let hasTop = placement.slice(0, 3) == 'top'
+    let hasLeft = placement.slice(0, 4) == 'left'
+    let hasRight = placement.slice(0, 5) == 'right'
+
+    if (hasBottom || hasTop) {
+      if ((hasBottom && showInBottom) || (hasTop && !showInTop)) { //正常在底部显示
+        if (transfer) {
+          top = selectionRect.bottom + offset + scrollTop;
+          left = selectionRect.left + 1 + scrollLeft
+          if (placement == 'bottom' || placement == 'top') {
+            left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
+          }
+          if (placement == 'bottom-right' || placement == 'top-right') {
+            left = selectionRect.left - (pickerWidth - selectionRect.width) + scrollLeft
+          }
+          if (hasTop) {
+            placement = placement.replace('top', 'bottom')
+          }
+        } else {
+          top = selectionRect.height + offset;
+          left = 0;
+        }
+      } else if ((hasBottom && !showInBottom) || (hasTop && showInTop)) {
+        origin = origins.top
+        if (transfer) {
+          left = selectionRect.left + 1 + scrollLeft
+          top = selectionRect.top - pickerHeight - offset + scrollTop
+          if (placement == 'top' || placement == 'bottom') {
+            left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
+          }
+          if (placement == 'top-right' || placement == 'bottom-right') {
+            left = selectionRect.left - (pickerWidth - selectionRect.width) + scrollLeft
+          }
+          if (hasBottom) {
+            placement = placement.replace('bottom', 'top')
+          }
+        } else {
+          top = -(pickerHeight + offset);
+          left = 0;
+        }
       }
-    } else {
-      placement = 'top'
-      if (transfer) {
-        left = selectionRect.left + 1;
-        top = selectionRect.top - pickerHeight - offset + scrollTop
-      } else {
-        top = -(pickerHeight + offset);
-        left = 0;
+    } else if (hasLeft || hasRight) {
+      if ((hasLeft && showInLeft) || (hasRight && !showInRight)) {
+        if (transfer) {
+          top = selectionRect.top + scrollTop
+          left = selectionRect.left - pickerWidth - offset + scrollLeft
+          if (placement == 'left' || placement == 'right') {
+            top = selectionRect.top - (pickerHeight - selectionRect.height) / 2 + scrollTop
+          }
+          if (placement == 'left-bottom' || placement == 'right-bottom') {
+            top = selectionRect.top - (pickerHeight - selectionRect.height) + scrollTop
+          }
+          if (hasRight) {
+            placement = placement.replace('right', 'left')
+          }
+        } else {
+          top = 0
+          left = -(pickerWidth + offset)
+        }
+      } else if ((hasRight && showInRight) || (hasLeft && !showInLeft)) {
+        if (transfer) {
+          top = selectionRect.top + scrollTop
+          left = selectionRect.left + selectionRect.width + offset + scrollLeft
+          if (placement == 'right' || placement == 'left') {
+            top = selectionRect.top + scrollTop - (pickerHeight - selectionRect.height) / 2
+          }
+          if (placement == 'right-bottom' || placement == 'left-bottom') {
+            top = selectionRect.top + scrollTop - (pickerHeight - selectionRect.height)
+          }
+          if (hasLeft) {
+            placement = placement.replace('left', 'right')
+          }
+        } else {
+
+        }
       }
+
     }
   }
   if (callback) {
-    callback(top, left, placement)
+    callback(top, left, origin, placement)
   }
 }
 export function getOffset(el) {
