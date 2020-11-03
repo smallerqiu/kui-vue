@@ -1,6 +1,8 @@
 import Collapse from '../_tool/collapse'
+import BasePop from '../base/pop'
 import Menu from './menu.jsx'
 import { getParent } from './utils.js'
+import { getChild } from '../_tool/utils'
 import Icon from '../icon'
 const animateNames = {
   horizontal: 'dropdown',
@@ -17,9 +19,19 @@ export default {
   provide() {
     return {
       SubMenu: this,
-      collectAffixItem: (context, type) => {
-        const childs = this.affixChilds
-        type === 'delete' ? childs.splice(childs.indexOf(context), 1) : childs.push(context)
+      collectAffixItem: (context, affixed) => {
+        context.$options.propsData.affixed = affixed
+        let key = context.$vnode.key
+        let options = {
+          key,
+          keyPath: [key],
+          item: context
+        }
+        let root = getParent(this.Menu, 'Menu')
+        if (root) {
+          root.$emit('affixed', options, affixed)
+        }
+        this.$forceUpdate()
       }
     }
   },
@@ -34,7 +46,6 @@ export default {
       left: null,
       minWidth: null,
       currentMode: null,
-      affixChilds: []
     };
   },
   render() {
@@ -43,7 +54,6 @@ export default {
     let selected, root = getParent(this.Menu, 'Menu'), opened = this.opened;
     const { currentMode, theme, selectedKeys } = root
     if (selectedKeys) {
-      // console.log(this.Menu.selectedKeys, 'submenu')
       selected = selectedKeys.indexOf(this.$vnode.key) >= 0
     }
     if (currentMode == 'inline') {
@@ -53,61 +63,92 @@ export default {
     let mode = currentMode
     if (currentMode == 'horizontal') {
       this.currentMode = 'vertical'
-      // this.left = null
     } else {
       this.currentMode = mode
     }
     let isDropdown = root.$options.propsData.parentName == 'dropdown'
 
-    const preCls = isDropdown ? 'dropdown-menu' : 'menu';
+    const preCls = isDropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
 
-    const props = {
-      class: [
-        `k-${preCls}-submenu`,
-        {
-          [`k-${preCls}-active`]: this.active,
-          [`k-${preCls}-selected`]: selected && !isDropdown,
-          [`k-${preCls}-opened`]: opened,
-          [`k-${preCls}-disabled`]: disabled
-        }
-      ],
-    }
-    let innerProps = {
-      class: `k-${preCls}-submenu-title`,
-      on: {
-        mouseenter: () => { this.showPopupMenu(currentMode) },
-        mouseleave: () => this.hidePopupMenu(currentMode),
-        click: e => this.openChange()
-      }
-    }
-    // console.log(subProps)
-    let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode]
+    let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode];
+
     const hasRenderAffix = this.$parent == root && root.mode == 'vertical' && root.verticalAffixed
     const popupProps = {
+      slot: 'content',
       class: `k-${preCls}-popup`,
-      style: { left: `${this.left}px`, 'min-width': `${this.minWidth}px` },
+      style: { 'min-width': `${this.minWidth}px` },
       on: {
         mouseenter: () => {
           clearTimeout(this.timer);
-          this.activet = true;
+          this.opened = true
+          this.active = true;
         },
         mouseleave: () => {
           this.hidePopupMenu(currentMode)
         }
       }
     }
+
+    let titleProps = {
+      class: `k-${preCls}-title`,
+      on: {
+        // mouseenter: () => { this.showPopupMenu(currentMode) },
+        // mouseleave: () => this.hidePopupMenu(currentMode),
+        click: e => this.openChange()
+      }
+    }
+    if ((currentMode != 'inline' && this.SubMenu != null) || isDropdown) {
+      titleProps.on.mouseenter = e => this.showPopupMenu(currentMode)
+      titleProps.on.mouseleave = e => this.hidePopupMenu(currentMode)
+    }
+    const titleNode = <div {...titleProps}>
+      <span class={`k-${preCls}-inner`}>{$slots.title || this.title}</span>
+      <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "ios-arrow-down" : 'ios-arrow-forward'} class={`k-${preCls}-arrow`} />
+    </div>
+    if (currentMode == 'inline' || this.SubMenu != null || isDropdown) {
+      popupProps.directives = [{ name: 'show', value: opened }]
+    } else {
+      // popupProps.style.minWidth = this.minWidth + 'px'
+    }
+    const childNode = <div {...popupProps}>
+      <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
+    </div>
+    let vnodes = null
+    if (currentMode != 'inline' && this.SubMenu == null && !isDropdown) {
+      const popProps = {
+        props: {
+          showPlacementArrow: false,
+          preCls: preCls + '-popup',
+          transfer: true,
+          placement: currentMode == 'horizontal' ? 'bottom-left' : 'right-top',
+          // value: opened,
+        },
+        on: {
+          input: e => {
+            this.minWidth = this.$el.offsetWidth
+          }
+        }
+        // class: props.class
+      }
+      vnodes = <BasePop {...popProps}>{[titleNode, childNode]}</BasePop>
+    } else {
+      vnodes = [titleNode, <Collapse name={aniName}>{childNode}</Collapse>]
+    }
+
+    const classes = [
+      `k-${preCls}`,
+      {
+        [`k-${preCls}-active`]: this.active,
+        [`k-${preCls}-selected`]: selected && !isDropdown,
+        [`k-${preCls}-opened`]: opened,
+        [`k-${preCls}-disabled`]: disabled
+      }
+    ]
+    const affixNode = hasRenderAffix ? this.renderAffix(root) : null
     return (
-      <li {...props}>
-        <div {...innerProps}>
-          <span class={`k-${preCls}-submenu-inner`}>{$slots.title || this.title}</span>
-          <Icon type={currentMode == 'vertical' ? 'ios-arrow-forward' : "ios-arrow-down"} class={`k-${preCls}-submenu-arrow`} />
-        </div>
-        <Collapse name={aniName}>
-          <div v-show={opened}  {...popupProps}>
-            <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
-          </div>
-        </Collapse>
-        {this.renderAffix(hasRenderAffix, root, currentMode)}
+      <li class={classes}>
+        {vnodes}
+        {affixNode}
       </li>
     )
   },
@@ -125,24 +166,28 @@ export default {
       if (this.disabled) return;
       this.active = true
       if (currentMode == 'inline') return;
-      let width = this.$el.offsetWidth
-      this.minWidth = null
-      this.left = null
-      if (currentMode == 'vertical') {
-        this.left = width
-      } else if (this.currentMode == 'vertical') {
-        this.left = !this.SubMenu ? null : width
-        if (!this.SubMenu) {
-          this.minWidth = width
-        }
-      }
+      // let width = this.$el.offsetWidth
+      // this.minWidth = null
+      // this.left = null
+      // if (currentMode == 'vertical') {
+      //   this.left = width
+      // } else if (this.currentMode == 'vertical') {
+      //   this.left = !this.SubMenu ? null : width
+      //   if (!this.SubMenu) {
+      //     this.minWidth = width
+      //   }
+      // }
       this.opened = true;
     },
-    renderAffix(isRender, root, currentMode) {
+
+    renderAffix(root) {
+
+      const childs = getChild(this.$slots.default)
       const itemClick = (item, e) => {
-        if (!item.disabled) {
+        let disabled = item.componentOptions.propsData.disabled
+        if (disabled == undefined) {
           // this.selected = true
-          let key = item.$vnode.key
+          let key = item.data.key
 
           let options = {
             key,
@@ -156,15 +201,22 @@ export default {
           }
         }
       }
-      const child = this.affixChilds.map(item => {
-        return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(item.$vnode.key) >= 0 }]} key={item.$vnode.key}>
-          <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{item.$slots.default}</span>
-        </li>
+      const child = childs.map(item => {
+        let affixed = item.componentOptions.propsData.affixed
+        let vnode = item.componentOptions.children
+        let key = item.data.key
+        if (affixed !== undefined && affixed !== false) {
+          return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(key) >= 0 }]} key={key}>
+            <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{vnode}</span>
+          </li>
+        }
       })
-      if (isRender) {
-        return <div class="k-menu-submenu-affix">{child}</div>
-      }
-      return null
+      // const child = this.affixChilds.map(item => {
+      //   return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(item.$vnode.key) >= 0 }]} key={item.$vnode.key}>
+      //     <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{item.$slots.default}</span>
+      //   </li>
+      // })
+      return <div class="k-menu-submenu-affix">{child}</div>
     },
     openChange() {
       if (this.Menu) {
@@ -182,7 +234,6 @@ export default {
           }
         }
 
-        // console.log(openKeys, index)
         if (index >= 0) {
           openKeys.splice(index, 1)
         } else {

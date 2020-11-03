@@ -9,6 +9,9 @@ export default {
     disabled: Boolean,
     affixed: Boolean
   },
+  // model: {
+  //   prop: 'affixed',
+  // },
   inject: {
     Menu: { default: null },
     SubMenu: { default: null },
@@ -21,16 +24,13 @@ export default {
       currentAffixed: this.affixed,
     };
   },
-  created() {
-    if (this.affixed) {
-      this.collectAffixItem(this, 'add')
-    }
-  },
   methods: {
     starClick(e) {
-      e.stopPropagation();
-      this.collectAffixItem(this, this.currentAffixed ? 'delete' : 'add')
-      this.currentAffixed = !this.currentAffixed
+      if (!this.disabled) {
+        e.stopPropagation();
+        this.currentAffixed = !this.currentAffixed
+        this.collectAffixItem(this, this.currentAffixed)
+      }
     }
   },
   render() {

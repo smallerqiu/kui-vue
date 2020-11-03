@@ -46,7 +46,7 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$options.propsData.wocao)
+    // console.log(this.$slots.default)
   },
   render() {
     const { theme, currentMode, Menu } = this
