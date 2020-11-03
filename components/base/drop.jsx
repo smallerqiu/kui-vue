@@ -62,10 +62,13 @@ export default {
       on: {
         // ...this.$props.on,
         ...this.$listeners
-      }
+      },
     }
+    // console.log(this.transitionName)
     return <transition name={this.transitionName}>
-      <div {...props} v-show={this.show} v-transfer={this.transfer} v-outsideclick={this.hide} v-resize={this.resize}>{this.$slots.default}</div>
+      <div {...props} v-show={this.show} v-transfer={this.transfer} v-outsideclick={this.hide} v-resize={this.resize}>
+        {this.$slots.default}
+      </div>
     </transition>
   },
   methods: {

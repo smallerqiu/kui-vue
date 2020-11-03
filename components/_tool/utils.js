@@ -132,8 +132,6 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
     right: 'left center', 'right-top': 'left top', 'right-bottom': 'left bottom',
     bottom: 'center top', 'bottom-left': 'left top', 'bottom-right': 'right top'
   }
-  let origin = origins[placement]
-
 
   if (picker) {
 
@@ -181,7 +179,6 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
           left = 0;
         }
       } else if ((hasBottom && !showInBottom) || (hasTop && showInTop)) {
-        origin = origins.top
         if (transfer) {
           left = selectionRect.left + 1 + scrollLeft
           top = selectionRect.top - pickerHeight - offset + scrollTop
@@ -234,9 +231,21 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
 
         }
       }
-
+      if (transfer && !showInBottom && (hasRight || hasLeft)) {
+        top = selectionRect.top - (pickerHeight - selectionRect.height) + scrollTop
+        if (hasRight) {
+          placement = showInRight ? 'right-bottom' : 'left-bottom'
+        }
+        if (hasLeft) {
+          placement = showInLeft ? 'left-bottom' : 'right-bottom'
+        }
+      }
     }
+
+    // console.log(placement, showInBottom,picker, pickerHeight,pickerWidth)
+
   }
+  let origin = origins[placement]
   if (callback) {
     callback(top, left, origin, placement)
   }

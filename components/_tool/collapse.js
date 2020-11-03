@@ -11,10 +11,11 @@ export default {
 	},
 	// functional: true, //为true 表示 无状态 data 无 无实例 没有this
 	render() {
+		let child = this.$slots.default || this.$slots.content;
 		if (this.name != 'k-collaplse-slide') {
-			return (<transition name={this.name}>{this.$slots.default}</transition>)
+			return (<transition name={this.name}>{child}</transition>)
 		}
 		const props = getTranstionProp(name)
-		return (<transition {...props}>{this.$slots.default}</transition>)
+		return (<transition {...props}>1123123{child}</transition>)
 	}
 }

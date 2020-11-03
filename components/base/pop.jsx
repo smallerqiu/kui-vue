@@ -11,7 +11,7 @@ export default {
     confirm: Boolean,
     dark: Boolean,
     transfer: { type: Boolean, default: true },
-    value: { type: Boolean, default: false },
+    value: { type: Boolean },
     title: String,
     showPlacementArrow: { type: Boolean, default: true },
     width: [Number, String],
@@ -39,9 +39,6 @@ export default {
     }
   },
   methods: {
-    setShowPop() {
-      this.showPop = !this.showPop;
-    },
     ok() {
       this.showPop = false;
       this.$emit("ok");
@@ -51,14 +48,15 @@ export default {
       this.$emit("cancel");
     },
     setPopShow() {
-      if (!this.showInit) {
-        this.showInit = true
-        this.$nextTick(e => {
-          this.showPop = !this.showPop;
-        })
-      } else {
-        this.showPop = !this.showPop;
-      }
+      // if (!this.showInit) {
+      this.showInit = true
+      this.$nextTick(e => {
+        this.showPop = true
+        // this.$emit('input', this.showPop)
+      })
+      // } else {
+      // this.showPop = !this.showPop;
+      // }
     },
     mouseEnter(e) {
       clearTimeout(this.timer)
@@ -137,7 +135,7 @@ export default {
           width: this.width,
           placement: placement,
           trigger: this.trigger,
-          transitionName: `k-${preCls}-fade`
+          transitionName: `k-${preCls}`
         },
         // attrs: {
         //   'k-placement': placement
@@ -151,20 +149,20 @@ export default {
           mouseleave: e => {
             if (this.trigger == 'hover') {
               this.showPop = false
+              console.log('wwwww')
             }
           },
-
           click: e => {
             //   this.$emit('click', e) //子集点击
-            console.log('click');
             if (hasProp(this, 'value')) {
+              // console.log('hasvalue,click', this.value);
               this.$emit('input', false);
             } else {
               this.showPop = false
+              // console.log('click');
             }
           },
           input: (e) => {
-            console.log('input');
             if (hasProp(this, 'value')) {
               this.$emit('input', e);
             } else {
@@ -173,7 +171,6 @@ export default {
           }
         }
       }
-      let x;
       return this.showInit ? <Drop {...props}>{childNode}</Drop> : null
     },
   },

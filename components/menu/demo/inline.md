@@ -42,7 +42,6 @@
         <MenuItem key="3-2">Option 10</MenuItem>
         <MenuItem key="3-3">Option 11</MenuItem>
         <MenuItem key="3-4">Option 12</MenuItem>
-        </MenuGroup>
       </SubMenu>
     </Menu>
   </div>
