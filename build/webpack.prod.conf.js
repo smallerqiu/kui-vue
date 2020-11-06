@@ -20,7 +20,7 @@ module.exports = merge(webpackBaseConfig, {
 		path: path.resolve(__dirname, "../dist"),
 		publicPath: "",
 		filename: "k-ui.js",
-		library: 'kui-vue',
+		library: 'KuiVue',
 		libraryTarget: 'umd',
 		umdNamedDefine: true
 	},
@@ -49,7 +49,7 @@ module.exports = merge(webpackBaseConfig, {
 	externals: {
 		"vue": "Vue",
 		'vue-router': 'VueRouter',
-		"kui-icons":"kui-icons",
+		"kui-icons": "kui-icons",
 		'moment': 'moment'
 	},
 	optimization: {
