@@ -3,26 +3,17 @@
     <Header />
     <Layout class="main">
       <Sider class="docs-k-layout-sider">
-        <Menu
-          v-model="activeName"
-          @click="go"
-          class="left-menu"
-          mode="inline"
-          :open-keys="['components']"
-        >
-          <MenuItem v-for="m in baseNav" :key="m.name">{{m.title}}</MenuItem>
+        <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="['components']">
+          <MenuItem v-for="m in baseNav" :key="m.name">
+            <Badge dot v-if="m.badeg">{{m.title}}</Badge>
+            <template v-else>{{m.title}}</template>
+          </MenuItem>
           <SubMenu key="components">
             <template slot="title">Components(60)</template>
-            <MenuGroup
-              :title="item.title"
-              v-for="(item,x) in Nav"
-              :name="item.title"
-              :key="'sub'+x"
-            >
+            <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="'sub'+x">
               <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :key="sub.name">
-                <span v-if="sub.sub">{{sub.sub}}</span>
-                <Badge dot v-if="sub.log">{{sub.title}}</Badge>
-                <span class="sub" v-else>{{sub.title}}</span>
+              <span>{{sub.sub}}</span>
+              <span class="sub">{{sub.title}}</span>
               </MenuItem>
             </MenuGroup>
           </SubMenu>
@@ -34,10 +25,7 @@
         </transition>
         <Footer class="docs-k-footer">
           KUI ©2018 Created by chuchur |
-          <a
-            href="http://www.beian.miit.gov.cn/"
-            target="_blank"
-          >粤ICP备19016072号</a>
+          <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备19016072号</a>
         </Footer>
       </Content>
     </Layout>

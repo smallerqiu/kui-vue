@@ -62,8 +62,8 @@ new Vue({
 ```
 
 ## 如使用CDN，不编译进 bundle
-`main.js`
 ```js
+// main.js
 ....
 import kuiVue from 'kui-vue'; 
 
