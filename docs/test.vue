@@ -1,189 +1,211 @@
 <template>
-  <div>
-    <Dropdown>
-      <a>
-        Cascading menu
-        <Icon type="ios-arrow-down" />
-      </a>
-      <Menu slot="content">
-        <MenuItem>1st menu item</MenuItem>
-        <MenuItem>2nd menu item</MenuItem>
-        <SubMenu key="test" title="sub menu">
-          <MenuItem>3rd menu item</MenuItem>
-          <MenuItem>4th menu item</MenuItem>
-        </SubMenu>
-        <SubMenu title="disabled sub menu" disabled>
-          <MenuItem>5d menu item</MenuItem>
-          <MenuItem>6th menu item</MenuItem>
-        </SubMenu>
-      </Menu>
-    </Dropdown>
-<!-- 
-    <div style="width:256px">
-      <Menu v-model="current" :open-keys="openKeys" mode="vertical">
-        <MenuItem key="1-1" icon="md-mail">Option 1</MenuItem>
-        <MenuItem key="1-2" icon="ios-calendar">Option 2</MenuItem>
-        <SubMenu key="sub2">
-          <template slot="title">
-            <Icon type="ios-keypad" />Navigation Two
-          </template>
-          <MenuItem key="2-1">Option 5</MenuItem>
-          <MenuItem key="2-2">Option 6</MenuItem>
-          <SubMenu title="Item 2" key="sub2-1">
-            <template slot="title">
-              <Icon type="ios-keypad" />SubMenu
-            </template>
-            <MenuItem key="2-3">Option 7</MenuItem>
-            <MenuItem key="2-4">Option 8</MenuItem>
-          </SubMenu>
-        </SubMenu>
-        <SubMenu key="sub3">
-          <template slot="title">
-            <Icon type="ios-settings" />Navigation Three
-          </template>
-          <MenuItem key="3-1">Option 9</MenuItem>
-          <MenuItem key="3-2">Option 10</MenuItem>
-          <MenuItem key="3-3">Option 11</MenuItem>
-          <MenuItem key="3-4">Option 12</MenuItem>
-        </SubMenu>
-      </Menu>
-    </div>
-    <Menu mode="horizontal" v-model="current1">
-      <MenuItem key="1" icon="md-mail">Navigation One</MenuItem>
-      <MenuItem key="2" icon="ios-keypad" disabled>Navigation Two</MenuItem>
-      <SubMenu key="3">
-        <template slot="title">
-          <Icon type="ios-settings" />Navigation-Submenu
+  <div style="width:600px;">
+    <Form :label-width="256" :model="form" :rules="rules" ref="form">
+      <FormItem label="E-mail" prop="email">
+        <Input v-model="form.email" clearable />
+      </FormItem>
+      <FormItem label="Password" prop="password">
+        <Input v-model="form.password" type="password" />
+      </FormItem>
+      <FormItem label="Confirm Password" prop="repassword">
+        <Input v-model="form.repassword" type="password" />
+      </FormItem>
+      <FormItem label="Phone Number" prop="phone">
+        <Input v-model="form.phone" />
+      </FormItem>
+      <FormItem label="Captcha" prop="captcha">
+        <Input v-model="form.captcha">
+        <template slot="suffix">
+          <span v-if="time==60" @click="sendCode">获取验证码</span>
+          <span v-else>{{time}}(s)</span>
         </template>
-        <MenuGroup title="Item 1">
-          <MenuItem key="3-1">Option 1</MenuItem>
-          <MenuItem key="3-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="3-3">Option 1</MenuItem>
-          <MenuItem key="3-4">Option 2</MenuItem>
-          <SubMenu key="3-5">
-            <template slot="title">
-              <Icon type="ios-settings" />Navigation - Submenu
-            </template>
-            <MenuGroup title="Item 1">
-              <MenuItem key="3-5-1">Option 1</MenuItem>
-              <MenuItem key="3-5-2">Option 2</MenuItem>
-            </MenuGroup>
-            <MenuGroup title="Item 2">
-              <MenuItem key="3-5-3">Option 1</MenuItem>
-              <MenuItem key="3-5-4">Option 2</MenuItem>
-            </MenuGroup>
-          </SubMenu>
-        </MenuGroup>
-      </SubMenu>
-      <MenuItem key="4">
-      <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
-      </MenuItem>
-    </Menu>
+        </Input>
+      </FormItem>
+      <FormItem label="Country">
+        <Row :gutter="8" type="flex">
+          <Col :span="12">
+          <FormItem prop="country">
+            <Select v-model="form.country" clearable>
+              <Option value="0" label="China" />
+              <Option value="1" label="Russia" />
+            </Select>
+          </FormItem>
+          </Col>
+          <Col :span="12">
+          <FormItem prop="city">
+            <Select v-model="form.city" clearable>
+              <Option value="0" label="Shanghai" />
+              <Option value="1" label="Wuhan" />
+              <Option value="2" label="Hangzhou" />
+            </Select>
+          </FormItem>
+          </Col>
+        </Row>
+      </FormItem>
+      <FormItem label="Gender" prop="gender">
+        <RadioGroup v-model="form.gender">
+          <Radio value="0" label="Girl" />
+          <Radio value="1" label="Boy" />
+        </RadioGroup>
+      </FormItem>
+      <FormItem label="One" prop="one">
+        <Radio v-model="form.one" label="Only One?" />
+      </FormItem>
+      <FormItem label="Birthday" prop="birthday">
+        <DatePicker v-model="form.birthday" clearable />
+      </FormItem>
+      <FormItem label="Hobby" prop="hobby">
+        <CheckboxGroup v-model="form.hobby">
+          <Checkbox value="0" label="Football" />
+          <Checkbox value="1" label="Music" />
+          <Checkbox value="2" label="Photograph" />
+          <Checkbox value="3" label="Tennis" />
+        </CheckboxGroup>
+      </FormItem>
+      <FormItem label="Hardcore">
+        <k-switch true-text="Yes" false-text="No" v-model="form.hardcore" />
+      </FormItem>
+      <FormItem label="Other" prop="other">
+        <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
+      </FormItem>
+      <FormItem prop="readme">
+        <Checkbox v-model="form.readme">我已阅读 <a>服务条款</a> </Checkbox>
+      </FormItem>
+      <FormItem>
+        <Button type="primary" @click="submit">Submit</Button>
+        <Button style="margin-left: 10px" @click="reset">Reset</Button>
+        <Button type="warning" @click="setValue">Set Value</Button>
+      </FormItem>
+    </Form>
 
-    <div style="width:256px">
-      <Menu v-model="current" :open-keys="openKeys" mode="vertical">
-        <MenuItem key="1-1" icon="md-mail">Option 1</MenuItem>
-        <MenuItem key="1-2" icon="ios-calendar">Option 2</MenuItem>
-        <SubMenu key="sub2">
-          <template slot="title">
-            <Icon type="ios-keypad" />Navigation Two
-          </template>
-          <MenuItem key="2-1">Option 5</MenuItem>
-          <MenuItem key="2-2">Option 6</MenuItem>
-          <SubMenu title="Item 2" key="sub2-1">
-            <template slot="title">
-              <Icon type="ios-keypad" />SubMenu
-            </template>
-            <MenuItem key="2-3">Option 7</MenuItem>
-            <MenuItem key="2-4">Option 8</MenuItem>
-          </SubMenu>
-        </SubMenu>
-        <SubMenu key="sub3">
-          <template slot="title">
-            <Icon type="ios-settings" />Navigation Three
-          </template>
-          <MenuItem key="3-1">Option 9</MenuItem>
-          <MenuItem key="3-2">Option 10</MenuItem>
-          <MenuItem key="3-3">Option 11</MenuItem>
-          <MenuItem key="3-4">Option 12</MenuItem>
-        </SubMenu>
-      </Menu>
-    </div>
-
-    <div style="width:256px">
-      <Menu v-model="current" mode="vertical" vertical-affixed theme="dark" @affixed="affixed">
-        <SubMenu key="sub1">
-          <template slot="title">
-            <Icon type="ios-keypad" />Navigation One
-          </template>
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-          <MenuItem key="1-3">Option 3</MenuItem>
-          <MenuItem key="1-4">Option 4</MenuItem>
-          <MenuItem key="1-5">Option 5</MenuItem>
-          <MenuItem key="1-6" affixed>Option 6</MenuItem>
-          <MenuItem key="1-7">Option 7</MenuItem>
-          <MenuItem key="1-8">Option 8</MenuItem>
-          <MenuItem key="1-9">Option 9</MenuItem>
-        </SubMenu>
-        <SubMenu key="sub2">
-          <template slot="title">
-            <Icon type="ios-keypad" />Navigation Two
-          </template>
-          <MenuItem key="2-1">Option 1</MenuItem>
-          <MenuItem key="2-2">Option 2</MenuItem>
-          <MenuItem key="2-3" affixed>Option 3</MenuItem>
-          <MenuItem key="2-4" affixed>Option 4</MenuItem>
-          <MenuItem key="2-5" affixed>Option 5</MenuItem>
-          <MenuItem key="2-6" affixed>Option 6</MenuItem>
-          <MenuItem key="2-7">Option 7</MenuItem>
-        </SubMenu>
-        <SubMenu key="sub3">
-          <template slot="title">
-            <Icon type="ios-settings" />Navigation Three
-          </template>
-          <MenuItem key="3-1">Option 1</MenuItem>
-          <MenuItem key="3-2" affixed>Option 2</MenuItem>
-          <MenuItem key="3-3" affixed>Option 3</MenuItem>
-          <MenuItem key="3-4">Option 4</MenuItem>
-        </SubMenu>
-        <SubMenu key="sub4">
-          <template slot="title">
-            <Icon type="ios-settings" />Navigation Four
-          </template>
-          <MenuItem key="4-1">Option 1</MenuItem>
-          <MenuItem key="4-2">Option 2</MenuItem>
-          <MenuItem key="4-3" affixed>Option 3</MenuItem>
-          <MenuItem key="4-4" affixed>Option 4</MenuItem>
-        </SubMenu>
-        <SubMenu key="sub5">
-          <template slot="title">
-            <Icon type="ios-settings" />Navigation Five
-          </template>
-          <MenuItem key="5-1" affixed>Option 1</MenuItem>
-          <MenuItem key="5-2" affixed>Option 2</MenuItem>
-          <MenuItem key="5-3" affixed>Option 3</MenuItem>
-          <MenuItem key="5-4" affixed>Option 4</MenuItem>
-        </SubMenu>
-      </Menu>
-    </div> -->
   </div>
 </template>
-<script> 
+<script>
 export default {
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value !== this.form.password) {
+        return callback(new Error('两次密码不一致'))
+      }
+      callback()
+    };
+    var validateReadme = (rule, value, callback) => {
+      if (value !== true) {
+        return callback(new Error('请阅读服务条款'))
+      }
+      callback()
+    };
     return {
-      current: ['1-1'],
-      openKeys: ['sub1'],
-      current1: ['1']
+      time: 60,
+      form: {
+        email: '',
+        password: '',
+        repassword: '',
+        phone: '',
+        captcha: '',
+        gender: '',
+        gender1: false,
+        birthday: '',
+        country: '',
+        city: '',
+        hobby: [],
+        hardcore: '',
+        other: '',
+        readme: false
+      },
+      rules: {
+        email: [
+          { type: 'mail', message: '请输入有效的电子邮箱' },
+          { required: true, message: '请输入电子邮箱' },
+        ],
+        password: [
+          { min: 8, max: 20, message: '密码长度请控制在8-20位之间', trigger: 'blur' },
+          { required: true, message: '请输入密码' },
+        ],
+        repassword: [
+          { min: 8, max: 20, message: '密码长度请控制在8-20位之间', trigger: 'blur' },
+          { validator: validatePass },
+          { required: true, message: '请重复输入密码' },
+        ],
+        phone: [
+          { type: 'mobile', message: '请输入正确的手机号码' },
+          { required: true, message: '请输入手机号' },
+        ],
+        birthday: [
+          { required: true, message: '请选择出生日期' },
+        ],
+        country: [
+          { required: true, message: '请选择国家' },
+        ],
+        city: [
+          { required: true, message: '请选择城市' },
+        ],
+        captcha: [
+          { type: 'number', message: '验证码为数字' },
+          { required: true, message: '请输入验证码' },
+        ],
+        gender: [
+          { required: true, message: '请选择性别' },
+        ],
+        one: [
+          { required: true, message: '霸王选项' },
+        ],
+        readme: [
+          { validator: validateReadme },
+        ],
+        hobby: [
+          { required: true, message: '请选择爱好' },
+          { max: 3, message: '最多只能选择3个爱好' },
+          { min: 2, message: '最少选择2个爱好' },
+        ],
+        other: [
+          { required: true, message: '请填写其他信息' },
+          { max: 10, message: '最多只能输入10个字符' },
+        ]
+
+      }
     }
   },
   methods: {
-    affixed(opts, a) {
-      console.log(opts, a)
+    setValue() {
+      this.form = {
+        email: 'master@k-ui.cn',
+        password: 'abc@123@123',
+        repassword: 'abc@123@123',
+        phone: '13888888888',
+        captcha: '8888',
+        gender: '1',
+        one: true,
+        birthday: '1995-05-05',
+        country: '1',
+        city: '1',
+        hobby: ['0', '1'],
+        hardcore: true,
+        other: '测试数据',
+        readme: true
+      }
+    },
+    sendCode() {
+      this.time = 59
+      this.$Message.success("验证码发送成功，请注意查收");
+      clearInterval(this.timer)
+      this.timer = setInterval(e => {
+        if (this.time < 1) {
+          clearInterval(this.timer)
+          this.time = 60
+        } else {
+          this.time--
+        }
+      }, 1000)
+    },
+    submit() {
+      this.$refs.form.validate(valid => {
+        this.$Message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+      })
+    },
+    reset() {
+      this.$refs.form.reset()
     }
   }
 }
-</script> 
+</script>

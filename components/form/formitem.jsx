@@ -90,7 +90,7 @@ export default {
       //   return;
       // }
       if (rule.required) {
-        valid = (itemValue !== null && itemValue !== undefined && itemValue !== '') || (Array.isArray(itemValue) && itemValue.length > 0)
+        valid = Array.isArray(itemValue) ? itemValue.length > 0 : (itemValue !== null && itemValue !== undefined && itemValue !== '' && itemValue !== false)
         message = message || 'This field is required'
         // console.log(valid, message)
       } else {
@@ -177,8 +177,10 @@ export default {
       // 有 required 排前面
       rules = rules.sort((a, b) => a.required ? -1 : 0)
       for (let i = 0; i < rules.length; i++) {
-
-        if (!this.test(rules[i], trigger)) {
+        let valid = this.test(rules[i], trigger)
+        if (!valid) {
+          this.valid = valid
+          return valid
           // 有一条规则不通过就跳出
           break;
         }

@@ -27,5 +27,5 @@
 | validator | 自定义校验方法，可参见示例                                                                                             | Function | -      |
 | type      | 数据类型校验，提供三种校验方式 `mobile`手机，  `mail`邮箱，  `number`数字类型判断                                      | String   | -      |
 | pattern   | 自定义正则校验，比喻密码强度包含数字，字母，特殊符号可以这么写  `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | String   | -      |
-| min       | 字段长度最小值校验                                                                                                     | String   | -      |
-| max       | 字段长度最大值校验                                                                                                     | String   | -      |
+| min       | 字段长度最小值校验                                                                                                     | Number   | -      |
+| max       | 字段长度最大值校验                                                                                                     | Number   | -      |

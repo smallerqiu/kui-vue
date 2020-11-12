@@ -42,14 +42,18 @@ export default {
       for (let key in model) {
         let value = model[key]
         if (Array.isArray(value)) {
-          value.forEach(item => {
-            this.clearObject(item)
+          value.forEach((item, index) => {
+            if (item !== null && typeof item == 'object') {
+              this.clearObject(item)
+            } else {
+              value.splice(index)
+            }
           })
         } else if (typeof value === 'boolean') {
           model[key] = false
-        } else {
+        } else if (model !== null && typeof model == 'object') {
           model[key] = ''
-        }
+        } 
       }
     },
     reset() {
@@ -92,7 +96,7 @@ export default {
       if (item) {
         let rules = item.rules || (this.rules || {})[item.prop]
         if (rules) {
-         return item.validate(rules)
+          return item.validate(rules)
         }
       }
     },

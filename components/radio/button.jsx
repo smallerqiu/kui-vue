@@ -15,6 +15,11 @@ export default {
       checked: false
     }
   },
+  watch: {
+    value(checked) {
+      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
+    }
+  },
   methods: {
     change() {
       let { value, $slots, label, groupContext } = this

@@ -20,6 +20,12 @@ export default {
       isChecked: checked,
     }
   },
+  watch: {
+    checked(checked) {
+      this.$emit("input", checked);
+      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
+    }
+  },
   methods: {
     change(e) {
       let { disabled, value, $slots, label, groupContext } = this
@@ -34,7 +40,6 @@ export default {
       } else {
         this.$emit("input", checked);
         this.$emit("change", e);
-        this.FormItem && this.FormItem.testValue(checked)
       }
     }
   },

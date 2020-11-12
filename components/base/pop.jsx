@@ -149,7 +149,7 @@ export default {
           mouseleave: e => {
             if (this.trigger == 'hover') {
               this.showPop = false
-              console.log('wwwww')
+              // console.log('wwwww')
             }
           },
           click: e => {

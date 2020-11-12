@@ -46,7 +46,7 @@ export default {
       this.setPos()
     }
   },
-  
+
   methods: {
     updateProp(visible) {
       if (visible) {
@@ -112,7 +112,7 @@ export default {
       this.$emit('close')
     },
     clickMaskToClose(e) {
-      console.log(this.mousedownIn)
+      // console.log(this.mousedownIn)
       if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target) && !this.mousedownIn) {
         this.close()
       }
@@ -144,16 +144,16 @@ export default {
         document.addEventListener('mouseup', this.mouseup)
       }
 
-      this.mousedownIn = this.show && this.$refs.modal.contains(e.target)
+      this.mousedownIn = this.show && this.$refs.modal && this.$refs.modal.contains(e.target)
     }
   },
   beforDestory() {
-    document.removeEventListener('mousedown', this.mousedown) 
+    document.removeEventListener('mousedown', this.mousedown)
     this.resetBodyStyle(false)
   },
 
   mounted() {
-    document.addEventListener('mousedown', this.mousedown) 
+    document.addEventListener('mousedown', this.mousedown)
     if (this.value) this.init = true
   },
   render() {

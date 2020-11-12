@@ -25,8 +25,7 @@ export default {
   },
   watch: {
     checked(checked) {
-      // this.$emit("input", checked);
-      // this.$emit("change", { target: { checked } });
+      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
     }
   },
   methods: {
@@ -43,7 +42,6 @@ export default {
       } else {
         this.$emit("input", checked);
         this.$emit("change", e);
-        this.FormItem && this.FormItem.testValue(checked)
       }
     }
   },
