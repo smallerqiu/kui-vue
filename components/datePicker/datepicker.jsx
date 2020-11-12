@@ -88,7 +88,7 @@ export default {
     },
     updateValue(value) {
       let date = this.getDate(value)
-      console.log(date)
+      // console.log(date)
       this.$emit('input', date)
       this.$emit('change', date)
       this.currentValue = value

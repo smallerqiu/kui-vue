@@ -26,7 +26,7 @@ export default {
   watch: {
     value(visible) {
       this.visible = visible
-      console.log('www')
+      // console.log('www')
     }
   },
   render() {
@@ -40,7 +40,7 @@ export default {
       on: {
         'input': e => {
           // this.visible = e
-          console.log('eeeee')
+          // console.log('eeeee')
           this.$emit('input', e)
         }
       }

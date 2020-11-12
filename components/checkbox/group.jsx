@@ -15,6 +15,11 @@ export default {
   inject: {
     FormItem: { default: null },
   },
+  watch: {
+    value(checked) {
+      this.FormItem && this.FormItem.testValue(checked)
+    }
+  },
   methods: {
     change(data) {
       let value = this.value
@@ -26,7 +31,6 @@ export default {
       }
       this.$emit("input", value);
       this.$emit("change", value);
-      this.FormItem && this.FormItem.testValue(value)
     }
   },
   render() {

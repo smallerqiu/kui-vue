@@ -21,12 +21,16 @@ export default {
   inject: {
     FormItem: { default: null },
   },
+  watch: {
+    value(checked) {
+      this.FormItem && this.FormItem.testValue(checked)
+    }
+  },
   methods: {
     change(data) {
       let value = data.value
       this.$emit("input", value);
       this.$emit("change", value);
-      this.FormItem && this.FormItem.testValue(value)
     }
   },
   render() {
@@ -34,7 +38,7 @@ export default {
     let kid = getChild($slots.default)
     if (options && options.length) {
       kid = options.map(option => {
-        return type == 'button' ? (
+        return type == 'button' ?
           <Button
             icon={option.icon}
             key={option.value}
@@ -42,14 +46,13 @@ export default {
             label={option.label}
             disabled={option.disabled}
           />
-        ) : (
-            <Radio
-              key={option.value}
-              value={option.value}
-              label={option.label}
-              disabled={option.disabled}
-            />
-          )
+          :
+          <Radio
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            disabled={option.disabled}
+          />
       })
     }
     const classes = [

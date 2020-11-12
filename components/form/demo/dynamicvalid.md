@@ -18,14 +18,14 @@
       <Input v-model="form.fullname" clearable />
     </FormItem>
     <FormItem 
-      :label="'网址' + i" 
+      label='网址' 
       :prop="'webs.' + i + '.value'" 
       v-for="(item,i) in form.webs" 
-      :key="item.key"
+      :key="i"
       :rules="{required: true, message: '网址不能为空'}"
     >
       <Input v-model="item.value" style="width:230px"/>
-      <Button @click="e=>remove(item.key)" v-if="i>0">Delete</Button>
+      <Button @click="e=>remove(i)" v-if="i>0">Delete</Button>
     </FormItem>
     <FormItem>
       <Button type="primary" @click="submit">Submit</Button>
@@ -38,30 +38,26 @@
 <script>
 export default{
   data(){
-    var validateIDNumber = (rule,value,callback)=>{
-      if(value && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)){
-        return  callback(new Error('请输入正确的身份证号码'))
-      }
-      callback()
-    };
     return {
       count:1,
       form: {
         fullname:'',
         webs:[
-          { value:'', key:'a1' }
+          { value:'', index:0 }
         ] ,
       },
     }
   },
   methods:{
     add(){
+      let count = this.count
+      let item ={value:'',index:count}
+      this.form.webs.push(item)
       this.count+=1
-      this.form.webs.push({value:'', key:'a'+this.count})
     },
-    remove(key){
-      let item = this.form.webs.filter(x=>x.key==key)[0]
-      let index = this.form.webs.indexOf(item)
+    remove(index){
+      // let item = this.form.webs.filter(x=>x.index==index)[0]
+      // let index = this.form.webs.indexOf(item)
       this.form.webs.splice(index, 1)
     },
     submit(){
