@@ -97,11 +97,6 @@ export default {
     },
     ok() {
       this.$emit('ok')
-      // this.$nextTick(e => {
-      //   if (!this.loading) {
-      //     this.close()
-      //   }
-      // })
     },
     cancel() {
       this.close()
