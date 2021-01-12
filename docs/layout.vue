@@ -25,7 +25,7 @@
         </transition>
         <Footer class="docs-k-footer">
           KUI ©2018 Created by chuchur |
-          <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备19016072号</a>
+          <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备19016072号-2</a>
         </Footer>
       </Content>
     </Layout>
