@@ -9,10 +9,10 @@
         <Button @click="gitee" icon="logo-gitee" large>Gitee</Button>
       </div>
     </section>
-    <!-- <footer>
+    <footer class="index-footer">
       <p>Copyright ©2009-2018
-        <a href="http://www.chuchur.com">禅境花园</a> by chuchur 粤ICP备17111365号 </p>
-    </footer>-->
+        <a href="http://www.chuchur.com">禅境花园</a> by chuchur <a href="https://beian.miit.gov.cn" target="_blank">粤ICP备17111365号-2</a> </p>
+    </footer>
   </Layout>
 </template>
 <script>
@@ -129,6 +129,16 @@ body {
         background: linear-gradient(45deg, #65b87f, #008028);
         color: #fff;
       }
+    }
+  }
+  .index-footer{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align:center;
+    font-size: 12px;
+    a{
+      color: #666;
     }
   }
 }
