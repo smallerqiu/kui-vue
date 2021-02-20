@@ -1,4 +1,4 @@
-import PopBase from '../base/pop'
+import BasePop from '../base/pop'
 export default {
   name: 'Popconfirm',
   props: {
@@ -26,10 +26,10 @@ export default {
       }
     }
     return (
-      <PopBase {...props}>
+      <BasePop {...props}>
         {this.$slots.default}
         <template slot="title">{this.$slots.title}</template>
-      </PopBase>
+      </BasePop>
     )
   }
 };

@@ -82,6 +82,28 @@ body {
         &:hover {
           // overflow-y: auto;
         }
+        .sub {
+          font-size: 12px;
+        }
+        .k-menu-item-group-title {
+          padding-left: 24px;
+          position: relative;
+          font-size: 13px;
+          margin-top: 16px;
+          margin-bottom: 16px;
+          &::after{
+            position: absolute;
+            content: '';
+            height: 1px;
+            background-color: #eee;
+            left: 24px;
+            right: 16px;
+            bottom: 0;
+          }
+        }
+        .k-menu-inline .k-menu-item{
+          padding-left: 24px;
+        }
       }
     }
     & > .k-layout-content {
