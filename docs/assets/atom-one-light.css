@@ -25,7 +25,9 @@ hue-6-2: #c18401
   color: #383a42;
   background: #f5f5f5;
 }
-
+.hljs-tag{
+  color: #999;
+}
 .hljs-comment, .hljs-quote {
   color: #a0a1a7;
   font-style: italic;

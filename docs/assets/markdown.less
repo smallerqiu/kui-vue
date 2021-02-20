@@ -3,7 +3,7 @@
 /* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
 
 html {
-  color: rgba(0, 0, 0, .65);
+  color: rgba(0, 0, 0, .8);
   background: #fff;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -45,7 +45,7 @@ audio, canvas, video {
 /* 要注意表单元素并不继承父级 font 的问题 */
 
 body, button, input, select, textarea {
-  font: 400 .9em/1.8 Consolas, PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 }
 
 button::-moz-focus-inner, input::-moz-focus-inner {
@@ -75,9 +75,10 @@ blockquote {
   position: relative;
   color: #999;
   font-weight: 400;
-  border-left: 1px solid #1abc9c;
+  border-left: 4px solid #ddd;
   padding-left: 1em;
-  margin: 1em 3em 1em 2em;
+  margin: 1em 3em 1em 0;
+  line-height: 1.5;
 }
 
 @media only screen and ( max-width: 640px) {
@@ -168,6 +169,10 @@ a {
   }
 }
 
+.typo {
+  line-height: 2;
+  font-size: 14px;
+}
 
 .typo a {
   // border-bottom: 1px solid #1abc9c;
@@ -360,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .typo ul, .typo-ul {
   margin-left: 1.3em;
-  list-style: disc;
+  list-style: circle;
 }
 
 .typo ol, .typo-ol {
@@ -399,7 +404,7 @@ h1, h2, h3, h4, h5, h6 {
 .typo table th, .typo table td, .typo-table th, .typo-table td, .typo table caption {
   border: 1px solid #ddd;
   padding: 0.5em 1em;
-  color: #666;
+  // color: #666;
 }
 
 .typo table th, .typo-table th {

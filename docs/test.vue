@@ -13,6 +13,9 @@
       <FormItem label="Phone Number" prop="phone">
         <Input v-model="form.phone" />
       </FormItem>
+      <FormItem label="Number" prop="number">
+        <Input v-model="form.number" type="number" />
+      </FormItem>
       <FormItem label="Captcha" prop="captcha">
         <Input v-model="form.captcha">
         <template slot="suffix">
@@ -98,6 +101,7 @@ export default {
     return {
       time: 60,
       form: {
+        number: '',
         email: '',
         password: '',
         repassword: '',
@@ -130,6 +134,10 @@ export default {
         phone: [
           { type: 'mobile', message: '请输入正确的手机号码' },
           { required: true, message: '请输入手机号' },
+        ],
+        number: [
+          { type: 'number', message: '请输入数字', min: 0, max: 10 },
+          { required: true, message: '请输入正确的金额' },
         ],
         birthday: [
           { required: true, message: '请选择出生日期' },
@@ -175,6 +183,7 @@ export default {
         phone: '13888888888',
         captcha: '8888',
         gender: '1',
+        number: 0,
         one: true,
         birthday: '1995-05-05',
         country: '1',

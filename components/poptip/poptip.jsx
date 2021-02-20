@@ -2,8 +2,8 @@ import BasePop from '../base/pop'
 export default {
   name: 'Poptip',
   props: {
-    trigger: { type: String, default: "hover" },
     dark: Boolean,
+    trigger: { type: String, default: "hover" },
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],
