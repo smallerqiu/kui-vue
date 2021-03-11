@@ -5,7 +5,7 @@
 | width       | 组件宽度                                                   | String,Number | -      |
 | placeholder | 选择框默认文字                                             | String        | 请选择 |
 | disabled    | 是否禁用当前项                                             | Boolean       | false  |
-| mini        | 组件尺寸大小                                               | Boolean       | false  |
+| size        | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | String        | -      |
 | multiple    | 是否呈现多选模式                                           | Boolean       | false  |
 | loading     | 是否显示异步加载                                           | Boolean       | false  |
 | clearable   | 是否可以清空选项                                           | Boolean       | false  |

@@ -13,7 +13,7 @@
         </Tooltip>
    </template> 
     <template slot="action" slot-scope="text,record,index">
-      <Button mini @click="e=>show(record)">more</Button>
+      <Button size="small" @click="e=>show(record)">more</Button>
     </template>
   </Table>
 </template>
@@ -54,7 +54,7 @@ export default{
                 width:'150px'
               },
               props:{
-                mini:true,
+                size:'small',
                 placeholder:'请输入关键字搜索',
               },
               on:{

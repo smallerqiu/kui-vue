@@ -6,12 +6,10 @@
 ```vue
 <template>
   <div>
-    <Button type="primary" icon="ios-search" loading>loading</Button>
-    <Button type="primary" :loading="loading" @click="loading=true">clike me</Button>
-    <Button type="warning" icon="ios-search" loading circle/>
-    <Button icon="ios-search" loading circle mini/>
+    <Button type="primary" icon="ios-search" loading>Loading</Button>
+    <Button type="primary" icon="ios-search" loading size="small">Loading</Button>
     <Button icon="ios-search" loading circle/>
-    <Button icon="ios-search" loading circle large/>
+    <Button type="primary" :loading="loading" @click="loading=true">Clike me</Button>
     <br/>
     <Button type="primary" icon="ios-search" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>
   </div>

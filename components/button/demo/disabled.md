@@ -8,6 +8,18 @@
   <div>
     <Button type="primary">Primary</Button>
     <Button disabled type="primary">disabled</Button>
+    <br/>
+    <Button>Default</Button>
+    <Button disabled>Default</Button>
+    <br/>
+    <Button type="dashed">Dashed</Button>
+    <Button disabled type="dashed">Dashed</Button>
+    <br/>
+    <Button type="link">Link</Button>
+    <Button disabled type="link">Link</Button>
+    <br/>
+    <Button type="danger" hollow>Danger</Button>
+    <Button type="danger" disabled hollow>Danger</Button>
   </div>
 </template>
 ```

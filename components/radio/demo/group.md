@@ -15,8 +15,8 @@
       <Radio label="Grape" value="grape" disabled/>
       <Radio label="Pear" value="pear" disabled/>
     </RadioGroup>
-    <Button @click="data=''" mini>Clear</Button>
-    <Button @click="data='apple'" mini>Select apple</Button>
+    <Button @click="data=''" size="small">Clear</Button>
+    <Button @click="data='apple'" size="small">Select apple</Button>
     <br/>
     <br/>
     <p>{{cities}}</p>

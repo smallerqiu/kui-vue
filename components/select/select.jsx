@@ -9,8 +9,12 @@ export default {
   name: "Select",
   props: {
     placeholder: { type: String, default: "请选择" },
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     transfer: { type: Boolean, default: true },
     width: [Number, String],
     value: [String, Number, Array],
@@ -280,7 +284,7 @@ export default {
       this.setLabel()
   },
   render() {
-    let { disabled, mini, multiple,
+    let { disabled, size, multiple,
       showDrop, showDropInit, placeholder,
       clear, removeTag, queryKey,
       clearable, label, toggleDrop, transfer } = this
@@ -291,8 +295,8 @@ export default {
       {
         ["k-select-disabled"]: disabled,
         ["k-select-open"]: showDrop,
-        ["k-select-large"]: this.large && !mini,
-        ["k-select-mini"]: mini
+        ["k-select-lg"]: size=='large',
+        ["k-select-sm"]: size=='small'
       }
     ]
 

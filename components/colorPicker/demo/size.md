@@ -1,14 +1,14 @@
 <cn>
 #### 尺寸大小
-`mini` 为小尺寸， `large` 为大尺寸
+`small` 为小尺寸， `large` 为大尺寸
 </cn>
 
 ```vue
 <template>
   <div class="demo-collapse">
-    <ColorPicker showMode v-model="color1" large/>
+    <ColorPicker showMode v-model="color1" size="large"/>
     <ColorPicker showMode v-model="color2" mode="rgba"/>
-    <ColorPicker showMode v-model="color3"  mode="hsla" mini/>
+    <ColorPicker showMode v-model="color3"  mode="hsla" size="small" />
   </div>
 </template>
 <script>

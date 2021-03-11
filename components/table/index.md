@@ -5,7 +5,7 @@
 | bordered      | 是否显示边框                       | Boolean                                             | false                   |
 | width         | 表格的宽度，超出部分出现滚动条     | Number                                              | -                       |
 | height        | 表格高度，超出部分滚动，头部会固定 | Number                                              | -                       |
-| mini          | 表格是否为 mini 模式               | Boolean                                             | false                   |
+| size          | 值为`small`时展示紧凑模式          | String                                              | -                       |
 | loading       | 表格异步加载模式                   | Boolean                                             | false                   |
 | data          | 显示的结构化数据                   | Array                                               | [ ]                     |
 | columns       | 表格列的配置描述，                 | Array                                               | [ ]                     |

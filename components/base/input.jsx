@@ -5,8 +5,12 @@ export default {
   props: {
     maxlength: Number,
     clearable: Boolean,
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     value: [String, Number],
     placeholder: String,
     disabled: Boolean,
@@ -111,8 +115,8 @@ export default {
           'k-input',
           {
             ["k-input-disabled"]: disabled,
-            ["k-input-mini"]: !hasChild ? this.mini : null,
-            ["k-input-lg"]: this.large
+            ["k-input-sm"]: !hasChild && this.size=='small' ,
+            ["k-input-lg"]: this.size=='large'
           }
         ],
         ref: 'input',
@@ -171,15 +175,15 @@ export default {
       return <textarea ref="input" {...inputProps} />
     },
     getProp(hasChild) {
-      const { type, $listeners, mini, large } = this
+      const { type, $listeners, size } = this
       let isSuffix = ('search' in $listeners) || this.$slots.suffix || type == 'password'
       const props = {
         class: [
           'k-input-wrapper',
           {
             ["k-input-has-suffix"]: isSuffix,
-            ["k-input-mini"]: hasChild && mini,
-            ["k-input-lg"]: hasChild && large,
+            ["k-input-sm"]: hasChild && size=='small',
+            ["k-input-lg"]: hasChild && size=='large',
             ["k-input-has-clear"]: this.clearable,
           }
         ],

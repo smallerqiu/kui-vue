@@ -2,7 +2,7 @@
   <div>
     <h3>图标快速检索</h3>
     <br />
-    <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" style="width:80%;margin:0 auto;display:inherit" large @input="search" clearable />
+    <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" style="width:80%;margin:0 auto;display:inherit" size="large" @input="search" clearable />
     <br />
     <br />
     <div class="show-icons">

@@ -12,7 +12,7 @@
     <Switch type="warning" />
     <br/>
     <br/>
-    <Switch type="success" mini v-model="checked"/>
+    <Switch type="success" size="small" v-model="checked"/>
 
   </div>
 </template>

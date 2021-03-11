@@ -1,6 +1,6 @@
 <cn>
 #### 尺寸
-通过 `mini` `large` 来设置选择框的大小呈现
+通过 `small` `large` 来设置选择框的大小呈现
 </cn>
 
 ```vue
@@ -9,14 +9,14 @@
     <RadioGroup v-model="size">
       <RadioButton value="large" label="Large"/>
       <RadioButton value="default" label="Default"/>
-      <RadioButton value="mini" label="Mini"/>
+      <RadioButton value="small" label="Small"/>
     </RadioGroup>
     <br/>
-    <DatePicker :mini="mini" :large="large" />
+    <DatePicker :size="size"/>
     <br/>
-    <DatePicker mode="month" placeholder="请选择月份" :mini="mini" :large="large" />
+    <DatePicker mode="month" placeholder="请选择月份" :size="size" />
     <br/>
-    <DatePicker :mini="mini" :large="large" mode="range"/>
+    <DatePicker :size="size" mode="range"/>
   </div>
 </template>
 <script>
@@ -24,14 +24,6 @@ export default{
   data(){
     return{
       size:'default',
-    }
-  },
-  computed:{
-    mini(){
-      return this.size == 'mini'
-    },
-    large(){
-      return this.size == 'large'
     }
   }
 }

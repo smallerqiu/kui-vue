@@ -8,7 +8,7 @@
   <div>
     <p>{{checked}}</p>
     <Checkbox v-model="checked">Checkbox</Checkbox>
-    <Button @click="checked=!checked" mini>{{checked?'Uncheck':'Check'}}</Button>
+    <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
     <br/>
     <br/>
     <Checkbox label="Checkbox"/>

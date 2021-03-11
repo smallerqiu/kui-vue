@@ -7,7 +7,7 @@
 <template>
   <div>
     <p>Select value:{{data}}</p>
-    <Select :width="300" multiple v-model="data" large>
+    <Select :width="300" multiple v-model="data" size="large">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
@@ -15,8 +15,8 @@
       <Option value="5" label="Peach" />
       <Option value="6" label="Grape" />
     </Select>
-    <Button mini @click="data=[]">Clear</Button>
-    <Button mini @click="data=['3','1']">Select Banana & Apple</Button>
+    <Button size="small" @click="data=[]">Clear</Button>
+    <Button size="small" @click="data=['3','1']">Select Banana & Apple</Button>
     <br/>
     <Select :width="300" multiple v-model="data2">
       <Option value="1" label="Apple" />
@@ -27,7 +27,7 @@
       <Option value="6" label="Grape" />
     </Select>
     <br/>
-    <Select :width="300" mini multiple >
+    <Select :width="300" size="small" multiple >
       <Option value="1" label="苹果" />
       <Option value="2" label="香蕉" />
       <Option value="3" label="梨子" />

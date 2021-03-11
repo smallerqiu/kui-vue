@@ -18,7 +18,7 @@
       <Demo title="禁用" layout="vertical">
         <div slot="content">
           <Upload action="/rest/uploadFile" disabled>
-            <Button type="success">上传文件</Button>
+            <Button>上传文件</Button>
           </Upload>
         </div>
         <div slot="desc">

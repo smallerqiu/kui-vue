@@ -22,7 +22,7 @@
           <p>我是自定义内容</p>
           <div slot="footer">
             <Button type="danger">删除</Button>
-            <Button type="success">确定</Button>
+            <Button>确定</Button>
           </div>
         </Modal>
         <Modal v-model="d4" width="300" title="What's your name? " cancelText="cancel" okText="Ok">My name is chuchur.</Modal>

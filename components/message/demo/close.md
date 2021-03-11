@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Button @click="config" type="success">10秒后关闭</Button>
+    <Button @click="config">10秒后关闭</Button>
     <Button @click="config2" type="primary">5秒后关闭</Button>
     <Button @click="config3" type="primary">手动关闭</Button>
   </div>

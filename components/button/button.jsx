@@ -11,15 +11,19 @@ export default {
     },
     icon: String,
     block: Boolean,
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     loading: Boolean,
     circle: Boolean,
     hollow: Boolean,
     type: {
       validator(value) {
         return (
-          ["danger", "primary", "warning", "success", "gray", "link", "default"].indexOf(value) >= 0
+          ["danger", "primary", "link", "default", "dashed"].indexOf(value) >= 0
         );
       },
       default: 'default'
@@ -28,17 +32,17 @@ export default {
   },
   computed: {
     classes() {
-      const { type, mini, loading, large, circle, hollow, $slots, icon } = this
+      const { type, loading, circle, hollow, $slots, icon, size } = this
       const onlyIcon = !getChild($slots.default).length && icon
       return [
         "k-btn",
         {
           [`k-btn-${type}`]: !!type,
-          ["k-btn-mini"]: !!mini,
+          ["k-btn-sm"]: size == 'small',
           ["k-btn-block"]: !!this.block,
           ["k-btn-loading"]: loading,
           ["k-btn-icon-only"]: onlyIcon,
-          ["k-btn-lg"]: !!large && !mini,
+          ["k-btn-lg"]: size == 'large',
           ["k-btn-circle"]: !!circle,
           ["k-btn-hollow"]: !!hollow
         }

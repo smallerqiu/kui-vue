@@ -6,12 +6,11 @@
 ```vue
 <template>
   <div>
-    <Button>Default</Button>
     <Button type="primary">Primary</Button>
-    <Button type="primary" hollow>hollow</Button>
-    <Button type="primary" circle>circle</Button> 
-    <Button type="gray" circle>gray</Button> 
-    <Button type="link">link</Button>
+    <Button type="danger">Danger</Button>
+    <Button>Default</Button>
+    <Button type="dashed">Dashed</Button>
+    <Button type="link">Link</Button>
   </div>
 </template>
 ```

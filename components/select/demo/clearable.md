@@ -14,7 +14,7 @@
     </Select>
     {{value1}}
     <br />
-    <Select :width="200" mini clearable v-model="value2">
+    <Select :width="200" size="small" clearable v-model="value2">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana" />

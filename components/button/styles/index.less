@@ -1,6 +1,6 @@
 @import '../../styles/global.less';
 .k-btn {
-  color: #fff;
+  color: @color;
   font-size: 12px;
   height: 32px;
   line-height: 30px;
@@ -10,15 +10,15 @@
   display: inline-block;
   vertical-align: middle; // transition: opacity .2s ease-in-out;
   user-select: none;
-  z-index: 9;
   outline: none;
-  border: 1px solid transparent;
-  &:hover {
-    opacity: .8;
-    zoom: 0%;
-  }
-  &:active {
-    opacity: 1;
+  border: 1px solid @border-color;
+  background-color: #fff;
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
+  z-index: 0;
+  &:focus, &:hover {
+    border-color: @main;
+    color: @main;
+    z-index: 1;
   }
   &>.k-icon +span, span +.k-icon {
     margin-left: 4px;
@@ -34,16 +34,8 @@
   width: 100%;
 }
 
-.k-btn-default {
-  color: #333;
-  background: #f9f9f9;
-  border: 1px solid @border-color;
-  z-index: 0;
-  &:focus {
-    z-index: 1;
-    border-color: @main;
-    color: @main;
-  }
+.k-btn-dashed {
+  border-style: dashed;
 }
 
 .k-btn-loading {
@@ -53,7 +45,7 @@
   }
 }
 
-.k-btn-mini {
+.k-btn-sm {
   height: 25px;
   line-height: 23px;
   font-size: 12px;
@@ -77,89 +69,61 @@
   border-radius: 30px;
 }
 
-.k-btn-success {
-  background-color: @success;
-  border-color: @success;
-}
-
 .k-btn-primary {
+  color: #fff;
   background: @main;
   border-color: @main;
-}
-
-.k-btn-link {
-  background: none;
-  border: none !important;
-  color: @main;
-  &[disabled='disabled']{
-    background: none;
+  &:hover {
+    opacity: .8;
+    zoom: 0%;
+    color: #fff;
+  }
+  &:focus {
+    color: #fff;
   }
 }
 
 .k-btn-danger {
+  color: #fff;
   border-color: @danger;
   background: @danger;
+  &:hover {
+    opacity: .8;
+    zoom: 0%;
+    color: #fff;
+    border-color: @danger;
+  }
+  &:focus {
+    border-color: @danger;
+    color: #fff;
+  }
   .badge-count {
     border-color: @danger;
     color: @danger;
   }
 }
 
-.k-btn-warning {
-  background: @warning;
-  border-color: @warning;
-}
-
-.k-btn-gray {
-  background-color: @gray;
-  border-color: @gray;
+.k-btn.k-btn-hollow {
+  background: 0 0;
+  color: #fff;
+  border-color: #fff;
+  &:focus, &:hover {
+    border-color: @main;
+    color: @main;
+  }
 }
 
 .k-btn-primary.k-btn-hollow {
-  color: tint(@main, -10%);
-  background: tint(@main, 90%);
-  border-color: tint(@main, 70%);
+  color: @main;
+  border-color: @main;
   &:focus {
     border-color: @main;
     color: @main;
   }
 }
 
-.k-btn-success.k-btn-hollow {
-  color: tint(@success, -10%);
-  background: tint(@success, 90%);
-  border-color: tint(@success, 70%);
-  &:focus {
-    border-color: @success;
-    color: @success;
-  }
-}
-
-.k-btn-gray.k-btn-hollow {
-  color: tint(@gray, -10%);
-  background: tint(@gray, 90%);
-  border-color: tint(@gray, 70%);
-  &:focus {
-    border-color: @gray;
-    color: @gray;
-  }
-}
-
-.k-btn-warning.k-btn-hollow {
-  color: tint(@warning, -10%);
-  background: tint(@warning, 90%);
-  border-color: tint(@warning, 70%);
-  &:focus {
-    border-color: @warning;
-    color: @warning;
-  }
-}
-
 .k-btn-danger.k-btn-hollow {
-  color: tint(@danger, -10%);
-  background: tint(@danger, 90%);
-  border-color: tint(@danger, 70%);
-  &:focus {
+  &, &:focus, &:hover {
     border-color: @danger;
     color: @danger;
   }
@@ -190,13 +154,13 @@
   width: 40px;
 }
 
-.k-btn-icon-only.k-btn-mini {
+.k-btn-icon-only.k-btn-sm {
   padding: 0;
   height: 25px;
   width: 25px;
 }
 
-.k-btn-group-mini {
+.k-btn-group-sm {
   .k-btn {
     height: 25px;
     line-height: 23px;
@@ -227,9 +191,23 @@
   }
 }
 
-button[disabled='disabled'] {
-  cursor: not-allowed;
-  color: @disable-color;
-  background: @disable-back;
-  border-color: @disable-border;
+.k-btn[disabled='disabled'] {
+  &, &:hover, &:active, &:active, &:focus {
+    opacity: .8;
+    cursor: not-allowed;
+    color: @disable-color;
+    background: @disable-back;
+    border-color: @disable-border;
+  }
+}
+
+.k-btn-link {
+  background: none;
+  border: none !important;
+  color: @main;
+  &:disabled {
+    &, &:hover, &:active, &:active, &:focus {
+      background: 0 0;
+    }
+  }
 }

@@ -5,7 +5,7 @@ code.base = `<Upload action="/rest/uploadFile">
 </Upload>`
 
 code.disabled = `<Upload action="/rest/uploadFile" disabled>
-  <Button type="success">上传文件</Button>
+  <Button>上传文件</Button>
 </Upload>`
 code.withData = `<Upload action="/rest/uploadFile" @change="change" @complite="complite" :data="data">
   <Button>上传文件</Button>

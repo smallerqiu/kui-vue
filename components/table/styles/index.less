@@ -3,7 +3,7 @@
   background: #fff;
   width: 100%;
   margin: 10px 0;
-  overflow: auto;
+  // overflow: auto;
   box-sizing: border-box;
   position: relative;
   .k-spin {
@@ -20,17 +20,17 @@
     background: #fff;
     thead {
       background: @light;
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid fade(@border-color, 50%);
     }
     tr>th {
-      // font-weight: 500;
+      font-weight: 500;
       overflow-wrap: break-word;
       text-align: left;
       &[colspan]:not([colspan="1"]) {
         text-align: center;
       }
     }
-    th.k-table-cell-selection{
+    th.k-table-cell-selection {
       text-align: center;
     }
     tr>th, tr>td {
@@ -48,7 +48,7 @@
       cursor: pointer;
       user-select: none;
       &:hover {
-        background: @border-color;
+        background: fade(@border-color, 50%);
       }
       .k-table-sorter {
         display: inline-block;
@@ -67,9 +67,9 @@
       }
     }
     tbody>tr {
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid fade(@border-color, 50%);
       &:nth-child(even) {
-        background: @light;
+        // background: @light;
       }
       &:nth-child(odd) {
         // background: #fff;
@@ -97,11 +97,11 @@
   }
   &-header {
     padding: 10px;
-    border-top: 1px solid @border-color;
+    border-top: 1px solid fade(@border-color, 50%);
   }
   &-footer {
     padding: 10px;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid fade(@border-color, 50%);
     background-color: @light;
   }
   th>a, td>a {
@@ -129,8 +129,8 @@
       background-color: @light;
       &::-webkit-scrollbar {
         background-color: @light;
-        // border-top: 1px solid @border-color;
-        border-bottom: 1px solid @border-color;
+        // border-top: 1px solid fade(@border-color, 50%);
+        border-bottom: 1px solid fade(@border-color, 50%);
       }
     }
     .k-table-fixed-left-thead {
@@ -179,10 +179,17 @@
       box-shadow: 6px 0 6px -4px rgba(0, 0, 0, .15);
     }
   }
-  &-mini {
+  &-sm {
     table tr {
       th, td {
         padding: 5px 8px;
+      }
+    }
+  }
+  &-lg {
+    table tr {
+      th, td {
+        padding: 16px;
       }
     }
   }
@@ -194,19 +201,19 @@
       display: table;
     }
     table tbody tr {
-      background-color: @light;
+      // background-color: @light;
     }
   }
   &-bordered {
-    border: 1px solid @border-color;
+    border: 1px solid fade(@border-color, 50%);
     .k-table-footer {
-      border-top: 1px solid @border-color;
+      border-top: 1px solid fade(@border-color, 50%);
       border-bottom: none;
     }
     thead {
       th {
-        border-bottom: 1px solid @border-color;
-        border-right: 1px solid @border-color;
+        border-bottom: 1px solid fade(@border-color, 50%);
+        border-right: 1px solid fade(@border-color, 50%);
       }
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
@@ -215,10 +222,10 @@
       }
     }
     // .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
-    //   border-bottom: 1px solid @border-color;
+    //   border-bottom: 1px solid fade(@border-color, 50%);
     // }
     .k-table-header {
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid fade(@border-color, 50%);
       border-top: none;
     }
     // .k-table-body tr:first-child td {
@@ -226,7 +233,7 @@
     // }
     // // border-bottom: none;
     th, td {
-      border: 1px solid @border-color;
+      border: 1px solid fade(@border-color, 50%);
     }
     tr {
       &:first-child td {
@@ -249,7 +256,7 @@
       border-top: none;
     }
     .k-table-fixed-right {
-      border-left: 1px solid @border-color;
+      border-left: 1px solid fade(@border-color, 50%);
     }
     & .k-table {
       margin: -11px -10px -11px -11px;

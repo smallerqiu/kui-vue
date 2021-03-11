@@ -1,23 +1,15 @@
 <cn>
-#### 条目数和自定义条目数
-改变每页显示条目数。
+#### 尺寸
+展示小尺寸。
 </cn>
 
 ```vue
 <template>
   <div class="demo-collapse">
-    <Page :current="3" :total="200" showSizer/>
-    <Page :current="4" :total="200" showSizer :page-size="20"/>
-    <Page :current="4" :total="1000" showSizer :page-size="30" :size-data="sizeData"/>
+    <Page :current="1" :total="50" size="small"/>
+    <Page :current="1" :total="50" size="small" show-sizer/>
+    <Page :current="1" :total="50" size="small" show-elevator/>
+    <Page :current="1" :total="50" size="small" show-elevator show-total/>
   </div>
 </template>
-<script>
-export default{
-  data(){
-    return{
-      sizeData:[30,50,80,100]
-    }
-  }
-}
-</script>  
 ```

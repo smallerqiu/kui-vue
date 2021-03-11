@@ -9,7 +9,12 @@ export default {
     showTotal: Boolean,
     showElevator: Boolean,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
-    mini: { default: false, type: Boolean },
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     total: { default: 0, type: Number },
     pageSize: { default: 10, type: Number },
     current: { default: 1, type: Number }
@@ -116,7 +121,7 @@ export default {
     renderSize() {
       let prop = {
         value: this.defaultPageSize,
-        props: { mini: this.mini },
+        props: { size: this.size },
         on: {
           input: e => this.defaultPageSize = e,
           change: this.changeSize
@@ -132,10 +137,10 @@ export default {
       )
     },
     renderElvator() {
-      let { mini } = this
+      let { size } = this
       let prop = {
         class: 'k-page-options-elevator',
-        props: { mini, value: this.page },
+        props: { size, value: this.page },
         on: {
           blur: e => {
             let page = e.target.value;
@@ -160,7 +165,7 @@ export default {
     }
   },
   render() {
-    const classes = ["k-page", { ["k-page-mini"]: this.mini }],
+    const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
       preNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="ios-arrow-back" /></li>,
       nextNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="ios-arrow-forward" /></li>,
       totalNode = (this.showTotal ? <div class="k-page-number"><span>共{this.total}条</span></div> : null),

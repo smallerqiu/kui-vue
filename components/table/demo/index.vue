@@ -15,7 +15,7 @@ import FixedSpan from './fixedspan'
 import Selection from './selection'
 import Expand from './expand'
 import Embed from './embed'
-import Mini from './mini'
+import Size from './size'
 import CN from '../index.md'
 export default {
   render() {
@@ -37,7 +37,7 @@ export default {
         <Selection />
         <Expand />
         <Embed />
-        <Mini />
+        <Size />
         <CN class="typo" />
       </div>
     )

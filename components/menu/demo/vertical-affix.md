@@ -6,7 +6,10 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model="current" mode="vertical" vertical-affixed theme="dark">
+    <k-switch true-text="dark" false-text="light" @change="change" :checked="theme=='dark'"/>
+    <br/>
+    <br/>
+    <Menu v-model="current" mode="vertical" vertical-affixed :theme="theme">
       <SubMenu key="sub1">
         <template slot="title">
           <Icon type="ios-keypad" />Navigation One
@@ -68,8 +71,14 @@ export default {
   data() {
     return {
       current: ['1-1'],
+      theme:'dark'
     }
   },
+  methods:{
+    change(checked){
+      this.theme = checked ? 'dark' : 'light';
+    }
+  }
 }
 </script>
 ```

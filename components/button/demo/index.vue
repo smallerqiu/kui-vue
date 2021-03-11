@@ -3,6 +3,7 @@ import Info from './info'
 import Base from './base'
 import Disabled from './disabled'
 import Size from './size'
+import Hollow from './hollow'
 import WithIcon from './with-icon.md'
 import Loading from './loading.md'
 import Group from './group.md'
@@ -13,9 +14,10 @@ export default {
       <div class="demo-button">
         <Info class="typo" />
         <Base />
-        <Disabled />
-        <Size />
         <WithIcon />
+        <Size />
+        <Disabled />
+        <Hollow />
         <Loading />
         <Group />
         <CN class="typo" />
@@ -31,9 +33,12 @@ export default {
     margin-right: 10px;
     margin-bottom: 10px;
   }
-  .k-btn-group .k-btn {
-    margin-right: 0px;
-    margin-bottom: 0px;
+  .k-btn-group,
+  .k-radio-group {
+    .k-btn {
+      margin-right: 0px;
+      margin-bottom: 0px;
+    }
   }
 }
 </style>

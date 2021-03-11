@@ -15,8 +15,8 @@
       <Checkbox label="Grape" value="grape" disabled/>
       <Checkbox label="Pear" value="pear" disabled/>
     </CheckboxGroup>
-    <Button @click="data=[]" mini>Clear</Button>
-    <Button @click="data=['apple']" mini>Select apple</Button>
+    <Button @click="data=[]" size="small">Clear</Button>
+    <Button @click="data=['apple']" size="small">Select apple</Button>
     <br/>
     <br/>
     <p>{{cities}}</p>

@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div>
-    <Button @click="show(0)" type="success">Success</Button>
+    <Button @click="show(0)">Success</Button>
     <Button @click="show(1)" type="danger">Error</Button>
-    <Button @click="show(2)" type="warning">Warning</Button>
+    <Button @click="show(2)">Warning</Button>
     <Button @click="show(3)" type="primary">Info</Button>
     <Button @click="show(4)" icon="ios-moon">Custom icon</Button>
   </div>

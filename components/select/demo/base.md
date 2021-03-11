@@ -9,8 +9,8 @@
     <Select :width="200" v-model="select" :options="data">
       <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
     </Select>
-    <Button @click="select=''" mini>Clear</Button>
-    <Button @click="select=1" mini>Choose orange</Button>
+    <Button @click="select=''" size="small">Clear</Button>
+    <Button @click="select=1" size="small">Choose orange</Button>
     <br />
     <Select :width="200">
       <Option :value="1" label="Apple" />

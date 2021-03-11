@@ -48,7 +48,7 @@ export default{
           render:(h,record,i)=>{
             return h('Button',{
               props:{
-                mini:true,
+                size:'small',
               },
               on:{
                 'click': e=>{

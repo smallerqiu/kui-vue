@@ -11,8 +11,8 @@
     <br/>
     <br/>
     <Radio :disabled="disabled" v-model="checked">Radio</Radio>
-    <Button @click="checked=!checked" mini>{{checked?'Checked':'Uncheck'}}</Button>
-    <Button @click="disabled=!disabled" mini>{{disabled?'Enable':'Disabled'}}</Button>
+    <Button @click="checked=!checked" size="small">{{checked?'Checked':'Uncheck'}}</Button>
+    <Button @click="disabled=!disabled" size="small">{{disabled?'Enable':'Disabled'}}</Button>
   </div>
 </template>
 <script>

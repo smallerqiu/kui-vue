@@ -1,12 +1,22 @@
 <cn>
-#### 紧凑型
+#### 尺寸
 展示迷你模式
 </cn>
 
 ```vue
 <template>
-  迷你模式：<Switch v-model="mini"/>
-  <Table :data="data" :columns="columns" :mini="mini" bordered>
+  Size：<RadioGroup v-model="size" size="small">
+      <RadioButton value="large" label="Large"/>
+      <RadioButton value="default" label="Default"/>
+      <RadioButton value="small" label="Small"/>
+    </RadioGroup>
+  Bordered: <Switch v-model="bordered"/> 
+  Loading: <Switch v-model="loading"/> 
+  <Table :data="data" 
+  :columns="columns" 
+  :loading="loading" 
+  :size="size" 
+  :bordered="bordered">
     <template slot="tags" slot-scope="tags">
       <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
@@ -21,7 +31,9 @@
 export default{
   data(){
     return{
-      mini:true,
+      size:"default",
+      bordered:true,
+      loading:false,
       data:[
         { key:'0', name:'Li Lei' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
         { key:'1', name:'Liu Hao' ,gender: 1 , age:28 , address:'Wu Han Hongshan No. 128', tags:['Python','Java'] },

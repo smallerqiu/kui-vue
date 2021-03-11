@@ -8,7 +8,7 @@
   <div>
     <DatePicker disabled value="2019-10-12"/>
     <br/>
-    <DatePicker disabled mini value="2019-10"/>
+    <DatePicker disabled size="small" value="2019-10"/>
     <br/>
     <DatePicker disabled mode="range"/>
   </div>

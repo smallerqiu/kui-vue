@@ -6,12 +6,12 @@
 ```vue
 <template>
   <div>
+    <Button type="primary" icon="ios-search" circle></Button>
     <Button type="primary" icon="ios-search">搜索</Button>
-    <Button type="success"><Icon type="ios-arrow-back"/> Backward</Button>
-    <Button type="danger" hollow>Forward <Icon type="ios-arrow-forward"/></Button>
-    <Button type="primary" icon="ios-play" circle />
-    <Button type="primary" icon="ios-pause" />
-    <Button type="primary" icon="ios-square" />
+    <Button icon="ios-search" circle></Button>
+    <Button icon="ios-search">搜索</Button>
+    <Button type="dashed" icon="ios-search" circle></Button>
+    <Button type="dashed" icon="ios-search">搜索</Button>
   </div>
 </template>
 ```
