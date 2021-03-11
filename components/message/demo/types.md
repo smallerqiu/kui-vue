@@ -6,8 +6,8 @@
 ```vue
 <template>
   <div>
-    <Button @click="warning" type="warning">Warning </Button>
-    <Button @click="success" type="success">Success </Button>
+    <Button @click="warning">Warning </Button>
+    <Button @click="success">Success </Button>
     <Button @click="error" type="danger">Error</Button>
   </div>
 </template>

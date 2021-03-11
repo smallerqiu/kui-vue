@@ -5,7 +5,12 @@ export default {
     checked: [Boolean, Number],
     type: String,
     disabled: Boolean,
-    mini: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     trueText: String,
     falseText: String,
     checked: [Boolean, Number]
@@ -36,7 +41,7 @@ export default {
     }
   },
   render() {
-    let { disabled, type, mini, change, falseText, trueText, checked, isChecked, $slots } = this
+    let { disabled, type, size, change, falseText, trueText, checked, isChecked, $slots } = this
     if (!hasProp(this, 'checked')) {
       checked = isChecked
     }
@@ -46,11 +51,11 @@ export default {
         ["k-switch-checked"]: checked,
         ["k-switch-disabled"]: disabled,
         [`k-switch-${type}`]: !!type,
-        ["k-switch-mini"]: mini,
+        ["k-switch-sm"]: size == 'small',
       }
     ];
     const textNode = (
-      !mini ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
+      size != 'small' ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
     )
     return (
       <button class={classes} onClick={change} type="button">{textNode}</button>

@@ -16,8 +16,12 @@ export default {
     disabledTime: { type: Function, default: e => { } },
     format: { type: String, default: 'YYYY-MM-DD' },
     clearable: { type: Boolean, default: true },
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     placeholder: [String, Array]
   },
   provide() {
@@ -135,7 +139,7 @@ export default {
     },
   },
   render() {
-    let { currentValue, placeholder, disabled, clearable, showDrop, mini, label, mode, transfer } = this
+    let { currentValue, placeholder, disabled, clearable, showDrop, size, label, mode, transfer } = this
     let childNode = [], isRange = mode == 'range';
 
     childNode.push(<Icon type="ios-calendar" class="k-icon-calendar" />)
@@ -224,8 +228,8 @@ export default {
     const classes = ['k-datepicker',
       { 'k-datepicker-open': showDrop },
       { 'k-datepicker-range': isRange },
-      { 'k-datepicker-mini': mini },
-      { 'k-datepicker-large': this.large && !mini },
+      { 'k-datepicker-sm': size=='small' },
+      { 'k-datepicker-lg': size=='large' },
       { 'k-datepicker-disabled': disabled },
     ]
     return (

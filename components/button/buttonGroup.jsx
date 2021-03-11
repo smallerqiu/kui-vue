@@ -2,8 +2,12 @@ import { getChild } from '../_tool/utils'
 export default {
   name: "ButtonGroup",
   props: {
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large","default"].indexOf(value) >= 0;
+      }
+    },
     circle: Boolean
   },
   data() {
@@ -11,12 +15,12 @@ export default {
   },
   computed: {
     classes() {
-      const { mini, large, circle } = this
+      const { size, circle } = this
       return [
         "k-btn-group",
         {
-          ["k-btn-group-mini"]: mini,
-          ["k-btn-group-lg"]: large && !mini,
+          ["k-btn-group-sm"]: size=='small',
+          ["k-btn-group-lg"]: size=='large',
           ["k-btn-group-circle"]: circle
         }
       ];

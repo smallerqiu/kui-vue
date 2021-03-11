@@ -109,8 +109,8 @@ export default {
           contentNode = [<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
 
           footerNode = <div class={`k-${preCls}-footer`}>
-            <Button mini onClick={this.cancel}>{this.cancelText}</Button>
-            <Button type="primary" mini onClick={this.ok}>{this.okText}</Button>
+            <Button size="small" onClick={this.cancel}>{this.cancelText}</Button>
+            <Button type="primary" size="small" onClick={this.ok}>{this.okText}</Button>
           </div>
         } else {
           titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : ''

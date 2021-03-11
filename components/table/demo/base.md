@@ -11,7 +11,7 @@
     </template>
     <Icon :type="text==1?'ios-male':'ios-female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action" slot-scope="text,record,index">
-      <Button mini @click="e=>show(record)">more</Button>
+      <Button size="small" @click="e=>show(record)">more</Button>
     </template>
   </Table>
 </template>

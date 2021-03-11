@@ -16,8 +16,8 @@
       <Tree :data="data" @check="select" class="demo-tree">
         <div slot-scope="root, node , data" class="tree-item-actions">
           <span class="tree-title-text">{{data.title}}</span>
-          <Button icon="ios-add" mini @click="append(data)" />
-          <Button icon="ios-remove" mini @click="remove(node,data)" />
+          <Button icon="ios-add" size="small" @click="append(data)" />
+          <Button icon="ios-remove" size="small" @click="remove(node,data)" />
         </div>
       </Tree>
     </Col>
@@ -105,7 +105,7 @@ export default {
         h('span', { class: 'tree-title-text' }, data.title),
         h('Button', {
           props: {
-            mini: true,
+            size: 'small',
             icon: 'ios-add'
           },
           on: {
@@ -114,7 +114,7 @@ export default {
         }),
         h('Button', {
           props: {
-            mini: true,
+            size: 'small',
             icon: 'ios-remove'
           },
           on: {

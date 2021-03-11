@@ -6,9 +6,11 @@
 ```vue
 <template>
   <div class="demo-collapse">
-    <ColorPicker showMode v-model="color1"/>
-    <ColorPicker showMode v-model="color2" mode="rgba"/>
-    <ColorPicker showMode v-model="color3"  mode="hsla"/>
+   Default: <ColorPicker showMode v-model="color1"/>
+   <br/>
+   Rgba: <ColorPicker showMode v-model="color2" mode="rgba"/>
+   <br/>
+   Hsla: <ColorPicker showMode v-model="color3"  mode="hsla"/>
   </div>
 </template>
 <script>

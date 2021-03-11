@@ -10,7 +10,12 @@ export default {
   name: 'Table',
   props: {
     bordered: Boolean,
-    mini: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     width: Number,
     height: Number,
     data: { type: Array, default: () => [] }, // 表格数据
@@ -243,7 +248,8 @@ export default {
     const rootProps = {
       class: ["k-table", {
         'k-table-fixed': isTableFixed,
-        'k-table-mini': this.mini,
+        'k-table-sm': this.size == 'small',
+        'k-table-lg': this.size == 'large',
         'k-table-fixed-header': isFixedHeader,
         'k-table-bordered': this.bordered,
         [`k-table-scroll-${this.scrollType}`]: width

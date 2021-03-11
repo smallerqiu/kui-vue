@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <ButtonGroup large circle>
+    <ButtonGroup size="large">
       <Button>待发货</Button>
       <Button>已发货</Button>
       <Button>已签收</Button>
@@ -18,9 +18,9 @@
     </ButtonGroup>
     <br />
     <br />
-    <ButtonGroup mini circle>
-      <Button type="success"><Icon type="ios-arrow-back"/> Backward</Button>
-      <Button type="danger">Forward <Icon type="ios-arrow-forward"/></Button>
+    <ButtonGroup size="small" circle>
+      <Button ><Icon type="ios-arrow-back"/> Backward</Button>
+      <Button>Forward <Icon type="ios-arrow-forward"/></Button>
     </ButtonGroup>
   </div>
 </template>

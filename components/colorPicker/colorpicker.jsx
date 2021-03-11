@@ -12,8 +12,12 @@ export default {
     value: String,
     transfer: { type: Boolean, default: true },
     showMode: Boolean,
-    large: Boolean,
-    mini: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     mode: {
       type: String, default: 'hex', validator: function (value) {
         return modes.indexOf(value) !== -1
@@ -308,7 +312,7 @@ export default {
         },
         props: {
           value: this[key] + ('SL'.indexOf(key) >= 0 ? '%' : ''),
-          mini: true,
+          size: "small",
         },
         on: {
           "input": e => {
@@ -359,7 +363,7 @@ export default {
           let k = <div class="k-color-picker-key"><span>HEX</span></div>
           node.push(v, k)
         }
-        let btn = <Button icon="ios-flash" mini circle onClick={this.setMode} />
+        let btn = <Button icon="ios-flash" size="small" circle onClick={this.setMode} />
         node.push(btn)
         return <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>{node}</div>
       }
@@ -418,8 +422,8 @@ export default {
     let style = [
       'k-color-picker',
       {
-        'k-color-picker-mini': this.mini,
-        'k-color-picker-large': this.large && !this.mini
+        'k-color-picker-sm': this.size=='small',
+        'k-color-picker-lg': this.size=='large'
       },
     ]
     return (<div class={style}>

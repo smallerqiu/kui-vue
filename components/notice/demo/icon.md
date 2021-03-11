@@ -7,8 +7,8 @@
 <template>
   <div>
     <Button @click="notice('info')" type="primary">消息提示 </Button>
-    <Button @click="notice('warning')" type="warning">警告提示 </Button>
-    <Button @click="notice('success')" type="success">成功提示 </Button>
+    <Button @click="notice('warning')">警告提示 </Button>
+    <Button @click="notice('success')">成功提示 </Button>
     <Button @click="notice('error')" type="danger">错误提示 </Button>
   </div>
 </template>

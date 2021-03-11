@@ -20,7 +20,7 @@
         <MenuItem key="https://react.k-ui.cn">KUI for React</MenuItem>
         <MenuItem key="https://www.chuchur.com">Blog</MenuItem>
       </SubMenu>
-      <Select mini width="100" style="margin-left:10px" v-model="version" :transfer="false" @change="changeV">
+      <Select size="small" width="100" style="margin-left:10px" v-model="version" :transfer="false" @change="changeV">
         <Option value="3">3.x</Option>
         <Option value="2">2.x</Option>
       </Select>

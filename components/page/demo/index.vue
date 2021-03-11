@@ -2,9 +2,9 @@
 import Info from './info'
 import Base from './base'
 import More from './more'
-import Size from './size'
+import Sizer from './sizer'
 import Elevator from './elevator'
-import Mini from './mini'
+import Size from './size'
 import CN from '../index.md'
 export default {
   render() {
@@ -13,9 +13,9 @@ export default {
         <Info class="typo" />
         <Base />
         <More />
-        <Size />
+        <Sizer />
         <Elevator />
-        <Mini />
+        <Size />
         <CN class="typo"/>
       </div>
     )

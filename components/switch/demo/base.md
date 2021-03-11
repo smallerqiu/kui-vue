@@ -8,7 +8,7 @@
   <div>
     <p>value:{{checked}}</p>
     <Switch v-model="checked" />
-    <Button @click="checked=!checked" mini>{{checked?'Uncheck':'Check'}}</Button>
+    <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
     <br/>
     <Switch checked />
   </div>

@@ -9,14 +9,14 @@
     <Switch disabled />
     <br />
     <Switch :disabled="disabled" v-model="checked" />
-    <Button mini @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
-    <Button mini @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
+    <Button size="small" @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
+    <Button size="small" @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
     <br />
     <Switch disabled true-text="Yes" false-text="No" />
     <br />
     <Switch disabled true-text="Yes" false-text="No" checked />
     <br />
-    <Switch disabled true-text="Yes" false-text="No" checked mini/>
+    <Switch disabled true-text="Yes" false-text="No" checked size="small"/>
   </div>
 </template>
 <script>

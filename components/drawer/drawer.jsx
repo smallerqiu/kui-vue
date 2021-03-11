@@ -1,6 +1,10 @@
 import Button from "../button";
 import Icon from "../icon";
 import transfer from "../_tool/transfer";
+import { measureScrollBar } from '../_tool/utils'
+
+let cacheBodyOverflow = {};
+
 export default {
   name: "Drawer",
   directives: { transfer },
@@ -18,10 +22,11 @@ export default {
   },
   watch: {
     value(v) {
-      // this.visible = v
-      document.body.style.overflow = v ? 'hidden' : ''
       this.init = true
-      this.$nextTick(e => this.visible = v)
+      this.$nextTick(e => {
+        this.visible = v
+        this.resetBodyStyle(v)
+      })
     },
   },
   data() {
@@ -29,6 +34,9 @@ export default {
       visible: this.value,
       init: false
     };
+  },
+  beforDestory() {
+    this.resetBodyStyle(false)
   },
   methods: {
     ok() {
@@ -52,7 +60,31 @@ export default {
       if (this.maskClosable) {
         this.close()
       }
-    }
+    },
+    resetBodyStyle(opened) {
+      if (!this.visible && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+        cacheBodyOverflow = {
+          width: document.body.width,
+          overflow: document.body.overflow,
+          overflowX: document.body.overflowX,
+          overflowY: document.body.overflowY,
+        }
+      }
+      if (opened) {
+        let barWidth = measureScrollBar(true)
+        if (barWidth) {
+          document.body.style.width = `calc(100% - ${barWidth}px)`
+          document.body.style.overflow = `hidden`
+        }
+      } else {
+        setTimeout(() => {
+          Object.keys(cacheBodyOverflow).forEach(key => {
+            document.body.style[key] = cacheBodyOverflow[key] || ''
+            delete cacheBodyOverflow[key]
+          })
+        }, 300)
+      }
+    },
   },
   render() {
     const { title, visible, cancelText, okText, ok,

@@ -74,7 +74,7 @@
       <div slot="footer">
         <Button>取消</Button>
         <Button type="danger">驳回</Button>
-        <Button type="success">通过</Button>
+        <Button>通过</Button>
       </div>
     </Drawer>
   </div>

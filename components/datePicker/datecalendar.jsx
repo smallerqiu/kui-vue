@@ -488,12 +488,12 @@ export default {
       let disabled = disabledDate(new Date())
       let time_disabled = isRange ? !(temp_left && temp_right) : (!currentValue);
 
-      !isRange && footerNode.push(<Button type="link" mini disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>此刻</Button>)
-      footerNode.push(<Button type="link" mini disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? '选择日期' : '选择时间'}</Button>)
-      footerNode.push(<Button type="primary" mini disabled={time_disabled} onClick={this.setDate}>确定</Button>)
+      !isRange && footerNode.push(<Button type="link" size='small' disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>此刻</Button>)
+      footerNode.push(<Button type="link" size="small" disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? '选择日期' : '选择时间'}</Button>)
+      footerNode.push(<Button type="primary" size='small' disabled={time_disabled} onClick={this.setDate}>确定</Button>)
     } else if (mode == 'date') {
       let disabled = disabledDate(new Date())
-      footerNode.push(<Button type="link" disabled={disabled} block mini onClick={this.setToday}>今天</Button>)
+      footerNode.push(<Button type="link" disabled={disabled} block size='small' onClick={this.setToday}>今天</Button>)
     }
     footerNode = footerNode.length || (isRange && this.showTime) ? <div class="k-calendar-footer">{footerNode}</div> : null
 

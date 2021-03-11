@@ -6,8 +6,12 @@ export default {
   props: {
     value: { type: [String, Number], default: "" },
     disabled: Boolean,
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     hollow: Boolean,
     circle: Boolean,
     options: Array,

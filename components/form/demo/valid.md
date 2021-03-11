@@ -80,7 +80,7 @@
       <FormItem>
         <Button type="primary" @click="submit">Submit</Button>
         <Button style="margin-left: 10px" @click="reset">Reset</Button>
-        <Button type="warning" @click="setValue">Set Value</Button>
+        <Button type="dashed" @click="setValue">Set Value</Button>
       </FormItem>
     </Form>
 

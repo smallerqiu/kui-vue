@@ -3,8 +3,12 @@ export default {
   name: 'TextArea',
   props: {
     clearable: Boolean,
-    mini: Boolean,
-    large: Boolean,
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
     value: [String, Number],
     placeholder: String,
     disabled: Boolean,

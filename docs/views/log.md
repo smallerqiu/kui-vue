@@ -1,4 +1,12 @@
 # 更新日志
+
+### 3.1
+`2021-03-10`
+   - 组件的尺寸由原来`mini/large` 改成 `size='small/large'`
+   - 完善`Table` 滚动条和其他一些细节
+   - `Button` 不再支持 `success` `warning`模式，增加 `dashed`类型
+   - 调整 `Menu` 细节
+   - 完善 `Drawer` 显示隐藏细节
 ### 3.0.9
 `2021-02-20`
    - 完善一些动画细节
@@ -137,7 +145,7 @@
 
 `Radio`
 
-- `RadioGroup` 增加 `mini`, `large` ,`circle` ,`options` 来控制组件呈现模式
+- `RadioGroup` 增加 `size` ,`circle` ,`options` 来控制组件呈现模式
 - `RadioButton`增加 `icon` 属性来展示图标
 
 `Switch`
