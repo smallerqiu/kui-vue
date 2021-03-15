@@ -52,7 +52,7 @@ export default {
       this.showInit = true
       this.$nextTick(e => {
         this.showPop = true
-        // this.$emit('input', this.showPop)
+        this.$emit('input', true)
       })
       // } else {
       // this.showPop = !this.showPop;
@@ -106,7 +106,7 @@ export default {
       if (this.showPlacementArrow) {
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
-          contentNode = [<Icon type="ios-help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
+          contentNode = [<Icon type="help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
 
           footerNode = <div class={`k-${preCls}-footer`}>
             <Button size="small" onClick={this.cancel}>{this.cancelText}</Button>
@@ -149,7 +149,6 @@ export default {
           mouseleave: e => {
             if (this.trigger == 'hover') {
               this.showPop = false
-              // console.log('wwwww')
             }
           },
           click: e => {

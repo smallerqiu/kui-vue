@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <a>
-      Cascading menu <Icon type="ios-arrow-down" />
+      Cascading menu <Icon type="chevron-down" />
     </a>
     <Menu slot="content">
       <MenuItem>1st menu item</MenuItem>

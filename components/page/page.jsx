@@ -73,7 +73,7 @@ export default {
         }
         return <li {...prop}><span>{p}</span></li>
       })
-      const moreNode = <li class="k-pager-item k-pager-more"><Icon type="ios-more" /></li>;
+      const moreNode = <li class="k-pager-item k-pager-more"><Icon type="ellipsis-horizontal" /></li>;
 
       if (showPrevMore) {
         child.unshift(moreNode)
@@ -166,8 +166,8 @@ export default {
   },
   render() {
     const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
-      preNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="ios-arrow-back" /></li>,
-      nextNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="ios-arrow-forward" /></li>,
+      preNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="chevron-back" /></li>,
+      nextNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="chevron-forward" /></li>,
       totalNode = (this.showTotal ? <div class="k-page-number"><span>共{this.total}条</span></div> : null),
       pagerNode = this.renderPage(),
       sizeNode = this.renderSize(),

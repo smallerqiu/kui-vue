@@ -10,9 +10,9 @@
       <Header>
         <div class="logo" />
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="ios-home">nav1</MenuItem>
+          <MenuItem key="t1" icon="home">nav1</MenuItem>
           <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="ios-heart">nav3</MenuItem>
+          <MenuItem key="t3" icon="heart">nav3</MenuItem>
         </Menu>
       </Header>
        <Layout>
@@ -20,7 +20,7 @@
            <Menu  v-model="left" class="demo-left-menu" mode="inline">
             <SubMenu key="l0">
               <template slot="title">
-                <Icon type="ios-paper" />subnav1
+                <Icon type="newspaper" />subnav1
               </template>
               <MenuItem key="0-1">option1</MenuItem>
               <MenuItem key="0-2">option2</MenuItem>
@@ -29,7 +29,7 @@
             </SubMenu>
             <SubMenu key="l1">
               <template slot="title">
-                <Icon type="ios-keypad" />subnav2
+                <Icon type="keypad" />subnav2
               </template>
               <MenuItem key="1-1">option1</MenuItem>
               <MenuItem key="1-2">option2</MenuItem>
@@ -38,7 +38,7 @@
             </SubMenu>
             <SubMenu key="l2">
               <template slot="title">
-                <Icon type="ios-settings" />subnav3
+                <Icon type="settings" />subnav3
               </template>
               <MenuItem key="2-1">option1</MenuItem>
               <MenuItem key="2-2">option2</MenuItem>

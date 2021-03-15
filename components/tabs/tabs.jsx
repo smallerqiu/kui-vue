@@ -182,7 +182,7 @@ export default {
         return <div {...prop}>
           {pane.icon ? <Icon type={pane.icon} /> : null}
           {pane.title}
-          {pane.closable && this.card ? <Icon type="md-close" class="k-tabs-close" onClick={e => this.closeTab(pane.$vnode.key, e)} /> : null}
+          {pane.closable && this.card ? <Icon type="close" class="k-tabs-close" onClick={e => this.closeTab(pane.$vnode.key, e)} /> : null}
         </div>
       })
     },
@@ -212,8 +212,8 @@ export default {
         <div class="k-tabs-bar">
           {$slots.extra ? <div class="k-tabs-extra" ref="extra">{$slots.extra}</div> : null}
           <div class={navCls}>
-            {this.scrollable ? [<span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="ios-arrow-back" /></span>,
-            <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="ios-arrow-forward" /></span>] : null}
+            {this.scrollable ? [<span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span>,
+            <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="chevron-forward" /></span>] : null}
             <div class="k-tabs-nav-wrap" ref="navbox">
               <div class="k-tabs-nav" style={scrollStyle} ref="navscroll">
                 {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref="inkbar" /> : null}

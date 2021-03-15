@@ -145,7 +145,7 @@ export default {
         }
       })
       if (expandNode) {
-        tr.unshift(<td class="k-table-row-expand-icon-cell"><Icon onClick={e => this.onExpand(d)} type={d._expanded ? 'md-remove' : 'md-add'} /></td>)
+        tr.unshift(<td class="k-table-row-expand-icon-cell"><Icon onClick={e => this.onExpand(d)} type={d._expanded ? 'remove' : 'add'} /></td>)
       }
       let trProps = {
         class: { 'k-table-row-hover': d._hover },

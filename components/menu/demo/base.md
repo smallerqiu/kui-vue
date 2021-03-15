@@ -7,11 +7,11 @@
 <template>
   <div>
     <Menu mode="horizontal" v-model="current">
-      <MenuItem key="1" icon="md-mail">Navigation One</MenuItem>
-      <MenuItem key="2" icon="ios-keypad" disabled>Navigation Two</MenuItem>
+      <MenuItem key="1" icon="mail">Navigation One</MenuItem>
+      <MenuItem key="2" icon="keypad" disabled>Navigation Two</MenuItem>
       <SubMenu key="3">
         <template slot="title">
-          <Icon type="ios-settings" />Navigation - Submenu
+          <Icon type="settings" />Navigation - Submenu
         </template>
         <MenuGroup title="Item 1">
           <MenuItem key="3-1">Option 1</MenuItem>
@@ -22,7 +22,7 @@
           <MenuItem key="3-4">Option 2</MenuItem>
           <SubMenu key="3-5">
             <template slot="title">
-              <Icon type="ios-settings" />Navigation - Submenu
+              <Icon type="settings" />Submenu
             </template>
             <MenuGroup title="Item 1">
               <MenuItem key="3-5-1">Option 1</MenuItem>

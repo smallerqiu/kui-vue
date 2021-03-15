@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Card title="卡片标题" icon="ios-heart" bordered>
+    <Card title="卡片标题" icon="heart" bordered>
       <div slot="extra">
         <Tooltip title="我是一个苹果"><Icon type="logo-apple" size="20"/></Tooltip>
       </div>

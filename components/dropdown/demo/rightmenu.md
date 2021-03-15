@@ -20,10 +20,10 @@
       <MenuItem>
         <a href="javascript:;">Eidt</a>
       </MenuItem>
-      <MenuItem icon="ios-save">
+      <MenuItem icon="save">
         <a href="javascript:;">Save</a>
       </MenuItem>
-      <MenuItem icon="ios-cut">
+      <MenuItem icon="cut">
         <a href="javascript:;">Cut</a>
       </MenuItem>
       <MenuDivider />

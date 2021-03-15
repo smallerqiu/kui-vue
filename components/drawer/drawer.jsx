@@ -101,7 +101,7 @@ export default {
       </div> : null
     )
     const closeNode = closable
-      ? <span class="k-drawer-close" onClick={close}><Icon type="md-close" /></span>
+      ? <span class="k-drawer-close" onClick={close}><Icon type="close" /></span>
       : null
     const transitionName = `k-drawer-${placement}`
 

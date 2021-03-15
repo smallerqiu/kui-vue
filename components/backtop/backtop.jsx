@@ -63,7 +63,7 @@ export default {
   render() {
     let child = this.$slots.default
     if (!child) {
-      child = <div class="k-backtop-content"><Icon type="md-arrow-round-up" /></div>
+      child = <div class="k-backtop-content"><Icon type="arrow-up" /></div>
     }
     return (
       <transition name="k-backtop-fade">

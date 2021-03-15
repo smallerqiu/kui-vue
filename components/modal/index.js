@@ -25,11 +25,11 @@ let createInstance = (props = {}) => {
       //icons
       let { icon, title, content, color, cancelText, okText } = props
       let icons = {
-        info: "ios-information-circle",
-        error: "ios-close-circle",
-        success: "ios-checkmark-circle",
-        warning: "ios-alert",
-        confirm: 'ios-help-circle'
+        info: "information-circle",
+        error: "close-circle",
+        success: "checkmark-circle",
+        warning: "alert-circle",
+        confirm: 'help-circle'
       }
       let type = icons[icon] || icon
       //header 

@@ -6,12 +6,12 @@
 ```vue
 <template>
   <div>
-    <Button type="primary" icon="ios-search" circle></Button>
-    <Button type="primary" icon="ios-search">搜索</Button>
-    <Button icon="ios-search" circle></Button>
-    <Button icon="ios-search">搜索</Button>
-    <Button type="dashed" icon="ios-search" circle></Button>
-    <Button type="dashed" icon="ios-search">搜索</Button>
+    <Button type="primary" icon="search" circle></Button>
+    <Button type="primary" icon="search">搜索</Button>
+    <Button icon="search" circle></Button>
+    <Button icon="search">搜索</Button>
+    <Button type="dashed" icon="search" circle></Button>
+    <Button type="dashed" icon="search">搜索</Button>
   </div>
 </template>
 ```

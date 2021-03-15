@@ -40,7 +40,21 @@ body {
     .search-component {
       width: 280px;
       float: left;
-      margin-left: 160px;
+      margin-left: 184px;
+      position: relative;
+      padding-left: 2px;
+      .k-select-open .k-select-selection, .k-select:focus .k-select-selection {
+        box-shadow: none;
+      }
+      &::before {
+        content: '';
+        width: 1px;
+        height: 15px;
+        background-color: #ddd;
+        left: 0;
+        position: absolute;
+        top: 21px;
+      }
       .k-select-selection {
         font-size: 15px;
         border: none !important;
@@ -91,7 +105,7 @@ body {
           font-size: 13px;
           margin-top: 16px;
           margin-bottom: 16px;
-          &::after{
+          &::after {
             position: absolute;
             content: '';
             height: 1px;
@@ -101,7 +115,7 @@ body {
             bottom: 0;
           }
         }
-        .k-menu-inline .k-menu-item{
+        .k-menu-inline .k-menu-item {
           padding-left: 24px;
         }
       }

@@ -11,10 +11,10 @@
       </div>
       <div class="k-code-actions">
         <ToolTip title="Copy code">
-          <Icon type="md-copy" @click="copy" />
+          <Icon type="copy-outline" @click="copy" />
         </ToolTip>
         <ToolTip :title="expand?'Hide code':'Show code'">
-          <Icon :type="'md-code'+(expand?'-working':'')" @click="expand=!expand" />
+          <Icon :type="'code'+(expand?'-working':'')" @click="expand=!expand" />
         </ToolTip>
       </div>
     </div>

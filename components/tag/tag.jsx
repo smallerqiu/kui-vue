@@ -37,7 +37,7 @@ export default {
           <span class="k-tag-text">
             {$slots.default}
           </span>
-          {closeable ? <Icon class="k-tag-close" type="ios-close" onClick={close} /> : null}
+          {closeable ? <Icon class="k-tag-close" type="close" onClick={close} /> : null}
         </div>
       </transition>
     )

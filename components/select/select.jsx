@@ -320,10 +320,10 @@ export default {
       let kid = this.getOptions()
       // kid = (
       //   !kid.length
-      //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="ios-albums" /><p class="k-empty-desc">暂无数据</p></li>
+      //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
       //     : kid
       // )
-      const loadingNode = <div class="k-select-loading"><Icon type="ios-sync" spin /><span>加载中...</span></div>
+      const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>加载中...</span></div>
       const props = {
         ref: 'overlay',
         props: {
@@ -347,7 +347,7 @@ export default {
     )
     const tags = multiple ?
       label.map((c, i) => {
-        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type="ios-close" onClick={e => removeTag(e, i)} /></span>
+        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
       })
       : null
 
@@ -367,7 +367,7 @@ export default {
     childNode.push(labelsNode)
     childNode.push(placeNode)
 
-    !isSearch && childNode.push(<Icon class="k-select-arrow" type="ios-arrow-down" />)
+    !isSearch && childNode.push(<Icon class="k-select-arrow" type="chevron-down" />)
 
     if ((this.filterable || isSearch) && !multiple) {
       childNode.push(queryNode)
@@ -380,7 +380,7 @@ export default {
         "k-select-has-clear": showClear
       }
     ]
-    showClear && childNode.push(<Icon class="k-select-clearable" type="ios-close-circle" onClick={clear} />)
+    showClear && childNode.push(<Icon class="k-select-clearable" type="close-circle" onClick={clear} />)
 
     return (
       <div tabIndex="0" class={classes} style={styles}>

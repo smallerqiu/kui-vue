@@ -7,7 +7,7 @@
 <template>
   <Dropdown v-model="visible">
     <a>
-      Hover me <Icon type="ios-arrow-down" />
+      Hover me <Icon type="chevron-down" />
     </a>
     <Menu slot="content" @click="handleMenuClick">
       <MenuItem key="1">

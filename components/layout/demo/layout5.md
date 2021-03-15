@@ -11,13 +11,13 @@
       <Sider class="demo-sider" :style="{width:collapsed?'80px':'200px'}">
         <div class="logo" />
         <Menu mode="inline" theme="dark" v-model="left" :open-keys="open" class="demo-top-menu" :inline-collapsed="collapsed">
-          <MenuItem key="1-1" icon="ios-home"><span>option1</span></MenuItem>
+          <MenuItem key="1-1" icon="home"><span>option1</span></MenuItem>
           <MenuItem key="1-2" icon="logo-buffer"><span>option2</span></MenuItem>
-          <MenuItem key="1-3" icon="ios-heart"><span>option3</span></MenuItem>
-          <MenuItem key="1-4" icon="ios-albums"><span>option4</span></MenuItem>
+          <MenuItem key="1-3" icon="heart"><span>option3</span></MenuItem>
+          <MenuItem key="1-4" icon="albums"><span>option4</span></MenuItem>
           <SubMenu key="l0">
             <template slot="title">
-              <Icon type="ios-paper" /><span>subnav1</span>
+              <Icon type="newspaper" /><span>subnav1</span>
             </template>
             <MenuItem key="0-1">option1</MenuItem>
             <MenuItem key="0-2">option2</MenuItem>
@@ -25,13 +25,13 @@
             <MenuItem key="0-4">option4</MenuItem>
           </SubMenu> 
         </Menu>
-        <div class="toggle-menu" @click="toggle"><Icon :type="!collapsed?'ios-arrow-back':'ios-arrow-forward'" /></div>
+        <div class="toggle-menu" @click="toggle"><Icon :type="!collapsed?'chevron-back':'chevron-forward'" /></div>
       </Sider>
       <Content class="k-demo-main">
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="ios-home">nav1</MenuItem>
+          <MenuItem key="t1" icon="home">nav1</MenuItem>
           <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="ios-heart">nav3</MenuItem>
+          <MenuItem key="t3" icon="heart">nav3</MenuItem>
         </Menu>
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>

@@ -7,9 +7,9 @@
 <template>
   <div>
     <Breadcrumb>
-      <BreadcrumbItem to="/" icon="ios-home">Home</BreadcrumbItem>
+      <BreadcrumbItem to="/" icon="home">Home</BreadcrumbItem>
       <BreadcrumbItem to="/components/breadcrumb" icon="logo-buffer">breadcrumb</BreadcrumbItem>
-      <BreadcrumbItem icon="ios-heart">other</BreadcrumbItem>
+      <BreadcrumbItem icon="heart">other</BreadcrumbItem>
     </Breadcrumb>
   </div>
 </template>

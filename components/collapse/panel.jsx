@@ -29,7 +29,7 @@ export default {
     return (
       <div class={classes}>
         <div class="k-collapse-header" onClick={this.handelClick}>
-          <Icon type="ios-arrow-forward" />
+          <Icon type="chevron-forward" />
           <span class="k-collapse-title">{this.title}</span>
         </div>
         <transition {...aniprop}>

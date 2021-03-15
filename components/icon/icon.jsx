@@ -1,4 +1,5 @@
 import icons from 'kui-icons'
+// import icons from './lib/kui-icons'
 
 export default {
   name: "Icon",
@@ -29,7 +30,10 @@ export default {
     //   else
     //     return <path d={d} />
     // })
-    const pathNode = <path d={icons[type]} />
-    return (<i {...props}><svg viewBox='0 0 512 512' width="1em" height="1em" fill={color}>{pathNode}</svg></i>)
+    // const pathNode = <path d={icons[type]} fill={color} stroke-linejoin='round' stroke='currentColor' stroke-width='32' />
+    const pathNode = (icons[type] || []).map(i => {
+      return <path d={i.d} style={i.s ? i.s : 'fill:currentColor;'} />
+    })
+    return (<i {...props}><svg id={type} viewBox='0 0 512 512' width="1em" height="1em">{pathNode}</svg></i>)
   }
 };

@@ -10,14 +10,14 @@
       <Sider class="demo-sider">
         <div class="logo" />
         <Menu mode="inline" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="ios-home">nav1</MenuItem>
+          <MenuItem key="t1" icon="home">nav1</MenuItem>
           <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="ios-heart">nav3</MenuItem>
-          <MenuItem key="t5" icon="ios-albums">nav4</MenuItem>
-          <MenuItem key="t6" icon="ios-calculator">nav5</MenuItem>
-          <MenuItem key="t7" icon="ios-call">nav6</MenuItem>
-          <MenuItem key="t8" icon="ios-cloud">nav7</MenuItem>
-          <MenuItem key="t9" icon="ios-color-palette">nav8</MenuItem>
+          <MenuItem key="t3" icon="heart">nav3</MenuItem>
+          <MenuItem key="t5" icon="albums">nav4</MenuItem>
+          <MenuItem key="t6" icon="calculator">nav5</MenuItem>
+          <MenuItem key="t7" icon="call">nav6</MenuItem>
+          <MenuItem key="t8" icon="cloud">nav7</MenuItem>
+          <MenuItem key="t9" icon="color-palette">nav8</MenuItem>
         </Menu>
       </Sider>
       <Content class="k-demo-main">

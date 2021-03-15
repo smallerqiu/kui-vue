@@ -6,7 +6,7 @@ export default {
       this.$emit('click', e)
     }
     return (<div class="k-empty" onClick={handle}>
-      {this.$slots.default || [<Icon type="ios-albums" />, <p class="k-empty-desc">暂无数据</p>]}
+      {this.$slots.default || [<Icon type="albums" />, <p class="k-empty-desc">暂无数据</p>]}
     </div>)
   }
 }

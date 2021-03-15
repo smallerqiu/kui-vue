@@ -25,7 +25,7 @@ export default{
           render:(h,{gender},i)=>{
             return h('Icon',{
               props:{
-                type :  gender==1?'ios-male':'ios-female',
+                type :  gender==1?'male':'female',
                 color: gender==1?'blue':'#f50cff',
                 size: 15
               }

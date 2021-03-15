@@ -14,17 +14,17 @@
     <br />
     <br />
     <Switch>
-      <Icon type="ios-checkmark" slot="checked"/>
-      <Icon type="ios-close" slot="unchecked"/>
+      <Icon type="checkmark" slot="checked"/>
+      <Icon type="close" slot="unchecked"/>
     </Switch>
     <Switch>
       <Icon type="logo-apple" slot="checked"/>
-      <Icon type="logo-android" slot="unchecked"/>
+      <Icon type="logo-windows" slot="unchecked"/>
     </Switch>
     <br />
      <Switch>
-      <Icon type="ios-airplane" slot="unchecked"/>
-      <Icon type="ios-wifi" slot="checked"/>
+      <Icon type="airplane" slot="unchecked"/>
+      <Icon type="wifi" slot="checked"/>
     </Switch>
   </div>
 </template>

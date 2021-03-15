@@ -165,7 +165,7 @@ export default {
     let contentNode = $slots.content
     if (!contentNode) {
       const contents = []
-      contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="md-close" /></span>)
+      contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="close" /></span>)
       contents.push(<div class="k-modal-header"><div class="k-modal-header-inner">{this.title}</div></div>)
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 

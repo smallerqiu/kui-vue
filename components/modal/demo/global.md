@@ -10,7 +10,7 @@
     <Button @click="show(1)" type="danger">Error</Button>
     <Button @click="show(2)">Warning</Button>
     <Button @click="show(3)" type="primary">Info</Button>
-    <Button @click="show(4)" icon="ios-moon">Custom icon</Button>
+    <Button @click="show(4)" icon="moon">Custom icon</Button>
   </div>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default{
       let m = ['success','error','warning','info']
 
       i==4 ?
-      this.$Modal.show({ title:t[i], content:c[i],icon:'ios-moon',color:'#eccb23' }) :
+      this.$Modal.show({ title:t[i], content:c[i],icon:'moon',color:'#eccb23' }) :
       this.$Modal[m[i]]({ title:t[i], content:c[i] })
     },
   }

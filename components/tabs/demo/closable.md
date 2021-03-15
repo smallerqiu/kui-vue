@@ -10,7 +10,7 @@
     <TabPane :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
       {{pane.content}}
     </TabPane>
-    <Button slot="extra" icon="ios-add" size="small" @click="add"/>
+    <Button slot="extra" icon="add" size="small" @click="add"/>
   </Tabs>
 </template>
 <script>

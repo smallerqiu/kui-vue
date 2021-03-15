@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     updatePosition(e) {
-      // console.log(e)
       let { offsetBottom, offsetTop, $refs } = this
       if (!$refs.blob) return;
 

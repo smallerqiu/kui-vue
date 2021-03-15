@@ -66,7 +66,7 @@ export default {
         ["k-checkbox-indeterminate"]: indeterminate
       }
     ];
-    let inner = checked ? <Icon type="ios-checkmark" /> : null
+    let inner = checked ? <Icon type="checkmark" /> : null
     const labelNode = label || $slots.default
     return (
       <label class={wpclasses}>
