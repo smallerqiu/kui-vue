@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <a href="#">
-      Hover me <Icon type="ios-arrow-down" />
+      Hover me <Icon type="chevron-down" />
     </a>
     <Menu slot="content">
       <MenuItem>
@@ -23,7 +23,7 @@
   </Dropdown>
   <Dropdown show-placement-arrow >
     <Button >
-      show arrow <Icon type="ios-arrow-down" />
+      show arrow <Icon type="chevron-down" />
     </Button>
     <Menu slot="content">
       <MenuItem>
@@ -40,7 +40,7 @@
 
   <Dropdown trigger="click" >
     <Button >
-      Click me <Icon type="ios-arrow-down" />
+      Click me <Icon type="chevron-down" />
     </Button>
     <Menu slot="content">
       <MenuItem>

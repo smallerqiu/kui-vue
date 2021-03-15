@@ -363,14 +363,14 @@ export default {
           let k = <div class="k-color-picker-key"><span>HEX</span></div>
           node.push(v, k)
         }
-        let btn = <Button icon="ios-flash" size="small" circle onClick={this.setMode} />
+        let btn = <Button icon="flash" size="small" circle onClick={this.setMode} />
         node.push(btn)
         return <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>{node}</div>
       }
     },
     renderDefaultColor() {
       let color = this.defalutColors.map(c => <span style={"background-color:" + c} onClick={e => this.valueChange('COLOR', c)}></span>)
-      let okBtn = <Button icon="ios-color-fill" circle onClick={this.updateValue} />
+      let okBtn = <Button icon="color-fill" circle onClick={this.updateValue} />
       return <div class="k-coclor-picker-defaults">{[color, okBtn]}</div>
     },
     renderDrop() {
@@ -431,7 +431,7 @@ export default {
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
         </div>
-        <Icon type="ios-arrow-down" />
+        <Icon type="chevron-down" />
       </div>
       {drop}
     </div >)

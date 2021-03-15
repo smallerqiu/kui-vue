@@ -17,7 +17,7 @@
     <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template slot="footer">
-        <Button icon="ios-save" @click="visible2=false" type="primary">Save</Button>
+        <Button icon="save" @click="visible2=false" type="primary">Save</Button>
       </template> 
     </Modal>
 

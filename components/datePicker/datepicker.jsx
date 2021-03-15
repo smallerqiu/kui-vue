@@ -142,7 +142,7 @@ export default {
     let { currentValue, placeholder, disabled, clearable, showDrop, size, label, mode, transfer } = this
     let childNode = [], isRange = mode == 'range';
 
-    childNode.push(<Icon type="ios-calendar" class="k-icon-calendar" />)
+    childNode.push(<Icon type="calendar-outline" class="k-icon-calendar" />)
     if (isRange) {
       placeholder = placeholder || []
       if (placeholder && !Array.isArray(placeholder)) {
@@ -219,7 +219,7 @@ export default {
       overlay = <Drop {...props}>{calendar}</Drop >
     }
     let showClear = !disabled && clearable && isNotEmpty(label)
-    showClear && childNode.push(<Icon class="k-datepicker-clearable" type="ios-close-circle" onClick={this.clear} />)
+    showClear && childNode.push(<Icon class="k-datepicker-clearable" type="close-circle" onClick={this.clear} />)
     const selectCls = [
       "k-datepicker-selection", {
         "k-datepicker-has-clear": showClear

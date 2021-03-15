@@ -16,10 +16,10 @@ export default {
     }];
     let childNode;
     let icons = {
-      info: "ios-information-circle",
-      error: "ios-close-circle",
-      success: "ios-checkmark-circle",
-      warning: "ios-alert"
+      info: "information-circle",
+      error: "close-circle",
+      success: "checkmark-circle",
+      warning: "alert-circle"
     };
     let iconNode = type != 'default' ? <Icon type={icons[type]} class={`k-${noticeType}-icon`} /> : null
     if (noticeType == 'message') {
@@ -28,7 +28,7 @@ export default {
         <div class="k-message-content">
           {iconNode}
           <span>{content}</span>
-          {closable ? <Icon class="k-message-close" type="ios-close" onClick={onClose} /> : null}
+          {closable ? <Icon class="k-message-close" type="close" onClick={onClose} /> : null}
         </div>
       )
     } else {
@@ -37,7 +37,7 @@ export default {
           {iconNode}
           <div class="k-notice-title">{title}</div>
           <div class="k-notoce-desc">{content}</div>
-          <Icon class="k-notice-close" type="ios-close" onClick={onClose} />
+          <Icon class="k-notice-close" type="close" onClick={onClose} />
         </div>
       )
     }

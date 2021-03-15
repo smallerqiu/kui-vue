@@ -11,9 +11,9 @@
       <Header>
         <div class="logo" />
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="ios-home">nav1</MenuItem>
+          <MenuItem key="t1" icon="home">nav1</MenuItem>
           <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="ios-heart">nav3</MenuItem>
+          <MenuItem key="t3" icon="heart">nav3</MenuItem>
         </Menu>
       </Header> 
       <Content class="k-demo-main">

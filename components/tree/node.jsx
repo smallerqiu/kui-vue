@@ -72,7 +72,7 @@ export default {
 
     if (hasChilds || loading !== undefined) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
-      let arrowNode = <span class={arrowCls} onClick={this.handleExpand}><Icon type={loading ? 'ios-sync' : 'ios-arrow-forward'} spin={loading} /></span>
+      let arrowNode = <span class={arrowCls} onClick={this.handleExpand}><Icon type={loading ? 'sync' : 'chevron-forward'} spin={loading} /></span>
       itemNode.push(arrowNode)
     } else {
       itemNode.push(<span class="k-tree-commes"></span>)

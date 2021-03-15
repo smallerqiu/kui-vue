@@ -307,7 +307,7 @@ export default {
         this.$Modal.show({
           title: '自定义标题',
           content: '自定义内容',
-          icon: 'ios-happy',
+          icon: 'happy',
           color: '#00ffff'
         })
         return;

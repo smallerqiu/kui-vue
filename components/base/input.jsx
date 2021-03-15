@@ -93,8 +93,8 @@ export default {
     getSuffix() {
       let { $listeners } = this
       const Search = ('search' in $listeners)
-        ? <Icon type='ios-search' onClick={this.searchEvent} /> : null
-      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? 'md-eye' : 'md-eye-off'} onClick={this.showPassword} /> : null
+        ? <Icon type='search' onClick={this.searchEvent} /> : null
+      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? 'eye' : 'eye-off'} onClick={this.showPassword} /> : null
 
       return Password || Search || this.$slots.suffix
     },
@@ -147,7 +147,7 @@ export default {
             {icon ? <Icon type={icon} class="k-input-icon" onClick={this.iconClick} /> : null}
             <input  {...inputProps} />
             {suffix ? <div class="k-input-suffix">{suffix}</div> : null}
-            {clearableShow ? <Icon type="ios-close-circle" class="k-input-clearable" onClick={this.clear} /> : null}
+            {clearableShow ? <Icon type="close-circle" class="k-input-clearable" onClick={this.clear} /> : null}
           </div>
           : <input  {...inputProps} />
       )

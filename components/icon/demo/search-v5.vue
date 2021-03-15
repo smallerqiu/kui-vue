@@ -2,23 +2,18 @@
   <div>
     <h3>图标快速检索</h3>
     <br />
-    <Affix :offsetTop="52">
-      <div style="background:#fff;padding:20px 0;">
-        <div style="position:relative;width:800px;margin:0 auto;">
-          <RadioGroup v-model="type" @change="switchIcon" style="position:absolute;right:4px;top:4px;z-index:10;">
-            <RadioButton value="outline">Outline</RadioButton>
-            <RadioButton value="filled">Filled</RadioButton>
-          </RadioGroup>
-          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" size="large" @input="search" clearable />
-        </div>
-      </div>
-    </Affix>
-
+    <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" style="width:80%;margin:0 auto;display:inherit" size="large" @input="search" clearable />
     <br />
     <br />
     <div class="show-icons">
       <template v-if="applist.length">
         <div class="icon-head">
+          <div class="icon-title" style="text-align: center;">
+            <RadioGroup v-model="type" @change="switchIcon">
+              <RadioButton value="ios">IOS</RadioButton>
+              <RadioButton value="Material">Material</RadioButton>
+            </RadioGroup>
+          </div>
           <h3><span>App icons</span></h3>
         </div>
         <br />
@@ -33,10 +28,11 @@
         <div class="icon-item">
           <span @click.stop="copy(x)" v-for="(x,y) in logos" :key="y">
             <Icon :type="x" />
+            <!-- <p>{{x}}</p> -->
           </span>
         </div>
       </template>
-      <h3 v-if="!applist.length && !logos.length" style="text-align:center;padding-bottom:50px;color:#888;">
+      <h3 v-if="!applist.length && !logos.length" style="text-align:center;">
         No results for "{{key}}"
       </h3>
     </div>
@@ -66,26 +62,25 @@
 }
 </style>
 <script>
-// import icons from 'kui-icons'
-import icons from '../lib/kui-icons'
+import icons from 'kui-icons'
 export default {
   data() {
     return {
       key: '',
-      type: 'outline',
+      type: 'ios',
       logos: [],
       applist: [],
-      filled: [],
-      outline: [],
+      md: [],
+      ios: [],
       logo: []
     }
   },
   mounted() {
     let all = Object.keys(icons)
     this.logo = this.logos = all.filter(x => x.indexOf('logo') >= 0)
-    this.applist = all.filter(x => x.indexOf('outline') >= 0)
-    this.outline = all.filter(x => x.indexOf('outline') >= 0)
-    this.filled = all.filter(x => x.indexOf('logo') < 0 && x.indexOf('outline') < 0)
+    this.applist = all.filter(x => x.indexOf('ios') >= 0)
+    this.ios = all.filter(x => x.indexOf('ios') >= 0)
+    this.md = all.filter(x => x.indexOf('md') >= 0)
   },
   methods: {
     switchIcon() {
@@ -97,9 +92,9 @@ export default {
       this.filter(key)
     },
     filter(key) {
-      let { outline, filled, logo } = this
+      let { ios, md, logo } = this
       if (key) {
-        let oriapp = this.type == 'outline' ? outline : filled;
+        let oriapp = this.type == 'ios' ? ios : md;
         this.applist = oriapp.filter(x => {
           return x.indexOf(key) >= 0
         })
@@ -108,7 +103,7 @@ export default {
           return x.indexOf(key) >= 0
         })
       } else {
-        this.applist = this.type == 'outline' ? outline : filled;
+        this.applist = this.type == 'ios' ? ios : md;
         this.logos = logo
       }
     },

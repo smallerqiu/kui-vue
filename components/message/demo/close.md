@@ -27,7 +27,7 @@ export default{
     config3() {
       this.$Message.config({
         type: "info",
-        duration: 20,
+        duration: 0,
         closable: true,
         content: "手动关闭",
         close: () => { this.$Message.success("我是回调"); }

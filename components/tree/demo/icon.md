@@ -15,12 +15,12 @@ export default{
         {
           title: 'src',
           expand: true,
-          icon: 'md-folder-open',
+          icon: 'folder-open',
           children: [
             {
               title: 'assets',
               expand: true,
-              icon: 'md-folder-open',
+              icon: 'folder-open',
               children: [
                 { title: 'main.js', icon: 'logo-javascript',disabled:true },
                 { title: 'test.py', icon: 'logo-python' }
@@ -29,7 +29,7 @@ export default{
             {
               title: 'pages',
               expand: true,
-              icon: 'md-folder-open',
+              icon: 'folder-open',
               children: [
                 { title: 'index.html', icon: 'logo-html5' },
                 { title: 'index.md', icon: 'logo-markdown' }
@@ -38,9 +38,9 @@ export default{
             {
               title: 'app',
               expand: true,
-              icon: 'md-folder-open',
+              icon: 'folder-open',
               children: [
-                { title: 'zen.apk', icon: 'logo-android' },
+                { title: 'zen.apk', icon: 'logo-windows' },
                 { title: 'zen.ipa', icon: 'logo-apple' }
               ]
             }
@@ -51,7 +51,7 @@ export default{
   },
   methods:{
     expand(node){
-      node.icon = node.expand?'md-folder-open':'md-folder'
+      node.icon = node.expand?'folder-open':'folder'
     }
   }
 }

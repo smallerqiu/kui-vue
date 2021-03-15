@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="demo-card">
-    <Card title="卡片标题" icon="ios-heart">
+    <Card title="卡片标题" icon="heart">
       <div slot="extra" @click="$Message.info('click')">
         <span>年</span>-<span>月</span>-<span>日</span>
       </div>

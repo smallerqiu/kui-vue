@@ -67,7 +67,7 @@ export default {
         click: click
       }
     }
-    const iconType = loading ? 'ios-sync' : icon;
+    const iconType = loading ? 'sync' : icon;
     const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
     const kid = child.map(c => {

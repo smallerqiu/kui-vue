@@ -8,7 +8,7 @@ export default {
   render() {
     const styles = { color: this.color }
     let { icon } = this
-    const type = icon ? icon : "ios-radio-button-off";
+    const type = icon ? icon : "radio-button-off";
     const iconNode = this.$slots.dot || <Icon type={type} />
     const iconCls = ['k-time-line-dot', { 'k-time-line-icon-default': !icon }]
 

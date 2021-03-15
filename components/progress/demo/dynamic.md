@@ -10,8 +10,8 @@
   <Progress :percent="percent" type="dashboard" />
   <br/>
   <ButtonGroup circle>
-    <Button @click="decline" icon="ios-remove" />
-    <Button @click="increase" icon="ios-add"/>
+    <Button @click="decline" icon="remove" />
+    <Button @click="increase" icon="add"/>
   </ButtonGroup>
 </template>
 <script>

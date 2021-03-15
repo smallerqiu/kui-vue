@@ -150,6 +150,7 @@
       width: 100%;
       .k-menu-submenu-inner {
         white-space: nowrap;
+        padding-right: 16px;
       }
       >.k-menu-item, >.k-menu-submenu {
         line-height: 40px;
@@ -214,6 +215,7 @@
       >.k-menu-submenu>.k-menu-submenu-title>.k-menu-submenu-arrow {
         position: absolute;
         right: 16px;
+        margin: 0;
         top: 50%;
         transform: translateY(-50%);
       }
@@ -396,9 +398,13 @@
         border-bottom: 0;
         .k-menu-item, .k-menu-submenu {
           top: 0;
-          margin-top: 0;
+          margin: 0;
+          padding: 0 16px;
           border-color: @dark-back;
           border-bottom: 0;
+        }
+        .k-menu-submenu-selected {
+          background-color: @main;
         }
       }
       .k-menu-submenu-opened {

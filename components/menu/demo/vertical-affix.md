@@ -12,7 +12,7 @@
     <Menu v-model="current" mode="vertical" vertical-affixed :theme="theme">
       <SubMenu key="sub1">
         <template slot="title">
-          <Icon type="ios-keypad" />Navigation One
+          <Icon type="keypad" />Navigation One
         </template>
           <MenuItem key="1-1">Option 1</MenuItem>
           <MenuItem key="1-2">Option 2</MenuItem>
@@ -26,7 +26,7 @@
       </SubMenu>
       <SubMenu key="sub2">
         <template slot="title">
-          <Icon type="ios-keypad" />Navigation Two
+          <Icon type="keypad" />Navigation Two
         </template>
           <MenuItem key="2-1">Option 1</MenuItem>
           <MenuItem key="2-2">Option 2</MenuItem>
@@ -38,7 +38,7 @@
       </SubMenu>
        <SubMenu key="sub3">
         <template slot="title">
-          <Icon type="ios-settings" />Navigation Three
+          <Icon type="settings" />Navigation Three
         </template>
         <MenuItem key="3-1">Option 1</MenuItem>
         <MenuItem key="3-2" affixed>Option 2</MenuItem>
@@ -47,7 +47,7 @@
       </SubMenu>
        <SubMenu key="sub4">
         <template slot="title">
-          <Icon type="ios-settings" />Navigation Four
+          <Icon type="settings" />Navigation Four
         </template>
         <MenuItem key="4-1">Option 1</MenuItem>
         <MenuItem key="4-2">Option 2</MenuItem>
@@ -56,7 +56,7 @@
       </SubMenu>
        <SubMenu key="sub5">
         <template slot="title">
-          <Icon type="ios-settings" />Navigation Five
+          <Icon type="settings" />Navigation Five
         </template>
         <MenuItem key="5-1" affixed>Option 1</MenuItem>
         <MenuItem key="5-2" affixed>Option 2</MenuItem>

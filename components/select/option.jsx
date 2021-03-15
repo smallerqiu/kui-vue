@@ -37,7 +37,7 @@ export default {
       if (groupContext.multiple) {
         selected = _value.indexOf(value) !== -1
 
-        iconNode = <Icon type="md-checkmark" />
+        iconNode = <Icon type="checkmark" />
       } else {
         selected = _value === value
       }

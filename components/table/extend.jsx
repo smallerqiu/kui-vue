@@ -77,8 +77,8 @@ export default {
     },
     renderSort(col) {
       return (col.sorter) ? (<span class="k-table-sorter">
-        <Icon type="md-arrow-dropup" class={{ actived: col._order == 'asc' }} />
-        <Icon type="md-arrow-dropdown" class={{ actived: col._order == 'desc' }} />
+        <Icon type="arrow-dropup" class={{ actived: col._order == 'asc' }} />
+        <Icon type="arrow-dropdown" class={{ actived: col._order == 'desc' }} />
       </span>) : null
     },
     renderTH(col) {

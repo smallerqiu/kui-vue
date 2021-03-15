@@ -18,10 +18,10 @@
     <Button type="dashed" :size="size">Dashed</Button>
     <Button type="link" :size="size">Link</Button>
     <br/>
-    <Button type="primary" :size="size" icon="md-download"></Button>
-    <Button type="primary" circle :size="size" icon="md-download"></Button>
-    <Button type="primary" circle :size="size" icon="md-download">Download</Button>
-    <Button type="primary" :size="size" icon="md-download">Download</Button>
+    <Button type="primary" :size="size" icon="cloud-download"></Button>
+    <Button type="primary" circle :size="size" icon="cloud-download"></Button>
+    <Button type="primary" circle :size="size" icon="cloud-download">Download</Button>
+    <Button type="primary" :size="size" icon="cloud-download">Download</Button>
 
   </div>
 </template>

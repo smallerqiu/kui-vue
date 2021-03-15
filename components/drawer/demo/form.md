@@ -11,7 +11,7 @@
     <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
       <Form :label-width="128" ref="form" :model="form" :rules="rules" label-align="left">
         <FormItem label="Input" prop="input">
-          <Input v-model="form.input" clearable icon="ios-home"></Input>
+          <Input v-model="form.input" clearable icon="home"></Input>
         </FormItem>
         <FormItem label="Number" prop="number">
           <Input v-model="form.number" number clearable></Input>

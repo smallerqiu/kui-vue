@@ -86,7 +86,7 @@ export default {
         <li {...props}>
           {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null}
           {this.$slots.default}
-          {root.mode == 'vertical' && root.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "ios-star" : "ios-star-outline"} /> : null}
+          {root.mode == 'vertical' && root.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
       </Tooltip>

@@ -76,7 +76,7 @@ export default {
     const popupProps = {
       slot: 'content',
       class: `k-${preCls}-popup`,
-      style: { 'min-width': `${this.minWidth}px` },
+      style: { 'min-width': `${this.minWidth}px`, 'margin-left': root.theme == 'dark' && this.$parent == root && root.mode == "horizontal" ? '-16px' : null },
       on: {
         mouseenter: () => {
           clearTimeout(this.timer);
@@ -103,7 +103,7 @@ export default {
     }
     const titleNode = <div {...titleProps}>
       <span class={`k-${preCls}-inner`}>{$slots.title || this.title}</span>
-      <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "ios-arrow-down" : 'ios-arrow-forward'} class={`k-${preCls}-arrow`} />
+      <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
     </div>
     if (currentMode == 'inline' || this.SubMenu != null || isDropdown) {
       popupProps.directives = [{ name: 'show', value: opened }]
@@ -125,7 +125,8 @@ export default {
         },
         on: {
           input: e => {
-            this.minWidth = this.$el.offsetWidth
+            if (currentMode == 'horizontal')
+              this.minWidth = this.$el.offsetWidth
           }
         }
         // class: props.class

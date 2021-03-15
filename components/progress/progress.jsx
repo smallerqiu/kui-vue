@@ -39,17 +39,17 @@ export default {
       } else {
         if (type == 'line') {
           if (this.currentPercent == 100) {
-            text = <Icon type="ios-checkmark-circle" />
+            text = <Icon type="checkmark-circle" />
           }
           if (status == 'exception')
-            text = <Icon type="ios-close-circle" />
+            text = <Icon type="close-circle" />
         }
         if (type == 'circle') {
           if (this.currentPercent == 100) {
-            text = <Icon type="md-checkmark" />
+            text = <Icon type="checkmark" />
           }
           if (status == 'exception')
-            text = <Icon type="md-close" />
+            text = <Icon type="close" />
         }
       }
       return <span class="k-progress-text">{text}</span>

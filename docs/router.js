@@ -40,6 +40,7 @@ let components = [
     // { path: 'imagepreview', component: () => import(/*webpackChunkName:'image-preview'*/'../components/image-preview/demo'), },
     { path: 'input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },
     { path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
+    // { path: 'icon-v5', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo/v5'), },
     { path: 'layout', component: () => import(/*webpackChunkName:'layout'*/'../components/layout/demo'), },
     { path: 'message', component: () => import(/*webpackChunkName:'message'*/'../components/message/demo'), },
     { path: 'modal', component: () => import(/*webpackChunkName:'modal'*/'../components/modal/demo'), },

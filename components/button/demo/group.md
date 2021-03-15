@@ -19,8 +19,8 @@
     <br />
     <br />
     <ButtonGroup size="small" circle>
-      <Button ><Icon type="ios-arrow-back"/> Backward</Button>
-      <Button>Forward <Icon type="ios-arrow-forward"/></Button>
+      <Button ><Icon type="chevron-back"/> Backward</Button>
+      <Button>Forward <Icon type="chevron-forward"/></Button>
     </ButtonGroup>
   </div>
 </template>

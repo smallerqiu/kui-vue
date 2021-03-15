@@ -2,7 +2,7 @@
   <div class="k-code">
     <div class="k-code-tools">
       <ToolTip content="复制代码">
-        <Icon type="ios-copy" @click="copy" />
+        <Icon type="copy" @click="copy" />
       </ToolTip>
     </div>
     <pre class="k-code-pre">

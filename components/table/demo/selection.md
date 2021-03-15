@@ -14,7 +14,7 @@
     <template slot="tags" slot-scope="tags">
       <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
-    <Icon :type="text==1?'ios-male':'ios-female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
+    <Icon :type="text==1?'male':'female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action">
       <a href="javascript:;">Edit</a>
       <a href="javascript:;">Delete</a>

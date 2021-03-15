@@ -9,7 +9,7 @@
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
    <template slot="header-age" slot-scope="text">
       {{text}} <Tooltip title="How old are you?">
-          <Icon type="ios-alert" />
+          <Icon type="alert-circle" />
         </Tooltip>
    </template> 
     <template slot="action" slot-scope="text,record,index">
@@ -40,7 +40,7 @@ export default{
                   title:'Where do you live?'
                 }
               },[
-                h('Icon',{props:{ type:'ios-alert'}})
+                h('Icon',{props:{ type:'alert-circle'}})
               ])
             ]) 
           }
