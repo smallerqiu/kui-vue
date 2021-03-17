@@ -164,7 +164,7 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
       if ((hasBottom && showInBottom) || (hasTop && !showInTop)) { //正常在底部显示
         if (transfer) {
           top = selectionRect.bottom + offset + scrollTop;
-          left = selectionRect.left + 1 + scrollLeft
+          left = selectionRect.left + scrollLeft
           if (placement == 'bottom' || placement == 'top') {
             left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
           }
@@ -180,7 +180,7 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
         }
       } else if ((hasBottom && !showInBottom) || (hasTop && showInTop)) {
         if (transfer) {
-          left = selectionRect.left + 1 + scrollLeft
+          left = selectionRect.left + scrollLeft
           top = selectionRect.top - pickerHeight - offset + scrollTop
           if (placement == 'top' || placement == 'bottom') {
             left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft

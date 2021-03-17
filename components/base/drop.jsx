@@ -74,7 +74,7 @@ export default {
   methods: {
     baseContextmenu(e) {
       let pickerHeight = this.$el.offsetHeight
-      let pickerWidth = this.$el.offsetWidth
+      let pickerWidth = this.$el.offsetWidth 
       let clientHeight = document.documentElement.clientHeight
       let clientWidth = document.documentElement.clientWidth
 
@@ -125,6 +125,7 @@ export default {
         !this.$el.contains(target) &&
         !this.mousedownIn
       ) {
+        // console.log('eeeaa')
         this.$emit('hide')
         this.$emit('input', false)
       }

@@ -7,7 +7,7 @@
 <template>
   <div id="dropdown-demo-placement">
     <template v-for="(placement, index) in placements">
-      <Dropdown :placement="placement">
+      <Dropdown :placement="placement" show-placement-arrow>
         <Button>{{ placement }}</Button>
         <Menu slot="content">
           <MenuItem>

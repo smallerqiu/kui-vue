@@ -38,6 +38,7 @@ export default {
   inject: {
     Menu: { default: null },
     SubMenu: { default: null },
+    Dropdown: { default: null },
   },
   data() {
     return {
@@ -66,9 +67,8 @@ export default {
     } else {
       this.currentMode = mode
     }
-    let isDropdown = root.$options.propsData.parentName == 'dropdown'
 
-    const preCls = isDropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
+    const preCls = this.Dropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
 
     let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode];
 
@@ -97,7 +97,7 @@ export default {
         click: e => this.openChange()
       }
     }
-    if ((currentMode != 'inline' && this.SubMenu != null) || isDropdown) {
+    if ((currentMode != 'inline' && this.SubMenu != null) || this.Dropdown) {
       titleProps.on.mouseenter = e => this.showPopupMenu(currentMode)
       titleProps.on.mouseleave = e => this.hidePopupMenu(currentMode)
     }
@@ -105,7 +105,7 @@ export default {
       <span class={`k-${preCls}-inner`}>{$slots.title || this.title}</span>
       <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
     </div>
-    if (currentMode == 'inline' || this.SubMenu != null || isDropdown) {
+    if (currentMode == 'inline' || this.SubMenu != null || this.Dropdown) {
       popupProps.directives = [{ name: 'show', value: opened }]
     } else {
       // popupProps.style.minWidth = this.minWidth + 'px'
@@ -114,14 +114,14 @@ export default {
       <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
     </div>
     let vnodes = null
-    if (currentMode != 'inline' && this.SubMenu == null && !isDropdown) {
+    if (currentMode != 'inline' && this.SubMenu == null && !this.Dropdown) {
       const popProps = {
         props: {
           showPlacementArrow: false,
           preCls: preCls + '-popup',
           transfer: true,
           placement: currentMode == 'horizontal' ? 'bottom-left' : 'right-top',
-          // value: opened,
+          value: opened,
         },
         on: {
           input: e => {
@@ -140,7 +140,7 @@ export default {
       `k-${preCls}`,
       {
         [`k-${preCls}-active`]: this.active,
-        [`k-${preCls}-selected`]: selected && !isDropdown,
+        [`k-${preCls}-selected`]: selected && !this.Dropdown,
         [`k-${preCls}-opened`]: opened,
         [`k-${preCls}-disabled`]: disabled
       }

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Dropdown trigger="contextmenu">
+  <Dropdown trigger="contextmenu" @click="handle">
   <div :style="{
         textAlign: 'center',
         background: '#f5f5f5',
@@ -14,24 +14,23 @@
         color: '#999',
       }">Right Click on here</div>
     <Menu slot="content">
-      <MenuItem>
-        <a href="javascript:;">New file</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">Eidt</a>
-      </MenuItem>
-      <MenuItem icon="save">
-        <a href="javascript:;">Save</a>
-      </MenuItem>
-      <MenuItem icon="cut">
-        <a href="javascript:;">Cut</a>
-      </MenuItem>
+      <MenuItem key="news">New file</MenuItem>
+      <MenuItem key="edit">Edit</MenuItem>
+      <MenuItem key="save" icon="save-outline">Save</MenuItem>
+      <MenuItem key="cut" icon="cut-outline">Cut</MenuItem>
       <MenuDivider />
-      <MenuItem>
-        <a href="javascript:;">Exit</a>
-      </MenuItem>
+      <MenuItem key="cut">Exit</MenuItem>
     </Menu>
   </Dropdown>
 </template>
 
+<script>
+export default{
+  methods:{
+    handle({key}){
+      this.$Message.info('Click on item '+key)
+    }
+  }
+}
+</script>
 ```
