@@ -15,6 +15,7 @@ export default {
   inject: {
     Menu: { default: null },
     SubMenu: { default: null },
+    Dropdown: { default: null },
     collectAffixItem: { default: () => { } }
   },
   data() {
@@ -36,21 +37,20 @@ export default {
   render() {
 
     const { icon, disabled, Menu, SubMenu } = this
-    let selected, root = {}, isDropdown;
+    let selected, root = {};
     if (Menu) {
       root = getParent(Menu, 'Menu')
       // console.log(root.mode, root.selectedKeys, 'item')
       selected = root.selectedKeys.indexOf(this.$vnode.key) >= 0
       this.selected = selected
-      isDropdown = root.$options.propsData.parentName == 'dropdown'
     }
     const item = this
-    const preCls = isDropdown ? 'dropdown-menu' : 'menu';
+    const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
 
     const props = {
       class: [`k-${preCls}-item`, {
         [`k-${preCls}-item-active`]: this.active,
-        [`k-${preCls}-item-selected`]: selected && !isDropdown,
+        [`k-${preCls}-item-selected`]: selected && !this.Dropdown,
         [`k-${preCls}-item-disabled`]: disabled
       }],
       on: {

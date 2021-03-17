@@ -90,13 +90,13 @@ let routers = new Router({
 })
 
 
-// routers.beforeEach(function (to, from, next) {
-//     // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
-//     // loading.start('line');
-//     next()
-// })
-// routers.afterEach((to, from, next) => {
-//     // (process.env.NODE_ENV == 'development') &&
-//     // loading.finish();
-// });
+routers.beforeEach(function (to, from, next) {
+    typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+    // loading.start('line');
+    next()
+})
+routers.afterEach((to, from, next) => {
+    // (process.env.NODE_ENV == 'development') &&
+    // loading.finish();
+});
 export default routers

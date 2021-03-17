@@ -76,22 +76,27 @@ export default {
       }
     },
     mouseEvent(e) {
-      if (this.trigger == 'contextmenu' && e.which == 3) {
-        if (!this.showInit) {
-          this.showInit = true
-          this.$nextTick(() => {
+      if (this.trigger == 'contextmenu') {
+        if (e.which == 3) {
+          if (!this.showInit) {
+            this.showInit = true
+            this.$nextTick(() => {
+              this.showPop = true
+              this.$emit('input', true)
+              this.$nextTick(() => {
+                this.$refs.overlay.baseContextmenu(e)
+              })
+            })
+          } else {
             this.showPop = true
+            this.$emit('input', true)
             this.$nextTick(() => {
               this.$refs.overlay.baseContextmenu(e)
             })
-          })
+          }
         } else {
-          this.showPop = true
-          this.$nextTick(() => {
-            this.$refs.overlay.baseContextmenu(e)
-          })
+          this.showPop = false
         }
-
         e.preventDefault();
         return false;
       }
@@ -151,21 +156,20 @@ export default {
               this.showPop = false
             }
           },
-          click: e => {
-            //   this.$emit('click', e) //子集点击
-            if (hasProp(this, 'value')) {
-              // console.log('hasvalue,click', this.value);
-              this.$emit('input', false);
-            } else {
-              this.showPop = false
-              // console.log('click');
-            }
-          },
+          // click: e => {
+          //   //   this.$emit('click', e) //子集点击
+          //   if (hasProp(this, 'value')) {
+          //     this.$emit('input', false);
+          //   } else {
+              // this.showPop = false
+            // }
+          // },
           input: (e) => {
+            this.showPop = e
+
             if (hasProp(this, 'value')) {
+              console.log( e)
               this.$emit('input', e);
-            } else {
-              this.showPop = e
             }
           }
         }

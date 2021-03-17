@@ -13,7 +13,8 @@ export default {
   },
   inject: {
     Menu: { default: null },
-    SubMenu: { default: null }
+    SubMenu: { default: null },
+    Dropdown: { default: null }
   },
   provide() {
     return {
@@ -51,7 +52,7 @@ export default {
   render() {
     const { theme, currentMode, Menu } = this
     const root = Menu ? getParent(Menu, 'Menu') : this;
-    const preCls = root && root.$options.propsData.parentName == 'dropdown' ? 'dropdown-menu' : 'menu';
+    const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
     const cls = [`k-${preCls} k-${preCls}-${theme} k-${preCls}-${currentMode}`, {
       [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
     }];
@@ -63,7 +64,7 @@ export default {
       this.$emit('open-change', openKeys)
     },
     handleClick(options) {
-      let parent = this.SubMenu || this.Menu
+      let parent = this.SubMenu || this.Menu || this.Dropdown
       if (parent) {
         parent.handleClick(options)
       } else {
@@ -72,4 +73,4 @@ export default {
       }
     }
   },
-}; 
+};
