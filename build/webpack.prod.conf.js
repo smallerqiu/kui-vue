@@ -2,12 +2,14 @@
  * by chuchur /chuchur@qq.com
  * 打包vue 组件
  */
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //for webpack 3 ||4
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //for webpack 4
+const TerserPlugin = require('terser-webpack-plugin');  //for webpack 5
+
 const path = require('path');
 const webpackBaseConfig = require('./webpack.base.conf.js');
 const { merge } = require('webpack-merge');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBar = require('webpackbar')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
@@ -54,16 +56,26 @@ module.exports = merge(webpackBaseConfig, {
 	},
 	optimization: {
 		minimizer: [
-			new UglifyJsPlugin({
-				uglifyOptions: {
-					cache: true,
-					parallel: true,
-					sourceMap: true,
-					uglifyOptions: {
-						warnings: false,
-					},
-				}
-			}),
+			// new UglifyJsPlugin({
+			// 	uglifyOptions: {
+			// 		cache: true,
+			// 		parallel: true,
+			// 		sourceMap: true,
+			// 		uglifyOptions: {
+			// 			warnings: false,
+			// 		},
+			// 	}
+			// }),
+			new TerserPlugin({
+        terserOptions: {
+          compress: {
+            warnings: false,
+            drop_debugger: true,
+            drop_console: true
+          },
+          sourceMap: false
+        }
+      }),
 			new OptimizeCSSAssetsPlugin({})
 		]
 	},
