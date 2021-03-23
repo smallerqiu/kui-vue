@@ -34,8 +34,7 @@ export default {
   components: { ToolTip },
   data() {
     return {
-      expand: false,
-      copied: false,
+      expand: false
     };
   },
   name: "Demo",

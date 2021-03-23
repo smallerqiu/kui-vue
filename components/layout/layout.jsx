@@ -13,6 +13,7 @@ function createComponent(suffixCls, name) {
     }
   }
 }
+
 const Base = {
   props: { suffixCls: String },
   render() {
@@ -25,10 +26,6 @@ const Base = {
     )
   }
 }
-
-const Content = createComponent('layout-content', 'Content')(Base)
-const Header = createComponent('layout-header', 'Header')(Base)
-const Footer = createComponent('layout-footer', 'Footer')(Base)
 
 const layoutBase = {
   props: { suffixCls: String },
@@ -61,8 +58,6 @@ const layoutBase = {
   }
 }
 
-const Layout = createComponent('layout', 'Layout')(layoutBase)
-
 const siderBase = {
   props: { suffixCls: String },
   inject: {
@@ -85,6 +80,10 @@ const siderBase = {
   }
 }
 
+const Content = createComponent('layout-content', 'Content')(Base)
+const Header = createComponent('layout-header', 'Header')(Base)
+const Footer = createComponent('layout-footer', 'Footer')(Base)
+const Layout = createComponent('layout', 'Layout')(layoutBase)
 const Sider = createComponent('layout-sider', 'Sider')(siderBase)
 
 Layout.Sider = Sider

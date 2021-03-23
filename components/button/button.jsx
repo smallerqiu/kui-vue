@@ -60,7 +60,7 @@ export default {
   render() {
     const { classes, $slots, $attrs, disabled, click, buttonType, icon, loading, $listeners } = this
     const props = {
-      attrs: { ...$attrs, disabled },
+      attrs: { ...$attrs, disabled, type: buttonType },
       class: classes,
       on: {
         ...$listeners,
@@ -78,7 +78,7 @@ export default {
       return c
     })
     const button = (
-      <button type={buttonType} {...props} >
+      <button {...props} >
         {iconNode}
         {kid}
       </button >
