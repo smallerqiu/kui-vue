@@ -22,7 +22,7 @@
     <Layout>
       <Header>Header</Header>
       <Layout>
-        <Content pull-left>Content</Content>
+        <Content>Content</Content>
         <Sider>Sider</Sider>
       </Layout>
       <Footer>Footer</Footer>

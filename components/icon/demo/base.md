@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div slot="content">
+  <div>
     <Icon type="logo-apple" />
     <Icon type="logo-apple" size="25" />
     <Icon type="logo-apple" size="30" color="green" />

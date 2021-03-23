@@ -125,7 +125,7 @@ export default {
 
     return (
       <div style={blobStyle} ref="blob" v-resize={this.updatePosition}>
-        <div style={fixedStyle} class={classes} ref="affix" >
+        <div style={fixedStyle} class={classes}>
           {this.$slots.default}
         </div>
       </div>

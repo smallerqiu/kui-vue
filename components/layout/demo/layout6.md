@@ -46,7 +46,6 @@
             <MenuItem key="3-2" affixed>Option 2</MenuItem>
             <MenuItem key="3-3" affixed>Option 3</MenuItem>
             <MenuItem key="3-4">Option 4</MenuItem>
-            </MenuGroup>
           </SubMenu>
           <SubMenu key="sub4">
             <template slot="title">
@@ -56,7 +55,6 @@
             <MenuItem key="4-2">Option 2</MenuItem>
             <MenuItem key="4-3" affixed>Option 3</MenuItem>
             <MenuItem key="4-4" affixed>Option 4</MenuItem>
-            </MenuGroup>
           </SubMenu>
           <SubMenu key="sub5">
             <template slot="title">
@@ -66,7 +64,6 @@
             <MenuItem key="5-2" affixed>Option 2</MenuItem>
             <MenuItem key="5-3" affixed>Option 3</MenuItem>
             <MenuItem key="5-4" affixed>Option 4</MenuItem>
-            </MenuGroup>
           </SubMenu>
         </Menu>
       </Sider>
