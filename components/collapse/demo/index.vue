@@ -4,6 +4,7 @@ import Base from './base'
 import Accrodion from './accrodion'
 import Nesting from './nesting'
 import Sample from './sample'
+import Extra from './extra'
 import CN from '../index.md'
 export default {
   render() {
@@ -13,6 +14,7 @@ export default {
         <Base />
         <Accrodion />
         <Nesting />
+        <Extra />
         <Sample />
         <CN class="typo"/>
       </div>

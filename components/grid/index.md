@@ -1,10 +1,10 @@
 ### Row API
-| 属性    | 说明                                                                             | 类型    | 默认值 |
-|---------|----------------------------------------------------------------------------------|---------|--------|
-| align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | string  | `top`  |
-| justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | `start` | 0      |
-| gutter  | 栅格间距，单位 px，左右平分                                                      | Number  | 0      |
-| type    | 布局模式，可选 flex，现代浏览器 下有效                                           | string  |        |
+| 属性    | 说明                                                                             | 类型   | 默认值  |
+|---------|----------------------------------------------------------------------------------|--------|---------|
+| align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | String | `top`   |
+| justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | String | `start` |
+| gutter  | 栅格间距，单位 px，左右平分                                                      | Number | 0       |
+| type    | 布局模式，可选 flex，现代浏览器 下有效                                           | String |         |
 ### Col API
 | 属性   | 说明                                   | 类型          | 默认值 |
 |--------|----------------------------------------|---------------|--------|

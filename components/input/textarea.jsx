@@ -3,17 +3,10 @@ export default {
 	name: 'TextArea',
 	props: {
 		value: [String, Number],
-		placeholder: String,
-		disabled: Boolean,
-		readonly: Boolean,
-		autofocus: Boolean,
-		rows: { type: Number, default: 2 },
-		name: String,
-		maxlength: Number
 	},
 	render() {
 		const props = {
-			props: { ...this.$props, type: 'textarea' },
+			props: { ...this.$props, inputType: 'textarea' },
 			attrs: { ...this.$attrs },
 			on: {
 				...this.$listeners

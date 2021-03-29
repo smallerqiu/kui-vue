@@ -22,6 +22,9 @@ export default {
     }
   },
   watch: {
+    value(activeName) {
+      this.selectedKeys = activeName
+    },
     mode(mode) {
       this.currentMode = mode
     },
@@ -51,7 +54,7 @@ export default {
   },
   render() {
     const { theme, currentMode, Menu } = this
-    const root = Menu ? getParent(Menu, 'Menu') : this;
+    // const root = Menu ? getParent(Menu, 'Menu') : this;
     const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
     const cls = [`k-${preCls} k-${preCls}-${theme} k-${preCls}-${currentMode}`, {
       [`k-${preCls}-inline-collapased`]: this.inlineCollapsed

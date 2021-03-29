@@ -206,6 +206,15 @@
     border-color: @disable-border;
   }
 }
+.k-btn-primary[disabled='disabled'] {
+  &, &:hover, &:active, &:active, &:focus {
+    opacity: .9;
+    cursor: not-allowed;
+    color: darken(@disable-color, 8%);
+    background: darken( @disable-back, 8%);
+    border-color: darken(@disable-border, 8%);
+  }
+}
 
 .k-btn-link {
   background: none;

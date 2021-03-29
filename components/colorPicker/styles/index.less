@@ -192,3 +192,35 @@
 		}
 	}
 }
+
+@keyframes dropDownIn {
+	0% {
+		opacity: 0;
+		transform: scaleY(0)
+	}
+	to {
+		opacity: 1;
+		transform: scaleY(1)
+	}
+}
+
+@keyframes dropDownOut {
+	0% {
+		opacity: 1;
+		transform: scaleY(1)
+	}
+	to {
+		opacity: 0;
+		transform: scaleY(0)
+	}
+}
+
+.k-color-picker-enter-active {
+	transform-origin: 0 0;
+	animation: dropDownIn .3s;
+}
+
+.k-color-picker-leave-active {
+	transform-origin: 0 0;
+	animation: dropDownOut .3s
+}

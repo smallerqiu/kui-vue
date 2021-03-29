@@ -4,7 +4,6 @@ export default {
   name: 'Panel',
   props: {
     title: String,
-    name: { type: String, required: true },
   },
   inject: {
     Collapse: { default: null }
@@ -12,15 +11,15 @@ export default {
   methods: {
     handelClick() {
       if (this.Collapse) {
-        this.Collapse.change(this.name)
+        this.Collapse.change(this.$vnode.key)
       }
     }
   },
   render() {
     let active = false
-    let { Collapse, name } = this
+    let { Collapse, $vnode ,$slots} = this
     if (Collapse) {
-      active = Collapse.currentValue.indexOf(name) >= 0
+      active = Collapse.currentValue.indexOf($vnode.key) >= 0
     }
     const classes = ['k-collapse-item', {
       ['k-collapse-item-active']: active
@@ -29,17 +28,18 @@ export default {
     return (
       <div class={classes}>
         <div class="k-collapse-header" onClick={this.handelClick}>
-          <Icon type="chevron-forward" />
+          <Icon type="chevron-forward" class="k-collapse-arrow" />
           <span class="k-collapse-title">{this.title}</span>
+          {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>
         <transition {...aniprop}>
           <div class="k-collapse-content" v-show={active}>
             <div class="k-collapse-content-box">
-              {this.$slots.default}
+              {$slots.default}
             </div>
           </div>
         </transition>
       </div >
     )
   }
-} 
+}

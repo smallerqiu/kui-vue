@@ -7,9 +7,7 @@
 <template>
   <div>
     <Card title="卡片标题" icon="heart" bordered>
-      <div slot="extra">
-        <Tooltip title="我是一个苹果"><Icon type="logo-apple" size="20"/></Tooltip>
-      </div>
+      <a slot="extra" href="#">More</a>
       <p>card content</p>
       <p>card content</p>
       <p>card content</p>

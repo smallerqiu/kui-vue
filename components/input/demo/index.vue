@@ -1,10 +1,11 @@
 <script>
-import Base from "./base.md";
-import Info from "./info.md";
-import Icon from "./icon.md";
-import Clearable from "./clearable.md";
-import Size from "./size.md";
-import TextArea from "./textarea.md";
+import Base from "./base";
+import Info from "./info";
+import Icon from "./icon";
+import Clearable from "./clearable";
+import Size from "./size";
+import Event from "./event";
+import TextArea from "./textarea";
 import CN from "../index.md";
 export default {
   render() {
@@ -15,6 +16,7 @@ export default {
         <Icon />
         <Clearable />
         <Size />
+        <Event />
         <TextArea />
         <CN class="typo" />
       </div>

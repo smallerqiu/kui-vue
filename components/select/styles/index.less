@@ -230,11 +230,11 @@
     }
   }
   .k-select-item-selected {
-    background: tint(@main,80%);
+    background: tint(@main, 80%);
     color: @main;
     font-weight: 500;
     &:hover {
-      background: tint(@main,80%);
+      background: tint(@main, 80%);
     }
     .k-icon {
       color: @main;
@@ -416,4 +416,36 @@
 
 .k-select-tag-leave-active {
   animation: zoomOut .2s ease-out;
+}
+
+@keyframes dropDownIn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0)
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1)
+  }
+}
+
+@keyframes dropDownOut {
+  0% {
+    opacity: 1;
+    transform: scaleY(1)
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0)
+  }
+}
+
+.k-select-enter-active {
+  transform-origin: 0 0;
+  animation: dropDownIn .3s;
+}
+
+.k-select-leave-active {
+  transform-origin: 0 0;
+  animation: dropDownOut .3s
 }
