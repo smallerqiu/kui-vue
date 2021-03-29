@@ -1,10 +1,12 @@
 import { hasProp } from '../_tool/utils'
+import Icon from '../icon'
 export default {
   name: "kSwitch",
   props: {
     checked: [Boolean, Number],
     type: String,
     disabled: Boolean,
+    loading: Boolean,
     size: {
       default: 'default',
       validator(value) {
@@ -12,8 +14,7 @@ export default {
       }
     },
     trueText: String,
-    falseText: String,
-    checked: [Boolean, Number]
+    falseText: String
   },
   model: {
     prop: 'checked',
@@ -41,7 +42,7 @@ export default {
     }
   },
   render() {
-    let { disabled, type, size, change, falseText, trueText, checked, isChecked, $slots } = this
+    let { disabled, type, size, change, falseText, trueText, checked, loading, isChecked, $slots } = this
     if (!hasProp(this, 'checked')) {
       checked = isChecked
     }
@@ -49,16 +50,19 @@ export default {
       "k-switch",
       {
         ["k-switch-checked"]: checked,
-        ["k-switch-disabled"]: disabled,
+        ["k-switch-disabled"]: disabled || loading,
         [`k-switch-${type}`]: !!type,
         ["k-switch-sm"]: size == 'small',
       }
     ];
+    const children = $slots.checked || trueText || $slots.unchecked || falseText
+    const loadNode = loading ? <Icon spin type="sync" class="k-switch-loading" /> : null
+
     const textNode = (
-      size != 'small' ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
+      (size != 'small' && children) ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
     )
     return (
-      <button class={classes} onClick={change} type="button">{textNode}</button>
+      <button class={classes} onClick={change} disabled={disabled||loading} type="button">{textNode}{loadNode}</button>
     )
   }
 };

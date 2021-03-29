@@ -19,7 +19,7 @@
       <MenuItem key="save" icon="save-outline">Save</MenuItem>
       <MenuItem key="cut" icon="cut-outline">Cut</MenuItem>
       <MenuDivider />
-      <MenuItem key="cut">Exit</MenuItem>
+      <MenuItem key="exit">Exit</MenuItem>
     </Menu>
   </Dropdown>
 </template>

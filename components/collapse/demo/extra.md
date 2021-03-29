@@ -1,19 +1,22 @@
 <cn>
-#### 手风琴
-设置 `accrodion` 只允许同时展开一个面板
+#### 额外节点
+可以同时展开多个面板。
 </cn>
 
 ```vue
 <template>
   <div class="demo-collapse">
-    <Collapse :value="['1']" accrodion>
+    <Collapse :value="['1','2']">
       <Panel title="Panel title" key="1">
+        <Icon slot="extra" type="settings-outline" />
         <div>{{text}}</div>
       </Panel>
       <Panel title="Panel title" key="2">
+        <Icon slot="extra" type="settings-outline" />
         <div>{{text}}</div>
       </Panel>
       <Panel title="Panel title" key="3">
+        <Icon slot="extra" type="settings-outline" />
         <div>{{text}}</div>
       </Panel>
     </Collapse>

@@ -2,7 +2,7 @@ import Icon from "../icon";
 export default {
   name: 'Card',
   props: {
-    bordered: Boolean,
+    bordered: { type: Boolean, default: true },
     title: String,
     icon: String
   },

@@ -18,10 +18,10 @@
     <template slot="suffix">
         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
           <Icon type="information-circle-outline" color="orange"/>
-        <Tooltip>  
+        </Tooltip>  
     </template>
     </Input>
-    <Input placeholder="请输入关进行搜索键字..."  @search="search" width="500"/>
+    <Input placeholder="请输入关进行搜索键字..."  @search="search"/>
   </div>
 </template>
 <script>  

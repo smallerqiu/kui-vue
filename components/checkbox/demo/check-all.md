@@ -30,13 +30,10 @@ export default {
   methods: {
     handelCheckAll(e) {
       let checked = e.target.checked
-      if (checked) { 
-        this.cities = ["beijing", "shenzhen", "shanghai", "guangzhou",'wuhan'];
-      } else {
-        this.cities = [];
-      } 
+      this.cities = checked ? ["beijing", "shenzhen", "shanghai", "guangzhou",'wuhan'] : [];
+      
       let length = this.cities.length
-      this.indeterminate = length>0 && length< this.options.length
+      this.indeterminate = length > 0 && length< this.options.length
     },
     change(data) {
       this.checkAll = data.length == this.options.length

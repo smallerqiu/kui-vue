@@ -5,8 +5,8 @@
       <Sider class="docs-k-layout-sider">
         <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="['components']">
           <MenuItem v-for="m in baseNav" :key="m.name">
-            <Badge dot v-if="m.badeg">{{m.title}}</Badge>
-            <template v-else>{{m.title}}</template>
+          <Badge dot v-if="m.badeg">{{m.title}}</Badge>
+          <template v-else>{{m.title}}</template>
           </MenuItem>
           <SubMenu key="components">
             <template slot="title">Components(60)</template>
@@ -48,9 +48,6 @@ export default {
     };
   },
   methods: {
-    target() {
-      return document.querySelector(".main");
-    },
     go({ key, keyPath, item }) {
       // console.log(key);
       // return;
@@ -78,14 +75,23 @@ export default {
           .filter((x) => x.name == name)[0] || {}
       );
     },
+    setActiveKey({ path }) {
+      // let { path } = this.$route;
+      path = path.replace("/docs/", "").replace("/components/", "").toLowerCase();
+      let { title, sub, name } = this.getPath(path);
+      this.typo = !sub;
+      document.title = `${title} ${sub || ""} - KUI`;
+      console.log(name)
+      this.activeName = [name];
+    }
+  },
+  watch: {
+    '$route'(to, from) {
+      this.setActiveKey(to)
+    }
   },
   created() {
-    let { path } = this.$route;
-    path = path.replace("/docs/", "").replace("/components/", "").toLowerCase();
-    let { title, sub, name } = this.getPath(path);
-    this.typo = !sub;
-    document.title = `${title} ${sub || ""} - KUI`;
-    this.activeName = [name];
+    this.setActiveKey(this.$route)
   },
 };
 </script>

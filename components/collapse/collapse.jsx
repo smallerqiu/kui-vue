@@ -23,17 +23,17 @@ export default {
     }
   },
   methods: {
-    change(name) {
+    change(key) {
       let value = this.currentValue
-      let index = value.indexOf(name)
+      let index = value.indexOf(key)
 
       if (index >= 0) {
         this.accrodion ? value = [] : value.splice(index, 1)
       } else {
-        this.accrodion ? value = [name] : value.push(name)
+        this.accrodion ? value = [key] : value.push(key)
       }
       this.currentValue = value
-      this.$emit('change', name)
+      this.$emit('change', key)
       this.$emit('input', value)
     }
   },

@@ -385,7 +385,8 @@ export default {
         props: {
           transfer: this.transfer,
           show: this.showDrop,
-          className: 'k-color-picker-dropdown'
+          className: 'k-color-picker-dropdown',
+          transitionName: 'k-color-picker'
         },
         on: {
           input: e => this.showDrop = e,
@@ -422,8 +423,8 @@ export default {
     let style = [
       'k-color-picker',
       {
-        'k-color-picker-sm': this.size=='small',
-        'k-color-picker-lg': this.size=='large'
+        'k-color-picker-sm': this.size == 'small',
+        'k-color-picker-lg': this.size == 'large'
       },
     ]
     return (<div class={style}>

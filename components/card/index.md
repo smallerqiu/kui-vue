@@ -3,5 +3,5 @@
 |----------|----------|-------------|-------|
 | title    | 卡片的标题    | String、slot | slot  |
 | icon     | 卡片标题的图标  | String      | -     |
-| bordered | 卡片是否显示边框 | Boolean     | false |
+| bordered | 卡片是否显示边框 | Boolean     | true |
 | extra    | 卡片标题扩展   | slot        | -     |

@@ -145,3 +145,36 @@
 	border-radius: @radius;
 	overflow: hidden;
 }
+
+
+@keyframes dropDownIn {
+	0% {
+		opacity: 0;
+		transform: scaleY(0)
+	}
+	to {
+		opacity: 1;
+		transform: scaleY(1)
+	}
+}
+
+@keyframes dropDownOut {
+	0% {
+		opacity: 1;
+		transform: scaleY(1)
+	}
+	to {
+		opacity: 0;
+		transform: scaleY(0)
+	}
+}
+
+.k-date-picker-enter-active {
+	transform-origin: 0 0;
+	animation: dropDownIn .3s;
+}
+
+.k-date-picker-leave-active {
+	transform-origin: 0 0;
+	animation: dropDownOut .3s
+}

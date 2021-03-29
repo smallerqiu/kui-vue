@@ -209,7 +209,8 @@ export default {
         props: {
           className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
           transfer: transfer,
-          show: this.showDrop
+          show: this.showDrop,
+          transitionName: 'k-date-picker'
         },
         on: {
           hide: this.hide,
@@ -228,8 +229,8 @@ export default {
     const classes = ['k-datepicker',
       { 'k-datepicker-open': showDrop },
       { 'k-datepicker-range': isRange },
-      { 'k-datepicker-sm': size=='small' },
-      { 'k-datepicker-lg': size=='large' },
+      { 'k-datepicker-sm': size == 'small' },
+      { 'k-datepicker-lg': size == 'large' },
       { 'k-datepicker-disabled': disabled },
     ]
     return (

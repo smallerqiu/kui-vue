@@ -67,15 +67,18 @@ module.exports = merge(webpackBaseConfig, {
 			// 	}
 			// }),
 			new TerserPlugin({
-        terserOptions: {
-          compress: {
-            warnings: false,
-            drop_debugger: true,
-            drop_console: true
-          },
-          sourceMap: false
-        }
-      }),
+				// terserOptions: {
+				cache: true,
+				parallel: true,
+				sourceMap: false,
+				terserOptions: {
+					output: {
+						// comments: /kui-vue/i,
+					},
+				},
+				extractComments: false,
+				// }
+			}),
 			new OptimizeCSSAssetsPlugin({})
 		]
 	},

@@ -9,18 +9,23 @@
     border-bottom: 1px solid @border-color;
     &>.k-collapse-header {
       line-height: 22px;
-      padding: 12px 0 12px 40px;
+      padding: 12px 16px 12px 40px;
       cursor: pointer;
       position: relative;
-      color:@title-color;
+      color: @title-color;
       font-size: 14px;
-      &>i {
+      &>.k-collapse-arrow {
         position: absolute;
         left: 16px;
-        top: 0;
-        line-height: 46px;
-        transform: rotate(0);
-        transition: transform .3s ease-in-out;
+        top: 50%;
+        transform: translateY(-50%);
+        svg {
+          transform: rotate(0);
+          transition: transform .3s ease-in-out;
+        }
+      }
+      &>.k-collapse-extra {
+        float: right;
       }
     }
     .k-collapse-content {
@@ -36,7 +41,7 @@
     }
   }
   &>.k-collapse-item-active {
-    &>.k-collapse-header>i {
+    &>.k-collapse-header .k-collapse-arrow svg {
       transform: rotate(90deg);
     }
   }
@@ -65,14 +70,17 @@
     color: @main;
   }
 }
+
 .k-collaplse-slide-enter-actived {
   animation: slideIn 0.3s ease-in-out;
   animation-fill-mode: both;
 }
+
 .k-collaplse-slide-leave-actived {
   animation: slideOut 0.3s ease-in-out;
   animation-fill-mode: both;
 }
+
 @keyframes slideIn {
   0% {
     transform: scaleY(0);
@@ -85,6 +93,7 @@
     opacity: 1;
   }
 }
+
 @keyframes slideOut {
   0% {
     transform: scaleY(1);

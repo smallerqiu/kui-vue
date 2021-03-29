@@ -15,7 +15,7 @@ export default {
 		if (this.name != 'k-collaplse-slide') {
 			return (<transition name={this.name}>{child}</transition>)
 		}
-		const props = getTranstionProp(name)
+		const props = getTranstionProp(this.name)
 		return (<transition {...props}>1123123{child}</transition>)
 	}
 }

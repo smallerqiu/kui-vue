@@ -1,9 +1,9 @@
 <script>
 import Base from './base'
 import Info from './info'
-import CheckAll from './check-all'
 import Disabled from './disabled'
 import Group from './group'
+import CheckAll from './check-all'
 import CN from '../index.md'
 export default {
   render() {

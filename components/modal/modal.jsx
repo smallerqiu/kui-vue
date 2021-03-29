@@ -21,6 +21,7 @@ export default {
     isCenter: Boolean,
     canMove: Boolean,
     loading: Boolean,
+    footer: String
     // mode: { type: String, default: 'modal' }
   },
   data() {
@@ -171,10 +172,10 @@ export default {
 
       //footer
       let footer = $slots.footer
-      if (!footer) {
+      if (!footer && this.footer !== null) {
         footer = [<Button onClick={this.cancel}>{this.cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{this.okText}</Button>]
       }
-      const footerNode = <div class="k-modal-footer">{footer}</div>
+      const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
       contents.push(footerNode)
       contentNode = <div class="k-modal-content">{contents}</div>

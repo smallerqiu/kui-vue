@@ -44,6 +44,7 @@ Using npm:
 ```sh
 npm install kui-vue --save
 ```
+
 Using a script tag for global use:
 
 ```html

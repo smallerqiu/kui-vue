@@ -5,10 +5,10 @@ export default {
 	name: 'Carousel',
 	directives: { resize },
 	props: {
-		value: { type: [Number, String], default: 0 },
+		value: { type: Number, default: 0 },
 		loop: Boolean,
 		autoplay: Boolean,
-		delay: { type: [String, Number], default: 3000 },
+		delay: { type: Number, default: 3000 },
 		vertical: Boolean,
 		dots: { type: Boolean, default: true }
 	},
@@ -137,10 +137,9 @@ export default {
 				<div {...warpperCls}>
 					{kid}
 				</div>
-				{!vertical ? arrowLeft : null}
-				{!vertical ? arrowRight : null}
+				{!vertical ? [arrowLeft, arrowRight] : null}
 				{this.dots ? dotsNode : null}
 			</div >
 		)
 	}
-} 
+}

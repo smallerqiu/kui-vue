@@ -10,9 +10,6 @@ export default {
       }
     },
     value: [String, Number],
-    placeholder: String,
-    disabled: Boolean,
-    readonly: Boolean,
     type: {
       validator(value) {
         return (["text", "password", "url", "email", "date", "search"].indexOf(value) >= 0);
@@ -20,32 +17,20 @@ export default {
       default: 'text'
     },
     icon: String,
-    autofocus: Boolean,
     iconAlign: String,
-    name: String,
-    number: Boolean,
-    maxlength: Number
   },
-  methods: {
-    focus() {
-      this.$nextTick(e => {
-        this.$refs.baseInput.$refs.input.focus()
-      })
-    },
-    blur() {
-      this.$nextTick(e => {
-        this.$refs.baseInput.$refs.input.blur()
-      })
+  provide() {
+    return {
+      Input: this
     }
   },
   render() {
     const props = {
-      props: { ...this.$props },
+      props: { ...this.$props, inputType: 'input' },
       attrs: { ...this.$attrs },
       on: {
         ...this.$listeners
       },
-      ref: 'baseInput'
     }
     return <BaseInput {...props}>
       <template slot="suffix">

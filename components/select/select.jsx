@@ -295,8 +295,8 @@ export default {
       {
         ["k-select-disabled"]: disabled,
         ["k-select-open"]: showDrop,
-        ["k-select-lg"]: size=='large',
-        ["k-select-sm"]: size=='small'
+        ["k-select-lg"]: size == 'large',
+        ["k-select-sm"]: size == 'small'
       }
     ]
 
@@ -331,6 +331,7 @@ export default {
           show: showDrop,
           // transfer: false,
           transfer: transfer,
+          transitionName: 'k-select',
           className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
         },
         on: {
@@ -391,4 +392,4 @@ export default {
       </div >
     )
   }
-}; 
+};

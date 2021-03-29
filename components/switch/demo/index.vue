@@ -1,9 +1,9 @@
 <script>
 import Base from './base'
 import Info from './info'
-import Color from './color'
 import Text from './text'
 import Disabled from './disabled'
+import Loading from './loading'
 import CN from '../index.md'
 export default {
   render() {
@@ -11,9 +11,9 @@ export default {
       <div class="switch-demo">
         <Info class="typo" />
         <Base />
-        <Color />
         <Text />
         <Disabled />
+        <Loading />
         <CN class="typo"/>
       </div>
     )

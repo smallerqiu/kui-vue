@@ -26,7 +26,7 @@
    .k-icon {
       font-size: 16px;
    }
-   &:after {
+   &::before {
       content: '';
       width: 20px;
       height: 20px;
@@ -46,24 +46,40 @@
       display: block;
       line-height: 22px;
    }
-   &:active {
-      &:after {
+   &:active:not(&:disabled) {
+      &::before {
          width: 25px;
       }
+   }
+   .k-switch-loading {
+      color: @main;
+      position: absolute;
+      left: 3px;
+      top: 3px
    }
 }
 
 .k-switch-sm {
    min-width: 28px;
    height: 16px;
-   &:after {
+   &::before {
       width: 12px;
       height: 12px;
       border-radius: 12px;
    }
    &:active {
-      &:after {
+      &::before {
          width: 15px;
+      }
+   }
+   .k-switch-loading {
+      left: 2px;
+      font-size: 10px;
+      top: 2px;
+   }
+   &.k-switch-checked {
+      .k-switch-loading {
+         left: calc(100% - 11.5px);
       }
    }
 }
@@ -71,7 +87,7 @@
 .k-switch-checked {
    background: @main;
    border-color: @main;
-   &:after {
+   &::before {
       left: 100%;
       transform: translate3d(-100%, -50%, 0);
       margin-left: -1px;
@@ -80,25 +96,15 @@
       margin-left: 8px;
       margin-right: 25px;
    }
-   &.k-switch-success {
-      background: #19be6b;
-      border-color: #19be6b;
-   }
-   &.k-switch-primary {
-      background: #3a95ff;
-      border-color: #3a95ff;
-   }
-   &.k-switch-danger {
-      background: #ed3f14;
-      border-color: #ed3f14;
-   }
-   &.k-switch-warning {
-      background: #ffac13;
-      border-color: #ffac13;
+   .k-switch-loading {
+      left: calc(100% - 19px);
    }
 }
 
 .k-switch-disabled {
-   opacity: .5;
+   opacity: .6;
    cursor: not-allowed;
+   .k-switch-loading{
+      color: @disable-color;
+   }
 }
