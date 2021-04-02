@@ -10,7 +10,7 @@ export default {
     size: {
       default: 'default',
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
+        return ["small", "default"].indexOf(value) >= 0;
       }
     },
     trueText: String,
@@ -62,7 +62,7 @@ export default {
       (size != 'small' && children) ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
     )
     return (
-      <button class={classes} onClick={change} disabled={disabled||loading} type="button">{textNode}{loadNode}</button>
+      <button class={classes} onClick={change} disabled={disabled || loading} type="button">{textNode}{loadNode}</button>
     )
   }
 };

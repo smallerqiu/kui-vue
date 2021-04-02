@@ -18,7 +18,6 @@ if (typeof window !== undefined) {
 
 let modalList = [];
 let createInstance = (props = {}) => {
-
   const instance = new Vue({
     data: { loading: false, show: false },
     render(h) {
@@ -140,7 +139,6 @@ Modal.destroyAll = e => {
   })
 }
 Modal.install = function (Vue) {
-
   Vue.component(Modal.name, Modal);
 };
 export default Modal

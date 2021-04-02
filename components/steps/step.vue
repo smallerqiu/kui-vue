@@ -56,7 +56,7 @@ export default {
     mounted() {
         this.dispatch('Steps', 'steps-add', this)
     },
-    beforeDestory() {
+    beforeDestroy() {
         this.dispatch('Step', 'steps-remove', this)
     }
 }

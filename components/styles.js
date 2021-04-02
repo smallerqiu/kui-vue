@@ -18,7 +18,7 @@ import './empty/styles';
 import './icon/styles';
 import './grid/styles';
 import './input/styles';
-import './imagePreview/styles';
+import './image/styles';
 // import './loading/styles';
 import './layout/styles';
 import './modal/styles';

@@ -95,8 +95,21 @@ import 'kui-vue/components/button/style';
 - Select：`k-select`
 - Option：`k-option`
 - Col：`k-col`
+- Image：`k-image`
+
+example :
+
+```html
+<html>
+
+<body>
+  <k-table></k-table>
+</body> 
+</html>  
+```
 
 以下组件，在非 `template/render` 模式下，组件名要分隔
+- BackTop ：`back-top`
 - ButtonGroup ：`button-group`
 - CheckboxGroup：`checkbox-group`
 - FormItem ：`form-item`
@@ -104,4 +117,22 @@ import 'kui-vue/components/button/style';
 - ColorPicker ：`color-picker`
 - TimeLine ：`time-line`
 - TimeLineItem ：`time-line-item`
+- BreadcrumbItem ：`breadcrumb-item`
+- MenuItem ：`menu-item`
+- MenuGroup ：`menu-grop`
+- MenuDivider ：`menu-divider`
+- SubMenu ：`sub-menu`
+- RadioGroup ：`radio-group`
+- RadioButton ：`radio-button`
+- CarouselItem ：`carousel-item`
  
+ example :
+
+```html
+<html>
+
+<body>
+  <k-back-top></k-back-top>
+</body> 
+</html>  
+```

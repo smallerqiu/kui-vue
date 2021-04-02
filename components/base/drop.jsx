@@ -41,7 +41,7 @@ export default {
     this.$nextTick(e => this.setPosition())
     document.addEventListener('mousedown', this.onMouseDown)
   },
-  beforeDestory() {
+  beforeDestroy() {
     document.removeEventListener('mousedown', this.onMouseDown)
   },
   render() {

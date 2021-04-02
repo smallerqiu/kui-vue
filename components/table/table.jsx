@@ -34,7 +34,7 @@ export default {
     this.resetHeight()
     window.addEventListener('resize', this.autoResize)
   },
-  beforeDestory() {
+  beforeDestroy() {
     window.removeEventListener('resize', this.autoResize)
   },
   updated() {
@@ -80,9 +80,6 @@ export default {
     let indeterminate = data.filter(x => x._checked).length > 0 && !checkAll;
     //Set Data 
     data.forEach((d, i) => {
-      if (!d.key) {
-        console.warn('最好给Data列值设置key,可以加快渲染速度，以及表格单列子集动画的执行')
-      }
       let tr = [], trL = [], trR = [];
 
       _columns.forEach((c, j) => {

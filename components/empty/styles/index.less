@@ -1,15 +1,22 @@
 @import '../../styles/global.less';
 .k-empty {
   text-align: center;
-  color: @disable-color;
-  padding-bottom: 10px;
-  font-size: 12px;
-  cursor: not-allowed;
-  i {
-    font-size: 30px;
+  color: @border-color;
+  font-size: 13px;
+  // cursor: not-allowed;
+  .k-empty-icon {
+    font-size: 40px;
     padding: 10px 0;
+    path {
+      stroke-width: 15px !important;
+    }
   }
-  .k-empty-desc {
+  .k-empty-description {
+    padding-bottom: 10px;
     line-height: 1.5;
+  }
+  .k-empty-footer {
+    margin-top: 20px;
+    text-align: center;
   }
 }
