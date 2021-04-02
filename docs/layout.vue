@@ -9,9 +9,9 @@
           <template v-else>{{m.title}}</template>
           </MenuItem>
           <SubMenu key="components">
-            <template slot="title">Components(60)</template>
+            <template slot="title">Components(65)</template>
             <MenuGroup :title="item.title" v-for="(item,x) in Nav" :name="item.title" :key="'sub'+x">
-              <MenuItem v-for="(sub,y) in item.child" :icon="sub.icon" :key="sub.name">
+              <MenuItem v-for="sub in item.child" :icon="sub.icon" :key="sub.name">
               <span>{{sub.sub}}</span>
               <span class="sub">{{sub.title}}</span>
               </MenuItem>
@@ -23,6 +23,14 @@
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
+        <Row class="foot-nav">
+          <Col :span="12"><a @click="()=>go({key:prev.name})">
+            <Icon type="chevron-back-outline" />{{prev.name}}
+          </a></Col>
+          <Col :span="12"><a @click="()=>go({key:next.name})">{{next.name}}
+            <Icon type="chevron-forward-outline" />
+          </a></Col>
+        </Row>
         <Footer class="docs-k-footer">
           KUI ©2018 Created by chuchur |
           <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备19016072号-2</a>
@@ -41,6 +49,7 @@ export default {
   },
   data() {
     return {
+      prev: {}, next: {},
       Nav,
       baseNav,
       typo: false,
@@ -49,16 +58,12 @@ export default {
   },
   methods: {
     go({ key, keyPath, item }) {
-      // console.log(key);
-      // return;
-      let { title, sub, name } = this.getPath(key);
-
+      if (!key) return;
+      let { current = {} } = this.getPath(key)
+      let { title, sub, name } = current
       document.title = `${title} ${sub || ""} - KUI`;
-
       let path = (sub ? "/components/" : "/docs/") + key;
-      this.$router.push({
-        path,
-      });
+      this.$router.push({ path, });
       this.typo = !sub;
     },
     getPath(name) {
@@ -68,20 +73,23 @@ export default {
           child: baseNav,
         },
       ]);
-      return (
-        data
-          .map((x) => x.child)
-          .reduce((x, y) => x.concat(y), [])
-          .filter((x) => x.name == name)[0] || {}
-      );
+      let routes = data
+        .map((x) => x.child)
+        .reduce((x, y) => x.concat(y), [])
+      // let current = routes.filter((x) => x.name == name)[0] || {}
+      let index = routes.findIndex(x => x.name == name)
+      // console.log(routes)
+      return { current: routes[index], prev: routes[index - 1], next: routes[index + 1] }
     },
     setActiveKey({ path }) {
-      // let { path } = this.$route;
-      path = path.replace("/docs/", "").replace("/components/", "").toLowerCase();
-      let { title, sub, name } = this.getPath(path);
+      let key = path.replace(/\/docs\/|\/components\//, "").toLowerCase();
+      let { current = {}, prev = {}, next = {} } = this.getPath(key)
+      this.prev = prev
+      this.next = next
+
+      let { title, sub, name } = current;
       this.typo = !sub;
       document.title = `${title} ${sub || ""} - KUI`;
-      console.log(name)
       this.activeName = [name];
     }
   },

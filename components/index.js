@@ -15,7 +15,7 @@ import Drawer from './drawer'
 import Divider from './divider'
 import Empty from './empty'
 import { Form, FormItem } from './form'
-// import ImagePreview from './imagePreview'
+import { Image, ImageGroup } from './image'
 import Icon from './icon'
 import { Input, TextArea } from './input'
 import Loading from './loading'
@@ -49,50 +49,76 @@ import { version } from '../package.json'
 import './styles';
 
 const components = {
-    Alert, Affix,
-    BackTop, Badge, Button, ButtonGroup: Button.Group, Breadcrumb, BreadcrumbItem,
-    Card, Carousel, CarouselItem, Collapse, ColorPicker, Checkbox, CheckboxGroup, Col,
-    DatePicker, Dropdown, Drawer, Divider,
-    Empty,
-    Form, FormItem,
-    /* ImagePreview, */ Input, Icon,
-    Loading,
-    Menu, MenuGroup, MenuItem, MenuDivider, Modal, Message,
-    Layout, Header, Footer, Content, Sider,
-    Notice,
-    Option,
-    Page, Poptip, Popconfirm, Panel, Progress,
-    Row, Radio, RadioGroup, RadioButton,
-    Spin, Steps, Step, Select, SubMenu, //Slider,
-    Table, Tabs, TabPane, TextArea, TimeLine, TimeLineItem, Tag, Tooltip, Tree, /* TreeSelect, */
-    /* Upload */
+	Affix,
+	Alert,
+	BackTop,
+	Badge,
+	Breadcrumb, BreadcrumbItem,
+	Button, ButtonGroup: Button.Group,
+	Card,
+	Carousel, CarouselItem,
+	Checkbox, CheckboxGroup,
+	Collapse, Panel,
+	ColorPicker,
+	Col, Row,
+	DatePicker,
+	Dropdown,
+	Drawer,
+	Divider,
+	Empty,
+	Form, FormItem,
+	Icon,
+	ImageGroup,
+	Input, TextArea,
+	Loading,
+	Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
+	Modal,
+	Message,
+	Layout, Header, Footer, Content, Sider,
+	Notice,
+	Page,
+	Poptip,
+	Popconfirm,
+	Progress,
+	Radio, RadioGroup, RadioButton,
+	Spin,
+	Steps, Step,
+	Select, Option,
+	//Slider,
+	Table,
+	Tabs, TabPane,
+	TimeLine, TimeLineItem,
+	Tag,
+	Tooltip,
+	Tree, /* TreeSelect, */
+	/* Upload */
 }
 const UI = {
-    ...components,
-    kForm: Form,
-    kButton: Button,
-    kInput: Input,
-    kSelect: Select,
-    kOption: Option,
-    kTable: Table,
-    kSwitch: Switch,
-    kCol: Col,
-    kMenu: Menu,
-    Version: version,
+	...components,
+	// kForm: Form,
+	// kButton: Button,
+	// kInput: Input,
+	// kSelect: Select,
+	// kOption: Option,
+	// kTable: Table,
+	kSwitch: Switch,
+	kImage: Image,
+	// kCol: Col,
+	// kMenu: Menu,
+	Version: version,
+	install: function (Vue, opts = {}) {
+		for (let key in UI) {
+			Vue.component(key, UI[key]);
+		}
+		Vue.prototype.$Message = Message;
+		Vue.prototype.$Loading = Loading;
+		Vue.prototype.$Notice = Notice;
+		Vue.prototype.$Modal = Modal;
+		Vue.prototype.$Image = Image;
+	}
 }
-const install = function (Vue, opts = {}) {
-    for (let key in UI) {
-        Vue.component(key, UI[key]);
-    }
-    Vue.prototype.$Message = Message;
-    Vue.prototype.$Loading = Loading;
-    Vue.prototype.$Notice = Notice;
-    Vue.prototype.$Modal = Modal;
-    // Vue.prototype.$ImagePreview = ImagePreview;
-}
-UI.install = install
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
+	UI.install(window.Vue);
 }
 export default UI

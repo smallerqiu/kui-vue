@@ -121,6 +121,7 @@ export default {
         this.currentTop += e.clientY - y
         this.startPos = { x: e.clientX, y: e.clientY }
         this.setPos()
+        e.preventDefault()
       }
     },
     mouseup(e) {
@@ -132,7 +133,7 @@ export default {
       if (!this.show) {
         this.showPoint = { x: e.clientX, y: e.clientY }
       }
-      if (e.button == 0 && this.canMove === true) {
+      if (e.button == 0 && this.canMove === true && this.$refs.hRef && this.$refs.hRef.contains(e.target)) {
         this.isMouseDown = true
         this.startPos = { x: e.clientX, y: e.clientY }
         this.mousemove(e)
@@ -167,7 +168,7 @@ export default {
     if (!contentNode) {
       const contents = []
       contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="close" /></span>)
-      contents.push(<div class="k-modal-header"><div class="k-modal-header-inner">{this.title}</div></div>)
+      contents.push(<div class="k-modal-header" ref="hRef"><div class="k-modal-header-inner">{this.title}</div></div>)
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 
       //footer

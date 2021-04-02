@@ -2,7 +2,7 @@
 import Icon from "../icon";
 import { getTranstionProp } from '../_tool/transition'
 export default {
-  components: { Icon },
+  // components: { Icon },
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
