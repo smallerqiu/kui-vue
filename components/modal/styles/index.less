@@ -79,7 +79,7 @@
 			padding: 16px;
 			font-size: 12px;
 			line-height: 1.5;
-			height: calc(100% - 43px - 45px);
+			// height: calc(100% - 43px - 45px);
 			overflow: auto;
 			box-sizing: border-box;
 		}
@@ -93,6 +93,14 @@
 			.k-btn {
 				margin-left: 8px;
 			}
+		}
+	}
+}
+
+.k-modal-has-footer {
+	.k-modal-content {
+		.k-modal-body {
+			height: calc(100% - 43px - 45px);
 		}
 	}
 }
@@ -244,9 +252,9 @@
 }
 
 .k-modal-zoom-enter-active {
-	animation: k-modal-zoom-in .25s cubic-bezier(.78,.14,.15,.86);
+	animation: k-modal-zoom-in .25s cubic-bezier(.78, .14, .15, .86);
 }
 
 .k-modal-zoom-leave-active {
-	animation: k-modal-zoom-out .25s cubic-bezier(.78,.14,.15,.86);
+	animation: k-modal-zoom-out .25s cubic-bezier(.78, .14, .15, .86);
 }

@@ -2,6 +2,7 @@
 import Info from './info'
 import Base from './base.md'
 import Trigger from './trigger.md'
+import Closeinside from './closeinside.md'
 import Placement from './placement.md'
 import CN from '../index.md'
 export default {
@@ -11,6 +12,7 @@ export default {
         <Info class="typo" />
         <Base />
         <Trigger />
+        <Closeinside />
         <Placement />
         <CN class="typo" />
       </div>

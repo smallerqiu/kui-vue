@@ -15,10 +15,14 @@ export default {
       },
       default: "top"
     },
+    value: Boolean
   },
   render() {
     let props = {
-      props: { preCls: 'poptip', ...this.$props }
+      props: { preCls: 'poptip', ...this.$props },
+      on: {
+        input: (e) => this.$emit('input', e)
+      }
     }
     return (
       <BasePop {...props}>

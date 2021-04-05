@@ -59,7 +59,7 @@ export default {
     setScale(zoom) {
       let { scale } = this
       scale = zoom ? (scale + 1) : (scale - 1);
-      console.log(scale)
+      // console.log(scale)
       scale = zoom ? Math.min(scale, 5) : Math.max(1, scale)
       this.scale = scale
     },
@@ -102,6 +102,9 @@ export default {
       index = Math.max(0, index)
       index = Math.min(index, data.length - 1)
       this.src = data[index]
+    },
+    download() {
+      window.open(this.src)
     }
   },
   mounted() {
@@ -127,7 +130,8 @@ export default {
           <div class="k-image-preview-mask" onClick={this.close}></div>
           <div class="k-image-preview-wrap">
             <ul class="k-image-preview-control">
-              <li class="k-image-preview-action" onClick={this.close}><Icon type="close-outline" /></li>
+              <li class="k-image-preview-action" onClick={this.close}><Icon type="close" /></li>
+              <li class="k-image-preview-action" onClick={this.download}><Icon type="arrow-down-outline" /></li>
               <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale >= 5 }]} onClick={() => this.setScale(1)}><Icon type="add-circle-outline" /></li>
               <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale <= 1 }]} onClick={() => this.setScale(0)}><Icon type="remove-circle-outline" /></li>
               <li
@@ -148,7 +152,7 @@ export default {
               <div class={["k-image-preview-switch-right", { 'k-image-preview-switch-disabled': data.indexOf(src) == (data.length - 1) }]}
                 onClick={() => this.switchImage()}><Icon type="chevron-forward-outline" /></div>]
               : null}
-            {loading ? <div class="k-image-preview-loading"><Icon type="sync" spin  /></div> : null}
+            {loading ? <div class="k-image-preview-loading"><Icon type="sync" spin /></div> : null}
           </div>
         </div>
       </transition>
