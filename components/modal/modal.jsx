@@ -172,13 +172,15 @@ export default {
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 
       //footer
-      let footer = $slots.footer
-      if (!footer && this.footer !== null) {
-        footer = [<Button onClick={this.cancel}>{this.cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{this.okText}</Button>]
-      }
-      const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
+      if (this.footer !== null) {
+        let footer = $slots.footer
+        if (!footer) {
+          footer = [<Button onClick={this.cancel}>{this.cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{this.okText}</Button>]
+        }
+        const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
-      contents.push(footerNode)
+        contents.push(footerNode)
+      }
       contentNode = <div class="k-modal-content">{contents}</div>
     }
 
@@ -196,6 +198,7 @@ export default {
         'k-modal-can-move': canMove,
         'k-modal-max': this.isMax,
         'k-modal-center': this.isCenter,
+        'k-modal-has-footer': this.footer !== null,
       }
     ]
     return this.init ? (<div class={classes} v-transfer={true}>

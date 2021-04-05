@@ -8,4 +8,7 @@ Image.show = (options) => {
   preview.show(options)
 }
 
+Image.install = function (Vue) {
+  Vue.component(Image.name, Image);
+};
 export { Image, ImageGroup };

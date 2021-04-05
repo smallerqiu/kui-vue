@@ -6,6 +6,7 @@
 | src         | 图片默认展示的地址         | String           | -      |
 | origin      | 点击图片展示的大图         | String           | -      |
 | placeholder | 图片加载失败时展示的占位符 | String           | -      |
+| imgStyle    | 图片的style                | Object           | -      |
 
 #### Image.method()
 
@@ -15,5 +16,5 @@
 | 属性  | 说明                             | 类型             | 默认值 |
 |-------|----------------------------------|------------------|--------|
 | src   | 显示单张图片预览地址             | String           | -      |
-| data  | 多图模式地址集合                         | Array            | -      |
+| data  | 多图模式地址集合                 | Array            | -      |
 | index | 多图模式，指定默认显示第几张图片 | [String、Number] | -      |

@@ -2,7 +2,7 @@ import Icon from '../icon'
 import createInstance from './instance'
 
 export default {
-  // name: 'Image',
+  name: 'kImage',
   props: {
     alt: String,
     src: String,
@@ -10,6 +10,7 @@ export default {
     height: [String, Number],
     width: [String, Number],
     placeholder: String,
+    imgStyle: Object
   },
   inject: {
     ImageGroup: { default: null },
@@ -109,7 +110,7 @@ export default {
     this.ImageGroup && this.ImageGroup.updateCollection(1, this.origin || this.src)
   },
   render() {
-    const { imageUrl, alt, width, height, showImg,
+    const { imageUrl, alt, width, height, showImg, imgStyle,
       error, loading, placeholder } = this
     const props = {
       style: {
@@ -132,9 +133,14 @@ export default {
     //     }
     //   }
     // }
+    const imgProps = {
+      style: imgStyle,
+      class: 'k-image-img',
+      attrs: { alt, src: imageUrl },
+    }
     return <div {...props}>
       {/* <Preview {...imageProps} /> */}
-      {showImg || (!showImg && placeholder) ? <img src={imageUrl} alt={alt} class="k-image-img" /> : null}
+      {showImg || (!showImg && placeholder) ? <img {...imgProps} /> : null}
       {(!showImg || error) && !placeholder ? <Icon type="image" class="k-image-error" /> : null}
       {loading ? <div class="k-image-loading" key="wocao">
         <Icon type="sync" spin class="k-image-loading-icon" />
