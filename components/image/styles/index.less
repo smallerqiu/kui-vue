@@ -40,6 +40,7 @@
   bottom: 0;
   left: 0;
   z-index: 1001;
+  display: flex;
   .k-image-preview-mask {
     position: fixed;
     top: 0;
@@ -51,16 +52,18 @@
     background-color: @mask-color;
   }
   .k-image-preview-wrap {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    flex: 1;
     overflow: hidden;
     outline: 0;
     -webkit-overflow-scrolling: touch;
     z-index: 1002;
     pointer-events: none;
+    transition: all .3s;
     .k-image-preview-control {
       background-color: fade(@mask-color, 20%);
       display: flex;
@@ -92,6 +95,17 @@
         &:hover {
           background-color: fade(@mask-color, 30%);
         }
+      }
+      .k-image-preview-action-divider {
+        position: relative;
+        top: -.06em;
+        display: inline-block;
+        width: 1px;
+        height: .9em;
+        margin: 0 8px;
+        vertical-align: middle;
+        border-width: 1px 0 0;
+        background-color: @border-color;
       }
       .k-image-preview-action-rotate-left {
         transform: rotateY(-180deg) rotate(45deg);
@@ -144,7 +158,7 @@
       left: 0;
       transition: transform .3s cubic-bezier(.215, .61, .355, 1) 0s;
       text-align: center;
-      overflow: hidden;
+      // overflow: hidden;
       pointer-events: none;
       &::before {
         display: inline-block;
@@ -163,6 +177,38 @@
       }
     }
   }
+  .k-image-preview-panel {
+    background-color: fade(@mask-color, 70%);
+    position: absolute;
+    max-width: 512px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    z-index: 1002;
+    transform: translateX(0);
+    opacity: 1;
+    transition: all .3s;
+    color: #fff;
+    .k-image-preview-panel-action {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      background-color: fade(@border-color, 20%);
+      border-radius: 0 5px 5px 0;
+      padding: 15px 0;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .k-image-preview-panel-hidden {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.k-image-panel-enter-active, .k-image-panel-leave-active {
+  transition: all .3s;
 }
 
 .k-image-group {

@@ -1,6 +1,6 @@
 import Icon from '../icon'
 import createInstance from './instance'
-
+// import { easyEqual } from '../_tool/utils'
 export default {
   name: 'kImage',
   props: {
@@ -10,7 +10,8 @@ export default {
     height: [String, Number],
     width: [String, Number],
     placeholder: String,
-    imgStyle: Object
+    imgStyle: Object,
+    showPanel: Boolean
   },
   inject: {
     ImageGroup: { default: null },
@@ -21,6 +22,8 @@ export default {
       showImg: false,
       imageUrl: '',
       error: false,
+      imgWidth: 0,
+      imgHeight: 0
       // visible: false,
       // origins: ''
     }
@@ -39,21 +42,39 @@ export default {
     this.ImageGroup && this.ImageGroup.updateCollection(0, this.origin || this.src)
   },
   methods: {
+    togglePanel() {
+      if (this.preview) {
+        this.preview.togglePanel()
+      }
+    },
     show(options) {
-      // let { ImageGroup, preview, src, origin } = this
       let preview = this.preview || createInstance()
       preview.show(options)
     },
+    destory() {
+      if (this.preview) {
+        this.preview.destory()
+      }
+    },
     showPreview(e) {
-      let { origin, src, error, ImageGroup } = this
+      let { origin, src, error, ImageGroup, $slots, showPanel, $listeners } = this
       if ((!src && !origin) || error) return;
 
       let showSwitch = ImageGroup != null
-      let options = { src }
+      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, _globle: false }
       // { data, src, index }
       if (showSwitch) {
         options.data = ImageGroup.data
         options.index = ImageGroup.data.indexOf(src)
+        options.on.switch = (index) => {
+          this.$emit('switch', index)
+          if (ImageGroup) {
+            let { $slots, $props } = ImageGroup.$children[index]
+            options.slots = $slots
+            options.src = $props.origin || $props.src
+            this.show(options)
+          }
+        }
       }
 
       if (!origin) {
@@ -65,6 +86,7 @@ export default {
           // this.visible = true
           this.loading = false
           options.src = origin
+
           this.show(options);
         }, () => {
           this.loading = false
@@ -77,7 +99,8 @@ export default {
       let image = new Image()
 
       image.onload = () => {
-        callback && callback()
+        let { width, height } = image
+        callback && callback({ width, height })
         image = null
       }
       image.onerror = () => {
@@ -89,10 +112,12 @@ export default {
     reload() {
       let { src, placeholder } = this
       if (src) {
-        this.loadimg(src, () => {
+        this.loadimg(src, ({ width, height }) => {
           this.showImg = true
           this.imageUrl = src
           this.error = false
+          this.imgWidth = width
+          this.imgHeight = height
         }, () => {
           this.error = true
           this.showImg = !!placeholder || false
@@ -103,7 +128,8 @@ export default {
         this.showImg = false
         this.imageUrl = null
       }
-    }
+    },
+
   },
   mounted() {
     this.reload()

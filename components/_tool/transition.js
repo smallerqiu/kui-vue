@@ -3,7 +3,7 @@
 //by chuchur
 export function getTranstionProp(name) {
   return {
-    name: name,
+    name,
     on: {
       beforeEnter(el) {
         el.style.overflow = 'hidden';
@@ -45,6 +45,57 @@ export function getTranstionProp(name) {
         el.style.paddingBottom = '';
         el.style.marginTop = '';
         el.style.marginBottom = '';
+        el.style.opacity = ''
+        el.style.overflow = ''
+      },
+    }
+  }
+}
+
+export function getTranstionHorProp(name) {
+  return {
+    name,
+    on: {
+      beforeEnter(el) {
+        el.style.overflow = 'hidden';
+        el.style.width = 0
+        el.style.opacity = 0.1
+      },
+      enter(el) {
+        if (el.scrollWidth !== 0) {
+          el.style.width = el.scrollWidth + 'px'
+          el.style.opacity = 1
+        } else {
+          el.style.width = ''
+          el.style.opacity = ''
+        }
+      },
+      afterEnter(el) {
+        el.style.width = ''
+        el.style.overflow = ''
+        el.style.opacity = ''
+      },
+      beforeLeave(el) {
+        el.style.width = el.scrollWidth + 'px'
+        el.style.opacity = 1
+      },
+      leave(el) {
+        if (el.scrollWidth !== 0) {
+          el.style.width = 0;
+          el.style.paddingLeft = 0;
+          el.style.paddingRight = 0;
+          el.style.marginLeft = 0;
+          el.style.marginRight = 0;
+          el.style.opacity = 0
+          el.style.overflow = 'hidden';
+        }
+      },
+      afterLeave(el) {
+        el.style.width = '';
+        el.style.paddingLeft = '';
+        el.style.paddingRight = '';
+        el.style.marginLeft = '';
+        el.style.marginRight = '';
         el.style.opacity = ''
         el.style.overflow = ''
       },
