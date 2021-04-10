@@ -8,7 +8,7 @@
 <template>
   <div>
     <Button @click="open">Open Image</Button>
-    <Button @click="openGroup">Open group</Button>
+    <Button @click="openGroup">Open Image group</Button>
   </div>
 </template>
 <script>

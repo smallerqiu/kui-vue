@@ -6,14 +6,16 @@ export default {
   props: {
     type: String,
     size: [String, Number],
-    color: { type: String, default: 'currentColor' },
+    color: String,
     spin: Boolean,
   },
+  
   render() {
     const { $listeners, click, type, spin, color, size } = this
     const classes = ['k-icon', { 'k-load-loop': spin }];
     const styles = {
       fontSize: `${size}px`,
+      color
     };
     // let s = root.getElementsByTagName('glyph')
     const props = {

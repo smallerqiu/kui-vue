@@ -263,6 +263,7 @@ export function getOffset(el) {
 
 let _scrollBarWidth;
 let _scrollBarHeight;
+
 export function measureScrollBar(direction = 'vertical') {
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return 0;
@@ -297,3 +298,19 @@ export function measureScrollBar(direction = 'vertical') {
   document.body.removeChild(div);
   return size;
 }
+
+//简易的判断
+export function easyEqual(a, b) {
+  if (a === b) return a !== 0 || 1 / a === 1 / b;
+  if (a == null || b == null) return a === b;
+  if (a !== a) return b !== b;
+  var type = typeof a;
+  if (type !== 'function' && type !== 'object' && typeof b != 'object') return false;
+  if (Object.keys(a).length != Object.keys(b).length) return false;
+  for (let o in a) {
+    if (a[o] != b[o]) {
+      return false
+    }
+  }
+  return true
+};
