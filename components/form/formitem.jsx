@@ -50,7 +50,7 @@ export default {
         {label ? <label class="k-form-item-label" style={{ width }}>{label}</label> : null}
         <div class="k-form-item-content" style={{ marginLeft: width }}>
           {this.$slots.default}
-          <transition name="dropdown">
+          <transition name="k-form-item-fade">
             {!valid ? <div class="k-form-item-error-tip">{this.errorMessage}</div> : null}
           </transition>
         </div>
