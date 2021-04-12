@@ -39,7 +39,7 @@ export default {
   beforeDestroy() {
     let preview = this.preview
     preview && preview.destory()
-    this.ImageGroup && this.ImageGroup.updateCollection(0, this.origin || this.src)
+    this.ImageGroup && this.ImageGroup.updateCollection(0, this.origin || this.src || this._uid + '')
   },
   methods: {
     togglePanel() {
@@ -71,7 +71,7 @@ export default {
           if (ImageGroup) {
             let { $slots, $props } = ImageGroup.$children[index]
             options.slots = $slots
-            options.src = $props.origin || $props.src
+            options.src = ImageGroup.data[index]//$props.origin || $props.src
             this.show(options)
           }
         }
@@ -133,7 +133,7 @@ export default {
   },
   mounted() {
     this.reload()
-    this.ImageGroup && this.ImageGroup.updateCollection(1, this.origin || this.src)
+    this.ImageGroup && this.ImageGroup.updateCollection(1, this.origin || this.src || this._uid + '')
   },
   render() {
     const { imageUrl, alt, width, height, showImg, imgStyle,
@@ -171,6 +171,7 @@ export default {
       {loading ? <div class="k-image-loading" key="wocao">
         <Icon type="sync" spin class="k-image-loading-icon" />
       </div> : null}
+      {this.$slots.default}
     </div>
   }
 }

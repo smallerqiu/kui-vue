@@ -28,6 +28,7 @@ export default {
       visible: this.value,
       src: this.origin,
       loading: false,
+      error: false,
       vertical: true,
       isShowPanel: this.showPanel,
       panelRight: 0,
@@ -50,6 +51,7 @@ export default {
       // if (src != this.src) {
       let img = new Image()
       this.loading = true
+      this.error = false
       img.onload = () => {
         this.loading = false
         img = null
@@ -57,6 +59,7 @@ export default {
       img.onerror = () => {
         this.loading = false
         img = null
+        this.error = true
       }
       img.src = src
       // }
@@ -103,6 +106,7 @@ export default {
       }
     },
     resetPosition() {
+      if (this.error) return;
       let { innerHeight, innerWidth } = window
       let { $refs, scale, top, left, vertical } = this
       let { offsetWidth, offsetHeight } = $refs.imgRef
@@ -165,7 +169,9 @@ export default {
       this.$emit('switch', index)
     },
     download() {
-      window.open(this.src)
+      if (!this.error) {
+        window.open(this.src)
+      }
     },
     resetBodyStyle(opened) {
       if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
@@ -253,7 +259,8 @@ export default {
               ><Icon type="refresh-outline" /></li>
             </ul>
             <div class="k-image-preview-img-wrap" style={moveStyle}>
-              <img class="k-image-preview-img" {...imgPorps} />
+              {!this.error ? <img class="k-image-preview-img" {...imgPorps} /> :
+                <div class="k-image-preview-img-error"><Icon type="image" /></div>}
             </div>
             {showSwitch ?
               [<div class={["k-image-preview-switch-left", { 'k-image-preview-switch-disabled': data.indexOf(src) == 0 }]}
