@@ -32,7 +32,7 @@ export default {
       timer:null
     }
   },
-  beforDestory(){
+  beforDestroy(){
     clearInterval(this.timer)
   },
   methods: {

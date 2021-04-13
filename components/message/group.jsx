@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Notice from "./notice.jsx";
+import Notice from "./inner";
 import { getTranstionProp } from '../_tool/transition'
 
 let count = 0
@@ -8,15 +7,15 @@ function getUuid() {
   return `k-message_${timestamp}_${count++}`
 }
 
-const Notices = {
+export default {
   props: { type: String },
   data() {
     return {
-      notices: []
+      group: []
     };
   },
   methods: {
-    add(options) {
+    show(options) {
       let { duration, close, closable, noticeType } = options
       let key = getUuid()
       options.name = key
@@ -24,15 +23,17 @@ const Notices = {
       let timer;
       let callback = () => {
         (typeof close) === 'function' && close()
-        let index = this.notices.map(v => v.name).indexOf(key)
-        this.notices.splice(index, 1)
+        this.group = this.group.filter(item => item.name !== key)
         clearTimeout(timer);
         timer = null;
       };
       options.duration > 0 && (timer = setTimeout(callback, options.duration * 1000));
       if ((closable === true && noticeType == "message") || noticeType == "notice")
         options.onClose = callback
-      this.notices.push(options);
+      this.group.push(options);
+    },
+    destroy() {
+      this.group = []
     }
   },
   render() {
@@ -44,9 +45,9 @@ const Notices = {
       el.style.height = window.getComputedStyle(el).height
       el.style.opacity = 1
     }
-    let kid = this.notices.map((item, i) => {
+    let kid = this.group.map((item, i) => {
       let props = { props: { ...item } }
-      let key = (item.name = item.name) || getUuid()
+      let key = item.name || getUuid()
       return <Notice {...props} key={key} />
     })
     return (
@@ -58,20 +59,3 @@ const Notices = {
     )
   }
 }
-
-Notices.newInstance = function (props = {}) {
-  const Notice = new Vue({
-    render(h) {
-      return h(Notices, {
-        props: props
-      });
-    }
-  });
-
-  const component = Notice.$mount();
-  document.body.appendChild(component.$el);
-  const notice = Notice.$children[0];
-  return notice
-}
-
-export default Notices

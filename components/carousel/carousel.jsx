@@ -33,7 +33,7 @@ export default {
 			this.currentIndex = v
 		},
 	},
-	beforDestory() {
+	beforeDestroy() {
 		clearInterval(this.autotimer)
 	},
 	methods: {

@@ -16,10 +16,10 @@ Image.togglePanel = () => {
   }
 },
 
-Image.destory = () => {
+Image.destroy = () => {
   let preview = Vue.prototype.preview
   if (preview) {
-    preview.destory()
+    preview.destroy()
   }
 }
 

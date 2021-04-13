@@ -12,7 +12,7 @@ export function getTranstionProp(name) {
       },
       enter(el) {
         if (el.scrollHeight !== 0) {
-          el.style.height = el.scrollHeight + 'px'
+          el.style.height = el.scrollHeight + 'px'  //window.getComputedStyle(el).height
           el.style.opacity = 1
         } else {
           el.style.height = ''

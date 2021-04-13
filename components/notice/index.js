@@ -1,25 +1,22 @@
-import Notices from '../message/notices.jsx'
+import newInstance from '../message/instance'
 
 let noticeInstance;
-
-const getInstance = (type) => {
-  noticeInstance = noticeInstance || Notices.newInstance({ type })
-  return noticeInstance
-};
 
 let Notice = {
   name: 'Notice',
   open(options = {}) {
-    options = Object.assign({ type: 'default', noticeType: 'notice' }, options)
+    options = Object.assign({ type: 'default' }, options)
     options.noticeType = 'notice'
-    // options.type = null
-    getInstance('notice').add(options);
+    if (!messageInstance) {
+      messageInstance = newInstance({ type: 'notice' })
+    }
+    messageInstance.show(options);
   },
   destroy() {
     if (noticeInstance) {
       noticeInstance.destroy()
       noticeInstance = null;
-      document.body.removeChild(document.getElementsByClassName('k-notice'));
+      document.body.removeChild(document.querySelector('.k-notice'));
     }
   }
 };

@@ -28,7 +28,7 @@ export default function createInstance() {
         this.visible = true
         this._globle = _globle
       },
-      destory() {
+      destroy() {
         let instance = this.$children[0]
         if (instance) {
           instance.visible = false
@@ -74,7 +74,7 @@ export default function createInstance() {
           },
           close: () => {
             this.on.close && this.on.close()
-            this.destory()
+            this.destroy()
           },
           'toggle-panel': (value) => {
             this.showPanel = value
