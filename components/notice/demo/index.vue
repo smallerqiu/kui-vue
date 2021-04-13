@@ -2,6 +2,7 @@
 import Info from './info'
 import Base from './base'
 import Icon from './icon'
+import Close from './close'
 import CN from '../index.md'
 export default {
   render() {
@@ -10,6 +11,7 @@ export default {
         <Info class="typo"/>
         <Base />
         <Icon />
+        <Close />
         <CN class="typo"/>
       </div>
     )

@@ -144,7 +144,7 @@ export default {
       this.mousedownIn = this.show && this.$refs.modal && this.$refs.modal.contains(e.target)
     }
   },
-  beforDestory() {
+  beforeDestroy() {
     document.removeEventListener('mousedown', this.mousedown)
     this.resetBodyStyle(false)
   },

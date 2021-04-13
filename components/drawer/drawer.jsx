@@ -35,7 +35,7 @@ export default {
       init: false
     };
   },
-  beforDestory() {
+  beforeDestroy() {
     this.resetBodyStyle(false)
   },
   methods: {

@@ -38,7 +38,7 @@ export default {
   },
   beforeDestroy() {
     let preview = this.preview
-    preview && preview.destory()
+    preview && preview.destroy()
     this.ImageGroup && this.ImageGroup.updateCollection(0, this.origin || this.src || this._uid + '')
   },
   methods: {
@@ -51,9 +51,9 @@ export default {
       let preview = this.preview || createInstance()
       preview.show(options)
     },
-    destory() {
+    destroy() {
       if (this.preview) {
-        this.preview.destory()
+        this.preview.destroy()
       }
     },
     showPreview(e) {
