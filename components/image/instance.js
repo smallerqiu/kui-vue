@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Preview from './preview'
 
-export default function createInstance() {
+export default function createInstance({ type }) {
   let instance = new Vue({
     methods: {
-      show({ data, src, index, showPanel, slots, on, _globle = true }) {
+      show({ data, src, index, showPanel, slots, on, _globle = true, type }) {
+        this.type = type
         this.src = src
         if (Array.isArray(data) && data.length) {
           this.data = data
@@ -54,19 +55,22 @@ export default function createInstance() {
         showSwitch: false,
         showPanel: false,
         slots: {},
+        type: type || '',
         on: {},
         _globle: false
       }
     },
     render() {
-      let { src, visible, showSwitch, data, showPanel, slots, _globle } = this
+      let { src, visible, showSwitch, data, showPanel, slots, _globle, type } = this
+      console.log(type)
       const imageProps = {
         props: {
           origin: src,
           value: visible,
           showSwitch,
           data, showPanel: showPanel,
-          globle: _globle
+          globle: _globle,
+          type
         },
         on: {
           input: val => {

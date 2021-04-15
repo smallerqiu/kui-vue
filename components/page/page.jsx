@@ -84,12 +84,16 @@ export default {
       return child
     },
     prePage() {
-      this.page > 1 && this.page--;
-      this.$emit('change', this.page)
+      if (this.page > 1) {
+        this.page--;
+        this.$emit('change', this.page)
+      }
     },
     nextPage() {
-      this.page < this.pageCount && this.page++;
-      this.$emit('change', this.page)
+      if (this.page < this.pageCount) {
+        this.page++;
+        this.$emit('change', this.page)
+      }
     },
     toPage(page) {
       this.page = page
@@ -145,8 +149,8 @@ export default {
           blur: e => {
             let page = e.target.value;
             let { pageCount } = this
-            if (page > pageCount) topage = pageCount
-            if (page < 1) topage = 1
+            if (page > pageCount) page = pageCount
+            if (page < 1) page = 1
 
             if ((page >= 1 || page <= pageCount) && this.page != page) {
               this.page = page
