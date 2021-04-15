@@ -29,6 +29,7 @@
         <MenuItem key="https://chuchur.com">Blog</MenuItem>
       </Menu>
     </Dropdown>
+    <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square" style="height:24px;margin-left:10px;" />
   </Header>
 </template>
 <script>
