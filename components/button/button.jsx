@@ -30,25 +30,6 @@ export default {
     },
     disabled: Boolean
   },
-  computed: {
-    classes() {
-      const { type, loading, circle, hollow, $slots, icon, size } = this
-      const onlyIcon = !getChild($slots.default).length && icon
-      return [
-        "k-btn",
-        {
-          [`k-btn-${type}`]: !!type,
-          ["k-btn-sm"]: size == 'small',
-          ["k-btn-block"]: !!this.block,
-          ["k-btn-loading"]: loading,
-          ["k-btn-icon-only"]: onlyIcon,
-          ["k-btn-lg"]: size == 'large',
-          ["k-btn-circle"]: !!circle,
-          ["k-btn-hollow"]: !!hollow
-        }
-      ];
-    }
-  },
   methods: {
     click(e) {
       if (!this.loading) {
@@ -58,7 +39,22 @@ export default {
   },
 
   render() {
-    const { classes, $slots, $attrs, disabled, click, buttonType, icon, loading, $listeners } = this
+    const { $slots, $attrs, size, disabled, click,
+      circle, hollow, buttonType, icon, loading, $listeners, type, block } = this
+    const onlyIcon = !getChild($slots.default).length && icon
+    const classes = [
+      "k-btn",
+      {
+        [`k-btn-${type}`]: !!type,
+        ["k-btn-sm"]: size == 'small',
+        ["k-btn-block"]: !!block,
+        ["k-btn-loading"]: loading,
+        ["k-btn-icon-only"]: onlyIcon,
+        ["k-btn-lg"]: size == 'large',
+        ["k-btn-circle"]: !!circle,
+        ["k-btn-hollow"]: !!hollow
+      }
+    ]
     const props = {
       attrs: { ...$attrs, disabled, type: buttonType },
       class: classes,

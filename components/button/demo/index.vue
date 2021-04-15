@@ -6,6 +6,7 @@ import Size from './size'
 import Hollow from './hollow'
 import WithIcon from './with-icon.md'
 import Loading from './loading.md'
+import Block from './block.md'
 import Group from './group.md'
 import CN from '../index.md'
 export default {
@@ -19,6 +20,7 @@ export default {
         <Disabled />
         <Hollow />
         <Loading />
+        <Block />
         <Group />
         <CN class="typo" />
       </div>
