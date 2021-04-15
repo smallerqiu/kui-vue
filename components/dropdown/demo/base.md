@@ -21,7 +21,7 @@
       </MenuItem>
     </Menu>
   </Dropdown>
-  <Dropdown show-placement-arrow >
+  <Dropdown show-placement-arrow trigger="click" placement="bottom">
     <Button >
       show arrow <Icon type="chevron-down" />
     </Button>

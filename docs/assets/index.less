@@ -16,6 +16,8 @@ body {
     box-shadow: 0 0 10px #ddd;
     min-width: 1015px;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
     .logo {
       float: left;
       a {
@@ -38,11 +40,13 @@ body {
       line-height: 50px;
     }
     .search-component {
-      width: 280px;
-      float: left;
+      flex: 1;
       margin-left: 184px;
       position: relative;
       padding-left: 2px;
+      .k-select{
+        width: 280px;
+      }
       .k-select-open .k-select-selection, .k-select:focus .k-select-selection {
         box-shadow: none;
       }

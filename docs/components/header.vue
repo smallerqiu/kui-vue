@@ -13,18 +13,22 @@
     <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
       <MenuItem key="home">首页</MenuItem>
       <MenuItem key="start">组件</MenuItem>
-      <SubMenu key="shengtai">
-        <template slot="title">生态相关</template>
-        <MenuItem key="https://v2.k-ui.cn">KUI v2.x</MenuItem>
-        <MenuItem key="https://gitee.com/chuchur/kui-vue">Gitee</MenuItem>
-        <MenuItem key="https://react.k-ui.cn">KUI for React</MenuItem>
-        <MenuItem key="https://www.chuchur.com">Blog</MenuItem>
-      </SubMenu>
-      <Select size="small" :width="100" style="margin-left:10px" v-model="version" :transfer="false" @change="changeV">
-        <Option value="3">3.x</Option>
-        <Option value="2">2.x</Option>
-      </Select>
     </Menu>
+    <Select size="small" :width="100" style="margin:0 10px" v-model="version" :transfer="false" @change="changeV">
+      <Option value="3">3.1.5</Option>
+      <Option value="2">2.x</Option>
+    </Select>
+    <Dropdown trigger="click" placement="bottom-right" @click="go">
+      <Button size="small">更多
+        <Icon type="chevron-down-outline" />
+      </Button>
+      <Menu slot="content">
+        <MenuItem key="https://react.k-ui.cn">KUI for React</MenuItem>
+        <MenuItem key="https://gitee.com/chuchur/kui-vue">源码</MenuItem>
+        <MenuItem key="https://gitee.com/chuchur/kui-vue/issues">提交Bug</MenuItem>
+        <MenuItem key="https://chuchur.com">Blog</MenuItem>
+      </Menu>
+    </Dropdown>
   </Header>
 </template>
 <script>
