@@ -6,6 +6,7 @@ export default {
   props: {
     alt: String,
     src: String,
+    type: String,
     origin: String,
     height: [String, Number],
     width: [String, Number],
@@ -48,7 +49,7 @@ export default {
       }
     },
     show(options) {
-      let preview = this.preview || createInstance()
+      let preview = this.preview || createInstance({ type: options.type })
       preview.show(options)
     },
     destroy() {
@@ -57,11 +58,11 @@ export default {
       }
     },
     showPreview(e) {
-      let { origin, src, error, ImageGroup, $slots, showPanel, $listeners } = this
+      let { origin, src, error, ImageGroup, $slots, showPanel, $listeners, type } = this
       if ((!src && !origin) || error) return;
 
       let showSwitch = ImageGroup != null
-      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, _globle: false }
+      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, _globle: false, type }
       // { data, src, index }
       if (showSwitch) {
         options.data = ImageGroup.data

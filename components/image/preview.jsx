@@ -7,6 +7,7 @@ export default {
   name: 'Preview',
   directives: { transfer },
   props: {
+    type: String,
     origin: String,
     hasControl: Boolean,
     value: Boolean,
@@ -48,7 +49,7 @@ export default {
       }
     },
     src(src) {
-      // if (src != this.src) {
+      if (this.type == 'media') return
       let img = new Image()
       this.loading = true
       this.error = false
@@ -218,7 +219,7 @@ export default {
     document.addEventListener('mousedown', this.mousedown)
   },
   render(h) {
-    const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight } = this
+    const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this
     const imgStyle = {
       transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`
     }
@@ -227,6 +228,7 @@ export default {
       transition: this.ismousedown ? '0s' : null
     }
     const imgPorps = {
+      class: 'k-image-preview-img',
       attrs: { src },
       style: imgStyle,
       ref: "imgRef",
@@ -259,8 +261,12 @@ export default {
               ><Icon type="refresh-outline" /></li>
             </ul>
             <div class="k-image-preview-img-wrap" style={moveStyle}>
-              {!this.error ? <img class="k-image-preview-img" {...imgPorps} /> :
-                <div class="k-image-preview-img-error"><Icon type="image" /></div>}
+              {type == 'media' ?
+                <video controls {...imgPorps} />
+                :
+                !this.error ? <img {...imgPorps} /> :
+                  <div class="k-image-preview-img-error"><Icon type="image" /></div>
+              }
             </div>
             {showSwitch ?
               [<div class={["k-image-preview-switch-left", { 'k-image-preview-switch-disabled': data.indexOf(src) == 0 }]}

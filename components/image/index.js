@@ -5,7 +5,8 @@ import Vue from 'vue'
 // import { easyEqual } from '../_tool/utils'
 
 Image.show = function (options) {
-  let preview = Vue.prototype.preview || createInstance()
+  console.log(options)
+  let preview = Vue.prototype.preview || createInstance({ type: options.type })
   preview.show(options)
 }
 
@@ -14,7 +15,7 @@ Image.togglePanel = () => {
   if (preview) {
     preview.togglePanel()
   }
-},
+}
 
 Image.destroy = () => {
   let preview = Vue.prototype.preview
