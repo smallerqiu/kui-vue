@@ -1,5 +1,4 @@
 
-import { getParent } from './utils.js'
 export default {
   name: "Menu",
   props: {
@@ -18,7 +17,7 @@ export default {
   },
   provide() {
     return {
-      Menu: this
+      Menu: this.Menu || this
     }
   },
   watch: {
@@ -53,9 +52,8 @@ export default {
     // console.log(this.$slots.default)
   },
   render() {
-    const { theme, currentMode, Menu } = this
-    // const root = Menu ? getParent(Menu, 'Menu') : this;
-    const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
+    const { theme, currentMode, Dropdown } = this
+    const preCls = Dropdown ? 'dropdown-menu' : 'menu';
     const cls = [`k-${preCls} k-${preCls}-${theme} k-${preCls}-${currentMode}`, {
       [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
     }];

@@ -16,6 +16,6 @@ export default {
 			return (<transition name={this.name}>{child}</transition>)
 		}
 		const props = getTranstionProp(this.name)
-		return (<transition {...props}>1123123{child}</transition>)
+		return (<transition {...props}>{child}</transition>)
 	}
 }

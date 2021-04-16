@@ -49,14 +49,25 @@ export default {
       currentMode: null,
     };
   },
-  render() {
-    const { $slots, disabled } = this
-
-    let selected, root = getParent(this.Menu, 'Menu'), opened = this.opened;
-    const { currentMode, theme, selectedKeys } = root
-    if (selectedKeys) {
-      selected = selectedKeys.indexOf(this.$vnode.key) >= 0
+  mounted() {
+    let { SubMenu, Menu } = this
+    if (Menu && SubMenu) {
+      let { selectedKeys } = Menu
+      let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
+      if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
+        Menu.selectedKeys.push(SubMenu.$vnode.key)
+      }
     }
+  },
+  render() {
+    let { $slots, disabled, Dropdown, opened } = this
+
+    let root = this.Menu;
+
+    const { currentMode, theme, selectedKeys } = root
+
+    let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
+
     if (currentMode == 'inline') {
       opened = root.defaultOpenKeys.indexOf(this.$vnode.key) >= 0
     }
@@ -68,7 +79,7 @@ export default {
       this.currentMode = mode
     }
 
-    const preCls = this.Dropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
+    const preCls = Dropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
 
     let aniName = currentMode == 'horizontal' && !this.SubMenu ? 'dropdown' : animateNames[this.currentMode];
 
@@ -97,7 +108,7 @@ export default {
         click: e => this.openChange()
       }
     }
-    if ((currentMode != 'inline' && this.SubMenu != null) || this.Dropdown) {
+    if ((currentMode != 'inline' && this.SubMenu != null) || Dropdown) {
       titleProps.on.mouseenter = e => this.showPopupMenu(currentMode)
       titleProps.on.mouseleave = e => this.hidePopupMenu(currentMode)
     }
@@ -105,7 +116,7 @@ export default {
       <span class={`k-${preCls}-inner`}>{$slots.title || this.title}</span>
       <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
     </div>
-    if (currentMode == 'inline' || this.SubMenu != null || this.Dropdown) {
+    if (currentMode == 'inline' || this.SubMenu != null || Dropdown) {
       popupProps.directives = [{ name: 'show', value: opened }]
     } else {
       // popupProps.style.minWidth = this.minWidth + 'px'
@@ -114,7 +125,7 @@ export default {
       <Menu mode={this.currentMode} theme={theme}>{$slots.default}</Menu>
     </div>
     let vnodes = null
-    if (currentMode != 'inline' && this.SubMenu == null && !this.Dropdown) {
+    if (currentMode != 'inline' && this.SubMenu == null && !Dropdown) {
       const popProps = {
         props: {
           showPlacementArrow: false,
@@ -140,7 +151,7 @@ export default {
       `k-${preCls}`,
       {
         [`k-${preCls}-active`]: this.active,
-        [`k-${preCls}-selected`]: selected && !this.Dropdown,
+        [`k-${preCls}-selected`]: selected && !Dropdown,
         [`k-${preCls}-opened`]: opened,
         [`k-${preCls}-disabled`]: disabled
       }

@@ -1,7 +1,6 @@
 import Icon from "../icon";
-import { getParent } from './utils.js'
 import Tooltip from '../tooltip'
-// import PopBase from '../base/pop'
+
 export default {
   name: "MenuItem",
   props: {
@@ -21,7 +20,6 @@ export default {
   data() {
     return {
       active: false,
-      selected: false,
       currentAffixed: this.affixed,
     };
   },
@@ -34,23 +32,28 @@ export default {
       }
     }
   },
+  mounted() {
+    let { SubMenu, Menu } = this
+    if (Menu && SubMenu) {
+      let { selectedKeys } = Menu
+      let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
+      if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
+        Menu.selectedKeys.push(SubMenu.$vnode.key)
+      }
+    }
+  },
   render() {
 
-    const { icon, disabled, Menu, SubMenu } = this
-    let selected, root = {};
-    if (Menu) {
-      root = getParent(Menu, 'Menu')
-      // console.log(root.mode, root.selectedKeys, 'item')
-      selected = root.selectedKeys.indexOf(this.$vnode.key) >= 0
-      this.selected = selected
-    }
+    let { icon, disabled, Menu, SubMenu, Dropdown } = this
+    let selected = Menu.selectedKeys.indexOf(this.$vnode.key) >= 0
+
     const item = this
-    const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
+    const preCls = Dropdown ? 'dropdown-menu' : 'menu';
 
     const props = {
       class: [`k-${preCls}-item`, {
         [`k-${preCls}-item-active`]: this.active,
-        [`k-${preCls}-item-selected`]: selected && !this.Dropdown,
+        [`k-${preCls}-item-selected`]: selected && !Dropdown,
         [`k-${preCls}-item-disabled`]: disabled
       }],
       on: {
@@ -80,13 +83,13 @@ export default {
         },
       }
     }
-    const showTooltip = this.$parent == root && root.inlineCollapsed
+    const showTooltip = this.$parent == Menu && Menu.inlineCollapsed
     return (
       <Tooltip placement="right">
         <li {...props}>
           {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null}
           {this.$slots.default}
-          {root.mode == 'vertical' && root.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
+          {Menu.mode == 'vertical' && Menu.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
       </Tooltip>
