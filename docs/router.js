@@ -20,6 +20,7 @@ let docs = [
 	{ path: 'kui-loader', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/kui-loader') },
 ]
 let components = [
+	{ path: 'all', component: () => import(/*webpackChunkName:'all'*/'./views/all.jsx') },
 	{ path: 'alert', component: () => import(/*webpackChunkName:'alert'*/'../components/alert/demo'), },
 	{ path: 'affix', component: () => import(/*webpackChunkName:'affix'*/'../components/affix/demo'), },
 	{ path: 'card', component: () => import(/*webpackChunkName:'card'*/'../components/card/demo'), },

@@ -315,12 +315,14 @@
         }
         .k-menu-submenu-affix-item-active {
           .k-menu-submenu-affix-item-text {
-            // background-color: #fff;
-            // color: #333;
-            // border: none;
             &:hover {
               background-color: rgba(255, 255, 255, 0.3);
             }
+          }
+        }
+        .k-menu-submenu-active, .k-menu-submenu-selected {
+          .k-menu-submenu-title {
+            color: @main;
           }
         }
       }
@@ -346,7 +348,7 @@
       .k-menu-item-active, .k-menu-submenu-active .k-menu-submenu-title {
         color: #fff;
       }
-      .k-menu-submenu-selected, .k-menu-selected {
+      .k-menu-submenu-selected {
         color: #fff;
         a {
           color: #fff;
@@ -489,6 +491,11 @@
             }
           }
         }
+      }
+    }
+    .k-menu-submenu-affix-popup{
+      .k-menu-item{
+        font-size: 12px;
       }
     }
     .k-menu-submenu {

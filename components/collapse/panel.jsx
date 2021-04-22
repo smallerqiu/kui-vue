@@ -16,13 +16,13 @@ export default {
     }
   },
   render() {
-    let active = false
+    let actived = false
     let { Collapse, $vnode ,$slots} = this
     if (Collapse) {
-      active = Collapse.currentValue.indexOf($vnode.key) >= 0
+      actived = Collapse.currentValue.indexOf($vnode.key) >= 0
     }
     const classes = ['k-collapse-item', {
-      ['k-collapse-item-active']: active
+      ['k-collapse-item-active']: actived
     }]
     const aniprop = getTranstionProp('k-collaplse-slide')
     return (
@@ -33,7 +33,7 @@ export default {
           {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>
         <transition {...aniprop}>
-          <div class="k-collapse-content" v-show={active}>
+          <div class="k-collapse-content" v-show={actived}>
             <div class="k-collapse-content-box">
               {$slots.default}
             </div>

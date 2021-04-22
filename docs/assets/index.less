@@ -20,6 +20,8 @@ body {
     align-items: center;
     .logo {
       float: left;
+      width: 280px;
+      min-width: 280px;
       a {
         font-size: 16px;
         font-weight: bold;
@@ -41,10 +43,9 @@ body {
     }
     .search-component {
       flex: 1;
-      margin-left: 184px;
       position: relative;
       padding-left: 2px;
-      .k-select{
+      .k-select {
         width: 280px;
       }
       .k-select-open .k-select-selection, .k-select:focus .k-select-selection {
@@ -148,5 +149,36 @@ body {
   }
   .k-col:last-child {
     text-align: right;
+  }
+}
+
+.all-components {
+  .k-col {
+    margin-bottom: 20px;
+    a {
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+  .k-card {
+    transition: all .5s;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 10px 40px 10px rgba(0, 0, 0, 0.161);
+      border-color: #ddd;
+      .icon-view {
+        transform: scale(1.2);
+        color: #3a96ff50;
+      }
+    }
+    .k-card-body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+    .icon-view {
+      font-size: 60px;
+      transition: all .5s;
+      color: #ddd;
+    }
   }
 }

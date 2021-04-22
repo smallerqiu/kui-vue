@@ -12,9 +12,9 @@
     </div>
     <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
       <MenuItem key="home">首页</MenuItem>
-      <MenuItem key="start">组件</MenuItem>
+      <MenuItem key="/components/all">组件</MenuItem>
     </Menu>
-    <Select size="small" :width="100" style="margin:0 10px" v-model="version" :transfer="false" @change="changeV">
+    <Select size="small" :width="100" style="margin:0 10px" v-model="v" :transfer="false" @change="changeV">
       <Option value="3">3.1.5</Option>
       <Option value="2">2.x</Option>
     </Select>
@@ -29,41 +29,41 @@
         <MenuItem key="https://chuchur.com">Blog</MenuItem>
       </Menu>
     </Dropdown>
+    <!-- <Button size="small" type="primary" hollow>{{version}}</Button> -->
     <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square" style="height:24px;margin-left:10px;" />
   </Header>
 </template>
 <script>
 import { Nav } from "../menu";
+// import { version } from '@/package.json'
 export default {
   data() {
     return {
+      // version,
       components: [],
-      version: "3",
+      v: "3",
       key: "",
-      topMenu: ["start"],
+      topMenu: [],
     };
   },
   mounted() {
-    Nav.forEach((x) => this.components.push(...x.child));
+    this.components = Nav.reduce((a, b) => a.concat(b.child), [])
+    let path = this.$route.path
+    this.topMenu = path == '/' ? ['home'] : ['/components/all']
   },
   methods: {
     go({ key, keyPath, item }) {
       if (key == "home") {
+        this.topMenu = ['home']
         this.$router.push("/");
-      } else if (key == "start") {
-        this.$router.push("/docs/start");
+      } else if (key == '/components/all') {
+        this.$router.push("/components/all");
       } else {
         open(key);
       }
     },
     change({ value }) {
-      let item = this.components.filter(x => x.name == value)[0]
-      if (item) {
-        document.title = `${item.title} ${item.sub || ""} - KUI`;
-      }
-      this.activeName = value;
       this.$router.push(`/components/${value}`);
-
       setTimeout(() => (this.key = ""), 500);
     },
     changeV({ value }) {

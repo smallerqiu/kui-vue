@@ -1,10 +1,9 @@
 const Nav = [
   {
-    title: "基础组件",
+    title: "通用",
     child: [
       { title: "按钮", sub: "Button", name: "button", icon: 'square' },
       { title: "图标", sub: "Icon", name: "icon", icon: "heart" },
-      { title: "颜色", sub: "ColorPicker", name: "colorpicker", icon: 'color-palette' },
     ]
   },
   {
@@ -47,7 +46,7 @@ const Nav = [
     child: [
       { title: "卡片", sub: "Card", name: "card", icon: 'card' },
       { title: "走马灯", sub: "Carousel", name: "carousel", icon: 'film' },
-      { title: "折叠面板", sub: "Collapse", name: "collapse", icon: 'funnel' },
+      { title: "折叠面板", sub: "Collapse", name: "collapse", icon: 'map' },
       { title: "图片", sub: "Image", name: "image", icon: 'images' },
       { title: "表格", sub: "Table", name: "table", icon: 'grid' },
       { title: "时间轴", sub: "TimeLine", name: "timeline", icon: 'time' },
@@ -60,7 +59,7 @@ const Nav = [
     child: [
       { title: "警告提示", sub: "Alert", name: "alert", icon: 'alert-circle' },
       { title: "徽标", sub: "Badge", name: "badge", icon: 'mail-unread' },
-      { title: "抽屉", sub: "Drawer", name: "drawer", icon: 'map' },
+      { title: "抽屉", sub: "Drawer", name: "drawer", icon: 'file-tray-stacked' },
       { title: "空状态", sub: "Empty", name: "empty", icon: 'file-tray' },
       { title: "全局提示", sub: "Message", name: "message", icon: 'chatbubble' },
       { title: "通知提醒", sub: "Notice", name: "notice", icon: 'notifications' },
@@ -71,6 +70,12 @@ const Nav = [
       { title: "进度条", sub: "Progress", name: "progress", icon: 'pulse' },
       { title: "标签", sub: "Tag", name: "tag", icon: 'bookmark' },
       { title: "文字提示", sub: "Tooltip", name: "tooltip", icon: 'chatbubble-ellipses' },
+    ]
+  },
+  {
+    title: '其他',
+    child: [
+      { title: "颜色", sub: "ColorPicker", name: "colorpicker", icon: 'color-palette' },
     ]
   }
 ]

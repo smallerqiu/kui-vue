@@ -48,9 +48,6 @@ export default {
       originMode: null
     };
   },
-  mounted() {
-    // console.log(this.$slots.default)
-  },
   render() {
     const { theme, currentMode, Dropdown } = this
     const preCls = Dropdown ? 'dropdown-menu' : 'menu';

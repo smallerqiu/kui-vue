@@ -10,54 +10,39 @@
     <br/>
     <br/>
     <Menu v-model="current" mode="vertical" vertical-affixed :theme="theme">
-      <SubMenu key="sub1">
-        <template slot="title">
-          <Icon type="keypad" />Navigation One
-        </template>
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-          <MenuItem key="1-3" affixed>Option 3</MenuItem>
-          <MenuItem key="1-4" affixed>Option 4</MenuItem>
-          <MenuItem key="1-5" affixed>Option 5</MenuItem>
-          <MenuItem key="1-6" affixed>Option 6</MenuItem>
-          <MenuItem key="1-7">Option 7</MenuItem>
-          <MenuItem key="1-8">Option 8</MenuItem>
-          <MenuItem key="1-9">Option 9</MenuItem>
+      <SubMenu key="sub1" icon="keypad" title="Navigation One">
+        <MenuItem key="1-1">Option 1</MenuItem>
+        <MenuItem key="1-2">Option 2</MenuItem>
+        <MenuItem key="1-3" affixed>Option 3</MenuItem>
+        <MenuItem key="1-4" affixed>Option 4</MenuItem>
+        <MenuItem key="1-5" affixed>Option 5</MenuItem>
+        <MenuItem key="1-6" affixed>Option 6</MenuItem>
+        <MenuItem key="1-7">Option 7</MenuItem>
+        <MenuItem key="1-8">Option 8</MenuItem>
+        <MenuItem key="1-9">Option 9</MenuItem>
       </SubMenu>
-      <SubMenu key="sub2">
-        <template slot="title">
-          <Icon type="keypad" />Navigation Two
-        </template>
-          <MenuItem key="2-1">Option 1</MenuItem>
-          <MenuItem key="2-2">Option 2</MenuItem>
-          <MenuItem key="2-3" affixed>Option 3</MenuItem>
-          <MenuItem key="2-4" affixed>Option 4</MenuItem>
-          <MenuItem key="2-5" affixed>Option 5</MenuItem>
-          <MenuItem key="2-6" affixed>Option 6</MenuItem>
-          <MenuItem key="2-7">Option 7</MenuItem>
+      <SubMenu key="sub2" icon="keypad" title="Navigation Two">
+        <MenuItem key="2-1">Option 1</MenuItem>
+        <MenuItem key="2-2">Option 2</MenuItem>
+        <MenuItem key="2-3" affixed>Option 3</MenuItem>
+        <MenuItem key="2-4" affixed>Option 4</MenuItem>
+        <MenuItem key="2-5" affixed>Option 5</MenuItem>
+        <MenuItem key="2-6" affixed>Option 6</MenuItem>
+        <MenuItem key="2-7">Option 7</MenuItem>
       </SubMenu>
-       <SubMenu key="sub3">
-        <template slot="title">
-          <Icon type="settings" />Navigation Three
-        </template>
+       <SubMenu key="sub3" icon="settings" title="Navigation Three">
         <MenuItem key="3-1">Option 1</MenuItem>
         <MenuItem key="3-2" affixed>Option 2</MenuItem>
         <MenuItem key="3-3" affixed>Option 3</MenuItem>
         <MenuItem key="3-4">Option 4</MenuItem>
       </SubMenu>
-       <SubMenu key="sub4">
-        <template slot="title">
-          <Icon type="settings" />Navigation Four
-        </template>
+       <SubMenu key="sub4"  icon="settings" title="Navigation Four">
         <MenuItem key="4-1">Option 1</MenuItem>
         <MenuItem key="4-2">Option 2</MenuItem>
         <MenuItem key="4-3" affixed>Option 3</MenuItem>
         <MenuItem key="4-4" affixed>Option 4</MenuItem>
       </SubMenu>
-       <SubMenu key="sub5">
-        <template slot="title">
-          <Icon type="settings" />Navigation Five
-        </template>
+       <SubMenu key="sub5"   icon="settings" title="Navigation Five">
         <MenuItem key="5-1" affixed>Option 1</MenuItem>
         <MenuItem key="5-2" affixed>Option 2</MenuItem>
         <MenuItem key="5-3" affixed>Option 3</MenuItem>

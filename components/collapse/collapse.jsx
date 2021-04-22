@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     change(key) {
+      if (!key) return;
       let value = this.currentValue
       let index = value.indexOf(key)
 

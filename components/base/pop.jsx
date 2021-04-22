@@ -1,6 +1,6 @@
 import Button from "../button";
 import Icon from "../icon";
-import { cloneVNode, isVnode, hasProp } from "../_tool/utils";
+import { cloneVNode, isVnode, hasProp, getChild } from "../_tool/utils";
 import Drop from './drop'
 
 export default {
@@ -13,6 +13,7 @@ export default {
     transfer: { type: Boolean, default: true },
     value: { type: Boolean },
     title: String,
+    children: Array,
     showPlacementArrow: { type: Boolean, default: true },
     width: [Number, String],
     placement: {
@@ -133,7 +134,6 @@ export default {
       const props = {
         ref: 'overlay',
         props: {
-          // transfer: false,
           transfer: this.transfer,
           show: this.showPop,
           className: `k-${preCls}-content`,
@@ -142,9 +142,6 @@ export default {
           trigger: this.trigger,
           transitionName: `k-${preCls}`
         },
-        // attrs: {
-        //   'k-placement': placement
-        // },
         on: {
           mouseenter: e => {
             if (this.$refs.overlay.$el.contains(e.target)) {
@@ -156,19 +153,9 @@ export default {
               this.showPop = false
             }
           },
-          // click: e => {
-          //   //   this.$emit('click', e) //子集点击
-          //   if (hasProp(this, 'value')) {
-          //     this.$emit('input', false);
-          //   } else {
-              // this.showPop = false
-            // }
-          // },
           input: (e) => {
             this.showPop = e
-
             if (hasProp(this, 'value')) {
-              console.log( e)
               this.$emit('input', e);
             }
           }
@@ -180,16 +167,18 @@ export default {
 
   render() {
     let { $slots } = this
-
-    let child = ($slots.default || []).filter(c => c.tag || c.text.trim() !== '');
+    let child = getChild($slots.default)
     child = child.length === 1 ? child[0] : child;
     if (!child) {
       return null;
     };
-    child = isVnode(child) ? child : <span>{child}</span>;
+
+    // console.log(child)
+
+    // child = isVnode(child) ? child : <span>{child}</span>;
     let popup = this.renderPopup()
 
-
+    // child = getChild($slots.default)
     const props = {
       children: popup,
       on: {

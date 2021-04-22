@@ -47,24 +47,19 @@ export default {
   render() {
     const props = {
       class: this.className,
-      // ref: 'overlay',
       style: {
         left: `${this.left}px`,
         top: `${this.top}px`,
         width: `${this.width}px`,
-        // transformOrigin: this.placement == 'top' ? 'center bottom' : ''
         transformOrigin: this.transformOrigin
       },
       attrs: {
         'k-placement': this._placement
-        // ...this.$props.attrs
       },
       on: {
-        // ...this.$props.on,
         ...this.$listeners
       },
     }
-    // console.log(this.transitionName)
     return <transition name={this.transitionName}>
       <div {...props} v-show={this.show} v-transfer={this.transfer} v-outsideclick={this.hide} v-resize={this.resize}>
         {this.$slots.default}
@@ -74,7 +69,7 @@ export default {
   methods: {
     baseContextmenu(e) {
       let pickerHeight = this.$el.offsetHeight
-      let pickerWidth = this.$el.offsetWidth 
+      let pickerWidth = this.$el.offsetWidth
       let clientHeight = document.documentElement.clientHeight
       let clientWidth = document.documentElement.clientWidth
 
@@ -119,7 +114,6 @@ export default {
     hide(e) {
       let { target } = e
       e.stopPropagation()
-      // console.log(this._show, this.selection.contains(target), this.$el.contains(target))
       if (this.show &&
         !this.selection.contains(target) &&
         !this.$el.contains(target) &&
