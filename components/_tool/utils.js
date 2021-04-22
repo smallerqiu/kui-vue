@@ -1,5 +1,5 @@
 export function isEmptyNode(vnode = {}) {
-  return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim().length))
+  return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim() !== ''))
 }
 export function getChild(child = []) {
   return child.filter(c => !isEmptyNode(c))
@@ -48,6 +48,10 @@ export function getElementPos(element) {
   return pos;
 }
 
+
+/*
+see: https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js
+*/
 export function cloneVNode(vnode, opts = {}) {
   const componentOptions = vnode.componentOptions;
   const data = vnode.data;
@@ -86,12 +90,14 @@ export function cloneVNode(vnode, opts = {}) {
   const cloned = new vnode.constructor(
     vnode.tag,
     // data ? { ...data, on } : data,
+    // vnode.data,
     { ...data, on },
     // vnode.children,
     children,
     vnode.text,
     vnode.elm,
     vnode.context,
+    // vnode.componentOptions,
     componentOptions ? { ...componentOptions, listeners } : componentOptions,
     vnode.asyncFactory,
   );

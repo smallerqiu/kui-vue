@@ -29,6 +29,7 @@
 
 | 属性     | 说明            | 类型         | 默认值 |
 |----------|-----------------|--------------|--------|
+| icon     | item的图标      | String       | -      |
 | disabled | 是否禁用        | Boolean      | false  |
 | key      | item 的唯一标志 | String       | -      |
 | title    | 子菜单项值      | String,slots | -      |

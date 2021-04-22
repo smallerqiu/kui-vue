@@ -1,5 +1,6 @@
 import Icon from "../icon";
 import Tooltip from '../tooltip'
+import { isVnode } from '../_tool/utils'
 
 export default {
   name: "MenuItem",
@@ -66,7 +67,6 @@ export default {
         },
         click: (e) => {
           if (!disabled) {
-            this.selected = true
             let key = this.$vnode.key
 
             let options = {
@@ -84,11 +84,13 @@ export default {
       }
     }
     const showTooltip = this.$parent == Menu && Menu.inlineCollapsed
+    let child = this.$slots.default
+    let titleNode = child.length == 1 ? isVnode(child[0]) ? child : <span>{child}</span> : child
     return (
       <Tooltip placement="right">
         <li {...props}>
           {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null}
-          {this.$slots.default}
+          {titleNode}
           {Menu.mode == 'vertical' && Menu.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}

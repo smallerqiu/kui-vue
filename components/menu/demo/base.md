@@ -9,10 +9,7 @@
     <Menu mode="horizontal" v-model="current">
       <MenuItem key="1" icon="mail">Navigation One</MenuItem>
       <MenuItem key="2" icon="keypad" disabled>Navigation Two</MenuItem>
-      <SubMenu key="3">
-        <template slot="title">
-          <Icon type="settings" />Navigation - Submenu
-        </template>
+      <SubMenu key="3" icon="settings" title="Navigation - Submenu">
         <MenuGroup title="Item 1">
           <MenuItem key="3-1">Option 1</MenuItem>
           <MenuItem key="3-2">Option 2</MenuItem>
@@ -20,10 +17,7 @@
         <MenuGroup title="Item 2">
           <MenuItem key="3-3">Option 1</MenuItem>
           <MenuItem key="3-4">Option 2</MenuItem>
-          <SubMenu key="3-5">
-            <template slot="title">
-              <Icon type="settings" />Submenu
-            </template>
+          <SubMenu key="3-5" icon="settings" title="Submenu">
             <MenuGroup title="Item 1">
               <MenuItem key="3-5-1">Option 1</MenuItem>
               <MenuItem key="3-5-2">Option 2</MenuItem>
