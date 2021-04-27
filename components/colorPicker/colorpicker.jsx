@@ -53,48 +53,18 @@ export default {
       paintPointer: {
         x: 0, y: 0
       },
-      showDrop: false,
-      showDropInit: false,
+      opened: false,
       isMouseDown: false
     }
   },
   methods: {
-    hidedrop(e) {
-      if (this.showDropInit && this.showDrop && !this.isMouseDown) {
-        this.showDrop = false
-        this.currentColor = this.value || '#000'
-      }
-    },
+   
     toggleDrop() {
       if (this.disabled) {
         return false;
       }
-      if (!this.showDropInit) {
-
-        this.showDropInit = true
-        this.$nextTick(e => {
-          this.setShowDrop()
-
-          let { paint, hue, alpha } = this.$refs
-          this.paintHelper = canvasHelper(paint)
-
-          this.initHueCanvas(hue)
-          this.initAlphaCanvas(alpha)
-          this.initPaintCanvas(paint)
-
-          this.valueChange('COLOR', this.value)
-        })
-      } else {
-        this.setShowDrop()
-      }
-    },
-    setShowDrop() {
-      this.showDrop = !this.showDrop;
-      if (this.showDrop) {
-        this.$nextTick(e => this.$refs.overlay.setPosition())
-      } else {
-        this.currentColor = this.value || '#000'
-      }
+      this.opened = !this.opened
+      this.currentColor = this.value || '#000'
     },
     updatePostion() {
       //alpha
@@ -167,7 +137,7 @@ export default {
       this.$emit('input', value)
       this.$emit('change', value)
       this.currentColor = value
-      this.showDrop = false
+      this.opened = false
     },
     setMode() {
       let i = modes.indexOf(this.currentMode) + 1
@@ -384,42 +354,52 @@ export default {
         ref: 'overlay',
         props: {
           transfer: this.transfer,
-          show: this.showDrop,
+          value: this.opened,
+          selection: this.$el,
           className: 'k-color-picker-dropdown',
           transitionName: 'k-color-picker'
         },
         on: {
-          input: e => this.showDrop = e,
-          hide: e => this.hide
+          input: e => {
+            this.opened = e
+            this.currentColor = this.value || '#000'
+          },
+          render: () => {
+            this.$nextTick(e => {
+              let { paint, hue, alpha } = this.$refs
+              this.paintHelper = canvasHelper(paint)
+
+              this.initHueCanvas(hue)
+              this.initAlphaCanvas(alpha)
+              this.initPaintCanvas(paint)
+
+              this.valueChange('COLOR', this.value)
+            })
+          },
         }
       }
-      return (
-        // <Drop class="k-color-picker-dropdown" ref="dom" v-show={this.showDrop} style={dropStyle} v-transfer={this.transfer} v-resize={this.setPosition}>
-        <Drop {...props}>
-          {paint}
-          < span class="k-color-picker-paint-dot" style={'left:' + this.paintPointer.x + 'px;top:' + this.paintPointer.y + 'px'} ></span >
-          <div class="k-color-picker-bar">
-            <div class="k-color-picker-avatar">
-              <div class="k-color-picker-avatar-inner" style={`background-color:rgba(${this.R}, ${this.G}, ${this.B}, ${this.A})`}></div>
-            </div>
-            <div class="k-color-picker-bar-box">
-              {[hue, alpha]}
-              <span class="k-color-picker-hue-dot" style={'left:' + this.huePointer.x + 'px'}></span>
-              <span class="k-color-picker-alpha-dot" style={'left:' + this.alphaPointer.x + 'px'}></span>
-            </div>
+      return (<Drop {...props}>
+        {paint}
+        < span class="k-color-picker-paint-dot" style={'left:' + this.paintPointer.x + 'px;top:' + this.paintPointer.y + 'px'} ></span >
+        <div class="k-color-picker-bar">
+          <div class="k-color-picker-avatar">
+            <div class="k-color-picker-avatar-inner" style={`background-color:rgba(${this.R}, ${this.G}, ${this.B}, ${this.A})`}></div>
           </div>
-          {valueNode}
-          {this.renderDefaultColor()}
-        </Drop>
+          <div class="k-color-picker-bar-box">
+            {[hue, alpha]}
+            <span class="k-color-picker-hue-dot" style={'left:' + this.huePointer.x + 'px'}></span>
+            <span class="k-color-picker-alpha-dot" style={'left:' + this.alphaPointer.x + 'px'}></span>
+          </div>
+        </div>
+        {valueNode}
+        {this.renderDefaultColor()}
+      </Drop>
       )
     }
   },
 
   render() {
-    let drop;
-    if (this.showDropInit) {
-      drop = this.renderDrop()
-    }
+    let drop = this.renderDrop()
     let style = [
       'k-color-picker',
       {

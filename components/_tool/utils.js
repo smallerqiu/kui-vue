@@ -6,12 +6,12 @@ export function getChild(child = []) {
 }
 
 export function contains(ele, target) {
-  //ele是内部元素，target是你想找到的包裹元素
-  console.log(ele, '--', target, '111')
+  //ele是内部元素，target是你想找到的包裹元素 
   if (!ele || ele === document || !target) return false;
   return ele === target ? true : contains(ele.parentNode, target);
 }
 
+//此处不能判断数组，要判断数组自行判断
 export function isNotEmpty(str) {
   return str !== '' && str !== undefined && str !== null
 }
@@ -52,72 +52,53 @@ export function getElementPos(element) {
 /*
 see: https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js
 */
-export function cloneVNode(vnode, opts = {}) {
-  const componentOptions = vnode.componentOptions;
-  const data = vnode.data;
 
-  let listeners = {};
-  if (componentOptions && componentOptions.listeners) {
-    listeners = { ...componentOptions.listeners };
+export function cloneVNode(vnode, options = {}, childs) {
+  let { componentOptions, data = {}, children } = vnode
+  if (childs && children) {
+    children = children.concat(childs)
+  } else if (componentOptions && componentOptions.children) {
+    // componentOptions.children.push(childs)
+    // console.log(componentOptions.children)
+    let hasPushed = componentOptions.children.map(x => x.tag).indexOf(childs.tag) >= 0
+    if (!hasPushed) {
+      componentOptions.children = componentOptions.children.concat(childs)
+    }
   }
+  let ndata = JSON.parse(JSON.stringify(data))
+  let { attrs = {}, on = {}, style = {} } = data
 
-  let on = { ...opts.on };
-  if (data && data.on) {
-    on = { ...data.on };
-    // on = Object.assign(data.on, );
-
-    // merge event ,mouseenter & mouseleave & click 
-    let { mouseenter, mouseleave, click } = on
-    on.mouseenter = e => {
-      opts.on.mouseenter();
-      mouseenter && mouseenter();
+  data.attrs = Object.assign(attrs, options.attrs)
+  data.style = Object.assign(style, options.style)
+  if (options.on) {
+    for (let eKey in options.on) {
+      on[eKey] = (e) => {
+        // on[eKey] && on[eKey]()
+        options.on[eKey](e)
+      }
     }
-    on.mouseleave = e => {
-      opts.on.mouseleave();
-      mouseleave && mouseleave();
-    }
-    on.click = e => {
-      opts.on.click();
-      click && click();
-    }
-
   }
-  let children = vnode.children || []
-  if (opts.children)
-    children = children.concat(opts.children)
-
-  // console.log(children)
+  data.on = on
   const cloned = new vnode.constructor(
     vnode.tag,
-    // data ? { ...data, on } : data,
-    // vnode.data,
-    { ...data, on },
-    // vnode.children,
-    children,
+    data,//vnode.data,
+    children,// vnode.children && vnode.children.slice(),
     vnode.text,
     vnode.elm,
     vnode.context,
-    // vnode.componentOptions,
-    componentOptions ? { ...componentOptions, listeners } : componentOptions,
-    vnode.asyncFactory,
-  );
-  cloned.ns = vnode.ns;
-  cloned.isStatic = vnode.isStatic;
-  cloned.key = vnode.key;
-  cloned.isComment = vnode.isComment;
-  cloned.fnContext = vnode.fnContext;
-  cloned.fnOptions = vnode.fnOptions;
-  cloned.fnScopeId = vnode.fnScopeId;
-  cloned.isCloned = true;
-  // if (deep) {
-  //   if (vnode.children) {
-  //     cloned.children = cloneVNodes(vnode.children, true);
-  //   }
-  //   if (componentOptions && componentOptions.children) {
-  //     componentOptions.children = cloneVNodes(componentOptions.children, true);
-  //   }
-  // }
-  return cloned;
+    componentOptions, // vnode.componentOptions
+    vnode.asyncFactory
+  )
+  cloned.ns = vnode.ns
+  cloned.isStatic = vnode.isStatic
+  cloned.key = vnode.key
+  cloned.isComment = vnode.isComment
+  cloned.fnContext = vnode.fnContext
+  cloned.fnOptions = vnode.fnOptions
+  cloned.fnScopeId = vnode.fnScopeId
+  cloned.asyncMeta = vnode.asyncMeta
+  cloned.isCloned = true
+  return cloned
 }
 
 
@@ -139,7 +120,7 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
     bottom: 'center top', 'bottom-left': 'left top', 'bottom-right': 'right top'
   }
 
-  if (picker) {
+  if (picker && selection) {
 
     let selectionRect = selection.getBoundingClientRect();
     let pickerHeight = picker.offsetHeight
@@ -247,9 +228,7 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
         }
       }
     }
-
     // console.log(placement, showInBottom,picker, pickerHeight,pickerWidth)
-
   }
   let origin = origins[placement]
   if (callback) {

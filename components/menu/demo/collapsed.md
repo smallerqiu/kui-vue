@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       current: ['1-1'],
-      openKeys:['sub1'],
+      openKeys:['sub2'],
       collapsed: false
     }
   },

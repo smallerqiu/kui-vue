@@ -1,9 +1,9 @@
 <template>
   <div class="k-code">
     <div class="k-code-tools">
-      <ToolTip content="复制代码">
+      <Tooltip content="复制代码">
         <Icon type="copy" @click="copy" />
-      </ToolTip>
+      </Tooltip>
     </div>
     <pre class="k-code-pre">
     <div :class="lang" ref="code">
@@ -17,11 +17,8 @@ import hljs from './highlight';
 hljs.registerLanguage('xml', require('./lang/xml'));
 hljs.registerLanguage('javascript', require('./lang/javascript'));
 import "./atom-one-light.css";
-// import ToolTip from '@/components/tooltip'
-// import { Message } from '@/components/message'
 export default {
   name: "Code",
-  // components: { ToolTip, Message, Modal },
   props: {
     lang: { type: String, default: "xml html" },
   },

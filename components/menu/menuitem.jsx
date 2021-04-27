@@ -9,9 +9,6 @@ export default {
     disabled: Boolean,
     affixed: Boolean
   },
-  // model: {
-  //   prop: 'affixed',
-  // },
   inject: {
     Menu: { default: null },
     SubMenu: { default: null },
@@ -68,7 +65,6 @@ export default {
         click: (e) => {
           if (!disabled) {
             let key = this.$vnode.key
-
             let options = {
               key,
               keyPath: [key],

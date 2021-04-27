@@ -1,30 +1,53 @@
 import Icon from "../icon";
-import { getTranstionProp } from '../_tool/transition'
+import { getTranstionProp } from '../base/transition'
 export default {
   name: 'Panel',
   props: {
     title: String,
+    actived: Boolean
   },
   inject: {
     Collapse: { default: null }
+  },
+  watch: {
+    actived(value) {
+      this.rendered = true
+      this.$nextTick(() => this.visible = value)
+    }
+  },
+  data() {
+    return {
+      visible: this.actived,
+      rendered: this.actived == true
+    }
   },
   methods: {
     handelClick() {
       if (this.Collapse) {
         this.Collapse.change(this.$vnode.key)
       }
+    },
+    renderPanel() {
+      const aniprop = getTranstionProp('k-collaplse-slide')
+      return this.rendered ? <transition {...aniprop}>
+        <div class="k-collapse-content" v-show={this.visible}>
+          <div class="k-collapse-content-box">
+            {this.$slots.default}
+          </div>
+        </div>
+      </transition> : null
     }
   },
   render() {
-    let actived = false
-    let { Collapse, $vnode ,$slots} = this
-    if (Collapse) {
-      actived = Collapse.currentValue.indexOf($vnode.key) >= 0
-    }
+    // console.log(this.actived)
+    // let actived = false
+    let { Collapse, actived, $vnode, $slots } = this
+    // if (Collapse) {
+    //   actived = Collapse.currentValue.indexOf($vnode.key) >= 0
+    // }
     const classes = ['k-collapse-item', {
       ['k-collapse-item-active']: actived
     }]
-    const aniprop = getTranstionProp('k-collaplse-slide')
     return (
       <div class={classes}>
         <div class="k-collapse-header" onClick={this.handelClick}>
@@ -32,13 +55,7 @@ export default {
           <span class="k-collapse-title">{this.title}</span>
           {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>
-        <transition {...aniprop}>
-          <div class="k-collapse-content" v-show={actived}>
-            <div class="k-collapse-content-box">
-              {$slots.default}
-            </div>
-          </div>
-        </transition>
+        {this.renderPanel()}
       </div >
     )
   }

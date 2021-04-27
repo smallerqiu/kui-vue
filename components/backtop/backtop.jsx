@@ -15,14 +15,6 @@ export default {
       visible: false
     };
   },
-  computed: {
-    styles() {
-      return {
-        bottom: `${this.bottom}px`,
-        left: `${this.right}px`
-      }
-    }
-  },
   methods: {
     scroll() {
       let top = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
@@ -65,12 +57,16 @@ export default {
     if (!child) {
       child = <div class="k-backtop-content"><Icon type="arrow-up" /></div>
     }
+    const styles = {
+      bottom: `${this.bottom}px`,
+      left: `${this.right}px`
+    }
     return (
       <transition name="k-backtop-fade">
-        <div class="k-backtop" onClick={this.handle} v-show={this.visible} v-scroll={this.scroll} style={this.styles} >
+        <div class="k-backtop" onClick={this.handle} v-show={this.visible} v-scroll={this.scroll} style={styles} >
           {child}
         </div>
       </transition>
     )
   }
-}; 
+};

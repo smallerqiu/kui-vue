@@ -31,7 +31,13 @@ export default {
       // if (this.defaultOpenKeys.length)
       // this.originOpenKeys = JSON.parse(JSON.stringify(this.defaultOpenKeys))
 
-      if (!this.originMode) this.originMode = this.currentMode
+      // if (!this.originMode) this.originMode = this.currentMode
+      // this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
+
+      if (collapsed) {
+        this.originOpenKeys = [].concat(this.defaultOpenKeys)
+        this.originMode = this.currentMode + ''
+      }
       this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {

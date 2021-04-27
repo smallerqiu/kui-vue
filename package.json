@@ -85,7 +85,8 @@
 		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.2",
 		"webpack-merge": "^5.7.3",
-		"webpackbar": "^5.0.0-3"
+		"webpackbar": "^5.0.0-3",
+		"lodash": "^4.17.21"
 	},
 	"dependencies": {
 		"kui-icons": "^2.0.0",

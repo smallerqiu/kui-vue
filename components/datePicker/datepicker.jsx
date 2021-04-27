@@ -34,8 +34,7 @@ export default {
   },
   data() {
     return {
-      showDropInit: false,
-      showDrop: false,
+      opened: false,
       currentValue: this.value,
       leftPicker: null,
       rightPicker: null,
@@ -96,7 +95,7 @@ export default {
       this.$emit('input', date)
       this.$emit('change', date)
       this.currentValue = value
-      this.showDrop = false
+      this.opened = false
       this.temp_date_hover = {};
       this.temp_range_one = null
       this.temp_range_left = null
@@ -114,32 +113,18 @@ export default {
       this.$emit("change", this.currentValue);
       e.stopPropagation()
     },
-    hide() {
-      if (this.showDropInit) {
-        this.temp_date_hover = {};
-        this.temp_range_one = null
-        this.temp_range_left = null
-        this.temp_range_right = null
-        this.temp_range_showtime = false
-      }
-    },
     toggleDrop() {
       if (this.disabled) {
         return false;
       }
-      if (!this.showDropInit) {
-        this.showDropInit = true
-        this.$nextTick(e => this.setShowDrop())
-      } else {
-        this.setShowDrop()
-      }
-    },
-    setShowDrop() {
-      this.showDrop = !this.showDrop;
+      this.opened = !this.opened;
     },
   },
   render() {
-    let { currentValue, placeholder, disabled, clearable, showDrop, size, label, mode, transfer } = this
+    let { currentValue, placeholder, disabled, clearable,
+      opened, size, label, transfer,
+      format, mode, disabledTime, disabledDate, showTime
+    } = this
     let childNode = [], isRange = mode == 'range';
 
     childNode.push(<Icon type="calendar-outline" class="k-icon-calendar" />)
@@ -171,55 +156,61 @@ export default {
       }
     }
 
-    let overlay;
 
-    if (this.showDropInit) {
-      let { format, mode, disabledTime, disabledDate, showTime } = this.$props
-      let calendar = []
-      if (isRange) {
-        currentValue = currentValue || []
-        let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
-        let leftProps = {
-          props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1 },
-          on: {
-            input: e => this.updateValue(e)
-          }
-        }
-        let rightProps = {
-          props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2 },
-          on: {
-            input: e => this.updateValue(e)
-          }
-        };
-
-        calendar.push(<Calendar {...leftProps} />, <Calendar {...rightProps} />)
-      } else {
-        const props = {
-          props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue },
-          on: {
-            input: e => {
-              this.updateValue(e);
-              this.showDrop = false
-            }
-          }
-        }
-        calendar.push(<Calendar {...props} />)
-      }
-      const props = {
-        props: {
-          className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
-          transfer: transfer,
-          show: this.showDrop,
-          transitionName: 'k-date-picker'
-        },
+    let calendar = []
+    if (isRange) {
+      currentValue = currentValue || []
+      let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
+      let leftProps = {
+        props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1 },
         on: {
-          hide: this.hide,
-          input: e => this.showDrop = e
+          input: e => this.updateValue(e)
         }
       }
-      overlay = <Drop {...props}>{calendar}</Drop >
+      let rightProps = {
+        props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2 },
+        on: {
+          input: e => this.updateValue(e)
+        }
+      };
+
+      calendar.push(<Calendar {...leftProps} />, <Calendar {...rightProps} />)
+    } else {
+      const props = {
+        props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue },
+        on: {
+          input: e => {
+            this.updateValue(e);
+            this.opened = false
+          }
+        }
+      }
+      calendar.push(<Calendar {...props} />)
     }
-    let showClear = !disabled && clearable && isNotEmpty(label)
+    const props = {
+      props: {
+        className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
+        transfer: transfer,
+        selection: this.$el,
+        value: this.opened,
+        transitionName: 'k-date-picker'
+      },
+      on: {
+        input: e => {
+          this.opened = e
+          if (!e) {
+            this.temp_date_hover = {};
+            this.temp_range_one = null
+            this.temp_range_left = null
+            this.temp_range_right = null
+            this.temp_range_showtime = false
+          }
+        }
+      }
+    }
+    let overlay = <Drop {...props}>{calendar}</Drop >
+
+    let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
     showClear && childNode.push(<Icon class="k-datepicker-clearable" type="close-circle" onClick={this.clear} />)
     const selectCls = [
       "k-datepicker-selection", {
@@ -227,7 +218,7 @@ export default {
       }
     ]
     const classes = ['k-datepicker',
-      { 'k-datepicker-open': showDrop },
+      { 'k-datepicker-open': opened },
       { 'k-datepicker-range': isRange },
       { 'k-datepicker-sm': size == 'small' },
       { 'k-datepicker-lg': size == 'large' },

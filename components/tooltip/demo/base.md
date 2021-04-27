@@ -12,5 +12,26 @@
     </template>
     <a>月几时有,把酒问青天</a>
   </Tooltip>
+  <br/>
+  <br/>
+  <br/>
+  <Tooltip :title="change?'窗前明月光':'凝视地上霜'">
+    <a @click="clickHandle">Click me!</a>
+  </Tooltip>
+
 </template>
+<script>
+export default{
+  data(){
+    return{
+      change:false
+    }
+  },
+  methods:{
+    clickHandle(){
+      this.change = !this.change
+    }
+  }
+}
+</script>
 ```

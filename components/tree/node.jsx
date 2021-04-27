@@ -1,7 +1,7 @@
 import Icon from '../icon'
 import { Checkbox } from '../checkbox'
 import TreeNode from './node.jsx'
-import { getTranstionProp } from '../_tool/transition'
+import { getTranstionProp } from '../base/transition'
 import { getChild } from '../_tool/utils'
 export default {
   name: 'TreeNode',
