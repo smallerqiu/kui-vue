@@ -68,8 +68,7 @@ export default {
     const child = getChild($slots.default)
     const kid = child.map(c => {
       if (typeof c.text == 'string') {
-        let text = c.text.trim()
-        return <span>{text}</span>
+        return <span>{c.text.trim()}</span>
       }
       return c
     })

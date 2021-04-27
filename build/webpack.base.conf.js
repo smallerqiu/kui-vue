@@ -38,8 +38,10 @@ module.exports = {
           loader: 'vue-loader',
           options: vueLoaderOptions
         },
-        { loader: 'kui-loader', options: { prefix: false } }
-        ]
+        {
+          loader: 'kui-loader',
+          options: { prefix: false }
+        }]
       },
       {
         test: /\.css$/,

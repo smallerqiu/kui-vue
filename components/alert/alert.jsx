@@ -1,6 +1,6 @@
 
 import Icon from "../icon";
-import { getTranstionProp } from '../_tool/transition'
+import { getTranstionProp } from '../base/transition'
 export default {
   // components: { Icon },
   name: "Alert",

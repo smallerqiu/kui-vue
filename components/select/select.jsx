@@ -27,7 +27,7 @@ export default {
   },
   provide() {
     return {
-      groupContext: this
+      Select: this
     }
   },
   inject: {
@@ -36,8 +36,7 @@ export default {
   data() {
     return {
       label: "",
-      showDrop: false,
-      showDropInit: false,
+      opened: false,
       currentValue: this.value || '',
       showSearch: false,
       queryKey: '',
@@ -58,14 +57,12 @@ export default {
   },
   methods: {
     hidedrop() {
-      if (this.showDropInit) {
-        if (this.showSearch) {
-          this.queryKey = ''
-          this.$refs.search.value = ''
-          this.$refs.search.style.width = ''
-        }
-        this.showSearch = false
+      if (this.showSearch) {
+        this.queryKey = ''
+        this.$refs.search.value = ''
+        this.$refs.search.style.width = ''
       }
+      this.showSearch = false
     },
     getLabel(kid, labelValue) {
       let Label = '';
@@ -80,7 +77,7 @@ export default {
       return Label;
     },
     setLabel() {
-      let currentValue = this.value || this.currentValue
+      let currentValue = this.currentValue
       // if (!isNotEmpty(currentValue) || currentValue.length == 0) return;
       let kid = this.getOptions()
       let currentLabel = this.label || ''
@@ -116,9 +113,9 @@ export default {
     showDrops() {
       let isSearch = ('search' in this.$listeners)
 
-      this.showDrop = !this.showDrop;
+      this.opened = !this.opened;
       if (this.filterable || isSearch) {
-        if (this.showDrop) {
+        if (this.opened) {
           this.showSearch = true
           this.$nextTick(e => this.$refs.search.focus())
         } else {
@@ -135,30 +132,19 @@ export default {
       }
       let isSearch = ('search' in this.$listeners)
       if (isSearch) {
-        if (!this.showDropInit) {
-          this.showDropInit = true
-          this.$nextTick(e => {
-            this.showSearch = true
-            this.$nextTick(e => this.$refs.search.focus())
-          })
-        } else {
+        this.$nextTick(e => {
           this.showSearch = true
           this.$nextTick(e => this.$refs.search.focus())
-        }
+        })
         return;
       }
-      if (!this.showDropInit) {
-        this.showDropInit = true
-        this.$nextTick(e => this.showDrops())
-      } else {
-        this.showDrops()
-      }
+      this.showDrops()
     },
     setPosition() {
       if (!hasProp(this, 'width')) {
         this.selectWidth = this.$el.offsetWidth
       }
-      if (this.showDrop) {
+      if (this.opened) {
         this.$refs.overlay.setPosition()
       }
     },
@@ -170,7 +156,7 @@ export default {
         this.$refs.search.style.width = ''
       }
       if (!multiple) {
-        this.showDrop = false
+        this.opened = false
         this.showSearch = false
       } else {
         this.$nextTick(e => this.$refs.search.focus())
@@ -232,7 +218,7 @@ export default {
       if ('search' in this.$listeners) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          this.showDrop = true;
+          this.opened = true;
           this.$emit('search', e)
         }, 500);
       }
@@ -260,7 +246,7 @@ export default {
         kid = options.map((k, i) => {
           let prop = {
             props: { ...k },
-            key: k.label + k.value
+            key: k.key || (k.label + k.value)
           }
           return <Option {...prop} />
         })
@@ -285,7 +271,7 @@ export default {
   },
   render() {
     let { disabled, size, multiple,
-      showDrop, showDropInit, placeholder,
+      opened, placeholder,
       clear, removeTag, queryKey,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
@@ -294,12 +280,11 @@ export default {
       "k-select",
       {
         ["k-select-disabled"]: disabled,
-        ["k-select-open"]: showDrop,
+        ["k-select-open"]: opened,
         ["k-select-lg"]: size == 'large',
         ["k-select-sm"]: size == 'small'
       }
     ]
-
 
     const queryProps = {
       on: {
@@ -315,32 +300,35 @@ export default {
     }
     const queryNode = <div v-show={this.showSearch} key="search" class="k-select-search-wrap"><input {...queryProps} /><span class="k-select-search-mirror" ref="mirror">{queryKey}</span></div>
 
-    let overlay;
-    if (showDropInit) {
-      let kid = this.getOptions()
-      // kid = (
-      //   !kid.length
-      //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
-      //     : kid
-      // )
-      const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>加载中...</span></div>
-      const props = {
-        ref: 'overlay',
-        props: {
-          width: this.selectWidth,
-          show: showDrop,
-          // transfer: false,
-          transfer: transfer,
-          transitionName: 'k-select',
-          className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
-        },
-        on: {
-          hide: this.hidedrop,
-          input: e => this.showDrop = e
+    let kid = this.getOptions()
+    // kid = (
+    //   !kid.length
+    //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
+    //     : kid
+    // )
+    const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>加载中...</span></div>
+    const props = {
+      ref: 'overlay',
+      props: {
+        width: this.selectWidth,
+        value: opened,
+        selection: this.$el,
+        // transfer: false,
+        transfer: transfer,
+        transitionName: 'k-select',
+        className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
+      },
+      on: {
+        input: e => {
+          this.opened = e
+          if (!e) {
+            this.hidedrop
+          }
         }
       }
-      overlay = <Drop {...props}>{this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}</Drop>
     }
+    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}</Drop>
+
     label = multiple ? (label || []) : label
     const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
       ? <div class="k-select-placeholder">{placeholder}</div>
@@ -387,7 +375,7 @@ export default {
       <div tabIndex="0" class={classes} style={styles}>
         <div class={selectCls} onClick={toggleDrop} ref="rel">
           {childNode}
-        </div >
+        </div>
         {overlay}
       </div >
     )

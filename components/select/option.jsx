@@ -8,38 +8,43 @@ export default {
     disabled: Boolean
   },
   inject: {
-    groupContext: { default: null }
+    Select: { default: null }
   },
   methods: {
     select() {
-      let { value, label, disabled, groupContext, $slots } = this
+      let { value, label, disabled, Select, $slots } = this
       if (disabled) return;
-      if (groupContext) {
+      value = value || this.$vnode.key
+      if (Select) {
         label = label || $slots.default
-        // if (groupContext.multiple) {
-
-        // } else {
-        groupContext.change({ label, value })
-        // }
+        Select.change({ label, value })
       }
     },
   },
   render() {
-    let { disabled, groupContext, value, label, $slots, select } = this
+    let { disabled, Select, value, label, $slots, select } = this
+    value = value || this.$vnode.key
     let selected = false;
     label = label || $slots.default
     let iconNode = null
-    if (groupContext) {
-      let _value = groupContext.value
-      if (!hasProp(groupContext, 'value')) {
-        _value = groupContext.currentValue
-      }
-      if (groupContext.multiple) {
-        selected = _value.indexOf(value) !== -1
-
+    if (Select) {
+      /*  let _value = Select.currentValue
+       if (!hasProp(Select, 'value')) {
+         _value = Select.currentValue
+       }
+       if (Select.multiple) {
+         selected = _value.indexOf(value) !== -1
+ 
+         iconNode = <Icon type="checkmark" />
+       } else {
+         selected = _value === value
+       } */
+      let { currentValue, multiple } = Select
+      if (multiple) {
+        selected = currentValue.indexOf(value) >= 0
         iconNode = <Icon type="checkmark" />
       } else {
-        selected = _value === value
+        selected = currentValue === value
       }
     }
     const classes = [

@@ -7,10 +7,10 @@ let Notice = {
   open(options = {}) {
     options = Object.assign({ type: 'default' }, options)
     options.noticeType = 'notice'
-    if (!messageInstance) {
-      messageInstance = newInstance({ type: 'notice' })
+    if (!noticeInstance) {
+      noticeInstance = newInstance({ type: 'notice' })
     }
-    messageInstance.show(options);
+    noticeInstance.show(options);
   },
   destroy() {
     if (noticeInstance) {

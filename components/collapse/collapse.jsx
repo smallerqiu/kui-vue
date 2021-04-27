@@ -1,4 +1,5 @@
 import { getChild, hasProp } from '../_tool/utils'
+import cloneVNode from '../_tool/clone'
 export default {
   name: 'Collapse',
   props: {
@@ -43,6 +44,11 @@ export default {
       ['k-collaplse-sample']: this.sample
     }]
     const kid = getChild(this.$slots.default)
-    return (<div class={classes}>{kid}</div>)
+    return (<div class={classes}>{
+      kid.map((child) => {
+        let actived = this.currentValue.indexOf(child.key) >= 0
+        return cloneVNode(child, { props: { actived } })
+      })
+    }</div>)
   }
 }

@@ -1,5 +1,5 @@
 import Notice from "./inner";
-import { getTranstionProp } from '../_tool/transition'
+import { getTranstionProp } from '../base/transition'
 
 let count = 0
 const timestamp = Date.now()

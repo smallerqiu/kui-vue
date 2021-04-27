@@ -10,12 +10,12 @@
         </div>
       </div>
       <div class="k-code-actions">
-        <ToolTip title="Copy code">
+        <Tooltip title="Copy code">
           <Icon type="copy-outline" @click="copy" />
-        </ToolTip>
-        <ToolTip :title="expand?'Hide code':'Show code'">
+        </Tooltip>
+        <Tooltip :title="expand?'Hide code':'Show code'">
           <Icon :type="'code'+(expand?'-working':'')" @click="expand=!expand" />
-        </ToolTip>
+        </Tooltip>
       </div>
     </div>
     <transition @enter="enter" @leave="leave" @beforeEnter="beforeEnter">
@@ -28,10 +28,10 @@
 <script>
 import "./demo.less";
 // import Code from '../code'
-import ToolTip from "@/components/tooltip";
+import Tooltip from "@/components/tooltip";
 import Message from "@/components/message";
 export default {
-  components: { ToolTip },
+  components: { Tooltip },
   data() {
     return {
       expand: false

@@ -73,6 +73,6 @@ hue-6-2: #c18401
   text-decoration: underline;
 }
 
-pre > code[class*='lang-'], pre > code[class*='language-'] {
+/* pre > code[class*='lang-'], pre > code[class*='language-'] {
   font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-}
+} */

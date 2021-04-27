@@ -10,7 +10,7 @@
     <Switch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
     <br/>
     <br/>
-    <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode" :style="{width:mode=='horizontal'?null:'256px'}">
+    <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode"  style="width:256px">
       <MenuItem key="1-1" icon="mail">Option 1</MenuItem>
       <MenuItem key="1-2" icon="calendar">Option 2</MenuItem>
       <SubMenu key="sub2" icon="keypad" title="Navigation Two">
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       current: ['1-1'],
-      openKeys:['sub1'],
+      openKeys:['sub2'],
       theme:'light',
       mode:'inline'
     }

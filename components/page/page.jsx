@@ -124,21 +124,20 @@ export default {
     },
     renderSize() {
       let prop = {
-        value: this.defaultPageSize,
-        props: { size: this.size },
+        props: {
+          value: this.defaultPageSize,
+          size: this.size,
+          options: this.sizeData.map(s => {
+            return { value: s, label: `${s}条/页` }
+          })
+        },
         on: {
           input: e => this.defaultPageSize = e,
           change: this.changeSize
-        }
+        },
+
       }
-      return (
-        this.showSizer ?
-          <div class="k-page-sizer">
-            <Select {...prop}>
-              {this.sizeData.map((p, i) => <Option key={i} value={p}>{p}条/页</Option>)}
-            </Select >
-          </div > : null
-      )
+      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div > : null)
     },
     renderElvator() {
       let { size } = this
