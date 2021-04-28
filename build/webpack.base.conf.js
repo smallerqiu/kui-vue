@@ -14,7 +14,7 @@ module.exports = {
       { test: /\.styl(us)?$/, use: ['style-loader', 'css-loader', 'stylus-loader'] },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', /* 'postcss-loader' */]
+        use: ['vue-style-loader', 'css-loader'],
       },
       {
         test: /\.less$/,

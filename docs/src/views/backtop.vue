@@ -66,7 +66,7 @@
     </div>
   </div>
 </template>
-<style>
+<style lang="css">
 .custom-backtop {
   background: #2d94ff;
   height: 40px;

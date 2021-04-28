@@ -69,7 +69,7 @@ export default {
       this.$router.push('/start')
     },
     git() {
-      window.open('//github.com/chuchur-china/kui-vue')
+      window.open('//gitee.com/chuchur/kui-vue')
     },
   }
 };

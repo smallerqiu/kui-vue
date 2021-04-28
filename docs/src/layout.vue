@@ -15,7 +15,7 @@
           <MenuItem name="home"><a href="/">首页</a></MenuItem>
           <MenuItem name="com"><a href="#/start">组件</a></MenuItem>
         </Menu>
-        <Select mini v-model="v" width="100" @change="change">
+        <Select mini v-model="v" width="100" @change="change2">
           <Option value="2">v2.3.5</Option>
           <Option value="3">v3.x</Option>
         </Select>
@@ -76,7 +76,7 @@ export default {
   },
 
   methods: {
-    change({ value }) {
+    change2({ value }) {
       if (value == 3) {
         open('//k-ui.cn')
       }
