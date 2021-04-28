@@ -10,7 +10,8 @@
         <Alert type="error">Error Text</Alert>
       </div>
       <div slot="desc">通过
-        <code>type</code>来控制展示类型</div>
+        <code>type</code>来控制展示类型
+      </div>
       <div slot="code">{{code.base}}</div>
     </Demo>
     <Demo title="图标">
@@ -21,7 +22,8 @@
         <Alert type="error" showIcon>Error Text</Alert>
       </div>
       <div slot="desc">
-        <code>showIcon</code>来设置是否显示图标</div>
+        <code>showIcon</code>来设置是否显示图标
+      </div>
       <div slot="code">{{code.icon}}</div>
     </Demo>
     <Demo title="可关闭">
@@ -32,7 +34,8 @@
         <Alert type="error" showIcon closable>Error Text</Alert>
       </div>
       <div slot="desc">
-        <code>closable</code>来控制是否显示可关闭按钮</div>
+        <code>closable</code>来控制是否显示可关闭按钮
+      </div>
       <div slot="code">{{code.close}}</div>
     </Demo>
     <h3>API</h3>

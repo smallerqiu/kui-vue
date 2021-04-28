@@ -3,144 +3,141 @@
     <h2>Poptip 气泡提示</h2>
     <Alert>注意：若展开的气泡被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo title="基本">
-        <div slot="content">
-          <Poptip trigger="hover" title="标题" content="内容" placement="top-left">
-            <Button>hover激活</Button>
-          </Poptip>
-          <Poptip trigger="click" title="标题" content="内容">
-            <Button>click激活</Button>
-          </Poptip>
-          <Poptip title="标题" content="内容" dark>
-            <Button>深色模式</Button>
-          </Poptip>
-        </div>
-        <div slot="desc">可以分别使用
-          <code>click</code>和
-          <code>hover</code>来触发展示,
-          <code>dark</code>开启暗黑模式</div>
-        <div slot="code">{{code.base}}</div>
-      </Demo> 
-      <Demo title="确认框">
-        <div slot="content">
-          <Poptip confirm title="您确认删除这条内容吗？" @ok="ok" @cancel="cancel" placement="top-left">
-            <Button>删除</Button>
-          </Poptip>
-          <Poptip confirm title="Are you OK?" @ok="ok" @cancel="cancel" ok-text="yes" cancel-text="no">
-            <Button>自定义</Button>
-          </Poptip>
-        </div>
-        <div slot="desc">启用
-          <code>confirm</code>来自定义一个确认框模式</div>
-        <div slot="code">{{code.confirm}}</div>
-      </Demo>
-      <Demo title="长文本">
-        <div slot="content">
-          <Poptip title="我是一个非常长的标题题题题题题题题题题题题题题" placement="top-left" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
-            <Button>长文本</Button>
-          </Poptip>
-          <Poptip width="200" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
-            <Button>长内容</Button>
-          </Poptip>
-          <Poptip confirm title="缺定要删除吗，删除了不能撤回，删库跑路的绝佳操作,码农必备技能啊。" @ok="ok" @cancel="cancel" width="300">
-            <Button>长文本确认</Button>
-          </Poptip>
-        </div>
-        <div slot="desc">启用
-          <code>confirm</code>来自定义一个确认框模式</div>
-        <div slot="code">{{code.longtext}}</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo title="嵌套">
-        <div slot="content">
-          <Poptip trigger="click" content="内容" placement="left-top">
-            <Button>Click me</Button>
-            <div slot="content" class="k-table k-table-border">
-              <table>
-                <thead>
-                  <tr>
-                    <th>姓名</th>
-                    <th>电话</th>
-                    <th>住址</th>
-                  </tr>
-                </thead>
+    <Demo title="基本">
+      <div slot="content">
+        <Poptip trigger="hover" title="标题" content="内容" placement="top-left">
+          <Button>hover激活</Button>
+        </Poptip>
+        <Poptip trigger="click" title="标题" content="内容">
+          <Button>click激活</Button>
+        </Poptip>
+        <Poptip title="标题" content="内容" dark>
+          <Button>深色模式</Button>
+        </Poptip>
+      </div>
+      <div slot="desc">可以分别使用
+        <code>click</code>和
+        <code>hover</code>来触发展示,
+        <code>dark</code>开启暗黑模式
+      </div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="确认框">
+      <div slot="content">
+        <Poptip confirm title="您确认删除这条内容吗？" @ok="ok" @cancel="cancel" placement="top-left">
+          <Button>删除</Button>
+        </Poptip>
+        <Poptip confirm title="Are you OK?" @ok="ok" @cancel="cancel" ok-text="yes" cancel-text="no">
+          <Button>自定义</Button>
+        </Poptip>
+      </div>
+      <div slot="desc">启用
+        <code>confirm</code>来自定义一个确认框模式
+      </div>
+      <div slot="code">{{code.confirm}}</div>
+    </Demo>
+    <Demo title="长文本">
+      <div slot="content">
+        <Poptip title="我是一个非常长的标题题题题题题题题题题题题题题" placement="top-left" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+          <Button>长文本</Button>
+        </Poptip>
+        <Poptip width="200" content="我是一个非常长的内容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容容">
+          <Button>长内容</Button>
+        </Poptip>
+        <Poptip confirm title="缺定要删除吗，删除了不能撤回，删库跑路的绝佳操作,码农必备技能啊。" @ok="ok" @cancel="cancel" width="300">
+          <Button>长文本确认</Button>
+        </Poptip>
+      </div>
+      <div slot="desc">启用
+        <code>confirm</code>来自定义一个确认框模式
+      </div>
+      <div slot="code">{{code.longtext}}</div>
+    </Demo>
+    <Demo title="嵌套">
+      <div slot="content">
+        <Poptip trigger="click" content="内容" placement="right-top">
+          <Button>Click me</Button>
+          <div slot="content" class="k-table k-table-border">
+            <table>
+              <thead>
                 <tr>
-                  <td>张山</td>
-                  <td>13256652545</td>
-                  <td>广东省深圳市宝安区软件产业基地三诺大厦19楼</td>
+                  <th>姓名</th>
+                  <th>电话</th>
+                  <th>住址</th>
                 </tr>
-                <tr>
-                  <td>王二</td>
-                  <td>36254525658</td>
-                  <td>浙江省杭州市阿里西溪园区3A18楼</td>
-                </tr>
-              </table>
-            </div>
+              </thead>
+              <tr>
+                <td>张山</td>
+                <td>13256652545</td>
+                <td>广东省深圳市宝安区软件产业基地三诺大厦19楼</td>
+              </tr>
+              <tr>
+                <td>王二</td>
+                <td>36254525658</td>
+                <td>浙江省杭州市阿里西溪园区3A18楼</td>
+              </tr>
+            </table>
+          </div>
+        </Poptip>
+      </div>
+      <div slot="desc">通过
+        <code>slot=content</code>来自定义展示内容
+      </div>
+      <div slot="code">{{code.slot}}</div>
+    </Demo>
+    <Demo title="位置">
+      <div slot="content">
+        <div style="margin-left:80px;white-space: nowrap;">
+          <Poptip title="标题" content="内容" placement="top-left">
+            <Button>上左</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="top">
+            <Button>上边</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="top-right">
+            <Button>上右</Button>
           </Poptip>
         </div>
-        <div slot="desc">通过
-          <code>slot=content</code>来自定义展示内容</div>
-        <div slot="code">{{code.slot}}</div>
-      </Demo>
-      <Demo title="位置">
-        <div slot="content">
-          <div style="margin-left:80px;white-space: nowrap;">
-            <Poptip title="标题" content="内容" placement="top-left">
-              <Button>上左</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="top">
-              <Button>上边</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="top-right">
-              <Button>上右</Button>
-            </Poptip>
-          </div>
-          <div style="float:left;height:150px;width:80px;">
-            <Poptip title="标题" content="内容" placement="left-top">
-              <Button>左上</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="left">
-              <Button>左边</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="left-bottom">
-              <Button>左下</Button>
-            </Poptip>
-          </div>
-          <div style="margin-left:300px;height:150px;width:80px;">
-            <Poptip title="标题" content="内容" placement="right-top">
-              <Button>右上</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="right">
-              <Button>右边</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="right-bottom">
-              <Button>右下</Button>
-            </Poptip>
-          </div>
-          <div style="margin-left:80px;white-space: nowrap;">
-            <Poptip title="标题" content="内容" placement="bottom-left">
-              <Button>下左</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="bottom">
-              <Button>下边</Button>
-            </Poptip>
-            <Poptip title="标题" content="内容" placement="bottom-right">
-              <Button>下右</Button>
-            </Poptip>
-          </div>
+        <div style="float:left;height:150px;width:80px;">
+          <Poptip title="标题" content="内容" placement="left-top">
+            <Button>左上</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="left">
+            <Button>左边</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="left-bottom">
+            <Button>左下</Button>
+          </Poptip>
         </div>
-        <div slot="desc">
-          <code>Poptip</code>的位置一共有12种，通过
-          <code>placement</code>控制</div>
-        <div slot="code">{{code.position}}</div>
-      </Demo>
-      </Col>
-    </Row>
-    </Col>
-    </Row>
+        <div style="margin-left:300px;height:150px;width:80px;">
+          <Poptip title="标题" content="内容" placement="right-top">
+            <Button>右上</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="right">
+            <Button>右边</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="right-bottom">
+            <Button>右下</Button>
+          </Poptip>
+        </div>
+        <div style="margin-left:80px;white-space: nowrap;">
+          <Poptip title="标题" content="内容" placement="bottom-left">
+            <Button>下左</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="bottom">
+            <Button>下边</Button>
+          </Poptip>
+          <Poptip title="标题" content="内容" placement="bottom-right">
+            <Button>下右</Button>
+          </Poptip>
+        </div>
+      </div>
+      <div slot="desc">
+        <code>Poptip</code>的位置一共有12种，通过
+        <code>placement</code>控制
+      </div>
+      <div slot="code">{{code.position}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>

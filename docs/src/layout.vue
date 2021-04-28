@@ -2,20 +2,36 @@
   <section class="body">
     <header>
       <div class="logo">
-        <a href="/"><img src="./assets/favicon.png" />K UIKIT</a>
+        <a href="/"><img :src="logo" />K UIKIT</a>
+        <sub>v 2.3.5</sub>
       </div>
       <div class="search-component">
         <Select placeholder="搜索组件..." filterable v-model="key" @change="change">
           <Option v-for="(com,index) in components" :key="index" :value="com.name">{{com.name}} {{com.title}}</Option>
         </Select>
       </div>
-      <Menu style="float:right;" mode="horizontal" activeName="/install" @select="go">
-        <MenuItem name="/" icon="md-home">首页</MenuItem>
-        <MenuItem name="/install" icon="ios-options">组件</MenuItem>
-        <MenuItem name="https://github.com/chuchur-china/kui-vue" icon="logo-github">Github</MenuItem>
-        <MenuItem name="https://react.k-ui.cn"><img src="./assets/react.svg" style="height:15px;margin:0;" />KUI React</MenuItem>
-        <MenuItem name="https://www.chuchur.com" icon="ios-leaf">Blog</MenuItem>
-      </Menu>
+      <div class="nav-right">
+        <Menu mode="horizontal" active-name="com">
+          <MenuItem name="home"><a href="/">首页</a></MenuItem>
+          <MenuItem name="com"><a href="#/start">组件</a></MenuItem>
+        </Menu>
+        <Select mini v-model="v" width="100" @change="change">
+          <Option value="2">v2.3.5</Option>
+          <Option value="3">v3.x</Option>
+        </Select>
+
+        <Dropdown @click="go">
+          <Button mini>更多
+            <Icon type="ios-arrow-down" />
+          </Button>
+          <DropdownMenu slot="list">
+            <DropdownItem name="1"><a target="_blank" href="https://react.k-ui.cn">KUI for React</a></DropdownItem>
+            <DropdownItem name="2"><a target="_blank" href="https://gitee.com/chuchur/kui-vue">源码</a></DropdownItem>
+            <DropdownItem name="3"><a target="_blank" href="https://gitee.com/chuchur/kui-vue/issues">提交Bug</a></DropdownItem>
+            <DropdownItem name="4"><a target="_blank" href="https://chuchur.com">Blog</a></DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
     </header>
     <section class="main">
       <Row>
@@ -46,10 +62,13 @@
 </template>
 <script>
 import code from "./code/menuData";
+import logo from './assets/favicon.png'
 export default {
   data() {
     return {
+      v: 2,
       key: "",
+      logo,
       nav: code.nav,
       activeName: "",
       components: []
@@ -57,6 +76,11 @@ export default {
   },
 
   methods: {
+    change({ value }) {
+      if (value == 3) {
+        open('//k-ui.cn')
+      }
+    },
     change(v) {
       let path = v.value.toLowerCase();
       this.activeName = "/" + path;

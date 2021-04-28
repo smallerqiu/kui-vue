@@ -2,7 +2,7 @@
   <div class="theme">
     <h2>定制主题</h2>
     <p>主题可以根据自己的喜好，和项目定制的风格来开发，可以定制颜色和圆角风格。</p>
-    <img src='../assets/theme.jpg' />
+    <img :src='theme' />
     <br/>
     <h3>覆盖定制</h3>
     <p>如果项目使用webpack构建，可以通过覆盖less变量来定制主题</p>
@@ -18,10 +18,12 @@
 </template>
 <script>
 import Code from '../components/code'
+import theme from '../assets/theme.jpg'
 export default {
   components: { Code },
   data() {
     return {
+      theme,
       a: `//引入 styles
 @import '~kui-vue/src/styles/index.less';
 

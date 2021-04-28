@@ -4,37 +4,34 @@
     <p>类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。</p>
     <Alert>注意：若下拉展开内容被父级元素遮挡，请设置组件 属性 `transfer=true`。</Alert>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo title="基本用法">
-        <div slot="content">
-          <TreeSelect :data="data" />
-        </div>
-        <div slot="code">{{code.base}}</div>
-        <div slot="desc">可以通过
-          <code>v-model</code>双向绑定赋值，
-          <code>data</code>指定Tree的值</div>
-      </Demo>
-      <Demo title="选择和回调">
-        <div slot="content">
-          <TreeSelect :data="data" @change="change" />
-        </div>
-        <div slot="code">{{code.callback}}</div>
-        <div slot="desc">通过
-          <code>change</code>来确认选中值</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo title="异步和搜索">
-        <div slot="content">
-          <TreeSelect :data="data1" clearable queryable @query-change="queryChange" @load-data="loadData" />
-        </div>
-        <div slot="code">{{code.async}}</div>
-        <div slot="desc">Tree的一步加载和组件
-          <code>Tree</code>用法一样</div>
-      </Demo>
-      </Col>
-    </Row>
+    <Demo title="基本用法">
+      <div slot="content">
+        <TreeSelect :data="data" />
+      </div>
+      <div slot="code">{{code.base}}</div>
+      <div slot="desc">可以通过
+        <code>v-model</code>双向绑定赋值，
+        <code>data</code>指定Tree的值
+      </div>
+    </Demo>
+    <Demo title="选择和回调">
+      <div slot="content">
+        <TreeSelect :data="data" @change="change" />
+      </div>
+      <div slot="code">{{code.callback}}</div>
+      <div slot="desc">通过
+        <code>change</code>来确认选中值
+      </div>
+    </Demo>
+    <Demo title="异步和搜索">
+      <div slot="content">
+        <TreeSelect :data="data1" clearable queryable @query-change="queryChange" @load-data="loadData" />
+      </div>
+      <div slot="code">{{code.async}}</div>
+      <div slot="desc">Tree的一步加载和组件
+        <code>Tree</code>用法一样
+      </div>
+    </Demo>
     <h3>TreeSelect API</h3>
     <div class="table-border">
       <table>
@@ -53,7 +50,8 @@
         <tr>
           <td>vlaue</td>
           <td>默认取值，可以通过
-            <code>v-model</code>双向绑定</td>
+            <code>v-model</code>双向绑定
+          </td>
           <td>String, Number</td>
           <td>-</td>
         </tr>
@@ -190,7 +188,7 @@ export default {
         let data = [
           {
             title: 'children',
-            loading: false, 
+            loading: false,
             children: []
           },
           {

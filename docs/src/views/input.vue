@@ -3,60 +3,59 @@
     <h2>Input 输入框</h2>
     <Alert>注意：非 template/render 模式下，需使用 k-input。</Alert>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo title="基础用法" layout='vertical'>
-        <div slot="content">
-          <Input width="200" placeholder="请输入内容..." /> <br />
-          <Input width="200" placeholder="disabled..." disabled />
-        </div>
-        <div slot="desc">使用
-          <code>v-model</code>进行数据双向绑定</div>
-        <div slot="code">{{code.base}}</div>
-      </Demo>
-      <Demo title="可清除" layout='vertical'>
-        <div slot="content">
-          <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
-        </div>
-        <div slot="desc">通过设置
-          <code>clearable</code>属性可控制是否显示清空按钮</div>
-        <div slot="code">{{code.clearable}}</div>
-      </Demo>
-      <Demo title="带图标" layout='vertical'>
-        <div slot="content">
-          <Input type="text" width="200" placeholder="请输入用户名..." icon-align="left" icon="ios-person" @iconClick="iconClick"></Input>
-          <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
-        </div>
-        <div slot="desc">通过设置
-          <code>icon</code>属性，可设置按钮图标，<code>icon-align</code> 设置显示位置
-          <code>iconClick</code>可触发图标点击事件</div>
-        <div slot="code">{{code.withIcon}}</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo title="尺寸" layout='vertical'>
-        <div slot="content">
-          <Input type="text" width="300" placeholder="Large Input" large icon="logo-apple" clearable /><br />
-          <Input type="text" width="300" placeholder="Base Input" icon="logo-apple" clearable icon-align="left" /><br />
-          <Input type="text" width="300" mini placeholder="Mini Input" icon="logo-apple" @iconClick="iconClick" clearable icon-align="left" />
-        </div>
-        <div slot="desc">
-          <code>large</code>为大尺寸，
-          <code>mini</code>为小尺寸</div>
-        <div slot="code">{{code.size}}</div>
-      </Demo>
-      <Demo title="文本域" layout='vertical'>
-        <div slot="content">
-          <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
-          <Input width="300" type="textarea" :rows="1" placeholder="请输入内容..."></Input>
-        </div>
-        <div slot="desc">当
-          <code>type</code>属性取值为
-          <code>textarea</code>时组件呈现文本玉</div>
-        <div slot="code">{{code.textArea}}</div>
-      </Demo>
-      </Col>
-    </Row>
+    <Demo title="基础用法" layout='vertical'>
+      <div slot="content">
+        <Input width="200" placeholder="请输入内容..." /> <br />
+        <Input width="200" placeholder="disabled..." disabled />
+      </div>
+      <div slot="desc">使用
+        <code>v-model</code>进行数据双向绑定
+      </div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="可清除" layout='vertical'>
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入内容..." clearable></Input>
+      </div>
+      <div slot="desc">通过设置
+        <code>clearable</code>属性可控制是否显示清空按钮
+      </div>
+      <div slot="code">{{code.clearable}}</div>
+    </Demo>
+    <Demo title="带图标" layout='vertical'>
+      <div slot="content">
+        <Input type="text" width="200" placeholder="请输入用户名..." icon-align="left" icon="ios-person" @iconClick="iconClick"></Input>
+        <Input type="text" width="200" placeholder="请输入内容..." icon="ios-search" @iconClick="iconClick"></Input>
+      </div>
+      <div slot="desc">通过设置
+        <code>icon</code>属性，可设置按钮图标，<code>icon-align</code> 设置显示位置
+        <code>iconClick</code>可触发图标点击事件
+      </div>
+      <div slot="code">{{code.withIcon}}</div>
+    </Demo>
+    <Demo title="尺寸" layout='vertical'>
+      <div slot="content">
+        <Input type="text" width="300" placeholder="Large Input" large icon="logo-apple" clearable /><br />
+        <Input type="text" width="300" placeholder="Base Input" icon="logo-apple" clearable icon-align="left" /><br />
+        <Input type="text" width="300" mini placeholder="Mini Input" icon="logo-apple" @iconClick="iconClick" clearable icon-align="left" />
+      </div>
+      <div slot="desc">
+        <code>large</code>为大尺寸，
+        <code>mini</code>为小尺寸
+      </div>
+      <div slot="code">{{code.size}}</div>
+    </Demo>
+    <Demo title="文本域" layout='vertical'>
+      <div slot="content">
+        <Input width="300" type="textarea" :rows="4" placeholder="请输入内容..."></Input>
+        <Input width="300" type="textarea" :rows="1" placeholder="请输入内容..."></Input>
+      </div>
+      <div slot="desc">当
+        <code>type</code>属性取值为
+        <code>textarea</code>时组件呈现文本玉
+      </div>
+      <div slot="code">{{code.textArea}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>

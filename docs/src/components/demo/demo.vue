@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="styles" v-resize="setHeight" ref="dom">
+  <div :class="classes" v-resize="setHeight" ref="dom">
     <div class="k-demo-main" ref="demo">
       <div class="k-content">
         <slot name="content"></slot>
@@ -15,22 +15,21 @@
       </div>
     </div>
     <div class="k-demo-line"></div>
-    <Collapse>
+    <transition @enter="enter" @leave="leave" @beforeEnter="beforeEnter">
       <Code v-show="expand" ref="code" :lang="lang">
         <slot name="code"></slot>
       </Code>
-    </Collapse>
+    </transition>
   </div>
 </template> 
 
 <script>
 import './demo.less'
 import Code from '../code'
-import Collapse from '@/components/collapse/collapse.js'
 import resize from '@/directives/winScroll'
 export default {
   directives: { resize },
-  components: { Code, Collapse },
+  components: { Code },
   name: 'Demo',
   props: {
     layout: { type: String, default: 'vertical' },
@@ -59,10 +58,10 @@ export default {
   },
   methods: {
     setHeight() {
-      if (this.layout == 'horizontal') {
-        this.domHeight = this.$refs.dom.scrollHeight
-        this.demoHeight = this.$refs.demo.scrollHeight
-      }
+      // if (this.layout == 'horizontal') {
+      //   this.domHeight = this.$refs.dom.scrollHeight
+      //   this.demoHeight = this.$refs.demo.scrollHeight
+      // }
     },
     toggle() {
       this.expand = !this.expand
@@ -70,7 +69,28 @@ export default {
       //   this.codeHeight = !this.expand ? 0 : 'auto';
       // }
       // console.log(this.$refs.code.$el.scrollHeight)
-    }
+    },
+    beforeEnter(el) {
+      el.style.height = 0;
+      el.style.overflow = 'hidden';
+      el.style.opacity = 0.1;
+    },
+    enter(el) {
+      if (el.scrollHeight !== 0) {
+        el.style.height = el.scrollHeight + "px";
+        el.style.opacity = 1;
+      } else {
+        el.style.height = "";
+        el.style.opacity = "";
+      }
+    },
+    leave(el) {
+      if (el.scrollHeight !== 0) {
+        el.style.height = 0;
+        el.style.overflow = 'hidden';
+        el.style.opacity = 0.1;
+      }
+    },
   },
   mounted() {
     this.setHeight()

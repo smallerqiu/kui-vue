@@ -3,60 +3,54 @@
     <h2>Carousel 走马灯</h2>
     <p>就是传说中的大图轮播</p>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo layout="vertical" title="基本">
-        <div slot="content">
-          <Carousel>
-            <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
-          </Carousel>
-        </div>
-        <div slot="desc">最基本的用法。</div>
-        <div slot="code">{{code.base}}</div>
-      </Demo>
-      <Demo layout="vertical" title="垂直">
-        <div slot="content">
-          <Carousel vertical>
-            <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
-          </Carousel>
-        </div>
-        <div slot="desc">垂直显示,此时不显示左右箭头</div>
-        <div slot="code">{{code.vertical}}</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo layout="vertical" title="自动播放">
-        <div slot="content">
-          <Carousel autoplay>
-            <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
-          </Carousel>
-        </div>
-        <div slot="desc">定时切换下一张。</div>
-        <div slot="code">{{code.autoplay}}</div>
-      </Demo>
-      <Demo layout="vertical" title="圆形指示器">
-        <div slot="content">
-          <Carousel dotsType="radius">
-            <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
-            <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
-          </Carousel>
-        </div>
-        <div slot="desc">圆形指示器</div>
-        <div slot="code">{{code.radius}}</div>
-      </Demo>
-      </Col>
-    </Row>
+    <Demo layout="vertical" title="基本">
+      <div slot="content">
+        <Carousel>
+          <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
+        </Carousel>
+      </div>
+      <div slot="desc">最基本的用法。</div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo layout="vertical" title="垂直">
+      <div slot="content">
+        <Carousel vertical>
+          <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
+        </Carousel>
+      </div>
+      <div slot="desc">垂直显示,此时不显示左右箭头</div>
+      <div slot="code">{{code.vertical}}</div>
+    </Demo>
+    <Demo layout="vertical" title="自动播放">
+      <div slot="content">
+        <Carousel autoplay>
+          <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
+        </Carousel>
+      </div>
+      <div slot="desc">定时切换下一张。</div>
+      <div slot="code">{{code.autoplay}}</div>
+    </Demo>
+    <Demo layout="vertical" title="圆形指示器">
+      <div slot="content">
+        <Carousel dotsType="radius">
+          <CarouselItem class="k-carousel-item-demo">1</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">2</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">3</CarouselItem>
+          <CarouselItem class="k-carousel-item-demo">4</CarouselItem>
+        </Carousel>
+      </div>
+      <div slot="desc">圆形指示器</div>
+      <div slot="code">{{code.radius}}</div>
+    </Demo>
     <h3>API</h3>
     <div class="table-border">
       <table>
@@ -100,7 +94,8 @@
           <td>dots-type</td>
           <td>指示器的类型，
             <code>rect</code> 为方块，
-            <code>radius</code>为圆点</td>
+            <code>radius</code>为圆点
+          </td>
           <td>Number</td>
           <td>2000</td>
         </tr>

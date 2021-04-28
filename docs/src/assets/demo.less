@@ -1,10 +1,4 @@
-// @import './ani.less';
 @main: #3a95ff;
-// @font-face {
-//   font-family: CenturyGothic;
-//   src: url(./fonts/CenturyGothic.ttf)
-// }
-
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +15,23 @@
 
 html, body, .body {
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+body {
+  min-width: 1015px;
+}
+
+body, textarea, input, button, select, code, pre, code, pre tt, kbd, samp, .serif {
+  font-family: "Rubik", sans-serif
+}
+
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 html, body, section {
@@ -43,8 +53,6 @@ body {
   -moz-font-feature-setting: 'liga', 'kern';
   background-color: #c5cace;
   color: #252525;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-  // font-family: -apple-system, CenturyGothic, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -136,7 +144,6 @@ p {
     .ft-right {
       float: right;
       text-align: center;
-      // font-family: CenturyGothic; // margin-top: 60px;
       li {
         float: left;
         margin-left: 20px;
@@ -163,9 +170,17 @@ button * {
   display: inline-block;
   width: 100%;
   .nav .k-menu-vertical .k-menu-item-group-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
+    font-size: 12px;
+    color: #999;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      border-bottom: 1px solid #eee;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+    }
   }
 }
 
@@ -180,7 +195,6 @@ button * {
 
 .index {
   // background: #fff;
-  display: inline-block;
   width: 100%;
   height: 100%;
   position: relative;
@@ -189,8 +203,8 @@ button * {
     z-index: -1;
     content: '';
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-image: url(back.jpg);
     background-size: cover;
     text-align: center;
@@ -199,38 +213,24 @@ button * {
     filter: blur(5px);
     transform: scale(1.3);
     opacity: .5;
+    overflow: hidden;
   }
   .header {
-    background: none;
+    background: rgba(255, 255, 255, 0.3);
     border: none;
     box-shadow: none;
     .nav-left {
       float: left;
       .logo {
-        margin-left: 40px;
         color: #39495f;
         font-weight: bold;
         font-size: 16px;
-      }
-    }
-    .nav-right {
-      float: right;
-      margin-right: 50px;
-      li {
-        float: left;
-        position: relative;
-        display: inline-block;
-        margin: 0 24px;
-        cursor: pointer;
-        transition: color .3s;
-        font-size: 14px;
       }
     }
   }
   .index-content {
     width: 50%;
     color: #005388;
-    font-family: -apple-system, "BlinkMacSystemFont", "Open Sans", "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     font-weight: 300;
     position: absolute;
     left: 0;
@@ -250,7 +250,6 @@ button * {
       display: block;
       font-size: 0;
       // font-weight: 100;
-      // font-family: "Arial Rounded MT"
       // img {
       //   margin: 0 auto;
       //   height: 120px;
@@ -281,6 +280,55 @@ button * {
       }
     }
   }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    a {
+      color: #666;
+    }
+  }
+}
+
+.index, .body {
+  .nav-right {
+    float: right;
+    display: flex;
+    align-items: center;
+    .k-menu {
+      margin-right: 20px;
+      white-space: nowrap;
+      background: none;
+      .k-menu-item, .k-menu-submenu {
+        display: inline-block;
+        float: initial;
+      }
+    }
+    .k-dropdown-item-text {
+      width: 100%;
+      display: block;
+      margin: -7px -16px;
+      padding: 7px 16px;
+      a {
+        display: block;
+      }
+    }
+    .k-select {
+      margin-right: 10px;
+    }
+    // li { 
+    //   float: left;
+    //   position: relative;
+    //   display: inline-block;
+    //   margin: 0 24px;
+    //   cursor: pointer;
+    //   transition: color .3s;
+    //   font-size: 14px;
+    // }
+  }
 }
 
 p {
@@ -307,6 +355,11 @@ header {
     margin-right: 10px;
     width: 30px;
   }
+  sub {
+    margin: 0;
+    vertical-align: baseline;
+    font-weight: 100;
+  }
 }
 
 .main {
@@ -319,26 +372,25 @@ header {
     height: 100%;
     .k-col {
       height: 100%;
-      &::-webkit-scrollbar {
-        //定义整体宽高
-        // margin: 4px;
-        padding: 5px;
-        width: 8px;
-        background: transparent;
-      }
-      &:hover {
-        &::-webkit-scrollbar-thumb {
-          //滑块
-          background: #efefef;
-          transition: all .3s ease-in-out;
-          -webkit-transition: all .3s ease-in-out;
-          border-radius: 4px;
-        }
-        &::-webkit-scrollbar-track {
-          //轨道
-          // background: #f1f1f1;
-        }
-      }
+      // &::-webkit-scrollbar {
+      //   //定义整体宽高
+      //   // margin: 4px;
+      //   padding: 5px;
+      //   width: 8px;
+      // }
+      // &:hover {
+      // &::-webkit-scrollbar-thumb {
+      //   //滑块
+      //   background: #efefef;
+      //   transition: all .3s ease-in-out;
+      //   -webkit-transition: all .3s ease-in-out;
+      //   border-radius: 4px;
+      // }
+      // &::-webkit-scrollbar-track {
+      //   //轨道
+      //   // background: #f1f1f1;
+      // }
+      // }
     }
   }
   .colNav {
@@ -346,6 +398,12 @@ header {
     overflow: auto;
     .k-menu {
       padding: 20px 0;
+    }
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+      // background-color: #333;
     }
   }
   .colMain {
@@ -645,12 +703,12 @@ table {
 .k-code {
   position: relative;
   .k-code-pre {
-    height: 100%;
-    min-height: 100%;
+    // height: 100%;
+    // min-height: 100%;
     font-size: 0;
-    overflow: hidden; // margin: 10px 0;
+    // overflow: hidden; // margin: 10px 0;
     transition: height 0.3s ease-in-out;
-    line-height: 1.5;
+    line-height: 2;
   }
   .k-code-tools {
     position: absolute;
@@ -670,7 +728,6 @@ table {
     }
   }
   code, kbd, samp {
-    font-family: Consolas, Menlo, Courier, monospace;
     font-size: 14px;
     line-height: 25px;
   }
@@ -678,7 +735,7 @@ table {
     // background: rgba(241, 241, 241, 0.43) !important;
     height: 100%;
     margin: 0;
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 

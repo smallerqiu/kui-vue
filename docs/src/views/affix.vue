@@ -3,40 +3,35 @@
     <h2>Affix 图钉</h2>
     <p>将页面元素钉在可视范围。</p>
     <h3>代码示例</h3>
-    <Row gutter="8">
-      <Col span="12">
-      <Demo title="基本" layout="vertical">
-        <div slot="content">
-          <Affix>
-            <Button>Affix top</Button>
-          </Affix>
-          <Affix offsetBottom="0">
-            <Button>Affix Bottom</Button>
-          </Affix>
-        </div>
-        <div slot="desc">通过
-          <code>offsetTop</code>和
-          <code>offsetBottom</code>来设定固定位置</div>
-        <div slot="code">{{code.base}}</div>
-      </Demo>
-      </Col>
-      <Col span="12">
-      <Demo title="偏移" layout="vertical">
-        <div slot="content">
-          <Affix offsetTop="200">
-            <Button>200px to Affix top</Button>
-          </Affix>
-          <Affix offsetBottom="100">
-            <Button>100px to Affix bottom</Button>
-          </Affix>
-        </div>
-        <div slot="desc">默认
-          <code>offsetTop</code>值为0</div>
-        <div slot="code">{{code.offset}}</div>
-      </Demo>
-      </Col>
-    </Row>
-
+    <Demo title="基本" layout="vertical">
+      <div slot="content">
+        <Affix>
+          <Button>Affix top</Button>
+        </Affix>
+        <Affix offsetBottom="0">
+          <Button>Affix Bottom</Button>
+        </Affix>
+      </div>
+      <div slot="desc">通过
+        <code>offsetTop</code>和
+        <code>offsetBottom</code>来设定固定位置
+      </div>
+      <div slot="code">{{code.base}}</div>
+    </Demo>
+    <Demo title="偏移" layout="vertical">
+      <div slot="content">
+        <Affix offsetTop="200">
+          <Button>200px to Affix top</Button>
+        </Affix>
+        <Affix offsetBottom="100">
+          <Button>100px to Affix bottom</Button>
+        </Affix>
+      </div>
+      <div slot="desc">默认
+        <code>offsetTop</code>值为0
+      </div>
+      <div slot="code">{{code.offset}}</div>
+    </Demo>
     <Demo title="事件回调">
       <div slot="content">
         <Affix offsetTop="150" @change="handle">
