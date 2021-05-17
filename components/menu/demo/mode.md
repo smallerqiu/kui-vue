@@ -12,7 +12,7 @@
     <br/>
     <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode"  style="width:256px">
       <MenuItem key="1-1" icon="mail">Option 1</MenuItem>
-      <MenuItem key="1-2" icon="calendar">Option 2</MenuItem>
+      <MenuItem key="1-2" icon="calendar"><span>Option 2</span></MenuItem>
       <SubMenu key="sub2" icon="keypad" title="Navigation Two">
         <MenuItem key="2-1">Option 5</MenuItem>
         <MenuItem key="2-2">Option 6</MenuItem>

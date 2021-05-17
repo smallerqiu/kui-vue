@@ -1,8 +1,8 @@
 import Button from "../button";
 import Icon from "../icon";
-import { cloneVNode, isVnode, hasProp, getChild } from "../_tool/utils";
+import { getChild } from "../_tool/utils";
+import cloneVNode from '../_tool/clone'
 import Drop from './drop'
-
 export default {
   name: 'BasePop',
   props: {
@@ -13,7 +13,6 @@ export default {
     transfer: { type: Boolean, default: true },
     value: { type: Boolean },
     title: String,
-    children: Array,
     showPlacementArrow: { type: Boolean, default: true },
     width: [Number, String],
     placement: {
@@ -29,86 +28,76 @@ export default {
   },
   data() {
     return {
-      showPop: this.value,
-      showInit: false,
+      opened: this.value,
       timer: null,
+      selection: null
     };
   },
   watch: {
     value(show) {
-      this.showPop = show
+      this.opened = show
     }
+  },
+  mounted() {
+    this.selection = this.$el
   },
   methods: {
     ok() {
-      this.showPop = false;
+      this.toggle(false);
       this.$emit("ok");
     },
     cancel() {
-      this.showPop = false;
+      this.toggle(false);
       this.$emit("cancel");
     },
-    setPopShow() {
-      // if (!this.showInit) {
-      this.showInit = true
-      this.$nextTick(e => {
-        this.showPop = true
-        this.$emit('input', true)
-      })
-      // } else {
-      // this.showPop = !this.showPop;
-      // }
+    toggle(value) {
+      this.opened = value
+      this.$emit('input', value)
     },
     mouseEnter(e) {
       clearTimeout(this.timer)
-      if (this.trigger == "hover" && !this.confirm && !this.showPop) {
-        this.setPopShow()
+      if (this.trigger == "hover" && !this.confirm && !this.opened) {
+        this.toggle(true)
       }
     },
     mouseLeave(e) {
       if (this.trigger == 'hover' &&
         !this.confirm &&
-        this.showPop
+        this.opened
       ) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          this.showPop = false
+          this.toggle(false);
         }, 200);
       }
     },
-    mouseEvent(e) {
+    contextMenu(e) {
       if (this.trigger == 'contextmenu') {
-        if (e.which == 3) {
-          if (!this.showInit) {
-            this.showInit = true
-            this.$nextTick(() => {
-              this.showPop = true
-              this.$emit('input', true)
-              this.$nextTick(() => {
-                this.$refs.overlay.baseContextmenu(e)
-              })
-            })
-          } else {
-            this.showPop = true
-            this.$emit('input', true)
-            this.$nextTick(() => {
-              this.$refs.overlay.baseContextmenu(e)
-            })
-          }
-        } else {
-          this.showPop = false
-        }
         e.preventDefault();
+        this.toggle(true)
+        this.$nextTick(() => {
+          this.$refs.overlay.showContextmenu(e)
+        })
+
         return false;
       }
-      if (this.trigger == "click" || this.confirm) {
-        this.setPopShow()
+    },
+    onClick(e) {
+      let { trigger, confirm, opened } = this
+      if (trigger == 'contextmenu' && opened && !this.$refs.overlay.$el.contains(e.target)) {
+        this.toggle(false)
       }
+      if (trigger == "click" || confirm) {
+        if (!opened) {
+          this.toggle(true)
+        }
+      }
+
     },
     renderPopup() {
-      let { placement, title, preCls, $slots } = this, childNode;
+      let { placement, trigger, title, preCls, $slots, transfer } = this, childNode;
 
-      title = title || $slots.title
+      title = title || getChild($slots.title)
       if (this.showPlacementArrow) {
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
@@ -119,7 +108,7 @@ export default {
             <Button type="primary" size="small" onClick={this.ok}>{this.okText}</Button>
           </div>
         } else {
-          titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : ''
+          titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : null
           contentNode = $slots.content
         }
         contentNode = contentNode ? <div class={`k-${preCls}-inner-content`}>{contentNode}</div> : null;
@@ -130,16 +119,16 @@ export default {
       } else {
         childNode = $slots.content
       }
-
       const props = {
         ref: 'overlay',
         props: {
-          transfer: this.transfer,
-          show: this.showPop,
+          transfer,
+          value: this.opened,
           className: `k-${preCls}-content`,
           width: this.width,
-          placement: placement,
-          trigger: this.trigger,
+          selection: this.selection,
+          placement,
+          trigger,
           transitionName: `k-${preCls}`
         },
         on: {
@@ -150,44 +139,32 @@ export default {
           },
           mouseleave: e => {
             if (this.trigger == 'hover') {
-              this.showPop = false
+              this.toggle(false);
             }
           },
           input: (e) => {
-            this.showPop = e
-            if (hasProp(this, 'value')) {
-              this.$emit('input', e);
-            }
+            // this.toggle(e);
+            this.$emit('input', e)
           }
         }
       }
-      return this.showInit ? <Drop {...props}>{childNode}</Drop> : null
+      return <Drop {...props}>{childNode}</Drop>
     },
   },
 
   render() {
     let { $slots } = this
-    let child = getChild($slots.default)
-    child = child.length === 1 ? child[0] : child;
-    if (!child) {
-      return null;
-    };
-
-    // console.log(child)
-
-    // child = isVnode(child) ? child : <span>{child}</span>;
+    let vNode = getChild($slots.default)[0]
     let popup = this.renderPopup()
 
-    // child = getChild($slots.default)
     const props = {
-      children: popup,
       on: {
-        'contextmenu': e => this.mouseEvent(e),
+        'contextmenu': e => this.contextMenu(e),
         'mouseenter': e => this.mouseEnter(e),
         'mouseleave': e => this.mouseLeave(e),
-        'click': e => this.mouseEvent(e)
+        'click': e => this.onClick(e)
       }
     }
-    return cloneVNode(child, props)
+    return cloneVNode(vNode, props, popup)
   }
 };

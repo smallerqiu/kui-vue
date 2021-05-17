@@ -23,6 +23,4 @@
     </Menu>
   </Dropdown>
 </template>
-
-
 ```

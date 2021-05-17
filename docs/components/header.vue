@@ -3,6 +3,7 @@
     <div class="logo">
       <a href="/">
         <img src="../assets/favicon.png" />K UIKIT
+        <sub>v {{version}}</sub>
       </a>
     </div>
     <div class="search-component">
@@ -35,11 +36,11 @@
 </template>
 <script>
 import { Nav } from "../menu";
-// import { version } from '@/package.json'
+import { version } from '@/package.json'
 export default {
   data() {
     return {
-      // version,
+      version,
       components: [],
       v: "3",
       key: "",

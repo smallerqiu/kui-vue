@@ -2,6 +2,7 @@
 import Info from './info'
 import Base from './base'
 import Disabled from './disabled'
+// import Centered from './centered'
 import Icon from './icon'
 import Extra from './extra'
 import Card from './card'
@@ -16,6 +17,7 @@ export default {
         <Info class="typo" />
         <Base />
         <Disabled />
+         {/*<Centered />*/}
         <Icon />
         <Extra />
         <Card />

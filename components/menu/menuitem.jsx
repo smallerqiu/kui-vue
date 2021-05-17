@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import Tooltip from '../tooltip'
-import { isVnode } from '../_tool/utils'
+import { isVnode, getChild } from '../_tool/utils'
 
 export default {
   name: "MenuItem",
@@ -13,7 +13,6 @@ export default {
     Menu: { default: null },
     SubMenu: { default: null },
     Dropdown: { default: null },
-    collectAffixItem: { default: () => { } }
   },
   data() {
     return {
@@ -26,10 +25,12 @@ export default {
       if (!this.disabled) {
         e.stopPropagation();
         this.currentAffixed = !this.currentAffixed
-        this.collectAffixItem(this, this.currentAffixed)
+        let item = this
+        this.SubMenu.affixed(item, e)
       }
     }
   },
+
   mounted() {
     let { SubMenu, Menu } = this
     if (Menu && SubMenu) {
@@ -79,15 +80,16 @@ export default {
         },
       }
     }
-    const showTooltip = this.$parent == Menu && Menu.inlineCollapsed
-    let child = this.$slots.default
-    let titleNode = child.length == 1 ? isVnode(child[0]) ? child : <span>{child}</span> : child
+    const showTooltip = !SubMenu && Menu.inlineCollapsed
+    let child = getChild(this.$slots.default)
+    let titleNode = child.length > 1 ? <span>{child}</span> : (isVnode(child[0]) ? child : <span>{child}</span>)
     return (
       <Tooltip placement="right">
         <li {...props}>
           {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null}
           {titleNode}
-          {Menu.mode == 'vertical' && Menu.verticalAffixed && SubMenu ? <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
+          {Menu.mode == 'vertical' && Menu.verticalAffixed && SubMenu ?
+            <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
       </Tooltip>

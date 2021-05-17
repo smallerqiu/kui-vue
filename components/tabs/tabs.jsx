@@ -5,6 +5,7 @@ export default {
     value: String,
     card: Boolean,
     sample: Boolean,
+    centered: Boolean,
     animated: { type: Boolean, default: true }
   },
   data() {
@@ -189,13 +190,14 @@ export default {
 
   },
   render() {
-    const { $slots, card, animated, sample, tabPanes } = this
+    const { $slots, card, animated, centered, sample, tabPanes, scrollable } = this
     const classes = [
       "k-tabs",
       {
         ["k-tabs-animated"]: animated && !card && !sample,
         ["k-tabs-card"]: card && !sample,
-        ["k-tabs-sample"]: sample && !card
+        ["k-tabs-sample"]: sample && !card,
+        ["k-tabs-centered"]: centered
       }
     ];
 
@@ -206,13 +208,13 @@ export default {
       paneStyle.marginLeft = `-${100 * this.currentIndex}%`
     }
 
-    const navCls = ['k-tabs-nav-container', { ['k-tabs-nav-container-scroll']: this.scrollable }]
+    const navCls = ['k-tabs-nav-container', { ['k-tabs-nav-container-scroll']: scrollable }]
     return (
-      <div class={classes} ref="root">
+      <div class={classes}>
         <div class="k-tabs-bar">
           {$slots.extra ? <div class="k-tabs-extra" ref="extra">{$slots.extra}</div> : null}
           <div class={navCls}>
-            {this.scrollable ? [<span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span>,
+            {scrollable ? [<span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span>,
             <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="chevron-forward" /></span>] : null}
             <div class="k-tabs-nav-wrap" ref="navbox">
               <div class="k-tabs-nav" style={scrollStyle} ref="navscroll">
@@ -222,7 +224,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="k-tabs-content" style={paneStyle} ref="panes">
+        <div class="k-tabs-content" style={paneStyle}>
           {$slots.default}
         </div>
       </div>
