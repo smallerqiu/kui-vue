@@ -1,44 +1,52 @@
 import { getPosition } from '../_tool/utils'
 
 import transfer from "../_tool/transfer";
-import Resize from "../_tool/resize";
+import resize from "../_tool/resize";
 import outsideclick from "../_tool/outsiteclick";
 
 export default {
   name: 'Drop',
-  directives: { transfer, Resize, outsideclick },
+  directives: { transfer, resize, outsideclick },
   props: {
     transfer: Boolean,
-    show: Boolean,
+    value: Boolean,
     className: [String, Array],
     width: Number,
     placement: String,
     trigger: { type: String, default: "click" },
-    transitionName: { type: String, default: 'dropdown' }
+    transitionName: { type: String, default: 'dropdown' },
+    selection: Element
   },
 
   watch: {
-    show(value) {
-      if (value) {
-        this.$nextTick(e => this.setPosition())
-      }
+    rendered(value) {
+      this.$emit('render')
+    },
+    value(value) {
+      this.rendered = true
+      this.visible = value
+      this.$nextTick(e => {
+        this.setPosition()
+      })
+    },
+    placement(value) {
+      this.currentPlacement = value
     }
   },
   data() {
     return {
       left: 0,
       top: 0,
+      minWidth: 0,
       mousedownIn: false,
       transformOrigin: '',
-      _placement: this.placement,
-      selection: null
+      currentPlacement: this.placement,
+      rendered: this.value === true,
+      visible: this.value
     }
   },
-  created() {
-    this.selection = this.$parent.$el
-  },
   mounted() {
-    this.$nextTick(e => this.setPosition())
+    this.$nextTick(() => this.setPosition())
     document.addEventListener('mousedown', this.onMouseDown)
   },
   beforeDestroy() {
@@ -51,23 +59,27 @@ export default {
         left: `${this.left}px`,
         top: `${this.top}px`,
         width: `${this.width}px`,
+        minWidth: `${this.minWidth}px`,
         transformOrigin: this.transformOrigin
       },
       attrs: {
-        'k-placement': this._placement
+        'k-placement': this.currentPlacement
       },
       on: {
         ...this.$listeners
       },
     }
-    return <transition name={this.transitionName}>
-      <div {...props} v-show={this.show} v-transfer={this.transfer} v-outsideclick={this.hide} v-resize={this.resize}>
+    return this.rendered ? <transition name={this.transitionName}>
+      <div {...props} v-show={this.visible}
+        v-transfer={this.transfer}
+        v-outsideclick={this.hide}
+        v-resize={this.resize}>
         {this.$slots.default}
       </div>
-    </transition>
+    </transition> : null
   },
   methods: {
-    baseContextmenu(e) {
+    showContextmenu(e) {
       let pickerHeight = this.$el.offsetHeight
       let pickerWidth = this.$el.offsetWidth
       let clientHeight = document.documentElement.clientHeight
@@ -88,44 +100,40 @@ export default {
         top -= pickerHeight
         transformOrigin = 'bottom center'
       }
-      if (this.show) {
-        this.$el.style.left = left + 'px'
-        this.$el.style.top = top + 'px'
-      }
       this.left = left
       this.top = top
       this.transformOrigin = transformOrigin
     },
     onMouseDown({ target }) {
-      this.mousedownIn = this.show && this.$el.contains(target)
+      this.mousedownIn = this.visible && this.$el.contains(target)
     },
     setPosition(e) {
-      if (this.trigger == 'contextmenu') {
+      if (this.trigger == 'contextmenu' || !this.rendered || !this.value) {
         return;
       }
-      let { selection, transfer } = this
-      getPosition(selection, this.$el, transfer, this.placement, (top, left, origin, placement) => {
+      let { selection, transfer, placement } = this
+      getPosition(selection, this.$el, transfer, placement, (top, left, origin, placement) => {
         this.top = top
         this.left = left
+        // this.minWidth = this.selection.offsetWidth
         this.transformOrigin = origin
-        this._placement = placement
+        this.currentPlacement = placement
       })
     },
     hide(e) {
       let { target } = e
       e.stopPropagation()
-      if (this.show &&
+      if (this.visible &&
         !this.selection.contains(target) &&
         !this.$el.contains(target) &&
         !this.mousedownIn
       ) {
-        // console.log('eeeaa')
-        this.$emit('hide')
+        // this.visible = false
         this.$emit('input', false)
       }
     },
     resize() {
-      if (this.show) {
+      if (this.visible) {
         this.$emit('resize')
         this.setPosition()
       }

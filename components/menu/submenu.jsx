@@ -1,14 +1,9 @@
-import Collapse from '../_tool/collapse'
+import Collapse from '../base/collapse'
 import BasePop from '../base/pop'
-import Menu from './menu.jsx'
-import { getParent } from './utils.js'
+import CMenu from './menu.jsx'
 import { getChild, isVnode } from '../_tool/utils'
 import Icon from '../icon'
-const animateNames = {
-  horizontal: 'dropdown',
-  inline: 'k-collaplse-slide',
-  vertical: 'k-menu-submenu-fade'
-}
+import cloneVNode from '../_tool/clone'
 
 export default {
   name: "SubMenu",
@@ -20,20 +15,6 @@ export default {
   provide() {
     return {
       SubMenu: this,
-      collectAffixItem: (context, affixed) => {
-        context.$options.propsData.affixed = affixed
-        let key = context.$vnode.key
-        let options = {
-          key,
-          keyPath: [key],
-          item: context
-        }
-        let root = getParent(this.Menu, 'Menu')
-        if (root) {
-          root.$emit('affixed', options, affixed)
-        }
-        this.$forceUpdate()
-      }
     }
   },
   inject: {
@@ -47,131 +28,152 @@ export default {
       opened: false,
       left: null,
       minWidth: null,
+      rendered: false,
+      affixedKeys: []
     };
   },
   mounted() {
     let { SubMenu, Menu } = this
-    if (Menu && SubMenu) {
-      let { selectedKeys } = Menu
-      let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
-      if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
-        Menu.selectedKeys.push(SubMenu.$vnode.key)
+    if (Menu) {
+      let { selectedKeys, defaultOpenKeys, inlineCollapsed } = Menu
+      let key = this.$vnode.key
+      const opened = defaultOpenKeys.indexOf(key) >= 0
+
+      if (opened) {
+        this.rendered = true
       }
+      if (SubMenu) {
+        let selected = selectedKeys.indexOf(key) >= 0
+        if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
+          Menu.selectedKeys.push(SubMenu.$vnode.key)
+        }
+      }
+      if (!inlineCollapsed) {
+        this.opened = opened
+      }
+      this.affixedKeys = getChild(this.$slots.default)
+        .map(child => cloneVNode(child))
+        .filter(({ data }) => data.props.affixed !== false && data.props.affixed !== undefined)
+        .map(c => c.key)
     }
   },
   render() {
-    let { $slots, disabled, Dropdown, opened, SubMenu, icon } = this
+    let { $slots, disabled, Dropdown, opened, Menu, SubMenu, icon, rendered } = this
+    let key = this.$vnode.key
+    const { currentMode, theme, selectedKeys, verticalAffixed, inlineCollapsed,
+      mode, defaultOpenKeys } = Menu
+    let selected = selectedKeys.indexOf(key) >= 0
 
-    let root = this.Menu;
+    const showInline = currentMode == 'inline'
 
-    const { currentMode, theme, selectedKeys } = root
-
-    let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
-
-    if (currentMode == 'inline') {
-      opened = root.defaultOpenKeys.indexOf(this.$vnode.key) >= 0
+    if (showInline) {
+      opened = defaultOpenKeys.indexOf(key) >= 0
+      if (opened) rendered = true
     }
-    let types = currentMode == 'horizontal' ? 'vertical' : currentMode
+    let types = currentMode == 'horizontal' || inlineCollapsed ? 'vertical' : currentMode
 
     const preCls = Dropdown ? 'dropdown-menu-submenu' : 'menu-submenu';
-
-    let aniName = currentMode == 'horizontal' && !SubMenu ? 'dropdown' : animateNames[types];
 
     let titleProps = {
       class: `k-${preCls}-title`,
       on: {
-        click: () => this.openChange()
+        click: () => this.openChange(),
+        mouseenter: () => this.showPopupMenu(),
+        mouseleave: () => this.hidePopupMenu()
       }
     }
-    if (SubMenu || Menu || Dropdown) {
-      titleProps.on.mouseenter = () => this.showPopupMenu()
-      titleProps.on.mouseleave = () => this.hidePopupMenu()
-    }
+
     let title = this.title || $slots.title
     const titleNode = <div {...titleProps}>
       <span class={`k-${preCls}-inner`}>
         {icon ? <Icon type={icon} /> : null}
         {isVnode(title) ? title : <span>{title}</span>}
       </span>
-      <Icon type={currentMode == 'inline' || (currentMode == 'horizontal' && this.SubMenu == null) ? "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
+      <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
+        "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
     </div>
 
-    const hasRenderAffix = this.$parent == root && root.mode == 'vertical' && root.verticalAffixed
+    const hasRenderAffix = !SubMenu && mode == 'vertical' && verticalAffixed
 
     const popupProps = {
       slot: 'content',
       class: [`k-${preCls}-popup`, { [`k-${preCls}-affix-popup`]: hasRenderAffix }],
       style: {
         'min-width': `${this.minWidth}px`,
-        'margin-left': root.theme == 'dark' && this.$parent == root && root.mode == "horizontal" ? '-16px' : null
+        'margin-left': theme == 'dark' && !SubMenu && mode == "horizontal" ? '-16px' : null
       },
       on: {
         mouseenter: () => {
           clearTimeout(this.timer);
-          this.opened = true
           this.active = true;
+          if (!showInline)
+            this.opened = true
         },
         mouseleave: () => {
           this.hidePopupMenu()
-        }
+        },
       }
     }
 
-    if (currentMode == 'inline' || SubMenu != null || Dropdown) {
+    if ((showInline && !inlineCollapsed) ||
+      (!showInline && SubMenu) ||
+      (showInline && inlineCollapsed && SubMenu)
+      || Dropdown) {
       popupProps.directives = [{ name: 'show', value: opened }]
     } else {
       // popupProps.style.minWidth = this.minWidth + 'px'
     }
-    const childNode = <div {...popupProps}>
-      <Menu mode={types} theme={theme}>{$slots.default}</Menu>
-    </div>
-    let haspop = currentMode != 'inline' && SubMenu == null && !Dropdown,
-      popProps = {};
-    if (haspop) {
-      popProps = {
+    const childNode = <div {...popupProps}><CMenu mode={types} theme={theme}>{$slots.default}</CMenu></div>
+
+    let popMenuNode = null
+    if (((!showInline || inlineCollapsed) && !SubMenu && !Dropdown)) {
+      const popProps = {
         props: {
           showPlacementArrow: false,
           preCls: preCls + '-popup',
-          transfer: true,
+          transfer: !SubMenu,
           placement: currentMode == 'horizontal' ? 'bottom-left' : 'right-top',
           value: opened,
         },
         on: {
-          input: e => {
+          input: (opened) => {
             if (currentMode == 'horizontal')
               this.minWidth = this.$el.offsetWidth
           }
         }
       }
+      popMenuNode = <BasePop {...popProps}>{[titleNode, childNode]}</BasePop>
+    } else {
+      popMenuNode = [titleNode, rendered ? <Collapse collapse={showInline && !inlineCollapsed}
+        name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse> : null]
     }
+    const classes = [`k-${preCls}`, {
+      [`k-${preCls}-active`]: this.active,
+      [`k-${preCls}-selected`]: selected && !Dropdown,
+      [`k-${preCls}-opened`]: opened,
+      [`k-${preCls}-disabled`]: disabled
+    }]
 
-    const classes = [
-      `k-${preCls}`,
-      {
-        [`k-${preCls}-active`]: this.active,
-        [`k-${preCls}-selected`]: selected && !Dropdown,
-        [`k-${preCls}-opened`]: opened,
-        [`k-${preCls}-disabled`]: disabled
-      }
-    ]
+    const affixNode = hasRenderAffix ? this.renderAffix() : null
 
-    const affixNode = hasRenderAffix ? this.renderAffix(root) : null
-    return (
-      <li class={classes}>
-        {haspop ? <BasePop {...popProps}>{[titleNode, childNode]}</BasePop> :
-          [titleNode, <Collapse name={aniName}>{childNode}</Collapse>]}
-        {affixNode}
-      </li>
-    )
+    return (<li class={classes}>{popMenuNode}{affixNode}</li>)
   },
   methods: {
     hidePopupMenu() {
       if (this.disabled) return;
       this.active = false
-      if (this.Menu.currentMode != 'inline') {
+      let { Menu } = this
+      let { currentMode, inlineCollapsed, defaultOpenKeys } = Menu
+      if (currentMode != 'inline' || inlineCollapsed) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.opened = false
+
+          let openKeys = [].concat(defaultOpenKeys)
+          let key = this.$vnode.key,
+            index = openKeys.indexOf(key)
+          index > -1 && openKeys.splice(index, 1)
+          Menu.openChange(openKeys)
         }, 300);
       }
     },
@@ -179,86 +181,104 @@ export default {
       if (this.disabled) return;
       clearTimeout(this.timer)
       this.active = true
-      if (this.Menu.currentMode != 'inline') {
-        if (this.SubMenu || this.Dropdown) this.opened = true
+      let { Menu } = this
+      let { currentMode, inlineCollapsed, defaultOpenKeys } = Menu
+      if (currentMode != 'inline' || inlineCollapsed) {
+        this.rendered = true
+        this.$nextTick(() => {
+          //展开子集
+          this.opened = true
+          let openKeys = [].concat(defaultOpenKeys)
+          let key = this.$vnode.key
+          openKeys.indexOf(key) < 0 && openKeys.push(key)
+          Menu.openChange(openKeys)
+        })
       }
     },
+    affixed(item, e) {
+      let parent = this.Menu
 
-    renderAffix(root) {
-      const childs = getChild(this.$slots.default)
-      const itemClick = (item, e) => {
-        let disabled = item.componentOptions.propsData.disabled
-        if (disabled == undefined) {
+      let key = item.$vnode.key
+      if (parent) {
+        let options = {
+          key,
+          keyPath: [key],
+          item,
+          event: e
+        }
+        parent.$emit('affixed', options)
+
+        if (item.currentAffixed) {
+          this.affixedKeys.push(key)
+        } else {
+          let index = this.affixedKeys.indexOf(key)
+          this.affixedKeys.splice(index, 1)
+        }
+      }
+    },
+    affixItemClick(item, e) {
+      let disabled = item.data.props.disabled
+      if (disabled !== false) {
+        let parent = this.SubMenu || this.Menu
+        if (parent) {
           let key = item.data.key
-
           let options = {
             key,
             keyPath: [key],
             item,
             event: e
           }
-          let parent = this.SubMenu || this.Menu
-          if (parent) {
-            parent.handleClick(options)
-          }
+          parent.handleClick(options)
         }
       }
-      const child = childs.map(item => {
-        let affixed = item.componentOptions.propsData.affixed
-        let vnode = item.componentOptions.children
-        let key = item.data.key
-        if (affixed !== undefined && affixed !== false) {
-          return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(key) >= 0 }]} key={key}>
-            <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{vnode}</span>
-          </li>
-        }
+    },
+    renderAffix() {
+      let { selectedKeys } = this.Menu
+      const childs = getChild(this.$slots.default)
+        .map(child => cloneVNode(child))
+        .filter(child => this.affixedKeys.indexOf(child.key) > -1)
+      const childNode = childs.map(item => {
+        return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': selectedKeys.indexOf(item.key) >= 0 }]} key={item.key}>
+          <span class="k-menu-submenu-affix-item-text" onClick={e => this.affixItemClick(item, e)}>{item.componentOptions.children}</span>
+        </li>
       })
-      // const child = this.affixChilds.map(item => {
-      //   return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': root.selectedKeys.indexOf(item.$vnode.key) >= 0 }]} key={item.$vnode.key}>
-      //     <span class="k-menu-submenu-affix-item-text" onClick={e => itemClick(item, e)}>{item.$slots.default}</span>
-      //   </li>
-      // })
-      return <div class="k-menu-submenu-affix">{child}</div>
+      return <ul class="k-menu-submenu-affix">{childNode}</ul>
     },
     openChange() {
       if (this.Menu) {
-        let root = getParent(this.Menu, 'Menu')
-        if (root.currentMode != 'inline') return;
-        let openKeys = root.defaultOpenKeys
+        let { currentMode, defaultOpenKeys, accordion, inlineCollapsed } = this.Menu
+        if (currentMode != 'inline' || inlineCollapsed) return;
+        let openKeys = [].concat(defaultOpenKeys)
         let key = this.$vnode.key
         let index = openKeys.indexOf(key)
+
         //accordion
-        if (root.accordion) {
-          let rootSub = getParent(this.SubMenu, 'SubMenu')
-          if (!rootSub._uid) {
-            root.openChange(index >= 0 ? [] : [key])
-            return;
+        if (accordion && !this.SubMenu) {
+          openKeys = index >= 0 ? [] : [key]
+        } else {
+          if (index >= 0) {
+            openKeys.splice(index, 1)
+          } else {
+            openKeys.push(key)
           }
         }
-
-        if (index >= 0) {
-          openKeys.splice(index, 1)
-        } else {
-          openKeys.push(key)
-        }
-        root.openChange(openKeys)
+        this.rendered = true
+        this.$nextTick(() => {
+          this.opened = openKeys.indexOf(key) > -1
+          this.Menu.openChange(openKeys)
+        })
       }
     },
-    closeSub() {
-      this.opened = false
-      if (this.SubMenu) this.SubMenu.closeSub()
-    },
     handleClick(options) { //item click event
-
       options.keyPath.unshift(this.$vnode.key)
       let parent = this.SubMenu || this.Menu
       if (parent) {
         parent.handleClick(options)
       }
-
-      let root = getParent(this.Menu, 'Menu')
-      if (root.currentMode == 'horizontal' || root.currentMode == 'vertical') {
-        this.closeSub()
+      let { currentMode, inlineCollapsed } = this.Menu
+      if (currentMode != 'inline' || inlineCollapsed) {
+        this.opened = false
+        this.Menu.openChange([])
       }
     }
   }

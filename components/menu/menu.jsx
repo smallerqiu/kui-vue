@@ -21,39 +21,31 @@ export default {
     }
   },
   watch: {
-    value(activeName) {
-      this.selectedKeys = activeName
+    value(value) {
+      this.selectedKeys = value
     },
     mode(mode) {
       this.currentMode = mode
     },
     inlineCollapsed(collapsed) {
-      // if (this.defaultOpenKeys.length)
-      // this.originOpenKeys = JSON.parse(JSON.stringify(this.defaultOpenKeys))
-
-      // if (!this.originMode) this.originMode = this.currentMode
-      // this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
-
-      if (collapsed) {
-        this.originOpenKeys = [].concat(this.defaultOpenKeys)
-        this.originMode = this.currentMode + ''
-      }
       this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        this.currentMode = collapsed ? 'vertical' : this.originMode
-      }, 300);
     }
   },
   data() {
     return {
-      selectedKeys: this.value,
-      defaultOpenKeys: this.openKeys,
+      selectedKeys: this.value || [],
+      defaultOpenKeys: this.inlineCollapsed ? [] : this.openKeys || [],
       currentMode: this.mode,
-      originOpenKeys: [],
-      originMode: null
+      originOpenKeys: this.openKeys || [],
+      originMode: this.mode
     };
   },
+  // beforeMount() {
+  //   if (this.inlineCollapsed) {
+  //     this.defaultOpenKeys = []
+  //     this.originOpenKeys = this.openKeys
+  //   }
+  // },
   render() {
     const { theme, currentMode, Dropdown } = this
     const preCls = Dropdown ? 'dropdown-menu' : 'menu';
@@ -65,6 +57,9 @@ export default {
   methods: {
     openChange(openKeys) {
       this.defaultOpenKeys = openKeys
+      if (!this.inlineCollapsed) {
+        this.originOpenKeys = openKeys
+      }
       this.$emit('open-change', openKeys)
     },
     handleClick(options) {
@@ -73,6 +68,7 @@ export default {
         parent.handleClick(options)
       } else {
         this.selectedKeys = options.keyPath
+        this.$emit('input', options.keyPath)
         this.$emit('click', options)
       }
     }

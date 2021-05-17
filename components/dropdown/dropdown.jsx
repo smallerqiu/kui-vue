@@ -25,47 +25,37 @@ export default {
   },
   data() {
     return {
-      visible: this.value
+      visible: this.value || false
     }
   },
   watch: {
     value(v) {
       this.visible = v
-      // console.log('www')
     }
   },
   render() {
-    // let data = Object.assign(this.$props, { value: this.visible })
     let props = {
       props: {
         preCls: 'dropdown',
-        // ...data,
         ...this.$props,
         value: this.visible
-        // showPlacementArrow: true,
       },
       on: {
-        'input': e => {
-          // console.log(e)
+        input: e => {
           this.visible = e
           this.$emit('input', e)
         }
       }
     }
-    // if (!hasProp(this, 'value')) {
-    // delete props.props.value
-    // }
-    let child = (this.$slots.content || [])[0]
     return (
       <PopBase {...props}>
         {this.$slots.default}
-        <template slot="content">{child}</template>
-      </PopBase>
+        <template slot="content">{this.$slots.content}</template>
+      </PopBase >
     )
   },
   methods: {
     handleClick(options) {
-      // console.log('ww')
       this.$emit('click', options)
       this.visible = false
       this.$emit('input', false)

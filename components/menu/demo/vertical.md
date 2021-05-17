@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" mode="vertical">
+    <Menu v-model="current" mode="vertical">
       <MenuItem key="1-1" icon="mail">Option 1</MenuItem>
       <MenuItem key="1-2" icon="calendar">Option 2</MenuItem>
       <SubMenu key="sub2" icon="keypad" title="Navigation Two">
@@ -31,7 +31,6 @@ export default {
   data() {
     return {
       current: ['1-1'],
-      openKeys:['sub1']
     }
   },
 }
