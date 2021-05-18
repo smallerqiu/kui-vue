@@ -1,4 +1,5 @@
 import Icon from '../icon'
+import { getChild } from '../_tool/utils'
 export default {
   name: 'Tabs',
   props: {
@@ -10,7 +11,6 @@ export default {
   },
   data() {
     return {
-      tabPanes: [],
       activeKey: this.value,
       currentIndex: -1,
       scrollable: false,
@@ -28,12 +28,6 @@ export default {
   provide() {
     return {
       Tabs: this,
-      collectTabPanes: (context, type) => {
-        const panes = this.tabPanes
-        type === 'delete' ? panes.splice(panes.indexOf(context), 1) : panes.push(context)
-        this.resetNavPosition()
-        this.updateNav()
-      }
     }
   },
   mounted() {
@@ -131,9 +125,8 @@ export default {
       this.navOffsetLeft = navOffsetLeft
       pane.style.transform = `translate3d(${navOffsetLeft}px,0,0)`
     },
-    tabClick(pane, index) {
-      if (!pane.disabled) {
-        let key = pane.$vnode.key
+    tabClick({ disabled, key }, index) {
+      if (!disabled) {
         this.$emit('input', key)
         this.$emit('change', key)
         this.$emit('tab-click', key)
@@ -143,13 +136,10 @@ export default {
     },
     updateIndex() {
       this.$nextTick(e => {
-        const { tabPanes } = this
-        const currentTab = tabPanes.filter(tab => tab.$vnode.key == this.activeKey)[0] || {}
-        this.currentIndex = tabPanes.indexOf(currentTab)
-        setTimeout(e => {
-          this.resetActivePostion()
-          this.updateInkBarPosition()
-        }, 100)
+        const childs = getChild(this.$slots.default)
+        this.currentIndex = childs.map(p => p.key).indexOf(this.activeKey)
+        this.resetActivePostion()
+        this.updateInkBarPosition()
       })
     },
     updateInkBarPosition() {
@@ -173,24 +163,30 @@ export default {
       })
     },
     renderNav() {
-      return this.tabPanes.map((pane, index) => {
+      const childs = getChild(this.$slots.default)
+
+      return childs.map((pane, index) => {
+        const key = pane.key;
+        let { icon, title, closable, disabled } = pane.componentOptions.propsData
+        disabled = disabled !== undefined
+        closable = closable !== undefined
         const prop = {
-          class: ['k-tabs-tab', { ['k-tabs-tab-active']: pane.$vnode.key == this.activeKey, ['k-tabs-tab-disabled']: pane.disabled }],
+          class: ['k-tabs-tab', { ['k-tabs-tab-active']: key == this.activeKey, ['k-tabs-tab-disabled']: disabled }],
           on: {
-            click: e => this.tabClick(pane, index)
+            click: () => this.tabClick({ disabled, key }, index)
           }
         }
         return <div {...prop}>
-          {pane.icon ? <Icon type={pane.icon} /> : null}
-          {pane.title}
-          {pane.closable && this.card ? <Icon type="close" class="k-tabs-close" onClick={e => this.closeTab(pane.$vnode.key, e)} /> : null}
+          {icon ? <Icon type={icon} /> : null}
+          {title}
+          {closable && this.card ? <Icon type="close" class="k-tabs-close" onClick={e => this.closeTab(key, e)} /> : null}
         </div>
       })
     },
 
   },
   render() {
-    const { $slots, card, animated, centered, sample, tabPanes, scrollable } = this
+    const { $slots, card, animated, centered, sample, scrollable } = this
     const classes = [
       "k-tabs",
       {
@@ -212,17 +208,17 @@ export default {
     return (
       <div class={classes}>
         <div class="k-tabs-bar">
-          {$slots.extra ? <div class="k-tabs-extra" ref="extra">{$slots.extra}</div> : null}
           <div class={navCls}>
-            {scrollable ? [<span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span>,
-            <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="chevron-forward" /></span>] : null}
+            {scrollable ? <span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span> : null}
             <div class="k-tabs-nav-wrap" ref="navbox">
               <div class="k-tabs-nav" style={scrollStyle} ref="navscroll">
                 {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref="inkbar" /> : null}
                 <div class="k-tabs-nav-inner" ref="nav">{this.renderNav()}</div>
               </div>
             </div>
+            {scrollable ? <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="chevron-forward" /></span> : null}
           </div>
+          {$slots.extra ? <div class="k-tabs-extra" ref="extra">{$slots.extra}</div> : null}
         </div>
         <div class="k-tabs-content" style={paneStyle}>
           {$slots.default}

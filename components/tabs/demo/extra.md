@@ -15,7 +15,7 @@
     <TabPane key="3" title="Tab 3">
       Content of Tab Pane 3
     </TabPane>
-    <Button slot="extra">Extra Action</Button>
+    <Button slot="extra" size="small">Extra Action</Button>
   </Tabs>
 </template>
 <script>

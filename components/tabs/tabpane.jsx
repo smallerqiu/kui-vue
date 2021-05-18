@@ -8,13 +8,6 @@ export default {
   },
   inject: {
     Tabs: { default: {} },
-    collectTabPanes: { default: () => { } }
-  },
-  created() {
-    this.collectTabPanes(this, 'add')
-  },
-  beforeDestroy() {
-    this.collectTabPanes(this, 'delete')
   },
   render() {
     return (
