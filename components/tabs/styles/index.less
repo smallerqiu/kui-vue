@@ -4,47 +4,44 @@
   .k-tabs-bar {
     border-bottom: 1px solid @border-color;
     margin: 0 0 16px;
+    display: flex;
+    align-items: center;
     .k-tabs-tab-btn-next, .k-tabs-tab-btn-prev {
-      position: absolute;
-      line-height: 39px;
       cursor: pointer;
-      left: 0;
-      width: 32px;
       text-align: center;
       font-size: 20px;
+      padding: 6px 5px 0;
       color: @icon-color;
-      bottom: 0;
     }
     .k-tabs-tab-btn-next-disabed, .k-tabs-tab-btn-prev-disabed {
       color: @disable-color;
       cursor: not-allowed;
     }
-    .k-tabs-tab-btn-next {
-      right: 2px;
-      left: auto;
-    }
+   
     .k-tabs-extra {
-      float: right;
-      line-height: 45px;
-      padding-left: 6px;
+     
     }
     .k-tabs-nav-container {
-      margin-bottom: -1px;
+      flex: 1;
+      width: 0; // 麻痹，我感觉这是个bug
+      display: flex;
       position: relative;
-      white-space: nowrap;
       overflow: hidden;
       font-size: 14px;
-      line-height: 1.5;
+      margin-bottom: -1px;
       .k-tabs-nav-wrap {
         overflow: hidden;
+        flex: 1;
+        width: 0;
       }
       .k-tabs-nav {
         display: inline-block;
         transition: transform .3s;
+        white-space: nowrap;
       }
     }
     .k-tabs-nav-container-scroll {
-      padding: 0 32px;
+      padding: 0;
       .k-tabs-nav-scroll {
         transition: transform .3s;
       }
@@ -53,7 +50,7 @@
       display: inline-block;
       height: 100%;
       margin: 0 32px 0 0;
-      padding: 12px 0;
+      padding: 10px 0 10px;
       font-size: 14px;
       cursor: pointer;
       user-select: none;
@@ -136,7 +133,6 @@
 .k-tabs-card {
   .k-tabs-bar {
     .k-tabs-extra {
-      line-height: 38px;
     }
     .k-tabs-tab {
       margin-right: 2px;

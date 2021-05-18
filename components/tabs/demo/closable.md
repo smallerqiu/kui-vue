@@ -30,9 +30,8 @@ export default{
   methods:{
     remove(key){
       let panes = this.panes
-
-      const pane = panes.filter(pane=>pane.key == key)[0]
-      const index = panes.indexOf(pane)
+      
+      const index = panes.map(p=>p.key).indexOf(key)
 
       if (this.activeKey == key) {
         if(index == panes.length-1) {
