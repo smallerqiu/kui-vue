@@ -5,6 +5,7 @@ export default {
     dark: Boolean,
     transfer: { type: Boolean, default: true },
     title: String,
+    color: String,
     width: [Number, String],
     placement: {
       validator(value) {

@@ -6,21 +6,21 @@
 ```vue
 <template>
   <div style="margin-left:70px;white-space: nowrap;">
-    <Poptip title="标题" placement="top-left">
+    <Poptip :title="title" placement="top-left">
       <Button>TL</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="top">
+    <Poptip :title="title" placement="top">
       <Button>Top</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="top-right">
+    <Poptip :title="title" placement="top-right">
       <Button>TR</Button>
       <template slot="content">
         <p>{{tip}}</p>
@@ -29,21 +29,21 @@
     </Poptip>
   </div>
   <div style="float:left;height:125px;width:70px;">
-    <Poptip title="标题" placement="left-top">
+    <Poptip :title="title" placement="left-top">
       <Button>LT</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="left">
+    <Poptip :title="title" placement="left">
       <Button>Left</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="left-bottom">
+    <Poptip :title="title" placement="left-bottom">
       <Button>LB</Button>
       <template slot="content">
         <p>{{tip}}</p>
@@ -52,21 +52,21 @@
     </Poptip>
   </div>
   <div style="margin-left:310px;height:125px;width:70px;">
-    <Poptip title="标题" placement="right-top">
+    <Poptip :title="title" placement="right-top">
       <Button>RT</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="right">
+    <Poptip :title="title" placement="right">
       <Button>Right</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="right-bottom">
+    <Poptip :title="title" placement="right-bottom">
       <Button>RB</Button>
       <template slot="content">
         <p>{{tip}}</p>
@@ -75,21 +75,21 @@
     </Poptip>
   </div>
   <div style="margin-left:70px;white-space: nowrap;">
-    <Poptip title="标题" placement="bottom-left">
+    <Poptip :title="title" placement="bottom-left">
       <Button>BL</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="bottom" >
+    <Poptip :title="title" placement="bottom" >
       <Button>Bottom</Button>
       <template slot="content">
         <p>{{tip}}</p>
         <p>{{tip}}</p>
       </template>
     </Poptip>
-    <Poptip title="标题" placement="bottom-right" >
+    <Poptip :title="title" placement="bottom-right" >
       <Button>BR</Button>
       <template slot="content">
         <p>{{tip}}</p>
