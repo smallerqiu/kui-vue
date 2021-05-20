@@ -144,8 +144,10 @@ export default {
               this.toggle(false);
             }
           },
+          hide: () => {
+            this.toggle(false);
+          },
           input: (e) => {
-            // this.toggle(e);
             this.$emit('input', e)
           }
         }
