@@ -2,18 +2,22 @@ export default {
   name: 'Spin',
   props: {
     value: { type: Boolean, default: true },
-    mode: { type: String, default: 'zoom' }
+    mode: {
+      type: String, default: 'zoom', validator(value) {
+        return ["bounce", "flip", "rotate", "zoom"].indexOf(value) >= 0;
+      }
+    }
   },
   render() {
+    let { mode, value, $slots } = this
     const classes = [{
-      [`k-spin-loading`]: this.value,
-      [`k-spin-${this.mode}`]: this.mode && this.value,
+      [`k-spin-loading`]: value,
+      [`k-spin-${mode}`]: mode && value,
     }]
 
-    const child = this.$slots.default
     const spin = <div class={classes} />
     return (
-      <div class="k-spin">{[spin,child]}</div>
+      <div class="k-spin">{[spin, $slots.default]}</div>
     )
   }
 }
