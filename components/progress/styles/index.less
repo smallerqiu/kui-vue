@@ -21,13 +21,25 @@
   .k-progress-text {
     display: inline-block;
     width: 30px;
-    font-size: 12px;
+    font-size: 14px;
     color: @color;
     line-height: 1;
     white-space: nowrap;
     vertical-align: middle;
     .k-icon {
       font-size: 20px;
+    }
+  }
+}
+
+.k-progress-sm {
+  .k-progress-bg {
+    height: 5px;
+  }
+  .k-progress-text {
+    font-size: 12px;
+    .k-icon {
+      font-size: 14px;
     }
   }
 }
@@ -46,10 +58,16 @@
   position: relative;
   .k-progress-text {
     position: absolute;
+    font-size: 1.25em;
+    width: auto;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    .k-icon {
+      // font-size: 30px;
+      font-size: 1.5em;
+    }
   }
 }
 

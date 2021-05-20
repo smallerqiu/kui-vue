@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Progress :percent="percent" :format="format1" :color="color"/>
+  <Progress :percent="percent" :format="format1" :color="color"  style="width:300px;margin-bottom:30px;"/>
   <Progress :percent="percent" type="circle" :format="format2" :color="color" />
   <Progress :percent="percent" type="dashboard" :format="format3" :color="color" />
   <br/>
@@ -34,13 +34,10 @@ export default{
       if(percent < 30){
         return '空';
       } else if( percent >= 30 && percent < 50 ){
-        this.color = '#bdc78d'
         return '弱'
       } else if( percent >= 50 && percent < 80 ){
-        this.color = '#c7b98d'
         return '中'
       } else if( percent >= 80 ){
-        this.color = '#f79e08'
         return '强'
       }
     },
@@ -50,6 +47,7 @@ export default{
         percent = 100;
       }
       this.percent = percent;
+      this.changeColor(percent)
     },
     decline() {
       let percent = this.percent - 5;
@@ -57,7 +55,19 @@ export default{
         percent = 0;
       }
       this.percent = percent;
+      this.changeColor(percent)
     },
+    changeColor(percent){
+      let {color} = this
+      if( percent >= 30 && percent < 50 ){
+        color = '#bdc78d'
+      } else if( percent >= 50 && percent < 80 ){
+        color = '#c7b98d'
+      } else if( percent >= 80 ){
+        color = '#f79e08'
+      }
+      this.color = color
+    }
   }
 }
 </script>  
