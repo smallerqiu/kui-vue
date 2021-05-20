@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Progress :percent="percent" />
+  <Progress :percent="percent" style="width:300px;margin-bottom:30px;"/>
   <Progress :percent="percent" type="circle"/>
   <Progress :percent="percent" type="dashboard" />
   <br/>

@@ -5,6 +5,12 @@ export default {
     percent: { type: Number, default: 0 },
     color: String,
     format: Function,
+    width: Number,
+    size: {
+      type: String, default: 'default', validator: function (s) {
+        return ['small', 'default'].indexOf(s) >= 0
+      }
+    },
     status: {
       type: String, default: 'normal', validator: function (s) {
         return ['active', 'exception', 'success', 'normal'].indexOf(s) >= 0
@@ -101,15 +107,24 @@ export default {
     }
   },
   render() {
-    let { type, status, currentPercent } = this
+    let { type, status, currentPercent, size, width } = this
     if (currentPercent == 100) {
       status = 'success'
     }
-    let classes = ['k-progress', `k-progress-${type}`, `k-progress-${status}`, { 'k-progress-hide-info': !this.showInfo }]
+    let classes = [
+      'k-progress', `k-progress-${type}`,
+      `k-progress-${status}`,
+      { 'k-progress-sm': type == 'line' && size == 'small' },
+      { 'k-progress-hide-info': !this.showInfo }
+    ]
     let tipNode = this.renderTip()
-    let gress = this.renderGress()
+    let gress = this.renderGress(), style;
+
+    if (type != 'line' && width > 10) {
+      style = { width: width + 'px', height: width + 'px' }
+    }
     return (
-      <div class={classes}>
+      <div class={classes} style={style}>
         {[gress, tipNode]}
       </div>
     )
