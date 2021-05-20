@@ -1,22 +1,22 @@
 <cn>
-#### 多彩徽标 
-多种预设色彩的徽标样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+#### 多彩文字提示
+多种预设色彩的文字提示样式，用作不同场景使用。
 </cn>
 
 ```vue
 <template>
-  <div class="demo-dot">
+  <div class="demo-tooltip-color">
     <Divider orientation="left">Presets:</Divider>
     <div>
-      <div v-for="color in colors" :key="color">
-        <Badge :color="color" :text="color" />
-      </div>
+      <Tooltip :color="color" :title="color" v-for="color in colors" :key="color">
+        <Button size="small">{{color}}</Button>
+      </Tooltip>
     </div>
     <Divider orientation="left">Custom:</Divider>
     <div>
-      <div v-for="color in custom" :key="color">
-        <Badge :color="color" :text="color" />
-      </div>
+      <Tooltip :color="color" :title="color" v-for="color in custom" :key="color">
+        <Button size="small">{{color}}</Button>
+      </Tooltip>
     </div>
   </div>
 </template>

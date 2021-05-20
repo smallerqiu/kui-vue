@@ -10,6 +10,7 @@ export default {
     trigger: { type: String, default: "hover" },
     confirm: Boolean,
     dark: Boolean,
+    color: String,
     transfer: { type: Boolean, default: true },
     value: { type: Boolean },
     title: String,
@@ -95,7 +96,7 @@ export default {
 
     },
     renderPopup() {
-      let { placement, trigger, title, preCls, $slots, transfer } = this, childNode;
+      let { placement, trigger, title, preCls, $slots, transfer, color } = this, childNode;
 
       title = title || getChild($slots.title)
       if (this.showPlacementArrow) {
@@ -113,8 +114,8 @@ export default {
         }
         contentNode = contentNode ? <div class={`k-${preCls}-inner-content`}>{contentNode}</div> : null;
 
-        childNode = [<div class={`k-${preCls}-arrow`}></div>,
-        <div class={`k-${preCls}-inner`}>{[titleNode, contentNode, footerNode]}</div>]
+        childNode = [<div class={`k-${preCls}-arrow`}><div class={`k-${preCls}-arrow-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}></div></div>,
+        <div class={`k-${preCls}-inner`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>{[titleNode, contentNode, footerNode]}</div>]
 
       } else {
         childNode = $slots.content
@@ -124,10 +125,11 @@ export default {
         props: {
           transfer,
           value: this.opened,
-          className: `k-${preCls}-content`,
+          className: [`k-${preCls}-content`, { [`k-${preCls}-${color}`]: color && !/^#/.test(color) }],
           width: this.width,
           selection: this.selection,
           placement,
+          color,
           trigger,
           transitionName: `k-${preCls}`
         },
