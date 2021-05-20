@@ -129,7 +129,7 @@ export default {
         !this.mousedownIn
       ) {
         // this.visible = false
-        this.$emit('input', false)
+        this.$emit('hide', false)
       }
     },
     resize() {

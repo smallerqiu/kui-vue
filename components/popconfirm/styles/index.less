@@ -37,12 +37,18 @@
   }
   .k-popconfirm-arrow {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    border: 4px solid transparent;
     box-sizing: border-box;
-    transform: rotate(45deg);
-    background: #fff;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 19px;
+    .k-popconfirm-arrow-content {
+      background-color: #fff;
+      transform: rotate(45deg);
+      width: 12px;
+      height: 12px;
+    }
   }
   .k-popconfirm-footer {
     text-align: right;
@@ -53,8 +59,12 @@
   }
   &[k-placement^=top] {
     .k-popconfirm-arrow {
-      bottom: 8px;
-      box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
+      bottom: 3px;
+      height: 9px;
+      .k-popconfirm-arrow-content {
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+        margin-top: -15px;
+      }
     }
     .k-popconfirm-inner {
       margin-bottom: 12px;
@@ -63,7 +73,7 @@
   &[k-placement=top] {
     .k-popconfirm-arrow {
       left: 50%;
-      transform: translateX(-50%) rotate(45deg);
+      transform: translateX(-50%);
     }
   }
   &[k-placement=top-right] {
@@ -78,8 +88,12 @@
   }
   &[k-placement^=bottom] {
     .k-popconfirm-arrow {
-      top: 8px;
-      box-shadow: -3px -3px 7px rgba(0, 0, 0, 0.07);
+      top: 3px;
+      height: 9px;
+      .k-popconfirm-arrow-content {
+        box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.05);
+        margin-bottom: -15px;
+      }
     }
     .k-popconfirm-inner {
       margin-top: 12px;
@@ -102,8 +116,13 @@
   }
   &[k-placement^=left] {
     .k-popconfirm-arrow {
-      right: 8px;
-      box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
+      right: 3px;
+			width: 9px;
+			height: 19px;
+			.k-popconfirm-arrow-content {
+				box-shadow: 2px -2px 5px rgba(0, 0, 0, 0.05);
+				margin-left: -15px;
+			}
     }
     .k-popconfirm-inner {
       margin-right: 12px;
@@ -127,8 +146,13 @@
   }
   &[k-placement^=right] {
     .k-popconfirm-arrow {
-      left: 8px;
-      box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
+      left: 3px;
+			width: 9px;
+			height: 19px;
+			.k-popconfirm-arrow-content {
+				box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.05);
+				margin-right: -15px;
+			}
     }
     .k-popconfirm-inner {
       margin-left: 12px;
@@ -137,7 +161,7 @@
   &[k-placement=right] {
     .k-popconfirm-arrow {
       top: 50%;
-      transform: translateY(-50%) rotate(45deg);
+      transform: translateY(-50%);
     }
   }
   &[k-placement=right-top] {
