@@ -3,7 +3,7 @@
 |------------------|------------------------------------------------|----------|------------------|
 | current          | 当前页码                                       | Number   | 1                |
 | total            | 数据总数                                       | Number   | 0                |
-| pagesize         | 每页条数                                       | Number   | 10               |
+| page-size         | 每页条数                                       | Number   | 10               |
 | show-sizer       | 是否显示页码组                                 | Boolean  | false            |
 | show-total       | 是否显示总数                                   | Boolean  | false            |
 | show-elevator    | 是否显示页码阶梯                               | Boolean  | false            |
