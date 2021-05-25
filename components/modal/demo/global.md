@@ -27,9 +27,17 @@ export default{
       ]
       let m = ['success','error','warning','info']
 
-      i==4 ?
-      this.$Modal.show({ title:t[i], content:c[i],icon:'moon',color:'#eccb23' }) :
-      this.$Modal[m[i]]({ title:t[i], content:c[i] })
+      i == 4 ?
+      this.$Modal.show({ 
+        title: t[i], 
+        content: c[i],
+        icon: 'moon',
+        color: '#eccb23' 
+      }) :
+      this.$Modal[m[i]]({ 
+        title:t[i], 
+        content:c[i] 
+      })
     },
   }
 }

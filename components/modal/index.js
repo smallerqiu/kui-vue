@@ -19,10 +19,10 @@ if (typeof window !== undefined) {
 let modalList = [];
 let createInstance = (props = {}) => {
   const instance = new Vue({
-    data: { loading: false, show: false },
+    data: { loading: false, visible: false },
     render(h) {
       //icons
-      let { icon, title, content, color, cancelText, okText } = props
+      let { title, content, color, type, icon, cancelText, okText } = props
       let icons = {
         info: "information-circle",
         error: "close-circle",
@@ -30,41 +30,50 @@ let createInstance = (props = {}) => {
         warning: "alert-circle",
         confirm: 'help-circle'
       }
-      let type = icons[icon] || icon
       //header 
       let header = h('div', { attrs: { class: 'k-toast-header' } }, [
-        type ? h(Icon, { style: { color: color }, class: 'k-toast-icon', props: { type } }) : null,
+        (type || icon) ? h(Icon, { class: 'k-toast-icon', props: { type: (icons[type] || icon), color } }) : null,
         h('div', { attrs: { class: 'k-toast-title' } }, title)
       ])
 
       //body
-      let body = h('div', { attrs: { class: 'k-toast-content' }, domProps: { innerHTML: [content] } })
+      let body = h('div', { attrs: { class: 'k-toast-content' } }, content)
       //footer
       let footerNode = [h(Button, {
         props: { type: 'primary', loading: this.loading },
         on: { click: this.ok }
       }, okText || '确定')]
 
-      if (icon == 'confirm') {
+      if (type == 'confirm') {
         footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || '取消'))
       }
       let footer = h('div', { attrs: { class: 'k-toast-footer' } }, footerNode)
 
       let contentNode = h('template', { slot: 'content' }, [header, body, footer])
-      let classes = 'k-modal k-toast ' + (icons[icon] ? 'k-toast-' + icon : '')
-      return h(Modal, { attrs: { class: classes } }, [contentNode]);
+      let classes = 'k-modal k-toast ' + (icons[type] ? 'k-toast-' + type : '')
+      return h(Modal, {
+        attrs: { class: classes },
+        props: {
+          value: this.visible,
+          maskClosable: false
+        },
+        on: {
+          input: (e) => {
+            this.visible = e
+          }
+        }
+      }, [contentNode]);
     },
     methods: {
+      show() {
+        this.visible = true
+      },
       ok() {
         let { onOk } = props;
         let fun = onOk ? onOk() : {}
         if (isPromise(fun)) {
           this.loading = true
-          fun.then(e => {
-            this.destroy()
-          }).catch(e => {
-
-          })
+          fun.then(e => { this.destroy() }).catch(e => { })
         } else {
           this.destroy()
         }
@@ -75,47 +84,22 @@ let createInstance = (props = {}) => {
         this.destroy()
       },
       destroy() {
-        let instance = this.$children[0]
-        if (instance) {
-          instance.show = false
-
-          clearTimeout(this.timer)
-          this.timer = setTimeout(e => {
-            instance.showInner = false
-            instance.$destroy()
-            setTimeout(() => {
-              document.body.removeChild(this.$el)
-            });
-            modalList.splice(modalList.indexOf(instance), 1)
-
-            if (modalList.length == 0) {
-              modal.resetBodyStyle(false)
-            }
-          }, 300)
-        }
+        this.visible = false
+        setTimeout(() => {
+          modalList.splice(modalList.indexOf(instance), 1)
+          this.$destroy()
+          if (document.body.contains(this.$el))
+            document.body.removeChild(this.$el)
+        }, 300);
       }
     }
   })
   const component = instance.$mount()
   document.body.appendChild(component.$el)
-
-  let modal = instance.$children[0]
-  modal.init = true
-
-  return {
-    show() {
-      modal.showPoint = showPoint
-      modal.$nextTick(e => {
-        modal.show = true
-        modal.showInner = true
-        modal.resetBodyStyle(true)
-      })
-    },
-    destroy() {
-      // document.removeEventListener('mousedown', mousedown)
-      modal.$parent.destroy()
-    }
-  }
+  let toast = component.$children[0]
+  toast.showPoint = showPoint
+  toast.tasks = modalList
+  return instance
 }
 
 let getModal = (props = {}) => {
@@ -126,7 +110,7 @@ let getModal = (props = {}) => {
 }
 
 ['info', 'success', 'warning', 'error', 'confirm'].forEach(type => {
-  Modal[type] = (props = {}) => getModal(Object.assign({ icon: type }, props))
+  Modal[type] = (props = {}) => getModal(Object.assign({ type }, props))
 })
 
 Modal.show = (props = {}) => {
@@ -134,8 +118,8 @@ Modal.show = (props = {}) => {
 }
 
 Modal.destroyAll = e => {
-  modalList.forEach(modal => {
-    modal.destroy()
+  modalList.forEach(toast => {
+    toast.destroy()
   })
 }
 Modal.install = function (Vue) {

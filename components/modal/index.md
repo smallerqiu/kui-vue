@@ -7,9 +7,9 @@
 | width         | 对话框宽度                                    | Number, String | 520    |
 | ok-text       | 确定按钮文字                                  | String         | 确定   |
 | cancel-text   | 取消按钮文字                                  | String         | 取消   |
-| can-move      | 弹框是否可拖动, confirm模式不可用             | Boolean        | false  |
-| is-center     | 窗口是否可以居中 , confirm模式不可用          | Boolean        | false  |
-| is-max        | 弹框是否可以最大化显示 , confirm模式不可用    | Boolean        | false  |
+| draggable      | 弹框是否可拖动, confirm模式不可用             | Boolean        | false  |
+| centered     | 窗口是否可以居中 , confirm模式不可用          | Boolean        | false  |
+| maximized        | 弹框是否可以最大化显示 , confirm模式不可用    | Boolean        | false  |
 | mask-closable | 是否点击遮罩关闭弹窗, 为否时Esc键将失效       | Boolean        | true   |
 | ok            | 点击确定的回调，`注意：不会关闭 Modal `                              | Function       | -      |
 | cancel        | 点击取消的回调                                | Function       | -      |
@@ -30,7 +30,7 @@
 另外提供了全局配置和全局销毁的方法：
 
 * this.$Modal.show(options)
-* this.$Modal.destroy()
+* this.$Modal.destroyAll()
 
 参数 options 为对象，具体说明如下：
 

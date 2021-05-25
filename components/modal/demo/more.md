@@ -6,18 +6,18 @@
 ```vue
 <template>
   <div>
-    <Button @click="show1=true" type="primary">Can move</Button>
-    <Button @click="show2=true" type="primary">Open in center</Button>
+    <Button @click="show1=true" type="primary">Draggable</Button>
+    <Button @click="show2=true" type="primary">Centered</Button>
     <Button @click="show3=true" type="primary">Top 200px</Button>
-    <Button @click="show4=true" type="primary">Open max</Button>
+    <Button @click="show4=true" type="primary">Maximized</Button>
     <Button @click="show5=true" type="primary">No mask</Button>
     <Button @click="show6=true" type="primary">No footer</Button>
 
-    <Modal title="Can move" v-model="show1" can-move @ok="show1=false">
+    <Modal title="Draggable" v-model="show1" draggable @ok="show1=false">
       {{text}}
     </Modal>
 
-    <Modal title="Open in center" v-model="show2" is-center @ok="show2=false">
+    <Modal title="Centered" v-model="show2" centered @ok="show2=false">
       {{text}}
     </Modal>
 
@@ -25,7 +25,7 @@
       {{text}}
     </Modal>
 
-    <Modal title="Open max" v-model="show4" is-max @ok="show4=false">
+    <Modal title="Maximized" v-model="show4" maximized @ok="show4=false">
       {{text}}
     </Modal>
 

@@ -17,16 +17,20 @@ export default {
     width: Number,
     mask: { type: Boolean, default: true },
     maskClosable: { type: Boolean, default: true },
-    isMax: Boolean,
-    isCenter: Boolean,
-    canMove: Boolean,
+    maximized: Boolean,
+    centered: Boolean,
+    draggable: Boolean,
     loading: Boolean,
-    footer: String
+    footer: String,
+    transfer: { type: Boolean, default: true },
+    cancel: Function,
+    ok: Function,
+    close: Function,
     // mode: { type: String, default: 'modal' }
   },
   data() {
     return {
-      init: false,
+      rendered: false,
       show: this.value,
       showInner: this.value,
       left: '',
@@ -51,7 +55,7 @@ export default {
   methods: {
     updateProp(visible) {
       if (visible) {
-        this.init = true
+        this.rendered = true
         this.$nextTick(e => {
           this.show = visible
           this.showInner = visible
@@ -81,7 +85,8 @@ export default {
         }
       } else {
         setTimeout(() => {
-          Object.keys(cacheBodyOverflow).forEach(key => {
+          let task = (this.tasks && this.tasks.length == 0) || !this.tasks
+          task && Object.keys(cacheBodyOverflow).forEach(key => {
             document.body.style[key] = cacheBodyOverflow[key] || ''
             delete cacheBodyOverflow[key]
           })
@@ -114,7 +119,7 @@ export default {
       }
     },
     mousemove(e) {
-      if (this.isMouseDown && this.canMove) {
+      if (this.isMouseDown && this.draggable) {
         let { x, y } = this.startPos
         this.left += e.clientX - x
         this.currentTop = this.currentTop || 100
@@ -133,7 +138,7 @@ export default {
       if (!this.show) {
         this.showPoint = { x: e.clientX, y: e.clientY }
       }
-      if (e.button == 0 && this.canMove === true && this.$refs.hRef && this.$refs.hRef.contains(e.target)) {
+      if (e.button == 0 && this.draggable === true && this.$refs.hRef && this.$refs.hRef.contains(e.target)) {
         this.isMouseDown = true
         this.startPos = { x: e.clientX, y: e.clientY }
         this.mousemove(e)
@@ -151,11 +156,13 @@ export default {
 
   mounted() {
     document.addEventListener('mousedown', this.mousedown)
-    if (this.value) this.init = true
+
+    if (this.draggable) {
+      this.left = (document.body.offsetWidth - (this.width || 520)) / 2
+    }
   },
   render() {
-    let { $slots, show, showInner, canMove } = this
-    let node = []
+    let { $slots, show, showInner, draggable, transfer } = this
 
     //mask
     let maskNode = null
@@ -184,10 +191,6 @@ export default {
       contentNode = <div class="k-modal-content">{contents}</div>
     }
 
-    node.push(contentNode)
-    if (canMove) {
-      this.left = this.left || (document.body.offsetWidth - (this.width || 520)) / 2
-    }
     const style = {
       width: `${this.width}px`,
       top: `${this.currentTop}px`,
@@ -195,18 +198,18 @@ export default {
     }
     const classes = [
       'k-modal', {
-        'k-modal-can-move': canMove,
-        'k-modal-max': this.isMax,
-        'k-modal-center': this.isCenter,
+        'k-modal-draggable': draggable,
+        'k-modal-maximized': this.maximized,
+        'k-modal-centered': this.centered,
         'k-modal-has-footer': this.footer !== null,
       }
     ]
-    return this.init ? (<div class={classes} v-transfer={true}>
+    return this.rendered ? (<div class={classes} v-transfer={transfer}>
       {maskNode}
       <div class="k-modal-wrap" v-show={showInner} onClick={this.clickMaskToClose}>
         <transition name="k-modal-zoom">
           <div class="k-modal-inner" ref="modal" v-show={show} style={style}>
-            {node}
+            {contentNode}
           </div>
         </transition>
       </div>
