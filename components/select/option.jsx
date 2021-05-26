@@ -1,4 +1,4 @@
-import { hasProp } from "../_tool/utils";
+import { isNotEmpty } from "../_tool/utils";
 import Icon from '../icon'
 export default {
   name: "Option",
@@ -14,7 +14,7 @@ export default {
     select() {
       let { value, label, disabled, Select, $slots } = this
       if (disabled) return;
-      value = value || this.$vnode.key
+      value = isNotEmpty(value) ? value : this.$vnode.key
       if (Select) {
         label = label || $slots.default
         Select.change({ label, value })
@@ -23,7 +23,7 @@ export default {
   },
   render() {
     let { disabled, Select, value, label, $slots, select } = this
-    value = value || this.$vnode.key
+    value = isNotEmpty(value) ? value : this.$vnode.key
     let selected = false;
     label = label || $slots.default
     let iconNode = null

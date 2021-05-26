@@ -372,8 +372,11 @@
   .k-select-arrow {
     color: @disable-border;
   }
-  &:hover .k-select-selection {
-    border-color: @disable-border;
+  &:hover, &:focus {
+    .k-select-selection {
+      border-color: @disable-border;
+      box-shadow: none;
+    }
   }
 }
 

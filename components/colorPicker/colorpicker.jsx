@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-   
+
     toggleDrop() {
       if (this.disabled) {
         return false;
@@ -362,6 +362,10 @@ export default {
         on: {
           input: e => {
             this.opened = e
+            this.currentColor = this.value || '#000'
+          },
+          hide: () => {
+            this.opened = false
             this.currentColor = this.value || '#000'
           },
           render: () => {
