@@ -16,7 +16,7 @@ export default {
       }
     },
     transfer: { type: Boolean, default: true },
-    width: [Number, String],
+    width: Number,
     value: [String, Number, Array],
     clearable: Boolean,
     filterable: Boolean,
@@ -37,7 +37,7 @@ export default {
     return {
       label: "",
       opened: false,
-      currentValue: this.value || '',
+      currentValue: this.value,
       showSearch: false,
       queryKey: '',
       selectWidth: this.width
@@ -104,10 +104,12 @@ export default {
 
     },
     clear(e) {
-      this.label = ''
-      this.currentValue = ''
-      this.$emit("input", "");
-      this.$emit("change", {});
+      let label = this.multiple ? [] : ""
+      let value = this.multiple ? [] : ""
+      this.label = label
+      this.currentValue = value
+      this.$emit("input", value);
+      this.$emit("change", value);
       e.stopPropagation()
     },
     showDrops() {
@@ -115,15 +117,17 @@ export default {
 
       this.opened = !this.opened;
       if (this.filterable || isSearch) {
+        this.showSearch = this.opened
         if (this.opened) {
-          this.showSearch = true
           this.$nextTick(e => this.$refs.search.focus())
         } else {
-          this.showSearch = false
           this.$refs.search.blur()
+          setTimeout(() => {
+            this.queryKey = ''
+            this.$refs.search.value = ''
+          }, 200);
         }
       }
-
       this.$nextTick(e => this.setPosition())
     },
     toggleDrop() {
@@ -158,7 +162,7 @@ export default {
       if (!multiple) {
         this.opened = false
         this.showSearch = false
-      } else {
+      } else if ('search' in this.$listeners || this.filterable) {
         this.$nextTick(e => this.$refs.search.focus())
       }
       let hasValue = hasProp(this, 'value')
@@ -204,6 +208,7 @@ export default {
 
     },
     removeTag(e, i) {
+      if (this.disabled) return
       let values = this.currentValue || []
       let labels = this.label || []
       this.change({ value: values[i], label: labels[i].label })
@@ -222,17 +227,6 @@ export default {
           this.$emit('search', e)
         }, 500);
       }
-    },
-    searchBlur(e) {
-      // setTimeout(a => {
-      //   this.queryKey = ''
-      //   e.target.value = ''
-      // }, 300)
-    },
-    searchFocus(e) {
-      // e.target.value = ''
-      // this.queryKey = ''
-      // e.target.style.width = ''
     },
     emptyClick(e) {
       if (this.showSearch) {
@@ -289,16 +283,17 @@ export default {
     const queryProps = {
       on: {
         input: this.searchInput,
-        focus: this.searchFocus,
-        blur: this.searchBlur
       },
       ref: 'search',
       class: 'k-select-search',
       attrs: {
-        autoComplete: 'off'
+        autoComplete: 'off',
       }
     }
-    const queryNode = <div v-show={this.showSearch} key="search" class="k-select-search-wrap"><input {...queryProps} /><span class="k-select-search-mirror" ref="mirror">{queryKey}</span></div>
+    const queryNode = <div v-show={this.showSearch} key="search" class="k-select-search-wrap">
+      <input {...queryProps} />
+      <span class="k-select-search-mirror" ref="mirror">{queryKey}</span>
+    </div>
 
     let kid = this.getOptions()
     // kid = (
@@ -319,11 +314,11 @@ export default {
         className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
       },
       on: {
-        input: e => {
-          this.opened = e
-          if (!e) {
-            this.hidedrop
-          }
+        hide: () => {
+          this.opened = false
+          setTimeout(() => {
+            this.hidedrop()
+          }, 300)
         }
       }
     }
@@ -347,7 +342,8 @@ export default {
     const labelsNode = (multiple
       ? (
         <div class="k-select-labels">
-          <transition-group name="k-select-tag">{tags}{queryNode}</transition-group>
+          <transition-group name="k-select-tag">{tags}</transition-group>
+          {queryNode}
         </div>
       )
       : <div class="k-select-label" style={labelStyle}>{label}</div>

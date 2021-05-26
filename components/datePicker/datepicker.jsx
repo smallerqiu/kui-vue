@@ -205,7 +205,15 @@ export default {
             this.temp_range_right = null
             this.temp_range_showtime = false
           }
-        }
+        },
+        hide: () => {
+          this.opened = false
+          this.temp_date_hover = {};
+          this.temp_range_one = null
+          this.temp_range_left = null
+          this.temp_range_right = null
+          this.temp_range_showtime = false
+        },
       }
     }
     let overlay = <Drop {...props}>{calendar}</Drop >

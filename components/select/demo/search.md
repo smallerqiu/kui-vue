@@ -9,6 +9,7 @@
     <p>Selected value:{{s1}}</p>
     <Select 
       v-model="s1" 
+      :width="512"
       @search="search1"
       :loading="loading1"
       placeholder="单选搜索">
@@ -18,6 +19,7 @@
     <Select 
       class="demo-select"
       multiple 
+      :width="512"
       :loading="loading2"
       @search="search2"
       v-model="s2" 

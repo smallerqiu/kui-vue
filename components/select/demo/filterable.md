@@ -9,6 +9,7 @@
     <p>Selected value:{{data}}</p>
     <Select 
       size="large"
+      :width="512"
       v-model="data" 
       placeholder="单选过滤" filterable>
       <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
@@ -17,6 +18,7 @@
     <Select 
       class="demo-select"
       multiple 
+      :width="512"
       v-model="data2" 
       placeholder="多选过滤" filterable >
       <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
@@ -24,6 +26,7 @@
     <p>Selected value:{{data3}}</p>
     <Select 
       class="demo-select"
+      :width="512"
       multiple 
       v-model="data3" 
       placeholder="远程搜索" filterable size="small">

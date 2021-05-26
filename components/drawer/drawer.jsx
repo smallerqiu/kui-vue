@@ -22,7 +22,7 @@ export default {
   },
   watch: {
     value(v) {
-      this.init = true
+      this.rendered = true
       this.$nextTick(e => {
         this.visible = v
         this.resetBodyStyle(v)
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       visible: this.value,
-      init: false
+      rendered: false
     };
   },
   beforeDestroy() {
@@ -114,7 +114,7 @@ export default {
     if (placement == 'top' || placement == 'bottom') styles.height = this.height + 'px'
     // const wrapCls =
     return (
-      this.init ? <div class={classes} v-transfer={true}>
+      this.rendered ? <div class={classes} v-transfer={true}>
         <transition name="fade">
           <div class="k-drawer-mask" ref="mask" v-show={visible} onClick={this.maskToClose}></div>
         </transition>
