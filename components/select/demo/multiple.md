@@ -7,7 +7,7 @@
 <template>
   <div>
     <p>Select value:{{data}}</p>
-    <Select :width="300" multiple v-model="data" size="large">
+    <Select :width="300" multiple v-model="data" size="large" >
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
@@ -18,7 +18,7 @@
     <Button size="small" @click="data=[]">Clear</Button>
     <Button size="small" @click="data=['3','1']">Select Banana & Apple</Button>
     <br/>
-    <Select :width="300" multiple v-model="data2">
+    <Select :width="300" multiple v-model="data2" clearable>
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
