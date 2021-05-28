@@ -391,6 +391,20 @@
   }
 }
 
+.k-select-borderless {
+  &:hover, &:focus {
+    .k-select-selection {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+  .k-select-selection {
+    box-shadow: none;
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
 @keyframes zoomIn {
   from {
     opacity: 0;

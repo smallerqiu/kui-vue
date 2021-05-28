@@ -9,6 +9,8 @@
 | multiple    | 是否呈现多选模式                                           | Boolean                        | false  |
 | loading     | 是否显示异步加载                                           | Boolean                        | false  |
 | clearable   | 是否可以清空选项                                           | Boolean                        | false  |
+| bordered    | 是否显示边框                                               | Boolean                        | true   |
+| showArrow   | 是否显示下拉按钮                                           | Boolean                        | true   |
 | transfer    | 默认渲染到body 上，如定位有问题，请尝试修改为 false        | Boolean                        | true   |
 | change      | 在选项状态发生改变时触发，返回选择项{value:xx,label:xx}    | Function                       | -      |
 | open-change | 下拉框展开或收起时触发                                     | Function                       | -      |

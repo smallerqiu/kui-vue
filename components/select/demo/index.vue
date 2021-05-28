@@ -3,6 +3,7 @@ import Info from './info'
 import Base from './base'
 import Size from './size'
 import Clearable from './clearable'
+import NoBordered from './nobordered'
 import Multiple from './multiple'
 import Filterable from './filterable'
 import Search from './search'
@@ -15,6 +16,7 @@ export default {
         <Base />
         <Size />
         <Clearable />
+        <NoBordered />
         <Multiple />
         <Filterable />
         <Search />

@@ -23,6 +23,8 @@ export default {
     disabled: Boolean,
     multiple: Boolean,
     loading: Boolean,
+    bordered: { type: Boolean, default: true },
+    showArrow: { type: Boolean, default: true },
     options: Array
   },
   provide() {
@@ -37,7 +39,7 @@ export default {
     return {
       label: "",
       opened: false,
-      currentValue: this.value,
+      currentValue: this.value || '',
       showSearch: false,
       queryKey: '',
       selectWidth: this.width
@@ -47,12 +49,13 @@ export default {
     value(value) {
       if (isNotEmpty(value)) {
         this.currentValue = value
-        this.setLabel()
       } else {
-        this.label = ''
-        this.currentValue = ''
+        this.currentValue = this.multiple ? [] : ''
       }
       this.FormItem && this.FormItem.testValue(value)
+    },
+    currentValue(n, o) {
+      this.setLabel()
     }
   },
   methods: {
@@ -68,27 +71,25 @@ export default {
       let Label = '';
       kid.forEach(c => {
         let { value, label } = c.componentOptions.propsData
-        label = label || (c.componentOptions.children[0].text || '').trim()
         if (labelValue === value) {
-          Label = label
+          Label = label || (c.componentOptions.children[0].text || '').trim()
           return;
         }
       })
       return Label;
     },
     setLabel() {
-      let currentValue = this.currentValue
-      // if (!isNotEmpty(currentValue) || currentValue.length == 0) return;
+      let { currentValue, multiple, label } = this
+      currentValue = isNotEmpty(currentValue) ? currentValue : (multiple ? [] : '')
+      let currentLabel = isNotEmpty(label) ? label : (multiple ? [] : '')
+
       let kid = this.getOptions()
-      let currentLabel = this.label || ''
-      if (this.multiple) {
-        currentLabel = currentLabel || []
-        currentValue = currentValue || []
+      if (multiple) {
         if (currentValue.length) {
           let labels = []
-          currentValue.forEach((value, index) => {
-            let Label = this.getLabel(kid, value)
-            labels.push({ label: Label, key: Label + value, value })
+          currentValue.forEach((value) => {
+            let label = this.getLabel(kid, value)
+            labels.push({ label, key: `label_${value}`, value })
           })
           currentLabel = labels
         } else {
@@ -265,7 +266,7 @@ export default {
   },
   render() {
     let { disabled, size, multiple,
-      opened, placeholder,
+      opened, placeholder, showArrow, bordered,
       clear, removeTag, queryKey,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
@@ -275,6 +276,7 @@ export default {
       {
         ["k-select-disabled"]: disabled,
         ["k-select-open"]: opened,
+        'k-select-borderless': bordered === false,
         ["k-select-lg"]: size == 'large',
         ["k-select-sm"]: size == 'small'
       }
@@ -331,7 +333,7 @@ export default {
     )
     const tags = multiple ?
       label.map((c, i) => {
-        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
+        return <span class="k-select-tag" a={c.key} key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
       })
       : null
 
@@ -349,17 +351,17 @@ export default {
       : <div class="k-select-label" style={labelStyle}>{label}</div>
     )
     let isSearch = ('search' in this.$listeners)
-    childNode.push(labelsNode)
-    childNode.push(placeNode)
+    childNode.push(labelsNode);
+    childNode.push(placeNode);
 
-    !isSearch && childNode.push(<Icon class="k-select-arrow" type="chevron-down" />)
+    (!isSearch && showArrow) && childNode.push(<Icon class="k-select-arrow" type="chevron-down" />)
 
     if ((this.filterable || isSearch) && !multiple) {
       childNode.push(queryNode)
     }
 
     const styles = { width: `${this.width}px` }
-    let showClear = !disabled && clearable && label && !multiple
+    let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
     const selectCls = [
       "k-select-selection", {
         "k-select-has-clear": showClear
