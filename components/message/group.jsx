@@ -51,11 +51,9 @@ export default {
       return <Notice {...props} key={key} />
     })
     return (
-      <div class={`k-${type}`}>
-        <transition-group name={`k-${type}-slide`} {...transition}>
-          {kid}
-        </transition-group>
-      </div >
+      <transition-group tag="div" class={`k-${type}`} name={`k-${type}-slide`} {...transition}>
+        {kid}
+      </transition-group>
     )
   }
 }

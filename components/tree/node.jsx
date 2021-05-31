@@ -109,7 +109,7 @@ export default {
     return (
       <div class={["k-tree-children", { 'k-tree-children-has-child': hasChilds }]}>
         <div class={['k-tree-item', { 'k-tree-item-disabled': disabled }]}>{itemNode}</div>
-        <transition-group {...onProps}>{childs}</transition-group>
+        <transition-group tag="div" {...onProps}>{childs}</transition-group>
       </div>)
   }
 }
