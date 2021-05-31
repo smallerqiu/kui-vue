@@ -333,7 +333,7 @@ export default {
     )
     const tags = multiple ?
       label.map((c, i) => {
-        return <span class="k-select-tag" a={c.key} key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
+        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
       })
       : null
 
@@ -343,10 +343,8 @@ export default {
     }
     const labelsNode = (multiple
       ? (
-        <div class="k-select-labels">
-          <transition-group name="k-select-tag">{tags}</transition-group>
-          {queryNode}
-        </div>
+        [<transition-group tag="div" class="k-select-labels" name="k-select-tag">{tags}</transition-group>
+          , queryNode]
       )
       : <div class="k-select-label" style={labelStyle}>{label}</div>
     )
