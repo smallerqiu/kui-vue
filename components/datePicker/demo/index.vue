@@ -2,6 +2,7 @@
 import Info from './info'
 import Base from './base.md'
 import Disabled from './disabled.md'
+import NoBorder from './noborder.md'
 import DisabledDate from './disabled-date.md'
 import Size from './size.md'
 import Mode from './mode.md'
@@ -14,6 +15,7 @@ export default {
         <Info class="typo" />
         <Base />
         <Disabled />
+        <NoBorder />
         <Format />
         <Size />
         <Mode />
