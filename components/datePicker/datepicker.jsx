@@ -70,7 +70,10 @@ export default {
         }
         value = value || []
         let label = []
-        let v1 = value[0] || '', v2 = value[1] || ''
+        let [v1, v2] = value
+
+        v1 = v1 ? new Date(v1) : ''
+        v2 = v2 ? new Date(v2) : ''
         if (v1) label[0] = moment(v1).format(format)
         if (v2) label[1] = moment(v2).format(format)
         return label
