@@ -38,12 +38,13 @@ export default {
     DatePicker: { default: {} }
   },
   watch: {
-    value(val) {
-      this.currentValue = val
-      this.init()
+    value(val, oldVal) {
+      if (val != oldVal) {
+        this.currentValue = val
+        this.updateStamp()
+      }
     },
     showTimes(show) {
-      // console.log(show)
       if (show) {
         this.$nextTick(e => {
           let d = [this.hour, this.minute, this.second].map(x => x * 24)
@@ -91,7 +92,7 @@ export default {
     },
   },
   methods: {
-    init() {
+    updateStamp() {
       let d = new Date(this.currentValue || this.today)
 
       if (this.mode == 'range' && this.float == 'right') {
@@ -140,7 +141,6 @@ export default {
     },
     classes(Y, M, D, out, format) {
       const time = new Date(Y, M, D), fmtTime = moment(time).format(format)
-      // console.log(format, fmtTime)
       let istoday = fmtTime == moment(this.today).format(format),
         isselected = false,
         on = false;
@@ -155,9 +155,11 @@ export default {
         //set on
         //range click selected and out
         if (isDay)
-          isselected = fmtTime == moment(temp_left).format(format) || fmtTime == moment(temp_right).format(format)
+          isselected = (temp_left && fmtTime == moment(temp_left).format(format)) ||
+            (temp_right && fmtTime == moment(temp_right).format(format))
         else
           isselected = fmtTime == moment(this.currentValue).format(format)
+
         if (temp) {
           // default and not out
           // isselected = fmtTime == moment(this.currentValue).format(format) || isselected
@@ -307,37 +309,37 @@ export default {
       }
     },
     setShowYear() {
-      !this.showTimes && (this.showYears = true)
+      !this.showTimes && (this.showYears = !this.showYears)
     },
     setShowMonth(e) {
       e.stopPropagation()
-      !this.showTimes && (this.showMonths = 1)
+      !this.showTimes && (this.showMonths = !this.showMonths)
     },
     setTime(v, t, e) {
       e.stopPropagation();
       if (e.target.className.indexOf('k-calendar-time-disabled') >= 0) {
         return;
       }
-      let date = new Date();
-      if (this.mode == 'range') {
-        let values = this.DatePicker.currentValue
-        date = this.float == 'left' ? this.DatePicker.temp_range_left || values[0] : this.DatePicker.temp_range_right || values[1]
-      }
+      // let date = new Date();
+      // if (this.mode == 'range') {
+      //   let values = this.DatePicker.currentValue
+      //   date = this.float == 'left' ? this.DatePicker.temp_range_left || values[0] : this.DatePicker.temp_range_right || values[1]
+      // }
       switch (t) {
         case 'HH':
           this.hour = v;
           this.currentValue = new Date(this.currentValue).setHours(v)
-          date.setHours(v)
+          // date.setHours(v)
           break;
         case 'mm':
           this.minute = v;
           this.currentValue = new Date(this.currentValue).setMinutes(v)
-          date.setMinutes(v)
+          // date.setMinutes(v)
           break;
         case 'ss':
           this.second = v;
           this.currentValue = new Date(this.currentValue).setSeconds(v)
-          date.setSeconds(v)
+          // date.setSeconds(v)
           break;
         default: ;
       }
@@ -371,7 +373,7 @@ export default {
     },
     setToday() {
       this.currentValue = new Date()
-      this.init()
+      this.updateStamp()
       this.setDate()
     },
     nextYear() {
@@ -386,7 +388,7 @@ export default {
     }
   },
   mounted() {
-    this.init()
+    this.updateStamp()
   },
   render() {
     let { classes, year, month, day, hour, minute, second, showYears, showMonths, disabledDate,
@@ -398,36 +400,26 @@ export default {
       temp_left = DatePicker.temp_range_left || values[0]
       temp_right = DatePicker.temp_range_right || values[1]
     }
-    if (mode == 'month') {
-      this.showMonths = true
-    }
-    if (mode == 'year') {
-      this.showYears = true
-    }
+
+    showMonths = showMonths || mode == 'month'
+    showYears = showYears || mode == 'year'
+
     let showArrow = true
-    // 为range 时,不可联动选择
-    if (isRange) {
-      if (float == 'left') {
-
-      } else if (float == 'right') {
-
-      }
-    }
     //header
     let headNode = []
-    if (!showTimes || !showArrow)
+    if (!showTimes)
       headNode.push(<span class="k-calendar-prev-year-btn" onClick={this.prevYear}>«</span>)
-    if ((!showYears && !showMonths && !showTimes) || !showArrow)
+    if ((!showYears && !showMonths && !showTimes))
       headNode.push(<span class="k-calendar-prev-month-btn" onClick={this.prevMonth}>‹</span>)
     headNode.push(<span class="k-calendar-year-select" onClick={this.setShowYear}>{year}年</span>)
     if (!showYears && !showMonths) {
       headNode.push(<span class="k-calendar-month-select" onClick={this.setShowMonth}>{month + 1}月</span>)
-      if (!showTimes || !showArrow)
+      if (!showTimes)
         headNode.push(<span class="k-calendar-next-month-btn" onClick={this.nextMonth}>›</span>)
       else
         headNode.push(<span class="k-calendar-day-select">{day}日</span>)
     }
-    if (!showTimes || !showArrow)
+    if (!showTimes)
       headNode.push(<span class="k-calendar-next-year-btn" onClick={this.nextYear}>»</span>)
 
     //body
@@ -482,7 +474,6 @@ export default {
 
     }
     if ((this.showTime && !isRange) || (this.showTime && isRange && float == 'right')) {
-
       //footer
       // let disabled = moment()
       let disabled = disabledDate(new Date())
@@ -496,8 +487,6 @@ export default {
       footerNode.push(<Button type="link" disabled={disabled} block size='small' onClick={this.setToday}>今天</Button>)
     }
     footerNode = footerNode.length || (isRange && this.showTime) ? <div class="k-calendar-footer">{footerNode}</div> : null
-
-
     return (
       <div class="k-calendar">
         <div class="k-calendar-head">{headNode}</div>

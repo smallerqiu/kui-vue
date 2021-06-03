@@ -132,11 +132,12 @@
 	color: @disable-color;
 	cursor: not-allowed;
 	background: @disable-back;
-	&:hover {
-		border-color: @disable-border;
-	}
 	.k-datepicker-value {
 		color: @disable-color;
+	}
+	&:hover, &:focus {
+		border-color: @disable-border;
+		box-shadow: none;
 	}
 }
 
@@ -145,7 +146,6 @@
 	border-radius: @radius;
 	overflow: hidden;
 }
-
 
 @keyframes dropDownIn {
 	0% {

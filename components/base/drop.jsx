@@ -124,6 +124,8 @@ export default {
       let { target } = e
       e.stopPropagation()
       if (this.visible &&
+        this.selection &&
+        target.parentNode != null && target.parentNode.parentNode != null &&
         !this.selection.contains(target) &&
         !this.$el.contains(target) &&
         !this.mousedownIn
