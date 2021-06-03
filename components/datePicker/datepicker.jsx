@@ -16,6 +16,7 @@ export default {
     disabledTime: { type: Function, default: e => { } },
     format: { type: String, default: 'YYYY-MM-DD' },
     clearable: { type: Boolean, default: true },
+    bordered: { type: Boolean, default: true },
     size: {
       default: 'default',
       validator(value) {
@@ -125,7 +126,7 @@ export default {
   },
   render() {
     let { currentValue, placeholder, disabled, clearable,
-      opened, size, label, transfer,
+      opened, size, label, transfer, bordered,
       format, mode, disabledTime, disabledDate, showTime
     } = this
     let childNode = [], isRange = mode == 'range';
@@ -231,6 +232,7 @@ export default {
     const classes = ['k-datepicker',
       { 'k-datepicker-open': opened },
       { 'k-datepicker-range': isRange },
+      { 'k-datepicker-borderless': bordered === false },
       { 'k-datepicker-sm': size == 'small' },
       { 'k-datepicker-lg': size == 'large' },
       { 'k-datepicker-disabled': disabled },
