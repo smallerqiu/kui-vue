@@ -1,40 +1,63 @@
 <template>
-  <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" mode="inline">
-      <SubMenu key="sub1" icon="mail" title="Navigation One">
-        <MenuGroup title="Item 1">
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="1-3">Option 3</MenuItem>
-          <MenuItem key="1-4">Option 4</MenuItem>
-        </MenuGroup>
-      </SubMenu>
-      <SubMenu key="sub2" icon="keypad" title="Navigation Two">
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu key="sub2-1" icon="keypad" title="SubMenu">
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-       <SubMenu key="sub3" icon="settings" title="Navigation Three">
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+  <div style="width:512px;">
+   <Form :label-width="100" :layout="layout"> 
+    <FormItem label="Input">
+      <Input v-model="form.input" :size="form.size"/>
+    </FormItem>
+    <FormItem label="Select">
+      <Select v-model="form.select" :size="form.size">
+        <Option value="0" label="Apple" />
+        <Option value="1" label="Banana" />
+        <Option value="2" label="Orange" />
+      </Select>
+    </FormItem>
+    <FormItem label="DatePicker">
+      <DatePicker v-model="form.datepicker" :size="form.size"/>
+    </FormItem>
+    <FormItem label="Radio">
+      <RadioGroup v-model="form.radio">
+        <Radio value="0" label="Apple" />
+        <Radio value="1" label="Banana" />
+        <Radio value="2" label="Orange" />
+      </RadioGroup>
+    </FormItem>
+    <FormItem label="Checkbox">
+      <CheckboxGroup v-model="form.checkbox">
+        <Checkbox value="0" label="Apple" />
+        <Checkbox value="1" label="Banana" />
+        <Checkbox value="2" label="Orange" />
+      </CheckboxGroup>
+    </FormItem>
+    <FormItem label="Switch">
+     <k-switch true-text="Yes" false-text="No" :size="form.size"/>
+    </FormItem>
+    <FormItem label="Text">
+      <TextArea placeholder="Please input..."/>
+    </FormItem>
+    <FormItem :labelCol="{span:5}">
+      <Button type="primary" circle :size="form.size">Submit</Button>
+      <Button style="margin-left: 10px" circle :size="form.size">Cancel</Button>
+    </FormItem>
+    </Form>
   </div>
 </template>
 <script>
-export default {
-  data() {
+export default{
+  data(){
     return {
-      current: ['1-1'],
-      openKeys:['sub1']
+      layout:{
+        labelCol:{span:4},
+        wrapperCol:{span:16}
+      },
+      form: {
+        size:'default',
+        input:'',
+        select:'',
+        datepicker:'',
+        radio:'',
+        checkbox:[],
+      }
     }
-  },
+  }
 }
 </script>

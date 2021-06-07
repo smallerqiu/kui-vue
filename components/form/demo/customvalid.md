@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px;">
-   <Form :label-width="256" :model="form" :rules="rules" ref="form">
+   <Form :model="form" :rules="rules" ref="form" :layout="layout">
     <FormItem label="姓名" prop="fullname">
       <Input v-model="form.fullname" clearable />
     </FormItem>
@@ -19,7 +19,7 @@
     <FormItem label="重复密码" prop="repassword">
       <Input v-model="form.repassword" type="password" placeholder="请重复输入密码"/>
     </FormItem>
-    <FormItem>
+    <FormItem :wrapperCol="{offset:5}">
       <Button type="primary" @click="submit">Submit</Button>
       <Button style="margin-left: 10px" @click="reset">Reset</Button>
     </FormItem>
@@ -53,6 +53,10 @@ export default{
       }
     }
     return {
+      layout:{
+        labelCol:{span:5},
+        wrapperCol:{span:16}
+      },
       form: {
         fullname:'',
         IDnumber:'',

@@ -1,11 +1,20 @@
+import cloneVNode from '../_tool/clone';
+import { getChild } from '../_tool/utils'
 export default {
   name: "Form",
   props: {
     labelAlign: { type: String, default: 'right' },
     model: { type: Object },
+    layout: Object,
     // value: Object,
     rules: { type: Object, default: () => { } },
-    labelWidth: { type: Number, default: 80 }
+    // labelWidth: { type: Number, default: 80 },
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
   },
   // model: {
   //   prop: 'model',
@@ -29,10 +38,26 @@ export default {
     this.FormItems = new Array()
   },
   render() {
-    const classes = ["k-form", { [`k-form-label-${this.labelAlign}`]: this.labelAlign }];
+    const { labelAlign, size, layout } = this
+    const classes = ["k-form",
+      {
+        [`k-form-label-${labelAlign}`]: labelAlign,
+        'k-form-lg': size == 'large',
+        'k-form-sm': size == 'small',
+      }
+    ];
+    let { labelCol = {}, wrapperCol = {} } = layout || {}
+    const childs = getChild(this.$slots.default)
     return (
       <form autocomplete="off" class={classes} ref="form">
-        {this.$slots.default}
+        {
+          childs.map(child => {
+            labelCol = child.componentOptions.propsData.labelCol || labelCol
+            wrapperCol = child.componentOptions.propsData.wrapperCol || wrapperCol
+            return cloneVNode(child, { props: { labelCol, wrapperCol } },)
+          })
+        }
+        {/* {this.$slots.default} */}
       </form>
     )
   },
@@ -53,7 +78,7 @@ export default {
           model[key] = false
         } else if (model !== null && typeof model == 'object') {
           model[key] = ''
-        } 
+        }
       }
     },
     reset() {

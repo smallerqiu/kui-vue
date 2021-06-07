@@ -1,8 +1,12 @@
+import { Row, Col } from '../grid'
+
 export default {
   name: "FormItem",
   props: {
     label: String,
     prop: String,
+    labelCol: Object,
+    wrapperCol: Object,
     rules: [Array, Object]
   },
   provide() {
@@ -33,8 +37,7 @@ export default {
   },
 
   render() {
-    const { label, Form, prop, valid } = this
-    const width = Form.labelAlign != 'top' && !this.FormItem ? `${Form.labelWidth}px` : null
+    let { label, Form, prop, valid, wrapperCol = {}, labelCol = {} } = this
     const rules = this.rules || (Form.rules || {})[prop] || []
     const required = rules.constructor === Object ? rules.required : rules.filter(r => r.required).length > 0
 
@@ -45,16 +48,25 @@ export default {
         "k-form-item-error": !valid
       }
     ]
+    const labelProp = { props: { ...labelCol } }
+    const wrapperProp = { props: { ...wrapperCol } }
     return (
-      <div class={classes}>
-        {label ? <label class="k-form-item-label" style={{ width }}>{label}</label> : null}
-        <div class="k-form-item-content" style={{ marginLeft: width }}>
-          {this.$slots.default}
-          <transition name="k-form-item-fade">
-            {!valid ? <div class="k-form-item-error-tip">{this.errorMessage}</div> : null}
-          </transition>
-        </div>
-      </div>
+      <Row class={classes} type="flex">
+        {
+          label ? <Col class="k-form-item-label"  {...labelProp}>
+            {label ? <label>{label}</label> : null}
+          </Col>
+            : null
+        }
+        <Col {...wrapperProp}>
+          <div class="k-form-item-content">
+            {this.$slots.default}
+            <transition name="k-form-item-fade">
+              {!valid ? <div class="k-form-item-error-tip">{this.errorMessage}</div> : null}
+            </transition>
+          </div>
+        </Col>
+      </Row>
     )
   },
   methods: {
