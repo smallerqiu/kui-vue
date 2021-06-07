@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:512px;">
-   <Form :layout="layout"> 
+   <Form :labelCol="labelCol" :wrapperCol="wrapperCol"> 
     <FormItem label="Input">
       <Input v-model="form.input" :size="form.size"/>
     </FormItem>
@@ -51,10 +51,8 @@
 export default{
   data(){
     return {
-      layout:{
-        labelCol:{span:5},
-        wrapperCol:{span:16}
-      },
+      labelCol:{span:5},
+      wrapperCol:{span:16},
       form: {
         size:'default',
         input:'',

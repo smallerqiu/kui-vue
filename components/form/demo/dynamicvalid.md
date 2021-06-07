@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px;">
-   <Form :model="form" ref="form" :layout="layout">
+   <Form :model="form" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
     <FormItem 
       label="姓名" 
       prop="fullname" 
@@ -39,10 +39,8 @@
 export default{
   data(){
     return {
-      layout:{
-        labelCol:{span:5},
-        wrapperCol:{span:16}
-      },
+      labelCol:{span:5},
+      wrapperCol:{span:16},
       count:1,
       form: {
         fullname:'',

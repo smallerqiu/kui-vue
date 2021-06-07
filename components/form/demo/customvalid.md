@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px;">
-   <Form :model="form" :rules="rules" ref="form" :layout="layout">
+   <Form :model="form" :rules="rules" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
     <FormItem label="姓名" prop="fullname">
       <Input v-model="form.fullname" clearable />
     </FormItem>
@@ -53,10 +53,8 @@ export default{
       }
     }
     return {
-      layout:{
-        labelCol:{span:5},
-        wrapperCol:{span:16}
-      },
+      labelCol:{span:5},
+      wrapperCol:{span:16},
       form: {
         fullname:'',
         IDnumber:'',

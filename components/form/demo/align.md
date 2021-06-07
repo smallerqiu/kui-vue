@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Form :label-align="form.align" :layout="layout">
+    <Form :label-align="form.align" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="Align">
         <RadioGroup v-model="form.align">
           <RadioButton value="left" label="Left" />
@@ -34,10 +34,8 @@
 export default{
   data(){
     return {
-      layout:{
-        labelCol:{span:5},
-        wrapperCol:{span:16}
-      },
+      labelCol:{span:5},
+      wrapperCol:{span:16},
       form: {
         align:'left',
         input:'',

@@ -5,7 +5,8 @@ export default {
   props: {
     labelAlign: { type: String, default: 'right' },
     model: { type: Object },
-    layout: Object,
+    labelCol: Object,
+    wrapperCol: Object,
     // value: Object,
     rules: { type: Object, default: () => { } },
     // labelWidth: { type: Number, default: 80 },
@@ -38,7 +39,7 @@ export default {
     this.FormItems = new Array()
   },
   render() {
-    const { labelAlign, size, layout } = this
+    let { labelAlign, size, labelCol = {}, wrapperCol = {} } = this
     const classes = ["k-form",
       {
         [`k-form-label-${labelAlign}`]: labelAlign,
@@ -46,7 +47,6 @@ export default {
         'k-form-sm': size == 'small',
       }
     ];
-    let { labelCol = {}, wrapperCol = {} } = layout || {}
     const childs = getChild(this.$slots.default)
     return (
       <form autocomplete="off" class={classes} ref="form">

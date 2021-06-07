@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px;">
-    <Form :model="form" :size="size" :rules="rules" ref="form" :layout="layout">
+    <Form :model="form" :size="size" :rules="rules" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="Size">
         <RadioGroup v-model="size" :size="size">
           <RadioButton value="large" label="Large" />
@@ -103,10 +103,8 @@ export default {
       callback()
     };
     return {
-      layout:{
-        labelCol:{span:6},
-        wrapperCol:{span:16}
-      },
+      labelCol:{span:6},
+      wrapperCol:{span:16},
       time: 60,
       size:'default',
       form: {
