@@ -6,14 +6,14 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <RadioGroup v-model="form.align">
-      <RadioButton value="left" label="Left" />
-      <RadioButton value="top" label="Top" />
-      <RadioButton value="right" label="Right" />
-    </RadioGroup>
-    <br/>
-    <br/>
-    <Form :label-width="100" :label-align="form.align">
+    <Form :label-align="form.align" :layout="layout">
+      <FormItem label="Align">
+        <RadioGroup v-model="form.align">
+          <RadioButton value="left" label="Left" />
+          <RadioButton value="top" label="Top" />
+          <RadioButton value="right" label="Right" />
+        </RadioGroup>
+      </FormItem>
       <FormItem label="Input">
         <Input v-model="form.input"></Input>
       </FormItem>
@@ -34,6 +34,10 @@
 export default{
   data(){
     return {
+      layout:{
+        labelCol:{span:5},
+        wrapperCol:{span:16}
+      },
       form: {
         align:'left',
         input:'',

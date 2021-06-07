@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px;">
-   <Form :label-width="256" :model="form" ref="form">
+   <Form :model="form" ref="form" :layout="layout">
     <FormItem 
       label="姓名" 
       prop="fullname" 
@@ -25,11 +25,11 @@
       :rules="{required: true, message: '网址不能为空'}"
     >
       <Input v-model="item.value" style="width:230px"/>
-      <Button @click="e=>remove(i)" v-if="i>0">Delete</Button>
+      <Icon type="remove-circle-outline" @click="e=>remove(i)" v-if="i>0" size="25" style="margin:0 10px" color="red"/>
     </FormItem>
-    <FormItem>
+    <FormItem :wrapperCol="{offset:5}">
       <Button type="primary" @click="submit">Submit</Button>
-      <Button @click="add">Add</Button>
+      <Button @click="add" style="margin:0 10px;">Add</Button>
       <Button @click="reset">Reset</Button>
     </FormItem>
     </Form>
@@ -39,11 +39,16 @@
 export default{
   data(){
     return {
+      layout:{
+        labelCol:{span:5},
+        wrapperCol:{span:16}
+      },
       count:1,
       form: {
         fullname:'',
         webs:[
-          { value:'', index:0 }
+          { value:'', index:0 },
+          { value:'', index:1 },
         ] ,
       },
     }

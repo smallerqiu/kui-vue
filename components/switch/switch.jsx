@@ -10,7 +10,7 @@ export default {
     size: {
       default: 'default',
       validator(value) {
-        return ["small", "default"].indexOf(value) >= 0;
+        return ["small", "default", 'large'].indexOf(value) >= 0;
       }
     },
     trueText: String,

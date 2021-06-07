@@ -1,13 +1,15 @@
 ## Form API
-| 属性          | 说明                                                                                        | 类型          | 默认值 |
-|---------------|---------------------------------------------------------------------------------------------|---------------|--------|
-| model         | 表单数据对象                                                                                | Object        | -      |
-| rules         | 表单验证规则，                                                                              | Boolean       | false  |
-| label-width   | 表单域标签的宽度，所有的 FormItem 都会继承 Form 组件的 label-width 的值                     | Number,String | -      |
-| label-align   | 表单域标签的位置，可选值为 left、right、top                                                 | String        | right  |
-| validate      | 对整个表单进行校验，参数为检验完的回调，会返回一个 Boolean 表示成功与失败，暂不支持异步验证 | Function      | -      |
-| test | 对表单单个字段进行校验的方法                                                                | Function      | -      |
-| reset         | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                                      | Function      | -      |
+| 属性               | 说明                                                                                               | 类型          | 默认值 |
+|--------------------|----------------------------------------------------------------------------------------------------|---------------|--------|
+| model              | 表单数据对象                                                                                       | Object        | -      |
+| rules              | 表单验证规则，                                                                                     | Boolean       | false  |
+| <s>label-width</s> | <s>表单域标签的宽度，所有的 FormItem 都会继承 Form 组件的 label-width 的值</s> `3.1.5版本后不支持` | Number,String | -      |
+| labelCol           | label 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 3, offset: 12}                     | Object        | -      |
+| wrapperCol         | 控件 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 15, offset: 12}                     | Object        | -      |
+| label-align        | 表单域标签的位置，可选值为 left、right、top                                                        | String        | right  |
+| validate           | 对整个表单进行校验，参数为检验完的回调，会返回一个 Boolean 表示成功与失败，暂不支持异步验证        | Function      | -      |
+| test               | 对表单单个字段进行校验的方法                                                                       | Function      | -      |
+| reset              | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                                             | Function      | -      |
 
 ## FormItem API
 

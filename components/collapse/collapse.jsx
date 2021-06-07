@@ -43,9 +43,9 @@ export default {
     const classes = ['k-collapse', {
       ['k-collaplse-sample']: this.sample
     }]
-    const kid = getChild(this.$slots.default)
+    const childs = getChild(this.$slots.default)
     return (<div class={classes}>{
-      kid.map((child) => {
+      childs.map((child) => {
         let actived = this.currentValue.indexOf(child.key) >= 0
         return cloneVNode(child, { props: { actived } })
       })

@@ -32,10 +32,10 @@ export default {
 
       }],
       style: {
-        marginLeft: gutter / -2 + "px",
-        marginRight: gutter / -2 + "px"
+        marginLeft: gutter ? gutter / -2 + "px" : null,
+        marginRight: gutter ? gutter / -2 + "px" : null,
       }
     }
     return (<div {...props}>{$slots.default}</div >)
   }
-}; 
+};

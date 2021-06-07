@@ -35,7 +35,7 @@
   background-image: none;
   position: relative;
   cursor: text;
-  transition: border .2s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  transition: all .2s ease-in-out;
   &:focus {
     // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
     box-shadow: 0 0 5px fade(@main, 75%);
@@ -84,11 +84,13 @@
   cursor: pointer;
   user-select: none;
   // background: #fff;
+  transition: all .2s ease-in-out;
   &:hover {
     color: @color;
   }
   .k-icon {
     font-size: 16px;
+    transition: all .2s ease-in-out;
   }
 }
 
