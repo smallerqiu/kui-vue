@@ -1,4 +1,6 @@
 import { Row, Col } from '../grid'
+import cloneVNode from '../_tool/clone';
+import { getChild } from '../_tool/utils'
 
 export default {
   name: "FormItem",
@@ -50,17 +52,22 @@ export default {
     ]
     const labelProp = { props: { ...labelCol } }
     const wrapperProp = { props: { ...wrapperCol } }
+    const childs = getChild(this.$slots.default)
     return (
       <Row class={classes} type="flex">
         {
           label ? <Col class="k-form-item-label"  {...labelProp}>
-            {label ? <label>{label}</label> : null}
+            {label ? <label for={prop}>{label}</label> : null}
           </Col>
             : null
         }
         <Col {...wrapperProp}>
           <div class="k-form-item-content">
-            {this.$slots.default}
+            {
+              childs.map(child => {
+                return cloneVNode(child, { props: { id: prop } })
+              })
+            }
             <transition name="k-form-item-fade">
               {!valid ? <div class="k-form-item-error-tip">{this.errorMessage}</div> : null}
             </transition>

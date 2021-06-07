@@ -1,6 +1,6 @@
 import _ from 'lodash'
 const DATA_KEYS = [
-  'class', 'staticClass', 'style',
+  'class', 'staticClass', 'style','staticStyle',
   'attrs', 'props', 'domProps',
   'on', 'nativeOn',
   'directives', 'scopesSlots',
