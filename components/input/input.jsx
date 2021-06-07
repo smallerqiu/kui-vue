@@ -3,6 +3,7 @@ export default {
   name: 'TextArea',
   props: {
     clearable: Boolean,
+    id: String,
     size: {
       default: 'default',
       validator(value) {
@@ -32,6 +33,8 @@ export default {
         ...this.$listeners
       },
     }
+    console.log(this.id)
+
     return <BaseInput {...props}>
       <template slot="suffix">
         {this.$slots.suffix}

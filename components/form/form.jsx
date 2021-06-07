@@ -7,9 +7,7 @@ export default {
     model: { type: Object },
     labelCol: Object,
     wrapperCol: Object,
-    // value: Object,
     rules: { type: Object, default: () => { } },
-    // labelWidth: { type: Number, default: 80 },
     size: {
       default: 'default',
       validator(value) {
@@ -17,11 +15,6 @@ export default {
       }
     },
   },
-  // model: {
-  //   prop: 'model',
-  //   // event: 'change'
-  //   event: 'input'
-  // },
   provide() {
     return {
       Form: this,
@@ -35,7 +28,6 @@ export default {
     }
   },
   created() {
-    this.clearing = false
     this.FormItems = new Array()
   },
   render() {
@@ -57,7 +49,6 @@ export default {
             return cloneVNode(child, { props: { labelCol, wrapperCol } },)
           })
         }
-        {/* {this.$slots.default} */}
       </form>
     )
   },
@@ -84,16 +75,13 @@ export default {
     reset() {
       // this.$refs.form.reset()
       let model = this.model
-      this.clearing = true
 
       this.clearObject(model)
       this.$nextTick(e => {
         this.FormItems.forEach((item) => {
           item.reset()
         })
-        this.clearing = false
       })
-
     },
     testProp(path) {
       let keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')

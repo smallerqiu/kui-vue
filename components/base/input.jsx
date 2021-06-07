@@ -4,6 +4,7 @@ export default {
   name: "baseInput",
   props: {
     clearable: Boolean,
+    id: String,
     size: {
       default: 'default',
       validator(value) {
@@ -94,7 +95,7 @@ export default {
       return Password || Search || this.$slots.suffix
     },
     getTextInput() {
-      const { disabled, size, type, inputType, currentValue } = this
+      const { disabled, size, type, inputType, currentValue, id } = this
       let isTextArea = inputType == 'textarea'
       // console.log(this.props)
       const props = {
@@ -110,7 +111,7 @@ export default {
           }
         ],
         ref: 'input',
-        attrs: { ...this.$attrs, disabled },
+        attrs: { ...this.$attrs, disabled, id },
         on: {
           ...this.$listeners,
           focus: this.handleFocus,
