@@ -90,8 +90,8 @@ export default {
 	},
 	render() {
 		let { currentIndex, change, vertical } = this
-		let kid = getChild(this.$slots.default)
-		currentIndex = Math.min(kid.length - 1, currentIndex)
+		let childs = getChild(this.$slots.default)
+		currentIndex = Math.min(childs.length - 1, currentIndex)
 		currentIndex = Math.max(0, currentIndex)
 		const classes = ['k-carousel', {
 			'k-carousel-vertical': vertical
@@ -99,7 +99,7 @@ export default {
 
 		const dotsNode = (
 			<ul class="k-carousel-dots">
-				{kid.map((e, i) => <li class={{ 'k-carousel-dots-active': currentIndex == i }} onClick={e => change(i)}></li>)}
+				{childs.map((e, i) => <li class={{ 'k-carousel-dots-active': currentIndex == i }} onClick={e => change(i)}></li>)}
 			</ul>
 		)
 
@@ -113,8 +113,8 @@ export default {
 			class: 'k-carousel-warpper',
 			style: {
 				transform: `translateX(-${offsetX}px) translateY(-${offsetY}px)`,
-				width: !vertical ? kid.length * this.width + 'px' : '',
-				height: vertical ? kid.length * this.height + 'px' : '',
+				width: !vertical ? childs.length * this.width + 'px' : '',
+				height: vertical ? childs.length * this.height + 'px' : '',
 				transitionDuration: !this.animate ? '0s' : ''
 			}
 		}
@@ -135,7 +135,7 @@ export default {
 		return (
 			<div v-resize={this.resize} {...props}>
 				<div {...warpperCls}>
-					{kid}
+					{childs}
 				</div>
 				{!vertical ? [arrowLeft, arrowRight] : null}
 				{this.dots ? dotsNode : null}

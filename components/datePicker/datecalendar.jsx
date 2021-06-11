@@ -48,8 +48,8 @@ export default {
       if (show) {
         this.$nextTick(e => {
           let d = [this.hour, this.minute, this.second].map(x => x * 24)
-          let kid = this.$refs.timepicker.children;
-          [0, 1, 2].map((e, i) => kid[i].scrollTop = d[i])
+          let childs = this.$refs.timepicker.children;
+          [0, 1, 2].map((e, i) => childs[i].scrollTop = d[i])
         })
       }
     }
@@ -348,10 +348,10 @@ export default {
     },
     setTimeScroll() {
       let d = [this.hour, this.minute, this.second].map(x => x * 24)
-      let kid = this.$refs.timepicker.children;
+      let childs = this.$refs.timepicker.children;
       animate({
         draw: function (progress) {
-          [0, 1, 2].map((e, i) => kid[i].scrollTop += progress * (d[i] - kid[i].scrollTop))
+          [0, 1, 2].map((e, i) => childs[i].scrollTop += progress * (d[i] - childs[i].scrollTop))
         }
       })
     },

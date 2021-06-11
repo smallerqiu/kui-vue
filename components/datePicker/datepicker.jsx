@@ -30,9 +30,6 @@ export default {
       DatePicker: this,
     }
   },
-  inject: {
-    FormItem: { default: null },
-  },
   data() {
     return {
       opened: false,
@@ -55,7 +52,6 @@ export default {
     value(v) {
       if (this.v != this.currentValue) {
         this.currentValue = v
-        this.FormItem && this.FormItem.testValue(v)
       }
     }
   },

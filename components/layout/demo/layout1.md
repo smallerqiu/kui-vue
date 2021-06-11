@@ -9,7 +9,7 @@
     <Layout>
       <Header>
         <div class="logo" />
-        <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
+        <Menu mode="horizontal" theme="dark" :value="['t1']" class="demo-top-menu">
           <MenuItem key="t1" icon="home">nav1</MenuItem>
           <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
           <MenuItem key="t3" icon="heart">nav3</MenuItem>
@@ -17,8 +17,8 @@
       </Header>
        <Layout>
          <Sider>
-           <Menu  v-model="left" class="demo-left-menu" mode="inline">
-            <SubMenu key="l0">
+           <Menu :value="['0-1']" class="demo-left-menu" mode="inline" :openKeys="['al0']">
+            <SubMenu key="al0">
               <template slot="title">
                 <Icon type="newspaper" />subnav1
               </template>
@@ -27,7 +27,7 @@
               <MenuItem key="0-3">option3</MenuItem>
               <MenuItem key="0-4">option4</MenuItem>
             </SubMenu>
-            <SubMenu key="l1">
+            <SubMenu key="al1">
               <template slot="title">
                 <Icon type="keypad" />subnav2
               </template>
@@ -36,7 +36,7 @@
               <MenuItem key="1-3">option3</MenuItem>
               <MenuItem key="1-4">option4</MenuItem>
             </SubMenu>
-            <SubMenu key="l2">
+            <SubMenu key="al2">
               <template slot="title">
                 <Icon type="settings" />subnav3
               </template>
@@ -94,14 +94,4 @@
   width:200px;
  }
  </style>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
-</script>
 ```

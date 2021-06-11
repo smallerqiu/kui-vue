@@ -32,9 +32,6 @@ export default {
       Select: this
     }
   },
-  inject: {
-    FormItem: { default: null },
-  },
   data() {
     return {
       label: "",
@@ -52,7 +49,6 @@ export default {
       } else {
         this.currentValue = this.multiple ? [] : ''
       }
-      this.FormItem && this.FormItem.testValue(value)
     },
     currentValue(n, o) {
       this.setLabel()
@@ -67,9 +63,9 @@ export default {
       }
       this.showSearch = false
     },
-    getLabel(kid, labelValue) {
+    getLabel(childs, labelValue) {
       let Label = '';
-      kid.forEach(c => {
+      childs.forEach(c => {
         let { value, label } = c.componentOptions.propsData
         if (labelValue === value) {
           Label = label || (c.componentOptions.children[0].text || '').trim()
@@ -83,12 +79,12 @@ export default {
       currentValue = isNotEmpty(currentValue) ? currentValue : (multiple ? [] : '')
       let currentLabel = isNotEmpty(label) ? label : (multiple ? [] : '')
 
-      let kid = this.getOptions()
+      let childs = this.getOptions()
       if (multiple) {
         if (currentValue.length) {
           let labels = []
           currentValue.forEach((value) => {
-            let label = this.getLabel(kid, value)
+            let label = this.getLabel(childs, value)
             labels.push({ label, key: `label_${value}`, value })
           })
           currentLabel = labels
@@ -97,7 +93,7 @@ export default {
         }
 
       } else {
-        currentLabel = this.getLabel(kid, currentValue)
+        currentLabel = this.getLabel(childs, currentValue)
       }
       this.label = currentLabel
 
@@ -236,9 +232,9 @@ export default {
     },
     getOptions() {
       let { queryKey, options, $slots } = this
-      let kid = null
+      let childs = null
       if (Array.isArray(options)) {
-        kid = options.map((k, i) => {
+        childs = options.map((k, i) => {
           let prop = {
             props: { ...k },
             key: k.key || (k.label + k.value)
@@ -246,18 +242,18 @@ export default {
           return <Option {...prop} />
         })
       } else {
-        kid = getChild($slots.default)
+        childs = getChild($slots.default)
       }
       if (this.filterable && queryKey) {
         let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
         let Reg = new RegExp(parsedQuery, 'i')
 
-        kid = kid.filter(c => {
+        childs = childs.filter(c => {
           let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text
           return Reg.test(label)
         })
       }
-      return kid
+      return childs
     }
   },
   mounted() {
@@ -297,11 +293,11 @@ export default {
       <span class="k-select-search-mirror" ref="mirror">{queryKey}</span>
     </div>
 
-    let kid = this.getOptions()
-    // kid = (
-    //   !kid.length
+    let childs = this.getOptions()
+    // childs = (
+    //   !childs.length
     //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
-    //     : kid
+    //     : childs
     // )
     const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>加载中...</span></div>
     const props = {
@@ -324,7 +320,7 @@ export default {
         }
       }
     }
-    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!kid.length ? <Empty onClick={this.emptyClick} /> : <ul>{kid}</ul>)}</Drop>
+    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} /> : <ul>{childs}</ul>)}</Drop>
 
     label = multiple ? (label || []) : label
     const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
@@ -343,8 +339,7 @@ export default {
     }
     const labelsNode = (multiple
       ? (
-        [<transition-group tag="div" class="k-select-labels" name="k-select-tag">{tags}</transition-group>
-          , queryNode]
+        <transition-group tag="div" class="k-select-labels" name="k-select-tag">{tags}{queryNode}</transition-group>
       )
       : <div class="k-select-label" style={labelStyle}>{label}</div>
     )

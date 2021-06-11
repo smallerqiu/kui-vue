@@ -54,10 +54,10 @@ export default {
         ["k-select-item-disabled"]: disabled
       }
     ];
-    const kid = <span>{label}{iconNode}</span>
+    const childs = <span>{label}{iconNode}</span>
 
     return (
-      <li class={classes} onClick={select}>{kid}</li>
+      <li class={classes} onClick={select}>{childs}</li>
     )
   }
 }

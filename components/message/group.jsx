@@ -45,14 +45,14 @@ export default {
       el.style.height = window.getComputedStyle(el).height
       el.style.opacity = 1
     }
-    let kid = this.group.map((item, i) => {
+    let childs = this.group.map((item, i) => {
       let props = { props: { ...item } }
       let key = item.name || getUuid()
       return <Notice {...props} key={key} />
     })
     return (
       <transition-group tag="div" class={`k-${type}`} name={`k-${type}-slide`} {...transition}>
-        {kid}
+        {childs}
       </transition-group>
     )
   }

@@ -34,12 +34,10 @@ export default {
   inject: {
     Input: { default: null },
     TextArea: { default: null },
-    FormItem: { default: null },
   },
   watch: {
     value(value) {
       this.currentValue = value
-      this.FormItem && this.FormItem.testValue(value)
     }
   },
   mounted() {
@@ -53,7 +51,7 @@ export default {
   },
   methods: {
     clear() {
-      this.setValue('')
+      this.setValue('', { target: { value: '' } })
       this.$nextTick(e => this.$refs.input.focus())
     },
     iconClick() {
@@ -68,7 +66,6 @@ export default {
       this.isFocus = false
       let intput = this.Input || this.TextArea
       intput && intput.$emit('blur', e)
-      this.FormItem && this.FormItem.testValue(this.value, 'blur')
     },
     handleInput(e) {
       this.setValue(e.target.value, e)

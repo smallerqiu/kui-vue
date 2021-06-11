@@ -8,26 +8,26 @@
   <div style="width:600px;">
     <Form :model="form" :size="size" :rules="rules" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="Size">
-        <RadioGroup v-model="size" :size="size">
+        <RadioGroup v-model="size" >
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
         </RadioGroup>
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input v-model="form.email" clearable :size="size"/>
+        <Input  clearable />
       </FormItem>
       <FormItem label="Password" prop="password">
-        <Input v-model="form.password" type="password" :size="size"/>
+        <Input type="password" />
       </FormItem>
       <FormItem label="Confirm Password" prop="repassword">
-        <Input v-model="form.repassword" type="password" :size="size"/>
+        <Input type="password" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input v-model="form.phone" :size="size" />
+        <Input  />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input v-model="form.captcha" :size="size">
+        <Input >
         <template slot="suffix">
           <span v-if="time==60" @click="sendCode">获取验证码</span>
           <span v-else>{{time}}(s)</span>
@@ -36,13 +36,13 @@
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
-          <Select v-model="form.country" clearable :size="size">
+          <Select clearable >
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
         <FormItem prop="city">
-          <Select v-model="form.city" clearable :size="size">
+          <Select clearable >
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
             <Option value="2" label="Hangzhou" />
@@ -50,38 +50,45 @@
         </FormItem>
       </FormItem>
       <FormItem label="Gender" prop="gender">
-        <RadioGroup v-model="form.gender">
+        <RadioGroup >
           <Radio value="0" label="Girl" />
           <Radio value="1" label="Boy" />
         </RadioGroup>
       </FormItem>
       <FormItem label="One" prop="one">
-        <Radio v-model="form.one" label="Only One?" />
+        <Radio label="Only One?" />
+      </FormItem>
+      <FormItem label="System" prop="system">
+        <RadioGroup >
+          <RadioButton value="0" label="Mac OS" />
+          <RadioButton value="1" label="Windows" />
+          <RadioButton value="2" label="Linux" />
+        </RadioGroup>
       </FormItem>
       <FormItem label="Birthday" prop="birthday">
-        <DatePicker v-model="form.birthday" clearable :size="size" />
+        <DatePicker clearable  />
       </FormItem>
       <FormItem label="Hobby" prop="hobby">
-        <CheckboxGroup v-model="form.hobby">
+        <CheckboxGroup >
           <Checkbox value="0" label="Football" />
           <Checkbox value="1" label="Music" />
           <Checkbox value="2" label="Photograph" />
           <Checkbox value="3" label="Tennis" />
         </CheckboxGroup>
       </FormItem>
-      <FormItem label="Hardcore">
-        <k-switch true-text="Yes" false-text="No" v-model="form.hardcore" :size="size" />
+      <FormItem label="Hardcore" prop="hardcore">
+        <Switch true-text="Yes" false-text="No"  />
       </FormItem>
       <FormItem label="Other" prop="other">
         <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
       </FormItem>
       <FormItem prop="readme" :wrapperCol="{offset:6}">
-        <Checkbox v-model="form.readme">我已阅读 <a>服务条款</a> </Checkbox>
+        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>
       </FormItem>
       <FormItem :wrapperCol="{offset:6}">
-        <Button type="primary" @click="submit" :size="size">Submit</Button>
-        <Button style="margin:0 10px" @click="reset" :size="size">Reset</Button>
-        <Button type="dashed" @click="setValue" :size="size">Set Value</Button>
+        <Button type="primary" @click="submit" >Submit</Button>
+        <Button style="margin:0 10px" @click="reset" >Reset</Button>
+        <Button type="dashed" @click="setValue" >Set Value</Button>
       </FormItem>
     </Form>
 
@@ -115,6 +122,7 @@ export default {
         captcha: '',
         gender: '',
         one: false,
+        system:'',
         birthday: '',
         country: '',
         city: '',
@@ -160,6 +168,12 @@ export default {
         one: [
           { required: true, message: '霸王选项' },
         ],
+        system: [
+          { required: true, message: '请选择系统类型' },
+        ],
+        hardcore: [
+          { required: true, message: '霸王选项' },
+        ],
         readme: [
           { validator: validateReadme },
         ],
@@ -185,6 +199,7 @@ export default {
         phone: '13888888888',
         captcha: '8888',
         gender: '1',
+        system: '0',
         one: true,
         birthday: '1995-05-05',
         country: '1',

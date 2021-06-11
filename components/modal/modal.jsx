@@ -23,9 +23,6 @@ export default {
     loading: Boolean,
     footer: String,
     transfer: { type: Boolean, default: true },
-    cancel: Function,
-    ok: Function,
-    close: Function,
     // mode: { type: String, default: 'modal' }
   },
   data() {
@@ -110,6 +107,7 @@ export default {
     },
     close() {
       this.$emit('input', false)
+      this.$emit('cancel')
       this.$emit('close')
     },
     clickMaskToClose(e) {

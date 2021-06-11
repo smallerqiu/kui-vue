@@ -3,7 +3,7 @@ import { getChild } from '../_tool/utils'
 export default {
   name: "Button",
   props: {
-    buttonType: {
+    htmlType: {
       default: "button",
       validator(value) {
         return ["button", "submit", "reset"].indexOf(value) >= 0;
@@ -40,7 +40,7 @@ export default {
 
   render() {
     const { $slots, $attrs, size, disabled, click,
-      circle, hollow, buttonType, icon, loading, $listeners, type, block } = this
+      circle, hollow, htmlType, icon, loading, $listeners, type, block } = this
     const onlyIcon = !getChild($slots.default).length && icon
     const classes = [
       "k-btn",
@@ -56,7 +56,7 @@ export default {
       }
     ]
     const props = {
-      attrs: { ...$attrs, disabled, type: buttonType },
+      attrs: { ...$attrs, disabled, type: htmlType },
       class: classes,
       on: {
         ...$listeners,
@@ -66,7 +66,7 @@ export default {
     const iconType = loading ? 'sync' : icon;
     const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
-    const kid = child.map(c => {
+    const childs = child.map(c => {
       if (typeof c.text == 'string') {
         return <span>{c.text.trim()}</span>
       }
@@ -75,7 +75,7 @@ export default {
     const button = (
       <button {...props} >
         {iconNode}
-        {kid}
+        {childs}
       </button >
     )
     return button

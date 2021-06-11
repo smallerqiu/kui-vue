@@ -22,26 +22,29 @@ export default {
       groupContext: this,
     }
   },
-  inject: {
-    FormItem: { default: null },
+  data() {
+    return {
+      defaultValue: this.value || ''
+    }
   },
   watch: {
-    value(checked) {
-      this.FormItem && this.FormItem.testValue(checked)
+    value(val, Oval) {
+      this.defaultValue = val
     }
   },
   methods: {
     change(data) {
       let value = data.value
+      this.defaultValue = value
       this.$emit("input", value);
       this.$emit("change", value);
     }
   },
   render() {
     const { options, $slots, type } = this
-    let kid = getChild($slots.default)
+    let childs = getChild($slots.default)
     if (options && options.length) {
-      kid = options.map(option => {
+      childs = options.map(option => {
         return type == 'button' ?
           <Button
             icon={option.icon}
@@ -65,7 +68,7 @@ export default {
     ]
     return (
       <div class={classes}>
-        {kid}
+        {childs}
       </div>
     )
   }

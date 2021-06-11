@@ -8,7 +8,6 @@ export default {
     label: [String, Number]
   },
   inject: {
-    FormItem: { default: null },
     groupContext: { default: null },
   },
   model: {
@@ -17,13 +16,12 @@ export default {
   data() {
     const checked = hasProp(this, 'checked') ? this.checked : this.value === true
     return {
-      isChecked: checked,
+      defaultChecked: checked,
     }
   },
   watch: {
     checked(checked) {
       this.$emit("input", checked);
-      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
     }
   },
   methods: {
@@ -33,7 +31,7 @@ export default {
         return false;
       }
       const checked = e.target.checked;
-      this.isChecked = checked;
+      this.defaultChecked = checked;
       if (groupContext) {
         label = label || $slots.default.text
         this.groupContext.change({ label, value })
@@ -45,13 +43,13 @@ export default {
   },
 
   render() {
-    let { disabled, change, $slots, label, groupContext, value, checked, isChecked } = this
+    let { disabled, change, $slots, label, groupContext, value, checked, defaultChecked } = this
     if (groupContext) {
-      checked = groupContext.value == value
+      checked = groupContext.defaultValue == value
       disabled = disabled || groupContext.disabled
     } else {
       if (!hasProp(this, 'checked')) {
-        checked = isChecked
+        checked = defaultChecked
       }
     }
     const wpclasses = [

@@ -1,6 +1,6 @@
 import { Row, Col } from '../grid'
 import cloneVNode from '../_tool/clone';
-import { getChild } from '../_tool/utils'
+import { getChild, isVnode } from '../_tool/utils'
 
 export default {
   name: "FormItem",
@@ -19,22 +19,20 @@ export default {
   inject: {
     FormItem: { default: null },
     Form: { default: () => { } },
-    collectFormItems: { default: () => { } }
   },
   data() {
     return {
       valid: true,
-      itemValue: null,
-      errorMessage: '',
+      message: '',
     };
   },
   beforeDestroy() {
-    this.collectFormItems(this, 'delete')
+    this.$emit('collect', { context: this, push: false })
   },
   created() {
     //valid prop
     if (this.prop) {
-      this.collectFormItems(this, 'add')
+      this.$emit('collect', { context: this, push: true })
     }
   },
 
@@ -53,11 +51,15 @@ export default {
     const labelProp = { props: { ...labelCol } }
     const wrapperProp = { props: { ...wrapperCol } }
     const childs = getChild(this.$slots.default)
+    let id = null
+    if (Form.name && prop) {
+      id = `${Form.name}_${prop}`
+    }
     return (
       <Row class={classes} type="flex">
         {
           label ? <Col class="k-form-item-label"  {...labelProp}>
-            {label ? <label for={prop}>{label}</label> : null}
+            {label ? <label for={id}>{label}</label> : null}
           </Col>
             : null
         }
@@ -65,11 +67,57 @@ export default {
           <div class="k-form-item-content">
             {
               childs.map(child => {
-                return cloneVNode(child, { props: { id: prop } })
+                if (isVnode(child)) {
+                  // console.log(child)
+                  // return child
+                  const tag = child.componentOptions ? child.componentOptions.tag : child.tag
+                  const value = prop ? this.Form.testProp(prop) : ''
+                  const props = {
+                    props: { id, size: this.Form.size },
+                    on: {}
+                  }
+                  if (prop) {
+                    if (['Radio', 'Checkbox', 'Switch', 'k-switch', 'k-radio', 'k-checkbox'].indexOf(tag) > -1) {
+                      props.props.checked = value || false
+                    } else {
+                      props.props.value = value
+                    }
+                    props.on = {
+                      change: (value) => {
+                        if (tag) {
+                          if (['Select', 'k-select'].indexOf(tag) > -1) {
+                            value = value.value
+                          }
+                          if (['Radio', 'k-radio', 'Checkbox', 'k-checkbox'].indexOf(tag) > -1) {
+                            value = value.target.checked
+                          }
+                          if (['Input', 'k-input', 'TextArea', 'k-textarea'].indexOf(tag) > -1) {
+                            value = value.target.value
+                          }
+                          this.Form.setValue(prop, value)
+                          this.testValue()
+                        }
+                      },
+                    }
+                  }
+                  if (['Input', 'k-input', 'TextArea', 'k-textarea'].indexOf(tag) > -1) {
+                    props.on.blur = (value) => {
+                      value = value.target.value
+                      this.testValue()
+                    }
+                  }
+                  if (['FormItem', 'k-form-item'].indexOf(tag) > -1)
+                    props.on.collect = (e) => {
+                      this.$emit('collect', e)
+                    }
+                  return cloneVNode(child, props)
+                } else {
+                  return child
+                }
               })
             }
             <transition name="k-form-item-fade">
-              {!valid ? <div class="k-form-item-error-tip">{this.errorMessage}</div> : null}
+              {!valid ? <div class="k-form-item-error-tip">{this.message}</div> : null}
             </transition>
           </div>
         </Col>
@@ -77,33 +125,16 @@ export default {
     )
   },
   methods: {
-    testValue(value, trigger) {
-      this.itemValue = value
-
-      // 正在清理中，这时不进行验证
-      if (this.Form.clearing === true) return;
+    testValue(trigger) {
       if (this.prop) {
         const rules = this.rules || (this.Form.rules || {})[this.prop]
         rules && this.validate(rules, trigger)
       }
     },
-    reset() {
-      if (this.prop) {
-        // if (Array.isArray(this.itemValue)) {
-        //   // prop.model[prop.key] = []
-        //   this.itemValue = []
-        // } else {
-        //   // prop.model[prop.key] = ''
-        //   this.itemValue = ''
-        // }
-        this.valid = true
-      }
-    },
-    test(rule, trigger = 'change') {
-      let { valid, itemValue } = this
+    test(rule) {
+      let { valid, prop } = this
+      const itemValue = this.Form.testProp(prop)
       let message = rule.message
-      // console.log(rule,valid)
-
       // todo：
       // if (trigger == 'blur' && rule.trigger !== trigger) {
       //   return;
@@ -111,7 +142,6 @@ export default {
       if (rule.required) {
         valid = Array.isArray(itemValue) ? itemValue.length > 0 : (itemValue !== null && itemValue !== undefined && itemValue !== '' && itemValue !== false)
         message = message || 'This field is required'
-        // console.log(valid, message)
       } else {
         //valid custom pattern
         if (rule.pattern) {
@@ -125,7 +155,7 @@ export default {
               message = message || 'Incorrect email format'
               break;
             case 'mobile':
-              valid = /^[1][3,4,5,6,7,8][0-9]{9}$/.test(itemValue)
+              valid = /^[1][3-9][0-9]{9}$/.test(itemValue)
               message = message || 'Incorrect mobile phone number format'
               break;
             case 'number':
@@ -141,13 +171,10 @@ export default {
               break;
 
           }
-          // console.log(valid, prop, message)
-
         }
         //valid custom validator
         else if (typeof rule.validator === 'function') {
           rule.validator(rule, itemValue, error => {
-            // console.log('error',error)
             valid = error === undefined
             if (error) {
               message = error.message
@@ -179,28 +206,20 @@ export default {
             }
           }
           message = message || 'Incorrect length'
-
         }
       }
 
-      this.errorMessage = message
-
+      this.message = message
       this.valid = valid
-      // console.log(itemValue, valid, this.prop, message)
-      // callback && callback(valid)
-
       return valid
     },
-    validate(rules, trigger) {
-      if (rules.constructor === Object) return this.test(rules, trigger)
+    validate(rules) {
+      if (rules.constructor === Object) return this.test(rules)
       // 有 required 排前面
       rules = rules.sort((a, b) => a.required ? -1 : 0)
       for (let i = 0; i < rules.length; i++) {
-        let valid = this.test(rules[i], trigger)
+        let valid = this.test(rules[i])
         if (!valid) {
-          this.valid = valid
-          return valid
-          // 有一条规则不通过就跳出
           break;
         }
       }
