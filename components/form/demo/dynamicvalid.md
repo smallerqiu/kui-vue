@@ -5,34 +5,59 @@
 
 ```vue
 <template>
-  <div style="width:600px;">
-   <Form :model="form" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
-    <FormItem 
-      label="姓名" 
-      prop="fullname" 
-      :rules="[ 
-          { required: true, message: '请输入姓名' },
-          { message: '姓名只能是中文', pattern: /^[\u4e00-\u9fa5]+$/ },
-        ]"
-    >
-      <Input v-model="form.fullname" clearable />
-    </FormItem>
-    <FormItem 
-      label='网址' 
-      :prop="'webs.' + i + '.value'" 
-      v-for="(item,i) in form.webs" 
-      :key="i"
-      :rules="{required: true, message: '网址不能为空'}"
-    >
-      <Input v-model="item.value" style="width:230px"/>
-      <Icon type="remove-circle-outline" @click="e=>remove(i)" v-if="i>0" size="25" style="margin:0 10px" color="red"/>
-    </FormItem>
-    <FormItem :wrapperCol="{offset:5}">
-      <Button type="primary" @click="submit">Submit</Button>
-      <Button @click="add" style="margin:0 10px;">Add</Button>
-      <Button @click="reset">Reset</Button>
-    </FormItem>
-    </Form>
+  <Row >
+    <Col :span="16">
+      <Form :model="form" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <FormItem 
+          label="姓名" 
+          prop="cname" 
+          :rules="[ 
+              { required: true, message: '请输入姓名' }
+            ]"
+        >
+          <Input clearable />
+        </FormItem>
+        <FormItem 
+          label="性别" 
+          prop="info.gender" 
+          :rules="[ 
+              { required: true, message: '请输入性别' }
+            ]"
+        >
+          <Select clearable>
+            <Option value="1" label="男" />
+            <Option value="0" label="女" />
+          </Select>
+        </FormItem>
+        <FormItem 
+          label="年龄" 
+          prop="info.age" 
+          :rules="[ 
+              { required: true, message: '请输入年龄' }
+            ]"
+        >
+          <Input clearable />
+        </FormItem>
+        <FormItem 
+          :label="'网址'+item.key"
+          :prop="'webs.' + i + '.value'" 
+          v-for="(item,i) in form.webs" 
+          :key="item.key"
+          :rules="{required: true, message: '网址不能为空'}"
+        >
+          <Input style="width:230px"/>
+          <Icon type="remove-circle-outline" @click="e=>remove(i)" v-if="i>0" style="font-size:25px;margin:0 10px" />
+        </FormItem>
+        <FormItem :wrapperCol="{offset:5}">
+          <Button type="primary" @click="submit">Submit</Button>
+          <Button @click="add" style="margin:0 10px;">Add</Button>
+          <Button @click="reset">Reset</Button>
+        </FormItem>
+      </Form>
+    </Col>
+    <Col :span="8">
+      <pre style="max-height:320px;overflow:'scroll'">{{JSON.stringify(form, null, 2)}}</pre>
+    </Col>
   </div>
 </template>
 <script>
@@ -41,22 +66,24 @@ export default{
     return {
       labelCol:{span:5},
       wrapperCol:{span:16},
-      count:1,
+      count:2,
       form: {
-        fullname:'',
+        cname:'',
+        info:{
+          gender:'',
+          age:''
+        },
         webs:[
-          { value:'', index:0 },
-          { value:'', index:1 },
+          { value:'', key:'0' },
+          { value:'', key:'1' },
         ] ,
       },
     }
   },
   methods:{
     add(){
-      let count = this.count
-      let item ={value:'',index:count}
+      let item ={ value:'', key:this.count++ }
       this.form.webs.push(item)
-      this.count+=1
     },
     remove(index){
       // let item = this.form.webs.filter(x=>x.index==index)[0]

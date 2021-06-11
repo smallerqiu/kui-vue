@@ -5,19 +5,11 @@ export default {
   props: {
     disabled: Boolean,
     options: Array,
-    value: Array,
+    value: { type: Array, default: () => [] },
   },
   provide() {
     return {
       groupContext: this,
-    }
-  },
-  inject: {
-    FormItem: { default: null },
-  },
-  watch: {
-    value(checked) {
-      this.FormItem && this.FormItem.testValue(checked)
     }
   },
   methods: {
@@ -35,10 +27,10 @@ export default {
   },
   render() {
     const { options, $slots } = this
-    let kid = getChild($slots.default)
+    let childs = getChild($slots.default)
 
     if (options && options.length) {
-      kid = options.map(option => (
+      childs = options.map(option => (
         <Checkbox
           key={option.value}
           value={option.value}
@@ -47,6 +39,6 @@ export default {
         />
       ))
     }
-    return (<div class="k-checkbox-group">{kid}</div>)
+    return (<div class="k-checkbox-group">{childs}</div>)
   }
 }

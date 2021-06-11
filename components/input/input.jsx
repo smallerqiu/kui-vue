@@ -33,8 +33,6 @@ export default {
         ...this.$listeners
       },
     }
-    console.log(this.id)
-
     return <BaseInput {...props}>
       <template slot="suffix">
         {this.$slots.suffix}

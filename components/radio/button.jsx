@@ -7,30 +7,23 @@ export default {
     label: [String, Number],
   },
   inject: {
-    FormItem: { default: null },
     groupContext: { default: null },
   },
   data() {
     return {
-      checked: false
-    }
-  },
-  watch: {
-    value(checked) {
-      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
+      defaultChecked: false
     }
   },
   methods: {
     change() {
       let { value, $slots, label, groupContext } = this
-      this.checked = true
+      this.defaultChecked = true
       if (groupContext) {
         label = label || $slots.default.text
         groupContext.change({ label, value })
       } else {
-        this.$emit("input", checked);
-        this.$emit("change", e);
-        this.FormItem && this.FormItem.testValue(checked)
+        this.$emit("input", true);
+        this.$emit("change", true);
       }
     }
   },
@@ -39,7 +32,7 @@ export default {
     let { disabled, change, $slots, label, groupContext, value, checked, $attrs } = this
     let prop = {}
     if (groupContext) {
-      checked = groupContext.value == value
+      checked = groupContext.defaultValue == value
       let { size, hollow } = groupContext
       disabled = disabled || groupContext.disabled
       prop = { disabled, size, hollow, type: checked ? 'primary' : 'default' }

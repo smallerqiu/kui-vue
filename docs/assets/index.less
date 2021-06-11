@@ -1,15 +1,16 @@
 @import './markdown.less';
-@import './atom-one-light.css';
+@import './atom-one-light.less';
 body {
   min-width: 1015px;
 }
 
-body, textarea, input, button, select, code, pre, code, pre tt, kbd, samp, .serif {
+body, textarea, input, button, select, pre tt, kbd, samp, .serif {
   font-family: "Rubik", sans-serif
 }
 
-pre {
-  font-size: 16px;
+pre, code {
+  font-size: 14px;
+  font-family: lucida console, Consolas, Monaco, andale mono, ubuntu mono, monospace;
 }
 
 .k-layout {
@@ -59,7 +60,6 @@ pre {
       .k-select {
         width: 280px;
       }
-     
       &::before {
         content: '';
         width: 1px;

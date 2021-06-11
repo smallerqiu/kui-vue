@@ -13,14 +13,14 @@
     </RadioGroup>
     <br />
     <br />
-    <Select :width="256" :size="size" clearable>
+    <Select :width="256" :size="size" clearable filterable >
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
       <Option value="4" label="Pear" />
     </Select>
     <br />
-    <Select :width="256" :size="size" multiple v-model="value">
+    <Select :width="256" :size="size" multiple v-model="value" filterable >
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana" />

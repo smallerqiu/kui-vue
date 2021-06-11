@@ -6,26 +6,26 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Form :label-align="form.align" :labelCol="labelCol" :wrapperCol="wrapperCol">
+    <Form :label-align="align" :labelCol="{span:5}" :wrapperCol="{span:16}">
       <FormItem label="Align">
-        <RadioGroup v-model="form.align">
+        <RadioGroup v-model="align">
           <RadioButton value="left" label="Left" />
           <RadioButton value="top" label="Top" />
           <RadioButton value="right" label="Right" />
         </RadioGroup>
       </FormItem>
       <FormItem label="Input">
-        <Input v-model="form.input"></Input>
+        <Input />
       </FormItem>
       <FormItem label="Select">
-        <Select v-model="form.select">
+        <Select >
           <Option value="0" label="Apple" />
           <Option value="1" label="Banana" />
           <Option value="2" label="Orange" />
         </Select>
       </FormItem>
       <FormItem label="DatePicker">
-        <DatePicker v-model="form.datepicker"></DatePicker>
+        <DatePicker />
       </FormItem>
     </Form>
   </div>
@@ -34,14 +34,7 @@
 export default{
   data(){
     return {
-      labelCol:{span:5},
-      wrapperCol:{span:16},
-      form: {
-        align:'left',
-        input:'',
-        select:'',
-        datepicker:'',
-      }
+     align:'left'
     }
   }
 }

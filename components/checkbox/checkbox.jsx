@@ -14,18 +14,12 @@ export default {
     // event: 'change'
   },
   inject: {
-    FormItem: { default: null },
     groupContext: { default: null },
   },
   data() {
     const checked = hasProp(this, 'checked') ? this.checked : (this.checked === true && !this.indeterminate)
     return {
       isChecked: checked,
-    }
-  },
-  watch: {
-    checked(checked) {
-      !this.groupContext && this.FormItem && this.FormItem.testValue(checked)
     }
   },
   methods: {

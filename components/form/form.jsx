@@ -5,6 +5,7 @@ export default {
   props: {
     labelAlign: { type: String, default: 'right' },
     model: { type: Object },
+    name: String,
     labelCol: Object,
     wrapperCol: Object,
     rules: { type: Object, default: () => { } },
@@ -18,20 +19,20 @@ export default {
   provide() {
     return {
       Form: this,
-      collectFormItems: (context, type) => {
-        const items = this.FormItems
-        type === 'delete' ? items.splice(items.indexOf(context), 1) : items.push(context)
-        if (type === 'add' && context.prop && this.model) {
-          this.testProp(context.prop)
-        }
-      }
     }
   },
-  created() {
-    this.FormItems = new Array()
+  watch: {
+    model(val, Oval) {
+      this.validate()
+    }
+  },
+  data() {
+    return {
+      FormItems: []
+    }
   },
   render() {
-    let { labelAlign, size, labelCol = {}, wrapperCol = {} } = this
+    let { labelAlign, size, labelCol = {}, wrapperCol = {}, name } = this
     const classes = ["k-form",
       {
         [`k-form-label-${labelAlign}`]: labelAlign,
@@ -41,70 +42,61 @@ export default {
     ];
     const childs = getChild(this.$slots.default)
     return (
-      <form autocomplete="off" class={classes} ref="form">
+      <form autocomplete="off" class={classes} ref="form" id={name} onSubmit={this.submit} onReset={this.reset}>
         {
           childs.map(child => {
             labelCol = child.componentOptions.propsData.labelCol || labelCol
             wrapperCol = child.componentOptions.propsData.wrapperCol || wrapperCol
-            return cloneVNode(child, { props: { labelCol, wrapperCol } },)
+            return cloneVNode(child, {
+              props: { labelCol, wrapperCol },
+              on: {
+                collect: ({ context, push }) => {
+                  push ? this.FormItems.push(context) :
+                    this.FormItems.splice(this.FormItems.indexOf(context), 1)
+                  if (push && context.prop && this.model) {
+                    this.testProp(context.prop)
+                  }
+                }
+              }
+            })
           })
         }
-      </form>
+      </form >
     )
   },
   methods: {
-    clearObject(model) {
-      if (!model) return;
-      for (let key in model) {
-        let value = model[key]
-        if (Array.isArray(value)) {
-          value.forEach((item, index) => {
-            if (item !== null && typeof item == 'object') {
-              this.clearObject(item)
-            } else {
-              value.splice(index)
-            }
-          })
-        } else if (typeof value === 'boolean') {
-          model[key] = false
-        } else if (model !== null && typeof model == 'object') {
-          model[key] = ''
-        }
-      }
-    },
-    reset() {
-      // this.$refs.form.reset()
+    setValue(prop, value = '') {
+      let keys = prop.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')
       let model = this.model
-
-      this.clearObject(model)
-      this.$nextTick(e => {
-        this.FormItems.forEach((item) => {
-          item.reset()
-        })
-      })
-    },
-    testProp(path) {
-      let keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')
-      let model = this.model
-      let len = keys.length - 1
-      if (len <= 0 && this.model[path] === undefined) {
-        throw new Error('请传入正确的prop值:' + path)
-      }
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i < keys.length; i++) {
         let key = keys[i]
         if (key in model) {
+          if (i == keys.length - 1 || keys.length == 1) {
+            let val = model[key]
+            if (typeof val === 'boolean') {
+              model[key] = value || false
+            } else if (Array.isArray(val)) {
+              model[key] = value || []
+            } else {
+              model[key] = value
+            }
+          }
           model = model[key]
-        } else {
-          throw new Error('请传入正确的prop值:' + path)
         }
       }
-      // return {
-      //   model,
-      //   key: keys[len],
-      //   value: model[keys[len]]
-      // };
+      this.$emit('change', this.model)
+    },
+    reset() {
+      this.FormItems.forEach(item => {
+        let { prop } = item
+        if (prop) {
+          this.setValue(prop)
+        }
+        item.valid = true
+      })
     },
     test(key) {
+      //提供外部单独验证
       let item = this.FormItems.filter(item => item.prop == key)[0]
       if (item) {
         let rules = item.rules || (this.rules || {})[item.prop]
@@ -112,6 +104,26 @@ export default {
           return item.validate(rules)
         }
       }
+    },
+    testProp(path) {
+      let keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')
+      let model = this.model
+      for (let i = 0; i < keys.length; i++) {
+        let key = keys[i]
+        if (key in model) {
+          model = JSON.parse(JSON.stringify(model[key]))
+        } else {
+          throw new Error('请传入正确的prop值:' + path)
+        }
+      }
+      return model;
+    },
+    submit(e) {
+      e && e.preventDefault()
+      this.validate((valid) => {
+        let model = JSON.parse(JSON.stringify(this.model))
+        this.$emit('submit', { valid, model })
+      })
     },
     validate(callback) {
       var result = true

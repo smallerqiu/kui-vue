@@ -19,10 +19,15 @@ export default {
   model: {
     prop: 'checked',
   },
+  watch: {
+    checked(val, Oval) {
+      this.defaultChecked = val
+    }
+  },
   data() {
     const checked = hasProp(this, 'checked') ? this.checked : false
     return {
-      isChecked: checked,
+      defaultChecked: checked,
     }
   },
   methods: {
@@ -30,26 +35,20 @@ export default {
       if (this.disabled) {
         return false;
       }
+      let checked = !this.defaultChecked
+      this.defaultChecked = checked
 
-      let checked = !this.checked
-      if (!hasProp(this, 'checked')) {
-        this.isChecked = !this.isChecked;
-      } else {
-        this.isChecked = checked
-      }
       this.$emit("input", checked);
-      this.$emit("change", this.isChecked);
+      this.$emit("change", checked);
     }
   },
   render() {
-    let { disabled, type, size, change, falseText, trueText, checked, loading, isChecked, $slots } = this
-    if (!hasProp(this, 'checked')) {
-      checked = isChecked
-    }
+    let { disabled, type, size, change, falseText, trueText, loading, defaultChecked, $slots } = this
+
     const classes = [
       "k-switch",
       {
-        ["k-switch-checked"]: checked,
+        ["k-switch-checked"]: defaultChecked,
         ["k-switch-disabled"]: disabled || loading,
         [`k-switch-${type}`]: !!type,
         ["k-switch-sm"]: size == 'small',
@@ -59,7 +58,7 @@ export default {
     const loadNode = loading ? <Icon spin type="sync" class="k-switch-loading" /> : null
 
     const textNode = (
-      (size != 'small' && children) ? <span class="k-switch-inner">{checked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
+      (size != 'small' && children) ? <span class="k-switch-inner">{defaultChecked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
     )
     return (
       <button class={classes} onClick={change} disabled={disabled || loading} type="button">{textNode}{loadNode}</button>

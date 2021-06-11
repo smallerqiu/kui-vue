@@ -43,6 +43,7 @@
     min-height: 32px;
     display: flex;
     align-items: center;
+    transition: all .3s ease-in-out;
   }
   .k-form-item-error-tip {
     position: absolute;
@@ -83,6 +84,9 @@
       .k-select-arrow {
         color: @danger;
       }
+    }
+    .k-radio-group .k-btn {
+      border-color: @danger;
     }
     .k-select-open .k-select-selection {
       box-shadow: 0 0 5px fade(@danger, 75%);
@@ -134,7 +138,14 @@
 
 .k-form-lg {}
 
-.k-form-sm {}
+.k-form-sm {
+  .k-form-item-label {
+    height: 24px;
+  }
+  .k-form-item-content {
+    min-height: 24px;
+  }
+}
 
 @keyframes k-form-item-fade-in {
   0% {
