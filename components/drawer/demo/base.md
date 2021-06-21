@@ -8,7 +8,11 @@
 <template>
   <div>
     <Button @click="show=!show">普通抽屉</Button>
-    <Drawer v-model="show"></Drawer>
+    <Drawer v-model="show" :closable="false" :footer="null">
+      <p>something ...</p>
+      <p>something ...</p>
+      <p>something ...</p>
+    </Drawer>
   </div>
 </template>
 <script>

@@ -6,6 +6,7 @@ import CustomRender from './custom-render.md'
 import Disabled from './disabled.md'
 import Sync from './sync.md'
 import Icon from './icon.md'
+import Directory from './directory.md'
 import CN from '../index.md'
 export default {
   render() {
@@ -18,23 +19,10 @@ export default {
         <Disabled />
         <Sync />
         <Icon />
+        <Directory />
         <CN class="typo" />
       </div>
     )
   }
 }
 </script>
-<style  lang="less">
-.demo-tree .k-tree-item {
-  display: flex;
-}
-.demo-tree .k-tree-item .k-tree-title {
-  flex: 1;
-}
-.demo-tree .k-tree-item .tree-item-actions {
-  display: flex;
-}
-.demo-tree .k-tree-item .tree-item-actions .tree-title-text {
-  flex: 1;
-}
-</style>

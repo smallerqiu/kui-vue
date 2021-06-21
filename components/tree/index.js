@@ -1,2 +1,3 @@
 import Tree from './tree'
-export default Tree
+import TreeNode from './node'
+export { Tree, TreeNode }

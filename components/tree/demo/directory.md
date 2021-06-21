@@ -1,3 +1,9 @@
+<cn>
+#### 群控
+展示目录、连接线、拖动、复选框、图标、扩展
+</cn>
+
+```vue
 <template>
   <div >
     <Checkbox v-model="directory" label="Directory"/> 
@@ -23,8 +29,6 @@
         <Icon type="add-outline" @click="e=>append(e,node)"/>
         <Icon type="trash-outline" @click="e=>remove(e,node,parent)" v-if="node.key!='0-0'"/>
         <Icon type="pencil-outline" @click="e=>edit(e,node)"/>
-        <!-- <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" /> -->
-        <!-- <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'"/> -->
       </template>
     </Tree>
   </div>
@@ -114,3 +118,4 @@ export default {
   }
 }
 </script>
+```

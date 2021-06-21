@@ -3,6 +3,7 @@ import Base from './base'
 import Info from './info'
 import Text from './text'
 import Disabled from './disabled'
+import Size from './size'
 import Loading from './loading'
 import CN from '../index.md'
 export default {
@@ -13,6 +14,7 @@ export default {
         <Base />
         <Text />
         <Disabled />
+        <Size />
         <Loading />
         <CN class="typo"/>
       </div>

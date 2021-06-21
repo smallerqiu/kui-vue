@@ -6,7 +6,7 @@ export function getTranstionProp(name) {
     name,
     on: {
       beforeEnter(el) {
-        el.style.overflow = 'hidden';
+        // el.style.overflow = 'hidden';
         el.style.height = 0
         el.style.opacity = 0.1
       },
@@ -36,7 +36,7 @@ export function getTranstionProp(name) {
           el.style.marginTop = 0;
           el.style.marginBottom = 0;
           el.style.opacity = 0
-          el.style.overflow = 'hidden';
+          // el.style.overflow = 'hidden';
         }
       },
       afterLeave(el) {

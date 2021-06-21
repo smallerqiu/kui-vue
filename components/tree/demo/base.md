@@ -5,28 +5,27 @@
 
 ```vue
 <template>
-  showLine: <Switch v-model="showline" /> 
-  <Tree :data="data" :show-line="showline"/>
+  <Tree :data="data" :expandedKeys="expandedKeys"/>
 </template>
 <script>
 export default{
   data() {
     return {
-      showline:false,
+      expandedKeys:['0-1','1-1','1-1-2','1-2','0-1'],
       data: [
         {
           title: 'tree 1',
-          expand: true,
+          key: '0-1',
           children: [
             {
               title: 'tree 1-1',
-              expand: true,
+              key: '1-1',
               disabled: true,
               children: [
                 { title: 'leaf 1-1-1', disabled: true },
                 {
                   title: 'leaf 1-1-2',
-                  expand: true,
+                  key: '1-1-2',
                   children: [
                     { title: 'leaf 1-1-2-1' },
                     { title: 'leaf 1-1-2-2' }
@@ -36,7 +35,7 @@ export default{
             },
             {
               title: 'tree 1-2',
-              expand: true,
+              key: '1-2',
               children: [
                 { title: 'leaf 1-2-1' },
                 { title: 'leaf 1-2-2' }
