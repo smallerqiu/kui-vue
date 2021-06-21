@@ -10,8 +10,8 @@ import { Carousel, CarouselItem } from './carousel'
 import { Collapse, Panel } from './collapse'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import DatePicker from './datePicker'
-import Dropdown from './dropdown'
 import Drawer from './drawer'
+import Dropdown from './dropdown'
 import Divider from './divider'
 import Empty from './empty'
 import { Form, FormItem } from './form'
@@ -35,7 +35,7 @@ import Table from './table'
 import Tooltip from './tooltip'
 import { Tabs, TabPane } from './tabs'
 import { TimeLine, TimeLineItem } from './timeline'
-import Tree from './tree'
+import { Tree, TreeNode } from './tree'
 import Tag from './tag'
 import { Row, Col } from './grid'
 
@@ -82,7 +82,7 @@ const components = {
 	TimeLine, TimeLineItem,
 	Tag,
 	Tooltip,
-	Tree
+	Tree, TreeNode
 }
 const UI = {
 	...components,

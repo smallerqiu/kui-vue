@@ -63,7 +63,7 @@ export default {
     let inner = checked ? <Icon type="checkmark" /> : null
     const labelNode = label || $slots.default
     return (
-      <label class={wpclasses}>
+      <label class={wpclasses} onClick={e => e.stopPropagation()}>
         <span class={classes}>
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
           <span class="k-checkbox-inner">{inner}</span>

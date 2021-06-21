@@ -60,7 +60,7 @@ export default {
     ];
     const labelNode = label || $slots.default
     return (
-      <label class={wpclasses}>
+      <label class={wpclasses} onClick={e => e.stopPropagation()}>
         <span class={classes}>
           <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
           <span class="k-radio-inner"></span>

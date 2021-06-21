@@ -90,9 +90,7 @@ export default {
         this.next = Nav[0].child[0]
         document.title = `组件总览 - KUI`;
         this.activeName = [path];
-        return;
-      }
-      if (current) {
+      } else if (current) {
         this.prev = prev
         this.next = next
 

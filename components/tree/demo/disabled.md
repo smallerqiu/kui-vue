@@ -5,29 +5,33 @@
 
 ```vue
 <template>
-  <Tree :data="data" checkable @check="select"/>
+  <Tree :data="data" checkable @check="select" 
+    :checkedKeys="checkedKeys"
+    :expandedKeys="expandedKeys" />
 </template>
 <script>
-export default{
-  data(){
-    return{
+export default {
+  data() {
+    return {
+      expandedKeys: ['0-0', '1-0', '1-1'],
+      checkedKeys: ['1-0-0'],
       data: [
         {
           title: 'tree 1',
-          expand: true,
+          key: '0-0',
           children: [
             {
               title: 'tree 1-1',
-              expand: true,
-              disabled:true,
+              key: '1-0',
+              disabled: true,
               children: [
-                { title: 'leaf 1-1-1',disabled:true },
+                { title: 'leaf 1-1-1',key:'1-0-0', disabled: true },
                 { title: 'leaf 1-1-2' }
               ]
             },
             {
               title: 'tree 1-2',
-              expand: true,
+              key: '1-1',
               children: [
                 { title: 'leaf 1-2-1' },
                 { title: 'leaf 1-2-2' }
@@ -38,9 +42,9 @@ export default{
       ],
     }
   },
-  methods:{
-    select(data){
-      // console.log(data)
+  methods: {
+    select(data) {
+      console.log(data)
     }
   }
 }

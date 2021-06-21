@@ -9,18 +9,18 @@
     <Button @click="show1=true">普通表单</Button>
     <Button @click="show2=true">自定义</Button>
     <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
-      <Form :label-width="128" ref="form" :model="form" :rules="rules" label-align="left">
+      <Form ref="form" :model="form" :rules="rules" label-align="left">
         <FormItem label="Input" prop="input">
-          <Input v-model="form.input" clearable icon="home"></Input>
+          <Input clearable icon="home"></Input>
         </FormItem>
         <FormItem label="Number" prop="number">
-          <Input v-model="form.number" number clearable></Input>
+          <Input number clearable></Input>
         </FormItem>
         <FormItem label="Select">
           <Row type="flex" :gutter="8">
             <Col :span="12">
             <FormItem prop="province">
-              <Select v-model="form.province" clearable>
+              <Select clearable>
                 <Option value="0" label="北京" />
                 <Option value="1" label="上海" />
                 <Option value="2" label="广州" />
@@ -30,7 +30,7 @@
             </Col>
             <Col :span="12" >
             <FormItem prop="city">
-              <Select v-model="form.city" clearable>
+              <Select clearable>
                 <Option value="0" label="南山区" />
                 <Option value="1" label="龙华区" />
                 <Option value="2" label="福田区" />
@@ -41,23 +41,23 @@
           </Row>
         </FormItem>
         <FormItem label="DatePicker" prop="datepicker">
-          <DatePicker v-model="form.datepicker" clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
+          <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
         </FormItem>
         <FormItem label="Radio" prop="radio">
-          <Radio v-model="form.radio">男</Radio>
+          <Radio >男</Radio>
         </FormItem>
         <FormItem label="RadioGroup" prop="radios">
-          <RadioGroup v-model="form.radios">
+          <RadioGroup >
             <Radio value="0" label="武汉"/>
             <Radio value="1" label="深圳"/>
             <Radio value="2" label="杭州"/>
           </RadioGroup>
         </FormItem>
         <FormItem label="Checkbox" prop="checkbox">
-          <Checkbox v-model="form.checkbox">男</Checkbox>
+          <Checkbox >男</Checkbox>
         </FormItem>
         <FormItem label="CheckboxGroup" prop="checkboxs">
-          <CheckboxGroup v-model="form.checkboxs">
+          <CheckboxGroup >
             <Checkbox value="0" label="武汉" />
             <Checkbox value="1" label="杭州"/>
             <Checkbox value="2" label="上海" />
@@ -65,7 +65,7 @@
           </CheckboxGroup>
         </FormItem>
         <FormItem label="Text" prop="textarea">
-          <TextArea placeholder="情输入..." v-model="form.textarea" />
+          <TextArea placeholder="情输入..."  />
         </FormItem>
       </Form>
     </Drawer>

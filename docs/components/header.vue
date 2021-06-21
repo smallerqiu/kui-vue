@@ -37,18 +37,18 @@
 <script>
 import { Nav } from "../menu";
 import { version } from '@/package.json'
+const components = Nav.reduce((a, b) => a.concat(b.child), [])
 export default {
   data() {
     return {
       version,
-      components: [],
+      components,
       v: "3",
       key: "",
       topMenu: [],
     };
   },
   mounted() {
-    this.components = Nav.reduce((a, b) => a.concat(b.child), [])
     let path = this.$route.path
     this.topMenu = path == '/' ? ['home'] : ['/components/all']
   },

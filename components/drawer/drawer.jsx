@@ -17,7 +17,7 @@ export default {
     cancelText: { type: String, default: "取消" },
     placement: { type: String, default: 'right' },
     closable: { type: Boolean, default: true },
-    footer: Boolean,
+    footer: { type: Boolean, default: true },
     maskClosable: { type: Boolean, default: true },
   },
   watch: {
@@ -54,6 +54,7 @@ export default {
     close() {
       this.visible = false;
       this.$emit("input", false);
+      this.$emit("cancel");
       this.$emit("close");
     },
     maskToClose() {
@@ -96,8 +97,7 @@ export default {
     const footNode = (
       hasFooter ? <div class="k-drawer-footer">
         {$slots.footer}
-        {!$slots.footer && canelBtn}
-        {!$slots.footer && okBtn}
+        {!$slots.footer && [canelBtn, okBtn]}
       </div> : null
     )
     const closeNode = closable
@@ -115,11 +115,11 @@ export default {
     // const wrapCls =
     return (
       this.rendered ? <div class={classes} v-transfer={true}>
-        <transition name="fade">
-          <div class="k-drawer-mask" ref="mask" v-show={visible} onClick={this.maskToClose}></div>
+        <transition name="k-drawer-fade">
+          <div class="k-drawer-mask" v-show={visible} onClick={this.maskToClose}></div>
         </transition>
         <transition name={transitionName}>
-          <div class="k-drawer-box" ref="drawer" v-show={visible} style={styles}>
+          <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">
               {closeNode}
               <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>

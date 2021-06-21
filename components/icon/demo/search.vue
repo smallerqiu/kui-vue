@@ -9,7 +9,7 @@
             <RadioButton value="outline">Outline</RadioButton>
             <RadioButton value="filled">Filled</RadioButton>
           </RadioGroup>
-          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" icon-align="left" v-model="key" size="large" @input="search" clearable />
+          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" v-model="key" size="large" @input="search" />
         </div>
       </div>
     </Affix>
@@ -17,26 +17,26 @@
     <br />
     <br />
     <div class="show-icons">
-      <template v-if="applist.length">
+      <template v-if="showIcons.length">
         <div class="icon-head">
           <h3><span>App icons</span></h3>
         </div>
         <br />
         <div class="icon-item">
-          <span @click.stop="copy(x)" v-for="(x,y) in applist" :key="y">
+          <span @click.stop="copy(x)" v-for="(x,y) in showIcons" :key="y">
             <Icon :type="x" />
           </span>
         </div>
       </template>
-      <template v-if="logos.length">
+      <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-item">
-          <span @click.stop="copy(x)" v-for="(x,y) in logos" :key="y">
+          <span @click.stop="copy(x)" v-for="(x,y) in logo" :key="y">
             <Icon :type="x" />
           </span>
         </div>
       </template>
-      <h3 v-if="!applist.length && !logos.length" style="text-align:center;padding-bottom:50px;color:#888;">
+      <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
         No results for "{{key}}"
       </h3>
     </div>
@@ -66,26 +66,26 @@
 }
 </style>
 <script>
-// import icons from 'kui-icons'
-import icons from '../lib/kui-icons'
+import icons from 'kui-icons'
+const iconKeys = Object.keys(icons);
+let logos = [], outlines = [], filleds = [];
+iconKeys.forEach(i => {
+  if (i.indexOf('logo') > -1) {
+    logos.push(i)
+  } else if (i.indexOf('outline') > -1) {
+    outlines.push(i)
+  } else {
+    filleds.push(i)
+  }
+})
 export default {
   data() {
     return {
       key: '',
       type: 'outline',
-      logos: [],
-      applist: [],
-      filled: [],
-      outline: [],
-      logo: []
+      logo: logos,
+      showIcons: outlines
     }
-  },
-  mounted() {
-    let all = Object.keys(icons)
-    this.logo = this.logos = all.filter(x => x.indexOf('logo') >= 0)
-    this.applist = all.filter(x => x.indexOf('outline') >= 0)
-    this.outline = all.filter(x => x.indexOf('outline') >= 0)
-    this.filled = all.filter(x => x.indexOf('logo') < 0 && x.indexOf('outline') < 0)
   },
   methods: {
     switchIcon() {
@@ -97,20 +97,21 @@ export default {
       this.filter(key)
     },
     filter(key) {
-      let { outline, filled, logo } = this
+      let { showIcons, logo, type } = this
+      let origin = type == 'outline' ? outlines : filleds;
       if (key) {
-        let oriapp = this.type == 'outline' ? outline : filled;
-        this.applist = oriapp.filter(x => {
+        showIcons = origin.filter(x => {
           return x.indexOf(key) >= 0
         })
-        let orilogo = logo
-        this.logos = orilogo.filter(x => {
+        logo = logos.filter(x => {
           return x.indexOf(key) >= 0
         })
       } else {
-        this.applist = this.type == 'outline' ? outline : filled;
-        this.logos = logo
+        showIcons = origin
+        logo = logos
       }
+      this.showIcons = showIcons
+      this.logo = logo
     },
     copy(x) {
       let text = `<Icon type="${x}" />`

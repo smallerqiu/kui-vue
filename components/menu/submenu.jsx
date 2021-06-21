@@ -35,7 +35,7 @@ export default {
   mounted() {
     let { SubMenu, Menu } = this
     if (Menu) {
-      let { selectedKeys, defaultOpenKeys, inlineCollapsed } = Menu
+      let { selectedKeys, defaultOpenKeys, inlineCollapsed, verticalAffixed } = Menu
       let key = this.$vnode.key
       const opened = defaultOpenKeys.indexOf(key) >= 0
 
@@ -51,10 +51,12 @@ export default {
       if (!inlineCollapsed) {
         this.opened = opened
       }
-      this.affixedKeys = getChild(this.$slots.default)
-        .map(child => cloneVNode(child))
-        .filter(({ data }) => data.props.affixed !== false && data.props.affixed !== undefined)
-        .map(c => c.key)
+      if (verticalAffixed) {
+        this.affixedKeys = getChild(this.$slots.default)
+          .map(child => cloneVNode(child))
+          .filter(({ data }) => data.props.affixed !== false && data.props.affixed !== undefined)
+          .map(c => c.key)
+      }
     }
   },
   render() {

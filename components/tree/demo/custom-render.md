@@ -5,56 +5,60 @@
 
 ```vue
 <template>
-  <Row>
-    <Col :span="12" style="border-right:1px solid #eee;padding-right:10px;">
-      <p style="text-align:center;">使用 `render-content` 渲染</p>
-      <!-- 可以参见 renderContent 方法 -->
-      <Tree :data="data" @check="select" :render-content="renderContent" class="demo-tree" />
+  <Row :gutter="30">
+    <Col :span="8">
+    <Divider>默认</Divider>
+    <!-- 默认 -->
+    <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys">
+      <template v-slot:extra="{ node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'"/>
+      </template>
+    </Tree>
     </Col>
-    <Col :span="12" style="padding-left:10px;">
-      <p style="text-align:center;">使用 `scoped slot` 渲染</p>
-      <Tree :data="data" @check="select" class="demo-tree">
-        <div slot-scope="root, node , data" class="tree-item-actions">
-          <span class="tree-title-text">{{data.title}}</span>
-          <Button icon="add" size="small" @click="append(data)" />
-          <Button icon="remove" size="small" @click="remove(node,data)" />
-        </div>
-      </Tree>
+    <Col :span="8" style="border-left:1px solid #ddd;border-right:1px solid #ddd;">
+    <Divider>使用 `v-slot`</Divider>
+    <!-- 使用 v-slot -->
+    <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys">
+      <template v-slot:title="{node , parent}">
+        {{node.title}}
+      </template>
+      <template v-slot:extra="{ node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'"/>
+      </template>
+    </Tree>
+    </Col>
+    <Col :span="8">
+    <Divider>使用 `tree-node`</Divider>
+    <!-- 可以参见 renderContent 方法 -->
+    <Tree @expand="expand" :expandedKeys="expandedKeys">
+      <TreeNode v-for="(item,i) in data" :data="item" :key="item.key" />
+      <template v-slot:extra="{node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'"/>
+      </template>
+    </Tree>
     </Col>
   </Row>
 </template>
 
-<style>
-.demo-tree .k-tree-item {
-  display: flex;
-}
-.demo-tree .k-tree-item .k-tree-title {
-  flex: 1;
-}
-.demo-tree .k-tree-item .tree-item-actions {
-  display: flex;
-}
-.demo-tree .k-tree-item .tree-item-actions .tree-title-text {
-  flex: 1;
-}
-</style>
 <script>
 export default {
   data() {
     return {
+      expandedKeys: ['0-0'],
       data: [
         {
           title: 'tree 1',
-          expand: true,
+          key: '0-0',
           children: [
             {
               title: 'tree 1-1',
-              expand: true,
               children: [
                 { title: 'leaf 1-1-1' },
                 {
                   title: 'leaf 1-1-2',
-                  expand: true,
                   children: [
                     { title: 'leaf 1-1-2-1' },
                     { title: 'leaf 1-1-2-2' }
@@ -64,7 +68,6 @@ export default {
             },
             {
               title: 'tree 1-2',
-              expand: true,
               children: [
                 { title: 'leaf 1-2-1' },
                 { title: 'leaf 1-2-2' }
@@ -78,56 +81,40 @@ export default {
               ]
             }
           ]
+        },
+        {
+          title: 'tree 2-1',
+          children: [
+            { title: 'leaf 2-1-1' },
+            { title: 'leaf 2-1-2' }
+          ]
         }
       ],
     }
   },
   methods: {
-    append(data) {
-      const newChild = { title: 'test', children: [] };
-      if (!data.children) {
-        this.$set(data, 'children', []);
+    append(node) {
+      const newChild = { title: 'Append Node', children: [] };
+      if (!node.children) {
+        node.children = []
       }
-      this.$set(data, 'expand', true);
-      data.children.push(newChild);
+      //展开节点
+      if (this.expandedKeys.indexOf(node.key) < 0) {
+        this.expandedKeys.push(node.key)
+      }
+      //添加子节点
+      node.children.push(newChild);
     },
-
-    remove(node, data) {
-      const parent = node.parent;
+    remove(node, parent) {
       if (parent) {
-        const children = parent.data.children
-        const index = children.findIndex(d => d == data);
-        children.splice(index, 1);
+        const index = parent.findIndex(item => item == node);
+        parent.splice(index, 1);
       }
     },
-    renderContent(h, { root, node, data }) {
-      return h('div', { class: 'tree-item-actions' }, [
-        h('span', { class: 'tree-title-text' }, data.title),
-        h('Button', {
-          props: {
-            size: 'small',
-            icon: 'add'
-          },
-          on: {
-            click: e => this.append(data)
-          }
-        }),
-        h('Button', {
-          props: {
-            size: 'small',
-            icon: 'remove'
-          },
-          on: {
-            click: e => this.remove(node, data)
-          }
-        })
-      ])
-    },
-    select(data) {
+    expand(data) {
       console.log(data)
     }
   }
 }
 </script>
-
 ```
