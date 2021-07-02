@@ -36,7 +36,7 @@ export default {
     let { SubMenu, Menu } = this
     if (Menu) {
       let { selectedKeys, defaultOpenKeys, inlineCollapsed, verticalAffixed } = Menu
-      let key = this.$vnode.key
+      let key = this.$vnode.key || 'sub_' + this._uid
       const opened = defaultOpenKeys.indexOf(key) >= 0
 
       if (opened) {
@@ -61,7 +61,7 @@ export default {
   },
   render() {
     let { $slots, disabled, Dropdown, opened, Menu, SubMenu, icon, rendered } = this
-    let key = this.$vnode.key
+    let key = this.$vnode.key || 'sub_' + this._uid
     const { currentMode, theme, selectedKeys, verticalAffixed, inlineCollapsed,
       mode, defaultOpenKeys } = Menu
     let selected = selectedKeys.indexOf(key) >= 0
@@ -165,14 +165,14 @@ export default {
       if (this.disabled) return;
       this.active = false
       let { Menu } = this
-      let { currentMode, inlineCollapsed, defaultOpenKeys } = Menu
+      let { currentMode, inlineCollapsed } = Menu
       if (currentMode != 'inline' || inlineCollapsed) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.opened = false
 
-          let openKeys = [].concat(defaultOpenKeys)
-          let key = this.$vnode.key,
+          let openKeys = [].concat(Menu.defaultOpenKeys)
+          let key = this.$vnode.key || 'sub_' + this._uid,
             index = openKeys.indexOf(key)
           index > -1 && openKeys.splice(index, 1)
           Menu.openChange(openKeys)
@@ -184,14 +184,14 @@ export default {
       clearTimeout(this.timer)
       this.active = true
       let { Menu } = this
-      let { currentMode, inlineCollapsed, defaultOpenKeys } = Menu
+      let { currentMode, inlineCollapsed } = Menu
       if (currentMode != 'inline' || inlineCollapsed) {
         this.rendered = true
         this.$nextTick(() => {
           //展开子集
           this.opened = true
-          let openKeys = [].concat(defaultOpenKeys)
-          let key = this.$vnode.key
+          let openKeys = [].concat(Menu.defaultOpenKeys)
+          let key = this.$vnode.key || 'sub_' + this._uid
           openKeys.indexOf(key) < 0 && openKeys.push(key)
           Menu.openChange(openKeys)
         })
@@ -251,7 +251,7 @@ export default {
         let { currentMode, defaultOpenKeys, accordion, inlineCollapsed } = this.Menu
         if (currentMode != 'inline' || inlineCollapsed) return;
         let openKeys = [].concat(defaultOpenKeys)
-        let key = this.$vnode.key
+        let key = this.$vnode.key || 'sub_' + this._uid
         let index = openKeys.indexOf(key)
 
         //accordion
@@ -272,7 +272,8 @@ export default {
       }
     },
     handleClick(options) { //item click event
-      options.keyPath.unshift(this.$vnode.key)
+      let key = this.$vnode.key || 'sub_' + this._uid
+      options.keyPath.unshift(key)
       let parent = this.SubMenu || this.Menu
       if (parent) {
         parent.handleClick(options)

@@ -45,8 +45,8 @@ export default {
       <form autocomplete="off" class={classes} ref="form" id={name} onSubmit={this.submit} onReset={this.reset}>
         {
           childs.map(child => {
-            labelCol = child.componentOptions.propsData.labelCol || labelCol
-            wrapperCol = child.componentOptions.propsData.wrapperCol || wrapperCol
+            labelCol = (child.componentOptions && child.componentOptions.propsData.labelCol) || labelCol
+            wrapperCol = (child.componentOptions && child.componentOptions.propsData.wrapperCol) || wrapperCol
             return cloneVNode(child, {
               props: { labelCol, wrapperCol },
               on: {

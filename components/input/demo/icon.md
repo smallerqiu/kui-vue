@@ -8,49 +8,15 @@
   <div style="width:512px;">
     <Input placeholder="User Name..." icon="person" />
     <Input type="password" placeholder="Password..." icon="lock-closed"  />
-    <Input placeholder="请输入验证码" icon="disc"  :maxlength="8">
-      <template slot="suffix">
-        <span v-if="time==60" @click="sendCode">获取验证码</span>
-        <span v-else>{{time}}(s)</span>
-      </template>
-    </Input>
-    <Input placeholder="请填写你要喝的Coffee" icon="cafe" >
-    <template slot="suffix">
-        <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-          <Icon type="information-circle-outline" color="orange"/>
-        </Tooltip>  
-    </template>
-    </Input>
     <Input placeholder="请输入关进行搜索键字..."  @search="search"/>
   </div>
 </template>
 <script>  
 export default {  
-  data(){
-    return{
-      time:60,
-      timer:null
-    }
-  },
-  beforDestroy(){
-    clearInterval(this.timer)
-  },
   methods: {
     search() {
       this.$Message.info("This is search event");
     },
-    sendCode(){
-      this.time = 59
-      this.$Message.success("验证码发送成功，请注意查收");
-      this.timer = setInterval(e=>{
-          if(this.time < 0){
-            clearInterval(this.timer)
-            this.time = 60
-          }else{
-            this.time--
-          }
-      },1000)
-    }
   }
 };
 </script>

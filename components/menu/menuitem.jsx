@@ -6,6 +6,7 @@ export default {
   name: "MenuItem",
   props: {
     icon: String,
+    title: String,
     disabled: Boolean,
     affixed: Boolean
   },
@@ -35,7 +36,8 @@ export default {
     let { SubMenu, Menu } = this
     if (Menu && SubMenu) {
       let { selectedKeys } = Menu
-      let selected = selectedKeys.indexOf(this.$vnode.key) >= 0
+      let key = this.$vnode.key || 'item_' + this._uid
+      let selected = selectedKeys.indexOf(key) >= 0
       if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
         Menu.selectedKeys.push(SubMenu.$vnode.key)
       }
@@ -43,8 +45,9 @@ export default {
   },
   render() {
 
-    let { icon, disabled, Menu, SubMenu, Dropdown } = this
-    let selected = Menu.selectedKeys.indexOf(this.$vnode.key) >= 0
+    let { icon, disabled, Menu, SubMenu, Dropdown, title } = this
+    let key = this.$vnode.key || 'item_' + this._uid
+    let selected = Menu.selectedKeys.indexOf(key) >= 0
 
     const item = this
     const preCls = Dropdown ? 'dropdown-menu' : 'menu';
@@ -65,7 +68,7 @@ export default {
         },
         click: (e) => {
           if (!disabled) {
-            let key = this.$vnode.key
+            let key = this.$vnode.key || 'item_' + this._uid
             let options = {
               key,
               keyPath: [key],
@@ -81,7 +84,7 @@ export default {
       }
     }
     const showTooltip = !SubMenu && Menu.inlineCollapsed
-    let child = getChild(this.$slots.default)
+    let child = title || getChild(this.$slots.default)
     let titleNode = child.length > 1 ? <span>{child}</span> : (isVnode(child[0]) ? child : <span>{child}</span>)
     return (
       <Tooltip placement="right">

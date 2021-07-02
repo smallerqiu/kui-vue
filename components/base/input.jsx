@@ -21,6 +21,7 @@ export default {
       default: 'text'
     },
     icon: String,
+    suffix: String,
     iconAlign: String,
   },
   data() {
@@ -89,7 +90,7 @@ export default {
         ? <Icon type='search' onClick={this.searchEvent} /> : null
       const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? 'eye-outline' : 'eye-off-outline'} onClick={this.showPassword} /> : null
 
-      return Password || Search || this.$slots.suffix
+      return Password || Search || this.$slots.suffix || this.suffix
     },
     getTextInput() {
       const { disabled, size, type, inputType, currentValue, id } = this
@@ -125,10 +126,10 @@ export default {
     },
   },
   render() {
-    const { inputType, icon, $slots, size, type, $listeners, clearable } = this
+    const { inputType, icon, $slots, size, type, $listeners, clearable, suffix } = this
 
     let isTextArea = inputType == 'textarea'
-    let hasChild = icon || ('search' in $listeners) || $slots.suffix || type == 'password' || clearable
+    let hasChild = icon || ('search' in $listeners) || $slots.suffix || suffix || type == 'password' || clearable
 
     let textInput = this.getTextInput()
 
@@ -137,7 +138,7 @@ export default {
     } else {
       let { isFocus, isEnter, currentValue } = this
       const clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
-      let hasSuffix = ('search' in $listeners) || $slots.suffix || type == 'password'
+      let hasSuffix = ('search' in $listeners) || $slots.suffix || suffix || type == 'password'
       const props = {
         class: [
           'k-input-wrapper',

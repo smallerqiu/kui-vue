@@ -2,6 +2,7 @@
 import Base from "./base";
 import Info from "./info";
 import Icon from "./icon";
+import Suffix from "./suffix";
 import Clearable from "./clearable";
 import Size from "./size";
 import Event from "./event";
@@ -14,6 +15,7 @@ export default {
         <Info class="typo" />
         <Base />
         <Icon />
+        <Suffix />
         <Clearable />
         <Size />
         <Event />
