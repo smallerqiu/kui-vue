@@ -55,6 +55,7 @@ module.exports = merge(webpackBaseConfig, {
 		'moment': 'moment'
 	},
 	optimization: {
+		minimize: true,
 		minimizer: [
 			// new UglifyJsPlugin({
 			// 	uglifyOptions: {
@@ -75,6 +76,9 @@ module.exports = merge(webpackBaseConfig, {
 					output: {
 						// comments: /kui-vue/i,
 					},
+					compress: {
+						pure_funcs: ["console.log"]
+					}
 				},
 				extractComments: false,
 				// }

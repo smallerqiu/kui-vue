@@ -107,7 +107,7 @@ export default {
     },
     testProp(path) {
       let keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')
-      let model = this.model
+      let model = this.model || {}
       for (let i = 0; i < keys.length; i++) {
         let key = keys[i]
         if (key in model) {
