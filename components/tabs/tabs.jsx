@@ -147,7 +147,6 @@ export default {
     updateInkBarPosition() {
       if (!this.card && !this.sample && this.animated) {
         const nav = this.$refs.nav.children[this.currentIndex]
-        console.log(nav.getBoundingClientRect())
         if (nav) {
           const inkbar = this.$refs.inkbar
           inkbar.style.width = `${nav.offsetWidth}px`

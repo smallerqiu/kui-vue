@@ -16,7 +16,7 @@
       <MenuItem key="/components/all">组件</MenuItem>
     </Menu>
     <Select size="small" :width="100" style="margin:0 10px" v-model="v" :transfer="false" @change="changeV">
-      <Option value="3">3.1.5</Option>
+      <Option value="3">{{version}}</Option>
       <Option value="2">2.x</Option>
     </Select>
     <Dropdown trigger="click" placement="bottom-right" @click="go">

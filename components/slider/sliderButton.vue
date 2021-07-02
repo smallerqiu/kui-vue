@@ -40,7 +40,7 @@ export default {
             if (this.disabled) {
                 return
             }
-            console.log(this.slider)
+            // console.log(this.slider)
             // console.log(e)
             this.start.x = e.clientX
             this.start.y = e.clientY
@@ -63,7 +63,7 @@ export default {
                     return;
                 }
                 if (moveX >= this.slider.step) {
-                    console.log(moveX / width)
+                    // console.log(moveX / width)
                     this.left += moveX / width
                 }
 
