@@ -1,11 +1,13 @@
 ## Tree API
 
-| 属性      | 说明                                       | 类型    | 默认值 |
-|-----------|--------------------------------------------|---------|--------|
-| data      | 可嵌套的节点属性的数组，生成 `tree` 的数据 | Array   | []     |
-| checkable | 是否显示多选框                             | Boolean | false  |
-| show-line | 是否展示连接线                             | Boolean | false  |
-| show-icon | 是否展示图标                               | Boolean | true   |
+| 属性       | 说明                                       | 类型    | 默认值 |
+|------------|--------------------------------------------|---------|--------|
+| data       | 可嵌套的节点属性的数组，生成 `tree` 的数据 | Array   | []     |
+| checkable  | 是否显示多选框                             | Boolean | false  |
+| draggable  | 是否可以拖拽                               | Boolean | false  |
+| show-line  | 是否展示连接线                             | Boolean | false  |
+| show-icon  | 是否展示图标                               | Boolean | true   |
+| show-extra | 是否默认展示扩展元素                       | Boolean | false   |
 
 ## TreeNode API
 

@@ -1,5 +1,77 @@
 # 更新日志
-![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
+![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
+
+### 3.2.0
+`2021-07-2` 
+
+`Modal`   
+ - 属性命名规范化
+ - is-max => maximized
+ - is-center => centered
+ - can-move => draggable
+
+ `Tree`   
+ - 新增 `TreeNode` 组件，移除 `rende-content` 函数
+ - 新增 `show-line` 属性，控制直线显示
+ - 新增 `show-icon` 属性，控制图标显示
+ - 新增 `draggable` 属性，是否可以拖拽
+ - 新增 `directory` 属性，是否以目录形式展示
+ - 新增 `show-extra` 属性，默认是否展示扩展属性
+ - 新增 `selectedKeys` 属性，默认选中值
+ - 新增 `expandedKeys` 属性，默认展开值
+ - 新增 `checkedKeys` 属性，默认勾选值
+ - 新增 `dragstart`，`dragend`，`  dragenter`，`dragleave`，`drop`等函数
+ 
+
+`Select`   
+ - 修复值为0，活值为空 时无法选中的问题
+ - 优化展开卡顿的问题
+ - 新增 `bordered` 属性，控制边框显示
+ - 新增 `show-arrow` 属性，控制下拉箭头显示
+ - 多选模式可以显示清除图标和下拉箭头
+ - 完善动画细节， 完善多选tag节点问题
+ - 完善禁用状态聚焦问题
+
+`DatePicker`   
+ - 完善禁用状态聚焦问题
+ - 新增 `bordered` 属性，控制边框显示
+
+`Form`   
+ - 表单使用Grid 布局，使用`labelCol`,`wrapperCol` 代替 `label-width`
+ - 增加原生函数：`submit`,`reset` 可以使用 `Button` 形态为 `submit` 和 `reset` 来提交和重置表单
+ - 新增`size` 属性，统一控制表单内组件大小
+ - 表单验证时，子组件无需 `v-model` 绑定，只指定相对应的`prop` 即可 
+
+`Button`   
+ - 属性`buttontype` 更名为 `htmltype` 
+
+ `Checkbox`   
+ - 完善文字居中，完善默认选中的问题
+
+ `Radio`   
+ - 完善文字居中，完善默认选中的问题
+
+ `Switch`   
+ - 完善文字居中，完善默认选中的问题
+
+`Menu`   
+ - 修复在特定场景展开延迟的问题 
+
+`Tabs`   
+ - 修复子组件变化无法更新的bug   
+ - 修复在 `Modal` 组件内的一些问题  
+
+`Tooltip`   
+ - 新增多彩标签，完善下拉箭头显示问题 
+
+`Progress`
+- 新增小尺寸和自定义宽度
+
+`Input`
+- 新增 `suffix` 扩展
+
+完善一些其他细节...
+
 ### 3.1.5
 `2021-04-5`
    - `Poptip`可从内部关闭
