@@ -12,7 +12,7 @@ export default {
     draggable: Boolean,
     showLine: Boolean,
     showIcon: { type: Boolean, default: true },
-    showExtra: { type: Boolean, default: true },
+    showExtra: { type: Boolean, default: false },
     directory: Boolean,
   },
   provide() {
