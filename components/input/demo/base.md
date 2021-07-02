@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <div style="width:512px;">
     <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" />
     <Input placeholder="disabled..." disabled />
   </div>

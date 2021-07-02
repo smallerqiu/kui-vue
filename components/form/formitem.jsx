@@ -72,8 +72,9 @@ export default {
                   // return child
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''
+                  const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size
                   const props = {
-                    props: { id, size: this.Form.size },
+                    props: { id, size },
                     on: {}
                   }
                   if (prop) {

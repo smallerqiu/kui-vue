@@ -5,4 +5,3 @@
 | size       | 按钮尺寸,可选值 `small`、`large`，默认不选 | String           | -      |
 | icon       | 输入框图标                                 | String           | -      |
 | search     | 搜索事件的回调                             | Function         | right  |
-| icon-click | `icon` 的点击事件                          | Function         | -      |

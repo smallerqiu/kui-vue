@@ -18,6 +18,7 @@ export default {
       default: 'text'
     },
     icon: String,
+    suffix: String,
     iconAlign: String,
   },
   provide() {

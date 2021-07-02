@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <div style="width:512px;">
     <TextArea :rows="4" placeholder="请输入内容..." />
     <TextArea :rows="2" placeholder="请输入内容..." />
     <TextArea :rows="2" placeholder="disabled..." disabled />

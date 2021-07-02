@@ -1,116 +1,56 @@
 <template>
-  <div >
-    <Checkbox v-model="directory" label="Directory"/> 
-    <Checkbox v-model="showLine" label="showLine"/> 
-    <Checkbox v-model="draggable" label="Draggable"/> 
-    <Checkbox v-model="checkable" label="Checkable"/> 
-    <Checkbox v-model="showIcon" label="ShowIcon"/> 
-    <Checkbox v-model="showExtra" label="ShowExtra"/> 
-    <br/>
-    <br/>
-    <Tree :data="data" 
-    style="width:512px"
-    @expand="expand" 
-    :directory="directory"
-    :draggable="draggable"
-    :checkable="checkable"
-    :show-line="showLine"
-    :show-icon="showIcon"
-    :show-extra="showExtra"
-    :selectedKeys="selectedKeys"
-    :expandedKeys="expandedKeys" >
-    <template v-slot:extra="{ node , parent}">
-        <Icon type="add-outline" @click="e=>append(e,node)"/>
-        <Icon type="trash-outline" @click="e=>remove(e,node,parent)" v-if="node.key!='0-0'"/>
-        <Icon type="pencil-outline" @click="e=>edit(e,node)"/>
-        <!-- <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" /> -->
-        <!-- <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'"/> -->
-      </template>
-    </Tree>
+  <div style="width:512px">
+    <Form name="withmodal" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
+      <FormItem label="商品名称" prop="name">
+        <Input />
+      </FormItem>
+      <FormItem label="商品价格" prop="price">
+        <RadioGroup>
+          <Radio :value="0" label="免费" />
+          <Radio :value="1" label="收费" />
+        </RadioGroup>
+      </FormItem>
+      <FormItem label="商品价格" prop="price">
+         <Input suffix="元" style="width:120px;"/>
+      </FormItem>
+      <FormItem :wrapperCol="{offset: 6}">
+        <Button type="primary" htmlType="submit">Submit</Button>
+        <Button @click="visible=true" style="margin-left:10px">Reset</Button>
+      </FormItem>
+    </Form>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      show:false,
-      directory:true,
-      showLine:true,
-      showIcon:true,
-      draggable:true,
-      checkable:true,
-      showExtra:true,
-      expandedKeys: ['0-0', '1-0', '1-1', '1-2'],
-      selectedKeys: ['0-0'],
-      data: [
-        {
-          title: 'src',
-          key: '0-0',
-          icon: 'folder-open-outline',
-          children: [
-            {
-              title: 'assets',
-              key: '1-0',
-              icon: 'folder-open-outline',
-              children: [
-                { title: 'main.js', icon: 'logo-javascript', disabled: true },
-                { title: 'test.py', icon: 'logo-python' }
-              ]
-            },
-            {
-              title: 'pages',
-              key: '1-1',
-              icon: 'folder-open-outline',
-              children: [
-                { title: 'index.html', icon: 'logo-html5' },
-                { title: 'index.md', icon: 'logo-markdown' }
-              ]
-            },
-            {
-              title: 'app',
-              key: '1-2',
-              icon: 'folder-open-outline',
-              children: [
-                { title: 'zen.apk', icon: 'logo-windows' },
-                { title: 'zen.ipa', icon: 'logo-apple' }
-              ]
-            }
-          ]
-        }
-      ],
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+      rules: {
+        name: [
+          { required: true, message: '请输入组织名称' }
+        ]
+      },
+      form: {
+        name: '',
+        price: ''
+      },
     }
+
   },
   methods: {
-    edit(e,node){
-      e.stopPropagation()
-      let pop = prompt('修改节点名称',node.title)
-      if(pop!=null && pop.trim()!=''){
-        node.title = pop
+    onSubmit({ valid, model }) {
+      if (valid) {
+
       }
     },
-    append(e,node) {
-      e.stopPropagation()
-      const newChild = { title: 'Append Node', children: [] };
-      if (!node.children) {
-        node.children = []
-      }
-      //展开节点
-      if (this.expandedKeys.indexOf(node.key) < 0) {
-        this.expandedKeys.push(node.key)
-      }
-      //添加子节点
-      node.children.push(newChild);
+    onOk() {
+      this.$refs.form.submit()
     },
-    remove(e,node, parent) {
-      if (parent) {
-        const index = parent.findIndex(item => item == node);
-        parent.splice(index, 1);
-      }
+    onCancel() {
+      this.$refs.form.reset()
     },
-    expand({ expanded, node ,expandedKeys}) {
-      node.icon = expanded ? 'folder-open-outline' : 'folder-outline'
-      console.log(node)
-    }
+
   }
 }
 </script>
