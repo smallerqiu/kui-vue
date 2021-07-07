@@ -6,45 +6,47 @@
 ```vue
 <template>
   <Table :data="data" :columns="columns" bordered>
-    <a slot="name" slot-scope="text">{{text}}</a>
-
-    <template slot="price" slot-scope="text"><span :class="{'test-table-price':text>20000}">￥{{text}}/㎡</span></template>
-
-    <template slot="header">
-     Header
+    <template v-slot:fullname="value">
+      <a>{{value}}</a>
     </template>
-    <template slot="footer">
-     Footer
+    <template v-slot:price="value">
+      <span :class="{'test-table-price':value>20000}">￥{{value}}/㎡</span>
+    </template>
+    <template v-slot:header>
+      Header
+    </template>
+    <template v-slot:footer>
+      Footer
     </template>
   </Table>
 </template>
 <script>
-export default{
-  data(){
-    return{
-      data:[
-        { key:'0', name:'Li Lei' ,price:18990 , address:'Wu Han Guanggu No. 328' },
-        { key:'1', name:'Liu Hao' ,price:23900 , address:'Wu Han Hongshan No. 128' },
-        { key:'2', name:'Hu Cong' ,price:12000 , address:'Wu Han Nanhu No. 198' },
-        { key:'3', name:'Chuchur' ,price:28000 , address:'Wu Han Nanhu No. 188' },
+export default {
+  data() {
+    return {
+      data: [
+        { key: '0', fullname: 'Li Lei', price: 18990, address: 'Wu Han Guanggu No. 328' },
+        { key: '1', fullname: 'Liu Hao', price: 23900, address: 'Wu Han Hongshan No. 128' },
+        { key: '2', fullname: 'Hu Cong', price: 12000, address: 'Wu Han Nanhu No. 198' },
+        { key: '3', fullname: 'Chuchur', price: 28000, address: 'Wu Han Nanhu No. 188' },
       ],
-      columns:[
-        {title:'Name', key:'name' },
-        {title:'House price', key:'price',className:'test-table-cell' },
-        {title:'Address', key:'address' },
+      columns: [
+        { title: 'Name', key: 'fullname' },
+        { title: 'House price', key: 'price', className: 'test-table-cell' },
+        { title: 'Address', key: 'address' },
       ]
     }
   }
 }
 </script>
 <style scoped>
-  .test-table-cell{
-    text-align:right;
-  }
-  .test-table-price{
-    color:red;
-    background:yellow;
-    font-weight:bold;
-  }
-</sytle>
+.test-table-cell {
+  text-align: right;
+}
+.test-table-price {
+  color: red;
+  background: yellow;
+  font-weight: bold;
+}
+</style>
 ```

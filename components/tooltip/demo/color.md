@@ -9,13 +9,13 @@
     <Divider orientation="left">Presets:</Divider>
     <div>
       <Tooltip :color="color" :title="color" v-for="color in colors" :key="color">
-        <Button size="small">{{color}}</Button>
+        <Tag :color="color">{{color}}</Tag>
       </Tooltip>
     </div>
     <Divider orientation="left">Custom:</Divider>
     <div>
       <Tooltip :color="color" :title="color" v-for="color in custom" :key="color">
-        <Button size="small">{{color}}</Button>
+        <Tag :color="color">{{color}}</Tag>
       </Tooltip>
     </div>
   </div>

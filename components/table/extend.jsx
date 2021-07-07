@@ -77,8 +77,8 @@ export default {
     },
     renderSort(col) {
       return (col.sorter) ? (<span class="k-table-sorter">
-        <Icon type="arrow-dropup" class={{ actived: col._order == 'asc' }} />
-        <Icon type="arrow-dropdown" class={{ actived: col._order == 'desc' }} />
+        <Icon type="caret-up-outline" class={{ actived: col._order == 'asc' }} />
+        <Icon type="caret-down-outline" class={{ actived: col._order == 'desc' }} />
       </span>) : null
     },
     renderTH(col) {
@@ -107,12 +107,13 @@ export default {
       //   console.log(this.checkAll, this.indeterminate)
       // }
 
-      let inner = hasCheckbox ? <Checkbox indeterminate={this.indeterminate} checked={this.checkAll} onChange={this.onSelectAll} /> : (col.$title || col.title)
-
+      let inner = hasCheckbox && col.checkType !== 'radio' ?
+        <Checkbox indeterminate={this.indeterminate} checked={this.checkAll} onChange={this.onSelectAll} /> :
+        (col.$title || col.title)
       return (
         <th {...props}>
           <span class="k-table-header-col">
-            <span class="k-table-header-title">{inner}</span>
+            {inner ? <span class="k-table-header-title">{inner}</span> : null}
             {hasSort ? this.renderSort(col) : null}
           </span>
         </th>

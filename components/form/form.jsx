@@ -3,7 +3,12 @@ import { getChild } from '../_tool/utils'
 export default {
   name: "Form",
   props: {
-    labelAlign: { type: String, default: 'right' },
+    layout: {
+      default: 'horizontal',
+      validator(value) {
+        return ["horizontal", "vertical", "inline"].indexOf(value) >= 0;
+      }
+    },
     model: { type: Object },
     name: String,
     labelCol: Object,
@@ -32,10 +37,10 @@ export default {
     }
   },
   render() {
-    let { labelAlign, size, labelCol = {}, wrapperCol = {}, name } = this
+    let { layout, size, labelCol = {}, wrapperCol = {}, name } = this
     const classes = ["k-form",
       {
-        [`k-form-label-${labelAlign}`]: labelAlign,
+        [`k-form-${layout}`]: layout,
         'k-form-lg': size == 'large',
         'k-form-sm': size == 'small',
       }

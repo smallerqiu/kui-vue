@@ -19,8 +19,11 @@
     border-spacing: 0;
     background: #fff;
     thead {
-      background: @light;
-      border-bottom: 1px solid fade(@border-color, 50%);
+      background: fade(@border-color, 10%);
+      border-bottom: 1px solid fade(@border-color, 30%);
+      .k-icon {
+        vertical-align: middle;
+      }
     }
     tr>th {
       font-weight: 500;
@@ -47,8 +50,16 @@
     .k-table-cell-sorter {
       cursor: pointer;
       user-select: none;
+      .k-table-header-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .k-table-header-title {
+          flex: 1;
+        }
+      }
       &:hover {
-        background: fade(@border-color, 50%);
+        background: fade(@border-color, 30%);
       }
       .k-table-sorter {
         display: inline-block;
@@ -57,7 +68,9 @@
       }
       .k-icon {
         display: block;
-        font-size: 16px;
+        font-size: 10px;
+        line-height: 1;
+        color: #ccc;
         &:first-child {
           margin-bottom: -.6em;
         }
@@ -67,9 +80,9 @@
       }
     }
     tbody>tr {
-      border-bottom: 1px solid fade(@border-color, 50%);
+      border-bottom: 1px solid fade(@border-color, 30%);
       &:nth-child(even) {
-        // background: @light;
+        // background: fade(@border-color, 30%);
       }
       &:nth-child(odd) {
         // background: #fff;
@@ -83,7 +96,7 @@
     }
     .k-table-expand-row {
       &:hover {
-        background: @light;
+        background: fade(@border-color, 10%);
       }
     }
     td table {
@@ -97,12 +110,12 @@
   }
   &-header {
     padding: 10px;
-    border-top: 1px solid fade(@border-color, 50%);
+    border-top: 1px solid fade(@border-color, 30%);
   }
   &-footer {
     padding: 10px;
-    border-bottom: 1px solid fade(@border-color, 50%);
-    background-color: @light;
+    border-bottom: 1px solid fade(@border-color, 30%);
+    background-color: fade(@border-color, 10%);
   }
   th>a, td>a {
     color: #3a95ff;
@@ -120,17 +133,17 @@
     word-break: break-all;
     .k-table-fixed-main-thead {
       &::-webkit-scrollbar {
-        // border-left: 1px solid  @light;
+        // border-left: 1px solid fade(@border-color, 30%);
       }
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
       overflow: scroll;
       margin-bottom: -20px;
-      background-color: @light;
+      background-color: fade(@border-color, 30%);
       &::-webkit-scrollbar {
-        background-color: @light;
-        // border-top: 1px solid fade(@border-color, 50%);
-        border-bottom: 1px solid fade(@border-color, 50%);
+        background-color: fade(@border-color, 30%);
+        // border-top: 1px solid fade(@border-color, 30%);
+        border-bottom: 1px solid fade(@border-color, 30%);
       }
     }
     .k-table-fixed-left-thead {
@@ -201,19 +214,19 @@
       display: table;
     }
     table tbody tr {
-      // background-color: @light;
+      // background-color: fade(@border-color, 30%);
     }
   }
   &-bordered {
-    border: 1px solid fade(@border-color, 50%);
+    border: 1px solid fade(@border-color, 30%);
     .k-table-footer {
-      border-top: 1px solid fade(@border-color, 50%);
+      border-top: 1px solid fade(@border-color, 30%);
       border-bottom: none;
     }
     thead {
       th {
-        border-bottom: 1px solid fade(@border-color, 50%);
-        border-right: 1px solid fade(@border-color, 50%);
+        border-bottom: 1px solid fade(@border-color, 30%);
+        border-right: 1px solid fade(@border-color, 30%);
       }
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
@@ -222,10 +235,10 @@
       }
     }
     // .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
-    //   border-bottom: 1px solid fade(@border-color, 50%);
+    //   border-bottom: 1px solid fade(@border-color, 30%);
     // }
     .k-table-header {
-      border-bottom: 1px solid fade(@border-color, 50%);
+      border-bottom: 1px solid fade(@border-color, 30%);
       border-top: none;
     }
     // .k-table-body tr:first-child td {
@@ -233,7 +246,7 @@
     // }
     // // border-bottom: none;
     th, td {
-      border: 1px solid fade(@border-color, 50%);
+      border: 1px solid fade(@border-color, 30%);
     }
     tr {
       &:first-child td {
@@ -256,7 +269,7 @@
       border-top: none;
     }
     .k-table-fixed-right {
-      border-left: 1px solid fade(@border-color, 50%);
+      border-left: 1px solid fade(@border-color, 30%);
     }
     & .k-table {
       margin: -11px -10px -11px -11px;

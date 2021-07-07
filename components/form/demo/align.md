@@ -5,13 +5,13 @@
 
 ```vue
 <template>
-  <div style="width:512px;">
-    <Form :label-align="align" :labelCol="{span:5}" :wrapperCol="{span:16}">
-      <FormItem label="Align">
-        <RadioGroup v-model="align">
-          <RadioButton value="left" label="Left" />
-          <RadioButton value="top" label="Top" />
-          <RadioButton value="right" label="Right" />
+  <div>
+    <Form :layout="layout" :labelCol="{span:5}" :wrapperCol="{span:6}">
+      <FormItem label="Layout">
+        <RadioGroup v-model="layout">
+          <RadioButton value="horizontal" label="horizontal" />
+          <RadioButton value="vertical" label="vertical" />
+          <RadioButton value="inline" label="inline" />
         </RadioGroup>
       </FormItem>
       <FormItem label="Input">
@@ -27,6 +27,9 @@
       <FormItem label="DatePicker">
         <DatePicker />
       </FormItem>
+      <FormItem :wrapperCol="{offset:5}">
+        <Button type="primary">Submit</Button>
+      </FormItem>
     </Form>
   </div>
 </template>
@@ -34,7 +37,7 @@
 export default{
   data(){
     return {
-     align:'left'
+     layout:'horizontal'
     }
   }
 }

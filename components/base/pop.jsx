@@ -26,6 +26,7 @@ export default {
     },
     okText: { type: String, default: "确定" },
     cancelText: { type: String, default: "取消" },
+    updateKey: [String, Object, Array]
   },
   data() {
     return {
@@ -96,7 +97,7 @@ export default {
 
     },
     renderPopup() {
-      let { placement, trigger, title, preCls, $slots, transfer, color } = this, childNode;
+      let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;
 
       title = title || getChild($slots.title)
       if (this.showPlacementArrow) {
@@ -129,6 +130,7 @@ export default {
           width: this.width,
           selection: this.selection,
           placement,
+          updateKey,
           color,
           trigger,
           transitionName: `k-${preCls}`

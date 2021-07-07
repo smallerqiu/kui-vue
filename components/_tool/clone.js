@@ -3,8 +3,8 @@ const DATA_KEYS = [
   'class', 'staticClass', 'style', 'staticStyle',
   'attrs', 'props', 'domProps',
   'on', 'nativeOn',
-  'directives', 'scopesSlots',
-  'slot', 'ref', 'key'
+  'directives', 'scopedSlots',
+  'slot', 'ref', 'key', 'refInFor'
 ]
 
 // let cid = 0

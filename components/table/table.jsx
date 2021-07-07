@@ -2,6 +2,7 @@ import Empty from '../empty'
 import Icon from '../icon'
 import Spin from '../spin'
 import { Checkbox } from '../checkbox'
+import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
 
@@ -75,12 +76,15 @@ export default {
       _columns = sortColumnsOnline(columns)
     }
 
-    let checkAll = data.filter(x => x._checked).length == data.length;
+    let checkAll = data.filter(x => x._checked).length == data.length && data.length > 0;
 
     let indeterminate = data.filter(x => x._checked).length > 0 && !checkAll;
     //Set Data 
     data.forEach((d, i) => {
       let tr = [], trL = [], trR = [];
+      // d._checked = d._checked || false
+      // d._disabled = d._disabled || false
+
 
       _columns.forEach((c, j) => {
         // $scopedSlots[c.key]({ text: d[c.key] })
@@ -97,7 +101,6 @@ export default {
               title: c.ellipsis ? d[c.key] : null
             },
           }
-
           if (c.render) {
             let scope = c.render(h, d, i, c.key)
 
@@ -118,10 +121,10 @@ export default {
                 checked: d._checked,
               },
               on: {
-                change: e => this.onSelect(d, e)
+                change: e => this.onSelect(d, e, c.checkType)
               }
             }
-            $scope = <Checkbox {...props} />
+            $scope = c.checkType == 'radio' ? <Radio {...props} /> : <Checkbox {...props} />
           }
 
           if (c.ellipsis) {
@@ -321,15 +324,23 @@ export default {
     onExpand(item) {
       this.$set(item, '_expanded', !item._expanded)
     },
-    onSelect(item, e) {
+    onSelect(item, e, type) {
       let checked = e.target.checked
-      // console.log(item._checked)
-      this.$set(item, '_checked', checked)
-      let checkedItem = this.data.filter(x => x._checked == true)
-
+      let checkedItem, keys;
+      console.log(item)
+      if (type == 'radio') {
+        this.data.forEach(obj => {
+          this.$set(obj, '_checked', obj.key == item.key)
+        })
+        checkedItem = item
+        keys = item.key
+      } else {
+        this.$set(item, '_checked', checked)
+        checkedItem = this.data.filter(x => x._checked == true)
+        keys = checkedItem.map(x => x.key).join()
+      }
 
       this.$emit('on-select', item, checked, checkedItem)
-      let keys = checkedItem.map(x => x.key).join()
       this.$emit('on-change', keys, checkedItem, e)
       // console.log(checkCount, this.indeterminate, this.checkAll, this.data.length)
     },

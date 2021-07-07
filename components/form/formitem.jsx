@@ -48,18 +48,25 @@ export default {
         "k-form-item-error": !valid
       }
     ]
-    const labelProp = { props: { ...labelCol } }
-    const wrapperProp = { props: { ...wrapperCol } }
+    let labelProp, wrapperProp;
+    if (Form.layout == 'vertical') {
+      delete wrapperCol.offset
+    }
+    if (Form.layout != 'inline') {
+      labelProp = { props: { ...labelCol } }
+      wrapperProp = { props: { ...wrapperCol } }
+    }
+
     const childs = getChild(this.$slots.default)
     let id = null
     if (Form.name && prop) {
-      id = `${Form.name}_${prop}`
+      id = `${Form.name || `form_` + this._uid}_${prop}`
     }
     return (
       <Row class={classes} type="flex">
         {
           label ? <Col class="k-form-item-label"  {...labelProp}>
-            {label ? <label for={id}>{label}</label> : null}
+            <label for={id}>{label}</label>
           </Col>
             : null
         }
@@ -68,8 +75,6 @@ export default {
             {
               childs.map(child => {
                 if (isVnode(child)) {
-                  // console.log(child)
-                  // return child
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''
                   const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size
@@ -107,10 +112,11 @@ export default {
                       this.testValue()
                     }
                   }
-                  if (['FormItem', 'k-form-item'].indexOf(tag) > -1)
+                  if (['FormItem', 'k-form-item'].indexOf(tag) > -1) {
                     props.on.collect = (e) => {
                       this.$emit('collect', e)
                     }
+                  }
                   return cloneVNode(child, props)
                 } else {
                   return child
