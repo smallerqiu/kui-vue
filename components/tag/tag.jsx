@@ -11,9 +11,6 @@ export default {
     }
   },
   methods: {
-    handle(e) {
-      this.$emit('click', e)
-    },
     close(e) {
       this.$emit('close', e)
       this.visible = false
@@ -23,7 +20,7 @@ export default {
     const { visible, styles, handle, color, $slots, close, classes, closeable } = this
     const props = {
       on: {
-        click: handle
+        ...this.$listeners
       },
       class: ['k-tag', {
         [`k-tag-${color}`]: color && !/^#/.test(color),

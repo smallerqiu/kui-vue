@@ -1,56 +1,88 @@
 <template>
-  <div style="width:512px">
-    <Form name="withmodal" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
-      <FormItem label="商品名称" prop="name">
-        <Input />
-      </FormItem>
-      <FormItem label="商品价格" prop="price">
-        <RadioGroup>
-          <Radio :value="0" label="免费" />
-          <Radio :value="1" label="收费" />
+  <div>
+    <Form :labelCol="{span:5}" :wrapperCol="{span:16}" layout="inline">
+      <FormItem label="Size">
+        <RadioGroup v-model="size" size="small">
+          <RadioButton value="large" label="Large" />
+          <RadioButton value="default" label="Default" />
+          <RadioButton value="small" label="Small" />
         </RadioGroup>
       </FormItem>
-      <FormItem label="商品价格" prop="price">
-         <Input suffix="元" style="width:120px;"/>
+      <FormItem label="Bordered">
+        <k-switch v-model="bordered" />
       </FormItem>
-      <FormItem :wrapperCol="{offset: 6}">
-        <Button type="primary" htmlType="submit">Submit</Button>
-        <Button @click="visible=true" style="margin-left:10px">Reset</Button>
+      <FormItem label="Loading">
+        <k-switch v-model="loading" />
+      </FormItem>
+      <FormItem label="Checkbox">
+        <k-switch v-model="checkbox" @change="setCheckbox" />
+      </FormItem>
+      <FormItem label="CheckType">
+        <RadioGroup v-model="checkType" size="small" @change="setCheckType">
+          <RadioButton value="checkbox" label="checkbox" />
+          <RadioButton value="radio" label="radio" />
+        </RadioGroup>
+      </FormItem>
+      <FormItem label="Empty">
+        <k-switch v-model="empty" @change="setEmpty" />
       </FormItem>
     </Form>
+
+    <Table :data="data" :columns="columns" :loading="loading" :size="size" :bordered="bordered">
+      <template v-slot:tags="values">
+        <Tag v-for="tag in values" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+      </template>
+      <Icon :type="text==1?'male':'female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15" />
+      <template v-slot:action>
+        <a href="javascript:;">Edit</a>
+        <a href="javascript:;">Delete</a>
+      </template>
+    </Table>
   </div>
 </template>
 <script>
+const data = [
+  { key: '0', name: 'Li Lei', gender: 0, age: 32, address: 'Wu Han Guanggu No. 328', tags: ['Python', 'Java'] },
+  { key: '1', name: 'Liu Hao', gender: 1, age: 28, address: 'Wu Han Hongshan No. 128', tags: ['Python', 'Java'] },
+  { key: '2', name: 'Hu Cong', gender: 0, age: 28, address: 'Wu Han Nanhu No. 198', tags: ['JS', 'CSS'] },
+  { key: '3', name: 'Chuchur', gender: 1, age: 28, address: 'Wu Han Nanhu No. 188', tags: ['Go', 'Python'] },
+]
 export default {
   data() {
     return {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 16 },
-      rules: {
-        name: [
-          { required: true, message: '请输入组织名称' }
-        ]
-      },
-      form: {
-        name: '',
-        price: ''
-      },
+      size: "default",
+      checkbox: true,
+      bordered: true,
+      showHeader: true,
+      showFooter: true,
+      loading: false,
+      empty: false,
+      checkType: 'checkbox',
+      data: data,
+      columns: [
+        { type: 'selection', checkType: 'checkbox' },
+        { title: 'Name', key: 'name' },
+        { title: 'Age', key: 'age', sorter: true },
+        { title: 'Gender', key: 'gender', },
+        { title: 'Address', key: 'address' },
+        { title: 'Tags', key: 'tags' },
+        { title: 'Action', key: 'action' },
+      ]
     }
-
   },
   methods: {
-    onSubmit({ valid, model }) {
-      if (valid) {
-
+    setCheckbox(checked) {
+      !checked ? this.columns.splice(0, 1) : this.columns.unshift({ type: 'selection', checkType: this.checkType })
+    },
+    setEmpty(empty) {
+      this.data = empty ? [] : data
+    },
+    setCheckType(type) {
+      if (this.checkbox) {
+        this.checkType = type
+        this.columns[0].checkType = type
       }
-    },
-    onOk() {
-      this.$refs.form.submit()
-    },
-    onCancel() {
-      this.$refs.form.reset()
-    },
-
+    }
   }
 }
 </script>

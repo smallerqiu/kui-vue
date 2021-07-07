@@ -7,12 +7,12 @@
 <template>
   <Table :data="data" :columns="columns">
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
-   <template slot="header-age" slot-scope="text">
-      {{text}} <Tooltip title="How old are you?">
+   <template v-slot:header-age="value">
+      {{value}} <Tooltip title="How old are you?">
           <Icon type="alert-circle-outline" size="20" color="#3e97ff" />
         </Tooltip>
    </template> 
-    <template slot="action" slot-scope="text,record,index">
+    <template v-slot:action="value,record,col">
       <Button size="small" @click="e=>show(record)">more</Button>
     </template>
   </Table>
@@ -59,7 +59,7 @@ export default{
               },
               on:{
                 search:e=>{
-                  this.$Message.info(e||'')
+                  this.$Message.info(e||'click')
                 }
               }
 

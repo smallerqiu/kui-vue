@@ -5,7 +5,7 @@ export default {
     value: { type: [String, Number, Boolean], default: false },
     disabled: Boolean,
     checked: [Boolean, Number],
-    label: [String, Number]
+    label: [String, Number],
   },
   inject: {
     groupContext: { default: null },

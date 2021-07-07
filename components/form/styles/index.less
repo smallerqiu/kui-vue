@@ -24,7 +24,6 @@
   }
   .k-form-item-label {
     text-align: right;
-    vertical-align: middle;
     box-sizing: border-box;
     font-size: 14px;
     display: flex;
@@ -33,6 +32,7 @@
     white-space: nowrap;
     overflow: hidden;
     transition: all .3s ease-in-out;
+    justify-content: flex-end;
     &::after {
       content: ':';
       padding: 0 8px 0 5px;
@@ -113,29 +113,31 @@
   }
 }
 
-.k-form-label-left {
-  .k-form-item-label {
-    // text-align: left
-  }
-}
-
-.k-form-label-top {
+.k-form-vertical {
   .k-form-item {
     flex-direction: column;
   }
   .k-form-item-label {
     height: auto;
+    justify-content: start;
     margin-bottom: 8px;
     &::after {
       display: none;
     }
-    // float: none;
-    // display: inline-block;
-    // padding: 0 0 10px;
-    // text-align: left;
   }
-  .k-form-item-content {
-    // margin-left: 0;
+}
+
+.k-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  .k-form-item {
+    flex: none;
+    flex-wrap: nowrap;
+    margin-right: 16px;
+    margin-bottom: 18px;
+    .k-form-item {
+      margin-left: 0;
+    }
   }
 }
 

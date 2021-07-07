@@ -15,10 +15,16 @@ export default {
     placement: String,
     trigger: { type: String, default: "click" },
     transitionName: { type: String, default: 'dropdown' },
-    selection: Element
+    selection: Element,
+    updateKey: [String, Object, Array]
   },
 
   watch: {
+    updateKey() {
+      this.$nextTick(e => {
+        this.setPosition()
+      })
+    },
     rendered(value) {
       this.$emit('render')
     },

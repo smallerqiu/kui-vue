@@ -89,7 +89,7 @@ module.exports = merge(webpackBaseConfig, {
   },
   plugins: [
     new WebpackBar({
-      name: '🚙  K UI a vue components',
+      name: '🚗  K UI a vue components',
       color: 'green',
     }),
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),

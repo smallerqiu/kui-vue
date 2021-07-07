@@ -17,10 +17,10 @@ export default {
     },
   },
   render() {
-    let props = {
-      props: { preCls: 'tooltip', ...this.$props },
-    }
     const title = this.$slots.title || this.title
+    let props = {
+      props: { preCls: 'tooltip', ...this.$props, updateKey: title },
+    }
     return (title ?
       <BasePop {...props}>
         {this.$slots.default}
