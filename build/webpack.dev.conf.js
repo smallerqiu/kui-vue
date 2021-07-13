@@ -31,33 +31,6 @@ module.exports = merge(webpackBaseConfig, {
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
   },
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: false } },
-          { loader: 'less-loader', options: { sourceMap: false } }
-        ],
-      },
-    //   {
-    //     test: /\.vue$/,
-    //     use: [{
-    //       loader: 'vue-loader',
-    //       options: {
-    //         loaders: {
-    //           css: 'vue-style-loader!css-loader',
-    //           less: 'vue-style-loader!css-loader!less-loader'
-    //         },
-    //         // postcss: postcss
-    //       }
-    //     },
-    //     { loader: 'kui-loader', options: { prefix: false } }
-    //     ]
-    //   }
-    ]
-  },
   performance: {
     hints: false,
   },

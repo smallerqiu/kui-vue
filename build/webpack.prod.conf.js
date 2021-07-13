@@ -29,25 +29,6 @@ module.exports = merge(webpackBaseConfig, {
 	performance: {
 		hints: false
 	},
-	module: {
-		rules: [
-			{
-				test: /\.less$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'], // : , 
-			},
-			// {
-			// 	test: /\.vue$/,
-			// 	use: [{
-			// 		loader: 'vue-loader',
-			// 		options: {
-			// 			loaders: { css: 'vue-style-loader!css-loader', less: 'vue-style-loader!css-loader!less-loader' },
-			// 			// postLoaders: { html: 'babel-loader' }
-			// 		}
-			// 	},
-			// 	]
-			// },
-		]
-	},
 	externals: {
 		"vue": "Vue",
 		'vue-router': 'VueRouter',
@@ -94,5 +75,4 @@ module.exports = merge(webpackBaseConfig, {
 		new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
 		new CleanWebpackPlugin()
 	],
-
 })

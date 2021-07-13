@@ -31,19 +31,6 @@ module.exports = merge(webpackBaseConfig, {
   performance: {
     hints: false
   },
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        // use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: "css-loader" }, { loader: "less-loader" },], }),
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          'css-loader', 'less-loader'],
-      },
-    ]
-  },
   optimization: {
     splitChunks: {
       cacheGroups: {
