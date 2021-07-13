@@ -5,10 +5,18 @@
 
 ```vue
 <template>
-  <div class="demo-collapse">
-    <ColorPicker showMode v-model="color1" size="large"/>
-    <ColorPicker showMode v-model="color2" mode="rgba"/>
-    <ColorPicker showMode v-model="color3"  mode="hsla" size="small" />
+  <div class="demo-color-picker">
+     <Form>
+      <Form.Item label="large">
+        <ColorPicker showMode v-model="color1" size="large"/>
+      </Form.Item>
+      <Form.Item label="Default">
+        <ColorPicker showMode v-model="color2" mode="rgba"/>
+      </Form.Item>
+      <Form.Item label="small">
+        <ColorPicker showMode v-model="color3"  mode="hsla" size="small" />
+      </Form.Item>
+    </Form>
   </div>
 </template>
 <script>

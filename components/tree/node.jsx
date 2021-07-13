@@ -9,6 +9,10 @@ export default {
   name: 'TreeNode',
   props: {
     data: Object,
+    isLeaf: Object,
+    disabled: Boolean,
+    icon: String,
+    title: String,
   },
   provide() {
     return {
@@ -31,7 +35,7 @@ export default {
   },
   inject: {
     Tree: { default: {} },
-    VNode: { default: {} },
+    VNode: { default: null },
   },
   created() {
     let { defaultCheckedKeys = [], draggable } = this.Tree
@@ -82,15 +86,15 @@ export default {
       // let key = defaultData.key,
       let isCheckAll = checkedLength == normal.length;
 
-      let halfndex = halfCheckedKeys.indexOf(key)
+      let halfIndex = halfCheckedKeys.indexOf(key)
       let checkIndex = defaultCheckedKeys.indexOf(key)
 
       isCheckAll ? defaultCheckedKeys.push(key) : (checkIndex > -1 && defaultCheckedKeys.splice(checkIndex, 1))
       if ((halfcheckedLength > 0 || checkedLength > 0) && !isCheckAll)
-        halfndex < 0 && halfCheckedKeys.push(key)
+        halfIndex < 0 && halfCheckedKeys.push(key)
       else
-        halfndex > -1 && halfCheckedKeys.splice(halfndex, 1);
-      this.updateParentCheck(VNode)
+        halfIndex > -1 && halfCheckedKeys.splice(halfIndex, 1);
+      VNode && this.updateParentCheck(VNode)
     },
     handleCheck(e) {
       if (!this.defaultData.disabled) {
@@ -100,17 +104,17 @@ export default {
 
         let { defaultCheckedKeys, halfCheckedKeys } = this.Tree
         let index = defaultCheckedKeys.indexOf(key)
-        checked ? defaultCheckedKeys.push(key) : defaultCheckedKeys.splice(index, 1)
+        checked && index < 0 ? defaultCheckedKeys.push(key) : defaultCheckedKeys.splice(index, 1)
         this.Tree.defaultCheckedKeys = defaultCheckedKeys
 
-        let halfndex = halfCheckedKeys.indexOf(key)
+        let halfIndex = halfCheckedKeys.indexOf(key)
 
-        if (checked && halfndex > -1) {
-          halfCheckedKeys.splice(halfndex, 1)
+        if (checked && halfIndex > -1) {
+          halfCheckedKeys.splice(halfIndex, 1)
         }
 
         this.updateChildCheck(this.defaultData, checked)
-        this.updateParentCheck(this.VNode)
+        this.VNode && this.updateParentCheck(this.VNode)
         Tree.onCheck(e.target.checked, key, this.defaultData, this)
       }
     },
@@ -128,8 +132,16 @@ export default {
     },
     handleExpand(e) {
       e.stopPropagation()
-      let { Tree } = this
-      Tree.onExpand(this.$vnode.key, this.defaultData, this)
+      let { Tree, VNode } = this
+      if ((VNode && VNode.$slots.default) || this.$slots.default) {
+        let data = {
+          ...this.$props,
+          children: this.$children
+        }
+        Tree.onExpand(this.$vnode.key, data, this)
+      } else {
+        Tree.onExpand(this.$vnode.key, this.defaultData, this)
+      }
     },
     onDragStart(e) {
       this.draged = true
@@ -158,12 +170,18 @@ export default {
       e.preventDefault()
     },
     getParent() {
-      let { defaultData } = this.VNode
-      return defaultData ? defaultData.children : this.Tree.defaultData
+      return this.VNode ? this.VNode.defaultData : { children: this.Tree.defaultData }
     }
   },
   render(h) {
-    let { isLeaf, disabled, icon, title, children = [] } = this.defaultData
+    // return <div/>
+    let p = { ...this.$props }
+    delete p.data
+    let data = Object.assign(p, this.defaultData)
+    let { isLeaf, disabled, icon, title, children = [] } = data
+
+    let slotChilds = getChild(this.$slots.default)
+
     let itemNode = [], { Tree, loading, reload } = this;
     let key = this.$vnode.key
     let { defaultSelectedKeys = [], defaultExpandedKeys = [], defaultCheckedKeys = [], halfCheckedKeys = [],
@@ -173,7 +191,7 @@ export default {
       checked = defaultCheckedKeys.indexOf(key) > - 1,
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
 
-    let hasChilds = children && children.length > 0
+    let hasChilds = slotChilds.length > 0 || children.length > 0
     if ((hasChilds || 'load-data' in Tree.$listeners) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
@@ -225,24 +243,19 @@ export default {
 
     let childs = null
     if (expand && hasChilds && reload) {
-      let slotChilds = getChild(this.$slots.default)
       if (slotChilds.length) {
-        let index = slotChilds.length
+        // childs = slotChilds
         childs = slotChilds.map((vnode, i) => {
+          vnode.data.key = vnode.data.key || `${key}_${i}`
           let ele = cloneVNode(vnode)
-          let data = ele.data.props.data
-          if (data) {
-            const key = data.key || `${this.$vnode.key}_${index++}`
-            data.key = key
-            return <Node data={data} key={key} />
-          }
+          return ele;
+
         })
       } else {
-        let index = children.length
         childs = children.map((item, i) => {
-          const key = item.key || `${this.$vnode.key}_${index++}`
-          item.key = key
-          return <Node data={item} key={key} />
+          const k = item.key || `${key}_${i}`
+          item.key = k
+          return <Node data={item} key={k} />
         })
       }
     }

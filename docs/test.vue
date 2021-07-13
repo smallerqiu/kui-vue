@@ -1,87 +1,131 @@
 <template>
-  <div>
-    <Form :labelCol="{span:5}" :wrapperCol="{span:16}" layout="inline">
-      <FormItem label="Size">
-        <RadioGroup v-model="size" size="small">
-          <RadioButton value="large" label="Large" />
-          <RadioButton value="default" label="Default" />
-          <RadioButton value="small" label="Small" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Bordered">
-        <k-switch v-model="bordered" />
-      </FormItem>
-      <FormItem label="Loading">
-        <k-switch v-model="loading" />
-      </FormItem>
-      <FormItem label="Checkbox">
-        <k-switch v-model="checkbox" @change="setCheckbox" />
-      </FormItem>
-      <FormItem label="CheckType">
-        <RadioGroup v-model="checkType" size="small" @change="setCheckType">
-          <RadioButton value="checkbox" label="checkbox" />
-          <RadioButton value="radio" label="radio" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Empty">
-        <k-switch v-model="empty" @change="setEmpty" />
-      </FormItem>
-    </Form>
-
-    <Table :data="data" :columns="columns" :loading="loading" :size="size" :bordered="bordered">
-      <template v-slot:tags="values">
-        <Tag v-for="tag in values" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+  <Row :gutter="30">
+    <Col :span="8">
+    <Divider>默认</Divider>
+    <!-- 默认 -->
+    <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" show-extra>
+      <template v-slot:extra="{ node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
       </template>
-      <Icon :type="text==1?'male':'female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15" />
-      <template v-slot:action>
-        <a href="javascript:;">Edit</a>
-        <a href="javascript:;">Delete</a>
+    </Tree>
+    </Col>
+    <Col :span="8" style="border-left:1px solid #ddd;border-right:1px solid #ddd;">
+    <Divider>使用 `v-slot`</Divider>
+    <!-- 使用 v-slot -->
+    <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" show-extra>
+      <template v-slot:title="{node , parent}">
+        {{node.title +' 😄'}}
       </template>
-    </Table>
-  </div>
+      <template v-slot:extra="{ node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+      </template>
+    </Tree>
+    </Col>
+    <Col :span="8">
+    <Divider>使用 `tree-node`</Divider>
+    <!-- 可以参见 renderContent 方法 -->
+    <Tree @expand="expand" :expandedKeys="expandedKeys" show-extra>
+      <TreeNode v-for="(item,i) in data" :data="item" :key="item.key" />
+      <template v-slot:extra="{node , parent}">
+        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+      </template>
+    </Tree>
+    </Col>
+  </Row>
 </template>
+
 <script>
-const data = [
-  { key: '0', name: 'Li Lei', gender: 0, age: 32, address: 'Wu Han Guanggu No. 328', tags: ['Python', 'Java'] },
-  { key: '1', name: 'Liu Hao', gender: 1, age: 28, address: 'Wu Han Hongshan No. 128', tags: ['Python', 'Java'] },
-  { key: '2', name: 'Hu Cong', gender: 0, age: 28, address: 'Wu Han Nanhu No. 198', tags: ['JS', 'CSS'] },
-  { key: '3', name: 'Chuchur', gender: 1, age: 28, address: 'Wu Han Nanhu No. 188', tags: ['Go', 'Python'] },
-]
 export default {
   data() {
     return {
-      size: "default",
-      checkbox: true,
-      bordered: true,
-      showHeader: true,
-      showFooter: true,
-      loading: false,
-      empty: false,
-      checkType: 'checkbox',
-      data: data,
-      columns: [
-        { type: 'selection', checkType: 'checkbox' },
-        { title: 'Name', key: 'name' },
-        { title: 'Age', key: 'age', sorter: true },
-        { title: 'Gender', key: 'gender', },
-        { title: 'Address', key: 'address' },
-        { title: 'Tags', key: 'tags' },
-        { title: 'Action', key: 'action' },
-      ]
+      expandedKeys: ['0-0'],
+      data: [
+        {
+          title: 'tree 1',
+          key: '0-0',
+          children: [
+            {
+              title: 'tree 1-1',
+              children: [
+                { title: 'leaf 1-1-1' },
+                {
+                  title: 'leaf 1-1-2',
+                  children: [
+                    { title: 'leaf 1-1-2-1' },
+                    { title: 'leaf 1-1-2-2' }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'tree 1-2',
+              children: [
+                { title: 'leaf 1-2-1' },
+                { title: 'leaf 1-2-2' }
+              ]
+            },
+            {
+              title: 'tree 1-3',
+              children: [
+                { title: 'leaf 1-3-1' },
+                { title: 'leaf 1-3-2' }
+              ]
+            }
+          ]
+        },
+        {
+          title: 'tree 2-1',
+          children: [
+            { title: 'leaf 2-1-1' },
+            { title: 'leaf 2-1-2' }
+          ]
+        }
+      ],
     }
   },
   methods: {
-    setCheckbox(checked) {
-      !checked ? this.columns.splice(0, 1) : this.columns.unshift({ type: 'selection', checkType: this.checkType })
-    },
-    setEmpty(empty) {
-      this.data = empty ? [] : data
-    },
-    setCheckType(type) {
-      if (this.checkbox) {
-        this.checkType = type
-        this.columns[0].checkType = type
+    append(node) {
+      if (!node.children) {
+        node.children = []
       }
+      //展开节点
+      if (this.expandedKeys.indexOf(node.key) < 0) {
+        this.expandedKeys.push(node.key)
+      }
+      //添加子节点
+      const newChild = { title: 'Append Node', children: [] };
+      node.children.push(newChild);
+    },
+    remove(node, parent) {
+      /*  
+       
+       let childs = parent.children
+       const index = childs.findIndex(item => item == node);
+       childs.splice(index, 1); 
+       
+       */
+
+      let { data } = this
+      const loop = (data, key, callback) => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].key === key) {
+            return callback(data[i], i, data);
+          }
+          if (data[i].children) {
+            loop(data[i].children, key, callback);
+          }
+        }
+      };
+      loop(data, node.key, (item, index, arr) => {
+        arr.splice(index, 1);
+      })
+
+    },
+    expand(data) {
+      console.log(data)
     }
   }
 }

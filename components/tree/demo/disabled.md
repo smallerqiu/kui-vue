@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Tree :data="data" checkable @check="select" 
+  <Tree :data="data" checkable @check="check" 
     :checkedKeys="checkedKeys"
     :expandedKeys="expandedKeys" />
 </template>
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    select(data) {
+    check(data) {
       console.log(data)
     }
   }

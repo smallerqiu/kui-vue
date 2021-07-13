@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-collapse">
+  <div class="demo-page">
     <Page :current="10" :total="200" show-elevator/>
   </div>
 </template>

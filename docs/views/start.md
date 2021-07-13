@@ -23,7 +23,7 @@ $ vue create kui-demo
 从 yarn 或 npm 安装并引入 kui-vue。
 
 ```sh
-$ npm install kuiv-ue
+$ npm install kui-vue
 #or
 $ yarn add kui-vue
 ```

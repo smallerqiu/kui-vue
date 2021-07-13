@@ -12,6 +12,7 @@ export default {
     value: String,
     transfer: { type: Boolean, default: true },
     showMode: Boolean,
+    disabled: Boolean,
     size: {
       default: 'default',
       validator(value) {
@@ -407,6 +408,7 @@ export default {
     let style = [
       'k-color-picker',
       {
+        'k-color-picker-disabled': this.disabled,
         'k-color-picker-sm': this.size == 'small',
         'k-color-picker-lg': this.size == 'large'
       },

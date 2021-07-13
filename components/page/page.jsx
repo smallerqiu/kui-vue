@@ -67,7 +67,7 @@ export default {
       }
       let child = array.map((p, i) => {
         let prop = {
-          class: ['k-pager-item', { active: page == p }],
+          class: ['k-pager-item', { 'k-pager-item-active': page == p }],
           key: i,
           on: { click: e => this.toPage(p) }
         }
@@ -100,14 +100,16 @@ export default {
       this.$emit('change', page)
     },
     changeSize({ value }) {
-      // console.log(value)
       this.defaultPageSize = value
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-      this.$emit('page-size-change', value)
+      if (this.page > this.pageCount) {
+        this.page = this.pageCount
+      }
+      this.$emit('page-size-change', { current: this.page, pageSize: value })
     },
     renderFirst() {
       if (this.pageCount > 0) {
-        return <li class={["k-pager-item", { 'active': this.page == 1 }]} onClick={e => this.toPage(1)} >
+        return <li class={["k-pager-item", { 'k-pager-item-active': this.page == 1 }]} onClick={e => this.toPage(1)} >
           <span>1</span>
         </li>
       }
@@ -116,7 +118,7 @@ export default {
     renderLast() {
       let { pageCount } = this
       if (pageCount > 1) {
-        return <li class={['k-pager-item', { 'active': this.page == pageCount }]} onClick={e => this.toPage(pageCount)} >
+        return <li class={['k-pager-item', { 'k-pager-item-active': this.page == pageCount }]} onClick={e => this.toPage(pageCount)} >
           <span>{pageCount}</span>
         </li>
       }

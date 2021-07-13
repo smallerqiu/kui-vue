@@ -37,7 +37,6 @@
 export default {
   data() {
     return {
-      show:false,
       directory:true,
       showLine:true,
       showIcon:true,
@@ -106,10 +105,20 @@ export default {
       node.children.push(newChild);
     },
     remove(e,node, parent) {
-      if (parent) {
-        const index = parent.findIndex(item => item == node);
-        parent.splice(index, 1);
-      }
+      let { data } = this
+      const loop = (data, key, callback) => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].key === key) {
+            return callback(data[i], i, data);
+          }
+          if (data[i].children) {
+            loop(data[i].children, key, callback);
+          }
+        }
+      };
+      loop(data, node.key, (item, index, arr) => {
+        arr.splice(index, 1);
+      })
     },
     expand({ expanded, node ,expandedKeys}) {
       node.icon = expanded ? 'folder-open-outline' : 'folder-outline'

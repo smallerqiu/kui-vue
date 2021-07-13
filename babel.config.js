@@ -12,7 +12,8 @@ module.exports = {
     ]
   ],
   plugins: [
+    "lodash",
     "@babel/plugin-syntax-dynamic-import",
-    "transform-vue-jsx"
+    "transform-vue-jsx",
   ]
 }

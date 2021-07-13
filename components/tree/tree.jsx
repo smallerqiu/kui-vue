@@ -48,9 +48,9 @@ export default {
   },
   created() {
     //Init key
-    (this.defaultData || []).forEach(item => {
-      this.setKeys(item);
-    });
+    // (this.defaultData || []).forEach(item => {
+    //   // this.setKeys(item);
+    // });
     //Init half check
     this.setCheckHalf()
   },
@@ -61,14 +61,13 @@ export default {
         this.setParentHalf(this.defaultData, key)
       })
     },
-    setKeys({ children = [] }, key = 'n') {
-      let index = 1
-      for (let i = 0; i < children.length; i++) {
-        let item = children[i]
-        item.key = item.key || `${key}_${index++}`
-        this.setKeys(item, item.key)
-      }
-    },
+    // setKeys({ children = [] }, key = 'n') {
+    //   for (let i = 0; i < children.length; i++) {
+    //     let item = children[i]
+    //     item.key = item.key || `${key}_${i}`
+    //     this.setKeys(item, item.key)
+    //   }
+    // },
     setParentHalf(data = [], key) {
       for (let i = 0; i < data.length; i++) {
         let item = data[i]
@@ -121,7 +120,6 @@ export default {
         })
       } else if ('load-data' in this.$listeners && !item.isLeaf && !vnode.loading) {
         vnode.loading = true
-
         this.$emit('load-data', item, child => {
           vnode.loading = false
           item.children = child
@@ -187,30 +185,25 @@ export default {
           node.children.push(dragNode)
         }
 
-        this.dragNode = null
-        this.dragParentNode = null
-
       }
 
       this.$emit('drop', { event, node, dragNode })
+
+      this.dragNode = null
+      this.dragParentNode = null
     },
     renderChild() {
       let { defaultData, $slots } = this
       let childs = getChild($slots.default)
-      let index = 0
       if (childs.length) {
         return childs.map((vnode, i) => {
+          vnode.data.key = vnode.data.key || `n_${i}`
           let ele = cloneVNode(vnode)
-          let data = ele.data.props.data
-          if (data) {
-            const key = data.key || `n_${index++}`
-            data.key = key
-            return <TreeNode data={data} key={key} />
-          }
+          return ele;
         })
       }
       return defaultData.map((item, i) => {
-        const key = item.key || `n_${index++}`
+        const key = item.key || `n_${i}`
         item.key = key
         return <TreeNode data={item} key={key} />
       })
