@@ -2,8 +2,11 @@ const webpack = require('webpack')
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const pkg = require('../package.json');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //for webpack 4
 
 const mdRender = require('./md-loader/render')
+const devMode = process.env.NODE_ENV !== "production";
+
 
 const vueLoaderOptions = {
   loaders: {
@@ -48,6 +51,15 @@ module.exports = {
         use: ['vue-style-loader', 'css-loader'],
       },
       {
+        test: /\.less$/,
+        use: [
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          'css-loader',
+          // 'postcss-loader',
+          'less-loader'
+        ],
+      },
+      {
         test: /\.j(s|sx)$/, exclude: /node_modules/, loader: 'babel-loader',
       },
       {
@@ -79,7 +91,4 @@ Author: chuchur@qq.com / www.chuchur.com
       /^\.\/(zh-cn)$/
     ),
   ],
-
-
-
 }
