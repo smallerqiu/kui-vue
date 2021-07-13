@@ -118,7 +118,8 @@ export default {
         if (key in model) {
           model = JSON.parse(JSON.stringify(model[key]))
         } else {
-          throw new Error('请传入正确的prop值:' + path)
+          console.warn('规则验证需要传入正确的prop值:' + path)
+          // throw new Error('请传入正确的prop值:' + path)
         }
       }
       return model;
