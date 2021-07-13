@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-collapse">
+  <div class="demo-page">
     <Page :current="3" :total="200" showSizer/>
     <Page :current="4" :total="200" showSizer :page-size="20"/>
     <Page :current="4" :total="1000" showSizer :page-size="30" :size-data="sizeData"/>

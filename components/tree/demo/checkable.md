@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       checkedKeys: ['1-1', 'aa', ],
-      expandedKeys: ['1-1', '1-1', '1-1-2', '1-2', '0-1'],
+      expandedKeys: ['1-1', '1-1-2', '1-2', '0-1'],
       data: [
         {
           title: 'tree 1',

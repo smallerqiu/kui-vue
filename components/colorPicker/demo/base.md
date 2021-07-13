@@ -5,8 +5,10 @@
 
 ```vue
 <template>
-  <div class="demo-collapse">
+  <div class="demo-color-picker">
     <ColorPicker v-model="color"/>
+    <br/>
+    <ColorPicker v-model="color" disabled/>
   </div>
 </template>
 <script>

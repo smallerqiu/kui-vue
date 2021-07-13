@@ -1,6 +1,7 @@
 <script>
 import Info from './info'
 import Base from './base.md'
+import TreeNode from './treenode.md'
 import Checkable from './checkable.md'
 import CustomRender from './custom-render.md'
 import Disabled from './disabled.md'
@@ -14,6 +15,7 @@ export default {
       <div>
         <Info class="typo" />
         <Base />
+        <TreeNode />
         <Checkable />
         <CustomRender />
         <Disabled />

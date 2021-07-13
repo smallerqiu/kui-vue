@@ -11,7 +11,7 @@
 export default{
   data() {
     return {
-      expandedKeys:['0-1','1-1','1-1-2','1-2','0-1'],
+      expandedKeys:['0-1','1-1','1-1-2','1-2'],
       data: [
         {
           title: 'tree 1',
