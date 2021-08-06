@@ -32,7 +32,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.resetNavPosition)
-    this.$nextTick(()=>{
+    this.$nextTick(() => {
       this.updateIndex()
     })
   },
@@ -170,7 +170,7 @@ export default {
       return childs.map((pane, index) => {
         const key = pane.key;
         let { icon, title, closable, disabled } = pane.componentOptions.propsData
-        disabled = disabled !== undefined
+        disabled = disabled !== undefined && disabled != false
         closable = closable !== undefined
         const prop = {
           class: ['k-tabs-tab', { ['k-tabs-tab-active']: key == this.activeKey, ['k-tabs-tab-disabled']: disabled }],
