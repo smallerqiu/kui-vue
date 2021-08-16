@@ -7,6 +7,7 @@
 | placement    | 抽屉显示方向，提供 `left` , `top` , `right` , `bottom` 4种展示方式 | String        | right  |
 | footer       | 页脚内容，不显示页脚设置`footer=null`即可                          | slot          | true   |
 | closable     | 是否显示关闭按钮                                                   | Boolean       | true   |
+| target       | 展示的父元素                                                       | Function      | -   |
 | mas-closable | 点击蒙层是否允许关闭                                               | Boolean       | true   |
 | okText       | 确定按钮文字                                                       | String        | 确定   |
 | cancelText   | 取消按钮文字                                                       | String        | 取消   |
