@@ -3,6 +3,7 @@ import Info from './info'
 import Base from './base' 
 import Custom from './custom' 
 import Form from './form' 
+import Target from './target' 
 import CN from '../index.md'
 export default {
   render() {
@@ -12,6 +13,7 @@ export default {
         <Base />
         <Custom />
         <Form />
+        <Target />
         <CN class="typo" />
       </div>
     )

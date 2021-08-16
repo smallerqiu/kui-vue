@@ -19,6 +19,8 @@ export default {
     closable: { type: Boolean, default: true },
     footer: { type: Boolean, default: true },
     maskClosable: { type: Boolean, default: true },
+    target: { type: Function, default: () => document.body },
+    mask: { type: Boolean, default: true },
   },
   watch: {
     value(v) {
@@ -32,7 +34,7 @@ export default {
   data() {
     return {
       visible: this.value,
-      rendered: false
+      rendered: this.value
     };
   },
   beforeDestroy() {
@@ -104,20 +106,27 @@ export default {
       ? <span class="k-drawer-close" onClick={close}><Icon type="close" /></span>
       : null
     const transitionName = `k-drawer-${placement}`
-
+    const target = this.target()
+    const inbody = target == document.body
     const classes = ['k-drawer', `k-drawer-${placement}`,
       { 'k-drawer-open': visible },
       { 'k-drawer-has-footer': hasFooter },
+      { 'k-drawer-nobody': !inbody },
+      { 'k-drawer-nomask': !this.mask },
     ]
     let styles = {}
     if (placement == 'left' || placement == 'right') styles.width = this.width + 'px'
     if (placement == 'top' || placement == 'bottom') styles.height = this.height + 'px'
     // const wrapCls =
+    let maskNode = null
+    if (this.mask) {
+      maskNode = <transition name="k-drawer-fade">
+        <div class={["k-drawer-mask", { 'k-drawer-mask-nobody': !inbody }]} v-show={visible} onClick={this.maskToClose}></div>
+      </transition>
+    }
     return (
-      this.rendered ? <div class={classes} v-transfer={true}>
-        <transition name="k-drawer-fade">
-          <div class="k-drawer-mask" v-show={visible} onClick={this.maskToClose}></div>
-        </transition>
+      this.rendered ? <div class={classes} v-transfer={target}>
+        {maskNode}
         <transition name={transitionName}>
           <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">

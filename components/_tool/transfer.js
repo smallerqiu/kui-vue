@@ -5,28 +5,36 @@ export default {
       const parentNode = el.parentNode
       if (!parentNode) return false;
 
+      const target = value === true ? document.body : value || document.body
       // let empty = document.createComment('')
-      let box = document.createElement('div')
-      box.style.top = 0
-      box.style.left = 0
-      box.style.width = '100%'
-      box.style.position = 'absolute'
-      let height = el.offsetHeight
 
-      // parentNode.replaceChild(empty, el)
-      box.appendChild(el)
-      document.body.appendChild(box)
-      if (!el.__data) {
-        el.__data = { parentNode, box, height }
+      if (target != document.body) {
+        target.appendChild(el)
+        el.__data = { parentNode, box: el }
+      } else {
+
+        let box = document.createElement('div')
+        box.style.top = 0
+        box.style.left = 0
+        box.style.width = '100%'
+        box.style.position = 'absolute'
+
+        // parentNode.replaceChild(empty, el)
+
+        box.appendChild(el)
+        target.appendChild(box)
+        el.__data = { parentNode, box }
       }
+
     }
   },
-  unbind(el, { value }, ) {
+  unbind(el, { value },) {
     // 父组件被移除时，把自己归位，不然会造成 父子组件不同步
     if (value) {
+      const target = value === true ? document.body : value || document.body
       el.__data.parentNode.appendChild(el)
-      document.body.removeChild(el.__data.box)
+      target.removeChild(el.__data.box)
       el.__data = null
     }
   }
-} 
+}
