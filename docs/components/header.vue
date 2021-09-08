@@ -7,7 +7,8 @@
       </a>
     </div>
     <div class="search-component">
-      <Select placeholder="🔍 搜索组件..." :bordered="false" :showArrow="false" filterable v-model="key" @change="change" :transfer="false">
+      <Icon type="search" />
+      <Select placeholder="搜索组件..." :bordered="false" :showArrow="false" filterable v-model="key" @change="change" :transfer="false">
         <Option v-for="(com,index) of components" :key="index" :value="com.name">{{com.title}} {{com.sub}}</Option>
       </Select>
     </div>

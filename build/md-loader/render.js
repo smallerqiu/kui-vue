@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 const Token = require('markdown-it/lib/token');
 const hljs = require('highlight.js');
 const anchor = require('markdown-it-anchor')
+// const anchorto = require("markdown-it-toc-done-right")
 
 
 const cnReg = new RegExp('<(cn)(?:[^<]|<)+</\\1>', 'g');
@@ -25,13 +26,13 @@ const replaceDelimiters = function (str) {
   return str.replace(/({{|}})/g, '<span>$1</span>');
 };
 
-var renderHighlight = function (str, lang) {
-  if (!(lang && hljs.getLanguage(lang))) {
+var renderHighlight = function (str, language) {
+  if (!(language && hljs.getLanguage(language))) {
     return '';
   }
 
   try {
-    return replaceDelimiters(hljs.highlight(lang, str, true).value);
+    return replaceDelimiters(hljs.highlight(str, { language }).value);
   } catch (err) { }
 };
 
@@ -41,18 +42,21 @@ var markdown = require('markdown-it')({
   highlight: renderHighlight,
 }).use(anchor, {
   level: 2,
-  slugify: string => string.trim().split(' ').join('-'),
+  slugify: string => string.toLocaleLowerCase().trim().split(' ').join('-'),
   permalink: true,
   permalinkClass: 'anchor',
   permalinkSymbol: '#',
   permalinkBefore: false,
 })
+// .use(anchorto, {
+//   level: 2, listType: 'ul',
+//   slugify: string => string.toLocaleLowerCase().trim().split(' ').join('-'),
+//   listClass: 'authoraa'
+// });
 
 
 markdown.core.ruler.push('render', ({ tokens }) => {
   let cn, template, script, style, scopedStyle, code, sourceCode;
-
-
   tokens.forEach(token => {
     if (token.type === 'html_block') {
       if (token.content.match(cnReg)) {
@@ -106,4 +110,4 @@ markdown.core.ruler.push('render', ({ tokens }) => {
 module.exports = Object.assign(markdown, {
   raw: true,
   wrapper: 'div'
-}) 
+})

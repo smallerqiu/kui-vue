@@ -1,0 +1,45 @@
+@import '../../styles/global.less';
+.k-rate {
+  display: inline-block;
+  font-size: 20px;
+  .k-star {
+    display: inline-block;
+    margin-right: 8px;
+    position: relative;
+    transition: all .3s ease;
+    cursor: pointer;
+    .k-star-front {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      height: 100%;
+      overflow: hidden;
+      width: 50%;
+      opacity: 0;
+    }
+    .k-star-back {
+      color: #ddd;
+    }
+  }
+  .k-star-checked {
+    transform: scale(1.1);
+  }
+  .k-star-half {
+    .k-star-front {
+      color: orange;
+      opacity: 1;
+    }
+  }
+  .k-star-full {
+    .k-star-front {
+      color: orange;
+      width: 100%;
+      opacity: 1;
+    }
+  }
+  .k-rate-score {
+    color: orange;
+    font-size: 14px;
+  }
+}

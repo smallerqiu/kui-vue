@@ -66,8 +66,10 @@ const Nav = [
       { title: "对话框", sub: "Modal", name: "modal", icon: 'browsers-outline' },
       { title: "气泡卡片", sub: "Poptip", name: "poptip", icon: 'chatbox-ellipses' },
       { title: "气泡确认框", sub: "Popconfirm", name: "popconfirm", icon: 'chatbubbles' },
+      { title: "评分", sub: "Rate", name: "rate", icon: 'star' },
       { title: "加载中", sub: "Spin", name: "spin", icon: 'radio' },
       { title: "进度条", sub: "Progress", name: "progress", icon: 'pulse' },
+      { title: "进度", sub: "Loading", name: "loading", icon: 'pulse' },
       { title: "标签", sub: "Tag", name: "tag", icon: 'bookmark' },
       { title: "文字提示", sub: "Tooltip", name: "tooltip", icon: 'chatbubble-ellipses' },
     ]

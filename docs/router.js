@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import kui from 'kui-vue'
 
 Vue.use(Router)
 
@@ -43,11 +44,13 @@ let components = [
 	{ path: 'input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },
 	{ path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
 	{ path: 'layout', component: () => import(/*webpackChunkName:'layout'*/'../components/layout/demo'), },
+	{ path: 'loading', component: () => import(/*webpackChunkName:'loading'*/'../components/loading/demo'), },
 	{ path: 'message', component: () => import(/*webpackChunkName:'message'*/'../components/message/demo'), },
 	{ path: 'modal', component: () => import(/*webpackChunkName:'modal'*/'../components/modal/demo'), },
 	{ path: 'menu', component: () => import(/*webpackChunkName:'menu'*/'../components/menu/demo'), },
 	{ path: 'notice', component: () => import(/*webpackChunkName:'notice'*/'../components/notice/demo'), },
 	{ path: 'radio', component: () => import(/*webpackChunkName:'radio'*/'../components/radio/demo'), },
+	{ path: 'rate', component: () => import(/*webpackChunkName:'rate'*/'../components/rate/demo'), },
 	{ path: 'select', component: () => import(/*webpackChunkName:'select'*/'../components/select/demo'), },
 	{ path: 'spin', component: () => import(/*webpackChunkName:'spin'*/'../components/spin/demo'), },
 	{ path: 'switch', component: () => import(/*webpackChunkName:'switch'*/'../components/switch/demo'), },
@@ -94,10 +97,12 @@ let routers = new Router({
 routers.beforeEach(function (to, from, next) {
 	typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
 	// loading.start('line');
+	kui.Loading.start();
 	next()
 })
 routers.afterEach((to, from, next) => {
 	// (process.env.NODE_ENV == 'development') &&
 	// loading.finish();
+	kui.Loading.finish();
 });
 export default routers
