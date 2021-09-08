@@ -7,15 +7,15 @@
 <template>
   <div class="demo-color-picker">
      <Form>
-      <Form.Item label="large">
+      <FormItem label="large">
         <ColorPicker showMode v-model="color1" size="large"/>
-      </Form.Item>
-      <Form.Item label="Default">
+      </FormItem>
+      <FormItem label="Default">
         <ColorPicker showMode v-model="color2" mode="rgba"/>
-      </Form.Item>
-      <Form.Item label="small">
+      </FormItem>
+      <FormItem label="small">
         <ColorPicker showMode v-model="color3"  mode="hsla" size="small" />
-      </Form.Item>
+      </FormItem>
     </Form>
   </div>
 </template>

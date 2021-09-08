@@ -1,5 +1,13 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
+
+### 3.2.2
+`2021-09-8` 
+ - 修复 Drawer 组件展示问题
+ - 新增 Loading 组件
+ - 新增 Rate 评分组件
+ - 修复 ColorPicker 赋值bug
+
 ### 3.2.1
 `2021-07-7` 
  - 修复部分组件子组件插槽不可以用的问题

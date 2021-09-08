@@ -19,6 +19,7 @@ import { Image, ImageGroup } from './image'
 import Icon from './icon'
 import { Input, TextArea } from './input'
 import { Layout, Header, Footer, Content, Sider } from './layout'
+import Loading from './loading'
 import Modal from './modal'
 import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import Message from './message'
@@ -28,6 +29,7 @@ import Poptip from './poptip'
 import Popconfirm from './popconfirm'
 import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
+import Rate from './rate'
 import Spin from './spin'
 import Switch from './switch'
 import { Select, Option } from './select'
@@ -69,12 +71,14 @@ const components = {
 	Modal,
 	Message,
 	Layout, Header, Footer, Content, Sider,
+	Loading,
 	Notice,
 	Page,
 	Poptip,
 	Popconfirm,
 	Progress,
 	Radio, RadioGroup, RadioButton,
+	Rate,
 	Spin,
 	Select, Option,
 	Table,
@@ -109,6 +113,7 @@ const UI = {
 		Vue.prototype.$Message = Message;
 		Vue.prototype.$Notice = Notice;
 		Vue.prototype.$Modal = Modal;
+		Vue.prototype.$Loading = Loading;
 		Vue.prototype.$Image = Image;
 	}
 }

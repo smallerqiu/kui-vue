@@ -29,13 +29,14 @@ export default {
       validator: function (value) { return value.length <= 20 }
     }
   },
-  watch: {
-    value(v1, v2) {
-      if (v1 != this.currentColor) {
-        this.valueChange('COLOR', v1)
-      }
-    }
-  },
+  // watch: {
+  //   value(v1, v2) {
+  //     console.log(v1, v2, this.currentColor)
+  //     if (v1 != this.currentColor) {
+  //       // this.valueChange('COLOR', v1)
+  //     }
+  //   }
+  // },
   data() {
     return {
       currentMode: this.mode,
@@ -135,9 +136,9 @@ export default {
         value = A < 1 ? `hsla(${H},${S}%,${L}%,${A})` : `hsl(${H},${S}%,${L}%)`
       }
       // console.log(value)
+      this.currentColor = value
       this.$emit('input', value)
       this.$emit('change', value)
-      this.currentColor = value
       this.opened = false
     },
     setMode() {
@@ -370,14 +371,12 @@ export default {
             this.currentColor = this.value || '#000'
           },
           render: () => {
-            this.$nextTick(e => {
+            this.$nextTick(() => {
               let { paint, hue, alpha } = this.$refs
               this.paintHelper = canvasHelper(paint)
-
               this.initHueCanvas(hue)
               this.initAlphaCanvas(alpha)
               this.initPaintCanvas(paint)
-
               this.valueChange('COLOR', this.value)
             })
           },
