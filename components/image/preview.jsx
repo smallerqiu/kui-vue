@@ -33,6 +33,7 @@ export default {
       vertical: true,
       isShowPanel: this.showPanel,
       panelRight: 0,
+      touch: false,
     }
   },
   watch: {
@@ -96,14 +97,29 @@ export default {
       this.$emit('input', false)
       this.$emit('close')
     },
+    touchstart(e) {
+      if (e.touches.length == 1 && this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
+
+      }
+    },
     mousedown(e) {
-      if (e.button == 0 && this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
+      if (this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
+        if (e.button && e.button != 0) return;
+        let clientX, clientY;
+        if (e.touches && e.touches.length == 1) {
+          clientX = e.touches[0].clientX
+          clientY = e.touches[0].clientY
+        } else {
+          clientX = e.clientX
+          clientY = e.clientY
+        }
         this.ismousedown = true
-        this.startPos = { x: e.clientX, y: e.clientY }
-        this.initPos = { x: e.clientX, y: e.clientY }
+        this.startPos = { x: clientX, y: clientY }
+        this.initPos = { x: clientX, y: clientY }
         this.mousemove(e)
-        document.addEventListener('mousemove', this.mousemove)
-        document.addEventListener('mouseup', this.mouseup)
+        let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
+        document.addEventListener(e1, this.mousemove, { passive: false })
+        document.addEventListener(e2, this.mouseup, { passive: false })
       }
     },
     resetPosition() {
@@ -144,16 +160,25 @@ export default {
     mouseup(e) {
       this.ismousedown = false
       this.resetPosition()
-      document.removeEventListener('mousemove', this.mousemove)
-      document.removeEventListener('mouseup', this.mouseup)
+      let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
+      document.removeEventListener(e1, this.mousemove)
+      document.removeEventListener(e2, this.mouseup)
     },
     mousemove(e) {
       if (this.ismousedown) {
-        let { x, y } = this.startPos
-        this.left += e.clientX - x
-        this.top += e.clientY - y
-        this.startPos = { x: e.clientX, y: e.clientY }
         e.preventDefault()
+        let clientX, clientY;
+        if (e.touches && e.touches.length == 1) {
+          clientX = e.touches[0].clientX
+          clientY = e.touches[0].clientY
+        } else {
+          clientX = e.clientX
+          clientY = e.clientY
+        }
+        let { x, y } = this.startPos
+        this.left += clientX - x
+        this.top += clientY - y
+        this.startPos = { x: clientX, y: clientY }
       }
     },
     switchImage(left) {
@@ -216,7 +241,10 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('mousedown', this.mousedown)
+    let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
+    this.touch = touch
+    let even = touch ? 'touchstart' : 'mousedown'
+    document.addEventListener(even, this.mousedown, { passive: false })
   },
   render(h) {
     const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this
