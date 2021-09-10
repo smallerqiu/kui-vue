@@ -62,7 +62,7 @@ export default function createInstance({ type }) {
     },
     render() {
       let { src, visible, showSwitch, data, showPanel, slots, _globle, type } = this
-      console.log(type)
+      // console.log(type)
       const imageProps = {
         props: {
           origin: src,
