@@ -5,8 +5,8 @@ module.exports = {
       {
         "targets": {
           "esmodules": true,
-          "chrome": "50",
-          "ie": "9"
+          "chrome": "58",
+          "ie": "11"
         }
       }
     ]
