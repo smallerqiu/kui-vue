@@ -65,24 +65,26 @@ export default {
       }
     },
     resetBodyStyle(opened) {
+      let target = this.target();
       if (!this.visible && !cacheBodyOverflow.hasOwnProperty('overflow')) {
         cacheBodyOverflow = {
-          width: document.body.width,
-          overflow: document.body.overflow,
-          overflowX: document.body.overflowX,
-          overflowY: document.body.overflowY,
+          width: target.width,
+          overflow: target.overflow,
+          overflowX: target.overflowX,
+          overflowY: target.overflowY,
         }
       }
       if (opened) {
         let barWidth = measureScrollBar(true)
-        if (barWidth) {
-          document.body.style.width = `calc(100% - ${barWidth}px)`
-          document.body.style.overflow = `hidden`
+        let hasBar = target.scrollHeight > target.clientHeight || target.offsetHeight > target.clientHeight
+        if (barWidth && hasBar) {
+          target.style.width = `calc(100% - ${barWidth}px)`
+          target.style.overflow = `hidden`
         }
       } else {
         setTimeout(() => {
           Object.keys(cacheBodyOverflow).forEach(key => {
-            document.body.style[key] = cacheBodyOverflow[key] || ''
+            target.style[key] = cacheBodyOverflow[key] || ''
             delete cacheBodyOverflow[key]
           })
         }, 300)
