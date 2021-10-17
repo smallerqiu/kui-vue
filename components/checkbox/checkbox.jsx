@@ -51,12 +51,14 @@ export default {
       }
     }
     // console.log(checked)
-    const wpclasses = ["k-checkbox-wrapper", { ["k-checkbox-disabled"]: disabled }];
+    const wpclasses = ["k-checkbox-wrapper", {
+      ["k-checkbox-disabled"]: disabled,
+      ["k-checkbox-checked"]: checked && !indeterminate,
+    }]
 
     const classes = [
       "k-checkbox",
       {
-        ["k-checkbox-checked"]: checked && !indeterminate,
         ["k-checkbox-indeterminate"]: indeterminate
       }
     ];
