@@ -1,6 +1,6 @@
 @import '../../styles/global.less';
 .k-timeline {
-  background-color: #fff;
+  background-color: transparent;
   font-size: 12px;
   overflow: hidden;
   position: relative;
@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  color: @color;
   .k-time-line-item {
     position: relative;
     &:before {
@@ -25,7 +26,7 @@
   }
   .k-time-line-dot {
     position: absolute;
-    background: #fff;
+    background: @back-color;
     top: 4px;
     left: -.5px;
     font-size: 16px;

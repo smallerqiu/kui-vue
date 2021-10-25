@@ -1,11 +1,12 @@
 @import '../../styles/global.less';
 .k-card {
-  background: #fff;
+  background: @back-color;
   position: relative;
   border-radius: @radius;
+  color: @color;
   .k-card-head {
     position: relative;
-    border-bottom: 1px solid #e9eaec;
+    border-bottom: 1px solid @border-color;
     padding: 14px 16px;
     line-height: 1;
     .k-icon {
@@ -40,5 +41,5 @@
 }
 
 .k-card-bordered {
-  border: 1px solid #eee;
+  border: 1px solid @border-color;
 }

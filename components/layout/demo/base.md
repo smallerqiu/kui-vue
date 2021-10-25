@@ -40,23 +40,22 @@
 <style scoped>
 .demo-k-layout {
     text-align: center;
-    color: #fff
 }
 .demo-k-layout >.k-layout {
     margin-bottom: 20px;
     color: #fff
 }
 .demo-k-layout .k-layout-footer,.demo-k-layout .k-layout-header {
-    background-color: #9dcaff;
+    background-color: fadeout(#3a95ff,50%);
 }
 .demo-k-layout .k-layout-content {
     min-height: 120px;
     line-height: 120px;
-    background-color: #89bfff;
+    background-color: fadeout(#3a95ff,30%);
 }
 .demo-k-layout .k-layout-sider {
     line-height: 120px;
-    background-color: #75b5ff;
+    background-color: fadeout(#3a95ff,20%);
     width:200px;
 }
 </style>

@@ -19,8 +19,8 @@
 </template>
 <style scoped>
 .demo-card{
-  background:#efefef;
   padding:20px;
+  background-color:rgba(0,0,0,.1);
 }
 </style>
 ```

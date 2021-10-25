@@ -5,8 +5,8 @@ import router from './router'
 import kui from 'kui-vue'
 
 
-import './assets/index.less'
-import './assets/theme.jpg'
+// import './assets/css/index.less'
+import './assets/img/theme.jpg'
 import Copy from 'vue-clipboard2'
 
 import Demo from './components/demo'

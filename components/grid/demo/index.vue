@@ -44,7 +44,6 @@ export default {
   }
   .k-row-flex{
     padding: 10px 0;
-    background: #f1f1f1;
   }
   .k-row {
     margin: 10px 0;

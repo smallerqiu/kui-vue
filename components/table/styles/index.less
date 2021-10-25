@@ -1,11 +1,12 @@
 @import '../../styles/global.less';
 .k-table {
-  background: #fff;
+  background: @back-color;
   width: 100%;
   margin: 10px 0;
   // overflow: auto;
   box-sizing: border-box;
   position: relative;
+  color: @color;
   .k-spin {
     position: absolute;
     width: 100%;
@@ -17,7 +18,7 @@
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    background: #fff;
+    background: @back-color;
     thead {
       background: fade(@border-color, 10%);
       border-bottom: 1px solid fade(@border-color, 30%);
@@ -88,10 +89,10 @@
         // background: #fff;
       }
       &:hover {
-        background: tint(@main, 93%);
+        background: fadeout(@border-color, 60%);
       }
       &.k-table-row-hover {
-        background: tint(@main, 93%);
+        background: fadeout(@border-color, 60%);
       }
     }
     .k-table-expand-row {
@@ -104,7 +105,7 @@
         border-bottom: none;
       }
       tbody>tr:hover {
-        background: tint(@main, 93%);
+        background: fadeout(@border-color, 60%);
       }
     }
   }
@@ -139,11 +140,14 @@
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
       overflow: scroll;
       margin-bottom: -20px;
-      background-color: fade(@border-color, 30%);
+      // background-color: fade(@border-color, 30%);
       &::-webkit-scrollbar {
-        background-color: #fbfbfb; //固定值
+        background-color: transparent !important;//fade(@border-color, 30%); //固定值
         // border-top: 1px solid fade(@border-color, 30%);
         border-bottom: 1px solid fade(@border-color, 30%);
+      }
+      &::-webkit-scrollbar-track{
+        background-color: transparent !important;
       }
     }
     .k-table-fixed-left-thead {

@@ -87,6 +87,7 @@ module.exports = {
       color: 'green',
     }),
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
+    // new MiniCssExtractPlugin({ filename: "css/style.css" }),
     new HtmlWebpackPlugin({
       favicon: './docs/assets/favicon.png',
       filename: 'index.html',

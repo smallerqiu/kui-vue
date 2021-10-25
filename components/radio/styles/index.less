@@ -49,6 +49,7 @@
   font-size: 12px;
   display: inline-block;
   line-height: 1;
+  color: @color;
   .k-radio {
     display: inline-block;
     vertical-align: middle;
@@ -70,7 +71,7 @@
     left: 0;
     border: 1px solid @border-color;
     border-radius: 2px;
-    background-color: #fff;
+    background-color: @back-color;
     transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
     border-radius: 50%;
     &:after {
@@ -114,7 +115,7 @@
 
 .k-radio-checked {
   .k-radio-inner {
-    background: #fff;
+    background: @back-color;
     border-color: @main;
     position: relative;
     &:after {

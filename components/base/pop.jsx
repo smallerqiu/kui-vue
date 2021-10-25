@@ -126,7 +126,7 @@ export default {
         props: {
           transfer,
           value: this.opened,
-          className: [`k-${preCls}-content`, { [`k-${preCls}-${color}`]: color && !/^#/.test(color) }],
+          className: [`k-${preCls}-content`, { [`k-${preCls}-${color}`]: color && !/^#/.test(color), [`k-${preCls}-has-color`]: /^#/.test(color) }],
           width: this.width,
           selection: this.selection,
           placement,

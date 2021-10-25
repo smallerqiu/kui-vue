@@ -7,7 +7,7 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout>
+    <Layout  class="layout-back">
       <Header>
         <div class="logo" />
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
@@ -22,9 +22,9 @@
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-        <Content>Conent</Content>
+        <Content class="demo-back">Conent</Content>
       </Content> 
-      <Footer>KUI ©2018 Created by chuchur</Footer>
+      <Footer style="background:transparent;">KUI ©2018 Created by chuchur</Footer>
     </Layout>
   </div>
 </template>
@@ -52,7 +52,6 @@
    padding:16px 0;
  }
 .k-demo-layout .k-demo-main .k-layout-content{
-   background-color:#fff;
    padding:24px;
    min-height:300px;
  }

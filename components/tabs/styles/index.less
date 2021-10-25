@@ -17,10 +17,7 @@
       color: @disable-color;
       cursor: not-allowed;
     }
-   
-    .k-tabs-extra {
-     
-    }
+    .k-tabs-extra {}
     .k-tabs-nav-container {
       flex: 1;
       width: 0; // 麻痹，我感觉这是个bug
@@ -132,16 +129,15 @@
 
 .k-tabs-card {
   .k-tabs-bar {
-    .k-tabs-extra {
-    }
+    .k-tabs-extra {}
     .k-tabs-tab {
       margin-right: 2px;
       border: 1px solid @border-color;
-      background: @back-color;
+      // background: @back-color;
       padding: 8px 16px;
     }
     .k-tabs-tab-active {
-      background: #fff;
+      background: @back-color;
       border-bottom-color: transparent;
       &::after {
         display: none;
@@ -170,7 +166,7 @@
       padding: 10px 16px;
     }
     .k-tabs-tab-active {
-      background: #fff;
+      background: @back-color;
       &::after {
         display: none;
       }
@@ -180,7 +176,8 @@
     display: block;
     .k-tabs-tabpane {
       padding: 16px;
-      background: #fff;
+      // background: #fff;
+      background: @back-color;
       box-sizing: border-box;
     }
     .k-tabs-tabpane:not(.k-tabs-tabpane-active) {

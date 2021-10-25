@@ -24,7 +24,7 @@
   .k-image-error {
     font-size: 50px;
     opacity: .3;
-    color: @border-color;
+    color: @disable-color;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -82,7 +82,7 @@
       }
       .k-image-preview-action {
         margin: 12px;
-        color: @border-color;
+        color: #999;
         font-size: 28px;
         cursor: pointer;
         list-style: none;
@@ -93,7 +93,8 @@
         justify-content: center;
         border-radius: 50%;
         &:hover {
-          background-color: fade(@mask-color, 30%);
+          background-color: @back-color;
+          color:#666;
         }
       }
       .k-image-preview-action-divider {
@@ -122,7 +123,7 @@
       position: absolute;
       width: 44px;
       height: 44px;
-      color: @border-color;
+      color: #999;
       font-size: 25px;
       border-radius: 50%;
       background-color: fade(@mask-color, 50%);
@@ -135,6 +136,7 @@
       cursor: pointer;
       &:hover {
         background-color: @main;
+        color:#fff;
       }
     }
     .k-image-preview-switch-left {
@@ -187,7 +189,7 @@
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
-        color: fade(@border-color, 50%);
+        color: @disable-color;
         // filter: blur(1px);
         font-size: 50px;
         text-align: center;

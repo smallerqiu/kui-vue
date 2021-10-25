@@ -7,7 +7,7 @@
 <template>
 <div>
   <Spin v-model="spinning">
-    <div class="deme-spin-container">
+    <div class="deme-spin-container demo-back">
         床前明月光，疑是地上霜。<br>
         举头望明月，低头思故乡。
     </div>
@@ -19,7 +19,6 @@
 <style scoped>
 .deme-spin-container{
   padding:100px 50px;
-  background:#f5f5f5;
 }
 </style>
 <script>

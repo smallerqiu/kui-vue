@@ -1,4 +1,4 @@
-import "./demo.less";
+// import "./demo.less";
 // import Code from '../code'
 import Icon from "../../../components/icon";
 import Tooltip from "../../../components/tooltip";

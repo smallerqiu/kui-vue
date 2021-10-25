@@ -7,12 +7,11 @@
 <template>
   <Dropdown trigger="contextmenu" @click="handle">
   <div :style="{
-        textAlign: 'center',
-        background: '#f5f5f5',
+        textAlign: 'center', 
         height: '200px',
         lineHeight: '200px',
         color: '#999',
-      }">Right Click on here</div>
+      }" class="demo-back">Right Click on here</div>
     <Menu slot="content">
       <MenuItem key="news">New file</MenuItem>
       <MenuItem key="edit">Edit</MenuItem>

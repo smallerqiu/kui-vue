@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout>
+    <Layout class="layout-back">
       <Header>
         <div class="logo" />
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
@@ -15,14 +15,14 @@
           <MenuItem key="t3" icon="heart">nav3</MenuItem>
         </Menu>
       </Header> 
-      <Content class="k-demo-main">
+      <Content class="k-demo-main" class="demo-back">
         <Breadcrumb class="nav">
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-        <Layout style="padding:24px 0;background:#fff;">
-          <Sider>
+        <Layout style="padding:24px 0;" class="demo-back">
+          <Sider style="background:transparent;">
             <Menu  v-model="left" class="demo-left-menu" mode="inline">
               <SubMenu key="l0">
                 <template slot="title">
@@ -56,7 +56,7 @@
           <Content>Conent</Content>
         </Layout> 
       </Content> 
-      <Footer>KUI ©2018 Created by chuchur</Footer>
+      <Footer style="background:transparent;">KUI ©2018 Created by chuchur</Footer>
     </Layout>
   </div>
 </template>
@@ -84,7 +84,6 @@
    padding:16px 0;
  }
 .k-demo-layout .k-demo-main .k-layout-content{
-   background-color:#fff;
    padding:24px;
    min-height:300px;
  }

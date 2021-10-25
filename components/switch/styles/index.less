@@ -5,8 +5,8 @@
    line-height: 22px;
    border-radius: 24px;
    vertical-align: middle;
-   border: 1px solid #ccc;
-   background-color: #ccc;
+   border: 1px solid @border-color;
+   background-color: @border-color;
    font-size: 12px;
    position: relative;
    cursor: pointer;
@@ -19,6 +19,7 @@
    box-sizing: border-box;
    overflow: hidden;
    outline: none;
+   color: @color;
    &:focus {
       // border: 1px solid @main;
       box-shadow: 0 0 5px fade(@main, 75%);
@@ -31,7 +32,7 @@
       width: 20px;
       height: 20px;
       border-radius: 20px;
-      background-color: #fff;
+      background-color: @back-color;
       position: absolute;
       left: 1px;
       top: 50%;

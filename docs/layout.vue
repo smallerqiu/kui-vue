@@ -31,6 +31,14 @@
             <Icon type="chevron-forward-outline" />
           </a></Col>
         </Row>
+        <!-- <Dropdown placement="top-right"> -->
+        <Icon type="sunny-outline" class="set-theme" v-if="theme=='dark'" @click="()=>toggle('light')" />
+        <Icon type="moon-outline" class="set-theme icon-sunny" v-else @click="()=>toggle('dark')" />
+        <!-- <Menu slot="content">
+            <MenuItem>默认主题</MenuItem>
+            <MenuItem>暗色主题</MenuItem>
+          </Menu>
+        </Dropdown> -->
         <Footer class="docs-k-footer">
           KUI ©2018 Created by chuchur |
           <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备19016072号-2</a>
@@ -54,9 +62,43 @@ export default {
       baseNav,
       typo: false,
       activeName: [],
+      theme: '',
     };
   },
+  mounted() {
+    let theme = localStorage.getItem('theme') || ''
+    if (theme) {
+      this.theme = theme
+      this.toggle(theme)
+    } else {
+      this.$Modal.confirm({
+        title: '温馨提示',
+        content: '暗黑主题现已发布,要试试吗?',
+        okText: '试试就试试',
+        cancelText: '不了',
+        onOk: () => {
+          this.toggle('dark')
+          this.$Notice.success({ title: "温馨提示", content: "主题切换成功!", duration: 5 });
+        },
+        onCancel: () => {
+          this.toggle('dark')
+          this.$Notice.success({ title: "温馨提示", content: "主题切换成功!", duration: 5 });
+        }
+      })
+    }
+  },
   methods: {
+    toggle(type) {
+      let kit = document.querySelector('#kit')
+      let co = document.querySelector('#co')
+      let dark = type == 'dark';
+
+      kit.setAttribute('href', `/css/k-ui${dark ? '-dark' : ''}.css`)
+      co.setAttribute('href', `/css/style${dark ? '-dark' : ''}.css`)
+
+      this.theme = type
+      localStorage.setItem('theme', type)
+    },
     go({ key, keyPath, item }) {
       if (!key) return;
       let { current } = this.getPath(key), path;

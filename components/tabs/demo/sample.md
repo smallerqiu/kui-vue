@@ -42,8 +42,8 @@ export default{
 
 <style scoped>
 .demo-tabs-sample{
-  background:#f2f2f2;
   padding:10px;
+  background-color:rgba(0,0,0,.2);
 }
 </style>
 ```
