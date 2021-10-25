@@ -43,7 +43,7 @@ import { Row, Col } from './grid'
 
 import { version } from '../package.json'
 
-import './styles';
+// import './styles';
 
 const components = {
 	Affix,

@@ -9,14 +9,17 @@
   font-size: 12px;
   transition: all .3s;
   overflow: hidden;
-  background: tint(@warning, 90%);
-  border: 1px solid tint(@warning, 70%);
+  background: fadeout(@warning, 90%);
+  border: 1px solid fadeout(@warning, 70%);
   &-icon {
     color: @warning;
     position: absolute;
     top: 8px;
     left: 10px;
     font-size: 20px;
+  }
+  &-message {
+    color: @color;
   }
   &-has-icon {
     padding-left: 38px;
@@ -37,9 +40,11 @@
       font-size: 14px;
       font-weight: 500;
       margin-bottom: 5px;
+      color: @color;
     }
     .k-alert-description {
       font-size: 14px;
+      color: @color;
     }
     &.k-alert-has-icon {
       padding-left: 50px;
@@ -63,22 +68,22 @@
     }
   }
   &-success {
-    background: tint(@success, 90%);
-    border-color: tint(@success, 70%);
+    background: fadeout(@success, 90%);
+    border-color: fadeout(@success, 70%);
     .k-alert-icon {
       color: @success;
     }
   }
   &-error {
-    background: tint(@danger, 90%);
-    border-color: tint(@danger, 70%);
+    background: fadeout(@danger, 90%);
+    border-color: fadeout(@danger, 70%);
     .k-alert-icon {
       color: @danger;
     }
   }
   &-info {
-    background: tint(@main, 90%);
-    border-color: tint(@main, 70%);
+    background: fadeout(@main, 90%);
+    border-color: fadeout(@main, 70%);
     .k-alert-icon {
       color: @main;
     }

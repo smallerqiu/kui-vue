@@ -70,13 +70,14 @@
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	position: absolute;
 	border-radius: @radius;
-	background: #fff;
+	background: @back-color;
 	.k-color-picker-paint-dot {
 		width: 15px;
 		height: 15px;
 		display: block;
 		position: absolute;
-		background: #fff;
+		background: @back-color;
+		border:1px solid @border-color;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 		border-radius: 50%;
 		top: 10px;
@@ -126,7 +127,8 @@
 			height: 15px;
 			display: block;
 			position: absolute;
-			background: #fff;
+			background: @back-color;
+			border:1px solid  @border-color;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 			border-radius: 50%;
 			pointer-events: none;

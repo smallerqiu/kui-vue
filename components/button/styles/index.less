@@ -12,7 +12,7 @@
   user-select: none;
   outline: none;
   border: 1px solid @border-color;
-  background-color: #fff;
+  background-color: transparent;
   transition: all .3s cubic-bezier(.645, .045, .355, 1);
   z-index: 0;
   white-space: nowrap;
@@ -106,8 +106,8 @@
 
 .k-btn.k-btn-hollow {
   background: 0 0;
-  color: #fff;
-  border-color: #fff;
+  color: @color;
+  border-color: @border-color;
   &:focus, &:hover {
     border-color: @main;
     color: @main;
@@ -212,8 +212,8 @@
     opacity: .9;
     cursor: not-allowed;
     color: darken(@disable-color, 8%);
-    background: darken( @disable-back, 8%);
-    border-color: darken(@disable-border, 8%);
+    // background: darken( @disable-back, 8%);
+    // border-color: darken(@disable-border, 8%);
   }
 }
 

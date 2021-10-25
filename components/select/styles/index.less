@@ -6,7 +6,7 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: #495060;
+  color: @color;
   font-size: 12px;
   position: relative;
   outline: none;
@@ -27,7 +27,6 @@
     user-select: none;
     cursor: pointer;
     position: relative;
-    background-color: #fff;
     border: 1px solid @border-color;
     min-height: 32px;
     position: relative;
@@ -50,6 +49,7 @@
       background: none;
       outline: none;
       font-size: 12px;
+      color: @color;
     }
   }
   &-labels {
@@ -183,7 +183,7 @@
   width: inherit;
   max-height: 200px;
   overflow: auto;
-  background-color: #fff;
+  background-color: @back-color;
   box-sizing: border-box;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
   position: absolute;
@@ -209,7 +209,7 @@
     line-height: normal;
     padding: 7px 16px;
     clear: both;
-    color: #495060;
+    color: @color;
     font-size: 12px !important;
     white-space: nowrap;
     list-style: none;
@@ -220,7 +220,7 @@
     cursor: pointer;
     position: relative;
     &:hover {
-      background: @light;
+      background: @hover-color;
     }
     .k-icon {
       position: absolute;
@@ -237,11 +237,11 @@
     }
   }
   .k-select-item-selected {
-    background: tint(@main, 90%);
+    background: @selected-color;
     color: @main;
     font-weight: 500;
     &:hover {
-      background: tint(@main, 90%);
+      background: @selected-color;
     }
     .k-icon {
       color: @main;
@@ -351,6 +351,7 @@
     }
     .k-select-search-mirror, .k-select-search {
       font-size: 14px;
+      color: @color;
     }
   }
   .k-select-labels {

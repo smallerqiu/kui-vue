@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="background:#b9c4d0;padding:10px;">
+  <div style="padding:10px;" class="demo-back">
     <Button type="primary" hollow>Primary</Button>
     <Button type="danger" hollow>Danger</Button>
     <Button hollow>Default</Button>

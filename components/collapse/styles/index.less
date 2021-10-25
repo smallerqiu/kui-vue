@@ -5,6 +5,7 @@
   border-radius: @radius;
   border-bottom: 0;
   overflow: hidden;
+  color: @color;
   &>.k-collapse-item {
     border-bottom: 1px solid @border-color;
     &>.k-collapse-header {
@@ -29,7 +30,7 @@
       }
     }
     .k-collapse-content {
-      background-color: #fff;
+      // background-color: #fff;
       border-top: 1px solid @border-color;
       padding: 0 16px;
       transition: all .3s ease-in-out;
@@ -51,7 +52,7 @@
   border: none;
   background: none;
   .k-collapse-item {
-    background: @light;
+    background: fadeout(@border-color, 60%);
     border: none;
     margin-bottom: 10px;
     border-radius: @radius;
@@ -60,14 +61,6 @@
       border: none;
       background: none;
     }
-  }
-}
-
-.k-alert-info {
-  background: tint(@main, 90%);
-  border-color: tint(@main, 70%);
-  .k-alert-icon {
-    color: @main;
   }
 }
 

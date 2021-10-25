@@ -7,13 +7,14 @@
 .k-poptip-content {
 	min-width: 200px;
 	// max-width: 300px;
+	color: @color;
 	font-size: 12px;
 	line-height: 1.5;
 	position: absolute;
 	z-index: 1001;
 	transform: translateZ(0);
 	.k-poptip-inner {
-		background: #fff;
+		background: @back-color;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 		border-radius: @radius;
 	}
@@ -28,7 +29,7 @@
 		margin: 0;
 		padding: 8px 16px;
 		position: relative;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid darken(@back-color,5%);
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
@@ -41,7 +42,7 @@
 		align-items: center;
 		width: 19px;
 		.k-poptip-arrow-content {
-			background-color: #fff;
+			background-color: @back-color;
 			transform: rotate(45deg);
 			width: 12px;
 			height: 12px;

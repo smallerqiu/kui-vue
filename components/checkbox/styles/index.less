@@ -5,6 +5,7 @@
 	display: inline-block;
 	user-select: none;
 	line-height: 1;
+	color: @color;
 	.k-checkbox {
 		display: inline-block;
 		vertical-align: middle;
@@ -27,10 +28,10 @@
 		left: 0;
 		border: 1px solid @border-color;
 		border-radius: 2px;
-		background-color: #fff;
+		background-color: @back-color;
 		transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
 		overflow: hidden;
-		color: #fff;
+		color: @back-color;
 		.k-icon {
 			font-size: 18px;
 			position: absolute;

@@ -12,13 +12,13 @@
   position: absolute;
   z-index: 1001;
   .k-tooltip-inner {
-    background: @color;
+    background: @back-color;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    color: @color;
     border-radius: @radius;
   }
   .k-tooltip-title {
     padding: 6px 8px;
-    color: #fff;
   }
   .k-tooltip-arrow {
     position: absolute;
@@ -29,7 +29,7 @@
     align-items: center;
     width: 19px;
     .k-tooltip-arrow-content {
-      background-color: @color;
+      background-color: @back-color;
       transform: rotate(45deg);
       width: 12px;
       height: 12px;
@@ -151,80 +151,99 @@
   }
 }
 
+.k-tooltip-has-color {
+  .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
+  }
+}
+
 .k-tooltip-pink {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @pink;
   }
 }
 
 .k-tooltip-red {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @red;
   }
 }
 
 .k-tooltip-yellow {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @yellow;
   }
 }
 
 .k-tooltip-orange {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @orange;
   }
 }
 
 .k-tooltip-cyan {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @cyan;
   }
 }
 
 .k-tooltip-green {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @green;
   }
 }
 
 .k-tooltip-blue {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @blue;
   }
 }
 
 .k-tooltip-purple {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @purple;
   }
 }
 
 .k-tooltip-geekblue {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @geekblue;
   }
 }
 
 .k-tooltip-magenta {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @magenta;
   }
 }
 
 .k-tooltip-volcano {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @volcano;
   }
 }
 
 .k-tooltip-gold {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @gold;
   }
 }
 
 .k-tooltip-lime {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
+    color: #fff;
     background-color: @lime;
   }
 }

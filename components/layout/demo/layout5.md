@@ -7,10 +7,10 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout>
-      <Sider class="demo-sider" :style="{width:collapsed?'80px':'200px'}">
+    <Layout  class="layout-back">
+      <Sider class="demo-sider demo-back" :style="{width:collapsed?'80px':'200px'}">
         <div class="logo" />
-        <Menu mode="inline" theme="dark" v-model="left" :open-keys="open" class="demo-top-menu" :inline-collapsed="collapsed">
+        <Menu mode="inline" v-model="left" :open-keys="open" :inline-collapsed="collapsed" style="border:none;">
           <MenuItem key="1-1" icon="home"><span>option1</span></MenuItem>
           <MenuItem key="1-2" icon="logo-buffer"><span>option2</span></MenuItem>
           <MenuItem key="1-3" icon="heart"><span>option3</span></MenuItem>
@@ -25,7 +25,7 @@
             <MenuItem key="0-4">option4</MenuItem>
           </SubMenu> 
         </Menu>
-        <div class="toggle-menu" @click="toggle"><Icon :type="!collapsed?'chevron-back':'chevron-forward'" /></div>
+        <div class="toggle-menu demo-back" @click="toggle"><Icon :type="!collapsed?'chevron-back':'chevron-forward'" /></div>
       </Sider>
       <Content class="k-demo-main">
         <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
@@ -38,7 +38,7 @@
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb> 
-        <div style="padding:200px 0;text-align:center;color:#ddd;background:#fff;margin:20px;">我是打酱油的</div>
+        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px;" class="demo-back">我是打酱油的</div>
         <Footer>KUI ©2018 Created by chuchur</Footer>
       </Content> 
     </Layout>
@@ -55,12 +55,12 @@
   text-align:center;
   padding:10px 0;
   color:#fff;
-  background:#4e5965;
+  /* background:#4e5965; */
   width:100%;
   cursor:pointer;
 }
 .k-demo-layout .demo-sider{
-  background:#22303f;
+  /* background:#22303f; */
   left: 0;
   position:relative;
 }
@@ -73,7 +73,7 @@
  }
 .k-demo-layout .logo{
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(132 139 156 / 50%);
   margin: 16px;
 }
 .k-demo-layout .k-demo-main{

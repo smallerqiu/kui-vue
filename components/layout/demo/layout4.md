@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout>
+    <Layout  class="layout-back">
       <Sider class="demo-sider">
         <div class="logo" />
         <Menu mode="inline" theme="dark" v-model="top" class="demo-top-menu">
@@ -26,7 +26,7 @@
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb> 
-        <div style="padding:300px 0;text-align:center;color:#ddd;background:#fff;margin:20px;">我是打酱油的</div>
+        <div style="padding:300px 0;text-align:center;color:#ddd;margin:20px;" class="demo-back">我是打酱油的</div>
         <Footer>KUI ©2018 Created by chuchur</Footer>
       </Content> 
     </Layout>
@@ -38,15 +38,15 @@
   overflow:hidden;
 }
 .k-demo-layout .demo-sider{
-  background:#22303f;
   overflow: auto;
   height: 360px; /*这里是例子，实际中请适当修改*/
   left: 0;
   width:200px;
+  background:#22303f;
 }
 .k-demo-layout .logo{
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  background:rgb(132 139 156 / 50%);
   margin: 16px;
 }
 .k-demo-layout .k-demo-main{

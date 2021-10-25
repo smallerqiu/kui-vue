@@ -46,8 +46,8 @@
 		text-overflow: ellipsis;
 		font-size: 13px;
 		// transition: all .2s ease-in-out;
-		&:hover, &:focus {
-			background: tint(@main, 90%);
+		&:hover{
+			background: @hover-color;
 			outline: none;
 		}
 	}
@@ -59,7 +59,7 @@
 	}
 	.k-tree-item-drag {
 		>.k-tree-title {
-			background-color: tint(@main, 90%) !important;
+			// background-color: tint(@main, 90%) !important;
 		}
 	}
 	.k-tree-item-extra {
@@ -90,9 +90,9 @@
 		}
 	}
 	.k-tree-title-selected {
-		background: tint(@main, 70%);
-		&:hover, &:focus {
-			background: tint(@main, 70%);
+		background: @selected-color;
+		&:hover{
+			background: @selected-color;
 		}
 	}
 	.k-tree-arrow {
@@ -146,7 +146,7 @@
 	}
 	.k-tree-item:hover {
 		&::before {
-			background-color: fadeout(@light, 25%);
+			background-color: @hover-color;
 		}
 	}
 	.k-tree-item-selected, .k-tree-item-selected:hover {
@@ -156,7 +156,7 @@
 			color: #fff;
 		}
 		&::before {
-			background-color: fadeout(@main, 15%);
+			background-color: @main;
 		}
 	}
 	.k-tree-item-disabled:hover {

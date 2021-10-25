@@ -7,7 +7,7 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout>
+    <Layout  class="layout-back">
       <Sider class="demo-sider" :style="{width:'200px'}">
         <div class="logo" />
         <Menu v-model="left"  mode="vertical" vertical-affixed theme="dark">
@@ -78,7 +78,7 @@
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb> 
-        <div style="padding:200px 0;text-align:center;color:#ddd;background:#fff;margin:20px;">我是打酱油的</div>
+        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px;" class="demo-back">我是打酱油的</div>
         <Footer>KUI ©2018 Created by chuchur</Footer>
       </Content> 
     </Layout>

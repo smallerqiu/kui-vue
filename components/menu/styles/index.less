@@ -8,9 +8,10 @@
     font-size: 14px;
     position: relative;
     zoom: 1;
-    background: #fff;
+    // background: @back-color;
     list-style: none;
-    transition: background .3s cubic-bezier(.645, .045, .355, 1), width .3s cubic-bezier(.645, .045, .355, 1);
+    color: @color;
+    transition: background-color .3s cubic-bezier(.645, .045, .355, 1), width .3s cubic-bezier(.645, .045, .355, 1);
     ol, ul, li {
       list-style: none !important;
       margin: 0;
@@ -24,7 +25,7 @@
       margin: 4px 0;
       overflow: hidden;
       line-height: 0;
-      background-color: #e8e8e8;
+      background-color: @border-color;
     }
     .k-menu-item-icon, .k-menu-submenu-inner .k-icon {
       margin-right: 8px;
@@ -303,6 +304,7 @@
       }
       .k-menu-item-active, .k-menu-item-selected {
         color: @main;
+        background-color: @hover-color;
         a {
           color: @main;
         }
@@ -315,19 +317,20 @@
       &.k-menu-horizontal {
         >.k-menu-item-selected, >.k-menu-submenu-selected, >.k-menu-item-active, >.k-menu-submenu-active {
           border-bottom-color: @main;
+          background-color: transparent;
         }
         .k-menu-submenu {
           .k-menu-item-selected {
-            background-color: tint(@main, 90%);
+            background-color: @selected-color;
           }
         }
       }
       &.k-menu-inline {
         .k-menu-submenu-popup .k-menu {
-          background-color: #f8f8f8;
+          background-color: fadeout(@border-color, 80%);
         }
         .k-menu-item-selected {
-          background-color: tint(@main, 90%);
+          background-color: @selected-color;
           &::after {
             top: 0;
             height: 100%;
@@ -337,7 +340,7 @@
       &.k-menu-vertical {
         border-right: 1px solid @border-color;
         .k-menu-item-selected {
-          background-color: tint(@main, 90%);
+          background-color: @selected-color;
         }
         .k-menu-submenu-affix-item-active {
           .k-menu-submenu-affix-item-text {
@@ -358,7 +361,7 @@
       }
     }
     &-dark {
-      background-color: @dark-back;
+      background-color: @dark-back !important;
       color: @color-light;
       .k-menu-item-group-title {
         font-size: 12px;
@@ -387,7 +390,7 @@
         }
       }
       .k-menu-inline {
-        background-color: #161f29;
+        background-color: #161f29 !important;
       }
       &.k-menu-vertical {
         border-right: 0;
@@ -491,6 +494,7 @@
         margin: 0;
         box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
         border-radius: @radius;
+        background-color: @back-color;
         >.k-menu-item {
           line-height: 40px;
           &:first-child {

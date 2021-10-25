@@ -3,6 +3,7 @@
   display: inline-block;
   user-select: none;
   float: left;
+  color: @color;
   // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   &+.k-calendar {
     // border-left: solid 1px #eaeaea;
@@ -83,7 +84,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    background: #fff;
+    background: @back-color;
     left: 0;
     top: 0;
     font-size: 0;
@@ -183,8 +184,8 @@
     height: 100%;
     left: 0;
     top: 0;
-    background: #fff;
-    border-top: 1px solid @border-color;
+    background: @back-color;
+    border-top: 1px solid darken(@border-color,10%);
     .k-calendar-time-picker-select {
       width: 33.333%;
       font-size: 0;
@@ -214,7 +215,7 @@
           list-style: none;
           cursor: pointer;
           &:hover {
-            background: @light ;
+            background: fadeout(@main, 90%);
           }
           &:last-child::after {
             display: block;
@@ -234,7 +235,7 @@
     .k-calendar-time-selected {
       color: @main;
       font-weight: bold;
-      background: @light;
+      background: darken(@back-color,5%);
     }
   }
 }

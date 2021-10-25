@@ -1,5 +1,5 @@
 .k-demo {
-  border: 1px solid #eee;
+  border: 1px solid @border-color;
   margin: 10px 0;
   position: relative;
   // overflow: hidden;
@@ -10,14 +10,14 @@
   }
   .k-desc {
     margin: 30px 0 0;
-    border-top: 1px solid #f1f1f1;
+    border-top: 1px solid @border-color;
     position: relative;
     h4 {
       position: absolute;
       top: -55px;
       font-size: 15px;
       font-weight: 600;
-      background: #fff;
+      background: @back;
       padding: 5px 10px 5px 0;
     }
     .k-desc-content {
@@ -31,7 +31,7 @@
   }
   .k-code-actions {
     padding: 5px;
-    border-top: 1px dashed #eee;
+    border-top: 1px dashed @border-color;
     text-align: center;
     font-size: 20px;
     .k-icon {
@@ -65,7 +65,7 @@
       font-size: 13px;
     }
     pre {
-      border-top: 1px dashed #eee;
+      border-top: 1px dashed @border-color;
     }
   }
   .k-code-expan {

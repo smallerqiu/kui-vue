@@ -10,7 +10,7 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'development',
   devServer: {
-    contentBase: '/',
+    contentBase: path.resolve(__dirname, '../docs/dist'),//'/',
     inline: true,
     compress: true,
     port: 7005,

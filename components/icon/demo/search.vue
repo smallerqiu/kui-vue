@@ -3,7 +3,7 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="52">
-      <div style="background:#fff;padding:20px 0;">
+      <div style="padding:20px 0;" class="back">
         <div style="position:relative;width:800px;margin:0 auto;">
           <RadioGroup v-model="type" @change="switchIcon" style="position:absolute;right:4px;top:4px;z-index:10;">
             <RadioButton value="outline">Outline</RadioButton>
@@ -59,7 +59,7 @@
     transition: color 0.3s ease-in-out;
     &:hover {
       color: #3a95ff;
-      background: #f5f5f5;
+      // background: #f5f5f5;
       box-shadow: 0 0 15px #ddd;
     }
   }
