@@ -20,7 +20,8 @@ gulp.task('default', function (done) {
         // suffix: '.suffix', // 文件名后缀
         extname: '.css', // 文件扩展名
       }))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./docs/dist/css'))
   done();
 });
 
@@ -38,7 +39,8 @@ gulp.task('dark', function (done) {
         // suffix: '.suffix', // 文件名后缀
         extname: '.css', // 文件扩展名
       }))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./docs/dist/css'));
   done();
 });
 
