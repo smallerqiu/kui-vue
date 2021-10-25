@@ -1,6 +1,13 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2.3
+`2021-10-25` 
+ - 新增暗黑模式主题
+ - Image组件支持触摸
+ - Modal等组件展示时滚动条展示细节完善
+ - Radio等组件细节完善
+
 ### 3.2.2
 `2021-09-8` 
  - 修复 Drawer 组件展示问题

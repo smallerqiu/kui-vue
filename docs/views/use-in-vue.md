@@ -52,6 +52,8 @@ new Vue({
 <script src="//vuejs.org/js/vue.min.js"></script>
 <!-- import stylesheet -->
 <link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css">
+<!-- 暗黑主题 -->
+<!-- <link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui-dark.css"> -->
 <!-- import kui icons -->
 <script src="//unpkg.com/kui-icons/lib/kui-icons.js"></script>
 <!-- import moment.js -->
