@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns">
+  <Table :data="data" :columns="columns"  @row-click="test">
     <template v-slot:tags="value">
       <Tag v-for="tag in value" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
@@ -13,7 +13,7 @@
       <Icon :type="value==1?'male':'female'" :color="value==1?'blue':'#f50cff'" size="15" />
     </template>
     <template v-slot:action="value,record,col">
-      <Button size="small" @click="e=>show(record)">more</Button>
+      <Button size="small" @click.stop="e=>show(record)">more</Button>
     </template>
   </Table>
 </template>
@@ -43,6 +43,9 @@ export default {
         title: 'More',
         content: `Name:${record.name} <br/>Aage:${record.age} <br/>Gender:${record.gender == 0 ? 'boy' : 'gril'} <br/>Address:${record.address}`,
       })
+    },
+    test(data){
+      this.$Message.info('Test row click:'+data.name)
     }
   }
 }
