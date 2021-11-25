@@ -150,15 +150,18 @@ export default {
       let trProps = {
         class: { 'k-table-row-hover': d._hover },
         key: (d.key || i).toString(),
+        on: {
+          click: () => {
+            this.$emit('row-click', d)
+          }
+        }
       }
       if (hasFixed) {
-        trProps.on = {
-          mouseenter: () => {
-            this.$set(d, '_hover', true)
-          },
-          mouseleave: () => {
-            this.$set(d, '_hover', false)
-          }
+        trProps.on.mouseenter = () => {
+          this.$set(d, '_hover', true)
+        }
+        trProps.on.mouseleave = () => {
+          this.$set(d, '_hover', false)
         }
       }
       if (tr.length) {

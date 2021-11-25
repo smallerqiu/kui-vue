@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" />
+  <Table :data="data" :columns="columns"/>
 </template>
 <script>
 export default{
