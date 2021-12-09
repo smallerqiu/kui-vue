@@ -79,3 +79,6 @@ gulp.task('docs', function (done) {
     .pipe(gulp.dest('./docs/dist/css'));
   done();
 });
+
+
+//run gulp && gulp dark && gulp docs && gulp docs-dark
