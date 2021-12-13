@@ -1,35 +1,63 @@
+@import '../../styles/global.less';
 .k-slider {
-    .k-slider-wrap {
-        width: 100%;
-        height: 6px;
-        margin: 16px 0;
-        background-color: #e9eaec;
-        border-radius: 3px;
-        vertical-align: middle;
-        position: relative;
-        cursor: pointer;
-        .k-slider-bar {
-            height: 6px;
-            background-color: @main;
-            border-radius: 3px;
-            // border-top-left-radius: 3px;
-            // border-bottom-left-radius: 3px;
-        }
-        .k-slider-button {
-            width: 16px;
-            height: 16px;
-            border: 2px solid #57a3f3;
-            border-radius: 50%;
-            background-color: #fff;
-            transition: all .2s linear;
-            outline: 0;
-            // transform: translate(-50%,-50%);
-            top:0;
-            position: absolute;
-            // left: 50%;
-            &:hover{
-                // transform:translateX(-50%) scale(1.2)
-            }
-        }
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  height: 12px;
+  font-size: 0;
+  &::before {
+    content: '';
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    background: @border-color;
+    top: 4px;
+    width: 100%;
+    left: 0;
+  }
+  .k-slider-bar {
+    position: relative;
+    z-index: 1;
+    margin-top: 4px;
+    -webkit-appearance: none;
+    // background: linear-gradient(to right, #1CE4FF 41.6777%, rgba(255, 255, 255, 0.3) 0%);
+    border-radius: 3px;
+    width: 100%;
+    // 轨道
+    &::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 3px;
+      // box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+      // background: @border-color;
+      border-radius: 2px;
     }
+    //滑块
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 12px;
+      width: 12px;
+      margin-top: -4px;
+      // background: @main;
+      border-radius: 50%;
+      border: 2px solid @main;
+      background-color: @back-color;
+      
+      cursor: pointer;
+    }
+    &:disabled {
+      cursor: not-allowed;
+    }
+    &:focus {
+      &::-webkit-slider-thumb {
+        box-shadow: 0 0 0px 5px fadeout(@main,80%);
+      }
+    }
+  }
+}
+
+.k-slider-disabled {
+  opacity: .5;
+  // {
+  //   -webkit-appearance: slider-vertical;   
+  // }
 }

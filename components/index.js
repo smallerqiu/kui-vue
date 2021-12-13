@@ -1,5 +1,6 @@
 import Alert from './alert'
 import Affix from './affix'
+import Avatar from './avatar'
 import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
 import Button from './button'
 import Badge from './badge'
@@ -31,6 +32,8 @@ import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
 import Rate from './rate'
 import Spin from './spin'
+import Space from './space'
+import Slider from './slider'
 import Switch from './switch'
 import { Select, Option } from './select'
 import Table from './table'
@@ -43,11 +46,12 @@ import { Row, Col } from './grid'
 
 import { version } from '../package.json'
 
-// import './styles';
+// import './styles/index.less';
 
 const components = {
 	Affix,
 	Alert,
+	Avatar,
 	BackTop,
 	Badge,
 	Breadcrumb, BreadcrumbItem,
@@ -79,7 +83,9 @@ const components = {
 	Progress,
 	Radio, RadioGroup, RadioButton,
 	Rate,
+	Space,
 	Spin,
+	Slider,
 	Select, Option,
 	Table,
 	Tabs, TabPane,

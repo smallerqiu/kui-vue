@@ -1,6 +1,15 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2.4
+`2021-12-13`
+
+- 新增 `Avatar` 组件
+- 新增 `Space` 组件
+- 新增 `Slider` 组件
+- 修复 `Table` 组件 `row-click` 事件
+- 修复 `Affix` 组件在容器内滚动定位不准的bug
+ 
 ### 3.2.3
 `2021-10-25` 
  - 新增暗黑模式主题

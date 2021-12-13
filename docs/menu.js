@@ -12,6 +12,7 @@ const Nav = [
       { title: "分割线", sub: "Divider", name: "divider", icon: 'remove' },
       { title: "栅格", sub: "Grid", name: "grid", icon: 'grid' },
       { title: "布局", sub: "Layout", name: "layout", icon: 'albums' },
+      { title: "间距", sub: "Space", name: "space", icon: 'reorder-four' },
     ]
   },
   {
@@ -38,12 +39,14 @@ const Nav = [
       { title: "选择器", sub: "Select", name: "select", icon: 'chevron-down' },
       { title: "日期选择框", sub: "DatePicker", name: "datepicker", icon: 'calendar' },
       // { title: "上传", sub: "Upload", name: "upload", icon: 'cloud-upload' },
+      { title: "滑动输入条", sub: "Slider", name: "slider", icon: 'options' },
       { title: "表单", sub: "Form", name: "form", icon: 'list' },
     ]
   },
   {
     title: '数据展示',
     child: [
+      { title: "头像", sub: "Avatar", name: "avatar", icon: 'person' },
       { title: "卡片", sub: "Card", name: "card", icon: 'card' },
       { title: "走马灯", sub: "Carousel", name: "carousel", icon: 'film' },
       { title: "折叠面板", sub: "Collapse", name: "collapse", icon: 'map' },

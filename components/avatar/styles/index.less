@@ -1,0 +1,61 @@
+@import '../../styles/global.less';
+.k-avatar {
+  margin: 0;
+  padding: 0;
+  color: @back-color;
+  background-color: @border-color;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  zoom: 1;
+  &>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  &.k-avatar-icon {
+    font-size: 18px;
+  }
+}
+
+.k-avatar-lg {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  &.k-avatar-icon {
+    font-size: 24px;
+  }
+}
+
+.k-avatar-sm {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  &.k-avatar-icon {
+    font-size: 14px;
+  }
+}
+
+.k-avatar-square {
+  border-radius: 4px;
+}
+
+.k-avatar-image {
+  background-color: transparent;
+}
+
+.k-avatar-string {
+  position: absolute;
+  left: 50%;
+  transform-origin: 0 center;
+}
