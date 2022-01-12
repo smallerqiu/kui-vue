@@ -13,7 +13,7 @@
 - DatePicker 新增 light 主题, 新增 shape=circle 控制呈现圆角,新增可自定义下拉箭头
 - Menu 系列组建修改部分外观
 - CheckGroup 优化一系列事件
-- Modal 新增 showClose 属性控制显示关闭按钮
+- Modal 新增 showClose 属性控制显示关闭按钮 ,可自定义Header和Footer
 - 优化Affix 定位问题
 
 ### 3.2.4
