@@ -237,10 +237,10 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
 }
 export function getOffset(el) {
   // const rect = el.getBoundingClientRect();
-  const pos = {
+  const pos = el ? {
     left: el.offsetLeft,//rect.left,
     top: el.offsetTop,
-  };
+  } : { left: 0, top: 0 }
   return pos;
 }
 

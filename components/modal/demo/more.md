@@ -6,12 +6,12 @@
 ```vue
 <template>
   <div>
-    <Button @click="show1=true" type="primary">Draggable</Button>
-    <Button @click="show2=true" type="primary">Centered</Button>
-    <Button @click="show3=true" type="primary">Top 200px</Button>
-    <Button @click="show4=true" type="primary">Maximized</Button>
-    <Button @click="show5=true" type="primary">No mask</Button>
-    <Button @click="show6=true" type="primary">No footer</Button>
+    <Button @click="show1=true" type="primary">可以拖动</Button>
+    <Button @click="show2=true" type="primary">居中显示</Button>
+    <Button @click="show3=true" type="primary">顶部 200px</Button>
+    <Button @click="show4=true" type="primary">最大化</Button>
+    <Button @click="show5=true" type="primary">没有蒙层</Button>
+    <Button @click="show6=true" type="primary">没有页脚</Button>
 
     <Modal title="Draggable" v-model="show1" draggable @ok="show1=false">
       {{text}}

@@ -1,19 +1,19 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-collapse {
-  background-color: @back-color;
-  border: 1px solid @border-color;
-  border-radius: @radius;
+  background-color: var(--kui-color-back);
+  border: 1px solid var(--kui-color-border);
+  border-radius: var(--kui-border-radius);
   border-bottom: 0;
   overflow: hidden;
-  color: @color;
+  color: var(--kui-color-font);
   &>.k-collapse-item {
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid var(--kui-color-border);
     &>.k-collapse-header {
       line-height: 22px;
       padding: 12px 16px 12px 40px;
       cursor: pointer;
       position: relative;
-      color: @title-color;
+      color: var(--kui-color-title);
       font-size: 14px;
       &>.k-collapse-arrow {
         position: absolute;
@@ -31,7 +31,7 @@
     }
     .k-collapse-content {
       // background-color: #fff;
-      border-top: 1px solid @border-color;
+      border-top: 1px solid var(--kui-color-border);
       padding: 0 16px;
       transition: all .3s ease-in-out;
       box-sizing: border-box;
@@ -52,10 +52,10 @@
   border: none;
   background: none;
   .k-collapse-item {
-    background: fadeout(@border-color, 60%);
+    background: var(--kui-color-gray-90);
     border: none;
     margin-bottom: 10px;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     overflow: hidden;
     .k-collapse-content {
       border: none;

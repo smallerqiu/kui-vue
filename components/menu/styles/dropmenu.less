@@ -6,57 +6,65 @@
   font-size: 14px;
   position: relative;
   zoom: 1;
-  background: @back-color;
+  background: var(--kui-color-control-10);
   list-style: none;
-  padding: @radius 0;
-  border-radius: @radius;
+  padding: var(--kui-border-radius) 0;
+  border-radius: var(--kui-border-radius);
   min-width: 100px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
-  color: @color;
+  color: var(--kui-color-font);
   .k-menu-item-divider {
     height: 1px;
     margin: 4px 0;
     overflow: hidden;
     line-height: 0;
-    background-color: @border-color;
+    background-color: var(--kui-color-border);
+  }
+  .k-dropdown-menu-icon-temp {
+    // width: 20px;
+    // height: 20px;
+    // display: inline-block;
+    // margin-right: 8px;
+    display: none;
   }
   .k-dropdown-menu-item, .k-dropdown-menu-submenu {
-    line-height: 22px;
+    line-height: 1;
     font-size: 14px;
     list-style: none;
-    padding: 5px 12px 5px 24px;
+    padding: 10px 12px;
     box-sizing: border-box;
     position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    // border-radius: var(--kui-border-radius);
+    // margin: 8px;
     a {
-      color: @color;
+      color: var(--kui-color-font);
       display: block;
-      margin: -5px -12px -5px -24px;
-      padding: 5px 12px 5px 24px;
+      // margin: -5px -12px -5px -24px;
+      // padding: 5px 12px 5px 24px;
     }
     &.k-dropdown-menu-item-active {
-      background-color: @hover-color;
+      background-color: var(--kui-color-hover);
     }
     .k-dropdown-menu-item-icon {
-      position: absolute;
-      left: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
+      font-size: 16px;
+      margin-right: 8px;
     }
   }
   .k-dropdown-menu-submenu-active {
-    background-color: @hover-color;
+    background-color: var(--kui-color-hover);
   }
   .k-dropdown-menu-item-divider {
     height: 1px;
     margin: 2px 0;
     overflow: hidden;
     line-height: 0;
-    background-color: @border-color;
+    background-color: var(--kui-color-border);
   }
   .k-dropdown-menu-item-disabled, .k-dropdown-menu-submenu-disabled {
-    color: @disable-color;
+    color: var(--kui-color-disable-color);
     cursor: not-allowed;
   }
   .k-dropdown-menu-submenu-popup {
@@ -66,7 +74,7 @@
     position: absolute;
     z-index: 1001;
     min-width: 160px;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     padding-left: 5px;
     left: 100%;
   }

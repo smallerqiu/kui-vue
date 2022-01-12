@@ -18,17 +18,23 @@ export default {
       }
     },
     loading: Boolean,
-    circle: Boolean,
-    hollow: Boolean,
     type: {
       validator(value) {
         return (
-          ["danger", "primary", "link", "default", "dashed"].indexOf(value) >= 0
+          ["danger", "primary", 'warning', "link", "default", "dashed"].indexOf(value) >= 0
         );
       },
       default: 'default'
     },
-    disabled: Boolean
+    disabled: Boolean,
+    theme: {
+      type: String,
+      default: 'default',
+      validator(value) {
+        return ['default', 'light', 'solid', 'normal'].indexOf(value) > -1
+      }
+    },
+    shape: String
   },
   methods: {
     click(e) {
@@ -39,8 +45,8 @@ export default {
   },
 
   render() {
-    const { $slots, $attrs, size, disabled, click,
-      circle, hollow, htmlType, icon, loading, $listeners, type, block } = this
+    const { $slots, $attrs, size, disabled, click, theme,
+      shape, htmlType, icon, loading, $listeners, type, block } = this
     const onlyIcon = !getChild($slots.default).length && icon
     const classes = [
       "k-btn",
@@ -51,8 +57,8 @@ export default {
         ["k-btn-loading"]: loading,
         ["k-btn-icon-only"]: onlyIcon,
         ["k-btn-lg"]: size == 'large',
-        ["k-btn-circle"]: !!circle,
-        ["k-btn-hollow"]: !!hollow
+        ["k-btn-circle"]: shape == 'circle',
+        [`k-btn-${theme}`]: !!theme && theme != 'default',
       }
     ]
     const props = {

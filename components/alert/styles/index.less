@@ -1,6 +1,6 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-alert {
-  border-radius: @radius;
+  border-radius: var(--kui-border-radius);
   margin-bottom: 16px;
   padding: 8px 15px;
   box-sizing: border-box;
@@ -9,17 +9,17 @@
   font-size: 12px;
   transition: all .3s;
   overflow: hidden;
-  background: fadeout(@warning, 90%);
-  border: 1px solid fadeout(@warning, 70%);
+  background: var(--kui-color-warning-90);
+  border: 1px solid var(--kui-color-warning-80);
   &-icon {
-    color: @warning;
+    color: var(--kui-color-warning);
     position: absolute;
     top: 8px;
     left: 10px;
     font-size: 20px;
   }
   &-message {
-    color: @color;
+    color: var(--kui-color-font);
   }
   &-has-icon {
     padding-left: 38px;
@@ -40,11 +40,11 @@
       font-size: 14px;
       font-weight: 500;
       margin-bottom: 5px;
-      color: @color;
+      color: var(--kui-color-font);
     }
     .k-alert-description {
       font-size: 14px;
-      color: @color;
+      color: var(--kui-color-font);
     }
     &.k-alert-has-icon {
       padding-left: 50px;
@@ -60,32 +60,32 @@
     top: 8px;
     cursor: pointer;
     text-decoration: none;
-    color: @color;
+    color: var(--kui-color-font);
     padding: 0px 5px;
     &:hover {
       text-decoration: none;
-      color: @danger;
+      color: var(--kui-color-danger);
     }
   }
   &-success {
-    background: fadeout(@success, 90%);
-    border-color: fadeout(@success, 70%);
+    background: var(--kui-color-success-90);
+    border-color: var(--kui-color-success-80);
     .k-alert-icon {
-      color: @success;
+      color: var(--kui-color-success);
     }
   }
   &-error {
-    background: fadeout(@danger, 90%);
-    border-color: fadeout(@danger, 70%);
+    background: var(--kui-color-danger-90);
+    border-color: var(--kui-color-danger-80);
     .k-alert-icon {
-      color: @danger;
+      color: var(--kui-color-danger);
     }
   }
   &-info {
-    background: fadeout(@main, 90%);
-    border-color: fadeout(@main, 70%);
+    background: var(--kui-color-main-90);
+    border-color: var(--kui-color-main-80);
     .k-alert-icon {
-      color: @main;
+      color: var(--kui-color-main);
     }
   }
   &-slide-leave-to {

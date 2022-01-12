@@ -6,8 +6,8 @@
 ```vue
 <template>
   <div>
-    <Button @click="visible1=true" type="primary">Width 300px</Button>
-    <Button @click="visible2=true" type="primary">Custom footer</Button>
+    <Button @click="visible1=true" type="primary">宽300px</Button>
+    <Button @click="visible2=true" type="primary">自定义页脚</Button>
     <Button @click="visible3=true" type="primary">国际化</Button>
     <Button @click="visible4=true" type="primary">异步关闭</Button>
     <Modal title="Width 300px" v-model="visible1" :width="300" @ok="visible1=false">

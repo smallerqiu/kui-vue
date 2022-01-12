@@ -11,14 +11,14 @@
       <Button>已发货</Button>
       <Button>已签收</Button>
     </ButtonGroup>
-    <ButtonGroup circle>
+    <ButtonGroup shape="circle">
       <Button>待发货</Button>
       <Button>已发货</Button>
       <Button>已签收</Button>
     </ButtonGroup>
     <br />
     <br />
-    <ButtonGroup size="small" circle>
+    <ButtonGroup size="small" shape="circle">
       <Button ><Icon type="chevron-back"/> Backward</Button>
       <Button>Forward <Icon type="chevron-forward"/></Button>
     </ButtonGroup>

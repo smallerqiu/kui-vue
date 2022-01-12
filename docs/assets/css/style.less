@@ -1,20 +1,18 @@
-
-
 .back {
-  background-color: @back;
+  background-color: var(--kui-color-back);
 }
 
 .demo-back {
-  background-color: @hover-color !important;
+  background-color: var(--kui-color-gray-90) !important;
 }
 
 .layout-back {
-  background-color: @layoutback;
+  // background-color: @layoutback;
 }
 
 body {
   min-width: 1015px;
-  color: @color;
+  color: var(--kui-color-font);
 }
 
 body, textarea, input, button, select, pre tt, kbd, samp, .serif {
@@ -29,8 +27,8 @@ pre, code {
 .k-layout {
   .header {
     height: 52px;
-    line-height: 52px;
-    background: @back;
+    // line-height: 52px;
+    background: var(--kui-color-back);
     position: fixed;
     width: 100%;
     top: 0;
@@ -42,20 +40,22 @@ pre, code {
     align-items: center;
     .logo {
       float: left;
-      width: 280px;
-      min-width: 280px;
+      width: 272px;
+      min-width: 272px;
       a {
         font-size: 16px;
         font-weight: bold;
-        color: @color;
+        color: var(--kui-color-font);
         text-decoration: none;
       }
-      img {
+      .k-icon {
         height: 30px;
         vertical-align: middle;
         display: inline-block;
         margin-right: 10px;
         width: 30px;
+        font-size: 30px;
+        color: var(--kui-color-main);
       }
       sub {
         font-weight: 100;
@@ -64,7 +64,9 @@ pre, code {
     .top-menu {
       float: right;
       border: none;
-      line-height: 50px;
+      li {
+        line-height: 30px;
+      }
     }
     .search-component {
       flex: 1;
@@ -74,26 +76,13 @@ pre, code {
       .k-select {
         width: 280px;
       }
-      .k-icon {
-        color: #999;
-        margin-top: 8px;
-      }
-      &::before {
-        content: '';
-        width: 1px;
-        height: 15px;
-        background-color: #ddd;
-        left: 0;
-        position: absolute;
-        top: 10px;
-      }
     }
   }
   .main {
-    background: @back;
+    background: var(--kui-color-back);
     padding-top: 50px;
     .docs-k-layout-sider {
-      background: @back;
+      background: var(--kui-color-back);
       width: 300px;
       position: fixed;
       left: 0;
@@ -122,26 +111,8 @@ pre, code {
           // overflow-y: auto;
         }
         .sub {
-          font-size: 12px;
-        }
-        .k-menu-item-group-title {
-          padding-left: 24px;
-          position: relative;
-          font-size: 13px;
-          margin-top: 16px;
-          margin-bottom: 16px;
-          &::after {
-            position: absolute;
-            content: '';
-            height: 1px;
-            background-color: @border-color;
-            left: 24px;
-            right: 16px;
-            bottom: 0;
-          }
-        }
-        .k-menu-inline .k-menu-item {
-          padding-left: 24px;
+          font-size: 14px;
+          margin-left: 8px;
         }
       }
     }
@@ -152,38 +123,16 @@ pre, code {
   }
   .docs-k-footer {
     text-align: center;
-    background-color: @hover-color;
+    background-color: var(--kui-color-gray-90);
     a {
       font-size: 12px;
       color: #666;
     }
   }
-  .set-theme{
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.144);
-    border-radius: 50%;
-    color: #000;
-    width: 40px;
-    height: 40px;
-    display: block;
-    position: fixed;
-    right: 40px;
-    font-size: 20px;
-    bottom: 40px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  .icon-sunny{
-    background-color: #000;
-    color: #fff;
-  }
 }
 
 .foot-nav {
-  border-top: 1px solid @border-color;
+  border-top: 1px solid var(--kui-color-border);
   margin-top: 40px;
   a {
     padding: 30px 0;
@@ -207,7 +156,7 @@ pre, code {
     cursor: pointer;
     &:hover {
       box-shadow: 0 10px 40px 10px rgba(0, 0, 0, 0.161);
-      border-color: @border-color;
+      border-color: var(--kui-color-border);
       .icon-view {
         transform: scale(1.2);
         color: rgba(58, 150, 255, 0.314);
@@ -221,7 +170,7 @@ pre, code {
     .icon-view {
       font-size: 60px;
       transition: all .5s;
-      color: @font-color;
+      color: var(--kui-color-font);
     }
   }
 }

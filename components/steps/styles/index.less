@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-steps {
     font-size: 0;
     width: 100%;
@@ -28,7 +28,7 @@
                     top: 0;
                     content: '';
                     width: 0;
-                    background: @main;
+                    background: var(--kui-color-main);
                     height: 1px;
                     transition: width .3s ease-in-out;
                 }
@@ -88,11 +88,11 @@
         color: #666;
         .k-step-icon {
             &>i {
-                color: @main;
+                color: var(--kui-color-main);
             }
             .k-step-icon-inner {
-                border-color: @main;
-                background-color: @main;
+                border-color: var(--kui-color-main);
+                background-color: var(--kui-color-main);
                 color: #fff;
             }
         }
@@ -100,10 +100,10 @@
     .k-steps-finish {
         // color: #666;
         .k-step-icon {
-            color: @main;
+            color: var(--kui-color-main);
             font-weight: 500;
             .k-step-icon-inner {
-                border-color: @main; // background-color: @main;
+                border-color: var(--kui-color-main); // background-color: var(--kui-color-main);
             }
         }
         .k-step-tail i {
@@ -113,11 +113,11 @@
         }
     }
     .k-steps-error {
-        color: @danger;
+        color: var(--kui-color-danger);
         .k-step-icon {
             .k-step-icon-inner {
-                border-color: @danger; // background-color: @main;
-                color: @danger;
+                border-color: var(--kui-color-danger); // background-color: var(--kui-color-main);
+                color: var(--kui-color-danger);
             }
         }
     }
@@ -156,7 +156,7 @@
                     top: 0;
                     height: 0;
                     content: '';
-                    background: @main;
+                    background: var(--kui-color-main);
                     width: 1px;
                     transition: height .3s ease-in-out;
                 }

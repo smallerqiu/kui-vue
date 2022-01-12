@@ -8,19 +8,15 @@
   <div style="width:256px">
     <Menu v-model="current" :open-keys="openKeys" mode="inline">
       <SubMenu key="sub1" icon="mail" title="Navigation One">
-        <MenuGroup title="Item 1">
-          <MenuItem key="1-1">Option 1</MenuItem>
-          <MenuItem key="1-2">Option 2</MenuItem>
-        </MenuGroup>
-        <MenuGroup title="Item 2">
-          <MenuItem key="1-3">Option 3</MenuItem>
-          <MenuItem key="1-4">Option 4</MenuItem>
-        </MenuGroup>
+        <MenuItem key="1-1">Option 1</MenuItem>
+        <MenuItem key="1-2">Option 2</MenuItem>
+        <MenuItem key="1-3">Option 3</MenuItem>
+        <MenuItem key="1-4">Option 4</MenuItem>
       </SubMenu>
-      <SubMenu key="sub2" icon="keypad" title="Navigation Two">
+      <SubMenu key="sub2" icon="bar-chart" title="Navigation Two">
         <MenuItem key="2-1">Option 5</MenuItem>
         <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu key="sub2-1" icon="keypad" title="SubMenu">
+        <SubMenu key="sub2-1" icon="bar-chart" title="SubMenu">
           <MenuItem key="2-3">Option 7</MenuItem>
           <MenuItem key="2-4">Option 8</MenuItem>
         </SubMenu>

@@ -1,0 +1,158 @@
+@radius: ~'5px'; //圆角
+
+//颜色
+@main: #3a95ff; //主体色
+@main-10: fadeout(@main,10%);
+@main-30: fadeout(@main,30%);
+@main-60: fadeout(@main,60%);
+@main-80: fadeout(@main,80%);
+@main-90: fadeout(@main,90%);
+@success: #00bb5d; //成功
+@success-30: fadeout(@success,30%);
+@success-60: fadeout(@success,60%);
+@success-80: fadeout(@success,80%);
+@success-90: fadeout(@success,90%);
+@danger: #ff3300;
+@danger-30: fadeout(@danger,30%);
+@danger-60: fadeout(@danger,60%);
+@danger-80: fadeout(@danger,80%);
+@danger-90: fadeout(@danger,90%);
+@dark-danger: darken(#ff3300,20%);
+@warning: #ffa500;
+@warning-30: fadeout(@warning,30%);
+@warning-60: fadeout(@warning,60%);
+@warning-80: fadeout(@warning,80%);
+@warning-90: fadeout(@warning,90%);
+
+@pink: lighten( purple, 45%);
+@pink-30: fadeout(@pink,30%);
+@pink-60: fadeout(@pink,60%);
+@pink-80: fadeout(@pink,80%);
+@pink-90: fadeout(@pink,90%);
+
+@red: lighten(red, 5%);
+@red-30: fadeout(@red,30%);
+@red-60: fadeout(@red,60%);
+@red-80: fadeout(@red,80%);
+@red-90: fadeout(@red,90%);
+
+@yellow: mix(yellow, orange, 50%);
+@yellow-30: fadeout(@yellow,30%);
+@yellow-60: fadeout(@yellow,60%);
+@yellow-80: fadeout(@yellow,80%);
+@yellow-90: fadeout(@yellow,90%);
+
+@orange: lighten(orange, 8%);
+@orange-30: fadeout(@orange,30%);
+@orange-60: fadeout(@orange,60%);
+@orange-80: fadeout(@orange,80%);
+@orange-90: fadeout(@orange,90%);
+
+@cyan: darken(cyan, 10%);
+@cyan-30: fadeout(@cyan,30%);
+@cyan-60: fadeout(@cyan,60%);
+@cyan-80: fadeout(@cyan,80%);
+@cyan-90: fadeout(@cyan,90%);
+
+@green: lighten(green, 15%);
+@green-30: fadeout(@green,30%);
+@green-60: fadeout(@green,60%);
+@green-80: fadeout(@green,80%);
+@green-90: fadeout(@green,90%);
+
+@blue: mix(blue, cyan, 50%);
+@blue-30: fadeout(@blue,30%);
+@blue-60: fadeout(@blue,60%);
+@blue-80: fadeout(@blue,80%);
+@blue-90: fadeout(@blue,90%);
+
+@purple: lighten(mix(purple,blue, 60%),30%);
+@purple-30: fadeout(@purple,30%);
+@purple-60: fadeout(@purple,60%);
+@purple-80: fadeout(@purple,80%);
+@purple-90: fadeout(@purple,90%);
+
+@geekblue: mix(blue, cyan, 70%); //极客蓝
+@geekblue-30: fadeout(@geekblue,30%);
+@geekblue-60: fadeout(@geekblue,60%);
+@geekblue-80: fadeout(@geekblue,80%);
+@geekblue-90: fadeout(@geekblue,90%);
+
+@magenta: mix(pink, red, 40%); //洋红
+@magenta-30: fadeout(@magenta,30%);
+@magenta-60: fadeout(@magenta,60%);
+@magenta-80: fadeout(@magenta,80%);
+@magenta-90: fadeout(@magenta,90%);
+
+@volcano: mix(red, orange, 60%); //火红
+@volcano-30: fadeout(@volcano,30%);
+@volcano-60: fadeout(@volcano,60%);
+@volcano-80: fadeout(@volcano,80%);
+@volcano-90: fadeout(@volcano,90%);
+
+@gold: lighten(gold, 10%);
+@gold-30: fadeout(@gold,30%);
+@gold-60: fadeout(@gold,60%);
+@gold-80: fadeout(@gold,80%);
+@gold-90: fadeout(@gold,90%);
+
+@lime: mix(green, yellow, 40%); //绿黄色
+@lime-30: fadeout(@lime,30%);
+@lime-60: fadeout(@lime,60%);
+@lime-80: fadeout(@lime,80%);
+@lime-90: fadeout(@lime,90%);
+
+@gray: #969696;
+@gray-30: fadeout(@gray,30%);
+@gray-60: fadeout(@gray,60%);
+@gray-80: fadeout(@gray,80%);
+@gray-90: fadeout(@gray,90%);
+
+@dark: rgba(0, 0, 0, .75);
+
+@mask-color: rgba(0, 0, 0, .6); //蒙层背景
+@mask-color-30: rgba(0, 0, 0, .3);
+@mask-color-90: rgba(0, 0, 0, .9);
+
+@spin-color: rgba(255, 255, 255, .6); //蒙层背景
+@dark-spin-color: rgba(0, 0, 0, .6); //蒙层背景
+
+//字体颜色
+@font-color: rgba(0, 0, 0, .75); 
+@dark-font-color: rgba(255, 255, 255, .9);
+
+@title-color: rgba(0, 0, 0, .85); //标题凸显颜色
+@dark-title-color: rgba(255, 255, 255, .85);
+
+@sub-title-color: rgba(0, 0, 0, .65); //标题凸显颜色
+@dark-sub-title-color: rgba(255, 255, 255, .65);
+
+@back-color: #fff; //组件背景
+@back-color-10: #fff; 
+@back-color-30: darken(#fff,30%); 
+@back-color-60: darken(#fff,60%); 
+@back-color-90: darken(#fff,90%);  
+
+@dark-back-color: #1f1f1f;
+@dark-back-color-10: lighten(#1f1f1f,10%);
+@dark-back-color-30: lighten(#1f1f1f,30%);
+@dark-back-color-60: lighten(#1f1f1f,60%);
+@dark-back-color-90: lighten(#1f1f1f,90%);
+
+@icon-color: rgba(0, 0, 0, .4); //图标颜色
+@dark-icon-color: rgba(255, 255, 255, .4);
+
+@hover-color:fadeout(@main, 80%); //item 的 hover 颜色
+@selected-color:fadeout(@main, 90%); //item 的 selected 颜色
+
+@border-color: rgba(216, 216, 216, 0.5); //边框颜色
+@dark-border-color: rgba(83, 83, 83, 0.5);
+
+@disable-border: #d0d0d0; //禁用边框颜色
+@dark-disable-border: fadeout(@border-color,90%);
+
+@disable-back: #f5f5f5;//禁用背景颜色
+@dark-disable-back: fadeout(@back-color,90%);
+
+@disable-color: rgba(0, 0, 0, .3); //禁用文字颜色
+@dark-disable-color: rgba(255, 255, 255, .3);

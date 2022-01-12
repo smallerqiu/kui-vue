@@ -1,6 +1,6 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-modal {
-	color: @color;
+	color: var(--kui-color-font);
 	.k-modal-wrap {
 		position: fixed;
 		top: 0;
@@ -25,10 +25,11 @@
 	}
 	.k-modal-inner {
 		position: relative;
-		background-color: @back-color;
+		background-color: var(--kui-color-control-10);
+		border: 1px solid var(--kui-color-gray-80);
 		z-index: 1001;
 		outline: 0;
-		border-radius: @radius;
+		border-radius: var(--kui-border-radius);
 		top: 100px;
 		overflow: hidden;
 		margin: 0 auto;
@@ -45,7 +46,7 @@
 			position: absolute;
 			cursor: pointer;
 			font-size: 20px;
-			color: @color;
+			color: var(--kui-color-font);
 			width: 43px;
 			height: 43px;
 			top: 0;
@@ -58,12 +59,12 @@
 				transform: translateY(-50%) translateX(-50%);
 			}
 			&:hover {
-				color: @danger;
+				color: var(--kui-color-danger);
 				// transform: rotate(360deg);
 			}
 		}
 		.k-modal-header {
-			border-bottom: 1px solid @border-color;
+			border-bottom: 1px solid var(--kui-color-gray-80);
 			padding: 14px 16px;
 			line-height: 1;
 			font-size: 14px;
@@ -74,18 +75,21 @@
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
+				font-size: 16px;
+				font-weight: 600;
+				line-height: 1.1;
 			}
 		}
 		.k-modal-body {
 			padding: 16px;
-			font-size: 12px;
+			font-size: 14px;
 			line-height: 1.5;
 			// height: calc(100% - 43px - 45px);
 			overflow: auto;
 			box-sizing: border-box;
 		}
 		.k-modal-footer {
-			border-top: 1px solid @border-color;
+			border-top: 1px solid var(--kui-color-gray-80);
 			padding: 6px 16px;
 			text-align: right;
 			display: inline-block;
@@ -135,6 +139,9 @@
 }
 
 .k-modal-maximized {
+	.k-modal-wrap{
+		overflow: hidden;
+	}
 	.k-modal-inner {
 		height: 100%;
 		width: 100%;
@@ -146,7 +153,7 @@
 			width: 100%;
 			bottom: 0;
 			left: 0;
-			background: @back-color;
+			background: var(--kui-color-control-10);
 		}
 	}
 }
@@ -154,8 +161,8 @@
 .k-toast {
 	.k-modal-inner {
 		width: 416px;
-		background: @back-color;
-		border-radius: @radius;
+		background: var(--kui-color-control-10);
+		border-radius: var(--kui-border-radius);
 		padding: 16px;
 		overflow: hidden;
 	}
@@ -187,23 +194,23 @@
 }
 
 .k-toast-success .k-toast-icon {
-	color: @success;
+	color: var(--kui-color-success);
 }
 
 .k-toast-error .k-toast-icon {
-	color: @danger;
+	color: var(--kui-color-danger);
 }
 
 .k-toast-warning .k-toast-icon {
-	color: @warning;
+	color: var(--kui-color-warning);
 }
 
 .k-toast-info .k-toast-icon {
-	color: @main;
+	color: var(--kui-color-main);
 }
 
 .k-toast-confirm .k-toast-icon {
-	color: @warning;
+	color: var(--kui-color-warning);
 }
 
 @keyframes fade-in {

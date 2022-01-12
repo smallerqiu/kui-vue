@@ -29,13 +29,12 @@ export default {
       left: null,
       minWidth: null,
       rendered: false,
-      affixedKeys: []
     };
   },
   mounted() {
     let { SubMenu, Menu } = this
     if (Menu) {
-      let { selectedKeys, defaultOpenKeys, inlineCollapsed, verticalAffixed } = Menu
+      let { selectedKeys, defaultOpenKeys, inlineCollapsed } = Menu
       let key = this.$vnode.key || 'sub_' + this._uid
       const opened = defaultOpenKeys.indexOf(key) >= 0
 
@@ -51,18 +50,12 @@ export default {
       if (!inlineCollapsed) {
         this.opened = opened
       }
-      if (verticalAffixed) {
-        this.affixedKeys = getChild(this.$slots.default)
-          .map(child => cloneVNode(child))
-          .filter(({ data }) => data.props.affixed !== false && data.props.affixed !== undefined)
-          .map(c => c.key)
-      }
     }
   },
   render() {
     let { $slots, disabled, Dropdown, opened, Menu, SubMenu, icon, rendered } = this
     let key = this.$vnode.key || 'sub_' + this._uid
-    const { currentMode, theme, selectedKeys, verticalAffixed, inlineCollapsed,
+    const { currentMode, theme, selectedKeys,  inlineCollapsed,
       mode, defaultOpenKeys } = Menu
     let selected = selectedKeys.indexOf(key) >= 0
 
@@ -95,11 +88,9 @@ export default {
         "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
     </div>
 
-    const hasRenderAffix = !SubMenu && mode == 'vertical' && verticalAffixed
-
     const popupProps = {
       slot: 'content',
-      class: [`k-${preCls}-popup`, { [`k-${preCls}-affix-popup`]: hasRenderAffix }],
+      class: [`k-${preCls}-popup`],
       style: {
         'min-width': `${this.minWidth}px`,
         'margin-left': theme == 'dark' && !SubMenu && mode == "horizontal" ? '-16px' : null
@@ -156,9 +147,7 @@ export default {
       [`k-${preCls}-disabled`]: disabled
     }]
 
-    const affixNode = hasRenderAffix ? this.renderAffix() : null
-
-    return (<li class={classes}>{popMenuNode}{affixNode}</li>)
+    return (<li class={classes}>{popMenuNode}</li>)
   },
   methods: {
     hidePopupMenu() {
@@ -196,55 +185,6 @@ export default {
           Menu.openChange(openKeys)
         })
       }
-    },
-    affixed(item, e) {
-      let parent = this.Menu
-
-      let key = item.$vnode.key
-      if (parent) {
-        let options = {
-          key,
-          keyPath: [key],
-          item,
-          event: e
-        }
-        parent.$emit('affixed', options)
-
-        if (item.currentAffixed) {
-          this.affixedKeys.push(key)
-        } else {
-          let index = this.affixedKeys.indexOf(key)
-          this.affixedKeys.splice(index, 1)
-        }
-      }
-    },
-    affixItemClick(item, e) {
-      let disabled = item.data.props.disabled
-      if (disabled !== false) {
-        let parent = this.SubMenu || this.Menu
-        if (parent) {
-          let key = item.data.key
-          let options = {
-            key,
-            keyPath: [key],
-            item,
-            event: e
-          }
-          parent.handleClick(options)
-        }
-      }
-    },
-    renderAffix() {
-      let { selectedKeys } = this.Menu
-      const childs = getChild(this.$slots.default)
-        .map(child => cloneVNode(child))
-        .filter(child => this.affixedKeys.indexOf(child.key) > -1)
-      const childNode = childs.map(item => {
-        return <li class={["k-menu-submenu-affix-item", { 'k-menu-submenu-affix-item-active': selectedKeys.indexOf(item.key) >= 0 }]} key={item.key}>
-          <span class="k-menu-submenu-affix-item-text" onClick={e => this.affixItemClick(item, e)}>{item.componentOptions.children}</span>
-        </li>
-      })
-      return <ul class="k-menu-submenu-affix">{childNode}</ul>
     },
     openChange() {
       if (this.Menu) {

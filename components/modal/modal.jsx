@@ -20,6 +20,7 @@ export default {
     maximized: Boolean,
     centered: Boolean,
     draggable: Boolean,
+    showClose: { type: Boolean, default: true },
     loading: Boolean,
     footer: String,
     transfer: { type: Boolean, default: true },
@@ -48,7 +49,6 @@ export default {
       this.setPos()
     }
   },
-
   methods: {
     updateProp(visible) {
       if (visible) {
@@ -77,7 +77,7 @@ export default {
       }
       if (opened) {
         let barWidth = measureScrollBar(true)
-        let hasBar = target.scrollHeight > target.clientHeight || target.offsetHeight > target.clientHeight
+        let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
         if (barWidth && hasBar) {
           target.style.width = `calc(100% - ${barWidth}px)`
           target.style.overflow = `hidden`
@@ -93,7 +93,7 @@ export default {
       }
     },
     setPos() {
-      if (this.show) {
+      if (this.show && this.$refs.modal) {
         let { showPoint: { x, y } } = this
         // let { x, y } = showPoint
         let { left, top } = getOffset(this.$refs.modal)
@@ -160,6 +160,12 @@ export default {
     if (this.draggable) {
       this.left = (document.body.offsetWidth - (this.width || 520)) / 2
     }
+    // console.log(this.value)
+    if (this.value) {
+      this.$nextTick(() => {
+        this.updateProp(true)
+      })
+    }
   },
   render() {
     let { $slots, show, showInner, draggable, transfer } = this
@@ -174,8 +180,8 @@ export default {
     let contentNode = $slots.content
     if (!contentNode) {
       const contents = []
-      contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="close" /></span>)
-      contents.push(<div class="k-modal-header" ref="hRef"><div class="k-modal-header-inner">{this.title}</div></div>)
+      this.showClose && contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="close" /></span>)
+      this.title !== null && contents.push(<div class="k-modal-header" ref="hRef"><div class="k-modal-header-inner">{this.title}</div></div>)
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 
       //footer

@@ -1,8 +1,8 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-notice {
   font-size: 14px;
   line-height: 1.5;
-  color: @color;
+  color: var(--kui-color-font);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
@@ -20,10 +20,10 @@
     box-sizing: content-box;
     transition: all .3s ease-in-out;
     padding: 16px 35px 16px 16px;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: @back-color;
+    background: var(--kui-color-control-10);
     line-height: 1.5;
     position: relative;
     margin-bottom: 16px;
@@ -34,7 +34,7 @@
   }
   .k-notice-title {
     font-size: 16px;
-    color: @title-color;
+    color: var(--kui-color-title);
     margin-bottom: 8px;
     line-height: 22px;
     vertical-align: middle;
@@ -57,25 +57,26 @@
     top: 13px;
     outline: none;
     cursor: pointer;
-    color: @color;
+    color: var(--kui-color-font);
     font-size: 20px;
+    padding: 3px;
     display: block;
-    padding: 0 5px;
-    &:hover {
-      color: @danger;
+    border-radius: var(--kui-border-radius);
+    &:hover{
+      background-color: var(--kui-color-gray-80);
     }
   }
   .k-notice-info .k-notice-icon {
-    color: @main;
+    color: var(--kui-color-main);
   }
   .k-notice-error .k-notice-icon {
-    color: @danger;
+    color: var(--kui-color-danger);
   }
   .k-notice-success .k-notice-icon {
-    color: @success;
+    color: var(--kui-color-success);
   }
   .k-notice-warning .k-notice-icon {
-    color: @warning;
+    color: var(--kui-color-warning);
   }
 }
 

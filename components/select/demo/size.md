@@ -6,21 +6,21 @@
 ```vue
 <template>
   <div>
-    <RadioGroup :value="size" @change="setSize">
+    <RadioGroup :value="size" @change="setSize" icon="search">
       <RadioButton value="large" label="large"/>
       <RadioButton value="default" label="default"/>
       <RadioButton value="small" label="small"/>
     </RadioGroup>
     <br />
     <br />
-    <Select :width="256" :size="size" clearable filterable >
+    <Select :width="256" :size="size" clearable filterable  icon="search">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
       <Option value="4" label="Pear" />
     </Select>
     <br />
-    <Select :width="256" :size="size" multiple v-model="value" filterable >
+    <Select :width="256" :size="size" multiple v-model="value" filterable  icon="search">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana" />
@@ -37,8 +37,8 @@ export default{
     }
   },
   methods:{
-    setSize(size){
-      this.size = size
+    setSize({value}){
+      this.size = value
     }
   }
 }

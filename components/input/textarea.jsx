@@ -3,6 +3,7 @@ export default {
 	name: 'TextArea',
 	props: {
 		value: [String, Number],
+		theme: String
 	},
 	render() {
 		const props = {

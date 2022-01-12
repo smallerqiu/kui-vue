@@ -1,18 +1,18 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-breadcrumb {
   line-height: 1.5;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   list-style: none;
-  color: @disable-color;
+  color: var(--kui-color-disable-color);
   font-size: 14px;
   &-item {
     .k-icon {
       margin-right: 4px;
     }
     &:hover {
-      color: @main;
+      color: var(--kui-color-main);
     }
   }
   &-link {
@@ -20,7 +20,7 @@
   }
   >span {
     &:last-child {
-      color: @title-color;
+      color: var(--kui-color-title);
       .k-breadcrumb-separator {
         display: none;
       }

@@ -5,23 +5,23 @@ export default {
     size: {
       default: 'default',
       validator(value) {
-        return ["small", "large","default"].indexOf(value) >= 0;
+        return ["small", "large", "default"].indexOf(value) >= 0;
       }
     },
-    circle: Boolean
+    shape: String
   },
   data() {
     return {};
   },
   computed: {
     classes() {
-      const { size, circle } = this
+      const { size, shape } = this
       return [
         "k-btn-group",
         {
-          ["k-btn-group-sm"]: size=='small',
-          ["k-btn-group-lg"]: size=='large',
-          ["k-btn-group-circle"]: circle
+          ["k-btn-group-sm"]: size == 'small',
+          ["k-btn-group-lg"]: size == 'large',
+          ["k-btn-group-circle"]: shape == 'circle'
         }
       ];
     }

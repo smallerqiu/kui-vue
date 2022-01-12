@@ -1,8 +1,8 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-message {
   font-size: 14px;
   line-height: 1.5;
-  color: @color;
+  color: var(--kui-color-font);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -23,9 +23,9 @@
     box-sizing: content-box;
     line-height: 1.5;
     padding: 10px 16px;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: @back-color;
+    background: var(--kui-color-control-10);
     display: inline-block;
     pointer-events: all;
     align-items: center;
@@ -41,23 +41,28 @@
     margin-left: 15px;
     font-size: 18px;
     vertical-align: sub;
+    border-radius: var(--kui-border-radius);
+    padding: 2px;
+    &:hover{
+      background-color: var(--kui-color-gray-80);
+    }
   }
 }
 
 .k-message-success .k-message-icon {
-  color: @success;
+  color: var(--kui-color-success);
 }
 
 .k-message-error .k-message-icon {
-  color: @danger;
+  color: var(--kui-color-danger);
 }
 
 .k-message-info .k-message-icon {
-  color: @main;
+  color: var(--kui-color-main);
 }
 
 .k-message-warning .k-message-icon {
-  color: @warning;
+  color: var(--kui-color-warning);
 }
 
 @keyframes msgIn {

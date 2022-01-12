@@ -4,7 +4,7 @@ import { getTranstionProp } from '../base/transition'
 let count = 0
 const timestamp = Date.now()
 function getUuid() {
-  return `k-message_${timestamp}_${count++}`
+  return `k-message-${timestamp}-${count++}`
 }
 
 export default {

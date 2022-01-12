@@ -8,31 +8,32 @@
 <template>
   <div class="k-demo-layout">
     <Layout  class="layout-back">
-      <Sider class="demo-sider demo-back" :style="{width:collapsed?'80px':'200px'}">
-        <div class="logo" />
-        <Menu mode="inline" v-model="left" :open-keys="open" :inline-collapsed="collapsed" style="border:none;">
-          <MenuItem key="1-1" icon="home"><span>option1</span></MenuItem>
-          <MenuItem key="1-2" icon="logo-buffer"><span>option2</span></MenuItem>
-          <MenuItem key="1-3" icon="heart"><span>option3</span></MenuItem>
-          <MenuItem key="1-4" icon="albums"><span>option4</span></MenuItem>
-          <SubMenu key="l0">
-            <template slot="title">
-              <Icon type="newspaper" /><span>subnav1</span>
-            </template>
-            <MenuItem key="0-1">option1</MenuItem>
-            <MenuItem key="0-2">option2</MenuItem>
-            <MenuItem key="0-3">option3</MenuItem>
-            <MenuItem key="0-4">option4</MenuItem>
-          </SubMenu> 
+      <Sider class="demo-sider" :style="{width:collapsed?'60px':'200px'}">
+        <div class="logo-box">
+          <Icon type="logo-kui" size="30" class="logo"/>
+          <transition>
+            <span v-show="!collapsed">KUI运营后台</span>
+          </transition>
+        </div>
+        <Menu mode="inline" v-model="left" :inline-collapsed="collapsed" style="border:none;">
+          <MenuItem key="1-1" icon="home-outline"><span>首页</span></MenuItem>
+          <MenuItem key="1-2" icon="bar-chart"><span>数据统计</span></MenuItem>
+          <MenuItem key="1-3" icon="settings"><span>能源管理</span></MenuItem>
         </Menu>
-        <div class="toggle-menu demo-back" @click="toggle"><Icon :type="!collapsed?'chevron-back':'chevron-forward'" /></div>
+        <Button theme="light" :icon="!collapsed?'chevron-back':'chevron-forward'" @click="toggle" class="btn-expand"/>
       </Sider>
       <Content class="k-demo-main">
-        <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="home">nav1</MenuItem>
-          <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="heart">nav3</MenuItem>
-        </Menu>
+        <Row type="flex" align="middle" class="header-nav">
+          <Col flex="1"></Col>
+          <Col>
+            <Space :size="20">
+              <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
+              <Button icon="notifications-outline" theme="normal"/>
+              <Button icon="ellipsis-horizontal-circle-outline" theme="normal"/>
+              <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
+            </Space>
+          </Col>
+        </Row>
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem>List</BreadcrumbItem>
@@ -44,38 +45,42 @@
     </Layout>
   </div>
 </template>
-<style scoped> 
+<style scoped lang="less"> 
 .k-demo-layout{
-  
+  .logo-box {
+    box-sizing: border-box;
+    display:flex;
+    align-items:center;
+    padding:16px 0 17px 16px;
+    /* background:var(--kui-color-gray-90); */
+    white-space:nowrap;
+    overflow:hidden;
+    .logo{
+      margin-right:8px;
+    }
+  } 
+  .header-nav{
+    border-bottom:1px solid var(--kui-color-border);
+    padding-bottom:10px;
+  }
 }
-.toggle-menu{
+.btn-expand{
   position:absolute;
-  bottom:0;
-  left:0;
-  text-align:center;
-  padding:10px 0;
-  color:#fff;
-  /* background:#4e5965; */
-  width:100%;
-  cursor:pointer;
+  bottom:10px;
+  left:12px;
 }
 .k-demo-layout .demo-sider{
-  /* background:#22303f; */
   left: 0;
   position:relative;
+  border-right:1px solid var(--kui-color-border);
+  transition: all 0.3s ease 0s;
 }
 .k-demo-layout .k-demo-main .nav{
    padding:16px 0 0 16px;
  }
 .k-demo-layout .demo-top-menu{
-   line-height:64px;   
-   height:64px;
+   line-height:61px;   
  }
-.k-demo-layout .logo{
-  height: 32px;
-  background: rgb(132 139 156 / 50%);
-  margin: 16px;
-}
 .k-demo-layout .k-demo-main{
   overflow:auto;
 }
@@ -88,9 +93,7 @@
 export default{
   data(){
     return{
-      top:['t1'],
-      left:['0-1'],
-      open:['l0'],
+      left:['1-1'],
       collapsed:false
     }
   },

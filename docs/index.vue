@@ -6,7 +6,7 @@
       <h1>一套基于Vue.js的桌面UI组件库</h1>
       <div class="btn-content">
         <Button class="start" @click="start" size="large">开始使用</Button>
-        <Button @click="gitee" icon="logo-github" size="large" type="dashed">Gitee</Button>
+        <Button @click="gitee" icon="logo-github" size="large" type="dashed" theme="light">Gitee</Button>
       </div>
     </section>
     <footer class="index-footer">

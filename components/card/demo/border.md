@@ -7,7 +7,7 @@
 <template>
   <div class="demo-card">
     <Card title="卡片标题" icon="heart" :bordered="false">
-      <a slot="extra" @click="$Message.info('click')">More</a>
+      <a slot="extra" @click="$Message.info('click')">更多</a>
       <p>card content</p>
       <p>card content</p>
       <p>card content</p>
@@ -20,7 +20,7 @@
 <style scoped>
 .demo-card{
   padding:20px;
-  background-color:rgba(0,0,0,.1);
+  background-color:#7f7f7f26;
 }
 </style>
 ```

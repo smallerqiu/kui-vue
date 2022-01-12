@@ -1,12 +1,12 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-card {
-  background: @back-color;
+  background: var(--kui-color-back);
   position: relative;
-  border-radius: @radius;
-  color: @color;
+  border-radius: var(--kui-border-radius);
+  color: var(--kui-color-font);
   .k-card-head {
     position: relative;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid var(--kui-color-gray-80);
     padding: 14px 16px;
     line-height: 1;
     .k-icon {
@@ -41,5 +41,5 @@
 }
 
 .k-card-bordered {
-  border: 1px solid @border-color;
+  border: 1px solid var(--kui-color-border);
 }

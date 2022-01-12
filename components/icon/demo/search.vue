@@ -3,15 +3,12 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="52">
-      <div style="padding:20px 0;" class="back">
-        <div style="position:relative;width:800px;margin:0 auto;">
-          <RadioGroup v-model="type" @change="switchIcon" style="position:absolute;right:4px;top:4px;z-index:10;">
-            <RadioButton value="outline">Outline</RadioButton>
-            <RadioButton value="filled">Filled</RadioButton>
-          </RadioGroup>
-          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-apple" v-model="key" size="large" @input="search" />
-        </div>
-      </div>
+      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-kui" v-model="key" size="large" @input="search" clearable style="width:80%;background:var(--kui-color-back);">
+      <RadioGroup v-model="type" @change="switchIcon" slot="suffix">
+        <RadioButton value="outline">Outline</RadioButton>
+        <RadioButton value="filled">Filled</RadioButton>
+      </RadioGroup>
+      </Input>
     </Affix>
 
     <br />

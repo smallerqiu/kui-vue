@@ -49,6 +49,9 @@
           </Select>
         </FormItem>
       </FormItem>
+      <FormItem label="Slider" prop="slider">
+        <Slider />
+      </FormItem>
       <FormItem label="Gender" prop="gender">
         <RadioGroup >
           <Radio value="0" label="Girl" />
@@ -120,6 +123,7 @@ export default {
         repassword: '',
         phone: '',
         captcha: '',
+        slider:5,
         gender: '',
         one: false,
         system:'',
@@ -162,6 +166,10 @@ export default {
           { type: 'number', message: '验证码为数字' },
           { required: true, message: '请输入验证码' },
         ],
+        slider: [
+          { min: 3, message: '最小值为3' },
+          { max: 50, message: '最大值为50' },
+        ],
         gender: [
           { required: true, message: '请选择性别' },
         ],
@@ -199,6 +207,7 @@ export default {
         phone: '13888888888',
         captcha: '8888',
         gender: '1',
+        slider:5,
         system: '0',
         one: true,
         birthday: '1995-05-05',

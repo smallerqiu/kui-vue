@@ -3,6 +3,8 @@ import Base from './base'
 import Info from './info'
 import Disabled from './disabled'
 import Group from './group'
+import Options from './options'
+import GroupVertical from './group-vertical'
 import Button from './button'
 import CN from '../index.md'
 export default {
@@ -12,7 +14,9 @@ export default {
         <Info class="typo" />
         <Base />
         <Disabled />
+        <Options />
         <Group />
+        <GroupVertical />
         <Button />
         <CN class="typo"/>
       </div>

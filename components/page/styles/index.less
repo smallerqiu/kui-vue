@@ -1,6 +1,6 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-page {
-	color: @color;
+	color: var(--kui-color-font);
 	font-size: 13px;
 	padding: 20px 0;
 	user-select: none;
@@ -10,16 +10,16 @@
 		vertical-align: middle;
 		.k-pager-item {
 			background: transparent;
-			color: @color;
+			color: var(--kui-color-font);
 			min-width: 30px;
 			height: 30px;
 			line-height: 30px;
-			border-radius: @radius;
+			border-radius: var(--kui-border-radius);
 			margin: 0 8px;
 			text-align: center;
 			display: inline-block;
 			box-sizing: content-box;
-			border: 1px solid @border-color;
+			border: 1px solid var(--kui-color-border);
 			// transition: all 0.2s ease-in-out 0s;
 			margin-left: -1px;
 			font-size: 14px;
@@ -27,21 +27,21 @@
 			position: relative;
 			vertical-align: middle;
 			&:hover {
-				border-color: @main;
-				color: @main;
+				border-color: var(--kui-color-main);
+				color: var(--kui-color-main);
 				.k-icon {
-					color: @main;
+					color: var(--kui-color-main);
 				}
 			}
 			&.k-pager-item-active {
-				border: 1px solid @main;
-				color: @main;
+				border: 1px solid var(--kui-color-main);
+				color: var(--kui-color-main);
 			}
 			span {
 				margin: 0 5px;
 			}
 			.k-icon {
-				color: @icon-color;
+				color: var(--kui-color-icon);
 				position: absolute;
 				top: 50%;
 				left: 50%;
@@ -56,20 +56,20 @@
 			}
 		}
 		.k-pager-item-disabled {
-			border-color: @disable-border;
+			border-color: var(--kui-color-disable-border);
 			cursor: not-allowed;
 			.k-icon {
-				color: @disable-color;
+				color: var(--kui-color-disable-color);
 			}
 			&:hover {
-				border-color: @disable-border;
+				border-color: var(--kui-color-disable-border);
 				.k-icon {
-					color: @disable-color;
+					color: var(--kui-color-disable-color);
 				}
 			}
 		}
 		.k-pager-more {
-			color: @gray;
+			color: var(--kui-color-gray);
 		}
 	}
 	.k-page-sizer {

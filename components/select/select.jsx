@@ -25,7 +25,11 @@ export default {
     loading: Boolean,
     bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
-    options: Array
+    options: Array,
+    theme: String,
+    icon: String,
+    shape: String,
+    arrowIcon: { type: String, default: 'chevron-down' },
   },
   provide() {
     return {
@@ -76,6 +80,7 @@ export default {
     },
     setLabel() {
       let { currentValue, multiple, label } = this
+
       currentValue = isNotEmpty(currentValue) ? currentValue : (multiple ? [] : '')
       let currentLabel = isNotEmpty(label) ? label : (multiple ? [] : '')
 
@@ -151,6 +156,8 @@ export default {
     },
     change(item) {
       let { multiple, value, currentValue } = this
+      // console.log(value, currentValue)
+
       if (this.showSearch) {
         this.queryKey = ''
         this.$refs.search.value = ''
@@ -163,7 +170,6 @@ export default {
         this.$nextTick(e => this.$refs.search.focus())
       }
       let hasValue = hasProp(this, 'value')
-
       //set value
       if (multiple) {
         if (!hasValue) {
@@ -175,7 +181,6 @@ export default {
         } else {
           value.splice(index, 1)
         }
-
       } else {
         value = item.value
       }
@@ -197,12 +202,10 @@ export default {
         }
         setTimeout(e => { this.setPosition() }, 230);
       } else {
-
         this.$nextTick(e => this.setPosition())
       }
       this.$emit("input", value);
       this.$emit("change", item);
-
     },
     removeTag(e, i) {
       if (this.disabled) return
@@ -263,18 +266,21 @@ export default {
   render() {
     let { disabled, size, multiple,
       opened, placeholder, showArrow, bordered,
-      clear, removeTag, queryKey,
+      clear, removeTag, queryKey, theme, arrowIcon, icon, shape,filterable,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
 
     const classes = [
       "k-select",
       {
-        ["k-select-disabled"]: disabled,
-        ["k-select-open"]: opened,
+        "k-select-disabled": disabled,
+        "k-select-open": opened,
         'k-select-borderless': bordered === false,
-        ["k-select-lg"]: size == 'large',
-        ["k-select-sm"]: size == 'small'
+        "k-select-lg": size == 'large',
+        "k-select-sm": size == 'small',
+        "k-select-light": theme == 'light',
+        "k-select-has-icon": !!icon,
+        "k-select-circle": shape == 'circle' && !multiple,
       }
     ]
 
@@ -347,9 +353,9 @@ export default {
     childNode.push(labelsNode);
     childNode.push(placeNode);
 
-    (!isSearch && showArrow) && childNode.push(<Icon class="k-select-arrow" type="chevron-down" />)
+    (!isSearch && showArrow) && childNode.push(<Icon class="k-select-arrow" type={arrowIcon} />)
 
-    if ((this.filterable || isSearch) && !multiple) {
+    if ((filterable || isSearch) && !multiple) {
       childNode.push(queryNode)
     }
 
@@ -357,7 +363,7 @@ export default {
     let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
     const selectCls = [
       "k-select-selection", {
-        "k-select-has-clear": showClear
+        "k-select-has-clear": showClear,
       }
     ]
     showClear && childNode.push(<Icon class="k-select-clearable" type="close-circle" onClick={clear} />)
@@ -365,6 +371,7 @@ export default {
     return (
       <div tabIndex="0" class={classes} style={styles}>
         <div class={selectCls} onClick={toggleDrop} ref="rel">
+          {icon ? <Icon type={icon} class="k-select-icon" /> : null}
           {childNode}
         </div>
         {overlay}

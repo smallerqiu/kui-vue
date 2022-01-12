@@ -1,9 +1,9 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-calendar {
   display: inline-block;
   user-select: none;
   float: left;
-  color: @color;
+  color: var(--kui-color-font);
   // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   &+.k-calendar {
     // border-left: solid 1px #eaeaea;
@@ -14,7 +14,7 @@
     //     box-sizing: content-box;
     //   }
     .k-calendar-time-picker {
-      border-left: 1px solid @border-color;
+      border-left: 1px solid var(--kui-color-border);
     }
   }
   .k-calendar-body {
@@ -28,22 +28,22 @@
     text-align: center;
     position: relative;
     span {
-      color: @color;
+      color: var(--kui-color-font);
       cursor: pointer;
       display: inline-block;
       text-align: center;
       &:hover {
-        color: @main;
+        color: var(--kui-color-main);
       }
     }
     .k-calendar-prev-month-btn, .k-calendar-next-month-btn, .k-calendar-prev-year-btn, .k-calendar-next-year-btn {
       position: absolute;
-      color: @icon-color;
+      color: var(--kui-color-icon);
       padding: 0 5px;
       font-size: 16px;
     }
     .k-calendar-year-select, .k-calendar-month-select, .k-calendar-day-select {
-      font-size: 12px;
+      font-size: 14px;
       padding: 0 2px;
       position: relative;
       font-weight: bold;
@@ -73,7 +73,7 @@
       height: 25px;
       line-height: 23px;
       margin: 5px 0 0 5px;
-      font-size: 12px;
+      font-size: 14px;
       display: inline-block;
       text-align: center;
       box-sizing: border-box;
@@ -84,24 +84,25 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    background: @back-color;
+    background: var(--kui-color-control-10);
     left: 0;
     top: 0;
     font-size: 0;
     text-align: center;
     span {
-      font-size: 12px;
+      font-size: 14px;
       width: 56px;
-      margin: 20px 6px 10px;
+      margin: 20px 6px 0px;
+      padding: 5px 0;
     }
   }
   .k-calendar-footer {
-    border-top: 1px solid @border-color;
+    border-top: 1px solid var(--kui-color-border);
     position: relative;
     z-index: 1;
     padding: 5px 8px;
     text-align: right;
-    height: 26px;
+    // height: 26px;
     .k-btn {
       cursor: pointer;
     }
@@ -114,32 +115,32 @@
   }
   .k-calendar-date {
     cursor: pointer;
-    color: @color;
-    border-radius: @radius;
+    color: var(--kui-color-font);
+    border-radius: var(--kui-border-radius);
     position: relative;
     display: inline-block;
     text-align: center;
     overflow: hidden;
     border: 1px solid transparent;
     &:hover {
-      background: fade(@main, 15%);
+      background: var(--kui-color-main-80);
     }
   }
   .k-calendar-date-on {
-    background: fade(@main, 15%);
+    background: var(--kui-color-main-80);
   }
   .k-calendar-date-out {
-    color: @icon-color;
+    color: var(--kui-color-icon);
     background: none;
   }
   span.k-calendar-date-today {
-    border: 1px solid @main;
+    border: 1px solid var(--kui-color-main);
     &:after {
       content: '';
       position: absolute;
       width: 5px;
       height: 5px;
-      background: @main;
+      background: var(--kui-color-main);
       right: 1px;
       top: 1px;
       border-radius: 50%;
@@ -148,17 +149,17 @@
   span.k-calendar-date-selected {
     color: #fff;
     font-weight: bold;
-    background: @main;
-    border-radius: @radius;
+    background: var(--kui-color-main);
+    border-radius: var(--kui-border-radius);
     &.k-calendar-date-disabled {
-      border: 1px solid @disable-border;
+      border: 1px solid var(--kui-color-disable-border);
       box-sizing: border-box;
       &::after {
-        background: @disable-border;
+        background: var(--kui-color-disable-border);
       }
     }
     &:hover {
-      background: @main;
+      background: var(--kui-color-main);
     }
     &::after {
       background: #fff;
@@ -166,16 +167,16 @@
   }
   span.k-calendar-date-disabled {
     cursor: not-allowed;
-    color: @disable-color;
-    background: @disable-back;
+    color: var(--kui-color-disable-color);
+    background: var(--kui-color-disable-back);
     &.k-calendar-date-today {
-      border-color: @disable-border;
+      border-color: var(--kui-color-disable-border);
       &::after {
-        background: @disable-border;
+        background: var(--kui-color-disable-border);
       }
     }
     &:hover {
-      background: @disable-back;
+      background: var(--kui-color-disable-back);
     }
   }
   .k-calendar-time-picker {
@@ -184,14 +185,14 @@
     height: 100%;
     left: 0;
     top: 0;
-    background: @back-color;
-    border-top: 1px solid darken(@border-color,10%);
+    background: var(--kui-color-control-10);
+    border-top: 1px solid var(--kui-color-border);
     .k-calendar-time-picker-select {
       width: 33.333%;
       font-size: 0;
       overflow: hidden;
       height: 215px;
-      border-right: 1px solid @border-color;
+      border-right: 1px solid var(--kui-color-border);
       box-sizing: border-box;
       float: left;
       &:hover {
@@ -205,7 +206,7 @@
         box-sizing: border-box;
         li {
           display: block;
-          font-size: 12px;
+          font-size: 14px;
           box-sizing: content-box;
           width: 100%;
           height: 24px;
@@ -215,7 +216,7 @@
           list-style: none;
           cursor: pointer;
           &:hover {
-            background: fadeout(@main, 90%);
+            background: var(--kui-color-main-90);
           }
           &:last-child::after {
             display: block;
@@ -228,14 +229,14 @@
         border: none;
       }
       li.k-calendar-time-disabled {
-        color: @disable-color;
+        color: var(--kui-color-disable-color);
         cursor: not-allowed;
       }
     }
     .k-calendar-time-selected {
-      color: @main;
+      color: var(--kui-color-main);
       font-weight: bold;
-      background: darken(@back-color,5%);
+      background: var(--kui-color-control-10);
     }
   }
 }

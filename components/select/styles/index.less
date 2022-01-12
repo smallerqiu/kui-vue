@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-select {
   display: inline-block;
   width: 100%;
@@ -6,19 +6,19 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: @color;
+  color: var(--kui-color-font);
   font-size: 12px;
   position: relative;
   outline: none;
   box-sizing: border-box;
   &:focus {
     .k-select-selection {
-      border: 1px solid @border-color;
-      box-shadow: 0 0 5px fade(@main, 75%);
+      border: 1px solid var(--kui-color-border);
+      box-shadow: 0 0 5px var(--kui-color-main-30);
     }
   }
   &-selection {
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     box-sizing: border-box;
     outline: 0;
     -webkit-user-select: none;
@@ -27,10 +27,20 @@
     user-select: none;
     cursor: pointer;
     position: relative;
-    border: 1px solid @border-color;
+    border: 1px solid var(--kui-color-border);
     min-height: 32px;
     position: relative;
     transition: all .25s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .k-select-icon {
+    margin-left: 8px;
+    font-size: 16px;
+    color: var(--kui-color-icon);
   }
   &-search-wrap {
     position: absolute;
@@ -38,6 +48,7 @@
     z-index: 1;
     top: 50%;
     background: none;
+    margin-left: 9px;
     transform: translateY(-50%);
     .k-select-search {
       // border: 1px solid #eee;
@@ -48,8 +59,8 @@
       padding: 0;
       background: none;
       outline: none;
-      font-size: 12px;
-      color: @color;
+      font-size: 14px;
+      color: var(--kui-color-font);
     }
   }
   &-labels {
@@ -57,8 +68,8 @@
     transition: all .25s ease-in-out;
     .k-select-tag {
       padding: 2px 22px 2px 5px;
-      border: 1px solid @border-color;
-      border-radius: @radius;
+      border: 1px solid var(--kui-color-border);
+      border-radius: var(--kui-border-radius);
       margin: 3px 5px 3px 0;
       display: inline-block;
       font-size: 12px;
@@ -74,7 +85,7 @@
         top: 50%;
         transform: translateY(-50%);
         &:hover {
-          color: @danger;
+          color: var(--kui-color-danger);
         }
       }
     }
@@ -85,6 +96,7 @@
       padding: 3px 0;
       left: 0;
       top: 0;
+      margin: 0;
       vertical-align: middle;
       // .k-select-search {
       //   // border: none;
@@ -115,7 +127,7 @@
     padding-right: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: @disable-color;
+    color: var(--kui-color-disable-color);
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;
@@ -129,12 +141,12 @@
   /* .k-select-placeholder, */
   &-label {
     display: block;
-    height: 30px;
-    line-height: 30px;
+    // height: 30px;
+    // line-height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-top: -1px;
+    // padding-top: -1px;
     padding-left: 8px;
     padding-right: 32px;
     border: none;
@@ -156,7 +168,7 @@
     transform-origin: center;
     transition: transform .3s ease-in-out;
     transition: all .25s ease-in-out;
-    color: @icon-color;
+    color: var(--kui-color-icon);
   }
   &-clearable {
     position: absolute;
@@ -165,25 +177,71 @@
     transform: translateY(-50%);
     display: none;
     font-size: 15px;
-    color: @icon-color;
+    color: var(--kui-color-icon);
     &:hover {
-      color: @color;
+      color: var(--kui-color-font);
     }
   }
   &:hover, &:focus {
     .k-select-selection {
-      border-color: @main;
+      border-color: var(--kui-color-main);
     }
+  }
+  .k-select-placeholder {
+    font-size: 14px;
+    line-height: 1;
+  }
+  .k-select-label {
+    font-size: 14px;
+  }
+  .k-select-search-mirror, .k-select-search {
+    font-size: 14px;
+    color: var(--kui-color-font);
+  }
+}
+
+.k-select-has-icon {
+  .k-select-placeholder {
+    left: 20px;
+  }
+  .k-select-selection >.k-select-search-wrap {
+    left: 20px;
+  }
+}
+
+.k-select-light {
+  .k-select-selection {
+    border-color: transparent;
+    background: var(--kui-color-gray-80);
+    border-radius: var(--kui-border-radius);
+    &:focus, &:hover {
+      box-shadow: none;
+      border-color: transparent;
+    }
+    .k-select-tag {
+      background-color: var(--kui-color-gray-80);
+      border-color: transparent;
+    }
+  }
+  &:focus .k-select-selection {
+    box-shadow: none;
+    border-color: transparent;
+  }
+}
+
+.k-select-circle {
+  .k-select-selection {
+    border-radius: 30px;
   }
 }
 
 .k-select-dropdown {
   user-select: none;
-  border-radius: @radius;
+  border-radius: var(--kui-border-radius);
   width: inherit;
   max-height: 200px;
   overflow: auto;
-  background-color: @back-color;
+  background-color: var(--kui-color-control-10);
   box-sizing: border-box;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
   position: absolute;
@@ -196,7 +254,7 @@
   }
   .k-select-loading {
     padding: 10px;
-    font-size: 12px;
+    font-size: 14px;
     .k-icon {
       font-size: 14px;
     }
@@ -207,10 +265,10 @@
   .k-select-item {
     margin: 0;
     line-height: normal;
-    padding: 7px 16px;
+    padding: 10px 16px;
     clear: both;
-    color: @color;
-    font-size: 12px !important;
+    color: var(--kui-color-font);
+    font-size: 14px;
     white-space: nowrap;
     list-style: none;
     width: 100%;
@@ -220,7 +278,7 @@
     cursor: pointer;
     position: relative;
     &:hover {
-      background: @hover-color;
+      background: var(--kui-color-hover);
     }
     .k-icon {
       position: absolute;
@@ -230,27 +288,27 @@
       top: 50%;
       transform: translateY(-50%);
       display: none;
-      color: @icon-color;
+      color: var(--kui-color-icon);
     }
     &:hover .k-icon, .k-icon {
       display: block;
     }
   }
   .k-select-item-selected {
-    background: @selected-color;
-    color: @main;
+    background: var(--kui-color-selected);
+    color: var(--kui-color-main);
     font-weight: 500;
     &:hover {
-      background: @selected-color;
+      background: var(--kui-color-selected);
     }
     .k-icon {
-      color: @main;
+      color: var(--kui-color-main);
       display: block;
     }
   }
   .k-select-item-disabled {
-    background: @disable-back;
-    color: @disable-color;
+    background: var(--kui-color-disable-back);
+    color: var(--kui-color-disable-color);
     cursor: not-allowed;
   }
   // &:hover{
@@ -259,7 +317,7 @@
   // &::-webkit-scrollbar {
   // width: 8px;
   // height: 8px;
-  // border-left: 1px solid @border-color;
+  // border-left: 1px solid var(--kui-color-border);
   // padding: 0 2px;
   // background: rgba(211, 211, 211, 0.568);
   // }
@@ -276,6 +334,9 @@
 }
 
 .k-select-sm {
+  .k-select-icon {
+    font-size: 14px;
+  }
   .k-select-selection {
     min-height: 25px;
   }
@@ -299,6 +360,7 @@
   .k-select-search-wrap {
     .k-select-search {
       height: 18px;
+      font-size: 12px;
     }
   }
   .k-select-labels {
@@ -314,6 +376,7 @@
     .k-select-search-wrap {
       padding: 2px 0;
       .k-select-search {
+        font-size: 12px;
         height: 18px;
         line-height: 18px;
         left: 0;
@@ -321,12 +384,13 @@
       }
     }
   }
+  .k-select-search-mirror, .k-select-search {
+    font-size: 12px;
+    color: var(--kui-color-font);
+  }
 }
 
 .k-select-lg {
-  .k-select-placeholder {
-    font-size: 14px;
-  }
   .k-select-selection {
     font-size: 14px;
     min-height: 40px;
@@ -348,10 +412,6 @@
   .k-select-search-wrap {
     .k-select-search {
       height: 28px;
-    }
-    .k-select-search-mirror, .k-select-search {
-      font-size: 14px;
-      color: @color;
     }
   }
   .k-select-labels {
@@ -380,30 +440,34 @@
 
 .k-select-open {
   .k-select-selection {
-    border-color: @main; // border-color: #3bb4f2;
+    border-color: var(--kui-color-main); // border-color: #3bb4f2;
     // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
-    box-shadow: 0 0 5px fade(@main, 75%);
+    box-shadow: 0 0 5px var(--kui-color-main-30);
   }
-  .k-select-arrow {
-    transform: translateY(-50%) rotate(180deg);
+  // .k-select-arrow {
+  //   transform: translateY(-50%) rotate(180deg);
+  // }
+  &.k-select-light .k-select-selection {
+    box-shadow: none;
+    border-color: transparent;
   }
 }
 
 .k-select-disabled {
-  color: @disable-color;
+  color: var(--kui-color-disable-color);
   .k-select-label {
     cursor: not-allowed;
   }
   .k-select-selection {
-    background: @disable-back;
+    background: var(--kui-color-disable-back);
     cursor: not-allowed;
   }
   .k-select-arrow {
-    color: @disable-border;
+    color: var(--kui-color-disable-border);
   }
   &:hover, &:focus {
     .k-select-selection {
-      border-color: @disable-border;
+      border-color: var(--kui-color-disable-border);
       box-shadow: none;
     }
   }

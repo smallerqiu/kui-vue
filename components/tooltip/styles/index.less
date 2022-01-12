@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-tooltip {
   display: inline-block;
   position: relative;
@@ -12,13 +12,14 @@
   position: absolute;
   z-index: 1001;
   .k-tooltip-inner {
-    background: @back-color;
+    background: var(--kui-color-control-10);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    color: @color;
-    border-radius: @radius;
+    color: var(--kui-color-font);
+    border-radius: var(--kui-border-radius);
   }
   .k-tooltip-title {
     padding: 6px 8px;
+    font-size: 14px;
   }
   .k-tooltip-arrow {
     position: absolute;
@@ -29,7 +30,7 @@
     align-items: center;
     width: 19px;
     .k-tooltip-arrow-content {
-      background-color: @back-color;
+      background-color: var(--kui-color-control-10);
       transform: rotate(45deg);
       width: 12px;
       height: 12px;
@@ -160,91 +161,91 @@
 .k-tooltip-pink {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @pink;
+    background-color: var(--kui-color-pink);
   }
 }
 
 .k-tooltip-red {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @red;
+    background-color: var(--kui-color-red);
   }
 }
 
 .k-tooltip-yellow {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @yellow;
+    background-color: var(--kui-color-yellow);
   }
 }
 
 .k-tooltip-orange {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @orange;
+    background-color: var(--kui-color-orange);
   }
 }
 
 .k-tooltip-cyan {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @cyan;
+    background-color: var(--kui-color-cyan);
   }
 }
 
 .k-tooltip-green {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @green;
+    background-color: var(--kui-color-green);
   }
 }
 
 .k-tooltip-blue {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @blue;
+    background-color: var(--kui-color-blue);
   }
 }
 
 .k-tooltip-purple {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @purple;
+    background-color: var(--kui-color-purple);
   }
 }
 
 .k-tooltip-geekblue {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @geekblue;
+    background-color: var(--kui-color-geekblue);
   }
 }
 
 .k-tooltip-magenta {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @magenta;
+    background-color: var(--kui-color-magenta);
   }
 }
 
 .k-tooltip-volcano {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @volcano;
+    background-color: var(--kui-color-volcano);
   }
 }
 
 .k-tooltip-gold {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @gold;
+    background-color: var(--kui-color-gold);
   }
 }
 
 .k-tooltip-lime {
   .k-tooltip-inner, .k-tooltip-arrow .k-tooltip-arrow-content {
     color: #fff;
-    background-color: @lime;
+    background-color: var(--kui-color-lime);
   }
 }
 

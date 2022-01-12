@@ -8,16 +8,14 @@
   <div class="k-demo-layout">
     <Layout  class="layout-back">
       <Sider class="demo-sider">
-        <div class="logo" />
-        <Menu mode="inline" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="home">nav1</MenuItem>
-          <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="heart">nav3</MenuItem>
-          <MenuItem key="t5" icon="albums">nav4</MenuItem>
-          <MenuItem key="t6" icon="calculator">nav5</MenuItem>
-          <MenuItem key="t7" icon="call">nav6</MenuItem>
-          <MenuItem key="t8" icon="cloud">nav7</MenuItem>
-          <MenuItem key="t9" icon="color-palette">nav8</MenuItem>
+        <div class="logo-box">
+          <Icon type="logo-kui" size="30" class="logo"/>
+          KUI运营后台
+        </div>
+        <Menu mode="inline" v-model="top" class="demo-top-menu">
+          <MenuItem key="t1" icon="home-outline">首页</MenuItem>
+          <MenuItem key="t2" icon="bar-chart">数据统计</MenuItem>
+          <MenuItem key="t3" icon="settings">能源管理</MenuItem>
         </Menu>
       </Sider>
       <Content class="k-demo-main">
@@ -32,23 +30,26 @@
     </Layout>
   </div>
 </template>
-<style scoped> 
+<style scoped lang="less"> 
 .k-demo-layout{
   height:360px;
   overflow:hidden;
 }
 .k-demo-layout .demo-sider{
-  overflow: auto;
   height: 360px; /*这里是例子，实际中请适当修改*/
   left: 0;
   width:200px;
-  background:#22303f;
+  border-right:1px solid var(--kui-color-border);
 }
-.k-demo-layout .logo{
-  height: 32px;
-  background:rgb(132 139 156 / 50%);
-  margin: 16px;
-}
+.k-demo-layout .logo-box {
+    box-sizing: border-box;
+    display:flex;
+    align-items:center;
+    padding:20px 0 20px 20px;    
+    .logo{
+      margin-right:8px;
+    }
+  } 
 .k-demo-layout .k-demo-main{
   overflow:auto;
   height:360px;

@@ -17,9 +17,9 @@ export default {
         <Info class="typo" />
         <Base />
         <Align />
+        <Valid />
         <Length />
         <Withmodal />
-        <Valid />
         <CustomValid />
         <DynamicValid />
         <CN class="typo" />

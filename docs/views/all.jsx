@@ -1,8 +1,7 @@
-import { Nav } from '../menu.js'
+import baseNav from "../menu";
 import { Col, Row } from '../../components/grid'
 import Card from '../../components/card'
 import Icon from '../../components/icon'
-
 export default {
   methods: {
     renders(child) {
@@ -22,12 +21,13 @@ export default {
     },
   },
   render() {
+    let navs = baseNav.filter(x => x.key != 'starts')
     return (
       <div class="all-components typo">
         <h1>组件</h1>
         <p><code>kui</code> 提供了65款组件，之后会根据需求补充，欢迎提供建议！</p>
         {
-          Nav.map((item, x) => {
+          navs.map((item, x) => {
             return (
               [<h2>{item.title}</h2>,
               this.renders(item.child)])

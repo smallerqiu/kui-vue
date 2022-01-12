@@ -8,13 +8,30 @@
 <template>
   <div class="k-demo-layout">
     <Layout  class="layout-back">
-      <Header>
-        <div class="logo" />
-        <Menu mode="horizontal" theme="dark" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="home">nav1</MenuItem>
-          <MenuItem key="t2" icon="logo-buffer">nav2</MenuItem>
-          <MenuItem key="t3" icon="heart">nav3</MenuItem>
-        </Menu>
+      <Header class="demo-header">
+        <Row type="flex" align="middle">
+          <Col style="width:194px">
+            <div class="logo-box">
+              <Icon type="logo-kui" size="30" class="logo"/>
+              K UIKIT
+            </div>
+          </Col>
+          <Col flex="1">
+            <Menu mode="horizontal" v-model="top" class="demo-top-menu">
+              <MenuItem key="t1">首页</MenuItem>
+              <MenuItem key="t2">新闻</MenuItem>
+              <MenuItem key="t3">知识库</MenuItem>
+            </Menu>
+          </Col>
+          <Col>
+            <Space :size="30">
+              <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
+              <Button icon="notifications-outline" theme="normal"/>
+              <Button icon="ellipsis-horizontal-circle-outline" theme="normal"/>
+              <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
+            </Space>
+          </Col>
+        </Row>
       </Header> 
       <Content class="k-demo-main">
         <Breadcrumb class="nav">
@@ -28,22 +45,30 @@
     </Layout>
   </div>
 </template>
-<style scoped>
- .k-demo-layout .logo{
-    width: 120px;
-    height: 31px;
-    background: rgb(132, 139, 156);
-    float: left;
-    margin: 15px 30px 0px 0px;
+<style scoped lang="less">
+ .k-demo-layout{
+   .demo-header{
+     border-bottom:1px solid var(--kui-color-border);
+     padding:15px 20px 0px 30px;
+     min-width:900px;
+   }
+  .logo-box {
+    /* width: 190px; */
     position:relative;
     z-index:801;
+    box-sizing: border-box;
+    display:flex;
+    align-items:center;
+    .logo{
+      margin-right:8px;
+    }
+  } 
  }
 .k-demo-layout .demo-top-menu{
-   line-height:64px;   
-   height:64px;
- }
- .k-demo-layout .demo-left-menu{
-   height:100%;
+   border:none;
+   li {
+     line-height:31px;
+   }
  }
 .k-demo-layout .k-demo-main{
    padding:0 50px;
@@ -54,9 +79,6 @@
 .k-demo-layout .k-demo-main .k-layout-content{
    padding:24px;
    min-height:300px;
- }
-.k-demo-layout .k-layout-sider{
-  width:200px;
  }
  .k-demo-layout .k-layout-footer{
   text-align:center;

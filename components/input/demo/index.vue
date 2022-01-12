@@ -1,6 +1,7 @@
 <script>
-import Base from "./base";
 import Info from "./info";
+import Base from "./base";
+import Theme from "./theme";
 import Icon from "./icon";
 import Suffix from "./suffix";
 import Clearable from "./clearable";
@@ -14,6 +15,7 @@ export default {
       <div class="demo-input">
         <Info class="typo" />
         <Base />
+        <Theme />
         <Icon />
         <Suffix />
         <Clearable />
