@@ -46,16 +46,18 @@
     color: #fff
 }
 .demo-k-layout .k-layout-footer,.demo-k-layout .k-layout-header {
-    background-color: fadeout(#3a95ff,50%);
+    background-color: var(--kui-color-main-60);
+    height:64px;
+    line-height:64px;
 }
 .demo-k-layout .k-layout-content {
     min-height: 120px;
     line-height: 120px;
-    background-color: fadeout(#3a95ff,30%);
+    background-color: var(--kui-color-main-30);
 }
 .demo-k-layout .k-layout-sider {
     line-height: 120px;
-    background-color: fadeout(#3a95ff,20%);
+    background-color: var(--kui-color-main-10);
     width:200px;
 }
 </style>

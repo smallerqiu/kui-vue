@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-treeselect-search {
   line-height: 1;
   margin: 5px;
@@ -11,7 +11,7 @@
     padding: 4px 7px;
     font-size: 12px;
     border: 1px solid #dddee1;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     color: #495060;
     background-color: #fff;
     background-image: none;
@@ -25,9 +25,9 @@
     line-height: 1.5;
     padding: 4px 7px;
     font-size: 12px;
-    border: 1px solid @main;
-    background: @main;
-    border-radius: @radius;
+    border: 1px solid var(--kui-color-main);
+    background: var(--kui-color-main);
+    border-radius: var(--kui-border-radius);
     color: #fff;
     width: 45px;
     float: right;

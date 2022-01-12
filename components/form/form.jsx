@@ -21,6 +21,8 @@ export default {
         return ["small", "large", "default"].indexOf(value) >= 0;
       }
     },
+    theme: String,
+    shape: String
   },
   provide() {
     return {

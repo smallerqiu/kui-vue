@@ -1,6 +1,7 @@
 <script>
 import Info from './info'
 import Base from './base.md'
+import Theme from './theme.md'
 import Disabled from './disabled.md'
 import NoBorder from './noborder.md'
 import DisabledDate from './disabled-date.md'
@@ -14,6 +15,7 @@ export default {
       <div class="demo-datepicker">
         <Info class="typo" />
         <Base />
+        <Theme />
         <Disabled />
         <NoBorder />
         <Format />

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <RadioGroup v-model="large" size="large">
+    <RadioGroup v-model="large" size="large" theme="solid">
       <RadioButton value="beijing" icon="logo-apple">Beijing</RadioButton>
       <RadioButton value="shanghai">Shanghai</RadioButton>
       <RadioButton value="guangzhou">Guangzhou</RadioButton>
@@ -15,7 +15,7 @@
     </RadioGroup>
     <br/>
     <br/>
-    <RadioGroup v-model="base" circle>
+    <RadioGroup v-model="base" shape="circle">
       <RadioButton value="beijing" icon="logo-apple">Beijing</RadioButton>
       <RadioButton value="shanghai">Shanghai</RadioButton>
       <RadioButton value="guangzhou">Guangzhou</RadioButton>
@@ -24,7 +24,7 @@
     </RadioGroup>
     <br/>
     <br/>
-    <RadioGroup v-model="sm" size="small" hollow type="button" :options="options" />
+    <RadioGroup v-model="sm" size="small" theme="solid" type="button" :options="options" />
     <br/>
     <br/>
     <RadioGroup value="beijing" size="small" disabled>

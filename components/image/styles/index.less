@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-image {
   position: relative;
   display: inline-block;
@@ -15,16 +15,16 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: @mask-color;
+    background-color: var(--kui-color-mask);
     display: flex;
-    color: @border-color;
+    color: var(--kui-color-border);
     align-items: center;
     justify-content: center;
   }
   .k-image-error {
     font-size: 50px;
     opacity: .3;
-    color: @disable-color;
+    color: var(--kui-color-disable-color);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -49,7 +49,7 @@
     left: 0;
     z-index: 1001;
     height: 100%;
-    background-color: @mask-color;
+    background-color: var(--kui-color-mask);
   }
   .k-image-preview-wrap {
     position: absolute;
@@ -65,7 +65,7 @@
     pointer-events: none;
     transition: all .3s;
     .k-image-preview-control {
-      background-color: fade(@mask-color, 50%);
+      background-color: var(--kui-color-mask-30);
       display: flex;
       width: 100%;
       position: absolute;
@@ -93,7 +93,7 @@
         justify-content: center;
         border-radius: 50%;
         &:hover {
-          background-color: @back-color;
+          background-color: var(--kui-color-mask-30);
           color:#666;
         }
       }
@@ -106,7 +106,7 @@
         margin: 0 8px;
         vertical-align: middle;
         border-width: 1px 0 0;
-        background-color: @border-color;
+        background-color: var(--kui-color-border);
       }
       .k-image-preview-action-rotate-left {
         transform: rotateY(-180deg) rotate(45deg);
@@ -126,7 +126,7 @@
       color: #999;
       font-size: 25px;
       border-radius: 50%;
-      background-color: fade(@mask-color, 50%);
+      background-color: var(--kui-color-mask-30);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,7 +135,7 @@
       pointer-events: auto;
       cursor: pointer;
       &:hover {
-        background-color: @main;
+        background-color: var(--kui-color-main);
         color:#fff;
       }
     }
@@ -149,7 +149,7 @@
       cursor: not-allowed;
       opacity: .6;
       &:hover {
-        background-color: fade(@mask-color, 50%);
+        background-color: var(--kui-color-mask-30);
       }
     }
     .k-image-preview-img-wrap {
@@ -184,24 +184,24 @@
         pointer-events: auto;
         width: 60%;
         height: 50%;
-        background-color: fade(@mask-color, 80%);
+        background-color: var(--kui-color-mask-30);
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
-        color: @disable-color;
+        color: var(--kui-color-disable-color);
         // filter: blur(1px);
         font-size: 50px;
         text-align: center;
         display: flex;
         justify-content: center;
-        border-radius: @radius;
+        border-radius: var(--kui-border-radius);
         align-items: center;
       }
     }
   }
   .k-image-preview-panel {
-    background-color: fade(@mask-color, 70%);
+    background-color: var(--kui-color-mask-30);
     position: absolute;
     max-width: 512px;
     top: 0;
@@ -217,7 +217,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      background-color: fade(@border-color, 20%);
+      background-color: var(--kui-color-mask);
       border-radius: 0 5px 5px 0;
       padding: 15px 0;
       color: #fff;
@@ -267,7 +267,7 @@
 }
 
 .k-image-preview-loading {
-  color: @border-color;
+  color: var(--kui-color-border);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -276,7 +276,7 @@
   font-size: 20px;
   height: 50px;
   border-radius: 10px;
-  background: fade(@mask-color, 10%);
+  background: var(--kui-color-mask-30);
   display: flex;
   align-items: center;
   justify-content: center;

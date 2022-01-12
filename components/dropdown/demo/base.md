@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <a href="#">
-      Hover me <Icon type="chevron-down" />
+      滑动展开 <Icon type="chevron-down" />
     </a>
     <Menu slot="content">
       <MenuItem>
@@ -22,8 +22,8 @@
     </Menu>
   </Dropdown>
   <Dropdown show-placement-arrow trigger="click" placement="bottom">
-    <Button >
-      show arrow <Icon type="chevron-down" />
+    <Button theme="light">
+      下拉箭头 <Icon type="chevron-down" />
     </Button>
     <Menu slot="content">
       <MenuItem>
@@ -39,7 +39,7 @@
   </Dropdown>
 
   <Dropdown trigger="click" >
-    <Button >
+    <Button theme="light">
       Click me <Icon type="chevron-down" />
     </Button>
     <Menu slot="content">

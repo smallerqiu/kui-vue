@@ -1,6 +1,6 @@
 {
 	"name": "kui-vue",
-	"version": "3.2.4",
+	"version": "3.2.5",
 	"description": "A high quality UI Toolkit built on Vue.js 2.0",
 	"main": "dist/k-ui.js",
 	"style": "dist/k-ui.css",
@@ -12,7 +12,7 @@
 		"start": "webpack-dev-server --config build/webpack.config.js --env dev",
 		"build": "webpack --config build/webpack.config.js --env prod",
 		"buildweb": "webpack --config build/webpack.config.js --env docs",
-		"buildcss":"gulp && gulp dark && gulp docs && gulp docs-dark"
+		"buildcss": "gulp && gulp dark && gulp docs && gulp docs-dark"
 	},
 	"repository": {
 		"type": "git",
@@ -91,8 +91,13 @@
 		"webpackbar": "^5.0.0-3"
 	},
 	"dependencies": {
-		"kui-icons": "^2.0.0",
+		"kui-icons": "^2.0.1",
 		"kui-loader": "^1.0.6",
 		"moment": "^2.29.1"
-	}
+	},
+	"browserslist": [
+		"last 1 version",
+		"> 1%",
+		"IE 10"
+	]
 }

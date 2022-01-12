@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-tree {
 	.k-tree-item {
 		padding: 0 0 4px;
@@ -40,26 +40,26 @@
 		z-index: 0;
 		border-radius: 2px;
 		cursor: pointer;
-		color: @color;
+		color: var(--kui-color-font);
 		line-height: 1;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		font-size: 13px;
 		// transition: all .2s ease-in-out;
 		&:hover{
-			background: @hover-color;
+			background: var(--kui-color-hover);
 			outline: none;
 		}
 	}
 	.k-tree-item-drop {
 		>.k-tree-title {
-			background-color: @main !important;
+			background-color: var(--kui-color-main) !important;
 			color: #fff;
 		}
 	}
 	.k-tree-item-drag {
 		>.k-tree-title {
-			// background-color: tint(@main, 90%) !important;
+			// background-color: tint(var(--kui-color-main), 90%) !important;
 		}
 	}
 	.k-tree-item-extra {
@@ -80,7 +80,7 @@
 	}
 	.k-tree-item-disabled {
 		.k-tree-title, .k-tree-icon {
-			color: @disable-color;
+			color: var(--kui-color-disable-color);
 			cursor: not-allowed;
 		}
 		.k-tree-title {
@@ -90,9 +90,9 @@
 		}
 	}
 	.k-tree-title-selected {
-		background: @selected-color;
+		background: var(--kui-color-selected);
 		&:hover{
-			background: @selected-color;
+			background: var(--kui-color-selected);
 		}
 	}
 	.k-tree-arrow {
@@ -119,7 +119,7 @@
 	.tree-nodata {
 		padding: 8px 10px;
 		display: block;
-		color: @disable-color;
+		color: var(--kui-color-disable-color);
 		font-size: 12px;
 	}
 }
@@ -146,7 +146,7 @@
 	}
 	.k-tree-item:hover {
 		&::before {
-			background-color: @hover-color;
+			background-color: var(--kui-color-hover);
 		}
 	}
 	.k-tree-item-selected, .k-tree-item-selected:hover {
@@ -156,13 +156,13 @@
 			color: #fff;
 		}
 		&::before {
-			background-color: @main;
+			background-color: var(--kui-color-main);
 		}
 	}
 	.k-tree-item-disabled:hover {
 		cursor: not-allowed;
 		.k-tree-title {
-			color: @disable-color;
+			color: var(--kui-color-disable-color);
 		}
 		&::before {
 			display: none;
@@ -185,7 +185,7 @@
 			top: 0;
 			width: 1px;
 			height: 28px;
-			background-color: @border-color;
+			background-color: var(--kui-color-border);
 		}
 		&::after {
 			content: '';
@@ -194,7 +194,7 @@
 			top: 12px;
 			width: 12px;
 			height: 1px;
-			background-color: @border-color;
+			background-color: var(--kui-color-border);
 		}
 	}
 	.k-tree-item-children >.k-tree-children {
@@ -211,7 +211,7 @@
 		}
 	}
 	.k-tree-children .k-tree-item-children {
-		border-left: 1px solid @border-color;
+		border-left: 1px solid var(--kui-color-border);
 	}
 	.k-tree-arrow-open {
 		transform: rotate(180deg);

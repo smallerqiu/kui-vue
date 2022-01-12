@@ -30,10 +30,13 @@ export default {
   render() {
     let { expand } = this
     let on = getTranstionProp()
+    // let Com = () => this.$slots.component
+    // console.log(this.$slots.component)
     return (
       <div class="k-demo">
         <div class="k-demo-main">
           <div class="k-content"> {this.$slots.component}</div>
+          {/* <div class="k-content">{Com()}</div> */}
           <div class="k-desc">
             <div class="k-desc-content typo">{this.$slots.description}</div>
           </div>
@@ -42,7 +45,7 @@ export default {
               <Icon type="copy-outline" onClick={this.copy} />
             </Tooltip>
             <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
-              <Icon type={'code' + (expand ? '-working' : '')} onClick={()=>this.expand = !this.expand} />
+              <Icon type={'code' + (expand ? '-working' : '')} onClick={() => this.expand = !this.expand} />
             </Tooltip>
           </div>
         </div>

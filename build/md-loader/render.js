@@ -56,8 +56,9 @@ var markdown = require('markdown-it')({
 
 
 markdown.core.ruler.push('render', ({ tokens }) => {
-  let cn, template, script, style, scopedStyle, code, sourceCode;
-  tokens.forEach(token => {
+  let cn ;
+  // let   template, script, style, scopedStyle, code, sourceCode;
+  tokens.forEach((token,i) => {
     if (token.type === 'html_block') {
       if (token.content.match(cnReg)) {
         cn = getDomHtml(token.content, 'cn');
@@ -69,42 +70,52 @@ markdown.core.ruler.push('render', ({ tokens }) => {
          } */
     }
     if (token.info === 'vue') {
-      sourceCode = token.content;
-      code = '````html\n' + token.content + '````';
-      template = getDomHtml(token.content, 'template');
-      script = getDomHtml(token.content, 'script');
-      style = getDomHtml(token.content, 'style');
-      scopedStyle = getDomHtml(token.content, 'style', true);
+      let sourceCode = token.content;
+      // console.log(token.content)
+      let code = '````html\n' + token.content + '````';
+      let template = getDomHtml(token.content, 'template');
+      let script = getDomHtml(token.content, 'script');
+      
+      let style = getDomHtml(token.content, 'style');
+      let scopedStyle = getDomHtml(token.content, 'style', true);
       token.content = '';
       token.type = 'html_block';
-    }
-  });
-  if (template) {
-    // let data = { html: template, script, style,  cn, sourceCode, };
+      if (template) {
+        // let data = { html: template, script, style,  cn, sourceCode, };
 
-    let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
+        let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
 
-    const codeHtml = code ? markdown.render(code) : '';
+        const codeHtml = code ? markdown.render(code) : '';
 
-    const cnHtml = cn ? markdown.render(cn) : '';
+        const cnHtml = cn ? markdown.render(cn) : '';
+        cn = null
 
-    let newContent = `
+        // template += script ? `<script>${script || ''}</script>` : '';
+        // template += style ? `<style>${style || ''}</style>` : '';
+
+        // template += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';
+
+        let newContent = `
     <template>
-      <demo :source-code="${source_code}">
+      <demo :source-code="${source_code}" >
         <template slot="component">${template}</template>
         <template slot="description">${cnHtml}</template>
         <template slot="code">${codeHtml}</template>
       </demo>
     </template>`;
-    newContent += script ? `<script>${script || ''}</script>` : '';
-    newContent += style ? `<style>${style || ''}</style>` : '';
+        newContent += script ? `<script>${script || ''}</script>` : '';
+        newContent += style ? `<style>${style || ''}</style>` : '';
 
-    newContent += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';
-    const tk = new Token('html_block', '', 0);
-    tk.content = newContent;
-    tokens.push(tk);
-  }
+        newContent += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';
+        // const tk = new Token('html_block', '', 0);
+        // tk.content = newContent;
+        // tokens.push(tk);
+        token.content = newContent
+      }
+    }
+  });
 });
+
 
 
 module.exports = Object.assign(markdown, {

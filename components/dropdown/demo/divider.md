@@ -6,9 +6,9 @@
 ```vue
 <template>
   <Dropdown>
-    <a>
-      Hover me <Icon type="chevron-down" />
-    </a>
+    <Button theme="light">
+      分隔线 <Icon type="chevron-down" />
+    </Button>
     <Menu slot="content">
       <MenuItem key="0">
         <a target="_blank" href="https://www.chuchur.com/">1st menu item</a>

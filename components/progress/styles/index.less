@@ -1,10 +1,10 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-progress {
   .k-progress-inner {
     display: inline-block;
     border-radius: 10px;
-    background-color: fadeout(@border-color, 50%);
-    stroke: fadeout(@border-color, 50%);
+    background-color: var(--kui-color-gray-80);
+    stroke: var(--kui-color-gray-80);
     overflow: hidden;
     vertical-align: middle;
     width: calc(100% - 38px);
@@ -13,8 +13,8 @@
   .k-progress-bg {
     height: 8px;
     border-radius: 10px;
-    background-color: @main;
-    stroke: @main;
+    background-color: var(--kui-color-main);
+    stroke: var(--kui-color-main);
     width: 30%;
     transition: all .3s ease-in-out;
   }
@@ -22,7 +22,7 @@
     display: inline-block;
     width: 30px;
     font-size: 14px;
-    color: @color;
+    color: var(--kui-color-font);
     line-height: 1;
     white-space: nowrap;
     vertical-align: middle;
@@ -96,7 +96,7 @@
       top: 0;
       width: 0;
       height: 100%;
-      background-color: @back-color;
+      background-color: var(--kui-color-back);
       opacity: 0;
       border-radius: 10px;
       animation: k-progress-active 2.4s linear infinite;
@@ -107,27 +107,27 @@
 .k-progress-exception {
   .k-progress-inner {
     .k-progress-bg {
-      background-color: @danger;
+      background-color: var(--kui-color-danger);
     }
   }
   .k-icon {
-    color: @danger;
+    color: var(--kui-color-danger);
   }
   .k-progress-bg {
-    stroke: @danger;
+    stroke: var(--kui-color-danger);
   }
 }
 
 .k-progress-success {
   .k-progress-inner {
     .k-progress-bg {
-      background-color: @success;
+      background-color: var(--kui-color-success);
     }
   }
   .k-icon {
-    color: @success;
+    color: var(--kui-color-success);
   }
   .k-progress-bg {
-    stroke: @success;
+    stroke: var(--kui-color-success);
   }
 }

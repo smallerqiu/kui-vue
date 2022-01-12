@@ -6,9 +6,20 @@
 ```vue
 <template>
   <div style="width:512px;">
-   <Form :labelCol="{span:5}" :wrapperCol="{span:16}"> 
+   <Form :labelCol="{span:5}" :wrapperCol="{span:16}" :size="size" :theme="theme?'light':''" :shape="checked?'circle':''"> 
+    <FormItem label="主题">
+      <Checkbox v-model="theme" label="Light" style="margin-right:8px;"/>
+      <Checkbox v-model="checked" label="Shape"/>
+    </FormItem>
+    <FormItem label="尺寸">
+      <RadioGroup v-model="size" >
+        <RadioButton value="large" label="Large" />
+        <RadioButton value="default" label="Default" />
+        <RadioButton value="small" label="Small" />
+      </RadioGroup>
+    </FormItem>
     <FormItem label="Input">
-      <Input />
+      <Input placeholder="input..."/>
     </FormItem>
     <FormItem label="Select">
       <Select >
@@ -47,4 +58,16 @@
    </Form>
   </div>
 </template>
+<script>
+export default{
+  data(){
+    return{
+      size:'default',
+      theme:false,
+      checked:false,
+      shape:''
+    }
+  }
+}
+</script>
 ```

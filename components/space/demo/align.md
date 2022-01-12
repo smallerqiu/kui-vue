@@ -36,7 +36,7 @@
     Align baseline
     <Space align="start">
       <Button>button</Button>
-      <span style="background:#eee">Baseline text</span>
+      <span style="background:#86868675">Baseline text</span>
     </Space>
   </div>
 </template>

@@ -1,6 +1,8 @@
 <script>
 import Info from './info'
 import Base from './base'
+import Theme from './theme'
+import Icons from './icon'
 import Size from './size'
 import Clearable from './clearable'
 import NoBordered from './nobordered'
@@ -14,6 +16,8 @@ export default {
       <div class="demo-select">
         <Info class="typo" />
         <Base />
+        <Theme />
+        <Icons />
         <Size />
         <Clearable />
         <NoBordered />

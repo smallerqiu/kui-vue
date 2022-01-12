@@ -6,9 +6,9 @@
 ```vue
 <template>
   <Dropdown>
-    <a>
-      Cascading menu <Icon type="chevron-down" />
-    </a>
+    <Button theme="light">
+      多级菜单 <Icon type="chevron-down" />
+    </Button>
     <Menu slot="content">
       <MenuItem>1st menu item</MenuItem>
       <MenuItem>2nd menu item</MenuItem>

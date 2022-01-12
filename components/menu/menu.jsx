@@ -2,12 +2,11 @@
 export default {
   name: "Menu",
   props: {
-    theme: { type: String, default: "light" },
+    theme: String,
     mode: { type: String, default: "vertical" },
     value: { type: Array, default: () => [] },
     accordion: Boolean,
     inlineCollapsed: Boolean,
-    verticalAffixed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
   inject: {
@@ -49,10 +48,11 @@ export default {
   render() {
     const { theme, currentMode, Dropdown } = this
     const preCls = Dropdown ? 'dropdown-menu' : 'menu';
-    const cls = [`k-${preCls} k-${preCls}-${theme} k-${preCls}-${currentMode}`, {
+    const cls = [`k-${preCls}  k-${preCls}-${currentMode}`,
+    {
       [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
     }];
-    return (<ul class={cls}>{this.$slots.default}</ul>)
+    return (<ul class={cls} theme-mode={theme}>{this.$slots.default}</ul>)
   },
   methods: {
     openChange(openKeys) {

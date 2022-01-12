@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-popconfirm {
   display: inline-block;
   position: relative;
@@ -11,11 +11,11 @@
   line-height: 1.5;
   position: absolute;
   z-index: 1001;
-  color: @color;
+  color: var(--kui-color-font);
   .k-popconfirm-inner {
-    background: @back-color;
+    background: var(--kui-color-control-10);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
   }
   .k-popconfirm-inner-content {
     padding: 18px 18px 10px 18px;
@@ -25,7 +25,7 @@
   .k-icon {
     position: absolute;
     font-size: 18px;
-    color: @warning;
+    color: var(--kui-color-warning);
     top: 19px;
   }
   .k-popconfirm-footer {
@@ -45,7 +45,7 @@
     align-items: center;
     width: 19px;
     .k-popconfirm-arrow-content {
-      background-color: @back-color;
+      background-color: var(--kui-color-control-10);
       transform: rotate(45deg);
       width: 12px;
       height: 12px;

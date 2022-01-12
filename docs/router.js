@@ -19,6 +19,7 @@ let docs = [
 	{ path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr') },
 	{ path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme') },
 	{ path: 'kui-loader', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/kui-loader') },
+	{ path: 'dark-mode', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/dark-mode/index') },
 ]
 let components = [
 	{ path: 'all', component: () => import(/*webpackChunkName:'all'*/'./views/all.jsx') },
@@ -69,7 +70,7 @@ let components = [
 	{ path: 'popconfirm', component: () => import(/*webpackChunkName:'popconfirm'*/'../components/popconfirm/demo'), },
 	{ path: 'progress', component: () => import(/*webpackChunkName:'progress'*/'../components/progress/demo'), },
 	{ path: 'page', component: () => import(/*webpackChunkName:'page'*/'../components/page/demo'), },
-	// { path: 'upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
+	{ path: 'upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
 ];
 
 import layout from './layout'

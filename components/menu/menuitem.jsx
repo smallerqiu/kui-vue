@@ -8,7 +8,6 @@ export default {
     icon: String,
     title: String,
     disabled: Boolean,
-    affixed: Boolean
   },
   inject: {
     Menu: { default: null },
@@ -18,18 +17,9 @@ export default {
   data() {
     return {
       active: false,
-      currentAffixed: this.affixed,
     };
   },
   methods: {
-    starClick(e) {
-      if (!this.disabled) {
-        e.stopPropagation();
-        this.currentAffixed = !this.currentAffixed
-        let item = this
-        this.SubMenu.affixed(item, e)
-      }
-    }
   },
 
   mounted() {
@@ -89,10 +79,8 @@ export default {
     return (
       <Tooltip placement="right">
         <li {...props}>
-          {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null}
+          {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : <span class={`k-${preCls}-icon-temp`}/>}
           {titleNode}
-          {Menu.mode == 'vertical' && Menu.verticalAffixed && SubMenu ?
-            <Icon onClick={this.starClick} class="k-menu-item-icon-affix" type={this.currentAffixed ? "star" : "star-outline"} /> : null}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
       </Tooltip>

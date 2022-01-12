@@ -1,11 +1,11 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-checkbox-wrapper {
 	cursor: pointer;
 	font-size: 12px;
 	display: inline-block;
 	user-select: none;
 	line-height: 1;
-	color: @color;
+	color: var(--kui-color-font);
 	// margin-right: 16px;
 	.k-checkbox {
 		display: inline-block;
@@ -27,12 +27,12 @@
 		position: relative;
 		top: 0;
 		left: 0;
-		border: 1px solid @border-color;
+		border: 1px solid var(--kui-color-border);
 		border-radius: 2px;
-		background-color: @back-color;
+		background-color: var(--kui-color-back);
 		transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
 		overflow: hidden;
-		color: @back-color;
+		color: var(--kui-color-back);
 		.k-icon {
 			font-size: 18px;
 			position: absolute;
@@ -54,19 +54,19 @@
 		opacity: 0;
 		&:focus {
 			+.k-checkbox-inner {
-				border: 1px solid @main;
-				box-shadow: 0 0 5px fade(@main, 75%);
+				border: 1px solid var(--kui-color-main);
+				box-shadow: 0 0 5px var(--kui-color-main-30);
 			}
 		}
 	}
 	.k-checkbox-indeterminate {
 		.k-checkbox-inner {
-			// background: @main;
-			// border-color: @main;
+			// background: var(--kui-color-main);
+			// border-color: var(--kui-color-main);
 			position: relative;
 			&:after {
 				box-sizing: content-box;
-				background-color: @main;
+				background-color: var(--kui-color-main);
 				position: absolute;
 				width: 8px;
 				height: 8px;
@@ -80,40 +80,41 @@
 		}
 	}
 	&:hover .k-checkbox-inner {
-		border-color: @main;
+		border-color: var(--kui-color-main);
 	}
 	.k-checkbox-label {
 		padding-left: 8px;
 		vertical-align: middle;
+		font-size: 14px;
 	}
 }
 
 .k-checkbox-checked {
 	.k-checkbox-inner {
-		background: @main;
-		border-color: @main;
+		background: var(--kui-color-main);
+		border-color: var(--kui-color-main);
 	}
 }
 
 .k-checkbox-disabled {
 	cursor: not-allowed;
-	color: @disable-color;
+	color: var(--kui-color-disable-color);
 	.k-checkbox {
 		.k-checkbox-input {
 			cursor: not-allowed;
 		}
 		.k-checkbox-inner {
-			background: @disable-back;
-			border-color: @disable-border;
-			color: @disable-color;
+			background: var(--kui-color-disable-back);
+			border-color: var(--kui-color-disable-border);
+			color: var(--kui-color-disable-color);
 			&:after {
-				background-color: @disable-back;
-				color: @disable-color;
+				background-color: var(--kui-color-disable-back);
+				color: var(--kui-color-disable-color);
 			}
 		}
 	}
 	.k-checkbox-indeterminate .k-checkbox-inner:after {
-		background-color: @disable-border;
+		background-color: var(--kui-color-disable-border);
 	}
 }
 
@@ -121,5 +122,14 @@
 	display: inline-block;
 	.k-checkbox-wrapper {
 		margin-right: 16px;
+	}
+}
+
+.k-checkbox-group-vertical {
+	display: block;
+	.k-checkbox-wrapper {
+		display: block;
+		margin-right: 0;
+		margin-bottom: 16px;
 	}
 }

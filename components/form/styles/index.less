@@ -1,10 +1,10 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-form {
   .k-form-item {
     margin-bottom: 24px;
     vertical-align: top;
     zoom: 1;
-    color: @color;
+    color: var(--kui-color-font);
     // margin-bottom: 5px;
     &::before, &::after {
       content: '';
@@ -50,7 +50,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    color: @danger;
+    color: var(--kui-color-danger);
     line-height: 1.5;
     transform-origin: 0 0;
     margin: 0;
@@ -66,34 +66,38 @@
         line-height: 1;
         font-family: SimSun;
         font-size: 12px;
-        color: @danger;
+        color: var(--kui-color-danger);
       }
     }
   }
   .k-form-item-error {
-    .k-input, .k-textarea, .k-datepicker {
-      border: 1px solid @danger;
+    .k-input, .k-textarea, .k-datepicker ,.k-input-wrapper{
+      border: 1px solid var(--kui-color-danger);
       &:focus {
-        border: 1px solid @danger;
-        box-shadow: 0 0 5px fade(@danger, 75%);
+        border: 1px solid var(--kui-color-danger);
+        box-shadow: 0 0 5px var(--kui-color-danger-30);
       }
+    }
+    .k-input-wrapper .k-input{
+      border: none;
+      box-shadow: none;
     }
     .k-select {
       .k-select-selection {
-        border: 1px solid @danger;
+        border: 1px solid var(--kui-color-danger);
       }
       .k-select-arrow {
-        color: @danger;
+        color: var(--kui-color-danger);
       }
     }
     .k-radio-group .k-btn {
-      border-color: @danger;
+      border-color: var(--kui-color-danger);
     }
     .k-select-open .k-select-selection {
-      box-shadow: 0 0 5px fade(@danger, 75%);
+      box-shadow: 0 0 5px var(--kui-color-danger-30);
     }
     .k-datepicker-open {
-      box-shadow: 0 0 5px fade(@danger, 75%);
+      box-shadow: 0 0 5px var(--kui-color-danger-30);
     }
   }
 }

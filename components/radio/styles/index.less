@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-radio-group {
   display: inline-block;
   // font-size: 0;
@@ -13,25 +13,28 @@
       z-index: 2;
     }
     &:first-child {
-      border-top-left-radius: @radius;
-      border-bottom-left-radius: @radius;
+      border-top-left-radius: var(--kui-border-radius);
+      border-bottom-left-radius: var(--kui-border-radius);
     }
     &:last-child {
-      border-top-right-radius: @radius;
-      border-bottom-right-radius: @radius;
+      border-top-right-radius: var(--kui-border-radius);
+      border-bottom-right-radius: var(--kui-border-radius);
     }
   }
   .k-btn-hollow {
-    color: @color;
-    border-color: @border-color;
+    color: var(--kui-color-font);
+    border-color: var(--kui-color-border);
   }
   .k-btn-primary.k-btn-hollow {
     z-index: 2;
-    color: @main;
-    border-color: @main;
+    color: var(--kui-color-main);
+    border-color: var(--kui-color-main);
   }
   .k-radio-wrapper {
     margin-right: 16px;
+  }
+  .k-radio-label{
+    font-size: 14px;
   }
 }
 
@@ -49,10 +52,9 @@
 .k-radio-wrapper {
   user-select: none;
   cursor: pointer;
-  font-size: 12px;
   display: inline-block;
   line-height: 1;
-  color: @color;
+  color: var(--kui-color-font);
   .k-radio {
     display: inline-block;
     vertical-align: middle;
@@ -72,9 +74,9 @@
     position: relative;
     top: 0;
     left: 0;
-    border: 1px solid @border-color;
+    border: 1px solid var(--kui-color-border);
     border-radius: 2px;
-    background-color: @back-color;
+    background-color: var(--kui-color-back);
     transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
     border-radius: 50%;
     &:after {
@@ -88,7 +90,7 @@
       display: block;
       content: " ";
       opacity: 0;
-      background-color: @main;
+      background-color: var(--kui-color-main);
       transition: all .2s ease-in-out;
     }
   }
@@ -105,8 +107,8 @@
     opacity: 0;
     &:focus {
       +.k-radio-inner {
-        border: 1px solid @main;
-        box-shadow: 0 0 5px fade(@main, 75%);
+        border: 1px solid var(--kui-color-main);
+        box-shadow: 0 0 5px var(--kui-color-main-30);
       }
     }
   }
@@ -118,8 +120,8 @@
 
 .k-radio-checked {
   .k-radio-inner {
-    background: @back-color;
-    border-color: @main;
+    background: var(--kui-color-back);
+    border-color: var(--kui-color-main);
     position: relative;
     &:after {
       opacity: 1;
@@ -134,17 +136,26 @@
 .k-radio-disabled {
   cursor: not-allowed;
   // opacity: .5;
-  color: @disable-color;
+  color: var(--kui-color-disable-color);
   .k-radio {
     .k-radio-input {
       cursor: not-allowed;
     }
     .k-radio-inner {
-      background: @disable-back;
-      border-color: @disable-border;
+      background: var(--kui-color-disable-back);
+      border-color: var(--kui-color-disable-border);
       &:after {
-        background-color: @disable-border;
+        background-color: var(--kui-color-disable-border);
       }
     }
   }
+}
+
+.k-radio-group-vertical {
+	display: block;
+	.k-radio-wrapper {
+		display: block;
+		margin-right: 0;
+		margin-bottom: 16px;
+	}
 }

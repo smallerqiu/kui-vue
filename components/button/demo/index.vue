@@ -3,7 +3,9 @@ import Info from './info'
 import Base from './base'
 import Disabled from './disabled'
 import Size from './size'
-import Hollow from './hollow'
+import Solid from './solid'
+import Normal from './normal'
+import Light from './light'
 import WithIcon from './with-icon.md'
 import Loading from './loading.md'
 import Block from './block.md'
@@ -15,10 +17,12 @@ export default {
       <div class="demo-button">
         <Info class="typo" />
         <Base />
+        <Solid />
+        <Light />
+        <Normal />
         <WithIcon />
         <Size />
         <Disabled />
-        <Hollow />
         <Loading />
         <Block />
         <Group />

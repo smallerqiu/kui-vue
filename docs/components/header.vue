@@ -2,13 +2,13 @@
   <Header class="header">
     <div class="logo">
       <a href="/">
-        <img src="../assets/favicon.png" />K UIKIT
+        <Icon type="logo-kui" />K UIKIT
         <sub>v {{version}}</sub>
       </a>
     </div>
+    <Divider type="vertical" />
     <div class="search-component">
-      <Icon type="search" />
-      <Select placeholder="搜索组件..." :bordered="false" :showArrow="false" filterable v-model="key" @change="change" :transfer="false">
+      <Select placeholder="搜索组件..." shape="circle" icon="search" theme="light" :showArrow="false" filterable v-model="key" @change="change" :transfer="false">
         <Option v-for="(com,index) of components" :key="index" :value="com.name">{{com.title}} {{com.sub}}</Option>
       </Select>
     </div>
@@ -31,29 +31,50 @@
         <MenuItem key="https://chuchur.com">Blog</MenuItem>
       </Menu>
     </Dropdown>
-    <!-- <Button size="small" type="primary" hollow>{{version}}</Button> -->
+    <Button theme="light" :icon="theme=='dark'?'sunny':'moon'" size="small" shape="circle" @click="changeMode" style="margin-left:8px;"/>
     <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square" style="height:24px;margin-left:10px;" />
   </Header>
 </template>
 <script>
-import { Nav } from "../menu";
+import Nav from "../menu";
 import { version } from '@/package.json'
-const components = Nav.reduce((a, b) => a.concat(b.child), [])
+
 export default {
   data() {
     return {
       version,
-      components,
+      components: [],
       v: "3",
       key: "",
       topMenu: [],
+      theme: '',
     };
   },
   mounted() {
+    let theme = localStorage.getItem('theme') || ''
+    if (theme) {
+      document.body.setAttribute('theme-mode', theme);
+      this.theme = theme
+    }
+    let navs = Nav.filter(x => x.key != 'starts')
+
+    this.components = navs.reduce((a, b) => a.concat(b.child), [])
     let path = this.$route.path
     this.topMenu = path == '/' ? ['home'] : ['/components/all']
   },
   methods: {
+    changeMode() {
+      const body = document.body;
+      if (body.hasAttribute('theme-mode')) {
+        body.removeAttribute('theme-mode');
+        localStorage.removeItem('theme')
+        this.theme = ''
+      } else {
+        body.setAttribute('theme-mode', 'dark');
+        localStorage.setItem('theme', 'dark')
+        this.theme = 'dark'
+      }
+    },
     go({ key, keyPath, item }) {
       if (key == "home") {
         this.topMenu = ['home']

@@ -5,6 +5,11 @@ export default {
   props: {
     disabled: Boolean,
     options: Array,
+    direction: {
+      type: String,
+      default: 'horizontal',
+      validator: (val) => ['horizontal', 'vertical'].indexOf(val) >= 0
+    },
     value: { type: Array, default: () => [] },
   },
   provide() {
@@ -22,11 +27,12 @@ export default {
         value.splice(index, 1);
       }
       this.$emit("input", value);
-      this.$emit("change", value);
+      let item = Object.assign(data, { checked: index < 0 })
+      this.$emit("change", item);
     }
   },
   render() {
-    const { options, $slots } = this
+    const { options, $slots, direction } = this
     let childs = getChild($slots.default)
 
     if (options && options.length) {
@@ -39,6 +45,6 @@ export default {
         />
       ))
     }
-    return (<div class="k-checkbox-group">{childs}</div>)
+    return (<div class={['k-checkbox-group', { 'k-checkbox-group-vertical': direction == 'vertical' }]}>{childs}</div>)
   }
 }

@@ -33,9 +33,9 @@ export default {
     let prop = {}
     if (groupContext) {
       checked = groupContext.defaultValue == value
-      let { size, hollow } = groupContext
+      let { size, shape,theme } = groupContext
       disabled = disabled || groupContext.disabled
-      prop = { disabled, size, hollow, type: checked ? 'primary' : 'default' }
+      prop = { disabled, size, shape,theme, type: checked ? 'primary' : 'default' }
     }
     const props = {
       attrs: { ...$attrs },

@@ -9,11 +9,16 @@ export default {
       default: 1,
       validator: (val) => val > 0
     },
-    direction: { 
+    direction: {
       //todo:
       type: String,
       default: 'horizontal',
       validator: (val) => ['horizontal', 'vertical'].indexOf(val) >= 0
+    }
+  },
+  watch: {
+    value(v) {
+      this.defaultValue = v || this.min
     }
   },
   data() {
@@ -35,17 +40,17 @@ export default {
     }
   },
   render() {
-    let { min, max, step, disabled, direction } = this
+    let { min, max, step, disabled, direction, defaultValue, groupContext } = this
     let props = {
       class: 'k-slider-bar',
       attrs: {
         min, max, step,
-        value: this.defaultValue,
+        value: defaultValue,
         type: 'range',
         disabled,
       },
       style: {
-        'background': `linear-gradient(to right, #3a95ff ${(this.defaultValue - min) / (max - min) * 100}%, rgba(255, 255, 255, 0.3) 0%)`
+        'background': `linear-gradient(to right, #3a95ff ${(defaultValue - min) / (max - min) * 100}%, rgba(255, 255, 255, 0.3) 0%)`
       },
       on: {
         input: this.change

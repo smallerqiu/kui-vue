@@ -7,7 +7,7 @@
 <template>
   <div>
     <Card title="卡片标题" icon="heart" bordered>
-      <a slot="extra" href="#">More</a>
+      <a slot="extra" href="#">更多</a>
       <p>card content</p>
       <p>card content</p>
       <p>card content</p>

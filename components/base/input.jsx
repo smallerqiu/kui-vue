@@ -12,17 +12,18 @@ export default {
       }
     },
     inputType: { type: String, default: "input" },
-    value: [String, Number],
+    value: [String, Number, Array, Object],
     disabled: Boolean,
     type: {
       validator(value) {
-        return (["text", "textarea", "password", "url", "email", "date", "search"].indexOf(value) >= 0);
+        return (["text", "textarea", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0);
       },
       default: 'text'
     },
     icon: String,
     suffix: String,
-    iconAlign: String,
+    theme: String,
+    shape: String
   },
   data() {
     return {
@@ -92,8 +93,8 @@ export default {
 
       return Password || Search || this.$slots.suffix || this.suffix
     },
-    getTextInput() {
-      const { disabled, size, type, inputType, currentValue, id } = this
+    getTextInput(hasChild) {
+      const { disabled, size, type, inputType, currentValue, id, theme, shape } = this
       let isTextArea = inputType == 'textarea'
       // console.log(this.props)
       const props = {
@@ -105,7 +106,9 @@ export default {
           {
             [`k-${inputType}-disabled`]: disabled,
             ["k-input-sm"]: size == 'small' && !isTextArea,
-            ["k-input-lg"]: size == 'large' && !isTextArea
+            ["k-input-lg"]: size == 'large' && !isTextArea,
+            [`k-input-${theme}`]: theme != 'solid' && !hasChild,
+            'k-input-circle': shape == 'circle' && !isTextArea,
           }
         ],
         ref: 'input',
@@ -126,27 +129,30 @@ export default {
     },
   },
   render() {
-    const { inputType, icon, $slots, size, type, $listeners, clearable, suffix } = this
+    const { inputType, icon, $slots, size, type, $listeners, clearable, suffix, theme, shape } = this
 
     let isTextArea = inputType == 'textarea'
     let hasChild = icon || ('search' in $listeners) || $slots.suffix || suffix || type == 'password' || clearable
 
-    let textInput = this.getTextInput()
+    let textInput = this.getTextInput(hasChild)
 
     if (isTextArea || !hasChild) {
       return textInput
     } else {
       let { isFocus, isEnter, currentValue } = this
-      const clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
+      let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
       let hasSuffix = ('search' in $listeners) || $slots.suffix || suffix || type == 'password'
       const props = {
         class: [
           'k-input-wrapper',
           {
+            'k-input-focus': isFocus,
             ["k-input-has-suffix"]: hasSuffix,
             ["k-input-sm"]: size == 'small',
             ["k-input-lg"]: size == 'large',
             ["k-input-has-clear"]: clearable,
+            [`k-input-${theme}`]: theme != 'solid',
+            'k-input-circle': shape == 'circle' && !isTextArea,
           }
         ],
         on: {
@@ -158,8 +164,8 @@ export default {
       return <div {...props}>
         {icon ? <Icon type={icon} class="k-input-icon" onClick={this.iconClick} /> : null}
         {textInput}
-        {suffixNode ? <div class="k-input-suffix">{suffixNode}</div> : null}
         {clearableShow ? <Icon type="close-circle" class="k-input-clearable" onClick={this.clear} /> : null}
+        {suffixNode ? <div class="k-input-suffix">{suffixNode}</div> : null}
       </div>
     }
   }

@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 .k-divider {
   box-sizing: border-box;
   margin: 0;
@@ -7,10 +7,10 @@
   font-size: 14px;
   line-height: 1.5;
   list-style: none;
-  background: @border-color;
+  background: var(--kui-color-border);
   &-dashed {
     background: none;
-    border: dashed @border-color;
+    border: dashed var(--kui-color-border);
     border-width: 1px 0 0
   }
   &, &-vertical {
@@ -25,11 +25,11 @@
   .k-divider-inner-text {
     display: inline-block;
     padding: 0 10px;
-    color: @color;
+    color: var(--kui-color-font);
   }
   &-dashed {
     background: none;
-    border: dashed @border-color;
+    border: dashed var(--kui-color-border);
     border-width: 1px 0 0;
   }
   &-vertical {
@@ -58,7 +58,7 @@
         top: 50%;
         display: table-cell;
         width: 50%;
-        border-top: 1px solid @border-color;
+        border-top: 1px solid var(--kui-color-border);
         transform: translateY(50%);
         content: ""
       }

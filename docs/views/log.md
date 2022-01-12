@@ -1,6 +1,21 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2.5
+`2022-1-12`
+
+- 全新的暗黑主题, 所有组件采用css 变量来控制呈现主题
+- 新增 `Upload` 组件
+- 重写了Input 组件, 新增 light 主题, circle 属性更为 shape=circle
+- Button 新增 light 主题, circle 属性更为 shape=circle
+- TextArea 新增 light 主题
+- Select 新增 light 主题, 新增shape 属性控制呈现圆角, 新增可自定义下拉箭头, 新增可自定义前缀图标
+- DatePicker 新增 light 主题, 新增 shape=circle 控制呈现圆角,新增可自定义下拉箭头
+- Menu 系列组建修改部分外观
+- CheckGroup 优化一系列事件
+- Modal 新增 showClose 属性控制显示关闭按钮
+- 优化Affix 定位问题
+
 ### 3.2.4
 `2021-12-13`
 

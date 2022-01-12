@@ -1,4 +1,4 @@
-@import '../../styles/global.less';
+@import '../../styles/var.less';
 @import './animal.less';
 .k-drawer {
   position: fixed;
@@ -9,7 +9,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: @mask-color;
+    background-color: var(--kui-color-mask);
     height: 100%;
     z-index: 1000; // animation: mmask .5s ease-in-out;
     overflow: hidden;
@@ -23,7 +23,7 @@
   }
   .k-drawer-content {
     position: relative;
-    background-color: @back-color;
+    background-color: var(--kui-color-control-10);
     border: 0;
     background-clip: padding-box;
     height: 100%;
@@ -32,7 +32,7 @@
       right: 16px;
       cursor: pointer;
       font-size: 20px;
-      color: @color;
+      color: var(--kui-color-font);
       line-height: 43px;
       width: 43px;
       right: 0;
@@ -40,36 +40,38 @@
       top: 0;
       transition: all .3s ease-in-out;
       &:hover {
-        color: @danger;
+        color: var(--kui-color-danger);
         // transform: rotate(360deg);
       }
     }
     .k-drawer-header {
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid var(--kui-color-gray-80);
       padding: 14px 35px 14px 16px;
       line-height: 1;
       font-size: 14px;
       font-weight: 600;
-      color: @title-color;
+      color: var(--kui-color-title);
       user-select: none;
       .k-drawer-header-inner {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 1.1;
+        font-size: 14px;
       }
     }
   }
   .k-drawer-body {
     padding: 16px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5;
     height: calc(100% - 43px);
     overflow: auto;
     box-sizing: border-box;
-    color:@color;
+    color:var(--kui-color-font);
   }
   .k-drawer-footer {
-    border-top: 1px solid @border-color;
+    border-top: 1px solid var(--kui-color-border);
     padding: 10px 16px;
     text-align: right;
     display: inline-block;

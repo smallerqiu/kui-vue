@@ -23,7 +23,13 @@ export default {
         return ["small", "large", "default"].indexOf(value) >= 0;
       }
     },
-    placeholder: [String, Array]
+    theme: String,
+    shape: String,
+    placeholder: [String, Array],
+    dateIcon: {
+      type: String,
+      default: 'calendar-outline'
+    }
   },
   provide() {
     return {
@@ -122,12 +128,12 @@ export default {
   },
   render() {
     let { currentValue, placeholder, disabled, clearable,
-      opened, size, label, transfer, bordered,
+      opened, size, label, transfer, bordered, theme, shape, dateIcon,
       format, mode, disabledTime, disabledDate, showTime
     } = this
     let childNode = [], isRange = mode == 'range';
 
-    childNode.push(<Icon type="calendar-outline" class="k-icon-calendar" />)
+    dateIcon && childNode.push(<Icon type={dateIcon} class="k-icon-calendar" />)
     if (isRange) {
       placeholder = placeholder || []
       if (placeholder && !Array.isArray(placeholder)) {
@@ -232,6 +238,8 @@ export default {
       { 'k-datepicker-sm': size == 'small' },
       { 'k-datepicker-lg': size == 'large' },
       { 'k-datepicker-disabled': disabled },
+      { 'k-datepicker-light': theme == 'light' },
+      { 'k-datepicker-circle': shape == 'circle' },
     ]
     return (
       <div tabIndex="0" class={classes}>

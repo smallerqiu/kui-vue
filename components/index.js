@@ -43,6 +43,7 @@ import { TimeLine, TimeLineItem } from './timeline'
 import { Tree, TreeNode } from './tree'
 import Tag from './tag'
 import { Row, Col } from './grid'
+import Upload from './upload'
 
 import { version } from '../package.json'
 
@@ -92,7 +93,8 @@ const components = {
 	TimeLine, TimeLineItem,
 	Tag,
 	Tooltip,
-	Tree, TreeNode
+	Tree, TreeNode,
+	Upload
 }
 const UI = {
 	...components,

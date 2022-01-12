@@ -78,9 +78,17 @@ export default {
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''
                   const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size
+                  const theme = (child.componentOptions && child.componentOptions.propsData.theme) || this.Form.theme
+                  const shape = (child.componentOptions && child.componentOptions.propsData.shape) || this.Form.shape
                   const props = {
                     props: { id, size },
                     on: {}
+                  }
+                  if (theme) {
+                    props.props.theme = theme
+                  }
+                  if (shape) {
+                    props.props.shape = shape
                   }
                   if (prop) {
                     if (['Radio', 'Checkbox', 'Switch', 'k-switch', 'k-radio', 'k-checkbox'].indexOf(tag) > -1) {
@@ -89,17 +97,17 @@ export default {
                       props.props.value = value
                     }
                     props.on = {
-                      change: (value) => {
+                      input: (value) => {
                         if (tag) {
-                          if (['Select', 'k-select'].indexOf(tag) > -1) {
-                            value = value.value
-                          }
-                          if (['Radio', 'k-radio', 'Checkbox', 'k-checkbox'].indexOf(tag) > -1) {
-                            value = value.target.checked
-                          }
-                          if (['Input', 'k-input', 'TextArea', 'k-textarea'].indexOf(tag) > -1) {
-                            value = value.target.value
-                          }
+                          // if (['Select', 'k-select'].indexOf(tag) > -1) {
+                          //   value = value
+                          // }
+                          // if (['Radio', 'k-radio', 'Checkbox', 'k-checkbox'].indexOf(tag) > -1) {
+                          //   value = value.target.checked
+                          // }
+                          // if (['Input', 'k-input', 'TextArea', 'k-textarea'].indexOf(tag) > -1) {
+                          //   value = value
+                          // }
                           this.Form.setValue(prop, value)
                           this.testValue()
                         }

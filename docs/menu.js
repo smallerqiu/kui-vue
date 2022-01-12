@@ -1,13 +1,29 @@
-const Nav = [
+export default [
+  {
+    title: "开始",
+    key: 'starts',
+    child: [
+      { title: "快速上手", sub: 'Getting Started', name: "start", icon: 'caret-forward-circle' },
+      { title: "在 vue 中使用", sub: 'Use', name: "use-in-vue", update: true, icon: 'logo-vue' },
+      { title: "SSR 支持", sub: 'SSR', name: "ssr", icon: 'globe' },
+      { title: "更新日志", sub: 'Update Log', name: "log", update: true, icon: 'reader' },
+      { title: "定制主题", sub: 'Themes', name: "theme", icon: 'shirt' },
+      { title: "暗色模式", sub: 'Dark Mode', name: "dark-mode", update: true, icon: 'invert-mode' },
+      { title: "kui-loader", sub: 'Loader', name: "kui-loader", icon: 'help-buoy' },
+    ]
+  },
   {
     title: "通用",
+    key: 'base',
     child: [
+      { title: "组件总览", sub: 'All Components', name: "all", icon: 'grid-outline' },
       { title: "按钮", sub: "Button", name: "button", icon: 'square' },
       { title: "图标", sub: "Icon", name: "icon", icon: "heart" },
     ]
   },
   {
     title: '布局',
+    key: 'layouts',
     child: [
       { title: "分割线", sub: "Divider", name: "divider", icon: 'remove' },
       { title: "栅格", sub: "Grid", name: "grid", icon: 'grid' },
@@ -17,6 +33,7 @@ const Nav = [
   },
   {
     title: '导航',
+    key: 'nav',
     child: [
       { title: "图钉", sub: "Affix", name: "affix", icon: 'pin' },
       { title: "面包屑", sub: "Breadcrumb", name: "breadcrumb", icon: 'chevron-forward' },
@@ -31,6 +48,7 @@ const Nav = [
   },
   {
     title: "表单",
+    key: 'forms',
     child: [
       { title: "输入框", sub: "Input", name: "input", icon: 'create' },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: 'checkbox' },
@@ -38,13 +56,14 @@ const Nav = [
       { title: "开关", sub: "Switch", name: "switch", icon: 'toggle' },
       { title: "选择器", sub: "Select", name: "select", icon: 'chevron-down' },
       { title: "日期选择框", sub: "DatePicker", name: "datepicker", icon: 'calendar' },
-      // { title: "上传", sub: "Upload", name: "upload", icon: 'cloud-upload' },
+      { title: "上传", sub: "Upload", name: "upload", icon: 'cloud-upload', update: true },
       { title: "滑动输入条", sub: "Slider", name: "slider", icon: 'options' },
       { title: "表单", sub: "Form", name: "form", icon: 'list' },
     ]
   },
   {
     title: '数据展示',
+    key: 'datas',
     child: [
       { title: "头像", sub: "Avatar", name: "avatar", icon: 'person' },
       { title: "卡片", sub: "Card", name: "card", icon: 'card' },
@@ -59,6 +78,7 @@ const Nav = [
   },
   {
     title: '反馈',
+    key: 'notices',
     child: [
       { title: "警告提示", sub: "Alert", name: "alert", icon: 'alert-circle' },
       { title: "徽标", sub: "Badge", name: "badge", icon: 'mail-unread' },
@@ -79,18 +99,9 @@ const Nav = [
   },
   {
     title: '其他',
+    key: 'other',
     child: [
       { title: "颜色", sub: "ColorPicker", name: "colorpicker", icon: 'color-palette' },
     ]
   }
 ]
-const baseNav = [
-  { title: "快速上手", name: "start", },
-  { title: "在 vue 中使用", name: "use-in-vue", badeg: true, },
-  { title: "SSR 支持", name: "ssr" },
-  { title: "更新日志", name: "log", badeg: true, },
-  { title: "定制主题", name: "theme", badeg: true, },
-  { title: "kui-loader", name: "kui-loader" }
-]
-
-export { Nav, baseNav }
