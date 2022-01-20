@@ -47,7 +47,9 @@ import Upload from './upload'
 
 import { version } from '../package.json'
 
-// import './styles/index.less';
+import './styles/index.less';
+
+import locale from './locale'
 
 const components = {
 	Affix,
@@ -115,6 +117,9 @@ const UI = {
 	kMenu: Menu,
 	Version: version,
 	install: function (Vue, opts = {}) {
+		locale.use(opts.locale);
+		locale.i18n(opts.i18n);
+
 		for (let key in UI) {
 			Vue.component(key, UI[key]);
 		}
@@ -123,7 +128,10 @@ const UI = {
 		Vue.prototype.$Modal = Modal;
 		Vue.prototype.$Loading = Loading;
 		Vue.prototype.$Image = Image;
-	}
+	},
+	locale: locale.use,
+	i18n: locale.i18n,
+	lang: {}
 }
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {

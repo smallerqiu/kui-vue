@@ -9,6 +9,7 @@
   padding: 0;
   list-style: none;
   color: var(--kui-color-font);
+  width: 100%;
   .k-time-line-item {
     position: relative;
     &:before {
@@ -26,30 +27,56 @@
   }
   .k-time-line-dot {
     position: absolute;
-    background: var(--kui-color-back);
-    top: 4px;
-    left: -.5px;
+    // background: var(--kui-color-back);
+    top: 2px;
+    left: 0;
     font-size: 16px;
-    color: var(--kui-color-main);
+    color: #ccc;
     line-height: 1;
-    border-radius: 50%;
+    // border-radius: 50%;
   }
-  .k-time-line-icon-default {
-    font-size: 12px;
-    left: 1px;
-    top: 5.5px;
-  }
+  // .k-time-line-icon-default {
+  //   font-size: 12px;
+  //   left: 1px;
+  //   top: 4px;
+  // }
   .k-time-line-item-content {
-    padding: 0 0 20px 18px;
-    font-size: 12px;
+    padding: 0 0 20px 25px;
+    font-size: 14px;
     position: relative;
-    line-height: 22px;
+    line-height: 20px;
     top: 0;
     box-sizing: border-box;
+  }
+  .k-time-line-item-time {
+    font-size: 12px;
+    color: var(--kui-color-gray-30);
+    margin-top: 4px;
+    line-height: 16px;
+  }
+  .k-time-line-item-extra {
+    font-size: 12px;
+    color: var(--kui-color-gray-30);
+    margin-top: 4px;
+    line-height: 16px;
   }
 }
 
 .k-timeline-center {
+  .k-time-line-item {
+    width: 50%;
+    left: 50%;
+  }
+  .k-time-line-item-time {
+    position: absolute;
+    margin-left: calc(-35px - 100%);
+    width: 100%;
+    text-align: right;
+    top: -2px;
+  }
+}
+
+.k-timeline-alternate {
   width: 100%;
   display: inline-block;
   .k-time-line-item {

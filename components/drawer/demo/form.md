@@ -9,7 +9,7 @@
     <Button @click="show1=true">普通表单</Button>
     <Button @click="show2=true">自定义</Button>
     <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
-      <Form ref="form" :model="form" :rules="rules" label-align="left">
+      <Form ref="form" :model="form" :rules="rules" label-align="left" :labelCol="{span:5}">
         <FormItem label="Input" prop="input">
           <Input clearable icon="home"></Input>
         </FormItem>

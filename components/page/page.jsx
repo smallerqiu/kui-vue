@@ -1,6 +1,7 @@
 import { Select, Option } from '../select'
 import { Input } from '../input'
 import Icon from '../icon'
+import { t } from '../locale';
 
 export default {
   name: "Page",
@@ -130,7 +131,7 @@ export default {
           value: this.defaultPageSize,
           size: this.size,
           options: this.sizeData.map(s => {
-            return { value: s, label: `${s}条/页` }
+            return { value: s, label: `${s}${t('k.page.pageSize')}` }
           })
         },
         on: {
@@ -164,7 +165,7 @@ export default {
       return (
         this.showElevator ?
           <div class="k-page-options">
-            <span>跳至</span><Input {...prop} /><span>页</span>
+            <span>{t('k.page.goto')}</span><Input {...prop} /><span>{t('k.page.page')}</span>
           </div> : null
       )
     }
@@ -173,7 +174,7 @@ export default {
     const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
       preNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="chevron-back" /></li>,
       nextNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="chevron-forward" /></li>,
-      totalNode = (this.showTotal ? <div class="k-page-number"><span>共{this.total}条</span></div> : null),
+      totalNode = (this.showTotal ? <div class="k-page-number"><span>{t('k.page.total')} {this.total} {t('k.page.items')}</span></div> : null),
       pagerNode = this.renderPage(),
       sizeNode = this.renderSize(),
       elvatorNode = this.renderElvator(),

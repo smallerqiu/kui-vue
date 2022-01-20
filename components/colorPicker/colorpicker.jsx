@@ -24,19 +24,22 @@ export default {
         return modes.indexOf(value) !== -1
       }
     },
+    shape: String,
+    icon: String,
+    showArrow: { type: Boolean, default: true },
     defalutColors: {
       type: Array, default: () => ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b', '#000'],
       validator: function (value) { return value.length <= 20 }
     }
   },
-  // watch: {
-  //   value(v1, v2) {
-  //     console.log(v1, v2, this.currentColor)
-  //     if (v1 != this.currentColor) {
-  //       // this.valueChange('COLOR', v1)
-  //     }
-  //   }
-  // },
+  watch: {
+    value(v1) {
+      // console.log(v1, v2, this.currentColor)
+      if (v1 != this.currentColor) {
+        this.valueChange('COLOR', v1)
+      }
+    }
+  },
   data() {
     return {
       currentMode: this.mode,
@@ -95,22 +98,28 @@ export default {
         case 'COLOR':
           [this.R, this.G, this.B, this.A] = parseColor(value, 'rgba') || [0, 0, 0, 1];
           [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
-          this.paintHelper.setHue(this.H);
-          this.updatePostion()
-          this.alphaCanvsSetHue(this.$refs.alpha)
+          if (this.paintHelper) {
+            this.paintHelper.setHue(this.H);
+            this.updatePostion()
+            this.alphaCanvsSetHue(this.$refs.alpha)
+          }
           break;
         case 'HUE':
           this.H = value;
           [this.R, this.G, this.B] = hslToRgb(this.H, this.S, this.L);
-          this.paintHelper.setHue(value);
-          this.alphaCanvsSetHue(this.$refs.alpha);
+          if (this.paintHelper) {
+            this.paintHelper.setHue(value);
+            this.alphaCanvsSetHue(this.$refs.alpha);
+          }
           break;
         case 'RGB':
           [this.R, this.G, this.B] = value;
           [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
           // let colors = rgbToHsl(this.R, this.G, this.B);
           // [this.H, this.S, this.L] = colors
-          this.alphaCanvsSetHue(this.$refs.alpha)
+          if (this.paintHelper) {
+            this.alphaCanvsSetHue(this.$refs.alpha)
+          }
           break;
         case 'ALPHA':
           this.A = value;
@@ -404,20 +413,23 @@ export default {
 
   render() {
     let drop = this.renderDrop()
+    let { showArrow, icon } = this
     let style = [
       'k-color-picker',
       {
         'k-color-picker-disabled': this.disabled,
         'k-color-picker-sm': this.size == 'small',
+        'k-color-picker-circle': this.shape == 'circle' && !showArrow,
         'k-color-picker-lg': this.size == 'large'
       },
     ]
+
     return (<div class={style}>
       <div class="k-color-picker-selection" onClick={this.toggleDrop}>
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
         </div>
-        <Icon type="chevron-down" />
+        {showArrow && <Icon type={icon || 'chevron-down'} />}
       </div>
       {drop}
     </div >)

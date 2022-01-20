@@ -1,5 +1,4 @@
 import PopBase from '../base/pop'
-import { hasProp } from "../_tool/utils";
 
 export default {
   name: 'Dropdown',

@@ -4,11 +4,12 @@ import Empty from '../empty';
 import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
 
 import Drop from '../base/drop'
+import { t } from '../locale';
 
 export default {
   name: "Select",
   props: {
-    placeholder: { type: String, default: "请选择" },
+    placeholder: String,
     size: {
       default: 'default',
       validator(value) {
@@ -27,6 +28,7 @@ export default {
     showArrow: { type: Boolean, default: true },
     options: Array,
     theme: String,
+    emptyText: String,
     icon: String,
     shape: String,
     arrowIcon: { type: String, default: 'chevron-down' },
@@ -266,7 +268,7 @@ export default {
   render() {
     let { disabled, size, multiple,
       opened, placeholder, showArrow, bordered,
-      clear, removeTag, queryKey, theme, arrowIcon, icon, shape,filterable,
+      clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
 
@@ -305,7 +307,7 @@ export default {
     //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
     //     : childs
     // )
-    const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>加载中...</span></div>
+    const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>{t('k.select.loading')}</span></div>
     const props = {
       ref: 'overlay',
       props: {
@@ -326,9 +328,10 @@ export default {
         }
       }
     }
-    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} /> : <ul>{childs}</ul>)}</Drop>
+    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText}/> : <ul>{childs}</ul>)}</Drop>
 
     label = multiple ? (label || []) : label
+    placeholder = t('k.select.placeholder')
     const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
       ? <div class="k-select-placeholder">{placeholder}</div>
       : null

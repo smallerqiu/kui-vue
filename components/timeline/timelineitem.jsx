@@ -3,15 +3,17 @@ export default {
   name: "TimeLineItem",
   props: {
     color: String,
-    icon: String
+    icon: String,
+    time: String,
+    extra: String,
   },
   render() {
-    let { icon, color } = this
+    let { icon, color, time } = this
     const styles = { color }
-    const type = icon ? icon : "radio-button-off";
+    const type = icon ? icon : "ellipse";
     const iconNode = this.$slots.dot || <Icon type={type} />
-    const iconCls = ['k-time-line-dot', { 'k-time-line-icon-default': !icon }]
-
+    const iconCls = ['k-time-line-dot']
+    let extra = this.extra || this.$slots.extra
     return (
       <li class="k-time-line-item">
         <div class={iconCls} style={styles}>
@@ -19,6 +21,8 @@ export default {
         </div>
         <div class="k-time-line-item-content">
           {this.$slots.default}
+          {extra && <div class="k-time-line-item-extra">{extra}</div>}
+          {time && <div class="k-time-line-item-time">{time}</div>}
         </div>
       </li>
     )

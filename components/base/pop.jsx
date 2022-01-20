@@ -3,6 +3,7 @@ import Icon from "../icon";
 import { getChild } from "../_tool/utils";
 import cloneVNode from '../_tool/clone'
 import Drop from './drop'
+import { t } from "../locale";
 export default {
   name: 'BasePop',
   props: {
@@ -24,8 +25,8 @@ export default {
       },
       default: "top"
     },
-    okText: { type: String, default: "确定" },
-    cancelText: { type: String, default: "取消" },
+    okText: String,
+    cancelText: String,
     updateKey: [String, Object, Array]
   },
   data() {
@@ -100,14 +101,16 @@ export default {
       let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;
 
       title = title || getChild($slots.title)
+      let okText = this.okText || t('k.pop.ok')
+      let cancelText = this.cancelText || t('k.pop.cancel')
       if (this.showPlacementArrow) {
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
           contentNode = [<Icon type="help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
 
           footerNode = <div class={`k-${preCls}-footer`}>
-            <Button size="small" onClick={this.cancel}>{this.cancelText}</Button>
-            <Button type="primary" size="small" onClick={this.ok}>{this.okText}</Button>
+            <Button size="small" onClick={this.cancel}>{cancelText}</Button>
+            <Button type="primary" size="small" onClick={this.ok}>{okText}</Button>
           </div>
         } else {
           titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : null

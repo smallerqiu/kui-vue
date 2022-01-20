@@ -2,8 +2,8 @@
   <div>
     <h3>图标快速检索</h3>
     <br />
-    <Affix :offsetTop="52">
-      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-kui" v-model="key" size="large" @input="search" clearable style="width:80%;background:var(--kui-color-back);">
+    <Affix :offsetTop="55">
+      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-kui" v-model="key" size="large" @input="search" clearable style="width:80%;margin:0 10%;background:var(--kui-color-back);">
       <RadioGroup v-model="type" @change="switchIcon" slot="suffix">
         <RadioButton value="outline">Outline</RadioButton>
         <RadioButton value="filled">Filled</RadioButton>

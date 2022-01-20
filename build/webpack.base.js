@@ -73,9 +73,9 @@ module.exports = {
     extensions: ['.js', '.jsx', '.vue', '.json', '.less', '.md'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '../'),
-      'kui-vue': path.join(__dirname, '../components'),
-      'md-loader': path.join(__dirname, './build/md-loader'),
+      '@': path.resolve(__dirname, '../'),
+      'kui-vue': path.resolve(__dirname, '../'),
+      'md-loader': path.resolve(__dirname, './build/md-loader'),
     },
   },
   plugins: [

@@ -18,7 +18,7 @@ export default {
   },
   watch: {
     value(v) {
-      this.defaultValue = v || this.min
+      this.defaultValue = (v || this.min) * 1
     }
   },
   data() {
@@ -41,22 +41,24 @@ export default {
   },
   render() {
     let { min, max, step, disabled, direction, defaultValue, groupContext } = this
+    defaultValue = defaultValue * 1
+    console.log(defaultValue)
     let props = {
       class: 'k-slider-bar',
       attrs: {
         min, max, step,
-        value: defaultValue,
+        value: defaultValue * 1,
         type: 'range',
         disabled,
       },
       style: {
-        'background': `linear-gradient(to right, #3a95ff ${(defaultValue - min) / (max - min) * 100}%, rgba(255, 255, 255, 0.3) 0%)`
+        'background': `linear-gradient(to right, var(--kui-color-main) ${(defaultValue - min) / (max - min) * 100}%, rgba(255, 255, 255, 0.3) 0%)`
       },
       on: {
         input: this.change
       }
     }
-    // todo: 懒得写, 用input range 替代, 等需求复杂了, 再继续写更多
+    // todo: 懒得写, 用input range 替代
     return <div class={['k-slider', { 'k-slider-disabled': disabled }]}><input {...props} /></div>
   }
 

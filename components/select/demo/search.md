@@ -6,20 +6,22 @@
 ```vue
 <template>
   <div class="demo-select">
-    <p>Selected value:{{s1}}</p>
+    <span>单选搜索: </span>
     <Select 
       v-model="s1" 
-      :width="512"
+      :width="300"
       @search="search1"
       :loading="loading1"
       placeholder="单选搜索">
       <Option :value="v" :label="v" v-for="(v,i) in options1" :key="i"/>
     </Select>
-    <p>Selected value:{{s2}}</p>
+    <p></p>
+    <br/>
+    <span>多选搜索</span>
     <Select 
       class="demo-select"
       multiple 
-      :width="512"
+      :width="300"
       :loading="loading2"
       @search="search2"
       v-model="s2" 
