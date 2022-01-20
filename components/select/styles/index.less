@@ -44,7 +44,7 @@
   }
   &-search-wrap {
     position: absolute;
-    left: 5px;
+    // left: 5px;
     z-index: 1;
     top: 50%;
     background: none;
@@ -96,7 +96,7 @@
       padding: 3px 0;
       left: 0;
       top: 0;
-      margin: 0;
+      margin: 0 0 0 5px;
       vertical-align: middle;
       // .k-select-search {
       //   // border: none;
@@ -255,6 +255,7 @@
   .k-select-loading {
     padding: 10px;
     font-size: 14px;
+    color: var(--kui-color-font);
     .k-icon {
       font-size: 14px;
     }
@@ -336,9 +337,10 @@
 .k-select-sm {
   .k-select-icon {
     font-size: 14px;
+    margin-left: 4px;
   }
   .k-select-selection {
-    min-height: 25px;
+    min-height: 24px;
   }
   .k-select-arrow {
     font-size: 12px;
@@ -387,6 +389,14 @@
   .k-select-search-mirror, .k-select-search {
     font-size: 12px;
     color: var(--kui-color-font);
+  }
+  &.k-select-has-icon {
+    .k-select-selection > .k-select-search-wrap{
+      left: 14px;
+    }
+    .k-select-placeholder {
+      left: 14px;
+    }
   }
 }
 

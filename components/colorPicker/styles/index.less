@@ -1,16 +1,21 @@
 @import '../../styles/var.less';
 .k-color-picker {
-	width: 55px;
+	// width: 55px;
 	height: 30px;
 	border: 1px solid var(--kui-color-border);
 	border-radius: var(--kui-border-radius);
 	position: relative;
 	display: inline-block;
+	.k-color-picker-selection {
+		display: flex;
+		align-items: center;
+		padding: 2px;
+	}
 	.k-color-picker-color {
 		height: 26px;
 		width: 26px;
 		border-radius: var(--kui-border-radius);
-		margin: 2px;
+		// margin: 2px;
 		overflow: hidden;
 		background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
 		background-size: 11px 11px;
@@ -21,10 +26,11 @@
 		}
 	}
 	.k-icon {
-		position: absolute;
-		right: 5px;
-		top: 50%;
-		transform: translateY(-50%);
+		// position: absolute;
+		// right: 5px;
+		// top: 50%;
+		// transform: translateY(-50%);
+		margin: 0 5px;
 		font-size: 16px;
 		color: var(--kui-color-icon);
 	}
@@ -41,7 +47,7 @@
 }
 
 .k-color-picker-lg {
-	width: 70px;
+	// width: 70px;
 	height: 40px;
 	.k-color-picker-color {
 		width: 35.5px;
@@ -53,11 +59,14 @@
 }
 
 .k-color-picker-sm {
-	width: 45px;
-	height: 25px;
+	// width: 45px;
+	height: 22px;
+	.k-color-picker-selection {
+		padding: 3px;
+	}
 	.k-color-picker-color {
-		width: 21px;
-		height: 21px;
+		width: 16px;
+		height: 16px;
 	}
 	.k-icon {
 		font-size: 14px;
@@ -71,13 +80,14 @@
 	position: absolute;
 	border-radius: var(--kui-border-radius);
 	background: var(--kui-color-back);
+	z-index: 1001;
 	.k-color-picker-paint-dot {
 		width: 15px;
 		height: 15px;
 		display: block;
 		position: absolute;
 		background: var(--kui-color-back);
-		border:1px solid var(--kui-color-border);
+		border: 1px solid var(--kui-color-border);
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 		border-radius: 50%;
 		top: 10px;
@@ -128,7 +138,7 @@
 			display: block;
 			position: absolute;
 			background: var(--kui-color-back);
-			border:1px solid  var(--kui-color-border);
+			border: 1px solid var(--kui-color-border);
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 			border-radius: 50%;
 			pointer-events: none;
@@ -205,6 +215,13 @@
 			top: 14px;
 			right: 10px;
 		}
+	}
+}
+
+.k-color-picker-circle {
+	border-radius: 50%;
+	.k-color-picker-color {
+		border-radius: 50%;
 	}
 }
 

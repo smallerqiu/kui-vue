@@ -36,7 +36,7 @@ export default {
       this.updateIndex()
     })
   },
-  beforeDistory() {
+  beforeDestory() {
     window.removeEventListener('resize', this.resetNavPosition)
   },
   methods: {

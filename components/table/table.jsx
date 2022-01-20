@@ -22,6 +22,7 @@ export default {
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
     loading: Boolean,
+    emptyText: String,
   },
   data() {
     return {
@@ -260,7 +261,7 @@ export default {
     }
 
     if (!data || !data.length) {
-      content.push(<Empty />)
+      content.push(<Empty description={this.emptyText}/>)
     }
     //custom footer
     if (footer) {

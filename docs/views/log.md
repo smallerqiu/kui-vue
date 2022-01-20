@@ -1,6 +1,18 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2.6
+`2022-1-20`
+
+- 增加了多语言支持
+- 优化Affix 定位问题
+- 优化Input组件细节
+- TimerLine组件新增`time`,`extra`属性, 细节更丰富
+- 优化Select组件细节
+- 优化Page组件在暗黑模式下的呈现问题
+- 完善DatePicker,Select,ColorPicker,等下拉组件在位置不足的情况下展示优先级的问题
+- ColorPicker 新增shape='circle' 可呈现圆形外观,新增可自定义下拉箭头,完善动态赋值问题
+
 ### 3.2.5
 `2022-1-12`
 
@@ -11,10 +23,9 @@
 - TextArea 新增 light 主题
 - Select 新增 light 主题, 新增shape 属性控制呈现圆角, 新增可自定义下拉箭头, 新增可自定义前缀图标
 - DatePicker 新增 light 主题, 新增 shape=circle 控制呈现圆角,新增可自定义下拉箭头
-- Menu 系列组建修改部分外观
+- Menu 系列组件修改部分外观
 - CheckGroup 优化一系列事件
 - Modal 新增 showClose 属性控制显示关闭按钮 ,可自定义Header和Footer
-- 优化Affix 定位问题
 
 ### 3.2.4
 `2021-12-13`

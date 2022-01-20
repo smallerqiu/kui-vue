@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>KUI - example</title>
+  <link rel="stylesheet" type="text/css" href="dist/k-ui.css">
+  <script src="https://unpkg.com/kui-icons/lib/kui-icons.js"></script>
+  <script src="https://unpkg.com/moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="https://vuejs.org/js/vue.min.js"></script>
+  <script src="https://unpkg.com/vue-i18n/dist/vue-i18n.js"></script>
+  <script type="text/javascript" src="dist/k-ui.js"></script>
+
+
+  <script src="dist/locale/en.js"></script>
+  <script src="dist/locale/zhCN.js"></script>
+  <script src="dist/locale/fr.js"></script>
+
+</head>
+
+<body>
+  <div id="app">
+    <k-button @click="show">Click me!</k-button>
+    <Modal v-model="visible" title="Welcome">Welcome to use KUI</Modal>
+  </div>
+</body>
+<script>
+  // no vue-i18n
+  // kui.locale(kui.lang.en)
+
+  // vue-i18n@5.x
+  // Vue.locale('en', kui.lang.en)
+  // Vue.locale('zh-cn', kui.lang.zhCN)
+
+  // vue-i18n@6.x
+  const i18n = new VueI18n({
+    locale: 'fr', // 语言标识
+    messages: {
+      en: kui.lang.en,
+      zhCN: kui.lang.zhCN,
+      fr: kui.lang.fr,
+    }
+  })
+  
+  kui.i18n((key, value) => i18n.t(key, value))
+
+  new Vue({
+    el: '#app',
+    data: {
+      visible: false
+    },
+    methods: {
+      show: function () {
+        this.visible = true;
+      }
+    }
+  })
+</script>
+
+</html>

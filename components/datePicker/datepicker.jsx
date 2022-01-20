@@ -3,7 +3,7 @@ import Icon from "../icon";
 import { isNotEmpty } from '../_tool/utils'
 import moment from 'moment'
 import Drop from '../base/drop'
-
+import { t } from '../locale'
 export default {
   name: 'DatePicker',
   props: {
@@ -23,6 +23,7 @@ export default {
         return ["small", "large", "default"].indexOf(value) >= 0;
       }
     },
+    placement: String,
     theme: String,
     shape: String,
     placeholder: [String, Array],
@@ -127,6 +128,7 @@ export default {
     },
   },
   render() {
+    // console.log(t('k.datePicker'))
     let { currentValue, placeholder, disabled, clearable,
       opened, size, label, transfer, bordered, theme, shape, dateIcon,
       format, mode, disabledTime, disabledDate, showTime
@@ -140,7 +142,7 @@ export default {
         console.error('Please set placeholder as array !')
         placeholder = []
       }
-      let p1 = placeholder[0] || '开始日期', p2 = placeholder[1] || '结束日期'
+      let p1 = placeholder[0] || t('k.datePicker.startDate'), p2 = placeholder[1] || t('k.datePicker.endDate')
       let v1 = label[0], v2 = label[1]
       if (v1) {
         childNode.push(<div class="k-datepicker-value">{v1}</div>)
@@ -154,7 +156,7 @@ export default {
         childNode.push(<div class="k-datepicker-placeholder">{p2}</div>)
       }
     } else {
-      placeholder = placeholder || '请选择日期'
+      placeholder = placeholder || t('k.datePicker.placeholder')
       if (label) {
         childNode.push(<div class="k-datepicker-value">{label}</div>)
       } else if (placeholder) {
@@ -199,6 +201,7 @@ export default {
         transfer: transfer,
         selection: this.$el,
         value: this.opened,
+        placement:'bottom-left',
         transitionName: 'k-date-picker'
       },
       on: {

@@ -146,12 +146,12 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
     let hasTop = placement.slice(0, 3) == 'top'
     let hasLeft = placement.slice(0, 4) == 'left'
     let hasRight = placement.slice(0, 5) == 'right'
-
+    // debugger
     if (hasBottom || hasTop) {
       if ((hasBottom && showInBottom) || (hasTop && !showInTop)) { //正常在底部显示
         if (transfer) {
           top = selectionRect.bottom + offset + scrollTop;
-          left = selectionRect.left + scrollLeft
+          left = showInRight ? selectionRect.left + scrollLeft : selectionRect.right - pickerWidth + scrollLeft
           if (placement == 'bottom' || placement == 'top') {
             left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
           }
@@ -161,13 +161,16 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
           if (hasTop) {
             placement = placement.replace('top', 'bottom')
           }
+          if (!showInRight) {
+            placement = placement.replace('left', 'right') //右边放不下去
+          }
         } else {
           top = selectionRect.height + offset;
           left = 0;
         }
       } else if ((hasBottom && !showInBottom) || (hasTop && showInTop)) {
         if (transfer) {
-          left = selectionRect.left + scrollLeft
+          left = showInRight ? selectionRect.left + scrollLeft : selectionRect.right - pickerWidth + scrollLeft
           top = selectionRect.top - pickerHeight - offset + scrollTop
           if (placement == 'top' || placement == 'bottom') {
             left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
@@ -177,6 +180,9 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
           }
           if (hasBottom) {
             placement = placement.replace('bottom', 'top')
+          }
+          if (!showInRight) {
+            placement = placement.replace('left', 'right')
           }
         } else {
           top = -(pickerHeight + offset);

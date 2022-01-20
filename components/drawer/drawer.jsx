@@ -1,5 +1,6 @@
 import Button from "../button";
 import Icon from "../icon";
+import { t } from "../locale";
 import transfer from "../_tool/transfer";
 import { measureScrollBar } from '../_tool/utils'
 
@@ -13,8 +14,8 @@ export default {
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
     height: { default: 256, type: [Number, String] },
-    okText: { type: String, default: "确定" },
-    cancelText: { type: String, default: "取消" },
+    okText: String,
+    cancelText: String,
     placement: { type: String, default: 'right' },
     closable: { type: Boolean, default: true },
     footer: { type: Boolean, default: true },
@@ -96,8 +97,8 @@ export default {
       placement, cancel, $slots,
       closable, close, } = this
     const hasFooter = this.footer || $slots.footer
-    const canelBtn = <Button onClick={cancel}>{cancelText}</Button>
-    const okBtn = <Button type="primary" onClick={ok}>{okText}</Button>
+    const canelBtn = <Button onClick={cancel}>{cancelText || t('k.drawer.cancel')}</Button>
+    const okBtn = <Button type="primary" onClick={ok}>{okText || t('k.drawer.ok')}</Button>
     const footNode = (
       hasFooter ? <div class="k-drawer-footer">
         {$slots.footer}

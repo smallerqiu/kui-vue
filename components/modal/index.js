@@ -2,7 +2,7 @@ import Modal from './modal.jsx'
 import Icon from '../icon'
 import Vue from 'vue'
 import Button from '../button'
-
+import { t } from '../locale'
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
@@ -42,10 +42,10 @@ let createInstance = (props = {}) => {
       let footerNode = [h(Button, {
         props: { type: 'primary', loading: this.loading },
         on: { click: this.ok }
-      }, okText || '确定')]
+      }, okText || t('k.modal.ok'))]
 
       if (type == 'confirm') {
-        footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || '取消'))
+        footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || t('k.modal.ok')))
       }
       let footer = h('div', { attrs: { class: 'k-toast-footer' } }, footerNode)
 

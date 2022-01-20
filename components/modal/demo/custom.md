@@ -21,7 +21,7 @@
       </template> 
     </Modal>
 
-    <Modal title="Are you ok ?" v-model="visible3" ok-text="Ok" cancel-text="cancel" @ok="okHandle">
+    <Modal title="Are you ok ?" v-model="visible3" ok-text="Ok" cancel-text="Cancel" @ok="okHandle">
       <p>Yes , I'm fine !</p>
     </Modal>
 

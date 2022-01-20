@@ -31,7 +31,8 @@
         <MenuItem key="https://chuchur.com">Blog</MenuItem>
       </Menu>
     </Dropdown>
-    <Button theme="light" :icon="theme=='dark'?'sunny':'moon'" size="small" shape="circle" @click="changeMode" style="margin-left:8px;"/>
+    <ColorPicker size="small" mode="rgba" v-model="themeColor" :showArrow="false" shape="circle" style="margin-left:8px" @change="changeThemeColor" />
+    <Button theme="light" :icon="theme=='dark'?'sunny':'moon'" size="small" shape="circle" @click="changeMode" style="margin-left:8px;" />
     <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square" style="height:24px;margin-left:10px;" />
   </Header>
 </template>
@@ -42,6 +43,7 @@ import { version } from '@/package.json'
 export default {
   data() {
     return {
+      themeColor: '#3a95ff',
       version,
       components: [],
       v: "3",
@@ -52,9 +54,14 @@ export default {
   },
   mounted() {
     let theme = localStorage.getItem('theme') || ''
+    let themeColor = localStorage.getItem('themeColor') || ''
     if (theme) {
       document.body.setAttribute('theme-mode', theme);
       this.theme = theme
+    }
+    if (themeColor) {
+      this.themeColor = themeColor
+      this.changeThemeColor(themeColor)
     }
     let navs = Nav.filter(x => x.key != 'starts')
 
@@ -63,6 +70,30 @@ export default {
     this.topMenu = path == '/' ? ['home'] : ['/components/all']
   },
   methods: {
+    changeThemeColor(v) {
+      let stl = document.querySelector('style[name=kui]')
+      if (!stl) {
+        stl = document.createElement('style')
+        stl.setAttribute('name', 'kui')
+        document.head.appendChild(stl)
+      }
+      let str = v.split(',').slice(0, 3).join(',')
+      let cssText = `
+      body[theme-type='custom']{
+          --kui-color-main:${str});
+          --kui-color-main-10:${str},.9);
+          --kui-color-main-30:${str},.7);
+          --kui-color-main-60:${str},.4);
+          --kui-color-main-80:${str},.2);
+          --kui-color-main-90:${str},.1);
+          --kui-color-hover:${str},.2);
+          --kui-color-selected:${str},.1);
+      }
+      `
+      stl.innerHTML = cssText
+      document.body.setAttribute('theme-type', 'custom')
+      localStorage.setItem('themeColor', v)
+    },
     changeMode() {
       const body = document.body;
       if (body.hasAttribute('theme-mode')) {

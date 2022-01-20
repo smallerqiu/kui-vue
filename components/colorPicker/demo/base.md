@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      color: 'red',
+      color: 'rgba(182,2,247,1)',
     };
   }
 }

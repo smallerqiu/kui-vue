@@ -2,6 +2,7 @@
 import Button from '../button'
 import moment from 'moment'
 import animate from '../_tool/animate'
+import { t } from '../locale'
 export default {
   name: "Calendar",
   props: {
@@ -28,8 +29,8 @@ export default {
       second: null,
 
       monthsHead: "1.2.3.4.5.6.7.8.9.10.11.12".split("."),
-      months: "一.二.三.四.五.六.七.八.九.十.十一.十二".split("."), // months of panel
-      weeks: "一.二.三.四.五.六.日".split("."), // weeks
+      // months: t('k.datePicker.months'), // months of panel
+      // weeks: t('k.datePicker.weeks'), // weeks
       years: [],
 
     };
@@ -403,7 +404,8 @@ export default {
 
     showMonths = showMonths || mode == 'month'
     showYears = showYears || mode == 'year'
-
+    let months = t('k.datePicker.months');
+    let weeks = t('k.datePicker.weeks');
     let showArrow = true
     //header
     let headNode = []
@@ -411,13 +413,13 @@ export default {
       headNode.push(<span class="k-calendar-prev-year-btn" onClick={this.prevYear}>«</span>)
     if ((!showYears && !showMonths && !showTimes))
       headNode.push(<span class="k-calendar-prev-month-btn" onClick={this.prevMonth}>‹</span>)
-    headNode.push(<span class="k-calendar-year-select" onClick={this.setShowYear}>{year}年</span>)
+    headNode.push(<span class="k-calendar-year-select" onClick={this.setShowYear}>{year}{t('k.datePicker.year')}</span>)
     if (!showYears && !showMonths) {
-      headNode.push(<span class="k-calendar-month-select" onClick={this.setShowMonth}>{month + 1}月</span>)
+      headNode.push(<span class="k-calendar-month-select" onClick={this.setShowMonth}>{months[month]}</span>)
       if (!showTimes)
         headNode.push(<span class="k-calendar-next-month-btn" onClick={this.nextMonth}>›</span>)
       else
-        headNode.push(<span class="k-calendar-day-select">{day}日</span>)
+        headNode.push(<span class="k-calendar-day-select">{day}{t('k.datePicker.day')}</span>)
     }
     if (!showTimes)
       headNode.push(<span class="k-calendar-next-year-btn" onClick={this.nextYear}>»</span>)
@@ -425,7 +427,7 @@ export default {
     //body
     const bodyNode = []
     if (mode == 'date' || isRange) {
-      let weekNode = this.weeks.map(w => <span class="k-calendar-week" key={w}>{w}</span>)
+      let weekNode = weeks.map(w => <span class="k-calendar-week" key={w}>{w}</span>)
       const getDay = (j, x) => {
         const props = {
           domProps: { innerHTML: j.d },
@@ -443,7 +445,7 @@ export default {
       bodyNode.push(daysNode)
     }
     if (showMonths) {
-      const m = this.months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}月</span >)
+      const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
       const mouthNode = <div class="k-calendar-months">{m}</div>
       bodyNode.push(mouthNode)
     }
@@ -479,12 +481,12 @@ export default {
       let disabled = disabledDate(new Date())
       let time_disabled = isRange ? !(temp_left && temp_right) : (!currentValue);
 
-      !isRange && footerNode.push(<Button type="link" size='small' disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>此刻</Button>)
-      footerNode.push(<Button type="link" size="small" disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? '选择日期' : '选择时间'}</Button>)
-      footerNode.push(<Button type="primary" size='small' disabled={time_disabled} onClick={this.setDate}>确定</Button>)
+      !isRange && footerNode.push(<Button type="link" size='small' disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
+      footerNode.push(<Button type="link" size="small" disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
+      footerNode.push(<Button type="primary" size='small' disabled={time_disabled} onClick={this.setDate}>{t('k.datePicker.ok')}</Button>)
     } else if (mode == 'date') {
       let disabled = disabledDate(new Date())
-      footerNode.push(<Button type="link" disabled={disabled} block size='small' onClick={this.setToday}>今天</Button>)
+      footerNode.push(<Button type="link" disabled={disabled} block size='small' onClick={this.setToday}>{t('k.datePicker.today')}</Button>)
     }
     footerNode = footerNode.length || (isRange && this.showTime) ? <div class="k-calendar-footer">{footerNode}</div> : null
     return (

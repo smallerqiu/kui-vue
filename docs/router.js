@@ -15,6 +15,7 @@ let router = []
 let docs = [
 	{ path: 'start', component: () => import(/*webpackChunkName:'start'*/'./views/start') },
 	{ path: 'use-in-vue', component: () => import(/*webpackChunkName:'use-in-vue'*/'./views/use-in-vue') },
+	{ path: 'i18n', component: () => import(/*webpackChunkName:'i18n'*/'./views/i18n') },
 	{ path: 'log', component: () => import(/*webpackChunkName:'log'*/'./views/log') },
 	{ path: 'ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr') },
 	{ path: 'theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme') },

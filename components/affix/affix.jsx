@@ -25,13 +25,15 @@ export default {
       offsetTopValue: 0,
     }
   },
-
+  beforeDestory() {
+    if (this.target() == window) {
+      target.removeEventListener('scroll', this.updatePosition)
+    }
+  },
   mounted() {
     let target = this.target()
     if (target) {
-      target.addEventListener('scroll', e => {
-        this.updatePosition(e)
-      })
+      target.addEventListener('scroll', this.updatePosition)
     }
   },
   methods: {
@@ -41,18 +43,29 @@ export default {
       if (!$refs.blob || !target) return;
 
       let rect = $refs.blob.getBoundingClientRect();
-      let rect2 = target != window && target != document ? target.getBoundingClientRect() : { top: 0, bottom: document.documentElement.clientHeight }
+      let container = (target != window && target != document) ? target.getBoundingClientRect() : { top: 0, bottom: document.documentElement.clientHeight }
 
       let hasbottom = typeof offsetBottom == 'number' && offsetBottom >= 0
-      let fx = hasbottom ? rect2.bottom - rect.bottom >= offsetBottom : rect.top - rect2.top <= offsetTop
+      let fx = hasbottom ? container.bottom - rect.bottom >= offsetBottom : rect.top - container.top <= offsetTop
+
       if (!fx) {
         this.offsetTopValue = rect.top
+        if (target == window || target == document) {
+          if (this.offsetTopValue > offsetTop && !hasbottom) {
+            this.offsetTopValue = offsetTop
+          }
+          if (hasbottom && container.bottom - rect.bottom < offsetBottom) {
+            this.offsetTopValue = container.bottom - offsetBottom - rect.height
+          }
+        } else {
+          //todo:
+        }
       }
       if (this.fixed != fx) {
         this.fixed = fx
-        this.$emit('change', this.fixed)
         this.width = rect.width
         this.height = rect.height
+        this.$emit('change', this.fixed)
       }
     }
   },

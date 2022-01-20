@@ -6,8 +6,8 @@ export default {
     transfer: { type: Boolean, default: true },
     title: String,
     width: [Number, String],
-    okText: { type: String, default: '确定' },
-    cancelText: { type: String, default: '取消' },
+    okText: String,
+    cancelText: String,
     placement: {
       validator(value) {
         return (

@@ -2,6 +2,8 @@ const gulp = require('gulp');
 const less = require('gulp-less');
 const cssmin = require('gulp-minify-css');
 const rename = require('gulp-rename')
+const umd = require('gulp-umd')
+const babel = require('gulp-babel')
 
 // @import '../../../components/styles/index.less';
 // @import '../../../components/styles/dark.less';
@@ -21,7 +23,7 @@ gulp.task('default', function (done) {
         extname: '.css', // 文件扩展名
       }))
     .pipe(gulp.dest('./dist'))
-    .pipe(gulp.dest('./docs/dist/css'))
+  // .pipe(gulp.dest('./docs/dist/css'))
   done();
 });
 
@@ -82,3 +84,21 @@ gulp.task('default', function (done) {
 
 
 //run gulp && gulp dark && gulp docs && gulp docs-dark
+
+
+gulp.task('lang', function (done) {
+  //编译src目录下的所有less文件
+  //除了reset.less和test.less（**匹配src/less的0个或多个子文件夹）
+  gulp.src('components/locale/lang/*.js')
+  //   .pipe(babel({
+  //     presets: ['@babel/preset-env'],
+  //     "plugins": ["transform-runtime"],
+  // }))
+    .pipe(umd({
+      namespace: function (file) {
+        return 'kui.lang';
+      }
+    }))
+    .pipe(gulp.dest('dist/locale'));
+  done();
+});

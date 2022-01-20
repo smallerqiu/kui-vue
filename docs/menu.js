@@ -6,6 +6,7 @@ export default [
       { title: "快速上手", sub: 'Getting Started', name: "start", icon: 'caret-forward-circle' },
       { title: "在 vue 中使用", sub: 'Use', name: "use-in-vue", update: true, icon: 'logo-vue' },
       { title: "SSR 支持", sub: 'SSR', name: "ssr", icon: 'globe' },
+      { title: "国际化", sub: 'Multilingual', name: "i18n", icon: 'language', update: true, },
       { title: "更新日志", sub: 'Update Log', name: "log", update: true, icon: 'reader' },
       { title: "定制主题", sub: 'Themes', name: "theme", icon: 'shirt' },
       { title: "暗色模式", sub: 'Dark Mode', name: "dark-mode", update: true, icon: 'invert-mode' },
@@ -16,7 +17,7 @@ export default [
     title: "通用",
     key: 'base',
     child: [
-      { title: "组件总览", sub: 'All Components', name: "all", icon: 'grid-outline' },
+      { title: "组件总览", sub: 'All Components', name: "all", icon: 'file-tray-stacked' },
       { title: "按钮", sub: "Button", name: "button", icon: 'square' },
       { title: "图标", sub: "Icon", name: "icon", icon: "heart" },
     ]

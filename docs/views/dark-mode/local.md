@@ -42,7 +42,7 @@ monitor.addListener(matchMode);
 
 # 局部模式
 
-在顶级元素上添加 .kui-dark 或 .kui-light 类，这个类下的组件会使用对应模式的颜色变量。
+在顶级元素上添加 'theme-mode=dark' 或者 'theme-mode=light' 属性 ，这个元素下的组件会使用对应模式的颜色变量。
 
 >局部暗色/亮色对弹出层不生效
 

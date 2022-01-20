@@ -1,4 +1,5 @@
 import Icon from '../icon'
+import { t } from '../locale'
 import Progress from '../progress'
 import Tooltip from '../tooltip'
 let count = 0
@@ -130,7 +131,7 @@ export default {
           (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
         ) {
           error = true
-          item.errorText = '文件尺寸不合法'
+          item.errorText = t('k.upload.errorFileSize')
           item.status = 'error'
         }
         // if (multiple) {
@@ -274,7 +275,7 @@ export default {
       }
     }
 
-    let showSelector = (isPicture && limit && limit > defaultFileList.length ) || !isPicture || !limit
+    let showSelector = (isPicture && limit && limit > defaultFileList.length) || !isPicture || !limit
     const selector = showSelector ? <div class='k-upload-select'>
       <div class="k-upload-add"  {...addProps}>
         <input type="file" class="k-upload-file"
@@ -292,7 +293,7 @@ export default {
       return (showUploadList && !isPicture) || isPicture ? <div class={`k-upload-${isPicture ? 'picture' : 'file'}-list`}>
         {
           defaultFileList.map((item, i) => {
-            let statusText = item.status == 'success' ? '上传成功' : (item.errorText || '上传失败')
+            let statusText = item.status == 'success' ? t('k.upload.successful') : (item.errorText || t('k.upload.failed'))
             delete item.errorText
             item.uid = item.uid || getUuid()
             return (

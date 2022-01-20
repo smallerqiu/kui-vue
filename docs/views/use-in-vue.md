@@ -87,7 +87,7 @@ module: {
 externals: {
   'vue': 'Vue',
   'vue-router': 'VueRouter',
-  'kui-vue': 'KuiVue',
+  'kui-vue': 'kui',
   ...
 },
 ```

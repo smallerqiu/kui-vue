@@ -2,7 +2,7 @@ import Icon from '../icon'
 import Button from '../button'
 import transfer from "../_tool/transfer";
 import { measureScrollBar, getOffset } from '../_tool/utils'
-
+import { t } from '../locale'
 let cacheBodyOverflow = {};
 
 
@@ -11,8 +11,8 @@ export default {
   props: {
     value: Boolean,
     title: String,
-    okText: { type: String, default: '确定' },
-    cancelText: { type: String, default: '取消' },
+    okText: String,
+    cancelText: String,
     top: Number,
     width: Number,
     mask: { type: Boolean, default: true },
@@ -175,7 +175,8 @@ export default {
     if (this.mask) {
       maskNode = <transition name="k-modal-fade"><div class="k-modal-mask" v-show={show} /></transition>
     }
-
+    let okText = this.okText || t('k.modal.ok')
+    let cancelText = this.cancelText || t('k.modal.cancel')
     //content
     let contentNode = $slots.content
     if (!contentNode) {
@@ -188,7 +189,7 @@ export default {
       if (this.footer !== null) {
         let footer = $slots.footer
         if (!footer) {
-          footer = [<Button onClick={this.cancel}>{this.cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{this.okText}</Button>]
+          footer = [<Button onClick={this.cancel}>{cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{okText}</Button>]
         }
         const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 

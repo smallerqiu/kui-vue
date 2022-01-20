@@ -24,8 +24,9 @@ module.exports = {
 		path: path.resolve(__dirname, "../dist"),
 		publicPath: "",
 		filename: "k-ui.js",
-		library: 'KuiVue',
+		library: 'kui',
 		libraryTarget: 'umd',
+		libraryExport: 'default', 
 		umdNamedDefine: true
 	},
 	performance: {
