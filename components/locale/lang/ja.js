@@ -30,7 +30,8 @@ export default {
       now: '現在',
       ok: 'OK',
       selectDate: '日付を選択',
-      selectTime: '時間を選択'
+      selectTime: '時間を選択',
+      back:'返回'
     },
     drawer: {
       ok: 'OK',

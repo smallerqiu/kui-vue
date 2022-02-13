@@ -12,11 +12,11 @@
       <RadioButton value="small" label="Small"/>
     </RadioGroup>
     <br/>
-    <DatePicker :size="size"/>
+    <DatePicker :size="size" :picker-size="size"/>
     <br/>
-    <DatePicker mode="month" placeholder="请选择月份" :size="size" />
+    <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
     <br/>
-    <DatePicker :size="size" mode="range"/>
+    <DatePicker :size="size" mode="range" :picker-size="size"/>
   </div>
 </template>
 <script>

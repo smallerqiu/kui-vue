@@ -23,4 +23,4 @@
 | maxSize        | 上传文件最大单位(KB)                                                                                                           | String         | -      |
 | transformFile  | 在上传之前转换文件。支持返回一个 Promise 对象                                                                                  | Function(file) | -      |
 | change         | 上传中、完成、失败都会调用这个函数                                                                                             | Function       | -      |
-| remove         | 移除文件                                                                                                                       | Function       | -      |
+| remove         | 移除文件回调                                                                                                                   | Function       | -      |

@@ -10,7 +10,7 @@ import Card from './card'
 import { Carousel, CarouselItem } from './carousel'
 import { Collapse, Panel } from './collapse'
 import { Checkbox, CheckboxGroup } from './checkbox'
-import DatePicker from './datePicker'
+import { DatePicker, DateCalendar } from './datePicker'
 import Drawer from './drawer'
 import Dropdown from './dropdown'
 import Divider from './divider'
@@ -65,7 +65,7 @@ const components = {
 	Collapse, Panel,
 	ColorPicker,
 	Col, Row,
-	DatePicker,
+	DatePicker, DateCalendar,
 	Dropdown,
 	Drawer,
 	Divider,

@@ -11,6 +11,7 @@
     right: 0;
     background-color: var(--kui-color-mask);
     height: 100%;
+    width: 100%;
     z-index: 1000; // animation: mmask .5s ease-in-out;
     overflow: hidden;
   }
@@ -27,6 +28,8 @@
     border: 0;
     background-clip: padding-box;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     .k-drawer-close {
       position: absolute;
       right: 16px;
@@ -65,10 +68,12 @@
     padding: 16px;
     font-size: 14px;
     line-height: 1.5;
-    height: calc(100% - 43px);
+    // height: calc(100% - 43px);
+    // height: 100%;
+    flex: 1;
     overflow: auto;
     box-sizing: border-box;
-    color:var(--kui-color-font);
+    color: var(--kui-color-font);
   }
   .k-drawer-footer {
     border-top: 1px solid var(--kui-color-border);
@@ -85,7 +90,7 @@
 
 .k-drawer-has-footer {
   .k-drawer-body {
-    height: calc(100% - 43px - 53px);
+    // height: calc(100% - 43px);
   }
 }
 
@@ -96,10 +101,13 @@
   &.k-drawer-top, &.k-drawer-bottom {
     height: 100%;
   }
+  &.k-drawer-bottom .k-drawer-box {
+    bottom: 0;
+  }
 }
 
 .k-drawer-right {
-  width: 0%;
+  // width: 100%;
   height: 100%;
   right: 0;
   .k-drawer-box {
@@ -110,7 +118,7 @@
 }
 
 .k-drawer-left {
-  width: 0%;
+  // width: 0%;
   height: 100%;
   left: 0;
   .k-drawer-box {
@@ -122,25 +130,25 @@
 
 .k-drawer-top {
   width: 100%;
-  height: 0;
+  // height: 0;
   top: 0;
   .k-drawer-box {
     top: 0;
     left: 0;
     width: 100%;
-    height: 0;
+    // height: 0;
   }
 }
 
 .k-drawer-bottom {
   width: 100%;
-  height: 0;
+  // height: 0;
   bottom: 0;
   right: 0;
   left: 0;
   .k-drawer-box {
     width: 100%;
-    height: 0;
+    // height: 0;
     left: 0;
     bottom: 0;
   }
@@ -148,11 +156,19 @@
 
 .k-drawer-nobody {
   position: absolute;
+  pointer-events: none;
   top: 0;
+  width: 100%;
+  height: 100%;
   .k-drawer-mask-nobody {
     position: absolute;
+    pointer-events: all;
+  }
+  &.k-drawer-bottom .k-drawer-box {
+    bottom: inherit;
   }
 }
-.k-drawer-nomask{
+
+.k-drawer-nomask {
   pointer-events: none;
 }

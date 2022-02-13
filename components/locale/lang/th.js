@@ -30,7 +30,8 @@ export default {
       now: 'ตอนนี้',
       ok: 'ตกลง',
       selectDate: 'เลือกวันที่',
-      selectTime: 'เลือกเวลา'
+      selectTime: 'เลือกเวลา',
+      back:'เบื้องหลัง'
     },
     drawer: {
       ok: 'ตกลง',

@@ -6,7 +6,7 @@
   color: var(--kui-color-font);
   // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   &+.k-calendar {
-    // border-left: solid 1px #eaeaea;
+    border-left: solid 1px var(--kui-color-border);
     // margin-left: 5px;
     //   padding-left: 5px;
     //   .k-calendar-time {
@@ -14,19 +14,28 @@
     //     box-sizing: content-box;
     //   }
     .k-calendar-time-picker {
-      border-left: 1px solid var(--kui-color-border);
+      // border-left: 1px solid var(--kui-color-border);
     }
   }
+  .k-btn {
+    transition: none;
+  }
   .k-calendar-body {
-    width: 215px;
+    // width: 215px;
     position: relative;
-    height: 215px;
+    min-height: 277px;
+    width: 284px;
+    padding: 0 16px 0 16px;
+    box-sizing: border-box;
   }
   .k-calendar-head {
-    line-height: 32px;
-    height: 32px;
+    // line-height: 32px;
+    // height: 32px;
     text-align: center;
     position: relative;
+    padding: 12px;
+    display: flex;
+    align-items: center;
     span {
       color: var(--kui-color-font);
       cursor: pointer;
@@ -36,43 +45,44 @@
         color: var(--kui-color-main);
       }
     }
-    .k-calendar-prev-month-btn, .k-calendar-next-month-btn, .k-calendar-prev-year-btn, .k-calendar-next-year-btn {
-      position: absolute;
-      color: var(--kui-color-icon);
-      padding: 0 5px;
-      font-size: 16px;
-    }
+    // .k-calendar-prev-month-btn, .k-calendar-next-month-btn, .k-calendar-prev-year-btn, .k-calendar-next-year-btn {
+    //   // position: absolute;
+    //   color: var(--kui-color-icon);
+    //   padding: 0 5px;
+    //   font-size: 16px;
+    // }
     .k-calendar-year-select, .k-calendar-month-select, .k-calendar-day-select {
       font-size: 14px;
-      padding: 0 2px;
+      // padding: 0 2px;
       position: relative;
       font-weight: bold;
+      flex: 1;
     }
-    .k-calendar-prev-year-btn {
-      left: 6px;
-    }
-    .k-calendar-prev-month-btn {
-      left: 24px;
-    }
-    .k-calendar-next-year-btn {
-      right: 6px;
-    }
-    .k-calendar-next-month-btn {
-      right: 24px;
-    }
+    // .k-calendar-prev-year-btn {
+    //   left: 6px;
+    // }
+    // .k-calendar-prev-month-btn {
+    //   left: 24px;
+    // }
+    // .k-calendar-next-year-btn {
+    //   right: 6px;
+    // }
+    // .k-calendar-next-month-btn {
+    //   right: 24px;
+    // }
     .k-calendar-body {
-      position: relative;
-      width: 215px;
+      // position: relative;
+      // width: 215px;
     }
   }
   .k-calendar-days {
     font-size: 0;
     padding-bottom: 5px;
     span {
-      width: 25px;
-      height: 25px;
-      line-height: 23px;
-      margin: 5px 0 0 5px;
+      width: 36px;
+      height: 36px;
+      // line-height: 23px;
+      // margin: 5px 0 0 5px;
       font-size: 14px;
       display: inline-block;
       text-align: center;
@@ -81,20 +91,44 @@
     }
   }
   .k-calendar-years, .k-calendar-months {
-    width: 100%;
+    width: 50%;
     height: 100%;
     position: absolute;
     background: var(--kui-color-control-10);
-    left: 0;
     top: 0;
     font-size: 0;
     text-align: center;
+    box-sizing: border-box;
+    overflow: auto;
+    border-top: 1px solid var(--kui-color-border);
     span {
       font-size: 14px;
-      width: 56px;
-      margin: 20px 6px 0px;
-      padding: 5px 0;
+      width: auto;
+      display: block;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      height: 32px;
+      line-height: 32px;
+      box-sizing: border-box;
+      margin: 8px;
+      border-radius: var(--kui-border-radius);
+      position: relative;
+      cursor: pointer;
+      &:hover {
+        background-color: var(--kui-color-hover);
+      }
     }
+    .k-calendar-item-selected {
+      background-color: var(--kui-color-selected);
+    }
+  }
+  .k-calendar-years {
+    border-right: 1px solid var(--kui-color-border);
+    left: 0;
+  }
+  .k-calendar-months {
+    right: 0;
   }
   .k-calendar-footer {
     border-top: 1px solid var(--kui-color-border);
@@ -109,9 +143,22 @@
     .k-calendar-btn-today {
       float: left;
     }
+    .k-calendar-btn-ok {
+      margin-left: 8px;
+    }
   }
-  .k-calendar-week {
+  .k-calendar-weekdays {
     font-weight: 500;
+    border-bottom: 1px solid var(--kui-color-border);
+    .k-calendar-weekday {
+      width: 36px;
+      height: 36px;
+      display: inline-block;
+      text-align: center;
+      line-height: 36px;
+      color: var(--kui-color-icon);
+      font-size: 12px;
+    }
   }
   .k-calendar-date {
     cursor: pointer;
@@ -122,6 +169,12 @@
     text-align: center;
     overflow: hidden;
     border: 1px solid transparent;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    margin: 2px;
+    box-sizing: border-box;
     &:hover {
       background: var(--kui-color-main-80);
     }
@@ -146,12 +199,13 @@
       border-radius: 50%;
     }
   }
-  span.k-calendar-date-selected {
+  .k-calendar-date.k-calendar-item-selected {}
+  .k-calendar-date.k-calendar-item-selected {
     color: #fff;
     font-weight: bold;
     background: var(--kui-color-main);
     border-radius: var(--kui-border-radius);
-    &.k-calendar-date-disabled {
+    &.k-calendar-item-disabled {
       border: 1px solid var(--kui-color-disable-border);
       box-sizing: border-box;
       &::after {
@@ -165,7 +219,7 @@
       background: #fff;
     }
   }
-  span.k-calendar-date-disabled {
+  .k-calendar-date.k-calendar-item-disabled {
     cursor: not-allowed;
     color: var(--kui-color-disable-color);
     background: var(--kui-color-disable-back);
@@ -180,18 +234,22 @@
     }
   }
   .k-calendar-time-picker {
-    position: absolute;
+    // position: absolute;
     width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
+    // height: 100%;
+    height: 276px;
+    // left: 0;
+    // top: 0;
     background: var(--kui-color-control-10);
     border-top: 1px solid var(--kui-color-border);
+    display: flex;
     .k-calendar-time-picker-select {
-      width: 33.333%;
-      font-size: 0;
+      flex: 1;
+      // width: 33.333%;
+      // font-size: 0;
       overflow: hidden;
-      height: 215px;
+      // height: 215px;
+      height: 100%;
       border-right: 1px solid var(--kui-color-border);
       box-sizing: border-box;
       float: left;
@@ -209,10 +267,10 @@
           font-size: 14px;
           box-sizing: content-box;
           width: 100%;
-          height: 24px;
+          height: 32px;
           margin: 0;
           padding-left: 30px;
-          line-height: 24px;
+          line-height: 32px;
           list-style: none;
           cursor: pointer;
           &:hover {
@@ -237,6 +295,48 @@
       color: var(--kui-color-main);
       font-weight: bold;
       background: var(--kui-color-control-10);
+    }
+  }
+}
+
+.k-calendar-small {
+  .k-calendar-body {
+    width: 216px;
+    padding: 0;
+    min-height: 221px;
+  }
+  .k-calendar-time-picker {
+    height: 220px;
+    .k-calendar-time-picker-select ul li{
+      font-size: 12px;
+    }
+  }
+  .k-calendar-head {
+    padding: 8px;
+    .k-btn {
+      font-size: 12px;
+    }
+  }
+  .k-calendar-weekdays {
+    padding: 0 10px;
+    .k-calendar-weekday {
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+  .k-calendar-weeks {
+    padding: 0 10px;
+  }
+  .k-calendar-date {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+  }
+  .k-calendar-years,.k-calendar-months{
+    span{
+      font-size: 12px;
     }
   }
 }

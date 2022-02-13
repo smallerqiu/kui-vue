@@ -1,26 +1,30 @@
 <template>
   <div>
-    <Button @click="show=!show">普通抽屉</Button>
-    <Drawer v-model="show" :closable="false" :footer="null">
-      <p>something ...</p>
-      <p>something ...</p>
-      <p>something ...</p>
-    </Drawer>
+    <Button @click="visible=true" type="primary">打开弹窗</Button>
+    <Button @click="custom=true" type="primary">自定义</Button>
+
+    <Modal :title="null" 
+      :footer="null"
+      :showClose="false"
+      v-model="custom">
+        <DateCalendar />
+    </Modal>
+
+    <Modal title="Title" v-model="visible" @ok="okHandle">Content</Modal>
   </div>
 </template>
 <script>
 export default{
   data(){
     return{
-      show:true
+      visible:false,
+      custom:false
     }
   },
-  mounted(){
-         this.$Notice.open({
-        title: "通知的标题",
-        content: "通知的描述",
-        duration: 5
-      });
+  methods:{
+    okHandle(){
+      this.visible = false
+    }
   }
-}
+} 
 </script>

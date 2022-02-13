@@ -1,7 +1,7 @@
 #### API
 | 属性         | 说明                                                               | 类型          | 默认值 |
 |--------------|--------------------------------------------------------------------|---------------|--------|
-| title        | 抽屉标题                                                           | String        | -      |
+| title        | 抽屉标题,为null或false时不显示标题                                                           | String        | -      |
 | width        | 抽屉宽度 `placement`为 `left` 或 `right` 时使用                    | Number,String | 520    |
 | height       | 抽屉高度 `placement`为 `top` 或 `bottom` 时使用                    | Number,String | 256    |
 | placement    | 抽屉显示方向，提供 `left` , `top` , `right` , `bottom` 4种展示方式 | String        | right  |
