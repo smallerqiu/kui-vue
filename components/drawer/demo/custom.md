@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <div style="overflow:hidden">
     <RadioGroup v-model="placement">
       <Radio label="left" value="left"/>
       <Radio label="top" value="top"/>

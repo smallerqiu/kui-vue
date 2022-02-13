@@ -31,13 +31,13 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('resize', this.resetNavPosition)
+    this.$isServer && window.addEventListener('resize', this.resetNavPosition)
     this.$nextTick(() => {
       this.updateIndex()
     })
   },
   beforeDestory() {
-    window.removeEventListener('resize', this.resetNavPosition)
+    this.$isServer && window.removeEventListener('resize', this.resetNavPosition)
   },
   methods: {
     closeTab(key, e) {

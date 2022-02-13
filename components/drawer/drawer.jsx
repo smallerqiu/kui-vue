@@ -69,10 +69,10 @@ export default {
       let target = this.target();
       if (!this.visible && !cacheBodyOverflow.hasOwnProperty('overflow')) {
         cacheBodyOverflow = {
-          width: target.width,
-          overflow: target.overflow,
-          overflowX: target.overflowX,
-          overflowY: target.overflowY,
+          width: target.style.width,
+          overflow: target.style.overflow,
+          overflowX: target.style.overflowX,
+          overflowY: target.style.overflowY,
         }
       }
       if (opened) {
@@ -130,11 +130,11 @@ export default {
     return (
       this.rendered ? <div class={classes} v-transfer={target}>
         {maskNode}
-        <transition name={transitionName}>
+        <transition name={transitionName} time={50000}>
           <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">
               {closeNode}
-              <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>
+              {title!==null&&title!==false&&<div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>}
               <div class="k-drawer-body">
                 {$slots.default}
               </div>

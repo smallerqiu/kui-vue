@@ -13,7 +13,8 @@ export default {
       now: 'Now',
       ok: 'Ok',
       selectDate: 'Select date',
-      selectTime: 'Select time'
+      selectTime: 'Select time',
+      back: 'Back'
     },
     drawer: {
       ok: 'Ok',

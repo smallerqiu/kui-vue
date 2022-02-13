@@ -13,7 +13,8 @@ export default {
       now: 'Hiện tại',
       ok: 'Ok',
       selectDate: 'Chọn ngày',
-      selectTime: 'Chọn giờ'
+      selectTime: 'Chọn giờ',
+      back:'Lùi'
     },
     drawer: {
       ok: 'Ok',

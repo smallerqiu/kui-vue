@@ -203,10 +203,10 @@ export default {
       let target = document.body
       if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
         cacheBodyOverflow = {
-          width: target.width,
-          overflow: target.overflow,
-          overflowX: target.overflowX,
-          overflowY: target.overflowY,
+          width: target.style.width,
+          overflow: target.style.overflow,
+          overflowX: target.style.overflowX,
+          overflowY: target.style.overflowY,
         }
       }
       if (opened) {

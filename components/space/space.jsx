@@ -47,8 +47,8 @@ export default {
     return (
       <div class={classes}>
         {
-          childs.map((child) => {
-            return <div class="k-space-item" style={style}>{child}</div>
+          childs.map((child, i) => {
+            return <div class="k-space-item" style={i != childs.length - 1 ? style : null}>{child}</div>
           })
         }
       </div>

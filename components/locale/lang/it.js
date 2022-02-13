@@ -30,7 +30,8 @@ export default {
       now: 'Ora',
       ok: 'OK',
       selectDate: 'Seleziona data',
-      selectTime: 'Seleziona ora'
+      selectTime: 'Seleziona ora',
+      back:'indietro'
     },
     drawer: {
       ok: 'OK',

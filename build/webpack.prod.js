@@ -33,7 +33,7 @@ module.exports = {
 		hints: false
 	},
 	externals: {
-		"vue": "Vue",
+		"vue": "vue",
 		'vue-router': 'VueRouter',
 		"kui-icons": "kui-icons",
 		'moment': 'moment'

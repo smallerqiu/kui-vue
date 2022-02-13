@@ -34,10 +34,10 @@ export default {
   mounted() {
     this.renderEnd = true
     this.resetHeight()
-    window.addEventListener('resize', this.autoResize)
+    this.$isServer && window.addEventListener('resize', this.autoResize)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.autoResize)
+    this.$isServer && window.removeEventListener('resize', this.autoResize)
   },
   updated() {
     this.autoResize()
@@ -261,7 +261,7 @@ export default {
     }
 
     if (!data || !data.length) {
-      content.push(<Empty description={this.emptyText}/>)
+      content.push(<Empty description={this.emptyText} />)
     }
     //custom footer
     if (footer) {

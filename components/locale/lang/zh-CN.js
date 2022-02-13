@@ -4,7 +4,7 @@ export default {
       startDate: '开始日期',
       endDate: '结束日期',
       placeholder: '请选择日期',
-      months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+      months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
       weeks: ['一', '二', '三', '四', '五', '六', '日'],
       year: '年',
       month: '月',
@@ -13,7 +13,8 @@ export default {
       now: '此刻',
       ok: '确定',
       selectDate: '选择日期',
-      selectTime: '选择时间'
+      selectTime: '选择时间',
+      back:'返回'
     },
     drawer: {
       ok: '确定',

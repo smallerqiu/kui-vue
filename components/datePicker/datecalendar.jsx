@@ -13,11 +13,11 @@ export default {
     mode: { type: String, default: 'date' },
     format: { type: String, default: 'YYYY-MM-DD' },
     float: String,
+    pickerSize: String,
   },
   data() {
     return {
       showYears: false,
-      showMonths: false,
       showTimes: false,
       currentValue: this.value ? new Date(this.value) : '',
       today: new Date(),
@@ -31,7 +31,7 @@ export default {
       monthsHead: "1.2.3.4.5.6.7.8.9.10.11.12".split("."),
       // months: t('k.datePicker.months'), // months of panel
       // weeks: t('k.datePicker.weeks'), // weeks
-      years: [],
+      // years: [],
 
     };
   },
@@ -45,10 +45,23 @@ export default {
         this.updateStamp()
       }
     },
+    showYears(show) {
+      if (show) {
+        this.$nextTick(e => {
+          let year = new Date().getFullYear()
+          let y = this.years.indexOf(this.year || year)
+          let d = [y, this.month].map(x => x * 40)
+          let years = this.$refs.yearspicker;
+          let month = this.$refs.monthspicker;
+          years.scrollTop = d[0]
+          month.scrollTop = d[1]
+        })
+      }
+    },
     showTimes(show) {
       if (show) {
         this.$nextTick(e => {
-          let d = [this.hour, this.minute, this.second].map(x => x * 24)
+          let d = [this.hour, this.minute, this.second].map(x => x * 32)
           let childs = this.$refs.timepicker.children;
           [0, 1, 2].map((e, i) => childs[i].scrollTop = d[i])
         })
@@ -91,6 +104,15 @@ export default {
       }
       return days;
     },
+    years() {
+      let year = new Date().getFullYear()
+      let min = year - 100, max = year + 100;
+      let y = []
+      for (let j = min; j <= max; j++) {
+        y.push(j)
+      }
+      return y
+    }
   },
   methods: {
     updateStamp() {
@@ -107,28 +129,19 @@ export default {
       this.year = d.getFullYear()
       this.month = d.getMonth()
       this.day = d.getDate()
-      this.setYears(this.year);
       if (this.showTime && this.currentValue) {
         this.hour = d.getHours()
         this.minute = d.getMinutes()
         this.second = d.getSeconds()
       }
     },
-    setYears(year) {
-      const arr = [];
-      let start = year - 1;
-      while (arr.length < 12) {
-        arr.push(start++);
-      }
-      this.years = arr
-    },
+
     nextMonth() {
       if (this.month < 11) {
         this.month++;
       } else {
         this.month = 0;
         this.year++;
-        this.setYears(this.year)
       }
     },
     prevMonth() {
@@ -137,7 +150,6 @@ export default {
       } else {
         this.month = 11;
         this.year--;
-        this.setYears(this.year)
       }
     },
     classes(Y, M, D, out, format) {
@@ -189,12 +201,14 @@ export default {
       let disabled = this.disabledDate(time)
 
       let classes = {
-        'k-calendar-date': true,
+        'k-calendar-date': format == 'YYYYMMDD',
         'k-calendar-date-today': istoday,
         'k-calendar-date-on': on && !out && !disabled,
-        'k-calendar-date-selected': isselected && !out,
-        'k-calendar-date-disabled': disabled,
-        'k-calendar-date-out': out
+        'k-calendar-item-selected': isselected && !out,
+        'k-calendar-item-disabled': disabled,
+        'k-calendar-date-out': out,
+        'k-calendar-year-item': format == 'YYYY',
+        'k-calendar-month-item': format == 'YYYYMM',
       }
       return classes
     },
@@ -207,8 +221,11 @@ export default {
       this.currentValue = new Date(this.currentValue).setMonth(m)
       if (this.mode == 'month') {
         this.setDate()
-      } else
-        this.showMonths = 0
+      }
+
+      this.$nextTick(() => {
+        this.setYMScroll()
+      })
     },
     setYear(e, y) {
       e.stopPropagation();
@@ -217,18 +234,20 @@ export default {
       }
       this.year = y
       if (this.years.indexOf(y) == 0) {
-        this.setYears(y - 10)
         return;
       }
       if (this.years.indexOf(y) == 11) {
-        this.setYears(y)
         return;
       }
       this.currentValue = new Date(this.currentValue).setYear(y)
-      this.showYears = 0
+      // this.showYears = 0
       if (this.mode == 'year') {
         this.$emit('input', this.currentValue)
+        this.$emit('change', this.currentValue)
       }
+      this.$nextTick(() => {
+        this.setYMScroll()
+      })
     },
     setDay(e, j) {
       e.stopPropagation();
@@ -256,6 +275,7 @@ export default {
             time = temp < date ? [temp, date] : [date, temp]
             // this.DatePicker.currentValue = time
             this.$emit('input', time)
+            this.$emit('change', time)
           }
         }
         if ((float == 'right' && n) || (float == 'left' && p)) {
@@ -300,21 +320,21 @@ export default {
         <li onClick={e => this.setTime(j, t, e)} class={this.timeClass(j, t, d)}>{this.fix(j)}</li>)
     },
     setShowTime() {
-      this.showMonths = 0
       this.showYears = 0
-      if (this.mode == 'range') {
-        this.DatePicker.temp_range_showtime = !this.DatePicker.temp_range_showtime
-        this.showTimes = this.DatePicker.temp_range_showtime
-      } else {
-        this.showTimes = !this.showTimes
-      }
+      // if (this.mode == 'range') {
+      //   this.DatePicker.temp_range_showtime = !this.DatePicker.temp_range_showtime
+      //   this.showTimes = this.DatePicker.temp_range_showtime
+      // } else {
+      this.showTimes = !this.showTimes
+      // }
+      // if (this.showTimes) {
+      //   this.$nextTick(() => {
+      //     this.setTimeScroll()
+      //   })
+      // }
     },
     setShowYear() {
       !this.showTimes && (this.showYears = !this.showYears)
-    },
-    setShowMonth(e) {
-      e.stopPropagation()
-      !this.showTimes && (this.showMonths = !this.showMonths)
     },
     setTime(v, t, e) {
       e.stopPropagation();
@@ -344,11 +364,25 @@ export default {
           break;
         default: ;
       }
-
-      this.setTimeScroll()
+      this.$nextTick(() => {
+        this.setTimeScroll()
+      })
+    },
+    setYMScroll() {
+      let year = new Date().getFullYear()
+      let y = this.years.indexOf(this.year || year)
+      let d = [y, this.month].map(x => x * 40)
+      let years = this.$refs.yearspicker
+      let month = this.$refs.monthspicker
+      animate({
+        draw: function (progress) {
+          years.scrollTop += progress * (d[0] - years.scrollTop)
+          month.scrollTop += progress * (d[1] - month.scrollTop)
+        }
+      })
     },
     setTimeScroll() {
-      let d = [this.hour, this.minute, this.second].map(x => x * 24)
+      let d = [this.hour, this.minute, this.second].map(x => x * 32)
       let childs = this.$refs.timepicker.children;
       animate({
         draw: function (progress) {
@@ -358,76 +392,95 @@ export default {
     },
     setDate() {
       if (this.mode == 'range') {
-        let values = this.DatePicker.currentValue;
+        let values = this.DatePicker.currentValue || [];
         let t1 = this.DatePicker.temp_range_left || values[0],
           t2 = this.DatePicker.temp_range_right || values[1];
         let date = t1 > t2 ? [t2, t1] : [t1, t2]
         this.$emit('input', date)
+        this.$emit('change', date)
       } else {
         let date = new Date(this.year, this.month, this.day, this.hour, this.minute, this.second)
         this.showTimes = false
-        this.showMonths = false
         this.showYears = false
         this.currentValue = date
         this.$emit('input', date)
+        this.$emit('change', date)
       }
     },
-    setToday() {
-      this.currentValue = new Date()
+    setToday(e) {
+      let d = new Date()
+      this.currentValue = d
       this.updateStamp()
-      this.setDate()
+      if (this.mode != 'range') {
+        this.setDate()
+      } else {
+        let { float } = this
+        this.hour = d.getHours()
+        this.minute = d.getMinutes()
+        this.second = d.getSeconds()
+        let j = {
+          y: d.getFullYear(),
+          m: d.getMonth(),
+          d: d.getDate(),
+          p: float == 'left',
+          n: float == 'right'
+        }
+        this.setDay(e, j)
+      }
     },
     nextYear() {
-      let y = this.year + (this.showMonths ? 1 : 10)
+      let y = this.year + 10
       this.year = y
-      this.setYears(y)
     },
     prevYear() {
-      let y = this.year - (this.showMonths ? 1 : 10)
+      let y = this.year - 10
       this.year = y
-      this.setYears(y)
+    },
+    back() {
+      this.showYears = false
+      this.showTimes = false
     }
   },
   mounted() {
     this.updateStamp()
   },
   render() {
-    let { classes, year, month, day, hour, minute, second, showYears, showMonths, disabledDate,
+    let { classes, year, month, day, hour, minute, second, showYears, disabledDate, pickerSize,
       showTimes, getTime, mode, DatePicker, float, currentValue } = this
+    let small = pickerSize == 'small', btnSize = small ? 'small' : null;
     let isRange = mode == 'range', values = DatePicker.currentValue || [];
     let temp_left, temp_right;
     if (isRange) {
-      showTimes = DatePicker.temp_range_showtime
+      // showTimes = DatePicker.temp_range_showtime
       temp_left = DatePicker.temp_range_left || values[0]
       temp_right = DatePicker.temp_range_right || values[1]
     }
 
-    showMonths = showMonths || mode == 'month'
-    showYears = showYears || mode == 'year'
+    showYears = showYears || mode == 'year' || mode == 'month'
     let months = t('k.datePicker.months');
     let weeks = t('k.datePicker.weeks');
-    let showArrow = true
     //header
     let headNode = []
-    if (!showTimes)
-      headNode.push(<span class="k-calendar-prev-year-btn" onClick={this.prevYear}>«</span>)
-    if ((!showYears && !showMonths && !showTimes))
-      headNode.push(<span class="k-calendar-prev-month-btn" onClick={this.prevMonth}>‹</span>)
-    headNode.push(<span class="k-calendar-year-select" onClick={this.setShowYear}>{year}{t('k.datePicker.year')}</span>)
-    if (!showYears && !showMonths) {
-      headNode.push(<span class="k-calendar-month-select" onClick={this.setShowMonth}>{months[month]}</span>)
-      if (!showTimes)
-        headNode.push(<span class="k-calendar-next-month-btn" onClick={this.nextMonth}>›</span>)
-      else
-        headNode.push(<span class="k-calendar-day-select">{day}{t('k.datePicker.day')}</span>)
+    if (!showTimes && !showYears) {
+      headNode.push(<Button icon="chevron-double-back-outline" size={btnSize} theme="normal" class="k-calendar-prev-year-btn" onClick={this.prevYear}></Button>)
+      headNode.push(<Button icon="chevron-back-outline" size={btnSize} theme="normal" class="k-calendar-prev-month-btn" onClick={this.prevMonth}></Button>)
+    } else if (mode != 'year' && mode != 'month') {
+      headNode.push(<Button class="k-calendar-back" size={btnSize} icon="chevron-back-outline" theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
     }
-    if (!showTimes)
-      headNode.push(<span class="k-calendar-next-year-btn" onClick={this.nextYear}>»</span>)
+    headNode.push(<Button class="k-calendar-year-select" size={btnSize} theme="normal" onClick={this.setShowYear}>{year}{t('k.datePicker.year')} {months[month]} {!showYears && showTimes ? day : ''}</Button>)
+    if (!showYears) {
+      if (!showTimes)
+        headNode.push(<Button theme="normal" size={btnSize} icon="chevron-forward-outline" class="k-calendar-next-month-btn" onClick={this.nextMonth}></Button>)
+      // else
+      // headNode.push(<span class="k-calendar-day-select">{day}{t('k.datePicker.day')}</span>)
+    }
+    if (!showTimes && !showYears)
+      headNode.push(<Button icon="chevron-double-forward-outline" size={btnSize} theme="normal" class="k-calendar-next-year-btn" onClick={this.nextYear}></Button>)
 
     //body
     const bodyNode = []
-    if (mode == 'date' || isRange) {
-      let weekNode = weeks.map(w => <span class="k-calendar-week" key={w}>{w}</span>)
+    if ((mode == 'date' || isRange) && !showYears && !showTimes) {
+      let weekNode = weeks.map(w => <span class="k-calendar-weekday" key={w}>{w}</span>)
       const getDay = (j, x) => {
         const props = {
           domProps: { innerHTML: j.d },
@@ -440,18 +493,28 @@ export default {
         }
         return <span {...props} />
       }
-      let dayNode = this.days.map((j, x) => getDay(j, x))
-      const daysNode = <div class="k-calendar-days">{weekNode}{dayNode}</div>
+      let wekday = [], temp = [];
+      this.days.forEach((j, x) => {
+        let d = getDay(j, x)
+        temp.push(d)
+        if ((x + 1) % 7 == 0) {
+          wekday.push(<div class="k-calendar-week">{temp}</div>)
+          temp = []
+        }
+      })
+      const daysNode = <div class="k-calendar-weeks">{wekday}</div>
+      const weeksNode = <div class="k-calendar-weekdays">{weekNode}</div>
+      bodyNode.push(weeksNode)
       bodyNode.push(daysNode)
     }
-    if (showMonths) {
-      const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
-      const mouthNode = <div class="k-calendar-months">{m}</div>
-      bodyNode.push(mouthNode)
-    }
+    // console.log(showYears)
     if (showYears) {
-      const y = this.years.map((i, j) => <span key={j} class={classes(i, month, day, (j == 0 || j == 11), 'YYYY')} onClick={(e) => this.setYear(e, i)}>{i}</span >)
-      const yearNode = <div class="k-calendar-years">{y}</div>
+      const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
+      const mouthNode = <div class="k-calendar-months" ref="monthspicker">{m}</div>
+      bodyNode.push(mouthNode)
+
+      const y = this.years.map((i, j) => <span key={j} class={classes(i, month, day, null, 'YYYY')} onClick={(e) => this.setYear(e, i)}>{i}</span >)
+      const yearNode = <div class="k-calendar-years" ref="yearspicker">{y}</div>
       bodyNode.push(yearNode)
     }
     //footer
@@ -475,22 +538,23 @@ export default {
       bodyNode.push(timeNode)
 
     }
-    if ((this.showTime && !isRange) || (this.showTime && isRange && float == 'right')) {
+
+    if (this.showTime) {
       //footer
       // let disabled = moment()
       let disabled = disabledDate(new Date())
       let time_disabled = isRange ? !(temp_left && temp_right) : (!currentValue);
 
-      !isRange && footerNode.push(<Button type="link" size='small' disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
-      footerNode.push(<Button type="link" size="small" disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
-      footerNode.push(<Button type="primary" size='small' disabled={time_disabled} onClick={this.setDate}>{t('k.datePicker.ok')}</Button>)
+      footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
+      footerNode.push(<Button theme="normal" size={btnSize} disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
+      if (!isRange || float != 'left') footerNode.push(<Button type="primary" class="k-calendar-btn-ok" size={btnSize} disabled={time_disabled} onClick={this.setDate}>{t('k.datePicker.ok')}</Button>)
     } else if (mode == 'date') {
       let disabled = disabledDate(new Date())
-      footerNode.push(<Button type="link" disabled={disabled} block size='small' onClick={this.setToday}>{t('k.datePicker.today')}</Button>)
+      footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} block onClick={this.setToday}>{t('k.datePicker.today')}</Button>)
     }
     footerNode = footerNode.length || (isRange && this.showTime) ? <div class="k-calendar-footer">{footerNode}</div> : null
     return (
-      <div class="k-calendar">
+      <div class={['k-calendar', { 'k-calendar-small': small }]}>
         <div class="k-calendar-head">{headNode}</div>
         <div class="k-calendar-body">{bodyNode}</div>
         {footerNode}

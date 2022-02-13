@@ -13,7 +13,8 @@ export default {
       now: 'Сейчас',
       ok: 'OK',
       selectDate: 'Выбрать дату',
-      selectTime: 'Выбрать время'
+      selectTime: 'Выбрать время',
+      back:'назад'
     },
     drawer: {
       ok: 'OK',

@@ -49,9 +49,9 @@
     width: 80px;
     height: 80px;
     line-height: 80px;
-    color: #555;
+    color: var(--kui-color-font);
     float: left;
-    font-size: 30px;
+    font-size: 32px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
     &:hover {

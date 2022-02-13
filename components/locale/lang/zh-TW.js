@@ -13,7 +13,8 @@ export default {
       now: '此刻',
       ok: '確定',
       selectDate: '選擇日期',
-      selectTime: '選擇時間'
+      selectTime: '選擇時間',
+      back:'返回'
     },
     drawer: {
       ok: '確定',

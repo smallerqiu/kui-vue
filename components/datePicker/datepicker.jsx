@@ -17,6 +17,7 @@ export default {
     format: { type: String, default: 'YYYY-MM-DD' },
     clearable: { type: Boolean, default: true },
     bordered: { type: Boolean, default: true },
+    pickerSize: String,
     size: {
       default: 'default',
       validator(value) {
@@ -131,7 +132,7 @@ export default {
     // console.log(t('k.datePicker'))
     let { currentValue, placeholder, disabled, clearable,
       opened, size, label, transfer, bordered, theme, shape, dateIcon,
-      format, mode, disabledTime, disabledDate, showTime
+      format, mode, disabledTime, disabledDate, showTime, pickerSize
     } = this
     let childNode = [], isRange = mode == 'range';
 
@@ -170,13 +171,13 @@ export default {
       currentValue = currentValue || []
       let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
       let leftProps = {
-        props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1 },
+        props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1, pickerSize },
         on: {
           input: e => this.updateValue(e)
         }
       }
       let rightProps = {
-        props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2 },
+        props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2, pickerSize },
         on: {
           input: e => this.updateValue(e)
         }
@@ -185,7 +186,7 @@ export default {
       calendar.push(<Calendar {...leftProps} />, <Calendar {...rightProps} />)
     } else {
       const props = {
-        props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue },
+        props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue, pickerSize },
         on: {
           input: e => {
             this.updateValue(e);
@@ -201,7 +202,7 @@ export default {
         transfer: transfer,
         selection: this.$el,
         value: this.opened,
-        placement:'bottom-left',
+        placement: 'bottom-left',
         transitionName: 'k-date-picker'
       },
       on: {

@@ -45,7 +45,7 @@ let createInstance = (props = {}) => {
       }, okText || t('k.modal.ok'))]
 
       if (type == 'confirm') {
-        footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || t('k.modal.ok')))
+        footerNode.unshift(h(Button, { on: { click: this.cancel } }, cancelText || t('k.modal.cancel')))
       }
       let footer = h('div', { attrs: { class: 'k-toast-footer' } }, footerNode)
 

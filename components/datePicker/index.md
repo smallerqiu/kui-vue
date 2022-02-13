@@ -5,6 +5,7 @@
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year` `month` `date` `range`。                     | String              | date       |
 | disabled     | 是否禁用组件                                                                                       | Boolen              | false      |
 | size         | 按钮尺寸,可选值 `small`、`large`，默认不选                                                         | String              | -          |
+| pickerSize   | 值Ï为`small`时日期呈现小尺寸                                                                       | String              | -          |
 | clearable    | 是否显示清除图标                                                                                   | Boolean             | true       |
 | placeholder  | 提示语                                                                                             | String, Array       | -          |
 | transfer     | 默认渲染到body 上，如定位有问题，请尝试修改为 false                                                | Boolean             | true       |

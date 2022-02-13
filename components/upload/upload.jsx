@@ -46,7 +46,7 @@ export default {
     };
   },
   mounted() {
-    if (this.draggable) {
+    if (this.draggable && this.$isServer) {
       window.addEventListener("dragover", function (e) {
         e = e || event;
         e.preventDefault();

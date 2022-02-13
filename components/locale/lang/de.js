@@ -13,7 +13,8 @@ export default {
       now: 'aktuelle Zeit',
       ok: 'Okay',
       selectDate: 'bitte wählen',
-      selectTime: 'bitte wählen'
+      selectTime: 'bitte wählen',
+      back: 'zurück'
     },
     drawer: {
       ok: 'Okay',
