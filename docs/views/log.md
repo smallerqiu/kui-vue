@@ -1,7 +1,7 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
-### 3.2,7
+### 3.2.7
 `2022-2-13`
 
 - 完善服务端渲染(SSR)的一问题
