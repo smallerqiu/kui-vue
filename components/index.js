@@ -47,7 +47,7 @@ import Upload from './upload'
 
 import { version } from '../package.json'
 
-
+// import './styles/index.less';
 
 import locale from './locale'
 
@@ -116,23 +116,27 @@ const UI = {
 	kCol: Col,
 	kMenu: Menu,
 	Version: version,
-	install: function (Vue, opts = {}) {
-		locale.use(opts.locale);
-		locale.i18n(opts.i18n);
 
-		for (let key in UI) {
-			Vue.component(key, UI[key]);
-		}
-		Vue.prototype.$Message = Message;
-		Vue.prototype.$Notice = Notice;
-		Vue.prototype.$Modal = Modal;
-		Vue.prototype.$Loading = Loading;
-		Vue.prototype.$Image = Image;
-	},
 	locale: locale.use,
 	i18n: locale.i18n,
 	lang: {}
 }
+const install = function (Vue, opts = {}) {
+	locale.use(opts.locale);
+	locale.i18n(opts.i18n);
+
+	for (let key in UI) {
+		Vue.component(key, UI[key]);
+	}
+	Vue.prototype.$Message = Message;
+	Vue.prototype.$Notice = Notice;
+	Vue.prototype.$Modal = Modal;
+	Vue.prototype.$Loading = Loading;
+	Vue.prototype.$Image = Image;
+}
+
+UI.install = install
+
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
 	UI.install(window.Vue);

@@ -3,7 +3,7 @@ import Icon from '../icon'
 import Vue from 'vue'
 import Button from '../button'
 import { t } from '../locale'
-const SSR = Vue.prototype.$isServer
+const SSR = Vue && Vue.prototype.$isServer
 
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
