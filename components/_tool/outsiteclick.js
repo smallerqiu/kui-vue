@@ -2,8 +2,7 @@ import Vue from 'vue';
 const SSR = Vue.prototype.$isServer
 export default {
   bind(el, { value }) {
-    if (SSR) return;
-    if (typeof value == 'function') {
+    if (!SSR && typeof value == 'function') {
       document.addEventListener('click', value)
     }
   },

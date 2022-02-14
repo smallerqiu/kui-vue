@@ -23,7 +23,7 @@ export default {
   },
   mounted() {
     let { thead } = this.$refs
-    if (thead) {
+    if (thead && this.$isServer) {
       // thead.style.marginBottom = `-${thead.offsetHeight - thead.scrollHeight}px`
       let size = measureScrollBar()
       this.scrollBarHeight = size

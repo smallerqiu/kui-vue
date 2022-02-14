@@ -102,12 +102,12 @@ let routers = new Router({
 routers.beforeEach(function (to, from, next) {
 	typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
 	// loading.start('line');
-	kui.Loading.start();
+	// kui.Loading.start();
 	next()
 })
 routers.afterEach((to, from, next) => {
 	// (process.env.NODE_ENV == 'development') &&
 	// loading.finish();
-	kui.Loading.finish();
+	// kui.Loading.finish();
 });
 export default routers

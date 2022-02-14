@@ -3,6 +3,8 @@ import Icon from '../icon'
 import Vue from 'vue'
 import Button from '../button'
 import { t } from '../locale'
+const SSR = Vue.prototype.$isServer
+
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
@@ -11,7 +13,7 @@ let showPoint = {}
 let mousedown = e => {
   showPoint = { x: e.clientX, y: e.clientY }
 }
-if (typeof window !== undefined) {
+if (!SSR && typeof window !== undefined) {
   document.addEventListener('mousedown', mousedown)
 }
 
@@ -88,14 +90,14 @@ let createInstance = (props = {}) => {
         setTimeout(() => {
           modalList.splice(modalList.indexOf(instance), 1)
           this.$destroy()
-          if (document.body.contains(this.$el))
+          if (!SSR && document.body.contains(this.$el))
             document.body.removeChild(this.$el)
         }, 300);
       }
     }
   })
-  const component = instance.$mount()
-  document.body.appendChild(component.$el)
+  const component = instance.$mount();
+  !SSR && document.body.appendChild(component.$el);
   let toast = component.$children[0]
   toast.showPoint = showPoint
   toast.tasks = modalList

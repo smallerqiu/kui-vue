@@ -66,30 +66,32 @@ export default {
       this.resetBodyStyle(visible)
     },
     resetBodyStyle(opened) {
-      let target = document.body;
-      if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
-        cacheBodyOverflow = {
-          width: target.style.width,
-          overflow: target.style.overflow,
-          overflowX: target.style.overflowX,
-          overflowY: target.style.overflowY,
+      if (!this.$isServer) {
+        let target = document.body;
+        if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+          cacheBodyOverflow = {
+            width: target.style.width,
+            overflow: target.style.overflow,
+            overflowX: target.style.overflowX,
+            overflowY: target.style.overflowY,
+          }
         }
-      }
-      if (opened) {
-        let barWidth = measureScrollBar(true)
-        let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
-        if (barWidth && hasBar) {
-          target.style.width = `calc(100% - ${barWidth}px)`
-          target.style.overflow = `hidden`
+        if (opened) {
+          let barWidth = measureScrollBar(true)
+          let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
+          if (barWidth && hasBar) {
+            target.style.width = `calc(100% - ${barWidth}px)`
+            target.style.overflow = `hidden`
+          }
+        } else {
+          setTimeout(() => {
+            let task = (this.tasks && this.tasks.length == 0) || !this.tasks
+            task && Object.keys(cacheBodyOverflow).forEach(key => {
+              target.style[key] = cacheBodyOverflow[key] || ''
+              delete cacheBodyOverflow[key]
+            })
+          }, 300)
         }
-      } else {
-        setTimeout(() => {
-          let task = (this.tasks && this.tasks.length == 0) || !this.tasks
-          task && Object.keys(cacheBodyOverflow).forEach(key => {
-            target.style[key] = cacheBodyOverflow[key] || ''
-            delete cacheBodyOverflow[key]
-          })
-        }, 300)
       }
     },
     setPos() {
@@ -150,21 +152,23 @@ export default {
     }
   },
   beforeDestroy() {
-    document.removeEventListener('mousedown', this.mousedown)
+    !this.$isServer && document.removeEventListener('mousedown', this.mousedown);
     this.resetBodyStyle(false)
   },
 
   mounted() {
-    document.addEventListener('mousedown', this.mousedown)
+    if (!this.$isServer) {
+      document.addEventListener('mousedown', this.mousedown)
 
-    if (this.draggable) {
-      this.left = (document.body.offsetWidth - (this.width || 520)) / 2
-    }
-    // console.log(this.value)
-    if (this.value) {
-      this.$nextTick(() => {
-        this.updateProp(true)
-      })
+      if (this.draggable) {
+        this.left = (document.body.offsetWidth - (this.width || 520)) / 2
+      }
+      // console.log(this.value)
+      if (this.value) {
+        this.$nextTick(() => {
+          this.updateProp(true)
+        })
+      }
     }
   },
   render() {

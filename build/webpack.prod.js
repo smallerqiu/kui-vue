@@ -18,13 +18,14 @@ module.exports = {
 		children: false,
 	},
 	entry: {
-		main: path.resolve(__dirname, '../components/index.js')
+		main: path.resolve(__dirname, '../components/bin')
 	},
 	output: {
 		path: path.resolve(__dirname, "../dist"),
 		publicPath: "",
 		filename: "k-ui.js",
 		library: 'kui',
+		globalObject: 'this',
 		libraryTarget: 'umd',
 		libraryExport: 'default', 
 		umdNamedDefine: true

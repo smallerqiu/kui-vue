@@ -1,3 +1,5 @@
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
 export default {
 	bind(el, binding) {
 		let docClick = (e) => {
@@ -9,7 +11,7 @@ export default {
 			}
 		}
 		el._docClick = docClick
-		document.addEventListener('click', docClick)
+		!SSR && document.addEventListener('click', docClick)
 	},
 	unbind(el, bind) {
 		document.removeEventListener('click', el._docClick)
