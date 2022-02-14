@@ -1,7 +1,7 @@
 import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
 export default {
 	bind(el, binding) {
+    const SSR = Vue && Vue.prototype.$isServer
 		let docClick = (e) => {
 			if (el.contains(e.target)) {
 				return false;

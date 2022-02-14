@@ -1,8 +1,8 @@
 import Vue from 'vue';
-const SSR = Vue.prototype.$isServer
 export default {
   inserted(el, { value }, vnode) {
     let transfer = el.getAttribute ? el.getAttribute('data-transfer') : el.dataset.transfer
+    const SSR = Vue && Vue.prototype.$isServer
     if (!SSR && transfer === 'true') {
       const parentNode = el.parentNode
       if (!parentNode) return false;
