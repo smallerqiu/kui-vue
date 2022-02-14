@@ -47,7 +47,7 @@ import Upload from './upload'
 
 import { version } from '../package.json'
 
-import './styles/index.less';
+
 
 import locale from './locale'
 

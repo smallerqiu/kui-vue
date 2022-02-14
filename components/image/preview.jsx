@@ -243,10 +243,12 @@ export default {
     }
   },
   mounted() {
-    let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
-    this.touch = touch
-    let even = touch ? 'touchstart' : 'mousedown'
-    document.addEventListener(even, this.mousedown, { passive: false })
+    if (!this.$isServer) {
+      let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
+      this.touch = touch
+      let even = touch ? 'touchstart' : 'mousedown'
+      document.addEventListener(even, this.mousedown, { passive: false })
+    }
   },
   render(h) {
     const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this

@@ -1,6 +1,16 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2,7
+`2022-2-13`
+
+- 完善服务端渲染(SSR)的一问题
+- 重写了DatePicker组建,新增一些属性,使其可在其它组建内部展示
+- 优化Drawer的一些问题
+- 完善Space组建
+- `Upload`细节完善
+- 多语言支持完善
+
 ### 3.2.6
 `2022-1-20`
 

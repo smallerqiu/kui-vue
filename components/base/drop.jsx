@@ -15,7 +15,7 @@ export default {
     placement: String,
     trigger: { type: String, default: "click" },
     transitionName: { type: String, default: 'dropdown' },
-    selection: Element,
+    selection: { validator: v => true },
     updateKey: [String, Object, Array]
   },
 
@@ -53,10 +53,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => this.setPosition())
-    document.addEventListener('mousedown', this.onMouseDown)
+    !this.$isServer && document.addEventListener('mousedown', this.onMouseDown)
   },
   beforeDestroy() {
-    document.removeEventListener('mousedown', this.onMouseDown)
+    !this.$isServer && document.removeEventListener('mousedown', this.onMouseDown)
   },
   render() {
     const props = {

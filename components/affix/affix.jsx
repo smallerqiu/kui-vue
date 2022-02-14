@@ -32,7 +32,7 @@ export default {
   },
   mounted() {
     let target = this.target()
-    if (target) {
+    if (target && !this.$isServer) {
       target.addEventListener('scroll', this.updatePosition)
     }
   },

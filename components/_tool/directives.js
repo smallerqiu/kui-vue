@@ -1,7 +1,9 @@
+import Vue from 'vue';
+const SSR = Vue.prototype.$isServer
 export default {
   inserted(el, { value }, vnode) {
     let transfer = el.getAttribute ? el.getAttribute('data-transfer') : el.dataset.transfer
-    if (transfer === 'true') {
+    if (!SSR && transfer === 'true') {
       const parentNode = el.parentNode
       if (!parentNode) return false;
       let empty = document.createComment('')

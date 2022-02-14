@@ -153,44 +153,45 @@ export default {
       this.$nextTick(() => this.setPosition());
     },
     setPosition() {
-      if (this.$isServer) return;
-      let m = 3;
-      let rel = this.$refs.rel;
-      let dom = this.$refs.dom;
-      if (!dom) return;
-      this.dropdownWith = rel.offsetWidth;
+      if (!this.$isServer) {
+        let m = 3;
+        let rel = this.$refs.rel;
+        let dom = this.$refs.dom;
+        if (!dom) return;
+        this.dropdownWith = rel.offsetWidth;
 
-      let relPos = this.getElementPos(rel);
-      let clientH = window.innerHeight;
-      let clientW = window.innerWidth;
-      // console.log(relPos)
-      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+        let relPos = this.getElementPos(rel);
+        let clientH = window.innerHeight;
+        let clientW = window.innerWidth;
+        // console.log(relPos)
+        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        let scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
 
-      let domH = dom.offsetHeight;
-      let relH = rel.offsetHeight;
-      if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
-      //new
-      if (clientH - relPos.top - relH - m < domH) {
-        //空出来的高度不足以放下dom
-        this.fadeInBottom = true;
-        this.top = this.transfer
-          ? relPos.top - m - domH + scrollTop
-          : -(domH + m);
-      } else {
-        this.fadeInBottom = false;
-        this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
+        let domH = dom.offsetHeight;
+        let relH = rel.offsetHeight;
+        if (this.transfer) this.left = relPos.left + 1 + scrollLeft;
+        //new
+        if (clientH - relPos.top - relH - m < domH) {
+          //空出来的高度不足以放下dom
+          this.fadeInBottom = true;
+          this.top = this.transfer
+            ? relPos.top - m - domH + scrollTop
+            : -(domH + m);
+        } else {
+          this.fadeInBottom = false;
+          this.top = this.transfer ? relPos.top + relH + m + scrollTop : relH + m;
+        }
+        // console.log(this.top)
+        // console.log(this.fadeInBottom, clientH, relPos.y, relH, m, domH)
+        //old
+        // if (h - (pos.y - s) - rh < dh) {
+        //   this.fadeInBottom = true;
+        //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
+        // } else {
+        //   this.fadeInBottom = false;
+        //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
+        // }
       }
-      // console.log(this.top)
-      // console.log(this.fadeInBottom, clientH, relPos.y, relH, m, domH)
-      //old
-      // if (h - (pos.y - s) - rh < dh) {
-      //   this.fadeInBottom = true;
-      //   this.top = !this.transfer ? -dh - m : pos.y - dh - m;
-      // } else {
-      //   this.fadeInBottom = false;
-      //   this.top = !this.transfer ? rh + m : pos.y + rh + m;
-      // }
     },
 
   }

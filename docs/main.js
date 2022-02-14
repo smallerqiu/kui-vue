@@ -3,6 +3,7 @@ import App from './app'
 import router from './router'
 
 import kui from 'kui-vue/components'
+import 'kui-vue/components/styles/'
 // import locale from 'kui-vue/components/locale/'
 // import locale from 'kui-vue/components/locale/lang/en'
 
