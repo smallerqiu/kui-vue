@@ -28,6 +28,12 @@ export default {
     }
   },
   watch: {
+    pageSize(v) {
+      this.defaultPageSize = v
+    },
+    current(v) {
+      this.page = v
+    },
     total(v) {
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
     }
