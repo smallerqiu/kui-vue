@@ -11,7 +11,7 @@ $ yarn create nuxt-app <project-name>
 更多详情请参阅 https://nuxtjs.org/guide/installation
 
 
-一步步完成后找到`plugins`目录，新建`kui.js`，写入一下内容：
+一步步完成后找到`plugins`目录，新建`kui.js`，写入以下内容：
 
 ```js
 import Vue from 'vue';
@@ -41,7 +41,7 @@ module.exports = {
     ]
   },
   plugins: [
-      {src: '~plugins/kui', ssr: true}
+      { src: '~plugins/kui', ssr: true }  // add
   ],
   //....
 }
