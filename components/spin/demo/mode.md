@@ -40,8 +40,8 @@ export default{
     change(checked){
       this.spinning = checked
     },
-    changeMode(mode){
-      this.mode = mode
+    changeMode({value}){
+      this.mode = value
     }
   }
 }
