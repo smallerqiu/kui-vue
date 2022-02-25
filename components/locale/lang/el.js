@@ -1,4 +1,4 @@
-export default {
+module.exports =  {
   k: {
     datePicker: {
       startDate: 'Ημερομηνία Έναρξης',
