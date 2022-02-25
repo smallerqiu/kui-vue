@@ -31,7 +31,7 @@ module.exports = {
 		// filename: "[id].js",
 		library: 'kui.lang.[name]',
 		libraryTarget: 'assign',
-		libraryExport: 'default', 
+		// libraryExport: 'default', 
 		umdNamedDefine: true
 	},
 	performance: {

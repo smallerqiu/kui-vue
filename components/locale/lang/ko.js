@@ -1,4 +1,4 @@
-export default {
+module.exports =  {
   k: {
     datePicker: {
       startDate: '시작 날짜',
