@@ -37,7 +37,12 @@ export default {
       ],
       cities:'wuhan'
     };
-  }
+  },
+  methods: {
+    change(item){
+      console.log(item)
+    }
+  },
 }
 </script>
 ```

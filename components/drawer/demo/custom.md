@@ -13,7 +13,7 @@
       <Radio label="bottom" value="bottom"/>
     </RadioGroup>
     <Button @click="show=true" >Open</Button>
-    <Drawer v-model="show" width="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok">My name is chuchur.</Drawer>
+    <Drawer v-model="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok">My name is chuchur.</Drawer>
   </div>
 </template>
 <script>

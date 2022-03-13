@@ -328,10 +328,10 @@ export default {
         }
       }
     }
-    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText}/> : <ul>{childs}</ul>)}</Drop>
+    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText} /> : <ul>{childs}</ul>)}</Drop>
 
     label = multiple ? (label || []) : label
-    placeholder = t('k.select.placeholder')
+    placeholder = placeholder || t('k.select.placeholder')
     const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
       ? <div class="k-select-placeholder">{placeholder}</div>
       : null
