@@ -12,7 +12,7 @@
     <Button @click="select=''" size="small">Clear</Button>
     <Button @click="select=1" size="small">Choose orange</Button>
     <br />
-    <Select :width="200">
+    <Select :width="200" placeholder="Please Choose">
       <Option :value="1" label="Apple" />
       <Option :value="2" label="Orange" />
       <Option :value="3" label="Banana" disabled/>

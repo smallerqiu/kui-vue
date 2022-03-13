@@ -28,6 +28,7 @@ export default {
       this.rendered = true
       this.$nextTick(e => {
         this.visible = v
+        this.openHandle()
         this.resetBodyStyle(v)
       })
     },
@@ -35,7 +36,8 @@ export default {
   data() {
     return {
       visible: this.value,
-      rendered: this.value
+      rendered: this.value,
+      open: this.value
     };
   },
   beforeDestroy() {
@@ -54,11 +56,21 @@ export default {
       this.$emit("cancel");
       this.close();
     },
+    openHandle() {
+      if (this.visible) {
+        this.open = true
+      } else {
+        setTimeout(() => {
+          this.open = false
+        }, 300);
+      }
+    },
     close() {
       this.visible = false;
       this.$emit("input", false);
       this.$emit("cancel");
       this.$emit("close");
+      this.openHandle()
     },
     maskToClose() {
       if (this.maskClosable) {
@@ -67,7 +79,7 @@ export default {
     },
     resetBodyStyle(opened) {
       let target = this.target();
-      if (!this.visible && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+      if (opened && !cacheBodyOverflow.hasOwnProperty('overflow')) {
         cacheBodyOverflow = {
           width: target.style.width,
           overflow: target.style.overflow,
@@ -77,7 +89,8 @@ export default {
       }
       if (opened) {
         let barWidth = measureScrollBar(true)
-        let hasBar = target.scrollHeight > target.clientHeight || target.offsetHeight > target.clientHeight
+        let el = target == document.body ? document.documentElement : target
+        let hasBar = el.scrollHeight > el.clientHeight || el.offsetHeight > el.clientHeight
         if (barWidth && hasBar) {
           target.style.width = `calc(100% - ${barWidth}px)`
           target.style.overflow = `hidden`
@@ -93,8 +106,9 @@ export default {
     },
   },
   render() {
+    if (this.$isServer) return null;
     const { title, visible, cancelText, okText, ok,
-      placement, cancel, $slots,
+      placement, cancel, $slots, width, height, open,
       closable, close, } = this
     const hasFooter = this.footer || $slots.footer
     const canelBtn = <Button onClick={cancel}>{cancelText || t('k.drawer.cancel')}</Button>
@@ -112,14 +126,14 @@ export default {
     const target = this.target()
     const inbody = target == document.body
     const classes = ['k-drawer', `k-drawer-${placement}`,
-      { 'k-drawer-open': visible },
+      { 'k-drawer-open': open },
       { 'k-drawer-has-footer': hasFooter },
       { 'k-drawer-nobody': !inbody },
       { 'k-drawer-nomask': !this.mask },
     ]
     let styles = {}
-    if (placement == 'left' || placement == 'right') styles.width = this.width + 'px'
-    if (placement == 'top' || placement == 'bottom') styles.height = this.height + 'px'
+    if (placement == 'left' || placement == 'right') styles.width = /%/.test(width) ? width : width + 'px'
+    if (placement == 'top' || placement == 'bottom') styles.height = /%/.test(height) ? height : height + 'px'
     // const wrapCls =
     let maskNode = null
     if (this.mask) {
@@ -130,11 +144,11 @@ export default {
     return (
       this.rendered ? <div class={classes} v-transfer={target}>
         {maskNode}
-        <transition name={transitionName} time={50000}>
+        <transition name={transitionName} time={3500000}>
           <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">
               {closeNode}
-              {title!==null&&title!==false&&<div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>}
+              {title !== null && title !== false && <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>}
               <div class="k-drawer-body">
                 {$slots.default}
               </div>

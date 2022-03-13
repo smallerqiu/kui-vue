@@ -30,18 +30,25 @@ export default {
   watch: {
     pageSize(v) {
       this.defaultPageSize = v
+      this.resetPage()
     },
     current(v) {
-      this.page = v
+      this.resetPage()
     },
     total(v) {
-      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+      this.resetPage()
     }
   },
   mounted() {
     this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
   },
   methods: {
+    resetPage() {
+      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
+      if (this.page > this.pageCount) {
+        this.page = this.pageCount
+      }
+    },
     renderPage() {
       const groupCount = 7,
         page = Number(this.page),
