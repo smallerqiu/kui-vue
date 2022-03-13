@@ -1,6 +1,12 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+### 3.2.8
+- 修复Select Placeholder问题
+- Drawer组件支持百分比显示和修复滚动条问题
+- 修复Page翻页问题
+- 修复多语言在SSR环境下的问题.
+
 ### 3.2.7
 `2022-2-13`
 
