@@ -78,7 +78,7 @@ export default {
           return;
         }
       })
-      return Label;
+      return Label || labelValue;
     },
     setLabel() {
       let { currentValue, multiple, label } = this
