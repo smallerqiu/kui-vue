@@ -19,7 +19,12 @@ export default {
       tempValue: this.value,
     }
   },
-
+  watch: {
+    value(v) {
+      this.defaultValue = v
+      this.tempValue = v
+    }
+  },
   render() {
     let { count, tempValue, allowHalf, character, disabled, tooltips = [], icon, showScore } = this
     const stars = []
@@ -32,12 +37,12 @@ export default {
       let v = parseInt(tempValue * 100 - i * 100)
       let percent = tempValue > i && tempValue < i + 1 ? v : 0
       // let show_percent = percent != 50 && disabled && percent > 0
-      let half = (tempValue > i && tempValue < i + 1 && allowHalf) || (percent == 50 )
+      let half = (tempValue > i && tempValue < i + 1 && allowHalf) || (percent == 50)
       // console.log(i, percent, show_percent, half)
       let props = {
         props: {
           allowHalf,
-          full: tempValue > i && !half ,
+          full: tempValue > i && !half,
           half,
           icon, character,
           disabled,
