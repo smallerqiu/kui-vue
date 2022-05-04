@@ -22,6 +22,8 @@ export default {
   },
   data() {
     return {
+      nextPageGroup: false,
+      prevPageGroup: false,
       pageCount: 0,
       page: this.current,
       defaultPageSize: this.pageSize
@@ -33,6 +35,7 @@ export default {
       this.resetPage()
     },
     current(v) {
+      this.page = v
       this.resetPage()
     },
     total(v) {
@@ -87,12 +90,29 @@ export default {
         }
         return <li {...prop}><span>{p}</span></li>
       })
-      const moreNode = <li class="k-pager-item k-pager-more"><Icon type="ellipsis-horizontal" /></li>;
 
       if (showPrevMore) {
+        let p = {
+          class: 'k-pager-item k-pager-more',
+          on: {
+            mouseenter: () => this.prevPageGroup = true,
+            mouseleave: () => this.prevPageGroup = false,
+            click: () => this.toPage(this.page - 5)
+          }
+        }
+        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.prevPageGroup ? 'chevron-double-back' : 'ellipsis-horizontal'} /></li>;
         child.unshift(moreNode)
       }
       if (showNextMore) {
+        let p = {
+          class: 'k-pager-item k-pager-more',
+          on: {
+            mouseenter: () => this.nextPageGroup = true,
+            mouseleave: () => this.nextPageGroup = false,
+            click: () => this.toPage(this.page + 5)
+          }
+        }
+        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.nextPageGroup ? 'chevron-double-forward' : "ellipsis-horizontal"} /></li>;
         child.push(moreNode)
       }
       return child
@@ -110,6 +130,14 @@ export default {
       }
     },
     toPage(page) {
+      if (page <= 1) {
+        page = 1
+        this.prevPageGroup = false
+      }
+      if (page >= this.pageCount) {
+        this.nextPageGroup = false
+        page = this.pageCount
+      }
       this.page = page
       this.$emit('change', page)
     },

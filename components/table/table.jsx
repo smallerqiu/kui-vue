@@ -6,7 +6,9 @@ import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
 
-
+const getHeight = (el) => {
+  return el ? el.getBoundingClientRect().height : 0
+}
 export default {
   name: 'Table',
   props: {
@@ -309,9 +311,9 @@ export default {
       const mainChild = mainTable.$refs.tbody.children
       // reset tbody's height
       for (let i = 0; i < mainChild.length; i++) {
-        let leftHeight = (leftChild[i] || {}).offsetHeight || 0
-        let mainHeight = mainChild[i].offsetHeight
-        let rightHeight = (rightChild[i] || {}).offsetHeight || 0
+        let leftHeight = getHeight(leftChild[i])//(leftChild[i] || {}).offsetHeight || 0
+        let mainHeight = getHeight(mainChild[i])//.offsetHeight
+        let rightHeight = getHeight(rightChild[i])// || {}).offsetHeight || 0
         let maxHeight = Math.max(leftHeight, mainHeight, rightHeight)
         if (leftHeight && leftHeight < maxHeight) {
           leftChild[i].style.height = `${maxHeight}px`

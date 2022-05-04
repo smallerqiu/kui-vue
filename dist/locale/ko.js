@@ -1,8 +1,0 @@
-/*!
- * kui-vue v3.2.9rc1 
- * Copyright 2017-present, kui-vue.
- * All rights reserved.
- * Author: chuchur@qq.com / www.chuchur.com
- *         
- */
-kui.lang.ko=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=6)}({6:function(e,t){e.exports={k:{datePicker:{startDate:"시작 날짜",endDate:"종료 날짜",placeholder:"선택",months:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],weeks:["일","월","화","수","목","금","토"],year:"",month:"",day:"",today:"오늘",now:"지금",ok:"확인",selectDate:"날짜 선택",selectTime:"시간 선택",back:"되돌아오다"},drawer:{ok:"확인",cancel:"취소"},empty:{description:"데이터 없음"},pop:{ok:"확인",cancel:"취소"},modal:{ok:"확인",cancel:"취소"},page:{page:"",pageSize:"/page",goto:"이동",items:"",total:"총"},select:{placeholder:"선택",loading:"불러오는 중...",emptyText:"데이터 없음"},table:{emptyText:"데이터 없음"},upload:{successful:"성취",failed:"패하다",errorFileSize:"잘못된 파일 크기"}}}}});

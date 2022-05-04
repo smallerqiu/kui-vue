@@ -73,9 +73,12 @@ export default {
       this.$router.push({ path });
     },
     getPath(name) {
+      console.log(name)
       let routes = baseNav.reduce((x, y) => x.concat(y.child), [])
+      // console.log(routes.map(x => x.name))
       // let current = routes.filter((x) => x.name == name)[0] || {}
       let index = routes.findIndex(x => x.name == name)
+      // console.log(name, index)
       return { current: routes[index], prev: routes[index - 1], next: routes[index + 1] }
     },
     setActiveKey({ path }) {

@@ -3,9 +3,14 @@ export default {
   name: 'Progress',
   props: {
     percent: { type: Number, default: 0 },
+    strokeWidth: { type: Number, default: 6 },
     color: String,
     format: Function,
     width: Number,
+    strokeHeight: Number,
+    gapDegree: { type: Number, default: 75 },
+    strokeColor: Object,
+    strokeLinecap: { type: String, default: 'round' },
     size: {
       type: String, default: 'default', validator: function (s) {
         return ['small', 'default'].indexOf(s) >= 0
@@ -38,9 +43,9 @@ export default {
 
       if (!this.showInfo) return null;
 
-      let { currentPercent, status, type, format } = this,
+      let { currentPercent, status, type, format, $slots } = this,
         text = `${currentPercent}%`;
-      if (typeof format == 'function') {
+      if (typeof format == 'function' && !$slots.format) {
         text = format(currentPercent)
       } else {
         if (type == 'line') {
@@ -51,58 +56,77 @@ export default {
             text = <Icon type="close-circle" />
         }
         if (type == 'circle') {
-          if (this.currentPercent == 100) {
-            text = <Icon type="checkmark" />
+          if ($slots.format) {
+            text = $slots.format
+          } else {
+            if (this.currentPercent == 100) {
+              text = <Icon type="checkmark" />
+            }
+            if (status == 'exception')
+              text = <Icon type="close" />
           }
-          if (status == 'exception')
-            text = <Icon type="close" />
         }
       }
-      return <span class="k-progress-text">{text}</span>
+      return <div class="k-progress-text">{text}</div>
 
     },
-    renderCircle(radius, percent, strokeWidth, strokeColor, gap = 0, dashboard) {
-      let offsetRadius = radius - strokeWidth / 2,
+    renderCircle(percent, strokeColor, dashboard) {
+      let { strokeWidth } = this
+      let radius = 50 - strokeWidth / 2,
         benginX = 0,
-        benginY = - offsetRadius,
+        benginY = radius,
         endX = 0,
-        endY = -2 * offsetRadius;
-
-      let d = `M ${radius},${radius} 
-               m ${benginX}, ${(dashboard ? -1 : 1) * benginY} 
-               a ${offsetRadius},${offsetRadius} 0 1 1 ${endX}, ${(dashboard ? 1 : -1) * endY} 
-               a ${offsetRadius},${offsetRadius} 0 1 1 ${(dashboard ? 1 : -1) * endX},${(dashboard ? -1 : 1) * endY}`,
+        endY = 2 * radius;
+      let gapDegree = this.gapDegree;
+      gapDegree = Math.max(0, gapDegree)
+      gapDegree = Math.min(259, gapDegree)
+      let d = `M 50,50 
+               m ${benginX}, ${benginY} 
+               a ${radius},${radius} 0 1 1 ${endX}, ${-endY} 
+               a ${radius},${radius} 0 1 1 ${-endX},${endY}`,
         len = Math.PI * 2 * radius,
-        len2 = Math.PI * (dashboard ? 1.5 : 2) * radius,
+        // front color
         style = {
-          strokeDasharray: `${(percent / 100) * (len2 - gap)}px ${len}px`, //长度,间距
-          transition: `stroke-dasharray .3s ease 0s,stroke-width 0.06s ease 0.3s`,
-          strokeDashoffset: dashboard ? -30 : 0,
-          stroke: strokeColor
+          strokeDasharray: `${(percent / 100) * (len - (dashboard ? gapDegree : 0))}px ${len}px`, //长度,间距 ,实线和虚线的长度
+          transition: `stroke-dasharray .3s ease 0s;opacity ease 0s;`,
+          strokeDashoffset: dashboard ? -gapDegree / 2 : 0,
+          stroke: strokeColor,
+          strokeLinecap: this.strokeLinecap,
+          opacity: percent == 0 ? 0 : 1
         };
-      let ds = null
+
+      let ds = {}
+
       if (dashboard) {
         ds = {
-          strokeDasharray: `${(75 / 100) * (len)}px ${len}px`, //长度,间距
-          strokeDashoffset: -30,
+          strokeDasharray: `${len - gapDegree}px ${len}px`, //长度,间距
+          strokeDashoffset: -gapDegree / 2,
+          strokeLinecap: this.strokeLinecap,
         }
       }
 
-      return (<svg viewBox={`0 0 ${radius * 2} ${radius * 2}`}>
-        <path d={d} fill="none" stroke-width={strokeWidth} class="k-progress-inner" style={ds} />
-        <path d={d} fill="none" stroke-width={percent == 0 ? 0 : strokeWidth} stroke-linecap="round" style={style} class="k-progress-bg" />
+      return (<svg viewBox={`0 0 ${50 * 2} ${50 * 2}`}>
+        <path d={d} fill="none" stroke-width={strokeWidth} style={ds} class="k-progress-inner" />
+        <path d={d} fill="none" stroke-width={strokeWidth} style={style} class="k-progress-bg" />
       </svg>)
     },
     renderGress() {
-      let { currentPercent, type, color } = this
+      let { currentPercent, type, color, strokeHeight } = this
       if (type == 'line') {
+        let sty = {
+          widgth: currentPercent + '%',
+          backgroundColor: color
+        }
+        if (strokeHeight) {
+          sty.height = strokeHeight + 'px'
+        }
         return <div class="k-progress-inner">
-          <div class="k-progress-bg" style={`width:${currentPercent}%;background-color:${color};`}></div>
+          <div class="k-progress-bg" style={sty}></div>
         </div>
       } else if (type == 'circle') {
-        return this.renderCircle(50, currentPercent, 6, color, 17)
+        return this.renderCircle(currentPercent, color)
       } else if (type == 'dashboard') {
-        return this.renderCircle(50, currentPercent, 6, color, 0, true)
+        return this.renderCircle(currentPercent, color, true)
       }
     }
   },

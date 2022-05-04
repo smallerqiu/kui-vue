@@ -1,6 +1,6 @@
 {
 	"name": "kui-vue",
-	"version": "3.2.9rc1",
+	"version": "3.2.10",
 	"description": "A high quality UI Toolkit built on Vue.js 2.0",
 	"main": "dist/k-ui.js",
 	"style": "dist/k-ui.css",
@@ -92,7 +92,7 @@
 		"webpackbar": "^5.0.0-3"
 	},
 	"dependencies": {
-		"kui-icons": "^2.0.1",
+		"kui-icons": "^3.0.0",
 		"kui-loader": "^1.0.6",
 		"moment": "^2.29.1"
 	},
