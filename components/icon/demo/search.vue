@@ -21,7 +21,10 @@
         <br />
         <div class="icon-item">
           <span @click.stop="copy(x)" v-for="(x,y) in showIcons" :key="y">
-            <Icon :type="x" />
+            <!-- <Icon :type="x" /> -->
+            <svg width="1em" height="1em">
+              <use :xlink:href="`${sprite}#${x}`"></use>
+            </svg>
           </span>
         </div>
       </template>
@@ -29,7 +32,10 @@
         <h3>Logos</h3>
         <div class="icon-item">
           <span @click.stop="copy(x)" v-for="(x,y) in logo" :key="y">
-            <Icon :type="x" />
+            <!-- <Icon :type="x" /> -->
+            <svg width="1em" height="1em">
+              <use :xlink:href="`${sprite}#${x}`"></use>
+            </svg>
           </span>
         </div>
       </template>
@@ -64,20 +70,19 @@
 </style>
 <script>
 import icons from 'kui-icons'
+import sprite from 'kui-icons/lib/sprite.svg'
+// import icons from '../lib/kui-icons'
+// import sprite from '../lib/sprite.svg'
+
 const iconKeys = Object.keys(icons);
-let logos = [], outlines = [], filleds = [];
-iconKeys.forEach(i => {
-  if (i.indexOf('logo') > -1) {
-    logos.push(i)
-  } else if (i.indexOf('outline') > -1) {
-    outlines.push(i)
-  } else {
-    filleds.push(i)
-  }
-})
+let logos = iconKeys.filter(x => /logo-/.test(x)),
+  outlines = iconKeys.filter(x => /-outline/.test(x)),
+  filleds = outlines.map(x => x.replace('-outline', ''));
+
 export default {
   data() {
     return {
+      sprite,
       key: '',
       type: 'outline',
       logo: logos,

@@ -11,6 +11,7 @@ import { Carousel, CarouselItem } from './carousel'
 import { Collapse, Panel } from './collapse'
 import { Checkbox, CheckboxGroup } from './checkbox'
 import { DatePicker, DateCalendar } from './datePicker'
+import { Descriptions, DescriptionsItem } from './descriptions'
 import Drawer from './drawer'
 import Dropdown from './dropdown'
 import Divider from './divider'
@@ -31,11 +32,12 @@ import Popconfirm from './popconfirm'
 import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from './radio'
 import Rate from './rate'
-import Spin from './spin'
-import Space from './space'
-import Slider from './slider'
-import Switch from './switch'
 import { Select, Option } from './select'
+import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
+import Slider from './slider'
+import Space from './space'
+import Spin from './spin'
+import Switch from './switch'
 import Table from './table'
 import Tooltip from './tooltip'
 import { Tabs, TabPane } from './tabs'
@@ -66,6 +68,7 @@ const components = {
 	ColorPicker,
 	Col, Row,
 	DatePicker, DateCalendar,
+	Descriptions, DescriptionsItem,
 	Dropdown,
 	Drawer,
 	Divider,
@@ -86,10 +89,11 @@ const components = {
 	Progress,
 	Radio, RadioGroup, RadioButton,
 	Rate,
+	Select, Option,
 	Space,
 	Spin,
+	Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText,
 	Slider,
-	Select, Option,
 	Table,
 	Tabs, TabPane,
 	TimeLine, TimeLineItem,

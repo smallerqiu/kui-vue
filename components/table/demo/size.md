@@ -83,10 +83,10 @@ export default {
     setEmpty(empty) {
       this.data = empty ? [] : data
     },
-    setCheckType(type) {
+    setCheckType({value}) {
       if (this.checkbox) {
-        this.checkType = type
-        this.columns[0].checkType = type
+        this.checkType = value
+        this.columns[0].checkType = value
       }
     }
   }

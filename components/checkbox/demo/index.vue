@@ -18,7 +18,7 @@ export default {
         <Group />
         <GroupVertical />
         <CheckAll />
-        <CN class="typo"/>
+        <CN class="typo" />
       </div>
     )
   }

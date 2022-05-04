@@ -62,7 +62,7 @@ module.exports = {
         test: /\.j(s|sx)$/, exclude: /node_modules/, loader: 'babel-loader',
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: { limit: 8192, name: 'img/[name].[ext]?[hash:7]', esModule: false }
       },

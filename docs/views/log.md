@@ -1,7 +1,30 @@
 # 更新日志
 ![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square) 遇到问题可以先安装 rc 版本
 
+```
+npm config set registry http://registry.npmjs.org
+npm install kui-vue@latest
+```
+
+### 3.2.10
+`2022-5-4`
+- 新增 `Skeleton` 组件
+- 新增 `Descriptions` 组件
+- 修复 `Page` 组件翻页bug，新增分组功能
+- 优化 `Icon` ，新增一些图标，图标支持Sprite 渲染模式 ，支持自定义线宽
+ 
+`Progress`
+- 新增 `strokeHeight` 可设置进度条高度
+- 新增 `strokeWidth` 可设置圆形精度条宽度
+- 新增 `gapDegree` 可设置dashboard开口大小
+- 新增 `strokeLinecap` 可设置线条节点型状
+- 新增可自定义子节点
+
+- 修复 `Table` 组件一些细节问题
+- `Spin` 组件新增防抖
+
 ### 3.2.8
+`2022-3-15`
 - 修复Select Placeholder问题
 - Drawer组件支持百分比显示和修复滚动条问题
 - 修复Page翻页问题
