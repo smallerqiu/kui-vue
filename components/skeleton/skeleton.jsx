@@ -9,8 +9,6 @@ export default {
   },
   watch: {
     loading(v) {
-      this.show = v
-
       if (v) {
         this.show = v
       } else {
@@ -71,7 +69,7 @@ export default {
     let child = this.$slots.default
     return (
       <div {...props}>
-        {child ? !show ? child : [nodeAvatar, nodeContent] : [nodeAvatar, nodeContent]}
+        {child && !show ? child : [nodeAvatar, nodeContent]}
       </div>
     )
   }
