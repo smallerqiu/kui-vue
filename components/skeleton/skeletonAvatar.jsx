@@ -2,17 +2,36 @@ export default {
   props: {
     animated: Boolean,
     radius: Number,
+    loading: Boolean,
+    delay: { type: Number, default: 500 },
     shape: String,
     size: String
   },
+  watch: {
+    loading(v) {
+      if (v) {
+        this.show = v
+      } else {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.show = v
+        }, this.delay);
+      }
+    }
+  },
+  data() {
+    return {
+      show: this.loading
+    }
+  },
   render() {
-    let { size, animated, radius, shape } = this
+    let { size, animated, radius, shape, show } = this
     let props = {
       class: ['k-skeleton k-skeleton-ele', {
         'k-skeleton-animated': animated,
       }]
     }
-    let btnProps = {
+    let innerProps = {
       class: ['k-skeleton-avatar', {
         'k-skeleton-avatar-lg': size == 'large',
         'k-skeleton-avatar-sm': size == 'small',
@@ -22,9 +41,10 @@ export default {
         'border-radius': radius ? radius + 'px' : ''
       }
     }
+    let child = this.$slots.default
     return (
       <div {...props}>
-        <span {...btnProps}></span>
+        {child && !show ? child : <span {...innerProps}></span>}
       </div >
     )
   }
