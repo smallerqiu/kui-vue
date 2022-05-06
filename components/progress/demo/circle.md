@@ -16,10 +16,10 @@
   </Progress>
 </template>
 <style>
-.demo-progress h2{
+.demo-progress>h2{
   font-size:23px
 }
-.demo-progress span{
+.demo-progress>span{
   font-size:14px;
   color:#999;
 }
