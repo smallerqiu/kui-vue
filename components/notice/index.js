@@ -6,6 +6,9 @@ let Notice = {
   name: 'Notice',
   open(options = {}) {
     options = Object.assign({ type: 'default' }, options)
+    if (options.icon) {
+      delete options.type
+    }
     options.noticeType = 'notice'
     if (!noticeInstance) {
       noticeInstance = newInstance({ type: 'notice' })

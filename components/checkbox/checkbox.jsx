@@ -7,7 +7,7 @@ export default {
     disabled: Boolean,
     label: { type: [String, Number] },
     indeterminate: Boolean,
-    checked: [Boolean, Number]
+    checked: [Boolean, Number],
   },
   model: {
     prop: 'checked',
@@ -50,23 +50,18 @@ export default {
         checked = isChecked
       }
     }
-    // console.log(checked)
-    const wpclasses = ["k-checkbox-wrapper", {
+    const wpclasses = ["k-checkbox", {
       ["k-checkbox-disabled"]: disabled,
       ["k-checkbox-checked"]: checked && !indeterminate,
+      ["k-checkbox-indeterminate"]: indeterminate
     }]
 
-    const classes = [
-      "k-checkbox",
-      {
-        ["k-checkbox-indeterminate"]: indeterminate
-      }
-    ];
-    let inner = checked ? <Icon type="checkmark" /> : null
+
+    let inner = checked ? <Icon type="checkmark-outline" strokeWidth={60} /> : null
     const labelNode = label || $slots.default
     return (
       <label class={wpclasses} onClick={e => e.stopPropagation()}>
-        <span class={classes}>
+        <span class="k-checkbox-symbol">
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
           <span class="k-checkbox-inner">{inner}</span>
         </span>

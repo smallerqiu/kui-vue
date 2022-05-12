@@ -23,31 +23,17 @@ export default {
   },
   data() {
     return {
-      defaultValue: this.value || 0,
-      timer: null,
-    }
-  },
-  methods: {
-    change(e) {
-      let value = e.target.value * 1
-      this.defaultValue = value
-      this.$emit('input', value)
-
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        this.$emit('change', value)
-      }, 300);
+      defaultValue: this.value || 0
     }
   },
   render() {
     let { min, max, step, disabled, direction, defaultValue, groupContext } = this
-    defaultValue = defaultValue * 1
-    console.log(defaultValue)
     let props = {
       class: 'k-slider-bar',
       attrs: {
         min, max, step,
-        value: defaultValue * 1,
+        value: defaultValue,
+        defaultValue,
         type: 'range',
         disabled,
       },
@@ -55,7 +41,15 @@ export default {
         'background': `linear-gradient(to right, var(--kui-color-main) ${(defaultValue - min) / (max - min) * 100}%, rgba(255, 255, 255, 0.3) 0%)`
       },
       on: {
-        input: this.change
+        input: (e) => {
+          let value = e.target.value
+          this.defaultValue = value
+          this.$emit('input', value)
+        },
+        change: (e) => {
+          let value = e.target.value
+          this.$emit('change', value)
+        }
       }
     }
     // todo: 懒得写, 用input range 替代

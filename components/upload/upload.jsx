@@ -46,16 +46,16 @@ export default {
     };
   },
   mounted() {
-    if (this.draggable && this.$isServer) {
-      window.addEventListener("dragover", function (e) {
-        e = e || event;
-        e.preventDefault();
-      }, false);
-      window.addEventListener("drop", function (e) {
-        e = e || event;
-        e.preventDefault();
-      }, false);
-    }
+    // if (this.draggable && this.$isServer) {
+    // window.addEventListener("dragover", function (e) {
+    //   e = e || event;
+    //   e.preventDefault();
+    // }, false);
+    // window.addEventListener("drop", function (e) {
+    //   e = e || event;
+    //   e.preventDefault();
+    // }, false);
+    // }
   },
   methods: {
     formatFileSize(fileSize) {
@@ -239,12 +239,17 @@ export default {
       // var files = e.dataTransfer.files;
       this.selectFiles(e)
       e.preventDefault()
+      this.dragOver = false
       return false
     },
     onDragEnter(e) {
       this.dragOver = true
       e.preventDefault()
       return false
+    },
+    onDragOver(e) {
+      e.stopPropagation();
+      e.preventDefault();
     }
   },
 
@@ -268,9 +273,14 @@ export default {
     //   return cloneVNode(child, { on: { click: this.triggerSelect } })
     // })
     let addProps = {
+      attrs: {
+        drag: draggable && this.dragOver ? 'over' : null
+      },
       on: {
         dragenter: this.onDragEnter,
         drop: this.onDrop,
+        dragover: this.onDragOver,
+        dragleave: () => this.dragOver = false,
         click: this.triggerSelect
       }
     }
@@ -284,7 +294,7 @@ export default {
           onChange={this.selectFiles} ref="k-upload-file" />
         {(isPicture || draggable) ? <Icon type={uploadIcon} /> : this.$slots.default}
         {(isPicture || draggable && uploadText) ? <span class="k-upload-text">{uploadText}</span> : null}
-        {(draggable && uploadSubText) ? <span class="k-upload-sub-text">{uploadSubText}</span> : null}
+        {(draggable && uploadSubText) ? <span class="k-upload-sub-text">{this.dragOver ? '松手开始上传' : uploadSubText}</span> : null}
       </div>
     </div> : null
 
@@ -312,7 +322,7 @@ export default {
                     (item.status != 'wait') ?
                       <div class="k-upload-file-status">
                         {item.status == 'uploading' ?
-                          <Progress percent={item.percent} type={`${isPicture ? 'circle' : 'line'}`} size="small" showInfo={false} status="active" />
+                          <Progress percent={item.percent} type={`${isPicture ? 'circle' : 'line'}`} size="small" showInfo={false} status="active" strokeWidth={15} />
                           :
                           statusText && !isPicture ? <div class="k-upload-file-status-text"><Icon type="alert-circle" />{statusText}</div> : null
                         }

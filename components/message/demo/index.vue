@@ -1,6 +1,7 @@
 <script>
 import Info from './info'
 import Base from './base'
+import Icon from './icon'
 import Types from './types'
 import Close from './close'
 import CN from '../index.md'
@@ -10,6 +11,7 @@ export default {
       <div>
         <Info class="typo" />
         <Base />
+        <Icon />
         <Types />
         <Close />
         <CN class="typo"/>

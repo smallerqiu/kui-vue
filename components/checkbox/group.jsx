@@ -34,7 +34,6 @@ export default {
   render() {
     const { options, $slots, direction } = this
     let childs = getChild($slots.default)
-
     if (options && options.length) {
       childs = options.map(option => (
         <Checkbox

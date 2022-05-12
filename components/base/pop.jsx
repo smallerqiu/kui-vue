@@ -101,6 +101,7 @@ export default {
       let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;
 
       title = title || getChild($slots.title)
+      // console.log(title)
       let okText = this.okText || t('k.pop.ok')
       let cancelText = this.cancelText || t('k.pop.cancel')
       if (this.showPlacementArrow) {
@@ -113,13 +114,20 @@ export default {
             <Button type="primary" size="small" onClick={this.ok}>{okText}</Button>
           </div>
         } else {
-          titleNode = title ? <div class={`k-${preCls}-title`}>{title}</div> : null
+          titleNode = title.length ? <div class={`k-${preCls}-title`}>{title}</div> : null
           contentNode = $slots.content
         }
-        contentNode = contentNode ? <div class={`k-${preCls}-inner-content`}>{contentNode}</div> : null;
+        contentNode = contentNode ? <div class={`k-${preCls}-body`}>{contentNode}</div> : null;
 
-        childNode = [<div class={`k-${preCls}-arrow`}><div class={`k-${preCls}-arrow-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}></div></div>,
-        <div class={`k-${preCls}-inner`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>{[titleNode, contentNode, footerNode]}</div>]
+        childNode = [
+          <div class={`k-${preCls}-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>
+            {[titleNode, contentNode, footerNode]}
+            <div class={`k-${preCls}-arrow`}>
+              <svg style={{ fill: /^#/.test(color) ? color : 'currentcolor' }} viewBox="0 0 24 7">
+                <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+              </svg>
+            </div>
+          </div>]
 
       } else {
         childNode = $slots.content
@@ -129,7 +137,11 @@ export default {
         props: {
           transfer,
           value: this.opened,
-          className: [`k-${preCls}-content`, { [`k-${preCls}-${color}`]: color && !/^#/.test(color), [`k-${preCls}-has-color`]: /^#/.test(color) }],
+          className: [`k-${preCls}`, {
+            [`k-${preCls}-${color}`]: color && !/^#/.test(color),
+            [`k-${preCls}-has-color`]: /^#/.test(color),
+            [`k-${preCls}-has-arrow`]: this.showPlacementArrow
+          }],
           width: this.width,
           selection: this.selection,
           placement,

@@ -63,37 +63,37 @@ export default {
           this.showInner = false
         }, 300);
       }
-      this.resetBodyStyle(visible)
+      // this.resetBodyStyle(visible)
     },
-    resetBodyStyle(opened) {
-      if (!this.$isServer) {
-        let target = document.body;
-        if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
-          cacheBodyOverflow = {
-            width: target.style.width,
-            overflow: target.style.overflow,
-            overflowX: target.style.overflowX,
-            overflowY: target.style.overflowY,
-          }
-        }
-        if (opened) {
-          let barWidth = measureScrollBar(true)
-          let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
-          if (barWidth && hasBar) {
-            target.style.width = `calc(100% - ${barWidth}px)`
-            target.style.overflow = `hidden`
-          }
-        } else {
-          setTimeout(() => {
-            let task = (this.tasks && this.tasks.length == 0) || !this.tasks
-            task && Object.keys(cacheBodyOverflow).forEach(key => {
-              target.style[key] = cacheBodyOverflow[key] || ''
-              delete cacheBodyOverflow[key]
-            })
-          }, 300)
-        }
-      }
-    },
+    // resetBodyStyle(opened) {
+    //   if (!this.$isServer) {
+    //     let target = document.body;
+    //     if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+    //       cacheBodyOverflow = {
+    //         width: target.style.width,
+    //         overflow: target.style.overflow,
+    //         overflowX: target.style.overflowX,
+    //         overflowY: target.style.overflowY,
+    //       }
+    //     }
+    //     if (opened) {
+    //       let barWidth = measureScrollBar(true)
+    //       let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
+    //       if (barWidth && hasBar) {
+    //         target.style.width = `calc(100% - ${barWidth}px)`
+    //         target.style.overflow = `hidden`
+    //       }
+    //     } else {
+    //       setTimeout(() => {
+    //         let task = (this.tasks && this.tasks.length == 0) || !this.tasks
+    //         task && Object.keys(cacheBodyOverflow).forEach(key => {
+    //           target.style[key] = cacheBodyOverflow[key] || ''
+    //           delete cacheBodyOverflow[key]
+    //         })
+    //       }, 300)
+    //     }
+    //   }
+    // },
     setPos() {
       if (this.show && this.$refs.modal) {
         let { showPoint: { x, y } } = this
@@ -153,7 +153,7 @@ export default {
   },
   beforeDestroy() {
     !this.$isServer && document.removeEventListener('mousedown', this.mousedown);
-    this.resetBodyStyle(false)
+    // this.resetBodyStyle(false)
   },
 
   mounted() {

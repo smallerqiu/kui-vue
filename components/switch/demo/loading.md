@@ -7,7 +7,7 @@
 <template>
   <div>
     <Switch loading checked /> <br/>
-    <Switch loading  size="small"/> 
+    <Switch loading  checked size="small"/> 
   </div>
 </template>
 ```

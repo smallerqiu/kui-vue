@@ -1,31 +1,27 @@
 @import '../../styles/var.less';
-.k-dropdown-content {
+.k-dropdown {
   font-size: 12px;
   line-height: 1.5;
   position: absolute;
   z-index: 1001;
-  .k-dropdown-inner {
+  .k-dropdown-content {
     background: var(--kui-color-control-10);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: var(--kui-border-radius);
-    .k-dropdown-menu {
-      box-shadow: none;
-    }
   }
+  .k-dropdown-menu {
+    min-width: 150px;
+  }
+}
+
+.k-dropdown-has-arrow {
   .k-dropdown-arrow {
     position: absolute;
     box-sizing: border-box;
-    overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 19px;
-    .k-dropdown-arrow-content {
-      background-color: var(--kui-color-control-10);
-      transform: rotate(45deg);
-      width: 12px;
-      height: 12px;
-    }
+    width: 24px;
+    height: 7px;
+    color: var(--kui-color-control-10);
   }
   // &[k-placement^=top] {
   //   margin-top: -3px;
@@ -35,14 +31,10 @@
   // }
   &[k-placement^=top] {
     .k-dropdown-arrow {
-      bottom: 3px;
-      height: 9px;
-      .k-dropdown-arrow-content {
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
-        margin-top: -15px;
-      }
+      bottom: 6px;
+      height: 7px;
     }
-    .k-dropdown-inner {
+    .k-dropdown-body {
       margin-bottom: 12px;
     }
   }
@@ -54,31 +46,28 @@
   }
   &[k-placement=top-right] {
     .k-dropdown-arrow {
-      right: 10px;
+      right: 12px;
     }
   }
   &[k-placement=top-left] {
     .k-dropdown-arrow {
-      left: 10px;
+      left: 12px;
     }
   }
   &[k-placement^=bottom] {
     .k-dropdown-arrow {
-      top: 3px;
-      height: 9px;
-      .k-dropdown-arrow-content {
-        box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.05);
-        margin-bottom: -15px;
-      }
+      top: 6px;
+      height: 7px;
+      transform: rotate(180deg);
     }
-    .k-dropdown-inner {
+    .k-dropdown-body {
       margin-top: 12px;
     }
   }
   &[k-placement=bottom] {
     .k-dropdown-arrow {
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) rotate(180deg);
     }
   }
   &[k-placement=bottom-left] {
@@ -96,7 +85,7 @@
       right: 8px;
       box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
     }
-    .k-dropdown-inner {
+    .k-dropdown-body {
       margin-right: 12px;
     }
   }
@@ -121,7 +110,7 @@
       left: 8px;
       box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
     }
-    .k-dropdown-inner {
+    .k-dropdown-body {
       margin-left: 12px;
     }
   }

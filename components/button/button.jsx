@@ -31,7 +31,7 @@ export default {
       type: String,
       default: 'default',
       validator(value) {
-        return ['default', 'light', 'solid', 'normal'].indexOf(value) > -1
+        return ['default', 'light', 'solid', 'normal', 'card'].indexOf(value) > -1
       }
     },
     shape: String

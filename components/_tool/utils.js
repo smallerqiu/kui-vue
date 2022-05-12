@@ -133,12 +133,13 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
     //底部
     let showInBottom = clientHeight - selectionRect.bottom > pickerHeight
     //上面
-    let showInTop = clientHeight - (clientHeight - selectionRect.top) > pickerHeight
+    let showInTop = selectionRect.top > pickerHeight
     //左边
-    let showInLeft = clientWidth - (clientWidth - selectionRect.left) > pickerWidth
+    let showInLeft = selectionRect.left > pickerWidth
     //右边
     let showInRight = clientWidth - selectionRect.right > pickerWidth
 
+    // console.log(showInRight, selectionRect.left > pickerWidth, selectionRect.right, pickerWidth)
 
     // console.log(placement, 'showInTop:', showInTop, 'showInBottom:', showInBottom, clientHeight, scrollTop, selectionRect.top, pickerHeight)
 
@@ -151,7 +152,8 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
       if ((hasBottom && showInBottom) || (hasTop && !showInTop)) { //正常在底部显示
         if (transfer) {
           top = selectionRect.bottom + offset + scrollTop;
-          left = showInRight ? selectionRect.left + scrollLeft : selectionRect.right - pickerWidth + scrollLeft
+          left = selectionRect.left + scrollLeft
+          // left = showInRight ? selectionRect.left + scrollLeft : selectionRect.right - pickerWidth + scrollLeft
           if (placement == 'bottom' || placement == 'top') {
             left = selectionRect.left - (pickerWidth - selectionRect.width) / 2 + scrollLeft
           }
@@ -161,8 +163,12 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
           if (hasTop) {
             placement = placement.replace('top', 'bottom')
           }
+          if (!showInRight && showInLeft) {
+            left = selectionRect.right - pickerWidth + scrollLeft
+          }
           if (!showInRight) {
             placement = placement.replace('left', 'right') //右边放不下去
+            // left = selectionRect.right - pickerWidth + scrollLeft
           }
         } else {
           top = selectionRect.height + offset;

@@ -5,6 +5,8 @@ export default {
     value: { type: [String, Number, Boolean], default: false },
     disabled: Boolean,
     label: [String, Number],
+    theme: String,
+    shape: String,
   },
   inject: {
     groupContext: { default: null },
@@ -33,9 +35,9 @@ export default {
     let prop = {}
     if (groupContext) {
       checked = groupContext.defaultValue == value
-      let { size, shape,theme } = groupContext
+      let { size, shape, theme } = groupContext
       disabled = disabled || groupContext.disabled
-      prop = { disabled, size, shape,theme, type: checked ? 'primary' : 'default' }
+      prop = { disabled, size, shape, theme, type: checked ? 'primary' : 'default' }
     }
     const props = {
       attrs: { ...$attrs },

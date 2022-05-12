@@ -307,6 +307,8 @@ export default {
     //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
     //     : childs
     // )
+    // console.log(this.$el)
+
     const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>{t('k.select.loading')}</span></div>
     const props = {
       ref: 'overlay',

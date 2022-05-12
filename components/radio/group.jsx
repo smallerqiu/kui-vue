@@ -46,7 +46,7 @@ export default {
     }
   },
   render() {
-    const { options, $slots, type, direction,theme,shape } = this
+    const { options, $slots, type, direction, theme, shape } = this
     let childs = getChild($slots.default)
     if (options && options.length) {
       childs = options.map(option => {
@@ -71,7 +71,9 @@ export default {
     }
     const classes = [
       'k-radio-group',
-      { 'k-radio-cirle': shape=='circle' },
+      { 'k-radio-cirle': shape == 'circle' },
+      { 'k-radio-group-light': theme == 'light' && type == 'button' },
+      { 'k-radio-group-card': theme == 'card' && type == 'button' },
       { 'k-radio-group-vertical': direction == 'vertical' }
     ]
     return (

@@ -13,13 +13,15 @@
     </div>
   </Spin>
     <br/>
+  <br/>
   Loading state：<Switch v-model="spinning" @change="change"/>
   <br/>
+  <br/>
   <RadioGroup v-model="mode" @change="changeMode">
-    <Radio value="bounce" label="type1"/>
-    <Radio value="flip" label="type2"/>
-    <Radio value="rotate" label="type3"/>
-    <Radio value="zoom" label="type4"/>
+    <Radio value="bounce" label="Bounce"/>
+    <Radio value="flip" label="Flip"/>
+    <Radio value="rotate" label="Rotate"/>
+    <Radio value="zoom" label="Zoom"/>
   </RadioGroup>
 </div>
 </template>
