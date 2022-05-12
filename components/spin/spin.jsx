@@ -4,7 +4,7 @@ export default {
     value: { type: Boolean, default: true },
     delay: { type: Number, default: 500 },
     mode: {
-      type: String, default: 'zoom', validator(value) {
+      type: String, default: 'rotate', validator(value) {
         return ["bounce", "flip", "rotate", "zoom"].indexOf(value) >= 0;
       }
     }

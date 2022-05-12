@@ -10,7 +10,7 @@
     <br/>
     <br/>
     <Menu v-model="current" :open-keys="openKeys" theme="dark" :inline-collapsed="!collapsed" mode="inline">
-      <MenuItem key="1-1" icon="mail">Option 1<span>sss</span></MenuItem>
+      <MenuItem key="1-1" icon="mail">Option 1</MenuItem>
       <MenuItem key="1-2" icon="calendar"><span>Option 2</span></MenuItem>
       <SubMenu key="sub2" icon="bar-chart" title="Navigation Two">
         <MenuItem key="2-1">Option 5</MenuItem>

@@ -3,9 +3,9 @@
    min-width: 44px;
    height: 24px;
    line-height: 22px;
-   border-radius: 24px;
+   border-radius: 12px;
    vertical-align: middle;
-   border: 1px solid var(--kui-color-border);
+   border: none; // 1px solid var(--kui-color-border);
    background-color: var(--kui-color-border);
    font-size: 12px;
    position: relative;
@@ -22,26 +22,27 @@
    color: var(--kui-color-font);
    &:focus {
       // border: 1px solid var(--kui-color-main);
-      box-shadow: 0 0 5px var(--kui-color-main-30);
+      // box-shadow: 0 0 5px var(--kui-color-main-30);
    }
    .k-icon {
       font-size: 16px;
    }
    &::before {
       content: '';
-      width: 20px;
-      height: 20px;
-      border-radius: 20px;
-      background-color: var(--kui-color-back);
+      width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      background-color: #fff;
       position: absolute;
-      left: 1px;
+      left: 3px;
       top: 50%;
-      cursor: pointer;
+      cursor: inherit;
       transform: translate3d(0, -50%, 0);
       transition: all .36s cubic-bezier(.78, .14, .15, .86);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.3);
    }
    .k-switch-inner {
-      color: #fff;
+      color: var(--kui-color-gray-70);
       margin-left: 25px;
       margin-right: 8px;
       display: flex;
@@ -49,14 +50,15 @@
    }
    &:active:not(&:disabled) {
       &::before {
-         width: 25px;
+         width: 22px;
       }
    }
    .k-switch-loading {
-      color: var(--kui-color-main);
+      color: #000; //var(--kui-color-main);
       position: absolute;
-      left: 3px;
-      top: 3px
+      left: 4px;
+      top: 50%;
+      margin-top: -8px;
    }
 }
 
@@ -67,6 +69,7 @@
       width: 12px;
       height: 12px;
       border-radius: 12px;
+      left: 2px;
    }
    &:active {
       &::before {
@@ -79,13 +82,18 @@
       }
    }
    .k-switch-loading {
-      left: 2px;
+      left: 3px;
       font-size: 10px;
-      top: 2px;
+      margin-top: -5px;
+      // top: 3px;
    }
    &.k-switch-checked {
+      &::before {
+         margin-left: -2px;
+      }
       .k-switch-loading {
-         left: calc(100% - 11.5px);
+         right: 3px;
+         left: auto;
       }
    }
 }
@@ -96,14 +104,17 @@
    &::before {
       left: 100%;
       transform: translate3d(-100%, -50%, 0);
-      margin-left: -1px;
+      margin-left: -3px;
    }
    .k-switch-inner {
       margin-left: 8px;
       margin-right: 25px;
+      color: var(--kui-color-back);
    }
    .k-switch-loading {
-      left: calc(100% - 19px);
+      // margin-left: -3px;
+      left: auto;
+      right: 4px;
    }
 }
 
@@ -111,6 +122,6 @@
    opacity: .6;
    cursor: not-allowed;
    .k-switch-loading {
-      color: var(--kui-color-disable-color);
+      color: #000;
    }
 }

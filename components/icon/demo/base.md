@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div>
-    <Icon type="logo-kui" />
+    <Icon type="heart" />
     <Icon type="logo-kui" size="25" />
-    <Icon type="logo-kui" size="30" color="blue" />
+    <Icon type="logo-kui" size="30" color="red" />
     <Icon type="logo-kui" spin size="25" />
   </div>
 </template>

@@ -4,13 +4,15 @@ export default {
     type: { type: String, default: "info" },
     title: String,
     name: String,
-    content: String,
+    content: [String, Object],
+    icon: String,
+    color: String,
     closable: Boolean,
     noticeType: { type: String, default: "message" },
     onClose: { type: Function, default: () => { } }
   },
   render() {
-    let { noticeType, type, content, title, onClose, closable } = this
+    let { noticeType, type, content, title, onClose, closable, icon, color } = this
     const classes = [`k-${noticeType}-box`, `k-${noticeType}-${type}`, {
       'k-notice-has-icon': noticeType == 'notice' && type != 'default'
     }];
@@ -21,7 +23,7 @@ export default {
       success: "checkmark-circle",
       warning: "alert-circle"
     };
-    let iconNode = type != 'default' ? <Icon type={icons[type]} class={`k-${noticeType}-icon`} /> : null
+    let iconNode = type != 'default' ? <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} /> : null
     if (noticeType == 'message') {
 
       childNode = (

@@ -12,6 +12,7 @@ export default {
     allowHalf: Boolean,
     disabled: Boolean,
     icon: [String, Function],
+    size: Number,
   },
   data() {
     return {
@@ -20,7 +21,7 @@ export default {
     }
   },
   render() {
-    let { character, checked, full, half, allowHalf, tooltips, icon, percent, disabled } = this
+    let { character, checked, full, half, allowHalf, tooltips, icon, percent, disabled, size } = this
     const props = {
       class: ['k-star', {
         'k-star-checked': checked,
@@ -46,8 +47,8 @@ export default {
     }
     character = character ? <span>{character}</span> : null
     const node = <span {...props}>
-      <span class={['k-star-front', {}]} style={{ width: show_percent ? percent + '%' : null }}>{character || <Icon type={icon || 'star'} />}</span>
-      <span class="k-star-back">{character || <Icon type={icon || 'star'} />}</span>
+      <span class={['k-star-front', {}]} style={{ width: show_percent ? percent + '%' : null }}>{character || <Icon type={icon || 'star'} size={size} />}</span>
+      <span class="k-star-back">{character || <Icon type={icon || 'star'} size={size} />}</span>
     </span>
     return tooltips ? <Tooltip title={tooltips}>{node}</Tooltip> : node
   },

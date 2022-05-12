@@ -5,6 +5,19 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
+### 3.2.10-rc2
+`2022-5-11`
+- 优化 `Upload` ，修复拖拽上传
+- 优化 `Menu` 细节
+- 优化 `Skeleton` 细节
+- 优化 `Tooltip` `PopTip` `Popconfirm` 等组件 , 外观有改动
+- 优化 `Checkbox` ,外观有改动
+- 优化 `Switch` ,外观有改动
+- 优化 `Radio` ,外观有改动 , 修复表单验证问题
+- `Notice` `Message` 组件可自定义图标和更多内容
+- `Rate` 组件新增可设置图标大小和颜色
+- 修复 `Slider` 赋值问题
+- 修复 `Select` 下拉问题 
 
 ### 3.2.10
 `2022-5-4`

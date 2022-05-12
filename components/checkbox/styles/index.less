@@ -1,5 +1,5 @@
 @import '../../styles/var.less';
-.k-checkbox-wrapper {
+.k-checkbox {
 	cursor: pointer;
 	font-size: 12px;
 	display: inline-block;
@@ -7,11 +7,10 @@
 	line-height: 1;
 	color: var(--kui-color-font);
 	// margin-right: 16px;
-	.k-checkbox {
+	.k-checkbox-symbol {
 		display: inline-block;
 		vertical-align: middle;
 		white-space: nowrap;
-		cursor: pointer;
 		outline: 0;
 		line-height: 1;
 		position: relative;
@@ -32,9 +31,9 @@
 		background-color: var(--kui-color-back);
 		transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
 		overflow: hidden;
-		color: var(--kui-color-back);
+		color: #fff;
 		.k-icon {
-			font-size: 18px;
+			font-size: 14px;
 			position: absolute;
 			left: 50%;
 			top: 50%;
@@ -50,8 +49,8 @@
 		left: 0;
 		right: 0;
 		z-index: 1;
-		cursor: pointer;
 		opacity: 0;
+		cursor: inherit;
 		&:focus {
 			+.k-checkbox-inner {
 				border: 1px solid var(--kui-color-main);
@@ -59,7 +58,7 @@
 			}
 		}
 	}
-	.k-checkbox-indeterminate {
+	&.k-checkbox-indeterminate {
 		.k-checkbox-inner {
 			// background: var(--kui-color-main);
 			// border-color: var(--kui-color-main);
@@ -89,6 +88,13 @@
 	}
 }
 
+.k-checkbox-light {
+	.k-checkbox-inner {
+		background-color: var(--kui-color-gray-80);
+		border-color: var(--kui-color-gray-80);
+	}
+}
+
 .k-checkbox-checked {
 	.k-checkbox-inner {
 		background: var(--kui-color-main);
@@ -99,7 +105,7 @@
 .k-checkbox-disabled {
 	cursor: not-allowed;
 	color: var(--kui-color-disable-color);
-	.k-checkbox {
+	&.k-checkbox {
 		.k-checkbox-input {
 			cursor: not-allowed;
 		}
@@ -113,21 +119,21 @@
 			}
 		}
 	}
-	.k-checkbox-indeterminate .k-checkbox-inner:after {
+	&.k-checkbox-indeterminate .k-checkbox-inner:after {
 		background-color: var(--kui-color-disable-border);
 	}
 }
 
 .k-checkbox-group {
 	display: inline-block;
-	.k-checkbox-wrapper {
+	.k-checkbox {
 		margin-right: 16px;
 	}
 }
 
 .k-checkbox-group-vertical {
 	display: block;
-	.k-checkbox-wrapper {
+	.k-checkbox {
 		display: block;
 		margin-right: 0;
 		margin-bottom: 16px;

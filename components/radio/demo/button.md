@@ -6,33 +6,31 @@
 ```vue
 <template>
   <div>
-    <RadioGroup v-model="large" size="large" theme="solid">
-      <RadioButton value="beijing" icon="logo-apple">Beijing</RadioButton>
-      <RadioButton value="shanghai">Shanghai</RadioButton>
-      <RadioButton value="guangzhou">Guangzhou</RadioButton>
-      <RadioButton value="shenzhen">Shenzhen</RadioButton>
-      <RadioButton value="wuhan">Wuhan</RadioButton>
+    Shape :  <RadioGroup v-model="shape" size="small">
+      <RadioButton value="default" label="Default" />
+      <RadioButton value="circle" label="Circle" />
     </RadioGroup>
     <br/>
     <br/>
-    <RadioGroup v-model="base" shape="circle">
-      <RadioButton value="beijing" icon="logo-apple">Beijing</RadioButton>
-      <RadioButton value="shanghai">Shanghai</RadioButton>
-      <RadioButton value="guangzhou">Guangzhou</RadioButton>
-      <RadioButton value="shenzhen">Shenzhen</RadioButton>
-      <RadioButton value="wuhan">Wuhan</RadioButton>
+    Theme :  <RadioGroup v-model="theme" size="small">
+      <RadioButton value="default" label="Default" />
+      <RadioButton value="solid" label="Solid" />
+      <RadioButton value="light" label="Light" />
+      <RadioButton value="card" label="Card" />
     </RadioGroup>
     <br/>
     <br/>
-    <RadioGroup v-model="sm" size="small" theme="solid" type="button" :options="options" />
+    Size :  <RadioGroup v-model="size" size="small" :options="sizes">
+    </RadioGroup>
     <br/>
     <br/>
-    <RadioGroup value="beijing" size="small" disabled>
-      <RadioButton value="beijing" icon="logo-apple">Beijing</RadioButton>
-      <RadioButton value="shanghai">Shanghai</RadioButton>
-      <RadioButton value="guangzhou">Guangzhou</RadioButton>
-      <RadioButton value="shenzhen">Shenzhen</RadioButton>
-      <RadioButton value="wuhan">Wuhan</RadioButton>
+    <RadioGroup 
+      type="button"
+      v-model="date" 
+      :size="size" 
+      :theme="theme" 
+      :shape="shape" 
+      :options="dates"> 
     </RadioGroup>
   </div>
 </template>
@@ -40,15 +38,21 @@
 export default{
   data(){
     return{
-      large:'wuhan',
-      base:'shanghai',
-      sm:'beijing',
-      options:[
-        {label:'Beijing',value:'beijing',icon:'logo-apple'},
-        {label:'Shanghai',value:'shanghai'},
-        {label:'Shenzhen',value:'shenzhen'},
-        {label:'Guangzhou',value:'guangzhou',disabled:true},
-        {label:'Wuhan',value:'wuhan'},
+      size:'default',
+      shape:'default',
+      theme:'solid',
+      date:0,
+      dates:[
+        { label:'7天' ,value:0 },
+        { label:'1个月' ,value:1 },
+        { label:'1季度' ,value:2 },
+        { label:'1年' ,value:3 },
+        { label:'5年' ,value:4 ,disabled:true }
+      ],
+      sizes:[
+        {label:'Large',value:'large',icon:'logo-apple'},
+        {label:'Default',value:'default'},
+        {label:'Small',value:'small'},
       ]
     }
   }

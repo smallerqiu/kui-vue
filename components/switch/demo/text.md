@@ -8,7 +8,9 @@
   <div>
     <Switch true-text="Yes" false-text="No" />
     <br />
-    <Switch true-text="1" false-text="0" />
+    <Switch true-text="｜" false-text="〇" />
+    <br />
+    <Switch true-text="｜" false-text="〇" checked/>
     <br />
     <Switch true-text="On" false-text="Off" />
     <br />

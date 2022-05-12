@@ -6,13 +6,13 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Checkbox label="Shape" v-model="shape"/>
+    <Checkbox label="Shape" v-model="isShape"/>
     <br/>
     <br/>
-    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light"/>
-    <Input placeholder="disabled..." disabled theme="light"/>
-    <Input placeholder="请输入内容..." theme="light" icon="search" :shape="shape?'circle':''"/>
-    <Input placeholder="请输入内容..." theme="light" @search="focus" clearable :shape="shape?'circle':''"/>
+    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light" :shape="shape"/>
+    <Input placeholder="disabled..." disabled theme="light" :shape="shape"/>
+    <Input placeholder="请输入内容..." theme="light" icon="search" :shape="shape"/>
+    <Input placeholder="请输入内容..." theme="light" @search="focus" clearable :shape="shape"/>
     <TextArea placeholder="请输入内容..." theme="light" :rows="3"/>
   </div>
 </template>
@@ -20,7 +20,12 @@
 export default{
   data(){
     return{
-      shape :false
+      isShape :false
+    }
+  },
+  computed:{
+    shape() { 
+      return this.isShape ? 'circle' : null
     }
   },
   methods:{

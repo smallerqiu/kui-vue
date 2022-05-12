@@ -15,8 +15,8 @@
     <Menu slot="content">
       <MenuItem key="news">New file</MenuItem>
       <MenuItem key="edit">Edit</MenuItem>
-      <MenuItem key="save" icon="save-outline">Save</MenuItem>
-      <MenuItem key="cut" icon="cut-outline">Cut</MenuItem>
+      <MenuItem key="save" icon="save">Save</MenuItem>
+      <MenuItem key="cut" icon="cut">Cut</MenuItem>
       <MenuDivider />
       <MenuItem key="exit">Exit</MenuItem>
     </Menu>

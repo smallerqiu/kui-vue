@@ -11,7 +11,9 @@ export default {
     count: { type: Number, default: 5 },
     disabled: Boolean,
     tooltips: Array,
-    showScore: Boolean
+    showScore: Boolean,
+    size: Number,
+    color: String
   },
   data() {
     return {
@@ -26,7 +28,7 @@ export default {
     }
   },
   render() {
-    let { count, tempValue, allowHalf, character, disabled, tooltips = [], icon, showScore } = this
+    let { count, tempValue, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = this
     const stars = []
     if (Number(count) == NaN || count <= 0) {
       count = 5
@@ -44,7 +46,7 @@ export default {
           allowHalf,
           full: tempValue > i && !half,
           half,
-          icon, character,
+          icon, character, size,
           disabled,
           value: i,
           percent,
@@ -62,6 +64,9 @@ export default {
     let props = {
       class: "k-rate",
       on: { mouseleave: this.reset }
+    }
+    if (color) {
+      props.style = { color }
     }
     return (
       <div {...props}>

@@ -6,7 +6,7 @@
   white-space: nowrap;
   .k-btn {
     position: relative;
-    margin-left: -1px !important;
+    margin-left: -1px;
     z-index: 0;
     border-radius: 0;
     &:focus, &:hover {
@@ -30,12 +30,15 @@
     color: var(--kui-color-main);
     border-color: var(--kui-color-main);
   }
-  .k-radio-wrapper {
+  .k-radio {
     margin-right: 16px;
   }
-  .k-radio-label{
+  .k-radio-label {
     font-size: 14px;
   }
+  // .k-btn-solid {
+  //   margin-left: -1px;
+  // }
 }
 
 .k-radio-cirle {
@@ -49,17 +52,16 @@
   }
 }
 
-.k-radio-wrapper {
+.k-radio {
   user-select: none;
   cursor: pointer;
   display: inline-block;
   line-height: 1;
   color: var(--kui-color-font);
-  .k-radio {
+  .k-radio-symbol {
     display: inline-block;
     vertical-align: middle;
     white-space: nowrap;
-    cursor: pointer;
     outline: 0;
     line-height: 1;
     position: relative;
@@ -81,15 +83,14 @@
     border-radius: 50%;
     &:after {
       box-sizing: content-box;
-      width: 4px;
-      height: 4px;
+      width: 0;
+      height: 0;
       position: absolute;
-      left: 5px;
-      top: 5px;
-      border-radius: 6px;
-      display: block;
-      content: " ";
-      opacity: 0;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      content: "";
       background-color: var(--kui-color-main);
       transition: all .2s ease-in-out;
     }
@@ -103,8 +104,8 @@
     left: 0;
     right: 0;
     z-index: 1;
-    cursor: pointer;
     opacity: 0;
+    cursor: inherit;
     &:focus {
       +.k-radio-inner {
         border: 1px solid var(--kui-color-main);
@@ -120,15 +121,13 @@
 
 .k-radio-checked {
   .k-radio-inner {
-    background: var(--kui-color-back);
+    background: var(--kui-color-main);
     border-color: var(--kui-color-main);
-    position: relative;
     &:after {
       opacity: 1;
-      width: 8px;
-      height: 8px;
-      left: 3px;
-      top: 3px;
+      width: 6px;
+      height: 6px;
+      background-color: #fff;//var(--kui-color-back);
     }
   }
 }
@@ -137,7 +136,7 @@
   cursor: not-allowed;
   // opacity: .5;
   color: var(--kui-color-disable-color);
-  .k-radio {
+  &.k-radio {
     .k-radio-input {
       cursor: not-allowed;
     }
@@ -152,10 +151,41 @@
 }
 
 .k-radio-group-vertical {
-	display: block;
-	.k-radio-wrapper {
-		display: block;
-		margin-right: 0;
-		margin-bottom: 16px;
-	}
+  display: block;
+  .k-radio {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+}
+
+.k-radio-group-light {
+  .k-btn {
+    margin-left: 0;
+    &:nth-child(n+2) {
+      position: relative;
+      &::before {
+        position: absolute;
+        content: '';
+        left: -1px;
+        border-left: 1px solid var(--kui-color-border);
+        height: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.k-radio-group-card {
+  padding: 4px;
+  background-color: var(--kui-color-gray-80);
+  border-radius: var(--kui-border-radius);
+  .k-btn {
+    border: none;
+    border-radius: var(--kui-border-radius);
+    &:disabled {
+      background: 0 0;
+    }
+  }
 }
