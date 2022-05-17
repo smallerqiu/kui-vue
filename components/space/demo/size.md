@@ -6,30 +6,42 @@
 
 ```vue
 <template>
-  <div>
-    <RadioGroup v-model="size">
-      <Radio value="small">Small</Radio>
-      <Radio value="middle">Middle</Radio>
-      <Radio value="large">Large</Radio>
-    </RadioGroup>
-    <br/>
-    <br/>
-    <Space :size="size">
-      <Button type="primary">Primary</Button>
-      <Button type="danger">Danger</Button>
-      <Button>Default</Button>
-      <Button type="dashed">Dashed</Button>
-      <Button type="link">Link</Button>
-    </Space>
-  </div>
+  <Tabs v-model="current" @change="change" style="width:350px;">
+    <TabPane key="1" title="Small">
+      <Space size="small" >
+        <Button size="small" v-for="x in 5" :key="x">Small</Button>
+      </Space>
+    </TabPane>
+    <TabPane key="2" title="Middle ">
+      <Space size="middle">
+        <Button size="small" v-for="x in 5" :key="x">Middle</Button>
+      </Space>
+    </TabPane>
+    <TabPane key="3" title="Large">
+      <Space size="large" >
+        <Button size="small" v-for="x in 5" :key="x">Large</Button>
+      </Space>
+    </TabPane>
+    <TabPane key="4" title="Array">
+      <Space :size="[8,20]" wrap>
+        <Button size="small" v-for="x in 10" :key="x">Array</Button>
+      </Space>
+    </TabPane>
+  </Tabs>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      size: 'small',
-    };
+export default{
+  data(){
+    return{
+      current:'1'
+    }
   },
-};
+  methods:{
+    change(key){
+      console.log(key)
+    }
+  }
+}
 </script>
+
 ```

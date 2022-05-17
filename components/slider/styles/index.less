@@ -3,61 +3,126 @@
   width: 100%;
   display: inline-block;
   position: relative;
-  height: 12px;
-  font-size: 0;
-  &::before {
-    content: '';
+  // height: 12px;
+  // font-size: 0;
+  margin: 0;
+  padding: 0 13px;
+  user-select: none;
+  .k-slider-bar {
+    height: 32px;
+    width: 100%;
+    position: relative;
+  }
+  .k-slider-thumb {
+    user-select: none;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%), 0 0 1px rgb(0 0 0 / 30%);
+    width: 24px;
+    height: 24px;
+    margin-top: 3px;
+    border: none;
+    border-radius: 50%;
     position: absolute;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #fff;
+    transform: translateX(-50%);
+    &:active {
+      border: 1px solid var(--kui-color-main);
+    }
+  }
+  .k-slider-track {
+    height: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+    background: var(--kui-color-main);
+    position: absolute;
+    top: 14px;
+    pointer-events: none;
+  }
+  .k-slider-rail {
+    cursor: pointer;
     height: 4px;
     border-radius: 2px;
     background: var(--kui-color-border);
-    top: 4px;
+    position: absolute;
     width: 100%;
-    left: 0;
+    top: 14px;
   }
-  .k-slider-bar {
-    position: relative;
-    z-index: 1;
-    margin-top: 4px;
-    -webkit-appearance: none;
-    // background: linear-gradient(to right, #1CE4FF 41.6777%, rgba(255, 255, 255, 0.3) 0%);
-    border-radius: 3px;
+  .k-slider-marks {
+    position: absolute;
     width: 100%;
-    // 轨道
-    &::-webkit-slider-runnable-track {
-      height: 4px;
-      border-radius: 3px;
-      // box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
-      // background: var(--kui-color-border);
-      border-radius: 2px;
+    top: 12px;
+    left: 0;
+    font-size: 14px;
+    z-index: 0;
+  }
+  .k-slider-mark-symbol {
+    position: absolute;
+    height: 4px;
+    width: 4px;
+    border: 2px solid var(--kui-color-border);
+    background: #fff;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    &-active {
+      border-color: var(--kui-color-main);
     }
-    //滑块
-    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 12px;
-      width: 12px;
-      margin-top: -4px;
-      // background: var(--kui-color-main);
-      border-radius: 50%;
-      border: 2px solid var(--kui-color-main);
-      background-color: var(--kui-color-back);
-      
-      cursor: pointer;
-    }
-    &:disabled {
-      cursor: not-allowed;
-    }
-    &:focus {
-      &::-webkit-slider-thumb {
-        box-shadow: 0 0 0px 5px var(--kui-color-main-60);
-      }
-    }
+  }
+  .k-slider-mark-text {
+    position: absolute;
+    transform: translateX(-50%);
+    color: var(--kui-color-font);
+    z-index: 0;
+    line-height: 1;
+    margin-top: 18px;
+  }
+}
+
+.k-slider-vertical {
+  padding: 13px 0;
+  height: 100%;
+  .k-slider-bar {
+    width: 32px;
+    height: 100%;
+  }
+  .k-slider-track {
+    width: 4px;
+    left: 14px;
+    top: 0;
+  }
+  .k-slider-rail {
+    height: 100%;
+    width: 4px;
+    left: 14px;
+    top: 0;
+  }
+  .k-slider-marks {
+    left: 12px;
+    top: auto;
+    height: 100%;
+    width: auto;
+  }
+  .k-slider-thumb {
+    transform: translateY(-50%);
+    margin: 0 0 0 3px;
+  }
+  .k-slider-mark-symbol, .k-slider-mark-text {
+    transform: translateY(-50%);
+  }
+  .k-slider-mark-text{
+    margin:0 0 0 18px;
   }
 }
 
 .k-slider-disabled {
   opacity: .5;
-  // {
-  //   -webkit-appearance: slider-vertical;   
-  // }
+  cursor: not-allowed;
+  .k-slider-thumb, .k-slider-thumb:active {
+    cursor: not-allowed;
+    border-color: #fff;
+  }
+  .k-slider-rail {
+    cursor: not-allowed;
+  }
 }

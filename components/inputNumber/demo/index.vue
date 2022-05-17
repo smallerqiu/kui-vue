@@ -1,11 +1,9 @@
 <script>
 import Info from "./info";
 import Base from "./base";
-import WithNumber from "./withNumber";
-import Formatter from "./formatter";
-import Marks from "./marks";
-import Vertical from "./vertical";
-import Reverse from "./reverse";
+import Format from "./format";
+import Ffix from "./ffix";
+import Size from "./size";
 
 import CN from "../index.md";
 export default {
@@ -14,11 +12,9 @@ export default {
       <div class="switch-demo">
         <Info class="typo" />
         <Base />
-        <WithNumber />
-        <Formatter />
-        <Marks />
-        <Vertical />
-        <Reverse />
+        <Format />
+        <Ffix />
+        <Size />
         <CN class="typo" />
       </div>
     );

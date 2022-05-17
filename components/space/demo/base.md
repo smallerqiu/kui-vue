@@ -6,7 +6,6 @@
 ```vue
 <template>
   <Space>
-    Space 
     <Button>Button</Button>
     <Button icon="search">Button</Button>
     <Tooltip placement="top">

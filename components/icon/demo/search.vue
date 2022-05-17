@@ -3,8 +3,16 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="55">
-      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" icon="logo-kui" v-model="key" size="large" @input="search" clearable style="width:80%;margin:0 10%;background:var(--kui-color-back);">
-      <RadioGroup v-model="type" @change="switchIcon" slot="suffix">
+      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制"
+        icon="logo-kui"
+        v-model="key"
+        size="large"
+        @input="search"
+        clearable
+        style="width:80%;margin:0 10%;background:var(--kui-color-back);">
+      <RadioGroup v-model="type"
+        @change="switchIcon"
+        slot="suffix">
         <RadioButton value="outline">Outline</RadioButton>
         <RadioButton value="filled">Filled</RadioButton>
       </RadioGroup>
@@ -20,26 +28,32 @@
         </div>
         <br />
         <div class="icon-item">
-          <span @click.stop="copy(x)" v-for="(x,y) in showIcons" :key="y">
-            <!-- <Icon :type="x" /> -->
-            <svg width="1em" height="1em">
+          <span @click.stop="copy(x)"
+            v-for="(x,y) in showIcons"
+            :key="y">
+            <Icon :type="x" />
+            <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
-            </svg>
+            </svg> -->
           </span>
         </div>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-item">
-          <span @click.stop="copy(x)" v-for="(x,y) in logo" :key="y">
-            <!-- <Icon :type="x" /> -->
-            <svg width="1em" height="1em">
+          <span @click.stop="copy(x)"
+            v-for="(x,y) in logo"
+            :key="y">
+            <Icon :type="x" />
+            <!-- <svg width="1em"
+              height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
-            </svg>
+            </svg> -->
           </span>
         </div>
       </template>
-      <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
+      <h3 v-if="!showIcons.length && !logo.length"
+        style="text-align:center;padding-bottom:50px;color:#888;">
         No results for "{{key}}"
       </h3>
     </div>
@@ -56,7 +70,10 @@
     height: 80px;
     line-height: 80px;
     color: var(--kui-color-font);
-    float: left;
+    // float: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 32px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
@@ -70,7 +87,7 @@
 </style>
 <script>
 import icons from 'kui-icons'
-import sprite from 'kui-icons/lib/sprite.svg'
+// import sprite from 'kui-icons/lib/sprite.svg'
 // import icons from '../lib/kui-icons'
 // import sprite from '../lib/sprite.svg'
 
@@ -82,7 +99,7 @@ let logos = iconKeys.filter(x => /logo-/.test(x)),
 export default {
   data() {
     return {
-      sprite,
+      // sprite,
       key: '',
       type: 'outline',
       logo: logos,

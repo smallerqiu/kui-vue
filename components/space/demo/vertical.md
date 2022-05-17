@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space direction="vertical">
+  <Space vertical>
     <Card title="Card" icon="heart" style="width:256px">
       <p>card content</p>
       <p>card content</p>

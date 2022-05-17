@@ -56,6 +56,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        line-height: 1;
         .k-table-header-title {
           flex: 1;
         }
@@ -67,14 +68,13 @@
         display: inline-block;
         margin-left: 8px;
         vertical-align: middle;
-      }
-      .k-icon {
-        display: block;
-        font-size: 10px;
-        line-height: 1;
-        color: #ccc;
-        &:first-child {
-          margin-bottom: -.6em;
+        .k-icon {
+          display: flex;
+          align-items: center;
+          font-size: 10px;
+          line-height: 1;
+          color: #ccc;
+          height: 7px;
         }
       }
       .actived {
@@ -134,8 +134,7 @@
   &-fixed-header {
     word-break: break-all;
     .k-table-fixed-main-thead {
-      &::-webkit-scrollbar {
-      }
+      &::-webkit-scrollbar {}
     }
     .k-table-fixed-main-thead, .k-table-fixed-right-thead, .k-table-fixed-left-thead {
       overflow: scroll;

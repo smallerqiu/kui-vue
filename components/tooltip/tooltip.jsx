@@ -6,6 +6,7 @@ export default {
     transfer: { type: Boolean, default: true },
     title: String,
     color: String,
+    trigger: String,
     width: [Number, String],
     placement: {
       validator(value) {
@@ -15,6 +16,7 @@ export default {
       },
       default: "top"
     },
+    value: Boolean
   },
   render() {
     const title = this.$slots.title || this.title

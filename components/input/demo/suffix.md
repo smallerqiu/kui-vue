@@ -1,25 +1,32 @@
 <cn>
-#### 扩展
-suffix 扩展
+#### 扩展, 前缀和后缀
+suffix，prefix 扩展
 </cn>
 
 ```vue
 <template>
   <div style="width:256px;">
-    <Input placeholder="请输入验证码" icon="disc"  :maxlength="8">
+    <Input placeholder="请输入验证码" icon="disc" :maxlength="8">
       <template slot="suffix">
-        <span v-if="time==60" @click="sendCode">获取验证码</span>
+        <Button size="small" type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
         <span v-else>{{time}}(s)</span>
       </template>
     </Input>
-    <Input placeholder="请填写你要喝的Coffee" icon="cafe" >
+    <Input placeholder="请填写你要喝的Coffee" icon="cafe">
       <template slot="suffix">
           <Tooltip title="此处如果不知道怎么填，请咨询管理员">
             <Icon type="information-circle-outline" color="orange"/>
           </Tooltip>  
       </template>
     </Input>
-    <Input placeholder="请输入金额" suffix="元"/>
+    <Input placeholder="请输入手机号码">
+      <Select :bordered="false"style="width:80px;" slot="prefix" value="0">
+        <Option value="0" label="+86"/>
+        <Option value="1" label="+52"/>
+      </Select>  
+    </Input>
+    <Input placeholder="请输入金额" suffix="元" prefix="$"/>
+    <Input placeholder="请输入域名" suffix=".com" prefix="https://"/>
     <Input placeholder="请输入金额" suffix=".00"/>
   </div>
 </template>
