@@ -82,7 +82,7 @@ export default {
         e.target.value = v
       }
       if (this.parser) {
-        v = this.parser(v)
+        // v = this.parser(v)
       }
       // e.target.value = e.target.value.replace(/\D/g, '')
       this.setValue(v, e)

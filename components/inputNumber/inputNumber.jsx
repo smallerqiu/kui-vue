@@ -37,16 +37,19 @@ export default {
         v = parser(v + '')
       }
       if (v !== undefined && v !== '' && v !== null) {
-        v = (v + '').replace(/[^\d^\.]+/g, '')
-        if (!v) return ''
-        v = toNumber(v)
+        if (isNaN(Number(v))) {
+          v = (v + '').replace(/[^\d]+/g, '')
+          console.log(v)
+        }
+        if (v === '') return ''
+        v = toNumber(v + '')
       } else {
         return ''
       }
 
 
-      if (v >= max) v = max
-      else if (v <= min) v = min
+      if (max !== undefined && v >= max) v = max
+      else if (min !== undefined && v <= min) v = min
 
       if (precision > 0) {
         v = round(v, precision)
@@ -55,6 +58,9 @@ export default {
       if (formatter) {
         v = formatter(v + '')
       }
+      // if (parser) {
+      //   v = parser(v + '')
+      // }
       // console.log(v)
 
       return v
@@ -75,30 +81,35 @@ export default {
       this.$emit('input', v)
       this.$emit('change', v)
     },
-    change(e) {
-      let x = e.target.value + ''
+    change(x) {
+      // let x = e.target.value + ''
       let { formatter, parser } = this
-
+     
       if (parser) {
         x = parser(x + '')
       }
+      console.log(x)
+      return;
       // if (formatter) {
       //   x = formatter(x + '')
       // }
-      e.target.value = x + ''
+      // e.target.value = x + ''
       this.defaultValue = x + ''
+      if (parser) {
+        x = parser(x + '')
+      }
       this.$emit('input', x)
       this.$emit('change', x)
     },
     blurHandle(e) {
       let v = this.getVal(e.target.value)
-
+console.log(v)
       this.defaultValue = v + ''
 
       let x = v
-      // if (this.parser) {
-      //   x = this.parser(x + '') * 1
-      // }
+      if (this.parser) {
+        x = this.parser(x + '') * 1
+      }
       // console.log('blur', v, x)
 
       this.$emit('input', x)
@@ -122,9 +133,9 @@ export default {
       attrs: { ...this.$attrs },
       on: {
         ...this.$listeners,
-        // 'input': (e) => this.change(e),
+        'input': (e) => this.change(e),
         'blur': (e) => this.blurHandle(e),
-        'change': (e) => this.change(e),
+        // 'change': (e) => this.change(e),
       },
     }
     const { suffix } = this
