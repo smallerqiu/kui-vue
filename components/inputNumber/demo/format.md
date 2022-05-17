@@ -5,9 +5,9 @@
 
 ```vue
 <template>
-    <div style="width:520px;font-size:12px;">
+    <div style="width:520px;">
      0.1+0.2 = 0.3 (yes)     ,输出：{{n}}  
-     <InputNumber :value="0.1" :step="0.2" v-model="n"/>
+     <InputNumber :step="0.2" v-model="n"/>
      <br/>
      <br/>
      步长为 0.00000000000001 ,输出：{{n1}}     
@@ -60,7 +60,7 @@
 export default{
   data(){
     return {
-      n:'',
+      n:0.1,
       n1: 1
     }
   },
