@@ -36,9 +36,11 @@ export default {
     const { $listeners, type, spin, color, size } = this
     const classes = ['k-icon', { 'k-load-loop': spin }];
     const styles = {
-      fontSize: `${size}px`,
       color
     };
+    if (size) {
+      styles.fontSize = `${size}px`
+    }
 
     const props = {
       style: styles,

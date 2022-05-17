@@ -20,6 +20,7 @@ import { Form, FormItem } from './form'
 import { Image, ImageGroup } from './image'
 import Icon from './icon'
 import { Input, TextArea } from './input'
+import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from './layout'
 import Loading from './loading'
 import Modal from './modal'
@@ -77,6 +78,7 @@ const components = {
 	Icon,
 	ImageGroup,
 	Input, TextArea,
+	InputNumber,
 	Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
 	Modal,
 	Message,

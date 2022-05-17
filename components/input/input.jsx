@@ -19,6 +19,8 @@ export default {
     },
     icon: String,
     suffix: String,
+    prefix: String,
+    disabled: Boolean,
     theme: {
       type: String,
       default: 'solid',
@@ -44,6 +46,9 @@ export default {
     return <BaseInput {...props}>
       <template slot="suffix">
         {this.$slots.suffix}
+      </template>
+      <template slot="prefix">
+        {this.$slots.prefix}
       </template>
     </BaseInput>
   }

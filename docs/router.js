@@ -46,6 +46,7 @@ let components = [
 	{ path: 'grid', component: () => import(/*webpackChunkName:'grid'*/'../components/grid/demo'), },
 	{ path: 'image', component: () => import(/*webpackChunkName:'image'*/'../components/image/demo'), },
 	{ path: 'input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },
+	{ path: 'inputnumber', component: () => import(/*webpackChunkName:'inputnumber'*/'../components/InputNumber/demo'), },
 	{ path: 'icon', component: () => import(/*webpackChunkName:'icon'*/'../components/icon/demo'), },
 	{ path: 'layout', component: () => import(/*webpackChunkName:'layout'*/'../components/layout/demo'), },
 	{ path: 'loading', component: () => import(/*webpackChunkName:'loading'*/'../components/loading/demo'), },

@@ -7,6 +7,11 @@ npm install kui-vue@latest
 ```
 ### 3.2.10-rc2
 `2022-5-11`
+- 新增 `InputNumber` 组件
+- 重写了 `Slider` 组件，替代原有的[input=range]
+- 优化 `Space` 组件，默认采用 flex 布局
+- 优化 `Icon` 在 SSR下的显示
+- 优化 `Input` 禁用时的显示
 - 优化 `Upload` ，修复拖拽上传
 - 优化 `Menu` 细节
 - 优化 `Skeleton` 细节
@@ -16,7 +21,6 @@ npm install kui-vue@latest
 - 优化 `Radio` ,外观有改动 , 修复表单验证问题
 - `Notice` `Message` 组件可自定义图标和更多内容
 - `Rate` 组件新增可设置图标大小和颜色
-- 修复 `Slider` 赋值问题
 - 修复 `Select` 下拉问题 
 
 ### 3.2.10

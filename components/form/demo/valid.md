@@ -17,6 +17,9 @@
       <FormItem label="E-mail" prop="email">
         <Input  clearable />
       </FormItem>
+      <FormItem label="Number" prop="number">
+        <InputNumber />
+      </FormItem>
       <FormItem label="Password" prop="password">
         <Input type="password" />
       </FormItem>
@@ -28,10 +31,10 @@
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
         <Input >
-        <template slot="suffix">
-          <span v-if="time==60" @click="sendCode">获取验证码</span>
-          <span v-else>{{time}}(s)</span>
-        </template>
+          <template slot="suffix">
+            <Button size="small" type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
+            <span v-else>{{time}}(s)</span>
+          </template>
         </Input>
       </FormItem>
       <FormItem label="Country">
@@ -119,6 +122,7 @@ export default {
       size:'default',
       form: {
         email: '',
+        number:'',
         password: '',
         repassword: '',
         phone: '',
@@ -139,6 +143,10 @@ export default {
         email: [
           { type: 'mail', message: '请输入有效的电子邮箱' },
           { required: true, message: '请输入电子邮箱' },
+        ],
+        number:[
+          { type: 'number', message: '请输入有效的请输入数字' },
+          { required: true, message: '请输入数字' },
         ],
         password: [
           { min: 8, max: 20, message: '密码长度请控制在8-20位之间', trigger: 'blur' },
@@ -208,6 +216,7 @@ export default {
         captcha: '8888',
         gender: '1',
         slider:5,
+        number:5,
         system: '0',
         one: true,
         birthday: '1995-05-05',

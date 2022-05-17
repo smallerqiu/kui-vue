@@ -29,7 +29,7 @@ export default [
       { title: "分割线", sub: "Divider", name: "divider", icon: 'remove' },
       { title: "栅格", sub: "Grid", name: "grid", icon: 'grid' },
       { title: "布局", sub: "Layout", name: "layout", icon: 'albums' },
-      { title: "间距", sub: "Space", name: "space", icon: 'reorder-four' },
+      { title: "间距", sub: "Space", name: "space", icon: 'code' },
     ]
   },
   {
@@ -52,6 +52,7 @@ export default [
     key: 'forms',
     child: [
       { title: "输入框", sub: "Input", name: "input", icon: 'create' },
+      { title: "数字输入框", sub: "InputNumber", name: "inputnumber", icon: 'create' },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: 'checkbox' },
       { title: "单选框", sub: "Radio", name: "radio", icon: 'checkmark-circle' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'toggle' },
