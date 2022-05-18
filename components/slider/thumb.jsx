@@ -10,7 +10,8 @@ export default {
     step: Number,
     value: [Number, Array],
     tipFormatter: [Function, Object],
-    type: String
+    type: String,
+    tooltipVisible: Boolean
   },
   inject: {
     bar: { default: null },
@@ -77,7 +78,11 @@ export default {
     mouseUp(e) {
       this.isMouseDown = false
       this.index = 1
-      this.showTip = false
+      if (this.tooltipVisible === true) {
+        this.showTip = true
+      } else {
+        this.showTip = false
+      }
       document.removeEventListener('mousemove', this.mouseMove)
       document.removeEventListener('mouseup', this.mouseUp)
     },
@@ -92,7 +97,7 @@ export default {
     }
   },
   render() {
-    let { vertical, value, index, disabled, max, tipFormatter, range, type, reverse } = this
+    let { vertical, value, index, disabled, max, tipFormatter, range, type, reverse, tooltipVisible } = this
     const props = {
       class: 'k-slider-thumb',
       style: {
@@ -105,6 +110,10 @@ export default {
           if (!disabled) this.showTip = true
         },
         mouseleave: (e) => {
+          if (this.tooltipVisible == true) {
+            this.showTip = true
+            return
+          }
           if (!this.isMouseDown) {
             this.showTip = false
           }
@@ -127,7 +136,7 @@ export default {
     }
     props.style = Object.assign(props.style, sty)
 
-    if (tipFormatter === null) return <div {...props}></div>
+    if (tipFormatter === null || tooltipVisible === null) return <div {...props}></div>
 
     let tip = ''
     if (type == 'right') {
@@ -140,6 +149,17 @@ export default {
     if (tipFormatter !== undefined) {
       tip = tipFormatter(tip)
     }
-    return <Tooltip title={tip} value={this.showTip} trigger="normal"><div {...props}></div></Tooltip >
+    const tipProps = {
+      props: {
+        title: tip,
+        value: this.showTip,
+        show: tooltipVisible,
+        trigger: 'nromal',
+      },
+      on: {
+        input: value => this.showTip = value
+      }
+    }
+    return <Tooltip {...tipProps}><div {...props}></div></Tooltip >
   }
 }

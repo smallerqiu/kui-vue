@@ -5,7 +5,8 @@ export default {
     loading: Boolean,
     delay: { type: Number, default: 500 },
     shape: String,
-    size: String
+    size: String,
+    width: Number,
   },
   watch: {
     loading(v) {
@@ -25,7 +26,7 @@ export default {
     }
   },
   render() {
-    let { size, animated, block, shape, show } = this
+    let { size, animated, block, shape, show, width } = this
     let props = {
       class: ['k-skeleton k-skeleton-ele', {
         'k-skeleton-animated': animated,
@@ -40,6 +41,10 @@ export default {
       }],
     }
     let child = this.$slots.default
+
+    if (width) {
+      innerProps.style.width = `${width}px`
+    }
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}></span>}

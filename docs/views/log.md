@@ -5,8 +5,8 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
-### 3.2.10-rc2
-`2022-5-11`
+### 3.2.11
+`2022-5-18`
 - 新增 `InputNumber` 组件
 - 重写了 `Slider` 组件，替代原有的[input=range]
 - 优化 `Space` 组件，默认采用 flex 布局
@@ -14,7 +14,7 @@ npm install kui-vue@latest
 - 优化 `Input` 禁用时的显示
 - 优化 `Upload` ，修复拖拽上传
 - 优化 `Menu` 细节
-- 优化 `Skeleton` 细节
+- 优化 `Skeleton` 细节,新增更多可控细节
 - 优化 `Tooltip` `PopTip` `Popconfirm` 等组件 , 外观有改动
 - 优化 `Checkbox` ,外观有改动
 - 优化 `Switch` ,外观有改动

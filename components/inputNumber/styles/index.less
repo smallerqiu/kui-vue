@@ -11,7 +11,7 @@
   transition: all .3s ease-in-out;
   box-sizing: border-box;
   gap: 8px;
-  padding:0 8px;
+  padding: 0 8px;
   &:hover {
     border-color: var(--kui-color-main);
   }
@@ -55,6 +55,9 @@
     box-sizing: border-box;
     flex: 1;
     min-width: 10px;
+    &::placeholder {
+      color: var(--kui-color-disable-color);
+    }
     &:focus {
       // box-shadow: 0 0 5px var(--kui-color-main-30);
       border-color: var(--kui-color-main);

@@ -16,7 +16,8 @@ export default {
       },
       default: "top"
     },
-    value: Boolean
+    value: Boolean,
+    show: Boolean
   },
   render() {
     const title = this.$slots.title || this.title

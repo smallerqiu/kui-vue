@@ -52,14 +52,14 @@ export default [
     key: 'forms',
     child: [
       { title: "输入框", sub: "Input", name: "input", icon: 'create' },
-      { title: "数字输入框", sub: "InputNumber", name: "inputnumber", icon: 'create' },
+      { title: "数字输入框", sub: "InputNumber", name: "inputnumber", icon: 'create', update: true, },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: 'checkbox' },
       { title: "单选框", sub: "Radio", name: "radio", icon: 'checkmark-circle' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'toggle' },
       { title: "选择器", sub: "Select", name: "select", icon: 'chevron-down' },
       { title: "日期选择框", sub: "DatePicker", name: "datepicker", icon: 'calendar' },
       { title: "上传", sub: "Upload", name: "upload", icon: 'cloud-upload', update: true },
-      { title: "滑动输入条", sub: "Slider", name: "slider", icon: 'options' },
+      { title: "滑动输入条", sub: "Slider", name: "slider", icon: 'options', update: true, },
       { title: "表单", sub: "Form", name: "form", icon: 'list' },
     ]
   },

@@ -18,9 +18,13 @@ export default {
       type: Number,
       default: 1,
     },
+    theme: String,
   },
   watch: {
     value(v) {
+      if (this.formatter) {
+        v = this.formatter(v + '')
+      }
       this.defaultValue = v //this.getVal(v)
       // console.log('watch', this.defaultValue)
     }
@@ -38,8 +42,12 @@ export default {
       }
       if (v !== undefined && v !== '' && v !== null) {
         if (isNaN(Number(v))) {
-          v = (v + '').replace(/[^\d]+/g, '')
-          console.log(v)
+          v = (v + '').replace(/^([^-]+)(?=-\S*)/, '') // 移除第一个负号之前的所有字符
+            .replace(/(?<!^)-/g, '')         // 移除第一个负号之外的所有负号
+            .replace(/[^0-9.-]/g, '')        // 移除数字 小数点 负号之外的所有字符
+            .replace(/(?<!^[\d-]+)\./g, '')   // 移除第一个小数点之外的所有句点
+          // .replace(/^0*(-?\d+)(\.(\d{1,2}))?\S*?$/, '$1$2') // 保留两位小数
+          // console.log(v)
         }
         if (v === '') return ''
         v = toNumber(v + '')
@@ -58,16 +66,12 @@ export default {
       if (formatter) {
         v = formatter(v + '')
       }
-      // if (parser) {
-      //   v = parser(v + '')
-      // }
-      // console.log(v)
 
       return v
     },
     setVal(up) {
       if (this.disabled) return;
-      let { step = 1, defaultValue, parser } = this
+      let { step = 1, defaultValue, parser, formatter } = this
 
       let v = this.getVal(defaultValue) || 0
 
@@ -75,46 +79,58 @@ export default {
         v = parser(v + '')
       }
       v = up == 1 ? plus(v, step) : minus(v, step)
-      v = this.getVal(v)
-      this.defaultValue = v
 
-      this.$emit('input', v)
-      this.$emit('change', v)
+      let a = this.getVal(v)
+
+      // console.log('a', a)
+
+      this.defaultValue = a + ''
+
+
+      if (parser) {
+        a = parser(a)
+      }
+
+
+      this.$emit('input', a)
+      this.$emit('change', a)
     },
     change(x) {
-      // let x = e.target.value + ''
       let { formatter, parser } = this
-     
-      if (parser) {
-        x = parser(x + '')
+      let input = x + '', output = x;
+
+      if (formatter) {
+        input = formatter(x + '')
       }
-      console.log(x)
-      return;
       // if (formatter) {
       //   x = formatter(x + '')
       // }
-      // e.target.value = x + ''
-      this.defaultValue = x + ''
-      if (parser) {
-        x = parser(x + '')
-      }
-      this.$emit('input', x)
-      this.$emit('change', x)
+      this.defaultValue = input
+
+      // output = toNumber(output + '')
+
+      this.$emit('input', output)
+      this.$emit('change', output)
     },
     blurHandle(e) {
       let v = this.getVal(e.target.value)
-console.log(v)
+      // console.log(v)
       this.defaultValue = v + ''
+      // console.log('blur1', v)
 
-      let x = v
+      let output = v
       if (this.parser) {
-        x = this.parser(x + '') * 1
+        output = this.parser(output + '')
       }
-      // console.log('blur', v, x)
+      // console.log('blur2', output)
+      if (output !== '') {
+        output = toNumber(output + '')
+      }
+      // console.log('blur3', output)
 
-      this.$emit('input', x)
+      this.$emit('input', output)
       this.$emit('blur', e)
-      this.$emit('change', x);
+      this.$emit('change', output);
     }
   },
   provide() {
