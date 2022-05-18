@@ -27,7 +27,8 @@ export default {
     },
     okText: String,
     cancelText: String,
-    updateKey: [String, Object, Array]
+    updateKey: [String, Object, Array],
+    show: Boolean
   },
   data() {
     return {
@@ -54,8 +55,9 @@ export default {
       this.$emit("cancel");
     },
     toggle(value) {
-      this.opened = value
-      this.$emit('input', value)
+      let show = this.show || value
+      this.opened = show
+      this.$emit('input', show)
     },
     mouseEnter(e) {
       clearTimeout(this.timer)

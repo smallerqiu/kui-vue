@@ -31,6 +31,7 @@ export default {
     handelCheckAll(e) {
       let checked = e.target.checked
       this.cities = checked ? this.options.map(v=>v.value) : [];
+      this.indeterminate = !checked && !this.options.length
     },
     change(data) {
       let length = this.cities.length

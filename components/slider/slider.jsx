@@ -1,8 +1,7 @@
 import Thumb from './thumb'
-import { getMaxDigit, toNumber } from '../_tool/number'
 export default {
   props: {
-    value: [Array, Number],
+    value: [Array, Number, String],
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
     disabled: Boolean,
@@ -16,7 +15,8 @@ export default {
     reverse: Boolean,
     marks: Object,
     included: { type: Boolean, default: true },
-    tipFormatter: [Function, Object]
+    tipFormatter: [Function, Object],
+    tooltipVisible: Boolean
   },
   watch: {
     value() {
@@ -160,11 +160,11 @@ export default {
 
     },
     thumbProps() {
-      let { vertical, disabled, range, step, reverse, max, defaultValue, tipFormatter } = this
+      let { vertical, disabled, range, step, reverse, max, defaultValue, tooltipVisible, tipFormatter } = this
       return {
         props: {
           vertical, disabled, range, step, reverse,
-          max, tipFormatter,
+          max, tipFormatter, tooltipVisible,
           value: range ? [].concat(defaultValue) : defaultValue * 1
         },
         on: {

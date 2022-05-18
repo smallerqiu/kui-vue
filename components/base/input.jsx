@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     clear() {
-      this.setValue('', { target: { value: '' } })
+      this.setValue({ input: '', output: '' })
       this.$nextTick(e => this.$refs.input.focus())
     },
     iconClick() {
@@ -75,17 +75,27 @@ export default {
       this.isFocus = false
     },
     handleInput(e) {
-      let v = e.target.value + ''
-     
-      if (this.formatter) {
-        v = this.formatter(v)
-        e.target.value = v
+      let v = e.target.value + '', input = v, output = v + '';
+      let { parser, formatter } = this
+
+      if (parser) {
+        output = parser(v)
       }
-      if (this.parser) {
-        // v = this.parser(v)
+
+      // console.log('output', output)
+
+      if (output !== '' && formatter) {
+        input = formatter(output)
+        // e.target.value = v
       }
+      // console.log('res', input, output)
+      e.target.value = input
+      if (input === '') {
+        output = ''
+      }
+
       // e.target.value = e.target.value.replace(/\D/g, '')
-      this.setValue(v, e)
+      this.setValue({ input, output })
     },
     showPassword() {
       if (this.disabled) return;
@@ -93,10 +103,10 @@ export default {
       this.isPassword = !this.isPassword
       this.$refs.input.type = type
     },
-    setValue(value, e) {
-      this.currentValue = value
-      this.$emit('input', value)
-      this.$emit('change', e)
+    setValue({ input, output }) {
+      this.currentValue = input
+      this.$emit('input', output)
+      this.$emit('change', output)
     },
 
     searchEvent() {

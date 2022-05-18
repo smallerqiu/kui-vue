@@ -5,7 +5,7 @@ export default {
     loading: Boolean,
     delay: { type: Number, default: 500 },
     shape: String,
-    size: String
+    size: [Number, String]
   },
   watch: {
     loading(v) {
@@ -37,11 +37,17 @@ export default {
         'k-skeleton-avatar-sm': size == 'small',
         [`k-skeleton-avatar-${shape}`]: shape != 'default',
       }],
-      style: {
-        'border-radius': radius ? radius + 'px' : ''
-      }
     }
     let child = this.$slots.default
+
+    if (!isNaN(Number(size))) {
+      innerProps.style.width = `${size}px`
+      innerProps.style.height = `${size}px`
+    }
+    if (radius) {
+      innerProps.style['border-radius'] = `${radius}px`
+    }
+
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}></span>}

@@ -18,23 +18,23 @@
       :step="0.00000000000001"/>
      <br/>
      <br/>
-     保留2位小数<br/>
-     <InputNumber :precision="2" :value="3.14159" />
+     保留2位小数, 输出：{{n3}}<br/>
+     <InputNumber :precision="2" v-model="n3" />
      <br/>
      <br/>
-     货币，千分位<br/>
+     货币，千分位,输出： {{n4}}<br/>
      <InputNumber 
       @change="log"
+      v-model="n4"
       :min="0"
-      :value="1000"
       :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
       :parser="value => value.replace(/\￥\s?|(,*)/g, '')"
       />
       <br/>
       <br/>
-      百分比%<br/>
+      百分比% ,输出： {{n5}}<br/>
       <InputNumber
-        :value="100"
+        v-model="n5"
         :min="0"
         :max="100"
         :formatter="value => `${value}%`"
@@ -42,15 +42,16 @@
       />
       <br/>
       <br/>
-      只能输入数字<br/>
+      只能输入数字,输出： {{n6}}<br/>
       <InputNumber
+        v-model="n6"
         :formatter="value => value.replace(/\D/g, '')"
       />
       <br/>
       <br/>
-      自定义<br/>
+      自定义 ,输出：{{n7}}<br/>
       <InputNumber
-        :value="111111"
+        v-model="n7"
         :formatter="value => String(value).split('').join('-')"
         :parser="value => value.replace(/\-/g, '')"
       />
@@ -61,7 +62,12 @@ export default{
   data(){
     return {
       n:0.1,
-      n1: 1
+      n1: 1,
+      n3: 3.14159,
+      n4: 1000,
+      n5: 100,
+      n6: '',
+      n7: 111111
     }
   },
   methods:{

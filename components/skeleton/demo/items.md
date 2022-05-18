@@ -18,8 +18,11 @@
   </Space>
   <br/>
   <br/>
-  <Space :size="15">
+  <Space :size="15" style="width:300px;">
     Image radius: <Slider v-model="radius" />
+  </Space>
+  <Space :size="15" style="width:300px;">
+    Image Size: <Slider v-model="imgSize" range :min="80" :max="320"/>
   </Space>
   <br/>
   <br/>
@@ -33,7 +36,7 @@
   <SkeletonButton :animated="animated" :size="size" :shape="btnShape" :block="block" />
   <br/>
   <br/>
-  <SkeletonImage :animated="animated" :radius="radius"/>
+  <SkeletonImage :animated="animated" :radius="radius" :size="imgSize"/>
 </template>
 <script>
 export default{
@@ -53,6 +56,7 @@ export default{
         { label :'Square', value :'square' },
         { label :'Circle', value :'circle' },
       ],
+      imgSize: [96,96],
       animated :false,
       size :'default',
       block :false,

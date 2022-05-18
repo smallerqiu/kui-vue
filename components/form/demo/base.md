@@ -21,12 +21,18 @@
     <FormItem label="Input">
       <Input placeholder="input..."/>
     </FormItem>
+    <FormItem label="InputNumber">
+      <InputNumber placeholder="inputnumber..."/>
+    </FormItem>
     <FormItem label="Select">
       <Select >
         <Option value="0" label="Apple" />
         <Option value="1" label="Banana" />
         <Option value="2" label="Orange" />
       </Select>
+    </FormItem>
+    <FormItem label="Slider">
+      <Slider placeholder="slider..."/>
     </FormItem>
     <FormItem label="DatePicker">
       <DatePicker  />
