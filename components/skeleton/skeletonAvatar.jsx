@@ -37,6 +37,7 @@ export default {
         'k-skeleton-avatar-sm': size == 'small',
         [`k-skeleton-avatar-${shape}`]: shape != 'default',
       }],
+      style: {}
     }
     let child = this.$slots.default
 

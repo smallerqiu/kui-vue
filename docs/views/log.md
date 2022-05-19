@@ -5,6 +5,9 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
+### 3.2.11-rc2
+Slider 两点不可交叉是个错误的设计， 已经修正
+
 ### 3.2.11
 `2022-5-18`
 - 新增 `InputNumber` 组件

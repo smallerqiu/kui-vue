@@ -33,6 +33,7 @@ export default {
     }
     let innerProps = {
       class: ['k-skeleton-image'],
+      style: {}
       // style: {
       //   'border-radius': radius ? radius + 'px' : ''
       // }

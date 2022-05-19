@@ -7,6 +7,7 @@ export default {
     range: Boolean,
     reverse: Boolean,
     max: Number,
+    min: Number,
     step: Number,
     value: [Number, Array],
     tipFormatter: [Function, Object],
@@ -32,7 +33,7 @@ export default {
       if (this.isMouseDown) {
         let { clientX, clientY } = e
         let { width, height, left, right, top, bottom } = this.rect
-        let { value, range, step, max, vertical, reverse } = this, v = value;
+        let { value, range, step, max, min, vertical, reverse, type } = this, v = value;
 
         let percent = 0;
         if (reverse) {
@@ -43,35 +44,17 @@ export default {
         if (percent >= 1) percent = 1
         else if (percent <= 0) percent = 0
         // this.defaultValue = value
+        let x = range ? (type == 'right' ? v[1] : v[0]) : v
 
+        let digit = getMaxDigit(step, x)
+        x = (((percent * max) / step) * step).toFixed(digit)
+        x = toNumber(x)
 
-        if (this.type == 'right') {
-          let x1 = 0;
-          if (range) {
-            let [x, y] = value
-            v = y
-            x1 = x
-          } else {
-            v = value
-          }
+        if (x >= max) x = max
+        else if (x <= min) x = min
 
-          let digit = getMaxDigit(step, v)
-          v = (((percent * max) / step) * step).toFixed(digit)
+        v = range ? (type == 'right' ? [v[0], x] : [x, v[1]]) : x
 
-          v = toNumber(v)
-          if (range) {
-            v = Math.max(v, x1)
-            v = [x1, v]
-          }
-        } else {
-          let [x, y] = value
-          let digit = getMaxDigit(step, x)
-          v = ((percent * max / step) * step).toFixed(digit)
-          v = toNumber(v)
-
-          v = Math.min(v, y)
-          v = [v, y]
-        }
         this.$emit('input', v)
       }
     },

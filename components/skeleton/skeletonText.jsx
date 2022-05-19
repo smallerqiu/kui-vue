@@ -35,6 +35,7 @@ export default {
         'k-skeleton-text-lg': size == 'large',
         'k-skeleton-text-sm': size == 'small',
       }],
+      style: {}
     }
     let child = this.$slots.default
 
