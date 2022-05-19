@@ -45,13 +45,17 @@ export default {
         if (value >= max) v = max
         else if (value <= min) v = min
       } else {
-        v = value
         if (!Array.isArray(v)) {
           v = [0, 0]
         }
         let [x, y] = v
-        x = Math.max(x, min)
-        y = Math.min(y, max)
+
+        if (x >= max) x = max
+        else if (x <= min) x = min
+
+        if (y >= max) y = max
+        else if (y <= min) y = min
+
         v = [x, y]
       }
       return v
@@ -71,8 +75,8 @@ export default {
       let value = Math.round(percent / step) * step
       if (range) {
         let [x, y] = defaultValue
-        let half = (y - x) / 2 + x
-        value = value >= half ? [x, value] : [value, y]
+        let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y
+        value = value >= half && y > x ? [x, value] : [value, y]
       }
 
       this.defaultValue = value
@@ -83,7 +87,7 @@ export default {
       let active;
       if (this.range) {
         let [x, y] = defaultValue
-        active = a >= x && a <= y
+        active = x < y ? a >= x && a <= y : a <= x && a >= y
       } else {
         active = a <= defaultValue
       }
@@ -136,23 +140,31 @@ export default {
         x1 = x, x2 = y
       }
       let trackSty = {}
+      let w, l;
+      if (percent2 > percent1) {
+        w = percent2 - percent1
+        l = percent1
+      } else {
+        w = percent1 - percent2
+        l = percent2
+      }
       if (reverse) {
         trackSty = vertical ? {
-          height: `${percent2 - percent1}%`,
+          height: `${w}%`,
           top: 'auto',
-          bottom: `${percent1}%`
+          bottom: `${l}%`
         } : {
-          width: `${percent2 - percent1}%`,
+          width: `${w}%`,
           left: 'auto',
-          right: `${percent1}%`
+          right: `${l}%`
         }
       } else {
         trackSty = vertical ? {
-          height: `${percent2 - percent1}%`,
-          top: `${percent1}%`
+          height: `${w}%`,
+          top: `${l}%`
         } : {
-          width: `${percent2 - percent1}%`,
-          left: `${percent1}%`
+          width: `${w}%`,
+          left: `${l}%`
         }
       }
       return (included && marks) || !marks ?
@@ -160,7 +172,7 @@ export default {
 
     },
     thumbProps() {
-      let { vertical, disabled, range, step, reverse, max, defaultValue, tooltipVisible, tipFormatter } = this
+      let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter } = this
       return {
         props: {
           vertical, disabled, range, step, reverse,

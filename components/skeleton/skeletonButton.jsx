@@ -39,6 +39,7 @@ export default {
         'k-skeleton-btn-sm': size == 'small',
         [`k-skeleton-btn-${shape}`]: shape != 'default',
       }],
+      style: {}
     }
     let child = this.$slots.default
 
