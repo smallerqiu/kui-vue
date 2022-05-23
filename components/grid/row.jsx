@@ -2,8 +2,8 @@
 export default {
   name: "Row",
   props: {
-    gutter: Number,
-    type: String,
+    gutter: [Number, Array],
+    type: { type: String, default: 'flex' },
     justify: {
       type: String,
       validator: (value) => {
@@ -32,9 +32,15 @@ export default {
 
       }],
       style: {
-        marginLeft: gutter ? gutter / -2 + "px" : null,
-        marginRight: gutter ? gutter / -2 + "px" : null,
+
       }
+    }
+    if (Array.isArray(gutter)) {
+      props.style.gap = gutter + 'px'
+    } else if (!isNaN(Number(gutter))) {
+      props.style.marginLeft = gutter / -2 + "px"
+      props.style.marginRight = gutter / -2 + "px"
+      props.style.gap = gutter + 'px'
     }
     return (<div {...props}>{$slots.default}</div >)
   }

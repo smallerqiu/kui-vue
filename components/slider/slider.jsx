@@ -1,4 +1,5 @@
 import Thumb from './thumb'
+import { times } from '../_tool/number'
 export default {
   props: {
     value: [Array, Number, String],
@@ -8,7 +9,7 @@ export default {
     step: {
       type: Number,
       default: 1,
-      validator: (val) => val > 0
+      validator: (val) => val !== 0
     },
     range: Boolean,
     vertical: Boolean,
@@ -39,6 +40,21 @@ export default {
     }
   },
   methods: {
+    getMinStep(percent) {
+      let { marks, step, min } = this
+      if (!marks) return times(Math.round((percent + min) / step), step)
+      let steps = Object.keys(marks)//, values = []
+      if (step) {
+        steps.push(times(Math.round((percent + min) / step), step))
+      }
+      // steps.forEach(x => {
+      //   values.push(x == 0 ? 0 : times(Math.round((percent + min) / x), x))
+      // })
+
+      let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
+      // console.log(percent, result, steps)
+      return result
+    },
     getValue() {
       let { value = 0, range, min, max } = this, v = value;
       if (!range) {
@@ -61,18 +77,21 @@ export default {
       return v
     },
     click(e) {
-      let { disabled, range, vertical, step, max, defaultValue, reverse } = this
+      let { disabled, range, vertical, step, max, min, defaultValue, reverse } = this
       if (disabled) return;
       let { width, height } = e.target.getBoundingClientRect()
       let { layerX, layerY } = e
 
-      let percent = 0
+      let percent = 0, diff = max - min;
       if (reverse) {
-        percent = vertical ? (((height - layerY) / height) * max) : (((width - layerX) / width) * max);
+        percent = vertical ? (((height - layerY) / height) * diff) : (((width - layerX) / width) * diff);
       } else {
-        percent = vertical ? ((layerY / height) * max) : ((layerX / width) * max);
+        percent = vertical ? ((layerY / height) * diff) : ((layerX / width) * diff);
       }
-      let value = Math.round(percent / step) * step
+      let value = this.getMinStep(percent)
+      // let value = times(Math.round((percent + min) / step), step)
+      // console.log(value, step)
+
       if (range) {
         let [x, y] = defaultValue
         let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y
@@ -83,15 +102,17 @@ export default {
       this.$emit('input', value)
     },
     isActice(a) {
-      let { defaultValue, reverse, max, vertical } = this
+      let { defaultValue, reverse, max, min, vertical } = this
       let active;
       if (this.range) {
         let [x, y] = defaultValue
-        active = x < y ? a >= x && a <= y : a <= x && a >= y
+        active = (a >= x && a <= y)//x < y ? (a >= x && a <= y) : (a <= x && a >= y)
+        console.log(a, active, `${a} >= ${x} && ${a} <= ${y}`)
       } else {
         active = a <= defaultValue
       }
-      let pos = (a / max) * 100 + '%'
+      let diff = max - min
+      let pos = ((a - min) / diff) * 100 + '%'
       let sty = {}
       if (reverse) {
         sty = vertical ?
@@ -113,34 +134,33 @@ export default {
       return <div div class="k-slider-marks" >
         {
           mks.map(v => {
-            let { active, sty } = this.isActice(v);
+            const { active, sty } = this.isActice(v);
             return <div class={['k-slider-mark-symbol', { 'k-slider-mark-symbol-active': active }]} style={sty} />
           })
         }
-        {
+        {/* {
           mks.map((v, i) => {
             let { active, sty } = this.isActice(v);
             return <div class={['k-slider-mark-text', { 'k-slider-mark-text-active': active }]} style={sty}>{txt[i]}</div>
           })
-        }
+        } */}
       </div>
     },
     renderTrack() {
-      let { vertical, max, defaultValue, range, included, marks, reverse } = this
-      let percent1 = 0, percent2 = 0, x1 = 0, x2 = 0;
+      let { vertical, max, min, defaultValue, range, included, marks, reverse } = this
+      let percent1 = 0, percent2 = 0, diff = max - min;
+      let w, l;
 
       if (!range) {
-        // console.log(defaultValue, max)
-        x2 = defaultValue
-        percent2 = (defaultValue / max) * 100
+        percent2 = ((defaultValue - min) / diff) * 100
+
       } else {
         let [x, y] = defaultValue
-        percent1 = (x / max) * 100
-        percent2 = (y / max) * 100
-        x1 = x, x2 = y
+        percent1 = ((x - min) / diff) * 100
+        percent2 = ((y - min) / diff) * 100
       }
       let trackSty = {}
-      let w, l;
+      // console.log(percent1, percent2)
       if (percent2 > percent1) {
         w = percent2 - percent1
         l = percent1
@@ -175,7 +195,7 @@ export default {
       let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter } = this
       return {
         props: {
-          vertical, disabled, range, step, reverse,
+          vertical, disabled, range, step, reverse, min,
           max, tipFormatter, tooltipVisible,
           value: range ? [].concat(defaultValue) : defaultValue * 1
         },

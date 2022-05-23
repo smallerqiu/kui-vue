@@ -1,5 +1,5 @@
 import Tooltip from "../tooltip"
-import { getMaxDigit, toNumber } from '../_tool/number'
+import { times } from '../_tool/number'
 export default {
   props: {
     vertical: Boolean,
@@ -23,19 +23,19 @@ export default {
       showTip: false
     }
   },
-  computed: {
-    rect() {
-      return this.bar.$refs.rail.getBoundingClientRect()
-    }
-  },
   methods: {
     mouseMove(e) {
       if (this.isMouseDown) {
         let { clientX, clientY } = e
-        let { width, height, left, right, top, bottom } = this.rect
+        // let r = e.target.getBoundingClientRect()
+        // console.log(e)
+        // let clientX = r.left + r.width / 2, clientY = r.top + r.height / 2
+        // console.log(clientX, clientY, r)
+
+        let { width, height, left, right, top, bottom } = this.bar.$refs.rail.getBoundingClientRect()
         let { value, range, step, max, min, vertical, reverse, type } = this, v = value;
 
-        let percent = 0;
+        let percent = 0, diff = max - min;
         if (reverse) {
           percent = vertical ? ((height - (clientY - top)) / height) : ((width - (clientX - left)) / width)
         } else {
@@ -44,17 +44,18 @@ export default {
         if (percent >= 1) percent = 1
         else if (percent <= 0) percent = 0
         // this.defaultValue = value
+        // console.log(percent)
         let x = range ? (type == 'right' ? v[1] : v[0]) : v
 
-        let digit = getMaxDigit(step, x)
-        x = (((percent * max) / step) * step).toFixed(digit)
-        x = toNumber(x)
+
+        // x = times(Math.round((percent * diff + min) / step), step)
+        x = this.bar.getMinStep(percent * diff)
 
         if (x >= max) x = max
         else if (x <= min) x = min
 
         v = range ? (type == 'right' ? [v[0], x] : [x, v[1]]) : x
-
+        // console.log(v)
         this.$emit('input', v)
       }
     },
@@ -74,13 +75,13 @@ export default {
       this.isMouseDown = true
       this.showTip = true
       this.index = 2
-      this.mouseMove(e)
+      // this.mouseMove(e)
       document.addEventListener('mousemove', this.mouseMove)
       document.addEventListener('mouseup', this.mouseUp)
     }
   },
   render() {
-    let { vertical, value, index, disabled, max, tipFormatter, range, type, reverse, tooltipVisible } = this
+    let { vertical, value, index, disabled, max, min, tipFormatter, range, type, reverse, tooltipVisible } = this
     const props = {
       class: 'k-slider-thumb',
       style: {
@@ -103,11 +104,11 @@ export default {
         }
       }
     }
-    let percent;
+    let percent, diff = max - min;;
     if (type == 'right') {
-      percent = ((range ? value[1] : value) / max) * 100
+      percent = (((range ? value[1] : value) - min) / diff) * 100
     } else {
-      percent = (value[0] / max) * 100
+      percent = ((value[0] - min) / diff) * 100
     }
     let sty = {}
     if (vertical) {
