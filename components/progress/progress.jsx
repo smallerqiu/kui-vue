@@ -114,7 +114,7 @@ export default {
       let { currentPercent, type, color, strokeHeight } = this
       if (type == 'line') {
         let sty = {
-          widgth: currentPercent + '%',
+          width: currentPercent + '%',
           backgroundColor: color
         }
         if (strokeHeight) {
