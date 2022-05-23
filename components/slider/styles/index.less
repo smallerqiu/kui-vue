@@ -72,10 +72,13 @@
   .k-slider-mark-text {
     position: absolute;
     transform: translateX(-50%);
-    color: var(--kui-color-font);
+    color: var(--kui-color-disable-color);
     z-index: 0;
     line-height: 1;
     margin-top: 18px;
+    &-active {
+      color: var(--kui-color-font);
+    }
   }
 }
 
@@ -110,8 +113,8 @@
   .k-slider-mark-symbol, .k-slider-mark-text {
     transform: translateY(-50%);
   }
-  .k-slider-mark-text{
-    margin:0 0 0 18px;
+  .k-slider-mark-text {
+    margin: 0 0 0 18px;
   }
 }
 

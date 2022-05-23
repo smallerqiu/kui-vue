@@ -1,33 +1,22 @@
 @import '../../styles/var.less';
 .k-row {
-  position: relative;
-  margin-left: 0;
-  margin-right: 0;
-  height: auto;
-  zoom: 1;
-  display: block;
+  display: flex;
   box-sizing: border-box;
-  &:after, &:before {
-    content: "";
-    display: table;
-    box-sizing: border-box;
-  }
-  &:after {
-    clear: both;
-    visibility: hidden;
-    font-size: 0;
-    height: 0;
-  }
+  flex-flow: row wrap;
 }
-
+.k-col{
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+}
 @fix :~'k-col';
 @counts :24;
 .makecol(@index) when(@index>0) {
   .@{fix}-@{index} {
     display: block;
-    float: left;
     box-sizing: border-box;
-    width: percentage((@index / @counts));
+    max-width: percentage((@index / @counts));
+    flex:0 0 percentage((@index / @counts));
   }
   .@{fix}-offset-@{index} {
     margin-left: percentage((@index / @counts));
