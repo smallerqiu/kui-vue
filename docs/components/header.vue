@@ -8,19 +8,39 @@
     </div>
     <Divider type="vertical" />
     <div class="search-component">
-      <Select placeholder="搜索组件..." shape="circle" icon="search" theme="light" :showArrow="false" filterable v-model="key" @change="change" :transfer="false">
-        <Option v-for="(com,index) of components" :key="index" :value="com.name">{{com.title}} {{com.sub}}</Option>
+      <Select placeholder="搜索组件..."
+        shape="circle"
+        icon="search"
+        theme="light"
+        :showArrow="false"
+        filterable
+        v-model="key"
+        @change="change"
+        :transfer="false">
+        <Option v-for="(com,index) of components"
+          :key="index"
+          :value="com.name">{{com.title}} {{com.sub}}</Option>
       </Select>
     </div>
-    <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
+    <Menu mode="horizontal"
+      @click="go"
+      class="top-menu"
+      v-model="topMenu">
       <MenuItem key="home">首页</MenuItem>
       <MenuItem key="/components/all">组件</MenuItem>
     </Menu>
-    <Select size="small" :width="100" style="margin:0 10px" v-model="v" :transfer="false" @change="changeV">
+    <Select size="small"
+      :width="100"
+      style="margin:0 10px"
+      v-model="v"
+      :transfer="false"
+      @change="changeV">
       <Option value="3">{{version}}</Option>
       <Option value="2">2.x</Option>
     </Select>
-    <Dropdown trigger="click" placement="bottom-right" @click="go">
+    <Dropdown trigger="click"
+      placement="bottom-right"
+      @click="go">
       <Button size="small">更多
         <Icon type="chevron-down-outline" />
       </Button>
@@ -31,9 +51,24 @@
         <MenuItem key="https://chuchur.com">Blog</MenuItem>
       </Menu>
     </Dropdown>
-    <ColorPicker size="small" mode="rgba" v-model="themeColor" :showArrow="false" shape="circle" style="margin-left:8px" @change="changeThemeColor" />
-    <Button theme="light" :icon="theme=='dark'?'sunny':'moon'" size="small" shape="circle" @click="changeMode" style="margin-left:8px;" />
-    <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square" style="height:24px;margin-left:10px;" />
+    <ColorPicker size="small"
+      mode="rgba"
+      v-model="themeColor"
+      :showArrow="false"
+      shape="circle"
+      style="margin-left:8px"
+      @change="changeThemeColor" />
+    <Button theme="normal"
+      :icon="theme=='dark'?'sunny':'moon'"
+      shape="circle"
+      @click="changeMode"
+      style="margin:0 8px;" />
+    <!-- <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square"
+      style="height:24px;margin-left:10px;" /> -->
+    <Button @click="gitee"
+      icon="logo-gitee"
+      shape="circle"
+      theme="normal"></Button>
   </Header>
 </template>
 <script>
@@ -70,6 +105,9 @@ export default {
     this.topMenu = path == '/' ? ['home'] : ['/components/all']
   },
   methods: {
+    gitee() {
+      window.open("//gitee.com/chuchur/kui-vue");
+    },
     changeThemeColor(v) {
       let stl = document.querySelector('style[name=kui]')
       if (!stl) {

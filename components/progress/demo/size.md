@@ -6,10 +6,10 @@
 ```vue
 <template>
   Custom:
-  <Progress strokeHeight="10" :percent="50" />
-  <Progress strokeHeight="3" :percent="50" />
-  <Progress strokeWidth="15" type="circle" :width="80" :percent="50" />
-  <Progress strokeWidth="3" type="circle" :width="80" :percent="50" />
+  <Progress :strokeHeight="10" :percent="50" />
+  <Progress :strokeHeight="3" :percent="50" />
+  <Progress :strokeWidth="15" type="circle" :width="80" :percent="50" />
+  <Progress :strokeWidth="3" type="circle" :width="80" :percent="50" />
   <br/>
   Small:
   <div :style="{width:'300px',marginBottom:'30px'}">

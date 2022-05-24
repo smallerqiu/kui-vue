@@ -44,6 +44,7 @@ export default {
       let { marks, step, min } = this
       if (!marks) return times(Math.round((percent + min) / step), step)
       let steps = Object.keys(marks)//, values = []
+      steps = steps.map(x => x * 1 + min)
       if (step) {
         steps.push(times(Math.round((percent + min) / step), step))
       }
@@ -51,20 +52,33 @@ export default {
       //   values.push(x == 0 ? 0 : times(Math.round((percent + min) / x), x))
       // })
 
-      let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
+      let result = steps.reduce((x, y) => Math.abs(x - percent - min) > Math.abs(y - percent - min) ? y : x)
       // console.log(percent, result, steps)
       return result
     },
     getValue() {
-      let { value = 0, range, min, max } = this, v = value;
+      let { value = 0, range, min, max } = this, v;
+      let diff = max - min;
       if (!range) {
+        v = value
         if (value >= max) v = max
         else if (value <= min) v = min
+        // let percent = (v - min) * 100 / diff
+        // v = this.getMinStep(percent)
       } else {
-        if (!Array.isArray(v)) {
+
+        if (!Array.isArray(value)) {
           v = [0, 0]
+        } else {
+          v = [].concat(value)
         }
         let [x, y] = v
+
+        // let p1 = (x - min) * 100 / diff
+        // let p2 = (y - min) * 100 / diff
+        // x = this.getMinStep(p1)
+        // y = this.getMinStep(p2)
+        // console.log(p1 * 100, p2 * 100)
 
         if (x >= max) x = max
         else if (x <= min) x = min
@@ -106,8 +120,8 @@ export default {
       let active;
       if (this.range) {
         let [x, y] = defaultValue
-        active = (a >= x && a <= y)//x < y ? (a >= x && a <= y) : (a <= x && a >= y)
-        console.log(a, active, `${a} >= ${x} && ${a} <= ${y}`)
+        active = x < y ? (a >= x && a <= y) : (a <= x && a >= y)
+        // console.log(a, active, `${a} >= ${x} && ${a} <= ${y}`)
       } else {
         active = a <= defaultValue
       }
@@ -138,12 +152,12 @@ export default {
             return <div class={['k-slider-mark-symbol', { 'k-slider-mark-symbol-active': active }]} style={sty} />
           })
         }
-        {/* {
+        {
           mks.map((v, i) => {
             let { active, sty } = this.isActice(v);
             return <div class={['k-slider-mark-text', { 'k-slider-mark-text-active': active }]} style={sty}>{txt[i]}</div>
           })
-        } */}
+        }
       </div>
     },
     renderTrack() {
