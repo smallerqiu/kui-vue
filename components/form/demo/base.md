@@ -32,7 +32,7 @@
       </Select>
     </FormItem>
     <FormItem label="Slider">
-      <Slider placeholder="slider..."/>
+      <Slider />
     </FormItem>
     <FormItem label="DatePicker">
       <DatePicker  />

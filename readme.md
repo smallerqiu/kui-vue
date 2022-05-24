@@ -18,31 +18,40 @@ A high quality UI components Library with Vue.js
 ![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/k-ui.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
 
 ![](https://k-ui.cn/img/theme.jpg)
+
+English | [简体中文](./README-zh_CN.md)
+
 </div>
 
-## Docs   
-[3.x](https://k-ui.cn) | [2.x](https://v2.k-ui.cn)
 
-## Features
-Dozens of useful and beautiful components.    
-Friendly API. It's made for people with any skill level.    
-Extensive documentation and demos.    
-It is quite beautiful.   
+# Documentation   
+* [Quick Start](https://k-ui.cn/docs/start)
+* [Components Overview](https://k-ui.cn/components/all)
+* [Customizing Themes](https://k-ui.cn/docs/theme)
+* [Dark Mode](https://k-ui.cn/docs/dark-mode)
+* [Icons](https://k-ui.cn/components/icon)
+* [Internationalization](https://k-ui.cn/docs/i18n)
+* [CHANGELOG](https://k-ui.cn/docs/log)
 
 
-## Compatibility
-Supports Vue.js 2.x   
-Supports SSR   
-Supports [Nuxt.js](https://nuxtjs.org/)   
-Supports TypeScript   
-Supports Electron   
-Most components and features support IE9 and above browsers, some   components and features do not support IE
+# Features
+- Up to 50 high-quality Components.
+- Internationalization Support for Dozens of Languages.
+- Supports Vue.js 2.x   
+- Supports SSR   
+- Supports [Nuxt.js](https://nuxtjs.org/)   
+- Supports Electron   
+- Most components and features support IE9 and above browsers, some   components and features do not support IE
 
-## Install
+# Install
 
-Using npm:
+
 ```sh
-npm install kui-vue --save
+#with npm:
+npm install kui-vue
+
+#with yarn:
+npm add kui-vue
 ```
 
 Using a script tag for global use:
@@ -54,7 +63,7 @@ Using a script tag for global use:
 <script src="//unpkg.com/kui-vue/dist/k-ui.js"></script>
 ```
 
-## Usage
+# Usage
 ```html
 <template>
   <div>
@@ -70,20 +79,28 @@ export default{
   },
   methods:{
     test(){
-      this.$Message.info('test')
+      this.$Message.info('Hello kui !')
     }
   }
 }
 </script>
 ```
+# 👌 Platform Support
 
-## Ecosystem Links
+KUI supports all major modern browsers.
+
+|[<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome|[<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox|[<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari|[<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge|[<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron|
+|--|--|--|--|--|
+| latest 2 versions | latest 2 versions | latest 2 versions | Edge | latest 2 versions |
+
+
+# Ecosystem Links
 [KUI for react](https://react.k-ui.cn)    
 
 [KUI for mobile](https://gitee.com/chuchur/kui-vue-mobile)
 
 
-## License
+# License
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2017-present, Chuchur

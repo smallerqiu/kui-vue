@@ -3,11 +3,11 @@
     <div>step=10</div>
     <Slider :step="10"
       :marks="{  10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }"
-      :value="[10, 80]"
+      :value="[15, 77]"
       :max="80"
       :min="10"
       :range="true"></Slider>
-    <br />
+    <!-- <br />
     <br />
     <div>step=0.1</div>
     <Slider :step="0.1"
@@ -43,6 +43,6 @@
     <Slider :marks="{ 20: '20°C', 40: '40°C' }"
       :included="false"
       :value="[0, 100]"
-      :range="true"></Slider>
+      :range="true"></Slider> -->
   </div>
 </template>

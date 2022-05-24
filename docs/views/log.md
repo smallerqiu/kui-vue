@@ -5,9 +5,11 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
-### 3.2.11-rc3
+### 3.2.11-rc5
 Slider 两点不可交叉是个错误的设计， 已经修正
+Slider 修复Step，Min 值等问题
 InputNumber 修复在ios下等宽正则的问题
+Progress 修复bug
 
 ### 3.2.11
 `2022-5-18`

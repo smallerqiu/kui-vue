@@ -21,9 +21,9 @@
       </MenuItem>
     </Menu>
   </Dropdown>
-  <Dropdown show-placement-arrow trigger="click" placement="bottom">
-    <Button theme="light">
-      下拉箭头 <Icon type="chevron-down" />
+  <Dropdown show-placement-arrow trigger="normal" placement="bottom" v-model="show">
+    <Button theme="light" @click="show=!show">
+      Toggle <Icon type="chevron-down" />
     </Button>
     <Menu slot="content">
       <MenuItem>
@@ -55,5 +55,13 @@
     </Menu>
   </Dropdown>
 </template>
-
+<script>
+export default{
+  data(){
+    return {
+      show:false
+    }
+  }
+}
+</script>
 ```
