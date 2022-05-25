@@ -36,11 +36,25 @@ export default {
       }
     }
     if (Array.isArray(gutter)) {
-      props.style.gap = gutter + 'px'
-    } else if (!isNaN(Number(gutter))) {
-      props.style.marginLeft = gutter / -2 + "px"
-      props.style.marginRight = gutter / -2 + "px"
-      props.style.gap = gutter + 'px'
+      let [v = 0, h = 0] = gutter;
+      if ((v == h && v > 0)) {
+        props.style.margin = `-${v/2}px`
+      } else if (v > 0 && h > 0) {
+        props.style.margin = `-${h/2}px -${v/2}px`
+      } else {
+        if (v > 0) {
+          props.style.marginLeft = `-${v/2}px`
+          props.style.marginRight = `-${v/2}px`
+        }
+        if (h > 0) {
+          props.style.marginTop = `-${v/2}px`
+          props.style.marginTop = `-${v/2}px`
+        }
+      }
+
+    } else if (!isNaN(Number(gutter)) && gutter > 0) {
+      props.style.marginLeft = `-${gutter / 2}px`
+      props.style.marginRight = `-${gutter / 2}px`
     }
     return (<div {...props}>{$slots.default}</div >)
   }
