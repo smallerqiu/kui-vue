@@ -44,17 +44,15 @@ export default {
       let { marks, step, min } = this
       if (!marks) return times(Math.round((percent + min) / step), step)
       let steps = Object.keys(marks)//, values = []
-      steps = steps.map(x => x * 1 + min)
+      steps = steps.map(x => x - min)
       if (step) {
-        steps.push(times(Math.round((percent + min) / step), step))
+        steps.push(times(Math.round((percent) / step), step))
       }
-      // steps.forEach(x => {
-      //   values.push(x == 0 ? 0 : times(Math.round((percent + min) / x), x))
-      // })
 
-      let result = steps.reduce((x, y) => Math.abs(x - percent - min) > Math.abs(y - percent - min) ? y : x)
+      let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
+      // let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
       // console.log(percent, result, steps)
-      return result
+      return result + min
     },
     getValue() {
       let { value = 0, range, min, max } = this, v;
