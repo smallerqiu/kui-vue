@@ -66,9 +66,11 @@
 		left: 10px;
 		background: #000;
 		border-radius: 50%;
-		display: block;
 		height: 36px;
 		width: 36px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		text-align: center;
 		line-height: 36px;
 		opacity: 0;
@@ -80,7 +82,11 @@
 			opacity: .5;
 		}
 	}
+	.k-carousel-arrow-left {
+		transform: rotate(-90deg);
+	}
 	.k-carousel-arrow-right {
+		transform: rotate(90deg);
 		left: auto;
 		right: 10px;
 	}

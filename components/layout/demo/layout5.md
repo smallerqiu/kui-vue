@@ -16,8 +16,8 @@
           </transition>
         </div>
         <Menu mode="inline" v-model="left" :inline-collapsed="collapsed" style="border:none;">
-          <MenuItem key="1-1" icon="home-outline"><span>首页</span></MenuItem>
-          <MenuItem key="1-2" icon="bar-chart"><span>数据统计</span></MenuItem>
+          <MenuItem key="1-1" icon="home"><span>首页</span></MenuItem>
+          <MenuItem key="1-2" icon="stats-chart"><span>数据统计</span></MenuItem>
           <MenuItem key="1-3" icon="settings"><span>能源管理</span></MenuItem>
         </Menu>
         <Button theme="light" :icon="!collapsed?'chevron-back':'chevron-forward'" @click="toggle" class="btn-expand"/>
@@ -29,7 +29,6 @@
             <Space :size="20">
               <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
               <Button icon="notifications-outline" theme="normal"/>
-              <Button icon="ellipsis-horizontal-circle-outline" theme="normal"/>
               <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
             </Space>
           </Col>

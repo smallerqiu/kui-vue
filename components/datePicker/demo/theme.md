@@ -11,9 +11,9 @@ theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义
     <br/>
     <DatePicker theme="light" :shape="shape?'circle':''"/>
     <br/>
-    <DatePicker theme="light" :shape="shape?'circle':''" dateIcon="calendar-number-outline"/>
+    <DatePicker theme="light" :shape="shape?'circle':''" dateIcon="arrow-down"/>
     <br/>
-    <DatePicker theme="light" :shape="shape?'circle':''" dateIcon="caret-down-outline"/>
+    <DatePicker theme="light" :shape="shape?'circle':''" dateIcon="caret-down"/>
     <br/>
     <DatePicker theme="light" :shape="shape?'circle':''" :dateIcon="null" placeholder="没有icon"/>
     <br/>

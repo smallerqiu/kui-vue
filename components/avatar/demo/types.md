@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div>
-    <Avatar icon="person-outline" />
+    <Avatar icon="heart-outline" />
     <Avatar>
-      <Icon type="person-outline" />
+      <Icon type="heart-outline" />
     </Avatar>
     <Avatar>U</Avatar>
     <Avatar>USER</Avatar>
@@ -16,7 +16,11 @@
     <Avatar style="color: #f51212; background-color: #ffc57d">
       U
     </Avatar>
-    <Avatar style="background-color:#d06868" icon="person-outline" />
+    <Avatar style="background-color:#d06868" icon="heart-outline" />
+    <br/>
+    <br/>
+    <Avatar src="https://chuchur.com/img/chick.jpeg" :size="50"/>
+    <Avatar src="https://chuchur.com/img/monkey.jpeg" shape="square"/>
   </div>
 </template>
 

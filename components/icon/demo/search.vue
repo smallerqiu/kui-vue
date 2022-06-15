@@ -93,17 +93,25 @@ import icons from 'kui-icons'
 
 const iconKeys = Object.keys(icons);
 let logos = iconKeys.filter(x => /logo-/.test(x)),
-  outlines = iconKeys.filter(x => /-outline/.test(x)),
-  filleds = outlines.map(x => x.replace('-outline', ''));
+  outlines = iconKeys.filter(x => {
+    let flag = false;
+    if (/-outline/.test(x)) {
+      flag = true
+    } else {
+      flag = iconKeys.filter(y => y == x + '-outline').length <= 0 && !/logo-/.test(x)
+    }
+    if (flag) return x;
+  }),
+  filleds = iconKeys.filter(x => !/logo-/.test(x) && !/-outline/.test(x));
 
 export default {
   data() {
     return {
       // sprite,
       key: '',
-      type: 'outline',
+      type: 'filled',
       logo: logos,
-      showIcons: outlines
+      showIcons: filleds
     }
   },
   methods: {
@@ -120,7 +128,7 @@ export default {
       let origin = type == 'outline' ? outlines : filleds;
       if (key) {
         showIcons = origin.filter(x => {
-          return x.indexOf(key) >= 0
+          return x.replace('-outline', '').indexOf(key) >= 0
         })
         logo = logos.filter(x => {
           return x.indexOf(key) >= 0

@@ -13,8 +13,8 @@
           KUI运营后台
         </div>
         <Menu mode="inline" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="home-outline">首页</MenuItem>
-          <MenuItem key="t2" icon="bar-chart">数据统计</MenuItem>
+          <MenuItem key="t1" icon="home">首页</MenuItem>
+          <MenuItem key="t2" icon="stats-chart">数据统计</MenuItem>
           <MenuItem key="t3" icon="settings">能源管理</MenuItem>
         </Menu>
       </Sider>

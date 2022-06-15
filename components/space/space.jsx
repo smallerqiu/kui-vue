@@ -1,4 +1,4 @@
-import { getChild } from '../_tool/utils'
+// import { getChild } from '../_tool/utils'
 export default {
   name: 'Space',
   props: {
@@ -25,7 +25,7 @@ export default {
       class: ['k-space', {
         [`k-space-vertical`]: vertical,
         [`k-space-lg`]: size == 'large',
-        [`k-space-md`]: size == 'middle ',
+        [`k-space-md`]: size == 'middle',
         [`k-space-wrap`]: wrap,
         [`k-space-align-${align}`]: align,
       }]

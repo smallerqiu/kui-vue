@@ -34,6 +34,9 @@
 		font-size: 16px;
 		color: var(--kui-color-icon);
 	}
+	.k-icon-default {
+		transform: rotate(180deg);
+	}
 }
 
 .k-color-picker-disabled {
@@ -154,11 +157,16 @@
 		position: relative;
 		margin-left: 16px;
 		margin-top: 16px;
-		.k-btn {
+		.k-icon-default {
 			position: absolute;
 			z-index: 1;
 			right: 10px;
 			top: 10px;
+			font-size: 20px;
+			cursor: pointer;
+			&:hover {
+				color: @main;
+			}
 		}
 		.k-input {
 			text-align: center;
@@ -214,6 +222,8 @@
 			position: absolute;
 			top: 14px;
 			right: 10px;
+			width: 32px;
+			padding: 0;
 		}
 	}
 }

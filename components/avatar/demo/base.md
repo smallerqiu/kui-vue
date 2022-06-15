@@ -7,17 +7,17 @@
 <template>
    <div>
     <div>
-      <Avatar :size="64" icon="person-outline" />
-      <Avatar size="large" icon="person-outline" />
-      <Avatar icon="person-outline" />
-      <Avatar size="small" icon="person-outline" />
+      <Avatar :size="64">U</Avatar>
+      <Avatar size="large">U</Avatar>
+      <Avatar>U</Avatar>
+      <Avatar size="small">U</Avatar>
     </div>
     <br />
     <div>
-      <Avatar shape="square" :size="64" icon="person-outline" />
-      <Avatar shape="square" size="large" icon="person-outline" />
-      <Avatar shape="square" icon="person-outline" />
-      <Avatar shape="square" size="small" icon="person-outline" />
+      <Avatar shape="square" :size="64">U</Avatar>
+      <Avatar shape="square" size="large">U</Avatar>
+      <Avatar shape="square">U</Avatar>
+      <Avatar shape="square" size="small">U</Avatar>
     </div>
   </div>
 </template>
