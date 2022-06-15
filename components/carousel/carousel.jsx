@@ -119,10 +119,10 @@ export default {
 			}
 		}
 		const arrowLeft = <span class="k-carousel-arrow-left" onClick={e => change('left')}>
-			<Icon type="chevron-back" />
+			<Icon type="chevron-up" />
 		</span>
 		const arrowRight = <span class="k-carousel-arrow-right" onClick={e => change('right')}>
-			<Icon type="chevron-forward" />
+			<Icon type="chevron-up" />
 		</span>
 		const props = {
 			class: classes,

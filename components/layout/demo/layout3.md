@@ -27,7 +27,6 @@
             <Space :size="30">
               <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
               <Button icon="notifications-outline" theme="normal"/>
-              <Button icon="ellipsis-horizontal-circle-outline" theme="normal"/>
               <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
             </Space>
           </Col>

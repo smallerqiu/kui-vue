@@ -1,13 +1,13 @@
 import baseNav from "../menu";
 import { Col, Row } from '../../components/grid'
 import Card from '../../components/card'
-import Icon from '../../components/icon'
+import Control from '../components/control'
 export default {
   methods: {
     renders(child) {
       let span = [], rows = [];
       child.forEach((item, i) => {
-        let card = <Col span={6} ><a href={"/components/" + item.name}><Card bordered title={item.sub + ' ' + item.title} ><Icon class="icon-view" type={item.icon} /></Card></a></Col>
+        let card = <Col span={6} ><a href={"/components/" + item.name}><Card bordered title={item.sub + ' ' + item.title} ><Control class="icon-view" name={item.icon} /></Card></a></Col>
         span.push(card)
       })
       if (span.length < 4) {

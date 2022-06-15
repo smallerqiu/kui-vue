@@ -11,7 +11,7 @@
       <ColorPicker showMode v-model="color1" :showArrow="false"/>
     </FormItem>
     <FormItem label="自定义下拉箭头">
-      <ColorPicker showMode v-model="color2" mode="rgba" icon="caret-down-outline"/>
+      <ColorPicker showMode v-model="color2" mode="rgba" icon="caret-down"/>
     </FormItem>
     <FormItem label="圆形">
       <ColorPicker showMode v-model="color3"  mode="hsla" shape="circle" :showArrow="false"/>

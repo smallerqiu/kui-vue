@@ -57,7 +57,7 @@ export default {
     }]
 
 
-    let inner = checked ? <Icon type="checkmark-outline" strokeWidth={60} /> : null
+    let inner = checked ? <Icon type="checkmark" strokeWidth={60} /> : null
     const labelNode = label || $slots.default
     return (
       <label class={wpclasses} onClick={e => e.stopPropagation()}>

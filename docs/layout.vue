@@ -5,8 +5,8 @@
       <Sider class="docs-k-layout-sider">
         <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="openkeys">
           <SubMenu :title="item.title" v-for="item in baseNav" :name="item.title" :key="item.key">
-            <MenuItem v-for="sub in item.child" :icon="sub.icon" :key="sub.name">
-
+            <MenuItem v-for="sub in item.child" :key="sub.name">
+            <Control :name="sub.icon" slot="icon"/>
             <Badge dot v-if="sub.update">
               <span>{{sub.sub}}</span>
               <span class="sub">{{sub.title}}</span>
@@ -43,10 +43,11 @@
 
 <script>
 import Header from "./components/header";
+import Control from './components/control'
 import baseNav from "./menu";
 export default {
   components: {
-    Header,
+    Header,Control,
   },
   data() {
     return {

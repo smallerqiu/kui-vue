@@ -51,7 +51,7 @@ export default {
     return (
       <div class={classes}>
         <div class="k-collapse-header" onClick={this.handelClick}>
-          <Icon type="chevron-forward" class="k-collapse-arrow" />
+          <Icon type="chevron-up" class="k-collapse-arrow" />
           <span class="k-collapse-title">{this.title}</span>
           {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>

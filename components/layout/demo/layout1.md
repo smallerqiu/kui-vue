@@ -20,7 +20,7 @@
           </Col>
           <Col>
             <Tooltip title="全屏显示" placement="bottom">
-              <Button icon="scan-outline" theme="normal"/>
+              <Button icon="scan" theme="normal"/>
             </Tooltip>
             <Button type="link">帮助文档</Button>
             <Button icon="notifications-outline" theme="normal"/>
@@ -31,7 +31,7 @@
        <Layout>
          <Sider class="demo-back">
            <Menu :value="['t1']" class="demo-left-menu" mode="inline" style="padding-top:20px;">
-            <MenuItem key="t1" icon="home-outline">首页</MenuItem>
+            <MenuItem key="t1" icon="home">首页</MenuItem>
             <MenuItem key="t2" icon="bar-chart">数据统计</MenuItem>
             <MenuItem key="t3" icon="settings">能源管理</MenuItem>
           </Menu>

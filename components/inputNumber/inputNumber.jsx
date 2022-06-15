@@ -41,7 +41,10 @@ export default {
         v = parser(v + '')
       }
       if (v !== undefined && v !== '' && v !== null) {
+        v = (v + '').replace(/[^0-9.-]/g, '')
         if (isNaN(Number(v))) {
+          v = ''
+          // console.log(v)
           // ios not supper,可惜了
           // v = (v + '').replace(/^([^-]+)(?=-\S*)/, '') // 移除第一个负号之前的所有字符
           //   .replace(/(?<!^)-/g, '')         // 移除第一个负号之外的所有负号
@@ -49,7 +52,7 @@ export default {
           // .replace(/(?<!^[\d-]+)\./g, '')   // 移除第一个小数点之外的所有句点
           // .replace(/^0*(-?\d+)(\.(\d{1,2}))?\S*?$/, '$1$2') // 保留两位小数
           // console.log(v)
-          v = (v + '').replace(/(?!-).*?(([0-9]*\.)?[0-9]+).*/g, "$1")
+          // v = (v + '').replace(/(?!-).*?(([0-9]*\.)?[0-9]+).*/g, "$1")
         }
         if (v === '') return ''
         v = toNumber(v + '')
@@ -116,7 +119,7 @@ export default {
     },
     blurHandle(e) {
       let v = this.getVal(e.target.value)
-      // console.log(v)
+      // console.log(e.target.value)
       this.defaultValue = v + ''
       // console.log('blur1', v)
 

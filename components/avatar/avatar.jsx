@@ -1,5 +1,5 @@
 import Icon from '../icon'
-import { getChild, isVnode } from '../_tool/utils'
+import { getChild } from '../_tool/utils'
 export default {
   props: {
     icon: String,
@@ -50,7 +50,14 @@ export default {
       'k-avatar-icon': icon || hasIcon,
       'k-avatar-square': shape == 'square'
     }]
-    return <div class={cls} style={styles} >
+    let props = {
+      class: cls,
+      style: styles,
+      on: {
+        click: e => this.$emit('click', e)
+      }
+    }
+    return <div {...props} >
       {
         icon ?
           <Icon type={icon} /> :

@@ -20,6 +20,7 @@ export default {
     };
   },
   methods: {
+
   },
 
   mounted() {
@@ -79,7 +80,7 @@ export default {
     return (
       <Tooltip placement="right">
         <li {...props}>
-          {icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : <span class={`k-${preCls}-icon-temp`}/>}
+          {this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : <span class={`k-${preCls}-icon-temp`} />}
           {titleNode}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}

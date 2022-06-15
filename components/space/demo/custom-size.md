@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Slider v-model="size" max="50"/>
+    <Slider v-model="size" :max="50"/>
     <br/>
     <br/>
     <Space :size="size">
@@ -25,11 +25,6 @@ export default {
       size: 12,
     };
   },
-  methods:{
-    change(e){
-      this.size =e.target.value*1
-    }
-  }
 };
 </script>
 ```
