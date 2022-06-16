@@ -32,7 +32,7 @@
          <Sider class="demo-back">
            <Menu :value="['t1']" class="demo-left-menu" mode="inline" style="padding-top:20px;">
             <MenuItem key="t1" icon="home">首页</MenuItem>
-            <MenuItem key="t2" icon="bar-chart">数据统计</MenuItem>
+            <MenuItem key="t2" icon="stats-chart">数据统计</MenuItem>
             <MenuItem key="t3" icon="settings">能源管理</MenuItem>
           </Menu>
          </Sider>

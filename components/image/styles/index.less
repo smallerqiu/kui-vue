@@ -94,7 +94,7 @@
         border-radius: 50%;
         &:hover {
           background-color: var(--kui-color-mask-30);
-          color:#666;
+          color: #666;
         }
       }
       .k-image-preview-action-divider {
@@ -136,14 +136,16 @@
       cursor: pointer;
       &:hover {
         background-color: var(--kui-color-main);
-        color:#fff;
+        color: #fff;
       }
     }
     .k-image-preview-switch-left {
       left: 10px;
+      transform: rotate(-90deg);
     }
     .k-image-preview-switch-right {
       right: 10px;
+      transform: rotate(90deg);
     }
     .k-image-preview-switch-disabled {
       cursor: not-allowed;
@@ -222,6 +224,9 @@
       padding: 15px 0;
       color: #fff;
       cursor: pointer;
+      .k-icon {
+        transform: rotate(90deg);
+      }
     }
   }
   .k-image-preview-panel-hidden {

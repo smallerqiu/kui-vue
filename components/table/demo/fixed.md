@@ -7,7 +7,10 @@
 ```vue
 <template>
   <Table :data="data" :columns="columns" :width="1900" :height="300">
-      <a slot="action">action</a>
+      <a slot="action1">action1</a>
+      <a slot="action2">action2</a>
+      <a slot="action3">action3</a>
+      <a slot="action4">action4</a>
   </Table>
 </template>
 <script>
@@ -21,10 +24,15 @@ export default{
     return{
       data,
       columns:[
-        {title:'Name', key:'name', width:100 , fixed:'left' },
-        {title:'Age', key:'age' , width:100 , fixed:'left' },
+        {title:'Name', key:'name', width:110 , fixed:'left' },
+        // {title:'Name', key:'name', width:120 , fixed:'left' },
+        // {title:'Name', key:'name', width:130 , fixed:'left' },
+        // {title:'Age', key:'age' , width:140 , fixed:'left' },
         ...columns,
-        {title:'Action', key:'action', width:100 , fixed:'right' },
+        {title:'Action1', key:'action1', width:110 , fixed:'right' },
+        // {title:'Action2', key:'action2', width:120 , fixed:'right' },
+        // {title:'Action3', key:'action3', width:130 , fixed:'right' },
+        // {title:'Action4', key:'action4', width:140 , fixed:'right' },
       ]
     }
   }

@@ -10,7 +10,7 @@
     <Button @click="select=''" size="small">Clear</Button>
     <Button @click="select=1" size="small">Choose orange</Button>
     <br />
-    <Select :width="200" icon="location-outline" arrow-icon="chevron-down-circle-outline">
+    <Select :width="200" icon="location" arrow-icon="chevron-down-circle-outline">
       <Option :value="1" label="Apple" />
       <Option :value="2" label="Orange" />
       <Option :value="3" label="Banana" disabled/>

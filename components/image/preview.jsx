@@ -235,7 +235,7 @@ export default {
       let panel = getChild(this.$slots.panel)
       if (panel.length) {
         return <div class={["k-image-preview-panel", { 'k-image-preview-panel-hidden': !this.isShowPanel }]} ref="panelRef">
-          <span class="k-image-preview-panel-action" onClick={() => this.togglePanel()}><Icon type="chevron-forward-outline" /></span>
+          <span class="k-image-preview-panel-action" onClick={() => this.togglePanel()}><Icon type="chevron-up" /></span>
           {panel}
         </div>
       }
@@ -280,17 +280,17 @@ export default {
                   return <li class="k-image-preview-action">{tool}</li>
                 })
               }
-              <li class="k-image-preview-action" onClick={this.download}><Icon type="arrow-down-outline" /></li>
+              <li class="k-image-preview-action" onClick={this.download}><Icon type="arrow-down" /></li>
               <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale >= 5 }]} onClick={() => this.setScale(1)}><Icon type="add-circle-outline" /></li>
               <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale <= 1 }]} onClick={() => this.setScale(0)}><Icon type="remove-circle-outline" /></li>
               <li
                 class="k-image-preview-action k-image-preview-action-rotate-right"
                 onClick={() => this.setRotate(0)}
-              ><Icon type="refresh-outline" /></li>
+              ><Icon type="refresh" /></li>
               <li
                 class="k-image-preview-action k-image-preview-action-rotate-left"
                 onClick={() => this.setRotate(1)}
-              ><Icon type="refresh-outline" /></li>
+              ><Icon type="refresh" /></li>
             </ul>
             <div class="k-image-preview-img-wrap" style={moveStyle}>
               {type == 'media' ?
@@ -302,9 +302,9 @@ export default {
             </div>
             {showSwitch ?
               [<div class={["k-image-preview-switch-left", { 'k-image-preview-switch-disabled': data.indexOf(src) == 0 }]}
-                onClick={() => this.switchImage(1)}><Icon type="chevron-back-outline" /></div>,
+                onClick={() => this.switchImage(1)}><Icon type="chevron-up" /></div>,
               <div class={["k-image-preview-switch-right", { 'k-image-preview-switch-disabled': data.indexOf(src) == (data.length - 1) }]}
-                onClick={() => this.switchImage()}><Icon type="chevron-forward-outline" /></div>]
+                onClick={() => this.switchImage()}><Icon type="chevron-up" /></div>]
               : null}
             {loading ? <div class="k-image-preview-loading"><Icon type="sync" spin /></div> : null}
           </div>

@@ -31,7 +31,7 @@ export default {
     emptyText: String,
     icon: String,
     shape: String,
-    arrowIcon: { type: String, default: 'chevron-down' },
+    arrowIcon: { type: String, default: 'chevron-up' },
   },
   provide() {
     return {

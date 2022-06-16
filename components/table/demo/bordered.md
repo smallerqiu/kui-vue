@@ -32,7 +32,7 @@ export default {
       ],
       columns: [
         { title: 'Name', key: 'fullname' },
-        { title: 'House price', key: 'price', className: 'test-table-cell' },
+        { title: 'Housing price', key: 'price', className: 'test-table-cell' },
         { title: 'Address', key: 'address' },
       ]
     }

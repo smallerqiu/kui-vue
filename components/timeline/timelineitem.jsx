@@ -10,8 +10,7 @@ export default {
   render() {
     let { icon, color, time } = this
     const styles = { color }
-    const type = icon ? icon : "ellipse";
-    const iconNode = this.$slots.dot || <Icon type={type} />
+    const iconNode = this.$slots.dot || (icon ? <Icon type={icon} /> : <span class="k-time-line-head"></span>)
     const iconCls = ['k-time-line-dot']
     let extra = this.extra || this.$slots.extra
     return (

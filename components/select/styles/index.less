@@ -169,6 +169,9 @@
     transition: transform .3s ease-in-out;
     transition: all .25s ease-in-out;
     color: var(--kui-color-icon);
+    #chevron-up {
+      transform: rotate(180deg);
+    }
   }
   &-clearable {
     position: absolute;
@@ -312,20 +315,6 @@
     color: var(--kui-color-disable-color);
     cursor: not-allowed;
   }
-  // &:hover{
-  //     overflow: auto;
-  // }
-  // &::-webkit-scrollbar {
-  // width: 8px;
-  // height: 8px;
-  // border-left: 1px solid var(--kui-color-border);
-  // padding: 0 2px;
-  // background: rgba(211, 211, 211, 0.568);
-  // }
-  // &::-webkit-scrollbar-thumb {
-  // background: #ddd;
-  // border-radius: 3px;
-  // }
 }
 
 .k-select-dropdown-multiple {
@@ -391,7 +380,7 @@
     color: var(--kui-color-font);
   }
   &.k-select-has-icon {
-    .k-select-selection > .k-select-search-wrap{
+    .k-select-selection > .k-select-search-wrap {
       left: 14px;
     }
     .k-select-placeholder {

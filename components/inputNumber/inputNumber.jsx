@@ -166,7 +166,7 @@ export default {
         {suffixNode}
         {controls ? <div class="k-input-number-controls">
           <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type="chevron-up" /></span>
-          <span class="k-input-number-control" onClick={this.setVal}><Icon type="chevron-down" /></span>
+          <span class="k-input-number-control" onClick={this.setVal}><Icon type="chevron-up" /></span>
         </div> : null}
       </template>
     </BaseInput>

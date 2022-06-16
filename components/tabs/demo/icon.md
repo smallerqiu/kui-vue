@@ -9,7 +9,7 @@
     <TabPane key="1" title="Tab 1" icon="logo-apple">
       Content of Tab Pane 1
     </TabPane>
-    <TabPane key="2" title="Tab 2" icon="logo-windows">
+    <TabPane key="2" title="Tab 2" icon="logo-microsoft">
       Content of Tab Pane 2
     </TabPane>
   </Tabs>

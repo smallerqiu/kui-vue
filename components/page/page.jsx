@@ -213,8 +213,8 @@ export default {
   },
   render() {
     const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
-      preNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="chevron-back" /></li>,
-      nextNode = <li class={['k-pager-item', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="chevron-forward" /></li>,
+      preNode = <li class={['k-pager-item k-pager-prev', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="chevron-up" /></li>,
+      nextNode = <li class={['k-pager-item k-pager-next', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="chevron-up" /></li>,
       totalNode = (this.showTotal ? <div class="k-page-number"><span>{t('k.page.total')} {this.total} {t('k.page.items')}</span></div> : null),
       pagerNode = this.renderPage(),
       sizeNode = this.renderSize(),

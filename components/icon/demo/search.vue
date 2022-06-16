@@ -27,28 +27,32 @@
           <h3><span>App icons</span></h3>
         </div>
         <br />
-        <div class="icon-item">
+        <div class="icon-list">
           <span @click.stop="copy(x)"
             v-for="(x,y) in showIcons"
-            :key="y">
+            :key="y"
+            class="icon-item">
             <Icon :type="x" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
+            <span class="item-text">{{x}}</span>
           </span>
         </div>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
-        <div class="icon-item">
+        <div class="icon-list">
           <span @click.stop="copy(x)"
             v-for="(x,y) in logo"
-            :key="y">
+            :key="y"
+            class="icon-item">
             <Icon :type="x" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
+            <span class="item-text">{{x}}</span>
           </span>
         </div>
       </template>
@@ -61,17 +65,18 @@
 
 </template>
 <style lang="less">
-.icon-item {
+.icon-list {
   // overflow: hidden;
   display: inline-block;
-  span {
+  .icon-item {
     text-align: center;
-    width: 80px;
+    width: 200px;
     height: 80px;
     line-height: 80px;
     color: var(--kui-color-font);
     // float: left;
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 32px;
@@ -82,6 +87,10 @@
       // background: #f5f5f5;
       box-shadow: 0 0 15px #ddd;
     }
+  }
+  .item-text {
+    font-size: 12px;
+    line-height: 1;
   }
 }
 </style>

@@ -10,7 +10,7 @@
       <Tag v-for="tag in value" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
     <template v-slot:gender="value">
-      <Icon :type="value==1?'male':'female'" :color="value==1?'blue':'#f50cff'" size="15" />
+      <Icon :type="value==1?'sunny':'moon'" :color="value==1?'blue':'#f50cff'" size="15" />
     </template>
     <template v-slot:action="value,record,col">
       <Button size="small" @click.stop="e=>show(record)">more</Button>

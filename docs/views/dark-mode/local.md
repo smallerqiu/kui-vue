@@ -66,7 +66,7 @@ monitor.addListener(matchMode);
         </div>
         <Menu mode="inline" v-model="left" :inline-collapsed="collapsed" style="border:none;">
           <MenuItem key="1-1" icon="home-outline"><span>首页</span></MenuItem>
-          <MenuItem key="1-2" icon="bar-chart"><span>数据统计</span></MenuItem>
+          <MenuItem key="1-2" icon="stats-chart"><span>数据统计</span></MenuItem>
           <MenuItem key="1-3" icon="settings"><span>能源管理</span></MenuItem>
         </Menu>
         <Button theme="light" :icon="!collapsed?'chevron-back':'chevron-forward'" @click="toggle" class="btn-expand"/>
@@ -91,7 +91,7 @@ monitor.addListener(matchMode);
         <div class="demo-dark" :theme-mode="dark?'dark':'light'">
             <Menu mode="horizontal" v-model="current">
             <MenuItem key="1" icon="mail">Navigation One</MenuItem>
-            <MenuItem key="2" icon="bar-chart" disabled>Navigation Two</MenuItem>
+            <MenuItem key="2" icon="stats-chart" disabled>Navigation Two</MenuItem>
             <MenuItem key="4">
             <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
             </MenuItem>
