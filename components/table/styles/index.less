@@ -22,18 +22,6 @@
     left: 0;
     top: 0;
   }
-  &-fixed-main-body {
-    // &::-webkit-scrollbar, &::-webkit-scrollbar-corner {
-      // opacity: .9;
-  //     background-color: var(--kui-color-gray-90)
-  //   }
-  //   &::-webkit-scrollbar-thumb {
-  //     background-color: var(--kui-color-gray-80)
-  //   }
-  //   &::-webkit-scrollbar-button {
-  //     // background-color: transparent;
-    // }
-  }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -141,6 +129,9 @@
       }
     }
   }
+  &-thead{
+    overflow: hidden;
+  }
   &-header {
     padding: 10px;
     border-top: 1px solid var(--kui-color-table-border);
@@ -162,39 +153,8 @@
       table-layout: fixed;
     }
   }
-  &-fixed-main-thead {
-    overflow: hidden;
-    // &::-webkit-scrollbar {
-    //   height: 0;
-    //   width: 0;
-    // }
-  }
-  &-fixed-header {
+  &-header {
     word-break: break-all;
-  }
-  &-fixed-left, &-fixed-right {
-    position: absolute;
-    top: 0;
-    overflow: hidden;
-  }
-  &-fixed-right {
-    right: 0;
-    .k-table-fixed-right-body {
-      overflow-x: hidden;
-      overflow-y: scroll;
-    }
-    table {
-      width: auto; //针对  table-layout: fixed;
-    }
-  }
-  &-fixed-left {
-    left: 0;
-    .k-table-fixed-left-body {
-      overflow: hidden;
-    }
-    table {
-      width: auto; //针对  table-layout: fixed;
-    }
   }
   .k-table-cell-fixed-left-last, .k-table-cell-fixed-right-first {
     &::after {
@@ -239,14 +199,6 @@
       th, td {
         padding: 16px;
       }
-    }
-  }
-  .k-table {
-    margin: -10px;
-    width: auto;
-    &:after {
-      content: '';
-      display: table;
     }
   }
   &-bordered {
