@@ -170,7 +170,6 @@ export default {
 
     let mainProps = {
       props: {
-        mode: 'main',
         columns: columns,
         columns2: _columns,
         body: tbody,
@@ -258,12 +257,6 @@ export default {
 
       this.$emit('on-change', keys, checkData, e)
       this.checkAll = checked
-    },
-    fixedScroll({ target }) {
-      let { mainTable } = this.$refs
-      if (this.scrollFocus == 'fixed-right') {
-        mainTable.$refs.body && mainTable.$refs.body.scrollTo(mainTable.$refs.body.scrollLeft, target.scrollTop)
-      }
     },
     scroll({ target }) {
       let { mainTable } = this.$refs

@@ -5,7 +5,6 @@ import Icon from '../icon'
 export default {
   name: 'ExtendTable',
   props: {
-    mode: String,
     body: Array,
     columns: Array,
     columns2: Array,
@@ -108,9 +107,8 @@ export default {
       </span>) : null
     },
     renderTH(col, left, right) {
-      const hasInner = ((this.mode == 'main' && !col.fixed) || (col.fixed && this.mode != 'main')) //分裂模式不渲染子集
-      let hasCheckbox = col.type == 'selection' && hasInner
-      const hasSort = col.sorter && hasInner
+      let hasCheckbox = col.type == 'selection' 
+      const hasSort = col.sorter 
       let props = {
         class: {
           'k-table-cell-ellipsis': col.ellipsis,
@@ -168,21 +166,21 @@ export default {
         cols = this.columns
       }
       let head = [], ths = [], hasFR = false, left = 0,
-        right = cols.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0) + (this.height ? 17 : 0)
+        right = cols.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0) + (this.height ? this.scrollBarHeight : 0)
 
       cols.forEach((col, i) => {
         if (Array.isArray(col)) {
-          let ths = []
-          col.forEach((co, j) => {
+          let ths = [], r = col.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0) + (this.height ? this.scrollBarHeight : 0)
 
+          col.forEach((co, j) => {
             if (co.fixed == 'left' && j > 0) {
               left += col[j - 1].width
             }
             if (co.fixed == 'right' && i < col.length) {
-              right -= co.width
+              r -= co.width
             }
 
-            let th = this.renderTH(co, left, right)
+            let th = this.renderTH(co, left, r)
             ths.push(th)
           })
           if (i == 0 && this.width) {
@@ -223,9 +221,7 @@ export default {
     },
     renderTable(hasHead, body) {
       let props = {}
-      if (this.mode == 'main') {
         props.style = { width: `${this.width}px` }
-      }
       return (
         <table {...props}>
           {this.renderCol(hasHead)}
@@ -239,14 +235,13 @@ export default {
     }
   },
   render() {
-    let { height, width, mode, body, $listeners, scrollBarHeight } = this
-    const isMain = mode == 'main'
+    let { height, width,  body, $listeners, scrollBarHeight } = this
 
     let rootProps = {
-      class: `k-table-fixed-${mode}`,
+      class: `k-table-container`,
       style: {
-        'overflow-x': isMain && width && !height ? 'scroll' : null,
-        'overflow-y': !height ? 'hidden' : ''
+        // 'overflow-x': isMain && width && !height ? 'scroll' : null,
+        // 'overflow-y': !height ? 'hidden' : ''
       },
       on: {
         ...$listeners,
@@ -256,34 +251,21 @@ export default {
     const content = []
     if (height) {
       let headProps = {
-        class: `k-table-fixed-${mode}-thead`,
-        // style: {
-        //   'margin-bottom': `-${scrollBarHeight}px`,
-        // },
+        class: `k-table-thead`,
         on: {},
         ref: 'thead',
-      }
-      //主体头部滚动
-      if (isMain && width) {
-        headProps.on.scroll = ({ target }) => {
-          this.headFocus && this.$refs.body.scrollTo(target.scrollLeft, this.$refs.body.scrollTop)
-        }
-        headProps.on.mouseenter = () => this.headFocus = true
-        headProps.on.mouseleave = () => this.headFocus = false
       }
       content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
 
       const props = {
-        class: `k-table-fixed-${mode}-body`,
+        class: `k-table-body`,
         style: {
-          height: `${isMain ? height : (height - scrollBarHeight)}px`,
-          // height: `${height}px`,
-          'overflow-x': isMain && width ? 'auto' : null,
-          'overflow-y': isMain && height ? 'auto' : null,
         },
-        ref: 'body',
-        on: {
-          ...$listeners
+      }
+      if (height) {
+        props.style = {
+          height: height + 'px',
+          overflow:'auto scroll'
         }
       }
       content.push(<div {...props}>{this.renderTable(false, body)}</div>)
