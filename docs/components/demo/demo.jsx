@@ -4,6 +4,7 @@ import Icon from "../../../components/icon";
 import Tooltip from "../../../components/tooltip";
 import Message from "../../../components/message";
 import { getTranstionProp } from '../../../components/base/transition'
+import Control from '../control'
 export default {
 
   name: "Demo",
@@ -45,7 +46,7 @@ export default {
               <Icon type="copy-outline" onClick={this.copy} />
             </Tooltip>
             <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
-              <Icon type={'code' + (expand ? '-working' : '')} onClick={() => this.expand = !this.expand} />
+              <Control name="code" onClick={() => this.expand = !this.expand} />
             </Tooltip>
           </div>
         </div>

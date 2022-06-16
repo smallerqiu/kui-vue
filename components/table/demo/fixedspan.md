@@ -35,13 +35,18 @@ export default{
           width: 100,
           fixed: 'left',
         },
+          {
+          title: 'Name',
+          key: 'name',
+          width: 100,
+          fixed: 'left',
+        },
         {
           title: 'Other',
           children: [
             {
               title: 'Age',
               key: 'age',
-              width: 200,
               sorter:true,
             },
             {
@@ -50,7 +55,6 @@ export default{
                 {
                   title: 'Street',
                   key: 'street',
-                  width: 200,
                 },
                 {
                   title: 'Block',
@@ -58,12 +62,10 @@ export default{
                     {
                       title: 'Building',
                       key: 'building',
-                      width: 100,
                     },
                     {
                       title: 'Door No.',
                       key: 'number',
-                      width: 100,
                     },
                   ],
                 },
@@ -77,7 +79,6 @@ export default{
             {
               title: 'Company Address',
               key: 'companyAddress',
-              width: 200,
             },
             {
               title: 'Company Name',
@@ -86,6 +87,12 @@ export default{
           ],
         },
         {
+          title: 'Gender',
+          key: 'gender',
+          width: 80,
+          fixed: 'right',
+        },
+          {
           title: 'Gender',
           key: 'gender',
           width: 80,

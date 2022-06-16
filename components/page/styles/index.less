@@ -13,11 +13,13 @@
 			color: var(--kui-color-font);
 			min-width: 30px;
 			height: 30px;
-			line-height: 30px;
+			line-height: 1;
 			border-radius: var(--kui-border-radius);
 			margin: 0 8px;
 			text-align: center;
-			display: inline-block;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
 			box-sizing: content-box;
 			border: 1px solid var(--kui-color-border);
 			// transition: all 0.2s ease-in-out 0s;
@@ -42,10 +44,10 @@
 			}
 			.k-icon {
 				color: var(--kui-color-icon);
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translateX(-50%) translateY(-50%);
+				// position: absolute;
+				// top: 50%;
+				// left: 50%;
+				// transform: translateX(-50%) translateY(-50%);
 			}
 		}
 		.k-pager-more {
@@ -53,6 +55,18 @@
 			border-color: transparent;
 			&:hover {
 				border-color: transparent;
+			}
+		}
+		.k-pager-prev {
+			.k-icon {
+				transform: rotate(-90deg);
+				transform-origin: center;
+			}
+		}
+		.k-pager-next {
+			.k-icon {
+				transform-origin: center;
+				transform: rotate(90deg);
 			}
 		}
 		.k-pager-item-disabled {
@@ -103,7 +117,7 @@
 	.k-pager .k-pager-item {
 		height: 22px;
 		font-size: 14px;
-		line-height: 22px;
+		// line-height: 22px;
 		min-width: 22px;
 	}
 	.k-page-sizer {

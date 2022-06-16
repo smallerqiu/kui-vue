@@ -195,7 +195,7 @@ export default {
     if ((hasChilds || 'load-data' in Tree.$listeners) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Icon type={loading ? 'sync' : (showLine ? (expand ? 'remove-circle-outline' : 'add-circle-outline') : 'chevron-forward')} spin={loading} />
+        <Icon type={loading ? 'sync' : (showLine ? (expand ? 'remove-circle-outline' : 'add-circle-outline') : 'chevron-up')} spin={loading} />
       </span>
       itemNode.push(arrowNode)
     } else {

@@ -4,19 +4,23 @@
  * @param {*} cols 
  */
 export function sortFixedCol(cols) {
-  let leftCol = [], middleCol = [], rightCol = [], hasFixed = false
-  cols.forEach((c) => {
-    if (c.fixed == "left") {
-      leftCol.push(c);
-      hasFixed = true
-    } else if (c.fixed == "right") {
-      hasFixed = true
-      rightCol.push(c);
-    } else {
-      middleCol.push(c);
-    }
-  });
-  return { columns: [].concat(leftCol, middleCol, rightCol), hasFixed }
+  let middleCol = cols.filter(c => !c.fixed)
+  let leftCol = cols.filter(c => c.fixed == 'left').map(x => {
+    x.width = x.width || 150
+    return x
+  })
+  let rightCol = cols.filter(c => c.fixed == 'right').map(x => {
+    x.width = x.width || 150
+    return x
+  })
+
+  if (leftCol.length) {
+    leftCol[leftCol.length - 1].last = true
+  }
+  if (rightCol.length) {
+    rightCol[0].first = true
+  }
+  return { columns: [].concat(leftCol, middleCol, rightCol) }
 }
 /***
  * 是否有子集

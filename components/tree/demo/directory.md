@@ -56,8 +56,8 @@ export default {
               key: '1-0',
               icon: 'folder-open-outline',
               children: [
-                { title: 'main.js', icon: 'logo-javascript', disabled: true },
-                { title: 'test.py', icon: 'logo-python' }
+                { title: 'main.js', icon: 'logo-twitter', disabled: true },
+                { title: 'test.py', icon: 'logo-qq' }
               ]
             },
             {
@@ -65,8 +65,8 @@ export default {
               key: '1-1',
               icon: 'folder-open-outline',
               children: [
-                { title: 'index.html', icon: 'logo-html5' },
-                { title: 'index.md', icon: 'logo-markdown' }
+                { title: 'index.html', icon: 'logo-feishu' },
+                { title: 'index.md', icon: 'logo-wechat' }
               ]
             },
             {
@@ -74,7 +74,7 @@ export default {
               key: '1-2',
               icon: 'folder-open-outline',
               children: [
-                { title: 'zen.apk', icon: 'logo-windows' },
+                { title: 'zen.apk', icon: 'logo-android' },
                 { title: 'zen.ipa', icon: 'logo-apple' }
               ]
             }

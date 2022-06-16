@@ -27,9 +27,25 @@ export default {
       // thead.style.marginBottom = `-${thead.offsetHeight - thead.scrollHeight}px`
       let size = measureScrollBar()
       this.scrollBarHeight = size
+      if (this.height && this.width) {
+        this.setColWidth()
+      }
     }
   },
   methods: {
+    setColWidth() {
+      const cols = this.$refs.colgroup.children//[0].children
+      console.log(cols)
+      // reset tbody's height
+      let col = this.columns2 || this.columns
+      // console.log(col)
+      for (let i = 0; i < cols.length; i++) {
+        // console.log(col[i])
+        if (col[i] && !col[i].width) {
+          col[i].width = cols[i].getBoundingClientRect().width
+        }
+      }
+    },
     sorter(item) {
       let { _order, sorter } = item
 
@@ -49,39 +65,49 @@ export default {
         this.$emit('sorter', item)
       }
     },
-    renderCol() {
-      const isFixedHeader = this.height
+    renderCol(hasHead) {
+      const isFixedHeader = this.height != undefined
       let cols = []
       let columns = this.columns2 || this.columns
       columns.forEach((col, i) => {
-        let width = col.width || (isFixedHeader ? 150 : '')
+        let width = col.width || ''//(isFixedHeader ? 150 : '')
         let hasCheckbox = col.type == 'selection'
 
-        if (isFixedHeader && i == columns.length - 2 && columns.length > 2) width = ''
+        // if (isFixedHeader && i == columns.length - 2 && columns.length > 2) width = ''
 
         // set Cols
         let colProps = {
-          style: { width: `${width}px`, 'min-width': `${width}px` },
-          class: hasCheckbox ? 'k-table-selection-col' : null
+          style: { width: `${width}px` },
+          class: [{
+            'k-table-selection-col': hasCheckbox,
+            // 'k-table-cell-fixed-left': col.fixed == 'left',
+            // 'k-table-cell-fixed-right': col.fixed == 'right',
+          }]
+        }
+        if (!width) {
+          delete colProps.style.width
         }
 
         if (col.fixed == 'right') {
-          colProps.style = { width: `${width || 100}px`, 'min-width': `${width || 100}px` }
+          // colProps.style = { width: `${width || 100}px`}
         }
         cols.push(<col {...colProps} />)
       })
       if (this.hasExpand) {
         cols.unshift(<col class="k-table-expand-icon-col"></col>)
       }
-      return <colgroup>{cols}</colgroup>
+      if (isFixedHeader && hasHead) {
+        cols.push(<col style={{ width: this.scrollBarHeight + 'px' }}></col>)
+      }
+      return <colgroup ref="colgroup">{cols}</colgroup>
     },
     renderSort(col) {
       return (col.sorter) ? (<span class="k-table-sorter">
-        <Icon type="caret-up-outline" class={{ actived: col._order == 'asc' }} />
-        <Icon type="caret-down-outline" class={{ actived: col._order == 'desc' }} />
+        <Icon type="caret-up" class={{ actived: col._order == 'asc' }} />
+        <Icon type="caret-down" class={{ actived: col._order == 'desc' }} />
       </span>) : null
     },
-    renderTH(col) {
+    renderTH(col, left, right) {
       const hasInner = ((this.mode == 'main' && !col.fixed) || (col.fixed && this.mode != 'main')) //分裂模式不渲染子集
       let hasCheckbox = col.type == 'selection' && hasInner
       const hasSort = col.sorter && hasInner
@@ -89,6 +115,10 @@ export default {
         class: {
           'k-table-cell-ellipsis': col.ellipsis,
           'k-table-cell-selection': hasCheckbox,
+          'k-table-cell-fixed-left': col.fixed == 'left',
+          'k-table-cell-fixed-right': col.fixed == 'right',
+          'k-table-cell-fixed-left-last': col.last,
+          'k-table-cell-fixed-right-first': col.first,
           'k-table-cell-sorter': hasSort,
           [col.className]: col.className
         },
@@ -97,8 +127,16 @@ export default {
           colSpan: col.colSpan > 1 ? col.colSpan : null,
           rowSpan: col.rowSpan
         },
-        on: {}
+        on: {},
+        style: {}
       }
+      if (col.fixed == 'left') {
+        props.style.left = left + 'px'
+      }
+      if (col.fixed == 'right') {
+        props.style.right = right + 'px'
+      }
+
       if (hasSort) {
         props.on.click = () => this.sorter(col)
       }
@@ -119,6 +157,9 @@ export default {
         </th>
       )
     },
+    getLR(col, cols) {
+
+    },
     renderHead() {
       let cols = []
       if (hasChild(this.columns)) {
@@ -126,25 +167,53 @@ export default {
       } else {
         cols = this.columns
       }
-      let head = [], ths = [];
-      cols.forEach(col => {
+      let head = [], ths = [], hasFR = false, left = 0,
+        right = cols.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0) + (this.height ? 17 : 0)
+
+      cols.forEach((col, i) => {
         if (Array.isArray(col)) {
           let ths = []
-          col.forEach(co => {
-            let th = this.renderTH(co)
+          col.forEach((co, j) => {
+
+            if (co.fixed == 'left' && j > 0) {
+              left += col[j - 1].width
+            }
+            if (co.fixed == 'right' && i < col.length) {
+              right -= co.width
+            }
+
+            let th = this.renderTH(co, left, right)
             ths.push(th)
           })
+          if (i == 0 && this.width) {
+            ths.push(<th rowSpan={col.length} class="k-table-cell-fixed-right" style={{ width: this.scrollBarHeight + 'px' }}></th>)
+          }
           head.push(<tr>{ths}</tr>)
         } else {
           // set Head
+          hasFR = col.fixed == 'right'
           if (col.colSpan !== 0) {
-            let th = this.renderTH(col)
+            if (col.fixed == 'left' && i > 0) {
+              left += cols[i - 1].width
+            }
+            if (col.fixed == 'right' && i < cols.length) {
+              right -= col.width
+            }
+            let th = this.renderTH(col, left, right)
             ths.push(th)
           }
         }
       })
       if (this.hasExpand) {
         ths.unshift(<th></th>)
+      }
+      if (this.height != undefined) {
+        let cls = []
+        let hasFR = cols.filter(c => c.fixed == 'right')
+        if (hasFR) {
+          cls.push('k-table-cell-fixed-right')
+        }
+        ths.push(<th style={{ width: this.scrollBarHeight + 'px' }} class={cls}></th>)
       }
       if (!head.length) {
         head.push(<tr>{ths}</tr>)
@@ -159,7 +228,7 @@ export default {
       }
       return (
         <table {...props}>
-          {this.renderCol()}
+          {this.renderCol(hasHead)}
           {hasHead ? this.renderHead(hasHead) : null}
           {body ? <tbody ref="tbody">{body}</tbody> : null}
         </table>
@@ -176,7 +245,8 @@ export default {
     let rootProps = {
       class: `k-table-fixed-${mode}`,
       style: {
-        'overflow-x': isMain && width && !height ? 'scroll' : null
+        'overflow-x': isMain && width && !height ? 'scroll' : null,
+        'overflow-y': !height ? 'hidden' : ''
       },
       on: {
         ...$listeners,
@@ -187,9 +257,9 @@ export default {
     if (height) {
       let headProps = {
         class: `k-table-fixed-${mode}-thead`,
-        style: {
-          'margin-bottom': `-${scrollBarHeight}px`,
-        },
+        // style: {
+        //   'margin-bottom': `-${scrollBarHeight}px`,
+        // },
         on: {},
         ref: 'thead',
       }

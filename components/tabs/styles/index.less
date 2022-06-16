@@ -44,7 +44,6 @@
       }
     }
     .k-tabs-tab {
-      display: inline-block;
       height: 100%;
       margin: 0 32px 0 0;
       padding: 10px 0 10px;
@@ -55,6 +54,8 @@
       border-top-left-radius: var(--kui-border-radius);
       border-top-right-radius: var(--kui-border-radius);
       color: var(--kui-color-font);
+      display: inline-flex;
+      align-items: center;
       .k-icon {
         margin-right: 8px;
       }
@@ -135,7 +136,7 @@
       border: 1px solid var(--kui-color-border);
       // background: var(--kui-color-back);
       border-bottom-color: transparent;
-      padding: 8px 16px;
+      padding: 8px 16px;    
     }
     .k-tabs-tab-active {
       background: var(--kui-color-back);

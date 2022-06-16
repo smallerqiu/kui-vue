@@ -9,7 +9,7 @@
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
    <template v-slot:header-age="value">
       {{value}} <Tooltip title="How old are you?">
-          <Icon type="alert-circle-outline" size="20" color="#3e97ff" />
+          <Icon type="alert-circle" size="20" color="#ccc" />
         </Tooltip>
    </template> 
     <template v-slot:action="value,record,col">
@@ -33,16 +33,16 @@ export default{
         { 
           title:'Address', key:'address',
           renderHeader:(h,title)=>{ // 通过render 定义表头
-          return h('span',{},[
+          return [
               title,
               h('Tooltip',{
                 props:{
                   title:'Where do you live?'
                 }
               },[
-                h('Icon',{props:{ type:'alert-circle-outline',color:'#3e97ff',size:'20'}})
+                h('Icon',{props:{ type:'alert-circle',color:'#ccc',size:'20'}})
               ])
-            ]) 
+            ]
           }
         },
         { 

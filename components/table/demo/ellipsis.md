@@ -26,6 +26,8 @@ export default{
         { title:'Long Long Long Long Long Long Value', key:'address', ellipsis:true },
         { title:'Long Value', key:'address', ellipsis:true },
         { title:'Long Value', key:'address', ellipsis:true },
+        { title:'Long Value', key:'address', ellipsis:true },
+        { title:'Long Value', key:'address', ellipsis:true },
       ]
     }
   }

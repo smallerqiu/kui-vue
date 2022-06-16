@@ -330,7 +330,7 @@ export default {
                         {isPicture && item.status == 'error' ? <Tooltip title={statusText} placement="bottom"><Icon type="alert-circle" /></Tooltip> : null}
                       </div> : null}
                 </div>
-                <Icon type="close-outline" class={`k-upload-file-${isPicture ? 'picture' : 'item'}-remove`} onClick={() => this.remove(i)} />
+                <Icon type="close" class={`k-upload-file-${isPicture ? 'picture' : 'item'}-remove`} onClick={() => this.remove(i)} />
               </div>
             )
           })

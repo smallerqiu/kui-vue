@@ -20,7 +20,7 @@ export default{
         {title:'Name', key:'name' },
         {title:'Age', key:'age' },
         {title:'Tag', key:'tag' },
-        {title:'Address', key:'address' ,width:300},
+        {title:'Address', key:'address'},
       ]
     }
   }

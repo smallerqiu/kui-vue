@@ -9,7 +9,7 @@
     <Rate disabled :value="2.5" allowHalf />
     <br />
     <br />
-    <Rate disabled :value="3.3" show-score icon="happy"/>
+    <Rate disabled :value="3.3" show-score icon="heart"/>
     <br />
     <br />
     <Rate disabled :value="8.7" show-score :count="10"/>

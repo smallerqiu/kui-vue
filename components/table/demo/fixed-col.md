@@ -25,10 +25,10 @@ export default{
         { key:3, name:'Hu Cong', age:28, address:'Hubei Wuhan Guanggu Hongshan No.128'}
       ],
       columns:[
-        {title:'Name', key:'name', width:100 , fixed:'left' },
-        {title:'Age', key:'age' , width:100 , fixed:'left' },
+        {title:'Name', key:'name', fixed:'left' },
+        {title:'Age', key:'age' ,  fixed:'left' },
         ...columns,
-        {title:'Action', key:'action', width:100 , fixed:'right' },
+        {title:'Action', key:'action', fixed:'right' },
       ]
     }
   }

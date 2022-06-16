@@ -6,8 +6,8 @@ import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
 
-const getHeight = (el) => {
-  return el ? el.getBoundingClientRect().height : 0
+const getWidth = (el) => {
+  return el ? el.getBoundingClientRect().width : ''
 }
 export default {
   name: 'Table',
@@ -33,27 +33,16 @@ export default {
       scrollFocus: 'body',
     }
   },
-  mounted() {
-    this.renderEnd = true
-    this.resetHeight()
-    this.$isServer && window.addEventListener('resize', this.autoResize)
-  },
-  beforeDestroy() {
-    this.$isServer && window.removeEventListener('resize', this.autoResize)
-  },
-  updated() {
-    this.autoResize()
-  },
-  render(h) {
+  render() {
     let { $slots, data, $scopedSlots, loading, height, width } = this
     // bordered = true
     const { header, footer } = $slots
     let isTableFixed = width || height
-    const content = [], tbody = [], tbodyL = [], tbodyR = [];
+    const content = [], tbody = [];
 
     //custom head
     if (header) {
-      content.push(<div class="k-table-header" > {header}</div>)
+      content.push(<div class="k-table-header"> {header}</div>)
     }
 
     const isFixedHeader = height
@@ -62,7 +51,7 @@ export default {
 
     //重新排序
 
-    let { columns, hasFixed } = sortFixedCol(this.columns)
+    let { columns } = sortFixedCol(this.columns)
 
     //reset custom header
     columns.forEach(col => {
@@ -88,7 +77,7 @@ export default {
       // d._checked = d._checked || false
       // d._disabled = d._disabled || false
 
-
+      let left = 0, right = _columns.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0);
       _columns.forEach((c, j) => {
         // $scopedSlots[c.key]({ text: d[c.key] })
         if (c.key || c.type) {
@@ -98,16 +87,29 @@ export default {
             class: [{
               "k-table-cell-ellipsis": c.ellipsis,
               'k-table-cell-selection': c.type == 'selection',
+              'k-table-cell-fixed-left': c.fixed == 'left',
+              'k-table-cell-fixed-left-last': c.last,
+              'k-table-cell-fixed-right-first': c.first,
+              'k-table-cell-fixed-right': c.fixed == 'right',
               [c.className]: c.className
             }],
             attrs: {
               title: c.ellipsis ? d[c.key] : null
             },
+            style: {}
+          }
+          if (c.fixed == 'left' && j > 0) {
+            left += _columns[j - 1].width
+            props.style.left = left + 'px'
+          }
+          if (c.fixed == 'right' && j < _columns.length - 1) {
+            right -= c.width
+            props.style.right = right + 'px'
           }
           if (c.render) {
+            let h = this.$createElement
             let scope = c.render(h, d, i, c.key)
 
-            // let { children, attrs } = c.render($scope, d, i)
             let { children, attrs } = scope
             if (attrs) {
               props = Object.assign(props, { attrs })
@@ -115,6 +117,7 @@ export default {
             } else {
               $scope = scope
             }
+            // console.log($scope)
           } else if ($scopedSlots[c.key]) {
             $scope = $scopedSlots[c.key](d[c.key], d, c)
           } else if (c.type == 'selection') {
@@ -135,16 +138,12 @@ export default {
           }
 
           if (props.attrs.rowSpan !== 0 && props.attrs.colSpan !== 0) {
-            tr.push(h('td', props, [!c.fixed ? $scope : null]))  //or
-            // tr.push(<td {...props}>{$scope}</td>)
-          }
-          if (c.fixed == 'left') {
-            trL.push(h('td', props, [$scope]))
+            // tr.push(h('td', props, [!c.fixed ? $scope : null]))  
+            // tr.push(h('td', props, $scope))
+            //or
+            tr.push(<td {...props}>{$scope}</td>)
           }
 
-          if (c.fixed == 'right') {
-            trR.push(h('td', props, [$scope]))
-          }
         }
       })
       if (expandNode) {
@@ -159,75 +158,15 @@ export default {
           }
         }
       }
-      if (hasFixed) {
-        trProps.on.mouseenter = () => {
-          this.$set(d, '_hover', true)
-        }
-        trProps.on.mouseleave = () => {
-          this.$set(d, '_hover', false)
-        }
-      }
+
       if (tr.length) {
         tbody.push(<tr {...trProps}>{tr}</tr>)
-      }
-      if (trL.length) {
-        tbodyL.push(<tr {...trProps}>{trL}</tr>)
-      }
-      if (trR.length) {
-        tbodyR.push(<tr {...trProps}>{trR}</tr>)
       }
 
       if (expandNode) {
         tbody.push(<tr v-show={d._expanded} class="k-table-expand-row"><td></td><td colSpan={_columns.length}>{expandNode(d)}</td></tr>)
       }
     })
-
-    if (tbodyL.length) {
-      const props = {
-        props: {
-          columns: columns.filter(x => x.fixed == 'left'),
-          body: tbodyL,
-          mode: 'left',
-          height,
-          indeterminate,
-          checkAll,
-        },
-        ref: 'leftTable',
-        on: {
-          scroll: this.fixedScroll,
-          sorter: this.sorter,
-          'select-all': this.onSelectAll,
-          mouseenter: () => this.scrollFocus = `fixed-left`,
-          mouseleave: () => this.scrollFocus = 'body'
-        }
-      }
-      content.push(<ExtendTable {...props} />)
-    }
-    if (tbodyR.length) {
-      const props = {
-        props: {
-          columns: columns.filter(x => x.fixed == 'right'),
-          body: tbodyR,
-          mode: 'right',
-          height,
-          indeterminate,
-          checkAll,
-        },
-        ref: 'rightTable',
-        on: {
-          scroll: this.fixedScroll,
-          sorter: this.sorter,
-          'select-all': this.onSelectAll,
-          mouseenter: e => {
-            this.scrollFocus = `fixed-right`
-          },
-          mouseleave: e => {
-            this.scrollFocus = 'body'
-          }
-        }
-      }
-      content.push(<ExtendTable {...props} />)
-    }
 
     let mainProps = {
       props: {
@@ -280,53 +219,6 @@ export default {
       let { key, _order } = item
       this.$emit('change', this.filters, { key, order: _order })
     },
-    autoResize() {
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        this.resetHeight()
-      }, 300);
-    },
-    resetHeight() {
-      let { mainTable, leftTable, rightTable } = this.$refs
-      if (!this.renderEnd || !mainTable) return
-      let headHeight = mainTable.$refs.head.offsetHeight
-      let leftChild = [], rightChild = [];
-
-      if (leftTable) {
-        leftTable.$refs.head.firstChild.style.height = `${headHeight}px`
-        leftChild = leftTable.$refs.tbody.children
-        //   if (leftTable.$refs.body && this.width) {
-        //     leftTable.$refs.body.style.height = `${this.height - scrollBarHeight}px`
-        //   }
-      }
-
-      if (rightTable) {
-        rightTable.$refs.head.firstChild.style.height = `${headHeight}px`
-        rightChild = rightTable.$refs.tbody.children
-        //   if (rightTable.$refs.body && this.width) {
-        //     rightTable.$refs.body.style.height = `${this.height - scrollBarHeight}px`
-        //   }
-      }
-
-      const mainChild = mainTable.$refs.tbody.children
-      // reset tbody's height
-      for (let i = 0; i < mainChild.length; i++) {
-        let leftHeight = getHeight(leftChild[i])//(leftChild[i] || {}).offsetHeight || 0
-        let mainHeight = getHeight(mainChild[i])//.offsetHeight
-        let rightHeight = getHeight(rightChild[i])// || {}).offsetHeight || 0
-        let maxHeight = Math.max(leftHeight, mainHeight, rightHeight)
-        if (leftHeight && leftHeight < maxHeight) {
-          leftChild[i].style.height = `${maxHeight}px`
-        }
-        if (rightHeight && rightHeight < maxHeight) {
-          rightChild[i].style.height = `${maxHeight}px`
-        }
-        if (mainHeight < maxHeight) {
-          mainChild[i].style.height = `${maxHeight}px`
-        }
-      }
-
-    },
     onExpand(item) {
       this.$set(item, '_expanded', !item._expanded)
     },
@@ -368,16 +260,15 @@ export default {
       this.checkAll = checked
     },
     fixedScroll({ target }) {
-      let { mainTable, leftTable, rightTable } = this.$refs
+      let { mainTable } = this.$refs
       if (this.scrollFocus == 'fixed-right') {
         mainTable.$refs.body && mainTable.$refs.body.scrollTo(mainTable.$refs.body.scrollLeft, target.scrollTop)
-        leftTable && leftTable.$refs.body && leftTable.$refs.body.scrollTo(leftTable.$refs.body.scrollLeft, target.scrollTop)
       }
     },
     scroll({ target }) {
-      let { mainTable, leftTable, rightTable } = this.$refs
+      let { mainTable } = this.$refs
 
-      let { scrollLeft, scrollTop } = target
+      let { scrollLeft } = target
       let min = 0, max = target.scrollWidth - target.offsetWidth;
       // console.log(min, scrollLeft, max)
       if (scrollLeft > min && scrollLeft < max) {
@@ -392,11 +283,6 @@ export default {
       if (mainTable && mainTable.$refs.thead) {
         mainTable.$refs.thead.scrollTo(scrollLeft, 0)
       }
-      if (this.scrollFocus == 'body') {
-        leftTable && leftTable.$refs.body && leftTable.$refs.body.scrollTo(0, scrollTop);
-        rightTable && rightTable.$refs.body && rightTable.$refs.body.scrollTo(0, scrollTop);
-      }
-
     }
   }
 }

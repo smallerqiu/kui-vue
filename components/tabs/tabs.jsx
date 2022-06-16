@@ -181,7 +181,7 @@ export default {
         return <div {...prop}>
           {icon ? <Icon type={icon} /> : null}
           {title}
-          {closable && this.card ? <Icon type="close" class="k-tabs-close" onClick={e => this.closeTab(key, e)} /> : null}
+          {closable && this.card ? <Icon type="close" class="k-tabs-close" strokeWidth={45} onClick={e => this.closeTab(key, e)} /> : null}
         </div>
       })
     },

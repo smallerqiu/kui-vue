@@ -462,20 +462,20 @@ export default {
     //header
     let headNode = []
     if (!showTimes && !showYears) {
-      headNode.push(<Button icon="chevron-double-back-outline" size={btnSize} theme="normal" class="k-calendar-prev-year-btn" onClick={this.prevYear}></Button>)
-      headNode.push(<Button icon="chevron-back-outline" size={btnSize} theme="normal" class="k-calendar-prev-month-btn" onClick={this.prevMonth}></Button>)
+      headNode.push(<Button icon="chevron-double-back" size={btnSize} theme="normal" class="k-calendar-prev-year-btn" onClick={this.prevYear}></Button>)
+      headNode.push(<Button icon="chevron-back" size={btnSize} theme="normal" class="k-calendar-prev-month-btn" onClick={this.prevMonth}></Button>)
     } else if (mode != 'year' && mode != 'month') {
-      headNode.push(<Button class="k-calendar-back" size={btnSize} icon="chevron-back-outline" theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
+      headNode.push(<Button class="k-calendar-back" size={btnSize} icon="chevron-back" theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
     }
     headNode.push(<Button class="k-calendar-year-select" size={btnSize} theme="normal" onClick={this.setShowYear}>{year}{t('k.datePicker.year')} {months[month]} {!showYears && showTimes ? day : ''}</Button>)
     if (!showYears) {
       if (!showTimes)
-        headNode.push(<Button theme="normal" size={btnSize} icon="chevron-forward-outline" class="k-calendar-next-month-btn" onClick={this.nextMonth}></Button>)
+        headNode.push(<Button theme="normal" size={btnSize} icon="chevron-forward" class="k-calendar-next-month-btn" onClick={this.nextMonth}></Button>)
       // else
       // headNode.push(<span class="k-calendar-day-select">{day}{t('k.datePicker.day')}</span>)
     }
     if (!showTimes && !showYears)
-      headNode.push(<Button icon="chevron-double-forward-outline" size={btnSize} theme="normal" class="k-calendar-next-year-btn" onClick={this.nextYear}></Button>)
+      headNode.push(<Button icon="chevron-double-forward" size={btnSize} theme="normal" class="k-calendar-next-year-btn" onClick={this.nextYear}></Button>)
 
     //body
     const bodyNode = []

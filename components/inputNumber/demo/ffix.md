@@ -6,7 +6,7 @@ suffix，prefix 扩展
 ```vue
 <template>
   <div style="width:256px;">
-    <InputNumber placeholder="请填写您的薪资" icon="cafe" >
+    <InputNumber placeholder="请填写您的薪资" icon="logo-yen" >
       <template slot="suffix">
           <Tooltip title="此处如果不知道怎么填，请咨询管理员">
             <Icon type="heart" color="red"/>
