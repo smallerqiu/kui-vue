@@ -6,10 +6,20 @@
 ```vue
 <template>
   <div>
-    <Icon type="heart" />
-    <Icon type="logo-kui" size="25" />
-    <Icon type="logo-kui" size="30" color="red" />
-    <Icon type="logo-kui" spin size="25" />
+    <Icon :type="Heart" />
+    <Icon :type="LogoKui" size="25" />
+    <Icon :type="LogoKui" size="30" color="#00be83" />
+    <Icon :type="LogoKui" spin size="25" />
   </div>
 </template>
+<script>
+import { Heart, LogoKui } from 'kui-icons'
+export default{
+  data() {
+    return{
+      Heart , LogoKui
+    }
+  }
+}
+</script>
 ```

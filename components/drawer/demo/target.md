@@ -27,8 +27,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       show:false,
       placement:'left'
     }

@@ -4,6 +4,7 @@ import { isNotEmpty } from '../_tool/utils'
 import moment from 'moment'
 import Drop from '../base/drop'
 import { t } from '../locale'
+import { CloseCircle, CalendarOutline } from 'kui-icons'
 export default {
   name: 'DatePicker',
   props: {
@@ -28,10 +29,7 @@ export default {
     theme: String,
     shape: String,
     placeholder: [String, Array],
-    dateIcon: {
-      type: String,
-      default: 'calendar-outline'
-    }
+    dateIcon: [String, Array],
   },
   provide() {
     return {
@@ -135,7 +133,9 @@ export default {
       format, mode, disabledTime, disabledDate, showTime, pickerSize
     } = this
     let childNode = [], isRange = mode == 'range';
-
+    if (dateIcon === undefined) {
+      dateIcon = CalendarOutline
+    }
     dateIcon && childNode.push(<Icon type={dateIcon} class="k-icon-calendar" />)
     if (isRange) {
       placeholder = placeholder || []
@@ -229,7 +229,7 @@ export default {
     let overlay = <Drop {...props}>{calendar}</Drop >
 
     let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
-    showClear && childNode.push(<Icon class="k-datepicker-clearable" type="close-circle" onClick={this.clear} />)
+    showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={this.clear} />)
     const selectCls = [
       "k-datepicker-selection", {
         "k-datepicker-has-clear": showClear

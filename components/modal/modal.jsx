@@ -3,8 +3,8 @@ import Button from '../button'
 import transfer from "../_tool/transfer";
 import { measureScrollBar, getOffset } from '../_tool/utils'
 import { t } from '../locale'
-let cacheBodyOverflow = {};
-
+// let cacheBodyOverflow = {};
+import { Close } from 'kui-icons'
 
 export default {
   directives: { transfer },
@@ -185,7 +185,7 @@ export default {
     let contentNode = $slots.content
     if (!contentNode) {
       const contents = []
-      this.showClose && contents.push(<span class="k-modal-close" onClick={this.close}><Icon type="close" /></span>)
+      this.showClose && contents.push(<span class="k-modal-close" onClick={this.close}><Icon type={Close} /></span>)
       this.title !== null && contents.push(<div class="k-modal-header" ref="hRef"><div class="k-modal-header-inner">{this.title}</div></div>)
       contents.push(<div class="k-modal-body">{$slots.default}</div>)
 

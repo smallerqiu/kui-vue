@@ -1,5 +1,6 @@
 import Icon from '../icon'
 import { getChild } from '../_tool/utils'
+import { Close, ChevronBack, ChevronForward } from 'kui-icons'
 export default {
   name: 'Tabs',
   props: {
@@ -181,7 +182,7 @@ export default {
         return <div {...prop}>
           {icon ? <Icon type={icon} /> : null}
           {title}
-          {closable && this.card ? <Icon type="close" class="k-tabs-close" strokeWidth={45} onClick={e => this.closeTab(key, e)} /> : null}
+          {closable && this.card ? <Icon type={Close} class="k-tabs-close" strokeWidth={45} onClick={e => this.closeTab(key, e)} /> : null}
         </div>
       })
     },
@@ -211,14 +212,14 @@ export default {
       <div class={classes}>
         <div class="k-tabs-bar">
           <div class={navCls}>
-            {scrollable ? <span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type="chevron-back" /></span> : null}
+            {scrollable ? <span class={['k-tabs-tab-btn-prev', { 'k-tabs-tab-btn-prev-disabed': this.prevBtnDisabed }]} onClick={e => this.scroll('left')}><Icon type={ChevronBack} /></span> : null}
             <div class="k-tabs-nav-wrap" ref="navbox">
               <div class="k-tabs-nav" style={scrollStyle} ref="navscroll">
                 {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref="inkbar" /> : null}
                 <div class="k-tabs-nav-inner" ref="nav">{this.renderNav()}</div>
               </div>
             </div>
-            {scrollable ? <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type="chevron-forward" /></span> : null}
+            {scrollable ? <span class={['k-tabs-tab-btn-next', { 'k-tabs-tab-btn-next-disabed': this.nextBtnDisabed }]} onClick={e => this.scroll('right')}><Icon type={ChevronForward} /></span> : null}
           </div>
           {$slots.extra ? <div class="k-tabs-extra" ref="extra">{$slots.extra}</div> : null}
         </div>

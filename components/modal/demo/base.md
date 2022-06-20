@@ -24,8 +24,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       visible:false,
       custom:false
     }

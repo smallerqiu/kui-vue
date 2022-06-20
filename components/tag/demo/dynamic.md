@@ -8,13 +8,15 @@
   <div>
     <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
     <Input v-show="showInput" @blur="add" size="small" style="width:81px" ref="input" :value="tag"/>
-    <Button @click="show" size="small" icon="bookmark" v-show="!showInput">New Tag</Button>
+    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">New Tag</Button>
   </div>
 </template>
 <script>
+import { Bookmark } from "kui-icons";
 export default {
   data() {
     return {
+      Bookmark,
       showInput:false,
       tag:'',
       tags:['Apple','Banana','Cat','Dog']

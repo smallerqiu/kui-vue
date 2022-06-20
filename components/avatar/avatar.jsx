@@ -2,7 +2,7 @@ import Icon from '../icon'
 import { getChild } from '../_tool/utils'
 export default {
   props: {
-    icon: String,
+    icon: [String, Array],
     shape: { type: String, },
     size: {
       type: [Number, String],

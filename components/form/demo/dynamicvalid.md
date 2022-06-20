@@ -46,7 +46,7 @@
           :rules="{required: true, message: '网址不能为空'}"
         >
           <Input style="width:230px"/>
-          <Icon type="remove-circle-outline" @click="e=>remove(i)" v-if="i>0" style="font-size:25px;margin:0 10px" />
+          <Icon :type="RemoveCircleOutline" @click="e=>remove(i)" v-if="i>0" style="font-size:25px;margin:0 10px" />
         </FormItem>
         <FormItem :wrapperCol="{offset:5}">
           <Button type="primary" @click="submit">Submit</Button>
@@ -61,9 +61,11 @@
   </div>
 </template>
 <script>
+import { RemoveCircleOutline } from 'kui-icons'
 export default{
-  data(){
+  data() {
     return {
+      RemoveCircleOutline,
       labelCol:{span:5},
       wrapperCol:{span:16},
       count:2,

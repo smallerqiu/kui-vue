@@ -7,7 +7,7 @@
 <template>
   <Space>
     <Button>Button</Button>
-    <Button icon="search">Button</Button>
+    <Button :icon="Search">Button</Button>
     <Tooltip placement="top">
       <Button>Space</Button>
       <template slot="title">
@@ -16,4 +16,14 @@
     </Tooltip>
   </Space>
 </template>
+<script>
+import { Search } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Search
+    }
+  }
+}
+</script>
 ```

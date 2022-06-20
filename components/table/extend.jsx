@@ -2,6 +2,8 @@ import { hasChild, sortHeaderCols, findItem, } from './utils'
 import { measureScrollBar } from '../_tool/utils'
 import { Checkbox } from '../checkbox'
 import Icon from '../icon'
+import { CaretUp, CaretDown } from 'kui-icons'
+
 export default {
   name: 'ExtendTable',
   props: {
@@ -17,7 +19,9 @@ export default {
   data() {
     return {
       scrollBarHeight: 0,
-      headFocus: false,
+      // type: 'left',
+      theadSync: false,
+      tbodySync: false
     }
   },
   mounted() {
@@ -34,7 +38,7 @@ export default {
   methods: {
     setColWidth() {
       const cols = this.$refs.colgroup.children//[0].children
-      console.log(cols)
+      // console.log(cols)
       // reset tbody's height
       let col = this.columns2 || this.columns
       // console.log(col)
@@ -102,13 +106,13 @@ export default {
     },
     renderSort(col) {
       return (col.sorter) ? (<span class="k-table-sorter">
-        <Icon type="caret-up" class={{ actived: col._order == 'asc' }} />
-        <Icon type="caret-down" class={{ actived: col._order == 'desc' }} />
+        <Icon type={CaretUp} class={{ actived: col._order == 'asc' }} />
+        <Icon type={CaretDown} class={{ actived: col._order == 'desc' }} />
       </span>) : null
     },
     renderTH(col, left, right) {
-      let hasCheckbox = col.type == 'selection' 
-      const hasSort = col.sorter 
+      let hasCheckbox = col.type == 'selection'
+      const hasSort = col.sorter
       let props = {
         class: {
           'k-table-cell-ellipsis': col.ellipsis,
@@ -154,9 +158,6 @@ export default {
           </span>
         </th>
       )
-    },
-    getLR(col, cols) {
-
     },
     renderHead() {
       let cols = []
@@ -221,7 +222,7 @@ export default {
     },
     renderTable(hasHead, body) {
       let props = {}
-        props.style = { width: `${this.width}px` }
+      props.style = { width: `${this.width}px` }
       return (
         <table {...props}>
           {this.renderCol(hasHead)}
@@ -232,28 +233,73 @@ export default {
     },
     onSelectAll(e) {
       this.$emit('select-all', e)
+    },
+    asyncScroll(e, target) {
+      // console.log(e.target.scrollLeft)
+      let min = 0, max = e.target.scrollWidth - e.target.offsetWidth, scrollLeft = e.target.scrollLeft;
+      scrollLeft = Math.round(scrollLeft);
+      // console.log(e, target)
+      if (target) {
+        // if (target == 'tbody') {
+        //   if (!this.theadSync) {
+        //     this.theadSync = true
+            this.$refs[target].scrollLeft = scrollLeft
+        //   }
+        //   this.theadSync = false
+        // }
+        // if (target == 'thead') {
+        //   if (!this.tbodySync) {
+        //     this.tbodySync = true
+        //     this.$refs[target].scrollLeft = scrollLeft
+        //   }
+        //   this.tbodySync = false
+        // }
+      }
+      let ping = 'left'
+      // console.log(min, scrollLeft, max)
+      if (scrollLeft > min && scrollLeft < max) {
+        ping = 'middle'
+      } else if (scrollLeft == min) {
+        ping = 'left'
+      } else if (scrollLeft == max) {
+        ping = 'right'
+      }
+      this.$emit('ping', ping)
+      // this.$refs.table.setAttribute('class', `k-table11-ping-${ping}`)
     }
   },
   render() {
-    let { height, width,  body, $listeners, scrollBarHeight } = this
-
+    let { height, width, body, scrollBarHeight } = this
     let rootProps = {
-      class: `k-table-container`,
-      style: {
-        // 'overflow-x': isMain && width && !height ? 'scroll' : null,
-        // 'overflow-y': !height ? 'hidden' : ''
-      },
-      on: {
-        ...$listeners,
-      }
+      // ref: 'table',
+      // class: [`k-table-container`,
+      //   // { [`k-table-ping-${type}`]: width != undefined },
+      // ],
+      style: {},
+      on: {}
+    }
+    if (width && !height) {
+      rootProps.style.overflow = 'auto';
+      // rootProps.on.scroll = e => this.asyncScroll(e)
     }
 
     const content = []
     if (height) {
       let headProps = {
         class: `k-table-thead`,
-        on: {},
+        on: {
+          scroll: e => this.asyncScroll(e, 'tbody')
+        },
         ref: 'thead',
+        style: {
+          // marginBottom: -scrollBarHeight + 'px'
+        }
+      }
+      if (width && height) {
+        headProps.style.marginBottom = -scrollBarHeight + 'px'
+      }
+      if (height) {
+        headProps.style.overflow = 'auto'
       }
       content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
 
@@ -261,11 +307,15 @@ export default {
         class: `k-table-body`,
         style: {
         },
+        on: {
+          scroll: e => this.asyncScroll(e, 'thead')
+        },
+        ref: "tbody"
       }
       if (height) {
         props.style = {
           height: height + 'px',
-          overflow:'auto scroll'
+          overflow: 'auto scroll'
         }
       }
       content.push(<div {...props}>{this.renderTable(false, body)}</div>)

@@ -12,7 +12,7 @@
     <template slot="tags" slot-scope="tags">
       <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
-    <Icon :type="text==1?'male':'female'" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
+    <Icon :type="text==1 ? Moon : Sunny" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action">
       <a href="javascript:;">Edit</a>
       <a href="javascript:;">Delete</a>
@@ -20,9 +20,11 @@
   </Table>
 </template>
 <script>
+import { Moon, Sunny } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Moon, Sunny,
       data:[
         { key:'0', name:'Li Lei' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },
         { key:'1', name:'Liu Hao' ,gender: 1 , age:28 , address:'Wu Han Hongshan No. 128', tags:['Python','Java'] },

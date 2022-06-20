@@ -1,6 +1,7 @@
 import BaseInput from '../base/input'
 import Icon from '../icon'
 import { plus, minus, round, toNumber } from '../_tool/number'
+import { ChevronUp } from 'kui-icons'
 export default {
   props: {
     value: [Array, Number, String],
@@ -165,8 +166,8 @@ export default {
       <template slot="suffix">
         {suffixNode}
         {controls ? <div class="k-input-number-controls">
-          <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type="chevron-up" /></span>
-          <span class="k-input-number-control" onClick={this.setVal}><Icon type="chevron-up" /></span>
+          <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type={ChevronUp} /></span>
+          <span class="k-input-number-control" onClick={this.setVal}><Icon type={ChevronUp} /></span>
         </div> : null}
       </template>
     </BaseInput>

@@ -10,9 +10,19 @@
     <br/>
     <Rate :value="3"/>
     <br />
-    <Rate icon="heart" allowHalf color="red" :value="2.5" :size="30"/>
+    <Rate :icon="Heart" allowHalf color="red" :value="2.5" :size="30"/>
     <br />
-    <Rate icon="heart" allowHalf color="red" :value="3.5" :size="40"/>
+    <Rate :icon="Heart" allowHalf color="red" :value="3.5" :size="40"/>
   </div>
 </template>
+<script>
+import { Heart } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Heart
+    }
+  }
+}
+</script>
 ```

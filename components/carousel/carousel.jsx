@@ -1,6 +1,8 @@
 import Icon from "../icon";
 import resize from '../_tool/resize'
 import { getChild } from '../_tool/utils'
+import { ChevronUp } from 'kui-icons'
+
 export default {
 	name: 'Carousel',
 	directives: { resize },
@@ -119,10 +121,10 @@ export default {
 			}
 		}
 		const arrowLeft = <span class="k-carousel-arrow-left" onClick={e => change('left')}>
-			<Icon type="chevron-up" />
+			<Icon type={ChevronUp} />
 		</span>
 		const arrowRight = <span class="k-carousel-arrow-right" onClick={e => change('right')}>
-			<Icon type="chevron-up" />
+			<Icon type={ChevronUp} />
 		</span>
 		const props = {
 			class: classes,

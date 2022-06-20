@@ -7,7 +7,7 @@
 <template>
   <Dropdown v-model="visible">
     <a>
-      Hover me <Icon type="chevron-down" />
+      Hover me <Icon :type="ChevronDown" />
     </a>
     <Menu slot="content" @click="handleMenuClick">
       <MenuItem key="1">
@@ -24,9 +24,11 @@
 </template>
 
 <script>
+import { ChevronDown } from 'kui-icons'
 export default {
   data() {
     return {
+      ChevronDown,
       visible: false,
     };
   },

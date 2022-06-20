@@ -1,4 +1,5 @@
 import Icon from '../icon'
+import { CheckmarkCircle, CloseCircle, Close, Checkmark } from 'kui-icons'
 export default {
   name: 'Progress',
   props: {
@@ -50,20 +51,20 @@ export default {
       } else {
         if (type == 'line') {
           if (this.currentPercent == 100) {
-            text = <Icon type="checkmark-circle" />
+            text = <Icon type={CheckmarkCircle} />
           }
           if (status == 'exception')
-            text = <Icon type="close-circle" />
+            text = <Icon type={CloseCircle} />
         }
         if (type == 'circle') {
           if ($slots.format) {
             text = $slots.format
           } else {
             if (this.currentPercent == 100) {
-              text = <Icon type="checkmark" />
+              text = <Icon type={Checkmark} />
             }
             if (status == 'exception')
-              text = <Icon type="close" />
+              text = <Icon type={Close} />
           }
         }
       }

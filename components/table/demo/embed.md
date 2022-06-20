@@ -18,8 +18,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       expData:[
         {key:'0', name:'Jone', age:3 , childs:5},
         {key:'1', name:'Stack', age:5, childs:35 },

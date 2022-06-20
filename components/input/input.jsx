@@ -17,7 +17,7 @@ export default {
       },
       default: 'text'
     },
-    icon: String,
+    icon: [String, Array],
     suffix: String,
     prefix: String,
     disabled: Boolean,

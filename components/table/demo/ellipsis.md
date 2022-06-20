@@ -11,8 +11,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       data:[
         {key:'0', name:'Li Lei' ,age:32 , address:'China Hubei Wu Han Guanggu No. 328',  },
         {key:'1', name:'Liu Hao' ,age:28 , address:'China Hubei Wu Han Hongshan No. 128',  },
@@ -23,7 +23,7 @@ export default{
         { title:'Name', key:'name' },
         { title:'Age', key:'age' ,width:80 },
         { title:'Address', key:'address', ellipsis:true },
-        { title:'Long Long Long Long Long Long Value', key:'address', ellipsis:true },
+        { title:'Long Long Long Long Long Long Value', key:'address', ellipsis:true,sorter:true },
         { title:'Long Value', key:'address', ellipsis:true },
         { title:'Long Value', key:'address', ellipsis:true },
         { title:'Long Value', key:'address', ellipsis:true },

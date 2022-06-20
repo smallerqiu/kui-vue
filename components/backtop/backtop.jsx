@@ -1,6 +1,7 @@
 
 import Icon from "../icon";
 import scroll from "../_tool/scroll";
+import { ArrowUp } from "kui-icons";
 export default {
   name: "BackTop",
   directives: { scroll },
@@ -55,7 +56,7 @@ export default {
   render() {
     let child = this.$slots.default
     if (!child) {
-      child = <div class="k-backtop-content"><Icon type="arrow-up" /></div>
+      child = <div class="k-backtop-content"><Icon type={ArrowUp} /></div>
     }
     const styles = {
       bottom: `${this.bottom}px`,

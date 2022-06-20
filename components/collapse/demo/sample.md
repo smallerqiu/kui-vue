@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-  data(){
+  data() {
     return {
       text : `A long time ago, In a beautiful kingdom, 
   there lived a young king and queen, 

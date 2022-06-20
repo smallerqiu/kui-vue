@@ -10,13 +10,23 @@
       <div class="box"></div>
     </Badge>
     <Badge dot>
-      <Icon type="notifications-outline" />
+      <Icon :type="NotificationsOutline" />
     </Badge>
     <Badge dot>
       <a href="#">我是一个连接</a>
     </Badge>
   </div>
 </template>
+<script>
+import { NotificationsOutline } from 'kui-icons'
+export default{
+  data() {
+    return {
+      NotificationsOutline
+    }
+  }
+}
+</script>
 <style scoped>
 .demo-dot .box{
   width:50px;

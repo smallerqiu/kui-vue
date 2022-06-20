@@ -15,13 +15,13 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
      const data = [],columns = [];
      for(let i = 0; i < 10; i++){
        columns.push({ title:'Col'+i, key:'name' })
        data.push({ key:i, name:'Li Lei', age:28, address:'Wu Han Guanggu No.'+i })
      }
-    return{
+    return {
       data,
       columns:[
         {title:'Name', key:'name', width:110 , fixed:'left' },

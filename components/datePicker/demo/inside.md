@@ -20,7 +20,7 @@
 
     <div class="date-demo">
       <div class="date-demo-inner" ref="demo-date">
-        <div class="demo-nav"><Icon type="chevron-back-outline" />商城首页</div>
+        <div class="demo-nav"><Icon :type="ChevronBack" />商城首页</div>
         <Drawer v-model="show2" height="340" 
           :closable="false" 
           :footer="null" 
@@ -35,9 +35,11 @@
   </div>
 </template>
 <script>
+import { ChevronBack } from 'kui-icons'
 export default{
-  data(){
+  data() {
     return {
+      ChevronBack,
       show:false,
       show2:false,
       date:'',

@@ -3,7 +3,7 @@ export default {
   name: "TimeLineItem",
   props: {
     color: String,
-    icon: String,
+    icon: [String, Array],
     time: String,
     extra: String,
   },

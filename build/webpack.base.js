@@ -16,7 +16,7 @@ const vueLoaderOptions = {
         loader: 'babel-loader',
         options: {
           presets: ['env'],
-          plugins: ['transform-vue-jsx', 'transform-object-rest-spread'],
+          plugins: ['transform-vue-jsx', 'transform-object-rest-spread', 'lodash'],
         },
       },
     ],
@@ -83,8 +83,7 @@ module.exports = {
     new webpack.BannerPlugin(`${pkg.name} v${pkg.version} 
 Copyright 2017-present, kui-vue.
 All rights reserved.
-Author: chuchur@qq.com / www.chuchur.com
-        `),
+Author: chuchur@qq.com / www.chuchur.com`),
     new webpack.ContextReplacementPlugin(
       /moment[\\\/]locale$/,
       /^\.\/(zh-cn)$/

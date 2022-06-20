@@ -28,7 +28,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     var validateIDNumber = (rule,value,callback)=>{
       if(value && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)){
         return  callback(new Error('请输入正确的身份证号码'))

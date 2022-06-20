@@ -112,6 +112,10 @@
 	position: absolute;
 	z-index: 1003;
 	background: var(--kui-color-control-10);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	border-radius: var(--kui-border-radius);
+	overflow: hidden;
+	display: flex;
 }
 
 .k-datepicker-sm {
@@ -168,12 +172,7 @@
 	}
 }
 
-.k-datepicker-dropdown {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	border-radius: var(--kui-border-radius);
-	overflow: hidden;
-}
-
+ 
 @keyframes dropDownIn {
 	0% {
 		opacity: 0;

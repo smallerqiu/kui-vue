@@ -14,15 +14,17 @@ limit等于上传文件数量时, 则不显示选择文件组件,
     @change="handleChange"
     :limit="1"
     accept="image/*"
-    uploadIcon="camera-outline"
+    :uploadIcon="CameraOutline"
     uploadText="上传头像"
     >
   </Upload>
 </template>
 <script>
+import { CameraOutline } from 'kui-icons'
 export default{
-  data(){
+  data() {
     return {
+      CameraOutline,
       headers:{
         authorization: 'here is token'
       },

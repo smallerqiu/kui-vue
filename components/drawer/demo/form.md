@@ -81,8 +81,8 @@
 </template>
 <script>
 export default {
-  data(){
-    return{
+  data() {
+    return {
       show1: false, show2: false,
       form: {
         switch: true,

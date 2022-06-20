@@ -1,5 +1,6 @@
 import Icon from '../icon'
 import { getChild } from '../_tool/utils'
+import { Sync } from 'kui-icons'
 export default {
   name: "Button",
   props: {
@@ -9,7 +10,7 @@ export default {
         return ["button", "submit", "reset"].indexOf(value) >= 0;
       }
     },
-    icon: String,
+    icon: [String, Array],
     block: Boolean,
     size: {
       default: 'default',
@@ -69,7 +70,7 @@ export default {
         click: click
       }
     }
-    const iconType = loading ? 'sync' : icon;
+    const iconType = loading ? Sync : icon;
     const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
     const childs = child.map(c => {

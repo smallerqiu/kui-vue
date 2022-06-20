@@ -11,8 +11,8 @@
     <!-- 默认 -->
     <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" show-extra>
       <template v-slot:extra="{ node , parent}">
-        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
-        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+        <Button :icon="Add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button :icon="Remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
       </template>
     </Tree>
     </Col>
@@ -24,8 +24,8 @@
         {{node.title +' 😄'}}
       </template>
       <template v-slot:extra="{ node , parent}">
-        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
-        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+        <Button :icon="Add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button :icon="Remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
       </template>
     </Tree>
     </Col>
@@ -35,18 +35,19 @@
     <Tree @expand="expand" :expandedKeys="expandedKeys" show-extra>
       <TreeNode v-for="(item,i) in data" :data="item" :key="item.key" />
       <template v-slot:extra="{node , parent}">
-        <Button icon="add" size="small" @click="append(node)" style="margin-right:5px" />
-        <Button icon="remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+        <Button :icon="Add" size="small" @click="append(node)" style="margin-right:5px" />
+        <Button :icon="Remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
       </template>
     </Tree>
     </Col>
   </Row>
 </template>
-
 <script>
+import { Add, Remove } from "kui-icons";
 export default {
   data() {
     return {
+      Add, Remove,
       expandedKeys: ['0-0'],
       data: [
         {

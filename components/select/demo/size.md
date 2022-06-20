@@ -6,21 +6,21 @@
 ```vue
 <template>
   <div>
-    <RadioGroup :value="size" @change="setSize" icon="search">
+    <RadioGroup :value="size" @change="setSize" :icon="Search">
       <RadioButton value="large" label="large"/>
       <RadioButton value="default" label="default"/>
       <RadioButton value="small" label="small"/>
     </RadioGroup>
     <br />
     <br />
-    <Select :width="256" :size="size" clearable filterable  icon="search">
+    <Select :width="256" :size="size" clearable filterable  :icon="Search">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana"/>
       <Option value="4" label="Pear" />
     </Select>
     <br />
-    <Select :width="256" :size="size" multiple v-model="value" filterable  icon="search">
+    <Select :width="256" :size="size" multiple v-model="value" filterable  :icon="Search">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana" />
@@ -29,9 +29,11 @@
   </div>
 </template>
 <script>
+import { Search } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Search,
       size:'default',
       value:['1','3']
     }

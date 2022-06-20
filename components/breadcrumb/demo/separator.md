@@ -7,10 +7,20 @@
 <template>
   <div>
     <Breadcrumb>
-      <BreadcrumbItem to="/" icon="home" separator="~">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/components/breadcrumb" icon="cloud" separator="~">breadcrumb</BreadcrumbItem>
-      <BreadcrumbItem icon="heart" separator="~">other</BreadcrumbItem>
+      <BreadcrumbItem to="/" :icon="Home" separator="~">Home</BreadcrumbItem>
+      <BreadcrumbItem to="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem :icon="Heart" separator="~">other</BreadcrumbItem>
     </Breadcrumb>
   </div>
 </template>
+<script>
+import { Heart, Home, Cloud } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Heart, Home, Cloud
+    }
+  }
+}
+</script>
 ```

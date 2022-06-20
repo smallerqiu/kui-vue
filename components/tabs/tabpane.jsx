@@ -2,7 +2,7 @@ export default {
   name: "Tabs",
   props: {
     title: String,
-    icon: String,
+    icon: [String, Array],
     disabled: Boolean,
     closable: Boolean
   },

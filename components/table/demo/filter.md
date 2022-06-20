@@ -10,8 +10,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       data:[],
       loading: false,
       columns: [

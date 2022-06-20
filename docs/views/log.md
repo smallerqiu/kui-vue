@@ -5,12 +5,15 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
-### 3.2.11-rc6
-Slider 两点不可交叉是个错误的设计， 已经修正
-Slider 修复Step，Min 值等问题
-InputNumber 修复在ios下等宽正则的问题
-Progress 修复bug
-Grid 支持垂直间距和修复bug
+### 3.3
+`2022-06-20`
+- 重写 Table 组件
+- 精选和新增 Icon 图标,
+- 分离 Icon图标,使用Icon时需要单独引入 
+- 完善 Slider
+- 修复 InputNumber 问题
+- 修复 Progress 问题
+- 修复 Grid 问题
 
 ### 3.2.11
 `2022-5-18`

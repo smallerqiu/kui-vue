@@ -3,14 +3,15 @@ import BasePop from '../base/pop'
 import CMenu from './menu.jsx'
 import { getChild, isVnode } from '../_tool/utils'
 import Icon from '../icon'
-import cloneVNode from '../_tool/clone'
+// import cloneVNode from '../_tool/clone'
+import { ChevronDown, ChevronForward } from 'kui-icons'
 
 export default {
   name: "SubMenu",
   props: {
     disabled: Boolean,
     title: String,
-    icon: String,
+    icon: [String, Array],
   },
   provide() {
     return {
@@ -85,7 +86,7 @@ export default {
         {isVnode(title) ? title : <span>{title}</span>}
       </span>
       <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
-        "chevron-down" : 'chevron-forward'} class={`k-${preCls}-arrow`} />
+        ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} />
     </div>
 
     const popupProps = {

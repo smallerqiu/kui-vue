@@ -13,40 +13,40 @@
     @close="close"
     >
     <template slot="tool">
-      <Icon type="heart" color="#3a95ff" @click="showPanel"/>
+      <Icon :type="Heart" color="#3a95ff" @click="showPanel"/>
     </template>
     <div slot="panel" class="img-panel">
       <h2>详情</h2>
       <Row type="flex">
-        <Col><Icon type="image"/></Col>
+        <Col><Icon :type="IconImage"/></Col>
         <Col flex="1">
           <p class="title">IMG_202005050505.jpg</p>
           <p class="sub">3120x4160 , 2.8MB</p>
         </Col>
       </Row>
       <Row type="flex">
-        <Col><Icon type="calendar" /></Col>
+        <Col><Icon :type="Calendar" /></Col>
         <Col>
           <p class="title">时间：2020年5月5日</p>
           <p class="sub">星期五，下午05:05</p>
         </Col>
       </Row>
       <Row type="flex">
-        <Col><Icon type="location" /></Col>
+        <Col><Icon :type="Location" /></Col>
         <Col  flex="1">
           <p class="title">武汉.江滩</p>
           <p class="sub">湖北省武汉市汉口江滩</p>
         </Col>
       </Row>
       <Row type="flex">
-        <Col><Icon type="camera" /></Col>
+        <Col><Icon :type="Camera" /></Col>
         <Col  flex="1">
           <p class="title">相机：Iphone 12 Pro</p>
           <p class="sub">2048/1000000s ISO-9999</p>
         </Col>
       </Row>
       <Row type="flex">
-        <Col><Icon type="ribbon" /></Col>
+        <Col><Icon :type="Ribbon" /></Col>
         <Col  flex="1">
           <p class="title">镜头：索尼</p>
           <p class="sub">f/10 10.5mm</p>
@@ -67,40 +67,40 @@
       :showPanel="true"
       >
       <template slot="tool">
-        <Icon type="heart" color="#3a95ff" @click="showPanel"/>
+        <Icon :type="Heart" color="#3a95ff" @click="showPanel"/>
       </template>
       <div slot="panel" class="img-panel">
         <h2>详情</h2>
         <Row type="flex">
-          <Col><Icon type="image"/></Col>
+          <Col><Icon :type="IconImage"/></Col>
           <Col flex="1">
             <p class="title">{{img.title}}</p>
             <p class="sub">{{img.desc}}</p>
           </Col>
         </Row>
         <Row type="flex">
-          <Col><Icon type="calendar" /></Col>
+          <Col><Icon :type="Calendar" /></Col>
           <Col>
             <p class="title">时间：{{img.date}}</p>
             <p class="sub">{{img.dateSub}}</p>
           </Col>
         </Row>
         <Row type="flex">
-          <Col><Icon type="location" /></Col>
+          <Col><Icon :type="Location" /></Col>
           <Col  flex="1">
             <p class="title">{{img.address}}</p>
             <p class="sub">{{img.addressSub}}</p>
           </Col>
         </Row>
         <Row type="flex">
-          <Col><Icon type="camera" /></Col>
+          <Col><Icon :type="Camera" /></Col>
           <Col  flex="1">
             <p class="title">相机：{{img.camera}}</p>
             <p class="sub">{{img.cameraSub}}</p>
           </Col>
         </Row>
         <Row type="flex">
-          <Col><Icon type="ribbon" /></Col>
+          <Col><Icon :type="Ribbon" /></Col>
           <Col  flex="1">
             <p class="title">镜头：{{img.disc}}</p>
             <p class="sub">{{img.discSub}}</p>
@@ -111,9 +111,11 @@
   <ImageGroup>
 </template>
 <script>
+import { Ribbon ,Heart, IconImage, Calendar, Location, Camera } from 'kui-icons'
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Ribbon ,Heart, IconImage, Calendar, Location, Camera,
       imgs:[
         {
           src:'https://www.chuchur.com/upload/demo/kui-for-vue.jpg',

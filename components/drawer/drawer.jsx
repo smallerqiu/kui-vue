@@ -3,6 +3,7 @@ import Icon from "../icon";
 import { t } from "../locale";
 import transfer from "../_tool/transfer";
 import { measureScrollBar } from '../_tool/utils'
+import { Close } from 'kui-icons'
 
 let cacheBodyOverflow = {};
 
@@ -120,7 +121,7 @@ export default {
       </div> : null
     )
     const closeNode = closable
-      ? <span class="k-drawer-close" onClick={close}><Icon type="close" /></span>
+      ? <span class="k-drawer-close" onClick={close}><Icon type={Close} /></span>
       : null
     const transitionName = `k-drawer-${placement}`
     const target = this.target()

@@ -1,5 +1,6 @@
 import Icon from "../icon";
 import { getTranstionProp } from '../base/transition'
+import { ChevronUp } from 'kui-icons'
 export default {
   name: 'Panel',
   props: {
@@ -51,7 +52,7 @@ export default {
     return (
       <div class={classes}>
         <div class="k-collapse-header" onClick={this.handelClick}>
-          <Icon type="chevron-up" class="k-collapse-arrow" />
+          <Icon type={ChevronUp} class="k-collapse-arrow" />
           <span class="k-collapse-title">{this.title}</span>
           {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>

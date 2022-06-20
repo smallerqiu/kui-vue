@@ -40,8 +40,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       show1:false,
       show2:false,
       show3:false,

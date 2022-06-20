@@ -33,8 +33,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       value1:'',
       value2:'',
       value3:['1','2']

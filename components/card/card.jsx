@@ -4,7 +4,7 @@ export default {
   props: {
     bordered: { type: Boolean, default: true },
     title: String,
-    icon: String
+    icon: [String, Array]
   },
   render() {
     const { title, icon, $slots, bordered } = this

@@ -12,7 +12,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     const render = (h,row,index,key)=>{
       return {
         children: row[key],
@@ -21,7 +21,7 @@ export default{
         }
       }
     }
-    return{
+    return {
       data:[
         {key:'0',  name:'Li Lei' ,age:32 , night:'orange',  morning:'apple' },
         {key:'1',  name:'Liu Hao' ,age:28 , night:'orange',  morning:'ale' },

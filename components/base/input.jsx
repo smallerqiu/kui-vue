@@ -1,5 +1,6 @@
 import Icon from '../icon'
 import { isNotEmpty } from '../_tool/utils'
+import { Search, CloseCircle, EyeOutline, EyeOffOutline } from 'kui-icons';
 export default {
   name: "baseInput",
   props: {
@@ -20,7 +21,7 @@ export default {
       },
       default: 'text'
     },
-    icon: String,
+    icon: [String, Array],
     suffix: String,
     prefix: String,
     theme: String,
@@ -115,11 +116,11 @@ export default {
     },
     getSuffix() {
       let { $listeners, suffix } = this
-      const Search = ('search' in $listeners) ? <Icon type='search' class="k-input-icon-search" onClick={this.searchEvent} /> : null
+      const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-icon-search" onClick={this.searchEvent} /> : null
 
-      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? 'eye-outline' : 'eye-off-outline'} onClick={this.showPassword} /> : null
+      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
-      return Password || Search || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
+      return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
     getTextInput(mult) {
       const { disabled, size, type, inputType, currentValue, id, theme, shape } = this
@@ -193,7 +194,7 @@ export default {
       {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
       {prefixNode ? prefixNode : null}
       {textInput}
-      {clearableShow ? <Icon type="close-circle" class={`k-${inputType}-clearable`} onClick={this.clear} /> : null}
+      {clearableShow ? <Icon type={CloseCircle} class={`k-${inputType}-clearable`} onClick={this.clear} /> : null}
       {suffixNode ? suffixNode : null}
     </div >
   }

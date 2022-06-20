@@ -22,16 +22,18 @@
         <p>新增一些很友好的功能</p>
         <template slot="extra">更多的辅助细节</template>
       </TimeLineItem>
-      <TimeLineItem icon="ribbon" color="#3593ff" time="2020-11-01" extra="更多的辅助细节">发布2.0版本</TimeLineItem>
-      <TimeLineItem icon="bug" color="red" time="2020-10-03" extra="更多的辅助细节">修复bug</TimeLineItem>
+      <TimeLineItem :icon="Ribbon" color="#3593ff" time="2020-11-01" extra="更多的辅助细节">发布2.0版本</TimeLineItem>
+      <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="更多的辅助细节">修复bug</TimeLineItem>
       <TimeLineItem time="2020-10-01" extra="更多的辅助细节">发布1.0版本</TimeLineItem>
     </TimeLine>
   </div>
 </template>
 <script>
+import { Ribbon, Build } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Ribbon, Build,
       mode:'left'
     }
   }

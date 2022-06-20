@@ -18,17 +18,19 @@
     <Button type="dashed" :size="size">Dashed</Button>
     <Button type="link" :size="size">Link</Button>
     <br/>
-    <Button type="primary" :size="size" icon="cloud-download"></Button>
-    <Button type="primary" shape="circle" :size="size" icon="cloud-download"></Button>
-    <Button type="primary" shape="circle" :size="size" icon="cloud-download">Download</Button>
-    <Button type="primary" :size="size" icon="cloud-download">Download</Button>
+    <Button type="primary" :size="size" :icon="CloudDownload"></Button>
+    <Button type="primary" shape="circle" :size="size" :icon="CloudDownload"></Button>
+    <Button type="primary" shape="circle" :size="size" :icon="CloudDownload">Download</Button>
+    <Button type="primary" :size="size" :icon="CloudDownload">Download</Button>
 
   </div>
 </template>
 <script>
+import { CloudDownload } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      CloudDownload,
       size:'default'
     }
   },

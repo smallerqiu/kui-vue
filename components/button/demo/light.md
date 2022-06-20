@@ -12,15 +12,25 @@
   <Button theme="light">Default</Button>
   <br/>
   <br/>
-  <Button type="primary" theme="light" icon="camera" />
-  <Button type="danger" theme="light" icon="camera" />
-  <Button type="warning" theme="light" icon="camera" />
-  <Button theme="light" icon="camera" />
+  <Button type="primary" theme="light" :icon="Camera" />
+  <Button type="danger" theme="light" :icon="Camera" />
+  <Button type="warning" theme="light" :icon="Camera" />
+  <Button theme="light" :icon="Camera" />
   <br/>
   <br/>
-  <Button type="primary" theme="light" icon="camera" shape="circle" />
-  <Button type="danger" theme="light" icon="camera" shape="circle" />
-  <Button type="warning" theme="light" icon="camera" shape="circle" />
-  <Button theme="light" icon="camera" shape="circle" />
+  <Button type="primary" theme="light" :icon="Camera" shape="circle" />
+  <Button type="danger" theme="light" :icon="Camera" shape="circle" />
+  <Button type="warning" theme="light" :icon="Camera" shape="circle" />
+  <Button theme="light" :icon="Camera" shape="circle" />
 </template>
+<script>
+import { Camera } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Camera
+    }
+  }
+}
+</script>
 ```

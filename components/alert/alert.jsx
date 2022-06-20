@@ -1,8 +1,11 @@
 
 import Icon from "../icon";
+import {
+  InformationCircle, CloseCircle,
+  CheckmarkCircle, AlertCircle, Close
+} from 'kui-icons'
 import { getTranstionProp } from '../base/transition'
 export default {
-  // components: { Icon },
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
@@ -34,17 +37,16 @@ export default {
       }
     ];
     let icons = {
-      info: "information-circle",
-      error: "close-circle",
-      success: "checkmark-circle",
-      warning: "alert-circle"
+      info: InformationCircle,
+      error: CloseCircle,
+      success: CheckmarkCircle,
+      warning: AlertCircle
     };
     const iconNode = showIcon ? <Icon type={icons[this.type]} class="k-alert-icon" /> : null
-    const closeIcon = closable ? <Icon class="k-alert-close" type="close" onClick={close} /> : null
-      description = <div class="k-alert-description">{description}</div>
+    const closeIcon = closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null
+    description = <div class="k-alert-description">{description}</div>
     const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
     const aniprop = getTranstionProp('k-alert-slide')
-    // console.log(aniprop)
     return (
       <transition {...aniprop} name='k-alert-slide'>
         <div class={classes} v-show={!closed}>

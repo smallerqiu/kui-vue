@@ -100,8 +100,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       tip:'明月几时有,把酒问青天!',
     }
   }

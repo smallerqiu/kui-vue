@@ -5,7 +5,7 @@ export default {
     separator: { type: String, default: '/' },
     to: String,
     replace: Boolean,
-    icon: String
+    icon: [String, Array]
   },
   methods: {
     toPath() {

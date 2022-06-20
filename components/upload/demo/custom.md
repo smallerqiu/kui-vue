@@ -18,15 +18,17 @@
     multiple
     ref="upload"
     >
-    <Button icon="cloud-upload-outline" >点击选择上传文件</Button>
+    <Button :icon="CloudUploadOutline" >点击选择上传文件</Button>
   </Upload>
   <br/>
   <Button :disabled="disabled" @click="$refs.upload.upload()">开始上传</Button>
 </template>
 <script>
+import { CloudUploadOutline } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      CloudUploadOutline,
       pramas:{
         type:'image',
         time: Date.now()

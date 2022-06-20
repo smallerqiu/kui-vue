@@ -11,7 +11,7 @@
       image="https://www.chuchur.com/img/thumb.png" 
       description="暂时没有图片"
       :imageStyle="{height:'60px'}">
-      <Button type="primary" circle icon="add" size="small">上传图片</Button>
+      <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
     </Empty>
     <br/>
     Use slot
@@ -19,8 +19,18 @@
     <Empty>
       <template slot="description">暂时没有<a>图片</a></template>
       <img slot="image" src="https://www.chuchur.com/img/thumb.png" style="height:60px" />
-      <Button type="primary" circle icon="add" size="small">上传图片</Button>
+      <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
     </Empty>
   </div>
 </template>
+<script>
+import { Add } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Add
+    }
+  }
+}
+</script>
 ```

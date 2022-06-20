@@ -10,18 +10,20 @@
     <TabPane :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
       {{pane.content}}
     </TabPane>
-    <Button slot="extra" icon="add" size="small" @click="add"/>
+    <Button slot="extra" :icon="Add" size="small" @click="add"/>
   </Tabs>
 </template>
 <script>
+import { Add } from "kui-icons";
 export default{
-  data(){
+  data() {
     const panes = [
       { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
       { title: 'Tab 2', content: 'Content of Tab 2', key: '2', closable:true },
       { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable:true },
     ];
     return {
+      Add,
       panes,
       activeKey: panes[0].key,
       newTabIndex: 0

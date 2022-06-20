@@ -10,11 +10,17 @@
     <Button @click="show(1)" type="danger">Error</Button>
     <Button @click="show(2)">Warning</Button>
     <Button @click="show(3)" type="primary">Info</Button>
-    <Button @click="show(4)" icon="moon">Custom icon</Button>
+    <Button @click="show(4)" :icon="Moon">Custom icon</Button>
   </div>
 </template>
 <script>
+import { Moon } from "kui-icons";
 export default{
+  data() {
+    return {
+      Moon
+    }
+  },
   methods:{
     show(i){
       let t =['操作成功','操作失败','警告警告','操作提示','《静夜思》']
@@ -31,7 +37,7 @@ export default{
       this.$Modal.show({ 
         title: t[i], 
         content: c[i],
-        icon: 'moon',
+        icon: Moon,
         color: '#eccb23' 
       }) :
       this.$Modal[m[i]]({ 

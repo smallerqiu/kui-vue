@@ -6,13 +6,19 @@
 ```vue
 <template>
   <div>
-    <Button @click="alipay" icon="logo-alipay"></Button>
-    <Button @click="wechat" icon="logo-wechat"></Button>
+    <Button @click="alipay" :icon="LogoAlipay"></Button>
+    <Button @click="wechat" :icon="LogoWechat"></Button>
   </div>
 </template>
 <script>
+import { LogoAlipay, LogoWechat } from "kui-icons";
 let count = 0
 export default{
+  data() {
+    return {
+      LogoAlipay, LogoWechat
+    }
+  },
   methods:{
     alipay() {
       this.$Message.config({

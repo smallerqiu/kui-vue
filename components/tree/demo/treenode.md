@@ -7,7 +7,7 @@
 <template>
     <Tree :expandedKeys="expandedKeys">
       <TreeNode title="Tree 1" key="t-1">
-        <TreeNode title="leaf 1-1" key="l-1-1" disabled icon="logo-apple">
+        <TreeNode title="leaf 1-1" key="l-1-1" disabled :icon="LogoApple">
           <TreeNode title="leaf 1-1-1" key="l-1-1-1" disabled/>
           <TreeNode title="leaf 1-2-1" key="l-1-2-1" />
         </TreeNode>
@@ -34,9 +34,11 @@
     </Tree>
 </template>
 <script>
+import { LogoApple } from "kui-icons";
 export default {
   data() {
     return {
+      LogoApple,
       expandedKeys: ['t-1', 't-2'],
     }
   },

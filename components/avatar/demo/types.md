@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div>
-    <Avatar icon="heart-outline" />
+    <Avatar :icon="HeartOutline" />
     <Avatar>
-      <Icon type="heart-outline" />
+      <Icon :type="HeartOutline" />
     </Avatar>
     <Avatar>U</Avatar>
     <Avatar>USER</Avatar>
@@ -16,12 +16,21 @@
     <Avatar style="color: #f51212; background-color: #ffc57d">
       U
     </Avatar>
-    <Avatar style="background-color:#d06868" icon="heart-outline" />
+    <Avatar style="background-color:#d06868" :icon="HeartOutline" />
     <br/>
     <br/>
     <Avatar src="https://chuchur.com/img/chick.jpeg" :size="50"/>
     <Avatar src="https://chuchur.com/img/monkey.jpeg" shape="square"/>
   </div>
 </template>
-
+<script>
+import { HeartOutline } from 'kui-icons'
+export default{
+  data() {
+    return {
+      HeartOutline
+    }
+  }
+}
+</script>
 ```

@@ -6,11 +6,21 @@
 ```vue
 <template>
   <div>
-    <Rate icon="heart" allowHalf />
+    <Rate :icon="Heart" allowHalf />
     <br />
     <Rate character="A" allowHalf style="fontSize: 36px"  />
     <br />
     <Rate character="龍" allowHalf />
   </div>
 </template>
+<script>
+import { Heart } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Heart
+    }
+  }
+}
+</script>
 ```

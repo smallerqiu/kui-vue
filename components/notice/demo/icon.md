@@ -6,16 +6,22 @@
 ```vue
 <template>
   <div>
-    <Button @click="alipay" icon="logo-alipay"></Button>
-    <Button @click="wechat" icon="logo-wechat"></Button>
+    <Button @click="alipay" :icon="LogoAlipay"></Button>
+    <Button @click="wechat" :icon="LogoWechat"></Button>
   </div>
 </template>
 <script>
+import { LogoAlipay, LogoWechat } from "kui-icons";
 export default{  
+  data() {
+    return {
+       LogoAlipay, LogoWechat
+    }
+  },
   methods:{
     alipay() {
       this.$Notice.open({
-        icon:'logo-alipay',
+        icon:LogoAlipay,
         color:'#0082ff',
         title: "尊敬的用户你好",
         content: "我们很高兴通知您，您下个月花呗12900元，不用还了！",
@@ -31,7 +37,7 @@ export default{
       ])
 
       this.$Notice.open({
-        icon:'logo-wechat',
+        icon:LogoWechat,
         color:'#00ff9e',
         title: "尊敬的用户你好",
         content,//: "微信新增了一些新功能，我们邀请您体验！",

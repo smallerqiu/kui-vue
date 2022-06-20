@@ -5,7 +5,7 @@ import { isVnode, getChild } from '../_tool/utils'
 export default {
   name: "MenuItem",
   props: {
-    icon: String,
+    icon: [String, Array],
     title: String,
     disabled: Boolean,
   },

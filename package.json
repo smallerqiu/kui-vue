@@ -1,6 +1,6 @@
 {
 	"name": "kui-vue",
-	"version": "3.2.11rc6",
+	"version": "3.3.0",
 	"description": "A high quality UI Toolkit built on Vue.js 2.0",
 	"main": "dist/k-ui.js",
 	"style": "dist/k-ui.css",
@@ -50,6 +50,7 @@
 		"@babel/preset-env": "^7.13.10",
 		"babel-helper-vue-jsx-merge-props": "^2.0.3",
 		"babel-loader": "^8.2.2",
+		"babel-plugin-import": "^1.13.5",
 		"babel-plugin-lodash": "^3.3.4",
 		"babel-plugin-transform-vue-jsx": "^4.0.1",
 		"babel-preset-env": "^1.7.0",
@@ -92,7 +93,7 @@
 		"webpackbar": "^5.0.0-3"
 	},
 	"dependencies": {
-		"kui-icons": "^3.0.0",
+		"kui-icons": "^4.1.1",
 		"kui-loader": "^1.0.6",
 		"moment": "^2.29.1"
 	},

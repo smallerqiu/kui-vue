@@ -1,6 +1,7 @@
 import Icon from '../icon'
 import createInstance from './instance'
 // import { easyEqual } from '../_tool/utils'
+import { Sync, IconImage } from 'kui-icons'
 export default {
   name: 'kImage',
   props: {
@@ -149,17 +150,6 @@ export default {
         click: this.showPreview
       }
     }
-    // const imageProps = {
-    //   props: {
-    //     origin: origins,
-    //     value: visible,
-    //   },
-    //   on: {
-    //     input: val => {
-    //       this.visible = val
-    //     }
-    //   }
-    // }
     const imgProps = {
       style: imgStyle,
       class: 'k-image-img',
@@ -168,9 +158,9 @@ export default {
     return <div {...props}>
       {/* <Preview {...imageProps} /> */}
       {showImg || (!showImg && placeholder) ? <img {...imgProps} /> : null}
-      {(!showImg || error) && !placeholder ? <Icon type="image" class="k-image-error" /> : null}
+      {(!showImg || error) && !placeholder ? <Icon type={IconImage} class="k-image-error" /> : null}
       {loading ? <div class="k-image-loading" key="wocao">
-        <Icon type="sync" spin class="k-image-loading-icon" />
+        <Icon type={Sync} spin class="k-image-loading-icon" />
       </div> : null}
       {this.$slots.default}
     </div>

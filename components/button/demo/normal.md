@@ -11,15 +11,25 @@
   <Button theme="normal">默认</Button>
   <br/>
   <br/>
-  <Button type="primary" theme="normal" icon="notifications" />
-  <Button type="danger" theme="normal" icon="mail" />
-  <Button type="warning" theme="normal" icon="notifications" />
-  <Button theme="normal" icon="notifications" />
+  <Button type="primary" theme="normal":icon="Notifications" />
+  <Button type="danger" theme="normal":icon="Mail" />
+  <Button type="warning" theme="normal":icon="Notifications" />
+  <Button theme="normal":icon="Notifications" />
   <br/>
   <br/>
-  <Button type="primary" theme="normal" icon="notifications" shape="circle" />
-  <Button type="danger" theme="normal" icon="mail" shape="circle" />
-  <Button type="warning" theme="normal" icon="notifications" shape="circle" />
-  <Button theme="normal" icon="notifications" shape="circle" />
+  <Button type="primary" theme="normal":icon="Notifications" shape="circle" />
+  <Button type="danger" theme="normal":icon="Mail" shape="circle" />
+  <Button type="warning" theme="normal":icon="Notifications" shape="circle" />
+  <Button theme="normal":icon="Notifications" shape="circle" />
 </template>
+<script>
+import { Notifications, Mail } from 'kui-icons'
+export default{
+  data() {
+    return{
+      Notifications, Mail
+    }
+  }
+}
+</script>
 ```

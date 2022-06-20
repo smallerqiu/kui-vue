@@ -20,8 +20,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       data:[
         { key:'0', name:'Li Lei' ,age:28 , address:'Wu Han Guanggu No. 328' },
         { key:'1', name:'Liu Hao' ,age:30 , address:'Wu Han Hongshan No. 128' },

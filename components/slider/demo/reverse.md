@@ -14,7 +14,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return {
      v1: 30,
      v2: [35,60],

@@ -9,7 +9,7 @@
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
    <template v-slot:header-age="value">
       {{value}} <Tooltip title="How old are you?">
-          <Icon type="alert-circle" size="20" color="#ccc" />
+          <Icon :type="AlertCircle" size="18" color="#ccc" />
         </Tooltip>
    </template> 
     <template v-slot:action="value,record,col">
@@ -18,9 +18,11 @@
   </Table>
 </template>
 <script>
+import { AlertCircle } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      AlertCircle,
       data:[
         { key:'0', name:'Li Lei' , age:32 , address:'Wu Han Guanggu No. 328' },
         { key:'1', name:'Liu Hao', age:28 , address:'Wu Han Hongshan No. 128' },
@@ -29,9 +31,9 @@ export default{
       ],
       columns:[
         { title:'Name', key:'name' },
-        { title:'Age', key:'age', },
+        { title:'年龄', key:'age', },
         { 
-          title:'Address', key:'address',
+          title:'地址', key:'address',
           renderHeader:(h,title)=>{ // 通过render 定义表头
           return [
               title,
@@ -40,7 +42,7 @@ export default{
                   title:'Where do you live?'
                 }
               },[
-                h('Icon',{props:{ type:'alert-circle',color:'#ccc',size:'20'}})
+                h('Icon',{ props:{ type:AlertCircle, color:'#ccc',size:18}})
               ])
             ]
           }

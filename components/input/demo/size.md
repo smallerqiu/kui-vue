@@ -6,9 +6,19 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Input placeholder="Large Input" size="large" icon="logo-kui" clearable/>
-    <Input placeholder="Base Input" icon="logo-kui" clearable />
-    <Input size="small" placeholder="Small Input" icon="logo-kui" @icon-click="$Message.info('点击图标事件')" clearable />
+    <Input placeholder="Large Input" size="large" :icon="LogoKui" clearable/>
+    <Input placeholder="Base Input" :icon="LogoKui" clearable />
+    <Input size="small" placeholder="Small Input" :icon="LogoKui" @icon-click="$Message.info('点击图标事件')" clearable />
   </div>
 </template>
+<script>
+import { LogoKui } from 'kui-icons'
+export default{
+  data() {
+    return {
+      LogoKui
+    }
+  }
+}
+</script>
 ```

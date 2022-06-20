@@ -17,7 +17,7 @@
         @remove="()=>form.avatar=''"
         :limit="1"
         accept="image/*"
-        uploadIcon="camera-outline"
+        :uploadIcon="CameraOutline"
         uploadText="上传头像"
         >
       </Upload>
@@ -35,7 +35,7 @@
           :limit="1"
           accept="image/*"
           slot="suffix"
-          ><Icon type="cloud-upload-outline" size="20" /></Upload>
+          ><Icon :type="CloudUploadOutline" size="20" /></Upload>
       </Input>
     </FormItem>
     <FormItem label="多个文件" prop="files">
@@ -56,9 +56,11 @@
   <Form>
 </template>
 <script>
+import { CloudUploadOutline,CameraOutline } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      CloudUploadOutline,CameraOutline,
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
       headers:{

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Card title="卡片标题" icon="heart" bordered>
+    <Card title="卡片标题" :icon="Heart" bordered>
       <a slot="extra" href="#">更多</a>
       <p>card content</p>
       <p>card content</p>
@@ -17,4 +17,14 @@
     </Card>
   </div>
 </template>
+<script>
+import { Heart } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Heart
+    }
+  }
+}
+</script>
 ```

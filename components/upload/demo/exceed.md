@@ -18,13 +18,15 @@ limit 限制上传数量, minSize 和 maxSize 属性可以自定义上传文件�
     @remove="handleChange"
     multiple
     >
-    <Button icon="cloud-upload-outline" :disabled="disabled">点击上传 (最小200KB, 最大1MB,最多上传 {{limit}} 项)</Button>
+    <Button :icon="CloudUploadOutline" :disabled="disabled">点击上传 (最小200KB, 最大1MB,最多上传 {{limit}} 项)</Button>
   </Upload>
 </template>
 <script>
+import { CloudUploadOutline } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      CloudUploadOutline,
       headers:{
         authorization: 'here is token'
       },

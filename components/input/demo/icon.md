@@ -6,13 +6,19 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Input placeholder="User Name..." icon="person" />
-    <Input type="password" placeholder="Password..." icon="lock-closed" />
+    <Input placeholder="User Name..." :icon="Person" />
+    <Input type="password" placeholder="Password..." :icon="LockClosed" />
     <Input placeholder="请输入关进行搜索键字..." @search="search"/>
   </div>
 </template>
-<script>  
-export default {  
+<script>
+import { Person, LockClosed } from "kui-icons";
+export default {
+  data() {
+    return {
+       Person, LockClosed
+    }
+  },
   methods: {
     search() {
       this.$Message.info("This is search event");

@@ -12,6 +12,7 @@
   图片组：<Button @click="openImageGroup" size="small">Open Image Group</Button>
 </template>
 <script>
+import { Heart ,IconImage, Calendar, Location, Camera, Ribbon } from "kui-icons";
 export default{
   methods:{
     openImage(){
@@ -20,7 +21,7 @@ export default{
         src:'https://www.chuchur.com/upload/demo/test_300.jpg',
         slots:{
           tool: h('Icon',{ 
-            props:{ type:'heart' ,color:'#3a95ff' },
+            props:{ type: Heart ,color:'#3a95ff' },
             on:{
               click:()=> this.$Image.togglePanel()
             }
@@ -28,35 +29,35 @@ export default{
           panel: h('div',{class:'img-panel'},[
             h('h2','详情'),
             h('Row',{ props:{ type:'flex' } } ,[
-              h('Col',{}, [h('Icon',{ props: { type:'image' } } )]),
+              h('Col',{}, [h('Icon',{ props: { type: IconImage } } )]),
               h('Col',{ props: {flex:1 } }, [
                 h('p',{ class: 'title' },'IMG_202005050505.jpg' ),
                 h('p',{ class: 'sub' },'3120x4160 , 2.8MB' ),
               ]),
             ]),
             h('Row',{ props:{ type:'flex' } } ,[
-              h('Col',{}, [h('Icon',{ props: { type:'calendar' } } )]),
+              h('Col',{}, [h('Icon',{ props: { type: Calendar } } )]),
               h('Col',{ props: {flex:1 } }, [
                 h('p',{ class: 'title' },'时间：2020年5月5日' ),
                 h('p',{ class: 'sub' },'星期五，下午05:05' ),
               ]),
             ]),
             h('Row',{ props:{ type:'flex' } } ,[
-              h('Col',{}, [h('Icon',{ props: { type:'location' } } )]),
+              h('Col',{}, [h('Icon',{ props: { type:Location } } )]),
               h('Col',{ props: {flex:1 } }, [
                 h('p',{ class: 'title' },'武汉.江滩' ),
                 h('p',{ class: 'sub' },'湖北省武汉市汉口江滩' ),
               ]),
             ]),
             h('Row',{ props:{ type:'flex' } } ,[
-              h('Col',{}, [h('Icon',{ props: { type:'camera' } } )]),
+              h('Col',{}, [h('Icon',{ props: { type: Camera } } )]),
               h('Col',{ props: {flex:1 } }, [
                 h('p',{ class: 'title' },'相机：Iphone 12 Pro' ),
                 h('p',{ class: 'sub' },'2048/1000000s ISO-9999' ),
               ]),
             ]),
             h('Row',{ props:{ type:'flex' } } ,[
-              h('Col',{}, [h('Icon',{ props: { type:'ribbon' } } )]),
+              h('Col',{}, [h('Icon',{ props: { type: Ribbon } } )]),
               h('Col',{ props: {flex:1 } }, [
                 h('p',{ class: 'title' },'镜头：索尼' ),
                 h('p',{ class: 'sub' },'f/10 10.5mm' ),
@@ -79,7 +80,7 @@ export default{
           ],
           slots:{
             tool: h('Icon',{ 
-              props:{ type:'heart' ,color:'#3a95ff' },
+              props:{ type: Heart ,color:'#3a95ff' },
               on:{
                 click:()=> this.$Image.togglePanel()
               }

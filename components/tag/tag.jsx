@@ -1,4 +1,5 @@
 import Icon from '../icon'
+import { Close } from 'kui-icons'
 export default {
   name: 'Tag',
   props: {
@@ -34,7 +35,7 @@ export default {
           <span class="k-tag-text">
             {$slots.default}
           </span>
-          {closeable ? <Icon class="k-tag-close" type="close" onClick={close} /> : null}
+          {closeable ? <Icon class="k-tag-close" type={Close} onClick={close} /> : null}
         </div>
       </transition>
     )

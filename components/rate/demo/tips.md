@@ -12,7 +12,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return { 
       value:3 ,
       desc:['terrible', 'bad', 'normal', 'good', 'wonderful']

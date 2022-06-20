@@ -21,7 +21,24 @@ export default {
   render() {
     return (
       <div class="switch-demo">       
-       <FixedSpan />
+        <Info class="typo" />
+        <Base />
+        <BaseRender />
+        <CustomHeader />
+        <Bordered />
+        <Ellipsis />
+        <Filter />
+        <Span />
+        <Edit />
+        <FixedHead />
+        <FixedCol />
+        <Fixed />
+        <FixedSpan />
+        <Selection />
+        <Expand />
+        <Embed />
+        <Size />
+        <CN class="typo" />
       </div>
     )
   }

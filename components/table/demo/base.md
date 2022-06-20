@@ -10,7 +10,7 @@
       <Tag v-for="tag in value" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
     </template>
     <template v-slot:gender="value">
-      <Icon :type="value==1?'sunny':'moon'" :color="value==1?'blue':'#f50cff'" size="15" />
+      <Icon :type="value==1 ? Sunny : Moon" :color="value==1?'blue':'#f50cff'" size="15" />
     </template>
     <template v-slot:action="value,record,col">
       <Button size="small" @click.stop="e=>show(record)">more</Button>
@@ -18,9 +18,11 @@
   </Table>
 </template>
 <script>
+import { Sunny, Moon } from "kui-icons";
 export default {
   data() {
     return {
+      Sunny, Moon,
       data: [
         { key: '0', name: 'Li Lei', gender: 0, age: 32, address: 'Wu Han Guanggu No. 328', tags: ['Python', 'Java'] },
         { key: '1', name: 'Liu Hao', gender: 1, age: 28, address: 'Wu Han Hongshan No. 128', tags: ['Python', 'Java'] },
