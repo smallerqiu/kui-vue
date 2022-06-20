@@ -240,20 +240,20 @@ export default {
       scrollLeft = Math.round(scrollLeft);
       // console.log(e, target)
       if (target) {
-        // if (target == 'tbody') {
-        //   if (!this.theadSync) {
-        //     this.theadSync = true
+        if (target == 'tbody') {
+          if (!this.theadSync) {
+            this.theadSync = true
             this.$refs[target].scrollLeft = scrollLeft
-        //   }
-        //   this.theadSync = false
-        // }
-        // if (target == 'thead') {
-        //   if (!this.tbodySync) {
-        //     this.tbodySync = true
-        //     this.$refs[target].scrollLeft = scrollLeft
-        //   }
-        //   this.tbodySync = false
-        // }
+          }
+          this.theadSync = false
+        }
+        if (target == 'thead') {
+          if (!this.tbodySync) {
+            this.tbodySync = true
+            this.$refs[target].scrollLeft = scrollLeft
+          }
+          this.tbodySync = false
+        }
       }
       let ping = 'left'
       // console.log(min, scrollLeft, max)
@@ -280,7 +280,7 @@ export default {
     }
     if (width && !height) {
       rootProps.style.overflow = 'auto';
-      // rootProps.on.scroll = e => this.asyncScroll(e)
+      rootProps.on.scroll = e => this.asyncScroll(e)
     }
 
     const content = []
