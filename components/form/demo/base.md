@@ -66,8 +66,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       size:'default',
       theme:false,
       checked:false,

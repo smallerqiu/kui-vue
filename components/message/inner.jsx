@@ -1,11 +1,12 @@
 import Icon from '../icon'
+import { Close, InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle } from 'kui-icons'
 export default {
   props: {
     type: { type: String, default: "info" },
     title: String,
     name: String,
     content: [String, Object],
-    icon: String,
+    icon: [String, Array],
     color: String,
     closable: Boolean,
     noticeType: { type: String, default: "message" },
@@ -18,10 +19,10 @@ export default {
     }];
     let childNode;
     let icons = {
-      info: "information-circle",
-      error: "close-circle",
-      success: "checkmark-circle",
-      warning: "alert-circle"
+      info: InformationCircle,
+      error: CloseCircle,
+      success: CheckmarkCircle,
+      warning: AlertCircle
     };
     let iconNode = type != 'default' ? <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} /> : null
     if (noticeType == 'message') {
@@ -30,7 +31,7 @@ export default {
         <div class="k-message-content">
           {iconNode}
           <span>{content}</span>
-          {closable ? <Icon class="k-message-close" type="close" onClick={onClose} /> : null}
+          {closable ? <Icon class="k-message-close" type={Close} onClick={onClose} /> : null}
         </div>
       )
     } else {
@@ -39,7 +40,7 @@ export default {
           {iconNode}
           <div class="k-notice-title">{title}</div>
           <div class="k-notoce-desc">{content}</div>
-          <Icon class="k-notice-close" type="close" onClick={onClose} />
+          <Icon class="k-notice-close" type={Close} onClick={onClose} />
         </div>
       )
     }

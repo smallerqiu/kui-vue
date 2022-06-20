@@ -20,8 +20,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
      disabled: false ,
      v1: 30,
      v2: [30, 50]

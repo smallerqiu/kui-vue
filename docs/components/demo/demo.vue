@@ -11,7 +11,7 @@
       </div>
       <div class="k-code-actions">
         <Tooltip title="Copy code">
-          <Icon type="copy-outline" @click="copy" />
+          <Icon :type="CopyOutline" @click="copy" />
         </Tooltip>
         <Tooltip :title="expand?'Hide code':'Show code'">
           <Icon :type="'code'+(expand?'-working':'')" @click="expand=!expand" />
@@ -30,10 +30,12 @@ import "./demo.less";
 // import Code from '../code'
 import Tooltip from "@/components/tooltip";
 import Message from "@/components/message";
+import { CopyOutline } from "kui-icons";
 export default {
   components: { Tooltip },
   data() {
     return {
+      CopyOutline,
       expand: false
     };
   },

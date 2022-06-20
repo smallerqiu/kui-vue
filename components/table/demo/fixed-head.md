@@ -9,12 +9,12 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
      const data = []
      for(let i = 0; i < 15; i++){
        data.push({ key:i, name:'Li Lei',tag:'Java', age:28, address:'Wu Han Guanggu No.'+i })
      }
-    return{
+    return {
       data,
       columns:[
         {title:'Name', key:'name' },

@@ -34,7 +34,7 @@ export default {
             },
             default: 'wait'
         },
-        icon: String
+        icon: [String, Array]
     },
     data() {
         return {

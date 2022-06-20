@@ -2,6 +2,7 @@ import Icon from '../icon'
 import { t } from '../locale'
 import Progress from '../progress'
 import Tooltip from '../tooltip'
+import { DocumentTextOutline, Close, AlertCircle, Add } from 'kui-icons'
 let count = 0
 const timestamp = Date.now()
 function getUuid() {
@@ -29,7 +30,7 @@ export default {
     maxSize: Number,
     uploadText: String,
     uploadSubText: String,
-    uploadIcon: { type: String, default: 'add' },
+    uploadIcon: [String, Array],
     draggable: Boolean,
   },
   watch: {
@@ -257,6 +258,9 @@ export default {
     let { name, accept, multiple, directory, type, showUploadList, uploadIcon,
       defaultFileList, limit, uploadText, uploadSubText, draggable } = this
     let isPicture = type == 'picture'
+    if (uploadIcon === undefined) {
+      uploadIcon = Add
+    }
     const props = {
       class: [
         "k-upload",
@@ -310,7 +314,7 @@ export default {
               <div class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]} key={item.uid}>
                 <div class={`k-upload-${isPicture ? 'picture' : 'file'}-preview`}>
                   {
-                    this.getPreview(item) || <Icon type="document-text-outline" />
+                    this.getPreview(item) || <Icon type={DocumentTextOutline} />
                   }
                 </div>
                 <div class="k-upload-file-item-info">
@@ -324,13 +328,13 @@ export default {
                         {item.status == 'uploading' ?
                           <Progress percent={item.percent} type={`${isPicture ? 'circle' : 'line'}`} size="small" showInfo={false} status="active" strokeWidth={15} />
                           :
-                          statusText && !isPicture ? <div class="k-upload-file-status-text"><Icon type="alert-circle" />{statusText}</div> : null
+                          statusText && !isPicture ? <div class="k-upload-file-status-text"><Icon type={AlertCircle} />{statusText}</div> : null
                         }
 
-                        {isPicture && item.status == 'error' ? <Tooltip title={statusText} placement="bottom"><Icon type="alert-circle" /></Tooltip> : null}
+                        {isPicture && item.status == 'error' ? <Tooltip title={statusText} placement="bottom"><Icon type={AlertCircle} /></Tooltip> : null}
                       </div> : null}
                 </div>
-                <Icon type="close" class={`k-upload-file-${isPicture ? 'picture' : 'item'}-remove`} onClick={() => this.remove(i)} />
+                <Icon type={Close} class={`k-upload-file-${isPicture ? 'picture' : 'item'}-remove`} onClick={() => this.remove(i)} />
               </div>
             )
           })

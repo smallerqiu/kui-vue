@@ -6,10 +6,10 @@ suffix，prefix 扩展
 ```vue
 <template>
   <div style="width:256px;">
-    <InputNumber placeholder="请填写您的薪资" icon="logo-yen" >
+    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen" >
       <template slot="suffix">
           <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-            <Icon type="heart" color="red"/>
+            <Icon :type="Heart" color="red"/>
           </Tooltip>  
       </template>
     </InputNumber>
@@ -24,4 +24,14 @@ suffix，prefix 扩展
     <InputNumber placeholder="请输入金额" suffix=".00"/>
   </div>
 </template>
+<script>
+import { Heart, LogoYen } from 'kui-icons'
+export default{
+  data() {
+    return {
+      Heart, LogoYen
+    }
+  }
+}
+</script>
 ```

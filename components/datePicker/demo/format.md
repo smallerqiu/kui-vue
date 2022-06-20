@@ -17,8 +17,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       date:['2019-10-12','2020-10-19']
     }
   },

@@ -11,7 +11,7 @@ columns[n] 可以内嵌 children，以渲染分组表头。
 </template>
 <script>
 export default{
-  data(){
+  data() {
     const data = [];
     for (let i = 0; i < 10; i++) {
       data.push({
@@ -26,16 +26,10 @@ export default{
         gender: 'M',
       });
     }
-    return{
+    return {
       data,
       columns:[
         {
-          title: 'Name',
-          key: 'name',
-          width: 100,
-          fixed: 'left',
-        },
-          {
           title: 'Name',
           key: 'name',
           width: 100,
@@ -87,12 +81,6 @@ export default{
           ],
         },
         {
-          title: 'Gender',
-          key: 'gender',
-          width: 80,
-          fixed: 'right',
-        },
-          {
           title: 'Gender',
           key: 'gender',
           width: 80,

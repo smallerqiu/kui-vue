@@ -10,7 +10,7 @@
       <div class="box"></div>
     </Badge>
     <Badge :dot="show">
-      <Icon type="notifications-outline" />
+      <Icon :type="NotificationsOutline" />
     </Badge>
     <Badge :dot="show">
       <a href="#">我是一个连接</a>
@@ -28,9 +28,11 @@
   </div>
 </template>
 <script>
+import { NotificationsOutline } from 'kui-icons'
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      NotificationsOutline,
       show:true,
       count:15
     }

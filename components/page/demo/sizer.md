@@ -13,8 +13,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       sizeData:[30,50,80,100]
     }
   }

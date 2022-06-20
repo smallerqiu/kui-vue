@@ -11,13 +11,15 @@
     :headers="headers"
     @change="handleChange"
     >
-    <Button icon="cloud-upload-outline">Click to upload</Button>
+    <Button :icon="CloudUpload">Click to upload</Button>
   </Upload>
 </template>
 <script>
+import { CloudUpload } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      CloudUpload,
       headers:{
         authorization: 'here is token'
       }

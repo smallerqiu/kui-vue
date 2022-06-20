@@ -1,5 +1,6 @@
 import { hasProp } from '../_tool/utils'
 import Icon from '../icon'
+import { Checkmark } from 'kui-icons'
 export default {
   name: "Checkbox",
   props: {
@@ -57,7 +58,7 @@ export default {
     }]
 
 
-    let inner = checked ? <Icon type="checkmark" strokeWidth={60} /> : null
+    let inner = checked ? <Icon type={Checkmark} strokeWidth={60} /> : null
     const labelNode = label || $slots.default
     return (
       <label class={wpclasses} onClick={e => e.stopPropagation()}>

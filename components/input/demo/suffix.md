@@ -6,16 +6,16 @@ suffix，prefix 扩展
 ```vue
 <template>
   <div style="width:256px;">
-    <Input placeholder="请输入验证码" icon="shield-checkmark" :maxlength="8">
+    <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8">
       <template slot="suffix">
         <Button size="small" type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
         <span v-else>{{time}}(s)</span>
       </template>
     </Input>
-    <Input placeholder="请填写你要喝的Coffee" icon="gift">
+    <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
       <template slot="suffix">
           <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-            <Icon type="information-circle-outline" color="orange"/>
+            <Icon :type="InformationCircleOutline" color="orange"/>
           </Tooltip>  
       </template>
     </Input>
@@ -31,9 +31,11 @@ suffix，prefix 扩展
   </div>
 </template>
 <script>  
+import { InformationCircleOutline, Gift, ShieldCheckmark } from 'kui-icons'
 export default {  
-  data(){
-    return{
+  data() {
+    return {
+      InformationCircleOutline, Gift, ShieldCheckmark ,
       time:60,
       timer:null
     }

@@ -17,8 +17,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       columns:[
         { title:'Name' ,},
         { title:'Age'},

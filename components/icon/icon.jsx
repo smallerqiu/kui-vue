@@ -1,4 +1,4 @@
-import icons from 'kui-icons'
+// import icons from 'kui-icons'
 // import icons from './lib/kui-icons'
 // import src from './lib/sprite.svg'
 const sty2obj = stl => {
@@ -24,7 +24,7 @@ const obj2sty = obj => {
 export default {
   name: "Icon",
   props: {
-    type: String,
+    type: [String, Array],
     size: [String, Number],
     color: String,
     spin: Boolean,
@@ -50,10 +50,12 @@ export default {
         click: e => this.$emit('click', e)
       }
     }
+    // console.log(type)
     // if (!sprite) {
     //   return <i {...props}><svg id={type} width="1em" height="1em"><use xlinkHref={`${src}#${type}`}></use></svg>{this.$slots.default}</i>
     // }
-    const pathNode = (icons[type] || []).map(i => {
+    let paths = Array.isArray(type) ? type : [];
+    const pathNode = paths.map(i => {
       let sty = i.s ? i.s : 'fill:currentColor';
       if (this.strokeWidth) {
         let o = sty2obj(sty)
@@ -64,6 +66,6 @@ export default {
       }
       return <path d={i.d} style={sty} />
     })
-    return (<i {...props}><svg id={type} viewBox='0 0 512 512' width="1em" height="1em">{pathNode}</svg>{this.$slots.default}</i>)
+    return (<i {...props}><svg viewBox='0 0 512 512' width="1em" height="1em">{pathNode}</svg>{this.$slots.default}</i>)
   }
 };

@@ -59,7 +59,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return {
       n:0.1,
       n1: 1,

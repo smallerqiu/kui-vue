@@ -27,7 +27,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return {
       src:'https://www.chuchur.com/upload/demo/test_300.jpg'
     }

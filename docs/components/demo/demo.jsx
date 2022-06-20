@@ -4,7 +4,7 @@ import Icon from "../../../components/icon";
 import Tooltip from "../../../components/tooltip";
 import Message from "../../../components/message";
 import { getTranstionProp } from '../../../components/base/transition'
-import Control from '../control'
+import { CopyOutline, CaretHor } from "kui-icons";
 export default {
 
   name: "Demo",
@@ -43,10 +43,10 @@ export default {
           </div>
           <div class="k-code-actions">
             <Tooltip title="复制代码">
-              <Icon type="copy-outline" onClick={this.copy} />
+              <Icon type={CopyOutline} onClick={this.copy} />
             </Tooltip>
             <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
-              <Control name="code" onClick={() => this.expand = !this.expand} />
+              <Icon type={CaretHor} onClick={() => this.expand = !this.expand} />
             </Tooltip>
           </div>
         </div>

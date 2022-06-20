@@ -9,6 +9,7 @@
     :columns="columns" />
 </template>
 <script>
+import { Sunny, Moon } from "kui-icons";
 export default {
   data() {
     return {
@@ -26,7 +27,7 @@ export default {
           render: (h, { gender }, i) => {
             return h('Icon', {
               props: {
-                type: gender == 1 ? 'sunny' : 'moon',
+                type: gender == 1 ? Sunny : Moon,
                 color: gender == 1 ? 'blue' : '#f50cff',
                 size: 15
               }

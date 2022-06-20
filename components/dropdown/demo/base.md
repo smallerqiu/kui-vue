@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <a href="#">
-      滑动展开 <Icon type="chevron-down" />
+      滑动展开 <Icon :type="ChevronDown" />
     </a>
     <Menu slot="content">
       <MenuItem>
@@ -23,7 +23,7 @@
   </Dropdown>
   <Dropdown show-placement-arrow trigger="normal" placement="bottom" v-model="show">
     <Button theme="light" @click="show=!show">
-      Toggle <Icon type="chevron-down" />
+      Toggle <Icon :type="ChevronDown" />
     </Button>
     <Menu slot="content">
       <MenuItem>
@@ -40,7 +40,7 @@
 
   <Dropdown trigger="click" >
     <Button theme="light">
-      Click me <Icon type="chevron-down" />
+      Click me <Icon :type="ChevronDown" />
     </Button>
     <Menu slot="content">
       <MenuItem>
@@ -56,9 +56,11 @@
   </Dropdown>
 </template>
 <script>
+import { ChevronDown } from 'kui-icons'
 export default{
-  data(){
+  data() {
     return {
+      ChevronDown,
       show:false
     }
   }

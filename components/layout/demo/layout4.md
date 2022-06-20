@@ -9,13 +9,13 @@
     <Layout  class="layout-back">
       <Sider class="demo-sider">
         <div class="logo-box">
-          <Icon type="logo-kui" size="30" class="logo"/>
+          <Icon :type="LogoKui" size="30" class="logo"/>
           KUI运营后台
         </div>
         <Menu mode="inline" v-model="top" class="demo-top-menu">
-          <MenuItem key="t1" icon="home">首页</MenuItem>
-          <MenuItem key="t2" icon="stats-chart">数据统计</MenuItem>
-          <MenuItem key="t3" icon="settings">能源管理</MenuItem>
+          <MenuItem key="t1" :icon="Home">首页</MenuItem>
+          <MenuItem key="t2" :icon="StatsChart">数据统计</MenuItem>
+          <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
         </Menu>
       </Sider>
       <Content class="k-demo-main">
@@ -30,6 +30,18 @@
     </Layout>
   </div>
 </template>
+<script>
+import { LogoKui , Home, StatsChart, Settings } from 'kui-icons'
+export default{
+  data() {
+    return {
+      LogoKui, Home, StatsChart, Settings ,
+      top:['t1'],
+      left:['0-1']
+    }
+  }
+}
+</script>
 <style scoped lang="less"> 
 .k-demo-layout{
   height:360px;
@@ -62,15 +74,4 @@
   color:#999;
  }
 </style>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
-</script>
-
 ```

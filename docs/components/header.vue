@@ -2,7 +2,7 @@
   <Header class="header">
     <div class="logo">
       <a href="/">
-        <Icon type="logo-kui" />K UIKIT
+        <Icon :type="LogoKui" />K UIKIT
         <sub>v {{version}}</sub>
       </a>
     </div>
@@ -10,7 +10,7 @@
     <div class="search-component">
       <Select placeholder="搜索组件..."
         shape="circle"
-        icon="search"
+        :icon="Search"
         theme="light"
         :showArrow="false"
         filterable
@@ -42,7 +42,7 @@
       placement="bottom-right"
       @click="go">
       <Button size="small">更多
-        <Icon type="chevron-down-outline" />
+        <Icon :type="ChevronDown" />
       </Button>
       <Menu slot="content">
         <MenuItem key="https://react.k-ui.cn">KUI for React</MenuItem>
@@ -59,14 +59,14 @@
       style="margin-left:8px"
       @change="changeThemeColor" />
     <Button theme="normal"
-      :icon="theme=='dark'?'sunny':'moon'"
+      :icon="theme=='dark'?Sunny:Moon"
       shape="circle"
       @click="changeMode"
       style="margin:0 8px;" />
     <!-- <img src="https://img.shields.io/npm/v/kui-vue.svg?style=flat-square"
       style="height:24px;margin-left:10px;" /> -->
     <Button @click="gitee"
-      icon="logo-gitee"
+      :icon="LogoGitee"
       shape="circle"
       theme="normal"></Button>
   </Header>
@@ -74,10 +74,11 @@
 <script>
 import Nav from "../menu";
 import { version } from '@/package.json'
-
+import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 export default {
   data() {
     return {
+      LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search,
       themeColor: '#3a95ff',
       version,
       components: [],

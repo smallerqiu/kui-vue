@@ -48,8 +48,8 @@
 </template>
 <script>
 export default{
-  data(){
-   return{
+  data() {
+   return {
      data:[],
      data2:['2','4']
    } 

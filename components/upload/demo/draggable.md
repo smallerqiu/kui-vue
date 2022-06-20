@@ -11,7 +11,7 @@ draggable='true'，可以使用拖拽功能
       name="file"
       :headers="headers"
       draggable
-      uploadIcon="cloud-upload-outline"
+      :uploadIcon="CloudUploadOutline"
       uploadText="点击上传文件或拖拽文件到这里"
       uploadSubText="支持任意类型文件"
       @change="handleChange"
@@ -20,9 +20,11 @@ draggable='true'，可以使用拖拽功能
   </div>
 </template>
 <script>
+import { CloudUploadOutline } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      CloudUploadOutline,
       headers:{
         authorization: 'here is token'
       }

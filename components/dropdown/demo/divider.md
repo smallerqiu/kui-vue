@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <Button theme="light">
-      分隔线 <Icon type="chevron-down" />
+      分隔线 <Icon :type="ChevronDown" />
     </Button>
     <Menu slot="content">
       <MenuItem key="0">
@@ -23,6 +23,14 @@
     </Menu>
   </Dropdown>
 </template>
-
-
+<script>
+import { ChevronDown } from 'kui-icons'
+export default{
+  data() {
+    return {
+      ChevronDown
+    }
+  }
+}
+</script>
 ```

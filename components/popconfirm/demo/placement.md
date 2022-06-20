@@ -52,8 +52,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       title:'Are you sure to delete this task?',
     }
   }

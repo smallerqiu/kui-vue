@@ -16,24 +16,26 @@
     <br />
     <br />
     <Switch>
-      <Icon type="checkmark" slot="checked"/>
-      <Icon type="close" slot="unchecked"/>
+      <Icon :type="Checkmark" slot="checked"/>
+      <Icon :type="Close" slot="unchecked"/>
     </Switch>
     <Switch>
-      <Icon type="logo-apple" slot="checked"/>
-      <Icon type="logo-windows" slot="unchecked"/>
+      <Icon :type="LogoApple" slot="checked"/>
+      <Icon :type="LogoMicrosoft" slot="unchecked"/>
     </Switch>
     <br />
      <Switch>
-      <Icon type="airplane" slot="unchecked"/>
-      <Icon type="wifi" slot="checked"/>
+      <Icon :type="Airplane" slot="unchecked"/>
+      <Icon :type="Wifi" slot="checked"/>
     </Switch>
   </div>
 </template>
 <script>
+import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi,
       checked:false
     }
   }

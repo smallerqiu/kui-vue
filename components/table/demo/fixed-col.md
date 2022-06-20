@@ -12,12 +12,12 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
      const data = [],columns = [];
      for(let i = 0; i < 10; i++){
        columns.push({ title:'Col'+i, key:'address' })
      }
-    return{
+    return {
       data:[
         { key:0, name:'Li Lei', age:28, address:'Hubei Wuhan Guanggu SoftBase No.128' },
         { key:1, name:'Liu Hao', age:28, address:'Hubei'},

@@ -5,10 +5,7 @@ import { Checkbox } from '../checkbox'
 import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
-
-const getWidth = (el) => {
-  return el ? el.getBoundingClientRect().width : ''
-}
+import { Remove, Add } from 'kui-icons'
 export default {
   name: 'Table',
   props: {
@@ -28,9 +25,9 @@ export default {
   },
   data() {
     return {
-      scrollType: 'left',
+      ping: 'left',
       filters: {},
-      scrollFocus: 'body',
+      // scrollFocus: 'body',
     }
   },
   render() {
@@ -147,7 +144,7 @@ export default {
         }
       })
       if (expandNode) {
-        tr.unshift(<td class="k-table-row-expand-icon-cell"><Icon onClick={e => this.onExpand(d)} type={d._expanded ? 'remove' : 'add'} /></td>)
+        tr.unshift(<td class="k-table-row-expand-icon-cell"><Icon onClick={e => this.onExpand(d)} type={d._expanded ? Remove : Add} /></td>)
       }
       let trProps = {
         class: { 'k-table-row-hover': d._hover },
@@ -179,24 +176,28 @@ export default {
         width,
         hasExpand: expandNode != null
       },
-      ref: 'mainTable',
       on: {
-        scroll: this.scroll,
         sorter: this.sorter,
         'select-all': this.onSelectAll,
+        ping: p => {
+          this.ping = p
+          // todo: class 动态赋值 会重新 render 造成卡顿，后面再细细 可能是table 数据有内存泄露问题
+
+        }
         // resize: this.resetHeight
       }
     }
     content.push(<ExtendTable {...mainProps} />)
 
     const rootProps = {
+      // ref: 'table',
       class: ["k-table", {
         'k-table-fixed': isTableFixed,
         'k-table-sm': this.size == 'small',
         'k-table-lg': this.size == 'large',
-        'k-table-fixed-header': isFixedHeader,
+        // 'k-table-fixed-header': isFixedHeader,
         'k-table-bordered': this.bordered,
-        [`k-table-scroll-${this.scrollType}`]: width
+        [`k-table-ping-${this.ping}`]: width !== undefined
       }]
     }
 
@@ -257,25 +258,6 @@ export default {
 
       this.$emit('on-change', keys, checkData, e)
       this.checkAll = checked
-    },
-    scroll({ target }) {
-      let { mainTable } = this.$refs
-
-      let { scrollLeft } = target
-      let min = 0, max = target.scrollWidth - target.offsetWidth;
-      // console.log(min, scrollLeft, max)
-      if (scrollLeft > min && scrollLeft < max) {
-        this.scrollType = 'middle'
-      } else if (scrollLeft == min) {
-        this.scrollType = 'left'
-      } else if (scrollLeft >= max) {
-        this.scrollType = 'right'
-      }
-
-      //同步thead scroll
-      if (mainTable && mainTable.$refs.thead) {
-        mainTable.$refs.thead.scrollTo(scrollLeft, 0)
-      }
     }
   }
 }

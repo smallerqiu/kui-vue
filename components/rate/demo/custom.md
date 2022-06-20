@@ -13,15 +13,16 @@
   </div>
 </template>
 <script>
+import { VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
       icons:[
-        'volume-off-outline',
-        'volume-low-outline',
-        'volume-medium-outline',
-        'volume-high-outline',
-        'volume-mute-outline'
+        VolumeOff,
+        VolumeLow,
+        VolumeMedium,
+        VolumeHigh,
+        VolumeMute
       ]
     }
   }

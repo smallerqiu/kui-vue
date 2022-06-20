@@ -10,14 +10,16 @@
   <Progress :percent="percent" type="dashboard" :format="format3" :color="color" />
   <br/>
   <ButtonGroup circle>
-    <Button @click="decline" icon="remove" />
-    <Button @click="increase" icon="add"/>
+    <Button @click="decline" :icon="Remove" />
+    <Button @click="increase" :icon="Add" />
   </ButtonGroup>
 </template>
 <script>
+import { Remove, Add } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      Remove,Add,
       percent:0,
       color:''
     }

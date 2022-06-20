@@ -2,6 +2,7 @@ import { Select, Option } from '../select'
 import { Input } from '../input'
 import Icon from '../icon'
 import { t } from '../locale';
+import { ChevronUp, ChevronDoubleBack, Ellipsis, ChevronDoubleForward } from 'kui-icons'
 
 export default {
   name: "Page",
@@ -100,7 +101,7 @@ export default {
             click: () => this.toPage(this.page - 5)
           }
         }
-        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.prevPageGroup ? 'chevron-double-back' : 'ellipsis-horizontal'} /></li>;
+        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.prevPageGroup ? ChevronDoubleBack : Ellipsis} /></li>;
         child.unshift(moreNode)
       }
       if (showNextMore) {
@@ -112,7 +113,7 @@ export default {
             click: () => this.toPage(this.page + 5)
           }
         }
-        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.nextPageGroup ? 'chevron-double-forward' : "ellipsis-horizontal"} /></li>;
+        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.nextPageGroup ? ChevronDoubleForward : Ellipsis} /></li>;
         child.push(moreNode)
       }
       return child
@@ -213,8 +214,8 @@ export default {
   },
   render() {
     const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
-      preNode = <li class={['k-pager-item k-pager-prev', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type="chevron-up" /></li>,
-      nextNode = <li class={['k-pager-item k-pager-next', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type="chevron-up" /></li>,
+      preNode = <li class={['k-pager-item k-pager-prev', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type={ChevronUp} /></li>,
+      nextNode = <li class={['k-pager-item k-pager-next', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type={ChevronUp} /></li>,
       totalNode = (this.showTotal ? <div class="k-page-number"><span>{t('k.page.total')} {this.total} {t('k.page.items')}</span></div> : null),
       pagerNode = this.renderPage(),
       sizeNode = this.renderSize(),

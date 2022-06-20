@@ -1,5 +1,6 @@
 import { hasProp } from '../_tool/utils'
 import Icon from '../icon'
+import { Sync } from 'kui-icons'
 export default {
   name: "kSwitch",
   props: {
@@ -55,7 +56,7 @@ export default {
       }
     ];
     const children = $slots.checked || trueText || $slots.unchecked || falseText
-    const loadNode = loading ? <Icon spin type="sync" class="k-switch-loading" /> : null
+    const loadNode = loading ? <Icon spin type={Sync} class="k-switch-loading" /> : null
 
     const textNode = (
       (size != 'small' && children) ? <span class="k-switch-inner">{defaultChecked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null

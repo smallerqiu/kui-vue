@@ -26,10 +26,10 @@
         </transition>
         <Row class="foot-nav">
           <Col :span="12"><a @click="()=>go({key:prev.name})">
-            <Icon type="chevron-back-outline" />{{prev.name}}
+            <Icon :type="ChevronBack" />{{prev.name}}
           </a></Col>
           <Col :span="12"><a @click="()=>go({key:next.name})">{{next.name}}
-            <Icon type="chevron-forward-outline" />
+            <Icon :type="ChevronForward" />
           </a></Col>
         </Row>
         <Footer class="docs-k-footer">
@@ -45,12 +45,14 @@
 import Header from "./components/header";
 import Control from './components/control'
 import baseNav from "./menu";
+import { ChevronBack, ChevronForward } from 'kui-icons'
 export default {
   components: {
     Header,Control,
   },
   data() {
     return {
+      ChevronBack,ChevronForward,
       prev: {}, next: {},
       baseNav,
       typo: false,

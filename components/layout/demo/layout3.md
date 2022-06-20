@@ -12,7 +12,7 @@
         <Row type="flex" align="middle">
           <Col style="width:194px">
             <div class="logo-box">
-              <Icon type="logo-kui" size="30" class="logo"/>
+              <Icon :type="LogoKui" size="30" class="logo"/>
               K UIKIT
             </div>
           </Col>
@@ -25,8 +25,8 @@
           </Col>
           <Col>
             <Space :size="30">
-              <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
-              <Button icon="notifications-outline" theme="normal"/>
+              <Input :icon="Search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
+              <Button :icon="NotificationsOutline" theme="normal"/>
               <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
             </Space>
           </Col>
@@ -44,6 +44,18 @@
     </Layout>
   </div>
 </template>
+<script>
+import { LogoKui, Search, NotificationsOutline  } from 'kui-icons'
+export default{
+  data() {
+    return {
+      LogoKui, NotificationsOutline, Search,
+      top:['t1'],
+      left:['0-1']
+    }
+  }
+}
+</script>
 <style scoped lang="less">
  .k-demo-layout{
    .demo-header{
@@ -84,15 +96,4 @@
   color:#999;
  }
  </style>
-<script>
-export default{
-  data(){
-    return{
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
-</script>
-
 ```

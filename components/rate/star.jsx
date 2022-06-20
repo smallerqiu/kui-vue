@@ -1,5 +1,6 @@
 import Icon from '../icon'
 import Tooltip from '../tooltip'
+import { Star } from 'kui-icons'
 export default {
   name: 'Star',
   props: {
@@ -11,7 +12,7 @@ export default {
     half: Boolean,
     allowHalf: Boolean,
     disabled: Boolean,
-    icon: [String, Function],
+    icon: [String, Function, Array],
     size: Number,
   },
   data() {
@@ -47,8 +48,8 @@ export default {
     }
     character = character ? <span>{character}</span> : null
     const node = <span {...props}>
-      <span class={['k-star-front', {}]} style={{ width: show_percent ? percent + '%' : null }}>{character || <Icon type={icon || 'star'} size={size} />}</span>
-      <span class="k-star-back">{character || <Icon type={icon || 'star'} size={size} />}</span>
+      <span class={['k-star-front', {}]} style={{ width: show_percent ? percent + '%' : null }}>{character || <Icon type={icon || Star} size={size} />}</span>
+      <span class="k-star-back">{character || <Icon type={icon || Star} size={size} />}</span>
     </span>
     return tooltips ? <Tooltip title={tooltips}>{node}</Tooltip> : node
   },

@@ -15,5 +15,8 @@ module.exports = {
     "lodash",
     "@babel/plugin-syntax-dynamic-import",
     "transform-vue-jsx",
+    // [
+    //   'import', { libraryName: 'kui-icons', }, 'kui-icons'
+    // ]
   ]
 }

@@ -5,6 +5,7 @@ import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
 
 import Drop from '../base/drop'
 import { t } from '../locale';
+import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
 
 export default {
   name: "Select",
@@ -29,9 +30,9 @@ export default {
     options: Array,
     theme: String,
     emptyText: String,
-    icon: String,
+    icon: [String, Array],
     shape: String,
-    arrowIcon: { type: String, default: 'chevron-up' },
+    arrowIcon: [String, Array],
   },
   provide() {
     return {
@@ -271,7 +272,9 @@ export default {
       clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable,
       clearable, label, toggleDrop, transfer } = this
     let childNode = []
-
+    if (arrowIcon == undefined) {
+      arrowIcon = ChevronDown
+    }
     const classes = [
       "k-select",
       {
@@ -302,14 +305,8 @@ export default {
     </div>
 
     let childs = this.getOptions()
-    // childs = (
-    //   !childs.length
-    //     ? <li class="k-select-empty" onClick={this.emptyClick}><Icon type="albums" /><p class="k-empty-desc">暂无数据</p></li>
-    //     : childs
-    // )
-    // console.log(this.$el)
 
-    const loadingNode = <div class="k-select-loading"><Icon type="sync" spin /><span>{t('k.select.loading')}</span></div>
+    const loadingNode = <div class="k-select-loading"><Icon type={Sync} spin /><span>{t('k.select.loading')}</span></div>
     const props = {
       ref: 'overlay',
       props: {
@@ -340,7 +337,7 @@ export default {
     )
     const tags = multiple ?
       label.map((c, i) => {
-        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type="close" onClick={e => removeTag(e, i)} /></span>
+        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type={Close} onClick={e => removeTag(e, i)} /></span>
       })
       : null
 
@@ -371,7 +368,7 @@ export default {
         "k-select-has-clear": showClear,
       }
     ]
-    showClear && childNode.push(<Icon class="k-select-clearable" type="close-circle" onClick={clear} />)
+    showClear && childNode.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
 
     return (
       <div tabIndex="0" class={classes} style={styles}>

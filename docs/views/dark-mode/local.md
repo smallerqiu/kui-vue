@@ -59,26 +59,25 @@ monitor.addListener(matchMode);
     <Layout  class="layout-back">
       <Sider class="demo-sider" :style="{width:collapsed?'60px':'200px'}">
         <div class="logo-box">
-          <Icon type="logo-kui" size="30" class="logo"/>
+          <Icon :type="LogoKui" size="30" class="logo"/>
           <transition>
             <span v-show="!collapsed">KUI运营后台</span>
           </transition>
         </div>
         <Menu mode="inline" v-model="left" :inline-collapsed="collapsed" style="border:none;">
-          <MenuItem key="1-1" icon="home-outline"><span>首页</span></MenuItem>
-          <MenuItem key="1-2" icon="stats-chart"><span>数据统计</span></MenuItem>
-          <MenuItem key="1-3" icon="settings"><span>能源管理</span></MenuItem>
+          <MenuItem key="1-1" :icon="Home"><span>首页</span></MenuItem>
+          <MenuItem key="1-2" :icon="Heart"><span>数据统计</span></MenuItem>
+          <MenuItem key="1-3" :icon="Settings"><span>能源管理</span></MenuItem>
         </Menu>
-        <Button theme="light" :icon="!collapsed?'chevron-back':'chevron-forward'" @click="toggle" class="btn-expand"/>
+        <Button theme="light" :icon="!collapsed?ChevronBack:ChevronForward" @click="toggle" class="btn-expand"/>
       </Sider>
       <Content class="k-demo-main">
         <Row type="flex" align="middle" class="header-nav">
           <Col flex="1"></Col>
           <Col>
             <Space :size="20">
-              <Input icon="search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
-              <Button icon="notifications-outline" theme="normal"/>
-              <Button icon="ellipsis-horizontal-circle-outline" theme="normal"/>
+              <Input :icon="Search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
+              <Button :icon="NotificationsOutline" theme="normal"/>
               <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
             </Space>
           </Col>
@@ -90,8 +89,8 @@ monitor.addListener(matchMode);
         </Breadcrumb> 
         <div class="demo-dark" :theme-mode="dark?'dark':'light'">
             <Menu mode="horizontal" v-model="current">
-            <MenuItem key="1" icon="mail">Navigation One</MenuItem>
-            <MenuItem key="2" icon="stats-chart" disabled>Navigation Two</MenuItem>
+            <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
+            <MenuItem key="2" :icon="Heart" disabled>Navigation Two</MenuItem>
             <MenuItem key="4">
             <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
             </MenuItem>
@@ -163,9 +162,11 @@ monitor.addListener(matchMode);
   </div>
 </template>
 <script>
+import { LogoKui ,Home, Heart, Settings, ChevronBack, ChevronForward, Search,NotificationsOutline,Mail } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      LogoKui,Home, Heart, Settings, ChevronBack, ChevronForward, Search, NotificationsOutline,Mail,
       current:['1'],
       left:['1-1'],
       collapsed:false,
@@ -189,7 +190,6 @@ export default{
 <style scoped lang="less"> 
 .demo-dark{
   padding:20px 0;
-  text-align:center;
   color:#ddd;
   margin:20px;
   background:var(--kui-color-back);

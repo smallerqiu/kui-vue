@@ -7,7 +7,7 @@ export default {
     }
   },
   unbind(el, { value }) {
-    if (typeof value == 'function' && !SSR)
+    if (typeof value == 'function')
       window.removeEventListener('scroll', value)
   }
 }

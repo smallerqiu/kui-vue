@@ -76,7 +76,18 @@ Kui Vue 支持所有的现代浏览器和 IE9+。
 
 ### 按需加载 
 
-可以通过以下的写法来按需加载组件。
+* 使用 babel-plugin-import（推荐）。
+
+```js
+// .babelrc or babel-loader option
+{
+  "plugins": [
+    ["import", { "libraryName": "kui-vue", "style": "css" }] // `style: true` 会加载 less 文件
+  ]
+}
+```
+
+* 手动引入
 
 ```js
 import Button from 'kui-vue/components/button';

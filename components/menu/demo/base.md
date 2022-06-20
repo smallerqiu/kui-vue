@@ -7,9 +7,9 @@
 <template>
   <div>
     <Menu mode="horizontal" v-model="current">
-      <MenuItem key="1" icon="mail">Navigation One</MenuItem>
-      <MenuItem key="2" icon="heart" disabled>Navigation Two</MenuItem>
-      <SubMenu key="3" icon="settings" title="Navigation - Submenu">
+      <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
+      <MenuItem key="2" :icon="Heart" disabled>Navigation Two</MenuItem>
+      <SubMenu key="3" :icon="Settings" title="Navigation - Submenu">
           <MenuItem key="3-1">Option 1</MenuItem>
           <MenuItem key="3-2">Option 2</MenuItem>
           <MenuItem key="3-3">Option 1</MenuItem>
@@ -27,10 +27,12 @@
     </Menu>
   </div>
 </template>
-<script> 
+<script>
+import { Mail, Heart, Settings } from "kui-icons";
 export default {
   data() {
     return {
+      Mail, Heart, Settings,
       current: ['1']
     }
   },

@@ -11,19 +11,19 @@
         <Row type="flex" align="middle">
           <Col style="width:220px">
             <div class="logo-box">
-              <Icon type="logo-kui" size="30" class="logo"/>
+              <Icon :type="LogoKui" size="30" class="logo"/>
               K UIKIT
             </div>
           </Col>
           <Col flex="1">
-            <Input icon="search" placeholder="搜索功能" style="width:200px;" theme="light" shape="circle">
+            <Input :icon="Search" placeholder="搜索功能" style="width:200px;" theme="light" shape="circle">
           </Col>
           <Col>
             <Tooltip title="全屏显示" placement="bottom">
-              <Button icon="scan" theme="normal"/>
+              <Button :icon="Scan" theme="normal"/>
             </Tooltip>
             <Button type="link">帮助文档</Button>
-            <Button icon="notifications-outline" theme="normal"/>
+            <Button :icon="NotificationsOutline" theme="normal"/>
             <Avatar style="background:#3a95ff" :size="40">K</Avatar>
           </Col>
         </Row>
@@ -37,9 +37,9 @@
         <Layout class="demo-back">
           <Sider style="background:transparent;">
             <Menu  v-model="left" class="demo-left-menu" mode="inline">
-              <MenuItem key="t1" icon="home">首页</MenuItem>
-              <MenuItem key="t2" icon="stats-chart">数据统计</MenuItem>
-              <MenuItem key="t3" icon="settings">能源管理</MenuItem>
+              <MenuItem key="t1" :icon="Home">首页</MenuItem>
+              <MenuItem key="t2" :icon="StatsChart">数据统计</MenuItem>
+              <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
             </Menu>
           </Sider>
           <Content>Conent</Content>
@@ -49,6 +49,17 @@
     </Layout>
   </div>
 </template>
+<script>
+import { LogoKui, Home, StatsChart, Settings, Scan, Search, NotificationsOutline } from 'kui-icons'
+export default{
+  data() {
+    return {
+      LogoKui,Home, StatsChart, Settings, Scan, NotificationsOutline,Search,
+      left:['t1']
+    }
+  }
+}
+</script>
 <style scoped lang="less">
  .k-demo-layout{
    .demo-header{
@@ -89,14 +100,4 @@
   color:#999;
  }
  </style>
-<script>
-export default{
-  data(){
-    return{
-      left:['t1']
-    }
-  }
-}
-</script>
-
 ```

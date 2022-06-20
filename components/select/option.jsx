@@ -1,5 +1,6 @@
 import { isNotEmpty } from "../_tool/utils";
 import Icon from '../icon'
+import { Checkmark } from 'kui-icons'
 export default {
   name: "Option",
   props: {
@@ -28,21 +29,10 @@ export default {
     label = label || $slots.default
     let iconNode = null
     if (Select) {
-      /*  let _value = Select.currentValue
-       if (!hasProp(Select, 'value')) {
-         _value = Select.currentValue
-       }
-       if (Select.multiple) {
-         selected = _value.indexOf(value) !== -1
- 
-         iconNode = <Icon type="checkmark" />
-       } else {
-         selected = _value === value
-       } */
       let { currentValue, multiple } = Select
       if (multiple) {
         selected = currentValue.indexOf(value) >= 0
-        iconNode = <Icon type="checkmark" />
+        iconNode = <Icon type={Checkmark} />
       } else {
         selected = currentValue === value
       }

@@ -4,6 +4,7 @@ import { getChild } from "../_tool/utils";
 import cloneVNode from '../_tool/clone'
 import Drop from './drop'
 import { t } from "../locale";
+import { HelpCircle } from 'kui-icons'
 export default {
   name: 'BasePop',
   props: {
@@ -109,7 +110,7 @@ export default {
       if (this.showPlacementArrow) {
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
-          contentNode = [<Icon type="help-circle" />, <div class={`k-${preCls}-title`}>{title}</div>]
+          contentNode = [<Icon type={HelpCircle} />, <div class={`k-${preCls}-title`}>{title}</div>]
 
           footerNode = <div class={`k-${preCls}-footer`}>
             <Button size="small" onClick={this.cancel}>{cancelText}</Button>

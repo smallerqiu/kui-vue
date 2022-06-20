@@ -36,7 +36,7 @@ module.exports = {
 	externals: {
 		"vue": "vue",
 		'vue-router': 'VueRouter',
-		"kui-icons": "kui-icons",
+		// "kui-icons": "kui-icons",
 		'moment': 'moment'
 	},
 	optimization: {

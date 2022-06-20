@@ -72,7 +72,7 @@ Using a script tag for global use:
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return{
 
     }

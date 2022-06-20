@@ -4,7 +4,7 @@
     <br />
     <Affix :offsetTop="55">
       <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制"
-        icon="logo-kui"
+        :icon="LogoKui"
         v-model="key"
         size="large"
         @input="search"
@@ -32,7 +32,7 @@
             v-for="(x,y) in showIcons"
             :key="y"
             class="icon-item">
-            <Icon :type="x" />
+            <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
@@ -47,7 +47,7 @@
             v-for="(x,y) in logo"
             :key="y"
             class="icon-item">
-            <Icon :type="x" />
+            <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
@@ -62,7 +62,6 @@
       </h3>
     </div>
   </div>
-
 </template>
 <style lang="less">
 .icon-list {
@@ -91,36 +90,41 @@
   .item-text {
     font-size: 12px;
     line-height: 1;
+    padding: 10px 0;
   }
 }
 </style>
 <script>
-import icons from 'kui-icons'
+// import { LogoKui } from 'kui-icons'
+import * as icons from 'kui-icons'
+console.log(icons)
 // import sprite from 'kui-icons/lib/sprite.svg'
 // import icons from '../lib/kui-icons'
 // import sprite from '../lib/sprite.svg'
 
 const iconKeys = Object.keys(icons);
-let logos = iconKeys.filter(x => /logo-/.test(x)),
+let logos = iconKeys.filter(x => /Logo/.test(x)),
   outlines = iconKeys.filter(x => {
     let flag = false;
-    if (/-outline/.test(x)) {
+    if (/Outline/.test(x)) {
       flag = true
     } else {
-      flag = iconKeys.filter(y => y == x + '-outline').length <= 0 && !/logo-/.test(x)
+      flag = iconKeys.filter(y => y == x + 'Outline').length <= 0 && !/Logo/.test(x)
     }
     if (flag) return x;
   }),
-  filleds = iconKeys.filter(x => !/logo-/.test(x) && !/-outline/.test(x));
-
+  filleds = iconKeys.filter(x => !/Logo/.test(x) && !/Outline/.test(x));
+// let logos = [], filleds = [];
 export default {
   data() {
     return {
+      icons,
+      LogoKui: icons.LogoKui,
       // sprite,
       key: '',
       type: 'filled',
-      logo: logos,
-      showIcons: filleds
+      logo: logos || [],
+      showIcons: filleds || []
     }
   },
   methods: {
@@ -136,11 +140,12 @@ export default {
       let { showIcons, logo, type } = this
       let origin = type == 'outline' ? outlines : filleds;
       if (key) {
+        key = key.toLowerCase()
         showIcons = origin.filter(x => {
-          return x.replace('-outline', '').indexOf(key) >= 0
+          return x.replace('Outline', '').toLowerCase().indexOf(key) >= 0
         })
         logo = logos.filter(x => {
-          return x.indexOf(key) >= 0
+          return x.toLowerCase().indexOf(key) >= 0
         })
       } else {
         showIcons = origin

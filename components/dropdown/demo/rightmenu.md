@@ -15,8 +15,8 @@
     <Menu slot="content">
       <MenuItem key="news">New file</MenuItem>
       <MenuItem key="edit">Edit</MenuItem>
-      <MenuItem key="save" icon="save">Save</MenuItem>
-      <MenuItem key="cut" icon="cut">Cut</MenuItem>
+      <MenuItem key="save" :icon="Save">Save</MenuItem>
+      <MenuItem key="cut" :icon="Cut">Cut</MenuItem>
       <MenuDivider />
       <MenuItem key="exit">Exit</MenuItem>
     </Menu>
@@ -24,7 +24,13 @@
 </template>
 
 <script>
-export default{
+import { Save, Cut } from 'kui-icons'
+export default {
+  data() {
+    return {
+      Save, Cut
+    }
+  },
   methods:{
     handle({key}){
       this.$Message.info('Click on item '+key)

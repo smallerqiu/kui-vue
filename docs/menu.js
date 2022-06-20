@@ -3,14 +3,12 @@ export default [
     title: "开始",
     key: 'starts',
     child: [
-      { title: "快速上手", sub: 'Getting Started', name: "start", icon: 'start' },
-      { title: "在 vue 中使用", sub: 'Use', name: "use-in-vue", icon: 'vue' },
+      { title: "快速开始", sub: 'Getting Started', name: "start", icon: 'start' },
       { title: "SSR 支持", sub: 'SSR', name: "ssr", icon: 'ssr' },
       { title: "国际化", sub: 'Multilingual', name: "i18n", icon: 'language' },
       { title: "更新日志", sub: 'Update Log', name: "log", update: true, icon: 'logs' },
       { title: "定制主题", sub: 'Themes', name: "theme", icon: 'theme' },
       { title: "暗色模式", sub: 'Dark Mode', name: "dark-mode", icon: 'dark' },
-      { title: "kui-loader", sub: 'Loader', name: "kui-loader", icon: 'loader' },
     ]
   },
   {

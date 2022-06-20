@@ -3,7 +3,7 @@ import { Input } from '../input'
 import Button from '../button'
 import Icon from '../icon'
 import Drop from '../base/drop'
-
+import { ChevronDown, CaretHor } from 'kui-icons'
 const modes = ['rgba', 'hex', 'hsla']
 
 export default {
@@ -25,7 +25,7 @@ export default {
       }
     },
     shape: String,
-    icon: String,
+    icon: [String, Array],
     showArrow: { type: Boolean, default: true },
     defalutColors: {
       type: Array, default: () => ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b', '#000'],
@@ -344,7 +344,7 @@ export default {
           let k = <div class="k-color-picker-key"><span>HEX</span></div>
           node.push(v, k)
         }
-        let btn = <Icon type="change" onClick={this.setMode} />
+        let btn = <Button size="small" theme="normal" icon={CaretHor} onClick={this.setMode} />
         node.push(btn)
         return <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>{node}</div>
       }
@@ -429,7 +429,7 @@ export default {
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
         </div>
-        {showArrow && <Icon type={icon || 'chevron-up'} />}
+        {showArrow && <Icon type={icon || ChevronDown} />}
       </div>
       {drop}
     </div >)

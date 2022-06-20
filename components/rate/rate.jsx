@@ -7,7 +7,7 @@ export default {
     allowClear: { type: Boolean, default: true },
     allowHalf: Boolean,
     character: [String, Function],
-    icon: [String, Function],
+    icon: [String, Array, Function],
     count: { type: Number, default: 5 },
     disabled: Boolean,
     tooltips: Array,
@@ -59,7 +59,7 @@ export default {
           mouseleave: this.mouseleave,
         }
       }
-      stars.push(<Star  {...props} />)
+      stars.push(<Star {...props} />)
     }
     let props = {
       class: "k-rate",

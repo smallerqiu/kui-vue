@@ -7,7 +7,7 @@
 <template>
   <Dropdown>
     <Button theme="light">
-      多级菜单 <Icon type="chevron-down" />
+      多级菜单 <Icon :type="ChevronDown" />
     </Button>
     <Menu slot="content">
       <MenuItem>1st menu item</MenuItem>
@@ -23,4 +23,14 @@
     </Menu>
   </Dropdown>
 </template>
+<script>
+import { ChevronDown } from 'kui-icons'
+export default{
+  data() {
+    return {
+      ChevronDown
+    }
+  }
+}
+</script>
 ```

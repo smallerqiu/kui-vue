@@ -6,13 +6,23 @@
 ```vue
 <template>
   <div>
-    <Button type="primary" icon="search" shape="circle"></Button>
-    <Button type="primary" icon="search">搜索</Button>
-    <Button icon="search" shape="circle"></Button>
-    <Button icon="search">搜索</Button>
-    <Button type="dashed" icon="search" shape="circle"></Button>
-    <Button type="dashed" icon="search">搜索</Button>
-    <Button type="primary">展开选项<Icon type="chevron-down-outline" /></Button>
+    <Button type="primary" :icon="Search" shape="circle"></Button>
+    <Button type="primary" :icon="Search">搜索</Button>
+    <Button :icon="Search" shape="circle"></Button>
+    <Button :icon="Search">搜索</Button>
+    <Button type="dashed" :icon="Search" shape="circle"></Button>
+    <Button type="dashed" :icon="Search">搜索</Button>
+    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
   </div>
 </template>
+<script>
+import { ChevronDown, Search } from 'kui-icons'
+export default{
+  data() {
+    return {
+      ChevronDown ,Search
+    }
+  }
+}
+</script>
 ```

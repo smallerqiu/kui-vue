@@ -19,9 +19,19 @@
     <br />
     <br />
     <ButtonGroup size="small" shape="circle">
-      <Button ><Icon type="chevron-back"/> Backward</Button>
-      <Button>Forward <Icon type="chevron-forward"/></Button>
+      <Button ><Icon :type="ChevronBack"/> Backward</Button>
+      <Button>Forward <Icon :type="ChevronForward"/></Button>
     </ButtonGroup>
   </div>
 </template>
+<script>
+import { ChevronBack,ChevronForward } from 'kui-icons'
+export default{
+  data() {
+    return {
+      ChevronBack, ChevronForward
+    }
+  }
+}
+</script>
 ```

@@ -22,8 +22,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       custom:['#c20','#39f','#e3f','#6c0'],
       colors:[
       'pink',

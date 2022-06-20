@@ -17,7 +17,7 @@ accept 支持传入以下两种类型字符串：
     multiple
     accept="image/*"
     >
-    <Button icon="image-outline">Upload Image</Button>
+    <Button :icon="IconImage">Upload Image</Button>
   </Upload>
   <br/>
   <Upload 
@@ -28,7 +28,7 @@ accept 支持传入以下两种类型字符串：
     multiple
     accept="video/*"
     >
-    <Button icon="videocam-outline">Upload Video</Button>
+    <Button :icon="Videocam">Upload Video</Button>
   </Upload>
   <br/>
   <Upload 
@@ -39,13 +39,15 @@ accept 支持传入以下两种类型字符串：
     multiple
     accept=".pdf,.png,.jpeg"
     >
-    <Button icon="cloud-upload-outline">Upload PDF,PNG,JPEG</Button>
+    <Button :icon="CloudUpload">Upload PDF,PNG,JPEG</Button>
   </Upload>
 </template>
 <script>
+import { IconImage, Videocam, CloudUpload } from "kui-icons";
 export default{
-  data(){
+  data() {
     return {
+      IconImage, Videocam, CloudUpload,
       headers:{
         authorization: 'here is token'
       }

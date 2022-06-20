@@ -17,7 +17,7 @@
     <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template slot="footer">
-        <Button icon="save" @click="visible2=false" type="primary">Save</Button>
+        <Button :icon="Save" @click="visible2=false" type="primary">Save</Button>
       </template> 
     </Modal>
 
@@ -31,9 +31,11 @@
   </div>
 </template>
 <script>
+import { Save } from "kui-icons";
 export default{
-  data(){
-    return{
+  data() {
+    return {
+      Save,
       visible1:false,
       visible2:false,
       visible3:false,

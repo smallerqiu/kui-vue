@@ -19,7 +19,7 @@
 </template>
 <script>
 export default{
-  data(){
+  data() {
     return {
       headers:{
         authorization: 'here is token'

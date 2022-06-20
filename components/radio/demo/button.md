@@ -36,8 +36,8 @@
 </template>
 <script>
 export default{
-  data(){
-    return{
+  data() {
+    return {
       size:'default',
       shape:'default',
       theme:'solid',
