@@ -5,6 +5,11 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
+### 3.3 rc-2
+`2022-08-07`
+- 修复 Table 组件一些细节问题
+- 修复 Input TextArea 聚焦事件的触发问题
+  
 ### 3.3
 `2022-06-20`
 - 重写 Table 组件
