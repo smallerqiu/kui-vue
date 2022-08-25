@@ -17,7 +17,6 @@
             </template>
             </MenuItem>
           </SubMenu>
-          <!-- </SubMenu> -->
         </Menu>
       </Sider>
       <Content :class="{typo:typo}">

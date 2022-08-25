@@ -5,6 +5,11 @@ export default {
 		value: [String, Number],
 		theme: String
 	},
+	provide() {
+    return {
+      TextArea: this
+    }
+  },
 	render() {
 		const props = {
 			props: { ...this.$props, inputType: 'textarea' },
