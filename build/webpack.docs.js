@@ -21,11 +21,11 @@ module.exports = {
     children: false,
   },
   entry: {
-    index: ['./docs/main.js'],
+    index: ['./src/main.js'],
     vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, '../docs/dist'),
+    path: path.resolve(__dirname, '../docs'),
     filename: 'js/[name].[hash:5].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
@@ -89,9 +89,9 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: "css/[name].[contenthash:5].css" }),
     // new MiniCssExtractPlugin({ filename: "css/style.css" }),
     new HtmlWebpackPlugin({
-      favicon: './docs/assets/favicon.png',
+      favicon: './public/favicon.png',
       filename: 'index.html',
-      template: './docs/assets/index.html',
+      template: './public/index.html',
       chunks: ['vendors', 'index'],
       inject: true,
       minify: {

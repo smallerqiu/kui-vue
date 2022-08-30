@@ -3,6 +3,7 @@ import Icon from '../icon'
 import Vue from 'vue'
 import Button from '../button'
 import { t } from '../locale'
+import{InformationCircle,CloseCircle,CheckmarkCircle,AlertCircle,HelpCircle} from 'kui-icons'
 const SSR = Vue && Vue.prototype.$isServer
 
 function isPromise(obj) {
@@ -26,11 +27,11 @@ let createInstance = (props = {}) => {
       //icons
       let { title, content, color, type, icon, cancelText, okText } = props
       let icons = {
-        info: "information-circle",
-        error: "close-circle",
-        success: "checkmark-circle",
-        warning: "alert-circle",
-        confirm: 'help-circle'
+        info: InformationCircle,
+        error: CloseCircle,
+        success: CheckmarkCircle,
+        warning: AlertCircle,
+        confirm: HelpCircle
       }
       //header 
       let header = h('div', { attrs: { class: 'k-toast-header' } }, [

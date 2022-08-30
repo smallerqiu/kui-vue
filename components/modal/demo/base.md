@@ -19,7 +19,9 @@
         </Space>
     </Modal>
 
-    <Modal title="Title" v-model="visible" @ok="okHandle">Content</Modal>
+    <Modal title="基本对话框" v-model="visible" @ok="okHandle">
+    <p>This is the content of a basic modal.</p>
+    <p>More content...</p></Modal>
   </div>
 </template>
 <script>

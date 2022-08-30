@@ -31,7 +31,7 @@
   height:100px;
   width:166px;
   border-radius:8px;
-  background:url("https://www.chuchur.com/upload/demo/test_300.jpg") no-repeat center;
+  background:url("https://cdn.chuchur.com/upload/demo/test_300.jpg") no-repeat center;
   background-size:cover;
 }
 .demo-skeleton-card h2{

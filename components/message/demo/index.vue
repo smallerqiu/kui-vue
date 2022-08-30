@@ -1,14 +1,14 @@
 <script>
-import Info from './info'
-import Base from './base'
-import Icon from './icon'
-import Types from './types'
-import Close from './close'
+import Info from './info.md'
+import Base from './base.md'
+import Icon from './icon.md'
+import Types from './types.md'
+import Close from './close.md'
 import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-message">
         <Info class="typo" />
         <Base />
         <Icon />
@@ -20,3 +20,12 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.demo-message {
+  .k-btn{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    min-width: 70px;
+  }
+}
+</style>

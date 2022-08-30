@@ -1,5 +1,5 @@
 <script>
-import Info from './info'
+import Info from './info.md'
 import Base from './base.md'
 import Trigger from './trigger.md'
 import Closeinside from './closeinside.md'

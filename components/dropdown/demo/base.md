@@ -6,9 +6,9 @@
 ```vue
 <template>
   <Dropdown>
-    <a href="#">
+    <Button>
       滑动展开 <Icon :type="ChevronDown" />
-    </a>
+    </Button>
     <Menu slot="content">
       <MenuItem>
         <a href="javascript:;">1st menu item</a>

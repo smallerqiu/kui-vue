@@ -1,6 +1,6 @@
 {
 	"name": "kui-vue",
-	"version": "3.3.0rc2",
+	"version": "3.3.1",
 	"description": "A high quality UI Toolkit built on Vue.js 2.0",
 	"main": "dist/k-ui.js",
 	"style": "dist/k-ui.css",
@@ -21,21 +21,18 @@
 	"author": "chuchur",
 	"license": "ISC",
 	"keywords": [
-		"kui",
-		"ui",
-		"ui component",
-		"kyui",
 		"vue",
-		"vue.js",
-		"vue2.js",
-		"component",
-		"components",
-		"framework",
-		"vue2 ui",
-		"vue2 components",
-		"ui components",
-		"pc",
-		"pc ui"
+    "vue3",
+    "kui",
+    "kyui",
+    "design",
+    "kui-vue",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend"
 	],
 	"homepage": "https://k-ui.cn",
 	"bugs": {
@@ -97,9 +94,9 @@
 		"kui-loader": "^1.0.6",
 		"moment": "^2.29.1"
 	},
-	"browserslist": [
-		"last 1 version",
-		"> 1%",
-		"IE 10"
-	]
+  "browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "not dead"
+  ]
 }

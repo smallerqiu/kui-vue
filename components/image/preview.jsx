@@ -97,11 +97,6 @@ export default {
       this.$emit('input', false)
       this.$emit('close')
     },
-    touchstart(e) {
-      if (e.touches.length == 1 && this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
-
-      }
-    },
     mousedown(e) {
       if (this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
         if (e.button && e.button != 0) return;
@@ -196,7 +191,19 @@ export default {
     },
     download() {
       if (!this.error) {
-        window.open(this.src)
+        var x = new XMLHttpRequest();
+        x.open("GET", this.src, true);
+        x.responseType = 'blob';
+        x.onload = function (e) {
+          var url = window.URL.createObjectURL(x.response)
+          var a = document.createElement('a');
+          a.href = url
+          a.download = ''
+          a.click()
+        }
+        x.send();
+
+        // window.open(this.src)
       }
     },
     resetBodyStyle(opened) {

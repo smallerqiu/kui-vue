@@ -34,12 +34,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-#dropdown-demo-placement .k-btn {
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-</style>
-
-
 ```

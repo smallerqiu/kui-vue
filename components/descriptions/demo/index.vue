@@ -1,6 +1,6 @@
 <script>
-import Base from './base'
-import Info from './info'
+import Base from './base.md'
+import Info from './info.md'
 import Bordered from './bordered.md'
 import Size from './size.md'
 import Layout from './layout.md'

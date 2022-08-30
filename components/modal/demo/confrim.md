@@ -54,8 +54,9 @@ export default{
       for(var o = 0; o < 3; o++){
         setTimeout(e=>{
           this.$Modal.confirm({
-            content:'Close All',
-            cancelText:'Close All',
+            title:'一次性弹出3个框',
+            content:'给你一个惊喜！',
+            cancelText:'全部关闭',
             onCancel: () => {
               this.$Modal.destroyAll()
             },

@@ -7,7 +7,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-avatar">
         <Info class="typo" />
         <Base />
         <Types />
@@ -18,3 +18,10 @@ export default {
   }
 }
 </script> 
+<style lang="less">
+.demo-avatar{
+  .k-avatar{
+    margin: 0 10px 10px 0;
+  }
+}
+</style>

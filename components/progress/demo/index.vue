@@ -1,5 +1,5 @@
 <script>
-import Info from './info'
+import Info from './info.md'
 import Base from './base.md'
 import Circle from './circle.md'
 import Dynamic from './dynamic.md'

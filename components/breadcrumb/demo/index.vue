@@ -1,8 +1,8 @@
 <script>
-import Info from './info'
-import Base from './base'
-import Icon from './icon'
-import Separator from './separator'
+import Info from './info.md'
+import Base from './base.md'
+import Icon from './icon.md'
+import Separator from './separator.md'
 import CN from '../index.md'
 export default {
   render() {

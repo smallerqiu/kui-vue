@@ -2,23 +2,31 @@
 
 //颜色
 @main: #3a95ff; //主体色
+@main-hover: darken(@main,10%);
+@main-actived: darken(@main,25%);
 @main-10: fadeout(@main,10%);
 @main-30: fadeout(@main,30%);
 @main-60: fadeout(@main,60%);
 @main-80: fadeout(@main,80%);
 @main-90: fadeout(@main,90%);
 @success: #00bb5d; //成功
+@success-hover: darken(@success,10%);
+@success-actived: darken(@success,25%);
 @success-30: fadeout(@success,30%);
 @success-60: fadeout(@success,60%);
 @success-80: fadeout(@success,80%);
 @success-90: fadeout(@success,90%);
 @danger: #ff3300;
+@danger-hover: darken(@danger,10%);
+@danger-actived: darken(@danger,25%);
 @danger-30: fadeout(@danger,30%);
 @danger-60: fadeout(@danger,60%);
 @danger-80: fadeout(@danger,80%);
 @danger-90: fadeout(@danger,90%);
 @dark-danger: darken(#ff3300,20%);
 @warning: #ffa500;
+@warning-hover: darken(@warning,10%);
+@warning-actived: darken(@warning,25%);
 @warning-30: fadeout(@warning,30%);
 @warning-60: fadeout(@warning,60%);
 @warning-80: fadeout(@warning,80%);
@@ -104,7 +112,10 @@
 
 @gray: #969696;
 @gray-30: fadeout(@gray,30%);
+@gray-40: fadeout(@gray,40%);
+@gray-50: fadeout(@gray,50%);
 @gray-60: fadeout(@gray,60%);
+@gray-70: fadeout(@gray,70%);
 @gray-80: fadeout(@gray,80%);
 @gray-90: fadeout(@gray,90%);
 
@@ -130,7 +141,9 @@
 @back-color: #fff; //组件背景
 @back-color-10: #fff; 
 @back-color-30: darken(#fff,30%); 
+@back-color-50: darken(#fff,50%); 
 @back-color-60: darken(#fff,60%); 
+@back-color-70: darken(#fff,70%); 
 @back-color-80: darken(#fff,80%); 
 @back-color-90: darken(#fff,90%);  
 
@@ -141,13 +154,16 @@
 @dark-back-color-10: lighten(#1f1f1f,10%);
 @dark-back-color-30: lighten(#1f1f1f,30%);
 @dark-back-color-60: lighten(#1f1f1f,60%);
+@dark-back-color-70: lighten(#1f1f1f,70%);
+@dark-back-color-80: lighten(#1f1f1f,80%);
 @dark-back-color-90: lighten(#1f1f1f,90%);
 
 @icon-color: rgba(0, 0, 0, .4); //图标颜色
 @dark-icon-color: rgba(255, 255, 255, .4);
 
-@hover-color:fadeout(@main, 80%); //item 的 hover 颜色
-@selected-color:fadeout(@main, 90%); //item 的 selected 颜色
+@hover-color:fadeout(@main, 90%); //item 的 hover 颜色
+@actived-color:fadeout(@main, 80%); //item 的 hover 颜色
+@selected-color:fadeout(@main, 75%); //item 的 selected 颜色
 
 @border-color: rgba(216, 216, 216, 0.5); //边框颜色
 @dark-border-color: rgba(83, 83, 83, 0.5);

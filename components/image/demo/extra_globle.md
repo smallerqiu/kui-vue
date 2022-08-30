@@ -18,7 +18,7 @@ export default{
     openImage(){
       let h = this.$createElement
       let options = {
-        src:'https://www.chuchur.com/upload/demo/test_300.jpg',
+        src:'https://cdn.chuchur.com/upload/demo/test_300.jpg',
         slots:{
           tool: h('Icon',{ 
             props:{ type: Heart ,color:'#3a95ff' },
@@ -75,8 +75,8 @@ export default{
         let options = {
           index,
           data:[
-            'https://www.chuchur.com/upload/demo/kui-react.jpg' ,
-            'https://www.chuchur.com/upload/demo/kui-for-vue.jpg' ,
+            'https://cdn.chuchur.com/upload/demo/kui-react.jpg' ,
+            'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg' ,
           ],
           slots:{
             tool: h('Icon',{ 

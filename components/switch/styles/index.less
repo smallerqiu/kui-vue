@@ -1,4 +1,5 @@
 @import '../../styles/var.less';
+
 .k-switch {
    min-width: 44px;
    height: 24px;
@@ -20,13 +21,16 @@
    overflow: hidden;
    outline: none;
    color: var(--kui-color-font);
+
    &:focus {
       // border: 1px solid var(--kui-color-main);
       // box-shadow: 0 0 5px var(--kui-color-main-30);
    }
+
    .k-icon {
       font-size: 16px;
    }
+
    &::before {
       content: '';
       width: 18px;
@@ -41,6 +45,7 @@
       transition: all .36s cubic-bezier(.78, .14, .15, .86);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.3);
    }
+
    .k-switch-inner {
       color: var(--kui-color-gray-70);
       margin-left: 25px;
@@ -48,11 +53,13 @@
       display: flex;
       line-height: 22px;
    }
+
    &:active:not(&:disabled) {
       &::before {
          width: 22px;
       }
    }
+
    .k-switch-loading {
       color: #000; //var(--kui-color-main);
       position: absolute;
@@ -65,32 +72,38 @@
 .k-switch-sm {
    min-width: 28px;
    height: 16px;
+
    &::before {
       width: 12px;
       height: 12px;
       border-radius: 12px;
       left: 2px;
    }
+
    &:active {
       &::before {
          width: 15px;
       }
    }
+
    &:active:not(&:disabled) {
       &::before {
          width: 15px;
       }
    }
+
    .k-switch-loading {
       left: 3px;
       font-size: 10px;
       margin-top: -5px;
       // top: 3px;
    }
+
    &.k-switch-checked {
       &::before {
          margin-left: -2px;
       }
+
       .k-switch-loading {
          right: 3px;
          left: auto;
@@ -101,26 +114,40 @@
 .k-switch-checked {
    background: var(--kui-color-main);
    border-color: var(--kui-color-main);
+
    &::before {
       left: 100%;
       transform: translate3d(-100%, -50%, 0);
       margin-left: -3px;
    }
+
    .k-switch-inner {
       margin-left: 8px;
       margin-right: 25px;
-      color: var(--kui-color-back);
+      color:#fff;
    }
+
    .k-switch-loading {
       // margin-left: -3px;
       left: auto;
       right: 4px;
+   }
+
+   &:hover,
+   &:focus {
+      border-color: var(--kui-color-main-hover);
+      background: var(--kui-color-main-hover);
+   }
+   &:active {
+      border-color: var(--kui-color-main-actived);
+      background: var(--kui-color-main-actived);
    }
 }
 
 .k-switch-disabled {
    opacity: .6;
    cursor: not-allowed;
+
    .k-switch-loading {
       color: #000;
    }

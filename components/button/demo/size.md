@@ -31,7 +31,7 @@ export default{
   data() {
     return {
       CloudDownload,
-      size:'default'
+      size:"default"
     }
   },
   methods:{

@@ -29,12 +29,12 @@
 		border: 1px solid var(--kui-color-gray-80);
 		z-index: 1001;
 		outline: 0;
-		border-radius: var(--kui-border-radius);
+		border-radius: 12px;
 		top: 100px;
 		overflow: hidden;
 		margin: 0 auto;
 		box-shadow: 0 0 10px 3px rgba(55, 55, 55, .2);
-		width: 520px; // animation: darken .5s ease-in-out;
+		width: 480px; // animation: darken .5s ease-in-out;
 	}
 	.k-modal-content {
 		position: relative;
@@ -42,15 +42,16 @@
 		background-clip: padding-box;
 		height: 100%;
 		overflow: hidden;
+		padding:0 20px;
 		.k-modal-close {
 			position: absolute;
 			cursor: pointer;
 			font-size: 20px;
 			color: var(--kui-color-font);
-			width: 43px;
-			height: 43px;
-			top: 0;
-			right: 0;
+			width: 20px;
+			height: 20px;
+			top: 20px;
+			right: 20px;
 			transition: all .3s ease-in-out;
 			.k-icon {
 				position: absolute;
@@ -60,15 +61,16 @@
 			}
 			&:hover {
 				color: var(--kui-color-danger);
+				border-radius: var(--kui-border-radius);
+				background-color: var(--kui-color-gray-80);
 				// transform: rotate(360deg);
 			}
 		}
 		.k-modal-header {
-			border-bottom: 1px solid var(--kui-color-gray-80);
-			padding: 14px 16px;
+			// border-bottom: 1px solid var(--kui-color-gray-80);
+			padding:20px 0;
 			line-height: 1;
 			font-size: 14px;
-			font-weight: 500;
 			user-select: none;
 			.k-modal-header-inner {
 				width: 90%;
@@ -81,7 +83,8 @@
 			}
 		}
 		.k-modal-body {
-			padding: 16px;
+			// padding:20px 0;
+			margin-bottom: 20px;
 			font-size: 14px;
 			line-height: 1.5;
 			// height: calc(100% - 43px - 45px);
@@ -89,8 +92,8 @@
 			box-sizing: border-box;
 		}
 		.k-modal-footer {
-			border-top: 1px solid var(--kui-color-gray-80);
-			padding: 6px 16px;
+			// border-top: 1px solid var(--kui-color-gray-80);
+			padding:0 0 20px 0;
 			text-align: right;
 			display: inline-block;
 			width: 100%;
@@ -163,7 +166,8 @@
 		width: 416px;
 		background: var(--kui-color-control-10);
 		border-radius: var(--kui-border-radius);
-		padding: 16px;
+		padding: 20px;
+		border-radius: 12px;
 		overflow: hidden;
 	}
 	.k-toast-header {
@@ -174,7 +178,7 @@
 		}
 		.k-toast-title {
 			font-size: 16px;
-			font-weight: 500;
+			font-weight: 600;
 			overflow: hidden;
 			line-height: 1.5;
 		}

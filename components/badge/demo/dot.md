@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { NotificationsOutline } from 'kui-icons'
+import { NotificationsOutline } from "kui-icons"
 export default{
   data() {
     return {

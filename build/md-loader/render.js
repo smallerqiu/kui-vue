@@ -7,9 +7,9 @@ const anchor = require('markdown-it-anchor')
 
 const cnReg = new RegExp('<(cn)(?:[^<]|<)+</\\1>', 'g');
 
-const getDomHtml = (str, tag, scoped) => {
-  const $ = cheerio.load(str, { decodeEntities: false, xmlMode: true, });  //xmlMode 为false 闭合标签 编译错误 
-  if (!tag) { return str; }
+const getDomHtml = ({ content }, tag, scoped) => {
+  const $ = cheerio.load(content, { decodeEntities: false, xmlMode: true, });  //xmlMode 为false 闭合标签 编译错误 
+  if (!tag) { return content; }
   if (tag === 'style') {
     return scoped
       ? $(`${tag}[scoped]`).html()
@@ -56,34 +56,34 @@ var markdown = require('markdown-it')({
 
 
 markdown.core.ruler.push('render', ({ tokens }) => {
-  let cn ;
+  let cn;
   // let   template, script, style, scopedStyle, code, sourceCode;
-  tokens.forEach((token,i) => {
+  tokens.forEach((token, i) => {
     if (token.type === 'html_block') {
       if (token.content.match(cnReg)) {
-        cn = getDomHtml(token.content, 'cn');
+        cn = getDomHtml(token, 'cn');
         token.content = ''
       }
       /* if (token.content.match(usReg)) {
-           us = getDomHtml(token.content, 'us');
+           us = getDomHtml(token, 'us');
            token.content = '';
          } */
     }
     if (token.info === 'vue') {
-      let sourceCode = token.content;
+      // let sourceCode = token.content;
       // console.log(token.content)
       let code = '````html\n' + token.content + '````';
-      let template = getDomHtml(token.content, 'template');
-      let script = getDomHtml(token.content, 'script');
-      
-      let style = getDomHtml(token.content, 'style');
-      let scopedStyle = getDomHtml(token.content, 'style', true);
+      let template = getDomHtml(token, 'template');
+      let script = getDomHtml(token, 'script');
+
+      let style = getDomHtml(token, 'style');
+      let scopedStyle = getDomHtml(token, 'style', true);
       token.content = '';
       token.type = 'html_block';
       if (template) {
         // let data = { html: template, script, style,  cn, sourceCode, };
 
-        let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
+        // let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
 
         const codeHtml = code ? markdown.render(code) : '';
 
@@ -97,7 +97,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
 
         let newContent = `
     <template>
-      <demo :source-code="${source_code}" >
+      <demo>
         <template slot="component">${template}</template>
         <template slot="description">${cnHtml}</template>
         <template slot="code">${codeHtml}</template>

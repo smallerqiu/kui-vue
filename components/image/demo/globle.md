@@ -22,15 +22,15 @@ export default{
     },
     open(){
       this.$Image.show({ 
-        src: 'https://www.chuchur.com/upload/demo/kui-for-vue.jpg'
+        src: 'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg'
       })
     },
     openGroup(){
       this.$Image.show({ 
         data: [ 
-          'https://www.chuchur.com/upload/demo/kui-react.jpg' ,
-          'https://www.chuchur.com/upload/demo/kui-for-vue.jpg' ,
-          'https://www.chuchur.com/upload/demo/test.jpg' 
+          'https://cdn.chuchur.com/upload/demo/kui-react.jpg' ,
+          'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg' ,
+          'https://cdn.chuchur.com/upload/demo/test.jpg' 
         ],
         index:1
       })

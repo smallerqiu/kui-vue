@@ -1,12 +1,12 @@
 <script>
-import Info from "./info";
-import Base from "./base";
+import Info from "./info.md";
+import Base from "./base.md";
 
 import CN from "../index.md";
 export default {
   render() {
     return (
-      <div class="switch-demo">
+      <div class="demo-loading">
         <Info class="typo" />
         <Base />
         <CN class="typo" />
@@ -15,3 +15,10 @@ export default {
   },
 };
 </script>
+<style lang="less">
+.demo-loading{
+  .k-btn{
+    margin: 0 8px 8px 0;
+  }
+}
+</style>
