@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data"
+  <Table :data="data" :sticky="52"
     :columns="columns" />
 </template>
 <script>

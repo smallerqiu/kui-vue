@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered>
+  <Table :data="data" :columns="columns" bordered :sticky="52">
     <template v-slot:fullname="value">
       <a>{{value}}</a>
     </template>

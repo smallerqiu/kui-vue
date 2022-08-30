@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Button @click="add">Add</Button>
-  <Table :data="data" :columns="columns" bordered>
+  <Table :data="data" :columns="columns" bordered :sticky="52">
     <a slot="name" slot-scope="text">{{text}}</a>
     <template slot="action" slot-scope="text,row,col">
       <Popconfirm

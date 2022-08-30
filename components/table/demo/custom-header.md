@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns">
+  <Table :data="data" :columns="columns" :sticky="52">
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
    <template v-slot:header-age="value">
       {{value}} <Tooltip title="How old are you?">
