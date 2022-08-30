@@ -1,23 +1,28 @@
 @import '../../styles/var.less';
+
 .k-form {
   .k-form-item {
     margin-bottom: 24px;
     vertical-align: top;
     zoom: 1;
     color: var(--kui-color-font);
+
     // margin-bottom: 5px;
     .k-form-item {
       margin-bottom: 0;
       flex: 1;
       margin-left: 8px;
+
       &:first-child {
         margin-left: 0;
       }
+
       .k-col {
         flex: 1;
       }
     }
   }
+
   .k-form-item-label {
     text-align: right;
     box-sizing: border-box;
@@ -29,11 +34,13 @@
     overflow: hidden;
     transition: all .3s ease-in-out;
     justify-content: flex-end;
+
     &::after {
       content: ':';
       padding: 0 8px 0 5px;
     }
   }
+
   .k-form-item-content {
     position: relative;
     min-height: 32px;
@@ -41,6 +48,7 @@
     align-items: center;
     transition: all .3s ease-in-out;
   }
+
   .k-form-item-error-tip {
     position: absolute;
     top: 100%;
@@ -52,6 +60,7 @@
     font-size: 12px;
     line-height: 1.5;
   }
+
   .k-form-item-required {
     .k-form-item-label {
       &::before {
@@ -65,28 +74,46 @@
       }
     }
   }
+
   .k-form-item-error {
-    .k-input, .k-textarea, .k-datepicker, .k-input-number {
-      border: 1px solid var(--kui-color-danger);
+    .k-input[mult].k-input-focus {
+      border-color: var(--kui-color-danger);
+      box-shadow: 0 0 5px var(--kui-color-danger-30);
+
+    }
+
+    .k-input,
+    .k-input-focus,
+    .k-textarea,
+    .k-datepicker,
+    .k-input-number {
+      border-color: var(--kui-color-danger);
+
+      &:hover,
       &:focus {
-        border: 1px solid var(--kui-color-danger);
+        border-color: var(--kui-color-danger);
         box-shadow: 0 0 5px var(--kui-color-danger-30);
       }
     }
+
     .k-select {
       .k-select-selection {
-        border: 1px solid var(--kui-color-danger);
+        border-color: var(--kui-color-danger);
       }
+
       .k-select-arrow {
         color: var(--kui-color-danger);
       }
     }
+
     .k-radio-group .k-btn {
       border-color: var(--kui-color-danger);
     }
+
     .k-select-open .k-select-selection {
       box-shadow: 0 0 5px var(--kui-color-danger-30);
     }
+
     .k-datepicker-open {
       box-shadow: 0 0 5px var(--kui-color-danger-30);
     }
@@ -104,6 +131,7 @@
   .k-form-item-label {
     height: 40px;
   }
+
   .k-form-item-content {
     min-height: 40px;
   }
@@ -113,10 +141,12 @@
   .k-form-item {
     flex-direction: column;
   }
+
   .k-form-item-label {
     height: auto;
     justify-content: start;
     margin-bottom: 8px;
+
     &::after {
       display: none;
     }
@@ -126,11 +156,13 @@
 .k-form-inline {
   display: flex;
   flex-wrap: wrap;
+
   .k-form-item {
     flex: none;
     flex-wrap: nowrap;
     margin-right: 16px;
     margin-bottom: 18px;
+
     .k-form-item {
       margin-left: 0;
     }
@@ -143,6 +175,7 @@
   .k-form-item-label {
     height: 24px;
   }
+
   .k-form-item-content {
     min-height: 24px;
   }
@@ -153,6 +186,7 @@
     transform: scaleY(0);
     opacity: 0;
   }
+
   100% {
     transform: scaleY(1);
     opacity: 1;
@@ -164,6 +198,7 @@
     transform: scaleY(1);
     opacity: 1;
   }
+
   100% {
     transform: scaleY(0);
     opacity: 0;

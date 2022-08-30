@@ -1,6 +1,6 @@
 <script>
-import Info from './info'
-import Base from './base'
+import Info from './info.md'
+import Base from './base.md'
 import Shape from './shape.md'
 import Mode from './mode.md'
 import Size from './size.md'

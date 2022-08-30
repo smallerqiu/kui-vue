@@ -1,23 +1,35 @@
 @import './color.less';
-body, *[theme-mode=light], *[theme-mode=light] {
+
+html,
+*[theme-mode=light],
+*[theme-mode=light] {
+  color-scheme: light;
   --kui-border-radius: @radius;
   --kui-color-main: @main;
+  --kui-color-main-hover: @main-hover;
+  --kui-color-main-actived: @main-actived;
   --kui-color-main-10: @main-10;
   --kui-color-main-30: @main-30;
   --kui-color-main-60: @main-60;
   --kui-color-main-80: @main-80;
   --kui-color-main-90: @main-90;
   --kui-color-success: @success;
+  --kui-color-success-hover: @success-hover;
+  --kui-color-success-actived: @success-actived;
   --kui-color-success-30: @success-30;
   --kui-color-success-60: @success-60;
   --kui-color-success-80: @success-80;
   --kui-color-success-90: @success-90;
   --kui-color-danger: @danger;
+  --kui-color-danger-hover: @danger-hover;
+  --kui-color-danger-actived: @danger-actived;
   --kui-color-danger-30: @danger-30;
   --kui-color-danger-60: @danger-60;
   --kui-color-danger-80: @danger-80;
   --kui-color-danger-90: @danger-90;
   --kui-color-warning: @warning;
+  --kui-color-warning-hover: @warning-hover;
+  --kui-color-warning-actived: @warning-actived;
   --kui-color-warning-30: @warning-30;
   --kui-color-warning-60: @warning-60;
   --kui-color-warning-80: @warning-80;
@@ -89,7 +101,10 @@ body, *[theme-mode=light], *[theme-mode=light] {
   --kui-color-lime-90: @lime-90;
   --kui-color-gray: @gray;
   --kui-color-gray-30: @gray-30;
+  --kui-color-gray-40: @gray-40;
+  --kui-color-gray-50: @gray-50;
   --kui-color-gray-60: @gray-60;
+  --kui-color-gray-70: @gray-70;
   --kui-color-gray-80: @gray-80;
   --kui-color-gray-90: @gray-90;
   --kui-color-dark: @dark;
@@ -105,10 +120,14 @@ body, *[theme-mode=light], *[theme-mode=light] {
   --kui-color-back: @back-color;
   --kui-color-control-10: @back-color-10;
   --kui-color-control-30: @back-color-30;
+  --kui-color-control-50: @back-color-50;
   --kui-color-control-60: @back-color-60;
+  --kui-color-control-70: @back-color-70;
+  --kui-color-control-80: @back-color-80;
   --kui-color-control-90: @back-color-90;
   --kui-color-icon: @icon-color;
   --kui-color-hover: @hover-color;
+  --kui-color-actived: @actived-color;
   --kui-color-selected: @selected-color;
   --kui-color-border: @border-color;
   --kui-color-disable-border: @disable-border;
@@ -118,10 +137,13 @@ body, *[theme-mode=light], *[theme-mode=light] {
   --kui-color-table-border: #f0f0f0;
   --kui-color-table-hover: #fafafa;
   --kui-color-table-header-hover: #f1f1f1;
-  --kui-color-shadow:rgba(0, 0, 0, .15);
+  --kui-color-shadow: rgba(0, 0, 0, .15);
 }
 
-body[theme-mode=dark], *[theme-mode=dark] {
+[theme-mode=dark],
+html[theme-mode=dark],
+*[theme-mode=dark] {
+  color-scheme: dark;
   --kui-color-font: @dark-font-color;
   --kui-color-title: @dark-title-color;
   --kui-color-sub-title: @dark-sub-title-color;
@@ -140,5 +162,5 @@ body[theme-mode=dark], *[theme-mode=dark] {
   --kui-color-table-border: #303030;
   --kui-color-table-hover: #262626;
   --kui-color-table-header-hover: #303030;
-  --kui-color-shadow:rgba(0, 0, 0, .65);
+  --kui-color-shadow: rgba(0, 0, 0, .65);
 }

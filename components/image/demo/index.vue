@@ -1,12 +1,12 @@
 <script>
-import Info from './info'
-import Base from './base'
-import Origin from './origin'
-import Errors from './errors'
-import Group from './group'
-import Extra from './extra'
-import ExtraGloble from './extra_globle'
-import Globle from './globle'
+import Info from './info.md'
+import Base from './base.md'
+import Origin from './origin.md'
+import Errors from './errors.md'
+import Group from './group.md'
+import Extra from './extra.md'
+import ExtraGloble from './extra_globle.md'
+import Globle from './globle.md'
 import CN from '../index.md'
 export default {
   render() {

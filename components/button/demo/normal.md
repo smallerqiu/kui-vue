@@ -23,10 +23,10 @@
   <Button theme="normal":icon="Notifications" shape="circle" />
 </template>
 <script>
-import { Notifications, Mail } from 'kui-icons'
+import { Notifications, Mail } from "kui-icons"
 export default{
   data() {
-    return{
+    return {
       Notifications, Mail
     }
   }

@@ -1,5 +1,5 @@
 <script>
-import Info from './info'
+import Info from './info.md'
 import Base from './base.md'
 import Vertical from './vertical.md'
 import AutoPlay from './autoplay.md'

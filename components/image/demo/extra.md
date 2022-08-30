@@ -9,7 +9,7 @@
   单张图：
   <Image 
     :width="120" 
-    src="https://www.chuchur.com/upload/demo/test_300.jpg"
+    src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
     @close="close"
     >
     <template slot="tool">
@@ -118,7 +118,7 @@ export default{
       Ribbon ,Heart, IconImage, Calendar, Location, Camera,
       imgs:[
         {
-          src:'https://www.chuchur.com/upload/demo/kui-for-vue.jpg',
+          src:'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg',
           title:'kui for vue.js.jpg',
           desc: '一套基于Vuejs的桌面UI组件库',
           date: '2017年8月7日',
@@ -131,7 +131,7 @@ export default{
           discSub:'VUEJS 2.x',
         },
         {
-          src:'https://www.chuchur.com/upload/demo/kui-react.jpg',
+          src:'https://cdn.chuchur.com/upload/demo/kui-react.jpg',
           title:'kui for react.jpg',
           desc: '一套基于Reactjs的桌面UI组件库',
           date: '2018年10月7日',

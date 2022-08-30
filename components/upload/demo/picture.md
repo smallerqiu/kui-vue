@@ -26,7 +26,7 @@ export default{
       },
       fileList:[
         {
-          url:'https://www.chuchur.com/upload/demo/test_300.jpg',
+          url:'https://cdn.chuchur.com/upload/demo/test_300.jpg',
           status:'uploading',
           filename:'test.jpg',
           size:'222kb',
@@ -34,7 +34,7 @@ export default{
           status:'uploading'
         },
         {
-          url:'https://www.chuchur.com/upload/demo/test_300.jpg',
+          url:'https://cdn.chuchur.com/upload/demo/test_300.jpg',
           status:'error',
           filename:'test.jpg',
           size:'222kb'

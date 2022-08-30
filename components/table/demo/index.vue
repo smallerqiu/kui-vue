@@ -1,26 +1,26 @@
 <script>
-import Base from './base'
-import BaseRender from './base-render'
-import CustomHeader from './custom-header'
-import Info from './info'
-import Ellipsis from './ellipsis'
-import Filter from './filter'
-import Bordered from './bordered'
-import Span from './span'
-import Edit from './edit'
-import FixedHead from './fixed-head'
-import FixedCol from './fixed-col'
-import Fixed from './fixed'
-import FixedSpan from './fixedspan'
-import Selection from './selection'
-import Expand from './expand'
-import Embed from './embed'
-import Size from './size'
+import Base from './base.md'
+import BaseRender from './base-render.md'
+import CustomHeader from './custom-header.md'
+import Info from './info.md'
+import Ellipsis from './ellipsis.md'
+import Filter from './filter.md'
+import Bordered from './bordered.md'
+import Span from './span.md'
+import Edit from './edit.md'
+import FixedHead from './fixed-head.md'
+import FixedCol from './fixed-col.md'
+import Fixed from './fixed.md'
+import FixedSpan from './fixedspan.md'
+import Selection from './selection.md'
+import Expand from './expand.md'
+import Embed from './embed.md'
+import Size from './size.md'
 import CN from '../index.md'
 export default {
   render() {
     return (
-      <div class="switch-demo">       
+      <div class="demo-table">       
         <Info class="typo" />
         <Base />
         <BaseRender />
@@ -43,6 +43,4 @@ export default {
     )
   }
 }
-
-</script> 
- 
+</script>

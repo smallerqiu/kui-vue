@@ -14,6 +14,7 @@ export default {
     width: Number,
     hasExpand: Boolean,
     indeterminate: Boolean,
+    sticky: [Boolean, Number],
     checkAll: Boolean,
   },
   data() {
@@ -69,7 +70,7 @@ export default {
       }
     },
     renderCol(hasHead) {
-      const isFixedHeader = this.height != undefined
+      const isFixedHeader = this.height !== undefined
       let cols = []
       let columns = this.columns2 || this.columns
       columns.forEach((col, i) => {
@@ -217,8 +218,14 @@ export default {
       if (!head.length) {
         head.push(<tr>{ths}</tr>)
       }
-
-      return <thead ref="head">{head}</thead>
+      let props = { style: {} }
+      if (!this.height && this.sticky) {
+        props.class = 'k-table-thead-sticky'
+        if (this.sticky > 0) {
+          props.style.top = this.sticky + 'px'
+        }
+      }
+      return <thead ref="head" {...props}>{head}</thead>
     },
     renderTable(hasHead, body) {
       let props = {}
@@ -269,7 +276,7 @@ export default {
     }
   },
   render() {
-    let { height, width, body, scrollBarHeight } = this
+    let { height, width, body, scrollBarHeight, sticky } = this
     let rootProps = {
       // ref: 'table',
       // class: [`k-table-container`,
@@ -279,14 +286,14 @@ export default {
       on: {}
     }
     if (width && !height) {
-      rootProps.style.overflow = 'auto';
-      rootProps.on.scroll = e => this.asyncScroll(e)
+      // rootProps.style.overflow = 'auto';
+      // rootProps.on.scroll = e => this.asyncScroll(e)
     }
-
+    let has_sticky = sticky !== undefined && sticky >= 0
     const content = []
-    if (height) {
+    if (height || (width && has_sticky)) {
       let headProps = {
-        class: `k-table-thead`,
+        class: [`k-table-thead`, { 'k-table-thead-sticky': has_sticky }],
         on: {
           scroll: e => this.asyncScroll(e, 'tbody')
         },
@@ -295,10 +302,16 @@ export default {
           // marginBottom: -scrollBarHeight + 'px'
         }
       }
-      if (width && height) {
+      if (has_sticky && sticky > 0) {
+        headProps.style.top = sticky + 'px'
+      }
+      if (width && height && !has_sticky) {
         headProps.style.marginBottom = -scrollBarHeight + 'px'
       }
-      if (height) {
+
+      if (sticky) {
+        headProps.style.overflow = 'hidden'
+      } else if (height) {
         headProps.style.overflow = 'auto'
       }
       content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
@@ -317,7 +330,12 @@ export default {
           height: height + 'px',
           overflow: 'auto scroll'
         }
+      } else if (width && has_sticky) {
+        props.style = {
+          overflow: 'auto hidden'
+        }
       }
+
       content.push(<div {...props}>{this.renderTable(false, body)}</div>)
     } else {
       content.push(this.renderTable(true, body))

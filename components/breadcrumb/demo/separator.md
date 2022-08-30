@@ -5,13 +5,11 @@
 
 ```vue
 <template>
-  <div>
-    <Breadcrumb>
-      <BreadcrumbItem to="/" :icon="Home" separator="~">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
-      <BreadcrumbItem :icon="Heart" separator="~">other</BreadcrumbItem>
-    </Breadcrumb>
-  </div>
+  <Breadcrumb>
+    <BreadcrumbItem to="/" :icon="Home" separator="~">Home</BreadcrumbItem>
+    <BreadcrumbItem to="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
+    <BreadcrumbItem :icon="Heart" separator="~">other</BreadcrumbItem>
+  </Breadcrumb>
 </template>
 <script>
 import { Heart, Home, Cloud } from 'kui-icons'

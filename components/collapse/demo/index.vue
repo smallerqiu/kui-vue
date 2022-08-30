@@ -1,10 +1,10 @@
 <script>
-import Info from './info'
-import Base from './base'
-import Accrodion from './accrodion'
-import Nesting from './nesting'
-import Sample from './sample'
-import Extra from './extra'
+import Info from './info.md'
+import Base from './base.md'
+import Accrodion from './accrodion.md'
+import Nesting from './nesting.md'
+import Sample from './sample.md'
+import Extra from './extra.md'
 import CN from '../index.md'
 export default {
   render() {

@@ -1,14 +1,14 @@
 <script>
-import Info from "./info";
-import Base from "./base";
-import Container from "./container";
-import Mode from "./mode";
+import Info from "./info.md";
+import Base from "./base.md";
+import Container from "./container.md";
+import Mode from "./mode.md";
 
 import CN from "../index.md";
 export default {
   render() {
     return (
-      <div class="switch-demo">
+      <div class="demo-spin">
         <Info class="typo" />
         <Base />
         <Container />

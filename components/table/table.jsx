@@ -21,6 +21,7 @@ export default {
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
     loading: Boolean,
+    sticky: [Boolean, Number],
     emptyText: String,
   },
   data() {
@@ -31,7 +32,7 @@ export default {
     }
   },
   render() {
-    let { $slots, data, $scopedSlots, loading, height, width } = this
+    let { $slots, data, $scopedSlots, loading, height, width, sticky } = this
     // bordered = true
     const { header, footer } = $slots
     let isTableFixed = width || height
@@ -42,7 +43,6 @@ export default {
       content.push(<div class="k-table-header"> {header}</div>)
     }
 
-    const isFixedHeader = height
 
     let expandNode = $scopedSlots['expandedRowRender']
 
@@ -174,6 +174,7 @@ export default {
         indeterminate,
         checkAll,
         width,
+        sticky:52,
         hasExpand: expandNode != null
       },
       on: {
@@ -195,7 +196,6 @@ export default {
         'k-table-fixed': isTableFixed,
         'k-table-sm': this.size == 'small',
         'k-table-lg': this.size == 'large',
-        // 'k-table-fixed-header': isFixedHeader,
         'k-table-bordered': this.bordered,
         [`k-table-ping-${this.ping}`]: width !== undefined
       }]

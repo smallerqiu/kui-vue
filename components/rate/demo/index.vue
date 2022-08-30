@@ -1,18 +1,18 @@
 <script>
-import Info from "./info";
-import Base from "./base";
-import Half from "./half";
-import Tips from "./tips";
-import Disabled from "./disabled";
-import Clear from "./clear";
-import Character from "./character";
-import Custom from "./custom";
+import Info from "./info.md";
+import Base from "./base.md";
+import Half from "./half.md";
+import Tips from "./tips.md";
+import Disabled from "./disabled.md";
+import Clear from "./clear.md";
+import Character from "./character.md";
+import Custom from "./custom.md";
 
 import CN from "../index.md";
 export default {
   render() {
     return (
-      <div class="switch-demo">
+      <div class="demo-rate">
         <Info class="typo" />
         <Base />
         <Half />

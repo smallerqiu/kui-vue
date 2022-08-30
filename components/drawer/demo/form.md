@@ -16,30 +16,6 @@
         <FormItem label="Number" prop="number">
           <Input number clearable></Input>
         </FormItem>
-        <FormItem label="Select">
-          <Row type="flex" :gutter="8">
-            <Col :span="12">
-            <FormItem prop="province">
-              <Select clearable>
-                <Option value="0" label="北京" />
-                <Option value="1" label="上海" />
-                <Option value="2" label="广州" />
-                <Option value="3" label="深圳" />
-              </Select>
-            </FormItem>
-            </Col>
-            <Col :span="12" >
-            <FormItem prop="city">
-              <Select clearable>
-                <Option value="0" label="南山区" />
-                <Option value="1" label="龙华区" />
-                <Option value="2" label="福田区" />
-                <Option value="3" label="宝安区" />
-              </Select>
-            </FormItem>
-            </Col>
-          </Row>
-        </FormItem>
         <FormItem label="DatePicker" prop="datepicker">
           <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
         </FormItem>
@@ -88,7 +64,6 @@ export default {
         switch: true,
         input: "",
         number: "",
-        select: '',
         province: '',
         city: '',
         radio: true,
@@ -101,7 +76,6 @@ export default {
       rules: {
         input: [{ required: true }],
         number: [{ required: true}],
-        select: [{ required: true }],
         province: [{ required: true }],
         city: [{ required: true }],
         datepicker: [{ required: true }],

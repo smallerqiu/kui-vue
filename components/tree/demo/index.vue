@@ -1,5 +1,5 @@
 <script>
-import Info from './info'
+import Info from './info.md'
 import Base from './base.md'
 import TreeNode from './treenode.md'
 import Checkable from './checkable.md'

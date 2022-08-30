@@ -9,8 +9,8 @@
 <template>
   <Image 
     :width="120" 
-    src="https://www.chuchur.com/upload/demo/test_300.jpg"
-    origin="https://www.chuchur.com/upload/demo/test.jpg"
+    src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
+    origin="https://cdn.chuchur.com/upload/demo/test.jpg"
     />
 </template>
 ```

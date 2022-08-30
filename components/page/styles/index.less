@@ -29,10 +29,17 @@
 			position: relative;
 			vertical-align: middle;
 			&:hover {
-				border-color: var(--kui-color-main);
-				color: var(--kui-color-main);
+				border-color: var(--kui-color-main-hover);
+				color: var(--kui-color-main-hover);
 				.k-icon {
-					color: var(--kui-color-main);
+					color: var(--kui-color-main-hover);
+				}
+			}
+			&:active{
+				border-color: var(--kui-color-main-actived);
+				color: var(--kui-color-main-actived);
+				.k-icon {
+					color: var(--kui-color-main-actived);
 				}
 			}
 			&.k-pager-item-active {

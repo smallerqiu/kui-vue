@@ -108,10 +108,10 @@
         border-width: 1px 0 0;
         background-color: var(--kui-color-border);
       }
-      .k-image-preview-action-rotate-left {
+      .k-image-preview-action-rotate-left .k-icon{
         transform: rotateY(-180deg) rotate(45deg);
       }
-      .k-image-preview-action-rotate-right {
+      .k-image-preview-action-rotate-right .k-icon{
         transform: rotate(45deg);
       }
       .k-image-preview-action-disabled {
@@ -137,6 +137,9 @@
       &:hover {
         background-color: var(--kui-color-main);
         color: #fff;
+      }
+      &:active{
+        background-color: var(--kui-color-main-actived);
       }
     }
     .k-image-preview-switch-left {

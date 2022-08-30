@@ -417,6 +417,7 @@ export default {
     let style = [
       'k-color-picker',
       {
+        'k-color-picker-opened': this.opened,
         'k-color-picker-disabled': this.disabled,
         'k-color-picker-sm': this.size == 'small',
         'k-color-picker-circle': this.shape == 'circle' && !showArrow,

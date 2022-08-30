@@ -7,6 +7,12 @@
   box-sizing: border-box;
   position: relative;
   color: var(--kui-color-font);
+  &-thead-sticky{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 3;
+  }
   .k-table-cell-fixed-left {
     position: sticky;
     left: 0;
@@ -52,7 +58,10 @@
     tr>th, tr>td {
       font-size: 14px;
       padding: 10px;
-      overflow-wrap: break-word;
+      box-sizing: border-box;
+      // overflow-wrap: break-word;
+      // word-wrap: break-word;
+      word-break: break-all;
       word-wrap: break-word;
       border-bottom: 1px solid var(--kui-color-table-border);
     }

@@ -1,7 +1,7 @@
 <script>
-import Base from './base'
-import Stroke from './stroke'
-import Info from './info'
+import Base from './base.md'
+import Stroke from './stroke.md'
+import Info from './info.md'
 import Search from './search.vue'
 import CN from '../index.md'
 export default {

@@ -10,7 +10,7 @@
     <Image 
       :width="120"
       src="https://k-ui.cn/error.jpg"
-      placeholder="https://www.chuchur.com/img/thumb.png"
+      placeholder="https://cdn.chuchur.com/img/thumb.png"
       />
     <Image 
       :width="120"
@@ -29,7 +29,7 @@
 export default{
   data() {
     return {
-      src:'https://www.chuchur.com/upload/demo/test_300.jpg'
+      src:'https://cdn.chuchur.com/upload/demo/test_300.jpg'
     }
   },
   methods:{

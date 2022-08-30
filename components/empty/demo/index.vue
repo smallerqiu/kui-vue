@@ -1,9 +1,9 @@
 <script>
-import Info from './info' 
-import Base from './base' 
-import Custom from './custom' 
-import Use from './use' 
-import Nodesc from './nodesc' 
+import Info from './info.md' 
+import Base from './base.md' 
+import Custom from './custom.md' 
+import Use from './use.md' 
+import Nodesc from './nodesc.md' 
 import CN from '../index.md'
 export default {
   render() {

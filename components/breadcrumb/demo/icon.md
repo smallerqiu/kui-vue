@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { Heart, Home, Cloud } from 'kui-icons'
+import { Heart, Home, Cloud } from "kui-icons"
 export default{
   data() {
     return {

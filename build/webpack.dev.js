@@ -10,21 +10,21 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'development',
   devServer: {
-    contentBase: path.resolve(__dirname, '../docs/dist'),//'/',
+    contentBase: path.resolve(__dirname, '../docs'),//'/',
     inline: true,
     compress: true,
     port: 7005,
-    host: '0.0.0.0',
+    host: 'localhost',
     hot: true,
     disableHostCheck: true,
     historyApiFallback: true,
   },
   entry: {
-    index: ['./docs/main.js'],
+    index: ['./src/main.js'],
     vendors: ['vue', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, '../docs/dist'),
+    path: path.resolve(__dirname, '../docs'),
     filename: 'js/[name].[hash:5].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash:5].js',
@@ -40,9 +40,9 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      favicon: './docs/assets/favicon.png',
+      favicon: './public/favicon.png',
       filename: 'index.html',
-      template: './docs/assets/index.html',
+      template: './public/index.html',
       chunks: ['vendors', 'index'],
       inject: true,
     }),

@@ -9,11 +9,11 @@
   <ImageGroup>
     <Image 
       :width="120" 
-      src="https://www.chuchur.com/upload/demo/kui-for-vue.jpg"
+      src="https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg"
       />
     <Image 
     :width="120" 
-    src="https://www.chuchur.com/upload/demo/kui-react.jpg"
+    src="https://cdn.chuchur.com/upload/demo/kui-react.jpg"
     />
   </ImageGroup>
 </template>
