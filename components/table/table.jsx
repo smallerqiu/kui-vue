@@ -174,7 +174,7 @@ export default {
         indeterminate,
         checkAll,
         width,
-        sticky:52,
+        sticky,
         hasExpand: expandNode != null
       },
       on: {

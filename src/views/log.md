@@ -3,10 +3,14 @@
 
 >遇到问题可以先安装 rc 版本
 
-```
+```bash
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
+### 3.3.2
+`2022-08-30`
+- 修复一系列 bug
+
 ### 3.3.1
 `2022-08-28`
 - Table 组件新增吸顶属性
