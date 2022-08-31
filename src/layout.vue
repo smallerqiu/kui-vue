@@ -47,7 +47,8 @@
             <Control :name="prev.icon"
               slot="icon" />
           </a>
-          <a :href="`/${next.key}/${next.name}`" v-if="next.sub"
+          <a :href="`/${next.key}/${next.name}`"
+            v-if="next.sub"
             @click="e=>link(e,1)"
             class="nav-next">
             <Control :name="next.icon"
@@ -87,6 +88,8 @@ export default {
     // let theme = localStorage.getItem('theme') || ''
     // let path = this.$route.path.replace('/components/', '')
     // this.activeName = [path]
+    hljs.highlightAll();
+
   },
   created() {
     this.setActiveKey(this.$route)
@@ -121,6 +124,9 @@ export default {
   watch: {
     '$route'(to, from) {
       this.setActiveKey(to)
+      setTimeout(() => {
+        hljs.highlightAll();
+      }, 300)
     }
   },
 

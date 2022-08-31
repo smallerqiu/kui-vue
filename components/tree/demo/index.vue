@@ -12,7 +12,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-tree">
         <Info class="typo" />
         <Base />
         <TreeNode />
@@ -28,3 +28,10 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.demo-tree {
+  .k-content {
+    overflow: auto hidden;
+  }
+}
+</style>

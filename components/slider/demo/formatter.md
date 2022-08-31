@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <div style="width:520px;">
+  <div style="max-width:520px;">
     <Slider :tipFormatter="v => (`${v}%`)" :value="20"/>
     <br/>
     <br/>

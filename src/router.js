@@ -96,10 +96,13 @@ routers.beforeEach(function (to, from, next) {
 	// loading.start('line');
 	// kui.Loading.start();
 	next()
+
 })
 routers.afterEach((to, from, next) => {
 	// (process.env.NODE_ENV == 'development') &&
 	// loading.finish();
 	// kui.Loading.finish();
+	
+
 });
 export default routers

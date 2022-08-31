@@ -9,7 +9,7 @@ import Layout5 from "./layout5.md";
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-layout">
         <Info class="typo" />
         <Base />
         <Layout1 />
@@ -22,3 +22,10 @@ export default {
   },
 };
 </script>
+<style lang="less">
+.demo-layout {
+  .k-demo-layout {
+    overflow: auto hidden;
+  }
+}
+</style>

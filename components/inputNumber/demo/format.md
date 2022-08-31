@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-    <div style="width:520px;">
+    <div style="max-width:520px;">
      0.1+0.2 = 0.3 (yes)     ,输出：{{n}}  
      <InputNumber :step="0.2" v-model="n"/>
      <br/>
