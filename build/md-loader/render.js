@@ -39,7 +39,7 @@ var renderHighlight = function (str, language) {
 var markdown = require('markdown-it')({
   html: true,
   breaks: true,
-  highlight: renderHighlight,
+  // highlight: renderHighlight,
 }).use(anchor, {
   level: 2,
   slugify: string => string.toLocaleLowerCase().trim().split(' ').join('-'),
@@ -72,6 +72,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
     if (token.info === 'vue') {
       // let sourceCode = token.content;
       // console.log(token.content)
+      // let codeText = markdown.utils.escapeHtml(token.content)
       let code = '````html\n' + token.content + '````';
       let template = getDomHtml(token, 'template');
       let script = getDomHtml(token, 'script');
@@ -85,7 +86,7 @@ markdown.core.ruler.push('render', ({ tokens }) => {
 
         // let source_code = markdown.utils.escapeHtml(JSON.stringify(sourceCode));
 
-        const codeHtml = code ? markdown.render(code) : '';
+        const codeHtml = markdown.render(code);
 
         const cnHtml = cn ? markdown.render(cn) : '';
         cn = null
@@ -107,10 +108,10 @@ markdown.core.ruler.push('render', ({ tokens }) => {
         newContent += style ? `<style>${style || ''}</style>` : '';
 
         newContent += scopedStyle ? `<style scoped lang="less">${scopedStyle || ''}</style>` : '';
-        // const tk = new Token('html_block', '', 0);
-        // tk.content = newContent;
-        // tokens.push(tk);
-        token.content = newContent
+        const tk = new Token('html_block', '', 0);
+        tk.content = newContent;
+        tokens.push(tk);
+        // token.content = newContent
       }
     }
   });

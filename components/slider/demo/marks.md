@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:520px;">
+  <div style="max-width:520px;">
      <div>step=10</div>
     <Slider :step="10"
       :marks="{  10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }"

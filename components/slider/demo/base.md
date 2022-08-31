@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:520px;">
+  <div style="max-width:520px;">
      <Slider v-model="v1" :step="10" :disabled="disabled" :min="20"/>
      <Slider v-model="v2" range :disabled="disabled" :min="10" :max="80"/>
      

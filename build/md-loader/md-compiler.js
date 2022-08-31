@@ -1,5 +1,5 @@
 var loaderUtils = require('loader-utils');
-var hljs = require('highlight.js');
+// var hljs = require('highlight.js');
 var cheerio = require('cheerio');
 var markdown = require('markdown-it');
 var Token = require('markdown-it/lib/token');
@@ -24,7 +24,12 @@ var renderHighlight = function (str, lang) {
     return '';
   }
 
-  return hljs.highlight(lang, str, true).value;
+  // return hljs.highlight(lang, str, true).value;
+
+  // let codeText = markdown.utils.escapeHtml(str)
+  let code = '````html\n' + str + '````';
+  return markdown.render(code)
+
 };
 
 /**
@@ -76,7 +81,7 @@ module.exports = function (source) {
     opts = Object.assign({
       preset: 'default',
       html: true,
-      highlight: renderHighlight,
+      highlight: renderHighlight, //高亮部分放在C
       wrapper: 'section'
     }, opts);
 
@@ -146,7 +151,7 @@ module.exports = function (source) {
 
   var content = parser.render(source)
   var result = renderVueTemplate(content, opts.wrapper);
-  
+
   if (opts.raw) {
     return result;
   } else {

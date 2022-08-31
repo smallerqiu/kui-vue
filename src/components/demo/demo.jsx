@@ -27,6 +27,12 @@ export default {
       );
     }
   },
+  mounted(){
+    // hljs.highlightAll();
+    // document.querySelectorAll('pre code').forEach((el) => {
+    //   hljs.highlightElement(el);
+    // });
+  },
   render() {
     let { expand } = this
     let on = getTranstionProp()

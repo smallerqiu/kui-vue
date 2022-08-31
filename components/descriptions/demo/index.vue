@@ -9,7 +9,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-descriptions">
         <Info class="typo" />
         <Base />
         <Bordered />
@@ -22,3 +22,10 @@ export default {
   }
 }
 </script> 
+<style lang="less">
+.demo-descriptions {
+  .k-content {
+    overflow: auto hidden;
+  }
+}
+</style>

@@ -285,11 +285,11 @@ export default {
       style: {},
       on: {}
     }
-    if (width && !height) {
-      // rootProps.style.overflow = 'auto';
-      // rootProps.on.scroll = e => this.asyncScroll(e)
+    let has_sticky = sticky !== undefined && sticky > 0
+    if (width && !height&&!has_sticky) {
+      rootProps.style.overflow = 'auto';
+      rootProps.on.scroll = e => this.asyncScroll(e)
     }
-    let has_sticky = sticky !== undefined && sticky >= 0
     const content = []
     if (height || (width && has_sticky)) {
       let headProps = {
@@ -302,14 +302,14 @@ export default {
           // marginBottom: -scrollBarHeight + 'px'
         }
       }
-      if (has_sticky && sticky > 0) {
+      if (has_sticky) {
         headProps.style.top = sticky + 'px'
       }
       if (width && height && !has_sticky) {
         headProps.style.marginBottom = -scrollBarHeight + 'px'
       }
 
-      if (sticky) {
+      if (has_sticky) {
         headProps.style.overflow = 'hidden'
       } else if (height) {
         headProps.style.overflow = 'auto'
@@ -330,7 +330,7 @@ export default {
           height: height + 'px',
           overflow: 'auto scroll'
         }
-      } else if (width && has_sticky) {
+      } else if (width || has_sticky) {
         props.style = {
           overflow: 'auto hidden'
         }
