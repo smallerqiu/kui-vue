@@ -24,13 +24,13 @@
 
 
 # 文档   
-* [快速开始](https://k-ui.cn/docs/start)
-* [组件总览](https://k-ui.cn/components/all)
-* [自定义主题](https://k-ui.cn/docs/theme)
-* [暗色模式](https://k-ui.cn/docs/dark-mode)
-* [Icons](https://k-ui.cn/components/icon)
-* [国际化](https://k-ui.cn/docs/i18n)
-* [更新日志](https://k-ui.cn/docs/log)
+* [快速开始](https://k-ui.cn/start/getting-started)
+* [组件总览](https://k-ui.cn/start/components)
+* [自定义主题](https://k-ui.cn/start/theme)
+* [暗色模式](https://k-ui.cn/start/dark-mode)
+* [Icons](https://k-ui.cn/basic/icons)
+* [国际化](https://k-ui.cn/start/language)
+* [更新日志](https://k-ui.cn/start/logs)
 
 
 # 特性

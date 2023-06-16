@@ -163,9 +163,17 @@ export default {
       }
       e.target.value = ''
     },
-    uploadFile(item, file) {
+    async uploadFile(item, file) {
+      if (this.transformFile) {
+        this.transformFile(file).then(f => {
+          this.toUpload(item, f)
+        })
+      } else {
+        this.toUpload(item, file)
+      }
+    },
+    toUpload(item, file) {
       let { action, name, headers, data } = this
-
       var formdata = new FormData();
       formdata.append(name, file);
       if (data) {

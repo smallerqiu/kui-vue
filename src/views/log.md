@@ -7,6 +7,14 @@
 npm config set registry http://registry.npmjs.org
 npm install kui-vue@latest
 ```
+### 4.0
+
+4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
+
+### 3.3.3
+`2023-06-17`
+- 修复Upload 组件上传前文件处理问题和一些细节
+
 ### 3.3.2
 `2022-08-30`
 - 修复一系列 bug

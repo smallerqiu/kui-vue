@@ -41,6 +41,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       favicon: './public/favicon.png',
+      title:'KUI 一套基于Vue.js的桌面UI组件库',
       filename: 'index.html',
       template: './public/index.html',
       chunks: ['vendors', 'index'],
