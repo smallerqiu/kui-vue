@@ -3,6 +3,7 @@ import Info from './info.md'
 import Base from './base.md'
 import FileList from './file-list.md'
 import Accept from './accept.md'
+import Transform from './transform.md'
 import Exceed from './exceed.md'
 import Custom from './custom.md'
 import Directory from './directory.md'
@@ -21,6 +22,7 @@ export default {
         <FileList />
         <Directory />
         <Accept />
+        <Transform />
         <Exceed />
         <Custom />
         <Picture />

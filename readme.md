@@ -25,13 +25,13 @@ English | [简体中文](./README-zh_CN.md)
 
 
 # Documentation   
-* [Quick Start](https://k-ui.cn/docs/start)
-* [Components Overview](https://k-ui.cn/components/all)
+* [Quick Start](https://k-ui.cn/start/getting-started)
+* [Components Overview](https://k-ui.cn/start/components)
 * [Customizing Themes](https://k-ui.cn/docs/theme)
-* [Dark Mode](https://k-ui.cn/docs/dark-mode)
-* [Icons](https://k-ui.cn/components/icon)
-* [Internationalization](https://k-ui.cn/docs/i18n)
-* [CHANGELOG](https://k-ui.cn/docs/log)
+* [Dark Mode](https://k-ui.cn/start/dark-mode)
+* [Icons](https://k-ui.cn/basic/icons)
+* [Internationalization](https://k-ui.cn/start/language)
+* [CHANGELOG](https://k-ui.cn/start/logs)
 
 
 # Features

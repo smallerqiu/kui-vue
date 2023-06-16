@@ -93,6 +93,7 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
       chunks: ['vendors', 'index'],
+      title:'KUI 一套基于Vue.js的桌面UI组件库',
       inject: true,
       minify: {
         removeComments: true,
