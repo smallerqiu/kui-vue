@@ -13,7 +13,7 @@ export default {
   render() {
     return (
       <div class="demo-rate">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Half />
         <Tips />
@@ -21,7 +21,7 @@ export default {
         <Clear />
         <Character />
         <Custom />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

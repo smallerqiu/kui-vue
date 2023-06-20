@@ -11,14 +11,14 @@ export default {
   render() {
     return (
       <div class="demo-checkbox">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Disabled />
         <Options />
         <Group />
         <GroupVertical />
         <CheckAll />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

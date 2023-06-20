@@ -10,12 +10,12 @@ export default {
   render() {
     return (
       <div class="demo-inputnumber">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Format />
         <Ffix />
         <Size />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

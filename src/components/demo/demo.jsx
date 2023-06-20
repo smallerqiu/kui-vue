@@ -1,11 +1,8 @@
-// import "./demo.less";
-// import Code from '../code'
-import Icon from "../../../components/icon";
-import Tooltip from "../../../components/tooltip";
-import { getTranstionProp } from '../../../components/base/transition'
+import Icon from "kui-vue/icon";
+import Tooltip from "kui-vue/tooltip";
+import { getTranstionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
 export default {
-
   name: "Demo",
   props: {
     // sourceCode: String,
@@ -21,37 +18,30 @@ export default {
         e => {
           this.$Message.success('Copied!')
         },
-        e=> {
+        e => {
           this.$Message.error("复制代码失败，请手动复制");
         }
       );
     }
   },
-  mounted(){
-    // hljs.highlightAll();
-    // document.querySelectorAll('pre code').forEach((el) => {
-    //   hljs.highlightElement(el);
-    // });
+  mounted() {
   },
   render() {
     let { expand } = this
     let on = getTranstionProp()
-    // let Com = () => this.$slots.component
-    // console.log(this.$slots.component)
     return (
       <div class="k-demo">
         <div class="k-demo-main">
           <div class="k-content"> {this.$slots.component}</div>
-          {/* <div class="k-content">{Com()}</div> */}
           <div class="k-desc">
-            <div class="k-desc-content typo">{this.$slots.description}</div>
+            <div class="k-desc-content">{this.$slots.description}</div>
           </div>
           <div class="k-code-actions">
-            <Tooltip title="复制代码">
-              <Icon type={CopyOutline} onClick={this.copy} />
+          <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
+              <Icon type={CaretHor} onClick={() => this.expand = !this.expand} style={{'border-bottom-left-radius':!expand?'12px':0}}/>
             </Tooltip>
-            <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
-              <Icon type={CaretHor} onClick={() => this.expand = !this.expand} />
+            <Tooltip title="复制代码">
+              <Icon type={CopyOutline} onClick={this.copy} style={{'border-bottom-right-radius':!expand?'12px':0}}/>
             </Tooltip>
           </div>
         </div>

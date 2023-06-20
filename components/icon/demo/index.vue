@@ -8,10 +8,10 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo"/>
+        <Info />
         <Base />
         <Stroke />
-        <CN class="typo"/>
+        <CN />
         <Search />
       </div>
     )

@@ -9,11 +9,11 @@ export default {
   render() {
     return (
       <div class="demo-spin">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Container />
         <Mode />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

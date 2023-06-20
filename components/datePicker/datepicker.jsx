@@ -1,7 +1,7 @@
 import Calendar from './datecalendar'
 import Icon from "../icon";
 import { isNotEmpty } from '../_tool/utils'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Drop from '../base/drop'
 import { t } from '../locale'
 import { CloseCircle, CalendarOutline } from 'kui-icons'
@@ -77,8 +77,8 @@ export default {
 
         v1 = v1 ? new Date(v1) : ''
         v2 = v2 ? new Date(v2) : ''
-        if (v1) label[0] = moment(v1).format(format)
-        if (v2) label[1] = moment(v2).format(format)
+        if (v1) label[0] = dayjs(v1).format(format)
+        if (v2) label[1] = dayjs(v2).format(format)
         return label
       } else {
         if (isDefaultFormat) {
@@ -92,7 +92,7 @@ export default {
             format = 'YYYY-MM-DD HH:mm:ss'
           }
         }
-        return value ? moment(value).format(format) : ''
+        return value ? dayjs(value).format(format) : ''
       }
     },
     updateValue(value) {

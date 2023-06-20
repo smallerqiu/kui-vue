@@ -1,4 +1,6 @@
-import _ from 'lodash'
+// import _ from 'lodash'
+const pick = require('lodash.pick');
+const assign = require('lodash.assign');
 const DATA_KEYS = [
   'class', 'staticClass', 'style', 'staticStyle',
   'attrs', 'props', 'domProps',
@@ -11,12 +13,36 @@ const DATA_KEYS = [
 // function mutateKey(key) {
 //   return '' + key + `-cloned-${cid++}`
 // }
+// function pick(obj, keys) {
+//   return keys.reduce((acc, key) => {
+//     if (obj[key] !== undefined) {
+//       acc[key] = obj[key];
+//     }
+//     return acc;
+//   }, {});
+// }
+
+// function assign(...objs) {
+//   if (objs.length === 0) {
+//     return {};
+//   }
+
+//   const result = {};
+
+//   for (const obj of objs) {
+//     for (const [key, value] of Object.entries(obj)) {
+//       result[key] = value;
+//     }
+//   }
+
+//   return result;
+// }
 
 function extractData(vnode, isComp) {
-  const data = _.pick(vnode.data, DATA_KEYS)
+  const data = pick(vnode.data, DATA_KEYS)
   if (isComp) {
     const cOpts = vnode.componentOptions
-    _.assign(data, {
+    assign(data, {
       props: cOpts.propsData,
       on: cOpts.listeners
     })

@@ -8,11 +8,11 @@ export default {
   render() {
     return (
       <div class="demo-popconfirm">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Local />
         <Placement />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

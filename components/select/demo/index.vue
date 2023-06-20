@@ -14,7 +14,7 @@ export default {
   render() {
     return (
       <div class="demo-select">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Theme />
         <Icons />
@@ -24,7 +24,7 @@ export default {
         <Multiple />
         <Filterable />
         <Search />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

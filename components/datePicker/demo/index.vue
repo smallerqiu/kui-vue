@@ -14,7 +14,7 @@ export default {
   render() {
     return (
       <div class="demo-datepicker">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Theme />
         <Inside />
@@ -24,7 +24,7 @@ export default {
         <Size />
         <Mode />
         <DisabledDate />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

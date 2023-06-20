@@ -9,12 +9,12 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <Custom />
         <Use />
         <Nodesc />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

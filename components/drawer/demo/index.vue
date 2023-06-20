@@ -9,12 +9,12 @@ export default {
   render() {
     return (
       <div class="demo-drawer">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Custom />
         <Form />
         <Target />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

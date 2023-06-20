@@ -13,7 +13,7 @@ export default {
   render() {
     return (
       <div class="demo-progress">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Group />
         <Animated />
@@ -21,7 +21,7 @@ export default {
         <List />
         <Items />
         <Custom />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

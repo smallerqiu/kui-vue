@@ -1,6 +1,6 @@
 
 import Button from '../button'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import animate from '../_tool/animate'
 import { t } from '../locale'
 import {
@@ -157,8 +157,8 @@ export default {
       }
     },
     classes(Y, M, D, out, format) {
-      const time = new Date(Y, M, D), fmtTime = moment(time).format(format)
-      let istoday = fmtTime == moment(this.today).format(format),
+      const time = new Date(Y, M, D), fmtTime = dayjs(time).format(format)
+      let istoday = fmtTime == dayjs(this.today).format(format),
         isselected = false,
         on = false;
       if (this.mode == 'range') {
@@ -172,14 +172,14 @@ export default {
         //set on
         //range click selected and out
         if (isDay)
-          isselected = (temp_left && fmtTime == moment(temp_left).format(format)) ||
-            (temp_right && fmtTime == moment(temp_right).format(format))
+          isselected = (temp_left && fmtTime == dayjs(temp_left).format(format)) ||
+            (temp_right && fmtTime == dayjs(temp_right).format(format))
         else
-          isselected = fmtTime == moment(this.currentValue).format(format)
+          isselected = fmtTime == dayjs(this.currentValue).format(format)
 
         if (temp) {
           // default and not out
-          // isselected = fmtTime == moment(this.currentValue).format(format) || isselected
+          // isselected = fmtTime == dayjs(this.currentValue).format(format) || isselected
           // hover selected
           if (!temp_left || !temp_right) {
             let { y, m, d } = this.DatePicker.temp_date_hover,
@@ -194,13 +194,13 @@ export default {
             isDay && (on = (time > temp_left && time < temp_right) || (time > temp_right && time < temp_left))
           } else if (values.length == 2 && isDay) {
             isselected = isselected ||
-              (values[0] && fmtTime == moment(values[0]).format(format)) ||
-              (values[1] && fmtTime == moment(values[1]).format(format));
+              (values[0] && fmtTime == dayjs(values[0]).format(format)) ||
+              (values[1] && fmtTime == dayjs(values[1]).format(format));
             isDay && (on = time > new Date(values[0]) && time < new Date(values[1]))
           }
         }
       } else {
-        isselected = fmtTime == moment(this.currentValue).format(format)
+        isselected = fmtTime == dayjs(this.currentValue).format(format)
       }
       let disabled = this.disabledDate(time)
 
@@ -255,7 +255,7 @@ export default {
     },
     setDay(e, j) {
       e.stopPropagation();
-      if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
+      if (e.target.className.indexOf('k-calendar-item-disabled') >= 0) {
         return
       }
       let { y, m, d, p, n } = j
@@ -306,7 +306,7 @@ export default {
     },
     timeClass(v, f, d = []) {
       let date = new Date('', '', '', this.hour, this.minute, this.second)
-      let isselected = this.fix(v) == moment(date).format(f)
+      let isselected = this.fix(v) == dayjs(date).format(f)
       let classes = {
         'k-calendar-time-selected': isselected,
         'k-calendar-time-disabled': d.indexOf(v) >= 0,
@@ -527,15 +527,15 @@ export default {
     if (showTimes) {
       let time = []
       //hours
-      let h = getTime(24, 'HH')
-      time.push(h)
+      let hh = getTime(24, 'HH');
+      time.push(hh);
       //m
-      let m = getTime(60, 'mm')
-      time.push(m)
+      let m = getTime(60, 'mm');
+      time.push(m);
       //s
-      let s = getTime(60, 'ss')
-      time.push(s)
-      let picker = time.map(t => <div class="k-calendar-time-picker-select"><ul>{t}</ul></div>)
+      let s = getTime(60, 'ss');
+      time.push(s);
+      let picker = time.map(t => <div class="k-calendar-time-picker-select"><ul>{t}</ul></div>);
 
       let timeNode = <div class="k-calendar-time-picker" ref="timepicker">{picker}</div>
 
@@ -545,7 +545,7 @@ export default {
 
     if (this.showTime) {
       //footer
-      // let disabled = moment()
+      // let disabled = dayjs()
       let disabled = disabledDate(new Date())
       let time_disabled = isRange ? !(temp_left && temp_right) : (!currentValue);
 

@@ -16,7 +16,7 @@ export default {
     top: Number,
     width: Number,
     mask: { type: Boolean, default: true },
-    maskClosable: { type: Boolean, default: true },
+    maskClosable: { type: Boolean, default: false },
     maximized: Boolean,
     centered: Boolean,
     draggable: Boolean,

@@ -20,7 +20,7 @@ export default {
     placement: { type: String, default: 'right' },
     closable: { type: Boolean, default: true },
     footer: { type: Boolean, default: true },
-    maskClosable: { type: Boolean, default: true },
+    maskClosable: { type: Boolean, default: false },
     target: { type: Function, default: () => document.body },
     mask: { type: Boolean, default: true },
   },
@@ -132,9 +132,9 @@ export default {
       { 'k-drawer-nobody': !inbody },
       { 'k-drawer-nomask': !this.mask },
     ]
-    let styles = {}
-    if (placement == 'left' || placement == 'right') styles.width = /%/.test(width) ? width : width + 'px'
-    if (placement == 'top' || placement == 'bottom') styles.height = /%/.test(height) ? height : height + 'px'
+    let styles = {};
+    if (placement == 'left' || placement == 'right') styles.width = /%/.test(width) ? width : width + 'px';
+    if (placement == 'top' || placement == 'bottom') styles.height = /%/.test(height) ? height : height + 'px';
     // const wrapCls =
     let maskNode = null
     if (this.mask) {

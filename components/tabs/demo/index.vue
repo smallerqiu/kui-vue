@@ -14,7 +14,7 @@ export default {
   render() {
     return (
       <div class="demo-tabs">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Disabled />
          {/*<Centered />*/}
@@ -23,7 +23,7 @@ export default {
         <Card />
         <Closable />
         <Sample />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

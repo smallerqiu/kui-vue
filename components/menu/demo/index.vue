@@ -13,7 +13,7 @@ export default {
   render() {
     return (
       <div class="demo-menu">
-        <Info class="typo" />
+        <Info />
         <Base />
         <InLine />
         <Accrodion />
@@ -21,7 +21,7 @@ export default {
         <Theme />
         <Mode />
         <Collapsed />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

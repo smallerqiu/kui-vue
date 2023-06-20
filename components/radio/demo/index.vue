@@ -11,14 +11,14 @@ export default {
   render() {
     return (
       <div class="demo-radio">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Disabled />
         <Options />
         <Group />
         <GroupVertical />
         <Button />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

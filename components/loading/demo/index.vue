@@ -7,9 +7,9 @@ export default {
   render() {
     return (
       <div class="demo-loading">
-        <Info class="typo" />
+        <Info />
         <Base />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

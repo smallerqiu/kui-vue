@@ -1,22 +1,5 @@
 module.exports = {
   presets: [
-    [
-      "@babel/preset-env",
-      // {
-      //   "targets": {
-      //     "esmodules": true,
-      //     "chrome": "58",
-      //     "ie": "11"
-      //   }
-      // }
-    ]
-  ],
-  plugins: [
-    "lodash",
-    "@babel/plugin-syntax-dynamic-import",
-    "transform-vue-jsx",
-    // [
-    //   'import', { libraryName: 'kui-icons', }, 'kui-icons'
-    // ]
+    '@vue/cli-plugin-babel/preset'
   ]
 }

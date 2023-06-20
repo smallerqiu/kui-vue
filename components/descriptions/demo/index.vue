@@ -10,13 +10,13 @@ export default {
   render() {
     return (
       <div class="demo-descriptions">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Bordered />
         <Size />
         <Layout />
         <LayoutBordered />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

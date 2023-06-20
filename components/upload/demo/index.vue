@@ -17,7 +17,7 @@ export default {
   render() {
     return (
       <div class="demo-upload">
-        <Info class="typo" />
+        <Info />
         <Base />
         <FileList />
         <Directory />
@@ -29,7 +29,7 @@ export default {
         <Avatar />
         <Draggable/>
         <Form />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }
