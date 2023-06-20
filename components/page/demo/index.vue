@@ -10,13 +10,13 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <More />
         <Sizer />
         <Elevator />
         <Size />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

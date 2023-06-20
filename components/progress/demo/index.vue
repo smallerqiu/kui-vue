@@ -12,14 +12,14 @@ export default {
   render() {
     return (
       <div class="demo-progress">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Circle />
         <Dashboard />
         <Dynamic />
         <Color />
         <Size />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

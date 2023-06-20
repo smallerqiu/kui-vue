@@ -9,12 +9,12 @@ export default {
   render() {
     return (
       <div class="demo-poptip">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Trigger />
         <Closeinside />
         <Placement />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

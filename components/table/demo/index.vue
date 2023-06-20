@@ -21,7 +21,7 @@ export default {
   render() {
     return (
       <div class="demo-table">       
-        <Info class="typo" />
+        <Info />
         <Base />
         <BaseRender />
         <CustomHeader />
@@ -38,7 +38,7 @@ export default {
         <Expand />
         <Embed />
         <Size />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

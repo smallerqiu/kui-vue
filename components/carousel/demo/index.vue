@@ -8,11 +8,11 @@ export default {
   render() {
     return (
       <div class="demo-carousel">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Vertical />
         <AutoPlay />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

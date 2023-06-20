@@ -7,10 +7,10 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <Border />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

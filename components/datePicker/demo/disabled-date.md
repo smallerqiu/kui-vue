@@ -14,11 +14,11 @@
   </div>
 </template>
 <script>
-import moment from 'moment';
+import dayjs from 'dayjs';
 export default {
   methods:{
     disabledDate(current){
-      return current && current < moment().endOf('day');
+      return current && current < dayjs().endOf('day');
     },
     range(len){
       return new Array(len).fill('').map((x,y)=>y)

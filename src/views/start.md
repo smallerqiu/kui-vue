@@ -96,7 +96,7 @@ import 'kui-vue/components/button/style';
 
 ### 使用规范 
 在非 `template/render` 模式下（例如使用 **CDN** 引用时），组件名要分隔，例如
-`Buton` 必须要写成 `k-button`。
+`Button` 必须要写成 `k-button`。
 
 以下组件，在非 template/render 模式下，需要加前缀 k-
 - Table ：`k-table`

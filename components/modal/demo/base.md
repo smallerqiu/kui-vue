@@ -15,7 +15,7 @@
       v-model="custom">
         <Space direction="vertical" style="width:100%">
         <h2>我是一个标题</h2>
-        <div></div>
+        <div><Button @click="custom=false">Close</Button></div>
         </Space>
     </Modal>
 

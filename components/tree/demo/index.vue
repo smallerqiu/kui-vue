@@ -13,7 +13,7 @@ export default {
   render() {
     return (
       <div class="demo-tree">
-        <Info class="typo" />
+        <Info />
         <Base />
         <TreeNode />
         <Checkable />
@@ -22,7 +22,7 @@ export default {
         <Sync />
         <Icon />
         <Directory />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

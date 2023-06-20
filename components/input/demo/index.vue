@@ -13,7 +13,7 @@ export default {
   render() {
     return (
       <div class="demo-input">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Theme />
         <Icon />
@@ -22,7 +22,7 @@ export default {
         <Size />
         <Event />
         <TextArea />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   }

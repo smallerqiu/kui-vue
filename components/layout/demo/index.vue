@@ -10,7 +10,7 @@ export default {
   render() {
     return (
       <div class="demo-layout">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Layout1 />
         <Layout2 />

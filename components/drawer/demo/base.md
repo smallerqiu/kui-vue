@@ -9,7 +9,7 @@
   <div>
     <Button @click="show=!show">普通抽屉</Button>
     <Button @click="show2=!show2">Width 30%</Button>
-    <Drawer v-model="show" :closable="false" :footer="null" :title="null">
+    <Drawer v-model="show"  :footer="null" :title="null">
       <p>something ...</p>
       <p>something ...</p>
       <p>something ...</p>

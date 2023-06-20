@@ -10,13 +10,13 @@ export default {
   render() {
     return (
       <div class="demo-switch">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Text />
         <Disabled />
         <Size />
         <Loading />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

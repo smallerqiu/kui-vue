@@ -48,8 +48,7 @@ import Tag from './tag'
 import { Row, Col } from './grid'
 import Upload from './upload'
 
-import { version } from '../package.json'
-
+import pkg from '../package.json'
 // import './styles/index.less';
 
 import locale from './locale'
@@ -121,7 +120,7 @@ const UI = {
 	kImage: Image,
 	kCol: Col,
 	kMenu: Menu,
-	Version: version,
+	Version: pkg.version,
 
 	locale: locale.use,
 	i18n: locale.i18n,

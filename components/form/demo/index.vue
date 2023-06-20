@@ -14,7 +14,7 @@ export default {
   render() {
     return (
       <div class="demo-menu">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Align />
         <Valid />
@@ -22,7 +22,7 @@ export default {
         <Withmodal />
         <CustomValid />
         <DynamicValid />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   }

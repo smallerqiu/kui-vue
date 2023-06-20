@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import kui from 'kui-vue'
 
 Vue.use(Router)
 
@@ -10,16 +9,16 @@ Router.prototype.push = function push(location) {
 	return originalPush.call(this, location).catch(err => err)
 }
 
-let router = []
 
-let Childs = [
+let children = [
 	{ path: '/start/getting-started', component: () => import(/*webpackChunkName:'start'*/'./views/start.md') },
 	{ path: '/start/language', component: () => import(/*webpackChunkName:'i18n'*/'./views/i18n.md') },
-	{ path: '/start/logs', component: () => import(/*webpackChunkName:'log'*/'./views/log.md') },
+	{ path: '/start/logs', component: () => import(/*webpackChunkName:'logs'*/'./views/log.md') },
 	{ path: '/start/ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr.md') },
 	{ path: '/start/theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme.md') },
-	{ path: '/start/dark-mode', component: () => import(/*webpackChunkName:'kui-loader'*/'./views/dark-mode/index') },
-	{ path: '/start/components', component: () => import(/*webpackChunkName:'all'*/'./views/all.jsx') },
+	{ path: '/start/dark-mode', component: () => import(/*webpackChunkName:'dark-mode'*/'./views/dark-mode/index') },
+	{ path: '/start/components', component: () => import(/*webpackChunkName:'kit'*/'./views/all.jsx') },
+	
 	{ path: '/notices/alert', component: () => import(/*webpackChunkName:'alert'*/'../components/alert/demo'), },
 	{ path: '/navigation/affix', component: () => import(/*webpackChunkName:'affix'*/'../components/affix/demo'), },
 	{ path: '/datas/avatar', component: () => import(/*webpackChunkName:'avatar'*/'../components/avatar/demo'), },
@@ -71,19 +70,19 @@ let Childs = [
 	{ path: '/forms/upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
 ];
 
-import layout from './layout'
+import Layout from './components/Layout'
 
-router.push(
-	{ path: '/', component: () => import(/*webpackChunkName:'home'*/'./index') },
-	{ path: '/test', component: () => import(/*webpackChunkName:'test'*/'./test') },
+let routes =[
+	{ path: '/', component: () => import(/*webpackChunkName:'home'*/'./views/index') },
+	{ path: '/test', component: () => import(/*webpackChunkName:'test'*/'./views/test') },
 	{
 		path: '/',
-		component: layout,
-		children: Childs
+		component: Layout,
+		children
 	}
-)
+]
 let routers = new Router({
-	routes: router,
+	routes,
 	mode: 'history',
 	scrollBehavior(to, from, savedPosition) {
 		return savedPosition || { x: 0, y: 0 }
@@ -102,7 +101,5 @@ routers.afterEach((to, from, next) => {
 	// (process.env.NODE_ENV == 'development') &&
 	// loading.finish();
 	// kui.Loading.finish();
-	
-
 });
 export default routers

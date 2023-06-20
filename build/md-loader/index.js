@@ -1,1 +1,0 @@
-module.exports = require('./md-compiler.js');

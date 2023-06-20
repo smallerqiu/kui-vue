@@ -8,11 +8,11 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <Icon />
         <Separator />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

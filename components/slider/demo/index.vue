@@ -12,14 +12,14 @@ export default {
   render() {
     return (
       <div class="demo-slider">
-        <Info class="typo" />
+        <Info />
         <Base />
         <WithNumber />
         <Formatter />
         <Marks />
         <Vertical />
         <Reverse />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

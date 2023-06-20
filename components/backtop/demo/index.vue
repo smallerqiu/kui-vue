@@ -7,10 +7,10 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <Custom />
-        <CN class="typo" />
+        <CN />
         <div style="height:500px;text-align:center;color:#ddd;line-height:500px;">我是打酱油的,请忽略我...</div>
       </div>
     )

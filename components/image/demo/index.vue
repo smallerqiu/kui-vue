@@ -12,7 +12,7 @@ export default {
   render() {
     return (
       <div class="demo-image">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Origin />
         <Errors />
@@ -20,7 +20,7 @@ export default {
         <Extra />
         <Globle />
         <ExtraGloble />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

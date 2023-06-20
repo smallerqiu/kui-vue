@@ -39,12 +39,12 @@ export default{
 
         const img = new Image();
         img.onload = function () {
-          canvas.width = Math.ceil(img.width / 8) * 8;
-          canvas.height = Math.ceil(img.height / 8) * 8;
+          canvas.width = 200;
+          canvas.height = 300;
           ctx.drawImage(img, (img.width - canvas.width) / 2, (img.height - canvas.height) / 2, canvas.width, canvas.height);
           canvas.toBlob((blob) => {
-            const file = new File([blob], file.name, { type: file.type });
-            return res(file)
+            const newFile = new File([blob], file.name, { type: file.type });
+            return res(newFile)
           });
         };
         img.src = URL.createObjectURL(file);

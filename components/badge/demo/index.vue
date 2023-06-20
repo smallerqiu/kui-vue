@@ -12,7 +12,7 @@ export default {
   render() {
     return (
       <div>
-        <Info class="typo" />
+        <Info />
         <Base />
         <Dot />
         <Max />
@@ -20,7 +20,7 @@ export default {
         <Dynamic />
         <Status />
         <Color />
-        <CN class="typo"/>
+        <CN />
       </div>
     )
   }

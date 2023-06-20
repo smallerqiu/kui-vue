@@ -37,7 +37,8 @@ function matchMode(e) {
     }
 }
 
-monitor.addListener(matchMode);
+// monitor.addListener(matchMode); //旧的api已经废弃 
+monitor.addEventListener('change',matchMode)
 ```
 
 # 局部模式

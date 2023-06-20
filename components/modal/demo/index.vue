@@ -10,13 +10,13 @@ export default {
   render() {
     return (
       <div class="demo-modal">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Custom />
         <More />
         <Global />
         <Confrim />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

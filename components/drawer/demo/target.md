@@ -15,7 +15,6 @@
       <Radio label="bottom" value="bottom"/>
     </RadioGroup>
     <Drawer v-model="show" width="200" 
-      :closable="false" 
       :footer="null" 
       :placement="placement"
       :target="()=>$refs['drawer-box']">

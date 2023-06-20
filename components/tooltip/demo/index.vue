@@ -8,11 +8,11 @@ export default {
   render() {
     return (
       <div class="demo-tooltip">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Placement />
         <Color />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

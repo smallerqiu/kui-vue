@@ -22,14 +22,14 @@ export default{
   methods:{
     alipay() {
       this.$Message.config({
-        icon:'logo-alipay',
-        content:"支付宝到账100万"
+        icon:LogoAlipay,
+        content:"支付宝到账100万",
       });
     },
     wechat() {
       this.$Message.config({
         color:'green',
-        icon:'logo-wechat',
+        icon:LogoWechat,
         content:"微信收款100万"
       });
     },

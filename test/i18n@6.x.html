@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>i18n</title>
+  <link rel="stylesheet" type="text/css" href="../dist/k-ui.css">
+  <script src="https://unpkg.com/vue@2.x"></script>
+  <script src="https://unpkg.com/vue-i18n@8.x"></script>
+  <script src="../dist/k-ui.js"></script>
+
+  <script src="../dist/locale/en.js"></script>
+  <script src="../dist/locale/zhCN.js"></script>
+  <script src="../dist/locale/fr.js"></script>
+
+
+</head>
+
+<body>
+  <div id="app">
+    <k-button @click="show">Click me!</k-button>
+    <Modal v-model="visible" title="Welcome">Welcome to use kui</Modal>
+  </div>
+</body>
+<script>
+  let i18n = new VueI18n({
+    locale: 'fr', // set locale
+    messages: {
+      en: kui_lang_en,
+      zhCN: kui_lang_zhCN,
+      fr: kui_lang_fr
+    }
+  })
+
+  Vue.use(kui, {
+    i18n: (key, value) => i18n.t(key, value)
+  })
+  new Vue({
+    el: '#app',
+    data: {
+      visible: false
+    },
+    methods: {
+      show: function () {
+        this.visible = true;
+      }
+    }
+  })
+</script>
+
+</html>

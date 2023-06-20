@@ -12,14 +12,14 @@ export default {
   render() {
     return (
       <div class="demo-space">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Vertical />
         <Size />
         <Align />
         <CustomSize />
         <Warp />
-        <CN class="typo" />
+        <CN />
       </div>
     );
   },

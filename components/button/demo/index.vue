@@ -15,7 +15,7 @@ export default {
   render() {
     return (
       <div class="demo-button">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Solid />
         <Light />
@@ -26,7 +26,7 @@ export default {
         <Loading />
         <Block />
         <Group />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }

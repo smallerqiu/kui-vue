@@ -11,13 +11,13 @@ export default {
   render() {
     return (
       <div class="demo-dropdown">
-        <Info class="typo" />
+        <Info />
         <Base />
         <Rightmenu />
         <Divider />
         <Placement />
         <Cascading />
-        <CN class="typo" />
+        <CN />
       </div>
     )
   }
