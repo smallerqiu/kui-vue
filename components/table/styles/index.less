@@ -33,7 +33,8 @@
     left: 0;
     top: 0;
     z-index: 100;
-    .k-spin-loading{
+
+    .k-spin-loading {
       background-color: var(--kui-color-spin);
     }
   }
@@ -205,6 +206,10 @@
 
   &-thead {
     overflow: auto;
+
+    &::-webkit-scrollbar {
+      height: 0;
+    }
   }
 
   &-header {

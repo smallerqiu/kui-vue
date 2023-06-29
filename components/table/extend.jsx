@@ -39,12 +39,9 @@ export default {
   methods: {
     setColWidth() {
       const cols = this.$refs.colgroup.children//[0].children
-      // console.log(cols)
       // reset tbody's height
       let col = this.columns2 || this.columns
-      // console.log(col)
       for (let i = 0; i < cols.length; i++) {
-        // console.log(col[i])
         if (col[i] && !col[i].width) {
           col[i].width = cols[i].getBoundingClientRect().width
         }
@@ -167,6 +164,8 @@ export default {
       } else {
         cols = this.columns
       }
+      if (!cols || cols.length == 0) return null;
+
       let head = [], ths = [], hasFR = false, left = 0,
         right = cols.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0) + (this.height ? this.scrollBarHeight : 0)
 
@@ -242,10 +241,10 @@ export default {
       this.$emit('select-all', e)
     },
     asyncScroll(e, target) {
-      // console.log(e.target.scrollLeft)
-      let min = 0, max = e.target.scrollWidth - e.target.offsetWidth, scrollLeft = e.target.scrollLeft;
+      let min = 0, max = e.target.scrollWidth - e.target.offsetWidth,
+        scrollLeft = e.target.scrollLeft;
       scrollLeft = Math.round(scrollLeft);
-      // console.log(e, target)
+
       if (target) {
         if (target == 'tbody') {
           if (!this.theadSync) {
@@ -268,7 +267,7 @@ export default {
         ping = 'middle'
       } else if (scrollLeft == min) {
         ping = 'left'
-      } else if (scrollLeft == max) {
+      } else if (scrollLeft == max || scrollLeft - this.scrollBarHeight == max) {
         ping = 'right'
       }
       this.$emit('ping', ping)
@@ -280,7 +279,7 @@ export default {
     let rootProps = {
       // ref: 'table',
       class: [`k-table-container`,
-      //   // { [`k-table-ping-${type}`]: width != undefined },
+        //   // { [`k-table-ping-${type}`]: width != undefined },
       ],
       style: {},
       on: {}
@@ -288,7 +287,7 @@ export default {
     let has_sticky = sticky !== undefined && sticky > 0
     if (width && !height && !has_sticky) {
       rootProps.style.overflow = 'auto';
-      rootProps.on.scroll = e => this.asyncScroll(e)
+      rootProps.on.scroll = e => this.asyncScroll(e) //只有左右,没有header scroll
     }
     const content = []
     if (height || (width && has_sticky)) {
@@ -306,7 +305,7 @@ export default {
         headProps.style.top = sticky + 'px'
       }
       if (width && height && !has_sticky) {
-        headProps.style.marginBottom = -scrollBarHeight + 'px'
+        // headProps.style.marginBottom = -scrollBarHeight + 'px'
       }
 
       if (has_sticky) {
@@ -314,8 +313,9 @@ export default {
       } else if (height) {
         headProps.style.overflow = 'auto'
       }
-      content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
-
+      if (this.columns && this.columns.length) {
+        content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
+      }
       const props = {
         class: `k-table-body`,
         style: {
@@ -335,10 +335,13 @@ export default {
           overflow: 'auto hidden'
         }
       }
-
-      content.push(<div {...props}>{this.renderTable(false, body)}</div>)
+      if (body && body.length) {
+        content.push(<div {...props}>{this.renderTable(false, body)}</div>)
+      }
     } else {
-      content.push(this.renderTable(true, body))
+      if (body && body.length) {
+        content.push(this.renderTable(true, body))
+      }
     }
     return (
       <div {...rootProps}>{content}</div >

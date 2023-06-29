@@ -1,5 +1,5 @@
 /*!
- * kui-vue v3.3.4
+ * kui-vue v3.3.5-a
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Author: chuchur@qq.com / www.chuchur.com
