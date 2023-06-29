@@ -10,7 +10,7 @@ export default {
     body: Array,
     columns: Array,
     columns2: Array,
-    height: Number,
+    height: [Number, String],
     width: Number,
     hasExpand: Boolean,
     indeterminate: Boolean,
@@ -279,14 +279,14 @@ export default {
     let { height, width, body, scrollBarHeight, sticky } = this
     let rootProps = {
       // ref: 'table',
-      // class: [`k-table-container`,
+      class: [`k-table-container`,
       //   // { [`k-table-ping-${type}`]: width != undefined },
-      // ],
+      ],
       style: {},
       on: {}
     }
     let has_sticky = sticky !== undefined && sticky > 0
-    if (width && !height&&!has_sticky) {
+    if (width && !height && !has_sticky) {
       rootProps.style.overflow = 'auto';
       rootProps.on.scroll = e => this.asyncScroll(e)
     }
@@ -327,7 +327,7 @@ export default {
       }
       if (height) {
         props.style = {
-          height: height + 'px',
+          height: height + (typeof height === 'number' ? 'px' : ''),
           overflow: 'auto scroll'
         }
       } else if (width || has_sticky) {

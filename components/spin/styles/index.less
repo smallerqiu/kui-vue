@@ -1,9 +1,13 @@
 @import '../../styles/var.less';
+
 .k-spin {
   // min-width: 50px;
   // min-height: 50px;
   display: inline-block;
   position: relative;
+
+  // width:32px;
+  // height: 32px;
   &-loading {
     background-color: var(--kui-color-spin);
     position: absolute;
@@ -12,7 +16,9 @@
     transition: all .3s;
     left: 0;
     top: 0;
+    z-index: 100;
   }
+
   &-flip {
     &::after {
       content: '';
@@ -27,8 +33,11 @@
       animation: k-spin-animate-flip 4s 0s cubic-bezier(.09, .57, .49, .9) infinite;
     }
   }
+
   &-bounce {
-    &::before, &::after {
+
+    &::before,
+    &::after {
       content: '';
       width: 40px;
       height: 40px;
@@ -42,12 +51,16 @@
       margin-top: -20px;
       animation: k-spin-animate-bounce 2.0s infinite ease-in-out;
     }
+
     &::before {
       animation-delay: -1.0s;
     }
   }
+
   &-zoom {
-    &::before, &::after {
+
+    &::before,
+    &::after {
       content: '';
       width: 40px;
       height: 40px;
@@ -62,43 +75,85 @@
       animation: k-spin-animate-zoom 2s 0s cubic-bezier(.09, .57, .49, .9) infinite;
       // animation: zoom 2.0s infinite ease-in-out;
     }
+
     &::before {
       animation-delay: -1.0s;
     }
   }
+
   &-rotate {
-    &::before, &::after {
+
+    &::before,
+    &::after {
       border: 4px solid var(--kui-color-main-90);
       border-radius: 50%;
       content: '';
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       position: absolute;
       top: 50%;
       left: 50%;
-      margin-left: -20px;
-      margin-top: -20px;
+      box-sizing: border-box;
+      transform: translateX(-50%) translateY(-50%);
+      // margin-left: -20px;
+      // margin-top: -20px;
     }
+
     &::after {
       border: 4px solid transparent;
       border-top-color: var(--kui-color-main);
       animation: k-spin-animate-rotate 1s infinite linear;
-      box-sizing: content-box;
+      transform-origin: left top;
     }
   }
-  &-lg{
-    &::before, &::after {
+
+}
+
+.k-spin-lg {
+  // width: 40px;
+  // height: 40px;
+
+  .k-spin-rotate {
+
+    &::before,
+    &::after {
       border-width: 5px;
       width: 40px;
       height: 40px;
     }
   }
-  &-sm{
-    &::before, &::after {
+}
+
+.k-spin-sm {
+  .k-spin-rotate {
+
+    &::before,
+    &::after {
       border-width: 3px;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
     }
+  }
+}
+
+.k-spin-only {
+  .k-spin-loading {
+    background: none;
+  }
+
+  &.k-spin {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.k-spin-sm {
+    width: 22px;
+    height: 22px;
+  }
+
+  &.k-spin-lg {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -106,12 +161,15 @@
   25% {
     transform: perspective(100px) rotateX(180deg) rotateY(0);
   }
+
   50% {
     transform: perspective(100px) rotateX(180deg) rotateY(180deg);
   }
+
   75% {
     transform: perspective(100px) rotateX(0) rotateY(180deg);
   }
+
   100% {
     transform: perspective(100px) rotateX(0) rotateY(0);
   }
@@ -119,17 +177,21 @@
 
 @keyframes k-spin-animate-rotate {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateX(-50%) translateY(-50%);
   }
+
   100% {
-    transform: rotate(360deg);
+    transform: rotate(360deg) translateX(-50%) translateY(-50%);
   }
 }
 
 @keyframes k-spin-animate-bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(0.0);
   }
+
   50% {
     transform: scale(1.0);
   }
@@ -140,6 +202,7 @@
     transform: scale(0.0);
     opacity: 1;
   }
+
   100% {
     transform: scale(1.0);
     opacity: 0

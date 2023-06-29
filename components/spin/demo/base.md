@@ -5,10 +5,10 @@
 
 ```vue
 <template>
-  <div>
-    <Spin size="large" style="width:60px"/>
-    <Spin style="width:60px"/>
-    <Spin size="small" style="width:60px"/>
-  </div>
+  <Space>
+    <Spin size="large"/>
+    <Spin />
+    <Spin size="small" />
+  </Space>
 </template>
 ```

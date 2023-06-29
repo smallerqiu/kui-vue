@@ -35,14 +35,17 @@ export default {
     let { mode, spinning, $slots, size } = this
     const classes = [{
       [`k-spin-loading`]: spinning,
-      [`k-spin-lg`]: size == 'large',
-      [`k-spin-sm`]: size == 'small',
+
       [`k-spin-${mode}`]: mode && spinning,
     }]
-
+    const root = ['k-spin', {
+      [`k-spin-lg`]: size == 'large',
+      [`k-spin-sm`]: size == 'small',
+      [`k-spin-only`]: !$slots.default,
+    }]
     const spin = <div class={classes} />
     return (
-      <div class="k-spin">{[spin, $slots.default]}</div>
+      <div class={root}>{[spin, $slots.default]}</div>
     )
   }
 }
