@@ -6,95 +6,47 @@
 ```vue
 <template>
   <div style="margin-left:70px;white-space: nowrap;">
-    <Tooltip placement="top-left">
+    <Tooltip placement="top-left" :title="title">
       <Button>TL</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="top">
+    <Tooltip placement="top" :title="title">
       <Button>Top</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="top-right">
+    <Tooltip placement="top-right" :title="title">
       <Button>TR</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
   </div>
   <div style="float:left;height:125px;width:70px;">
-    <Tooltip placement="left-top">
+    <Tooltip placement="left-top" :title="title">
       <Button>LT</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="left">
+    <Tooltip placement="left" :title="title">
       <Button>Left</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="left-bottom">
+    <Tooltip placement="left-bottom" :title="title">
       <Button>LB</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
   </div>
   <div style="margin-left:310px;height:125px;width:70px;">
-    <Tooltip placement="right-top">
+    <Tooltip placement="right-top" :title="title">
       <Button>RT</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="right">
+    <Tooltip placement="right" :title="title">
       <Button>Right</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="right-bottom">
+    <Tooltip placement="right-bottom" :title="title">
       <Button>RB</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
   </div>
   <div style="margin-left:70px;white-space: nowrap;">
-    <Tooltip placement="bottom-left">
+    <Tooltip placement="bottom-left" :title="title">
       <Button>BL</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="bottom" >
+    <Tooltip placement="bottom" :title="title">
       <Button>Bottom</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
-    <Tooltip placement="bottom-right" >
+    <Tooltip placement="bottom-right" :title="title">
       <Button>BR</Button>
-      <template slot="title">
-        <p>{{title}}</p>
-        <p>{{title}}</p>
-      </template>
     </Tooltip>
   </div>
 </template>
@@ -102,7 +54,7 @@
 export default{
   data() {
     return {
-      title:'明月几时有,把酒问青天 !',
+      title:'明月几时有?',
     }
   },
 }
