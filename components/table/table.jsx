@@ -17,7 +17,7 @@ export default {
       }
     },
     width: Number,
-    height: Number,
+    height: [Number, String],
     data: { type: Array, default: () => [] }, // 表格数据
     columns: { type: Array, default: () => [] }, // 表格类目
     loading: Boolean,

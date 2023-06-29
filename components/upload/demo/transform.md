@@ -42,11 +42,18 @@ export default{
           canvas.width = 200;
           canvas.height = 300;
           ctx.drawImage(img, (img.width - canvas.width) / 2, (img.height - canvas.height) / 2, canvas.width, canvas.height);
-          canvas.toBlob((blob) => {
-            const newFile = new File([blob], file.name, { type: file.type });
-            return res(newFile)
-          });
-        };
+          // canvas to file obj
+          var arr = data.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+          while (n--) {
+              u8arr[n] = bstr.charCodeAt(n);
+          }
+          const newFile =  new File([u8arr], filename, { type: mime });
+          res(newFile)
+          };
         img.src = URL.createObjectURL(file);
       })
     },

@@ -1,87 +1,110 @@
 @import '../../styles/var.less';
+
 .k-tag {
   display: inline-block;
-  line-height: 20px;
-  height: auto;
-  padding: 0 7px;
+  line-height: 1;
+  height: 32px;
+  padding: 0 15px;
   border: 1px solid var(--kui-color-border);
   background-color: var(--kui-color-back);
-  font-size: 12px;
+  font-size: 14px;
   border-radius: var(--kui-border-radius);
   box-sizing: border-box;
   white-space: nowrap;
   margin-right: 8px;
   vertical-align: middle;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   color: var(--kui-color-font);
+  &.k-tag-circle {
+    border-radius: 16px;
+  }
   .k-tag-close {
-    font-size: 16px;
-    margin-left: 4px;
-    vertical-align: -4px;
+    font-size: 18px;
+    margin-left: 2px;
+    color: var(--kui-sub-title);
     &:hover {
       color: var(--kui-color-danger);
     }
   }
+
+  &.k-tag-closeable {
+    padding-right: 7px;
+  }
+
   &-pink {
     color: var(--kui-color-pink-30);
     border-color: var(--kui-color-pink-60);
     background-color: var(--kui-color-pink-90);
   }
+
   &-red {
     color: var(--kui-color-red-30);
     border-color: var(--kui-color-red-60);
     background-color: var(--kui-color-red-90);
   }
+
   &-yellow {
     color: var(--kui-color-yellow-30);
     border-color: var(--kui-color-yellow-60);
     background-color: var(--kui-color-yellow-90);
   }
+
   &-orange {
     color: var(--kui-color-orange-30);
     border-color: var(--kui-color-orange-60);
     background-color: var(--kui-color-orange-90);
   }
+
   &-cyan {
     color: var(--kui-color-cyan-30);
     border-color: var(--kui-color-cyan-60);
     background-color: var(--kui-color-cyan-90);
   }
+
   &-green {
     color: var(--kui-color-green-30);
     border-color: var(--kui-color-green-60);
     background-color: var(--kui-color-green-90);
   }
+
   &-blue {
     color: var(--kui-color-blue-30);
     border-color: var(--kui-color-blue-60);
     background-color: var(--kui-color-blue-90);
   }
+
   &-purple {
     color: var(--kui-color-purple-30);
     border-color: var(--kui-color-purple-60);
     background-color: var(--kui-color-purple-90);
   }
+
   &-geekblue {
     color: var(--kui-color-geekblue-30);
     border-color: var(--kui-color-geekblue-60);
     background-color: var(--kui-color-geekblue-90);
   }
+
   &-magenta {
     color: var(--kui-color-magenta-30);
     border-color: var(--kui-color-magenta-60);
     background-color: var(--kui-color-magenta-90);
   }
+
   &-volcano {
     color: var(--kui-color-volcano-30);
     border-color: var(--kui-color-volcano-60);
     background-color: var(--kui-color-volcano-90);
   }
+
   &-gold {
     color: var(--kui-color-gold-30);
     border-color: var(--kui-color-gold-60);
     background-color: var(--kui-color-gold-90);
   }
+
   &-lime {
     color: var(--kui-color-lime-30);
     border-color: var(--kui-color-lime-60);
@@ -89,11 +112,46 @@
   }
 }
 
+
+
 .k-tag-has-color {
   color: #fff;
   border-color: transparent;
+
   .k-tag-close {
     color: #fff;
+  }
+}
+
+
+
+.k-tag-sm {
+  height: 24px;
+  padding: 0 7px;
+  font-size: 12px;
+
+  &.k-tag-closeable {
+    padding-right: 3px;
+  }
+
+  .k-tag-close {
+    font-size: 16px;
+  }
+
+  &.k-tag-circle {
+    border-radius: 10px;
+  }
+}
+
+.k-tag-lg {
+  height: 40px;
+  padding: 0 18px;
+
+  &.k-tag-closeable {
+    padding-right: 9px;
+  }
+  &.k-tag-circle {
+    border-radius: 20px;
   }
 }
 
@@ -102,6 +160,7 @@
     opacity: 0;
     transform: scale(0, 0);
   }
+
   to {
     opacity: 1;
     transform: scale(1, 1);
@@ -113,6 +172,7 @@
     opacity: 1;
     transform: scale(1, 1);
   }
+
   to {
     opacity: 0;
     transform: scale(0, 0);

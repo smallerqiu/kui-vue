@@ -4,7 +4,14 @@ export default {
   name: 'Tag',
   props: {
     closeable: Boolean,
-    color: String
+    color: String,
+    shape: String,
+    size: {
+      default: 'small',
+      validator(value) {
+        return ["small", "large", "middle"].indexOf(value) >= 0;
+      }
+    },
   },
   data() {
     return {
@@ -18,14 +25,18 @@ export default {
     }
   },
   render() {
-    const { visible, styles, handle, color, $slots, close, classes, closeable } = this
+    const { visible, styles, shape, size, color, $slots, close, classes, closeable } = this
     const props = {
       on: {
         ...this.$listeners
       },
       class: ['k-tag', {
+        ["k-tag-sm"]: size == 'small',
+        ["k-tag-lg"]: size == 'large',
         [`k-tag-${color}`]: color && !/^#/.test(color),
-        ['k-tag-has-color']: /^#/.test(color)
+        ["k-tag-circle"]: shape == 'circle',
+        ['k-tag-has-color']: /^#/.test(color),
+        ['k-tag-closeable']: closeable
       }],
       style: { backgroundColor: /^#/.test(color) ? color : null }
     }
