@@ -188,7 +188,9 @@ export default {
         // resize: this.resetHeight
       }
     }
-    content.push(<ExtendTable {...mainProps} />)
+    if (columns && columns.length) {
+      content.push(<ExtendTable {...mainProps} />)
+    }
 
     const rootProps = {
       // ref: 'table',
@@ -201,7 +203,7 @@ export default {
       }]
     }
 
-    if (!data || !data.length) {
+    if (!data || !data.length || !columns || !columns.length) {
       content.push(<Empty description={this.emptyText} />)
     }
     //custom footer
