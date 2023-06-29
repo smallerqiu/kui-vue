@@ -281,7 +281,9 @@ export default {
       class: [`k-table-container`,
         //   // { [`k-table-ping-${type}`]: width != undefined },
       ],
-      style: {},
+      style: {
+        height: body && body.length ? '100%' : 'auto'
+      },
       on: {}
     }
     let has_sticky = sticky !== undefined && sticky > 0
@@ -305,7 +307,7 @@ export default {
         headProps.style.top = sticky + 'px'
       }
       if (width && height && !has_sticky) {
-        // headProps.style.marginBottom = -scrollBarHeight + 'px'
+        headProps.style.marginBottom = -scrollBarHeight + 'px'
       }
 
       if (has_sticky) {
@@ -339,9 +341,7 @@ export default {
         content.push(<div {...props}>{this.renderTable(false, body)}</div>)
       }
     } else {
-      if (body && body.length) {
-        content.push(this.renderTable(true, body))
-      }
+      content.push(this.renderTable(true, body))
     }
     return (
       <div {...rootProps}>{content}</div >
