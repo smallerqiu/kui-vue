@@ -5,11 +5,7 @@
 
 ```vue
 <template>
-  <Tooltip>
-    <template slot="title">
-      <p>明月几时有,把酒问青天!</p>
-      <p>不知天上宫阙,今夕是何年 ?</p>
-    </template>
+  <Tooltip title="明月几时有,把酒问青天!">
     <a>月几时有,把酒问青天</a>
   </Tooltip>
   <br/>

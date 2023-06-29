@@ -66,7 +66,6 @@ export default {
     handleFocus(e) {
       this.isFocus = true
       let intput = this.Input || this.TextArea
-      console.log('eee',intput)
       intput && intput.$emit('focus', e)
     },
     handleBlur(e) {

@@ -225,7 +225,6 @@ export default {
     onSelect(item, e, type) {
       let checked = e.target.checked
       let checkedItem, keys;
-      console.log(item)
       if (type == 'radio') {
         this.data.forEach(obj => {
           this.$set(obj, '_checked', obj.key == item.key)
