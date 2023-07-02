@@ -32,7 +32,7 @@
           </SubMenu>
         </Menu>
       </Sider>
-      <Content class="markdown-body">
+      <Content>
         <transition name="fade"
           mode="out-in">
           <router-view></router-view>
@@ -87,7 +87,7 @@ export default {
     // let theme = localStorage.getItem('theme') || ''
     // let path = this.$route.path.replace('/components/', '')
     // this.activeName = [path]
-    hljs.highlightAll();
+    hljs &&　hljs.highlightAll();
 
   },
   created() {

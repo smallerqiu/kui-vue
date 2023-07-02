@@ -241,7 +241,7 @@ export function limit(value, min, max) {
 }
 
 export function canvasHelper(canvas) {
-  const ctx = canvas.getContext('2d'),
+  const ctx = canvas.getContext('2d', { willReadFrequently: true }),
     width = canvas.width,
     height = canvas.height;
 

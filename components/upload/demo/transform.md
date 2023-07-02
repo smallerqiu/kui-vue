@@ -35,7 +35,7 @@ export default{
     transformFile(file){
       return new Promise((res, rej) => {
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
         const img = new Image();
         img.onload = function () {

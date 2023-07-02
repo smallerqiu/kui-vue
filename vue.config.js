@@ -44,12 +44,13 @@ module.exports = defineConfig({
       .loader('vue-loader')
       .end()
       .use('md-loader')
-      .loader('./src/utils/loader')
-      .options(require('./src/utils/options'))
+      .loader('./src/utils/md-loader')
+      .options()
       .end()
       .use('kui-loader')
       .loader('kui-loader')
       .options({ prefix: false })
+      .end()
 
     const isProduction = NODE_ENV === 'production';
     // banner

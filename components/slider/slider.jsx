@@ -11,6 +11,7 @@ export default {
       default: 1,
       validator: (val) => val !== 0
     },
+    size: String,
     range: Boolean,
     vertical: Boolean,
     reverse: Boolean,
@@ -204,10 +205,10 @@ export default {
 
     },
     thumbProps() {
-      let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter } = this
+      let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter, size } = this
       return {
         props: {
-          vertical, disabled, range, step, reverse, min,
+          vertical, disabled, range, step, reverse, min, size,
           max, tipFormatter, tooltipVisible,
           value: range ? [].concat(defaultValue) : defaultValue * 1
         },

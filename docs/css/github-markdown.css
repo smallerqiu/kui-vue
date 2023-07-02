@@ -107,7 +107,7 @@
   }
   
   .markdown-body * {
-    box-sizing: border-box
+    /* box-sizing: border-box */
   }
   
   .markdown-body input {
@@ -117,7 +117,7 @@
   }
   
   .markdown-body a {
-    color: #3eaf7c;
+    color: var(--kui-font-title);
     text-decoration: none
   }
   
@@ -643,7 +643,7 @@
     color: #6a737d
   }
   
-  .markdown-body ol,.markdown-body ul {
+  .markdown-body ol,.markdown-body> ul {
     padding-left: 1em
   }
   
@@ -688,13 +688,14 @@
   }
   
   .markdown-body table th {
-    font-weight: 600;
+    font-weight: 400;
     text-align: left;
     white-space: nowrap;
   }
   
   .markdown-body table td,.markdown-body table th {
     padding: 12px 13px;
+    font-size: 14px;
   }
   
   .markdown-body table tr {

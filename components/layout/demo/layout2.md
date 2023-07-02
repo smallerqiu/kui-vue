@@ -16,7 +16,7 @@
             </div>
           </Col>
           <Col flex="1">
-            <Input :icon="Search" placeholder="搜索功能" style="width:200px;" theme="light" shape="circle">
+            <Input :icon="Search" placeholder="搜索功能" style="width:200px;" theme="light" shape="circle" />
           </Col>
           <Col>
             <Tooltip title="全屏显示" placement="bottom">
@@ -28,7 +28,7 @@
           </Col>
         </Row>
       </Header>
-      <Content class="k-demo-main" class="demo-back">
+      <Content class="k-demo-main demo-back">
         <Breadcrumb class="nav">
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>List</BreadcrumbItem>

@@ -108,7 +108,7 @@
         </Row>
       </div>
     </Image>
-  <ImageGroup>
+  </ImageGroup>
 </template>
 <script>
 import { Ribbon ,Heart, IconImage, Calendar, Location, Camera } from 'kui-icons'
