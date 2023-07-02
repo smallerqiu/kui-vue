@@ -1,18 +1,19 @@
 @import '../../styles/var.less';
+
 .k-slider {
   width: 100%;
   display: inline-block;
   position: relative;
-  // height: 12px;
-  // font-size: 0;
   margin: 0;
   padding: 0 13px;
   user-select: none;
+  box-sizing: border-box;
   .k-slider-bar {
     height: 32px;
     width: 100%;
     position: relative;
   }
+
   .k-slider-thumb {
     outline: none;
     user-select: none;
@@ -20,19 +21,33 @@
     box-shadow: 0 4px 6px rgb(0 0 0 / 10%), 0 0 1px rgb(0 0 0 / 30%);
     width: 24px;
     height: 24px;
-    margin-top: 3px;
+    margin: 0;
     border: none;
     border-radius: 50%;
     position: absolute;
     cursor: grab;
     background: #fff;
     border: 1px solid #fff;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
     &:active {
       border: 1px solid var(--kui-color-main);
       cursor: grabbing;
     }
   }
+
+  .k-slider-thumb-sm {
+    height: 14px;
+    width: 14px;
+    border: 2px solid var(--kui-color-main);
+
+    &:active {
+      border-width: 2px;
+      box-shadow: 0 0 2px 5px var(--kui-color-main-60);
+    }
+  }
+
   .k-slider-track {
     height: 4px;
     cursor: pointer;
@@ -42,6 +57,7 @@
     top: 14px;
     pointer-events: none;
   }
+
   .k-slider-rail {
     touch-action: none;
     cursor: pointer;
@@ -52,6 +68,7 @@
     width: 100%;
     top: 14px;
   }
+
   .k-slider-marks {
     position: absolute;
     width: 100%;
@@ -60,6 +77,7 @@
     font-size: 14px;
     z-index: 0;
   }
+
   .k-slider-mark-symbol {
     position: absolute;
     height: 4px;
@@ -70,10 +88,12 @@
     transform: translateX(-50%);
     pointer-events: none;
     box-sizing: content-box;
+
     &-active {
       border-color: var(--kui-color-main);
     }
   }
+
   .k-slider-mark-text {
     position: absolute;
     transform: translateX(-50%);
@@ -81,6 +101,7 @@
     z-index: 0;
     line-height: 1;
     margin-top: 18px;
+
     &-active {
       color: var(--kui-color-font);
     }
@@ -89,35 +110,48 @@
 
 .k-slider-vertical {
   padding: 13px 0;
+  margin: -13px 0;
   height: 100%;
+
   .k-slider-bar {
     width: 32px;
     height: 100%;
   }
+
   .k-slider-track {
     width: 4px;
     left: 14px;
     top: 0;
   }
+
   .k-slider-rail {
     height: 100%;
     width: 4px;
     left: 14px;
     top: 0;
   }
+
   .k-slider-marks {
     left: 12px;
     top: auto;
     height: 100%;
     width: auto;
   }
+
   .k-slider-thumb {
     transform: translateY(-50%);
     margin: 0 0 0 3px;
   }
-  .k-slider-mark-symbol, .k-slider-mark-text {
+
+  .k-slider-thumb-sm {
+    margin-left: 9px;
+  }
+
+  .k-slider-mark-symbol,
+  .k-slider-mark-text {
     transform: translateY(-50%);
   }
+
   .k-slider-mark-text {
     margin: 0 0 0 18px;
   }
@@ -126,10 +160,13 @@
 .k-slider-disabled {
   opacity: .5;
   cursor: not-allowed;
-  .k-slider-thumb, .k-slider-thumb:active {
+
+  .k-slider-thumb,
+  .k-slider-thumb:active {
     cursor: not-allowed;
     border-color: #fff;
   }
+
   .k-slider-rail {
     cursor: not-allowed;
   }

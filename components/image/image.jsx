@@ -41,7 +41,7 @@ export default {
   beforeDestroy() {
     let preview = this.preview
     preview && preview.destroy()
-    this.ImageGroup && this.ImageGroup.updateCollection(0, this.origin || this.src || this._uid + '')
+    this.ImageGroup && this.ImageGroup.updateCollection(false, this.origin || this.src || this._uid + '')
   },
   methods: {
     togglePanel() {
@@ -135,7 +135,7 @@ export default {
   },
   mounted() {
     this.reload()
-    this.ImageGroup && this.ImageGroup.updateCollection(1, this.origin || this.src || this._uid + '')
+    this.ImageGroup && this.ImageGroup.updateCollection(true, this.origin || this.src || this._uid + '')
   },
   render() {
     const { imageUrl, alt, width, height, showImg, imgStyle,

@@ -15,7 +15,7 @@
           :showClose="false"
           :width="316"
           >
-      <DateCalendar v-model="date" @change="change">
+      <DateCalendar v-model="date" @change="change"></DateCalendar>
     </Modal>
 
     <div class="date-demo">
@@ -25,13 +25,13 @@
           :closable="false" 
           :footer="null" 
           :title="null"
-          height="300"
+          :height="300"
           placement="bottom"
           :target="()=>$refs['demo-date']">
-          <DateCalendar v-model="date2" @change="change2" picker-size="small">
+          <DateCalendar v-model="date2" @change="change2" picker-size="small"></DateCalendar>
         </Drawer>
-      <div>
-    <div>
+      </div>
+    </div>
   </div>
 </template>
 <script>

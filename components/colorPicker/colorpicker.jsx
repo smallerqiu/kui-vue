@@ -156,7 +156,7 @@ export default {
       this.currentMode = modes[i]
     },
     initHueCanvas(canvas) {
-      const ctx = canvas.getContext('2d'),
+      const ctx = canvas.getContext('2d', { willReadFrequently: true }),
         setp = 1 / 360,
         width = canvas.width,
         height = canvas.height,
@@ -192,7 +192,7 @@ export default {
       })
     },
     alphaCanvsSetHue(canvas) {
-      const ctx = canvas.getContext('2d'),
+      const ctx = canvas.getContext('2d', { willReadFrequently: true }),
         { width, height } = canvas,
         gradient = ctx.createLinearGradient(0, 0, width - 1, 0);
       let { H, S, L } = this

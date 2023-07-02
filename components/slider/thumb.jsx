@@ -1,5 +1,4 @@
 import Tooltip from "../tooltip"
-import { times } from '../_tool/number'
 export default {
   props: {
     vertical: Boolean,
@@ -8,6 +7,7 @@ export default {
     reverse: Boolean,
     max: Number,
     min: Number,
+    size: String,
     step: Number,
     value: [Number, Array],
     tipFormatter: [Function, Object],
@@ -98,9 +98,9 @@ export default {
 
   },
   render() {
-    let { vertical, value, index, disabled, max, min, tipFormatter, range, type, reverse, tooltipVisible } = this
+    let { vertical, value, index, disabled, max, min, size, tipFormatter, range, type, reverse, tooltipVisible } = this
     const props = {
-      class: 'k-slider-thumb',
+      class: ['k-slider-thumb', { 'k-slider-thumb-sm': size == 'small' }],
       style: {
         // left: `${percent}%`,
         zIndex: index

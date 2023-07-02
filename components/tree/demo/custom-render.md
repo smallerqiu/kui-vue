@@ -10,9 +10,9 @@
     <Divider>默认</Divider>
     <!-- 默认 -->
     <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" show-extra>
-      <template v-slot:extra="{ node , parent}">
-        <Button :icon="Add" size="small" @click="append(node)" style="margin-right:5px" />
-        <Button :icon="Remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" />
+     <template v-slot:extra="{ node , parent}">
+        <Button :icon="Add" size="small" @click="append(node)" style="margin-right:5px"></Button>
+        <Button :icon="Remove" size="small" @click="remove(node,parent)" v-if="node.key!='0-0'" ></Button>
       </template>
     </Tree>
     </Col>
@@ -137,5 +137,4 @@ export default {
   }
 }
 </script>
-
 ```

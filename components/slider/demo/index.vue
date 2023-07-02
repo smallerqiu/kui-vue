@@ -1,6 +1,7 @@
 <script>
 import Info from "./info.md";
 import Base from "./base.md";
+import Size from "./size.md";
 import WithNumber from "./withNumber.md";
 import Formatter from "./formatter.md";
 import Marks from "./marks.md";
@@ -14,6 +15,7 @@ export default {
       <div class="demo-slider">
         <Info />
         <Base />
+        <Size />
         <WithNumber />
         <Formatter />
         <Marks />

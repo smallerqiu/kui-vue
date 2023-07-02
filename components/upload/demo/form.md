@@ -53,7 +53,7 @@
     <FormItem :wrapperCol="{offset:6}">
       <Button type="primary" htmlType="submit">提交表单</Button>
     </FormItem>
-  <Form>
+  </Form>
 </template>
 <script>
 import { CloudUploadOutline,CameraOutline } from "kui-icons";

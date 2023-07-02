@@ -58,7 +58,7 @@
     <Col :span="8">
       <pre style="max-height:320px;overflow:'scroll'">{{JSON.stringify(form, null, 2)}}</pre>
     </Col>
-  </div>
+  </Row>
 </template>
 <script>
 import { RemoveCircleOutline } from 'kui-icons'
