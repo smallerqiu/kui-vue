@@ -133,7 +133,7 @@ export default {
       sty = reverse ? { bottom: `${percent}%`, transform: 'translateY(50%)' } :
         { top: `${percent}%` }
     } else {
-      sty = reverse ? { right: `${percent}%`, transform: 'translateX(50%)' } :
+      sty = reverse ? { right: `${percent}%`, transform: 'translateX(50%) translateY(-50%)' } :
         { left: `${percent}%` }
     }
     props.style = Object.assign(props.style, sty)

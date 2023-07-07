@@ -7,8 +7,8 @@ export default {
   render() {
     return (
       <div>
-        {/* <Info /> */}
-        {/* <Mode /> */}
+        <Info />
+        <Mode />
         <Local />
         <LocalEg />
       </div>

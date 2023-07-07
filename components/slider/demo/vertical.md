@@ -24,7 +24,7 @@
     <Slider vertical reverse range :marks="{ 20: '20°C', 40: '40°C' }" :step="10" :value="[20, 60]"></Slider>
   </div>
 </template>
-<<style lang="less">
+<style lang="less">
 .demo-slider-vertical{
   height: 300px; 
   margin-left: 30px;
@@ -32,5 +32,5 @@
   padding-right: 30px;
   display: inline-block
 }
-</style>>
+</style>
 ```
