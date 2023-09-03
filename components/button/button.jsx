@@ -48,7 +48,7 @@ export default {
   render() {
     const { $slots, $attrs, size, disabled, click, theme,
       shape, htmlType, icon, loading, $listeners, type, block } = this
-    const onlyIcon = !getChild($slots.default).length && icon
+    const onlyIcon = !getChild($slots.default, 'Drop').length && icon
     const classes = [
       "k-btn",
       {
