@@ -29,6 +29,7 @@ module.exports = defineConfig({
     // ],
     // entry: {
     // }
+    devtool: 'eval',
     resolve: {
       alias: {
         '@': '/src',
@@ -59,7 +60,7 @@ module.exports = defineConfig({
       raw: false,
       entryOnly: !isProduction
     }]);
-    // buid lang
+    // build lang
     if (npm_lifecycle_event == 'buildlib') {
       // config.entryPoints.delete('app')
       // config.optimization.splitChunks(false);

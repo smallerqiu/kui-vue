@@ -34,7 +34,7 @@ Vue.use(kui)
 
 import './assets/css/index.less'
 
-import Demo from './components/Demo'
+import Demo from './components/demo'
 Vue.component(Demo.name, Demo)
 
 Vue.config.productionTip = false

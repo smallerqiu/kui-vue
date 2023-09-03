@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div class="demo-slider-vertical">
-      <Slider vertical :value="35"></Slider>
-    </div>
-    <div class="demo-slider-vertical">
-      <Slider vertical reverse :value="35"></Slider>
-    </div>
-    <div class="demo-slider-vertical">
-      <Slider vertical range :value="[20, 60]"></Slider>
-    </div>
-    <div class="demo-slider-vertical">
-      <Slider vertical reverse range :value="[20, 60]"></Slider>
-    </div>
-    <div class="demo-slider-vertical">
-      <Slider vertical range :marks="{ 20: '20°C', 40: '40°C' }" :step="10" :value="[20, 60]"></Slider>
-    </div>
-    <div class="demo-slider-vertical">
-      <Slider vertical reverse range :marks="{ 20: '20°C', 40: '40°C' }" :step="10" :value="[20, 60]"></Slider>
-    </div>
+    <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`">
+      <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" shape="circle" size="large" style="margin:0 8px;">
+        <!-- <Icon :type="Moon"></Icon>123 -->
+      </Button>
+    </Tooltip>
   </div>
 </template>
+<script>
+import { Moon, Sunny } from 'kui-icons';
+export default {
+  data() {
+    return {
+      Moon, Sunny,
+      theme: false
+    }
+  }
+}
+</script>
 <style lang="less">
 .demo-slider-vertical {
   height: 300px;

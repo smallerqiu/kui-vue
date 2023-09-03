@@ -1,8 +1,19 @@
 export function isEmptyNode(vnode = {}) {
   return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim() !== ''))
 }
-export function getChild(child = []) {
-  return child.filter(c => !isEmptyNode(c))
+export function getChild(child = [], name) {
+  // return child.filter(c => !isEmptyNode(c, name) )
+  return child.filter(c => {
+    let tag_name = ''
+    if (name && c.componentOptions != null && c.componentOptions.Ctor != undefined) {
+      tag_name = c.componentOptions.Ctor.extendOptions.name
+    }
+    if (!isEmptyNode(c) && name !== tag_name) {
+      return true
+    } else {
+      return false
+    }
+  })
 }
 
 export function contains(ele, target) {

@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class="root">
     <Header />
     <Layout class="main">
       <Sider class="docs-k-layout-sider">
@@ -35,7 +35,7 @@
       <Content>
         <transition name="fade"
           mode="out-in">
-          <router-view></router-view>
+          <router-view class="content-inner"></router-view>
         </transition>
         <div class="foot-nav">
           <a :href="`/${prev.key}/${prev.name}`"

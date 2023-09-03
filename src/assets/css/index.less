@@ -1,3 +1,10 @@
+html {
+  --mwd: 1376px;
+  --swd: 272px;
+  ;
+
+}
+
 .back {
   background-color: var(--kui-color-back);
 }
@@ -10,6 +17,7 @@ body {
   color: var(--kui-color-font);
   padding: 0;
   margin: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body,
@@ -21,7 +29,13 @@ pre tt,
 kbd,
 samp,
 .serif {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  -moz-font-feature-settings: "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
 }
 
 pre,
@@ -30,9 +44,13 @@ code {
   font-family: lucida console, Consolas, Monaco, andale mono, ubuntu mono, monospace;
 }
 
+.root {
+  // max-width: var(--mwd);
+}
+
 .k-layout {
   .header {
-    height: 52px;
+    height: 60px;
     background: rgba(255, 255, 255, 0.2);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -46,31 +64,49 @@ code {
     display: flex;
     align-items: center;
 
+    .header-inner {
+      width: var(--mwd);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .logo {
       float: left;
       width: 272px;
       min-width: 272px;
-
-      a {
-        font-size: 16px;
-        font-weight: bold;
-        color: var(--kui-color-font);
-        text-decoration: none;
-      }
+      cursor: pointer;
+      display: flex;
+      align-items: center;
 
       .k-icon {
-        height: 30px;
         vertical-align: middle;
         display: inline-block;
         margin-right: 10px;
-        width: 30px;
-        font-size: 30px;
+        font-size: 40px;
         color: var(--kui-color-main);
       }
 
-      sub {
-        font-weight: 100;
+      .wrap-name {
+        display: flex;
+        flex-direction: column;
       }
+
+      .name {
+        font-weight: bold;
+        font-size: 23px;
+        white-space: nowrap;
+      }
+
+      .ver {
+        font-weight: 100;
+        font-size: 12px;
+      }
+    }
+
+    .k-btn-lg .k-icon {
+      font-size: 23px;
     }
 
     .top-menu {
@@ -98,29 +134,38 @@ code {
   .main {
     background: var(--kui-color-back);
     padding-top: 50px;
+    display: block;
 
     .docs-k-layout-sider {
       background: var(--kui-color-back);
-      width: 300px;
-      min-width: 300px;
-      max-width: 300px;
-      flex: 0 0 300px;
+      // width: 300px;
+      // min-width: 300px;
+      // max-width: 300px;
+      // flex: 0 0 300px;
+      position: fixed;
+      height: calc(100% - 110px);
+      top: 60px;
+      padding: 0 0 96px calc((100% - var(--mwd)) / 2);
+      max-width: calc((100% - var(--mwd)) / 2 + var(--swd));
 
       .left-menu {
-        position: fixed;
-        left: 0;
-        padding-top: 20px;
-        z-index: 100;
-        overflow-y: auto;
-        bottom: 0;
-        width: 300px;
-        top: 54px;
-        overflow-x: hidden;
-        padding-right: 1px;
+        width: var(--swd) // position: fixed;
+          // left: 0;
+          // padding-top: 20px;
+          // z-index: 100;
+          // overflow-y: auto;
+          // bottom: 0;
+          // width: 300px;
+          // top: 54px;
+          // overflow-x: hidden;
+          // padding-right: 1px;
       }
 
       .left-menu {
         padding-bottom: 20px;
+        padding-top: 30px;
+        height: 100%;
+        overflow: auto;
 
         .sub {
           font-size: 14px;
@@ -130,7 +175,10 @@ code {
     }
 
     &>.k-layout-content {
-      padding: 20px 40px 0px;
+      // padding: 20px 40px 0px;
+      padding-top: 20px;
+      padding-left: calc((100vw - var(--mwd)) / 2 + var(--swd) + 30px);
+      width: 1066px;
 
       .footer {
         background: none;
@@ -289,6 +337,45 @@ html[theme-mode=dark] {
   }
 }
 
+@media (max-width: 1440px) {
+  .k-layout .main>.k-layout-content {
+    padding-left: var(--swd);
+    width: auto;
+
+    .content-inner {
+      padding: 20px 40px;
+    }
+
+    .foot-nav {
+      padding: 0 40px;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .k-layout .main>.k-layout-content {
+    padding-left: 0;
+
+    //   padding-left: var(--swd);
+    //   .content-inner{
+    //     padding: 20px 40px;
+    //   }
+    .content-inner {
+      padding: 0;
+    }
+
+    .foot-nav {
+      padding: 0;
+    }
+  }
+
+  .main .docs-k-layout-sider {
+    display: none;
+    flex: auto;
+  }
+
+}
+
 @media (max-width:750px) {
   body {
     // min-width: 100%;
@@ -326,6 +413,14 @@ html[theme-mode=dark] {
       display: none;
       flex: auto;
     }
+
+    .main>.k-layout-content {
+      padding: 20px 22px 0px;
+    }
+  }
+
+  .footer {
+    flex-direction: column;
   }
 }
 

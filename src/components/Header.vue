@@ -1,43 +1,45 @@
 <template>
   <Header class="header">
-    <div class="logo">
-      <a href="/">
-        <Icon :type="LogoKui" />K UIKIT
-        <sub>v {{ version }}</sub>
-      </a>
-    </div>
-    <Divider type="vertical" />
-    <div class="search-component">
-      <Select placeholder="搜索..." shape="circle" :icon="Search" theme="light" :showArrow="false" filterable v-model="key"
-        @change="change" :transfer="false">
-        <Option v-for="(com, index) of menus" :key="index" :value="com.name">{{ com.title }} {{ com.sub }}</Option>
-      </Select>
-    </div>
-    <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
-      <MenuItem key="home">首页</MenuItem>
-      <MenuItem key="start">组件</MenuItem>
-    </Menu>
-    <Select size="small" class="version" :width="100" style="margin:0 10px" v-model="v" :transfer="false"
-      @change="changeV">
-      <Option value="3">{{ version }}</Option>
-      <Option value="2">2.x</Option>
-    </Select>
-    <Dropdown trigger="click" class="more" placement="bottom-right" @click="go">
-      <Button size="small">更多
-        <Icon :type="ChevronDown" />
-      </Button>
-      <Menu slot="content">
-        <MenuItem key="https://react.k-ui.cn">KUI for React</MenuItem>
-        <MenuItem key="https://gitee.com/chuchur/kui-vue">源码</MenuItem>
-        <MenuItem key="https://gitee.com/chuchur/kui-vue/issues">提交Bug</MenuItem>
-        <MenuItem key="https://chuchur.com">Blog</MenuItem>
+    <div class="header-inner">
+      <div class="logo" @click="$router.push('/')">
+        <Icon :type="LogoKui" />
+        <span class="wrap-name">
+          <span class="name">K UIKIT</span>
+          <span class="ver">v {{ version }}</span>
+        </span>
+      </div>
+      <Divider type="vertical" />
+      <div class="search-component">
+        <Select placeholder="搜索..." shape="circle" :icon="Search" theme="light" :showArrow="false" filterable
+          v-model="key" size="large" @change="change" :transfer="false">
+          <Option v-for="(com, index) of menus" :key="index" :value="com.name">{{ com.title }} {{ com.sub }}</Option>
+        </Select>
+      </div>
+      <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
+        <MenuItem key="home">首页</MenuItem>
+        <MenuItem key="start">组件</MenuItem>
+        <SubMenu key="docs" title="文档">
+          <MenuItem key="/start/getting-started">快速开始</MenuItem>
+          <MenuItem key="/start/ssr">SSR 支持</MenuItem>
+          <MenuItem key="/start/language">多语言</MenuItem>
+          <MenuItem key="/start/logs">更新日志</MenuItem>
+          <MenuItem key="/start/theme">主题</MenuItem>
+          <MenuItem key="/start/dark-mode">暗黑模式</MenuItem>
+          <MenuItem key="https://v2.k-ui.cn/">v2.x 文档</MenuItem>
+          <MenuItem key="https://react.k-ui.cn/">For React 文档</MenuItem>
+          <MenuItem key="https://chuchur.com/">Blog</MenuItem>
+        </SubMenu>
       </Menu>
-    </Dropdown>
-    <ColorPicker size="small" class="theme" mode="rgba" v-model="themeColor" :showArrow="false" shape="circle"
-      style="margin-left:8px" @change="changeThemeColor" />
-    <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" shape="circle" @click="changeMode"
-      style="margin:0 8px;" />
-    <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" shape="circle" theme="normal"></Button>
+      <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px"
+        @change="changeThemeColor" />
+      <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
+        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+          style="margin:0 8px;" />
+      </Tooltip>
+      <Tooltip title="Jump to Gitee" placement="bottom">
+        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" theme="normal" size="large"></Button>
+      </Tooltip>
+    </div>
   </Header>
 </template>
 <script>
