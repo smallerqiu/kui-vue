@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 const webpack = require('webpack');
 const path = require('path');
 let { NODE_ENV, npm_package_version, npm_package_name, npm_lifecycle_event } = process.env
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -97,5 +98,27 @@ module.exports = defineConfig({
       //   .set('@', '/src')
       //   .set('kui-vue', '/components')
     }
+    // config.optimization.minimizer('terser').tap((args) => {
+    //   Object.assign(args[0].terserOptions.compress, {
+    //     warnings: false, //默认false
+    //     drop_console: true,
+    //     drop_debugger: true, //默认true
+    //     pure_funcs: ['console.log']
+    //   })
+    //   return args
+    // })
+
+
+    config.optimization
+      .minimizer('terser')
+      .use(TerserPlugin, [{
+        minify: TerserPlugin.uglifyJsMinify,
+        terserOptions: {
+          compress:true,
+          output: {
+            comments: false, // 去掉注释
+          },
+        },
+      }])
   },
 })

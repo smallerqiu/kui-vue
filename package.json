@@ -1,6 +1,6 @@
 {
   "name": "kui-vue",
-  "version": "3.3.5-d",
+  "version": "3.3.6",
   "description": "A high quality UI Toolkit built on Vue.js 2.0",
   "private": false,
   "main": "dist/k-ui.js",
@@ -65,6 +65,7 @@
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-container": "^3.0.0",
+    "terser-webpack-plugin": "^5.3.10",
     "vue": "^2.6.14",
     "vue-clipboard2": "^0.3.3",
     "vue-i18n": "^8.28.2",
