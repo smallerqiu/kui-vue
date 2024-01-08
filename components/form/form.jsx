@@ -75,7 +75,7 @@ export default {
   methods: {
     setValue(prop, value = '') {
       let keys = prop.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.')
-      let model = this.model
+      let model = this.model || {}
       for (let i = 0; i < keys.length; i++) {
         let key = keys[i]
         if (key in model) {
@@ -125,7 +125,7 @@ export default {
           // throw new Error('请传入正确的prop值:' + path)
         }
       }
-      return model;
+      return model == this.model ? null : model;
     },
     submit(e) {
       e && e.preventDefault()
