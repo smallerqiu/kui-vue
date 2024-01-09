@@ -13,20 +13,20 @@ import 'kui-vue/styles/index.less'
 // Vue.use(kui, { locale })
 
 // with vue-i18n 8.X
-import VueI18n from 'vue-i18n'
+// import VueI18n from 'vue-i18n'
 // import en from 'kui-vue/locale/lang/en'
 // import ua from 'kui-vue/locale/lang/ua'
-import en from '../dist/locale/en'
-import ua from '../dist/locale/ua'
+// import en from '../dist/locale/en'
+// import ua from '../dist/locale/ua'
 // console.log(en)
-Vue.use(VueI18n)
-const i18n = new VueI18n({
-  locale: 'ua', // set default locale
-  messages: { ua, en }
-})
-Vue.use(kui, {
-  i18n: (key, value) => i18n.t(key, value)
-})
+// Vue.use(VueI18n)
+// const i18n = new VueI18n({
+//   locale: 'ua', // set default locale
+//   messages: { ua, en }
+// })
+// Vue.use(kui, {
+//   i18n: (key, value) => i18n.t(key, value)
+// })
 //tes change
 // setTimeout(() => { i18n.locale = 'ua'}, 5000);
 
@@ -41,7 +41,7 @@ Vue.component(Demo.name, Demo)
 Vue.config.productionTip = false
 
 new Vue({
-  i18n,
+  // i18n,
   router,
   render: h => h(App),
 }).$mount('#app')
