@@ -1,9 +1,10 @@
+// 遗弃 !!!
+
 const { defineConfig } = require('@vue/cli-service')
 const webpack = require('webpack');
 const path = require('path');
 let { NODE_ENV, npm_package_version, npm_package_name, npm_lifecycle_event } = process.env
-const TerserPlugin = require('terser-webpack-plugin');
-
+// const TerserPlugin = require('terser-webpack-plugin');
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false, // no check
@@ -29,7 +30,8 @@ module.exports = defineConfig({
     //   new MiniCssExtractPlugin({ filename: 'k-ui.css' }),
     // ],
     // entry: {
-    // }
+    //   'kui': '/components/bin/index.js'
+    // },
     devtool: 'eval',
     resolve: {
       alias: {
@@ -39,22 +41,23 @@ module.exports = defineConfig({
     }
   },
   chainWebpack: (config) => {
-
-    config.module.rule('md')
-      .test(/\.md$/)
-      .use('vue-loader')
-      .loader('vue-loader')
-      .end()
-      .use('md-loader')
-      .loader('./src/utils/md-loader')
-      .options()
-      .end()
-      .use('kui-loader')
-      .loader('kui-loader')
-      .options({ prefix: false })
-      .end()
-
+    
     const isProduction = NODE_ENV === 'production';
+    if (!isProduction || npm_lifecycle_event == 'builddocs') {
+      config.module.rule('md')
+        .test(/\.md$/)
+        .use('vue-loader')
+        .loader('vue-loader')
+        .end()
+        .use('md-loader')
+        .loader('./src/utils/md-loader')
+        .options()
+        .end()
+        .use('kui-loader')
+        .loader('kui-loader')
+        .options({ prefix: false })
+        .end()
+    }
     // banner
     config.plugin('banner').use(webpack.BannerPlugin, [{
       banner: `${npm_package_name} v${npm_package_version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nAuthor: chuchur@qq.com / www.chuchur.com`,
@@ -109,16 +112,6 @@ module.exports = defineConfig({
     // })
 
 
-    config.optimization
-      .minimizer('terser')
-      .use(TerserPlugin, [{
-        minify: TerserPlugin.uglifyJsMinify,
-        terserOptions: {
-          compress:true,
-          output: {
-            comments: false, // 去掉注释
-          },
-        },
-      }])
+
   },
 })
