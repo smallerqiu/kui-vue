@@ -7,13 +7,18 @@
   "style": "dist/k-ui.css",
   "files": [
     "dist",
-    "components"
+    "test",
+    "components/style"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest docs",
-    "buildlib": "vue-cli-service build --progres --no-clean --target lib --name k-ui --formats umd-min components/bin/index.js",
-    "buildlang": "vue-cli-service build --progres --dest dist/locale --target lib --name lang --formats umd-min components/locale/index.js",
+    "start": "webpack-dev-server --config build/webpack.config.js --env dev",
+    "buildlib": "webpack --config build/webpack.config.js --env prod",
+    "builddocs": "webpack --config build/webpack.config.js --env docs",
+    "buildlang": "webpack --config build/webpack.config.js --env lang",
+    "serve_bak": "vue-cli-service serve",
+    "builddocs_bak": "vue-cli-service build --dest docs",
+    "buildlib_bak": "vue-cli-service build --progres --no-clean --target lib --name k-ui components/bin/index.js",
+    "buildlang_bak": "vue-cli-service build --progres --dest dist/locale --target lib --name lang --formats umd-min components/locale/index.js",
     "lint": "vue-cli-service lint"
   },
   "repository": {
@@ -45,6 +50,7 @@
     "email": "chuchur@qq.com"
   },
   "dependencies": {
+    "clean-webpack-plugin": "^4.0.0",
     "dayjs": "^1.11.8",
     "kui-icons": "^4.1.2",
     "kui-loader": "^1.0.6",
@@ -60,17 +66,22 @@
     "core-js": "^3.8.3",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "file-loader": "^6.2.0",
     "less": "^4.2.0",
     "less-loader": "^11.1.3",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-container": "^3.0.0",
+    "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.10",
     "vue": "^2.6.14",
     "vue-clipboard2": "^0.3.3",
     "vue-i18n": "^8.28.2",
+    "vue-loader": "^15.11.1",
     "vue-router": "^3.6.5",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "webpack-cli": "^5.1.4",
+    "webpackbar": "^6.0.0"
   },
   "eslintConfig": {
     "root": true,
