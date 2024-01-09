@@ -133,7 +133,7 @@ export default {
   },
   render() {
     let { type, status, currentPercent, size, width } = this
-    if (currentPercent == 100) {
+    if (currentPercent == 100 && status != 'exception') {
       status = 'success'
     }
     let classes = [
