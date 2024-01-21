@@ -15,6 +15,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); //for webpac
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
 
+const pkg = require('../package.json');
 
 
 module.exports = {
@@ -95,8 +96,9 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
       chunks: ['vendors', 'index'],
-      title:'KUI 一套基于Vue.js的桌面UI组件库',
+      title: 'KUI 一套基于Vue.js的桌面UI组件库',
       inject: true,
+      version: pkg.version,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -105,6 +107,6 @@ module.exports = {
         minifyCSS: true
       },
     }),
-    new CleanWebpackPlugin()
+    // new CleanWebpackPlugin()
   ],
 }
