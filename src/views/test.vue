@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <DatePicker />
-    <DatePicker placeholder="小尺寸/Small" picker-size="small"/>
-    <br/>
-    <DatePicker mode="month" placeholder="请选择月份"/>
-    <br/>
-    <DatePicker mode="range" />
-    <DatePicker mode="range" picker-size="small" showTime/>
-  </div>
+  <Space>
+    <Input clearable></Input>
+    <Select clearable>
+      <Option v-for="x in 5" :key="x" :value="x" :label="x"></Option>
+    </Select>
+  </Space>
 </template>
 

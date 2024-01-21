@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       currentValue: this.value,
-      isFocus: false,
-      isEnter: false,
+      // isFocus: false,
+      // isEnter: false,
       isPassword: true,
     };
   },
@@ -136,7 +136,7 @@ export default {
             [`k-${inputType}-disabled`]: disabled,
             [`k-${inputType}-sm`]: size == 'small' && !isTextArea && !mult,
             [`k-${inputType}-lg`]: size == 'large' && !isTextArea && !mult,
-            [`k-${inputType}-${theme}`]: theme != 'solid' && !mult,
+            [`k-${inputType}-${theme}`]: theme != 'solid' && !mult && theme,
             [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea && !mult,
           }
         ],
@@ -170,7 +170,8 @@ export default {
       return textInput
 
     let { isFocus, isEnter, currentValue } = this
-    let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
+    // let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
+    let clearableShow = clearable && isNotEmpty(currentValue)
     const props = {
       class: [
         `k-${inputType}`,
@@ -183,10 +184,10 @@ export default {
           [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea,
         }
       ],
-      on: {
-        mouseenter: () => this.isEnter = true,
-        mouseleave: () => this.isEnter = false
-      }
+      // on: {
+      // mouseenter: () => this.isEnter = true,
+      // mouseleave: () => this.isEnter = false
+      // }
     }
     const suffixNode = this.getSuffix()
     const prefixNode = $slots.prefix || (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
@@ -194,7 +195,7 @@ export default {
       {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
       {prefixNode ? prefixNode : null}
       {textInput}
-      {clearableShow ? <Icon type={CloseCircle} class={`k-${inputType}-clearable`} onClick={this.clear} /> : null}
+      {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
       {suffixNode ? suffixNode : null}
     </div >
   }

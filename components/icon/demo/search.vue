@@ -2,7 +2,7 @@
   <div>
     <h3>图标快速检索</h3>
     <br />
-    <Affix :offsetTop="55">
+    <Affix :offsetTop="65">
       <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制"
         :icon="LogoKui"
         v-model="key"

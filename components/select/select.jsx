@@ -329,9 +329,9 @@ export default {
     }
     let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText} /> : <ul>{childs}</ul>)}</Drop>
 
-    label = multiple ? (label || []) : label
+    label = multiple ? (label || []) : label + ''
     placeholder = placeholder || t('k.select.placeholder')
-    const placeNode = ((placeholder && ((!label || !label.length) && !queryKey))
+    const placeNode = ((placeholder && (((label === null || label === undefined) || !label.length) && !queryKey))
       ? <div class="k-select-placeholder">{placeholder}</div>
       : null
     )
@@ -353,7 +353,7 @@ export default {
     )
     let isSearch = ('search' in this.$listeners)
     childNode.push(labelsNode);
-    childNode.push(placeNode);
+    placeNode && childNode.push(placeNode);
 
     (!isSearch && showArrow) && childNode.push(<Icon class="k-select-arrow" type={arrowIcon} />)
 

@@ -32,7 +32,7 @@ export default {
     }
     if (Array.isArray(size)) {
       props.style = { gap: `${size[1]}px ${size[0]}px` }
-    } else if (size && !/small|large/.test(size)) {
+    } else if (size !== undefined && size !== null && !/small|large/.test(size)) {
       props.style = { gap: `${size}px` }
     }
     // let mrs = { small: 8, middle: 16, large: 24 }

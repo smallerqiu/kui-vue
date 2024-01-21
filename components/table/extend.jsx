@@ -310,11 +310,11 @@ export default {
         headProps.style.marginBottom = -scrollBarHeight + 'px'
       }
 
-      if (has_sticky) {
+      // if (has_sticky) {
         headProps.style.overflow = 'hidden'
-      } else if (height) {
-        headProps.style.overflow = 'auto'
-      }
+      // } else if (height) {
+        // headProps.style.overflow = 'auto'
+      // }
       if (this.columns && this.columns.length) {
         content.push(<div {...headProps}>{this.renderTable(true, false)}</div>)
       }

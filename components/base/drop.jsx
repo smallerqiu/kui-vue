@@ -60,6 +60,7 @@ export default {
   },
   render() {
     const props = {
+      key: this.$vnode.key,
       class: this.className,
       style: {
         left: `${this.left}px`,
