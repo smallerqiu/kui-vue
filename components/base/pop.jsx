@@ -137,6 +137,7 @@ export default {
       }
       const props = {
         ref: 'overlay',
+        key: this.$vnode.key,
         props: {
           transfer,
           value: this.opened,

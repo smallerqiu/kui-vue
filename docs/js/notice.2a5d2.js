@@ -1,5 +1,5 @@
 /*!
- * kui-vue v3.3.6-a
+ * kui-vue v3.3.6-b
  *  Copyright 2017-present, kui-vue.
  *  All rights reserved.
  *  Docs: https://k-ui.cn

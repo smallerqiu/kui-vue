@@ -34,6 +34,7 @@ export default {
   },
   render() {
     let props = {
+      key: this.$vnode.key,
       props: {
         preCls: 'dropdown',
         ...this.$props,

@@ -1,6 +1,6 @@
 @import '../../styles/var.less';
 .k-select {
-  display: inline-block;
+  display: inline-flex;
   width: 100%;
   max-width: 100%;
   min-width: 80px;
@@ -249,6 +249,8 @@
   box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
   position: absolute;
   z-index: 1003;
+  padding: 5px;
+  box-sizing: border-box;
   ul {
     padding: 0;
     margin: 0;
@@ -259,6 +261,8 @@
     padding: 10px;
     font-size: 14px;
     color: var(--kui-color-font);
+    display: flex;
+    align-items: center;
     .k-icon {
       font-size: 14px;
     }
@@ -269,7 +273,7 @@
   .k-select-item {
     margin: 0;
     line-height: normal;
-    padding: 10px 16px;
+    padding: 8px 16px;
     clear: both;
     color: var(--kui-color-font);
     font-size: 14px;
@@ -281,6 +285,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
     position: relative;
+    border-radius: @radius;
     &:hover {
       background: var(--kui-color-hover);
     }
