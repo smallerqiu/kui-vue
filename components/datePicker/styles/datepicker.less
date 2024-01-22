@@ -1,208 +1,244 @@
 @import '../../styles/var.less';
+
 .k-datepicker {
-	display: inline-block;
-	// width: 100%;
-	max-width: 100%;
-	box-sizing: border-box;
-	vertical-align: middle;
-	color: var(--kui-color-font);
-	background: transparent;
-	font-size: 14px;
-	position: relative;
-	border: 1px solid var(--kui-color-border);
-	min-height: 32px;
-	border-radius: var(--kui-border-radius);
-	cursor: default;
-	user-select: none;
-	min-width: 175px;
-	transition: all .3s;
-	outline: none;
-	&:hover {
-		border-color: var(--kui-color-main);
-	}
-	.k-datepicker-selection {
-		padding: 0 30px 0 9px;
-	}
-	.k-icon {
-		position: absolute;
-		right: 8px;
-		top: 50%;
-		transform: translateY(-50%);
-		color: var(--kui-color-icon);
-		font-size: 14px;
-		transition: all .3s;
-	}
-	.k-datepicker-placeholder, .k-datepicker-value {
-		transition: all .3s;
-		line-height: 30px;
-		color: var(--kui-color-disable-color);
-		box-sizing: border-box;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		font-size: 14px;
-	}
-	.k-datepicker-value {
-		color: var(--kui-color-font);
-	}
-	.k-datepicker-has-clear {
-		.k-datepicker-clearable {
-			display: none;
-			&:hover {
-				color: var(--kui-color-font);
-			}
-		}
-		&:hover {
-			.k-datepicker-clearable {
-				display: block;
-				cursor: pointer;
-			}
-			.k-icon-calendar {
-				display: none;
-			}
-		}
-	}
+  display: inline-block;
+  // width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  color: var(--kui-color-font);
+  background: transparent;
+  font-size: 14px;
+  position: relative;
+  border: 1px solid var(--kui-color-border);
+  min-height: 32px;
+  border-radius: var(--kui-border-radius);
+  cursor: default;
+  user-select: none;
+  min-width: 175px;
+  transition: all .3s;
+  outline: none;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: var(--kui-color-main);
+  }
+
+  .k-datepicker-selection {
+    padding: 0 30px 0 9px;
+    white-space: nowrap;
+  }
+
+  .k-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--kui-color-icon);
+    font-size: 14px;
+    transition: all .3s;
+  }
+
+  .k-datepicker-placeholder,
+  .k-datepicker-value {
+    transition: all .3s;
+    line-height: 30px;
+    color: var(--kui-color-disable-color);
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .k-datepicker-value {
+    color: var(--kui-color-font);
+  }
+
+  .k-datepicker-has-clear {
+    .k-datepicker-clearable {
+      display: none;
+
+      &:hover {
+        color: var(--kui-color-font);
+      }
+    }
+
+    &:hover {
+      .k-datepicker-clearable {
+        display: block;
+        cursor: pointer;
+      }
+
+      .k-icon-calendar {
+        display: none;
+      }
+    }
+  }
 }
 
 .k-datepicker-light {
-	border-color: transparent;
-	background-color: var(--kui-color-gray-80);
-	&:hover, &:focus {
-		box-shadow: none;
-		border-color: transparent;
-	}
+  border-color: transparent;
+  background-color: var(--kui-color-gray-80);
+
+  &:hover,
+  &:focus {
+    box-shadow: none;
+    border-color: transparent;
+  }
 }
 
 .k-datepicker-circle {
-	border-radius: 30px;
+  border-radius: 30px;
 }
 
 .k-datepicker-range {
-	min-width: 307px;
-	.k-datepicker-placeholder, .k-datepicker-value {
-		display: inline-block;
-		// padding: 0 9px;
-		vertical-align: middle;
-		min-width: 130px;
-		text-align: center;
-	}
-	.k-datepicker-separator {
-		display: inline-block;
-		vertical-align: middle;
-		padding: 0 5px;
-	}
-	&.k-datepicker-lg {
-		min-width: 347px;
-	}
+  min-width: 307px;
+
+  .k-datepicker-placeholder,
+  .k-datepicker-value {
+    display: inline-block;
+    // padding: 0 9px;
+    vertical-align: middle;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .k-datepicker-separator {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 5px;
+  }
+
+  &.k-datepicker-lg {
+    min-width: 347px;
+  }
 }
 
 .k-datepicker-range-dropdown {
-	// width: 430px;
+  // width: 430px;
 }
 
-.k-datepicker:focus, .k-datepicker-open {
-	border-color: var(--kui-color-main);
-	box-shadow: 0 0 5px var(--kui-color-main-30);
-	&.k-datepicker-light {
-		border-color: transparent;
-		box-shadow: none;
-	}
+.k-datepicker:focus,
+.k-datepicker-open {
+  border-color: var(--kui-color-main);
+  box-shadow: 0 0 5px var(--kui-color-main-30);
+
+  &.k-datepicker-light {
+    border-color: transparent;
+    box-shadow: none;
+  }
 }
 
 .k-datepicker-dropdown {
-	position: absolute;
-	z-index: 1003;
-	background: var(--kui-color-control-10);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	border-radius: var(--kui-border-radius);
-	overflow: hidden;
-	display: flex;
+  position: absolute;
+  z-index: 1003;
+  background: var(--kui-color-control-10);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: var(--kui-border-radius);
+  overflow: hidden;
+  display: flex;
 }
 
 .k-datepicker-sm {
-	min-height: 24px;
-	.k-datepicker-placeholder, .k-datepicker-value {
-		line-height: 22px;
-	}
-	.k-icon {
-		font-size: 12px;
-	}
-	.k-datepicker-selection {
-		padding: 0 23px 0 9px;
-		white-space: nowrap;
-		line-height: 0;
-	}
+  min-height: 24px;
+
+  .k-datepicker-placeholder,
+  .k-datepicker-value {
+    line-height: 22px;
+  }
+
+  .k-icon {
+    font-size: 12px;
+  }
+
+  .k-datepicker-selection {
+    padding: 0 23px 0 9px;
+    white-space: nowrap;
+    line-height: 0;
+  }
 }
 
 .k-datepicker-lg {
-	min-height: 40px;
-	min-width: 190px;
-	.k-datepicker-placeholder, .k-datepicker-value {
-		line-height: 38px;
-		font-size: 14px;
-	}
-	.k-icon {
-		font-size: 16px;
-		right: 10px;
-	}
-	.k-datepicker-selection {
-		padding: 0 38px 0 9px;
-	}
+  min-height: 40px;
+  min-width: 190px;
+
+  .k-datepicker-placeholder,
+  .k-datepicker-value {
+    line-height: 38px;
+    font-size: 14px;
+  }
+
+  .k-icon {
+    font-size: 16px;
+    right: 10px;
+  }
+
+  .k-datepicker-selection {
+    padding: 0 38px 0 9px;
+  }
 }
 
 .k-datepicker-disabled {
-	border-color: var(--kui-color-disable-border);
-	color: var(--kui-color-disable-color);
-	cursor: not-allowed;
-	background: var(--kui-color-disable-back);
-	.k-datepicker-value {
-		color: var(--kui-color-disable-color);
-	}
-	&:hover, &:focus {
-		border-color: var(--kui-color-disable-border);
-		box-shadow: none;
-	}
+  border-color: var(--kui-color-disable-border);
+  color: var(--kui-color-disable-color);
+  cursor: not-allowed;
+  background: var(--kui-color-disable-back);
+
+  .k-datepicker-value {
+    color: var(--kui-color-disable-color);
+  }
+
+  &:hover,
+  &:focus {
+    border-color: var(--kui-color-disable-border);
+    box-shadow: none;
+  }
 }
 
 .k-datepicker-borderless {
-	border-color: transparent;
-	box-shadow: none;
-	background-color: transparent;
-	&:hover, &:focus {
-		border-color: transparent;
-		box-shadow: none;
-	}
+  border-color: transparent;
+  box-shadow: none;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+    box-shadow: none;
+  }
 }
 
- 
+
 @keyframes dropDownIn {
-	0% {
-		opacity: 0;
-		transform: scaleY(0)
-	}
-	to {
-		opacity: 1;
-		transform: scaleY(1)
-	}
+  0% {
+    opacity: 0;
+    transform: scaleY(0)
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1)
+  }
 }
 
 @keyframes dropDownOut {
-	0% {
-		opacity: 1;
-		transform: scaleY(1)
-	}
-	to {
-		opacity: 0;
-		transform: scaleY(0)
-	}
+  0% {
+    opacity: 1;
+    transform: scaleY(1)
+  }
+
+  to {
+    opacity: 0;
+    transform: scaleY(0)
+  }
 }
 
 .k-date-picker-enter-active {
-	transform-origin: 0 0;
-	animation: dropDownIn .3s;
+  transform-origin: 0 0;
+  animation: dropDownIn .3s;
 }
 
 .k-date-picker-leave-active {
-	transform-origin: 0 0;
-	animation: dropDownOut .3s
+  transform-origin: 0 0;
+  animation: dropDownOut .3s
 }

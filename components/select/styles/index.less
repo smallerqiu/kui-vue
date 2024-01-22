@@ -1,8 +1,9 @@
 @import '../../styles/var.less';
+
 .k-select {
   display: inline-flex;
-  width: 100%;
-  max-width: 100%;
+  // width: 100%;
+  // max-width: 100%;
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
@@ -11,12 +12,15 @@
   position: relative;
   outline: none;
   box-sizing: border-box;
+  flex-shrink: 0;
+
   &:focus {
     .k-select-selection {
       border: 1px solid var(--kui-color-border);
       box-shadow: 0 0 5px var(--kui-color-main-30);
     }
   }
+
   &-selection {
     border-radius: var(--kui-border-radius);
     box-sizing: border-box;
@@ -34,14 +38,18 @@
     display: inline-flex;
     align-items: center;
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
     height: 100%;
     box-sizing: border-box;
   }
+
   .k-select-icon {
     margin-left: 8px;
     font-size: 16px;
     color: var(--kui-color-icon);
   }
+
   &-search-wrap {
     position: absolute;
     // left: 5px;
@@ -50,6 +58,9 @@
     background: none;
     margin-left: 9px;
     transform: translateY(-50%);
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
     .k-select-search {
       // border: 1px solid #eee;
       border: none;
@@ -63,9 +74,11 @@
       color: var(--kui-color-font);
     }
   }
+
   &-labels {
     padding: 0 32px 0 4px;
     transition: all .25s ease-in-out;
+
     .k-select-tag {
       padding: 2px 22px 2px 5px;
       border: 1px solid var(--kui-color-border);
@@ -76,6 +89,7 @@
       position: relative;
       line-height: 18px;
       transition: all .25s ease-in-out;
+
       .k-icon {
         position: absolute;
         right: 3px;
@@ -84,11 +98,13 @@
         display: block;
         top: 50%;
         transform: translateY(-50%);
+
         &:hover {
           color: var(--kui-color-danger);
         }
       }
     }
+
     .k-select-search-wrap {
       display: inline-block;
       position: relative;
@@ -107,6 +123,7 @@
       // }
     }
   }
+
   &-search-mirror {
     opacity: 0;
     white-space: pre;
@@ -116,7 +133,10 @@
     top: 0;
     z-index: 1;
     font-size: 12px;
+    max-width: 100%;
+    overflow: hidden;
   }
+
   &-placeholder {
     position: absolute;
     left: 0;
@@ -135,6 +155,7 @@
     box-sizing: border-box;
     transition: all .25s ease-in-out;
   }
+
   /*  .k-select-placeholder {
       color: #888;
    } */
@@ -157,6 +178,7 @@
     font-size: 12px;
     transition: all .25s ease-in-out;
   }
+
   &-arrow {
     // font-size: 18px;
     position: absolute;
@@ -169,10 +191,12 @@
     transition: transform .3s ease-in-out;
     transition: all .25s ease-in-out;
     color: var(--kui-color-icon);
+
     #chevron-up {
       transform: rotate(180deg);
     }
   }
+
   &-clearable {
     position: absolute;
     top: 50%;
@@ -181,23 +205,30 @@
     display: none;
     font-size: 15px;
     color: var(--kui-color-icon);
+
     &:hover {
       color: var(--kui-color-font);
     }
   }
-  &:hover, &:focus {
+
+  &:hover,
+  &:focus {
     .k-select-selection {
       border-color: var(--kui-color-main);
     }
   }
+
   .k-select-placeholder {
     font-size: 14px;
     line-height: 1;
   }
+
   .k-select-label {
     font-size: 14px;
   }
-  .k-select-search-mirror, .k-select-search {
+
+  .k-select-search-mirror,
+  .k-select-search {
     font-size: 14px;
     color: var(--kui-color-font);
   }
@@ -207,7 +238,8 @@
   .k-select-placeholder {
     left: 20px;
   }
-  .k-select-selection >.k-select-search-wrap {
+
+  .k-select-selection>.k-select-search-wrap {
     left: 20px;
   }
 }
@@ -217,15 +249,19 @@
     border-color: transparent;
     background: var(--kui-color-gray-80);
     border-radius: var(--kui-border-radius);
-    &:focus, &:hover {
+
+    &:focus,
+    &:hover {
       box-shadow: none;
       border-color: transparent;
     }
+
     .k-select-tag {
       background-color: var(--kui-color-gray-80);
       border-color: transparent;
     }
   }
+
   &:focus .k-select-selection {
     box-shadow: none;
     border-color: transparent;
@@ -251,25 +287,30 @@
   z-index: 1003;
   padding: 5px;
   box-sizing: border-box;
+
   ul {
     padding: 0;
     margin: 0;
     list-style: none;
     left: 0;
   }
+
   .k-select-loading {
     padding: 10px;
     font-size: 14px;
     color: var(--kui-color-font);
     display: flex;
     align-items: center;
+
     .k-icon {
       font-size: 14px;
     }
+
     span {
       margin-left: 8px;
     }
   }
+
   .k-select-item {
     margin: 0;
     line-height: normal;
@@ -286,9 +327,11 @@
     cursor: pointer;
     position: relative;
     border-radius: @radius;
+
     &:hover {
       background: var(--kui-color-hover);
     }
+
     .k-icon {
       position: absolute;
       top: 0;
@@ -299,22 +342,28 @@
       display: none;
       color: var(--kui-color-icon);
     }
-    &:hover .k-icon, .k-icon {
+
+    &:hover .k-icon,
+    .k-icon {
       display: block;
     }
   }
+
   .k-select-item-selected {
     background: var(--kui-color-selected);
     color: var(--kui-color-main);
     font-weight: 500;
+
     &:hover {
       background: var(--kui-color-selected);
     }
+
     .k-icon {
       color: var(--kui-color-main);
       display: block;
     }
   }
+
   .k-select-item-disabled {
     background: var(--kui-color-disable-back);
     color: var(--kui-color-disable-color);
@@ -333,44 +382,55 @@
     font-size: 14px;
     margin-left: 4px;
   }
+
   .k-select-selection {
     min-height: 24px;
   }
+
   .k-select-arrow {
     font-size: 12px;
     right: 5px;
   }
+
   .k-select-clearable {
     right: 5px;
     font-size: 12px;
   }
+
   .k-select-label {
     line-height: 22px;
     height: 22px;
     padding-right: 23px;
     font-size: 12px;
   }
+
   .k-select-placeholder {
     font-size: 12px;
   }
+
   .k-select-search-wrap {
     .k-select-search {
       height: 18px;
       font-size: 12px;
     }
   }
+
   .k-select-labels {
     padding: 0 23px 0 3px;
+
     .k-select-tag {
       padding: 2px 20px 2px 5px;
       margin: 2px 3px 2px 0;
       line-height: 1;
+
       .k-icon {
         font-size: 14px;
       }
     }
+
     .k-select-search-wrap {
       padding: 2px 0;
+
       .k-select-search {
         font-size: 12px;
         height: 18px;
@@ -380,14 +440,18 @@
       }
     }
   }
-  .k-select-search-mirror, .k-select-search {
+
+  .k-select-search-mirror,
+  .k-select-search {
     font-size: 12px;
     color: var(--kui-color-font);
   }
+
   &.k-select-has-icon {
-    .k-select-selection > .k-select-search-wrap {
+    .k-select-selection>.k-select-search-wrap {
       left: 14px;
     }
+
     .k-select-placeholder {
       left: 14px;
     }
@@ -399,38 +463,47 @@
     font-size: 14px;
     min-height: 40px;
   }
+
   .k-select-arrow {
     font-size: 18px;
     right: 10px;
   }
+
   .k-select-clearable {
     right: 10px;
     font-size: 18px;
   }
+
   .k-select-label {
     line-height: 38px;
     height: 38px;
     font-size: 14px;
     padding-right: 32px;
   }
+
   .k-select-search-wrap {
     .k-select-search {
       height: 28px;
     }
   }
+
   .k-select-labels {
     padding: 0 32px 0 6px;
+
     .k-select-tag {
       padding: 7px 20px 7px 5px;
       margin: 4px 8px 4px 0;
       font-size: 14px;
       line-height: 1;
+
       .k-icon {
         font-size: 16px;
       }
     }
+
     .k-select-search-wrap {
       padding: 4px 0;
+
       .k-select-search {
         height: 28px;
         line-height: 28px;
@@ -448,6 +521,7 @@
     // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
     box-shadow: 0 0 5px var(--kui-color-main-30);
   }
+
   // .k-select-arrow {
   //   transform: translateY(-50%) rotate(180deg);
   // }
@@ -459,17 +533,22 @@
 
 .k-select-disabled {
   color: var(--kui-color-disable-color);
+
   .k-select-label {
     cursor: not-allowed;
   }
+
   .k-select-selection {
     background: var(--kui-color-disable-back);
     cursor: not-allowed;
   }
+
   .k-select-arrow {
     color: var(--kui-color-disable-border);
   }
-  &:hover, &:focus {
+
+  &:hover,
+  &:focus {
     .k-select-selection {
       border-color: var(--kui-color-disable-border);
       box-shadow: none;
@@ -482,6 +561,7 @@
     .k-select-clearable {
       display: block;
     }
+
     .k-select-arrow {
       display: none;
     }
@@ -489,12 +569,15 @@
 }
 
 .k-select-borderless {
-  &:hover, &:focus {
+
+  &:hover,
+  &:focus {
     .k-select-selection {
       border-color: transparent;
       box-shadow: none;
     }
   }
+
   .k-select-selection {
     box-shadow: none;
     border-color: transparent;
@@ -507,6 +590,7 @@
     opacity: 0;
     transform: scale(0, 0);
   }
+
   to {
     opacity: 1;
     transform: scale(1, 1);
@@ -518,6 +602,7 @@
     opacity: 1;
     transform: scale(1, 1);
   }
+
   to {
     opacity: 0;
     transform: scale(0, 0);
@@ -537,6 +622,7 @@
     opacity: 0;
     transform: scaleY(0)
   }
+
   to {
     opacity: 1;
     transform: scaleY(1)
@@ -548,6 +634,7 @@
     opacity: 1;
     transform: scaleY(1)
   }
+
   to {
     opacity: 0;
     transform: scaleY(0)
