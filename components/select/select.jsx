@@ -250,7 +250,7 @@ export default {
       } else {
         childs = getChild($slots.default)
       }
-      if (this.filterable && queryKey) {
+      if (this.filterable && queryKey && !this.$listeners.search) {
         let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
         let Reg = new RegExp(parsedQuery, 'i')
 
@@ -292,6 +292,9 @@ export default {
     const queryProps = {
       on: {
         input: this.searchInput,
+        blur: () => {
+          if (!this.opened) this.showSearch = false
+        }
       },
       ref: 'search',
       class: 'k-select-search',

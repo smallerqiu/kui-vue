@@ -15,6 +15,7 @@ npm install kui-vue@latest
 `2024-01-22`
 - Input ,Select ,Space 优化细节
 - Table 滚动条问题
+- Select 异步搜索的问题
 - 修复表单验证问题
 - Progess 组建进度和状态优先级调整(进度走完了,但是结果失败了)
 

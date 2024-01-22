@@ -306,9 +306,9 @@ export default {
       if (has_sticky) {
         headProps.style.top = sticky + 'px'
       }
-      if (width && height && !has_sticky) {
-        headProps.style.marginBottom = -scrollBarHeight + 'px'
-      }
+      // if (width && height && !has_sticky) {
+        // headProps.style.marginBottom = -scrollBarHeight + 'px'
+      // }
 
       // if (has_sticky) {
         headProps.style.overflow = 'hidden'
