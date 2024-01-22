@@ -220,7 +220,8 @@ export default {
     searchInput(e) {
       this.queryKey = e.target.value
       this.$nextTick(k => {
-        e.target.style.width = Math.min(this.selectWidth - 5, this.$refs.mirror.offsetWidth) + 'px'
+        let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
+        e.target.style.width = (this.$refs.mirror.offsetWidth > max ? max : this.$refs.mirror.offsetWidth) + 'px'
         this.setPosition()
       })
       if ('search' in this.$listeners) {

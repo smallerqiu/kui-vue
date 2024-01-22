@@ -15,7 +15,7 @@
   border-radius: var(--kui-border-radius);
   cursor: default;
   user-select: none;
-  min-width: 175px;
+  // min-width: 135px;
   transition: all .3s;
   outline: none;
   flex-shrink: 0;
@@ -49,6 +49,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 14px;
+    width: 85px;
   }
 
   .k-datepicker-value {
@@ -93,14 +94,14 @@
 }
 
 .k-datepicker-range {
-  min-width: 307px;
+  // min-width: 207px;
 
   .k-datepicker-placeholder,
   .k-datepicker-value {
     display: inline-block;
     // padding: 0 9px;
     vertical-align: middle;
-    min-width: 130px;
+    // min-width: 105px;
     text-align: center;
   }
 
@@ -111,7 +112,15 @@
   }
 
   &.k-datepicker-lg {
-    min-width: 347px;
+    // min-width: 347px;
+  }
+}
+
+.k-datepicker-with-time {
+
+  .k-datepicker-value,
+  .k-datepicker-placeholder {
+    width: 150px;
   }
 }
 
