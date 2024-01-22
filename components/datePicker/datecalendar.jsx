@@ -345,29 +345,32 @@ export default {
       if (e.target.className.indexOf('k-calendar-time-disabled') >= 0) {
         return;
       }
-      // let date = new Date();
-      // if (this.mode == 'range') {
-      //   let values = this.DatePicker.currentValue
-      //   date = this.float == 'left' ? this.DatePicker.temp_range_left || values[0] : this.DatePicker.temp_range_right || values[1]
-      // }
+      let date = new Date();
+      if (this.mode == 'range') {
+        // # not set hour and ...
+        let values = this.DatePicker.currentValue
+        date = this.float == 'left' ? this.DatePicker.temp_range_left || values[0] : this.DatePicker.temp_range_right || values[1]
+      }
       switch (t) {
         case 'HH':
           this.hour = v;
           this.currentValue = new Date(this.currentValue).setHours(v)
-          // date.setHours(v)
+          date.setHours(v)
           break;
         case 'mm':
           this.minute = v;
           this.currentValue = new Date(this.currentValue).setMinutes(v)
-          // date.setMinutes(v)
+          date.setMinutes(v)
           break;
         case 'ss':
           this.second = v;
           this.currentValue = new Date(this.currentValue).setSeconds(v)
-          // date.setSeconds(v)
+          date.setSeconds(v)
           break;
-        default: ;
+        default:
+          break;
       }
+
       this.$nextTick(() => {
         this.setTimeScroll()
       })
@@ -410,6 +413,8 @@ export default {
         this.$emit('input', date)
         this.$emit('change', date)
       }
+      // this.showYears = false
+      // this.showTimes = false
     },
     setToday(e) {
       let d = new Date()

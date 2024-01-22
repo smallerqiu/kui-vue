@@ -241,6 +241,7 @@ export default {
       { 'k-datepicker-borderless': bordered === false },
       { 'k-datepicker-sm': size == 'small' },
       { 'k-datepicker-lg': size == 'large' },
+      { 'k-datepicker-with-time': showTime },
       { 'k-datepicker-disabled': disabled },
       { 'k-datepicker-light': theme == 'light' },
       { 'k-datepicker-circle': shape == 'circle' },
