@@ -40,8 +40,8 @@ export default {
     return {
       opened: false,
       currentValue: this.value,
-      leftPicker: null,
-      rightPicker: null,
+      // leftPicker: null,
+      // rightPicker: null,
       temp_date_hover: {}, //range hover date
       temp_range_one: null, //range one select
       temp_range_left: null, // range left value
@@ -53,6 +53,9 @@ export default {
     label() {
       return this.getDate(this.currentValue)
     },
+    isRange() {
+      return this.mode == 'range'
+    }
   },
   watch: {
     value(v) {
@@ -63,9 +66,9 @@ export default {
   },
   methods: {
     getDate(value) {
-      let { format, mode } = this
+      let { format, mode, isRange } = this
       let isDefaultFormat = format == 'YYYY-MM-DD'
-      if (mode == 'range') {
+      if (isRange) {
         if (isDefaultFormat) {
           if (this.showTime) {
             format = 'YYYY-MM-DD HH:mm:ss'
@@ -124,15 +127,23 @@ export default {
         return false;
       }
       this.opened = !this.opened;
+      if (!this.opened) {
+        if (this.isRange) {
+          this.$refs.pickerl.hideSubPicker()
+          this.$refs.pickerr.hideSubPicker()
+        } else {
+          this.$refs.picker.hideSubPicker()
+        }
+      }
     },
   },
   render() {
     // console.log(t('k.datePicker'))
     let { currentValue, placeholder, disabled, clearable,
       opened, size, label, transfer, bordered, theme, shape, dateIcon,
-      format, mode, disabledTime, disabledDate, showTime, pickerSize
+      format, mode, disabledTime, isRange, disabledDate, showTime, pickerSize
     } = this
-    let childNode = [], isRange = mode == 'range';
+    let childNode = [];
     if (dateIcon === undefined) {
       dateIcon = CalendarOutline
     }
@@ -171,26 +182,36 @@ export default {
       currentValue = currentValue || []
       let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
       let leftProps = {
+        ref: 'pickerl',
         props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1, pickerSize },
         on: {
-          input: e => this.updateValue(e)
+          input: e => {
+            this.updateValue(e)
+            this.$refs.pickerl.hideSubPicker()
+          }
         }
       }
       let rightProps = {
+        ref: 'pickerr',
         props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2, pickerSize },
         on: {
-          input: e => this.updateValue(e)
+          input: e => {
+            this.updateValue(e)
+            this.$refs.pickerr.hideSubPicker()
+          }
         }
       };
 
       calendar.push(<Calendar {...leftProps} />, <Calendar {...rightProps} />)
     } else {
       const props = {
+        ref: 'picker',
         props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue, pickerSize },
         on: {
           input: e => {
             this.updateValue(e);
             this.opened = false
+            this.$refs.picker.hideSubPicker()
           }
         }
       }

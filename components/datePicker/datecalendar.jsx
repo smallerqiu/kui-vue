@@ -1,7 +1,7 @@
 
 import Button from '../button'
 import dayjs from 'dayjs'
-import animate from '../_tool/animate'
+// import animate from '../_tool/animate'
 import { t } from '../locale'
 import {
   ChevronDoubleBack, ChevronBack, ChevronForward,
@@ -119,6 +119,10 @@ export default {
     }
   },
   methods: {
+    hideSubPicker() {
+      this.showTimes = false
+      this.showYears = false
+    },
     updateStamp() {
       let d = new Date(this.currentValue || this.today)
 
@@ -218,7 +222,7 @@ export default {
     },
     setMonth(e, m) {
       e.stopPropagation();
-      if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
+      if (e.target.className.indexOf('disabled') >= 0) {
         return
       }
       this.month = m
@@ -226,14 +230,14 @@ export default {
       if (this.mode == 'month') {
         this.setDate()
       }
-
-      this.$nextTick(() => {
-        this.setYMScroll()
-      })
+      this.scrollToCenter(e)
+      // this.$nextTick(() => {
+      //   this.setYMScroll()
+      // })
     },
     setYear(e, y) {
       e.stopPropagation();
-      if (e.target.className.indexOf('k-calendar-date-disabled') >= 0) {
+      if (e.target.className.indexOf('disabled') >= 0) {
         return
       }
       this.year = y
@@ -249,9 +253,11 @@ export default {
         this.$emit('input', this.currentValue)
         this.$emit('change', this.currentValue)
       }
-      this.$nextTick(() => {
-        this.setYMScroll()
-      })
+      this.scrollToCenter(e)
+
+      // this.$nextTick(() => {
+      //   this.setYMScroll()
+      // })
     },
     setDay(e, j) {
       e.stopPropagation();
@@ -308,6 +314,7 @@ export default {
       let date = new Date('', '', '', this.hour, this.minute, this.second)
       let isselected = this.fix(v) == dayjs(date).format(f)
       let classes = {
+        'k-calendar-time-item': 1,
         'k-calendar-time-selected': isselected,
         'k-calendar-time-disabled': d.indexOf(v) >= 0,
       }
@@ -321,7 +328,7 @@ export default {
         d = x[t]()
       }
       return new Array(l).fill('').map((i, j) =>
-        <li onClick={e => this.setTime(j, t, e)} class={this.timeClass(j, t, d)}>{this.fix(j)}</li>)
+        <span onClick={e => this.setTime(j, t, e)} class={this.timeClass(j, t, d)}>{this.fix(j)}</span>)
     },
     setShowTime() {
       this.showYears = 0
@@ -331,14 +338,18 @@ export default {
       // } else {
       this.showTimes = !this.showTimes
       // }
-      // if (this.showTimes) {
-      //   this.$nextTick(() => {
-      //     this.setTimeScroll()
-      //   })
-      // }
+      if (this.showTimes) {
+        this.initToCenter('timepicker')
+      }
     },
     setShowYear() {
       !this.showTimes && (this.showYears = !this.showYears)
+      if (!this.currentValue) {
+        this.currentValue = new Date()
+      }
+      if (this.showYears) {
+        this.initToCenter('ympicker')
+      }
     },
     setTime(v, t, e) {
       e.stopPropagation();
@@ -371,32 +382,60 @@ export default {
           break;
       }
 
-      this.$nextTick(() => {
-        this.setTimeScroll()
-      })
+      this.scrollToCenter(e)
     },
-    setYMScroll() {
-      let year = new Date().getFullYear()
-      let y = this.years.indexOf(this.year || year)
-      let d = [y, this.month].map(x => x * 40)
-      let years = this.$refs.yearspicker
-      let month = this.$refs.monthspicker
-      animate({
-        draw: function (progress) {
-          years.scrollTop += progress * (d[0] - years.scrollTop)
-          month.scrollTop += progress * (d[1] - month.scrollTop)
+    // setYMScroll() {
+    //   let year = new Date().getFullYear()
+    //   let y = this.years.indexOf(this.year || year)
+    //   let d = [y, this.month].map(x => x * 40)
+    //   let years = this.$refs.yearspicker
+    //   let month = this.$refs.monthspicker
+    // animate({
+    //   draw: function (progress) {
+    //     years.scrollTop += progress * (d[0] - years.scrollTop)
+    //     month.scrollTop += progress * (d[1] - month.scrollTop)
+    //   }
+    // })
+    // },
+    initToCenter(key) {
+      setTimeout(() => {
+        //     this.setTimeScroll()
+        let childs = this.$refs[key].children;
+        // console.log(childs)
+        for (let m of childs) {
+          // console.log(m.children)
+          for (let n of m.children) {
+            // console.log(n)
+            if (n.className.indexOf('selected') > -1) {
+              this.scrollToCenter({ target: n })
+              break
+            }
+          }
         }
-      })
+      }, 10)
     },
-    setTimeScroll() {
-      let d = [this.hour, this.minute, this.second].map(x => x * 32)
-      let childs = this.$refs.timepicker.children;
-      animate({
-        draw: function (progress) {
-          [0, 1, 2].map((e, i) => childs[i].scrollTop += progress * (d[i] - childs[i].scrollTop))
-        }
-      })
+    scrollToCenter(e) {
+      // console.log(e)
+      // 计算 span 元素相对于 div 元素的偏移
+      const offset = e.target.offsetTop;
+      const ul = e.target.parentNode
+      // 计算滚动距离使 span 元素垂直居中
+      const scrollDistance = offset - parseFloat((ul.clientHeight / 2).toFixed(2)) + parseFloat((e.target.clientHeight / 2).toFixed(2)) - 114 / 2;
+      // 滚动到计算出的位置
+      console.log(scrollDistance)
+      // ul.scrollTop = scrollDistance
+      // console.log(ul.scrollTop)
+      ul.scrollTo({ top: scrollDistance, behavior: 'smooth' });
     },
+    // setTimeScroll() {
+    //   let d = [this.hour, this.minute, this.second].map(x => x * 32)
+    // let childs = this.$refs.timepicker.children;
+    // animate({
+    //   draw: function (progress) {
+    //     [0, 1, 2].map((e, i) => childs[i].scrollTop += progress * (d[i] - childs[i].scrollTop))
+    //   }
+    // })
+    // },
     setDate() {
       if (this.mode == 'range') {
         let values = this.DatePicker.currentValue || [];
@@ -486,8 +525,8 @@ export default {
     if (!showTimes && !showYears)
       headNode.push(<Button icon={ChevronDoubleForward} size={btnSize} theme="normal" class="k-calendar-next-year-btn" onClick={this.nextYear}></Button>)
 
-    //body
-    const bodyNode = []
+    //days and week body
+    let dayWeekBodyNode = null
     if ((mode == 'date' || isRange) && !showYears && !showTimes) {
       let weekNode = weeks.map(w => <span class="k-calendar-weekday" key={w}>{w}</span>)
       const getDay = (j, x) => {
@@ -513,22 +552,26 @@ export default {
       })
       const daysNode = <div class="k-calendar-weeks">{wekday}</div>
       const weeksNode = <div class="k-calendar-weekdays">{weekNode}</div>
-      bodyNode.push(weeksNode)
-      bodyNode.push(daysNode)
+      // bodyNode.push(weeksNode)
+      // bodyNode.push(daysNode)
+      dayWeekBodyNode = <div class="k-calendar-body">{weeksNode}{daysNode}</div>
     }
     // console.log(showYears)
+    let yearsMonthNode = null
     if (showYears) {
+
       const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
       const mouthNode = <div class="k-calendar-months" ref="monthspicker">{m}</div>
-      bodyNode.push(mouthNode)
+      // bodyNode.push(mouthNode)
 
       const y = this.years.map((i, j) => <span key={j} class={classes(i, month, day, null, 'YYYY')} onClick={(e) => this.setYear(e, i)}>{i}</span >)
       const yearNode = <div class="k-calendar-years" ref="yearspicker">{y}</div>
-      bodyNode.push(yearNode)
+      // bodyNode.push(yearNode)
+      yearsMonthNode = <div class="k-calendar-yearmonth-picker" ref="ympicker">{yearNode}{mouthNode}</div>
+      // bodyNode.push(yearsNode)
     }
-    //footer
-    let footerNode = []
 
+    let timeNode = null
     if (showTimes) {
       let time = []
       //hours
@@ -540,13 +583,14 @@ export default {
       //s
       let s = getTime(60, 'ss');
       time.push(s);
-      let picker = time.map(t => <div class="k-calendar-time-picker-select"><ul>{t}</ul></div>);
+      let picker = time.map(t => <div class="k-calendar-time-picker-select">{t}</div>);
 
-      let timeNode = <div class="k-calendar-time-picker" ref="timepicker">{picker}</div>
-
-      bodyNode.push(timeNode)
-
+      timeNode = <div class="k-calendar-time-picker" ref="timepicker">{picker}</div>
+      // bodyNode.push(timeNode)
     }
+
+    //footer
+    let footerNode = []
 
     if (this.showTime) {
       //footer
@@ -565,7 +609,10 @@ export default {
     return (
       <div class={['k-calendar', { 'k-calendar-small': small }]}>
         <div class="k-calendar-head">{headNode}</div>
-        <div class="k-calendar-body">{bodyNode}</div>
+        {dayWeekBodyNode}
+        {yearsMonthNode}
+        {timeNode}
+        {/* <div class="k-calendar-body">{bodyNode}</div> */}
         {footerNode}
       </div>
     )

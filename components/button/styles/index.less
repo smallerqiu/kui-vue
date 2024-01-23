@@ -22,7 +22,7 @@
   white-space: nowrap;
   cursor: pointer;
 
-  &:focus,
+  // &:focus,
   &:hover {
     border-color: var(--kui-color-main-hover);
     color: var(--kui-color-main-hover);
@@ -48,8 +48,8 @@
     background: var(--kui-color-gray-80);
     border: none;
 
-    &:hover,
-    &:focus {
+    // &:focus,
+    &:hover {
       background: var(--kui-color-gray-70);
     }
 
@@ -71,8 +71,8 @@
     background: 0 0;
     border: none;
 
-    &:hover,
-    &:focus {
+    // &:focus,
+    &:hover {
       background-color: var(--kui-color-gray-80);
     }
 
@@ -129,8 +129,8 @@
   background: var(--kui-color-main);
   border-color: var(--kui-color-main);
 
-  &:hover,
-  &:focus {
+  // &:focus,
+  &:hover {
     zoom: 0%;
     color: #fff;
     background: var(--kui-color-main-hover);
@@ -153,8 +153,8 @@
     color: var(--kui-color-main);
     border-color: var(--kui-color-main);
 
-    &:hover,
-    &:focus {
+    // &:focus,
+    &:hover {
       color: var(--kui-color-main-hover);
       border-color: var(--kui-color-main-hover);
     }
@@ -175,8 +175,8 @@
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
 
-  &:hover,
-  &:focus {
+  // &:focus,
+  &:hover {
     zoom: 0%;
     color: #fff;
     border-color: var(--kui-color-danger-hover);
@@ -205,8 +205,8 @@
     color: var(--kui-color-danger);
     border-color: var(--kui-color-danger);
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       color: var(--kui-color-danger-hover);
       border-color: var(--kui-color-danger-hover);
     }
@@ -227,8 +227,8 @@
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
 
-  &:hover,
-  &:focus {
+  // &:focus,
+  &:hover {
     zoom: 0%;
     color: #fff;
     border-color: var(--kui-color-warning-hover);
@@ -252,8 +252,8 @@
     color: var(--kui-color-warning);
     border-color: var(--kui-color-warning);
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       color: var(--kui-color-warning-hover);
       border-color: var(--kui-color-warning-hover);
     }
@@ -346,10 +346,9 @@
 .k-btn[disabled='disabled'] {
 
   &,
+  // &:focus,
   &:hover,
-  &:active,
-  &:active,
-  &:focus {
+  &:active {
     opacity: .8;
     cursor: not-allowed;
     color: var(--kui-color-disable-color);
@@ -366,9 +365,8 @@
 
   &,
   &:hover,
-  &:active,
-  &:active,
-  &:focus {
+  // &:focus,
+  &:active {
     opacity: .9;
     cursor: not-allowed;
     color: var(--kui-color-disable-color);
@@ -388,9 +386,8 @@
 
     &,
     &:hover,
-    &:active,
-    &:active,
-    &:focus {
+    // &:focus,
+    &:active {
       background: 0 0;
     }
   }
