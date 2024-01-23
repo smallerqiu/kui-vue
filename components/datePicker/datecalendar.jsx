@@ -18,6 +18,7 @@ export default {
     format: { type: String, default: 'YYYY-MM-DD' },
     float: String,
     pickerSize: String,
+    opened: Boolean,
   },
   data() {
     return {
@@ -43,6 +44,15 @@ export default {
     DatePicker: { default: {} }
   },
   watch: {
+    opened(v) {
+      if (v) {
+        this.initYearMonth()
+      } else {
+        if (this.mode != 'year' || this.mode != 'month') {
+          this.hideSubPicker()
+        }
+      }
+    },
     value(val, oldVal) {
       if (val != oldVal) {
         this.currentValue = val
@@ -343,6 +353,9 @@ export default {
       }
     },
     setShowYear() {
+      if (this.mode == 'year' || this.mode == 'month') {
+        return;
+      }
       !this.showTimes && (this.showYears = !this.showYears)
       if (!this.currentValue) {
         this.currentValue = new Date()
@@ -407,14 +420,14 @@ export default {
           for (let n of m.children) {
             // console.log(n)
             if (n.className.indexOf('selected') > -1) {
-              this.scrollToCenter({ target: n })
+              this.scrollToCenter({ target: n }, false)
               break
             }
           }
         }
       }, 10)
     },
-    scrollToCenter(e) {
+    scrollToCenter(e, animate = true) {
       // console.log(e)
       // 计算 span 元素相对于 div 元素的偏移
       const offset = e.target.offsetTop;
@@ -425,7 +438,11 @@ export default {
       console.log(scrollDistance)
       // ul.scrollTop = scrollDistance
       // console.log(ul.scrollTop)
-      ul.scrollTo({ top: scrollDistance, behavior: 'smooth' });
+      if (animate) {
+        ul.scrollTo({ top: scrollDistance, behavior: 'smooth' });
+      } else {
+        ul.scrollTop = scrollDistance
+      }
     },
     // setTimeScroll() {
     //   let d = [this.hour, this.minute, this.second].map(x => x * 32)
@@ -487,12 +504,26 @@ export default {
     back() {
       this.showYears = false
       this.showTimes = false
+    },
+    initYearMonth() {
+      if (this.mode == 'year' || this.mode == 'month') {
+        if (!this.currentValue) {
+          this.currentValue = new Date()
+        }
+        this.$nextTick(() => {
+          this.initToCenter('ympicker')
+        })
+      }
     }
   },
   mounted() {
     this.updateStamp()
   },
+  // updated() {
+
+  // },
   render() {
+
     let { classes, year, month, day, hour, minute, second, showYears, disabledDate, pickerSize,
       showTimes, getTime, mode, DatePicker, float, currentValue } = this
     let small = pickerSize == 'small', btnSize = small ? 'small' : null;
@@ -512,10 +543,11 @@ export default {
     if (!showTimes && !showYears) {
       headNode.push(<Button icon={ChevronDoubleBack} size={btnSize} theme="normal" class="k-calendar-prev-year-btn" onClick={this.prevYear}></Button>)
       headNode.push(<Button icon={ChevronBack} size={btnSize} theme="normal" class="k-calendar-prev-month-btn" onClick={this.prevMonth}></Button>)
-    } else if (mode != 'year' && mode != 'month') {
-      headNode.push(<Button class="k-calendar-back" size={btnSize} icon={ChevronBack} theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
     }
-    headNode.push(<Button class="k-calendar-year-select" size={btnSize} theme="normal" onClick={this.setShowYear}>{year}{t('k.datePicker.year')} {months[month]} {!showYears && showTimes ? day : ''}</Button>)
+    // else if (mode != 'year' && mode != 'month') {
+    //   headNode.push(<Button class="k-calendar-back" size={btnSize} icon={ChevronBack} theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
+    // }
+    headNode.push(<Button class="k-calendar-year-select" size={btnSize} theme="normal" onClick={this.setShowYear}>{year}{t('k.datePicker.year')} {mode != 'year' ? months[month] : ''} {(!showYears && showTimes) ? day : ''}</Button>)
     if (!showYears) {
       if (!showTimes)
         headNode.push(<Button theme="normal" size={btnSize} icon={ChevronForward} class="k-calendar-next-month-btn" onClick={this.nextMonth}></Button>)
@@ -559,15 +591,17 @@ export default {
     // console.log(showYears)
     let yearsMonthNode = null
     if (showYears) {
-
-      const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
-      const mouthNode = <div class="k-calendar-months" ref="monthspicker">{m}</div>
-      // bodyNode.push(mouthNode)
-
+      let childs = []
       const y = this.years.map((i, j) => <span key={j} class={classes(i, month, day, null, 'YYYY')} onClick={(e) => this.setYear(e, i)}>{i}</span >)
       const yearNode = <div class="k-calendar-years" ref="yearspicker">{y}</div>
-      // bodyNode.push(yearNode)
-      yearsMonthNode = <div class="k-calendar-yearmonth-picker" ref="ympicker">{yearNode}{mouthNode}</div>
+      childs.push(yearNode)
+
+      if (mode != 'year') {
+        const m = months.map((i, j) => <span key={i} class={classes(year, j, day, null, 'YYYYMM')} onClick={(e) => this.setMonth(e, j)}>{i}</span >)
+        const mouthNode = <div class="k-calendar-months" ref="monthspicker">{m}</div>
+        childs.push(mouthNode)
+      }
+      yearsMonthNode = <div class="k-calendar-yearmonth-picker" ref="ympicker">{childs}</div>
       // bodyNode.push(yearsNode)
     }
 
@@ -595,15 +629,15 @@ export default {
     if (this.showTime) {
       //footer
       // let disabled = dayjs()
-      let disabled = disabledDate(new Date())
+      // let disabled = disabledDate(new Date())
       let time_disabled = isRange ? !(temp_left && temp_right) : (!currentValue);
 
-      footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
+      // footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
       footerNode.push(<Button theme="normal" size={btnSize} disabled={time_disabled} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
       if (!isRange || float != 'left') footerNode.push(<Button type="primary" class="k-calendar-btn-ok" size={btnSize} disabled={time_disabled} onClick={this.setDate}>{t('k.datePicker.ok')}</Button>)
     } else if (mode == 'date') {
-      let disabled = disabledDate(new Date())
-      footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} block onClick={this.setToday}>{t('k.datePicker.today')}</Button>)
+      // let disabled = disabledDate(new Date())
+      // footerNode.push(<Button theme="normal" size={btnSize} disabled={disabled} block onClick={this.setToday}>{t('k.datePicker.today')}</Button>)
     }
     footerNode = footerNode.length || (isRange && this.showTime) ? <div class="k-calendar-footer">{footerNode}</div> : null
     return (

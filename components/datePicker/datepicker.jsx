@@ -183,21 +183,23 @@ export default {
       let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
       let leftProps = {
         ref: 'pickerl',
-        props: { format, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1, pickerSize },
+        props: { format, opened, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1, pickerSize },
         on: {
           input: e => {
             this.updateValue(e)
-            this.$refs.pickerl.hideSubPicker()
+            // this.$refs.pickerl.hideSubPicker()
+            // this.$refs.pickerr.hideSubPicker()
           }
         }
       }
       let rightProps = {
         ref: 'pickerr',
-        props: { format, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2, pickerSize },
+        props: { format, opened, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2, pickerSize },
         on: {
           input: e => {
             this.updateValue(e)
-            this.$refs.pickerr.hideSubPicker()
+            // this.$refs.pickerr.hideSubPicker()
+            // this.$refs.pickerl.hideSubPicker()
           }
         }
       };
@@ -206,12 +208,12 @@ export default {
     } else {
       const props = {
         ref: 'picker',
-        props: { format, mode, disabledTime, disabledDate, showTime, value: currentValue, pickerSize },
+        props: { format, mode, opened, disabledTime, disabledDate, showTime, value: currentValue, pickerSize },
         on: {
           input: e => {
             this.updateValue(e);
             this.opened = false
-            this.$refs.picker.hideSubPicker()
+            // this.$refs.picker.hideSubPicker()
           }
         }
       }
