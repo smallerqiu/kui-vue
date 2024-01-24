@@ -8,7 +8,7 @@ export default {
   name: "Page",
   props: {
     showSizer: Boolean,
-    showTotal: Boolean,
+    showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
