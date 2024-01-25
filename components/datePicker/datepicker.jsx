@@ -40,13 +40,6 @@ export default {
     return {
       opened: false,
       currentValue: this.value,
-      // leftPicker: null,
-      // rightPicker: null,
-      temp_date_hover: {}, //range hover date
-      temp_range_one: null, //range one select
-      temp_range_left: null, // range left value
-      temp_range_right: null, // range right value
-      temp_range_showtime: false, //range showtime
     }
   },
   computed: {
@@ -105,16 +98,10 @@ export default {
       this.$emit('change', date)
       this.currentValue = value
       this.opened = false
-      this.temp_date_hover = {};
-      this.temp_range_one = null
-      this.temp_range_left = null
-      this.temp_range_right = null
-      this.temp_range_showtime = false
     },
     clear(e) {
       if (Array.isArray(this.currentValue)) {
         this.currentValue = []
-        this.temp_range_one = null
       } else {
         this.currentValue = ''
       }
@@ -127,14 +114,6 @@ export default {
         return false;
       }
       this.opened = !this.opened;
-      if (!this.opened) {
-        if (this.isRange) {
-          this.$refs.pickerl.hideSubPicker()
-          this.$refs.pickerr.hideSubPicker()
-        } else {
-          this.$refs.picker.hideSubPicker()
-        }
-      }
     },
   },
   render() {
@@ -176,49 +155,39 @@ export default {
       }
     }
 
-
-    let calendar = []
+    let v1, v2;
     if (isRange) {
-      currentValue = currentValue || []
-      let v1 = currentValue[0] || '', v2 = currentValue[1] || '';
-      let leftProps = {
-        ref: 'pickerl',
-        props: { format, opened, mode, disabledTime, disabledDate, showTime, float: 'left', value: v1, pickerSize },
-        on: {
-          input: e => {
-            this.updateValue(e)
-            // this.$refs.pickerl.hideSubPicker()
-            // this.$refs.pickerr.hideSubPicker()
-          }
+      let [a, b] = currentValue || [dayjs(), dayjs().add(1, 'month')]
+      v1 = dayjs(a), v2 = dayjs(b)
+    } else {
+      v1 = dayjs(currentValue)
+    }
+    // console.log(v1, v2)
+    let calendar = []
+
+    const leftProps = {
+      props: { format, mode, opened, disabledTime, disabledDate, showTime, value: v1, startDate: v1, endDate: v2, pickerSize },
+      on: {
+        input: e => {
+          this.updateValue(e);
+          this.opened = false
         }
       }
+    }
+    calendar.push(<Calendar {...leftProps} />)
+
+    if (isRange) {
       let rightProps = {
-        ref: 'pickerr',
-        props: { format, opened, mode, disabledTime, disabledDate, showTime, float: 'right', value: v2, pickerSize },
+        props: { format, opened, mode, disabledTime, disabledDate, showTime, isRight: true, value: v2, startDate: v1, endDate: v2, pickerSize },
         on: {
           input: e => {
             this.updateValue(e)
-            // this.$refs.pickerr.hideSubPicker()
-            // this.$refs.pickerl.hideSubPicker()
           }
         }
       };
-
-      calendar.push(<Calendar {...leftProps} />, <Calendar {...rightProps} />)
-    } else {
-      const props = {
-        ref: 'picker',
-        props: { format, mode, opened, disabledTime, disabledDate, showTime, value: currentValue, pickerSize },
-        on: {
-          input: e => {
-            this.updateValue(e);
-            this.opened = false
-            // this.$refs.picker.hideSubPicker()
-          }
-        }
-      }
-      calendar.push(<Calendar {...props} />)
+      calendar.push(<Calendar {...rightProps} />)
     }
+
     const props = {
       props: {
         className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
@@ -229,23 +198,13 @@ export default {
         transitionName: 'k-date-picker'
       },
       on: {
+        // render: () => {
+        // },
         input: e => {
           this.opened = e
-          if (!e) {
-            this.temp_date_hover = {};
-            this.temp_range_one = null
-            this.temp_range_left = null
-            this.temp_range_right = null
-            this.temp_range_showtime = false
-          }
         },
         hide: () => {
           this.opened = false
-          this.temp_date_hover = {};
-          this.temp_range_one = null
-          this.temp_range_left = null
-          this.temp_range_right = null
-          this.temp_range_showtime = false
         },
       }
     }

@@ -211,7 +211,7 @@
     }
   }
 
-  .k-calendar-date {
+  .k-calendar-day-item {
     cursor: pointer;
     color: var(--kui-color-font);
     border-radius: var(--kui-border-radius);
@@ -236,12 +236,14 @@
     background: var(--kui-color-main-80);
   }
 
-  .k-calendar-date-out {
+  .k-calendar-day-out {
     color: var(--kui-color-icon);
     background: none;
   }
 
-  span.k-calendar-date-today {
+  .k-calendar-year-this,
+  .k-calendar-month-this,
+  .k-calendar-day-this {
     // border: 1px solid var(--kui-color-main);
     color: var(--kui-color-main);
     background-color: var(--kui-color-gray-90);
@@ -358,12 +360,6 @@
 
         &:hover {
           background: var(--kui-color-main-90);
-        }
-
-        &:last-child::after {
-          display: block;
-          height: 192px;
-          content: '';
         }
       }
 
