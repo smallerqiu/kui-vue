@@ -113,7 +113,6 @@ export default {
     nextAndPrev(isNext, t) {
       let date = dayjs(this.currentValue)
       this.currentValue = isNext ? date.add(1, t) : date.subtract(1, t)
-      console.log(isNext, t)
     },
     // back() {
     //   this.showYears = false
@@ -132,19 +131,20 @@ export default {
       // console.log(this.currentDay)
       let year = this.currentValue.$y
       let month = this.currentValue.$M
-      // console.log(year)
       const weeks = [];
+      //这个月有多少天
       const daysInMonth = new Date(year, month + 1, 0).getDate();
+      //这个月的第一天是周几
       const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0-based index (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
 
       let currentWeek = [];
       const calendar = [];
 
-      // Fill in preceding days from the last month
+      // 上个月
       const time = new Date(year, month, 0);
-      const lastDay = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1
-      const startDay = time.getDate() - lastDay;
-      for (let i = 0; i < lastDay; i++) {
+      const lastMonthDays = time.getDate(); //上个月有多少天
+      const startDay = lastMonthDays - firstDayOfWeek + 1; //不足7天补上
+      for (let i = 0; i < firstDayOfWeek; i++) {
         let cls = {
           'k-calendar-day-item': 1,
           'k-calendar-day-out': 1,
@@ -154,7 +154,7 @@ export default {
         // currentWeek.push((startDay + i).toString().padStart(2, '0'));
       }
       time.setMonth(time.getMonth() + 1, 1)
-      // Fill in days of the current month
+      // 这个月的天数
       for (let day = 1; day <= daysInMonth; day++) {
         let date = time.setDate(day)
         let cls = {
@@ -171,12 +171,12 @@ export default {
         }
       }
 
-      // Fill in remaining days from the next month
+      // 下个月要补上
       time.setMonth(time.getMonth() + 1, 1)
       let nextMonthDay = 1;
-      let lostDay = 42 - (calendar.length + 1) * 7 + currentWeek.length
-      console.log(calendar.length, lostDay, calendar.length)
-      for (let i = 1; i < lostDay; i++) {
+      let lostDay = 42 - firstDayOfWeek - daysInMonth
+
+      for (let i = 1; i <= lostDay; i++) {
         let cls = {
           'k-calendar-day-item': 1,
           'k-calendar-day-out': 1,
@@ -195,84 +195,9 @@ export default {
       }
 
       for (const week of calendar) {
-        // console.log(week.join(' '));
         weeks.push(<span class={'k-calendar-week-item'}>{week}</span>)
       }
-
-      /**
-       * const days = [];
-  const year = this.year;
-  const month = this.month;
-  const time = new Date(year, month, 1);
-  const dow = 1 // Monday is the first day of the week
-  time.setDate(0); // switch to the last day of last month
-  let lastDay = time.getDate();
-  const week = time.getDay() || 7;
-  let count = dow <= week ? week - dow + 1 : week + (7 - dow + 1);
-  while (count > 0) {
-    days.push({
-      d: lastDay - count + 1,
-      y: month > 0 ? year : year - 1,
-      m: month > 0 ? month - 1 : 11,
-      p: true
-    });
-    count--;
-  }
-  time.setMonth(time.getMonth() + 2, 0); // switch to the last day of the current month
-  lastDay = time.getDate();
-  let i = 1;
-  for (i = 1; i <= lastDay; i++) {
-    days.push({ d: i, y: year, m: month });
-  }
-  for (i = 1; days.length < 42; i++) {
-    days.push({
-      d: i,
-      y: month < 11 ? year : year + 1,
-      m: month < 11 ? month + 1 : 0,
-      n: true
-    });
-  }
-  return days;
-       * /
-      // let currentDay = new Date(firstDay);
-
-      // // 找到第一个周日
-      // while (currentDay.getDay() !== 0) {
-      //   currentDay.setDate(currentDay.getDate() - 1);
-      // }
-      // let lastDayOfAdjacentMonth = null;
-      // while (currentDay <= lastDay) {
-      //   const week = [];
-      //   for (let i = 0; i < 7; i++) {
-      //     if (currentDay.getMonth() === month) {
-      //       let cls = {
-      //         'k-calendar-day-item': 1,
-      //         'k-calendar-day-this': dayjs(currentDay).isSame(dayjs(), 'day'),
-      //       }
-      //       let { $D } = dayjs(currentDay)
-      //       week.push(<span class={cls} onClick={e => this.setDay(e, $D)}>{$D}</span>);
-      //     } else {
-      //       // 补齐上一个月和下一个月的最后几天
-      //       const adjacentMonth = currentDay.getMonth() < month ? month - 1 : month + 1;
-      //       lastDayOfAdjacentMonth = new Date(year, adjacentMonth + 1, 0);
-      //       lastDayOfAdjacentMonth.setDate(lastDayOfAdjacentMonth.getDate() - (6 - i))
-      //       week.push(<span class={'k-calendar-day-item k-calendar-day-out'}>{lastDayOfAdjacentMonth.getDate()}</span>);
-      //     }
-      //     currentDay.setDate(currentDay.getDate() + 1);
-      //   }
-      //   weeks.push(<span class={'k-calendar-week-item'}>{week}</span>);
-      // }
-      // //不足6周
-      // if (weeks.length < 6) {
-      //   currentDay = lastDayOfAdjacentMonth || lastDay
-      //   const week = [];
-      //   for (let i = 0; i < 7; i++) {
-      //     currentDay.setDate(currentDay.getDate() + 1);
-      //     week.push(<span class={'k-calendar-day-item k-calendar-day-out'}>{currentDay.getDate()}</span>);
-      //   }
-      //   weeks.push(<span class={'k-calendar-week-item'}>{week}</span>);
-      // }
-      return weeks;
+      return weeks
     },
     getYearsNode() {
       let { $y } = this.currentValue
@@ -284,7 +209,7 @@ export default {
           'k-calendar-year-item': 1,
           'k-calendar-year-this': _year == j,
         }
-        years.push(<span class={cls}>{j}</span>)
+        years.push(<span class={cls} onClick={(e) => this.setYear(e, j)}>{j}</span>)
       }
       let node = <div class="k-calendar-years" ref="yearspicker">{years}</div>
       return node
@@ -298,7 +223,7 @@ export default {
           'k-calendar-month-item': 1,
           'k-calendar-month-this': _month == i,
         }
-        month.push(<span class={cls}>{months[i]}</span >)
+        month.push(<span class={cls} onClick={(e) => { this.setMonth(e, i) }}>{months[i]}</span >)
       }
       const monthNode = <div class="k-calendar-months" ref="monthspicker">{month}</div>
       return monthNode
@@ -344,6 +269,7 @@ export default {
       if (e.target.className.indexOf('disabled') >= 0) {
         return
       }
+      this.currentValue = this.currentValue.month(month + 1)
       this.scrollToCenter(e)
     },
     setYear(e, year) {
@@ -351,6 +277,7 @@ export default {
       if (e.target.className.indexOf('disabled') >= 0) {
         return
       }
+      this.currentValue = this.currentValue.year(year)
       this.scrollToCenter(e)
     },
     setDay(e, day) {
@@ -358,7 +285,7 @@ export default {
       if (e.target.className.indexOf('disabled') >= 0) {
         return
       }
-      console.log(day)
+      console.log(dayjs(day).format('YYYY/MM/DD'))
     },
     setTime(e, value, type) {
       e.stopPropagation();
