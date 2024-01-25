@@ -1,11 +1,11 @@
-module.exports =  {
+module.exports = {
   k: {
     datePicker: {
       startDate: '開始日期',
       endDate: '結束日期',
       placeholder: '請選擇日期',
       months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-      weeks: ['一', '二', '三', '四', '五', '六', '日'],
+      weeks: ['日', '一', '二', '三', '四', '五', '六'],
       year: '年',
       month: '月',
       day: '日',
@@ -14,7 +14,7 @@ module.exports =  {
       ok: '確定',
       selectDate: '選擇日期',
       selectTime: '選擇時間',
-      back:'返回'
+      back: '返回'
     },
     drawer: {
       ok: '確定',
