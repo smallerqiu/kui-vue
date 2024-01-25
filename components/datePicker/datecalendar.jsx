@@ -199,6 +199,41 @@ export default {
         weeks.push(<span class={'k-calendar-week-item'}>{week}</span>)
       }
 
+      /**
+       * const days = [];
+  const year = this.year;
+  const month = this.month;
+  const time = new Date(year, month, 1);
+  const dow = 1 // Monday is the first day of the week
+  time.setDate(0); // switch to the last day of last month
+  let lastDay = time.getDate();
+  const week = time.getDay() || 7;
+  let count = dow <= week ? week - dow + 1 : week + (7 - dow + 1);
+  while (count > 0) {
+    days.push({
+      d: lastDay - count + 1,
+      y: month > 0 ? year : year - 1,
+      m: month > 0 ? month - 1 : 11,
+      p: true
+    });
+    count--;
+  }
+  time.setMonth(time.getMonth() + 2, 0); // switch to the last day of the current month
+  lastDay = time.getDate();
+  let i = 1;
+  for (i = 1; i <= lastDay; i++) {
+    days.push({ d: i, y: year, m: month });
+  }
+  for (i = 1; days.length < 42; i++) {
+    days.push({
+      d: i,
+      y: month < 11 ? year : year + 1,
+      m: month < 11 ? month + 1 : 0,
+      n: true
+    });
+  }
+  return days;
+       * /
       // let currentDay = new Date(firstDay);
 
       // // 找到第一个周日
