@@ -1,16 +1,18 @@
 <template>
-  <div> 
+  <div>
     <DatePicker mode='year' placeholder="请选择年份" />
     <br />
     <DatePicker mode='month' placeholder="请选择月份" />
     <br />
     <DatePicker />
     <br />
-    <DatePicker placeholder="请选择时间" showTime />
+    <DatePicker mode="time" placeholder="请选择时间" />
     <br />
-    <DatePicker :placeholder="['Start Date','End Date']" mode="range"/>
+    <DatePicker placeholder="请选择日期" mode="dateTime" />
     <br />
-    <DatePicker :placeholder="['Start Time','End Time']" mode="range" showTime />
+    <DatePicker :placeholder="['Start Date', 'End Date']" mode="dateRange" />
+    <br />
+    <DatePicker :placeholder="['Start Time', 'End Time']" mode="dateTimeRange" />
   </div>
 </template>
 

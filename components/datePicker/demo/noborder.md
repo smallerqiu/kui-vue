@@ -10,11 +10,11 @@
     <br/>
     <DatePicker mode="month" placeholder="请选择月份"  :bordered="false"/>
     <br/>
-    <DatePicker mode="range"  :bordered="false"/>
+    <DatePicker mode="dateRange"  :bordered="false"/>
     <br/>
     <DatePicker :bordered="false" disabled/>
     <br/>
-    <DatePicker mode="range"  :bordered="false" disabled/>
+    <DatePicker mode="dateRange"  :bordered="false" disabled/>
   </div>
 </template>
 ```

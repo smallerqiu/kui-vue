@@ -2,7 +2,8 @@
 import Info from './info.md'
 import Base from './base.md'
 import Theme from './theme.md'
-import Inside from './inside.md'
+// import Inside from './inside.md'
+import Presets from './presets.md'
 import Disabled from './disabled.md'
 import NoBorder from './noborder.md'
 import DisabledDate from './disabled-date.md'
@@ -17,7 +18,8 @@ export default {
         <Info />
         <Base />
         <Theme />
-        <Inside />
+        {/* <Inside /> */}
+        <Presets />
         <Disabled />
         <NoBorder />
         <Format />
@@ -32,7 +34,9 @@ export default {
 </script> 
 <style lang="less">
 .demo-datepicker {
-  .k-datepicker,.k-radio-group{
+
+  .k-datepicker,
+  .k-radio-group {
     margin: 0 10px 10px 0;
   }
 }

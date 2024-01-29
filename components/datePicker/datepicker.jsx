@@ -1,21 +1,24 @@
 import Calendar from './datecalendar'
 import Icon from "../icon";
-import { isNotEmpty } from '../_tool/utils'
+// import { isNotEmpty } from '../_tool/utils'
 import dayjs from 'dayjs'
 import Drop from '../base/drop'
 import { t } from '../locale'
-import { CloseCircle, CalendarOutline } from 'kui-icons'
+import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
 export default {
   name: 'DatePicker',
   props: {
     value: [String, Date, Number, Array],
-    mode: { type: String, default: 'date' },
-    showTime: Boolean,
+    mode: {
+      type: String, default: 'date', validator(value) {
+        return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
+      }
+    },
     disabled: Boolean,
     transfer: { type: Boolean, default: true },
     disabledDate: { type: Function, default: e => { } },
     disabledTime: { type: Function, default: e => { } },
-    format: { type: String, default: 'YYYY-MM-DD' },
+    format: String,
     clearable: { type: Boolean, default: true },
     bordered: { type: Boolean, default: true },
     pickerSize: String,
@@ -30,6 +33,7 @@ export default {
     shape: String,
     placeholder: [String, Array],
     dateIcon: [String, Array],
+    presets: Array
   },
   provide() {
     return {
@@ -40,93 +44,255 @@ export default {
     return {
       opened: false,
       currentValue: this.value,
+      v1: null, // render selected
+      v2: null,
+      d1: null, //render date 
+      d2: null,
+      h2: null,
+      fmt: {
+        'year': 'YYYY',
+        'month': 'YYYY-MM',
+        'date': 'YYYY-MM-DD',
+        'dateRange': 'YYYY-MM-DD',
+        'time': 'HH:mm:ss',
+        'dateTime': 'YYYY-MM-DD HH:mm:ss',
+        'dateTimeRange': 'YYYY-MM-DD HH:mm:ss'
+      }
     }
+  },
+  created() {
+    this.updateCalendDate()
   },
   computed: {
     label() {
-      return this.getDate(this.currentValue)
+      let { currentValue, isRange, format, fmt, mode } = this
+      let ft = format || fmt[mode]
+      if (isRange) {
+        let [v1, v2] = currentValue || []
+        return [v1 ? dayjs(v1).format(ft) : null, v2 ? dayjs(v2).format(ft) : null]
+      } else {
+        return currentValue ? dayjs(currentValue).format(ft) : null
+      }
     },
     isRange() {
-      return this.mode == 'range'
+      return this.mode.indexOf('Range') >= 0
+    },
+    withTime() {
+      return this.mode.indexOf('Time') >= 0// && this.mode != 'time'
     }
   },
   watch: {
     value(v) {
       if (this.v != this.currentValue) {
-        this.currentValue = v
+        if (!this.isRange) {
+          this.currentValue = dayjs(v)
+        } else {
+          let [a, b] = v || []
+          this.currentValue = [a ? dayjs(a) : null, b ? dayjs(b) : null]
+        }
+        this.updateCalendDate()
       }
     }
   },
   methods: {
-    getDate(value) {
-      let { format, mode, isRange } = this
-      let isDefaultFormat = format == 'YYYY-MM-DD'
+    updateCalendDate() {
+      let { currentValue, isRange } = this
       if (isRange) {
-        if (isDefaultFormat) {
-          if (this.showTime) {
-            format = 'YYYY-MM-DD HH:mm:ss'
-          }
+        let [a, b] = currentValue || []
+        this.d1 = a ? dayjs(a) : dayjs(), this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
+        if (this.d1.isSame(this.d2, 'month')) {
+          this.d2 = this.d1.add(1, 'month')
         }
-        value = value || []
-        let label = []
-        let [v1, v2] = value
-
-        v1 = v1 ? new Date(v1) : ''
-        v2 = v2 ? new Date(v2) : ''
-        if (v1) label[0] = dayjs(v1).format(format)
-        if (v2) label[1] = dayjs(v2).format(format)
-        return label
       } else {
-        if (isDefaultFormat) {
-          if (mode == 'month') {
-            format = 'YYYY-MM'
-          }
-          if (mode == 'year') {
-            format = 'YYYY'
-          }
-          if (this.showTime) {
-            format = 'YYYY-MM-DD HH:mm:ss'
-          }
-        }
-        return value ? dayjs(value).format(format) : ''
+        this.d1 = currentValue ? dayjs(currentValue) : dayjs()
       }
-    },
-    updateValue(value) {
-      let date = this.getDate(value)
-      // console.log(date)
-      this.$emit('input', date)
-      this.$emit('change', date)
-      this.currentValue = value
-      this.opened = false
     },
     clear(e) {
-      if (Array.isArray(this.currentValue)) {
-        this.currentValue = []
+      let v = null;
+      if (!this.isRange) {
+        this.currentValue = null
+        v = ''
+        this.v1 = null
       } else {
-        this.currentValue = ''
+        this.currentValue = []
+        v = []
+        this.v1 = null
+        this.v2 = null
       }
-      this.$emit("input", this.currentValue);
-      this.$emit("change", this.currentValue);
-      e.stopPropagation()
+      this.updateCalendDate()
+
+      this.$emit("input", v);
+      this.$emit("change", v, v);
+      e && e.stopPropagation()
     },
     toggleDrop() {
       if (this.disabled) {
         return false;
       }
       this.opened = !this.opened;
+
+      if (this.opened) {
+        this.updateCalendDate()
+      } else {
+        this.validValue()
+      }
+    },
+    picker1Update(value, type) {
+      let { isRange, format, fmt, mode } = this
+      if (!isRange) {
+        if (!type) {
+          this.d1 = dayjs(value)
+          this.v1 = dayjs(value)
+        } else {
+          this.d1 = this.d1[type](value)
+          this.v1 = (this.v1 || dayjs())[type](value)
+
+          if (type == 'second' && mode == 'time') {
+            this.opened = false
+          }
+        }
+        let ft = format || fmt[mode]
+        let dateStr = this.v1.format(ft)
+        this.currentValue = dayjs(this.v1)
+        this.$emit('input', dateStr)
+        this.$emit('change', this.currentValue, dateStr)
+
+      } else {
+        let { v1, v2, withTime } = this
+        if (!type) { //只改变年月时间
+          this.d1 = dayjs(value)
+          if (!v1 && !v2) {
+            this.v1 = dayjs(value)
+            this.currentValue = [dayjs(value),]
+          } else if (v1 && !v2) {
+            this.v2 = dayjs(value)
+            this.currentValue = [v1, this.v2]
+
+            let ft = format || fmt[mode]
+            let dateStr = [v1.format(ft), this.v2.format(ft)]
+            // console.log(dateStr)
+            // return
+            this.$emit('input', dateStr)
+            this.$emit('change', this.currentValue, dateStr)
+            this.updateCalendDate()
+            if (!withTime) {
+              this.opened = false
+            }
+          } else if (v1 && v2) {
+            this.v1 = dayjs(value)
+            this.v2 = null
+            this.currentValue = [dayjs(value),]
+          }
+        } else {
+          this.v1 = (this.v1 || dayjs())[type](value)
+
+          this.currentValue = [this.v1, v2]
+          this.d1 = this.d1[type](value)
+        }
+        if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
+          this.d2 = this.d1.add(1, 'month')
+        }
+      }
+    },
+    picker2Update(value, type) {
+      let { v1, v2, withTime, format, fmt, mode } = this
+      if (!type) { //day
+        this.d2 = value
+        if (!v1 && !v2) {
+          this.v1 = dayjs(value)
+          this.currentValue = [dayjs(value),]
+        } else if (v1 && !v2) {
+          this.v2 = dayjs(value)
+          this.currentValue = [v1, this.v2]
+
+          let ft = format || fmt[mode]
+          let dateStr = [v1.format(ft), this.v2.format(ft)]
+          this.$emit('input', dateStr)
+          this.$emit('change', this.currentValue, dateStr)
+          this.updateCalendDate()
+
+          // console.log(dateStr)
+          if (!withTime) {
+            this.opened = false
+          }
+        } else if (v1 && v2) {
+          this.v1 = dayjs(value)
+          this.v2 = null
+          this.currentValue = [dayjs(value),]
+        }
+      } else {  //for year , month , datetime 
+        if (!this.v1) {
+          this.v1 = (this.v1 || dayjs())[type](value)
+          this.currentValue = [this.v1, v2]
+          this.d2 = this.d2[type](value)
+        } else {
+          this.v2 = (this.v2 || dayjs())[type](value)
+          this.currentValue = [v1, this.v2]
+          this.d2 = this.d2[type](value)
+        }
+      }
+      if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
+        this.d1 = this.d2.subtract(1, 'month')
+      }
+    },
+    validValue(e) {
+      // 只有一个值的时候, 直接置空
+      if (this.isRange) {
+        let [a, b] = this.currentValue || []
+        if (a && !b) {
+          this.clear(e)
+        }
+      }
+    },
+    getPresetsNode() {
+      let { presets } = this
+      if (presets && presets.length > 1) {
+        let childs = []
+        for (let i = 0; i < presets.length - 1; i++) {
+          childs.push(<Button theme="normal" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
+        }
+        return <div class="k-date-picker-presets">{childs}</div>
+      }
+      return null
+    },
+    setPreset({ value }) {
+      let { isRange, format, fmt, mode } = this
+      let ft = format || fmt[mode]
+      if (isRange) {
+        let [a, b] = value || []
+        if (a && b) {
+          this.v1 = dayjs(a)
+          this.v2 = dayjs(b)
+          this.currentValue = [dayjs(a), dayjs(b)]
+          let dateStr = [dayjs(a).format(ft), dayjs(b).format(ft)]
+          this.$emit('input', dateStr)
+          this.$emit('change', this.currentValue, dateStr)
+        }
+      } else {
+        this.v1 = dayjs(value)
+        this.currentValue = dayjs(value)
+        let dateStr = this.v1.format(ft)
+        this.$emit('input', dateStr)
+        this.$emit('change', this.currentValue, dateStr)
+      }
+      this.opened = false
     },
   },
   render() {
     // console.log(t('k.datePicker'))
-    let { currentValue, placeholder, disabled, clearable,
+    let { currentValue, placeholder, disabled, clearable, v1, v2, d1, d2, h2,
       opened, size, label, transfer, bordered, theme, shape, dateIcon,
-      format, mode, disabledTime, isRange, disabledDate, showTime, pickerSize
+      format, mode, disabledTime, isRange, withTime, disabledDate, pickerSize
     } = this
     let childNode = [];
     if (dateIcon === undefined) {
       dateIcon = CalendarOutline
     }
+    if (mode == 'time') {
+      dateIcon = TimeOutline
+    }
     dateIcon && childNode.push(<Icon type={dateIcon} class="k-icon-calendar" />)
+    let dv1, dv2;
     if (isRange) {
       placeholder = placeholder || []
       if (placeholder && !Array.isArray(placeholder)) {
@@ -134,18 +300,21 @@ export default {
         placeholder = []
       }
       let p1 = placeholder[0] || t('k.datePicker.startDate'), p2 = placeholder[1] || t('k.datePicker.endDate')
-      let v1 = label[0], v2 = label[1]
-      if (v1) {
-        childNode.push(<div class="k-datepicker-value">{v1}</div>)
+      let [l1, l2] = label
+      if (l1) {
+        childNode.push(<div class="k-datepicker-value">{l1}</div>)
       } else {
         childNode.push(<div class="k-datepicker-placeholder">{p1}</div>)
       }
       childNode.push(<div class="k-datepicker-separator">~</div>)
-      if (v2) {
-        childNode.push(<div class="k-datepicker-value">{v2}</div>)
+      if (l2) {
+        childNode.push(<div class="k-datepicker-value">{l2}</div>)
       } else {
         childNode.push(<div class="k-datepicker-placeholder">{p2}</div>)
       }
+      let [a, b] = currentValue || []
+      dv1 = a
+      dv2 = b
     } else {
       placeholder = placeholder || t('k.datePicker.placeholder')
       if (label) {
@@ -153,24 +322,34 @@ export default {
       } else if (placeholder) {
         childNode.push(<div class="k-datepicker-placeholder">{placeholder}</div>)
       }
+
+      dv1 = currentValue
     }
 
-    let v1, v2;
-    if (isRange) {
-      let [a, b] = currentValue || [dayjs(), dayjs().add(1, 'month')]
-      v1 = dayjs(a), v2 = dayjs(b)
-    } else {
-      v1 = dayjs(currentValue)
-    }
-    // console.log(v1, v2)
+    // console.log(dv1, dv2)
+
     let calendar = []
-
+    let presetsNode = this.getPresetsNode()
+    if (presetsNode) {
+      calendar.push(presetsNode)
+    }
     const leftProps = {
-      props: { format, mode, opened, disabledTime, disabledDate, showTime, value: v1, startDate: v1, endDate: v2, pickerSize },
+      props: { format, mode, opened, disabledTime, disabledDate, value: dv1, date: d1, v1, v2, h2, pickerSize },
       on: {
-        input: e => {
-          this.updateValue(e);
-          this.opened = false
+        input: (e, f) => this.picker1Update(e, f),
+        close: (v) => {
+          if (v) {
+            this.opened = false
+          }
+        },
+        hd: (v) => {
+          this.h2 = v
+        },
+        np: (v) => {
+          this.d1 = v
+          if (this.isRange && (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(d2, 'month'))) {
+            this.d2 = v.add(1, 'month')
+          }
         }
       }
     }
@@ -178,10 +357,24 @@ export default {
 
     if (isRange) {
       let rightProps = {
-        props: { format, opened, mode, disabledTime, disabledDate, showTime, isRight: true, value: v2, startDate: v1, endDate: v2, pickerSize },
+        props: { format, opened, mode, disabledTime, disabledDate, isRight: true, value: dv2, date: d2, v1, v2, h2, pickerSize },
         on: {
-          input: e => {
-            this.updateValue(e)
+          input: (e, f) => this.picker2Update(e, f),
+          close: (v, e) => {
+            if (v) {
+              this.opened = false
+              this.validValue(e)
+
+            }
+          },
+          hd: (v) => {
+            this.h2 = v
+          },
+          np: (v) => {
+            this.d2 = v
+            if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(d1, 'month')) {
+              this.d1 = v.subtract(1, 'month')
+            }
           }
         }
       };
@@ -205,12 +398,13 @@ export default {
         },
         hide: () => {
           this.opened = false
+          this.validValue()
         },
       }
     }
     let overlay = <Drop {...props}>{calendar}</Drop >
 
-    let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
+    let showClear = !disabled && clearable && ((isRange && this.v1 && this.v2) || (!isRange && this.v1))
     showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={this.clear} />)
     const selectCls = [
       "k-datepicker-selection", {
@@ -223,7 +417,7 @@ export default {
       { 'k-datepicker-borderless': bordered === false },
       { 'k-datepicker-sm': size == 'small' },
       { 'k-datepicker-lg': size == 'large' },
-      { 'k-datepicker-with-time': showTime },
+      { 'k-datepicker-with-time': withTime },
       { 'k-datepicker-disabled': disabled },
       { 'k-datepicker-light': theme == 'light' },
       { 'k-datepicker-circle': shape == 'circle' },

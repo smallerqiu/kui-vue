@@ -46,7 +46,7 @@ export default {
     }
   },
   render() {
-    const { options, $slots, type, direction, theme, shape } = this
+    const { options, $slots, type, direction, theme, shape, size } = this
     let childs = getChild($slots.default)
     if (options && options.length) {
       childs = options.map(option => {
@@ -54,6 +54,7 @@ export default {
           <Button
             theme={theme}
             shape={shape}
+            size={size}
             icon={option.icon}
             key={option.value}
             value={option.value}
@@ -64,6 +65,7 @@ export default {
           <Radio
             key={option.value}
             value={option.value}
+            size={size}
             label={option.label}
             disabled={option.disabled}
           />

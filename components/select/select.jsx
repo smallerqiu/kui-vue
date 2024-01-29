@@ -320,7 +320,7 @@ export default {
         // transfer: false,
         transfer: transfer,
         transitionName: 'k-select',
-        className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple }]
+        className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple, 'k-select-dropdown-sm': size == 'small' }]
       },
       on: {
         hide: () => {

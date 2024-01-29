@@ -1,4 +1,5 @@
 @import '../../styles/var.less';
+
 .k-input-number {
   position: relative;
   display: inline-flex;
@@ -13,9 +14,11 @@
   box-sizing: border-box;
   gap: 8px;
   padding: 0 8px;
+
   &:hover {
     border-color: var(--kui-color-main);
   }
+
   .k-input-number-controls {
     width: 20px;
     display: flex;
@@ -28,6 +31,7 @@
     height: 30px;
     margin-right: -8px;
   }
+
   .k-input-number-control {
     flex: 1;
     display: flex;
@@ -35,21 +39,26 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
     &:hover {
       color: var(--kui-color-main);
       background-color: var(--kui-color-gray-80);
     }
+
     &:first-child {
       border-radius: 0 @radius 0 0;
     }
+
     &:last-child {
       border-top: 1px solid var(--kui-color-border);
       border-radius: 0 0 @radius 0;
-      .k-icon{
+
+      .k-icon {
         transform: rotate(180deg);
       }
     }
   }
+
   .k-input-number-text {
     padding-left: 0;
     border: none;
@@ -63,20 +72,25 @@
     box-sizing: border-box;
     flex: 1;
     min-width: 10px;
+
     &::placeholder {
       color: var(--kui-color-disable-color);
     }
+
     &:focus {
       // box-shadow: 0 0 5px var(--kui-color-main-30);
       // border-color: var(--kui-color-main);
       outline: none;
     }
   }
+
   &.k-input-number-focus {
     border-color: var(--kui-color-main);
     box-shadow: 0 0 5px var(--kui-color-main-30);
   }
-  .k-input-number-suffix, .k-input-number-prefix {
+
+  .k-input-number-suffix,
+  .k-input-number-prefix {
     font-size: 12px;
     white-space: nowrap;
     line-height: 1;
@@ -84,15 +98,18 @@
     user-select: none;
     transition: all .2s ease-in-out;
     display: flex;
+
     &:hover {
       color: var(--kui-color-font);
     }
+
     .k-icon {
       font-size: 16px;
       transition: all .2s ease-in-out;
       color: var(--kui-color-icon);
     }
   }
+
   .k-input-number-icon {
     font-size: 16px;
     color: var(--kui-color-icon);
@@ -103,6 +120,7 @@
   cursor: pointer;
   font-size: 15px;
   color: var(--kui-color-gray);
+
   &:hover {
     color: var(--kui-color-font);
   }
@@ -110,20 +128,26 @@
 
 .k-input-number-sm {
   gap: 6px;
+
   .k-input-number-controls {
     height: 22px;
   }
+
   .k-input-number-text {
     padding: 2px 0;
     height: 22px;
     line-height: 22px;
+    font-size: 12px;
   }
+
   .k-input-number-clearable {
     font-size: 14px;
   }
+
   .k-input-number-icon {
     font-size: 16px;
   }
+
   .k-input-number-suffix {
     .k-icon {
       font-size: 12px;
@@ -135,18 +159,22 @@
   .k-input-number-controls {
     height: 38px;
   }
+
   .k-input-number-text {
     padding: 2px 0;
     height: 38px;
     line-height: 38px;
-    font-size: 14px;
+    font-size: 16px;
   }
+
   .k-input-number-clearable {
     font-size: 18px;
   }
+
   .k-input-number-icon {
     font-size: 25px;
   }
+
   .k-input-number-suffix {
     .k-icon {
       font-size: 18px;
@@ -157,7 +185,9 @@
 .k-input-number-light {
   border: none;
   background-color: var(--kui-color-gray-80);
-  &:focus, &.k-input-number-focus {
+
+  &:focus,
+  &.k-input-number-focus {
     box-shadow: none;
   }
 }
@@ -167,12 +197,15 @@
   color: var(--kui-color-disable-color);
   background: var(--kui-color-disable-back);
   border-color: var(--kui-color-disable-border);
+
   &:hover {
     border-color: var(--kui-color-disable-border);
   }
+
   & * {
     cursor: not-allowed;
   }
+
   .k-input-number-control:hover {
     background: 0 0;
     color: var(--kui-color-icon);

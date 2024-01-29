@@ -11,6 +11,12 @@ export default {
       validator: (val) => ['horizontal', 'vertical'].indexOf(val) >= 0
     },
     value: { type: Array, default: () => [] },
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
   },
   provide() {
     return {
@@ -32,12 +38,13 @@ export default {
     }
   },
   render() {
-    const { options, $slots, direction } = this
+    const { options, $slots, direction, size } = this
     let childs = getChild($slots.default)
     if (options && options.length) {
       childs = options.map(option => (
         <Checkbox
           key={option.value}
+          size={size}
           value={option.value}
           label={option.label}
           disabled={option.disabled}

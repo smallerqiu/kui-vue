@@ -6,13 +6,13 @@
 ```vue
 <template>
   <div>
-    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" showTime/>
+    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" mode="dateTime"/>
     <br/>
     <DatePicker value="2019-10-12" format="YYYY/MM/DD"/>
     <br/>
     <DatePicker value="2019-10-12" format="YYYY.MM.DD"/>
     <br/>
-    <DatePicker v-model="date" format="YYYY.MM.DD" mode="range" @change="change"/>{{date}}
+    <DatePicker v-model="date" format="YYYY.MM.DD" mode="dateRange" @change="change"/>{{date}}
   </div>
 </template>
 <script>

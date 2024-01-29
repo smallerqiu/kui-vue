@@ -6,6 +6,12 @@ export default {
     disabled: Boolean,
     checked: [Boolean, Number],
     label: [String, Number],
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
   },
   inject: {
     groupContext: { default: null },
@@ -20,9 +26,9 @@ export default {
     }
   },
   // watch: {
-    // checked(checked) {
-      // this.$emit("input", checked);
-    // }
+  // checked(checked) {
+  // this.$emit("input", checked);
+  // }
   // },
   methods: {
     change(e) {
@@ -43,17 +49,23 @@ export default {
   },
 
   render() {
-    let { disabled, change, $slots, label, groupContext, value, checked, defaultChecked } = this
+    let { disabled, change, $slots, label, size, groupContext, value, checked, defaultChecked } = this
     if (groupContext) {
       checked = groupContext.defaultValue == value
       disabled = disabled || groupContext.disabled
+      size = groupContext.size
     } else {
       if (!hasProp(this, 'checked')) {
         checked = defaultChecked
       }
     }
     const wpclasses = [
-      "k-radio", { ["k-radio-disabled"]: disabled, ["k-radio-checked"]: checked }
+      "k-radio", {
+        ["k-radio-disabled"]: disabled,
+        ["k-radio-checked"]: checked,
+        ["k-radio-lg"]: size == 'large',
+        ["k-radio-sm"]: size == 'small',
+      }
     ];
 
     const labelNode = label || $slots.default

@@ -1,6 +1,6 @@
 <cn>
 #### 年/月/日/时间
-使用 `mode` 属性，可以自定义日期显示类型，提供 `year` `month` `date` `range`。
+使用 `mode` 属性，可以自定义日期显示类型，提供 `year` `month` `date` `time` `dateRange` `dateTimeRange`。
 </cn>
 
 ```vue
@@ -12,11 +12,13 @@
     <br />
     <DatePicker />
     <br />
-    <DatePicker placeholder="请选择时间" showTime />
+    <DatePicker mode="time" placeholder="请选择时间" />
     <br />
-    <DatePicker :placeholder="['Start Date','End Date']" mode="range"/>
+    <DatePicker placeholder="请选择时间" mode="dateTime" />
     <br />
-    <DatePicker :placeholder="['Start Time','End Time']" mode="range" showTime />
+    <DatePicker :placeholder="['Start Date','End Date']" mode="dateRange"/>
+    <br />
+    <DatePicker :placeholder="['Start Time','End Time']" mode="dateTimeRange" />
   </div>
 </template>
 ```

@@ -3,13 +3,19 @@ export default {
 	name: 'TextArea',
 	props: {
 		value: [String, Number],
-		theme: String
+		theme: String,
+		size: {
+			default: 'default',
+			validator(value) {
+				return ["small", "large", "default"].indexOf(value) >= 0;
+			}
+		},
 	},
 	provide() {
-    return {
-      TextArea: this
-    }
-  },
+		return {
+			TextArea: this
+		}
+	},
 	render() {
 		const props = {
 			props: { ...this.$props, inputType: 'textarea' },

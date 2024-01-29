@@ -134,8 +134,8 @@ export default {
             [`k-${inputType}`]: !mult,
             [`k-${inputType}-text`]: mult,
             [`k-${inputType}-disabled`]: disabled,
-            [`k-${inputType}-sm`]: size == 'small' && !isTextArea && !mult,
-            [`k-${inputType}-lg`]: size == 'large' && !isTextArea && !mult,
+            [`k-${inputType}-sm`]: size == 'small' && !mult,
+            [`k-${inputType}-lg`]: size == 'large' && !mult,
             [`k-${inputType}-${theme}`]: theme != 'solid' && !mult && theme,
             [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea && !mult,
           }

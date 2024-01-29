@@ -1,6 +1,6 @@
 <cn>
 #### 不可选择日期和时间 
-可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间，其中 `disabledTime` 需要和 `showTime` 一起使用。
+可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
 </cn>
 
 ```vue
@@ -8,9 +8,9 @@
   <div>
     <DatePicker :disabledDate="disabledDate"/>
     <br/>
-    <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" showTime />
+    <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" mode="dateTime" />
     <br/>
-    <DatePicker mode="range" :disabledDate="disabledDate" :disabledTime="disabledTime" showTime/>
+    <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime"/>
   </div>
 </template>
 <script>
