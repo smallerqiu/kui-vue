@@ -1,143 +1,171 @@
 @import '../../styles/var.less';
+
 .k-checkbox {
-	cursor: pointer;
-	font-size: 12px;
-	display: inline-block;
-	user-select: none;
-	line-height: 1;
-	color: var(--kui-color-font);
-	white-space: nowrap;
-	// margin-right: 16px;
-	.k-checkbox-symbol {
-		display: inline-block;
-		vertical-align: middle;
-		white-space: nowrap;
-		outline: 0;
-		line-height: 1;
-		position: relative;
-		margin: 0;
-		box-sizing: content-box;
-		font-size: 0;
-	}
-	.k-checkbox-inner {
-		box-sizing: content-box;
-		display: inline-block;
-		width: 14px;
-		height: 14px;
-		position: relative;
-		top: 0;
-		left: 0;
-		border: 1px solid var(--kui-color-border);
-		border-radius: 2px;
-		background-color: var(--kui-color-back);
-		transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
-		overflow: hidden;
-		color: #fff;
-		.k-icon {
-			font-size: 14px;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate3d(-50%, -50%, 0);
-		}
-	}
-	.k-checkbox-input {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 1;
-		opacity: 0;
-		cursor: inherit;
-		&:focus {
-			+.k-checkbox-inner {
-				border: 1px solid var(--kui-color-main);
-				box-shadow: 0 0 5px var(--kui-color-main-30);
-			}
-		}
-	}
-	&.k-checkbox-indeterminate {
-		.k-checkbox-inner {
-			// background: var(--kui-color-main);
-			// border-color: var(--kui-color-main);
-			position: relative;
-			&:after {
-				box-sizing: content-box;
-				background-color: var(--kui-color-main);
-				position: absolute;
-				width: 8px;
-				height: 8px;
-				content: '';
-				left: 50%;
-				top: 50%;
-				transform: translate(-50%, -50%);
-				transition: all .2s ease-in-out;
-				// border-radius: 2px;
-			}
-		}
-	}
-	&:hover .k-checkbox-inner {
-		border-color: var(--kui-color-main);
-	}
-	.k-checkbox-label {
-		padding-left: 8px;
-		vertical-align: middle;
-		font-size: 14px;
-	}
+  cursor: pointer;
+  font-size: 12px;
+  display: inline-block;
+  user-select: none;
+  line-height: 1;
+  color: var(--kui-color-font);
+  white-space: nowrap;
+
+  // margin-right: 16px;
+  .k-checkbox-symbol {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    outline: 0;
+    line-height: 1;
+    position: relative;
+    margin: 0;
+    box-sizing: content-box;
+    font-size: 0;
+  }
+
+  .k-checkbox-inner {
+    box-sizing: content-box;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--kui-color-border);
+    border-radius: 2px;
+    background-color: var(--kui-color-back);
+    transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
+    overflow: hidden;
+    color: #fff;
+
+    .k-icon {
+      font-size: 14px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+
+  .k-checkbox-input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    cursor: inherit;
+
+    &:focus {
+      +.k-checkbox-inner {
+        border: 1px solid var(--kui-color-main);
+        box-shadow: 0 0 5px var(--kui-color-main-30);
+      }
+    }
+  }
+
+  &.k-checkbox-indeterminate {
+    .k-checkbox-inner {
+      // background: var(--kui-color-main);
+      // border-color: var(--kui-color-main);
+      position: relative;
+
+      &:after {
+        box-sizing: content-box;
+        background-color: var(--kui-color-main);
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        content: '';
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: all .2s ease-in-out;
+        // border-radius: 2px;
+      }
+    }
+  }
+
+  &:hover .k-checkbox-inner {
+    border-color: var(--kui-color-main);
+  }
+
+  .k-checkbox-label {
+    padding-left: 8px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+}
+
+.k-checkbox-sm {
+  .k-checkbox-label {
+    font-size: 12px;
+  }
+}
+
+.k-checkbox-lg {
+  .k-checkbox-label {
+    font-size: 16px;
+  }
 }
 
 .k-checkbox-light {
-	.k-checkbox-inner {
-		background-color: var(--kui-color-gray-80);
-		border-color: var(--kui-color-gray-80);
-	}
+  .k-checkbox-inner {
+    background-color: var(--kui-color-gray-80);
+    border-color: var(--kui-color-gray-80);
+  }
 }
 
 .k-checkbox-checked {
-	.k-checkbox-inner {
-		background: var(--kui-color-main);
-		border-color: var(--kui-color-main);
-	}
+  .k-checkbox-inner {
+    background: var(--kui-color-main);
+    border-color: var(--kui-color-main);
+  }
 }
 
 .k-checkbox-disabled {
-	cursor: not-allowed;
-	color: var(--kui-color-disable-color);
-	&.k-checkbox {
-		.k-checkbox-input {
-			cursor: not-allowed;
-		}
-		.k-checkbox-inner {
-			background: var(--kui-color-disable-back);
-			border-color: var(--kui-color-disable-border);
-			color: var(--kui-color-disable-color);
-			&:after {
-				background-color: var(--kui-color-disable-back);
-				color: var(--kui-color-disable-color);
-			}
-		}
-	}
-	&.k-checkbox-indeterminate .k-checkbox-inner:after {
-		background-color: var(--kui-color-disable-border);
-	}
+  cursor: not-allowed;
+  color: var(--kui-color-disable-color);
+
+  &.k-checkbox {
+    .k-checkbox-input {
+      cursor: not-allowed;
+    }
+
+    .k-checkbox-inner {
+      background: var(--kui-color-disable-back);
+      border-color: var(--kui-color-disable-border);
+      color: var(--kui-color-disable-color);
+
+      &:after {
+        background-color: var(--kui-color-disable-back);
+        color: var(--kui-color-disable-color);
+      }
+    }
+  }
+
+  &.k-checkbox-indeterminate .k-checkbox-inner:after {
+    background-color: var(--kui-color-disable-border);
+  }
 }
 
 .k-checkbox-group {
-	display: inline-block;
-	flex-shrink: 0;
-	.k-checkbox {
-		margin-right: 16px;
-	}
+  display: inline-block;
+  flex-shrink: 0;
+
+  .k-checkbox {
+    margin-right: 16px;
+  }
 }
 
 .k-checkbox-group-vertical {
-	display: block;
-	.k-checkbox {
-		display: block;
-		margin-right: 0;
-		margin-bottom: 16px;
-	}
+  display: block;
+
+  .k-checkbox {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
 }

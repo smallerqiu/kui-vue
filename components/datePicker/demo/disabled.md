@@ -10,7 +10,7 @@
     <br/>
     <DatePicker disabled size="small" value="2019-10"/>
     <br/>
-    <DatePicker disabled mode="range"/>
+    <DatePicker disabled mode="dateRange"/>
   </div>
 </template>
 ```

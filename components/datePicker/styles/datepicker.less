@@ -76,6 +76,25 @@
       }
     }
   }
+
+
+}
+
+.k-date-picker-presets {
+
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  max-width: 200px;
+  border-right: 1px solid var(--kui-color-border);
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: hidden auto;
+  gap: 5px;
+
+  .k-btn {
+    text-overflow: ellipsis;
+  }
 }
 
 .k-datepicker-light {
@@ -111,9 +130,6 @@
     padding: 0 5px;
   }
 
-  &.k-datepicker-lg {
-    // min-width: 347px;
-  }
 }
 
 .k-datepicker-with-time {
@@ -122,10 +138,6 @@
   .k-datepicker-placeholder {
     width: 150px;
   }
-}
-
-.k-datepicker-range-dropdown {
-  // width: 430px;
 }
 
 .k-datepicker:focus,
@@ -155,6 +167,7 @@
   .k-datepicker-placeholder,
   .k-datepicker-value {
     line-height: 22px;
+    font-size: 12px;
   }
 
   .k-icon {
@@ -175,7 +188,8 @@
   .k-datepicker-placeholder,
   .k-datepicker-value {
     line-height: 38px;
-    font-size: 14px;
+    font-size: 16px;
+    width: 100px;
   }
 
   .k-icon {

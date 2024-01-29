@@ -6,17 +6,20 @@
   padding: 20px 0;
   -webkit-user-select: none;
   user-select: none;
+  display: flex;
+  align-items: center;
 
   .k-pager {
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     align-items: center;
     padding: 0;
+
     .k-pager-item {
       background: transparent;
       color: var(--kui-color-font);
-      min-width: 30px;
-      height: 30px;
+      min-width: 32px;
+      height: 32px;
       line-height: 1;
       border-radius: var(--kui-border-radius);
       margin: 0 8px;
@@ -24,8 +27,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-sizing: content-box;
-      border: 1px solid var(--kui-color-border);
+      box-sizing: border-box;
+      // border: 1px solid var(--kui-color-border);
       // transition: all 0.2s ease-in-out 0s;
       margin-left: -1px;
       font-size: 14px;
@@ -34,8 +37,9 @@
       vertical-align: middle;
 
       &:hover {
-        border-color: var(--kui-color-main-hover);
-        color: var(--kui-color-main-hover);
+        // border-color: var(--kui-color-main-hover);
+        // color: var(--kui-color-main-hover);
+        background-color: var(--kui-color-border);
 
         .k-icon {
           color: var(--kui-color-main-hover);
@@ -51,10 +55,7 @@
         }
       }
 
-      &.k-pager-item-active {
-        border: 1px solid var(--kui-color-main);
-        color: var(--kui-color-main);
-      }
+
 
       span {
         margin: 0 5px;
@@ -66,6 +67,16 @@
         // top: 50%;
         // left: 50%;
         // transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
+    .k-pager-item-active {
+      border: 1px solid var(--kui-color-main);
+      color: var(--kui-color-main);
+
+      &:hover {
+        background: none;
+        color: var(--kui-color-main-hover);
       }
     }
 
@@ -147,9 +158,17 @@
 }
 
 .k-page-sm {
+  .k-page-options {
+    font-size: 12px;
+
+    .k-page-options-elevator {
+      font-size: 12px;
+    }
+  }
+
   .k-pager .k-pager-item {
     height: 22px;
-    font-size: 14px;
+    font-size: 12px;
     // line-height: 22px;
     min-width: 22px;
   }
@@ -159,6 +178,6 @@
   }
 
   .k-page-number {
-    font-size: 14px;
+    font-size: 12px;
   }
 }

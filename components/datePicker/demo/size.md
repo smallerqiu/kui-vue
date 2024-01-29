@@ -16,7 +16,7 @@
     <br/>
     <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
     <br/>
-    <DatePicker :size="size" mode="range" :picker-size="size"/>
+    <DatePicker :size="size" mode="dateRange" :picker-size="size"/>
   </div>
 </template>
 <script>

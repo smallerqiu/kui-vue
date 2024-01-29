@@ -224,9 +224,11 @@ export default {
       lastNode = this.renderLast()
     return (
       <div class={classes}>
+        {totalNode}
         <ul class="k-pager">
-          {[preNode, firstNode, pagerNode, lastNode, nextNode, sizeNode, totalNode, elvatorNode]}
+          {[preNode, firstNode, pagerNode, lastNode, nextNode,]}
         </ul>
+        {[sizeNode, elvatorNode]}
       </div>
     )
   }

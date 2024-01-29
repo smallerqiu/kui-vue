@@ -9,6 +9,12 @@ export default {
     label: { type: [String, Number] },
     indeterminate: Boolean,
     checked: [Boolean, Number],
+    size: {
+      default: 'default',
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      }
+    },
   },
   model: {
     prop: 'checked',
@@ -41,11 +47,12 @@ export default {
     }
   },
   render() {
-    let { disabled, change, $slots, label, groupContext, value, indeterminate, checked, isChecked } = this
+    let { disabled, change, $slots, size, label, groupContext, value, indeterminate, checked, isChecked } = this
 
     if (groupContext) {
       checked = groupContext.value.indexOf(value) !== -1
       disabled = disabled || groupContext.disabled
+      size = groupContext.size
     } else {
       if (!hasProp(this, 'checked')) {
         checked = isChecked
@@ -54,7 +61,9 @@ export default {
     const wpclasses = ["k-checkbox", {
       ["k-checkbox-disabled"]: disabled,
       ["k-checkbox-checked"]: checked && !indeterminate,
-      ["k-checkbox-indeterminate"]: indeterminate
+      ["k-checkbox-indeterminate"]: indeterminate,
+      ["k-checkbox-sm"]: size == 'small',
+      ["k-checkbox-lg"]: size == 'large'
     }]
 
 

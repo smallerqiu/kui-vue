@@ -19,7 +19,7 @@ theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义
     <br/>
     <DatePicker mode="month" placeholder="请选择月份" theme="light" :shape="shape?'circle':''"/>
     <br/>
-    <DatePicker mode="range" theme="light" :shape="shape?'circle':''"/>
+    <DatePicker mode="dateRange" theme="light" :shape="shape?'circle':''"/>
   </div>
 </template>
 <script>
