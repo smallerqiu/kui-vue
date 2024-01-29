@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <RadioGroup v-model="size">
       <RadioButton value="large" label="Large"/>
       <RadioButton value="default" label="Default"/>
@@ -23,7 +23,7 @@
     <Button type="primary" shape="circle" :size="size" :icon="CloudDownload">Download</Button>
     <Button type="primary" :size="size" :icon="CloudDownload">Download</Button>
 
-  </div>
+  </Space>
 </template>
 <script>
 import { CloudDownload } from "kui-icons";

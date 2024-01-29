@@ -1,17 +1,22 @@
 @import '../../styles/var.less';
+
 .k-rate {
-  display: inline-block;
+  display: inline-flex;
   font-size: 20px;
   color: orange;
   line-height: 1;
+  align-items: center;
+
   .k-star {
-    display: inline-block;
+    display: inline-flex;
     margin-right: 8px;
     position: relative;
     transition: all .3s ease;
     cursor: pointer;
+    align-items: center;
     .k-star-front {
       position: absolute;
+      line-height: 1;
       z-index: 1;
       left: 0;
       top: 0;
@@ -20,19 +25,24 @@
       width: 50%;
       opacity: 0;
     }
+
     .k-star-back {
+      line-height: 1;
       color: var(--kui-color-border);
     }
   }
+
   .k-star-checked {
     transform: scale(1.1);
   }
+
   .k-star-half {
     .k-star-front {
       // color: orange;
       opacity: 1;
     }
   }
+
   .k-star-full {
     .k-star-front {
       // color: orange;
@@ -40,6 +50,7 @@
       opacity: 1;
     }
   }
+
   .k-rate-score {
     // color: orange;
     font-size: 14px;

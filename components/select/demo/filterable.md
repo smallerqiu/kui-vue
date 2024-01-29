@@ -6,25 +6,29 @@
 ```vue
 <template>
   <div class="demo-select">
-    <span>单选过滤 :</span>
-    <Select 
-      size="large"
-      :width="300"
-      v-model="data" 
-      placeholder="单选过滤" filterable>
-      <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
-    </Select>
+    <Space>
+      <span>单选过滤 :</span>
+      <Select 
+        size="large"
+        :width="300"
+        v-model="data" 
+        placeholder="单选过滤" filterable>
+        <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
+      </Select>
+      </Space>
     <p></p>
     <br/>
-    <span>多选过滤 :</span>
-    <Select 
-      class="demo-select"
-      multiple 
-      :width="300"
-      v-model="data2" 
-      placeholder="多选过滤" filterable >
-      <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
-    </Select>
+    <Space>
+      <span>多选过滤 :</span>
+      <Select 
+        class="demo-select"
+        multiple 
+        :width="300"
+        v-model="data2" 
+        placeholder="多选过滤" filterable >
+        <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
+      </Select>
+    </Space>
   </div>
 </template>
 <script>

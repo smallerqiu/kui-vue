@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Checkbox disabled>disabled</Checkbox>
     <Checkbox disabled
       :checked="true">disabled</Checkbox>
@@ -19,7 +19,7 @@
       size="small">{{checked?"Checked":"Uncheck"}}</Button>
     <Button @click="disabled=!disabled"
       size="small">{{disabled?"Enable":"Disabled"}}</Button>
-  </div>
+  </Space>
 </template>
 <script>
 export default {

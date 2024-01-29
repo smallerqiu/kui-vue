@@ -13,7 +13,7 @@
         <Skeleton avatar :loading="loading" :rows="2" animated>
           <Space>
             <Avatar size="large">{{item.name}}</Avatar>
-            <Space direction="vertical" align="start">
+            <Space vertical align="start">
               <h4>{{item.name}}</h4>
               <p class="sub-desc">{{item.intro}}</p>
             </Space>
@@ -34,6 +34,7 @@
 .demo-skeleton-list h4{
   font-size:14px;
   font-weight:bold;
+  margin:0;
 }
 .demo-skeleton-list .sub-desc{
   color:#999;
@@ -41,6 +42,7 @@
 .demo-skeleton-list .desc{
   margin-top:15px;
   line-height:25px;
+  margin:0;
 }
 </style>
 <script>

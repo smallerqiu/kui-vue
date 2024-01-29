@@ -8,6 +8,7 @@ export default {
     min: { type: Number },
     max: { type: Number },
     disabled: Boolean,
+    clearable: Boolean,
     formatter: Function,
     parser: Function,
     size: String,

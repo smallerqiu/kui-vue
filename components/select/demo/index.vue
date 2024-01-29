@@ -29,11 +29,4 @@ export default {
     )
   }
 }
-</script> 
-<style lang="less">
-.demo-select {
-  .k-select {
-    margin: 0 10px 10px 0;
-  }
-}
-</style>
+</script>

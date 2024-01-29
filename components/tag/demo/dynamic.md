@@ -5,11 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
     <Input v-show="showInput" @blur="add" size="small" style="width:81px" ref="input" :value="tag"/>
     <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">New Tag</Button>
-  </div>
+  </Space>
 </template>
 <script>
 import { Bookmark } from "kui-icons";

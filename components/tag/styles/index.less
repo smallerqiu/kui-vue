@@ -12,23 +12,30 @@
   border-radius: var(--kui-border-radius);
   box-sizing: border-box;
   white-space: nowrap;
-  margin-right: 8px;
   vertical-align: middle;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   color: var(--kui-color-font);
+
   &.k-tag-circle {
     border-radius: 16px;
   }
+
+  .k-tag-icon {
+    margin-right: 5px;
+  }
+
   .k-tag-close {
     font-size: 18px;
     margin-left: 2px;
     color: var(--kui-sub-title);
+
     &:hover {
       color: var(--kui-color-danger);
     }
   }
+
 
   &.k-tag-closeable {
     padding-right: 7px;
@@ -148,9 +155,14 @@
   height: 40px;
   padding: 0 18px;
 
+  .k-tag-text {
+    font-size: 16px;
+  }
+
   &.k-tag-closeable {
     padding-right: 9px;
   }
+
   &.k-tag-circle {
     border-radius: 20px;
   }

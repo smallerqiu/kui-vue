@@ -13,10 +13,14 @@
   transition: all .3s ease-in-out;
   box-sizing: border-box;
   gap: 8px;
-  padding: 0 8px;
+  padding: 0 0 0 8px;
 
   &:hover {
     border-color: var(--kui-color-main);
+  }
+
+  .k-input-number-clearable-hidden {
+    visibility: hidden;
   }
 
   .k-input-number-controls {
@@ -29,7 +33,6 @@
     justify-content: center;
     align-items: center;
     height: 30px;
-    margin-right: -8px;
   }
 
   .k-input-number-control {
@@ -128,6 +131,7 @@
 
 .k-input-number-sm {
   gap: 6px;
+  padding: 0 0 0 4px;
 
   .k-input-number-controls {
     height: 22px;
@@ -145,7 +149,7 @@
   }
 
   .k-input-number-icon {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .k-input-number-suffix {

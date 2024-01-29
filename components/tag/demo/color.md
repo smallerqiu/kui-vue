@@ -9,18 +9,18 @@
     <h4 style="margin-bottom: 16px">
       Presets:
     </h4>
-    <div>
+    <Space>
       <Tag :color="color" v-for="(color,i) in colors" :key="i">{{color}}</Tag> 
-    </div>
+    </Space>
     <h4 style="margin:16px 0">
       Custom:
     </h4>
-    <div>
+    <Space>
       <Tag color="#c20">#c20</Tag>
       <Tag color="#39f">#39f</Tag>
       <Tag color="#e3f">#e3f</Tag>
       <Tag color="#6c0">#6c0</Tag>
-    </div>
+    </Space>
   </div>
 </template>
 <script>

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical>
     <Select :width="200" clearable value="2" :bordered="false">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
@@ -19,6 +19,6 @@
       <Option value="4" label="Pear" />
     </Select>
     <Select :width="200" :showArrow="false" placeholder="隐藏下拉箭头" />
-  </div>
+  </Space>
 </template>
 ```

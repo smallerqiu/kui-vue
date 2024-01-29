@@ -5,12 +5,12 @@
 
 ```vue
 <template>
-  <div style="padding:10px;" class="demo-back">
+  <Space style="padding:10px;" class="demo-back">
     <Button type="primary" theme="solid">Primary</Button>
     <Button type="danger" theme="solid">Danger</Button>
     <Button type="warning" theme="solid">Warning</Button>
     <Button theme="solid">Default</Button>
     <Button type="dashed" theme="solid">Dashed</Button>
-  </div>
+  </Space>
 </template>
 ```

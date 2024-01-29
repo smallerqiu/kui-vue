@@ -5,11 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Tag>标签1</Tag>
     <Tag>标签2</Tag>
     <Tag>标签3</Tag>
     <Tag closeable>标签4</Tag>
-  </div>
+  </Space>
 </template>
 ```
