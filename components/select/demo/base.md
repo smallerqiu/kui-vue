@@ -12,16 +12,17 @@
     <Button @click="select=''" size="small">Clear</Button>
     <Button @click="select=1" size="small">Choose orange</Button>
     <br />
-    <Select :width="200" placeholder="Please Choose">
-      <Option :value="1" label="Apple" />
-      <Option :value="2" label="Orange" />
-      <Option :value="3" label="Banana" disabled/>
-      <Option :value="4" label="Pear" />
-    </Select>
-    <br />
-    <Select :width="200" value="1" disabled>
-      <Option value="1" label="disabled" />
-    </Select>
+    <Space vertical>
+      <Select :width="200" placeholder="Please Choose">
+        <Option :value="1" label="Apple" />
+        <Option :value="2" label="Orange" />
+        <Option :value="3" label="Banana" disabled/>
+        <Option :value="4" label="Pear" />
+      </Select>
+      <Select :width="200" value="1" disabled>
+        <Option value="1" label="disabled" />
+      </Select>
+    </Space>
   </div>
 </template>
 <script>

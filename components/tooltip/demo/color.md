@@ -7,17 +7,17 @@
 <template>
   <div class="demo-tooltip-color">
     <Divider orientation="left">Presets:</Divider>
-    <div>
+    <Space>
       <Tooltip :color="color" :title="color" v-for="color in colors" :key="color">
         <Tag :color="color">{{color}}</Tag>
       </Tooltip>
-    </div>
+    </Space>
     <Divider orientation="left">Custom:</Divider>
-    <div>
+    <Space>
       <Tooltip :color="color" :title="color" v-for="color in custom" :key="color">
         <Tag :color="color">{{color}}</Tag>
       </Tooltip>
-    </div>
+    </Space>
   </div>
 </template>
 <script>

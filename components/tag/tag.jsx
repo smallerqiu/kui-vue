@@ -6,6 +6,7 @@ export default {
     closeable: Boolean,
     color: String,
     shape: String,
+    icon: [String, Array],
     size: {
       default: 'small',
       validator(value) {
@@ -25,7 +26,7 @@ export default {
     }
   },
   render() {
-    const { visible, styles, shape, size, color, $slots, close, classes, closeable } = this
+    const { visible, styles, shape, icon, size, color, $slots, close, classes, closeable } = this
     const props = {
       on: {
         ...this.$listeners
@@ -43,6 +44,7 @@ export default {
     return (
       <transition name="k-tag">
         <div {...props} v-show={visible}>
+          {icon ? <Icon class="k-tag-icon" type={icon} /> : null}
           <span class="k-tag-text">
             {$slots.default}
           </span>

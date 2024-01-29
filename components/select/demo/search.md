@@ -6,28 +6,32 @@
 ```vue
 <template>
   <div class="demo-select">
-    <span>单选搜索: </span>
-    <Select 
-      v-model="s1" 
-      :width="300"
-      @search="search1"
-      :loading="loading1"
-      placeholder="单选搜索">
-      <Option :value="v" :label="v" v-for="(v,i) in options1" :key="i"/>
-    </Select>
+    <Space>
+      <span>单选搜索: </span>
+      <Select 
+        v-model="s1" 
+        :width="300"
+        @search="search1"
+        :loading="loading1"
+        placeholder="单选搜索">
+        <Option :value="v" :label="v" v-for="(v,i) in options1" :key="i"/>
+      </Select>
+      </Space>
     <p></p>
     <br/>
-    <span>多选搜索</span>
-    <Select 
-      class="demo-select"
-      multiple 
-      :width="300"
-      :loading="loading2"
-      @search="search2"
-      v-model="s2" 
-      placeholder="多选过滤">
-      <Option :value="v" :label="v" v-for="(v,i) in options2" :key="i"/>
-    </Select>
+    <Space>
+      <span>多选搜索</span>
+      <Select 
+        class="demo-select"
+        multiple 
+        :width="300"
+        :loading="loading2"
+        @search="search2"
+        v-model="s2" 
+        placeholder="多选过滤">
+        <Option :value="v" :label="v" v-for="(v,i) in options2" :key="i"/>
+      </Select>
+    </Space>
   </div>
 </template>
 <script>

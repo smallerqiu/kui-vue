@@ -13,19 +13,20 @@
     </RadioGroup>
     <br />
     <br />
-    <Select :width="256" :size="size" clearable filterable  :icon="Search">
-      <Option value="1" label="Apple" />
-      <Option value="2" label="Orange" />
-      <Option value="3" label="Banana"/>
-      <Option value="4" label="Pear" />
-    </Select>
-    <br />
-    <Select :width="256" :size="size" multiple v-model="value" filterable  :icon="Search">
-      <Option value="1" label="Apple" />
-      <Option value="2" label="Orange" />
-      <Option value="3" label="Banana" />
-      <Option value="4" label="Pear" />
-    </Select>
+    <Space vertical>
+      <Select :width="256" :size="size" clearable filterable  :icon="Search">
+        <Option value="1" label="Apple" />
+        <Option value="2" label="Orange" />
+        <Option value="3" label="Banana"/>
+        <Option value="4" label="Pear" />
+      </Select>
+      <Select :width="256" :size="size" multiple v-model="value" filterable  :icon="Search">
+        <Option value="1" label="Apple" />
+        <Option value="2" label="Orange" />
+        <Option value="3" label="Banana" />
+        <Option value="4" label="Pear" />
+      </Select>
+    </Space>
   </div>
 </template>
 <script>

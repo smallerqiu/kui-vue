@@ -5,22 +5,28 @@
 
 ```vue
 <template>
-  <Button type="primary" theme="normal">主要</Button>
-  <Button type="danger" theme="normal">危险</Button>
-  <Button type="warning" theme="normal">警告</Button>
-  <Button theme="normal">默认</Button>
+  <Space>
+    <Button type="primary" theme="normal">主要</Button>
+    <Button type="danger" theme="normal">危险</Button>
+    <Button type="warning" theme="normal">警告</Button>
+    <Button theme="normal">默认</Button>
+  </Space>
   <br/>
   <br/>
-  <Button type="primary" theme="normal":icon="Notifications" />
-  <Button type="danger" theme="normal":icon="Mail" />
-  <Button type="warning" theme="normal":icon="Notifications" />
-  <Button theme="normal":icon="Notifications" />
+  <Space>
+    <Button type="primary" theme="normal":icon="Notifications" />
+    <Button type="danger" theme="normal":icon="Mail" />
+    <Button type="warning" theme="normal":icon="Notifications" />
+    <Button theme="normal":icon="Notifications" />
+  </Space>
   <br/>
   <br/>
-  <Button type="primary" theme="normal":icon="Notifications" shape="circle" />
-  <Button type="danger" theme="normal":icon="Mail" shape="circle" />
-  <Button type="warning" theme="normal":icon="Notifications" shape="circle" />
-  <Button theme="normal":icon="Notifications" shape="circle" />
+  <Space>
+    <Button type="primary" theme="normal":icon="Notifications" shape="circle" />
+    <Button type="danger" theme="normal":icon="Mail" shape="circle" />
+    <Button type="warning" theme="normal":icon="Notifications" shape="circle" />
+    <Button theme="normal":icon="Notifications" shape="circle" />
+  </Space>
 </template>
 <script>
 import { Notifications, Mail } from "kui-icons"

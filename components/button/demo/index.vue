@@ -32,19 +32,3 @@ export default {
   }
 }
 </script>
-<style lang="less">
-.demo-button {
-  .k-btn,
-  .k-btn-group {
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  .k-btn-group,
-  .k-radio-group {
-    .k-btn {
-      margin-right: 0px;
-      margin-bottom: 0px;
-    }
-  }
-}
-</style>

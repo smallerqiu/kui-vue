@@ -24,10 +24,3 @@ export default {
   }
 }
 </script> 
-<style lang="less">
-.demo-checkbox {
-  .k-btn {
-    margin-left: 8px;
-  }
-}
-</style>

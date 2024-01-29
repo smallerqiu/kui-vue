@@ -11,7 +11,7 @@
     <Tooltip placement="top">
       <Button>Space</Button>
       <template slot="title">
-        <p>I am space</p>
+        <p style="margin:0">I am space</p>
       </template>
     </Tooltip>
   </Space>
