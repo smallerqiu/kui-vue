@@ -15,6 +15,7 @@ npm install kui-vue@latest
 `2024-01-30`
 - 重写了DatePicker组件 ,修复各种bug,支持预设范围,支持只选择时间
 - Tag 组件可以设置图标
+- Page 组建优化
 - 其它组件的一些细节优化.
 - 表单组件优化
 
