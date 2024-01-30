@@ -7,7 +7,6 @@
 <template>
   <div>
     <Space>
-      <p>Select value:{{data}}</p>
       <Select :width="300" multiple v-model="data" size="large" >
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
