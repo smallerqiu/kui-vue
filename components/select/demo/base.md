@@ -6,11 +6,13 @@
 ```vue
 <template>
   <div>
-    <Select :width="200" v-model="select" :options="data">
-      <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
-    </Select>
-    <Button @click="select=''" size="small">Clear</Button>
-    <Button @click="select=1" size="small">Choose orange</Button>
+    <Space>
+      <Select :width="200" v-model="select" :options="data">
+        <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
+      </Select>
+      <Button @click="select=''" size="small">Clear</Button>
+      <Button @click="select=1" size="small">Choose orange</Button>
+    </Space>
     <br />
     <Space vertical>
       <Select :width="200" placeholder="Please Choose">

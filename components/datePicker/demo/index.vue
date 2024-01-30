@@ -17,6 +17,7 @@ export default {
       <div class="demo-datepicker">
         <Info />
         <Base />
+        <Mode />
         <Theme />
         {/* <Inside /> */}
         <Presets />
@@ -24,7 +25,6 @@ export default {
         <NoBorder />
         <Format />
         <Size />
-        <Mode />
         <DisabledDate />
         <CN />
       </div>

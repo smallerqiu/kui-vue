@@ -397,7 +397,7 @@ export default {
     },
   },
   mounted() {
-    if (this.mode == 'month') {
+    if (this.mode == 'month' || this.mode == 'year') {
       this.initYearMonth()
     }
     if (this.isTime) {
@@ -427,7 +427,7 @@ export default {
         headNodeChilds.push(<Button icon={ChevronDoubleForward} size={pickerSize} theme="normal" class="k-calendar-next-year-btn" onClick={() => this.nextAndPrev(1, 'year')}></Button>)
       }
     } else {
-      headNodeChilds.push(<div class="k-calendar-time-label">请选择时间</div>)
+      headNodeChilds.push(<div class="k-calendar-time-label">{t('k.datePicker.selectTime')}</div>)
     }
     const headNode = <div class="k-calendar-head">{headNodeChilds}</div>
 
