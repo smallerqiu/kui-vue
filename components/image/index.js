@@ -5,7 +5,7 @@ import Vue from 'vue'
 // import { easyEqual } from '../_tool/utils'
 
 Image.show = function (options) {
-  console.log(options)
+  // console.log(options)
   let preview = Vue.prototype.preview || createInstance({ type: options.type })
   preview.show(options)
 }

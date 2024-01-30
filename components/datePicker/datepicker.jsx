@@ -248,7 +248,7 @@ export default {
       let { presets } = this
       if (presets && presets.length > 1) {
         let childs = []
-        for (let i = 0; i < presets.length - 1; i++) {
+        for (let i = 0; i < presets.length; i++) {
           childs.push(<Button theme="normal" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
         }
         return <div class="k-date-picker-presets">{childs}</div>

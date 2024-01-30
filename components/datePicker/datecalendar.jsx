@@ -179,7 +179,7 @@ export default {
       let rv1h2 = this.h2 && dayjs(date).isAfter(this.v1, 'date') && dayjs(date).isBefore(this.h2, 'date')
       //range v1,v2
       let rv1v2 = this.v2 && dayjs(date).isAfter(this.v1, 'date') && dayjs(date).isBefore(this.v2, 'date')
-      console.log(rv1h2, rv1v2)
+      // console.log(rv1h2, rv1v2)
       return this.isRange && this.v1 && (rv1h2 || rv1v2)
     },
     getDaysNode() {
