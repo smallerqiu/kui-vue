@@ -12,7 +12,7 @@ export default {
       ['k-card-bordered']: bordered
     }]
     const extra = $slots.extra ? <div class="k-card-extra">{$slots.extra}</div> : null
-    const iconNode = icon ? <Icon type={icon} /> : null
+    const iconNode = icon ? <Icon type={icon} class="k-card-title-icon" /> : null
     const titleNode = title ? <span class="k-card-title">{title}</span> : $slots.title || null
     return (
       <div class={classes}>
