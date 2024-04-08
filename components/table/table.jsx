@@ -91,7 +91,7 @@ export default {
               [c.className]: c.className
             }],
             attrs: {
-              title: c.ellipsis ? d[c.key] : null
+              title: c.ellipsis ? this.toString(d[c.key]) : null
             },
             style: {}
           }
@@ -217,6 +217,13 @@ export default {
   },
 
   methods: {
+    toString(obj) {
+      if (typeof obj === 'object' && obj !== null) {
+        return JSON.stringify(obj);
+      } else {
+        return String(obj);
+      }
+    },
     sorter(item) {
       let { key, _order } = item
       this.$emit('change', this.filters, { key, order: _order })

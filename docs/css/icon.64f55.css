@@ -1,0 +1,8 @@
+/*!
+ * kui-vue v3.3.9
+ *  Copyright 2017-present, kui-vue.
+ *  All rights reserved.
+ *  Docs: https://k-ui.cn
+ * Author: chuchur@qq.com / www.chuchur.com
+ *
+ */.icon-list{display:inline-block}.icon-list .icon-item{align-items:center;color:var(--kui-color-font);cursor:pointer;display:inline-flex;flex-direction:column;font-size:32px;height:80px;justify-content:center;line-height:80px;text-align:center;transition:color .3s ease-in-out;width:200px}.icon-list .icon-item:hover{box-shadow:0 0 15px #ddd;color:#3a95ff}.icon-list .item-text{font-size:12px;line-height:1;padding:10px 0}
