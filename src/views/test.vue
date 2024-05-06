@@ -1,10 +1,10 @@
 <template>
   <div>
-    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" mode="dateTime"/>
+    <DatePicker  mode="dateTime"  @change="change"/>
     <br/>
-    <DatePicker value="2019-10-12" format="YYYY/MM/DD"/>
+    <DatePicker value="2019-10-12" format="YYYY/MM/DD" @change="change"/>
     <br/>
-    <DatePicker value="2019-10-12" format="YYYY.MM.DD"/>
+    <DatePicker value="2019-10-12" format="YYYY.MM.DD" @change="change"/>
     <br/>
     <DatePicker v-model="date" format="YYYY.MM.DD" mode="dateRange" @change="change"/>{{date}}
   </div>

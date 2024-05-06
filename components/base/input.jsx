@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       currentValue: this.value,
-      // isFocus: false,
+      isFocus: false,
       // isEnter: false,
       isPassword: true,
     };
