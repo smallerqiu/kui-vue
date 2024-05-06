@@ -99,10 +99,12 @@ export default {
       let { currentValue, isRange } = this
       if (isRange) {
         let [a, b] = currentValue || []
-        this.d1 = a ? dayjs(a) : dayjs(), this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
+        this.d1 = a ? dayjs(a) : dayjs()
+        this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
         if (this.d1.isSame(this.d2, 'month')) {
           this.d2 = this.d1.add(1, 'month')
         }
+        // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
       } else {
         this.d1 = currentValue ? dayjs(currentValue) : dayjs()
       }
@@ -138,6 +140,7 @@ export default {
       }
     },
     picker1Update(value, type) {
+      console.log(type)
       let { isRange, format, fmt, mode } = this
       if (!isRange) {
         if (!type) {
@@ -159,7 +162,7 @@ export default {
 
       } else {
         let { v1, v2, withTime } = this
-        if (!type) { //只改变年月时间
+        if (!type) { //for day
           this.d1 = dayjs(value)
           if (!v1 && !v2) {
             this.v1 = dayjs(value)
@@ -172,22 +175,32 @@ export default {
             let dateStr = [v1.format(ft), this.v2.format(ft)]
             // console.log(dateStr)
             // return
+
             this.$emit('input', dateStr)
             this.$emit('change', this.currentValue, dateStr)
             this.updateCalendDate()
             if (!withTime) {
               this.opened = false
             }
+            console.log('22')
           } else if (v1 && v2) {
+            console.log('333')
             this.v1 = dayjs(value)
             this.v2 = null
             this.currentValue = [dayjs(value),]
           }
         } else {
+          console.log('11')
           this.v1 = (this.v1 || dayjs())[type](value)
 
           this.currentValue = [this.v1, v2]
           this.d1 = this.d1[type](value)
+
+          let ft = format || fmt[mode]
+          let dateStr = [v1.format(ft), this.v2.format(ft)]
+          this.$emit('input', dateStr)
+          this.$emit('change', this.currentValue, dateStr)
+          this.updateCalendDate()
         }
         if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
           this.d2 = this.d1.add(1, 'month')
@@ -230,6 +243,12 @@ export default {
           this.currentValue = [v1, this.v2]
           this.d2 = this.d2[type](value)
         }
+
+        let ft = format || fmt[mode]
+        let dateStr = [v1.format(ft), this.v2.format(ft)]
+        this.$emit('input', dateStr)
+        this.$emit('change', this.currentValue, dateStr)
+        this.updateCalendDate()
       }
       if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
         this.d1 = this.d2.subtract(1, 'month')
