@@ -164,7 +164,9 @@ export default {
       }
     },
     isDisabled(date) {
-      return (this.v1 && this.isRange && dayjs(date).isBefore(this.v1, 'date') && !this.v2) || this.disabledDate(date)
+      return (this.v1 && this.isRange && dayjs(date).isBefore(this.v1, 'date') && !this.v2)
+        || (this.v2 && this.isRange && dayjs(date).isAfter(this.v2, 'date') && !this.v1)
+        || this.disabledDate(date)
     },
     dayMouseHover(date) {
       if (this.v1 && !this.v2) {
@@ -311,6 +313,7 @@ export default {
     },
     getTimesNode() {
       let { $H, $m, $s } = this.date
+      // console.log($H, $m, $s)
       let hours = [], minus = [], sec = [];
       //hour
       for (let j = 0; j < 24; j++) {

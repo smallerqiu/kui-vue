@@ -1,26 +1,18 @@
 <template>
-  <div>
-    <DatePicker  mode="dateTime"  @change="change"/>
-    <br/>
-    <DatePicker value="2019-10-12" format="YYYY/MM/DD" @change="change"/>
-    <br/>
-    <DatePicker value="2019-10-12" format="YYYY.MM.DD" @change="change"/>
-    <br/>
-    <DatePicker v-model="date" format="YYYY.MM.DD" mode="dateRange" @change="change"/>{{date}}
+  <div style="margin: 400px;"> 
+    <DatePicker mode='year' placeholder="请选择年份" />
+    <br />
+    <DatePicker mode='month' placeholder="请选择月份" />
+    <br />
+    <DatePicker />
+    <br />
+    <DatePicker mode="time" placeholder="请选择时间" />
+    <br />
+    <DatePicker placeholder="请选择时间" mode="dateTime" />
+    <br />
+    <DatePicker :placeholder="['Start Date','End Date']" mode="dateRange"/>
+    <br />
+    <DatePicker :placeholder="['Start Time','End Time']" mode="dateTimeRange" />
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      date:['2019-10-12','2020-10-19']
-    }
-  },
-  methods:{
-    change(date){
-      console.log(date)
-    }
-  }
-}
-</script>
 
