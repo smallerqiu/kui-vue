@@ -11,6 +11,11 @@ npm install kui-vue@latest
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+### 3.3.10
+`2024-04-08`
+- 修复`DatePicker`,change 事件触发问题
+- UI 细节调整
+
 ### 3.3.9
 `2024-04-08`
 - 优化`Card`,`Table`组件细节
