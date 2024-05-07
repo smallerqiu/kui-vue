@@ -1,0 +1,8 @@
+/*!
+ * kui-vue v3.3.10
+ *  Copyright 2017-present, kui-vue.
+ *  All rights reserved.
+ *  Docs: https://k-ui.cn
+ * Author: chuchur@qq.com / www.chuchur.com
+ *
+ */.demo-grid .h-64{height:64px;line-height:64px}.demo-grid .h-96{height:96px;line-height:96px}.demo-grid .h-128{height:128px;line-height:128px}.demo-grid .h-72{height:72px;line-height:72px}.demo-grid .k-row-flex{padding:10px 0}.demo-grid .k-row{margin:10px 0}.demo-grid .k-row .k-col{color:#fff;padding:10px 0;text-align:center}.demo-grid .k-row .k-col:nth-child(2n){background:rgba(0,153,229,.7)}.demo-grid .k-row .k-col:nth-child(odd){background:rgba(0,153,229,.9)}.demo-grid .k-row.row-gutter .k-col{background:transparent}.demo-grid .k-row.row-gutter .k-col div{box-sizing:border-box;line-height:45px}.demo-grid .k-row.row-gutter .k-col div:nth-child(2n){background:rgba(0,153,229,.7)}.demo-grid .k-row.row-gutter .k-col div:nth-child(odd){background:rgba(0,153,229,.9)}
