@@ -45,8 +45,8 @@ export default {
       opened: false,
       currentValue: this.value,
       v1: null, // render selected
-      v2: null,
-      d1: null, //render date 
+      v2: null, //
+      d1: null, //render date view
       d2: null,
       h2: null,
       fmt: {
@@ -102,7 +102,7 @@ export default {
         this.d1 = a ? dayjs(a) : dayjs()
         this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
         if (this.d1.isSame(this.d2, 'month')) {
-          this.d2 = this.d1.add(1, 'month')
+          this.d2 = this.d2.add(1, 'month')
         }
         // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
       } else {
@@ -140,10 +140,9 @@ export default {
       }
     },
     picker1Update(value, type) {
-      console.log(type)
       let { isRange, format, fmt, mode } = this
       if (!isRange) {
-        if (!type) {
+        if (!type) { //for day
           this.d1 = dayjs(value)
           this.v1 = dayjs(value)
         } else {
@@ -166,93 +165,72 @@ export default {
           this.d1 = dayjs(value)
           if (!v1 && !v2) {
             this.v1 = dayjs(value)
-            this.currentValue = [dayjs(value),]
+            this.currentValue = [dayjs(value), v2]
           } else if (v1 && !v2) {
             this.v2 = dayjs(value)
             this.currentValue = [v1, this.v2]
 
-            let ft = format || fmt[mode]
-            let dateStr = [v1.format(ft), this.v2.format(ft)]
-            // console.log(dateStr)
-            // return
+            this.updateStr()
 
-            this.$emit('input', dateStr)
-            this.$emit('change', this.currentValue, dateStr)
-            this.updateCalendDate()
             if (!withTime) {
               this.opened = false
             }
-            console.log('22')
           } else if (v1 && v2) {
-            console.log('333')
             this.v1 = dayjs(value)
             this.v2 = null
-            this.currentValue = [dayjs(value),]
+            this.currentValue = [dayjs(value), v2]
           }
         } else {
-          console.log('11')
-          this.v1 = (this.v1 || dayjs())[type](value)
-
+          this.v1 = (this.v1 || dayjs(this.d1))[type](value)
           this.currentValue = [this.v1, v2]
           this.d1 = this.d1[type](value)
 
-          let ft = format || fmt[mode]
-          let dateStr = [v1.format(ft), this.v2.format(ft)]
-          this.$emit('input', dateStr)
-          this.$emit('change', this.currentValue, dateStr)
-          this.updateCalendDate()
+          this.updateStr()
         }
         if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
-          this.d2 = this.d1.add(1, 'month')
+          this.d2 = this.d2.add(1, 'month')
         }
       }
     },
+
     picker2Update(value, type) {
       let { v1, v2, withTime, format, fmt, mode } = this
-      if (!type) { //day
-        this.d2 = value
-        if (!v1 && !v2) {
+      if (!type) { //for day
+        this.d2 = dayjs(value)
+        if (!v1) {
           this.v1 = dayjs(value)
-          this.currentValue = [dayjs(value),]
+          this.currentValue = [dayjs(value), v2]
         } else if (v1 && !v2) {
           this.v2 = dayjs(value)
           this.currentValue = [v1, this.v2]
 
-          let ft = format || fmt[mode]
-          let dateStr = [v1.format(ft), this.v2.format(ft)]
-          this.$emit('input', dateStr)
-          this.$emit('change', this.currentValue, dateStr)
-          this.updateCalendDate()
-
-          // console.log(dateStr)
+          this.updateStr()
           if (!withTime) {
             this.opened = false
           }
         } else if (v1 && v2) {
           this.v1 = dayjs(value)
           this.v2 = null
-          this.currentValue = [dayjs(value),]
+          this.currentValue = [dayjs(value), this.v2]
         }
       } else {  //for year , month , datetime 
-        if (!this.v1) {
-          this.v1 = (this.v1 || dayjs())[type](value)
-          this.currentValue = [this.v1, v2]
-          this.d2 = this.d2[type](value)
-        } else {
-          this.v2 = (this.v2 || dayjs())[type](value)
-          this.currentValue = [v1, this.v2]
-          this.d2 = this.d2[type](value)
-        }
 
-        let ft = format || fmt[mode]
-        let dateStr = [v1.format(ft), this.v2.format(ft)]
-        this.$emit('input', dateStr)
-        this.$emit('change', this.currentValue, dateStr)
-        this.updateCalendDate()
+        this.v2 = (this.v2 || dayjs(this.d2))[type](value)
+        this.d2 = this.d2[type](value)
+        this.currentValue = [v1, this.v2]
+        this.updateStr()
       }
       if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
-        this.d1 = this.d2.subtract(1, 'month')
+        this.d1 = this.d1.subtract(1, 'month')
       }
+    },
+    updateStr() {
+      let { v1, v2, withTime, format, fmt, mode } = this
+      let ft = format || fmt[mode]
+      let dateStr = [v1 ? v1.format(ft) : null, v2 ? v2.format(ft) : null]
+      this.$emit('input', dateStr)
+      this.$emit('change', this.currentValue, dateStr)
+      this.updateCalendDate()
     },
     validValue(e) {
       // 只有一个值的时候, 直接置空
@@ -383,7 +361,6 @@ export default {
             if (v) {
               this.opened = false
               this.validValue(e)
-
             }
           },
           hd: (v) => {
