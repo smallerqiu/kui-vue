@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+
   .k-pager {
     margin: 0;
     display: flex;
@@ -39,7 +40,7 @@
       &:hover {
         // border-color: var(--kui-color-main-hover);
         // color: var(--kui-color-main-hover);
-        background-color: var(--kui-color-border);
+        background-color: var(--kui-color-hover);
 
         .k-icon {
           color: var(--kui-color-main-hover);
@@ -47,8 +48,9 @@
       }
 
       &:active {
-        border-color: var(--kui-color-main-actived);
-        color: var(--kui-color-main-actived);
+        // border-color: var(--kui-color-main-actived);
+        background-color: var(--kui-color-actived);
+        // color: var(--kui-color-main-actived);
 
         .k-icon {
           color: var(--kui-color-main-actived);
@@ -112,7 +114,8 @@
       }
 
       &:hover {
-        border-color: var(--kui-color-disable-border);
+        // border-color: var(--kui-color-disable-border);
+        background: none;
 
         .k-icon {
           color: var(--kui-color-disable-color);

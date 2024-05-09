@@ -88,6 +88,8 @@ export default {
       let cssText = `
       body[theme-type='custom']{
           --kui-color-main:${str});
+          --kui-color-main-hover:${str},.9);
+          --kui-color-main-actived:${str},.75);
           --kui-color-main-10:${str},.9);
           --kui-color-main-30:${str},.7);
           --kui-color-main-60:${str},.4);

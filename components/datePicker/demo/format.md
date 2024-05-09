@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" mode="dateTime"/>
+    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" mode="dateTime" style="width:210px"/>
     <br/>
     <DatePicker value="2019-10-12" format="YYYY/MM/DD"/>
     <br/>
