@@ -32,7 +32,7 @@
       <FormItem label="Captcha" prop="captcha">
         <Input >
           <template slot="suffix">
-            <Button size="small" type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
+            <Button size="small" type="primary" v-if="time==60" theme="normal" @click="sendCode">获取验证码</Button>
             <span v-else>{{time}}(s)</span>
           </template>
         </Input>
