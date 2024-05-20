@@ -56,7 +56,7 @@ export default {
   render() {
     let { $slots, disabled, Dropdown, opened, Menu, SubMenu, icon, rendered } = this
     let key = this.$vnode.key || 'sub_' + this._uid
-    const { currentMode, theme, selectedKeys,  inlineCollapsed,
+    const { currentMode, theme, selectedKeys, inlineCollapsed,
       mode, defaultOpenKeys } = Menu
     let selected = selectedKeys.indexOf(key) >= 0
 
@@ -76,14 +76,17 @@ export default {
         click: () => this.openChange(),
         mouseenter: () => this.showPopupMenu(),
         mouseleave: () => this.hidePopupMenu()
-      }
+      },
+      // style: {
+      //   paddingLeft: this.zIndex * 32 + 'px'
+      // }
     }
 
     let title = this.title || $slots.title
     const titleNode = <div {...titleProps}>
       <span class={`k-${preCls}-inner`}>
         {icon ? <Icon type={icon} /> : null}
-        {isVnode(title) ? title : <span>{title}</span>}
+        {isVnode(title) ? title : <span class="k-menu-title-content">{title}</span>}
       </span>
       <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
         ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} />
@@ -91,7 +94,7 @@ export default {
 
     const popupProps = {
       slot: 'content',
-      class: [`k-${preCls}-popup`],
+      class: [`k-${preCls}-sub`],
       style: {
         'min-width': `${this.minWidth}px`,
         'margin-left': theme == 'dark' && !SubMenu && mode == "horizontal" ? '-16px' : null

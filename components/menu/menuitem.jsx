@@ -72,15 +72,20 @@ export default {
             }
           }
         },
-      }
+      },
+      style: {}
     }
+    // console.log(SubMenu.zIndex)
+    // if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline')) {
+    //   props.style.paddingLeft = SubMenu.zIndex * 34 + 'px'
+    // }
     const showTooltip = !SubMenu && Menu.inlineCollapsed
     let child = title || getChild(this.$slots.default)
-    let titleNode = child.length > 1 ? <span>{child}</span> : (isVnode(child[0]) ? child : <span>{child}</span>)
+    let titleNode = child.length > 1 ? <span class={`k-${preCls}-title-content`}>{child}</span> : (isVnode(child[0]) ? child : <span class={`k-${preCls}-title-content`}>{child}</span>)
     return (
       <Tooltip placement="right">
         <li {...props}>
-          {this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : <span class={`k-${preCls}-icon-temp`} />}
+          {this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)}
           {titleNode}
         </li>
         {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
