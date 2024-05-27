@@ -16,7 +16,8 @@ export default {
     trigger: { type: String, default: "click" },
     transitionName: { type: String, default: 'dropdown' },
     selection: { validator: v => true },
-    updateKey: [String, Object, Array]
+    updateKey: [String, Object, Array],
+    offsetLeft: { type: Number, default: 0 }
   },
 
   watch: {
@@ -121,7 +122,7 @@ export default {
       let { selection, transfer, placement } = this
       getPosition(selection, this.$el, transfer, placement, (top, left, origin, placement) => {
         this.top = top
-        this.left = left
+        this.left = left + (placement.includes('right') ? this.offsetLeft : -this.offsetLeft)
         // this.minWidth = this.selection.offsetWidth
         this.transformOrigin = origin
         this.currentPlacement = placement

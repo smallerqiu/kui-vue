@@ -3,7 +3,6 @@ import BasePop from '../base/pop'
 import CMenu from './menu.jsx'
 import { getChild, isVnode } from '../_tool/utils'
 import Icon from '../icon'
-// import cloneVNode from '../_tool/clone'
 import { ChevronDown, ChevronForward } from 'kui-icons'
 
 export default {
@@ -30,7 +29,13 @@ export default {
       left: null,
       minWidth: null,
       rendered: false,
+      zIndex: 1,
     };
+  },
+  created() {
+    if (this.SubMenu) {
+      this.zIndex += this.SubMenu.zIndex
+    }
   },
   mounted() {
     let { SubMenu, Menu } = this
@@ -74,20 +79,19 @@ export default {
       class: `k-${preCls}-title`,
       on: {
         click: () => this.openChange(),
-        mouseenter: () => this.showPopupMenu(),
-        mouseleave: () => this.hidePopupMenu()
+        mouseenter: this.showPopupMenu,
+        mouseleave: this.hidePopupMenu
       },
-      // style: {
-      //   paddingLeft: this.zIndex * 32 + 'px'
-      // }
+      style: {
+      }
     }
-
+    if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline' && !Menu.inlineCollapsed)) {
+      titleProps.style.paddingLeft = this.zIndex * 16 + 'px'
+    }
     let title = this.title || $slots.title
     const titleNode = <div {...titleProps}>
-      <span class={`k-${preCls}-inner`}>
-        {icon ? <Icon type={icon} /> : null}
-        {isVnode(title) ? title : <span class="k-menu-title-content">{title}</span>}
-      </span>
+      {icon ? <Icon type={icon} class="k-menu-item-icon" /> : null}
+      {isVnode(title) ? title : <span class="k-menu-title-content">{title}</span>}
       <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
         ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} />
     </div>
@@ -100,15 +104,15 @@ export default {
         'margin-left': theme == 'dark' && !SubMenu && mode == "horizontal" ? '-16px' : null
       },
       on: {
-        mouseenter: () => {
-          clearTimeout(this.timer);
-          this.active = true;
-          if (!showInline)
-            this.opened = true
-        },
-        mouseleave: () => {
-          this.hidePopupMenu()
-        },
+        // mouseenter: () => {
+        //   clearTimeout(this.timer);
+        //   this.active = true;
+        //   // if (!showInline)
+        //   //   this.opened = true
+        // },
+        // mouseleave: () => {
+        //   // this.hidePopupMenu()
+        // },
       }
     }
 
@@ -123,23 +127,32 @@ export default {
     const childNode = <div {...popupProps}><CMenu mode={types} theme={theme}>{$slots.default}</CMenu></div>
 
     let popMenuNode = null
-    if (((!showInline || inlineCollapsed) && !SubMenu && !Dropdown)) {
+    // if (((!showInline || inlineCollapsed) && !SubMenu && !Dropdown)) {
+    if (!showInline || inlineCollapsed) {
       const popProps = {
         props: {
+          isMenu: true,
           showPlacementArrow: false,
           preCls: preCls + '-popup',
-          transfer: !SubMenu,
-          placement: currentMode == 'horizontal' ? 'bottom-left' : 'right-top',
+          // transfer: !SubMenu,
+          transfer: true,
+          placement: currentMode == 'horizontal' && !SubMenu && !Dropdown ? 'bottom-left' : 'right-top',
           value: opened,
+          offsetLeft: currentMode == 'vertical' || inlineCollapsed || (currentMode == 'horizontal' && SubMenu) ? 6 : 0,
         },
         on: {
+          click: this.openChange,
+          mouseleave: this.subMouseLeave,
+          mouseenter: this.subMouseEnter,
           input: (opened) => {
-            if (currentMode == 'horizontal')
-              this.minWidth = this.$el.offsetWidth
+            this.opened = opened
+            // if (currentMode == 'horizontal') {
+            //   this.minWidth = this.$el.offsetWidth
+            // }
           }
         }
       }
-      popMenuNode = <BasePop {...popProps}>{[titleNode, childNode]}</BasePop>
+      popMenuNode = <BasePop {...popProps} ref="pop">{[titleNode, childNode]}</BasePop>
     } else {
       popMenuNode = [titleNode, rendered ? <Collapse collapse={showInline && !inlineCollapsed}
         name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse> : null]
@@ -154,14 +167,44 @@ export default {
     return (<li class={classes}>{popMenuNode}</li>)
   },
   methods: {
-    hidePopupMenu() {
+    subMouseEnter(e) {
       if (this.disabled) return;
-      this.active = false
+      clearTimeout(this.timer)
+      let sub = this.SubMenu
+      console.log(this.SubMenu, this.Dropdown)
+      while (sub) {
+        // sub.active = true
+        clearTimeout(sub.timer)
+        clearTimeout(sub.$refs.pop.timer)
+        sub = sub.SubMenu
+      }
+      let drop = this.Dropdown
+      if (drop) {
+        clearTimeout(drop.timer)
+        clearTimeout(drop.$refs.pop.timer)
+      }
+    },
+    subMouseLeave(e) {
+      if (this.disabled) return;
+      let sub = this.SubMenu
+      this.hidePopupMenu()
+      while (sub) {
+        sub.hidePopupMenu()
+        sub = sub.SubMenu
+      }
+      let drop = this.Dropdown
+      if (drop) {
+        drop.hidePopup()
+      }
+    },
+    hidePopupMenu() { //for sub title
+      if (this.disabled) return;
       let { Menu } = this
       let { currentMode, inlineCollapsed } = Menu
       if (currentMode != 'inline' || inlineCollapsed) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
+          this.active = false
           this.opened = false
 
           let openKeys = [].concat(Menu.defaultOpenKeys)
@@ -169,15 +212,25 @@ export default {
             index = openKeys.indexOf(key)
           index > -1 && openKeys.splice(index, 1)
           Menu.openChange(openKeys)
-        }, 300);
+        }, 200);
       }
     },
-    showPopupMenu() {
+    showPopupMenu() { //for sub title
       if (this.disabled) return;
-      clearTimeout(this.timer)
-      this.active = true
       let { Menu } = this
       let { currentMode, inlineCollapsed } = Menu
+      if (currentMode == 'inline' && !inlineCollapsed) return;
+      clearTimeout(this.timer)
+      this.active = true
+      if (this.$refs.pop) {
+        clearTimeout(this.$refs.pop.timer)
+      }
+      if (this.Dropdown) {
+        clearTimeout(this.Dropdown.timer)
+      }
+      if (currentMode == 'horizontal') {
+        this.minWidth = this.$el.offsetWidth
+      }
       if (currentMode != 'inline' || inlineCollapsed) {
         this.rendered = true
         this.$nextTick(() => {
@@ -193,7 +246,7 @@ export default {
     openChange() {
       if (this.Menu) {
         let { currentMode, defaultOpenKeys, accordion, inlineCollapsed } = this.Menu
-        if (currentMode != 'inline' || inlineCollapsed) return;
+        // if (currentMode != 'inline' || inlineCollapsed) return;
         let openKeys = [].concat(defaultOpenKeys)
         let key = this.$vnode.key || 'sub_' + this._uid
         let index = openKeys.indexOf(key)

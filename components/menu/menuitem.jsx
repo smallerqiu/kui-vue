@@ -76,20 +76,21 @@ export default {
       style: {}
     }
     // console.log(SubMenu.zIndex)
-    // if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline')) {
-    //   props.style.paddingLeft = SubMenu.zIndex * 34 + 'px'
-    // }
-    const showTooltip = !SubMenu && Menu.inlineCollapsed
+    if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline' && !Menu.inlineCollapsed)) {
+      props.style.paddingLeft = (SubMenu.zIndex + 1) * 16 + 'px'
+    }
+    // 没有子集的时候才展示
+    const showTooltip = Menu.inlineCollapsed && !SubMenu
     let child = title || getChild(this.$slots.default)
-    let titleNode = child.length > 1 ? <span class={`k-${preCls}-title-content`}>{child}</span> : (isVnode(child[0]) ? child : <span class={`k-${preCls}-title-content`}>{child}</span>)
+    let titleNode = <span class={`k-${preCls}-title-content`}>{child}</span>
+    let iconNode = this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)
+    let menuItem = <li {...props}>{iconNode}{titleNode}</li>
+    return menuItem
     return (
-      <Tooltip placement="right">
-        <li {...props}>
-          {this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)}
-          {titleNode}
-        </li>
-        {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
-      </Tooltip>
+      // <Tooltip placement="right">
+      { menuItem }
+      // {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
+      // </Tooltip> 
     )
   },
 };

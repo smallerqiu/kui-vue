@@ -11,7 +11,8 @@ module.exports = defineConfig({
   productionSourceMap: false, //no .map
   configureWebpack: {
     // optimization: {
-    //   splitChunks: true,
+    // runtimeChunk: 'single',
+    // splitChunks: true,
     // },
     // externals: {
     // 'lodash': {
@@ -32,6 +33,7 @@ module.exports = defineConfig({
     // entry: {
     //   'kui': '/components/bin/index.js'
     // },
+    // ],
     devtool: 'eval',
     resolve: {
       alias: {
@@ -41,7 +43,7 @@ module.exports = defineConfig({
     }
   },
   chainWebpack: (config) => {
-    
+    config.optimization.runtimeChunk = 'single'
     const isProduction = NODE_ENV === 'production';
     if (!isProduction || npm_lifecycle_event == 'builddocs') {
       config.module.rule('md')

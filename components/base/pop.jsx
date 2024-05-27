@@ -18,6 +18,7 @@ export default {
     title: String,
     showPlacementArrow: { type: Boolean, default: true },
     width: [Number, String],
+    offsetLeft: { type: Number, default: 0 },
     placement: {
       validator(value) {
         return (
@@ -29,7 +30,8 @@ export default {
     okText: String,
     cancelText: String,
     updateKey: [String, Object, Array],
-    show: Boolean
+    show: Boolean,
+    isMenu: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -65,6 +67,7 @@ export default {
       if (this.trigger == "hover" && !this.confirm && !this.opened) {
         this.toggle(true)
       }
+      this.$emit('mouseenter', e)
     },
     mouseLeave(e) {
       if (this.trigger == 'hover' &&
@@ -98,16 +101,16 @@ export default {
           this.toggle(true)
         }
       }
+      this.$emit('click', e)
 
     },
     renderPopup() {
       let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;
 
-      title = title || getChild($slots.title)
-      // console.log(title)
       let okText = this.okText || t('k.pop.ok')
       let cancelText = this.cancelText || t('k.pop.cancel')
       if (this.showPlacementArrow) {
+        title = title || getChild($slots.title)
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
           contentNode = [<Icon type={HelpCircle} />, <div class={`k-${preCls}-title`}>{title}</div>]
@@ -135,11 +138,13 @@ export default {
       } else {
         childNode = $slots.content
       }
+      // console.log(childNode)
       const props = {
         ref: 'overlay',
         key: this.$vnode.key,
         props: {
           transfer,
+          offsetLeft: this.offsetLeft,
           value: this.opened,
           className: [`k-${preCls}`, {
             [`k-${preCls}-${color}`]: color && !/^#/.test(color),
@@ -158,11 +163,15 @@ export default {
           mouseenter: e => {
             if (this.$refs.overlay.$el.contains(e.target)) {
               clearTimeout(this.timer)
+              this.$emit('mouseenter', e)
             }
           },
           mouseleave: e => {
+            this.$emit('mouseleave', e)
             if (this.trigger == 'hover') {
-              this.toggle(false);
+              this.timer = setTimeout(() => {
+                this.toggle(false);
+              }, 200);
             }
           },
           hide: () => {
@@ -178,12 +187,13 @@ export default {
   },
 
   render() {
+    // console.log(this.isMenu)
     let { $slots } = this
     let vNode = getChild($slots.default)[0]
     let popup = this.renderPopup()
-
-    const props = {
-      on: {
+    let props = {}
+    if (!this.isMenu) {
+      props.on = {
         'contextmenu': e => this.contextMenu(e),
         'mouseenter': e => this.mouseEnter(e),
         'mouseleave': e => this.mouseLeave(e),
