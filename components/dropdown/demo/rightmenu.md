@@ -13,22 +13,22 @@
         color: '#999',
       }" class="demo-back">Right Click on here</div>
     <Menu slot="content">
-      <MenuItem key="news">New file</MenuItem>
-      <MenuItem key="edit">Edit</MenuItem>
+      <MenuItem key="news" :icon="Document">New file</MenuItem>
+      <MenuItem key="edit" :icon="IconEdit">Edit</MenuItem>
       <MenuItem key="save" :icon="Save">Save</MenuItem>
       <MenuItem key="cut" :icon="Cut">Cut</MenuItem>
       <MenuDivider />
-      <MenuItem key="exit">Exit</MenuItem>
+      <MenuItem key="exit" :icon="Exit">Exit</MenuItem>
     </Menu>
   </Dropdown>
 </template>
 
 <script>
-import { Save, Cut } from 'kui-icons'
+import { Save, Cut, Document, IconEdit, Exit } from 'kui-icons'
 export default {
   data() {
     return {
-      Save, Cut
+      Save, Cut, Document, IconEdit, Exit
     }
   },
   methods:{

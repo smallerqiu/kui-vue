@@ -1,4 +1,4 @@
-import PopBase from '../base/pop'
+import BasePop from '../base/pop'
 
 export default {
   name: 'Dropdown',
@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      timer: null,
       visible: this.value || false
     }
   },
@@ -48,13 +49,20 @@ export default {
       }
     }
     return (
-      <PopBase {...props}>
+      <BasePop {...props} ref="pop">
         {this.$slots.default}
         <template slot="content">{this.$slots.content}</template>
-      </PopBase >
+      </BasePop >
     )
   },
   methods: {
+    hidePopup() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.visible = false
+        this.$emit('input', false)
+      }, 200);
+    },
     handleClick(options) {
       this.$emit('click', options)
       this.visible = false

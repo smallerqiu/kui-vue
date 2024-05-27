@@ -76,7 +76,7 @@ export function cloneVNode(vnode, options = {}, childs) {
       componentOptions.children = componentOptions.children.concat(childs)
     }
   }
-  let ndata = JSON.parse(JSON.stringify(data))
+  // let ndata = JSON.parse(JSON.stringify(data))
   let { attrs = {}, on = {}, style = {} } = data
 
   data.attrs = Object.assign(attrs, options.attrs)
@@ -151,7 +151,7 @@ export function getPosition(selection, picker, transfer, placement = 'bottom-lef
     let showInRight = clientWidth - selectionRect.right > pickerWidth
 
     // console.log(showInRight, selectionRect.left > pickerWidth, selectionRect.right, pickerWidth)
-    console.log('bottom:', showInBottom, 'top:', showInTop, 'left:', showInLeft, 'right:', showInRight)
+    // console.log('bottom:', showInBottom, 'top:', showInTop, 'left:', showInLeft, 'right:', showInRight)
     // console.log(placement, 'showInTop:', showInTop, 'showInBottom:', showInBottom, clientHeight, scrollTop, selectionRect.top, pickerHeight)
 
     let hasBottom = placement.slice(0, 6) == 'bottom'
