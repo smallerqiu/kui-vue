@@ -1,4 +1,4 @@
-import Button from "../button";
+import { Button } from "../button";
 import Icon from "../icon";
 import { getChild } from "../_tool/utils";
 import cloneVNode from '../_tool/clone'
@@ -124,19 +124,24 @@ export default {
           contentNode = $slots.content
         }
         contentNode = contentNode ? <div class={`k-${preCls}-body`}>{contentNode}</div> : null;
-
-        childNode = [
-          <div class={`k-${preCls}-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>
-            {[titleNode, contentNode, footerNode]}
-            <div class={`k-${preCls}-arrow`}>
-              <svg style={{ fill: /^#/.test(color) ? color : 'currentcolor' }} viewBox="0 0 24 7">
-                <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
-              </svg>
-            </div>
-          </div>]
-
+        if (!titleNode && !contentNode && !footerNode) {
+          childNode = null
+        } else {
+          childNode = [
+            <div class={`k-${preCls}-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>
+              {[titleNode, contentNode, footerNode]}
+              <div class={`k-${preCls}-arrow`}>
+                <svg style={{ fill: /^#/.test(color) ? color : 'currentcolor' }} viewBox="0 0 24 7">
+                  <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+                </svg>
+              </div>
+            </div>]
+        }
       } else {
         childNode = $slots.content
+      }
+      if (!childNode) {
+        return null
       }
       // console.log(childNode)
       const props = {
@@ -187,7 +192,6 @@ export default {
   },
 
   render() {
-    // console.log(this.isMenu)
     let { $slots } = this
     let vNode = getChild($slots.default)[0]
     let popup = this.renderPopup()
@@ -200,6 +204,6 @@ export default {
         'click': e => this.onClick(e)
       }
     }
-    return cloneVNode(vNode, props, popup)
+    return cloneVNode(vNode, props, [popup])
   }
 };

@@ -560,6 +560,15 @@
   .k-menu-submenu-title {
     // overflow: visible;
     // display: block;
+    padding-left: calc(50% - 12px);
+    transition: padding 200ms 200ms ease-in-out;
+    // padding-right: calc(50% - 12px);
+  }
+
+  .k-menu-submenu-selected {
+    .k-menu-submenu-title {
+      background-color: var(--kui-color-selected);
+    }
   }
 
   >.k-menu-submenu {
@@ -569,10 +578,11 @@
   .k-menu-item-icon {
     font-size: 16px;
     transition: all .3s ease-in-out;
+    margin-right: 0;
   }
 
-  &>.k-menu-submenu>.k-menu-submenu-title>.k-menu-submenu-arrow {
-    display: none;
+  .k-menu-submenu-arrow {
+    opacity: 0;
   }
 
 
@@ -580,21 +590,11 @@
     opacity: 0;
     flex: auto;
     min-width: 0;
-    // animation: mcontent .3s ease-in-out;
   }
 }
 
-@keyframes mcontent {
-  0% {
-    opacity: 1;
-  }
 
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes k-menu-zoom-in {
+@keyframes k-menu-zoom {
   0% {
     transform: scale(.8);
     opacity: 0;
@@ -603,18 +603,6 @@
   100% {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-@keyframes k-menu-zoom-out {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(.8);
-    opacity: 0;
   }
 }
 
@@ -622,17 +610,17 @@
 .k-dropdown-menu-submenu-fade-enter-active {
   animation-fill-mode: both;
   transform-origin: 0% 0%;
-  animation: k-menu-zoom-in 0.2s cubic-bezier(.215, .61, .355, 1);
+  animation: k-menu-zoom 0.2s cubic-bezier(.215, .61, .355, 1);
 }
 
 .k-menu-submenu-fade-leave-active,
 .k-dropdown-menu-submenu-fade-leave-active {
   animation-fill-mode: both;
   transform-origin: 0% 0%;
-  animation: k-menu-zoom-out 0.2s cubic-bezier(.215, .61, .355, 1);
+  animation: k-menu-zoom 0.2s cubic-bezier(.215, .61, .355, 1) reverse;
 }
 
-@keyframes dropDownIn {
+@keyframes drop-down {
   0% {
     opacity: 0;
     transform: scaleY(0)
@@ -644,37 +632,31 @@
   }
 }
 
-@keyframes dropDownOut {
-  0% {
-    opacity: 1;
-    transform: scaleY(1)
-  }
-
-  to {
-    opacity: 0;
-    transform: scaleY(0)
-  }
-}
 
 .k-dropdown-enter-active {
-  animation: dropDownIn .3s;
+  animation: drop-down .3s;
 }
 
 .k-dropdown-leave-active {
-  animation: dropDownOut .3s;
+  animation: drop-down .3s reverse;
 }
 
 .k-dropdown-menu-submenu-popup-enter-active,
 .k-menu-submenu-popup-enter-active {
-  &[k-placement="bottom-left"] {
-    animation: dropDownIn .3s;
+
+  &[k-placement="bottom-left"],
+  &[k-placement="bottom-right"] ,
+  &[k-placement="top-left"],
+  &[k-placement="top-right"] {
+    animation: drop-down .3s;
   }
 
   &[k-placement="left-bottom"],
   &[k-placement="right-top"],
+  &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
     animation-fill-mode: both;
-    animation: k-menu-zoom-in 0.2s cubic-bezier(.215, .61, .355, 1);
+    animation: k-menu-zoom 0.2s cubic-bezier(.215, .61, .355, 1);
   }
 }
 
@@ -683,27 +665,31 @@
 
   &[k-placement="left-bottom"],
   &[k-placement="right-top"],
+  &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
     animation-fill-mode: both;
-    animation: k-menu-zoom-out 0.2s cubic-bezier(.215, .61, .355, 1);
+    animation: k-menu-zoom 0.2s cubic-bezier(.215, .61, .355, 1) reverse;
   }
 
-  &[k-placement="bottom-left"] {
-    animation: dropDownOut .3s;
+  &[k-placement="top-left"],
+  &[k-placement="top-right"],
+  &[k-placement="bottom-left"],
+  &[k-placement="bottom-right"] {
+    animation: drop-down .3s reverse;
   }
 }
 
 .k-collaplse-slide-enter-active {
-  animation: slideIn 0.15s ease-in-out;
+  animation: slide 0.15s ease-in-out;
   animation-fill-mode: both;
 }
 
 .k-collaplse-slide-leave-active {
-  animation: slideOut 0.3s ease-in-out;
+  animation: slide 0.3s ease-in-out reverse;
   animation-fill-mode: both;
 }
 
-@keyframes slideIn {
+@keyframes slide {
   0% {
     transform: scaleY(0);
     transform-origin: 0% 0%;
@@ -714,19 +700,5 @@
     transform: scaleY(1);
     transform-origin: 0% 0%;
     opacity: 1;
-  }
-}
-
-@keyframes slideOut {
-  0% {
-    transform: scaleY(1);
-    transform-origin: 0% 0%;
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: 0% 0%;
-    opacity: 0;
   }
 }

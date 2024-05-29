@@ -9,6 +9,11 @@ module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false, // no check
   productionSourceMap: false, //no .map
+  devServer: {
+    port: 7005,
+    host: 'localhost',
+    hot: true,
+  },
   configureWebpack: {
     // optimization: {
     // runtimeChunk: 'single',

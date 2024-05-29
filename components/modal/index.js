@@ -1,7 +1,7 @@
 import Modal from './modal.jsx'
 import Icon from '../icon'
 import Vue from 'vue'
-import Button from '../button'
+import {Button} from '../button'
 import { t } from '../locale'
 import{InformationCircle,CloseCircle,CheckmarkCircle,AlertCircle,HelpCircle} from 'kui-icons'
 const SSR = Vue && Vue.prototype.$isServer

@@ -130,7 +130,7 @@ export default {
     submit(e) {
       e && e.preventDefault()
       this.validate((valid) => {
-        let model = JSON.parse(JSON.stringify(this.model))
+        let model = JSON.parse(JSON.stringify(this.model || '{}'))
         this.$emit('submit', { valid, model })
       })
     },

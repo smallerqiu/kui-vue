@@ -1,6 +1,7 @@
 export function isEmptyNode(vnode = {}) {
   return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim() !== ''))
 }
+
 export function getChild(child = [], name) {
   // return child.filter(c => !isEmptyNode(c, name) )
   return child.filter(c => {
@@ -63,7 +64,6 @@ export function getElementPos(element) {
 /*
 see: https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js
 */
-
 export function cloneVNode(vnode, options = {}, childs) {
   let { componentOptions, data = {}, children } = vnode
   if (childs && children) {

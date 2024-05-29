@@ -215,7 +215,7 @@ export default {
 
     let titleCls = ['k-tree-title', { 'k-tree-title-selected': selected }]
 
-    if (Tree.$scopedSlots.title) {
+    if (Tree && Tree.$scopedSlots.title) {
       title = Tree.$scopedSlots.title({ node: this.defaultData, parent: this.getParent() })
     }
     let innerNode = [iconNode, title]

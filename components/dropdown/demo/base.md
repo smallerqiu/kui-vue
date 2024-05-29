@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Dropdown>
+  <Dropdown show-placement-arrow >
     <Button>
       滑动展开 <Icon :type="ChevronDown" />
     </Button>

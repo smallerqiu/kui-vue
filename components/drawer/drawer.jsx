@@ -1,4 +1,4 @@
-import Button from "../button";
+import {Button} from "../button";
 import Icon from "../icon";
 import { t } from "../locale";
 import transfer from "../_tool/transfer";

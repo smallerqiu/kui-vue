@@ -182,6 +182,7 @@
     white-space: nowrap;
     line-height: 0;
   }
+
   &.k-datepicker-with-time {
 
     .k-datepicker-placeholder,
@@ -250,7 +251,7 @@
 }
 
 
-@keyframes dropDownIn {
+@keyframes drop-down {
   0% {
     opacity: 0;
     transform: scaleY(0)
@@ -262,24 +263,13 @@
   }
 }
 
-@keyframes dropDownOut {
-  0% {
-    opacity: 1;
-    transform: scaleY(1)
-  }
-
-  to {
-    opacity: 0;
-    transform: scaleY(0)
-  }
-}
 
 .k-date-picker-enter-active {
   transform-origin: 0 0;
-  animation: dropDownIn .3s;
+  animation: drop-down .3s;
 }
 
 .k-date-picker-leave-active {
   transform-origin: 0 0;
-  animation: dropDownOut .3s
+  animation: drop-down .3s reverse
 }

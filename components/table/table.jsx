@@ -32,7 +32,7 @@ export default {
     }
   },
   render() {
-    let { $slots, data, $scopedSlots, loading, height, width, sticky } = this
+    let { $slots, data, $scopedSlots = {}, loading, height, width, sticky } = this
     // bordered = true
     const { header, footer } = $slots
     let isTableFixed = width || height

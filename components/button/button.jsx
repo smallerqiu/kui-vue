@@ -74,17 +74,11 @@ export default {
     const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
     const childs = child.map(c => {
-      if (typeof c.text == 'string') {
-        return <span>{c.text.trim()}</span>
-      }
-      return c
+      return typeof c.text == 'string' ? <span>{c.text.trim()}</span> : c
     })
-    const button = (
-      <button {...props} >
-        {iconNode}
-        {childs}
-      </button >
-    )
-    return button
+    return <button {...props} >
+      {iconNode}
+      {childs}
+    </button >
   }
 };
