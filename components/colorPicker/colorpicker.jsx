@@ -1,6 +1,6 @@
 import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
 import { Input } from '../input'
-import Button from '../button'
+import {Button} from '../button'
 import Icon from '../icon'
 import Drop from '../base/drop'
 import { ChevronDown, CaretHor } from 'kui-icons'

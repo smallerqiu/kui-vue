@@ -37,7 +37,6 @@ const navs = [
       { title: "图钉", sub: "Affix", name: "affix", icon: 'affix' },
       { title: "面包屑", sub: "Breadcrumb", name: "breadcrumb", icon: 'breadcrumbs' },
       { title: "下拉菜单", sub: "Dropdown", name: "dropdown", icon: 'dropdown' },
-      // { title: "加载进度", sub: "Loading", name: "loading", icon: 'pulse' },
       { title: "导航菜单", sub: "Menu", name: "menu", icon: 'menu' },
       { title: "分页", sub: "Page", name: "page", icon: 'pagination' },
       // { title: "步骤条", sub: "Steps", name: "steps", icon: 'done-all' },
@@ -50,7 +49,7 @@ const navs = [
     key: 'forms',
     child: [
       { title: "输入框", sub: "Input", name: "input", icon: 'input' },
-      { title: "数字输入框", sub: "InputNumber", name: "inputnumber", icon: 'input-number', update: true, },
+      { title: "数字输入框", sub: "InputNumber", name: "inputnumber", icon: 'input-number' },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: 'checkbox' },
       { title: "单选框", sub: "Radio", name: "radio", icon: 'radio' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'switch' },

@@ -187,7 +187,7 @@
   }
 }
 
-@keyframes k-form-item-fade-in {
+@keyframes k-form-item-fade {
   0% {
     transform: scaleY(0);
     opacity: 0;
@@ -199,22 +199,11 @@
   }
 }
 
-@keyframes k-form-item-fade-out {
-  0% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-}
 
 .k-form-item-fade-enter-active {
-  animation: k-form-item-fade-in .3s;
+  animation: k-form-item-fade .3s;
 }
 
 .k-form-item-fade-leave-active {
-  animation: k-form-item-fade-out .3s;
+  animation: k-form-item-fade .3s reverse;
 }

@@ -55,19 +55,6 @@ function extractData(vnode, isComp) {
   return data
 }
 
-export default function cloneVNode2(vnode, createElement) {
-  const cloned = createElement(vnode.tag, vnode.data, vnode.children);
-  cloned.text = vnode.text;
-  cloned.isComment = vnode.isComment;
-  cloned.componentOptions = vnode.componentOptions;
-  cloned.elm = vnode.elm;
-  cloned.context = vnode.context;
-  cloned.ns = vnode.ns;
-  cloned.isStatic = vnode.isStatic;
-  cloned.key = vnode.key;
-  cloned.isCloned = true;
-  return cloned;
-}
 
 export default function cloneVNode(vnode, options = {}, child) {
   if (!vnode) return vnode
@@ -107,33 +94,8 @@ export default function cloneVNode(vnode, options = {}, child) {
     }
   }
   data.on = { ...oEven, ...nEven }
-  // console.log(data, oEven, nEven)
   const tag = isComp
     ? vnode.componentOptions.Ctor
     : vnode.tag
-  // const childNodes = children ? children.map(c => cloneVNode(c)) : undefined
-  // return h(tag, data, children)
-  // let c = cloneNode(vnode,)
-  // return 
-
-  const cloned = new vnode.constructor(
-    vnode.tag,
-    data,//vnode.data,
-    children,// vnode.children && vnode.children.slice(),
-    vnode.text,
-    vnode.elm,
-    vnode.context,
-    vnode.componentOptions, // vnode.componentOptions
-    vnode.asyncFactory
-  )
-  cloned.ns = vnode.ns
-  cloned.isStatic = vnode.isStatic
-  cloned.key = vnode.key
-  cloned.isComment = vnode.isComment
-  cloned.fnContext = vnode.fnContext
-  cloned.fnOptions = vnode.fnOptions
-  cloned.fnScopeId = vnode.fnScopeId
-  cloned.asyncMeta = vnode.asyncMeta
-  cloned.isCloned = true
-  return cloned
+  return h(tag, data, children)
 }

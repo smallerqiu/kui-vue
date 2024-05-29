@@ -85,12 +85,11 @@ export default {
     let titleNode = <span class={`k-${preCls}-title-content`}>{child}</span>
     let iconNode = this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)
     let menuItem = <li {...props}>{iconNode}{titleNode}</li>
-    return menuItem
     return (
-      // <Tooltip placement="right">
-      { menuItem }
-      // {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
-      // </Tooltip> 
+      <Tooltip placement="right">
+        {menuItem}
+        {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
+      </Tooltip>
     )
   },
 };

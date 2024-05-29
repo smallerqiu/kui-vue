@@ -183,7 +183,7 @@
   }
 }
 
-@keyframes pop-zoom-in {
+@keyframes k-pop-zoom {
   from {
     opacity: 0;
     transform: scale(.8, .8);
@@ -195,24 +195,13 @@
   }
 }
 
-@keyframes pop-zoom-out {
-  from {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(.8, .8);
-  }
-}
 
 .k-poptip-enter-active {
   // transform-origin: center bottom;
-  animation: pop-zoom-in .3s;
+  animation: k-pop-zoom .3s;
 }
 
 .k-poptip-leave-active {
   // transform-origin: center bottom;
-  animation: pop-zoom-out .3s;
+  animation: k-pop-zoom .3s reverse;
 }

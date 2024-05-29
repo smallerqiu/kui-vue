@@ -168,7 +168,7 @@
   }
 }
 
-@keyframes zoomIn {
+@keyframes k-tag-zoom {
   from {
     opacity: 0;
     transform: scale(0, 0);
@@ -177,25 +177,13 @@
   to {
     opacity: 1;
     transform: scale(1, 1);
-  }
-}
-
-@keyframes zoomOut {
-  from {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(0, 0);
   }
 }
 
 .k-tag-enter-active {
-  animation: zoomIn .2s ease-out;
+  animation: k-tag-zoom .2s ease-out;
 }
 
 .k-tag-leave-active {
-  animation: zoomOut .2s ease-out;
+  animation: k-tag-zoom .2s ease-out reverse;
 }

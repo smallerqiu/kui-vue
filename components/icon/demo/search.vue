@@ -97,7 +97,7 @@
 <script>
 // import { LogoKui } from 'kui-icons'
 import * as icons from 'kui-icons'
-console.log(icons)
+// console.log(icons)
 // import sprite from 'kui-icons/lib/sprite.svg'
 // import icons from '../lib/kui-icons'
 // import sprite from '../lib/sprite.svg'

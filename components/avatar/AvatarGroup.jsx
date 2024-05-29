@@ -1,5 +1,5 @@
-import { getChild, cloneVNode } from '../_tool/utils'
-
+import { getChild } from '../_tool/utils'
+import cloneVNode from 'components/_tool/clone'
 export default {
   props: {
     maxCount: Number,

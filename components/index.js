@@ -2,7 +2,7 @@ import Alert from './alert'
 import Affix from './affix'
 import Avatar from './avatar'
 import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
-import Button from './button'
+import { Button,ButtonGroup } from './button'
 import Badge from './badge'
 import BackTop from './backtop'
 import ColorPicker from './colorPicker'
@@ -60,7 +60,7 @@ const components = {
 	BackTop,
 	Badge,
 	Breadcrumb, BreadcrumbItem,
-	Button, ButtonGroup: Button.Group,
+	Button,	ButtonGroup,
 	Card,
 	Carousel, CarouselItem,
 	Checkbox, CheckboxGroup,

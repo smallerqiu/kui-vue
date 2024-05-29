@@ -1,5 +1,5 @@
 
-import Button from '../button'
+import {Button} from '../button'
 import dayjs from 'dayjs'
 import { t } from '../locale'
 import {

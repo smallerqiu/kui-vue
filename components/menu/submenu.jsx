@@ -91,7 +91,7 @@ export default {
     let title = this.title || $slots.title
     const titleNode = <div {...titleProps}>
       {icon ? <Icon type={icon} class="k-menu-item-icon" /> : null}
-      {isVnode(title) ? title : <span class="k-menu-title-content">{title}</span>}
+      {<span class="k-menu-title-content">{title}</span>}
       <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
         ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} />
     </div>
@@ -126,10 +126,12 @@ export default {
     }
     const childNode = <div {...popupProps}><CMenu mode={types} theme={theme}>{$slots.default}</CMenu></div>
 
-    let popMenuNode = null
+    // let popMenuNode = null
+    let popNodes = [titleNode]
     // if (((!showInline || inlineCollapsed) && !SubMenu && !Dropdown)) {
+    let popProps = {}
     if (!showInline || inlineCollapsed) {
-      const popProps = {
+      popProps = {
         props: {
           isMenu: true,
           showPlacementArrow: false,
@@ -152,10 +154,18 @@ export default {
           }
         }
       }
-      popMenuNode = <BasePop {...popProps} ref="pop">{[titleNode, childNode]}</BasePop>
+      // popMenuNode = <BasePop {...popProps} ref="pop">{[titleNode, childNode]}</BasePop>
     } else {
-      popMenuNode = [titleNode, rendered ? <Collapse collapse={showInline && !inlineCollapsed}
-        name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse> : null]
+      // popMenuNode = [titleNode, rendered ? <Collapse collapse={showInline && !inlineCollapsed}
+      // name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse> : null]
+    }
+    let CollapseNode = null
+
+    if (!showInline || inlineCollapsed) {
+      popNodes.push(childNode)
+    } else if (rendered) {
+      CollapseNode = <Collapse collapse={showInline && !inlineCollapsed}
+        name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse>
     }
     const classes = [`k-${preCls}`, {
       [`k-${preCls}-active`]: this.active,
@@ -164,14 +174,15 @@ export default {
       [`k-${preCls}-disabled`]: disabled
     }]
 
-    return (<li class={classes}>{popMenuNode}</li>)
+    return (<li class={classes}>{<BasePop {...popProps} ref="pop">{titleNode}{popNodes}</BasePop>}{CollapseNode}</li>)
+    // return (<li class={classes}>{popMenuNode}</li>)
   },
   methods: {
     subMouseEnter(e) {
       if (this.disabled) return;
       clearTimeout(this.timer)
       let sub = this.SubMenu
-      console.log(this.SubMenu, this.Dropdown)
+      // console.log(this.SubMenu, this.Dropdown)
       while (sub) {
         // sub.active = true
         clearTimeout(sub.timer)
@@ -244,6 +255,7 @@ export default {
       }
     },
     openChange() {
+      if (this.disabled) return;
       if (this.Menu) {
         let { currentMode, defaultOpenKeys, accordion, inlineCollapsed } = this.Menu
         // if (currentMode != 'inline' || inlineCollapsed) return;
@@ -269,6 +281,7 @@ export default {
       }
     },
     handleClick(options) { //item click event
+      // if (this.disabled) return;
       let key = this.$vnode.key || 'sub_' + this._uid
       options.keyPath.unshift(key)
       let parent = this.SubMenu || this.Menu

@@ -1,4 +1,5 @@
 @import '../../styles/var.less';
+
 .k-message {
   font-size: 14px;
   line-height: 1.5;
@@ -12,6 +13,7 @@
   top: 16px;
   left: 0;
   pointer-events: none;
+
   .k-message-box {
     box-sizing: content-box;
     padding: 0 12px 14px 12px;
@@ -19,6 +21,7 @@
     transition: all .3s;
     // margin-top: -8px;
   }
+
   .k-message-content {
     box-sizing: content-box;
     line-height: 1;
@@ -30,12 +33,14 @@
     align-items: center;
     pointer-events: all;
     align-items: center;
+
     .k-message-icon {
       margin-right: 8px;
       font-size: 22px;
       vertical-align: sub;
     }
   }
+
   .k-message-close {
     overflow: hidden;
     cursor: pointer;
@@ -44,7 +49,8 @@
     vertical-align: sub;
     border-radius: var(--kui-border-radius);
     padding: 2px;
-    &:hover{
+
+    &:hover {
       background-color: var(--kui-color-gray-80);
     }
   }
@@ -66,32 +72,23 @@
   color: var(--kui-color-warning);
 }
 
-@keyframes msgIn {
+@keyframes k-message-slide {
   from {
     opacity: 0;
     margin-top: -55px;
   }
+
   to {
     opacity: 1;
     margin-top: 0;
   }
 }
 
-@keyframes msgOut {
-  from {
-    opacity: 1;
-    margin-top: 0;
-  }
-  to {
-    opacity: -55px;
-    margin-top: 0;
-  }
-}
 
 .k-message-slide-enter-active {
-  animation: msgIn .3s ease;
+  animation: k-message-slide .3s ease;
 }
 
 .k-message-slide-leave-active {
-  animation: msgOut .3s ease;
+  animation: k-message-slide .3s ease reverse;
 }

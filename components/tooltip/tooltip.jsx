@@ -24,11 +24,11 @@ export default {
     let props = {
       props: { preCls: 'tooltip', ...this.$props, updateKey: title },
     }
-    return (title ?
+    return (
       <BasePop {...props}>
         {this.$slots.default}
-        <template slot="title">{title}</template>
-      </BasePop> : this.$slots.default
+        {title ? <template slot="title">{title}</template> : null}
+      </BasePop>
     )
   }
 };
