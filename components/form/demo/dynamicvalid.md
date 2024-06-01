@@ -24,7 +24,7 @@
               { required: true, message: '请输入性别' }
             ]"
         >
-          <Select clearable>
+          <Select clearable style="width:100%;">
             <Option value="1" label="男" />
             <Option value="0" label="女" />
           </Select>

@@ -11,7 +11,7 @@
     "components/"
   ],
   "scripts": {
-    "start": "webpack-dev-server --config build/webpack.config.js --env dev",
+    "start": "npm run dev",
     "buildlib": "webpack --config build/webpack.config.js --env prod",
     "builddocs": "webpack --config build/webpack.config.js --env docs",
     "buildlang": "webpack --config build/webpack.config.js --env lang",

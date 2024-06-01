@@ -39,13 +39,13 @@
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
-          <Select clearable >
+          <Select clearable style="width:100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
         <FormItem prop="city">
-          <Select clearable >
+          <Select clearable style="width:100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
             <Option value="2" label="Hangzhou" />

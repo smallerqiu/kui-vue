@@ -17,14 +17,15 @@ export default {
     transitionName: { type: String, default: 'dropdown' },
     selection: { validator: v => true },
     updateKey: [String, Object, Array],
-    offsetLeft: { type: Number, default: 0 }
+    offsetLeft: { type: Number, default: 0 },
+    extendWidth: Boolean
   },
 
   watch: {
     updateKey(o, v) {
       if (o != v) {
         this.$nextTick(e => {
-          // this.setPosition()
+          this.setPosition()
         })
       }
     },
@@ -34,15 +35,13 @@ export default {
     value(value) {
       this.rendered = true
       this.visible = value
+
       if (value) {
         this.left = 0
         this.top = 0
         this.$nextTick(e => {
           this.setPosition()
         })
-        // setTimeout(() => {
-        //   this.setPosition()
-        // }, 1000);
       }
     },
     placement(value) {
@@ -130,10 +129,12 @@ export default {
       }
       let { selection, placement = 'bottom', offsetLeft } = this
       let picker = this.$el
-
+      if (this.extendWidth) {
+        picker.style.width = selection.offsetWidth + 'px'
+      }
       let top = 0, left = 0, offset = 3;
 
-      let origin = [,]
+      let origin = ["", ""]
 
       if (picker && selection) {
 
@@ -154,13 +155,13 @@ export default {
         let enoughTopC = selectionRect.bottom > pickerHeight
         //左边
         let enoughLeft = selectionRect.left > pickerWidth
-        let enoughLeftC = clientWidth - selectionRect.left > pickerWidth
+        let enoughLeftC = selectionRect.right > pickerWidth
         //右边
         let enoughRight = clientWidth - selectionRect.right > pickerWidth
-        let enoughRightC = selectionRect.right > pickerWidth
+        let enoughRightC = clientWidth - selectionRect.left > pickerWidth
 
         // console.log(showInRight, selectionRect.left > pickerWidth, selectionRect.right, pickerWidth)
-        console.log(selectionRect.right, pickerWidth, placement, ', bottom:', enoughBottom, 'top:', enoughTop, 'left:', enoughLeft, 'leftC:', enoughLeftC, 'right:', enoughRight, 'rightC:', enoughRightC)
+        // console.log(selectionRect.right, pickerWidth, placement, ', bottom:', enoughBottom, 'top:', enoughTop, 'left:', enoughLeft, 'leftC:', enoughLeftC, 'right:', enoughRight, 'rightC:', enoughRightC)
         // console.log(placement, 'showInTop:', showInTop, 'showInBottom:', showInBottom, clientHeight, scrollTop, selectionRect.top, pickerHeight)
 
         //reset placement
@@ -168,53 +169,106 @@ export default {
           if (!enoughTop) {
             placement = placement.replace('top', 'bottom')
           }
+          if (!enoughLeftC) {
+            placement = placement.replace('right', 'left')
 
-        }
-        if (placement.startsWith('right')) {
+            if (placement == 'top') {
+              placement = "top-left"
+            }
+            if (placement == 'bottom') {
+              placement = "bottom-left"
+            }
+          }
+          if (!enoughRightC) {
+            placement = placement.replace('left', 'right')
+
+            if (placement == 'bottom') {
+              placement = "bottom-right"
+            }
+
+            if (placement == 'top') {
+              placement = "top-right"
+            }
+          }
+
+
+        } else if (placement.startsWith('right')) {
           if (!enoughRight) {
             placement = placement.replace('right', 'left')
           }
-        }
-        if (placement.startsWith('bottom')) {
+          if (!enoughBottomC) {
+            placement = placement.replace('top', 'bottom')
+            if (placement == 'right') {
+              placement = 'right-bottom'
+            }
+            if (placement == 'left') {
+              placement = 'left-bottom'
+            }
+          }
+          if (!enoughTopC) {
+            placement = placement.replace('bottom', 'top')// ok
+            if (placement == 'left') {
+              placement = 'left-top'
+            }
+            if (placement == 'right') {
+              placement = 'right-top'
+            }
+          }
+
+        } else if (placement.startsWith('bottom')) {
           if (!enoughBottom) {
             placement = placement.replace('bottom', 'top')
           }
 
-        }
-        if (placement.startsWith('left')) {
+          if (!enoughLeftC) {
+            placement = placement.replace('right', 'left')
+
+            if (placement == 'bottom') {
+              placement = "bottom-left"
+            }
+
+            if (placement == 'top') {
+              placement = "top-left"
+            }
+          }
+          if (!enoughRightC) {
+            placement = placement.replace('left', 'right')
+
+            if (placement == 'top') {
+              placement = "top-right"
+            }
+            if (placement == 'bottom') {
+              placement = "bottom-right"
+            }
+          }
+
+        } else if (placement.startsWith('left')) {
           if (!enoughLeft) {
             placement = placement.replace('left', 'right')
           }
-        }
-        if (!enoughLeft) {
-          if (placement == 'bottom') {
-            placement = "bottom-left"
+          if (!enoughTopC) {
+            placement = placement.replace('bottom', 'top')
+            if (placement == 'right') {
+              placement = 'right-top'
+            }
+            if (placement == 'left') {
+              placement = 'left-top'
+            }
           }
-          if (placement == 'top') {
-            placement = "top-left"
+          if (!enoughBottomC) {
+            placement = placement.replace('top', 'bottom')
+            if (placement == 'right') {
+              placement = 'right-bottom'
+            }
+            if (placement == 'left') {
+              placement = 'left-bottom'
+            }
           }
 
         }
-        if (!enoughRight) {
-          if (placement == 'bottom') {
-            placement = "bottom-right"
-          }
-        }
 
 
-        // if (placement.includes('-')) {
-
-        // if (placement.endsWith('top') && !enoughBottomC) {
-        //   placement = placement.replace('top', 'bottom')
-        // } else if (placement.endsWith('right') && !enoughRightC) {
-        //   placement = placement.replace('right', 'left')
-        // } else if (placement.endsWith('bottom') && !enoughTopC) {
-        //   placement = placement.replace('bottom', 'top')
-        // } else if (placement.endsWith('left') && !enoughLeftC) {
-        //   placement = placement.replace('left', 'right')
-        // }
-        // }
-
+        // console.log('result:' + placement)
 
         // set postion
         if (!placement.includes('-')) {
@@ -243,41 +297,43 @@ export default {
           //start
           if (placement.startsWith('bottom')) {
             top = selectionRect.bottom + offset + scrollTop
-            origin.splice(1, 'top')
+            origin[1] = 'top'
           }
           if (placement.startsWith('right')) {
             left = selectionRect.right + offset + scrollLeft
-            origin.splice(0, 'left')
+            origin[0] = 'left'
           }
           if (placement.startsWith('top')) {
             top = selectionRect.top - pickerHeight - offset + scrollTop
-            origin.splice(1, 'bottom')
+            origin[1] = 'bottom'
           }
           if (placement.startsWith('left')) {
             left = selectionRect.left - pickerWidth - offset + scrollLeft
-            origin.splice(0, 'right')
+            origin[0] = 'right'
           }
           //end 
+
           if (placement.endsWith('left')) {
             left = selectionRect.left + scrollLeft
-            origin.splice(0, 'left')
+            origin[0] = 'left'
           }
           if (placement.endsWith('right')) {
-            left = selectionRect.right - pickerWidth + scrollLeft
-            origin.splice(0, 'right')
+            left = selectionRect.right - pickerWidth + scrollLeft - 0.5
+            origin[0] = 'right'
           }
 
           if (placement.endsWith('bottom')) {
             top = selectionRect.bottom - pickerHeight + scrollTop
-            origin.splice(1, 'bottom')
+            origin[1] = 'bottom'
           }
           if (placement.endsWith('top')) {
             top = selectionRect.top + scrollTop
-            origin.splice(1, 'top')
+            origin[1] = 'top'
           }
+
         }
       }
-
+      // console.log(placement, origin)
       this.top = top
       this.left = left + (placement.includes('right') ? offsetLeft : -offsetLeft)
 
@@ -302,7 +358,7 @@ export default {
     resize() {
       if (this.visible) {
         this.$emit('resize')
-        // this.setPosition()
+        this.setPosition()
       }
     }
   }
