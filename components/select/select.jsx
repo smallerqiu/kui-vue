@@ -46,7 +46,8 @@ export default {
       currentValue: this.value || '',
       showSearch: false,
       queryKey: '',
-      selectWidth: this.width
+      selectWidth: this.width,
+      isFocus: false
     };
   },
   watch: {
@@ -62,7 +63,7 @@ export default {
     }
   },
   methods: {
-    hidedrop() {
+    hideDrop() {
       if (this.showSearch) {
         this.queryKey = ''
         this.$refs.search.value = ''
@@ -124,16 +125,21 @@ export default {
       if (this.filterable || isSearch) {
         this.showSearch = this.opened
         if (this.opened) {
-          this.$nextTick(e => this.$refs.search.focus())
+          this.$nextTick(e => {
+            this.isFocus = true
+            this.$refs.search.focus()
+          })
         } else {
           this.$refs.search.blur()
+          this.isFocus = false
+
           setTimeout(() => {
             this.queryKey = ''
             this.$refs.search.value = ''
           }, 200);
         }
       }
-      this.$nextTick(e => this.setPosition())
+      // this.$nextTick(e => this.setPosition())
     },
     toggleDrop() {
       if (this.disabled) {
@@ -141,18 +147,21 @@ export default {
       }
       let isSearch = ('search' in this.$listeners)
       if (isSearch) {
+        // this.$nextTick(e => {
+        this.showSearch = true
         this.$nextTick(e => {
-          this.showSearch = true
-          this.$nextTick(e => this.$refs.search.focus())
+          this.$refs.search.focus()
+          this.isFocus = true
         })
+        // })
         return;
       }
       this.showDrops()
     },
     setPosition() {
-      if (!hasProp(this, 'width')) {
-        this.selectWidth = this.$el.offsetWidth
-      }
+      // if (!hasProp(this, 'width')) {
+      //   this.selectWidth = this.$el.offsetWidth
+      // }
       if (this.opened) {
         this.$refs.overlay.setPosition()
       }
@@ -170,7 +179,11 @@ export default {
         this.opened = false
         this.showSearch = false
       } else if ('search' in this.$listeners || this.filterable) {
-        this.$nextTick(e => this.$refs.search.focus())
+        this.$nextTick(e => {
+          this.$refs.search.focus()
+          this.isFocus = true
+
+        })
       }
       let hasValue = hasProp(this, 'value')
       //set value
@@ -219,11 +232,12 @@ export default {
     },
     searchInput(e) {
       this.queryKey = e.target.value
-      this.$nextTick(k => {
-        let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
-        e.target.style.width = (this.$refs.mirror.offsetWidth > max ? max : this.$refs.mirror.offsetWidth) + 'px'
-        this.setPosition()
-      })
+      //todo:
+      // this.$nextTick(k => {
+      //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
+      //   e.target.style.width = (this.$refs.mirror.offsetWidth > max ? max : this.$refs.mirror.offsetWidth) + 'px'
+      //   this.setPosition()
+      // })
       if ('search' in this.$listeners) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
@@ -234,7 +248,11 @@ export default {
     },
     emptyClick(e) {
       if (this.showSearch) {
-        this.$nextTick(e => this.$refs.search.focus())
+        this.$nextTick(e => {
+          this.$refs.search.focus()
+          this.isFocus = true
+
+        })
       }
     },
     getOptions() {
@@ -271,7 +289,7 @@ export default {
     let { disabled, size, multiple,
       opened, placeholder, showArrow, bordered,
       clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable,
-      clearable, label, toggleDrop, transfer } = this
+      clearable, label, toggleDrop, isFocus } = this
     let childNode = []
     if (arrowIcon == undefined) {
       arrowIcon = ChevronDown
@@ -287,6 +305,9 @@ export default {
         "k-select-light": theme == 'light',
         "k-select-has-icon": !!icon,
         "k-select-circle": shape == 'circle' && !multiple,
+        "k-select-multiple": multiple,
+        "k-select-show-search": isFocus,
+        "k-select-show-tags": multiple && (label || []).length
       }
     ]
 
@@ -295,6 +316,8 @@ export default {
         input: this.searchInput,
         blur: () => {
           if (!this.opened) this.showSearch = false
+          this.isFocus = false
+
         }
       },
       ref: 'search',
@@ -318,14 +341,18 @@ export default {
         value: opened,
         selection: this.$el,
         transfer: true,
+        extendWidth: true,
         transitionName: 'k-select',
         className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple, 'k-select-dropdown-sm': size == 'small' }]
       },
       on: {
+        input: e => {
+          this.opened = e
+        },
         hide: () => {
           this.opened = false
           setTimeout(() => {
-            this.hidedrop()
+            this.hideDrop()
           }, 300)
         }
       }
@@ -345,14 +372,14 @@ export default {
       : null
 
     const labelStyle = {
-      opacity: this.showSearch ? .4 : 1,
+      // opacity: this.showSearch ? .4 : 1,
       display: queryKey.length ? 'none' : ''
     }
-    const labelsNode = (multiple
+    const labelsNode = ((multiple)
       ? (
-        <transition-group tag="div" class="k-select-labels" name="k-select-tag">{tags}{queryNode}</transition-group>
+        [<div class="k-select-labels" name="k-select-tag">{tags}{queryNode}</div>]
       )
-      : <div class="k-select-label" style={labelStyle}>{label}</div>
+      : (label.length ? <div class="k-select-label" style={labelStyle}>{label}</div> : null)
     )
     let isSearch = ('search' in this.$listeners)
     childNode.push(labelsNode);
@@ -374,9 +401,9 @@ export default {
     showClear && childNode.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
 
     return (
-      <div tabIndex="0" class={classes} style={styles}>
-        <div class={selectCls} onClick={toggleDrop} ref="rel">
-          {icon ? <Icon type={icon} class="k-select-icon" /> : null}
+      <div tabIndex="0" class={classes} style={styles} onClick={toggleDrop} ref="rel">
+        {icon ? <Icon type={icon} class="k-select-icon" /> : null}
+        <div class={selectCls} >
           {childNode}
         </div>
         {overlay}

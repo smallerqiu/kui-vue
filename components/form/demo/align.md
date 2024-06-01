@@ -18,7 +18,7 @@
         <Input />
       </FormItem>
       <FormItem label="Select">
-        <Select >
+        <Select  style="width:100%">
           <Option value="0" label="Apple" />
           <Option value="1" label="Banana" />
           <Option value="2" label="Orange" />

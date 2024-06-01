@@ -2,13 +2,14 @@
 
 .k-color-picker {
   // width: 55px;
-  height: 30px;
+  height: 32px;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   position: relative;
-  display: inline-block;
-  box-sizing: content-box;
-
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 0 2px;
   &:hover,
   &:focus {
     border-color: var(--kui-color-main-hover);
@@ -21,7 +22,7 @@
   .k-color-picker-selection {
     display: flex;
     align-items: center;
-    padding: 2px;
+    // padding: 2px;
     cursor: pointer;
   }
 
@@ -86,8 +87,8 @@
   height: 40px;
 
   .k-color-picker-color {
-    width: 35.5px;
-    height: 35.5px;
+    width: 34px;
+    height: 34px;
   }
 
   .k-color-picker-arrow {
@@ -98,10 +99,6 @@
 .k-color-picker-sm {
   // width: 45px;
   height: 22px;
-
-  .k-color-picker-selection {
-    padding: 3px;
-  }
 
   .k-color-picker-color {
     width: 16px;

@@ -7,7 +7,7 @@
 <template>
   <Poptip title="标题" trigger="click" v-model="show">
     <template slot="content">
-      <a @click="show=false">Close</a>
+      <Button @click="show=false" size="small">Close</Button>
     </template>
     <Button type="primary">Click me</Button>
   </Poptip>
