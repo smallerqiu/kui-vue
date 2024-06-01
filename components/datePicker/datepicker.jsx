@@ -380,7 +380,7 @@ export default {
     const props = {
       props: {
         className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
-        transfer: transfer,
+        transfer: true,
         selection: this.$el,
         value: this.opened,
         placement: 'bottom-left',
