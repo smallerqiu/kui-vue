@@ -41,28 +41,22 @@
     }
   }
 
-  .k-icon {
-    // position: absolute;
-    // right: 5px;
-    // top: 50%;
-    // transform: translateY(-50%);
+  .k-color-picker-arrow {
     margin: 0 5px;
     font-size: 16px;
     color: var(--kui-color-icon);
-
-    #chevron-up {
-      transform: rotate(180deg);
-    }
+    transition: transform .3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
-  .k-icon-default {
-    transform: rotate(180deg);
-  }
 }
 
 .k-color-picker-opened {
   border: 1px solid var(--kui-color-main);
   box-shadow: 0 0 0 2px var(--kui-color-main-90);
+
+  .k-color-picker-arrow {
+    transform: rotate(180deg);
+  }
 }
 
 .k-color-picker-disabled {
@@ -96,7 +90,7 @@
     height: 35.5px;
   }
 
-  .k-icon {
+  .k-color-picker-arrow {
     font-size: 22px;
   }
 }
@@ -114,7 +108,7 @@
     height: 16px;
   }
 
-  .k-icon {
+  .k-color-picker-arrow {
     font-size: 14px;
   }
 }

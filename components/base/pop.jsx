@@ -148,7 +148,7 @@ export default {
         ref: 'overlay',
         key: this.$vnode.key,
         props: {
-          transfer,
+          transfer: true,
           offsetLeft: this.offsetLeft,
           value: this.opened,
           className: [`k-${preCls}`, {

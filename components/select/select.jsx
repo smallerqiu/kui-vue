@@ -317,8 +317,7 @@ export default {
         width: this.selectWidth,
         value: opened,
         selection: this.$el,
-        // transfer: false,
-        transfer: transfer,
+        transfer: true,
         transitionName: 'k-select',
         className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple, 'k-select-dropdown-sm': size == 'small' }]
       },

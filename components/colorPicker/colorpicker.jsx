@@ -1,6 +1,6 @@
 import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
 import { Input } from '../input'
-import {Button} from '../button'
+import { Button } from '../button'
 import Icon from '../icon'
 import Drop from '../base/drop'
 import { ChevronDown, CaretHor } from 'kui-icons'
@@ -364,7 +364,8 @@ export default {
       const props = {
         ref: 'overlay',
         props: {
-          transfer: this.transfer,
+          placement: 'bottom-left',
+          transfer: true,
           value: this.opened,
           selection: this.$el,
           className: 'k-color-picker-dropdown',
@@ -430,7 +431,7 @@ export default {
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
         </div>
-        {showArrow && <Icon type={icon || ChevronDown} />}
+        {showArrow && <Icon class="k-color-picker-arrow" type={icon || ChevronDown} />}
       </div>
       {drop}
     </div >)
