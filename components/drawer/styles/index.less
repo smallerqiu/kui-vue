@@ -3,6 +3,7 @@
 .k-drawer {
   position: fixed;
   z-index: 1002;
+  top: 0;
   .k-drawer-mask {
     position: fixed;
     top: 0;
@@ -14,6 +15,7 @@
     width: 100%;
     z-index: 1000; // animation: mmask .5s ease-in-out;
     overflow: hidden;
+    pointer-events: none;
   }
   .k-drawer-box {
     position: absolute;
@@ -43,13 +45,18 @@
       text-align: center;
       top: 0;
       transition: all .3s ease-in-out;
+     
       &:hover {
-        color: var(--kui-color-danger);
+        .k-icon{
+          color: var(--kui-color-danger);
+          background-color: var(--kui-color-gray-80);
+          border-radius: var(--kui-border-radius);
+        }
         // transform: rotate(360deg);
       }
     }
     .k-drawer-header {
-      border-bottom: 1px solid var(--kui-color-gray-80);
+      border-bottom: 1px solid var(--kui-color-border);
       padding: 14px 35px 14px 16px;
       line-height: 1;
       font-size: 14px;

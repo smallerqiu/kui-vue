@@ -8,7 +8,6 @@
 | pickerSize   | 值Ï为`small`时日期呈现小尺寸                                                                                  | String              | -          |
 | clearable    | 是否显示清除图标                                                                                              | Boolean             | true       |
 | placeholder  | 提示语                                                                                                        | String, Array       | -          |
-| transfer     | 默认渲染到body 上，如定位有问题，请尝试修改为 false                                                           | Boolean             | true       |
 | disabledDate | 不可选择的日期                                                                                                | Function            | -          |
 | disabledTime | 不可选择的时间                                                                                                | Function            | -          |
 | format       | 设置日期格式，为数组时支持多格式匹配，展示以第一个为准。配置参考 [dayjs](http://day.js.org/)                  | String              | YYYY-MM-DD |

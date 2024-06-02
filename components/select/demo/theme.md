@@ -7,10 +7,10 @@
 <template>
   <Space vertical>
     <Checkbox v-model="checked" label="Shape" />
-    <Select :width="256" :icon="Search" theme="light" :shape="checked?'circle':''" :options="options" />
+    <Select :width="256" clearable :icon="Search" theme="light" :shape="checked?'circle':''" :options="options" />
     <Select :width="256" clearable filterable theme="light" :shape="checked?'circle':''" :options="options"> 
     </Select>
-    <Select :width="256" :icon="Search" :shape="checked?'circle':''" :options="options" />
+    <Select :width="256" clearable :icon="Search" :shape="checked?'circle':''" :options="options" />
     <Select :width="256" multiple v-model="value" filterable theme="light" :options="options"> 
     </Select>
   </Space>
