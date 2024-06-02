@@ -14,7 +14,7 @@
       <Button @click="select=1" size="small">Choose orange</Button>
     </Space>
     <br />
-    <Space vertical>
+    <Space vertical style="margin-top:10px;">
       <Select :width="200" placeholder="Please Choose">
         <Option :value="1" label="Apple" />
         <Option :value="2" label="Orange" />

@@ -81,7 +81,6 @@
   }
 
   &-labels {
-    padding: 0 32px 0 0;
     transition: font-size .25s ease-in-out;
     overflow: hidden;
     display: flex;
@@ -172,7 +171,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-right: 32px;
     border: none;
     background: transparent;
     box-sizing: border-box;
@@ -184,31 +182,31 @@
 
   &-arrow {
     // font-size: 18px;
-    position: absolute;
-    top: 50%;
-    right: 9px;
+    // position: absolute;
+    // top: 50%;
+    // right: 9px;
     font-size: 14px;
     box-sizing: border-box;
-    transform: translateY(-50%) rotate(0deg);
+    transform: rotate(0deg);
     transform-origin: center;
     transition: transform .3s ease-in-out;
     transition: all .25s ease-in-out;
     color: var(--kui-color-icon);
-
+    margin: 0 8px;
     #chevron-up {
       transform: rotate(180deg);
     }
   }
 
   &-clearable {
-    position: absolute;
-    top: 50%;
-    right: 9px;
-    transform: translateY(-50%);
+    // position: absolute;
+    // top: 50%;
+    // right: 9px;
+    // transform: translateY(-50%);
     display: none;
     font-size: 15px;
     color: var(--kui-color-icon);
-
+    margin: 0 8px;
     &:hover {
       color: var(--kui-color-font);
     }
@@ -430,11 +428,13 @@
 
   .k-select-arrow {
     font-size: 12px;
-    right: 5px;
+    // right: 5px;
+    margin: 0 4px;
   }
 
   .k-select-clearable {
-    right: 5px;
+    // right: 5px;
+    margin: 0 4px;
     font-size: 12px;
   }
 
@@ -457,7 +457,6 @@
   }
 
   .k-select-labels {
-    padding-right: 23px;
     gap: 2px;
     margin: 2px 0;
 
@@ -517,11 +516,11 @@
 
   .k-select-arrow {
     font-size: 18px;
-    right: 10px;
+    // right: 10px;
   }
 
   .k-select-clearable {
-    right: 10px;
+    // right: 10px;
     font-size: 18px;
   }
 
@@ -529,7 +528,6 @@
     line-height: 38px;
     height: 38px;
     font-size: 16px;
-    padding-right: 32px;
   }
 
   .k-select-search-wrap {
@@ -539,7 +537,6 @@
   }
 
   .k-select-labels {
-    padding-right: 32px;
 
     .k-select-tag {
       padding: 7px 20px 7px 5px;

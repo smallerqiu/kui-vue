@@ -233,11 +233,11 @@ export default {
     searchInput(e) {
       this.queryKey = e.target.value
       //todo:
-      // this.$nextTick(k => {
-      //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
-      //   e.target.style.width = (this.$refs.mirror.offsetWidth > max ? max : this.$refs.mirror.offsetWidth) + 'px'
-      //   this.setPosition()
-      // })
+      this.$nextTick(k => {
+        //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
+        e.target.style.width = this.$refs.mirror.offsetWidth + 'px'
+        this.setPosition()
+      })
       if ('search' in this.$listeners) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
@@ -385,27 +385,31 @@ export default {
     childNode.push(labelsNode);
     placeNode && childNode.push(placeNode);
 
-    (!isSearch && showArrow) && childNode.push(<Icon class="k-select-arrow" type={arrowIcon} />)
 
     if ((filterable || isSearch) && !multiple) {
       childNode.push(queryNode)
     }
-
+    // label = "1"
     const styles = { width: `${this.width}px` }
     let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
-    const selectCls = [
-      "k-select-selection", {
-        "k-select-has-clear": showClear,
-      }
-    ]
-    showClear && childNode.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
 
+    classes[1]['k-select-has-clear'] = showClear
+    const iconNodes = []
+
+    if (!isSearch && showArrow) {
+      iconNodes.push(<Icon class="k-select-arrow" type={arrowIcon} />)
+    }
+    if (showClear) {
+      iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
+    }
+    console.log(iconNodes)
+
+    iconNodes.push(" ")
     return (
       <div tabIndex="0" class={classes} style={styles} onClick={toggleDrop} ref="rel">
         {icon ? <Icon type={icon} class="k-select-icon" /> : null}
-        <div class={selectCls} >
-          {childNode}
-        </div>
+        <div class="k-select-selection">{childNode}</div>
+        {iconNodes}
         {overlay}
       </div >
     )

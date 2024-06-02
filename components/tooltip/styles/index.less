@@ -2,14 +2,14 @@
 
 .k-tooltip {
   display: inline-block;
-  position: relative;
   max-width: 256px;
   font-size: 12px;
   word-break: break-word;
   line-height: 1.5;
   position: absolute;
   z-index: 1001;
-
+  transform: translateZ(0);
+ 
   .k-tooltip-content {
     // min-width: 200px;
     // .k-tooltip-inner {
@@ -18,12 +18,14 @@
     color: #fff; //var(--kui-color-font);
     border-radius: 8px; // var(--kui-border-radius);
     position: relative;
+    min-width: 36px;
     // }
   }
 
   .k-tooltip-title {
     padding: 8px 12px;
     font-size: 14px;
+    text-align: center;
   }
 
   .k-tooltip-arrow {

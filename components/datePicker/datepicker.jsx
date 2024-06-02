@@ -331,7 +331,10 @@ export default {
       calendar.push(presetsNode)
     }
     const leftProps = {
-      props: { format, mode, opened, disabledTime, disabledDate, value: dv1, date: d1, v1, v2, h2, pickerSize },
+      props: {
+        format, mode, opened, disabledTime,
+        disabledDate, value: dv1, date: d1, v1, v2, h2, pickerSize: pickerSize || size
+      },
       on: {
         input: (e, f) => this.picker1Update(e, f),
         close: (v) => {
