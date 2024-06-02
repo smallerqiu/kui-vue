@@ -19,7 +19,7 @@
       <Button size="small" @click="data=['3','1']">Select Banana & Apple</Button>
     </Space>
     <br/>
-    <Space vertical>
+    <Space vertical style="margin-top:10px">
       <Select :width="300" multiple v-model="data2" clearable>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
