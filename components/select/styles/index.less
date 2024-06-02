@@ -14,12 +14,11 @@
   box-sizing: border-box;
   flex-shrink: 0;
   align-items: center;
-
+  background-color: var(--kui-color-back);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding-left: 8px;
   transition: border .3s ease-in-out;
-
   &:hover {
     // .k-select-selection {
     border-color: var(--kui-color-main); // border-color: #3bb4f2;
@@ -38,7 +37,7 @@
     user-select: none;
     cursor: pointer;
     position: relative;
-    min-height: 32px;
+    min-height: 30px;
     position: relative;
     // transition: all .25s ease-in-out;
     display: inline-flex;
@@ -409,7 +408,7 @@
   }
 
   .k-select-selection {
-    min-height: 24px;
+    min-height: 22px;
     // padding-left: 5px;
   }
 
@@ -507,7 +506,7 @@
 
   .k-select-selection {
     font-size: 16px;
-    min-height: 40px;
+    min-height: 38px;
   }
 
   .k-select-icon {
@@ -621,13 +620,13 @@
 }
 
 .k-select-borderless {
+  border-color: transparent;
+  box-shadow: none;
 
   &:hover,
   &:focus {
-    .k-select-selection {
       border-color: transparent;
       box-shadow: none;
-    }
   }
 
   .k-select-selection {

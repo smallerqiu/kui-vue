@@ -10,14 +10,21 @@
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
+  background-color: var(--kui-color-back);
   transition: all .3s ease-in-out;
   box-sizing: border-box;
   font-size: 14px;
   padding: 0 8px;
-  gap: 8px;
+  gap: 6px;
+  height: 32px;
+  overflow: hidden;
 
   &:hover {
     border-color: var(--kui-color-main);
+  }
+
+  .k-select {
+    padding-left: 0;
   }
 
   .k-input-icon {
@@ -32,9 +39,9 @@
   .k-input-text {
     padding-left: 0;
     border: none;
-    height: 30px;
-    line-height: 1.5;
-    padding: 4px 0;
+    // height: 30px;
+    line-height: 1;
+    padding: 0;
     font-size: 14px;
     color: var(--kui-color-font);
     background-color: transparent;
@@ -90,19 +97,20 @@
   display: inline-block;
   width: 100%;
   height: 32px;
-  line-height: 1.5;
   padding: 4px 10px;
   font-size: 14px;
   margin: 0;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   color: var(--kui-color-font);
-  background-color: transparent;
+  // background-color: transparent;
+  background-color: var(--kui-color-back);
   background-image: none;
   position: relative;
   cursor: text;
   transition: border .3s ease-in-out;
   flex-shrink: 0;
+
   &:focus {
     // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
@@ -154,9 +162,11 @@ select:-webkit-autofill:focus {
 
 .k-textarea {
   max-width: 100%;
+  min-height: 32px;
   height: auto;
   vertical-align: bottom;
   font-size: 14px;
+  line-height: 1.5;
   resize: vertical;
   outline: none;
 }
@@ -185,21 +195,19 @@ select:-webkit-autofill:focus {
 }
 
 .k-input-sm[single] {
-  padding: 2px 7px;
-  height: 22px;
-  line-height: 22px;
+  padding: 2px 4px;
+  height: 24px;
   font-size: 12px;
 }
 
 .k-input-sm[mult] {
-  padding: 0 6px;
-  gap: 6px;
+  padding: 0 4px;
+  gap: 4px;
+  height: 24px;
 
   .k-input-text {
     font-size: 12px;
     padding: 2px 0;
-    height: 22px;
-    line-height: 22px;
   }
 
   .k-input-clearable {
@@ -207,7 +215,7 @@ select:-webkit-autofill:focus {
   }
 
   .k-input-icon {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .k-input-suffix {
@@ -220,15 +228,14 @@ select:-webkit-autofill:focus {
 .k-input-lg[single] {
   padding: 2px 10px;
   height: 38px;
-  line-height: 38px;
   font-size: 16px;
 }
 
 .k-input-lg[mult] {
+  height: 38px;
+
   .k-input-text {
     padding: 2px 0;
-    height: 38px;
-    line-height: 38px;
     font-size: 16px;
   }
 
@@ -258,11 +265,13 @@ select:-webkit-autofill:focus {
 .k-input-light[mult],
 .k-input-light[single],
 .k-textarea-light {
-  border: none;
+  border-color: transparent;
   background-color: var(--kui-color-gray-80);
 
   &:focus,
+  &:hover,
   &.k-input-focus {
+    border-color: transparent;
     box-shadow: none;
   }
 }

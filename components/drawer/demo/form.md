@@ -11,13 +11,13 @@
     <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
       <Form ref="form" :model="form" :rules="rules" label-align="left" :labelCol="{span:5}" :wrapperCol="{span:19}">
         <FormItem label="Input" prop="input">
-          <Input clearable icon="home"></Input>
+          <Input clearable :icon="Home"></Input>
         </FormItem>
         <FormItem label="Number" prop="number">
           <Input number clearable></Input>
         </FormItem>
         <FormItem label="DatePicker" prop="datepicker">
-          <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
+          <DatePicker clearable format="YYYY/MM/DD hh:mm:ss" style="width:210px"></DatePicker>
         </FormItem>
         <FormItem label="Radio" prop="radio">
           <Radio >男</Radio>
@@ -56,9 +56,11 @@
   </div>
 </template>
 <script>
+import { Home } from 'kui-icons'
 export default {
   data() {
     return {
+      Home,
       show1: false, show2: false,
       form: {
         switch: true,

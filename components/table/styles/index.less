@@ -16,6 +16,8 @@
     z-index: 3;
   }
 
+
+
   // .k-table-thead::-webkit-scrollbar {
   //   height: 0;
   //   width: 0;
@@ -38,9 +40,10 @@
     left: 0;
     top: 0;
     z-index: 100;
-
+    border-radius: @radius;
     .k-spin-loading {
-      background-color: var(--kui-color-spin);
+    border-radius: @radius;
+    background-color: var(--kui-color-spin);
     }
   }
 
@@ -55,44 +58,41 @@
     border-spacing: 0;
     background: var(--kui-color-back);
     margin: 0;
-
+    border-radius: @radius;
     // tr{
     //   border: none;
     //   background: none;
     // }
     thead {
-      background: var(--kui-color-table-header);
       border-bottom: 1px solid var(--kui-color-table-border);
 
       .k-table-cell-fixed-left,
       .k-table-cell-fixed-right {
-        background: var(--kui-color-table-header);
+        // background: var(--kui-color-table-header);
       }
     }
 
-    tr>th {
-      font-weight: 500;
-      overflow-wrap: break-word;
-      text-align: left;
-
-      &[colspan]:not([colspan="1"]) {
-        text-align: center;
-      }
+    tr th:first-child {
+      border-top-left-radius: @radius;
     }
+
+    tr th:last-child {
+      border-top-right-radius: @radius;
+    }
+
+
+
 
     .k-table {
       margin: -10px -10px -11px -10px
     }
 
-    th.k-table-cell-selection {
-      text-align: center;
-      padding: 0;
-    }
+
 
     tr>th,
     tr>td {
       font-size: 14px;
-      padding: 10px;
+      padding: 10px 16px;
       box-sizing: border-box;
       // overflow-wrap: break-word;
       // word-wrap: break-word;
@@ -101,8 +101,21 @@
       border-bottom: 1px solid var(--kui-color-table-border);
     }
 
+    tr>th {
+      background: var(--kui-color-table-header);
+      // background: #666;
+      font-weight: 500;
+      overflow-wrap: break-word;
+      text-align: left;
+      padding: 16px;
+
+      &[colspan]:not([colspan="1"]) {
+        text-align: center;
+      }
+    }
+
     .k-table-header-col {
-      display: inline-block;
+      display: flex;
       max-width: 100%;
 
       .k-table-header-title {
@@ -112,18 +125,6 @@
       }
     }
 
-    .k-table-cell-ellipsis {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      .k-table-header-title ,span {
-        display: block !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
 
     .k-table-cell-sorter {
       cursor: pointer;
@@ -135,12 +136,14 @@
         align-items: center;
         line-height: 1;
 
-        .k-table-header-title {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          line-height: 1;
-        }
+
+      }
+
+      .k-table-header-title {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        line-height: 1;
       }
 
       &:hover {
@@ -164,6 +167,31 @@
         .actived {
           color: var(--kui-color-main);
         }
+      }
+    }
+
+    .k-table-cell-ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .k-table-header-title {
+        // display: block !important;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    th.k-table-cell-selection {
+      text-align: center;
+      padding: 0;
+      .k-table-header-col{
+        justify-content: center;
+      }
+      .k-table-header-title {
+        align-items: center;
       }
     }
 
@@ -198,6 +226,16 @@
       tbody>tr:hover {
         background: var(--kui-color-table-hover);
       }
+    }
+  }
+
+  .k-table-thead {
+    border-top-left-radius: @radius;
+    border-top-right-radius: @radius;
+
+    tr th:first-child,
+    tr th:last-child {
+      border-radius: 0;
     }
   }
 
@@ -276,7 +314,10 @@
   &-sm {
     table tr {
 
-      th,
+      th {
+        padding: 10px 8px;
+      }
+
       td {
         padding: 5px 8px;
       }
@@ -286,7 +327,10 @@
   &-lg {
     table tr {
 
-      th,
+      th {
+        padding: 20px 16px;
+      }
+
       td {
         padding: 16px;
       }
@@ -295,10 +339,13 @@
 
   &-bordered {
     border: 1px solid var(--kui-color-table-border);
+    border-radius: @radius;
 
     .k-table-footer {
       border-top: 1px solid var(--kui-color-table-border);
       border-bottom: none;
+      border-bottom-left-radius: @radius;
+      border-bottom-right-radius: @radius;
     }
 
     thead {
@@ -311,6 +358,8 @@
     .k-table-header {
       border-bottom: 1px solid var(--kui-color-table-border);
       border-top: none;
+      border-top-left-radius: @radius;
+      border-top-right-radius: @radius;
     }
 
     th,

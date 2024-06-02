@@ -8,10 +8,10 @@
   <div style="width:256px">
     <Menu v-model="current" :open-keys="openKeys" mode="inline">
       <SubMenu key="sub1" :icon="Mail" title="Navigation One">
-        <MenuItem key="1-1">Option 1</MenuItem>
-        <MenuItem key="1-2">Option 2</MenuItem>
-        <MenuItem key="1-3">Option 3</MenuItem>
-        <MenuItem key="1-4">Option 4</MenuItem>
+        <MenuItem key="1-1" :icon="Heart">Option 1</MenuItem>
+        <MenuItem key="1-2" :icon="Heart">Option 2</MenuItem>
+        <MenuItem key="1-3" :icon="Heart">Option 3</MenuItem>
+        <MenuItem key="1-4" :icon="Heart">Option 4</MenuItem>
       </SubMenu>
       <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
         <MenuItem key="2-1">Option 5</MenuItem>

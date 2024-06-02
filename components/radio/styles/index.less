@@ -90,10 +90,10 @@
   }
 
   .k-radio-inner {
-    box-sizing: content-box;
+    box-sizing: border-box;
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     position: relative;
     top: 0;
     left: 0;
@@ -185,6 +185,11 @@
   .k-radio-label {
     font-size: 16px;
   }
+
+  .k-radio-inner {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .k-radio-sm {
@@ -231,9 +236,23 @@
   .k-btn {
     border: none;
     border-radius: var(--kui-border-radius);
+    height: 24px;
 
     &:disabled {
       background: 0 0;
     }
+
+    &:not(.k-btn-primary) {
+      background-color: transparent;
+    }
   }
+
+  .k-btn-lg {
+    height: 32px;
+  }
+
+  .k-btn-sm {
+    height: 16px;
+  }
+
 }
