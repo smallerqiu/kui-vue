@@ -12,7 +12,9 @@
 <template>
   <Table :data="datas" :columns="columns" @on-select="onSelect" @on-change="onChange" ref="selection">
     <template slot="tags" slot-scope="tags">
-      <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+      <Space>
+        <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'green':'blue'">{{tag}}</Tag>
+      </Space>
     </template>
     <Icon :type="text==1 ? Sunny : Moon" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action">
@@ -20,10 +22,12 @@
       <a href="javascript:;">Delete</a>
     </template>
   </Table>
-  <Button @click="selectAll(true)">Check All</Button>
-  <Button @click="changeChecked">Change Checked</Button>
-  <Button @click="changeDisabled">Change Disabled</Button>
-  <Button @click="selectAll(false)">UnCheck All</Button>
+  <Space>
+    <Button @click="selectAll(true)">Check All</Button>
+    <Button @click="changeChecked">Change Checked</Button>
+    <Button @click="changeDisabled">Change Disabled</Button>
+    <Button @click="selectAll(false)">UnCheck All</Button>
+  </Space>
 </template>
 <script>
 import { Sunny, Moon } from "kui-icons";

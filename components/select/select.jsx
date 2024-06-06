@@ -402,7 +402,7 @@ export default {
     if (showClear) {
       iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
     }
-    console.log(iconNodes)
+    // console.log(iconNodes)
 
     iconNodes.push(" ")
     return (

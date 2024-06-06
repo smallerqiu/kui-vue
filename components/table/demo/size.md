@@ -36,7 +36,9 @@
 
     <Table :data="data" :columns="columns" :loading="loading" :size="size" :bordered="bordered">
       <template v-slot:tags="values">
-        <Tag v-for="tag in values" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+        <Space>
+          <Tag v-for="tag in values" :key="tag" :color="tag=='Python'?'green':'blue'">{{tag}}</Tag>
+        </Space>
       </template>
       <Icon :type="text==1 ? Moon : Sunny" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15" />
       <template v-slot:action>

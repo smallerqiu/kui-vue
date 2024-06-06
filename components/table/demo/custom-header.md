@@ -1,6 +1,6 @@
 <cn>
 #### 自定义表头
-一个可以自定义表头的表格
+一个可以自定义表头的表格  , 可以通过 `v-slot:header-` 或者 `renderHeader` 函数定义表头
 </cn>
 
 ```vue
@@ -14,6 +14,10 @@
    </template> 
     <template v-slot:action="value,record,col">
       <Button size="small" @click="e=>show(record)">more</Button>
+    </template>
+
+    <template v-slot:address="value">
+      <div style="text-align:right">{{value}}~ align-right</div>
     </template>
   </Table>
 </template>
