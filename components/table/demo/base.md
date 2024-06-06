@@ -7,7 +7,9 @@
 <template>
   <Table :data="data" :columns="columns"  @row-click="test" :sticky="52">
     <template v-slot:tags="value">
-      <Tag v-for="tag in value" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+      <Space>
+        <Tag v-for="tag in value" :key="tag" :color="tag=='Python'?'green':'blue'">{{tag}}</Tag>
+      </Space>
     </template>
     <template v-slot:gender="value">
       <Icon :type="value==1 ? Sunny : Moon" :color="value==1?'blue':'#f50cff'" size="15" />

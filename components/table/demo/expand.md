@@ -10,7 +10,9 @@
         My name is {{record.name}}, I am {{record.age}} years old, living in {{record.address}}.
     </template>
     <template slot="tags" slot-scope="tags">
-      <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'red':'orange'">{{tag}}</Tag>
+      <Space>
+        <Tag v-for="tag in tags" :key="tag" :color="tag=='Python'?'green':'blue'">{{tag}}</Tag>
+      </Space>
     </template>
     <Icon :type="text==1 ? Moon : Sunny" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action">

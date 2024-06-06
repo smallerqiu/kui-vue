@@ -37,13 +37,13 @@ export default {
         { title: 'Address', key: 'address' },
         {
           title: 'Tags', key: 'tags', render: (h, { tags }, i) => {
-            return tags.map(function (tag) {
+            return h('Space',{},[tags.map(function (tag) {
               return h('Tag', {
                 props: {
-                  color: tag == 'Python' ? 'red' : 'orange'
+                  color: tag == 'Python' ? 'green' : 'blue'
                 }
               }, tag)
-            })
+            })])
           }
         },
         {
