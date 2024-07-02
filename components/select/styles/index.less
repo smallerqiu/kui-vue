@@ -17,8 +17,10 @@
   border: 1px solid var(--kui-color-border);
   padding-left: 8px;
   transition: border .3s ease-in-out;
+  line-height: 1.571;
+
   &:hover {
-    border-color: var(--kui-color-main); 
+    border-color: var(--kui-color-main);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
   }
 
@@ -128,6 +130,7 @@
   &-placeholder {
     font-size: 14px;
     z-index: 0;
+    line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--kui-color-disable-color);
@@ -147,6 +150,7 @@
     background: transparent;
     box-sizing: border-box;
     width: 100%;
+    line-height: 1.571;
     cursor: pointer;
     font-size: 14px;
     transition: font-size .25s ease-in-out;
@@ -161,6 +165,7 @@
     transition: all .25s ease-in-out;
     color: var(--kui-color-icon);
     margin: 0 8px;
+
     #chevron-up {
       transform: rotate(180deg);
     }
@@ -171,6 +176,7 @@
     font-size: 15px;
     color: var(--kui-color-icon);
     margin: 0 8px;
+
     &:hover {
       color: var(--kui-color-font);
     }
@@ -545,8 +551,8 @@
 
   &:hover,
   &:focus {
-      border-color: transparent;
-      box-shadow: none;
+    border-color: transparent;
+    box-shadow: none;
   }
 
   .k-select-selection {

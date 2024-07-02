@@ -6,7 +6,16 @@
 ```vue
 <template>
   <div class="demo-page">
-    <Page :current="10" :total="200"/>
+    <Page v-model:current="current" :total="200"/>
   </div>
 </template>
+<script>
+export default{
+  data(){
+    return {
+      current:10
+    }
+  }
+}
+</script>
 ```

@@ -6,15 +6,16 @@
 ```vue
 <template>
   <div class="demo-page">
-    <Page :current="3" :total="200" showSizer/>
-    <Page :current="4" :total="200" showSizer :page-size="20"/>
-    <Page :current="4" :total="1000" showSizer :page-size="30" :size-data="sizeData"/>
+    <Page v-model:current="current" :total="200" showSizer/>
+    <Page v-model:current="current" :total="200" showSizer :page-size="20"/>
+    <Page v-model:current="current" :total="1000" showSizer :page-size="30" :size-data="sizeData"/>
   </div>
 </template>
 <script>
 export default{
   data() {
     return {
+      current: 3,
       sizeData:[30,50,80,100]
     }
   }
