@@ -21,6 +21,10 @@ export default {
     pageSize: { default: 10, type: Number },
     current: { default: 1, type: Number }
   },
+  model: {
+    prop: 'current',
+    event: 'input'
+  },
   data() {
     return {
       nextPageGroup: false,
@@ -121,16 +125,19 @@ export default {
     prePage() {
       if (this.page > 1) {
         this.page--;
+        this.$emit('input', this.page)
         this.$emit('change', this.page)
       }
     },
     nextPage() {
       if (this.page < this.pageCount) {
         this.page++;
+        this.$emit('input', this.page)
         this.$emit('change', this.page)
       }
     },
     toPage(page) {
+      if (page == this.page) return;
       if (page <= 1) {
         page = 1
         this.prevPageGroup = false
@@ -140,6 +147,7 @@ export default {
         page = this.pageCount
       }
       this.page = page
+      this.$emit('input', page)
       this.$emit('change', page)
     },
     changeSize({ value }) {
@@ -198,6 +206,7 @@ export default {
 
             if ((page >= 1 || page <= pageCount) && this.page != page) {
               this.page = page
+              this.$emit('input', page)
               this.$emit('change', page)
             }
           },

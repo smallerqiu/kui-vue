@@ -43,6 +43,7 @@
     opacity: 1;
     white-space: nowrap;
     transition: all .3s ease-in-out;
+    line-height: 1.571;
   }
 
   .k-menu-item-icon {
@@ -85,7 +86,10 @@
     height: 40px;
     display: flex;
     align-items: center;
-    line-height: 40px;
+  }
+
+  .k-dropdown-menu-item {
+    height: 32px;
   }
 
   .k-dropdown-menu-submenu-title,
@@ -645,7 +649,7 @@
 .k-menu-submenu-popup-enter-active {
 
   &[k-placement="bottom-left"],
-  &[k-placement="bottom-right"] ,
+  &[k-placement="bottom-right"],
   &[k-placement="top-left"],
   &[k-placement="top-right"] {
     animation: drop-down .3s;

@@ -6,10 +6,19 @@
 ```vue
 <template>
   <div class="demo-page">
-    <Page :current="1" :total="50" size="small"/>
-    <Page :current="1" :total="50" size="small" show-sizer/>
-    <Page :current="1" :total="50" size="small" show-elevator/>
-    <Page :current="1" :total="50" size="small" show-elevator show-total/>
+    <Page :current="current" :total="50" size="small"/>
+    <Page :current="current" :total="50" size="small" show-sizer/>
+    <Page :current="current" :total="50" size="small" show-elevator/>
+    <Page :current="current" :total="50" size="small" show-elevator show-total/>
   </div>
 </template>
+<script>
+export default{
+  data(){
+    return {
+      current:10
+    }
+  }
+}
+</script>
 ```
