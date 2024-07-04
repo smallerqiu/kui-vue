@@ -8,7 +8,7 @@ import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
 export default {
   name: 'DatePicker',
   props: {
-    value: [String, Date, Number, Array],
+    value: [String, Date, Number, Array, Object],
     mode: {
       type: String, default: 'date', validator(value) {
         return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
@@ -99,11 +99,18 @@ export default {
       let { currentValue, isRange } = this
       if (isRange) {
         let [a, b] = currentValue || []
+        if (!this.v1 && a) {
+          this.v1 = dayjs(a)
+        }
+        if (!this.v2 && b) {
+          this.v2 = dayjs(b)
+        }
         this.d1 = a ? dayjs(a) : dayjs()
         this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
         if (this.d1.isSame(this.d2, 'month')) {
           this.d2 = this.d2.add(1, 'month')
         }
+
         // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
       } else {
         this.d1 = currentValue ? dayjs(currentValue) : dayjs()
@@ -187,12 +194,24 @@ export default {
 
           this.updateStr()
         }
-        if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
-          this.d2 = this.d2.add(1, 'month')
-        }
+        this.$nextTick(() => {
+          if (this.d1.isAfter(this.d2, 'year')) {
+            this.d2 = this.d2.year(this.d1.year())
+          }
+          if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
+            this.d2 = this.d2.add(1, 'month')
+          }
+        })
       }
     },
-
+    compareV1(){
+      if (this.d2.isBefore(this.d1, 'year')) {
+        this.d1 = this.d1.year(this.d2.year())
+      }
+      if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
+        this.d1 = this.d1.subtract(1, 'month')
+      }
+    },
     picker2Update(value, type) {
       let { v1, v2, withTime, format, fmt, mode } = this
       if (!type) { //for day
@@ -220,9 +239,7 @@ export default {
         this.currentValue = [v1, this.v2]
         this.updateStr()
       }
-      if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
-        this.d1 = this.d1.subtract(1, 'month')
-      }
+ 
     },
     updateStr() {
       let { v1, v2, withTime, format, fmt, mode } = this
@@ -312,6 +329,8 @@ export default {
       let [a, b] = currentValue || []
       dv1 = a
       dv2 = b
+      if (!v1 && a) v1 = dayjs(dv1)
+      if (!v2 && b) v2 = dayjs(dv2)
     } else {
       placeholder = placeholder || t('k.datePicker.placeholder')
       if (label) {
@@ -321,6 +340,7 @@ export default {
       }
 
       dv1 = currentValue
+      if (!v1 && dv1) v1 = dayjs(dv1)
     }
 
     // console.log(dv1, dv2)
