@@ -1,10 +1,10 @@
 <template>
   <div>
-    <DatePicker :presets="p1" />
+    <DatePicker :presets="p1" v-model="d1" mode="dateTime"/>
     <br />
-    <DatePicker :presets="p2" mode="dateRange" v-model="dates"/>
+    <DatePicker :presets="p2" mode="dateRange" v-model="dates" />
     <br />
-    <DatePicker mode="dateTimeRange" :presets="p2" v-model="dates"/>
+    <DatePicker mode="dateTimeRange" :presets="p2" v-model="dates" />
   </div>
 </template>
 <script>
@@ -25,6 +25,7 @@ export default {
         { label: '最近30天', value: [dayjs().add(-30, 'd'), dayjs()] },
         { label: '最近90天', value: [dayjs().add(-90, 'd'), dayjs()] },
       ],
+      d1: dayjs(),
       dates: [dayjs().utcOffset(0).add(-12, 'h'), dayjs().utcOffset(0)],
     }
   }
