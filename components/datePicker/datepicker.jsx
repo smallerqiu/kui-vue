@@ -107,11 +107,12 @@ export default {
         }
         this.d1 = a ? dayjs(a) : dayjs()
         this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
+        
         if (this.d1.isSame(this.d2, 'month')) {
           this.d2 = this.d2.add(1, 'month')
         }
 
-        // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
+        this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
       } else {
         this.d1 = currentValue ? dayjs(currentValue) : dayjs()
       }
@@ -204,14 +205,6 @@ export default {
         })
       }
     },
-    compareV1(){
-      if (this.d2.isBefore(this.d1, 'year')) {
-        this.d1 = this.d1.year(this.d2.year())
-      }
-      if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(this.d1, 'month')) {
-        this.d1 = this.d1.subtract(1, 'month')
-      }
-    },
     picker2Update(value, type) {
       let { v1, v2, withTime, format, fmt, mode } = this
       if (!type) { //for day
@@ -239,7 +232,7 @@ export default {
         this.currentValue = [v1, this.v2]
         this.updateStr()
       }
- 
+
     },
     updateStr() {
       let { v1, v2, withTime, format, fmt, mode } = this
@@ -423,7 +416,7 @@ export default {
     }
     let overlay = <Drop {...props}>{calendar}</Drop >
 
-    let showClear = !disabled && clearable && ((isRange && this.v1 && this.v2) || (!isRange && this.v1))
+    let showClear = !disabled && clearable && ((isRange && v1 && v2) || (!isRange && v1))
     showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={this.clear} />)
     const selectCls = [
       "k-datepicker-selection", {
