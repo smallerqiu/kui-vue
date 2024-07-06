@@ -6,11 +6,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Button @click="open">Open Image</Button>
     <Button @click="openMedia">Open Media</Button>
     <Button @click="openGroup">Open Image group</Button>
-  </div>
+  </Space>
 </template>
 <script>
 export default{

@@ -5,31 +5,36 @@
 
 ```vue
 <template>
-  <div>
-    <ButtonGroup size="large">
+  <Space>
+    <ButtonGroup>
       <Button>待发货</Button>
-      <Button>已发货</Button>
-      <Button>已签收</Button>
+      <Dropdown placement="bottom-right">
+        <Button :icon="ChevronDown"></Button> 
+        <Menu slot="content">
+          <MenuItem>
+            <a href="javascript:;">1st menu item</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="javascript:;">2nd menu item</a>
+          </MenuItem>
+          <MenuItem>
+            <a href="javascript:;">3rd menu item</a>
+          </MenuItem>
+        </Menu>
+      </Dropdown>
     </ButtonGroup>
-    <ButtonGroup shape="circle">
-      <Button>待发货</Button>
-      <Button>已发货</Button>
-      <Button>已签收</Button>
+    <ButtonGroup>
+      <Button>通讯录</Button>
+      <Button :icon="PersonOutline"></Button> 
     </ButtonGroup>
-    <br />
-    <br />
-    <ButtonGroup size="small" shape="circle">
-      <Button ><Icon :type="ChevronBack"/> Backward</Button>
-      <Button>Forward <Icon :type="ChevronForward"/></Button>
-    </ButtonGroup>
-  </div>
+  </Space>
 </template>
 <script>
-import { ChevronBack,ChevronForward } from 'kui-icons'
+import { ChevronDown ,PersonOutline } from 'kui-icons'
 export default{
   data() {
     return {
-      ChevronBack, ChevronForward
+      PersonOutline ,ChevronDown
     }
   }
 }

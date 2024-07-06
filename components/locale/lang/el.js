@@ -67,6 +67,9 @@ module.exports =  {
       successful: 'επιτυχία',
       failed: 'Αποτυχία',
       errorFileSize: 'Παράνομο μέγεθος αρχείου'
+    },
+    image: {
+      preview: 'προεπισκόπηση'
     }
   }
 }

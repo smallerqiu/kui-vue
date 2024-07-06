@@ -58,7 +58,7 @@
             <Form :labelCol="{span:5}" :wrapperCol="{span:16}" :size="size" :theme="theme?'light':''" :shape="checked?'circle':''"> 
               <FormItem label="主题">
                 <Checkbox v-model="theme" label="Light" style="margin-right:8px;"/>
-                <Checkbox v-model="checked" label="Shape"/>
+                <Checkbox v-model="checked" label="Circle"/>
               </FormItem>
               <FormItem label="尺寸">
                 <RadioGroup v-model="size" >

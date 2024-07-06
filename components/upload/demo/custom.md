@@ -1,8 +1,8 @@
 <cn>
 #### 手动上传/自定义属性
-- 通过设置 data、headers 可添加自定义上传属性
-- autoTrigger='false'，选中文件后将不会自动触发上传。需要手动调用 ref 上的 upload 方法触发
-- name 为上传文件名
+通过设置 data、headers 可添加自定义上传属性
+autoTrigger='false'，选中文件后将不会自动触发上传。需要手动调用 ref 上的 upload 方法触发
+name 为上传文件名
 </cn>
 
 ```vue

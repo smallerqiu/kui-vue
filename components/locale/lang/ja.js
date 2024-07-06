@@ -67,6 +67,9 @@ module.exports =  {
       successful: '成功',
       failed: '失敗',
       errorFileSize: '不法'
+    },
+    image: {
+      preview: 'プレビュー'
     }
   }
 }

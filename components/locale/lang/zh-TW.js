@@ -50,6 +50,9 @@ module.exports = {
       successful: '上傳成功',
       failed: '上傳失敗',
       errorFileSize: '檔案尺寸不合法'
+    },
+    image: {
+      preview: '預覽'
     }
   }
 }

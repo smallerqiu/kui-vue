@@ -22,9 +22,4 @@ export default {
   }
 }
 
-</script> 
-<style lang="less">
-.demo-switch .k-switch {
-  margin: 0 10px 10px 0;
-}
-</style>
+</script>

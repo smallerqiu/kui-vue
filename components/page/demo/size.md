@@ -16,7 +16,7 @@
 export default{
   data(){
     return {
-      current:10
+      current:1
     }
   }
 }

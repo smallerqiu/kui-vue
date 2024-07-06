@@ -1,13 +1,17 @@
 <cn>
 #### 组合使用
 组合使用可以直接使用 `RadioGroup` 的 `options` 来赋值,或者结合 `Radio` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
-**`RadioGroup` 可以直接使用 `options` 来组合，3.0版本增加**
+> `RadioGroup` 可以直接使用 `options` 来组合，3.0版本增加
 </cn>
 
 ```vue
 <template>
-  <div>
-    <p>Selected:{{data}}</p>
+  <Space vertical align="start">
+    <Space>
+      <Button @click="data=''" size="small">Clear</Button>
+      <Button @click="data='apple'" size="small">Select apple</Button>
+      Selected: {{data}}
+    </Space>
     <RadioGroup v-model="data">
       <Radio label="Apple" value="apple" />
       <Radio label="Orange" value="orange" />
@@ -15,13 +19,10 @@
       <Radio label="Grape" value="grape" disabled/>
       <Radio label="Pear" value="pear" disabled/>
     </RadioGroup>
-    <Button @click="data=''" size="small">Clear</Button>
-    <Button @click="data='apple'" size="small">Select apple</Button>
-    <br/>
-    <br/>
-    <p>{{cities}}</p>
+    
+    {{cities}}
     <RadioGroup :options="options" v-model="cities"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default {

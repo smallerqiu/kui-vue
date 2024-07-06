@@ -67,6 +67,9 @@ module.exports =  {
       successful: 'Succès',
       failed: 'Échec',
       errorFileSize: 'Taille illégale du fichier'
+    },
+    image: {
+      preview: 'Preview'
     }
   }
 }

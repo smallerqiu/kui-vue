@@ -55,6 +55,8 @@ export default {
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
       if (this.page > this.pageCount) {
         this.page = this.pageCount
+        this.$emit('input', this.page)
+        this.$emit('change', this.page)
       }
     },
     renderPage() {
@@ -155,6 +157,8 @@ export default {
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
       if (this.page > this.pageCount) {
         this.page = this.pageCount
+        this.$emit('input', page)
+        this.$emit('change', page)
       }
       this.$emit('page-size-change', { current: this.page, pageSize: value })
     },

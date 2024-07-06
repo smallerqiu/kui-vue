@@ -46,6 +46,7 @@ export default {
     }
     .title {
       color: #eee;
+      margin: 0;
     }
     .sub {
       color: #999;

@@ -5,8 +5,8 @@
 
 ```vue
 <template>
-  <Space vertical>
-    <Checkbox v-model="checked" label="Shape" />
+  <Space vertical align="start">
+    <Checkbox v-model="checked" label="Circle" />
     <Select :width="256" clearable :icon="Search" theme="light" :shape="checked?'circle':''" :options="options" />
     <Select :width="256" clearable filterable theme="light" :shape="checked?'circle':''" :options="options"> 
     </Select>

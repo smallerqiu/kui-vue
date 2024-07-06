@@ -50,6 +50,9 @@ module.exports =  {
       successful: 'успешно',
       failed: 'неудача',
       errorFileSize: ' Неверный размер файла'
+    },
+    image: {
+      preview: 'просмотр'
     }
   }
 }

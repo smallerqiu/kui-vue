@@ -5,14 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    <p>{{checked}}</p>
+  <Space>
+    {{checked}}
     <Radio v-model="checked">Radio</Radio>
     <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <br/>
-    <br/>
     <Radio label="Radio"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default{

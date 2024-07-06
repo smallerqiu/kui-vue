@@ -5,13 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    <p>{{data}}</p> 
-    <br/>
-    <Button @click="data=[]" size="small">Clear</Button>
-    <Button @click="data=['apple']" size="small">Select apple</Button>
-    <br/>
-    <br/>
+  <Space vertical align="start">
+    <Space>
+      <Button @click="data=[]" size="small">Clear</Button>
+      <Button @click="data=['apple']" size="small">Select apple</Button>
+      {{data}}
+    </Space>
     <CheckboxGroup v-model="data" direction="vertical">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
@@ -19,11 +18,12 @@
       <Checkbox label="Grape" value="grape" disabled/>
       <Checkbox label="Pear" value="pear" disabled/>
     </CheckboxGroup>
-    <br/>
+  </Space>
+  <br/>
+  <Space vertical align="start">
     <p>{{cities}}</p>
-    <br/>
     <CheckboxGroup :options="options" v-model="cities" direction="vertical"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default {

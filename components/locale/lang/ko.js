@@ -67,6 +67,9 @@ module.exports =  {
       successful: '성취',
       failed: '패하다',
       errorFileSize: '잘못된 파일 크기'
+    },
+    image: {
+      preview: '미리 보기'
     }
   }
 }

@@ -4,13 +4,21 @@
 >遇到问题可以先安装 rc 版本
 
 ```bash
-npm config set registry http://registry.npmjs.org
-npm install kui-vue@latest
+npm install kui-vue@latest --registry=http://registry.npmjs.org
 ```
 ### 4.0
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+### 3.4.2
+`2024-07-06`
+- 修复 InputNumber blur 校验问题
+- 修复 DatePicker 赋值问题
+- 修复 Page 当前页赋值问题
+- 修复 Upload 上传失败监听问题
+- Image 优化预览和滚轮缩放
+- 其他各种细节
+  
 ### 3.4.1
 `2024-06-03`
 - 暗黑主题调整

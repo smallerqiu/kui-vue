@@ -5,16 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical align="start">
     <Switch true-text="Yes" false-text="No" />
-    <br />
     <Switch true-text="｜" false-text="〇" />
-    <br />
     <Switch true-text="｜" false-text="〇" checked/>
-    <br />
     <Switch true-text="On" false-text="Off" />
-    <br />
-    <br />
     <Switch>
       <Icon :type="Checkmark" slot="checked"/>
       <Icon :type="Close" slot="unchecked"/>
@@ -23,12 +18,11 @@
       <Icon :type="LogoApple" slot="checked"/>
       <Icon :type="LogoMicrosoft" slot="unchecked"/>
     </Switch>
-    <br />
      <Switch>
       <Icon :type="Airplane" slot="unchecked"/>
       <Icon :type="Wifi" slot="checked"/>
     </Switch>
-  </div>
+  </Space>
 </template>
 <script>
 import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";

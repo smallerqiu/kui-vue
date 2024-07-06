@@ -9,8 +9,8 @@
 </template>
 <script>
 import dayjs from 'dayjs';
-var utc = require('dayjs/plugin/utc')
-dayjs.extend(utc)
+// var utc = require('dayjs/plugin/utc')
+// dayjs.extend(utc)
 export default {
   data() {
     return {
@@ -26,7 +26,7 @@ export default {
         { label: '最近90天', value: [dayjs().add(-90, 'd'), dayjs()] },
       ],
       d1: dayjs(),
-      dates: [dayjs().utcOffset(0).add(-12, 'h'), dayjs().utcOffset(0)],
+      dates: [dayjs().add(-12, 'h'), dayjs()],
     }
   }
 }
