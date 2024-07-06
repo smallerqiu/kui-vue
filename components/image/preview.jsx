@@ -92,10 +92,16 @@ export default {
     },
     close() {
       this.visible = false
-      this.scale = 1
-      this.rotate = 0
+      // this.scale = 1
+      // this.rotate = 0
       this.$emit('input', false)
       this.$emit('close')
+    },
+    mousewheel(e) {
+      let { deltaY } = e
+      this.setScale(deltaY && deltaY < 0)
+      e.stopPropagation()
+      e.preventDefault()
     },
     mousedown(e) {
       if (this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
@@ -249,12 +255,16 @@ export default {
       return null
     }
   },
+  beforeDestroy() {
+    document.removeEventListener('mousewheel', this.mousewheel)
+  },
   mounted() {
     if (!this.$isServer) {
       let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
       this.touch = touch
       let even = touch ? 'touchstart' : 'mousedown'
       document.addEventListener(even, this.mousedown, { passive: false })
+      document.addEventListener('mousewheel', this.mousewheel, { passive: false })
     }
   },
   render(h) {

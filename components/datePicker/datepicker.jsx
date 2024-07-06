@@ -5,6 +5,11 @@ import dayjs from 'dayjs'
 import Drop from '../base/drop'
 import { t } from '../locale'
 import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
+const duration = require('dayjs/plugin/duration');
+const isBetween = require('dayjs/plugin/isBetween');
+
+dayjs.extend(duration);
+dayjs.extend(isBetween);
 export default {
   name: 'DatePicker',
   props: {
@@ -99,22 +104,33 @@ export default {
       let { currentValue, isRange } = this
       if (isRange) {
         let [a, b] = currentValue || []
+        // if (!this.v1 && a) {
+        //   this.v1 = dayjs(a)
+        // }
+        // if (!this.v2 && b) {
+        //   this.v2 = dayjs(b)
+        // }
+        this.d1 = a ? dayjs(a) : dayjs()
+        this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
+
+        const oneMonth = dayjs.duration(1, 'month').asDays();
+        const diff = this.d2.diff(this.d1, 'day');
+        if (diff < oneMonth) {
+          this.d2 = dayjs(this.d1).add(1, 'month')
+        }
         if (!this.v1 && a) {
           this.v1 = dayjs(a)
         }
         if (!this.v2 && b) {
           this.v2 = dayjs(b)
         }
-        this.d1 = a ? dayjs(a) : dayjs()
-        this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
-        
-        if (this.d1.isSame(this.d2, 'month')) {
-          this.d2 = this.d2.add(1, 'month')
-        }
 
-        this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
+        // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
       } else {
         this.d1 = currentValue ? dayjs(currentValue) : dayjs()
+        if (!this.v1 && currentValue) {
+          this.v1 = dayjs(currentValue)
+        }
       }
     },
     clear(e) {
@@ -148,96 +164,86 @@ export default {
       }
     },
     picker1Update(value, type) {
-      let { isRange, format, fmt, mode } = this
-      if (!isRange) {
-        if (!type) { //for day
-          this.d1 = dayjs(value)
-          this.v1 = dayjs(value)
-        } else {
-          this.d1 = this.d1[type](value)
-          this.v1 = (this.v1 || dayjs())[type](value)
-
-          if (type == 'second' && mode == 'time') {
-            this.opened = false
-          }
-        }
-        let ft = format || fmt[mode]
-        let dateStr = this.v1.format(ft)
-        this.currentValue = dayjs(this.v1)
-        this.$emit('input', dateStr)
-        this.$emit('change', this.currentValue, dateStr)
-
-      } else {
-        let { v1, v2, withTime } = this
-        if (!type) { //for day
-          this.d1 = dayjs(value)
-          if (!v1 && !v2) {
-            this.v1 = dayjs(value)
+      let { v1, v2, withTime, format, fmt, mode, isRange } = this
+      if (isRange) {
+        if (!type) { //day
+          let result = dayjs(value)
+          if (!v1) {
+            this.v1 = result
             this.currentValue = [dayjs(value), v2]
           } else if (v1 && !v2) {
-            this.v2 = dayjs(value)
+            this.v2 = result
             this.currentValue = [v1, this.v2]
-
-            this.updateStr()
-
             if (!withTime) {
               this.opened = false
             }
           } else if (v1 && v2) {
-            this.v1 = dayjs(value)
+            this.v1 = result
             this.v2 = null
-            this.currentValue = [dayjs(value), v2]
+            this.currentValue = [dayjs(value), null]
           }
-        } else {
-          this.v1 = (this.v1 || dayjs(this.d1))[type](value)
-          this.currentValue = [this.v1, v2]
-          this.d1 = this.d1[type](value)
+          this.updateStr()
 
+        } else {
+          let _v1 = (v1 || dayjs(this.d1))[type](value)
+          this.v1 = _v1
+          if (v2) {
+            const oneMonth = dayjs.duration(1, 'month').asDays();
+            const diff = v2.diff(_v1, 'day');
+            // console.log('diff', diff)
+            if (diff < oneMonth) {
+              v2 = dayjs(_v1).add(1, 'month')
+            }
+            this.v2 = v2
+          }
+          this.currentValue = [_v1, v2]
           this.updateStr()
         }
-        this.$nextTick(() => {
-          if (this.d1.isAfter(this.d2, 'year')) {
-            this.d2 = this.d2.year(this.d1.year())
-          }
-          if (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(this.d2, 'month')) {
-            this.d2 = this.d2.add(1, 'month')
-          }
-        })
+      } else {
+        let result = !type ? dayjs(value) : (this.v1 || dayjs())[type](value)
+        this.v1 = dayjs(result)
+        this.currentValue = dayjs(result)
+        this.updateStr()
       }
     },
     picker2Update(value, type) {
       let { v1, v2, withTime, format, fmt, mode } = this
-      if (!type) { //for day
-        this.d2 = dayjs(value)
+      if (!type) { //day
+        let result = dayjs(value)
         if (!v1) {
-          this.v1 = dayjs(value)
+          this.v1 = result
           this.currentValue = [dayjs(value), v2]
         } else if (v1 && !v2) {
-          this.v2 = dayjs(value)
+          this.v2 = result
           this.currentValue = [v1, this.v2]
-
-          this.updateStr()
           if (!withTime) {
             this.opened = false
           }
         } else if (v1 && v2) {
-          this.v1 = dayjs(value)
+          this.v1 = result
           this.v2 = null
-          this.currentValue = [dayjs(value), this.v2]
+          this.currentValue = [dayjs(value), null]
         }
-      } else {  //for year , month , datetime 
-
-        this.v2 = (this.v2 || dayjs(this.d2))[type](value)
-        this.d2 = this.d2[type](value)
-        this.currentValue = [v1, this.v2]
+        this.updateStr()
+      } else {
+        let _v2 = (v2 || dayjs(this.d2))[type](value)
+        this.v2 = _v2
+        if (v1) {
+          const oneMonth = dayjs.duration(1, 'month').asDays();
+          const diff = this.v2.diff(v1, 'day');
+          if (diff < oneMonth) {
+            v1 = dayjs(_v2).subtract(1, 'month')
+          }
+          this.v1 = v1
+        }
+        this.currentValue = [v1, _v2]
         this.updateStr()
       }
-
     },
     updateStr() {
-      let { v1, v2, withTime, format, fmt, mode } = this
+      let { v1, v2, isRange, format, fmt, mode } = this
       let ft = format || fmt[mode]
-      let dateStr = [v1 ? v1.format(ft) : null, v2 ? v2.format(ft) : null]
+      let dateStr = isRange ? [v1 ? v1.format(ft) : null, v2 ? v2.format(ft) : null] : v1.format(ft)
       this.$emit('input', dateStr)
       this.$emit('change', this.currentValue, dateStr)
       this.updateCalendDate()
@@ -246,7 +252,7 @@ export default {
       // 只有一个值的时候, 直接置空
       if (this.isRange) {
         let [a, b] = this.currentValue || []
-        if (a && !b) {
+        if ((a && !b) || (!a && b)) {
           this.clear(e)
         }
       }
@@ -322,8 +328,6 @@ export default {
       let [a, b] = currentValue || []
       dv1 = a
       dv2 = b
-      if (!v1 && a) v1 = dayjs(dv1)
-      if (!v2 && b) v2 = dayjs(dv2)
     } else {
       placeholder = placeholder || t('k.datePicker.placeholder')
       if (label) {
@@ -333,7 +337,6 @@ export default {
       }
 
       dv1 = currentValue
-      if (!v1 && dv1) v1 = dayjs(dv1)
     }
 
     // console.log(dv1, dv2)

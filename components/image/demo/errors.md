@@ -6,7 +6,7 @@
 
 ```vue
 <template>  
-  <div>
+  <Space>
     <Image 
       :width="120"
       src="https://k-ui.cn/error.jpg"
@@ -23,7 +23,7 @@
       :src="src"
       />
     <Button @click="loadOrigin">Load origin</Button>
-  </div>
+  </Space>
 </template>
 <script>
 export default{

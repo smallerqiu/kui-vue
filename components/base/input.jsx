@@ -40,6 +40,7 @@ export default {
   inject: {
     Input: { default: null },
     TextArea: { default: null },
+    InputNumber: { default: null },
   },
   watch: {
     value(value) {
@@ -47,7 +48,7 @@ export default {
     }
   },
   mounted() {
-    let textInput = (this.Input || this.TextArea) || {}
+    let textInput = (this.Input || this.TextArea || this.InputNumber) || {}
     textInput.focus = (e) => {
       this.$nextTick(() => this.$refs.input.focus(e))
     }
@@ -65,14 +66,14 @@ export default {
     },
     handleFocus(e) {
       this.isFocus = true
-      let intput = this.Input || this.TextArea
+      let intput = this.Input || this.TextArea || this.InputNumber
       intput && intput.$emit('focus', e)
     },
     handleBlur(e) {
-      let intput = this.Input || this.TextArea
+      let intput = this.Input || this.TextArea || this.InputNumber
       // console.log('base blur')
-      // this.$emit('blur', e);
-      intput && intput.$emit('blur', e)
+      this.$emit('blur', e);
+      // intput && intput.$emit('blur', e)
       this.isFocus = false
     },
     handleInput(e) {

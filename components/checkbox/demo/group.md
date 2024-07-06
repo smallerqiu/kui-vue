@@ -1,13 +1,13 @@
 <cn>
 #### 组合使用
 组合使用可以直接使用 `CheckboxGroup` 的 `options` 来赋值,或者结合 `Checkbox` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
-**`CheckboxGroup` 可以直接使用 `options` 来组合，3.0版本增加**
+> `CheckboxGroup` 可以直接使用 `options` 来组合，3.0版本增加
 </cn>
 
 ```vue
 <template>
-  <div>
-    <p>{{data}}</p>
+  <Space>
+    {{data}}
     <CheckboxGroup v-model="data">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
@@ -17,11 +17,13 @@
     </CheckboxGroup>
     <Button @click="data=[]" size="small">Clear</Button>
     <Button @click="data=['apple']" size="small">Select apple</Button>
-    <br/>
-    <br/>
-    <p>{{cities}}</p>
+  </Space>
+  <br/>
+  <br/>
+  <Space vertical align="start">
+    {{cities}}
     <CheckboxGroup :options="options" v-model="cities"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default {

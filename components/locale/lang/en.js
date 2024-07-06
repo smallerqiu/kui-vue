@@ -50,6 +50,9 @@ module.exports =  {
       successful: 'Successful',
       failed: 'Failed',
       errorFileSize: 'Illegal file size'
+    },
+    image: {
+      preview: 'Preview'
     }
   }
 }

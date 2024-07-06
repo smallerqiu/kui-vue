@@ -5,10 +5,12 @@
 
 ```vue
 <template>
-  <Space vertical> 
-    <Select :width="200" :icon="Search" v-model="select"  theme="light" :arrow-icon="CaretDown" :options="data"/>
-    <Button @click="select=''" size="small">Clear</Button>
-    <Button @click="select=1" size="small">Choose orange</Button>
+  <Space vertical align="start"> 
+    <Space>
+      <Select :width="200" :icon="Search" v-model="select"  theme="light" :arrow-icon="CaretDown" :options="data"/>
+      <Button @click="select=''" size="small">Clear</Button>
+      <Button @click="select=1" size="small">Choose orange</Button>
+    </Space>
     <Select :width="200" :icon="Location" :arrow-icon="ChevronDownCircleOutline">
       <Option :value="1" label="Apple" />
       <Option :value="2" label="Orange" />

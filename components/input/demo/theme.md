@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <Checkbox label="Shape" v-model="isShape"/>
+    <Checkbox label="Circle" v-model="isShape"/>
     <br/>
     <br/>
     <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light" :shape="shape"/>

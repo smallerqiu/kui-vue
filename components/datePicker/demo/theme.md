@@ -6,7 +6,7 @@ theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义
 ```vue
 <template>
   <div>
-    <Checkbox v-model="shape" label="Shape" />
+    <Checkbox v-model="shape" label="Circle" />
     <br/>
     <br/>
     <DatePicker theme="light" :shape="shape?'circle':''"/>

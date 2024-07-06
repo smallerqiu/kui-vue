@@ -5,19 +5,17 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical align="start">
     <Switch disabled />
-    <br />
-    <Switch :disabled="disabled" v-model="checked" />
-    <Button size="small" @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
-    <Button size="small" @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
-    <br />
+    <Space>
+      <Switch :disabled="disabled" v-model="checked" />
+      <Button size="small" @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
+      <Button size="small" @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
+    </Space>
     <Switch disabled true-text="Yes" false-text="No" />
-    <br />
     <Switch disabled true-text="Yes" false-text="No" checked />
-    <br />
     <Switch disabled true-text="Yes" false-text="No" checked size="small"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default{

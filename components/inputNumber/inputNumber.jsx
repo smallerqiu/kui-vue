@@ -121,6 +121,7 @@ export default {
     },
     blurHandle(e) {
       let v = this.getVal(e.target.value)
+      // console.log(v)
       // console.log(e.target.value)
       this.defaultValue = v + ''
       // console.log('blur1', v)
@@ -142,7 +143,7 @@ export default {
   },
   provide() {
     return {
-      Input: this
+      InputNumber: this
     }
   },
   render() {

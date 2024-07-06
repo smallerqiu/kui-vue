@@ -50,6 +50,9 @@ module.exports =  {
       successful: 'thành công',
       failed: 'thất bại',
       errorFileSize: 'Phạm vi bất hợp pháp'
+    },
+    image: {
+      preview: 'Xem thử'
     }
   }
 }

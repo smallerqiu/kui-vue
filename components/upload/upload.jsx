@@ -219,9 +219,20 @@ export default {
           event
         })
       }
+      xhr.onload = (e) => {
+        if (xhr.status != 200) {
+          item.status = 'error'
+          delete this.uploadTemp[item.uid]
+
+          this.$emit('change', {
+            file: Object.assign(item, { response: xhr.responseText }),
+            fileList: this.defaultFileList,
+            event: event
+          })
+        }
+      }
       xhr.onerror = event => {
         item.status = 'error'
-
         delete this.uploadTemp[item.uid]
 
         this.$emit('change', {

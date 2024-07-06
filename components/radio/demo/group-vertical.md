@@ -5,13 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    <p>Selected:{{data}}</p>
-    <br />
-    <Button @click="data=''" size="small">Clear</Button>
-    <Button @click="data='apple'" size="small">Select apple</Button>
-    <br />
-    <br />
+  <Space vertical align="start">
+    <Space>
+      Selected:{{data}}</p>
+      <Button @click="data=''" size="small">Clear</Button>
+      <Button @click="data='apple'" size="small">Select apple</Button>
+    </Space>
     <RadioGroup v-model="data" direction="vertical">
       <Radio label="Apple" value="apple" />
       <Radio label="Orange" value="orange" />
@@ -19,11 +18,9 @@
       <Radio label="Grape" value="grape" disabled/>
       <Radio label="Pear" value="pear" disabled/>
     </RadioGroup>
-    <br/>
-    <p>{{cities}}</p>
-    <br/>
+    {{cities}}
     <RadioGroup :options="options" v-model="cities"  direction="vertical"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default {

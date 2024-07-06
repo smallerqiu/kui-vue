@@ -7,7 +7,6 @@
 ```vue
 <template>
   <div ref="drawer-box" style="height:300px;position:relative;overflow:hidden">
-    <Button @click="show=!show">普通抽屉</Button>
     <RadioGroup v-model="placement">
       <Radio label="left" value="left"/>
       <Radio label="top" value="top"/>
@@ -22,6 +21,7 @@
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
+    <Button @click="show=!show">Open</Button>
   </div>
 </template>
 <script>

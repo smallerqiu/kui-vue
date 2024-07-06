@@ -1,7 +1,7 @@
 <cn>
 #### 组合使用Options
-- 组合使用可以直接使用 `RadioGroup` 的 `options` 来赋值,
-- 或者结合子组件 `Radio` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
+组合使用可以直接使用 `RadioGroup` 的 `options` 来赋值,
+或者结合子组件 `Radio` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
 </cn>
 
 ```vue

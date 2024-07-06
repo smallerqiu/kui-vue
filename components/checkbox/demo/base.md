@@ -5,14 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    <p>{{checked}}</p>
+  <Space>
+    {{checked}}
     <Checkbox v-model="checked">Checkbox</Checkbox>
     <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <br/>
-    <br/>
     <Checkbox label="Checkbox"/>
-  </div>
+  </Space>
 </template>
 <script>
 export default{

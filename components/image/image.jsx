@@ -1,7 +1,8 @@
 import Icon from '../icon'
 import createInstance from './instance'
 // import { easyEqual } from '../_tool/utils'
-import { Sync, IconImage } from 'kui-icons'
+import { Sync, IconImage ,EyeOutline} from 'kui-icons'
+import { t } from '../locale';
 export default {
   name: 'kImage',
   props: {
@@ -162,6 +163,7 @@ export default {
       {loading ? <div class="k-image-loading" key="wocao">
         <Icon type={Sync} spin class="k-image-loading-icon" />
       </div> : null}
+      {!loading && !error ?<div class="k-image-preview-mask"><Icon type={EyeOutline} />{t('k.image.preview')}</div>:null}
       {this.$slots.default}
     </div>
   }

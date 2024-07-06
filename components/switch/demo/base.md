@@ -5,13 +5,13 @@
 
 ```vue
 <template>
-  <div>
-    <p>value:{{checked}}</p>
+  <Space>
+    value:
+    {{checked}}
     <Switch v-model="checked" />
     <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <br/>
     <Switch checked />
-  </div>
+  </Space>
 </template>
 <script>
 export default{
