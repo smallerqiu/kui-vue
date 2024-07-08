@@ -1,10 +1,10 @@
 <template>
   <div>
-    <DatePicker :presets="p1" v-model="d1" mode="dateTime"/>
+    <!-- <DatePicker :presets="p1" v-model="d1" mode="dateTime"/> -->
     <br />
-    <DatePicker :presets="p2" mode="dateRange" v-model="dates" />
+    <!-- <DatePicker :presets="presets" mode="dateRange" v-model="dates" /> -->
     <br />
-    <DatePicker mode="dateTimeRange" :presets="p2" v-model="dates" />
+    <DatePicker mode="dateTimeRange" :presets="presets" v-model="dates" />
   </div>
 </template>
 <script>
@@ -14,10 +14,10 @@ import dayjs from 'dayjs';
 export default {
   data() {
     return {
-      p1: [
-        { label: '昨天', value: dayjs().add(-1, 'd') },
-        { label: '7天前', value: dayjs().add(-7, 'd') },
-        { label: '上个月', value: dayjs().add(-1, 'month') },
+      presets: [
+        { label: '1天内', value: [dayjs().add(-1, 'd'), dayjs()] },
+        { label: '3天内', value: [dayjs().add(-3, 'd'), dayjs()] },
+        { label: '7天内', value: [dayjs().add(-7, 'd'), dayjs()] },
       ],
       p2: [
         { label: '最近7天', value: [dayjs().add(-7, 'd'), dayjs()] },
@@ -26,7 +26,7 @@ export default {
         { label: '最近90天', value: [dayjs().add(-90, 'd'), dayjs()] },
       ],
       d1: dayjs(),
-      dates: [dayjs().add(-12, 'h'), dayjs()],
+      dates: [dayjs().subtract(2, 'day') * 1, new Date()],
     }
   }
 }

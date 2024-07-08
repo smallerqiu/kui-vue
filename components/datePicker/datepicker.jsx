@@ -189,9 +189,9 @@ export default {
           this.v1 = _v1
           if (v2) {
             const oneMonth = dayjs.duration(1, 'month').asDays();
-            const diff = v2.diff(_v1, 'day');
-            // console.log('diff', diff)
-            if (diff < oneMonth) {
+            const diff = _v1.diff(v2, 'day');
+            // console.log(oneMonth, diff)
+            if (diff > oneMonth) {
               v2 = dayjs(_v1).add(1, 'month')
             }
             this.v2 = v2
@@ -230,8 +230,9 @@ export default {
         this.v2 = _v2
         if (v1) {
           const oneMonth = dayjs.duration(1, 'month').asDays();
-          const diff = this.v2.diff(v1, 'day');
-          if (diff < oneMonth) {
+          const diff = _v2.diff(v1, 'day');
+          // console.log(oneMonth, diff)
+          if (diff < 0) {
             v1 = dayjs(_v2).subtract(1, 'month')
           }
           this.v1 = v1
