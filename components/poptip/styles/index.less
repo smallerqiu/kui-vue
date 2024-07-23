@@ -4,8 +4,8 @@
   display: inline-block;
   position: relative;
   // max-width: 300px;
-  color: #fff;
-  // color: var(--kui-color-font);
+  // color: #fff;
+  color: var(--kui-color-font);
   font-size: 12px;
   line-height: 1.5;
   position: absolute;
@@ -158,8 +158,8 @@
   .k-poptip-title {
     font-size: 16px;
     font-weight: 500;
-    // color: var(--kui-color-font);
-    color: #fff;
+    color: var(--kui-color-font);
+    // color: #fff;
     margin: 0;
     padding: 8px 16px;
     position: relative;
@@ -181,12 +181,18 @@
 }
 
 .k-poptip-dark {
-  background: #333;
-  // background-color: var(--kui-color-dark);
-  color: #fff;
-
   .k-poptip-title {
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    color: #fff;
+  }
+
+  .k-poptip-content {
+    // background: #333;
+    color: #fff;
+    background-color: @dark-back-color-10;
+  }
+
+  .k-poptip-arrow {
+    color: @dark-back-color-10;
   }
 }
 

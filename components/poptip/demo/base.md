@@ -12,7 +12,7 @@
     </template>
     <Button type="primary">Hover me</Button>
   </Poptip>
-  <Poptip>
+  <Poptip dark>
     <template slot="content">
       <p>明月几时有,把酒问青天!</p>
       <p>明月几时有,把酒问青天!</p>
