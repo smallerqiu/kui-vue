@@ -1,6 +1,6 @@
 {
   "name": "kui-vue",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "A high quality UI Toolkit built on Vue.js 2.0",
   "private": false,
   "main": "dist/k-ui.js",

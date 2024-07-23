@@ -7,12 +7,15 @@
 ```vue
 <template>
   <div ref="drawer-box" style="height:300px;position:relative;overflow:hidden">
-    <RadioGroup v-model="placement">
-      <Radio label="left" value="left"/>
-      <Radio label="top" value="top"/>
-      <Radio label="right" value="right"/>
-      <Radio label="bottom" value="bottom"/>
-    </RadioGroup>
+    <Space>
+      <RadioGroup v-model="placement">
+        <Radio label="left" value="left"/>
+        <Radio label="top" value="top"/>
+        <Radio label="right" value="right"/>
+        <Radio label="bottom" value="bottom"/>
+      </RadioGroup>
+      <Button @click="show=!show">Open</Button>
+    </Space>
     <Drawer v-model="show" width="200" 
       :footer="null" 
       :placement="placement"
@@ -21,7 +24,6 @@
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
-    <Button @click="show=!show">Open</Button>
   </div>
 </template>
 <script>
