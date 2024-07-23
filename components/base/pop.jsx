@@ -154,7 +154,8 @@ export default {
           className: [`k-${preCls}`, {
             [`k-${preCls}-${color}`]: color && !/^#/.test(color),
             [`k-${preCls}-has-color`]: /^#/.test(color),
-            [`k-${preCls}-has-arrow`]: this.showPlacementArrow
+            [`k-${preCls}-has-arrow`]: this.showPlacementArrow,
+            [`k-${preCls}-dark`]: this.dark
           }],
           width: this.width,
           selection: this.selection,
