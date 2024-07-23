@@ -9,6 +9,13 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 ### 4.0
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
+
+### 3.4.4
+`2024-07-23`
+- 修复Drawer细节
+- 修复Popconfirm 细节
+
+
 ### 3.4.3
 `2024-07-08`
 - 修复已知问题

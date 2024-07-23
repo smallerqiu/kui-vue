@@ -5,16 +5,18 @@
 
 ```vue
 <template>
-  <Space>
-    <RadioGroup v-model="placement">
-      <Radio label="left" value="left"/>
-      <Radio label="top" value="top"/>
-      <Radio label="right" value="right"/>
-      <Radio label="bottom" value="bottom"/>
-    </RadioGroup>
-    <Button @click="show=true" >Open</Button>
-    <Drawer v-model="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok">My name is chuchur.</Drawer>
-  </Space>
+  <div>
+    <Space>
+      <RadioGroup v-model="placement">
+        <Radio label="left" value="left"/>
+        <Radio label="top" value="top"/>
+        <Radio label="right" value="right"/>
+        <Radio label="bottom" value="bottom"/>
+      </RadioGroup>
+      <Button @click="show=true" >Open</Button>
+    </Space>
+    <Drawer v-model="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok" @ok="show=false">My name is chuchur.</Drawer>
+  </div>
 </template>
 <script>
 export default{

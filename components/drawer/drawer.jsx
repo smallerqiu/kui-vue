@@ -1,4 +1,4 @@
-import {Button} from "../button";
+import { Button } from "../button";
 import Icon from "../icon";
 import { t } from "../locale";
 import transfer from "../_tool/transfer";
@@ -23,6 +23,7 @@ export default {
     maskClosable: { type: Boolean, default: false },
     target: { type: Function, default: () => document.body },
     mask: { type: Boolean, default: true },
+    loading: { type: Boolean, default: false },
   },
   watch: {
     value(v) {
@@ -110,10 +111,10 @@ export default {
     if (this.$isServer) return null;
     const { title, visible, cancelText, okText, ok,
       placement, cancel, $slots, width, height, open,
-      closable, close, } = this
+      closable, close, loading } = this
     const hasFooter = this.footer || $slots.footer
     const canelBtn = <Button onClick={cancel}>{cancelText || t('k.drawer.cancel')}</Button>
-    const okBtn = <Button type="primary" onClick={ok}>{okText || t('k.drawer.ok')}</Button>
+    const okBtn = <Button type="primary" onClick={ok} loading={loading}>{okText || t('k.drawer.ok')}</Button>
     const footNode = (
       hasFooter ? <div class="k-drawer-footer">
         {$slots.footer}
@@ -148,8 +149,7 @@ export default {
         <transition name={transitionName} time={3500000}>
           <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">
-              {closeNode}
-              {title !== null && title !== false && <div class="k-drawer-header"><div class="k-drawer-header-inner">{title}</div></div>}
+              {<div class="k-drawer-header">{closeNode}<div class="k-drawer-header-inner">{title}</div></div>}
               <div class="k-drawer-body">
                 {$slots.default}
               </div>
@@ -157,7 +157,7 @@ export default {
             </div>
           </div>
         </transition>
-      </div> : ''
+      </div> : null
     )
   }
 };

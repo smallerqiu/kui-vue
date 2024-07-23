@@ -8,9 +8,10 @@
 | footer       | 页脚内容，不显示页脚设置`footer=null`即可                          | slot          | true   |
 | closable     | 是否显示关闭按钮                                                   | Boolean       | true   |
 | target       | 展示的父元素                                                       | Function      | -      |
-| mask-closable | 点击蒙层是否允许关闭                                               | Boolean       | true   |
+| mask-closable | 点击蒙层是否允许关闭                                               | Boolean       | false   |
 | okText       | 确定按钮文字                                                       | String        | 确定   |
 | cancelText   | 取消按钮文字                                                       | String        | 取消   |
 | ok           | 点击确定的回调                                                     | Function      | -      |
 | cancel       | 点击取消的回调                                                     | Function      | -      |
 | close        | 抽屉关闭的回调                                                     | Function      | -      |
+| mask        | 是否展示蒙层                                                     | Boolean      | true      |

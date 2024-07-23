@@ -19,13 +19,4 @@ export default {
     )
   }
 }
-</script> 
-<style lang="less">
-.demo-drawer {
-  .k-btn{
-    margin-right: 10px;
-    margin-bottom: 10px;
-    min-width: 70px;
-  }
-}
-</style>
+</script>
