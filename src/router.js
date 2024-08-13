@@ -38,6 +38,7 @@ let children = [
 	{ path: '/layouts/divider', component: () => import(/*webpackChunkName:'divider'*/'../components/divider/demo'), },
 	{ path: '/notices/empty', component: () => import(/*webpackChunkName:'empty'*/'../components/empty/demo'), },
 	{ path: '/forms/form', component: () => import(/*webpackChunkName:'form'*/'../components/form/demo'), },
+	{ path: '/layouts/flex', component: () => import(/*webpackChunkName:'flex'*/'../components/flex/demo'), },
 	{ path: '/layouts/grid', component: () => import(/*webpackChunkName:'grid'*/'../components/grid/demo'), },
 	{ path: '/datas/image', component: () => import(/*webpackChunkName:'image'*/'../components/image/demo'), },
 	{ path: '/forms/input', component: () => import(/*webpackChunkName:'input'*/'../components/input/demo'), },

@@ -5,24 +5,23 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical align="start">
     <RadioGroup v-model="size">
       <RadioButton value="large" label="Large"/>
       <RadioButton value="default" label="Default"/>
       <RadioButton value="small" label="Small"/>
     </RadioGroup>
-    <br/>
-    <br/>
-    <Button type="primary" :size="size">Primary</Button>
-    <Button :size="size">Default</Button>
-    <Button type="dashed" :size="size">Dashed</Button>
-    <Button type="link" :size="size">Link</Button>
-    <br/>
-    <Button type="primary" :size="size" :icon="CloudDownload"></Button>
-    <Button type="primary" shape="circle" :size="size" :icon="CloudDownload"></Button>
-    <Button type="primary" shape="circle" :size="size" :icon="CloudDownload">Download</Button>
-    <Button type="primary" :size="size" :icon="CloudDownload">Download</Button>
-
+    <Space>
+      <Button type="primary" :size="size">Primary</Button>
+      <Button :size="size">Default</Button>
+      <Button type="dashed" :size="size">Dashed</Button>
+      <Button type="link" :size="size">Link</Button>
+      <br/>
+      <Button type="primary" :size="size" :icon="CloudDownload"></Button>
+      <Button type="primary" shape="circle" :size="size" :icon="CloudDownload"></Button>
+      <Button type="primary" shape="circle" :size="size" :icon="CloudDownload">Download</Button>
+      <Button type="primary" :size="size" :icon="CloudDownload">Download</Button>
+    </Space>
   </Space>
 </template>
 <script>

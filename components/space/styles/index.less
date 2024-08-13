@@ -1,20 +1,13 @@
 .k-space {
   display: inline-flex;
-  gap: 8px;
 }
 
-.k-space-md {
-  display: inline-flex;
-  gap: 16px;
+.k-space-block {
+  width: 100%;
 }
 
 .k-space-wrap {
   flex-wrap: wrap;
-}
-
-.k-space-lg {
-  display: inline-flex;
-  gap: 24px;
 }
 
 .k-space-align-start {
@@ -35,4 +28,69 @@
 
 .k-space-vertical {
   flex-direction: column;
+}
+
+.k-space-compact {
+  .k-space-first-item {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -1px;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+  .k-space-item {
+    border-radius: 0;
+    margin-right: -1px;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+  .k-select-open,
+  .k-datepicker-open {
+    z-index: 1;
+  }
+
+  .k-space-last-item {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+
+  .k-space-vertical-first-item {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+  .k-space-vertical-item {
+    border-radius: 0;
+    margin-bottom: -1px;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
+  .k-space-vertical-last-item {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    &:hover {
+      z-index: 1;
+    }
+  }
+
 }

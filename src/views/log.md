@@ -10,6 +10,15 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+### 3.4.5
+`2024-07-23`
+- 新增 InputGroup 组件,更好的处理多个表单组合
+- 新增 Flex 弹性布局组件, 布局组杂场景更加灵活
+- 完善 Button 组件, 当type 为link 时 跳转链接
+- 增强Space组件细节,增加一些可控属性
+- 修复Slider 组件的change事件触发问题
+- 修复其它若干细节
+  
 ### 3.4.4
 `2024-07-23`
 - 修复Drawer细节

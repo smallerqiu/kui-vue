@@ -3,20 +3,15 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="65">
-      <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制"
-        :icon="LogoKui"
-        v-model="key"
-        size="large"
-        @input="search"
-        clearable
-        style="width:80%;margin:0 10%;background:var(--kui-color-back);">
-      <RadioGroup v-model="type"
-        @change="switchIcon"
-        slot="suffix">
-        <RadioButton value="outline">Outline</RadioButton>
-        <RadioButton value="filled">Filled</RadioButton>
-      </RadioGroup>
-      </Input>
+      <Space size="large" compact style="width:80%">
+        <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key"  @input="search" clearable
+          style="background:var(--kui-color-back);">
+        </Input>
+        <RadioGroup v-model="type" @change="switchIcon">
+          <RadioButton value="outline">Outline</RadioButton>
+          <RadioButton value="filled">Filled</RadioButton>
+        </RadioGroup>
+      </Space>
     </Affix>
 
     <br />
@@ -28,37 +23,30 @@
         </div>
         <br />
         <div class="icon-list">
-          <span @click.stop="copy(x)"
-            v-for="(x,y) in showIcons"
-            :key="y"
-            class="icon-item">
+          <span @click.stop="copy(x)" v-for="(x, y) in showIcons" :key="y" class="icon-item">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <span class="item-text">{{x}}</span>
+            <span class="item-text">{{ x }}</span>
           </span>
         </div>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-list">
-          <span @click.stop="copy(x)"
-            v-for="(x,y) in logo"
-            :key="y"
-            class="icon-item">
+          <span @click.stop="copy(x)" v-for="(x, y) in logo" :key="y" class="icon-item">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <span class="item-text">{{x}}</span>
+            <span class="item-text">{{ x }}</span>
           </span>
         </div>
       </template>
-      <h3 v-if="!showIcons.length && !logo.length"
-        style="text-align:center;padding-bottom:50px;color:#888;">
-        No results for "{{key}}"
+      <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
+        No results for "{{ key }}"
       </h3>
     </div>
   </div>
@@ -67,6 +55,7 @@
 .icon-list {
   // overflow: hidden;
   display: inline-block;
+
   .icon-item {
     text-align: center;
     width: 200px;
@@ -81,12 +70,14 @@
     font-size: 32px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
+
     &:hover {
       color: #3a95ff;
       // background: #f5f5f5;
       box-shadow: 0 0 15px #ddd;
     }
   }
+
   .item-text {
     font-size: 12px;
     line-height: 1;

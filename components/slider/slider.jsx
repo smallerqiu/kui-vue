@@ -113,6 +113,7 @@ export default {
 
       this.defaultValue = value
       this.$emit('input', value)
+      this.$emit('change', value)
     },
     isActice(a) {
       let { defaultValue, reverse, max, min, vertical } = this
@@ -214,8 +215,11 @@ export default {
         },
         on: {
           input: (value) => {
-            this.defaultValue = value
-            this.$emit('input', value)
+            if (value !== defaultValue) {
+              this.defaultValue = value
+              this.$emit('input', value)
+              this.$emit('change', value)
+            }
           }
         }
       }

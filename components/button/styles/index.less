@@ -272,7 +272,7 @@
 
 .k-btn-group {
   position: relative;
-	flex-shrink: 0;
+  flex-shrink: 0;
   display: inline-flex;
   // vertical-align: middle;
   align-items: center;
@@ -375,18 +375,21 @@
   }
 }
 
+a.k-btn-link,
 .k-btn-link {
   background: none;
   border: none;
   color: var(--kui-color-main);
+  text-decoration: none;
 
   &:hover {
+    text-decoration: none;
     opacity: .8;
   }
 
   &:disabled {
+    background: 0 0;
 
-    &,
     &:hover,
     // &:focus,
     &:active {

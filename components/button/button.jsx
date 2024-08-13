@@ -35,7 +35,9 @@ export default {
         return ['default', 'light', 'solid', 'normal', 'card'].indexOf(value) > -1
       }
     },
-    shape: String
+    shape: String,
+    href: String,
+    target: String
   },
   methods: {
     click(e) {
@@ -46,7 +48,7 @@ export default {
   },
 
   render() {
-    const { $slots, $attrs, size, disabled, click, theme,
+    const { $slots, $attrs, size, disabled, click, theme, href, target,
       shape, htmlType, icon, loading, $listeners, type, block } = this
     const onlyIcon = !getChild($slots.default, 'Drop').length && icon
     const classes = [
@@ -76,7 +78,8 @@ export default {
     const childs = child.map(c => {
       return typeof c.text == 'string' ? <span>{c.text.trim()}</span> : c
     })
-    return <button {...props} >
+    const is_link = type == 'link' && href
+    return is_link ? <a href={href} target={target} {...props}>{iconNode}{childs}</a> : <button {...props} >
       {iconNode}
       {childs}
     </button >

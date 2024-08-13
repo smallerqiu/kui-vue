@@ -17,9 +17,10 @@ import Dropdown from './dropdown'
 import Divider from './divider'
 import Empty from './empty'
 import { Form, FormItem } from './form'
+import Flex from './flex'
 import { Image, ImageGroup } from './image'
 import Icon from './icon'
-import { Input, TextArea } from './input'
+import { Input, TextArea ,InputGroup} from './input'
 import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from './layout'
 import Loading from './loading'
@@ -74,9 +75,10 @@ const components = {
 	Divider,
 	Empty,
 	Form, FormItem,
+	Flex,
 	Icon,
 	ImageGroup,
-	Input, TextArea,
+	Input, TextArea, InputGroup,
 	InputNumber,
 	Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
 	Modal,
