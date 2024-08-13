@@ -1,3 +1,4 @@
 import Input from './input.jsx'
 import TextArea from './textarea.jsx'
-export { Input, TextArea }
+import InputGroup from './inputGroup.jsx'
+export { Input, TextArea, InputGroup }

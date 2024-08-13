@@ -25,6 +25,7 @@ const navs = [
     key: 'layouts',
     child: [
       { title: "分割线", sub: "Divider", name: "divider", icon: 'divider' },
+      { title: "弹性布局", sub: "Flex", name: "flex", icon: 'flex' },
       { title: "栅格", sub: "Grid", name: "grid", icon: 'grid' },
       { title: "布局", sub: "Layout", name: "layout", icon: 'layout' },
       { title: "间距", sub: "Space", name: "space", icon: 'space' },

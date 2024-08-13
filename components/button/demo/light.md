@@ -10,7 +10,6 @@
     <Button type="danger" theme="light">Danger</Button>
     <Button type="warning" theme="light">Warning</Button>
     <Button theme="light">Default</Button>
-    <Button theme="light">Default</Button>
   </Space>
   <br/>
   <br/>

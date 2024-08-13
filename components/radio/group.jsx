@@ -1,6 +1,7 @@
 import { getChild } from '../_tool/utils'
 import Radio from './radio.jsx';
 import Button from './button.jsx';
+import cloneVNode from '../_tool/clone'
 export default {
   name: "RadioGroup",
   props: {
@@ -70,6 +71,17 @@ export default {
             disabled={option.disabled}
           />
       })
+    } else {
+      // let newChilds = []
+      // for (let i = 0; i < childs.length; i++) {
+      //   let child = cloneVNode(childs[i], {
+      //     props: {
+      //       size, theme, shape,
+      //     },
+      //   })
+      //   newChilds.push(child)
+      // }
+      // childs = newChilds
     }
     const classes = [
       'k-radio-group',

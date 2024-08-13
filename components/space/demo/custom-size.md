@@ -7,8 +7,6 @@
 <template>
   <div>
     <Slider v-model="size" :max="50"/>
-    <br/>
-    <br/>
     <Space :size="size">
       <Button type="primary">Primary</Button>
       <Button type="danger">Danger</Button>

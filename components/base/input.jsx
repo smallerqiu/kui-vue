@@ -117,9 +117,9 @@ export default {
     },
     getSuffix() {
       let { $listeners, suffix } = this
-      const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-icon-search" onClick={this.searchEvent} /> : null
+      const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-search-icon" onClick={this.searchEvent} /> : null
 
-      const Password = (this.type == 'password') ? <Icon type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
+      const Password = (this.type == 'password') ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
       return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
