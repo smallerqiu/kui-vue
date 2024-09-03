@@ -10,6 +10,9 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+### 3.4.6
+- 优化细节
+
 ### 3.4.5
 `2024-08-13`
 - 新增 InputGroup 组件,更好的处理多个表单组合

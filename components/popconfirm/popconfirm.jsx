@@ -4,7 +4,7 @@ export default {
   props: {
     dark: Boolean,
     transfer: { type: Boolean, default: true },
-    title: String,
+    title: [String, Number, Object, Array],
     width: [Number, String],
     okText: String,
     cancelText: String,
