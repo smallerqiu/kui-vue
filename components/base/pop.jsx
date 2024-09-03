@@ -102,7 +102,6 @@ export default {
         }
       }
       this.$emit('click', e)
-
     },
     renderPopup() {
       let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;

@@ -32,7 +32,10 @@ export default {
         [`k-space-wrap`]: wrap,
         [`k-space-block`]: block,
         [`k-space-align-${align}`]: align,
-      }]
+      }],
+      on: {
+        ...this.$listeners
+      }
     }
     if (!size && !compact) {
       props.style.gap = '8px'

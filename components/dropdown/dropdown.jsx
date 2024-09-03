@@ -52,7 +52,7 @@ export default {
       <BasePop {...props} ref="pop">
         {this.$slots.default}
         <template slot="content">{this.$slots.content}</template>
-      </BasePop >
+      </BasePop>
     )
   },
   methods: {

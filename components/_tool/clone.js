@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 const pick = require('lodash.pick');
 const assign = require('lodash.assign');
 const DATA_KEYS = [
