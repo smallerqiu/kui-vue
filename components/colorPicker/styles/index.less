@@ -119,16 +119,21 @@
   position: absolute;
   border-radius: var(--kui-border-radius);
   background: var(--kui-color-back);
+  border: 1px solid var(--kui-color-gray-80);
   z-index: 1001;
+  padding: 10px;
+  box-sizing: border-box;
 
   .k-color-picker-paint-dot {
     width: 15px;
     height: 15px;
     display: block;
     position: absolute;
-    background: var(--kui-color-back);
-    border: 1px solid var(--kui-color-border);
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    // background: var(--kui-color-back);
+    // border: 2px solid #fff;
+    border: 2px solid var(--kui-color-back);
+    box-shadow: 0 0 0 px rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     top: 10px;
     left: 10px;
@@ -136,83 +141,85 @@
   }
 
   .k-color-picker-paint {
-    width: 254px;
+    width: 234px;
     height: 136px;
+    border-radius: @radius;
   }
 
   .k-color-picker-bar {
-    padding: 14px 16px 0 16px;
-    display: inline-block;
+    padding: 10px 0 0 0;
+    display: flex;
   }
 
   .k-color-picker-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
     float: left;
     background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
     background-size: 11px 11px;
     background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
 
     .k-color-picker-avatar-inner {
-      border-radius: 50%;
+      border-radius: 6px;
       width: 100%;
       height: 100%;
+      border: 1px solid var(--kui-color-border);
+      box-sizing: border-box;
     }
   }
 
   .k-color-picker-bar-box {
-    margin-left: 16px;
-    width: 170px;
-    float: right;
+    margin-left: 14px;
+    flex: 1;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     canvas {
-      height: 13px;
-      width: 170px;
-      border-radius: 2px;
+      height: 8px;
+      width: 190px;
+      border-radius: 4px;
     }
 
     .k-color-picker-alpha {
-      margin-top: 10px;
       background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
-      background-size: 11px 11px;
-      background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
+      background-size: 8px 8px;
+      background-position: 0 0, 0 -4px, -4px 4px, 4px 0;
+      border: 1px solid #a1a1a1;
+      box-sizing: border-box;
     }
 
     span {
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       display: block;
       position: absolute;
-      background: var(--kui-color-back);
-      border: 1px solid var(--kui-color-border);
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+      border: 2px solid var(--kui-color-back);
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 7%);
       border-radius: 50%;
       pointer-events: none;
+      box-sizing: border-box;
     }
 
     .k-color-picker-hue-dot {
-      top: -1px;
+      top: -2px;
     }
 
     .k-color-picker-alpha-dot {
-      top: 22px;
+      top: 18px;
     }
   }
 
   .k-color-picker-mode {
     position: relative;
-    margin-left: 16px;
     margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 
     .k-btn {
-      position: absolute;
-      z-index: 1;
-      right: 10px;
-      top: 10px;
-      cursor: pointer;
-
       &:hover {
         color: @main;
       }
@@ -233,50 +240,52 @@
   .k-color-picker-rgba,
   .k-color-picker-hsla {
     .k-input {
-      width: 44px;
-      margin-right: 4px;
+      // width: 44px;
     }
+  }
 
-    .k-color-picker-key {
-      span {
-        width: 44px;
-        display: inline-block;
-        margin-right: 4px;
-        color: #8b8b8b;
-      }
-    }
+  .k-color-picker-mode-label {
+    font-size: 12px;
   }
 
   .k-color-picker-hex {
     .k-input {
-      width: 188px;
+      // width: 188px;
     }
   }
 
+
+
   .k-color-picker-val {
-    margin: 0 0 9px 0;
+    display: flex;
+    gap: 4px;
+    flex: 1;
 
     input {
       transition: none;
+      flex: 1;
+    }
+
+    .k-color-picker-alpha-input {
+      max-width: 48px;
     }
   }
 
   .k-coclor-picker-defaults {
     position: relative;
     box-sizing: border-box;
-    padding: 13px 40px 10px 16px;
-    margin-top: 13px;
-    min-height: 62px;
+    padding: 10px 0 0 0px;
+    margin-top: 10px;
     border-top: 1px solid var(--kui-color-border);
     display: flex;
     flex-wrap: wrap;
+    gap: 6px;
 
     >span {
       display: inline-block;
       width: 13px;
       height: 13px;
       border-radius: 2px;
-      margin: 0 6px 6px 0;
       cursor: pointer;
 
       &:hover {
@@ -287,7 +296,7 @@
     .k-btn {
       position: absolute;
       top: 14px;
-      right: 10px;
+      right: 0;
       width: 32px;
       padding: 0;
     }

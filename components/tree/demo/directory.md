@@ -6,39 +6,23 @@
 ```vue
 <template>
   <div>
-    <Checkbox v-model="directory"
-      label="Directory" />
-    <Checkbox v-model="showLine"
-      label="showLine" />
-    <Checkbox v-model="draggable"
-      label="Draggable" />
-    <Checkbox v-model="checkable"
-      label="Checkable" />
-    <Checkbox v-model="showIcon"
-      label="ShowIcon" />
-    <Checkbox v-model="showExtra"
-      label="ShowExtra" />
+    <Space>
+      <Checkbox v-model="directory" label="Directory" />
+      <Checkbox v-model="showLine" label="showLine" />
+      <Checkbox v-model="draggable" label="Draggable" />
+      <Checkbox v-model="checkable" label="Checkable" />
+      <Checkbox v-model="showIcon" label="ShowIcon" />
+      <Checkbox v-model="showExtra" label="ShowExtra" />
+    </Space>
     <br />
     <br />
-    <Tree :data="data"
-      style="width:512px"
-      @expand="expand"
-      :directory="directory"
-      :draggable="draggable"
-      :checkable="checkable"
-      :show-line="showLine"
-      :show-icon="showIcon"
-      :show-extra="showExtra"
-      :selectedKeys="selectedKeys"
-      :expandedKeys="expandedKeys">
-      <template v-slot:extra="{ node , parent}">
-        <Icon :type="Add"
-          @click="e=>append(e,node)" />
-        <Icon :type="Trash"
-          @click="e=>remove(e,node,parent)"
-          v-if="node.key!='0-0'" />
-        <Icon :type="IconEdit"
-          @click="e=>edit(e,node)" />
+    <Tree :data="data" style="width:512px" @expand="expand" :directory="directory" :draggable="draggable"
+      :checkable="checkable" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
+      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys">
+      <template v-slot:extra="{ node, parent }">
+        <Icon :type="Add" @click="e => append(e, node)" />
+        <Icon :type="Trash" @click="e => remove(e, node, parent)" v-if="node.key != '0-0'" />
+        <Icon :type="IconEdit" @click="e => edit(e, node)" />
       </template>
     </Tree>
   </div>

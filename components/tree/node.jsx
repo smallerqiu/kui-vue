@@ -1,10 +1,11 @@
 import Icon from '../icon'
 import { Checkbox } from '../checkbox'
+import { Button } from '../button'
 import Node from './node.jsx'
 import { getTranstionProp } from '../base/transition'
 import { getChild } from '../_tool/utils'
 import cloneVNode from '../_tool/clone.js'
-import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronUp } from 'kui-icons'
+import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
 export default {
   name: 'TreeNode',
   props: {
@@ -26,6 +27,7 @@ export default {
       draged: false,
       droped: false,
       reload: true,
+      level: 0
     }
   },
   watch: {
@@ -44,6 +46,9 @@ export default {
       this.updateChildCheck(this.defaultData, checked)
       if (this.VNode)
         this.updateParentCheck(this.VNode)
+    }
+    if (this.VNode) {
+      this.level = this.VNode.level + 1
     }
   },
   beforeDestroy() {
@@ -174,6 +179,7 @@ export default {
     }
   },
   render(h) {
+    // console.log(this.level)
     // return <div/>
     let p = { ...this.$props }
     delete p.data
@@ -195,10 +201,10 @@ export default {
     if ((hasChilds || 'load-data' in Tree.$listeners) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Icon type={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronUp)} spin={loading} />
+        <Button size="small" theme="normal" icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
-    } else {
+    } else { 
       itemNode.push(<span class="k-tree-commes"></span>)
     }
     if (checkable) {
@@ -269,7 +275,10 @@ export default {
         'k-tree-item-extra-hidden': !showExtra,
         'k-tree-item-selected': directory && selected
       }],
-      on: {}
+      on: {},
+      style: {
+        paddingLeft: `${(this.level || 0) * 24}px`
+      }
     }
     if (directory) {
       itemProps.on.click = this.handleSelect
@@ -280,10 +289,14 @@ export default {
       let extra = Tree.$scopedSlots.extra({ node: this.defaultData, parent: this.getParent() })
       extraNode = <span class='k-tree-item-extra'>{extra}</span>
     }
+    childs && childs.unshift(<span class="k-tree-line" style={{left:`${(this.level || 0) * 24+12}px`}} key="line"></span>)
     return (
       <div class="k-tree-children">
         <div {...itemProps}>{itemNode}{extraNode}</div>
-        <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childs}</transition-group>
+        {
+          childs && childs.length > 0 ?
+            <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childs}</transition-group> : null
+        }
       </div>)
   }
 }
