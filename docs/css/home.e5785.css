@@ -1,8 +1,0 @@
-/*!
- * kui-vue v3.3.6-b
- *  Copyright 2017-present, kui-vue.
- *  All rights reserved.
- *  Docs: https://k-ui.cn
- * Author: chuchur@qq.com / www.chuchur.com
- *
- */.index{background:var(--kui-color-back);height:100vh;overflow:hidden;position:relative;width:100%}.index .header{background:none;border-bottom:1px solid var(--kui-color-border);box-shadow:none}.index .header .top-menu{background:none;border:none}.index .index-content{margin:auto}.index .index-content h1{color:var(--kui-color-font);font-size:34px;margin:80px 0;text-align:center}.index .index-content .btn-content{text-align:center}.index .index-content .btn-content .k-btn{border-radius:20px;cursor:pointer;display:inline-block;font-size:16px;margin-left:35px;transition:all .3s;width:120px}.index .index-content .btn-content .start{background:linear-gradient(45deg,#65b87f,#008028);border:none;color:#fff}.web-icon{align-items:center;display:flex;line-height:0}
