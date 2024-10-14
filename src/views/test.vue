@@ -7,16 +7,28 @@
       <Checkbox v-model="checkable" label="Checkable" />
       <Checkbox v-model="showIcon" label="ShowIcon" />
       <Checkbox v-model="showExtra" label="ShowExtra" />
+      <Checkbox v-model="checkStrictly" label="checkStrictly" />
+      <Checkbox v-model="multiple" label="multiple" />
     </Space>
     <br />
     <br />
+    {{ selectedKeys }}
+    <br />
+    {{ expandedKeys }}
+    <br />
+    {{ checkedKeys }}
     <Tree :data="data" style="width:512px" @expand="expand" :directory="directory" :draggable="draggable"
       :checkable="checkable" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
-      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys">
+      :multiple="multiple"
+      @check="checkedKeys = $event.checkedKeys" 
+      @select="selectedKeys = $event.selectedKeys"
+      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys"
+      :checkStrictly="checkStrictly">
       <template v-slot:extra="{ node, parent }">
         <Space>
           <Button size="small" theme="normal" :icon="Add" @click="e => append(e, node)" />
-          <Button size="small" theme="normal" :icon="Trash" @click="e => remove(e, node, parent)" v-if="node.key != '0-0'" />
+          <Button size="small" theme="normal" :icon="Trash" @click="e => remove(e, node, parent)"
+            v-if="node.key != '0-0'" />
           <Button size="small" theme="normal" :icon="IconEdit" @click="e => edit(e, node)" />
         </Space>
       </template>
@@ -35,8 +47,11 @@ export default {
       draggable: true,
       checkable: true,
       showExtra: true,
+      checkStrictly: false,
+      multiple:false,
       expandedKeys: ['0-0', '1-0', '1-1', '1-2'],
       selectedKeys: ['0-0'],
+      checkedKeys: [],
       data: [
         {
           title: 'src',
