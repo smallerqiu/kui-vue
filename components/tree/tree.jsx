@@ -13,6 +13,8 @@ export default {
     showLine: Boolean,
     showIcon: { type: Boolean, default: true },
     showExtra: { type: Boolean, default: false },
+    multiple: { type: Boolean, default: false },
+    checkStrictly: Boolean,
     directory: Boolean,
   },
   provide() {
@@ -53,9 +55,28 @@ export default {
     // });
     //Init half check
     this.setCheckHalf()
-  },
 
+  },
+  mounted() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  },
   methods: {
+    handleKeyDown(event) {
+        // console.log(event)
+      if (event.ctrlKey) {
+        this.ctrlKeyEntered = true;
+      }
+      window.addEventListener('keyup', this.handleKeyUp);
+    },
+    handleKeyUp(event) {
+      if (!event.ctrlKey) {
+        this.ctrlKeyEntered = false;
+      }
+      window.removeEventListener('keyup', this.handleKeyUp);
+    },
     setCheckHalf() {
       this.checkable && (this.defaultCheckedKeys || []).forEach(key => {
         this.setParentHalf(this.defaultData, key)
@@ -91,13 +112,23 @@ export default {
       })
     },
     onSelect(key, node) {
-      let { defaultSelectedKeys, ctrlKeyEntered } = this
+      let { defaultSelectedKeys, ctrlKeyEntered, multiple } = this
       let index = defaultSelectedKeys.indexOf(key)
-      if (ctrlKeyEntered) {
-        index > -1 ? defaultSelectedKeys.splice(index, 1) : defaultSelectedKeys.push(key)
+      if (multiple) {
+        if (ctrlKeyEntered) {
+          console.log('ee')
+          index > -1 ? defaultSelectedKeys.splice(index, 1) : defaultSelectedKeys.push(key)
+        } else {
+          defaultSelectedKeys = index > -1 ? [] : [key]
+        }
       } else {
         defaultSelectedKeys = index > -1 ? [] : [key]
       }
+      // if (ctrlKeyEntered) {
+      //   index > -1 ? defaultSelectedKeys.splice(index, 1) : defaultSelectedKeys.push(key)
+      // } else {
+      //   defaultSelectedKeys = index > -1 ? [] : [key]
+      // }
       this.defaultSelectedKeys = defaultSelectedKeys
       this.$emit('select', {
         selectedKeys: defaultSelectedKeys,

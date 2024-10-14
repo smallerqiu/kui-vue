@@ -107,7 +107,7 @@ export default {
         let { Tree } = this
         let key = this.$vnode.key
 
-        let { defaultCheckedKeys, halfCheckedKeys } = this.Tree
+        let { defaultCheckedKeys, halfCheckedKeys, checkStrictly } = this.Tree
         let index = defaultCheckedKeys.indexOf(key)
         checked && index < 0 ? defaultCheckedKeys.push(key) : defaultCheckedKeys.splice(index, 1)
         this.Tree.defaultCheckedKeys = defaultCheckedKeys
@@ -118,21 +118,31 @@ export default {
           halfCheckedKeys.splice(halfIndex, 1)
         }
 
-        this.updateChildCheck(this.defaultData, checked)
-        this.VNode && this.updateParentCheck(this.VNode)
+
+        if (!checkStrictly) {
+          // update child
+          this.updateChildCheck(this.defaultData, checked)
+
+          // update parent
+          this.VNode && this.updateParentCheck(this.VNode)
+        }
         Tree.onCheck(e.target.checked, key, this.defaultData, this)
       }
     },
     handleSelect(e) {
       let { disabled, key } = this.defaultData
       if (!disabled) {
-        let { Tree } = this
+        let { Tree, multiple } = this
         if (Tree.directory) {
           this.handleExpand(e)
         }
-        if (Tree.defaultSelectedKeys.indexOf(key) < 0) {
+        // if (multiple) {
+
+        // } else {
+          // if (Tree.defaultSelectedKeys.indexOf(key) < 0) {
           Tree.onSelect(key, this.defaultData, this)
-        }
+          // }
+        // }
       }
     },
     handleExpand(e) {
@@ -201,10 +211,10 @@ export default {
     if ((hasChilds || 'load-data' in Tree.$listeners) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Button size="small" theme="normal" icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
+        <Button size="small" theme="normal" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
-    } else { 
+    } else {
       itemNode.push(<span class="k-tree-commes"></span>)
     }
     if (checkable) {
@@ -289,13 +299,12 @@ export default {
       let extra = Tree.$scopedSlots.extra({ node: this.defaultData, parent: this.getParent() })
       extraNode = <span class='k-tree-item-extra'>{extra}</span>
     }
-    childs && childs.unshift(<span class="k-tree-line" style={{left:`${(this.level || 0) * 24+12}px`}} key="line"></span>)
+    childs && childs.unshift(<span class="k-tree-line" style={{ left: `${(this.level || 0) * 24 + 12}px` }} key="line"></span>)
     return (
       <div class="k-tree-children">
         <div {...itemProps}>{itemNode}{extraNode}</div>
         {
-          childs && childs.length > 0 ?
-            <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childs}</transition-group> : null
+          <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childs}</transition-group>
         }
       </div>)
   }

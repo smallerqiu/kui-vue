@@ -2,7 +2,7 @@
 
 .k-tree {
   .k-tree-item {
-    padding: 2px 0 2px;
+    padding-bottom: 4px;
     margin: 0;
     list-style: none;
     white-space: nowrap;
@@ -10,7 +10,7 @@
     user-select: none;
     display: flex;
     align-items: center;
-
+		line-height: 1;
     .k-checkbox {
       margin-right: 4px;
     }
@@ -41,18 +41,18 @@
 
   .k-tree-title {
     display: inline-flex;
-    padding: 4px 4px;
+    padding: 0 4px;
     align-items: center;
     // margin: 0 4px;
     z-index: 0;
-    border-radius: 2px;
+    border-radius: @radius;
     cursor: pointer;
     color: var(--kui-color-font);
     line-height: 1;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 13px;
-
+    font-size: 14px;
+		min-height: 24px;
     // transition: all .2s ease-in-out;
     &:hover {
       background: var(--kui-color-hover);
@@ -166,18 +166,30 @@
 
   .k-tree-item {
     cursor: pointer;
+    position: relative;
+		
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 24px;
+    }
   }
 
-  .k-tree-item:hover {
+  .k-tree-item:hover::before {
     background-color: var(--kui-color-hover);
   }
 
   .k-tree-item-selected,
   .k-tree-item-selected:hover {
-    color: #fff;
-    background-color: var(--kui-color-main);
+    &::before {
+      color: #fff;
+      background-color: var(--kui-color-main);
+    }
 
-    .k-tree-title {
+    .k-tree-title ,.k-icon {
       background-color: transparent;
       color: #fff;
     }
@@ -204,13 +216,16 @@
       font-size: 16px;
     }
   }
-	.k-tree-item-children{
-		position: relative;
-	}
+
+  .k-tree-item-children {
+    position: relative;
+  }
+
   .k-tree-line {
     border-left: 1px solid var(--kui-color-border);
     position: absolute;
-		height: 100%;
+    height: 100%;
+		z-index: 1;
   }
 
   .k-tree-commes {
@@ -235,45 +250,18 @@
     }
   }
 
-  .k-tree-item-children>.k-tree-children {
-    &:last-child>.k-tree-item>.k-tree-commes {
-      &::before {
-        height: 12px;
-        top: 0;
-      }
-    }
-
-    &:first-child>.k-tree-item>.k-tree-commes {
-      &::before {
-        top: 0;
-      }
-    }
-  }
-
-  // .k-tree-children{ 
-  // 	.k-tree-item-children {
-  // 	// border-left: 1px solid var(--kui-color-border);
-  // 		&::before{
-  // 			position: absolute;
-  // 			left: -12px;
-  // 			content: '';
-  // 			height: 100%;
-  // 			width: 1px;
-  // 			border-left: 1px solid var(--kui-color-border);
-  // 		}
-  // 	}
-  // }
-  .k-tree-arrow-open {
-    // transform: rotate(180deg);
-  }
 
   .k-tree-children:last-child {
-		// background-color: red;
-		>.k-tree-item-children .k-tree-line{
-			display: none;
-		}
-  // 	>.k-tree-item-children::before {
-  // 		display: none;
-  // 	}
+
+    >.k-tree-item>.k-tree-commes::before {
+      height: 12px;
+    }
+
+    >.k-tree-item-children {
+      >.k-tree-line {
+        display: none;
+      }
+    }
+
   }
 }
