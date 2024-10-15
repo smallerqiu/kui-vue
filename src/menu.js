@@ -55,6 +55,7 @@ const navs = [
       { title: "单选框", sub: "Radio", name: "radio", icon: 'radio' },
       { title: "开关", sub: "Switch", name: "switch", icon: 'switch' },
       { title: "选择器", sub: "Select", name: "select", icon: 'select' },
+      { title: "树选择器", sub: "TreeSelect", name: "treeselect", icon: 'select' },
       { title: "日期选择框", sub: "DatePicker", name: "datepicker", icon: 'date' },
       { title: "上传", sub: "Upload", name: "upload", icon: 'upload'},
       { title: "滑动输入条", sub: "Slider", name: "slider", icon: 'slider' },

@@ -12,18 +12,15 @@
     </Space>
     <br />
     <br />
-    {{ selectedKeys }}
+    selectedKeys: {{ selectedKeys }}
     <br />
-    {{ expandedKeys }}
+    expandedKeys:{{ expandedKeys }}
     <br />
-    {{ checkedKeys }}
+    checkedKeys:{{ checkedKeys }}
     <Tree :data="data" style="width:512px" @expand="expand" :directory="directory" :draggable="draggable"
-      :checkable="checkable" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
-      :multiple="multiple"
-      @check="checkedKeys = $event.checkedKeys" 
-      @select="selectedKeys = $event.selectedKeys"
-      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys"
-      :checkStrictly="checkStrictly">
+      :checkable="checkable" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra" :multiple="multiple"
+      :checkedKeys="checkedKeys" @check="checkedKeys = $event.checkedKeys" @select="selectedKeys = $event.selectedKeys"
+      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys" :checkStrictly="checkStrictly">
       <template v-slot:extra="{ node, parent }">
         <Space>
           <Button size="small" theme="normal" :icon="Add" @click="e => append(e, node)" />
@@ -47,11 +44,11 @@ export default {
       draggable: true,
       checkable: true,
       showExtra: true,
-      checkStrictly: false,
-      multiple:false,
+      checkStrictly: true,
+      multiple: false,
       expandedKeys: ['0-0', '1-0', '1-1', '1-2'],
-      selectedKeys: ['0-0'],
-      checkedKeys: [],
+      selectedKeys: ['0-0', '1-0_1'],
+      checkedKeys: ['1-0'],
       data: [
         {
           title: 'src',
@@ -63,8 +60,8 @@ export default {
               key: '1-0',
               icon: FolderOpenOutline,
               children: [
-                { title: 'main.js', icon: LogoTwitter, disabled: true },
-                { title: 'test.py', icon: LogoQq }
+                { title: 'main.js', icon: LogoTwitter, key: 'main', disabled: true },
+                { title: 'test.py', icon: LogoQq, key: 'test' }
               ]
             },
             {
@@ -72,8 +69,8 @@ export default {
               key: '1-1',
               icon: FolderOpenOutline,
               children: [
-                { title: 'index.html', icon: LogoFeishu },
-                { title: 'index.md', icon: LogoWechat }
+                { title: 'index.html', icon: LogoFeishu, key: '1-1-0', },
+                { title: 'index.md', icon: LogoWechat, key: '1-1-1', }
               ]
             },
             {
@@ -81,8 +78,8 @@ export default {
               key: '1-2',
               icon: FolderOpenOutline,
               children: [
-                { title: 'zen.apk', icon: LogoAndroid },
-                { title: 'zen.ipa', icon: LogoApple }
+                { title: 'zen.apk', icon: LogoAndroid, key: '1-2-0', },
+                { title: 'zen.ipa', icon: LogoApple, key: '1-2-1', }
               ]
             }
           ]

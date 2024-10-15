@@ -40,12 +40,13 @@ export default {
     VNode: { default: null },
   },
   created() {
-    let { defaultCheckedKeys = [], draggable } = this.Tree
+    let { defaultCheckedKeys = [], draggable, checkStrictly } = this.Tree
     let checked = defaultCheckedKeys.indexOf(this.$vnode.key) > -1
-    if (checked) {
+    if (checked && !checkStrictly) {
       this.updateChildCheck(this.defaultData, checked)
-      if (this.VNode)
+      if (this.VNode) {
         this.updateParentCheck(this.VNode)
+      }
     }
     if (this.VNode) {
       this.level = this.VNode.level + 1
@@ -73,11 +74,12 @@ export default {
         if (!item.disabled) {
           let { defaultCheckedKeys } = this.Tree
           const key = item.key
-          let index = defaultCheckedKeys.indexOf(key)
-          // console.log(key, checked)
-          checked ? index < 0 && defaultCheckedKeys.push(key) : index > -1 && defaultCheckedKeys.splice(index, 1)
-          this.Tree.defaultCheckedKeys = defaultCheckedKeys
-          this.updateChildCheck(item, checked)
+          if (key !== undefined) {
+            let index = defaultCheckedKeys.indexOf(key)
+            checked ? index < 0 && defaultCheckedKeys.push(key) : index > -1 && defaultCheckedKeys.splice(index, 1)
+            this.Tree.defaultCheckedKeys = defaultCheckedKeys
+            this.updateChildCheck(item, checked)
+          }
         }
       })
     },
@@ -136,13 +138,7 @@ export default {
         if (Tree.directory) {
           this.handleExpand(e)
         }
-        // if (multiple) {
-
-        // } else {
-          // if (Tree.defaultSelectedKeys.indexOf(key) < 0) {
-          Tree.onSelect(key, this.defaultData, this)
-          // }
-        // }
+        Tree.onSelect(key, this.defaultData, this)
       }
     },
     handleExpand(e) {
@@ -201,8 +197,8 @@ export default {
     let itemNode = [], { Tree, loading, reload } = this;
     let key = this.$vnode.key
     let { defaultSelectedKeys = [], defaultExpandedKeys = [], defaultCheckedKeys = [], halfCheckedKeys = [],
-      checkable, showLine, directory, draggable, showIcon, showExtra } = Tree
-    const expand = defaultExpandedKeys.indexOf(key) > - 1,
+      checkable, showLine, directory, draggable, showIcon, showExtra, expandedAll } = Tree
+    const expand = expandedAll || defaultExpandedKeys.indexOf(key) > - 1,
       selected = defaultSelectedKeys.indexOf(key) > - 1,
       checked = defaultCheckedKeys.indexOf(key) > - 1,
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
@@ -271,6 +267,7 @@ export default {
         childs = children.map((item, i) => {
           const k = item.key || `${key}_${i}`
           item.key = k
+          // console.log(k)
           return <Node data={item} key={k} />
         })
       }

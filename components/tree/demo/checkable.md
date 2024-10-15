@@ -5,12 +5,16 @@
 
 ```vue
 <template>
-  <Tree :data="data" checkable :checkedKeys="checkedKeys" :expandedKeys="expandedKeys" @check="check" />
+  <Checkbox v-model="checkStrictly">父子节点不关联</Checkbox>
+  <br />
+  <br />
+  <Tree :data="data" checkable :checkedKeys="checkedKeys" :expandedKeys="expandedKeys" @check="check" :checkStrictly="checkStrictly"/>
 </template>
 <script>
 export default {
   data() {
     return {
+      checkStrictly:false,
       checkedKeys: ['1-1', 'aa', ],
       expandedKeys: ['1-1', '1-1-2', '1-2', '0-1'],
       data: [

@@ -9,7 +9,10 @@
 | show-icon     | 是否展示图标                                                 | Boolean | true   |
 | show-extra    | 是否默认展示扩展元素                                         | Boolean | false  |
 | checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false  |
-
+| checkedKeys   | 选中复选框的树节点                                           | Array   | []     |
+| expandedKeys  | 指定展开的节点                                               | Array   | []     |
+| expandedAll   | 是否展开所有节点                                             | Boolean | false  |
+| selectedKeys  | 选中的节点                                                   | Array   | []     |
 ## TreeNode API
 
 | 属性     | 说明                                                                     | 类型    | 默认值 |

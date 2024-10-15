@@ -64,6 +64,7 @@ let children = [
 	{ path: '/datas/timeline', component: () => import(/*webpackChunkName:'timeline'*/'../components/timeline/demo'), },
 	{ path: '/notices/tooltip', component: () => import(/*webpackChunkName:'tooltip'*/'../components/tooltip/demo'), },
 	{ path: '/datas/tree', component: () => import(/*webpackChunkName:'tree'*/'../components/tree/demo'), },
+	{ path: '/forms/treeselect', component: () => import(/*webpackChunkName:'treeselect'*/'../components/treeselect/demo'), },
 	{ path: '/notices/poptip', component: () => import(/*webpackChunkName:'poptip'*/'../components/poptip/demo'), },
 	{ path: '/notices/popconfirm', component: () => import(/*webpackChunkName:'popconfirm'*/'../components/popconfirm/demo'), },
 	{ path: '/notices/progress', component: () => import(/*webpackChunkName:'progress'*/'../components/progress/demo'), },

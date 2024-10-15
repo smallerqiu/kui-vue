@@ -7,6 +7,7 @@ export default {
     data: Array,
     selectedKeys: Array,
     expandedKeys: Array,
+    expandedAll: Boolean,
     checkedKeys: Array,
     checkable: Boolean,
     draggable: Boolean,
@@ -62,23 +63,23 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
   },
   methods: {
     handleKeyDown(event) {
-        // console.log(event)
-      if (event.ctrlKey) {
+      // console.log(event)
+      if (event.ctrlKe || event.metaKey) {
         this.ctrlKeyEntered = true;
       }
       window.addEventListener('keyup', this.handleKeyUp);
     },
     handleKeyUp(event) {
-      if (!event.ctrlKey) {
+      if (!event.ctrlKey && event.metaKey) {
         this.ctrlKeyEntered = false;
       }
-      window.removeEventListener('keyup', this.handleKeyUp);
     },
     setCheckHalf() {
-      this.checkable && (this.defaultCheckedKeys || []).forEach(key => {
+      this.checkable && !this.checkStrictly && (this.defaultCheckedKeys || []).forEach(key => {
         this.setParentHalf(this.defaultData, key)
       })
     },
@@ -116,10 +117,9 @@ export default {
       let index = defaultSelectedKeys.indexOf(key)
       if (multiple) {
         if (ctrlKeyEntered) {
-          console.log('ee')
           index > -1 ? defaultSelectedKeys.splice(index, 1) : defaultSelectedKeys.push(key)
         } else {
-          defaultSelectedKeys = index > -1 ? [] : [key]
+          index > -1 ? defaultSelectedKeys.splice(index, 1) : defaultSelectedKeys.push(key)
         }
       } else {
         defaultSelectedKeys = index > -1 ? [] : [key]
