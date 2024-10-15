@@ -45,6 +45,7 @@ import Tooltip from './tooltip'
 import { Tabs, TabPane } from './tabs'
 import { TimeLine, TimeLineItem } from './timeline'
 import { Tree, TreeNode } from './tree'
+import TreeSelect from './treeselect'
 import Tag from './tag'
 import { Row, Col } from './grid'
 import Upload from './upload'
@@ -103,6 +104,7 @@ const components = {
 	Tag,
 	Tooltip,
 	Tree, TreeNode,
+	TreeSelect,
 	Upload
 }
 const UI = {
