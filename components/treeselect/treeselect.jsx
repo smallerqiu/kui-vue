@@ -298,6 +298,7 @@ export default {
       this.change({ label: title, value: key })
     },
     treeCheck() {
+      console.log(e)
       // console.log(checkedKeys)
     }
   },
