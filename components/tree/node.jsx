@@ -213,6 +213,7 @@ export default {
     } else {
       itemNode.push(<span class="k-tree-commes"></span>)
     }
+    // console.log(checked)
     if (checkable) {
       let props = {
         props: { checked, disabled, indeterminate },
