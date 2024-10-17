@@ -3,6 +3,7 @@ import Info from './info.md'
 import Base from './base.md'
 import Multiple from './multiple.md'
 import Checkable from './checkable.md'
+import Aync from './sync.md'
 
 import CN from '../index.md'
 export default {
@@ -10,9 +11,10 @@ export default {
     return (
       <div class="demo-tree">
         <Info />
-        {/* <Base /> */}
-        {/* <Multiple /> */}
+        <Base />
+        <Multiple />
         <Checkable />
+        <Aync />
         <CN />
       </div>
     )

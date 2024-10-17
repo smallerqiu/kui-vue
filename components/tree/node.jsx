@@ -185,7 +185,6 @@ export default {
     }
   },
   render(h) {
-    // console.log(this.level)
     // return <div/>
     let p = { ...this.$props }
     delete p.data
@@ -204,7 +203,8 @@ export default {
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
 
     let hasChilds = slotChilds.length > 0 || children.length > 0
-    if ((hasChilds || 'load-data' in Tree.$listeners) && isLeaf !== true) {
+    let hasLoad = 'loadData' in Tree.$listeners || 'load-data' in Tree.$listeners
+    if ((hasChilds || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
         <Button size="small" theme="normal" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />

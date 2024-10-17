@@ -80,8 +80,9 @@ export default {
                   const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size
                   const theme = (child.componentOptions && child.componentOptions.propsData.theme) || this.Form.theme
                   const shape = (child.componentOptions && child.componentOptions.propsData.shape) || this.Form.shape
+                  const disabled = (child.componentOptions && child.componentOptions.propsData.disabled) || this.Form.disabled
                   const props = {
-                    props: { id, size },
+                    props: { id, size, disabled },
                     on: {}
                   }
                   if (theme) {
@@ -95,6 +96,7 @@ export default {
                       props.props.checked = value || false
                     } else {
                       props.props.value = value
+                      // console.log(value)
                     }
                     props.on = {
                       input: (value) => {

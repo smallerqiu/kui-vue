@@ -1,6 +1,6 @@
 <cn>
 #### 输入框组合
-使用 compact 让组件之间紧凑连接且合并边框。默认 true
+使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 </cn>
 
 ```vue

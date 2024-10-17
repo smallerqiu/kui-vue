@@ -50,7 +50,7 @@ export default {
     let { disabled, change, $slots, size, label, groupContext, value, indeterminate, checked, isChecked } = this
 
     if (groupContext) {
-      checked = groupContext.value.indexOf(value) !== -1
+      checked = groupContext.value?.indexOf(value) !== -1
       disabled = disabled || groupContext.disabled
       size = groupContext.size
     } else {

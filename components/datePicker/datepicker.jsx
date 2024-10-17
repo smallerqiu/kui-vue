@@ -89,8 +89,9 @@ export default {
   watch: {
     value(v) {
       if (this.v != this.currentValue) {
+        console.log(v)
         if (!this.isRange) {
-          this.currentValue = dayjs(v)
+          this.currentValue = v ? dayjs(v) : ''
         } else {
           let [a, b] = v || []
           this.currentValue = [a ? dayjs(a) : null, b ? dayjs(b) : null]
