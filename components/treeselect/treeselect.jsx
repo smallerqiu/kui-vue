@@ -6,7 +6,9 @@ import Drop from '../base/drop'
 import { t } from '../locale';
 import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
 import { Tree } from '../tree'
+const cloneDeep = require('lodash.clonedeep');
 
+// const cloneDeep = require('lodash/cloneDeep')
 export default {
   name: "TreeSelect",
   props: {
@@ -80,6 +82,7 @@ export default {
       this.showSearch = false
     },
     findNodeByKeyIterative(tree, key) {
+      //迭代搜索（深度优先搜索，DFS） 当树的深度可能导致递归方法栈溢出时。
       const stack = [...tree];
       while (stack.length) {
         const node = stack.pop();
@@ -91,6 +94,64 @@ export default {
         }
       }
       return null;
+    },
+    filterTreeByKeyword(tree, keyword) {
+      // 使用 lodash 的 cloneDeep 函数深度拷贝树
+      return cloneDeep(tree).filter(function iter(node) {
+        // 使用 _.some 遍历判断子节点是否符合条件
+        if (node.title.includes(keyword)) return true;
+        if (node.children) node.children = node.children.filter(iter);
+        return node.children && node.children.length > 0;
+      });
+
+
+      // // 创建一个栈来迭代树，存储节点及其父节点信息
+      // const stack = tree.map(node => ({ node, parent: null }));
+      // const result = [];
+
+      // // 递归函数，克隆并添加节点及其所有子节点
+      // function addNodeWithChildren(node) {
+      //   // 深拷贝节点以防止原树被修改
+      //   const newNode = { ...node, children: [] };
+      //   if (node.children) {
+      //     for (const child of node.children) {
+      //       newNode.children.push(addNodeWithChildren(child));
+      //     }
+      //   }
+      //   return newNode;
+      // }
+
+      // // 存储节点的所有父节点，确保结果包含父节点链
+      // const parentMap = new Map();
+
+      // // 开始迭代树
+      // while (stack.length > 0) {
+      //   const { node, parent } = stack.pop();
+
+      //   // 如果节点名包含关键字
+      //   if (node.name.includes(keyword)) {
+      //     // 把该节点的父节点链添加到结果中
+      //     let currentNode = parent;
+      //     while (currentNode) {
+      //       if (!parentMap.has(currentNode.key)) {
+      //         parentMap.set(currentNode.key, addNodeWithChildren(currentNode));
+      //         result.push(parentMap.get(currentNode.key));
+      //       }
+      //       currentNode = parentMap.get(currentNode.key);
+      //     }
+
+      //     // 将当前节点及其子节点添加到结果中
+      //     result.push(addNodeWithChildren(node));
+      //   }
+
+      //   // 把子节点加入堆栈继续遍历
+      //   if (node.children) {
+      //     for (const child of node.children) {
+      //       stack.push({ node: child, parent: node });
+      //     }
+      //   }
+      // }
+      // return result;
     },
     getLabel(childs, labelValue) {
       let node = this.findNodeByKeyIterative(childs, labelValue)
@@ -298,7 +359,7 @@ export default {
       this.change({ label: title, value: key })
     },
     treeCheck() {
-      console.log(e)
+      // console.log(e)
       // console.log(checkedKeys)
     }
   },
@@ -380,18 +441,35 @@ export default {
       }
     }
     const selectedKeys = this.multiple ? currentValue || [] : [currentValue]
-
+    // console.log(this.$listeners)
+    const treeProps = {
+      props: {
+        data: treeData,
+        checkable: treeCheckable,
+        multiple: multiple,
+        showLine: treeShowLine,
+        showIcon: treeShowIcon,
+        checkStrictly: treeCheckStrictly,
+        expandedKeys: treeExpandedKeys,
+        selectedKeys: selectedKeys,
+        checkedKeys: selectedKeys,
+      },
+      on: {
+        select: this.treeSelect,
+        check: this.treeCheck
+      }
+    }
+    if ('tree-load-data' in this.$listeners) {
+      treeProps.on['load-data'] = this.$listeners['tree-load-data']
+    }
+    if (this.filterable && queryKey && !this.$listeners.search) {
+      let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
+      treeProps.props.data = this.filterTreeByKeyword(treeData, parsedQuery)
+    }
     let overlay = <Drop {...props}>
-      {this.loading ? loadingNode : (!(treeData && treeData.length) ?
+      {this.loading ? loadingNode : (!(treeProps.props.data && treeProps.props.data.length) ?
         <Empty onClick={this.emptyClick} description={this.emptyText} /> :
-        <Tree data={treeData} checkable={treeCheckable} multiple={multiple}
-          showLine={treeShowLine} showIcon={treeShowIcon}
-          checkStrictly={treeCheckStrictly} expandedKeys={treeExpandedKeys}
-          selectedKeys={selectedKeys}
-          checkedKeys={selectedKeys}
-          onSelect={this.treeSelect}
-          onCheck={this.treeCheck}
-          expandedAll={treeExpandedAll} />)}
+        <Tree {...treeProps} />)}
     </Drop>
 
     label = multiple ? (label || []) : label + ''

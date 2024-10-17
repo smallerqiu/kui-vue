@@ -4,6 +4,7 @@ export default {
 	props: {
 		value: [String, Number],
 		theme: String,
+		disabled: Boolean,
 		size: {
 			default: 'default',
 			validator(value) {

@@ -22,7 +22,8 @@ export default {
       }
     },
     theme: String,
-    shape: String
+    shape: String,
+    disabled: Boolean
   },
   provide() {
     return {
@@ -88,6 +89,7 @@ export default {
             } else {
               model[key] = value
             }
+            // console.log(model[key],key)
           }
           model = model[key]
         }
@@ -125,7 +127,7 @@ export default {
           // throw new Error('请传入正确的prop值:' + path)
         }
       }
-      return model == this.model ? null : model;
+      return model == this.model || JSON.stringify(model) == '{}' ? null : model;
     },
     submit(e) {
       e && e.preventDefault()

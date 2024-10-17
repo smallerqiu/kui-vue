@@ -137,6 +137,8 @@ export default {
       })
     },
     onExpand(key, item, vnode) {
+      let hasLoad = 'loadData' in this.$listeners || 'load-data' in this.$listeners
+
       if (item.children && item.children.length) {
         let { defaultExpandedKeys } = this
         let index = defaultExpandedKeys.indexOf(key)
@@ -149,7 +151,7 @@ export default {
           node: item,
           vnode
         })
-      } else if ('load-data' in this.$listeners && !item.isLeaf && !vnode.loading) {
+      } else if (hasLoad && !item.isLeaf && !vnode.loading) {
         vnode.loading = true
         this.$emit('load-data', item, child => {
           vnode.loading = false

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:600px">
-    <Form name="rules" :model="form" :rules="rules" @submit="submit" :wrapperCol="wrapperCol" :labelCol="labelCol">
+    <Form name="rules"  :rules="rules" @submit="submit" :wrapperCol="wrapperCol" :labelCol="labelCol">
       <FormItem label="Number" prop="number">
         <Input clearable placeholder="校验数字" />
       </FormItem>

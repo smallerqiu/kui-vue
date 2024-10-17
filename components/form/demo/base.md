@@ -6,7 +6,10 @@
 ```vue
 <template>
   <div style="width:512px;">
-   <Form :labelCol="{span:5}" :wrapperCol="{span:16}" :size="size" :theme="theme?'light':''" :shape="checked?'circle':''"> 
+    <Space>
+      <Checkbox v-model="disabled" label="Form disabled" />
+    </Space>
+   <Form :labelCol="{span:5}" :disabled="disabled" :wrapperCol="{span:16}" :size="size" :theme="theme?'light':''" :shape="checked?'circle':''"> 
     <FormItem label="主题">
       <Checkbox v-model="theme" label="Light" style="margin-right:8px;"/>
       <Checkbox v-model="checked" label="Circle"/>
@@ -30,6 +33,10 @@
         <Option value="1" label="Banana" />
         <Option value="2" label="Orange" />
       </Select>
+    </FormItem>
+    <FormItem label="TreeSelect">
+      <TreeSelect style="width:100%;" :tree-data="treeData">
+      </TreeSelect>
     </FormItem>
     <FormItem label="Slider">
       <Slider />
@@ -68,10 +75,20 @@
 export default{
   data() {
     return {
+      disabled:true,
       size:'default',
       theme:false,
       checked:false,
-      shape:''
+      shape:'',
+      treeData: [
+        { 
+          title:'food', 
+          key:'0',
+          children :[
+            { title:'apple' ,key:'0-1' },
+            { title:'orange' ,key:'0-2' },
+          ]}
+      ]
     }
   }
 }

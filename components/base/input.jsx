@@ -5,6 +5,8 @@ export default {
   name: "baseInput",
   props: {
     clearable: Boolean,
+    visiblePassword: Boolean,
+    visiblePasswordIcon: Boolean,
     id: String,
     size: {
       default: 'default',
@@ -34,7 +36,7 @@ export default {
       currentValue: this.value,
       isFocus: false,
       // isEnter: false,
-      isPassword: true,
+      isPassword: !this.visiblePassword,
     };
   },
   inject: {
@@ -101,8 +103,8 @@ export default {
     },
     showPassword() {
       if (this.disabled) return;
-      let type = this.isPassword ? 'text' : 'password'
       this.isPassword = !this.isPassword
+      let type = this.isPassword ? 'text' : 'password'
       this.$refs.input.type = type
     },
     setValue({ input, output }) {
@@ -116,15 +118,15 @@ export default {
       this.$listeners.search(this.currentValue)
     },
     getSuffix() {
-      let { $listeners, suffix } = this
+      let { $listeners, suffix, visiblePasswordIcon } = this
       const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-search-icon" onClick={this.searchEvent} /> : null
 
-      const Password = (this.type == 'password') ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
+      const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
       return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
     getTextInput(mult) {
-      const { disabled, size, type, inputType, currentValue, id, theme, shape } = this
+      const { disabled, size, type, inputType, currentValue, id, theme, shape, visiblePassword } = this
       let isTextArea = inputType == 'textarea'
       const props = {
         domProps: {
@@ -155,6 +157,11 @@ export default {
 
       if (!isTextArea) {
         props.attrs.type = type
+
+        // if (visiblePassword && type == 'password') {
+        //   props.attrs.type = 'text'
+        //   this.isPassword = false
+        // }
       }
       return isTextArea ? <textarea {...props} /> : <input {...props} single />
     },

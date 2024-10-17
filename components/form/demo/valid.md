@@ -30,12 +30,8 @@
         <Input  />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input >
-          <template slot="suffix">
-            <Button size="small" type="primary" v-if="time==60" theme="normal" @click="sendCode">获取验证码</Button>
-            <span v-else>{{time}}(s)</span>
-          </template>
-        </Input>
+          <Input />
+          <Button  :disabled="time==60"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
@@ -51,6 +47,10 @@
             <Option value="2" label="Hangzhou" />
           </Select>
         </FormItem>
+      </FormItem>
+      <FormItem label="TreeSelect" prop="tree">
+        <TreeSelect style="width:100%;" :tree-data="treeData">
+        </TreeSelect>
       </FormItem>
       <FormItem label="Slider" prop="slider">
         <Slider />
@@ -120,6 +120,15 @@ export default {
       wrapperCol:{span:16},
       time: 60,
       size:'default',
+      treeData: [
+        { 
+          title:'food', 
+          key:'0',
+          children :[
+            { title:'apple' ,key:'0-1' },
+            { title:'orange' ,key:'0-2' },
+          ]}
+      ],
       form: {
         email: '',
         number:'',
@@ -128,6 +137,7 @@ export default {
         phone: '',
         captcha: '',
         slider:5,
+        tree:'',
         gender: '',
         one: false,
         system:'',
@@ -166,6 +176,9 @@ export default {
         ],
         country: [
           { required: true, message: '请选择国家' },
+        ],
+        tree: [
+          { required: true, message: '请选择Food' },
         ],
         city: [
           { required: true, message: '请选择城市' },
@@ -217,6 +230,7 @@ export default {
         gender: '1',
         slider:5,
         number:5,
+        tree:'0',
         system: '0',
         one: true,
         birthday: '1995-05-05',
