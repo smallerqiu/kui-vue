@@ -1,9 +1,11 @@
 @import '../../styles/var.less';
+
 .k-badge {
    position: relative;
    display: inline-block;
    line-height: 1;
    vertical-align: middle;
+
    &-count {
       position: absolute;
       transform: translate(50%, -50%);
@@ -17,13 +19,15 @@
       color: #fff;
       line-height: 20px;
       text-align: center;
-      padding: 0 6px;
       font-size: 12px;
       white-space: nowrap;
       z-index: 10;
       box-shadow: 0 0 0 1px var(--kui-color-back);
       box-sizing: border-box;
+      display: block;
+      padding: 0 6px;
    }
+
    &-mark {
       display: inline-block;
       border-radius: 10px;
@@ -41,6 +45,7 @@
       top: 0;
       bottom: 0;
    }
+
    &-dot {
       position: absolute;
       // transform: translateX(-50%);
@@ -56,8 +61,13 @@
       border-radius: 50%;
       background: var(--kui-color-danger);
       z-index: 10;
-      box-shadow: 0 0 0 1px #fff;
+      // box-shadow: 0 0 0 1px #fff;
    }
+
+   &-no-child {
+      position: relative;
+   }
+
    &-status-dot {
       position: relative;
       top: -1px;
@@ -67,20 +77,25 @@
       vertical-align: middle;
       border-radius: 50%;
    }
+
    &-status-text {
       color: var(--kui-color-font);
       font-size: 14px;
       margin-left: 8px;
    }
+
    &-status-success {
       background-color: var(--kui-color-success);
    }
+
    &-status-error {
       background-color: var(--kui-color-danger);
    }
+
    &-status-warning {
       background-color: var(--kui-color-warning);
    }
+
    &-status-default {
       background-color: #ddd;
    }
@@ -89,39 +104,51 @@
    &-status-pink {
       background-color: var(--kui-color-pink);
    }
+
    &-status-red {
       background-color: var(--kui-color-red);
    }
+
    &-status-yellow {
       background-color: var(--kui-color-yellow);
    }
+
    &-status-orange {
       background-color: var(--kui-color-orange);
    }
+
    &-status-cyan {
       background-color: var(--kui-color-cyan);
    }
+
    &-status-green {
       background-color: var(--kui-color-green);
    }
+
    &-status-blue {
       background-color: var(--kui-color-blue);
    }
+
    &-status-purple {
       background-color: var(--kui-color-purple);
    }
+
    &-status-geekblue {
       background-color: var(--kui-color-geekblue);
    }
+
    &-status-magenta {
       background-color: var(--kui-color-magenta);
    }
+
    &-status-volcano {
       background-color: var(--kui-color-volcano);
    }
+
    &-status-gold {
       background-color: var(--kui-color-gold);
    }
+
    &-status-lime {
       background-color: var(--kui-color-lime);
    }

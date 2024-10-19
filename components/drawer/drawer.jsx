@@ -95,7 +95,7 @@ export default {
         let hasBar = el.scrollHeight > el.clientHeight || el.offsetHeight > el.clientHeight
         if (barWidth && hasBar) {
           target.style.width = `calc(100% - ${barWidth}px)`
-          target.style.overflow = `hidden`
+          target.style.overflowY = `hidden`
         }
       } else {
         setTimeout(() => {

@@ -5,10 +5,9 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical>
     <Rate :allowClear="true" :value="3" />  allowClear = true
-    <br />
     <Rate :allowClear="false" :value="3" /> allowClear = false
-  </div>
+  </Space>
 </template>
 ```

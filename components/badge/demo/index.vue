@@ -11,7 +11,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div>
+      <div class="demo-dot">
         <Info />
         <Base />
         <Dot />
@@ -26,4 +26,16 @@ export default {
   }
 }
 
-</script> 
+</script>
+<style>
+.demo-dot .box {
+  width: 40px;
+  height: 40px;
+  background: #7f7f7f55;
+  border-radius: 10px;
+}
+
+.demo-dot .k-badge {
+  margin-right: 20px;
+}
+</style>

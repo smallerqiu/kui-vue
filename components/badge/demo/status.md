@@ -20,9 +20,4 @@
     <Badge status="warning" text="warning" />
   </div>
 </template>
-<style scoped>
-.demo-dot .k-badge{
-  margin-right:20px;
-}
-</style>
 ```

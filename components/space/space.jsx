@@ -52,36 +52,33 @@ export default {
     }
     let childs = $slots.default
     let split = $slots.split
-    if (compact) {
-      childs = getChild(this.$slots.default)
-      let newChilds = []
-      for (let i = 0; i < childs.length; i++) {
-        let pre = vertical ? 'vertical-' : ''
-        let child = cloneVNode(childs[i], {
-          props: {
-            size
-          },
-          class: {
-            [`k-space-${pre}first-item`]: i == 0,
-            [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
-            [`k-space-${pre}last-item`]: i == childs.length - 1,
-          }
-        })
-        newChilds.push(child)
-      }
-      childs = newChilds
 
-    } else if (split) {
-      childs = getChild(this.$slots.default)
-      let newChilds = []
-      for (let i = 0; i < childs.length; i++) {
-        newChilds.push(childs[i])
+    childs = getChild(this.$slots.default)
+    let newChilds = []
+
+    for (let i = 0; i < childs.length; i++) {
+      let pre = vertical ? 'vertical-' : ''
+      let p = {
+        props: {
+          size
+        },
+        class: {
+          [`k-space-${pre}first-item`]: i == 0,
+          [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
+          [`k-space-${pre}last-item`]: i == childs.length - 1,
+        }
+      }
+      let child = compact ? cloneVNode(childs[i], p) : <div {...p}>{childs[i]}</div>
+      // let child = cloneVNode(childs[i], p) 
+      newChilds.push(child)
+      if (split) {
         if (i < childs.length - 1) {
           newChilds.push(split)
         }
       }
-      childs = newChilds
     }
+    childs = newChilds
+
     return <div {...props}>{childs}</div>
   }
 }

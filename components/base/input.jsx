@@ -122,7 +122,7 @@ export default {
       let { $listeners, suffix, visiblePasswordIcon } = this
       const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-search-icon" onClick={this.searchEvent} /> : null
 
-      const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
+      const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword && this.visiblePassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
       return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
@@ -159,10 +159,9 @@ export default {
       if (!isTextArea) {
         props.attrs.type = type
 
-        // if (visiblePassword && type == 'password') {
-        //   props.attrs.type = 'text'
-        //   this.isPassword = false
-        // }
+        if (visiblePassword && type == 'password') {
+          props.attrs.type = 'text'
+        }
       }
       return isTextArea ? <textarea {...props} /> : <input {...props} single />
     },

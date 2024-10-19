@@ -5,15 +5,11 @@
 
 ```vue
 <template>
-  <div>
-    <Rate disabled :value="2.5" allowHalf />
-    <br />
-    <br />
-    <Rate disabled :value="3.3" show-score :icon="Heart"/>
-    <br />
-    <br />
+  <Space vertical>
+    <Rate disabled :value="2.5" allowHalf /> 
+    <Rate disabled :value="3.3" show-score :icon="Heart"/> 
     <Rate disabled :value="8.7" show-score :count="10"/>
-  </div>
+  </Space>
 </template>
 <script>
 import { Heart } from 'kui-icons'

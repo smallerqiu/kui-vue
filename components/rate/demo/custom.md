@@ -5,12 +5,10 @@
 
 ```vue
 <template>
-  <div>
-    <Rate :character="(i)=>i+1" :value="2" :count="9"/>
-    <br />
-    <br />
+  <Space vertical>
+    <Rate :character="(i)=>i+1" :value="2" :count="9"/>  
     <Rate :icon="(i)=> icons[i]" :value="3"/>
-  </div>
+  </Space>
 </template>
 <script>
 import { VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";

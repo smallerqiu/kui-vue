@@ -6,10 +6,10 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Badge :count="3" />
-    <Badge :count="15" color="orange" style="margin:0 30px;" />
+    <Badge :count="15" color="orange"/>
     <Badge :count="25" color="green"/>
-  </div>
+  </Space>
 </template>
 ```

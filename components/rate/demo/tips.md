@@ -5,10 +5,10 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Rate :tooltips="desc" v-model="value"/> 
     {{ value ? desc[value-1] : ''}}
-  </div>
+  </Space>
 </template>
 <script>
 export default{
