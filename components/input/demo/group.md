@@ -52,7 +52,7 @@
       <InputNumber :value="12" />
     </InputGroup>
     <InputGroup>
-      <Input :style="{ width: '50%' }" value="input content" />
+      <Input :style="{ width: '50%' }" value="input content" :icon="Copy"/>
       <DatePicker  />
     </InputGroup>
     <InputGroup>

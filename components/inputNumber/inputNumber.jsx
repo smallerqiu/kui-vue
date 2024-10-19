@@ -121,20 +121,17 @@ export default {
     },
     blurHandle(e) {
       let v = this.getVal(e.target.value)
-      // console.log(v)
-      // console.log(e.target.value)
+
       this.defaultValue = v + ''
-      // console.log('blur1', v)
 
       let output = v
       if (this.parser) {
         output = this.parser(output + '')
       }
-      // console.log('blur2', output)
+
       if (output !== '') {
         output = toNumber(output + '')
       }
-      // console.log('blur3', output)
 
       this.$emit('input', output)
       this.$emit('blur', e)
@@ -167,6 +164,8 @@ export default {
     return <BaseInput {...props}>
       <template slot="suffix">
         {suffixNode}
+      </template>
+      <template slot='contorls'>
         {controls ? <div class="k-input-number-controls">
           <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type={ChevronUp} /></span>
           <span class="k-input-number-control" onClick={this.setVal}><Icon type={ChevronUp} /></span>

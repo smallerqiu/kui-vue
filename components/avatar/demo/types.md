@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Avatar :icon="HeartOutline" />
     <Avatar>
       <Icon :type="HeartOutline" />
@@ -21,7 +21,7 @@
     <br/>
     <Avatar src="https://cdn.chuchur.com/img/chick.jpeg" :size="50"/>
     <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" shape="square"/>
-  </div>
+  </Space>
 </template>
 <script>
 import { HeartOutline } from "kui-icons"

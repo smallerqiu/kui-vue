@@ -29,18 +29,4 @@ export default {
     );
   }
 };
-</script> 
-<style lang="less">
-.demo-input {
-  .k-input,
-  .k-textarea {
-    margin-bottom: 10px;
-  }
-  .k-input-wrapper {
-    margin-bottom: 10px;
-    .k-input {
-      margin: 0;
-    }
-  }
-}
-</style>
+</script>

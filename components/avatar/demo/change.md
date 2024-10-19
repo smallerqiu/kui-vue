@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Avatar
       size="large"
       :style="{ backgroundColor: color, verticalAlign: 'middle' }"
@@ -13,7 +13,7 @@
       {{ text }}
     </Avatar>
     <Button size="small" @click="changeValue">改变</Button>
-  </div>
+  </Space>
 </template>
 <script>
 function ran(min, max) {

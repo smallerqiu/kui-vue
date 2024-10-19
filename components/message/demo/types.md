@@ -5,11 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Button @click="warning">Warning </Button>
     <Button @click="success">Success </Button>
-    <Button @click="error" type="danger">Error</Button>
-  </div>
+    <Button @click="error">Error</Button>
+  </Space>
 </template>
 <script>
 export default{
