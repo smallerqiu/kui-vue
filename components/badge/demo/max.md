@@ -26,16 +26,4 @@
     </Badge>
   </div>
 </template>
-<style scoped>
-.demo-dot .box{
-  width:50px;
-  height:50px;
-  background:#7f7f7f55;
-  border-radius:5px;
-}
-.demo-dot .k-badge{
-  margin-right:30px;
-  margin-bottom:30px;
-}
-</style>
 ```

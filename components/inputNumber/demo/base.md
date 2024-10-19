@@ -5,22 +5,16 @@
 
 ```vue
 <template>
-  <div style="width:200px;font-size:12px;">
-     简单数字输入框<br/>
+  <Space style="width:200px;font-size:12px;" vertical>
+     简单数字输入框
      <InputNumber v-model="value"/>
-     <br/>
-     <br/>
-     步长为2<br/>
+     步长为2
      <InputNumber :step="2" :value="2"/>
-     <br/>
-     <br/>
-     设置了上下界 min=1,max=10<br/>
+     设置了上下界 min=1,max=10
      <InputNumber :min="1" :max="10"/>
-     <br/>
-     <br/>
-     禁用<br/>
+     禁用
      <InputNumber disabled />
-  </div>
+  </Space>
 </template>
 <script>
 export default{

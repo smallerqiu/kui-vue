@@ -5,8 +5,9 @@
   display: inline-flex;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   color: var(--kui-color-font);
-  flex-shrink: 0;
+  // flex-shrink: 0;
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
@@ -321,6 +322,7 @@ select:-webkit-autofill:focus {
 }
 
 .k-input-group-compact {
+  width: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

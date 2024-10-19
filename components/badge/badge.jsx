@@ -43,6 +43,7 @@ export default {
       class: {
         'k-badge-count': count !== undefined,
         'k-badge-dot': dot,
+        'k-badge-no-child': !child.length,
         [`k-badge-${status}`]: status,
       },
       style: { backgroundColor: color }

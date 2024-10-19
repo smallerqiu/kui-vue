@@ -5,13 +5,13 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Badge :count="3">
-      <Button>最新消息</Button>
+      <div class="box"></div>
     </Badge>
-    <Badge :count="15" color="orange" style="margin:0 30px;">
-      <Button>最新评论</Button>
+    <Badge :count="15" color="orange">
+      <div class="box"></div>
     </Badge>
-  </div>
+  </Space>
 </template>
 ```

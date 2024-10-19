@@ -10,28 +10,28 @@
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />
     </space>
-    <Space compact  size="small">
+    <Space compact  size="small" block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
     </Space>
-    <Space compact>
+    <Space compact block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
     </Space>
-    <Space compact>
+    <Space compact block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="git@gitee.com:chuchur/kui-vue.git" />
       <Tooltip title="copy git url">
         <Button :icon="Copy"></Button>
       </Tooltip>
     </Space>
-    <Space compact>
+    <Space compact block>
       <Select value="Shenzheng" clearable>
         <Option value="Wuhan">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </Space>
-    <Space compact>
+    <Space compact block>
       <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }">
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
