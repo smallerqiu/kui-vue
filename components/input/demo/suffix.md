@@ -5,7 +5,7 @@ suffix，prefix 扩展
 
 ```vue
 <template>
-  <div style="width:256px;">
+  <Space vertical style="width:256px;">
     <Input placeholder="请输入用户名" :icon="PersonOutline"/>
     <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8">
       <template slot="suffix">
@@ -23,7 +23,7 @@ suffix，prefix 扩展
     <Input placeholder="请输入金额" suffix="RMB" prefix="¥"/>
     <Input placeholder="请输入域名" suffix=".com" prefix="https://"/>
     <Input placeholder="请输入金额" suffix=".00"/>
-  </div>
+  </Space>
 </template>
 <script>  
 import { InformationCircleOutline, Gift, ShieldCheckmark ,PersonOutline } from 'kui-icons'

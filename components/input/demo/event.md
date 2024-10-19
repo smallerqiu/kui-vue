@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:512px;">
+  <Space vertical style="width:512px;">
     <Input placeholder="请输入内容..." 
     clearable
     @change="change" 
@@ -25,7 +25,7 @@
       @blur="blur" 
       @focus="focus" 
      />
-  </div>
+  </Space>
 </template>
 <script>
 let events = {};

@@ -1,6 +1,7 @@
 import Icon from '../icon'
 import { isNotEmpty } from '../_tool/utils'
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from 'kui-icons';
+
 export default {
   name: "baseInput",
   props: {
@@ -170,7 +171,7 @@ export default {
     const { inputType, icon, $slots, size, disabled, type, $listeners, clearable, suffix, theme, prefix, shape } = this
 
     let isTextArea = inputType == 'textarea'
-    let mult = icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable
+    let mult = icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.contorls
 
     let textInput = this.getTextInput(mult)
 
@@ -181,17 +182,15 @@ export default {
     // let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
     let clearableShow = clearable && isNotEmpty(currentValue)
     const props = {
-      class: [
-        `k-${inputType}`,
-        {
-          [`k-${inputType}-focus`]: isFocus,
-          [`k-${inputType}-disabled`]: disabled,
-          [`k-${inputType}-sm`]: size == 'small',
-          [`k-${inputType}-lg`]: size == 'large',
-          [`k-${inputType}-${theme}`]: theme && theme != 'solid',
-          [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea,
-        }
-      ],
+      class: {
+        [`k-${inputType}`]: true,
+        [`k-${inputType}-focus`]: isFocus,
+        [`k-${inputType}-disabled`]: disabled,
+        [`k-${inputType}-sm`]: size == 'small',
+        [`k-${inputType}-lg`]: size == 'large',
+        [`k-${inputType}-${theme}`]: theme && theme != 'solid',
+        [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea,
+      },
       // on: {
       // mouseenter: () => this.isEnter = true,
       // mouseleave: () => this.isEnter = false
@@ -204,7 +203,8 @@ export default {
       {prefixNode ? prefixNode : null}
       {textInput}
       {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
-      {suffixNode ? suffixNode : null}
+      {suffixNode}
+      {$slots.contorls}
     </div >
   }
 };

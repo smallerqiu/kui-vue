@@ -17,11 +17,4 @@ export default {
     )
   }
 }
-</script> 
-<style lang="less">
-.demo-avatar{
-  .k-avatar{
-    margin: 0 10px 10px 0;
-  }
-}
-</style>
+</script>

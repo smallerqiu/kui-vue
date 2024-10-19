@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Button @click="visible1=true" type="primary">宽300px</Button>
     <Button @click="visible2=true" type="primary">自定义页脚</Button>
     <Button @click="visible3=true" type="primary">国际化</Button>
@@ -28,7 +28,7 @@
     <Modal title="提交表单" v-model="visible4" :loading="loading" @ok="submit" @close="close">
       <p>Name：<Input placeholder="Please input your name" style="width:200px"/></p>
     </Modal>
-  </div>
+  </Space>
 </template>
 <script>
 import { Save } from "kui-icons";

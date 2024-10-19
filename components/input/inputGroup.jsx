@@ -10,7 +10,7 @@ export default {
     },
     size: {
       type: [String, Number, Array],
-      // default: 'small',
+      default: 'default',
       validator(value) {
         return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large"].indexOf(value) >= 0;
       }

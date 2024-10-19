@@ -17,17 +17,4 @@ export default {
     )
   }
 }
-</script> 
-<style lang="less">
-.demo-tooltip {
-  .k-btn {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    min-width: 70px;
-  }
-}
-.demo-tooltip-color .k-btn {
-  margin:0 8px 8px 0;
-  min-width: auto;
-}
-</style>
+</script>

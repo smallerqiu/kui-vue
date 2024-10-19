@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:512px;">
+  <Space vertical style="width:512px;">
     <Checkbox label="Circle" v-model="isShape"/>
     <br/>
     <br/>
@@ -14,7 +14,7 @@
     <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape"/>
     <Input placeholder="请输入内容..." theme="light" @search="focus" clearable :shape="shape"/>
     <TextArea placeholder="请输入内容..." theme="light" :rows="3"/>
-  </div>
+  </Space>
 </template>
 <script>
 import { Search } from "kui-icons";

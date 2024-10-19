@@ -5,12 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    <Button @click="notice('info')" type="primary">消息提示 </Button>
+  <Space>
+    <Button @click="notice('info')">消息提示 </Button>
     <Button @click="notice('warning')">警告提示 </Button>
     <Button @click="notice('success')">成功提示 </Button>
-    <Button @click="notice('error')" type="danger">错误提示 </Button>
-  </div>
+    <Button @click="notice('error')">错误提示 </Button>
+  </Space>
 </template>
 <script>
 export default{  
