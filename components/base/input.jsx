@@ -196,19 +196,19 @@ export default {
       // }
     }
     const suffixNode = this.getSuffix()
-    const prefixNode = $slots.prefix || (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
+    const prefixNode =  (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
     if ($slots.prefix || $slots.suffix) {
       return <InputGroup>
-        {$slots.prefix}
+        {$slots.prefix ? <div class={{ "k-input-group-prefix": true }}>{$slots.prefix}</div> : null}
         <div {...props} mult>
           {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
-          {/* {prefixNode} */}
+          {prefixNode}
           {textInput}
           {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
           {/* {suffixNode} */}
           {$slots.contorls}
         </div >
-        <div class={"k-input-group-suffix"}>{$slots.suffix}</div>
+        {$slots.suffix ? <div class={{ "k-input-group-suffix": true }}>{$slots.suffix}</div> : null}
       </InputGroup>
     }
     return <div {...props} mult>

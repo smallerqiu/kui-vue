@@ -9,7 +9,7 @@ suffix，prefix 扩展
     <Input placeholder="请输入用户名" :icon="PersonOutline"/>
     <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8">
       <template slot="suffix">
-        <Button size="small" type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
+        <Button type="primary" v-if="time==60" @click="sendCode">获取验证码</Button>
         <span v-else>{{time}}(s)</span>
       </template>
     </Input>
