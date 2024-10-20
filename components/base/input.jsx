@@ -1,7 +1,7 @@
 import Icon from '../icon'
 import { isNotEmpty } from '../_tool/utils'
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from 'kui-icons';
-
+import { InputGroup } from '../input'
 export default {
   name: "baseInput",
   props: {
@@ -197,9 +197,23 @@ export default {
     }
     const suffixNode = this.getSuffix()
     const prefixNode = $slots.prefix || (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
+    if ($slots.prefix || $slots.suffix) {
+      return <InputGroup>
+        {$slots.prefix}
+        <div {...props} mult>
+          {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
+          {/* {prefixNode} */}
+          {textInput}
+          {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
+          {/* {suffixNode} */}
+          {$slots.contorls}
+        </div >
+        <div class={"k-input-group-suffix"}>{$slots.suffix}</div>
+      </InputGroup>
+    }
     return <div {...props} mult>
       {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
-      {prefixNode ? prefixNode : null}
+      {prefixNode}
       {textInput}
       {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
       {suffixNode}

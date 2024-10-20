@@ -1,29 +1,50 @@
 <template>
-  <Space vertical style="width:512px;">
-    <Input placeholder="User Name..." :icon="Person" />
-    <Input type="password" placeholder="Password..." :icon="LockClosed" />
-    <Space compact block>
-      <Input type="password" placeholder="Password default text" :icon="LockClosed" :visiblePassword="visiblePassword" />
-      <Button @click="visiblePassword=!visiblePassword">Toggle</Button>
-    </Space>
-    <Input type="password" placeholder="Password no toggle" :icon="LockClosed" :visiblePasswordIcon="false" />
-
-    <Input placeholder="请输入关进行搜索键字..." @search="search" />
+  <Space vertical style="width:256px;">
+    <Input placeholder="请输入用户名" :icon="PersonOutline" />
+    <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8" prefix="¥">
+      <template slot="suffix">
+        <Button size="small" type="primary" v-if="time == 60" @click="sendCode">获取验证码</Button>
+        <span v-else>{{ time }}(s)</span>
+      </template>
+    </Input>
+    <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
+    <template slot="suffix">
+      <Tooltip title="请咨询管理员">
+        <Icon :type="InformationCircleOutline" color="orange" />
+      </Tooltip>
+    </template>
+    </Input>
+    <Input placeholder="请输入金额" suffix="RMB" prefix="¥" />
+    <Input placeholder="请输入域名" suffix=".com" prefix="https://" />
+    <Input placeholder="请输入金额" suffix=".00" />
   </Space>
 </template>
 <script>
-import { Person, LockClosed } from "kui-icons";
+import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
 export default {
   data() {
     return {
-      visiblePassword:true,
-      Person, LockClosed
+      InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline,
+      time: 60,
+      timer: null
     }
   },
+  beforDestroy() {
+    clearInterval(this.timer)
+  },
   methods: {
-    search() {
-      this.$Message.info("This is search event");
-    },
+    sendCode() {
+      this.time = 59
+      this.$Message.success("验证码发送成功，请注意查收");
+      this.timer = setInterval(e => {
+        if (this.time < 0) {
+          clearInterval(this.timer)
+          this.time = 60
+        } else {
+          this.time--
+        }
+      }, 1000)
+    }
   }
 };
 </script>
