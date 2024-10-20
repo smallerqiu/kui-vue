@@ -12,7 +12,7 @@ export default {
       type: [String, Number, Array],
       default: 'default',
       validator(value) {
-        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large"].indexOf(value) >= 0;
+        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large",'default'].indexOf(value) >= 0;
       }
     }
   },

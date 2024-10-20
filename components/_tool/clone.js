@@ -39,7 +39,7 @@ const DATA_KEYS = [
 
 function extractData(vnode, isComp) {
   const data = pick(vnode.data, DATA_KEYS)
-  // console.log(data)
+  console.log(vnode.data)
   if (isComp) {
     const cOpts = vnode.componentOptions
     assign(data, {
