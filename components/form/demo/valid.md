@@ -30,8 +30,9 @@
         <Input  />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-          <Input />
-          <Button  :disabled="time==60"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
+          <Input>
+            <Button slot="suffix"  :disabled="time!=60" style="width:100px;"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
+          </Input>
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
