@@ -13,6 +13,7 @@
 | expandedKeys  | 指定展开的节点                                               | Array   | []     |
 | expandedAll   | 是否展开所有节点                                             | Boolean | false  |
 | selectedKeys  | 选中的节点                                                   | Array   | []     |
+| multiple      | 是否支持多选                                                 | Boolean | false  |
 
 ## TreeNode API
 

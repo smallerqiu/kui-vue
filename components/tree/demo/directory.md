@@ -13,12 +13,13 @@
       <Checkbox v-model="checkable" label="Checkable" />
       <Checkbox v-model="showIcon" label="ShowIcon" />
       <Checkbox v-model="showExtra" label="ShowExtra" />
+      <Checkbox v-model="multiple" label="Multiple" />
       <Checkbox v-model="checkStrictly" label="checkStrictly" />
     </Space>
     <br />
     <br />
     <Tree :data="data" style="width:512px" @expand="expand" :directory="directory" :draggable="draggable"
-      :checkable="checkable" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
+      :checkable="checkable" :multiple="multiple" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
       :selectedKeys="selectedKeys" :expandedKeys="expandedKeys" :checkStrictly="checkStrictly">
       <template v-slot:extra="{ node, parent }">
         <Space>
@@ -45,6 +46,7 @@ export default {
       expandedKeys: ['0-0', '1-0', '1-1', '1-2'],
       selectedKeys: ['0-0'],
       checkStrictly:false,
+      multiple:false,
       checkedKeys:[],
       data: [
         {

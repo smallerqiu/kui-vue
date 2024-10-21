@@ -91,6 +91,13 @@
           textAlig: 'center',
         }" placeholder="Maximum" />
     </InputGroup>
+    <InputGroup>
+      <Select value="Option1-1">
+        <Option value="Option1-1">Option1-1</Option>
+        <Option value="Option1-2">Option1-2</Option>
+      </Select>
+      <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
+    </InputGroup>
   </Space>
 </template>
 <script>
@@ -98,7 +105,17 @@ import { Copy } from 'kui-icons'
 export default{
   data(){
     return{
-      Copy
+      Copy,
+      treeData:[
+        {
+          title:'fruit',
+          key:'1',
+          children:[
+            {title:'apple',key:'11'},
+            {title:'orange',key:'12'},
+          ]
+        }
+      ]
     }
   }
 }

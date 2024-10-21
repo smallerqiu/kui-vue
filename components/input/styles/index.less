@@ -36,6 +36,10 @@
 
   .k-input-search-icon {
     cursor: pointer;
+
+    &:hover {
+      color: var(--kui-color-main);
+    }
   }
 
   .k-input-password-icon {
@@ -76,6 +80,7 @@
   &.k-input-focus {
     border-color: var(--kui-color-main);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    z-index: 1;
   }
 
   .k-input-suffix,
@@ -254,6 +259,7 @@ select:-webkit-autofill:focus {
   .k-input-group-suffix,
   .k-input-group-prefix {
     height: 24px;
+    font-size: 12px;
   }
 }
 
@@ -266,6 +272,7 @@ select:-webkit-autofill:focus {
 .k-input-group-suffix,
 .k-input-group-prefix {
   height: 40px;
+  font-size: 14px;
 
   >[class^="k-"]:not(.k-icon) {
     margin: 0 -1px;
@@ -365,6 +372,7 @@ select:-webkit-autofill:focus {
   box-sizing: border-box;
   align-items: center;
   font-size: 14px;
+  transition: all .3s ease-in-out;
 
   >.k-icon {
     margin: 0 8px;
@@ -382,7 +390,7 @@ select:-webkit-autofill:focus {
   border-spacing: 0;
   align-items: self-start;
 
- 
+
 
   .k-input-group-first-item {
     border-top-right-radius: 0;
@@ -415,5 +423,33 @@ select:-webkit-autofill:focus {
     &:hover {
       z-index: 1;
     }
+  }
+}
+
+.k-input-group-sm {
+
+  .k-input-group-suffix,
+  .k-input-group-prefix {
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .k-input-number-suffix,
+  .k-input-number-prefix {
+    font-size: 12px;
+  }
+}
+
+.k-input-group-lg {
+
+  .k-input-group-suffix,
+  .k-input-group-prefix {
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .k-input-number-suffix,
+  .k-input-number-prefix {
+    font-size: 16px;
   }
 }

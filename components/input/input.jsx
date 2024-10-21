@@ -21,6 +21,7 @@ export default {
     suffix: String,
     prefix: String,
     disabled: Boolean,
+    readonly: Boolean,
     visiblePassword: Boolean,
     visiblePasswordIcon: { type: Boolean, default: true },
     theme: {

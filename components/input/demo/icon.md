@@ -8,7 +8,7 @@
   <Space vertical style="width:512px;">
     <Input placeholder="User Name..." :icon="Person" />
     <Input type="password" placeholder="Password..." :icon="LockClosed" />
-    <Space compact>
+    <Space compact block>
       <Input type="password" placeholder="Password defalt text" :icon="LockClosed" :visiblePassword="visiblePassword" />
       <Button @click="visiblePassword=!visiblePassword">Toggle</Button>
     </Space>

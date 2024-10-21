@@ -30,7 +30,8 @@ export default {
     theme: String,
     shape: String,
     formatter: Function,
-    parser: Function
+    parser: Function,
+    placeholder: String
   },
   data() {
     return {
@@ -48,6 +49,9 @@ export default {
   watch: {
     value(value) {
       this.currentValue = value
+    },
+    visiblePassword(value) {
+      this.isPassword = !value
     }
   },
   mounted() {
@@ -122,12 +126,12 @@ export default {
       let { $listeners, suffix, visiblePasswordIcon } = this
       const SearchNode = ('search' in $listeners) ? <Icon type={Search} class="k-input-search-icon" onClick={this.searchEvent} /> : null
 
-      const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword && this.visiblePassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
+      const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
       return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
     getTextInput(mult) {
-      const { disabled, size, type, inputType, currentValue, id, theme, shape, visiblePassword } = this
+      const { disabled, size, type, inputType, currentValue, id, theme, shape, placeholder } = this
       let isTextArea = inputType == 'textarea'
       const props = {
         domProps: {
@@ -146,7 +150,8 @@ export default {
         ],
         ref: 'input',
         attrs: {
-          ...this.$attrs, disabled, id
+          ...this.$attrs,
+          disabled, id, placeholder
         },
         on: {
           ...this.$listeners,
@@ -159,7 +164,7 @@ export default {
       if (!isTextArea) {
         props.attrs.type = type
 
-        if (visiblePassword && type == 'password') {
+        if (!this.isPassword && type == 'password') {
           props.attrs.type = 'text'
         }
       }
@@ -196,9 +201,9 @@ export default {
       // }
     }
     const suffixNode = this.getSuffix()
-    const prefixNode =  (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
+    const prefixNode = (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
     if ($slots.prefix || $slots.suffix) {
-      return <InputGroup>
+      return <InputGroup size={size}>
         {$slots.prefix ? <div class={{ "k-input-group-prefix": true }}>{$slots.prefix}</div> : null}
         <div {...props} mult>
           {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
@@ -210,14 +215,15 @@ export default {
         </div >
         {$slots.suffix ? <div class={{ "k-input-group-suffix": true }}>{$slots.suffix}</div> : null}
       </InputGroup>
+    } else {
+      return <div {...props} mult>
+        {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
+        {prefixNode}
+        {textInput}
+        {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
+        {suffixNode}
+        {$slots.contorls}
+      </div >
     }
-    return <div {...props} mult>
-      {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
-      {prefixNode}
-      {textInput}
-      {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
-      {suffixNode}
-      {$slots.contorls}
-    </div >
   }
 };
