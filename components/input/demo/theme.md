@@ -7,8 +7,6 @@
 <template>
   <Space vertical style="width:512px;">
     <Checkbox label="Circle" v-model="isShape"/>
-    <br/>
-    <br/>
     <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light" :shape="shape"/>
     <Input placeholder="disabled..." disabled theme="light" :shape="shape"/>
     <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape"/>

@@ -9,6 +9,7 @@ export default {
     max: { type: Number },
     disabled: Boolean,
     clearable: Boolean,
+    readonly: Boolean,
     formatter: Function,
     parser: Function,
     size: String,
@@ -21,6 +22,10 @@ export default {
       default: 1,
     },
     theme: String,
+    placeholder: String,
+    icon: [String, Array],
+    id: String,
+
   },
   watch: {
     value(v) {

@@ -12,9 +12,9 @@ export default {
       type: [String, Number, Array],
       default: 'default',
       validator(value) {
-        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large",'default'].indexOf(value) >= 0;
+        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large", 'default'].indexOf(value) >= 0;
       }
-    }
+    },
   },
   render() {
     let { $slots, size, compact, block } = this
@@ -23,7 +23,9 @@ export default {
       class: ['k-input-group', {
         [`k-input-group-compact`]: compact,
         [`k-input-group-block`]: block,
-      }]
+        [`k-input-group-lg`]: size == 'large',
+        [`k-input-group-sm`]: size == 'small',
+      }],
     }
     if (!size && !compact) {
       props.style.gap = '8px'
@@ -58,6 +60,7 @@ export default {
       childs = newChilds
 
     }
+    // console.log(props)
     return <div {...props}>{childs}</div>
   }
 }
