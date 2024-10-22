@@ -14,6 +14,7 @@ export default {
     transfer: { type: Boolean, default: true },
     showMode: Boolean,
     disabled: Boolean,
+    noAlpha: Boolean,
     size: {
       default: 'default',
       validator(value) {
@@ -200,6 +201,7 @@ export default {
       })
     },
     alphaCanvsSetHue(canvas) {
+      if (this.noAlpha || !canvas) return;
       const ctx = canvas.getContext('2d', { willReadFrequently: true }),
         { width, height } = canvas,
         gradient = ctx.createLinearGradient(0, 0, width - 1, 0);
@@ -284,7 +286,7 @@ export default {
         attrs: { width: 190, height: 8 },
         ref: 'alpha'
       }
-      return <canvas {...prop} />
+      return !this.noAlpha ? <canvas {...prop} /> : null
     },
     renderHue() {
       let prop = {
@@ -396,9 +398,9 @@ export default {
           render: () => {
             this.$nextTick(() => {
               let { paint, hue, alpha } = this.$refs
-              this.paintHelper = canvasHelper(paint)
-              this.initHueCanvas(hue)
-              this.initAlphaCanvas(alpha)
+              this.paintHelper = canvasHelper(paint);
+              this.initHueCanvas(hue);
+              (!this.noAlpha && this.initAlphaCanvas(alpha));
               this.initPaintCanvas(paint)
               this.valueChange('COLOR', this.value)
             })
@@ -416,7 +418,7 @@ export default {
           <div class="k-color-picker-bar-box">
             {[hue, alpha]}
             <span class="k-color-picker-hue-dot" style={{ 'left': this.huePointer.x + 'px', backgroundColor: `rgba(${r},${g},${b},1` }}></span>
-            <span class="k-color-picker-alpha-dot" style={{ 'left': this.alphaPointer.x + 'px', backgroundColor: `rgba(${r},${g},${b},${this.A}` }} ></span>
+            {!this.noAlpha ? <span class="k-color-picker-alpha-dot" style={{ 'left': this.alphaPointer.x + 'px', backgroundColor: `rgba(${r},${g},${b},${this.A}` }} ></span> : null}
           </div>
         </div>
         {valueNode}

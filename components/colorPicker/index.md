@@ -6,6 +6,7 @@
 | default-colors | 自定义颜色盘,最多20种                                | Array    | [...]  |
 | show-mode      | 是否展示颜色模式                                     | Boolean  | false  |
 | show-arrow     | 是否展示下拉箭头                                     | Boolean  | true   |
+| noAlpha        | 是否禁用透明                                         | Boolean  | false  |
 | icon           | 自定义下拉箭头                                       | Boolean  | true   |
 | shape          | shape='circle' 呈现圆形                              | String   | -      |
 | change         | 颜色值改变的时候触发,返回颜色的值                    | Function | -      |

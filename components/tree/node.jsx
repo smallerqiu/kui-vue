@@ -213,11 +213,11 @@ export default {
     } else {
       itemNode.push(<span class="k-tree-commes"></span>)
     }
-    // console.log(checked)
+    // console.log(checked,checked, disabled, indeterminate)
     if (checkable) {
       let props = {
         props: { checked, disabled, indeterminate },
-        on: { change: this.handleCheck,/*  input: e => { this.$set(this.data, 'checked', e) } */ }
+        on: { change: this.handleCheck }
       }
       itemNode.push(<Checkbox {...props} />)
     }
