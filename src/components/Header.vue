@@ -30,7 +30,7 @@
           <MenuItem key="https://chuchur.com/">Blog</MenuItem>
         </SubMenu>
       </Menu>
-      <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px"
+      <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
         @change="changeThemeColor" />
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
         <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
@@ -84,7 +84,8 @@ export default {
         stl.setAttribute('name', 'kui')
         document.head.appendChild(stl)
       }
-      let str = v.split(',').slice(0, 3).join(',')
+    
+      let str = v.slice(0, v.length-1)
       let cssText = `
       body[theme-type='custom']{
           --kui-color-main:${str});

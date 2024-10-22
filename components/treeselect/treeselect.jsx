@@ -240,7 +240,8 @@ export default {
         this.$refs.overlay.setPosition()
       }
     },
-    change(item) {
+    select({ selectedKeys, selected, node }) {
+      let item = { label: node.title, value: node.key }
       let { multiple, value, currentValue } = this
       // console.log(value, currentValue, item)
 
@@ -290,17 +291,24 @@ export default {
         this.$nextTick(e => this.setPosition())
       }
       this.$emit("input", this.currentValue);
-      this.$emit("change", this.currentValue, this.currentLabel);
+      this.$emit("change", this.currentValue);
+
+      this.$emit('select', {
+        selectedKeys,
+        selected,
+        node
+      })
     },
     removeTag(e, i) {
       if (this.disabled) return
-      let values = this.currentValue || []
-      let labels = this.label || []
+      // let values = this.currentValue || []
+      // let labels = this.label || []
       // this.change({ value: values[i], label: labels[i].label })
 
       this.currentValue.splice(i, 1)
       this.$emit("input", this.currentValue);
-      this.$emit("change", this.currentValue, this.currentLabel);
+      // console.log(this.currentValue,this.label)
+      this.$emit("change", this.currentValue);
       e.stopPropagation()
     },
     searchInput(e) {
@@ -327,36 +335,6 @@ export default {
 
         })
       }
-    },
-    getOptions() {
-      return null
-      let { queryKey, options, $slots } = this
-      let childs = null
-      if (Array.isArray(options)) {
-        childs = options.map((k, i) => {
-          let prop = {
-            props: { ...k },
-            key: k.key || (k.label + k.value)
-          }
-          return <Option {...prop} />
-        })
-      } else {
-        childs = getChild($slots.default)
-      }
-      if (this.filterable && queryKey && !this.$listeners.search) {
-        let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-        let Reg = new RegExp(parsedQuery, 'i')
-
-        childs = childs.filter(c => {
-          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text
-          return Reg.test(label)
-        })
-      }
-      return childs
-    },
-    treeSelect({ node }) {
-      let { title, key } = node
-      this.change({ label: title, value: key })
     },
     treeCheck() {
       // console.log(e)
@@ -455,7 +433,7 @@ export default {
         checkedKeys: selectedKeys,
       },
       on: {
-        select: this.treeSelect,
+        select: this.select,
         check: this.treeCheck
       }
     }

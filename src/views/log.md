@@ -10,7 +10,18 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
-### 3.4.6
+### 3.4.7
+`2024-10-22`
+- 重写 TreeSelect 组件
+- 优化 ColoePicker 细节
+- Tree 组件细节,支持多选, 父子联动可控
+- Input 扩展细节和可隐藏密码输入
+- InputNumber 扩展优化
+- 其它一细节优化
+  
+
+### 3.4.6 
+`2024-09-03`
 - 优化细节
 
 ### 3.4.5

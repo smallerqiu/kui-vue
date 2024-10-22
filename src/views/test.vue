@@ -1,24 +1,52 @@
 <template>
-  <Space style="width:256px;" vertical size="large">
-    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen" size="large" suffix="元" prefix="$">
-      <template slot="suffix">
-        <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-          <Icon :type="Heart" color="red" />
-        </Tooltip>
-      </template>
-    </InputNumber>
-    <InputNumber placeholder="请输入金额" suffix="元" prefix="$"  size="small" />
-    <InputNumber placeholder="请输入充值金额" :step="50" suffix="元" prefix="充值"  size="large" />
-    <InputNumber placeholder="请输入金额" suffix=".00" />
-  </Space>
+  <TreeSelect v-model="value" :tree-data="data" :treeExpandedKeys="expandedKeys" multiple tree-checkable :width="300" />
 </template>
 <script>
-import { Heart, LogoYen } from 'kui-icons'
 export default {
   data() {
     return {
-      Heart, LogoYen
+      expandedKeys: ['0-1', '1-1', '1-1-2', '1-2'],
+      value: [],
+      data: [
+        {
+          title: 'tree 1',
+          key: '0-1',
+          // children: [
+          //   {
+          //     title: 'tree 1-1',
+          //     key: '1-1',
+          //     disabled: true,
+          //     children: [
+          //       { title: 'leaf 1-1-1', disabled: true },
+          //       {
+          //         title: 'leaf 1-1-2',
+          //         key: '1-1-2',
+          //         children: [
+          //           { title: 'leaf 1-1-2-1' },
+          //           { title: 'leaf 1-1-2-2' }
+          //         ]
+          //       }
+          //     ]
+          //   },
+          //   {
+          //     title: 'tree 1-2',
+          //     key: '1-2',
+          //     children: [
+          //       { title: 'leaf 1-2-1' },
+          //       { title: 'leaf 1-2-2' }
+          //     ]
+          //   },
+          //   {
+          //     title: 'tree 1-3',
+          //     children: [
+          //       { title: 'leaf 1-3-1' },
+          //       { title: 'leaf 1-3-2' }
+          //     ]
+          //   }
+          // ]
+        }
+      ],
     }
-  }
+  },
 }
 </script>
