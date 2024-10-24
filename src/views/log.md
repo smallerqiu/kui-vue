@@ -10,6 +10,10 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在构建中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+### 3.4.8
+`2024-10-24`
+- 修改一些组件在 dark 模式下展现形式
+
 ### 3.4.7
 `2024-10-22`
 - 重写 TreeSelect 组件
