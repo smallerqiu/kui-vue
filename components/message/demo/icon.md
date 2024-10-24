@@ -5,10 +5,10 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Button @click="alipay" :icon="LogoAlipay"></Button>
     <Button @click="wechat" :icon="LogoWechat"></Button>
-  </div>
+  </Space>
 </template>
 <script>
 import { LogoAlipay, LogoWechat } from "kui-icons";
