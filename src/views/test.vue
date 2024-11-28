@@ -1,52 +1,20 @@
 <template>
-  <TreeSelect v-model="value" :tree-data="data" :treeExpandedKeys="expandedKeys" multiple tree-checkable :width="300" />
+  <div>
+    {{ test }}
+    <DatePicker />
+    <DatePicker placeholder="小尺寸/Small" picker-size="small"  />
+    <br />
+    <DatePicker mode="month" placeholder="请选择月份" />
+    <DatePicker mode="dateRange" />
+    <DatePicker mode="dateTimeRange" picker-size="small" v-model="test"/>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      expandedKeys: ['0-1', '1-1', '1-1-2', '1-2'],
-      value: [],
-      data: [
-        {
-          title: 'tree 1',
-          key: '0-1',
-          // children: [
-          //   {
-          //     title: 'tree 1-1',
-          //     key: '1-1',
-          //     disabled: true,
-          //     children: [
-          //       { title: 'leaf 1-1-1', disabled: true },
-          //       {
-          //         title: 'leaf 1-1-2',
-          //         key: '1-1-2',
-          //         children: [
-          //           { title: 'leaf 1-1-2-1' },
-          //           { title: 'leaf 1-1-2-2' }
-          //         ]
-          //       }
-          //     ]
-          //   },
-          //   {
-          //     title: 'tree 1-2',
-          //     key: '1-2',
-          //     children: [
-          //       { title: 'leaf 1-2-1' },
-          //       { title: 'leaf 1-2-2' }
-          //     ]
-          //   },
-          //   {
-          //     title: 'tree 1-3',
-          //     children: [
-          //       { title: 'leaf 1-3-1' },
-          //       { title: 'leaf 1-3-2' }
-          //     ]
-          //   }
-          // ]
-        }
-      ],
+      test: []
     }
-  },
+  }
 }
 </script>

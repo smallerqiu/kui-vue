@@ -1,21 +1,21 @@
-import Option from './option'
+import Option from "./option";
 import Icon from "../icon";
-import Empty from '../empty';
-import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
+import Empty from "../empty";
+import { hasProp, getChild, isNotEmpty } from "../_tool/utils";
 
-import Drop from '../base/drop'
-import { t } from '../locale';
-import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
+import Drop from "../base/drop";
+import { t } from "../locale";
+import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
 
 export default {
   name: "Select",
   props: {
     placeholder: String,
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
     transfer: { type: Boolean, default: true },
     width: Number,
@@ -36,106 +36,76 @@ export default {
   },
   provide() {
     return {
-      Select: this
-    }
+      Select: this,
+    };
   },
   data() {
     return {
       label: "",
       opened: false,
-      currentValue: this.value || '',
+      currentValue: this.value || "",
       showSearch: false,
-      queryKey: '',
+      queryKey: "",
       selectWidth: this.width,
-      isFocus: false
+      isFocus: false,
     };
   },
   watch: {
     value(value) {
       if (isNotEmpty(value)) {
-        this.currentValue = value
+        this.currentValue = value;
       } else {
-        this.currentValue = this.multiple ? [] : ''
+        this.currentValue = this.multiple ? [] : "";
       }
     },
-    currentValue(n, o) {
-      this.setLabel()
-    }
   },
   methods: {
     hideDrop() {
       if (this.showSearch) {
-        this.queryKey = ''
-        this.$refs.search.value = ''
-        this.$refs.search.style.width = ''
+        this.queryKey = "";
+        this.$refs.search.value = "";
+        this.$refs.search.style.width = "";
       }
-      this.showSearch = false
+      this.showSearch = false;
     },
     getLabel(childs, labelValue) {
-      let Label = '';
-      childs.forEach(c => {
-        let { value, label } = c.componentOptions.propsData
+      let Label = null;
+      childs.forEach((c) => {
+        let { value, label } = c.componentOptions.propsData;
         if (labelValue === value) {
-          Label = label || (c.componentOptions.children[0].text || '').trim()
+          Label = label || (c.componentOptions.children[0].text || "").trim();
           return;
         }
-      })
-      return Label || labelValue;
-    },
-    setLabel() {
-      let { currentValue, multiple, label } = this
-
-      currentValue = isNotEmpty(currentValue) ? currentValue : (multiple ? [] : '')
-      let currentLabel = isNotEmpty(label) ? label : (multiple ? [] : '')
-
-      let childs = this.getOptions()
-      if (multiple) {
-        if (currentValue.length) {
-          let labels = []
-          currentValue.forEach((value) => {
-            let label = this.getLabel(childs, value)
-            labels.push({ label, key: `label_${value}`, value })
-          })
-          currentLabel = labels
-        } else {
-          currentLabel = []
-        }
-
-      } else {
-        currentLabel = this.getLabel(childs, currentValue)
-      }
-      this.label = currentLabel
-
-      setTimeout(e => { this.setPosition() }, 230);
-
+      });
+      return Label;
     },
     clear(e) {
-      let label = this.multiple ? [] : ""
-      let value = this.multiple ? [] : ""
-      this.label = label
-      this.currentValue = value
+      let label = this.multiple ? [] : "";
+      let value = this.multiple ? [] : "";
+      this.label = label;
+      this.currentValue = value;
       this.$emit("input", value);
       this.$emit("change", value);
-      e.stopPropagation()
+      e.stopPropagation();
     },
     showDrops() {
-      let isSearch = ('search' in this.$listeners)
+      let isSearch = "search" in this.$listeners;
 
       this.opened = !this.opened;
       if (this.filterable || isSearch) {
-        this.showSearch = this.opened
+        this.showSearch = this.opened;
         if (this.opened) {
-          this.$nextTick(e => {
-            this.isFocus = true
-            this.$refs.search.focus()
-          })
+          this.$nextTick((e) => {
+            this.isFocus = true;
+            this.$refs.search.focus();
+          });
         } else {
-          this.$refs.search.blur()
-          this.isFocus = false
+          this.$refs.search.blur();
+          this.isFocus = false;
 
           setTimeout(() => {
-            this.queryKey = ''
-            this.$refs.search.value = ''
+            this.queryKey = "";
+            this.$refs.search.value = "";
           }, 200);
         }
       }
@@ -145,273 +115,286 @@ export default {
       if (this.disabled) {
         return false;
       }
-      let isSearch = ('search' in this.$listeners)
+      let isSearch = "search" in this.$listeners;
       if (isSearch) {
-        // this.$nextTick(e => {
-        this.showSearch = true
-        this.$nextTick(e => {
-          this.$refs.search.focus()
-          this.isFocus = true
-        })
-        // })
+        this.showSearch = true;
+        this.$nextTick((e) => {
+          this.$refs.search.focus();
+          this.isFocus = true;
+        });
         return;
       }
-      this.showDrops()
+      this.showDrops();
     },
     setPosition() {
-      // if (!hasProp(this, 'width')) {
-      //   this.selectWidth = this.$el.offsetWidth
-      // }
       if (this.opened) {
-        this.$refs.overlay.setPosition()
+        this.$refs.overlay.setPosition();
       }
     },
     change(item) {
-      let { multiple, value, currentValue } = this
+      let { multiple, value, currentValue } = this;
       // console.log(value, currentValue)
 
       if (this.showSearch) {
-        this.queryKey = ''
-        this.$refs.search.value = ''
-        this.$refs.search.style.width = ''
+        this.queryKey = "";
+        this.$refs.search.value = "";
+        this.$refs.search.style.width = "";
       }
       if (!multiple) {
-        this.opened = false
-        this.showSearch = false
-      } else if ('search' in this.$listeners || this.filterable) {
-        this.$nextTick(e => {
-          this.$refs.search.focus()
-          this.isFocus = true
-
-        })
+        this.opened = false;
+        this.showSearch = false;
+      } else if ("search" in this.$listeners || this.filterable) {
+        this.$nextTick((e) => {
+          this.$refs.search.focus();
+          this.isFocus = true;
+        });
       }
-      let hasValue = hasProp(this, 'value')
+      let hasValue = hasProp(this, "value");
       //set value
       if (multiple) {
         if (!hasValue) {
-          value = currentValue || []
+          value = currentValue || [];
         }
-        let index = value.indexOf(item.value)
+        let index = value.indexOf(item.value);
         if (index === -1) {
-          value.push(item.value)
+          value.push(item.value);
         } else {
-          value.splice(index, 1)
+          value.splice(index, 1);
         }
       } else {
-        value = item.value
+        value = item.value;
       }
-      this.currentValue = value
+      this.currentValue = value;
 
       //set label
-      if (!hasValue) {
-        if (multiple) {
-          let currentLabel = this.label || []
-          let index = currentLabel.findIndex(x => x.value === item.value)//  .map(x => x.label).indexOf(item.label)
-          if (index === -1) {
-            currentLabel.push({ label: item.label, key: item.label + item.value, value: item.value })
-          } else {
-            currentLabel.splice(index, 1)
-          }
-          this.label = currentLabel
-        } else {
-          this.label = item.label
-        }
-        setTimeout(e => { this.setPosition() }, 230);
-      } else {
-        this.$nextTick(e => this.setPosition())
-      }
+
+      this.$nextTick((e) => this.setPosition());
       this.$emit("input", value);
       this.$emit("change", item);
     },
-    removeTag(e, i) {
-      if (this.disabled) return
-      let values = this.currentValue || []
-      let labels = this.label || []
-      this.change({ value: values[i], label: labels[i].label })
-      e.stopPropagation()
+    removeTag(e, c) {
+      if (this.disabled) return;
+      this.change({ value: c.value, label: c.label });
+      e.stopPropagation();
     },
     searchInput(e) {
-      this.queryKey = e.target.value
+      this.queryKey = e.target.value;
       //todo:
-      this.$nextTick(k => {
+      this.$nextTick((k) => {
         //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
-        e.target.style.width = this.$refs.mirror.offsetWidth + 'px'
-        this.setPosition()
-      })
-      if ('search' in this.$listeners) {
-        clearTimeout(this.timer)
+        e.target.style.width = this.$refs.mirror.offsetWidth + "px";
+        this.setPosition();
+      });
+      if ("search" in this.$listeners) {
+        clearTimeout(this.timer);
         this.timer = setTimeout(() => {
           this.opened = true;
-          this.$emit('search', e)
+          this.$emit("search", e);
         }, 500);
       }
     },
     emptyClick(e) {
       if (this.showSearch) {
-        this.$nextTick(e => {
-          this.$refs.search.focus()
-          this.isFocus = true
-
-        })
+        this.$nextTick((e) => {
+          this.$refs.search.focus();
+          this.isFocus = true;
+        });
       }
     },
-    getOptions() {
-      let { queryKey, options, $slots } = this
-      let childs = null
+    getOptions(filterable) {
+      let { queryKey, options, $slots } = this;
+      let childs = null;
       if (Array.isArray(options)) {
         childs = options.map((k, i) => {
           let prop = {
             props: { ...k },
-            key: k.key || (k.label + k.value)
-          }
-          return <Option {...prop} />
-        })
+            key: k.key || k.label + k.value,
+          };
+          return <Option {...prop} />;
+        });
       } else {
-        childs = getChild($slots.default)
+        childs = getChild($slots.default);
       }
+      if (!filterable) return childs;
+
       if (this.filterable && queryKey && !this.$listeners.search) {
         let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-        let Reg = new RegExp(parsedQuery, 'i')
+        let Reg = new RegExp(parsedQuery, "i");
 
-        childs = childs.filter(c => {
-          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text
-          return Reg.test(label)
-        })
+        childs = childs.filter((c) => {
+          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text;
+          return Reg.test(label);
+        });
       }
-      return childs
-    }
-  },
-  mounted() {
-    if (hasProp(this, 'value'))
-      this.setLabel()
+      return childs;
+    },
   },
   render() {
-    let { disabled, size, multiple,
-      opened, placeholder, showArrow, bordered,
-      clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable,
-      clearable, label, toggleDrop, isFocus } = this
-    let childNode = []
+    let { disabled, size, multiple, opened, placeholder, currentValue, showArrow, bordered, clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable, clearable, toggleDrop, isFocus } = this;
+    let childNode = [];
     if (arrowIcon == undefined) {
-      arrowIcon = ChevronDown
+      arrowIcon = ChevronDown;
     }
+
+    let childs = this.getOptions();
+
+    let label = null;
+    let values = isNotEmpty(currentValue) ? currentValue : multiple ? [] : "";
+    if (multiple) {
+      if (currentValue.length) {
+        let labels = [];
+        values.forEach((value) => {
+          let label = this.getLabel(childs, value);
+          if (!label) return;
+          labels.push({ label, key: `label_${value}`, value });
+        });
+        label = labels;
+      } else {
+        label = [];
+      }
+    } else {
+      label = this.getLabel(childs, values);
+    }
+
     const classes = [
       "k-select",
       {
         "k-select-disabled": disabled,
         "k-select-open": opened,
-        'k-select-borderless': bordered === false,
-        "k-select-lg": size == 'large',
-        "k-select-sm": size == 'small',
-        "k-select-light": theme == 'light',
+        "k-select-borderless": bordered === false,
+        "k-select-lg": size == "large",
+        "k-select-sm": size == "small",
+        "k-select-light": theme == "light",
         "k-select-has-icon": !!icon,
-        "k-select-circle": shape == 'circle' && !multiple,
+        "k-select-circle": shape == "circle" && !multiple,
         "k-select-multiple": multiple,
         "k-select-show-search": isFocus,
-        "k-select-show-tags": multiple && (label || []).length
-      }
-    ]
+        "k-select-show-tags": multiple && (label || []).length,
+      },
+    ];
 
     const queryProps = {
       on: {
         input: this.searchInput,
         blur: () => {
-          if (!this.opened) this.showSearch = false
-          this.isFocus = false
-
-        }
+          if (!this.opened) this.showSearch = false;
+          this.isFocus = false;
+        },
       },
-      ref: 'search',
-      class: 'k-select-search',
+      ref: "search",
+      class: "k-select-search",
       attrs: {
-        autoComplete: 'off',
-      }
-    }
-    const queryNode = <div v-show={this.showSearch} key="search" class="k-select-search-wrap">
-      <input {...queryProps} />
-      <span class="k-select-search-mirror" ref="mirror">{queryKey}</span>
-    </div>
+        autoComplete: "off",
+      },
+    };
+    const queryNode = (
+      <div v-show={this.showSearch} key="search" class="k-select-search-wrap">
+        <input {...queryProps} />
+        <span class="k-select-search-mirror" ref="mirror">
+          {queryKey}
+        </span>
+      </div>
+    );
 
-    let childs = this.getOptions()
-
-    const loadingNode = <div class="k-select-loading"><Icon type={Sync} spin /><span>{t('k.select.loading')}</span></div>
+    const loadingNode = (
+      <div class="k-select-loading">
+        <Icon type={Sync} spin />
+        <span>{t("k.select.loading")}</span>
+      </div>
+    );
     const props = {
-      ref: 'overlay',
+      ref: "overlay",
       props: {
         width: this.selectWidth,
         value: opened,
         selection: this.$el,
         transfer: true,
         extendWidth: true,
-        transitionName: 'k-select',
-        className: ['k-select-dropdown', { 'k-select-dropdown-multiple': this.multiple, 'k-select-dropdown-sm': size == 'small' }]
+        transitionName: "k-select",
+        className: [
+          "k-select-dropdown",
+          {
+            "k-select-dropdown-multiple": this.multiple,
+            "k-select-dropdown-sm": size == "small",
+          },
+        ],
       },
       on: {
-        input: e => {
-          this.opened = e
+        input: (e) => {
+          this.opened = e;
         },
         hide: () => {
-          this.opened = false
+          this.opened = false;
           setTimeout(() => {
-            this.hideDrop()
-          }, 300)
-        }
-      }
-    }
-    let overlay = <Drop {...props}>{this.loading ? loadingNode : (!childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText} /> : <ul>{childs}</ul>)}</Drop>
+            this.hideDrop();
+          }, 300);
+        },
+      },
+    };
+    childs = this.getOptions(true);
 
-    label = multiple ? (label || []) : label + ''
-    placeholder = placeholder || t('k.select.placeholder')
-    const placeNode = ((placeholder && (((label === null || label === undefined) || !label.length) && !queryKey))
-      ? <div class="k-select-placeholder">{placeholder}</div>
-      : null
-    )
-    const tags = multiple ?
-      label.map((c, i) => {
-        return <span class="k-select-tag" key={c.key}>{c.label}<Icon type={Close} onClick={e => removeTag(e, i)} /></span>
-      })
-      : null
+    let overlay = <Drop {...props}>{this.loading ? loadingNode : !childs.length ? <Empty onClick={this.emptyClick} description={this.emptyText} /> : <ul>{childs}</ul>}</Drop>;
+
+    label = multiple ? label || [] : label;
+    placeholder = placeholder || t("k.select.placeholder");
+    const placeNode = placeholder && !isNotEmpty(label) && !queryKey ? <div class="k-select-placeholder">{placeholder}</div> : null;
+    const tags = multiple
+      ? label.map((c, i) => {
+          return (
+            <span class="k-select-tag" key={c.key}>
+              {c.label}
+              <Icon type={Close} onClick={(e) => removeTag(e, c)} />
+            </span>
+          );
+        })
+      : null;
 
     const labelStyle = {
       // opacity: this.showSearch ? .4 : 1,
-      display: queryKey.length ? 'none' : ''
-    }
-    const labelsNode = ((multiple)
-      ? (
-        [<div class="k-select-labels" name="k-select-tag">{tags}{queryNode}</div>]
-      )
-      : (label.length ? <div class="k-select-label" style={labelStyle}>{label}</div> : null)
-    )
-    let isSearch = ('search' in this.$listeners)
+      display: queryKey.length ? "none" : "",
+    };
+    const labelsNode = multiple ? (
+      [
+        <div class="k-select-labels" name="k-select-tag">
+          {tags}
+          {queryNode}
+        </div>,
+      ]
+    ) : label ? (
+      <div class="k-select-label" style={labelStyle}>
+        {label}
+      </div>
+    ) : null;
+    let isSearch = "search" in this.$listeners;
     childNode.push(labelsNode);
     placeNode && childNode.push(placeNode);
 
-
     if ((filterable || isSearch) && !multiple) {
-      childNode.push(queryNode)
+      childNode.push(queryNode);
     }
     // label = "1"
-    const styles = { width: `${this.width}px` }
-    let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0
+    const styles = { width: `${this.width}px` };
+    let showClear = !disabled && clearable && isNotEmpty(label) && label.length > 0;
 
-    classes[1]['k-select-has-clear'] = showClear
-    const iconNodes = []
+    classes[1]["k-select-has-clear"] = showClear;
+    const iconNodes = [];
 
     if (!isSearch && showArrow) {
-      iconNodes.push(<Icon class="k-select-arrow" type={arrowIcon} />)
+      iconNodes.push(<Icon class="k-select-arrow" type={arrowIcon} />);
     }
     if (showClear) {
-      iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />)
+      iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />);
     }
     // console.log(iconNodes)
 
-    iconNodes.push(" ")
+    iconNodes.push(" ");
     return (
       <div tabIndex="0" class={classes} style={styles} onClick={toggleDrop} ref="rel">
         {icon ? <Icon type={icon} class="k-select-icon" /> : null}
         <div class="k-select-selection">{childNode}</div>
         {iconNodes}
         {overlay}
-      </div >
-    )
-  }
+      </div>
+    );
+  },
 };
