@@ -5,19 +5,26 @@
 
 ```vue
 <template>
-  <div class="demo-affix-scroll" ref="container">
+  <div class="demo-affix-scroll" :ref="container">
      <div class="demo-affix-inner" >
         <div style="padding:50px 0;" />
-        <Affix :target="() => this.$refs.container" :offsetTop="50">
+        <Affix :target="target" :offsetTop="50">
           <Button type="primary" id="tesss">Affix at the top of container</Button>
         </Affix>
         <div style="padding:200px 0;" />
-        <Affix :target="() => this.$refs.container" :offsetBottom="50">
+        <Affix :target="target" :offsetBottom="50">
           <Button type="primary" id="tesss">Affix at the bottom of container</Button>
         </Affix>
      </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+const container = ref(null);
+
+const target = () => container.value;
+</script>
 
 <style scoped>
 .demo-affix-scroll{
@@ -29,10 +36,6 @@
 }
 .demo-affix-inner{
   height:800px;
-  /* background:#efefef; */
-  /* padding-top:30px; */
-
-  
 }
 </style>
 ```

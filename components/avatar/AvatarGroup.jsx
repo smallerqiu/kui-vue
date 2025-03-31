@@ -1,22 +1,22 @@
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
+import { cloneVNode, defineComponent } from "vue";
+export default defineComponent({
+  name: "AvatarGroup",
   props: {
     maxCount: Number,
     shape: String,
-    size: [String, Number]
+    size: [String, Number],
   },
-  render() {
-    let child = getChild(this.$slots.default)
-    let { shape, size } = this
-    return (
-      <div class="k-avatar-group">
-        {
-          child.map(c => {
-            return cloneVNode(c, { props: { shape, size } })
-          })
-        }
-      </div>
-    )
-  }
-}
+  setup(props, { slots }) {
+    return () => {
+      let child = slots.default?.();
+      let { shape, size } = props;
+      return (
+        <div class="k-avatar-group">
+          {child.map((c) => {
+            return cloneVNode(c, { props: { shape, size } });
+          })}
+        </div>
+      );
+    };
+  },
+});

@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from './info.md'
 import Base from './base.md'
 import Callbacks from './callbacks.md'
@@ -6,8 +6,8 @@ import Container from './container.md'
 import Bottom from './bottom.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return ()=>(
       <div>
         <Info />
         <Base />

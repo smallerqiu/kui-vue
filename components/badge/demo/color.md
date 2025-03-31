@@ -20,13 +20,9 @@
     </div>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      custom:['#c20','#39f','#e3f','#6c0'],
-      colors:[
-      'pink',
+<script setup>
+import { ref } from "vue";
+const colors = ref(['pink',
       'red',
       'yellow',
       'orange',
@@ -38,10 +34,7 @@ export default{
       'magenta',
       'volcano',
       'gold',
-      'lime',
-      ]
-    }
-  }
-}
+      'lime'])
+const custom = ref(['#c20','#39f','#e3f','#6c0'])
 </script>
 ```

@@ -15,13 +15,8 @@
     </Flex>
   </Flex>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      value: 'horizontal',
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const value = ref('horizontal')
 </script>
 ```

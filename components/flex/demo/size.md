@@ -21,25 +21,18 @@
     </Flex>
   </Flex>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      size:'small',
-      flexSize:'small',
-      gap:8
-    }
-  },
-  methods:{
-    gapChange(){
-      this.flexSize=this.gap
-      // console.log(this.gap)
-    },
-    sizeChange({value}){
-      if(value!='customize'){
-        this.flexSize=value
-      }
-    }
+<script setup>
+import { ref } from "vue";
+const size = ref('small')
+const flexSize = ref('small')
+const gap = ref(8)
+
+const gapChange =()=>{
+  flexSize.value = gap.vlaue
+}
+const sizeChange = ({value})=>{
+  if(value!='customize'){
+    flexSize.value = value
   }
 }
 </script>

@@ -1,5 +1,7 @@
-import BasePop from '../base/pop'
-export default {
+import { defineComponent, computed } from 'vue';
+import BasePop from '../base/pop';
+
+export default defineComponent({
   name: 'Tooltip',
   props: {
     dark: Boolean,
@@ -11,7 +13,7 @@ export default {
     placement: {
       validator(value) {
         return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
+          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].includes(value)
         );
       },
       default: "top"
@@ -19,16 +21,22 @@ export default {
     value: Boolean,
     show: Boolean
   },
-  render() {
-    const title = this.$slots.title || this.title
-    let props = {
-      props: { preCls: 'tooltip', ...this.$props, updateKey: title },
-    }
-    return (
-      <BasePop {...props}>
-        {this.$slots.default}
-        {title ? <template slot="title">{title}</template> : null}
-      </BasePop>
-    )
+  setup(props, { slots }) {
+    const title = computed(() => slots.title ? slots.title() : props.title);
+
+    const basePopProps = computed(() => ({
+      preCls: 'tooltip',
+      ...props,
+      updateKey: title.value
+    }));
+
+    return () => {
+      return (
+        <BasePop {...basePopProps.value}>
+          {slots.default?.()}
+          {title.value ? <template slot="title">{title.value}</template> : null}
+        </BasePop>
+      );
+    };
   }
-};
+});

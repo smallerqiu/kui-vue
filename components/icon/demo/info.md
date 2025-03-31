@@ -16,22 +16,15 @@ npm install --save kui-icons
     <Icon :type="Heart" />
   </div>
 </template>
-<script>
+<script setup>
 import { Heart } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart
-    }
-  }
-}
 </script>
 ```
 
 3.3 版本开始, 使用 Icon 需要单独引入，使用按需加载，这样在编译之后的体积会变得更小。
 
 
-3.1.1 版本之后 使用 `ionicons` 图标库 5.5 版本, 5.0 图标库请配合 `kui-vue@3.1.0` 
+3.1.1 版本之后 使用 `ionicons` 图标库 5.5 版本
 
 ## 使用Sprite模式
 ```js

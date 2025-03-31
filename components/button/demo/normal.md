@@ -14,28 +14,21 @@
   <br/>
   <br/>
   <Space>
-    <Button type="primary" theme="normal":icon="Notifications" />
-    <Button type="danger" theme="normal":icon="Mail" />
-    <Button type="warning" theme="normal":icon="Notifications" />
-    <Button theme="normal":icon="Notifications" />
+    <Button type="primary" theme="normal":icon="Notifications"></Button>
+    <Button type="danger" theme="normal":icon="Mail" ></Button>
+    <Button type="warning" theme="normal":icon="Notifications" ></Button>
+    <Button theme="normal":icon="Notifications" ></Button>
   </Space>
   <br/>
   <br/>
   <Space>
-    <Button type="primary" theme="normal":icon="Notifications" shape="circle" />
-    <Button type="danger" theme="normal":icon="Mail" shape="circle" />
-    <Button type="warning" theme="normal":icon="Notifications" shape="circle" />
-    <Button theme="normal":icon="Notifications" shape="circle" />
+    <Button type="primary" theme="normal":icon="Notifications" shape="circle" ></Button>
+    <Button type="danger" theme="normal":icon="Mail" shape="circle" ></Button>
+    <Button type="warning" theme="normal":icon="Notifications" shape="circle" ></Button>
+    <Button theme="normal":icon="Notifications" shape="circle" ></Button>
   </Space>
 </template>
-<script>
+<script setup>
 import { Notifications, Mail } from "kui-icons"
-export default{
-  data() {
-    return {
-      Notifications, Mail
-    }
-  }
-}
 </script>
 ```

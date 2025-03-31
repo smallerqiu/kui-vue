@@ -36,18 +36,13 @@
     </DescriptionsItem>
   </Descriptions>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      types:[
+<script setup>
+import { ref } from "vue";
+const size = ref('default');
+const types = ref([
         { label:'Default' ,value:'default'},
         { label:'Middle' ,value:'middle'},
         { label:'Small' ,value:'small'},
-      ],
-      size:'default'
-    }
-  }
-}
+      ])
 </script>
 ```

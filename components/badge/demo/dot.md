@@ -17,14 +17,7 @@
     </Badge>
   </div>
 </template>
-<script>
+<script setup>
 import { NotificationsOutline } from "kui-icons"
-export default{
-  data() {
-    return {
-      NotificationsOutline
-    }
-  }
-}
 </script>
 ```

@@ -12,17 +12,10 @@
     <Button :icon="Search">搜索</Button>
     <Button type="dashed" :icon="Search" shape="circle"></Button>
     <Button type="dashed" :icon="Search">搜索</Button>
-    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
+    <Button type="primary">展开选项<Icon :type="ChevronDown"/></Button>
   </Space>
 </template>
-<script>
+<script setup>
 import { ChevronDown, Search } from 'kui-icons'
-export default{
-  data() {
-    return {
-      ChevronDown ,Search
-    }
-  }
-}
 </script>
 ```

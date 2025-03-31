@@ -22,16 +22,11 @@
     </Flex>
   </Flex>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      justify:'flex-start',
-      align:'flex-start',
-      justifyOps:['flex-start','center','flex-end','space-between','space-around','space-evenly'],
-      alignOps:['flex-start','center','flex-end']
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const justify = ref('flex-start')
+const align = ref('flex-start')
+const justifyOps = ref(['flex-start','center','flex-end','space-between','space-around','space-evenly'])
+const alignOps = ref(['flex-start','center','flex-end'])
 </script>
 ```
