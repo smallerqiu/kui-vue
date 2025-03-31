@@ -10,16 +10,8 @@
     <Button type="primary">200px to affix top</Button>
   </Affix>
 </template>
-<script>
-export default{
-  data(){
-    return{}
-  },
-  methods:{
-    change(value) {
-      this.$Message.info(value ? "fixed" : "reset")
-    }
-  }
+<script setup>
+const change = (value)=>{
+  //Message.info(value?'fixed':'reset')
 }
-</script>
 ```

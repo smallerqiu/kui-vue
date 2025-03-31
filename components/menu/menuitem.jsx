@@ -75,7 +75,6 @@ export default {
       },
       style: {}
     }
-    // console.log(SubMenu.zIndex)
     if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline' && !Menu.inlineCollapsed)) {
       props.style.paddingLeft = (SubMenu.zIndex + 1) * 16 + 'px'
     }

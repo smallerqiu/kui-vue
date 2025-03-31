@@ -1,5 +1,6 @@
+import { defineComponent, ref, reactive, computed, watch, provide, inject } from 'vue';
 
-export default {
+export default defineComponent({
   name: "Menu",
   props: {
     theme: String,
@@ -9,68 +10,62 @@ export default {
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
-  inject: {
-    Menu: { default: null },
-    SubMenu: { default: null },
-    Dropdown: { default: null }
-  },
-  provide() {
-    return {
-      Menu: this.Menu || this
-    }
-  },
-  watch: {
-    value(value) {
-      this.selectedKeys = value
-    },
-    mode(mode) {
-      this.currentMode = mode
-    },
-    inlineCollapsed(collapsed) {
-      this.defaultOpenKeys = collapsed ? [] : this.originOpenKeys
-    }
-  },
-  data() {
-    return {
-      selectedKeys: this.value || [],
-      defaultOpenKeys: this.inlineCollapsed ? [] : this.openKeys || [],
-      currentMode: this.mode,
-      originOpenKeys: this.openKeys || [],
-      originMode: this.mode
+  setup(props, { emit, slots }) {
+    const Menu = inject('Menu', null);
+    const SubMenu = inject('SubMenu', null);
+    const Dropdown = inject('Dropdown', null);
+
+    const selectedKeys = ref(props.value || []);
+    const defaultOpenKeys = ref(props.inlineCollapsed ? [] : props.openKeys || []);
+    const currentMode = ref(props.mode);
+    const originOpenKeys = ref(props.openKeys || []);
+    const originMode = ref(props.mode);
+
+    provide('Menu', Menu || this);
+
+    watch(() => props.value, (value) => {
+      selectedKeys.value = value;
+    });
+
+    watch(() => props.mode, (mode) => {
+      currentMode.value = mode;
+    });
+
+    watch(() => props.inlineCollapsed, (collapsed) => {
+      defaultOpenKeys.value = collapsed ? [] : originOpenKeys.value;
+    });
+
+    const preCls = computed(() => Dropdown ? 'dropdown-menu' : 'menu');
+    const cls = computed(() => [
+      `k-${preCls.value} k-${preCls.value}-${currentMode.value}`,
+      {
+        [`k-${preCls.value}-inline-collapsed`]: props.inlineCollapsed
+      }
+    ]);
+
+    const openChange = (openKeys) => {
+      defaultOpenKeys.value = openKeys;
+      if (!props.inlineCollapsed) {
+        originOpenKeys.value = openKeys;
+      }
+      emit('open-change', openKeys);
     };
-  },
-  // beforeMount() {
-  //   if (this.inlineCollapsed) {
-  //     this.defaultOpenKeys = []
-  //     this.originOpenKeys = this.openKeys
-  //   }
-  // },
-  render() {
-    const { theme, currentMode, Dropdown } = this
-    const preCls = Dropdown ? 'dropdown-menu' : 'menu';
-    const cls = [`k-${preCls}  k-${preCls}-${currentMode}`,
-    {
-      [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
-    }];
-    return (<ul class={cls} theme-mode={theme}>{this.$slots.default}</ul>)
-  },
-  methods: {
-    openChange(openKeys) {
-      this.defaultOpenKeys = openKeys
-      if (!this.inlineCollapsed) {
-        this.originOpenKeys = openKeys
-      }
-      this.$emit('open-change', openKeys)
-    },
-    handleClick(options) {
-      let parent = this.SubMenu || this.Menu || this.Dropdown
+
+    const handleClick = (options) => {
+      let parent = SubMenu || Menu || Dropdown;
       if (parent) {
-        parent.handleClick(options)
+        parent.handleClick(options);
       } else {
-        this.selectedKeys = options.keyPath
-        this.$emit('input', options.keyPath)
-        this.$emit('click', options)
+        selectedKeys.value = options.keyPath;
+        emit('input', options.keyPath);
+        emit('click', options);
       }
-    }
-  },
-};
+    };
+
+    return () => (
+      <ul class={cls.value} theme-mode={props.theme}>
+        {slots.default?.()}
+      </ul>
+    );
+  }
+});

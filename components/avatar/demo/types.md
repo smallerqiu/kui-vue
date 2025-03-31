@@ -23,14 +23,7 @@
     <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" shape="square"/>
   </Space>
 </template>
-<script>
+<script setup>
 import { HeartOutline } from "kui-icons"
-export default{
-  data() {
-    return {
-      HeartOutline
-    }
-  }
-}
 </script>
 ```

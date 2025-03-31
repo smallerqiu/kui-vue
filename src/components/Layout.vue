@@ -1,6 +1,6 @@
 <template>
   <Layout class="root">
-    <Header />
+    <MHeader />
     <Layout class="main">
       <Sider class="docs-k-layout-sider">
         <Menu v-model="activeName"
@@ -12,22 +12,21 @@
             v-for="item in navs"
             :name="item.title"
             :key="item.key">
-
             <MenuItem v-for="sub in item.child"
               :key="sub.name">
-            <WebIcon :name="sub.icon"
-              slot="icon" />
-            <router-link :to="`/${item.key}/${sub.name}`">
-              <Badge dot
-                v-if="sub.update">
-                <span>{{sub.sub}}</span>
-                <span class="sub">{{sub.title}}</span>
-              </Badge>
-              <template v-else>
-                <span>{{sub.sub}}</span>
-                <span class="sub">{{sub.title}}</span>
-              </template>
-            </router-link>
+              <WebIcon :name="sub.icon"
+                slot="icon" />
+              <router-link :to="`/${item.key}/${sub.name}`">
+                <Badge dot
+                  v-if="sub.update">
+                  <span>{{sub.sub}}</span>
+                  <span class="sub">{{sub.title}}</span>
+                </Badge>
+                <template v-else>
+                  <span>{{sub.sub}}</span>
+                  <span class="sub">{{sub.title}}</span>
+                </template>
+              </router-link>
             </MenuItem>
           </SubMenu>
         </Menu>
@@ -63,71 +62,67 @@
   </Layout>
 </template>
 
-<script>
-import Header from "./Header";
-import Footer from "./Footer";
+<script setup>
+import { ref, onMounted, onBeforeMount, watch } from 'vue';
+import MHeader from "./Header";
+import MFooter from "./Footer";
 import WebIcon from './WebIcon'
 import { menus, navs } from "../menu";
 import { ChevronBack, ChevronForward } from 'kui-icons'
-export default {
-  components: {
-    Header, WebIcon, Footer
-  },
-  data() {
-    return {
-      navs,
-      ChevronBack, ChevronForward,
-      prev: {}, next: {},
-      activeName: [],
-      theme: '',
-      openkeys: ['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']
-    };
-  },
-  mounted() {
-    // let theme = localStorage.getItem('theme') || ''
-    // let path = this.$route.path.replace('/components/', '')
-    // this.activeName = [path]
-    hljs &&　hljs.highlightAll();
+import { useRoute } from "vue-router";
 
-  },
-  created() {
-    this.setActiveKey(this.$route)
-  },
-  methods: {
-    link(e, t) {
-      e.stopPropagation()
-      e.preventDefault()
-      let c = t ? this.next : this.prev
-      this.$router.push(`/${c.key}/${c.name}`);
-    },
-    go({ key, keyPath }) {
-      let [m, n] = keyPath
-      let path = `/${m}/${n}`
-      this.$router.push(path);
-    },
-    getPath(name) {
-      let [m, n] = name.split('/').filter(x => x)
-      let index = menus.findIndex(x => x.key == m && x.name == n)
-      return { current: menus[index], prev: menus[index - 1], next: menus[index + 1] }
-    },
-    setActiveKey({ path }) {
-      let { current, prev = {}, next = {} } = this.getPath(path)
-      this.typo = path.indexOf('start') >= 0
-      this.prev = prev
-      this.next = next
-      let { title, sub, name } = current;
-      document.title = `${title} ${sub || ""} - KUI`;
-      this.activeName = [name];
-    }
-  },
-  watch: {
-    '$route'(to, from) {
-      this.setActiveKey(to)
-      setTimeout(() => {
-        hljs.highlightAll();
-      }, 300)
-    }
-  },
+const route = useRoute();
 
+
+const prev = ref({});
+const next = ref({});
+const activeName = ref([]);
+const theme = ref('');
+const openkeys = ref(['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']);
+
+onMounted(() => {
+  hljs && hljs.highlightAll();
+});
+
+onBeforeMount(() => {
+  // setActiveKey(route);
+});
+
+const link = (e, t) => {
+  e.stopPropagation();
+  e.preventDefault();
+  let c = t ? next.value : prev.value;
+  router.push(`/${c.key}/${c.name}`);
 };
+
+const go = ({ key, keyPath }) => {
+  let [m, n] = keyPath;
+  let path = `/${m}/${n}`;
+  router.push(path);
+};
+
+const getPath = (name) => {
+  let [m, n] = name.split('/').filter(x => x);
+  let index = menus.findIndex(x => x.key == m && x.name == n);
+  return { current: menus[index], prev: menus[index - 1], next: menus[index + 1] };
+};
+
+const setActiveKey = ({ path }) => {
+  let { current={}, prev = {}, next = {} } = getPath(path);
+  prev.value = prev;
+  next.value = next;
+  let { title, sub, name } = current;
+  document.title = `${title} ${sub || ""} - KUI`;
+  activeName.value = [name];
+};
+
+watch(
+  () => route,
+  (to, from) => {
+    // setActiveKey(to);
+    // setTimeout(() => {
+    //   hljs.highlightAll();
+    // }, 300);
+  }
+);
 </script>

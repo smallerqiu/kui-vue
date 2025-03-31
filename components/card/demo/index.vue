@@ -1,11 +1,11 @@
-<script>
+<script lang="jsx">
 import Base from './base.md'
 import Info from './info.md'
 import Border from './border.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return ()=>(
       <div>
         <Info />
         <Base />

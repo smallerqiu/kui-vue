@@ -12,14 +12,7 @@
     <Icon :type="LogoKui" spin size="25" />
   </div>
 </template>
-<script>
+<script setup>
 import { Heart, LogoKui } from 'kui-icons'
-export default{
-  data() {
-    return{
-      Heart , LogoKui
-    }
-  }
-}
 </script>
 ```

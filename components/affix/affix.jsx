@@ -1,95 +1,92 @@
+import resize from "../_tool/resize";
+import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
 
-import resize from '../_tool/resize'
-
-// function getStyle(el, attr) {
-//   if (el.currentStyle) {
-//     return el.currentStyle[attr];
-//   } else {
-//     return getComputedStyle(el, false)[attr];
-//   }
-// }
-
-export default {
-  name: 'Affix',
+export default defineComponent({
+  name: "Affix",
   directives: { resize },
   props: {
     offsetTop: { type: Number, default: 0 },
     offsetBottom: Number,
-    target: { type: Function, default: () => { return window } }
+    target: {
+      type: Function,
+      default: () => {
+        return window;
+      },
+    },
   },
-  data() {
-    return {
-      fixed: false,
-      width: 0,
-      height: 0,
-      offsetTopValue: 0,
-    }
-  },
-  beforeDestory() {
-    if (this.target() == window) {
-      target.removeEventListener('scroll', this.updatePosition)
-    }
-  },
-  mounted() {
-    let target = this.target()
-    if (target && !this.$isServer) {
-      target.addEventListener('scroll', this.updatePosition)
-    }
-  },
-  methods: {
-    updatePosition(e) {
-      let { offsetBottom, offsetTop, $refs } = this
-      let target = this.target()
-      if (!$refs.blob || !target) return;
+  setup(props, { slots, emit }) {
+    const target = props.target();
+    const blobRef = ref(null);
 
-      let rect = $refs.blob.getBoundingClientRect();
-      let container = (target != window && target != document) ? target.getBoundingClientRect() : { top: 0, bottom: document.documentElement.clientHeight }
+    const fixed = ref(false);
+    const width = ref(0);
+    const height = ref(0);
+    const offsetTopValue = ref(0);
 
-      let hasbottom = typeof offsetBottom == 'number' && offsetBottom >= 0
-      let fx = hasbottom ? container.bottom - rect.bottom >= offsetBottom : rect.top - container.top <= offsetTop
+    const updatePosition = (e) => {
+      let { offsetBottom, offsetTop } = props;
+      if (!blobRef.value || !target) return;
+
+      let rect = blobRef.value.getBoundingClientRect();
+      let container = target != window && target != document ? target.getBoundingClientRect() : { top: 0, bottom: document.documentElement.clientHeight };
+
+      let hasbottom = typeof offsetBottom == "number" && offsetBottom >= 0;
+      let fx = hasbottom ? container.bottom - rect.bottom >= offsetBottom : rect.top - container.top <= offsetTop;
 
       if (!fx) {
-        this.offsetTopValue = rect.top
+        offsetTopValue.value = rect.top;
         if (target == window || target == document) {
-          if (this.offsetTopValue > offsetTop && !hasbottom) {
-            this.offsetTopValue = offsetTop
+          if (offsetTopValue.value > offsetTop && !hasbottom) {
+            offsetTopValue.value = offsetTop;
           }
           if (hasbottom && container.bottom - rect.bottom < offsetBottom) {
-            this.offsetTopValue = container.bottom - offsetBottom - rect.height
+            offsetTopValue.value = container.bottom - offsetBottom - rect.height;
           }
         } else {
           //todo:
         }
       }
-      if (this.fixed != fx) {
-        this.fixed = fx
-        this.width = rect.width
-        this.height = rect.height
-        this.$emit('change', this.fixed)
+      if (fixed.value != fx) {
+        fixed.value = fx;
+        width.value = rect.width;
+        height.value = rect.height;
+        emit("change", fixed.value);
       }
-    }
-  },
-  render() {
-    let blobStyle = null, fixedStyle = null, classes = null;
-    if (this.fixed) {
-      blobStyle = {
-        width: `${this.width}px`,
-        height: `${this.height}px`
+    };
+    onBeforeUnmount(() => {
+      if (target == window) {
+        target.removeEventListener("scroll", updatePosition);
       }
-      fixedStyle = {
-        width: `${this.width}px`,
-        height: `${this.height}px`,
-        top: `${this.offsetTopValue}px`
+    });
+    onMounted(() => {
+      if (target && typeof window !== "undefined") {
+        target.addEventListener("scroll", updatePosition);
       }
-      classes = { ['k-affix']: this.fixed }
-    }
+    });
 
-    return (
-      <div style={blobStyle} ref="blob" v-resize={this.updatePosition}>
-        <div style={fixedStyle} class={classes}>
-          {this.$slots.default}
+    return () => {
+      let blobStyle = null,
+        fixedStyle = null,
+        classes = null;
+      if (fixed.value) {
+        blobStyle = {
+          width: `${width.value}px`,
+          height: `${height.value}px`,
+        };
+        fixedStyle = {
+          width: `${width.value}px`,
+          height: `${height.value}px`,
+          top: `${offsetTopValue.value}px`,
+        };
+        classes = { ["k-affix"]: fixed.value };
+      }
+      return (
+        <div style={blobStyle} ref={blobRef} v-resize={updatePosition}>
+          <div style={fixedStyle} class={classes}>
+            {slots.default?.()}
+          </div>
         </div>
-      </div>
-    )
-  }
-}
+      );
+    };
+  },
+});

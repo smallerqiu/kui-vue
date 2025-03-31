@@ -1,12 +1,12 @@
-<script>
+<script lang="jsx">
 import Base from './base.md'
 import Stroke from './stroke.md'
 import Info from './info.md'
 import Search from './search.vue'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div>
         <Info />
         <Base />

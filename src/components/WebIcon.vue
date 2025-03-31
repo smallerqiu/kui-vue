@@ -3,19 +3,24 @@
     @click="$emit('click')">
     <svg :width="width"
       fill="currentcolor"
-      :height="height"
-      mr="4px">
+      :height="height">
       <use :xlink:href="`${sprite}#${name}`"></use>
     </svg>
   </span>
 </template>
 <script>
+import { defineComponent, reactive } from 'vue'
 import sprite from '@/assets/img/web.svg'
-export default {
-  name: 'Chain',
-  data() {
-    return {
+
+export default defineComponent({
+  name: 'WebIcon',
+  setup() {
+    const state = reactive({
       sprite
+    })
+
+    return {
+      ...state
     }
   },
   props: {
@@ -29,5 +34,5 @@ export default {
       default: '1em'
     }
   }
-}
+})
 </script>

@@ -15,14 +15,7 @@
     <Icon :type="ChevronForward" :strokeWidth="80"/>
   </div>
 </template>
-<script>
+<script setup>
 import { ChevronForward ,ChevronDoubleForward } from 'kui-icons'
-export default{
-  data() {
-    return {
-      ChevronForward,ChevronDoubleForward
-    }
-  }
-}
 </script>
 ```

@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from "./info.md";
 import Base from "./base.md";
 import Align from "./align.md";
@@ -7,8 +7,8 @@ import Wrap from "./wrap.md";
 
 import CN from "../index.md";
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-space">
         <Info />
         <Base />

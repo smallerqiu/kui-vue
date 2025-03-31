@@ -8,7 +8,7 @@
   <Space>
     <ButtonGroup>
       <Button>待发货</Button>
-      <Dropdown placement="bottom-right">
+      <!-- <Dropdown placement="bottom-right">
         <Button :icon="ChevronDown"></Button> 
         <Menu slot="content">
           <MenuItem>
@@ -21,7 +21,7 @@
             <a href="javascript:;">3rd menu item</a>
           </MenuItem>
         </Menu>
-      </Dropdown>
+      </Dropdown> -->
     </ButtonGroup>
     <ButtonGroup>
       <Button>通讯录</Button>
@@ -29,14 +29,7 @@
     </ButtonGroup>
   </Space>
 </template>
-<script>
+<script setup>
 import { ChevronDown ,PersonOutline } from 'kui-icons'
-export default{
-  data() {
-    return {
-      PersonOutline ,ChevronDown
-    }
-  }
-}
 </script>
 ```

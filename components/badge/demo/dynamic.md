@@ -22,21 +22,17 @@
       <div class="box"></div>
     </Badge>
     <ButtonGroup circle>
-      <Button @click="count--">-</Button>
-      <Button @click="count++">+</Button>
+      <Button @click="add">-</Button>
+      <Button @click="minus">+</Button>
     </ButtonGroup>
   </div>
 </template>
-<script>
+<script setup>
 import { NotificationsOutline } from 'kui-icons'
-export default{
-  data() {
-    return {
-      NotificationsOutline,
-      show:true,
-      count:15
-    }
-  }
-} 
+import { ref } from "vue";
+const show = ref(true)
+const count = ref(5)
+const add =()=> count.value++
+const minus =()=> count.value--
 </script>
 ```

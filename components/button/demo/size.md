@@ -24,20 +24,10 @@
     </Space>
   </Space>
 </template>
-<script>
+<script setup>
 import { CloudDownload } from "kui-icons";
-export default{
-  data() {
-    return {
-      CloudDownload,
-      size:"default"
-    }
-  },
-  methods:{
-    change(value){
-      this.size = value
-    }
-  }
-}
+import { ref } from "vue";
+const size = ref("default");
+const chage = (value) => this.size = value;
 </script>
 ```

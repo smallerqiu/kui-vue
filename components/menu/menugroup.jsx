@@ -1,17 +1,20 @@
+import { defineComponent, computed } from 'vue';
 
-export default {
+export default defineComponent({
   name: "MenuGroup",
   props: {
     title: { type: String, required: true }
   },
-  render() {
-    return (
+  setup(props, { slots }) {
+    const titleContent = computed(() => slots.title ? slots.title() : props.title);
+
+    return () => (
       <li class="k-menu-item-group">
-        <div class="k-menu-item-group-title">{this.$slots.title || this.title}</div>
+        <div class="k-menu-item-group-title">{titleContent.value}</div>
         <ul class="k-menu-item-group-list">
-          {this.$slots.default}
+          {slots.default?.()}
         </ul>
       </li>
-    )
-  },
-}
+    );
+  }
+});

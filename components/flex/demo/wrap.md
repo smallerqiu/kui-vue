@@ -13,14 +13,9 @@
     </Flex>
   </Flex>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      x: 12,
-      y: 15
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const x =  ref(12)
+const y = ref(15)
 </script>
 ```

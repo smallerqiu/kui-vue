@@ -52,15 +52,10 @@
     </Row>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      h: 8,
-      v: 8,
-      cols: 4
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const h = ref(8)
+const v = ref(8)
+const cols = ref(4)
 </script>
 ```

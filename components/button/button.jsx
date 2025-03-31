@@ -1,87 +1,85 @@
-import Icon from '../icon'
-import { getChild } from '../_tool/utils'
-import { Sync } from 'kui-icons'
-export default {
+import { defineComponent, computed } from "vue";
+import Icon from "../icon";
+import { Sync } from "kui-icons";
+
+export default defineComponent({
   name: "Button",
   props: {
     htmlType: {
       default: "button",
       validator(value) {
-        return ["button", "submit", "reset"].indexOf(value) >= 0;
-      }
+        return ["button", "submit", "reset"].includes(value);
+      },
     },
     icon: [String, Array],
     block: Boolean,
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+        return ["small", "large", "default"].includes(value);
+      },
     },
     loading: Boolean,
     type: {
       validator(value) {
-        return (
-          ["danger", "primary", 'warning', "link", "default", "dashed"].indexOf(value) >= 0
-        );
+        return ["danger", "primary", "warning", "link", "default", "dashed"].includes(value);
       },
-      default: 'default'
+      default: "default",
     },
     disabled: Boolean,
     theme: {
       type: String,
-      default: 'default',
+      default: "default",
       validator(value) {
-        return ['default', 'light', 'solid', 'normal', 'card'].indexOf(value) > -1
-      }
+        return ["default", "light", "solid", "normal", "card"].includes(value);
+      },
     },
     shape: String,
     href: String,
-    target: String
+    target: String,
   },
-  methods: {
-    click(e) {
-      if (!this.loading) {
-        this.$emit('click', e)
-      }
-    }
-  },
-
-  render() {
-    const { $slots, $attrs, size, disabled, click, theme, href, target,
-      shape, htmlType, icon, loading, $listeners, type, block } = this
-    const onlyIcon = !getChild($slots.default, 'Drop').length && icon
-    const classes = [
+  setup(props, { emit, slots, attrs }) {
+    let childs = slots.default?.();
+    const onlyIcon = computed(() => !childs?.length && props.icon);
+    const classes = computed(() => [
       "k-btn",
       {
-        [`k-btn-${type}`]: !!type && type != 'default',
-        ["k-btn-sm"]: size == 'small',
-        ["k-btn-block"]: !!block,
-        ["k-btn-loading"]: loading,
-        ["k-btn-icon-only"]: onlyIcon,
-        ["k-btn-lg"]: size == 'large',
-        ["k-btn-circle"]: shape == 'circle',
-        [`k-btn-${theme}`]: !!theme && theme != 'default',
-      }
-    ]
-    const props = {
-      attrs: { ...$attrs, disabled, type: htmlType },
-      class: classes,
-      on: {
-        ...$listeners,
-        click: click
-      }
-    }
-    const iconType = loading ? Sync : icon;
-    const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
-    const child = getChild($slots.default)
-    const childs = child.map(c => {
-      return typeof c.text == 'string' ? <span>{c.text.trim()}</span> : c
-    })
-    const is_link = type == 'link' && href
-    return is_link ? <a href={href} target={target} {...props}>{iconNode}{childs}</a> : <button {...props} >
-      {iconNode}
-      {childs}
-    </button >
-  }
-};
+        [`k-btn-${props.type}`]: !!props.type && props.type !== "default",
+        ["k-btn-sm"]: props.size === "small",
+        ["k-btn-block"]: !!props.block,
+        ["k-btn-loading"]: props.loading,
+        ["k-btn-icon-only"]: onlyIcon.value,
+        ["k-btn-lg"]: props.size === "large",
+        ["k-btn-circle"]: props.shape === "circle",
+        [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
+      },
+    ]);
+    return () => {
+      const iconType = props.loading ? Sync : props.icon;
+      const iconNode = iconType ? <Icon type={iconType} spin={props.loading} /> : null;
+
+      const propsObj = {
+        ...attrs,
+        disabled: props.disabled,
+        type: props.htmlType,
+        class: classes.value,
+      };
+
+      const childNode = childs?.map((c) => {
+        return typeof c.children === "string" ? <span>{c.children.trim()}</span> : c;
+      });
+
+      return props.type === "link" && props.href ? (
+        <a href={props.href} target={props.target} {...propsObj}>
+          {iconNode}
+          {childNode}
+        </a>
+      ) : (
+        <button {...propsObj}>
+          {iconNode}
+          {childNode}
+        </button>
+      );
+    };
+  },
+});
