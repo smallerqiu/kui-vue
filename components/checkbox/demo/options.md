@@ -11,21 +11,22 @@
   <br />
   <CheckboxGroup 
     :options="options" 
-    v-model="cities" 
+    v-model:value="cities" 
     @change="change"
     :direction="direction"
   />
 </template>
 <script setup>
-const direction = 'horizontal'
+import { ref } from 'vue'
+const direction = ref('horizontal')
 const types = [
         { label: '垂直', value:'vertical'},
         { label: '水平' ,value:'horizontal'}
       ]
-const cities = ['wuhan']
+const cities = ref(['wuhan'])
 
 const change = ({value,label,checked}) => {
-      this.$Message.info(`Value: ${value} , Label:${label} , Checked:${checked}`)
+      // this.$Message.info(`Value: ${value} , Label:${label} , Checked:${checked}`)
 }
 </script>
 ```

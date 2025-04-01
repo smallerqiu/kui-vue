@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div>
-    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">Check all</Checkbox>
+    <Checkbox v-model:value="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">Check all</Checkbox>
     <br/>
-    <CheckboxGroup :options="options" v-model="cities" @change="change"/>
+    <CheckboxGroup :options="options" v-model:value="cities" @change="change"/>
   </div>
 </template>
 <script setup>

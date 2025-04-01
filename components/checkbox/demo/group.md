@@ -8,21 +8,21 @@
 <template>
   <Space>
     {{data}}
-    <CheckboxGroup v-model="data">
+    <CheckboxGroup v-model:value="data">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
       <Checkbox label="Grape" value="grape" disabled/>
       <Checkbox label="Pear" value="pear" disabled/>
     </CheckboxGroup>
-    <Button @click="data=[]" size="small">Clear</Button>
-    <Button @click="data=['apple']" size="small">Select apple</Button>
+    <Button @click="handleClear" size="small">Clear</Button>
+    <Button @click="handleChange" size="small">Select apple</Button>
   </Space>
   <br/>
   <br/>
   <Space vertical align="start">
     {{cities}}
-    <CheckboxGroup :options="options" v-model="cities"/>
+    <CheckboxGroup :options="options" v-model:value="cities"/>
   </Space>
 </template>
 <script setup>
@@ -35,7 +35,14 @@ const options = [
         { label: 'Wuhan', value: 'wuhan' },
         { label: 'Other', value: 'other',disabled:true },
       ]
-const data = ['wuhan']
-const cities = ['apple','grape']
+const data = ref(['apple','grape'])
+const cities = ref(['wuhan'])
+
+const handleClear = () => {
+  data.value = []
+}
+const handleChange = (value) => {
+  data.value = ['apple']
+}
 </script>
 ```

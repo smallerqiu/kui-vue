@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { Checkmark } from "kui-icons";
-import { defineComponent, inject, ref, watch } from "vue";
+import { defineComponent, inject, ref, watch, computed } from "vue";
 export default defineComponent({
   name: "Checkbox",
   props: {
@@ -19,7 +19,7 @@ export default defineComponent({
   setup(ps, { slots, emit }) {
     const checkBoxGroup = inject("checkBoxGroup", null);
 
-    let { disabled, size, label, value, indeterminate, checked } = ps;
+    let { size, label, value, checked } = ps;
 
     const isChecked = ref(checked);
 
@@ -30,15 +30,21 @@ export default defineComponent({
       }
     );
 
+    const disabled = computed(() => {
+      return checkBoxGroup?.disabled || ps.disabled;
+    });
+
+    const indeterminate = computed(() => ps.indeterminate)
+
     const change = (e) => {
-      if (disabled) {
+      if (disabled.value) {
         return false;
       }
       const checked = e.target.checked;
       isChecked.value = checked;
       if (checkBoxGroup) {
         label = label || slots.default?.().text;
-        // this.groupContext.change({ label, value });
+        emit("update", { checked, label, value });
       } else {
         emit("update:checked", checked);
         emit("change", e);
@@ -57,14 +63,14 @@ export default defineComponent({
 
     return () => {
       const sz = checkBoxGroup?.size || size;
-      const _disabled = checkBoxGroup?.disabled || disabled;
+      const _disabled = disabled.value;
 
       const wpclasses = [
         "k-checkbox",
         {
           ["k-checkbox-disabled"]: _disabled,
-          ["k-checkbox-checked"]: isChecked.value && !indeterminate,
-          ["k-checkbox-indeterminate"]: indeterminate,
+          ["k-checkbox-checked"]: isChecked.value && !indeterminate.value,
+          ["k-checkbox-indeterminate"]: indeterminate.value && !isChecked.value,
           ["k-checkbox-sm"]: sz == "small",
           ["k-checkbox-lg"]: sz == "large",
         },
