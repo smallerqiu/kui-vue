@@ -11,35 +11,30 @@
     <CheckboxGroup :options="options" v-model="cities" @change="change"/>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checkAll: false,
-      indeterminate: false,
-      options: [
+<script setup>
+import { ref } from "vue";
+const checkAll = ref(false);
+const indeterminate = ref(false)
+
+const options =  [
         { label: 'Beijing', value: 'beijing' },
         { label: 'Shenzhen', value: 'shenzhen' },
         { label: 'Shanghai', value: 'shanghai' },
         { label: 'Guangzhou', value: 'guangzhou' },
         { label: 'Wuhan', value: 'wuhan' },
-      ],
-      cities:[]
-    };
-  },
-  methods: {
-    handleCheckAll(e) {
-      let checked = e.target.checked
-      this.cities = checked ? this.options.map(v=>v.value) : [];
-      this.indeterminate = !checked && !this.options.length
-    },
-    change(data) {
-      let length = this.cities.length
-      this.indeterminate = length > 0 && length < this.options.length
+      ]
+const cities = ref([])
 
-      this.checkAll = length == this.options.length 
+const handleCheckAll = (e)=> {
+      let checked = e.target.checked
+      cities.value = checked ? options.map(v=>v.value) : [];
+      indeterminate.value = !checked && !options.length
     }
-  }
-};
+const change = (data)=> {
+      let length = cities.value.length
+      indeterminate.value = length > 0 && length < options.length
+
+      checkAll.value = length == options.length 
+    }
 </script>
 ```

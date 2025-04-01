@@ -9,7 +9,7 @@ import Badge from "./badge";
 import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
 import { Collapse, CollapsePanel } from './collapse'
-// import { Checkbox, CheckboxGroup } from './checkbox'
+import { Checkbox, CheckboxGroup } from './checkbox'
 // import { DatePicker, DateCalendar } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
 // import Drawer from './drawer'
@@ -67,7 +67,7 @@ const components = {
   Card,
   Carousel,
   CarouselItem,
-  // Checkbox, CheckboxGroup,
+  Checkbox, CheckboxGroup,
   Collapse, CollapsePanel,
   // ColorPicker,
   Col,

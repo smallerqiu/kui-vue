@@ -16,31 +16,16 @@
     :direction="direction"
   />
 </template>
-<script>
-export default {
-  data() {
-    return {
-      direction:'horizontal',
-      types:[
+<script setup>
+const direction = 'horizontal'
+const types = [
         { label: '垂直', value:'vertical'},
         { label: '水平' ,value:'horizontal'}
-      ],
-      options: [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-        { label: 'Other', value: 'other',disabled:true },
-      ],
-      cities:['wuhan']
-    };
-  },
-  methods: {
-    change({value,label,checked}){
+      ]
+const cities = ['wuhan']
+
+const change = ({value,label,checked}) => {
       this.$Message.info(`Value: ${value} , Label:${label} , Checked:${checked}`)
-    }
-  },
 }
 </script>
 ```
