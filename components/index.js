@@ -8,7 +8,7 @@ import Badge from "./badge";
 // import ColorPicker from './colorPicker'
 import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
-// import { Collapse, Panel } from './collapse'
+import { Collapse, CollapsePanel } from './collapse'
 // import { Checkbox, CheckboxGroup } from './checkbox'
 // import { DatePicker, DateCalendar } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
@@ -68,7 +68,7 @@ const components = {
   Carousel,
   CarouselItem,
   // Checkbox, CheckboxGroup,
-  // Collapse, Panel,
+  Collapse, CollapsePanel,
   // ColorPicker,
   Col,
   Row,

@@ -7,8 +7,8 @@ export default defineComponent({
     flex: [String, Number],
   },
 
-  setup(pps, { slots }) {
-    let { offset, span, flex } = pps;
+  setup(ps, { slots }) {
+    let { offset, span, flex } = ps;
 
     const gutter = inject("gutter");
     const parseFlex = (flex) => {
