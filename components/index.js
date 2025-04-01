@@ -1,25 +1,25 @@
 import Alert from "./alert";
-import Affix from './affix'
+import Affix from "./affix";
 import Avatar from "./avatar";
 // import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
 import { Button, ButtonGroup } from "./button";
-import Badge from './badge'
+import Badge from "./badge";
 // import BackTop from './backtop'
 // import ColorPicker from './colorPicker'
-import Card from './card'
-// import { Carousel, CarouselItem } from './carousel'
+import Card from "./card";
+import { Carousel, CarouselItem } from "./carousel";
 // import { Collapse, Panel } from './collapse'
 // import { Checkbox, CheckboxGroup } from './checkbox'
 // import { DatePicker, DateCalendar } from './datePicker'
-import { Descriptions, DescriptionsItem } from './descriptions'
+import { Descriptions, DescriptionsItem } from "./descriptions";
 // import Drawer from './drawer'
 // import Dropdown from './dropdown'
-import Divider from './divider'
+import Divider from "./divider";
 // import Empty from './empty'
 // import { Form, FormItem } from './form'
-import Flex from './flex'
+import Flex from "./flex";
 // import { Image, ImageGroup } from './image'
-import Icon from './icon'
+import Icon from "./icon";
 // import { Input, TextArea ,InputGroup} from './input'
 // import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from "./layout";
@@ -47,7 +47,7 @@ import Space from "./space";
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
 // import Tag from './tag'
-import { Row, Col } from './grid'
+import { Row, Col } from "./grid";
 // import Upload from './upload'
 
 import pkg from "../package.json";
@@ -65,13 +65,16 @@ const components = {
   Button,
   ButtonGroup,
   Card,
-  // Carousel, CarouselItem,
+  Carousel,
+  CarouselItem,
   // Checkbox, CheckboxGroup,
   // Collapse, Panel,
   // ColorPicker,
-  Col, Row,
+  Col,
+  Row,
   // DatePicker, DateCalendar,
-  Descriptions, DescriptionsItem,
+  Descriptions,
+  DescriptionsItem,
   // Dropdown,
   // Drawer,
   Divider,
