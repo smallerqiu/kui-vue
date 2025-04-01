@@ -25,23 +25,17 @@
     <CheckboxGroup :options="options" v-model="cities"/>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checked: true,
-      data: ['apple','grape'],
-      options: [
+<script setup>
+import { ref } from 'vue'
+const options = [
         { label: 'Beijing', value: 'beijing' },
         { label: 'Shenzhen', value: 'shenzhen' },
         { label: 'Shanghai', value: 'shanghai' },
         { label: 'Guangzhou', value: 'guangzhou' },
         { label: 'Wuhan', value: 'wuhan' },
         { label: 'Other', value: 'other',disabled:true },
-      ],
-      cities:['wuhan']
-    };
-  }
-}
+      ]
+const data = ['wuhan']
+const cities = ['apple','grape']
 </script>
 ```

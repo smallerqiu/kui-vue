@@ -21,14 +21,8 @@
       size="small">{{disabled?"Enable":"Disabled"}}</Button>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      disabled: false,
-      checked: false
-    }
-  }
-}
+<script setup>
+const disabled = false;
+const checked = false;
 </script>
 ```
