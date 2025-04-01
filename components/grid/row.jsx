@@ -17,8 +17,8 @@ export default defineComponent({
       },
     },
   },
-  setup(pps, { slots }) {
-    let { align, justify, gutter } = pps;
+  setup(ps, { slots }) {
+    let { align, justify, gutter } = ps;
 
     provide("gutter", gutter);
 
@@ -27,7 +27,7 @@ export default defineComponent({
         class: [
           "k-row",
           {
-            "k-row-flex": pps.type == "flex",
+            "k-row-flex": ps.type == "flex",
             [`k-row-flex-${justify}`]: justify,
             [`k-row-flex-${align}`]: align,
           },

@@ -25,9 +25,12 @@ export default defineComponent({
     provide("width", width);
     provide("height", height);
 
-    watch("value", (nv, ov) => {
-      currentIndex.value = nv;
-    });
+    watch(
+      () => ps.value,
+      (nv, ov) => {
+        currentIndex.value = nv;
+      }
+    );
     const next = () => {
       change("right");
     };

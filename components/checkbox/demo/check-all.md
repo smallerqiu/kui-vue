@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handelCheckAll">Check all</Checkbox>
+    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">Check all</Checkbox>
     <br/>
     <CheckboxGroup :options="options" v-model="cities" @change="change"/>
   </div>
@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    handelCheckAll(e) {
+    handleCheckAll(e) {
       let checked = e.target.checked
       this.cities = checked ? this.options.map(v=>v.value) : [];
       this.indeterminate = !checked && !this.options.length

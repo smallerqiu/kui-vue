@@ -1,4 +1,4 @@
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, Transition } from "vue";
 import { getTranstionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor } from "kui-icons";
 import { useClipboard } from "@vueuse/core";
@@ -9,7 +9,7 @@ export default defineComponent({
     const expand = ref(false);
     const code = ref(null);
 
-    const on = getTranstionProp();
+    const transProp = getTranstionProp();
 
     const { copy, isSupported } = useClipboard();
 
@@ -44,11 +44,11 @@ export default defineComponent({
             {/* </Tooltip> */}
           </div>
         </div>
-        <transition>
+        <Transition {...transProp}>
           <div v-show={expand.value} class="k-code" ref={code}>
             {slots.code?.()}
           </div>
-        </transition>
+        </Transition>
       </div>
     );
   },
