@@ -14,15 +14,22 @@
     <br />
     <br />
     <Checkbox :disabled="disabled"
-      v-model="checked">Checkbox</Checkbox>
-    <Button @click="checked=!checked"
+      v-model:checked="checked">Checkbox</Checkbox>
+    <Button @click="toggleChecked"
       size="small">{{checked?"Checked":"Uncheck"}}</Button>
-    <Button @click="disabled=!disabled"
+    <Button @click="toggleDisabled"
       size="small">{{disabled?"Enable":"Disabled"}}</Button>
   </Space>
 </template>
 <script setup>
-const disabled = false;
-const checked = false;
+import { ref } from 'vue';
+const disabled = ref(false);
+const checked = ref(false);
+const toggleDisabled = () => {
+  disabled.value = !disabled.value;
+}
+const toggleChecked = () => {
+  checked.value = !checked.value;
+}
 </script>
 ```

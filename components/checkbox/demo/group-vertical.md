@@ -11,7 +11,7 @@
       <Button @click="data=['apple']" size="small">Select apple</Button>
       {{data}}
     </Space>
-    <CheckboxGroup v-model="data" direction="vertical">
+    <CheckboxGroup v-model:value="data" direction="vertical">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
@@ -22,13 +22,13 @@
   <br/>
   <Space vertical align="start">
     <p>{{cities}}</p>
-    <CheckboxGroup :options="options" v-model="cities" direction="vertical"/>
+    <CheckboxGroup :options="options" v-model:value="cities" direction="vertical"/>
   </Space>
 </template>
 <script setup>
 import { ref } from 'vue'
 const data = ref(['apple','grape'])
-const cities = ref(['apple','grape'])
+const cities = ref(['wuhan','shenzhen'])
 const options = [
         { label: 'Beijing', value: 'beijing' },
         { label: 'Shenzhen', value: 'shenzhen' },

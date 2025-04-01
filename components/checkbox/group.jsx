@@ -1,5 +1,5 @@
 import Checkbox from "./checkbox";
-import { defineComponent, provide } from "vue";
+import { defineComponent, provide, cloneVNode, computed } from "vue";
 export default defineComponent({
   name: "CheckboxGroup",
   props: {
@@ -19,27 +19,41 @@ export default defineComponent({
     },
   },
 
-  setup(ps, { slots }) {
+  setup(ps, { slots, emit }) {
     provide("checkBoxGroup", ps);
 
-    const change = (data) => {
-      // let value = this.value;
-      // let index = value.indexOf(data.value);
-      // if (index < 0) {
-      //   value.push(data.value);
-      // } else {
-      //   value.splice(index, 1);
-      // }
-      // this.$emit("input", value);
-      // let item = Object.assign(data, { checked: index < 0 });
-      // this.$emit("change", item);
+    const change = ({ checked, label, value }) => {
+      const v = ps.value;
+      let index = v.indexOf(value);
+      if (checked) {
+        v.push(value);
+      } else {
+        v.splice(index, 1);
+      }
+      emit("update:value", v);
+      emit("change", { checked, label, value });
     };
 
     return () => {
       const { options, direction, size } = ps;
       let childs = slots.default?.();
-      if (options && options.length) {
-        childs = options.map((option) => <Checkbox key={option.value} size={size} value={option.value} label={option.label} disabled={option.disabled} />);
+      if (options && options?.length) {
+        childs = options.map((option) => {
+          let pps = {
+            key: option.value,
+            value: option.value,
+            size,
+            label: option.label,
+            disabled: option.disabled,
+            onUpdate: change,
+            checked: ps.value.indexOf(option.value) >= 0,
+          };
+          return <Checkbox {...pps} />;
+        });
+      } else {
+        childs = childs?.map((child) => {
+          return cloneVNode(child, { size, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
+        });
       }
       return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{childs}</div>;
     };
