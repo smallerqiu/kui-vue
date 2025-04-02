@@ -1,6 +1,5 @@
 import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
 import { Input } from '../input'
-// import InputNumber from '../inputNumber'
 import { Button } from '../button'
 import Icon from '../icon'
 import Drop from '../base/drop'

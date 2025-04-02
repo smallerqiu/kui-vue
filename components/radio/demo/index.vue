@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Base from './base.md'
 import Info from './info.md'
 import Disabled from './disabled.md'
@@ -8,8 +8,8 @@ import GroupVertical from './group-vertical.md'
 import Button from './button.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-radio">
         <Info />
         <Base />
@@ -23,4 +23,4 @@ export default {
     )
   }
 }
-</script> 
+</script>

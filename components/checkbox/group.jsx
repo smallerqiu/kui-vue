@@ -21,7 +21,6 @@ export default defineComponent({
 
   setup(ps, { slots, emit }) {
     provide("checkBoxGroup", ps);
-
     const change = ({ checked, label, value }) => {
       const v = ps.value;
       let index = v.indexOf(value);
@@ -31,7 +30,7 @@ export default defineComponent({
         v.splice(index, 1);
       }
       emit("update:value", v);
-      emit("change", { checked, label, value });
+      emit("change", { label, value });
     };
 
     return () => {
@@ -44,7 +43,7 @@ export default defineComponent({
             value: option.value,
             size,
             label: option.label,
-            disabled: option.disabled,
+            disabled: ps.disabled || option.disabled,
             onUpdate: change,
             checked: ps.value.indexOf(option.value) >= 0,
           };
@@ -52,7 +51,7 @@ export default defineComponent({
         });
       } else {
         childs = childs?.map((child) => {
-          return cloneVNode(child, { size, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
+          return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
         });
       }
       return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{childs}</div>;

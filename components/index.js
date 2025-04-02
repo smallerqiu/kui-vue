@@ -32,7 +32,7 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // import Poptip from './poptip'
 // import Popconfirm from './popconfirm'
 // import Progress from './progress'
-// import { Radio, RadioGroup, RadioButton } from './radio'
+import { Radio, RadioGroup, RadioButton } from './radio'
 // import Rate from './rate'
 // import { Select, Option } from './select'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
@@ -99,7 +99,7 @@ const components = {
   // Poptip,
   // Popconfirm,
   // Progress,
-  // Radio, RadioGroup, RadioButton,
+  Radio, RadioGroup, RadioButton,
   // Rate,
   // Select, Option,
   Space,
