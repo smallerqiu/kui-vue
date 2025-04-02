@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical> 
     {{data}}
     <CheckboxGroup v-model:value="data">
       <Checkbox label="Apple" value="apple" />
@@ -22,7 +22,7 @@
   <br/>
   <Space vertical align="start">
     {{cities}}
-    <CheckboxGroup :options="options" v-model:value="cities"/>
+    <CheckboxGroup :options="options" v-model:value="cities" />
   </Space>
 </template>
 <script setup>
