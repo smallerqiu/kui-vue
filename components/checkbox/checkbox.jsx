@@ -51,15 +51,6 @@ export default defineComponent({
       }
     };
 
-    // if (checkBoxGroup) {
-    //   checked = groupContext.value?.indexOf(value) !== -1;
-    //   disabled = disabled || groupContext.disabled;
-    //   size = groupContext.size;
-    // } else {
-    //   if (!hasProp(this, "checked")) {
-    //     checked = isChecked;
-    //   }
-    // }
 
     return () => {
       const sz = checkBoxGroup?.size || size;
