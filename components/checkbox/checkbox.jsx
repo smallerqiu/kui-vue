@@ -19,9 +19,7 @@ export default defineComponent({
   setup(ps, { slots, emit }) {
     const checkBoxGroup = inject("checkBoxGroup", null);
 
-    let { size, label, value, checked } = ps;
-
-    const isChecked = ref(checked);
+    const isChecked = ref(ps.checked); // for not set v-model
 
     watch(
       () => ps.checked,
@@ -30,36 +28,31 @@ export default defineComponent({
       }
     );
 
-    const disabled = computed(() => {
-      return checkBoxGroup?.disabled || ps.disabled;
-    });
-
-    const indeterminate = computed(() => ps.indeterminate)
+    const indeterminate = computed(() => ps.indeterminate);
 
     const change = (e) => {
-      if (disabled.value) {
+      if (ps.disabled) {
         return false;
       }
       const checked = e.target.checked;
       isChecked.value = checked;
       if (checkBoxGroup) {
-        label = label || slots.default?.().text;
-        emit("update", { checked, label, value });
+        const label = ps.label || slots.default?.().text;
+        emit("update", { checked, label, value: ps.value });
       } else {
         emit("update:checked", checked);
         emit("change", e);
       }
     };
 
-
     return () => {
-      const sz = checkBoxGroup?.size || size;
-      const _disabled = disabled.value;
+      const sz = checkBoxGroup?.size || ps.size;
+      const disabled = checkBoxGroup?.disabled || ps.disabled;
 
       const wpclasses = [
         "k-checkbox",
         {
-          ["k-checkbox-disabled"]: _disabled,
+          ["k-checkbox-disabled"]: disabled,
           ["k-checkbox-checked"]: isChecked.value && !indeterminate.value,
           ["k-checkbox-indeterminate"]: indeterminate.value && !isChecked.value,
           ["k-checkbox-sm"]: sz == "small",
@@ -68,12 +61,12 @@ export default defineComponent({
       ];
 
       let innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
-      const labelNode = label || slots.default?.();
+      const labelNode = ps.label || slots.default?.();
 
       return (
         <label class={wpclasses} onClick={(e) => e.stopPropagation()}>
           <span class="k-checkbox-symbol">
-            <input type="checkbox" class="k-checkbox-input" checked={isChecked.value} disabled={_disabled} onChange={change} />
+            <input type="checkbox" class="k-checkbox-input" checked={isChecked.value} disabled={disabled} onChange={change} />
             <span class="k-checkbox-inner">{innerNode}</span>
           </span>
           {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}

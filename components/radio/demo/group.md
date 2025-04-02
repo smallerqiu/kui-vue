@@ -12,7 +12,7 @@
       <Button @click="data='apple'" size="small">Select apple</Button>
       Selected: {{data}}
     </Space>
-    <RadioGroup v-model="data">
+    <RadioGroup v-model:value="data">
       <Radio label="Apple" value="apple" />
       <Radio label="Orange" value="orange" />
       <Radio label="Banana" value="banana" />
@@ -21,25 +21,19 @@
     </RadioGroup>
     
     {{cities}}
-    <RadioGroup :options="options" v-model="cities"/>
+    <RadioGroup :options="options" v-model:value="cities"/>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checked: true,
-      data: 'apple',
-      options: [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-      ],
-      cities:'wuhan'
-    };
-  }
-}
+<script setup>
+import { ref } from "vue";
+const data = ref('apple')
+const options = [
+  { label: 'Beijing', value: 'beijing' },
+  { label: 'Shenzhen', value: 'shenzhen' },
+  { label: 'Shanghai', value: 'shanghai' },
+  { label: 'Guangzhou', value: 'guangzhou' },
+  { label: 'Wuhan', value: 'wuhan' },
+]
+const cities = ref('wuhan')
 </script>
 ```

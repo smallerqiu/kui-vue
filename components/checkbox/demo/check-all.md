@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Checkbox v-model:value="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">Check all</Checkbox>
+    <Checkbox v-model:checked="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">Check all</Checkbox>
     <br/>
     <CheckboxGroup :options="options" v-model:value="cities" @change="change"/>
   </div>
