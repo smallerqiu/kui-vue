@@ -100,13 +100,9 @@
     </Space>
   </Space>
 </template>
-<script>
+<script setup>
 import { Copy } from 'kui-icons'
-export default{
-  data(){
-    return{
-      Copy,
-      treeData:[
+const treeData = [
         {
           title:'fruit',
           key:'1',
@@ -116,8 +112,5 @@ export default{
           ]
         }
       ]
-    }
-  }
-}
 </script>
 ```

@@ -16,13 +16,7 @@
     </Space>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      size: 12,
-    };
-  },
-};
+<script setup>
+const size = 12
 </script>
 ```

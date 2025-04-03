@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Tabs v-model="current" @change="change" style="width:350px;">
+  <Tabs v-model:value="current" @change="change" style="width:350px;">
     <TabPane key="1" title="Small">
       <Space size="small" >
         <Button size="small" v-for="x in 5" :key="x">Small</Button>
@@ -29,19 +29,12 @@
     </TabPane>
   </Tabs>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-  methods:{
-    change(key){
+<script setup>
+import { ref } from "vue";
+const current = ref('1')
+
+const change = (key)=>{
       console.log(key)
-    }
-  }
 }
 </script>
-
 ```

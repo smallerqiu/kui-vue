@@ -1,56 +1,53 @@
-import Icon from '../icon'
-import { Close } from 'kui-icons'
-export default {
-  name: 'Tag',
+import Icon from "../icon";
+import { Close } from "kui-icons";
+import { defineComponent, Transition, ref } from "vue";
+import { isColor } from "../utils/color";
+export default defineComponent({
+  name: "Tag",
   props: {
     closeable: Boolean,
     color: String,
     shape: String,
     icon: [String, Array],
     size: {
-      default: 'small',
+      default: "small",
       validator(value) {
         return ["small", "large", "middle"].indexOf(value) >= 0;
-      }
+      },
     },
   },
-  data() {
-    return {
-      visible: true,
-    }
+  setup(ps, { slots, emit }) {
+    const visible = ref(true);
+    const closeHandler = () => {
+      emit("close");
+      visible.value = false;
+    };
+    return () => {
+      const { shape, icon, size, color, closeable } = ps;
+      const colors = ["pink", "red", "yellow", "orange", "cyan", "green", "blue", "purple", "geekblue", "magenta", "volcano", "gold", "lime"];
+      const props = {
+        class: [
+          "k-tag",
+          {
+            ["k-tag-sm"]: size == "small",
+            ["k-tag-lg"]: size == "large",
+            [`k-tag-${color}`]: colors.includes(color),
+            ["k-tag-circle"]: shape == "circle",
+            ["k-tag-has-color"]: isColor(color) && !colors.includes(color),
+            ["k-tag-closeable"]: closeable,
+          },
+        ],
+        style: { backgroundColor: isColor(color) && !colors.includes(color) ? color : null },
+      };
+      return (
+        <Transition name="k-tag">
+          <div {...props} v-show={visible.value}>
+            {icon ? <Icon class="k-tag-icon" type={icon} /> : null}
+            <span class="k-tag-text">{slots.default?.()}</span>
+            {closeable ? <Icon class="k-tag-close" type={Close} onClick={closeHandler} /> : null}
+          </div>
+        </Transition>
+      );
+    };
   },
-  methods: {
-    close(e) {
-      this.$emit('close', e)
-      this.visible = false
-    }
-  },
-  render() {
-    const { visible, styles, shape, icon, size, color, $slots, close, classes, closeable } = this
-    const props = {
-      on: {
-        ...this.$listeners
-      },
-      class: ['k-tag', {
-        ["k-tag-sm"]: size == 'small',
-        ["k-tag-lg"]: size == 'large',
-        [`k-tag-${color}`]: color && !/^#/.test(color),
-        ["k-tag-circle"]: shape == 'circle',
-        ['k-tag-has-color']: /^#/.test(color),
-        ['k-tag-closeable']: closeable
-      }],
-      style: { backgroundColor: /^#/.test(color) ? color : null }
-    }
-    return (
-      <transition name="k-tag">
-        <div {...props} v-show={visible}>
-          {icon ? <Icon class="k-tag-icon" type={icon} /> : null}
-          <span class="k-tag-text">
-            {$slots.default}
-          </span>
-          {closeable ? <Icon class="k-tag-close" type={Close} onClick={close} /> : null}
-        </div>
-      </transition>
-    )
-  }
-}
+});

@@ -1,4 +1,4 @@
-import resize from "../_tool/resize";
+import resize from "../directives/resize";
 import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
 
 export default defineComponent({
