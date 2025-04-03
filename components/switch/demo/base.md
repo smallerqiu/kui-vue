@@ -6,20 +6,15 @@
 ```vue
 <template>
   <Space>
+    <k-switch v-model:checked="checked" />
     value:
     {{checked}}
-    <Switch v-model="checked" />
     <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <Switch checked />
+    <k-switch checked />
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      checked:false
-    }
-  }
-}
+<script setup>
+import { ref } from 'vue'
+const checked = ref(false)
 </script>
 ```

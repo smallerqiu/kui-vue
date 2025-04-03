@@ -8,8 +8,8 @@ import Badge from "./badge";
 // import ColorPicker from './colorPicker'
 import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
-import { Collapse, CollapsePanel } from './collapse'
-import { Checkbox, CheckboxGroup } from './checkbox'
+import { Collapse, CollapsePanel } from "./collapse";
+import { Checkbox, CheckboxGroup } from "./checkbox";
 // import { DatePicker, DateCalendar } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
 // import Drawer from './drawer'
@@ -32,14 +32,14 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // import Poptip from './poptip'
 // import Popconfirm from './popconfirm'
 // import Progress from './progress'
-import { Radio, RadioGroup, RadioButton } from './radio'
+import { Radio, RadioGroup, RadioButton } from "./radio";
 // import Rate from './rate'
 // import { Select, Option } from './select'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
 // import Slider from './slider'
 import Space from "./space";
 // import Spin from './spin'
-// import Switch from './switch'
+import Switch from "./switch";
 // import Table from './table'
 // import Tooltip from './tooltip'
 // import { Tabs, TabPane } from './tabs'
@@ -67,8 +67,10 @@ const components = {
   Card,
   Carousel,
   CarouselItem,
-  Checkbox, CheckboxGroup,
-  Collapse, CollapsePanel,
+  Checkbox,
+  CheckboxGroup,
+  Collapse,
+  CollapsePanel,
   // ColorPicker,
   Col,
   Row,
@@ -99,7 +101,9 @@ const components = {
   // Poptip,
   // Popconfirm,
   // Progress,
-  Radio, RadioGroup, RadioButton,
+  Radio,
+  RadioGroup,
+  RadioButton,
   // Rate,
   // Select, Option,
   Space,
@@ -117,18 +121,18 @@ const components = {
 };
 const UI = {
   ...components,
-  // kForm: Form,
-  // kButton: Button,
+  // Form: Form,
+  KButton: Button,
   // kInput: Input,
   // kTextarea: TextArea,
-  // kHeader: Header,
-  // kFooter: Footer,
-  // kContent: Content,
+  KHeader: Header,
+  KFooter: Footer,
+  KContent: Content,
   // kSider: Sider,
   // kSelect: Select,
   // kOption: Option,
   // kTable: Table,
-  // kSwitch: Switch,
+  KSwitch: Switch,
   // kImage: Image,
   // kCol: Col,
   // kMenu: Menu,

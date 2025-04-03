@@ -129,13 +129,17 @@
     z-index: 1;
     opacity: 0;
     cursor: inherit;
+    margin: 0;
+    padding: 0;
 
-    &:focus,
-    &:hover {
-      +.k-radio-inner {
-        border: 1px solid var(--kui-color-main);
-        box-shadow: 0 0 0 2px var(--kui-color-main-90);
-      }
+
+  }
+
+  &:focus,
+  &:hover {
+    .k-radio-inner {
+      border: 1px solid var(--kui-color-main);
+      box-shadow: 0 0 0 2px var(--kui-color-main-90);
     }
   }
 
@@ -173,7 +177,7 @@
     .k-radio-inner {
       background: var(--kui-color-disable-back);
       border-color: var(--kui-color-disable-border);
-
+      box-shadow: none;
       &:after {
         background-color: var(--kui-color-disable-border);
       }
