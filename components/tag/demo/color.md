@@ -23,11 +23,8 @@
     </Space>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      colors:[
+<script setup>
+const colors = [
       'pink',
       'red',
       'yellow',
@@ -42,8 +39,5 @@ export default{
       'gold',
       'lime',
       ]
-    }
-  }
-} 
 </script>
 ```

@@ -1,8 +1,9 @@
 import Vue from 'vue';
 export default {
-  inserted(el, { value }, vnode) {
+  mounted(el, { value }, vnode) {
     let transfer = el.getAttribute ? el.getAttribute('data-transfer') : el.dataset.transfer
     const SSR = Vue && Vue.prototype.$isServer
+    console.log(transfer)
     if (!SSR && transfer === 'true') {
       const parentNode = el.parentNode
       if (!parentNode) return false;

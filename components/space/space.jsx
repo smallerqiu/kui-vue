@@ -20,33 +20,33 @@ export default defineComponent({
       },
     },
   },
-  setup(props, { slots, attrs }) {
-    const align = computed(() => (!props.vertical && !props.align ? "center" : props.align));
+  setup(ps, { slots, attrs }) {
+    const align = computed(() => (!ps.vertical && !ps.align ? "center" : ps.align));
 
-    const propsObj = computed(() => {
+    const props = computed(() => {
       const style = {};
       const cls = [
         "k-space",
         {
-          [`k-space-vertical`]: props.vertical,
-          [`k-space-compact`]: props.compact,
-          [`k-space-wrap`]: props.wrap,
-          [`k-space-block`]: props.block,
+          [`k-space-vertical`]: ps.vertical,
+          [`k-space-compact`]: ps.compact,
+          [`k-space-wrap`]: ps.wrap,
+          [`k-space-block`]: ps.block,
           [`k-space-align-${align.value}`]: align.value,
         },
       ];
 
-      if (!props.size && !props.compact) {
+      if (!ps.size && !ps.compact) {
         style.gap = "8px";
       }
-      if (!props.compact) {
-        if (Array.isArray(props.size)) {
-          style.gap = `${props.size[1]}px ${props.size[0]}px`;
-        } else if (/small|middle|large/.test(props.size)) {
+      if (!ps.compact) {
+        if (Array.isArray(ps.size)) {
+          style.gap = `${ps.size[1]}px ${ps.size[0]}px`;
+        } else if (/small|middle|large/.test(ps.size)) {
           const sizes = { small: 8, middle: 16, large: 24 };
-          style.gap = `${sizes[props.size]}px`;
-        } else if (props.size !== undefined && props.size !== null) {
-          style.gap = `${props.size}px`;
+          style.gap = `${sizes[ps.size]}px`;
+        } else if (ps.size !== undefined && ps.size !== null) {
+          style.gap = `${ps.size}px`;
         }
       }
 
@@ -57,28 +57,28 @@ export default defineComponent({
       };
     });
 
-    return () => {
+    return () => { 
       const childs = slots.default?.();
       const split = slots.split?.();
 
       const vnodes = [];
       for (let i = 0; i < childs.length; i++) {
-        const pre = props.vertical ? "vertical-" : "";
+        const pre = ps.vertical ? "vertical-" : "";
         const p = {
-          size: props.size,
+          size: ps.size,
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
             [`k-space-${pre}last-item`]: i === childs.length - 1,
           },
         };
-        const child = props.compact ? cloneVNode(childs[i], p, true, true) : h("div", p, childs[i]);
+        const child = ps.compact ? cloneVNode(childs[i], p, true, true) : h("div", p, childs[i]);
         vnodes.push(child);
         if (split && i < childs.length - 1) {
           vnodes.push(split);
         }
       }
-      return <div {...propsObj.value}>{vnodes}</div>;
+      return <div {...props.value}>{vnodes}</div>;
     };
   },
 });

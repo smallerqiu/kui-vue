@@ -46,15 +46,7 @@ Button 组件紧凑排列的示例。
     
   </Space>
 </template>
-<script>
+<script setup>
 import { Copy ,CloudDownloadOutline,Ellipsis,GameControllerOutline,HeartOutline,MailOutline,ShirtOutline} from 'kui-icons'
-export default{
-  data(){
-    return{
-      Copy ,CloudDownloadOutline,GameControllerOutline,
-      HeartOutline,MailOutline,ShirtOutline,Ellipsis
-    }
-  }
-}
 </script>
 ```

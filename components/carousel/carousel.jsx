@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import resize from "../_tool/resize";
+import resize from "../directives/resize";
 import { ChevronUp } from "kui-icons";
 import { defineComponent, provide, ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
 export default defineComponent({

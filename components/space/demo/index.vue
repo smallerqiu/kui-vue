@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from "./info.md";
 import Base from "./base.md";
 import Vertical from "./vertical.md";
@@ -13,20 +13,20 @@ import CompactButtonVertical from "./compact-button-vertical.md";
 
 import CN from "../index.md";
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-space">
-         <Info />
+        <Info />
         <Base />
         <Vertical />
         <Size />
         <Align />
         <CustomSize />
-        <Warp /> 
+        <Warp />
         <Split />
-        <Compact /> 
+        <Compact />
         <CompactButton />
-        <CompactButtonVertical/>
+        <CompactButtonVertical />
         <CN />
       </div>
     );

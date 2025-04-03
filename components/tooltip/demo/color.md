@@ -20,12 +20,9 @@
     </Space>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      custom:['#c20','#39f','#e3f','#6c0'],
-      colors:[
+<script setup>
+const custom = ['#c20','#39f','#e3f','#6c0']
+const colors = [
       'pink',
       'red',
       'yellow',
@@ -40,8 +37,5 @@ export default{
       'gold',
       'lime',
       ]
-    }
-  }
-} 
 </script>
 ```

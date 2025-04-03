@@ -41,12 +41,12 @@ import Space from "./space";
 // import Spin from './spin'
 import Switch from "./switch";
 // import Table from './table'
-// import Tooltip from './tooltip'
+import Tooltip from './tooltip'
 // import { Tabs, TabPane } from './tabs'
 // import { TimeLine, TimeLineItem } from './timeline'
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
-// import Tag from './tag'
+import Tag from './tag'
 import { Row, Col } from "./grid";
 // import Upload from './upload'
 
@@ -113,8 +113,8 @@ const components = {
   // Table,
   // Tabs, TabPane,
   // TimeLine, TimeLineItem,
-  // Tag,
-  // Tooltip,
+  Tag,
+  Tooltip,
   // Tree, TreeNode,
   // TreeSelect,
   // Upload
