@@ -1,8 +1,6 @@
 import { defineComponent, ref, computed, onMounted, watch, h } from 'vue';
 import { Button } from "../button";
 import Icon from "../icon";
-import { getChild } from "../_tool/utils";
-import cloneVNode from '../_tool/clone';
 import Drop from './drop';
 import { t } from "../locale";
 import { HelpCircle } from 'kui-icons';
