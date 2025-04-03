@@ -134,7 +134,8 @@ const UI = {
   // kTable: Table,
   KSwitch: Switch,
   // kImage: Image,
-  // kCol: Col,
+  KCol: Col,
+  KRow: Row,
   // kMenu: Menu,
   Version: pkg.version,
 
