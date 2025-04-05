@@ -6,21 +6,16 @@
 ```vue
 <template>
   <div style="max-width:520px;">
-    <Slider v-model="v1" :reverse="reverse" />
-    <Slider v-model="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />
+    <Slider v-model:value="v1" :reverse="reverse" />
+    <Slider v-model:value="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />
     Reversed:
-    <Switch v-model="reverse" size="small" />
+    <Switch v-model:checked="reverse" size="small" />
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-     v1: 30,
-     v2: [35,60],
-     reverse: true ,
-    }
-  }
-}
+<script setup>
+import { ref } from 'vue'
+const v1 = ref(30)
+const v2 = ref([35,60])
+const reverse = ref(true)
 </script>
 ```

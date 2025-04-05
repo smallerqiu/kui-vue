@@ -1,6 +1,6 @@
 import BaseInput from '../base/input'
 import Icon from '../icon'
-import { plus, minus, round, toNumber } from '../_tool/number'
+import { plus, minus, round, toNumber } from '../utils/number'
 import { ChevronUp } from 'kui-icons'
 export default {
   props: {

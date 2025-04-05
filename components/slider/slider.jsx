@@ -1,6 +1,7 @@
-import Thumb from './thumb'
-import { times } from '../_tool/number'
-export default {
+import Thumb from "./thumb";
+import { times } from "../utils/number";
+import { defineComponent, ref, provide, watch } from "vue";
+export default defineComponent({
   props: {
     value: [Array, Number, String],
     min: { type: Number, default: 0 },
@@ -9,7 +10,7 @@ export default {
     step: {
       type: Number,
       default: 1,
-      validator: (val) => val !== 0
+      validator: (val) => val !== 0,
     },
     size: String,
     range: Boolean,
@@ -18,60 +19,99 @@ export default {
     marks: Object,
     included: { type: Boolean, default: true },
     tipFormatter: [Function, Object],
-    tooltipVisible: Boolean
+    tooltipVisible: Boolean,
   },
-  watch: {
-    value() {
-      this.defaultValue = this.getValue()
-    }
-  },
-  provide() {
-    return {
-      bar: this,
-    }
-  },
-  data() {
-    return {
-      defaultValue: this.getValue(),
-      // percent1: 0,
-      // percent2: 0,
-      // width: 0,
-      // left: 0,
-      isMouseDown: false
-    }
-  },
-  methods: {
-    getMinStep(percent) {
-      let { marks, step, min } = this
-      if (!marks) return times(Math.round((percent + min) / step), step)
-      let steps = Object.keys(marks)//, values = []
-      steps = steps.map(x => x - min)
+  setup(ps, { emit, slots }) {
+    const railRef = ref(null);
+    const defaultValue = ref(getValue());
+    provide("bar", ps);
+    watch(
+      () => ps.value,
+      (nv, no) => {
+        defaultValue.value = getValue();
+      }
+    );
+    // let { disabled, vertical, range } = ps;
+    // let leftProps = this.thumbProps();
+    // let rightProps = this.thumbProps();
+    // let trackNode = this.renderTrack();
+    // let markNode = this.renderMark();
+    const mouseMove = (e) => {
+      let clientX, clientY;
+      // let { clientX, clientY } = e
+      if (e.touches && e.touches.length == 1) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      // let r = e.target.getBoundingClientRect()
+      // console.log(e)
+      // let clientX = r.left + r.width / 2, clientY = r.top + r.height / 2
+      // console.log(clientX, clientY, r)
+
+      let { width, height, left, right, top, bottom } = railRef.value.getBoundingClientRect();
+      let { value, range, step, max, min, vertical, reverse, type } = ps,
+        v = value;
+
+      let percent = 0,
+        diff = max - min;
+      if (reverse) {
+        percent = vertical ? (height - (clientY - top)) / height : (width - (clientX - left)) / width;
+      } else {
+        percent = vertical ? (clientY - top) / height : (clientX - left) / width;
+      }
+      if (percent >= 1) percent = 1;
+      else if (percent <= 0) percent = 0;
+      // this.defaultValue = value
+      // console.log(percent)
+      let x = range ? (type == "right" ? v[1] : v[0]) : v;
+
+      // x = times(Math.round((percent * diff + min) / step), step)
+      x = this.bar.getMinStep(percent * diff);
+
+      if (x >= max) x = max;
+      else if (x <= min) x = min;
+
+      v = range ? (type == "right" ? [v[0], x] : [x, v[1]]) : x;
+      // console.log(v)
+      // emit("update:value", v);
+      defaultValue.value = v;
+      emit("update:value", v);
+    };
+
+    const getMinStep = (percent) => {
+      let { marks, step, min } = ps;
+      if (!marks) return times(Math.round((percent + min) / step), step);
+      let steps = Object.keys(marks); //, values = []
+      steps = steps.map((x) => x - min);
       if (step) {
-        steps.push(times(Math.round((percent) / step), step))
+        steps.push(times(Math.round(percent / step), step));
       }
 
-      let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
+      let result = steps.reduce((x, y) => (Math.abs(x - percent) > Math.abs(y - percent) ? y : x));
       // let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
       // console.log(percent, result, steps)
-      return result + min
-    },
-    getValue() {
-      let { value = 0, range, min, max } = this, v;
-      let diff = max - min;
+      return result + min;
+    };
+    const getValue = () => {
+      let { value = 0, range, min, max } = ps,
+        v;
+      // let diff = max - min;
       if (!range) {
-        v = value
-        if (value >= max) v = max
-        else if (value <= min) v = min
+        v = value;
+        if (value >= max) v = max;
+        else if (value <= min) v = min;
         // let percent = (v - min) * 100 / diff
         // v = this.getMinStep(percent)
       } else {
-
         if (!Array.isArray(value)) {
-          v = [0, 0]
+          v = [0, 0];
         } else {
-          v = [].concat(value)
+          v = [].concat(value);
         }
-        let [x, y] = v
+        let [x, y] = v;
 
         // let p1 = (x - min) * 100 / diff
         // let p2 = (y - min) * 100 / diff
@@ -79,168 +119,172 @@ export default {
         // y = this.getMinStep(p2)
         // console.log(p1 * 100, p2 * 100)
 
-        if (x >= max) x = max
-        else if (x <= min) x = min
+        if (x >= max) x = max;
+        else if (x <= min) x = min;
 
-        if (y >= max) y = max
-        else if (y <= min) y = min
+        if (y >= max) y = max;
+        else if (y <= min) y = min;
 
-        v = [x, y]
+        v = [x, y];
       }
-      return v
-    },
-    click(e) {
-      let { disabled, range, vertical, step, max, min, defaultValue, reverse } = this
+      return v;
+    };
+    const click = (e) => {
+      let { disabled, range, vertical, step, max, min, reverse } = ps;
       if (disabled) return;
-      let { width, height } = e.target.getBoundingClientRect()
-      let { layerX, layerY } = e
+      let { width, height } = e.target.getBoundingClientRect();
+      let { layerX, layerY } = e;
 
-      let percent = 0, diff = max - min;
+      let percent = 0,
+        diff = max - min;
       if (reverse) {
-        percent = vertical ? (((height - layerY) / height) * diff) : (((width - layerX) / width) * diff);
+        percent = vertical ? ((height - layerY) / height) * diff : ((width - layerX) / width) * diff;
       } else {
-        percent = vertical ? ((layerY / height) * diff) : ((layerX / width) * diff);
+        percent = vertical ? (layerY / height) * diff : (layerX / width) * diff;
       }
-      let value = this.getMinStep(percent)
+      let value = getMinStep(percent);
       // let value = times(Math.round((percent + min) / step), step)
       // console.log(value, step)
 
       if (range) {
-        let [x, y] = defaultValue
-        let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y
-        value = value >= half && y > x ? [x, value] : [value, y]
+        let [x, y] = defaultValue.value;
+        let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y;
+        value = value >= half && y > x ? [x, value] : [value, y];
       }
 
-      this.defaultValue = value
-      this.$emit('input', value)
-      this.$emit('change', value)
-    },
-    isActice(a) {
-      let { defaultValue, reverse, max, min, vertical } = this
+      defaultValue.value = value;
+      emit("update:value", value);
+      emit("change", value);
+    };
+    const isActice = (a) => {
+      let { reverse, max, min, vertical } = ps;
       let active;
-      if (this.range) {
-        let [x, y] = defaultValue
-        active = x < y ? (a >= x && a <= y) : (a <= x && a >= y)
+      if (ps.range) {
+        let [x, y] = defaultValue.value;
+        active = x < y ? a >= x && a <= y : a <= x && a >= y;
         // console.log(a, active, `${a} >= ${x} && ${a} <= ${y}`)
       } else {
-        active = a <= defaultValue
+        active = a <= defaultValue.value;
       }
-      let diff = max - min
-      let pos = ((a - min) / diff) * 100 + '%'
-      let sty = {}
+      let diff = max - min;
+      let pos = ((a - min) / diff) * 100 + "%";
+      let sty = {};
       if (reverse) {
-        sty = vertical ?
-          { bottom: pos, transform: 'translateY(50%)' } :
-          { right: pos, transform: 'translateX(50%)' }
+        sty = vertical ? { bottom: pos, transform: "translateY(50%)" } : { right: pos, transform: "translateX(50%)" };
       } else {
-        sty = vertical ?
-          { top: pos } :
-          { left: pos }
+        sty = vertical ? { top: pos } : { left: pos };
       }
-      return { active, sty }
-    },
-    renderMark() {
-      let { marks } = this
-      if (!marks) return null
-      let mks = Object.keys(marks || {})
-      let txt = Object.values(marks || {})
+      return { active, sty };
+    };
 
-      return <div div class="k-slider-marks" >
-        {
-          mks.map(v => {
-            const { active, sty } = this.isActice(v);
-            return <div class={['k-slider-mark-symbol', { 'k-slider-mark-symbol-active': active }]} style={sty} />
-          })
-        }
-        {
-          mks.map((v, i) => {
-            let { active, sty } = this.isActice(v);
-            return <div class={['k-slider-mark-text', { 'k-slider-mark-text-active': active }]} style={sty}>{txt[i]}</div>
-          })
-        }
-      </div>
-    },
-    renderTrack() {
-      let { vertical, max, min, defaultValue, range, included, marks, reverse } = this
-      let percent1 = 0, percent2 = 0, diff = max - min;
-      let w, l;
+    let { vertical, disabled, range, step, reverse, max, min, tooltipVisible, tipFormatter, size } = ps;
+    return () => {
+      const renderMark = () => {
+        let { marks } = ps;
+        if (!marks) return null;
+        let mks = Object.keys(marks || {});
+        let txt = Object.values(marks || {});
 
-      if (!range) {
-        percent2 = ((defaultValue - min) / diff) * 100
+        return (
+          <div div class="k-slider-marks">
+            {mks.map((v) => {
+              const { active, sty } = isActice(v);
+              return <div class={["k-slider-mark-symbol", { "k-slider-mark-symbol-active": active }]} style={sty} />;
+            })}
+            {mks.map((v, i) => {
+              let { active, sty } = isActice(v);
+              return (
+                <div class={["k-slider-mark-text", { "k-slider-mark-text-active": active }]} style={sty}>
+                  {txt[i]}
+                </div>
+              );
+            })}
+          </div>
+        );
+      };
+      const renderTrack = () => {
+        // let { vertical, max, min, range, included, marks, reverse } = ps;
+        let percent1 = 0,
+          percent2 = 0,
+          diff = max - min;
+        let w, l;
 
-      } else {
-        let [x, y] = defaultValue
-        percent1 = ((x - min) / diff) * 100
-        percent2 = ((y - min) / diff) * 100
-      }
-      let trackSty = {}
-      // console.log(percent1, percent2)
-      if (percent2 > percent1) {
-        w = percent2 - percent1
-        l = percent1
-      } else {
-        w = percent1 - percent2
-        l = percent2
-      }
-      if (reverse) {
-        trackSty = vertical ? {
-          height: `${w}%`,
-          top: 'auto',
-          bottom: `${l}%`
-        } : {
-          width: `${w}%`,
-          left: 'auto',
-          right: `${l}%`
+        if (!range) {
+          percent2 = ((defaultValue.value - min) / diff) * 100;
+        } else {
+          let [x, y] = defaultValue.value;
+          percent1 = ((x - min) / diff) * 100;
+          percent2 = ((y - min) / diff) * 100;
         }
-      } else {
-        trackSty = vertical ? {
-          height: `${w}%`,
-          top: `${l}%`
-        } : {
-          width: `${w}%`,
-          left: `${l}%`
+        let trackSty = {};
+        if (percent2 > percent1) {
+          w = percent2 - percent1;
+          l = percent1;
+        } else {
+          w = percent1 - percent2;
+          l = percent2;
         }
-      }
-      return (included && marks) || !marks ?
-        <div class="k-slider-track" style={{ ...trackSty }}></div> : null
-
-    },
-    thumbProps() {
-      let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter, size } = this
-      return {
-        props: {
-          vertical, disabled, range, step, reverse, min, size,
-          max, tipFormatter, tooltipVisible,
-          value: range ? [].concat(defaultValue) : defaultValue * 1
-        },
-        on: {
-          input: (value) => {
-            if (value !== defaultValue) {
-              this.defaultValue = value
-              this.$emit('input', value)
-              this.$emit('change', value)
-            }
-          }
+        if (reverse) {
+          trackSty = vertical
+            ? {
+                height: `${w}%`,
+                top: "auto",
+                bottom: `${l}%`,
+              }
+            : {
+                width: `${w}%`,
+                left: "auto",
+                right: `${l}%`,
+              };
+        } else {
+          trackSty = vertical
+            ? {
+                height: `${w}%`,
+                top: `${l}%`,
+              }
+            : {
+                width: `${w}%`,
+                left: `${l}%`,
+              };
         }
-      }
-    }
+        return (included && marks) || !marks ? <div class="k-slider-track" style={{ ...trackSty }}></div> : null;
+      };
+      // const thumbProps = {
+      //   // props: {
+      //   vertical,
+      //   disabled,
+      //   range,
+      //   step,
+      //   reverse,
+      //   min,
+      //   size,
+      //   max,
+      //   tipFormatter,
+      //   tooltipVisible,
+      //   value: range ? [].concat(defaultValue.value) : defaultValue.value * 1,
+      //   // onMousemove: mouseMove,
+      //   // },
+      //   // on: {
+      //   //   input: (value) => {
+      //   //     if (value !== defaultValue.value) {
+      //   //       defaultValue.value = value;
+      //   //       emit("update:value", value);
+      //   //       emit("change", value);
+      //   //     }
+      //   //   },
+      //   // },
+      // };
+      return (
+        <div class={["k-slider", { "k-slider-disabled": disabled, "k-slider-vertical": vertical }]}>
+          <div class="k-slider-bar">
+            <div class="k-slider-rail" ref={railRef} onClick={click}></div>
+            {renderTrack()}
+            {/* {ps.range ? <Thumb {...thumbProps()} /> : null} */}
+            {/* <Thumb {...thumbProps} type="right" /> */}
+            {renderMark()}
+          </div>
+        </div>
+      );
+    };
   },
-  render() {
-    let { disabled, vertical, range } = this
-    let leftProps = this.thumbProps()
-    let rightProps = this.thumbProps()
-    let trackNode = this.renderTrack()
-    let markNode = this.renderMark()
-
-    return <div class={['k-slider', { 'k-slider-disabled': disabled, 'k-slider-vertical': vertical }]}>
-      <div class="k-slider-bar">
-        <div class="k-slider-rail" ref="rail" onClick={this.click}></div>
-        {trackNode}
-        {range ? <Thumb {...leftProps} /> : null}
-        <Thumb {...rightProps} type="right" />
-        {markNode}
-      </div>
-      {/* {this.renderMark()} */}
-    </div>
-  }
-} 
+});

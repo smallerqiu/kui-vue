@@ -5,7 +5,6 @@ import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "Star",
   props: {
-    value: { type: Number },
     character: [String, Function],
     tooltips: String,
     percent: Number,
@@ -17,57 +16,34 @@ export default defineComponent({
     size: Number,
     index: Number,
   },
+  emits: ["update"], 
   setup(ps, { slots, emit }) {
-    const checked = ref(false);
-    // const tempValue = ref(0);
-    // const click = () => {
-    //   if (ps.disabled) return;
-    //   emit("click", tempValue.value || ps.value);
-    // };
-    // const mouseEnter = () => {
-    //   if (ps.disabled) return;
-    //   checked.value = true;
-    //   emit("mouseenter", tempValue.value || ps.value);
-    // };
-    // const mouseLeave = () => {
-    //   if (ps.disabled) return;
-    //   checked.value = false;
-    //   emit("mouseleave", tempValue.value || ps.value);
-    // };
-    const mouseMove = (e) => {
-      if (ps.disabled || !ps.allowHalf) return;
-      let num = ps.index;
+    const update = (e, t) => {
+      if (ps.disabled) return;
       let { target, clientX } = e;
+      let percent = 0;
       if (target) {
         let { left, width } = target.getBoundingClientRect();
-        let center = parseInt(left) + parseInt(width) / 2;
-        if (clientX < center) {
-          num -= 0.5;
-        }
+        percent = (clientX - left) / width;
       }
-      // tempValue.value = num;
-      emit("mouseenter", num);
+      emit("update", t, ps.index, percent);
     };
 
     return () => {
-      let { full, half, allowHalf, tooltips, icon, percent, disabled, size } = ps;
+      let { full, half, allowHalf, character, tooltips, icon, percent, disabled, size } = ps;
       const props = {
         class: [
           "k-star",
           {
-            // "k-star-checked": checked.value,
             "k-star-full": full,
             "k-star-half": half,
           },
         ],
-        // onMouseenter: mouseEnter,
-        // onMouseleave: mouseLeave,
-        // onClick: click,
+        onClick: (e) => update(e, "C"),
+        onMousemove: (e) => update(e, "M"),
       };
-      const show_percent = disabled && percent != 50 && percent;
-      if (allowHalf) {
-        props.onMousemove = mouseMove;
-      }
+      const characterNode = typeof character == "function" ? character(ps.index) : character;
+      const iconType = typeof icon == "function" ? icon(ps.index) : icon;
       // if (typeof character == "function") {
       //   character = character(ps.value);
       // }
@@ -75,13 +51,12 @@ export default defineComponent({
       //   icon = icon(ps.value);
       // }
       // character = character ? <span>{character}</span> : null;
-      const character = null;
       const node = (
         <span {...props}>
-          <span class={["k-star-front", {}]} style={{ width: show_percent ? percent + "%" : null }}>
-            {character || <Icon type={icon || Star} size={size} />}
+          <span class={["k-star-front", {}]} style={{ width: disabled ? percent + "%" : null }}>
+            {characterNode || <Icon type={iconType || Star} size={size} />}
           </span>
-          <span class="k-star-back">{character || <Icon type={icon || Star} size={size} />}</span>
+          <span class="k-star-back">{characterNode || <Icon type={iconType || Star} size={size} />}</span>
         </span>
       );
       return tooltips ? <Tooltip title={tooltips}>{node}</Tooltip> : node;
