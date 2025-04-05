@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from "./info.md";
 import Base from "./base.md";
 import Half from "./half.md";
@@ -10,18 +10,18 @@ import Custom from "./custom.md";
 
 import CN from "../index.md";
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-rate">
         <Info />
         <Base />
         <Half />
-        <Tips />
+        {/* <Tips />
         <Disabled />
         <Clear />
         <Character />
         <Custom />
-        <CN />
+        <CN /> */}
       </div>
     );
   },

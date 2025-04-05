@@ -33,7 +33,7 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // import Popconfirm from './popconfirm'
 // import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from "./radio";
-// import Rate from './rate'
+import Rate from './rate'
 // import { Select, Option } from './select'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
 // import Slider from './slider'
@@ -104,7 +104,7 @@ const components = {
   Radio,
   RadioGroup,
   RadioButton,
-  // Rate,
+  Rate,
   // Select, Option,
   Space,
   // Spin,
