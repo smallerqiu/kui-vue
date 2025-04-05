@@ -36,12 +36,12 @@ export default defineComponent({
             <div class="k-desc-content">{slots.description?.()}</div>
           </div>
           <div class="k-code-actions">
-            {/* <Tooltip title={expand.value ? "隐藏代码" : "显示代码"}> */}
-            <Icon type={CaretHor} onClick={toggleExpand} style={{ "border-bottom-left-radius": !expand.value ? "12px" : 0 }} />
-            {/* </Tooltip> */}
-            {/* <Tooltip title="复制代码"> */}
-            <Icon type={CopyOutline} onClick={handleCopy} style={{ "border-bottom-right-radius": !expand.value ? "12px" : 0 }} />
-            {/* </Tooltip> */}
+            <Tooltip title={expand.value ? "隐藏代码" : "显示代码"}>
+              <Icon type={CaretHor} onClick={toggleExpand} style={{ "border-bottom-left-radius": !expand.value ? "12px" : 0 }} />
+            </Tooltip>
+            <Tooltip title="复制代码">
+              <Icon type={CopyOutline} onClick={handleCopy} style={{ "border-bottom-right-radius": !expand.value ? "12px" : 0 }} />
+            </Tooltip>
           </div>
         </div>
         <Transition {...transProp}>
