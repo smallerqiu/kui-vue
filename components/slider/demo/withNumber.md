@@ -8,15 +8,15 @@
   <div>
     <Row>
       <Col :span="12">
-        <Slider v-model="n1" :min="1" :max="20" />
+        <Slider v-model:value="n1" :min="1" :max="20" />
       </Col>
       <Col :span="4">
-        <InputNumber v-model="n1" :min="1" :max="20" style="margin-left: 16px" />
+        <InputNumber v-model:value="n1" :min="1" :max="20" style="margin-left: 16px" />
       </Col>
     </Row>
     <Row>
       <Col :span="12">
-        <Slider v-model="n2" :min="0" :max="1" :step="0.01" />
+        <Slider v-model:value="n2" :min="0" :max="1" :step="0.01" />
       </Col>
       <Col :span="4">
         <InputNumber
@@ -30,14 +30,9 @@
     </Row>
   </div>
 </template>
-<script lang="ts">
-export default ({
-  data() {
-    return {
-      n1:1,
-      n2:0,
-    };
-  },
-});
+<script setup>
+import { ref } from 'vue'
+const n1 = ref(1)
+const n2 = ref(0)
 </script>
 ```

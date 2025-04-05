@@ -16,12 +16,12 @@ export default {
         <Info />
         <Base />
         <Half />
-        {/* <Tips />
+        <Tips />
         <Disabled />
         <Clear />
         <Character />
         <Custom />
-        <CN /> */}
+        <CN />
       </div>
     );
   },

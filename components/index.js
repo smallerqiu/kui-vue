@@ -36,7 +36,7 @@ import { Radio, RadioGroup, RadioButton } from "./radio";
 import Rate from './rate'
 // import { Select, Option } from './select'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
-// import Slider from './slider'
+import Slider from './slider'
 import Space from "./space";
 // import Spin from './spin'
 import Switch from "./switch";
@@ -109,7 +109,7 @@ const components = {
   Space,
   // Spin,
   // Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText,
-  // Slider,
+  Slider,
   // Table,
   // Tabs, TabPane,
   // TimeLine, TimeLineItem,

@@ -17,68 +17,75 @@ export default defineComponent({
   },
   setup(ps, { slots, emit }) {
     const initValue = ref(ps.value);
-    const tempValue = ref(ps.value);
-    const click = (index) => {
-      index = index + 1;
-      if (initValue.value && ps.allowClear && index == initValue.value) {
-        index = 0;
+    const tempValue = ref(null);
+    const cleared = ref(false);
+    const update = (t, index, percent) => {
+      if (t == "M") {
+        if (cleared.value) return;
+        // mouse move
+        if (ps.allowHalf) {
+          let value = index - (percent < 0.5 ? 0.5 : 0);
+          tempValue.value = value;
+        } else {
+          tempValue.value = index;
+        }
+      } else {
+        // click 允许清零
+        let value = index - (ps.allowHalf ? (percent < 0.5 ? 0.5 : 0) : 0);
+        value = parseFloat(value.toFixed(2));
+        initValue.value = value == initValue.value && ps.allowClear ? 0 : value;
+        if (initValue.value == 0) {
+          cleared.value = true;
+          tempValue.value = null;
+        }
+        emit("update:value", initValue.value);
       }
-      if (initValue.value != index) {
-        emit("change", index);
-      }
-      initValue.value = index;
-      tempValue.value = index;
+    };
 
-      emit("update:value", index);
-    };
-    const mouseEnter = (index) => {
-      tempValue.value = index + 1;
-    };
     const mouseLeave = (index) => {
-      tempValue.value = initValue.value;
+      tempValue.value = null;
+      cleared.value = false;
     };
 
     return () => {
-      const tpValue = tempValue.value;
-      let { count,  allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
+      const tpValue = tempValue.value || initValue.value;
+      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
       const stars = [];
       if (Number(count) == NaN || count <= 0) {
         count = 5;
       }
       if (count > 15) count = 15;
 
-      for (let i = 0; i < count; i++) {
-        let v = parseInt((tpValue - 1) * 100);
-        let percent = tpValue > i && tpValue < i + 1 ? v : 0;
-        let half = (tpValue > i && tpValue < i + 1 && allowHalf) || percent == 50;
+      for (let i = 1; i <= count; i++) {
+        const mod = i - tpValue;
+        const percent = (1 - (i - tpValue)) * 100;
         let sp = {
           allowHalf,
-          full: tpValue > i && !half,
-          half,
+          full: tpValue >= i,
+          half: mod > 0 && mod < 1,
           icon,
           character,
           size,
           disabled,
-          value: i,
-          percent,
-          tooltips: tooltips[i],
+          percent: percent < 100 ? percent : null,
+          tooltips: tooltips[i - 1],
           index: i,
-          onClick: click,
-          onMouseenter: mouseEnter,
+          onUpdate: update,
         };
         stars.push(<Star {...sp} />);
       }
       let props = {
-        class: "k-rate",
+        class: ["k-rate", { "k-rate-disabled": disabled }],
         onMouseleave: mouseLeave,
+        style: { fontSize: size + "px" },
       };
       if (color) {
-        props.style = { color };
+        props.style.color = color;
       }
       return (
         <div {...props}>
           {stars}
-          {disabled && showScore ? <span class="k-rate-score">{ps.value}</span> : null}
+          {showScore ? <span class="k-rate-score">{ps.value}</span> : null}
         </div>
       );
     };
