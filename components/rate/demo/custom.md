@@ -10,20 +10,7 @@
     <Rate :icon="(i)=> icons[i]" :value="3"/>
   </Space>
 </template>
-<script>
+<script setup>
 import { VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";
-export default{
-  data() {
-    return {
-      icons:[
-        VolumeOff,
-        VolumeLow,
-        VolumeMedium,
-        VolumeHigh,
-        VolumeMute
-      ]
-    }
-  }
-}
 </script>
 ```

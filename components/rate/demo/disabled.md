@@ -11,14 +11,7 @@
     <Rate disabled :value="8.7" show-score :count="10"/>
   </Space>
 </template>
-<script>
+<script setup>
 import { Heart } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart
-    }
-  }
-}
 </script>
 ```

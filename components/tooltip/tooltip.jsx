@@ -25,11 +25,9 @@ export default defineComponent({
     const popper = ref(null);
     const left = ref(0);
     const top = ref(0);
-    const render = (e) => {
-      console.log("render");
-      rendered.value = true;
-
-      visible.value = true;
+    const currentPlacement = ref(ps.placement);
+    const transOrigin = ref("bottom");
+    const resetPosition = (e) => {
       nextTick(() => {
         let selectionRect = e.target.getBoundingClientRect();
         const offset = 3;
@@ -49,83 +47,87 @@ export default defineComponent({
         const rightSpace = windowWidth - (selectionRect.left + selectionRect.width);
 
         // 动态调整 placement
-        let adjustedPlacement = ps.placement;
-        switch (ps.placement) {
-          case "top":
-            if (topSpace < pickerHeight + offset) {
-              adjustedPlacement = "bottom"; // 如果上方空间不足，调整为下方
-            }
-            break;
-          case "bottom":
-            if (bottomSpace < pickerHeight + offset) {
-              adjustedPlacement = "top"; // 如果下方空间不足，调整为上方
-            }
-            break;
-          case "left":
-            if (leftSpace < pickerWidth + offset) {
-              adjustedPlacement = "right"; // 如果左侧空间不足，调整为右侧
-            }
-            break;
-          case "right":
-            if (rightSpace < pickerWidth + offset) {
-              adjustedPlacement = "left"; // 如果右侧空间不足，调整为左侧
-            }
-            break;
-          default:
-            // 默认处理
-            adjustedPlacement = ps.placement;
+        let apt = currentPlacement.value;
+        if (apt.startsWith("top")) {
+          if (topSpace < pickerHeight + offset) {
+            apt = apt.replace("top", "bottom"); // 如果上方空间不足，调整为下方
+          }
+        } else if (apt.startsWith("bottom")) {
+          if (bottomSpace < pickerHeight + offset) {
+            apt = apt.replace("bottom", "top"); // 如果下方空间不足，调整为上方
+          }
+        } else if (apt.startsWith("left")) {
+          if (leftSpace < pickerWidth + offset) {
+            apt = apt.replace("left", "right"); // 如果左侧空间不足，调整为右侧
+          }
+        } else if (apt.startsWith("right")) {
+          if (rightSpace < pickerWidth + offset) {
+            apt = apt.replace("right", "left"); // 如果右侧空间不足，调整为左侧
+          }
         }
-
+        currentPlacement.value = apt;
         // top.value = selectionRect.top - pickerHeight - offset + scrollTop;
         // left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
-        switch (adjustedPlacement) {
+        switch (apt) {
           case "top":
             top.value = selectionRect.top - pickerHeight - offset + scrollTop;
             left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+            transOrigin.value = "bottom";
             break;
           case "top-left":
             top.value = selectionRect.top - pickerHeight - offset + scrollTop;
             left.value = selectionRect.left + scrollLeft;
+            transOrigin.value = "left bottom";
             break;
           case "top-right":
             top.value = selectionRect.top - pickerHeight - offset + scrollTop;
             left.value = selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
+            transOrigin.value = "right bottom";
             break;
           case "bottom":
             top.value = selectionRect.top + selectionRect.height + offset + scrollTop;
             left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+            transOrigin.value = "center top";
             break;
           case "bottom-left":
             top.value = selectionRect.top + selectionRect.height + offset + scrollTop;
             left.value = selectionRect.left + scrollLeft;
+            transOrigin.value = "left top";
             break;
           case "bottom-right":
             top.value = selectionRect.top + selectionRect.height + offset + scrollTop;
             left.value = selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
+            transOrigin.value = "right top";
             break;
           case "left":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
+            transOrigin.value = "left center";
             break;
           case "left-top":
             top.value = selectionRect.top + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
+            transOrigin.value = "left top";
             break;
           case "left-bottom":
             top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
+            transOrigin.value = "left bottom";
             break;
           case "right":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
             left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+            transOrigin.value = "left center";
             break;
           case "right-top":
             top.value = selectionRect.top + scrollTop;
             left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+            transOrigin.value = "left top";
             break;
           case "right-bottom":
             top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
             left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+            transOrigin.value = "left bottom";
             break;
           default:
             // 默认处理
@@ -134,10 +136,22 @@ export default defineComponent({
         }
       });
     };
+    const render = (e) => {
+      if (!render.value) {
+        rendered.value = true;
+        nextTick(() => {
+          visible.value = true;
+          resetPosition(e);
+        });
+      } else {
+        visible.value = true;
+        resetPosition(e);
+      }
+    };
     return () => {
       const title = slots.title?.() || ps.title;
       const preCls = "tooltip";
-      const { color, placement } = ps;
+      const { color } = ps;
       const cls = [
         `k-${preCls}`,
         {
@@ -156,13 +170,14 @@ export default defineComponent({
       const styles = {
         left: `${left.value}px`,
         top: `${top.value}px`,
+        transformOrigin: transOrigin.value,
       };
       return (
         <>
           {node}
           {rendered.value ? (
             <Transition name="k-tooltip">
-              <div class={cls} v-transfer={true} k-placement={placement} v-show={visible.value} style={styles} ref={popper}>
+              <div class={cls} v-transfer={true} k-placement={currentPlacement.value} v-show={visible.value} style={styles} ref={popper}>
                 <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? color : null }}>
                   <div class={`k-${preCls}-title`}>{title}</div>
                   <div class={`k-${preCls}-arrow`}>

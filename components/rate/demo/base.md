@@ -12,14 +12,7 @@
     <Rate :icon="Heart" allowHalf color="red" :value="3.5" :size="40"/>
   </Space>
 </template>
-<script>
+<script setup>
 import { Heart } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart
-    }
-  }
-}
 </script>
 ```
