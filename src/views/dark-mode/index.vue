@@ -1,19 +1,19 @@
-<script>
+<script lang="jsx">
 import Info from './base.md'
 import Mode from './mode.md'
 import Local from './local.md'
-import LocalEg from './local-eg.md'
+// import LocalEg from './local-eg.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div>
         <Info />
         <Mode />
         <Local />
-        <LocalEg />
+        {/* <LocalEg /> */}
       </div>
     )
   }
 }
 
-</script> 
+</script>

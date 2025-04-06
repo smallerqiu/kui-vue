@@ -13,14 +13,7 @@
     </Breadcrumb>
   </div>
 </template>
-<script>
+<script setup>
 import { Heart, Home, Cloud } from "kui-icons"
-export default{
-  data() {
-    return {
-      Heart, Home, Cloud
-    }
-  }
-}
 </script>
 ```

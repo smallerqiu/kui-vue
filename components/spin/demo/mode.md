@@ -6,7 +6,7 @@
 ```vue
 <template>
 <div>
-  <Spin v-model="spinning" :mode="mode">
+  <Spin v-model:value="spinning" :mode="mode">
     <div class="deme-spin-container demo-back">
         床前明月光，疑是地上霜。<br>
         举头望明月，低头思故乡。
@@ -14,10 +14,10 @@
   </Spin>
     <br/>
   <br/>
-  Loading state：<Switch v-model="spinning" @change="change"/>
+  Loading state：<k-switch v-model:checked="spinning"/>
   <br/>
   <br/>
-  <RadioGroup v-model="mode" @change="changeMode">
+  <RadioGroup v-model:value="mode">
     <Radio value="bounce" label="Bounce"/>
     <Radio value="flip" label="Flip"/>
     <Radio value="rotate" label="Rotate"/>
@@ -25,28 +25,14 @@
   </RadioGroup>
 </div>
 </template>
+<script setup>
+import { ref } from 'vue'
+const mode = ref('bounce')
+const spinning = ref(false)
+</script>
 <style scoped>
 .deme-spin-container{
   padding:100px 50px;
 }
 </style>
-<script>
-export default{
-  data() {
-    return {
-      spinning:false,
-      mode:"bounce"
-    }
-  },
-  methods:{
-    change(checked){
-      this.spinning = checked
-    },
-    changeMode({value}){
-      this.mode = value
-    }
-  }
-}
-</script>
-
 ```

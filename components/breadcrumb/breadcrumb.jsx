@@ -1,11 +1,7 @@
-import { getChild } from '../_tool/utils'
-export default {
-  name: 'Breadcrumb',
-  render() {
-    return (
-      <div class="k-breadcrumb">
-        {getChild(this.$slots.default)}
-      </div>
-    )
-  }
-}
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "Breadcrumb",
+  setup(ps, { slots }) {
+    return <div class="k-breadcrumb">{slots.default?.()}</div>;
+  },
+});

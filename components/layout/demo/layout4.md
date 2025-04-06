@@ -30,7 +30,7 @@
     </Layout>
   </div>
 </template>
-<script>
+<script setup>
 import { LogoKui , Home, StatsChart, Settings } from 'kui-icons'
 export default{
   data() {

@@ -29,7 +29,7 @@ export default defineComponent({
   //   let touch = !!("ontouchstart" in window || (window.DocumentTouch && document instanceof window.DocumentTouch));
   //   this.touch = touch;
   // },
-  emits: ["thumbMove",'updatePos'],
+  emits: ["thumbMove", "updatePos"],
   setup(ps, { slots, emit }) {
     const isMouseDown = ref(false);
     const index = ref(1);
@@ -42,7 +42,7 @@ export default defineComponent({
         emit("updatePos", e);
       }
     };
-    
+
     const mouseUp = (e) => {
       isMouseDown.value = false;
       index.value = 1;
@@ -56,6 +56,7 @@ export default defineComponent({
       document.removeEventListener(e2, mouseUp);
     };
     const onMouseDown = (e) => {
+      emit("updatePos", 123123123);
       if (ps.disabled) return;
       isMouseDown.value = true;
       showTip.value = true;
@@ -66,7 +67,6 @@ export default defineComponent({
     };
 
     return () => {
-
       let { vertical, value, disabled, max, min, size, tipFormatter, range, type, reverse, tooltipVisible } = ps;
       const props = {
         class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
@@ -120,7 +120,7 @@ export default defineComponent({
       const tipProps = {
         title: tip,
         // value: showTip.value,
-        show:  showTip.value,
+        show: showTip.value,
         // trigger: "nromal",
         // on: {
         //   input: (value) => (showTip.value = value),

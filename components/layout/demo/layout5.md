@@ -67,7 +67,7 @@
     </Layout>
   </div>
 </template>
-<script>
+<script setup>
 import { LogoKui,ChevronBack, NotificationsOutline, ChevronForward, Search, StatsChart, Home, Settings } from "kui-icons";
 export default {
   data() {

@@ -29,7 +29,6 @@ export default defineComponent({
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const resetPosition = (e) => {
-      console.log(123);
       nextTick(() => {
         let selectionRect = e.target.getBoundingClientRect();
         const offset = 3;
@@ -164,7 +163,7 @@ export default defineComponent({
           [`k-${preCls}-dark`]: ps.dark,
         },
       ];
-      const childs = slots.default?.();
+      const childs = getChildren(slots.default?.());
       const nodes = childs?.map((node) =>
         cloneVNode(
           node,
@@ -173,7 +172,9 @@ export default defineComponent({
             onMouseleave: () => {
               visible.value = false;
             },
-            onUpdatePos: resetPosition,
+            onUpdatePos: () => {
+              console.log("test");
+            },
           },
           true,
           true

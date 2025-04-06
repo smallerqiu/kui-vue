@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 
 let children = [
   { path: "/start/getting-started", component: () => import(/*webpackChunkName:'start'*/ "./views/start.md") },
-  // { path: '/start/language', component: () => import(/*webpackChunkName:'i18n'*/'./views/i18n.md') },
-  // { path: '/start/logs', component: () => import(/*webpackChunkName:'logs'*/'./views/log.md') },
-  // { path: '/start/ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr.md') },
-  // { path: '/start/theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme.md') },
-  // { path: '/start/dark-mode', component: () => import(/*webpackChunkName:'dark-mode'*/'./views/dark-mode/index') },
-  // { path: '/start/components', component: () => import(/*webpackChunkName:'kit'*/'./views/all.jsx') },
+  { path: '/start/language', component: () => import(/*webpackChunkName:'i18n'*/'./views/i18n.md') },
+  { path: '/start/logs', component: () => import(/*webpackChunkName:'logs'*/'./views/log.md') },
+  { path: '/start/ssr', component: () => import(/*webpackChunkName:'ssr'*/'./views/ssr.md') },
+  { path: '/start/theme', component: () => import(/*webpackChunkName:'theme'*/'./views/theme.md') },
+  { path: '/start/dark-mode', component: () => import(/*webpackChunkName:'dark-mode'*/'./views/dark-mode/index') },
+  { path: '/start/components', component: () => import(/*webpackChunkName:'kit'*/'./views/all.jsx') },
 
   { path: "/notices/alert", component: () => import(/*webpackChunkName:'alert'*/ "../components/alert/demo") },
   { path: "/navigation/affix", component: () => import(/*webpackChunkName:'affix'*/ "../components/affix/demo") },
@@ -46,7 +46,7 @@ let children = [
   { path: '/forms/slider', component: () => import(/*webpackChunkName:'slider'*/'../components/slider/demo'), },
   // { path: '/notices/skeleton', component: () => import(/*webpackChunkName:'skeleton'*/'../components/skeleton/demo'), },
   { path: '/layouts/space', component: () => import(/*webpackChunkName:'space'*/'../components/space/demo'), },
-  // { path: '/notices/spin', component: () => import(/*webpackChunkName:'spin'*/'../components/spin/demo'), },
+  { path: '/notices/spin', component: () => import(/*webpackChunkName:'spin'*/'../components/spin/demo'), },
   { path: '/forms/switch', component: () => import(/*webpackChunkName:'switch'*/'../components/switch/demo'), },
   // { path: '/datas/table', component: () => import(/*webpackChunkName:'table'*/'../components/table/demo'), },
   { path: '/notices/tag', component: () => import(/*webpackChunkName:'tag'*/'../components/tag/demo'), },

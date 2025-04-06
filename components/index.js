@@ -38,7 +38,7 @@ import Rate from './rate'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
 import Slider from './slider'
 import Space from "./space";
-// import Spin from './spin'
+import Spin from './spin'
 import Switch from "./switch";
 // import Table from './table'
 import Tooltip from './tooltip'
@@ -107,7 +107,7 @@ const components = {
   Rate,
   // Select, Option,
   Space,
-  // Spin,
+  Spin,
   // Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText,
   Slider,
   // Table,
