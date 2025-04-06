@@ -1,6 +1,7 @@
 import { defineComponent, cloneVNode, provide, computed } from "vue";
 import Radio from "./radio.jsx";
 import Button from "./button.jsx";
+import { getChildren } from "../utils/vnode.js";
 export default defineComponent({
   name: "RadioGroup",
   props: {
@@ -32,7 +33,7 @@ export default defineComponent({
 
     return () => {
       const { options, type, direction, theme, shape, size } = ps;
-      let childs = slots.default?.();
+      let childs = getChildren(slots.default?.());
 
       if (options && options.length) {
         childs = options.map((option) => {
@@ -52,7 +53,7 @@ export default defineComponent({
         });
       } else {
         childs = childs?.map((child) => {
-          return cloneVNode(child, { size, theme, shape, checked: ps.value == child.props.value, onUpdate: change });
+          return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
         });
       }
       const classes = ["k-radio-group", { "k-radio-cirle": shape == "circle" }, { "k-radio-group-light": theme == "light" && type == "button" }, { "k-radio-group-card": theme == "card" && type == "button" }, { "k-radio-group-vertical": direction == "vertical" }];

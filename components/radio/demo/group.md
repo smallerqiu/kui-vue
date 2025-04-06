@@ -19,8 +19,10 @@
       <Radio label="Grape" value="grape" disabled/>
       <Radio label="Pear" value="pear" disabled/>
     </RadioGroup>
-    
-    {{cities}}
+    <!-- <RadioGroup v-model:value="cities">
+      最好还是使用 optinos 做参数
+      <Radio :label="item.label" :value="item.value" v-for="item in options" :key="item" />
+    </RadioGroup> -->
     <RadioGroup :options="options" v-model:value="cities"/>
   </Space>
 </template>

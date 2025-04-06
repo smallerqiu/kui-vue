@@ -43,7 +43,7 @@ import Switch from "./switch";
 // import Table from './table'
 import Tooltip from './tooltip'
 // import { Tabs, TabPane } from './tabs'
-// import { TimeLine, TimeLineItem } from './timeline'
+import { TimeLine, TimeLineItem } from './timeline'
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
 import Tag from './tag'
@@ -112,7 +112,7 @@ const components = {
   Slider,
   // Table,
   // Tabs, TabPane,
-  // TimeLine, TimeLineItem,
+  TimeLine, TimeLineItem,
   Tag,
   Tooltip,
   // Tree, TreeNode,

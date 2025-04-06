@@ -6,6 +6,7 @@
 ```vue
 <template>
   <div style="max-width:520px;">
+    {{v1}}
      <Slider v-model:value="v1" :step="10" :disabled="disabled" :min="20"/>
      <Slider v-model:value="v2" range :disabled="disabled" :min="10" :max="80"/>
      
@@ -15,7 +16,7 @@
       :value="25"></Slider>
      <br />
      <br />
-     Disabled: <Switch v-model:checked="disabled" />
+     Disabled: <k-switch v-model:checked="disabled" />
   </div>
 </template>
 <script setup>

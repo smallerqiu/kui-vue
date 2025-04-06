@@ -1,5 +1,5 @@
 import Tooltip from "../tooltip";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, inject } from "vue";
 export default defineComponent({
   props: {
     vertical: Boolean,
@@ -29,6 +29,7 @@ export default defineComponent({
   //   let touch = !!("ontouchstart" in window || (window.DocumentTouch && document instanceof window.DocumentTouch));
   //   this.touch = touch;
   // },
+  emits: ["thumbMove",'updatePos'],
   setup(ps, { slots, emit }) {
     const isMouseDown = ref(false);
     const index = ref(1);
@@ -37,9 +38,11 @@ export default defineComponent({
     const mouseMove = (e) => {
       if (isMouseDown.value) {
         e.preventDefault();
-        emit("mousemove", e)
+        emit("thumbMove", e, ps.type);
+        emit("updatePos", e);
       }
     };
+    
     const mouseUp = (e) => {
       isMouseDown.value = false;
       index.value = 1;
@@ -57,13 +60,13 @@ export default defineComponent({
       isMouseDown.value = true;
       showTip.value = true;
       index.value = 2;
-      // this.mouseMove(e)
       let [e1, e2] = touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       document.addEventListener(e1, mouseMove);
       document.addEventListener(e2, mouseUp);
     };
 
     return () => {
+
       let { vertical, value, disabled, max, min, size, tipFormatter, range, type, reverse, tooltipVisible } = ps;
       const props = {
         class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
@@ -72,7 +75,7 @@ export default defineComponent({
           zIndex: index.value,
         },
         onMousedown: onMouseDown,
-        touchstart: onMouseDown,
+        onTouchstart: onMouseDown,
         onMouseenter: () => {
           if (!disabled) showTip.value = true;
         },
@@ -115,12 +118,10 @@ export default defineComponent({
         tip = tipFormatter(tip);
       }
       const tipProps = {
-        props: {
-          title: tip,
-          // value: showTip.value,
-          show: tooltipVisible,
-          // trigger: "nromal",
-        },
+        title: tip,
+        // value: showTip.value,
+        show:  showTip.value,
+        // trigger: "nromal",
         // on: {
         //   input: (value) => (showTip.value = value),
         // },
