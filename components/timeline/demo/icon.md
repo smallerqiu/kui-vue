@@ -19,14 +19,7 @@
     </TimeLine>
   </div>
 </template>
-<script>
+<script setup>
 import { Ribbon, Build } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Ribbon, Build
-    }
-  }
-}
 </script>
 ```

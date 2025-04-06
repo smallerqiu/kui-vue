@@ -2,13 +2,11 @@
 export default {
   mounted(el, { value }, vnode) {
     const SSR = typeof window === "undefined";
-    console.log(value)
     if (!SSR && value) {
       const parentNode = el.parentNode
       if (!parentNode) return false;
 
       const target = (value === true ? document.body : value) || document.body
-      // let empty = document.createComment('')
 
       if (target != document.body) {
         target.appendChild(el)
@@ -16,12 +14,6 @@ export default {
       } else {
 
         let box = document.createElement('div')
-        // box.style.top = 0
-        // box.style.left = 0
-        // box.style.width = '100%'
-        // box.style.position = 'absolute'
-
-        // parentNode.replaceChild(empty, el)
 
         box.appendChild(el)
         target.appendChild(box)

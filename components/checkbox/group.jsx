@@ -1,5 +1,6 @@
 import Checkbox from "./checkbox";
 import { defineComponent, provide, cloneVNode, computed } from "vue";
+import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "CheckboxGroup",
   props: {
@@ -35,7 +36,7 @@ export default defineComponent({
 
     return () => {
       const { options, direction, size } = ps;
-      let childs = slots.default?.();
+      let childs = getChildren(slots.default?.());
       if (options && options?.length) {
         childs = options.map((option) => {
           let pps = {

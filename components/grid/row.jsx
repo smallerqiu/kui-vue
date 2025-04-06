@@ -1,4 +1,4 @@
-import { defineComponent, provide } from "vue";
+import { defineComponent, provide, ref, watch } from "vue";
 export default defineComponent({
   name: "Row",
   props: {
@@ -18,11 +18,18 @@ export default defineComponent({
     },
   },
   setup(ps, { slots }) {
-    let { align, justify, gutter } = ps;
-
+    const gutter = ref(ps.gutter);
     provide("gutter", gutter);
 
+    watch(
+      () => ps.gutter,
+      (nv, no) => {
+        gutter.value = ps.gutter;
+      }
+    );
+
     return () => {
+      const { align, justify, gutter } = ps;
       let props = {
         class: [
           "k-row",

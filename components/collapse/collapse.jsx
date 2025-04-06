@@ -1,4 +1,5 @@
 import { defineComponent, cloneVNode, ref, watch, provide } from "vue";
+import { getChildren } from "../utils/vnode";
 
 export default defineComponent({
   name: "Collapse",
@@ -39,7 +40,7 @@ export default defineComponent({
           ["k-collaplse-sample"]: ps.sample,
         },
       ];
-      const childs = slots.default?.();
+      const childs = getChildren(slots.default?.());
 
       return (
         <div class={classes}>

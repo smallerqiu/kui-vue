@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <RadioGroup v-model="mode">
+    <RadioGroup v-model:value="mode">
       <Radio label="left" value="left" />
       <Radio label="center" value="center" />
       <Radio label="alternate" value="alternate" />
@@ -28,15 +28,9 @@
     </TimeLine>
   </div>
 </template>
-<script>
+<script setup>
 import { Ribbon, Build } from "kui-icons";
-export default{
-  data() {
-    return {
-      Ribbon, Build,
-      mode:'left'
-    }
-  }
-}
+import { ref } from 'vue'
+const mode = ref('left')
 </script>
 ```

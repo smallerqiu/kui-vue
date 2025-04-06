@@ -2,7 +2,7 @@ import { defineComponent, inject, ref, watch } from "vue";
 export default defineComponent({
   name: "Radio",
   props: {
-    value: { type: [String, Number], default: false },
+    value: { type: [String, Number] },
     disabled: Boolean,
     checked: [Boolean, Number],
     label: [String, Number],

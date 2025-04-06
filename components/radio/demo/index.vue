@@ -11,10 +11,10 @@ export default {
   setup() {
     return () => (
       <div class="demo-radio">
-        <Info />
+         <Info />
         <Base />
         <Disabled />
-        <Options />
+       <Options />
         <Group />
         <GroupVertical />
         <Button />

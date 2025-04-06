@@ -1,4 +1,5 @@
 import { cloneVNode, defineComponent } from "vue";
+import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "AvatarGroup",
   props: {
@@ -8,7 +9,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     return () => {
-      let child = slots.default?.();
+      let child = getChildren(slots.default?.());
       let { shape, size } = props;
       return (
         <div class="k-avatar-group">

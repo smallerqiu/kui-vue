@@ -39,22 +39,22 @@ export default defineComponent({
     target: String,
   },
   setup(props, { emit, slots, attrs }) {
-    let childs = slots.default?.();
-    const onlyIcon = computed(() => !childs?.length && props.icon);
-    const classes = computed(() => [
-      "k-btn",
-      {
-        [`k-btn-${props.type}`]: !!props.type && props.type !== "default",
-        ["k-btn-sm"]: props.size === "small",
-        ["k-btn-block"]: !!props.block,
-        ["k-btn-loading"]: props.loading,
-        ["k-btn-icon-only"]: onlyIcon.value,
-        ["k-btn-lg"]: props.size === "large",
-        ["k-btn-circle"]: props.shape === "circle",
-        [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
-      },
-    ]);
     return () => {
+      let childs = slots.default?.();
+      const onlyIcon = !childs?.length && props.icon;
+      const classes = [
+        "k-btn",
+        {
+          [`k-btn-${props.type}`]: !!props.type && props.type !== "default",
+          ["k-btn-sm"]: props.size === "small",
+          ["k-btn-block"]: !!props.block,
+          ["k-btn-loading"]: props.loading,
+          ["k-btn-icon-only"]: onlyIcon,
+          ["k-btn-lg"]: props.size === "large",
+          ["k-btn-circle"]: props.shape === "circle",
+          [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
+        },
+      ];
       const iconType = props.loading ? Sync : props.icon;
       const iconNode = iconType ? <Icon type={iconType} spin={props.loading} /> : null;
 
@@ -62,7 +62,7 @@ export default defineComponent({
         ...attrs,
         disabled: props.disabled,
         type: props.htmlType,
-        class: classes.value,
+        class: classes,
       };
 
       const childNode = childs?.map((c) => {

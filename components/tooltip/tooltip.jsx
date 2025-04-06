@@ -1,6 +1,7 @@
 import { defineComponent, Transition, ref, cloneVNode, nextTick } from "vue";
 import { isColor } from "../utils/color";
 import transfer from "../directives/transfer";
+import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "Tooltip",
   directives: {
@@ -28,6 +29,7 @@ export default defineComponent({
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const resetPosition = (e) => {
+      console.log(123);
       nextTick(() => {
         let selectionRect = e.target.getBoundingClientRect();
         const offset = 3;
@@ -136,6 +138,7 @@ export default defineComponent({
         }
       });
     };
+
     const render = (e) => {
       if (!render.value) {
         rendered.value = true;
@@ -161,12 +164,22 @@ export default defineComponent({
           [`k-${preCls}-dark`]: ps.dark,
         },
       ];
-      const node = cloneVNode(slots.default?.()[0], {
-        onMouseenter: render,
-        onMouseleave: () => {
-          visible.value = false;
-        },
-      });
+      const childs = slots.default?.();
+      const nodes = childs?.map((node) =>
+        cloneVNode(
+          node,
+          {
+            onMouseenter: render,
+            onMouseleave: () => {
+              visible.value = false;
+            },
+            onUpdatePos: resetPosition,
+          },
+          true,
+          true
+        )
+      );
+
       const styles = {
         left: `${left.value}px`,
         top: `${top.value}px`,
@@ -174,7 +187,7 @@ export default defineComponent({
       };
       return (
         <>
-          {node}
+          {nodes}
           {rendered.value ? (
             <Transition name="k-tooltip">
               <div class={cls} v-transfer={true} k-placement={currentPlacement.value} v-show={visible.value} style={styles} ref={popper}>

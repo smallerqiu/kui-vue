@@ -11,10 +11,10 @@ export default defineComponent({
     },
     shape: String,
   },
-  setup(props, { slots }) {
-    const classes = computed(() => {
-      const { size, shape } = props;
-      return [
+  setup(ps, { slots }) {
+    return () => {
+      const { size, shape } = ps;
+      const classes = [
         "k-btn-group",
         {
           ["k-btn-group-sm"]: size == "small",
@@ -22,10 +22,7 @@ export default defineComponent({
           ["k-btn-group-circle"]: shape == "circle",
         },
       ];
-    });
-
-    return () => {
-      return <div class={classes.value}>{slots.default?.()}</div>;
+      return <div class={classes}>{slots.default?.()}</div>;
     };
   },
 });

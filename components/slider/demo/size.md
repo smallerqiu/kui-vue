@@ -18,7 +18,7 @@ size 可以控制操作杆的大小
       :value="25"></Slider>
      <br />
      <br />
-     Disabled: <Switch v-model:checked="disabled" />
+     Disabled: <KSwitch v-model:checked="disabled" />
   </div>
 </template>
 <script setup>

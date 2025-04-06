@@ -8,9 +8,6 @@ export default defineComponent({
   },
 
   setup(ps, { slots }) {
-    let { offset, span, flex } = ps;
-
-    const gutter = inject("gutter");
     const parseFlex = (flex) => {
       if (typeof flex === "number") {
         return `${flex} ${flex} auto`;
@@ -22,7 +19,8 @@ export default defineComponent({
     };
 
     return () => {
-
+      const gutter = inject("gutter")?.value;
+      let { offset, span, flex } = ps;
       let props = {
         class: [
           `k-col`,

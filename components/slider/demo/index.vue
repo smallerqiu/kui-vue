@@ -15,13 +15,13 @@ export default {
       <div class="demo-slider">
         <Info />
         <Base />
-        {/* <Size />
+        <Size />
         <WithNumber />
         <Formatter />
         <Marks />
         <Vertical />
         <Reverse />
-        <CN /> */}
+        <CN />
       </div>
     );
   },
