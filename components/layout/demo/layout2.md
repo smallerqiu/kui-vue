@@ -49,16 +49,10 @@
     </Layout>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
+const left = ref('t1')
 import { LogoKui, Home, StatsChart, Settings, Scan, Search, NotificationsOutline } from 'kui-icons'
-export default{
-  data() {
-    return {
-      LogoKui,Home, StatsChart, Settings, Scan, NotificationsOutline,Search,
-      left:['t1']
-    }
-  }
-}
 </script>
 <style scoped lang="less">
  .k-demo-layout{

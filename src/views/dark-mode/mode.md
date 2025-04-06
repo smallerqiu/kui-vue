@@ -8,20 +8,16 @@
   <Button theme="light" @click="switchMode">切换主题</Button>
 </template>
 
-<script>
-export default {
-  methods: {
-    switchMode(){
-      const body = document.documentElement;
-      if (body.hasAttribute('theme-mode')) {
-          body.removeAttribute('theme-mode');
-          // localStorage.removeItem('theme')
-      } else {
-          body.setAttribute('theme-mode', 'dark');
-          // localStorage.setItem('theme','dark')
-      }
-    }
-  },
+<script setup>
+const switchMode = ()=>{
+  const body = document.documentElement;
+  if (body.hasAttribute('theme-mode')) {
+      body.removeAttribute('theme-mode');
+      // localStorage.removeItem('theme')
+  } else {
+      body.setAttribute('theme-mode', 'dark');
+      // localStorage.setItem('theme','dark')
+  }
 }
 </script>
 ```

@@ -44,7 +44,7 @@
     </Layout>
   </div>
 </template>
-<script>
+<script setup>
 import { LogoKui, Search, NotificationsOutline  } from 'kui-icons'
 export default{
   data() {

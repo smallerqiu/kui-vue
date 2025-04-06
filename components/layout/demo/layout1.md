@@ -50,15 +50,8 @@
     </Layout>
   </div>
 </template>
-<script>
+<script setup>
 import { LogoKui, Home, StatsChart, Settings, Scan, NotificationsOutline,Search } from 'kui-icons'
-export default{
-  data() {
-    return {
-     LogoKui, Home, StatsChart, Settings, Scan, NotificationsOutline,Search
-    }
-  }
-}
 </script>
 <style scoped lang="less">
  .k-demo-layout{
