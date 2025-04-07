@@ -1,66 +1,64 @@
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
-  name: 'InputGroup',
+import { getChildren } from "../utils/vnode";
+import { defineComponent, cloneVNode } from "vue";
+export default defineComponent({
+  name: "InputGroup",
   props: {
     block: Boolean,
     compact: {
       type: Boolean,
-      default: true
+      default: true,
     },
     size: {
       type: [String, Number, Array],
-      default: 'default',
+      default: "default",
       validator(value) {
-        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large", 'default'].indexOf(value) >= 0;
-      }
+        return typeof value == "number" || Array.isArray(value) ? true : ["small", "middle", "large", "default"].indexOf(value) >= 0;
+      },
     },
   },
-  render() {
-    let { $slots, size, compact, block } = this
+  setup(ps, { slots }) {
+    let { size, compact, block } = ps;
     const props = {
       style: {},
-      class: ['k-input-group', {
-        [`k-input-group-compact`]: compact,
-        [`k-input-group-block`]: block,
-        [`k-input-group-lg`]: size == 'large',
-        [`k-input-group-sm`]: size == 'small',
-      }],
-    }
+      class: [
+        "k-input-group",
+        {
+          [`k-input-group-compact`]: compact,
+          [`k-input-group-block`]: block,
+          [`k-input-group-lg`]: size == "large",
+          [`k-input-group-sm`]: size == "small",
+        },
+      ],
+    };
     if (!size && !compact) {
-      props.style.gap = '8px'
+      props.style.gap = "8px";
     }
     if (!compact) {
       if (Array.isArray(size)) {
-        props.style = { gap: `${size[1]}px ${size[0]}px` }
+        props.style = { gap: `${size[1]}px ${size[0]}px` };
       } else if (/small|middle|large/.test(size)) {
-        let sizes = { small: 8, middle: 16, large: 24 }
-        props.style.gap = sizes[size] + 'px'
+        let sizes = { small: 8, middle: 16, large: 24 };
+        props.style.gap = sizes[size] + "px";
       } else if (size !== undefined && size !== null) {
-        props.style.gap = `${size}px`
+        props.style.gap = `${size}px`;
       }
     }
-    let childs = $slots.default
+    let childs = getChildren(slots.default);
     if (compact) {
-      childs = getChild(this.$slots.default)
-      let newChilds = []
+      let newChilds = [];
       for (let i = 0; i < childs.length; i++) {
         let child = cloneVNode(childs[i], {
-          props: {
-            size
-          },
+          size,
           class: {
             [`k-input-group-first-item`]: i == 0,
             [`k-input-group-item`]: i > 0 && i < childs.length - 1,
             [`k-input-group-last-item`]: i == childs.length - 1,
-          }
-        })
-        newChilds.push(child)
+          },
+        });
+        newChilds.push(child);
       }
-      childs = newChilds
-
+      childs = newChilds;
     }
-    // console.log(props)
-    return <div {...props}>{childs}</div>
-  }
-}
+    return <div {...props}>{childs}</div>;
+  },
+});
