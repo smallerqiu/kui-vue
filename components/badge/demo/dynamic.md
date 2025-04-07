@@ -22,8 +22,8 @@
       <div class="box"></div>
     </Badge>
     <ButtonGroup circle>
-      <Button @click="add">-</Button>
-      <Button @click="minus">+</Button>
+      <Button @click="minus">-</Button>
+      <Button @click="add">+</Button>
     </ButtonGroup>
   </div>
 </template>
