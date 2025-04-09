@@ -40,8 +40,10 @@ suffix，prefix 扩展
     </Input>
   </Space>
 </template>
-<script>
+<script setup>
+import {} from 
 import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
+
 export default {
   data() {
     return {
@@ -69,11 +71,11 @@ export default {
       ]
     }
   },
-  beforDestroy() {
+  const beforDestroy =()=> {
     clearInterval(this.timer)
   },
   methods: {
-    sendCode() {
+   const sendCode =()=> {
       this.time = 59
       this.$Message.success("验证码发送成功，请注意查收");
       this.timer = setInterval(e => {

@@ -10,19 +10,15 @@
     <Input placeholder="disabled..." disabled />
   </Space>
 </template>
-<script>
-export default{
-  methods:{
-    blur(){
-      console.log('blur')
-    },
-    focus(){
-      console.log('focus')
-    },
-    change(e){
-      console.log('change')
-    },
-  }
+<script setup>
+const blur = ()=> {
+  console.log('blur')
 }
+const focus = ()=> {
+  console.log('focus')
+}
+const change = ()=> {
+  console.log('change')
+},
 </script>
 ```

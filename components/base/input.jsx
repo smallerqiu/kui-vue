@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { isValidString } from "../utils/string";
-import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
+import { Search, CloseCircle, EyeOutline, EyeOffOutline, nextTick } from "kui-icons";
 import { InputGroup } from "../input";
 import { defineComponent, ref } from "vue";
 export default defineComponent({
@@ -61,30 +61,29 @@ export default defineComponent({
     const currentValue = ref(ps.value);
     const focused = ref(false);
     const showPassword = ref(!ps.visiblePassword);
-
-    const { inputType, icon, size, disabled, type, clearable, suffix, theme, prefix, shape } = ps;
+    const inputRef = ref(null);
 
     const clear = () => {
-      this.setValue({ input: "", output: "" });
-      this.$nextTick((e) => this.$refs.input.focus());
+      setValue({ input: "", output: "" });
+      nextTick(() => inputRef.value.focus());
     };
     const iconClick = () => {
-      !this.disabled && this.$emit("icon-click");
+      !ps.disabled && emit("icon-click");
     };
     const handleFocus = (e) => {
       focused.value = true;
-      let intput = this.Input || this.TextArea || this.InputNumber;
-      intput && intput.$emit("focus", e);
+      // let intput = this.Input || this.TextArea || this.InputNumber;
+      // intput && intput.$emit("focus", e);
     };
     const handleBlur = (e) => {
-      this.$emit("blur", e);
+      // this.$emit("blur", e);
       focused.value = false;
     };
     const handleInput = (e) => {
-      let v = e.target.value + "",
+      let v = e.target.value,
         input = v,
         output = v + "";
-      let { parser, formatter } = this;
+      let { parser, formatter } = ps;
 
       if (parser) {
         output = parser(v);
@@ -101,36 +100,34 @@ export default defineComponent({
       this.setValue({ input, output });
     };
     const togglePassword = (e) => {
-      if (this.disabled) return;
+      if (ps.disabled) return;
       showPassword.value = !showPassword.value;
       let type = showPassword.value ? "text" : "password";
-      this.$refs.input.type = type;
+      inputRef.value.type = type;
     };
     const setValue = ({ input, output }) => {
       currentValue.value = input;
-      this.$emit("input", output);
-      this.$emit("change", output);
+      // this.$emit("input", output);
+      // this.$emit("change", output);
     };
 
     const searchEvent = (e) => {
-      if (this.disabled) return;
+      if (ps.disabled) return;
       this.$listeners.search(currentValue.value);
     };
     const getSuffix = (e) => {
-      let { $listeners, suffix, visiblePasswordIcon } = this;
-      const SearchNode = "search" in $listeners ? <Icon type={Search} class="k-input-search-icon" onClick={this.searchEvent} /> : null;
+      let { suffix, visiblePasswordIcon, type } = ps;
+      const SearchNode = attrs.onSearch ? <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} /> : null;
 
-      const Password = this.type == "password" && visiblePasswordIcon ? <Icon class="k-input-password-icon" type={!showPassword.value ? EyeOutline : EyeOffOutline} onClick={togglePassword} /> : null;
+      const Password = type == "password" && visiblePasswordIcon ? <Icon class="k-input-password-icon" type={!showPassword.value ? EyeOutline : EyeOffOutline} onClick={togglePassword} /> : null;
 
       return Password || SearchNode || slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
     };
     const getTextInput = (mult) => {
-      const { disabled, size, type, inputType, currentValue, id, theme, shape, placeholder } = ps;
+      const { disabled, size, type, inputType, id, theme, shape, placeholder } = ps;
       let isTextArea = inputType == "textarea";
       const props = {
-        domProps: {
-          value: currentValue,
-        },
+        value: currentValue.value,
         class: [
           {
             [`k-${inputType}`]: !mult,
@@ -142,36 +139,33 @@ export default defineComponent({
             [`k-${inputType}-circle`]: shape == "circle" && !isTextArea && !mult,
           },
         ],
-        ref: "input",
-        attrs: {
-          ...this.$attrs,
-          disabled,
-          id,
-          placeholder,
-        },
-        on: {
-          ...this.$listeners,
-          focus: handleFocus,
-          blur: this.handleBlur,
-          input: this.handleInput,
-        },
+        ref: inputRef,
+        ...attrs,
+        disabled,
+        id,
+        placeholder,
+        onFocus: handleFocus,
+        onBlur: handleBlur,
+        // input: this.handleInput,
       };
 
       if (!isTextArea) {
-        props.attrs.type = type;
+        props.type = type;
 
         if (!showPassword.value && type == "password") {
-          props.attrs.type = "text";
+          props.type = "text";
         }
       }
       return isTextArea ? <textarea {...props} /> : <input {...props} single />;
     };
 
     return () => {
+      const { inputType, icon, size, disabled, type, clearable, suffix, theme, prefix, shape } = ps;
+
       let isTextArea = inputType == "textarea";
       let mult = icon || "onSearch" in attrs || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.contorls;
 
-      let textInput = this.getTextInput(mult);
+      let textInput = getTextInput(mult);
 
       if (isTextArea || !mult) return textInput;
 
@@ -187,7 +181,7 @@ export default defineComponent({
           [`k-${inputType}-circle`]: shape == "circle" && !isTextArea,
         },
       };
-      const suffixNode = this.getSuffix();
+      const suffixNode = getSuffix();
       const prefixNode = prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null;
 
       return slots.prefix || slots.suffix ? (
