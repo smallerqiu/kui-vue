@@ -16,20 +16,12 @@
     <Input placeholder="请输入关进行搜索键字..." @search="search"/>
   </Space>
 </template>
-<script>
+<script setup>
+import { ref } from 'vue'
 import { Person, LockClosed } from "kui-icons";
-export default {
-  data() {
-    return {
-      visiblePassword:true,
-       Person, LockClosed
-    }
-  },
-  methods: {
-    search() {
-      this.$Message.info("This is search event");
-    },
-  }
-};
+const visiblePassword = ref(true)
+const search = (value) => {
+    // this.$Message.info("This is search event");
+}
 </script>
 ```

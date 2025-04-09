@@ -1,9 +1,14 @@
-import BaseInput from "../base/input";
-import { defineComponent } from "vue";
+import Icon from "../icon";
+import { isValidString } from "../utils/string";
+import { Search, CloseCircle, EyeOutline, EyeOffOutline, nextTick } from "kui-icons";
+import { InputGroup } from "./inputGroup.jsx";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  name: "TextArea",
+  name: "baseInput",
   props: {
     clearable: Boolean,
+    visiblePassword: Boolean,
+    visiblePasswordIcon: Boolean,
     id: String,
     size: {
       default: "default",
@@ -12,45 +17,183 @@ export default defineComponent({
       },
     },
     value: [String, Number, Array, Object],
+    disabled: Boolean,
     type: {
       validator(value) {
-        return ["text", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0;
+        return ["text", "textarea", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0;
       },
       default: "text",
     },
     icon: [String, Array],
     suffix: String,
     prefix: String,
-    disabled: Boolean,
-    readonly: Boolean,
-    visiblePassword: Boolean,
-    visiblePasswordIcon: { type: Boolean, default: true },
-    theme: {
-      type: String,
-      default: "solid",
-      validator(value) {
-        return ["normal", "solid", "light"].indexOf(value) >= 0;
-      },
-    },
+    theme: String,
     shape: String,
+    formatter: Function,
+    parser: Function,
+    placeholder: String,
   },
-  // provide() {
-  //   return {
-  //     Input: this,
+  watch: {
+    value(value) {
+      currentValue.value = value;
+    },
+    visiblePassword(value) {
+      showPassword.value = !value;
+    },
+  },
+  // mounted() {
+  //   let textInput = this.Input || this.TextArea || this.InputNumber || {};
+  //   textInput.focus = (e) => {
+  //     this.$nextTick(() => this.$refs.input.focus(e));
+  //   };
+  //   textInput.blur = (e) => {
+  //     this.$nextTick(() => this.$refs.input.blur(e));
   //   };
   // },
-  setup(ps, { slots, attrs }) {
-    return () => {
+
+  setup(ps, { slots, emit, attrs }) {
+    const currentValue = ref(ps.value);
+    const focused = ref(false);
+    const showPassword = ref(!ps.visiblePassword);
+    const inputRef = ref(null);
+
+    const clear = () => {
+      setValue({ input: "", output: "" });
+      nextTick(() => inputRef.value.focus());
+    };
+    const iconClick = () => {
+      !ps.disabled && emit("icon-click");
+    };
+    const handleFocus = (e) => {
+      focused.value = true;
+      emit("focus", e);
+    };
+    const handleBlur = (e) => {
+      emit("blur", e);
+      focused.value = false;
+    };
+    const handleInput = (e) => {
+      let v = e.target.value,
+        input = v,
+        output = v + "";
+      let { parser, formatter } = ps;
+
+      if (parser) {
+        output = parser(v);
+      }
+
+      if (output !== "" && formatter) {
+        input = formatter(output);
+      }
+      e.target.value = input;
+      if (input === "") {
+        output = "";
+      }
+
+      this.setValue({ input, output });
+    };
+    const togglePassword = (e) => {
+      if (ps.disabled) return;
+      showPassword.value = !showPassword.value;
+      let type = showPassword.value ? "text" : "password";
+      inputRef.value.type = type;
+    };
+    const setValue = ({ input, output }) => {
+      currentValue.value = input;
+      // this.$emit("input", output);
+      // this.$emit("change", output);
+    };
+
+    const searchEvent = (e) => {
+      if (ps.disabled) return;
+      emit("search", currentValue.value);
+    };
+    const getSuffix = () => {
+      let { suffix, visiblePasswordIcon, type } = ps;
+      const SearchNode = attrs.onSearch ? <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} /> : null;
+
+      const Password = type == "password" && visiblePasswordIcon ? <Icon class="k-input-password-icon" type={!showPassword.value ? EyeOutline : EyeOffOutline} onClick={togglePassword} /> : null;
+
+      return Password || SearchNode || slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
+    };
+    const getTextInput = (mult) => {
+      const { disabled, size, type, id, theme, shape, placeholder } = ps;
       const props = {
-        inputType: "input",
+        value: currentValue.value,
+        class: [
+          {
+            [`k-input`]: !mult,
+            [`k-input-text`]: mult,
+            [`k-input-disabled`]: disabled,
+            [`k-input-sm`]: size == "small" && !mult,
+            [`k-input-lg`]: size == "large" && !mult,
+            [`k-input-${theme}`]: theme != "solid" && !mult && theme,
+            [`k-input-circle`]: shape == "circle" && !mult,
+          },
+        ],
+        ref: inputRef,
         ...attrs,
-        ...ps,
+        disabled,
+        id,
+        placeholder,
+        onFocus: handleFocus,
+        onBlur: handleBlur,
+        type,
+        // onUpdate: (e) => {
+        //   emit("update:value", e.target.value);
+        // },
+        // input: this.handleInput,
       };
-      return (
-        <BaseInput {...props}>
-          <template v-slot:suffix>{slots.suffix?.()}</template>
-          <template v-slot:prefix>{slots.prefix?.()}</template>
-        </BaseInput>
+
+      if (!showPassword.value && type == "password") {
+        props.type = "text";
+      }
+      return <input {...props} single />;
+    };
+
+    return () => {
+      const { icon, size, disabled, type, clearable, suffix, theme, prefix, shape } = ps;
+
+      let mult = icon || "onSearch" in attrs || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.contorls;
+
+      let textInput = getTextInput(mult);
+
+      let clearableShow = clearable && isValidString(currentValue.value);
+      const props = {
+        class: {
+          [`k-input`]: true,
+          [`k-input-focus`]: focused,
+          [`k-input-disabled`]: disabled,
+          [`k-input-sm`]: size == "small",
+          [`k-input-lg`]: size == "large",
+          [`k-input-${theme}`]: theme && theme != "solid",
+          [`k-input-circle`]: shape == "circle",
+        },
+      };
+      const suffixNode = getSuffix();
+      const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
+
+      return slots.prefix || slots.suffix ? (
+        <InputGroup size={size}>
+          {slots.prefix ? <div class="k-input-group-prefix">{slots.prefix?.()}</div> : null}
+          <div {...props} mult>
+            {icon ? <Icon type={icon} class={`k-input-icon`} onClick={iconClick} /> : null}
+            {prefixNode}
+            {textInput}
+            {clearable ? <Icon type={CloseCircle} class={[`k-input-clearable`, { [`k-input-clearable-hidden`]: !clearableShow }]} onClick={clear} /> : null}
+            {slots.contorls?.()}
+          </div>
+          {slots.suffix ? <div class="k-input-group-suffix">{slots.suffix?.()}</div> : null}
+        </InputGroup>
+      ) : (
+        <div {...props} mult>
+          {icon ? <Icon type={icon} class="k-input-icon" onClick={iconClick} /> : null}
+          {prefixNode}
+          {textInput}
+          {clearable ? <Icon type={CloseCircle} class={["k-input-clearable", { [`k-input-clearable-hidden`]: !clearableShow }]} onClick={clear} /> : null}
+          {suffixNode}
+          {slots.contorls?.()}
+        </div>
       );
     };
   },
