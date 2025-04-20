@@ -7,25 +7,28 @@
 <template>
   <Space>
     <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
-    <Input v-show="showInput" @blur="add" size="small" style="width:81px" :ref="input" :value="tag"/>
+    <Input v-if="showInput" @blur="add" size="small" style="width:81px" ref="inputRef" :value="tag"/>
     <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">New Tag</Button>
   </Space>
 </template>
 <script setup>
 import { Bookmark } from "kui-icons";
-import { ref } from "vue";
+import { ref,nextTick} from "vue";
 const showInput = ref(false)
 const tag = ref('')
 const tags = ['Apple','Banana','Cat','Dog']
-const input = ref(null)
+const inputRef = ref(null)
 const show = ()=>{
   showInput.value = true
-  input.value.focus()
+  nextTick(()=>{
+    // console.log(inputRef.value)
+    inputRef.value.focus()
+  })
 }
 const add = (e)=>{
   let value = e.target.value.trim()
-  if(value && this.tags.indexOf(value)===-1){
-    this.tags.push(value)
+  if(value && tags.indexOf(value)===-1){
+    tags.push(value)
   }
   tag.value = ''
   showInput.value = false

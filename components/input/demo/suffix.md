@@ -8,86 +8,73 @@ suffix，prefix 扩展
   <Space vertical style="width:512px;">
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
     <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8" prefix="¥">
-    <template slot="suffix">
-      <Button :disabled="time!=60" style="width:100px;"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
-    </template>
+      <template #suffix>
+        <Button :disabled="time!=60" style="width:100px;"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
+      </template>
     </Input>
     <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
-    <template slot="suffix">
-      <Tooltip title="请咨询管理员">
-        <Icon :type="InformationCircleOutline" color="orange" />
-      </Tooltip>
-    </template>
+      <template #suffix>
+        <Tooltip title="请咨询管理员">
+          <Icon :type="InformationCircleOutline" color="orange" />
+        </Tooltip>
+      </template>
     </Input>
     <Input placeholder="请输入金额" suffix="RMB" prefix="¥" />
     <Input placeholder="请输入域名" suffix=".com" prefix="https://" />
     <Input placeholder="输入内容" prefix="www.">
-      <template slot="prefix">
+      <template #prefix>
         <Select :options="options" clearable value="http"></Select>
       </template>
-      <template slot="suffix">
+      <template #suffix>
         <Select :options="list" clearable value=".com"></Select>
       </template>
     </Input>
     <Input placeholder="请输入金额" suffix=".00" />
     <Input placeholder="输入内容" prefix="www.">
-      <template slot="prefix">
+      <template #prefix>
         <Select :options="options" clearable value="http"></Select>
       </template>
-      <template slot="suffix">
+      <template #suffix>
         <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
       </template>
     </Input>
   </Space>
 </template>
 <script setup>
-import {} from 
+import { ref } from 'vue'
 import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
-
-export default {
-  data() {
-    return {
-      InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline,
-      time: 60,
-      timer: null,
-      options: [
-        { label: 'http', value: 'http' },
-        { label: 'https', value: 'https' },
-      ],
-      list: [
-        { label: '.com', value: '.com' },
-        { label: '.cn', value: '.cn' },
-        { label: '.org', value: '.org' },
-      ],
-      treeData:[
-        {
-          title:'fruit',
-          key:'1',
-          children:[
-            {title:'apple',key:'11'},
-            {title:'orange',key:'12'},
-          ]
-        }
-      ]
+const time = ref(60)
+const timer = ref(null)
+const sendCode =()=> {
+  time.value = 59
+  // this.$Message.success("验证码发送成功，请注意查收");
+  timer.value = setInterval(() => {
+    if (time.value <= 0) {
+      clearInterval(timer.value)
+      time.value = 60
+    } else {
+      time.value-=1
     }
-  },
-  const beforDestroy =()=> {
-    clearInterval(this.timer)
-  },
-  methods: {
-   const sendCode =()=> {
-      this.time = 59
-      this.$Message.success("验证码发送成功，请注意查收");
-      this.timer = setInterval(e => {
-        if (this.time <= 0) {
-          clearInterval(this.timer)
-          this.time = 60
-        } else {
-          this.time--
-        }
-      }, 1000)
-    }
+  }, 1000)
+}
+const options =[
+  { label: 'http', value: 'http' },
+  { label: 'https', value: 'https' },
+]
+const list = [
+  { label: '.com', value: '.com' },
+  { label: '.cn', value: '.cn' },
+  { label: '.org', value: '.org' },
+]
+const treeData =[
+  {
+    title:'fruit',
+    key:'1',
+    children:[
+      {title:'apple',key:'11'},
+      {title:'orange',key:'12'},
+    ]
   }
-};
+]
 </script>
 ```

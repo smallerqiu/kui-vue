@@ -11,6 +11,7 @@ export default defineComponent({
     dark: Boolean,
     title: [String, Number, Object, Array],
     color: String,
+    size: String,
     width: [Number, String],
     placement: {
       validator(value) {
@@ -20,7 +21,9 @@ export default defineComponent({
     },
     show: Boolean,
   },
-  setup(ps, { slots }) {
+  setup(ps, { slots, attrs }) {
+    // const te = {...attrs}
+    // console.log(te)
     const rendered = ref(false);
     const visible = ref(ps.show);
     const popper = ref(null);
@@ -168,6 +171,7 @@ export default defineComponent({
         cloneVNode(
           node,
           {
+            ...attrs,
             onMouseenter: render,
             onMouseleave: () => {
               visible.value = false;
@@ -186,25 +190,24 @@ export default defineComponent({
         top: `${top.value}px`,
         transformOrigin: transOrigin.value,
       };
-      return (
-        <>
-          {nodes}
-          {rendered.value ? (
-            <Transition name="k-tooltip">
-              <div class={cls} v-transfer={true} k-placement={currentPlacement.value} v-show={visible.value} style={styles} ref={popper}>
-                <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? color : null }}>
-                  <div class={`k-${preCls}-title`}>{title}</div>
-                  <div class={`k-${preCls}-arrow`}>
-                    <svg style={{ fill: isColor(color) ? color : "currentcolor" }} viewBox="0 0 24 7">
-                      <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
-                    </svg>
-                  </div>
+      const childNodes = [...nodes];
+      if (rendered.value) {
+        childNodes.push(
+          <Transition name="k-tooltip">
+            <div class={cls} v-transfer={true} k-placement={currentPlacement.value} v-show={visible.value} style={styles} ref={popper}>
+              <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? color : null }}>
+                <div class={`k-${preCls}-title`}>{title}</div>
+                <div class={`k-${preCls}-arrow`}>
+                  <svg style={{ fill: isColor(color) ? color : "currentcolor" }} viewBox="0 0 24 7">
+                    <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+                  </svg>
                 </div>
               </div>
-            </Transition>
-          ) : null}
-        </>
-      );
+            </div>
+          </Transition>
+        );
+      }
+      return <>{...childNodes}</>;
     };
   },
 });

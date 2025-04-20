@@ -6,11 +6,14 @@
 ```vue
 <template>
   <Space vertical style="width:512px;" >
-    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" />
+    Input: {{ value }}
+    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" v-model:value="value" />
     <Input placeholder="disabled..." disabled />
   </Space>
 </template>
 <script setup>
+import { ref } from 'vue'
+const value = ref('')
 const blur = ()=> {
   console.log('blur')
 }
@@ -19,6 +22,6 @@ const focus = ()=> {
 }
 const change = ()=> {
   console.log('change')
-},
+}
 </script>
 ```
