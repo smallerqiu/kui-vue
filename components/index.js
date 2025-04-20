@@ -20,7 +20,7 @@ import Divider from "./divider";
 import Flex from "./flex";
 // import { Image, ImageGroup } from './image'
 import Icon from "./icon";
-// import { Input, TextArea ,InputGroup} from './input'
+import { Input, TextArea, InputGroup } from "./input";
 // import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from "./layout";
 // // import Loading from './loading'
@@ -33,20 +33,20 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // import Popconfirm from './popconfirm'
 // import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from "./radio";
-import Rate from './rate'
+import Rate from "./rate";
 // import { Select, Option } from './select'
 // import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
-import Slider from './slider'
+import Slider from "./slider";
 import Space from "./space";
-import Spin from './spin'
+import Spin from "./spin";
 import Switch from "./switch";
 // import Table from './table'
-import Tooltip from './tooltip'
+import Tooltip from "./tooltip";
 // import { Tabs, TabPane } from './tabs'
-import { TimeLine, TimeLineItem } from './timeline'
+import { TimeLine, TimeLineItem } from "./timeline";
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
-import Tag from './tag'
+import Tag from "./tag";
 import { Row, Col } from "./grid";
 // import Upload from './upload'
 
@@ -85,7 +85,7 @@ const components = {
   Flex,
   Icon,
   // ImageGroup,
-  // Input, TextArea, InputGroup,
+  Input, TextArea, InputGroup,
   // InputNumber,
   // Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
   // Modal,
@@ -112,7 +112,8 @@ const components = {
   Slider,
   // Table,
   // Tabs, TabPane,
-  TimeLine, TimeLineItem,
+  TimeLine,
+  TimeLineItem,
   Tag,
   Tooltip,
   // Tree, TreeNode,

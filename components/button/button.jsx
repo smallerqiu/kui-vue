@@ -55,8 +55,12 @@ export default defineComponent({
           [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
         },
       ];
+      let childNods = [];
+
       const iconType = props.loading ? Sync : props.icon;
-      const iconNode = iconType ? <Icon type={iconType} spin={props.loading} /> : null;
+      if (iconType) {
+        childNods.push(<Icon type={iconType} spin={props.loading} />);
+      }
 
       const propsObj = {
         ...attrs,
@@ -68,16 +72,15 @@ export default defineComponent({
       const childNode = childs?.map((c) => {
         return typeof c.children === "string" ? <span>{c.children.trim()}</span> : c;
       });
+      childNods = childNods.concat(childNode);
 
       return props.type === "link" && props.href ? (
         <a href={props.href} target={props.target} {...propsObj}>
-          {iconNode}
-          {childNode}
+          {...childNods}
         </a>
       ) : (
         <button {...propsObj}>
-          {iconNode}
-          {childNode}
+          {...childNods}
         </button>
       );
     };

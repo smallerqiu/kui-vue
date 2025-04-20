@@ -1,8 +1,8 @@
 import Icon from "../icon";
 import { isValidString } from "../utils/string";
-import { Search, CloseCircle, EyeOutline, EyeOffOutline, nextTick } from "kui-icons";
+import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import { InputGroup } from "../input";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, nextTick } from "vue";
 export default defineComponent({
   name: "baseInput",
   props: {
@@ -97,7 +97,7 @@ export default defineComponent({
         output = "";
       }
 
-      this.setValue({ input, output });
+      // this.setValue({ input, output });
     };
     const togglePassword = (e) => {
       if (ps.disabled) return;
@@ -113,7 +113,7 @@ export default defineComponent({
 
     const searchEvent = (e) => {
       if (ps.disabled) return;
-      this.$listeners.search(currentValue.value);
+      // this.$listeners.search(currentValue.value);
     };
     const getSuffix = (e) => {
       let { suffix, visiblePasswordIcon, type } = ps;

@@ -60,11 +60,9 @@ export default defineComponent({
         style,
         class: cls,
       };
-      console.log((childs))
 
       const vnodes = [];
       for (let i = 0; i < childs.length; i++) {
-
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
           size: ps.size,
@@ -80,7 +78,7 @@ export default defineComponent({
           vnodes.push(split);
         }
       }
-      return <div {...props}>{vnodes}</div>;
+      return <div {...props}>{...vnodes}</div>;
     };
   },
 });

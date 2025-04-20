@@ -28,7 +28,7 @@ const flexSize = ref('small')
 const gap = ref(8)
 
 const gapChange =()=>{
-  flexSize.value = gap.vlaue
+  flexSize.value = gap.value
 }
 const sizeChange = ({value})=>{
   if(value!='customize'){
