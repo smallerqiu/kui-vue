@@ -16,7 +16,7 @@ export default{
       loading: false,
       columns: [
         { title:'Name', key:'name' ,sorter:true },
-        { title:'Age', key:'age',sorter:true ,filters:[{ text:'', value:''}, { text:'' ,vlaue:'' }] },
+        { title:'Age', key:'age',sorter:true ,filters:[{ text:'', value:''}, { text:'' ,value:'' }] },
         { title:'Email', key:'mail' },
       ]
     }
