@@ -1,33 +1,37 @@
-import newInstance from '../message/instance'
+import { inject } from "vue";
+import newInstance from "../message/instance";
 
 let noticeInstance;
 
 let Notice = {
-  name: 'Notice',
+  name: "Notice",
   open(options = {}) {
-    options = Object.assign({ type: 'default' }, options)
+    options = Object.assign({ type: "default" }, options);
     if (options.icon) {
-      delete options.type
+      delete options.type;
     }
-    options.noticeType = 'notice'
+    options.noticeType = "notice";
     if (!noticeInstance) {
-      noticeInstance = newInstance({ type: 'notice' })
+      noticeInstance = newInstance({ type: "notice" });
     }
     noticeInstance.show(options);
   },
   destroy() {
     if (noticeInstance) {
-      noticeInstance.destroy()
+      noticeInstance.destroy();
       noticeInstance = null;
-      document.body.removeChild(document.querySelector('.k-notice'));
+      document.body.removeChild(document.querySelector(".k-notice"));
     }
-  }
+  },
+  useNotice() {
+    return inject("notice");
+  },
 };
 
-['info', 'success', 'warning', 'error'].forEach(type => {
+["info", "success", "warning", "error"].forEach((type) => {
   Notice[type] = (options) => {
-    return Notice.open({ type, ...options })
-  }
+    return Notice.open({ type, ...options });
+  };
 });
 
 export default Notice;

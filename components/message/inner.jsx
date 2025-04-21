@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { Close, InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle } from "kui-icons";
-import { defineComponent, inject, ref, watch } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     type: { type: String, default: "info" },
@@ -13,41 +13,41 @@ export default defineComponent({
     noticeType: { type: String, default: "message" },
     onClose: { type: Function, default: () => {} },
   },
-  render() {
-    let { noticeType, type, content, title, onClose, closable, icon, color } = this;
-    const classes = [
-      `k-${noticeType}-box`,
-      `k-${noticeType}-${type}`,
-      {
-        "k-notice-has-icon": noticeType == "notice" && type != "default",
-      },
-    ];
-    let childNode;
-    let icons = {
-      info: InformationCircle,
-      error: CloseCircle,
-      success: CheckmarkCircle,
-      warning: AlertCircle,
+  setup(ps) {
+    return () => {
+      let { noticeType, type, content, title, onClose, closable, icon, color } = ps;
+      const classes = [
+        `k-${noticeType}-box`,
+        `k-${noticeType}-${type}`,
+        {
+          "k-notice-has-icon": noticeType == "notice" && type != "default",
+        },
+      ];
+      let icons = {
+        info: InformationCircle,
+        error: CloseCircle,
+        success: CheckmarkCircle,
+        warning: AlertCircle,
+      };
+      const childs = [];
+      if (type != "default") {
+        childs.push(<Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />);
+      }
+      if (noticeType == "message") {
+        childs.push(<span>{content}</span>);
+        if (closable) {
+          childs.push(<Icon class="k-message-close" type={Close} onClick={onClose} />);
+        }
+      } else {
+        childs.push(<div class="k-notice-title">{title}</div>);
+        childs.push(<div class="k-notoce-desc">{content}</div>);
+        childs.push(<Icon class="k-notice-close" type={Close} onClick={onClose} />);
+      }
+      return (
+        <div class={classes}>
+          <div class={`k-${noticeType}-content`}>{...childs}</div>
+        </div>
+      );
     };
-    let iconNode = type != "default" ? <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} /> : null;
-    if (noticeType == "message") {
-      childNode = (
-        <div class="k-message-content">
-          {iconNode}
-          <span>{content}</span>
-          {closable ? <Icon class="k-message-close" type={Close} onClick={onClose} /> : null}
-        </div>
-      );
-    } else {
-      childNode = (
-        <div class="k-notice-content">
-          {iconNode}
-          <div class="k-notice-title">{title}</div>
-          <div class="k-notoce-desc">{content}</div>
-          <Icon class="k-notice-close" type={Close} onClick={onClose} />
-        </div>
-      );
-    }
-    return <div class={classes}>{childNode}</div>;
   },
 });

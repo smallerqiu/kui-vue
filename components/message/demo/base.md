@@ -9,15 +9,14 @@
     <Button @click="info" type="primary">Show base info </Button>
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
+import  a from "kui-vue";
+//  a.message.info('333')
 let count = 0
-export default{
-  methods:{
-    info() {
-      count++
-      this.$Message.info("this is a base message number : "+count);
-    }
-  }
+const info = ()=> {
+  count++
+  message.info("this is a base message number : "+count);
 }
 </script>
 ```
