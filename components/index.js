@@ -26,8 +26,8 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // // import Loading from './loading'
 // import Modal from './modal'
 // import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
-// import Message from './message'
-// import Notice from './notice'
+import message from "./message";
+import Notice from "./notice";
 // import Page from './page'
 // import Poptip from './poptip'
 // import Popconfirm from './popconfirm'
@@ -85,11 +85,13 @@ const components = {
   Flex,
   Icon,
   // ImageGroup,
-  Input, TextArea, InputGroup,
+  Input,
+  TextArea,
+  InputGroup,
   // InputNumber,
   // Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
   // Modal,
-  // Message,
+  message,
   Layout,
   Header,
   Footer,
@@ -151,8 +153,10 @@ const install = (app, options = {}) => {
   for (let key in UI) {
     app.component(key, UI[key]);
   }
-  // app.config.globalProperties.$Message = Message;
-  // app.config.globalProperties.$Notice = Notice;
+  app.provide("message", message);
+  app.provide("notice", Notice);
+  app.config.globalProperties.$message = message;
+  app.config.globalProperties.$notice = Notice;
   // app.config.globalProperties.$Modal = Modal;
   // app.config.globalProperties.$Loading = Loading;
   // app.config.globalProperties.$Image = Image;
@@ -164,4 +168,5 @@ UI.install = install;
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.createApp && window.Vue.createApp({}).use(UI);
 }
+export { message };
 export default UI;
