@@ -10,10 +10,11 @@
     <Button @click="wechat" :icon="LogoWechat"></Button>
   </Space>
 </template>
-<script>
+<script setup>
 import { notice } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
-const alipay() {
+import { h } from "vue";
+const alipay = () => {
   notice.open({
     icon:LogoAlipay,
     color:'#0082ff',
@@ -23,8 +24,6 @@ const alipay() {
   });
 }
 const wechat = ()=> {
-  let h = this.$createElement
-
   let content = h('div',{},[
     h('p',{ attrs : {style:'margin:10px 0'} },'微信新增了一些新功能，我们邀请您体验！'),
     h('Button',{ props:{ type:'primary' } },'去看看')

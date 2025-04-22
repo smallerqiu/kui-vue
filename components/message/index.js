@@ -1,6 +1,5 @@
-import { inject } from "vue";
-
 import newInstance from "./instance";
+import { inject } from "vue";
 
 let messageInstance;
 
@@ -20,15 +19,14 @@ let Message = {
       document.body.removeChild(document.querySelector(".k-message"));
     }
   },
+  install(app) {
+    app.provide("message", this);
+    // 可选：同时挂到 globalProperties 兼容 this.$message
+    app.config.globalProperties.$message = this;
+  },
   useMessage() {
     return inject("message");
   },
-  install(app) {
-    // const message = createMessage();
-    app.provide('message', this);
-    // 可选：同时挂到 globalProperties 兼容 this.$Message
-    // app.config.globalProperties.$Message = message;
-  }
 };
 ["info", "success", "warning", "error"].forEach((type) => {
   Message[type] = (content, duration, onClose) => {

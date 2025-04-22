@@ -2,18 +2,18 @@
 组件提供了一些静态方法，使用方式如下
  
   
-- `this.$Notice.info(options)`
-- `this.$Notice.success(options)`
-- `this.$Notice.warning(options)`
-- `this.$Notice.error(options)`
+- `notice.info(options)`
+- `notice.success(options)`
+- `notice.warning(options)`
+- `notice.error(options)`
 
   
 
 另外提供了全局配置和全局销毁的方法：
  
   
-- `this.$Notice.open(options)`
-- `this.$Notice.destroy()`
+- `notice.open(options)`
+- `notice.destroy()`
 
   
 参数 `options` 为对象，具体说明如下：

@@ -4,7 +4,7 @@ import newInstance from "../message/instance";
 let noticeInstance;
 
 let Notice = {
-  name: "Notice",
+  name: "notice",
   open(options = {}) {
     options = Object.assign({ type: "default" }, options);
     if (options.icon) {
@@ -25,6 +25,11 @@ let Notice = {
   },
   useNotice() {
     return inject("notice");
+  },
+  install(app) {
+    app.provide("notice", this);
+    // 可选：同时挂到 globalProperties 兼容 this.$notice
+    app.config.globalProperties.$notice = this;
   },
 };
 
