@@ -27,7 +27,7 @@ import { Layout, Header, Footer, Content, Sider } from "./layout";
 // import Modal from './modal'
 // import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import message from "./message";
-import Notice from "./notice";
+import notice from "./notice";
 // import Page from './page'
 // import Poptip from './poptip'
 // import Popconfirm from './popconfirm'
@@ -98,7 +98,7 @@ const components = {
   Content,
   Sider,
   // Loading,
-  // Notice,
+  notice,
   // Page,
   // Poptip,
   // Popconfirm,
@@ -154,9 +154,9 @@ const install = (app, options = {}) => {
     app.component(key, UI[key]);
   }
   app.provide("message", message);
-  app.provide("notice", Notice);
+  app.provide("notice", notice);
   app.config.globalProperties.$message = message;
-  app.config.globalProperties.$notice = Notice;
+  app.config.globalProperties.$notice = notice;
   // app.config.globalProperties.$Modal = Modal;
   // app.config.globalProperties.$Loading = Loading;
   // app.config.globalProperties.$Image = Image;
@@ -168,5 +168,5 @@ UI.install = install;
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.createApp && window.Vue.createApp({}).use(UI);
 }
-export { message };
+export { message, notice };
 export default UI;

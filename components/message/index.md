@@ -2,18 +2,19 @@
 组件提供了一些静态方法，使用方式如下
  
   
-- `this.$Message.info(content, [duration], onClose)`
-- `this.$Message.success(content, [duration], onClose)`
-- `this.$Message.warning(content, [duration], onClose)`
-- `this.$Message.error(content, [duration], onClose)`
+- `message.info(content, [duration], onClose)`
+- `message.success(content, [duration], onClose)`
+- `message.warning(content, [duration], onClose)`
+- `message.error(content, [duration], onClose)`
 
   
 
 另外提供了全局配置和全局销毁的方法：
  
   
-- `this.$Message.config(options)`
-- `this.$Message.destroy()`
+- `message.config(options)`
+- `message.destroy()`
+- `message.useMessage()`
 
   
 参数 `options` 为对象，具体说明如下：

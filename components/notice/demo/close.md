@@ -12,7 +12,7 @@
   </Space>
 </template>
 <script setup>
-import { notice } from "kui-vue";
+import { notice ,message } from "kui-vue";
 
 const config = ()=> {
   notice.open({
@@ -36,7 +36,7 @@ const config3 = ()=> {
     duration: 0,
     title:'温馨提示',
     content: "手动关闭",
-    close: () => { this.$Message.success("我是回调"); }
+    close: () => { message.success("我是回调"); }
   });
 }
 </script>
