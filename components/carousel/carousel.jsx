@@ -15,7 +15,7 @@ export default defineComponent({
   },
   setup(ps, { slots, emit, expose }) {
     const currentIndex = ref(ps.value);
-    const posIndex = ref(ps.value);
+    const posIndex = ref(ps.loop ? ps.value + 1 : ps.value);
     const autotimer = ref(null);
     const width = ref(0);
     const height = ref(0);
@@ -33,12 +33,19 @@ export default defineComponent({
       }
     );
     const next = () => {
-      change("right");
+      toSwitch("right");
     };
     const prev = () => {
-      change("left");
+      toSwitch("left");
     };
-    expose({ next, prev });
+    const goTo = (index) => {
+      clearInterval(autotimer.value);
+      animate.value = true;
+      currentIndex.value = index;
+      posIndex.value = ps.loop ? index + 1 : index;
+      emit("update:value", index);
+    };
+    expose({ next, prev, goTo });
     const autoToPlay = () => {
       clearInterval(autotimer.value);
       autotimer.value = setInterval(() => {
@@ -50,57 +57,52 @@ export default defineComponent({
       clearInterval(autotimer.value);
       if (playing.value) return;
       playing.value = true;
+      change(type);
+    };
+
+    const change = (type) => {
+      animate.value = true;
+
+      const total = ps.loop ? childs?.length + 2 : childs?.length;
+      let index = posIndex.value;
+      let nextCurrent = currentIndex.value;
+
+      if (type === "right") {
+        index = (index + 1) % total;
+
+        if (ps.loop) {
+          nextCurrent = (nextCurrent + 1) % childs?.length;
+        } else {
+          nextCurrent = index;
+        }
+      } else if (type === "left") {
+        index = (index - 1 + total) % total;
+
+        if (ps.loop) {
+          nextCurrent = (nextCurrent - 1 + childs?.length) % childs?.length;
+        } else {
+          nextCurrent = index;
+        }
+      }
+
+      posIndex.value = index;
+      currentIndex.value = nextCurrent;
+      emit("update:value", currentIndex.value);
 
       setTimeout(() => {
         playing.value = false;
+        if (ps.loop) {
+          let count = ps.loop ? childs?.length + 2 : childs?.length;
+          if (posIndex.value === count - 1) {
+            animate.value = false;
+            posIndex.value = 1;
+          }
+          if (posIndex.value === 0) {
+            animate.value = false;
+            posIndex.value = count - 2;
+          }
+        }
       }, 501);
-    };
-    const toIndex = (index) => {
-      animate.value = true;
-      currentIndex.value = index;
-      console.log(index)
-      // posIndex.value = index;
-    };
-    const change = (type) => {
-      animate.value = true;
-      let index = currentIndex.value;
-      if (type === "right") {
-        let length = childs?.length || 0;
-        if (ps.loop) {
-          if (index === length - 1) {
-            animate.value = false;
-            index = 0;
-            // Set transform instantly (without transition) for seamless jump
-            nextTick(() => {
-              animate.value = true;
-            });
-          } else {
-            index += 1;
-          }
-        } else {
-          index = Math.min(length - 1, index + 1);
-        }
-      } else if (type === "left") {
-        let length = childs?.length || 0;
-        if (ps.loop) {
-          if (index === 0) {
-            animate.value = false;
-            index = length - 1;
-            nextTick(() => {
-              animate.value = true;
-            });
-          } else {
-            index -= 1;
-          }
-        } else {
-          index = Math.max(0, index - 1);
-        }
-      } else {
-        index = type;
-      }
-      currentIndex.value = index;
-
-      emit("update:value", index);
     };
     const resize = () => {
       animate.value = false;
@@ -123,13 +125,11 @@ export default defineComponent({
 
     return () => {
       let { vertical } = ps;
-      // let childs = slots.default?.();
       const first = childs?.[0];
       const last = childs?.[childs.length - 1];
-      const newChilds = [last, ...childs, first];
-      let value = Math.min(childs?.length - 1, currentIndex.value);
-      value = Math.max(0, value);
-      currentIndex.value = value;
+      const newChilds = ps.loop ? [last, ...childs, first] : childs;
+      let index = Math.min(childs?.length - 1, currentIndex.value);
+      index = Math.max(0, index);
       const classes = [
         "k-carousel",
         {
@@ -139,9 +139,7 @@ export default defineComponent({
       const dotsNode = (
         <ul class="k-carousel-dots">
           {childs?.map((x, i) => (
-            <li class={{ "k-carousel-dots-active": currentIndex.value == i }} onClick={() => toIndex(i)}>
-              {i}
-            </li>
+            <li class={{ "k-carousel-dots-active": index == i }} onClick={() => goTo(i)}></li>
           ))}
         </ul>
       );
