@@ -13,8 +13,9 @@ export default defineComponent({
     vertical: Boolean,
     dots: { type: Boolean, default: true },
   },
-  setup(ps, { slots, emit }) {
+  setup(ps, { slots, emit, expose }) {
     const currentIndex = ref(ps.value);
+    const posIndex = ref(ps.value);
     const autotimer = ref(null);
     const width = ref(0);
     const height = ref(0);
@@ -37,50 +38,74 @@ export default defineComponent({
     const prev = () => {
       change("left");
     };
+    expose({ next, prev });
     const autoToPlay = () => {
       clearInterval(autotimer.value);
       autotimer.value = setInterval(() => {
         change("right");
       }, parseInt(ps.delay));
     };
-    const change = (type) => {
+    let childs = slots.default?.();
+    const toSwitch = (type) => {
+      clearInterval(autotimer.value);
       if (playing.value) return;
-      let childs = slots.default?.();
+      playing.value = true;
+
+      setTimeout(() => {
+        playing.value = false;
+      }, 501);
+    };
+    const toIndex = (index) => {
+      animate.value = true;
+      currentIndex.value = index;
+      console.log(index)
+      // posIndex.value = index;
+    };
+    const change = (type) => {
       animate.value = true;
       let index = currentIndex.value;
-      if (type == "left") {
-        index -= 1;
-        index = Math.max(0, index);
-      } else if (type == "right") {
+      if (type === "right") {
         let length = childs?.length || 0;
-        if (type === "right") {
-          if (ps.loop) {
-            index = (index + 1) % length;
+        if (ps.loop) {
+          if (index === length - 1) {
+            animate.value = false;
+            index = 0;
+            // Set transform instantly (without transition) for seamless jump
+            nextTick(() => {
+              animate.value = true;
+            });
           } else {
-            index = Math.min(length - 1, index + 1);
+            index += 1;
           }
-        } else if (type === "left") {
-          if (ps.loop) {
-            index = (index - 1 + length) % length;
+        } else {
+          index = Math.min(length - 1, index + 1);
+        }
+      } else if (type === "left") {
+        let length = childs?.length || 0;
+        if (ps.loop) {
+          if (index === 0) {
+            animate.value = false;
+            index = length - 1;
+            nextTick(() => {
+              animate.value = true;
+            });
           } else {
-            index = Math.max(0, index - 1);
+            index -= 1;
           }
+        } else {
+          index = Math.max(0, index - 1);
         }
       } else {
         index = type;
       }
       currentIndex.value = index;
-      playing.value = true;
-      setTimeout(() => {
-        playing.value = false;
-      }, 600);
+
       emit("update:value", index);
     };
     const resize = () => {
       animate.value = false;
       width.value = carouselRef.value.offsetWidth;
       height.value = carouselRef.value.offsetHeight;
-      console.log(height.value);
     };
 
     onMounted(() => {
@@ -98,7 +123,10 @@ export default defineComponent({
 
     return () => {
       let { vertical } = ps;
-      let childs = slots.default?.();
+      // let childs = slots.default?.();
+      const first = childs?.[0];
+      const last = childs?.[childs.length - 1];
+      const newChilds = [last, ...childs, first];
       let value = Math.min(childs?.length - 1, currentIndex.value);
       value = Math.max(0, value);
       currentIndex.value = value;
@@ -108,11 +136,12 @@ export default defineComponent({
           "k-carousel-vertical": vertical,
         },
       ];
-
       const dotsNode = (
         <ul class="k-carousel-dots">
-          {childs?.map((e, i) => (
-            <li class={{ "k-carousel-dots-active": currentIndex.value == i }} onClick={() => change(i)}></li>
+          {childs?.map((x, i) => (
+            <li class={{ "k-carousel-dots-active": currentIndex.value == i }} onClick={() => toIndex(i)}>
+              {i}
+            </li>
           ))}
         </ul>
       );
@@ -120,26 +149,26 @@ export default defineComponent({
       let offsetX = 0,
         offsetY = 0;
       if (!vertical) {
-        offsetX = currentIndex.value * width.value;
+        offsetX = posIndex.value * width.value;
       } else {
-        offsetY = currentIndex.value * height.value;
+        offsetY = posIndex.value * height.value;
       }
       const warpperCls = {
         class: "k-carousel-warpper",
         style: {
-          transform: `translateX(-${offsetX}px) translateY(-${offsetY}px)`,
-          width: !vertical ? childs?.length * width.value + "px" : "",
-          height: vertical ? childs?.length * height.value + "px" : "",
+          transform: `translate3d(-${offsetX}px,-${offsetY}px,0)`,
+          width: !vertical ? newChilds?.length * width.value + "px" : "",
+          height: vertical ? newChilds?.length * height.value + "px" : "",
           transitionDuration: !animate.value ? "0s" : "",
         },
       };
       const arrowLeft = (
-        <span class="k-carousel-arrow-left" onClick={() => change("left")}>
+        <span class="k-carousel-arrow-left" onClick={() => toSwitch("left")}>
           <Icon type={ChevronUp} />
         </span>
       );
       const arrowRight = (
-        <span class="k-carousel-arrow-right" onClick={() => change("right")}>
+        <span class="k-carousel-arrow-right" onClick={() => toSwitch("right")}>
           <Icon type={ChevronUp} />
         </span>
       );
@@ -153,7 +182,7 @@ export default defineComponent({
       };
       return (
         <div v-resize={resize} {...props}>
-          <div {...warpperCls}>{childs}</div>
+          <div {...warpperCls}>{newChilds}</div>
           {!vertical ? [arrowLeft, arrowRight] : null}
           {ps.dots ? dotsNode : null}
         </div>
