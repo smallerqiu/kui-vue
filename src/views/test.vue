@@ -1,54 +1,29 @@
 <template>
-  <Flex style="width:300px" vertical align="center">
-    <Space compact>
-      <Tooltip placement="top-left" :title="title">
-        <Button>TL</Button>
-      </Tooltip>
-      <Tooltip placement="top" :title="title">
-        <Button>Top</Button>
-      </Tooltip>
-      <Tooltip placement="top-right" :title="title">
-        <Button>TR</Button>
-      </Tooltip>
-    </Space>
-    <Flex justify="space-between" style="width:100%;padding:10px 0">
-      <Space vertical compact>
-        <Tooltip placement="left-top" :title="title">
-          <Button>LT</Button>
-        </Tooltip>
-        <Tooltip placement="left" :title="title">
-          <Button>Left</Button>
-        </Tooltip>
-        <Tooltip placement="left-bottom" :title="title">
-          <Button>LB</Button>
-        </Tooltip>
-      </Space>
-      <Space vertical compact>
-        <Tooltip placement="right-top" :title="title">
-          <Button>RT</Button>
-        </Tooltip>
-        <Tooltip placement="right" :title="title">
-          <Button>Right</Button>
-        </Tooltip>
-        <Tooltip placement="right-bottom" :title="title">
-          <Button>RB</Button>
-        </Tooltip>
-      </Space>
-    </Flex>
-    <Space compact>
-      <Tooltip placement="bottom-left" :title="title">
-        <Button>BL</Button>
-      </Tooltip>
-      <Tooltip placement="bottom" :title="title">
-        <Button>Bottom</Button>
-      </Tooltip>
-      <Tooltip placement="bottom-right" :title="title">
-        <Button>BR</Button>
-      </Tooltip>
-    </Space>
-  </Flex>
+  <RadioGroup :options="types" v-model:value="direction" type="button" />
+  <br />
+  <br />
+  <CheckboxGroup :options="options" v-model:value="cities" @change="change" :direction="direction" />
 </template>
 <script setup>
-const title = '明月几时有'
-</script>
+import { ref } from 'vue'
+import { message } from "kui-vue";
+const direction = ref('horizontal')
+const types = [
+  { label: '垂直', value: 'vertical' },
+  { label: '水平', value: 'horizontal' }
+]
+const options = [
+  { label: 'Beijing', value: 'beijing' },
+  { label: 'Shenzhen', value: 'shenzhen' },
+  { label: 'Shanghai', value: 'shanghai' },
+  { label: 'Guangzhou', value: 'guangzhou' },
+  { label: 'Wuhan', value: 'wuhan' },
+  { label: 'Other', value: 'other', disabled: true },
+]
+const cities = ref(['wuhan'])
 
+const change = (e) => {
+  console.log(e)
+  message.info(e)
+}
+</script>

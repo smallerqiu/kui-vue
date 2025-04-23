@@ -1,5 +1,5 @@
 import Checkbox from "./checkbox";
-import { defineComponent, provide, cloneVNode, computed } from "vue";
+import { defineComponent, provide, cloneVNode } from "vue";
 import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "CheckboxGroup",
@@ -23,7 +23,7 @@ export default defineComponent({
   setup(ps, { slots, emit }) {
     provide("checkBoxGroup", ps);
     const change = ({ checked, label, value }) => {
-      const v = ps.value;
+      const v = [...ps.value];
       let index = v.indexOf(value);
       if (checked) {
         v.push(value);
@@ -31,7 +31,7 @@ export default defineComponent({
         v.splice(index, 1);
       }
       emit("update:value", v);
-      emit("change", { label, value });
+      emit("change", v);
     };
 
     return () => {

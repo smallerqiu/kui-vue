@@ -57,7 +57,8 @@
     </Drawer>
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { Home } from 'kui-icons'
 export default {
   data() {
@@ -95,10 +96,10 @@ export default {
     submitForm() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.$Message.success('验证通过')
+          message.success('验证通过')
           this.show1 = false
         } else {
-          this.$Message.error('验证失败')
+          message.error('验证失败')
         }
       })
     },

@@ -36,7 +36,7 @@
 # 特性
 - 50+高质量组件
 - 国际化支持 14 种语言
-- 支持Vue2.x  
+- 支持Vue3.x  
 - 支持 SSR   
 - 支持 [Nuxt.js](https://nuxtjs.org/)   
 - 支持 Electron   
@@ -71,18 +71,10 @@ npm add kui-vue
     <Button type="primary" @click="test">Primary</Button>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return{
-
-    }
-  },
-  methods:{
-    test(){
-      this.$Message.info('Hello kui !')
-    }
-  }
+<script setup>
+import { mgessage } from "kui-vue";
+const test = ()=>{
+  message.info('Hello kui !')
 }
 </script>
 ```

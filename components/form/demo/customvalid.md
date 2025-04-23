@@ -26,7 +26,8 @@
     </Form>
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 export default{
   data() {
     var validateIDNumber = (rule,value,callback)=>{
@@ -75,7 +76,7 @@ export default{
   methods:{
     submit(){
       this.$refs.form.validate(valid=>{
-        this.$Message[valid?'success':'error'](valid?'success':'faild')
+        message[valid?'success':'error'](valid?'success':'faild')
       })
     },
     reset(){

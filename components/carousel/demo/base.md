@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Carousel :value="2">
+    <Carousel :value="2" :loop="true">
       <CarouselItem>1</CarouselItem>
       <CarouselItem>2</CarouselItem>
       <CarouselItem>3</CarouselItem>

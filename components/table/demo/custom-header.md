@@ -65,7 +65,7 @@ export default{
               },
               on:{
                 search:e=>{
-                  this.$Message.info(e||'click')
+                  message.info(e||'click')
                 }
               }
 
@@ -77,7 +77,7 @@ export default{
   },
   methods:{
     show(record){
-      this.$Modal.info({
+      modal.info({
         title:'More',
         content: `Name:${record.name} <br/>Aage:${record.age} <br/>Address:${record.address}`,
       })

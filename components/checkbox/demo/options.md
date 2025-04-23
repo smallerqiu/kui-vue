@@ -18,6 +18,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { message } from "kui-vue";
 const direction = ref('horizontal')
 const types = [
         { label: '垂直', value:'vertical'},
@@ -33,8 +34,8 @@ const options = [
       ]
 const cities = ref(['wuhan'])
 
-const change = ({value,label,checked}) => {
-      // this.$Message.info(`Value: ${value} , Label:${label} , Checked:${checked}`)
+const change = (v) => {
+    message.info(v)
 }
 </script>
 ```

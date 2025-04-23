@@ -11,7 +11,8 @@
   <br/>
   图片组：<Button @click="openImageGroup" size="small">Open Image Group</Button>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { Heart ,IconImage, Calendar, Location, Camera, Ribbon } from "kui-icons";
 export default{
   methods:{
@@ -104,7 +105,7 @@ export default{
       this.$Image.show(options)
     },
     close(){
-      this.$Message.success('close')
+      message.success('close')
     },
     showPanel(){
       this.$Image.togglePanel()

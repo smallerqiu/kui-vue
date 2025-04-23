@@ -59,7 +59,8 @@
     </Form>
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -158,7 +159,7 @@ export default {
     },
 
     submit({valid, model}) {
-      this.$Message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+      message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
       console.log(model)
     }
   }

@@ -101,7 +101,8 @@
 
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -245,7 +246,7 @@ export default {
     },
     sendCode() {
       this.time = 59
-      this.$Message.success("验证码发送成功，请注意查收");
+      message.success("验证码发送成功，请注意查收");
       clearInterval(this.timer)
       this.timer = setInterval(e => {
         if (this.time < 1) {
@@ -258,7 +259,7 @@ export default {
     },
     submit() {
       this.$refs.form.validate(valid => {
-        this.$Message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+        message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
       })
     },
     reset() {

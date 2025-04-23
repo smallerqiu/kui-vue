@@ -43,11 +43,12 @@ suffix，prefix 扩展
 <script setup>
 import { ref } from 'vue'
 import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
+import { message } from "kui-vue";
 const time = ref(60)
 const timer = ref(null)
 const sendCode =()=> {
   time.value = 59
-  // this.$Message.success("验证码发送成功，请注意查收");
+  message.success("验证码发送成功，请注意查收");
   timer.value = setInterval(() => {
     if (time.value <= 0) {
       clearInterval(timer.value)

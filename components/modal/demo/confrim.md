@@ -16,19 +16,19 @@
 export default{
   methods:{
     confirm() {
-      this.$Modal.confirm({
+      modal.confirm({
         title: '您确认要这么做吗',
         content: '此操作不可逆转，谨慎！！！',
         onOk: () => {
-          this.$Message.success('你点了确认')
+          message.success('你点了确认')
         },
         onCancel: () => {
-          this.$Message.info('你点了取消')
+          message.info('你点了取消')
         }
       })
     },
     custom() {
-      this.$Modal.confirm({
+      modal.confirm({
         title: 'Are you Ok?',
         content: 'Yes , I am fine, and you?',
         okText: 'OK',
@@ -36,7 +36,7 @@ export default{
       })
     },
     Async() {
-      this.$Modal.confirm({
+      modal.confirm({
         title: '您确认要这么做吗',
         content: '此操作不可逆转，谨慎！！！',
         onOk: () => {
@@ -53,12 +53,12 @@ export default{
     closeAll() {
       for(var o = 0; o < 3; o++){
         setTimeout(e=>{
-          this.$Modal.confirm({
+          modal.confirm({
             title:'一次性弹出3个框',
             content:'给你一个惊喜！',
             cancelText:'全部关闭',
             onCancel: () => {
-              this.$Modal.destroyAll()
+              modal.destroyAll()
             },
             onOk:()=>{
               return new Promise((resolve , reject)=>{

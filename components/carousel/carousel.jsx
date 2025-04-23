@@ -13,7 +13,7 @@ export default defineComponent({
     vertical: Boolean,
     dots: { type: Boolean, default: true },
   },
-  setup(ps, { slots }) {
+  setup(ps, { slots, emit }) {
     const currentIndex = ref(ps.value);
     const autotimer = ref(null);
     const width = ref(0);
@@ -53,11 +53,18 @@ export default defineComponent({
         index = Math.max(0, index);
       } else if (type == "right") {
         let length = childs?.length || 0;
-        if (!ps.loop) {
-          if (index == length - 1) {
-            index = 0;
-          } else index += 1;
-          index = Math.min(length - 1, index);
+        if (type === "right") {
+          if (ps.loop) {
+            index = (index + 1) % length;
+          } else {
+            index = Math.min(length - 1, index + 1);
+          }
+        } else if (type === "left") {
+          if (ps.loop) {
+            index = (index - 1 + length) % length;
+          } else {
+            index = Math.max(0, index - 1);
+          }
         }
       } else {
         index = type;
@@ -67,6 +74,7 @@ export default defineComponent({
       setTimeout(() => {
         playing.value = false;
       }, 600);
+      emit("update:value", index);
     };
     const resize = () => {
       animate.value = false;
@@ -85,14 +93,15 @@ export default defineComponent({
     });
 
     onBeforeUnmount(() => {
-      clearInterval(autotimer);
+      clearInterval(autotimer.value);
     });
 
     return () => {
       let { vertical } = ps;
       let childs = slots.default?.();
-      currentIndex.value = Math.min(childs?.length - 1, currentIndex.value);
-      currentIndex.value = Math.max(0, currentIndex.value);
+      let value = Math.min(childs?.length - 1, currentIndex.value);
+      value = Math.max(0, value);
+      currentIndex.value = value;
       const classes = [
         "k-carousel",
         {

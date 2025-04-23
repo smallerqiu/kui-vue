@@ -12,10 +12,11 @@ export default defineComponent({
   },
   setup(ps, { slots, emit, attrs }) {
     const radioGroup = inject("radioGroup", null);
-    const change = () => {
+    const change = (e) => {
       const _label = ps.label || slots.default?.().text;
 
       emit("update", { label: _label, value: ps.value });
+      
     };
     return () => {
       let { disabled, label, size, theme, shape, checked } = ps;
