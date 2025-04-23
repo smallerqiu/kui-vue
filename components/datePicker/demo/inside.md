@@ -26,7 +26,8 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { ChevronBack } from 'kui-icons'
 export default {
   data() {
@@ -42,12 +43,12 @@ export default {
     change(date) {
       this.show = false
       console.log(date.toString())
-      this.$Message.info(date.toString())
+      message.info(date.toString())
     },
     change2(date) {
       this.show2 = false
       console.log(date.toString())
-      this.$Message.info(date.toString())
+      message.info(date.toString())
     }
   },
 }

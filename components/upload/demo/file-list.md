@@ -33,9 +33,9 @@ export default{
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'success') {
-        this.$Message.success(`${info.file.filename} uploaded successfully`);
+        message.success(`${info.file.filename} uploaded successfully`);
       } else if (info.file.status === 'error') {
-        this.$Message.error(`${info.file.filename} upload failed.`);
+        message.error(`${info.file.filename} upload failed.`);
       }
     }
   }

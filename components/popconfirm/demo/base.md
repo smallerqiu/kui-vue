@@ -17,10 +17,10 @@
 export default{
   methods:{
     ok(){
-      this.$Message.success('Clicked on ok')
+      message.success('Clicked on ok')
     },
     cancel(){
-      this.$Message.info('Clicked on cancel')
+      message.info('Clicked on cancel')
     }
   }
 }

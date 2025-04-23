@@ -60,7 +60,8 @@
     </Col>
   </Row>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { RemoveCircleOutline } from 'kui-icons'
 export default{
   data() {
@@ -94,7 +95,7 @@ export default{
     },
     submit(){
       this.$refs.form.validate(valid=>{
-        this.$Message[valid?'success':'error'](valid?'success':'faild')
+        message[valid?'success':'error'](valid?'success':'faild')
       })
     },
     reset(){

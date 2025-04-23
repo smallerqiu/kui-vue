@@ -28,10 +28,11 @@
   </Space>
 </template>
 <script setup>
+import { message } from "kui-vue";
 const events = {};
 ['focus','blur','change','keypress','keyup','keydown',,'keydownEnter'].forEach(type=>{
   events[type] = function(e){
-    // this.$Message.info(type)
+    message.info(type)
     console.log(type,e.target.value)
   }
 })

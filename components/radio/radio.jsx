@@ -39,6 +39,7 @@ export default defineComponent({
         emit("update:checked", checked);
         emit("change", e);
       }
+      e.stopPropagation();
     };
 
     return () => {

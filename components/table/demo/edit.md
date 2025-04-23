@@ -58,7 +58,7 @@ export default{
     save(row){
       console.log(row)
       row.isEdit = false
-      this.$Message.success('Save successfuly!')
+      message.success('Save successfuly!')
     },
     removeRow(key){
       let data = [...this.data]

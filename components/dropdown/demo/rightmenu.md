@@ -22,8 +22,8 @@
     </Menu>
   </Dropdown>
 </template>
-
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { Save, Cut, Document, IconEdit, Exit } from 'kui-icons'
 export default {
   data() {
@@ -33,7 +33,7 @@ export default {
   },
   methods:{
     handle({key}){
-      this.$Message.info('Click on item '+key)
+      message.info('Click on item '+key)
     }
   }
 }

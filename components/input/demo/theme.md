@@ -16,13 +16,14 @@
 </template>
 <script setup>
 import { Search } from "kui-icons";
+import { message } from "kui-vue";
 import { ref } from "vue";
 const shape = ref(null)
 const setShape = (e) => {
   shape.value = e.target.checked ? 'circle' : null
 }
 const onSearch = (value) => {
-  // this.$Message.info("This is search event");
+  message.info("This is search event");
   console.log(value);
 }
 </script>

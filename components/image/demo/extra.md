@@ -110,7 +110,8 @@
     </Image>
   </ImageGroup>
 </template>
-<script>
+<script setup>
+import { message } from "kui-vue";
 import { Ribbon ,Heart, IconImage, Calendar, Location, Camera } from 'kui-icons'
 export default{
   data() {
@@ -151,7 +152,7 @@ export default{
       console.log(index)
     },
     close(){
-      this.$Message.success('close')
+      message.success('close')
     },
     showPanel(){
       this.$Image.togglePanel()

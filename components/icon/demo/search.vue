@@ -85,7 +85,8 @@
   }
 }
 </style>
-<script>
+<script setup>
+import { message } from "kui-vue";
 // import { LogoKui } from 'kui-icons'
 import * as icons from 'kui-icons'
 // console.log(icons)
@@ -148,9 +149,9 @@ export default {
     copy(x) {
       let text = `<Icon type="${x}" />`
       this.$copyText(text).then(e => {
-        this.$Message.success('代码复制成功！')
+        message.success('代码复制成功！')
       }, e => {
-        this.$Message.error('复制代码失败，请手动复制')
+        message.error('复制代码失败，请手动复制')
       })
     }
   },

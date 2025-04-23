@@ -43,13 +43,13 @@ export default {
   },
   methods: {
     show(record) {
-      this.$Modal.info({
+      modal.info({
         title: 'More',
         content: `Name:${record.name} <br/>Aage:${record.age} <br/>Gender:${record.gender == 0 ? 'boy' : 'gril'} <br/>Address:${record.address}`,
       })
     },
     test(data){
-      this.$Message.info('Test row click:'+data.name)
+      message.info('Test row click:'+data.name)
     }
   }
 }

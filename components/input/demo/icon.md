@@ -21,7 +21,7 @@ import { ref } from 'vue'
 import { Person, LockClosed } from "kui-icons";
 const visiblePasswordIcon = ref(true)
 const search = (value) => {
-    // this.$Message.info("This is search event");
+    message.info("This is search event");
     console.log(value)
 }
 </script>
