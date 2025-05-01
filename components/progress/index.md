@@ -12,4 +12,4 @@
 | showInfo      | 是否显示进度文字                                                 | Boolean                   | true   |
 | gapDegree     | 仪表盘进度条缺口角度，可取值 0 ~ 295                             | number                    | 75     |
 | strokeWidth   | 圆形进度条线的宽度                                               | number                    | 6      |
-| strokeHeight        | 进度条线的高度                                                   | number                    | -      |
+| strokeHeight  | 进度条线的高度                                                   | number                    | -      |

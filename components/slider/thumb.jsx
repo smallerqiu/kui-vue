@@ -4,42 +4,27 @@ export default defineComponent({
   props: {
     vertical: Boolean,
     disabled: Boolean,
-    range: Boolean,
     reverse: Boolean,
     max: Number,
     min: Number,
     size: String,
     step: Number,
-    value: [Number, Array],
+    value: [Number, String],
     tipFormatter: [Function, Object],
     type: String,
     tooltipVisible: Boolean,
   },
-  // inject: {
-  //   bar: { default: null },
-  // },
-  // data() {
-  //   return {
-  //     index: 1,
-  //     showTip: false,
-  //     touch: false,
-  //   };
-  // },
-  // mounted() {
-  //   let touch = !!("ontouchstart" in window || (window.DocumentTouch && document instanceof window.DocumentTouch));
-  //   this.touch = touch;
-  // },
-  emits: ["thumbMove", "updatePos"],
+  emits: ["thumbMove"],
   setup(ps, { slots, emit }) {
     const isMouseDown = ref(false);
+    const refThumb = ref(null);
     const index = ref(1);
-    const showTip = ref(false);
+    const showTip = ref(ps.tooltipVisible);
     const touch = !!("ontouchstart" in window || (window.DocumentTouch && document instanceof window.DocumentTouch));
     const mouseMove = (e) => {
       if (isMouseDown.value) {
         e.preventDefault();
         emit("thumbMove", e, ps.type);
-        emit("updatePos", e);
       }
     };
 
@@ -49,14 +34,17 @@ export default defineComponent({
       if (ps.tooltipVisible === true) {
         showTip.value = true;
       } else {
-        showTip.value = false;
+        if (e.target.contains(refThumb.value?.$el)) {
+          showTip.value = false;
+        }
       }
       let [e1, e2] = touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       document.removeEventListener(e1, mouseMove);
       document.removeEventListener(e2, mouseUp);
     };
     const onMouseDown = (e) => {
-      emit("updatePos", 123123123);
+      console.log(123)
+      // emit("updatePos", 123123123);
       if (ps.disabled) return;
       isMouseDown.value = true;
       showTip.value = true;
@@ -67,7 +55,7 @@ export default defineComponent({
     };
 
     return () => {
-      let { vertical, value, disabled, max, min, size, tipFormatter, range, type, reverse, tooltipVisible } = ps;
+      let { vertical, value, disabled, max, min, size, tipFormatter, reverse, tooltipVisible } = ps;
       const props = {
         class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
         style: {
@@ -91,11 +79,8 @@ export default defineComponent({
       };
       let percent,
         diff = max - min;
-      if (type == "right") {
-        percent = (((range ? value[1] : value) - min) / diff) * 100;
-      } else {
-        percent = ((value[0] - min) / diff) * 100;
-      }
+
+      percent = ((value - min) / diff) * 100;
       let sty = {};
       if (vertical) {
         sty = reverse ? { bottom: `${percent}%`, transform: "translateY(50%)" } : { top: `${percent}%` };
@@ -106,25 +91,15 @@ export default defineComponent({
 
       if (tipFormatter === null || tooltipVisible === null) return <div {...props}></div>;
 
-      let tip = "";
-      if (type == "right") {
-        tip = ps.range ? value[1] : value;
-      } else {
-        tip = value[0];
-      }
-      tip = tip?.toString();
+      let tip = value?.toString();
 
       if (tipFormatter !== undefined) {
         tip = tipFormatter(tip);
       }
       const tipProps = {
+        ref: refThumb,
         title: tip,
-        // value: showTip.value,
         show: showTip.value,
-        // trigger: "nromal",
-        // on: {
-        //   input: (value) => (showTip.value = value),
-        // },
       };
       return (
         <Tooltip {...tipProps}>

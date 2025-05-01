@@ -20,6 +20,17 @@
     </SkeletonText>
   </Card>
 </template>
+<script setup>
+import { ref } from 'vue'
+const loading = ref(false)
+
+const showSkeleton = ()=>{
+  loading.value = true,
+  setTimeout(() => {
+    loading.value = false
+  }, 3000);
+}
+</script>
 <style>
 .demo-skeleton-card{
   width:200px;
@@ -42,21 +53,4 @@
   color:#999;
 }
 </style>
-<script>
-export default{
-  data() {
-    return {
-      loading:false,
-    }
-  },
-  methods: {
-    showSkeleton(){
-      this.loading = true,
-      setTimeout(() => {
-        this.loading = false
-      }, 3000);
-    }
-  },
-}
-</script>
 ```

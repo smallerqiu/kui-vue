@@ -1,109 +1,129 @@
-import Vue from 'vue';
+import { defineComponent, ref, createVNode, render, onBeforeUnmount, Transition } from "vue";
 
-const createInstance = (props = {}) => {
-  const instance = new Vue({
-    data: {
-      visible: true,
-      percent: 0,
-      is_error: false,
-    },
-    render() {
-      const barClasses = [
-        "k-loading-line",
-        {
-          ["k-loading-line-error"]: this.is_error
+const loading = defineComponent({
+  setup(ps, { expose }) {
+    const visible = ref(true);
+    const percent = ref(0);
+    const isError = ref(false);
+    const updateTimer = ref(null);
+    const hideTimer = ref(null);
+    const start = () => {
+      percent.value = 0;
+      isError.value = false;
+      visible.value = true;
+      clearInterval(updateTimer.value);
+      updateTimer.value = setInterval(() => {
+        percent.value += Math.floor(Math.random() * 3 + 5);
+        if (percent.value >= 95) {
+          percent.value = 95;
+          clearInterval(updateTimer.value);
         }
-      ]
-      const barStyles = {
-        width: `${this.percent}%`,
-      }
-      return <transition name="fade">
-        <div class="k-loading-warp" v-show={this.visible}>
-          <div class={barClasses} style={barStyles}></div>
-        </div>
-      </transition>
-    },
-    methods: {
-      start() {
-        this.is_error = false
-        this.visible = true
-        this.percent = 0
-        clearInterval(this.timer)
-        this.timer = setInterval(() => {
-          this.percent += Math.floor(Math.random() * 3 + 5);
-          if (this.percent >= 95) {
-            this.percent = 95
-            clearInterval(this.timer)
-            clearTimeout(this.ftimer)
-            this.timer = null
-            this.ftimer = null
-          }
-        }, 200);
-      },
-      finish() {
-        clearInterval(this.timer)
-        clearTimeout(this.ftimer)
-        this.percent = 100
-        this.visible = true
-        this.is_error = false
-        this.ftimer = setTimeout(() => {
-          this.visible = false
-          clearTimeout(this.ftimer)
-        }, 500);
-      },
-      error() {
-        this.is_error = true
-        this.percent = 100
-        this.visible = true
-        clearInterval(this.timer)
-        this.timer = null
-        this.ftimer = setTimeout(() => {
-          this.visible = false
-        }, 500)
-      },
-      upload(percent) {
-        this.is_error = false
-        this.visible = true
-        this.percent = percent
-      }
-    },
-    beforeDestroy() {
-      clearInterval(this.timer)
-      clearTimeout(this.ftimer)
-    }
-  })
-  const component = instance.$mount()
-  document.body.appendChild(component.$el)
-  return instance
-}
-let loadInstance = null
+      }, 200);
+    };
+    const finish = () => {
+      clearInterval(updateTimer.value);
+      percent.value = 100;
+      hideTimer.value = setTimeout(() => {
+        visible.value = false;
+      }, 500);
+    };
+    const error = () => {
+      isError.value = true;
+      percent.value = 100;
+      visible.value = true;
+      clearInterval(updateTimer.value);
+      hideTimer.value = setTimeout(() => {
+        visible.value = false;
+      }, 500);
+    };
+    const update = (pt) => {
+      isError.value = false;
+      visible.value = true;
+      percent.value = pt;
+    };
 
-const getLoading = (props = {}) => {
-  let instance = loadInstance || createInstance(props)
-  if (!loadInstance) loadInstance = instance
-  return instance
-}
+    onBeforeUnmount(() => {
+      clearInterval(updateTimer.value);
+      clearTimeout(hideTimer.value);
+    });
+
+    const destroy = () => {
+      clearInterval(updateTimer.value);
+    };
+
+    expose({
+      start,
+      finish,
+      error,
+      update,
+      destroy,
+    });
+
+    return () => {
+      const props = {
+        class: [
+          "k-loading-line",
+          {
+            ["k-loading-line-error"]: isError.value,
+          },
+        ],
+        style: { width: `${percent.value}%` },
+      };
+      return (
+        <Transition name="fade">
+          <div class="k-loading-wrap" v-show={visible.value}>
+            <div {...props}></div>
+          </div>
+        </Transition>
+      );
+    };
+  },
+});
+const createInstance = (props = {}) => {
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+
+  const vm = createVNode(loading, props);
+  render(vm, container);
+
+  return vm.component?.exposed;
+};
+
+let loadInstance = null;
+
+const getInstance = (props = {}) => {
+  loadInstance = loadInstance || createInstance(props);
+  return loadInstance;
+};
 
 let Loading = {
-  name: 'Loading',
+  name: "Loading",
   start() {
-    getLoading().start()
+    getInstance().start();
   },
   finish() {
-    getLoading().finish()
+    getInstance().finish();
   },
   error() {
-    getLoading().error()
+    getInstance().error();
   },
-  upload(percent) {
-    getLoading().upload(percent)
+  update(pt) {
+    getInstance().update(pt);
   },
   destroy() {
     if (loadInstance) {
-      document.body.removeChild(loadInstance.$el)
-      loadInstance.$destroy()
-      loadInstance = null
+      loadInstance.destroy();
+      loadInstance = null;
+      document.body.removeChild(document.querySelector(".k-loading-wrap")?.parentNode);
     }
-  }
+  },
+  install(app) {
+    app.provide("loading", this);
+    // 可选：同时挂到 globalProperties 兼容 this.$loading
+    app.config.globalProperties.$loading = this;
+  },
+  useLoading() {
+    return inject("loading");
+  },
 };
-export default Loading
+export default Loading;

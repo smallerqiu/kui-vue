@@ -1,5 +1,6 @@
 @import '../../styles/var.less';
-.k-loading-warp {
+
+.k-loading-wrap {
    position: fixed;
    z-index: 1001;
    left: 0;
@@ -8,15 +9,32 @@
    right: 0;
    background: var(--kui-color-border);
    height: 2px;
+
    .k-loading-line {
       height: 100%;
       transition: width .2s ease-in-out;
       background-color: var(--kui-color-main);
       height: 2px;
+      position: relative;
+
+      &::after {
+         content: '';
+         position: absolute;
+         left: 0;
+         top: 0;
+         width: 0;
+         height: 100%;
+         background-color: var(--kui-color-back);
+         opacity: 0;
+         border-radius: 10px;
+         animation: k-loading-active 2.4s linear infinite;
+      }
    }
+
    .k-loading-line-error {
       background-color: var(--kui-color-danger) !important;
    }
+
    .k-loading-inner {
       margin: 0 auto;
       position: relative;
@@ -24,9 +42,28 @@
       top: 50%;
       margin-top: -17.5px;
    }
+
    .k-loading-animate {
       width: 35px;
       height: 35px;
       margin: 0 auto;
+   }
+}
+
+
+@keyframes k-loading-active {
+   0% {
+      width: 0;
+      opacity: 0;
+   }
+
+   80% {
+      opacity: .3;
+      width: 80%;
+   }
+
+   100% {
+      opacity: 0;
+      width: 100%;
    }
 }

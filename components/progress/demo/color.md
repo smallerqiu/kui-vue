@@ -14,63 +14,56 @@
     <Button @click="increase" :icon="Add" />
   </ButtonGroup>
 </template>
-<script>
+<script setup>
 import { Remove, Add } from "kui-icons";
-export default{
-  data() {
-    return {
-      Remove,Add,
-      percent:0,
-      color:''
-    }
-  },
-  methods:{
-    format2(percent){
-      return percent + '℃'
-    },
-    format3(percent){
-      return percent + '升'
-    },
-    format1(){
-      let percent = this.percent
-      if(percent < 30){
-        return '空';
-      } else if( percent >= 30 && percent < 50 ){
-        return '弱'
-      } else if( percent >= 50 && percent < 80 ){
-        return '中'
-      } else if( percent >= 80 ){
-        return '强'
-      }
-    },
-    increase() {
-      let percent = this.percent + 5;
-      if (percent > 100) {
-        percent = 100;
-      }
-      this.percent = percent;
-      this.changeColor(percent)
-    },
-    decline() {
-      let percent = this.percent - 5;
-      if (percent < 0) {
-        percent = 0;
-      }
-      this.percent = percent;
-      this.changeColor(percent)
-    },
-    changeColor(percent){
-      let {color} = this
-      if( percent >= 30 && percent < 50 ){
-        color = '#bdc78d'
-      } else if( percent >= 50 && percent < 80 ){
-        color = '#c7b98d'
-      } else if( percent >= 80 ){
-        color = '#f79e08'
-      }
-      this.color = color
-    }
+import { ref } from 'vue'
+const percent = ref(0)
+const color = ref('')
+
+const format2 = (pt) =>{
+  return pt + '℃'
+}
+const format3 = (pt) =>{
+  return pt + '升'
+}
+const format1 = () => {
+  let pt = percent.value
+  if(pt < 30){
+    return '空';
+  } else if( pt >= 30 && pt < 50 ){
+    return '弱'
+  } else if( pt >= 50 && pt < 80 ){
+    return '中'
+  } else if( pt >= 80 ){
+    return '强'
   }
+}
+const increase = ()=> {
+  let pt = percent.value + 5;
+  if (pt > 100) {
+    pt = 100;
+  }
+  percent.value = pt;
+  changeColor(pt)
+}
+const decline = ()=> {
+  let pt = percent.value - 5;
+  if (pt < 0) {
+    pt = 0;
+  }
+  percent.value = pt;
+  changeColor(pt)
+}
+const changeColor = (pt) => {
+  let c = color.value
+  if( pt >= 30 && pt < 50 ){
+    c = '#bdc78d'
+  } else if( pt >= 50 && pt < 80 ){
+    c = '#c7b98d'
+  } else if( pt >= 80 ){
+    c = '#f79e08'
+  }
+  color.value = c
 }
 </script>  
 ```

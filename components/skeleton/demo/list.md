@@ -23,6 +23,22 @@
       </div>
     </div>
 </template>
+<script setup>
+import { ref } from 'vue'
+const loading = ref(false)
+
+const item ={
+        name:'李白',
+        intro:'李白（701年—762年12月），字太白，号青莲居士，又号“谪仙人”，唐代伟大的浪漫主义诗人',
+        desc:'李白有《李太白集》传世，诗作中多以醉时写的，代表作有《望庐山瀑布》《行路难》《蜀道难》《将进酒》《早发白帝城》等多首。 [3]  李白所作词赋，宋人已有传记（如文莹《湘山野录》卷上），就其开创意义及艺术成就而言，“李白词”享有极为崇高的地位。'
+      }
+const showSkeleton = ()=> {
+  loading.value = true,
+  setTimeout(() => {
+    loading.value = false
+  }, 3000);
+}
+</script>
 <style>
 .demo-skeleton-list{
   font-size:13px;
@@ -45,26 +61,4 @@
   margin:0;
 }
 </style>
-<script>
-export default{
-  data() {
-    return {
-      loading:false,
-      item:{
-        name:'李白',
-        intro:'李白（701年—762年12月），字太白，号青莲居士，又号“谪仙人”，唐代伟大的浪漫主义诗人',
-        desc:'李白有《李太白集》传世，诗作中多以醉时写的，代表作有《望庐山瀑布》《行路难》《蜀道难》《将进酒》《早发白帝城》等多首。 [3]  李白所作词赋，宋人已有传记（如文莹《湘山野录》卷上），就其开创意义及艺术成就而言，“李白词”享有极为崇高的地位。'
-      }
-    }
-  },
-  methods: {
-    showSkeleton(){
-      this.loading = true,
-      setTimeout(() => {
-        this.loading = false
-      }, 3000);
-    }
-  },
-}
-</script>
 ```

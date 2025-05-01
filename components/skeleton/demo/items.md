@@ -6,23 +6,24 @@
 ```vue
 <template>
   <Space :size="15">
-    <Checkbox v-model="animated" label="Animated"/>
-    <Checkbox v-model="block" label="Button block"/>
-    Size: <RadioGroup :options="sizes" v-model="size" type="button"/>
+    <Checkbox v-model:checked="animated" label="Animated"/>
+    <Checkbox v-model:checked="block" label="Button block"/>
+    Size: <RadioGroup :options="sizes" v-model:value="size" type="button"/>
   </Space>
   <br/>
   <br/>
   <Space :size="15">
-    Button Shape: <RadioGroup :options="btnShapes" v-model="btnShape" type="button"/>
-    Avatar Shape: <RadioGroup :options="avatarShapes" v-model="avatarShape" type="button"/>
+    Button Shape: <RadioGroup :options="btnShapes" v-model:value="btnShape" type="button"/>
+    Avatar Shape: <RadioGroup :options="avatarShapes" v-model:value="avatarShape" type="button"/>
   </Space>
   <br/>
   <br/>
   <Space :size="15" style="width:300px;">
-    Image radius: <Slider v-model="radius" />
+    Image radius: <Slider v-model:value="radius" />
   </Space>
+  <br/>
   <Space :size="15" style="width:300px;">
-    Image Size: <Slider v-model="imgSize" range :min="80" :max="320"/>
+    Image Size: <Slider v-model:value="imgSize" range :min="80" :max="320"/>
   </Space>
   <br/>
   <br/>
@@ -38,34 +39,30 @@
   <br/>
   <SkeletonImage :animated="animated" :radius="radius" :size="imgSize"/>
 </template>
-<script>
-export default{
-  data() { 
-    return { 
-      sizes :[
-        { label :'Small', value :'small' },
-        { label :'Default', value :'default' },
-        { label :'Large', value :'large' },
-      ],
-      btnShapes :[
-        { label :'Round', value :'round' },
-        { label :'Default', value :'default' },
-        { label :'Circle', value :'circle' },
-      ],
-      avatarShapes :[
-        { label :'Square', value :'square' },
-        { label :'Circle', value :'circle' },
-      ],
-      imgSize: [96,96],
-      animated :false,
-      size :'default',
-      block :false,
-      radius:10,
-      avatarShape :'square',
-      btnShape :'default',
-      imgShape :'default' 
-    } 
-  }
-}
+<script setup>
+import { ref } from 'vue'
+
+const sizes = [
+  { label :'Small', value :'small' },
+  { label :'Default', value :'default' },
+  { label :'Large', value :'large' },
+]
+const btnShapes = [
+  { label :'Round', value :'round' },
+  { label :'Default', value :'default' },
+  { label :'Circle', value :'circle' },
+]
+const avatarShapes = [
+  { label :'Square', value :'square' },
+  { label :'Circle', value :'circle' },
+]
+const imgSize = [96,96]
+const animated  = ref(false)
+const size = ref('default')
+const block = ref(false)
+const radius = ref(10)
+const avatarShape = ref('square')
+const btnShape  = ref('default')
+const imgShape = ref('default') 
 </script>
 ```
