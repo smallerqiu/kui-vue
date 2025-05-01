@@ -18,6 +18,7 @@ export default defineComponent({
       options.duration = isNaN(Number(duration)) ? 3.5 : duration;
       let timer;
       let callback = (key) => {
+        // todo 手动关闭不了
         typeof close === "function" && close();
         group.value = group.value.filter((item) => item.key !== key);
         clearTimeout(timer);
