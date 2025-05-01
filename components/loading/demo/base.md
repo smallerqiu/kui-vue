@@ -5,34 +5,31 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
     <Button @click="start()">start</Button>
     <Button @click="finish">finish</Button>
     <Button @click="error">error</Button>
-    <Button @click="upload(30)">upload 30%</Button>
-    <Button @click="upload(80)">upload 80%</Button>
+    <Button @click="update(30)">update 30%</Button>
+    <Button @click="update(80)">update 80%</Button>
     <Button @click="destroy()">destroy</Button>
-  </div>
+  </Space>
 </template>
-<script>
-export default{
-  methods: {
-    upload(percent){
-      this.$Loading.upload(percent);
-    },
-    start() {
-      this.$Loading.start();
-    },
-    finish() {
-      this.$Loading.finish();
-    },
-    error() {
-      this.$Loading.error();
-    },
-    destroy(){
-      this.$Loading.destroy();
-    }
-  }
+<script setup>
+import { loading } from 'kui-vue'
+const update = (percent) => {
+  loading.update(percent);
+}
+const start = () => {
+  loading.start();
+}
+const finish = () => {
+  loading.finish();
+}
+const error = () => {
+  loading.error();
+}
+const destroy = () => {
+  loading.destroy();
 }
 </script>
 ```

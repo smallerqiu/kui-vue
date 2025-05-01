@@ -3,6 +3,7 @@ import { getTranstionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor } from "kui-icons";
 import { useClipboard } from "@vueuse/core";
 import Icon from "kui-vue/icon";
+import { message } from "kui-vue";
 export default defineComponent({
   name: "Demo",
   setup(props, { slots }) {
@@ -22,10 +23,10 @@ export default defineComponent({
     const handleCopy = () => {
       try {
         copy(code.value.innerText);
-        // Message.success("Copied!");
+        message.success("Copied!");
       } catch (e) {
         console.log(e);
-        // Message.error("复制代码失败，请手动复制");
+        message.error("复制代码失败，请手动复制");
       }
     };
     return () => (

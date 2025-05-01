@@ -11,45 +11,60 @@
 ```js
 // # router.js
 
-import Vue from 'vue'
-import Router from 'vue-router'
-import kui from 'kui-vue'
+import { createRouter, createWebHistory } from "vue-router";
+import { loading } from 'kui-vue'
 
-Vue.use(Router)
-let router = new Router({
-  ....
+let router = createRouter({
+  history: createWebHistory(),
+  ...
 })
 router.beforeEach((to, from, next) => {
-  kui.Loading.start();
+  loading.start();
   next();
 });
 
 router.afterEach(route => {
-  kui.Loading.finish();
+  loading.finish();
 });
+
+export default router;
 ```
 
-模拟ajax 请求
+如果你使用的是 `axios`.
 ```js
-// 以jQuery的Ajax为例，部分代码省略
-import $ from 'jquery';
-export default {
-  methods: {
-    getData () {
-      this.$Loading.start();
-      $.ajax({
-        url: '/api/someurl',
-        type: 'get',
-        success: () => {
-          this.$Loading.finish();
-        }
-        error: () => {
-          this.$Loading.error();
-        },
-      });
-    }
+import axios from 'axios'
+import { loading } from 'kui-vue'
+
+const axiosInstance = axios.create({
+  baseURL: '/api', // 你的 API 地址
+  timeout: 10000,
+})
+
+// 请求拦截器
+axiosInstance.interceptors.request.use(
+  (config) => {
+    loading.start();
+    return config
+  },
+  (error) => {
+    loading.finish();
+    return Promise.reject(error)
   }
-}
+)
+
+// 响应拦截器
+axiosInstance.interceptors.response.use(
+  (response) => {
+    loading.finish();
+    return response
+  },
+  (error) => {
+    loading.finish();
+    return Promise.reject(error)
+  }
+)
+
+export default axiosInstance
 ```
 
 ## 代码演示

@@ -13,6 +13,7 @@
     </div>
   </Spin>
   <br/>
+  <br/>
   Loading state：<KSwitch v-model:checked="spinning"/>
 </div>
 </template>

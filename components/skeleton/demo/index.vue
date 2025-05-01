@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from './info.md'
 import Base from './base.md'
 import Group from './group.md'
@@ -10,8 +10,8 @@ import Custom from './custom.md'
 
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-progress">
         <Info />
         <Base />

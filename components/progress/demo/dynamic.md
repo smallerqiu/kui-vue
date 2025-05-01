@@ -14,31 +14,23 @@
     <Button @click="increase" :icon="Add"/>
   </ButtonGroup>
 </template>
-<script>
+<script setup>
 import { Remove, Add } from "kui-icons";
-export default{
-  data() {
-    return {
-      Remove,Add,
-      percent:30
-    }
-  },
-  methods:{
-    increase() {
-      let percent = this.percent + 5;
-      if (percent > 100) {
-        percent = 100;
-      }
-      this.percent = percent;
-    },
-    decline() {
-      let percent = this.percent - 5;
-      if (percent < 0) {
-        percent = 0;
-      }
-      this.percent = percent;
-    },
+import { ref } from 'vue'
+const percent = ref(30)
+const increase = () => {
+  let pt = percent.value + 5;
+  if (pt > 100) {
+    pt = 100;
   }
+  percent.value = pt;
+}
+const decline = () => {
+  let pt = percent.value - 5;
+  if (pt < 0) {
+    pt = 0;
+  }
+  percent.value = pt;
 }
 </script>  
 ```

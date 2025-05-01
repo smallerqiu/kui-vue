@@ -1,4 +1,4 @@
-import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, isVNode } from "vue";
+import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, onMounted } from "vue";
 import { isColor } from "../utils/color";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
@@ -24,7 +24,7 @@ export default defineComponent({
   setup(ps, { slots, attrs }) {
     // const te = {...attrs}
     // console.log(te)
-    const rendered = ref(false);
+    const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref(null);
     const refCtx = ref(null);
@@ -34,7 +34,7 @@ export default defineComponent({
     const transOrigin = ref("bottom");
     const hideTimer = ref(null);
     const showTimer = ref(null);
-    const resetPosition = () => {
+    const updatePosition = () => {
       nextTick(() => {
         const ctx = refCtx.value.$el || refCtx.value;
         let selectionRect = ctx.getBoundingClientRect();
@@ -144,27 +144,45 @@ export default defineComponent({
         }
       });
     };
+    onMounted(() => {
+      if (ps.show) {
+        updatePosition();
+      }
+    });
+    watch(
+      () => ps.show,
+      (nv, no) => {
+        visible.value = nv;
+      }
+    );
     // 监听 title 的变化
     watch(
       () => ps.title,
       () => {
         if (visible.value) {
-          resetPosition();
+          updatePosition();
         }
       }
     );
-    const render = () => {
-      if (!render.value) {
+    const mouseEnter = () => {
+      if (!rendered.value) {
         rendered.value = true;
         nextTick(() => {
           visible.value = true;
-          resetPosition();
+          updatePosition();
         });
       } else {
         clearTimeout(showTimer.value);
         visible.value = true;
-        resetPosition();
+        updatePosition();
       }
+    };
+    const hide = () => {
+      hideTimer.value = setTimeout(() => {
+        if (!ps.show) {
+          visible.value = false;
+        }
+      }, 300);
     };
     return () => {
       const title = slots.title?.() || ps.title;
@@ -181,12 +199,10 @@ export default defineComponent({
       ];
       const wpProps = {
         ref: refCtx,
-        onMouseenter: render,
-        onMouseleave: () => {
-          hideTimer.value = setTimeout(() => {
-            visible.value = false;
-          }, 300);
-        },
+        onTouchstart: mouseEnter,
+        onTouchend: hide,
+        onMouseenter: mouseEnter,
+        onMouseleave: hide,
         onUpdatePos: () => {
           console.log("test");
         },
@@ -217,7 +233,9 @@ export default defineComponent({
         },
         onMouseleave: () => {
           showTimer.value = setTimeout(() => {
-            visible.value = false;
+            if (!ps.show) {
+              visible.value = false;
+            }
           }, 300);
         },
       };

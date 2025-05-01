@@ -23,7 +23,7 @@ import Icon from "./icon";
 import { Input, TextArea, InputGroup } from "./input";
 // import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from "./layout";
-// // import Loading from './loading'
+import loading from "./loading";
 // import Modal from './modal'
 // import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import message from "./message";
@@ -31,11 +31,11 @@ import notice from "./notice";
 // import Page from './page'
 // import Poptip from './poptip'
 // import Popconfirm from './popconfirm'
-// import Progress from './progress'
+import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from "./radio";
 import Rate from "./rate";
 // import { Select, Option } from './select'
-// import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
+import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
 import Slider from "./slider";
 import Space from "./space";
 import Spin from "./spin";
@@ -97,12 +97,12 @@ const components = {
   Footer,
   Content,
   Sider,
-  // Loading,
+  loading,
   notice,
   // Page,
   // Poptip,
   // Popconfirm,
-  // Progress,
+  Progress,
   Radio,
   RadioGroup,
   RadioButton,
@@ -110,7 +110,7 @@ const components = {
   // Select, Option,
   Space,
   Spin,
-  // Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText,
+  Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText,
   Slider,
   // Table,
   // Tabs, TabPane,
@@ -155,10 +155,11 @@ const install = (app, options = {}) => {
   }
   app.provide("message", message);
   app.provide("notice", notice);
+  app.provide("loading", loading);
   app.config.globalProperties.$message = message;
   app.config.globalProperties.$notice = notice;
   // app.config.globalProperties.$Modal = Modal;
-  // app.config.globalProperties.$Loading = Loading;
+  app.config.globalProperties.$loading = loading;
   // app.config.globalProperties.$Image = Image;
 };
 
@@ -168,5 +169,5 @@ UI.install = install;
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.createApp && window.Vue.createApp({}).use(UI);
 }
-export { message, notice };
+export { message, notice, loading };
 export default UI;
