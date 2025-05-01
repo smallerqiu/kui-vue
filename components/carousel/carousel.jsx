@@ -44,9 +44,11 @@ export default defineComponent({
       currentIndex.value = index;
       posIndex.value = ps.loop ? index + 1 : index;
       emit("update:value", index);
+      autoToPlay()
     };
     expose({ next, prev, goTo });
     const autoToPlay = () => {
+      if (!ps.autoplay) return;
       clearInterval(autotimer.value);
       autotimer.value = setInterval(() => {
         change("right");
@@ -103,6 +105,7 @@ export default defineComponent({
           }
         }
       }, 501);
+      autoToPlay()
     };
     const resize = () => {
       animate.value = false;
@@ -113,9 +116,7 @@ export default defineComponent({
     onMounted(() => {
       nextTick(() => {
         resize();
-        if (ps.autoplay) {
-          autoToPlay();
-        }
+        autoToPlay();
       });
     });
 
