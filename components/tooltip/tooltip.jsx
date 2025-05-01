@@ -1,4 +1,4 @@
-import { defineComponent, Transition, ref, cloneVNode, nextTick } from "vue";
+import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, isVNode } from "vue";
 import { isColor } from "../utils/color";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
@@ -26,19 +26,23 @@ export default defineComponent({
     // console.log(te)
     const rendered = ref(false);
     const visible = ref(ps.show);
-    const popper = ref(null);
+    const refPopper = ref(null);
+    const refCtx = ref(null);
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
-    const resetPosition = (e) => {
+    const hideTimer = ref(null);
+    const showTimer = ref(null);
+    const resetPosition = () => {
       nextTick(() => {
-        let selectionRect = e.target.getBoundingClientRect();
+        const ctx = refCtx.value.$el || refCtx.value;
+        let selectionRect = ctx.getBoundingClientRect();
         const offset = 3;
         let scrollTop = document.documentElement.scrollTop;
         let scrollLeft = document.documentElement.scrollLeft;
-        const pickerHeight = popper.value.offsetHeight;
-        const pickerWidth = popper.value.offsetWidth;
+        const pickerHeight = refPopper.value.offsetHeight;
+        const pickerWidth = refPopper.value.offsetWidth;
 
         // 获取窗口尺寸
         const windowWidth = window.innerWidth;
@@ -140,17 +144,26 @@ export default defineComponent({
         }
       });
     };
-
-    const render = (e) => {
+    // 监听 title 的变化
+    watch(
+      () => ps.title,
+      () => {
+        if (visible.value) {
+          resetPosition();
+        }
+      }
+    );
+    const render = () => {
       if (!render.value) {
         rendered.value = true;
         nextTick(() => {
           visible.value = true;
-          resetPosition(e);
+          resetPosition();
         });
       } else {
+        clearTimeout(showTimer.value);
         visible.value = true;
-        resetPosition(e);
+        resetPosition();
       }
     };
     return () => {
@@ -166,35 +179,52 @@ export default defineComponent({
           [`k-${preCls}-dark`]: ps.dark,
         },
       ];
+      const wpProps = {
+        ref: refCtx,
+        onMouseenter: render,
+        onMouseleave: () => {
+          hideTimer.value = setTimeout(() => {
+            visible.value = false;
+          }, 300);
+        },
+        onUpdatePos: () => {
+          console.log("test");
+        },
+      };
       const childs = getChildren(slots.default?.());
-      const nodes = childs?.map((node) =>
-        cloneVNode(
-          node,
-          {
-            ...attrs,
-            onMouseenter: render,
-            onMouseleave: () => {
-              visible.value = false;
-            },
-            onUpdatePos: () => {
-              console.log("test");
-            },
-          },
-          true,
-          true
-        )
-      );
+      const nodes = childs?.map((node) => {
+        let pp = { ...attrs };
+        if (childs.length == 1) {
+          pp = { ...pp, ...wpProps };
+        }
+        return cloneVNode(node, pp, true, true);
+      });
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
         top: `${top.value}px`,
         transformOrigin: transOrigin.value,
       };
-      const childNodes = [...nodes];
+      const childNodes = [nodeWrapper];
+      const pops = {
+        "k-placement": currentPlacement.value,
+        style: styles,
+        ref: refPopper,
+        onMouseenter: () => {
+          clearTimeout(hideTimer.value);
+          visible.value = true;
+        },
+        onMouseleave: () => {
+          showTimer.value = setTimeout(() => {
+            visible.value = false;
+          }, 300);
+        },
+      };
       if (rendered.value) {
         childNodes.push(
           <Transition name="k-tooltip">
-            <div class={cls} v-transfer={true} k-placement={currentPlacement.value} v-show={visible.value} style={styles} ref={popper}>
+            <div class={cls} v-transfer={true} v-show={visible.value} {...pops}>
               <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? color : null }}>
                 <div class={`k-${preCls}-title`}>{title}</div>
                 <div class={`k-${preCls}-arrow`}>
