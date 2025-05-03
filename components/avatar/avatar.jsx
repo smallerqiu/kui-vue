@@ -46,7 +46,6 @@ export default defineComponent({
 
       let hasIcon = childs?.filter((x) => x.type == "Icon").length;
       let text = childs?.length == 1 && typeof childs[0].children === "string";
-      console.log(childs);
       let cls = [
         "k-avatar",
         {

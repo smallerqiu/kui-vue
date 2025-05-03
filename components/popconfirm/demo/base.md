@@ -13,16 +13,13 @@
     <a type="primary">Delete</a>
   </Popconfirm>
 </template>
-<script>
-export default{
-  methods:{
-    ok(){
-      message.success('Clicked on ok')
-    },
-    cancel(){
-      message.info('Clicked on cancel')
-    }
-  }
+<script setup>
+import { message } from "kui-vue";
+const ok = ()=> {
+  message.success('Clicked on ok')
 }
-</script>h
+const cancel = ()=> {
+  message.info('Clicked on cancel')
+}
+</script>
 ```

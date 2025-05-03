@@ -44,7 +44,7 @@
   &[k-placement^=bottom] {
     .k-popconfirm-arrow {
       top: -6px;
-      height: 7px;
+      height: 8px;
       transform: rotate(180deg);
     }
 
@@ -75,7 +75,7 @@
     .k-popconfirm-arrow {
       right: -14px;
       width: 24px;
-      height: 7px;
+      height: 8px;
       transform: rotate(-90deg);
     }
 
@@ -107,7 +107,7 @@
     .k-popconfirm-arrow {
       left: -14px;
       width: 24px;
-      height: 7px;
+      height: 8px;
       transform: rotate(90deg);
     }
 
@@ -143,8 +143,14 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 12px; //var(--kui-border-radius);
   position: relative;
+  border: 1px solid var(--kui-color-border);
+
   // border: 1px solid var(--kui-color-border);
   // }
+  #ot {
+    stroke: var(--kui-color-border);
+  }
+
   .k-popconfirm-body {
     padding: 18px 18px 10px 18px;
     box-sizing: border-box;
@@ -175,7 +181,7 @@
     color: var(--kui-color-control-10);
     // color:inherit;
     width: 24px;
-    height: 7px;
+    height: 8px;
   }
 
   .k-popconfirm-footer {

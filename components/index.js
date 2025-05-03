@@ -30,7 +30,7 @@ import message from "./message";
 import notice from "./notice";
 // import Page from './page'
 // import Poptip from './poptip'
-// import Popconfirm from './popconfirm'
+import Popconfirm from './popconfirm'
 import Progress from './progress'
 import { Radio, RadioGroup, RadioButton } from "./radio";
 import Rate from "./rate";
@@ -101,7 +101,7 @@ const components = {
   notice,
   // Page,
   // Poptip,
-  // Popconfirm,
+  Popconfirm,
   Progress,
   Radio,
   RadioGroup,
