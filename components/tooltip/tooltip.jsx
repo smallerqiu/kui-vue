@@ -241,7 +241,7 @@ export default defineComponent({
       };
       if (rendered.value) {
         childNodes.push(
-          <Transition name="k-tooltip">
+          <Transition name={`k-${preCls}`}>
             <div class={cls} v-transfer={true} v-show={visible.value} {...pops}>
               <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? color : null }}>
                 <div class={`k-${preCls}-title`}>{title}</div>

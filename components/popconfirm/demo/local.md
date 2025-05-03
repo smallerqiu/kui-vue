@@ -23,16 +23,13 @@
     </Popconfirm>
   </Space>
 </template>
-<script>
-export default{
-  methods:{
-    ok(){
-      message.success('Clicked on Yes')
-    },
-    cancel(){
-      message.info('Clicked on No')
-    }
-  }
+<script setup>
+import { message } from "kui-vue";
+const ok = ()=> {
+  message.success('Clicked on Yes')
+}
+const cancel = ()=> {
+  message.info('Clicked on No')
 }
 </script>  
 ```
