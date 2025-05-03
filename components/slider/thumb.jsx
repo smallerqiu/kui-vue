@@ -43,6 +43,8 @@ export default defineComponent({
       document.removeEventListener(e2, mouseUp);
     };
     const onMouseDown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       console.log(123)
       // emit("updatePos", 123123123);
       if (ps.disabled) return;

@@ -1,8 +1,9 @@
 <template>
   <div style="max-width:520px;padding: 200px;" theme-mode="dark">
+    <Button @click="value=[40,80]">rest</Button>
     <div>step=10 {{ value }}</div>
     <Slider :step="10" :marks="{ 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }" v-model:value="value"
-      :max="80" :min="10"></Slider>
+      :max="80" :min="10" range></Slider>
     <!-- <br />
     <br />
     <div>step=0.1</div>
@@ -28,5 +29,5 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-const value = ref([20, 80])
+const value = ref([40, 80])
 </script>

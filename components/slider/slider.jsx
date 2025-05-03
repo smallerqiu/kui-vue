@@ -14,6 +14,7 @@ export default defineComponent({
     },
     size: String,
     vertical: Boolean,
+    range: Boolean,
     reverse: Boolean,
     marks: Object,
     included: { type: Boolean, default: true },
@@ -22,12 +23,11 @@ export default defineComponent({
   },
   setup(ps, { emit, slots }) {
     const railRef = ref(null);
-    const range = Array.isArray(ps.value);
     const getValue = () => {
       let { value = 0, min, max } = ps,
         v = 0;
       // let diff = max - min;
-      if (!range) {
+      if (!ps.range) {
         v = value;
         if (value >= max) v = max;
         else if (value <= min) v = min;
@@ -71,7 +71,7 @@ export default defineComponent({
       }
 
       let { width, height, left, top } = railRef.value.getBoundingClientRect();
-      let { max, min, vertical, reverse } = ps;
+      let { max, min, vertical, reverse, step } = ps;
 
       let percent = 0,
         diff = max - min;
@@ -82,37 +82,53 @@ export default defineComponent({
       }
       if (percent >= 1) percent = 1;
       else if (percent <= 0) percent = 0;
-      // let x = range ? (type == "right" ? v[1] : v[0]) : v;
 
       let x = getMinStep(percent * diff);
 
       if (x >= max) x = max;
       else if (x <= min) x = min;
 
-      let v = defaultValue.value;
-      v = range ? (type == "right" ? [v[0], x] : [x, v[1]]) : x;
-
-      if (range) {
-        let [a, b] = v;
-
-        // console.log(a, b, x);
-        let y;
-        if (a > b) {
-          y = [b, a];
-        } else if (a < b) {
-          y = [a, b];
+      // 使用解构创建新数组，避免引用问题
+      const v = ps.range ? [...defaultValue.value] : defaultValue.value;
+      let newValue = null;
+      if (ps.range) {
+        // todo:
+        // v = type === "right" ? [v[0], x] : [x, v[1]];
+        // 可以交叉
+        let [a, b] = [...v];
+        // let x1 = Math.min(a, b, x);
+        // let y1 = Math.max(a, b, x);
+        if (type == "right") {
+          // if (x > a) {
+          //   newValue = [a, x];
+          // } else if (x < a) {
+          //   newValue = [x, b ];
+          // } else {
+          //   console.log(a, b, x);
+          newValue = [a, x];
+          // }
         } else {
-          y = [a, a];
+          newValue = [x, b];
         }
-        console.log(v, y);
-        // v = y;
-      }
-      // } else {
-      // }
-      // console.log(v);
 
-      defaultValue.value = v;
-      emit("update:value", v);
+        // let [x1, y1] = [...newValue];
+        // if (x1 > y1) {
+        //   newValue = [y1, x1];
+        // }
+        // console.log(x1,y1);
+
+        // 不能交叉
+        // if (type === "right") {
+        //   v = [v[0], Math.max(v[0], x)]; // 右边不能小于左边
+        // } else {
+        //   v = [Math.min(x, v[1]), v[1]]; // 左边不能大于右边
+        // }
+      } else {
+        newValue = x;
+      }
+
+      defaultValue.value = newValue;
+      emit("update:value", newValue);
     };
 
     const getMinStep = (percent) => {
@@ -131,6 +147,7 @@ export default defineComponent({
     };
 
     const click = (e) => {
+      return;
       let { disabled, vertical, step, max, min, reverse } = ps;
       if (disabled) return;
       let { width, height } = e.target.getBoundingClientRect();
@@ -145,7 +162,7 @@ export default defineComponent({
       }
       let value = getMinStep(percent);
 
-      if (range) {
+      if (ps.range) {
         let [x, y] = defaultValue.value;
         let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y;
         value = value >= half && y > x ? [x, value] : [value, y];
@@ -154,10 +171,10 @@ export default defineComponent({
       defaultValue.value = value;
       emit("update:value", value);
     };
-    const isActice = (a) => {
+    const isActive = (a) => {
       let { reverse, max, min, vertical } = ps;
       let active;
-      if (range) {
+      if (ps.range) {
         let [x, y] = defaultValue.value;
         active = x < y ? a >= x && a <= y : a <= x && a >= y;
       } else {
@@ -174,11 +191,11 @@ export default defineComponent({
       return { active, sty };
     };
     const getThumbValue = (t) => {
-      if (!range) {
+      if (!ps.range) {
         return defaultValue.value;
       } else {
-        let [a, b] = defaultValue.value;
-        return t == 0 ? Math.min(a, b) : Math.max(a, b);
+        let [a, b] = [...defaultValue.value];
+        return t == 0 ? a * 1 : b * 1;
       }
     };
 
@@ -191,11 +208,11 @@ export default defineComponent({
         return (
           <div div class="k-slider-marks">
             {mks.map((v) => {
-              const { active, sty } = isActice(v);
+              const { active, sty } = isActive(v);
               return <div class={["k-slider-mark-symbol", { "k-slider-mark-symbol-active": active }]} style={sty} />;
             })}
             {mks.map((v, i) => {
-              let { active, sty } = isActice(v);
+              let { active, sty } = isActive(v);
               return (
                 <div class={["k-slider-mark-text", { "k-slider-mark-text-active": active }]} style={sty}>
                   {txt[i]}
@@ -212,7 +229,7 @@ export default defineComponent({
           diff = max - min;
         let w, l;
 
-        if (!range) {
+        if (!ps.range) {
           percent2 = ((defaultValue.value - min) / diff) * 100;
         } else {
           let [x, y] = defaultValue.value;
@@ -271,7 +288,7 @@ export default defineComponent({
         const track = renderTrack();
         childs.push(track);
       }
-      if (range) {
+      if (ps.range) {
         let v = getThumbValue(0);
         childs.push(<Thumb {...thumbProps} value={v} />);
       }
