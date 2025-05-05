@@ -9,21 +9,21 @@
     <Space compact>
       <Poptip placement="top-left">
         <Button>TL</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
       <Poptip placement="top">
         <Button>Top</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
       <Poptip placement="top-right">
         <Button>TR</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
@@ -33,21 +33,21 @@
       <Space vertical compact>
         <Poptip placement="left-top">
           <Button>LT</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
         <Poptip placement="left">
           <Button>Left</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
         <Poptip placement="left-bottom">
           <Button>LB</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
@@ -57,21 +57,21 @@
       <Space vertical compact>
         <Poptip placement="right-top">
           <Button>RT</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
         <Poptip placement="right">
           <Button>Right</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
         <Poptip placement="right-bottom">
           <Button>RB</Button>
-          <template slot="content">
+          <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
@@ -81,21 +81,21 @@
     <Space compact>
       <Poptip placement="bottom-left">
         <Button>BL</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
       <Poptip placement="bottom">
         <Button>Bottom</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
       <Poptip placement="bottom-right">
         <Button>BR</Button>
-        <template slot="content">
+        <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
@@ -103,13 +103,7 @@
     </Space>
   </Flex>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      tip: '明月几时有,把酒问青天!',
-    }
-  }
-}
+<script setup>
+const tip: '明月几时有,把酒问青天!'
 </script>
 ```
