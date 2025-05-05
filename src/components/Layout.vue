@@ -22,9 +22,11 @@
         </Menu>
       </Sider>
       <Content>
-        <transition name="fade" mode="out-in">
-          <router-view class="content-inner"></router-view>
-        </transition>
+        <router-view v-slot="{ Component }" class="content-inner">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
         <div class="foot-nav">
           <a :href="`/${prev.key}/${prev.name}`" @click="e => link(e, 0)" class="nav-prev" v-if="prev.sub">
             <Icon :type="ChevronBack" />
@@ -77,7 +79,7 @@ const link = (e, t) => {
   router.push(`/${c.key}/${c.name}`);
 };
 
-const go = ({ key, keyPath=[] }) => {
+const go = ({ key, keyPath = [] }) => {
   // console.log(key, keyPath);
   // let [m, n] = keyPath;
   // let path = `/${m}/${n}`;
