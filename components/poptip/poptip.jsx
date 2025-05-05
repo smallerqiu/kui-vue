@@ -8,6 +8,7 @@ export default defineComponent({
   },
   props: {
     dark: Boolean,
+    show: Boolean,
     title: [String, Number, Object, Array],
     size: String,
     width: [Number, String],
@@ -27,8 +28,8 @@ export default defineComponent({
   setup(ps, { slots, attrs, emit }) {
     // const te = {...attrs}
     // console.log(te)
-    const rendered = ref(false);
-    const visible = ref(false);
+    const rendered = ref(ps.show);
+    const visible = ref(ps.show);
     const refPopper = ref(null);
     const refCtx = ref(null);
     const left = ref(0);
@@ -113,17 +114,17 @@ export default defineComponent({
           case "left":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left center";
+            transOrigin.value = "right center";
             break;
           case "left-top":
             top.value = selectionRect.top + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left top";
+            transOrigin.value = "right top";
             break;
           case "left-bottom":
             top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left bottom";
+            transOrigin.value = "right bottom";
             break;
           case "right":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
@@ -159,7 +160,8 @@ export default defineComponent({
       () => ps.show,
       (nv, no) => {
         visible.value = nv;
-      }
+      },
+      // { immediate: true }
     );
     // 监听 title 的变化
     watch(
@@ -170,41 +172,36 @@ export default defineComponent({
         }
       }
     );
+    const updateShow = (value)=>{
+      visible.value = value;
+      emit("update:show", value);
+    }
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
       if (refPopper.value && !refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) {
-        visible.value = false;
+        updateShow(false)
       }
     };
-    const mouseEnter = () => {
+    const show = () => {
       if (!rendered.value) {
         rendered.value = true;
         document.addEventListener("click", outsideClick);
         nextTick(() => {
-          visible.value = true;
+          updateShow(true)
           updatePosition();
         });
       } else {
         clearTimeout(showTimer.value);
-        visible.value = true;
+          updateShow(true)
         updatePosition();
       }
     };
     const hide = () => {
       hideTimer.value = setTimeout(() => {
         if (!ps.show) {
-          visible.value = false;
+          updateShow(false)
         }
       }, 300);
-    };
-    const ok = () => {
-      visible.value = false;
-      emit("ok");
-    };
-
-    const cancel = () => {
-      visible.value = false;
-      emit("cancel");
     };
     return () => {
       const title = slots.title?.() || ps.title;
@@ -219,8 +216,16 @@ export default defineComponent({
       ];
       const wpProps = {
         ref: refCtx,
-        onClick: mouseEnter,
+        onMouseleave: hide,
       };
+      if (ps.trigger === "click") {
+        wpProps.onClick = show;
+      } else if (ps.trigger === "hover") {
+        wpProps.onMouseenter = show;
+      } else if (ps.trigger === "focus") {
+        wpProps.onFocus = show;
+        wpProps.onBlur = hide;
+      }
       const childs = getChildren(slots.default?.());
       const nodes = childs?.map((node) => {
         let pp = { ...attrs };
@@ -243,29 +248,27 @@ export default defineComponent({
         ref: refPopper,
         onMouseenter: () => {
           clearTimeout(hideTimer.value);
-          visible.value = true;
+          updateShow(true)
         },
         onMouseleave: () => {
           showTimer.value = setTimeout(() => {
             if (!ps.show) {
-              visible.value = false;
+              updateShow(false)
             }
           }, 300);
         },
       };
-      // todo: 箭头位差
       if (rendered.value) {
         childNodes.push(
           <Transition name={`k-${preCls}`}>
             <div class={cls} v-transfer={true} v-show={visible.value} {...pops}>
               <div class={`k-${preCls}-content`}>
-                <div class={`k-${preCls}-title`}>{title}</div>
+                {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
                 <div class={`k-${preCls}-body`}>{content}</div>
                 <div class={`k-${preCls}-arrow`}>
                   <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
                     <path id="ot" d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
                     <path stroke="currentcolor" id="in" d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
-                    {/* <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path> */}
                   </svg>
                 </div>
               </div>

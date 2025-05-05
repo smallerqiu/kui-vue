@@ -84,8 +84,8 @@
   &[k-placement^=left] {
     .k-poptip-arrow {
       right: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(-90deg);
 
       svg {
@@ -120,8 +120,8 @@
   &[k-placement^=right] {
     .k-poptip-arrow {
       left: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(90deg);
 
       svg {
@@ -156,18 +156,19 @@
 
 .k-poptip-content {
   min-width: 200px;
-  // .k-poptip-inner {
-  // background: var(--kui-color-control-10);
   background: var(--kui-color-control-10);
-  // background: #333; //var(--kui-color-control-10);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px; // var(--kui-border-radius);
   position: relative;
+  border: 1px solid var(--kui-color-border);
+  padding: 12px;
 
-  // }
+  #ot {
+    stroke: var(--kui-color-border);
+  }
+
   .k-poptip-body {
     font-size: 14px;
-    padding: 8px 16px;
     box-sizing: border-box;
   }
 
@@ -175,11 +176,8 @@
     font-size: 16px;
     font-weight: 500;
     color: var(--kui-color-font);
-    // color: #fff;
-    margin: 0;
-    padding: 8px 16px;
+    margin-bottom: 8px;
     position: relative;
-    // border-bottom: 1px solid var(--kui-color-gray-80);
     text-overflow: ellipsis;
     overflow: hidden;
   }
@@ -189,7 +187,7 @@
     box-sizing: border-box;
     display: flex;
     width: 24px;
-    height: 7px;
+    height: 9px;
     color: var(--kui-color-control-10);
     // color: #333;
     // color: var(--kui-color-control-10);

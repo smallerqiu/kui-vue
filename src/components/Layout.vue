@@ -3,56 +3,37 @@
     <MHeader />
     <Layout class="main">
       <Sider class="docs-k-layout-sider">
-        <Menu v-model="activeName"
-          @click="go"
-          class="left-menu"
-          mode="inline"
-          :open-keys="openkeys">
-          <SubMenu :title="item.title"
-            v-for="item in navs"
-            :name="item.title"
-            :key="item.key">
-            <MenuItem v-for="sub in item.child"
-              :key="sub.name">
-              <WebIcon :name="sub.icon"
-                slot="icon" />
-              <router-link :to="`/${item.key}/${sub.name}`">
-                <Badge dot
-                  v-if="sub.update">
-                  <span>{{sub.sub}}</span>
-                  <span class="sub">{{sub.title}}</span>
-                </Badge>
-                <template v-else>
-                  <span>{{sub.sub}}</span>
-                  <span class="sub">{{sub.title}}</span>
-                </template>
-              </router-link>
+        <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="openkeys">
+          <SubMenu :title="item.title" v-for="item in navs" :name="item.title" :key="item.key">
+            <MenuItem v-for="sub in item.child" :key="sub.name">
+            <WebIcon :name="sub.icon" slot="icon" />
+            <router-link :to="`/${item.key}/${sub.name}`">
+              <Badge dot v-if="sub.update">
+                <span>{{ sub.sub }}</span>
+                <span class="sub">{{ sub.title }}</span>
+              </Badge>
+              <template v-else>
+                <span>{{ sub.sub }}</span>
+                <span class="sub">{{ sub.title }}</span>
+              </template>
+            </router-link>
             </MenuItem>
           </SubMenu>
         </Menu>
       </Sider>
       <Content>
-        <transition name="fade"
-          mode="out-in">
+        <transition name="fade" mode="out-in">
           <router-view class="content-inner"></router-view>
         </transition>
         <div class="foot-nav">
-          <a :href="`/${prev.key}/${prev.name}`"
-            @click="e=>link(e,0)"
-            class="nav-prev"
-            v-if="prev.sub">
+          <a :href="`/${prev.key}/${prev.name}`" @click="e => link(e, 0)" class="nav-prev" v-if="prev.sub">
             <Icon :type="ChevronBack" />
-            <span class="nav-text">{{prev.sub}} {{prev.title}}</span>
-            <WebIcon :name="prev.icon"
-              slot="icon" />
+            <span class="nav-text">{{ prev.sub }} {{ prev.title }}</span>
+            <WebIcon :name="prev.icon" slot="icon" />
           </a>
-          <a :href="`/${next.key}/${next.name}`"
-            v-if="next.sub"
-            @click="e=>link(e,1)"
-            class="nav-next">
-            <WebIcon :name="next.icon"
-              slot="icon" />
-            <span class="nav-text">{{next.sub}} {{next.title}}</span>
+          <a :href="`/${next.key}/${next.name}`" v-if="next.sub" @click="e => link(e, 1)" class="nav-next">
+            <WebIcon :name="next.icon" slot="icon" />
+            <span class="nav-text">{{ next.sub }} {{ next.title }}</span>
             <Icon :type="ChevronForward" />
           </a>
         </div>
@@ -69,9 +50,10 @@ import MFooter from "./Footer";
 import WebIcon from './WebIcon'
 import { menus, navs } from "../menu";
 import { ChevronBack, ChevronForward } from 'kui-icons'
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 
 const prev = ref({});
@@ -95,10 +77,11 @@ const link = (e, t) => {
   router.push(`/${c.key}/${c.name}`);
 };
 
-const go = ({ key, keyPath }) => {
-  let [m, n] = keyPath;
-  let path = `/${m}/${n}`;
-  router.push(path);
+const go = ({ key, keyPath=[] }) => {
+  // console.log(key, keyPath);
+  // let [m, n] = keyPath;
+  // let path = `/${m}/${n}`;
+  // router.push(path);
 };
 
 const getPath = (name) => {
@@ -108,7 +91,7 @@ const getPath = (name) => {
 };
 
 const setActiveKey = ({ path }) => {
-  let { current={}, prev = {}, next = {} } = getPath(path);
+  let { current = {}, prev = {}, next = {} } = getPath(path);
   prev.value = prev;
   next.value = next;
   let { title, sub, name } = current;
