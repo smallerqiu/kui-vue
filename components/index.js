@@ -15,7 +15,7 @@ import { Descriptions, DescriptionsItem } from "./descriptions";
 // import Drawer from './drawer'
 // import Dropdown from './dropdown'
 import Divider from "./divider";
-// import Empty from './empty'
+import Empty from './empty'
 // import { Form, FormItem } from './form'
 import Flex from "./flex";
 // import { Image, ImageGroup } from './image'
@@ -80,7 +80,7 @@ const components = {
   // Dropdown,
   // Drawer,
   Divider,
-  // Empty,
+  Empty,
   // Form, FormItem,
   Flex,
   Icon,
