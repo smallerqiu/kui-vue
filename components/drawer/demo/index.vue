@@ -1,13 +1,13 @@
-<script>
-import Info from './info.md' 
-import Base from './base.md' 
-import Custom from './custom.md' 
-import Form from './form.md' 
-import Target from './target.md' 
+<script lang="jsx">
+import Info from './info.md'
+import Base from './base.md'
+import Custom from './custom.md'
+import Form from './form.md'
+import Target from './target.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-drawer">
         <Info />
         <Base />
