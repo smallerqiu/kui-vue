@@ -12,7 +12,7 @@ import { Collapse, CollapsePanel } from "./collapse";
 import { Checkbox, CheckboxGroup } from "./checkbox";
 // import { DatePicker, DateCalendar } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
-// import Drawer from './drawer'
+import Drawer from './drawer'
 // import Dropdown from './dropdown'
 import Divider from "./divider";
 import Empty from './empty'
@@ -78,7 +78,7 @@ const components = {
   Descriptions,
   DescriptionsItem,
   // Dropdown,
-  // Drawer,
+  Drawer,
   Divider,
   Empty,
   // Form, FormItem,
