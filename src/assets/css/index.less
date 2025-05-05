@@ -437,7 +437,7 @@ html[theme-mode=dark] {
 .markdown-body {
   max-width: 100%;
   color: var(--kui-color-font);
-
+  line-height: 2;
   h1,
   h2,
   h3,
@@ -473,6 +473,17 @@ html[theme-mode=dark] {
     opacity: 0;
     transition: all .3s;
   }
+
+  &>ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      list-style-type: circle;
+      margin-left: 20px;
+    }
+  }
 }
 
 .k-poptip-body {
@@ -500,15 +511,18 @@ html[theme-mode=dark] {
     // border-collapse: collapse;
     border-spacing: 0;
     overflow: hidden;
+
     th {
       text-align: left;
       padding: 10px 12px;
       font-size: 14px;
       background-color: var(--kui-color-table-header);
     }
-    tr:hover{
+
+    tr:hover {
       background-color: var(--kui-color-table-header-hover);
     }
+
     td {
       border-top: 1px solid var(--kui-color-border);
       font-size: 12px;
