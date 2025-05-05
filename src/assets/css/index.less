@@ -473,6 +473,18 @@ html[theme-mode=dark] {
     opacity: 0;
     transition: all .3s;
   }
+
+  &>ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      list-style-type: circle;
+      line-height: 2;
+      margin-left: 20px;
+    }
+  }
 }
 
 .k-poptip-body {
@@ -488,7 +500,7 @@ html[theme-mode=dark] {
   line-height: 0;
 }
 
-.k-demo-main .k-content >div {
+.k-demo-main .k-content>div {
   max-width: 100%;
 }
 
@@ -502,15 +514,18 @@ html[theme-mode=dark] {
     // border-collapse: collapse;
     border-spacing: 0;
     overflow: hidden;
+
     th {
       text-align: left;
       padding: 10px 12px;
       font-size: 14px;
       background-color: var(--kui-color-table-header);
     }
-    tr:hover{
+
+    tr:hover {
       background-color: var(--kui-color-table-header-hover);
     }
+
     td {
       border-top: 1px solid var(--kui-color-border);
       font-size: 12px;

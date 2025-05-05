@@ -13,38 +13,31 @@
     <Modal :title="null" 
       :footer="null"
       :showClose="false"
-      v-model="custom">
+      v-model:show="custom">
         <Space direction="vertical" style="width:100%">
           <h2>我是一个标题</h2>
           <div><Button @click="custom=false">Close</Button></div>
         </Space>
     </Modal>
 
-    <Modal title="基本对话框" v-model="visible" @ok="okHandle">
+    <Modal title="基本对话框" v-model:show="visible" @ok="okHandle">
       <p>This is the content of a basic modal.</p>
       <p>More content...</p>
     </Modal>
 
-    <Modal title="基本对话框" v-model="visible1" @ok="visible1=false" :mask-closable="true">
+    <Modal title="基本对话框" v-model:show="visible1" @ok="visible1=false" :mask-closable="true">
       <p>This is the content of a basic modal.</p>
       <p>More content...</p>
     </Modal>
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      visible:false,
-      custom:false,
-      visible1:false
-    }
-  },
-  methods:{
-    okHandle(){
-      this.visible = false
-    }
-  }
-} 
+<script setup>
+import { ref } from "vue";
+const visible = ref(false);
+const custom = ref(false);
+const visible1 = ref(false);
+const okHandle = () => {
+  visible.value = false
+}
 </script>
 ```
