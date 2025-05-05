@@ -1,13 +1,13 @@
-<script>
-import Info from './info.md' 
-import Base from './base.md' 
-import Custom from './custom.md' 
-import Use from './use.md' 
-import Nodesc from './nodesc.md' 
+<script lang="jsx">
+import Info from './info.md'
+import Base from './base.md'
+import Custom from './custom.md'
+import Use from './use.md'
+import Nodesc from './nodesc.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div>
         <Info />
         <Base />
@@ -20,4 +20,4 @@ export default {
   }
 }
 
-</script> 
+</script>

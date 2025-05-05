@@ -15,16 +15,10 @@
     <Table :data="[]" :columns="columns" />
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      columns:[
-        { title:'Name' ,},
-        { title:'Age'},
-      ]
-    }
-  }
-}
+<script setup>
+const columns = [
+  { title:'Name' ,},
+  { title:'Age'},
+]
 </script>
 ```

@@ -17,20 +17,13 @@
     Use slot
     <br/>
     <Empty>
-      <template slot="description">暂时没有<a>图片</a></template>
-      <img slot="image" src="https://cdn.chuchur.com/img/thumb.png" style="height:60px" />
+      <template #description>暂时没有<a>图片</a></template>
+      <template #image><img  src="https://cdn.chuchur.com/img/thumb.png" style="height:60px" /></template>
       <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
     </Empty>
   </div>
 </template>
-<script>
+<script setup>
 import { Add } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Add
-    }
-  }
-}
 </script>
 ```
