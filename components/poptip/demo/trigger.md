@@ -13,6 +13,13 @@
       </template>
       <Button type="primary">Hover me</Button>
     </Poptip>
+    <Poptip title="标题" trigger="focus">
+      <template #content>
+        <p>明月几时有,把酒问青天!</p>
+        <p>明月几时有,把酒问青天!</p>
+      </template>
+      <Button type="primary">Focus</Button>
+    </Poptip>
     <Poptip title="标题" trigger="click">
       <template #content>
         <p>明月几时有,把酒问青天!</p>

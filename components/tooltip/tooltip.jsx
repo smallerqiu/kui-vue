@@ -22,8 +22,6 @@ export default defineComponent({
     show: Boolean,
   },
   setup(ps, { slots, attrs }) {
-    // const te = {...attrs}
-    // console.log(te)
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref(null);
@@ -110,17 +108,17 @@ export default defineComponent({
           case "left":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left center";
+            transOrigin.value = "right center";
             break;
           case "left-top":
             top.value = selectionRect.top + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left top";
+            transOrigin.value = "right top";
             break;
           case "left-bottom":
             top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
             left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
-            transOrigin.value = "left bottom";
+            transOrigin.value = "right bottom";
             break;
           case "right":
             top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;

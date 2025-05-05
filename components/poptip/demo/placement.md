@@ -7,21 +7,21 @@
 <template>
   <Flex style="width:300px" vertical align="center">
     <Space compact>
-      <Poptip placement="top-left">
+      <Poptip placement="top-left" :title="title">
         <Button>TL</Button>
         <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
-      <Poptip placement="top">
+      <Poptip placement="top" :title="title">
         <Button>Top</Button>
         <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
-      <Poptip placement="top-right">
+      <Poptip placement="top-right" :title="title">
         <Button>TR</Button>
         <template #content>
           <p>{{ tip }}</p>
@@ -30,7 +30,7 @@
       </Poptip>
     </Space>
     <Flex justify="space-between" style="width:100%;padding:10px 0">
-      <Space vertical compact>
+      <Space vertical compact :title="title">
         <Poptip placement="left-top">
           <Button>LT</Button>
           <template #content>
@@ -38,14 +38,14 @@
             <p>{{ tip }}</p>
           </template>
         </Poptip>
-        <Poptip placement="left">
+        <Poptip placement="left" :title="title">
           <Button>Left</Button>
           <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
-        <Poptip placement="left-bottom">
+        <Poptip placement="left-bottom" :title="title">
           <Button>LB</Button>
           <template #content>
             <p>{{ tip }}</p>
@@ -55,21 +55,21 @@
       </Space>
 
       <Space vertical compact>
-        <Poptip placement="right-top">
+        <Poptip placement="right-top" :title="title">
           <Button>RT</Button>
           <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
-        <Poptip placement="right">
+        <Poptip placement="right" :title="title">
           <Button>Right</Button>
           <template #content>
             <p>{{ tip }}</p>
             <p>{{ tip }}</p>
           </template>
         </Poptip>
-        <Poptip placement="right-bottom">
+        <Poptip placement="right-bottom" :title="title">
           <Button>RB</Button>
           <template #content>
             <p>{{ tip }}</p>
@@ -79,21 +79,21 @@
       </Space>
     </Flex>
     <Space compact>
-      <Poptip placement="bottom-left">
+      <Poptip placement="bottom-left" :title="title">
         <Button>BL</Button>
         <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
-      <Poptip placement="bottom">
+      <Poptip placement="bottom" :title="title">
         <Button>Bottom</Button>
         <template #content>
           <p>{{ tip }}</p>
           <p>{{ tip }}</p>
         </template>
       </Poptip>
-      <Poptip placement="bottom-right">
+      <Poptip placement="bottom-right" :title="title">
         <Button>BR</Button>
         <template #content>
           <p>{{ tip }}</p>
@@ -104,6 +104,7 @@
   </Flex>
 </template>
 <script setup>
-const tip: '明月几时有,把酒问青天!'
+const tip = '明月几时有,把酒问青天!'
+const title = "标题"
 </script>
 ```
