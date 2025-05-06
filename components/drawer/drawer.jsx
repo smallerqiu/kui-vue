@@ -146,10 +146,10 @@ export default {
     return (
       this.rendered ? <div class={classes} v-transfer={target}>
         {maskNode}
-        <transition name={transitionName} time={3500000}>
+        <transition name={transitionName}>
           <div class="k-drawer-box" v-show={visible} style={styles}>
             <div class="k-drawer-content">
-              {<div class="k-drawer-header">{closeNode}<div class="k-drawer-header-inner">{title}</div></div>}
+              <div class="k-drawer-header">{closeNode}<div class="k-drawer-header-inner">{title}</div></div>
               <div class="k-drawer-body">
                 {$slots.default}
               </div>
