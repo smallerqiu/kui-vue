@@ -125,7 +125,6 @@ export default defineComponent({
     };
     const getTextInput = (mult) => {
       const { disabled, size, type, inputType, id, theme, shape, placeholder } = ps;
-      let isTextArea = inputType == "textarea";
       const props = {
         value: currentValue.value,
         class: [
@@ -136,7 +135,7 @@ export default defineComponent({
             [`k-${inputType}-sm`]: size == "small" && !mult,
             [`k-${inputType}-lg`]: size == "large" && !mult,
             [`k-${inputType}-${theme}`]: theme != "solid" && !mult && theme,
-            [`k-${inputType}-circle`]: shape == "circle" && !isTextArea && !mult,
+            [`k-${inputType}-circle`]: shape == "circle" && !mult,
           },
         ],
         ref: inputRef,
@@ -149,25 +148,22 @@ export default defineComponent({
         // input: this.handleInput,
       };
 
-      if (!isTextArea) {
-        props.type = type;
+      props.type = type;
 
-        if (!showPassword.value && type == "password") {
-          props.type = "text";
-        }
+      if (!showPassword.value && type == "password") {
+        props.type = "text";
       }
-      return isTextArea ? <textarea {...props} /> : <input {...props} single />;
+      return <input {...props} single />;
     };
 
     return () => {
       const { inputType, icon, size, disabled, type, clearable, suffix, theme, prefix, shape } = ps;
 
-      let isTextArea = inputType == "textarea";
       let mult = icon || "onSearch" in attrs || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.contorls;
 
       let textInput = getTextInput(mult);
 
-      if (isTextArea || !mult) return textInput;
+      if (!mult) return textInput;
 
       let clearableShow = clearable && isNotEmpty(currentValue);
       const props = {
@@ -178,7 +174,7 @@ export default defineComponent({
           [`k-${inputType}-sm`]: size == "small",
           [`k-${inputType}-lg`]: size == "large",
           [`k-${inputType}-${theme}`]: theme && theme != "solid",
-          [`k-${inputType}-circle`]: shape == "circle" && !isTextArea,
+          [`k-${inputType}-circle`]: shape == "circle",
         },
       };
       const suffixNode = getSuffix();

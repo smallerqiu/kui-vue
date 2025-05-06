@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space style="width:200px;font-size:12px;" vertical>
-     简单数字输入框
+     简单数字输入框: {{value}}
      <InputNumber v-model:value="value"/>
      步长为2
      <InputNumber :step="2" :value="2"/>
@@ -16,13 +16,8 @@
      <InputNumber disabled />
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      value: ''
-    }
-  }
-}
+<script setup>
+import {ref} from 'vue'
+const value = ref('')
 </script>
 ```

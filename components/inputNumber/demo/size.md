@@ -15,14 +15,7 @@
     <InputNumber size="small" placeholder="Small Input" :icon="LogoKui" clearable />
   </div>
 </template>
-<script>
+<script setup>
 import { LogoKui } from 'kui-icons'
-export default{
-  data() {
-    return {
-      LogoKui
-    }
-  }
-}
 </script>
 ```

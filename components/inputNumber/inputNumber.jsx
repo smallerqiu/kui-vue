@@ -1,8 +1,9 @@
-import BaseInput from '../base/input'
-import Icon from '../icon'
-import { plus, minus, round, toNumber } from '../utils/number'
-import { ChevronUp } from 'kui-icons'
-export default {
+import Input from "../input/input";
+import Icon from "../icon";
+import { plus, minus, round, toNumber } from "../utils/number";
+import { ChevronUp } from "kui-icons";
+import { ref, defineComponent, watch } from "vue";
+export default defineComponent({
   props: {
     value: [Array, Number, String],
     min: { type: Number },
@@ -25,157 +26,122 @@ export default {
     placeholder: String,
     icon: [String, Array],
     id: String,
-
   },
-  watch: {
-    value(v) {
-      if (this.formatter) {
-        v = this.formatter(v + '')
-      }
-      this.defaultValue = v //this.getVal(v)
-      // console.log('watch', this.defaultValue)
-    }
-  },
-  data() {
-    return {
-      defaultValue: this.getVal(this.value),
-    }
-  },
-  methods: {
-    getVal(v) {
-      let { min, max, precision, formatter, parser } = this
+  setup(ps, { slots, attrs, emit }) {
+    const defaultValue = ref(getValue(ps.value));
+    const getValue = (v) => {
+      let { min, max, precision, formatter, parser } = ps;
       if (parser) {
-        v = parser(v + '')
+        v = parser(v);
       }
-      if (v !== undefined && v !== '' && v !== null) {
-        v = (v + '').replace(/[^0-9.-]/g, '')
+      if (v !== undefined && v !== "" && v !== null) {
+        v = v.replace(/[^0-9.-]/g, "");
         if (isNaN(Number(v))) {
-          v = ''
-          // console.log(v)
-          // ios not supper,可惜了
-          // v = (v + '').replace(/^([^-]+)(?=-\S*)/, '') // 移除第一个负号之前的所有字符
-          //   .replace(/(?<!^)-/g, '')         // 移除第一个负号之外的所有负号
-          // .replace(/[^0-9.-]/g, '')        // 移除数字 小数点 负号之外的所有字符
-          // .replace(/(?<!^[\d-]+)\./g, '')   // 移除第一个小数点之外的所有句点
-          // .replace(/^0*(-?\d+)(\.(\d{1,2}))?\S*?$/, '$1$2') // 保留两位小数
-          // console.log(v)
-          // v = (v + '').replace(/(?!-).*?(([0-9]*\.)?[0-9]+).*/g, "$1")
+          v = "";
         }
-        if (v === '') return ''
-        v = toNumber(v + '')
+        if (v === "") return "";
+        v = toNumber(v);
       } else {
-        return ''
+        return "";
       }
 
-
-      if (max !== undefined && v >= max) v = max
-      else if (min !== undefined && v <= min) v = min
+      if (max !== undefined && v >= max) v = max;
+      else if (min !== undefined && v <= min) v = min;
 
       if (precision > 0) {
-        v = round(v, precision)
+        v = round(v, precision);
       }
 
       if (formatter) {
-        v = formatter(v + '')
+        v = formatter(v);
       }
 
-      return v
-    },
-    setVal(up) {
-      if (this.disabled) return;
-      let { step = 1, defaultValue, parser, formatter } = this
+      return v;
+    };
+    const updateValue = (isUp) => {
+      if (ps.disabled) return;
+      let { step = 1, parser, formatter } = ps;
 
-      let v = this.getVal(defaultValue) || 0
+      let v = getValue(defaultValue.value) || 0;
 
       if (parser) {
-        v = parser(v + '')
+        v = parser(v);
       }
-      v = up == 1 ? plus(v, step) : minus(v, step)
+      v = isUp == 1 ? plus(v, step) : minus(v, step);
 
-      let a = this.getVal(v)
-
-      // console.log('a', a)
-
-      this.defaultValue = a + ''
-
-
+      let value = getValue(v);
+      defaultValue.value = value;
       if (parser) {
-        a = parser(a)
+        value = parser(value);
       }
-
-
-      this.$emit('input', a)
-      this.$emit('change', a)
-    },
-    change(x) {
-      let { formatter, parser } = this
-      let input = x + '', output = x;
+      emit("update:value", value);
+    };
+    const change = (x) => {
+      let { formatter, parser } = ps;
+      let input = x;
 
       if (formatter) {
-        input = formatter(x + '')
+        input = formatter(x);
       }
       // if (formatter) {
       //   x = formatter(x + '')
       // }
-      this.defaultValue = input
-
+      defaultValue.value = input;
       // output = toNumber(output + '')
-
-      this.$emit('input', output)
-      this.$emit('change', output)
-    },
-    blurHandle(e) {
-      let v = this.getVal(e.target.value)
-
-      this.defaultValue = v + ''
-
-      let output = v
-      if (this.parser) {
-        output = this.parser(output + '')
+      emit("update:value", input);
+    };
+    watch(
+      () => ps.value,
+      (v) => {
+        defaultValue.value = getValue(v);
       }
+    );
+    // const blurHandle = (e) => {
+    //   let v = getValue(e.target.value);
 
-      if (output !== '') {
-        output = toNumber(output + '')
-      }
+    //   defaultValue.value = v;
 
-      this.$emit('input', output)
-      this.$emit('blur', e)
-      this.$emit('change', output);
-    }
+    //   let output = v;
+    //   if (parser) {
+    //     output = parser(output);
+    //   }
+
+    //   if (output !== "") {
+    //     output = toNumber(output);
+    //   }
+
+    //   $emit("input", output);
+    //   $emit("blur", e);
+    //   $emit("change", output);
+    // };
+    return () => {
+      const props = {
+        ...attrs,
+        inputType: "input-number",
+        value: defaultValue.value,
+        onInput: (e) => change(e),
+        // onBlur: (e) => blurHandle(e),
+      };
+      const suffixNode = slots.suffix?.() || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
+
+      return (
+        <Input
+          {...props}
+          slot={{
+            suffix: () => suffixNode,
+            controls: () => (
+              <div class="k-input-number-controls">
+                <span class="k-input-number-control" onClick={() => updateValue(1)}>
+                  <Icon type={ChevronUp} />
+                </span>
+                <span class="k-input-number-control" onClick={updateValue}>
+                  <Icon type={ChevronUp} />
+                </span>
+              </div>
+            ),
+          }}
+        />
+      );
+    };
   },
-  provide() {
-    return {
-      InputNumber: this
-    }
-  },
-  render() {
-    let { defaultValue, controls } = this
-    const props = {
-      props: {
-        ...this.$props,
-        inputType: 'input-number',
-        value: defaultValue + ''
-      },
-      attrs: { ...this.$attrs },
-      on: {
-        ...this.$listeners,
-        'input': (e) => this.change(e),
-        'blur': (e) => this.blurHandle(e),
-        // 'change': (e) => this.change(e),
-      },
-    }
-    const { suffix } = this
-    const suffixNode = this.$slots.suffix || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null)
-    return <BaseInput {...props}>
-      <template slot="suffix">
-        {suffixNode}
-      </template>
-      <template slot='contorls'>
-        {controls ? <div class="k-input-number-controls">
-          <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type={ChevronUp} /></span>
-          <span class="k-input-number-control" onClick={this.setVal}><Icon type={ChevronUp} /></span>
-        </div> : null}
-      </template>
-    </BaseInput>
-  }
-} 
+});

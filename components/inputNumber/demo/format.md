@@ -24,7 +24,6 @@
      <br/>
      货币，千分位,输出： {{n4}}<br/>
      <InputNumber 
-      @change="log"
       v-model:value="n4"
       :min="0"
       :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
@@ -57,24 +56,14 @@
       />
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      n:0.1,
-      n1: 1,
-      n3: 3.14159,
-      n4: 1000,
-      n5: 100,
-      n6: '',
-      n7: 111111
-    }
-  },
-  methods:{
-    log(value){
-      console.log(value)
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const n = ref(0.1)
+const n1 = ref(0.1)
+const n3 = ref(3.14159)
+const n4 = ref(1000)
+const n5 = ref(100)
+const n6 = ref('')
+const n7 = ref(111111)
 </script>
 ```
