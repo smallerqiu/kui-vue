@@ -18,14 +18,7 @@ suffix，prefix 扩展
     <InputNumber placeholder="请输入金额" suffix=".00"/>
   </Space>
 </template>
-<script>
+<script setup>
 import { Heart, LogoYen } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart, LogoYen
-    }
-  }
-}
 </script>
 ```

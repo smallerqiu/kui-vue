@@ -21,7 +21,7 @@ import Flex from "./flex";
 // import { Image, ImageGroup } from './image'
 import Icon from "./icon";
 import { Input, TextArea, InputGroup } from "./input";
-// import InputNumber from './inputNumber'
+import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from "./layout";
 import loading from "./loading";
 import modal from "./modal";
@@ -88,7 +88,7 @@ const components = {
   Input,
   TextArea,
   InputGroup,
-  // InputNumber,
+  InputNumber,
   // Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
   Modal: modal,
   message,
