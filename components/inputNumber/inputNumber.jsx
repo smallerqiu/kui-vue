@@ -28,14 +28,13 @@ export default defineComponent({
     id: String,
   },
   setup(ps, { slots, attrs, emit }) {
-    const defaultValue = ref(getValue(ps.value));
     const getValue = (v) => {
       let { min, max, precision, formatter, parser } = ps;
       if (parser) {
         v = parser(v);
       }
       if (v !== undefined && v !== "" && v !== null) {
-        v = v.replace(/[^0-9.-]/g, "");
+        v = String(v).replace(/[^0-9.-]/g, "");
         if (isNaN(Number(v))) {
           v = "";
         }
@@ -58,27 +57,22 @@ export default defineComponent({
 
       return v;
     };
-    const updateValue = (isUp) => {
+
+    const value = getValue(ps.value);
+    const defaultValue = ref(value);
+
+    const updateValue = (e, isUp) => {
       if (ps.disabled) return;
-      let { step = 1, parser, formatter } = ps;
-
-      let v = getValue(defaultValue.value) || 0;
-
-      if (parser) {
-        v = parser(v);
-      }
-      v = isUp == 1 ? plus(v, step) : minus(v, step);
-
-      let value = getValue(v);
+      const { step } = ps;
+      let value = isUp == 1 ? plus(defaultValue.value, step) : minus(defaultValue.value, step);
+      value = getValue(value);
       defaultValue.value = value;
-      if (parser) {
-        value = parser(value);
-      }
       emit("update:value", value);
+      e.preventDefault()
     };
-    const change = (x) => {
+    const change = (e) => {
       let { formatter, parser } = ps;
-      let input = x;
+      let input = e.target.value;
 
       if (formatter) {
         input = formatter(x);
@@ -115,6 +109,7 @@ export default defineComponent({
     //   $emit("change", output);
     // };
     return () => {
+      const { suffix } = ps;
       const props = {
         ...attrs,
         inputType: "input-number",
@@ -127,14 +122,14 @@ export default defineComponent({
       return (
         <Input
           {...props}
-          slot={{
-            suffix: () => suffixNode,
+          v-slots={{
+            // suffix: () => suffixNode,
             controls: () => (
               <div class="k-input-number-controls">
-                <span class="k-input-number-control" onClick={() => updateValue(1)}>
+                <span class="k-input-number-control" onClick={(e) => updateValue(e, 1)}>
                   <Icon type={ChevronUp} />
                 </span>
-                <span class="k-input-number-control" onClick={updateValue}>
+                <span class="k-input-number-control" onClick={(e) => updateValue(e)}>
                   <Icon type={ChevronUp} />
                 </span>
               </div>
