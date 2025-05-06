@@ -14,6 +14,7 @@
 | ok            | 点击确定的回调，`注意：不会关闭 Modal `       | Function       | -      |
 | cancel        | 点击取消的回调                                | Function       | -      |
 | close         | 窗口关闭的回调                                | Function       | -      |
+| escKey        | 是否支持按Esc关闭                             | Boolean        | true   |
   
 
 ## Modal.method()
@@ -38,8 +39,8 @@
 | ----------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------ |
 | title       | 对话框标题                                                                                                             | String   | -      |
 | content     | 对话框内容                                                                                                             | String   | -      |
-| ok-text     | 确定按钮文字                                                                                                           | String   | 确定   |
-| cancel-text | 取消按钮文字                                                                                                           | String   | 取消   |
+| okText     | 确定按钮文字                                                                                                           | String   | 确定   |
+| cancelText | 取消按钮文字                                                                                                           | String   | 取消   |
 | icon        | 弹框的图标，type为toast可用 ，默认可选值为success，warning, error, info, 也可以自定义，参照 [Icon](/components/icon)值 | String   | -      |
 | color       | 弹框的图标的颜色，type为toast可用                                                                                      | String   | -      |
 | onOk        | 点击确定的回调                                                                                                         | Function | -      |
