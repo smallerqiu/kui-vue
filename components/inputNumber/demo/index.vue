@@ -1,9 +1,9 @@
 <script lang="jsx">
 import Info from "./info.md";
 import Base from "./base.md";
-import Format from "./format.md";
-import Ffix from "./ffix.md";
-import Size from "./size.md";
+// import Format from "./format.md";
+// import Ffix from "./ffix.md";
+// import Size from "./size.md";
 
 import CN from "../index.md";
 export default {
@@ -12,10 +12,10 @@ export default {
       <div class="demo-inputnumber">
         <Info />
         <Base />
-        <Format />
+        {/* <Format />
         <Ffix />
         <Size />
-        <CN />
+        <CN /> */}
       </div>
     );
   },

@@ -31,6 +31,7 @@ export default defineComponent({
     formatter: Function,
     parser: Function,
     placeholder: String,
+    inputType: { type: String, default: "input" },
   },
   setup(ps, { slots, emit, attrs, expose }) {
     const currentValue = ref(ps.value);
@@ -105,26 +106,26 @@ export default defineComponent({
       emit("search", currentValue.value);
     };
     const getSuffix = () => {
-      let { suffix, visiblePasswordIcon, type } = ps;
+      let { suffix, visiblePasswordIcon, type, inputType } = ps;
       const SearchNode = attrs.onSearch ? <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} /> : null;
 
       const Password = type == "password" && visiblePasswordIcon ? <Icon class="k-input-password-icon" type={!showPassword.value ? EyeOutline : EyeOffOutline} onClick={togglePassword} /> : null;
 
-      return Password || SearchNode || slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
+      return Password || SearchNode || slots.suffix || (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null);
     };
     const getTextInput = (mult) => {
-      const { disabled, size, type, id, theme, shape, placeholder } = ps;
+      const { disabled, size, type, id, theme, shape, placeholder, inputType } = ps;
       const props = {
         value: currentValue.value,
         class: [
           {
-            [`k-input`]: !mult,
-            [`k-input-text`]: mult,
-            [`k-input-disabled`]: disabled,
-            [`k-input-sm`]: size == "small" && !mult,
-            [`k-input-lg`]: size == "large" && !mult,
-            [`k-input-${theme}`]: theme != "solid" && !mult && theme,
-            [`k-input-circle`]: shape == "circle" && !mult,
+            [`k-${inputType}`]: !mult,
+            [`k-${inputType}-text`]: mult,
+            [`k-${inputType}-disabled`]: disabled,
+            [`k-${inputType}-sm`]: size == "small" && !mult,
+            [`k-${inputType}-lg`]: size == "large" && !mult,
+            [`k-${inputType}-${theme}`]: theme != "solid" && !mult && theme,
+            [`k-${inputType}-circle`]: shape == "circle" && !mult,
           },
         ],
         ref: inputRef,
@@ -145,9 +146,9 @@ export default defineComponent({
     };
 
     return () => {
-      const { icon, size, disabled, type, clearable, suffix, theme, prefix, shape } = ps;
+      const { icon, size, disabled, type, clearable, suffix, theme, prefix, shape, inputType } = ps;
 
-      let mult = icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.contorls;
+      let mult = icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.controls;
 
       let textInput = getTextInput(mult);
       if (!mult) return textInput;
@@ -155,13 +156,13 @@ export default defineComponent({
       let clearableShow = clearable && isValidString(currentValue.value);
       const props = {
         class: {
-          [`k-input`]: true,
-          [`k-input-focus`]: focused.value,
-          [`k-input-disabled`]: disabled,
-          [`k-input-sm`]: size == "small",
-          [`k-input-lg`]: size == "large",
-          [`k-input-${theme}`]: theme && theme != "solid",
-          [`k-input-circle`]: shape == "circle",
+          [`k-${inputType}`]: true,
+          [`k-${inputType}-focus`]: focused.value,
+          [`k-${inputType}-disabled`]: disabled,
+          [`k-${inputType}-sm`]: size == "small",
+          [`k-${inputType}-lg`]: size == "large",
+          [`k-${inputType}-${theme}`]: theme && theme != "solid",
+          [`k-${inputType}-circle`]: shape == "circle",
         },
       };
       const suffixNode = getSuffix();
@@ -171,14 +172,14 @@ export default defineComponent({
         const preChilds = [];
         if (slots.prefix) preChilds.push(<div class="k-input-group-prefix">{slots.prefix?.()}</div>);
         const innerChilds = [];
-        if (icon) innerChilds.push(<Icon type={icon} class={`k-input-icon`} onClick={iconClick} />);
-        if (prefix) innerChilds.push(<div class={`k-input-prefix`}>{prefix}</div>);
+        if (icon) innerChilds.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
+        if (prefix) innerChilds.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         innerChilds.push(textInput);
-        if (clearable) innerChilds.push(<Icon type={CloseCircle} class={[`k-input-clearable`, { [`k-input-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        if (clearable) innerChilds.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
         const sufChilds = [];
         if (slots.suffix) sufChilds.push(<div class="k-input-group-suffix">{slots.suffix?.()}</div>);
 
-        if (slots.contorls) innerChilds.push(slots.contorls?.());
+        if (slots.controls) innerChilds.push(slots.controls?.());
         return (
           <InputGroup size={size}>
             {...preChilds}
@@ -190,12 +191,12 @@ export default defineComponent({
         );
       } else {
         const childs = [];
-        if (icon) childs.push(<Icon type={icon} class="k-input-icon" onClick={iconClick} />);
-        if (prefix) childs.push(<div class={`k-input-prefix`}>{prefix}</div>);
+        if (icon) childs.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
+        if (prefix) childs.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         childs.push(textInput);
-        if (clearable) childs.push(<Icon type={CloseCircle} class={[`k-input-clearable`, { [`k-input-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        if (clearable) childs.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
         if (suffixNode) childs.push(suffixNode);
-        if (slots.contorls) childs.push(slots.contorls?.());
+        if (slots.controls) childs.push(slots.controls?.());
 
         return (
           <div {...props} mult>
