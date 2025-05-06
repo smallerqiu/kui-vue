@@ -6,13 +6,13 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model:value="size" @change="sizeChange">
+    <RadioGroup v-model:value="flexSize">
       <Radio value="small" label="small" />
       <Radio value="middle" label="middle" />
       <Radio value="large" label="large" />
-      <Radio value="customize" label="customize" />
     </RadioGroup>
-    <Slider v-model:value="gap" :step="1" :max="50" v-if="size==='customize'" @change="gapChange"/>
+    <Checkbox v-model:checked="customize" label="customize" />
+    <Slider v-model:value="flexSize" :step="1" :max="50" v-if="customize"/>
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>
@@ -23,17 +23,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const size = ref('small')
 const flexSize = ref('small')
 const gap = ref(8)
-
-const gapChange =()=>{
-  flexSize.value = gap.value
-}
-const sizeChange = ({value})=>{
-  if(value!='customize'){
-    flexSize.value = value
-  }
-}
+const customize = ref(false)
 </script>
 ```
