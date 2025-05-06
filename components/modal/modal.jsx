@@ -23,6 +23,7 @@ export default defineComponent({
     loading: Boolean,
     footer: String,
     transfer: { type: Boolean, default: true },
+    escKey: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
     const visible = ref(ps.show);
@@ -36,11 +37,19 @@ export default defineComponent({
     const refModal = ref(null);
     const refHeader = ref(null);
     const locale = inject("locale", null) || zhCN;
+    const escToClose = (event) => {
+      if (event.key === "Escape") {
+        close();
+      }
+    };
+
     onBeforeMount(() => {
       document.removeEventListener("mousedown", mousedown);
+      ps.escKey && document.removeEventListener("keydown", escToClose);
     });
     onMounted(() => {
       document.addEventListener("mousedown", mousedown);
+      ps.escKey && document.addEventListener("keydown", escToClose);
 
       if (ps.draggable) {
         left.value = (document.body.offsetWidth - (ps.width || 480)) / 2;

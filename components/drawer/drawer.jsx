@@ -3,7 +3,6 @@ import Icon from "../icon";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
 import { defineComponent, inject, nextTick, ref, Transition, watch, onMounted, onBeforeUnmount } from "vue";
-let cacheBodyOverflow = {};
 import zhCN from "../locale/lang/zh-CN";
 
 export default defineComponent({
@@ -19,10 +18,11 @@ export default defineComponent({
     placement: { type: String, default: "right" },
     closable: { type: Boolean, default: true },
     footer: { type: Boolean, default: true },
-    maskClosable: { type: Boolean, default: false },
+    maskClosable: { type: Boolean, default: true },
     target: { type: Function, default: () => document.body },
     mask: { type: Boolean, default: true },
     loading: { type: Boolean, default: false },
+    escKey: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
     const locale = inject("locale", null) || zhCN;
@@ -39,43 +39,31 @@ export default defineComponent({
     );
 
     onMounted(() => {
-      document.addEventListener("keydown", escToClose);
+      if (!window.__kui_body_style) {
+        window.__kui_body_style = { overflowY: document.body.style.overflowY, paddingRight: document.body.style.paddingRight };
+      }
+      ps.escKey && document.addEventListener("keydown", escToClose);
     });
     onBeforeUnmount(() => {
-      document.removeEventListener("keydown", escToClose);
+      ps.escKey && document.removeEventListener("keydown", escToClose);
     });
 
-    // let hasScrollbar = false;
-    // let originalPaddingRight = "";
-    // let originalOverflow = "";
-
-    // function getScrollbarWidth() {
-    //   return window.innerWidth - document.documentElement.clientWidth;
-    // }
-
-    // function lockScroll() {
-    //   const scrollbarWidth = getScrollbarWidth();
-    //   hasScrollbar = scrollbarWidth > 0;
-
-    //   if (hasScrollbar) {
-    //     originalOverflow = document.body.style.overflow;
-    //     originalPaddingRight = document.body.style.paddingRight;
-
-    //     document.body.style.overflow = "hidden";
-    //     document.body.style.paddingRight = `${scrollbarWidth}px`; // 防止布局跳动
-    //   }
-    // }
-
-    // function unlockScroll() {
-    //   if (hasScrollbar) {
-    //     document.body.style.overflow = originalOverflow || "";
-    //     document.body.style.paddingRight = originalPaddingRight || "";
-    //   }
-    // }
-
+    const lockScroll = (lock) => {
+      if (lock) {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        const hasScrollbar = scrollbarWidth > 0;
+        if (hasScrollbar) {
+          document.body.style.overflowY = "hidden";
+          document.body.style.paddingRight = `${scrollbarWidth}px`; // 防止布局跳动
+        }
+      } else {
+        let { overflowY, paddingRight } = window.__kui_body_style;
+        document.body.style.overflowY = overflowY || "";
+        document.body.style.paddingRight = paddingRight || "";
+      }
+    };
     const toggle = (v) => {
       if (v && !rendered.value) {
-        console.log(v);
         rendered.value = true;
         nextTick(() => {
           visible.value = true;
@@ -112,6 +100,7 @@ export default defineComponent({
           open.value = false;
         }, 300);
       }
+      lockScroll(visible.value);
       emit("update:show", visible.value);
     };
 

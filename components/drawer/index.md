@@ -16,3 +16,4 @@
 | cancel        | 点击取消的回调                                                     | Function      | -      |
 | close         | 抽屉关闭的回调                                                     | Function      | -      |
 | mask          | 是否展示蒙层                                                       | Boolean       | true   |
+| escKey        | 是否支持按Esc关闭                                                  | Boolean       | true   |

@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <div ref="refTarget" style="height:300px;position:relative;overflow:hidden">
+  <div ref="refTarget" style="height:300px;position:relative;overflow:hidden;background:rgba(130, 130, 130, 0.28);">
     <Space>
       <RadioGroup v-model:value="placement">
         <Radio label="left" value="left"/>
