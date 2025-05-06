@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 const sty2obj = (stl) => {
   stl = stl.replace(/ /g, "");

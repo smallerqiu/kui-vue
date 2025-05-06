@@ -49,6 +49,8 @@ export default defineComponent({
 
     const clear = () => {
       // setValue({ input: "", output: "" });
+      currentValue.value = "";
+      emit("update:value", "");
       nextTick(() => focus());
     };
     const iconClick = () => {
