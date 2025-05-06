@@ -8,29 +8,29 @@
   <div>
     <Form :labelCol="{span:5}" :wrapperCol="{span:16}" layout="inline">
       <FormItem label="Size">
-        <RadioGroup v-model="size" size="small">
+        <RadioGroup v-model:value="size" size="small">
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
         </RadioGroup>
       </FormItem>
       <FormItem label="Bordered">
-        <k-switch v-model="bordered" />
+        <k-switch v-model:checked="bordered" />
       </FormItem>
       <FormItem label="Loading">
-        <k-switch v-model="loading" />
+        <k-switch v-model:checked="loading" />
       </FormItem>
       <FormItem label="Checkbox">
-        <k-switch v-model="checkbox" @change="setCheckbox" />
+        <k-switch v-model:checked="checkbox" @change="setCheckbox" />
       </FormItem>
       <FormItem label="CheckType">
-        <RadioGroup v-model="checkType" size="small" @change="setCheckType">
+        <RadioGroup v-model:value="checkType" size="small" @change="setCheckType">
           <RadioButton value="checkbox" label="checkbox" />
           <RadioButton value="radio" label="radio" />
         </RadioGroup>
       </FormItem>
       <FormItem label="Empty">
-        <k-switch v-model="empty" @change="setEmpty" />
+        <k-switch v-model:checked="empty" @change="setEmpty" />
       </FormItem>
     </Form>
 

@@ -4,10 +4,10 @@
     <br />
     <Affix :offsetTop="65">
       <Space size="large" compact style="width:80%">
-        <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key"  @input="search" clearable
+        <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model:value="key"  @input="search" clearable
           style="background:var(--kui-color-back);">
         </Input>
-        <RadioGroup v-model="type" @change="switchIcon">
+        <RadioGroup v-model:value="type" @change="switchIcon">
           <RadioButton value="outline">Outline</RadioButton>
           <RadioButton value="filled">Filled</RadioButton>
         </RadioGroup>

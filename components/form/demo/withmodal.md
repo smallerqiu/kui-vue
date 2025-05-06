@@ -24,7 +24,7 @@
       </FormItem>
     </Form>
 
-    <Modal v-model="visible" title="新增用户" :width="450" @ok="onOk" @cancel="onCancel">
+    <Modal v-model:show="visible" title="新增用户" :width="450" @ok="onOk" @cancel="onCancel">
       <Form :labelCol="labelCol" :wrapperCol="wrapperCol" name="modal" :model="form" :rules="userRules" @submit="onSubmit" ref="form">
         <FormItem label="Usename" prop="username">
           <Input placeholder="请输入姓名" />

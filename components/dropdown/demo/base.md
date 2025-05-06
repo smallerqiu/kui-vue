@@ -21,7 +21,7 @@
       </MenuItem>
     </Menu>
   </Dropdown>
-  <Dropdown show-placement-arrow trigger="normal" placement="bottom" v-model="show">
+  <Dropdown show-placement-arrow trigger="normal" placement="bottom" v-model:show="show">
     <Button theme="light" @click="show=!show">
       Toggle <Icon :type="ChevronDown" />
     </Button>

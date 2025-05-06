@@ -7,7 +7,7 @@
 <template>
   <Space vertical align="start">
     <Space>
-      <Select :width="200" clearable v-model="value1">
+      <Select :width="200" clearable v-model:value="value1">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana"/>
@@ -17,7 +17,7 @@
     </Space>
     
     <Space>
-      <Select :width="200" size="small" clearable v-model="value2">
+      <Select :width="200" size="small" clearable v-model:value="value2">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana" />
@@ -27,7 +27,7 @@
       
     </Space>
     <Space>
-      <Select :width="200" multiple clearable v-model="value3">
+      <Select :width="200" multiple clearable v-model:value="value3">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana" />

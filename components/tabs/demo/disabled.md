@@ -9,7 +9,7 @@
     <Button @click="disabled=!disabled" size="small">{{disabled?'Undisable':'Disabled'}}</Button>
     <br />
     <br />
-    <Tabs v-model="current">
+    <Tabs v-model:activeKey="current">
       <TabPane key="1" title="Tab 1">
         Content of Tab Pane 1
       </TabPane>

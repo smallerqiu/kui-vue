@@ -339,7 +339,7 @@ export default {
       if (this.showMode) {
         let { currentMode, renderValueInput } = this, node = []
         let mode = "RGB"
-        let alpha = <Input v-model={this.A} size="small" class="k-color-picker-alpha-input" />
+        let alpha = <Input v-model:value={this.A} size="small" class="k-color-picker-alpha-input" />
         if (currentMode == 'rgba') {
           let keys = ['R', 'G', 'B']
           let v = <div class="k-color-picker-val">{keys.map(k => renderValueInput(k))}{alpha}</div>

@@ -6,12 +6,12 @@
 ```vue
 <template>
   <Space vertical align="start">
-    <Checkbox v-model="checked" label="Circle" />
+    <Checkbox v-model:checked="checked" label="Circle" />
     <Select :width="256" clearable :icon="Search" theme="light" :shape="checked?'circle':''" :options="options" />
     <Select :width="256" clearable filterable theme="light" :shape="checked?'circle':''" :options="options"> 
     </Select>
     <Select :width="256" clearable :icon="Search" :shape="checked?'circle':''" :options="options" />
-    <Select :width="256" multiple v-model="value" filterable theme="light" :options="options"> 
+    <Select :width="256" multiple v-model:value="value" filterable theme="light" :options="options"> 
     </Select>
   </Space>
 </template>

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <TreeSelect v-model="value" :tree-data="data" :treeExpandedKeys="expandedKeys" multiple tree-checkable :width="300" />
+  <TreeSelect v-model:value="value" :tree-data="data" :treeExpandedKeys="expandedKeys" multiple tree-checkable :width="300" />
 </template>
 <script>
 export default{

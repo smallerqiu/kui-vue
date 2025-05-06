@@ -7,14 +7,14 @@
 <template>
   <div>
     <Space>
-      <Checkbox v-model="directory" label="Directory" />
-      <Checkbox v-model="showLine" label="showLine" />
-      <Checkbox v-model="draggable" label="Draggable" />
-      <Checkbox v-model="checkable" label="Checkable" />
-      <Checkbox v-model="showIcon" label="ShowIcon" />
-      <Checkbox v-model="showExtra" label="ShowExtra" />
-      <Checkbox v-model="multiple" label="Multiple" />
-      <Checkbox v-model="checkStrictly" label="checkStrictly" />
+      <Checkbox v-model:checked="directory" label="Directory" />
+      <Checkbox v-model:checked="showLine" label="showLine" />
+      <Checkbox v-model:checked="draggable" label="Draggable" />
+      <Checkbox v-model:checked="checkable" label="Checkable" />
+      <Checkbox v-model:checked="showIcon" label="ShowIcon" />
+      <Checkbox v-model:checked="showExtra" label="ShowExtra" />
+      <Checkbox v-model:checked="multiple" label="Multiple" />
+      <Checkbox v-model:checked="checkStrictly" label="checkStrictly" />
     </Space>
     <br />
     <br />

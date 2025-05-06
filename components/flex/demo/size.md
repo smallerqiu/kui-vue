@@ -6,13 +6,13 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model="size" @change="sizeChange">
+    <RadioGroup v-model:value="size" @change="sizeChange">
       <Radio value="small" label="small" />
       <Radio value="middle" label="middle" />
       <Radio value="large" label="large" />
       <Radio value="customize" label="customize" />
     </RadioGroup>
-    <Slider v-model="gap" :step="1" :max="50" v-if="size==='customize'" @change="gapChange"/>
+    <Slider v-model:value="gap" :step="1" :max="50" v-if="size==='customize'" @change="gapChange"/>
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>

@@ -32,23 +32,6 @@ export default defineComponent({
     parser: Function,
     placeholder: String,
   },
-  // watch: {
-  //   value(value) {
-  //     currentValue.value = value;
-  //   },
-  //   visiblePassword(value) {
-  //     showPassword.value = !value;
-  //   },
-  // },
-  // mounted() {
-  //   let textInput = this.Input || this.TextArea || this.InputNumber || {};
-  //   textInput.focus = (e) => {
-  //     this.$nextTick(() => this.$refs.input.focus(e));
-  //   };
-  //   textInput.blur = (e) => {
-  //     this.$nextTick(() => this.$refs.input.blur(e));
-  //   };
-  // },
   setup(ps, { slots, emit, attrs, expose }) {
     const currentValue = ref(ps.value);
     const focused = ref(false);
@@ -65,8 +48,8 @@ export default defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
-      setValue({ input: "", output: "" });
-      nextTick(() => inputRef.value.focus());
+      // setValue({ input: "", output: "" });
+      nextTick(() => focus());
     };
     const iconClick = () => {
       !ps.disabled && emit("icon-click");
@@ -78,7 +61,7 @@ export default defineComponent({
     };
     const handleFocus = (e) => {
       focused.value = true;
-      // emit("focus", e);
+      emit("focus", e);
     };
     const handleBlur = (e) => {
       emit("blur", e);
@@ -113,8 +96,6 @@ export default defineComponent({
     };
     const setValue = ({ input, output }) => {
       currentValue.value = input;
-      // this.$emit("input", output);
-      // this.$emit("change", output);
     };
 
     const searchEvent = (e) => {

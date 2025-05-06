@@ -11,7 +11,7 @@
     >
       {{ text }}
     </Avatar>
-    <Button size="small" @click="changeValue">改变</Button>
+    <Button size="small" @click="changeValue">change</Button>
   </Space>
 </template>
 <script setup>
@@ -19,7 +19,7 @@ import { ref } from "vue";
 const ran =(min, max)=> {
   return parseInt((Math.random() * (max - min)) + min)
 }
-const userList = ["K", "王","邱先生", "Jack", "Jone"];
+const userList = ["K", "Zhang","Mr Qiu", "Jack cheng", "Jone Blue"];
 const colorList = ["#3a95ff", "#00bb5d", "#ff3300", "#ffa500"];
 
 const text = ref(userList[0]);

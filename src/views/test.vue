@@ -1,33 +1,21 @@
 <template>
-  <div style="max-width:520px;padding: 200px;" theme-mode="dark">
-    <Button @click="value=[40,80]">rest</Button>
-    <div>step=10 {{ value }}</div>
-    <Slider :step="10" :marks="{ 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }" v-model:value="value"
-      :max="80" :min="10" range></Slider>
-    <!-- <br />
-    <br />
-    <div>step=0.1</div>
-    <Slider :step="0.1" :marks="{ 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5' }" :min="0" :max="1"
-      :value="[0.1, 0.5]" :range="true"></Slider>
-    <br />
-    <br />
-    <div>Marks & step=10</div>
-    <Slider :marks="{ 25: '25°C', 36: '36°C' }" :step="10" :value="[0, 100]" :range="true"></Slider>
-    <br />
-    <br />
-    <div>step=null</div>
-    <Slider :marks="{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C', }" :step="null" :value="[0, 100]" :range="true">
-    </Slider>
-    <br />
-    <br />
-    <Slider :marks="{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C', }" :step="null" :value="25"></Slider>
-    <br />
-    <br />
-    <div>Inclued</div>
-    <Slider :marks="{ 20: '20°C', 40: '40°C' }" :included="false" :value="[0, 100]" :range="true"></Slider> -->
-  </div>
+  <Descriptions title="订单信息" bordered>
+    <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
+    <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
+    <DescriptionsItem label="电话">13888888888</DescriptionsItem>
+    <DescriptionsItem label="下单时间">2022-05-03 12:12:33</DescriptionsItem>
+    <DescriptionsItem label="付款时间" :span="3">2022-05-03 12:15:33</DescriptionsItem>
+    <DescriptionsItem label="状态" :span="5">
+      <Badge status="success" text="已发货" />
+    </DescriptionsItem>
+    <DescriptionsItem label="价格">￥ 199.99</DescriptionsItem>
+    <DescriptionsItem label="优惠金额">￥ 0.99</DescriptionsItem>
+    <DescriptionsItem label="实付金额">￥ 199.00</DescriptionsItem>
+    <DescriptionsItem label="备注信息">
+      请把货物发至: <br />
+      湖北省武汉市洪山区 光谷 188号 <br />
+      让快递小哥轻拿轻放<br />
+      谢谢！
+    </DescriptionsItem>
+  </Descriptions>
 </template>
-<script setup>
-import { ref } from 'vue'
-const value = ref([40, 80])
-</script>

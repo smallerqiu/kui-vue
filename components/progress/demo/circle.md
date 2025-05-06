@@ -9,10 +9,12 @@
   <Progress type="circle" :percent="70" status="exception" />
   <Progress type="circle" :percent="100" />
    <Progress type="circle" :percent="50">
-    <div slot="format" class="demo-progress">
-      <h2 style="margin:0">13389</h2>
-      <span>今日步数</span>
-    </div>
+    <template #format>
+      <div class="demo-progress">
+        <h2 style="margin:0">13389</h2>
+        <span>今日步数</span>
+      </div>
+    </template>
   </Progress>
 </template>
 <style>

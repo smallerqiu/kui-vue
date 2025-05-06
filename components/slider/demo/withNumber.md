@@ -20,7 +20,7 @@
       </Col>
       <Col :span="4">
         <InputNumber
-          v-model="n2"
+          v-model:value="n2"
           :min="0"
           :max="1"
           :step="0.01"

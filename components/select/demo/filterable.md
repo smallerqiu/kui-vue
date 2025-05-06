@@ -11,7 +11,7 @@
       <Select 
         size="large"
         :width="300"
-        v-model="data" 
+        v-model:value="data" 
         placeholder="单选过滤" filterable>
         <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
       </Select>
@@ -24,7 +24,7 @@
         class="demo-select"
         multiple 
         :width="300"
-        v-model="data2" 
+        v-model:value="data2" 
         placeholder="多选过滤" filterable >
         <Option :value="v" :label="v" v-for="(v,i) in options" :key="i"/>
       </Select>

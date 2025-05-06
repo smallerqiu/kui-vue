@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Checkbox v-model="checkStrictly">父子节点不关联</Checkbox>
+  <Checkbox v-model:checked="checkStrictly">父子节点不关联</Checkbox>
   <br />
   <br />
   <Tree :data="data" checkable :checkedKeys="checkedKeys" :expandedKeys="expandedKeys" @check="check" :checkStrictly="checkStrictly"/>

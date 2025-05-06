@@ -6,7 +6,9 @@
 ```vue
 <template>
     <Space>
-      <Divider slot="split" type="vertical"></Divider>
+      <template #split>
+        <Divider type="vertical"></Divider>
+      </template>
       <a href="#" type="link">Edit</a>
       <a href="#" type="link">Save</a>
       <a href="#" type="link">Delete</a>

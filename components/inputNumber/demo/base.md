@@ -7,7 +7,7 @@
 <template>
   <Space style="width:200px;font-size:12px;" vertical>
      简单数字输入框
-     <InputNumber v-model="value"/>
+     <InputNumber v-model:value="value"/>
      步长为2
      <InputNumber :step="2" :value="2"/>
      设置了上下界 min=1,max=10
