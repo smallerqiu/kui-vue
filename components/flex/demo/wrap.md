@@ -6,8 +6,8 @@
 ```vue
 <template>
   <Flex size="middle" vertical align="flex-start" style="width:300px;">
-    <Slider v-model="x" :min="0" :max="100" :step="1"  />
-    <Slider v-model="y" :min="0" :max="100" :step="1" />
+    <Slider v-model:value="x" :min="0" :max="100" :step="1"  />
+    <Slider v-model:value="y" :min="0" :max="100" :step="1" />
     <Flex :size="[x,y]" wrap >
       <Button size="small" v-for="x in 10" :key="x">Wrap</Button>
     </Flex>

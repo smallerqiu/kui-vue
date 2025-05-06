@@ -9,7 +9,7 @@
     <Space>
       <span>单选搜索: </span>
       <Select 
-        v-model="s1" 
+        v-model:value="s1" 
         :width="300"
         @search="search1"
         :loading="loading1"
@@ -27,7 +27,7 @@
         :width="300"
         :loading="loading2"
         @search="search2"
-        v-model="s2" 
+        v-model:value="s2" 
         placeholder="多选过滤">
         <Option :value="v" :label="v" v-for="(v,i) in options2" :key="i"/>
       </Select>

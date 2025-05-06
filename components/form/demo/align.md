@@ -8,7 +8,7 @@
   <div>
     <Form :layout="layout" :labelCol="{span:5}" :wrapperCol="{span:6}">
       <FormItem label="Layout">
-        <RadioGroup v-model="layout">
+        <RadioGroup v-model:value="layout">
           <RadioButton value="horizontal" label="horizontal" />
           <RadioButton value="vertical" label="vertical" />
           <RadioButton value="inline" label="inline" />

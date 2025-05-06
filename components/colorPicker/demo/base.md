@@ -6,9 +6,9 @@
 ```vue
 <template>
   <div class="demo-color-picker">
-    <ColorPicker v-model="color"/>
+    <ColorPicker v-model:value="color"/>
     <br/>
-    <ColorPicker v-model="color" disabled/>
+    <ColorPicker v-model:value="color" disabled/>
   </div>
 </template>
 <script>

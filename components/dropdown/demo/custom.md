@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Dropdown v-model="visible">
+  <Dropdown v-model:show="visible">
     <a>
       Hover me <Icon :type="ChevronDown" />
     </a>

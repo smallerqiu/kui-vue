@@ -30,8 +30,8 @@
       </Poptip>
     </Space>
     <Flex justify="space-between" style="width:100%;padding:10px 0">
-      <Space vertical compact :title="title">
-        <Poptip placement="left-top">
+      <Space vertical compact>
+        <Poptip placement="left-top" :title="title">
           <Button>LT</Button>
           <template #content>
             <p>{{ tip }}</p>

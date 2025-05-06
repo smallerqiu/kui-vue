@@ -5,11 +5,13 @@
 
 ```vue
 <template>
-  <RadioGroup :options="types" v-model="size" type="button" />
+  <RadioGroup :options="types" v-model:value="size" type="button" />
   <br/>
   <br/>
   <Descriptions title="订单信息" bordered :size="size">
-    <Button slot="extra" size="small" type="primary">更新信息</Button>
+    <template #extra>
+      <Button size="small" type="primary">更新信息</Button>
+    </template>
     <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
     <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
     <DescriptionsItem label="电话">13888888888</DescriptionsItem>
@@ -26,7 +28,9 @@
   <br/>
   <br/>
   <Descriptions title="订单信息" :size="size">
-    <Button slot="extra" size="small" type="primary">更新信息</Button>
+    <template #extra>
+      <Button size="small" type="primary">更新信息</Button>
+    </template>
     <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
     <DescriptionsItem label="价格">￥ 199.99</DescriptionsItem>
     <DescriptionsItem label="姓名">王大锤</DescriptionsItem>

@@ -9,8 +9,8 @@
     <Button @click="show = true">在Modal</Button>
     <Button @click="show2 = true">在 Drawer</Button>
 
-    <Modal v-model="show" :title="null" :footer="null" :showClose="false" :width="316">
-      <DateCalendar v-model="date" @change="change"></DateCalendar>
+    <Modal v-model:show="show" :title="null" :footer="null" :showClose="false" :width="316">
+      <DateCalendar v-model:value="date" @change="change"></DateCalendar>
     </Modal>
 
     <div class="date-demo">
@@ -18,9 +18,9 @@
         <div class="demo-nav">
           <Icon :type="ChevronBack" />商城首页
         </div>
-        <Drawer v-model="show2" height="340" :closable="false" :footer="null" :title="null" :height="300"
+        <Drawer v-model:show="show2" height="340" :closable="false" :footer="null" :title="null" :height="300"
           placement="bottom" :target="() => $refs['demo-date']">
-          <DateCalendar v-model="date2" @change="change2" picker-size="small"></DateCalendar>
+          <DateCalendar v-model:value="date2" @change="change2" picker-size="small"></DateCalendar>
         </Drawer>
       </div>
     </div>

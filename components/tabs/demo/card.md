@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Tabs v-model="current" card>
+  <Tabs v-model:activeKey="current" card>
     <TabPane key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPane>

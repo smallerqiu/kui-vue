@@ -10,9 +10,9 @@ export default defineComponent({
     extra: String,
     size: { type: String, default: "default" },
   },
-  setup(props, { slots }) {
+  setup(ps, { slots }) {
     return () => {
-      let { column, bordered, layout, size, title, extra } = props;
+      let { column, bordered, layout, size, title, extra } = ps;
 
       let childs = slots.default?.();
 
@@ -22,8 +22,8 @@ export default defineComponent({
         v = 0;
 
       for (let i = 0; i < childs?.length; i++) {
-        let {  label, span = 1 } = childs[i].props;
-        const children = childs[i].children.default?.()
+        let { label, span = 1 } = childs[i].props;
+        const children = childs[i].children.default?.();
         let row = rows[len] || [];
         let vertical = layout == "vertical";
 
@@ -124,7 +124,7 @@ export default defineComponent({
       }
       const viewNode = <table>{trs}</table>;
 
-      let _props = {
+      let props = {
         class: [
           "k-descriptions",
           {
@@ -137,7 +137,7 @@ export default defineComponent({
       };
       const extraNode = extra || slots.extra?.();
       return (
-        <div {..._props}>
+        <div {...props}>
           <div class="k-descriptions-header">
             <div class="k-descriptions-title">{title || slots.title?.()}</div>
             {extraNode ? <div class="k-descriptions-extra">{extraNode}</div> : null}

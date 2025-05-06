@@ -8,7 +8,7 @@
   <div style="width:600px;">
     <Form :model="form" :size="size" :rules="rules" ref="form" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="Size">
-        <RadioGroup v-model="size" >
+        <RadioGroup v-model:value="size" >
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
@@ -87,7 +87,7 @@
         <Switch true-text="Yes" false-text="No"  />
       </FormItem>
       <FormItem label="Other" prop="other">
-        <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
+        <TextArea placeholder="最多只能输入10个字符" v-model:value="form.other" />
       </FormItem>
       <FormItem prop="readme" :wrapperCol="{offset:6}">
         <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>

@@ -20,7 +20,7 @@
         <Option value="3" label="Banana"/>
         <Option value="4" label="Pear" />
       </Select>
-      <Select :width="256" :size="size" multiple v-model="value" filterable  :icon="Search">
+      <Select :width="256" :size="size" multiple v-model:value="value" filterable  :icon="Search">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana" />

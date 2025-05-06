@@ -7,7 +7,7 @@
 <template>
   <div>
     <Space>
-      <Select :width="200" v-model="select" :options="data">
+      <Select :width="200" v-model:value="select" :options="data">
         <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
       </Select>
       <Button @click="select=''" size="small">Clear</Button>

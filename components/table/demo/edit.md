@@ -8,15 +8,15 @@
   <Button @click="add">Add</Button>
   <Table :data="data" :columns="columns" bordered :sticky="52">
     <a slot="name" slot-scope="text,row">
-      <Input v-model="row.name" size="small" v-if="row.isEdit"/>
+      <Input v-model:value="row.name" size="small" v-if="row.isEdit"/>
       <template v-else>{{text}}</template>
     </a>
     <a slot="age" slot-scope="text,row">
-      <Input v-model="row.age" size="small" v-if="row.isEdit"/>
+      <Input v-model:value="row.age" size="small" v-if="row.isEdit"/>
       <template v-else>{{text}}</template>
     </a>
     <a slot="address" slot-scope="text,row">
-      <Input v-model="row.address" size="small" v-if="row.isEdit"/>
+      <Input v-model:value="row.address" size="small" v-if="row.isEdit"/>
       <template v-else>{{text}}</template>  
     </a>
     <template slot="action" slot-scope="text,row,col">

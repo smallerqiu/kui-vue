@@ -19,6 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Person, LockClosed } from "kui-icons";
+import { message } from "kui-vue";
 const visiblePasswordIcon = ref(true)
 const search = (value) => {
     message.info("This is search event");

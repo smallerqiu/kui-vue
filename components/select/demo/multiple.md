@@ -7,7 +7,7 @@
 <template>
   <div>
     <Space>
-      <Select :width="300" multiple v-model="data" size="large" >
+      <Select :width="300" multiple v-model:value="data" size="large" >
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana"/>
@@ -20,7 +20,7 @@
     </Space>
     <br/>
     <Space vertical style="margin-top:10px">
-      <Select :width="300" multiple v-model="data2" clearable>
+      <Select :width="300" multiple v-model:value="data2" clearable>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana"/>
@@ -36,7 +36,7 @@
         <Option value="5" label="桃子" />
         <Option value="6" label="葡萄" />
       </Select>
-      <Select :width="300" multiple v-model="data2" disabled>
+      <Select :width="300" multiple v-model:value="data2" disabled>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana"/>

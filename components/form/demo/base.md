@@ -7,15 +7,15 @@
 <template>
   <div style="width:512px;">
     <Space>
-      <Checkbox v-model="disabled" label="Form disabled" />
+      <Checkbox v-model:checked="disabled" label="Form disabled" />
     </Space>
    <Form :labelCol="{span:5}" :disabled="disabled" :wrapperCol="{span:16}" :size="size" :theme="theme?'light':''" :shape="checked?'circle':''"> 
     <FormItem label="主题">
-      <Checkbox v-model="theme" label="Light" style="margin-right:8px;"/>
-      <Checkbox v-model="checked" label="Circle"/>
+      <Checkbox v-model:checked="theme" label="Light" style="margin-right:8px;"/>
+      <Checkbox v-model:checked="checked" label="Circle"/>
     </FormItem>
     <FormItem label="尺寸">
-      <RadioGroup v-model="size" type="button">
+      <RadioGroup v-model:checked="size" type="button">
         <RadioButton value="large" label="Large" />
         <RadioButton value="default" label="Default" />
         <RadioButton value="small" label="Small" />

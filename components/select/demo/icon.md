@@ -7,7 +7,7 @@
 <template>
   <Space vertical align="start"> 
     <Space>
-      <Select :width="200" :icon="Search" v-model="select"  theme="light" :arrow-icon="CaretDown" :options="data"/>
+      <Select :width="200" :icon="Search" v-model:value="select"  theme="light" :arrow-icon="CaretDown" :options="data"/>
       <Button @click="select=''" size="small">Clear</Button>
       <Button @click="select=1" size="small">Choose orange</Button>
     </Space>

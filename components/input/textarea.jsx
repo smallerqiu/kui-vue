@@ -1,5 +1,4 @@
 import { defineComponent } from "vue";
-import BaseInput from "../base/input";
 export default defineComponent({
   name: "TextArea",
   props: {
@@ -13,17 +12,13 @@ export default defineComponent({
       },
     },
   },
-  // provide() {
-  //   return {
-  //     TextArea: this,
-  //   };
-  // },
   setup(ps, { attrs }) {
+    const { theme } = ps;
     const props = {
+      class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
       ...attrs,
       ...ps,
-      inputType: "textarea",
     };
-    return () => <BaseInput {...props} />;
+    return () => <textarea {...props} />;
   },
 });
