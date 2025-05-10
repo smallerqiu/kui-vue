@@ -2,7 +2,7 @@ import Icon from "../icon";
 import { isValidString } from "../utils/string";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
-import { defineComponent, ref, nextTick } from "vue";
+import { defineComponent, ref, nextTick, watch } from "vue";
 export default defineComponent({
   name: "baseInput",
   props: {
@@ -38,6 +38,13 @@ export default defineComponent({
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref(null);
+
+    watch(
+      () => ps.value,
+      (v) => {
+        currentValue.value = v;
+      }
+    );
 
     const focus = () => {
       inputRef?.value.focus();

@@ -15,7 +15,8 @@
   transition: all .3s ease-in-out;
   box-sizing: border-box;
   gap: 8px;
-  padding: 0 0 0 8px;
+  padding: 0 8px;
+  overflow: hidden;
 
   &:hover {
     border-color: var(--kui-color-main);
@@ -30,6 +31,7 @@
   }
 
   .k-input-number-controls {
+    background-color: var(--kui-color-back);
     width: 20px;
     display: flex;
     flex-direction: column;
@@ -41,6 +43,9 @@
     height: 30px;
     opacity: 0;
     user-select: none;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   .k-input-number-control {
@@ -114,7 +119,7 @@
 }
 
 .k-input-number-suffix {
-  padding: 0 8px;
+  padding: 0;
 }
 
 .k-input-number-suffix,
@@ -222,14 +227,13 @@
 
   &:hover {
     border-color: var(--kui-color-disable-border);
+
+    .k-input-number-controls {
+      display: none;
+    }
   }
 
   & * {
     cursor: not-allowed;
-  }
-
-  .k-input-number-control:hover {
-    background: 0 0;
-    color: var(--kui-color-icon);
   }
 }

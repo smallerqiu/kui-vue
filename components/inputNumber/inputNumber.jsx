@@ -28,11 +28,7 @@ export default defineComponent({
     id: String,
   },
   setup(ps, { slots, attrs, emit }) {
-    const getValue = (v) => {
-      let { min, max, precision, formatter, parser } = ps;
-      if (parser) {
-        v = parser(v);
-      }
+    const restore = (v) => {
       if (v !== undefined && v !== "" && v !== null) {
         v = String(v).replace(/[^0-9.-]/g, "");
         if (isNaN(Number(v))) {
@@ -40,85 +36,97 @@ export default defineComponent({
         }
         if (v === "") return "";
         v = toNumber(v);
+        return v;
       } else {
         return "";
       }
-
-      if (max !== undefined && v >= max) v = max;
-      else if (min !== undefined && v <= min) v = min;
+    };
+    const getValue = (v) => {
+      let { min, max, precision, formatter, parser } = ps;
+      let input = "";
+      let output = "";
+      if (max !== undefined && v >= max) output = max;
+      else if (min !== undefined && v <= min) output = min;
+      else output = v;
 
       if (precision > 0) {
-        v = round(v, precision);
+        output = round(output, precision);
+      }
+
+      input = String(output);
+
+      if (parser) {
+        input = parser(String(input));
       }
 
       if (formatter) {
-        v = formatter(v);
+        input = formatter(String(input));
       }
 
-      return v;
+      return { input, output };
     };
+    // output is the trueth value
+    // input is the show text
+    const { input, output } = getValue(ps.value);
 
-    const value = getValue(ps.value);
-    const defaultValue = ref(value);
+    const inputValue = ref(input);
+    const outputValue = ref(output);
 
     const updateValue = (e, isUp) => {
       if (ps.disabled) return;
       const { step } = ps;
-      let value = isUp == 1 ? plus(defaultValue.value, step) : minus(defaultValue.value, step);
-      value = getValue(value);
-      defaultValue.value = value;
-      emit("update:value", value);
-      e.preventDefault()
-    };
-    const change = (e) => {
-      let { formatter, parser } = ps;
-      let input = e.target.value;
+      let value = isUp == 1 ? plus(outputValue.value, step) : minus(outputValue.value, step);
 
-      if (formatter) {
-        input = formatter(x);
+      const { input, output } = getValue(value);
+
+      inputValue.value = input;
+      outputValue.value = output;
+
+      emit("update:value", output);
+      e.preventDefault();
+    };
+    const update = (v) => {
+      if (!/^\d+$/.test(v) && v !== "") {
+        outputValue.value = v;
+        return;
       }
-      // if (formatter) {
-      //   x = formatter(x + '')
-      // }
-      defaultValue.value = input;
-      // output = toNumber(output + '')
-      emit("update:value", input);
+      const value = restore(v);
+      const { input, output } = getValue(value);
+      // console.log(v, value, input, output);
+      inputValue.value = input;
+      outputValue.value = output;
+      emit("update:value", output);
     };
     watch(
       () => ps.value,
       (v) => {
-        defaultValue.value = getValue(v);
+        const { input, output } = getValue(v);
+
+        inputValue.value = input;
+        outputValue.value = output;
       }
     );
-    // const blurHandle = (e) => {
-    //   let v = getValue(e.target.value);
-
-    //   defaultValue.value = v;
-
-    //   let output = v;
-    //   if (parser) {
-    //     output = parser(output);
-    //   }
-
-    //   if (output !== "") {
-    //     output = toNumber(output);
-    //   }
-
-    //   $emit("input", output);
-    //   $emit("blur", e);
-    //   $emit("change", output);
-    // };
+    const blurHandle = (e) => {
+      const value = restore(outputValue.value);
+      const { input, output } = getValue(value);
+      inputValue.value = input;
+      outputValue.value = output;
+      emit("update:value", output);
+      emit("blur", e);
+    };
     return () => {
       const { suffix } = ps;
+
       const props = {
         ...attrs,
+        ...ps,
         inputType: "input-number",
-        value: defaultValue.value,
-        onInput: (e) => change(e),
-        // onBlur: (e) => blurHandle(e),
+        value: outputValue.value,
+        clearable:false,
+        "onUpdate:value": (e) => update(e),
+        onBlur: (e) => blurHandle(e),
       };
       const suffixNode = slots.suffix?.() || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
-
       return (
         <Input
           {...props}
