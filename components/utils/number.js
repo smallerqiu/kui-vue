@@ -15,10 +15,10 @@ function strip(num, precision = 15) {
  * Return digits length of a number
  * @param {*number} num Input number
  */
-function digitLength(num) {
+function digitLength(num = "") {
   // Get digit length of e
   const eSplit = num.toString().split(/[eE]/);
-  const len = (eSplit[0].split('.')[1] || '').length - +(eSplit[1] || 0);
+  const len = (eSplit[0].split(".")[1] || "").length - +(eSplit[1] || 0);
   return len > 0 ? len : 0;
 }
 
@@ -27,8 +27,8 @@ function digitLength(num) {
  * @param {*number} num 输入数
  */
 function float2Fixed(num) {
-  if (num.toString().indexOf('e') === -1) {
-    return Number(num.toString().replace('.', ''));
+  if (num.toString().indexOf("e") === -1) {
+    return Number(num.toString().replace(".", ""));
   }
   const dLen = digitLength(num);
   return dLen > 0 ? strip(Number(num) * Math.pow(10, dLen)) : Number(num);
@@ -47,9 +47,9 @@ function checkBoundary(num) {
 }
 function toNumber(num) {
   if (num && num.length > 16) {
-    return num
+    return num;
   }
-  return strip(num)
+  return strip(num);
 }
 /**
  * 迭代操作
@@ -85,7 +85,7 @@ function times(...nums) {
 }
 function getMaxDigit(...nums) {
   const [num1, num2] = nums;
-  return Math.max(digitLength(num1), digitLength(num2))
+  return Math.max(digitLength(num1), digitLength(num2));
 }
 /**
  * 精确加法
@@ -96,17 +96,17 @@ function plus(...nums) {
   }
 
   const [num1, num2] = nums;
-  let maxdigit = getMaxDigit(...nums)
+  let maxdigit = getMaxDigit(...nums);
 
   // 取最大的小数位
   // const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  const baseNum = Math.pow(10, maxdigit)
+  const baseNum = Math.pow(10, maxdigit);
 
   // console.log(baseNum)
   // 把小数都转为整数然后再计算
-  let s = Math.min(baseNum, 100)
+  let s = Math.min(baseNum, 100);
   let res = ((times(num1, baseNum) + times(num2, baseNum)) / baseNum).toFixed(maxdigit);
-  return toNumber(res)
+  return toNumber(res);
 }
 
 /**
@@ -118,12 +118,11 @@ function minus(...nums) {
   }
 
   const [num1, num2] = nums;
-  let maxdigit = getMaxDigit(...nums)
+  let maxdigit = getMaxDigit(...nums);
   // const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  const baseNum = Math.pow(10, maxdigit)
-  let res = ((times(num1, baseNum) - times(num2, baseNum)) / baseNum).toFixed(maxdigit)
-  return toNumber(res)
-
+  const baseNum = Math.pow(10, maxdigit);
+  let res = ((times(num1, baseNum) - times(num2, baseNum)) / baseNum).toFixed(maxdigit);
+  return toNumber(res);
 }
 
 /**

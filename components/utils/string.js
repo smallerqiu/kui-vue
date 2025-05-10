@@ -1,3 +1,3 @@
 export function isValidString(str) {
-  return str && str.trim().length > 0;
+  return str && (str + "").trim().length > 0;
 }
