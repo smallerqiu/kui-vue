@@ -1,8 +1,8 @@
 import Input from "../input/input";
 import Icon from "../icon";
-import { add, subtract, roundDecimal } from "../utils/number";
+import { add, subtract, toFixed, isValidNumber, isEmpty } from "../utils/number";
 import { ChevronUp } from "kui-icons";
-import { ref, defineComponent, watch } from "vue";
+import { ref, defineComponent, watch, nextTick } from "vue";
 export default defineComponent({
   props: {
     value: [Array, Number, String],
@@ -18,6 +18,7 @@ export default defineComponent({
     suffix: String,
     prefix: String,
     controls: { type: Boolean, default: true },
+    keyboard: { type: Boolean, default: true },
     step: {
       type: Number,
       default: 1,
@@ -28,51 +29,41 @@ export default defineComponent({
     id: String,
   },
   setup(ps, { slots, attrs, emit }) {
-    // console.log(add('0.0000000001', '0.0000000001'));
-    const keepNumber = (v) => {
-      if (v === "" || v === null || v === undefined) return "";
-      let str = String(v);
-      let hasDot = false;
-      let result = "";
-      for (let i = 0; i < str.length; i++) {
-        const char = str[i];
-        if (char >= "0" && char <= "9") {
-          result += char;
-        } else if (char === "." && !hasDot) {
-          result += ".";
-          hasDot = true;
-        } else if (char === "-" && result === "") {
-          // 只允许负号出现在开头
-          result += "-";
+    const getValue = (v, edge) => {
+      let input = "";
+      let output = "";
+
+      let { min, max, precision, formatter, parser } = ps;
+
+      if (!isValidNumber(v)) {
+        if (isEmpty(v)) {
+          input = "";
+          output = "";
+        } else {
+          input = String(v);
+          output = formatter ? parser?.(String(v)) || v : String(v);
+        }
+      } else {
+        input = String(v);
+        output = v;
+      }
+      if (formatter) {
+        const value = parser?.(String(input)) || input;
+        input = formatter(String(value));
+      }
+      if (edge) {
+        if (precision > 0) {
+          output = toFixed(output, precision);
+        }
+        if (output > max) {
+          output = max;
+          input = formatter?.(String(max)) || max;
+        } else if (output < min) {
+          output = min;
+          input = formatter?.(String(min)) || min;
         }
       }
-      if (!/\d/.test(result)) {
-        return "";
-      }
-      return result;
-    };
-    const formatValue = (v) => {
-      let value = String(v);
-      if (ps.parser) {
-        value = ps.parser(value);
-      }
-      if (ps.formatter) {
-        value = ps.formatter(value);
-      }
-
-      return value;
-    };
-    const getValue = (v) => {
-      let { min, max, precision, formatter, parser } = ps;
-      let input = "";
-      let output = keepNumber(v);
-      if (output && output >= max) output = max;
-      else if (output && output <= min) output = min;
-
-      if (precision > 0) {
-        output = roundDecimal(output, precision);
-      }
-      input = formatValue(output);
+      // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
       return { input, output };
     };
     // output is the trueth value
@@ -82,12 +73,14 @@ export default defineComponent({
     const inputValue = ref(input);
     const outputValue = ref(output);
 
-    const updateValue = (e, isUp) => {
+    const calcValue = (e, isUp) => {
       if (ps.disabled) return;
       const { step } = ps;
-      console.log(add(outputValue.value,step,String(outputValue.value), String(step)))
+      if (!isValidNumber(outputValue.value) || isEmpty(outputValue.value)) {
+        outputValue.value = 0;
+      }
       let value = isUp == 1 ? add(String(outputValue.value), String(step)) : subtract(String(outputValue.value), String(step));
-      const { input, output } = getValue(value);
+      const { input, output } = getValue(value, true);
 
       inputValue.value = input;
       outputValue.value = output;
@@ -96,24 +89,44 @@ export default defineComponent({
       e.preventDefault();
     };
 
-    const update = (v) => {
-      const { input, output } = getValue(v);
-      inputValue.value = formatValue(v);
+    const onKeyDown = (e) => {
+      if (!ps.keyboard) return;
+      if (e.key === "ArrowUp") {
+        calcValue(e, 1);
+      } else if (e.key === "ArrowDown") {
+        calcValue(e, 0);
+      }
+    };
+    const onUpdate = (e) => {
+      const v = e.target.value;
+      const { input, output } = getValue(v, false);
+      // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
+      inputValue.value = input;
+      e.target.value = input;
+
+      if (!isValidNumber(output) && !isEmpty(v)) {
+        return;
+      }
+      const { max, min } = ps;
+      if ((output && output > max) || (output && output < min)) {
+        return;
+      }
       outputValue.value = output;
       emit("update:value", output);
+      e.preventDefault()
     };
     watch(
       () => ps.value,
       (v) => {
-        const { input, output } = getValue(v);
+        const { input, output } = getValue(v, false);
 
         inputValue.value = input;
         outputValue.value = output;
       }
     );
     const blurHandle = (e) => {
-      const value = keepNumber(inputValue.value);
-      const { input, output } = getValue(value);
+      const { input, output } = getValue(outputValue.value, true);
+
       inputValue.value = input;
       outputValue.value = output;
       emit("update:value", output);
@@ -128,8 +141,12 @@ export default defineComponent({
         inputType: "input-number",
         value: inputValue.value,
         clearable: false,
-        "onUpdate:value": (e) => update(e),
+        "onUpdate:value": (e) => {},
+        onInput: (e) => {
+          onUpdate(e);
+        },
         onBlur: (e) => blurHandle(e),
+        onKeydown: (e) => onKeyDown(e),
       };
       const suffixNode = slots.suffix?.() || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
       return (
@@ -137,16 +154,17 @@ export default defineComponent({
           {...props}
           v-slots={{
             // suffix: () => suffixNode,
-            controls: () => (
-              <div class="k-input-number-controls">
-                <span class="k-input-number-control" onClick={(e) => updateValue(e, 1)}>
-                  <Icon type={ChevronUp} />
-                </span>
-                <span class="k-input-number-control" onClick={(e) => updateValue(e)}>
-                  <Icon type={ChevronUp} />
-                </span>
-              </div>
-            ),
+            controls: () =>
+              ps.controls ? (
+                <div class="k-input-number-controls">
+                  <span class="k-input-number-control" onClick={(e) => calcValue(e, 1)}>
+                    <Icon type={ChevronUp} />
+                  </span>
+                  <span class="k-input-number-control" onClick={(e) => calcValue(e)}>
+                    <Icon type={ChevronUp} />
+                  </span>
+                </div>
+              ) : null,
           }}
         />
       );

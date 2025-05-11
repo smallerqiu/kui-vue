@@ -1,11 +1,11 @@
 <template>
-  <div style="max-width:520px;font-size:12px">
-    <!-- 0.1+0.2 = 0.3 (yes) ,输出：{{ n }}
+  <div style="max-width:520px;font-size:12px;padding: 200px;">
+    0.1+0.2 = 0.3 (yes) ,输出：{{ n }}
     <InputNumber :step="0.2" v-model:value="n" />
     <br />
     <br />
     步长为 0.00000000000001 ,输出：{{ n1 }}
-    <InputNumber v-model:value="n1" :min="0" :max="10" :step="0.00000000000001" />
+    <InputNumber v-model:value="n1" :min="-1" :max="10" :step="0.00000000000001" />
     <br />
     <br />
     保留2位小数, 输出：{{ n3 }}<br />
@@ -16,7 +16,7 @@
     <InputNumber v-model:value="n4" :min="0" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
       :parser="value => value.replace(/\￥\s?|(,*)/g, '')" />
     <br />
-    <br /> -->
+    <br />
     百分比% ,输出： {{ n5 }}<br />
     <InputNumber v-model:value="n5" :min="0" :max="100" :formatter="value => `${value}%`"
       :parser="value => value.replace('%', '')" />
@@ -34,7 +34,7 @@
 <script setup>
 import { ref } from "vue";
 const n = ref(0.1)
-const n1 = ref(0.1)
+const n1 = ref('0.00000000000001effds')
 const n3 = ref(3.14159)
 const n4 = ref(1000)
 const n5 = ref(100)
