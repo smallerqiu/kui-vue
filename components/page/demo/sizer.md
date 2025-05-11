@@ -11,14 +11,9 @@
     <Page v-model:current="current" :total="1000" showSizer :page-size="30" :size-data="sizeData"/>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current: 3,
-      sizeData:[30,50,80,100]
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref(3);
+const sizeData = [30,50,80,100]
 </script>  
 ```

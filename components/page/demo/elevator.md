@@ -9,13 +9,8 @@
     <Page v-model:current="current" :total="200" show-elevator/>
   </div>
 </template>
-<script>
-export default{
-  data(){
-    return {
-      current:10
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref(10);
 </script>
 ```

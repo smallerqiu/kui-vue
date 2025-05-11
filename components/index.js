@@ -28,7 +28,7 @@ import modal from "./modal";
 // import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import message from "./message";
 import notice from "./notice";
-// import Page from './page'
+import Page from './page'
 import Poptip from "./poptip";
 import Popconfirm from "./popconfirm";
 import Progress from "./progress";
@@ -99,7 +99,7 @@ const components = {
   Sider,
   loading,
   notice,
-  // Page,
+  Page,
   Poptip,
   Popconfirm,
   Progress,
