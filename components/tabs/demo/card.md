@@ -17,13 +17,8 @@
     </TabPane>
   </Tabs>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-}
+<script setup>
+import { ref } from "vue";
+const current = ref('1');
 </script>
 ```

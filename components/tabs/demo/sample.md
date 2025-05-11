@@ -25,19 +25,9 @@
     </Tabs>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-  methods:{
-    change(key){
-      console.log(key)
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref("1");
 </script>
 
 <style scoped>

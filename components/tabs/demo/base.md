@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="current" @change="change">
+  <Tabs v-model:activeKey="current">
     <TabPane key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPane>
@@ -17,18 +17,8 @@
     </TabPane>
   </Tabs>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-  methods:{
-    change(key){
-      console.log(key)
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref('1');
 </script>
 ```

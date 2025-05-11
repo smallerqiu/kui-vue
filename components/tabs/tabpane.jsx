@@ -1,25 +1,25 @@
-export default {
-  name: "Tabs",
+import { defineComponent, onMounted, onBeforeUnmount, getCurrentInstance } from "vue";
+export default defineComponent({
+  name: "TabPane",
   props: {
     title: String,
     icon: [String, Array],
     disabled: Boolean,
-    closable: Boolean
+    closable: Boolean,
+    activeKey: String,
+    key: String,
   },
-  inject: {
-    Tabs: { default: {} },
+  setup(ps, { emit, slots }) {
+    onMounted(() => emit("reset-nav-position"));
+    onBeforeUnmount(() => emit("reset-nav-position"));
+    const instance = getCurrentInstance();
+
+    return () => {
+      return (
+        <div class={["k-tabs-tabpane", { "k-tabs-tabpane-active": ps.activeKey == instance.vnode.key }]}>
+          {slots.default?.()}
+        </div>
+      );
+    };
   },
-  beforeDestroy() {
-    this.Tabs && this.Tabs.resetNavPosition();
-  },
-  mounted() {
-    this.Tabs && this.Tabs.resetNavPosition();
-  },
-  render() {
-    return (
-      <div class={['k-tabs-tabpane', { 'k-tabs-tabpane-active': this.Tabs.activeKey == this.$vnode.key }]}>
-        {this.$slots.default}
-      </div>
-    )
-  }
-}
+});

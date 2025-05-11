@@ -15,16 +15,13 @@
     <TabPane key="3" title="Tab 3">
       Content of Tab Pane 3
     </TabPane>
-    <Button slot="extra" size="small">Extra Action</Button>
+    <template #extra>
+      <Button size="small">Extra Action</Button>
+    </template>
   </Tabs>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-}
+<script setup>
+import { ref } from "vue";
+const current = ref("1");
 </script>
 ```

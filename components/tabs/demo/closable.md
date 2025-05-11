@@ -7,53 +7,42 @@
 ```vue
 <template>
   <Tabs v-model:activeKey="activeKey" card @remove="remove">
-    <TabPane :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
+    <TabPane :title="pane.title" v-for="pane in panesData" :key="pane.key" :closable="pane.closable">
       {{pane.content}}
     </TabPane>
-    <Button slot="extra" :icon="Add" size="small" @click="add"/>
+    <template #extra>
+      <Button :icon="Add" size="small" @click="add"/>
+    </template>
   </Tabs>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Add } from "kui-icons";
-export default{
-  data() {
-    const panes = [
-      { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
-      { title: 'Tab 2', content: 'Content of Tab 2', key: '2', closable:true },
-      { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable:true },
-    ];
-    return {
-      Add,
-      panes,
-      activeKey: panes[0].key,
-      newTabIndex: 0
-    }
-  },
-  methods:{
-    remove(key){
-      let panes = this.panes
-      
-      const index = panes.map(p=>p.key).indexOf(key)
-
-      if (this.activeKey == key) {
-        if(index == panes.length-1) {
-          this.activeKey = panes[index-1].key
-        } else {
-          this.activeKey = panes[index+1].key
-        }
-
-      }
-      panes.splice(index,1)
-
-    },
-    add() {
-      const panes = this.panes;
-      const activeKey = `A${this.newTabIndex++}`;
-      panes.push({ title: `New Tab${this.newTabIndex}`, content: `Content of new Tab ${activeKey}`, key: activeKey, closable:true });
-      this.panes = panes;
-      this.activeKey = activeKey;
-    },
-  }
+const panesData = ref([
+  { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
+  { title: 'Tab 2', content: 'Content of Tab 2', key: '2', closable:true },
+  { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable:true },
+])
+const activeKey = ref('1');
+const newTabIndex = ref(0); 
+const remove =(key)=>{
+  let panes = panesData.value
+  console.log(key)
+  const index = panesData.value.map(p=>p.key).indexOf(key)
+  panesData.value = panes.filter(pane => pane.key !== key);
+  activeKey.value = panesData.value[index-1].key
+}
+const add = ()=> {
+  const panes = panesData.value;
+  const key = `A${newTabIndex.value++}`;
+  panes.push({ 
+    title: `New Tab${newTabIndex.value}`, 
+    content: `Content of new Tab ${newTabIndex.value}`, 
+    key: key, 
+    closable:true 
+  });
+  panesData.value = panes;
+  activeKey.value = key;
 }
 </script>
 ```

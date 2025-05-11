@@ -42,7 +42,7 @@ import Spin from "./spin";
 import Switch from "./switch";
 // import Table from './table'
 import Tooltip from "./tooltip";
-// import { Tabs, TabPane } from './tabs'
+import { Tabs, TabPane } from './tabs'
 import { TimeLine, TimeLineItem } from "./timeline";
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
@@ -117,7 +117,7 @@ const components = {
   SkeletonText,
   Slider,
   // Table,
-  // Tabs, TabPane,
+  Tabs, TabPane,
   TimeLine,
   TimeLineItem,
   Tag,
