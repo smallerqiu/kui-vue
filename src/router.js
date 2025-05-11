@@ -58,7 +58,7 @@ let children = [
   { path: '/notices/poptip', component: () => import(/*webpackChunkName:'poptip'*/'../components/poptip/demo'), },
   { path: '/notices/popconfirm', component: () => import(/*webpackChunkName:'popconfirm'*/'../components/popconfirm/demo'), },
   { path: '/notices/progress', component: () => import(/*webpackChunkName:'progress'*/'../components/progress/demo'), },
-  // { path: '/navigation/page', component: () => import(/*webpackChunkName:'page'*/'../components/page/demo'), },
+  { path: '/navigation/page', component: () => import(/*webpackChunkName:'page'*/'../components/page/demo'), },
   // { path: '/forms/upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
 ];
 

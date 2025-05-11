@@ -2,7 +2,7 @@ import Input from "../input/input";
 import Icon from "../icon";
 import { add, subtract, toFixed, isValidNumber, isEmpty } from "../utils/number";
 import { ChevronUp } from "kui-icons";
-import { ref, defineComponent, watch, nextTick } from "vue";
+import { ref, defineComponent, watch } from "vue";
 export default defineComponent({
   props: {
     value: [Array, Number, String],
@@ -113,7 +113,7 @@ export default defineComponent({
       }
       outputValue.value = output;
       emit("update:value", output);
-      e.preventDefault()
+      e.preventDefault();
     };
     watch(
       () => ps.value,

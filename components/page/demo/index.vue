@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from './info.md'
 import Base from './base.md'
 import More from './more.md'
@@ -7,8 +7,8 @@ import Elevator from './elevator.md'
 import Size from './size.md'
 import CN from '../index.md'
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div>
         <Info />
         <Base />
@@ -21,4 +21,4 @@ export default {
     )
   }
 }
-</script> 
+</script>
