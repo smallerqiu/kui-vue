@@ -1,5 +1,5 @@
 export default {
-  name: "Tabs",
+  name: "TabPane",
   props: {
     title: String,
     icon: [String, Array],
