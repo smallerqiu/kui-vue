@@ -22,14 +22,9 @@
     </Tabs>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1',
-      disabled:true
-    }
-  },
-}
+<script setup>
+import { ref } from "vue";
+const current = ref("1");
+const disabled = ref(true);
 </script>
 ```

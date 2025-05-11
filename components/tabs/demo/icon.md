@@ -14,15 +14,9 @@
     </TabPane>
   </Tabs>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { LogoApple, LogoMicrosoft } from "kui-icons";
-export default{
-  data() {
-    return {
-      LogoApple, LogoMicrosoft,
-      current:'1'
-    }
-  },
-}
+const current = ref("1");
 </script>
 ```
