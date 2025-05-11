@@ -14,7 +14,7 @@ suffix，prefix 扩展
       </template>
     </InputNumber>
     <InputNumber placeholder="请输入金额" suffix="元" prefix="$"/>
-    <InputNumber placeholder="请输入充值金额" :step="50" suffix="元" prefix="充值"/>
+    <InputNumber placeholder="请输入充值金额" :step="50" suffix="元" prefix="充值" :min="10" :max="500"/>
     <InputNumber placeholder="请输入金额" suffix=".00"/>
   </Space>
 </template>
