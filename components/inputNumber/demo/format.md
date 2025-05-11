@@ -62,7 +62,7 @@ const n = ref(0.1)
 const n1 = ref(0.1)
 const n3 = ref(3.14159)
 const n4 = ref(1000)
-const n5 = ref(100)
+const n5 = ref(98)
 const n6 = ref('')
 const n7 = ref(111111)
 </script>

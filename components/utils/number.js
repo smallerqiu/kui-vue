@@ -1,176 +1,181 @@
-/**
- * @desc 解决浮动运算问题，避免小数点后产生多位数和计算精度损失。
- * 问题示例：2.3 + 2.4 = 4.699999999999999，1.0 - 0.9 = 0.09999999999999998
- */
-
-/**
- * 把错误的数据转正
- * strip(0.09999999999999998)=0.1
- */
-function strip(num, precision = 15) {
-  return +parseFloat(Number(num).toPrecision(precision));
-}
-
-/**
- * Return digits length of a number
- * @param {*number} num Input number
- */
-function digitLength(num = "") {
-  // Get digit length of e
-  const eSplit = num.toString().split(/[eE]/);
-  const len = (eSplit[0].split(".")[1] || "").length - +(eSplit[1] || 0);
-  return len > 0 ? len : 0;
-}
-
-/**
- * 把小数转成整数，支持科学计数法。如果是小数则放大成整数
- * @param {*number} num 输入数
- */
-function float2Fixed(num) {
-  if (num.toString().indexOf("e") === -1) {
-    return Number(num.toString().replace(".", ""));
+function parseNumber(str) {
+  str = str.toString().trim();
+  let sign = "+";
+  if (str.startsWith("-")) {
+    sign = "-";
+    str = str.slice(1);
   }
-  const dLen = digitLength(num);
-  return dLen > 0 ? strip(Number(num) * Math.pow(10, dLen)) : Number(num);
+  let [int, dec] = str.split(".");
+  int = int || "0";
+  dec = dec || "";
+  return [sign, int, dec];
 }
 
-/**
- * 检测数字是否越界，如果越界给出提示
- * @param {*number} num 输入数
- */
-function checkBoundary(num) {
-  if (_boundaryCheckingState) {
-    if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
-      console.warn(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
+function padRight(str, length) {
+  return str + "0".repeat(length - str.length);
+}
+
+function padLeft(str, length) {
+  return "0".repeat(length - str.length) + str;
+}
+
+function addDecimal(dec1, dec2) {
+  const len = Math.max(dec1.length, dec2.length);
+  dec1 = padRight(dec1, len);
+  dec2 = padRight(dec2, len);
+  let carry = 0;
+  let result = "";
+  for (let i = len - 1; i >= 0; i--) {
+    const sum = parseInt(dec1[i]) + parseInt(dec2[i]) + carry;
+    carry = Math.floor(sum / 10);
+    result = (sum % 10) + result;
+  }
+  return { result: result.replace(/0+$/, ""), carry };
+}
+
+function addInteger(int1, int2, carry) {
+  const len = Math.max(int1.length, int2.length);
+  int1 = padLeft(int1, len);
+  int2 = padLeft(int2, len);
+  let result = "";
+  for (let i = len - 1; i >= 0; i--) {
+    const sum = parseInt(int1[i]) + parseInt(int2[i]) + carry;
+    carry = Math.floor(sum / 10);
+    result = (sum % 10) + result;
+  }
+  if (carry) result = carry + result;
+  return result.replace(/^0+/, "") || "0";
+}
+
+function subDecimal(dec1, dec2) {
+  const len = Math.max(dec1.length, dec2.length);
+  dec1 = padRight(dec1, len);
+  dec2 = padRight(dec2, len);
+  let borrow = 0;
+  let result = "";
+  for (let i = len - 1; i >= 0; i--) {
+    let diff = parseInt(dec1[i]) - parseInt(dec2[i]) - borrow;
+    if (diff < 0) {
+      diff += 10;
+      borrow = 1;
+    } else {
+      borrow = 0;
     }
+    result = diff + result;
+  }
+  return { result: result.replace(/0+$/, ""), borrow };
+}
+
+function subInteger(int1, int2, borrow) {
+  const len = Math.max(int1.length, int2.length);
+  int1 = padLeft(int1, len);
+  int2 = padLeft(int2, len);
+  let result = "";
+  for (let i = len - 1; i >= 0; i--) {
+    let diff = parseInt(int1[i]) - parseInt(int2[i]) - borrow;
+    if (diff < 0) {
+      diff += 10;
+      borrow = 1;
+    } else {
+      borrow = 0;
+    }
+    result = diff + result;
+  }
+  return result.replace(/^0+/, "") || "0";
+}
+
+function compare(int1, dec1, int2, dec2) {
+  int1 = int1.replace(/^0+/, "") || "0";
+  int2 = int2.replace(/^0+/, "") || "0";
+  if (int1.length !== int2.length) return int1.length - int2.length;
+  if (int1 !== int2) return int1.localeCompare(int2);
+  const len = Math.max(dec1.length, dec2.length);
+  dec1 = padRight(dec1, len);
+  dec2 = padRight(dec2, len);
+  return dec1.localeCompare(dec2);
+}
+
+function formatResult(sign, intPart, decPart) {
+  if (decPart) {
+    return (sign === "-" && intPart !== "0" ? "-" : "") + intPart + "." + decPart;
+  }
+  return (sign === "-" && intPart !== "0" ? "-" : "") + intPart;
+}
+
+function add(a, b) {
+  const [signA, intA, decA] = parseNumber(a);
+  const [signB, intB, decB] = parseNumber(b);
+
+  if (signA === signB) {
+    const decimalSum = addDecimal(decA, decB);
+    const integerSum = addInteger(intA, intB, decimalSum.carry);
+    return formatResult(signA, integerSum, decimalSum.result);
+  } else {
+    return signA === "+" ? subtract(a, b.slice(1)) : subtract(b, a.slice(1));
   }
 }
-function toNumber(num) {
-  if (num && num.length > 16) {
-    return num;
-  }
-  return strip(num);
-}
-/**
- * 迭代操作
- */
-function iteratorOperation(arr, operation) {
-  const [num1, num2, ...others] = arr;
-  let res = operation(num1, num2);
 
-  others.forEach((num) => {
-    res = operation(res, num);
-  });
+function subtract(a, b) {
+  const [signA, intA, decA] = parseNumber(a);
+  const [signB, intB, decB] = parseNumber(b);
 
-  return res;
-}
-
-/**
- * 精确乘法
- */
-function times(...nums) {
-  if (nums.length > 2) {
-    return iteratorOperation(nums, times);
+  if (signA !== signB) {
+    const decimalSum = addDecimal(decA, decB);
+    const integerSum = addInteger(intA, intB, decimalSum.carry);
+    return formatResult(signA, integerSum, decimalSum.result);
   }
 
-  const [num1, num2] = nums;
-  const num1Changed = float2Fixed(num1);
-  const num2Changed = float2Fixed(num2);
-  const baseNum = digitLength(num1) + digitLength(num2);
-  const leftValue = num1Changed * num2Changed;
+  const cmp = compare(intA, decA, intB, decB);
+  const resultSign = cmp >= 0 ? signA : signA === "+" ? "-" : "+";
 
-  // checkBoundary(leftValue);
+  const [bInt, aInt] = cmp >= 0 ? [intB, intA] : [intA, intB];
+  const [bDec, aDec] = cmp >= 0 ? [decB, decA] : [decA, decB];
 
-  return leftValue / Math.pow(10, baseNum);
+  const decimalDiff = subDecimal(aDec, bDec);
+  const integerDiff = subInteger(aInt, bInt, decimalDiff.borrow);
+
+  return formatResult(resultSign, integerDiff, decimalDiff.result);
 }
-function getMaxDigit(...nums) {
-  const [num1, num2] = nums;
-  return Math.max(digitLength(num1), digitLength(num2));
-}
-/**
- * 精确加法
- */
-function plus(...nums) {
-  if (nums.length > 2) {
-    return iteratorOperation(nums, plus);
+
+function roundDecimal(numStr, digits) {
+  numStr = numStr.toString().trim();
+  if (!/^-?\d+(\.\d+)?$/.test(numStr)) return "NaN";
+
+  let negative = numStr.startsWith("-");
+  if (negative) numStr = numStr.slice(1);
+
+  let [intPart, decPart = ""] = numStr.split(".");
+  if (digits === 0) {
+    if (decPart[0] && parseInt(decPart[0]) >= 5) {
+      intPart = add(intPart, "1");
+    }
+    return (negative ? "-" : "") + intPart;
   }
 
-  const [num1, num2] = nums;
-  let maxdigit = getMaxDigit(...nums);
+  decPart = decPart.padEnd(digits + 1, "0");
+  const roundDigit = parseInt(decPart[digits]);
+  let roundedDec = decPart.slice(0, digits);
 
-  // 取最大的小数位
-  // const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  const baseNum = Math.pow(10, maxdigit);
-
-  // console.log(baseNum)
-  // 把小数都转为整数然后再计算
-  let s = Math.min(baseNum, 100);
-  let res = ((times(num1, baseNum) + times(num2, baseNum)) / baseNum).toFixed(maxdigit);
-  return toNumber(res);
-}
-
-/**
- * 精确减法
- */
-function minus(...nums) {
-  if (nums.length > 2) {
-    return iteratorOperation(nums, minus);
+  if (roundDigit >= 5) {
+    // 加 1
+    let carry = 1;
+    let newDec = "";
+    for (let i = digits - 1; i >= 0; i--) {
+      let sum = parseInt(roundedDec[i] || "0") + carry;
+      if (sum >= 10) {
+        carry = 1;
+        sum -= 10;
+      } else {
+        carry = 0;
+      }
+      newDec = sum + newDec;
+    }
+    if (carry) {
+      intPart = add(intPart, "1");
+    }
+    roundedDec = newDec;
   }
 
-  const [num1, num2] = nums;
-  let maxdigit = getMaxDigit(...nums);
-  // const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  const baseNum = Math.pow(10, maxdigit);
-  let res = ((times(num1, baseNum) - times(num2, baseNum)) / baseNum).toFixed(maxdigit);
-  return toNumber(res);
+  return (negative ? "-" : "") + intPart + (digits > 0 ? "." + roundedDec : "");
 }
-
-/**
- * 精确除法
- */
-function divide(...nums) {
-  if (nums.length > 2) {
-    return iteratorOperation(nums, divide);
-  }
-
-  const [num1, num2] = nums;
-  const num1Changed = float2Fixed(num1);
-  const num2Changed = float2Fixed(num2);
-  // checkBoundary(num1Changed);
-  // checkBoundary(num2Changed);
-  // fix: 类似 10 ** -4 为 0.00009999999999999999，strip 修正
-  return times(num1Changed / num2Changed, strip(Math.pow(10, digitLength(num2) - digitLength(num1))));
-}
-
-/**
- * 四舍五入
- */
-function round(num, ratio) {
-  const base = Math.pow(10, ratio);
-  let result = divide(Math.round(Math.abs(times(num, base))), base);
-  if (num < 0 && result !== 0) {
-    result = times(result, -1);
-  }
-  return result;
-}
-
-let _boundaryCheckingState = true;
-/**
- * 是否进行边界检查，默认开启
- * @param flag 标记开关，true 为开启，false 为关闭，默认为 true
- */
-function enableBoundaryChecking(flag = true) {
-  _boundaryCheckingState = flag;
-}
-export { strip, plus, minus, toNumber, getMaxDigit, times, divide, round, digitLength, float2Fixed, enableBoundaryChecking };
-// export default {
-//   strip,
-//   plus,
-//   minus,
-//   times,
-//   divide,
-//   round,
-//   digitLength,
-//   float2Fixed,
-//   enableBoundaryChecking,
-// };
+export { add, subtract, roundDecimal };
