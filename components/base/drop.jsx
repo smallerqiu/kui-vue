@@ -1,11 +1,11 @@
-import { getPosition } from '../_tool/utils'
+import { getPosition } from "../_tool/utils";
 
 import transfer from "../_tool/transfer";
 import resize from "../_tool/resize";
 import outsideclick from "../_tool/outsiteclick";
 
 export default {
-  name: 'Drop',
+  name: "Drop",
   directives: { transfer, resize, outsideclick },
   props: {
     transfer: Boolean,
@@ -14,39 +14,39 @@ export default {
     width: Number,
     placement: String,
     trigger: { type: String, default: "click" },
-    transitionName: { type: String, default: 'dropdown' },
-    selection: { validator: v => true },
+    transitionName: { type: String, default: "dropdown" },
+    selection: { validator: (v) => true },
     updateKey: [String, Object, Array],
     offsetLeft: { type: Number, default: 0 },
-    extendWidth: Boolean
+    extendWidth: Boolean,
   },
 
   watch: {
     updateKey(o, v) {
       if (o != v) {
-        this.$nextTick(e => {
-          this.setPosition()
-        })
+        this.$nextTick((e) => {
+          this.setPosition();
+        });
       }
     },
     rendered(value) {
-      this.$emit('render')
+      this.$emit("render");
     },
     value(value) {
-      this.rendered = true
-      this.visible = value
+      this.rendered = true;
+      this.visible = value;
 
       if (value) {
-        this.left = 0
-        this.top = 0
-        this.$nextTick(e => {
-          this.setPosition()
-        })
+        this.left = 0;
+        this.top = 0;
+        this.$nextTick((e) => {
+          this.setPosition();
+        });
       }
     },
     placement(value) {
-      this.currentPlacement = value
-    }
+      this.currentPlacement = value;
+    },
   },
   data() {
     return {
@@ -54,18 +54,18 @@ export default {
       top: 0,
       minWidth: 0,
       mousedownIn: false,
-      transformOrigin: '',
+      transformOrigin: "",
       currentPlacement: this.placement,
       rendered: this.value === true,
-      visible: this.value
-    }
+      visible: this.value,
+    };
   },
   mounted() {
-    this.$nextTick(() => this.setPosition())
-    !this.$isServer && document.addEventListener('mousedown', this.onMouseDown)
+    this.$nextTick(() => this.setPosition());
+    typeof window !== "undefined" && document.addEventListener("mousedown", this.onMouseDown);
   },
   beforeDestroy() {
-    !this.$isServer && document.removeEventListener('mousedown', this.onMouseDown)
+    typeof window !== "undefined" && document.removeEventListener("mousedown", this.onMouseDown);
   },
   render() {
     const props = {
@@ -76,290 +76,276 @@ export default {
         top: `${this.top}px`,
         width: `${this.width}px`,
         minWidth: `${this.minWidth}px`,
-        transformOrigin: this.transformOrigin
+        transformOrigin: this.transformOrigin,
       },
       attrs: {
-        'k-placement': this.currentPlacement
+        "k-placement": this.currentPlacement,
       },
       on: {
-        ...this.$listeners
+        ...this.$listeners,
       },
-    }
-    return this.rendered ? <transition name={this.transitionName}>
-      <div {...props} v-show={this.visible}
-        v-transfer={this.transfer}
-        v-outsideclick={this.hide}
-        v-resize={this.resize}>
-        {this.$slots.default}
-      </div>
-    </transition> : null
+    };
+    return this.rendered ? (
+      <transition name={this.transitionName}>
+        <div {...props} v-show={this.visible} v-transfer={this.transfer} v-outsideclick={this.hide} v-resize={this.resize}>
+          {this.$slots.default}
+        </div>
+      </transition>
+    ) : null;
   },
   methods: {
     showContextmenu(e) {
-      let pickerHeight = this.$el.offsetHeight
-      let pickerWidth = this.$el.offsetWidth
-      let clientHeight = document.documentElement.clientHeight
-      let clientWidth = document.documentElement.clientWidth
+      let pickerHeight = this.$el.offsetHeight;
+      let pickerWidth = this.$el.offsetWidth;
+      let clientHeight = document.documentElement.clientHeight;
+      let clientWidth = document.documentElement.clientWidth;
 
       let offsetTop = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
       let offsetLeft = document.body.scrollLeft || document.documentElement.scrollLeft || window.scrollX;
       let left = e.clientX + offsetLeft;
       let top = e.clientY + offsetTop;
-      let showInRight = clientWidth - e.clientX > pickerWidth
-      let showInBottom = clientHeight - e.clientY > pickerHeight
-      let transformOrigin = 'top center';
+      let showInRight = clientWidth - e.clientX > pickerWidth;
+      let showInBottom = clientHeight - e.clientY > pickerHeight;
+      let transformOrigin = "top center";
 
       if (!showInRight) {
-        left -= pickerWidth
+        left -= pickerWidth;
       }
       if (!showInBottom) {
-        top -= pickerHeight
-        transformOrigin = 'bottom center'
+        top -= pickerHeight;
+        transformOrigin = "bottom center";
       }
-      this.left = left
-      this.top = top
-      this.transformOrigin = transformOrigin
+      this.left = left;
+      this.top = top;
+      this.transformOrigin = transformOrigin;
     },
     onMouseDown({ target }) {
-      this.mousedownIn = this.visible && this.$el.contains(target)
+      this.mousedownIn = this.visible && this.$el.contains(target);
     },
     setPosition() {
-      if (this.trigger == 'contextmenu' || !this.rendered || !this.value) {
+      if (this.trigger == "contextmenu" || !this.rendered || !this.value) {
         return;
       }
-      let { selection, placement = 'bottom', offsetLeft } = this
-      let picker = this.$el
+      let { selection, placement = "bottom", offsetLeft } = this;
+      let picker = this.$el;
       if (this.extendWidth) {
-        picker.style.width = selection.offsetWidth + 'px'
+        picker.style.width = selection.offsetWidth + "px";
       }
-      let top = 0, left = 0, offset = 3;
+      let top = 0,
+        left = 0,
+        offset = 3;
 
-      let origin = ["", ""]
+      let origin = ["", ""];
 
       if (picker && selection) {
-
         let selectionRect = selection.getBoundingClientRect();
-        let pickerHeight = picker.offsetHeight
-        let pickerWidth = picker.offsetWidth
-        let clientHeight = document.documentElement.clientHeight
-        let clientWidth = document.documentElement.clientWidth
-        let scrollTop = document.documentElement.scrollTop
-        let scrollLeft = document.documentElement.scrollLeft
+        let pickerHeight = picker.offsetHeight;
+        let pickerWidth = picker.offsetWidth;
+        let clientHeight = document.documentElement.clientHeight;
+        let clientWidth = document.documentElement.clientWidth;
+        let scrollTop = document.documentElement.scrollTop;
+        let scrollLeft = document.documentElement.scrollLeft;
 
         //是否有足够的空间
         //底部
-        let enoughBottom = clientHeight - selectionRect.bottom > pickerHeight
-        let enoughBottomC = clientHeight - selectionRect.top > pickerHeight
+        let enoughBottom = clientHeight - selectionRect.bottom > pickerHeight;
+        let enoughBottomC = clientHeight - selectionRect.top > pickerHeight;
         //上面
-        let enoughTop = selectionRect.top > pickerHeight
-        let enoughTopC = selectionRect.bottom > pickerHeight
+        let enoughTop = selectionRect.top > pickerHeight;
+        let enoughTopC = selectionRect.bottom > pickerHeight;
         //左边
-        let enoughLeft = selectionRect.left > pickerWidth
-        let enoughLeftC = selectionRect.right > pickerWidth
+        let enoughLeft = selectionRect.left > pickerWidth;
+        let enoughLeftC = selectionRect.right > pickerWidth;
         //右边
-        let enoughRight = clientWidth - selectionRect.right > pickerWidth
-        let enoughRightC = clientWidth - selectionRect.left > pickerWidth
+        let enoughRight = clientWidth - selectionRect.right > pickerWidth;
+        let enoughRightC = clientWidth - selectionRect.left > pickerWidth;
 
         // console.log(showInRight, selectionRect.left > pickerWidth, selectionRect.right, pickerWidth)
         // console.log(selectionRect.right, pickerWidth, placement, ', bottom:', enoughBottom, 'top:', enoughTop, 'left:', enoughLeft, 'leftC:', enoughLeftC, 'right:', enoughRight, 'rightC:', enoughRightC)
         // console.log(placement, 'showInTop:', showInTop, 'showInBottom:', showInBottom, clientHeight, scrollTop, selectionRect.top, pickerHeight)
 
         //reset placement
-        if (placement.startsWith('top')) {
+        if (placement.startsWith("top")) {
           if (!enoughTop) {
-            placement = placement.replace('top', 'bottom')
+            placement = placement.replace("top", "bottom");
           }
           if (!enoughLeftC) {
-            placement = placement.replace('right', 'left')
+            placement = placement.replace("right", "left");
 
-            if (placement == 'top') {
-              placement = "top-left"
+            if (placement == "top") {
+              placement = "top-left";
             }
-            if (placement == 'bottom') {
-              placement = "bottom-left"
+            if (placement == "bottom") {
+              placement = "bottom-left";
             }
           }
           if (!enoughRightC) {
-            placement = placement.replace('left', 'right')
+            placement = placement.replace("left", "right");
 
-            if (placement == 'bottom') {
-              placement = "bottom-right"
+            if (placement == "bottom") {
+              placement = "bottom-right";
             }
 
-            if (placement == 'top') {
-              placement = "top-right"
+            if (placement == "top") {
+              placement = "top-right";
             }
           }
-
-
-        } else if (placement.startsWith('right')) {
+        } else if (placement.startsWith("right")) {
           if (!enoughRight) {
-            placement = placement.replace('right', 'left')
+            placement = placement.replace("right", "left");
           }
           if (!enoughBottomC) {
-            placement = placement.replace('top', 'bottom')
-            if (placement == 'right') {
-              placement = 'right-bottom'
+            placement = placement.replace("top", "bottom");
+            if (placement == "right") {
+              placement = "right-bottom";
             }
-            if (placement == 'left') {
-              placement = 'left-bottom'
+            if (placement == "left") {
+              placement = "left-bottom";
             }
           }
           if (!enoughTopC) {
-            placement = placement.replace('bottom', 'top')// ok
-            if (placement == 'left') {
-              placement = 'left-top'
+            placement = placement.replace("bottom", "top"); // ok
+            if (placement == "left") {
+              placement = "left-top";
             }
-            if (placement == 'right') {
-              placement = 'right-top'
+            if (placement == "right") {
+              placement = "right-top";
             }
           }
-
-        } else if (placement.startsWith('bottom')) {
+        } else if (placement.startsWith("bottom")) {
           if (!enoughBottom) {
-            placement = placement.replace('bottom', 'top')
+            placement = placement.replace("bottom", "top");
           }
 
           if (!enoughLeftC) {
-            placement = placement.replace('right', 'left')
+            placement = placement.replace("right", "left");
 
-            if (placement == 'bottom') {
-              placement = "bottom-left"
+            if (placement == "bottom") {
+              placement = "bottom-left";
             }
 
-            if (placement == 'top') {
-              placement = "top-left"
+            if (placement == "top") {
+              placement = "top-left";
             }
           }
           if (!enoughRightC) {
-            placement = placement.replace('left', 'right')
+            placement = placement.replace("left", "right");
 
-            if (placement == 'top') {
-              placement = "top-right"
+            if (placement == "top") {
+              placement = "top-right";
             }
-            if (placement == 'bottom') {
-              placement = "bottom-right"
+            if (placement == "bottom") {
+              placement = "bottom-right";
             }
           }
-
-        } else if (placement.startsWith('left')) {
+        } else if (placement.startsWith("left")) {
           if (!enoughLeft) {
-            placement = placement.replace('left', 'right')
+            placement = placement.replace("left", "right");
           }
           if (!enoughTopC) {
-            placement = placement.replace('bottom', 'top')
-            if (placement == 'right') {
-              placement = 'right-top'
+            placement = placement.replace("bottom", "top");
+            if (placement == "right") {
+              placement = "right-top";
             }
-            if (placement == 'left') {
-              placement = 'left-top'
+            if (placement == "left") {
+              placement = "left-top";
             }
           }
           if (!enoughBottomC) {
-            placement = placement.replace('top', 'bottom')
-            if (placement == 'right') {
-              placement = 'right-bottom'
+            placement = placement.replace("top", "bottom");
+            if (placement == "right") {
+              placement = "right-bottom";
             }
-            if (placement == 'left') {
-              placement = 'left-bottom'
+            if (placement == "left") {
+              placement = "left-bottom";
             }
           }
-
         }
-
 
         // console.log('result:' + placement)
 
         // set postion
-        if (!placement.includes('-')) {
+        if (!placement.includes("-")) {
           //equal
-          if (placement == 'top') {
-            top = selectionRect.top - pickerHeight - offset + scrollTop
-            left = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft
-            origin = ['center', 'bottom']
+          if (placement == "top") {
+            top = selectionRect.top - pickerHeight - offset + scrollTop;
+            left = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+            origin = ["center", "bottom"];
           }
-          if (placement == 'bottom') {
-            top = selectionRect.bottom + offset + scrollTop
-            left = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft
-            origin = ['center', 'top']
+          if (placement == "bottom") {
+            top = selectionRect.bottom + offset + scrollTop;
+            left = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+            origin = ["center", "top"];
           }
-          if (placement == 'left') {
-            left = selectionRect.left - pickerWidth - offset + scrollLeft
-            top = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop
-            origin = ['right', 'center']
+          if (placement == "left") {
+            left = selectionRect.left - pickerWidth - offset + scrollLeft;
+            top = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
+            origin = ["right", "center"];
           }
-          if (placement == 'right') {
-            left = selectionRect.right + offset + scrollLeft
-            top = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop
-            origin = ['left', 'center']
+          if (placement == "right") {
+            left = selectionRect.right + offset + scrollLeft;
+            top = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
+            origin = ["left", "center"];
           }
         } else {
           //start
-          if (placement.startsWith('bottom')) {
-            top = selectionRect.bottom + offset + scrollTop
-            origin[1] = 'top'
+          if (placement.startsWith("bottom")) {
+            top = selectionRect.bottom + offset + scrollTop;
+            origin[1] = "top";
           }
-          if (placement.startsWith('right')) {
-            left = selectionRect.right + offset + scrollLeft
-            origin[0] = 'left'
+          if (placement.startsWith("right")) {
+            left = selectionRect.right + offset + scrollLeft;
+            origin[0] = "left";
           }
-          if (placement.startsWith('top')) {
-            top = selectionRect.top - pickerHeight - offset + scrollTop
-            origin[1] = 'bottom'
+          if (placement.startsWith("top")) {
+            top = selectionRect.top - pickerHeight - offset + scrollTop;
+            origin[1] = "bottom";
           }
-          if (placement.startsWith('left')) {
-            left = selectionRect.left - pickerWidth - offset + scrollLeft
-            origin[0] = 'right'
+          if (placement.startsWith("left")) {
+            left = selectionRect.left - pickerWidth - offset + scrollLeft;
+            origin[0] = "right";
           }
-          //end 
+          //end
 
-          if (placement.endsWith('left')) {
-            left = selectionRect.left + scrollLeft
-            origin[0] = 'left'
+          if (placement.endsWith("left")) {
+            left = selectionRect.left + scrollLeft;
+            origin[0] = "left";
           }
-          if (placement.endsWith('right')) {
-            left = selectionRect.right - pickerWidth + scrollLeft - 0.5
-            origin[0] = 'right'
-          }
-
-          if (placement.endsWith('bottom')) {
-            top = selectionRect.bottom - pickerHeight + scrollTop
-            origin[1] = 'bottom'
-          }
-          if (placement.endsWith('top')) {
-            top = selectionRect.top + scrollTop
-            origin[1] = 'top'
+          if (placement.endsWith("right")) {
+            left = selectionRect.right - pickerWidth + scrollLeft - 0.5;
+            origin[0] = "right";
           }
 
+          if (placement.endsWith("bottom")) {
+            top = selectionRect.bottom - pickerHeight + scrollTop;
+            origin[1] = "bottom";
+          }
+          if (placement.endsWith("top")) {
+            top = selectionRect.top + scrollTop;
+            origin[1] = "top";
+          }
         }
       }
       // console.log(placement, origin)
-      this.top = top
-      this.left = left + (placement.includes('right') ? offsetLeft : -offsetLeft)
+      this.top = top;
+      this.left = left + (placement.includes("right") ? offsetLeft : -offsetLeft);
 
-      this.transformOrigin = origin.join(' ')
-      this.currentPlacement = placement
-
+      this.transformOrigin = origin.join(" ");
+      this.currentPlacement = placement;
     },
     hide(e) {
-      let { target } = e
-      e.stopPropagation()
-      if (this.visible &&
-        this.selection &&
-        target.parentNode != null && target.parentNode.parentNode != null &&
-        !this.selection.contains(target) &&
-        !this.$el.contains(target) &&
-        !this.mousedownIn
-      ) {
+      let { target } = e;
+      e.stopPropagation();
+      if (this.visible && this.selection && target.parentNode != null && target.parentNode.parentNode != null && !this.selection.contains(target) && !this.$el.contains(target) && !this.mousedownIn) {
         // this.visible = false
-        this.$emit('hide', false)
+        this.$emit("hide", false);
       }
     },
     resize() {
       if (this.visible) {
-        this.$emit('resize')
-        this.setPosition()
+        this.$emit("resize");
+        this.setPosition();
       }
-    }
-  }
-}
+    },
+  },
+};
