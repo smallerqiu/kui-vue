@@ -6,11 +6,11 @@
 ```vue
 <template>
   <div>
-    <Space>
-      <Select :width="200" v-model:value="select" :options="data">
+    <Space>{{value}}
+      <Select :width="200" v-model:value="value" :options="data">
         <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
       </Select>
-      <Button @click="select=''" size="small">Clear</Button>
+      <Button @click="clear" size="small">Clear</Button>
       <Button @click="select=1" size="small">Choose orange</Button>
     </Space>
     <br />
@@ -27,19 +27,17 @@
     </Space>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      select: 2,
-      data: [
-        { label: "Apple", value: 0 },
-        { label: "Orange", value: 1 },
-        { label: "Banana", value: 2 },
-        { label: "Pear", value: 3 },
-      ],
-    };
-  }
+<script setup>
+import { ref } from "vue";
+const value = ref(2);
+const clear = () => {
+  value.value = ''
 }
+const data = [
+  { label: "Apple", value: 0 },
+  { label: "Orange", value: 1 },
+  { label: "Banana", value: 2 },
+  { label: "Pear", value: 3 },
+]
 </script> 
 ```

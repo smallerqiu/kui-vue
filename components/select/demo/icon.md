@@ -22,21 +22,15 @@
     </Select>
   </Space>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Search,Location, ChevronDownCircleOutline, CaretDown } from "kui-icons";
-export default {
-  data() {
-    return {
-      Search,Location, ChevronDownCircleOutline, CaretDown,
-      select: 2,
-      data: [
-        { label: "Apple", value: 0 },
-        { label: "Orange", value: 1 },
-        { label: "Banana", value: 2 },
-        { label: "Pear", value: 3 },
-      ],
-    };
-  }
-}
+const select = ref(2);
+const data = [
+  { label: "Apple", value: 0 },
+  { label: "Orange", value: 1 },
+  { label: "Banana", value: 2 },
+  { label: "Pear", value: 3 },
+]
 </script> 
 ```

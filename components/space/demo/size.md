@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Tabs v-model:value="current" @change="change" style="width:350px;">
+  <Tabs v-model:activeKey="current" @change="change" style="width:350px;">
     <TabPane key="1" title="Small">
       <Space size="small" >
         <Button size="small" v-for="x in 5" :key="x">Small</Button>
@@ -22,9 +22,9 @@
         <Button size="small" v-for="x in 5" :key="x">Large</Button>
       </Space>
     </TabPane>
-    <TabPane key="4" title="Array">
+    <TabPane key="4" title="Wrap">
       <Space :size="[8,20]" wrap>
-        <Button size="small" v-for="x in 10" :key="x">Array</Button>
+        <Button size="small" v-for="x in 10" :key="x">Wrap</Button>
       </Space>
     </TabPane>
   </Tabs>
@@ -34,7 +34,7 @@ import { ref } from "vue";
 const current = ref('1')
 
 const change = (key)=>{
-      console.log(key)
+    console.log(key)
 }
 </script>
 ```

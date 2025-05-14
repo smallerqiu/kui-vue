@@ -29,21 +29,13 @@
     </Space>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Search } from "kui-icons";
-export default{
-  data() {
-    return {
-      Search,
-      size:'default',
-      value:['1','3']
-    }
-  },
-  methods:{
-    setSize({value}){
-      this.size = value
-    }
-  }
+const size = ref('default')
+const value = ref(['1','3'])
+const setSize = ({value})=>{
+  size.value = value
 }
 </script>
 ```

@@ -17,6 +17,7 @@
   </div>
 </template>
 <script setup>
-const size = 12
+import { ref } from "vue";
+const size = ref(12)
 </script>
 ```
