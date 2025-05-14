@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { isValidString } from "../utils/string";
+import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch } from "vue";
@@ -160,7 +160,7 @@ export default defineComponent({
       let textInput = getTextInput(mult);
       if (!mult) return textInput;
 
-      let clearableShow = clearable && isValidString(currentValue.value);
+      let clearableShow = clearable && !isEmpty(currentValue.value);
       const props = {
         class: {
           [`k-${inputType}`]: true,

@@ -31,13 +31,13 @@
 <style lang=less>
   .demo-space-align{
     .k-space{
-      border:1px solid #0022ff50;
+      border:1px solid var(--kui-color-border);
       padding:5px;
       margin:0 5px;
     }
     .block {
       border: 1px solid var(--kui-color-border);
-      background:#eee;
+      background:#92929252;
       height: 60px;
       display: flex;
       align-items: center;

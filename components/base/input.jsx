@@ -1,5 +1,4 @@
 import Icon from "../icon";
-import { isValidString } from "../utils/string";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import { InputGroup } from "../input";
 import { defineComponent, ref, nextTick } from "vue";

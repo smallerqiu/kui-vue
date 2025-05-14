@@ -15,27 +15,17 @@
     </Select>
   </Space>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Search } from "kui-icons";
-export default{
-  data() {
-    return {
-      Search,
-      checked:true,
-      value:['1','3'],
-      options:[
-        {label:'Apple' ,value: "1"},
-        {label:'Orange' ,value: "2"},
-        {label:'Banana' ,value: "3"},
-        {label:'Pear' ,value: "4"},
-      ]
-    }
-  },
-  methods:{
-    setSize({value}){
-      this.size = value
-    }
-  }
-}
+
+const checked = ref(true)
+const value = ref(['1','3'])
+const options = [
+  {label:'Apple' ,value: "1"},
+  {label:'Orange' ,value: "2"},
+  {label:'Banana' ,value: "3"},
+  {label:'Pear' ,value: "4"},
+]
 </script>
 ```

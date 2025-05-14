@@ -47,14 +47,9 @@
     </Space>
   </div>
 </template>
-<script>
-export default{
-  data() {
-   return {
-     data:[],
-     data2:['2','4']
-   } 
-  }
-}
+<script setup>
+import { ref } from "vue";
+const data = ref([]);
+const data2 = ref(['2','4']);
 </script> 
 ```

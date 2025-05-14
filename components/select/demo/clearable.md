@@ -37,15 +37,10 @@
     </Space>
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      value1:'',
-      value2:'',
-      value3:['1','2']
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const value1 = ref('');
+const value2 = ref('');
+const value3 = ref(['1','2']);
 </script>
 ```

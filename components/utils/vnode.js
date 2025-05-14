@@ -8,7 +8,7 @@ export function getChildren(vnodes) {
       if (vnode.type === Text && vnode.children?.toString().trim() === "") return;
 
       // 处理 Fragment 节点
-      if (vnode.type === Fragment && Array.isArray(vnode.children)) {
+      if (vnode.type === Fragment && Array.isArray(vnode.children) && vnode.children.length > 0) {
         loop(vnode.children);
         return;
       }

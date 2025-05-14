@@ -1,5 +1,10 @@
-function isEmpty(num) {
-  return num === "" || num === null || num === undefined;
+function isEmpty(value) {
+  return (
+    value == null || // null 或 undefined
+    (typeof value === "string" && value.trim() === "") || // 空字符串
+    (Array.isArray(value) && value.length === 0) || // 空数组
+    (typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0) // 空对象
+  );
 }
 
 //正负,小数,科学技术法
