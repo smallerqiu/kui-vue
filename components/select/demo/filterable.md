@@ -9,7 +9,6 @@
     <Space>
       <span>单选过滤 :</span>
       <Select 
-        size="large"
         :width="300"
         v-model:value="data" 
         placeholder="单选过滤" filterable>

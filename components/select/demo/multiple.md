@@ -15,8 +15,8 @@
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
       </Select>
-      <Button size="small" @click="data=[]">Clear</Button>
-      <Button size="small" @click="data=['3','1']">Select Banana & Apple</Button>
+      <Button size="small" @click="Clear">Clear</Button>
+      <Button size="small" @click="onSelect">Select Banana & Apple</Button>
     </Space>
     <br/>
     <Space vertical style="margin-top:10px">
@@ -51,5 +51,11 @@
 import { ref } from "vue";
 const data = ref([]);
 const data2 = ref(['2','4']);
+const Clear = () => {
+  data.value = []
+}
+const onSelect = () => {
+  data2.value = ['3','1']
+}
 </script> 
 ```
