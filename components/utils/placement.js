@@ -1,4 +1,5 @@
 export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, offset = 3) {
+  if (!refCtx.value || !refPopper.value) return;
   const ctx = refCtx.value.$el || refCtx.value;
   let selectionRect = ctx.getBoundingClientRect();
   // const offset = 3;

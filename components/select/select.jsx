@@ -8,7 +8,7 @@ import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
 // import Drop from "../base/drop";
 import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
-import { ref, defineComponent, watch, nextTick, inject, Transition, onMounted, onBeforeMount, cloneVNode } from "vue";
+import { ref, defineComponent, watch, nextTick, inject, Teleport, Transition, onMounted, provide, cloneVNode } from "vue";
 
 export default defineComponent({
   name: "Select",
@@ -60,24 +60,26 @@ export default defineComponent({
     const labelText = ref([]);
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref(ps.value);
-    const showSearch = ref(false);
+    const currentValue = ref(ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]);
+    const queryInputVisible = ref(false);
     const queryKey = ref("");
+    const queryInputMirrorRef = ref(null);
     const minWidth = ref("");
-    const isFocus = ref(false);
-    const searchRef = ref(null);
-    const hasSearch = "onSearch" in attrs;
+    const queryInputFocused = ref(false);
+    const queryInputRef = ref(null);
+    const hasSearchEvent = "onSearch" in attrs;
     const refPopper = ref(null);
     const transOrigin = ref("bottom");
     const refCtx = ref(null);
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
+    const queryInputEventTimer = ref(null);
 
     watch(
       () => ps.value,
-      () => {
-        currentValue.value = ps.value;
+      (v) => {
+        currentValue.value = ps.multiple ? v : isEmpty(v) ? [] : [v];
       }
     );
 
@@ -101,85 +103,90 @@ export default defineComponent({
     };
 
     // const hideDrop = () => {
-    //   if (showSearch.value) {
+    //   if (queryInputVisible.value) {
     //     queryKey.value = "";
     //     this.$refs.search.value = "";
     //     this.$refs.search.style.width = "";
     //   }
-    //   showSearch.value = false;
+    //   queryInputVisible.value = false;
     // };
 
     const isChecked = (value) => {
       if (ps.multiple) {
         return currentValue.value?.indexOf(value) >= 0;
       } else {
-        return !isEmpty(currentValue.value) && currentValue.value === value;
+        return !isEmpty(currentValue.value) && currentValue.value[0] === value;
       }
     };
-    const onInitValue = ({ value, label }) => {
-      console.log(label);
-      if (ps.multiple) {
-        if (currentValue.value?.indexOf(value) >= 0) {
-          labelText.value.push(label);
-        }
-      } else {
-        if (currentValue?.value[0] === value) {
-          labelText.value = [label];
-        }
-      }
-    };
+    // const onInitValue = ({ value, label }) => {
+    //   // console.log(label);
+    //   if (ps.multiple) {
+    //     if (currentValue.value?.indexOf(value) >= 0) {
+    //       labelText.value.push(label);
+    //     }
+    //   } else {
+    //     if (currentValue?.value[0] === value) {
+    //       labelText.value = [label];
+    //     }
+    //   }
+    // };
+
+    // provide("select-opt-init", onInitValue);
     const onSelect = ({ value, label }) => {
       if (ps.multiple) {
         if (currentValue.value?.indexOf(value) >= 0) {
           currentValue.value = currentValue.value.filter((v) => v !== value);
+          labelText.value = labelText.value.filter((v) => v !== label);
         } else {
           currentValue.value.push(value);
+          labelText.value.push(label);
         }
+        updatePosition();
       } else {
-        currentValue.value = value;
+        currentValue.value = [value];
         labelText.value = [label];
+        toggle();
       }
-      emit("update:value", currentValue.value);
-      toggle();
+      emit("update:value", ps.multiple ? currentValue.value : currentValue.value[0]);
     };
 
-    const showDrops = () => {
-      visible.value = !visible.value;
-      if (ps.filterable) {
-        showSearch.value = visible.value;
-        if (visible.value) {
-          nextTick((e) => {
-            isFocus.value = true;
-            searchRef.value.focus();
-          });
-        } else {
-          searchRef.value.blur();
-          isFocus.value = false;
+    // const showDrops = () => {
+    //   visible.value = !visible.value;
+    //   if (ps.filterable) {
+    //     queryInputVisible.value = visible.value;
+    //     if (visible.value) {
+    //       nextTick((e) => {
+    //         queryInputFocused.value = true;
+    //         queryInputRef.value.focus();
+    //       });
+    //     } else {
+    //       queryInputRef.value.blur();
+    //       queryInputFocused.value = false;
 
-          setTimeout(() => {
-            queryKey.value = "";
-            searchRef.value.value = "";
-          }, 200);
-        }
-      }
-    };
+    //       setTimeout(() => {
+    //         queryKey.value = "";
+    //         queryInputRef.value.value = "";
+    //       }, 200);
+    //     }
+    //   }
+    // };
 
     // const change = (item) => {
     //   let { multiple, value, currentValue } = this;
     //   // console.log(value, currentValue)
 
-    //   if (showSearch.value) {
+    //   if (queryInputVisible.value) {
     //     queryKey.value = "";
     //     this.$refs.search.value = "";
     //     this.$refs.search.style.width = "";
     //   }
     //   if (!multiple) {
     //     visible.value = false;
-    //     showSearch.value = false;
+    //     queryInputVisible.value = false;
     //   } else if ("search" in this.$listeners || ps.filterable) {
     //     nextTick((e) => {
     //       this.$refs.search.focus();
-    //       isFocus.value = true;
+    //       queryInputFocused.value = true;
     //     });
     //   }
     //   let hasValue = hasProp(this, "value");
@@ -201,100 +208,141 @@ export default defineComponent({
 
     //   //set label
 
-    //   nextTick((e) => this.setPosition());
+    //   nextTick((e) => updatePosition());
     //   emit("input", value);
     //   emit("change", item);
     // };
 
-    // const searchInput = (e) => {
-    //   queryKey.value = e.target.value;
-    //   //todo:
-    //   nextTick((k) => {
-    //     e.target.style.width = this.$refs.mirror.offsetWidth + "px";
-    //     this.setPosition();
-    //   });
-    //   if ("search" in this.$listeners) {
-    //     clearTimeout(this.timer);
-    //     this.timer = setTimeout(() => {
-    //       visible.value = true;
-    //       emit("search", e);
-    //     }, 500);
-    //   }
-    // };
+    const searchInput = (e) => {
+      queryKey.value = e.target.value;
+      //todo:
+      nextTick((k) => {
+        e.target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
+        updatePosition();
+      });
+      if (hasSearchEvent) {
+        clearTimeout(queryInputEventTimer.value);
+        queryInputEventTimer.value = setTimeout(() => {
+          visible.value = true;
+          emit("search", e);
+        }, 500);
+      }
+    };
 
     // const emptyClick = (e) => {
-    //   if (showSearch.value) {
+    //   if (queryInputVisible.value) {
     //     nextTick((e) => {
     //       this.$refs.search.focus();
-    //       isFocus.value = true;
+    //       queryInputFocused.value = true;
     //     });
     //   }
     // };
 
-    const getOptions = (filter) => {
-      let { queryKey, options } = ps;
-      let childs = null;
-      if (Array.isArray(options)) {
-        childs = options.map((k, i) => {
-          let prop = {
-            props: { ...k },
-            key: k.key || k.label + k.value,
-          };
-          return <Option {...prop} />;
-        });
-      } else {
-        childs = getChild(slots.default?.());
-      }
-      if (!filter) return childs;
+    // const getOptions = (filter) => {
+    //   let { queryKey, options } = ps;
+    //   let childs = null;
+    //   if (Array.isArray(options)) {
+    //     childs = options.map((k, i) => {
+    //       let prop = {
+    //         props: { ...k },
+    //         key: k.key || k.label + k.value,
+    //       };
+    //       return <Option {...prop} />;
+    //     });
+    //   } else {
+    //     childs = getChild(slots.default?.());
+    //   }
+    //   if (!filter) return childs;
 
-      if (ps.filterable && queryKey && !this.$listeners.search) {
-        let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
-        let Reg = new RegExp(parsedQuery, "i");
+    //   if (ps.filterable && queryKey && !this.$listeners.search) {
+    //     let parsedQuery = String(queryKey).replace(/(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g, "\\$1");
+    //     let Reg = new RegExp(parsedQuery, "i");
 
-        childs = childs.filter((c) => {
-          let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text;
-          return Reg.test(label);
-        });
-      }
-      return childs;
-    };
+    //     childs = childs.filter((c) => {
+    //       let label = c.componentOptions.propsData.label || c.componentOptions.children[0].text;
+    //       return Reg.test(label);
+    //     });
+    //   }
+    //   return childs;
+    // };
 
-    const removeTag = (e, c) => {
+    const removeTag = (e, index) => {
       if (ps.disabled) return;
-      change({ value: c.value, label: c.label });
+      currentValue.value.splice(index, 1);
+      labelText.value.splice(index, 1);
+      e.stopPropagation();
+      updatePosition();
+    };
+    const onClear = (e) => {
+      currentValue.value = [];
+      labelText.value = [];
+      emit("update:value", ps.multiple ? [] : "");
       e.stopPropagation();
     };
-    const clear = (e) => {
-      currentValue.value = [];
-      emit("update:value", []);
-      e.stopPropagation();
+    const showQuery = () => {
+      if (ps.filterable || hasSearchEvent) {
+        queryInputVisible.value = true;
+        nextTick(() => {
+          queryInputRef.value?.focus();
+          queryInputFocused.value = true;
+        });
+      }
     };
     const toggle = () => {
       if (ps.disabled) {
         return;
       }
 
-      // showDrops();
       if (!rendered.value) {
         rendered.value = true;
         document.addEventListener("click", outsideClick);
         nextTick(() => {
           visible.value = true;
           updatePosition();
+          showQuery();
         });
       } else {
         visible.value = !visible.value;
-        visible.value && updatePosition();
       }
+      if (visible.value) {
+        updatePosition();
+        showQuery();
+      }
+    };
 
-      if ("onSearch" in attrs) {
-        showSearch.value = true;
-        nextTick(() => {
-          searchRef.value?.focus();
-          isFocus.value = true;
+    const renderOptions = () => {
+      const optionNodes = [];
+      const labels = [];
+      if (ps.options) {
+        ps.options.forEach((item) => {
+          const checked = isChecked(item.value);
+          // console.log(checked);
+          if (checked) {
+            labels.push(item.label);
+          }
+          optionNodes.push(<Option onSelect={onSelect} value={item.value} label={item.label} checked={checked} multiple={ps.multiple}></Option>);
         });
-        return;
+      } else {
+        const childs = getChildren(slots.default?.());
+        childs.forEach((child) => {
+          const checked = isChecked(child.props?.value);
+          // console.log(checked);
+          if (checked) {
+            labels.push(child.props?.label || child.children.default()[0].children);
+          }
+          optionNodes.push(cloneVNode(child, { multiple: ps.multiple, checked: checked, onSelect: onSelect }));
+        });
       }
+      // for (let i = 0; i < optionNodes.length; i++) {
+      //   const child = optionNodes[i];
+      //   console.log(child.props.checked);
+      //   // console.log(child.children.default()[0].children);
+      // }
+      // console.log(labels);
+      if (!rendered.value) {
+        labelText.value = labels;
+      }
+      return optionNodes;
     };
 
     return () => {
@@ -303,6 +351,7 @@ export default defineComponent({
       if (arrowIcon === undefined) {
         arrowIcon = ChevronDown;
       }
+      const optionNodes = renderOptions();
 
       const classes = [
         "k-select",
@@ -316,26 +365,29 @@ export default defineComponent({
           "k-select-has-icon": !!icon,
           "k-select-circle": shape == "circle" && !multiple,
           "k-select-multiple": multiple,
-          "k-select-show-search": isFocus.value,
-          // "k-select-show-tags": multiple && (label || []).length,
+          "k-select-show-search": queryInputFocused.value,
+          "k-select-show-tags": multiple && !isEmpty(labelText.value),
         },
       ];
 
       const queryProps = {
-        // input: searchInput,
-        onBlur: () => {
-          if (!visible.value) showSearch.value = false;
-          isFocus.value = false;
+        onInput: searchInput,
+        onBlur: (e) => {
+          if (!visible.value) {
+            queryInputVisible.value = false;
+          }
+          queryKey.value = false;
+          e.target.value = "";
         },
-        ref: searchRef,
+        ref: queryInputRef,
         class: "k-select-search",
         autoComplete: "off",
       };
       const queryNode = (
-        <div v-show={showSearch.value} key="search" class="k-select-search-wrap">
+        <div v-show={queryInputVisible.value} key="search" class="k-select-search-wrap">
           <input {...queryProps} />
-          <span class="k-select-search-mirror" ref="mirror">
-            {queryKey}
+          <span class="k-select-search-mirror" ref={queryInputMirrorRef}>
+            {queryKey.value}
           </span>
         </div>
       );
@@ -346,18 +398,6 @@ export default defineComponent({
           <span>{locale?.k.select.loading}</span>
         </div>
       );
-
-      const optionNodes = [];
-      if (ps.options) {
-        ps.options.forEach((item) => {
-          optionNodes.push(<Option onSelect={onSelect} value={item.value} label={item.label} onInited={onInitValue} checked={isChecked(item.value)} multiple={ps.multiple}></Option>);
-        });
-      } else {
-        const childs = getChildren(slots.default?.());
-        childs.forEach((child) => {
-          optionNodes.push(cloneVNode(child, { multiple: ps.multiple, onInited: onInitValue, checked: isChecked(child.props?.value), onSelect: onSelect }));
-        });
-      }
 
       // for (let i = 0; i < optionNodes.length; i++) {
       //   const child = optionNodes[i];
@@ -401,24 +441,21 @@ export default defineComponent({
       // label = multiple ? label || [] : label;
       const placeholderText = placeholder || locale?.k.select.placeholder;
       const placeNode = placeholderText && isEmpty(labelText.value) && !queryKey.value ? <div class="k-select-placeholder">{placeholderText}</div> : null;
-      // const tags = multiple
-      //   ? label.map((c, i) => {
-      //       return (
-      //         <span class="k-select-tag" key={c.key}>
-      //           {c.label}
-      //           <Icon type={Close} onClick={(e) => removeTag(e, c)} />
-      //         </span>
-      //       );
-      //     })
-      //   : null;
 
       const labelStyle = {
-        //   display: queryKey.length ? "none" : "",
+        display: queryKey.value.length ? "none" : "",
       };
       const labelsNode = multiple ? (
         <div class="k-select-labels" name="k-select-tag">
-          {/* {tags} */}
-          {/* {queryNode} */}
+          {labelText.value.map((label, i) => {
+            return (
+              <span class="k-select-tag" key={label}>
+                {label}
+                <Icon type={Close} onClick={(e) => removeTag(e, i)} />
+              </span>
+            );
+          })}
+          {queryNode}
         </div>
       ) : (
         <div class="k-select-label" style={labelStyle}>
@@ -430,7 +467,7 @@ export default defineComponent({
 
       placeNode && childNode.push(placeNode);
 
-      if ((filterable || hasSearch) && !multiple) {
+      if ((filterable || hasSearchEvent) && !multiple) {
         childNode.push(queryNode);
       }
       const styles = { width: `${ps.width}px` };
@@ -439,14 +476,14 @@ export default defineComponent({
       classes[1]["k-select-has-clear"] = showClear;
       const iconNodes = [];
 
-      if (!hasSearch && showArrow) {
+      if (!hasSearchEvent && showArrow) {
         iconNodes.push(<Icon class="k-select-arrow" type={arrowIcon} />);
       }
       if (showClear) {
-        iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={clear} />);
+        iconNodes.push(<Icon class="k-select-clearable" type={CloseCircle} onClick={onClear} />);
       }
 
-      iconNodes.push(" ");
+      // iconNodes.push(" ");
       return (
         <div tabIndex="0" class={classes} style={styles} onClick={toggle} ref={refCtx}>
           {icon ? <Icon type={icon} class="k-select-icon" /> : null}
