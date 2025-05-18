@@ -6,7 +6,6 @@ import zhCN from "../locale/lang/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-// import Drop from "../base/drop";
 import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { ref, defineComponent, watch, nextTick, inject, Teleport, Transition, onMounted, provide, cloneVNode } from "vue";
 
@@ -44,16 +43,8 @@ export default defineComponent({
     icon: [String, Array],
     shape: String,
     arrowIcon: [String, Array],
+    onSearch: Function,
   },
-  // watch: {
-  //   value(value) {
-  //     if (!isEmpty(value)) {
-  //       currentValue.value = value;
-  //     } else {
-  //       currentValue.value = this.multiple ? [] : "";
-  //     }
-  //   },
-  // },
   setup(ps, { slots, emit, attrs }) {
     const locale = inject("locale", null) || zhCN;
 
@@ -99,17 +90,9 @@ export default defineComponent({
       const ctx = refCtx.value?.$el || refCtx.value;
       if (refPopper.value && !refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) {
         visible.value = false;
+        clearQuery();
       }
     };
-
-    // const hideDrop = () => {
-    //   if (queryInputVisible.value) {
-    //     queryKey.value = "";
-    //     this.$refs.search.value = "";
-    //     this.$refs.search.style.width = "";
-    //   }
-    //   queryInputVisible.value = false;
-    // };
 
     const isChecked = (value) => {
       if (ps.multiple) {
@@ -118,20 +101,14 @@ export default defineComponent({
         return !isEmpty(currentValue.value) && currentValue.value[0] === value;
       }
     };
-    // const onInitValue = ({ value, label }) => {
-    //   // console.log(label);
-    //   if (ps.multiple) {
-    //     if (currentValue.value?.indexOf(value) >= 0) {
-    //       labelText.value.push(label);
-    //     }
-    //   } else {
-    //     if (currentValue?.value[0] === value) {
-    //       labelText.value = [label];
-    //     }
-    //   }
-    // };
 
-    // provide("select-opt-init", onInitValue);
+    const clearQuery = () => {
+      setTimeout(() => {
+        queryKey.value = "";
+        queryInputRef.value.value = "";
+      }, 300);
+    };
+
     const onSelect = ({ value, label }) => {
       if (ps.multiple) {
         if (currentValue.value?.indexOf(value) >= 0) {
@@ -142,10 +119,16 @@ export default defineComponent({
           labelText.value.push(label);
         }
         updatePosition();
+        if (hasSearchEvent || ps.filterable) {
+          queryInputRef.value.value = "";
+          queryKey.value = "";
+          showQuery();
+        }
       } else {
         currentValue.value = [value];
         labelText.value = [label];
         toggle();
+        clearQuery();
       }
       emit("update:value", ps.multiple ? currentValue.value : currentValue.value[0]);
     };
@@ -215,8 +198,7 @@ export default defineComponent({
 
     const searchInput = (e) => {
       queryKey.value = e.target.value;
-      //todo:
-      nextTick((k) => {
+      nextTick(() => {
         e.target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
         updatePosition();
       });
@@ -312,9 +294,14 @@ export default defineComponent({
 
     const renderOptions = () => {
       const optionNodes = [];
-      const labels = [];
+      let labels = [];
+      const key = queryKey.value;
+      const filter = ps.filterable && !isEmpty(key);
       if (ps.options) {
         ps.options.forEach((item) => {
+          if (filter && !item.label.includes(key)) {
+            return;
+          }
           const checked = isChecked(item.value);
           // console.log(checked);
           if (checked) {
@@ -325,10 +312,14 @@ export default defineComponent({
       } else {
         const childs = getChildren(slots.default?.());
         childs.forEach((child) => {
+          const label = child.props?.label || child.children.default()[0].children;
+          if (filter && !label.includes(key)) {
+            return;
+          }
           const checked = isChecked(child.props?.value);
           // console.log(checked);
           if (checked) {
-            labels.push(child.props?.label || child.children.default()[0].children);
+            labels.push(label);
           }
           optionNodes.push(cloneVNode(child, { multiple: ps.multiple, checked: checked, onSelect: onSelect }));
         });
@@ -341,8 +332,21 @@ export default defineComponent({
       // console.log(labels);
       if (!rendered.value) {
         labelText.value = labels;
+      } else {
+        labels = null;
       }
       return optionNodes;
+    };
+
+    const queryKeydown = ({ key }) => {
+      if (key === "Backspace") {
+        if (queryKey.value == "" && ps.multiple && currentValue.value.length > 0) {
+          labelText.value = labelText.value.slice(0, -1);
+          currentValue.value = currentValue.value.slice(0, -1);
+          emit("update:value", currentValue.value);
+          console.log("11");
+        }
+      }
     };
 
     return () => {
@@ -371,13 +375,12 @@ export default defineComponent({
       ];
 
       const queryProps = {
+        onKeydown: queryKeydown,
         onInput: searchInput,
         onBlur: (e) => {
           if (!visible.value) {
             queryInputVisible.value = false;
           }
-          queryKey.value = false;
-          e.target.value = "";
         },
         ref: queryInputRef,
         class: "k-select-search",
@@ -457,13 +460,13 @@ export default defineComponent({
           })}
           {queryNode}
         </div>
-      ) : (
+      ) : !isEmpty(labelText.value) ? (
         <div class="k-select-label" style={labelStyle}>
           {labelText.value[0]}
         </div>
-      );
+      ) : null;
 
-      !isEmpty(labelText.value) && childNode.push(labelsNode);
+      childNode.push(labelsNode);
 
       placeNode && childNode.push(placeNode);
 
