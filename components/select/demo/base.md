@@ -19,7 +19,7 @@
         <Option :value="1" label="Apple" />
         <Option :value="2" label="Orange" />
         <Option :value="3" label="Banana" disabled />
-        <Option :value="4" label="Pear" />
+        <Option :value="4" label="Pear"  />
       </Select>
       <Select :width="200" value="1" disabled>
         <Option value="1" label="disabled" />
