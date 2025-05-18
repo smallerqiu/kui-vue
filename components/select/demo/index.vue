@@ -18,12 +18,12 @@ export default {
         <Base />
         <Theme />
         <Icons />
-        <Size />
-        <Clearable />
+       <Size />
+         <Clearable />
         <NoBordered />
-        <Multiple />
+         <Multiple />
         <Filterable />
-        <Search />
+       <Search />
         <CN />
       </div>
     )

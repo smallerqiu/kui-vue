@@ -53,8 +53,10 @@ const data = ref([]);
 const data2 = ref(['2','4']);
 const Clear = () => {
   data.value = []
+  data2.value = []
 }
 const onSelect = () => {
+  data.value = ['3','1']
   data2.value = ['3','1']
 }
 </script> 

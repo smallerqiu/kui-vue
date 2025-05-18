@@ -21,7 +21,8 @@
   line-height: 1.571;
   // max-width: 100%;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: var(--kui-color-main);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
   }
@@ -225,9 +226,8 @@
     border-color: transparent;
     background: var(--kui-color-gray-80);
     transition: none;
-    box-shadow: none;
+    // box-shadow: none;
 
-    &:focus,
     &:hover {
       box-shadow: none;
       border-color: transparent;
@@ -326,6 +326,10 @@
     .k-icon {
       display: block;
     }
+  }
+
+  .k-select-item-actived {
+    background: var(--kui-color-hover);
   }
 
   .k-select-item-selected {

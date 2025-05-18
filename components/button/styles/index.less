@@ -14,7 +14,7 @@
   justify-content: center;
   vertical-align: middle; // transition: opacity .2s ease-in-out;
   user-select: none;
-  // outline: none;
+  outline: none;
   border: 1px solid var(--kui-color-border);
   transition: all .2s;
   z-index: 0;
@@ -22,7 +22,12 @@
   background-color: var(--kui-color-back);
   cursor: pointer;
 
-  // &:focus,
+  &:focus {
+    border-color: var(--kui-color-main);
+    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    z-index: 1;
+  }
+
   &:hover {
     border-color: var(--kui-color-main);
     color: var(--kui-color-main);
@@ -179,6 +184,11 @@
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
 
+  &:focus {
+    border-color: var(--kui-color-danger-hover);
+    box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+  }
+
   // &:focus,
   &:hover {
     zoom: 0%;
@@ -230,6 +240,11 @@
   color: #fff;
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
+
+  &:focus {
+    border-color: var(--kui-color-warning-hover);
+    box-shadow: 0 0 0 2px var(--kui-color-warning-90);
+  }
 
   // &:focus,
   &:hover {
