@@ -12,7 +12,7 @@ export default defineComponent({
   },
   methods: {},
   setup(ps, { slots, emit }) {
-    const lableText = ps.label || slots.default?.();
+    const lableText = ps.label || slots.default?.() || ps.value;
 
     const checked = computed(() => ps.checked);
     const onSelect = () => {
