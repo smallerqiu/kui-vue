@@ -97,9 +97,6 @@ export default defineComponent({
         onTouchend: hide,
         onMouseenter: mouseEnter,
         onMouseleave: hide,
-        onUpdatePos: () => {
-          console.log("test");
-        },
       };
       const childs = getChildren(slots.default?.());
       const nodes = childs?.map((node) => {

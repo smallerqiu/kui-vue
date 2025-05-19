@@ -46,6 +46,7 @@ export default defineComponent({
       default: "bottom",
     },
     width: Number,
+    maxTagCount: Number,
     value: [String, Number, Array],
     clearable: Boolean,
     filterable: Boolean,
@@ -91,15 +92,35 @@ export default defineComponent({
     const valueMap = ref(new Map());
     const reallySize = ref(0);
     const ctxFocused = ref(false);
-
+    watch(
+      () => ps.placement,
+      (v) => {
+        currentPlacement.value = v;
+        updatePosition();
+      }
+    );
     watch(
       () => ps.value,
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
-        updateLabel();
+        updatePosition();
       }
     );
+    // const scrollToelement = () => {
+    //   // 影响外层 scroll
+    //   const item = refPopper.value.children[0].children[activeIndex.value];
+    //   item.scrollIntoView({ block: "center" });
+    // };
+    const scrollOptionIntoView = () => {
+      const containerEl = refPopper.value;
+      const optionEl = refPopper.value.children[0].children[activeIndex.value];
+      const optionTop = optionEl.offsetTop;
+      const optionHeight = optionEl.offsetHeight;
+      const containerHeight = containerEl.clientHeight;
 
+      const targetScroll = optionTop - containerHeight / 2 + optionHeight / 2;
+      containerEl.scrollTop = targetScroll;
+    };
     const onKeydown = (e) => {
       const key = e.key;
       if ((!visible.value || valueMap.value.size == 0) && ctxFocused.value) {
@@ -117,7 +138,9 @@ export default defineComponent({
             index = 0;
           }
           activeIndex.value = index;
+          scrollOptionIntoView();
           e.preventDefault();
+          return;
         } else if (key === "ArrowUp") {
           let index = activeIndex.value;
           if (index >= 1) {
@@ -126,7 +149,9 @@ export default defineComponent({
             index = reallySize.value - 1;
           }
           activeIndex.value = index;
+          scrollOptionIntoView();
           e.preventDefault();
+          return;
         } else if (
           key === "Enter" &&
           activeIndex.value >= 0 &&
@@ -142,9 +167,11 @@ export default defineComponent({
             reverseMap.set(k, v); // 注意是 key -> value
           }
           maps = reverseMap;
+          // console.log(maps);
           const [label, value] = Array.from(maps)[activeIndex.value];
           onSelect({ label, value });
           e.preventDefault();
+          return;
         } else if (
           key == "Escape" &&
           (ctxFocused.value || queryInputFocused.value)
@@ -324,19 +351,19 @@ export default defineComponent({
         });
       } else {
         visible.value = show || !visible.value;
-      }
-      if (visible.value) {
-        updatePosition();
-        showQuery();
-      } else {
-        clearQuery();
+        if (visible.value) {
+          updatePosition();
+          showQuery();
+        } else {
+          clearQuery();
+        }
       }
     };
 
     const setValueMap = (value, label) => {
-      if (!rendered.value) {
-        valueMap.value.set(value, label);
-      }
+      // if (!rendered.value) {
+      valueMap.value.set(value, label);
+      // }
     };
     const updateLabel = () => {
       // console.log(currentValue.value, valueMap.value);
@@ -385,6 +412,7 @@ export default defineComponent({
           }
           const checked = isChecked(child.props?.value);
           setValueMap(child.props?.value, labelText);
+          // console.log(child.props?.value, labelText);
           // valueLabelMap.set(child.props?.value, label);
           optionNodes.push(
             cloneVNode(child, {
@@ -400,6 +428,7 @@ export default defineComponent({
       }
 
       reallySize.value = optionNodes.length;
+      // console.log(valueMap.value);
       return optionNodes;
     };
 
@@ -533,16 +562,32 @@ export default defineComponent({
       const labelStyle = {
         display: queryKey.value.length ? "none" : "",
       };
+      const renderTags = () => {
+        let tags = labelText.value.map((label, i) => {
+          return (
+            <span class="k-select-tag" key={label}>
+              {label}
+              <Icon type={Close} onClick={(e) => removeTag(e, i)} />
+            </span>
+          );
+        });
+        if (
+          ps.maxTagCount &&
+          ps.maxTagCount > 0 &&
+          tags.length > ps.maxTagCount
+        ) {
+          tags = tags.slice(0, ps.maxTagCount);
+          tags.push(
+            <span class="k-select-tag">
+              +{labelText.value.length - ps.maxTagCount}...
+            </span>
+          );
+        }
+        return tags;
+      };
       const labelsNode = multiple ? (
         <div class="k-select-labels" name="k-select-tag">
-          {labelText.value.map((label, i) => {
-            return (
-              <span class="k-select-tag" key={label}>
-                {label}
-                <Icon type={Close} onClick={(e) => removeTag(e, i)} />
-              </span>
-            );
-          })}
+          {renderTags()}
           {queryNode}
         </div>
       ) : !isEmpty(labelText.value) ? (

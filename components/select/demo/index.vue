@@ -4,8 +4,10 @@ import Base from './base.md'
 import Theme from './theme.md'
 import Icons from './icon.md'
 import Size from './size.md'
+import MaxTagCount from './maxTagCount.md'
 import Clearable from './clearable.md'
 import NoBordered from './nobordered.md'
+import Placement from './placement.md'
 import Multiple from './multiple.md'
 import Filterable from './filterable.md'
 import Search from './search.md'
@@ -18,12 +20,14 @@ export default {
         <Base />
         <Theme />
         <Icons />
-       <Size />
-         <Clearable />
+        <Size />
+        <MaxTagCount />
+        <Clearable />
         <NoBordered />
-         <Multiple />
+        <Placement />
+        <Multiple />
         <Filterable />
-       <Search />
+        <Search />
         <CN />
       </div>
     )
