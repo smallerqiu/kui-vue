@@ -24,6 +24,7 @@ export default defineComponent({
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
+    const active = ref(false);
     const preCls = "menu-submenu";
     const refCtx = ref(null);
     const refPopper = ref(null);
@@ -39,6 +40,8 @@ export default defineComponent({
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
     const mouseenterTimer = ref(null);
+
+    const inline = mode.value == "inline";
 
     onMounted(() => {
       nextTick(() => {
@@ -69,9 +72,9 @@ export default defineComponent({
     };
 
     const renderPoper = () => {
-      const aniprop = getTranstionProp("k-collaplse-slide");
       const opened = openKeys.value.indexOf(key) >= 0;
-      if (mode.value == "inline") {
+      if (inline) {
+        const aniprop = getTranstionProp("k-collaplse-slide");
         return (
           <Transition {...aniprop}>
             <div class={`k-${preCls}-sub`} v-show={opened}>
@@ -82,20 +85,22 @@ export default defineComponent({
           </Transition>
         );
       } else {
+        const aniprop = getTranstionProp("k-menu-submenu-popup");
         const poperPros = {
           ref: refPopper,
-          placement: currentPlacement.value,
+          "k-placement": currentPlacement.value,
           style: {
             minWidth: minWidth.value,
             top: top.value + "px",
             left: left.value + "px",
+            transformOrigin: transOrigin.value,
           },
           onMouseenter: () => {
             clearTimeout(mouseenterTimer.value);
           },
         };
         return (
-          <Transition {...aniprop}>
+          <Transition name="k-menu-submenu-popup">
             <div
               className="k-menu-submenu-popup"
               v-show={opened}
@@ -128,6 +133,7 @@ export default defineComponent({
       if (mode.value == "horizontal") {
         titleProps.ref = refCtx;
         titleProps.onMouseenter = () => {
+          active.value = true;
           clearTimeout(mouseenterTimer.value);
           // console.log(key, opened, keyPah);
           openKeysChange?.(key, true, keyPah);
@@ -135,13 +141,16 @@ export default defineComponent({
         };
         titleProps.onMouseleave = () => {
           mouseenterTimer.value = setTimeout(() => {
+            active.value = false;
             openKeysChange?.(key, false, keyPah);
           }, 200);
           // openKeysChange?.(key, false, keyPah);
         };
       }
       if (keyPah.length) {
-        titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
+        titleProps.style.paddingLeft = inline
+          ? `${keyPah.length * 16 + 16}px`
+          : null;
       }
       let title = ps.title || slots.title?.();
 
@@ -156,7 +165,7 @@ export default defineComponent({
       const classes = [
         `k-${preCls}`,
         {
-          // [`k-${preCls}-active`]: state.active,
+          [`k-${preCls}-active`]: active.value,
           [`k-${preCls}-selected`]: selected,
           [`k-${preCls}-opened`]: opened,
           [`k-${preCls}-disabled`]: ps.disabled,

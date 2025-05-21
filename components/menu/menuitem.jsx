@@ -50,7 +50,8 @@ export default defineComponent({
           },
         ],
         style: {
-          paddingLeft: `${keyPah.length * 16 + 16}px`,
+          paddingLeft:
+            mode.value == "inline" ? `${keyPah.length * 16 + 16}px` : null,
         },
         onMouseenter: () => (active.value = true),
         onMouseleave: () => (active.value = false),
