@@ -235,8 +235,10 @@ export default defineComponent({
       if (ps.filterable || hasSearchEvent) {
         setTimeout(() => {
           queryKey.value = "";
-          queryInputRef.value.value = "";
-          queryInputRef.value.style.width = "";
+          if (queryInputRef.value) {
+            queryInputRef.value.value = "";
+            queryInputRef.value.style.width = "";
+          }
           queryInputVisible.value = false;
         }, 300);
       }

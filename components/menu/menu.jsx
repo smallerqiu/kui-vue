@@ -65,6 +65,10 @@ export default defineComponent({
       }
       emit("update:selectedKeys", defaultSelectedKeys.value);
       emit("select", key, keyPath);
+
+      if (currentMode.value == "horizontal") {
+        defaultOpenKeys.value = [];
+      }
     };
 
     const openKeysChange = (key, opened, keyPath) => {
