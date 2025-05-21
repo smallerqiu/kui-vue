@@ -25,7 +25,7 @@ import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from "./layout";
 import loading from "./loading";
 import modal from "./modal";
-// import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
+import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 import message from "./message";
 import notice from "./notice";
 import Page from './page'
@@ -89,7 +89,7 @@ const components = {
   TextArea,
   InputGroup,
   InputNumber,
-  // Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
+  Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
   Modal: modal,
   message,
   Layout,

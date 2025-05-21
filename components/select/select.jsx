@@ -104,6 +104,7 @@ export default defineComponent({
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
         updatePosition();
+        updateLabel();
       }
     );
     // const scrollToelement = () => {
@@ -247,8 +248,10 @@ export default defineComponent({
 
     const onSelect = (item) => {
       const { value, label } = { ...item };
+      let selected = true;
       if (ps.multiple) {
         if (currentValue.value?.indexOf(value) >= 0) {
+          selected = false;
           currentValue.value = currentValue.value.filter((v) => v !== value);
           labelText.value = labelText.value.filter((v) => v !== label);
         } else {
@@ -270,13 +273,18 @@ export default defineComponent({
         activeIndex.value = -1;
       }
       // console.log(currentValue.value, labelText.value);
-      emit(
-        "update:value",
-        ps.multiple ? currentValue.value : currentValue.value[0]
-      );
+      const result = ps.multiple
+        ? currentValue.value
+        : currentValue.value[0] || "";
+      emit("update:value", result);
+
+      emit("change", result);
+      emit("select", value, label, selected);
     };
     const searchInput = (e) => {
+      // todo: filter 时 上下键盘实效
       queryKey.value = e.target.value;
+      activeIndex.value = -1;
       nextTick(() => {
         e.target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
         updatePosition();
@@ -320,6 +328,7 @@ export default defineComponent({
       currentValue.value = [];
       labelText.value = [];
       emit("update:value", ps.multiple ? [] : "");
+      emit("change", ps.multiple ? [] : "");
       e.stopPropagation();
     };
     const showQuery = () => {
@@ -377,12 +386,12 @@ export default defineComponent({
       const key = queryKey.value;
       const filter = ps.filterable && !isEmpty(key);
       // const valueLabelMap = new Map();
-
+      valueMap.value.clear();
       if (ps.options) {
         ps.options.forEach((item, index) => {
           let { label, value } = { ...item };
           const labelText = (label || value || "").toString();
-          if (filter && !labelText.includes(key)) {
+          if (filter && !labelText.toLowerCase().includes(key.toLowerCase())) {
             return;
           }
           const checked = isChecked(value);
@@ -407,7 +416,7 @@ export default defineComponent({
             child.props?.label ||
             child.children?.default()[0].children ||
             child.props.value;
-          if (filter && !labelText.includes(key)) {
+          if (filter && !labelText.toLowerCase().includes(key.toLowerCase())) {
             return;
           }
           const checked = isChecked(child.props?.value);
@@ -442,6 +451,10 @@ export default defineComponent({
           labelText.value = labelText.value.slice(0, -1);
           currentValue.value = currentValue.value.slice(0, -1);
           emit("update:value", currentValue.value);
+          emit(
+            "change",
+            multiple ? currentValue.value : currentValue.value[0] || ""
+          );
           updatePosition();
         }
       }
@@ -496,6 +509,7 @@ export default defineComponent({
         ref: queryInputRef,
         class: "k-select-search",
         autoComplete: "off",
+        onChange: (e) => e.stopPropagation(),
       };
       const queryNode = (
         <div

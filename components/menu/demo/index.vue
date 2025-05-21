@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from "./info.md";
 import Base from "./base.md";
 import InLine from "./inline.md";
@@ -10,8 +10,8 @@ import Mode from "./mode.md";
 import CN from "../index.md";
 
 export default {
-  render() {
-    return (
+  setup() {
+    return () => (
       <div class="demo-menu">
         <Info />
         <Base />

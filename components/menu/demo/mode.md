@@ -6,11 +6,11 @@
 ```vue
 <template>
   <div>
-    <Switch @change="changeMode"/> Change Mode
-    <Switch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
+    <KSwitch @change="changeMode"/> Change Mode
+    <KSwitch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
     <br/>
     <br/>
-    <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode"  style="width:256px">
+    <Menu v-model:selectedKeys="current" v-model:open-keys="openKeys" :theme="theme" :mode="mode"  style="width:256px">
       <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
       <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
       <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
@@ -30,26 +30,19 @@
     </Menu>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Mail, Heart, Settings, Grid } from "kui-icons";
-export default {
-  data() {
-    return {
-      Mail, Heart, Settings, Grid,
-      current: ['1-1'],
-      openKeys:['sub2'],
-      theme:'light',
-      mode:'inline'
-    }
-  },
-  methods:{
-    changeMode(checked){
-      this.mode = checked ? 'vertical' : 'inline'
-    },
-    changeTheme(checked){
-      this.theme = checked ? 'dark' : 'light';
-    }
-  }
+const current = ref(['1-1'])
+const openKeys = ref(['sub2'])
+const mode = ref('inline')
+const theme = ref('light')
+
+const changeMode = (checked)=> {
+  this.mode = checked ? 'vertical' : 'inline'
+}
+const changeTheme = (checked)=> {
+  this.theme = checked ? 'dark' : 'light';
 }
 </script>
 ```
