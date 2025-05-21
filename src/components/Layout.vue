@@ -3,10 +3,13 @@
     <MHeader />
     <Layout class="main">
       <Sider class="docs-k-layout-sider">
-        <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="openkeys">
+        <Menu v-model:selectedKeys="activeName" @click="menuClick" class="left-menu" mode="inline"
+          :open-keys="openkeys">
           <SubMenu :title="item.title" v-for="item in navs" :name="item.title" :key="item.key">
             <MenuItem v-for="sub in item.child" :key="sub.name">
-            <WebIcon :name="sub.icon" slot="icon" />
+            <template #icon>
+              <WebIcon :name="sub.icon" />
+            </template>
             <router-link :to="`/${item.key}/${sub.name}`">
               <Badge dot v-if="sub.update">
                 <span>{{ sub.sub }}</span>
@@ -46,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount, watch } from 'vue';
+import { ref, onMounted, onBeforeMount, watch, nextTick } from 'vue';
 import MHeader from "./Header";
 import MFooter from "./Footer";
 import WebIcon from './WebIcon'
@@ -65,11 +68,11 @@ const theme = ref('');
 const openkeys = ref(['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']);
 
 onMounted(() => {
-  hljs && hljs.highlightAll();
+  // hljs && hljs.highlightAll();
 });
 
 onBeforeMount(() => {
-  // setActiveKey(route);
+  setActiveKey(route);
 });
 
 const link = (e, t) => {
@@ -79,7 +82,7 @@ const link = (e, t) => {
   router.push(`/${c.key}/${c.name}`);
 };
 
-const go = ({ key, keyPath = [] }) => {
+const menuClick = ({ key, keyPath = [] }) => {
   // console.log(key, keyPath);
   // let [m, n] = keyPath;
   // let path = `/${m}/${n}`;
@@ -102,12 +105,13 @@ const setActiveKey = ({ path }) => {
 };
 
 watch(
-  () => route,
+  () => route.path,
   (to, from) => {
-    // setActiveKey(to);
-    // setTimeout(() => {
-    //   hljs.highlightAll();
-    // }, 300);
+    nextTick(() => {
+      setTimeout(() => {
+        hljs.highlightAll();
+      }, 300);
+    });
   }
 );
 </script>

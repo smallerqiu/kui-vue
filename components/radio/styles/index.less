@@ -78,6 +78,10 @@
   line-height: 1;
   color: var(--kui-color-font);
 
+  &:focus {
+    background-color: red;
+  }
+
   .k-radio-symbol {
     display: inline-block;
     vertical-align: middle;
@@ -178,6 +182,7 @@
       background: var(--kui-color-disable-back);
       border-color: var(--kui-color-disable-border);
       box-shadow: none;
+
       &:after {
         background-color: var(--kui-color-disable-border);
       }

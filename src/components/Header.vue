@@ -11,11 +11,11 @@
       <Divider type="vertical" />
       <div class="search-component">
         <Select placeholder="搜索..." shape="circle" :icon="Search" theme="light" :showArrow="false" filterable
-          v-model="key" size="large" @change="change" :transfer="false">
+          v-model:value="key" size="large" @change="change">
           <Option v-for="(com, index) of menus" :key="index" :value="com.name">{{ com.title }} {{ com.sub }}</Option>
         </Select>
       </div>
-      <!-- <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
+      <Menu mode="horizontal" @click="menuClick" class="top-menu" v-model:selectedKeys="topMenu">
         <MenuItem key="home">首页</MenuItem>
         <MenuItem key="start">组件</MenuItem>
         <SubMenu key="docs" title="文档">
@@ -29,7 +29,7 @@
           <MenuItem key="https://react.k-ui.cn/">For React 文档</MenuItem>
           <MenuItem key="https://chuchur.com/">Blog</MenuItem>
         </SubMenu>
-      </Menu> -->
+      </Menu>
       <!-- <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
         @change="changeThemeColor" /> -->
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
@@ -42,57 +42,52 @@
     </div>
   </Header>
 </template>
-<script>
+<script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { menus } from "../menu";
 import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 import pkg from '/package.json'
+import { useRoute, useRouter } from "vue-router";
 
-export default {
-  setup() {
-    const LogoKuiRef = ref(LogoKui)
-    const ChevronDownRef = ref(ChevronDown)
-    const LogoGiteeRef = ref(LogoGitee)
-    const SunnyRef = ref(Sunny)
-    const MoonRef = ref(Moon)
-    const SearchRef = ref(Search)
-    const themeColor = ref('#3a95ff')
-    const version = ref(pkg.version)
-    const menusRef = ref(menus.sort())
-    const v = ref("3")
-    const key = ref("")
-    const topMenu = ref([])
-    const theme = ref('')
 
-    onMounted(() => {
-      let themeLocal = localStorage.getItem('theme') || ''
-      let themeColorLocal = localStorage.getItem('themeColor') || ''
-      if (themeLocal) {
-        document.documentElement.setAttribute('theme-mode', themeLocal);
-        theme.value = themeLocal
-      }
-      if (themeColorLocal) {
-        themeColor.value = themeColorLocal
-        changeThemeColor(themeColorLocal)
-      }
-      // let path = this.$route.path
-      // topMenu.value = path == '/' ? ['home'] : ['start']
-    })
+const themeColor = ref('#3a95ff')
+const version = ref(pkg.version)
+const menuData = ref(menus.sort())
+const v = ref("3")
+const key = ref("")
+const topMenu = ref([])
+const theme = ref('')
+const router = useRouter();
+const route = useRoute();
 
-    const gitee = () => {
-      window.open("//gitee.com/chuchur/kui-vue");
-    }
+onMounted(() => {
+  let themeLocal = localStorage.getItem('theme') || ''
+  let themeColorLocal = localStorage.getItem('themeColor') || ''
+  if (themeLocal) {
+    document.documentElement.setAttribute('theme-mode', themeLocal);
+    theme.value = themeLocal
+  }
+  if (themeColorLocal) {
+    themeColor.value = themeColorLocal
+    changeThemeColor(themeColorLocal)
+  }
+  topMenu.value = route.path == '/' ? ['home'] : ['start']
+})
 
-    const changeThemeColor = (v) => {
-      let stl = document.querySelector('style[name=kui]')
-      if (!stl) {
-        stl = document.createElement('style')
-        stl.setAttribute('name', 'kui')
-        document.head.appendChild(stl)
-      }
-    
-      let str = v.slice(0, v.length-1)
-      let cssText = `
+const gitee = () => {
+  window.open("//gitee.com/chuchur/kui-vue");
+}
+
+const changeThemeColor = (v) => {
+  let stl = document.querySelector('style[name=kui]')
+  if (!stl) {
+    stl = document.createElement('style')
+    stl.setAttribute('name', 'kui')
+    document.head.appendChild(stl)
+  }
+
+  let str = v.slice(0, v.length - 1)
+  let cssText = `
       body[theme-type='custom']{
           --kui-color-main:${str});
           --kui-color-main-hover:${str},.9);
@@ -107,68 +102,39 @@ export default {
           --kui-color-selected:${str},.1);
       }
       `
-      stl.innerHTML = cssText
-      document.body.setAttribute('theme-type', 'custom')
-      localStorage.setItem('themeColor', v)
-    }
+  stl.innerHTML = cssText
+  document.body.setAttribute('theme-type', 'custom')
+  localStorage.setItem('themeColor', v)
+}
 
-    const changeMode = () => {
-      const body = document.documentElement;
-      if (body.hasAttribute('theme-mode')) {
-        body.removeAttribute('theme-mode');
-        localStorage.removeItem('theme')
-        theme.value = ''
-      } else {
-        body.setAttribute('theme-mode', 'dark');
-        localStorage.setItem('theme', 'dark')
-        theme.value = 'dark'
-      }
-    }
-
-    const go = ({ key, keyPath, item }) => {
-      if (key == "home") {
-        topMenu.value = ['home']
-        this.$router.push("/");
-      } else if (key == 'start') {
-        this.$router.push("/start/getting-started");
-      } else {
-        open(key);
-      }
-    }
-
-    const change = ({ value }) => {
-      let item = menusRef.value.filter(x => x.name == value)[0] || {}
-      this.$router.push(`/${item.key}/${value}`);
-      setTimeout(() => (key.value = ""), 500);
-    }
-
-    const changeV = ({ value }) => {
-      if (value == "2") {
-        open("https://v2.k-ui.cn");
-      }
-    }
-
-    return {
-      LogoKui: LogoKuiRef,
-      ChevronDown: ChevronDownRef,
-      LogoGitee: LogoGiteeRef,
-      Sunny: SunnyRef,
-      Moon: MoonRef,
-      Search: SearchRef,
-      themeColor,
-      version,
-      menus: menusRef,
-      v,
-      key,
-      topMenu,
-      theme,
-      gitee,
-      changeThemeColor,
-      changeMode,
-      go,
-      change,
-      changeV,
-    }
+const changeMode = () => {
+  const body = document.documentElement;
+  if (body.hasAttribute('theme-mode')) {
+    body.removeAttribute('theme-mode');
+    localStorage.removeItem('theme')
+    theme.value = ''
+  } else {
+    body.setAttribute('theme-mode', 'dark');
+    localStorage.setItem('theme', 'dark')
+    theme.value = 'dark'
   }
-};
+}
+
+const menuClick = ({ key, keyPath, item }) => {
+  if (key == "home") {
+    topMenu.value = ['home']
+    router.push("/");
+  } else if (key == 'start') {
+    router.push("/start/getting-started");
+  } else {
+    open(key);
+  }
+}
+
+const change = (value) => {
+  // console.log(value);
+  let item = menuData.value.filter(x => x.name == value)[0] || {}
+  router.push(`/${item.key}/${value}`);
+  setTimeout(() => (key.value = ""), 500);
+}
 </script>

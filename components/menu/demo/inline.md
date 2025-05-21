@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" mode="inline">
+    <Menu v-model:selectedKeys="current" v-model:open-keys="openKeys" mode="inline">
       <SubMenu key="sub1" :icon="Mail" title="Navigation One">
         <MenuItem key="1-1" :icon="Heart">Option 1</MenuItem>
         <MenuItem key="1-2" :icon="Heart">Option 2</MenuItem>
@@ -30,16 +30,10 @@
     </Menu>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from 'vue'
 import { Mail, Heart, Settings } from "kui-icons";
-export default {
-  data() {
-    return {
-      Mail, Heart, Settings,
-      current: ['1-1'],
-      openKeys:['sub1']
-    }
-  },
-}
+const current = ref(['1-1'])
+const openKeys = ref(['sub1'])
 </script>
 ```

@@ -1,94 +1,82 @@
 import Icon from "../icon";
-import Tooltip from '../tooltip'
-import { isVnode, getChild } from '../_tool/utils'
+import Tooltip from "../tooltip";
+import { getChildren } from "../utils/vnode";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  getCurrentInstance,
+  watch,
+  inject,
+  nextTick,
+  onMounted,
+} from "vue";
 
-export default {
+export default defineComponent({
   name: "MenuItem",
   props: {
     icon: [String, Array],
     title: String,
+    // key: String,
+    label: String,
     disabled: Boolean,
   },
-  inject: {
-    Menu: { default: null },
-    SubMenu: { default: null },
-    Dropdown: { default: null },
-  },
-  data() {
-    return {
-      active: false,
+
+  setup(ps, { slots }) {
+    let { icon, disabled, title } = ps;
+    const instance = getCurrentInstance();
+
+    const selectedKeys = inject("menu-selected-keys", ref([]));
+    const mode = inject("menu-mode", null);
+    const active = ref(false);
+    const key = instance.vnode.key;
+    const keyPah = inject("menu-key-path", []);
+    const selectedKeysChange = inject("selectedKeysChange", null);
+
+    onMounted(() => {
+      const selected = selectedKeys.value.indexOf(key) >= 0;
+      selected && selectedKeysChange(key, selected, keyPah);
+    });
+    return () => {
+      const preCls = "menu";
+      const selected = selectedKeys.value.indexOf(key) >= 0;
+      const props = {
+        class: [
+          `k-${preCls}-item`,
+          {
+            [`k-${preCls}-item-active`]: active.value,
+            [`k-${preCls}-item-selected`]: selected,
+            [`k-${preCls}-item-disabled`]: disabled,
+          },
+        ],
+        style: {
+          paddingLeft: `${keyPah.length * 16 + 16}px`,
+        },
+        onMouseenter: () => (active.value = true),
+        onMouseleave: () => (active.value = false),
+        onClick: () => {
+          if (disabled) return;
+          selectedKeysChange?.(key, true, keyPah);
+        },
+      };
+
+      // 没有子集的时候才展示
+      let titleNode = (
+        <span class={`k-${preCls}-title-content`}>
+          {title || getChildren(slots.default?.())}
+        </span>
+      );
+      let iconNode = slots.icon ? (
+        <span class={`k-${preCls}-item-icon`}>{slots.icon()}</span>
+      ) : icon ? (
+        <Icon type={icon} class={`k-${preCls}-item-icon`} />
+      ) : null;
+      return (
+        <li {...props}>
+          {iconNode}
+          {titleNode}
+        </li>
+      );
     };
   },
-  methods: {
-
-  },
-
-  mounted() {
-    let { SubMenu, Menu } = this
-    if (Menu && SubMenu) {
-      let { selectedKeys } = Menu
-      let key = this.$vnode.key || 'item_' + this._uid
-      let selected = selectedKeys.indexOf(key) >= 0
-      if (selected && selectedKeys.indexOf(SubMenu.$vnode.key) < 0) {
-        Menu.selectedKeys.push(SubMenu.$vnode.key)
-      }
-    }
-  },
-  render() {
-
-    let { icon, disabled, Menu, SubMenu, Dropdown, title } = this
-    let key = this.$vnode.key || 'item_' + this._uid
-    let selected = Menu.selectedKeys.indexOf(key) >= 0
-
-    const item = this
-    const preCls = Dropdown ? 'dropdown-menu' : 'menu';
-
-    const props = {
-      class: [`k-${preCls}-item`, {
-        [`k-${preCls}-item-active`]: this.active,
-        [`k-${preCls}-item-selected`]: selected && !Dropdown,
-        [`k-${preCls}-item-disabled`]: disabled
-      }],
-      on: {
-        mouseenter: () => {
-          if (disabled) return;
-          this.active = true
-        },
-        mouseleave: () => {
-          this.active = false
-        },
-        click: (e) => {
-          if (!disabled) {
-            let key = this.$vnode.key || 'item_' + this._uid
-            let options = {
-              key,
-              keyPath: [key],
-              item,
-              event: e
-            }
-            let parent = SubMenu || Menu
-            if (parent) {
-              parent.handleClick(options)
-            }
-          }
-        },
-      },
-      style: {}
-    }
-    if (SubMenu && SubMenu.zIndex > 0 && (Menu && Menu.mode == 'inline' && !Menu.inlineCollapsed)) {
-      props.style.paddingLeft = (SubMenu.zIndex + 1) * 16 + 'px'
-    }
-    // 没有子集的时候才展示
-    const showTooltip = Menu.inlineCollapsed && !SubMenu
-    let child = title || getChild(this.$slots.default)
-    let titleNode = <span class={`k-${preCls}-title-content`}>{child}</span>
-    let iconNode = this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)
-    let menuItem = <li {...props}>{iconNode}{titleNode}</li>
-    return (
-      <Tooltip placement="right">
-        {menuItem}
-        {showTooltip ? <template slot="title">{this.$slots.default}</template> : null}
-      </Tooltip>
-    )
-  },
-};
+});

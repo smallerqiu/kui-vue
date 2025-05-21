@@ -160,6 +160,37 @@
   }
 }
 
+.k-page-disabled {
+  color: var(--kui-color-disable-color);
+
+  .k-pager {
+    .k-pager-item {
+      cursor: not-allowed;
+      color: var(--kui-color-disable-color);
+
+      &:hover,
+      &:active {
+        background-color: transparent;
+
+        .k-icon {
+          color: var(--kui-color-disable-color);
+
+        }
+      }
+    }
+
+    .k-pager-item-active {
+      border-color: transparent;
+      background: var(--kui-color-disable-back);
+
+      &:hover {
+        background: var(--kui-color-disable-back);
+        color: var(--kui-color-disable-color);
+      }
+    }
+  }
+}
+
 .k-page-sm {
   .k-page-options {
     font-size: 12px;
