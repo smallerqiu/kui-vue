@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <KSwitch @change="changeMode"/> Change Mode
+    <KSwitch @change="changeMode" v-model:checked="checked"/> Change Mode
     <KSwitch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
     <br/>
     <br/>
@@ -21,7 +21,7 @@
           <MenuItem key="2-4">Option 8</MenuItem>
         </SubMenu>
       </SubMenu>
-       <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
+      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
         <MenuItem key="3-1">Option 9</MenuItem>
         <MenuItem key="3-2">Option 10</MenuItem>
         <MenuItem key="3-3">Option 11</MenuItem>
@@ -37,12 +37,13 @@ const current = ref(['1-1'])
 const openKeys = ref(['sub2'])
 const mode = ref('inline')
 const theme = ref('light')
+const checked = ref(false)
 
 const changeMode = (checked)=> {
-  this.mode = checked ? 'vertical' : 'inline'
+  mode.value = checked ? 'vertical' : 'inline'
 }
 const changeTheme = (checked)=> {
-  this.theme = checked ? 'dark' : 'light';
+  theme.value = checked ? 'dark' : 'light';
 }
 </script>
 ```

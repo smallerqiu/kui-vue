@@ -1,14 +1,12 @@
-import { defineComponent, inject, computed } from 'vue';
+import { defineComponent, inject, computed } from "vue";
 
 export default defineComponent({
-  name: 'MenuDivider',
+  name: "MenuDivider",
   setup() {
-    const Dropdown = inject('Dropdown', null);
+    return () => {
+      const preCls = "menu";
 
-    const preCls = computed(() => Dropdown ? 'dropdown-menu' : 'menu');
-
-    return () => (
-      <li class={`k-${preCls.value}-item-divider`} />
-    );
-  }
+      return <li class={`k-${preCls.value}-item-divider`} />;
+    };
+  },
 });

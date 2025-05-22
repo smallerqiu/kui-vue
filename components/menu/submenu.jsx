@@ -37,9 +37,11 @@ export default defineComponent({
     const selectedKeys = inject("menu-selected-keys", ref([]));
     const openKeys = inject("menu-open-keys", ref([]));
     const openKeysChange = inject("openKeysChange", null);
+    const clearPopTimer = inject("clearPopTimer", null);
+    const hidePopTimer = inject("hidePopTimer", null);
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
-    const mouseenterTimer = ref(null);
+    const popTimer = ref(null);
 
     const inline = mode.value == "inline";
 
@@ -50,12 +52,29 @@ export default defineComponent({
       });
     });
 
+    const clearCurrentPopTimer = () => {
+      clearTimeout(popTimer.value);
+    };
+    const hideCurrentPopTimer = () => {
+      popTimer.value = setTimeout(() => {
+        openKeysChange?.(key, false, keyPah);
+      }, 200);
+    };
+
     const keyPah = inject("menu-key-path", []);
     provide("menu-key-path", [...keyPah, key]);
 
+    provide("clearPopTimer", clearCurrentPopTimer);
+    provide("hidePopTimer", hideCurrentPopTimer);
+
     const updatePosition = () => {
-      console.log(mode, keyPah);
-      if (mode.value == "horizontal" && keyPah.length > 0) {
+      // console.log(mode, keyPah);
+      // the second level menu show right top
+      // or the mode is vertical
+      if (
+        (mode.value == "horizontal" && keyPah.length > 0) ||
+        mode.value == "vertical"
+      ) {
         currentPlacement.value = "right-top";
       }
       nextTick(() => {
@@ -66,12 +85,13 @@ export default defineComponent({
           transOrigin,
           top,
           left,
-          3
+          8
         );
       });
     };
 
     const renderPoper = () => {
+      const inline = mode.value == "inline";
       const opened = openKeys.value.indexOf(key) >= 0;
       if (inline) {
         const aniprop = getTranstionProp("k-collaplse-slide");
@@ -85,18 +105,33 @@ export default defineComponent({
           </Transition>
         );
       } else {
-        const aniprop = getTranstionProp("k-menu-submenu-popup");
+        // todo: mode 从inline 切换 vertical 时 会挂.
+        // pop
+        let leftValue = left.value;
+        if (
+          (mode.value == "horizontal" && keyPah.length) ||
+          mode.value == "vertical"
+        ) {
+          leftValue += 3;
+        }
         const poperPros = {
           ref: refPopper,
           "k-placement": currentPlacement.value,
           style: {
-            minWidth: minWidth.value,
+            minWidth: mode.value == "horizontal" ? minWidth.value : null,
             top: top.value + "px",
-            left: left.value + "px",
+            left: leftValue + "px",
             transformOrigin: transOrigin.value,
           },
           onMouseenter: () => {
-            clearTimeout(mouseenterTimer.value);
+            clearCurrentPopTimer();
+            // console.log(clearPopTimer)
+            openKeysChange?.(key, true, keyPah);
+            clearPopTimer?.();
+          },
+          onMouseleave: () => {
+            hideCurrentPopTimer();
+            hidePopTimer?.();
           },
         };
         return (
@@ -120,27 +155,29 @@ export default defineComponent({
     return () => {
       const selected = selectedKeys.value.indexOf(key) >= 0;
       const opened = openKeys.value.indexOf(key) >= 0;
-      const showInline = mode == "inline";
       let titleProps = {
         class: `k-${preCls}-title`,
         style: {
           // paddingLeft: `${keyPah.length * 32}px`,
         },
-        onClick: () => {
-          openKeysChange?.(key, !opened, keyPah);
-        },
       };
-      if (mode.value == "horizontal") {
+      if (mode.value == "inline") {
+        titleProps.onClick = () => {
+          openKeysChange?.(key, !opened, keyPah);
+        };
+      }
+      if (mode.value == "horizontal" || mode.value == "vertical") {
+        // dropdown
         titleProps.ref = refCtx;
         titleProps.onMouseenter = () => {
           active.value = true;
-          clearTimeout(mouseenterTimer.value);
+          clearCurrentPopTimer();
           // console.log(key, opened, keyPah);
           openKeysChange?.(key, true, keyPah);
           updatePosition();
         };
         titleProps.onMouseleave = () => {
-          mouseenterTimer.value = setTimeout(() => {
+          popTimer.value = setTimeout(() => {
             active.value = false;
             openKeysChange?.(key, false, keyPah);
           }, 200);
@@ -153,12 +190,12 @@ export default defineComponent({
           : null;
       }
       let title = ps.title || slots.title?.();
-
+      // todo: horizontal 隐藏箭头
       const titleNode = (
         <div {...titleProps}>
           {ps.icon ? <Icon type={ps.icon} class="k-menu-item-icon" /> : null}
           {<span class="k-menu-title-content">{title}</span>}
-          <Icon type={ChevronDown} class={`k-${preCls}-arrow`} />
+          <Icon type={ChevronDown} class={`k-${preCls}-arrow`} /> 
         </div>
       );
 
