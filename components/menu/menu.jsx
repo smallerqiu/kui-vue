@@ -66,7 +66,7 @@ export default defineComponent({
       emit("update:selectedKeys", defaultSelectedKeys.value);
       emit("select", key, keyPath);
 
-      if (currentMode.value == "horizontal") {
+      if (currentMode.value == "horizontal" || currentMode.value == "vertical") {
         defaultOpenKeys.value = [];
       }
     };

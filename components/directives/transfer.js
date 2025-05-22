@@ -1,8 +1,7 @@
 
 export default {
   mounted(el, { value }, vnode) {
-    const SSR = typeof window === "undefined";
-    if (!SSR && value) {
+    if (value) {
       const parentNode = el.parentNode
       if (!parentNode) return false;
 

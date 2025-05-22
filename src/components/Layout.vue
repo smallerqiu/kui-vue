@@ -68,7 +68,7 @@ const theme = ref('');
 const openkeys = ref(['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']);
 
 onMounted(() => {
-  // hljs && hljs.highlightAll();
+  hljs && hljs.highlightAll();
 });
 
 onBeforeMount(() => {
