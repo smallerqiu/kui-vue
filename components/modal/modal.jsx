@@ -167,9 +167,7 @@ export default defineComponent({
         const contents = [];
         ps.showClose &&
           contents.push(
-            <span class="k-modal-close" onClick={close}>
-              <Icon type={Close} strokeWidth={50} />
-            </span>
+            <Button icon={Close} onClick={close} size="small" class="k-modal-close" theme="normal"></Button>
           );
         ps.title !== null &&
           contents.push(
@@ -193,8 +191,8 @@ export default defineComponent({
           const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
           contents.push(footerNode);
-        }
-        contentNode = <div class="k-modal-content">{contents}</div>;
+        } 
+        contentNode = <div class="k-modal-content" tabindex="0">{contents}</div>;
       }
 
       const style = {
@@ -214,10 +212,11 @@ export default defineComponent({
       return rendered.value ? (
         <div class={classes} v-transfer={ps.transfer}>
           {maskNode}
-          <div class="k-modal-wrap" v-show={showInner.value} onClick={clickMaskToClose}>
+          <div class="k-modal-wrap" tabindex="-1" role="dialog" v-show={showInner.value} onClick={clickMaskToClose}>
             <Transition name="k-modal-zoom">
               <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
                 {contentNode}
+                <div tabindex="0"></div>
               </div>
             </Transition>
           </div>

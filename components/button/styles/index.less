@@ -14,18 +14,21 @@
   justify-content: center;
   vertical-align: middle; // transition: opacity .2s ease-in-out;
   user-select: none;
-  outline: none;
+  // outline: none;
   border: 1px solid var(--kui-color-border);
-  transition: all .2s;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   z-index: 0;
   white-space: nowrap;
   background-color: var(--kui-color-back);
   cursor: pointer;
+  outline-offset: 2px;
 
-  &:focus {
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  &:focus-visible {
+    // border-color: var(--kui-color-main);
+    // box-shadow: 0 0 0 2px var(--kui-color-main-90);
     z-index: 1;
+    outline: 2px solid var(--kui-color-main-60);
+    outline-offset: 1px;
   }
 
   &:hover {
@@ -35,7 +38,7 @@
   }
 
   &:active {
-    color: var(--kui-color-main-actived);
+    // color: var(--kui-color-main-actived);
     border-color: var(--kui-color-main-actived);
   }
 
@@ -185,8 +188,8 @@
   background: var(--kui-color-danger);
 
   &:focus {
-    border-color: var(--kui-color-danger-hover);
-    box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+    // border-color: var(--kui-color-danger-hover);
+    // box-shadow: 0 0 0 2px var(--kui-color-danger-90);
   }
 
   // &:focus,
@@ -219,7 +222,7 @@
     color: var(--kui-color-danger);
     border-color: var(--kui-color-danger);
 
-    &:focus,
+    // &:focus,
     &:hover {
       color: var(--kui-color-danger-hover);
       border-color: var(--kui-color-danger-hover);
@@ -242,8 +245,8 @@
   background: var(--kui-color-warning);
 
   &:focus {
-    border-color: var(--kui-color-warning-hover);
-    box-shadow: 0 0 0 2px var(--kui-color-warning-90);
+    // border-color: var(--kui-color-warning-hover);
+    // box-shadow: 0 0 0 2px var(--kui-color-warning-90);
   }
 
   // &:focus,
@@ -271,7 +274,7 @@
     color: var(--kui-color-warning);
     border-color: var(--kui-color-warning);
 
-    &:focus,
+    // &:focus,
     &:hover {
       color: var(--kui-color-warning-hover);
       border-color: var(--kui-color-warning-hover);

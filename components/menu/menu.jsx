@@ -22,10 +22,14 @@ export default defineComponent({
     const defaultSelectedKeys = ref(props.selectedKeys || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
+    const currentInlineCollapsed = ref(props.inlineCollapsed);
+    const tempOpenKeys = ref(props.openKeys || []);
 
     provide("menu-open-keys", defaultOpenKeys);
     provide("menu-selected-keys", defaultSelectedKeys);
     provide("menu-mode", currentMode);
+    provide("menu-inline-collapsed", currentInlineCollapsed);
+
     watch(
       () => props.selectedKeys,
       (value) => {
@@ -50,6 +54,13 @@ export default defineComponent({
     watch(
       () => props.inlineCollapsed,
       (collapsed) => {
+        currentInlineCollapsed.value = collapsed;
+        if (collapsed) {
+          tempOpenKeys.value = defaultOpenKeys.value;
+          defaultOpenKeys.value = [];
+        } else {
+          defaultOpenKeys.value = tempOpenKeys.value;
+        }
         // defaultOpenKeys.value = collapsed ? [] : originOpenKeys.value;
       }
     );
@@ -66,7 +77,10 @@ export default defineComponent({
       emit("update:selectedKeys", defaultSelectedKeys.value);
       emit("select", key, keyPath);
 
-      if (currentMode.value == "horizontal" || currentMode.value == "vertical") {
+      if (
+        currentMode.value == "horizontal" ||
+        currentMode.value == "vertical"
+      ) {
         defaultOpenKeys.value = [];
       }
     };

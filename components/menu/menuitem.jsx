@@ -32,6 +32,7 @@ export default defineComponent({
     const key = instance.vnode.key;
     const keyPah = inject("menu-key-path", []);
     const selectedKeysChange = inject("selectedKeysChange", null);
+    const inlineCollapsed = inject("menu-inline-collapsed", null);
 
     onMounted(() => {
       const selected = selectedKeys.value.indexOf(key) >= 0;
@@ -51,7 +52,7 @@ export default defineComponent({
         ],
         style: {
           paddingLeft:
-            mode.value == "inline" && keyPah.length
+            (mode.value == "inline" && keyPah.length) || (mode.value == "inline" && !inlineCollapsed)
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
