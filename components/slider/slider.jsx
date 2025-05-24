@@ -1,5 +1,5 @@
 import Thumb from "./thumb";
-import { multiply } from "../utils/number";
+import { multiply, add, subtract } from "../utils/number";
 import { defineComponent, ref, provide, watch } from "vue";
 export default defineComponent({
   props: {
@@ -23,8 +23,11 @@ export default defineComponent({
   },
   setup(ps, { emit, slots }) {
     const railRef = ref(null);
-    const getValue = () => {
-      let { value = 0, min, max } = ps,
+    const getValue = (value) => {
+      if (value === undefined) {
+        value = ps.value;
+      }
+      let { min, max } = ps,
         v = 0;
       // let diff = max - min;
       if (!ps.range) {
@@ -60,6 +63,32 @@ export default defineComponent({
       }
     );
 
+    const keydownUpdate = (e, type) => {
+      // emit("keydown-update", e, ps.type);
+      let step = ps.step || 1;
+      const plus = e.key === "ArrowRight" || e.key === "ArrowUp";
+      if (ps.range) {
+        let [a, b] = defaultValue.value;
+        let v;
+        if (plus) {
+          v = type === "right" ? [a, add(b, step)] : [add(a, step), b];
+        } else {
+          v =
+            type === "right" ? [a, subtract(b, step)] : [subtract(a, step), b];
+        }
+        defaultValue.value = getValue(v);
+      } else {
+        let v = defaultValue.value;
+        if (plus) {
+          v = add(v, step);
+        } else {
+          v = subtract(v, step) * 1;
+        }
+        defaultValue.value = getValue(v);
+      }
+      emit("update:value", defaultValue.value);
+    };
+
     const mouseMove = (e, type) => {
       let clientX, clientY;
       if (e.touches && e.touches.length == 1) {
@@ -76,9 +105,13 @@ export default defineComponent({
       let percent = 0,
         diff = max - min;
       if (reverse) {
-        percent = vertical ? (height - (clientY - top)) / height : (width - (clientX - left)) / width;
+        percent = vertical
+          ? (height - (clientY - top)) / height
+          : (width - (clientX - left)) / width;
       } else {
-        percent = vertical ? (clientY - top) / height : (clientX - left) / width;
+        percent = vertical
+          ? (clientY - top) / height
+          : (clientX - left) / width;
       }
       if (percent >= 1) percent = 1;
       else if (percent <= 0) percent = 0;
@@ -140,14 +173,15 @@ export default defineComponent({
         steps.push(multiply(Math.round(percent / step), step));
       }
 
-      let result = steps.reduce((x, y) => (Math.abs(x - percent) > Math.abs(y - percent) ? y : x));
+      let result = steps.reduce((x, y) =>
+        Math.abs(x - percent) > Math.abs(y - percent) ? y : x
+      );
       // let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
       // console.log(percent, result, steps)
       return result + min;
     };
 
     const click = (e) => {
-      return;
       let { disabled, vertical, step, max, min, reverse } = ps;
       if (disabled) return;
       let { width, height } = e.target.getBoundingClientRect();
@@ -156,7 +190,9 @@ export default defineComponent({
       let percent = 0,
         diff = max - min;
       if (reverse) {
-        percent = vertical ? ((height - layerY) / height) * diff : ((width - layerX) / width) * diff;
+        percent = vertical
+          ? ((height - layerY) / height) * diff
+          : ((width - layerX) / width) * diff;
       } else {
         percent = vertical ? (layerY / height) * diff : (layerX / width) * diff;
       }
@@ -184,7 +220,9 @@ export default defineComponent({
       let pos = ((a - min) / diff) * 100 + "%";
       let sty = {};
       if (reverse) {
-        sty = vertical ? { bottom: pos, transform: "translateY(50%)" } : { right: pos, transform: "translateX(50%)" };
+        sty = vertical
+          ? { bottom: pos, transform: "translateY(50%)" }
+          : { right: pos, transform: "translateX(50%)" };
       } else {
         sty = vertical ? { top: pos } : { left: pos };
       }
@@ -200,7 +238,19 @@ export default defineComponent({
     };
 
     return () => {
-      let { vertical, disabled, step, reverse, max, marks, min, tooltipVisible, tipFormatter, size, included } = ps;
+      let {
+        vertical,
+        disabled,
+        step,
+        reverse,
+        max,
+        marks,
+        min,
+        tooltipVisible,
+        tipFormatter,
+        size,
+        included,
+      } = ps;
       const renderMark = () => {
         let { marks } = ps;
         let mks = Object.keys(marks || {});
@@ -209,12 +259,25 @@ export default defineComponent({
           <div div class="k-slider-marks">
             {mks.map((v) => {
               const { active, sty } = isActive(v);
-              return <div class={["k-slider-mark-symbol", { "k-slider-mark-symbol-active": active }]} style={sty} />;
+              return (
+                <div
+                  class={[
+                    "k-slider-mark-symbol",
+                    { "k-slider-mark-symbol-active": active },
+                  ]}
+                  style={sty}
+                />
+              );
             })}
             {mks.map((v, i) => {
               let { active, sty } = isActive(v);
               return (
-                <div class={["k-slider-mark-text", { "k-slider-mark-text-active": active }]} style={sty}>
+                <div
+                  class={[
+                    "k-slider-mark-text",
+                    { "k-slider-mark-text-active": active },
+                  ]}
+                  style={sty}>
                   {txt[i]}
                 </div>
               );
@@ -280,6 +343,7 @@ export default defineComponent({
         max,
         tipFormatter,
         tooltipVisible,
+        onKeydownUpdate: keydownUpdate,
         // value: range ? [].concat(defaultValue.value) : defaultValue.value * 1,
         onThumbMove: mouseMove,
       };
@@ -299,7 +363,11 @@ export default defineComponent({
         childs.push(mark);
       }
       return (
-        <div class={["k-slider", { "k-slider-disabled": disabled, "k-slider-vertical": vertical }]}>
+        <div
+          class={[
+            "k-slider",
+            { "k-slider-disabled": disabled, "k-slider-vertical": vertical },
+          ]}>
           <div class="k-slider-bar">
             <div class="k-slider-rail" ref={railRef} onClick={click}></div>
             {...childs}

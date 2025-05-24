@@ -15,7 +15,7 @@
     z-index: 0;
     border-radius: 0;
 
-    &:focus,
+    // &:focus,
     &:hover {
       z-index: 2;
     }
@@ -78,9 +78,7 @@
   line-height: 1;
   color: var(--kui-color-font);
 
-  &:focus {
-    background-color: red;
-  }
+
 
   .k-radio-symbol {
     display: inline-block;
@@ -136,10 +134,13 @@
     margin: 0;
     padding: 0;
 
-
+    &:focus-visible+span {
+      outline: 2px solid var(--kui-color-main-60);
+      outline-offset: 1px;
+    }
   }
 
-  &:focus,
+  // &:focus,
   &:hover {
     .k-radio-inner {
       border: 1px solid var(--kui-color-main);

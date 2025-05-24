@@ -24,7 +24,6 @@ export default defineComponent({
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
-    const active = ref(false);
     const preCls = "menu-submenu";
     const refCtx = ref(null);
     const refPopper = ref(null);
@@ -42,6 +41,7 @@ export default defineComponent({
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
     const popTimer = ref(null);
+    const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
 
     const inline = mode.value == "inline";
 
@@ -49,6 +49,10 @@ export default defineComponent({
       nextTick(() => {
         const width = refCtx.value?.offsetWidth;
         minWidth.value = `${width}px`;
+
+        if (openKeys.value.indexOf(key) >= 0) {
+          updatePosition();
+        }
       });
     });
 
@@ -73,7 +77,8 @@ export default defineComponent({
       // or the mode is vertical
       if (
         (mode.value == "horizontal" && keyPah.length > 0) ||
-        mode.value == "vertical"
+        mode.value == "vertical" ||
+        (mode.value == "inline" && inlineCollapsed.value)
       ) {
         currentPlacement.value = "right-top";
       }
@@ -89,66 +94,70 @@ export default defineComponent({
         );
       });
     };
-
-    const renderPoper = () => {
+    const renderPopper = (opened) => {
+      // pop
+      let leftValue = left.value;
+      if (
+        (mode.value == "horizontal" && keyPah.length) ||
+        mode.value == "vertical"
+      ) {
+        leftValue += 3;
+      }
+      const poperPros = {
+        ref: refPopper,
+        "k-placement": currentPlacement.value,
+        style: {
+          minWidth: mode.value == "horizontal" ? minWidth.value : null,
+          top: top.value + "px",
+          left: leftValue + "px",
+          transformOrigin: transOrigin.value,
+        },
+        onMouseenter: () => {
+          clearCurrentPopTimer();
+          // console.log(clearPopTimer)
+          openKeysChange?.(key, true, keyPah);
+          clearPopTimer?.();
+        },
+        onMouseleave: () => {
+          hideCurrentPopTimer();
+          hidePopTimer?.();
+        },
+      };
+      return (
+        <Transition name="k-menu-submenu-popup">
+          <div
+            className="k-menu-submenu-popup"
+            v-show={opened}
+            v-transfer={true}
+            {...poperPros}>
+            <div class={`k-${preCls}-sub`}>
+              <ul className={`k-menu k-menu-vertical`}>{slots.default?.()}</ul>
+            </div>
+          </div>
+        </Transition>
+      );
+    };
+    const renderSubmenu = () => {
       const inline = mode.value == "inline";
       const opened = openKeys.value.indexOf(key) >= 0;
+      console.log(inlineCollapsed.value);
       if (inline) {
         const aniprop = getTranstionProp("k-collaplse-slide");
-        return (
+        return [
           <Transition {...aniprop}>
-            <div class={`k-${preCls}-sub`} v-show={opened}>
+            <div
+              class={`k-${preCls}-sub`}
+              v-show={opened && !inlineCollapsed.value}>
               <ul className={`k-menu k-menu-${mode.value}`}>
                 {slots.default?.()}
               </ul>
             </div>
-          </Transition>
-        );
+          </Transition>,
+          inlineCollapsed.value && opened ? renderPopper(opened) : null,
+        ];
       } else {
         // todo: mode 从inline 切换 vertical 时 会挂.
-        // pop
-        let leftValue = left.value;
-        if (
-          (mode.value == "horizontal" && keyPah.length) ||
-          mode.value == "vertical"
-        ) {
-          leftValue += 3;
-        }
-        const poperPros = {
-          ref: refPopper,
-          "k-placement": currentPlacement.value,
-          style: {
-            minWidth: mode.value == "horizontal" ? minWidth.value : null,
-            top: top.value + "px",
-            left: leftValue + "px",
-            transformOrigin: transOrigin.value,
-          },
-          onMouseenter: () => {
-            clearCurrentPopTimer();
-            // console.log(clearPopTimer)
-            openKeysChange?.(key, true, keyPah);
-            clearPopTimer?.();
-          },
-          onMouseleave: () => {
-            hideCurrentPopTimer();
-            hidePopTimer?.();
-          },
-        };
-        return (
-          <Transition name="k-menu-submenu-popup">
-            <div
-              className="k-menu-submenu-popup"
-              v-show={opened}
-              v-transfer={true}
-              {...poperPros}>
-              <div class={`k-${preCls}-sub`}>
-                <ul className={`k-menu k-menu-vertical`}>
-                  {slots.default?.()}
-                </ul>
-              </div>
-            </div>
-          </Transition>
-        );
+        return renderPopper(opened);
       }
     };
 
@@ -161,16 +170,18 @@ export default defineComponent({
           // paddingLeft: `${keyPah.length * 32}px`,
         },
       };
-      if (mode.value == "inline") {
+      if (mode.value == "inline" && !inlineCollapsed.value) {
         titleProps.onClick = () => {
           openKeysChange?.(key, !opened, keyPah);
         };
-      }
-      if (mode.value == "horizontal" || mode.value == "vertical") {
-        // dropdown
+      } else if (
+        mode.value == "horizontal" ||
+        mode.value == "vertical" ||
+        inlineCollapsed.value
+      ) {
+        // popper
         titleProps.ref = refCtx;
         titleProps.onMouseenter = () => {
-          active.value = true;
           clearCurrentPopTimer();
           // console.log(key, opened, keyPah);
           openKeysChange?.(key, true, keyPah);
@@ -178,10 +189,8 @@ export default defineComponent({
         };
         titleProps.onMouseleave = () => {
           popTimer.value = setTimeout(() => {
-            active.value = false;
             openKeysChange?.(key, false, keyPah);
           }, 200);
-          // openKeysChange?.(key, false, keyPah);
         };
       }
       if (keyPah.length) {
@@ -195,21 +204,23 @@ export default defineComponent({
         <div {...titleProps}>
           {ps.icon ? <Icon type={ps.icon} class="k-menu-item-icon" /> : null}
           {<span class="k-menu-title-content">{title}</span>}
-          <Icon type={ChevronDown} class={`k-${preCls}-arrow`} /> 
+          {mode.value == "horizontal" && !keyPah.length ? null : (
+            <i class={`k-${preCls}-arrow`} />
+          )}
         </div>
       );
 
       const classes = [
         `k-${preCls}`,
         {
-          [`k-${preCls}-active`]: active.value,
+          [`k-${preCls}-active`]: opened || selected,
           [`k-${preCls}-selected`]: selected,
           [`k-${preCls}-opened`]: opened,
           [`k-${preCls}-disabled`]: ps.disabled,
         },
       ];
       // console.log(minWidth.value);
-      const poper = renderPoper();
+      const poper = renderSubmenu();
       return (
         <li class={classes}>
           {titleNode}
