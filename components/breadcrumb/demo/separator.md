@@ -6,8 +6,8 @@
 ```vue
 <template>
   <Breadcrumb>
-    <BreadcrumbItem to="/" :icon="Home" separator="~">Home</BreadcrumbItem>
-    <BreadcrumbItem to="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
+    <BreadcrumbItem href="/" :icon="Home" separator="~">Home</BreadcrumbItem>
+    <BreadcrumbItem href="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
     <BreadcrumbItem :icon="Heart" separator="~">other</BreadcrumbItem>
   </Breadcrumb>
 </template>

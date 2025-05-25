@@ -12,7 +12,7 @@
           <Icon :type="LogoKui" size="30" class="logo"/>
           KUI运营后台
         </div>
-        <Menu mode="inline" v-model="top" class="demo-top-menu">
+        <Menu mode="inline" v-model:selectedKeys="top" class="demo-top-menu">
           <MenuItem key="t1" :icon="Home">首页</MenuItem>
           <MenuItem key="t2" :icon="StatsChart">数据统计</MenuItem>
           <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
@@ -32,15 +32,8 @@
 </template>
 <script setup>
 import { LogoKui , Home, StatsChart, Settings } from 'kui-icons'
-export default{
-  data() {
-    return {
-      LogoKui, Home, StatsChart, Settings ,
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
+import { ref } from "vue";
+const top = ref(['t1']);
 </script>
 <style scoped lang="less"> 
 .k-demo-layout{

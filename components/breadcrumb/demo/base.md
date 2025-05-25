@@ -7,8 +7,8 @@
 <template>
   <div>
     <Breadcrumb>
-      <BreadcrumbItem to="/">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/components/breadcrumb">breadcrumb</BreadcrumbItem>
+      <BreadcrumbItem href="/">Home</BreadcrumbItem>
+      <BreadcrumbItem href="/components/breadcrumb">breadcrumb</BreadcrumbItem>
       <BreadcrumbItem>other</BreadcrumbItem>
     </Breadcrumb>
   </div>

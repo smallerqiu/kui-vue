@@ -20,6 +20,7 @@ export default defineComponent({
     // key: String,
     label: String,
     disabled: Boolean,
+    ispopup: Boolean,
   },
 
   setup(ps, { slots }) {
@@ -32,7 +33,7 @@ export default defineComponent({
     const key = instance.vnode.key;
     const keyPah = inject("menu-key-path", []);
     const selectedKeysChange = inject("selectedKeysChange", null);
-    const inlineCollapsed = inject("menu-inline-collapsed", null);
+    // const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
 
     onMounted(() => {
       const selected = selectedKeys.value.indexOf(key) >= 0;
@@ -52,7 +53,9 @@ export default defineComponent({
         ],
         style: {
           paddingLeft:
-            (mode.value == "inline" && keyPah.length) || (mode.value == "inline" && !inlineCollapsed)
+            (mode.value == "inline" || mode.value == "vertical") &&
+            keyPah.length &&
+            !ps.ispopup
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },

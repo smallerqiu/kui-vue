@@ -69,19 +69,11 @@
 </template>
 <script setup>
 import { LogoKui,ChevronBack, NotificationsOutline, ChevronForward, Search, StatsChart, Home, Settings } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui, Search, NotificationsOutline, ChevronBack, ChevronForward, StatsChart, Home, Settings,
-      left: ['1-1'],
-      collapsed: false
-    }
-  },
-  methods: {
-    toggle() {
-      this.collapsed = !this.collapsed
-    }
-  }
+import { ref } from "vue";
+const left = ref(["1-1"]);
+const collapsed = ref(false);
+const toggle = () => {
+  collapsed.value = !collapsed.value;
 }
 </script>
 <style scoped lang="less">
