@@ -1,28 +1,25 @@
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 import Icon from "../icon";
 export default defineComponent({
   name: "BreadcrumbItem",
   props: {
-    separator: { type: String, default: "/" },
-    to: String,
-    replace: Boolean,
-    icon: [String, Array],
+    href: String,
+    icon: [String, Array, Object],
   },
-  methods: {
-    toPath() {
-      this.to && this.replace ? this.$router.replace({ path: this.replace }) : this.$router.push({ path: this.to });
-    },
-  },
-  setup() {
-    const { $slots, toPath, icon, separator } = this;
+  setup(ps, { slots, emit }) {
+    const separator = inject("separator", null);
     return () => (
-      <span class="k-breadcrumb-item">
-        {icon ? <Icon type={icon} /> : null}
-        <span class="k-breadcrumb-link" onClick={toPath}>
-          {$slots.default}
-        </span>
+      <li class="k-breadcrumb-item" onClick={(e) => emit("click", e)}>
+        {slots.icon ? slots.icon() : icon ? <Icon type={icon} /> : null}
+        {ps.href ? (
+          <a class="k-breadcrumb-link" href={ps.href}>
+            {slots.default?.()}
+          </a>
+        ) : (
+          <span class="k-breadcrumb-link">{slots.default?.()}</span>
+        )}
         <span class="k-breadcrumb-separator">{separator}</span>
-      </span>
+      </li>
     );
   },
 });

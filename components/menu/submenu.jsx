@@ -5,14 +5,15 @@ import {
   inject,
   getCurrentInstance,
   onMounted,
+  cloneVNode,
   nextTick,
   Transition,
 } from "vue";
 import Icon from "../icon";
-import { ChevronDown, ChevronForward } from "kui-icons";
 import { getTranstionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
+import { getChildren } from "../utils/vnode";
 
 export default defineComponent({
   name: "SubMenu",
@@ -20,6 +21,7 @@ export default defineComponent({
   props: {
     disabled: Boolean,
     title: String,
+    ispopup: Boolean,
     // key: String,
     icon: [String, Array],
   },
@@ -44,6 +46,8 @@ export default defineComponent({
     const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
 
     const inline = mode.value == "inline";
+
+    const rendered = ref(false);
 
     onMounted(() => {
       nextTick(() => {
@@ -71,6 +75,18 @@ export default defineComponent({
     provide("clearPopTimer", clearCurrentPopTimer);
     provide("hidePopTimer", hideCurrentPopTimer);
 
+    const showPoper = () => {
+      // if (!rendered.value) {
+      rendered.value = true;
+      nextTick(() => {
+        openKeysChange?.(key, true, keyPah);
+        updatePosition();
+      });
+      // } else {
+      //   openKeysChange?.(key, true, keyPah);
+      //   updatePosition();
+      // }
+    };
     const updatePosition = () => {
       // console.log(mode, keyPah);
       // the second level menu show right top
@@ -94,8 +110,9 @@ export default defineComponent({
         );
       });
     };
-    const renderPopper = (opened) => {
+    const renderPopper = () => {
       // pop
+      const opened = openKeys.value.indexOf(key) >= 0;
       let leftValue = left.value;
       if (
         (mode.value == "horizontal" && keyPah.length) ||
@@ -114,7 +131,6 @@ export default defineComponent({
         },
         onMouseenter: () => {
           clearCurrentPopTimer();
-          // console.log(clearPopTimer)
           openKeysChange?.(key, true, keyPah);
           clearPopTimer?.();
         },
@@ -123,7 +139,13 @@ export default defineComponent({
           hidePopTimer?.();
         },
       };
-      return (
+      const childs = getChildren(slots.default?.());
+      const menuItesms = childs.map((child) => {
+        // if (child.type.name == "MenuItem") {
+        return cloneVNode(child, { ispopup: true });
+        // }
+      });
+      return rendered.value ? (
         <Transition name="k-menu-submenu-popup">
           <div
             className="k-menu-submenu-popup"
@@ -131,33 +153,38 @@ export default defineComponent({
             v-transfer={true}
             {...poperPros}>
             <div class={`k-${preCls}-sub`}>
-              <ul className={`k-menu k-menu-vertical`}>{slots.default?.()}</ul>
+              <ul className={`k-menu k-menu-vertical`}>{menuItesms}</ul>
             </div>
           </div>
         </Transition>
-      );
+      ) : null;
     };
     const renderSubmenu = () => {
-      const inline = mode.value == "inline";
+      const inline = mode.value != "horizontal";
       const opened = openKeys.value.indexOf(key) >= 0;
-      console.log(inlineCollapsed.value);
+      // todo: mode 从inline 切换 vertical 时 会卡一下, 为查明原因. 后面在细看
+
       if (inline) {
         const aniprop = getTranstionProp("k-collaplse-slide");
-        return [
+        const node = [
           <Transition {...aniprop}>
             <div
               class={`k-${preCls}-sub`}
-              v-show={opened && !inlineCollapsed.value}>
+              v-show={
+                opened && !inlineCollapsed.value && mode.value != "vertical"
+              }>
               <ul className={`k-menu k-menu-${mode.value}`}>
                 {slots.default?.()}
               </ul>
             </div>
           </Transition>,
-          inlineCollapsed.value && opened ? renderPopper(opened) : null,
         ];
+        if (inlineCollapsed.value || mode.value == "vertical") {
+          node.push(renderPopper());
+        }
+        return node;
       } else {
-        // todo: mode 从inline 切换 vertical 时 会挂.
-        return renderPopper(opened);
+        return renderPopper();
       }
     };
 
@@ -166,9 +193,7 @@ export default defineComponent({
       const opened = openKeys.value.indexOf(key) >= 0;
       let titleProps = {
         class: `k-${preCls}-title`,
-        style: {
-          // paddingLeft: `${keyPah.length * 32}px`,
-        },
+        style: {},
       };
       if (mode.value == "inline" && !inlineCollapsed.value) {
         titleProps.onClick = () => {
@@ -183,9 +208,7 @@ export default defineComponent({
         titleProps.ref = refCtx;
         titleProps.onMouseenter = () => {
           clearCurrentPopTimer();
-          // console.log(key, opened, keyPah);
-          openKeysChange?.(key, true, keyPah);
-          updatePosition();
+          showPoper();
         };
         titleProps.onMouseleave = () => {
           popTimer.value = setTimeout(() => {
@@ -193,10 +216,8 @@ export default defineComponent({
           }, 200);
         };
       }
-      if (keyPah.length) {
-        titleProps.style.paddingLeft = inline
-          ? `${keyPah.length * 16 + 16}px`
-          : null;
+      if (keyPah.length && inline && !ps.ispopup) {
+        titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
       }
       let title = ps.title || slots.title?.();
       // todo: horizontal 隐藏箭头
@@ -219,7 +240,6 @@ export default defineComponent({
           [`k-${preCls}-disabled`]: ps.disabled,
         },
       ];
-      // console.log(minWidth.value);
       const poper = renderSubmenu();
       return (
         <li class={classes}>

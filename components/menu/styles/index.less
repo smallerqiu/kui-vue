@@ -17,10 +17,6 @@
   user-select: none;
   box-sizing: border-box;
 
-  // &:after, &:before {
-  //   content: "";
-  //   display: table;
-  // }
   &-item-divider {
     height: 1px;
     margin: 4px 0;
@@ -28,14 +24,6 @@
     line-height: 0;
     background-color: var(--kui-color-border);
   }
-
-  // .k-menu-icon-temp {
-  //   display: inline-block;
-  //   width: 20px;
-  //   height: 20px;
-  //   margin-right: 8px;
-  //   flex-shrink: 0;
-  // }
 
   .k-menu-title-content {
     overflow: hidden;
@@ -79,8 +67,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     position: relative;
-    // transition: font-size .3s cubic-bezier(.215, .61, .355, 1), padding .3s cubic-bezier(.215, .61, .355, 1);
-    // transition: all .3s cubic-bezier(.215, .61, .355, 1);
     transition: border .3s ease-in-out;
     list-style: none;
     height: 40px;
@@ -122,7 +108,6 @@
   }
 
   .k-menu-item-active {
-    // color: var(--kui-color-main);
     background-color: var(--kui-color-hover);
   }
 
@@ -366,49 +351,6 @@
       }
     }
 
-    .k-menu-submenu-sub {
-      position: absolute;
-      top: 0;
-      box-sizing: content-box;
-      position: absolute;
-      z-index: 1001;
-      min-width: 160px;
-
-      >.k-menu {
-        border-radius: var(--kui-border-radius);
-        border: none;
-        margin: 0;
-        list-style: none;
-
-        .k-menu-item-group-title {
-          line-height: 1;
-          padding: 0 12px;
-          box-sizing: border-box;
-        }
-
-        .k-menu-item-group-list .k-menu-item {
-          position: relative;
-        }
-
-        .k-menu-item {
-          line-height: 1;
-
-          &:first-child {
-            border-top-left-radius: var(--kui-border-radius);
-            border-top-right-radius: var(--kui-border-radius);
-          }
-
-          &:last-child {
-            border-bottom-left-radius: var(--kui-border-radius);
-            border-bottom-right-radius: var(--kui-border-radius);
-          }
-        }
-      }
-
-      .k-menu-submenu {
-        position: relative;
-      }
-    }
 
     >.k-menu-submenu>.k-menu-submenu-title>.k-menu-submenu-arrow {
       position: absolute;
@@ -762,12 +704,12 @@
 }
 
 .k-collaplse-slide-enter-active {
-  animation: slide 0.15s ease-in-out;
+  animation: slide 0.2s ease-in-out;
   animation-fill-mode: both;
 }
 
 .k-collaplse-slide-leave-active {
-  animation: slide 0.3s ease-in-out reverse;
+  animation: slide .2s ease-in-out reverse;
   animation-fill-mode: both;
 }
 

@@ -36,7 +36,7 @@ const current = ref(['1-1'])
 const openKeys = ref(['sub2'])
 const theme = ref('dark')
 
-const change = (checked)=> {
+const change = (checked) => {
   theme.value = checked ? 'dark' : 'light';
 }
 </script>

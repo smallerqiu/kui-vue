@@ -6,6 +6,7 @@ import {
   watch,
   provide,
   inject,
+  onMounted,
 } from "vue";
 
 export default defineComponent({
@@ -41,6 +42,7 @@ export default defineComponent({
       () => props.mode,
       (value) => {
         currentMode.value = value;
+        setCollapsed(value === "vertical");
       }
     );
 
@@ -55,15 +57,23 @@ export default defineComponent({
       () => props.inlineCollapsed,
       (collapsed) => {
         currentInlineCollapsed.value = collapsed;
-        if (collapsed) {
-          tempOpenKeys.value = defaultOpenKeys.value;
-          defaultOpenKeys.value = [];
-        } else {
-          defaultOpenKeys.value = tempOpenKeys.value;
-        }
-        // defaultOpenKeys.value = collapsed ? [] : originOpenKeys.value;
+        setCollapsed(collapsed);
       }
     );
+    onMounted(() => {
+      setCollapsed(props.inlineCollapsed);
+    });
+
+    const setCollapsed = (collapsed) => {
+      if (collapsed) {
+        if (defaultOpenKeys.value.length > 0) {
+          tempOpenKeys.value = defaultOpenKeys.value;
+        }
+        defaultOpenKeys.value = [];
+      } else {
+        defaultOpenKeys.value = tempOpenKeys.value;
+      }
+    };
 
     const selectedKeysChange = (key, selected, keyPath) => {
       // console.log(key, selected, keyPath)
@@ -79,8 +89,12 @@ export default defineComponent({
 
       if (
         currentMode.value == "horizontal" ||
-        currentMode.value == "vertical"
+        currentMode.value == "vertical" ||
+        currentInlineCollapsed.value
       ) {
+        if (defaultOpenKeys.value.length > 0) {
+          tempOpenKeys.value = defaultOpenKeys.value;
+        }
         defaultOpenKeys.value = [];
       }
     };
