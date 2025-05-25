@@ -5,9 +5,13 @@ export default defineComponent({
     separator: { type: [String, Object], default: "/" },
   },
   setup(ps, { slots }) {
-    provide("separator", ps.separator);
+    provide("separator", slots.separator?.() || ps.separator);
     return () => {
-      return <nav class="k-breadcrumb"><ol>{slots.default?.()}</ol></nav>;
+      return (
+        <nav class="k-breadcrumb">
+          <ol>{slots.default?.()}</ol>
+        </nav>
+      );
     };
   },
 });

@@ -8,18 +8,28 @@ export default defineComponent({
   },
   setup(ps, { slots, emit }) {
     const separator = inject("separator", null);
-    return () => (
-      <li class="k-breadcrumb-item" onClick={(e) => emit("click", e)}>
-        {slots.icon ? slots.icon() : icon ? <Icon type={icon} /> : null}
-        {ps.href ? (
-          <a class="k-breadcrumb-link" href={ps.href}>
-            {slots.default?.()}
-          </a>
-        ) : (
-          <span class="k-breadcrumb-link">{slots.default?.()}</span>
-        )}
-        <span class="k-breadcrumb-separator">{separator}</span>
-      </li>
-    );
+    return () => {
+      const iconNode = slots.icon ? (
+        slots.icon()
+      ) : ps.icon ? (
+        <Icon type={ps.icon} />
+      ) : null;
+      return (
+        <li class="k-breadcrumb-item" onClick={(e) => emit("click", e)}>
+          {ps.href ? (
+            <a class="k-breadcrumb-link" href={ps.href}>
+              {iconNode}
+              {slots.default?.()}
+            </a>
+          ) : (
+            <span class="k-breadcrumb-link">
+              {iconNode}
+              {slots.default?.()}
+            </span>
+          )}
+          <span class="k-breadcrumb-separator">{separator}</span>
+        </li>
+      );
+    };
   },
 });
