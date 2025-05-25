@@ -12,9 +12,9 @@ export default {
       <div class="demo-layout">
         <Info />
         <Base />
+        <Layout3 />
         <Layout1 />
         <Layout2 />
-        <Layout3 />
         <Layout4 />
         <Layout5 />
       </div>

@@ -1,7 +1,7 @@
 import Alert from "./alert";
 import Affix from "./affix";
 import Avatar from "./avatar";
-// import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
+import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
 import { Button, ButtonGroup } from "./button";
 import Badge from "./badge";
 // import BackTop from './backtop'
@@ -61,7 +61,7 @@ const components = {
   Avatar,
   // BackTop,
   Badge,
-  // Breadcrumb, BreadcrumbItem,
+  Breadcrumb, BreadcrumbItem,
   Button,
   ButtonGroup,
   Card,

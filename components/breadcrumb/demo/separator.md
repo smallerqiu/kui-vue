@@ -5,10 +5,16 @@
 
 ```vue
 <template>
+  <Breadcrumb  separator=">">
+    <BreadcrumbItem href="/" :icon="Home"></BreadcrumbItem>
+    <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud" >Breadcrumb</BreadcrumbItem>
+    <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
+  </Breadcrumb>
   <Breadcrumb>
-    <BreadcrumbItem href="/" :icon="Home" separator="~">Home</BreadcrumbItem>
-    <BreadcrumbItem href="/components/breadcrumb" :icon="Cloud" separator="~">breadcrumb</BreadcrumbItem>
-    <BreadcrumbItem :icon="Heart" separator="~">other</BreadcrumbItem>
+    <template #separator><span style="color:red">></span></template>
+    <BreadcrumbItem href="/" :icon="Home"></BreadcrumbItem>
+    <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud" >Breadcrumb</BreadcrumbItem>
+    <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
   </Breadcrumb>
 </template>
 <script setup>

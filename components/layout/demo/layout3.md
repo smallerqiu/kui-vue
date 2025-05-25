@@ -11,10 +11,7 @@
       <Header class="demo-header">
         <Row type="flex" align="middle">
           <Col style="width:194px">
-          <div class="logo-box">
-            <Icon :type="LogoKui" size="30" class="logo" />
-            K UIKIT
-          </div>
+          <div class="logo-box"></div>
           </Col>
           <Col flex="1">
           <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
@@ -64,10 +61,7 @@ const top = ref(['t1']);
     box-sizing: border-box;
     display: flex;
     align-items: center;
-
-    .logo {
-      margin-right: 8px;
-    }
+    background: #666;
   }
 }
 

@@ -8,8 +8,8 @@
   <div>
     <Breadcrumb>
       <BreadcrumbItem href="/" :icon="Home">Home</BreadcrumbItem>
-      <BreadcrumbItem href="/components/breadcrumb" :icon="Cloud">app</BreadcrumbItem>
-      <BreadcrumbItem :icon="Heart">other</BreadcrumbItem>
+      <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud">App</BreadcrumbItem>
+      <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
     </Breadcrumb>
   </div>
 </template>
