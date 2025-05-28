@@ -9,9 +9,12 @@
   <div class="k-demo-layout">
     <Layout class="layout-back">
       <Header class="demo-header">
-        <Row type="flex" align="middle">
+        <Row type="flex" align="middle" class="demo-top-nav">
           <Col style="width:194px">
-          <div class="logo-box"></div>
+          <a class="logo-box" href="">
+            <Icon :type="LogoKui" size="30" class="logo" />
+            K UIKIT
+          </a>
           </Col>
           <Col flex="1">
           <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
@@ -19,13 +22,6 @@
             <MenuItem key="t2">新闻</MenuItem>
             <MenuItem key="t3">知识库</MenuItem>
           </Menu>
-          </Col>
-          <Col>
-          <Space :size="30">
-            <Input :icon="Search" theme="light" shape="circle" placeholder="搜索" style="width:200px" />
-            <Button :icon="NotificationsOutline" theme="normal" />
-            <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
-          </Space>
           </Col>
         </Row>
       </Header>
@@ -37,58 +33,78 @@
         </Breadcrumb>
         <Content class="demo-back">Conent</Content>
       </Content>
-      <Footer style="background:transparent;">KUI ©2018 Created by chuchur</Footer>
+      <Footer style="background:transparent;">KUI ©2025 Created by chuchur</Footer>
     </Layout>
   </div>
 </template>
 <script setup>
-import { LogoKui, Search, NotificationsOutline } from 'kui-icons' 
+import { LogoKui, Search, NotificationsOutline } from 'kui-icons'
 import { ref } from "vue";
 const top = ref(['t1']);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
+  background: var(--kui-color-back);
+
   .demo-header {
-    border-bottom: 1px solid var(--kui-color-border);
-    padding: 15px 20px 0px 30px;
+    padding: 0 50px 0;
     min-width: 900px;
+    background-color: var(--kui-color-main-90);
+    height: 60px;
+    align-items: center;
+    display: flex;
+  }
+
+  .demo-top-nav {
+    flex: 1;
   }
 
   .logo-box {
-    /* width: 190px; */
     position: relative;
     z-index: 801;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    background: #666;
+
+    .logo {
+      margin-right: 8px;
+    }
   }
-}
 
-.k-demo-layout .demo-top-menu {
-  border: none;
-
-  li {
-    line-height: 31px;
+  .layout-back {
+    background-color: #86868625;
   }
-}
 
-.k-demo-layout .k-demo-main {
-  padding: 0 50px;
-}
+  .demo-back {
+    background-color: var(--kui-color-back);
+  }
 
-.k-demo-layout .k-demo-main .nav {
-  padding: 16px 0;
-}
+  .demo-top-menu {
+    border: none;
+    background-color: transparent;
 
-.k-demo-layout .k-demo-main .k-layout-content {
-  padding: 24px;
-  min-height: 300px;
-}
+    .k-menu-item {
+      min-height: 60px;
+    }
+  }
 
-.k-demo-layout .k-layout-footer {
-  text-align: center;
-  color: #999;
+  .k-demo-main {
+    padding: 0 50px;
+
+    .nav {
+      padding: 16px 0;
+    }
+
+    .k-layout-content {
+      padding: 24px;
+      min-height: 300px;
+    }
+  }
+
+  .k-layout-footer {
+    text-align: center;
+    color: #999;
+  }
 }
 </style>
 ```
