@@ -50,7 +50,6 @@ const openKeys = ref(['t2']);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-  // height: 360px;
   overflow: hidden;
 
   .demo-sider {
@@ -111,10 +110,9 @@ const openKeys = ref(['t2']);
     overflow: auto;
     height: 360px;
     background-color: #7f7f7f17;
-  }
-
-  .k-demo-main .nav {
-    padding: 20px 0 0 20px;
+    .nav {
+      padding: 20px 0 0 20px;
+    }
   }
 
   .k-layout-footer {
