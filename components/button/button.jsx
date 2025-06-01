@@ -1,7 +1,7 @@
 import { defineComponent, computed } from "vue";
 import Icon from "../icon";
-import { Sync } from "kui-icons";
-
+import { Loading, Sync } from "kui-icons";
+import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "Button",
   props: {
@@ -22,7 +22,14 @@ export default defineComponent({
     loading: Boolean,
     type: {
       validator(value) {
-        return ["danger", "primary", "warning", "link", "default", "dashed"].includes(value);
+        return [
+          "danger",
+          "primary",
+          "warning",
+          "link",
+          "default",
+          "dashed",
+        ].includes(value);
       },
       default: "default",
     },
@@ -40,8 +47,8 @@ export default defineComponent({
   },
   setup(props, { emit, slots, attrs }) {
     return () => {
-      let childs = slots.default?.();
-      const onlyIcon = !childs?.length && props.icon;
+      let childs = getChildren(slots.default?.());
+      const onlyIcon = !childs?.length && (props.icon || props.loading);
       const classes = [
         "k-btn",
         {
@@ -57,7 +64,7 @@ export default defineComponent({
       ];
       let childNods = [];
 
-      const iconType = props.loading ? Sync : props.icon;
+      const iconType = props.loading ? Loading : props.icon;
       if (iconType) {
         childNods.push(<Icon type={iconType} spin={props.loading} />);
       }
@@ -70,7 +77,11 @@ export default defineComponent({
       };
 
       const childNode = childs?.map((c) => {
-        return typeof c.children === "string" ? <span>{c.children.trim()}</span> : c;
+        return typeof c.children === "string" ? (
+          <span>{c.children.trim()}</span>
+        ) : (
+          c
+        );
       });
       childNods = childNods.concat(childNode);
 
@@ -79,9 +90,7 @@ export default defineComponent({
           {...childNods}
         </a>
       ) : (
-        <button {...propsObj}>
-          {...childNods}
-        </button>
+        <button {...propsObj}>{...childNods}</button>
       );
     };
   },
