@@ -82,8 +82,22 @@ export default defineComponent({
         );
       });
     };
+    const toggle = () => {
+      if (!rendered.value) {
+        rendered.value = true;
+        nextTick(() => {
+          visible.value = true;
+          updatePosition();
+        });
+      } else {
+        visible.value = !visible.value;
+      }
+    };
 
-    const clickEvent = (e) => {};
+    const clickEvent = (e) => {
+      if (ps.trigger == "click") {
+      }
+    };
     const mouseEnterEvent = (e) => {};
     const contextmenuEvent = (e) => {};
 
