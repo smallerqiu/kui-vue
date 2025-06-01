@@ -8,7 +8,7 @@
   <Space>
     <Button type="primary" :icon="Search" loading>Loading</Button>
     <Button type="primary" :icon="Search" loading size="small">Loading</Button>
-    <Button :icon="Search" loading shape="circle"></Button>
+    <Button type="primary" loading shape="circle"></Button>
     <Button type="primary" :loading="loading" @click="handleLoding">Clike me</Button>
     <br />
     <Button type="primary" :icon="Search" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>

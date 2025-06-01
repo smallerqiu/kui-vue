@@ -35,7 +35,7 @@ export function getTranstionProp(name) {
         el.style.marginTop = 0;
         el.style.marginBottom = 0;
         el.style.opacity = 0;
-        // el.style.overflow = 'hidden';
+        el.style.overflow = 'hidden';
       }
     },
     onAfterLeave: (el) => {
