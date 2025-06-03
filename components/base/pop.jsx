@@ -16,7 +16,7 @@ export default defineComponent({
     transfer: { type: Boolean, default: true },
     value: { type: Boolean },
     title: String,
-    showPlacementArrow: { type: Boolean, default: true },
+    arrow: { type: Boolean, default: true },
     width: [Number, String],
     offsetLeft: { type: Number, default: 0 },
     placement: {
@@ -112,7 +112,7 @@ export default defineComponent({
       let okText = props.okText || t('k.pop.ok');
       let cancelText = props.cancelText || t('k.pop.cancel');
 
-      if (props.showPlacementArrow) {
+      if (props.arrow) {
         title = title || getChild(slots.title);
         let titleNode, contentNode, footerNode;
         if (props.confirm) {
@@ -157,7 +157,7 @@ export default defineComponent({
           className: [`k-${preCls}`, {
             [`k-${preCls}-${color}`]: color && !/^#/.test(color),
             [`k-${preCls}-has-color`]: /^#/.test(color),
-            [`k-${preCls}-has-arrow`]: props.showPlacementArrow,
+            [`k-${preCls}-has-arrow`]: props.arrow,
             [`k-${preCls}-dark`]: props.dark
           }],
           width: props.width,

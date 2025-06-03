@@ -1,13 +1,13 @@
 <cn>
-#### 弹出位置
-支持 6 个弹出位置。
+#### 箭头
+可以展示一个箭头。
 </cn>
 
 ```vue
 <template>
   <div id="dropdown-demo-placement">
     <template v-for="(placement, index) in placements">
-      <Dropdown :placement="placement">
+      <Dropdown :placement="placement" arrow>
         <Button>{{ placement }}</Button>
         <template #overlay>
           <Menu>

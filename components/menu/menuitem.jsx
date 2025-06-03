@@ -29,6 +29,7 @@ export default defineComponent({
 
     const selectedKeys = inject("menu-selected-keys", ref([]));
     const mode = inject("menu-mode", null);
+    const dropdown = inject("dropdown", null);
     const active = ref(false);
     const key = instance.vnode.key;
     const keyPah = inject("menu-key-path", []);
@@ -37,11 +38,11 @@ export default defineComponent({
 
     onMounted(() => {
       const selected = selectedKeys.value.indexOf(key) >= 0;
-      selected && selectedKeysChange(key, selected, keyPah);
+      selected && selectedKeysChange?.(key, selected, keyPah);
     });
     return () => {
-      const preCls = "menu";
-      const selected = selectedKeys.value.indexOf(key) >= 0;
+      const preCls = dropdown ? "dropdown-menu" : "menu";
+      const selected = selectedKeys.value.indexOf(key) >= 0 && !dropdown;
       const props = {
         class: [
           `k-${preCls}-item`,
@@ -59,8 +60,14 @@ export default defineComponent({
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
-        onMouseenter: () => (active.value = true),
-        onMouseleave: () => (active.value = false),
+        onMouseenter: () => {
+          if (disabled) return;
+          active.value = true;
+        },
+        onMouseleave: () => {
+          if (disabled) return;
+          active.value = false;
+        },
         onClick: () => {
           if (disabled) return;
           selectedKeysChange?.(key, true, keyPah);

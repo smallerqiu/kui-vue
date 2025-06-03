@@ -1,114 +1,32 @@
 <template>
-  <div class="k-demo-layout">
-    <Layout class="layout-back">
-      <Sider :class="['demo-sider', { 'demo-sider-collapsed': collapsed }]">
-        <a class="logo-box" href="">
-          <Icon :type="LogoKui" size="30" class="logo" />
-          <span class="logo-title">KUI运营后台</span>
-        </a>
-        <Menu v-model:selectedKeys="selectedKeys" :openKeys="openKeys" class="demo-left-menu" mode="inline"
-          :inline-collapsed="collapsed">
-          <MenuItem key="t1" :icon="Home">首页</MenuItem>
-          <SubMenu key="t2" :icon="StatsChart" title="数据统计">
-            <MenuItem key="t2-1">今日订单</MenuItem>
-            <MenuItem key="t2-2">今日销售额</MenuItem>
+  <Dropdown :show="true">
+    <Button theme="light">
+      多级菜单
+      <Icon :type="ChevronDown" />
+    </Button>
+    <template #overlay>
+      <Menu @select="menuClick">
+        <MenuItem key="1-1">1st menu item</MenuItem>
+        <MenuItem key="1-2">2nd menu item</MenuItem>
+        <SubMenu key="2" title="sub menu">
+          <MenuItem key="2-1">3rd menu item</MenuItem>
+          <MenuItem key="2-2">4th menu item</MenuItem>
+          <SubMenu key="2-3" title="sub menu">
+            <MenuItem key="2-3-1">3rd menu item</MenuItem>
+            <MenuItem key="2-3-2">4th menu item</MenuItem>
           </SubMenu>
-          <SubMenu key="t3" :icon="StatsChart" title="数据统计">
-            <MenuItem key="t3-1">今日订单</MenuItem>
-            <MenuItem key="t3-2">今日销售额</MenuItem>
-          </SubMenu>
-          <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
-        </Menu>
-
-      </Sider>
-      <Content class="k-demo-main">
-        <div style="padding: 10px;">
-          <Button theme="normal" :icon="collapsed ? MenuUnfold : MenuFold" @click="collapsed = !collapsed"
-            class="btn-collapsed"><i></i></Button>
-        </div>
-        <Breadcrumb class="nav">
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>List</BreadcrumbItem>
-          <BreadcrumbItem>App</BreadcrumbItem>
-        </Breadcrumb>
-        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px;" class="demo-back">Content</div>
-        <Footer>KUI ©2025 Created by chuchur</Footer>
-      </Content>
-    </Layout>
-  </div>
+        </SubMenu>
+        <SubMenu title="disabled sub menu" disabled key="3">
+          <MenuItem key="3-1">5d menu item</MenuItem>
+          <MenuItem key="3-2">6th menu item</MenuItem>
+        </SubMenu>
+      </Menu>
+    </template>
+  </Dropdown>
 </template>
 <script setup>
-import { LogoKui, Home, StatsChart, Settings, MenuFold, MenuUnfold } from 'kui-icons'
-import { ref } from "vue";
-const top = ref(['t1']);
-const collapsed = ref(false);
-const selectedKeys = ref(['t1']);
-const openKeys = ref(['t2']);
-</script>
-<style scoped lang="less">
-.k-demo-layout {
-
-  .demo-sider {
-    /*这里是例子，实际中请适当修改*/
-    left: 0;
-    width: 200px;
-    background: var(--kui-color-back);
-    transition: width 0.3s;
-  }
-
-  .logo-title {
-    transition: opacity 0.3s;
-    opacity: 1;
-  }
-
-  .btn-collapsed {
-    transition: all 0.3s;
-  }
-
-  .demo-sider-collapsed {
-    width: 80px;
-    overflow: hidden;
-
-    .logo-title {
-      opacity: 0;
-    }
-  }
-
-  .demo-left-menu {
-    border: none;
-    height: calc(100% - 105px);
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      width: 1px;
-    }
-  }
-
-
-  .logo-box {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    height: 60px;
-    padding-left: 25px;
-    white-space: nowrap;
-
-    .logo {
-      margin-right: 8px;
-    }
-  }
-
-  .k-demo-main {
-    background-color: #7f7f7f17;
-
-    .nav {
-      padding: 20px 0 0 20px;
-    }
-  }
-
-  .k-layout-footer {
-    text-align: center;
-    color: #999;
-  }
+import { ChevronDown } from 'kui-icons'
+const menuClick = ({ key }) => {
+  console.log(key)
 }
-</style>
+</script>
