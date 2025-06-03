@@ -1,462 +1,621 @@
-import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
-import { Input } from '../input'
-import { Button } from '../button'
-import Icon from '../icon'
-import Drop from '../base/drop'
-import { ChevronDown, CaretHor } from 'kui-icons'
-const modes = ['rgba', 'hex', 'hsla']
-
-export default {
-  name: 'ColorPicker',
+import {
+  canvasHelper,
+  limit,
+  hslToRgb,
+  rgbToHsl,
+  parseColor,
+  rgbToHex,
+  cssColorToRgba,
+} from "./canvasHelper";
+import transfer from "../directives/transfer";
+import { Input } from "../input";
+import { Button } from "../button";
+import Icon from "../icon";
+import { ChevronDown, CaretHor } from "kui-icons";
+import { setPlacement } from "../utils/placement";
+const modes = ["rgba", "hex", "hsla"];
+import {
+  defineComponent,
+  ref,
+  computed,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  reactive,
+  toRaw,
+  Transition,
+} from "vue";
+export default defineComponent({
+  name: "ColorPicker",
+  directives: {
+    transfer,
+  },
   props: {
     value: String,
     transfer: { type: Boolean, default: true },
     showMode: Boolean,
     disabled: Boolean,
     noAlpha: Boolean,
+    placement: {
+      validator(value) {
+        return [
+          "top",
+          "top-left",
+          "top-right",
+          "bottom",
+          "bottom-left",
+          "bottom-right",
+        ].includes(value);
+      },
+      default: "bottom",
+    },
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
     mode: {
-      type: String, default: 'hex', validator: function (value) {
-        return modes.indexOf(value) !== -1
-      }
+      type: String,
+      default: "hex",
+      validator: function (value) {
+        return modes.indexOf(value) !== -1;
+      },
     },
     shape: String,
+    show: Boolean,
     icon: [String, Array],
     showArrow: { type: Boolean, default: true },
     defalutColors: {
-      type: Array, default: () => ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b', '#000'],
-      validator: function (value) { return value.length <= 20 }
-    }
+      type: Array,
+      default: () => [
+        "#f44336",
+        "#e91e63",
+        "#9c27b0",
+        "#673ab7",
+        "#3f51b5",
+        "#2196f3",
+        "#03a9f4",
+        "#00bcd4",
+        "#009688",
+        "#4caf50",
+        "#8bc34a",
+        "#cddc39",
+        "#ffeb3b",
+        "#ffc107",
+        "#ff9800",
+        "#ff5722",
+        "#795548",
+        "#9e9e9e",
+        "#607d8b",
+        "#000",
+      ],
+      validator: function (value) {
+        return value.length <= 20;
+      },
+    },
   },
   watch: {
     value(v1) {
-      // console.log(v1, v2, this.currentColor)
-      if (v1 != this.currentColor) {
-        this.valueChange('COLOR', v1)
+      // console.log(v1, v2, currentColor.value)
+      if (v1 != currentColor.value) {
+        valueChange("COLOR", v1);
       }
-    }
+    },
   },
-  data() {
-    return {
-      currentMode: this.mode,
-      currentColor: this.value || '#000',
-      paintHelper: null,
-      hueHelper: null,
-      H: 0, S: 0, L: 0, A: 1,
-      R: 0, G: 0, B: 0,
-      HEX: '',
-      huePointer: {
-        x: 0
-      },
-      alphaPointer: {
-        x: 0,
-      },
-      paintPointer: {
-        x: 0, y: 0
-      },
-      opened: false,
-      isMouseDown: false
-    }
-  },
-  methods: {
 
-    toggleDrop() {
-      if (this.disabled) {
+  setup(ps, { emit }) {
+    const currentMode = ref(ps.mode);
+    const currentColor = ref(ps.value || "#000000");
+    const color = reactive({
+      H: 0,
+      S: 0,
+      L: 0,
+      A: 1,
+      R: 0,
+      G: 0,
+      B: 0,
+    });
+
+    const HEX = ref("");
+    const huePointerX = ref(0);
+    const aplhaPointerX = ref(0);
+    const paintPointer = reactive({ x: 0, y: 0 });
+    const visible = ref(ps.show);
+    const isMousePressed = ref(false);
+    const paintHelper = ref(null);
+    const refAlpha = ref(null);
+    const refHue = ref(null);
+    const refPaint = ref(null);
+    const refPopper = ref(null);
+    const refCtx = ref(null);
+    const left = ref(0);
+    const top = ref(0);
+    const currentPlacement = ref(ps.placement);
+    const transOrigin = ref("bottom");
+    const rendered = ref(false);
+
+    watch(
+      () => ps.value,
+      (v) => {
+        currentColor.value = v1;
+        valueChange("COLOR", v1);
+      }
+    );
+    const updatePosition = () => {
+      nextTick(() => {
+        setPlacement(
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+          3
+        );
+      });
+    };
+    const toggle = (open) => {
+      if (ps.disabled) {
         return false;
       }
-      this.opened = !this.opened
-      this.currentColor = this.value || '#000'
-    },
-    updatePostion() {
+      if (open) {
+        if (!rendered.value) {
+          rendered.value = true;
+          document.addEventListener("click", outsideClick);
+          nextTick(() => {
+            visible.value = true;
+            paintHelper.value = canvasHelper(refPaint.value);
+            initHueCanvas(refHue.value);
+            !ps.noAlpha && initAlphaCanvas(refAlpha.value);
+            initPaintCanvas(paint);
+            valueChange("COLOR", ps.value);
+            updatePosition();
+          });
+        } else {
+          visible.value = true;
+        }
+      } else {
+        visible.value = false;
+      }
+      // currentColor = value || "#000"; ??
+    };
+    const updatePostion = () => {
       //alpha
       {
-        const x = 190 * this.A;
-        this.alphaPointer.x = (x - 7);
+        const x = 190 * color.A;
+        aplhaPointerX.value = x - 7;
       }
       //updaet hue pointer
       {
-        const x = 190 * this.H / 360;
-        this.huePointer.x = (x - 7);
+        const x = (190 * color.H) / 360;
+        huePointerX.value = x - 7;
       }
       //paint
       {
-        const [r, g, b] = hslToRgb(this.H, this.S, this.L);
-        const [x, y] = this.paintHelper.findColor(r, g, b);
+        const [r, g, b] = hslToRgb(color.H, color.S, color.L);
+        const [x, y] = paintHelper.value.findColor(r, g, b);
         if (x >= 0) {
-          this.paintPointer.x = (x - 7 + 10);
-          this.paintPointer.y = (y - 7 + 10);
+          paintPointer.x = x - 7 + 10;
+          paintPointer.y = y - 7 + 10;
         }
       }
-
-    },
-    valueChange(prop, value) {
+    };
+    const valueChange = (prop, value) => {
       switch (prop) {
-        case 'COLOR':
-          [this.R, this.G, this.B, this.A] = parseColor(value, 'rgba') || [0, 0, 0, 1];
-          [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
-          if (this.paintHelper) {
-            this.paintHelper.setHue(this.H);
-            this.updatePostion()
-            this.alphaCanvsSetHue(this.$refs.alpha)
+        case "COLOR":
+          [color.R, color.G, color.B, color.A] = parseColor(value, "rgba") || [
+            0, 0, 0, 1,
+          ];
+          [color.H, color.S, color.L] = rgbToHsl(color.R, color.G, color.B);
+          if (paintHelper.value) {
+            paintHelper.value.setHue(color.H);
+            alphaCanvsSetHue(refAlpha.value);
           }
           break;
-        case 'HUE':
-          this.H = value;
-          // console.log(this.H);
-          [this.R, this.G, this.B] = hslToRgb(this.H, this.S, this.L);
-          if (this.paintHelper) {
-            this.paintHelper.setHue(value);
-            this.alphaCanvsSetHue(this.$refs.alpha);
+        case "HUE":
+          color.H = value;
+          // console.log(color.H);
+          [color.R, color.G, color.B] = hslToRgb(color.H, color.S, color.L);
+          if (paintHelper.value) {
+            paintHelper.value.setHue(value);
+            alphaCanvsSetHue(refAlpha.value);
           }
           break;
-        case 'RGB':
-          [this.R, this.G, this.B] = value;
-          [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
-          // let colors = rgbToHsl(this.R, this.G, this.B);
-          // [this.H, this.S, this.L] = colors
-          if (this.paintHelper) {
-            this.alphaCanvsSetHue(this.$refs.alpha)
+        case "RGB":
+          [color.R, color.G, color.B] = value;
+          [color.H, color.S, color.L] = rgbToHsl(color.R, color.G, color.B);
+          // let colors = rgbToHsl(color.R, color.G, color.B);
+          // [color.H, color.S, color.L] = colors
+          if (paintHelper.value) {
+            alphaCanvsSetHue(refAlpha.value);
           }
           break;
-        case 'ALPHA':
-          this.A = value;
+        case "ALPHA":
+          color.A = value;
           break;
       }
-      this.setHEX()
-    },
-    setHEX() {
-      if (this.A != 1) {
-        this.HEX = parseColor([this.R, this.G, this.B, this.A], 'hexcss4');
+      setHEX();
+    };
+    const setHEX = () => {
+      if (color.A != 1) {
+        HEX.value = parseColor([color.R, color.G, color.B, color.A], "hexcss4");
       } else {
-        this.HEX = rgbToHex(this.R, this.G, this.B);
+        HEX.value = rgbToHex(color.R, color.G, color.B);
       }
 
-      // this.currentColor = this.HEX
-      // this.$emit('input', this.currentColor)
-      // this.$emit('change', this.currentColor)
+      // currentColor.value = HEX.value
+      // emit('input', currentColor.value)
+      // emit('change', currentColor.value)
 
-      this.updateValue()
-    },
-    updateValue() {
-      let { currentMode, R, G, B, A, H, S, L, } = this, value = null;
-      if (currentMode == 'hex') {
-        value = this.HEX
-      } else if (currentMode == 'rgba') {
-        value = A < 1 ? `rgba(${R},${G},${B},${A})` : `rgba(${R},${G},${B})`
+      updateValue();
+    };
+    const updateValue = () => {
+      let { R, G, B, A, H, S, L } = toRaw(color),
+        value = null;
+      if (currentMode.value == "hex") {
+        value = HEX.value;
+      } else if (currentMode.value == "rgba") {
+        value = A < 1 ? `rgba(${R},${G},${B},${A})` : `rgba(${R},${G},${B})`;
       } else {
-        value = A < 1 ? `hsla(${H},${S}%,${L}%,${A})` : `hsl(${H},${S}%,${L}%)`
+        value = A < 1 ? `hsla(${H},${S}%,${L}%,${A})` : `hsl(${H},${S}%,${L}%)`;
       }
       // console.log(value)
-      this.currentColor = value
-      this.$emit('input', value)
-      this.$emit('change', value)
-      // this.opened = false
-    },
-    setMode() {
-      let i = modes.indexOf(this.currentMode) + 1
-      i = i > 2 ? 0 : i
-      this.currentMode = modes[i]
-      this.updateValue()
-    },
-    initHueCanvas(canvas) {
-      const ctx = canvas.getContext('2d', { willReadFrequently: true }),
+      currentColor.value = value;
+      emit("update:value", value);
+    };
+    const setMode = () => {
+      let i = modes.indexOf(currentMode.value) + 1;
+      i = i > 2 ? 0 : i;
+      currentMode.value = modes[i];
+      updateValue();
+    };
+    const initHueCanvas = (canvas) => {
+      const ctx = canvas.getContext("2d", { willReadFrequently: true }),
         setp = 1 / 360,
         width = canvas.width,
         height = canvas.height,
         gradient = ctx.createLinearGradient(0, 0, width, 0);
 
       for (let i = 0; i <= 1; i += setp) {
-        gradient.addColorStop(i, `hsl(${360 * i},100%,50%)`)
+        gradient.addColorStop(i, `hsl(${360 * i},100%,50%)`);
       }
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, width, height)
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
 
-      const onMouseMove = e => {
-        const x = limit(e.clientX - canvas.getBoundingClientRect().left, 0, width),
-          hue = Math.round(x * 360 / width)
-        this.huePointer.x = x - 7
-        this.valueChange('HUE', hue)
-      }
+      const onMouseMove = (e) => {
+        const x = limit(
+            e.clientX - canvas.getBoundingClientRect().left,
+            0,
+            width
+          ),
+          hue = Math.round((x * 360) / width);
+        huePointerX.value = x - 7;
+        valueChange("HUE", hue);
+      };
 
       const onMouseUp = () => {
         setTimeout(() => {
-          this.isMouseDown = false
+          isMousePressed.value = false;
         }, 300);
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp)
-      }
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
 
-      canvas.addEventListener('mousedown', e => {
-        this.isMouseDown = true
-        onMouseMove(e)
-        document.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseup', onMouseUp)
-        e.preventDefault()
-      })
-    },
-    alphaCanvsSetHue(canvas) {
-      if (this.noAlpha || !canvas) return;
-      const ctx = canvas.getContext('2d', { willReadFrequently: true }),
+      canvas.addEventListener("mousedown", (e) => {
+        isMousePressed.value = true;
+        onMouseMove(e);
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+        e.preventDefault();
+      });
+    };
+    const alphaCanvsSetHue = (canvas) => {
+      if (ps.noAlpha || !canvas) return;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true }),
         { width, height } = canvas,
         gradient = ctx.createLinearGradient(0, 0, width - 1, 0);
-      let { H, S, L } = this
-      ctx.clearRect(0, 0, width, height)
-      gradient.addColorStop(0, `hsla(${H},${S}%,${L}%,0)`)
-      gradient.addColorStop(1, `hsla(${H},${S}%,${L}%,1)`)
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, width, height)
-    },
-    initAlphaCanvas(canvas) {
-      this.alphaCanvsSetHue(canvas)
+      let { H, S, L } = toRaw(color);
+      ctx.clearRect(0, 0, width, height);
+      gradient.addColorStop(0, `hsla(${H},${S}%,${L}%,0)`);
+      gradient.addColorStop(1, `hsla(${H},${S}%,${L}%,1)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+    };
+    const initAlphaCanvas = (canvas) => {
+      alphaCanvsSetHue(canvas);
       const { width, height } = canvas;
       const onMouseMove = (e) => {
-        const x = limit(e.clientX - canvas.getBoundingClientRect().left, 0, width),
+        const x = limit(
+            e.clientX - canvas.getBoundingClientRect().left,
+            0,
+            width
+          ),
           alpha = +(x / width).toFixed(2);
-        this.alphaPointer.x = (x - 7)
-        this.valueChange('ALPHA', alpha)
-      }
+        aplhaPointerX.value = x - 7;
+        valueChange("ALPHA", alpha);
+      };
 
       const onMouseUp = () => {
         setTimeout(() => {
-          this.isMouseDown = false
+          isMousePressed.value = false;
         }, 300);
 
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp)
-      }
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
 
-      canvas.addEventListener('mousedown', e => {
-        this.isMouseDown = true
+      canvas.addEventListener("mousedown", (e) => {
+        isMousePressed.value = true;
 
         onMouseMove(e);
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp)
-        e.preventDefault()
-
-      })
-
-    },
-    initPaintCanvas(canvas) {
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+        e.preventDefault();
+      });
+    };
+    const initPaintCanvas = (canvas) => {
       const { width, height } = canvas;
-      const onMouseMove = e => {
-        const x = limit(e.clientX - canvas.getBoundingClientRect().left, 0, width - 1),
-          y = limit(e.clientY - canvas.getBoundingClientRect().top, 0, height - 1),
-          color = this.paintHelper.grabColor(x, y)
+      const onMouseMove = (e) => {
+        const x = limit(
+            e.clientX - canvas.getBoundingClientRect().left,
+            0,
+            width - 1
+          ),
+          y = limit(
+            e.clientY - canvas.getBoundingClientRect().top,
+            0,
+            height - 1
+          ),
+          color = paintHelper.value.grabColor(x, y);
 
-        this.paintPointer.x = x - 7 + 10
-        this.paintPointer.y = y - 7 + 10
-        this.valueChange('RGB', color)
-
-      }
+        paintPointer.x = x - 7 + 10;
+        paintPointer.y = y - 7 + 10;
+        valueChange("RGB", color);
+      };
       const onMouseUp = () => {
         setTimeout(() => {
-          this.isMouseDown = false
+          isMousePressed.value = false;
         }, 300);
 
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp)
-      }
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
 
-      canvas.addEventListener('mousedown', e => {
-        this.isMouseDown = true
+      canvas.addEventListener("mousedown", (e) => {
+        isMousePressed.value = true;
 
-        onMouseMove(e)
-        document.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseup', onMouseUp)
-        e.preventDefault()
-      })
-    },
-    renderPaint() {
+        onMouseMove(e);
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+        e.preventDefault();
+      });
+    };
+    const renderPaint = () => {
       let prop = {
-        class: 'k-color-picker-paint',
+        class: "k-color-picker-paint",
         attrs: { width: 234, height: 136 },
-        ref: 'paint'
-      }
-      return <canvas {...prop} />
-    },
-    renderAlpha() {
+        ref: "paint",
+      };
+      return <canvas {...prop} />;
+    };
+    const renderAlpha = () => {
       let prop = {
-        class: 'k-color-picker-alpha',
+        class: "k-color-picker-alpha",
         attrs: { width: 190, height: 8 },
-        ref: 'alpha'
-      }
-      return !this.noAlpha ? <canvas {...prop} /> : null
-    },
-    renderHue() {
+        ref: "alpha",
+      };
+      return !ps.noAlpha ? <canvas {...prop} /> : null;
+    };
+    const renderHue = () => {
       let prop = {
-        class: 'k-color-picker-hue',
+        class: "k-color-picker-hue",
         attrs: { width: 190, height: 8 },
-        ref: 'hue'
-      }
-      return <canvas {...prop} />
-    },
-    renderValueInput(key) {
+        ref: "hue",
+      };
+      return <canvas {...prop} />;
+    };
+    const renderValueInput = (key) => {
       let prop = {
         attrs: {
-          maxlength: key == 'HEX' ? 9 : 4
+          maxlength: key == "HEX" ? 9 : 4,
         },
         props: {
-          value: this[key] + ('SL'.indexOf(key) >= 0 ? '%' : ''),
+          value: color[key] + ("SL".indexOf(key) >= 0 ? "%" : ""),
           size: "small",
         },
         on: {
-          "input": e => {
-            let value = e.replace('%', '')
+          input: (e) => {
+            let value = e.replace("%", "");
             if (!value) return;
-            if (key == 'HEX') {
-              value = value.toString().toLowerCase()
+            if (key == "HEX") {
+              value = value.toString().toLowerCase();
               if (/^#([0-9A-F]{6}|[0-9A-F]{3}|[0-9A-F]{8})$/i.test(value)) {
-                [this.R, this.G, this.B, this.A] = cssColorToRgba(value) || [this.R, this.G, this.B, this.A];
-                [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
+                [color.R, color.G, color.B, color.A] = cssColorToRgba(
+                  value
+                ) || [color.R, color.G, color.B, color.A];
+                [color.H, color.S, color.L] = rgbToHsl(
+                  color.R,
+                  color.G,
+                  color.B
+                );
               } else {
                 return;
               }
-            } else if (key == 'A') {
+            } else if (key == "A") {
               if (!/^\d(.)\d*$/.test(value) || value > 1) return;
             } else {
               if (!/^\d*$/.test(value)) return;
             }
 
-            this[key] = value
+            color[key] = value;
             // console.log(e,key)
-            if ('RGB'.indexOf(key) >= 0) {
-              [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
+            if ("RGB".indexOf(key) >= 0) {
+              [color.H, color.S, color.L] = rgbToHsl(color.R, color.G, color.B);
             }
-            this.updatePostion()
-            this.paintHelper.setHue(this.H)
-            this.alphaCanvsSetHue(this.$refs.alpha)
-          }
-        }
-      }
-      return <Input {...prop} />
-    },
-    renderValue() {
-      if (this.showMode) {
-        let { currentMode, renderValueInput } = this, node = []
-        let mode = "RGB"
-        let alpha = <Input v-model:value={this.A} size="small" class="k-color-picker-alpha-input" />
-        if (currentMode == 'rgba') {
-          let keys = ['R', 'G', 'B']
-          let v = <div class="k-color-picker-val">{keys.map(k => renderValueInput(k))}{alpha}</div>
+            updatePostion();
+            paintHelper.value.setHue(color.H);
+            alphaCanvsSetHue(refAlpha.value);
+          },
+        },
+      };
+      return <Input {...prop} />;
+    };
+    const renderValue = () => {
+      if (ps.showMode) {
+        let node = [];
+        let mode = "RGB";
+        let alpha = (
+          <Input
+            v-model:value={color.A}
+            size="small"
+            class="k-color-picker-alpha-input"
+          />
+        );
+        if (currentMode.value == "rgba") {
+          let keys = ["R", "G", "B"];
+          let v = (
+            <div class="k-color-picker-val">
+              {keys.map((k) => renderValueInput(k))}
+              {alpha}
+            </div>
+          );
           // let k = <div class="k-color-picker-key">{keys.map(k => <span>{k}</span>)}</div>
-          node.push(v)
-        } else if (currentMode == 'hsla') {
-          mode = 'HSB'
-          let keys = ['H', 'S', 'L']
-          let v = <div class="k-color-picker-val">{keys.map(k => renderValueInput(k))}{alpha}</div>
+          node.push(v);
+        } else if (currentMode.value == "hsla") {
+          mode = "HSB";
+          let keys = ["H", "S", "L"];
+          let v = (
+            <div class="k-color-picker-val">
+              {keys.map((k) => renderValueInput(k))}
+              {alpha}
+            </div>
+          );
           // let k = <div class="k-color-picker-key">{keys.map(k => <span>{k}</span>)}</div>
-          node.push(v)
-        } else { //hex
-          mode = 'HEX'
-          let v = <div class="k-color-picker-val">{renderValueInput('HEX')}{alpha}</div>
+          node.push(v);
+        } else {
+          //hex
+          mode = "HEX";
+          let v = (
+            <div class="k-color-picker-val">
+              {renderValueInput("HEX")}
+              {alpha}
+            </div>
+          );
           // let k = <div class="k-color-picker-key"><span>HEX</span></div>
-          node.push(v)
+          node.push(v);
         }
-        node.unshift(<span class="k-color-picker-mode-label">{mode}:</span>)
-        let btn = <Button size="small" theme="normal" icon={CaretHor} onClick={this.setMode} />
-        node.push(btn)
-        return <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>{node}</div>
+        node.unshift(<span class="k-color-picker-mode-label">{mode}:</span>);
+        let btn = (
+          <Button
+            size="small"
+            theme="normal"
+            icon={CaretHor}
+            onClick={setMode}
+          />
+        );
+        node.push(btn);
+        return (
+          <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>
+            {node}
+          </div>
+        );
       }
-    },
-    renderDefaultColor() {
-      let color = this.defalutColors.map(c => <span style={"background-color:" + c} onClick={e => this.valueChange('COLOR', c)}></span>)
-      // let okBtn = <Button circle onClick={this.updateValue}>OK</Button>
-      return <div class="k-coclor-picker-defaults">{[color]}</div>
-    },
-    renderDrop() {
-      let paint = this.renderPaint()
-      let alpha = this.renderAlpha()
-      let hue = this.renderHue()
-      // let colors = this.renderDefaultColor()
-      let valueNode = this.renderValue()
+    };
+    const renderDefaultColor = () => {
+      let color = ps.defalutColors.map((c) => (
+        <span
+          style={"background-color:" + c}
+          onClick={(e) => valueChange("COLOR", c)}></span>
+      ));
+      // let okBtn = <Button circle onClick={updateValue}>OK</Button>
+      return <div class="k-coclor-picker-defaults">{[color]}</div>;
+    };
+    const renderDrop = () => {
+      if (!rendered.value) return null;
+
+      let paint = renderPaint();
+      let alpha = renderAlpha();
+      let hue = renderHue();
+      // let colors = renderDefaultColor()
+      let valueNode = renderValue();
 
       const props = {
-        ref: 'overlay',
-        props: {
-          placement: 'bottom-left',
-          transfer: true,
-          value: this.opened,
-          selection: this.$el,
-          className: 'k-color-picker-dropdown',
-          transitionName: 'k-color-picker'
+        ref: refPopper,
+        placement: "bottom-left",
+        className: "k-color-picker-dropdown",
+      };
+      let [r, g, b] = hslToRgb(color.H, color.S, color.L);
+      return (
+        <Transition name="k-color-picker">
+          <div v-transfer={true} v-show={visible.value} {...props}>
+            {paint}
+            <span
+              class="k-color-picker-paint-dot"
+              style={
+                "left:" + paintPointer.x + "px;top:" + paintPointer.y + "px"
+              }></span>
+            <div class="k-color-picker-bar">
+              <div class="k-color-picker-avatar">
+                <div
+                  class="k-color-picker-avatar-inner"
+                  style={`background-color:rgba(${color.R}, ${color.G}, ${color.B}, ${color.A})`}></div>
+              </div>
+              <div class="k-color-picker-bar-box">
+                {[hue, alpha]}
+                <span
+                  class="k-color-picker-hue-dot"
+                  style={{
+                    left: huePointerX.value + "px",
+                    backgroundColor: `rgba(${r},${g},${b},1`,
+                  }}></span>
+                {!ps.noAlpha ? (
+                  <span
+                    class="k-color-picker-alpha-dot"
+                    style={{
+                      left: aplhaPointerX.value + "px",
+                      backgroundColor: `rgba(${r},${g},${b},${color.A}`,
+                    }}></span>
+                ) : null}
+              </div>
+            </div>
+            {valueNode}
+            {renderDefaultColor()}
+          </div>
+        </Transition>
+      );
+    };
+
+    return () => {
+      let drop = renderDrop();
+      let { showArrow, icon } = ps;
+      let style = [
+        "k-color-picker",
+        {
+          "k-color-picker-opened": visible.value,
+          "k-color-picker-disabled": ps.disabled,
+          "k-color-picker-sm": ps.size == "small",
+          "k-color-picker-circle": ps.shape == "circle" && !showArrow,
+          "k-color-picker-lg": ps.size == "large",
         },
-        on: {
-          input: e => {
-            this.opened = e
-            this.currentColor = this.value || '#000'
-          },
-          hide: () => {
-            this.opened = false
-            // this.currentColor = this.value || '#000'
-          },
-          render: () => {
-            this.$nextTick(() => {
-              let { paint, hue, alpha } = this.$refs
-              this.paintHelper = canvasHelper(paint);
-              this.initHueCanvas(hue);
-              (!this.noAlpha && this.initAlphaCanvas(alpha));
-              this.initPaintCanvas(paint)
-              this.valueChange('COLOR', this.value)
-            })
-          },
-        }
-      }
-      let [r, g, b] = hslToRgb(this.H, this.S, this.L);
-      return (<Drop {...props}>
-        {paint}
-        < span class="k-color-picker-paint-dot" style={'left:' + this.paintPointer.x + 'px;top:' + this.paintPointer.y + 'px'} ></span >
-        <div class="k-color-picker-bar">
-          <div class="k-color-picker-avatar">
-            <div class="k-color-picker-avatar-inner" style={`background-color:rgba(${this.R}, ${this.G}, ${this.B}, ${this.A})`}></div>
+      ];
+      return (
+        <div class={style}>
+          <div class="k-color-picker-selection" onClick={toggle}>
+            <div class="k-color-picker-color">
+              <div
+                class="k-color-picker-color-inner"
+                style={`background-color:${currentColor.value}`}></div>
+            </div>
+            {/* <div class="k-color-picker-trigger-text">{triggerText}</div> */}
+            {showArrow && (
+              <Icon class="k-color-picker-arrow" type={icon || ChevronDown} />
+            )}
           </div>
-          <div class="k-color-picker-bar-box">
-            {[hue, alpha]}
-            <span class="k-color-picker-hue-dot" style={{ 'left': this.huePointer.x + 'px', backgroundColor: `rgba(${r},${g},${b},1` }}></span>
-            {!this.noAlpha ? <span class="k-color-picker-alpha-dot" style={{ 'left': this.alphaPointer.x + 'px', backgroundColor: `rgba(${r},${g},${b},${this.A}` }} ></span> : null}
-          </div>
+          {drop}
         </div>
-        {valueNode}
-        {this.renderDefaultColor()}
-      </Drop >
-      )
-    }
+      );
+    };
   },
-
-  render() {
-    let drop = this.renderDrop()
-    let { showArrow, icon, currentMode } = this
-    let style = [
-      'k-color-picker',
-      {
-        'k-color-picker-opened': this.opened,
-        'k-color-picker-disabled': this.disabled,
-        'k-color-picker-sm': this.size == 'small',
-        'k-color-picker-circle': this.shape == 'circle' && !showArrow,
-        'k-color-picker-lg': this.size == 'large'
-      },
-    ]
-    // let triggerText = ""
-    // if (currentMode == 'hex') {
-    //   triggerText = this.currentColor
-    // } else {
-    //   triggerText = this.currentColor.substr(0, 7)
-    // }
-
-
-    return (<div class={style} >
-      <div class="k-color-picker-selection" onClick={this.toggleDrop}>
-        <div class="k-color-picker-color">
-          <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
-        </div>
-        {/* <div class="k-color-picker-trigger-text">{triggerText}</div> */}
-        {showArrow && <Icon class="k-color-picker-arrow" type={icon || ChevronDown} />}
-      </div>
-      {drop}
-    </div >)
-  }
-}
+});
