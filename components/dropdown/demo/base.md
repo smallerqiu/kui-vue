@@ -5,65 +5,44 @@
 
 ```vue
 <template>
-  <Dropdown show-placement-arrow >
-    <Button>
-      滑动展开 <Icon :type="ChevronDown" />
+  <Dropdown>
+    <Button theme="normal">
+      Hover me
     </Button>
-    <Menu slot="content">
-      <MenuItem>
-        <a href="javascript:;">1st menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">2nd menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">3rd menu item</a>
-      </MenuItem>
-    </Menu>
+    <template #overlay>
+      <Menu>
+        <MenuItem>
+          <a href="javascript:;">1st menu item</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="javascript:;">2nd menu item</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="javascript:;">3rd menu item</a>
+        </MenuItem>
+      </Menu>
+    </template>
   </Dropdown>
-  <Dropdown show-placement-arrow trigger="normal" placement="bottom" v-model:show="show">
-    <Button theme="light" @click="show=!show">
-      Toggle <Icon :type="ChevronDown" />
+  <Dropdown trigger="click">
+    <Button theme="normal">
+      Click me
     </Button>
-    <Menu slot="content">
-      <MenuItem>
-        <a href="javascript:;">1st menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">2nd menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">3rd menu item</a>
-      </MenuItem>
-    </Menu>
-  </Dropdown>
-
-  <Dropdown trigger="click" >
-    <Button theme="light">
-      Click me <Icon :type="ChevronDown" />
-    </Button>
-    <Menu slot="content">
-      <MenuItem>
-        <a href="javascript:;">1st menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">2nd menu item</a>
-      </MenuItem>
-      <MenuItem>
-        <a href="javascript:;">3rd menu item</a>
-      </MenuItem>
-    </Menu>
+    <template #overlay>
+      <Menu>
+        <MenuItem>
+          <a href="javascript:;">1st menu item</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="javascript:;">2nd menu item</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="javascript:;">3rd menu item</a>
+        </MenuItem>
+      </Menu>
+    </template>
   </Dropdown>
 </template>
-<script>
+<script setup>
 import { ChevronDown } from 'kui-icons'
-export default{
-  data() {
-    return {
-      ChevronDown,
-      show:false
-    }
-  }
-}
 </script>
 ```

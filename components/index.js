@@ -1,7 +1,7 @@
 import Alert from "./alert";
 import Affix from "./affix";
 import Avatar from "./avatar";
-import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
+import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
 import { Button, ButtonGroup } from "./button";
 import Badge from "./badge";
 // import BackTop from './backtop'
@@ -12,37 +12,43 @@ import { Collapse, CollapsePanel } from "./collapse";
 import { Checkbox, CheckboxGroup } from "./checkbox";
 // import { DatePicker, DateCalendar } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
-import Drawer from './drawer'
-// import Dropdown from './dropdown'
+import Drawer from "./drawer";
+import { Dropdown, DropdownButton } from "./dropdown";
 import Divider from "./divider";
-import Empty from './empty'
+import Empty from "./empty";
 // import { Form, FormItem } from './form'
 import Flex from "./flex";
 // import { Image, ImageGroup } from './image'
 import Icon from "./icon";
 import { Input, TextArea, InputGroup } from "./input";
-import InputNumber from './inputNumber'
+import InputNumber from "./inputNumber";
 import { Layout, Header, Footer, Content, Sider } from "./layout";
 import loading from "./loading";
 import modal from "./modal";
-import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
+import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from "./menu";
 import message from "./message";
 import notice from "./notice";
-import Page from './page'
+import Page from "./page";
 import Poptip from "./poptip";
 import Popconfirm from "./popconfirm";
 import Progress from "./progress";
 import { Radio, RadioGroup, RadioButton } from "./radio";
 import Rate from "./rate";
-import { Select, Option } from './select'
-import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from "./skeleton";
+import { Select, Option } from "./select";
+import {
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonButton,
+  SkeletonImage,
+  SkeletonText,
+} from "./skeleton";
 import Slider from "./slider";
 import Space from "./space";
 import Spin from "./spin";
 import Switch from "./switch";
 // import Table from './table'
 import Tooltip from "./tooltip";
-import { Tabs, TabPane } from './tabs'
+import { Tabs, TabPane } from "./tabs";
 import { TimeLine, TimeLineItem } from "./timeline";
 // import { Tree, TreeNode } from './tree'
 // import TreeSelect from './treeselect'
@@ -61,7 +67,8 @@ const components = {
   Avatar,
   // BackTop,
   Badge,
-  Breadcrumb, BreadcrumbItem,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   ButtonGroup,
   Card,
@@ -77,7 +84,8 @@ const components = {
   // DatePicker, DateCalendar,
   Descriptions,
   DescriptionsItem,
-  // Dropdown,
+  Dropdown,
+  DropdownButton,
   Drawer,
   Divider,
   Empty,
@@ -89,7 +97,11 @@ const components = {
   TextArea,
   InputGroup,
   InputNumber,
-  Menu, MenuGroup, MenuItem, MenuDivider, SubMenu,
+  Menu,
+  MenuGroup,
+  MenuItem,
+  MenuDivider,
+  SubMenu,
   Modal: modal,
   message,
   Layout,
@@ -107,7 +119,8 @@ const components = {
   RadioGroup,
   RadioButton,
   Rate,
-  Select, Option,
+  Select,
+  Option,
   Space,
   Spin,
   Skeleton,
@@ -117,7 +130,8 @@ const components = {
   SkeletonText,
   Slider,
   // Table,
-  Tabs, TabPane,
+  Tabs,
+  TabPane,
   TimeLine,
   TimeLineItem,
   Tag,

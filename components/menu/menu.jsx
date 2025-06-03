@@ -30,6 +30,7 @@ export default defineComponent({
     provide("menu-selected-keys", defaultSelectedKeys);
     provide("menu-mode", currentMode);
     provide("menu-inline-collapsed", currentInlineCollapsed);
+    const dropdown = inject("dropdown", null);
 
     watch(
       () => props.selectedKeys,
@@ -74,7 +75,7 @@ export default defineComponent({
         defaultOpenKeys.value = tempOpenKeys.value;
       }
     };
-
+    const dropdownMenuSelected = inject("dropdown-menu-selected", null);
     const selectedKeysChange = (key, selected, keyPath) => {
       // console.log(key, selected, keyPath)
       if (selected) {
@@ -85,7 +86,7 @@ export default defineComponent({
         );
       }
       emit("update:selectedKeys", defaultSelectedKeys.value);
-      emit("select", key, keyPath);
+      emit("select", { key, keyPath });
 
       if (
         currentMode.value == "horizontal" ||
@@ -97,6 +98,7 @@ export default defineComponent({
         }
         defaultOpenKeys.value = [];
       }
+      dropdownMenuSelected?.({ key, keyPath });
     };
 
     const openKeysChange = (key, opened, keyPath) => {
@@ -117,7 +119,7 @@ export default defineComponent({
     provide("selectedKeysChange", selectedKeysChange);
 
     return () => {
-      const preCls = "menu";
+      const preCls = dropdown ? "dropdown-menu" : "menu";
       const cls = [
         `k-${preCls} k-${preCls}-${currentMode.value}`,
         {

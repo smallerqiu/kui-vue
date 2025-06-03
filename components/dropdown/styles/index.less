@@ -10,6 +10,7 @@
     background: var(--kui-color-control-10);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: var(--kui-border-radius);
+    border: 1px solid var(--kui-color-border);
   }
 
   .k-dropdown-menu {
@@ -18,6 +19,35 @@
 
   .k-dropdown-menu-item-icon {
     margin-right: 8px;
+  }
+
+
+}
+
+.k-dropdown-menu-submenu-arrow {
+  // mode inline
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 1.5px;
+    background-color: currentcolor;
+    border-radius: 6px;
+    transition: all .3s cubic-bezier(.215, .61, .355, 1);
+  }
+
+  &::before {
+    transform: rotate(45deg) translateY(-2.5px);
+  }
+
+  &::after {
+    transform: rotate(-45deg) translateY(2.5px);
   }
 }
 
@@ -31,8 +61,9 @@
     box-sizing: border-box;
     display: flex;
     width: 24px;
-    height: 7px;
+    height: 9px;
     color: var(--kui-color-back);
+
     svg {
       filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.05));
     }
@@ -47,10 +78,10 @@
   &[k-placement^=top] {
     .k-dropdown-arrow {
       bottom: 6px;
-      height: 7px;
+      height: 9px;
     }
 
-    .k-dropdown-body {
+    .k-dropdown-content {
       margin-bottom: 12px;
     }
   }
@@ -77,11 +108,11 @@
   &[k-placement^=bottom] {
     .k-dropdown-arrow {
       top: 6px;
-      height: 7px;
+      height: 9px;
       transform: rotate(180deg);
     }
 
-    .k-dropdown-body {
+    .k-dropdown-content {
       margin-top: 12px;
     }
   }
@@ -111,7 +142,7 @@
       box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
     }
 
-    .k-dropdown-body {
+    .k-dropdown-content {
       margin-right: 12px;
     }
   }
@@ -141,7 +172,7 @@
       box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
     }
 
-    .k-dropdown-body {
+    .k-dropdown-content {
       margin-left: 12px;
     }
   }
@@ -185,4 +216,16 @@
 
 .k-dropdown-fade-leave-active {
   animation: dropdown-zoom .3s reverse;
+}
+
+.k-dropdown-button {
+  .k-dropdown-trigger {
+    padding: 0;
+    width: 32px;
+  }
+}
+
+.k-dropdown-content #ot {
+  stroke-width: 0.1em;
+  stroke: var(--kui-color-border);
 }

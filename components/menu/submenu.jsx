@@ -26,7 +26,6 @@ export default defineComponent({
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
-    const preCls = "menu-submenu";
     const refCtx = ref(null);
     const refPopper = ref(null);
     const top = ref(0);
@@ -44,6 +43,8 @@ export default defineComponent({
     const transOrigin = ref("bottom left");
     const popTimer = ref(null);
     const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
+    const dropdown = inject("dropdown", null);
+    const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";
 
     const inline = mode.value == "inline";
 
@@ -146,9 +147,9 @@ export default defineComponent({
         // }
       });
       return rendered.value ? (
-        <Transition name="k-menu-submenu-popup">
+        <Transition name={`k-${preCls}-popup`}>
           <div
-            className="k-menu-submenu-popup"
+            className={`k-${preCls}-popup`}
             v-show={opened}
             v-transfer={true}
             {...poperPros}>
@@ -189,7 +190,7 @@ export default defineComponent({
     };
 
     return () => {
-      const selected = selectedKeys.value.indexOf(key) >= 0;
+      const selected = selectedKeys.value.indexOf(key) >= 0 && !dropdown;
       const opened = openKeys.value.indexOf(key) >= 0;
       let titleProps = {
         class: `k-${preCls}-title`,
@@ -197,6 +198,7 @@ export default defineComponent({
       };
       if (mode.value == "inline" && !inlineCollapsed.value) {
         titleProps.onClick = () => {
+          if (ps.disabled) return;
           openKeysChange?.(key, !opened, keyPah);
         };
       } else if (
@@ -207,10 +209,12 @@ export default defineComponent({
         // popper
         titleProps.ref = refCtx;
         titleProps.onMouseenter = () => {
+          if (ps.disabled) return;
           clearCurrentPopTimer();
           showPoper();
         };
         titleProps.onMouseleave = () => {
+          if (ps.disabled) return;
           popTimer.value = setTimeout(() => {
             openKeysChange?.(key, false, keyPah);
           }, 200);
@@ -220,11 +224,11 @@ export default defineComponent({
         titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
       }
       let title = ps.title || slots.title?.();
-      // todo: horizontal 隐藏箭头
+
       const titleNode = (
         <div {...titleProps}>
           {ps.icon ? <Icon type={ps.icon} class="k-menu-item-icon" /> : null}
-          {<span class="k-menu-title-content">{title}</span>}
+          {<span class={`k-${preCls}-title-content`}>{title}</span>}
           {mode.value == "horizontal" && !keyPah.length ? null : (
             <i class={`k-${preCls}-arrow`} />
           )}
