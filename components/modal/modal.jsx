@@ -31,7 +31,7 @@ export default defineComponent({
     const showInner = ref(ps.show);
     const left = ref(0);
     const currentTop = ref(ps.top);
-    const isMouseDown = ref(false);
+    const isMousePressed = ref(false);
     const mousedownIn = ref(false);
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref(null);
@@ -120,7 +120,7 @@ export default defineComponent({
       }
     };
     const mousemove = (e) => {
-      if (isMouseDown.value && ps.draggable) {
+      if (isMousePressed.value && ps.draggable) {
         let { x, y } = startPos.value;
         left.value += e.clientX - x;
         currentTop.value = currentTop.value || 100;
@@ -131,13 +131,13 @@ export default defineComponent({
       }
     };
     const mouseup = (e) => {
-      isMouseDown.value = false;
+      isMousePressed.value = false;
       document.removeEventListener("mousemove", mousemove);
       document.removeEventListener("mouseup", mouseup);
     };
     const mousedown = (e) => {
       if (e.button == 0 && ps.draggable === true && refHeader.value && refHeader.value.contains(e.target)) {
-        isMouseDown.value = true;
+        isMousePressed.value = true;
         startPos.value = { x: e.clientX, y: e.clientY };
         mousemove(e);
         document.addEventListener("mousemove", mousemove);

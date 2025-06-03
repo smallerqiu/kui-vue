@@ -16,7 +16,7 @@ export default defineComponent({
   },
   emits: ["thumbMove", "keydown-update"],
   setup(ps, { slots, emit }) {
-    const isMouseDown = ref(false);
+    const isMousePressed = ref(false);
     const refThumb = ref(null);
     const index = ref(1);
     const showTip = ref(ps.tooltipVisible);
@@ -25,7 +25,7 @@ export default defineComponent({
       (window.DocumentTouch && document instanceof window.DocumentTouch)
     );
     const mouseMove = (e) => {
-      if (isMouseDown.value) {
+      if (isMousePressed.value) {
         e.preventDefault();
         emit("thumbMove", e, ps.type);
       }
@@ -40,7 +40,7 @@ export default defineComponent({
     };
 
     const mouseUp = (e) => {
-      isMouseDown.value = false;
+      isMousePressed.value = false;
       index.value = 1;
       if (ps.tooltipVisible === true) {
         showTip.value = true;
@@ -61,7 +61,7 @@ export default defineComponent({
       console.log(123);
       // emit("updatePos", 123123123);
       if (ps.disabled) return;
-      isMouseDown.value = true;
+      isMousePressed.value = true;
       showTip.value = true;
       index.value = 2;
       let [e1, e2] = touch
@@ -101,7 +101,7 @@ export default defineComponent({
             showTip.value = true;
             return;
           }
-          if (!isMouseDown.value) {
+          if (!isMousePressed.value) {
             showTip.value = false;
           }
         },

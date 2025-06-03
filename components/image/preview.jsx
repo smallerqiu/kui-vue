@@ -25,7 +25,7 @@ export default {
       initPos: { x: 0, y: 0 },
       left: 0,
       top: 0,
-      ismousedown: false,
+      isMousePressed: false,
       visible: this.value,
       src: this.origin,
       loading: false,
@@ -114,7 +114,7 @@ export default {
           clientX = e.clientX
           clientY = e.clientY
         }
-        this.ismousedown = true
+        this.isMousePressed = true
         this.startPos = { x: clientX, y: clientY }
         this.initPos = { x: clientX, y: clientY }
         this.mousemove(e)
@@ -159,14 +159,14 @@ export default {
       }
     },
     mouseup(e) {
-      this.ismousedown = false
+      this.isMousePressed = false
       this.resetPosition()
       let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
       document.removeEventListener(e1, this.mousemove)
       document.removeEventListener(e2, this.mouseup)
     },
     mousemove(e) {
-      if (this.ismousedown) {
+      if (this.isMousePressed) {
         e.preventDefault()
         let clientX, clientY;
         if (e.touches && e.touches.length == 1) {
@@ -274,7 +274,7 @@ export default {
     }
     const moveStyle = {
       transform: `translate3d(${left}px, ${top}px, 0px)`,
-      transition: this.ismousedown ? '0s' : null
+      transition: this.isMousePressed ? '0s' : null
     }
     const imgPorps = {
       class: 'k-image-preview-img',
