@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
 import { Button, ButtonGroup } from "./button";
 import Badge from "./badge";
 // import BackTop from './backtop'
-// import ColorPicker from './colorPicker'
+import ColorPicker from './colorPicker'
 import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
 import { Collapse, CollapsePanel } from "./collapse";
@@ -78,7 +78,7 @@ const components = {
   CheckboxGroup,
   Collapse,
   CollapsePanel,
-  // ColorPicker,
+  ColorPicker,
   Col,
   Row,
   // DatePicker, DateCalendar,
