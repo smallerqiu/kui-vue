@@ -33,7 +33,7 @@
       <!-- <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
         @change="changeThemeColor" /> -->
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large" ref="triggerRef"
           style="margin:0 8px;" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
@@ -43,11 +43,13 @@
   </Header>
 </template>
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, nextTick } from 'vue'
 import { menus } from "../menu";
 import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 import pkg from '/package.json'
 import { useRoute, useRouter } from "vue-router";
+import { setThemeMode } from '../utils/theme';
+// import Darkmode from 'darkmode-js';
 
 
 const themeColor = ref('#3a95ff')
@@ -59,9 +61,10 @@ const topMenu = ref([])
 const theme = ref('')
 const router = useRouter();
 const route = useRoute();
+const triggerRef = ref(null)
 
 onMounted(() => {
-  let themeLocal = localStorage.getItem('theme') || ''
+  let themeLocal = localStorage.getItem('theme-mode') || ''
   let themeColorLocal = localStorage.getItem('themeColor') || ''
   if (themeLocal) {
     document.documentElement.setAttribute('theme-mode', themeLocal);
@@ -106,19 +109,10 @@ const changeThemeColor = (v) => {
   document.body.setAttribute('theme-type', 'custom')
   localStorage.setItem('themeColor', v)
 }
-
-const changeMode = () => {
-  const body = document.documentElement;
-  if (body.hasAttribute('theme-mode')) {
-    body.removeAttribute('theme-mode');
-    localStorage.removeItem('theme')
-    theme.value = ''
-  } else {
-    body.setAttribute('theme-mode', 'dark');
-    localStorage.setItem('theme', 'dark')
-    theme.value = 'dark'
-  }
+const changeMode = (event) => {
+  setThemeMode(event, v => theme.value = v ? 'dark' : 'light')
 }
+
 
 const menuClick = ({ key, keyPath, item }) => {
   if (key == "home") {

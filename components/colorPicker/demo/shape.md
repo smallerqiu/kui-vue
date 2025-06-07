@@ -13,24 +13,13 @@
     </FormItem>
     <FormItem label="自定义下拉箭头">
       <ColorPicker showMode v-model:value="color2" mode="rgba" :icon="CaretDown"/>
-    </FormItem>
-    <FormItem label="圆形">
-      <ColorPicker showMode v-model:value="color3"  mode="hsla" shape="circle" :showArrow="false"/>
-    </FormItem>
+    </FormItem> 
    </Form>
   </div>
 </template>
-<script>
+<script setup>
 import { CaretDown } from "kui-icons";
-export default {
-  data() {
-    return {
-      CaretDown,
-      color1: '#f44336',
-      color2: '#9c27b0',
-      color3: '#03a9f4',
-    };
-  }
-}
+const color1 = '#3a95ff'
+const color2 = '#3a95ff' 
 </script> 
 ```

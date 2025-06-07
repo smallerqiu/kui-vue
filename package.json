@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vue/babel-plugin-jsx": "^1.4.0",
+    "color": "^5.0.0",
     "core-js": "^3.8.3",
     "kui-icons": "^4.1.4",
     "vue": "^3.4.38",

@@ -19,15 +19,9 @@
     </Form>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color1: '#f44336',
-      color2: '#9c27b0',
-      color3: '#03a9f4',
-    };
-  }
-}
+<script setup>
+const color1 = '#3a95ff'
+const color2 = '#3a95ff'
+const color3 = '#3a95ff'
 </script> 
 ```

@@ -7,17 +7,9 @@
 <template>
   <div class="demo-color-picker">
     <ColorPicker v-model:value="color"/>
-    <br/>
-    <ColorPicker v-model:value="color" disabled/>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color: 'rgba(182,2,247,1)',
-    };
-  }
-}
+<script setup>
+const color = '#3a95ff'
 </script> 
 ```

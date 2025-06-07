@@ -9,14 +9,8 @@
     <ColorPicker showMode v-model:value="color" :defalut-colors="colors" />
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color: '#f44336',
-      colors: ['#9c27b0','red','blue'],
-    };
-  }
-}
+<script setup>
+const color = '#3a95ff'
+const colors = ['#9c27b0','red','blue']
 </script> 
 ```
