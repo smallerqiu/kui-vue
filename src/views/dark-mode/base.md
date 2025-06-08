@@ -5,11 +5,4 @@
 
 3.2.5之后的版本暗色模式的切换是通过给 根元素节点 添加属性 [theme-mode='dark'] 来实现的 ,下面是例子:
 
-```js
-const body = document.documentElement;
-if (body.hasAttribute('theme-mode')) {
-    body.removeAttribute('theme-mode');
-} else {
-    body.setAttribute('theme-mode', 'dark');
-}
-```
+4.x 之后提供开箱即用的 `API`. 切换主题轻而易举.

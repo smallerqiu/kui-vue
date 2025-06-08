@@ -56,8 +56,8 @@ Modal.destroyAll = (e) => {
   });
 };
 Modal.install = (app) => {
-  app.provide("modal", this);
-  app.config.globalProperties.$modal = this;
+  app.provide("modal", Modal);
+  app.config.globalProperties.$modal = Modal;
 };
 
 Modal.useModal= () => {

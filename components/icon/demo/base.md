@@ -5,14 +5,15 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
+    <Icon :type="Home" />
     <Icon :type="Heart" />
-    <Icon :type="LogoKui" size="25" />
-    <Icon :type="LogoKui" size="30" color="#00be83" />
-    <Icon :type="LogoKui" spin size="25" />
-  </div>
+    <Icon :type="LogoKui"  />
+    <Icon :type="LogoKui"  color="#00be83" />
+    <Icon :type="Loading" spin />
+  </Space>
 </template>
 <script setup>
-import { Heart, LogoKui } from 'kui-icons'
+import { Heart, LogoKui ,Home , Loading } from 'kui-icons'
 </script>
 ```

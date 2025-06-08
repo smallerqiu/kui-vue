@@ -4,8 +4,7 @@ import { clamp } from "@vueuse/core";
 export default defineComponent({
   name: "Alpha",
   props: {
-    value: String,
-    show: Boolean,
+    value: [String, Object],
   },
   setup(ps, { emit }) {
     const dotPos = ref(0);
@@ -23,15 +22,13 @@ export default defineComponent({
     );
 
     onMounted(() => {
-      if (ps.show) {
-        renderPaint();
-        updatePos();
-      }
+      renderPaint();
+      updatePos();
     });
 
     const updatePos = () => {
       const a = Color(currentColor.value).alpha();
-      const x = 190 * a;
+      const x = refPaint.value.width * a;
       dotPos.value = x - 7;
     };
 
@@ -90,7 +87,7 @@ export default defineComponent({
         ref: refPaint,
         onMousedown: onMousedown,
       };
-      return ps.show ? (
+      return (
         <div class="k-color-picker-alpha-box">
           <canvas {...prop} />
           <span
@@ -100,7 +97,7 @@ export default defineComponent({
               backgroundColor: `${currentColor.value}`,
             }}></span>
         </div>
-      ) : null;
+      );
     };
   },
 });

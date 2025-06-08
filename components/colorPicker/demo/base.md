@@ -10,6 +10,7 @@
   </div>
 </template>
 <script setup>
-const color = '#3a95ff'
+import { ref } from "vue";
+const color = ref('#3a95ff')
 </script> 
 ```

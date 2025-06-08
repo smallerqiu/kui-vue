@@ -20,9 +20,9 @@ let Message = {
     }
   },
   install(app) {
-    app.provide("message", this);
+    app.provide("message", Message);
     // 可选：同时挂到 globalProperties 兼容 this.$message
-    app.config.globalProperties.$message = this;
+    app.config.globalProperties.$message = Message;
   },
   useMessage() {
     return inject("message");

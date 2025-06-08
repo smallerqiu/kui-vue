@@ -4,45 +4,45 @@ import { clamp } from "@vueuse/core";
 export default defineComponent({
   name: "Hue",
   props: {
-    value: String,
+    hue: Number,
   },
   setup(ps, { emit }) {
     const dotPos = ref(0);
     const refPaint = ref(null);
     const isMousePressed = ref(false);
     // const painter = ref(null);
-    const currentColor = ref(ps.value || "#000000");
-    const dotColor = ref(null);
+    const currentHue = ref(ps.hue || 360);
+    const currentColor = ref(null);
     watch(
-      () => ps.value,
+      () => ps.hue,
       (val) => {
-        currentColor.value = val;
+        currentHue.value = val;
         updatePos();
       }
     );
 
     onMounted(() => {
-      // painter.value = canvasHelper(refPaint.value);
       renderPaint();
       updatePos();
     });
 
     const onMouseMove = (e) => {
       const canvas = refPaint.value;
-      const ctx = canvas.getContext("2d", { willReadFrequently: true });
-      const { width } = canvas;
+      const width = canvas.width;
       const x = clamp(
         e.clientX - canvas.getBoundingClientRect().left,
         0,
-        width - 0.1
+        width
       );
       dotPos.value = x - 7;
-      const [r, g, b, alpha] = ctx.getImageData(x, 1, 1, 1).data;
-      // updatePainter("HUE", hue);
-      // currentColor.value = Color({ r, g, b, alpha }).hsv();
-      const color = Color({ r, g, b, alpha }).hsl();
-      dotColor.value = color;
-      emit("updateHue", color.hue());
+      const hue = clamp((x / 100) * width, 0, 359) * 1;
+      currentColor.value = Color({
+        h: hue,
+        s: "100",
+        l: "50",
+      }).rgb();
+      // console.log(hue);
+      emit("updateHue", Math.round(hue));
     };
 
     const onMouseUp = () => {
@@ -76,22 +76,13 @@ export default defineComponent({
       ctx.fillRect(0, 0, width, height);
     };
     const updatePos = () => {
-      if (currentColor.value) {
-        const canvas = refPaint.value;
-        let { width } = canvas;
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        const H = Color(currentColor.value).hsv().hue();
-        const x = clamp(Math.round((width * H) / 360), 0, width);
-
-        // if (x > 0) {
-        dotPos.value = x - 7;
-        // console.log("x", x);
-
-        const [r, g, b, alpha] = ctx.getImageData(x, 1, 1, 1).data;
-        dotColor.value = Color({ r, g, b, alpha }).hex();
-        // }
-        // currentColor.value = Color({ r, g, b, alpha }).hex();
-      }
+      currentColor.value = Color({
+        h: currentHue.value,
+        s: "100",
+        l: "50",
+      }).rgb();
+      // console.log(currentHue.value);
+      dotPos.value = (currentHue.value / 360) * 190 - 7;
     };
     return () => {
       let prop = {
@@ -107,7 +98,7 @@ export default defineComponent({
             class="k-color-picker-hue-dot"
             style={{
               left: dotPos.value + "px",
-              backgroundColor: dotColor.value,
+              backgroundColor: currentColor.value,
             }}></span>
           <canvas {...prop} />
         </div>

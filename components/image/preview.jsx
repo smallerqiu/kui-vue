@@ -2,7 +2,7 @@ import Icon from '../icon'
 import transfer from "../_tool/transfer";
 import { getChild, measureScrollBar } from '../_tool/utils'
 let cacheBodyOverflow = {};
-import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Sync, AddCircleOutline, RemoveCircleOutline } from 'kui-icons'
+import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Loading, AddCircleOutline, RemoveCircleOutline } from 'kui-icons'
 export default {
   name: 'Preview',
   directives: { transfer },
@@ -323,7 +323,7 @@ export default {
               <div class={["k-image-preview-switch-right", { 'k-image-preview-switch-disabled': data.indexOf(src) == (data.length - 1) }]}
                 onClick={() => this.switchImage()}><Icon type={ChevronUp} /></div>]
               : null}
-            {loading ? <div class="k-image-preview-loading"><Icon type={Sync} spin /></div> : null}
+            {loading ? <div class="k-image-preview-loading"><Icon type={Loading} spin /></div> : null}
           </div>
           {this.getPanel()}
         </div>

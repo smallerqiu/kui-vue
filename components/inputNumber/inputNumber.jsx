@@ -1,6 +1,12 @@
 import Input from "../input/input";
 import Icon from "../icon";
-import { add, subtract, toFixed, isValidNumber, isEmpty } from "../utils/number";
+import {
+  add,
+  subtract,
+  toFixed,
+  isValidNumber,
+  isEmpty,
+} from "../utils/number";
 import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch } from "vue";
 export default defineComponent({
@@ -79,15 +85,18 @@ export default defineComponent({
       if (!isValidNumber(outputValue.value) || isEmpty(outputValue.value)) {
         outputValue.value = 0;
       }
-      let value = isUp == 1 ? add(String(outputValue.value), String(step)) : subtract(String(outputValue.value), String(step));
+      let value =
+        isUp == 1
+          ? add(String(outputValue.value), String(step))
+          : subtract(String(outputValue.value), String(step));
       const { input, output } = getValue(value, true);
 
       inputValue.value = input;
       outputValue.value = output;
+      e.preventDefault();
 
       emit("update:value", output);
-      emit("change", e);
-      e.preventDefault();
+      emit("change", { target: { value: output } });
     };
 
     const onKeyDown = (e) => {
@@ -142,14 +151,16 @@ export default defineComponent({
         inputType: "input-number",
         value: inputValue.value,
         clearable: false,
-        "onUpdate:value": (e) => {},
         onInput: (e) => {
           onUpdate(e);
         },
+        onChange: (e) => {},
         onBlur: (e) => blurHandle(e),
         onKeydown: (e) => onKeyDown(e),
       };
-      const suffixNode = slots.suffix?.() || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
+      const suffixNode =
+        slots.suffix?.() ||
+        (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
       return (
         <Input
           {...props}
@@ -158,10 +169,14 @@ export default defineComponent({
             controls: () =>
               ps.controls ? (
                 <div class="k-input-number-controls">
-                  <span class="k-input-number-control" onClick={(e) => calcValue(e, 1)}>
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e, 1)}>
                     <Icon type={ChevronUp} />
                   </span>
-                  <span class="k-input-number-control" onClick={(e) => calcValue(e)}>
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e)}>
                     <Icon type={ChevronUp} />
                   </span>
                 </div>

@@ -4,7 +4,7 @@ import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
 
 import Drop from '../base/drop'
 import { t } from '../locale';
-import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
+import { Loading, Close, CloseCircle, ChevronDown } from 'kui-icons'
 import { Tree } from '../tree'
 const cloneDeep = require('lodash.clonedeep');
 
@@ -394,7 +394,7 @@ export default {
     </div>
 
 
-    const loadingNode = <div class="k-tree-select-loading"><Icon type={Sync} spin /><span>{t('k.select.loading')}</span></div>
+    const loadingNode = <div class="k-tree-select-loading"><Icon type={Loading} spin /><span>{t('k.select.loading')}</span></div>
     const props = {
       ref: 'overlay',
       props: {

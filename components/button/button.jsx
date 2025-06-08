@@ -1,6 +1,6 @@
 import { defineComponent, computed } from "vue";
 import Icon from "../icon";
-import { Loading, Sync } from "kui-icons";
+import { Loading } from "kui-icons";
 import { getChildren } from "../utils/vnode";
 export default defineComponent({
   name: "Button",

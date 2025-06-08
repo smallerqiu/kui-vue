@@ -5,7 +5,7 @@ import Node from './node.jsx'
 import { getTranstionProp } from '../base/transition'
 import { getChild } from '../_tool/utils'
 import cloneVNode from '../_tool/clone.js'
-import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
+import { Loading, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
 export default {
   name: 'TreeNode',
   props: {
@@ -207,7 +207,7 @@ export default {
     if ((hasChilds || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Button size="small" theme="normal" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
+        <Button size="small" theme="normal" loading={loading} icon={loading ? Loading : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
     } else {
