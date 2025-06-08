@@ -118,9 +118,9 @@ let Loading = {
     }
   },
   install(app) {
-    app.provide("loading", this);
+    app.provide("loading", Loading);
     // 可选：同时挂到 globalProperties 兼容 this.$loading
-    app.config.globalProperties.$loading = this;
+    app.config.globalProperties.$loading = Loading;
   },
   useLoading() {
     return inject("loading");

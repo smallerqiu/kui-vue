@@ -30,11 +30,11 @@
           <MenuItem key="https://chuchur.com/">Blog</MenuItem>
         </SubMenu>
       </Menu>
-      <!-- <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
-        @change="changeThemeColor" /> -->
-      <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large" ref="triggerRef"
-          style="margin:0 8px;" />
+      <ColorPicker class="theme" mode="rgb" v-model:value="themeColor" style="margin-left:8px" disabledAlpha
+        placement="bottom-right" @change="changeThemeColor" />
+      <Tooltip :title="`切换${currentTheme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
+        <Button theme="normal" :icon="currentTheme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+          ref="triggerRef" style="margin:0 8px;" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
         <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" theme="normal" size="large"></Button>
@@ -48,9 +48,8 @@ import { menus } from "../menu";
 import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 import pkg from '/package.json'
 import { useRoute, useRouter } from "vue-router";
-import { setThemeMode } from '../utils/theme';
 // import Darkmode from 'darkmode-js';
-
+import { theme } from 'kui-vue';
 
 const themeColor = ref('#3a95ff')
 const version = ref(pkg.version)
@@ -58,7 +57,7 @@ const menuData = ref(menus.sort())
 const v = ref("3")
 const key = ref("")
 const topMenu = ref([])
-const theme = ref('')
+const currentTheme = ref('')
 const router = useRouter();
 const route = useRoute();
 const triggerRef = ref(null)
@@ -68,7 +67,7 @@ onMounted(() => {
   let themeColorLocal = localStorage.getItem('themeColor') || ''
   if (themeLocal) {
     document.documentElement.setAttribute('theme-mode', themeLocal);
-    theme.value = themeLocal
+    currentTheme.value = themeLocal
   }
   if (themeColorLocal) {
     themeColor.value = themeColorLocal
@@ -82,6 +81,8 @@ const gitee = () => {
 }
 
 const changeThemeColor = (v) => {
+  // console.log(v)
+  // return
   let stl = document.querySelector('style[name=kui]')
   if (!stl) {
     stl = document.createElement('style')
@@ -109,8 +110,10 @@ const changeThemeColor = (v) => {
   document.body.setAttribute('theme-type', 'custom')
   localStorage.setItem('themeColor', v)
 }
+
+const api = theme.useTheme()
 const changeMode = (event) => {
-  setThemeMode(event, v => theme.value = v ? 'dark' : 'light')
+  api.setThemeMode(event, v => currentTheme.value = v ? 'dark' : 'light')
 }
 
 

@@ -6,7 +6,7 @@ import zhCN from "../locale/lang/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import {
   ref,
   defineComponent,
@@ -527,7 +527,7 @@ export default defineComponent({
 
       const loadingNode = (
         <div class="k-select-loading">
-          <Icon type={Sync} spin />
+          <Icon type={Loading} spin />
           <span>{locale?.k.select.loading}</span>
         </div>
       );

@@ -18,12 +18,12 @@
   </Space>
   <br/>
   <br/>
-  <Space :size="15" style="width:300px;">
-    Image radius: <Slider v-model:value="radius" />
+  <Space :size="15" >
+    Image radius: <Slider v-model:value="radius" style="width:300px;"/>
   </Space>
   <br/>
-  <Space :size="15" style="width:300px;">
-    Image Size: <Slider v-model:value="imgSize" range :min="80" :max="320"/>
+  <Space :size="15" >
+    Image Size: <Slider v-model:value="imgSize" range :min="96" :max="320" style="width:300px;"/>
   </Space>
   <br/>
   <br/>
@@ -56,7 +56,7 @@ const avatarShapes = [
   { label :'Square', value :'square' },
   { label :'Circle', value :'circle' },
 ]
-const imgSize = [96,96]
+const imgSize = ref([196,96])
 const animated  = ref(false)
 const size = ref('default')
 const block = ref(false)

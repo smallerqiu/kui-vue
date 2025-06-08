@@ -1,12 +1,13 @@
 <script lang="jsx">
 import Info from './info.md'
 import Base from './base.md'
-import Shape from './shape.md'
+import CustomTriggle from './customTriggle.md'
 import Mode from './mode.md'
 import Size from './size.md'
+import Placement from './placement.md'
 import Disabled from './disabled.md'
 import DisabledAlpha from './disabledAlpha.md'
-import Colors from './colors.md'
+import Presets from './presets.md'
 import CN from '../index.md'
 export default {
   setup() {
@@ -17,9 +18,10 @@ export default {
         <Size />
         <Disabled />
         <DisabledAlpha />
-        <Shape />
+        <CustomTriggle />
+        <Placement />
         <Mode />
-        <Colors />
+        <Presets />
         <CN />
       </div>
     )

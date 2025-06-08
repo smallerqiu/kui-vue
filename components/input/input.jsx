@@ -56,7 +56,6 @@ export default defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
-      // setValue({ input: "", output: "" });
       currentValue.value = "";
       emit("update:value", "");
       nextTick(() => focus());
@@ -77,35 +76,11 @@ export default defineComponent({
       emit("blur", e);
       focused.value = false;
     };
-    const handleInput1 = (e) => {
-      console.log(e);
-      // let v = e.target.value,
-      //   input = v,
-      //   output = v + "";
-      // let { parser, formatter } = ps;
-
-      // if (parser) {
-      //   output = parser(v);
-      // }
-
-      // if (output !== "" && formatter) {
-      //   input = formatter(output);
-      // }
-      // e.target.value = input;
-      // if (input === "") {
-      //   output = "";
-      // }
-
-      // this.setValue({ input, output });
-    };
     const togglePassword = (e) => {
       if (ps.disabled) return;
       showPassword.value = !showPassword.value;
       let type = showPassword.value ? "text" : "password";
       inputRef.value.type = type;
-    };
-    const setValue = ({ input, output }) => {
-      currentValue.value = input;
     };
 
     const searchEvent = (e) => {

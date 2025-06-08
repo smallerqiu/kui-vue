@@ -2,10 +2,11 @@ import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import InputNumber from "../inputNumber";
 import { Select } from "../select";
 import Color from "color";
+import { isColor } from "../utils/color";
 export default defineComponent({
   name: "Alpha",
   props: {
-    value: String,
+    value: [String, Object],
     mode: String,
     disabledAlpha: Boolean,
   },
@@ -38,8 +39,41 @@ export default defineComponent({
         currentColor.value = val;
       }
     );
+    const updateHex = (e) => {
+      const hex = `#${e.target.value}`;
+      if (!isColor(hex)) return;
+      const color = Color(hex).rgb();
+      emit("updateColorValue", color);
+    };
     const valueChange = (e, type) => {
-      console.log(e.target.value);
+      // console.log(e.target.value, type);
+      const value = parseInt(e.target.value);
+      let color = Color(currentColor.value);
+      switch (type) {
+        case "r":
+          color = color.red(value);
+          break;
+        case "g":
+          color = color.green(value);
+          break;
+        case "b":
+          color = color.blue(value);
+          break;
+        case "a":
+          color = color.alpha(value / 100);
+          break;
+        case "h":
+          color = color.hue(value);
+          break;
+        case "s":
+          color = color.saturationl(value);
+          break;
+        case "l":
+          color = color.lightness(value);
+          break;
+      }
+      currentColor.value = color.rgb();
+      emit("updateColorValue", currentColor.value);
     };
 
     const changeMode = (v) => {
@@ -53,7 +87,14 @@ export default defineComponent({
 
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
-        nodes.push(<Input prefix="#" size="small" value={hex} />);
+        nodes.push(
+          <Input
+            prefix="#"
+            size="small"
+            value={hex}
+            onChange={(e) => updateHex(e)}
+          />
+        );
       } else if (currentMode.value === "rgb") {
         const [r, g, b] = color.rgb().array();
         nodes.push(
@@ -89,7 +130,7 @@ export default defineComponent({
           <InputNumber
             size="small"
             min={0}
-            max={360}
+            max={359}
             value={Math.round(h)}
             onChange={(e) => valueChange(e, "h")}
           />

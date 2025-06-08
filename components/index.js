@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
 import { Button, ButtonGroup } from "./button";
 import Badge from "./badge";
 // import BackTop from './backtop'
-import ColorPicker from './colorPicker'
+import ColorPicker from "./colorPicker";
 import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
 import { Collapse, CollapsePanel } from "./collapse";
@@ -55,7 +55,7 @@ import { TimeLine, TimeLineItem } from "./timeline";
 import Tag from "./tag";
 import { Row, Col } from "./grid";
 // import Upload from './upload'
-
+import theme from "./utils/theme";
 import pkg from "../package.json";
 // import './styles/index.less';
 
@@ -157,6 +157,7 @@ const UI = {
   // kImage: Image,
   KCol: Col,
   KRow: Row,
+  // Theme,
   // kMenu: Menu,
   Version: pkg.version,
 
@@ -175,9 +176,11 @@ const install = (app, options = {}) => {
   app.provide("notice", notice);
   app.provide("loading", loading);
   app.provide("modal", modal);
+  app.provide("theme", theme);
   app.config.globalProperties.$message = message;
   app.config.globalProperties.$notice = notice;
   app.config.globalProperties.$modal = modal;
+  app.config.globalProperties.$theme = theme;
   app.config.globalProperties.$loading = loading;
   // app.config.globalProperties.$Image = Image;
 };
@@ -188,5 +191,5 @@ UI.install = install;
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.createApp && window.Vue.createApp({}).use(UI);
 }
-export { message, notice, loading, modal };
+export { message, notice, loading, modal, theme };
 export default UI;

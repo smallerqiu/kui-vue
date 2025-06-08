@@ -27,9 +27,9 @@ let Notice = {
     return inject("notice");
   },
   install(app) {
-    app.provide("notice", this);
+    app.provide("notice", Notice);
     // 可选：同时挂到 globalProperties 兼容 this.$notice
-    app.config.globalProperties.$notice = this;
+    app.config.globalProperties.$notice = Notice;
   },
 };
 
