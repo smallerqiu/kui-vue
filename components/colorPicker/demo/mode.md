@@ -1,27 +1,20 @@
 <cn>
-#### 颜色模式
-可以切换颜色模式,使用 `show-mode` 来展示 颜色模式
+#### 颜色编码
+编码格式，支持HEX、HSB、RGB。
 </cn>
 
 ```vue
 <template>
-  <div class="demo-color-picker">
-   <Form>
-    <FormItem label="Default">
-      <ColorPicker showMode v-model:value="color1"/>
-    </FormItem>
-    <FormItem label="Rgba">
-      <ColorPicker showMode v-model:value="color2" mode="rgba"/>
-    </FormItem>
-    <FormItem label="Hsla">
-      <ColorPicker showMode v-model:value="color3"  mode="hsla"/>
-    </FormItem>
-   </Form>
-  </div>
+  <Space class="demo-color-picker" vertical>
+    <Space><ColorPicker v-model:value="color1"/> HEX: {{color1}} </Space>
+    <Space><ColorPicker v-model:value="color2" mode="rgb"/> RGB: {{color2}} </Space>
+    <Space><ColorPicker v-model:value="color3"  mode="hsl"/> HSL: {{color3}} </Space>
+  </Space>
 </template>
 <script setup>
-const color1 = '#3a95ff'
-const color2 = '#3a95ff'
-const color3 = '#3a95ff'
+import { ref } from 'vue'
+const color1 = ref('#3a95ff')
+const color2 = ref('rgb(58, 149, 255)')
+const color3 = ref('hsl(212, 100%, 61%)')
 </script> 
 ```

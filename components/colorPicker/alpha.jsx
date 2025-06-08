@@ -1,13 +1,4 @@
 import { defineComponent, reactive, ref, onMounted, watch } from "vue";
-import {
-  canvasHelper,
-  limit,
-  hslToRgb,
-  rgbToHsl,
-  parseColor,
-  rgbToHex,
-  cssColorToRgba,
-} from "./canvasHelper";
 import Color from "color";
 import { clamp } from "@vueuse/core";
 export default defineComponent({
@@ -21,11 +12,12 @@ export default defineComponent({
     const refPaint = ref(null);
     const isMousePressed = ref(false);
     // const painter = ref(null);
-    const currentColor = ref(ps.value, "#000000");
+    const currentColor = ref(ps.value || "#000000");
     watch(
       () => ps.value,
       (val) => {
         currentColor.value = val;
+        renderPaint();
         updatePos();
       }
     );
@@ -36,10 +28,7 @@ export default defineComponent({
         updatePos();
       }
     });
-    const getRgba = () => {
-      const color = Color(currentColor.value);
-      return [...color.rgb().array(), color.alpha()];
-    };
+
     const updatePos = () => {
       const a = Color(currentColor.value).alpha();
       const x = 190 * a;
@@ -53,8 +42,8 @@ export default defineComponent({
         gradient = ctx.createLinearGradient(0, 0, width - 1, 0);
       let [r, g, b] = Color(currentColor.value).rgb().array();
       ctx.clearRect(0, 0, width, height);
-      gradient.addColorStop(0, `rgba(${r},${g}%,${b}%,0)`);
-      gradient.addColorStop(1, `rgba(${r},${g}%,${b}%,1)`);
+      gradient.addColorStop(0, `rgba(${r},${g},${b},0)`);
+      gradient.addColorStop(1, `rgba(${r},${g},${b},1)`);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
     };
@@ -70,9 +59,9 @@ export default defineComponent({
       dotPos.value = x - 7;
 
       let [r, g, b] = Color(currentColor.value).rgb().array();
-      const color = `rgba(${r},${g}%,${b}%,${alpha})`;
+      const color = `rgba(${r},${g},${b},${alpha})`;
       currentColor.value = color;
-      emit("update:value", color);
+      emit("updateAlpha", alpha);
     };
 
     const onMouseUp = () => {
@@ -108,7 +97,7 @@ export default defineComponent({
             class="k-color-picker-alpha-dot"
             style={{
               left: dotPos.value + "px",
-              backgroundColor: `rgba(${r},${g},${b},${color.A}`,
+              backgroundColor: `${currentColor.value}`,
             }}></span>
         </div>
       ) : null;

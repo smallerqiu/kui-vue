@@ -6,17 +6,20 @@
 ```vue
 <template>
   <div class="demo-color-picker">
-     <Form>
-      <FormItem label="large">
-        <ColorPicker showMode v-model:value="color1" size="large"/>
-      </FormItem>
-      <FormItem label="Default">
-        <ColorPicker showMode v-model:value="color2" mode="rgba"/>
-      </FormItem>
-      <FormItem label="small">
-        <ColorPicker showMode v-model:value="color3"  mode="hsla" size="small" />
-      </FormItem>
-    </Form>
+    <Space vertical>
+      <Space>
+        <ColorPicker :value="color3" size="small" />
+        <ColorPicker showText :value="color3"   size="small" />
+      </Space>
+      <Space>
+        <ColorPicker :value="color2"/>
+        <ColorPicker showText :value="color2"/>
+      </Space>
+       <Space>
+        <ColorPicker :value="color1" size="large"/>
+        <ColorPicker showText :value="color1" size="large"/>
+      </Space>
+    </Space>
   </div>
 </template>
 <script setup>

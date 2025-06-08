@@ -1,19 +1,11 @@
-import {
-  canvasHelper,
-  limit,
-  hslToRgb,
-  rgbToHsl,
-  parseColor,
-  rgbToHex,
-  cssColorToRgba,
-} from "./canvasHelper";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
-const modes = ["rgba", "hex", "hsla"];
+const modes = ["rgb", "hex", "hsl"];
 import Mode from "./mode";
 import Hue from "./hue";
 import Alpha from "./alpha";
 import Paint from "./paint";
+import Color from "color";
 import {
   defineComponent,
   ref,
@@ -33,9 +25,9 @@ export default defineComponent({
   props: {
     value: String,
     transfer: { type: Boolean, default: true },
-    showMode: Boolean,
     disabled: Boolean,
-    noAlpha: Boolean,
+    disabledAlpha: Boolean,
+    showText: Boolean,
     placement: {
       validator(value) {
         return [
@@ -65,7 +57,7 @@ export default defineComponent({
     shape: String,
     show: Boolean,
     icon: [String, Array],
-    defalutColors: {
+    presets: {
       type: Array,
       default: () => [
         "#f44336",
@@ -97,23 +89,8 @@ export default defineComponent({
 
   setup(ps, { emit }) {
     const currentMode = ref(ps.mode);
-    const currentColor = ref(ps.value || "#000000");
-    const color = reactive({
-      H: 0,
-      S: 0,
-      L: 0,
-      A: 1,
-      R: 0,
-      G: 0,
-      B: 0,
-    });
-
+    const currentColor = ref(ps.value || "#000000ff");
     const visible = ref(ps.show);
-    const paintHelper = ref(null);
-    const huePaintHelper = ref(null);
-    const refAlpha = ref(null);
-    const refHue = ref(null);
-    const refPaint = ref(null);
     const refPopper = ref(null);
     const refCtx = ref(null);
     const left = ref(0);
@@ -121,11 +98,14 @@ export default defineComponent({
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const rendered = ref(false);
+    const alpha = ref(1);
+    const hideTimer = ref(null);
 
     watch(
       () => ps.value,
       (v) => {
         currentColor.value = v;
+        alpha.value = Color(v).alpha();
       }
     );
     onBeforeUnmount(() => {
@@ -152,7 +132,8 @@ export default defineComponent({
         ctx &&
         !ctx.contains(e.target)
       ) {
-        visible.value = false;
+        clearTimeout(hideTimer.value);
+        hideTimer.value = setTimeout(() => (visible.value = false), 200);
       }
     };
     const toggle = (open) => {
@@ -165,16 +146,10 @@ export default defineComponent({
           document.addEventListener("click", outsideClick);
           nextTick(() => {
             visible.value = true;
-            paintHelper.value = canvasHelper(refPaint.value);
-            initHueCanvas(refHue.value);
-            huePaintHelper.value = canvasHelper(refHue.value);
-            !ps.noAlpha && initAlphaCanvas(refAlpha.value);
-            initPaintCanvas(refPaint.value);
-            updatePainter("COLOR", currentColor.value);
             updatePopPosition();
-            updateDotPostion();
           });
         } else {
+          updatePopPosition();
           visible.value = true;
         }
       } else {
@@ -184,45 +159,106 @@ export default defineComponent({
     };
 
     const renderDefaultColor = () => {
-      let color = ps.defalutColors.map((c) => (
+      let color = ps.presets.map((c) => (
         <span
           style={"background-color:" + c}
           onClick={(e) => updatePainter("COLOR", c)}></span>
       ));
-      // let okBtn = <Button circle onClick={updateValue}>OK</Button>
       return <div class="k-coclor-picker-defaults">{[color]}</div>;
+    };
+    const getColor = () => {
+      let text = "";
+      const color = Color(currentColor.value);
+      if (currentMode.value == "hex") {
+        text = color.alpha() < 1 ? color.hexa() : color.hex();
+      } else if (currentMode.value == "rgb") {
+        text = color.rgb().string(0);
+      } else if (currentMode.value == "hsl") {
+        text = color.hsl().string(0);
+      }
+      return text;
+    };
+    const renderTriggerText = () => {
+      let text = getColor();
+      return ps.showText ? (
+        <div class="k-coclor-picker-trigger-text">{text}</div>
+      ) : null;
+    };
+    const onUpdate = (color) => {
+      currentColor.value = color;
+      const value = getColor();
+      emit("update:value", value);
+    };
+
+    const onUpdateRGB = ({ r, g, b }) => {
+      const color = Color({ r, g, b, alpha: alpha.value });
+      onUpdate(color.rgb());
+    };
+    const onUpdateHue = (hue) => {
+      console.log("hue", hue);
+      // currentColor.value = color;
+      // const value = getColor();
+      const value = Color(currentColor.value).hue(hue).rgb();
+      onUpdate(value);
+    };
+
+    const onUpdateAlpha = (a) => {
+      alpha.value = a;
+      const value = Color(currentColor.value).alpha(a).rgb();
+      onUpdate(value);
+    };
+    const onUpdateMode = (mode) => {
+      currentMode.value = mode;
+      onUpdate(currentColor.value);
+      emit("update:mode", mode);
+      setTimeout(() => {
+        clearTimeout(hideTimer.value);
+      }, 0);
     };
     const renderDrop = () => {
       if (!rendered.value) return null;
-
       const props = {
         ref: refPopper,
         placement: "bottom-left",
-        className: "k-color-picker-dropdown",
+        class: [
+          "k-color-picker-dropdown",
+          {
+            "k-color-picker-disabled-alpha": ps.disabledAlpha,
+          },
+        ],
         style: {
           left: `${left.value}px`,
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
       };
-      let [r, g, b] = hslToRgb(color.H, color.S, color.L);
+
+      // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       return (
         <Transition name="k-color-picker">
           <div v-transfer={true} v-show={visible.value} {...props}>
-            <Paint />
-
+            <Paint value={currentColor.value} onUpdateRGB={onUpdateRGB} />
             <div class="k-color-picker-bar">
               <div class="k-color-picker-avatar">
                 <div
                   class="k-color-picker-avatar-inner"
-                  style={`background-color:rgba(${color.R}, ${color.G}, ${color.B}, ${color.A})`}></div>
+                  style={`background-color:${currentColor.value}`}></div>
               </div>
               <div class="k-color-picker-bar-box">
-                <Hue />
-                <Alpha />
+                <Hue value={currentColor.value} onUpdateHue={onUpdateHue} />
+                <Alpha
+                  value={currentColor.value}
+                  show={!ps.disabledAlpha}
+                  onUpdateAlpha={onUpdateAlpha}
+                />
               </div>
             </div>
-            <Mode />
+            <Mode
+              mode={currentMode.value}
+              value={currentColor.value}
+              disabledAlpha={ps.disabledAlpha}
+              onUpdateMode={onUpdateMode}
+            />
             {renderDefaultColor()}
           </div>
         </Transition>
@@ -231,7 +267,6 @@ export default defineComponent({
 
     return () => {
       let drop = renderDrop();
-      let { icon } = ps;
       let style = [
         "k-color-picker",
         {
@@ -242,6 +277,7 @@ export default defineComponent({
           "k-color-picker-lg": ps.size == "large",
         },
       ];
+
       return (
         <div class={style} ref={refCtx}>
           <div
@@ -252,7 +288,7 @@ export default defineComponent({
                 class="k-color-picker-color-inner"
                 style={`background-color:${currentColor.value}`}></div>
             </div>
-            {/* <div class="k-color-picker-trigger-text">{triggerText}</div> */}
+            {renderTriggerText()}
           </div>
           {drop}
         </div>

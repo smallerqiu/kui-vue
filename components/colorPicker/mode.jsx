@@ -1,25 +1,17 @@
 import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import InputNumber from "../inputNumber";
-import Select from "../select";
-import {
-  canvasHelper,
-  limit,
-  hslToRgb,
-  rgbToHsl,
-  parseColor,
-  rgbToHex,
-  cssColorToRgba,
-} from "./canvasHelper";
+import { Select } from "../select";
+import Color from "color";
 export default defineComponent({
   name: "Alpha",
   props: {
     value: String,
     mode: String,
+    disabledAlpha: Boolean,
   },
   setup(ps, { emit }) {
-    const currentHex = ref(ps.value, "hex");
-    const currentMode = ref(ps.mode);
-    const currentColor = ref(ps.value, "#000000");
+    const currentMode = ref(ps.mode || "hex");
+    const currentColor = ref(ps.value || "#000000");
     const options = [
       {
         label: "HEX",
@@ -34,43 +26,128 @@ export default defineComponent({
         value: "hsl",
       },
     ];
+    watch(
+      () => ps.mode,
+      (val) => {
+        currentMode.value = val;
+      }
+    );
+    watch(
+      () => ps.value,
+      (val) => {
+        currentColor.value = val;
+      }
+    );
+    const valueChange = (e, type) => {
+      console.log(e.target.value);
+    };
+
+    const changeMode = (v) => {
+      currentMode.value = v;
+      emit("updateMode", v);
+    };
     return () => {
       const nodes = [];
-      const a = parseColor(currentColor.value, "rgba");
-      console.log(a)
-      let [r, g, b, alpha] = a
+      const color = Color(currentColor.value);
+      const alpha = color.alpha();
 
-      if (currentHex === "hex") {
-        const hex = parseColor(ps.value, "hex");
-        nodes.push(<InputNumber prefix="#" size="small" v-model:value={hex} />);
-      } else if (currentHex === "rgb") {
-        nodes.push(<InputNumber size="small" v-model:value={r} />);
-        nodes.push(<InputNumber size="small" v-model:value={g} />);
-        nodes.push(<InputNumber size="small" v-model:value={b} />);
-      } else if (currentHex === "hsl") {
-        const [h, s, l, a] = parseColor(currentColor.value, "hsla");
-        nodes.push(<InputNumber size="small" v-model:value={h} />);
-        nodes.push(<InputNumber size="small" v-model:value={s} />);
-        nodes.push(<InputNumber size="small" v-model:value={l} />);
-        alpha = a;
+      if (currentMode.value === "hex") {
+        const hex = color.hex().slice(1);
+        nodes.push(<Input prefix="#" size="small" value={hex} />);
+      } else if (currentMode.value === "rgb") {
+        const [r, g, b] = color.rgb().array();
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(r)}
+            onChange={(e) => valueChange(e, "r")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(g)}
+            onChange={(e) => valueChange(e, "g")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(b)}
+            onChange={(e) => valueChange(e, "b")}
+          />
+        );
+      } else if (currentMode.value === "hsl") {
+        const [h, s, l] = color.hsl().array();
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={360}
+            value={Math.round(h)}
+            onChange={(e) => valueChange(e, "h")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            min={0}
+            max={100}
+            value={Math.round(s)}
+            onChange={(e) => valueChange(e, "s")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            min={0}
+            max={100}
+            value={Math.round(l)}
+            onChange={(e) => valueChange(e, "l")}
+          />
+        );
       }
 
-      <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>
-        <Select
-          size="small"
-          v-model:value={currentMode.value}
-          options={options}
-        />
-        <div class="k-color-picker-val">
-          {node}
+      if (!ps.disabledAlpha) {
+        nodes.push(
           <InputNumber
-            suffix="%"
-            v-model:value={alpha}
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            value={Math.round(alpha * 100)}
             size="small"
+            min={0}
+            max={100}
             class="k-color-picker-alpha-input"
+            onChange={(e) => valueChange(e, "a")}
           />
+        );
+      }
+
+      return (
+        <div class={`k-color-picker-mode k-color-picker-${currentMode.value}`}>
+          <Select
+            bordered={false}
+            size="small"
+            value={currentMode.value}
+            options={options}
+            onChange={changeMode}
+          />
+          <div class="k-color-picker-val">{[...nodes]}</div>
         </div>
-      </div>;
+      );
     };
   },
 });
