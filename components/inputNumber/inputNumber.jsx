@@ -86,6 +86,7 @@ export default defineComponent({
       outputValue.value = output;
 
       emit("update:value", output);
+      emit("change", e);
       e.preventDefault();
     };
 

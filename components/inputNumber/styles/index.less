@@ -12,7 +12,7 @@
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   background-color: var(--kui-color-back);
-  transition: all .3s ease-in-out;
+  transition: border .3s ease-in-out;
   box-sizing: border-box;
   gap: 8px;
   padding: 0 8px;
@@ -129,7 +129,7 @@
   line-height: 1;
   cursor: pointer;
   user-select: none;
-  transition: all .2s ease-in-out;
+  transition: font-size .2s ease-in-out;
   display: flex;
 
   &:hover {
@@ -138,7 +138,7 @@
 
   .k-icon {
     font-size: 16px;
-    transition: all .2s ease-in-out;
+    transition: font-size .2s ease-in-out;
     color: var(--kui-color-icon);
   }
 }
@@ -155,7 +155,7 @@
 
 .k-input-number-sm {
   gap: 6px;
-  padding: 0 0 0 4px;
+  padding: 0 4px;
 
   .k-input-number-controls {
     height: 22px;
@@ -167,6 +167,10 @@
     height: 22px;
   }
 
+  .k-input-number-prefix {
+    font-size: 12px;
+  }
+
   .k-input-number-clearable {
     font-size: 14px;
   }
@@ -176,6 +180,8 @@
   }
 
   .k-input-number-suffix {
+    font-size: 12px;
+
     .k-icon {
       font-size: 12px;
     }

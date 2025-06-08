@@ -4,6 +4,8 @@ import Base from './base.md'
 import Shape from './shape.md'
 import Mode from './mode.md'
 import Size from './size.md'
+import Disabled from './disabled.md'
+import DisabledAlpha from './disabledAlpha.md'
 import Colors from './colors.md'
 import CN from '../index.md'
 export default {
@@ -12,9 +14,11 @@ export default {
       <div>
         <Info />
         <Base />
+        <Size />
+        <Disabled />
+        <DisabledAlpha />
         <Shape />
         <Mode />
-        <Size />
         <Colors />
         <CN />
       </div>

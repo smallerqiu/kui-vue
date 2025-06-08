@@ -1,32 +1,19 @@
 <template>
-  <Dropdown :show="true">
-    <Button theme="light">
-      多级菜单
-      <Icon :type="ChevronDown" />
-    </Button>
-    <template #overlay>
-      <Menu @select="menuClick">
-        <MenuItem key="1-1">1st menu item</MenuItem>
-        <MenuItem key="1-2">2nd menu item</MenuItem>
-        <SubMenu key="2" title="sub menu">
-          <MenuItem key="2-1">3rd menu item</MenuItem>
-          <MenuItem key="2-2">4th menu item</MenuItem>
-          <SubMenu key="2-3" title="sub menu">
-            <MenuItem key="2-3-1">3rd menu item</MenuItem>
-            <MenuItem key="2-3-2">4th menu item</MenuItem>
-          </SubMenu>
-        </SubMenu>
-        <SubMenu title="disabled sub menu" disabled key="3">
-          <MenuItem key="3-1">5d menu item</MenuItem>
-          <MenuItem key="3-2">6th menu item</MenuItem>
-        </SubMenu>
-      </Menu>
-    </template>
-  </Dropdown>
+  <Space class="demo-color-picker" vertical>
+    <Space>
+      <ColorPicker v-model:value="color1" /> HEX: {{ color1 }}
+    </Space>
+    <Space>
+      <ColorPicker v-model:value="color2" mode="rgb" /> RGB: {{ color2 }}
+    </Space>
+    <Space>
+      <ColorPicker v-model:value="color3" mode="hsl" /> HSL: {{ color3 }}
+    </Space>
+  </Space>
 </template>
 <script setup>
-import { ChevronDown } from 'kui-icons'
-const menuClick = ({ key }) => {
-  console.log(key)
-}
+import { ref } from 'vue'
+const color1 = ref('#3a95ff')
+const color2 = ref('rgb(58, 149, 255)')
+const color3 = ref('hsl(212, 100%, 61%)')
 </script>
