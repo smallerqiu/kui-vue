@@ -31,11 +31,6 @@ export default{
       ]
     }
   },
-  methods:{
-    setSize({value}){
-      this.size = value
-    }
-  }
 }
 </script>
 ```
