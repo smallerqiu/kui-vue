@@ -49,7 +49,8 @@ module.exports = {
     upload: {
       successful: '上传成功',
       failed: '上传失败',
-      errorFileSize: '文件尺寸不合法'
+      errorFileSize: '文件大小不符合要求',
+      releaseTip: '松手开始上传'
     },
     image: {
       preview: '预览'

@@ -66,7 +66,8 @@ module.exports =  {
     upload: {
       successful: 'επιτυχία',
       failed: 'Αποτυχία',
-      errorFileSize: 'Παράνομο μέγεθος αρχείου'
+      errorFileSize: 'Μη έγκυρο μέγεθος αρχείου',
+      releaseTip: 'Αφήστε για μεταφόρτωση'
     },
     image: {
       preview: 'προεπισκόπηση'

@@ -66,7 +66,8 @@ module.exports = {
     upload: {
       successful: 'สำเร็จแล้ว',
       failed: 'ความล้มเหลว',
-      errorFileSize: 'ขนาดไฟล์ไม่ถูกต้อง'
+      errorFileSize: 'ขนาดไฟล์ไม่ถูกต้อง',
+      releaseTip: "ปล่อยเพื่ออัปโหลด"
     },
     image: {
       preview: 'แสดงตัวอย่าง'

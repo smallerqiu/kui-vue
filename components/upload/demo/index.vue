@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import Info from './info.md'
 import Base from './base.md'
 import FileList from './file-list.md'
@@ -14,9 +14,9 @@ import Form from './form.md'
 
 import CN from '../index.md'
 export default {
-  render() {
-    return (
-      <div class="demo-upload">
+  setup() {
+    return () => {
+      return <div class="demo-upload">
         <Info />
         <Base />
         <FileList />
@@ -27,13 +27,12 @@ export default {
         <Custom />
         <Picture />
         <Avatar />
-        <Draggable/>
+        <Draggable />
         <Form />
         <CN />
       </div>
-    )
+    }
   }
 }
 
-</script> 
- 
+</script>

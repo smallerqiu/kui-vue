@@ -1,4 +1,4 @@
-module.exports =  {
+module.exports = {
   k: {
     datePicker: {
       startDate: 'Start date',
@@ -49,7 +49,8 @@ module.exports =  {
     upload: {
       successful: 'Successful',
       failed: 'Failed',
-      errorFileSize: 'Illegal file size'
+      errorFileSize: 'Invalid file size',
+      releaseTip: "Release to start uploading"
     },
     image: {
       preview: 'Preview'
