@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="../dist/k-ui.css">
   <script src="https://unpkg.com/vue@2.x"></script>
   <script src="https://unpkg.com/vue-i18n@8.x"></script>
-  <script src="../dist/k-ui.js"></script>
+  <script src="../dist/k-ui.umd.js"></script>
 
   <script src="../dist/locale/en.js"></script>
   <script src="../dist/locale/zhCN.js"></script>
@@ -20,12 +20,12 @@
 <body>
   <div id="app">
     <k-button @click="show">Click me!</k-button>
-    <Modal v-model="visible" title="Welcome">Welcome to use kui</Modal>
+    <Modal v-model="visible" title="Welcome" @ok="hide">Welcome to use kui</Modal>
   </div>
 </body>
 <script>
   let i18n = new VueI18n({
-    locale: 'de', // set locale
+    locale: 'en', // set locale
     messages: {
       en: kui_lang_en,
       zhCN: kui_lang_zhCN,
@@ -44,6 +44,10 @@
     methods: {
       show: function () {
         this.visible = true;
+      },
+      hide: function () {
+        this.visible = false;
+        kui.Message.success('success')
       }
     }
   })
