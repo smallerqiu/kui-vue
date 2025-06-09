@@ -47,7 +47,7 @@ export default {
     };
   },
   mounted() {
-    // if (this.draggable && this.$isServer) {
+    // if (this.draggable && typeof window !== "undefined") {
     // window.addEventListener("dragover", function (e) {
     //   e = e || event;
     //   e.preventDefault();
