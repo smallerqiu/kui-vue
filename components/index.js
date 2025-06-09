@@ -142,33 +142,17 @@ const components = {
 };
 const UI = {
   ...components,
-  // Form: Form,
   KButton: Button,
-  // kInput: Input,
-  // kTextarea: TextArea,
   KHeader: Header,
   KFooter: Footer,
   KContent: Content,
-  // kSider: Sider,
-  // kSelect: Select,
-  // kOption: Option,
-  // kTable: Table,
   KSwitch: Switch,
-  // kImage: Image,
   KCol: Col,
   KRow: Row,
-  // Theme,
-  // kMenu: Menu,
   Version: pkg.version,
-
-  // locale: locale.use,
-  // i18n: locale.i18n,
   lang: {},
 };
 const install = (app, options = {}) => {
-  // locale.use(opts.locale);
-  // locale.i18n(opts.i18n);
-
   for (let key in UI) {
     app.component(key, UI[key]);
   }
