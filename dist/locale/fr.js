@@ -1,9 +1,7 @@
 /*!
- * kui-vue v3.4.2
- *  Copyright 2017-present, kui-vue.
- *  All rights reserved.
- *  Docs: https://k-ui.cn
- * Author: chuchur@qq.com / www.chuchur.com
- *
+ * kui-vue v3.4.9
+ * Copyright 2017-present, kui-vue.
+ * All rights reserved.
+ * Author: Qiu / www.chuchur.com
  */
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("kui_lang_fr",[],t):"object"==typeof exports?exports.kui_lang_fr=t():e.kui_lang_fr=t()}(this,(function(){return e={307:function(e){e.exports={k:{datePicker:{startDate:"Horaire début",endDate:"Date fin",placeholder:"Choisir",months:["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"],weeks:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],year:"",month:"",day:"",today:"Auj",now:"Maintenant",ok:"OK",selectDate:"Choisir date",selectTime:"Choisir horaire",back:"Derrière"},drawer:{ok:"OK",cancel:"Annuler"},empty:{description:"Aucune donnée"},pop:{ok:"OK",cancel:"Annuler"},modal:{ok:"OK",cancel:"Annuler"},page:{page:"",pageSize:"/page",goto:"Aller à",items:"",total:"Total"},select:{placeholder:"Choisir",loading:"Chargement...",emptyText:"Aucune donnée"},table:{emptyText:"Aucune donnée"},upload:{successful:"Succès",failed:"Échec",errorFileSize:"Taille illégale du fichier"},image:{preview:"Preview"}}}}},t={},function o(r){var n=t[r];if(void 0!==n)return n.exports;var a=t[r]={exports:{}};return e[r](a,a.exports,o),a.exports}(307);var e,t}));
+(function(e,t){"object"===typeof exports&&"object"===typeof module?module.exports=t():"function"===typeof define&&define.amd?define("kui_lang_fr",[],t):"object"===typeof exports?exports["kui_lang_fr"]=t():e["kui_lang_fr"]=t()})("undefined"!==typeof self?self:this,(function(){return function(){var e={185:function(e){e.exports={k:{datePicker:{startDate:"Horaire début",endDate:"Date fin",placeholder:"Choisir",months:["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"],weeks:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],year:"",month:"",day:"",today:"Auj",now:"Maintenant",ok:"OK",selectDate:"Choisir date",selectTime:"Choisir horaire",back:"Derrière"},drawer:{ok:"OK",cancel:"Annuler"},empty:{description:"Aucune donnée"},pop:{ok:"OK",cancel:"Annuler"},modal:{ok:"OK",cancel:"Annuler"},page:{page:"",pageSize:"/page",goto:"Aller à",items:"",total:"Total"},select:{placeholder:"Choisir",loading:"Chargement...",emptyText:"Aucune donnée"},table:{emptyText:"Aucune donnée"},upload:{successful:"Succès",failed:"Échec",errorFileSize:"Taille illégale du fichier"},image:{preview:"Preview"}}}}},t={};function r(n){var o=t[n];if(void 0!==o)return o.exports;var a=t[n]={exports:{}};return e[n](a,a.exports,r),a.exports}var n=r(185);return n}()}));

@@ -150,4 +150,5 @@ UI.install = install
 if (typeof window !== 'undefined' && window.Vue) {
 	UI.install(window.Vue);
 }
+export { Message, Notice, Loading, Modal };
 export default UI
