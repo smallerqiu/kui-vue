@@ -66,7 +66,8 @@ module.exports =  {
     upload: {
       successful: 'Succès',
       failed: 'Échec',
-      errorFileSize: 'Taille illégale du fichier'
+      errorFileSize: 'Taille de fichier invalide',
+      releaseTip: "Relâchez pour téléverser"
     },
     image: {
       preview: 'Preview'

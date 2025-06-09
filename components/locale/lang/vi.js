@@ -49,7 +49,8 @@ module.exports =  {
     upload: {
       successful: 'thành công',
       failed: 'thất bại',
-      errorFileSize: 'Phạm vi bất hợp pháp'
+      errorFileSize: 'Kích thước tệp không hợp lệ',
+      releaseTip: "Thả để tải lên"
     },
     image: {
       preview: 'Xem thử'

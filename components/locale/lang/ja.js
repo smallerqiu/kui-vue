@@ -66,7 +66,8 @@ module.exports =  {
     upload: {
       successful: '成功',
       failed: '失敗',
-      errorFileSize: '不法'
+      errorFileSize: '無効なファイルサイズ',
+      releaseTip: "ドロップしてアップロード"
     },
     image: {
       preview: 'プレビュー'
