@@ -6,15 +6,15 @@
 ```vue
 <template>
   <Tabs v-model:activeKey="current">
-    <TabPane key="1" title="Tab 1">
+    <TabPanel key="1" title="Tab 1">
       Content of Tab Pane 1
-    </TabPane>
-    <TabPane key="2" title="Tab 2">
+    </TabPanel>
+    <TabPanel key="2" title="Tab 2">
       Content of Tab Pane 2
-    </TabPane>
-    <TabPane key="3" title="Tab 3">
+    </TabPanel>
+    <TabPanel key="3" title="Tab 3">
       Content of Tab Pane 3
-    </TabPane>
+    </TabPanel>
   </Tabs>
 </template>
 <script setup>
