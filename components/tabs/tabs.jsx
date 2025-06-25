@@ -2,7 +2,6 @@ import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
 import { defineComponent, onMounted, onBeforeMount, ref, nextTick, watch, cloneVNode, computed } from "vue";
-import TabPane from "./tabpane";
 export default defineComponent({
   name: "Tabs",
   props: {
@@ -53,8 +52,8 @@ export default defineComponent({
       const target = navRef.value.children[currentIndex.value];
       if (!target) return;
       // show active tab in client
-      const pane = navscrollRef.value;
-      // let totalWidth = pane.offsetWidth
+      const panel = navscrollRef.value;
+      // let totalWidth = panel.offsetWidth
       let clientWidth = navboxRef.value.clientWidth;
       let navOffsetleft = navOffsetLeft.value;
       let { offsetLeft, offsetWidth } = target;
@@ -68,14 +67,14 @@ export default defineComponent({
         navOffsetleft -= offsetLeft + offsetWidth + navOffsetleft - clientWidth + 2; //marginRight
       }
       navOffsetLeft.value = navOffsetleft;
-      pane.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+      panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
     };
     const resetNavPosition = () => {
       // when one tab removed or append
       nextTick(() => {
-        const pane = navscrollRef.value;
-        if (!pane) return;
-        let totalWidth = pane.offsetWidth;
+        const panel = navscrollRef.value;
+        if (!panel) return;
+        let totalWidth = panel.offsetWidth;
         let clientWidth = navboxRef.value.clientWidth;
         let navOffsetleft = navOffsetLeft.value;
         if (clientWidth + navOffsetleft < clientWidth) {
@@ -87,7 +86,7 @@ export default defineComponent({
         nextBtnDisabed.value = navOffsetleft == clientWidth - totalWidth;
         prevBtnDisabed.value = navOffsetleft == 0;
 
-        pane.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+        panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
 
         resetActivePostion();
         updateInkBarPosition()
@@ -97,8 +96,8 @@ export default defineComponent({
     const scroll = (direction) => {
       //control left or right
 
-      const pane = navscrollRef.value;
-      let totalWidth = pane.offsetWidth;
+      const panel = navscrollRef.value;
+      let totalWidth = panel.offsetWidth;
       let clientWidth = navboxRef.value.clientWidth;
       let navOffsetleft = navOffsetLeft.value;
       // console.log(totalWidth, clientWidth)
@@ -120,7 +119,7 @@ export default defineComponent({
       prevBtnDisabed.value = navOffsetleft == 0;
 
       navOffsetLeft.value = navOffsetleft;
-      pane.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+      panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
     };
     const tabClick = ({ disabled, key }, index) => {
       if (!disabled) {
@@ -155,16 +154,16 @@ export default defineComponent({
       nextTick(() => {
         // update inkbar position
 
-        // set pane has scroll arrow
+        // set panel has scroll arrow
         const navbox = navboxRef.value;
         if (!navbox) return;
         scrollable.value = navbox.scrollWidth > navbox.clientWidth;
       });
     };
     const renderNav = () => {
-      return childs.value?.map((pane, index) => {
-        const key = pane.key;
-        let { icon, title, closable, disabled } = pane.props;
+      return childs.value?.map((panel, index) => {
+        const key = panel.key;
+        let { icon, title, closable, disabled } = panel.props;
         disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
         const prop = {

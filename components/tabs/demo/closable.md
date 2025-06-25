@@ -7,9 +7,9 @@
 ```vue
 <template>
   <Tabs v-model:activeKey="activeKey" card @remove="remove">
-    <TabPane :title="pane.title" v-for="pane in panesData" :key="pane.key" :closable="pane.closable">
-      {{pane.content}}
-    </TabPane>
+    <TabPanel :title="panel.title" v-for="panel in panesData" :key="panel.key" :closable="panel.closable">
+      {{panel.content}}
+    </TabPanel>
     <template #extra>
       <Button :icon="Add" size="small" @click="add"/>
     </template>
@@ -29,7 +29,7 @@ const remove =(key)=>{
   let panes = panesData.value
   console.log(key)
   const index = panesData.value.map(p=>p.key).indexOf(key)
-  panesData.value = panes.filter(pane => pane.key !== key);
+  panesData.value = panes.filter(panel => panel.key !== key);
   activeKey.value = panesData.value[index-1].key
 }
 const add = ()=> {
