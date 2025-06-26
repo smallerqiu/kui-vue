@@ -29,7 +29,7 @@ $ yarn add kui-vue@latest
 ```
 #### 3. 使用组件
 
-一般在 **webpack** 入口页面` main.js` 中如下配置：
+一般在 **webpack** 入口页面 `main.js` 中如下配置：
 
 ```js
 import Vue from 'vue';

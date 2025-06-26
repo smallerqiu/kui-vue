@@ -482,6 +482,14 @@ html[theme-mode=dark] {
       margin-left: 20px;
     }
   }
+
+  &:not(pre) p > code {
+    padding: 0.15em 0.5em;
+    background-color: var(--kui-color-back);
+    border-radius: 5px;
+    line-height: 1;
+    white-space: nowrap;
+  }
 }
 
 .k-poptip-body {
@@ -559,6 +567,7 @@ html[theme-mode=dark] {
 [theme-mode=light]::view-transition-old(root) {
   z-index: 999;
 }
+
 [theme-mode=light]t::view-transition-new(root) {
   z-index: 1;
 }
@@ -566,6 +575,7 @@ html[theme-mode=dark] {
 [theme-mode=dark]::view-transition-old(root) {
   z-index: 1;
 }
+
 [theme-mode=dark]::view-transition-new(root) {
   z-index: 999;
 }
