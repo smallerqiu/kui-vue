@@ -1,5 +1,6 @@
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const TimeLine = defineComponent({
   name: "TimeLine",
   props: {
     mode: {
@@ -17,3 +18,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(TimeLine);

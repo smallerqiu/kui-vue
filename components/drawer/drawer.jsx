@@ -4,8 +4,9 @@ import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
 import { defineComponent, inject, nextTick, ref, Transition, watch, onMounted, onBeforeUnmount } from "vue";
 import zhCN from "../locale/lang/zh-CN";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
   props: {
@@ -172,3 +173,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Drawer);

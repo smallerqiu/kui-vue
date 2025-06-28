@@ -1,6 +1,7 @@
 import { defineComponent, onMounted, onBeforeUnmount, getCurrentInstance } from "vue";
-export default defineComponent({
-  name: "TabPane",
+import { withInstall } from '../utils/vue';
+const TabPanel = defineComponent({
+  name: "TabPanel",
   props: {
     title: String,
     icon: [String, Array],
@@ -23,3 +24,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(TabPanel);

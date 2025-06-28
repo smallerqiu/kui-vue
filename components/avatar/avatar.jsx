@@ -1,6 +1,7 @@
 import Icon from "../icon";
 import { defineComponent, ref, onMounted, onUpdated } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Avatar = defineComponent({
   name: "Avatar",
   props: {
     icon: [String, Array],
@@ -79,3 +80,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Avatar);

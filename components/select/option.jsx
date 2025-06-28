@@ -1,7 +1,8 @@
 import Icon from "../icon";
 import { Checkmark } from "kui-icons";
 import { defineComponent, ref, inject, computed, onMounted } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Option = defineComponent({
   name: "Option",
   props: {
     value: { type: [String, Number], required: true },
@@ -43,3 +44,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Option);

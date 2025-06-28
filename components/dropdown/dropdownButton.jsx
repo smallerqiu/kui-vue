@@ -4,7 +4,8 @@ import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 import { defineComponent, ref, inject } from "vue";
 import { Ellipsis } from "kui-icons";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const DropdownButton = defineComponent({
   name: "DropdownButton",
   props: {
     size: String,
@@ -51,3 +52,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(DropdownButton);

@@ -7,6 +7,7 @@ import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
 import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { withInstall } from '../utils/vue';
 import {
   ref,
   defineComponent,
@@ -19,7 +20,7 @@ import {
   cloneVNode,
 } from "vue";
 
-export default defineComponent({
+const Select = defineComponent({
   name: "Select",
   directives: {
     transfer,
@@ -657,3 +658,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Select);

@@ -3,7 +3,8 @@ import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Tooltip = defineComponent({
   name: "Tooltip",
   directives: {
     transfer,
@@ -150,3 +151,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Tooltip)

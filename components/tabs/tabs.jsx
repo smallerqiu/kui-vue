@@ -2,7 +2,8 @@ import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
 import { defineComponent, onMounted, onBeforeMount, ref, nextTick, watch, cloneVNode, computed } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Tabs = defineComponent({
   name: "Tabs",
   props: {
     activeKey: String,
@@ -239,3 +240,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Tabs);

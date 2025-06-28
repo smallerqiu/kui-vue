@@ -1,6 +1,7 @@
 import { defineComponent, inject, computed } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const MenuDivider = defineComponent({
   name: "MenuDivider",
   setup() {
     const dropdown = inject("dropdown", null);
@@ -11,3 +12,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(MenuDivider);

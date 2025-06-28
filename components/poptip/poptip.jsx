@@ -2,7 +2,8 @@ import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, onMounte
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Poptip = defineComponent({
   name: "Poptip",
   directives: {
     transfer,
@@ -176,3 +177,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Poptip);

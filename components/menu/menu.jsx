@@ -8,8 +8,9 @@ import {
   inject,
   onMounted,
 } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const Menu = defineComponent({
   name: "Menu",
   props: {
     theme: String,
@@ -134,3 +135,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Menu);

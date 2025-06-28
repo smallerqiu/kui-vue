@@ -1,8 +1,9 @@
 import Icon from "../icon";
 import { Loading } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
-export default defineComponent({
-  name: "KSwitch",
+import { withInstall } from '../utils/vue';
+const Switch = defineComponent({
+  name: "Switch",
   props: {
     checked: [Boolean, Number],
     type: String,
@@ -74,3 +75,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Switch);

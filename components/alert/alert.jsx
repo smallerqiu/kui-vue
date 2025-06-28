@@ -2,8 +2,9 @@ import { defineComponent, ref, computed, Transition } from "vue";
 import Icon from "../icon";
 import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, Close } from "kui-icons";
 import { getTranstionProp } from "../base/transition";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const Alert = defineComponent({
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
@@ -58,3 +59,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Alert);

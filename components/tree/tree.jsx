@@ -1,7 +1,9 @@
 import TreeNode from './node.jsx'
 import { getChild } from '../_tool/utils.js'
 import cloneVNode from '../_tool/clone.js'
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent } from 'vue'
+const Tree = defineComponent({
   name: 'Tree',
   props: {
     data: Array,
@@ -251,4 +253,5 @@ export default {
       {this.renderChild()}
     </div>)
   }
-}
+})
+export default withInstall(Tree)

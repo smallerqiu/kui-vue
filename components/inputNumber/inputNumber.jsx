@@ -1,5 +1,6 @@
 import Input from "../input/input";
 import Icon from "../icon";
+import { withInstall } from '../utils/vue';
 import {
   add,
   subtract,
@@ -9,7 +10,7 @@ import {
 } from "../utils/number";
 import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch } from "vue";
-export default defineComponent({
+const InputNumber = defineComponent({
   props: {
     value: [Array, Number, String],
     min: { type: Number, default: -Infinity },
@@ -187,3 +188,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(InputNumber)

@@ -1,5 +1,7 @@
 
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent } from 'vue'
+const ImageGroup = defineComponent({  
   name: 'ImageGroup',
   provide() {
     return {
@@ -24,4 +26,5 @@ export default {
   render() {
     return <div class="k-image-group">{this.$slots.default}</div>
   }
-}
+})
+export default withInstall(ImageGroup);

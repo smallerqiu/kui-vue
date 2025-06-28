@@ -1,7 +1,9 @@
 
 import cloneVNode from '../_tool/clone';
 import { getChild } from '../_tool/utils'
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent } from 'vue'
+const Form = defineComponent({
   name: "Form",
   props: {
     layout: {
@@ -151,4 +153,5 @@ export default {
       }
     },
   }
-}
+})
+export default withInstall(Form);

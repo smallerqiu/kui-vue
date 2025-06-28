@@ -1,9 +1,10 @@
 import Icon from '../icon'
 import createInstance from './instance'
+import { withInstall } from '../utils/vue';
 // import { easyEqual } from '../_tool/utils'
 import { Loading, IconImage ,EyeOutline} from 'kui-icons'
 import { t } from '../locale';
-export default {
+const Image = defineComponent({
   name: 'kImage',
   props: {
     alt: String,
@@ -167,4 +168,5 @@ export default {
       {this.$slots.default}
     </div>
   }
-}
+})
+export default withInstall(Image);

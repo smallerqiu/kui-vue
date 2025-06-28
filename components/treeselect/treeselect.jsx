@@ -7,9 +7,10 @@ import { t } from '../locale';
 import { Loading, Close, CloseCircle, ChevronDown } from 'kui-icons'
 import { Tree } from '../tree'
 const cloneDeep = require('lodash.clonedeep');
-
+import { defineComponent } from 'vue'
 // const cloneDeep = require('lodash/cloneDeep')
-export default {
+import { withInstall } from '../utils/vue';
+const TreeSelect = defineComponent({
   name: "TreeSelect",
   props: {
     placeholder: String,
@@ -505,4 +506,5 @@ export default {
       </div >
     )
   }
-};
+});
+export default withInstall(TreeSelect)

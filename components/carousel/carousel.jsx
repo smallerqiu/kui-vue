@@ -2,7 +2,8 @@ import Icon from "../icon";
 import resize from "../directives/resize";
 import { ChevronUp } from "kui-icons";
 import { defineComponent, provide, ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Carousel = defineComponent({
   name: "Carousel",
   directives: { resize },
   props: {
@@ -189,3 +190,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Carousel);

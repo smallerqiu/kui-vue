@@ -7,7 +7,8 @@ const timestamp = Date.now();
 import Selector from "./selector";
 import FileItem from "./fileItem";
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Upload = defineComponent({
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
@@ -18,7 +19,7 @@ export default defineComponent({
       default: "list",
       validator: (val) => ["list", "picture"].indexOf(val) >= 0,
     },
-    data: { type: Object, default: () => {} },
+    data: { type: Object, default: () => { } },
     disabled: Boolean,
     directory: Boolean,
     multiple: Boolean,
@@ -194,3 +195,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Upload)

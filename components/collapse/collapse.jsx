@@ -1,7 +1,8 @@
 import { defineComponent, cloneVNode, ref, watch, provide } from "vue";
 import { getChildren } from "../utils/vnode";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const Collapse = defineComponent({
   name: "Collapse",
   props: {
     value: Array,
@@ -53,3 +54,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Collapse);

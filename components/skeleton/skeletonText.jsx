@@ -1,5 +1,6 @@
 import { defineComponent, ref, watch } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const SkeletonText = defineComponent({
   name: "SkeletonText",
   props: {
     animated: Boolean,
@@ -53,3 +54,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(SkeletonText);

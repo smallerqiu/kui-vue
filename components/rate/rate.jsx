@@ -1,6 +1,7 @@
 import Star from "./star";
 import { defineComponent, ref } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Rate = defineComponent({
   name: "Rate",
   props: {
     value: { type: Number, default: 0 },
@@ -91,3 +92,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Rate);
