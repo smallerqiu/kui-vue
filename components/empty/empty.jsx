@@ -2,7 +2,8 @@ import Icon from "../icon";
 import { FileTrayOutline } from "kui-icons";
 import zhCN from "../locale/lang/zh-CN";
 import { defineComponent, inject } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Empty = defineComponent({
   name: "Empty",
   props: {
     description: String,
@@ -24,3 +25,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Empty);

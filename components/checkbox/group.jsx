@@ -1,7 +1,8 @@
 import Checkbox from "./checkbox";
 import { defineComponent, provide, cloneVNode } from "vue";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: {
     disabled: Boolean,
@@ -59,3 +60,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(CheckboxGroup);

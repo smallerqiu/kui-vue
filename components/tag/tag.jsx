@@ -2,7 +2,8 @@ import Icon from "../icon";
 import { Close } from "kui-icons";
 import { defineComponent, Transition, ref } from "vue";
 import { isColor } from "../utils/color";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Tag = defineComponent({
   name: "Tag",
   props: {
     closeable: Boolean,
@@ -57,3 +58,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Tag)

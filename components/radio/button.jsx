@@ -1,6 +1,7 @@
 import { Button } from "../button";
 import { defineComponent, inject, computed } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
     value: { type: [String, Number], default: false },
@@ -33,3 +34,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(RadioButton);

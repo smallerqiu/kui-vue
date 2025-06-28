@@ -9,10 +9,11 @@ import {
   onMounted,
   onBeforeMount,
 } from "vue";
+import { withInstall } from '../utils/vue';
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
     transfer,
@@ -208,11 +209,11 @@ export default defineComponent({
       const pp = ps.target
         ? {}
         : {
-            onClick: clickEvent,
-            onMouseenter: mouseEnterEvent,
-            onMouseleave: mouseLeaveEvent,
-            onContextmenu: contextmenuEvent,
-          };
+          onClick: clickEvent,
+          onMouseenter: mouseEnterEvent,
+          onMouseleave: mouseLeaveEvent,
+          onContextmenu: contextmenuEvent,
+        };
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
@@ -276,3 +277,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Dropdown);

@@ -1,7 +1,8 @@
 import resize from "../directives/resize";
 import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const Affix = defineComponent({
   name: "Affix",
   directives: { resize },
   props: {
@@ -90,3 +91,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Affix);

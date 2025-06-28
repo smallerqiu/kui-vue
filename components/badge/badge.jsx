@@ -1,5 +1,6 @@
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Badge = defineComponent({
   name: "Badge",
   props: {
     count: [String, Number],
@@ -63,3 +64,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Badge);

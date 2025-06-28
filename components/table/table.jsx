@@ -6,7 +6,9 @@ import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
 import { Remove, Add } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent} from 'vue'
+const Table = defineComponent({
   name: 'Table',
   props: {
     bordered: Boolean,
@@ -268,4 +270,5 @@ export default {
       this.checkAll = checked
     }
   }
-}
+})
+export default withInstall(Table)

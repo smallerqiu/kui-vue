@@ -5,7 +5,8 @@ import { HelpCircle } from "kui-icons";
 import Icon from "../icon";
 import { Button } from "../button";
 import { setPlacement } from "../utils/placement";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Popconfirm = defineComponent({
   name: "Popconfirm",
   directives: {
     transfer,
@@ -181,3 +182,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Popconfirm);

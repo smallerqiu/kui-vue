@@ -1,6 +1,7 @@
 import { defineComponent, computed } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const MenuGroup = defineComponent({
   name: "MenuGroup",
   props: {
     title: { type: String, required: true },
@@ -17,3 +18,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(MenuGroup);

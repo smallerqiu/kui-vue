@@ -1,6 +1,7 @@
 import Icon from "../icon";
 import { defineComponent, ref, watch } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const SkeletonImage = defineComponent({
   name: "SkeletonImage",
   props: {
     animated: Boolean,
@@ -71,3 +72,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(SkeletonImage);

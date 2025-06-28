@@ -4,7 +4,8 @@ import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
 import { defineComponent, ref, watch, onMounted, nextTick, Transition, onBeforeMount, inject } from "vue";
 import zhCN from "../locale/lang/zh-CN";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
   props: {
@@ -225,3 +226,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Modal);

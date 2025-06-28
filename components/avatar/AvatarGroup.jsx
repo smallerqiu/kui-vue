@@ -1,6 +1,7 @@
 import { cloneVNode, defineComponent } from "vue";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const AvatarGroup = defineComponent({
   name: "AvatarGroup",
   props: {
     maxCount: Number,
@@ -21,3 +22,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(AvatarGroup);

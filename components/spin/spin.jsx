@@ -1,5 +1,6 @@
 import { defineComponent, ref, watch } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Spin = defineComponent({
   name: "Spin",
   props: {
     value: { type: Boolean, default: true },
@@ -58,3 +59,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Spin);

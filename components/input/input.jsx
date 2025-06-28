@@ -3,8 +3,9 @@ import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch } from "vue";
-export default defineComponent({
-  name: "baseInput",
+import { withInstall } from '../utils/vue';
+const Input = defineComponent({
+  name: "Input",
   props: {
     clearable: Boolean,
     visiblePasswordIcon: { type: Boolean, default: true },
@@ -189,3 +190,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Input);

@@ -1,5 +1,6 @@
 import { defineComponent, provide, ref, watch } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Row = defineComponent({
   name: "Row",
   props: {
     gutter: [Number, Array],
@@ -65,3 +66,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Row);

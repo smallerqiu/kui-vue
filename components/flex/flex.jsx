@@ -1,5 +1,6 @@
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Flex = defineComponent({
   name: "Flex",
   props: {
     align: {
@@ -52,3 +53,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Flex);

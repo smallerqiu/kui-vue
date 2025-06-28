@@ -1,7 +1,9 @@
 import Thumb from "./thumb";
 import { multiply, add, subtract } from "../utils/number";
 import { defineComponent, ref, provide, watch } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Slider = defineComponent({
+  name: "Slider",
   props: {
     value: [Array, Number, String],
     min: { type: Number, default: 0 },
@@ -377,3 +379,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Slider);

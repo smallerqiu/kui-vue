@@ -1,5 +1,6 @@
 import { inject } from "vue";
 import newInstance from "../message/instance";
+import { withInstall } from '../utils/vue';
 
 let noticeInstance;
 
@@ -39,4 +40,4 @@ let Notice = {
   };
 });
 
-export default Notice;
+export default withInstall(Notice);

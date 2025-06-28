@@ -1,6 +1,7 @@
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 import { getChildren } from "../utils/vnode";
+import { withInstall } from '../utils/vue';
 import {
   defineComponent,
   ref,
@@ -12,7 +13,7 @@ import {
   onMounted,
 } from "vue";
 
-export default defineComponent({
+const MenuItem = defineComponent({
   name: "MenuItem",
   props: {
     icon: [String, Array],
@@ -94,3 +95,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(MenuItem);

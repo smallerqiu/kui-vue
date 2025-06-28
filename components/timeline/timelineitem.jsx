@@ -1,6 +1,7 @@
 import { defineComponent } from "vue";
 import Icon from "../icon";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const TimeLineItem = defineComponent({
   name: "TimeLineItem",
   props: {
     color: String,
@@ -30,3 +31,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(TimeLineItem);

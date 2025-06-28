@@ -2,7 +2,9 @@
 import Icon from "../icon";
 import scroll from "../_tool/scroll";
 import { ArrowUp } from "kui-icons";
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent } from "vue";
+const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },
   props: {
@@ -70,4 +72,5 @@ export default {
       </transition>
     )
   }
-};
+});
+export default withInstall(BackTop);

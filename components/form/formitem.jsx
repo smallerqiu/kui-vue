@@ -1,8 +1,10 @@
 import { Row, Col } from '../grid'
 import cloneVNode from '../_tool/clone';
 import { getChild, isVnode } from '../_tool/utils'
+import { withInstall } from '../utils/vue';
+import { defineComponent } from 'vue'
 
-export default {
+const FormItem = defineComponent({
   name: "FormItem",
   props: {
     label: String,
@@ -243,4 +245,5 @@ export default {
       return this.valid
     }
   }
-}
+})
+export default withInstall(FormItem);

@@ -6,6 +6,7 @@ import TimeRange from './time/range';
 import DateTime from './datetime/datetime';
 import DateTimeRange from './datetime/range';
 import { pick } from './util/base';
+import { withInstall } from '../utils/vue';
 import { keys, resolveProps } from './util/vue';
 
 const formatMap = {
@@ -70,4 +71,4 @@ DatePicker.props = {
   // Vue 3 setup: 手动定义 props 可选；如果你已有类型推导的方案可略
 };
 
-export default DatePicker;
+export default withInstall(DatePicker);

@@ -1,4 +1,5 @@
 import { defineComponent, ref, createVNode, render, onBeforeUnmount, Transition } from "vue";
+import { withInstall } from '../utils/vue';
 
 const loading = defineComponent({
   setup(ps, { expose }) {
@@ -126,4 +127,4 @@ let Loading = {
     return inject("loading");
   },
 };
-export default Loading;
+export default withInstall(Loading);

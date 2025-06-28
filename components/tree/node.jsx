@@ -6,7 +6,9 @@ import { getTranstionProp } from '../base/transition'
 import { getChild } from '../_tool/utils'
 import cloneVNode from '../_tool/clone.js'
 import { Loading, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue';
+import { defineComponent } from 'vue'
+const TreeNode = defineComponent({
   name: 'TreeNode',
   props: {
     data: Object,
@@ -306,4 +308,5 @@ export default {
         }
       </div>)
   }
-}
+})
+export default withInstall(TreeNode)

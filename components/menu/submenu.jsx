@@ -14,8 +14,9 @@ import { getTranstionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const SubMenu = defineComponent({
   name: "SubMenu",
   directives: { transfer },
   props: {
@@ -254,3 +255,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(SubMenu);

@@ -1,6 +1,7 @@
 import { getChildren } from "../utils/vnode";
 import { defineComponent, cloneVNode } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const InputGroup = defineComponent({
   name: "InputGroup",
   props: {
     block: Boolean,
@@ -68,3 +69,4 @@ export default defineComponent({
     return () => <div {...props}>{childs}</div>;
   },
 });
+export default withInstall(InputGroup);

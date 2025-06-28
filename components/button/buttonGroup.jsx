@@ -1,6 +1,7 @@
 import { ref, computed, defineComponent } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default defineComponent({
+const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: {
     size: {
@@ -26,3 +27,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(ButtonGroup);

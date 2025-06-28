@@ -8,6 +8,7 @@ import Paint from "./paint";
 import Color from "color";
 import Presets from "./presets";
 import { cloneNodes } from "../utils/vnode";
+import { withInstall } from '../utils/vue';
 import {
   defineComponent,
   ref,
@@ -17,7 +18,7 @@ import {
   nextTick,
   Transition,
 } from "vue";
-export default defineComponent({
+const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
     transfer,
@@ -341,3 +342,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(ColorPicker);

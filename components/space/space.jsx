@@ -1,6 +1,7 @@
 import { defineComponent, computed, h, cloneVNode,isVNode } from "vue";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Space = defineComponent({
   name: "Space",
   props: {
     align: {
@@ -82,3 +83,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Space);

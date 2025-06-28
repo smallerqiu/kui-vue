@@ -1,5 +1,6 @@
 import { defineComponent, inject } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Col = defineComponent({
   name: "Col",
   props: {
     span: Number,
@@ -60,3 +61,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Col);

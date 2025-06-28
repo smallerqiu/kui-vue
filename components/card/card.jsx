@@ -1,6 +1,7 @@
 import Icon from "../icon";
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Card = defineComponent({
   name: "Card",
   props: {
     bordered: { type: Boolean, default: true },
@@ -36,3 +37,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Card);

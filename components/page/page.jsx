@@ -8,9 +8,10 @@ import {
   ChevronDoubleForward,
 } from "kui-icons";
 import { ref, defineComponent, watch, inject, nextTick } from "vue";
+import { withInstall } from '../utils/vue';
 
 import zhCN from "../locale/lang/zh-CN";
-export default defineComponent({
+const Page = defineComponent({
   name: "Page",
   props: {
     disabled: Boolean,
@@ -278,9 +279,9 @@ export default defineComponent({
     };
     return () => {
       const classes = [
-          "k-page",
-          { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
-        ],
+        "k-page",
+        { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
+      ],
         preNode = (
           <li
             class={[
@@ -325,3 +326,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Page)

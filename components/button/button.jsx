@@ -2,7 +2,8 @@ import { defineComponent, computed } from "vue";
 import Icon from "../icon";
 import { Loading } from "kui-icons";
 import { getChildren } from "../utils/vnode";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Button = defineComponent({
   name: "Button",
   props: {
     htmlType: {
@@ -95,3 +96,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Button);

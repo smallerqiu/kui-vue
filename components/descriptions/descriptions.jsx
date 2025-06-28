@@ -1,6 +1,7 @@
 import { defineComponent } from "vue";
 import Item from "./descriptionsItem";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const Descriptions = defineComponent({
   name: "Descriptions",
   props: {
     bordered: Boolean,
@@ -148,3 +149,4 @@ export default defineComponent({
     };
   },
 });
+export default withInstall(Descriptions);

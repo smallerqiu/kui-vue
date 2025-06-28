@@ -1,4 +1,5 @@
 import { defineComponent, ref, computed, provide, inject, onMounted, onBeforeUnmount } from "vue";
+import { withInstall } from '../utils/vue';
 
 function createComponent(suffixCls, name) {
   return (Component) => {
@@ -68,9 +69,9 @@ const Footer = createComponent("layout-footer", "Footer")(Base);
 const Layout = createComponent("layout", "Layout")(layoutBase);
 const Sider = createComponent("layout-sider", "Sider")(siderBase);
 
-Layout.Sider = Sider;
-Layout.Content = Content;
-Layout.Header = Header;
-Layout.Footer = Footer;
+Layout.Sider = withInstall(Sider);
+Layout.Content = withInstall(Content);
+Layout.Header = withInstall(Header);
+Layout.Footer = withInstall(Footer);
 
 export default Layout;

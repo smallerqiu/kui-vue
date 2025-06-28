@@ -1,5 +1,6 @@
 import { defineComponent } from "vue";
-export default defineComponent({
+import { withInstall } from '../utils/vue';
+const TextArea = defineComponent({
   name: "TextArea",
   props: {
     value: [String, Number],
@@ -22,3 +23,4 @@ export default defineComponent({
     return () => <textarea {...props} />;
   },
 });
+export default withInstall(TextArea);
