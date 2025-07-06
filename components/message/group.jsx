@@ -49,14 +49,14 @@ export default defineComponent({
         };
       }
 
-      let childs = group.value.map((item, i) => {
+      let children = group.value.map((item, i) => {
         let props = { ...item };
         delete props.duration;
         return <Notice {...props} />;
       });
       return (
         <TransitionGroup tag="div" class={`k-${type}`} {...transition}>
-          {...childs}
+          {...children}
         </TransitionGroup>
       );
     };

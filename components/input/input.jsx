@@ -152,38 +152,38 @@ const Input = defineComponent({
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
       if (slots.prefix || slots.suffix) {
-        const preChilds = [];
-        if (slots.prefix) preChilds.push(<div class="k-input-group-prefix">{slots.prefix?.()}</div>);
-        const innerChilds = [];
-        if (icon) innerChilds.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
-        if (prefix) innerChilds.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
-        innerChilds.push(textInput);
-        if (clearable) innerChilds.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
-        const sufChilds = [];
-        if (slots.suffix) sufChilds.push(<div class="k-input-group-suffix">{slots.suffix?.()}</div>);
+        const preChildren = [];
+        if (slots.prefix) preChildren.push(<div class="k-input-group-prefix">{slots.prefix?.()}</div>);
+        const innerChildren = [];
+        if (icon) innerChildren.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
+        if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        innerChildren.push(textInput);
+        if (clearable) innerChildren.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        const sufChildren = [];
+        if (slots.suffix) sufChildren.push(<div class="k-input-group-suffix">{slots.suffix?.()}</div>);
 
-        if (slots.controls) innerChilds.push(slots.controls?.());
+        if (slots.controls) innerChildren.push(slots.controls?.());
         return (
           <InputGroup size={size}>
-            {...preChilds}
+            {...preChildren}
             <div {...props} mult>
-              {innerChilds}
+              {innerChildren}
             </div>
-            {...sufChilds}
+            {...sufChildren}
           </InputGroup>
         );
       } else {
-        const childs = [];
-        if (icon) childs.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
-        if (prefix) childs.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
-        childs.push(textInput);
-        if (clearable) childs.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
-        if (suffixNode) childs.push(suffixNode);
-        if (slots.controls) childs.push(slots.controls?.());
+        const children = [];
+        if (icon) children.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
+        if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        children.push(textInput);
+        if (clearable) children.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        if (suffixNode) children.push(suffixNode);
+        if (slots.controls) children.push(slots.controls?.());
 
         return (
           <div {...props} mult>
-            {...childs}
+            {...children}
           </div>
         );
       }

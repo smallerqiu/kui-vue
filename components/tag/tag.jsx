@@ -40,18 +40,18 @@ const Tag = defineComponent({
         ],
         style: { backgroundColor: isColor(color) && !colors.includes(color) ? color : null },
       };
-      const childs = [];
+      const children = [];
       if (icon) {
-        childs.push(<Icon class="k-tag-icon" type={icon} />);
+        children.push(<Icon class="k-tag-icon" type={icon} />);
       }
-      childs.push(<span class="k-tag-text">{slots.default?.()}</span>);
+      children.push(<span class="k-tag-text">{slots.default?.()}</span>);
       if (closeable) {
-        childs.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
+        children.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
       }
       return (
         <Transition name="k-tag">
           <div {...props} v-show={visible.value}>
-            {...childs}
+            {...children}
           </div>
         </Transition>
       );

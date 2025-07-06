@@ -29,28 +29,20 @@
 <script setup>
 import { message } from "kui-vue";
 import { ChevronBack } from 'kui-icons'
-export default {
-  data() {
-    return {
-      ChevronBack,
-      show: false,
-      show2: false,
-      date: '',
-      date2: ''
-    }
-  },
-  methods: {
-    change(date) {
-      this.show = false
-      console.log(date.toString())
-      message.info(date.toString())
-    },
-    change2(date) {
-      this.show2 = false
-      console.log(date.toString())
-      message.info(date.toString())
-    }
-  },
+import { ref } from "vue"; 
+const show = ref(false),
+      show2 = ref(false),
+      date = ref(''),
+      date2 = ref('');
+const change = (date) => {
+  show.value = false
+  console.log(date.toString())
+  message.info(date.toString())
+}
+const change2 = (date) => {
+  show2.value = false
+  console.log(date.toString())
+  message.info(date.toString())
 }
 </script>
 <style lang="less">

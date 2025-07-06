@@ -34,10 +34,10 @@ const RadioGroup = defineComponent({
 
     return () => {
       const { options, type, direction, theme, shape, size } = ps;
-      let childs = getChildren(slots.default?.());
+      let children = getChildren(slots.default?.());
 
       if (options && options.length) {
-        childs = options.map((option) => {
+        children = options.map((option) => {
           let pps = {
             theme: theme,
             shape: shape,
@@ -53,13 +53,13 @@ const RadioGroup = defineComponent({
           return type == "button" ? <Button {...pps} /> : <Radio {...pps} />;
         });
       } else {
-        childs = childs?.map((child) => {
+        children = children?.map((child) => {
           return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
         });
       }
       const classes = ["k-radio-group", { "k-radio-cirle": shape == "circle" }, { "k-radio-group-light": theme == "light" && type == "button" }, { "k-radio-group-card": theme == "card" && type == "button" }, { "k-radio-group-vertical": direction == "vertical" }];
 
-      return <div class={classes}>{childs}</div>;
+      return <div class={classes}>{children}</div>;
     };
   },
 });

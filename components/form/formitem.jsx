@@ -59,7 +59,7 @@ const FormItem = defineComponent({
       wrapperProp = { props: { ...wrapperCol } }
     }
 
-    const childs = getChild(this.$slots.default)
+    const children = getChild(this.$slots.default)
     let id = null
     if (Form.name && prop) {
       id = `${Form.name || `form_` + this._uid}_${prop}`
@@ -75,7 +75,7 @@ const FormItem = defineComponent({
         <Col {...wrapperProp}>
           <div class="k-form-item-content">
             {
-              childs.map(child => {
+              children.map(child => {
                 if (isVnode(child)) {
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''

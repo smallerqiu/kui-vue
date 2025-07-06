@@ -23,7 +23,7 @@ const Space = defineComponent({
   },
   setup(ps, { slots, attrs }) {
     return () => {
-      let childs = getChildren(slots.default?.())
+      let children = getChildren(slots.default?.())
       
       
       const split = slots.split?.();
@@ -63,19 +63,19 @@ const Space = defineComponent({
       };
 
       const vnodes = [];
-      for (let i = 0; i < childs.length; i++) {
+      for (let i = 0; i < children.length; i++) {
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
           size: ps.size,
           class: {
             [`k-space-${pre}first-item`]: i === 0,
-            [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
-            [`k-space-${pre}last-item`]: i === childs.length - 1,
+            [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
+            [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
-        const child = ps.compact ? cloneVNode(childs[i], p, true, true) : h("div", p, childs[i]);
+        const child = ps.compact ? cloneVNode(children[i], p, true, true) : h("div", p, children[i]);
         vnodes.push(child);
-        if (split && i < childs.length - 1) {
+        if (split && i < children.length - 1) {
           vnodes.push(split);
         }
       }

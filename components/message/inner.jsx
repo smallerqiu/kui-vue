@@ -29,23 +29,23 @@ export default defineComponent({
         success: CheckmarkCircle,
         warning: AlertCircle,
       };
-      const childs = [];
+      const children = [];
       if (type != "default") {
-        childs.push(<Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />);
+        children.push(<Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />);
       }
       if (noticeType == "message") {
-        childs.push(<span>{content}</span>);
+        children.push(<span>{content}</span>);
         if (closable) {
-          childs.push(<Icon class="k-message-close" type={Close} onClick={onClose} />);
+          children.push(<Icon class="k-message-close" type={Close} onClick={onClose} />);
         }
       } else {
-        childs.push(<div class="k-notice-title">{title}</div>);
-        childs.push(<div class="k-notoce-desc">{content}</div>);
-        childs.push(<Icon class="k-notice-close" type={Close} onClick={onClose} />);
+        children.push(<div class="k-notice-title">{title}</div>);
+        children.push(<div class="k-notoce-desc">{content}</div>);
+        children.push(<Icon class="k-notice-close" type={Close} onClick={onClose} />);
       }
       return (
         <div class={classes}>
-          <div class={`k-${noticeType}-content`}>{...childs}</div>
+          <div class={`k-${noticeType}-content`}>{...children}</div>
         </div>
       );
     };

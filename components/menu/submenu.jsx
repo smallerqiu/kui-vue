@@ -141,8 +141,8 @@ const SubMenu = defineComponent({
           hidePopTimer?.();
         },
       };
-      const childs = getChildren(slots.default?.());
-      const menuItesms = childs.map((child) => {
+      const children = getChildren(slots.default?.());
+      const menuItesms = children.map((child) => {
         // if (child.type.name == "MenuItem") {
         return cloneVNode(child, { ispopup: true });
         // }

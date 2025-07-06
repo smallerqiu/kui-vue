@@ -41,11 +41,11 @@ const Collapse = defineComponent({
           ["k-collaplse-sample"]: ps.sample,
         },
       ];
-      const childs = getChildren(slots.default?.());
+      const children = getChildren(slots.default?.());
 
       return (
         <div class={classes}>
-          {childs?.map((child) => {
+          {children?.map((child) => {
             let actived = currentValue.value.includes(child.key);
             return cloneVNode(child, { actived, onExpand: change });
           })}

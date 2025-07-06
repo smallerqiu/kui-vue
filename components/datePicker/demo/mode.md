@@ -6,19 +6,19 @@
 ```vue
 <template>
   <div> 
-    <DatePicker mode='year' placeholder="请选择年份" />
+    <DatePicker type='year' placeholder="请选择年份" />
     <br />
-    <DatePicker mode='month' placeholder="请选择月份" />
+    <DatePicker type='month' placeholder="请选择月份" />
     <br />
     <DatePicker />
     <br />
-    <DatePicker mode="time" placeholder="请选择时间" />
+    <DatePicker type="time" placeholder="请选择时间" />
     <br />
-    <DatePicker placeholder="请选择时间" mode="dateTime" />
+    <DatePicker placeholder="请选择时间" type="dateTime" />
     <br />
-    <DatePicker :placeholder="['Start Date','End Date']" mode="dateRange"/>
+    <DatePicker :placeholder="['Start Date','End Date']" type="dateRange"/>
     <br />
-    <DatePicker :placeholder="['Start Time','End Time']" mode="dateTimeRange" />
+    <DatePicker :placeholder="['Start Time','End Time']" type="dateTimeRange" />
   </div>
 </template>
 ```

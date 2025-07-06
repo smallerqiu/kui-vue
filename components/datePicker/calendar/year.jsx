@@ -1,65 +1,20 @@
-import { usePrefixClass } from '../context';
-import { chunk, last } from '../util/base';
-import { createDate } from '../util/date';
-import { TableHeader } from './header';
+import { defineComponent, ref } from 'vue'
+import List from './scrollitem'
 
-const getDefaultYears = (calendar) => {
-  const firstYear = Math.floor(calendar.getFullYear() / 10) * 10;
-  const years = [];
-  for (let i = 0; i < 10; i++) {
-    years.push(firstYear + i);
-  }
-  return chunk(years, 2);
-};
+export default defineComponent({
+  props: {
+    value: Object,
+    disabledDate: Function,
+  },
+  setup(ps) {
+    const items = (a) => Array.from({ length: 201 }, (_, i) => a - 100 + i);
 
-export function TableYear({
-  calendar,
-  getCellClasses = () => [],
-  getYearPanel = getDefaultYears,
-  onSelect,
-  onUpdateCalendar,
-}) {
-  const prefixClass = usePrefixClass();
-
-  const getDate = (year) => {
-    return createDate(year, 0);
-  };
-
-  const handleClick = (evt) => {
-    const target = evt.currentTarget;
-    const year = target.getAttribute('data-year');
-    onSelect(getDate(parseInt(year, 10)));
-  };
-
-  const years = getYearPanel(new Date(calendar));
-  const firstYear = years[0][0];
-  const lastYear = last(last(years));
-
-  return (
-    <div class={`${prefixClass}-calendar ${prefixClass}-calendar-panel-year`}>
-      <TableHeader type="year" calendar={calendar} onUpdateCalendar={onUpdateCalendar}>
-        <span>{firstYear}</span>
-        <span class={`${prefixClass}-calendar-decade-separator`}></span>
-        <span>{lastYear}</span>
-      </TableHeader>
-      <div class={`${prefixClass}-calendar-content`}>
-        <table class={`${prefixClass}-table ${prefixClass}-table-year`}>
-          {years.map((row, i) => (
-            <tr key={i}>
-              {row.map((cell, j) => (
-                <td
-                  key={j}
-                  class={['cell', getCellClasses(getDate(cell))]}
-                  data-year={cell}
-                  onClick={handleClick}
-                >
-                  <div>{cell}</div>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </table>
+    return () => {
+      let { $y } = ps.value || { $y: null }
+      let year = new Date().getFullYear()
+      return <div class="k-calendar-years">
+        <List items={items(year)} value={$y} type="year" disabledTime={ps.disabledTime} />
       </div>
-    </div>
-  );
-}
+    }
+  }
+})

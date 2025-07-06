@@ -2,10 +2,10 @@
   "name": "kui-vue-4.x",
   "version": "4.0.0",
   "description": "A lightweight desktop UI component library suitable for Vue 3.",
-  "main":"dist/k-ui.js",
+  "main": "dist/k-ui.js",
   "module": "dist/k-ui.esm.js",
-  "unpkg":"dist/k-ui.min.js",
-  "jsdelivr":"dist/k-ui.min.js",
+  "unpkg": "dist/k-ui.min.js",
+  "jsdelivr": "dist/k-ui.min.js",
   "author": "Qiu",
   "license": "MIT",
   "typings": "dist/k-ui.d.ts",
@@ -21,13 +21,13 @@
   "scripts": {
     "start": "npm run serve",
     "serve": "vue-cli-service serve",
-    "build":"npm",
-    "build:es":"npm",
-    "build:umd":"npm",
+    "build": "npm",
+    "build:es": "npm",
+    "build:umd": "npm",
     "build:docs": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build:types":"tsc --emitDeclarationOnly",
-    "build:css":"lessc --clean-css='--s1 --advanced --compat' components/styles/index.less dist/k-ui.css && postcss -u autoprefixer -b '> 1%, not ie 11,not dead' dist/k-ui.css -o dist/k-ui.css --no-map"
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:css": "lessc --clean-css='--s1 --advanced --compat' components/styles/index.less dist/k-ui.css && postcss -u autoprefixer -b '> 1%, not ie 11,not dead' dist/k-ui.css -o dist/k-ui.css --no-map"
   },
   "dependencies": {
     "color": "^5.0.0",
@@ -37,9 +37,9 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@vue/babel-plugin-jsx": "^1.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/babel-plugin-jsx": "^1.4.0",
     "@vue/cli-service": "~5.0.0",
     "@vueuse/core": "^13.0.0",
     "babel-eslint": "^10.1.0",

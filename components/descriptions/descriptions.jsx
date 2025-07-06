@@ -15,16 +15,16 @@ const Descriptions = defineComponent({
     return () => {
       let { column, bordered, layout, size, title, extra } = ps;
 
-      let childs = slots.default?.();
+      let children = slots.default?.();
 
       let rows = { 0: [] },
         len = 0,
         temps = [],
         v = 0;
 
-      for (let i = 0; i < childs?.length; i++) {
-        let { label, span = 1 } = childs[i].props;
-        const children = childs[i].children.default?.();
+      for (let i = 0; i < children?.length; i++) {
+        let { label, span = 1 } = children[i].props;
+        const children = children[i].children.default?.();
         let row = rows[len] || [];
         let vertical = layout == "vertical";
 
@@ -32,7 +32,7 @@ const Descriptions = defineComponent({
 
         let cols = bordered && !vertical ? column * 2 : column;
 
-        if (i == childs?.length - 1) {
+        if (i == children?.length - 1) {
           if (bordered) {
             span = cols - temp - (vertical ? 0 : 1);
           } else if (temp < cols) {

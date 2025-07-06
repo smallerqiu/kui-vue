@@ -21,14 +21,14 @@ export default{
   data() {
     return {
       expData:[
-        {key:'0', name:'Jone', age:3 , childs:5},
-        {key:'1', name:'Stack', age:5, childs:35 },
-        {key:'2', name:'White', age:4, childs:25 },
+        {key:'0', name:'Jone', age:3 , children:5},
+        {key:'1', name:'Stack', age:5, children:35 },
+        {key:'2', name:'White', age:4, children:25 },
       ],
       expColumns:[
         { title:'Name' , key:'name'},
         { title:'Age' , key:'age'},
-        { title:'Childs' , key:'childs'},
+        { title:'Children' , key:'children'},
       ],
       data:[
         { key:'0', name:'Li Lei' ,gender: 0 , age:32 , address:'Wu Han Guanggu No. 328', tags:['Python','Java'] },

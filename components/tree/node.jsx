@@ -193,7 +193,7 @@ const TreeNode = defineComponent({
     let data = Object.assign(p, this.defaultData)
     let { isLeaf, disabled, icon, title, children = [] } = data
 
-    let slotChilds = getChild(this.$slots.default)
+    let slotChildren = getChild(this.$slots.default)
 
     let itemNode = [], { Tree, loading, reload } = this;
     let key = this.$vnode.key
@@ -204,9 +204,9 @@ const TreeNode = defineComponent({
       checked = defaultCheckedKeys.indexOf(key) > - 1,
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
 
-    let hasChilds = slotChilds.length > 0 || children.length > 0
+    let hasChildren = slotChildren.length > 0 || children.length > 0
     let hasLoad = 'loadData' in Tree.$listeners || 'load-data' in Tree.$listeners
-    if ((hasChilds || hasLoad) && isLeaf !== true) {
+    if ((hasChildren || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
         <Button size="small" theme="normal" loading={loading} icon={loading ? Loading : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
@@ -257,10 +257,10 @@ const TreeNode = defineComponent({
     itemNode.push(<span {...titleProps}>{innerNode}</span>)
 
     let childs = null
-    if (expand && hasChilds && reload) {
-      if (slotChilds.length) {
-        // childs = slotChilds
-        childs = slotChilds.map((vnode, i) => {
+    if (expand && hasChildren && reload) {
+      if (slotChildren.length) {
+        // childs = slotChildren
+        childs = slotChildren.map((vnode, i) => {
           vnode.data.key = vnode.data.key || `${key}_${i}`
           let ele = cloneVNode(vnode)
           return ele;
