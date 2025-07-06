@@ -27,8 +27,8 @@ export default defineComponent({
         item.preview === true && item.url
           ? item.url
           : item.preview
-          ? item.preview
-          : item.url;
+            ? item.preview
+            : item.url;
       return (
         <div
           class={[
@@ -41,12 +41,12 @@ export default defineComponent({
             {url ? <img src={url} /> : <Icon type={DocumentTextOutline} />}
           </div>
           <div class="k-upload-file-item-info">
-            {!isPicture ? (
+            {!isPicture && (
               <div class="k-upload-file-main">
                 <span class="k-upload-file-name">{item.filename}</span>
                 <span class="k-upload-file-size">{item.size}</span>
               </div>
-            ) : null}
+            )}
             {item.status != "wait" ? (
               <div class="k-upload-file-status">
                 {item.status == "uploading" ? (
@@ -65,11 +65,11 @@ export default defineComponent({
                   </div>
                 ) : null}
 
-                {isPicture && item.status == "error" ? (
+                {isPicture && item.status == "error" && (
                   <Tooltip title={statusText} placement="bottom">
                     <Icon type={AlertCircle} />
                   </Tooltip>
-                ) : null}
+                )}
               </div>
             ) : null}
           </div>

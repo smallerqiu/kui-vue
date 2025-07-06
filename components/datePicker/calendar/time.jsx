@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue'
-import List from './scrollitem'
+import { List } from './scrollitem'
 
 export default defineComponent({
   props: {
