@@ -24,8 +24,8 @@ const Tabs = defineComponent({
     const navboxRef = ref(null);
     const inkbarRef = ref(null);
 
-    // const childs = getChildren(slots.default?.());
-    const childs = computed(() => {
+    // const children = getChildren(slots.default?.());
+    const children = computed(() => {
       return getChildren(slots.default?.());
     });
     watch(
@@ -132,7 +132,7 @@ const Tabs = defineComponent({
     };
     const updateIndex = () => {
       nextTick(() => {
-        currentIndex.value = childs.value?.map((p) => p.key).indexOf(defaultActiveKey.value);
+        currentIndex.value = children.value?.map((p) => p.key).indexOf(defaultActiveKey.value);
         resetActivePostion();
         updateInkBarPosition();
       });
@@ -162,7 +162,7 @@ const Tabs = defineComponent({
       });
     };
     const renderNav = () => {
-      return childs.value?.map((panel, index) => {
+      return children.value?.map((panel, index) => {
         const key = panel.key;
         let { icon, title, closable, disabled } = panel.props;
         disabled = disabled !== undefined && disabled != false;
@@ -201,7 +201,7 @@ const Tabs = defineComponent({
       }
 
       const navCls = ["k-tabs-nav-container", { ["k-tabs-nav-container-scroll"]: scrollable.value }];
-      const childrenNode = childs.value?.map((item) => {
+      const childrenNode = children.value?.map((item) => {
         return cloneVNode(item, {
           activeKey: defaultActiveKey.value,
           onResetNavPosition: () => resetNavPosition(),

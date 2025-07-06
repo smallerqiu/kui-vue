@@ -48,8 +48,8 @@ const Button = defineComponent({
   },
   setup(props, { emit, slots, attrs }) {
     return () => {
-      let childs = getChildren(slots.default?.());
-      const onlyIcon = !childs?.length && (props.icon || props.loading);
+      let children = getChildren(slots.default?.());
+      const onlyIcon = !children?.length && (props.icon || props.loading);
       const classes = [
         "k-btn",
         {
@@ -77,7 +77,7 @@ const Button = defineComponent({
         class: classes,
       };
 
-      const childNode = childs?.map((c) => {
+      const childNode = children?.map((c) => {
         return typeof c.children === "string" ? (
           <span>{c.children.trim()}</span>
         ) : (

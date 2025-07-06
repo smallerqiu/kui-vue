@@ -45,17 +45,17 @@ const Spin = defineComponent({
           [`k-spin-${mode}`]: mode && spinning.value,
         },
       ];
-      const childs = slots.default?.();
+      const children = slots.default?.();
       const root = [
         "k-spin",
         {
           [`k-spin-lg`]: size == "large",
           [`k-spin-sm`]: size == "small",
-          [`k-spin-only`]: childs == null,
+          [`k-spin-only`]: children == null,
         },
       ];
       const spin = <div class={classes} />;
-      return <div class={root}>{[spin, childs]}</div>;
+      return <div class={root}>{[spin, children]}</div>;
     };
   },
 });

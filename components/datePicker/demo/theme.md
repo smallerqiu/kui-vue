@@ -17,20 +17,14 @@ theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义
     <br/>
     <DatePicker theme="light" :shape="shape?'circle':''" :dateIcon="null" placeholder="没有icon"/>
     <br/>
-    <DatePicker mode="month" placeholder="请选择月份" theme="light" :shape="shape?'circle':''"/>
+    <DatePicker type="month" placeholder="请选择月份" theme="light" :shape="shape?'circle':''"/>
     <br/>
-    <DatePicker mode="dateRange" theme="light" :shape="shape?'circle':''"/>
+    <DatePicker type="dateRange" theme="light" :shape="shape?'circle':''"/>
   </div>
 </template>
-<script>
+<script setup>
 import { ArrowDown, CaretDown } from "kui-icons";
-export default{
-  data() {
-    return {
-      ArrowDown, CaretDown,
-      shape : false
-    }
-  }
-}
+import { ref } from "vue";
+const shape = ref(false)  
 </script>
 ```

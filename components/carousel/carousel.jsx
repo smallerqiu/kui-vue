@@ -17,7 +17,7 @@ const Carousel = defineComponent({
   setup(ps, { slots, emit, expose }) {
     const currentIndex = ref(ps.value);
     const posIndex = ref(ps.loop ? ps.value + 1 : ps.value);
-    const autotimer = ref(null);
+    const autoTimer = ref(null);
     const width = ref(0);
     const height = ref(0);
     const animate = ref(ps.value > 0 ? false : true);
@@ -40,7 +40,7 @@ const Carousel = defineComponent({
       toSwitch("left");
     };
     const goTo = (index) => {
-      clearInterval(autotimer.value);
+      clearInterval(autoTimer.value);
       animate.value = true;
       currentIndex.value = index;
       posIndex.value = ps.loop ? index + 1 : index;
@@ -50,14 +50,14 @@ const Carousel = defineComponent({
     expose({ next, prev, goTo });
     const autoToPlay = () => {
       if (!ps.autoplay) return;
-      clearInterval(autotimer.value);
-      autotimer.value = setInterval(() => {
+      clearInterval(autoTimer.value);
+      autoTimer.value = setInterval(() => {
         change("right");
       }, parseInt(ps.delay));
     };
-    let childs = slots.default?.();
+    let children = slots.default?.();
     const toSwitch = (type) => {
-      clearInterval(autotimer.value);
+      clearInterval(autoTimer.value);
       if (playing.value) return;
       playing.value = true;
       change(type);
@@ -66,7 +66,7 @@ const Carousel = defineComponent({
     const change = (type) => {
       animate.value = true;
 
-      const total = ps.loop ? childs?.length + 2 : childs?.length;
+      const total = ps.loop ? children?.length + 2 : children?.length;
       let index = posIndex.value;
       let nextCurrent = currentIndex.value;
 
@@ -74,7 +74,7 @@ const Carousel = defineComponent({
         index = (index + 1) % total;
 
         if (ps.loop) {
-          nextCurrent = (nextCurrent + 1) % childs?.length;
+          nextCurrent = (nextCurrent + 1) % children?.length;
         } else {
           nextCurrent = index;
         }
@@ -82,7 +82,7 @@ const Carousel = defineComponent({
         index = (index - 1 + total) % total;
 
         if (ps.loop) {
-          nextCurrent = (nextCurrent - 1 + childs?.length) % childs?.length;
+          nextCurrent = (nextCurrent - 1 + children?.length) % children?.length;
         } else {
           nextCurrent = index;
         }
@@ -95,7 +95,7 @@ const Carousel = defineComponent({
       setTimeout(() => {
         playing.value = false;
         if (ps.loop) {
-          let count = ps.loop ? childs?.length + 2 : childs?.length;
+          let count = ps.loop ? children?.length + 2 : children?.length;
           if (posIndex.value === count - 1) {
             animate.value = false;
             posIndex.value = 1;
@@ -122,15 +122,15 @@ const Carousel = defineComponent({
     });
 
     onBeforeUnmount(() => {
-      clearInterval(autotimer.value);
+      clearInterval(autoTimer.value);
     });
 
     return () => {
       let { vertical } = ps;
-      const first = childs?.[0];
-      const last = childs?.[childs.length - 1];
-      const newChilds = ps.loop ? [last, ...childs, first] : childs;
-      let index = Math.min(childs?.length - 1, currentIndex.value);
+      const first = children?.[0];
+      const last = children?.[children.length - 1];
+      const newChildren = ps.loop ? [last, ...children, first] : children;
+      let index = Math.min(children?.length - 1, currentIndex.value);
       index = Math.max(0, index);
       const classes = [
         "k-carousel",
@@ -140,7 +140,7 @@ const Carousel = defineComponent({
       ];
       const dotsNode = (
         <ul class="k-carousel-dots">
-          {childs?.map((x, i) => (
+          {children?.map((x, i) => (
             <li class={{ "k-carousel-dots-active": index == i }} onClick={() => goTo(i)}></li>
           ))}
         </ul>
@@ -153,12 +153,12 @@ const Carousel = defineComponent({
       } else {
         offsetY = posIndex.value * height.value;
       }
-      const warpperCls = {
-        class: "k-carousel-warpper",
+      const wrapperCls = {
+        class: "k-carousel-wrapper",
         style: {
           transform: `translate3d(-${offsetX}px,-${offsetY}px,0)`,
-          width: !vertical ? newChilds?.length * width.value + "px" : "",
-          height: vertical ? newChilds?.length * height.value + "px" : "",
+          width: !vertical ? newChildren?.length * width.value + "px" : "",
+          height: vertical ? newChildren?.length * height.value + "px" : "",
           transitionDuration: !animate.value ? "0s" : "",
         },
       };
@@ -175,14 +175,14 @@ const Carousel = defineComponent({
       const props = {
         class: classes,
         ref: carouselRef,
-        onMouseEnter: () => clearInterval(autotimer.value),
+        onMouseEnter: () => clearInterval(autoTimer.value),
         onMouseLeave: () => {
           ps.autoplay && autoToPlay();
         },
       };
       return (
         <div v-resize={resize} {...props}>
-          <div {...warpperCls}>{newChilds}</div>
+          <div {...wrapperCls}>{newChildren}</div>
           {!vertical ? [arrowLeft, arrowRight] : null}
           {ps.dots ? dotsNode : null}
         </div>

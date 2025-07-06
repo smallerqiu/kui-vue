@@ -11,7 +11,7 @@ const DescriptionsItem = defineComponent({
   },
   setup(ps, { slots }) {
     return () => {
-      let childs = slots.default?.();
+      let children = slots.default?.();
       let { bordered, label, span, type, layout } = ps;
 
       if (bordered && layout != "vertical") {
@@ -24,7 +24,7 @@ const DescriptionsItem = defineComponent({
         }
         return (
           <td class="k-descriptions-item-content" colSpan={span}>
-            {childs}
+            {children}
           </td>
         );
       }
@@ -39,7 +39,7 @@ const DescriptionsItem = defineComponent({
           } else {
             return (
               <td class="k-descriptions-item-content" colSpan={span}>
-                {childs}
+                {children}
               </td>
             );
           }
@@ -56,7 +56,7 @@ const DescriptionsItem = defineComponent({
         return (
           <td class="k-descripts-item" colSpan={span}>
             <div class="k-descriptions-item-inner">
-              <div class="k-descriptions-item-content">{childs}</div>
+              <div class="k-descriptions-item-content">{children}</div>
             </div>
           </td>
         );
@@ -65,7 +65,7 @@ const DescriptionsItem = defineComponent({
         <td class="k-descripts-item" colSpan={span}>
           <div class="k-descriptions-item-inner">
             <div class="k-descriptions-item-label">{label}</div>
-            <div class="k-descriptions-item-content">{childs}</div>
+            <div class="k-descriptions-item-content">{children}</div>
           </div>
         </td>
       );

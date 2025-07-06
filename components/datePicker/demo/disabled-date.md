@@ -8,29 +8,26 @@
   <div>
     <DatePicker :disabledDate="disabledDate"/>
     <br/>
-    <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" mode="dateTime" />
+    <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" type="dateTime" />
     <br/>
-    <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime"/>
+    <DatePicker type="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime"/>
   </div>
 </template>
-<script>
+<script setup>
 import dayjs from 'dayjs';
-export default {
-  methods:{
-    disabledDate(current){
-      return current && current < dayjs().endOf('day');
-    },
-    range(len){
-      return new Array(len).fill('').map((x,y)=>y)
-    },
-    disabledTime(){
-      return {
-        disabledHours: () => this.range(24).splice(4, 20),
-        disabledMinutes: () => this.range(60).splice(40, 50),
-        disabledSeconds: () => [55, 56],
-      };
-    }
-  }
+ 
+const disabledDate = (current)=>{
+  return current && current < dayjs().endOf('day');
+}
+const range = (len)=>{
+  return new Array(len).fill('').map((x,y)=>y)
+}
+const disabledTime = ()=>{
+  return {
+    disabledHours: () => this.range(24).splice(4, 20),
+    disabledMinutes: () => this.range(60).splice(40, 50),
+    disabledSeconds: () => [55, 56],
+  };
 }
 </script>
 ```

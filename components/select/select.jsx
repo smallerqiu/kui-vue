@@ -413,8 +413,8 @@ const Select = defineComponent({
           setValueMap(value, labelText);
         });
       } else {
-        const childs = getChildren(slots.default?.());
-        childs.forEach((child, index) => {
+        const children = getChildren(slots.default?.());
+        children.forEach((child, index) => {
           const labelText =
             child.props?.label ||
             child.children?.default()[0].children ||

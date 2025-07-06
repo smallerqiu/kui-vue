@@ -43,10 +43,10 @@ const Avatar = defineComponent({
           fontSize: `${size / 2}px`,
         };
       }
-      let childs = slots.default?.();
+      let children = slots.default?.();
 
-      let hasIcon = childs?.filter((x) => x.type == "Icon").length;
-      let text = childs?.length == 1 && typeof childs[0].children === "string";
+      let hasIcon = children?.filter((x) => x.type == "Icon").length;
+      let text = children?.length == 1 && typeof children[0].children === "string";
       let cls = [
         "k-avatar",
         {
@@ -70,10 +70,10 @@ const Avatar = defineComponent({
             <img src={src} />
           ) : text ? (
             <span class="k-avatar-string" ref={innerRef}>
-              {childs}
+              {children}
             </span>
           ) : (
-            childs
+            children
           )}
         </div>
       );

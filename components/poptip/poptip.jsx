@@ -123,10 +123,10 @@ const Poptip = defineComponent({
         wpProps.onFocus = show;
         wpProps.onBlur = hide;
       }
-      const childs = getChildren(slots.default?.());
-      const nodes = childs?.map((node) => {
+      const children = getChildren(slots.default?.());
+      const nodes = children?.map((node) => {
         let pp = { ...attrs };
-        if (childs.length == 1) {
+        if (children.length == 1) {
           pp = { ...pp, ...wpProps };
         }
         return cloneVNode(node, pp, true, true);

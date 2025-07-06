@@ -8,13 +8,13 @@
   <div>
     <DatePicker :bordered="false"/>
     <br/>
-    <DatePicker mode="month" placeholder="请选择月份"  :bordered="false"/>
+    <DatePicker type="month" placeholder="请选择月份"  :bordered="false"/>
     <br/>
-    <DatePicker mode="dateRange"  :bordered="false"/>
+    <DatePicker type="dateRange"  :bordered="false"/>
     <br/>
     <DatePicker :bordered="false" disabled/>
     <br/>
-    <DatePicker mode="dateRange"  :bordered="false" disabled/>
+    <DatePicker type="dateRange"  :bordered="false" disabled/>
   </div>
 </template>
 ```

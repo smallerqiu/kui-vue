@@ -37,9 +37,9 @@ const CheckboxGroup = defineComponent({
 
     return () => {
       const { options, direction, size } = ps;
-      let childs = getChildren(slots.default?.());
+      let children = getChildren(slots.default?.());
       if (options && options?.length) {
-        childs = options.map((option) => {
+        children = options.map((option) => {
           let pps = {
             key: option.value,
             value: option.value,
@@ -52,11 +52,11 @@ const CheckboxGroup = defineComponent({
           return <Checkbox {...pps} />;
         });
       } else {
-        childs = childs?.map((child) => {
+        children = children?.map((child) => {
           return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
         });
       }
-      return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{childs}</div>;
+      return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{children}</div>;
     };
   },
 });

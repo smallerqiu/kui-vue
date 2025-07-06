@@ -51,11 +51,11 @@ const Form = defineComponent({
         'k-form-sm': size == 'small',
       }
     ];
-    const childs = getChild(this.$slots.default)
+    const children = getChild(this.$slots.default)
     return (
       <form autocomplete="off" class={classes} ref="form" id={name} onSubmit={this.submit} onReset={this.reset}>
         {
-          childs.map(child => {
+          children.map(child => {
             labelCol = (child.componentOptions && child.componentOptions.propsData.labelCol) || labelCol
             wrapperCol = (child.componentOptions && child.componentOptions.propsData.wrapperCol) || wrapperCol
             return cloneVNode(child, {

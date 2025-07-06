@@ -109,9 +109,9 @@ export default {
     remove(node, parent) {
       /*  
        
-       let childs = parent.children
-       const index = childs.findIndex(item => item == node);
-       childs.splice(index, 1); 
+       let children = parent.children
+       const index = children.findIndex(item => item == node);
+       children.splice(index, 1); 
        
        */
 

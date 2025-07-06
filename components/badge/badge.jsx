@@ -21,13 +21,13 @@ const Badge = defineComponent({
       const { maxCount, count, dot, color, status, text } = props;
       let innerText = null,
         statusNode = [];
-      const childs = slots.default?.();
+      const children = slots.default?.();
 
       if (typeof count === "number" && count !== 0) {
         innerText = count > maxCount ? maxCount + "+" : count;
       } else if (typeof count === "string") {
         innerText = count;
-      } else if ((status || color) && !dot && !childs?.length) {
+      } else if ((status || color) && !dot && !children?.length) {
         const _props = {
           class: [
             "k-badge-status-dot",
@@ -48,7 +48,7 @@ const Badge = defineComponent({
         class: {
           "k-badge-count": count !== undefined,
           "k-badge-dot": dot,
-          "k-badge-no-child": !childs?.length,
+          "k-badge-no-child": !children?.length,
           [`k-badge-${status}`]: status,
         },
         style: { backgroundColor: color },
@@ -56,7 +56,7 @@ const Badge = defineComponent({
       const supNode = innerText !== null || dot ? <sup {..._props}>{innerText}</sup> : null;
       return (
         <div class="k-badge">
-          {childs}
+          {children}
           {supNode}
           {statusNode}
         </div>

@@ -14,18 +14,13 @@
     <br/>
     <DatePicker :size="size" :picker-size="size"/>
     <br/>
-    <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
+    <DatePicker type="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
     <br/>
-    <DatePicker :size="size" mode="dateRange" :picker-size="size"/>
+    <DatePicker :size="size" type="dateRange" :picker-size="size"/>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      size:'default',
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const size = ref('default')
 </script>
 ```

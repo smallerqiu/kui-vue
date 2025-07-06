@@ -10,7 +10,7 @@ import Card from "./card";
 import { Carousel, CarouselItem } from "./carousel";
 import { Collapse, CollapsePanel } from "./collapse";
 import { Checkbox, CheckboxGroup } from "./checkbox";
-// import { DatePicker, DateCalendar } from './datePicker'
+import { DatePicker, /*DateCalendar*/ } from './datePicker'
 import { Descriptions, DescriptionsItem } from "./descriptions";
 import Drawer from "./drawer";
 import { Dropdown, DropdownButton } from "./dropdown";
@@ -81,7 +81,7 @@ const components = {
   ColorPicker,
   Col,
   Row,
-  // DatePicker, DateCalendar,
+  // DatePicker, //DateCalendar,
   Descriptions,
   DescriptionsItem,
   Dropdown,

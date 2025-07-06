@@ -349,20 +349,20 @@ const Slider = defineComponent({
         // value: range ? [].concat(defaultValue.value) : defaultValue.value * 1,
         onThumbMove: mouseMove,
       };
-      const childs = [];
+      const children = [];
       if ((included && marks) || !marks) {
         const track = renderTrack();
-        childs.push(track);
+        children.push(track);
       }
       if (ps.range) {
         let v = getThumbValue(0);
-        childs.push(<Thumb {...thumbProps} value={v} />);
+        children.push(<Thumb {...thumbProps} value={v} />);
       }
       let v2 = getThumbValue(1);
-      childs.push(<Thumb {...thumbProps} type="right" value={v2} />);
+      children.push(<Thumb {...thumbProps} type="right" value={v2} />);
       if (marks) {
         const mark = renderMark();
-        childs.push(mark);
+        children.push(mark);
       }
       return (
         <div
@@ -372,7 +372,7 @@ const Slider = defineComponent({
           ]}>
           <div class="k-slider-bar">
             <div class="k-slider-rail" ref={railRef} onClick={click}></div>
-            {...childs}
+            {...children}
           </div>
         </div>
       );

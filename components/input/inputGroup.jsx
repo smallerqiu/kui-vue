@@ -44,29 +44,29 @@ const InputGroup = defineComponent({
         props.style.gap = `${size}px`;
       }
     }
-    let childs = getChildren(slots.default?.());
+    let children = getChildren(slots.default?.());
     if (compact) {
-      let newChilds = [];
-      for (let i = 0; i < childs.length; i++) {
+      let newChildren = [];
+      for (let i = 0; i < children.length; i++) {
         let child = cloneVNode(
-          childs[i],
+          children[i],
           {
-            ...childs[i].props,
+            ...children[i].props,
             size,
             class: {
               [`k-input-group-first-item`]: i == 0,
-              [`k-input-group-item`]: i > 0 && i < childs.length - 1,
-              [`k-input-group-last-item`]: i == childs.length - 1,
+              [`k-input-group-item`]: i > 0 && i < children.length - 1,
+              [`k-input-group-last-item`]: i == children.length - 1,
             },
           },
           true,
           true
         );
-        newChilds.push(child);
+        newChildren.push(child);
       }
-      childs = newChilds;
+      children = newChildren;
     }
-    return () => <div {...props}>{childs}</div>;
+    return () => <div {...props}>{children}</div>;
   },
 });
 export default withInstall(InputGroup);
