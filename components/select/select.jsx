@@ -186,6 +186,7 @@ const Select = defineComponent({
     };
     onBeforeMount(() => {
       document.removeEventListener("keydown", onKeydown);
+      document.removeEventListener("click", outsideClick);
     });
 
     const updatePosition = () => {

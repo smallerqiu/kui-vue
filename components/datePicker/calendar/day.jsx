@@ -1,13 +1,7 @@
-import { defineComponent, ref } from 'vue'
-import List from './scrollitem'
-
-
+import { defineComponent } from 'vue'
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
-
 dayjs.extend(localeData);
-const localeDataObj = dayjs().localeData();
-console.log(localeDataObj);
 
 export default defineComponent({
   props: {
@@ -15,35 +9,47 @@ export default defineComponent({
     disabledTime: Function,
   },
   setup(ps) {
-    const getCalendar = ({
-      firstDayOfWeek,
-      year,
-      month,
-    }) => {
-      const arr = [];
-      // change to the last day of the last month
-      const calendar = createDate(year, month, 0);
-      const lastDayInLastMonth = calendar.getDate();
-      // getDay() 0 is Sunday, 1 is Monday
-      const firstDayInLastMonth = lastDayInLastMonth - ((calendar.getDay() + 7 - firstDayOfWeek) % 7);
-      for (let i = firstDayInLastMonth; i <= lastDayInLastMonth; i++) {
-        arr.push(createDate(year, month, i - lastDayInLastMonth));
-      }
-      // change to the last day of the current month
-      calendar.setMonth(month + 1, 0);
-      const lastDayInCurrentMonth = calendar.getDate();
-      for (let i = 1; i <= lastDayInCurrentMonth; i++) {
-        arr.push(createDate(year, month, i));
-      }
 
-      const lastMonthLength = lastDayInLastMonth - firstDayInLastMonth + 1;
-      const nextMonthLength = 6 * 7 - lastMonthLength - lastDayInCurrentMonth;
-      for (let i = 1; i <= nextMonthLength; i++) {
-        arr.push(createDate(year, month, lastDayInCurrentMonth + i));
+    const getCalendar = ({ firstDayOfWeek, year, month }) => {
+      const result = [];
+      // first day of this month
+      const firstOfMonth = dayjs([year, month, 1]);
+      // last day of this month
+      // const lastOfMonth = firstOfMonth.endOf("month");
+      let start = firstOfMonth;
+      const diff = (firstOfMonth.day() - firstDayOfWeek + 7) % 7;
+      if (diff > 0) {
+        start = firstOfMonth.subtract(diff, "day");
       }
-      return arr;
+      const totalDays = 6 * 7;
+      const days = []
+      for (let i = 0; i < totalDays; i++) {
+        const day = start.add(i, "day");
+        days.push(day);
+      }
+      let i = 0
+      while (i < totalDays) {
+        result.push(days.slice(i, (i += 7)));
+      }
+      return result;
     }
-
-    return () => <List items={getCalendar(ps)} />
+    const local = dayjs().localeData();
+    return () => {
+      const dayInfo = {
+        firstDayOfWeek: local.firstDayOfWeek(),
+        year: dayjs(ps.value).year(),
+        month: dayjs(ps.value).month() + 1
+      }
+      const dates = getCalendar(dayInfo)
+      return dates.map((row, i) => {
+        return <div class="k-calendar-week-item" key={i}>
+          {
+            row.map((cell, index) => {
+              return <span class="k-calendar-day-item" key={index}>{cell.date()}</span>
+            })
+          }
+        </div>
+      })
+    }
   }
 })

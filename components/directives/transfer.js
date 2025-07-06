@@ -22,7 +22,7 @@ export default {
     }
   },
   unmounted(el, { value },) {
-    // 父组件被移除时，把自己归位，不然会造成 父子组件不同步
+    // if parentNode is removed, we need to remove the element
     if (value) {
       const target = value === true ? document.body : value || document.body
       // el.__data.parentNode.appendChild(el)

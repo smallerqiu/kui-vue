@@ -81,7 +81,7 @@ const components = {
   ColorPicker,
   Col,
   Row,
-  // DatePicker, //DateCalendar,
+  DatePicker, //DateCalendar,
   Descriptions,
   DescriptionsItem,
   Dropdown,
