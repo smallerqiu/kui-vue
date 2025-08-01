@@ -1,9 +1,13 @@
+import { defineComponent, ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import Icon from '../icon'
-import transfer from "../_tool/transfer";
-import { getChild, measureScrollBar } from '../_tool/utils'
-let cacheBodyOverflow = {};
-import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Loading, AddCircleOutline, RemoveCircleOutline } from 'kui-icons'
-export default {
+import transfer from '../directives/transfer'
+import {
+  Refresh, Close, ArrowDown, IconImage, ChevronUp,
+  Loading, AddCircleOutline, RemoveCircleOutline
+} from 'kui-icons'
+import getScrollbarWidth from '../utils/elment'
+
+export default defineComponent({
   name: 'Preview',
   directives: { transfer },
   props: {
@@ -15,319 +19,225 @@ export default {
     data: { type: Array, default: () => [] },
     showSwitch: Boolean,
     showPanel: Boolean,
-    globle: { type: Boolean, default: true },
+    globle: { type: Boolean, default: true }
   },
-  data() {
-    return {
-      scale: 1,
-      rotate: 0,
-      startPos: { x: 0, y: 0 },
-      initPos: { x: 0, y: 0 },
-      left: 0,
-      top: 0,
-      isMousePressed: false,
-      visible: this.value,
-      src: this.origin,
-      loading: false,
-      error: false,
-      vertical: true,
-      isShowPanel: this.showPanel,
-      panelRight: 0,
-      touch: false,
+  emits: ['input', 'close', 'switch', 'toggle-panel'],
+  setup(props, { emit, slots }) {
+    const scale = ref(1)
+    const rotate = ref(0)
+    const startPos = ref({ x: 0, y: 0 })
+    const left = ref(0)
+    const top = ref(0)
+    const isMousePressed = ref(false)
+    const visible = ref(props.value)
+    const src = ref(props.origin)
+    const loading = ref(false)
+    const error = ref(false)
+    const vertical = ref(true)
+    const isShowPanel = ref(props.showPanel)
+    const panelRight = ref(0)
+    const touch = ref(false)
+
+    const imgRef = ref(null)
+    const panelRef = ref(null)
+    let cacheBodyOverflow = {}
+
+    watch(() => props.origin, val => src.value = val)
+    watch(() => props.value, show => {
+      visible.value = show
+      resetBodyStyle(show)
+      if (show) nextTick(updatePanelRight)
+    })
+    watch(src, val => {
+      if (props.type === 'media') return
+      const img = new Image()
+      loading.value = true
+      error.value = false
+      img.onload = () => { loading.value = false }
+      img.onerror = () => { loading.value = false; error.value = true }
+      img.src = val
+    })
+    watch(() => props.showPanel, v => {
+      isShowPanel.value = v
+      updatePanelRight()
+    })
+
+    function updatePanelRight() {
+      panelRight.value = panelRef.value && isShowPanel.value ? panelRef.value.offsetWidth : 0
     }
-  },
-  watch: {
-    origin(src) {
-      this.src = src
-    },
-    value(show) {
-      this.visible = show
-      this.resetBodyStyle(show)
-      if (show) {
-        this.$nextTick(() => {
-          this.updatePanelRight()
-        })
-      }
-    },
-    src(src) {
-      if (this.type == 'media') return
-      let img = new Image()
-      this.loading = true
-      this.error = false
-      img.onload = () => {
-        this.loading = false
-        img = null
-      }
-      img.onerror = () => {
-        this.loading = false
-        img = null
-        this.error = true
-      }
-      img.src = src
-      // }
-    },
-    showPanel(value) {
-      this.isShowPanel = value
-      this.updatePanelRight()
+    function setRotate(leftRotate) {
+      rotate.value += leftRotate ? -90 : 90
+      vertical.value = !vertical.value
+      resetPosition()
     }
-  },
-  methods: {
-    updatePanelRight() {
-      let panel = this.$refs.panelRef
-      this.panelRight = panel && this.isShowPanel ? panel.offsetWidth : 0
-    },
-    setRotate(left) {
-      let { rotate } = this
-      rotate = left ? (rotate - 90) : (rotate + 90);
-      this.vertical = !this.vertical
-      this.rotate = rotate
-      this.resetPosition()
-    },
-    setScale(zoom) {
-      let { scale } = this
-      scale = zoom ? (scale + 1) : (scale - 1);
-      scale = zoom ? Math.min(scale, 5) : Math.max(1, scale)
-      this.scale = scale
-      this.resetPosition()
-    },
-    close() {
-      this.visible = false
-      // this.scale = 1
-      // this.rotate = 0
-      this.$emit('input', false)
-      this.$emit('close')
-    },
-    mousewheel(e) {
-      let { deltaY } = e
-      this.setScale(deltaY && deltaY < 0)
-      e.stopPropagation()
+    function setScale(zoomIn) {
+      scale.value = zoomIn ? Math.min(scale.value + 1, 5) : Math.max(scale.value - 1, 1)
+      resetPosition()
+    }
+    function close() {
+      visible.value = false
+      emit('input', false)
+      emit('close')
+    }
+    function mousewheel(e) {
+      setScale(e.deltaY < 0)
       e.preventDefault()
-    },
-    mousedown(e) {
-      if (this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
-        if (e.button && e.button != 0) return;
-        let clientX, clientY;
-        if (e.touches && e.touches.length == 1) {
-          clientX = e.touches[0].clientX
-          clientY = e.touches[0].clientY
-        } else {
-          clientX = e.clientX
-          clientY = e.clientY
-        }
-        this.isMousePressed = true
-        this.startPos = { x: clientX, y: clientY }
-        this.initPos = { x: clientX, y: clientY }
-        this.mousemove(e)
-        let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
-        document.addEventListener(e1, this.mousemove, { passive: false })
-        document.addEventListener(e2, this.mouseup, { passive: false })
-      }
-    },
-    resetPosition() {
-      if (this.error) return;
-      let { innerHeight, innerWidth } = window
-      let { $refs, scale, top, left, vertical } = this
-      let { offsetWidth, offsetHeight } = $refs.imgRef
-      let panelWidth = $refs.panelRef && this.isShowPanel ? $refs.panelRef.offsetWidth : 0
-      let newWidth = offsetWidth + ''
-      let newHeight = offsetHeight + ''
-      if (!vertical) {
-        newWidth = offsetHeight + ''
-        newHeight = offsetWidth + ''
-      }
-
-      if (newWidth * scale >= (innerWidth - panelWidth)) {
-        let maxLeft = (newWidth * scale - (innerWidth - panelWidth)) / 2
-        if (left >= maxLeft) {
-          this.left = maxLeft
-        } else if (this.left < -maxLeft) {
-          this.left = -maxLeft
-        }
-      } else {
-        this.left = 0
-      }
-      if (newHeight * scale >= innerHeight) {
-        let maxTop = (newHeight * scale - innerHeight) / 2
-
-        if (top >= maxTop) {
-          this.top = maxTop
-        } else if (top < -maxTop) {
-          this.top = -maxTop
-        }
-      } else {
-        this.top = 0
-      }
-    },
-    mouseup(e) {
-      this.isMousePressed = false
-      this.resetPosition()
-      let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
-      document.removeEventListener(e1, this.mousemove)
-      document.removeEventListener(e2, this.mouseup)
-    },
-    mousemove(e) {
-      if (this.isMousePressed) {
-        e.preventDefault()
-        let clientX, clientY;
-        if (e.touches && e.touches.length == 1) {
-          clientX = e.touches[0].clientX
-          clientY = e.touches[0].clientY
-        } else {
-          clientX = e.clientX
-          clientY = e.clientY
-        }
-        let { x, y } = this.startPos
-        this.left += clientX - x
-        this.top += clientY - y
-        this.startPos = { x: clientX, y: clientY }
-      }
-    },
-    switchImage(left) {
-      this.scale = 1
-      let { data = [], src } = this
-      let index = data.indexOf(src), i = index + 0;
-      index = left ? (index - 1) : (index + 1)
-      index = Math.max(0, index)
-      index = Math.min(index, data.length - 1)
-      if (this.globle && !this.$slots.panel) {
-        this.src = data[index]
-      }
-      if ((left && i == 0) || (!left && i == data.length - 1)) return;
-      this.$emit('switch', index)
-    },
-    download() {
-      if (!this.error) {
-        var x = new XMLHttpRequest();
-        x.open("GET", this.src, true);
-        x.responseType = 'blob';
-        x.onload = function (e) {
-          var url = window.URL.createObjectURL(x.response)
-          var a = document.createElement('a');
+    }
+    function mousedown(e) {
+      if (!imgRef.value || !imgRef.value.contains(e.target)) return
+      if (e.button && e.button !== 0) return
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX
+      const clientY = e.touches?.[0]?.clientY ?? e.clientY
+      isMousePressed.value = true
+      startPos.value = { x: clientX, y: clientY }
+      mousemove(e)
+      const [e1, e2] = touch.value ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
+      document.addEventListener(e1, mousemove, { passive: false })
+      document.addEventListener(e2, mouseup, { passive: false })
+    }
+    function mousemove(e) {
+      if (!isMousePressed.value) return
+      e.preventDefault()
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX
+      const clientY = e.touches?.[0]?.clientY ?? e.clientY
+      left.value += clientX - startPos.value.x
+      top.value += clientY - startPos.value.y
+      startPos.value = { x: clientX, y: clientY }
+    }
+    function mouseup() {
+      isMousePressed.value = false
+      resetPosition()
+      const [e1, e2] = touch.value ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
+      document.removeEventListener(e1, mousemove)
+      document.removeEventListener(e2, mouseup)
+    }
+    function resetPosition() {
+      if (error.value) return
+      const iw = window.innerWidth, ih = window.innerHeight
+      const el = imgRef.value
+      if (!el) return
+      const { offsetWidth: ow, offsetHeight: oh } = el
+      const width = vertical.value ? ow : oh
+      const height = vertical.value ? oh : ow
+      const pw = panelRef.value?.offsetWidth || 0
+      if (width * scale.value >= (iw - pw)) {
+        const maxLeft = (width * scale.value - (iw - pw)) / 2
+        if (left.value > maxLeft) left.value = maxLeft
+        else if (left.value < -maxLeft) left.value = -maxLeft
+      } else left.value = 0
+      if (height * scale.value >= ih) {
+        const maxTop = (height * scale.value - ih) / 2
+        if (top.value > maxTop) top.value = maxTop
+        else if (top.value < -maxTop) top.value = -maxTop
+      } else top.value = 0
+    }
+    function switchImage(leftSwitch) {
+      scale.value = 1
+      const list = props.data || []
+      let index = list.indexOf(src.value), i = index
+      index = leftSwitch ? index - 1 : index + 1
+      index = Math.max(0, Math.min(index, list.length - 1))
+      if (props.globle && !slots.panel) src.value = list[index]
+      if ((leftSwitch && i === 0) || (!leftSwitch && i === list.length - 1)) return
+      emit('switch', index)
+    }
+    function download() {
+      if (!error.value) {
+        const x = new XMLHttpRequest()
+        x.open("GET", src.value, true)
+        x.responseType = 'blob'
+        x.onload = () => {
+          const url = window.URL.createObjectURL(x.response)
+          const a = document.createElement('a')
           a.href = url
           a.download = ''
           a.click()
         }
-        x.send();
-
-        // window.open(this.src)
+        x.send()
       }
-    },
-    resetBodyStyle(opened) {
-      let target = document.body
-      if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
+    }
+    function resetBodyStyle(opened) {
+      const body = document.body
+      if (!props.show && !cacheBodyOverflow.overflow) {
         cacheBodyOverflow = {
-          width: target.style.width,
-          overflow: target.style.overflow,
-          overflowX: target.style.overflowX,
-          overflowY: target.style.overflowY,
+          width: body.style.width,
+          overflow: body.style.overflow,
+          overflowX: body.style.overflowX,
+          overflowY: body.style.overflowY
         }
       }
       if (opened) {
-        let barWidth = measureScrollBar(true)
-        let hasBar = target.scrollHeight > target.clientHeight || target.offsetHeight > target.clientHeight
+        const barWidth = getScrollbarWidth()
+        const hasBar = body.scrollHeight > body.clientHeight || body.offsetHeight > body.clientHeight
         if (barWidth && hasBar) {
-          target.style.width = `calc(100% - ${barWidth}px)`
-          target.style.overflow = `hidden`
+          body.style.width = `calc(100% - ${barWidth}px)`
+          body.style.overflow = 'hidden'
         }
       } else {
         setTimeout(() => {
-          Object.keys(cacheBodyOverflow).forEach(key => {
-            target.style[key] = cacheBodyOverflow[key] || ''
+          for (const key in cacheBodyOverflow) {
+            body.style[key] = cacheBodyOverflow[key] || ''
             delete cacheBodyOverflow[key]
-          })
+          }
         }, 300)
       }
-    },
-    togglePanel() {
-      this.isShowPanel = !this.isShowPanel
-      this.$emit('toggle-panel', this.isShowPanel)
-      this.$nextTick(() => this.resetPosition())
-      this.updatePanelRight()
-    },
-    getPanel() {
-      let panel = getChild(this.$slots.panel)
-      if (panel.length) {
-        return <div class={["k-image-preview-panel", { 'k-image-preview-panel-hidden': !this.isShowPanel }]} ref="panelRef">
-          <span class="k-image-preview-panel-action" onClick={() => this.togglePanel()}><Icon type={ChevronUp} /></span>
-          {panel}
-        </div>
-      }
-      return null
     }
-  },
-  beforeDestroy() {
-    document.removeEventListener('mousewheel', this.mousewheel)
-  },
-  mounted() {
-    if (!this.$isServer) {
-      let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
-      this.touch = touch
-      let even = touch ? 'touchstart' : 'mousedown'
-      document.addEventListener(even, this.mousedown, { passive: false })
-      document.addEventListener('mousewheel', this.mousewheel, { passive: false })
+    function togglePanel() {
+      isShowPanel.value = !isShowPanel.value
+      emit('toggle-panel', isShowPanel.value)
+      nextTick(() => resetPosition())
+      updatePanelRight()
     }
-  },
-  render(h) {
-    const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this
-    const imgStyle = {
-      transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`
-    }
-    const moveStyle = {
-      transform: `translate3d(${left}px, ${top}px, 0px)`,
-      transition: this.isMousePressed ? '0s' : null
-    }
-    const imgPorps = {
-      class: 'k-image-preview-img',
-      attrs: { src },
-      style: imgStyle,
-      ref: "imgRef",
-    }
-    let tools = getChild(this.$slots.tool)
-    return <div class="k-image-preview-root" v-transfer={transfer}>
-      <transition name="k-image-zoom">
-        <div class="k-image-preview" v-show={visible} >
-          <div class="k-image-preview-mask" onClick={this.close}></div>
-          <div class="k-image-preview-wrap" style={{ right: panelRight + 'px' }}>
-            <ul class="k-image-preview-control">
 
-              <li class="k-image-preview-action" onClick={this.close}><Icon type={Close} /></li>
-              <li class="k-image-preview-action-divider" />
-              {
-                tools.map(tool => {
-                  return <li class="k-image-preview-action">{tool}</li>
-                })
-              }
-              <li class="k-image-preview-action" onClick={this.download}><Icon type={ArrowDown} /></li>
-              <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale >= 5 }]} onClick={() => this.setScale(1)}><Icon type={AddCircleOutline} /></li>
-              <li class={["k-image-preview-action", { 'k-image-preview-action-disabled': scale <= 1 }]} onClick={() => this.setScale(0)}><Icon type={RemoveCircleOutline} /></li>
-              <li
-                class="k-image-preview-action k-image-preview-action-rotate-right"
-                onClick={() => this.setRotate(0)}
-              ><Icon type={Refresh} /></li>
-              <li
-                class="k-image-preview-action k-image-preview-action-rotate-left"
-                onClick={() => this.setRotate(1)}
-              ><Icon type={Refresh} /></li>
-            </ul>
-            <div class="k-image-preview-img-wrap" style={moveStyle}>
-              {type == 'media' ?
-                <video controls {...imgPorps} />
-                :
-                !this.error ? <img {...imgPorps} /> :
-                  <div class="k-image-preview-img-error"><Icon type={IconImage} /></div>
-              }
+    onMounted(() => {
+      const isTouch = 'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch)
+      touch.value = isTouch
+      document.addEventListener(isTouch ? 'touchstart' : 'mousedown', mousedown, { passive: false })
+      document.addEventListener('mousewheel', mousewheel, { passive: false })
+    })
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('mousewheel', mousewheel)
+    })
+
+    return () => (
+      <div class="k-image-preview-root" v-transfer={props.transfer}>
+        {visible.value && (
+          <div class="k-image-preview">
+            <div class="k-image-preview-mask" onClick={close}></div>
+            <div class="k-image-preview-wrap" style={{ right: panelRight.value + 'px' }}>
+              <ul class="k-image-preview-control">
+                <li class="k-image-preview-action" onClick={close}><Icon type={Close} /></li>
+                <li class="k-image-preview-action-divider" />
+                {slots.tool?.().map((tool, i) => <li class="k-image-preview-action" key={i}>{tool}</li>)}
+                <li class="k-image-preview-action" onClick={download}><Icon type={ArrowDown} /></li>
+                <li class={['k-image-preview-action', { 'k-image-preview-action-disabled': scale.value >= 5 }]} onClick={() => setScale(true)}><Icon type={AddCircleOutline} /></li>
+                <li class={['k-image-preview-action', { 'k-image-preview-action-disabled': scale.value <= 1 }]} onClick={() => setScale(false)}><Icon type={RemoveCircleOutline} /></li>
+                <li class="k-image-preview-action" onClick={() => setRotate(false)}><Icon type={Refresh} /></li>
+                <li class="k-image-preview-action" onClick={() => setRotate(true)}><Icon type={Refresh} /></li>
+              </ul>
+              <div class="k-image-preview-img-wrap" style={{ transform: `translate3d(${left.value}px, ${top.value}px, 0px)`, transition: isMousePressed.value ? '0s' : null }}>
+                {props.type === 'media'
+                  ? <video controls ref={imgRef} class="k-image-preview-img" src={src.value} style={{ transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)` }} />
+                  : !error.value
+                    ? <img ref={imgRef} class="k-image-preview-img" src={src.value} style={{ transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)` }} />
+                    : <div class="k-image-preview-img-error"><Icon type={IconImage} /></div>}
+              </div>
+              {props.showSwitch && [
+                <div class={['k-image-preview-switch-left', { 'k-image-preview-switch-disabled': props.data.indexOf(src.value) === 0 }]} onClick={() => switchImage(true)}><Icon type={ChevronUp} /></div>,
+                <div class={['k-image-preview-switch-right', { 'k-image-preview-switch-disabled': props.data.indexOf(src.value) === props.data.length - 1 }]} onClick={() => switchImage(false)}><Icon type={ChevronUp} /></div>
+              ]}
+              {loading.value && <div class="k-image-preview-loading"><Icon type={Loading} spin /></div>}
             </div>
-            {showSwitch ?
-              [<div class={["k-image-preview-switch-left", { 'k-image-preview-switch-disabled': data.indexOf(src) == 0 }]}
-                onClick={() => this.switchImage(1)}><Icon type={ChevronUp} /></div>,
-              <div class={["k-image-preview-switch-right", { 'k-image-preview-switch-disabled': data.indexOf(src) == (data.length - 1) }]}
-                onClick={() => this.switchImage()}><Icon type={ChevronUp} /></div>]
-              : null}
-            {loading ? <div class="k-image-preview-loading"><Icon type={Loading} spin /></div> : null}
+            {slots.panel?.() && (
+              <div class={['k-image-preview-panel', { 'k-image-preview-panel-hidden': !isShowPanel.value }]} ref={panelRef}>
+                <span class="k-image-preview-panel-action" onClick={togglePanel}><Icon type={ChevronUp} /></span>
+                {slots.panel?.()}
+              </div>
+            )}
           </div>
-          {this.getPanel()}
-        </div>
-      </transition>
-    </div>
+        )}
+      </div>
+    )
   }
-}
+})
