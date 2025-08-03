@@ -11,7 +11,7 @@ export default defineComponent({
       let { $M } = ps.value || { $M: null }
       const items = len => new Array(len).fill("").map((_, v) => v)
 
-      return <div class="k-calendar-years">
+      return <div class="k-calendar-months">
         <List items={items(12)} value={$M} type="month" disabledTime={ps.disabledDate} />
       </div>
     }

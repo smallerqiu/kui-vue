@@ -34,6 +34,16 @@ export default defineComponent({
       return result;
     }
     const local = dayjs().localeData();
+    const getDayClass = (date) => {
+      const now = dayjs(ps.value);
+      return [
+        'k-calendar-day-item', {
+          'k-calendar-day-this': date.isSame(now, 'day'),
+          'k-calendar-day-out': !date.isSame(now, 'month') || !date.isSame(now, 'year'),
+          // 'k-calendar-day-disabled': # todo
+        }
+      ]
+    };
     return () => {
       const dayInfo = {
         firstDayOfWeek: local.firstDayOfWeek(),
@@ -41,11 +51,12 @@ export default defineComponent({
         month: dayjs(ps.value).month() + 1
       }
       const dates = getCalendar(dayInfo)
+
       return dates.map((row, i) => {
         return <div class="k-calendar-week-item" key={i}>
           {
             row.map((cell, index) => {
-              return <span class="k-calendar-day-item" key={index}>{cell.date()}</span>
+              return <span class={getDayClass(cell)} key={index}>{cell.date()}</span>
             })
           }
         </div>

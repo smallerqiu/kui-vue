@@ -1,6 +1,6 @@
 
 const fix = v => ('0' + v).slice(-2)
-const Col = (props) => {
+export function Col(props) {
   return <div class='k-calendar-time-picker-select'>
     {
       props.list.map((item, index) => {
@@ -11,6 +11,7 @@ const Col = (props) => {
 }
 
 export function List(props) {
+  console.log('List', props)
   const initToCenter = (key, animate = false) => {
     this.$nextTick(() => {
       let children = (this.$refs[key] || {}).children || []

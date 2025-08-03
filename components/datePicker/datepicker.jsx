@@ -449,7 +449,7 @@ export default defineComponent({
         { 'k-datepicker-light': ps.theme == 'light' },
         { 'k-datepicker-circle': ps.shape == 'circle' },
       ]
-      let showClear = !ps.disabled && ps.clearable && ((isRange && v1 && v2) || (!isRange && v1))
+      let showClear = !ps.disabled && ps.clearable && ((isRange && v1.value && v2.value) || (!isRange && v1.value))
       showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={clear} />)
       const selectCls = [
         "k-datepicker-selection", {
