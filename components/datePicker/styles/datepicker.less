@@ -31,6 +31,8 @@
     white-space: nowrap;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
   }
 
   .k-icon {
@@ -43,11 +45,10 @@
     transition: all .3s;
   }
 
-  .k-datepicker-placeholder,
-  .k-datepicker-value {
-    transition: all .3s;
-    line-height: 30px;
-    color: var(--kui-color-disable-color);
+  .k-datepicker-input {
+    line-height: 1;
+    // color: var(--kui-color-disable-color);
+    color: var(--kui-color-font);
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -55,10 +56,9 @@
     font-size: 14px;
     width: 85px;
     min-width: fit-content;
-  }
-
-  .k-datepicker-value {
-    color: var(--kui-color-font);
+    border: none;
+    background-color: transparent;
+    outline: none;
   }
 
   .k-datepicker-has-clear {
@@ -120,8 +120,7 @@
 .k-datepicker-range {
   // min-width: 207px;
 
-  .k-datepicker-placeholder,
-  .k-datepicker-value {
+  .k-datepicker-input {
     display: inline-block;
     // padding: 0 9px;
     vertical-align: middle;
@@ -139,8 +138,7 @@
 
 .k-datepicker-with-time {
 
-  .k-datepicker-value,
-  .k-datepicker-placeholder {
+  .k-datepicker-input {
     width: 150px;
   }
 }
@@ -170,8 +168,7 @@
 .k-datepicker-sm {
   min-height: 24px;
 
-  .k-datepicker-placeholder,
-  .k-datepicker-value {
+  .k-datepicker-input {
     line-height: 22px;
     font-size: 12px;
     width: 75px;
@@ -189,8 +186,7 @@
 
   &.k-datepicker-with-time {
 
-    .k-datepicker-placeholder,
-    .k-datepicker-value {
+    .k-datepicker-input {
       width: 130px;
     }
   }
@@ -200,8 +196,7 @@
   min-height: 40px;
   // min-width: 190px;
 
-  .k-datepicker-placeholder,
-  .k-datepicker-value {
+  .k-datepicker-input {
     line-height: 38px;
     font-size: 16px;
     width: 100px;
@@ -218,8 +213,7 @@
 
   &.k-datepicker-with-time {
 
-    .k-datepicker-placeholder,
-    .k-datepicker-value {
+    .k-datepicker-input {
       width: 165px;
     }
   }
