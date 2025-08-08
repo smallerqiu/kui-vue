@@ -31,7 +31,7 @@ const Collapse = defineComponent({
       }
       currentValue.value = value;
       emit("change", key);
-      emit("input", value);
+      emit("update", value);
     };
 
     return () => {

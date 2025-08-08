@@ -6,13 +6,11 @@ import {
   ChevronDoubleBack, ChevronBack, ChevronForward,
   ChevronDoubleForward
 } from "kui-icons";
-import { defineComponent, ref, inject } from 'vue'
+import { defineComponent, ref, inject, watch } from 'vue'
 // import Time from './time'
 import Days from './day'
-import localeData from 'dayjs/plugin/localeData';
 import Month from './month';
 import Year from './year';
-dayjs.extend(localeData);
 
 export default defineComponent({
   name: "Calendar",
@@ -37,22 +35,51 @@ export default defineComponent({
       // 'k-calendar-only-time': isTime,
       'k-calendar-yearmonth': ps.type == 'month'
     }]
+    const currentValue = ref(dayjs(ps.value))
     const local = dayjs().localeData();
-    // console.log(dayjs.locale())
+    console.log(local)
     const weekDays = local.weekdaysMin()
     const showYearAndMonth = () => {
       isShowYear.value = !isShowYear.value
     }
+    const setDate = (dateType, calcType) => {
+      // console.log(dateType, calcType)
+      // emit('setDate', dateType, calcType)
+      let value = dayjs(ps.value)
+      if (dateType == 'm') {
+        if (calcType == 'p') {
+          value = dayjs(value).add(1, 'month')
+        } else {
+          value = dayjs(value).subtract(1, 'month')
+        }
+      } else if (dateType == 'y') {
+        if (calcType == 'p') {
+          value = dayjs(value).add(1, 'year')
+        } else {
+          value = dayjs(value).subtract(1, 'year')
+        }
+      }
+      console.log('update', ps.value)
+      emit('update', value)
+    }
+    // watch(
+    //   () => ps.value,
+    //   (nv, no) => {
+    //     console.log('up')
+    //     currentValue.value = nv;
+    //   }
+    // );
     return () => {
       const date = dayjs(ps.value)
+      console.log(date)
       const isCN = dayjs.locale() == 'zh-cn'
       return (<div class={rootCls}>
         <div class="k-calendar-header">
-          <Button icon={ChevronDoubleBack} theme="normal"></Button>
-          <Button icon={ChevronBack} theme="normal"></Button>
+          <Button icon={ChevronDoubleBack} theme="normal" onClick={() => setDate('y', 'm')}></Button>
+          <Button icon={ChevronBack} theme="normal" onClick={() => setDate('m', 'm')}></Button>
           <Button theme="normal" class="k-calendar-year-select" onClick={showYearAndMonth}>{date.format(isCN ? 'YYYY年M月' : 'MMM YYYY')}</Button>
-          <Button icon={ChevronForward} theme="normal"></Button>
-          <Button icon={ChevronDoubleForward} theme="normal"></Button>
+          <Button icon={ChevronForward} theme="normal" onClick={() => setDate('m', 'p')}></Button>
+          <Button icon={ChevronDoubleForward} theme="normal" onClick={() => setDate('y', 'p')}></Button>
         </div>
         <div class="k-calendar-body">
           {!isShowYear.value &&
@@ -63,11 +90,11 @@ export default defineComponent({
                 })
               }
             </div>,
-              <Days value={ps.value} disabledTime={ps.disabledTime} />
+            <Days value={date} disabledTime={ps.disabledTime} />
             ]}
           {isShowYear.value && <div class="k-calendar-yearmonth-picker">
-            <Year value={ps.value} disabledDate={ps.disabledDate} />
-            <Month value={ps.value} disabledDate={ps.disabledDate} />
+            <Year value={date} disabledDate={ps.disabledDate} />
+            <Month value={date} disabledDate={ps.disabledDate} />
           </div>}
         </div>
       </div>
