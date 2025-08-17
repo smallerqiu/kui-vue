@@ -65,12 +65,9 @@ export default defineComponent({
       console.log(e)
     }
     const locale = inject("locale", null) || zhCN;
-    const currentValue = ref(dayjs(ps.value))
+    const currentValue = ref(ps.value ? dayjs(ps.value) : null)
     const v1 = ref(null)
     const v2 = ref(null)
-    const d1 = ref(null)
-    const d2 = ref(null)
-    const h2 = ref(null)
     const fmt = {
       'year': 'YYYY',
       'month': 'YYYY-MM',
@@ -100,8 +97,23 @@ export default defineComponent({
     onMounted(() => {
 
     })
-
+    watch(
+      () => ps.value,
+      (nv, no) => {
+        if (isRange) {
+          currentValue.value = nv;
+        } else {
+          currentValue.value = nv;
+        }
+      }
+    );
     const clear = (e) => {
+      if (isRange) {
+        currentValue.value = [];
+      } else {
+        currentValue.value = null
+      }
+      emit('update:value', currentValue.value)
       e && e.stopPropagation()
     }
     const outsideClick = (e) => {
@@ -184,10 +196,6 @@ export default defineComponent({
 
 
     const input = ref(null)
-
-
-
-
     return () => {
       let calendar = []
       let presetsNode = getPresetsNode()
@@ -196,10 +204,15 @@ export default defineComponent({
       }
       const leftProps = {
         value: currentValue.value,
-        onUpdate: (value) => {
+        type: 'month',
+        onUpdateDate: (value, t) => {
           currentValue.value = value
-          // console.log('ok', value)
-          emit('update', value)
+          visible.value = t == 'd' ? false : true
+          console.log(ps.value)
+          if (ps.value || t == 'd') {
+            emit('update:value', value)
+            emit('change', value, dayjs(currentValue.value).format(fmt[ps.mode]))
+          }
         },
       }
       calendar.push(<Calendar {...leftProps} />)
@@ -250,7 +263,7 @@ export default defineComponent({
         // if (label) {
         //   childNode.push(<div class="k-datepicker-value">{label}</div>)
         // } else if (placeholder) {
-        let value = dayjs().format(fmt[ps.mode])
+        let value = ps.value ? dayjs(ps.value).format(fmt[ps.mode]) : null
         childNode.push(<input class="k-datepicker-input" value={value} ref={input} placeholder={placeholder}></input>)
         // }
 
@@ -266,7 +279,7 @@ export default defineComponent({
         { 'k-datepicker-light': ps.theme == 'light' },
         { 'k-datepicker-circle': ps.shape == 'circle' },
       ]
-      let showClear = !ps.disabled && ps.clearable && ((isRange && v1.value && v2.value) || (!isRange && v1.value))
+      let showClear = !ps.disabled && ps.clearable && currentValue.value
       showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={clear} />)
       const selectCls = [
         "k-datepicker-selection", {
