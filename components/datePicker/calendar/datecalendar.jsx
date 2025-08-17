@@ -1,7 +1,6 @@
 
 import { Button } from '../../button'
 import dayjs from 'dayjs'
-import zhCN from "../../locale/lang/zh-CN";
 import {
   ChevronDoubleBack, ChevronBack, ChevronForward,
   ChevronDoubleForward
@@ -35,17 +34,17 @@ export default defineComponent({
       // 'k-calendar-only-time': isTime,
       'k-calendar-yearmonth': ps.type == 'month'
     }]
-    const currentValue = ref(dayjs(ps.value))
     const local = dayjs().localeData();
-    console.log(local)
+    // console.log(local)
     const weekDays = local.weekdaysMin()
     const showYearAndMonth = () => {
       isShowYear.value = !isShowYear.value
     }
+    const currentValue = ref(ps.value || new Date())
     const setDate = (dateType, calcType) => {
       // console.log(dateType, calcType)
       // emit('setDate', dateType, calcType)
-      let value = dayjs(ps.value)
+      let value = dayjs(currentValue.value)
       if (dateType == 'm') {
         if (calcType == 'p') {
           value = dayjs(value).add(1, 'month')
@@ -59,8 +58,26 @@ export default defineComponent({
           value = dayjs(value).subtract(1, 'year')
         }
       }
-      console.log('update', ps.value)
-      emit('update', value)
+      currentValue.value = value
+      // console.log('update', ps.value)
+      // emit('update', value)
+    }
+    const setDay = cell => {
+      currentValue.value = cell
+      emit('updateDate', cell, 'd')
+    }
+    const setYear = item => {
+      const value = dayjs(currentValue.value).set('year', item)
+      currentValue.value = value
+      // isShowYear.value = false
+      // console.log(item, value)
+      emit('updateDate', value, 'y')
+    }
+    const setMonth = item => {
+      const value = dayjs(currentValue.value).set('month', item - 1)
+      currentValue.value = value
+      emit('updateDate', value, 'm')
+      // isShowYear.value = false
     }
     // watch(
     //   () => ps.value,
@@ -70,16 +87,18 @@ export default defineComponent({
     //   }
     // );
     return () => {
-      const date = dayjs(ps.value)
-      console.log(date)
+      const date = dayjs(currentValue.value)
+      // console.log(date)
       const isCN = dayjs.locale() == 'zh-cn'
+      const isMonth = ps.type == 'month'
+      console.log(ps.type, isCN, isMonth)
       return (<div class={rootCls}>
         <div class="k-calendar-header">
-          <Button icon={ChevronDoubleBack} theme="normal" onClick={() => setDate('y', 'm')}></Button>
-          <Button icon={ChevronBack} theme="normal" onClick={() => setDate('m', 'm')}></Button>
+          {!isMonth ? <Button icon={ChevronDoubleBack} theme="normal" onClick={() => setDate('y', 'm')}></Button> : null}
+          {!isMonth ? <Button icon={ChevronBack} theme="normal" onClick={() => setDate('m', 'm')}></Button> : null}
           <Button theme="normal" class="k-calendar-year-select" onClick={showYearAndMonth}>{date.format(isCN ? 'YYYY年M月' : 'MMM YYYY')}</Button>
-          <Button icon={ChevronForward} theme="normal" onClick={() => setDate('m', 'p')}></Button>
-          <Button icon={ChevronDoubleForward} theme="normal" onClick={() => setDate('y', 'p')}></Button>
+          {!isMonth ? <Button icon={ChevronForward} theme="normal" onClick={() => setDate('m', 'p')}></Button> : null}
+          {!isMonth ? <Button icon={ChevronDoubleForward} theme="normal" onClick={() => setDate('y', 'p')}></Button> : null}
         </div>
         <div class="k-calendar-body">
           {!isShowYear.value &&
@@ -90,16 +109,15 @@ export default defineComponent({
                 })
               }
             </div>,
-            <Days value={date} disabledTime={ps.disabledTime} />
+            <Days value={ps.value} current={date} disabledTime={ps.disabledTime} onSetDay={setDay} />
             ]}
           {isShowYear.value && <div class="k-calendar-yearmonth-picker">
-            <Year value={date} disabledDate={ps.disabledDate} />
-            <Month value={date} disabledDate={ps.disabledDate} />
+            <Year value={ps.value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={setYear} />
+            <Month value={ps.value} current={date.month()} disabledDate={ps.disabledDate} onSetMonth={setMonth} />
           </div>}
         </div>
       </div>
       )
     }
-
   }
 })

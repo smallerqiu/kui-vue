@@ -6,9 +6,11 @@ dayjs.extend(localeData);
 export default defineComponent({
   props: {
     value: Object,
+    current: Object,
     disabledTime: Function,
   },
-  setup(ps) {
+  emits: ['setDay'],
+  setup(ps, { emit }) {
 
     const getCalendar = ({ firstDayOfWeek, year, month }) => {
       const result = [];
@@ -34,21 +36,27 @@ export default defineComponent({
       return result;
     }
     const local = dayjs().localeData();
+    const today = new Date();
     const getDayClass = (date) => {
-      const now = dayjs(ps.value);
+      const now = dayjs(ps.current);
+
       return [
         'k-calendar-day-item', {
-          'k-calendar-day-this': date.isSame(now, 'day'),
+          'k-calendar-day-this': date.isSame(today, 'day'),
+          'k-calendar-day-selected': date.isSame(ps.value, 'day') && date.isSame(ps.value, 'month') && date.isSame(ps.value, 'year'),
           'k-calendar-day-out': !date.isSame(now, 'month') || !date.isSame(now, 'year'),
           // 'k-calendar-day-disabled': # todo
         }
       ]
     };
+    const setDay = cell => {
+      emit('setDay', cell)
+    }
     return () => {
       const dayInfo = {
         firstDayOfWeek: local.firstDayOfWeek(),
-        year: dayjs(ps.value).year(),
-        month: dayjs(ps.value).month() + 1
+        year: dayjs(ps.current).year(),
+        month: dayjs(ps.current).month() + 1
       }
       const dates = getCalendar(dayInfo)
 
@@ -56,7 +64,7 @@ export default defineComponent({
         return <div class="k-calendar-week-item" key={i}>
           {
             row.map((cell, index) => {
-              return <span class={getDayClass(cell)} key={index}>{cell.date()}</span>
+              return <span class={getDayClass(cell)} key={index} onClick={() => setDay(cell)}>{cell.date()}</span>
             })
           }
         </div>

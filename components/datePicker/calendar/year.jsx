@@ -6,15 +6,20 @@ export default defineComponent({
     value: Object,
     disabledDate: Function,
   },
-  setup(ps) {
+  setup(ps, { emit }) {
+    const select = (item) => {
+      // console.log(item)
+      emit('setYear', item)
+    }
+    const items = (a) => Array.from({ length: 201 }, (_, i) => a - 100 + i);
 
     return () => {
       let { $y } = ps.value || { $y: null }
-      let year = new Date().getFullYear()
-      const items = (a) => Array.from({ length: 201 }, (_, i) => a - 100 + i);
-      return <div class="k-calendar-years">
-        <List items={items(year)} value={$y} type="year" disabledTime={ps.disabledTime} />
-      </div>
+      const thisYear = new Date().getFullYear()
+      let currentYear = ps.current || $y || thisYear
+      // return <div class="k-calendar-years">
+      return <List items={items(thisYear)} onSelect={select} current={currentYear} value={$y} type="years" disabledTime={ps.disabledDate} />
+      // </div>
     }
   }
 })
