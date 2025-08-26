@@ -61,7 +61,7 @@
 import { message } from "kui-vue";
 import { Home } from 'kui-icons'
 import { ref } from 'vue'
-const refForm = ref(null)
+const refForm = ref()
 const show1 = ref(false)
 const show2 = ref(false)
 const  form = {

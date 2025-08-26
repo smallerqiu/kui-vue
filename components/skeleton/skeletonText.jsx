@@ -11,7 +11,7 @@ const SkeletonText = defineComponent({
   },
   setup(ps, { slots }) {
     const show = ref(ps.loading);
-    const timer = ref(null);
+    const timer = ref();
     watch(
       () => ps.loading,
       (v) => {

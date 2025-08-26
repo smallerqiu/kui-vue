@@ -30,6 +30,6 @@
 import { ref } from 'vue'
 const show = ref(false)
 const placement = ref('left')
-const refTarget = ref(null)
+const refTarget = ref()
 </script>
 ```

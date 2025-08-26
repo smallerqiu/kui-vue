@@ -60,7 +60,7 @@ export default defineComponent({
         }
       ]
     }
-    const refContainer = ref(null)
+    const refContainer = ref()
     onMounted(() => {
       nextTick(() => {
         const index = props.items.indexOf(props.current)

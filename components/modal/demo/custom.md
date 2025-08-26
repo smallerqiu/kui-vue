@@ -38,7 +38,7 @@ const visible2 = ref(false)
 const visible3 = ref(false)
 const visible4 = ref(false)
 const loading = ref(false)
-const timer = ref(null)
+const timer = ref()
 
 
 const okHandle = ()=> {

@@ -38,8 +38,8 @@ export default defineComponent({
     const panelRight = ref(0)
     const touch = ref(false)
 
-    const imgRef = ref(null)
-    const panelRef = ref(null)
+    const imgRef = ref()
+    const panelRef = ref()
     let cacheBodyOverflow = {}
 
     watch(() => props.origin, val => src.value = val)

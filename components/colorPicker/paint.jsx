@@ -8,7 +8,7 @@ export default defineComponent({
     value: [String, Object],
   },
   setup(ps, { emit }) {
-    const refPaint = ref(null);
+    const refPaint = ref();
     const dotPos = reactive({ x: 0, y: 0 });
     const isMousePressed = ref(false);
     const currentColor = ref(ps.value || "#000000");

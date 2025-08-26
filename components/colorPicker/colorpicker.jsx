@@ -73,8 +73,8 @@ const ColorPicker = defineComponent({
     const currentMode = ref(ps.mode);
     const currentColor = ref(ps.value || "#000000ff");
     const visible = ref(ps.show);
-    const refPopper = ref(null);
-    const refCtx = ref(null);
+    const refPopper = ref();
+    const refCtx = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -82,7 +82,7 @@ const ColorPicker = defineComponent({
     const rendered = ref(false);
     const currentAlpha = ref(1);
     const currentHue = ref(0);
-    const hideTimer = ref(null);
+    const hideTimer = ref();
 
     watch(
       () => ps.value,

@@ -18,7 +18,7 @@
 import { Search } from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";
-const shape = ref(null)
+const shape = ref()
 const setShape = (e) => {
   shape.value = e.target.checked ? 'circle' : null
 }

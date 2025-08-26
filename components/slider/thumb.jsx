@@ -17,7 +17,7 @@ export default defineComponent({
   emits: ["thumbMove", "keydown-update"],
   setup(ps, { slots, emit }) {
     const isMousePressed = ref(false);
-    const refThumb = ref(null);
+    const refThumb = ref();
     const index = ref(1);
     const showTip = ref(ps.tooltipVisible);
     const touch = !!(

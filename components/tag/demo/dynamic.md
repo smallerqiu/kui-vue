@@ -17,7 +17,7 @@ import { ref,nextTick} from "vue";
 const showInput = ref(false)
 const tag = ref('')
 const tags = ['Apple','Banana','Cat','Dog']
-const inputRef = ref(null)
+const inputRef = ref()
 const show = ()=>{
   showInput.value = true
   nextTick(()=>{

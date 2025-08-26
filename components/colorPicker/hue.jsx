@@ -8,11 +8,11 @@ export default defineComponent({
   },
   setup(ps, { emit }) {
     const dotPos = ref(0);
-    const refPaint = ref(null);
+    const refPaint = ref();
     const isMousePressed = ref(false);
-    // const painter = ref(null);
+    // const painter = ref();
     const currentHue = ref(ps.hue || 360);
-    const currentColor = ref(null);
+    const currentColor = ref();
     watch(
       () => ps.hue,
       (val) => {

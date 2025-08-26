@@ -23,7 +23,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const refCarousel = ref(null);
+const refCarousel = ref();
 
 const next = () => {
   refCarousel.value.next();

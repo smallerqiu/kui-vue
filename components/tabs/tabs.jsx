@@ -19,10 +19,10 @@ const Tabs = defineComponent({
     const navOffsetLeft = ref(0);
     const prevBtnDisabed = ref(false);
     const nextBtnDisabed = ref(false);
-    const navRef = ref(null);
-    const navscrollRef = ref(null);
-    const navboxRef = ref(null);
-    const inkbarRef = ref(null);
+    const navRef = ref();
+    const navscrollRef = ref();
+    const navboxRef = ref();
+    const inkbarRef = ref();
 
     // const children = getChildren(slots.default?.());
     const children = computed(() => {

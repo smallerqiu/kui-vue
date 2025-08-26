@@ -75,18 +75,18 @@ const Select = defineComponent({
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
-    const queryInputMirrorRef = ref(null);
+    const queryInputMirrorRef = ref();
     const minWidth = ref("");
     const queryInputFocused = ref(false);
-    const queryInputRef = ref(null);
+    const queryInputRef = ref();
     const hasSearchEvent = "onSearch" in attrs;
-    const refPopper = ref(null);
+    const refPopper = ref();
     const transOrigin = ref("bottom");
-    const refCtx = ref(null);
+    const refCtx = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
-    const queryInputEventTimer = ref(null);
+    const queryInputEventTimer = ref();
 
     const activeIndex = ref(-1);
 

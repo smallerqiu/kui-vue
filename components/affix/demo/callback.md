@@ -10,8 +10,9 @@
   </Affix>
 </template>
 <script setup>
+import { message } from "kui-vue";
 const change = (value)=>{
-  //Message.info(value?'fixed':'reset')
+  message.info(value?'fixed':'reset')
 }
 </script> 
 ```

@@ -18,7 +18,7 @@ const DropdownButton = defineComponent({
     placement: { type: String, default: "bottom-right" },
   },
   setup(ps, { slots }) {
-    const refTrigger = ref(null);
+    const refTrigger = ref();
 
     return () => {
       return (

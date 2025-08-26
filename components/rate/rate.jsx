@@ -18,7 +18,7 @@ const Rate = defineComponent({
   },
   setup(ps, { slots, emit }) {
     const initValue = ref(ps.value);
-    const tempValue = ref(null);
+    const tempValue = ref();
     const cleared = ref(false);
     const update = (t, index, percent) => {
       if (t == "M") {
