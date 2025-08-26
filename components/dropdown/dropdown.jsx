@@ -51,10 +51,10 @@ const Dropdown = defineComponent({
 
   setup(ps, { slots, emit }) {
     const visible = ref(ps.show);
-    const refCtx = ref(null);
+    const refCtx = ref();
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
-    const refPopper = ref(null);
+    const refPopper = ref();
     const left = ref(0);
     const top = ref(0);
     const rendered = ref(false);

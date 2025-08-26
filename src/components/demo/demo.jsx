@@ -8,7 +8,7 @@ export default defineComponent({
   name: "Demo",
   setup(props, { slots }) {
     const expand = ref(false);
-    const code = ref(null);
+    const code = ref();
 
     const transProp = getTranstionProp();
 

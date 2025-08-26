@@ -1,5 +1,5 @@
 import resize from "../directives/resize";
-import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
+import { defineComponent, onMounted, onBeforeUnmount, watch, ref, nextTick } from "vue";
 import { withInstall } from '../utils/vue';
 
 const Affix = defineComponent({
@@ -16,74 +16,83 @@ const Affix = defineComponent({
     },
   },
   setup(props, { slots, emit }) {
-    const target = props.target();
-    const blobRef = ref(null);
+    let target = props.target()
+    // console.log(target)
+    const affixRef = ref();
 
     const fixed = ref(false);
-    const width = ref(0);
-    const height = ref(0);
-    const offsetTopValue = ref(0);
+    const styles = ref({})
+    const placeholderStyles = ref({})
+    let resizeObserver = null
 
-    const updatePosition = (e) => {
-      let { offsetBottom, offsetTop } = props;
-      if (!blobRef.value || !target) return;
+    const updatePosition = () => {
+      if (!affixRef.value || !target) return;
+      const rect = affixRef.value.getBoundingClientRect()
+      const isWindow = target === window;
+      const targetRect = !isWindow ? target.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
+      console.log(targetRect)
+      let isFixed = false
 
-      let rect = blobRef.value.getBoundingClientRect();
-      let container = target != window && target != document ? target.getBoundingClientRect() : { top: 0, bottom: document.documentElement.clientHeight };
-
-      let hasbottom = typeof offsetBottom == "number" && offsetBottom >= 0;
-      let fx = hasbottom ? container.bottom - rect.bottom >= offsetBottom : rect.top - container.top <= offsetTop;
-
-      if (!fx) {
-        offsetTopValue.value = rect.top;
-        if (target == window || target == document) {
-          if (offsetTopValue.value > offsetTop && !hasbottom) {
-            offsetTopValue.value = offsetTop;
-          }
-          if (hasbottom && container.bottom - rect.bottom < offsetBottom) {
-            offsetTopValue.value = container.bottom - offsetBottom - rect.height;
+      if (props.offsetBottom != undefined) {
+        const offset = targetRect.bottom - rect.bottom - props.offsetBottom
+        // console.log(props.offsetBottom, rect.bottom, offset)
+        if (offset <= 0) {
+          isFixed = true
+          styles.value = {
+            bottom: `${window.innerHeight - targetRect.bottom + props.offsetBottom}px`,
+            width: `${rect.width}px`,
           }
         } else {
-          //todo:
+          isFixed = false
+          styles.value = {}
+        }
+      } else {
+        const offset = rect.top - targetRect.top - props.offsetTop
+        if (offset <= 0) {
+          isFixed = true
+          styles.value = {
+            top: `${targetRect.top + props.offsetTop}px`,
+            width: `${rect.width}px`,
+          }
+        } else {
+          isFixed = false
+          styles.value = {}
         }
       }
-      if (fixed.value != fx) {
-        fixed.value = fx;
-        width.value = rect.width;
-        height.value = rect.height;
-        emit("change", fixed.value);
+
+      placeholderStyles.value = isFixed ? { height: `${rect.height}px`, width: `${rect.width}px` } : null
+      if (fixed.value !== isFixed) {
+        fixed.value = isFixed
+        emit('change', isFixed)
       }
+
     };
     onBeforeUnmount(() => {
-      if (target == window) {
-        target.removeEventListener("scroll", updatePosition);
+      target?.removeEventListener('scroll', updatePosition)
+      if (resizeObserver != null) {
+        resizeObserver.disconnect()
       }
     });
     onMounted(() => {
-      if (target && typeof window !== "undefined") {
-        target.addEventListener("scroll", updatePosition);
-      }
+      nextTick(() => {
+        target = props.target()?.value || props.target()
+        target?.addEventListener('scroll', updatePosition)
+        updatePosition()
+        if (target && target !== window && 'ResizeObserver' in window) {
+          resizeObserver = new ResizeObserver(updatePosition);
+          resizeObserver.observe(target);
+        }
+      })
+
     });
+    watch(() => [props.offsetTop, props.offsetBottom, props.target], () => {
+      nextTick(updatePosition)
+    })
 
     return () => {
-      let blobStyle = null,
-        fixedStyle = null,
-        classes = null;
-      if (fixed.value) {
-        blobStyle = {
-          width: `${width.value}px`,
-          height: `${height.value}px`,
-        };
-        fixedStyle = {
-          width: `${width.value}px`,
-          height: `${height.value}px`,
-          top: `${offsetTopValue.value}px`,
-        };
-        classes = { ["k-affix"]: fixed.value };
-      }
       return (
-        <div style={blobStyle} ref={blobRef} v-resize={updatePosition}>
-          <div style={fixedStyle} class={classes}>
+        <div style={placeholderStyles.value} ref={affixRef} v-resize={updatePosition}>
+          <div style={styles.value} class={{ ["k-affix"]: fixed.value }}>
             {slots.default?.()}
           </div>
         </div>

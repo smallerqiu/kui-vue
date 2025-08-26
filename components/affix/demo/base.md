@@ -5,9 +5,12 @@
 
 ```vue
 <template>
-  <Affix :offsetTop="100">
-    <Button type="primary">Affix top</Button>
+  <Affix :offsetTop="top">
+    <Button type="primary" @click="top += 10">Affix top</Button>
   </Affix>
-  <br/>
 </template>
+<script setup>
+import { ref } from 'vue';
+const top = ref(100);
+</script>
 ```

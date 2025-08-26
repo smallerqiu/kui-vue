@@ -45,7 +45,7 @@ import { ref } from 'vue'
 import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
 import { message } from "kui-vue";
 const time = ref(60)
-const timer = ref(null)
+const timer = ref()
 const sendCode =()=> {
   time.value = 59
   message.success("验证码发送成功，请注意查收");

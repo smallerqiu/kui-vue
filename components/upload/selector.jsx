@@ -22,7 +22,7 @@ export default defineComponent({
   setup(ps, { slots, emit }) {
     const locale = inject("locale", null) || zhCN;
     const dragOver = ref(false);
-    const refFile = ref(null);
+    const refFile = ref();
 
     const uploadFile = (item, file) => {};
 

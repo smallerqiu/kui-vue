@@ -38,7 +38,7 @@ const Input = defineComponent({
     const currentValue = ref(ps.value);
     const focused = ref(false);
     const showPassword = ref(false);
-    const inputRef = ref(null);
+    const inputRef = ref();
 
     watch(
       () => ps.value,

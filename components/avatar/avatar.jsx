@@ -15,8 +15,8 @@ const Avatar = defineComponent({
   },
 
   setup(props, { slots }) {
-    const innerRef = ref(null);
-    const root = ref(null);
+    const innerRef = ref();
+    const root = ref();
     const updateSize = () => {
       if (innerRef.value) {
         const max = root.value.offsetWidth - 8;

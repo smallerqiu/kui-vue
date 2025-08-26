@@ -6,8 +6,8 @@ const loading = defineComponent({
     const visible = ref(true);
     const percent = ref(0);
     const isError = ref(false);
-    const updateTimer = ref(null);
-    const hideTimer = ref(null);
+    const updateTimer = ref();
+    const hideTimer = ref();
     const start = () => {
       percent.value = 0;
       isError.value = false;

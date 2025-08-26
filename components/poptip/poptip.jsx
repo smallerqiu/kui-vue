@@ -32,14 +32,14 @@ const Poptip = defineComponent({
     // console.log(te)
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
-    const refPopper = ref(null);
-    const refCtx = ref(null);
+    const refPopper = ref();
+    const refCtx = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
-    const hideTimer = ref(null);
-    const showTimer = ref(null);
+    const hideTimer = ref();
+    const showTimer = ref();
     const updatePosition = () => {
       nextTick(() => {
         setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, 3);

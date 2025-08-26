@@ -24,7 +24,7 @@ const Slider = defineComponent({
     tooltipVisible: Boolean,
   },
   setup(ps, { emit, slots }) {
-    const railRef = ref(null);
+    const railRef = ref();
     const getValue = (value) => {
       if (value === undefined) {
         value = ps.value;

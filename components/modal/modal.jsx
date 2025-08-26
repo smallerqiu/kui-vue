@@ -35,8 +35,8 @@ const Modal = defineComponent({
     const isMousePressed = ref(false);
     const mousedownIn = ref(false);
     const startPos = ref({ x: 0, y: 0 });
-    const refModal = ref(null);
-    const refHeader = ref(null);
+    const refModal = ref();
+    const refHeader = ref();
     const locale = inject("locale", null) || zhCN;
     const escToClose = (event) => {
       if (event.key === "Escape") {

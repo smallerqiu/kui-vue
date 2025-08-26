@@ -60,7 +60,7 @@ const topMenu = ref([])
 const currentTheme = ref('')
 const router = useRouter();
 const route = useRoute();
-const triggerRef = ref(null)
+const triggerRef = ref()
 
 onMounted(() => {
   let themeLocal = localStorage.getItem('theme-mode') || ''

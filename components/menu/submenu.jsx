@@ -27,8 +27,8 @@ const SubMenu = defineComponent({
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
-    const refCtx = ref(null);
-    const refPopper = ref(null);
+    const refCtx = ref();
+    const refPopper = ref();
     const top = ref(0);
     const left = ref(0);
     const minWidth = ref("");
@@ -42,7 +42,7 @@ const SubMenu = defineComponent({
     const hidePopTimer = inject("hidePopTimer", null);
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
-    const popTimer = ref(null);
+    const popTimer = ref();
     const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
     const dropdown = inject("dropdown", null);
     const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";

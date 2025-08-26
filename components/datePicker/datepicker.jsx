@@ -66,8 +66,8 @@ export default defineComponent({
     }
     const locale = inject("locale", null) || zhCN;
     const currentValue = ref(ps.value ? dayjs(ps.value) : null)
-    const v1 = ref(null)
-    const v2 = ref(null)
+    const v1 = ref()
+    const v2 = ref()
     const fmt = {
       'year': 'YYYY',
       'month': 'YYYY-MM',
@@ -80,9 +80,9 @@ export default defineComponent({
 
     const rendered = ref(false);
     const visible = ref(false)
-    const refPopper = ref(null);
+    const refPopper = ref();
     const transOrigin = ref("bottom");
-    const refCtx = ref(null);
+    const refCtx = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -195,7 +195,7 @@ export default defineComponent({
     }
 
 
-    const input = ref(null)
+    const input = ref()
     return () => {
       let calendar = []
       let presetsNode = getPresetsNode()
