@@ -24,7 +24,8 @@ export default defineComponent({
   props: {
     value: [String, Date, Number, Array, Object],
     mode: {
-      type: String, default: 'date', validator(value) {
+      type: String, default: 'date',
+      validator(value) {
         return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
       }
     },
@@ -55,15 +56,15 @@ export default defineComponent({
   },
   setup(ps, { slots, emit }) {
     const localeData = dayjs().localeData();
-    try {
-      // console.log(localeData.longDateFormat);    // MM/DD/YYYY
-      console.log(localeData.longDateFormat('L'));    // MM/DD/YYYY
-      console.log(localeData.longDateFormat('LL'));   // MMMM D, YYYY
-      console.log(localeData.longDateFormat('LLL'));  // MMMM D, YYYY h:mm A
-      console.log(localeData.longDateFormat('LLLL')); // dddd, MMMM D, YYYY h:mm A
-    } catch (e) {
-      console.log(e)
-    }
+    // try {
+    //   // console.log(localeData.longDateFormat);    // MM/DD/YYYY
+    //   console.log(localeData.longDateFormat('L'));    // MM/DD/YYYY
+    //   console.log(localeData.longDateFormat('LL'));   // MMMM D, YYYY
+    //   console.log(localeData.longDateFormat('LLL'));  // MMMM D, YYYY h:mm A
+    //   console.log(localeData.longDateFormat('LLLL')); // dddd, MMMM D, YYYY h:mm A
+    // } catch (e) {
+    //   console.log(e)
+    // }
     const locale = inject("locale", null) || zhCN;
     const currentValue = ref(ps.value ? dayjs(ps.value) : null)
     const v1 = ref()
@@ -204,11 +205,12 @@ export default defineComponent({
       }
       const leftProps = {
         value: currentValue.value,
-        type: 'month',
+        type: ps.mode,
+        size: ps.pickerSize,
         onUpdateDate: (value, t) => {
           currentValue.value = value
           visible.value = t == 'd' ? false : true
-          console.log(ps.value)
+          // console.log(ps.value)
           if (ps.value || t == 'd') {
             emit('update:value', value)
             emit('change', value, dayjs(currentValue.value).format(fmt[ps.mode]))

@@ -2,19 +2,19 @@ import { nextTick, ref, onMounted, defineComponent } from 'vue'
 const fix = v => ('0' + v).slice(-2)
 
 const scrollToCenter = (e, animate = true) => {
-  // 计算 span 元素相对于 div 元素的偏移
-  const offset = e.target.offsetTop;
-  const ul = e.target.parentNode
-  // 计算滚动距离使 span 元素垂直居中
-  const scrollDistance = offset - parseFloat((ul.clientHeight / 2).toFixed(2)) + parseFloat((e.target.clientHeight / 2).toFixed(2)) //- (this.pickerSize == 'small' ? 84 / 2 : 84 / 2);
-  // 滚动到计算出的位置
-  // console.log(ul, scrollDistance)
+  const li = e.currentTarget; 
+  const ul = li.parentElement;
+
+  const ulHeight = ul.clientHeight;
+  const liHeight = li.clientHeight;
+  // todo:
+  const scrollTop = li.offsetTop - (ulHeight / 2) - (liHeight);
+
   if (animate) {
-    ul.scrollTo({ top: scrollDistance, behavior: 'smooth' });
+    ul.scrollTo({ top: scrollTop, behavior: 'smooth' });
   } else {
-    ul.scrollTop = scrollDistance
+    ul.scrollTop = scrollTop;
   }
-  // console.log(ul.scrollTop)
 }
 function Col(props) {
   return (<div class={`k-calendar-${props.type}`} >
@@ -65,7 +65,7 @@ export default defineComponent({
       nextTick(() => {
         const index = props.items.indexOf(props.current)
         // props.type == 'months' && console.log(props.items, props.current)
-        index >= 0 && scrollToCenter({ target: refContainer.value.children[index] }, false)
+        // index >= 0 && scrollToCenter({ target: refContainer.value.children[index] }, false)
       })
     })
     return () => <Col fix={props.fix} onChange={onChange} ref={refContainer} type={props.type} list={props.items} getClass={getClass} />
