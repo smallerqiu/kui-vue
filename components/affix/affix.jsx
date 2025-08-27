@@ -17,7 +17,6 @@ const Affix = defineComponent({
   },
   setup(props, { slots, emit }) {
     let target = props.target()
-    // console.log(target)
     const affixRef = ref();
 
     const fixed = ref(false);
@@ -30,12 +29,10 @@ const Affix = defineComponent({
       const rect = affixRef.value.getBoundingClientRect()
       const isWindow = target === window;
       const targetRect = !isWindow ? target.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
-      console.log(targetRect)
       let isFixed = false
 
       if (props.offsetBottom != undefined) {
         const offset = targetRect.bottom - rect.bottom - props.offsetBottom
-        // console.log(props.offsetBottom, rect.bottom, offset)
         if (offset <= 0) {
           isFixed = true
           styles.value = {

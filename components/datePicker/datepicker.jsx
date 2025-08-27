@@ -23,7 +23,7 @@ export default defineComponent({
   },
   props: {
     value: [String, Date, Number, Array, Object],
-    mode: {
+    type: {
       type: String, default: 'date',
       validator(value) {
         return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
@@ -205,7 +205,7 @@ export default defineComponent({
       }
       const leftProps = {
         value: currentValue.value,
-        type: ps.mode,
+        type: ps.type,
         size: ps.pickerSize,
         onUpdateDate: (value, t) => {
           currentValue.value = value
@@ -213,7 +213,7 @@ export default defineComponent({
           // console.log(ps.value)
           if (ps.value || t == 'd') {
             emit('update:value', value)
-            emit('change', value, dayjs(currentValue.value).format(fmt[ps.mode]))
+            emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
           }
         },
       }
@@ -265,7 +265,7 @@ export default defineComponent({
         // if (label) {
         //   childNode.push(<div class="k-datepicker-value">{label}</div>)
         // } else if (placeholder) {
-        let value = ps.value ? dayjs(ps.value).format(fmt[ps.mode]) : null
+        let value = ps.value ? dayjs(ps.value).format(fmt[ps.type]) : null
         childNode.push(<input class="k-datepicker-input" value={value} ref={input} placeholder={placeholder}></input>)
         // }
 
