@@ -6,7 +6,7 @@ import {
   ChevronDoubleForward
 } from "kui-icons";
 import { defineComponent, ref, inject, watch, nextTick, onMounted } from 'vue'
-// import Time from './time'
+import Time from './time'
 import Days from './day'
 import Month from './month';
 import Year from './year';
@@ -29,6 +29,8 @@ export default defineComponent({
   },
   setup(ps, { emit }) {
     const isShowYear = ref(false);
+    const isShowTime = ref(false);
+    const withTime = /(t|T)ime/.test(ps.type)
     let rootCls = ['k-calendar', {
       'k-calendar-small': ps.size == 'small',
       'k-calendar-only-year': ps.type == 'year',
@@ -61,22 +63,15 @@ export default defineComponent({
       // console.log('update', ps.value)
       // emit('update', value)
     }
-    const setDay = cell => {
-      currentValue.value = cell
-      emit('updateDate', cell, 'd')
-    }
-    const setYear = item => {
-      const value = dayjs(currentValue.value).set('year', item)
-      currentValue.value = value
-      // isShowYear.value = false
-      // console.log(item, value)
-      emit('updateDate', value, 'y')
-    }
-    const setMonth = item => {
-      const value = dayjs(currentValue.value).set('month', item - 1)
-      currentValue.value = value
-      emit('updateDate', value, 'm')
-      // isShowYear.value = false
+
+    const update = (item, type) => {
+      if (type == 'date') {
+        currentValue.value = item
+      } else {
+        const value = dayjs(currentValue.value).set(type, item)
+        currentValue.value = value
+      }
+      emit('updateDate', currentValue.value, type)
     }
     onMounted(() => {
       nextTick(() => {
@@ -84,6 +79,10 @@ export default defineComponent({
         isShowYear.value = ps.type == 'month'
       })
     })
+    const switchTime = () => {
+      isShowYear.value = false
+      isShowTime.value = !isShowTime.value
+    }
     // watch(
     //   () => ps.value,
     //   (nv, no) => {
@@ -97,7 +96,7 @@ export default defineComponent({
       const isCN = dayjs.locale() == 'zh-cn'
       const isMonth = ps.type == 'month'
       // console.log(ps.size, isCN, isMonth)
-      return (<div class={rootCls}  x-type={ps.type}>
+      return (<div class={rootCls} x-type={ps.type}>
         {ps.type != 'month' && <div class="k-calendar-header">
           {!isMonth ? <Button size={ps.size} icon={ChevronDoubleBack} theme="normal" onClick={() => setDate('y', 'm')}></Button> : null}
           {!isMonth ? <Button size={ps.size} icon={ChevronBack} theme="normal" onClick={() => setDate('m', 'm')}></Button> : null}
@@ -107,15 +106,24 @@ export default defineComponent({
         </div>
         }
         {
-          !isShowYear.value ?
-            <div class="k-calendar-body">
-              <WeekDay />
-              <Days value={ps.value} current={date} disabledTime={ps.disabledTime} onSetDay={setDay} />
-            </div> :
-            <div class="k-calendar-yearmonth-picker">
-              <Year value={ps.value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={setYear} />
-              <Month value={ps.value} current={date.month()} disabledDate={ps.disabledDate} onSetMonth={setMonth} />
-            </div>
+          isShowTime.value ?
+            <Time disabledTime={ps.disabledTime} current={date} value={ps.value} onUpdate={update} /> :
+            !isShowYear.value ?
+              <div class="k-calendar-body">
+                <WeekDay />
+                <Days value={ps.value} current={date} disabledTime={ps.disabledTime} onUpdate={update} />
+              </div> :
+              <div class="k-calendar-yearmonth-picker">
+                <Year value={ps.value} current={date.year()} disabledDate={ps.disabledDate} onUpdate={update} />
+                <Month value={ps.value} current={date.month()} disabledDate={ps.disabledDate} onUpdate={update} />
+              </div>
+        }
+        {
+          withTime &&
+          <div class="k-calendar-footer">
+            <div role="button" class="k-calendar-switch-date" ><span>{date.format('YYYY-MM-DD')}</span></div>
+            <div role="button" class="k-calendar-switch-time" onClick={switchTime}><span>{date.format("HH:mm:ss")}</span></div>
+          </div>
         }
       </div>
       )

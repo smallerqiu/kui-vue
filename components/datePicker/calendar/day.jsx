@@ -50,7 +50,7 @@ export default defineComponent({
       ]
     };
     const setDay = cell => {
-      emit('setDay', cell)
+      emit('update', cell, 'date')
     }
     return () => {
       const dayInfo = {

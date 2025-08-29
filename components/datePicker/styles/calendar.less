@@ -244,7 +244,7 @@
     display: flex;
     margin-top: -1px;
 
-    .k-calendar-time-picker-select {
+    .k-calendar-time {
       flex: 1;
       overflow: auto;
       height: 100%;
@@ -315,20 +315,24 @@
 
   .k-calendar-footer {
     border-top: 1px solid var(--kui-color-border);
-    position: relative;
-    z-index: 1;
-    padding: 5px 8px;
-    text-align: right;
     box-sizing: border-box;
+    display: flex;
 
-    // height: 26px;
-    .k-btn {
-      cursor: pointer;
-    }
+  }
 
-    .k-calendar-btn-ok {
-      margin-left: 8px;
+  .k-calendar-switch-date,
+  .k-calendar-switch-time {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--kui-color-disable-color);
+    cursor: pointer;
+    &:hover{
+      background-color: var(--kui-color-gray-90);
     }
+  }
+  .k-calendar-switch-time{
+    border-left: 1px solid var(--kui-color-border);
   }
 }
 

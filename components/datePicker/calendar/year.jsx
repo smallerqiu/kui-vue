@@ -8,8 +8,7 @@ export default defineComponent({
   },
   setup(ps, { emit }) {
     const select = (item) => {
-      // console.log(item)
-      emit('setYear', item)
+      emit('update', item, 'year')
     }
     const items = (a) => Array.from({ length: 201 }, (_, i) => a - 100 + i);
 

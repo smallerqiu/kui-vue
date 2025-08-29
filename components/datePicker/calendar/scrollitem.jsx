@@ -8,7 +8,6 @@ const scrollToCenter = (e, animate = true) => {
   const ulHeight = ul.clientHeight;
   const liHeight = li.clientHeight;
   const scrollTop = li.offsetTop - (ulHeight / 2) + (liHeight / 2);
-  console.log(scrollTop, li.offsetTop)
   if (animate) {
     ul.scrollTo({ top: scrollTop, behavior: 'smooth' });
   } else {
@@ -53,7 +52,7 @@ export default defineComponent({
       return [
         `k-calendar-${props.type}-item`,
         {
-          // [`k-calendar-${props.type}-this`]: props.value === item,
+          // [`k-calendar-${item}-${props.current}-this`]:true,
           [`k-calendar-item-selected`]: props.current !== null && props.current === item,
           [`k-calendar-${props.type}-disabled`]: isDisabledTime(props.disabledType, item),
         }
