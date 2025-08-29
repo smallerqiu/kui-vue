@@ -56,6 +56,7 @@ export default defineComponent({
   },
   setup(ps, { slots, emit }) {
     const localeData = dayjs().localeData();
+    console.log(localeData)
     // try {
     //   // console.log(localeData.longDateFormat);    // MM/DD/YYYY
     //   console.log(localeData.longDateFormat('L'));    // MM/DD/YYYY
@@ -72,12 +73,13 @@ export default defineComponent({
     const fmt = {
       'year': 'YYYY',
       'month': 'YYYY-MM',
-      'date': localeData.longDateFormat('L'),
-      'dateRange': localeData.longDateFormat('L'),
+      'date': 'YYYY-MM-DD',
+      'dateRange': 'YYYY-MM-DD',
       'time': 'HH:mm:ss',
-      'dateTime': localeData.longDateFormat('LL'),
-      'dateTimeRange': localeData.longDateFormat('LL')
+      'dateTime': 'YYYY-MM-DD HH:mm:ss',
+      'dateTimeRange': 'YYYY-MM-DD HH:mm:ss'
     }
+    console.log('eee', fmt)
 
     const rendered = ref(false);
     const visible = ref(false)
@@ -195,6 +197,18 @@ export default defineComponent({
       visible.value = false
     }
 
+    const update = (value, type) => {
+      currentValue.value = value
+      visible.value = (type == 'date' && !withTime) || (type == 'month' && ps.type == 'month') ? false : true
+      if (!ps.value && type != 'date') {
+        return
+      }
+      // todo: 
+      if ((type == 'date' && !withTime) || (type == 'month' && !withTime)) {
+        emit('update:value', value)
+        emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
+      }
+    }
 
     const input = ref()
     return () => {
@@ -207,15 +221,7 @@ export default defineComponent({
         value: currentValue.value,
         type: ps.type,
         size: ps.pickerSize,
-        onUpdateDate: (value, t) => {
-          currentValue.value = value
-          visible.value = t == 'd' ? false : true
-          // console.log(ps.value)
-          if (ps.value || t == 'd') {
-            emit('update:value', value)
-            emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
-          }
-        },
+        onUpdateDate: update,
       }
       calendar.push(<Calendar {...leftProps} />)
 
@@ -248,27 +254,13 @@ export default defineComponent({
           placeholder = []
         }
         let p1 = placeholder[0] || locale?.k.datePicker.startDate, p2 = placeholder[1] || locale?.k.datePicker.endDate
-        // if (l1) {
-        //   childNode.push(<div class="k-datepicker-value">{l1}</div>)
-        // } else {
         childNode.push(<input class="k-datepicker-input" placeholder={placeholder}>{p1}</input>)
-        // }
         childNode.push(<div class="k-datepicker-separator">~</div>)
-        // if (l2) {
-        //   childNode.push(<div class="k-datepicker-value">{l2}</div>)
-        // } else {
         childNode.push(<input class="k-datepicker-input" placeholder={placeholder}>{p2}</input>)
-        // }
-
       } else {
         placeholder = placeholder || locale?.k.datePicker.placeholder
-        // if (label) {
-        //   childNode.push(<div class="k-datepicker-value">{label}</div>)
-        // } else if (placeholder) {
         let value = ps.value ? dayjs(ps.value).format(fmt[ps.type]) : null
-        childNode.push(<input class="k-datepicker-input" value={value} ref={input} placeholder={placeholder}></input>)
-        // }
-
+        childNode.push(<input class="k-datepicker-input" value={value} size={!withTime ? 12 : 20} ref={input} placeholder={placeholder}></input>)
       }
       const classes = ['k-datepicker',
         { 'k-datepicker-open': visible.value },

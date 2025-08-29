@@ -9,18 +9,15 @@ export default defineComponent({
   },
   setup(ps, { emit }) {
     const select = (item) => {
-      emit('setMonth', item)
+      emit('update', item - 1, 'month')
     }
     const items = len => new Array(len).fill("").map((_, v) => v + 1)
 
     return () => {
-      const thisMonth = new Date().getMonth()
-      let { $M } = ps.value || { $M: null }
-      let currentMonth = (ps.current || $M || thisMonth) + 1
-      // console.log(items(12), ps.current)
-      // return <div class="k-calendar-months">
-      return <List fix={true} items={items(12)} onSelect={select} current={currentMonth} value={$M} type="months" disabledTime={ps.disabledDate} />
-      // </div>
+      // const thisMonth = new Date().getMonth()
+      const { $M } = ps.value || { $M: null }
+      let value = $M !== undefined ? $M + 1 : null
+      return <List fix={true} items={items(12)} onSelect={select} current={ps.current + 1} value={value} type="months" disabledTime={ps.disabledDate} />
     }
   }
 })
