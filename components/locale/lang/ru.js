@@ -1,20 +1,16 @@
-module.exports =  {
+module.exports = {
   k: {
     datePicker: {
+      selectYear: "Выберите год",
+      selectMonth: "Выберите месяц",
+      selectDate: 'Выбрать дату',
+      selectTime: 'Выбрать время',
       startDate: 'Выбрать дату',
       endDate: 'Дата окончания',
-      placeholder: 'Выбрать',
-      months: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-      weeks: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-      year: '',
-      month: '',
-      day: '',
       today: 'Сегодня',
       now: 'Сейчас',
       ok: 'OK',
-      selectDate: 'Выбрать дату',
-      selectTime: 'Выбрать время',
-      back:'назад'
+      back: 'назад'
     },
     drawer: {
       ok: 'OK',

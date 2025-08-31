@@ -1,37 +1,16 @@
-module.exports =  {
+module.exports = {
   k: {
     datePicker: {
+      selectYear: "Seleziona anno",
+      selectMonth: "Seleziona mese",
+      selectDate: "Seleziona data",
+      selectTime: 'Seleziona ora',
       startDate: 'Data inizio',
       endDate: 'Data fine',
-      placeholder: 'Seleziona',
-      months: ['Gen',
-        'Feb',
-        'Mar',
-        'Apr',
-        'Mag',
-        'Giu',
-        'Lug',
-        'Ago',
-        'Set',
-        'Ott',
-        'Nov',
-        'Dic'],
-      weeks: ['Dom',
-        'Lun',
-        'Mar',
-        'Mer',
-        'Gio',
-        'Ven',
-        'Sab'],
-      year: '',
-      month: '',
-      day: '',
       today: 'Oggi',
       now: 'Ora',
       ok: 'OK',
-      selectDate: 'Seleziona data',
-      selectTime: 'Seleziona ora',
-      back:'indietro'
+      back: 'indietro'
     },
     drawer: {
       ok: 'OK',

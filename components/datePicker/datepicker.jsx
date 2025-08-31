@@ -26,7 +26,7 @@ export default defineComponent({
     type: {
       type: String, default: 'date',
       validator(value) {
-        return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
+        return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange', 'monthRange'].indexOf(value) >= 0;
       }
     },
     disabled: Boolean,
@@ -55,8 +55,8 @@ export default defineComponent({
     },
   },
   setup(ps, { slots, emit }) {
-    const localeData = dayjs().localeData();
-    console.log(localeData)
+    // const localeData = dayjs().localeData();
+    // console.log(localeData)
     // try {
     //   // console.log(localeData.longDateFormat);    // MM/DD/YYYY
     //   console.log(localeData.longDateFormat('L'));    // MM/DD/YYYY
@@ -79,7 +79,15 @@ export default defineComponent({
       'dateTime': 'YYYY-MM-DD HH:mm:ss',
       'dateTimeRange': 'YYYY-MM-DD HH:mm:ss'
     }
-    console.log('eee', fmt)
+    const placeholders = {
+      'year': locale?.k.datePicker.selectYear,
+      'month': locale?.k.datePicker.selectMonth,
+      'date': locale?.k.datePicker.selectDate,
+      'time': locale?.k.datePicker.selectTime,
+      'startDate': locale?.k.datePicker.startDate,
+      'endDate': locale?.k.datePicker.endDate,
+    }
+    // console.log('eee', fmt)
 
     const rendered = ref(false);
     const visible = ref(false)
@@ -93,6 +101,7 @@ export default defineComponent({
 
     const isRange = /Range/.test(ps.type)
     const withTime = /(t|T)ime/.test(ps.type)
+    const isTime = ps.type == 'time'
 
     onBeforeMount(() => {
       document.removeEventListener("click", outsideClick);
@@ -153,16 +162,25 @@ export default defineComponent({
         nextTick(() => {
           visible.value = true;
           updatePosition();
-          input.value.focus()
+          input.value?.focus()
         });
       } else {
         visible.value = show || !visible.value;
         if (visible.value) {
           updatePosition();
-          input.value.focus()
+          input.value?.focus()
         }
       }
-
+    }
+    const getPlaceholder = () => {
+      if (ps.placeholder) {
+        return ps.placeholder
+      } else {
+        if (ps.type == 'year' || ps.type == 'month' || ps.type == 'time') {
+          return placeholders[ps.type]
+        }
+        return placeholders.date
+      }
     }
     const getPresetsNode = () => {
       let { presets } = ps
@@ -198,15 +216,34 @@ export default defineComponent({
     }
 
     const update = (value, type) => {
+      // console.log(type, ps.type)
       currentValue.value = value
-      visible.value = (type == 'date' && !withTime) || (type == 'month' && ps.type == 'month') ? false : true
-      if (!ps.value && type != 'date') {
-        return
+      if ((ps.type == 'month' && type == 'month') ||
+        (ps.type == 'date' && type == 'date')) {
+        visible.value = false
+        // console.log('ok')
+        // emit('update:value', value)
+        // emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
       }
-      // todo: 
-      if ((type == 'date' && !withTime) || (type == 'month' && !withTime)) {
-        emit('update:value', value)
-        emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
+
+      // if (withTime) {
+      emit('update:value', value)
+      emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
+      // }
+
+    }
+    const inputChange = e => {
+      // console.log(e.target.value)
+      let value = e.target.value
+      if (value.trim() == "") return
+      if (dayjs(value).isValid()) {
+        let origin = dayjs(currentValue.value).format(fmt[ps.type])
+        let newValue = dayjs(value).format(fmt[ps.type])
+        if (origin != newValue) {
+          currentValue.value = dayjs(value)
+          emit('update:value', currentValue.value)
+          emit('change', currentValue.value, dayjs(currentValue.value).format(fmt[ps.type]))
+        }
       }
     }
 
@@ -245,7 +282,7 @@ export default defineComponent({
       let childNode = [];
       let dateIcon = ps.dateIcon === undefined ? CalendarOutline : ps.type == 'time' ? TimeOutline : null;
 
-      dateIcon && childNode.push(<Icon type={dateIcon} class="k-icon-calendar" />)
+      dateIcon && childNode.push(<Icon type={isTime ? TimeOutline : dateIcon} class="k-icon-calendar" />)
       let placeholder = ps.placeholder
       if (isRange) {
         placeholder = placeholder || []
@@ -253,14 +290,14 @@ export default defineComponent({
           console.error('Please set placeholder as array !')
           placeholder = []
         }
-        let p1 = placeholder[0] || locale?.k.datePicker.startDate, p2 = placeholder[1] || locale?.k.datePicker.endDate
-        childNode.push(<input class="k-datepicker-input" placeholder={placeholder}>{p1}</input>)
+        let p1 = placeholder[0] || placeholders.startDate, p2 = placeholder[1] || placeholders.endDate
+        childNode.push(<input class="k-datepicker-input" placeholder={p1} size={(!withTime || isTime) ? 12 : 20}></input>)
         childNode.push(<div class="k-datepicker-separator">~</div>)
-        childNode.push(<input class="k-datepicker-input" placeholder={placeholder}>{p2}</input>)
+        childNode.push(<input class="k-datepicker-input" placeholder={p2} size={(!withTime || isTime) ? 12 : 20}></input>)
       } else {
-        placeholder = placeholder || locale?.k.datePicker.placeholder
+        placeholder = getPlaceholder()
         let value = ps.value ? dayjs(ps.value).format(fmt[ps.type]) : null
-        childNode.push(<input class="k-datepicker-input" value={value} size={!withTime ? 12 : 20} ref={input} placeholder={placeholder}></input>)
+        childNode.push(<input class="k-datepicker-input" value={value} onChange={inputChange} size={(!withTime || isTime) ? 12 : 20} ref={input} placeholder={placeholder}></input>)
       }
       const classes = ['k-datepicker',
         { 'k-datepicker-open': visible.value },
@@ -273,7 +310,7 @@ export default defineComponent({
         { 'k-datepicker-light': ps.theme == 'light' },
         { 'k-datepicker-circle': ps.shape == 'circle' },
       ]
-      let showClear = !ps.disabled && ps.clearable && currentValue.value
+      let showClear = !ps.disabled && ps.clearable && ps.value
       showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={clear} />)
       const selectCls = [
         "k-datepicker-selection", {
@@ -282,9 +319,7 @@ export default defineComponent({
       ]
 
       return (<div tabIndex="0" class={classes} ref={refCtx}>
-        <div class={selectCls} onClick={toggle}>
-          {childNode}
-        </div>
+        <div class={selectCls} onClick={toggle}>{childNode}</div>
         {overlay}
       </div>
       )

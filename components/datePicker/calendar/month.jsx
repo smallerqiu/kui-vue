@@ -9,7 +9,7 @@ export default defineComponent({
   },
   setup(ps, { emit }) {
     const select = (item) => {
-      emit('update', item - 1, 'month')
+      emit('setMonth', item - 1, 'month')
     }
     const items = len => new Array(len).fill("").map((_, v) => v + 1)
 

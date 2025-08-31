@@ -7,7 +7,7 @@ export default defineComponent({
     disabledTime: Function,
     current: Object,
   },
-  setup(ps) {
+  setup(ps, { emit }) {
 
     let { $H, $m, $s } = ps.value || { $H: null, $m: null, $s: null }
     const items = len => new Array(len).fill("").map((_, v) => v)
