@@ -12,6 +12,7 @@ const scrollToCenter = (e, animate = true) => {
     ul.scrollTo({ top: scrollTop, behavior: 'smooth' });
   } else {
     ul.scrollTop = scrollTop;
+    // console.log('ok', scrollTop, ulHeight, ul.scrollTop)
   }
 }
 function Col(props) {
@@ -62,7 +63,7 @@ export default defineComponent({
     onMounted(() => {
       nextTick(() => {
         const index = props.items.indexOf(props.current)
-        // console.log(index)
+        // console.log(index, props.current)
         // props.type == 'months' && console.log(props.items, props.current)
         index >= 0 && scrollToCenter({ currentTarget: refContainer.value.children[index] }, false)
       })

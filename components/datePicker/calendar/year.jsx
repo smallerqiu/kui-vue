@@ -4,11 +4,12 @@ import List from './scrollitem'
 export default defineComponent({
   props: {
     value: Object,
+    current: Number,
     disabledDate: Function,
   },
   setup(ps, { emit }) {
     const select = (item) => {
-      emit('update', item, 'year')
+      emit('setYear', item, 'year')
     }
     const items = (a) => Array.from({ length: 201 }, (_, i) => a - 100 + i);
 
@@ -16,9 +17,9 @@ export default defineComponent({
       let { $y } = ps.value || { $y: null }
       const thisYear = new Date().getFullYear()
       let currentYear = ps.current || $y || thisYear
+      // console.log(currentYear, $y)
       // return <div class="k-calendar-years">
       return <List items={items(thisYear)} onSelect={select} current={currentYear} value={$y} type="years" disabledTime={ps.disabledDate} />
-      // </div>
     }
   }
 })

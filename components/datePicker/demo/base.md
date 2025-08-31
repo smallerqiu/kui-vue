@@ -6,12 +6,11 @@
 ```vue
 <template>
   <Space vertical>
-    <!-- <DatePicker v-model:value="value2" placeholder="小尺寸/Small" picker-size="small" /> -->
-    <DatePicker v-model:value="value1" type="month"/>
-    <DatePicker v-model:value="value2" @change="onChange" />
-    <DatePicker v-model:value="value3" type="dateTime" />
-    <!-- <DatePicker v-model:value="value4" type="dateRange" /> -->
-    <!-- <DatePicker v-model:value="value5" type="dateTimeRange" picker-size="small" /> -->
+    <DatePicker v-model:value="value1" type="year" @change="onChange"/>
+    <DatePicker v-model:value="value2" type="month" @change="onChange"/>
+    <DatePicker v-model:value="value3" @change="onChange" />
+    <DatePicker v-model:value="value4" type="time" @change="onChange"/>
+    <DatePicker v-model:value="value5" type="dateTime" @change="onChange"/>
   </Space>
 </template>
 <script setup>
@@ -23,7 +22,7 @@ const value4 = ref()
 const value5 = ref()
 
 const onChange =(date,dateStr)=>{
-    console.log(date,dateStr)
+    // console.log(date,dateStr)
 }
 </script>
 ```

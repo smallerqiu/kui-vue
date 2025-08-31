@@ -35,6 +35,7 @@
     align-items: center;
     width: 272px;
     box-sizing: border-box;
+    border-bottom: 1px solid var(--kui-color-border);
 
     .k-calendar-year-select,
     .k-calendar-month-select,
@@ -58,7 +59,6 @@
     height: 262px;
     width: 100%;
     min-width: 160px;
-    border-top: 1px solid var(--kui-color-border);
   }
 
   .k-calendar-years,
@@ -251,6 +251,7 @@
       border-right: 1px solid var(--kui-color-border);
       box-sizing: border-box;
       position: relative;
+      min-width: 56px;
 
       &::before,
       &::after {
@@ -327,22 +328,28 @@
     padding: 10px 0;
     color: var(--kui-color-disable-color);
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       background-color: var(--kui-color-gray-90);
     }
   }
-  .k-calendar-switch-time{
+
+  .k-calendar-switch-time {
     border-left: 1px solid var(--kui-color-border);
   }
 }
 
-.k-calendar-yearmonth,
 .k-calendar-only-year {
-  min-width: 135px;
+  min-width: 85px;
 }
 
 .k-calendar-only-time {
   min-width: 180px;
+}
+
+.k-calendar-year-picker {
+  height: 262px;
+  width: 85px;
 }
 
 .k-calendar-small {
