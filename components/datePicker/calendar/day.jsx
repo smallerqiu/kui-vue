@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, inject } from 'vue'
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 dayjs.extend(localeData);
@@ -7,11 +7,13 @@ export default defineComponent({
   props: {
     value: Object,
     current: Object,
-    disabledTime: Function,
+    disabledDate: Function,
   },
   emits: ['setDay'],
   setup(ps, { emit }) {
-
+    const isStart = inject('isStart');
+    const startDate = inject('startDate');
+    const endDate = inject('endDate');
     const getCalendar = ({ firstDayOfWeek, year, month }) => {
       const result = [];
       // first day of this month
@@ -37,15 +39,21 @@ export default defineComponent({
     }
     const local = dayjs().localeData();
     const today = new Date();
+    const inRange = (date) => {
+      if (!isStart) {
+        return startDate && dayjs(date).isBefore(startDate, 'date')
+      } else {
+
+      }
+    }
     const getDayClass = (date) => {
       const now = dayjs(ps.current);
-
       return [
         'k-calendar-day-item', {
           'k-calendar-day-this': date.isSame(today, 'day'),
           'k-calendar-day-selected': date.isSame(ps.value, 'day') && date.isSame(ps.value, 'month') && date.isSame(ps.value, 'year'),
           'k-calendar-day-out': !date.isSame(now, 'month') || !date.isSame(now, 'year'),
-          // 'k-calendar-day-disabled': # todo
+          'k-calendar-day-disabled': ps.disabledDate(date) || inRange(date),
         }
       ]
     };

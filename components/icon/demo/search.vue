@@ -3,15 +3,18 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="65">
-      <Space size="large" compact style="width:80%">
-        <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model:value="searchKey" clearable
-          style="background:var(--kui-color-back);">
-        </Input>
-        <RadioGroup v-model:value="type" @change="switchIcon">
-          <RadioButton value="outline">Outline</RadioButton>
-          <RadioButton value="filled">Filled</RadioButton>
+      <Flex size="large">
+        <RadioGroup v-model:value="type" @change="switchIcon" theme="card" type="button">
+          <RadioButton value="outline">线框风格</RadioButton>
+          <RadioButton value="filled">实底风格</RadioButton>
         </RadioGroup>
-      </Space>
+        <Space compact size="large" block>
+          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model:value="searchKey" clearable
+            style="background:var(--kui-color-back);">
+          </Input>
+          <Button :icon="icons['Search']" theme="outline"></Button>
+        </Space>
+      </Flex>
     </Affix>
 
     <br />

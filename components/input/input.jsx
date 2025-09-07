@@ -2,7 +2,7 @@ import Icon from "../icon";
 import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
-import { defineComponent, ref, nextTick, watch } from "vue";
+import { defineComponent, ref, nextTick, watch, inject } from "vue";
 import { withInstall } from '../utils/vue';
 const Input = defineComponent({
   name: "Input",
@@ -11,7 +11,7 @@ const Input = defineComponent({
     visiblePasswordIcon: { type: Boolean, default: true },
     id: String,
     size: {
-      default: "default",
+      // default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
@@ -39,6 +39,7 @@ const Input = defineComponent({
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref();
+    const parentSize = inject("size", null);
 
     watch(
       () => ps.value,
@@ -97,7 +98,7 @@ const Input = defineComponent({
       return Password || SearchNode || slots.suffix || (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null);
     };
     const getTextInput = (mult) => {
-      const { disabled, size, type, id, theme, shape, placeholder, inputType } = ps;
+      const { disabled, size = parentSize, type, id, theme, shape, placeholder, inputType } = ps;
       const props = {
         value: currentValue.value,
         class: [
@@ -129,7 +130,7 @@ const Input = defineComponent({
     };
 
     return () => {
-      const { icon, size, disabled, type, clearable, suffix, theme, prefix, shape, inputType } = ps;
+      const { icon, size = parentSize, disabled, type, clearable, suffix, theme, prefix, shape, inputType } = ps;
 
       let mult = icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.controls;
 

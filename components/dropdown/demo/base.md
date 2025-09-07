@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Dropdown>
-    <Button theme="normal">
+    <Button type="text">
       Hover me
     </Button>
     <template #overlay>
@@ -24,7 +24,7 @@
     </template>
   </Dropdown>
   <Dropdown trigger="click">
-    <Button theme="normal">
+    <Button type="text">
       Click me
     </Button>
     <template #overlay>

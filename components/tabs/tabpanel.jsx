@@ -8,7 +8,7 @@ const TabPanel = defineComponent({
     disabled: Boolean,
     closable: Boolean,
     activeKey: String,
-    key: String,
+    // key: String,
   },
   setup(ps, { emit, slots }) {
     onMounted(() => emit("reset-nav-position"));

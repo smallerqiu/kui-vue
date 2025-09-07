@@ -9,7 +9,7 @@
   <Tabs v-model:activeKey="current" @change="change" style="width:350px;">
     <TabPanel key="1" title="Small">
       <Space size="small" >
-        <Button size="small" v-for="x in 5" :key="x">Small</Button>
+        <Button v-for="x in 5" :key="x">Small</Button>
       </Space>
     </TabPanel>
     <TabPanel key="2" title="Middle ">

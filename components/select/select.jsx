@@ -2,6 +2,7 @@ import Option from "./option";
 import Icon from "../icon";
 import Empty from "../empty";
 import transfer from "../directives/transfer";
+import resize from "../directives/resize";
 import zhCN from "../locale/lang/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -23,7 +24,7 @@ import {
 const Select = defineComponent({
   name: "Select",
   directives: {
-    transfer,
+    transfer, resize
   },
   props: {
     placeholder: String,
@@ -646,6 +647,7 @@ const Select = defineComponent({
           tabIndex="0"
           class={classes}
           style={styles}
+          v-resize={updatePosition}
           onClick={toggle}
           onFocus={() => (ctxFocused.value = true)}
           onBlur={() => (ctxFocused.value = false)}

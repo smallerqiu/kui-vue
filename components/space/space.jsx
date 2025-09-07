@@ -1,4 +1,4 @@
-import { defineComponent, computed, h, cloneVNode,isVNode } from "vue";
+import { defineComponent, h, cloneVNode, provide } from "vue";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from '../utils/vue';
 const Space = defineComponent({
@@ -22,10 +22,12 @@ const Space = defineComponent({
     },
   },
   setup(ps, { slots, attrs }) {
+    // todo: see the console log
+    provide('size', ps.size)
     return () => {
       let children = getChildren(slots.default?.())
-      
-      
+
+
       const split = slots.split?.();
 
       const align = !ps.vertical && !ps.align ? "center" : ps.align;
@@ -55,18 +57,19 @@ const Space = defineComponent({
           style.gap = `${ps.size}px`;
         }
       }
-
+      const _attrs = { ...attrs }
+      // delete _attrs.size;
       const props = {
-        ...attrs,
+        ..._attrs,
         style,
         class: cls,
       };
 
-      const vnodes = [];
+      const vNodes = [];
       for (let i = 0; i < children.length; i++) {
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
-          size: ps.size,
+          // size: ps.size,
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
@@ -74,12 +77,12 @@ const Space = defineComponent({
           },
         };
         const child = ps.compact ? cloneVNode(children[i], p, true, true) : h("div", p, children[i]);
-        vnodes.push(child);
+        vNodes.push(child);
         if (split && i < children.length - 1) {
-          vnodes.push(split);
+          vNodes.push(split);
         }
       }
-      return <div {...props}>{...vnodes}</div>;
+      return <div {...props}>{...vNodes}</div>;
     };
   },
 });

@@ -168,7 +168,7 @@ const Modal = defineComponent({
         const contents = [];
         ps.showClose &&
           contents.push(
-            <Button icon={Close} onClick={close} size="small" class="k-modal-close" theme="normal"></Button>
+            <Button icon={Close} onClick={close} size="small" class="k-modal-close" type="text"></Button>
           );
         ps.title !== null &&
           contents.push(

@@ -1,5 +1,5 @@
 import { Button } from "../button";
-import { defineComponent, inject, computed } from "vue";
+import { defineComponent, inject } from "vue";
 import { withInstall } from '../utils/vue';
 const RadioButton = defineComponent({
   name: "RadioButton",
@@ -10,17 +10,19 @@ const RadioButton = defineComponent({
     label: [String, Number],
     theme: String,
     shape: String,
+    size: String,
   },
   setup(ps, { slots, emit, attrs }) {
     const radioGroup = inject("radioGroup", null);
+    const parentSize = inject("size",null);
     const change = (e) => {
       const _label = ps.label || slots.default?.().text;
 
       emit("update", { label: _label, value: ps.value });
-      
+
     };
     return () => {
-      let { disabled, label, size, theme, shape, checked } = ps;
+      let { disabled, label, size = parentSize, theme, shape, checked } = ps;
       const props = {
         ...attrs,
         onClick: change,

@@ -2,6 +2,7 @@ import Calendar from './calendar/datecalendar'
 import Icon from "../icon";
 import dayjs from 'dayjs'
 import transfer from "../directives/transfer";
+import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
 import { defineComponent, watch, onBeforeMount, nextTick, Transition, onMounted, ref, inject } from 'vue'
@@ -19,7 +20,7 @@ dayjs.locale('en-gb');
 export default defineComponent({
   name: 'DatePicker',
   directives: {
-    transfer,
+    transfer, resize
   },
   props: {
     value: [String, Date, Number, Array, Object],
@@ -30,8 +31,8 @@ export default defineComponent({
       }
     },
     disabled: Boolean,
-    disabledDate: { type: Function, default: e => { } },
-    disabledTime: { type: Function, default: e => { } },
+    disabledDate: { type: Function, default: () => { } },
+    disabledTime: { type: Function, default: () => { } },
     format: String,
     clearable: { type: Boolean, default: true },
     bordered: { type: Boolean, default: true },
@@ -55,19 +56,23 @@ export default defineComponent({
     },
   },
   setup(ps, { slots, emit }) {
-    // const localeData = dayjs().localeData();
-    // console.log(localeData)
-    // try {
-    //   // console.log(localeData.longDateFormat);    // MM/DD/YYYY
-    //   console.log(localeData.longDateFormat('L'));    // MM/DD/YYYY
-    //   console.log(localeData.longDateFormat('LL'));   // MMMM D, YYYY
-    //   console.log(localeData.longDateFormat('LLL'));  // MMMM D, YYYY h:mm A
-    //   console.log(localeData.longDateFormat('LLLL')); // dddd, MMMM D, YYYY h:mm A
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    const isRange = /Range/.test(ps.type)
+    const withTime = /(t|T)ime/.test(ps.type)
+    const isTime = ps.type == 'time'
     const locale = inject("locale", null) || zhCN;
-    const currentValue = ref(ps.value ? dayjs(ps.value) : null)
+    const currentValue = ref()
+    if (isRange) {
+      if (ps.value && Array.isArray(ps.value) && ps.value.length == 2) {
+        let [start, end] = ps.value
+        currentValue.value = [dayjs(start), dayjs(end)]
+      } else {
+        let start = dayjs();
+        let end = dayjs().add(1, 'month');
+        currentValue.value = [start, end]
+      }
+    } else {
+      currentValue.value = ps.value ? dayjs(ps.value) : null
+    }
     const v1 = ref()
     const v2 = ref()
     const fmt = {
@@ -87,7 +92,6 @@ export default defineComponent({
       'startDate': locale?.k.datePicker.startDate,
       'endDate': locale?.k.datePicker.endDate,
     }
-    // console.log('eee', fmt)
 
     const rendered = ref(false);
     const visible = ref(false)
@@ -98,13 +102,8 @@ export default defineComponent({
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
 
-
-    const isRange = /Range/.test(ps.type)
-    const withTime = /(t|T)ime/.test(ps.type)
-    const isTime = ps.type == 'time'
-
     onBeforeMount(() => {
-      document.removeEventListener("click", outsideClick);
+      rendered.value && document.removeEventListener("click", outsideClick);
     });
     onMounted(() => {
 
@@ -112,21 +111,13 @@ export default defineComponent({
     watch(
       () => ps.value,
       (nv, no) => {
-        if (isRange) {
-          currentValue.value = nv;
-        } else {
-          currentValue.value = nv;
-        }
+        currentValue.value = nv;
       }
     );
     const clear = (e) => {
-      if (isRange) {
-        currentValue.value = [];
-      } else {
-        currentValue.value = null
-      }
-      emit('update:value', currentValue.value)
-      e && e.stopPropagation()
+      currentValue.value = isRange ? [] : null;
+      emit('update:value', currentValue.value);
+      e?.stopPropagation()
     }
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
@@ -187,7 +178,7 @@ export default defineComponent({
       if (presets && presets.length > 1) {
         let children = []
         for (let i = 0; i < presets.length; i++) {
-          children.push(<Button theme="normal" size="small" onClick={() => setPreset(presets[i])}>{presets[i].label}</Button>)
+          children.push(<Button type="text" size="small" onClick={() => setPreset(presets[i])}>{presets[i].label}</Button>)
         }
         return <div class="k-date-picker-presets">{children}</div>
       }
@@ -215,21 +206,22 @@ export default defineComponent({
       visible.value = false
     }
 
-    const update = (value, type) => {
+    const update = (value, type, isStart) => {
       // console.log(type, ps.type)
-      currentValue.value = value
-      if ((ps.type == 'month' && type == 'month') ||
-        (ps.type == 'date' && type == 'date')) {
-        visible.value = false
-        // console.log('ok')
-        // emit('update:value', value)
-        // emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
-      }
+      if (!isRange) {
+        currentValue.value = value
+        if ((ps.type == 'month' && type == 'month') ||
+          (ps.type == 'date' && type == 'date')) {
+          visible.value = false
+        }
 
-      // if (withTime) {
-      emit('update:value', value)
-      emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
-      // }
+        emit('update:value', value)
+        emit('change', value, dayjs(currentValue.value).format(fmt[ps.type]))
+      } else {
+        if (isStart) {
+
+        }
+      }
 
     }
     const inputChange = e => {
@@ -254,13 +246,26 @@ export default defineComponent({
       if (presetsNode) {
         calendar.push(presetsNode)
       }
-      const leftProps = {
-        value: currentValue.value,
+      const startDateProps = {
+        value: isRange ? currentValue.value[0] : currentValue.value,
+        endDate: isRange ? currentValue.value[1] : null,
         type: ps.type,
         size: ps.pickerSize,
+        isStart: true,
         onUpdateDate: update,
       }
-      calendar.push(<Calendar {...leftProps} />)
+      calendar.push(<Calendar {...startDateProps} />)
+      if (isRange) {
+        const endDateProps = {
+          startDate: currentValue.value[0],
+          value: currentValue.value[1],
+          type: ps.type,
+          isStart: false,
+          size: ps.pickerSize,
+          onUpdateDate: update,
+        }
+        calendar.push(<Calendar {...endDateProps} />)
+      }
 
       let overlay = null;
       if (rendered.value) {
@@ -318,7 +323,7 @@ export default defineComponent({
         }
       ]
 
-      return (<div tabIndex="0" class={classes} ref={refCtx}>
+      return (<div tabIndex="0" class={classes} ref={refCtx} v-resize={updatePosition}>
         <div class={selectCls} onClick={toggle}>{childNode}</div>
         {overlay}
       </div>

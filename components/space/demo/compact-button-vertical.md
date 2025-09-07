@@ -14,24 +14,26 @@
       <Button :icon="ShirtOutline"></Button>
       <Dropdown placement="bottom-right">
         <Button :icon="Ellipsis"></Button> 
-        <Menu slot="content">
-          <MenuItem>
-            <a href="javascript:;">1st menu item</a>
-          </MenuItem>
-          <MenuItem>
-            <a href="javascript:;">2nd menu item</a>
-          </MenuItem>
-          <MenuItem>
-            <a href="javascript:;">3rd menu item</a>
-          </MenuItem>
-        </Menu>
+        <template #overlay>
+          <Menu slot="content">
+            <MenuItem>
+              <a href="javascript:;">1st menu item</a>
+            </MenuItem>
+            <MenuItem>
+              <a href="javascript:;">2nd menu item</a>
+            </MenuItem>
+            <MenuItem>
+              <a href="javascript:;">3rd menu item</a>
+            </MenuItem>
+          </Menu>
+        </template>
       </Dropdown>
     </space>
     <space compact vertical>
-      <Button type="dashed">Button1</Button>
-      <Button type="dashed">Button2</Button>
-      <Button type="dashed">Button3</Button>
-      <Button type="dashed">Button4</Button>
+      <Button theme="dashed">Button1</Button>
+      <Button theme="dashed">Button2</Button>
+      <Button theme="dashed">Button3</Button>
+      <Button theme="dashed">Button4</Button>
     </space>
     <space compact vertical>
       <Button>Button1</Button>

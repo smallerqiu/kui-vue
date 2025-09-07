@@ -9,7 +9,7 @@ import {
   isEmpty,
 } from "../utils/number";
 import { ChevronUp } from "kui-icons";
-import { ref, defineComponent, watch } from "vue";
+import { ref, defineComponent, watch, inject } from "vue";
 const InputNumber = defineComponent({
   props: {
     value: [Array, Number, String],
@@ -36,6 +36,7 @@ const InputNumber = defineComponent({
     id: String,
   },
   setup(ps, { slots, attrs, emit }) {
+    const parentSize = inject('size', null)
     const getValue = (v, edge) => {
       let input = "";
       let output = "";
@@ -144,7 +145,7 @@ const InputNumber = defineComponent({
       emit("blur", e);
     };
     return () => {
-      const { suffix } = ps;
+      // const { suffix } = ps;
 
       const props = {
         ...attrs,
@@ -152,16 +153,17 @@ const InputNumber = defineComponent({
         inputType: "input-number",
         value: inputValue.value,
         clearable: false,
+        size: ps.size || parentSize,
         onInput: (e) => {
           onUpdate(e);
         },
-        onChange: (e) => {},
+        onChange: (e) => { },
         onBlur: (e) => blurHandle(e),
         onKeydown: (e) => onKeyDown(e),
       };
-      const suffixNode =
-        slots.suffix?.() ||
-        (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
+      // const suffixNode =
+      //   slots.suffix?.() ||
+      //   (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
       return (
         <Input
           {...props}

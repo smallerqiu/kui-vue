@@ -14,7 +14,7 @@ const RadioGroup = defineComponent({
       validator: (val) => ["horizontal", "vertical"].indexOf(val) >= 0,
     },
     size: {
-      default: "default",
+      // default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
@@ -57,7 +57,10 @@ const RadioGroup = defineComponent({
           return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
         });
       }
-      const classes = ["k-radio-group", { "k-radio-cirle": shape == "circle" }, { "k-radio-group-light": theme == "light" && type == "button" }, { "k-radio-group-card": theme == "card" && type == "button" }, { "k-radio-group-vertical": direction == "vertical" }];
+      const classes = ["k-radio-group", { "k-radio-cirle": shape == "circle" },
+        { "k-radio-group-light": theme == "light" && type == "button" },
+        { "k-radio-group-card": theme == "card" && type == "button" },
+        { "k-radio-group-vertical": direction == "vertical" }];
 
       return <div class={classes}>{children}</div>;
     };

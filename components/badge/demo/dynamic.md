@@ -15,7 +15,7 @@
     <Badge :dot="show">
       <a href="#">我是一个连接</a>
     </Badge>
-    <Switch @change="show=!show" />
+    <k-switch @change="show=!show" />
     <br/>
     <br/>
     <Badge :count="count" :max-count="20">

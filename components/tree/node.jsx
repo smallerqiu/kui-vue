@@ -209,7 +209,7 @@ const TreeNode = defineComponent({
     if ((hasChildren || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Button size="small" theme="normal" loading={loading} icon={loading ? Loading : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
+        <Button size="small" type="text" loading={loading} icon={loading ? Loading : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
     } else {

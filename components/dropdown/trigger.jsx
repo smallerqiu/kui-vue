@@ -8,7 +8,7 @@ export default defineComponent({
   setup(ps, { attrs, slots }) {
     const mouseEnterEvent = inject("dropdown-tirgger-in", null);
     const mouseLeaveEvent = inject("dropdown-tirgger-out", null);
-    console.log(mouseEnterEvent);
+    // console.log(mouseEnterEvent);
     return () => {
       return (
         <Button

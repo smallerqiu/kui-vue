@@ -12,6 +12,7 @@ const Descriptions = defineComponent({
     size: { type: String, default: "default" },
   },
   setup(ps, { slots }) {
+    // todo: rennder error
     return () => {
       let { column, bordered, layout, size, title, extra } = ps;
 

@@ -20,7 +20,7 @@ const Theme = {
     app.config.globalProperties.$theme = Theme;
   },
   useTheme() {
-    return inject("theme");
+    return inject("theme", null);
   },
   setThemeMode(event, callback) {
     const x = event.clientX;

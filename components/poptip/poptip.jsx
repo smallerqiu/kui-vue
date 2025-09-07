@@ -3,6 +3,7 @@ import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
 import { withInstall } from '../utils/vue';
+import { placements } from '../const/var'
 const Poptip = defineComponent({
   name: "Poptip",
   directives: {
@@ -22,7 +23,7 @@ const Poptip = defineComponent({
     },
     placement: {
       validator(value) {
-        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].includes(value);
+        return placements.includes(value);
       },
       default: "top",
     },

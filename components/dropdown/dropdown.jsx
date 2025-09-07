@@ -12,11 +12,12 @@ import {
 import { withInstall } from '../utils/vue';
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
+import resize from "../directives/resize";
 import { getChildren } from "../utils/vnode";
 const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
-    transfer,
+    transfer, resize
   },
   props: {
     dark: Boolean,
@@ -110,6 +111,7 @@ const Dropdown = defineComponent({
       });
     };
     const showContextmenu = (e) => {
+      // todo : when the menu is opened, then resize the window at this time, the position is not accurate.
       let pickerHeight = refPopper.value.offsetHeight;
       let pickerWidth = refPopper.value.offsetWidth;
       let clientHeight = document.documentElement.clientHeight;
@@ -247,7 +249,7 @@ const Dropdown = defineComponent({
       const overlay =
         rendered.value && slots.overlay ? (
           <Transition name="k-dropdown">
-            <div v-transfer={true} v-show={visible.value} {...props}>
+            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
                 {ps.arrow ? (
