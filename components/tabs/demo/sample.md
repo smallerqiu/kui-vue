@@ -28,6 +28,9 @@
 <script setup>
 import { ref } from "vue";
 const current = ref("1");
+const change = (key) => {
+  console.log(key);
+}
 </script>
 
 <style scoped>

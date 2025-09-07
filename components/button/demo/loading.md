@@ -11,11 +11,11 @@
     <Button type="primary" loading shape="circle"></Button>
     <Button type="primary" :loading="loading" @click="handleLoding">Clike me</Button>
     <br />
-    <Button type="primary" :icon="Search" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>
+    <Button type="primary" :icon="Power" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>
   </Space>
 </template>
 <script setup>
-  import { Search } from "kui-icons";
+  import { Search, Power } from "kui-icons";
   import { ref } from "vue";
   const delayLoading = ref(false);
   const loading = ref(false);

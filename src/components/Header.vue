@@ -33,11 +33,11 @@
       <ColorPicker class="theme" mode="rgb" v-model:value="themeColor" style="margin-left:8px" disabledAlpha
         placement="bottom-right" @change="changeThemeColor" />
       <Tooltip :title="`切换${currentTheme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button theme="normal" :icon="currentTheme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+        <Button type="text" :icon="currentTheme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
           ref="triggerRef" style="margin:0 8px;" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
-        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" theme="normal" size="large"></Button>
+        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" type="text" size="large"></Button>
       </Tooltip>
     </div>
   </Header>
@@ -95,14 +95,14 @@ const changeThemeColor = (v) => {
       body[theme-type='custom']{
           --kui-color-main:${str});
           --kui-color-main-hover:${str},.9);
-          --kui-color-main-actived:${str},.75);
+          --kui-color-main-active:${str},.75);
           --kui-color-main-10:${str},.9);
           --kui-color-main-30:${str},.7);
           --kui-color-main-60:${str},.4);
           --kui-color-main-80:${str},.2);
           --kui-color-main-90:${str},.1);
           --kui-color-hover:${str},.2);
-          --kui-color-actived:${str},.3);
+          --kui-color-active:${str},.3);
           --kui-color-selected:${str},.1);
       }
       `

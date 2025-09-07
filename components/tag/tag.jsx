@@ -3,6 +3,7 @@ import { Close } from "kui-icons";
 import { defineComponent, Transition, ref } from "vue";
 import { isColor } from "../utils/color";
 import { withInstall } from '../utils/vue';
+import { colors } from '../const/var'
 const Tag = defineComponent({
   name: "Tag",
   props: {
@@ -25,7 +26,6 @@ const Tag = defineComponent({
     };
     return () => {
       const { shape, icon, size, color, closeable } = ps;
-      const colors = ["pink", "red", "yellow", "orange", "cyan", "green", "blue", "purple", "geekblue", "magenta", "volcano", "gold", "lime"];
       const props = {
         class: [
           "k-tag",

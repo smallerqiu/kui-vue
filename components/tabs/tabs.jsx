@@ -128,6 +128,7 @@ const Tabs = defineComponent({
         emit("tab-click", key);
         defaultActiveKey.value = key;
         currentIndex.value = index;
+        emit("change", key);
       }
     };
     const updateIndex = () => {

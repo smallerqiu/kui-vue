@@ -11,7 +11,7 @@
       <Button type="primary">Primary</Button>
       <Button type="danger">Danger</Button>
       <Button>Default</Button>
-      <Button type="dashed">Dashed</Button>
+      <Button type="text">Text</Button>
       <Button type="link">Link</Button>
     </Space>
   </div>

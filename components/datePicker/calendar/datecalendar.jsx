@@ -5,7 +5,7 @@ import {
   ChevronDoubleBack, ChevronBack, ChevronForward,
   ChevronDoubleForward
 } from "kui-icons";
-import { defineComponent, ref, inject, emits, watch, nextTick, onMounted } from 'vue'
+import { defineComponent, ref, provide, nextTick, onMounted } from 'vue'
 import Time from './time'
 import Days from './day'
 import Month from './month';
@@ -16,21 +16,29 @@ export default defineComponent({
   name: "Calendar",
   props: {
     value: [String, Date, Number, Object],
-    disabledDate: { type: Function, default: e => 0 },
-    disabledTime: { type: Function, default: e => { } },
+    disabledDate: { type: Function, default: () => 0 },
+    disabledTime: { type: Function, default: () => 0 },
     type: {
       type: String, default: 'date', validator(value) {
         return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange', 'monthRange'].indexOf(value) >= 0;
       }
     },
     format: String,
-    isRight: Boolean,
+    isStart: Boolean,
     size: String,
+    startDate: Object,
+    endDate: Object,
   },
   setup(ps, { emit }) {
     const isShowYear = ref(false);
     const isShowTime = ref(false);
+    const isMonthRange = ref(false);
     const withTime = /(t|T)ime/.test(ps.type)
+
+    provide("isStart", ps.isStart);
+    provide("startDate", ps.startDate);
+    provide("endDate", ps.endDate);
+
 
     let rootCls = ['k-calendar', {
       'k-calendar-small': ps.size == 'small',
@@ -71,13 +79,14 @@ export default defineComponent({
         const value = dayjs(currentValue.value).set(type, item)
         currentValue.value = value
       }
-      emit('updateDate', currentValue.value, type)
+      emit('updateDate', currentValue.value, type, ps.isStart)
     }
     onMounted(() => {
       nextTick(() => {
         // update delay for render
         isShowYear.value = ps.type == 'month'
         isYear.value = ps.type == 'year'
+        isMonthRange.value = ps.type == 'monthRange'
       })
     })
     const switchTime = () => {
@@ -97,33 +106,35 @@ export default defineComponent({
     // );
     const isYear = ref()
     const getChildren = () => {
+      const { type, size, value } = ps
       const children = []
-      const isMonth = ps.type == 'month'
-      const isTime = ps.type == 'time'
-      // const isYear = ps.type == 'year'
+      const isMonth = type == 'month'
+      const isTime = type == 'time'
+      // const isYear = type == 'year'
       const date = dayjs(currentValue.value)
 
-      if (!isMonth && !isTime && !isYear.value) {
+      // header
+      if (!isMonth && !isTime && !isYear.value && !isMonthRange.value) {
         const isCN = dayjs.locale() == 'zh-cn'
         children.push(<div class="k-calendar-header">
-          <Button size={ps.size} icon={ChevronDoubleBack} theme="normal" onClick={() => setDate('y', 'm')}></Button>
-          <Button size={ps.size} icon={ChevronBack} theme="normal" onClick={() => setDate('m', 'm')}></Button>
-          <Button size={ps.size} theme="normal" class="k-calendar-year-select" onClick={showYearAndMonth}>{date.format(isCN ? 'YYYY年M月' : 'MMM YYYY')}</Button>
-          <Button size={ps.size} icon={ChevronForward} theme="normal" onClick={() => setDate('m', 'p')}></Button>
-          <Button size={ps.size} icon={ChevronDoubleForward} theme="normal" onClick={() => setDate('y', 'p')}></Button>
+          <Button size={size} icon={ChevronDoubleBack} type="text" onClick={() => setDate('y', 'm')}></Button>
+          <Button size={size} icon={ChevronBack} type="text" onClick={() => setDate('m', 'm')}></Button>
+          <Button size={size} type="text" class="k-calendar-year-select" onClick={showYearAndMonth}>{date.format(isCN ? 'YYYY年M月' : 'MMM YYYY')}</Button>
+          <Button size={size} icon={ChevronForward} type="text" onClick={() => setDate('m', 'p')}></Button>
+          <Button size={size} icon={ChevronDoubleForward} type="text" onClick={() => setDate('y', 'p')}></Button>
         </div>)
       }
       // time
-      if (ps.type == 'time' || isShowTime.value) {
-        children.push(<Time disabledTime={ps.disabledTime} current={date} value={ps.value} onSetTime={updateDate} />)
+      if (type == 'time' || isShowTime.value) {
+        children.push(<Time disabledTime={ps.disabledTime} current={date} value={value} onSetTime={updateDate} />)
       }
       // days
       //todo:
-      if ((ps.type == 'date' || ps.type == 'dateTime'||ps.type=='') && !isShowYear.value && !isShowTime.value) {
+      if ((type == 'date' || type == 'dateTime' || type == 'dateRange' || type == 'dateTimeRange') && !isShowYear.value && !isShowTime.value) {
         children.push(
           <div class="k-calendar-body">
             <WeekDay />
-            <Days value={ps.value} current={date} disabledTime={ps.disabledTime} onSetDay={updateDate} />
+            <Days value={value} current={date} disabledDate={ps.disabledDate} onSetDay={updateDate} />
           </div>
         )
       }
@@ -131,16 +142,16 @@ export default defineComponent({
       if (isYear.value) {
         children.push(
           <div class="k-calendar-year-picker">
-            <Year value={ps.value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={updateDate} />
+            <Year value={value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={updateDate} />
           </div>
         )
       }
       // year and month
-      if (isShowYear.value) {
+      if (isShowYear.value || ps.type == 'monthRange') {
         children.push(
           <div class="k-calendar-yearmonth-picker">
-            <Year value={ps.value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={updateDate} />
-            <Month value={ps.value} current={date.month()} disabledDate={ps.disabledDate} onSetMonth={updateDate} />
+            <Year value={value} current={date.year()} disabledDate={ps.disabledDate} onSetYear={updateDate} />
+            <Month value={value} current={date.month()} disabledDate={ps.disabledDate} onSetMonth={updateDate} />
           </div>
         )
       }
@@ -157,10 +168,6 @@ export default defineComponent({
       return children
     }
     return () => {
-      // console.log(date)
-      // console.log(ps.size, isCN, isMonth)
-
-
       return (<div class={rootCls} x-type={ps.type}>
         {getChildren()}
       </div>

@@ -1,4 +1,5 @@
 import transfer from "../directives/transfer";
+import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 const modes = ["rgb", "hex", "hsl"];
 import Mode from "./mode";
@@ -21,7 +22,7 @@ import {
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
-    transfer,
+    transfer, resize
   },
   props: {
     value: String,
@@ -70,6 +71,7 @@ const ColorPicker = defineComponent({
   },
 
   setup(ps, { emit, slots }) {
+    // todo 编码格式 时, 要双击 才能先中.
     const currentMode = ref(ps.mode);
     const currentColor = ref(ps.value || "#000000ff");
     const visible = ref(ps.show);
@@ -323,7 +325,7 @@ const ColorPicker = defineComponent({
           {drop}
         </>
       ) : (
-        <div class={style} ref={refCtx}>
+        <div class={style} ref={refCtx} v-resize={updatePopPosition}>
           <div
             class="k-color-picker-selection"
             onMouseenter={() => !triggleClick && toggle(true)}

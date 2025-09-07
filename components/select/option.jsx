@@ -29,7 +29,7 @@ const Option = defineComponent({
         "k-select-item",
         {
           ["k-select-item-selected"]: checked.value,
-          ["k-select-item-actived"]: ps.actived,
+          ["k-select-item-active"]: ps.actived,
           ["k-select-item-disabled"]: disabled,
         },
       ];

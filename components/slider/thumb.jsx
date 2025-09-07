@@ -58,7 +58,7 @@ export default defineComponent({
     const onMouseDown = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log(123);
+      // console.log(123);
       // emit("updatePos", 123123123);
       if (ps.disabled) return;
       isMousePressed.value = true;

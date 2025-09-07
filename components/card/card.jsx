@@ -18,7 +18,7 @@ const Card = defineComponent({
         },
       ];
       const extraSlot = slots.extra?.();
-      console.log(extraSlot)
+      // console.log(extraSlot)
       const titleSlot = slots.title?.();
       const selfSlot = slots.default?.();
       const extraNode = extraSlot ? <div class="k-card-extra">{extraSlot}</div> : null;

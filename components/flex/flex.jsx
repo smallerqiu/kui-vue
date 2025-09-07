@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, provide } from "vue";
 import { withInstall } from '../utils/vue';
 const Flex = defineComponent({
   name: "Flex",
@@ -26,6 +26,7 @@ const Flex = defineComponent({
     },
   },
   setup(props, { slots }) {
+    provide('size', props.size)
     return () => {
       let { align, justify, vertical, size, wrap } = props;
       align = !vertical && !align ? "center" : align;

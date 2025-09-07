@@ -16,7 +16,7 @@
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>
-      <Button type="dashed">Dashed</Button>
+      <Button type="text">Text</Button>
       <Button type="link">Link</Button>
     </Flex>
   </Flex>

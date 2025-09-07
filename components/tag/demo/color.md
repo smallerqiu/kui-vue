@@ -9,7 +9,7 @@
     <h4 style="margin-bottom: 16px">
       Presets:
     </h4>
-    <Space>
+    <Space wrap>
       <Tag :color="color" v-for="(color,i) in colors" :key="i">{{color}}</Tag> 
     </Space>
     <h4 style="margin:16px 0">
@@ -33,7 +33,6 @@ const colors = [
       'green',
       'blue',
       'purple',
-      'geekblue',
       'magenta',
       'volcano',
       'gold',
