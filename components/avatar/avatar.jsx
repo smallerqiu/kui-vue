@@ -1,6 +1,8 @@
 import Icon from '../icon'
-import { getChild } from '../_tool/utils'
-export default {
+import { getChild } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const Avatar = {
+  name: 'Avatar',
   props: {
     icon: [String, Array],
     shape: { type: String, },
@@ -12,10 +14,10 @@ export default {
     src: String
   },
   updated() {
-    this.udpateSize()
+    this.updateSize()
   },
   methods: {
-    udpateSize() {
+    updateSize() {
       let inner = this.$refs.inner
       if (inner) {
         let scale = 1, max = this.$el.offsetWidth - 8;
@@ -26,7 +28,7 @@ export default {
     }
   },
   mounted() {
-    this.udpateSize()
+    this.updateSize()
   },
   render() {
     let { size, shape, src, icon } = this
@@ -68,3 +70,4 @@ export default {
     </div >
   }
 }
+export default withInstall(Avatar)

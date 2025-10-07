@@ -1,6 +1,7 @@
 import BasePop from '../base/pop'
+import { withInstall } from '../utils/vue'
 
-export default {
+const Dropdown = {
   name: 'Dropdown',
   props: {
     dark: Boolean,
@@ -70,3 +71,5 @@ export default {
     }
   }
 };
+
+export default withInstall(Dropdown);

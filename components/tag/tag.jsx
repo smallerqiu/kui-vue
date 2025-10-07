@@ -1,6 +1,7 @@
 import Icon from '../icon'
 import { Close } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Tag = {
   name: 'Tag',
   props: {
     closeable: Boolean,
@@ -26,7 +27,7 @@ export default {
     }
   },
   render() {
-    const { visible, styles, shape, icon, size, color, $slots, close, classes, closeable } = this
+    const { visible, shape, icon, size, color, $slots, close, closeable } = this
     const props = {
       on: {
         ...this.$listeners
@@ -54,3 +55,5 @@ export default {
     )
   }
 }
+
+export default withInstall(Tag)

@@ -1,12 +1,12 @@
 import Empty from '../empty'
-import Icon from '../icon'
 import Spin from '../spin'
 import { Checkbox } from '../checkbox'
 import { Radio } from '../radio'
 import ExtendTable from './extend'
 import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
 import { Remove, Add } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Table = {
   name: 'Table',
   props: {
     bordered: Boolean,
@@ -31,7 +31,7 @@ export default {
       // scrollFocus: 'body',
     }
   },
-  render() {
+  render(h) {
     let { $slots, data, $scopedSlots = {}, loading, height, width, sticky } = this
     // bordered = true
     const { header, footer } = $slots
@@ -70,7 +70,7 @@ export default {
     let indeterminate = data.filter(x => x._checked).length > 0 && !checkAll;
     //Set Data 
     data.forEach((d, i) => {
-      let tr = [], trL = [], trR = [];
+      let tr = [];
       // d._checked = d._checked || false
       // d._disabled = d._disabled || false
 
@@ -144,7 +144,7 @@ export default {
         }
       })
       if (expandNode) {
-        tr.unshift(<td class="k-table-row-expand-icon-cell"><Button size="small" onClick={e => this.onExpand(d)} icon={d._expanded ? Remove : Add} /></td>)
+        tr.unshift(<td class="k-table-row-expand-icon-cell"><Button size="small" onClick={() => this.onExpand(d)} icon={d._expanded ? Remove : Add} /></td>)
       }
       let trProps = {
         class: { 'k-table-row-hover': d._hover },
@@ -269,3 +269,5 @@ export default {
     }
   }
 }
+
+export default withInstall(Table)

@@ -1,8 +1,6 @@
-import { getPosition } from "../_tool/utils";
-
-import transfer from "../_tool/transfer";
-import resize from "../_tool/resize";
-import outsideclick from "../_tool/outsiteclick";
+import transfer from "../directives/transfer";
+import resize from "../directives/resize";
+import outsideclick from "../directives/outsiteclick";
 
 export default {
   name: "Drop",

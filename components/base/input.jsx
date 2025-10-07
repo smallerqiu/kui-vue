@@ -1,5 +1,5 @@
 import Icon from '../icon'
-import { isNotEmpty } from '../_tool/utils'
+import { isNotEmpty } from '../utils/element'
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from 'kui-icons';
 import { InputGroup } from '../input'
 export default {

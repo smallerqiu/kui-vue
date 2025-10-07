@@ -1,5 +1,6 @@
 import Icon from "../icon";
-export default {
+import { withInstall } from '../utils/vue'
+const BreadcrumbItem = {
   name: 'BreadcrumbItem',
   props: {
     separator: { type: String, default: '/' },
@@ -24,4 +25,5 @@ export default {
       </span>
     )
   }
-} 
+}
+export default withInstall(BreadcrumbItem)

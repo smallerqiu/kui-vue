@@ -1,8 +1,9 @@
 import { Row, Col } from '../grid'
-import cloneVNode from '../_tool/clone';
-import { getChild, isVnode } from '../_tool/utils'
+import cloneVNode from '../utils/clone';
+import { getChild, isVNode } from '../utils/element'
+import { withInstall } from '../utils/vue'
 
-export default {
+const FormItem = {
   name: "FormItem",
   props: {
     label: String,
@@ -57,7 +58,7 @@ export default {
       wrapperProp = { props: { ...wrapperCol } }
     }
 
-    const childs = getChild(this.$slots.default)
+    const children = getChild(this.$slots.default)
     let id = null
     if (Form.name && prop) {
       id = `${Form.name || `form_` + this._uid}_${prop}`
@@ -73,8 +74,8 @@ export default {
         <Col {...wrapperProp}>
           <div class="k-form-item-content">
             {
-              childs.map(child => {
-                if (isVnode(child)) {
+              children.map(child => {
+                if (isVNode(child)) {
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''
                   const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size
@@ -117,8 +118,8 @@ export default {
                     }
                   }
                   if (['Input', 'k-input', 'TextArea', 'k-textarea'].indexOf(tag) > -1) {
-                    props.on.blur = (value) => {
-                      value = value.target.value
+                    props.on.blur = () => {
+                      // value = value.target.value
                       this.testValue()
                     }
                   }
@@ -168,7 +169,7 @@ export default {
         else if (rule.type) {
           switch (rule.type) {
             case 'mail':
-              valid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(itemValue)
+              valid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(itemValue)
               message = message || 'Incorrect email format'
               break;
             case 'mobile':
@@ -233,7 +234,7 @@ export default {
     validate(rules) {
       if (rules.constructor === Object) return this.test(rules)
       // 有 required 排前面
-      rules = rules.sort((a, b) => a.required ? -1 : 0)
+      rules = rules.sort((a,) => a.required ? -1 : 0)
       for (let i = 0; i < rules.length; i++) {
         let valid = this.test(rules[i])
         if (!valid) {
@@ -244,3 +245,5 @@ export default {
     }
   }
 }
+
+export default withInstall(FormItem)

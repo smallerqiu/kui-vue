@@ -4,7 +4,7 @@ import Preview from './preview'
 export default function createInstance({ type }) {
   let instance = new Vue({
     methods: {
-      show({ data, src, index, showPanel, slots, on, _globle = true, type }) {
+      show({ data, src, index, showPanel, slots, on, _global = true, type }) {
         this.type = type
         this.src = src
         if (Array.isArray(data) && data.length) {
@@ -27,7 +27,7 @@ export default function createInstance({ type }) {
           this.showPanel = showPanel
         }
         this.visible = true
-        this._globle = _globle
+        this._global = _global
       },
       destroy() {
         let instance = this.$children[0]
@@ -35,7 +35,7 @@ export default function createInstance({ type }) {
           instance.visible = false
           Vue.prototype.preview = null
           clearTimeout(this.timer)
-          this.timer = setTimeout(e => {
+          this.timer = setTimeout(() => {
             instance.$destroy()
             setTimeout(() => {
               document.body.removeChild(this.$el)
@@ -57,11 +57,11 @@ export default function createInstance({ type }) {
         slots: {},
         type: type || '',
         on: {},
-        _globle: false
+        global: false
       }
     },
     render() {
-      let { src, visible, showSwitch, data, showPanel, slots, _globle, type } = this
+      let { src, visible, showSwitch, data, showPanel, slots, global, type } = this
       // console.log(type)
       const imageProps = {
         props: {
@@ -69,7 +69,7 @@ export default function createInstance({ type }) {
           value: visible,
           showSwitch,
           data, showPanel: showPanel,
-          globle: _globle,
+          global: global,
           type
         },
         on: {

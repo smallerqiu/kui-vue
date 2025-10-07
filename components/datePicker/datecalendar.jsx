@@ -1,19 +1,20 @@
 
-import {Button} from '../button'
+import { Button } from '../button'
 import dayjs from 'dayjs'
 import { t } from '../locale'
+import { withInstall } from '../utils/vue'
 import {
   ChevronDoubleBack, ChevronBack, ChevronForward,
   ChevronDoubleForward
 } from "kui-icons";
-export default {
-  name: "Calendar",
+const DateCalendar = {
+  name: "DateCalendar",
   props: {
     v1: [String, Date, Number, Object],
     v2: [String, Date, Number, Object],
     value: [String, Date, Number, Object],
-    disabledDate: { type: Function, default: e => 0 },
-    disabledTime: { type: Function, default: e => { } },
+    disabledDate: { type: Function, default: () => 0 },
+    disabledTime: { type: Function, default: () => { } },
     mode: {
       type: String, default: 'date', validator(value) {
         return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
@@ -103,8 +104,8 @@ export default {
     },
     initToCenter(key, animate = false) {
       this.$nextTick(() => {
-        let childs = (this.$refs[key] || {}).children || []
-        for (let m of childs) {
+        let children = (this.$refs[key] || {}).children || []
+        for (let m of children) {
           // console.log(m.children)
           for (let n of m.children) {
             // console.log(n)
@@ -155,12 +156,12 @@ export default {
       const weeksNode = <div class="k-calendar-weekdays">{weekNode}</div>
       return weeksNode
     },
-    isSelectDay(sdate) {
-      let { v1, v2, isRight, isRange, value } = this
+    isSelectDay(date) {
+      let { v1, v2, isRange, value } = this
       if (isRange) {
-        return (v1 && dayjs(v1).isSame(sdate, 'date')) || (v2 && dayjs(v2).isSame(sdate, 'date'))
+        return (v1 && dayjs(v1).isSame(date, 'date')) || (v2 && dayjs(v2).isSame(date, 'date'))
       } else {
-        return v1 && value && dayjs(value).isSame(sdate, 'date')
+        return v1 && value && dayjs(value).isSame(date, 'date')
       }
     },
     isDisabled(date) {
@@ -215,7 +216,7 @@ export default {
       time.setMonth(time.getMonth() + 1, 1)
       // 这个月的天数
       for (let day = 1; day <= daysInMonth; day++) {
-        let date = time.setDate(day);;
+        let date = time.setDate(day);
         let cls = {
           'k-calendar-day-item': 1,
           'k-calendar-day-this': dayjs(date).isSame(dayjs(), 'day'),
@@ -297,13 +298,10 @@ export default {
       const monthNode = <div class="k-calendar-months" ref="monthspicker">{month}</div>
       return monthNode
     },
-    fix(v) {
-      return ('0' + v).slice(-2)
-    },
     isDisabledTime(types, value) {
-      let fdtime = this.disabledTime()
-      if (fdtime && types in fdtime && typeof fdtime[types] === 'function') {
-        let [a, b] = fdtime[types]() || []
+      let obj = this.disabledTime()
+      if (obj && types in obj && typeof obj[types] === 'function') {
+        let [a, b] = obj[types]() || []
         if (a && b) {
           return value >= a && value <= b
         }
@@ -414,25 +412,25 @@ export default {
     showYears = showYears || mode == 'year' || mode == 'month'
     let { $y, $M, $D } = this.date || dayjs()
     //header
-    let headNodeChilds = []
+    let headNodeChildren = []
     if (!isTime) {
       if (!showTimes && !showYears) {
-        headNodeChilds.push(<Button icon={ChevronDoubleBack} size={pickerSize} theme="normal" class="k-calendar-prev-year-btn" onClick={() => this.nextAndPrev(0, 'year')}></Button>)
-        headNodeChilds.push(<Button icon={ChevronBack} size={pickerSize} theme="normal" class="k-calendar-prev-month-btn" onClick={() => this.nextAndPrev(0, 'month')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronDoubleBack} size={pickerSize} theme="normal" class="k-calendar-prev-year-btn" onClick={() => this.nextAndPrev(0, 'year')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronBack} size={pickerSize} theme="normal" class="k-calendar-prev-month-btn" onClick={() => this.nextAndPrev(0, 'month')}></Button>)
       }
       // else if (mode != 'year' && mode != 'month') {
       //   headNode.push(<Button class="k-calendar-back" size={pickerSize} icon={ChevronBack} theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
       // }
-      headNodeChilds.push(<Button class="k-calendar-year-select" size={pickerSize} theme="normal" onClick={this.setShowYear}>{$y}{t('k.datePicker.year')} {mode != 'year' ? months[$M] : ''} {(!showYears && showTimes) ? $D : ''}</Button>)
+      headNodeChildren.push(<Button class="k-calendar-year-select" size={pickerSize} theme="normal" onClick={this.setShowYear}>{$y}{t('k.datePicker.year')} {mode != 'year' ? months[$M] : ''} {(!showYears && showTimes) ? $D : ''}</Button>)
 
       if (!showTimes && !showYears) {
-        headNodeChilds.push(<Button theme="normal" size={pickerSize} icon={ChevronForward} class="k-calendar-next-month-btn" onClick={() => this.nextAndPrev(1, 'month')}></Button>)
-        headNodeChilds.push(<Button icon={ChevronDoubleForward} size={pickerSize} theme="normal" class="k-calendar-next-year-btn" onClick={() => this.nextAndPrev(1, 'year')}></Button>)
+        headNodeChildren.push(<Button theme="normal" size={pickerSize} icon={ChevronForward} class="k-calendar-next-month-btn" onClick={() => this.nextAndPrev(1, 'month')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronDoubleForward} size={pickerSize} theme="normal" class="k-calendar-next-year-btn" onClick={() => this.nextAndPrev(1, 'year')}></Button>)
       }
     } else {
-      headNodeChilds.push(<div class="k-calendar-time-label">{t('k.datePicker.selectTime')}</div>)
+      headNodeChildren.push(<div class="k-calendar-time-label">{t('k.datePicker.selectTime')}</div>)
     }
-    const headNode = <div class="k-calendar-head">{headNodeChilds}</div>
+    const headNode = <div class="k-calendar-head">{headNodeChildren}</div>
 
     //days and week body
     let dayWeekBodyNode = null
@@ -444,15 +442,15 @@ export default {
     // console.log(showYears)
     let yearsMonthNode = null
     if (showYears) {
-      let childs = []
+      let children = []
       const yearNode = this.getYearsNode()
-      childs.push(yearNode)
+      children.push(yearNode)
 
       if (mode != 'year') {
         const monthNode = this.getMonthsNode()
-        childs.push(monthNode)
+        children.push(monthNode)
       }
-      yearsMonthNode = <div class="k-calendar-yearmonth-picker" ref="ympicker">{childs}</div>
+      yearsMonthNode = <div class="k-calendar-yearmonth-picker" ref="ympicker">{children}</div>
     }
 
     let timeNode = null
@@ -485,3 +483,5 @@ export default {
     )
   }
 };
+
+export default withInstall(DateCalendar);

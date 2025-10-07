@@ -1,4 +1,6 @@
-export default {
+import { withInstall } from '../utils/vue'
+const SkeletonText = {
+  name: "SkeletonText",
   props: {
     animated: Boolean,
     loading: Boolean,
@@ -49,3 +51,5 @@ export default {
     )
   }
 }
+
+export default withInstall(SkeletonText)

@@ -1,13 +1,13 @@
 import { canvasHelper, limit, hslToRgb, rgbToHsl, parseColor, rgbToHex, cssColorToRgba } from './canvasHelper'
 import { Input } from '../input'
-// import InputNumber from '../inputNumber'
 import { Button } from '../button'
 import Icon from '../icon'
 import Drop from '../base/drop'
 import { ChevronDown, CaretHor } from 'kui-icons'
 const modes = ['rgba', 'hex', 'hsla']
+import { withInstall } from '../utils/vue'
 
-export default {
+const ColorPicker = {
   name: 'ColorPicker',
   props: {
     value: String,
@@ -29,7 +29,7 @@ export default {
     shape: String,
     icon: [String, Array],
     showArrow: { type: Boolean, default: true },
-    defalutColors: {
+    defaultColors: {
       type: Array, default: () => ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b', '#000'],
       validator: function (value) { return value.length <= 20 }
     }
@@ -73,13 +73,13 @@ export default {
       this.opened = !this.opened
       this.currentColor = this.value || '#000'
     },
-    updatePostion() {
+    updatePosition() {
       //alpha
       {
         const x = 190 * this.A;
         this.alphaPointer.x = (x - 7);
       }
-      //updaet hue pointer
+      //update hue pointer
       {
         const x = 190 * this.H / 360;
         this.huePointer.x = (x - 7);
@@ -102,8 +102,8 @@ export default {
           [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
           if (this.paintHelper) {
             this.paintHelper.setHue(this.H);
-            this.updatePostion()
-            this.alphaCanvsSetHue(this.$refs.alpha)
+            this.updatePosition()
+            this.alphaCanvasSetHue(this.$refs.alpha)
           }
           break;
         case 'HUE':
@@ -112,7 +112,7 @@ export default {
           [this.R, this.G, this.B] = hslToRgb(this.H, this.S, this.L);
           if (this.paintHelper) {
             this.paintHelper.setHue(value);
-            this.alphaCanvsSetHue(this.$refs.alpha);
+            this.alphaCanvasSetHue(this.$refs.alpha);
           }
           break;
         case 'RGB':
@@ -121,7 +121,7 @@ export default {
           // let colors = rgbToHsl(this.R, this.G, this.B);
           // [this.H, this.S, this.L] = colors
           if (this.paintHelper) {
-            this.alphaCanvsSetHue(this.$refs.alpha)
+            this.alphaCanvasSetHue(this.$refs.alpha)
           }
           break;
         case 'ALPHA':
@@ -136,10 +136,6 @@ export default {
       } else {
         this.HEX = rgbToHex(this.R, this.G, this.B);
       }
-
-      // this.currentColor = this.HEX
-      // this.$emit('input', this.currentColor)
-      // this.$emit('change', this.currentColor)
 
       this.updateValue()
     },
@@ -166,12 +162,12 @@ export default {
     },
     initHueCanvas(canvas) {
       const ctx = canvas.getContext('2d', { willReadFrequently: true }),
-        setp = 1 / 360,
+        step = 1 / 360,
         width = canvas.width,
         height = canvas.height,
         gradient = ctx.createLinearGradient(0, 0, width, 0);
 
-      for (let i = 0; i <= 1; i += setp) {
+      for (let i = 0; i <= 1; i += step) {
         gradient.addColorStop(i, `hsl(${360 * i},100%,50%)`)
       }
       ctx.fillStyle = gradient
@@ -200,7 +196,7 @@ export default {
         e.preventDefault()
       })
     },
-    alphaCanvsSetHue(canvas) {
+    alphaCanvasSetHue(canvas) {
       if (this.noAlpha || !canvas) return;
       const ctx = canvas.getContext('2d', { willReadFrequently: true }),
         { width, height } = canvas,
@@ -213,8 +209,8 @@ export default {
       ctx.fillRect(0, 0, width, height)
     },
     initAlphaCanvas(canvas) {
-      this.alphaCanvsSetHue(canvas)
-      const { width, height } = canvas;
+      this.alphaCanvasSetHue(canvas)
+      const { width } = canvas;
       const onMouseMove = (e) => {
         const x = limit(e.clientX - canvas.getBoundingClientRect().left, 0, width),
           alpha = +(x / width).toFixed(2);
@@ -328,9 +324,9 @@ export default {
             if ('RGB'.indexOf(key) >= 0) {
               [this.H, this.S, this.L] = rgbToHsl(this.R, this.G, this.B);
             }
-            this.updatePostion()
+            this.updatePosition()
             this.paintHelper.setHue(this.H)
-            this.alphaCanvsSetHue(this.$refs.alpha)
+            this.alphaCanvasSetHue(this.$refs.alpha)
           }
         }
       }
@@ -365,9 +361,9 @@ export default {
       }
     },
     renderDefaultColor() {
-      let color = this.defalutColors.map(c => <span style={"background-color:" + c} onClick={e => this.valueChange('COLOR', c)}></span>)
+      let color = this.defaultColors.map(c => <span style={"background-color:" + c} onClick={() => this.valueChange('COLOR', c)}></span>)
       // let okBtn = <Button circle onClick={this.updateValue}>OK</Button>
-      return <div class="k-coclor-picker-defaults">{[color]}</div>
+      return <div class="k-color-picker-defaults">{[color]}</div>
     },
     renderDrop() {
       let paint = this.renderPaint()
@@ -430,7 +426,7 @@ export default {
 
   render() {
     let drop = this.renderDrop()
-    let { showArrow, icon, currentMode } = this
+    let { showArrow, icon } = this
     let style = [
       'k-color-picker',
       {
@@ -441,23 +437,17 @@ export default {
         'k-color-picker-lg': this.size == 'large'
       },
     ]
-    // let triggerText = ""
-    // if (currentMode == 'hex') {
-    //   triggerText = this.currentColor
-    // } else {
-    //   triggerText = this.currentColor.substr(0, 7)
-    // }
-
 
     return (<div class={style} >
       <div class="k-color-picker-selection" onClick={this.toggleDrop}>
         <div class="k-color-picker-color">
           <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
         </div>
-        {/* <div class="k-color-picker-trigger-text">{triggerText}</div> */}
         {showArrow && <Icon class="k-color-picker-arrow" type={icon || ChevronDown} />}
       </div>
       {drop}
     </div >)
   }
 }
+
+export default withInstall(ColorPicker)

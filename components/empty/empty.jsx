@@ -1,7 +1,8 @@
 import Icon from "../icon";
 import { t } from "../locale";
 import { FileTrayOutline } from "kui-icons";
-export default {
+import { withInstall } from '../utils/vue'
+const Empty = {
   name: 'Empty',
   props: {
     description: String,
@@ -10,9 +11,6 @@ export default {
   },
   render() {
     let { image, imageStyle, $slots, description } = this
-    // description = getChild($slots.description).length > 0 || description
-    // image = getChild($slots.image)
-    // console.log(description, $slots.description)
 
     return (<div class="k-empty">
       {(!image && !$slots.image) ? <Icon type={FileTrayOutline} class="k-empty-icon" /> : ($slots.image ? $slots.image : <img src={image} class="k-empty-image" style={imageStyle} />)}
@@ -21,3 +19,5 @@ export default {
     </div>)
   }
 }
+
+export default withInstall(Empty)

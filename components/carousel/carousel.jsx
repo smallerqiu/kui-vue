@@ -1,147 +1,193 @@
 import Icon from "../icon";
-import resize from '../_tool/resize'
-import { getChild } from '../_tool/utils'
-import { ChevronUp } from 'kui-icons'
+import resize from "../directives/resize";
+import { ChevronUp } from "kui-icons";
+import { withInstall } from '../utils/vue'
 
-export default {
-	name: 'Carousel',
+const Carousel = {
+	name: "Carousel",
 	directives: { resize },
 	props: {
 		value: { type: Number, default: 0 },
-		loop: Boolean,
+		loop: { type: Boolean, default: true },
 		autoplay: Boolean,
 		delay: { type: Number, default: 3000 },
 		vertical: Boolean,
-		dots: { type: Boolean, default: true }
+		dots: { type: Boolean, default: true },
+	},
+	provide() {
+		return {
+			Carousel: this,
+		};
 	},
 	data() {
 		return {
 			currentIndex: this.value,
-			autotimer: null,
+			posIndex: this.loop ? this.value + 1 : this.value,
+			autoTimer: null,
 			width: 0,
 			height: 0,
 			animate: this.value > 0 ? false : true,
-			resizing: false,
 			playing: false,
-		}
-	},
-	provide() {
-		return {
-			Carousel: this
-		}
+		};
 	},
 	watch: {
-		value(v) {
-			this.currentIndex = v
+		value(nv) {
+			this.currentIndex = nv;
 		},
 	},
+	mounted() {
+		this.$nextTick(() => {
+			this.resize();
+			this.autoToPlay();
+		});
+	},
 	beforeDestroy() {
-		clearInterval(this.autotimer)
+		clearInterval(this.autoTimer);
 	},
 	methods: {
 		next() {
-			this.change('right')
+			this.toSwitch("right");
 		},
 		prev() {
-			this.change('left')
+			this.toSwitch("left");
+		},
+		goTo(index) {
+			clearInterval(this.autoTimer);
+			this.animate = true;
+			this.currentIndex = index;
+			this.posIndex = this.loop ? index + 1 : index;
+			this.$emit("update:value", index);
+			this.autoToPlay();
 		},
 		autoToPlay() {
-			clearInterval(this.autotimer)
-			this.autotimer = setInterval(() => {
-				this.change('right')
+			if (!this.autoplay) return;
+			clearInterval(this.autoTimer);
+			this.autoTimer = setInterval(() => {
+				this.change("right");
 			}, parseInt(this.delay));
 		},
-		change(type) {
+		toSwitch(type) {
+			clearInterval(this.autoTimer);
 			if (this.playing) return;
-			this.animate = true
-			let index = this.currentIndex
-			if (type == 'left') {
-				index -= 1
-				index = Math.max(0, index)
-			} else if (type == 'right') {
-				let length = getChild(this.$slots.default).length
-				if (!this.loop) {
-					if (index == length - 1) {
-						index = 0
-					} else
-						index += 1
-					index = Math.min(length - 1, index)
-				}
-			} else {
-				index = type
+			this.playing = true;
+			this.change(type);
+		},
+		change(type) {
+			this.animate = true;
+
+			const children = this.$slots.default || [];
+			const total = this.loop ? children.length + 2 : children.length;
+			let index = this.posIndex;
+			let nextCurrent = this.currentIndex;
+
+			if (type === "right") {
+				index = (index + 1) % total;
+				if (this.loop) nextCurrent = (nextCurrent + 1) % children.length;
+				else nextCurrent = index;
+			} else if (type === "left") {
+				index = (index - 1 + total) % total;
+				if (this.loop) nextCurrent = (nextCurrent - 1 + children.length) % children.length;
+				else nextCurrent = index;
 			}
-			this.currentIndex = index
-			this.playing = true
+
+			this.posIndex = index;
+			this.currentIndex = nextCurrent;
+			this.$emit("update:value", this.currentIndex);
+
 			setTimeout(() => {
-				this.playing = false
-			}, 600);
+				this.playing = false;
+				if (this.loop) {
+					const count = children.length + 2;
+					if (this.posIndex === count - 1) {
+						this.animate = false;
+						this.posIndex = 1;
+					}
+					if (this.posIndex === 0) {
+						this.animate = false;
+						this.posIndex = count - 2;
+					}
+				}
+			}, 501);
+			this.autoToPlay();
 		},
 		resize() {
-			this.animate = false
-			let carousel = this.$refs.carousel
-			this.width = carousel.offsetWidth
-			this.height = carousel.offsetHeight
-		}
-	},
-
-	mounted() {
-		this.$nextTick(e => {
-			this.resize()
-			this.autoplay && this.autoToPlay()
-		})
+			this.animate = false;
+			const el = this.$el;
+			this.width = el.offsetWidth;
+			this.height = el.offsetHeight;
+		},
 	},
 	render() {
-		let { currentIndex, change, vertical } = this
-		let childs = getChild(this.$slots.default)
-		currentIndex = Math.min(childs.length - 1, currentIndex)
-		currentIndex = Math.max(0, currentIndex)
-		const classes = ['k-carousel', {
-			'k-carousel-vertical': vertical
-		}]
+		const children = this.$slots.default || [];
+		const { vertical } = this;
+		const first = children[0];
+		const last = children[children.length - 1];
+		const newChildren = this.loop ? [last, ...children, first] : children;
+		let index = Math.min(children.length - 1, this.currentIndex);
+		index = Math.max(0, index);
 
-		const dotsNode = (
+		const classes = [
+			"k-carousel",
+			{
+				"k-carousel-vertical": vertical,
+			},
+		];
+
+		const dotsNode = this.dots ? (
 			<ul class="k-carousel-dots">
-				{childs.map((e, i) => <li class={{ 'k-carousel-dots-active': currentIndex == i }} onClick={e => change(i)}></li>)}
+				{children.map((x, i) => (
+					<li
+						class={{ "k-carousel-dots-active": index == i }}
+						onClick={() => this.goTo(i)}
+					></li>
+				))}
 			</ul>
-		)
+		) : null;
 
-		let offsetX = 0, offsetY = 0;
+		let offsetX = 0,
+			offsetY = 0;
 		if (!vertical) {
-			offsetX = currentIndex * this.width
+			offsetX = this.posIndex * this.width;
 		} else {
-			offsetY = currentIndex * this.height
+			offsetY = this.posIndex * this.height;
 		}
-		const warpperCls = {
-			class: 'k-carousel-warpper',
+
+		const wrapperCls = {
+			class: "k-carousel-wrapper",
 			style: {
-				transform: `translateX(-${offsetX}px) translateY(-${offsetY}px)`,
-				width: !vertical ? childs.length * this.width + 'px' : '',
-				height: vertical ? childs.length * this.height + 'px' : '',
-				transitionDuration: !this.animate ? '0s' : ''
-			}
-		}
-		const arrowLeft = <span class="k-carousel-arrow-left" onClick={e => change('left')}>
-			<Icon type={ChevronUp} />
-		</span>
-		const arrowRight = <span class="k-carousel-arrow-right" onClick={e => change('right')}>
-			<Icon type={ChevronUp} />
-		</span>
+				transform: `translate3d(-${offsetX}px,-${offsetY}px,0)`,
+				width: !vertical ? newChildren.length * this.width + "px" : "",
+				height: vertical ? newChildren.length * this.height + "px" : "",
+				transitionDuration: !this.animate ? "0s" : "",
+			},
+		};
+
+		const arrowLeft = (
+			<span class="k-carousel-arrow-left" onClick={() => this.toSwitch("left")}>
+				<Icon type={ChevronUp} />
+			</span>
+		);
+		const arrowRight = (
+			<span class="k-carousel-arrow-right" onClick={() => this.toSwitch("right")}>
+				<Icon type={ChevronUp} />
+			</span>
+		);
+
 		const props = {
 			class: classes,
-			ref: 'carousel',
-			on: {
-				mouseenter: e => clearInterval(this.autotimer),
-				mouseleave: e => { this.autoplay && this.autoToPlay() }
-			}
-		}
+			onMouseenter: () => clearInterval(this.autoTimer),
+			onMouseleave: () => {
+				this.autoplay && this.autoToPlay();
+			},
+		};
+
 		return (
 			<div v-resize={this.resize} {...props}>
-				<div {...warpperCls}>
-					{childs}
-				</div>
+				<div {...wrapperCls}>{newChildren}</div>
 				{!vertical ? [arrowLeft, arrowRight] : null}
-				{this.dots ? dotsNode : null}
-			</div >
-		)
-	}
-}
+				{dotsNode}
+			</div>
+		);
+	},
+};
+export default withInstall(Carousel);

@@ -2,7 +2,7 @@ import Image from './image'
 import ImageGroup from './group'
 import createInstance from './instance'
 import Vue from 'vue'
-// import { easyEqual } from '../_tool/utils'
+// import { easyEqual } from '../utils/element'
 
 Image.show = function (options) {
   // console.log(options)

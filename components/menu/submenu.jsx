@@ -1,11 +1,11 @@
 import Collapse from '../base/collapse'
 import BasePop from '../base/pop'
 import CMenu from './menu.jsx'
-import { getChild, isVnode } from '../_tool/utils'
 import Icon from '../icon'
 import { ChevronDown, ChevronForward } from 'kui-icons'
+import { withInstall } from '../utils/vue'
 
-export default {
+const SubMenu = {
   name: "SubMenu",
   props: {
     disabled: Boolean,
@@ -103,17 +103,6 @@ export default {
         'min-width': `${this.minWidth}px`,
         'margin-left': theme == 'dark' && !SubMenu && mode == "horizontal" ? '-16px' : null
       },
-      on: {
-        // mouseenter: () => {
-        //   clearTimeout(this.timer);
-        //   this.active = true;
-        //   // if (!showInline)
-        //   //   this.opened = true
-        // },
-        // mouseleave: () => {
-        //   // this.hidePopupMenu()
-        // },
-      }
     }
 
     if ((showInline && !inlineCollapsed) ||
@@ -136,7 +125,6 @@ export default {
           isMenu: true,
           showPlacementArrow: false,
           preCls: preCls + '-popup',
-          // transfer: !SubMenu,
           transfer: true,
           placement: currentMode == 'horizontal' && !SubMenu && !Dropdown ? 'bottom-left' : 'right-top',
           value: opened,
@@ -148,16 +136,9 @@ export default {
           mouseenter: this.subMouseEnter,
           input: (opened) => {
             this.opened = opened
-            // if (currentMode == 'horizontal') {
-            //   this.minWidth = this.$el.offsetWidth
-            // }
           }
         }
       }
-      // popMenuNode = <BasePop {...popProps} ref="pop">{[titleNode, childNode]}</BasePop>
-    } else {
-      // popMenuNode = [titleNode, rendered ? <Collapse collapse={showInline && !inlineCollapsed}
-      // name={'k-' + preCls + (showInline && !inlineCollapsed && !Dropdown ? '-slide' : '-fade')}>{childNode}</Collapse> : null]
     }
     let CollapseNode = null
 
@@ -178,7 +159,7 @@ export default {
     // return (<li class={classes}>{popMenuNode}</li>)
   },
   methods: {
-    subMouseEnter(e) {
+    subMouseEnter() {
       if (this.disabled) return;
       clearTimeout(this.timer)
       let sub = this.SubMenu
@@ -195,7 +176,7 @@ export default {
         clearTimeout(drop.$refs.pop.timer)
       }
     },
-    subMouseLeave(e) {
+    subMouseLeave() {
       if (this.disabled) return;
       let sub = this.SubMenu
       this.hidePopupMenu()
@@ -257,7 +238,7 @@ export default {
     openChange() {
       if (this.disabled) return;
       if (this.Menu) {
-        let { currentMode, defaultOpenKeys, accordion, inlineCollapsed } = this.Menu
+        let { defaultOpenKeys, accordion } = this.Menu
         // if (currentMode != 'inline' || inlineCollapsed) return;
         let openKeys = [].concat(defaultOpenKeys)
         let key = this.$vnode.key || 'sub_' + this._uid
@@ -296,3 +277,5 @@ export default {
     }
   }
 };
+
+export default withInstall(SubMenu);

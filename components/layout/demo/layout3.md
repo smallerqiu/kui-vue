@@ -7,49 +7,61 @@
 ```vue
 <template>
   <div class="k-demo-layout">
-    <Layout  class="layout-back">
+    <Layout class="layout-back">
       <Header class="demo-header">
-        <Row type="flex" align="middle">
+        <Row type="flex" align="middle" class="demo-top-nav">
           <Col style="width:194px">
-            <div class="logo-box">
-              <Icon :type="LogoKui" size="30" class="logo"/>
+            <a class="logo-box" href="">
+              <Icon :type="LogoKui" size="30" class="logo" />
               K UIKIT
-            </div>
+            </a>
           </Col>
           <Col flex="1">
-            <Menu mode="horizontal" v-model="top" class="demo-top-menu">
+            <Menu mode="horizontal" :value="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
             </Menu>
           </Col>
           <Col>
-            <Space :size="30">
-              <Input :icon="Search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
-              <Button :icon="NotificationsOutline" theme="normal"/>
-              <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
+            <Space>
+              <Avatar style="background:#3a95ff" :size="20">Q</Avatar>
             </Space>
           </Col>
         </Row>
-      </Header> 
-      <Content class="k-demo-main">
-        <Breadcrumb class="nav">
+      </Header>
+      <Layout>
+        <Sider class="demo-back">
+          <Menu :value="['t1']" :openKeys="['t2']" class="demo-left-menu" mode="inline"
+            style="padding-top:20px;">
+            <MenuItem key="t1" :icon="Home">首页</MenuItem>
+            <SubMenu key="t2" :icon="StatsChart" title="数据统计">
+              <MenuItem key="t2-1">今日订单</MenuItem>
+              <MenuItem key="t2-2">今日销售额</MenuItem>
+            </SubMenu>
+            <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
+          </Menu>
+        </Sider>
+        <Layout class="k-demo-main">
+          <Breadcrumb class="nav">
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-        <Content class="demo-back">Conent</Content>
-      </Content> 
-      <Footer style="background:transparent;">KUI ©2018 Created by chuchur</Footer>
+          <Content class="demo-content">
+            Content
+          </Content>
+        </Layout>
+      </Layout>
     </Layout>
   </div>
 </template>
 <script>
-import { LogoKui, Search, NotificationsOutline  } from 'kui-icons'
+import { LogoKui, Search, NotificationsOutline, Home, StatsChart,Settings  } from 'kui-icons'
 export default{
   data() {
     return {
-      LogoKui, NotificationsOutline, Search,
+      LogoKui, NotificationsOutline, Search, Home,StatsChart,Settings ,
       top:['t1'],
       left:['0-1']
     }
@@ -57,43 +69,73 @@ export default{
 }
 </script>
 <style scoped lang="less">
- .k-demo-layout{
-   .demo-header{
-     border-bottom:1px solid var(--kui-color-border);
-     padding:15px 20px 0px 30px;
-     min-width:900px;
-   }
+.k-demo-layout {
+  background: var(--kui-color-back);
+
+  .demo-header {
+    padding: 0 20px 0;
+    min-width: 500px;
+    background-color: var(--kui-color-main-90);
+    height: 60px;
+    align-items: center;
+    display: flex;
+  }
+
+  .demo-top-nav {
+    flex: 1;
+  }
+
   .logo-box {
     /* width: 190px; */
-    position:relative;
-    z-index:801;
+    position: relative;
+    z-index: 801;
     box-sizing: border-box;
-    display:flex;
-    align-items:center;
-    .logo{
-      margin-right:8px;
+    display: flex;
+    align-items: center;
+
+    .logo {
+      margin-right: 8px;
     }
-  } 
- }
-.k-demo-layout .demo-top-menu{
-   border:none;
-   li {
-     line-height:31px;
-   }
- }
-.k-demo-layout .k-demo-main{
-   padding:0 50px;
- }
-.k-demo-layout .k-demo-main .nav{
-   padding:16px 0;
- }
-.k-demo-layout .k-demo-main .k-layout-content{
-   padding:24px;
-   min-height:300px;
- }
- .k-demo-layout .k-layout-footer{
-  text-align:center;
-  color:#999;
- }
- </style>
+  }
+
+  .demo-top-menu {
+    border: none;
+    background-color: transparent;
+
+    .k-menu-item {
+      min-height: 60px;
+    }
+  }
+
+  .demo-content {
+    background-color: var(--kui-color-back);
+  }
+
+  .demo-left-menu {
+    height: 100%;
+    border: none;
+  }
+
+  .k-demo-main {
+    padding: 0 24px 24px;
+    background-color: #7f7f7f17;
+  }
+
+  .k-demo-main {
+    .nav {
+      padding: 16px 0;
+    }
+
+    .k-layout-content {
+      /* background-color:#fff; */
+      padding: 24px;
+      min-height: 300px;
+    }
+  }
+
+  .k-layout-sider {
+    width: 200px;
+  }
+}
+</style>
 ```

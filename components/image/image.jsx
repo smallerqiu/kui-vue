@@ -1,10 +1,11 @@
 import Icon from '../icon'
 import createInstance from './instance'
-// import { easyEqual } from '../_tool/utils'
-import { Sync, IconImage ,EyeOutline} from 'kui-icons'
+// import { easyEqual } from '../utils/element'
+import { Sync, IconImage, EyeOutline } from 'kui-icons'
 import { t } from '../locale';
-export default {
-  name: 'kImage',
+import { withInstall } from '../utils/vue'
+const KImage = {
+  name: 'Image',
   props: {
     alt: String,
     src: String,
@@ -32,7 +33,7 @@ export default {
     }
   },
   watch: {
-    src(src) {
+    src() {
       this.reload()
     },
     // origin(origin) {
@@ -64,7 +65,7 @@ export default {
       if ((!src && !origin) || error) return;
 
       let showSwitch = ImageGroup != null
-      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, _globle: false, type }
+      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, global: false, type }
       // { data, src, index }
       if (showSwitch) {
         options.data = ImageGroup.data
@@ -72,7 +73,7 @@ export default {
         options.on.switch = (index) => {
           this.$emit('switch', index)
           if (ImageGroup) {
-            let { $slots, $props } = ImageGroup.$children[index]
+            let { $slots } = ImageGroup.$children[index]
             options.slots = $slots
             options.src = ImageGroup.data[index]//$props.origin || $props.src
             this.show(options)
@@ -84,7 +85,7 @@ export default {
         this.show(options);
       } else {
         this.loading = true
-        this.loadimg(origin, () => {
+        this.loadImage(origin, () => {
           // this.origins = this.origin
           // this.visible = true
           this.loading = false
@@ -97,7 +98,7 @@ export default {
       }
       e.preventDefault()
     },
-    loadimg(src, callback, err) {
+    loadImage(src, callback, err) {
       if (!src) return;
       let image = new Image()
 
@@ -115,7 +116,7 @@ export default {
     reload() {
       let { src, placeholder } = this
       if (src) {
-        this.loadimg(src, ({ width, height }) => {
+        this.loadImage(src, ({ width, height }) => {
           this.showImg = true
           this.imageUrl = src
           this.error = false
@@ -160,11 +161,13 @@ export default {
       {/* <Preview {...imageProps} /> */}
       {showImg || (!showImg && placeholder) ? <img {...imgProps} /> : null}
       {(!showImg || error) && !placeholder ? <Icon type={IconImage} class="k-image-error" /> : null}
-      {loading ? <div class="k-image-loading" key="wocao">
+      {loading ? <div class="k-image-loading" key="image-loading">
         <Icon type={Sync} spin class="k-image-loading-icon" />
       </div> : null}
-      {!loading && !error ?<div class="k-image-preview-mask"><Icon type={EyeOutline} />{t('k.image.preview')}</div>:null}
+      {!loading && !error ? <div class="k-image-preview-mask"><Icon type={EyeOutline} />{t('k.image.preview')}</div> : null}
       {this.$slots.default}
     </div>
   }
 }
+
+export default withInstall(KImage)

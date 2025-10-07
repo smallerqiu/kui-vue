@@ -1,4 +1,5 @@
-export default {
+import { withInstall } from '../utils/vue'
+const Divider = {
   name: 'Divider',
   props: {
     type: {
@@ -35,3 +36,4 @@ export default {
 
   }
 }
+export default withInstall(Divider)

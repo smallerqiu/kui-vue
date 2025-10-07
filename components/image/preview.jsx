@@ -1,10 +1,11 @@
 import Icon from "../icon";
-import transfer from "../_tool/transfer";
-import { getChild, measureScrollBar } from "../_tool/utils";
+import transfer from "../directives/transfer";
+import { getChild, measureScrollBar } from "../utils/element";
+import { withInstall } from '../utils/vue'
 let cacheBodyOverflow = {};
 import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Sync, AddCircleOutline, RemoveCircleOutline } from "kui-icons";
-export default {
-  name: "Preview",
+const ImagePreview = {
+  name: "ImagePreview",
   directives: { transfer },
   props: {
     type: String,
@@ -15,7 +16,7 @@ export default {
     data: { type: Array, default: () => [] },
     showSwitch: Boolean,
     showPanel: Boolean,
-    globle: { type: Boolean, default: true },
+    global: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -25,7 +26,7 @@ export default {
       initPos: { x: 0, y: 0 },
       left: 0,
       top: 0,
-      ismousedown: false,
+      isMouseDown: false,
       visible: this.value,
       src: this.origin,
       loading: false,
@@ -114,7 +115,7 @@ export default {
           clientX = e.clientX;
           clientY = e.clientY;
         }
-        this.ismousedown = true;
+        this.isMouseDown = true;
         this.startPos = { x: clientX, y: clientY };
         this.initPos = { x: clientX, y: clientY };
         this.mousemove(e);
@@ -158,15 +159,15 @@ export default {
         this.top = 0;
       }
     },
-    mouseup(e) {
-      this.ismousedown = false;
+    mouseup() {
+      this.isMouseDown = false;
       this.resetPosition();
       let [e1, e2] = this.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       document.removeEventListener(e1, this.mousemove);
       document.removeEventListener(e2, this.mouseup);
     },
     mousemove(e) {
-      if (this.ismousedown) {
+      if (this.isMouseDown) {
         e.preventDefault();
         let clientX, clientY;
         if (e.touches && e.touches.length == 1) {
@@ -190,7 +191,7 @@ export default {
       index = left ? index - 1 : index + 1;
       index = Math.max(0, index);
       index = Math.min(index, data.length - 1);
-      if (this.globle && !this.$slots.panel) {
+      if (this.global && !this.$slots.panel) {
         this.src = data[index];
       }
       if ((left && i == 0) || (!left && i == data.length - 1)) return;
@@ -201,7 +202,7 @@ export default {
         var x = new XMLHttpRequest();
         x.open("GET", this.src, true);
         x.responseType = "blob";
-        x.onload = function (e) {
+        x.onload = function () {
           var url = window.URL.createObjectURL(x.response);
           var a = document.createElement("a");
           a.href = url;
@@ -215,7 +216,7 @@ export default {
     },
     resetBodyStyle(opened) {
       let target = document.body;
-      if (!this.show && !cacheBodyOverflow.hasOwnProperty("overflow")) {
+      if (!this.show && !Object.prototype.hasOwnProperty.call(cacheBodyOverflow, "overflow")) {
         cacheBodyOverflow = {
           width: target.style.width,
           overflow: target.style.overflow,
@@ -272,16 +273,16 @@ export default {
       document.addEventListener("mousewheel", this.mousewheel, { passive: false });
     }
   },
-  render(h) {
+  render() {
     const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this;
     const imgStyle = {
       transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
     };
     const moveStyle = {
       transform: `translate3d(${left}px, ${top}px, 0px)`,
-      transition: this.ismousedown ? "0s" : null,
+      transition: this.isMouseDown ? "0s" : null,
     };
-    const imgPorps = {
+    const imgProps = {
       class: "k-image-preview-img",
       attrs: { src },
       style: imgStyle,
@@ -320,9 +321,9 @@ export default {
               </ul>
               <div class="k-image-preview-img-wrap" style={moveStyle}>
                 {type == "media" ? (
-                  <video controls {...imgPorps} />
+                  <video controls {...imgProps} />
                 ) : !this.error ? (
-                  <img {...imgPorps} />
+                  <img {...imgProps} />
                 ) : (
                   <div class="k-image-preview-img-error">
                     <Icon type={IconImage} />
@@ -331,13 +332,13 @@ export default {
               </div>
               {showSwitch
                 ? [
-                    <div class={["k-image-preview-switch-left", { "k-image-preview-switch-disabled": data.indexOf(src) == 0 }]} onClick={() => this.switchImage(1)}>
-                      <Icon type={ChevronUp} />
-                    </div>,
-                    <div class={["k-image-preview-switch-right", { "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1 }]} onClick={() => this.switchImage()}>
-                      <Icon type={ChevronUp} />
-                    </div>,
-                  ]
+                  <div class={["k-image-preview-switch-left", { "k-image-preview-switch-disabled": data.indexOf(src) == 0 }]} onClick={() => this.switchImage(1)}>
+                    <Icon type={ChevronUp} />
+                  </div>,
+                  <div class={["k-image-preview-switch-right", { "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1 }]} onClick={() => this.switchImage()}>
+                    <Icon type={ChevronUp} />
+                  </div>,
+                ]
                 : null}
               {loading ? (
                 <div class="k-image-preview-loading">
@@ -352,3 +353,5 @@ export default {
     );
   },
 };
+
+export default withInstall(ImagePreview);

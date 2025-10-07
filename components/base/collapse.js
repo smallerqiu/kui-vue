@@ -3,7 +3,7 @@
 //by chuchur
 
 // https://cn.vuejs.org/v2/guide/render-function.html#函数式组件
-import { getTranstionProp } from './transition'
+import { getTransitionProp } from './transition'
 export default {
 	name: 'Collapse',
 	props: {
@@ -14,7 +14,7 @@ export default {
 	render() {
 		let { name, $slots, collapse } = this
 		let child = $slots.default || $slots.content;
-		const props = collapse ? getTranstionProp(name) : { name }
+		const props = collapse ? getTransitionProp(name) : { name }
 		return (<transition {...props} name={name}>{child}</transition>)
 	}
 }

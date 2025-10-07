@@ -20,7 +20,7 @@
     </Space>
     <br/>
     <Space vertical style="margin-top:10px">
-      <Select :width="300" multiple v-model="data2" clearable>
+      <Select :width="300" multiple v-model="data2" clearable :max-tag-count="2"> 
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
         <Option value="3" label="Banana"/>

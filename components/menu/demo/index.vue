@@ -2,7 +2,7 @@
 import Info from "./info.md";
 import Base from "./base.md";
 import InLine from "./inline.md";
-import Accrodion from "./accrodion.md";
+import Accordion from "./accordion.md";
 import Vertical from "./vertical.md";
 import Theme from "./theme.md";
 import Collapsed from "./collapsed.md";
@@ -16,7 +16,7 @@ export default {
         <Info />
         <Base />
         <InLine />
-        <Accrodion />
+        <Accordion />
         <Vertical />
         <Theme />
         <Mode />

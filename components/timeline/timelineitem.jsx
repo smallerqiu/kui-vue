@@ -1,5 +1,6 @@
 import Icon from '../icon'
-export default {
+import { withInstall } from '../utils/vue'
+const TimeLineItem = {
   name: "TimeLineItem",
   props: {
     color: String,
@@ -27,3 +28,5 @@ export default {
     )
   }
 };
+
+export default withInstall(TimeLineItem);

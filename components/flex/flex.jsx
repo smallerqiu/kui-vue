@@ -1,4 +1,5 @@
-export default {
+import { withInstall } from '../utils/vue'
+const Flex = {
   name: 'Flex',
   props: {
     align: {
@@ -44,7 +45,9 @@ export default {
     } else if (size !== undefined && size !== null) {
       props.style.gap = `${size}px`
     }
-    let childs = $slots.default
-    return <div {...props}>{childs}</div>
+    let children = $slots.default
+    return <div {...props}>{children}</div>
   }
 }
+
+export default withInstall(Flex)

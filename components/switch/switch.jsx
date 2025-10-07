@@ -1,8 +1,9 @@
-import { hasProp } from '../_tool/utils'
+import { hasProp } from '../utils/element'
 import Icon from '../icon'
 import { Sync } from 'kui-icons'
-export default {
-  name: "kSwitch",
+import { withInstall } from '../utils/vue'
+const Switch = {
+  name: "Switch",
   props: {
     checked: [Boolean, Number],
     type: String,
@@ -21,7 +22,7 @@ export default {
     prop: 'checked',
   },
   watch: {
-    checked(val, Oval) {
+    checked(val,) {
       this.defaultChecked = val
     }
   },
@@ -32,7 +33,7 @@ export default {
     }
   },
   methods: {
-    change(e) {
+    change() {
       if (this.disabled) {
         return false;
       }
@@ -66,3 +67,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Switch);

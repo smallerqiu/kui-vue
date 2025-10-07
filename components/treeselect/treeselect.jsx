@@ -1,15 +1,15 @@
 import Icon from "../icon";
 import Empty from '../empty';
-import { hasProp, getChild, isNotEmpty } from '../_tool/utils'
+import { hasProp, isNotEmpty } from '../utils/element'
 
 import Drop from '../base/drop'
 import { t } from '../locale';
 import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
 import { Tree } from '../tree'
 const cloneDeep = require('lodash.clonedeep');
+import { withInstall } from '../utils/vue'
 
-// const cloneDeep = require('lodash/cloneDeep')
-export default {
+const TreeSelect = {
   name: "TreeSelect",
   props: {
     placeholder: String,
@@ -68,7 +68,7 @@ export default {
         this.currentValue = this.multiple ? [] : ''
       }
     },
-    currentValue(n, o) {
+    currentValue() {
       this.setLabel()
     }
   },
@@ -153,8 +153,8 @@ export default {
       // }
       // return result;
     },
-    getLabel(childs, labelValue) {
-      let node = this.findNodeByKeyIterative(childs, labelValue)
+    getLabel(children, labelValue) {
+      let node = this.findNodeByKeyIterative(children, labelValue)
       return node?.title || labelValue;
     },
     setLabel() {
@@ -180,7 +180,7 @@ export default {
       }
       this.label = currentLabel
 
-      setTimeout(e => { this.setPosition() }, 230);
+      setTimeout(() => { this.setPosition() }, 230);
 
     },
     clear(e) {
@@ -199,7 +199,7 @@ export default {
       if (this.filterable || isSearch) {
         this.showSearch = this.opened
         if (this.opened) {
-          this.$nextTick(e => {
+          this.$nextTick(() => {
             this.isFocus = true
             this.$refs.search.focus()
           })
@@ -223,7 +223,7 @@ export default {
       if (isSearch) {
         // this.$nextTick(e => {
         this.showSearch = true
-        this.$nextTick(e => {
+        this.$nextTick(() => {
           this.$refs.search.focus()
           this.isFocus = true
         })
@@ -254,7 +254,7 @@ export default {
         this.opened = false
         this.showSearch = false
       } else if ('search' in this.$listeners || this.filterable) {
-        this.$nextTick(e => {
+        this.$nextTick(() => {
           this.$refs.search.focus()
           this.isFocus = true
         })
@@ -286,9 +286,9 @@ export default {
         } else {
           this.label = item.label
         }
-        setTimeout(e => { this.setPosition() }, 230);
+        setTimeout(() => { this.setPosition() }, 230);
       } else {
-        this.$nextTick(e => this.setPosition())
+        this.$nextTick(() => this.setPosition())
       }
       this.$emit("input", this.currentValue);
       this.$emit("change", this.currentValue);
@@ -314,7 +314,7 @@ export default {
     searchInput(e) {
       this.queryKey = e.target.value
       //todo:
-      this.$nextTick(k => {
+      this.$nextTick(() => {
         //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
         e.target.style.width = this.$refs.mirror.offsetWidth + 'px'
         this.setPosition()
@@ -327,9 +327,9 @@ export default {
         }, 500);
       }
     },
-    emptyClick(e) {
+    emptyClick() {
       if (this.showSearch) {
-        this.$nextTick(e => {
+        this.$nextTick(() => {
           this.$refs.search.focus()
           this.isFocus = true
 
@@ -350,7 +350,7 @@ export default {
       opened, placeholder, showArrow, bordered,
       clear, removeTag, queryKey, theme, arrowIcon, icon, shape, filterable,
       clearable, label, toggleDrop, isFocus, currentValue,
-      treeData, treeCheckable, treeShowLine, treeShowIcon, treeCheckStrictly, treeExpandedKeys, treeExpandedAll
+      treeData, treeCheckable, treeShowLine, treeShowIcon, treeCheckStrictly, treeExpandedKeys,
     } = this
     let childNode = []
     if (arrowIcon == undefined) {
@@ -506,3 +506,5 @@ export default {
     )
   }
 };
+
+export default withInstall(TreeSelect);

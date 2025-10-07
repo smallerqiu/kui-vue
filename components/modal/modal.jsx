@@ -1,12 +1,12 @@
 import Icon from "../icon";
 import { Button } from "../button";
-import transfer from "../_tool/transfer";
-import { measureScrollBar, getOffset } from "../_tool/utils";
+import transfer from "../directives/transfer";
+import { getOffset } from "../utils/element";
 import { t } from "../locale";
-// let cacheBodyOverflow = {};
 import { Close } from "kui-icons";
 
-export default {
+import { withInstall } from '../utils/vue'
+const Modal = {
   directives: { transfer },
   props: {
     value: Boolean,
@@ -53,7 +53,7 @@ export default {
     updateProp(visible) {
       if (visible) {
         this.rendered = true;
-        this.$nextTick((e) => {
+        this.$nextTick(() => {
           this.show = visible;
           this.showInner = visible;
         });
@@ -63,37 +63,7 @@ export default {
           this.showInner = false;
         }, 300);
       }
-      // this.resetBodyStyle(visible)
     },
-    // resetBodyStyle(opened) {
-    //   if (!typeof window !== "undefined") {
-    //     let target = document.body;
-    //     if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
-    //       cacheBodyOverflow = {
-    //         width: target.style.width,
-    //         overflow: target.style.overflow,
-    //         overflowX: target.style.overflowX,
-    //         overflowY: target.style.overflowY,
-    //       }
-    //     }
-    //     if (opened) {
-    //       let barWidth = measureScrollBar(true)
-    //       let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
-    //       if (barWidth && hasBar) {
-    //         target.style.width = `calc(100% - ${barWidth}px)`
-    //         target.style.overflow = `hidden`
-    //       }
-    //     } else {
-    //       setTimeout(() => {
-    //         let task = (this.tasks && this.tasks.length == 0) || !this.tasks
-    //         task && Object.keys(cacheBodyOverflow).forEach(key => {
-    //           target.style[key] = cacheBodyOverflow[key] || ''
-    //           delete cacheBodyOverflow[key]
-    //         })
-    //       }, 300)
-    //     }
-    //   }
-    // },
     setPos() {
       if (this.show && this.$refs.modal) {
         let {
@@ -133,7 +103,7 @@ export default {
         e.preventDefault();
       }
     },
-    mouseup(e) {
+    mouseup() {
       this.isMouseDown = false;
       document.removeEventListener("mousemove", this.mousemove);
       document.removeEventListener("mouseup", this.mouseup);
@@ -251,3 +221,5 @@ export default {
     ) : null;
   },
 };
+
+export default withInstall(Modal);

@@ -1,8 +1,9 @@
 import Icon from "../icon";
 import Tooltip from '../tooltip'
-import { isVnode, getChild } from '../_tool/utils'
+import { getChild } from '../utils/element'
+import { withInstall } from '../utils/vue'
 
-export default {
+const MenuItem = {
   name: "MenuItem",
   props: {
     icon: [String, Array],
@@ -93,3 +94,4 @@ export default {
     )
   },
 };
+export default withInstall(MenuItem);

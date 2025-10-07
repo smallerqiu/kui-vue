@@ -1,6 +1,6 @@
-import Tooltip from "../tooltip"
 import Star from './star'
-export default {
+import { withInstall } from '../utils/vue'
+const Rate = {
   name: 'Rate',
   props: {
     value: { type: Number, default: 0 },
@@ -30,7 +30,7 @@ export default {
   render() {
     let { count, tempValue, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = this
     const stars = []
-    if (Number(count) == NaN || count <= 0) {
+    if (isNaN(Number(count)) || count <= 0) {
       count = 5
     }
     if (count > 15) count = 15
@@ -81,7 +81,6 @@ export default {
     },
     click(index) {
       index = index + 1
-      // console.log(index, this.defaultValue)
       if (this.defaultValue && this.allowClear && index == this.defaultValue) {
         index = 0
       }
@@ -94,11 +93,9 @@ export default {
       this.$emit('input', index)
     },
     mouseenter(index) {
-      // index = index + 1
       this.tempValue = index + 1
     },
-    mouseleave(index) {
-      // console.log(this.value)
-    }
   }
 }
+
+export default withInstall(Rate)

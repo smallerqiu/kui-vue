@@ -1,5 +1,5 @@
 import newInstance from './instance'
-
+import { withInstall } from '../utils/vue'
 let messageInstance;
 
 let Message = {
@@ -25,4 +25,4 @@ let Message = {
   }
 })
 
-export default Message;
+export default withInstall(Message);
