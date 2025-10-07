@@ -66,21 +66,21 @@ export default {
   methods: {
     clear() {
       this.setValue({ input: '', output: '' })
-      this.$nextTick(e => this.$refs.input.focus())
+      this.$nextTick(() => this.$refs.input.focus())
     },
     iconClick() {
       !this.disabled && this.$emit("icon-click");
     },
     handleFocus(e) {
       this.isFocus = true
-      let intput = this.Input || this.TextArea || this.InputNumber
-      intput && intput.$emit('focus', e)
+      let input = this.Input || this.TextArea || this.InputNumber
+      input && input.$emit('focus', e)
     },
     handleBlur(e) {
-      let intput = this.Input || this.TextArea || this.InputNumber
+      // let input = this.Input || this.TextArea || this.InputNumber
       // console.log('base blur')
       this.$emit('blur', e);
-      // intput && intput.$emit('blur', e)
+      // input && input.$emit('blur', e)
       this.isFocus = false
     },
     handleInput(e) {
@@ -130,7 +130,7 @@ export default {
 
       return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
     },
-    getTextInput(mult) {
+    getTextInput(multiple) {
       const { disabled, size, type, inputType, currentValue, id, theme, shape, placeholder } = this
       let isTextArea = inputType == 'textarea'
       const props = {
@@ -139,13 +139,13 @@ export default {
         },
         class: [
           {
-            [`k-${inputType}`]: !mult,
-            [`k-${inputType}-text`]: mult,
+            [`k-${inputType}`]: !multiple,
+            [`k-${inputType}-text`]: multiple,
             [`k-${inputType}-disabled`]: disabled,
-            [`k-${inputType}-sm`]: size == 'small' && !mult,
-            [`k-${inputType}-lg`]: size == 'large' && !mult,
-            [`k-${inputType}-${theme}`]: theme != 'solid' && !mult && theme,
-            [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea && !mult,
+            [`k-${inputType}-sm`]: size == 'small' && !multiple,
+            [`k-${inputType}-lg`]: size == 'large' && !multiple,
+            [`k-${inputType}-${theme}`]: theme != 'solid' && !multiple && theme,
+            [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea && !multiple,
           }
         ],
         ref: 'input',
@@ -175,14 +175,14 @@ export default {
     const { inputType, icon, $slots, size, disabled, type, $listeners, clearable, suffix, theme, prefix, shape } = this
 
     let isTextArea = inputType == 'textarea'
-    let mult = icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.contorls
+    let multiple = icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.controls
 
-    let textInput = this.getTextInput(mult)
+    let textInput = this.getTextInput(multiple)
 
-    if (isTextArea || !mult)
+    if (isTextArea || !multiple)
       return textInput
 
-    let { isFocus, isEnter, currentValue } = this
+    let { isFocus, currentValue } = this
     // let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
     let clearableShow = clearable && isNotEmpty(currentValue)
     const props = {
@@ -205,24 +205,24 @@ export default {
     if ($slots.prefix || $slots.suffix) {
       return <InputGroup size={size}>
         {$slots.prefix ? <div class={{ "k-input-group-prefix": true }}>{$slots.prefix}</div> : null}
-        <div {...props} mult>
+        <div {...props} multiple>
           {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
           {prefixNode}
           {textInput}
           {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
           {/* {suffixNode} */}
-          {$slots.contorls}
+          {$slots.controls}
         </div >
         {$slots.suffix ? <div class={{ "k-input-group-suffix": true }}>{$slots.suffix}</div> : null}
       </InputGroup>
     } else {
-      return <div {...props} mult>
+      return <div {...props} multiple>
         {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
         {prefixNode}
         {textInput}
         {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
         {suffixNode}
-        {$slots.contorls}
+        {$slots.controls}
       </div >
     }
   }

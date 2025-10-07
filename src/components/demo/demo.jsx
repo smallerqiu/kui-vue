@@ -2,7 +2,7 @@ import Icon from "kui-vue/icon";
 import Tooltip from "kui-vue/tooltip";
 import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
-export default {
+const Demo = {
   name: "Demo",
   props: {
     // sourceCode: String,
@@ -15,10 +15,10 @@ export default {
   methods: {
     copy() {
       this.$copyText(this.$refs.code.innerText).then(
-        e => {
+        () => {
           this.$Message.success('Copied!')
         },
-        e => {
+        () => {
           this.$Message.error("复制代码失败，请手动复制");
         }
       );
@@ -54,3 +54,5 @@ export default {
     )
   }
 }
+
+export default Demo;

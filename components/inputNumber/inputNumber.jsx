@@ -171,7 +171,7 @@ const InputNumber = {
       <template slot="suffix">
         {suffixNode}
       </template>
-      <template slot='contorls'>
+      <template slot='controls'>
         {controls ? <div class="k-input-number-controls">
           <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type={ChevronUp} /></span>
           <span class="k-input-number-control" onClick={this.setVal}><Icon type={ChevronUp} /></span>

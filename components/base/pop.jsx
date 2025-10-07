@@ -69,7 +69,7 @@ export default {
       }
       this.$emit('mouseenter', e)
     },
-    mouseLeave(e) {
+    mouseLeave() {
       if (this.trigger == 'hover' &&
         !this.confirm &&
         this.opened
@@ -104,7 +104,7 @@ export default {
       this.$emit('click', e)
     },
     renderPopup() {
-      let { placement, trigger, title, preCls, $slots, transfer, color, updateKey } = this, childNode;
+      let { placement, trigger, title, preCls, $slots, color, updateKey } = this, childNode;
 
       let okText = this.okText || t('k.pop.ok')
       let cancelText = this.cancelText || t('k.pop.cancel')
