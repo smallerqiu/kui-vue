@@ -48,7 +48,7 @@ const BackTop = {
       }, 10);
     },
   },
-  render(h) {
+  render() {
     let child = this.$slots.default;
     if (!child) {
       child = (

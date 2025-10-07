@@ -2,7 +2,7 @@ import transfer from "../directives/transfer";
 import resize from "../directives/resize";
 import outsideclick from "../directives/outsiteclick";
 
-export default {
+const Drop = {
   name: "Drop",
   directives: { transfer, resize, outsideclick },
   props: {
@@ -13,7 +13,7 @@ export default {
     placement: String,
     trigger: { type: String, default: "click" },
     transitionName: { type: String, default: "dropdown" },
-    selection: { validator: (v) => true },
+    selection: { validator: () => true },
     updateKey: [String, Object, Array],
     offsetLeft: { type: Number, default: 0 },
     extendWidth: Boolean,
@@ -22,12 +22,12 @@ export default {
   watch: {
     updateKey(o, v) {
       if (o != v) {
-        this.$nextTick((e) => {
+        this.$nextTick(() => {
           this.setPosition();
         });
       }
     },
-    rendered(value) {
+    rendered() {
       this.$emit("render");
     },
     value(value) {
@@ -37,7 +37,7 @@ export default {
       if (value) {
         this.left = 0;
         this.top = 0;
-        this.$nextTick((e) => {
+        this.$nextTick(() => {
           this.setPosition();
         });
       }
@@ -262,7 +262,7 @@ export default {
 
         // console.log('result:' + placement)
 
-        // set postion
+        // set position
         if (!placement.includes("-")) {
           //equal
           if (placement == "top") {
@@ -347,3 +347,5 @@ export default {
     },
   },
 };
+
+export default Drop;

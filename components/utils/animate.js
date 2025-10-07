@@ -32,7 +32,7 @@ export default function animate(options) {
       return timeFraction//Math.pow(timeFraction, 5)
     }
   }, options)
-  requestAnimationFrame(function animate(time) {
+  requestAnimationFrame(function animate() {
     var timeFraction = (new Date() - start) / options.duration;
     if (timeFraction > 1) timeFraction = 1;
     var progress = options.timing(timeFraction)
