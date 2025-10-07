@@ -1,6 +1,8 @@
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
+import { getChild } from '../utils/element'
+import cloneVNode from '../utils/clone'
+import { withInstall } from '../utils/vue'
+const AvatarGroup = {
+  name: 'AvatarGroup',
   props: {
     maxCount: Number,
     shape: String,
@@ -20,3 +22,4 @@ export default {
     )
   }
 }
+export default withInstall(AvatarGroup)

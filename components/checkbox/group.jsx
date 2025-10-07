@@ -1,6 +1,7 @@
 import Checkbox from './checkbox';
-import { getChild } from '../_tool/utils'
-export default {
+import { getChild } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const CheckboxGroup = {
   name: "CheckboxGroup",
   props: {
     disabled: Boolean,
@@ -54,3 +55,5 @@ export default {
     return (<div class={['k-checkbox-group', { 'k-checkbox-group-vertical': direction == 'vertical' }]}>{childs}</div>)
   }
 }
+
+export default withInstall(CheckboxGroup)

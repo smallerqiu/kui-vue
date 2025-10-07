@@ -90,14 +90,14 @@ export default {
       body[theme-type='custom']{
           --kui-color-main:${str});
           --kui-color-main-hover:${str},.9);
-          --kui-color-main-actived:${str},.75);
+          --kui-color-main-active:${str},.75);
           --kui-color-main-10:${str},.9);
           --kui-color-main-30:${str},.7);
           --kui-color-main-60:${str},.4);
           --kui-color-main-80:${str},.2);
           --kui-color-main-90:${str},.1);
           --kui-color-hover:${str},.2);
-          --kui-color-actived:${str},.3);
+          --kui-color-active:${str},.3);
           --kui-color-selected:${str},.1);
       }
       `

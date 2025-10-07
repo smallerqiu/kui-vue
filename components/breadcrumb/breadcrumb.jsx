@@ -1,5 +1,7 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { withInstall } from '../utils/vue'
+import { getChild } from '../utils/element'
+
+const Breadcrumb = {
   name: 'Breadcrumb',
   render() {
     return (
@@ -9,3 +11,4 @@ export default {
     )
   }
 }
+export default withInstall(Breadcrumb);

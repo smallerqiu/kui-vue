@@ -1,25 +1,27 @@
 import Icon from "../icon";
-import { getTranstionProp } from '../base/transition'
+import { getTransitionProp } from '../base/transition'
 import { ChevronUp } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+
+const Panel = {
   name: 'Panel',
   props: {
     title: String,
-    actived: Boolean
+    active: Boolean
   },
   inject: {
     Collapse: { default: null }
   },
   watch: {
-    actived(value) {
+    active(value) {
       this.rendered = true
       this.$nextTick(() => this.visible = value)
     }
   },
   data() {
     return {
-      visible: this.actived,
-      rendered: this.actived == true
+      visible: this.active,
+      rendered: this.active == true
     }
   },
   methods: {
@@ -29,8 +31,8 @@ export default {
       }
     },
     renderPanel() {
-      const aniprop = getTranstionProp('k-collaplse-slide')
-      return this.rendered ? <transition {...aniprop}>
+      const props = getTransitionProp('k-collapse-slide')
+      return this.rendered ? <transition {...props}>
         <div class="k-collapse-content" v-show={this.visible}>
           <div class="k-collapse-content-box">
             {this.$slots.default}
@@ -40,14 +42,9 @@ export default {
     }
   },
   render() {
-    // console.log(this.actived)
-    // let actived = false
-    let { Collapse, actived, $vnode, $slots } = this
-    // if (Collapse) {
-    //   actived = Collapse.currentValue.indexOf($vnode.key) >= 0
-    // }
+    let { active, $slots } = this
     const classes = ['k-collapse-item', {
-      ['k-collapse-item-active']: actived
+      ['k-collapse-item-active']: active
     }]
     return (
       <div class={classes}>
@@ -61,3 +58,5 @@ export default {
     )
   }
 }
+
+export default withInstall(Panel)

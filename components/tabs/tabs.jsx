@@ -1,7 +1,8 @@
 import Icon from "../icon";
-import { getChild } from "../_tool/utils";
+import { getChild } from "../utils/element";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
-export default {
+import { withInstall } from '../utils/vue'
+const Tabs = {
   name: "Tabs",
   props: {
     value: String,
@@ -16,8 +17,8 @@ export default {
       currentIndex: -1,
       scrollable: false,
       navOffsetLeft: 0,
-      prevBtnDisabed: false,
-      nextBtnDisabed: false,
+      prevBtnDisabled: false,
+      nextBtnDisabled: false,
     };
   },
   watch: {
@@ -37,7 +38,7 @@ export default {
       this.updateIndex();
     });
   },
-  beforeDestory() {
+  beforeDestroy() {
     typeof window !== "undefined" && window.removeEventListener("resize", this.resetNavPosition);
   },
   methods: {
@@ -46,13 +47,13 @@ export default {
       e.stopPropagation();
       // e.preventDefault();
     },
-    resetActivePostion() {
+    resetActivePosition() {
       const target = this.$refs.nav.children[this.currentIndex];
       if (!target) return;
       // show active tab in client
-      const pane = this.$refs.navscroll;
+      const pane = this.$refs.navScroll;
       // let totalWidth = pane.offsetWidth
-      let clientWidth = this.$refs.navbox.clientWidth;
+      let clientWidth = this.$refs.navBox.clientWidth;
       let { navOffsetLeft } = this;
       let { offsetLeft, offsetWidth } = target;
 
@@ -74,11 +75,11 @@ export default {
     },
     resetNavPosition() {
       // when one tab removed or append
-      this.$nextTick((e) => {
-        const pane = this.$refs.navscroll;
+      this.$nextTick(() => {
+        const pane = this.$refs.navScroll;
         if (!pane) return;
         let totalWidth = pane.offsetWidth;
-        let clientWidth = this.$refs.navbox.clientWidth;
+        let clientWidth = this.$refs.navBox.clientWidth;
         let { navOffsetLeft } = this;
         if (clientWidth + navOffsetLeft < clientWidth) {
           navOffsetLeft = clientWidth - totalWidth;
@@ -86,12 +87,12 @@ export default {
         if (navOffsetLeft > 0) navOffsetLeft = 0;
         this.navOffsetLeft = navOffsetLeft;
 
-        this.nextBtnDisabed = navOffsetLeft == clientWidth - totalWidth;
-        this.prevBtnDisabed = navOffsetLeft == 0;
+        this.nextBtnDisabled = navOffsetLeft == clientWidth - totalWidth;
+        this.prevBtnDisabled = navOffsetLeft == 0;
 
         pane.style.transform = `translate3d(${navOffsetLeft}px,0,0)`;
 
-        this.resetActivePostion();
+        this.resetActivePosition();
         this.updateInkBarPosition();
 
         this.updateNav();
@@ -100,9 +101,9 @@ export default {
     scroll(direction) {
       //control left or right
 
-      const pane = this.$refs.navscroll;
+      const pane = this.$refs.navScroll;
       let totalWidth = pane.offsetWidth;
-      let clientWidth = this.$refs.navbox.clientWidth;
+      let clientWidth = this.$refs.navBox.clientWidth;
       let { navOffsetLeft } = this;
       // console.log(totalWidth, clientWidth)
       if (direction == "right") {
@@ -119,8 +120,8 @@ export default {
           navOffsetLeft = 0;
         }
       }
-      this.nextBtnDisabed = navOffsetLeft == clientWidth - totalWidth;
-      this.prevBtnDisabed = navOffsetLeft == 0;
+      this.nextBtnDisabled = navOffsetLeft == clientWidth - totalWidth;
+      this.prevBtnDisabled = navOffsetLeft == 0;
 
       this.navOffsetLeft = navOffsetLeft;
       pane.style.transform = `translate3d(${navOffsetLeft}px,0,0)`;
@@ -135,10 +136,10 @@ export default {
       }
     },
     updateIndex() {
-      this.$nextTick((e) => {
-        const childs = getChild(this.$slots.default);
-        this.currentIndex = childs.map((p) => p.key).indexOf(this.activeKey);
-        this.resetActivePostion();
+      this.$nextTick(() => {
+        const children = getChild(this.$slots.default);
+        this.currentIndex = children.map((p) => p.key).indexOf(this.activeKey);
+        this.resetActivePosition();
         this.updateInkBarPosition();
       });
     },
@@ -146,26 +147,26 @@ export default {
       if (!this.card && !this.sample && this.animated) {
         const nav = this.$refs.nav.children[this.currentIndex];
         if (nav) {
-          const inkbar = this.$refs.inkbar;
-          inkbar.style.width = `${nav.offsetWidth}px`;
-          inkbar.style.transform = `translate3d(${nav.offsetLeft}px, 0px, 0px)`;
+          const inkBar = this.$refs.inkBar;
+          inkBar.style.width = `${nav.offsetWidth}px`;
+          inkBar.style.transform = `translate3d(${nav.offsetLeft}px, 0px, 0px)`;
         }
       }
     },
     updateNav() {
-      this.$nextTick((e) => {
-        // update inkbar position
+      this.$nextTick(() => {
+        // update inkBar position
 
         // set pane has scroll arrow
-        const navbox = this.$refs.navbox;
-        if (!navbox) return;
-        this.scrollable = navbox.scrollWidth > navbox.clientWidth;
+        const navBox = this.$refs.navBox;
+        if (!navBox) return;
+        this.scrollable = navBox.scrollWidth > navBox.clientWidth;
       });
     },
     renderNav() {
-      const childs = getChild(this.$slots.default);
+      const children = getChild(this.$slots.default);
 
-      return childs.map((pane, index) => {
+      return children.map((pane, index) => {
         const key = pane.key;
         let { icon, title, closable, disabled } = pane.componentOptions.propsData;
         disabled = disabled !== undefined && disabled != false;
@@ -211,20 +212,20 @@ export default {
         <div class="k-tabs-bar">
           <div class={navCls}>
             {scrollable ? (
-              <span class={["k-tabs-tab-btn-prev", { "k-tabs-tab-btn-prev-disabed": this.prevBtnDisabed }]} onClick={(e) => this.scroll("left")}>
+              <span class={["k-tabs-tab-btn-prev", { "k-tabs-tab-btn-prev-disabled": this.prevBtnDisabled }]} onClick={() => this.scroll("left")}>
                 <Icon type={ChevronBack} />
               </span>
             ) : null}
-            <div class="k-tabs-nav-wrap" ref="navbox">
-              <div class="k-tabs-nav" style={scrollStyle} ref="navscroll">
-                {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref="inkbar" /> : null}
+            <div class="k-tabs-nav-wrap" ref="navBox">
+              <div class="k-tabs-nav" style={scrollStyle} ref="navScroll">
+                {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref="inkBar" /> : null}
                 <div class="k-tabs-nav-inner" ref="nav">
                   {this.renderNav()}
                 </div>
               </div>
             </div>
             {scrollable ? (
-              <span class={["k-tabs-tab-btn-next", { "k-tabs-tab-btn-next-disabed": this.nextBtnDisabed }]} onClick={(e) => this.scroll("right")}>
+              <span class={["k-tabs-tab-btn-next", { "k-tabs-tab-btn-next-disabled": this.nextBtnDisabled }]} onClick={() => this.scroll("right")}>
                 <Icon type={ChevronForward} />
               </span>
             ) : null}
@@ -242,3 +243,5 @@ export default {
     );
   },
 };
+
+export default withInstall(Tabs);

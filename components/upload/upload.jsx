@@ -8,7 +8,8 @@ const timestamp = Date.now()
 function getUuid() {
   return `k-upload-${timestamp}-${count++}`
 }
-export default {
+import { withInstall } from '../utils/vue'
+const Upload = {
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
@@ -47,16 +48,6 @@ export default {
     };
   },
   mounted() {
-    // if (this.draggable && typeof window !== "undefined") {
-    // window.addEventListener("dragover", function (e) {
-    //   e = e || event;
-    //   e.preventDefault();
-    // }, false);
-    // window.addEventListener("drop", function (e) {
-    //   e = e || event;
-    //   e.preventDefault();
-    // }, false);
-    // }
   },
   methods: {
     formatFileSize(fileSize) {
@@ -219,7 +210,7 @@ export default {
           event
         })
       }
-      xhr.onload = (e) => {
+      xhr.onload = () => {
         if (xhr.status != 200) {
           item.status = 'error'
           delete this.uploadTemp[item.uid]
@@ -291,11 +282,7 @@ export default {
         }
       ],
     }
-    // let list
-    // let childs = getChild(this.$slots.default)
-    // let child = childs.map(child => {
-    //   return cloneVNode(child, { on: { click: this.triggerSelect } })
-    // })
+    
     let addProps = {
       attrs: {
         drag: draggable && this.dragOver ? 'over' : null
@@ -369,3 +356,5 @@ export default {
     )
   }
 }
+
+export default withInstall(Upload)

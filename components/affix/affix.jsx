@@ -1,14 +1,7 @@
-import resize from "../_tool/resize";
+import resize from "../directives/resize";
+import { withInstall } from "../utils/vue";
 
-// function getStyle(el, attr) {
-//   if (el.currentStyle) {
-//     return el.currentStyle[attr];
-//   } else {
-//     return getComputedStyle(el, false)[attr];
-//   }
-// }
-
-export default {
+const Affix = {
   name: "Affix",
   directives: { resize },
   props: {
@@ -29,9 +22,9 @@ export default {
       offsetTopValue: 0,
     };
   },
-  beforeDestory() {
+  beforeDestroy() {
     if (this.target() == window) {
-      target.removeEventListener("scroll", this.updatePosition);
+      window.removeEventListener("scroll", this.updatePosition);
     }
   },
   mounted() {
@@ -41,7 +34,7 @@ export default {
     }
   },
   methods: {
-    updatePosition(e) {
+    updatePosition() {
       let { offsetBottom, offsetTop, $refs } = this;
       let target = this.target();
       if (!$refs.blob || !target) return;
@@ -99,3 +92,4 @@ export default {
     );
   },
 };
+export default withInstall(Affix)

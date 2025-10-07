@@ -1,19 +1,18 @@
-export default {
-	name: 'CarouselItem',
-	inject: {
-		Carousel: { default: null }
-	},
+import { withInstall } from '../utils/vue'
+const CarouselItem = {
+	name: "CarouselItem",
+	inject: { "Carousel": {} },
 	render() {
-		let width, height, carousel = this.Carousel
-		if (carousel) {
-			width = carousel.width
-			height = carousel.height
-		}
-		let styles = { width: `${width}px`, height: `${height}px` }
+		let { width = 0, height = 0 } = this.Carousel;
+		const styles = {
+			width: width + "px",
+			height: height + "px",
+		};
 		return (
 			<div class="k-carousel-item" style={styles}>
 				{this.$slots.default}
 			</div>
-		)
-	}
-} 
+		);
+	},
+};
+export default withInstall(CarouselItem);

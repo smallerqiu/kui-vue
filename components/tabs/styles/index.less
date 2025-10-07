@@ -13,7 +13,7 @@
       padding: 6px 5px 0;
       color: var(--kui-color-icon);
     }
-    .k-tabs-tab-btn-next-disabed, .k-tabs-tab-btn-prev-disabed {
+    .k-tabs-tab-btn-next-disabled, .k-tabs-tab-btn-prev-disabled {
       color: var(--kui-color-disable-color);
       cursor: not-allowed;
     }
@@ -102,7 +102,7 @@
     flex-direction: row;
     transition: margin-left .3s cubic-bezier(.645, .045, .355, 1);
     will-change: margin-left;
-    .k-tabs-tabpane {
+    .k-tabs-tabpanel {
       flex-shrink: 0;
       width: 100%;
       opacity: 1;
@@ -123,7 +123,7 @@
     display: none;
   }
   .k-tabs-content {
-    .k-tabs-tabpane {
+    .k-tabs-tabpanel {
       float: left;
       transition: opacity .45s;
     }
@@ -150,7 +150,7 @@
   }
   .k-tabs-content {
     display: block;
-    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
       height: 0;
       padding: 0;
       overflow: hidden;
@@ -178,13 +178,13 @@
   }
   .k-tabs-content {
     display: block;
-    .k-tabs-tabpane {
+    .k-tabs-tabpanel {
       padding: 16px;
       // background: #fff;
       background: var(--kui-color-back);
       box-sizing: border-box;
     }
-    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
       height: 0;
       padding: 0;
       overflow: hidden;

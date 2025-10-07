@@ -1,8 +1,9 @@
 import BaseInput from '../base/input'
 import Icon from '../icon'
-import { plus, minus, round, toNumber } from '../_tool/number'
+import { plus, minus, round, toNumber } from '../utils/number'
 import { ChevronUp } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const InputNumber = {
   props: {
     value: [Array, Number, String],
     min: { type: Number },
@@ -83,7 +84,7 @@ export default {
     },
     setVal(up) {
       if (this.disabled) return;
-      let { step = 1, defaultValue, parser, formatter } = this
+      let { step = 1, defaultValue, parser, } = this
 
       let v = this.getVal(defaultValue) || 0
 
@@ -108,7 +109,7 @@ export default {
       this.$emit('change', a)
     },
     change(x) {
-      let { formatter, parser } = this
+      let { formatter } = this
       let input = x + '', output = x;
 
       if (formatter) {
@@ -178,4 +179,5 @@ export default {
       </template>
     </BaseInput>
   }
-} 
+}
+export default withInstall(InputNumber)

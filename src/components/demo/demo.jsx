@@ -1,6 +1,6 @@
 import Icon from "kui-vue/icon";
 import Tooltip from "kui-vue/tooltip";
-import { getTranstionProp } from 'kui-vue/base/transition'
+import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
 export default {
   name: "Demo",
@@ -28,7 +28,7 @@ export default {
   },
   render() {
     let { expand } = this
-    let on = getTranstionProp()
+    let on = getTransitionProp()
     return (
       <div class="k-demo markdown-body">
         <div class="k-demo-main">

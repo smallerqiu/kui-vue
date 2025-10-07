@@ -1,5 +1,5 @@
-import { getParent } from './utils.js'
-export default {
+import { withInstall } from '../utils/vue'
+const MenuDivider = {
   name: 'MenuDivider',
   inject: {
     Dropdown: { default: null },
@@ -9,3 +9,5 @@ export default {
     return <li class={`k-${preCls}-item-divider`} />
   }
 }
+
+export default withInstall(MenuDivider)

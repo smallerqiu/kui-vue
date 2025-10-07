@@ -1,5 +1,6 @@
 
-export default {
+import { withInstall } from '../utils/vue'
+const MenuGroup = {
   name: "MenuGroup",
   props: {
     title: { type: String, required: true }
@@ -15,3 +16,4 @@ export default {
     )
   },
 }
+export default withInstall(MenuGroup)

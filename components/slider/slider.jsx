@@ -1,6 +1,8 @@
 import Thumb from './thumb'
-import { times } from '../_tool/number'
-export default {
+import { times } from '../utils/number'
+import { withInstall } from '../utils/vue'
+const Slider = {
+  name: "Slider",
   props: {
     value: [Array, Number, String],
     min: { type: Number, default: 0 },
@@ -57,7 +59,7 @@ export default {
     },
     getValue() {
       let { value = 0, range, min, max } = this, v;
-      let diff = max - min;
+      // let diff = max - min;
       if (!range) {
         v = value
         if (value >= max) v = max
@@ -90,7 +92,7 @@ export default {
       return v
     },
     click(e) {
-      let { disabled, range, vertical, step, max, min, defaultValue, reverse } = this
+      let { disabled, range, vertical, max, min, defaultValue, reverse } = this
       if (disabled) return;
       let { width, height } = e.target.getBoundingClientRect()
       let { layerX, layerY } = e
@@ -115,7 +117,7 @@ export default {
       this.$emit('input', value)
       this.$emit('change', value)
     },
-    isActice(a) {
+    getActiveOps(a) {
       let { defaultValue, reverse, max, min, vertical } = this
       let active;
       if (this.range) {
@@ -148,13 +150,13 @@ export default {
       return <div div class="k-slider-marks" >
         {
           mks.map(v => {
-            const { active, sty } = this.isActice(v);
+            const { active, sty } = this.getActiveOps(v);
             return <div class={['k-slider-mark-symbol', { 'k-slider-mark-symbol-active': active }]} style={sty} />
           })
         }
         {
           mks.map((v, i) => {
-            let { active, sty } = this.isActice(v);
+            let { active, sty } = this.getActiveOps(v);
             return <div class={['k-slider-mark-text', { 'k-slider-mark-text-active': active }]} style={sty}>{txt[i]}</div>
           })
         }
@@ -243,4 +245,6 @@ export default {
       {/* {this.renderMark()} */}
     </div>
   }
-} 
+}
+
+export default withInstall(Slider)

@@ -1,7 +1,7 @@
 import { Button } from "../button";
 import Icon from "../icon";
-import { getChild } from "../_tool/utils";
-import cloneVNode from '../_tool/clone'
+import { getChild } from "../utils/element";
+import cloneVNode from '../utils/clone'
 import Drop from './drop'
 import { t } from "../locale";
 import { HelpCircle } from 'kui-icons'

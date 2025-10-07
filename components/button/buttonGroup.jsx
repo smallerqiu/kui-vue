@@ -1,5 +1,6 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { getChild } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const ButtonGroup = {
   name: "ButtonGroup",
   props: {
     size: {
@@ -35,3 +36,4 @@ export default {
   }
 };
 
+export default withInstall(ButtonGroup);

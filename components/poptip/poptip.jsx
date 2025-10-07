@@ -1,5 +1,7 @@
 import BasePop from '../base/pop'
-export default {
+import { withInstall } from '../utils/vue'
+import { placements } from '../const/var'
+const Poptip = {
   name: 'Poptip',
   props: {
     dark: Boolean,
@@ -9,9 +11,7 @@ export default {
     width: [Number, String],
     placement: {
       validator(value) {
-        return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
-        );
+        return placements.includes(value);
       },
       default: "top"
     },
@@ -32,3 +32,4 @@ export default {
     )
   }
 };
+export default withInstall(Poptip);

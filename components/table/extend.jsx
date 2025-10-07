@@ -1,5 +1,5 @@
 import { hasChild, sortHeaderCols, findItem } from "./utils";
-import { measureScrollBar } from "../_tool/utils";
+import { measureScrollBar } from "../utils/element";
 import { Checkbox } from "../checkbox";
 import Icon from "../icon";
 import { CaretUp, CaretDown } from "kui-icons";
@@ -70,7 +70,7 @@ export default {
       const isFixedHeader = this.height !== undefined;
       let cols = [];
       let columns = this.columns2 || this.columns;
-      columns.forEach((col, i) => {
+      columns.forEach((col,) => {
         let width = col.width || ""; //(isFixedHeader ? 150 : '')
         let hasCheckbox = col.type == "selection";
 
@@ -107,8 +107,8 @@ export default {
     renderSort(col) {
       return col.sorter ? (
         <span class="k-table-sorter">
-          <Icon type={CaretUp} class={{ actived: col._order == "asc" }} />
-          <Icon type={CaretDown} class={{ actived: col._order == "desc" }} />
+          <Icon type={CaretUp} class={{ active: col._order == "asc" }} />
+          <Icon type={CaretDown} class={{ active: col._order == "desc" }} />
         </span>
       ) : null;
     },
@@ -170,7 +170,6 @@ export default {
 
       let head = [],
         ths = [],
-        hasFR = false,
         left = 0,
         right =
           cols
@@ -204,7 +203,6 @@ export default {
           head.push(<tr>{ths}</tr>);
         } else {
           // set Head
-          hasFR = col.fixed == "right";
           if (col.colSpan !== 0) {
             if (col.fixed == "left" && i > 0) {
               left += cols[i - 1].width;
@@ -294,7 +292,7 @@ export default {
     },
   },
   render() {
-    let { height, width, body, scrollBarHeight, sticky } = this;
+    let { height, width, body, sticky } = this;
     let rootProps = {
       // ref: 'table',
       class: [

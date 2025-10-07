@@ -1,13 +1,14 @@
 import { Button } from "../button";
 import Icon from "../icon";
 import { t } from "../locale";
-import transfer from "../_tool/transfer";
-import { measureScrollBar } from "../_tool/utils";
+import transfer from "../directives/transfer";
+import { measureScrollBar } from "../utils/element";
 import { Close } from "kui-icons";
 
 let cacheBodyOverflow = {};
 
-export default {
+import { withInstall } from '../utils/vue'
+const Drawer = {
   name: "Drawer",
   directives: { transfer },
   props: {
@@ -28,7 +29,7 @@ export default {
   watch: {
     value(v) {
       this.rendered = true;
-      this.$nextTick((e) => {
+      this.$nextTick(() => {
         this.visible = v;
         this.openHandle();
         this.resetBodyStyle(v);
@@ -81,7 +82,7 @@ export default {
     },
     resetBodyStyle(opened) {
       let target = this.target();
-      if (opened && !cacheBodyOverflow.hasOwnProperty("overflow")) {
+      if (opened && !Object.prototype.hasOwnProperty.call(cacheBodyOverflow, "overflow")) {
         cacheBodyOverflow = {
           width: target.style.width,
           overflow: target.style.overflow,
@@ -111,7 +112,7 @@ export default {
     if (typeof window === "undefined") return null;
     const { title, visible, cancelText, okText, ok, placement, cancel, $slots, width, height, open, closable, close, loading } = this;
     const hasFooter = this.footer || $slots.footer;
-    const canelBtn = <Button onClick={cancel}>{cancelText || t("k.drawer.cancel")}</Button>;
+    const cancelBtn = <Button onClick={cancel}>{cancelText || t("k.drawer.cancel")}</Button>;
     const okBtn = (
       <Button type="primary" onClick={ok} loading={loading}>
         {okText || t("k.drawer.ok")}
@@ -120,7 +121,7 @@ export default {
     const footNode = hasFooter ? (
       <div class="k-drawer-footer">
         {$slots.footer}
-        {!$slots.footer && [canelBtn, okBtn]}
+        {!$slots.footer && [cancelBtn, okBtn]}
       </div>
     ) : null;
     const closeNode = closable ? (
@@ -130,8 +131,8 @@ export default {
     ) : null;
     const transitionName = `k-drawer-${placement}`;
     const target = this.target();
-    const inbody = target == document.body;
-    const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !inbody }, { "k-drawer-nomask": !this.mask }];
+    const isBody = target == document.body;
+    const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !this.mask }];
     let styles = {};
     if (placement == "left" || placement == "right") styles.width = /%/.test(width) ? width : width + "px";
     if (placement == "top" || placement == "bottom") styles.height = /%/.test(height) ? height : height + "px";
@@ -140,7 +141,7 @@ export default {
     if (this.mask) {
       maskNode = (
         <transition name="k-drawer-fade">
-          <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !inbody }]} v-show={visible} onClick={this.maskToClose}></div>
+          <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]} v-show={visible} onClick={this.maskToClose}></div>
         </transition>
       );
     }
@@ -163,3 +164,5 @@ export default {
     ) : null;
   },
 };
+
+export default withInstall(Drawer);

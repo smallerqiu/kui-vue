@@ -1,5 +1,6 @@
-export default {
-  name: "TabPane",
+import { withInstall } from '../utils/vue'
+const TabPanel = {
+  name: "TabPanel",
   props: {
     title: String,
     icon: [String, Array],
@@ -17,9 +18,10 @@ export default {
   },
   render() {
     return (
-      <div class={['k-tabs-tabpane', { 'k-tabs-tabpane-active': this.Tabs.activeKey == this.$vnode.key }]}>
+      <div class={['k-tabs-tabpanel', { 'k-tabs-tabpanel-active': this.Tabs.activeKey == this.$vnode.key }]}>
         {this.$slots.default}
       </div>
     )
   }
 }
+export default withInstall(TabPanel)

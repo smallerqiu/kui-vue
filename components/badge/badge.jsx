@@ -1,5 +1,6 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { withInstall } from '../utils/vue';
+import { getChild } from '../utils/element'
+const Badge = {
   name: "Badge",
   props: {
     count: [String, Number],
@@ -7,9 +8,6 @@ export default {
     color: String,
     status: {
       type: String,
-      // validator: (value) => {
-      //   ['default', 'success', 'error', 'warning'].indexOf(value) > -1
-      // },
       default: 'default'
     },
     text: String,
@@ -19,7 +17,7 @@ export default {
     const { $slots, maxCount, count, dot, color, status, text } = this
     let innerText = null, statusNode = [];
     const child = getChild($slots.default)
-    
+
     if (typeof count === 'number' && count !== 0) {
       innerText = count > maxCount ? maxCount + '+' : count
     } else if (typeof count === 'string') {
@@ -58,3 +56,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Badge);

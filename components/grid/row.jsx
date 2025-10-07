@@ -1,5 +1,6 @@
 
-export default {
+import { withInstall } from '../utils/vue'
+const Row = {
   name: "Row",
   props: {
     gutter: [Number, Array],
@@ -38,17 +39,17 @@ export default {
     if (Array.isArray(gutter)) {
       let [v = 0, h = 0] = gutter;
       if ((v == h && v > 0)) {
-        props.style.margin = `-${v/2}px`
+        props.style.margin = `-${v / 2}px`
       } else if (v > 0 && h > 0) {
-        props.style.margin = `-${h/2}px -${v/2}px`
+        props.style.margin = `-${h / 2}px -${v / 2}px`
       } else {
         if (v > 0) {
-          props.style.marginLeft = `-${v/2}px`
-          props.style.marginRight = `-${v/2}px`
+          props.style.marginLeft = `-${v / 2}px`
+          props.style.marginRight = `-${v / 2}px`
         }
         if (h > 0) {
-          props.style.marginTop = `-${v/2}px`
-          props.style.marginTop = `-${v/2}px`
+          props.style.marginTop = `-${v / 2}px`
+          props.style.marginTop = `-${v / 2}px`
         }
       }
 
@@ -59,3 +60,5 @@ export default {
     return (<div {...props}>{$slots.default}</div >)
   }
 };
+
+export default withInstall(Row);

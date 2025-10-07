@@ -1,4 +1,6 @@
-export default {
+import { withInstall } from '../utils/vue'
+const SkeletonButton = {
+  name: "SkeletonButton",
   props: {
     animated: Boolean,
     block: Boolean,
@@ -53,3 +55,5 @@ export default {
     )
   }
 }
+
+export default withInstall(SkeletonButton)

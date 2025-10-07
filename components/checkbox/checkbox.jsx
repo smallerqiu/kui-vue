@@ -1,7 +1,8 @@
-import { hasProp } from '../_tool/utils'
+import { hasProp } from '../utils/element'
 import Icon from '../icon'
 import { Checkmark } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Checkbox = {
   name: "Checkbox",
   props: {
     value: [String, Number, Boolean],
@@ -80,3 +81,4 @@ export default {
     )
   }
 }
+export default withInstall(Checkbox);

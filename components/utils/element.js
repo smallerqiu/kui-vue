@@ -27,6 +27,9 @@ export function contains(ele, target) {
 export function isNotEmpty(str) {
   return str !== '' && str !== undefined && str !== null
 }
+export function isEmpty(str) {
+  return str === '' || str === undefined || str === null || str.length === 0
+}
 
 export function hasProp(context, key) {
   const options = context.$options || {}
@@ -113,7 +116,7 @@ export function cloneVNode(vnode, options = {}, childs) {
 }
 
 
-export function isVnode(element) {
+export function isVNode(element) {
   return (
     element &&
     typeof element === 'object' &&
@@ -141,7 +144,7 @@ export function measureScrollBar(direction = 'vertical') {
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return 0;
   }
-  const isVertical = direction = 'vertical'
+  const isVertical = direction == 'vertical'
 
   if (isVertical && _scrollBarWidth) return _scrollBarWidth
   if (!isVertical && _scrollBarHeight) return _scrollBarHeight
@@ -186,4 +189,4 @@ export function easyEqual(a, b) {
     }
   }
   return true
-};
+}

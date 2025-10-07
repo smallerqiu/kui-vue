@@ -1,5 +1,6 @@
 
-export default {
+import { withInstall } from '../utils/vue'
+const Col = {
   name: "Col",
   props: {
     span: Number,
@@ -70,3 +71,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Col)

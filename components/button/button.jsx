@@ -1,7 +1,8 @@
 import Icon from '../icon'
-import { getChild } from '../_tool/utils'
+import { getChild } from '../utils/element'
 import { Sync } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Button = {
   name: "Button",
   props: {
     htmlType: {
@@ -75,13 +76,14 @@ export default {
     const iconType = loading ? Sync : icon;
     const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
     const child = getChild($slots.default)
-    const childs = child.map(c => {
+    const children = child.map(c => {
       return typeof c.text == 'string' ? <span>{c.text.trim()}</span> : c
     })
     const is_link = type == 'link' && href
-    return is_link ? <a href={href} target={target} {...props}>{iconNode}{childs}</a> : <button {...props} >
+    return is_link ? <a href={href} target={target} {...props}>{iconNode}{children}</a> : <button {...props} >
       {iconNode}
-      {childs}
+      {children}
     </button >
   }
 };
+export default withInstall(Button);

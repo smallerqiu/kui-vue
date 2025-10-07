@@ -1,8 +1,8 @@
-import { getChild } from '../_tool/utils'
+import { getChild } from '../utils/element'
 import Radio from './radio.jsx';
 import Button from './button.jsx';
-import cloneVNode from '../_tool/clone'
-export default {
+import { withInstall } from '../utils/vue'
+const RadioGroup = {
   name: "RadioGroup",
   props: {
     value: { type: [String, Number], default: "" },
@@ -34,7 +34,7 @@ export default {
     }
   },
   watch: {
-    value(val, Oval) {
+    value(val) {
       this.defaultValue = val
     }
   },
@@ -48,9 +48,9 @@ export default {
   },
   render() {
     const { options, $slots, type, direction, theme, shape, size } = this
-    let childs = getChild($slots.default)
+    let children = getChild($slots.default)
     if (options && options.length) {
-      childs = options.map(option => {
+      children = options.map(option => {
         return type == 'button' ?
           <Button
             theme={theme}
@@ -71,27 +71,18 @@ export default {
             disabled={option.disabled}
           />
       })
-    } else {
-      // let newChilds = []
-      // for (let i = 0; i < childs.length; i++) {
-      //   let child = cloneVNode(childs[i], {
-      //     props: {
-      //       size, theme, shape,
-      //     },
-      //   })
-      //   newChilds.push(child)
-      // }
-      // childs = newChilds
     }
     const classes = [
       'k-radio-group',
-      { 'k-radio-cirle': shape == 'circle' },
+      { 'k-radio-circle': shape == 'circle' },
       { 'k-radio-group-light': theme == 'light' && type == 'button' },
       { 'k-radio-group-card': theme == 'card' && type == 'button' },
       { 'k-radio-group-vertical': direction == 'vertical' }
     ]
     return (
-      <div class={classes}>{childs}</div>
+      <div class={classes}>{children}</div>
     )
   }
 };
+
+export default withInstall(RadioGroup);

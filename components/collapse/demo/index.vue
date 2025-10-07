@@ -1,7 +1,7 @@
 <script>
 import Info from './info.md'
 import Base from './base.md'
-import Accrodion from './accrodion.md'
+import Accordion from './accordion.md'
 import Nesting from './nesting.md'
 import Sample from './sample.md'
 import Extra from './extra.md'
@@ -12,7 +12,7 @@ export default {
       <div>
         <Info />
         <Base />
-        <Accrodion />
+        <Accordion />
         <Nesting />
         <Extra />
         <Sample />

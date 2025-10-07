@@ -1,7 +1,8 @@
-import { isNotEmpty } from "../_tool/utils";
+import { isNotEmpty } from "../utils/element";
 import Icon from '../icon'
 import { Checkmark } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Option = {
   name: "Option",
   props: {
     value: { type: [String, Number], required: true },
@@ -44,10 +45,12 @@ export default {
         ["k-select-item-disabled"]: disabled
       }
     ];
-    const childs = <span>{label}{iconNode}</span>
+    const children = <span>{label}{iconNode}</span>
 
     return (
-      <li class={classes} onClick={select}>{childs}</li>
+      <li class={classes} onClick={select}>{children}</li>
     )
   }
 }
+
+export default withInstall(Option);
