@@ -1,5 +1,5 @@
 import Thumb from './thumb'
-import { times } from '../utils/number'
+import { multiply } from '../utils/number'
 import { withInstall } from '../utils/vue'
 const Slider = {
   name: "Slider",
@@ -45,11 +45,11 @@ const Slider = {
   methods: {
     getMinStep(percent) {
       let { marks, step, min } = this
-      if (!marks) return times(Math.round((percent + min) / step), step)
+      if (!marks) return multiply(Math.round((percent + min) / step), step)
       let steps = Object.keys(marks)//, values = []
       steps = steps.map(x => x - min)
       if (step) {
-        steps.push(times(Math.round((percent) / step), step))
+        steps.push(multiply(Math.round((percent) / step), step))
       }
 
       let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
