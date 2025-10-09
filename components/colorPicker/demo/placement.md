@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space id="dropdown-demo-placement">
+  <Space wrap>
     <template v-for="placement in placements"> 
       <ColorPicker value="red" size="small" :placement="placement">
           <Button>{{ placement }}</Button>

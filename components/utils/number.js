@@ -77,5 +77,5 @@ export function toFixed(value, n) {
   return isScientificNotation(value) ? rounded : Number(rounded);
 }
 
-// import { clamp } from "@vueuse/core";
-// export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+

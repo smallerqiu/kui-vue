@@ -137,8 +137,8 @@ const InputNumber = {
         return;
       }
       this.outputValue = output;
-      this.emit("input", output);
-      e.preventDefault();
+      this.$emit("input", output);
+      e.preventDefault?.();
     },
     blurHandle(e) {
       const { input, output } = this.getValue(this.outputValue, true);
@@ -165,7 +165,7 @@ const InputNumber = {
       attrs: { ...this.$attrs },
       on: {
         ...this.$listeners,
-        'input': (e) => this.onUpdate(e),
+        'input': (e) => this.onUpdate({target: {value: e}}),
         'blur': (e) => this.blurHandle(e),
         'keydown': (e) => this.onKeyDown(e),
         // 'change': (e) => this.change(e),

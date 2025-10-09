@@ -6,7 +6,9 @@ import Alpha from "./alpha";
 import Paint from "./paint";
 import Color from "color";
 import Presets from "./presets";
-const modes = ['rgba', 'hex', 'hsla']
+import { getChildren } from '../utils/element';
+import cloneVNode from '../utils/clone';
+const modes = ["rgb", "hex", "hsl"];
 
 const ColorPicker = {
   name: 'ColorPicker',
@@ -23,8 +25,9 @@ const ColorPicker = {
       }
     },
     mode: {
-      type: String, default: 'hex', validator: function (value) {
-        return modes.indexOf(value) !== -1
+      type: String, default: 'hex',
+      validator: function (value) {
+        return modes.includes(value)
       }
     },
     presets: {
@@ -53,26 +56,7 @@ const ColorPicker = {
     return {
       currentMode: this.mode,
       currentColor: this.value || '#000',
-      paintHelper: null,
-      hueHelper: null,
-      H: 0, S: 0, L: 0, A: 1,
-      R: 0, G: 0, B: 0,
-      HEX: '',
-      huePointer: {
-        x: 0
-      },
-      alphaPointer: {
-        x: 0,
-      },
-      paintPointer: {
-        x: 0, y: 0
-      },
       opened: false,
-      isMouseDown: false,
-
-
-
-
       currentAlpha: 1,
       currentHue: 0,
       currentPlacement: this.placement,
@@ -118,7 +102,7 @@ const ColorPicker = {
     onUpdate(color) {
       this.currentColor = color;
       const value = this.getColor();
-      this.$emit("update", value);
+      this.$emit("input", value);
       this.$emit("change", value);
     },
     onUpdateRGB({ r, g, b }) {
@@ -148,7 +132,6 @@ const ColorPicker = {
     },
     renderDrop() {
       const props = {
-        ref: 'overlay',
         props: {
           placement: this.placement,
           transfer: true,
@@ -158,23 +141,9 @@ const ColorPicker = {
           transitionName: 'k-color-picker'
         },
         on: {
-          input: e => {
-            this.opened = e
-            this.currentColor = this.value || '#000'
-          },
           hide: () => {
             // this.opened = false
             // this.currentColor = this.value || '#000'
-          },
-          render: () => {
-            this.$nextTick(() => {
-              // let { paint, hue, alpha } = this.$refs
-              // this.paintHelper = canvasHelper(paint);
-              // this.initHueCanvas(hue);
-              // (!this.noAlpha && this.initAlphaCanvas(alpha));
-              // this.initPaintCanvas(paint)
-              // this.valueChange('COLOR', this.value)
-            })
           },
         }
       }
@@ -214,6 +183,19 @@ const ColorPicker = {
             value={this.presets}
             color={this.currentColor}
           />
+          <div class={`k-color-picker-arrow`}>
+            <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+              <path
+                id="ot"
+                d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+              />
+              <path
+                stroke="currentcolor"
+                id="in"
+                d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+              />
+            </svg>
+          </div>
         </div>
       </Drop>
       )
@@ -236,16 +218,24 @@ const ColorPicker = {
         'k-color-picker-lg': this.size == 'large'
       },
     ]
-
-    return (<div class={style} >
-      <div class="k-color-picker-selection" onClick={this.toggleDrop}>
-        <div class="k-color-picker-color">
-          <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
+    const defaultNode = getChildren(this.$slots.default)
+    if (defaultNode.length > 0) {
+      return cloneVNode(defaultNode[0], {
+        on: {
+          click: () => this.toggleDrop()
+        }
+      }, drop)
+    } else {
+      return (<div class={style} onClick={this.toggleDrop}>
+        <div class="k-color-picker-selection">
+          <div class="k-color-picker-color">
+            <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
+          </div>
+          {this.renderTriggerText()}
         </div>
-        {this.renderTriggerText()}
-      </div>
-      {drop}
-    </div >)
+        {drop}
+      </div>)
+    }
   }
 }
 

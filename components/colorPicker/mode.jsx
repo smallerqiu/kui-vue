@@ -37,8 +37,8 @@ export default {
       const color = Color(hex).rgb();
       this.$emit("updateColorValue", color);
     },
-    valueChange(v, type) {
-      const value = parseInt(v);
+    valueChange(e, type) {
+      const value = parseInt(e.target.value);
       let color = Color(this.currentColor);
 
       switch (type) {
@@ -114,13 +114,13 @@ export default {
         />
       );
     } else if (this.currentMode === "hsl") {
-      const [h, s, l] = color.hsl().array();
+      const [hh, s, l] = color.hsl().array();
       nodes.push(
         <InputNumber
           size="small"
           min={0}
           max={359}
-          value={Math.round(h)}
+          value={Math.round(hh)}
           onChange={(e) => this.valueChange(e, "h")}
         />,
         <InputNumber
