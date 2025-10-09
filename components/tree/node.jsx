@@ -213,7 +213,7 @@ const TreeNode = defineComponent({
       </span>
       itemNode.push(arrowNode)
     } else {
-      itemNode.push(<span class="k-tree-commes"></span>)
+      itemNode.push(<span class="k-tree-comment"></span>)
     }
     // console.log(checked,checked, disabled, indeterminate)
     if (checkable) {

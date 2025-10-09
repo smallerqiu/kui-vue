@@ -20,19 +20,24 @@
   <div class="k-demo-layout">
     <Layout class="layout-back">
       <Header class="demo-header">
-        <Row type="flex" align="middle">
+        <Row type="flex" align="middle"  class="demo-top-nav">
           <Col style="width:220px">
-          <a class="logo-box" href="">
-            <Icon :type="LogoKui" size="30" class="logo" />
-            K UIKIT
-          </a>
+            <a class="logo-box" href="">
+              <Icon :type="LogoKui" size="30" class="logo" />
+              K UIKIT
+            </a>
           </Col>
           <Col flex="1">
-          <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
-            <MenuItem key="t1">首页</MenuItem>
-            <MenuItem key="t2">新闻</MenuItem>
-            <MenuItem key="t3">知识库</MenuItem>
-          </Menu>
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
+              <MenuItem key="t1">首页</MenuItem>
+              <MenuItem key="t2">新闻</MenuItem>
+              <MenuItem key="t3">知识库</MenuItem>
+            </Menu>
+          </Col>
+          <Col>
+            <Space>
+              <Avatar style="background:#3a95ff" :size="20">Q</Avatar>
+            </Space>
           </Col>
         </Row>
       </Header>
@@ -79,6 +84,10 @@ import { LogoKui, Home, StatsChart, Settings, Scan, Search, NotificationsOutline
     height: 60px;
     align-items: center;
     display: flex;
+  }
+  
+  .demo-top-nav {
+    flex: 1;
   }
 
   .logo-box {

@@ -167,7 +167,7 @@ const SubMenu = defineComponent({
       // todo: mode 从inline 切换 vertical 时 会卡一下, 为查明原因. 后面在细看
 
       if (inline) {
-        const aniprop = getTranstionProp("k-collaplse-slide");
+        const aniprop = getTranstionProp("k-collapse-slide");
         const node = [
           <Transition {...aniprop}>
             <div

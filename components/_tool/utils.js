@@ -113,7 +113,7 @@ export function cloneVNode(vnode, options = {}, childs) {
   return cloned;
 }
 
-export function isVnode(element) {
+export function isVNode(element) {
   return element && typeof element === "object" && "componentOptions" in element && "context" in element && element.tag !== undefined;
 }
 

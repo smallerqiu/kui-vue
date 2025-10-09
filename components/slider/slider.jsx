@@ -209,7 +209,7 @@ const Slider = defineComponent({
       defaultValue.value = value;
       emit("update:value", value);
     };
-    const isActive = (a) => {
+    const getActiveOps = (a) => {
       let { reverse, max, min, vertical } = ps;
       let active;
       if (ps.range) {
@@ -260,7 +260,7 @@ const Slider = defineComponent({
         return (
           <div div class="k-slider-marks">
             {mks.map((v) => {
-              const { active, sty } = isActive(v);
+              const { active, sty } = getActiveOps(v);
               return (
                 <div
                   class={[
@@ -272,7 +272,7 @@ const Slider = defineComponent({
               );
             })}
             {mks.map((v, i) => {
-              let { active, sty } = isActive(v);
+              let { active, sty } = getActiveOps(v);
               return (
                 <div
                   class={[

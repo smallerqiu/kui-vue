@@ -5,6 +5,7 @@ const loading = defineComponent({
   setup(ps, { expose }) {
     const visible = ref(true);
     const percent = ref(0);
+    const animate = ref(false);
     const isError = ref(false);
     const updateTimer = ref();
     const hideTimer = ref();
@@ -14,6 +15,7 @@ const loading = defineComponent({
       visible.value = true;
       clearInterval(updateTimer.value);
       updateTimer.value = setInterval(() => {
+        animate.value = true;
         percent.value += Math.floor(Math.random() * 3 + 5);
         if (percent.value >= 95) {
           percent.value = 95;
@@ -40,6 +42,7 @@ const loading = defineComponent({
     const update = (pt) => {
       isError.value = false;
       visible.value = true;
+      animate.value = pt > percent.value;
       percent.value = pt;
     };
 
@@ -68,7 +71,7 @@ const loading = defineComponent({
             ["k-loading-line-error"]: isError.value,
           },
         ],
-        style: { width: `${percent.value}%` },
+        style: { width: `${percent.value}%`, transitionDuration: !animate.value ? '0s' : null },
       };
       return (
         <Transition name="fade">

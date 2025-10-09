@@ -9,18 +9,18 @@ const Option = defineComponent({
     label: { type: [String, Number] },
     disabled: Boolean,
     checked: Boolean,
-    actived: Boolean,
+    active: Boolean,
     multiple: Boolean,
   },
   methods: {},
   setup(ps, { slots, emit }) {
-    const lableText = ps.label || slots.default?.() || ps.value;
+    const labelText = ps.label || slots.default?.() || ps.value;
 
     const checked = computed(() => ps.checked);
     const onSelect = () => {
       if (ps.disabled) return;
       // isChecked.value = !isChecked.value;
-      emit("select", { value: ps.value, label: lableText });
+      emit("select", { value: ps.value, label: labelText });
     };
 
     return () => {
@@ -29,14 +29,14 @@ const Option = defineComponent({
         "k-select-item",
         {
           ["k-select-item-selected"]: checked.value,
-          ["k-select-item-active"]: ps.actived,
+          ["k-select-item-active"]: ps.active,
           ["k-select-item-disabled"]: disabled,
         },
       ];
       return (
         <li class={classes} onClick={onSelect}>
           <span>
-            {lableText}
+            {labelText}
             {multiple ? <Icon type={Checkmark} /> : null}
           </span>
         </li>

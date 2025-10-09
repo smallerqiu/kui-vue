@@ -1,6 +1,6 @@
 
 import Icon from "../icon";
-import scroll from "../_tool/scroll";
+import scroll from "../directives/scroll";
 import { ArrowUp } from "kui-icons";
 import { withInstall } from '../utils/vue';
 import { defineComponent } from "vue";

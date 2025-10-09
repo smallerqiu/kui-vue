@@ -11,17 +11,22 @@
       <Header class="demo-header">
         <Row type="flex" align="middle" class="demo-top-nav">
           <Col style="width:194px">
-          <a class="logo-box" href="">
-            <Icon :type="LogoKui" size="30" class="logo" />
-            K UIKIT
-          </a>
+            <a class="logo-box" href="">
+              <Icon :type="LogoKui" size="30" class="logo" />
+              K UIKIT
+            </a>
           </Col>
           <Col flex="1">
-          <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
-            <MenuItem key="t1">首页</MenuItem>
-            <MenuItem key="t2">新闻</MenuItem>
-            <MenuItem key="t3">知识库</MenuItem>
-          </Menu>
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
+              <MenuItem key="t1">首页</MenuItem>
+              <MenuItem key="t2">新闻</MenuItem>
+              <MenuItem key="t3">知识库</MenuItem>
+            </Menu>
+          </Col>
+          <Col>
+            <Space>
+              <Avatar style="background:#3a95ff" :size="20">Q</Avatar>
+            </Space>
           </Col>
         </Row>
       </Header>
@@ -48,7 +53,6 @@ const top = ref(['t1']);
 
   .demo-header {
     padding: 0 50px 0;
-    min-width: 900px;
     background-color: var(--kui-color-main-90);
     height: 60px;
     align-items: center;

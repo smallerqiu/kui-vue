@@ -1,6 +1,6 @@
 import { Row, Col } from '../grid'
 import cloneVNode from '../_tool/clone';
-import { getChild, isVnode } from '../_tool/utils'
+import { getChild, isVNode } from '../_tool/utils'
 import { withInstall } from '../utils/vue';
 import { defineComponent } from 'vue'
 
@@ -76,7 +76,7 @@ const FormItem = defineComponent({
           <div class="k-form-item-content">
             {
               children.map(child => {
-                if (isVnode(child)) {
+                if (isVNode(child)) {
                   const tag = child.componentOptions ? child.componentOptions.tag : child.tag
                   const value = prop ? this.Form.testProp(prop) : ''
                   const size = (child.componentOptions && child.componentOptions.propsData.size) || this.Form.size

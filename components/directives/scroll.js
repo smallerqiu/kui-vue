@@ -1,7 +1,6 @@
 export default {
   mounted(el, { value }) {
-    const SSR = typeof window === 'undefined';
-    if (typeof value == 'function' && !SSR) {
+    if (typeof value == 'function') {
       window.addEventListener('scroll', value)
     }
   },

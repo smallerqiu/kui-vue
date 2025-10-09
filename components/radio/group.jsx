@@ -57,7 +57,7 @@ const RadioGroup = defineComponent({
           return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
         });
       }
-      const classes = ["k-radio-group", { "k-radio-cirle": shape == "circle" },
+      const classes = ["k-radio-group", { "k-radio-circle": shape == "circle" },
         { "k-radio-group-light": theme == "light" && type == "button" },
         { "k-radio-group-card": theme == "card" && type == "button" },
         { "k-radio-group-vertical": direction == "vertical" }];
