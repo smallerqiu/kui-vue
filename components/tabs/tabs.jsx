@@ -17,12 +17,12 @@ const Tabs = defineComponent({
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
-    const prevBtnDisabed = ref(false);
-    const nextBtnDisabed = ref(false);
+    const prevBtnDisabled = ref(false);
+    const nextBtnDisabled = ref(false);
     const navRef = ref();
-    const navscrollRef = ref();
-    const navboxRef = ref();
-    const inkbarRef = ref();
+    const navScrollRef = ref();
+    const navBoxRef = ref();
+    const inkBarRef = ref();
 
     // const children = getChildren(slots.default?.());
     const children = computed(() => {
@@ -49,47 +49,47 @@ const Tabs = defineComponent({
       e.stopPropagation();
       // e.preventDefault();
     };
-    const resetActivePostion = () => {
+    const resetActivePosition = () => {
       const target = navRef.value.children[currentIndex.value];
       if (!target) return;
       // show active tab in client
-      const panel = navscrollRef.value;
+      const panel = navScrollRef.value;
       // let totalWidth = panel.offsetWidth
-      let clientWidth = navboxRef.value.clientWidth;
-      let navOffsetleft = navOffsetLeft.value;
+      let clientWidth = navBoxRef.value.clientWidth;
+      let navLeft = navOffsetLeft.value;
       let { offsetLeft, offsetWidth } = target;
 
       // min left
-      if (navOffsetleft + offsetLeft < 0) {
-        navOffsetleft = -offsetLeft;
+      if (navLeft + offsetLeft < 0) {
+        navLeft = -offsetLeft;
       }
       //max right
-      else if (clientWidth - navOffsetleft < offsetLeft + offsetWidth) {
-        navOffsetleft -= offsetLeft + offsetWidth + navOffsetleft - clientWidth + 2; //marginRight
+      else if (clientWidth - navLeft < offsetLeft + offsetWidth) {
+        navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2; //marginRight
       }
-      navOffsetLeft.value = navOffsetleft;
-      panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+      navOffsetLeft.value = navLeft;
+      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
     };
     const resetNavPosition = () => {
       // when one tab removed or append
       nextTick(() => {
-        const panel = navscrollRef.value;
+        const panel = navScrollRef.value;
         if (!panel) return;
         let totalWidth = panel.offsetWidth;
-        let clientWidth = navboxRef.value.clientWidth;
-        let navOffsetleft = navOffsetLeft.value;
-        if (clientWidth + navOffsetleft < clientWidth) {
-          navOffsetleft = clientWidth - totalWidth;
+        let clientWidth = navBoxRef.value.clientWidth;
+        let navLeft = navOffsetLeft.value;
+        if (clientWidth + navLeft < clientWidth) {
+          navLeft = clientWidth - totalWidth;
         }
-        if (navOffsetleft > 0) navOffsetleft = 0;
-        navOffsetLeft.value = navOffsetleft;
+        if (navLeft > 0) navLeft = 0;
+        navOffsetLeft.value = navLeft;
 
-        nextBtnDisabed.value = navOffsetleft == clientWidth - totalWidth;
-        prevBtnDisabed.value = navOffsetleft == 0;
+        nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
+        prevBtnDisabled.value = navLeft == 0;
 
-        panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+        panel.style.transform = `translate3d(${navLeft}px,0,0)`;
 
-        resetActivePostion();
+        resetActivePosition();
         updateInkBarPosition()
         updateNav();
       });
@@ -97,30 +97,30 @@ const Tabs = defineComponent({
     const scroll = (direction) => {
       //control left or right
 
-      const panel = navscrollRef.value;
+      const panel = navScrollRef.value;
       let totalWidth = panel.offsetWidth;
-      let clientWidth = navboxRef.value.clientWidth;
-      let navOffsetleft = navOffsetLeft.value;
+      let clientWidth = navBoxRef.value.clientWidth;
+      let navLeft = navOffsetLeft.value;
       // console.log(totalWidth, clientWidth)
       if (direction == "right") {
-        const endWidth = totalWidth - clientWidth + navOffsetleft;
+        const endWidth = totalWidth - clientWidth + navLeft;
         if (endWidth > clientWidth) {
-          navOffsetleft -= clientWidth;
+          navLeft -= clientWidth;
         } else if (endWidth > 0) {
-          navOffsetleft -= endWidth;
+          navLeft -= endWidth;
         }
       } else {
-        if (navOffsetleft < -clientWidth) {
-          navOffsetleft += clientWidth;
-        } else if (navOffsetleft < 0) {
-          navOffsetleft = 0;
+        if (navLeft < -clientWidth) {
+          navLeft += clientWidth;
+        } else if (navLeft < 0) {
+          navLeft = 0;
         }
       }
-      nextBtnDisabed.value = navOffsetleft == clientWidth - totalWidth;
-      prevBtnDisabed.value = navOffsetleft == 0;
+      nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
+      prevBtnDisabled.value = navLeft == 0;
 
-      navOffsetLeft.value = navOffsetleft;
-      panel.style.transform = `translate3d(${navOffsetleft}px,0,0)`;
+      navOffsetLeft.value = navLeft;
+      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
     };
     const tabClick = ({ disabled, key }, index) => {
       if (!disabled) {
@@ -134,7 +134,7 @@ const Tabs = defineComponent({
     const updateIndex = () => {
       nextTick(() => {
         currentIndex.value = children.value?.map((p) => p.key).indexOf(defaultActiveKey.value);
-        resetActivePostion();
+        resetActivePosition();
         updateInkBarPosition();
       });
     };
@@ -142,24 +142,24 @@ const Tabs = defineComponent({
       if (!ps.card && !ps.sample && ps.animated) {
         const nav = navRef.value.children[currentIndex.value];
         if (nav) {
-          const inkbar = inkbarRef.value;
+          const inkBar = inkBarRef.value;
           let offsetLeft = nav.offsetLeft;
           if (ps.centered) {
-            // offsetLeft = (navboxRef.value.offsetWidth - offsetLeft) ;
+            // offsetLeft = (navBoxRef.value.offsetWidth - offsetLeft) ;
           }
-          inkbar.style.width = `${nav.offsetWidth}px`;
-          inkbar.style.transform = `translate3d(${offsetLeft}px, 0px, 0px)`;
+          inkBar.style.width = `${nav.offsetWidth}px`;
+          inkBar.style.transform = `translate3d(${offsetLeft}px, 0px, 0px)`;
         }
       }
     };
     const updateNav = () => {
       nextTick(() => {
-        // update inkbar position
+        // update inkBar position
 
         // set panel has scroll arrow
-        const navbox = navboxRef.value;
-        if (!navbox) return;
-        scrollable.value = navbox.scrollWidth > navbox.clientWidth;
+        const navBox = navBoxRef.value;
+        if (!navBox) return;
+        scrollable.value = navBox.scrollWidth > navBox.clientWidth;
       });
     };
     const renderNav = () => {
@@ -213,20 +213,20 @@ const Tabs = defineComponent({
           <div class="k-tabs-bar">
             <div class={navCls}>
               {scrollable.value ? (
-                <span class={["k-tabs-tab-btn-prev", { "k-tabs-tab-btn-prev-disabed": prevBtnDisabed.value }]} onClick={() => scroll("left")}>
+                <span class={["k-tabs-tab-btn-prev", { "k-tabs-tab-btn-prev-disabled": prevBtnDisabled.value }]} onClick={() => scroll("left")}>
                   <Icon type={ChevronBack} />
                 </span>
               ) : null}
-              <div class="k-tabs-nav-wrap" ref={navboxRef}>
-                <div class="k-tabs-nav" style={scrollStyle} ref={navscrollRef}>
-                  {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref={inkbarRef} /> : null}
+              <div class="k-tabs-nav-wrap" ref={navBoxRef}>
+                <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
+                  {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
                     {renderNav()}
                   </div>
                 </div>
               </div>
               {scrollable.value ? (
-                <span class={["k-tabs-tab-btn-next", { "k-tabs-tab-btn-next-disabed": nextBtnDisabed.value }]} onClick={() => scroll("right")}>
+                <span class={["k-tabs-tab-btn-next", { "k-tabs-tab-btn-next-disabled": nextBtnDisabled.value }]} onClick={() => scroll("right")}>
                   <Icon type={ChevronForward} />
                 </span>
               ) : null}

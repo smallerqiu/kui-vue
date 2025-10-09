@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-k-layout">
+  <Flex class="demo-k-layout" wrap size="small">
     <Layout>
       <Header>Header</Header>
       <Content>Content</Content>
@@ -35,20 +35,25 @@
         <Footer>Footer</Footer>
       </Layout>
     </Layout>
-  </div>
+  </Flex>
 </template>
 <style scoped>
 .demo-k-layout {
     text-align: center;
 }
 .demo-k-layout >.k-layout {
-    margin-bottom: 20px;
-    color: #fff
+    color: #fff;
+    min-width: calc(50% - 8px);
+    border-radius: 15px;
+    overflow: hidden;
 }
-.demo-k-layout .k-layout-footer,.demo-k-layout .k-layout-header {
+.demo-k-layout .k-layout-header {
     background-color: var(--kui-color-main-60);
     height:64px;
     line-height:64px;
+}
+.demo-k-layout .k-layout-footer{
+    background-color: var(--kui-color-main-60);
 }
 .demo-k-layout .k-layout-content {
     min-height: 120px;
@@ -58,7 +63,7 @@
 .demo-k-layout .k-layout-sider {
     line-height: 120px;
     background-color: var(--kui-color-main-10);
-    width:200px;
+    width:30%;
 }
 </style>
 ```

@@ -48,7 +48,7 @@ const Radio = defineComponent({
 
       const disabled = radioGroup?.disabled || ps.disabled;
 
-      const wpclasses = [
+      const classes = [
         "k-radio",
         {
           ["k-radio-disabled"]: disabled,
@@ -61,7 +61,7 @@ const Radio = defineComponent({
       const labelNode = ps.label || slots.default?.();
 
       return (
-        <label class={wpclasses} onClick={(e) => e.stopPropagation()}>
+        <label class={classes} onClick={(e) => e.stopPropagation()}>
           <span class="k-radio-symbol">
             <input type="radio" class="k-radio-input" disabled={disabled} checked={isChecked.value} onChange={change} />
             <span class="k-radio-inner"></span>

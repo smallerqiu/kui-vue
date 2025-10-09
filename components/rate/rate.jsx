@@ -52,7 +52,7 @@ const Rate = defineComponent({
       const tpValue = tempValue.value || initValue.value;
       let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
       const stars = [];
-      if (Number(count) == NaN || count <= 0) {
+      if (isNaN(Number(count)) || count <= 0) {
         count = 5;
       }
       if (count > 15) count = 15;

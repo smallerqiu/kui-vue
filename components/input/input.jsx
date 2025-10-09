@@ -132,10 +132,10 @@ const Input = defineComponent({
     return () => {
       const { icon, size = parentSize, disabled, type, clearable, suffix, theme, prefix, shape, inputType } = ps;
 
-      let mult = icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.controls;
+      let multiple = (icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.controls) && type !== 'hidden'
 
-      let textInput = getTextInput(mult);
-      if (!mult) return textInput;
+      let textInput = getTextInput(multiple);
+      if (!multiple) return textInput;
 
       let clearableShow = clearable && !isEmpty(currentValue.value);
       const props = {

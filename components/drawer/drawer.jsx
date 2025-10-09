@@ -118,7 +118,7 @@ const Drawer = defineComponent({
     return () => {
       const { title, cancelText, okText, placement, width, height, closable, loading } = ps;
       const hasFooter = ps.footer || slots.footer;
-      const canelBtn = <Button onClick={cancel}>{cancelText || locale?.k.drawer.cancel}</Button>;
+      const cancelBtn = <Button onClick={cancel}>{cancelText || locale?.k.drawer.cancel}</Button>;
       const okBtn = (
         <Button type="primary" onClick={ok} loading={loading}>
           {okText || locale?.k.drawer.ok}
@@ -127,7 +127,7 @@ const Drawer = defineComponent({
       const footNode = hasFooter ? (
         <div class="k-drawer-footer">
           {slots.footer?.()}
-          {!slots.footer && [canelBtn, okBtn]}
+          {!slots.footer && [cancelBtn, okBtn]}
         </div>
       ) : null;
 
@@ -139,8 +139,8 @@ const Drawer = defineComponent({
 
       const transitionName = `k-drawer-${placement}`;
       const target = ps.target();
-      const inbody = target == document.body;
-      const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open.value }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !inbody }, { "k-drawer-nomask": !ps.mask }];
+      const isBody = target == document.body;
+      const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open.value }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !ps.mask }];
       let styles = {};
       if (placement == "left" || placement == "right") styles.width = /%/.test(width) ? width : width + "px";
       if (placement == "top" || placement == "bottom") styles.height = /%/.test(height) ? height : height + "px";
@@ -149,7 +149,7 @@ const Drawer = defineComponent({
       if (ps.mask) {
         maskNode = (
           <Transition name="k-drawer-fade">
-            <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !inbody }]} v-show={visible.value} onClick={maskToClose}></div>
+            <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]} v-show={visible.value} onClick={maskToClose}></div>
           </Transition>
         );
       }

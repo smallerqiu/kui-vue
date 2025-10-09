@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-space-align">
+  <Flex class="demo-space-align" wrap size="small">
     <Space align="start">
       <div class="block">block</div>
       <Button>button</Button>
@@ -26,14 +26,14 @@
       <Button>button</Button>
       <Tag color="blue">baseline</Tag>
     </Space>
-  </div>
+  </Flex>
 </template>
 <style lang=less>
   .demo-space-align{
     .k-space{
       border:1px solid var(--kui-color-border);
-      padding:5px;
-      margin:0 5px;
+      width: calc(50% - 8px);
+      border-radius: 4px;
     }
     .block {
       border: 1px solid var(--kui-color-border);

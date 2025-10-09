@@ -104,8 +104,8 @@ export default {
     },
     renderSort(col) {
       return (col.sorter) ? (<span class="k-table-sorter">
-        <Icon type={CaretUp} class={{ actived: col._order == 'asc' }} />
-        <Icon type={CaretDown} class={{ actived: col._order == 'desc' }} />
+        <Icon type={CaretUp} class={{ active: col._order == 'asc' }} />
+        <Icon type={CaretDown} class={{ active: col._order == 'desc' }} />
       </span>) : null
     },
     renderTH(col, left, right) {

@@ -1,12 +1,12 @@
 <cn>
 #### 手风琴
-设置 `accrodion` 只允许同时展开一个面板
+设置 `accordion` 只允许同时展开一个面板
 </cn>
 
 ```vue
 <template>
   <div class="demo-collapse">
-    <Collapse :value="['1']" accrodion>
+    <Collapse :value="['1']" accordion>
       <CollapsePanel title="Panel title" key="1">
         <div>{{text}}</div>
       </CollapsePanel>

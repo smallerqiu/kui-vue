@@ -3,7 +3,7 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="65">
-      <Flex size="large">
+      <Flex size="large" style="background-color: var(--kui-color-back);">
         <RadioGroup v-model:value="type" @change="switchIcon" theme="card" type="button">
           <RadioButton value="outline">线框风格</RadioButton>
           <RadioButton value="filled">实底风格</RadioButton>
@@ -133,6 +133,7 @@ const copyHandle = (x) => {
     font-size: 32px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
+    border-radius: 12px;
 
     &:hover {
       color: #3a95ff;

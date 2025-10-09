@@ -406,7 +406,7 @@ const Select = defineComponent({
               onSelect={onSelect}
               onMouseenter={() => onMouseenter(index)}
               key={value}
-              actived={activeIndex.value == index}
+              active={activeIndex.value == index}
               value={value}
               label={labelText}
               checked={checked}
@@ -431,7 +431,7 @@ const Select = defineComponent({
           optionNodes.push(
             cloneVNode(child, {
               key: child.props?.value,
-              actived: activeIndex.value == index,
+              active: activeIndex.value == index,
               multiple: ps.multiple,
               checked: checked,
               onSelect: onSelect,

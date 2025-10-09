@@ -236,7 +236,7 @@ const Page = defineComponent({
       ) : null;
     };
 
-    const renderElvator = () => {
+    const renderElevator = () => {
       let { size } = ps;
       let prop = {
         class: "k-page-options-elevator",
@@ -311,7 +311,7 @@ const Page = defineComponent({
         ) : null,
         pagerNode = renderPage(),
         sizeNode = renderSize(),
-        elvatorNode = renderElvator(),
+        elevatorNode = renderElevator(),
         firstNode = renderFirst(),
         lastNode = renderLast();
       return (
@@ -320,7 +320,7 @@ const Page = defineComponent({
           <ul class="k-pager">
             {[preNode, firstNode, pagerNode, lastNode, nextNode]}
           </ul>
-          {[sizeNode, elvatorNode]}
+          {[sizeNode, elevatorNode]}
         </div>
       );
     };

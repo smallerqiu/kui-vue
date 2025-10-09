@@ -6,7 +6,7 @@ const Collapse = defineComponent({
   name: "Collapse",
   props: {
     value: Array,
-    accrodion: Boolean,
+    accordion: Boolean,
     sample: Boolean,
   },
   setup(ps, { slots, emit }) {
@@ -25,9 +25,9 @@ const Collapse = defineComponent({
       let index = value.indexOf(key);
 
       if (index >= 0) {
-        ps.accrodion ? (value = []) : value.splice(index, 1);
+        ps.accordion ? (value = []) : value.splice(index, 1);
       } else {
-        ps.accrodion ? (value = [key]) : value.push(key);
+        ps.accordion ? (value = [key]) : value.push(key);
       }
       currentValue.value = value;
       emit("change", key);
@@ -38,7 +38,7 @@ const Collapse = defineComponent({
       const classes = [
         "k-collapse",
         {
-          ["k-collaplse-sample"]: ps.sample,
+          ["k-collapse-sample"]: ps.sample,
         },
       ];
       const children = getChildren(slots.default?.());
@@ -46,8 +46,8 @@ const Collapse = defineComponent({
       return (
         <div class={classes}>
           {children?.map((child) => {
-            let actived = currentValue.value.includes(child.key);
-            return cloneVNode(child, { actived, onExpand: change });
+            let active = currentValue.value.includes(child.key);
+            return cloneVNode(child, { active, onExpand: change });
           })}
         </div>
       );

@@ -7,15 +7,15 @@ const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: {
     title: String,
-    actived: Boolean,
+    active: Boolean,
   },
   setup(ps, { slots, emit }) {
     const instance = getCurrentInstance();
-    const expaned = ref(ps.actived);
-    const rendered = ref(ps.actived);
+    const expaned = ref(ps.active);
+    const rendered = ref(ps.active);
 
     watch(
-      () => ps.actived,
+      () => ps.active,
       (nv, no) => {
         rendered.value = true;
         nextTick(() => {
@@ -36,7 +36,7 @@ const CollapsePanel = defineComponent({
         },
       ];
       const extraNode = slots.extra?.();
-      const aniprop = getTranstionProp("k-collaplse-slide");
+      const aniprop = getTranstionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
         <Transition {...aniprop}>

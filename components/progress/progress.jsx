@@ -75,14 +75,14 @@ const Progress = defineComponent({
     const renderCircle = (percent, strokeColor, dashboard) => {
       let { strokeWidth, gapDegree, strokeLinecap } = ps;
       let radius = 50 - strokeWidth / 2,
-        benginX = 0,
-        benginY = radius,
+        beginX = 0,
+        beginY = radius,
         endX = 0,
         endY = 2 * radius;
       let gap = Math.max(0, gapDegree);
       gap = Math.min(259, gap);
       let d = `M 50,50 
-               m ${benginX}, ${benginY} 
+               m ${beginX}, ${beginY} 
                a ${radius},${radius} 0 1 1 ${endX}, ${-endY} 
                a ${radius},${radius} 0 1 1 ${-endX},${endY}`,
         len = Math.PI * 2 * radius,
@@ -113,7 +113,7 @@ const Progress = defineComponent({
         </svg>
       );
     };
-    const renderGress = () => {
+    const renderBar = () => {
       let { type, color, strokeHeight } = ps;
       if (type == "line") {
         let sty = {
@@ -141,7 +141,7 @@ const Progress = defineComponent({
       }
       let classes = ["k-progress", `k-progress-${type}`, `k-progress-${status}`, { "k-progress-sm": type == "line" && size == "small" }, { "k-progress-hide-info": !showInfo }];
       let tipNode = renderTip();
-      let gress = renderGress(),
+      let bar = renderBar(),
         style = {};
 
       if (type != "line" && width > 10) {
@@ -149,7 +149,7 @@ const Progress = defineComponent({
       }
       return (
         <div class={classes} style={style}>
-          {[gress, tipNode]}
+          {[bar, tipNode]}
         </div>
       );
     };

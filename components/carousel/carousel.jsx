@@ -8,7 +8,7 @@ const Carousel = defineComponent({
   directives: { resize },
   props: {
     value: { type: Number, default: 0 },
-    loop: Boolean,
+    loop: { type: Boolean, default: true },
     autoplay: Boolean,
     delay: { type: Number, default: 3000 },
     vertical: Boolean,
