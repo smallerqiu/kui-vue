@@ -30,7 +30,7 @@
           <MenuItem key="https://chuchur.com/">Blog</MenuItem>
         </SubMenu>
       </Menu>
-      <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
+      <ColorPicker class="theme" mode="rgb" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
         @change="changeThemeColor" />
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
         <Button type="text" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"

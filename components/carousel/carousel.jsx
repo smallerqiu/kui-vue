@@ -56,7 +56,7 @@ const Carousel = {
 			this.animate = true;
 			this.currentIndex = index;
 			this.posIndex = this.loop ? index + 1 : index;
-			this.$emit("update:value", index);
+			this.$emit("input", index);
 			this.autoToPlay();
 		},
 		autoToPlay() {
@@ -92,7 +92,7 @@ const Carousel = {
 
 			this.posIndex = index;
 			this.currentIndex = nextCurrent;
-			this.$emit("update:value", this.currentIndex);
+			this.$emit("input", this.currentIndex);
 
 			setTimeout(() => {
 				this.playing = false;

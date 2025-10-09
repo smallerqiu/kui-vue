@@ -138,9 +138,11 @@ const Select = {
       // console.log(value, currentValue)
 
       if (this.showSearch) {
-        this.queryKey = "";
-        this.$refs.search.value = "";
-        this.$refs.search.style.width = "";
+        setTimeout(() => {
+          this.queryKey = "";
+          this.$refs.search.value = "";
+          this.$refs.search.style.width = "";
+        }, 300);
       }
       if (!multiple) {
         this.opened = false;

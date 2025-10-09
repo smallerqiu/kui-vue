@@ -1,5 +1,5 @@
 import Color from "color";
-import { clamp } from "@vueuse/core";
+import { clamp } from "../utils/number";
 
 export default {
   name: "Paint",
@@ -19,12 +19,6 @@ export default {
       this.currentColor = this.value;
       this.$nextTick(() => {
         this.renderPaint();
-        this.updatePos();
-      });
-    },
-    value(val) {
-      this.currentColor = val;
-      this.$nextTick(() => {
         this.updatePos();
       });
     },
@@ -61,7 +55,7 @@ export default {
     updatePos() {
       if (this.currentColor) {
         const { width, height } = this.$refs.paint;
-        const [h, s, v] = Color(this.currentColor).hsv().array();
+        const [hh, s, v] = Color(this.currentColor).hsv().array();
         const x = (s / 100) * width;
         const y = height - (v / 100) * height;
         this.dotPos.x = x - 7;

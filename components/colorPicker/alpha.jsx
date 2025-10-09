@@ -1,5 +1,5 @@
 import Color from "color";
-import { clamp } from "@vueuse/core";
+import { clamp } from "../utils/number";
 
 export default {
   name: "Alpha",

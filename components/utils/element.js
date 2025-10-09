@@ -2,9 +2,9 @@ export function isEmptyNode(vnode = {}) {
   return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim() !== ''))
 }
 
-export function getChildren(child = [], name) {
+export function getChildren(children = [], name) {
   // return child.filter(c => !isEmptyNode(c, name) )
-  return child.filter(c => {
+  return children.filter(c => {
     let tag_name = ''
     if (name && c.componentOptions != null && c.componentOptions.Ctor != undefined) {
       tag_name = c.componentOptions.Ctor.extendOptions.name
