@@ -1,7 +1,7 @@
 import { defineComponent, ref, computed, Transition } from "vue";
 import Icon from "../icon";
 import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, Close } from "kui-icons";
-import { getTranstionProp } from "../base/transition";
+import { getTransitionProp } from "../base/transition";
 import { withInstall } from '../utils/vue';
 
 const Alert = defineComponent({
@@ -38,7 +38,7 @@ const Alert = defineComponent({
       warning: AlertCircle,
     };
 
-    const aniprop = getTranstionProp("k-alert-slide");
+    const aniprop = getTransitionProp("k-alert-slide");
 
     return () => {
       const iconNode = props.showIcon ? <Icon type={icons[props.type]} class="k-alert-icon" /> : null;

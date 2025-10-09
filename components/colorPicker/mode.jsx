@@ -1,10 +1,11 @@
 import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import InputNumber from "../inputNumber";
+import { Input } from "../input";
 import { Select } from "../select";
 import Color from "color";
 import { isColor } from "../utils/color";
 export default defineComponent({
-  name: "Alpha",
+  name: "Mode",
   props: {
     value: [String, Object],
     mode: String,

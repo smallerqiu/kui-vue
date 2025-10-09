@@ -1,5 +1,5 @@
 import { ref, defineComponent, Transition } from "vue";
-import { getTranstionProp } from "kui-vue/base/transition";
+import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor } from "kui-icons";
 import { useClipboard } from "@vueuse/core";
 import Icon from "kui-vue/icon";
@@ -10,7 +10,7 @@ export default defineComponent({
     const expand = ref(false);
     const code = ref(null);
 
-    const transProp = getTranstionProp();
+    const transProp = getTransitionProp();
 
     const { copy, isSupported } = useClipboard();
 

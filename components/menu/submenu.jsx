@@ -10,7 +10,7 @@ import {
   Transition,
 } from "vue";
 import Icon from "../icon";
-import { getTranstionProp } from "../base/transition";
+import { getTransitionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -142,7 +142,7 @@ const SubMenu = defineComponent({
         },
       };
       const children = getChildren(slots.default?.());
-      const menuItesms = children.map((child) => {
+      const menuItems = children.map((child) => {
         // if (child.type.name == "MenuItem") {
         return cloneVNode(child, { ispopup: true });
         // }
@@ -155,7 +155,7 @@ const SubMenu = defineComponent({
             v-transfer={true}
             {...poperPros}>
             <div class={`k-${preCls}-sub`}>
-              <ul className={`k-menu k-menu-vertical`}>{menuItesms}</ul>
+              <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
             </div>
           </div>
         </Transition>
@@ -167,7 +167,7 @@ const SubMenu = defineComponent({
       // todo: mode 从inline 切换 vertical 时 会卡一下, 为查明原因. 后面在细看
 
       if (inline) {
-        const aniprop = getTranstionProp("k-collapse-slide");
+        const aniprop = getTransitionProp("k-collapse-slide");
         const node = [
           <Transition {...aniprop}>
             <div
@@ -175,7 +175,7 @@ const SubMenu = defineComponent({
               v-show={
                 opened && !inlineCollapsed.value && mode.value != "vertical"
               }>
-              <ul className={`k-menu k-menu-${mode.value}`}>
+              <ul class={`k-menu k-menu-${mode.value}`}>
                 {slots.default?.()}
               </ul>
             </div>

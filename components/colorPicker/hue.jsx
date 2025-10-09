@@ -64,12 +64,12 @@ export default defineComponent({
     const renderPaint = () => {
       const canvas = refPaint.value;
       const ctx = canvas.getContext("2d", { willReadFrequently: true }),
-        setp = 1 / 360,
+        step = 1 / 360,
         width = canvas.width,
         height = canvas.height,
         gradient = ctx.createLinearGradient(0, 0, width, height);
 
-      for (let i = 0; i <= 1; i += setp) {
+      for (let i = 0; i <= 1; i += step) {
         gradient.addColorStop(i, `hsl(${360 * i},100%,50%)`);
       }
       ctx.fillStyle = gradient;

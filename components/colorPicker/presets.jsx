@@ -1,6 +1,7 @@
 import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import Color from "color";
 import { Checkmark } from "kui-icons";
+import Icon from "../icon";
 export default defineComponent({
   name: "Presets",
   props: {
@@ -52,7 +53,7 @@ export default defineComponent({
           ) : null}
         </span>
       ));
-      return <div class="k-coclor-picker-presets">{color}</div>;
+      return <div class="k-color-picker-presets">{color}</div>;
     };
   },
 });
