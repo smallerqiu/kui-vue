@@ -74,7 +74,7 @@ const InputNumber = defineComponent({
       // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
       return { input, output };
     };
-    // output is the trueth value
+    // output is the truth value
     // input is the show text
     const { input, output } = getValue(ps.value);
 

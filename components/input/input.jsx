@@ -97,19 +97,19 @@ const Input = defineComponent({
 
       return Password || SearchNode || slots.suffix || (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null);
     };
-    const getTextInput = (mult) => {
+    const getTextInput = (multiple) => {
       const { disabled, size = parentSize, type, id, theme, shape, placeholder, inputType } = ps;
       const props = {
         value: currentValue.value,
         class: [
           {
-            [`k-${inputType}`]: !mult,
-            [`k-${inputType}-text`]: mult,
+            [`k-${inputType}`]: !multiple,
+            [`k-${inputType}-text`]: multiple,
             [`k-${inputType}-disabled`]: disabled,
-            [`k-${inputType}-sm`]: size == "small" && !mult,
-            [`k-${inputType}-lg`]: size == "large" && !mult,
-            [`k-${inputType}-${theme}`]: theme != "solid" && !mult && theme,
-            [`k-${inputType}-circle`]: shape == "circle" && !mult,
+            [`k-${inputType}-sm`]: size == "small" && !multiple,
+            [`k-${inputType}-lg`]: size == "large" && !multiple,
+            [`k-${inputType}-${theme}`]: theme != "solid" && !multiple && theme,
+            [`k-${inputType}-circle`]: shape == "circle" && !multiple,
           },
         ],
         ref: inputRef,

@@ -2,7 +2,7 @@ import Icon from '../icon'
 import { Checkbox } from '../checkbox'
 import { Button } from '../button'
 import Node from './node.jsx'
-import { getTranstionProp } from '../base/transition'
+import { getTransitionProp } from '../base/transition'
 import { getChild } from '../_tool/utils'
 import cloneVNode from '../_tool/clone.js'
 import { Loading, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
@@ -275,7 +275,7 @@ const TreeNode = defineComponent({
         })
       }
     }
-    let onProps = getTranstionProp('k-tree-slide')
+    let onProps = getTransitionProp('k-tree-slide')
     const itemProps = {
       attrs: {},
       class: ['k-tree-item', {

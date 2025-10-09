@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { getTranstionProp } from "../base/transition";
+import { getTransitionProp } from "../base/transition";
 import { ChevronUp } from "kui-icons";
 import { defineComponent, ref, watch, computed, Transition, getCurrentInstance, nextTick, inject } from "vue";
 import { withInstall } from '../utils/vue';
@@ -36,7 +36,7 @@ const CollapsePanel = defineComponent({
         },
       ];
       const extraNode = slots.extra?.();
-      const aniprop = getTranstionProp("k-collapse-slide");
+      const aniprop = getTransitionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
         <Transition {...aniprop}>

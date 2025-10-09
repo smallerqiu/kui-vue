@@ -165,7 +165,7 @@ const ColorPicker = defineComponent({
     const renderTriggerText = () => {
       let text = getColor();
       return ps.showText ? (
-        <div class="k-coclor-picker-trigger-text">{text}</div>
+        <div class="k-color-picker-trigger-text">{text}</div>
       ) : null;
     };
     const onUpdate = (color) => {
@@ -238,7 +238,7 @@ const ColorPicker = defineComponent({
       return (
         <Transition name="k-color-picker">
           <div v-transfer={true} v-show={visible.value} {...props}>
-            <div className="k-color-picker-body">
+            <div class="k-color-picker-body">
               <Paint
                 hue={currentHue.value}
                 value={currentColor.value}

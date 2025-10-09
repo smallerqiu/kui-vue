@@ -15,18 +15,18 @@ export default {
   setup(props, { slots }) {
     return () => (
       <div class="demo-button">
-        {/* <Info />
+        <Info />
         <Base />
         <Outline />
         <Color />
         <Light />
         <WithIcon />
         <Size />
-        <Disabled /> */}
+        <Disabled />
         <Loading />
-        {/* <Block /> */}
-        {/* <Group /> */}
-        {/* <CN /> */}
+        <Block />
+        <Group />
+        <CN />
       </div>
     )
   }

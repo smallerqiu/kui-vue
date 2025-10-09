@@ -1,5 +1,5 @@
 import Notice from "./inner";
-import { getTranstionProp } from "../base/transition";
+import { getTransitionProp } from "../base/transition";
 let count = 0;
 function getUuid() {
   const timestamp = Date.now();
@@ -40,7 +40,7 @@ export default defineComponent({
 
       let transition = { name: `k-${type}-slide` };
       if (type == "notice") {
-        transition = getTranstionProp(`k-${type}-slide`);
+        transition = getTransitionProp(`k-${type}-slide`);
         delete transition.onEnter;
         delete transition.onBeforeEnter;
         transition.onBeforeLeave = (el) => {

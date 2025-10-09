@@ -5,9 +5,7 @@
 
 ```vue
 <template>
-  <Space class="demo-color-picker" vertical>
-    <ColorPicker :value="color" disabledAlpha />
-  </Space>
+  <ColorPicker :value="color" disabledAlpha />
 </template>
 <script setup>
 const color = '#3a95ff'

@@ -1,7 +1,7 @@
 // 利用vue 的状态管理 结合 vue transition 和 css3 的 transition 实现 Jqeury toggle
 // 给需要的 元素加上 css  transition: height .2s ease-in-out;
 // by chuchur
-export function getTranstionProp(name) {
+export function getTransitionProp(name) {
   return {
     name,
     onBeforeEnter: (el) => {
