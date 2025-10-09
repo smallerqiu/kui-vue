@@ -1,4 +1,4 @@
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 const ButtonGroup = {
   name: "ButtonGroup",
@@ -30,7 +30,7 @@ const ButtonGroup = {
   render() {
     return (
       <div class={this.classes}>
-        {getChild(this.$slots.default)}
+        {getChildren(this.$slots.default)}
       </div>
     )
   }

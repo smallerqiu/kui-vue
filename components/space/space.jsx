@@ -1,4 +1,4 @@
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import cloneVNode from '../utils/clone'
 import { withInstall } from '../utils/vue'
 const Space = {
@@ -54,7 +54,7 @@ const Space = {
     let children = $slots.default
     let split = $slots.split
 
-    children = getChild(this.$slots.default)
+    children = getChildren(this.$slots.default)
     let newChildren = []
 
     for (let i = 0; i < children.length; i++) {

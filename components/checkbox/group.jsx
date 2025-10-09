@@ -1,5 +1,5 @@
 import Checkbox from './checkbox';
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 const CheckboxGroup = {
   name: "CheckboxGroup",
@@ -40,7 +40,7 @@ const CheckboxGroup = {
   },
   render() {
     const { options, $slots, direction, size } = this
-    let childs = getChild($slots.default)
+    let childs = getChildren($slots.default)
     if (options && options.length) {
       childs = options.map(option => (
         <Checkbox

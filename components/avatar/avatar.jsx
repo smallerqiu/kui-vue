@@ -1,5 +1,5 @@
 import Icon from '../icon'
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 const Avatar = {
   name: 'Avatar',
@@ -41,7 +41,7 @@ const Avatar = {
         fontSize: `${size / 2}px`,
       }
     }
-    let child = getChild(this.$slots.default)
+    let child = getChildren(this.$slots.default)
     let hasIcon = child.filter(x => (x.componentOptions || {}).tag == 'Icon').length
     let text = child.filter(x => !x.context).length == child.length
 

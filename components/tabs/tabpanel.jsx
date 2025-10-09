@@ -5,23 +5,24 @@ const TabPanel = {
     title: String,
     icon: [String, Array],
     disabled: Boolean,
-    closable: Boolean
-  },
-  inject: {
-    Tabs: { default: {} },
-  },
-  beforeDestroy() {
-    this.Tabs && this.Tabs.resetNavPosition();
+    closable: Boolean,
+    activeKey: String,
   },
   mounted() {
-    this.Tabs && this.Tabs.resetNavPosition();
+    this.$emit("resetNavPosition");
+  },
+  beforeDestroy() {
+    this.$emit("resetNavPosition");
   },
   render() {
+    const key = this.$vnode && this.$vnode.key;
+    const isActive = this.activeKey === key;
+
     return (
-      <div class={['k-tabs-tabpanel', { 'k-tabs-tabpanel-active': this.Tabs.activeKey == this.$vnode.key }]}>
+      <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": isActive }]}>
         {this.$slots.default}
       </div>
-    )
-  }
-}
+    );
+  },
+};
 export default withInstall(TabPanel)

@@ -1,11 +1,11 @@
 import Option from "./option";
 import Icon from "../icon";
 import Empty from "../empty";
-import { hasProp, getChild, isNotEmpty, isEmpty } from "../utils/element";
+import { hasProp, getChildren, isNotEmpty, isEmpty } from "../utils/element";
 
 import Drop from "../base/drop";
 import { t } from "../locale";
-import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { withInstall } from '../utils/vue'
 
 const Select = {
@@ -21,7 +21,7 @@ const Select = {
     transfer: { type: Boolean, default: true },
     width: Number,
     value: [String, Number, Array],
-    clearable: Boolean,
+    clearable: { type: Boolean, default: false },
     filterable: Boolean,
     disabled: Boolean,
     multiple: Boolean,
@@ -215,7 +215,7 @@ const Select = {
           return <Option {...prop} />;
         });
       } else {
-        children = getChild($slots.default);
+        children = getChildren($slots.default);
       }
       if (!filterable) return children;
 
@@ -300,7 +300,7 @@ const Select = {
 
     const loadingNode = (
       <div class="k-select-loading">
-        <Icon type={Sync} spin />
+        <Icon type={Loading} spin />
         <span>{t("k.select.loading")}</span>
       </div>
     );

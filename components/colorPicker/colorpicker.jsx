@@ -355,7 +355,7 @@ const ColorPicker = {
           node.push(v)
         }
         node.unshift(<span class="k-color-picker-mode-label">{mode}:</span>)
-        let btn = <Button size="small" theme="normal" icon={CaretHor} onClick={this.setMode} />
+        let btn = <Button size="small" type="text" icon={CaretHor} onClick={this.setMode} />
         node.push(btn)
         return <div class={`k-color-picker-mode k-color-picker-${currentMode}`}>{node}</div>
       }

@@ -24,6 +24,11 @@ const Flex = {
       }
     }
   },
+  provide() {
+    return {
+      size: this.size,
+    }
+  },
   render() {
     let { align, justify, vertical, $slots, size, wrap } = this
     align = (!vertical && !align) ? 'center' : align

@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import Tooltip from '../tooltip'
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 
 const MenuItem = {
@@ -82,7 +82,7 @@ const MenuItem = {
     }
     // 没有子集的时候才展示
     const showTooltip = Menu.inlineCollapsed && !SubMenu
-    let child = title || getChild(this.$slots.default)
+    let child = title || getChildren(this.$slots.default)
     let titleNode = <span class={`k-${preCls}-title-content`}>{child}</span>
     let iconNode = this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)
     let menuItem = <li {...props}>{iconNode}{titleNode}</li>

@@ -6,17 +6,16 @@
 ```vue
 <template>
   <Space vertical align="start">
-    <RadioGroup v-model="size">
+    <RadioGroup v-model:value="size">
       <RadioButton value="large" label="Large"/>
       <RadioButton value="default" label="Default"/>
       <RadioButton value="small" label="Small"/>
     </RadioGroup>
-    <Space>
+    <Space wrap>
       <Button type="primary" :size="size">Primary</Button>
       <Button :size="size">Default</Button>
-      <Button type="dashed" :size="size">Dashed</Button>
+      <Button type="text" :size="size">Text</Button>
       <Button type="link" :size="size">Link</Button>
-      <br/>
       <Button type="primary" :size="size" :icon="CloudDownload"></Button>
       <Button type="primary" shape="circle" :size="size" :icon="CloudDownload"></Button>
       <Button type="primary" shape="circle" :size="size" :icon="CloudDownload">Download</Button>

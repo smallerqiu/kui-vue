@@ -5,6 +5,9 @@ html,
 *[theme-mode=light] {
   color-scheme: light;
   --kui-border-radius: @radius;
+  --kui-border-radius-outer: @radiusOuter;
+  --kui-color-default: @default;
+  --kui-color-dark: @dark-default;
   --kui-color-main: @main;
   --kui-color-main-hover: @main-hover;
   --kui-color-main-active: @main-active;
@@ -74,16 +77,31 @@ html,
   --kui-color-purple-60: @purple-60;
   --kui-color-purple-80: @purple-80;
   --kui-color-purple-90: @purple-90;
-  --kui-color-geekblue: @geekblue;
-  --kui-color-geekblue-30: @geekblue-30;
-  --kui-color-geekblue-60: @geekblue-60;
-  --kui-color-geekblue-80: @geekblue-80;
-  --kui-color-geekblue-90: @geekblue-90;
   --kui-color-magenta: @magenta;
   --kui-color-magenta-30: @magenta-30;
   --kui-color-magenta-60: @magenta-60;
   --kui-color-magenta-80: @magenta-80;
   --kui-color-magenta-90: @magenta-90;
+  --kui-color-violet: @violet;
+  --kui-color-violet-30: @violet-30;
+  --kui-color-violet-60: @violet-60;
+  --kui-color-violet-80: @violet-80;
+  --kui-color-violet-90: @violet-90;  
+  --kui-color-brown: @brown;
+  --kui-color-brown-30: @brown-30;
+  --kui-color-brown-60: @brown-60;
+  --kui-color-brown-80: @brown-80;
+  --kui-color-brown-90: @brown-90;
+  --kui-color-teal: @teal;
+  --kui-color-teal-30: @teal-30;
+  --kui-color-teal-60: @teal-60;
+  --kui-color-teal-80: @teal-80;
+  --kui-color-teal-90: @teal-90;
+  --kui-color-olive: @olive;
+  --kui-color-olive-30: @olive-30;
+  --kui-color-olive-60: @olive-60;
+  --kui-color-olive-80: @olive-80;
+  --kui-color-olive-90: @olive-90;
   --kui-color-volcano: @volcano;
   --kui-color-volcano-30: @volcano-30;
   --kui-color-volcano-60: @volcano-60;
@@ -107,7 +125,6 @@ html,
   --kui-color-gray-70: @gray-70;
   --kui-color-gray-80: @gray-80;
   --kui-color-gray-90: @gray-90;
-  --kui-color-dark: @dark;
   --kui-color-mask: @mask-color;
   --kui-color-spin: @spin-color;
   --kui-color-mask-30: @mask-color-30;
@@ -146,6 +163,8 @@ html,
 html[theme-mode=dark],
 *[theme-mode=dark] {
   color-scheme: dark;
+  --kui-color-default: @dark-default;
+  --kui-color-dark: @default;
   --kui-color-font: @dark-font-color;
   --kui-color-title: @dark-title-color;
   --kui-color-sub-title: @dark-sub-title-color;
@@ -160,6 +179,7 @@ html[theme-mode=dark],
   --kui-color-control-80: @dark-back-color-80;
   --kui-color-control-90: @dark-back-color-90;
   --kui-color-spin: @dark-spin-color;
+  --kui-color-selected: @main;
   --kui-color-icon: @dark-icon-color;
   --kui-color-border: @dark-border-color;
   --kui-color-disable-border: @dark-disable-border;

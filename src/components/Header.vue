@@ -33,11 +33,11 @@
       <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
         @change="changeThemeColor" />
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+        <Button type="text" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
           style="margin:0 8px;" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
-        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" theme="normal" size="large"></Button>
+        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" type="text" size="large"></Button>
       </Tooltip>
     </div>
   </Header>

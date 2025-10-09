@@ -1,6 +1,6 @@
 import { Row, Col } from '../grid'
 import cloneVNode from '../utils/clone';
-import { getChild, isVNode } from '../utils/element'
+import { getChildren, isVNode } from '../utils/element'
 import { withInstall } from '../utils/vue'
 
 const FormItem = {
@@ -58,7 +58,7 @@ const FormItem = {
       wrapperProp = { props: { ...wrapperCol } }
     }
 
-    const children = getChild(this.$slots.default)
+    const children = getChildren(this.$slots.default)
     let id = null
     if (Form.name && prop) {
       id = `${Form.name || `form_` + this._uid}_${prop}`

@@ -3,7 +3,7 @@ import { Checkbox } from '../checkbox'
 import { Button } from '../button'
 import Node from './node.jsx'
 import { getTransitionProp } from '../base/transition'
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import cloneVNode from '../utils/clone.js'
 import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
 import { withInstall } from '../utils/vue'
@@ -96,7 +96,7 @@ const TreeNode = {
         let { Tree } = this
         let key = this.$vnode.key
 
-        let { defaultCheckedKeys, halfCheckedKeys, checkStrictly } = this.Tree
+        let { defaultCheckedKeys, halfCheckedKeys, checkStrictly } = Tree
         let index = defaultCheckedKeys.indexOf(key)
         checked && index < 0 ? defaultCheckedKeys.push(key) : defaultCheckedKeys.splice(index, 1)
         this.Tree.defaultCheckedKeys = defaultCheckedKeys
@@ -115,7 +115,7 @@ const TreeNode = {
           // update parent
           this.VNode && this.updateParentCheck(this.VNode)
         }
-        Tree.onCheck(e.target.checked, key, this.defaultData, this)
+        Tree.onCheck(checked, key, this.defaultData, this)
       }
     },
     handleSelect(e) {
@@ -176,9 +176,9 @@ const TreeNode = {
     let p = { ...this.$props }
     delete p.data
     let data = Object.assign(p, this.defaultData)
-    let { isLeaf, disabled, icon, title, } = data
+    let { isLeaf, disabled, icon, title, children = [] } = data
 
-    let slotChildren = getChild(this.$slots.default)
+    let slotChildren = getChildren(this.$slots.default)
 
     let itemNode = [], { Tree, loading, reload } = this;
     let key = this.$vnode.key
@@ -189,12 +189,12 @@ const TreeNode = {
       checked = defaultCheckedKeys.indexOf(key) > - 1,
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
 
-    let hasChildren = slotChildren.length > 0 || data?.children?.length > 0
+    let hasChildren = slotChildren.length > 0 || children.length > 0
     let hasLoad = 'loadData' in Tree.$listeners || 'load-data' in Tree.$listeners
     if ((hasChildren || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Button size="small" theme="normal" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
+        <Button size="small" type="text" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
     } else {
@@ -241,18 +241,18 @@ const TreeNode = {
     }
     itemNode.push(<span {...titleProps}>{innerNode}</span>)
 
-    let children = null
+    let childrenVNode = null
     if (expand && hasChildren && reload) {
       if (slotChildren.length) {
         // children = slotChildren
-        children = slotChildren.map((vnode, i) => {
+        childrenVNode = slotChildren.map((vnode, i) => {
           vnode.data.key = vnode.data.key || `${key}_${i}`
           let ele = cloneVNode(vnode)
           return ele;
 
         })
       } else {
-        children = children.map((item, i) => {
+        childrenVNode = children.map((item, i) => {
           const k = item.key || `${key}_${i}`
           item.key = k
           // console.log(k)
@@ -284,12 +284,12 @@ const TreeNode = {
       let extra = Tree.$scopedSlots.extra({ node: this.defaultData, parent: this.getParent() })
       extraNode = <span class='k-tree-item-extra'>{extra}</span>
     }
-    children && children.unshift(<span class="k-tree-line" style={{ left: `${(this.level || 0) * 24 + 12}px` }} key="line"></span>)
+    childrenVNode && childrenVNode.unshift(<span class="k-tree-line" style={{ left: `${(this.level || 0) * 24 + 12}px` }} key="line"></span>)
     return (
       <div class="k-tree-children">
         <div {...itemProps}>{itemNode}{extraNode}</div>
         {
-          <transition-group class="k-tree-item-children" tag="div" {...onProps}>{children}</transition-group>
+          <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childrenVNode}</transition-group>
         }
       </div>)
   }

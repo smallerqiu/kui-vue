@@ -1,4 +1,4 @@
-import { getChild, hasProp } from '../utils/element'
+import { getChildren, hasProp } from '../utils/element'
 import cloneVNode from '../utils/clone'
 import { withInstall } from '../utils/vue'
 const Collapse = {
@@ -44,7 +44,7 @@ const Collapse = {
     const classes = ['k-collapse', {
       ['k-collapse-sample']: this.sample
     }]
-    const children = getChild(this.$slots.default)
+    const children = getChildren(this.$slots.default)
     return (<div class={classes}>{
       children.map((child) => {
         let active = this.currentValue.indexOf(child.key) >= 0

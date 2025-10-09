@@ -9,7 +9,7 @@
 | change    | 切换面板的回调                        | Function(activeKey) | -      |
 | tab-click | tab点击时的回调                       | Function(activeKey) | -      |
 
-## Tabs.TabPane API
+## Tabs.TabPanel API
 | 属性     | 说明                | 类型    | 默认值 |
 |----------|---------------------|---------|--------|
 | key      | vue需要的key值      | String  | -      |

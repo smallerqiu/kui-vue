@@ -89,7 +89,7 @@ const DatePicker = {
   watch: {
     value(v) {
       if (this.v != this.currentValue) {
-        console.log(v)
+        // console.log(v)
         if (!this.isRange) {
           this.currentValue = v ? dayjs(v) : ''
         } else {
@@ -264,7 +264,7 @@ const DatePicker = {
       if (presets && presets.length > 1) {
         let children = []
         for (let i = 0; i < presets.length; i++) {
-          children.push(<Button theme="normal" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
+          children.push(<Button type="text" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
         }
         return <div class="k-date-picker-presets">{children}</div>
       }

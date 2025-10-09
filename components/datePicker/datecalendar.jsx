@@ -415,17 +415,17 @@ const DateCalendar = {
     let headNodeChildren = []
     if (!isTime) {
       if (!showTimes && !showYears) {
-        headNodeChildren.push(<Button icon={ChevronDoubleBack} size={pickerSize} theme="normal" class="k-calendar-prev-year-btn" onClick={() => this.nextAndPrev(0, 'year')}></Button>)
-        headNodeChildren.push(<Button icon={ChevronBack} size={pickerSize} theme="normal" class="k-calendar-prev-month-btn" onClick={() => this.nextAndPrev(0, 'month')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronDoubleBack} size={pickerSize} type="text" class="k-calendar-prev-year-btn" onClick={() => this.nextAndPrev(0, 'year')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronBack} size={pickerSize} type="text" class="k-calendar-prev-month-btn" onClick={() => this.nextAndPrev(0, 'month')}></Button>)
       }
       // else if (mode != 'year' && mode != 'month') {
-      //   headNode.push(<Button class="k-calendar-back" size={pickerSize} icon={ChevronBack} theme="normal" onClick={this.back}>{t('k.datePicker.back')} </Button>)
+      //   headNode.push(<Button class="k-calendar-back" size={pickerSize} icon={ChevronBack} type="text" onClick={this.back}>{t('k.datePicker.back')} </Button>)
       // }
-      headNodeChildren.push(<Button class="k-calendar-year-select" size={pickerSize} theme="normal" onClick={this.setShowYear}>{$y}{t('k.datePicker.year')} {mode != 'year' ? months[$M] : ''} {(!showYears && showTimes) ? $D : ''}</Button>)
+      headNodeChildren.push(<Button class="k-calendar-year-select" size={pickerSize} type="text" onClick={this.setShowYear}>{$y}{t('k.datePicker.year')} {mode != 'year' ? months[$M] : ''} {(!showYears && showTimes) ? $D : ''}</Button>)
 
       if (!showTimes && !showYears) {
-        headNodeChildren.push(<Button theme="normal" size={pickerSize} icon={ChevronForward} class="k-calendar-next-month-btn" onClick={() => this.nextAndPrev(1, 'month')}></Button>)
-        headNodeChildren.push(<Button icon={ChevronDoubleForward} size={pickerSize} theme="normal" class="k-calendar-next-year-btn" onClick={() => this.nextAndPrev(1, 'year')}></Button>)
+        headNodeChildren.push(<Button type="text" size={pickerSize} icon={ChevronForward} class="k-calendar-next-month-btn" onClick={() => this.nextAndPrev(1, 'month')}></Button>)
+        headNodeChildren.push(<Button icon={ChevronDoubleForward} size={pickerSize} type="text" class="k-calendar-next-year-btn" onClick={() => this.nextAndPrev(1, 'year')}></Button>)
       }
     } else {
       headNodeChildren.push(<div class="k-calendar-time-label">{t('k.datePicker.selectTime')}</div>)
@@ -461,8 +461,8 @@ const DateCalendar = {
     //footer
     let footerNode = []
     if (withTime) {
-      // footerNode.push(<Button theme="normal" size={pickerSize} disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
-      footerNode.push(<Button theme="normal" size={pickerSize} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
+      // footerNode.push(<Button type="text" size={pickerSize} disabled={disabled} class="k-calendar-btn-today" onClick={this.setToday}>{t('k.datePicker.now')}</Button>)
+      footerNode.push(<Button type="text" size={pickerSize} onClick={this.setShowTime}>{showTimes ? t('k.datePicker.selectDate') : t('k.datePicker.selectTime')}</Button>)
       if (!isRange || this.isRight) footerNode.push(<Button type="primary" class="k-calendar-btn-ok" size={pickerSize} onClick={e => this.ok(e)}>{t('k.datePicker.ok')}</Button>)
     }
     footerNode = footerNode.length || (isRange && withTime) ? <div class="k-calendar-footer">{footerNode}</div> : null

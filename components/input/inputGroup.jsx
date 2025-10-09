@@ -1,4 +1,4 @@
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import cloneVNode from '../utils/clone'
 import { withInstall } from '../utils/vue'
 const InputGroup = {
@@ -43,7 +43,7 @@ const InputGroup = {
     }
     let children = $slots.default
     if (compact) {
-      children = getChild(this.$slots.default)
+      children = getChildren(this.$slots.default)
       let newChildren = []
       for (let i = 0; i < children.length; i++) {
         let child = cloneVNode(children[i], {

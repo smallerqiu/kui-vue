@@ -1,5 +1,5 @@
 import TreeNode from './node.jsx'
-import { getChild } from '../utils/element.js'
+import { getChildren } from '../utils/element.js'
 import cloneVNode from '../utils/clone.js'
 import { withInstall } from '../utils/vue'
 const Tree = {
@@ -215,7 +215,7 @@ const Tree = {
     },
     renderChild() {
       let { defaultData, $slots } = this
-      let children = getChild($slots.default)
+      let children = getChildren($slots.default)
       if (children.length) {
         return children.map((vnode, i) => {
           vnode.data.key = vnode.data.key || `n_${i}`

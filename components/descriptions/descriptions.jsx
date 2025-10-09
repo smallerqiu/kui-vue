@@ -1,4 +1,4 @@
-import { getChild } from "../utils/element"
+import { getChildren } from "../utils/element"
 import Item from "./descriptionsItem"
 import { withInstall } from '../utils/vue'
 const Descriptions = {
@@ -18,7 +18,7 @@ const Descriptions = {
     },
     renderBody() {
       let { $slots, column, bordered, layout } = this
-      let child = getChild($slots.default)
+      let child = getChildren($slots.default)
       // let count = child.length
       // let row = parseInt(count / column)
 

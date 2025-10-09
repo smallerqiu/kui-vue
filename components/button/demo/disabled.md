@@ -24,8 +24,8 @@
   <br/>
   <br/>
   <Space>
-    <Button type="dashed">Dashed</Button>
-    <Button disabled type="dashed">Dashed(disabled)</Button>
+    <Button type="text">Text</Button>
+    <Button disabled type="text">Text(disabled)</Button>
   </Space>
   <br/>
   <br/>
