@@ -26,7 +26,7 @@
           <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
         </Menu>
         <Button block size="large" :icon="collapsed ? ChevronForward : ChevronBack"
-          @click="collapsed = !collapsed" class="btn-collapsed" theme="normal"><i></i></Button>
+          @click="collapsed = !collapsed" class="btn-collapsed" type="text"><i></i></Button>
       </Sider>
       <Content class="k-demo-main">
         <Breadcrumb class="nav">

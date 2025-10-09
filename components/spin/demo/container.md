@@ -5,16 +5,16 @@
 
 ```vue
 <template>
-<div>
-  <Spin v-model="spinning">
-    <div class="deme-spin-container demo-back">
-        床前明月光，疑是地上霜。<br>
-        举头望明月，低头思故乡。
-    </div>
-  </Spin>
-  <br/>
-  Loading state：<Switch v-model="spinning" @change="change"/>
-</div>
+  <Space>
+    <Spin v-model="spinning">
+      <div class="deme-spin-container demo-back">
+          床前明月光，疑是地上霜。<br>
+          举头望明月，低头思故乡。
+      </div>
+    </Spin>
+    <br/>
+    Loading state：<Switch v-model="spinning" @change="change"/>
+  </Space>
 </template>
 <style scoped>
 .deme-spin-container{

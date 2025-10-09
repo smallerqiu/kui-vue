@@ -21,14 +21,14 @@
     </a>
     <template slot="action" slot-scope="text,row,col">
       <Space>
-        <Button theme="normal" size="small" type="primary" v-if="!row.isEdit" @click="row.isEdit=true">Edit</Button>
-        <Button theme="normal" size="small" type="primary" v-if="row.isEdit" @click="save(row)">Save</Button>
-        <Button theme="normal" size="small" type="primary" v-if="row.isEdit" @click="row.isEdit=false">Cancel</Button>
+        <Button size="small" type="primary" v-if="!row.isEdit" @click="row.isEdit=true">Edit</Button>
+        <Button size="small" type="primary" v-if="row.isEdit" @click="save(row)">Save</Button>
+        <Button size="small" type="primary" v-if="row.isEdit" @click="row.isEdit=false">Cancel</Button>
         <Popconfirm
           title="您确认删除这条内容吗?"
           @ok="e=> removeRow(row.key)"
         >
-          <Button theme="normal" size="small" type="danger">Delete</Button>
+          <Button size="small" type="danger">Delete</Button>
         </Popconfirm>
       </Space>
     </template>

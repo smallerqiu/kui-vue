@@ -1,4 +1,4 @@
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import Radio from './radio.jsx';
 import Button from './button.jsx';
 import { withInstall } from '../utils/vue'
@@ -48,7 +48,7 @@ const RadioGroup = {
   },
   render() {
     const { options, $slots, type, direction, theme, shape, size } = this
-    let children = getChild($slots.default)
+    let children = getChildren($slots.default)
     if (options && options.length) {
       children = options.map(option => {
         return type == 'button' ?

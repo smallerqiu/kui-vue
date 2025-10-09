@@ -1,6 +1,6 @@
 import { hasProp } from '../utils/element'
 import Icon from '../icon'
-import { Sync } from 'kui-icons'
+import { Loading } from 'kui-icons'
 import { withInstall } from '../utils/vue'
 const Switch = {
   name: "Switch",
@@ -57,7 +57,7 @@ const Switch = {
       }
     ];
     const children = $slots.checked || trueText || $slots.unchecked || falseText
-    const loadNode = loading ? <Icon spin type={Sync} class="k-switch-loading" /> : null
+    const loadNode = loading ? <Icon spin type={Loading} class="k-switch-loading" /> : null
 
     const textNode = (
       (size != 'small' && children) ? <span class="k-switch-inner">{defaultChecked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null

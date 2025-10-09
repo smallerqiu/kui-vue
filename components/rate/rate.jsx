@@ -56,7 +56,7 @@ const Rate = {
         on: {
           click: this.click,
           mouseenter: this.mouseenter,
-          mouseleave: this.mouseleave,
+          // mouseleave: this.mouseleave,
         }
       }
       stars.push(<Star {...props} />)

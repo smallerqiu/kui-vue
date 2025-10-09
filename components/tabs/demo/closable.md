@@ -7,9 +7,9 @@
 ```vue
 <template>
   <Tabs v-model="activeKey" card @remove="remove">
-    <TabPane :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
+    <TabPanel :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
       {{pane.content}}
-    </TabPane>
+    </TabPanel>
     <Button slot="extra" :icon="Add" size="small" @click="add"/>
   </Tabs>
 </template>
@@ -26,7 +26,7 @@ export default{
       Add,
       panes,
       activeKey: panes[0].key,
-      newTabIndex: 0
+      newTabIndex: 1
     }
   },
   methods:{

@@ -9,7 +9,7 @@
   position: absolute;
   z-index: 1001;
   transform: translateZ(0);
- 
+
   .k-tooltip-content {
     // min-width: 200px;
     // .k-tooltip-inner {
@@ -20,7 +20,14 @@
     border-radius: 8px; // var(--kui-border-radius);
     position: relative;
     min-width: 36px;
+    // border: 1px solid #333;
     // }
+    border: 1px solid var(--kui-color-border);
+
+    #ot {
+      stroke-width: 0.1em;
+      stroke: var(--kui-color-border);
+    }
   }
 
   .k-tooltip-title {
@@ -32,8 +39,8 @@
     position: absolute;
     box-sizing: border-box;
     display: flex;
-    width: 24px;
-    height: 7px;
+    width: 23px;
+    height: 9px;
     // color: @dark-back-color-10;
     color: #333;
   }
@@ -44,7 +51,7 @@
     }
 
     .k-tooltip-arrow {
-      bottom: -6px;
+      bottom: -7px;
     }
   }
 
@@ -105,8 +112,8 @@
 
     .k-tooltip-arrow {
       right: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(-90deg);
     }
   }
@@ -137,8 +144,8 @@
 
     .k-tooltip-arrow {
       left: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(90deg);
     }
   }
@@ -257,17 +264,6 @@
   }
 }
 
-.k-tooltip-geekblue {
-  .k-tooltip-content {
-    color: #fff;
-    background-color: var(--kui-color-geekblue);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-geekblue);
-  }
-}
-
 .k-tooltip-magenta {
   .k-tooltip-content {
     color: #fff;
@@ -332,11 +328,4 @@
 .k-tooltip-leave-active {
   // transform-origin: center bottom;
   animation: k-pop-zoom .3s reverse;
-}
-
-body[theme-mode=dark],
-*[theme-mode=dark] {
-  .k-tooltip .k-tooltip-content {
-    // background-color: #999;
-  }
 }

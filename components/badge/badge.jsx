@@ -1,5 +1,5 @@
 import { withInstall } from '../utils/vue';
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 const Badge = {
   name: "Badge",
   props: {
@@ -16,7 +16,7 @@ const Badge = {
   render() {
     const { $slots, maxCount, count, dot, color, status, text } = this
     let innerText = null, statusNode = [];
-    const child = getChild($slots.default)
+    const child = getChildren($slots.default)
 
     if (typeof count === 'number' && count !== 0) {
       innerText = count > maxCount ? maxCount + '+' : count

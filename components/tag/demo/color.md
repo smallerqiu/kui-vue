@@ -36,7 +36,6 @@ export default{
       'green',
       'blue',
       'purple',
-      'geekblue',
       'magenta',
       'volcano',
       'gold',

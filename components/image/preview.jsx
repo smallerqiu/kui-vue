@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import transfer from "../directives/transfer";
-import { getChild, measureScrollBar } from "../utils/element";
+import { getChildren, measureScrollBar } from "../utils/element";
 import { withInstall } from '../utils/vue'
 let cacheBodyOverflow = {};
 import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Sync, AddCircleOutline, RemoveCircleOutline } from "kui-icons";
@@ -247,7 +247,7 @@ const ImagePreview = {
       this.updatePanelRight();
     },
     getPanel() {
-      let panel = getChild(this.$slots.panel);
+      let panel = getChildren(this.$slots.panel);
       if (panel.length) {
         return (
           <div class={["k-image-preview-panel", { "k-image-preview-panel-hidden": !this.isShowPanel }]} ref="panelRef">
@@ -288,7 +288,7 @@ const ImagePreview = {
       style: imgStyle,
       ref: "imgRef",
     };
-    let tools = getChild(this.$slots.tool);
+    let tools = getChildren(this.$slots.tool);
     return (
       <div class="k-image-preview-root" v-transfer={transfer}>
         <transition name="k-image-zoom">

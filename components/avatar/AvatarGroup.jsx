@@ -1,4 +1,4 @@
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import cloneVNode from '../utils/clone'
 import { withInstall } from '../utils/vue'
 const AvatarGroup = {
@@ -9,7 +9,7 @@ const AvatarGroup = {
     size: [String, Number]
   },
   render() {
-    let child = getChild(this.$slots.default)
+    let child = getChildren(this.$slots.default)
     let { shape, size } = this
     return (
       <div class="k-avatar-group">

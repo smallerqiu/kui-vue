@@ -37,7 +37,6 @@ export default {
     return {
       currentValue: this.value,
       isFocus: false,
-      // isEnter: false,
       isPassword: !this.visiblePassword,
     };
   },
@@ -77,10 +76,7 @@ export default {
       input && input.$emit('focus', e)
     },
     handleBlur(e) {
-      // let input = this.Input || this.TextArea || this.InputNumber
-      // console.log('base blur')
       this.$emit('blur', e);
-      // input && input.$emit('blur', e)
       this.isFocus = false
     },
     handleInput(e) {
@@ -91,19 +87,15 @@ export default {
         output = parser(v)
       }
 
-      // console.log('output', output)
 
       if (output !== '' && formatter) {
         input = formatter(output)
-        // e.target.value = v
       }
-      // console.log('res', input, output)
       e.target.value = input
       if (input === '') {
         output = ''
       }
 
-      // e.target.value = e.target.value.replace(/\D/g, '')
       this.setValue({ input, output })
     },
     showPassword() {
@@ -175,7 +167,7 @@ export default {
     const { inputType, icon, $slots, size, disabled, type, $listeners, clearable, suffix, theme, prefix, shape } = this
 
     let isTextArea = inputType == 'textarea'
-    let multiple = icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.controls
+    let multiple = (icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.controls) && type !== 'hidden'
 
     let textInput = this.getTextInput(multiple)
 
@@ -183,7 +175,6 @@ export default {
       return textInput
 
     let { isFocus, currentValue } = this
-    // let clearableShow = clearable && (isFocus || isEnter) && isNotEmpty(currentValue)
     let clearableShow = clearable && isNotEmpty(currentValue)
     const props = {
       class: {
@@ -195,17 +186,13 @@ export default {
         [`k-${inputType}-${theme}`]: theme && theme != 'solid',
         [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea,
       },
-      // on: {
-      // mouseenter: () => this.isEnter = true,
-      // mouseleave: () => this.isEnter = false
-      // }
     }
     const suffixNode = this.getSuffix()
     const prefixNode = (prefix ? <div class={`k-${inputType}-prefix`}>{prefix}</div> : null)
     if ($slots.prefix || $slots.suffix) {
       return <InputGroup size={size}>
         {$slots.prefix ? <div class={{ "k-input-group-prefix": true }}>{$slots.prefix}</div> : null}
-        <div {...props} multiple>
+        <div {...props} mult>
           {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
           {prefixNode}
           {textInput}
@@ -216,7 +203,7 @@ export default {
         {$slots.suffix ? <div class={{ "k-input-group-suffix": true }}>{$slots.suffix}</div> : null}
       </InputGroup>
     } else {
-      return <div {...props} multiple>
+      return <div {...props} mult>
         {icon ? <Icon type={icon} class={`k-${inputType}-icon`} onClick={this.iconClick} /> : null}
         {prefixNode}
         {textInput}

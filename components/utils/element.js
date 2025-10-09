@@ -2,7 +2,7 @@ export function isEmptyNode(vnode = {}) {
   return !(vnode.eml || vnode.tag || (vnode.text && vnode.text.trim() !== ''))
 }
 
-export function getChild(child = [], name) {
+export function getChildren(child = [], name) {
   // return child.filter(c => !isEmptyNode(c, name) )
   return child.filter(c => {
     let tag_name = ''

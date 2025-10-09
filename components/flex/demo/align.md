@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Flex vertical size="small" align="start">
+  <Flex vertical align="start" size="middle">
     <span>Justify</span>
     <RadioGroup v-model="justify" theme="card" type="button">
       <RadioButton v-for="(item,index) in justifyOps" :key="index" :value="item">{{item}}</RadioButton>

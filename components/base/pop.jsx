@@ -1,10 +1,12 @@
 import { Button } from "../button";
 import Icon from "../icon";
-import { getChild } from "../utils/element";
+import { getChildren } from "../utils/element";
 import cloneVNode from '../utils/clone'
 import Drop from './drop'
 import { t } from "../locale";
 import { HelpCircle } from 'kui-icons'
+import { isColor } from "../utils/color";
+import { colors, placements } from "../const/var";
 export default {
   name: 'BasePop',
   props: {
@@ -21,9 +23,7 @@ export default {
     offsetLeft: { type: Number, default: 0 },
     placement: {
       validator(value) {
-        return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
-        );
+        return placements.includes(value);
       },
       default: "top"
     },
@@ -109,7 +109,7 @@ export default {
       let okText = this.okText || t('k.pop.ok')
       let cancelText = this.cancelText || t('k.pop.cancel')
       if (this.showPlacementArrow) {
-        title = title || getChild($slots.title)
+        title = title || getChildren($slots.title)
         let titleNode, contentNode, footerNode;
         if (this.confirm) {
           contentNode = [<Icon type={HelpCircle} />, <div class={`k-${preCls}-title`}>{title}</div>]
@@ -126,12 +126,14 @@ export default {
         if (!titleNode && !contentNode && !footerNode) {
           childNode = null
         } else {
+          let resultColor = isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : null
           childNode = [
-            <div class={`k-${preCls}-content`} style={{ backgroundColor: /^#/.test(color) ? color : null }}>
+            <div class={`k-${preCls}-content`} style={{ backgroundColor:resultColor }}>
               {[titleNode, contentNode, footerNode]}
-              <div class={`k-${preCls}-arrow`}>
-                <svg style={{ fill: /^#/.test(color) ? color : 'currentcolor' }} viewBox="0 0 24 7">
-                  <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+              <div class={`k-${preCls}-arrow`} style={{color:resultColor}}>
+                <svg style={{ fill: isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : "currentcolor" }} viewBox="0 0 24 8">
+                  <path id="ot" d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
+                  <path stroke="currentcolor" id="in" d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
                 </svg>
               </div>
             </div>]
@@ -151,8 +153,8 @@ export default {
           offsetLeft: this.offsetLeft,
           value: this.opened,
           className: [`k-${preCls}`, {
-            [`k-${preCls}-${color}`]: color && !/^#/.test(color),
-            [`k-${preCls}-has-color`]: /^#/.test(color),
+            [`k-${preCls}-${color}`]: colors.includes(color),
+            [`k-${preCls}-has-color`]: isColor(color),
             [`k-${preCls}-has-arrow`]: this.showPlacementArrow,
             [`k-${preCls}-dark`]: this.dark
           }],
@@ -193,7 +195,7 @@ export default {
 
   render() {
     let { $slots } = this
-    let vNode = getChild($slots.default)[0]
+    let vNode = getChildren($slots.default)[0]
     let popup = this.renderPopup()
     let props = {}
     if (!this.isMenu) {

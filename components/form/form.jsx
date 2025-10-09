@@ -1,6 +1,6 @@
 
 import cloneVNode from '../utils/clone';
-import { getChild } from '../utils/element'
+import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 const Form = {
   name: "Form",
@@ -50,7 +50,7 @@ const Form = {
         'k-form-sm': size == 'small',
       }
     ];
-    const children = getChild(this.$slots.default)
+    const children = getChildren(this.$slots.default)
     return (
       <form autocomplete="off" class={classes} ref="form" id={name} onSubmit={this.submit} onReset={this.reset}>
         {

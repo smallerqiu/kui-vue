@@ -3,7 +3,7 @@ import { withInstall } from '../utils/vue'
 const Input = {
   name: 'Input',
   props: {
-    clearable: Boolean,
+    clearable: { type: Boolean, default: false },
     id: String,
     size: {
       default: 'default',

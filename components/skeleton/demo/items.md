@@ -18,11 +18,11 @@
   </Space>
   <br/>
   <br/>
-  <Space :size="15" style="width:300px;">
-    Image radius: <Slider v-model="radius" />
+  <Space :size="15" style="width:300px;" block>
+    Image radius: <Slider v-model="radius" style="width:200px"/>
   </Space>
   <Space :size="15" style="width:300px;">
-    Image Size: <Slider v-model="imgSize" range :min="80" :max="320"/>
+    Image Size: <Slider v-model="imgSize" range :min="80" :max="320" style="width:200px"/>
   </Space>
   <br/>
   <br/>

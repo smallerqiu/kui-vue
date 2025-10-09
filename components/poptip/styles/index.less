@@ -84,8 +84,8 @@
   &[k-placement^=left] {
     .k-poptip-arrow {
       right: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(-90deg);
 
       svg {
@@ -120,8 +120,8 @@
   &[k-placement^=right] {
     .k-poptip-arrow {
       left: -14px;
-      width: 24px;
-      height: 7px;
+      width: 23px;
+      height: 9px;
       transform: rotate(90deg);
 
       svg {
@@ -163,6 +163,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px; // var(--kui-border-radius);
   position: relative;
+  border: 1px solid var(--kui-color-border);
+
+  #ot {
+    stroke-width: 0.1em;
+    stroke: var(--kui-color-border);
+  }
 
   // }
   .k-poptip-body {

@@ -95,7 +95,7 @@
       <FormItem :wrapperCol="{offset:6}">
         <Button type="primary" @click="submit" >Submit</Button>
         <Button style="margin:0 10px" @click="reset" >Reset</Button>
-        <Button type="dashed" @click="setValue" >Set Value</Button>
+        <Button theme="dashed" @click="setValue" >Set Value</Button>
       </FormItem>
     </Form>
 

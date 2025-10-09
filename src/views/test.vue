@@ -1,54 +1,53 @@
 <template>
-  <div>
-    <Button type="primary" @click="visible = true">Add</Button>
-    <Modal title="1111" v-model="visible">
-      <Form ref="form" :labelCol="{ span: 5 }" :model="form">
-        <FormItem label="Name" prop="name">
-          <Input style="width:260px" placeholder="告警服务名" />
-        </FormItem>
-        <FormItem label="Call User" prop="call_users">
-          <Select style="width:260px" multiple placeholder="通知告警的人" filterable>
-            <Option v-for="x, i in callUsers" :key="i" :value="x.id" :label="x.full_name" />
-          </Select>
-        </FormItem>
-      </Form>
-    </Modal>
-  </div>
+  <TreeSelect v-model="value" :tree-data="data" :treeExpandedKeys="expandedKeys" multiple tree-checkable :width="300" />
 </template>
 <script>
-export default {
+export default{
   data() {
     return {
-      data: [],
-      visible: false,
-      data2: ['2', '4'],
-      callUsers: [],
-      form: {
-        id: '',
-        name: '',
-        call_users: []
-      },
+      expandedKeys:['0-1','1-1','1-1-2','1-2'],
+      value:[],
+      data: [
+        {
+          title: 'tree 1',
+          key: '0-1',
+          children: [
+            {
+              title: 'tree 1-1',
+              key: '1-1',
+              disabled: true,
+              children: [
+                { title: 'leaf 1-1-1', disabled: true },
+                {
+                  title: 'leaf 1-1-2',
+                  key: '1-1-2',
+                  children: [
+                    { title: 'leaf 1-1-2-1' },
+                    { title: 'leaf 1-1-2-2' }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'tree 1-2',
+              key: '1-2',
+              children: [
+                { title: 'leaf 1-2-1' },
+                { title: 'leaf 1-2-2' }
+              ]
+            },
+            {
+              title: 'tree 1-3',
+              children: [
+                { title: 'leaf 1-3-1' },
+                { title: 'leaf 1-3-2' }
+              ]
+            }
+          ]
+        }
+      ],
     }
-  },
-  mounted() {
-    this.callUsers = [
-      {
-        id: '1',
-        full_name: '张三'
-      },
-      {
-        id: '2',
-        full_name: '李四'
-      },
-      {
-        id: '3',
-        full_name: '王五'
-      },
-      {
-        id: '4',
-        full_name: '赵六'
-      },
-    ]
   },
 }
 </script>
+

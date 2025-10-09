@@ -7,21 +7,21 @@
 <template>
   <div class="demo-tabs-sample">
     <Tabs v-model="current" sample @change="change">
-      <TabPane key="1" title="Tab 1">
+      <TabPanel key="1" title="Tab 1">
         <p>Content of Tab Pane 1</p>
         <p>Content of Tab Pane 1</p>
         <p>Content of Tab Pane 1</p>
-      </TabPane>
-      <TabPane key="2" title="Tab 2">
+      </TabPanel>
+      <TabPanel key="2" title="Tab 2">
         <p>Content of Tab Pane 2</p>
         <p>Content of Tab Pane 2</p>
         <p>Content of Tab Pane 2</p>
-      </TabPane>
-      <TabPane key="3" title="Tab 3">
+      </TabPanel>
+      <TabPanel key="3" title="Tab 3">
         <p>Content of Tab Pane 3</p>
         <p>Content of Tab Pane 3</p>
         <p>Content of Tab Pane 3</p>
-      </TabPane>
+      </TabPanel>
     </Tabs>
   </div>
 </template>
