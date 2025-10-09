@@ -6,14 +6,14 @@
 ```vue
 <template>
   <div class="demo-color-picker">
-    <ColorPicker showMode v-model="color" :defalut-colors="colors" />
+    <ColorPicker v-model:value="color" :presets="colors" />
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      color: '#f44336',
+      color: '#3a95ff',
       colors: ['#9c27b0','red','blue'],
     };
   }

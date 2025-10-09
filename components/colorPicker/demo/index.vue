@@ -1,10 +1,12 @@
 <script>
 import Info from './info.md'
 import Base from './base.md'
-import Shape from './shape.md'
 import Mode from './mode.md'
 import Size from './size.md'
-import Colors from './colors.md'
+import Disabled from './disabled.md'
+import DisabledAlpha from './disabledAlpha.md'
+import Placement from './placement.md'
+import Presets from './presets.md'
 import CN from '../index.md'
 export default {
   render() {
@@ -12,10 +14,12 @@ export default {
       <div>
         <Info />
         <Base />
-        <Shape />
-        <Mode />
         <Size />
-        <Colors />
+        <Disabled />
+        <DisabledAlpha />
+        <Placement />
+        <Mode />
+        <Presets />
         <CN />
       </div>
     )

@@ -107,7 +107,7 @@ export default {
     setValue({ input, output }) {
       this.currentValue = input
       this.$emit('input', output)
-      this.$emit('change', output)
+      // this.$emit('change', output)
     },
 
     searchEvent() {
