@@ -22,7 +22,7 @@ const Tooltip = {
   render() {
     const title = this.$slots.title || this.title
     let props = {
-      props: { preCls: 'tooltip', ...this.$props, updateKey: title },
+      props: { preCls: 'tooltip', ...this.$props, updateKey: title, extendWidth: false },
     }
     return (
       <BasePop {...props}>

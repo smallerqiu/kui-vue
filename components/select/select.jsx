@@ -35,6 +35,7 @@ const Select = {
     shape: String,
     arrowIcon: [String, Array],
     maxTagCount: Number,
+    extendWidth: { type: Boolean, default: true },
   },
   provide() {
     return {
@@ -313,7 +314,7 @@ const Select = {
         value: opened,
         selection: this.$el,
         transfer: true,
-        extendWidth: true,
+        extendWidth: this.extendWidth,
         transitionName: "k-select",
         className: [
           "k-select-dropdown",

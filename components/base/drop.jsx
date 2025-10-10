@@ -16,7 +16,7 @@ const Drop = {
     selection: { validator: () => true },
     updateKey: [String, Object, Array],
     offsetLeft: { type: Number, default: 0 },
-    extendWidth: Boolean,
+    extendWidth: { type: Boolean, default: true },
   },
 
   watch: {

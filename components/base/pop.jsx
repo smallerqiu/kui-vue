@@ -31,7 +31,8 @@ export default {
     cancelText: String,
     updateKey: [String, Object, Array],
     show: Boolean,
-    isMenu: { type: Boolean, default: false }
+    isMenu: { type: Boolean, default: false },
+    extendWidth: Boolean,
   },
   data() {
     return {
@@ -128,9 +129,9 @@ export default {
         } else {
           let resultColor = isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : null
           childNode = [
-            <div class={`k-${preCls}-content`} style={{ backgroundColor:resultColor }}>
+            <div class={`k-${preCls}-content`} style={{ backgroundColor: resultColor }}>
               {[titleNode, contentNode, footerNode]}
-              <div class={`k-${preCls}-arrow`} style={{color:resultColor}}>
+              <div class={`k-${preCls}-arrow`} style={{ color: resultColor }}>
                 <svg style={{ fill: isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : "currentcolor" }} viewBox="0 0 24 8">
                   <path id="ot" d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
                   <path stroke="currentcolor" id="in" d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
@@ -164,7 +165,8 @@ export default {
           updateKey,
           color,
           trigger,
-          transitionName: `k-${preCls}`
+          transitionName: `k-${preCls}`,
+          extendWidth: this.extendWidth
         },
         on: {
           mouseenter: e => {

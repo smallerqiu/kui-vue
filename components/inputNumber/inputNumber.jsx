@@ -15,7 +15,6 @@ const InputNumber = {
     min: { type: Number },
     max: { type: Number },
     disabled: Boolean,
-    clearable: Boolean,
     readonly: Boolean,
     formatter: Function,
     parser: Function,

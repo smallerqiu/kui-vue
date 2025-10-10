@@ -49,9 +49,9 @@ import TreeSelect from './treeselect'
 import Tag from './tag'
 import { Row, Col } from './grid'
 import Upload from './upload'
+import Theme from './utils/theme'
 
 import pkg from '../package.json'
-// import './styles/index.less';
 
 import locale from './locale'
 
@@ -105,6 +105,7 @@ const components = {
 	Tooltip,
 	Tree, TreeNode,
 	TreeSelect,
+	Theme,
 	Upload
 }
 const UI = {
@@ -142,6 +143,7 @@ const install = function (Vue, opts = {}) {
 	Vue.prototype.$Modal = Modal;
 	Vue.prototype.$Loading = Loading;
 	Vue.prototype.$Image = Image;
+	Vue.prototype.$Theme = Theme;
 }
 
 UI.install = install

@@ -73,7 +73,7 @@ const TreeSelect = {
     }
   },
   methods: {
-    hideDrop() {
+    clearQuery() {
       if (this.showSearch) {
         this.queryKey = ''
         this.$refs.search.value = ''
@@ -407,13 +407,10 @@ const TreeSelect = {
         className: ['k-tree-select-dropdown', { 'k-tree-select-dropdown-multiple': this.multiple, 'k-tree-select-dropdown-sm': size == 'small' }]
       },
       on: {
-        input: e => {
-          this.opened = e
-        },
         hide: () => {
           this.opened = false
           setTimeout(() => {
-            this.hideDrop()
+            this.clearQuery()
           }, 300)
         }
       }

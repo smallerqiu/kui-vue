@@ -5,12 +5,12 @@
 
 ```vue
 <template>
-  <Space style="width:200px;font-size:12px;" vertical>
+  <Space style="font-size:12px;" vertical>
      简单数字输入框: {{value1}}
-     <Space>
-     <InputNumber v-model:value="value1" :keyboard="keyboard" :controls="showControls"/>
-     <Checkbox v-model:checked="keyboard">Toggle keyboard</Checkbox>
-     <Checkbox v-model:checked="showControls">Toggle controls</Checkbox>
+     <Space block>
+      <InputNumber v-model:value="value1" :keyboard="keyboard" :controls="showControls" style="width: 150px;"/>
+      <Checkbox v-model:checked="keyboard">Toggle keyboard</Checkbox>
+      <Checkbox v-model:checked="showControls">Toggle controls</Checkbox>
      </Space>
      步长为2: {{value2}}
      <InputNumber :step="2" v-model:value="value2"/>

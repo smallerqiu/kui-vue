@@ -79,12 +79,10 @@ export default {
       ChevronBack, ChevronForward,
       prev: {}, next: {},
       activeName: [],
-      theme: '',
       openkeys: ['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']
     };
   },
   mounted() {
-    // let theme = localStorage.getItem('theme') || ''
     // let path = this.$route.path.replace('/components/', '')
     // this.activeName = [path]
     hljs &&　hljs.highlightAll();

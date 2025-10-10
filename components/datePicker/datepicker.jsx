@@ -405,7 +405,8 @@ const DatePicker = {
         selection: this.$el,
         value: this.opened,
         placement: 'bottom-left',
-        transitionName: 'k-date-picker'
+        transitionName: 'k-date-picker',
+        extendWidth: false,
       },
       on: {
         // render: () => {

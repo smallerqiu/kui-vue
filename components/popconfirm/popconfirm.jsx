@@ -19,7 +19,7 @@ const Popconfirm = {
   },
   render() {
     let props = {
-      props: { preCls: 'popconfirm', ...this.$props, confirm: true },
+      props: { preCls: 'popconfirm', ...this.$props, confirm: true, extendWidth: false },
       on: {
         'ok': () => this.$emit('ok'),
         'cancel': () => this.$emit('cancel')

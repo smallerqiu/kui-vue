@@ -13,6 +13,7 @@
 | loading     | 是否显示异步加载                                           | Boolean                        | false      |
 | clearable   | 是否可以清空选项                                           | Boolean                        | false      |
 | bordered    | 是否显示边框                                               | Boolean                        | true       |
+| extendWidth | 下拉框的宽度是否与input一致                                | Boolean                        | true       |
 | showArrow   | 是否显示下拉按钮                                           | Boolean                        | true       |
 | change      | 在选项状态发生改变时触发，返回选择项{value:xx,label:xx}    | Function                       | -          |
 | open-change | 下拉框展开或收起时触发                                     | Function                       | -          |
