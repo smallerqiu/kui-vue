@@ -3,7 +3,9 @@
   "version": "3.5.0",
   "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
   "private": false,
-  "main": "dist/k-ui.js",
+  "main": "dist/k-iu.cjs.js",
+  "module": "dist/k-iu.esm.js",
+  "unpkg": "dist/k-iu.umd.js",
   "style": "dist/k-ui.css",
   "files": [
     "dist",
@@ -14,10 +16,12 @@
   "scripts": {
     "start": "npm run serve",
     "serve": "vue-cli-service serve",
+    "buildc": "rollup -c",
     "build:docs": "vue-cli-service build --dest docs",
     "build:lib": "vue-cli-service build --progres --no-clean --target lib --name k-ui components/index.js && rm -rf dist/demo.html",
     "build:lang": "vue-cli-service build --progres --dest dist/locale --target lib --name lang --formats umd-min components/locale/index.js",
     "build:css": "lessc --plugin='less-plugin-clean-css' components/styles/index.less dist/k-ui.css && postcss -u autoprefixer -b '> 1%, not ie 11,not dead' dist/k-ui.css -o dist/k-ui.css --no-map",
+    "build": "npm run build:lib && npm run build:css && npm run build:lang",
     "lint": "vue-cli-service lint"
   },
   "repository": {
@@ -82,6 +86,9 @@
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.5.4",
     "postcss-cli": "^11.0.1",
+    "rollup": "^4.52.4",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-vue": "^5.1.9",
     "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.10",
     "vue": "^2.7.16",
@@ -94,6 +101,9 @@
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^6.0.1",
     "webpackbar": "^6.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.16"
   },
   "eslintConfig": {
     "root": true,
