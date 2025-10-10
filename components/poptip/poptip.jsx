@@ -19,7 +19,7 @@ const Poptip = {
   },
   render() {
     let props = {
-      props: { preCls: 'poptip', ...this.$props },
+      props: { preCls: 'poptip', ...this.$props, extendWidth: false },
       on: {
         input: (e) => this.$emit('input', e)
       }

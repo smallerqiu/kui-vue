@@ -167,6 +167,7 @@ export default {
           value={this.currentMode}
           options={this.options}
           onChange={this.changeMode}
+          extendWidth={false}
         />
         <div class="k-color-picker-val">{nodes}</div>
       </div>

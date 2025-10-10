@@ -1,6 +1,6 @@
 {
   "name": "kui-vue",
-  "version": "3.4.9",
+  "version": "3.5.0",
   "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
   "private": false,
   "main": "dist/k-ui.js",

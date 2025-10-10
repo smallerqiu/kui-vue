@@ -20,7 +20,7 @@ export default {
     disabled: Boolean,
     type: {
       validator(value) {
-        return (["text", "textarea", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0);
+        return (["text", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0);
       },
       default: 'text'
     },
@@ -42,7 +42,6 @@ export default {
   },
   inject: {
     Input: { default: null },
-    TextArea: { default: null },
     InputNumber: { default: null },
   },
   watch: {
@@ -54,7 +53,7 @@ export default {
     }
   },
   mounted() {
-    let textInput = (this.Input || this.TextArea || this.InputNumber) || {}
+    let textInput = (this.Input || this.InputNumber) || {}
     textInput.focus = (e) => {
       this.$nextTick(() => this.$refs.input.focus(e))
     }
@@ -72,7 +71,7 @@ export default {
     },
     handleFocus(e) {
       this.isFocus = true
-      let input = this.Input || this.TextArea || this.InputNumber
+      let input = this.Input || this.InputNumber
       input && input.$emit('focus', e)
     },
     handleBlur(e) {
@@ -120,11 +119,10 @@ export default {
 
       const Password = (this.type == 'password' && visiblePasswordIcon) ? <Icon class="k-input-password-icon" type={!this.isPassword ? EyeOutline : EyeOffOutline} onClick={this.showPassword} /> : null
 
-      return Password || SearchNode || this.$slots.suffix || (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
+      return Password || SearchNode || this.$slots.suffix || (suffix ? <div class={[`k-${this.inputType}-suffix`]}>{suffix}</div> : null)
     },
     getTextInput(multiple) {
       const { disabled, size, type, inputType, currentValue, id, theme, shape, placeholder } = this
-      let isTextArea = inputType == 'textarea'
       const props = {
         domProps: {
           value: currentValue
@@ -137,7 +135,7 @@ export default {
             [`k-${inputType}-sm`]: size == 'small' && !multiple,
             [`k-${inputType}-lg`]: size == 'large' && !multiple,
             [`k-${inputType}-${theme}`]: theme != 'solid' && !multiple && theme,
-            [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea && !multiple,
+            [`k-${inputType}-circle`]: shape == 'circle' && !multiple,
           }
         ],
         ref: 'input',
@@ -153,26 +151,22 @@ export default {
         }
       }
 
-      if (!isTextArea) {
-        props.attrs.type = type
+      props.attrs.type = type
 
-        if (!this.isPassword && type == 'password') {
-          props.attrs.type = 'text'
-        }
+      if (!this.isPassword && type == 'password') {
+        props.attrs.type = 'text'
       }
-      return isTextArea ? <textarea {...props} /> : <input {...props} single />
+      return (<input {...props} single />)
     },
   },
   render() {
     const { inputType, icon, $slots, size, disabled, type, $listeners, clearable, suffix, theme, prefix, shape } = this
 
-    let isTextArea = inputType == 'textarea'
     let multiple = (icon || ('search' in $listeners) || $slots.suffix || suffix || $slots.prefix || prefix || type == 'password' || clearable || $slots.controls) && type !== 'hidden'
-
     let textInput = this.getTextInput(multiple)
 
-    if (isTextArea || !multiple)
-      return textInput
+    if (!multiple) return textInput;
+
 
     let { isFocus, currentValue } = this
     let clearableShow = clearable && isNotEmpty(currentValue)
@@ -184,7 +178,7 @@ export default {
         [`k-${inputType}-sm`]: size == 'small',
         [`k-${inputType}-lg`]: size == 'large',
         [`k-${inputType}-${theme}`]: theme && theme != 'solid',
-        [`k-${inputType}-circle`]: shape == 'circle' && !isTextArea,
+        [`k-${inputType}-circle`]: shape == 'circle',
       },
     }
     const suffixNode = this.getSuffix()

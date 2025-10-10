@@ -1,6 +1,6 @@
 <cn>
 #### 切换主题
-简单的切换例子
+简单的切换例子, 开箱即用
 </cn>
 
 ```vue
@@ -11,15 +11,10 @@
 <script>
 export default {
   methods: {
-    switchMode(){
-      const body = document.documentElement;
-      if (body.hasAttribute('theme-mode')) {
-          body.removeAttribute('theme-mode');
-          // localStorage.removeItem('theme')
-      } else {
-          body.setAttribute('theme-mode', 'dark');
-          // localStorage.setItem('theme','dark')
-      }
+    switchMode(event){
+      this.$Theme.setThemeMode(event, isDark => {
+        this.$Message.info(`Current theme mode is ${isDark?'dark':'light'}`)
+      })
     }
   },
 }

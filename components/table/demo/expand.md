@@ -16,8 +16,7 @@
     </template>
     <Icon :type="text==1 ? Moon : Sunny" slot="gender" slot-scope="text" :color="text==1?'blue':'#f50cff'" size="15"/>
     <template slot="action">
-      <a href="javascript:;">Edit</a>
-      <a href="javascript:;">Delete</a>
+      <Button size="small" type="danger">Delete</Button>
     </template>
   </Table>
 </template>

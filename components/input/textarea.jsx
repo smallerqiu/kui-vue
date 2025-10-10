@@ -1,11 +1,10 @@
-import BaseInput from '../base/input'
 import { withInstall } from '../utils/vue'
 const TextArea = {
 	name: 'TextArea',
 	props: {
 		value: [String, Number],
 		theme: String,
-		disabled: Boolean,
+		// disabled: Boolean,
 		size: {
 			default: 'default',
 			validator(value) {
@@ -19,14 +18,22 @@ const TextArea = {
 		}
 	},
 	render() {
+		const { theme } = this;
 		const props = {
-			props: { ...this.$props, inputType: 'textarea' },
+			domProps: {
+				value: this.value,
+			},
+			class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
+			props: { ...this.$props },
 			attrs: { ...this.$attrs },
 			on: {
-				...this.$listeners
+				...this.$listeners,
+				input: (e) => {
+					this.$emit('input', e.target.value)
+				}
 			}
 		}
-		return <BaseInput {...props} />
+		return <textarea {...props} />
 	}
 }
 export default withInstall(TextArea)

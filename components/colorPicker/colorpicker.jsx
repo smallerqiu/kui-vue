@@ -18,6 +18,13 @@ const ColorPicker = {
     disabled: Boolean,
     disabledAlpha: Boolean,
     showText: Boolean,
+    trigger: {
+      type: String,
+      default: "click",
+      validator(value) {
+        return ["hover", "click"].indexOf(value) >= 0;
+      },
+    },
     size: {
       default: 'default',
       validator(value) {
@@ -130,6 +137,11 @@ const ColorPicker = {
         clearTimeout(this.hideTimer);
       }, 0);
     },
+    delayHide() {
+      this.hideTimer = setTimeout(() => {
+        this.opened = false;
+      }, 300);
+    },
     renderDrop() {
       const props = {
         props: {
@@ -138,17 +150,16 @@ const ColorPicker = {
           value: this.opened,
           selection: this.$el,
           className: 'k-color-picker-dropdown',
-          transitionName: 'k-color-picker'
+          transitionName: 'k-color-picker',
+          extendWidth: false,
+          trigger: this.trigger
         },
         on: {
-          hide: () => {
-            // this.opened = false
-            // this.currentColor = this.value || '#000'
-          },
+          hide: this.delayHide,
         }
       }
       return (<Drop {...props}>
-        <div class='k-color-picker-body'>
+        <div class='k-color-picker-body' onMouseenter={()=>clearTimeout(this.hideTimer)}>
           <Paint
             hue={this.currentHue}
             value={this.currentColor}
@@ -220,11 +231,14 @@ const ColorPicker = {
     ]
     const defaultNode = getChildren(this.$slots.default)
     if (defaultNode.length > 0) {
-      return cloneVNode(defaultNode[0], {
-        on: {
-          click: () => this.toggleDrop()
-        }
-      }, drop)
+      const props = { on: {} }
+      if (this.trigger == 'click') {
+        props.on.click = this.toggleDrop
+      } else if (this.trigger == 'hover') {
+        props.on.mouseenter = this.toggleDrop
+        props.on.mouseleave = this.delayHide
+      }
+      return cloneVNode(defaultNode[0], props, drop)
     } else {
       return (<div class={style} onClick={this.toggleDrop}>
         <div class="k-color-picker-selection">

@@ -2,7 +2,6 @@ import Collapse from '../base/collapse'
 import BasePop from '../base/pop'
 import CMenu from './menu.jsx'
 import Icon from '../icon'
-import { ChevronDown, ChevronForward } from 'kui-icons'
 import { withInstall } from '../utils/vue'
 
 const SubMenu = {
@@ -92,8 +91,9 @@ const SubMenu = {
     const titleNode = <div {...titleProps}>
       {icon ? <Icon type={icon} class="k-menu-item-icon" /> : null}
       {<span class="k-menu-title-content">{title}</span>}
-      <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
-        ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} />
+      <i class={`k-${preCls}-arrow`} />
+      {/* <Icon type={(showInline && !inlineCollapsed) || (currentMode == 'horizontal' && SubMenu == null) ?
+        ChevronDown : ChevronForward} class={`k-${preCls}-arrow`} /> */}
     </div>
 
     const popupProps = {
