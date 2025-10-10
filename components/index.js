@@ -2,7 +2,7 @@ import Alert from './alert'
 import Affix from './affix'
 import Avatar from './avatar'
 import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
-import { Button,ButtonGroup } from './button'
+import { Button, ButtonGroup } from './button'
 import Badge from './badge'
 import BackTop from './backtop'
 import ColorPicker from './colorPicker'
@@ -20,7 +20,7 @@ import { Form, FormItem } from './form'
 import Flex from './flex'
 import { Image, ImageGroup } from './image'
 import Icon from './icon'
-import { Input, TextArea ,InputGroup} from './input'
+import { Input, TextArea, InputGroup } from './input'
 import InputNumber from './inputNumber'
 import { Layout, Header, Footer, Content, Sider } from './layout'
 import Loading from './loading'
@@ -50,9 +50,7 @@ import Tag from './tag'
 import { Row, Col } from './grid'
 import Upload from './upload'
 import Theme from './utils/theme'
-
-import pkg from '../package.json'
-
+// import pkg from '../package.json'
 import locale from './locale'
 
 const components = {
@@ -62,7 +60,7 @@ const components = {
 	BackTop,
 	Badge,
 	Breadcrumb, BreadcrumbItem,
-	Button,	ButtonGroup,
+	Button, ButtonGroup,
 	Card,
 	Carousel, CarouselItem,
 	Checkbox, CheckboxGroup,
@@ -125,7 +123,7 @@ const UI = {
 	kImage: Image,
 	kCol: Col,
 	kMenu: Menu,
-	Version: pkg.version,
+	// Version: pkg.version,
 
 	locale: locale.use,
 	i18n: locale.i18n,

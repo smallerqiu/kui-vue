@@ -89,7 +89,7 @@ const getLoading = (props = {}) => {
   return instance
 }
 
-let Loading = {
+const Loading = {
   name: 'Loading',
   start() {
     getLoading().start()

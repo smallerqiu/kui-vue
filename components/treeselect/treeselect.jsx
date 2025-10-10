@@ -6,7 +6,8 @@ import Drop from '../base/drop'
 import { t } from '../locale';
 import { Sync, Close, CloseCircle, ChevronDown } from 'kui-icons'
 import { Tree } from '../tree'
-const cloneDeep = require('lodash.clonedeep');
+// const cloneDeep = require('lodash.clonedeep');
+import cloneDeep from 'lodash.clonedeep'
 import { withInstall } from '../utils/vue'
 
 const TreeSelect = {

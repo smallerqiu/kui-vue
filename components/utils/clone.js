@@ -1,5 +1,5 @@
-const pick = require('lodash.pick');
-const assign = require('lodash.assign');
+import pick from 'lodash.pick'
+import assign from 'lodash.assign'
 const DATA_KEYS = [
   'class', 'staticClass', 'style', 'staticStyle',
   'attrs', 'props', 'domProps',
