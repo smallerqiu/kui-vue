@@ -5,9 +5,10 @@ import dayjs from 'dayjs'
 import Drop from '../base/drop'
 import { t } from '../locale'
 import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
-const duration = require('dayjs/plugin/duration');
-const isBetween = require('dayjs/plugin/isBetween');
-
+// const duration = require('dayjs/plugin/duration');
+// const isBetween = require('dayjs/plugin/isBetween');
+import duration from 'dayjs/plugin/duration';
+import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(duration);
 dayjs.extend(isBetween);
 const DatePicker = {

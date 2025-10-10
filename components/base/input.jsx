@@ -1,7 +1,7 @@
 import Icon from '../icon'
 import { isNotEmpty } from '../utils/element'
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from 'kui-icons';
-import { InputGroup } from '../input'
+import InputGroup from '../input/inputGroup'
 export default {
   name: "baseInput",
   props: {

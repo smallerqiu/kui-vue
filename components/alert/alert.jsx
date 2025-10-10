@@ -1,4 +1,3 @@
-
 import Icon from "../icon";
 import {
   InformationCircle, CloseCircle,
