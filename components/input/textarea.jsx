@@ -1,9 +1,9 @@
-import { defineComponent } from "vue";
+import { defineComponent, watch, ref } from "vue";
 import { withInstall } from '../utils/vue';
 const TextArea = defineComponent({
   name: "TextArea",
   props: {
-    value: [String, Number],
+    value: [String, Number, Object],
     theme: String,
     disabled: Boolean,
     size: {
@@ -13,12 +13,26 @@ const TextArea = defineComponent({
       },
     },
   },
-  setup(ps, { attrs }) {
+  setup(ps, { attrs, emit }) {
     const { theme } = ps;
+    const currentValue = ref(ps.value);
+    watch(
+      () => ps.value,
+      (v) => {
+        currentValue.value = v;
+      }
+    );
     const props = {
       class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
-      ...attrs,
-      ...ps,
+      // ...attrs,
+      // ...ps,
+      value: currentValue.value,
+      onInput: (e) => {
+        // todo: not update value
+        const v = e.target.value
+        currentValue.value = v;
+        emit("update:value", v);
+      },
     };
     return () => <textarea {...props} />;
   },
