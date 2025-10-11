@@ -7,6 +7,7 @@ import { Close } from "kui-icons";
 
 import { withInstall } from '../utils/vue'
 const Modal = {
+  name: "Modal",
   directives: { transfer },
   props: {
     value: Boolean,
@@ -87,7 +88,6 @@ const Modal = {
       this.$emit("close");
     },
     clickMaskToClose(e) {
-      // console.log(this.mousedownIn)
       if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target) && !this.mousedownIn) {
         this.close();
       }
@@ -135,7 +135,6 @@ const Modal = {
       if (this.draggable) {
         this.left = (document.body.offsetWidth - (this.width || 520)) / 2;
       }
-      // console.log(this.value)
       if (this.value) {
         this.$nextTick(() => {
           this.updateProp(true);

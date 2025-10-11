@@ -72,11 +72,12 @@ let children = [
 	{ path: '/forms/upload', component: () => import(/*webpackChunkName:'upload'*/'../components/upload/demo'), },
 ];
 
-import Layout from './components/Layout'
+import Layout from './components/Layout.vue'
 
 let routes =[
 	{ path: '/', component: () => import(/*webpackChunkName:'home'*/'./views/index') },
 	{ path: '/test', component: () => import(/*webpackChunkName:'test'*/'./views/test') },
+	{ path: '/test-locale', component: () => import(/*webpackChunkName:'test-locale'*/'./views/testLocale') },
 	{
 		path: '/',
 		component: Layout,

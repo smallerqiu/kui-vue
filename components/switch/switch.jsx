@@ -3,7 +3,7 @@ import Icon from '../icon'
 import { Loading } from 'kui-icons'
 import { withInstall } from '../utils/vue'
 const Switch = {
-  name: "Switch",
+  name: "KSwitch",
   props: {
     checked: [Boolean, Number],
     type: String,

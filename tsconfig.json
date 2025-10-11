@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "preserve",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "temp-types",
+    "skipLibCheck": true,
+    "noEmitOnError": false,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "components/*"
+      ]
+    },
+    "types": [
+      "vue",
+      // "@types/vue"
+    ]
+  },
+  "include": [
+    "components/components.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

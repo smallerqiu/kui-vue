@@ -5,7 +5,7 @@ import { Sync, IconImage, EyeOutline } from 'kui-icons'
 import { t } from '../locale';
 import { withInstall } from '../utils/vue'
 const KImage = {
-  name: 'Image',
+  name: 'KImage',
   props: {
     alt: String,
     src: String,

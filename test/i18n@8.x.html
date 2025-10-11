@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>i18n</title>
+  <link rel="stylesheet" type="text/css" href="../dist/k-ui.css">
+  <script src="https://unpkg.com/vue@2.x"></script>
+  <script src="https://unpkg.com/dayjs"></script>
+  <script src="https://unpkg.com/vue-i18n@8.x"></script>
+  <script src="../dist/k-ui.umd.js?t=22"></script>
+
+  <script src="../dist/locale/en.js"></script>
+  <script src="../dist/locale/zh-CN.js"></script>
+  <script src="../dist/locale/de.js"></script>
+  <script src="../dist/locale/ua.js"></script>
+  <style>
+    body,
+    html {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="app">
+    <k-button @click="show">Click me!</k-button>
+    <k-date-picker></k-date-picker>
+    <k-modal v-model="visible" title="Welcome" @ok="hide">Welcome to use kui</k-modal>
+  </div>
+</body>
+<script>
+  let i18n = new VueI18n({
+    locale: 'de', // set locale
+    messages: {
+      en: kui_lang_en,
+      zhCN: kui_lang_zhCN,
+      de: kui_lang_de,
+      ua: kui_lang_ua
+    }
+  })
+  Vue.use(kui.default, { i18n })
+
+  new Vue({
+    el: '#app',
+    data: {
+      visible: false
+    },
+    methods: {
+      show: function () {
+        this.visible = true;
+      },
+      hide: function () {
+        this.visible = false;
+        this.$Message.success('success')
+      }
+    }
+  })
+  setTimeout(() => { i18n.locale = 'ua'}, 2000);
+
+</script>
+
+</html>

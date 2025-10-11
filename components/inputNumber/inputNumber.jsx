@@ -10,6 +10,7 @@ import {
 import { ChevronUp } from 'kui-icons'
 import { withInstall } from '../utils/vue'
 const InputNumber = {
+  name: "InputNumber",
   props: {
     value: [Array, Number, String],
     min: { type: Number },
@@ -164,7 +165,7 @@ const InputNumber = {
       attrs: { ...this.$attrs },
       on: {
         ...this.$listeners,
-        'input': (e) => this.onUpdate({target: {value: e}}),
+        'input': (e) => this.onUpdate({ target: { value: e } }),
         'blur': (e) => this.blurHandle(e),
         'keydown': (e) => this.onKeyDown(e),
         // 'change': (e) => this.change(e),
