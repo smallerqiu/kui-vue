@@ -9,11 +9,12 @@
     Input: {{ value }}
     <Input placeholder="请输入内容..." @blur="blur" @focus="focus" v-model:value="value" />
     <Input placeholder="disabled..." disabled />
+    <TextArea v-model:value="value" placeholder="disabled..."  />
   </Space>
 </template>
 <script setup>
 import { ref } from 'vue'
-const value = ref('')
+const value = ref('111')
 const blur = ()=> {
   console.log('blur')
 }

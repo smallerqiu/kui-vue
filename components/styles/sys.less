@@ -45,5 +45,33 @@ a {
   text-decoration: none;
   outline: none;
   background-color: transparent;
-  
+
+}
+
+
+// theme 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+[theme-mode=light]::view-transition-old(root) {
+  z-index: 999;
+}
+
+[theme-mode=light]::view-transition-new(root) {
+  z-index: 1;
+}
+
+[theme-mode=dark]::view-transition-old(root) {
+  z-index: 1;
+}
+
+[theme-mode=dark]::view-transition-new(root) {
+  z-index: 999;
+}
+
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

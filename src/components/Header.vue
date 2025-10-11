@@ -48,7 +48,6 @@ import { menus } from "../menu";
 import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 import pkg from '/package.json'
 import { useRoute, useRouter } from "vue-router";
-// import Darkmode from 'darkmode-js';
 import { theme } from 'kui-vue';
 
 const themeColor = ref('#3a95ff')
