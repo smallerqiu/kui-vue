@@ -8,7 +8,10 @@ import { withInstall } from "../utils/vue";
 const Alert = {
   name: "Alert",
   props: {
-    type: { type: String, default: "warning" },
+    type: {
+      type: String, default: "warning",
+      validator: (val) => ['info', 'success', 'warning', 'error'].includes(val)
+    },
     closable: Boolean,
     showIcon: Boolean,
     message: String,

@@ -1,6 +1,6 @@
 export const withInstall = (component) => {
-  component.install = function (Vue) {
-    Vue.component(component.name, component);
+  component.install = function (app) {
+    app.component(component.name, component);
   };
 
   return component

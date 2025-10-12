@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    // "checkJs": true, 
+    "target": "ES2017",
     "jsx": "preserve",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "temp-types",
+    "outDir": "types",
     "skipLibCheck": true,
     "noEmitOnError": false,
     "moduleResolution": "node",
@@ -20,7 +22,9 @@
     ]
   },
   "include": [
-    "components/components.js"
+    "components/**/*.jsx",
+    // "components/**/*.js", 
+    // "components/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

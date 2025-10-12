@@ -51,21 +51,18 @@ const Upload = {
   },
   methods: {
     formatFileSize(fileSize) {
-      var temp = ''
+      var temp = 0
       if (fileSize < 1024) {
         return fileSize + 'B';
       } else if (fileSize < (1024 * 1024)) {
         temp = fileSize / 1024;
-        temp = temp.toFixed(2);
-        return temp + 'KB';
+        return temp.toFixed(2) + 'KB';
       } else if (fileSize < (1024 * 1024 * 1024)) {
         temp = fileSize / (1024 * 1024);
-        temp = temp.toFixed(2);
-        return temp + 'MB';
+        return temp.toFixed(2) + 'MB';
       } else {
         temp = fileSize / (1024 * 1024 * 1024);
-        temp = temp.toFixed(2);
-        return temp + 'GB';
+        return temp.toFixed(2) + 'GB';
       }
     },
     triggerSelect(e) {
@@ -108,7 +105,7 @@ const Upload = {
         let item = {
           uid: getUuid(),
           filename: files[i].name, size: this.formatFileSize(size),
-          status: 'wait', percent: 0, preview: false
+          status: 'wait', percent: 0, preview: null,
         }
         this.uploadTemp[item.uid] = files[i]
 
@@ -282,7 +279,7 @@ const Upload = {
         }
       ],
     }
-    
+
     let addProps = {
       attrs: {
         drag: draggable && this.dragOver ? 'over' : null
@@ -310,7 +307,7 @@ const Upload = {
     </div> : null
 
 
-    const filsList = () => {
+    const filsList = (selector) => {
       return (showUploadList && !isPicture) || isPicture ? <div class={`k-upload-${isPicture ? 'picture' : 'file'}-list`}>
         {
           defaultFileList.map((item, i) => {
