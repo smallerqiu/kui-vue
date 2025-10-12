@@ -26,7 +26,7 @@ export default {
     }
   },
   mounted() {
-    let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
+    let touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     this.touch = touch
   },
   methods: {

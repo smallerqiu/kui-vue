@@ -46,7 +46,7 @@ const Slider = {
     getMinStep(percent) {
       let { marks, step, min } = this
       if (!marks) return multiply(Math.round((percent + min) / step), step)
-      let steps = Object.keys(marks)//, values = []
+      let steps = Object.keys(marks);//, values = []
       steps = steps.map(x => x - min)
       if (step) {
         steps.push(multiply(Math.round((percent) / step), step))

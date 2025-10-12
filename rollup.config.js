@@ -1,13 +1,10 @@
 import vue from 'rollup-plugin-vue'
-// import babel from 'rollup-plugin-babel'
-// import { terser } from 'rollup-plugin-terser'
 import { babel } from '@rollup/plugin-babel'
-import { terser } from '@rollup/plugin-terser'
+import terser from '@rollup/plugin-terser'
 
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
-// const license = require('rollup-plugin-license');
 import banner from 'postcss-banner'
 import postcss from 'rollup-plugin-postcss'
 import pkg from './package.json'
@@ -39,6 +36,7 @@ const localesConfig = locales.map(lang => ({
   },
   plugins: [
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
       presets: [['@babel/preset-env', { modules: false }]]
     }),
@@ -113,6 +111,7 @@ export default [
       commonjs({ include: 'node_modules/**' }),
       vue({ css: true }),
       babel({
+        babelHelpers: 'bundled',
         exclude: 'node_modules/**',
         extensions: ['.js', '.jsx', '.vue'],
         presets: [

@@ -1,4 +1,7 @@
 const { defineConfig } = require('@vue/cli-service');
+// import defineConfig from '@vue/cli-service'
+// import {BannerPlugin} from 'webpack'
+// const BannerPlugin = require('webpack').BannerPlugin
 // const config = require('@vue/cli-service/lib/commands/build/resolveLibConfig.js')
 const webpack = require('webpack');
 let { NODE_ENV, npm_package_version, npm_package_name, npm_lifecycle_event } = process.env
