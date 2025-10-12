@@ -28,10 +28,10 @@
       </Dropdown>
     </space>
     <space compact vertical>
-      <Button type="dashed">Button1</Button>
-      <Button type="dashed">Button2</Button>
-      <Button type="dashed">Button3</Button>
-      <Button type="dashed">Button4</Button>
+      <Button theme="dashed">Button1</Button>
+      <Button theme="dashed">Button2</Button>
+      <Button theme="dashed">Button3</Button>
+      <Button theme="dashed">Button4</Button>
     </space>
     <space compact vertical>
       <Button>Button1</Button>

@@ -12,7 +12,7 @@
         <Button @click="gitee"
           :icon="LogoGitee"
           size="large"
-          type="dashed"
+          class="btn-gitee"
           theme="light">Gitee</Button>
       </div>
     </section>
