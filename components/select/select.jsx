@@ -66,8 +66,10 @@ const Select = {
     hideDrop() {
       if (this.showSearch) {
         this.queryKey = "";
-        this.$refs.search.value = "";
-        this.$refs.search.style.width = "";
+        if (this.$refs.search) {
+          this.$refs.search.value = "";
+          this.$refs.search.style.width = "";
+        }
       }
       this.showSearch = false;
     },
@@ -107,8 +109,7 @@ const Select = {
           this.isFocus = false;
 
           setTimeout(() => {
-            this.queryKey = "";
-            this.$refs.search.value = "";
+            this.hideDrop()
           }, 200);
         }
       }
@@ -140,9 +141,7 @@ const Select = {
 
       if (this.showSearch) {
         setTimeout(() => {
-          this.queryKey = "";
-          this.$refs.search.value = "";
-          this.$refs.search.style.width = "";
+          this.hideDrop()
         }, 300);
       }
       if (!multiple) {

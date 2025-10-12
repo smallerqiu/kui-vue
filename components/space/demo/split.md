@@ -7,9 +7,9 @@
 <template>
     <Space>
       <Divider slot="split" type="vertical"></Divider>
-      <a href="#" type="link">Edit</a>
-      <a href="#" type="link">Save</a>
-      <a href="#" type="link">Delete</a>
+      <a href="#">Edit</a>
+      <a href="#">Save</a>
+      <a href="#">Delete</a>
     </Space>
 </template>
 ```

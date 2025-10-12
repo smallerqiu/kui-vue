@@ -1,6 +1,6 @@
 # 更新日志
 
-![](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
+![kui](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
 
 遇到问题,请在 [Gitee](https://gitee.com/chuchur/kui-vue/issues) 提issue
 
