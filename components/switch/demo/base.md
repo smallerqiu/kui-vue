@@ -8,9 +8,9 @@
   <Space>
     value:
     {{checked}}
-    <Switch v-model="checked" />
+    <KSwitch v-model="checked" />
     <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <Switch checked />
+    <KSwitch checked />
   </Space>
 </template>
 <script>

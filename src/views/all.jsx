@@ -1,7 +1,6 @@
 import { navs } from "../menu";
-import { Col, Row } from '/components/grid'
-import Card from '/components/card'
-import WebIcon from '@/components/WebIcon'
+import { Col, Row, Card } from 'kui-vue'
+import WebIcon from '@/src/components/WebIcon'
 export default {
   methods: {
     renders(child) {

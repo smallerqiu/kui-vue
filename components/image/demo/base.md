@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Image 
+  <KImage 
     :width="120" 
     src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
     />

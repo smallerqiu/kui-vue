@@ -6,14 +6,12 @@
 
 ```vue
 <template>
-  <div>
-    Select: <br/><br/>
+  <Space vertical>
+    Select: 
     <Select  :width="220"/>
-    <br/>
-    <br/>
-    Table: <br/><br/>
+    Table: 
     <Table :data="[]" :columns="columns" />
-  </div>
+  </Space>
 </template>
 <script>
 export default{

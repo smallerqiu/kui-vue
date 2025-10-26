@@ -36,7 +36,7 @@
       border-radius: 4px;
     }
     .block {
-      background:#eee;
+      background: var(--kui-color-gray-90);
       height: 60px;
       display: flex;
       align-items: center;

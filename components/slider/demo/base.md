@@ -15,7 +15,7 @@
       :value="25"></Slider>
      <br />
      <br />
-     Disabled: <Switch v-model="disabled" />
+     Disabled: <KSwitch v-model="disabled" />
   </div>
 </template>
 <script>

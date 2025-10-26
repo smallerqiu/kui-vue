@@ -7,7 +7,7 @@
 ```vue
 <template>
   单张图：
-  <Image 
+  <KImage 
     :width="120" 
     src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
     @close="close"
@@ -53,11 +53,11 @@
         </Col>
       </Row>
     </div>
-  </Image>
+  </KImage>
   <br/>
   图片组：
   <ImageGroup>
-    <Image 
+    <KImage 
       :width="120" 
       v-for="(img,i) in imgs"
       :key="i"
@@ -107,7 +107,7 @@
           </Col>
         </Row>
       </div>
-    </Image>
+    </KImage>
   </ImageGroup>
 </template>
 <script>
@@ -159,4 +159,34 @@ export default{
   }
 }
 </script>
+
+<style lang='less'>
+.img-panel {
+  padding: 0 50px;
+  width: 256px;
+  overflow: hidden;
+  h2 {
+    color: #fff;
+    font-size: 20px;
+  }
+  .k-row {
+    margin: 20px 0 30px;
+    font-size: 13px;
+    .k-icon {
+      font-size: 24px;
+      color: #999;
+      margin-right: 20px;
+      margin-top: 8px;
+    }
+    .title {
+      color: #eee;
+      margin: 0;
+    }
+    .sub {
+      color: #999;
+      margin-top: 5px;
+    }
+  }
+}
+</style>
 ```

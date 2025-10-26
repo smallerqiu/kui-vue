@@ -1,7 +1,0 @@
-/*!
- * kui-vue v3.5.0
- * Copyright 2017-present, kui-vue.
- * All rights reserved.
- * Author: Qiu / www.chuchur.com
- */
-"use strict";(self["webpackChunkkui_vue"]=self["webpackChunkkui_vue"]||[]).push([[6694],{3261:function(s,e,t){t.r(e),t.d(e,{default:function(){return i}});var n=function(){var s=this;s._self._c;return s._m(0)},r=[function(){var s=this,e=s._self._c;return e("div",{staticClass:"markdown-body"},[e("h1",[s._v("定制主题")]),e("p",[s._v("设计规范上支持一定程度的样式定制，以满足业务和品牌上多样化的视觉需求，包括但不限于主色、圆角、边框和部分组件的视觉定制。")]),e("p",[e("img",{staticClass:"demo-theme",attrs:{src:"https://k-ui.cn/img/theme.jpg"}})]),e("h3",{attrs:{id:"覆盖定制",tabindex:"-1"}},[e("a",{staticClass:"header-anchor",attrs:{href:"#覆盖定制"}},[s._v("覆盖定制")])]),e("p",[s._v("通过覆盖less变量来定制主题"),e("br"),s._v(" 新建一个less 文件 如：'assets/styles/custom.less',写下如下内容：")]),e("pre",{pre:!0},[e("code",{pre:!0,attrs:{"v-pre":"",class:"language-less"}},[s._v("//引入 styles\n@import '~kui-vue/components/styles/index.less';\n\n// 重新定义变量\n@main: #3a95ff //主体颜色\n\n// 所有的变量在 ~kui-vue/components/styles/color.less 中定义\n")])]),e("p",[s._v("然后在入口文件 main.js 内导入这个 less 文件即可：")]),e("pre",{pre:!0},[e("code",{pre:!0,attrs:{"v-pre":"",class:"language-js"}},[s._v("import Vue from 'vue';\nimport kui from 'kui-vue';\nimport 'assets/styles/custom.less';\n\nVue.use(kui);\n")])])])}],u=t(6205),a={},l=(0,u.A)(a,n,r,!1,null,null,null),i=l.exports}}]);
