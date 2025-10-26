@@ -21,18 +21,14 @@
 
 <style scoped>
 .demo-affix-scroll{
-  height:400px;
+  height:300px;
   overflow-y:scroll;
-  background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 -10px, -10px 10px, 10px 0;
+  background-image: linear-gradient(-45deg, #cdcdcd 25%, #eeeeee50 0), linear-gradient(45deg, #cdcdcd 25%, #eeeeee50 0), linear-gradient(-45deg, #eeeeee50 75%, #cdcdcd 0), linear-gradient(45deg, #eeeeee50 75%, #cdcdcd 0);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 -20px, -20px 20px, 20px 0;
 }
 .demo-affix-inner{
   height:800px;
-  /* background:#efefef; */
-  /* padding-top:30px; */
-
-  
 }
 </style>
 ```

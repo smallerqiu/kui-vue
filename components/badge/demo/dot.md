@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space>
    <Badge dot>
       <div class="box"></div>
     </Badge>
@@ -15,7 +15,7 @@
     <Badge dot>
       <a href="#">我是一个连接</a>
     </Badge>
-  </div>
+  </Space>
 </template>
 <script>
 import { NotificationsOutline } from "kui-icons"

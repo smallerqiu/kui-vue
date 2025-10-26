@@ -34,8 +34,8 @@
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb>
-        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px;" class="demo-back">Content</div>
-        <Footer>KUI ©2025 Created by chuchur</Footer>
+        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px 0;" class="demo-back">Content</div>
+        <Footer>KUI ©2025 Created by Qiu</Footer>
       </Content>
     </Layout>
   </div>

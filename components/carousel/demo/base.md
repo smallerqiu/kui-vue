@@ -5,13 +5,11 @@
 
 ```vue
 <template>
-  <div>
-    <Carousel :value="2">
-      <CarouselItem>1</CarouselItem>
-      <CarouselItem>2</CarouselItem>
-      <CarouselItem>3</CarouselItem>
-      <CarouselItem>4</CarouselItem>
-    </Carousel>  
-  </div>
+  <Carousel :value="2">
+    <CarouselItem>1</CarouselItem>
+    <CarouselItem>2</CarouselItem>
+    <CarouselItem>3</CarouselItem>
+    <CarouselItem>4</CarouselItem>
+  </Carousel>  
 </template>
 ```

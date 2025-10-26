@@ -54,7 +54,7 @@
           <Content>Conent</Content>
         </Layout>
       </Content>
-      <Footer class="demo-footer">KUI ©2025 Created by chuchur</Footer>
+      <Footer class="demo-footer">KUI ©2025 Created by Qiu</Footer>
     </Layout>
   </div>
 </template>

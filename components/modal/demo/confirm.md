@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button @click="confirm()">标准调用</Button>
     <Button @click="custom()">国际化</Button>
     <Button @click="Async()">异步关闭</Button>

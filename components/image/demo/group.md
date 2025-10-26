@@ -7,11 +7,11 @@
 ```vue
 <template>
   <ImageGroup>
-    <Image 
+    <KImage 
       :width="120" 
       src="https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg"
       />
-    <Image 
+    <KImage 
     :width="120" 
     src="https://cdn.chuchur.com/upload/demo/kui-react.jpg"
     />

@@ -5,15 +5,12 @@
 
 ```vue
 <template>
-  <div>
+  <Space wrap>
     <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" mode="dateTime" style="width:210px"/>
-    <br/>
     <DatePicker value="2019-10-12" format="YYYY/MM/DD"/>
-    <br/>
     <DatePicker value="2019-10-12" format="YYYY.MM.DD"/>
-    <br/>
     <DatePicker v-model="date" format="YYYY.MM.DD" mode="dateRange" @change="change"/>{{date}}
-  </div>
+  </Space>
 </template>
 <script>
 export default{
