@@ -107,7 +107,7 @@
             </Form>
             </div>
         </div>
-        <Footer>KUI ©2018 Created by chuchur</Footer>
+        <Footer>KUI ©2018 Created by Qiu</Footer>
       </Content> 
     </Layout>
   </div>

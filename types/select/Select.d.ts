@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Select component props */
 export interface SelectProps {
@@ -30,9 +30,13 @@ export interface SelectProps {
   extendWidth?: boolean;
 }
 
-declare class Select extends Vue {
+/** Select component instance */
+export interface Select extends Vue {
   $props: SelectProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Select Vue component type */
+declare const Select: VueConstructor<Select>;
 
 export default Select;

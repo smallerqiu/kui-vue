@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** RadioGroup component props */
 export interface RadioGroupProps {
@@ -15,9 +15,13 @@ export interface RadioGroupProps {
   type?: string;
 }
 
-declare class RadioGroup extends Vue {
+/** RadioGroup component instance */
+export interface RadioGroup extends Vue {
   $props: RadioGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** RadioGroup Vue component type */
+declare const RadioGroup: VueConstructor<RadioGroup>;
 
 export default RadioGroup;

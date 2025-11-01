@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Upload component props */
 export interface UploadProps {
@@ -31,9 +31,13 @@ export interface UploadProps {
   draggable?: boolean;
 }
 
-declare class Upload extends Vue {
+/** Upload component instance */
+export interface Upload extends Vue {
   $props: UploadProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Upload Vue component type */
+declare const Upload: VueConstructor<Upload>;
 
 export default Upload;

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Avatar component props */
 export interface AvatarProps {
@@ -9,9 +9,13 @@ export interface AvatarProps {
   src?: string;
 }
 
-declare class Avatar extends Vue {
+/** Avatar component instance */
+export interface Avatar extends Vue {
   $props: AvatarProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Avatar Vue component type */
+declare const Avatar: VueConstructor<Avatar>;
 
 export default Avatar;

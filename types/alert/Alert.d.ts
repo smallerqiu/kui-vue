@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Alert component props */
 export interface AlertProps {
@@ -10,9 +10,13 @@ export interface AlertProps {
   description?: string;
 }
 
-declare class Alert extends Vue {
+/** Alert component instance */
+export interface Alert extends Vue {
   $props: AlertProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Alert Vue component type */
+declare const Alert: VueConstructor<Alert>;
 
 export default Alert;

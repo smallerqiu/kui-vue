@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Popconfirm component props */
 export interface PopconfirmProps {
@@ -13,9 +13,13 @@ export interface PopconfirmProps {
   placement?: any;
 }
 
-declare class Popconfirm extends Vue {
+/** Popconfirm component instance */
+export interface Popconfirm extends Vue {
   $props: PopconfirmProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Popconfirm Vue component type */
+declare const Popconfirm: VueConstructor<Popconfirm>;
 
 export default Popconfirm;

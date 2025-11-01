@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** InputNumber component props */
 export interface InputNumberProps {
@@ -25,9 +25,13 @@ export interface InputNumberProps {
   id?: string;
 }
 
-declare class InputNumber extends Vue {
+/** InputNumber component instance */
+export interface InputNumber extends Vue {
   $props: InputNumberProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** InputNumber Vue component type */
+declare const InputNumber: VueConstructor<InputNumber>;
 
 export default InputNumber;

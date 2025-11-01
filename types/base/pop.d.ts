@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** pop component props */
 export interface popProps {
@@ -28,9 +28,13 @@ export interface popProps {
   extendWidth?: boolean;
 }
 
-declare class pop extends Vue {
+/** pop component instance */
+export interface pop extends Vue {
   $props: popProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** pop Vue component type */
+declare const pop: VueConstructor<pop>;
 
 export default pop;

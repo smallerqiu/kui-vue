@@ -5,19 +5,18 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical>
     <RadioGroup v-model="size">
       <RadioButton value="large" label="Large"/>
       <RadioButton value="default" label="Default"/>
       <RadioButton value="small" label="Small"/>
     </RadioGroup>
-    <br/>
-    <DatePicker :size="size" :picker-size="size"/>
-    <br/>
-    <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
-    <br/>
-    <DatePicker :size="size" mode="dateRange" :picker-size="size"/>
-  </div>
+    <Space vertical>
+      <DatePicker :size="size" :picker-size="size"/>
+      <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size"/>
+      <DatePicker :size="size" mode="dateRange" :picker-size="size"/>
+    </Space>
+  </Space>
 </template>
 <script>
 export default{

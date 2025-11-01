@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Space component props */
 export interface SpaceProps {
@@ -10,9 +10,13 @@ export interface SpaceProps {
   size?: string | number | any[];
 }
 
-declare class Space extends Vue {
+/** Space component instance */
+export interface Space extends Vue {
   $props: SpaceProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Space Vue component type */
+declare const Space: VueConstructor<Space>;
 
 export default Space;

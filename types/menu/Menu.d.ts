@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Menu component props */
 export interface MenuProps {
@@ -13,9 +13,13 @@ export interface MenuProps {
   openKeys?: any[];
 }
 
-declare class Menu extends Vue {
+/** Menu component instance */
+export interface Menu extends Vue {
   $props: MenuProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Menu Vue component type */
+declare const Menu: VueConstructor<Menu>;
 
 export default Menu;

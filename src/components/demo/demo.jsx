@@ -1,5 +1,4 @@
-import Icon from "kui-vue/icon";
-import Tooltip from "kui-vue/tooltip";
+import { Icon, Tooltip } from "kui-vue";
 import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
 const Demo = {

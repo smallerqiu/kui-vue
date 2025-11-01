@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Slider component props */
 export interface SliderProps {
@@ -21,9 +21,13 @@ export interface SliderProps {
   tooltipVisible?: boolean;
 }
 
-declare class Slider extends Vue {
+/** Slider component instance */
+export interface Slider extends Vue {
   $props: SliderProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Slider Vue component type */
+declare const Slider: VueConstructor<Slider>;
 
 export default Slider;

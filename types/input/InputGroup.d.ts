@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** InputGroup component props */
 export interface InputGroupProps {
@@ -9,9 +9,13 @@ export interface InputGroupProps {
   size?: string | number | any[];
 }
 
-declare class InputGroup extends Vue {
+/** InputGroup component instance */
+export interface InputGroup extends Vue {
   $props: InputGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** InputGroup Vue component type */
+declare const InputGroup: VueConstructor<InputGroup>;
 
 export default InputGroup;

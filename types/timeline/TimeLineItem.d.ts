@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** TimeLineItem component props */
 export interface TimeLineItemProps {
@@ -8,9 +8,13 @@ export interface TimeLineItemProps {
   extra?: string;
 }
 
-declare class TimeLineItem extends Vue {
+/** TimeLineItem component instance */
+export interface TimeLineItem extends Vue {
   $props: TimeLineItemProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** TimeLineItem Vue component type */
+declare const TimeLineItem: VueConstructor<TimeLineItem>;
 
 export default TimeLineItem;

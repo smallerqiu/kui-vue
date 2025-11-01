@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Button component props */
 export interface ButtonProps {
@@ -19,9 +19,13 @@ export interface ButtonProps {
   target?: string;
 }
 
-declare class Button extends Vue {
+/** Button component instance */
+export interface Button extends Vue {
   $props: ButtonProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Button Vue component type */
+declare const Button: VueConstructor<Button>;
 
 export default Button;

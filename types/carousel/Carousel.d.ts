@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Carousel component props */
 export interface CarouselProps {
@@ -14,9 +14,13 @@ export interface CarouselProps {
   dots?: boolean;
 }
 
-declare class Carousel extends Vue {
+/** Carousel component instance */
+export interface Carousel extends Vue {
   $props: CarouselProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Carousel Vue component type */
+declare const Carousel: VueConstructor<Carousel>;
 
 export default Carousel;

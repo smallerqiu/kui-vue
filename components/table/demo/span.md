@@ -26,7 +26,7 @@ export default{
         {key:'0',  name:'Li Lei' ,age:32 , night:'orange',  morning:'apple' },
         {key:'1',  name:'Liu Hao' ,age:28 , night:'orange',  morning:'ale' },
         {key:'2',  name:'Hu Cong' ,age:28 , night:'orange',  morning:'ale' },
-        {key:'3',  name:'Chuchur' ,age:28 , night:'orange',  morning:'ale' },
+        {key:'3',  name:'Qiu' ,age:28 , night:'orange',  morning:'ale' },
         {key:'4',  name:'WangKang' ,age:28 , night:'orange',  morning:'apple' },
       ],
       columns:[
@@ -36,7 +36,7 @@ export default{
           rowSpan:3 ,
           render: (h,row,index)=>{
             return {
-              children:<a href="javascript:;">{row.name}</a>,
+              // children:<a href="javascript:;">{row.name}</a>,
               attrs: {
                 colSpan: index==4 ? 4 : null
               }

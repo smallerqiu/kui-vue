@@ -12,7 +12,7 @@
           <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key" @input="search" clearable
             style="background:var(--kui-color-back);">
           </Input>
-          <Button :icon="icons['Search']"></Button>
+          <Button :icon="icons['Search']" theme="outline"></Button>
         </Space>
       </Flex>
     </Affix>
@@ -146,12 +146,12 @@ export default {
       this.showIcons = showIcons
       this.logo = logo
     },
-    copy(x) {
-      let text = `<Icon type="${x}" />`
+    copy(text) {
+      // let text = `<Icon type="${x}" />`
       this.$copyText(text).then(e => {
-        this.$Message.success('代码复制成功！')
+        this.$Message.success('Copied!')
       }, e => {
-        this.$Message.error('复制代码失败，请手动复制')
+        this.$Message.error('Copy failed.')
       })
     }
   },

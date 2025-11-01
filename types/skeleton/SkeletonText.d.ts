@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** SkeletonText component props */
 export interface SkeletonTextProps {
@@ -10,9 +10,13 @@ export interface SkeletonTextProps {
   width?: number;
 }
 
-declare class SkeletonText extends Vue {
+/** SkeletonText component instance */
+export interface SkeletonText extends Vue {
   $props: SkeletonTextProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** SkeletonText Vue component type */
+declare const SkeletonText: VueConstructor<SkeletonText>;
 
 export default SkeletonText;

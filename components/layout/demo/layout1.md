@@ -37,7 +37,7 @@
         </Breadcrumb>
         <Content class="demo-back">Conent</Content>
       </Content>
-      <Footer style="background:transparent;">KUI ©2025 Created by chuchur</Footer>
+      <Footer style="background:transparent;">KUI ©2025 Created by Qiu</Footer>
     </Layout>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Badge component props */
 export interface BadgeProps {
@@ -12,9 +12,13 @@ export interface BadgeProps {
   maxCount?: number;
 }
 
-declare class Badge extends Vue {
+/** Badge component instance */
+export interface Badge extends Vue {
   $props: BadgeProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Badge Vue component type */
+declare const Badge: VueConstructor<Badge>;
 
 export default Badge;

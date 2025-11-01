@@ -1,13 +1,23 @@
+/**
+ * 自动为 Vue 2 + JSX 组件库生成类型声明 (.d.ts)
+ * ----------------------------------------------
+ * 1. 解析组件 props 类型
+ * 2. 自动生成每个组件的 .d.ts 文件
+ * 3. 汇总生成 index.d.ts
+ */
+
 import fs from "fs";
 import path from "path";
 import fg from "fast-glob";
 import prettier from "prettier";
 import { parse } from "@babel/parser";
-import traverse1 from "@babel/traverse";
-const traverse = traverse1.default;
+import traverseModule from "@babel/traverse";
+
+const traverse = traverseModule.default;
 const COMPONENTS_DIR = path.resolve("components");
 const OUT_DIR = path.resolve("types");
 
+// ---------------- Prettier Config ----------------
 const prettierConfig =
   (await prettier.resolveConfig(process.cwd())) || {
     singleQuote: false,
@@ -15,6 +25,7 @@ const prettierConfig =
     trailingComma: "es5",
   };
 
+// ---------------- Type Mapping ----------------
 const TYPE_MAP = {
   String: "string",
   Number: "number",
@@ -23,6 +34,14 @@ const TYPE_MAP = {
   Object: "Record<string, any>",
   Function: "(...args: any[]) => any",
 };
+
+// ---------------- Safe mkdir / clean ----------------
+function ensureCleanDir(dir) {
+  if (fs.existsSync(dir)) {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+  fs.mkdirSync(dir, { recursive: true });
+}
 
 // ---------------- 解析 props ----------------
 function parseProps(propsNode, source = "") {
@@ -36,19 +55,24 @@ function parseProps(propsNode, source = "") {
     let hasDefault = false;
     let defaultVal = undefined;
 
+    // 简写：props: { visible: Boolean }
     if (p.value.type === "Identifier") {
       type = TYPE_MAP[p.value.name] || "any";
-    } else if (p.value.type === "ArrayExpression") {
-      // [String, Number] → string | number
+    }
+    // 多类型：props: { size: [String, Number] }
+    else if (p.value.type === "ArrayExpression") {
       const arr = p.value.elements
         .map((el) => TYPE_MAP[el.name] || "any")
         .join(" | ");
       type = arr;
-    } else if (p.value.type === "ObjectExpression") {
+    }
+    // 完整对象形式：props: { color: { type: String, default: 'red' } }
+    else if (p.value.type === "ObjectExpression") {
       for (const prop of p.value.properties) {
-        if (!prop?.key?.name) continue;
+        if (!prop.key?.name) continue;
+        const keyName = prop.key.name;
 
-        if (prop.key.name === "type") {
+        if (keyName === "type") {
           if (prop.value.type === "Identifier") {
             type = TYPE_MAP[prop.value.name] || "any";
           } else if (prop.value.type === "ArrayExpression") {
@@ -58,19 +82,19 @@ function parseProps(propsNode, source = "") {
           }
         }
 
-        if (prop.key.name === "default") {
+        if (keyName === "default") {
           hasDefault = true;
           if (
-            prop.value.type === "StringLiteral" ||
-            prop.value.type === "NumericLiteral" ||
-            prop.value.type === "BooleanLiteral"
+            ["StringLiteral", "NumericLiteral", "BooleanLiteral"].includes(
+              prop.value.type
+            )
           ) {
             defaultVal = prop.value.value;
           }
         }
 
-        // ✅ validator 枚举识别
-        if (prop.key.name === "validator") {
+        // ✅ validator 提取枚举
+        if (keyName === "validator") {
           const code = source.slice(prop.start, prop.end);
           const match = code.match(/\[([^\]]+)\]\.includes/);
           if (match) {
@@ -98,25 +122,33 @@ function genDts(name, props) {
     .map((p) => {
       const def = p.hasDefault ? `/** default: ${p.defaultVal} */\n  ` : "  ";
       let t = p.type;
-      if (t.includes("|") && t.includes("=>")) {
-        t = t.replace(/\(\.\.\.args: any\[\]\) => any/g, "((...args: any[]) => any)");
-      }
+  // 🩹 函数类型在 union 中必须独立括号
+if (t.includes("|") && t.includes("=>")) {
+  t = t.replace(/\(\.\.\.args: any\[\]\) => any/g, "((...args: any[]) => any)");
+} else if (t.includes("=>") && !t.includes("|")) {
+  // 单独函数类型
+  t = "((...args: any[]) => any)";
+}
       return `${def}${p.name}?: ${t};`;
     })
     .join("\n");
 
   return `
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** ${name} component props */
 export interface ${name}Props {
 ${propsContent}
 }
 
-declare class ${name} extends Vue {
+/** ${name} component instance */
+export interface ${name} extends Vue {
   $props: ${name}Props;
-  $emit:(event: string, ...args: any[])=> this;
+  $emit: (event: string, ...args: any[]) => this;
 }
+
+/** ${name} Vue component type */
+declare const ${name}: VueConstructor<${name}>;
 
 export default ${name};
 `;
@@ -124,16 +156,22 @@ export default ${name};
 
 // ---------------- 主函数 ----------------
 async function main() {
-  const files = await fg(["**/*.jsx"], { cwd: COMPONENTS_DIR, absolute: true });
+  const files = await fg(["**/*.jsx"], {
+    cwd: COMPONENTS_DIR,
+    absolute: true,
+  });
+
   if (!files.length) {
     console.log("❌ No .jsx files found in components/");
     process.exit(1);
   }
 
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+  ensureCleanDir(OUT_DIR);
   const exports = [];
 
   for (const file of files) {
+    if (/demo/i.test(file)) continue;
+
     const code = fs.readFileSync(file, "utf8");
     const ast = parse(code, {
       sourceType: "module",
@@ -144,11 +182,10 @@ async function main() {
     let compOptionsNode = null;
     let compOptionsSource = "";
 
-    // Pass 1: 定位组件定义对象
+    // Pass 1: export default {...} 或 export default withInstall(Component)
     traverse(ast, {
       ExportDefaultDeclaration(p) {
         const decl = p.node.declaration;
-        // export default withInstall(Component)
         if (
           decl.type === "CallExpression" &&
           decl.callee.name === "withInstall" &&
@@ -157,22 +194,19 @@ async function main() {
           const arg = decl.arguments[0];
           if (arg.type === "Identifier") {
             const binding = p.scope.getBinding(arg.name);
-            if (
-              binding?.path?.node?.init?.type === "ObjectExpression"
-            ) {
+            if (binding?.path?.node?.init?.type === "ObjectExpression") {
               compOptionsNode = binding.path.node.init;
               compName = arg.name;
             }
           }
         }
-        // export default { ... }
         if (decl.type === "ObjectExpression") {
           compOptionsNode = decl;
         }
       },
     });
 
-    // Pass 2: fallback — 找到顶层 const Tooltip = { ... }
+    // Pass 2: fallback — const Component = { ... }
     if (!compOptionsNode) {
       traverse(ast, {
         VariableDeclarator(p) {
@@ -189,19 +223,18 @@ async function main() {
       });
     }
 
-    // 提取 propsNode
+    // 提取 props
     let propsNode = null;
-    if (compOptionsNode && Array.isArray(compOptionsNode.properties)) {
+    if (compOptionsNode?.properties) {
       for (const prop of compOptionsNode.properties) {
-        if (prop.type === "ObjectProperty" && prop.key.name === "props") {
+        if (prop.key?.name === "props") {
           propsNode = prop.value;
         }
       }
-      if (typeof compOptionsNode.start === "number" && typeof compOptionsNode.end === "number") {
-        compOptionsSource = code.slice(compOptionsNode.start, compOptionsNode.end);
-      } else {
-        compOptionsSource = code;
-      }
+      compOptionsSource = code.slice(
+        compOptionsNode.start ?? 0,
+        compOptionsNode.end ?? code.length
+      );
     }
 
     const props = parseProps(propsNode, compOptionsSource);
@@ -218,8 +251,7 @@ async function main() {
     });
     fs.writeFileSync(outFile, formatted);
     exports.push({ name: compName, path: `./${relDir}/${compName}` });
-
-    console.log(`✅ Generated ${outFile}`);
+    console.log(`✅ Generated ${path.relative(process.cwd(), outFile)}`);
   }
 
   // 汇总 index.d.ts

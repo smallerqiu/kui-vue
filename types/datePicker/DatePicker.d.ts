@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** DatePicker component props */
 export interface DatePickerProps {
@@ -28,9 +28,13 @@ export interface DatePickerProps {
   presets?: any[];
 }
 
-declare class DatePicker extends Vue {
+/** DatePicker component instance */
+export interface DatePicker extends Vue {
   $props: DatePickerProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** DatePicker Vue component type */
+declare const DatePicker: VueConstructor<DatePicker>;
 
 export default DatePicker;

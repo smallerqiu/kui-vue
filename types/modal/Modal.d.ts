@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Modal component props */
 export interface ModalProps {
@@ -23,9 +23,13 @@ export interface ModalProps {
   transfer?: boolean;
 }
 
-declare class Modal extends Vue {
+/** Modal component instance */
+export interface Modal extends Vue {
   $props: ModalProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Modal Vue component type */
+declare const Modal: VueConstructor<Modal>;
 
 export default Modal;

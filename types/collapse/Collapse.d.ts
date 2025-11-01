@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Collapse component props */
 export interface CollapseProps {
@@ -7,9 +7,13 @@ export interface CollapseProps {
   sample?: boolean;
 }
 
-declare class Collapse extends Vue {
+/** Collapse component instance */
+export interface Collapse extends Vue {
   $props: CollapseProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Collapse Vue component type */
+declare const Collapse: VueConstructor<Collapse>;
 
 export default Collapse;

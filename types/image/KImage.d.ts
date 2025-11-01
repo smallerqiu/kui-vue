@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** KImage component props */
 export interface KImageProps {
@@ -13,9 +13,13 @@ export interface KImageProps {
   showPanel?: boolean;
 }
 
-declare class KImage extends Vue {
+/** KImage component instance */
+export interface KImage extends Vue {
   $props: KImageProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** KImage Vue component type */
+declare const KImage: VueConstructor<KImage>;
 
 export default KImage;

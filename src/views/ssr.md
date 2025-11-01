@@ -10,7 +10,7 @@ $ npx create-nuxt-app <project-name>
 $ yarn create nuxt-app <project-name>
 ```
 
-更多详情请参阅 https://nuxtjs.org/guide/installation
+更多详情请参阅 <https://nuxtjs.org/guide/installation>
 
 一步步完成后找到`plugins`目录，新建`kui.js`，写入以下内容：
 
@@ -30,14 +30,14 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: "{{ name }}",
+    title: "{ { name }}",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: "{{ escape description }}",
+        content: "{ { escape description }}",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],

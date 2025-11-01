@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** TextArea component props */
 export interface TextAreaProps {
@@ -8,9 +8,13 @@ export interface TextAreaProps {
   size?: any;
 }
 
-declare class TextArea extends Vue {
+/** TextArea component instance */
+export interface TextArea extends Vue {
   $props: TextAreaProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** TextArea Vue component type */
+declare const TextArea: VueConstructor<TextArea>;
 
 export default TextArea;

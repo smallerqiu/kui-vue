@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Row component props */
 export interface RowProps {
@@ -9,9 +9,13 @@ export interface RowProps {
   align?: string;
 }
 
-declare class Row extends Vue {
+/** Row component instance */
+export interface Row extends Vue {
   $props: RowProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Row Vue component type */
+declare const Row: VueConstructor<Row>;
 
 export default Row;

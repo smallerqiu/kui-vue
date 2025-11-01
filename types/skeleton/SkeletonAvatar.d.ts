@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** SkeletonAvatar component props */
 export interface SkeletonAvatarProps {
@@ -11,9 +11,13 @@ export interface SkeletonAvatarProps {
   size?: number | string;
 }
 
-declare class SkeletonAvatar extends Vue {
+/** SkeletonAvatar component instance */
+export interface SkeletonAvatar extends Vue {
   $props: SkeletonAvatarProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** SkeletonAvatar Vue component type */
+declare const SkeletonAvatar: VueConstructor<SkeletonAvatar>;
 
 export default SkeletonAvatar;

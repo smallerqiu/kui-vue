@@ -1,11 +1,15 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** ImageGroup component props */
 export interface ImageGroupProps {}
 
-declare class ImageGroup extends Vue {
+/** ImageGroup component instance */
+export interface ImageGroup extends Vue {
   $props: ImageGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** ImageGroup Vue component type */
+declare const ImageGroup: VueConstructor<ImageGroup>;
 
 export default ImageGroup;

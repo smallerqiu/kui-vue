@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** TreeSelect component props */
 export interface TreeSelectProps {
@@ -33,9 +33,13 @@ export interface TreeSelectProps {
   treeExpandedAll?: boolean;
 }
 
-declare class TreeSelect extends Vue {
+/** TreeSelect component instance */
+export interface TreeSelect extends Vue {
   $props: TreeSelectProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** TreeSelect Vue component type */
+declare const TreeSelect: VueConstructor<TreeSelect>;
 
 export default TreeSelect;

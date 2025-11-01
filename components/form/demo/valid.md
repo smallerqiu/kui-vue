@@ -84,7 +84,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Hardcore" prop="hardcore">
-        <Switch true-text="Yes" false-text="No"  />
+        <KSwitch true-text="Yes" false-text="No"  />
       </FormItem>
       <FormItem label="Other" prop="other">
         <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />

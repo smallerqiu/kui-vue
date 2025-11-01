@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Skeleton component props */
 export interface SkeletonProps {
@@ -13,9 +13,13 @@ export interface SkeletonProps {
   rows?: number;
 }
 
-declare class Skeleton extends Vue {
+/** Skeleton component instance */
+export interface Skeleton extends Vue {
   $props: SkeletonProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Skeleton Vue component type */
+declare const Skeleton: VueConstructor<Skeleton>;
 
 export default Skeleton;
