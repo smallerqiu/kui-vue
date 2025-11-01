@@ -3,9 +3,15 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue2'
 import vueJsx from '@vitejs/plugin-vue2-jsx'
 import vitePluginMd from './src/plugins/vite-plugin-md.js'
+import pkg from './package.json'
 
 import path from 'path'
-
+const bannerText = `/*!
+ * ${pkg.name} v${pkg.version}
+ * Copyright 2017-present, kui-vue.
+ * All rights reserved.
+ * Author: Qiu / https://chuchur.com
+ */\n`
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,6 +33,7 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
+        banner: bannerText,
         entryFileNames: 'js/[name]-[hash].js',
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -43,6 +50,14 @@ export default defineConfig({
             return 'fonts/[name]-[hash][extname]'
           }
           return 'assets/[name]-[hash][extname]'
+        }
+      },
+      manualChunks(id) {
+        if (id.includes('node_modules')) {
+          if (id.includes('vue')) return 'vue'
+          if (id.includes('kui-vue')) return 'ui-lib'
+          if (id.includes('dayjs')) return 'dayjs'
+          if (id.includes('vue-router') || id.includes('vuex')) return 'vue-vendor'
         }
       }
     }
