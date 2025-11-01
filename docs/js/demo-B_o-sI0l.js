@@ -1,0 +1,54 @@
+/*!
+* kui-vue v3.5.0
+* Copyright 2017-present, kui-vue.
+* All rights reserved.
+* Author: Qiu / https://chuchur.com
+*/
+import{Bt as e,zt as t}from"./index-DH7LFVbd.js";var n=t({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h1`,[e._v(`Divider 分割线`)]),t(`p`,[e._v(`区隔内容的分割线。`)]),t(`h2`,{attrs:{id:`何时使用`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#何时使用`}},[e._v(`何时使用`)])]),t(`ul`,[t(`li`,[e._v(`对不同章节的文本段落进行分割。`)]),t(`li`,[e._v(`对行内文字/链接进行分割，例如表格的操作列。`)])]),t(`h2`,{attrs:{id:`代码演示`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#代码演示`}},[e._v(`代码演示`)])])])}],!1,null,null,null,null).exports,r=t({},function(){var e=this,t=e._self._c;return t(`Demo`,[t(`template`,{slot:`component`},[t(`div`,[e._v(` Text `),t(`Divider`,{attrs:{type:`vertical`}}),t(`a`,{attrs:{href:`#`}},[e._v(`Link`)]),t(`Divider`,{attrs:{type:`vertical`}}),t(`a`,{attrs:{href:`#`}},[e._v(`Link`)])],1)]),t(`template`,{slot:`description`},[t(`h4`,[e._v(`垂直分割线`)]),t(`p`,[e._v(`使用 type="vertical" 设置为行内的垂直分割线。`)])]),t(`template`,{slot:`code`},[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    Text
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`type`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"vertical"`)]),e._v(` />`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`href`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"#"`)]),e._v(`>`)]),e._v(`Link`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`type`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"vertical"`)]),e._v(` />`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`href`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"#"`)]),e._v(`>`)]),e._v(`Link`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`)])])])],2)},[],!1,null,null,null,null).exports,i=t({},function(){var e=this,t=e._self._c;return t(`Demo`,[t(`template`,{slot:`component`},[t(`div`,[t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`,[e._v(`李白`)]),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`,{attrs:{dashed:``}}),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)])],1)]),t(`template`,{slot:`description`},[t(`h4`,[e._v(`水平分割线`)]),t(`p`,[e._v(`默认为水平分割线，可在中间加入文字。`)])]),t(`template`,{slot:`code`},[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` />`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+     床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(`>`)]),e._v(`李白`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`dashed`)]),e._v(` />`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`)])])])],2)},[],!1,null,null,null,null).exports,a=t({},function(){var e=this,t=e._self._c;return t(`Demo`,[t(`template`,{slot:`component`},[t(`div`,[t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`,{attrs:{orientation:`left`,text:`李白`}}),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`,[e._v(`李白`)]),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)]),t(`Divider`,{attrs:{orientation:`right`,text:`李白`}}),t(`p`,[e._v(` 床前明月光，疑是地上霜，举头望明月，低头思故乡！ `)])],1)]),t(`template`,{slot:`description`},[t(`h4`,[e._v(`带文字的分割线`)]),t(`p`,[e._v(`分割线中带有文字，可以用 orientation 指定文字位置。`)])]),t(`template`,{slot:`code`},[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`orientation`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"left"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`text`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"李白"`)]),e._v(`/>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+     床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(`>`)]),e._v(`李白`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Divider`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`orientation`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"right"`)]),e._v(`  `),t(`span`,{staticClass:`hljs-attr`},[e._v(`text`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"李白"`)]),e._v(`/>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+      床前明月光，疑是地上霜，举头望明月，低头思故乡！
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`p`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`)])])])],2)},[],!1,null,null,null,null).exports,o=t({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h2`,{attrs:{id:`api`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#api`}},[e._v(`API`)])]),t(`table`,[t(`thead`,[t(`tr`,[t(`th`,[e._v(`参数`)]),t(`th`,[e._v(`说明`)]),t(`th`,[e._v(`类型`)]),t(`th`,[e._v(`默认值`)])])]),t(`tbody`,[t(`tr`,[t(`td`,[e._v(`text`)]),t(`td`,[e._v(`分割线文字`)]),t(`td`,[e._v(`String`)]),t(`td`,[e._v(`-`)])]),t(`tr`,[t(`td`,[e._v(`dashed`)]),t(`td`,[e._v(`是否虚线`)]),t(`td`,[e._v(`Boolean`)]),t(`td`,[e._v(`false`)])]),t(`tr`,[t(`td`,[e._v(`orientation`)]),t(`td`,[e._v(`分割线标题的位置 enum：left right`)]),t(`td`,[e._v(`String`)]),t(`td`,[e._v(`center`)])]),t(`tr`,[t(`td`,[e._v(`type`)]),t(`td`,[e._v(`水平还是垂直类型`)]),t(`td`,[e._v(`enum: horizontal vertical`)]),t(`td`,[e._v(`horizontal`)])])])])])}],!1,null,null,null,null).exports,s={render(){return e(`div`,[e(n),e(r),e(i),e(a),e(o)])}};export{s as default};

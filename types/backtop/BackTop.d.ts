@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** BackTop component props */
 export interface BackTopProps {
@@ -8,9 +8,13 @@ export interface BackTopProps {
   bottom?: string | number;
 }
 
-declare class BackTop extends Vue {
+/** BackTop component instance */
+export interface BackTop extends Vue {
   $props: BackTopProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** BackTop Vue component type */
+declare const BackTop: VueConstructor<BackTop>;
 
 export default BackTop;

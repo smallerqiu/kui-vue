@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Tag component props */
 export interface TagProps {
@@ -10,9 +10,13 @@ export interface TagProps {
   size?: any;
 }
 
-declare class Tag extends Vue {
+/** Tag component instance */
+export interface Tag extends Vue {
   $props: TagProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Tag Vue component type */
+declare const Tag: VueConstructor<Tag>;
 
 export default Tag;

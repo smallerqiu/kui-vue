@@ -110,7 +110,7 @@ export default {
       localStorage.setItem('themeColor', v)
     },
     changeMode(event) {
-      this.$Theme.setThemeMode(event, v => this.currentTheme = v ? 'dark' : 'light')
+      this.$Theme.setThemeMode(event, v => this.theme = v ? 'dark' : 'light')
     },
     go({ key, keyPath, item }) {
       if (key == "home") {

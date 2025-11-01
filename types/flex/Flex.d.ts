@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Flex component props */
 export interface FlexProps {
@@ -9,9 +9,13 @@ export interface FlexProps {
   size?: string | number | any[];
 }
 
-declare class Flex extends Vue {
+/** Flex component instance */
+export interface Flex extends Vue {
   $props: FlexProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Flex Vue component type */
+declare const Flex: VueConstructor<Flex>;
 
 export default Flex;

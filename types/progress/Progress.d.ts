@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Progress component props */
 export interface ProgressProps {
@@ -25,9 +25,13 @@ export interface ProgressProps {
   showInfo?: boolean;
 }
 
-declare class Progress extends Vue {
+/** Progress component instance */
+export interface Progress extends Vue {
   $props: ProgressProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Progress Vue component type */
+declare const Progress: VueConstructor<Progress>;
 
 export default Progress;

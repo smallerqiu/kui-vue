@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** ButtonGroup component props */
 export interface ButtonGroupProps {
@@ -7,9 +7,13 @@ export interface ButtonGroupProps {
   shape?: string;
 }
 
-declare class ButtonGroup extends Vue {
+/** ButtonGroup component instance */
+export interface ButtonGroup extends Vue {
   $props: ButtonGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** ButtonGroup Vue component type */
+declare const ButtonGroup: VueConstructor<ButtonGroup>;
 
 export default ButtonGroup;

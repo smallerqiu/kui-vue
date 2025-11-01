@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** AvatarGroup component props */
 export interface AvatarGroupProps {
@@ -7,9 +7,13 @@ export interface AvatarGroupProps {
   size?: string | number;
 }
 
-declare class AvatarGroup extends Vue {
+/** AvatarGroup component instance */
+export interface AvatarGroup extends Vue {
   $props: AvatarGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** AvatarGroup Vue component type */
+declare const AvatarGroup: VueConstructor<AvatarGroup>;
 
 export default AvatarGroup;

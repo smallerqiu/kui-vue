@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** extend component props */
 export interface extendProps {
@@ -13,9 +13,13 @@ export interface extendProps {
   checkAll?: boolean;
 }
 
-declare class extend extends Vue {
+/** extend component instance */
+export interface extend extends Vue {
   $props: extendProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** extend Vue component type */
+declare const extend: VueConstructor<extend>;
 
 export default extend;

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** inner component props */
 export interface innerProps {
@@ -16,9 +16,13 @@ export interface innerProps {
   onClose?: (...args: any[]) => any;
 }
 
-declare class inner extends Vue {
+/** inner component instance */
+export interface inner extends Vue {
   $props: innerProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** inner Vue component type */
+declare const inner: VueConstructor<inner>;
 
 export default inner;

@@ -5,15 +5,14 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
+    Loading state：<KSwitch v-model="spinning" @change="change"/>
     <Spin v-model="spinning">
       <div class="deme-spin-container demo-back">
           床前明月光，疑是地上霜。<br>
           举头望明月，低头思故乡。
       </div>
     </Spin>
-    <br/>
-    Loading state：<Switch v-model="spinning" @change="change"/>
   </Space>
 </template>
 <style scoped>

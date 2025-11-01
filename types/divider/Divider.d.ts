@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Divider component props */
 export interface DividerProps {
@@ -10,9 +10,13 @@ export interface DividerProps {
   orientation?: string;
 }
 
-declare class Divider extends Vue {
+/** Divider component instance */
+export interface Divider extends Vue {
   $props: DividerProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Divider Vue component type */
+declare const Divider: VueConstructor<Divider>;
 
 export default Divider;

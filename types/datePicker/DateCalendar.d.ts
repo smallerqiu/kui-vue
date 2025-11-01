@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** DateCalendar component props */
 export interface DateCalendarProps {
@@ -19,9 +19,13 @@ export interface DateCalendarProps {
   opened?: boolean;
 }
 
-declare class DateCalendar extends Vue {
+/** DateCalendar component instance */
+export interface DateCalendar extends Vue {
   $props: DateCalendarProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** DateCalendar Vue component type */
+declare const DateCalendar: VueConstructor<DateCalendar>;
 
 export default DateCalendar;

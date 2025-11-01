@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Col component props */
 export interface ColProps {
@@ -7,9 +7,13 @@ export interface ColProps {
   flex?: string | number;
 }
 
-declare class Col extends Vue {
+/** Col component instance */
+export interface Col extends Vue {
   $props: ColProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Col Vue component type */
+declare const Col: VueConstructor<Col>;
 
 export default Col;

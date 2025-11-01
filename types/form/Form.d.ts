@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Form component props */
 export interface FormProps {
@@ -17,9 +17,13 @@ export interface FormProps {
   disabled?: boolean;
 }
 
-declare class Form extends Vue {
+/** Form component instance */
+export interface Form extends Vue {
   $props: FormProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Form Vue component type */
+declare const Form: VueConstructor<Form>;
 
 export default Form;

@@ -1,3 +1,4 @@
 import "./demo.less";
 import Demo from './demo.jsx'
-export default Demo
+import { withInstall } from 'kui-vue/utils/vue'
+export default withInstall(Demo)

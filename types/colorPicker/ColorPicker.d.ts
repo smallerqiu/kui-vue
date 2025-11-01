@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** ColorPicker component props */
 export interface ColorPickerProps {
@@ -18,9 +18,13 @@ export interface ColorPickerProps {
   placement?: any;
 }
 
-declare class ColorPicker extends Vue {
+/** ColorPicker component instance */
+export interface ColorPicker extends Vue {
   $props: ColorPickerProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** ColorPicker Vue component type */
+declare const ColorPicker: VueConstructor<ColorPicker>;
 
 export default ColorPicker;

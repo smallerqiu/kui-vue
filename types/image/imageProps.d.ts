@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** imageProps component props */
 export interface imagePropsProps {
@@ -11,9 +11,13 @@ export interface imagePropsProps {
   type?: any;
 }
 
-declare class imageProps extends Vue {
+/** imageProps component instance */
+export interface imageProps extends Vue {
   $props: imagePropsProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** imageProps Vue component type */
+declare const imageProps: VueConstructor<imageProps>;
 
 export default imageProps;

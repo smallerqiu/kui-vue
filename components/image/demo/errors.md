@@ -7,17 +7,17 @@
 ```vue
 <template>  
   <Space>
-    <Image 
+    <KImage 
       :width="120"
       src="https://k-ui.cn/error.jpg"
       placeholder="https://cdn.chuchur.com/img/thumb.png"
       />
-    <Image 
+    <KImage 
       :width="120"
       :height="120" 
       src="https://k-ui.cn/error.jpg"
       />
-    <Image 
+    <KImage 
       :width="120"
       :height="120" 
       :src="src"

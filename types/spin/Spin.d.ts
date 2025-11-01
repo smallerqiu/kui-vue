@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Spin component props */
 export interface SpinProps {
@@ -12,9 +12,13 @@ export interface SpinProps {
   mode?: string;
 }
 
-declare class Spin extends Vue {
+/** Spin component instance */
+export interface Spin extends Vue {
   $props: SpinProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Spin Vue component type */
+declare const Spin: VueConstructor<Spin>;
 
 export default Spin;

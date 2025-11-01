@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** SkeletonImage component props */
 export interface SkeletonImageProps {
@@ -10,9 +10,13 @@ export interface SkeletonImageProps {
   size?: number | any[];
 }
 
-declare class SkeletonImage extends Vue {
+/** SkeletonImage component instance */
+export interface SkeletonImage extends Vue {
   $props: SkeletonImageProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** SkeletonImage Vue component type */
+declare const SkeletonImage: VueConstructor<SkeletonImage>;
 
 export default SkeletonImage;

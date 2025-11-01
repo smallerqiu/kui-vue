@@ -6,15 +6,15 @@
 ```vue
 <template>
   <Space vertical align="start">
-    <Switch disabled />
+    <KSwitch disabled />
     <Space>
-      <Switch :disabled="disabled" v-model="checked" />
+      <KSwitch :disabled="disabled" v-model="checked" />
       <Button size="small" @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
       <Button size="small" @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
     </Space>
-    <Switch disabled true-text="Yes" false-text="No" />
-    <Switch disabled true-text="Yes" false-text="No" checked />
-    <Switch disabled true-text="Yes" false-text="No" checked size="small"/>
+    <KSwitch disabled true-text="Yes" false-text="No" />
+    <KSwitch disabled true-text="Yes" false-text="No" checked />
+    <KSwitch disabled true-text="Yes" false-text="No" checked size="small"/>
   </Space>
 </template>
 <script>

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Affix component props */
 export interface AffixProps {
@@ -9,9 +9,13 @@ export interface AffixProps {
   target?: (...args: any[]) => any;
 }
 
-declare class Affix extends Vue {
+/** Affix component instance */
+export interface Affix extends Vue {
   $props: AffixProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Affix Vue component type */
+declare const Affix: VueConstructor<Affix>;
 
 export default Affix;

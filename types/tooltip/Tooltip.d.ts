@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Tooltip component props */
 export interface TooltipProps {
@@ -15,9 +15,13 @@ export interface TooltipProps {
   show?: boolean;
 }
 
-declare class Tooltip extends Vue {
+/** Tooltip component instance */
+export interface Tooltip extends Vue {
   $props: TooltipProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Tooltip Vue component type */
+declare const Tooltip: VueConstructor<Tooltip>;
 
 export default Tooltip;

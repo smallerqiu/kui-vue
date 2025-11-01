@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Tree component props */
 export interface TreeProps {
@@ -20,9 +20,13 @@ export interface TreeProps {
   directory?: boolean;
 }
 
-declare class Tree extends Vue {
+/** Tree component instance */
+export interface Tree extends Vue {
   $props: TreeProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Tree Vue component type */
+declare const Tree: VueConstructor<Tree>;
 
 export default Tree;

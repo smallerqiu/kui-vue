@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-dot">
+  <Space size="large">
    <Badge :count="99">
       <div class="box"></div>
     </Badge>
@@ -24,6 +24,6 @@
     <Badge count="new">
       <div class="box"></div>
     </Badge>
-  </div>
+  </Space>
 </template>
 ```

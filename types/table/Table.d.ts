@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Table component props */
 export interface TableProps {
@@ -16,9 +16,13 @@ export interface TableProps {
   emptyText?: string;
 }
 
-declare class Table extends Vue {
+/** Table component instance */
+export interface Table extends Vue {
   $props: TableProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Table Vue component type */
+declare const Table: VueConstructor<Table>;
 
 export default Table;

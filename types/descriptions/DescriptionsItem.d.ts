@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** DescriptionsItem component props */
 export interface DescriptionsItemProps {
@@ -10,9 +10,13 @@ export interface DescriptionsItemProps {
   layout?: string;
 }
 
-declare class DescriptionsItem extends Vue {
+/** DescriptionsItem component instance */
+export interface DescriptionsItem extends Vue {
   $props: DescriptionsItemProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** DescriptionsItem Vue component type */
+declare const DescriptionsItem: VueConstructor<DescriptionsItem>;
 
 export default DescriptionsItem;

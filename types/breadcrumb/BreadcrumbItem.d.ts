@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** BreadcrumbItem component props */
 export interface BreadcrumbItemProps {
@@ -9,9 +9,13 @@ export interface BreadcrumbItemProps {
   icon?: string | any[];
 }
 
-declare class BreadcrumbItem extends Vue {
+/** BreadcrumbItem component instance */
+export interface BreadcrumbItem extends Vue {
   $props: BreadcrumbItemProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** BreadcrumbItem Vue component type */
+declare const BreadcrumbItem: VueConstructor<BreadcrumbItem>;
 
 export default BreadcrumbItem;

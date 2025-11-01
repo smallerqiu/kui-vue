@@ -6,6 +6,9 @@
 ```vue
 <template>
   <div class="demo-grid">
+     <Row>
+      <Col :span="24">col</Col>
+    </Row>
     <Row>
       <Col :span="12">col-12</Col>
       <Col :span="12">col-12</Col>
@@ -24,4 +27,3 @@
   </div>
 </template>
 ```
-

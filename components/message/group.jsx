@@ -1,5 +1,4 @@
 import Notice from "./inner";
-import { withInstall } from '../utils/vue'
 import { getTransitionProp } from "../base/transition";
 
 let count = 0;

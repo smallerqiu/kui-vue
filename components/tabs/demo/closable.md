@@ -7,8 +7,8 @@
 ```vue
 <template>
   <Tabs v-model="activeKey" card @remove="remove">
-    <TabPanel :title="pane.title" v-for="pane in panes" :key="pane.key" :closable="pane.closable">
-      {{pane.content}}
+    <TabPanel :title="panel.title" v-for="panel in panels" :key="panel.key" :closable="panel.closable">
+      {{panel.content}}
     </TabPanel>
     <Button slot="extra" :icon="Add" size="small" @click="add"/>
   </Tabs>
@@ -17,40 +17,40 @@
 import { Add } from "kui-icons";
 export default{
   data() {
-    const panes = [
+    const panels = [
       { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
       { title: 'Tab 2', content: 'Content of Tab 2', key: '2', closable:true },
       { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable:true },
     ];
     return {
       Add,
-      panes,
-      activeKey: panes[0].key,
+      panels,
+      activeKey: panels[0].key,
       newTabIndex: 1
     }
   },
   methods:{
     remove(key){
-      let panes = this.panes
+      let panels = this.panels
       
-      const index = panes.map(p=>p.key).indexOf(key)
+      const index = panels.map(p=>p.key).indexOf(key)
 
       if (this.activeKey == key) {
-        if(index == panes.length-1) {
-          this.activeKey = panes[index-1].key
+        if(index == panels.length-1) {
+          this.activeKey = panels[index-1].key
         } else {
-          this.activeKey = panes[index+1].key
+          this.activeKey = panels[index+1].key
         }
 
       }
-      panes.splice(index,1)
+      panels.splice(index,1)
 
     },
     add() {
-      const panes = this.panes;
+      const panels = this.panels;
       const activeKey = `A${this.newTabIndex++}`;
-      panes.push({ title: `New Tab${this.newTabIndex}`, content: `Content of new Tab ${activeKey}`, key: activeKey, closable:true });
-      this.panes = panes;
+      panels.push({ title: `New Tab${this.newTabIndex}`, content: `Content of new Tab ${activeKey}`, key: activeKey, closable:true });
+      this.panels = panels;
       this.activeKey = activeKey;
     },
   }

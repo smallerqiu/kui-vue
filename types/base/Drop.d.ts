@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Drop component props */
 export interface DropProps {
@@ -19,9 +19,13 @@ export interface DropProps {
   extendWidth?: boolean;
 }
 
-declare class Drop extends Vue {
+/** Drop component instance */
+export interface Drop extends Vue {
   $props: DropProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Drop Vue component type */
+declare const Drop: VueConstructor<Drop>;
 
 export default Drop;

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** SubMenu component props */
 export interface SubMenuProps {
@@ -7,9 +7,13 @@ export interface SubMenuProps {
   icon?: string | any[];
 }
 
-declare class SubMenu extends Vue {
+/** SubMenu component instance */
+export interface SubMenu extends Vue {
   $props: SubMenuProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** SubMenu Vue component type */
+declare const SubMenu: VueConstructor<SubMenu>;
 
 export default SubMenu;

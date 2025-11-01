@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Poptip component props */
 export interface PoptipProps {
@@ -14,9 +14,13 @@ export interface PoptipProps {
   value?: boolean;
 }
 
-declare class Poptip extends Vue {
+/** Poptip component instance */
+export interface Poptip extends Vue {
   $props: PoptipProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Poptip Vue component type */
+declare const Poptip: VueConstructor<Poptip>;
 
 export default Poptip;

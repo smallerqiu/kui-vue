@@ -5,16 +5,12 @@
 
 ```vue
 <template>
-  <div>
+  <Space wrap>
     <DatePicker :bordered="false"/>
-    <br/>
     <DatePicker mode="month" placeholder="请选择月份"  :bordered="false"/>
-    <br/>
     <DatePicker mode="dateRange"  :bordered="false"/>
-    <br/>
     <DatePicker :bordered="false" disabled/>
-    <br/>
     <DatePicker mode="dateRange"  :bordered="false" disabled/>
-  </div>
+  </Space>
 </template>
 ```

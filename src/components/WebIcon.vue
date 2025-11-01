@@ -10,7 +10,7 @@
   </span>
 </template>
 <script>
-import sprite from '@/assets/img/web.svg'
+import sprite from '@/src/assets/img/web.svg'
 export default {
   name: 'Chain',
   data() {

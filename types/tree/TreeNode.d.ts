@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** TreeNode component props */
 export interface TreeNodeProps {
@@ -9,9 +9,13 @@ export interface TreeNodeProps {
   title?: string;
 }
 
-declare class TreeNode extends Vue {
+/** TreeNode component instance */
+export interface TreeNode extends Vue {
   $props: TreeNodeProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** TreeNode Vue component type */
+declare const TreeNode: VueConstructor<TreeNode>;
 
 export default TreeNode;

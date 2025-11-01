@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** ImagePreview component props */
 export interface ImagePreviewProps {
@@ -16,9 +16,13 @@ export interface ImagePreviewProps {
   global?: boolean;
 }
 
-declare class ImagePreview extends Vue {
+/** ImagePreview component instance */
+export interface ImagePreview extends Vue {
   $props: ImagePreviewProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** ImagePreview Vue component type */
+declare const ImagePreview: VueConstructor<ImagePreview>;
 
 export default ImagePreview;

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Page component props */
 export interface PageProps {
@@ -18,9 +18,13 @@ export interface PageProps {
   current?: number;
 }
 
-declare class Page extends Vue {
+/** Page component instance */
+export interface Page extends Vue {
   $props: PageProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Page Vue component type */
+declare const Page: VueConstructor<Page>;
 
 export default Page;

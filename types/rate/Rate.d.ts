@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Rate component props */
 export interface RateProps {
@@ -18,9 +18,13 @@ export interface RateProps {
   color?: string;
 }
 
-declare class Rate extends Vue {
+/** Rate component instance */
+export interface Rate extends Vue {
   $props: RateProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Rate Vue component type */
+declare const Rate: VueConstructor<Rate>;
 
 export default Rate;

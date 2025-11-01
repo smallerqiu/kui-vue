@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Empty component props */
 export interface EmptyProps {
@@ -7,9 +7,13 @@ export interface EmptyProps {
   imageStyle?: Record<string, any>;
 }
 
-declare class Empty extends Vue {
+/** Empty component instance */
+export interface Empty extends Vue {
   $props: EmptyProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Empty Vue component type */
+declare const Empty: VueConstructor<Empty>;
 
 export default Empty;

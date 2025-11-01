@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** CheckboxGroup component props */
 export interface CheckboxGroupProps {
@@ -12,9 +12,13 @@ export interface CheckboxGroupProps {
   size?: any;
 }
 
-declare class CheckboxGroup extends Vue {
+/** CheckboxGroup component instance */
+export interface CheckboxGroup extends Vue {
   $props: CheckboxGroupProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** CheckboxGroup Vue component type */
+declare const CheckboxGroup: VueConstructor<CheckboxGroup>;
 
 export default CheckboxGroup;

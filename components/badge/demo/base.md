@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space size="large">
     <Badge :count="3">
       <div class="box"></div>
     </Badge>

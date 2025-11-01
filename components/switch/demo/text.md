@@ -5,23 +5,23 @@
 
 ```vue
 <template>
-  <Space vertical align="start">
-    <Switch true-text="Yes" false-text="No" />
-    <Switch true-text="｜" false-text="〇" />
-    <Switch true-text="｜" false-text="〇" checked/>
-    <Switch true-text="On" false-text="Off" />
-    <Switch>
+  <Space  align="start">
+    <KSwitch true-text="Yes" false-text="No" />
+    <KSwitch true-text="｜" false-text="〇" />
+    <KSwitch true-text="｜" false-text="〇" checked/>
+    <KSwitch true-text="On" false-text="Off" />
+    <KSwitch>
       <Icon :type="Checkmark" slot="checked"/>
       <Icon :type="Close" slot="unchecked"/>
-    </Switch>
-    <Switch>
+    </KSwitch>
+    <KSwitch>
       <Icon :type="LogoApple" slot="checked"/>
       <Icon :type="LogoMicrosoft" slot="unchecked"/>
-    </Switch>
-     <Switch>
+    </KSwitch>
+     <KSwitch>
       <Icon :type="Airplane" slot="unchecked"/>
       <Icon :type="Wifi" slot="checked"/>
-    </Switch>
+    </KSwitch>
   </Space>
 </template>
 <script>

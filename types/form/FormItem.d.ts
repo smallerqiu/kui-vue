@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** FormItem component props */
 export interface FormItemProps {
@@ -9,9 +9,13 @@ export interface FormItemProps {
   rules?: any[] | Record<string, any>;
 }
 
-declare class FormItem extends Vue {
+/** FormItem component instance */
+export interface FormItem extends Vue {
   $props: FormItemProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** FormItem Vue component type */
+declare const FormItem: VueConstructor<FormItem>;
 
 export default FormItem;

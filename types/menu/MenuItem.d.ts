@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** MenuItem component props */
 export interface MenuItemProps {
@@ -7,9 +7,13 @@ export interface MenuItemProps {
   disabled?: boolean;
 }
 
-declare class MenuItem extends Vue {
+/** MenuItem component instance */
+export interface MenuItem extends Vue {
   $props: MenuItemProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** MenuItem Vue component type */
+declare const MenuItem: VueConstructor<MenuItem>;
 
 export default MenuItem;

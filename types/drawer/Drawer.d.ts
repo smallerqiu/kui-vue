@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Drawer component props */
 export interface DrawerProps {
@@ -27,9 +27,13 @@ export interface DrawerProps {
   loading?: boolean;
 }
 
-declare class Drawer extends Vue {
+/** Drawer component instance */
+export interface Drawer extends Vue {
   $props: DrawerProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Drawer Vue component type */
+declare const Drawer: VueConstructor<Drawer>;
 
 export default Drawer;

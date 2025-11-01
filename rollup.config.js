@@ -11,8 +11,8 @@ import pkg from './package.json'
 import autoprefixer from 'autoprefixer'
 import fs from 'fs'
 import path from 'path'
-// import dts from 'rollup-plugin-dts'
-const dts = require('rollup-plugin-dts').default
+import { dts } from 'rollup-plugin-dts'
+
 const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
@@ -47,9 +47,10 @@ const localesConfig = locales.map(lang => ({
 export default [
   ...localesConfig,
   {
-    input: 'components/components.js',
+    input: 'types/index.d.ts',
     output: {
       file: 'dist/k-ui.d.ts',
+      banner: bannerText,
       format: 'es'
     },
     plugins: [dts()]
@@ -115,7 +116,11 @@ export default [
         exclude: 'node_modules/**',
         extensions: ['.js', '.jsx', '.vue'],
         presets: [
-          ['@babel/preset-env', { modules: false }],
+          ['@babel/preset-env', {
+            modules: false,
+            targets: { esmodules: true },
+            exclude: ["@babel/plugin-transform-regenerator"],
+          }],
           ['@vue/babel-preset-jsx']
         ]
       }),

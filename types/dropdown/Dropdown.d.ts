@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 
 /** Dropdown component props */
 export interface DropdownProps {
@@ -13,9 +13,13 @@ export interface DropdownProps {
   placement?: any;
 }
 
-declare class Dropdown extends Vue {
+/** Dropdown component instance */
+export interface Dropdown extends Vue {
   $props: DropdownProps;
   $emit: (event: string, ...args: any[]) => this;
 }
+
+/** Dropdown Vue component type */
+declare const Dropdown: VueConstructor<Dropdown>;
 
 export default Dropdown;

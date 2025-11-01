@@ -9,7 +9,7 @@
     <Slider v-model="v1" :reverse="reverse" />
     <Slider v-model="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />
     Reversed:
-    <Switch v-model="reverse" size="small" />
+    <KSwitch v-model="reverse" size="small" />
   </div>
 </template>
 <script>
