@@ -1,33 +1,81 @@
 {
-  "name": "kui-vue-vite",
-  "private": true,
-  "version": "0.0.0",
+  "name": "kui-vue",
+  "private": false,
+  "version": "3.5.0",
+  "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
   "type": "module",
+  "main": "dist/k-ui.cjs.js",
+  "module": "dist/k-ui.esm.js",
+  "unpkg": "dist/k-ui.umd.js",
+  "jsdelivr": "dist/k-ui.umd.js",
+  "style": "dist/k-ui.css",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "test",
+    "types",
+    "components/"
+  ],
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build:docs": "vite build",
     "build": "rollup -c --bundleConfigAsCjs",
+    "build:types": "node scripts/gen-dts.js",
     "preview": "vite preview"
   },
+  "author": {
+    "name": "Qiu",
+    "email": "smallerqiu@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/chuchur/kui-vue"
+  },
+  "bugs": {
+    "url": "https://gitee.com/chuchur/kui-vue/issues",
+    "email": "smallerqiu@gmail.com"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "kui",
+    "kyui",
+    "design",
+    "kui-vue",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend"
+  ],
+  "peerDependencies": {
+    "vue": "^2.7.16"
+  },
   "dependencies": {
+    "@babel/parser": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
+    "@babel/traverse": "^7.28.5",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-commonjs": "^28.0.9",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
     "@vue/babel-preset-jsx": "^1.4.0",
     "autoprefixer": "^10.4.21",
+    "fast-glob": "^3.3.3",
     "highlight.js": "^11.11.1",
     "kui-icons": "^4.1.6",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "postcss-banner": "^4.0.1",
+    "prettier": "^3.6.2",
     "rollup": "^4.52.5",
     "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-vue": "^6.0.0",
-    "vue": "^2.7.16",
     "vue-clipboard2": "^0.3.3",
     "vue-template-compiler": "^2.7.16"
   },
