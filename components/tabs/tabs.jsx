@@ -53,7 +53,7 @@ const Tabs = defineComponent({
       const target = navRef.value.children[currentIndex.value];
       if (!target) return;
       // show active tab in client
-      const panel = navScrollRef.value;
+      const nav = navScrollRef.value;
       // let totalWidth = panel.offsetWidth
       let clientWidth = navBoxRef.value.clientWidth;
       let navLeft = navOffsetLeft.value;
@@ -68,14 +68,14 @@ const Tabs = defineComponent({
         navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2; //marginRight
       }
       navOffsetLeft.value = navLeft;
-      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
+      nav.style.transform = `translate3d(${navLeft}px,0,0)`;
     };
     const resetNavPosition = () => {
       // when one tab removed or append
       nextTick(() => {
-        const panel = navScrollRef.value;
-        if (!panel) return;
-        let totalWidth = panel.offsetWidth;
+        const nav = navScrollRef.value;
+        if (!nav) return;
+        let totalWidth = nav.offsetWidth;
         let clientWidth = navBoxRef.value.clientWidth;
         let navLeft = navOffsetLeft.value;
         if (clientWidth + navLeft < clientWidth) {
@@ -87,7 +87,7 @@ const Tabs = defineComponent({
         nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
         prevBtnDisabled.value = navLeft == 0;
 
-        panel.style.transform = `translate3d(${navLeft}px,0,0)`;
+        nav.style.transform = `translate3d(${navLeft}px,0,0)`;
 
         resetActivePosition();
         updateInkBarPosition()
@@ -139,7 +139,7 @@ const Tabs = defineComponent({
       });
     };
     const updateInkBarPosition = () => {
-      if (!ps.card && !ps.sample && ps.animated) {
+      if (!ps.card && !ps.sample) {
         const nav = navRef.value.children[currentIndex.value];
         if (nav) {
           const inkBar = inkBarRef.value;
@@ -219,7 +219,7 @@ const Tabs = defineComponent({
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
                 <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
-                  {!card && animated && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
+                  {!card && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
                     {renderNav()}
                   </div>
