@@ -5,7 +5,8 @@
 
 ```vue
 <template>
-  <Tabs v-model="current" @change="change">
+  Animated: <KSwitch v-model="animated" />
+  <Tabs v-model="current" @change="change" :animated="animated">
     <TabPanel key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPanel>
@@ -21,7 +22,8 @@
 export default{
   data() {
     return {
-      current:'1'
+      animated:false,
+      current:'3'
     }
   },
   methods:{

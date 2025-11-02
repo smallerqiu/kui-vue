@@ -1,0 +1,30 @@
+/*!
+* kui-vue v3.5.1
+* Copyright 2017-present, kui-vue.
+* All rights reserved.
+* Author: Qiu / https://chuchur.com
+*/
+import{ln as e}from"./vue-CMWM46bo.js";import{c as t}from"./index-C9zE6tXi.js";var n=t({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h1`,[e._v(`BackTop 回到顶部`)]),t(`p`,[e._v(`返回页面顶部的操作按钮。`)]),t(`h2`,{attrs:{id:`何时使用`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#何时使用`}},[e._v(`何时使用`)])]),t(`ul`,[t(`li`,[e._v(`当页面内容区域比较长时；`)]),t(`li`,[e._v(`当用户需要频繁返回顶部查看相关内容时。`)])]),t(`h2`,{attrs:{id:`代码演示`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#代码演示`}},[e._v(`代码演示`)])])])}],!1,null,null,null,null).exports,r=t({},function(){var e=this,t=e._self._c;return t(`Demo`,[t(`template`,{slot:`component`},[t(`div`,[t(`BackTop`),e._v(` 向下滚动页面，灰色的按钮为默认效果。 `)],1)]),t(`template`,{slot:`description`},[t(`h4`,[e._v(`基础用法`)]),t(`p`,[e._v(`默认位置距离页面右部和底部 50px，滚动至距顶端 400px 时显示。`)])]),t(`template`,{slot:`code`},[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`BackTop`)]),e._v(` />`)]),e._v(`
+    向下滚动页面，灰色的按钮为默认效果。
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`)])])])],2)},[],!1,null,null,null,null).exports,i=t({},function(){var e=this,t=e._self._c;return t(`Demo`,[t(`template`,{slot:`component`},[t(`div`,[t(`BackTop`,{attrs:{bottom:`100`}},[t(`div`,{staticClass:`custom-backtop`},[e._v(`UP`)])]),e._v(` 自定义按钮为蓝色的按钮 `)],1)]),t(`template`,{slot:`description`},[t(`h4`,[e._v(`基础用法`)]),t(`p`,[e._v(`可以自定义回到顶部按钮的样式 `),t(`code`,[e._v(`bottom`)]),e._v(` 为 `),t(`code`,[e._v(`100px`)])])]),t(`template`,{slot:`code`},[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`BackTop`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`bottom`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"100"`)]),e._v(`>`)]),e._v(`
+      `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"custom-backtop"`)]),e._v(`>`)]),e._v(`UP`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`BackTop`)]),e._v(`>`)]),e._v(`
+    自定义按钮为蓝色的按钮
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`style`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`scoped`)]),e._v(`>`)]),t(`span`,{staticClass:`language-css`},[e._v(`
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.custom-backtop`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#2d94ff`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`height`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`40px`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`line-height`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`40px`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`text-align`)]),e._v(`: center;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#fff`)]),e._v(`;
+}
+`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`style`)]),e._v(`>`)]),e._v(`
+`)])])])],2)},[],!1,null,`8fc4c6a0`,null,null).exports,a=t({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h2`,{attrs:{id:`api`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#api`}},[e._v(`API`)])]),t(`table`,[t(`thead`,[t(`tr`,[t(`th`,[e._v(`属性`)]),t(`th`,[e._v(`说明`)]),t(`th`,[e._v(`类型`)]),t(`th`,[e._v(`默认值`)])])]),t(`tbody`,[t(`tr`,[t(`td`,[e._v(`height`)]),t(`td`,[e._v(`页面滚动高度达到该值时才显示 `),t(`code`,[e._v(`BackTop`)]),e._v(` 组件`)]),t(`td`,[e._v(`String,Number`)]),t(`td`,[e._v(`400`)])]),t(`tr`,[t(`td`,[e._v(`bottom`)]),t(`td`,[e._v(`组件距离底部的距离`)]),t(`td`,[e._v(`String,Number`)]),t(`td`,[e._v(`40`)])]),t(`tr`,[t(`td`,[e._v(`right`)]),t(`td`,[e._v(`组件距离右部的距离`)]),t(`td`,[e._v(`String,Number`)]),t(`td`,[e._v(`40`)])]),t(`tr`,[t(`td`,[e._v(`click`)]),t(`td`,[e._v(`点击按钮时触发`)]),t(`td`,[e._v(`Function`)]),t(`td`,[e._v(`-`)])])])])])}],!1,null,null,null,null).exports,o={render(){return e(`div`,[e(n),e(r),e(i),e(a),e(`div`,{style:`height:500px;text-align:center;color:#ddd;line-height:500px;`},[`我是打酱油的,请忽略我...`])])}};export{o as default};

@@ -53,7 +53,7 @@ const Tabs = {
       const target = this.$refs.navRef?.children[this.currentIndex];
       if (!target) return;
 
-      const panel = this.$refs.navScrollRef;
+      const nav = this.$refs.navScrollRef;
       const clientWidth = this.$refs.navBoxRef.clientWidth;
       let navLeft = this.navOffsetLeft;
       const { offsetLeft, offsetWidth } = target;
@@ -64,14 +64,14 @@ const Tabs = {
         navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2;
       }
       this.navOffsetLeft = navLeft;
-      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
+      nav.style.transform = `translate3d(${navLeft}px,0,0)`;
     },
     resetNavPosition() {
       this.$nextTick(() => {
-        const panel = this.$refs.navScrollRef;
-        if (!panel) return;
+        const nav = this.$refs.navScrollRef;
+        if (!nav) return;
 
-        const totalWidth = panel.offsetWidth;
+        const totalWidth = nav.offsetWidth;
         const clientWidth = this.$refs.navBoxRef.clientWidth;
         let navLeft = this.navOffsetLeft;
 
@@ -84,7 +84,7 @@ const Tabs = {
         this.nextBtnDisabled = navLeft === clientWidth - totalWidth;
         this.prevBtnDisabled = navLeft === 0;
 
-        panel.style.transform = `translate3d(${navLeft}px,0,0)`;
+        nav.style.transform = `translate3d(${navLeft}px,0,0)`;
         this.resetActivePosition();
         this.updateInkBarPosition();
         this.updateNav();
@@ -119,7 +119,7 @@ const Tabs = {
     },
     tabClick({ disabled, key }, index) {
       if (!disabled) {
-        this.$emit("update", key);
+        this.$emit("input", key);
         this.$emit("tab-click", key);
         this.defaultActiveKey = key;
         this.currentIndex = index;
@@ -136,7 +136,7 @@ const Tabs = {
       });
     },
     updateInkBarPosition() {
-      if (!this.card && !this.sample && this.animated) {
+      if (!this.card && !this.sample) {
         const nav = this.$refs.navRef?.children[this.currentIndex];
         if (nav) {
           const inkBar = this.$refs.inkBarRef;
@@ -203,7 +203,7 @@ const Tabs = {
     ];
 
     const paneStyle = {};
-    if (animated && !card && !sample) {
+    if (!card && !sample && animated) {
       paneStyle.marginLeft = `-${100 * this.currentIndex}%`;
     }
 
@@ -241,7 +241,7 @@ const Tabs = {
 
             <div class="k-tabs-nav-wrap" ref="navBoxRef">
               <div class="k-tabs-nav" ref="navScrollRef">
-                {!card && animated && !sample ? (
+                {!card && !sample ? (
                   <div class="k-tabs-ink-bar" ref="inkBarRef" />
                 ) : null}
                 <div class="k-tabs-nav-inner" ref="navRef">
