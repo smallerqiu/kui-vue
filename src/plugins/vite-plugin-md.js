@@ -47,8 +47,8 @@ export default function vitePluginMd() {
         const { template, script, styles } = parseComponent(block);
 
         // pretty code preview
-        const codeHtml = markdown.render('```html\n' + block + '\n```') //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
-
+        let codeHtml = markdown.render('```html\n' + block + '\n```') //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
+        codeHtml = codeHtml.replace(/{{/g, '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>').replace(/}}/g, '&#125;&#125;');
         let result = `
 <template>
   <Demo>

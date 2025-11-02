@@ -1,7 +1,0 @@
-/*!
-* kui-vue v3.5.0
-* Copyright 2017-present, kui-vue.
-* All rights reserved.
-* Author: Qiu / https://chuchur.com
-*/
-import{et as e,o as t,s as n,v as r,zt as i}from"./index-DH7LFVbd.js";var a=i({data(){return{LogoGitee:e,CaretForwardCircle:r}},components:{Header:n,Footer:t},methods:{start(){this.$router.push(`/start/getting-started`)},gitee(){window.open(`//gitee.com/chuchur/kui-vue`)}}},function(){var e=this,t=e._self._c;return t(`Layout`,{staticClass:`index`},[t(`Header`),t(`section`,{staticClass:`index-content`},[t(`h1`,[e._v(`一套基于Vue.js的桌面UI组件库`)]),t(`div`,{staticClass:`btn-content`},[t(`Button`,{staticClass:`start`,attrs:{icon:e.CaretForwardCircle,size:`large`},on:{click:e.start}},[e._v(`开始使用`)]),t(`Button`,{staticClass:`btn-gitee`,attrs:{icon:e.LogoGitee,size:`large`,theme:`light`},on:{click:e.gitee}},[e._v(`Gitee`)])],1)]),t(`Footer`)],1)},[],!1,null,null,null,null).exports;export{a as default};
