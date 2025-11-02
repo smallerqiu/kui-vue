@@ -5,7 +5,8 @@
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="current">
+  Animated: <KSwitch v-model:checked="animated" />
+  <Tabs v-model:activeKey="current" :animated="animated">
     <TabPanel key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPanel>
@@ -20,5 +21,6 @@
 <script setup>
 import { ref } from "vue";
 const current = ref('1');
+const animated = ref(false);
 </script>
 ```
