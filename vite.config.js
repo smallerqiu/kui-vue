@@ -50,16 +50,17 @@ export default defineConfig({
             return 'fonts/[name]-[hash][extname]'
           }
           return 'assets/[name]-[hash][extname]'
+        },
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('vue')) return 'vue'
+            if (id.includes('kui-vue')) return 'ui-lib'
+            if (id.includes('dayjs')) return 'dayjs'
+            if (id.includes('vue-router') || id.includes('vuex')) return 'vue-vendor'
+          }
         }
       },
-      manualChunks(id) {
-        if (id.includes('node_modules')) {
-          if (id.includes('vue')) return 'vue'
-          if (id.includes('kui-vue')) return 'ui-lib'
-          if (id.includes('dayjs')) return 'dayjs'
-          if (id.includes('vue-router') || id.includes('vuex')) return 'vue-vendor'
-        }
-      }
+
     }
   }
 })

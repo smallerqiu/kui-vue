@@ -115,7 +115,6 @@
       left: 0;
       background: var(--kui-color-main);
       bottom: 0;
-      transition: all .3s ease-in-out,
     }
   }
 
@@ -130,6 +129,11 @@
       flex-shrink: 0;
       width: 100%;
       opacity: 1;
+    }
+
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
+      display: none;
+      visibility: hidden;
     }
   }
 }
@@ -151,7 +155,17 @@
     .k-tabs-tabpanel {
       float: left;
       transition: opacity .45s;
+
+      &:not(.k-tabs-tabpanel-active) {
+        display: block;
+        visibility: visible;
+      }
+
     }
+  }
+
+  .k-tabs-ink-bar {
+    transition: all .3s ease-in-out,
   }
 }
 
@@ -181,11 +195,8 @@
     display: block;
 
     .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
-      height: 0;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
+      display: none;
+      visibility: hidden;
     }
   }
 }
@@ -222,12 +233,8 @@
     }
 
     .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
-      height: 0;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: none;
+      display: none;
+      visibility: hidden;
     }
   }
 }
