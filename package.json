@@ -9,7 +9,7 @@
   "unpkg": "dist/k-ui.umd.js",
   "jsdelivr": "dist/k-ui.umd.js",
   "style": "dist/k-ui.css",
-  "types": "types/index.d.ts",
+  "types": "dist/k-ui.d.ts",
   "files": [
     "dist",
     "test",
