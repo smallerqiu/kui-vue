@@ -57,7 +57,7 @@ const Row = {
       props.style.marginLeft = `-${gutter / 2}px`
       props.style.marginRight = `-${gutter / 2}px`
     }
-    return (<div {...props}>{$slots.default}</div >)
+    return (<div {...props}>{$slots.default}</div>)
   }
 };
 

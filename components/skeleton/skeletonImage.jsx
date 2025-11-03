@@ -60,7 +60,7 @@ const SkeletonImage = {
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}><Icon type="image-outline" class="k-skeleton-image-icon" /></span>}
-      </div >
+      </div>
     )
   }
 }

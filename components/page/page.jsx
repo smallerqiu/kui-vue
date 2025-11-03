@@ -195,7 +195,7 @@ const Page = {
         },
 
       }
-      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div > : null)
+      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div> : null)
     },
     renderElevator() {
       let { size } = this

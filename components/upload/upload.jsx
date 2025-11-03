@@ -349,7 +349,7 @@ const Upload = {
     return (
       <div {...props} >
         {!isPicture ? [selector, filsList()] : filsList(selector)}
-      </div >
+      </div>
     )
   }
 }

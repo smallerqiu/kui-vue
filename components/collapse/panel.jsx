@@ -54,7 +54,7 @@ const Panel = {
           {$slots.extra ? <span class="k-collapse-extra">{$slots.extra}</span> : null}
         </div>
         {this.renderPanel()}
-      </div >
+      </div>
     )
   }
 }

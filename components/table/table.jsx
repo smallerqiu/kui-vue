@@ -213,7 +213,7 @@ const Table = {
     if (loading) {
       content.push(<Spin />)
     }
-    return (<div {...rootProps}>{content}</div >)
+    return (<div {...rootProps}>{content}</div>)
   },
 
   methods: {

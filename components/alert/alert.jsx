@@ -57,7 +57,7 @@ const Alert = {
           {msg}
           {description}
           {closeIcon}
-        </div >
+        </div>
       </transition >
     )
   }

@@ -52,7 +52,7 @@ const Badge = {
         {child}
         {supNode}
         {statusNode}
-      </div >
+      </div>
     )
   }
 };
