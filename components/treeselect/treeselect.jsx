@@ -499,7 +499,7 @@ const TreeSelect = {
         <div class="k-tree-select-selection">{childNode}</div>
         {iconNodes}
         {overlay}
-      </div >
+      </div>
     )
   }
 };

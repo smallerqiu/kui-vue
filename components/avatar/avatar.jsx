@@ -67,7 +67,7 @@ const Avatar = {
             src ? <img src={src} /> : (text ? <span class="k-avatar-string" ref="inner">{child}</span> : child)
           )
       }
-    </div >
+    </div>
   }
 }
 export default withInstall(Avatar)

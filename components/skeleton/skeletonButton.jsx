@@ -51,7 +51,7 @@ const SkeletonButton = {
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}></span>}
-      </div >
+      </div>
     )
   }
 }

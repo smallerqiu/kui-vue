@@ -193,7 +193,7 @@ export default {
           {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
           {/* {suffixNode} */}
           {$slots.controls}
-        </div >
+        </div>
         {$slots.suffix ? <div class={{ "k-input-group-suffix": true }}>{$slots.suffix}</div> : null}
       </InputGroup>
     } else {
@@ -204,7 +204,7 @@ export default {
         {clearable ? <Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={this.clear} /> : null}
         {suffixNode}
         {$slots.controls}
-      </div >
+      </div>
     }
   }
 };
