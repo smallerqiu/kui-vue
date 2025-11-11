@@ -66,9 +66,9 @@ export default defineComponent({
         let [start, end] = ps.value
         currentValue.value = [dayjs(start), dayjs(end)]
       } else {
-        let start = dayjs();
-        let end = dayjs().add(1, 'month');
-        currentValue.value = [start, end]
+        // let start = dayjs();
+        // let end = dayjs().add(1, 'month');
+        currentValue.value = []
       }
     } else {
       currentValue.value = ps.value ? dayjs(ps.value) : null

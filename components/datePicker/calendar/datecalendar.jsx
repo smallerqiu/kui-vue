@@ -51,7 +51,7 @@ export default defineComponent({
       isShowYear.value = !isShowYear.value
       isShowTime.value = false
     }
-    const currentValue = ref(ps.value || new Date())
+    const currentValue = ref(ps.value || (ps.isStart ? dayjs() : dayjs().add(1, 'month')))
     const setDate = (dateType, calcType) => {
       // console.log(dateType, calcType)
       // emit('setDate', dateType, calcType)
