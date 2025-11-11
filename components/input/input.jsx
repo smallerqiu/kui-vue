@@ -1,8 +1,9 @@
 import BaseInput from '../base/input'
-export default {
-  name: 'TextArea',
+import { withInstall } from '../utils/vue'
+const Input = {
+  name: 'Input',
   props: {
-    clearable: Boolean,
+    clearable: { type: Boolean, default: false },
     id: String,
     size: {
       default: 'default',
@@ -56,3 +57,4 @@ export default {
     </BaseInput>
   }
 }
+export default withInstall(Input)

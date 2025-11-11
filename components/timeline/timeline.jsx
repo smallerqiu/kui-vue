@@ -1,5 +1,6 @@
 
-export default {
+import { withInstall } from '../utils/vue'
+const TimeLine = {
   name: "TimeLine",
   props: {
     mode: {
@@ -18,3 +19,4 @@ export default {
   }
 };
 
+export default withInstall(TimeLine)

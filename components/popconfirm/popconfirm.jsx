@@ -1,5 +1,7 @@
 import BasePop from '../base/pop'
-export default {
+import { withInstall } from '../utils/vue'
+import { placements } from '../const/var'
+const Popconfirm = {
   name: 'Popconfirm',
   props: {
     dark: Boolean,
@@ -10,19 +12,17 @@ export default {
     cancelText: String,
     placement: {
       validator(value) {
-        return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
-        );
+        return placements.includes(value);
       },
       default: "top"
     },
   },
   render() {
     let props = {
-      props: { preCls: 'popconfirm', ...this.$props, confirm: true },
+      props: { preCls: 'popconfirm', ...this.$props, confirm: true, extendWidth: false },
       on: {
-        'ok': e => this.$emit('ok'),
-        'cancel': e => this.$emit('cancel')
+        'ok': () => this.$emit('ok'),
+        'cancel': () => this.$emit('cancel')
       }
     }
     return (
@@ -33,3 +33,4 @@ export default {
     )
   }
 };
+export default withInstall(Popconfirm);

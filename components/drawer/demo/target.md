@@ -7,7 +7,7 @@
 ```vue
 <template>
   <div ref="drawer-box" style="height:300px;position:relative;overflow:hidden">
-    <Space>
+    <Space  wrap>
       <RadioGroup v-model="placement">
         <Radio label="left" value="left"/>
         <Radio label="top" value="top"/>

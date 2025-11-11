@@ -7,13 +7,13 @@
 <template>
   <div class="demo-tooltip-color">
     <Divider orientation="left">Presets:</Divider>
-    <Space>
+    <Space wrap>
       <Tooltip :color="color" :title="color" v-for="color in colors" :key="color">
         <Tag :color="color">{{color}}</Tag>
       </Tooltip>
     </Space>
     <Divider orientation="left">Custom:</Divider>
-    <Space>
+    <Space wrap>
       <Tooltip :color="color" :title="color" v-for="color in custom" :key="color">
         <Tag :color="color">{{color}}</Tag>
       </Tooltip>
@@ -34,7 +34,6 @@ export default{
       'green',
       'blue',
       'purple',
-      'geekblue',
       'magenta',
       'volcano',
       'gold',

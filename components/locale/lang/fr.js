@@ -1,4 +1,4 @@
-module.exports =  {
+export default {
   k: {
     datePicker: {
       startDate: 'Horaire début',
@@ -31,7 +31,7 @@ module.exports =  {
       ok: 'OK',
       selectDate: 'Choisir date',
       selectTime: 'Choisir horaire',
-      back:'Derrière'
+      back: 'Derrière'
     },
     drawer: {
       ok: 'OK',

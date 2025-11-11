@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-dot">
+  <Space size="large">
     <Badge :dot="show">
       <div class="box"></div>
     </Badge>
@@ -15,7 +15,7 @@
     <Badge :dot="show">
       <a href="#">我是一个连接</a>
     </Badge>
-    <Switch @change="show=!show" />
+    <KSwitch @change="show=!show" />
     <br/>
     <br/>
     <Badge :count="count" :max-count="20">
@@ -25,7 +25,7 @@
       <Button @click="count--">-</Button>
       <Button @click="count++">+</Button>
     </ButtonGroup>
-  </div>
+  </Space>
 </template>
 <script>
 import { NotificationsOutline } from 'kui-icons'

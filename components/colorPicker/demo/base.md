@@ -7,15 +7,13 @@
 <template>
   <div class="demo-color-picker">
     <ColorPicker v-model="color"/>
-    <br/>
-    <ColorPicker v-model="color" disabled/>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      color: 'rgba(182,2,247,1)',
+      color: '#3a95ff',
     };
   }
 }

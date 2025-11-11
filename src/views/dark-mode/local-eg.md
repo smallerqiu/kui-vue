@@ -29,7 +29,7 @@
           <Col>
             <Space :size="20">
               <Input :icon="Search" theme="light" shape="circle" placeholder="搜索" style="width:200px"/>
-              <Button :icon="NotificationsOutline" theme="normal"/>
+              <Button :icon="NotificationsOutline" type="text"/>
               <Avatar style="background:#3a95ff" :size="40" shape="square">K</Avatar>
             </Space>
           </Col>
@@ -107,7 +107,7 @@
             </Form>
             </div>
         </div>
-        <Footer>KUI ©2018 Created by chuchur</Footer>
+        <Footer>KUI ©2018 Created by Qiu</Footer>
       </Content> 
     </Layout>
   </div>

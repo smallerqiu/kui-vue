@@ -12,7 +12,7 @@
         <Button @click="gitee"
           :icon="LogoGitee"
           size="large"
-          type="dashed"
+          class="btn-gitee"
           theme="light">Gitee</Button>
       </div>
     </section>
@@ -20,9 +20,9 @@
   </Layout>
 </template>
 <script>
-import '@/assets/css/home.less'
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import '@/src/assets/css/home.less'
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
 import { LogoGitee, CaretForwardCircle } from "kui-icons";
 export default {
   data() {

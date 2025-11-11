@@ -35,7 +35,7 @@
           :limit="1"
           accept="image/*"
           slot="suffix"
-          ><Icon :type="CloudUploadOutline" size="20" /></Upload>
+          ><Button :icon="CloudUploadOutline" type="link" /></Upload>
       </Input>
     </FormItem>
     <FormItem label="多个文件" prop="files">

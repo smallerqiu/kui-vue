@@ -1,4 +1,5 @@
 import Tooltip from "../tooltip"
+
 export default {
   props: {
     vertical: Boolean,
@@ -25,7 +26,7 @@ export default {
     }
   },
   mounted() {
-    let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
+    let touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     this.touch = touch
   },
   methods: {
@@ -46,8 +47,8 @@ export default {
         // let clientX = r.left + r.width / 2, clientY = r.top + r.height / 2
         // console.log(clientX, clientY, r)
 
-        let { width, height, left, right, top, bottom } = this.bar.$refs.rail.getBoundingClientRect()
-        let { value, range, step, max, min, vertical, reverse, type } = this, v = value;
+        let { width, height, left, top, } = this.bar.$refs.rail.getBoundingClientRect()
+        let { value, range, max, min, vertical, reverse, type } = this, v = value;
 
         let percent = 0, diff = max - min;
         if (reverse) {
@@ -73,7 +74,7 @@ export default {
         this.$emit('input', v)
       }
     },
-    mouseUp(e) {
+    mouseUp() {
       this.isMouseDown = false
       this.index = 1
       if (this.tooltipVisible === true) {
@@ -85,7 +86,7 @@ export default {
       document.removeEventListener(e1, this.mouseMove)
       document.removeEventListener(e2, this.mouseUp)
     },
-    onMouseDown(e) {
+    onMouseDown() {
       if (this.disabled) return;
       this.isMouseDown = true
       this.showTip = true
@@ -111,7 +112,7 @@ export default {
         mouseenter: () => {
           if (!disabled) this.showTip = true
         },
-        mouseleave: (e) => {
+        mouseleave: () => {
           if (this.tooltipVisible == true) {
             this.showTip = true
             return
@@ -122,7 +123,7 @@ export default {
         }
       }
     }
-    let percent, diff = max - min;;
+    let percent, diff = max - min;
     if (type == 'right') {
       percent = (((range ? value[1] : value) - min) / diff) * 100
     } else {
@@ -156,7 +157,7 @@ export default {
         title: tip,
         value: this.showTip,
         show: tooltipVisible,
-        trigger: 'nromal',
+        trigger: 'normal',
       },
       on: {
         input: value => this.showTip = value

@@ -1,5 +1,6 @@
-import { hasProp } from '../_tool/utils'
-export default {
+import { hasProp } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const Radio = {
   name: "Radio",
   props: {
     value: { type: [String, Number, Boolean], default: false },
@@ -25,11 +26,6 @@ export default {
       defaultChecked: checked,
     }
   },
-  // watch: {
-  // checked(checked) {
-  // this.$emit("input", checked);
-  // }
-  // },
   methods: {
     change(e) {
       let { disabled, value, $slots, label, groupContext } = this
@@ -59,7 +55,7 @@ export default {
         checked = defaultChecked
       }
     }
-    const wpclasses = [
+    const classes = [
       "k-radio", {
         ["k-radio-disabled"]: disabled,
         ["k-radio-checked"]: checked,
@@ -70,7 +66,7 @@ export default {
 
     const labelNode = label || $slots.default
     return (
-      <label class={wpclasses} onClick={e => e.stopPropagation()}>
+      <label class={classes} onClick={e => e.stopPropagation()}>
         <span class="k-radio-symbol">
           <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
           <span class="k-radio-inner"></span>
@@ -80,3 +76,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Radio);

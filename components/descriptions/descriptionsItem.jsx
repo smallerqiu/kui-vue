@@ -1,4 +1,6 @@
-export default {
+import { withInstall } from '../utils/vue'
+const DescriptionsItem = {
+  name: 'DescriptionsItem',
   props: {
     label: String,
     span: { type: Number, default: 1 },
@@ -52,3 +54,4 @@ export default {
     )
   }
 }
+export default withInstall(DescriptionsItem)

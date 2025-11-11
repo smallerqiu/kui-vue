@@ -5,22 +5,22 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" shape="circle"></Button>
     <Button type="primary" :icon="Search">搜索</Button>
     <Button :icon="Search" shape="circle"></Button>
     <Button :icon="Search">搜索</Button>
-    <Button type="dashed" :icon="Search" shape="circle"></Button>
-    <Button type="dashed" :icon="Search">搜索</Button>
-    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
+    <Button type="primary" :icon="Power"></Button>
+    <Button :icon="Power"></Button>
+    <Button type="primary">展开选项<Icon :type="ChevronDown"/></Button>
   </Space>
 </template>
 <script>
-import { ChevronDown, Search } from 'kui-icons'
+import { ChevronDown, Search,Power } from 'kui-icons'
 export default{
   data() {
     return {
-      ChevronDown ,Search
+      ChevronDown ,Search, Power
     }
   }
 }

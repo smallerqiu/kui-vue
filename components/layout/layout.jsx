@@ -1,3 +1,4 @@
+import { withInstall } from '../utils/vue'
 function createComponent(suffixCls, name) {
   return Component => {
     return {
@@ -61,7 +62,7 @@ const layoutBase = {
 const siderBase = {
   props: { suffixCls: String },
   inject: {
-    collectSider: { default: e => { } },
+    collectSider: { default: () => { } },
   },
   mounted() {
     this.collectSider(true)
@@ -91,4 +92,4 @@ Layout.Content = Content
 Layout.Header = Header
 Layout.Footer = Footer
 
-export default Layout
+export default withInstall(Layout)

@@ -1,5 +1,6 @@
 import { Button } from '../button';
-export default {
+import { withInstall } from '../utils/vue'
+const RadioButton = {
   name: "RadioButton",
   props: {
     value: { type: [String, Number, Boolean], default: false },
@@ -49,3 +50,5 @@ export default {
     )
   }
 };
+
+export default withInstall(RadioButton);

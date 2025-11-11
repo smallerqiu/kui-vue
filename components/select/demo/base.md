@@ -15,11 +15,13 @@
     </Space>
     <br />
     <Space vertical style="margin-top:10px;">
-      <Select :width="200" placeholder="Please Choose">
+      <Select :width="300" multiple v-model="data2" clearable :max-tag-count="2"> 
         <Option :value="1" label="Apple" />
         <Option :value="2" label="Orange" />
-        <Option :value="3" label="Banana" disabled/>
+        <Option :value="3" label="Banana"/>
         <Option :value="4" label="Pear" />
+        <Option :value="5" label="Peach" />
+        <Option :value="6" label="Grape" />
       </Select>
       <Select :width="200" value="1" disabled>
         <Option value="1" label="disabled" />
@@ -32,6 +34,7 @@ export default {
   data() {
     return {
       select: 2,
+      data2:[1,2,3],
       data: [
         { label: "Apple", value: 0 },
         { label: "Orange", value: 1 },

@@ -2,11 +2,12 @@ import Icon from '../icon'
 import { Checkbox } from '../checkbox'
 import { Button } from '../button'
 import Node from './node.jsx'
-import { getTranstionProp } from '../base/transition'
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone.js'
+import { getTransitionProp } from '../base/transition'
+import { getChildren } from '../utils/element'
+import cloneVNode from '../utils/clone.js'
 import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const TreeNode = {
   name: 'TreeNode',
   props: {
     data: Object,
@@ -24,14 +25,14 @@ export default {
     return {
       defaultData: this.data || {},
       loading: false,
-      draged: false,
-      droped: false,
+      dragged: false,
+      dropped: false,
       reload: true,
       level: 0
     }
   },
   watch: {
-    data(val, Oval) {
+    data(val,) {
       this.defaultData = val || {}
     }
   },
@@ -40,7 +41,7 @@ export default {
     VNode: { default: null },
   },
   created() {
-    let { defaultCheckedKeys = [], draggable, checkStrictly } = this.Tree
+    let { defaultCheckedKeys = [], checkStrictly } = this.Tree
     let checked = defaultCheckedKeys.indexOf(this.$vnode.key) > -1
     if (checked && !checkStrictly) {
       this.updateChildCheck(this.defaultData, checked)
@@ -53,20 +54,6 @@ export default {
     }
   },
   beforeDestroy() {
-    /*     let { defaultSelectedKeys = [],
-          defaultExpandedKeys = [],
-          defaultCheckedKeys = [],
-          halfCheckedKeys = [],
-        } = this.Tree
-        let key = this.$vnode.key
-        let s = defaultSelectedKeys.indexOf(key),
-          e = defaultExpandedKeys.indexOf(key),
-          c = defaultCheckedKeys.indexOf(key),
-          h = halfCheckedKeys.indexOf(key);
-        s > -1 && defaultSelectedKeys.splice(s, 1);
-        e > -1 && defaultExpandedKeys.splice(e, 1);
-        c > -1 && defaultCheckedKeys.splice(c, 1);
-        h > -1 && halfCheckedKeys.splice(h, 1); */
   },
   methods: {
     updateChildCheck({ children = [], disabled }, checked) {
@@ -89,7 +76,7 @@ export default {
       let { defaultCheckedKeys, halfCheckedKeys } = this.Tree
       const normal = children.filter(({ disabled }) => !disabled)
       let checkedLength = normal.filter(({ key }) => defaultCheckedKeys.indexOf(key) > -1).length
-      let halfcheckedLength = normal.filter(({ key }) => halfCheckedKeys.indexOf(key) > -1).length
+      let halfCheckedLength = normal.filter(({ key }) => halfCheckedKeys.indexOf(key) > -1).length
       // let key = defaultData.key,
       let isCheckAll = checkedLength == normal.length;
 
@@ -97,7 +84,7 @@ export default {
       let checkIndex = defaultCheckedKeys.indexOf(key)
 
       isCheckAll ? defaultCheckedKeys.push(key) : (checkIndex > -1 && defaultCheckedKeys.splice(checkIndex, 1))
-      if ((halfcheckedLength > 0 || checkedLength > 0) && !isCheckAll)
+      if ((halfCheckedLength > 0 || checkedLength > 0) && !isCheckAll)
         halfIndex < 0 && halfCheckedKeys.push(key)
       else
         halfIndex > -1 && halfCheckedKeys.splice(halfIndex, 1);
@@ -109,7 +96,7 @@ export default {
         let { Tree } = this
         let key = this.$vnode.key
 
-        let { defaultCheckedKeys, halfCheckedKeys, checkStrictly } = this.Tree
+        let { defaultCheckedKeys, halfCheckedKeys, checkStrictly } = Tree
         let index = defaultCheckedKeys.indexOf(key)
         checked && index < 0 ? defaultCheckedKeys.push(key) : defaultCheckedKeys.splice(index, 1)
         this.Tree.defaultCheckedKeys = defaultCheckedKeys
@@ -128,13 +115,13 @@ export default {
           // update parent
           this.VNode && this.updateParentCheck(this.VNode)
         }
-        Tree.onCheck(e.target.checked, key, this.defaultData, this)
+        Tree.onCheck(checked, key, this.defaultData, this)
       }
     },
     handleSelect(e) {
       let { disabled, key } = this.defaultData
       if (!disabled) {
-        let { Tree, multiple } = this
+        let { Tree, } = this
         if (Tree.directory) {
           this.handleExpand(e)
         }
@@ -155,24 +142,24 @@ export default {
       }
     },
     onDragStart(e) {
-      this.draged = true
+      this.dragged = true
       this.Tree.onDragStart(e, this)
     },
     onDragEnd(e) {
-      this.draged = false
+      this.dragged = false
       this.Tree.onDragEnd(e, { node: this.defaultData, parent: this.getParent() })
       this.$forceUpdate()
     },
     onDragEnter(e) {
-      this.droped = true
+      this.dropped = true
       this.Tree.onDragEnter(e, { node: this.defaultData, parent: this.getParent() })
     },
     onDragLeave(e) {
-      this.droped = false
+      this.dropped = false
       this.Tree.onDragLeave(e, { node: this.defaultData, parent: this.getParent() })
     },
     onDrop(e) {
-      this.droped = false
+      this.dropped = false
       if (!this.defaultData.disabled) {
         this.Tree.onDrop(e, { node: this.defaultData })
       }
@@ -184,14 +171,14 @@ export default {
       return this.VNode ? this.VNode.defaultData : { children: this.Tree.defaultData }
     }
   },
-  render(h) {
+  render() {
     // return <div/>
     let p = { ...this.$props }
     delete p.data
     let data = Object.assign(p, this.defaultData)
     let { isLeaf, disabled, icon, title, children = [] } = data
 
-    let slotChilds = getChild(this.$slots.default)
+    let slotChildren = getChildren(this.$slots.default)
 
     let itemNode = [], { Tree, loading, reload } = this;
     let key = this.$vnode.key
@@ -202,16 +189,16 @@ export default {
       checked = defaultCheckedKeys.indexOf(key) > - 1,
       indeterminate = halfCheckedKeys.indexOf(key) > - 1;
 
-    let hasChilds = slotChilds.length > 0 || children.length > 0
+    let hasChildren = slotChildren.length > 0 || children.length > 0
     let hasLoad = 'loadData' in Tree.$listeners || 'load-data' in Tree.$listeners
-    if ((hasChilds || hasLoad) && isLeaf !== true) {
+    if ((hasChildren || hasLoad) && isLeaf !== true) {
       let arrowCls = ['k-tree-arrow', { 'k-tree-arrow-open': expand }]
       let arrowNode = <span class={arrowCls} onClick={this.handleExpand}>
-        <Button size="small" theme="normal" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
+        <Button size="small" type="text" loading={loading} icon={loading ? Sync : (showLine ? (expand ? RemoveCircleOutline : AddCircleOutline) : ChevronForward)} spin={loading} />
       </span>
       itemNode.push(arrowNode)
     } else {
-      itemNode.push(<span class="k-tree-commes"></span>)
+      itemNode.push(<span class="k-tree-comment"></span>)
     }
     // console.log(checked,checked, disabled, indeterminate)
     if (checkable) {
@@ -254,18 +241,18 @@ export default {
     }
     itemNode.push(<span {...titleProps}>{innerNode}</span>)
 
-    let childs = null
-    if (expand && hasChilds && reload) {
-      if (slotChilds.length) {
-        // childs = slotChilds
-        childs = slotChilds.map((vnode, i) => {
+    let childrenVNode = null
+    if (expand && hasChildren && reload) {
+      if (slotChildren.length) {
+        // children = slotChildren
+        childrenVNode = slotChildren.map((vnode, i) => {
           vnode.data.key = vnode.data.key || `${key}_${i}`
           let ele = cloneVNode(vnode)
           return ele;
 
         })
       } else {
-        childs = children.map((item, i) => {
+        childrenVNode = children.map((item, i) => {
           const k = item.key || `${key}_${i}`
           item.key = k
           // console.log(k)
@@ -273,13 +260,13 @@ export default {
         })
       }
     }
-    let onProps = getTranstionProp('k-tree-slide')
+    let onProps = getTransitionProp('k-tree-slide')
     const itemProps = {
       attrs: {},
       class: ['k-tree-item', {
         'k-tree-item-disabled': disabled,
-        'k-tree-item-drag': this.draged,
-        'k-tree-item-drop': this.droped && !disabled,
+        'k-tree-item-drag': this.dragged,
+        'k-tree-item-drop': this.dropped && !disabled,
         'k-tree-item-extra-hidden': !showExtra,
         'k-tree-item-selected': directory && selected
       }],
@@ -297,13 +284,15 @@ export default {
       let extra = Tree.$scopedSlots.extra({ node: this.defaultData, parent: this.getParent() })
       extraNode = <span class='k-tree-item-extra'>{extra}</span>
     }
-    childs && childs.unshift(<span class="k-tree-line" style={{ left: `${(this.level || 0) * 24 + 12}px` }} key="line"></span>)
+    childrenVNode && childrenVNode.unshift(<span class="k-tree-line" style={{ left: `${(this.level || 0) * 24 + 12}px` }} key="line"></span>)
     return (
       <div class="k-tree-children">
         <div {...itemProps}>{itemNode}{extraNode}</div>
         {
-          <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childs}</transition-group>
+          <transition-group class="k-tree-item-children" tag="div" {...onProps}>{childrenVNode}</transition-group>
         }
       </div>)
   }
 }
+
+export default withInstall(TreeNode)

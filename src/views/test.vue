@@ -1,19 +1,24 @@
 <template>
-  <div>
-    {{ test }}
+  <Space>
+    value:
+    {{ checked }}
+    <k-switch v-model="checked" />
     <DatePicker />
-    <DatePicker placeholder="小尺寸/Small" picker-size="small"  />
-    <br />
-    <DatePicker mode="month" placeholder="请选择月份" />
-    <DatePicker mode="dateRange" />
-    <DatePicker mode="dateTimeRange" picker-size="small" v-model="test"/>
-  </div>
+    <Button @click="checked = !checked" size="small">{{ checked ? 'Uncheck' : 'Check' }}</Button>
+    <k-switch checked />
+    <Button @click="test">test</Button>
+  </Space>
 </template>
 <script>
 export default {
   data() {
     return {
-      test: []
+      checked: false
+    }
+  },
+  methods: {
+    test() {
+      window.i18n.locale = 'ua'
     }
   }
 }

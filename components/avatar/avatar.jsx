@@ -1,6 +1,8 @@
 import Icon from '../icon'
-import { getChild } from '../_tool/utils'
-export default {
+import { getChildren } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const Avatar = {
+  name: 'Avatar',
   props: {
     icon: [String, Array],
     shape: { type: String, },
@@ -12,10 +14,10 @@ export default {
     src: String
   },
   updated() {
-    this.udpateSize()
+    this.updateSize()
   },
   methods: {
-    udpateSize() {
+    updateSize() {
       let inner = this.$refs.inner
       if (inner) {
         let scale = 1, max = this.$el.offsetWidth - 8;
@@ -26,7 +28,7 @@ export default {
     }
   },
   mounted() {
-    this.udpateSize()
+    this.updateSize()
   },
   render() {
     let { size, shape, src, icon } = this
@@ -39,7 +41,7 @@ export default {
         fontSize: `${size / 2}px`,
       }
     }
-    let child = getChild(this.$slots.default)
+    let child = getChildren(this.$slots.default)
     let hasIcon = child.filter(x => (x.componentOptions || {}).tag == 'Icon').length
     let text = child.filter(x => !x.context).length == child.length
 
@@ -65,6 +67,7 @@ export default {
             src ? <img src={src} /> : (text ? <span class="k-avatar-string" ref="inner">{child}</span> : child)
           )
       }
-    </div >
+    </div>
   }
 }
+export default withInstall(Avatar)

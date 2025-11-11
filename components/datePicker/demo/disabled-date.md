@@ -5,13 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space wrap>
     <DatePicker :disabledDate="disabledDate"/>
-    <br/>
     <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" mode="dateTime" />
-    <br/>
     <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime"/>
-  </div>
+  </Space>
 </template>
 <script>
 import dayjs from 'dayjs';

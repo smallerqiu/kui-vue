@@ -1,5 +1,6 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { getChildren } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const ButtonGroup = {
   name: "ButtonGroup",
   props: {
     size: {
@@ -29,9 +30,10 @@ export default {
   render() {
     return (
       <div class={this.classes}>
-        {getChild(this.$slots.default)}
+        {getChildren(this.$slots.default)}
       </div>
     )
   }
 };
 
+export default withInstall(ButtonGroup);

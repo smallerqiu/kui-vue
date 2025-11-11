@@ -3,26 +3,26 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offsetTop="65">
-      <Space size="large" compact style="width:80%">
-        <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key"  @input="search" clearable
-          style="background:var(--kui-color-back);">
-        </Input>
-        <RadioGroup v-model="type" @change="switchIcon">
-          <RadioButton value="outline">Outline</RadioButton>
-          <RadioButton value="filled">Filled</RadioButton>
+      <Flex size="large" style="background-color: var(--kui-color-back);">
+        <RadioGroup size="large" v-model="type" @change="switchIcon" theme="card" type="button">
+          <RadioButton value="outline">线框风格</RadioButton>
+          <RadioButton value="filled">实底风格</RadioButton>
         </RadioGroup>
-      </Space>
+        <Space size="large" compact block>
+          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key" @input="search" clearable
+            style="background:var(--kui-color-back);">
+          </Input>
+          <Button :icon="icons['Search']" theme="outline"></Button>
+        </Space>
+      </Flex>
     </Affix>
-
-    <br />
-    <br />
     <div class="show-icons">
       <template v-if="showIcons.length">
         <div class="icon-head">
           <h3><span>App icons</span></h3>
         </div>
         <br />
-        <div class="icon-list">
+        <Flex class="icon-list" size="small" wrap>
           <span @click.stop="copy(x)" v-for="(x, y) in showIcons" :key="y" class="icon-item">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
@@ -30,11 +30,11 @@
             </svg> -->
             <span class="item-text">{{ x }}</span>
           </span>
-        </div>
+        </Flex>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
-        <div class="icon-list">
+        <Flex class="icon-list" size="small" wrap>
           <span @click.stop="copy(x)" v-for="(x, y) in logo" :key="y" class="icon-item">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
@@ -43,7 +43,7 @@
             </svg> -->
             <span class="item-text">{{ x }}</span>
           </span>
-        </div>
+        </Flex>
       </template>
       <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
         No results for "{{ key }}"
@@ -70,6 +70,7 @@
     font-size: 32px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
+    border-radius: 12px;
 
     &:hover {
       color: #3a95ff;
@@ -145,12 +146,12 @@ export default {
       this.showIcons = showIcons
       this.logo = logo
     },
-    copy(x) {
-      let text = `<Icon type="${x}" />`
+    copy(text) {
+      // let text = `<Icon type="${x}" />`
       this.$copyText(text).then(e => {
-        this.$Message.success('代码复制成功！')
+        this.$Message.success('Copied!')
       }, e => {
-        this.$Message.error('复制代码失败，请手动复制')
+        this.$Message.error('Copy failed.')
       })
     }
   },

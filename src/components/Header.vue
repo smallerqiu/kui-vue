@@ -30,14 +30,14 @@
           <MenuItem key="https://chuchur.com/">Blog</MenuItem>
         </SubMenu>
       </Menu>
-      <ColorPicker class="theme" mode="rgba" v-model="themeColor" :showArrow="false" style="margin-left:8px" :noAlpha="true"
-        @change="changeThemeColor" />
+      <ColorPicker class="theme" mode="rgb" v-model="themeColor" :showArrow="false" style="margin-left:8px"
+        :noAlpha="true" @change="changeThemeColor" />
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button theme="normal" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
+        <Button type="text" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
           style="margin:0 8px;" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
-        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" theme="normal" size="large"></Button>
+        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" type="text" size="large"></Button>
       </Tooltip>
     </div>
   </Header>
@@ -46,6 +46,7 @@
 import { menus } from "../menu";
 import { LogoKui, ChevronDown, LogoGitee, Sunny, Moon, Search } from "kui-icons";
 import pkg from '/package.json'
+import Color from 'color'
 export default {
   data() {
     return {
@@ -60,7 +61,7 @@ export default {
     };
   },
   mounted() {
-    let theme = localStorage.getItem('theme') || ''
+    let theme = localStorage.getItem('theme-mode') || ''
     let themeColor = localStorage.getItem('themeColor') || ''
     if (theme) {
       document.documentElement.setAttribute('theme-mode', theme);
@@ -84,38 +85,32 @@ export default {
         stl.setAttribute('name', 'kui')
         document.head.appendChild(stl)
       }
-    
-      let str = v.slice(0, v.length-1)
+
+      // console.log(v)
+      // return;
+      const [r, g, b] = Color(v).rgb().array();
+      // let str = v.slice(0, v.length-1)
       let cssText = `
       body[theme-type='custom']{
-          --kui-color-main:${str});
-          --kui-color-main-hover:${str},.9);
-          --kui-color-main-actived:${str},.75);
-          --kui-color-main-10:${str},.9);
-          --kui-color-main-30:${str},.7);
-          --kui-color-main-60:${str},.4);
-          --kui-color-main-80:${str},.2);
-          --kui-color-main-90:${str},.1);
-          --kui-color-hover:${str},.2);
-          --kui-color-actived:${str},.3);
-          --kui-color-selected:${str},.1);
+          --kui-color-main:rgba(${r},${g},${b});
+          --kui-color-main-hover:rgba(${r},${g},${b},.9);
+          --kui-color-main-active:rgba(${r},${g},${b},.75);
+          --kui-color-main-10:rgba(${r},${g},${b},.9);
+          --kui-color-main-30:rgba(${r},${g},${b},.7);
+          --kui-color-main-60:rgba(${r},${g},${b},.4);
+          --kui-color-main-80:rgba(${r},${g},${b},.2);
+          --kui-color-main-90:rgba(${r},${g},${b},.1);
+          --kui-color-hover:rgba(${r},${g},${b},.2);
+          --kui-color-active:rgba(${r},${g},${b},.3);
+          --kui-color-selected:rgba(${r},${g},${b},.1);
       }
       `
       stl.innerHTML = cssText
       document.body.setAttribute('theme-type', 'custom')
       localStorage.setItem('themeColor', v)
     },
-    changeMode() {
-      const body = document.documentElement;
-      if (body.hasAttribute('theme-mode')) {
-        body.removeAttribute('theme-mode');
-        localStorage.removeItem('theme')
-        this.theme = ''
-      } else {
-        body.setAttribute('theme-mode', 'dark');
-        localStorage.setItem('theme', 'dark')
-        this.theme = 'dark'
-      }
+    changeMode(event) {
+      this.$Theme.setThemeMode(event, v => this.theme = v ? 'dark' : 'light')
     },
     go({ key, keyPath, item }) {
       if (key == "home") {

@@ -1,5 +1,7 @@
 import Icon from '../icon'
-export default {
+import { withInstall } from '../utils/vue'
+const SkeletonImage = {
+  name: "SkeletonImage",
   props: {
     animated: Boolean,
     loading: Boolean,
@@ -58,7 +60,9 @@ export default {
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}><Icon type="image-outline" class="k-skeleton-image-icon" /></span>}
-      </div >
+      </div>
     )
   }
 }
+
+export default withInstall(SkeletonImage)

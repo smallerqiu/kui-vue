@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Space>
+    <Space  wrap>
       <RadioGroup v-model="placement">
         <Radio label="left" value="left"/>
         <Radio label="top" value="top"/>
@@ -15,7 +15,7 @@
       </RadioGroup>
       <Button @click="show=true" >Open</Button>
     </Space>
-    <Drawer v-model="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok" @ok="show=false">My name is chuchur.</Drawer>
+    <Drawer v-model="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok" @ok="show=false">My name is Qiu.</Drawer>
   </div>
 </template>
 <script>

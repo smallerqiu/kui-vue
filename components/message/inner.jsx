@@ -47,7 +47,7 @@ export default {
     return (
       <div class={classes}>
         {childNode}
-      </div >
+      </div>
     )
   }
 }

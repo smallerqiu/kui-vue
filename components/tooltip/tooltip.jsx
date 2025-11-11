@@ -1,5 +1,7 @@
 import BasePop from '../base/pop'
-export default {
+import { withInstall } from '../utils/vue'
+import { placements } from '../const/var'
+const Tooltip = {
   name: 'Tooltip',
   props: {
     dark: Boolean,
@@ -10,9 +12,7 @@ export default {
     width: [Number, String],
     placement: {
       validator(value) {
-        return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "left-bottom", "left-top", "right", "right-top", "right-bottom"].indexOf(value) >= 0
-        );
+        return placements.includes(value);
       },
       default: "top"
     },
@@ -22,7 +22,7 @@ export default {
   render() {
     const title = this.$slots.title || this.title
     let props = {
-      props: { preCls: 'tooltip', ...this.$props, updateKey: title },
+      props: { preCls: 'tooltip', ...this.$props, updateKey: title, extendWidth: false },
     }
     return (
       <BasePop {...props}>
@@ -32,3 +32,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Tooltip);
