@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <RadioGroup v-model="mode">
+    <RadioGroup v-model:value="mode">
       <Radio label="left" value="left" />
       <Radio label="center" value="center" />
       <Radio label="alternate" value="alternate" />
@@ -15,28 +15,40 @@
     <br />
     <br />
     <TimeLine :mode="mode">
-      <TimeLineItem color="green" time="2020-11-03" extra="更多的辅助细节">优化成吨的改善和体验</TimeLineItem>
+      <TimeLineItem color="green" time="2020-11-03" extra="更多的辅助细节">
+        优化成吨的改善和体验
+      </TimeLineItem>
       <TimeLineItem color="orange" time="2020-11-02">
         <p>新增一些很友好的功能</p>
         <p>新增一些很友好的功能</p>
         <p>新增一些很友好的功能</p>
-        <template slot="extra">更多的辅助细节</template>
+        <template #extra>更多的辅助细节</template>
       </TimeLineItem>
-      <TimeLineItem :icon="Ribbon" color="#3593ff" time="2020-11-01" extra="更多的辅助细节">发布2.0版本</TimeLineItem>
-      <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="更多的辅助细节">修复bug</TimeLineItem>
-      <TimeLineItem time="2020-10-01" extra="更多的辅助细节">发布1.0版本</TimeLineItem>
+      <TimeLineItem
+        :icon="Ribbon"
+        color="#3593ff"
+        time="2020-11-01"
+        extra="更多的辅助细节"
+      >
+        发布2.0版本
+      </TimeLineItem>
+      <TimeLineItem
+        :icon="Build"
+        color="red"
+        time="2020-10-03"
+        extra="更多的辅助细节"
+      >
+        修复bug
+      </TimeLineItem>
+      <TimeLineItem time="2020-10-01" extra="更多的辅助细节">
+        发布1.0版本
+      </TimeLineItem>
     </TimeLine>
   </div>
 </template>
-<script>
+<script setup>
 import { Ribbon, Build } from "kui-icons";
-export default{
-  data() {
-    return {
-      Ribbon, Build,
-      mode:'left'
-    }
-  }
-}
+import { ref } from "vue";
+const mode = ref("left");
 </script>
 ```

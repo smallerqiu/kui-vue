@@ -6,8 +6,8 @@
 ```vue
 <template>
   <div>
-    <KSwitch loading checked /> <br/>
-    <KSwitch loading  checked size="small"/> 
+    <KSwitch loading checked /> <br />
+    <KSwitch loading checked size="small" />
   </div>
 </template>
 ```

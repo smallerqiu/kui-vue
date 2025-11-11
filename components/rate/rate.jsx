@@ -1,7 +1,8 @@
-import Star from './star'
-import { withInstall } from '../utils/vue'
-const Rate = {
-  name: 'Rate',
+import Star from "./star";
+import { defineComponent, ref } from "vue";
+import { withInstall } from '../utils/vue';
+const Rate = defineComponent({
+  name: "Rate",
   props: {
     value: { type: Number, default: 0 },
     allowClear: { type: Boolean, default: true },
@@ -13,89 +14,82 @@ const Rate = {
     tooltips: Array,
     showScore: Boolean,
     size: Number,
-    color: String
+    color: String,
   },
-  data() {
-    return {
-      defaultValue: this.value,
-      tempValue: this.value,
-    }
-  },
-  watch: {
-    value(v) {
-      this.defaultValue = v
-      this.tempValue = v
-    }
-  },
-  render() {
-    let { count, tempValue, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = this
-    const stars = []
-    if (isNaN(Number(count)) || count <= 0) {
-      count = 5
-    }
-    if (count > 15) count = 15
-
-    for (let i = 0; i < count; i++) {
-      let v = parseInt(tempValue * 100 - i * 100)
-      let percent = tempValue > i && tempValue < i + 1 ? v : 0
-      // let show_percent = percent != 50 && disabled && percent > 0
-      let half = (tempValue > i && tempValue < i + 1 && allowHalf) || (percent == 50)
-      // console.log(i, percent, show_percent, half)
-      let props = {
-        props: {
-          allowHalf,
-          full: tempValue > i && !half,
-          half,
-          icon, character, size,
-          disabled,
-          value: i,
-          percent,
-          tooltips: tooltips[i],
-        },
-        key: i,
-        on: {
-          click: this.click,
-          mouseenter: this.mouseenter,
-          // mouseleave: this.mouseleave,
+  setup(ps, { slots, emit }) {
+    const initValue = ref(ps.value);
+    const tempValue = ref();
+    const cleared = ref(false);
+    const update = (t, index, percent) => {
+      if (t == "M") {
+        if (cleared.value) return;
+        // mouse move
+        if (ps.allowHalf) {
+          let value = index - (percent < 0.5 ? 0.5 : 0);
+          tempValue.value = value;
+        } else {
+          tempValue.value = index;
         }
+      } else {
+        // click 允许清零
+        let value = index - (ps.allowHalf ? (percent < 0.5 ? 0.5 : 0) : 0);
+        value = parseFloat(value.toFixed(2));
+        initValue.value = value == initValue.value && ps.allowClear ? 0 : value;
+        if (initValue.value == 0) {
+          cleared.value = true;
+          tempValue.value = null;
+        }
+        emit("update:value", initValue.value);
       }
-      stars.push(<Star {...props} />)
-    }
-    let props = {
-      class: "k-rate",
-      on: { mouseleave: this.reset }
-    }
-    if (color) {
-      props.style = { color }
-    }
-    return (
-      <div {...props}>
-        {stars}
-        {disabled && showScore ? <span class="k-rate-score">{this.value}</span> : null}
-      </div>
-    )
+    };
+
+    const mouseLeave = (index) => {
+      tempValue.value = null;
+      cleared.value = false;
+    };
+
+    return () => {
+      const tpValue = tempValue.value || initValue.value;
+      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
+      const stars = [];
+      if (isNaN(Number(count)) || count <= 0) {
+        count = 5;
+      }
+      if (count > 15) count = 15;
+
+      for (let i = 1; i <= count; i++) {
+        const mod = i - tpValue;
+        const percent = (1 - (i - tpValue)) * 100;
+        let sp = {
+          allowHalf,
+          full: tpValue >= i,
+          half: mod > 0 && mod < 1,
+          icon,
+          character,
+          size,
+          disabled,
+          percent: percent < 100 ? percent : null,
+          tooltips: tooltips[i - 1],
+          index: i,
+          onUpdate: update,
+        };
+        stars.push(<Star {...sp} />);
+      }
+      let props = {
+        class: ["k-rate", { "k-rate-disabled": disabled }],
+        onMouseleave: mouseLeave,
+        style: { fontSize: size + "px" },
+      };
+      if (color) {
+        props.style.color = color;
+      }
+      return (
+        <div {...props}>
+          {stars}
+          {showScore ? <span class="k-rate-score">{ps.value}</span> : null}
+        </div>
+      );
+    };
   },
-  methods: {
-    reset() {
-      this.tempValue = this.defaultValue
-    },
-    click(index) {
-      index = index + 1
-      if (this.defaultValue && this.allowClear && index == this.defaultValue) {
-        index = 0
-      }
-      if (this.defaultValue != index) {
-        this.$emit('change', index)
-      }
-      this.defaultValue = index
-      this.tempValue = index
-
-      this.$emit('input', index)
-    },
-    mouseenter(index) {
-      this.tempValue = index + 1
-    },
-  }
-}
-
-export default withInstall(Rate)
+});
+export default withInstall(Rate);

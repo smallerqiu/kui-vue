@@ -1,19 +1,23 @@
 @import '../../styles/var.less';
+
 .k-card {
   background: var(--kui-color-back);
   position: relative;
   border-radius: var(--kui-border-radius);
   color: var(--kui-color-font);
+
   .k-card-head {
     position: relative;
     border-bottom: 1px solid var(--kui-color-gray-80);
     padding: 14px 16px;
     line-height: 1;
+
     .k-card-title-icon {
       vertical-align: middle;
       margin-right: 6px;
       font-size: 14px;
     }
+
     .k-card-title {
       font-weight: 500;
       white-space: nowrap;
@@ -25,6 +29,7 @@
       vertical-align: middle;
     }
   }
+
   .k-card-extra {
     position: absolute;
     right: 16px;
@@ -34,6 +39,7 @@
     transform: translate3d(0, -50%, 0);
     user-select: none;
   }
+
   .k-card-body {
     padding: 16px;
     // font-size: 12px;

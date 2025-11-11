@@ -5,21 +5,14 @@
 
 ```vue
 <template>
-  <Affix @change="change"
-    :offsetTop="200">
+  <Affix @change="change" :offsetTop="200">
     <Button type="primary">200px to affix top</Button>
   </Affix>
 </template>
-<script>
-export default{
-  data(){
-    return{}
-  },
-  methods:{
-    change(value) {
-      this.$Message.info(value ? "fixed" : "reset")
-    }
-  }
-}
+<script setup>
+import { message } from "kui-vue";
+const change = (value) => {
+  message.info(value ? "fixed" : "reset");
+};
 </script>
 ```

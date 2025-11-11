@@ -6,39 +6,57 @@
 ```vue
 <template>
   <Space vertical style="width:512px;">
-    <Checkbox label="Circle" v-model="isShape"/>
-    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light" :shape="shape"/>
-    <Input placeholder="disabled..." disabled theme="light" :shape="shape"/>
-    <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape"/>
-    <Input placeholder="请输入内容..." theme="light" @search="focus" clearable :shape="shape"/>
-    <TextArea placeholder="请输入内容..." theme="light" :rows="3"/>
+    <Checkbox label="Circle" v-model="isShape" />
+    <Input
+      placeholder="请输入内容..."
+      @blur="blur"
+      @focus="focus"
+      @change="change"
+      theme="light"
+      :shape="shape"
+    />
+    <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
+    <Input
+      placeholder="请输入内容..."
+      theme="light"
+      :icon="Search"
+      :shape="shape"
+    />
+    <Input
+      placeholder="请输入内容..."
+      theme="light"
+      @search="focus"
+      clearable
+      :shape="shape"
+    />
+    <TextArea placeholder="请输入内容..." theme="light" :rows="3" />
   </Space>
 </template>
 <script>
 import { Search } from "kui-icons";
-export default{
+export default {
   data() {
     return {
       Search,
-      isShape :false
-    }
+      isShape: false,
+    };
   },
-  computed:{
-    shape() { 
-      return this.isShape ? 'circle' : null
-    }
+  computed: {
+    shape() {
+      return this.isShape ? "circle" : null;
+    },
   },
-  methods:{
-    blur(){
-      console.log('blur')
+  methods: {
+    blur() {
+      console.log("blur");
     },
-    focus(){
-      console.log('focus')
+    focus() {
+      console.log("focus");
     },
-    change(e){
-      console.log('change')
+    change(e) {
+      console.log("change");
     },
-  }
-}
+  },
+};
 </script>
 ```

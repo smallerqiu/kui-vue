@@ -10,20 +10,13 @@
     <Button :icon="Search">Button</Button>
     <Tooltip placement="top">
       <Button>Space</Button>
-      <template slot="title">
+      <template #title>
         <p style="margin:0">I am space</p>
       </template>
     </Tooltip>
   </Space>
 </template>
-<script>
-import { Search } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Search
-    }
-  }
-}
+<script setup>
+import { Search } from "kui-icons";
 </script>
 ```

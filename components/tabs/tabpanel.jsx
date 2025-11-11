@@ -1,5 +1,6 @@
-import { withInstall } from '../utils/vue'
-const TabPanel = {
+import { defineComponent, onMounted, onBeforeUnmount, getCurrentInstance } from "vue";
+import { withInstall } from '../utils/vue';
+const TabPanel = defineComponent({
   name: "TabPanel",
   props: {
     title: String,
@@ -7,22 +8,20 @@ const TabPanel = {
     disabled: Boolean,
     closable: Boolean,
     activeKey: String,
+    // key: String,
   },
-  mounted() {
-    this.$emit("resetNavPosition");
-  },
-  beforeDestroy() {
-    this.$emit("resetNavPosition");
-  },
-  render() {
-    const key = this.$vnode && this.$vnode.key;
-    const isActive = this.activeKey === key;
+  setup(ps, { emit, slots }) {
+    onMounted(() => emit("resetNavPosition"));
+    onBeforeUnmount(() => emit("resetNavPosition"));
+    const instance = getCurrentInstance();
 
-    return (
-      <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": isActive }]}>
-        {this.$slots.default}
-      </div>
-    );
+    return () => {
+      return (
+        <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": ps.activeKey == instance.vnode.key }]}>
+          {slots.default?.()}
+        </div>
+      );
+    };
   },
-};
-export default withInstall(TabPanel)
+});
+export default withInstall(TabPanel);

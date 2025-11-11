@@ -1,8 +1,8 @@
-import { hasProp } from '../utils/element'
-import Icon from '../icon'
-import { Checkmark } from 'kui-icons'
-import { withInstall } from '../utils/vue'
-const Checkbox = {
+import Icon from "../icon";
+import { Checkmark } from "kui-icons";
+import { defineComponent, inject, ref, watch, computed } from "vue";
+import { withInstall } from '../utils/vue';
+const Checkbox = defineComponent({
   name: "Checkbox",
   props: {
     value: [String, Number, Boolean],
@@ -11,74 +11,69 @@ const Checkbox = {
     indeterminate: Boolean,
     checked: [Boolean, Number],
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
   },
-  model: {
-    prop: 'checked',
-    // event: 'change'
-  },
-  inject: {
-    groupContext: { default: null },
-  },
-  data() {
-    const checked = hasProp(this, 'checked') ? this.checked : (this.checked === true && !this.indeterminate)
-    return {
-      isChecked: checked,
-    }
-  },
-  methods: {
-    change(e) {
-      let { disabled, value, $slots, label, groupContext } = this
-      if (disabled) {
+  setup(ps, { slots, emit }) {
+    const checkBoxGroup = inject("checkBoxGroup", null);
+
+    const isChecked = ref(ps.checked); // for not set v-model
+
+    watch(
+      () => ps.checked,
+      (nv, no) => {
+        isChecked.value = nv;
+      }
+    );
+
+    const indeterminate = computed(() => ps.indeterminate);
+
+    const change = (e) => {
+      if (ps.disabled) {
         return false;
       }
       const checked = e.target.checked;
-      this.isChecked = checked;
-      if (groupContext) {
-        label = label || $slots.default.text
-        this.groupContext.change({ label, value })
+      isChecked.value = checked;
+      if (checkBoxGroup) {
+        const label = ps.label || slots.default?.().text;
+        emit("update", { checked, label, value: ps.value });
       } else {
-        this.$emit("input", checked);
-        this.$emit("change", e);
+        emit("update:checked", checked);
       }
-    }
+      e.stopPropagation()
+    };
+
+    return () => {
+      const sz = checkBoxGroup?.size || ps.size;
+      const disabled = checkBoxGroup?.disabled || ps.disabled;
+
+      const wpclasses = [
+        "k-checkbox",
+        {
+          ["k-checkbox-disabled"]: disabled,
+          ["k-checkbox-checked"]: isChecked.value && !indeterminate.value,
+          ["k-checkbox-indeterminate"]: indeterminate.value && !isChecked.value,
+          ["k-checkbox-sm"]: sz == "small",
+          ["k-checkbox-lg"]: sz == "large",
+        },
+      ];
+
+      let innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
+      const labelNode = ps.label || slots.default?.();
+
+      return (
+        <label class={wpclasses} onClick={(e) => e.stopPropagation()}>
+          <span class="k-checkbox-symbol">
+            <input type="checkbox" class="k-checkbox-input" checked={isChecked.value} disabled={disabled} onChange={change} />
+            <span class="k-checkbox-inner">{innerNode}</span>
+          </span>
+          {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
+        </label>
+      );
+    };
   },
-  render() {
-    let { disabled, change, $slots, size, label, groupContext, value, indeterminate, checked, isChecked } = this
-
-    if (groupContext) {
-      checked = groupContext.value?.indexOf(value) !== -1
-      disabled = disabled || groupContext.disabled
-      size = groupContext.size
-    } else {
-      if (!hasProp(this, 'checked')) {
-        checked = isChecked
-      }
-    }
-    const classes = ["k-checkbox", {
-      ["k-checkbox-disabled"]: disabled,
-      ["k-checkbox-checked"]: checked && !indeterminate,
-      ["k-checkbox-indeterminate"]: indeterminate,
-      ["k-checkbox-sm"]: size == 'small',
-      ["k-checkbox-lg"]: size == 'large'
-    }]
-
-
-    let inner = checked ? <Icon type={Checkmark} strokeWidth={60} /> : null
-    const labelNode = label || $slots.default
-    return (
-      <label class={classes} onClick={e => e.stopPropagation()}>
-        <span class="k-checkbox-symbol">
-          <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
-          <span class="k-checkbox-inner">{inner}</span>
-        </span>
-        {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
-      </label>
-    )
-  }
-}
+});
 export default withInstall(Checkbox);

@@ -1,6 +1,6 @@
+import { defineComponent } from "vue";
 import { withInstall } from '../utils/vue';
-import { getChildren } from '../utils/element'
-const Badge = {
+const Badge = defineComponent({
   name: "Badge",
   props: {
     count: [String, Number],
@@ -8,53 +8,60 @@ const Badge = {
     color: String,
     status: {
       type: String,
-      default: 'default'
+      // validator: (value) => {
+      //   ['default', 'success', 'error', 'warning'].indexOf(value) > -1
+      // },
+      default: "default",
     },
     text: String,
-    maxCount: { type: Number, default: 99 }
+    maxCount: { type: Number, default: 99 },
   },
-  render() {
-    const { $slots, maxCount, count, dot, color, status, text } = this
-    let innerText = null, statusNode = [];
-    const child = getChildren($slots.default)
+  setup(props, { slots }) {
+    return () => {
+      const { maxCount, count, dot, color, status, text } = props;
+      let innerText = null,
+        statusNode = [];
+      const children = slots.default?.();
 
-    if (typeof count === 'number' && count !== 0) {
-      innerText = count > maxCount ? maxCount + '+' : count
-    } else if (typeof count === 'string') {
-      innerText = count
-    } else if ((status || color) && (!dot && !child.length)) {
-      const props = {
-        class: ['k-badge-status-dot', {
-          [`k-badge-status-${status}`]: status,
-          [`k-badge-status-${color}`]: color && !/^#/.test(color)
-        }],
-        style: {
-          backgroundColor: /^#/.test(color) ? color : null
-        }
+      if (typeof count === "number" && count !== 0) {
+        innerText = count > maxCount ? maxCount + "+" : count;
+      } else if (typeof count === "string") {
+        innerText = count;
+      } else if ((status || color) && !dot && !children?.length) {
+        const _props = {
+          class: [
+            "k-badge-status-dot",
+            {
+              [`k-badge-status-${status}`]: status,
+              [`k-badge-status-${color}`]: color && !/^#/.test(color),
+            },
+          ],
+          style: {
+            backgroundColor: /^#/.test(color) ? color : null,
+          },
+        };
+        statusNode.push(<span {..._props}></span>);
+        if (text) statusNode.push(<span class="k-badge-status-text">{text}</span>);
       }
-      statusNode.push(<span {...props}></span>)
-      if (text)
-        statusNode.push(<span class="k-badge-status-text">{text}</span >)
-    }
 
-    const props = {
-      class: {
-        'k-badge-count': count !== undefined,
-        'k-badge-dot': dot,
-        'k-badge-no-child': !child.length,
-        [`k-badge-${status}`]: status,
-      },
-      style: { backgroundColor: color }
-    }
-    const supNode = (innerText !== null || dot) ? <sup {...props}>{innerText}</sup> : null
-    return (
-      <div class="k-badge">
-        {child}
-        {supNode}
-        {statusNode}
-      </div>
-    )
-  }
-};
-
+      const _props = {
+        class: {
+          "k-badge-count": count !== undefined,
+          "k-badge-dot": dot,
+          "k-badge-no-child": !children?.length,
+          [`k-badge-${status}`]: status,
+        },
+        style: { backgroundColor: color },
+      };
+      const supNode = innerText !== null || dot ? <sup {..._props}>{innerText}</sup> : null;
+      return (
+        <div class="k-badge">
+          {children}
+          {supNode}
+          {statusNode}
+        </div>
+      );
+    };
+  },
+});
 export default withInstall(Badge);

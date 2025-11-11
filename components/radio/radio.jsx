@@ -1,80 +1,75 @@
-import { hasProp } from '../utils/element'
-import { withInstall } from '../utils/vue'
-const Radio = {
+import { defineComponent, inject, ref, watch } from "vue";
+import { withInstall } from '../utils/vue';
+const Radio = defineComponent({
   name: "Radio",
   props: {
-    value: { type: [String, Number, Boolean], default: false },
+    value: { type: [String, Number] },
     disabled: Boolean,
     checked: [Boolean, Number],
     label: [String, Number],
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
   },
-  inject: {
-    groupContext: { default: null },
-  },
-  model: {
-    prop: 'checked',
-  },
-  data() {
-    const checked = hasProp(this, 'checked') ? this.checked : this.value === true
-    return {
-      defaultChecked: checked,
-    }
-  },
-  methods: {
-    change(e) {
-      let { disabled, value, $slots, label, groupContext } = this
-      if (disabled) {
+
+  setup(ps, { slots, emit }) {
+    const radioGroup = inject("radioGroup", null);
+
+    watch(
+      () => ps.checked,
+      (nv, no) => {
+        isChecked.value = nv;
+      }
+    );
+
+    const isChecked = ref(ps.checked); // for not set v-model
+
+    const change = (e) => {
+      if (ps.disabled) {
         return false;
       }
       const checked = e.target.checked;
-      this.defaultChecked = checked;
-      if (groupContext) {
-        label = label || $slots.default.text
-        this.groupContext.change({ label, value })
+      isChecked.value = checked;
+      if (radioGroup) {
+        const label = ps.label || slots.default?.().text;
+        emit("update", { label, value: ps.value });
       } else {
-        this.$emit("input", checked);
-        this.$emit("change", e);
+        emit("update:checked", checked);
+        emit("change", e);
       }
-    }
+      e.stopPropagation();
+    };
+
+    return () => {
+      const sz = radioGroup?.size || ps.size;
+
+      const disabled = radioGroup?.disabled || ps.disabled;
+
+      const classes = [
+        "k-radio",
+        {
+          ["k-radio-disabled"]: disabled,
+          ["k-radio-checked"]: isChecked.value,
+          ["k-radio-lg"]: sz == "large",
+          ["k-radio-sm"]: sz == "small",
+        },
+      ];
+
+      const labelNode = ps.label || slots.default?.();
+
+      return (
+        <label class={classes} onClick={(e) => e.stopPropagation()}>
+          <span class="k-radio-symbol">
+            <input type="radio" class="k-radio-input" disabled={disabled} checked={isChecked.value} onChange={change} />
+            <span class="k-radio-inner"></span>
+          </span>
+          {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
+        </label>
+      );
+    };
   },
-
-  render() {
-    let { disabled, change, $slots, label, size, groupContext, value, checked, defaultChecked } = this
-    if (groupContext) {
-      checked = groupContext.defaultValue == value
-      disabled = disabled || groupContext.disabled
-      size = groupContext.size
-    } else {
-      if (!hasProp(this, 'checked')) {
-        checked = defaultChecked
-      }
-    }
-    const classes = [
-      "k-radio", {
-        ["k-radio-disabled"]: disabled,
-        ["k-radio-checked"]: checked,
-        ["k-radio-lg"]: size == 'large',
-        ["k-radio-sm"]: size == 'small',
-      }
-    ];
-
-    const labelNode = label || $slots.default
-    return (
-      <label class={classes} onClick={e => e.stopPropagation()}>
-        <span class="k-radio-symbol">
-          <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
-          <span class="k-radio-inner"></span>
-        </span>
-        {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
-      </label>
-    )
-  }
-};
-
+});
 export default withInstall(Radio);

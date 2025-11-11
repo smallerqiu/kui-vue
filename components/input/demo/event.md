@@ -6,38 +6,50 @@
 ```vue
 <template>
   <Space vertical style="width:512px;">
-    <Input placeholder="请输入内容..." 
-    clearable
-    @change="change" 
-    @keypress="keypress" 
-    @keyup="keyup" 
-    @keydown="keydown" 
-    @keydown.enter="keydownEnter" 
-    @blur="blur" 
-    @focus="focus" >
+    <Input
+      placeholder="请输入内容..."
+      clearable
+      @change="change"
+      @keypress="keypress"
+      @keyup="keyup"
+      @keydown="keydown"
+      @keydown.enter="keydownEnter"
+      @blur="blur"
+      @focus="focus"
+    >
     </Input>
-    <TextArea placeholder="请输入内容..."
-      @change="change" 
-      @keypress="keypress" 
-      @keyup="keyup" 
-      @keydown="keydown" 
-      @keydown.enter="keydownEnter" 
-      @blur="blur" 
-      @focus="focus" 
-     />
+    <TextArea
+      placeholder="请输入内容..."
+      @change="change"
+      @keypress="keypress"
+      @keyup="keyup"
+      @keydown="keydown"
+      @keydown.enter="keydownEnter"
+      @blur="blur"
+      @focus="focus"
+    />
   </Space>
 </template>
 <script>
 let events = {};
-['focus','blur','change','keypress','keyup','keydown',,'keydownEnter'].map(type=>{
-  events[type] = function(e){
-    this.$Message.info(type)
-  }
-})
-export default{
-  methods:{
-    ...events
-  }
-}
+[
+  "focus",
+  "blur",
+  "change",
+  "keypress",
+  "keyup",
+  "keydown",
+  ,
+  "keydownEnter",
+].map((type) => {
+  events[type] = function (e) {
+    this.$Message.info(type);
+  };
+});
+export default {
+  methods: {
+    ...events,
+  },
+};
 </script>
 ```

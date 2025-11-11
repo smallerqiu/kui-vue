@@ -13,8 +13,13 @@
           <Icon :type="LogoKui" size="30" class="logo" />
           <span class="logo-title">KUI运营后台</span>
         </a>
-        <Menu v-model="selectedKeys" :openKeys="openKeys" class="demo-left-menu" mode="inline"
-          :inline-collapsed="collapsed">
+        <Menu
+          v-model:selectedKeys="selectedKeys"
+          :openKeys="openKeys"
+          class="demo-left-menu"
+          mode="inline"
+          :inline-collapsed="collapsed"
+        >
           <MenuItem key="t1" :icon="Home">首页</MenuItem>
           <SubMenu key="t2" :icon="StatsChart" title="数据统计">
             <MenuItem key="t2-1">今日订单</MenuItem>
@@ -26,45 +31,50 @@
           </SubMenu>
           <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
         </Menu>
-
       </Sider>
       <Content class="k-demo-main">
         <div style="padding: 10px;">
-          <Button :icon="collapsed ? MenuUnfold : MenuFold" @click="collapsed = !collapsed" theme="light"
-            class="btn-collapsed"></Button>
+          <Button
+            type="text"
+            :icon="collapsed ? MenuUnfold : MenuFold"
+            @click="collapsed = !collapsed"
+            class="btn-collapsed"
+            ><i></i
+          ></Button>
         </div>
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb>
-        <div style="padding:200px 0;text-align:center;color:#ddd;margin:20px 0;" class="demo-back">Content</div>
-        <Footer>KUI ©2025 Created by Qiu</Footer>
+        <div
+          style="padding:200px 0;text-align:center;color:#ddd;margin:20px;"
+          class="demo-back"
+        >
+          Content
+        </div>
+        <Footer>KUI ©2025 Created by chuchur</Footer>
       </Content>
     </Layout>
   </div>
 </template>
-<script>
-import { LogoKui,ChevronBack, NotificationsOutline, ChevronForward, Search, StatsChart, Home, Settings,MenuFold, MenuUnfold } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui, Search, NotificationsOutline, ChevronBack, ChevronForward, StatsChart, Home, Settings,MenuFold, MenuUnfold,
-      selectedKeys: ['t1'],
-      openKeys:['t2'],
-      collapsed: false
-    }
-  },
-  methods: {
-    toggle() {
-      this.collapsed = !this.collapsed
-    }
-  }
-}
+<script setup>
+import {
+  LogoKui,
+  Home,
+  StatsChart,
+  Settings,
+  MenuFold,
+  MenuUnfold,
+} from "kui-icons";
+import { ref } from "vue";
+const top = ref(["t1"]);
+const collapsed = ref(false);
+const selectedKeys = ref(["t1"]);
+const openKeys = ref(["t2"]);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-
   .demo-sider {
     /*这里是例子，实际中请适当修改*/
     left: 0;
@@ -100,7 +110,6 @@ export default {
       width: 1px;
     }
   }
-
 
   .logo-box {
     box-sizing: border-box;

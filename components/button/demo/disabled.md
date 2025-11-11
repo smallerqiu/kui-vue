@@ -9,26 +9,26 @@
     <Button type="primary">Primary</Button>
     <Button disabled type="primary">Primary(disabled)</Button>
   </Space>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <Space>
     <Button type="danger">Danger</Button>
     <Button type="danger" disabled>Danger(disabled)</Button>
   </Space>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <Space>
     <Button>Default</Button>
     <Button disabled>Default(disabled)</Button>
   </Space>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <Space>
     <Button type="text">Text</Button>
     <Button disabled type="text">Text(disabled)</Button>
   </Space>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <Space>
     <Button type="link">Link</Button>
     <Button disabled type="link">Link(disabled)</Button>

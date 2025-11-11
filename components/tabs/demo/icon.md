@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Tabs v-model="current">
+  <Tabs v-model:activeKey="current">
     <TabPanel key="1" title="Tab 1" :icon="LogoApple">
       Content of Tab Pane 1
     </TabPanel>
@@ -14,15 +14,9 @@
     </TabPanel>
   </Tabs>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { LogoApple, LogoMicrosoft } from "kui-icons";
-export default{
-  data() {
-    return {
-      LogoApple, LogoMicrosoft,
-      current:'1'
-    }
-  },
-}
+const current = ref("1");
 </script>
 ```

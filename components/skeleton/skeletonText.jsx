@@ -1,5 +1,6 @@
-import { withInstall } from '../utils/vue'
-const SkeletonText = {
+import { defineComponent, ref, watch } from "vue";
+import { withInstall } from '../utils/vue';
+const SkeletonText = defineComponent({
   name: "SkeletonText",
   props: {
     animated: Boolean,
@@ -8,48 +9,49 @@ const SkeletonText = {
     size: String,
     width: Number,
   },
-  watch: {
-    loading(v) {
-      if (v) {
-        this.show = v
-      } else {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.show = v
-        }, this.delay);
+  setup(ps, { slots }) {
+    const show = ref(ps.loading);
+    const timer = ref();
+    watch(
+      () => ps.loading,
+      (v) => {
+        if (v) {
+          show.value = v;
+        } else {
+          clearTimeout(timer.value);
+          timer.value = setTimeout(() => {
+            show.value = v;
+          }, ps.delay);
+        }
       }
-    }
-  },
-  data() {
-    return {
-      show: this.loading
-    }
-  },
-  render() {
-    let { size, animated, show, width } = this
-    let props = {
-      class: ['k-skeleton k-skeleton-ele', {
-        'k-skeleton-animated': animated,
-      }]
-    }
-    let innerProps = {
-      class: ['k-skeleton-text', {
-        'k-skeleton-text-lg': size == 'large',
-        'k-skeleton-text-sm': size == 'small',
-      }],
-      style: {}
-    }
-    let child = this.$slots.default
+    );
+    return () => {
+      let { size, animated, width } = ps;
+      let props = {
+        class: [
+          "k-skeleton k-skeleton-ele",
+          {
+            "k-skeleton-animated": animated,
+          },
+        ],
+      };
+      let innerProps = {
+        class: [
+          "k-skeleton-text",
+          {
+            "k-skeleton-text-lg": size == "large",
+            "k-skeleton-text-sm": size == "small",
+          },
+        ],
+        style: {},
+      };
+      let child = slots.default?.();
 
-    if (width) {
-      innerProps.style.width = `${width}px`
-    }
-    return (
-      <div {...props}>
-        {child && !show ? child : <span {...innerProps}></span>}
-      </div>
-    )
-  }
-}
-
-export default withInstall(SkeletonText)
+      if (width) {
+        innerProps.style.width = `${width}px`;
+      }
+      return <div {...props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+    };
+  },
+});
+export default withInstall(SkeletonText);

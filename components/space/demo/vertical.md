@@ -16,14 +16,7 @@
     </Card>
   </Space>
 </template>
-<script>
-import { Heart } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart
-    }
-  }
-}
+<script setup>
+import { Heart } from "kui-icons";
 </script>
 ```

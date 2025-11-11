@@ -6,16 +6,11 @@
 ```vue
 <template>
   <div class="demo-color-picker">
-    <ColorPicker v-model="color"/>
+    <ColorPicker v-model:value="color" />
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color: '#3a95ff',
-    };
-  }
-}
-</script> 
+<script setup>
+import { ref } from "vue";
+const color = ref("#3a95ff");
+</script>
 ```

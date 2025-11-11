@@ -6,19 +6,16 @@
 ```vue
 <template>
   <Space>
-    {{checked}}
-    <Radio v-model="checked">Radio</Radio>
-    <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <Radio label="Radio"/>
+    {{ checked }}
+    <Radio v-model:checked="checked">Radio</Radio>
+    <Button @click="checked = !checked" size="small">
+      {{ checked == false ? "Uncheck" : "Checked" }}
+    </Button>
+    <Radio label="Radio" />
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      checked:false
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const checked = ref(false);
 </script>
 ```

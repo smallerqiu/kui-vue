@@ -1,19 +1,15 @@
-import Vue from 'vue';
+// import {  createVNode, render } from "vue"; //for 3
+import { createVNode, render } from "../utils/vue"; //for 2
 import Group from "./group";
 
 const newInstance = (props = {}) => {
-  const Notice = new Vue({
-    render(h) {
-      return h(Group, {
-        props: props
-      });
-    }
-  });
+  const container = document.createElement("div");
+  document.body.appendChild(container);
 
-  const component = Notice.$mount();
-  document.body.appendChild(component.$el);
-  const notice = Notice.$children[0];
-  return notice
-}
+  const vm = createVNode(Group, props);
+  render(vm, container);
 
-export default newInstance
+  return vm.component?.exposed
+};
+
+export default newInstance;

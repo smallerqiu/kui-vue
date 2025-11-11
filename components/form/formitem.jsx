@@ -1,7 +1,7 @@
 import { Row, Col } from '../grid'
 import cloneVNode from '../utils/clone';
-import { getChildren, isVNode } from '../utils/element'
-import { withInstall } from '../utils/vue'
+import { getChildren } from '../utils/element'
+import { withInstall, isVNode } from '../utils/vue'
 
 const FormItem = {
   name: "FormItem",

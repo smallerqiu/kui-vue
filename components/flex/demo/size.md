@@ -6,41 +6,25 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model="size" @change="sizeChange">
+    <RadioGroup v-model:value="flexSize">
       <Radio value="small" label="small" />
       <Radio value="middle" label="middle" />
       <Radio value="large" label="large" />
-      <Radio value="customize" label="customize" />
     </RadioGroup>
-    <Slider v-model="gap" :step="1" :max="50" v-if="size==='customize'" @change="gapChange"/>
+    <Checkbox v-model:checked="customize" label="customize" />
+    <Slider v-model:value="flexSize" :step="1" :max="50" v-if="customize" />
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>
-      <Button theme="dashed">Dashed</Button>
+      <Button type="text">Text</Button>
       <Button type="link">Link</Button>
     </Flex>
   </Flex>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      size:'small',
-      flexSize:'small',
-      gap:8
-    }
-  },
-  methods:{
-    gapChange(){
-      this.flexSize=this.gap
-      // console.log(this.gap)
-    },
-    sizeChange({value}){
-      if(value!='customize'){
-        this.flexSize=value
-      }
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const flexSize = ref("small");
+const gap = ref(8);
+const customize = ref(false);
 </script>
 ```
