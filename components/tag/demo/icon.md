@@ -12,17 +12,7 @@
     <Tag :icon="LogoWechat" closeable color="green">微信</Tag>
   </Space>
 </template>
-<script>
-import { LogoTwitter , LogoYoutube , LogoQq , LogoWechat} from 'kui-icons'
-export default{
-  data(){
-    return{
-      LogoTwitter , 
-      LogoYoutube,
-      LogoWechat, 
-      LogoQq
-    }
-  }
-}
+<script setup>
+import { LogoTwitter, LogoYoutube, LogoQq, LogoWechat } from "kui-icons";
 </script>
 ```

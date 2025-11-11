@@ -1,9 +1,7 @@
 
-import Vue from 'vue';
 export default {
   inserted(el, { value }, vnode) {
-    const SSR = Vue && Vue.prototype.$isServer
-    if (!SSR && value) {
+    if (value) {
       const parentNode = el.parentNode
       if (!parentNode) return false;
 

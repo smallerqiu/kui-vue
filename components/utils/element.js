@@ -116,16 +116,6 @@ export function cloneVNode(vnode, options = {}, childs) {
 }
 
 
-export function isVNode(element) {
-  return (
-    element &&
-    typeof element === 'object' &&
-    'componentOptions' in element &&
-    'context' in element &&
-    element.tag !== undefined
-  );
-}
-
 export function getOffset(el) {
   // const rect = el.getBoundingClientRect();
   const pos = el ? {

@@ -1,4 +1,3 @@
-
 <cn>
 #### 默认展示
 默认会在以上组件展示
@@ -6,23 +5,16 @@
 
 ```vue
 <template>
-  <Space vertical>
-    Select: 
-    <Select  :width="220"/>
-    Table: 
+  <div>
+    Select: <br /><br />
+    <Select :width="220" />
+    <br />
+    <br />
+    Table: <br /><br />
     <Table :data="[]" :columns="columns" />
-  </Space>
+  </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      columns:[
-        { title:'Name' ,},
-        { title:'Age'},
-      ]
-    }
-  }
-}
+<script setup>
+const columns = [{ title: "Name" }, { title: "Age" }];
 </script>
 ```

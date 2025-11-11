@@ -7,20 +7,19 @@
 <template>
   <Space>
     <Radio disabled>disabled</Radio>
-    <Radio disabled :value="true">disabled</Radio>
-    <Radio :disabled="disabled" v-model="checked">Radio</Radio>
-    <Button @click="checked=!checked" size="small">{{checked?'Checked':'Uncheck'}}</Button>
-    <Button @click="disabled=!disabled" size="small">{{disabled?'Enable':'Disabled'}}</Button>
+    <Radio disabled :checked="true">disabled</Radio>
+    <Radio :disabled="disabled" v-model:checked="checked">Radio</Radio>
+    <Button @click="checked = !checked" size="small">
+      {{ checked ? "Checked" : "Uncheck" }}
+    </Button>
+    <Button @click="disabled = !disabled" size="small">
+      {{ disabled ? "Enable" : "Disabled" }}
+    </Button>
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      disabled:false,
-      checked:false
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const checked = ref(false);
+const disabled = ref(false);
 </script>
 ```

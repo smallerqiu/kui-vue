@@ -28,8 +28,8 @@ export { Card };
 import { Carousel, CarouselItem } from './carousel'
 export { Carousel, CarouselItem };
 
-import { Collapse, Panel } from './collapse'
-export { Collapse, Panel };
+import { Collapse, CollapsePanel } from './collapse'
+export { Collapse, CollapsePanel };
 
 import { Checkbox, CheckboxGroup } from './checkbox'
 export { Checkbox, CheckboxGroup };
@@ -43,8 +43,8 @@ export { Descriptions, DescriptionsItem };
 import Drawer from './drawer'
 export { Drawer };
 
-import Dropdown from './dropdown'
-export { Dropdown };
+import { Dropdown, DropdownButton } from './dropdown'
+export { Dropdown, DropdownButton };
 
 import Divider from './divider'
 export { Divider };

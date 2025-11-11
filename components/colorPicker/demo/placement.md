@@ -5,21 +5,23 @@
 
 ```vue
 <template>
-  <Space wrap>
-    <template v-for="placement in placements"> 
+  <Space id="dropdown-demo-placement">
+    <template v-for="placement in placements">
       <ColorPicker value="red" size="small" :placement="placement">
-          <Button>{{ placement }}</Button>
+        <Button>{{ placement }}</Button>
       </ColorPicker>
     </template>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      placements :['bottom-left', 'bottom', 'bottom-right', 'top-left', 'top', 'top-right']
-    };
-  }
-}
-</script> 
+
+<script setup>
+const placements = [
+  "bottom-left",
+  "bottom",
+  "bottom-right",
+  "top-left",
+  "top",
+  "top-right",
+];
+</script>
 ```

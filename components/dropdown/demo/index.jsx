@@ -12,10 +12,12 @@ export default {
         <Info />
         <Base />
         <RightMenu />
+        <DropdownButton />
         <Divider />
         <Placement />
+        <Arrow />
         <Cascading />
-        <CN />
+        <CN /> 
       </div>
     )
   }

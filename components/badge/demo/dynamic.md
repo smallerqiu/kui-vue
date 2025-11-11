@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space size="large">
+  <div class="demo-dot">
     <Badge :dot="show">
       <div class="box"></div>
     </Badge>
@@ -15,28 +15,24 @@
     <Badge :dot="show">
       <a href="#">我是一个连接</a>
     </Badge>
-    <KSwitch @change="show=!show" />
-    <br/>
-    <br/>
+    <k-switch @change="show = !show" />
+    <br />
+    <br />
     <Badge :count="count" :max-count="20">
       <div class="box"></div>
     </Badge>
     <ButtonGroup circle>
-      <Button @click="count--">-</Button>
-      <Button @click="count++">+</Button>
+      <Button @click="minus">-</Button>
+      <Button @click="add">+</Button>
     </ButtonGroup>
-  </Space>
+  </div>
 </template>
-<script>
-import { NotificationsOutline } from 'kui-icons'
-export default{
-  data() {
-    return {
-      NotificationsOutline,
-      show:true,
-      count:15
-    }
-  }
-} 
+<script setup>
+import { NotificationsOutline } from "kui-icons";
+import { ref } from "vue";
+const show = ref(true);
+const count = ref(5);
+const add = () => count.value++;
+const minus = () => count.value--;
 </script>
 ```

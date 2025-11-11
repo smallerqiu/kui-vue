@@ -1,11 +1,11 @@
 <cn>
 #### 基本用法
-使用 `type`、`theme`、`shape` 属性来定义 `Button` 的样式。
+使用 `type` 属性来定义 `Button`。
 </cn>
 
 ```vue
 <template>
-  <Space wrap>
+  <Space>
     <Button>Default</Button>
     <Button type="primary">Primary</Button>
     <Button type="danger">Danger</Button>

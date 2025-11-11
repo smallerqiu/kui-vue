@@ -1,54 +1,39 @@
-import { Button } from '../button';
-import { withInstall } from '../utils/vue'
-const RadioButton = {
+import { Button } from "../button";
+import { defineComponent, inject } from "vue";
+import { withInstall } from '../utils/vue';
+const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
-    value: { type: [String, Number, Boolean], default: false },
+    value: { type: [String, Number], default: false },
     disabled: Boolean,
+    checked: Boolean,
     label: [String, Number],
     theme: String,
     shape: String,
+    size: String,
   },
-  inject: {
-    groupContext: { default: null },
-  },
-  data() {
-    return {
-      defaultChecked: false
-    }
-  },
-  methods: {
-    change() {
-      let { value, $slots, label, groupContext } = this
-      this.defaultChecked = true
-      if (groupContext) {
-        label = label || $slots.default.text
-        groupContext.change({ label, value })
-      } else {
-        this.$emit("input", true);
-        this.$emit("change", true);
-      }
-    }
-  },
+  setup(ps, { slots, emit, attrs }) {
+    const radioGroup = inject("radioGroup", null);
+    const parentSize = inject("size",null);
+    const change = (e) => {
+      const _label = ps.label || slots.default?.().text;
 
-  render() {
-    let { disabled, change, $slots, label, groupContext, value, checked, $attrs } = this
-    let prop = {}
-    if (groupContext) {
-      checked = groupContext.defaultValue == value
-      let { size, shape, theme } = groupContext
-      disabled = disabled || groupContext.disabled
-      prop = { disabled, size, shape, theme, type: checked ? 'primary' : 'default' }
-    }
-    const props = {
-      attrs: { ...$attrs },
-      on: { click: change },
-      props: { ...prop }
-    }
-    return (
-      <Button {...props}>{label || $slots.default}</Button>
-    )
-  }
-};
+      emit("update", { label: _label, value: ps.value });
 
+    };
+    return () => {
+      let { disabled, label, size = parentSize, theme, shape, checked } = ps;
+      const props = {
+        ...attrs,
+        onClick: change,
+        disabled: radioGroup?.disabled || disabled,
+        size: radioGroup?.size || size,
+        theme: radioGroup?.theme || theme,
+        shape: radioGroup?.shape || shape,
+        type: checked ? "primary" : "default",
+      };
+      return <Button {...props}>{label || slots.default?.()}</Button>;
+    };
+  },
+});
 export default withInstall(RadioButton);

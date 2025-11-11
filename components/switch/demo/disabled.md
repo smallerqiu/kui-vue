@@ -6,25 +6,24 @@
 ```vue
 <template>
   <Space vertical align="start">
-    <KSwitch disabled />
+    <k-switch disabled />
     <Space>
-      <KSwitch :disabled="disabled" v-model="checked" />
-      <Button size="small" @click="checked=!checked">{{checked?'Uncheck':'Check'}}</Button>
-      <Button size="small" @click="disabled=!disabled">{{disabled?'Enable':'Disabled'}}</Button>
+      <k-switch :disabled="disabled" v-model:checked="checked" />
+      <Button size="small" @click="checked = !checked">
+        {{ checked ? "Uncheck" : "Check" }}
+      </Button>
+      <Button size="small" @click="disabled = !disabled">
+        {{ disabled ? "Enable" : "Disabled" }}
+      </Button>
     </Space>
-    <KSwitch disabled true-text="Yes" false-text="No" />
-    <KSwitch disabled true-text="Yes" false-text="No" checked />
-    <KSwitch disabled true-text="Yes" false-text="No" checked size="small"/>
+    <k-switch disabled true-text="Yes" false-text="No" />
+    <k-switch disabled true-text="Yes" false-text="No" checked />
+    <k-switch disabled true-text="Yes" false-text="No" checked size="small" />
   </Space>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      checked:false,
-      disabled:false
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const checked = ref(false);
+const disabled = ref(false);
 </script>
 ```

@@ -6,40 +6,41 @@
 ```vue
 <template>
   <div>
-    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handelCheckAll">Check all</Checkbox>
-    <br/>
-    <CheckboxGroup :options="options" v-model="cities" @change="change"/>
+    <Checkbox
+      v-model:checked="checkAll"
+      :indeterminate="indeterminate"
+      @change="handleCheckAll"
+    >
+      Check all
+    </Checkbox>
+    <br />
+    <CheckboxGroup :options="options" v-model:value="cities" @change="change" />
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checkAll: false,
-      indeterminate: false,
-      options: [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-      ],
-      cities:[]
-    };
-  },
-  methods: {
-    handelCheckAll(e) {
-      let checked = e.target.checked
-      this.cities = checked ? this.options.map(v=>v.value) : [];
-      this.indeterminate = !checked && !this.options.length
-    },
-    change(data) {
-      let length = this.cities.length
-      this.indeterminate = length > 0 && length < this.options.length
+<script setup>
+import { ref } from "vue";
+const checkAll = ref(false);
+const indeterminate = ref(false);
 
-      this.checkAll = length == this.options.length 
-    }
-  }
+const options = [
+  { label: "Beijing", value: "beijing" },
+  { label: "Shenzhen", value: "shenzhen" },
+  { label: "Shanghai", value: "shanghai" },
+  { label: "Guangzhou", value: "guangzhou" },
+  { label: "Wuhan", value: "wuhan" },
+];
+const cities = ref([]);
+
+const handleCheckAll = (e) => {
+  let checked = e.target.checked;
+  cities.value = checked ? options.map((v) => v.value) : [];
+  indeterminate.value = !checked && !options.length;
+};
+const change = (data) => {
+  let length = cities.value.length;
+  indeterminate.value = length > 0 && length < options.length;
+
+  checkAll.value = length == options.length;
 };
 </script>
 ```

@@ -11,7 +11,7 @@
     <Badge status="default" />
     <Badge status="warning" />
   </Space>
-  <br/>
+  <br />
   <Space vertical>
     <Badge status="success" text="Success" />
     <Badge status="error" text="Error" />

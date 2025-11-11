@@ -1,7 +1,6 @@
 <cn>
-#### 上中下布局 
-最基本的『上-中-下』布局。
-一般主导航放置于页面的顶端，从左自右依次为：logo、一级导航项、辅助菜单（用户、设置、通知等）。通常将内容放在固定尺寸（例如：1200px）内，整个页面排版稳定，不受用户终端显示器影响；上下级的结构符合用户上下浏览的习惯，也是较为经典的网站导航模式。页面上下切分的方式提高了主工作区域的信息展示效率，但在纵向空间上会有一些牺牲。此外，由于导航栏水平空间的限制，不适合那些一级导航项很多的信息结构。
+#### 顶部-侧边布局-通栏
+同样拥有顶部导航及侧边栏，区别是两边未留边距，多用于应用型的网站。
 </cn>
 
 ```vue
@@ -17,7 +16,11 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu mode="horizontal" :value="['t1']" class="demo-top-menu">
+            <Menu
+              mode="horizontal"
+              :selectedKeys="['t1']"
+              class="demo-top-menu"
+            >
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -32,8 +35,13 @@
       </Header>
       <Layout>
         <Sider class="demo-back">
-          <Menu :value="['t1']" :openKeys="['t2']" class="demo-left-menu" mode="inline"
-            style="padding-top:20px;">
+          <Menu
+            :selectedKeys="['t1']"
+            :openKeys="['t2']"
+            class="demo-left-menu"
+            mode="inline"
+            style="padding-top:20px;"
+          >
             <MenuItem key="t1" :icon="Home">首页</MenuItem>
             <SubMenu key="t2" :icon="StatsChart" title="数据统计">
               <MenuItem key="t2-1">今日订单</MenuItem>
@@ -48,25 +56,22 @@
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-          <Content class="demo-content">
-            Content
-          </Content>
+          <Content class="demo-content"> Content </Content>
         </Layout>
       </Layout>
     </Layout>
   </div>
 </template>
-<script>
-import { LogoKui, Search, NotificationsOutline, Home, StatsChart,Settings  } from 'kui-icons'
-export default{
-  data() {
-    return {
-      LogoKui, NotificationsOutline, Search, Home,StatsChart,Settings ,
-      top:['t1'],
-      left:['0-1']
-    }
-  }
-}
+<script setup>
+import {
+  LogoKui,
+  Home,
+  StatsChart,
+  Settings,
+  Scan,
+  NotificationsOutline,
+  Search,
+} from "kui-icons";
 </script>
 <style scoped lang="less">
 .k-demo-layout {

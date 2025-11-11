@@ -1,54 +1,62 @@
-import { withInstall } from '../utils/vue'
-const Spin = {
-  name: 'Spin',
+import { defineComponent, ref, watch } from "vue";
+import { withInstall } from '../utils/vue';
+const Spin = defineComponent({
+  name: "Spin",
   props: {
     value: { type: Boolean, default: true },
     delay: { type: Number, default: 500 },
     size: {
-      type: String, default: 'default', validator(value) {
+      type: String,
+      default: "default",
+      validator(value) {
         return ["large", "default", "small"].indexOf(value) >= 0;
-      }
+      },
     },
     mode: {
-      type: String, default: 'rotate', validator(value) {
+      type: String,
+      default: "rotate",
+      validator(value) {
         return ["bounce", "flip", "rotate", "zoom"].indexOf(value) >= 0;
+      },
+    },
+  },
+  setup(ps, { slots }) {
+    const spinning = ref(ps.value);
+    let timer = null;
+    watch(
+      () => ps.value,
+      (nv, no) => {
+        if (nv) {
+          spinning.value = nv;
+        } else {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            spinning.value = nv;
+          }, ps.delay);
+        }
       }
-    }
-  },
-  watch: {
-    value(v) {
-      if (v) {
-        this.spinning = v
-      } else {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.spinning = v
-        }, this.delay);
-      }
-    }
-  },
-  data() {
-    return {
-      spinning: this.value
-    }
-  },
-  render() {
-    let { mode, spinning, $slots, size } = this
-    const classes = [{
-      [`k-spin-loading`]: spinning,
+    );
+    return () => {
+      let { mode, size } = ps;
+      const classes = [
+        {
+          [`k-spin-loading`]: spinning.value,
 
-      [`k-spin-${mode}`]: mode && spinning,
-    }]
-    const root = ['k-spin', {
-      [`k-spin-lg`]: size == 'large',
-      [`k-spin-sm`]: size == 'small',
-      [`k-spin-only`]: !$slots.default,
-    }]
-    const spin = <div class={classes} />
-    return (
-      <div class={root}>{[spin, $slots.default]}</div>
-    )
-  }
-}
-
-export default withInstall(Spin)
+          [`k-spin-${mode}`]: mode && spinning.value,
+        },
+      ];
+      const children = slots.default?.();
+      const root = [
+        "k-spin",
+        {
+          [`k-spin-lg`]: size == "large",
+          [`k-spin-sm`]: size == "small",
+          [`k-spin-only`]: children == null,
+        },
+      ];
+      const spin = <div class={classes} />;
+      return <div class={root}>{[spin, children]}</div>;
+    };
+  },
+});
+export default withInstall(Spin);

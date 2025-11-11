@@ -1,4 +1,3 @@
-
 <cn>
 #### 基本用法
 简单的展示。
@@ -6,9 +5,6 @@
 
 ```vue
 <template>
-  <KImage 
-    :width="120" 
-    src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
-    />
+  <KImage :width="120" src="https://cdn.chuchur.com/upload/demo/test_300.jpg" />
 </template>
 ```

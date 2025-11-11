@@ -1,5 +1,7 @@
 import MarkdownIt from 'markdown-it'
-import { parseComponent } from 'vue-template-compiler'
+// import { parseComponent } from 'vue-template-compiler' // don't support script setup
+import { parse } from '@vue/compiler-sfc'
+
 import anchor from 'markdown-it-anchor'
 import hljs from 'highlight.js'
 
@@ -44,22 +46,25 @@ export default function vitePluginMd() {
 
       if (m) {
         const block = m[1].trim();
-        const { template, script, styles } = parseComponent(block);
-
+        // const { template, script, styles } = parseComponent(block);
+        const { descriptor } = parse(block);
+        const { template, script, scriptSetup, styles } = descriptor
         // pretty code preview
         let codeHtml = markdown.render('```html\n' + block + '\n```') //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
         codeHtml = codeHtml.replace(/{{/g, '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>').replace(/}}/g, '&#125;&#125;');
         let result = `
 <template>
   <Demo>
-    <template slot="component">${template?.content || ''}</template>
-    <template slot="description">${cnHtml || ''}</template>
-    <template slot="code">${codeHtml}</template>
+    <template #component>${template?.content || ''}</template>
+    <template #description>${cnHtml || ''}</template>
+    <template #code>${codeHtml}</template>
   </Demo>
 </template>
 `;
 
-        if (script?.content) {
+        if (scriptSetup?.content) {
+          result += `<script setup>${scriptSetup.content}</script>`;
+        } else if (script?.content) {
           result += `<script>${script.content}</script>`;
         }
         if (Array.isArray(styles) && styles.length) {

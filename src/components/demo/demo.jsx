@@ -1,57 +1,52 @@
 import { Icon, Tooltip } from "kui-vue";
 import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
-const Demo = {
+import { defineComponent, ref, getCurrentInstance } from "vue";
+
+const Demo = defineComponent({
   name: "Demo",
-  props: {
-    // sourceCode: String,
-  },
-  data() {
-    return {
-      expand: false
-    }
-  },
-  methods: {
-    copy() {
-      this.$copyText(this.$refs.code.innerText).then(
+  setup(props, { slots }) {
+    const expand = ref(false)
+    const { proxy } = getCurrentInstance()
+    const codeRef = ref(null)
+    const copy = () => {
+      proxy.$copyText(codeRef.value?.innerText).then(
         () => {
-          this.$Message.success('Copied!')
+          proxy.$Message.success('Copied!')
         },
         () => {
-          this.$Message.error("复制代码失败，请手动复制");
+          proxy.$Message.error("复制代码失败，请手动复制");
         }
       );
     }
-  },
-  mounted() {
-  },
-  render() {
-    let { expand } = this
-    let on = getTransitionProp()
-    return (
-      <div class="k-demo markdown-body">
-        <div class="k-demo-main">
-          <div class="k-content"> {this.$slots.component}</div>
-          <div class="k-desc">
-            <div class="k-desc-content">{this.$slots.description}</div>
+    return () => {
+      const transitionProps = getTransitionProp()
+
+      return (
+        <div class="k-demo markdown-body">
+          <div class="k-demo-main">
+            <div class="k-content">{slots.component?.()}</div>
+            <div class="k-desc">
+              <div class="k-desc-content"><slot name="description" />{slots.description?.()}</div>
+            </div>
+            <div class="k-code-actions">
+              <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
+                <Icon type={CaretHor} onClick={() => expand.value = !expand.value} style={{ 'border-bottom-left-radius': !expand ? '12px' : 0 }} />
+              </Tooltip>
+              <Tooltip title="复制代码">
+                <Icon type={CopyOutline} onClick={copy} style={{ 'border-bottom-right-radius': !expand ? '12px' : 0 }} />
+              </Tooltip>
+            </div>
           </div>
-          <div class="k-code-actions">
-            <Tooltip title={expand ? '隐藏代码' : '显示代码'}>
-              <Icon type={CaretHor} onClick={() => this.expand = !this.expand} style={{ 'border-bottom-left-radius': !expand ? '12px' : 0 }} />
-            </Tooltip>
-            <Tooltip title="复制代码">
-              <Icon type={CopyOutline} onClick={this.copy} style={{ 'border-bottom-right-radius': !expand ? '12px' : 0 }} />
-            </Tooltip>
-          </div>
+          <transition {...transitionProps}>
+            <div v-show={expand.value} class="k-code" ref={codeRef}>
+              {slots.code?.()}
+            </div>
+          </transition>
         </div>
-        <transition {...on}>
-          <div v-show={expand} class="k-code" ref="code">
-            {this.$slots.code}
-          </div>
-        </transition>
-      </div>
-    )
-  }
-}
+      )
+    }
+  },
+})
 
 export default Demo;

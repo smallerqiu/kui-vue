@@ -5,24 +5,29 @@
 
 ```vue
 <template>
-  <Space vertical style="width:512px;" >
-    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" />
+  <Space vertical style="width:512px;">
+    <Input
+      placeholder="请输入内容..."
+      @blur="blur"
+      @focus="focus"
+      @change="change"
+    />
     <Input placeholder="disabled..." disabled />
   </Space>
 </template>
 <script>
-export default{
-  methods:{
-    blur(){
-      console.log('blur')
+export default {
+  methods: {
+    blur() {
+      console.log("blur");
     },
-    focus(){
-      console.log('focus')
+    focus() {
+      console.log("focus");
     },
-    change(e){
-      console.log('change')
+    change(e) {
+      console.log("change");
     },
-  }
-}
+  },
+};
 </script>
 ```

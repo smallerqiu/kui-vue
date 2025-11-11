@@ -6,23 +6,16 @@
 ```vue
 <template>
   <div>
-    <Icon :type="ChevronDoubleForward" :strokeWidth="20"/>
+    <Icon :type="ChevronDoubleForward" :strokeWidth="20" />
     <Icon :type="ChevronDoubleForward" />
-    <Icon :type="ChevronDoubleForward" :strokeWidth="80"/>
-    <br/>
-    <Icon :type="ChevronForward" :strokeWidth="20"/>
+    <Icon :type="ChevronDoubleForward" :strokeWidth="80" />
+    <br />
+    <Icon :type="ChevronForward" :strokeWidth="20" />
     <Icon :type="ChevronForward" />
-    <Icon :type="ChevronForward" :strokeWidth="80"/>
+    <Icon :type="ChevronForward" :strokeWidth="80" />
   </div>
 </template>
-<script>
-import { ChevronForward ,ChevronDoubleForward } from 'kui-icons'
-export default{
-  data() {
-    return {
-      ChevronForward,ChevronDoubleForward
-    }
-  }
-}
+<script setup>
+import { ChevronForward, ChevronDoubleForward } from "kui-icons";
 </script>
 ```

@@ -5,34 +5,35 @@
 
 ```vue
 <template>
-  <Space  align="start">
-    <KSwitch true-text="Yes" false-text="No" />
-    <KSwitch true-text="｜" false-text="〇" />
-    <KSwitch true-text="｜" false-text="〇" checked/>
-    <KSwitch true-text="On" false-text="Off" />
-    <KSwitch>
-      <Icon :type="Checkmark" slot="checked"/>
-      <Icon :type="Close" slot="unchecked"/>
-    </KSwitch>
-    <KSwitch>
-      <Icon :type="LogoApple" slot="checked"/>
-      <Icon :type="LogoMicrosoft" slot="unchecked"/>
-    </KSwitch>
-     <KSwitch>
-      <Icon :type="Airplane" slot="unchecked"/>
-      <Icon :type="Wifi" slot="checked"/>
-    </KSwitch>
+  <Space vertical align="start">
+    <k-switch true-text="Yes" false-text="No" />
+    <k-switch true-text="｜" false-text="〇" />
+    <k-switch true-text="｜" false-text="〇" checked />
+    <k-switch true-text="On" false-text="Off" />
+    <k-switch>
+      <template #checked><Icon :type="Checkmark" /></template>
+      <template #unchecked><Icon :type="Close" /></template>
+    </k-switch>
+    <k-switch>
+      <template #checked><Icon :type="LogoApple" /></template>
+      <template #unchecked><Icon :type="LogoMicrosoft" /></template>
+    </k-switch>
+    <k-switch>
+      <template #unchecked><Icon :type="Airplane" /></template>
+      <template #checked><Icon :type="Wifi" /></template>
+    </k-switch>
   </Space>
 </template>
-<script>
-import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
-export default{
-  data() {
-    return {
-      Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi,
-      checked:false
-    }
-  }
-}
+<script setup>
+import {
+  Checkmark,
+  Close,
+  LogoApple,
+  LogoMicrosoft,
+  Airplane,
+  Wifi,
+} from "kui-icons";
+import { ref } from "vue";
+const checked = ref(false);
 </script>
 ```

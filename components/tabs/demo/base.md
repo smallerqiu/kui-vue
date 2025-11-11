@@ -5,8 +5,8 @@
 
 ```vue
 <template>
-  Animated: <KSwitch v-model="animated" />
-  <Tabs v-model="current" @change="change" :animated="animated">
+  Animated: <KSwitch v-model:checked="animated" />
+  <Tabs v-model:activeKey="current" :animated="animated">
     <TabPanel key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPanel>
@@ -18,19 +18,9 @@
     </TabPanel>
   </Tabs>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      animated:false,
-      current:'3'
-    }
-  },
-  methods:{
-    change(key){
-      console.log(key)
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref('1');
+const animated = ref(false);
 </script>
 ```

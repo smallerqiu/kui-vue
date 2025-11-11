@@ -11,29 +11,29 @@
     <Button @click="config3" type="primary">手动关闭</Button>
   </Space>
 </template>
-<script>
-export default{
-  methods:{
-    config() {
-      this.$Message.success("10秒后关闭", 10);
+<script setup>
+import { message } from "kui-vue";
+
+const config = () => {
+  message.success("10秒后关闭", 10);
+};
+const config2 = () => {
+  message.config({
+    type: "info",
+    duration: 5,
+    content: "5秒后关闭",
+  });
+};
+const config3 = () => {
+  message.config({
+    type: "info",
+    duration: 0,
+    closable: true,
+    content: "手动关闭",
+    close: () => {
+      message.success("我是回调");
     },
-    config2() {
-      this.$Message.config({
-        type: "info",
-        duration: 5,
-        content: "5秒后关闭"
-      });
-    },
-    config3() {
-      this.$Message.config({
-        type: "info",
-        duration: 0,
-        closable: true,
-        content: "手动关闭",
-        close: () => { this.$Message.success("我是回调"); }
-      });
-    }
-  }
-}
+  });
+};
 </script>
 ```

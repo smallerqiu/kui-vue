@@ -8,19 +8,12 @@
   <Space>
     <Icon :type="Home" />
     <Icon :type="Heart" />
-    <Icon :type="LogoKui"  />
-    <Icon :type="LogoKui"  color="#00be83" />
+    <Icon :type="LogoKui" />
+    <Icon :type="LogoKui" color="#00be83" />
     <Icon :type="Loading" spin />
   </Space>
 </template>
-<script>
-import { Home, Heart, LogoKui,Loading } from 'kui-icons'
-export default{
-  data() {
-    return{
-      Home, Heart , LogoKui, Loading
-    }
-  }
-}
+<script setup>
+import { Heart, LogoKui, Home, Loading } from "kui-icons";
 </script>
 ```
