@@ -37,7 +37,7 @@ English | [简体中文](./README-zh_CN.md)
 
 - Up to 50 high-quality Components.
 - Internationalization Support for Dozens of Languages.
-- Supports Vue.js 2.x
+- Supports Vue.js 3.x
 - Supports SSR
 - Supports [Nuxt.js](https://nuxtjs.org/)
 - Supports Electron
@@ -59,7 +59,7 @@ Using a script tag for global use:
 <!-- import stylesheet -->
 <link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
 <!-- import kui -->
-<script src="//unpkg.com/kui-vue@3.x"></script>
+<script src="//unpkg.com/kui-vue@4.x"></script>
 ```
 
 # Usage
@@ -67,19 +67,13 @@ Using a script tag for global use:
 ```html
 <template>
   <div>
-    <button type="primary" @click="test">Primary</button>
+    <Button type="primary" @click="test">Primary</Button>
   </div>
 </template>
-<script>
-  export default {
-    data() {
-      return {};
-    },
-    methods: {
-      test() {
-        this.$message.info("Hello kui !");
-      },
-    },
+<script setup>
+  import { message } from "kui-vue";
+  const test = () => {
+    message.info("Hello kui !");
   };
 </script>
 ```
