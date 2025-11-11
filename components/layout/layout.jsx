@@ -7,7 +7,9 @@ function createComponent(suffixCls, name) {
       name,
       setup(props, { slots }) {
         const prop = {
-          suffixCls: suffixCls||'aaaa',
+          props: {
+            suffixCls: suffixCls,
+          }
         };
         return () => <Component {...prop}>{slots.default?.()}</Component>;
       },
@@ -30,8 +32,8 @@ const layoutBase = defineComponent({
   setup(props, { slots }) {
     const siders = ref(0);
 
-    const collectSider = (ismount) => {
-      ismount ? siders.value++ : siders.value--;
+    const collectSider = (mounted) => {
+      mounted ? siders.value++ : siders.value--;
     };
 
     provide("collectSider", collectSider);
@@ -45,7 +47,7 @@ const layoutBase = defineComponent({
 const siderBase = defineComponent({
   props: { suffixCls: String },
   setup(props, { slots }) {
-    const collectSider = inject("collectSider", () => {});
+    const collectSider = inject("collectSider", () => { });
 
     onMounted(() => {
       collectSider(true);

@@ -31,7 +31,7 @@ export default defineComponent({
     strokeWidth: [String, Number],
     // sprite: Boolean
   },
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots, attrs, listeners }) {
     const renderPaths = () => {
       let paths = Array.isArray(props.type) ? props.type : [];
       return paths.map((i) => {
@@ -56,11 +56,13 @@ export default defineComponent({
       if (props.size) {
         styles.fontSize = `${props.size}px`;
       }
-
       const propsObj = {
         ...attrs,
         style: styles,
         class: classes,
+        on: {
+          ...listeners
+        }
       };
 
       return (
