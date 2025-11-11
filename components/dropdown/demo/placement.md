@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div id="dropdown-demo-placement">
+  <Space wrap>
     <template v-for="(placement, index) in placements">
       <Dropdown :placement="placement" show-placement-arrow>
         <Button>{{ placement }}</Button>
@@ -22,7 +22,7 @@
         </Menu>
       </Dropdown>
     </template>
-  </div>
+  </Space>
 </template>
 
 <script>

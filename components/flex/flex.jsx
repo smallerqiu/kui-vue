@@ -1,4 +1,5 @@
-export default {
+import { withInstall } from '../utils/vue'
+const Flex = {
   name: 'Flex',
   props: {
     align: {
@@ -23,6 +24,11 @@ export default {
       }
     }
   },
+  provide() {
+    return {
+      size: this.size,
+    }
+  },
   render() {
     let { align, justify, vertical, $slots, size, wrap } = this
     align = (!vertical && !align) ? 'center' : align
@@ -44,7 +50,9 @@ export default {
     } else if (size !== undefined && size !== null) {
       props.style.gap = `${size}px`
     }
-    let childs = $slots.default
-    return <div {...props}>{childs}</div>
+    let children = $slots.default
+    return <div {...props}>{children}</div>
   }
 }
+
+export default withInstall(Flex)

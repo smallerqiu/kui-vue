@@ -1,7 +1,8 @@
-import { hasProp } from '../_tool/utils'
+import { hasProp } from '../utils/element'
 import Icon from '../icon'
 import { Checkmark } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Checkbox = {
   name: "Checkbox",
   props: {
     value: [String, Number, Boolean],
@@ -58,7 +59,7 @@ export default {
         checked = isChecked
       }
     }
-    const wpclasses = ["k-checkbox", {
+    const classes = ["k-checkbox", {
       ["k-checkbox-disabled"]: disabled,
       ["k-checkbox-checked"]: checked && !indeterminate,
       ["k-checkbox-indeterminate"]: indeterminate,
@@ -70,7 +71,7 @@ export default {
     let inner = checked ? <Icon type={Checkmark} strokeWidth={60} /> : null
     const labelNode = label || $slots.default
     return (
-      <label class={wpclasses} onClick={e => e.stopPropagation()}>
+      <label class={classes} onClick={e => e.stopPropagation()}>
         <span class="k-checkbox-symbol">
           <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
           <span class="k-checkbox-inner">{inner}</span>
@@ -80,3 +81,4 @@ export default {
     )
   }
 }
+export default withInstall(Checkbox);

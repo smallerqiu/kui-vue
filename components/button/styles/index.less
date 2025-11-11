@@ -14,24 +14,33 @@
   justify-content: center;
   vertical-align: middle; // transition: opacity .2s ease-in-out;
   user-select: none;
-  outline: none;
-  border: 1px solid var(--kui-color-border);
-  transition: all .2s;
+  // outline: none;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   z-index: 0;
   white-space: nowrap;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-gray-90);
   cursor: pointer;
+  outline-offset: 2px;
+  gap: 8px;
+  &:focus-visible {
+    // border-color: var(--kui-color-main);
+    // box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    z-index: 1;
+    outline: 2px solid var(--kui-color-main-60);
+    outline-offset: 1px;
+  }
 
-  // &:focus,
   &:hover {
-    border-color: var(--kui-color-main);
+    background-color: var(--kui-color-gray-80);
     color: var(--kui-color-main);
     z-index: 1;
   }
 
   &:active {
-    color: var(--kui-color-main-actived);
-    border-color: var(--kui-color-main-actived);
+    background-color: var(--kui-color-gray-70);
+    // color: var(--kui-color-main-active);
+    // border-color: var(--kui-color-main-active);
   }
 
   &>.k-icon+span,
@@ -58,16 +67,21 @@
     }
   }
 
-  // &.k-btn-solid {
-  // background:none;
-  //   color: var(--kui-color-font);
-  //   border-color: var(--kui-color-border);
-  //   &:focus, &:hover {
-  //     border-color: var(--kui-color-main);
-  //     color: var(--kui-color-main);
-  //   }
-  // }
-  &.k-btn-normal {
+  &.k-btn-outline {
+    // background:none;
+    //   color: var(--kui-color-font);
+    border-color: var(--kui-color-border);
+    //   &:focus, &:hover {
+    //     border-color: var(--kui-color-main);
+    //     color: var(--kui-color-main);
+    //   }
+  }
+
+  &.k-btn-dashed {
+    border-color: var(--kui-color-border);
+  }
+
+  &.k-btn-text {
     background: 0 0;
     border: none;
 
@@ -80,6 +94,7 @@
       background: var(--kui-color-gray-60);
     }
   }
+
 }
 
 .k-btn-block {
@@ -103,6 +118,7 @@
   // line-height: 22px;
   font-size: 12px;
   padding: 0 8px;
+  gap: 4px;
 
   [class^="k-ion"] {
     font-size: 10px;
@@ -114,15 +130,13 @@
   // line-height: 38px;
   font-size: 16px;
   padding: 0 15px;
+  gap: 10px;
 
   .k-icon {
     font-size: 16px;
   }
 }
 
-.k-btn-solid {
-  background-color: transparent;
-}
 
 .k-btn-circle {
   border-radius: 30px;
@@ -142,8 +156,8 @@
   }
 
   &:active {
-    border-color: var(--kui-color-main-actived);
-    background: var(--kui-color-main-actived);
+    border-color: var(--kui-color-main-active);
+    background: var(--kui-color-main-active);
   }
 
   &.k-btn-light {
@@ -152,7 +166,8 @@
     border: none;
   }
 
-  &.k-btn-solid {
+  &.k-btn-outline,
+  &.k-btn-dashed {
     background: none;
     color: var(--kui-color-main);
     border-color: var(--kui-color-main);
@@ -164,12 +179,12 @@
     }
 
     &:active {
-      color: var(--kui-color-main-actived);
-      border-color: var(--kui-color-main-actived);
+      color: var(--kui-color-main-active);
+      border-color: var(--kui-color-main-active);
     }
   }
 
-  &.k-btn-normal {
+  &.k-btn-text {
     color: var(--kui-color-main);
   }
 }
@@ -178,6 +193,11 @@
   color: #fff;
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
+
+  &:focus {
+    // border-color: var(--kui-color-danger-hover);
+    // box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+  }
 
   // &:focus,
   &:hover {
@@ -189,8 +209,8 @@
 
   &:active {
     color: #fff;
-    border-color: var(--kui-color-danger-actived);
-    background: var(--kui-color-danger-actived);
+    border-color: var(--kui-color-danger-active);
+    background: var(--kui-color-danger-active);
   }
 
   .badge-count {
@@ -204,24 +224,25 @@
     border: none;
   }
 
-  &.k-btn-solid {
+  &.k-btn-outline,
+  &.k-btn-dashed {
     background: none;
     color: var(--kui-color-danger);
     border-color: var(--kui-color-danger);
 
-    &:focus,
+    // &:focus,
     &:hover {
       color: var(--kui-color-danger-hover);
       border-color: var(--kui-color-danger-hover);
     }
 
     &:active {
-      color: var(--kui-color-danger-actived);
-      border-color: var(--kui-color-danger-actived);
+      color: var(--kui-color-danger-active);
+      border-color: var(--kui-color-danger-active);
     }
   }
 
-  &.k-btn-normal {
+  &.k-btn-text {
     color: var(--kui-color-danger);
   }
 }
@@ -230,6 +251,11 @@
   color: #fff;
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
+
+  &:focus {
+    // border-color: var(--kui-color-warning-hover);
+    // box-shadow: 0 0 0 2px var(--kui-color-warning-90);
+  }
 
   // &:focus,
   &:hover {
@@ -240,8 +266,8 @@
   }
 
   &:active {
-    border-color: var(--kui-color-warning-actived);
-    background: var(--kui-color-warning-actived);
+    border-color: var(--kui-color-warning-active);
+    background: var(--kui-color-warning-active);
     color: #fff;
   }
 
@@ -251,24 +277,25 @@
     border: none;
   }
 
-  &.k-btn-solid {
+  &.k-btn-outline,
+  &.k-btn-dashed {
     background: none;
     color: var(--kui-color-warning);
     border-color: var(--kui-color-warning);
 
-    &:focus,
+    // &:focus,
     &:hover {
       color: var(--kui-color-warning-hover);
       border-color: var(--kui-color-warning-hover);
     }
 
     &:active {
-      color: var(--kui-color-warning-actived);
-      border-color: var(--kui-color-warning-actived);
+      color: var(--kui-color-warning-active);
+      border-color: var(--kui-color-warning-active);
     }
   }
 
-  &.k-btn-normal {
+  &.k-btn-text {
     color: var(--kui-color-warning);
   }
 }
@@ -348,7 +375,7 @@
   }
 }
 
-.k-btn[disabled='disabled'] {
+.k-btn:disabled {
 
   &,
   // &:focus,
@@ -361,12 +388,12 @@
     border-color: var(--kui-color-disable-border);
   }
 
-  &.k-btn-normal {
+  &.k-btn-text {
     background: 0 0;
   }
 }
 
-.k-btn-primary[disabled='disabled'] {
+.k-btn-primary:disabled {
 
   &,
   &:hover,
@@ -388,6 +415,11 @@ a.k-btn-link,
   &:hover {
     text-decoration: none;
     opacity: .8;
+    background-color: transparent;
+  }
+
+  &:active {
+    background-color: transparent;
   }
 
   &:disabled {
@@ -398,5 +430,198 @@ a.k-btn-link,
     &:active {
       background: 0 0;
     }
+  }
+}
+
+.k-btn-outline,
+.k-btn-dashed {
+  background-color: transparent;
+
+  &:hover {
+    background-color: var(--kui-color-gray-90);
+  }
+
+
+  &.k-btn-color-pink {
+    color: var(--kui-color-pink-30);
+    border-color: var(--kui-color-pink-60);
+  }
+
+  &.k-btn-color-red {
+    color: var(--kui-color-red-30);
+    border-color: var(--kui-color-red-60);
+  }
+
+  &.k-btn-color-yellow {
+    color: var(--kui-color-yellow-30);
+    border-color: var(--kui-color-yellow-60);
+  }
+
+  &.k-btn-color-orange {
+    color: var(--kui-color-orange-30);
+    border-color: var(--kui-color-orange-60);
+  }
+
+  &.k-btn-color-cyan {
+    color: var(--kui-color-cyan-30);
+    border-color: var(--kui-color-cyan-60);
+  }
+
+  &.k-btn-color-olive {
+    color: var(--kui-color-olive-30);
+    border-color: var(--kui-color-olive-60);
+  }
+
+  &.k-btn-color-brown {
+    color: var(--kui-color-brown-30);
+    border-color: var(--kui-color-brown-60);
+  }
+
+  &.k-btn-color-violet {
+    color: var(--kui-color-violet-30);
+    border-color: var(--kui-color-violet-60);
+  }
+
+  &.k-btn-color-teal {
+    color: var(--kui-color-teal-30);
+    border-color: var(--kui-color-teal-60);
+  }
+
+  &.k-btn-color-green {
+    color: var(--kui-color-green-30);
+    border-color: var(--kui-color-green-60);
+  }
+
+  &.k-btn-color-gray {
+    color: var(--kui-color-gray-30);
+    border-color: var(--kui-color-gray-60);
+  }
+
+  &.k-btn-color-blue {
+    color: var(--kui-color-blue-30);
+    border-color: var(--kui-color-blue-60);
+  }
+
+  &.k-btn-color-purple {
+    color: var(--kui-color-purple-30);
+    border-color: var(--kui-color-purple-60);
+  }
+
+  &.k-btn-color-cyan {
+    color: var(--kui-color-cyan-30);
+    border-color: var(--kui-color-cyan-60);
+  }
+
+  &.k-btn-color-magenta {
+    color: var(--kui-color-magenta-30);
+    border-color: var(--kui-color-magenta-60);
+  }
+
+  &.k-btn-color-volcano {
+    color: var(--kui-color-volcano-30);
+    border-color: var(--kui-color-volcano-60);
+  }
+
+  &.k-btn-color-gold {
+    color: var(--kui-color-gold-30);
+    border-color: var(--kui-color-gold-60);
+  }
+
+  &.k-btn-color-lime {
+    color: var(--kui-color-lime-30);
+    border-color: var(--kui-color-lime-60);
+  }
+}
+
+
+
+.k-btn-solid {
+  color: #fff;
+
+  &:hover {
+    filter: brightness(90%);
+    color: #fff;
+  }
+  &:active {
+    filter: brightness(80%);
+    color: #fff;
+  }
+
+  &.k-btn-color-default {
+    color: var(--kui-color-dark);
+    // color: ;
+    background-color: var(--kui-color-default);
+  }
+
+  &.k-btn-color-pink {
+    background-color: var(--kui-color-pink-30);
+  }
+
+  &.k-btn-color-red {
+    background-color: var(--kui-color-red-30);
+  }
+
+  &.k-btn-color-yellow {
+    background-color: var(--kui-color-yellow-30);
+  }
+
+  &.k-btn-color-orange {
+    background-color: var(--kui-color-orange-30);
+  }
+
+  &.k-btn-color-cyan {
+    background-color: var(--kui-color-cyan-30);
+  }
+
+  &.k-btn-color-olive {
+    background-color: var(--kui-color-olive-30);
+  }
+
+  &.k-btn-color-brown {
+    background-color: var(--kui-color-brown-30);
+  }
+
+  &.k-btn-color-violet {
+    background-color: var(--kui-color-violet-30);
+  }
+
+  &.k-btn-color-teal {
+    background-color: var(--kui-color-teal-30);
+  }
+
+  &.k-btn-color-green {
+    background-color: var(--kui-color-green-30);
+  }
+
+  &.k-btn-color-gray {
+    background-color: var(--kui-color-gray-30);
+  }
+
+  &.k-btn-color-blue {
+    background-color: var(--kui-color-blue-30);
+  }
+
+  &.k-btn-color-purple {
+    background-color: var(--kui-color-purple-30);
+  }
+
+  &.k-btn-color-cyan {
+    background-color: var(--kui-color-cyan-30);
+  }
+
+  &.k-btn-color-magenta {
+    background-color: var(--kui-color-magenta-30);
+  }
+
+  &.k-btn-color-volcano {
+    background-color: var(--kui-color-volcano-30);
+  }
+
+  &.k-btn-color-gold {
+    background-color: var(--kui-color-gold-30);
+  }
+
+  &.k-btn-color-lime {
+    background-color: var(--kui-color-lime-30);
   }
 }

@@ -1,9 +1,9 @@
 import Modal from './modal.jsx'
 import Icon from '../icon'
 import Vue from 'vue'
-import {Button} from '../button'
+import { Button } from '../button'
 import { t } from '../locale'
-import{InformationCircle,CloseCircle,CheckmarkCircle,AlertCircle,HelpCircle} from 'kui-icons'
+import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, HelpCircle } from 'kui-icons'
 const SSR = Vue && Vue.prototype.$isServer
 
 function isPromise(obj) {
@@ -76,7 +76,7 @@ let createInstance = (props = {}) => {
         let fun = onOk ? onOk() : {}
         if (isPromise(fun)) {
           this.loading = true
-          fun.then(e => { this.destroy() }).catch(e => { })
+          fun.then(() => { this.destroy() }).catch(() => { })
         } else {
           this.destroy()
         }
@@ -120,12 +120,10 @@ Modal.show = (props = {}) => {
   return getModal(props)
 }
 
-Modal.destroyAll = e => {
+Modal.destroyAll = () => {
   modalList.forEach(toast => {
     toast.destroy()
   })
 }
-Modal.install = function (Vue) {
-  Vue.component(Modal.name, Modal);
-};
+
 export default Modal

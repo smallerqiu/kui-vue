@@ -14,7 +14,6 @@
     <br/>
     Theme :  <RadioGroup v-model="theme" size="small">
       <RadioButton value="default" label="Default" />
-      <RadioButton value="solid" label="Solid" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
     </RadioGroup>
@@ -40,7 +39,7 @@ export default{
     return {
       size:'default',
       shape:'default',
-      theme:'solid',
+      theme:'default',
       date:0,
       dates:[
         { label:'7天' ,value:0 },

@@ -1,5 +1,6 @@
 
-export default {
+import { withInstall } from '../utils/vue'
+const Menu = {
   name: "Menu",
   props: {
     theme: String,
@@ -50,7 +51,7 @@ export default {
     const preCls = Dropdown ? 'dropdown-menu' : 'menu';
     const cls = [`k-${preCls}  k-${preCls}-${currentMode}`,
     {
-      [`k-${preCls}-inline-collapased`]: this.inlineCollapsed
+      [`k-${preCls}-inline-collapsed`]: this.inlineCollapsed
     }];
     return (<ul class={cls} theme-mode={theme}>{this.$slots.default}</ul>)
   },
@@ -74,3 +75,5 @@ export default {
     }
   },
 };
+
+export default withInstall(Menu);

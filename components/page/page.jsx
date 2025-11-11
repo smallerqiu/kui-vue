@@ -1,10 +1,11 @@
-import { Select, Option } from '../select'
+import { Select } from '../select'
 import { Input } from '../input'
 import Icon from '../icon'
 import { t } from '../locale';
 import { ChevronUp, ChevronDoubleBack, Ellipsis, ChevronDoubleForward } from 'kui-icons'
+import { withInstall } from '../utils/vue'
 
-export default {
+const Page = {
   name: "Page",
   props: {
     showSizer: Boolean,
@@ -43,7 +44,7 @@ export default {
       this.page = v
       this.resetPage()
     },
-    total(v) {
+    total() {
       this.resetPage()
     }
   },
@@ -93,7 +94,7 @@ export default {
         let prop = {
           class: ['k-pager-item', { 'k-pager-item-active': page == p }],
           key: i,
-          on: { click: e => this.toPage(p) }
+          on: { click: () => this.toPage(p) }
         }
         return <li {...prop}><span>{p}</span></li>
       })
@@ -157,14 +158,14 @@ export default {
       this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
       if (this.page > this.pageCount) {
         this.page = this.pageCount
-        this.$emit('input', page)
-        this.$emit('change', page)
+        this.$emit('input', this.page)
+        this.$emit('change', this.page)
       }
       this.$emit('page-size-change', { current: this.page, pageSize: value })
     },
     renderFirst() {
       if (this.pageCount > 0) {
-        return <li class={["k-pager-item", { 'k-pager-item-active': this.page == 1 }]} onClick={e => this.toPage(1)} >
+        return <li class={["k-pager-item", { 'k-pager-item-active': this.page == 1 }]} onClick={() => this.toPage(1)} >
           <span>1</span>
         </li>
       }
@@ -173,7 +174,7 @@ export default {
     renderLast() {
       let { pageCount } = this
       if (pageCount > 1) {
-        return <li class={['k-pager-item', { 'k-pager-item-active': this.page == pageCount }]} onClick={e => this.toPage(pageCount)} >
+        return <li class={['k-pager-item', { 'k-pager-item-active': this.page == pageCount }]} onClick={() => this.toPage(pageCount)} >
           <span>{pageCount}</span>
         </li>
       }
@@ -194,9 +195,9 @@ export default {
         },
 
       }
-      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div > : null)
+      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div> : null)
     },
-    renderElvator() {
+    renderElevator() {
       let { size } = this
       let prop = {
         class: 'k-page-options-elevator',
@@ -232,7 +233,7 @@ export default {
       totalNode = (this.showTotal ? <div class="k-page-number"><span>{t('k.page.total')} {this.total} {t('k.page.items')}</span></div> : null),
       pagerNode = this.renderPage(),
       sizeNode = this.renderSize(),
-      elvatorNode = this.renderElvator(),
+      elevatorNode = this.renderElevator(),
       firstNode = this.renderFirst(),
       lastNode = this.renderLast()
     return (
@@ -241,8 +242,10 @@ export default {
         <ul class="k-pager">
           {[preNode, firstNode, pagerNode, lastNode, nextNode,]}
         </ul>
-        {[sizeNode, elvatorNode]}
+        {[sizeNode, elevatorNode]}
       </div>
     )
   }
 }
+
+export default withInstall(Page)

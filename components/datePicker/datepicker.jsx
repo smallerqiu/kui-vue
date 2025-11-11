@@ -1,16 +1,15 @@
 import Calendar from './datecalendar'
 import Icon from "../icon";
-// import { isNotEmpty } from '../_tool/utils'
+import { withInstall } from '../utils/vue'
 import dayjs from 'dayjs'
 import Drop from '../base/drop'
 import { t } from '../locale'
 import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
-const duration = require('dayjs/plugin/duration');
-const isBetween = require('dayjs/plugin/isBetween');
-
+import duration from 'dayjs/plugin/duration';
+import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(duration);
 dayjs.extend(isBetween);
-export default {
+const DatePicker = {
   name: 'DatePicker',
   props: {
     value: [String, Date, Number, Array, Object],
@@ -21,8 +20,8 @@ export default {
     },
     disabled: Boolean,
     transfer: { type: Boolean, default: true },
-    disabledDate: { type: Function, default: e => { } },
-    disabledTime: { type: Function, default: e => { } },
+    disabledDate: { type: Function, default: () => { } },
+    disabledTime: { type: Function, default: () => { } },
     format: String,
     clearable: { type: Boolean, default: true },
     bordered: { type: Boolean, default: true },
@@ -66,7 +65,7 @@ export default {
     }
   },
   created() {
-    this.updateCalendDate()
+    this.updateCalendarDate()
   },
   computed: {
     label() {
@@ -89,19 +88,19 @@ export default {
   watch: {
     value(v) {
       if (this.v != this.currentValue) {
-        console.log(v)
+        // console.log(v)
         if (!this.isRange) {
           this.currentValue = v ? dayjs(v) : ''
         } else {
           let [a, b] = v || []
           this.currentValue = [a ? dayjs(a) : null, b ? dayjs(b) : null]
         }
-        this.updateCalendDate()
+        this.updateCalendarDate()
       }
     }
   },
   methods: {
-    updateCalendDate() {
+    updateCalendarDate() {
       let { currentValue, isRange } = this
       if (isRange) {
         let [a, b] = currentValue || []
@@ -146,7 +145,7 @@ export default {
         this.v1 = null
         this.v2 = null
       }
-      this.updateCalendDate()
+      this.updateCalendarDate()
 
       this.$emit("input", v);
       this.$emit("change", v, v);
@@ -159,13 +158,13 @@ export default {
       this.opened = !this.opened;
 
       if (this.opened) {
-        this.updateCalendDate()
+        this.updateCalendarDate()
       } else {
         this.validValue()
       }
     },
     picker1Update(value, type) {
-      let { v1, v2, withTime, format, fmt, mode, isRange } = this
+      let { v1, v2, withTime, isRange } = this
       if (isRange) {
         if (!type) { //day
           let result = dayjs(value)
@@ -208,7 +207,7 @@ export default {
       }
     },
     picker2Update(value, type) {
-      let { v1, v2, withTime, format, fmt, mode } = this
+      let { v1, v2, withTime } = this
       if (!type) { //day
         let result = dayjs(value)
         if (!v1) {
@@ -230,7 +229,7 @@ export default {
         let _v2 = (v2 || dayjs(this.d2))[type](value)
         this.v2 = _v2
         if (v1) {
-          const oneMonth = dayjs.duration(1, 'month').asDays();
+          // const oneMonth = dayjs.duration(1, 'month').asDays();
           const diff = _v2.diff(v1, 'day');
           // console.log(oneMonth, diff)
           if (diff < 0) {
@@ -248,7 +247,7 @@ export default {
       let dateStr = isRange ? [v1 ? v1.format(ft) : null, v2 ? v2.format(ft) : null] : v1.format(ft)
       this.$emit('input', dateStr)
       this.$emit('change', this.currentValue, dateStr)
-      this.updateCalendDate()
+      this.updateCalendarDate()
     },
     validValue(e) {
       // 只有一个值的时候, 直接置空
@@ -262,11 +261,11 @@ export default {
     getPresetsNode() {
       let { presets } = this
       if (presets && presets.length > 1) {
-        let childs = []
+        let children = []
         for (let i = 0; i < presets.length; i++) {
-          childs.push(<Button theme="normal" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
+          children.push(<Button type="text" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
         }
-        return <div class="k-date-picker-presets">{childs}</div>
+        return <div class="k-date-picker-presets">{children}</div>
       }
       return null
     },
@@ -296,7 +295,7 @@ export default {
   render() {
     // console.log(t('k.datePicker'))
     let { currentValue, placeholder, disabled, clearable, v1, v2, d1, d2, h2,
-      opened, size, label, transfer, bordered, theme, shape, dateIcon,
+      opened, size, label, bordered, theme, shape, dateIcon,
       format, mode, disabledTime, isRange, withTime, disabledDate, pickerSize
     } = this
     let childNode = [];
@@ -405,7 +404,8 @@ export default {
         selection: this.$el,
         value: this.opened,
         placement: 'bottom-left',
-        transitionName: 'k-date-picker'
+        transitionName: 'k-date-picker',
+        extendWidth: false,
       },
       on: {
         // render: () => {
@@ -449,3 +449,4 @@ export default {
     )
   }
 }
+export default withInstall(DatePicker)

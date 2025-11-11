@@ -1,8 +1,9 @@
 import Icon from "../icon";
 import Tooltip from '../tooltip'
-import { isVnode, getChild } from '../_tool/utils'
+import { getChildren } from '../utils/element'
+import { withInstall } from '../utils/vue'
 
-export default {
+const MenuItem = {
   name: "MenuItem",
   props: {
     icon: [String, Array],
@@ -81,7 +82,7 @@ export default {
     }
     // 没有子集的时候才展示
     const showTooltip = Menu.inlineCollapsed && !SubMenu
-    let child = title || getChild(this.$slots.default)
+    let child = title || getChildren(this.$slots.default)
     let titleNode = <span class={`k-${preCls}-title-content`}>{child}</span>
     let iconNode = this.$slots.icon ? <span class={`k-${preCls}-item-icon`} >{this.$slots.icon}</span> : (icon ? <Icon type={icon} class={`k-${preCls}-item-icon`} /> : null)
     let menuItem = <li {...props}>{iconNode}{titleNode}</li>
@@ -93,3 +94,4 @@ export default {
     )
   },
 };
+export default withInstall(MenuItem);

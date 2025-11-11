@@ -84,7 +84,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Hardcore" prop="hardcore">
-        <Switch true-text="Yes" false-text="No"  />
+        <KSwitch true-text="Yes" false-text="No"  />
       </FormItem>
       <FormItem label="Other" prop="other">
         <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
@@ -95,7 +95,7 @@
       <FormItem :wrapperCol="{offset:6}">
         <Button type="primary" @click="submit" >Submit</Button>
         <Button style="margin:0 10px" @click="reset" >Reset</Button>
-        <Button type="dashed" @click="setValue" >Set Value</Button>
+        <Button theme="dashed" @click="setValue" >Set Value</Button>
       </FormItem>
     </Form>
 

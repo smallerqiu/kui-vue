@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button @click="visible=true" type="primary">打开弹窗</Button>
     <Button @click="custom=true" type="primary">自定义</Button>
     <Button @click="visible1=true" type="primary">点蒙层关闭</Button>

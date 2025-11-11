@@ -1,4 +1,5 @@
-export default {
+import { withInstall } from '../utils/vue'
+const Spin = {
   name: 'Spin',
   props: {
     value: { type: Boolean, default: true },
@@ -49,3 +50,5 @@ export default {
     )
   }
 }
+
+export default withInstall(Spin)

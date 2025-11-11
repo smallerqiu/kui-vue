@@ -1,6 +1,7 @@
 import Icon from '../icon'
 import { CheckmarkCircle, CloseCircle, Close, Checkmark } from 'kui-icons'
-export default {
+import { withInstall } from '../utils/vue'
+const Progress = {
   name: 'Progress',
   props: {
     percent: { type: Number, default: 0 },
@@ -74,15 +75,15 @@ export default {
     renderCircle(percent, strokeColor, dashboard) {
       let { strokeWidth } = this
       let radius = 50 - strokeWidth / 2,
-        benginX = 0,
-        benginY = radius,
+        beginX = 0,
+        beginY = radius,
         endX = 0,
         endY = 2 * radius;
       let gapDegree = this.gapDegree;
       gapDegree = Math.max(0, gapDegree)
       gapDegree = Math.min(259, gapDegree)
       let d = `M 50,50 
-               m ${benginX}, ${benginY} 
+               m ${beginX}, ${beginY} 
                a ${radius},${radius} 0 1 1 ${endX}, ${-endY} 
                a ${radius},${radius} 0 1 1 ${-endX},${endY}`,
         len = Math.PI * 2 * radius,
@@ -111,7 +112,7 @@ export default {
         <path d={d} fill="none" stroke-width={strokeWidth} style={style} class="k-progress-bg" />
       </svg>)
     },
-    renderGress() {
+    renderBar() {
       let { currentPercent, type, color, strokeHeight } = this
       if (type == 'line') {
         let sty = {
@@ -143,15 +144,17 @@ export default {
       { 'k-progress-hide-info': !this.showInfo }
     ]
     let tipNode = this.renderTip()
-    let gress = this.renderGress(), style;
+    let bar = this.renderBar(), style;
 
     if (type != 'line' && width > 10) {
       style = { width: width + 'px', height: width + 'px' }
     }
     return (
       <div class={classes} style={style}>
-        {[gress, tipNode]}
+        {[bar, tipNode]}
       </div>
     )
   }
 }
+
+export default withInstall(Progress)

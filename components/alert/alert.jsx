@@ -1,14 +1,17 @@
-
 import Icon from "../icon";
 import {
   InformationCircle, CloseCircle,
   CheckmarkCircle, AlertCircle, Close
 } from 'kui-icons'
-import { getTranstionProp } from '../base/transition'
-export default {
+import { getTransitionProp } from '../base/transition'
+import { withInstall } from "../utils/vue";
+const Alert = {
   name: "Alert",
   props: {
-    type: { type: String, default: "warning" },
+    type: {
+      type: String, default: "warning",
+      validator: (val) => ['info', 'success', 'warning', 'error'].includes(val)
+    },
     closable: Boolean,
     showIcon: Boolean,
     message: String,
@@ -46,16 +49,18 @@ export default {
     const closeIcon = closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null
     description = <div class="k-alert-description">{description}</div>
     const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
-    const aniprop = getTranstionProp('k-alert-slide')
+    const props = getTransitionProp('k-alert-slide')
     return (
-      <transition {...aniprop} name='k-alert-slide'>
+      <transition {...props} name='k-alert-slide'>
         <div class={classes} v-show={!closed}>
           {iconNode}
           {msg}
           {description}
           {closeIcon}
-        </div >
+        </div>
       </transition >
     )
   }
-}; 
+};
+
+export default withInstall(Alert);

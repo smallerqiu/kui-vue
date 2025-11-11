@@ -5,13 +5,11 @@
 
 ```vue
 <template>
-  <div>
+  <Space wrap>
     <DatePicker :presets="p1" />
-    <br />
     <DatePicker :presets="p2" mode="dateRange" />
-    <br />
     <DatePicker mode="dateTimeRange" :presets="p2" />
-  </div>
+  </Space>
 </template>
 <script>
 import dayjs from 'dayjs';

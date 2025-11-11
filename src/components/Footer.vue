@@ -9,6 +9,6 @@
     <span>Designed & Developed with love by
       <a href="https://chuchur.com"
         target="_blank"
-        class="author">chuchur</a></span>
+        class="author">Qiu</a></span>
   </footer>
 </template>

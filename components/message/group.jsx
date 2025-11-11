@@ -1,5 +1,5 @@
 import Notice from "./inner";
-import { getTranstionProp } from "../base/transition";
+import { getTransitionProp } from "../base/transition";
 
 let count = 0;
 const timestamp = Date.now();
@@ -39,7 +39,7 @@ export default {
     const { type } = this;
     let transition = { name: `k-${type}-slide` };
     if (type == "notice") {
-      transition = getTranstionProp();
+      transition = getTransitionProp();
       delete transition.on.enter;
       delete transition.on.beforeEnter;
       transition.on.beforeLeave = (el) => {

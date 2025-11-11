@@ -1,11 +1,14 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { withInstall } from '../utils/vue'
+import { getChildren } from '../utils/element'
+
+const Breadcrumb = {
   name: 'Breadcrumb',
   render() {
     return (
       <div class="k-breadcrumb">
-        {getChild(this.$slots.default)}
+        {getChildren(this.$slots.default)}
       </div>
     )
   }
 }
+export default withInstall(Breadcrumb);

@@ -1,5 +1,6 @@
 import Icon from "../icon";
-export default {
+import { withInstall } from '../utils/vue'
+const Card = {
   name: 'Card',
   props: {
     bordered: { type: Boolean, default: true },
@@ -22,3 +23,4 @@ export default {
     )
   }
 }
+export default withInstall(Card)

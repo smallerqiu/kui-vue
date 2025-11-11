@@ -23,9 +23,9 @@
       :selectedKeys="selectedKeys" :expandedKeys="expandedKeys" :checkStrictly="checkStrictly">
       <template v-slot:extra="{ node, parent }">
         <Space>
-          <Button size="small" theme="normal" :icon="Add" @click="e => append(e, node)" />
-          <Button size="small" theme="normal" :icon="Trash" @click="e => remove(e, node, parent)" v-if="node.key != '0-0'" />
-          <Button size="small" theme="normal" :icon="IconEdit" @click="e => edit(e, node)" />
+          <Button size="small" type="text" :icon="Add" @click="e => append(e, node)" />
+          <Button size="small" type="text" :icon="Trash" @click="e => remove(e, node, parent)" v-if="node.key != '0-0'" />
+          <Button size="small" type="text" :icon="IconEdit" @click="e => edit(e, node)" />
         </Space>
       </template>
     </Tree>

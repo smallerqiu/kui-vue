@@ -1,4 +1,6 @@
-export default {
+import { withInstall } from '../utils/vue'
+const SkeletonText = {
+  name: "SkeletonText",
   props: {
     animated: Boolean,
     loading: Boolean,
@@ -45,7 +47,9 @@ export default {
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}></span>}
-      </div >
+      </div>
     )
   }
 }
+
+export default withInstall(SkeletonText)

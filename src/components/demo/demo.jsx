@@ -1,8 +1,7 @@
-import Icon from "kui-vue/icon";
-import Tooltip from "kui-vue/tooltip";
-import { getTranstionProp } from 'kui-vue/base/transition'
+import { Icon, Tooltip } from "kui-vue";
+import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
-export default {
+const Demo = {
   name: "Demo",
   props: {
     // sourceCode: String,
@@ -15,10 +14,10 @@ export default {
   methods: {
     copy() {
       this.$copyText(this.$refs.code.innerText).then(
-        e => {
+        () => {
           this.$Message.success('Copied!')
         },
-        e => {
+        () => {
           this.$Message.error("复制代码失败，请手动复制");
         }
       );
@@ -28,7 +27,7 @@ export default {
   },
   render() {
     let { expand } = this
-    let on = getTranstionProp()
+    let on = getTransitionProp()
     return (
       <div class="k-demo markdown-body">
         <div class="k-demo-main">
@@ -54,3 +53,5 @@ export default {
     )
   }
 }
+
+export default Demo;

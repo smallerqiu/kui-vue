@@ -1,4 +1,6 @@
-export default {
+import { withInstall } from '../utils/vue'
+const SkeletonAvatar = {
+  name: "SkeletonAvatar",
   props: {
     animated: Boolean,
     radius: Number,
@@ -52,7 +54,9 @@ export default {
     return (
       <div {...props}>
         {child && !show ? child : <span {...innerProps}></span>}
-      </div >
+      </div>
     )
   }
 }
+
+export default withInstall(SkeletonAvatar)

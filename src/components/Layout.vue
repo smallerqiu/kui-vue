@@ -2,30 +2,22 @@
   <Layout class="root">
     <Header />
     <Layout class="main">
-      <Sider class="docs-k-layout-sider">
-        <Menu v-model="activeName"
-          @click="go"
-          class="left-menu"
-          mode="inline"
-          :open-keys="openkeys">
-          <SubMenu :title="item.title"
-            v-for="item in navs"
-            :name="item.title"
-            :key="item.key">
+      <Sider :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]">
+        <Button size="large" :icon="showMiniNav ? Close : Menu" class="min-menu-nav-btn" theme="outline"
+          @click="showMiniNav = !showMiniNav"></Button>
+        <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="openkeys">
+          <SubMenu :title="item.title" v-for="item in navs" :name="item.title" :key="item.key">
 
-            <MenuItem v-for="sub in item.child"
-              :key="sub.name">
-            <WebIcon :name="sub.icon"
-              slot="icon" />
+            <MenuItem v-for="sub in item.child" :key="sub.name">
+            <WebIcon :name="sub.icon" slot="icon" />
             <router-link :to="`/${item.key}/${sub.name}`">
-              <Badge dot
-                v-if="sub.update">
-                <span>{{sub.sub}}</span>
-                <span class="sub">{{sub.title}}</span>
+              <Badge dot v-if="sub.update">
+                <span>{{ sub.sub }}</span>
+                <span class="sub">{{ sub.title }}</span>
               </Badge>
               <template v-else>
-                <span>{{sub.sub}}</span>
-                <span class="sub">{{sub.title}}</span>
+                <span>{{ sub.sub }}</span>
+                <span class="sub">{{ sub.title }}</span>
               </template>
             </router-link>
             </MenuItem>
@@ -33,27 +25,18 @@
         </Menu>
       </Sider>
       <Content>
-        <transition name="fade"
-          mode="out-in">
+        <transition name="fade" mode="out-in">
           <router-view class="content-inner"></router-view>
         </transition>
         <div class="foot-nav">
-          <a :href="`/${prev.key}/${prev.name}`"
-            @click="e=>link(e,0)"
-            class="nav-prev"
-            v-if="prev.sub">
+          <a :href="`/${prev.key}/${prev.name}`" @click="e => link(e, 0)" class="nav-prev" v-if="prev.sub">
             <Icon :type="ChevronBack" />
-            <span class="nav-text">{{prev.sub}} {{prev.title}}</span>
-            <WebIcon :name="prev.icon"
-              slot="icon" />
+            <span class="nav-text">{{ prev.sub }} {{ prev.title }}</span>
+            <WebIcon :name="prev.icon" slot="icon" />
           </a>
-          <a :href="`/${next.key}/${next.name}`"
-            v-if="next.sub"
-            @click="e=>link(e,1)"
-            class="nav-next">
-            <WebIcon :name="next.icon"
-              slot="icon" />
-            <span class="nav-text">{{next.sub}} {{next.title}}</span>
+          <a :href="`/${next.key}/${next.name}`" v-if="next.sub" @click="e => link(e, 1)" class="nav-next">
+            <WebIcon :name="next.icon" slot="icon" />
+            <span class="nav-text">{{ next.sub }} {{ next.title }}</span>
             <Icon :type="ChevronForward" />
           </a>
         </div>
@@ -68,27 +51,20 @@ import Header from "./Header";
 import Footer from "./Footer";
 import WebIcon from './WebIcon'
 import { menus, navs } from "../menu";
-import { ChevronBack, ChevronForward } from 'kui-icons'
+import { ChevronBack, ChevronForward, Menu, Close } from 'kui-icons'
 export default {
   components: {
     Header, WebIcon, Footer
   },
   data() {
     return {
+      showMiniNav: false,
       navs,
-      ChevronBack, ChevronForward,
+      ChevronBack, ChevronForward, Menu, Close,
       prev: {}, next: {},
       activeName: [],
-      theme: '',
       openkeys: ['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']
     };
-  },
-  mounted() {
-    // let theme = localStorage.getItem('theme') || ''
-    // let path = this.$route.path.replace('/components/', '')
-    // this.activeName = [path]
-    hljs &&　hljs.highlightAll();
-
   },
   created() {
     this.setActiveKey(this.$route)
@@ -98,12 +74,16 @@ export default {
       e.stopPropagation()
       e.preventDefault()
       let c = t ? this.next : this.prev
-      this.$router.push(`/${c.key}/${c.name}`);
+      let path = `/${c.key}/${c.name}`
+      this.$router.push(path);
+      this.setActiveKey({ path })
     },
     go({ key, keyPath }) {
       let [m, n] = keyPath
       let path = `/${m}/${n}`
       this.$router.push(path);
+      this.setActiveKey({ path })
+      this.showMiniNav = false
     },
     getPath(name) {
       let [m, n] = name.split('/').filter(x => x)
@@ -120,14 +100,5 @@ export default {
       this.activeName = [name];
     }
   },
-  watch: {
-    '$route'(to, from) {
-      this.setActiveKey(to)
-      setTimeout(() => {
-        hljs.highlightAll();
-      }, 300)
-    }
-  },
-
 };
 </script>

@@ -1,8 +1,9 @@
-import { hasProp } from '../_tool/utils'
+import { hasProp } from '../utils/element'
 import Icon from '../icon'
-import { Sync } from 'kui-icons'
-export default {
-  name: "kSwitch",
+import { Loading } from 'kui-icons'
+import { withInstall } from '../utils/vue'
+const Switch = {
+  name: "KSwitch",
   props: {
     checked: [Boolean, Number],
     type: String,
@@ -21,7 +22,7 @@ export default {
     prop: 'checked',
   },
   watch: {
-    checked(val, Oval) {
+    checked(val,) {
       this.defaultChecked = val
     }
   },
@@ -32,7 +33,7 @@ export default {
     }
   },
   methods: {
-    change(e) {
+    change() {
       if (this.disabled) {
         return false;
       }
@@ -56,7 +57,7 @@ export default {
       }
     ];
     const children = $slots.checked || trueText || $slots.unchecked || falseText
-    const loadNode = loading ? <Icon spin type={Sync} class="k-switch-loading" /> : null
+    const loadNode = loading ? <Icon spin type={Loading} class="k-switch-loading" /> : null
 
     const textNode = (
       (size != 'small' && children) ? <span class="k-switch-inner">{defaultChecked ? $slots.checked || trueText : $slots.unchecked || falseText}</span> : null
@@ -66,3 +67,5 @@ export default {
     )
   }
 };
+
+export default withInstall(Switch);

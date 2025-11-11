@@ -5,14 +5,12 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap vertical>
     <Checkbox disabled>disabled</Checkbox>
     <Checkbox disabled
       :checked="true">disabled</Checkbox>
     <Checkbox indeterminate
       disabled>indeterminate</Checkbox>
-    <br />
-    <br />
     <Checkbox :disabled="disabled"
       v-model="checked">Checkbox</Checkbox>
     <Button @click="checked=!checked"

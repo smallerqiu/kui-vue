@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Switch true-text="dark" false-text="light" @change="change" :checked="theme=='dark'"/>
+    <KSwitch true-text="dark" false-text="light" @change="change" :checked="theme=='dark'"/>
     <br/>
     <br/>
     <Menu v-model="current" :open-keys="openKeys" :theme="theme" mode="inline">

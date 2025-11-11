@@ -1,6 +1,8 @@
-import { getChild } from "../_tool/utils"
+import { getChildren } from "../utils/element"
 import Item from "./descriptionsItem"
-export default {
+import { withInstall } from '../utils/vue'
+const Descriptions = {
+  name: 'Descriptions',
   props: {
     bordered: Boolean,
     column: { type: Number, default: 3 },
@@ -10,13 +12,13 @@ export default {
     size: { type: String, default: 'default' }
   },
   methods: {
-    getprops(vnode) {
+    getProps(vnode) {
       let { children, propsData } = vnode.componentOptions
       return { children, ...propsData }
     },
-    rendreBody() {
+    renderBody() {
       let { $slots, column, bordered, layout } = this
-      let child = getChild($slots.default)
+      let child = getChildren($slots.default)
       // let count = child.length
       // let row = parseInt(count / column)
 
@@ -24,7 +26,7 @@ export default {
       let rows = { 0: [] }, len = 0, temps = [], v = 0;
 
       for (let i = 0; i < child.length; i++) {
-        let { children, label, span = 1 } = this.getprops(child[i])
+        let { children, label, span = 1 } = this.getProps(child[i])
         let row = rows[len] || []
         let vertical = layout == 'vertical'
 
@@ -132,9 +134,11 @@ export default {
           {extra ? <div class="k-descriptions-extra">{extra}</div> : null}
         </div>
         <div class="k-descriptions-view">
-          {this.rendreBody()}
+          {this.renderBody()}
         </div>
       </div>
     )
   }
 }
+
+export default withInstall(Descriptions)

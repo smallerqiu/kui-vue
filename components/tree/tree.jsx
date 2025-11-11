@@ -1,7 +1,8 @@
 import TreeNode from './node.jsx'
-import { getChild } from '../_tool/utils.js'
-import cloneVNode from '../_tool/clone.js'
-export default {
+import { getChildren } from '../utils/element.js'
+import cloneVNode from '../utils/clone.js'
+import { withInstall } from '../utils/vue'
+const Tree = {
   name: 'Tree',
   props: {
     data: Array,
@@ -36,27 +37,21 @@ export default {
     }
   },
   watch: {
-    data(val, Oval) {
+    data(val,) {
       this.defaultData = val || []
     },
-    selectedKeys(val, Oval) {
+    selectedKeys(val,) {
       this.defaultSelectedKeys = val || []
     },
-    expandedKeys(val, Oval) {
+    expandedKeys(val,) {
       this.defaultExpandedKeys = val || []
     },
-    checkedKeys(val, Oval) {
+    checkedKeys(val,) {
       this.defaultCheckedKeys = val || []
     },
   },
   created() {
-    //Init key
-    // (this.defaultData || []).forEach(item => {
-    //   // this.setKeys(item);
-    // });
-    //Init half check
     this.setCheckHalf()
-
   },
   mounted() {
     window.addEventListener('keydown', this.handleKeyDown);
@@ -83,17 +78,10 @@ export default {
         this.setParentHalf(this.defaultData, key)
       })
     },
-    // setKeys({ children = [] }, key = 'n') {
-    //   for (let i = 0; i < children.length; i++) {
-    //     let item = children[i]
-    //     item.key = item.key || `${key}_${i}`
-    //     this.setKeys(item, item.key)
-    //   }
-    // },
     setParentHalf(data = [], key) {
       for (let i = 0; i < data.length; i++) {
         let item = data[i]
-        let { children = [], disabled } = item
+        let { children = [], } = item
         let keys = children.filter(child => !child.disabled).map(child => child.key)
 
         if (keys.indexOf(key) >= 0 && this.defaultCheckedKeys.indexOf(item.key) < 0) { //符合要求
@@ -179,13 +167,13 @@ export default {
 
       this.$emit('dragstart', { event, node: defaultData })
     },
-    onDragEnd(event, { node, parent }) {
+    onDragEnd(event, { node, }) {
       this.$emit('dragend', { event, node })
     },
-    onDragEnter(event, { node, parent }) {
+    onDragEnter(event, { node, }) {
       this.$emit('dragenter', { event, node, expandedKeys: this.defaultExpandedKeys })
     },
-    onDragLeave(event, { node, parent }) {
+    onDragLeave(event, { node, }) {
       this.$emit('dragleave', { event, node })
     },
 
@@ -227,9 +215,9 @@ export default {
     },
     renderChild() {
       let { defaultData, $slots } = this
-      let childs = getChild($slots.default)
-      if (childs.length) {
-        return childs.map((vnode, i) => {
+      let children = getChildren($slots.default)
+      if (children.length) {
+        return children.map((vnode, i) => {
           vnode.data.key = vnode.data.key || `n_${i}`
           let ele = cloneVNode(vnode)
           return ele;
@@ -252,3 +240,5 @@ export default {
     </div>)
   }
 }
+
+export default withInstall(Tree)

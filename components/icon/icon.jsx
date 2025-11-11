@@ -1,6 +1,7 @@
 // import icons from 'kui-icons'
 // import icons from './lib/kui-icons'
 // import src from './lib/sprite.svg'
+import { withInstall } from '../utils/vue'
 const sty2obj = stl => {
   stl = stl.replace(/ /g, '')
   let s = stl.split(';')
@@ -21,7 +22,7 @@ const obj2sty = obj => {
   return sty
 }
 
-export default {
+const Icon = {
   name: "Icon",
   props: {
     type: [String, Array],
@@ -68,4 +69,6 @@ export default {
     })
     return (<i {...props}><svg viewBox='0 0 512 512' width="1em" height="1em">{pathNode}</svg>{this.$slots.default}</i>)
   }
-};
+}
+
+export default withInstall(Icon)

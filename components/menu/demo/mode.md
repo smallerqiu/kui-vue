@@ -6,8 +6,8 @@
 ```vue
 <template>
   <div>
-    <Switch @change="changeMode"/> Change Mode
-    <Switch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
+    <KSwitch @change="changeMode"/> Change Mode
+    <KSwitch true-text="dark" false-text="light" @change="changeTheme"/> Change Theme
     <br/>
     <br/>
     <Menu v-model="current" :open-keys="openKeys" :theme="theme" :mode="mode"  style="width:256px">

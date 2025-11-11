@@ -1,6 +1,7 @@
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
+import { getChildren } from '../utils/element'
+import cloneVNode from '../utils/clone'
+import { withInstall } from '../utils/vue'
+const Space = {
   name: 'Space',
   props: {
     align: {
@@ -50,13 +51,13 @@ export default {
         props.style.gap = `${size}px`
       }
     }
-    let childs = $slots.default
+    let children = $slots.default
     let split = $slots.split
 
-    childs = getChild(this.$slots.default)
-    let newChilds = []
+    children = getChildren(this.$slots.default)
+    let newChildren = []
 
-    for (let i = 0; i < childs.length; i++) {
+    for (let i = 0; i < children.length; i++) {
       let pre = vertical ? 'vertical-' : ''
       let p = {
         props: {
@@ -64,21 +65,22 @@ export default {
         },
         class: {
           [`k-space-${pre}first-item`]: i == 0,
-          [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
-          [`k-space-${pre}last-item`]: i == childs.length - 1,
+          [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
+          [`k-space-${pre}last-item`]: i == children.length - 1,
         }
       }
-      let child = compact ? cloneVNode(childs[i], p) : <div {...p}>{childs[i]}</div>
-      // let child = cloneVNode(childs[i], p) 
-      newChilds.push(child)
+      let child = compact ? cloneVNode(children[i], p) : <div {...p}>{children[i]}</div>
+      // let child = cloneVNode(children[i], p) 
+      newChildren.push(child)
       if (split) {
-        if (i < childs.length - 1) {
-          newChilds.push(split)
+        if (i < children.length - 1) {
+          newChildren.push(split)
         }
       }
     }
-    childs = newChilds
+    children = newChildren
 
-    return <div {...props}>{childs}</div>
+    return <div {...props}>{children}</div>
   }
 }
+export default withInstall(Space)

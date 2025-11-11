@@ -5,28 +5,31 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" loading>Loading</Button>
     <Button type="primary" :icon="Search" loading size="small">Loading</Button>
-    <Button :icon="Search" loading shape="circle"/>
-    <Button type="primary" :loading="loading" @click="loading=true">Clike me</Button>
-    <br/>
-    <Button type="primary" :icon="Search" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>
+    <Button type="primary" loading shape="circle"></Button>
+    <Button type="primary" :loading="loading" @click="handleLoading">Click me</Button>
+    <br />
+    <Button type="primary" :icon="Power" :loading="delayLoading" @click="handleDelay">延迟1s加载</Button>
   </Space>
 </template>
 <script>
-import { Search } from "kui-icons";
+import { Search, Power } from "kui-icons";
 export default{
   data() {
     return {
-      Search,
+      Search, Power,
       loading:false,
       delayLoading:false
     }
   },
   methods:{
+    handleLoading() {
+      this.loading = true;
+    },
     handleDelay(){
-      setTimeout(e=>this.delayLoading=true,1000)
+      setTimeout(()=>this.delayLoading=true,1000)
     }
   }
 }

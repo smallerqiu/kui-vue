@@ -8,7 +8,8 @@ const timestamp = Date.now()
 function getUuid() {
   return `k-upload-${timestamp}-${count++}`
 }
-export default {
+import { withInstall } from '../utils/vue'
+const Upload = {
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
@@ -47,34 +48,21 @@ export default {
     };
   },
   mounted() {
-    // if (this.draggable && this.$isServer) {
-    // window.addEventListener("dragover", function (e) {
-    //   e = e || event;
-    //   e.preventDefault();
-    // }, false);
-    // window.addEventListener("drop", function (e) {
-    //   e = e || event;
-    //   e.preventDefault();
-    // }, false);
-    // }
   },
   methods: {
     formatFileSize(fileSize) {
-      var temp = ''
+      var temp = 0
       if (fileSize < 1024) {
         return fileSize + 'B';
       } else if (fileSize < (1024 * 1024)) {
         temp = fileSize / 1024;
-        temp = temp.toFixed(2);
-        return temp + 'KB';
+        return temp.toFixed(2) + 'KB';
       } else if (fileSize < (1024 * 1024 * 1024)) {
         temp = fileSize / (1024 * 1024);
-        temp = temp.toFixed(2);
-        return temp + 'MB';
+        return temp.toFixed(2) + 'MB';
       } else {
         temp = fileSize / (1024 * 1024 * 1024);
-        temp = temp.toFixed(2);
-        return temp + 'GB';
+        return temp.toFixed(2) + 'GB';
       }
     },
     triggerSelect(e) {
@@ -117,7 +105,7 @@ export default {
         let item = {
           uid: getUuid(),
           filename: files[i].name, size: this.formatFileSize(size),
-          status: 'wait', percent: 0, preview: false
+          status: 'wait', percent: 0, preview: null,
         }
         this.uploadTemp[item.uid] = files[i]
 
@@ -219,7 +207,7 @@ export default {
           event
         })
       }
-      xhr.onload = (e) => {
+      xhr.onload = () => {
         if (xhr.status != 200) {
           item.status = 'error'
           delete this.uploadTemp[item.uid]
@@ -291,11 +279,7 @@ export default {
         }
       ],
     }
-    // let list
-    // let childs = getChild(this.$slots.default)
-    // let child = childs.map(child => {
-    //   return cloneVNode(child, { on: { click: this.triggerSelect } })
-    // })
+
     let addProps = {
       attrs: {
         drag: draggable && this.dragOver ? 'over' : null
@@ -323,7 +307,7 @@ export default {
     </div> : null
 
 
-    const filsList = () => {
+    const filsList = (selector) => {
       return (showUploadList && !isPicture) || isPicture ? <div class={`k-upload-${isPicture ? 'picture' : 'file'}-list`}>
         {
           defaultFileList.map((item, i) => {
@@ -365,7 +349,9 @@ export default {
     return (
       <div {...props} >
         {!isPicture ? [selector, filsList()] : filsList(selector)}
-      </div >
+      </div>
     )
   }
 }
+
+export default withInstall(Upload)
