@@ -1,4 +1,4 @@
-import { Icon, Tooltip } from "kui-vue";
+import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from 'kui-vue/base/transition'
 import { CopyOutline, CaretHor } from "kui-icons";
 import { defineComponent, ref, getCurrentInstance } from "vue";
@@ -12,10 +12,10 @@ const Demo = defineComponent({
     const copy = () => {
       proxy.$copyText(codeRef.value?.innerText).then(
         () => {
-          proxy.$Message.success('Copied!')
+          message.success('Copied!')
         },
         () => {
-          proxy.$Message.error("复制代码失败，请手动复制");
+          message.error("复制代码失败，请手动复制");
         }
       );
     }

@@ -5,8 +5,8 @@ export const withInstall = (component) => {
 
   return component
 };
-
 // vue3 fun for vue2.7.16 
+import Vue from 'vue';
 import { getCurrentInstance } from 'vue'
 export function createVNode(component, props) {
   const instance = new Vue({

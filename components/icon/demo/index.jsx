@@ -9,7 +9,7 @@ export default {
     return (
       <div>
         <Info />
-        <Search />
+        {/* <Search /> */}
         <Use />
         <Base />
         <Stroke />

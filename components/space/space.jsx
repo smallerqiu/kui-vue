@@ -27,7 +27,7 @@ const Space = defineComponent({
     return () => {
       let children = getChildren(slots.default?.())
 
-
+      // console.log(children);
       const split = slots.split?.();
 
       const align = !ps.vertical && !ps.align ? "center" : ps.align;
@@ -57,10 +57,10 @@ const Space = defineComponent({
           style.gap = `${ps.size}px`;
         }
       }
-      const _attrs = { ...attrs }
+      // const _attrs = { ...attrs }
       // delete _attrs.size;
       const props = {
-        ..._attrs,
+        ...attrs,
         style,
         class: cls,
       };
@@ -76,7 +76,7 @@ const Space = defineComponent({
             [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
-        const child = ps.compact ? cloneVNode(children[i], p, true, true) : h("div", p, children[i]);
+        const child = ps.compact ? cloneVNode(children[i], p, true, true) : h("div", p, [children[i]]);
         vNodes.push(child);
         if (split && i < children.length - 1) {
           vNodes.push(split);

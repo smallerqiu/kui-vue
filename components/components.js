@@ -82,8 +82,8 @@ export { Modal };
 import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };
 
-import Message from './message'
-export { Message };
+import message from './message'
+export { message };
 
 import Notice from './notice'
 export { Notice };

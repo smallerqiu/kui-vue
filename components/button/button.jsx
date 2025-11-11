@@ -52,7 +52,7 @@ const Button = defineComponent({
     target: String,
   },
   emits: ['click'],
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots, attrs, listeners }) {
     const parentSize = inject('size', null)
     return () => {
       const size = props.size || parentSize
@@ -85,13 +85,16 @@ const Button = defineComponent({
         disabled: props.disabled,
         type: props.htmlType,
         class: classes,
-        onClick: (e) => {
-          if (props.loading || props.disabled) {
-            // e.preventDefault();
-            return;
+        on:{
+          ...listeners,
+          click: (e) => {
+            if (props.loading || props.disabled) {
+              e.preventDefault();
+              return;
+            }
+            emit("click", e);
           }
-          emit("click", e);
-        }
+        },
       };
 
       const childNode = children?.map((c) => {
