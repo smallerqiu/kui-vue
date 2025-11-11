@@ -51,7 +51,7 @@ export default defineComponent({
       return [
         'k-calendar-day-item', {
           'k-calendar-day-this': date.isSame(today, 'day'),
-          'k-calendar-day-selected': date.isSame(ps.value, 'day') && date.isSame(ps.value, 'month') && date.isSame(ps.value, 'year'),
+          'k-calendar-day-selected':date.format('YYYYMMDD')==dayjs(ps.value).format('YYYYMMDD'),
           'k-calendar-day-out': !date.isSame(now, 'month') || !date.isSame(now, 'year'),
           'k-calendar-day-disabled': ps.disabledDate(date) || inRange(date),
         }
