@@ -3,18 +3,6 @@
 拥有顶部导航及侧边栏的页面，多用于展示类网站。
 </cn>
 
-````vue
-<cn>
-#### 顶部-侧边布局
-拥有顶部导航及侧边栏的页面，多用于展示类网站。
-</cn>
-
-```vue
-<cn>
-#### 顶部-侧边布局
-拥有顶部导航及侧边栏的页面，多用于展示类网站。
-</cn>
-
 ```vue
 <template>
   <div class="k-demo-layout">
@@ -72,10 +60,10 @@
               <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
             </Menu>
           </Sider>
-          <Content>Conent</Content>
+          <Content>Content</Content>
         </Layout>
       </Content>
-      <Footer class="demo-footer">KUI ©2025 Created by chuchur</Footer>
+      <Footer class="demo-footer">KUI ©2025 Created by Qiu</Footer>
     </Layout>
   </div>
 </template>
@@ -161,4 +149,4 @@ import {
   }
 }
 </style>
-````
+```

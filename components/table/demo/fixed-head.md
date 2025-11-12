@@ -7,25 +7,31 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" :height="300" :sticky="52"/>
+  <Table :data="data" :columns="columns" :height="300" :sticky="52" />
 </template>
 <script>
-export default{
+export default {
   data() {
-     const data = []
-     for(let i = 0; i < 15; i++){
-       data.push({ key:i, name:'Li Lei',tag:'Java', age:28, address:'Wu Han Guanggu No.'+i })
-     }
+    const data = [];
+    for (let i = 0; i < 15; i++) {
+      data.push({
+        key: i,
+        name: "Li Lei",
+        tag: "Java",
+        age: 28,
+        address: "Wu Han Guanggu No." + i,
+      });
+    }
     return {
       data,
-      columns:[
-        {title:'Name', key:'name' },
-        {title:'Age', key:'age' },
-        {title:'Tag', key:'tag' },
-        {title:'Address', key:'address'},
-      ]
-    }
-  }
-}
+      columns: [
+        { title: "Name", key: "name" },
+        { title: "Age", key: "age" },
+        { title: "Tag", key: "tag" },
+        { title: "Address", key: "address" },
+      ],
+    };
+  },
+};
 </script>
 ```

@@ -5,19 +5,44 @@
 
 ```vue
 <template>
-  <Flex size="small" wrap> 
+  <Flex size="small" wrap>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="solid">Solid</Button>
+      <Button v-for="color in colors" :color="color" theme="solid"
+        >Solid</Button
+      >
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="outline">Outline</Button>
+      <Button v-for="color in colors" :color="color" theme="outline"
+        >Outline</Button
+      >
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="dashed">Dashed</Button>
+      <Button v-for="color in colors" :color="color" theme="dashed"
+        >Dashed</Button
+      >
     </Flex>
   </Flex>
 </template>
 <script setup>
-const colors = ['default', 'red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'volcano', 'violet', 'cyan', 'gold', 'lime', 'magenta', 'purple', 'pink', 'brown', 'gray']
+const colors = [
+  "default",
+  "red",
+  "orange",
+  "yellow",
+  "olive",
+  "green",
+  "teal",
+  "blue",
+  "volcano",
+  "violet",
+  "cyan",
+  "gold",
+  "lime",
+  "magenta",
+  "purple",
+  "pink",
+  "brown",
+  "gray",
+];
 </script>
 ```

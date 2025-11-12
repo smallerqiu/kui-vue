@@ -11,8 +11,8 @@
 </template>
 <script setup>
 import { message } from "kui-vue";
-const change = (value)=>{
-  message.info(value?'fixed':'reset')
-}
-</script> 
+const change = (value) => {
+  message.info(value ? "fixed" : "reset");
+};
+</script>
 ```

@@ -1,4 +1,3 @@
-
 <cn>
 #### 全局加载
 使用 全局模式。
@@ -13,29 +12,30 @@
   </Space>
 </template>
 <script>
-export default{
-  methods:{
-    openMedia(){
-      this.$Image.show({ 
-        src: 'https://pro-video.xiaoheiban.cn/202004/132504dd-51b6-4722-9929-27000912a4c8.mp4',type:'media'
-      })
+export default {
+  methods: {
+    openMedia() {
+      this.$Image.show({
+        src: "https://pro-video.xiaoheiban.cn/202004/132504dd-51b6-4722-9929-27000912a4c8.mp4",
+        type: "media",
+      });
     },
-    open(){
-      this.$Image.show({ 
-        src: 'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg'
-      })
+    open() {
+      this.$Image.show({
+        src: "https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg",
+      });
     },
-    openGroup(){
-      this.$Image.show({ 
-        data: [ 
-          'https://cdn.chuchur.com/upload/demo/kui-react.jpg' ,
-          'https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg' ,
-          'https://cdn.chuchur.com/upload/demo/test.jpg' 
+    openGroup() {
+      this.$Image.show({
+        data: [
+          "https://cdn.chuchur.com/upload/demo/kui-react.jpg",
+          "https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg",
+          "https://cdn.chuchur.com/upload/demo/test.jpg",
         ],
-        index:1
-      })
-    } 
-  }
-}
+        index: 1,
+      });
+    },
+  },
+};
 </script>
 ```

@@ -6,36 +6,36 @@
 
 ```vue
 <template>
-  <RadioGroup :options="types" v-model:value="direction" type="button"/>
+  <RadioGroup :options="types" v-model:value="direction" type="button" />
   <br />
   <br />
-  <CheckboxGroup 
-    :options="options" 
-    v-model:value="cities" 
+  <CheckboxGroup
+    :options="options"
+    v-model:value="cities"
     @change="change"
     :direction="direction"
   />
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { message } from "kui-vue";
-const direction = ref('horizontal')
+const direction = ref("horizontal");
 const types = [
-        { label: '垂直', value:'vertical'},
-        { label: '水平' ,value:'horizontal'}
-      ]
+  { label: "垂直", value: "vertical" },
+  { label: "水平", value: "horizontal" },
+];
 const options = [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-        { label: 'Other', value: 'other',disabled:true },
-      ]
-const cities = ref(['wuhan'])
+  { label: "Beijing", value: "beijing" },
+  { label: "Shenzhen", value: "shenzhen" },
+  { label: "Shanghai", value: "shanghai" },
+  { label: "Guangzhou", value: "guangzhou" },
+  { label: "Wuhan", value: "wuhan" },
+  { label: "Other", value: "other", disabled: true },
+];
+const cities = ref(["wuhan"]);
 
 const change = (v) => {
-    message.info(v)
-}
+  message.info(v);
+};
 </script>
 ```

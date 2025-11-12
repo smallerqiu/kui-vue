@@ -7,10 +7,10 @@
 <template>
   <div>
     <Space>
-      <Select :width="300" multiple v-model:value="data" size="large" >
+      <Select :width="300" multiple v-model:value="data" size="large">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
@@ -18,17 +18,17 @@
       <Button size="small" @click="Clear">Clear</Button>
       <Button size="small" @click="onSelect">Select Banana & Apple</Button>
     </Space>
-    <br/>
+    <br />
     <Space vertical style="margin-top:10px">
       <Select :width="300" multiple v-model:value="data2" clearable>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
       </Select>
-      <Select :width="300" size="small" multiple >
+      <Select :width="300" size="small" multiple>
         <Option value="1" label="苹果" />
         <Option value="2" label="香蕉" />
         <Option value="3" label="梨子" />
@@ -39,7 +39,7 @@
       <Select :width="300" multiple v-model:value="data2" disabled>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
@@ -50,14 +50,14 @@
 <script setup>
 import { ref } from "vue";
 const data = ref([]);
-const data2 = ref(['2','4']);
+const data2 = ref(["2", "4"]);
 const Clear = () => {
-  data.value = []
-  data2.value = []
-}
+  data.value = [];
+  data2.value = [];
+};
 const onSelect = () => {
-  data.value = ['3','1']
-  data2.value = ['3','1']
-}
-</script> 
+  data.value = ["3", "1"];
+  data2.value = ["3", "1"];
+};
+</script>
 ```

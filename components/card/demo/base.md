@@ -7,7 +7,7 @@
 <template>
   <div>
     <Card title="卡片标题" :icon="Heart" bordered>
-      <template #extra >
+      <template #extra>
         <a href="#">更多</a>
       </template>
       <p>card content</p>
@@ -20,6 +20,6 @@
   </div>
 </template>
 <script setup>
-import { Heart } from 'kui-icons'
+import { Heart } from "kui-icons";
 </script>
 ```

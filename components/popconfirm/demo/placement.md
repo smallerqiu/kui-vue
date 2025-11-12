@@ -55,6 +55,6 @@
   </Flex>
 </template>
 <script setup>
-const title = 'Are you sure to delete this task?'
+const title = "Are you sure to delete this task?";
 </script>
 ```

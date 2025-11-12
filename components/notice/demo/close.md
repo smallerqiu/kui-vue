@@ -12,32 +12,34 @@
   </Space>
 </template>
 <script setup>
-import { notice ,message } from "kui-vue";
+import { notice, message } from "kui-vue";
 
-const config = ()=> {
+const config = () => {
   notice.open({
     type: "success",
     duration: 10,
-    title:'温馨提示',
-    content: "10秒后关闭"
+    title: "温馨提示",
+    content: "10秒后关闭",
   });
-}
-const config2 = ()=> {
+};
+const config2 = () => {
   notice.open({
     type: "info",
     duration: 5,
-    title:'温馨提示',
-    content: "5秒后关闭"
+    title: "温馨提示",
+    content: "5秒后关闭",
   });
-}
-const config3 = ()=> {
+};
+const config3 = () => {
   notice.open({
     type: "info",
     duration: 0,
-    title:'温馨提示',
+    title: "温馨提示",
     content: "手动关闭",
-    close: () => { message.success("我是回调"); }
+    close: () => {
+      message.success("我是回调");
+    },
   });
-}
+};
 </script>
 ```

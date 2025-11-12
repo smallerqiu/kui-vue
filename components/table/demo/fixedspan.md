@@ -5,61 +5,68 @@ columns[n] 可以内嵌 children，以渲染分组表头。
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered :height="300" :width="1800" @change="change">
-      <a slot="action">action</a>
+  <Table
+    :data="data"
+    :columns="columns"
+    bordered
+    :height="300"
+    :width="1800"
+    @change="change"
+  >
+    <a slot="action">action</a>
   </Table>
 </template>
 <script>
-export default{
+export default {
   data() {
     const data = [];
     for (let i = 0; i < 10; i++) {
       data.push({
         key: i,
-        name: 'John Brown',
+        name: "John Brown",
         age: i + 1,
-        street: 'Lake Park',
-        building: 'C',
+        street: "Lake Park",
+        building: "C",
         number: 2035,
-        companyAddress: 'Lake Street 42',
-        companyName: 'SoftLake Co',
-        gender: 'M',
+        companyAddress: "Lake Street 42",
+        companyName: "SoftLake Co",
+        gender: "M",
       });
     }
     return {
       data,
-      columns:[
+      columns: [
         {
-          title: 'Name',
-          key: 'name',
+          title: "Name",
+          key: "name",
           width: 100,
-          fixed: 'left',
+          fixed: "left",
         },
         {
-          title: 'Other',
+          title: "Other",
           children: [
             {
-              title: 'Age',
-              key: 'age',
-              sorter:true,
+              title: "Age",
+              key: "age",
+              sorter: true,
             },
             {
-              title: 'Address',
+              title: "Address",
               children: [
                 {
-                  title: 'Street',
-                  key: 'street',
+                  title: "Street",
+                  key: "street",
                 },
                 {
-                  title: 'Block',
+                  title: "Block",
                   children: [
                     {
-                      title: 'Building',
-                      key: 'building',
+                      title: "Building",
+                      key: "building",
                     },
                     {
-                      title: 'Door No.',
-                      key: 'number',
+                      title: "Door No.",
+                      key: "number",
                     },
                   ],
                 },
@@ -68,35 +75,35 @@ export default{
           ],
         },
         {
-          title: 'Company',
+          title: "Company",
           children: [
             {
-              title: 'Company Address',
-              key: 'companyAddress',
+              title: "Company Address",
+              key: "companyAddress",
             },
             {
-              title: 'Company Name',
-              key: 'companyName',
+              title: "Company Name",
+              key: "companyName",
             },
           ],
         },
         {
-          title: 'Gender',
-          key: 'gender',
+          title: "Gender",
+          key: "gender",
           width: 80,
-          fixed: 'right',
+          fixed: "right",
         },
-      ]
-    }
+      ],
+    };
   },
-  methods:{
-    change(filters,{ key, order }){
-      console.log(filters,key,order)
-      this.data.sort((a,b) => {
-        return order=='asc'? b[key]-a[key] : a[key]-b[key]
-      })
+  methods: {
+    change(filters, { key, order }) {
+      console.log(filters, key, order);
+      this.data.sort((a, b) => {
+        return order == "asc" ? b[key] - a[key] : a[key] - b[key];
+      });
     },
-  }
-}
+  },
+};
 </script>
 ```

@@ -20,5 +20,5 @@
   text-align: center;
   color: #fff;
 }
-</style> 
+</style>
 ```

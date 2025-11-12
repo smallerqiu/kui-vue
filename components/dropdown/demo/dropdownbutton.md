@@ -89,13 +89,13 @@
   </Space>
 </template>
 <script setup>
-import { PersonAddOutline } from 'kui-icons'
+import { PersonAddOutline } from "kui-icons";
 
-const handleButtonClick = e => {
-  console.log('click left button', e);
+const handleButtonClick = (e) => {
+  console.log("click left button", e);
 };
-const handleMenuClick = e => {
-  console.log('click', e);
+const handleMenuClick = (e) => {
+  console.log("click", e);
 };
 </script>
 ```

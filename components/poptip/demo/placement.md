@@ -104,7 +104,7 @@
   </Flex>
 </template>
 <script setup>
-const tip = '明月几时有,把酒问青天!'
-const title = "标题"
+const tip = "明月几时有,把酒问青天!";
+const title = "标题";
 </script>
 ```

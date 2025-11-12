@@ -13,19 +13,15 @@
   </RadioGroup>
   <br />
   <br />
-  <Select
-    v-model:value="value"
-    style="width: 120px"
-    :placement="placement"
-  >
+  <Select v-model:value="value" style="width: 120px" :placement="placement">
     <Option value="WuHan">WuHan 027</Option>
     <Option value="BeiJin">BeiJin 010</Option>
     <Option value="ShenZhen">ShenZhen 0755</Option>
   </Select>
 </template>
 <script setup>
-import { ref } from 'vue';
-const placement = ref('top-left');
-const value = ref('WuHan');
+import { ref } from "vue";
+const placement = ref("top-left");
+const value = ref("WuHan");
 </script>
 ```

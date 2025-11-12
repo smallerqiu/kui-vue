@@ -6,20 +6,30 @@
 ```vue
 <template>
   <div>
-    <DatePicker value="2019-10-12 22:12:12" format="YYYY年MM月DD日 HH:mm:ss" type="dateTime" style="width:210px"/>
-    <br/>
-    <DatePicker value="2019-10-12" format="YYYY/MM/DD"/>
-    <br/>
-    <DatePicker value="2019-10-12" format="YYYY.MM.DD"/>
-    <br/>
-    <DatePicker v-model:value="date" format="YYYY.MM.DD" type="dateRange" @change="change"/>{{date}}
+    <DatePicker
+      value="2019-10-12 22:12:12"
+      format="YYYY年MM月DD日 HH:mm:ss"
+      type="dateTime"
+      style="width:210px"
+    />
+    <br />
+    <DatePicker value="2019-10-12" format="YYYY/MM/DD" />
+    <br />
+    <DatePicker value="2019-10-12" format="YYYY.MM.DD" />
+    <br />
+    <DatePicker
+      v-model:value="date"
+      format="YYYY.MM.DD"
+      type="dateRange"
+      @change="change"
+    />{{ date }}
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-const date = ref(['2019-10-12','2020-10-19']);
-const change = (date)=>{
-  console.log(date)
-} 
+const date = ref(["2019-10-12", "2020-10-19"]);
+const change = (date) => {
+  console.log(date);
+};
 </script>
 ```

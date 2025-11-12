@@ -6,16 +6,26 @@
 ```vue
 <template>
   <div style="width:512px;">
-    <InputNumber placeholder="Large Input" size="large" :icon="LogoKui" clearable />
-    <br/>
-    <br/>
+    <InputNumber
+      placeholder="Large Input"
+      size="large"
+      :icon="LogoKui"
+      clearable
+    />
+    <br />
+    <br />
     <InputNumber placeholder="Base Input" :icon="LogoKui" clearable />
-    <br/>
-    <br/>
-    <InputNumber size="small" placeholder="Small Input" :icon="LogoKui" clearable />
+    <br />
+    <br />
+    <InputNumber
+      size="small"
+      placeholder="Small Input"
+      :icon="LogoKui"
+      clearable
+    />
   </div>
 </template>
 <script setup>
-import { LogoKui } from 'kui-icons'
+import { LogoKui } from "kui-icons";
 </script>
 ```

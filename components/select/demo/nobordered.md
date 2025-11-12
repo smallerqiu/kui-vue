@@ -9,10 +9,17 @@
     <Select :width="200" clearable value="2" :bordered="false">
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
-      <Option value="3" label="Banana"/>
+      <Option value="3" label="Banana" />
       <Option value="4" label="Pear" />
     </Select>
-    <Select :width="200" size="small" clearable value="2" disabled :bordered="false">
+    <Select
+      :width="200"
+      size="small"
+      clearable
+      value="2"
+      disabled
+      :bordered="false"
+    >
       <Option value="1" label="Apple" />
       <Option value="2" label="Orange" />
       <Option value="3" label="Banana" />

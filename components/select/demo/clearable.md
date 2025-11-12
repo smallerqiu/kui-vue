@@ -10,12 +10,12 @@
       <Select :width="200" clearable v-model:value="value1">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
       </Select>
-      {{value1}}
+      {{ value1 }}
     </Space>
-    
+
     <Space>
       <Select :width="200" size="small" clearable v-model:value="value2">
         <Option value="1" label="Apple" />
@@ -23,8 +23,7 @@
         <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
       </Select>
-      {{value2}}
-      
+      {{ value2 }}
     </Space>
     <Space>
       <Select :width="200" multiple clearable v-model:value="value3">
@@ -33,14 +32,14 @@
         <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
       </Select>
-      {{value3}}
+      {{ value3 }}
     </Space>
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const value1 = ref('');
-const value2 = ref('');
-const value3 = ref(['1','2']);
+const value1 = ref("");
+const value2 = ref("");
+const value3 = ref(["1", "2"]);
 </script>
 ```

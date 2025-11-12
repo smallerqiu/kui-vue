@@ -7,9 +7,16 @@ suffix，prefix 扩展
 <template>
   <Space vertical style="width:512px;">
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
-    <Input placeholder="请输入验证码" :icon="ShieldCheckmark" :maxlength="8" prefix="¥">
+    <Input
+      placeholder="请输入验证码"
+      :icon="ShieldCheckmark"
+      :maxlength="8"
+      prefix="¥"
+    >
       <template #suffix>
-        <Button :disabled="time!=60" style="width:100px;"  @click="sendCode">{{time==60?'获取验证码':time+'(s)'}}</Button>
+        <Button :disabled="time != 60" style="width:100px;" @click="sendCode">
+          {{ time == 60 ? "获取验证码" : time + "(s)" }}
+        </Button>
       </template>
     </Input>
     <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
@@ -35,47 +42,56 @@ suffix，prefix 扩展
         <Select :options="options" clearable value="http"></Select>
       </template>
       <template #suffix>
-        <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
+        <TreeSelect
+          :tree-data="treeData"
+          clearable
+          style="width:200px"
+        ></TreeSelect>
       </template>
     </Input>
   </Space>
 </template>
 <script setup>
-import { ref } from 'vue'
-import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from 'kui-icons'
+import { ref } from "vue";
+import {
+  InformationCircleOutline,
+  Gift,
+  ShieldCheckmark,
+  PersonOutline,
+} from "kui-icons";
 import { message } from "kui-vue";
-const time = ref(60)
-const timer = ref()
-const sendCode =()=> {
-  time.value = 59
+const time = ref(60);
+const timer = ref();
+const sendCode = () => {
+  time.value = 59;
   message.success("验证码发送成功，请注意查收");
   timer.value = setInterval(() => {
     if (time.value <= 0) {
-      clearInterval(timer.value)
-      time.value = 60
+      clearInterval(timer.value);
+      time.value = 60;
     } else {
-      time.value-=1
+      time.value -= 1;
     }
-  }, 1000)
-}
-const options =[
-  { label: 'http', value: 'http' },
-  { label: 'https', value: 'https' },
-]
+  }, 1000);
+};
+const options = [
+  { label: "http", value: "http" },
+  { label: "https", value: "https" },
+];
 const list = [
-  { label: '.com', value: '.com' },
-  { label: '.cn', value: '.cn' },
-  { label: '.org', value: '.org' },
-]
-const treeData =[
+  { label: ".com", value: ".com" },
+  { label: ".cn", value: ".cn" },
+  { label: ".org", value: ".org" },
+];
+const treeData = [
   {
-    title:'fruit',
-    key:'1',
-    children:[
-      {title:'apple',key:'11'},
-      {title:'orange',key:'12'},
-    ]
-  }
-]
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
+  },
+];
 </script>
 ```

@@ -17,7 +17,7 @@
           <MenuItem key="2-4">Option 8</MenuItem>
         </SubMenu>
       </SubMenu>
-      <SubMenu key="sub3"  :icon="Settings" title="Navigation Three">
+      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
         <MenuItem key="3-1">Option 9</MenuItem>
         <MenuItem key="3-2">Option 10</MenuItem>
         <MenuItem key="3-3">Option 11</MenuItem>
@@ -29,6 +29,6 @@
 <script setup>
 import { ref } from "vue";
 import { Mail, Grid, Heart, Settings } from "kui-icons";
-const current = ref(['1-1'])
+const current = ref(["1-1"]);
 </script>
 ```

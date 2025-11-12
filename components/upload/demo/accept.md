@@ -9,62 +9,64 @@ accept 支持传入以下两种类型字符串：
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2"
     name="file"
     :headers="headers"
     @change="handleChange"
     multiple
     accept="image/*"
-    >
+  >
     <Button :icon="IconImage">Upload Image</Button>
   </Upload>
-  <br/>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <br />
+  <Upload
+    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2"
     name="file"
     :headers="headers"
     @change="handleChange"
     multiple
     accept="video/*"
-    >
+  >
     <Button :icon="Videocam">Upload Video</Button>
   </Upload>
-  <br/>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <br />
+  <Upload
+    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2"
     name="file"
     :headers="headers"
     @change="handleChange"
     multiple
     accept=".pdf,.png,.jpeg"
-    >
+  >
     <Button :icon="CloudUpload">Upload PDF,PNG,JPEG</Button>
   </Upload>
 </template>
 <script>
 import { IconImage, Videocam, CloudUpload } from "kui-icons";
-export default{
+export default {
   data() {
     return {
-      IconImage, Videocam, CloudUpload,
-      headers:{
-        authorization: 'here is token'
-      }
-    }
+      IconImage,
+      Videocam,
+      CloudUpload,
+      headers: {
+        authorization: "here is token",
+      },
+    };
   },
-  methods:{
-    handleChange(info){
-      if (info.file.status !== 'uploading') {
+  methods: {
+    handleChange(info) {
+      if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-      if (info.file.status === 'success') {
+      if (info.file.status === "success") {
         message.success(`${info.file.filename} uploaded successfully`);
-      } else if (info.file.status === 'error') {
+      } else if (info.file.status === "error") {
         message.error(`${info.file.filename} upload failed.`);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 ```
