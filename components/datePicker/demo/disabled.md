@@ -6,11 +6,11 @@
 ```vue
 <template>
   <div>
-    <DatePicker disabled value="2019-10-12"/>
-    <br/>
-    <DatePicker disabled size="small" value="2019-10"/>
-    <br/>
-    <DatePicker disabled type="dateRange"/>
+    <DatePicker disabled value="2019-10-12" />
+    <br />
+    <DatePicker disabled size="small" value="2019-10" />
+    <br />
+    <DatePicker disabled type="dateRange" />
   </div>
 </template>
 ```

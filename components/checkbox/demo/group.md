@@ -6,43 +6,43 @@
 
 ```vue
 <template>
-  <Space vertical> 
-    {{data}}
+  <Space vertical>
+    {{ data }}
     <CheckboxGroup v-model:value="data">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
-      <Checkbox label="Grape" value="grape" disabled/>
-      <Checkbox label="Pear" value="pear" disabled/>
+      <Checkbox label="Grape" value="grape" disabled />
+      <Checkbox label="Pear" value="pear" disabled />
     </CheckboxGroup>
     <Button @click="handleClear" size="small">Clear</Button>
     <Button @click="handleChange" size="small">Select apple</Button>
   </Space>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <Space vertical align="start">
-    {{cities}}
+    {{ cities }}
     <CheckboxGroup :options="options" v-model:value="cities" />
   </Space>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 const options = [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-        { label: 'Other', value: 'other',disabled:true },
-      ]
-const data = ref(['apple','grape'])
-const cities = ref(['wuhan'])
+  { label: "Beijing", value: "beijing" },
+  { label: "Shenzhen", value: "shenzhen" },
+  { label: "Shanghai", value: "shanghai" },
+  { label: "Guangzhou", value: "guangzhou" },
+  { label: "Wuhan", value: "wuhan" },
+  { label: "Other", value: "other", disabled: true },
+];
+const data = ref(["apple", "grape"]);
+const cities = ref(["wuhan"]);
 
 const handleClear = () => {
-  data.value = []
-}
+  data.value = [];
+};
 const handleChange = (value) => {
-  data.value = ['apple']
-}
+  data.value = ["apple"];
+};
 </script>
 ```

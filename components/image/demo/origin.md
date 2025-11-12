@@ -1,4 +1,3 @@
-
 <cn>
 #### 加载大图
 初步显示缩略图，点击查看大图。
@@ -7,10 +6,10 @@
 
 ```vue
 <template>
-  <Image 
-    :width="120" 
+  <Image
+    :width="120"
     src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
     origin="https://cdn.chuchur.com/upload/demo/test.jpg"
-    />
+  />
 </template>
 ```

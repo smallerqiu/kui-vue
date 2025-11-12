@@ -7,35 +7,39 @@
 <template>
   <Space vertical align="start">
     <Space>
-      <Button @click="data=[]" size="small">Clear</Button>
-      <Button @click="data=['apple']" size="small">Select apple</Button>
-      {{data}}
+      <Button @click="data = []" size="small">Clear</Button>
+      <Button @click="data = ['apple']" size="small">Select apple</Button>
+      {{ data }}
     </Space>
     <CheckboxGroup v-model:value="data" direction="vertical">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
-      <Checkbox label="Grape" value="grape" disabled/>
-      <Checkbox label="Pear" value="pear" disabled/>
+      <Checkbox label="Grape" value="grape" disabled />
+      <Checkbox label="Pear" value="pear" disabled />
     </CheckboxGroup>
   </Space>
-  <br/>
+  <br />
   <Space vertical align="start">
-    <p>{{cities}}</p>
-    <CheckboxGroup :options="options" v-model:value="cities" direction="vertical"/>
+    <p>{{ cities }}</p>
+    <CheckboxGroup
+      :options="options"
+      v-model:value="cities"
+      direction="vertical"
+    />
   </Space>
 </template>
 <script setup>
-import { ref } from 'vue'
-const data = ref(['apple','grape'])
-const cities = ref(['wuhan','shenzhen'])
+import { ref } from "vue";
+const data = ref(["apple", "grape"]);
+const cities = ref(["wuhan", "shenzhen"]);
 const options = [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-        { label: 'Other', value: 'other',disabled:true },
-      ]
+  { label: "Beijing", value: "beijing" },
+  { label: "Shenzhen", value: "shenzhen" },
+  { label: "Shanghai", value: "shanghai" },
+  { label: "Guangzhou", value: "guangzhou" },
+  { label: "Wuhan", value: "wuhan" },
+  { label: "Other", value: "other", disabled: true },
+];
 </script>
 ```

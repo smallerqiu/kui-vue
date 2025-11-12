@@ -22,18 +22,20 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const colors = ref(['pink',
-      'red',
-      'yellow',
-      'orange',
-      'cyan',
-      'green',
-      'blue',
-      'purple',
-      'magenta',
-      'volcano',
-      'gold',
-      'lime'])
-const custom = ref(['#c20','#39f','#e3f','#6c0'])
+const colors = ref([
+  "pink",
+  "red",
+  "yellow",
+  "orange",
+  "cyan",
+  "green",
+  "blue",
+  "purple",
+  "magenta",
+  "volcano",
+  "gold",
+  "lime",
+]);
+const custom = ref(["#c20", "#39f", "#e3f", "#6c0"]);
 </script>
 ```

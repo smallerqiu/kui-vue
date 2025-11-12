@@ -5,10 +5,10 @@
 
 ```vue
 <template>
-  <div> 
-    <DatePicker type='year' placeholder="请选择年份" />
+  <div>
+    <DatePicker type="year" placeholder="请选择年份" />
     <br />
-    <DatePicker type='month' placeholder="请选择月份" />
+    <DatePicker type="month" placeholder="请选择月份" />
     <br />
     <DatePicker />
     <br />
@@ -16,9 +16,12 @@
     <br />
     <DatePicker placeholder="请选择时间" type="dateTime" />
     <br />
-    <DatePicker :placeholder="['Start Date','End Date']" type="dateRange"/>
+    <DatePicker :placeholder="['Start Date', 'End Date']" type="dateRange" />
     <br />
-    <DatePicker :placeholder="['Start Time','End Time']" type="dateTimeRange" />
+    <DatePicker
+      :placeholder="['Start Time', 'End Time']"
+      type="dateTimeRange"
+    />
   </div>
 </template>
 ```

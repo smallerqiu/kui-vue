@@ -8,8 +8,7 @@
   <div>
     <p>use Option</p>
     <Space>
-      <Select :width="200" v-model:value="value" :options="data">
-      </Select>
+      <Select :width="200" v-model:value="value" :options="data"> </Select>
       <Button @click="clear" size="small">Clear</Button>
       <Button @click="selectOrange" size="small">Choose orange</Button>
     </Space>
@@ -19,7 +18,7 @@
         <Option :value="1" label="Apple" />
         <Option :value="2" label="Orange" />
         <Option :value="3" label="Banana" disabled />
-        <Option :value="4" label="Pear"  />
+        <Option :value="4" label="Pear" />
       </Select>
       <Select :width="200" value="1" disabled>
         <Option value="1" label="disabled" />
@@ -31,16 +30,16 @@
 import { ref } from "vue";
 const value = ref(2);
 const clear = () => {
-  value.value = ''
-}
+  value.value = "";
+};
 const selectOrange = () => {
-  value.value = 1
-}
+  value.value = 1;
+};
 const data = [
   { label: "Apple", value: 0 },
   { label: "Orange", value: 1 },
   { label: "Banana", value: 2 },
   { label: "Pear", value: 3 },
-]
+];
 </script>
 ```

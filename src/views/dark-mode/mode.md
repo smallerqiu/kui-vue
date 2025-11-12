@@ -9,10 +9,12 @@
 </template>
 
 <script setup>
-import { theme, message } from 'kui-vue';
+import { theme, message } from "kui-vue";
 const api = theme.useTheme();
-const switchMode = (event)=>{
-  api.setThemeMode(event, isDark => message.info(isDark ? '暗色模式已开启' : '暗色模式已关闭'))
-}
+const switchMode = (event) => {
+  api.setThemeMode(event, (isDark) =>
+    message.info(isDark ? "暗色模式已开启" : "暗色模式已关闭")
+  );
+};
 </script>
 ```

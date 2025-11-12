@@ -5,34 +5,31 @@
 
 ```vue
 <template>
-  <Tree :data="data" @load-data="loadData" @expand="expand"/>
+  <Tree :data="data" @load-data="loadData" @expand="expand" />
 </template>
 <script>
 export default {
   data() {
     return {
       data: [
-        { title: 'Expand to load' },
-        { title: 'Expand to load' },
-        { title: 'Tree Node', isLeaf: true },
+        { title: "Expand to load" },
+        { title: "Expand to load" },
+        { title: "Tree Node", isLeaf: true },
       ],
-    }
+    };
   },
   methods: {
-    expand(data){
-      console.log(data)
+    expand(data) {
+      console.log(data);
     },
     loadData(node, callback) {
       //模拟异步请求
       setTimeout(() => {
-        let data = [
-          { title: 'Child Node' },
-          { title: 'Child Node' }
-        ];
+        let data = [{ title: "Child Node" }, { title: "Child Node" }];
         callback(data);
-      }, 1000)
-    }
-  }
-}
+      }, 1000);
+    },
+  },
+};
 </script>
 ```

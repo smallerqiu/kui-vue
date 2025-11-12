@@ -7,26 +7,50 @@
 <template>
   <Button @click="add">Add</Button>
   <Table :data="data" :columns="columns" bordered :sticky="52">
-    <a slot="name" slot-scope="text,row">
-      <Input v-model:value="row.name" size="small" v-if="row.isEdit"/>
-      <template v-else>{{text}}</template>
+    <a slot="name" slot-scope="text, row">
+      <Input v-model:value="row.name" size="small" v-if="row.isEdit" />
+      <template v-else>{{ text }}</template>
     </a>
-    <a slot="age" slot-scope="text,row">
-      <Input v-model:value="row.age" size="small" v-if="row.isEdit"/>
-      <template v-else>{{text}}</template>
+    <a slot="age" slot-scope="text, row">
+      <Input v-model:value="row.age" size="small" v-if="row.isEdit" />
+      <template v-else>{{ text }}</template>
     </a>
-    <a slot="address" slot-scope="text,row">
-      <Input v-model:value="row.address" size="small" v-if="row.isEdit"/>
-      <template v-else>{{text}}</template>  
+    <a slot="address" slot-scope="text, row">
+      <Input v-model:value="row.address" size="small" v-if="row.isEdit" />
+      <template v-else>{{ text }}</template>
     </a>
-    <template slot="action" slot-scope="text,row,col">
+    <template slot="action" slot-scope="text, row, col">
       <Space>
-        <Button type="text" size="small" type="primary" v-if="!row.isEdit" @click="row.isEdit=true">Edit</Button>
-        <Button type="text" size="small" type="primary" v-if="row.isEdit" @click="save(row)">Save</Button>
-        <Button type="text" size="small" type="primary" v-if="row.isEdit" @click="row.isEdit=false">Cancel</Button>
+        <Button
+          type="text"
+          size="small"
+          type="primary"
+          v-if="!row.isEdit"
+          @click="row.isEdit = true"
+        >
+          Edit
+        </Button>
+        <Button
+          type="text"
+          size="small"
+          type="primary"
+          v-if="row.isEdit"
+          @click="save(row)"
+        >
+          Save
+        </Button>
+        <Button
+          type="text"
+          size="small"
+          type="primary"
+          v-if="row.isEdit"
+          @click="row.isEdit = false"
+        >
+          Cancel
+        </Button>
         <Popconfirm
           title="您确认删除这条内容吗?"
-          @ok="e=> removeRow(row.key)"
+          @ok="(e) => removeRow(row.key)"
         >
           <Button type="text" size="small" type="danger">Delete</Button>
         </Popconfirm>
@@ -35,49 +59,72 @@
   </Table>
 </template>
 <script>
-export default{
+export default {
   data() {
     return {
-      data:[
-        { key:'0', name:'Li Lei' ,age:28 , address:'Wu Han Guanggu No. 328',isEdit:false },
-        { key:'1', name:'Liu Hao' ,age:30 , address:'Wu Han Hongshan No. 128',isEdit:false },
-        { key:'2', name:'Hu Cong' ,age:28 , address:'Wu Han Nanhu No. 198',isEdit:false },
-        { key:'3', name:'Chuchur' ,age:32 , address:'Wu Han Nanhu No. 188',isEdit:false },
+      data: [
+        {
+          key: "0",
+          name: "Li Lei",
+          age: 28,
+          address: "Wu Han Guanggu No. 328",
+          isEdit: false,
+        },
+        {
+          key: "1",
+          name: "Liu Hao",
+          age: 30,
+          address: "Wu Han Hongshan No. 128",
+          isEdit: false,
+        },
+        {
+          key: "2",
+          name: "Hu Cong",
+          age: 28,
+          address: "Wu Han Nanhu No. 198",
+          isEdit: false,
+        },
+        {
+          key: "3",
+          name: "Chuchur",
+          age: 32,
+          address: "Wu Han Nanhu No. 188",
+          isEdit: false,
+        },
       ],
-      columns:[
-
-        { title:'Name', key:'name' },
-        { title:'House price', key:'age'},
-        { title:'Address', key:'address' },
-        { title:'Action', key:'action' },
+      columns: [
+        { title: "Name", key: "name" },
+        { title: "House price", key: "age" },
+        { title: "Address", key: "address" },
+        { title: "Action", key: "action" },
       ],
-      count: 4
-    }
+      count: 4,
+    };
   },
-  methods:{
-    save(row){
-      console.log(row)
-      row.isEdit = false
-      message.success('Save successfuly!')
+  methods: {
+    save(row) {
+      console.log(row);
+      row.isEdit = false;
+      message.success("Save successfuly!");
     },
-    removeRow(key){
-      let data = [...this.data]
-      this.data = data.filter(item=> item.key != key)
+    removeRow(key) {
+      let data = [...this.data];
+      this.data = data.filter((item) => item.key != key);
     },
-    add(){
-      let { count } = this
-      count+=1
+    add() {
+      let { count } = this;
+      count += 1;
       let row = {
-        key: count ,
-        name: `Name ${count}` ,
+        key: count,
+        name: `Name ${count}`,
         age: 30,
         address: `China Wuhan no.${count}`,
-        isEdit:false
-      }
-      this.data.push(row)
-      this.count = count
-    }
-  }
-}
+        isEdit: false,
+      };
+      this.data.push(row);
+      this.count = count;
+    },
+  },
+};
 </script>
 ```

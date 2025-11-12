@@ -8,7 +8,7 @@
   <Space>
     <ButtonGroup>
       <Button>通讯录</Button>
-      <Button :icon="PersonOutline"></Button> 
+      <Button :icon="PersonOutline"></Button>
     </ButtonGroup>
     <DropdownButton>
       Dropdown
@@ -33,6 +33,6 @@
   </Space>
 </template>
 <script setup>
-import { ChevronDown ,PersonOutline, PersonAddOutline } from 'kui-icons'
+import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
 </script>
 ```

@@ -10,7 +10,7 @@
   </Affix>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 const top = ref(100);
 </script>
 ```

@@ -6,14 +6,16 @@
 ```vue
 <template>
   <Space>
-    {{checked}}
+    {{ checked }}
     <Checkbox v-model:checked="checked">Checkbox</Checkbox>
-    <Button @click="checked=!checked" size="small">{{checked?'Uncheck':'Check'}}</Button>
-    <Checkbox label="Checkbox"/>
+    <Button @click="checked = !checked" size="small">{{
+      checked ? "Uncheck" : "Check"
+    }}</Button>
+    <Checkbox label="Checkbox" />
   </Space>
 </template>
 <script setup>
-import { ref } from 'vue'
-const checked = ref(true)
+import { ref } from "vue";
+const checked = ref(true);
 </script>
 ```

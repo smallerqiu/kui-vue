@@ -18,102 +18,144 @@
     </Space>
     <br />
     <br />
-    <Tree :data="data" style="width:512px" @expand="expand" :directory="directory" :draggable="draggable"
-      :checkable="checkable" :multiple="multiple" :show-line="showLine" :show-icon="showIcon" :show-extra="showExtra"
-      :selectedKeys="selectedKeys" :expandedKeys="expandedKeys" :checkStrictly="checkStrictly">
+    <Tree
+      :data="data"
+      style="width:512px"
+      @expand="expand"
+      :directory="directory"
+      :draggable="draggable"
+      :checkable="checkable"
+      :multiple="multiple"
+      :show-line="showLine"
+      :show-icon="showIcon"
+      :show-extra="showExtra"
+      :selectedKeys="selectedKeys"
+      :expandedKeys="expandedKeys"
+      :checkStrictly="checkStrictly"
+    >
       <template v-slot:extra="{ node, parent }">
         <Space>
-          <Button size="small" type="text" :icon="Add" @click="e => append(e, node)" />
-          <Button size="small" type="text" :icon="Trash" @click="e => remove(e, node, parent)" v-if="node.key != '0-0'" />
-          <Button size="small" type="text" :icon="IconEdit" @click="e => edit(e, node)" />
+          <Button
+            size="small"
+            type="text"
+            :icon="Add"
+            @click="(e) => append(e, node)"
+          />
+          <Button
+            size="small"
+            type="text"
+            :icon="Trash"
+            @click="(e) => remove(e, node, parent)"
+            v-if="node.key != '0-0'"
+          />
+          <Button
+            size="small"
+            type="text"
+            :icon="IconEdit"
+            @click="(e) => edit(e, node)"
+          />
         </Space>
       </template>
     </Tree>
   </div>
 </template>
 <script>
-import { Add, Trash, IconEdit, FolderOpenOutline, FolderOutline, LogoFeishu, LogoTwitter, LogoQq, LogoWechat, LogoAndroid, LogoApple } from "kui-icons";
+import {
+  Add,
+  Trash,
+  IconEdit,
+  FolderOpenOutline,
+  FolderOutline,
+  LogoFeishu,
+  LogoTwitter,
+  LogoQq,
+  LogoWechat,
+  LogoAndroid,
+  LogoApple,
+} from "kui-icons";
 export default {
   data() {
     return {
-      Add, Trash, IconEdit,
+      Add,
+      Trash,
+      IconEdit,
       directory: true,
       showLine: true,
       showIcon: true,
       draggable: true,
       checkable: true,
       showExtra: true,
-      expandedKeys: ['0-0', '1-0', '1-1', '1-2'],
-      selectedKeys: ['0-0'],
-      checkStrictly:false,
-      multiple:false,
-      checkedKeys:[],
+      expandedKeys: ["0-0", "1-0", "1-1", "1-2"],
+      selectedKeys: ["0-0"],
+      checkStrictly: false,
+      multiple: false,
+      checkedKeys: [],
       data: [
         {
-          title: 'src',
-          key: '0-0',
+          title: "src",
+          key: "0-0",
           icon: FolderOpenOutline,
           children: [
             {
-              title: 'assets',
-              key: '1-0',
+              title: "assets",
+              key: "1-0",
               icon: FolderOpenOutline,
               children: [
-                { title: 'main.js', icon: LogoTwitter, disabled: true },
-                { title: 'test.py', icon: LogoQq }
-              ]
+                { title: "main.js", icon: LogoTwitter, disabled: true },
+                { title: "test.py", icon: LogoQq },
+              ],
             },
             {
-              title: 'pages',
-              key: '1-1',
+              title: "pages",
+              key: "1-1",
               icon: FolderOpenOutline,
               children: [
-                { title: 'index.html', icon: LogoFeishu },
-                { title: 'index.md', icon: LogoWechat }
-              ]
+                { title: "index.html", icon: LogoFeishu },
+                { title: "index.md", icon: LogoWechat },
+              ],
             },
             {
-              title: 'app',
-              key: '1-2',
+              title: "app",
+              key: "1-2",
               icon: FolderOpenOutline,
               children: [
-                { title: 'zen.apk', icon: LogoAndroid },
-                { title: 'zen.ipa', icon: LogoApple }
-              ]
-            }
-          ]
+                { title: "zen.apk", icon: LogoAndroid },
+                { title: "zen.ipa", icon: LogoApple },
+              ],
+            },
+          ],
         },
         {
-          title: 'src11',
-          key: '0-1',
+          title: "src11",
+          key: "0-1",
           icon: FolderOpenOutline,
-        }
+        },
       ],
-    }
+    };
   },
   methods: {
     edit(e, node) {
-      e.stopPropagation()
-      let pop = prompt('修改节点名称', node.title)
-      if (pop != null && pop.trim() != '') {
-        node.title = pop
+      e.stopPropagation();
+      let pop = prompt("修改节点名称", node.title);
+      if (pop != null && pop.trim() != "") {
+        node.title = pop;
       }
     },
     append(e, node) {
-      e.stopPropagation()
-      const newChild = { title: 'Append Node', children: [] };
+      e.stopPropagation();
+      const newChild = { title: "Append Node", children: [] };
       if (!node.children) {
-        node.children = []
+        node.children = [];
       }
       //展开节点
       if (this.expandedKeys.indexOf(node.key) < 0) {
-        this.expandedKeys.push(node.key)
+        this.expandedKeys.push(node.key);
       }
       //添加子节点
       node.children.push(newChild);
     },
     remove(e, node, parent) {
-      let { data } = this
+      let { data } = this;
       const loop = (data, key, callback) => {
         for (let i = 0; i < data.length; i++) {
           if (data[i].key === key) {
@@ -126,13 +168,13 @@ export default {
       };
       loop(data, node.key, (item, index, arr) => {
         arr.splice(index, 1);
-      })
+      });
     },
     expand({ expanded, node, expandedKeys }) {
-      node.icon = expanded ? FolderOpenOutline : FolderOutline
-      console.log(node)
-    }
-  }
-}
+      node.icon = expanded ? FolderOpenOutline : FolderOutline;
+      console.log(node);
+    },
+  },
+};
 </script>
 ```

@@ -5,8 +5,8 @@
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2"
     name="file"
     type="picture"
     :headers="headers"
@@ -14,41 +14,41 @@
     :fileList="fileList"
     accept="image/*"
     uploadText="上传图片"
-    >
+  >
   </Upload>
 </template>
 <script>
-export default{
+export default {
   data() {
     return {
-      headers:{
-        authorization: 'here is token'
+      headers: {
+        authorization: "here is token",
       },
-      fileList:[
+      fileList: [
         {
-          url:'https://cdn.chuchur.com/upload/demo/test_300.jpg',
-          status:'uploading',
-          filename:'test.jpg',
-          size:'222kb',
-          percent:50,
-          status:'uploading'
+          url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+          status: "uploading",
+          filename: "test.jpg",
+          size: "222kb",
+          percent: 50,
+          status: "uploading",
         },
         {
-          url:'https://cdn.chuchur.com/upload/demo/test_300.jpg',
-          status:'error',
-          filename:'test.jpg',
-          size:'222kb'
+          url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+          status: "error",
+          filename: "test.jpg",
+          size: "222kb",
         },
-      ]
-    }
+      ],
+    };
   },
-  methods:{
-    handleChange(info){
-      if (info.file.status !== 'uploading') {
+  methods: {
+    handleChange(info) {
+      if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 ```

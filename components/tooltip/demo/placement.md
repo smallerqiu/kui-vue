@@ -55,6 +55,6 @@
   </Flex>
 </template>
 <script setup>
-const title = '明月几时有'
+const title = "明月几时有";
 </script>
 ```

@@ -6,10 +6,20 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Button @click="change" :icon="collapsed ? MenuFold : MenuUnfold" type="primary"></Button>
-    <br/>
-    <br/>
-    <Menu v-model:selectedKeys="current" v-model:open-keys="openKeys" theme="dark" :inline-collapsed="collapsed" mode="inline">
+    <Button
+      @click="change"
+      :icon="collapsed ? MenuFold : MenuUnfold"
+      type="primary"
+    ></Button>
+    <br />
+    <br />
+    <Menu
+      v-model:selectedKeys="current"
+      v-model:open-keys="openKeys"
+      theme="dark"
+      :inline-collapsed="collapsed"
+      mode="inline"
+    >
       <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
       <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
       <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
@@ -30,14 +40,14 @@
   </div>
 </template>
 <script setup>
-import { MenuFold, MenuUnfold, Mail, Grid, Heart,Settings } from "kui-icons";
-import { ref  } from "vue";
-const current = ref(['1-1'])
-const openKeys = ref(['sub2'])
-const collapsed = ref(false)
+import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
+import { ref } from "vue";
+const current = ref(["1-1"]);
+const openKeys = ref(["sub2"]);
+const collapsed = ref(false);
 
-const change = ()=> {
-  collapsed.value = !collapsed.value
-}
+const change = () => {
+  collapsed.value = !collapsed.value;
+};
 </script>
 ```

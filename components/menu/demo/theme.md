@@ -6,10 +6,20 @@
 ```vue
 <template>
   <div style="width:256px">
-    <KSwitch true-text="dark" false-text="light" @change="change" :checked="theme=='dark'"/>
-    <br/>
-    <br/>
-    <Menu v-model:selectedKeys="current" v-model:open-keys="openKeys" :theme="theme" mode="inline">
+    <KSwitch
+      true-text="dark"
+      false-text="light"
+      @change="change"
+      :checked="theme == 'dark'"
+    />
+    <br />
+    <br />
+    <Menu
+      v-model:selectedKeys="current"
+      v-model:open-keys="openKeys"
+      :theme="theme"
+      mode="inline"
+    >
       <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
       <MenuItem key="1-2" :icon="Grid">Option 2</MenuItem>
       <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
@@ -30,14 +40,14 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Mail, Grid, Heart, Settings } from "kui-icons";
-const current = ref(['1-1'])
-const openKeys = ref(['sub2'])
-const theme = ref('dark')
+const current = ref(["1-1"]);
+const openKeys = ref(["sub2"]);
+const theme = ref("dark");
 
 const change = (checked) => {
-  theme.value = checked ? 'dark' : 'light';
-}
+  theme.value = checked ? "dark" : "light";
+};
 </script>
 ```

@@ -6,35 +6,47 @@
 ```vue
 <template>
   <Space vertical style="width:512px;">
-    <Input placeholder="请输入内容..." 
-    clearable
-    @change="events.change" 
-    @keypress="events.keypress" 
-    @keyup="events.keyup" 
-    @keydown="events.keydown" 
-    @keydown.enter="events.keydownEnter" 
-    @blur="events.blur" 
-    @focus="events.focus" >
+    <Input
+      placeholder="请输入内容..."
+      clearable
+      @change="events.change"
+      @keypress="events.keypress"
+      @keyup="events.keyup"
+      @keydown="events.keydown"
+      @keydown.enter="events.keydownEnter"
+      @blur="events.blur"
+      @focus="events.focus"
+    >
     </Input>
-    <TextArea placeholder="请输入内容..."
-      @change="events.change" 
-      @keypress="events.keypress" 
-      @keyup="events.keyup" 
-      @keydown="events.keydown" 
-      @keydown.enter="events.keydownEnter" 
-      @blur="events.blur" 
-      @focus="events.focus" 
-     />
+    <TextArea
+      placeholder="请输入内容..."
+      @change="events.change"
+      @keypress="events.keypress"
+      @keyup="events.keyup"
+      @keydown="events.keydown"
+      @keydown.enter="events.keydownEnter"
+      @blur="events.blur"
+      @focus="events.focus"
+    />
   </Space>
 </template>
 <script setup>
 import { message } from "kui-vue";
 const events = {};
-['focus','blur','change','keypress','keyup','keydown',,'keydownEnter'].forEach(type=>{
-  events[type] = function(e){
-    message.info(type)
-    console.log(type,e.target.value)
-  }
-})
+[
+  "focus",
+  "blur",
+  "change",
+  "keypress",
+  "keyup",
+  "keydown",
+  ,
+  "keydownEnter",
+].forEach((type) => {
+  events[type] = function (e) {
+    message.info(type);
+    console.log(type, e.target.value);
+  };
+});
 </script>
 ```

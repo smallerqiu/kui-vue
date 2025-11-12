@@ -7,43 +7,43 @@ name 为上传文件名
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2"
     name="file"
     :headers="headers"
-    :data="pramas"
+    :data="prams"
     :autoTrigger="false"
     @before-upload="beforeUpload"
     @remove="beforeUpload"
     multiple
     ref="upload"
-    >
-    <Button :icon="CloudUploadOutline" >点击选择上传文件</Button>
+  >
+    <Button :icon="CloudUploadOutline">点击选择上传文件</Button>
   </Upload>
-  <br/>
+  <br />
   <Button :disabled="disabled" @click="$refs.upload.upload()">开始上传</Button>
 </template>
 <script>
 import { CloudUploadOutline } from "kui-icons";
-export default{
+export default {
   data() {
     return {
       CloudUploadOutline,
-      pramas:{
-        type:'image',
-        time: Date.now()
+      prams: {
+        type: "image",
+        time: Date.now(),
       },
-      headers:{
-        authorization: 'here is token'
+      headers: {
+        authorization: "here is token",
       },
-      disabled:true,
-    }
+      disabled: true,
+    };
   },
-  methods:{
-    beforeUpload(info){
-      this.disabled = info.fileList.length == 0
+  methods: {
+    beforeUpload(info) {
+      this.disabled = info.fileList.length == 0;
     },
-  }
-}
+  },
+};
 </script>
 ```
