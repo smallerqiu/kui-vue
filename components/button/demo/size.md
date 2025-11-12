@@ -36,6 +36,5 @@
 import { CloudDownload } from "kui-icons";
 import { ref } from "vue";
 const size = ref("default");
-const chage = (value) => (this.size = value);
 </script>
 ```
