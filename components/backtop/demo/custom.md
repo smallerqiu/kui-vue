@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <BackTop bottom="100">
+    <BackTop :bottom="100">
       <div class="custom-backtop">UP</div>
     </BackTop>
     自定义按钮为蓝色的按钮
