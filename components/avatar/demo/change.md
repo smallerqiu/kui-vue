@@ -6,7 +6,8 @@
 ```vue
 <template>
   <Space>
-    <Avatar size="large"
+    <Avatar
+      size="large"
       :style="{ backgroundColor: color, verticalAlign: 'middle' }"
     >
       {{ text }}
@@ -16,18 +17,18 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const ran =(min, max)=> {
-  return parseInt((Math.random() * (max - min)) + min)
-}
-const userList = ["K", "Zhang","Mr Qiu", "Jack cheng", "Jone Blue"];
+const ran = (min, max) => {
+  return parseInt(Math.random() * (max - min) + min);
+};
+const userList = ["K", "Zhang", "Mr Qiu", "Jack cheng", "Jone Blue"];
 const colorList = ["#3a95ff", "#00bb5d", "#ff3300", "#ffa500"];
 
 const text = ref(userList[0]);
 const color = ref(colorList[0]);
 
-const  changeValue=()=> {
-  text.value = userList[ran(0,3)]
-  color.value = colorList[ran(0,3)]
-}
+const changeValue = () => {
+  text.value = userList[ran(0, 3)];
+  color.value = colorList[ran(0, 3)];
+};
 </script>
 ```

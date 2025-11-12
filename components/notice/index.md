@@ -1,21 +1,17 @@
 ## API
+
 组件提供了一些静态方法，使用方式如下
- 
-  
+
 - `notice.info(options)`
 - `notice.success(options)`
 - `notice.warning(options)`
 - `notice.error(options)`
 
-  
-
 另外提供了全局配置和全局销毁的方法：
- 
-  
+
 - `notice.open(options)`
 - `notice.destroy()`
 
-  
 参数 `options` 为对象，具体说明如下：
 
 | 属性     | 说明                                   | 类型          | 默认值 |
