@@ -4,7 +4,7 @@ import { withInstall } from '../utils/vue';
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
-    value: { type: [String, Number], default: false },
+    value: { type: [String, Number] },
     disabled: Boolean,
     checked: Boolean,
     label: [String, Number],
@@ -14,7 +14,7 @@ const RadioButton = defineComponent({
   },
   setup(ps, { slots, emit, attrs }) {
     const radioGroup = inject("radioGroup", null);
-    const parentSize = inject("size",null);
+    const parentSize = inject("size", null);
     const change = (e) => {
       const _label = ps.label || slots.default?.().text;
 
