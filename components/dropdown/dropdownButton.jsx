@@ -28,7 +28,8 @@ const DropdownButton = defineComponent({
           placement={ps.placement}
           target={refTrigger}
           disabled={ps.disabled}
-          v-slots={{
+          // v-slots={{ //for 3
+          scopedSlots={{
             default: () => (
               <ButtonGroup
                 class="k-dropdown-button"

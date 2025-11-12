@@ -73,18 +73,18 @@ const Button = defineComponent({
           [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
         },
       ];
-      let childNods = [];
+      let childNodes = [];
 
       const iconType = props.loading ? Loading : props.icon;
       if (iconType) {
-        childNods.push(<Icon type={iconType} spin={props.loading} />);
+        childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
 
       const propsObj = {
         ...attrs,
+        class: classes,
         disabled: props.disabled,
         type: props.htmlType,
-        class: classes,
         on: {
           ...listeners,
           click: (e) => {
@@ -104,14 +104,14 @@ const Button = defineComponent({
           c
         );
       });
-      childNods = childNods.concat(childNode);
+      childNodes = childNodes.concat(childNode);
 
       return props.type === "link" && props.href ? (
         <a href={props.href} target={props.target} {...propsObj}>
-          {...childNods}
+          {...childNodes}
         </a>
       ) : (
-        <button {...propsObj}>{...childNods}</button>
+        <button {...propsObj}>{...childNodes}</button>
       );
     };
   },

@@ -7,17 +7,17 @@
 <template>
   <Flex size="small" wrap>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="solid">
+      <Button v-for="color in colors" :color="color" :key="color" theme="solid">
         Solid
       </Button>
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="outline">
+      <Button v-for="color in colors" :color="color" :key="color" theme="outline">
         Outline
       </Button>
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="dashed">
+      <Button v-for="color in colors" :color="color" :key="color" theme="dashed">
         Dashed
       </Button>
     </Flex>
