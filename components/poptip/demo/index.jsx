@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Trigger from './trigger.md'
 import CloseInside from './closeinside.md'
 import Placement from './placement.md'
@@ -9,7 +9,7 @@ export default {
     return (
       <div class="demo-poptip">
         <Info />
-        <Base />
+        <Basic />
         <Trigger />
         <CloseInside />
         <Placement />

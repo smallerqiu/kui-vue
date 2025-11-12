@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Disabled from './disabled.md'
 import Size from './size.md'
 import Outline from './outline.md'
@@ -15,7 +15,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Outline />
         <Color />
         <Light />

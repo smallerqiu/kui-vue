@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Disabled from './disabled.md'
 import Options from './options.md'
@@ -11,13 +11,13 @@ export default {
     return (
       <div class="demo-checkbox">
         <Info />
-        <Base />
-        <Disabled />
+        <Basic />
+        {/* <Disabled />
         <Options />
         <Group />
         <GroupVertical />
-        <CheckAll />
-        <CN />
+        <CheckAll /> */}
+        {/* <CN /> */}
       </div>
     )
   }

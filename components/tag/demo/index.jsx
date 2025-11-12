@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Size from './size.md'
 import Icons from './icon.md'
 import Color from './color.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Size />
         <Icons />
         <Color />

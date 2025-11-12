@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Origin from './origin.md'
 import Errors from './errors.md'
 import Group from './group.md'
@@ -12,7 +12,7 @@ export default {
     return (
       <div class="demo-image">
         <Info />
-        <Base />
+        <Basic />
         <Origin />
         <Errors />
         <Group />

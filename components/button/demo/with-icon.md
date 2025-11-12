@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" shape="circle"></Button>
     <Button type="primary" :icon="Search">搜索</Button>
     <Button :icon="Search" shape="circle"></Button>

@@ -69,7 +69,7 @@ const Space = defineComponent({
       for (let i = 0; i < children.length; i++) {
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
-          // size: ps.size,
+          props: { size: ps.size },
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,

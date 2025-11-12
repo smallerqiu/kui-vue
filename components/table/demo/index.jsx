@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import BaseRender from './base-render.md'
 import CustomHeader from './custom-header.md'
 import Info from './info.md'
@@ -21,7 +21,7 @@ export default {
     return (
       <div class="demo-table">
         <Info />
-        <Base />
+        <Basic />
         <BaseRender />
         <CustomHeader />
         <Bordered />

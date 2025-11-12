@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Circle from './circle.md'
 import Dynamic from './dynamic.md'
 import Dashboard from './dashboard.md'
@@ -12,7 +12,7 @@ export default {
     return (
       <div class="demo-progress">
         <Info />
-        <Base />
+        <Basic />
         <Circle />
         <Dashboard />
         <Dynamic />

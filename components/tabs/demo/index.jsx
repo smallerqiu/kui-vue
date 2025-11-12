@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Disabled from './disabled.md'
 import Centered from './centered.md'
 import Icon from './icon.md'
@@ -14,7 +14,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Disabled />
         <Centered />
         <Icon />

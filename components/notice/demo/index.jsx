@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Types from './types.md'
 import Icon from './icon.md'
 import Close from './close.md'
@@ -9,7 +9,7 @@ export default {
     return (
       <div class="demo-notice">
         <Info />
-        <Base />
+        <Basic />
         <Types />
         <Icon />
         <Close />

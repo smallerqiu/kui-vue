@@ -7,7 +7,7 @@
 <template>
   <Space vertical align="start">
     <RadioGroup v-model:value="size">
-      <RadioButton value="large" label="Large" />
+      <RadioButton value="large" label="Large" @click="()=>{}"/>
       <RadioButton value="default" label="Default" />
       <RadioButton value="small" label="Small" />
     </RadioGroup>
@@ -36,6 +36,5 @@
 import { CloudDownload } from "kui-icons";
 import { ref } from "vue";
 const size = ref("default");
-const chage = (value) => (this.size = value);
 </script>
 ```

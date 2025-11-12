@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Callbacks from "./callbacks.md";
 import Container from "./container.md";
 import Bottom from "./bottom.md";
@@ -9,7 +9,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Callbacks />
         <Container />
         <CN />

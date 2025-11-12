@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import FileList from './file-list.md'
 import Accept from './accept.md'
 import Transform from './transform.md'
@@ -17,7 +17,7 @@ export default {
     return (
       <div class="demo-upload">
         <Info />
-        <Base />
+        <Basic />
         <FileList />
         <Directory />
         <Accept />

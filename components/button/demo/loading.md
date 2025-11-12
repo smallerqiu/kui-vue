@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" loading>Loading</Button>
     <Button
       type="primary"

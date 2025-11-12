@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Multiple from './multiple.md'
 import Checkable from './checkable.md'
 import Async from './sync.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div class="demo-tree">
         <Info />
-        <Base />
+        <Basic />
         <Multiple />
         <Checkable />
         <Async />

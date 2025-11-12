@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Align from "./align.md";
 import Length from "./length.md";
 import WithModal from "./withmodal.md";
@@ -14,7 +14,7 @@ export default {
     return (
       <div class="demo-menu">
         <Info />
-        <Base />
+        <Basic />
         <Align />
         <Valid />
         <Length />

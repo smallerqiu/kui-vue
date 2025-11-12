@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Custom from './custom.md'
 import Use from './use.md'
 import NoDesc from './nodesc.md'
@@ -9,7 +9,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Custom />
         <Use />
         <NoDesc />
