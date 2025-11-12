@@ -12,10 +12,10 @@
     <Button :icon="Search">搜索</Button>
     <Button type="primary" :icon="Power"></Button>
     <Button :icon="Power"></Button>
-    <Button type="primary">展开选项<Icon :type="ChevronDown"/></Button>
+    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
   </Space>
 </template>
 <script setup>
-import { ChevronDown, Search, Power } from 'kui-icons'
+import { ChevronDown, Search, Power } from "kui-icons";
 </script>
 ```

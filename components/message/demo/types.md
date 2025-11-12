@@ -13,14 +13,14 @@
 </template>
 <script setup>
 import { message } from "kui-vue";
-const warning = ()=> {
+const warning = () => {
   message.warning("警告提示");
-}
-const success = ()=> {
+};
+const success = () => {
   message.success("成功提示");
-}
-const error = ()=> {
+};
+const error = () => {
   message.error("错误提示");
-}
+};
 </script>
 ```

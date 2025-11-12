@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space>
-    <Spin size="large"/>
+    <Spin size="large" />
     <Spin />
     <Spin size="small" />
   </Space>

@@ -13,7 +13,7 @@
       <Button :icon="MailOutline"></Button>
       <Button :icon="ShirtOutline"></Button>
       <Dropdown placement="bottom-right">
-        <Button :icon="Ellipsis"></Button> 
+        <Button :icon="Ellipsis"></Button>
         <template #overlay>
           <Menu slot="content">
             <MenuItem>
@@ -41,10 +41,17 @@
       <Button>Button3</Button>
       <Button>Button4</Button>
     </space>
-    
   </Space>
 </template>
 <script setup>
-import { Copy ,CloudDownloadOutline,Ellipsis,GameControllerOutline,HeartOutline,MailOutline,ShirtOutline} from 'kui-icons'
+import {
+  Copy,
+  CloudDownloadOutline,
+  Ellipsis,
+  GameControllerOutline,
+  HeartOutline,
+  MailOutline,
+  ShirtOutline,
+} from "kui-icons";
 </script>
 ```

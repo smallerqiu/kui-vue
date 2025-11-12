@@ -8,6 +8,6 @@
   <ColorPicker :value="color" disabledAlpha />
 </template>
 <script setup>
-const color = '#3a95ff'
-</script> 
+const color = "#3a95ff";
+</script>
 ```

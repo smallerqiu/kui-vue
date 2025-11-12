@@ -6,54 +6,74 @@
 ```vue
 <template>
   <Space>
-    <Button @click="visible1=true" type="primary">宽300px</Button>
-    <Button @click="visible2=true" type="primary">自定义页脚</Button>
-    <Button @click="visible3=true" type="primary">国际化</Button>
-    <Button @click="visible4=true" type="primary">异步关闭</Button>
-    <Modal title="Width 300px" v-model:show="visible1" :width="300" @ok="visible1=false">
+    <Button @click="visible1 = true" type="primary">宽300px</Button>
+    <Button @click="visible2 = true" type="primary">自定义页脚</Button>
+    <Button @click="visible3 = true" type="primary">国际化</Button>
+    <Button @click="visible4 = true" type="primary">异步关闭</Button>
+    <Modal
+      title="Width 300px"
+      v-model:show="visible1"
+      :width="300"
+      @ok="visible1 = false"
+    >
       <p>content</p>
     </Modal>
 
     <Modal title="Custom footer" v-model:show="visible2">
       <p>content</p>
       <template #footer>
-        <Button :icon="Save" @click="visible2=false" type="primary">Save</Button>
-      </template> 
+        <Button :icon="Save" @click="visible2 = false" type="primary"
+          >Save</Button
+        >
+      </template>
     </Modal>
 
-    <Modal title="Are you ok ?" v-model:show="visible3" ok-text="Ok" cancel-text="Cancel" @ok="okHandle">
+    <Modal
+      title="Are you ok ?"
+      v-model:show="visible3"
+      ok-text="Ok"
+      cancel-text="Cancel"
+      @ok="okHandle"
+    >
       <p>Yes , I'm fine !</p>
     </Modal>
 
-    <Modal title="提交表单" v-model:show="visible4" :loading="loading" @ok="submit" @close="close">
-      <p>Name：<Input placeholder="Please input your name" style="width:200px"/></p>
+    <Modal
+      title="提交表单"
+      v-model:show="visible4"
+      :loading="loading"
+      @ok="submit"
+      @close="close"
+    >
+      <p>
+        Name：<Input placeholder="Please input your name" style="width:200px" />
+      </p>
     </Modal>
   </Space>
 </template>
 <script setup>
 import { Save } from "kui-icons";
-import { ref } from 'vue'
-const visible1 = ref(false)
-const visible2 = ref(false)
-const visible3 = ref(false)
-const visible4 = ref(false)
-const loading = ref(false)
-const timer = ref()
+import { ref } from "vue";
+const visible1 = ref(false);
+const visible2 = ref(false);
+const visible3 = ref(false);
+const visible4 = ref(false);
+const loading = ref(false);
+const timer = ref();
 
-
-const okHandle = ()=> {
-  visible3.value = false
-}
-const submit = ()=> {
-  loading.value = true
-  timer.value = setTimeout(e=>{
-    loading.value = false
-    visible4.value = false
-  },2000)
-}
-const close = ()=> {
-  loading.value = false
-  clearTimeout(timer.value)
-}
+const okHandle = () => {
+  visible3.value = false;
+};
+const submit = () => {
+  loading.value = true;
+  timer.value = setTimeout((e) => {
+    loading.value = false;
+    visible4.value = false;
+  }, 2000);
+};
+const close = () => {
+  loading.value = false;
+  clearTimeout(timer.value);
+};
 </script>
 ```

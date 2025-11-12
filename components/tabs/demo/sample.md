@@ -30,13 +30,13 @@ import { ref } from "vue";
 const current = ref("1");
 const change = (key) => {
   console.log(key);
-}
+};
 </script>
 
 <style scoped>
-.demo-tabs-sample{
-  padding:10px;
-  background-color:rgba(0,0,0,.2);
+.demo-tabs-sample {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
 ```

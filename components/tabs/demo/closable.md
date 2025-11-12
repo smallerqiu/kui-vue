@@ -7,11 +7,16 @@
 ```vue
 <template>
   <Tabs v-model:activeKey="activeKey" card @remove="remove">
-    <TabPanel :title="panel.title" v-for="panel in panesData" :key="panel.key" :closable="panel.closable">
-      {{panel.content}}
+    <TabPanel
+      :title="panel.title"
+      v-for="panel in panesData"
+      :key="panel.key"
+      :closable="panel.closable"
+    >
+      {{ panel.content }}
     </TabPanel>
     <template #extra>
-      <Button :icon="Add" size="small" @click="add"/>
+      <Button :icon="Add" size="small" @click="add" />
     </template>
   </Tabs>
 </template>
@@ -19,30 +24,30 @@
 import { ref } from "vue";
 import { Add } from "kui-icons";
 const panesData = ref([
-  { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
-  { title: 'Tab 2', content: 'Content of Tab 2', key: '2', closable:true },
-  { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable:true },
-])
-const activeKey = ref('1');
-const newTabIndex = ref(0); 
-const remove =(key)=>{
-  let panes = panesData.value
-  console.log(key)
-  const index = panesData.value.map(p=>p.key).indexOf(key)
-  panesData.value = panes.filter(panel => panel.key !== key);
-  activeKey.value = panesData.value[index-1].key
-}
-const add = ()=> {
+  { title: "Tab 1", content: "Content of Tab 1", key: "1" },
+  { title: "Tab 2", content: "Content of Tab 2", key: "2", closable: true },
+  { title: "Tab 3", content: "Content of Tab 3", key: "3", closable: true },
+]);
+const activeKey = ref("1");
+const newTabIndex = ref(0);
+const remove = (key) => {
+  let panes = panesData.value;
+  console.log(key);
+  const index = panesData.value.map((p) => p.key).indexOf(key);
+  panesData.value = panes.filter((panel) => panel.key !== key);
+  activeKey.value = panesData.value[index - 1].key;
+};
+const add = () => {
   const panes = panesData.value;
   const key = `A${newTabIndex.value++}`;
-  panes.push({ 
-    title: `New Tab${newTabIndex.value}`, 
-    content: `Content of new Tab ${newTabIndex.value}`, 
-    key: key, 
-    closable:true 
+  panes.push({
+    title: `New Tab${newTabIndex.value}`,
+    content: `Content of new Tab ${newTabIndex.value}`,
+    key: key,
+    closable: true,
   });
   panesData.value = panes;
   activeKey.value = key;
-}
+};
 </script>
 ```

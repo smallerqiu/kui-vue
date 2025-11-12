@@ -31,9 +31,9 @@
   </Dropdown>
 </template>
 <script setup>
-import { ChevronDown } from 'kui-icons'
+import { ChevronDown } from "kui-icons";
 const menuClick = ({ key }) => {
-  console.log(key)
-}
+  console.log(key);
+};
 </script>
 ```

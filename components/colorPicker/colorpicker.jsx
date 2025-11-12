@@ -313,13 +313,13 @@ const ColorPicker = defineComponent({
           "k-color-picker-lg": ps.size == "large",
         },
       ];
-      const triggleClick = ps.trigger == "click";
+      const triggerClick = ps.trigger == "click";
       return slots.default ? (
         <>
           {cloneNodes(slots.default(), {
             ref: refCtx,
-            onClick: () => triggleClick && toggle(!visible.value),
-            onMouseenter: () => !triggleClick && toggle(true),
+            onClick: () => triggerClick && toggle(!visible.value),
+            onMouseenter: () => !triggerClick && toggle(true),
             onMouseleave: onMouseleave,
           })}
           {drop}
@@ -328,9 +328,9 @@ const ColorPicker = defineComponent({
         <div class={style} ref={refCtx} v-resize={updatePopPosition}>
           <div
             class="k-color-picker-selection"
-            onMouseenter={() => !triggleClick && toggle(true)}
+            onMouseenter={() => !triggerClick && toggle(true)}
             onMouseleave={onMouseleave}
-            onClick={() => triggleClick && toggle(!visible.value)}>
+            onClick={() => triggerClick && toggle(!visible.value)}>
             <div class="k-color-picker-color">
               <div
                 class="k-color-picker-color-inner"

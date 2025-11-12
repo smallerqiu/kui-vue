@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space vertical>
-    <Rate :allowClear="true" :value="3" />  allowClear = true
+    <Rate :allowClear="true" :value="3" /> allowClear = true
     <Rate :allowClear="false" :value="3" /> allowClear = false
   </Space>
 </template>

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="demo-dot">
-   <Badge :count="99">
+    <Badge :count="99">
       <div class="box"></div>
     </Badge>
     <Badge :count="100">

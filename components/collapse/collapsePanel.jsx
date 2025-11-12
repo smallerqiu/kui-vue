@@ -11,7 +11,7 @@ const CollapsePanel = defineComponent({
   },
   setup(ps, { slots, emit }) {
     const instance = getCurrentInstance();
-    const expaned = ref(ps.active);
+    const expanded = ref(ps.active);
     const rendered = ref(ps.active);
 
     watch(
@@ -19,7 +19,7 @@ const CollapsePanel = defineComponent({
       (nv, no) => {
         rendered.value = true;
         nextTick(() => {
-          expaned.value = nv;
+          expanded.value = nv;
         });
       }
     );
@@ -32,7 +32,7 @@ const CollapsePanel = defineComponent({
       const classes = [
         "k-collapse-item",
         {
-          ["k-collapse-item-active"]: expaned.value,
+          ["k-collapse-item-active"]: expanded.value,
         },
       ];
       const extraNode = slots.extra?.();
@@ -40,7 +40,7 @@ const CollapsePanel = defineComponent({
 
       const panelNode = rendered.value ? (
         <Transition {...aniprop}>
-          <div class="k-collapse-content" v-show={expaned.value}>
+          <div class="k-collapse-content" v-show={expanded.value}>
             <div class="k-collapse-content-box">{slots.default?.()}</div>
           </div>
         </Transition>

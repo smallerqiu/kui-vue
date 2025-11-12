@@ -1,4 +1,3 @@
-
 <cn>
 #### 基础用法
 `Notice` 的基本用法
@@ -14,19 +13,19 @@
 <script setup>
 import { notice } from "kui-vue";
 const api = notice.useNotice();
-const useNotice = ()=> {
+const useNotice = () => {
   api.open({
     title: "通知的标题",
     content: "通知的描述",
-    duration: 5
+    duration: 5,
   });
-}
-const info = ()=> {
+};
+const info = () => {
   notice.open({
     title: "通知的标题",
     content: "通知的描述",
-    duration: 5
+    duration: 5,
   });
-}
+};
 </script>
 ```

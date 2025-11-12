@@ -8,25 +8,32 @@
   <Space vertical align="start">
     <k-switch true-text="Yes" false-text="No" />
     <k-switch true-text="｜" false-text="〇" />
-    <k-switch true-text="｜" false-text="〇" checked/>
+    <k-switch true-text="｜" false-text="〇" checked />
     <k-switch true-text="On" false-text="Off" />
     <k-switch>
       <template #checked><Icon :type="Checkmark" /></template>
-      <template #unchecked><Icon :type="Close"/></template>
+      <template #unchecked><Icon :type="Close" /></template>
     </k-switch>
     <k-switch>
-      <template #checked><Icon :type="LogoApple"/></template>
-      <template #unchecked><Icon :type="LogoMicrosoft"/></template>
+      <template #checked><Icon :type="LogoApple" /></template>
+      <template #unchecked><Icon :type="LogoMicrosoft" /></template>
     </k-switch>
-     <k-switch>
-      <template #unchecked><Icon :type="Airplane"/></template>
-      <template #checked><Icon :type="Wifi"/></template>
+    <k-switch>
+      <template #unchecked><Icon :type="Airplane" /></template>
+      <template #checked><Icon :type="Wifi" /></template>
     </k-switch>
   </Space>
 </template>
 <script setup>
-import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
-import { ref } from 'vue'
-const checked = ref(false)
+import {
+  Checkmark,
+  Close,
+  LogoApple,
+  LogoMicrosoft,
+  Airplane,
+  Wifi,
+} from "kui-icons";
+import { ref } from "vue";
+const checked = ref(false);
 </script>
 ```

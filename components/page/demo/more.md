@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="demo-page">
-    <Page v-model:current="current" :total="200"/>
+    <Page v-model:current="current" :total="200" />
   </div>
 </template>
 <script setup>

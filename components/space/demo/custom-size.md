@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Slider v-model:value="size" :max="50"/>
+    <Slider v-model:value="size" :max="50" />
     <Space :size="size">
       <Button type="primary">Primary</Button>
       <Button type="danger">Danger</Button>
@@ -18,6 +18,6 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const size = ref(12)
+const size = ref(12);
 </script>
 ```

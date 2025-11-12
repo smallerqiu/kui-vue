@@ -6,8 +6,8 @@ export default defineComponent({
     icon: [String, Array, Object],
   },
   setup(ps, { attrs, slots }) {
-    const mouseEnterEvent = inject("dropdown-tirgger-in", null);
-    const mouseLeaveEvent = inject("dropdown-tirgger-out", null);
+    const mouseEnterEvent = inject("dropdown-trigger-in", null);
+    const mouseLeaveEvent = inject("dropdown-trigger-out", null);
     // console.log(mouseEnterEvent);
     return () => {
       return (

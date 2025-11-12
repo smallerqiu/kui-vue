@@ -14,24 +14,26 @@
 <script setup>
 import { message } from "kui-vue";
 
-const config = ()=> {
+const config = () => {
   message.success("10秒后关闭", 10);
-}
-const config2 = ()=> {
+};
+const config2 = () => {
   message.config({
     type: "info",
     duration: 5,
-    content: "5秒后关闭"
+    content: "5秒后关闭",
   });
-}
-const config3 =()=> {
+};
+const config3 = () => {
   message.config({
     type: "info",
     duration: 0,
     closable: true,
     content: "手动关闭",
-    close: () => { message.success("我是回调"); }
+    close: () => {
+      message.success("我是回调");
+    },
   });
-}
+};
 </script>
 ```

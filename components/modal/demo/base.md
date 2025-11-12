@@ -6,18 +6,20 @@
 ```vue
 <template>
   <Space>
-    <Button @click="visible=true" type="primary">打开弹窗</Button>
-    <Button @click="custom=true" type="primary">自定义</Button>
-    <Button @click="visible1=true" type="primary">点蒙层关闭</Button>
+    <Button @click="visible = true" type="primary">打开弹窗</Button>
+    <Button @click="custom = true" type="primary">自定义</Button>
+    <Button @click="visible1 = true" type="primary">点蒙层关闭</Button>
 
-    <Modal :title="null" 
+    <Modal
+      :title="null"
       :footer="null"
       :showClose="false"
-      v-model:show="custom">
-        <Space direction="vertical" style="width:100%">
-          <h2>我是一个标题</h2>
-          <div><Button @click="custom=false">Close</Button></div>
-        </Space>
+      v-model:show="custom"
+    >
+      <Space direction="vertical" style="width:100%">
+        <h2>我是一个标题</h2>
+        <div><Button @click="custom = false">Close</Button></div>
+      </Space>
     </Modal>
 
     <Modal title="基本对话框" v-model:show="visible" @ok="okHandle">
@@ -25,7 +27,12 @@
       <p>More content...</p>
     </Modal>
 
-    <Modal title="基本对话框" v-model:show="visible1" @ok="visible1=false" :mask-closable="true">
+    <Modal
+      title="基本对话框"
+      v-model:show="visible1"
+      @ok="visible1 = false"
+      :mask-closable="true"
+    >
       <p>This is the content of a basic modal.</p>
       <p>More content...</p>
     </Modal>
@@ -37,7 +44,7 @@ const visible = ref(false);
 const custom = ref(false);
 const visible1 = ref(false);
 const okHandle = () => {
-  visible.value = false
-}
+  visible.value = false;
+};
 </script>
 ```

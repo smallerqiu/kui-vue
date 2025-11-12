@@ -8,19 +8,29 @@
   <div>
     <Space>
       <RadioGroup v-model:value="placement">
-        <Radio label="left" value="left"/>
-        <Radio label="top" value="top"/>
-        <Radio label="right" value="right"/>
-        <Radio label="bottom" value="bottom"/>
+        <Radio label="left" value="left" />
+        <Radio label="top" value="top" />
+        <Radio label="right" value="right" />
+        <Radio label="bottom" value="bottom" />
       </RadioGroup>
-      <Button @click="show=true" >Open</Button>
+      <Button @click="show = true">Open</Button>
     </Space>
-    <Drawer v-model:show="show" height="300" :placement="placement" title="What's your name? " cancelText="Cancel" okText="Ok" @ok="show=false">My name is chuchur.</Drawer>
+    <Drawer
+      v-model:show="show"
+      height="300"
+      :placement="placement"
+      title="What's your name? "
+      cancelText="Cancel"
+      okText="Ok"
+      @ok="show = false"
+    >
+      My name is Qiu.
+    </Drawer>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-const show = ref(false)
-const placement = ref('left')
+const show = ref(false);
+const placement = ref("left");
 </script>
 ```

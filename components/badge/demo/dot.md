@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-   <Badge dot>
+    <Badge dot>
       <div class="box"></div>
     </Badge>
     <Badge dot>
@@ -18,6 +18,6 @@
   </div>
 </template>
 <script setup>
-import { NotificationsOutline } from "kui-icons"
+import { NotificationsOutline } from "kui-icons";
 </script>
 ```

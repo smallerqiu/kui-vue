@@ -17,6 +17,6 @@
   </Space>
 </template>
 <script setup>
-import { Search } from 'kui-icons'
+import { Search } from "kui-icons";
 </script>
 ```

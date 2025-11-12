@@ -6,51 +6,55 @@
 ```vue
 <template>
   <div>
-    Shape :  <RadioGroup v-model:value="shape" size="small">
+    Shape :
+    <RadioGroup v-model:value="shape" size="small">
       <RadioButton value="default" label="Default" />
       <RadioButton value="circle" label="Circle" />
     </RadioGroup>
-    <br/>
-    <br/>
-    Theme :  <RadioGroup v-model:value="theme" size="small">
+    <br />
+    <br />
+    Theme :
+    <RadioGroup v-model:value="theme" size="small">
       <RadioButton value="default" label="Default" />
       <RadioButton value="solid" label="Solid" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
     </RadioGroup>
-    <br/>
-    <br/>
-    Size :  <RadioGroup v-model:value="size" size="small" :options="sizes">
+    <br />
+    <br />
+    Size :
+    <RadioGroup v-model:value="size" size="small" :options="sizes">
     </RadioGroup>
-    <br/>
-    <br/>
-    <RadioGroup 
+    <br />
+    <br />
+    <RadioGroup
       type="button"
-      v-model:value="date" 
-      :size="size" 
-      :theme="theme" 
-      :shape="shape" 
-      :options="dates"> 
+      v-model:value="date"
+      :size="size"
+      :theme="theme"
+      :shape="shape"
+      :options="dates"
+    >
     </RadioGroup>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-const size = ref('default')
-const shape = ref('default')
-const theme = ref('solid')
-const date = ref(0)
+const size = ref("default");
+const shape = ref("default");
+const theme = ref("solid");
+const date = ref(0);
 const dates = [
-  { label:'7天' ,value:0 },
-  { label:'1个月' ,value:1 },
-  { label:'1季度' ,value:2 },
-  { label:'1年' ,value:3 },
-  { label:'5年' ,value:4 ,disabled:true }
-]
+  { label: "7天", value: 0 },
+  { label: "1个月", value: 1 },
+  { label: "1季度", value: 2 },
+  { label: "1年", value: 3 },
+  { label: "5年", value: 4, disabled: true },
+];
 const sizes = [
-  {label:'Large',value:'large',icon:'logo-apple'},
-  {label:'Default',value:'default'},
-  {label:'Small',value:'small'},
-]
+  { label: "Large", value: "large", icon: "logo-apple" },
+  { label: "Default", value: "default" },
+  { label: "Small", value: "small" },
+];
 </script>
 ```

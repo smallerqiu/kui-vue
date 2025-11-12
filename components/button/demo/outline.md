@@ -11,7 +11,7 @@
     <Button type="warning" theme="outline">Warning</Button>
     <Button theme="outline">Default</Button>
   </Space>
-  <br/>
+  <br />
   <Space style="padding:10px;" class="demo-back">
     <Button type="primary" theme="dashed">Primary</Button>
     <Button type="danger" theme="dashed">Danger</Button>

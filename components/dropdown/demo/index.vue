@@ -2,7 +2,7 @@
 import Info from './info.md'
 import Base from './base.md'
 // import Custom from './custom.md'
-import Rightmenu from './rightmenu.md'
+import RightMenu from './rightmenu.md'
 import DropdownButton from './dropdownbutton.md'
 import Divider from './divider.md'
 import Placement from './placement.md'
@@ -15,7 +15,7 @@ export default {
       return <div class="demo-dropdown">
         <Info />
         <Base />
-        <Rightmenu />
+        <RightMenu />
         <DropdownButton />
         <Divider />
         <Placement />

@@ -7,7 +7,7 @@
 <template>
   <div class="demo-card">
     <Card title="卡片标题" :icon="Heart" :bordered="false">
-      <template #extra >
+      <template #extra>
         <a href="#">更多</a>
       </template>
       <p>card content</p>
@@ -20,12 +20,12 @@
   </div>
 </template>
 <script setup>
-import { Heart } from 'kui-icons'
+import { Heart } from "kui-icons";
 </script>
 <style scoped>
-.demo-card{
-  padding:20px;
-  background-color:#7f7f7f26;
+.demo-card {
+  padding: 20px;
+  background-color: #7f7f7f26;
 }
 </style>
 ```
