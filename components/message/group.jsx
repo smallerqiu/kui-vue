@@ -53,9 +53,14 @@ export default defineComponent({
       }
 
       let children = group.value.map((item, i) => {
-        let props = { ...item };
-        delete props.duration;
+        // let props = { ...item }; //for 3
+        const { onClose, key, closable, color, content } = item
+        const props = {
+          key,
+          props: { onClose, closable, color, content }
+        }
         return <Notice {...props} />;
+        // return <Notice {...props} />;
       });
       return (
         <transition-group tag="div" class={`k-${type}`} {...transition}>
