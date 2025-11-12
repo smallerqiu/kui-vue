@@ -18,20 +18,20 @@
   <Button :disabled="loading" @click="showSkeleton">重新加载</Button>
 </template>
 <script setup>
-import { ref } from 'vue'
-const loading = ref(false)
+import { ref } from "vue";
+const loading = ref(false);
 
-const showSkeleton = ()=> {
-  loading.value = true,
-  setTimeout(() => {
-    loading.value = false
-  }, 3000);
-}
+const showSkeleton = () => {
+  (loading.value = true),
+    setTimeout(() => {
+      loading.value = false;
+    }, 3000);
+};
 </script>
 <style lang="less">
-.skeleton-demo h4{
-  font-weight:bold;
-  margin-bottom:15px;
+.skeleton-demo h4 {
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 </style>
 ```

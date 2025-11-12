@@ -1,4 +1,5 @@
 @import '../../styles/var.less';
+
 .k-alert {
   border-radius: var(--kui-border-radius);
   margin-bottom: 16px;
@@ -11,6 +12,7 @@
   overflow: hidden;
   background: var(--kui-color-warning-90);
   border: 1px solid var(--kui-color-warning-80);
+
   &-icon {
     color: var(--kui-color-warning);
     position: absolute;
@@ -18,41 +20,52 @@
     left: 10px;
     font-size: 20px;
   }
+
   &-message {
     color: var(--kui-color-font);
   }
+
   &-has-icon {
     padding-left: 38px;
   }
+
   &-has-close {
     padding-right: 30px;
   }
+
   &-has-description {
     padding: 15px;
+
     .k-alert-icon {
       font-size: 30px;
       top: 15px;
     }
+
     .k-alert-close {
       font-size: 18px;
     }
+
     .k-alert-message {
       font-size: 14px;
       font-weight: 500;
       margin-bottom: 5px;
       color: var(--kui-color-font);
     }
+
     .k-alert-description {
       font-size: 14px;
       color: var(--kui-color-font);
     }
+
     &.k-alert-has-icon {
       padding-left: 50px;
     }
+
     &.k-alert-has-close {
       padding-right: 35px;
     }
   }
+
   &-close {
     font-size: 16px;
     position: absolute;
@@ -62,42 +75,52 @@
     text-decoration: none;
     color: var(--kui-color-font);
     padding: 0px 5px;
+
     &:hover {
       text-decoration: none;
       color: var(--kui-color-danger);
     }
   }
+
   &-success {
     background: var(--kui-color-success-90);
     border-color: var(--kui-color-success-80);
+
     .k-alert-icon {
       color: var(--kui-color-success);
     }
   }
+
   &-error {
     background: var(--kui-color-danger-90);
     border-color: var(--kui-color-danger-80);
+
     .k-alert-icon {
       color: var(--kui-color-danger);
     }
   }
+
   &-info {
     background: var(--kui-color-main-90);
     border-color: var(--kui-color-main-80);
+
     .k-alert-icon {
       color: var(--kui-color-main);
     }
   }
+
   &-slide-leave-to {
     animation: k-alert-slide 0.3s ease-in-out;
     animation-fill-mode: both;
   }
+
   @keyframes k-alert-slide {
     0% {
       transform: scaleY(1);
       transform-origin: 0% 0%;
       opacity: 1;
     }
+
     100% {
       transform: scaleY(0);
       transform-origin: 0% 0%;

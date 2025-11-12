@@ -13,6 +13,6 @@
   </Space>
 </template>
 <script setup>
-import { LogoTwitter , LogoYoutube , LogoQq , LogoWechat} from 'kui-icons'
+import { LogoTwitter, LogoYoutube, LogoQq, LogoWechat } from "kui-icons";
 </script>
 ```

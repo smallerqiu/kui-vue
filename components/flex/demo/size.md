@@ -12,7 +12,7 @@
       <Radio value="large" label="large" />
     </RadioGroup>
     <Checkbox v-model:checked="customize" label="customize" />
-    <Slider v-model:value="flexSize" :step="1" :max="50" v-if="customize"/>
+    <Slider v-model:value="flexSize" :step="1" :max="50" v-if="customize" />
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>
@@ -23,8 +23,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const flexSize = ref('small')
-const gap = ref(8)
-const customize = ref(false)
+const flexSize = ref("small");
+const gap = ref(8);
+const customize = ref(false);
 </script>
 ```

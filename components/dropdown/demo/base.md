@@ -6,9 +6,7 @@
 ```vue
 <template>
   <Dropdown>
-    <Button type="text">
-      Hover me
-    </Button>
+    <Button type="text"> Hover me </Button>
     <template #overlay>
       <Menu>
         <MenuItem>
@@ -24,9 +22,7 @@
     </template>
   </Dropdown>
   <Dropdown trigger="click">
-    <Button type="text">
-      Click me
-    </Button>
+    <Button type="text"> Click me </Button>
     <template #overlay>
       <Menu>
         <MenuItem>
@@ -43,6 +39,6 @@
   </Dropdown>
 </template>
 <script setup>
-import { ChevronDown } from 'kui-icons'
+import { ChevronDown } from "kui-icons";
 </script>
 ```

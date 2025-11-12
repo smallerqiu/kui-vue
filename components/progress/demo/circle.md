@@ -8,7 +8,7 @@
   <Progress type="circle" :percent="50" />
   <Progress type="circle" :percent="70" status="exception" />
   <Progress type="circle" :percent="100" />
-   <Progress type="circle" :percent="50">
+  <Progress type="circle" :percent="50">
     <template #format>
       <div class="demo-progress">
         <h2 style="margin:0">13389</h2>
@@ -18,12 +18,12 @@
   </Progress>
 </template>
 <style>
-.demo-progress>h2{
-  font-size:23px
+.demo-progress > h2 {
+  font-size: 23px;
 }
-.demo-progress>span{
-  font-size:14px;
-  color:#999;
+.demo-progress > span {
+  font-size: 14px;
+  color: #999;
 }
 </style>
 ```

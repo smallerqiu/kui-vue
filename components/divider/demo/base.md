@@ -1,4 +1,3 @@
-
 <cn>
 #### 垂直分割线
 使用 type="vertical" 设置为行内的垂直分割线。
@@ -14,5 +13,4 @@
     <a href="#">Link</a>
   </div>
 </template>
-
 ```

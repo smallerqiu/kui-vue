@@ -5,25 +5,25 @@
 
 ```vue
 <template>
-<div>
-  <Spin v-model:value="spinning">
-    <div class="deme-spin-container demo-back">
-        床前明月光，疑是地上霜。<br>
+  <div>
+    <Spin v-model:value="spinning">
+      <div class="deme-spin-container demo-back">
+        床前明月光，疑是地上霜。<br />
         举头望明月，低头思故乡。
-    </div>
-  </Spin>
-  <br/>
-  <br/>
-  Loading state：<KSwitch v-model:checked="spinning"/>
-</div>
+      </div>
+    </Spin>
+    <br />
+    <br />
+    Loading state：<KSwitch v-model:checked="spinning" />
+  </div>
 </template>
 <script setup>
-import { ref } from 'vue'
-const spinning = ref(false)
+import { ref } from "vue";
+const spinning = ref(false);
 </script>
 <style scoped>
-.deme-spin-container{
-  padding:100px 50px;
+.deme-spin-container {
+  padding: 100px 50px;
 }
 </style>
 ```

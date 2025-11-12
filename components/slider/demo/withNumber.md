@@ -11,7 +11,12 @@
         <Slider v-model:value="n1" :min="1" :max="20" />
       </Col>
       <Col :span="4">
-        <InputNumber v-model:value="n1" :min="1" :max="20" style="margin-left: 16px" />
+        <InputNumber
+          v-model:value="n1"
+          :min="1"
+          :max="20"
+          style="margin-left: 16px"
+        />
       </Col>
     </Row>
     <Row>
@@ -31,8 +36,8 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
-const n1 = ref(1)
-const n2 = ref(0)
+import { ref } from "vue";
+const n1 = ref(1);
+const n2 = ref(0);
 </script>
 ```

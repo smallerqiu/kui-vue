@@ -10,19 +10,19 @@
       <ColorPicker v-model:value="color1">
         <Button type="primary">Open</Button>
       </ColorPicker>
-      {{color1}}
+      {{ color1 }}
     </Space>
     <Space>
       <ColorPicker v-model:value="color2" trigger="hover">
         <Button type="primary">Hover</Button>
       </ColorPicker>
-      {{color2}}
+      {{ color2 }}
     </Space>
   </Space>
 </template>
 <script setup>
-import { ref } from 'vue'
-const color1 = ref('#3a95ff')
-const color2 = ref('red')
-</script> 
+import { ref } from "vue";
+const color1 = ref("#3a95ff");
+const color2 = ref("red");
+</script>
 ```

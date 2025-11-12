@@ -15,21 +15,21 @@
   </Space>
 </template>
 <script setup>
-import { loading } from 'kui-vue'
+import { loading } from "kui-vue";
 const update = (percent) => {
   loading.update(percent);
-}
+};
 const start = () => {
   loading.start();
-}
+};
 const finish = () => {
   loading.finish();
-}
+};
 const error = () => {
   loading.error();
-}
+};
 const destroy = () => {
   loading.destroy();
-}
+};
 </script>
 ```

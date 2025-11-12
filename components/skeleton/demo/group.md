@@ -5,6 +5,6 @@
 
 ```vue
 <template>
-  <Skeleton avatar  :rows="4"/>
+  <Skeleton avatar :rows="4" />
 </template>
 ```

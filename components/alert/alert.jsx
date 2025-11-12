@@ -38,7 +38,7 @@ const Alert = defineComponent({
       warning: AlertCircle,
     };
 
-    const aniprop = getTransitionProp("k-alert-slide");
+    const transitionProps = getTransitionProp("k-alert-slide");
 
     return () => {
       const iconNode = props.showIcon ? <Icon type={icons[props.type]} class="k-alert-icon" /> : null;
@@ -47,7 +47,7 @@ const Alert = defineComponent({
       const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
 
       return (
-        <Transition {...aniprop}>
+        <Transition {...transitionProps}>
           <div class={classes.value} v-show={!closed.value}>
             {iconNode}
             {msgNode}

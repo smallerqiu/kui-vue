@@ -5,25 +5,39 @@
 
 ```vue
 <template>
-  gapDegree：{{gap}}
+  gapDegree：{{ gap }}
   <Slider v-model:value="gap" :min="50" :max="160" />
-  <br/>
-  <br/>
-  <RadioGroup :options="caps" v-model:value="strokeLinecap" type="button" theme="light"/>
-  <br/>
-  <br/>
-  <Progress type="dashboard" :percent="50" :gapDegree="gap"  :strokeLinecap="strokeLinecap"/>
-  <Progress type="dashboard" :percent="100" :gapDegree="gap" :strokeLinecap="strokeLinecap"/>
+  <br />
+  <br />
+  <RadioGroup
+    :options="caps"
+    v-model:value="strokeLinecap"
+    type="button"
+    theme="light"
+  />
+  <br />
+  <br />
+  <Progress
+    type="dashboard"
+    :percent="50"
+    :gapDegree="gap"
+    :strokeLinecap="strokeLinecap"
+  />
+  <Progress
+    type="dashboard"
+    :percent="100"
+    :gapDegree="gap"
+    :strokeLinecap="strokeLinecap"
+  />
 </template>
 <script setup>
-import { ref } from 'vue'
-const gap = ref(140)
-const strokeLinecap = ref('round')
+import { ref } from "vue";
+const gap = ref(140);
+const strokeLinecap = ref("round");
 const caps = [
-  {label:'Butt',value:'butt'},
-  {label:'Round',value:'round'},
-  {label:'Square',value:'square'},
-]
-
+  { label: "Butt", value: "butt" },
+  { label: "Round", value: "round" },
+  { label: "Square", value: "square" },
+];
 </script>
 ```

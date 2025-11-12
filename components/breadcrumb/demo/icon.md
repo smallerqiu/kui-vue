@@ -8,12 +8,14 @@
   <div>
     <Breadcrumb>
       <BreadcrumbItem href="/" :icon="Home">Home</BreadcrumbItem>
-      <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud">App</BreadcrumbItem>
+      <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud">
+        App
+      </BreadcrumbItem>
       <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
     </Breadcrumb>
   </div>
 </template>
 <script setup>
-import { Heart, Home, Cloud } from "kui-icons"
+import { Heart, Home, Cloud } from "kui-icons";
 </script>
 ```

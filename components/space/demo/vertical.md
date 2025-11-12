@@ -17,6 +17,6 @@
   </Space>
 </template>
 <script setup>
-import { Heart } from 'kui-icons'
+import { Heart } from "kui-icons";
 </script>
 ```

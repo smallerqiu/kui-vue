@@ -5,7 +5,8 @@ size="small" 表示小号开关。
 
 ```vue
 <template>
-  <k-switch /> <br/>
-  <k-switch size="small"/> 
+  <k-switch /> 
+  <br />
+  <k-switch size="small" />
 </template>
 ```

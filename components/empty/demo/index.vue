@@ -3,7 +3,7 @@ import Info from './info.md'
 import Base from './base.md'
 import Custom from './custom.md'
 import Use from './use.md'
-import Nodesc from './nodesc.md'
+import NoDesc from './nodesc.md'
 import CN from '../index.md'
 export default {
   setup() {
@@ -13,7 +13,7 @@ export default {
         <Base />
         <Custom />
         <Use />
-        <Nodesc />
+        <NoDesc />
         <CN />
       </div>
     )
