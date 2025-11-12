@@ -12,7 +12,7 @@
       size="small"
       placeholder="Small Input"
       :icon="LogoKui"
-      @icon-click="$Message.info('点击图标事件')"
+      @icon-click="$message.info('点击图标事件')"
       clearable
     />
   </Space>

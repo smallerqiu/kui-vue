@@ -15,7 +15,6 @@ export default {
         <DropdownButton />
         <Divider />
         <Placement />
-        <Arrow />
         <Cascading />
         <CN /> 
       </div>

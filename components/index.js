@@ -30,12 +30,12 @@ const UI = {
 			}
 			Vue.component(key, component);
 		}
-		Vue.prototype.$Message = components.Message;
-		Vue.prototype.$Notice = components.Notice;
-		Vue.prototype.$Modal = components.Modal;
-		Vue.prototype.$Loading = components.Loading;
-		Vue.prototype.$Image = components.KImage;
-		Vue.prototype.$Theme = components.Theme;
+		Vue.prototype.$message = components.message;
+		Vue.prototype.$notice = components.notice;
+		Vue.prototype.$modal = components.modal;
+		Vue.prototype.$loading = components.loading;
+		Vue.prototype.$image = components.KImage;
+		Vue.prototype.$theme = components.theme;
 	}
 }
 

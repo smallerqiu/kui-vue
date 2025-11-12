@@ -151,7 +151,7 @@ export default{
       console.log(index)
     },
     close(){
-      this.$Message.success('close')
+      this.$message.success('close')
     },
     showPanel(){
       this.$Image.togglePanel()

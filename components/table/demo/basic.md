@@ -49,7 +49,7 @@ export default {
       })
     },
     test(data){
-      this.$Message.info('Test row click:'+data.name)
+      this.$message.info('Test row click:'+data.name)
     }
   }
 }

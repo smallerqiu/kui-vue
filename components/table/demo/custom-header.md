@@ -65,7 +65,7 @@ export default{
               },
               on:{
                 search:e=>{
-                  this.$Message.info(e||'click')
+                  this.$message.info(e||'click')
                 }
               }
 

@@ -41,9 +41,12 @@ export default defineComponent({
       let transition = { name: `k-${type}-slide` };
       if (type == "notice") {
         transition = getTransitionProp(`k-${type}-slide`);
-        delete transition.onEnter;
-        delete transition.onBeforeEnter;
-        transition.onBeforeLeave = (el) => {
+        // delete transition.onEnter; //for 3
+        // delete transition.onBeforeEnter;
+        // transition.onBeforeLeave = (el) => {
+        delete transition.on.enter;
+        delete transition.on.beforeEnter;
+        transition.on.beforeLeave = (el) => {
           el.style.height = window.getComputedStyle(el).height;
           el.style.opacity = 1;
         };

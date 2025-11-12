@@ -9,7 +9,7 @@ import {
   onMounted,
   onBeforeMount,
 } from "vue";
-import { withInstall,cloneVNode } from '../utils/vue';
+import { withInstall, cloneVNode } from '../utils/vue';
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -52,7 +52,7 @@ const Dropdown = defineComponent({
 
   setup(ps, { slots, emit }) {
     const visible = ref(ps.show);
-    const refCtx = ref();
+    const refCtx = ref(null);
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const refPopper = ref();
@@ -211,17 +211,24 @@ const Dropdown = defineComponent({
       const pp = ps.target
         ? {}
         : {
-          onClick: clickEvent,
-          onMouseenter: mouseEnterEvent,
-          onMouseleave: mouseLeaveEvent,
-          onContextmenu: contextmenuEvent,
+          on: {
+            click: clickEvent,
+            mouseenter: mouseEnterEvent,
+            mouseleave: mouseLeaveEvent,
+            contextmenu: contextmenuEvent,
+          }
+          // onClick: clickEvent, for 3
+          // onMouseenter: mouseEnterEvent,
+          // onMouseleave: mouseLeaveEvent,
+          // onContextmenu: contextmenuEvent,
         };
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
           ref: refCtx,
           ...pp,
-        }
+        },
+        true
       );
       const props = {
         ref: refPopper,
@@ -232,19 +239,34 @@ const Dropdown = defineComponent({
         },
         "k-placement": currentPlacement.value,
         class: ["k-dropdown", { "k-dropdown-has-arrow": ps.arrow }],
-        onClick: (e) => {
-          toggle(false);
+        on: {
+          click: (e) => {
+            toggle(false);
+          },
+          mouseenter: () => {
+            clearTimeout(showTimer.value);
+          },
+          mouseleave: () => {
+            if (ps.trigger == "hover") {
+              showTimer.value = setTimeout(() => {
+                toggle(false);
+              }, 300);
+            }
+          },
         },
-        onMouseenter: () => {
-          clearTimeout(showTimer.value);
-        },
-        onMouseleave: () => {
-          if (ps.trigger == "hover") {
-            showTimer.value = setTimeout(() => {
-              toggle(false);
-            }, 300);
-          }
-        },
+        // onClick: (e) => { for 3
+        //   toggle(false);
+        // },
+        // onMouseenter: () => {
+        //   clearTimeout(showTimer.value);
+        // },
+        // onMouseleave: () => {
+        //   if (ps.trigger == "hover") {
+        //     showTimer.value = setTimeout(() => {
+        //       toggle(false);
+        //     }, 300);
+        //   }
+        // },
       };
       const overlay =
         rendered.value && slots.overlay ? (

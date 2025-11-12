@@ -83,17 +83,19 @@ function getVNodeProps(vnode) {
 export function cloneVNode(vnode, props = {}, merge = false, transition = false) {
   if (!vnode) return vnode
   if (!vnode.tag) return vnode.text
-
+  // console.log(vnode)
   const h = vnode.context?.$createElement
-  const tag = vnode.componentOptions?.tag || vnode.tag;
+  const tag = vnode.componentOptions?.Ctor || vnode.tag;
   const vNodeProps = getVNodeProps(vnode)
   const children = vnode.componentOptions?.children || vnode.children;
 
   if (merge) {
     for (let key in props) {
-      (vNodeProps[key] = { ...vNodeProps[key], ...props[key] })
+      // vNodeProps[key] = { ...vNodeProps[key], ...props[key] }
+      vNodeProps[key] = props[key]
     }
   }
+  // console.log(vNodeProps, props);
   return h(
     tag,
     vNodeProps,

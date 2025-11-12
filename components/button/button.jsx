@@ -57,7 +57,8 @@ const Button = defineComponent({
     return () => {
       const size = props.size || parentSize
       let children = getChildren(slots.default?.());
-      const onlyIcon = !children?.length && (props.icon || props.loading);
+      // console.log(children)
+      const onlyIcon = (!children?.length && (props.icon || props.loading))||(children?.length === 1 && children[0].componentOptions?.tag === 'Icon');
       const classes = [
         "k-btn",
         {
@@ -80,11 +81,18 @@ const Button = defineComponent({
         childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
 
-      const propsObj = {
-        ...attrs,
+      const btnProps = {
+        // ...attrs,// for 3
         class: classes,
-        disabled: props.disabled,
-        type: props.htmlType,
+        // disabled: props.disabled,
+        // type: props.htmlType,
+        attrs: {
+          ...attrs,
+          href: props.href,
+          target: props.target,
+          disabled: props.disabled,
+          type: props.htmlType,
+        },
         on: {
           ...listeners,
           click: (e) => {
@@ -107,11 +115,11 @@ const Button = defineComponent({
       childNodes = childNodes.concat(childNode);
 
       return props.type === "link" && props.href ? (
-        <a href={props.href} target={props.target} {...propsObj}>
+        <a href={props.href} target={props.target} {...btnProps}>
           {...childNodes}
         </a>
       ) : (
-        <button {...propsObj}>{...childNodes}</button>
+        <button {...btnProps}>{...childNodes}</button>
       );
     };
   },

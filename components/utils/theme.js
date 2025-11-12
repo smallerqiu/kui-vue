@@ -1,20 +1,30 @@
 import { withInstall } from "./vue";
-const THEMEKEY = "theme-mode";
+const THEME_KEY = "theme-mode";
 const toggle = () => {
-  const isDark = localStorage.getItem(THEMEKEY) == "dark";
+  const isDark = localStorage.getItem(THEME_KEY) == "dark";
   const root = document.documentElement;
   if (isDark) {
-    root.setAttribute(THEMEKEY, "light");
-    localStorage.setItem(THEMEKEY, "light");
+    root.setAttribute(THEME_KEY, "light");
+    localStorage.setItem(THEME_KEY, "light");
   } else {
-    root.setAttribute(THEMEKEY, "dark");
-    localStorage.setItem(THEMEKEY, "dark");
+    root.setAttribute(THEME_KEY, "dark");
+    localStorage.setItem(THEME_KEY, "dark");
   }
   return !isDark;
 };
 
 const Theme = {
   name: "Theme",
+  install(app) {
+    app.prototype.$theme = Theme;
+    // for 3
+    // app.provide("theme", Theme);
+    // app.config.globalProperties.$theme = Theme;
+  },
+  useTheme() {
+    // return inject("theme", null); //for 3
+    return typeof window !== 'undefined' ? this : null;
+  },
   setThemeMode(event, callback) {
     const x = event.clientX;
     const y = event.clientY;

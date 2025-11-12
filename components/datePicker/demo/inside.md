@@ -42,12 +42,12 @@ export default {
     change(date) {
       this.show = false
       console.log(date.toString())
-      this.$Message.info(date.toString())
+      this.$message.info(date.toString())
     },
     change2(date) {
       this.show2 = false
       console.log(date.toString())
-      this.$Message.info(date.toString())
+      this.$message.info(date.toString())
     }
   },
 }

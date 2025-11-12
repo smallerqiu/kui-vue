@@ -111,7 +111,7 @@ export default {
       this.$Image.show(options);
     },
     close() {
-      this.$Message.success("close");
+      this.$message.success("close");
     },
     showPanel() {
       this.$Image.togglePanel();

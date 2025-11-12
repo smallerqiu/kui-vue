@@ -14,10 +14,11 @@ const TabPanel = defineComponent({
     onMounted(() => emit("resetNavPosition"));
     onBeforeUnmount(() => emit("resetNavPosition"));
     const instance = getCurrentInstance();
-
     return () => {
+      // const key = instance.vnode.key; //for 3
+      const key = instance.proxy.$vnode.key;
       return (
-        <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": ps.activeKey == instance.vnode.key }]}>
+        <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": ps.activeKey == key }]}>
           {slots.default?.()}
         </div>
       );

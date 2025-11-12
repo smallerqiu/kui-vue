@@ -77,7 +77,7 @@ yarn add kui-vue
     },
     methods: {
       test() {
-        this.$Message.info("Hello kui !");
+        this.$message.info("Hello kui !");
       },
     },
   };
