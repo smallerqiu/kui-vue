@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     search() {
-      this.$Message.info("This is search event");
+      this.$message.info("This is search event");
     },
   },
 };

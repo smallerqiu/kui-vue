@@ -8,15 +8,14 @@
   <Button theme="light" @click="switchMode">切换主题</Button>
 </template>
 
-<script>
-export default {
-  methods: {
-    switchMode(event){
-      this.$Theme.setThemeMode(event, isDark => {
-        this.$Message.info(`Current theme mode is ${isDark?'dark':'light'}`)
-      })
-    }
-  },
-}
+<script setup>
+import { theme, message } from "kui-vue";
+const switchMode = (event) => {
+  message.info(`Current theme mode`);
+  return
+  theme.setThemeMode(event, (isDark) => {
+    message.info(`Current theme mode is ${isDark ? "dark" : "light"}`);
+  });
+};
 </script>
 ```

@@ -73,11 +73,11 @@ export { InputNumber };
 import { Layout, Header, Footer, Content, Sider } from './layout'
 export { Layout, Header, Footer, Content, Sider };
 
-import Loading from './loading'
-export { Loading };
+import loading from './loading'
+export { loading };
 
-import Modal from './modal'
-export { Modal };
+import modal from './modal'
+export { modal };
 
 import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };
@@ -85,8 +85,8 @@ export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };
 import message from './message'
 export { message };
 
-import Notice from './notice'
-export { Notice };
+import notice from './notice'
+export { notice };
 
 import Page from './page'
 export { Page };
@@ -151,5 +151,5 @@ export { Row, Col };
 import Upload from './upload'
 export { Upload };
 
-import Theme from './utils/theme'
-export { Theme };
+import theme from './utils/theme'
+export { theme };

@@ -75,7 +75,7 @@ export default{
   methods:{
     submit(){
       this.$refs.form.validate(valid=>{
-        this.$Message[valid?'success':'error'](valid?'success':'faild')
+        this.$message[valid?'success':'error'](valid?'success':'faild')
       })
     },
     reset(){

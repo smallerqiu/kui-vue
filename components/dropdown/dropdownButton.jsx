@@ -19,7 +19,6 @@ const DropdownButton = defineComponent({
   },
   setup(ps, { slots }) {
     const refTrigger = ref();
-
     return () => {
       return (
         <Dropdown

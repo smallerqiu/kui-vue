@@ -77,7 +77,7 @@ Using a script tag for global use:
     },
     methods: {
       test() {
-        this.$Message.info("Hello kui !");
+        this.$message.info("Hello kui !");
       },
     },
   };

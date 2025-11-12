@@ -34,5 +34,9 @@
 </template>
 <script setup>
 import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
+
+const handleMenuClick = (e) => {
+  console.log("click", e);
+};
 </script>
 ```

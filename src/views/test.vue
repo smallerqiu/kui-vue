@@ -1,9 +1,9 @@
 <template>
   <Space>
-    <ButtonGroup>
+    <!-- <ButtonGroup>
       <Button>通讯录</Button>
       <Button :icon="PersonOutline"></Button>
-    </ButtonGroup>
+    </ButtonGroup> -->
     <DropdownButton>
       Dropdown
       <template #overlay>
@@ -28,4 +28,7 @@
 </template>
 <script setup>
 import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
+const handleMenuClick = (e) => {
+  console.log("click", e);
+};
 </script>

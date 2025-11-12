@@ -11,6 +11,7 @@ let Message = {
     if (!messageInstance) {
       messageInstance = newInstance({ type: "message" });
     }
+    // console.log(messageInstance, options);
     messageInstance?.show(options);
   },
   destroy() {

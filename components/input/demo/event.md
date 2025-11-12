@@ -43,7 +43,7 @@ let events = {};
   "keydownEnter",
 ].map((type) => {
   events[type] = function (e) {
-    this.$Message.info(type);
+    this.$message.info(type);
   };
 });
 export default {

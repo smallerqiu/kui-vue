@@ -94,7 +94,7 @@ export default {
   methods: {
     sendCode() {
       this.time = 59;
-      this.$Message.success("验证码发送成功，请注意查收");
+      this.$message.success("验证码发送成功，请注意查收");
       this.timer = setInterval((e) => {
         if (this.time <= 0) {
           clearInterval(this.timer);

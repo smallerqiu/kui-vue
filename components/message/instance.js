@@ -8,8 +8,8 @@ const newInstance = (props = {}) => {
 
   const vm = createVNode(Group, props);
   render(vm, container);
-
-  return vm.component?.exposed
+  // return vm.component?.exposed // for 3
+  return vm
 };
 
 export default newInstance;
