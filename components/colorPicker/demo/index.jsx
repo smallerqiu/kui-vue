@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Mode from './mode.md'
 import Size from './size.md'
 import Disabled from './disabled.md'
@@ -13,7 +13,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Size />
         <Disabled />
         <DisabledAlpha />

@@ -1,4 +1,4 @@
-import { ref, computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import { withInstall } from '../utils/vue';
 
 const ButtonGroup = defineComponent({

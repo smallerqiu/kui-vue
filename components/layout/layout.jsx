@@ -17,7 +17,7 @@ function createComponent(suffixCls, name) {
   };
 }
 
-const Base = defineComponent({
+const layoutTemp = defineComponent({
   props: { suffixCls: String },
   setup(props, { slots }) {
     const prop = {
@@ -27,7 +27,7 @@ const Base = defineComponent({
   },
 });
 
-const layoutBase = defineComponent({
+const layout = defineComponent({
   props: { suffixCls: String },
   setup(props, { slots }) {
     const siders = ref(0);
@@ -44,7 +44,7 @@ const layoutBase = defineComponent({
   },
 });
 
-const siderBase = defineComponent({
+const sider = defineComponent({
   props: { suffixCls: String },
   setup(props, { slots }) {
     const collectSider = inject("collectSider", () => { });
@@ -65,11 +65,11 @@ const siderBase = defineComponent({
   },
 });
 
-const Content = createComponent("layout-content", "Content")(Base);
-const Header = createComponent("layout-header", "Header")(Base);
-const Footer = createComponent("layout-footer", "Footer")(Base);
-const Layout = createComponent("layout", "Layout")(layoutBase);
-const Sider = createComponent("layout-sider", "Sider")(siderBase);
+const Content = createComponent("layout-content", "Content")(layoutTemp);
+const Header = createComponent("layout-header", "Header")(layoutTemp);
+const Footer = createComponent("layout-footer", "Footer")(layoutTemp);
+const Layout = createComponent("layout", "Layout")(layout);
+const Sider = createComponent("layout-sider", "Sider")(sider);
 
 Layout.Sider = withInstall(Sider);
 Layout.Content = withInstall(Content);

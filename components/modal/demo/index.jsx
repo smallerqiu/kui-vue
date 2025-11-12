@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Custom from './custom.md'
 import More from './more.md'
 import Global from './global.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div class="demo-modal">
         <Info />
-        <Base />
+        <Basic />
         <Custom />
         <More />
         <Global />

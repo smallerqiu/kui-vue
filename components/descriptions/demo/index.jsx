@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Bordered from './bordered.md'
 import Size from './size.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div class="demo-descriptions">
         <Info />
-        <Base />
+        <Basic />
         <Bordered />
         <Size />
         <Layout />

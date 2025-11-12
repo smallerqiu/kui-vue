@@ -85,7 +85,7 @@ const Button = defineComponent({
         disabled: props.disabled,
         type: props.htmlType,
         class: classes,
-        on:{
+        on: {
           ...listeners,
           click: (e) => {
             if (props.loading || props.disabled) {

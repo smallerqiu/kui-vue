@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Custom from './custom.md'
 import Form from './form.md'
 import Target from './target.md'
@@ -9,7 +9,7 @@ export default {
     return (
       <div class="demo-drawer">
         <Info />
-        <Base />
+        <Basic />
         <Custom />
         <Form />
         <Target />

@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import More from './more.md'
 import Sizer from './sizer.md'
 import Elevator from './elevator.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <More />
         <Sizer />
         <Elevator />

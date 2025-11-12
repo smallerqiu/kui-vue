@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Disabled from './disabled.md'
 import Group from './group.md'
@@ -11,7 +11,7 @@ export default {
     return (
       <div class="demo-radio">
         <Info />
-        <Base />
+        <Basic />
         <Disabled />
         <Options />
         <Group />

@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Theme from './theme.md'
 import Icons from './icon.md'
 import Size from './size.md'
@@ -14,7 +14,7 @@ export default {
     return (
       <div class="demo-select">
         <Info />
-        <Base />
+        <Basic />
         <Theme />
         <Icons />
         <Size />

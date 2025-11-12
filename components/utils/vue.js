@@ -5,9 +5,8 @@ export const withInstall = (component) => {
 
   return component
 };
-// vue3 fun for vue2.7.16 
+// vue3 fun for vue 2.7.16 
 import Vue from 'vue';
-import { getCurrentInstance } from 'vue'
 export function createVNode(component, props) {
   const instance = new Vue({
     render: h => h(component, { props })
@@ -28,15 +27,77 @@ export function render(vnode, container) {
   }
 }
 
-export function cloneVNode(vnode, props = {}, merge = false, transition = false) {
-  const instance = getCurrentInstance();
-  const h = instance.proxy.$createElement;
+function pick(obj, keys) {
+  if (!obj || typeof obj !== 'object') {
+    return {};
+  }
 
-  // 重建 VNode
+  return keys.reduce((acc, key) => {
+    if (key in obj) {
+      acc[key] = obj[key];
+    }
+    return acc;
+  }, {});
+}
+function assign(target, ...sources) {
+  if (!target || typeof target !== 'object') {
+    target = {};
+  }
+
+  for (const source of sources) {
+    if (source && typeof source === 'object') {
+      for (const key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+  }
+
+  return target;
+}
+
+const PROPS_KEYS = [
+  'class', 'staticClass', 'style', 'staticStyle',
+  'attrs', 'props', 'domProps',
+  'on', 'nativeOn',
+  'directives', 'scopedSlots',
+  'slot', 'ref', 'key', 'refInFor'
+]
+// import pick from 'lodash.pick'
+// import assign from 'lodash.assign'
+
+function getVNodeProps(vnode) {
+  const data = pick(vnode.data, PROPS_KEYS)
+  const { componentOptions } = vnode
+  if (componentOptions) {
+    assign(data, {
+      props: componentOptions.propsData,
+      on: componentOptions.listeners
+    })
+  }
+
+  return data
+}
+
+export function cloneVNode(vnode, props = {}, merge = false, transition = false) {
+  if (!vnode) return vnode
+  if (!vnode.tag) return vnode.text
+
+  const h = vnode.context?.$createElement
+  const tag = vnode.componentOptions?.tag || vnode.tag;
+  const vNodeProps = getVNodeProps(vnode)
+  const children = vnode.componentOptions?.children || vnode.children;
+
+  if (merge) {
+    for (let key in props) {
+      (vNodeProps[key] = { ...vNodeProps[key], ...props[key] })
+    }
+  }
   return h(
-    vnode.tag,
-    merge ? { ...vnode.data, ...props } : props,
-    vnode.children
+    tag,
+    vNodeProps,
+    children
   );
 }
 

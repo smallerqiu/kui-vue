@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Text from './text.md'
 import Disabled from './disabled.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div class="demo-switch">
         <Info />
-        <Base />
+        <Basic />
         <Text />
         <Disabled />
         <Size />

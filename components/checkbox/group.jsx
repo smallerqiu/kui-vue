@@ -53,7 +53,8 @@ const CheckboxGroup = defineComponent({
         });
       } else {
         children = children?.map((child) => {
-          return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
+          // return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
+          return cloneVNode(child, { props: { size, disabled: ps.disabled || child.componentOptions?.propsData.disabled, checked: ps.value.indexOf(child.componentOptions?.propsData.value) >= 0 }, on: { update: change } }, true);
         });
       }
       return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{children}</div>;

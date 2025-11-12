@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Stroke from './stroke.md'
 import Info from './info.md'
 import Use from './use.md'
@@ -9,9 +9,9 @@ export default {
     return (
       <div>
         <Info />
-        {/* <Search /> */}
+        <Search />
         <Use />
-        <Base />
+        <Basic />
         <Stroke />
         <CN />
       </div>

@@ -9,7 +9,7 @@ const Checkbox = defineComponent({
     disabled: Boolean,
     label: { type: [String, Number] },
     indeterminate: Boolean,
-    checked: [Boolean, Number],
+    checked: Boolean,
     size: {
       default: "default",
       validator(value) {
@@ -41,7 +41,8 @@ const Checkbox = defineComponent({
         const label = ps.label || slots.default?.().text;
         emit("update", { checked, label, value: ps.value });
       } else {
-        emit("update:checked", checked);
+        // emit("update:checked", checked); for 3
+        emit("input", checked);
       }
       e.stopPropagation()
     };
@@ -50,7 +51,7 @@ const Checkbox = defineComponent({
       const sz = checkBoxGroup?.size || ps.size;
       const disabled = checkBoxGroup?.disabled || ps.disabled;
 
-      const wpclasses = [
+      const wpClasses = [
         "k-checkbox",
         {
           ["k-checkbox-disabled"]: disabled,
@@ -65,7 +66,7 @@ const Checkbox = defineComponent({
       const labelNode = ps.label || slots.default?.();
 
       return (
-        <label class={wpclasses} onClick={(e) => e.stopPropagation()}>
+        <label class={wpClasses} onClick={(e) => e.stopPropagation()}>
           <span class="k-checkbox-symbol">
             <input type="checkbox" class="k-checkbox-input" checked={isChecked.value} disabled={disabled} onChange={change} />
             <span class="k-checkbox-inner">{innerNode}</span>

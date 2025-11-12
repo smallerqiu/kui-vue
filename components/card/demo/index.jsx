@@ -1,4 +1,4 @@
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Border from './border.md'
 import CN from '../index.md'
@@ -7,7 +7,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Border />
         <CN />
       </div>

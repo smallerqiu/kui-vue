@@ -28,7 +28,7 @@ const RadioGroup = defineComponent({
     provide("radioGroup", ps);
 
     const change = ({ label, value }) => {
-      emit("update:value", value);
+      emit("input", value);
       emit("change", { label, value });
     };
 
@@ -47,14 +47,19 @@ const RadioGroup = defineComponent({
             value: option.value,
             label: option.label,
             disabled: ps.disabled || option.disabled,
-            onUpdate: change,
+            // onUpdate: change,
+            on: {
+              update: change,
+            },
             checked: ps.value == option.value,
+
           };
           return type == "button" ? <Button {...pps} /> : <Radio {...pps} />;
         });
       } else {
         children = children?.map((child) => {
-          return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
+          // return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change }, true);
+          return cloneVNode(child, { props: { size, theme, shape, checked: ps.value == child?.componentOptions?.propsData?.value }, on: { update: change } }, true);
         });
       }
       const classes = ["k-radio-group", { "k-radio-circle": shape == "circle" },

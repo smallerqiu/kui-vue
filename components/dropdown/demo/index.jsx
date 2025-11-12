@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import RightMenu from './rightmenu.md'
 import Divider from './divider.md'
 import Placement from './placement.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <RightMenu />
         <DropdownButton />
         <Divider />

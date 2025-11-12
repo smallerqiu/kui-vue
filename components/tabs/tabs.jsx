@@ -165,7 +165,8 @@ const Tabs = defineComponent({
     const renderNav = () => {
       return children.value?.map((panel, index) => {
         const key = panel.key;
-        let { icon, title, closable, disabled } = panel.props;
+        // let { icon, title, closable, disabled } = panel.props; //for 3
+        let { icon, title, closable, disabled } = panel.componentOptions.propsData;
         disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
         const prop = {

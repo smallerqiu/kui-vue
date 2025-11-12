@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Gutter from './gutter.md'
 import Offset from './offset.md'
 import Align from './align.md'
@@ -11,7 +11,7 @@ export default {
     return (
       <div class="demo-grid">
         <Info />
-        <Base />
+        <Basic />
         <Gutter />
         <Offset />
         <Align />

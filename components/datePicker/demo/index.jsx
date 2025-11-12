@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Theme from './theme.md'
 // import Inside from './inside.md'
 import Presets from './presets.md'
@@ -15,7 +15,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Mode />
         <Theme />
         {/* <Inside /> */}
