@@ -94,6 +94,7 @@ export default function cloneVNode(vnode, options = {}, child) {
     }
   }
   data.on = { ...oEven, ...nEven }
+  // console.log(data)
   const tag = isComp
     ? vnode.componentOptions.Ctor
     : vnode.tag

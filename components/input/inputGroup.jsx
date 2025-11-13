@@ -1,5 +1,6 @@
 import { getChildren } from '../utils/element'
-import cloneVNode from '../utils/clone'
+// import cloneVNode from '../utils/clone'
+import { cloneVNode } from '../utils/vue';
 import { withInstall } from '../utils/vue'
 const InputGroup = {
   name: 'InputGroup',
@@ -55,7 +56,7 @@ const InputGroup = {
             [`k-input-group-item`]: i > 0 && i < children.length - 1,
             [`k-input-group-last-item`]: i == children.length - 1,
           }
-        })
+        }, true)
         newChildren.push(child)
       }
       children = newChildren

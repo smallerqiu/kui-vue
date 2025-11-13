@@ -1,7 +1,8 @@
 import { Button } from "../button";
 import Icon from "../icon";
 import { getChildren } from "../utils/element";
-import cloneVNode from '../utils/clone'
+// import cloneVNode from '../utils/clone'
+import { cloneVNode } from '../utils/vue';
 import Drop from './drop'
 import { t } from "../locale";
 import { HelpCircle } from 'kui-icons'
@@ -208,6 +209,6 @@ export default {
         'click': e => this.onClick(e)
       }
     }
-    return cloneVNode(vNode, props, [popup])
+    return cloneVNode(vNode, props, true, popup)
   }
 };

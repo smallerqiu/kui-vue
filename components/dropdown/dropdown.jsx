@@ -9,7 +9,9 @@ import {
   onMounted,
   onBeforeMount,
 } from "vue";
-import { withInstall, cloneVNode } from '../utils/vue';
+// import cloneVNode from '../utils/clone';
+import { cloneVNode } from '../utils/vue';
+import { withInstall,/* cloneVNode*/ } from '../utils/vue';
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -50,7 +52,7 @@ const Dropdown = defineComponent({
     target: Object,
   },
 
-  setup(ps, { slots, emit }) {
+  setup(ps, { slots, emit, attrs, listeners }) {
     const visible = ref(ps.show);
     const refCtx = ref(null);
     const currentPlacement = ref(ps.placement);
@@ -207,29 +209,6 @@ const Dropdown = defineComponent({
     provide("dropdown-trigger-in", mouseEnterEvent);
     provide("dropdown-trigger-out", mouseLeaveEvent);
     return () => {
-      let nodes = getChildren(slots.default?.());
-      const pp = ps.target
-        ? {}
-        : {
-          on: {
-            click: clickEvent,
-            mouseenter: mouseEnterEvent,
-            mouseleave: mouseLeaveEvent,
-            contextmenu: contextmenuEvent,
-          }
-          // onClick: clickEvent, for 3
-          // onMouseenter: mouseEnterEvent,
-          // onMouseleave: mouseLeaveEvent,
-          // onContextmenu: contextmenuEvent,
-        };
-      const ctxNode = cloneVNode(
-        nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
-        {
-          ref: refCtx,
-          ...pp,
-        },
-        true
-      );
       const props = {
         ref: refPopper,
         style: {
@@ -268,8 +247,9 @@ const Dropdown = defineComponent({
         //   }
         // },
       };
+      console.log(rendered.value, 'rendered')
       const overlay =
-        rendered.value && slots.overlay ? (
+        (rendered.value && slots.overlay) ? (
           <transition name="k-dropdown">
             <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
               <div class={`k-dropdown-content`}>
@@ -293,11 +273,31 @@ const Dropdown = defineComponent({
             </div>
           </transition>
         ) : null;
-      return (
-        <span>
-          {ctxNode} {overlay}
-        </span>
+
+      let nodes = getChildren(slots.default?.());
+      const pp = ps.target
+        ? {}
+        : {
+          on: {
+            click: clickEvent,
+            mouseenter: mouseEnterEvent,
+            mouseleave: mouseLeaveEvent,
+            contextmenu: contextmenuEvent,
+          }
+          // onClick: clickEvent, for 3
+          // onMouseenter: mouseEnterEvent,
+          // onMouseleave: mouseLeaveEvent,
+          // onContextmenu: contextmenuEvent,
+        };
+      const ctxNode = cloneVNode(
+        nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
+        {
+          ref: refCtx,
+          ...pp,
+        }, true,
+        overlay
       );
+      return ctxNode
     };
   },
 });

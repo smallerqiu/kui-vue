@@ -82,6 +82,7 @@ const Space = defineComponent({
           vNodes.push(split);
         }
       }
+      // console.log(vNodes);
       return <div {...props}>{...vNodes}</div>;
     };
   },

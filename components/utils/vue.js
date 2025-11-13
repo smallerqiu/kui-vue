@@ -64,8 +64,6 @@ const PROPS_KEYS = [
   'directives', 'scopedSlots',
   'slot', 'ref', 'key', 'refInFor'
 ]
-// import pick from 'lodash.pick'
-// import assign from 'lodash.assign'
 
 function getVNodeProps(vnode) {
   const data = pick(vnode.data, PROPS_KEYS)
@@ -80,22 +78,41 @@ function getVNodeProps(vnode) {
   return data
 }
 
-export function cloneVNode(vnode, props = {}, merge = false, transition = false) {
+export function cloneVNode(vnode, props = {}, merge = false, child) {
   if (!vnode) return vnode
   if (!vnode.tag) return vnode.text
   // console.log(vnode)
   const h = vnode.context?.$createElement
   const tag = vnode.componentOptions?.Ctor || vnode.tag;
   const vNodeProps = getVNodeProps(vnode)
-  const children = vnode.componentOptions?.children || vnode.children;
-
+  let children = vnode.componentOptions?.children || vnode.children || []
+  if (child) {
+    children = children.concat(child)
+  }
   if (merge) {
     for (let key in props) {
-      // vNodeProps[key] = { ...vNodeProps[key], ...props[key] }
-      vNodeProps[key] = props[key]
+      // vNodeProps[key] = props[key]
+      // console.log(key,  props[key])
+      if (['ref', 'key'].includes(key)) {
+        vNodeProps[key] = props[key]
+      } else { //if (key != 'on') {
+        vNodeProps[key] = { ...vNodeProps[key], ...props[key] }
+      }
     }
+    // merge event
+    // let nEven = { ...props.on };
+    // let oEven = { ...vNodeProps.on }
+
+    // for (let eKey in nEven) {
+    //   nEven[eKey] = (e) => {
+    //     props.on[eKey](e)
+    //     oEven[eKey] && oEven[eKey](e)
+    //   }
+    // }
+    // vNodeProps.on = { ...oEven, ...nEven }
   }
-  // console.log(vNodeProps, props);
+  // console.log(vNodeProps, props,);
+  // console.log('children', children, vnode);
   return h(
     tag,
     vNodeProps,
