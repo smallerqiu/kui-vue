@@ -1,34 +1,50 @@
 <template>
-  <Space>
-    <!-- <ButtonGroup>
-      <Button>通讯录</Button>
-      <Button :icon="PersonOutline"></Button>
-    </ButtonGroup> -->
-    <DropdownButton>
-      Dropdown
-      <template #overlay>
-        <Menu @click="handleMenuClick">
-          <MenuItem key="1">
-            <Icon :type="PersonAddOutline" />
-            1st menu item
-          </MenuItem>
-          <MenuItem key="2">
-            <Icon :type="PersonAddOutline" />
-            2nd menu item
-          </MenuItem>
-          <MenuItem key="3">
-            <Icon :type="PersonAddOutline" />
-            3rd item
-          </MenuItem>
-        </Menu>
-      </template>
-      <template #icon><Icon :type="PersonAddOutline" /></template>
-    </DropdownButton>
+  <Space size="middle">
+    <Space compact vertical>
+      <Button :icon="CloudDownloadOutline"></Button>
+      <Button :icon="GameControllerOutline"></Button>
+      <Button :icon="HeartOutline"></Button>
+      <Button :icon="MailOutline"></Button>
+      <Button :icon="ShirtOutline"></Button>
+      <Dropdown placement="bottom-right">
+        <Button :icon="Ellipsis"></Button>
+        <template #overlay>
+          <Menu>
+            <MenuItem>
+              <a href="javascript:;">1st menu item</a>
+            </MenuItem>
+            <MenuItem>
+              <a href="javascript:;">2nd menu item</a>
+            </MenuItem>
+            <MenuItem>
+              <a href="javascript:;">3rd menu item</a>
+            </MenuItem>
+          </Menu>
+        </template>
+      </Dropdown>
+    </Space>
+    <!-- <Space compact vertical>
+      <Button theme="dashed">Button1</Button>
+      <Button theme="dashed">Button2</Button>
+      <Button theme="dashed">Button3</Button>
+      <Button theme="dashed">Button4</Button>
+    </Space>
+    <Space compact vertical>
+      <Button>Button1</Button>
+      <Button>Button2</Button>
+      <Button>Button3</Button>
+      <Button>Button4</Button>
+    </Space> -->
   </Space>
 </template>
 <script setup>
-import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
-const handleMenuClick = (e) => {
-  console.log("click", e);
-};
+import {
+  Copy,
+  CloudDownloadOutline,
+  Ellipsis,
+  GameControllerOutline,
+  HeartOutline,
+  MailOutline,
+  ShirtOutline,
+} from "kui-icons";
 </script>

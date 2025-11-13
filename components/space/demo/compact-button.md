@@ -6,7 +6,7 @@ Button 组件紧凑排列的示例。
 ```vue
 <template>
   <Space vertical size="middle">
-    <space compact>
+    <Space compact>
       <Tooltip placement="top" title="Copy">
         <Button :icon="CloudDownloadOutline"></Button>
       </Tooltip>
@@ -30,21 +30,21 @@ Button 组件紧凑排列的示例。
           </Menu>
         </template>
       </Dropdown>
-    </space>
-    <space compact>
+    </Space>
+    <Space compact>
       <Button type="primary">Button1</Button>
       <Button type="primary">Button2</Button>
       <Button type="primary">Button3</Button>
       <Button type="primary">Button4</Button>
-    </space>
-    <space compact>
+    </Space>
+    <Space compact>
       <Button>Button1</Button>
       <Button>Button2</Button>
       <Button>Button3</Button>
       <Button :icon="ShirtOutline" disabled></Button>
       <Button :icon="ShirtOutline"></Button>
       <Button>Button4</Button>
-    </space>
+    </Space>
   </Space>
 </template>
 <script setup>

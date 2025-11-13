@@ -16,7 +16,7 @@ export default {
         <Divider />
         <Placement />
         <Cascading />
-        <CN /> 
+        <CN />
       </div>
     )
   }

@@ -54,11 +54,22 @@ const Button = defineComponent({
   emits: ['click'],
   setup(props, { emit, slots, attrs, listeners }) {
     const parentSize = inject('size', null)
+
     return () => {
       const size = props.size || parentSize
       let children = getChildren(slots.default?.());
-      // console.log(children)
-      const onlyIcon = (!children?.length && (props.icon || props.loading))||(children?.length === 1 && children[0].componentOptions?.tag === 'Icon');
+      const iconOnly = () => {
+        console.log('excluded', children)
+        const excluded = children.filter(c => c.componentOptions?.tag !== 'transition')
+        console.log(excluded)
+        if (!excluded?.length) {
+          return props.icon || props.loading
+        }
+        if (excluded.length === 1) {
+          return excluded[0].componentOptions?.tag === 'Icon'
+        }
+        return false
+      }
       const classes = [
         "k-btn",
         {
@@ -67,7 +78,7 @@ const Button = defineComponent({
           ["k-btn-sm"]: size === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
-          ["k-btn-icon-only"]: onlyIcon,
+          ["k-btn-icon-only"]: iconOnly(),
           [`k-btn-color-${props.color}`]: colors.includes(props.color),
           ["k-btn-lg"]: size === "large",
           ["k-btn-circle"]: props.shape === "circle",
@@ -80,7 +91,6 @@ const Button = defineComponent({
       if (iconType) {
         childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
-
       const btnProps = {
         // ...attrs,// for 3
         class: classes,

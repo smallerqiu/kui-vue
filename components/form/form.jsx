@@ -1,5 +1,6 @@
 
-import cloneVNode from '../utils/clone';
+// import cloneVNode from '../utils/clone';
+import { cloneVNode } from '../utils/vue';
 import { getChildren } from '../utils/element'
 import { withInstall } from '../utils/vue'
 const Form = {
@@ -68,7 +69,7 @@ const Form = {
                   }
                 }
               }
-            })
+            }, true)
           })
         }
       </form >

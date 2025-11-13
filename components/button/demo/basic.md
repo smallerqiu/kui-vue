@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button>Default</Button>
     <Button type="primary">Primary</Button>
     <Button type="danger">Danger</Button>

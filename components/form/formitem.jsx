@@ -1,5 +1,6 @@
 import { Row, Col } from '../grid'
-import cloneVNode from '../utils/clone';
+// import cloneVNode from '../utils/clone';
+import { cloneVNode } from '../utils/vue';
 import { getChildren } from '../utils/element'
 import { withInstall, isVNode } from '../utils/vue'
 
@@ -128,7 +129,7 @@ const FormItem = {
                       this.$emit('collect', e)
                     }
                   }
-                  return cloneVNode(child, props)
+                  return cloneVNode(child, props, true)
                 } else {
                   return child
                 }

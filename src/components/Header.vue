@@ -2,11 +2,11 @@
   <Header class="header">
     <div class="header-inner">
       <div class="logo" @click="$router.push('/')">
-        <Icon :type="LogoKui" />
+        <!-- <Icon :type="LogoKui" />
         <span class="wrap-name">
           <span class="name">K UIKIT</span>
           <span class="ver">v {{ version }}</span>
-        </span>
+        </span> -->
       </div>
       <Divider type="vertical" />
       <div class="search-component">

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Dropdown :show="true">
+  <Dropdown>
     <Button theme="light">
       多级菜单
       <Icon :type="ChevronDown" />
