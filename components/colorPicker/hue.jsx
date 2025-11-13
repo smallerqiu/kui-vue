@@ -87,10 +87,17 @@ export default defineComponent({
     return () => {
       let prop = {
         class: "k-color-picker-hue",
-        width: 190,
-        height: 8,
+        // width: 190,
+        // height: 8,
+        attrs: {
+          width: 190,
+          height: 8,
+        },
         ref: refPaint,
-        onMousedown: onMousedown,
+        on: {
+          mousedown: onMousedown,
+        },
+        // onMousedown: onMousedown,
       };
       return (
         <div class="k-color-picker-slider-hue">

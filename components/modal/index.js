@@ -25,7 +25,8 @@ let createInstance = (props = {}) => {
   });
   render(vm, container);
 
-  let instance = vm.component?.exposed;
+  // let instance = vm.component?.exposed; //for 3
+  let instance = vm //  for 2
   instance.destroy = () => {
     instance.hide();
     modalList = modalList.filter((item) => item !== instance);
@@ -57,11 +58,13 @@ Modal.destroyAll = (e) => {
   });
 };
 Modal.install = (app) => {
-  app.provide("modal", Modal);
-  app.config.globalProperties.$modal = Modal;
+  // app.provide("modal", Modal);
+  // app.config.globalProperties.$modal = Modal;
+  app.prototype.$modal = Modal;
 };
 
 Modal.useModal = () => {
-  return inject("modal");
+  // return inject("modal"); //for 3
+  return Modal
 };
 export default Modal;

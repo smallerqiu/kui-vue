@@ -77,7 +77,8 @@ import loading from './loading'
 export { loading };
 
 import modal from './modal'
-export { modal };
+const Modal = modal
+export { modal, Modal };
 
 import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
 export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };

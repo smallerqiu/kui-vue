@@ -12,7 +12,7 @@ export default defineComponent({
     cancelText: String,
     content: String,
     color: String,
-    icon: Object,
+    icon: [Object, Array],
     onOk: Function,
     onCancel: Function,
     type: {
@@ -50,7 +50,7 @@ export default defineComponent({
           .then((e) => {
             hide();
           })
-          .catch((e) => {});
+          .catch((e) => { });
       } else {
         hide();
       }
@@ -102,10 +102,12 @@ export default defineComponent({
       return (
         <Modal
           class={classes}
-          v-model:show={visible.value}
+          // v-model:show={visible.value} //for 3
+          show={visible.value}
           maskClosable={false}
           transfer={false}
-          v-slots={{
+          // v-slots={{ //for 3
+          scopedSlots={{
             content: () => [header, body, footer],
           }}></Modal>
       );

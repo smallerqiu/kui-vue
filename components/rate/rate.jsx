@@ -39,7 +39,8 @@ const Rate = defineComponent({
           cleared.value = true;
           tempValue.value = null;
         }
-        emit("update:value", initValue.value);
+        // emit("update:value", initValue.value); //for 3
+        emit("input", initValue.value);
       }
     };
 
@@ -61,23 +62,31 @@ const Rate = defineComponent({
         const mod = i - tpValue;
         const percent = (1 - (i - tpValue)) * 100;
         let sp = {
-          allowHalf,
-          full: tpValue >= i,
-          half: mod > 0 && mod < 1,
-          icon,
-          character,
-          size,
-          disabled,
-          percent: percent < 100 ? percent : null,
-          tooltips: tooltips[i - 1],
-          index: i,
-          onUpdate: update,
+          props: {
+            allowHalf,
+            full: tpValue >= i,
+            half: mod > 0 && mod < 1,
+            icon,
+            character,
+            size,
+            disabled,
+            percent: percent < 100 ? percent : null,
+            tooltips: tooltips[i - 1],
+            index: i,
+          },
+          on: {
+            update: update,
+          }
+          // onUpdate: update, //for 3
         };
         stars.push(<Star {...sp} />);
       }
       let props = {
         class: ["k-rate", { "k-rate-disabled": disabled }],
-        onMouseleave: mouseLeave,
+        // onMouseleave: mouseLeave,
+        on: {
+          mouseleave: mouseLeave,
+        },
         style: { fontSize: size + "px" },
       };
       if (color) {

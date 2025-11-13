@@ -18,7 +18,7 @@ const Tag = defineComponent({
       },
     },
   },
-  setup(ps, { slots, emit }) {
+  setup(ps, { slots, emit, listeners }) {
     const visible = ref(true);
     const closeHandler = () => {
       emit("close");
@@ -38,6 +38,7 @@ const Tag = defineComponent({
             ["k-tag-closeable"]: closeable,
           },
         ],
+        on: { ...listeners },
         style: { backgroundColor: isColor(color) && !colors.includes(color) ? color : null },
       };
       const children = [];

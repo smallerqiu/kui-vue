@@ -22,12 +22,14 @@ let Message = {
     }
   },
   install(app) {
-    app.provide("message", Message);
+    // app.provide("message", Message);
     // 可选：同时挂到 globalProperties 兼容 this.$message
-    app.config.globalProperties.$message = Message;
+    // app.config.globalProperties.$message = Message; //for 3
+    app.prototype.$message = Message;
   },
   useMessage() {
-    return inject("message");
+    // return inject("message"); //for 3
+    return Message
   },
 };
 ["info", "success", "warning", "error"].forEach((type) => {

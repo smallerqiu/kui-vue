@@ -217,7 +217,8 @@ const ColorPicker = defineComponent({
       if (!rendered.value) return null;
       const props = {
         ref: refPopper,
-        "k-placement": currentPlacement.value,
+        // "k-placement": currentPlacement.value,
+        attrs: { "k-placement": currentPlacement.value, },
         class: [
           "k-color-picker-dropdown",
           {
@@ -229,8 +230,13 @@ const ColorPicker = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
-        onMouseenter: () => {
-          clearTimeout(hideTimer.value);
+        // onMouseenter: () => {
+        //   clearTimeout(hideTimer.value);
+        // },
+        on: {
+          mouseenter: () => {
+            clearTimeout(hideTimer.value);
+          },
         },
       };
 
@@ -318,10 +324,15 @@ const ColorPicker = defineComponent({
         <span>
           {cloneNodes(slots.default(), {
             ref: refCtx,
-            onClick: () => triggerClick && toggle(!visible.value),
-            onMouseenter: () => !triggerClick && toggle(true),
-            onMouseleave: onMouseleave,
-          })}
+            on: {
+              click: () => triggerClick && toggle(!visible.value),
+              mouseenter: () => !triggerClick && toggle(true),
+              mouseleave: onMouseleave,
+            },
+            // onClick: () => triggerClick && toggle(!visible.value), //for 3
+            // onMouseenter: () => !triggerClick && toggle(true),
+            // onMouseleave: onMouseleave,
+          }, true)}
           {drop}
         </span>
       ) : (

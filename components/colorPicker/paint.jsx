@@ -52,7 +52,7 @@ export default defineComponent({
         const [h, s, v] = Color(currentColor.value).hsv().array();
         const x = (s / 100) * width; // s 为 0~100，映射到宽度
         const y = height - (v / 100) * height; // v 为 0~100，映射到高度（注意你是从上白到下黑）
-        dotPos.x = x - 7 ;
+        dotPos.x = x - 7;
         dotPos.y = y - 7;
       }
     };
@@ -60,10 +60,10 @@ export default defineComponent({
       const canvas = refPaint.value;
       const { width, height } = canvas;
       const x = clamp(
-          e.clientX - canvas.getBoundingClientRect().left,
-          0,
-          width - 1
-        ),
+        e.clientX - canvas.getBoundingClientRect().left,
+        0,
+        width - 1
+      ),
         y = clamp(e.clientY - canvas.getBoundingClientRect().top, 0, height);
 
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -96,10 +96,12 @@ export default defineComponent({
       let { x, y } = dotPos;
       let prop = {
         class: "k-color-picker-paint",
-        width: 234,
-        height: 136,
+        // width: 234,
+        // height: 136,
+        attrs: { width: 234, height: 136 },
         ref: refPaint,
-        onMousedown: onMousedown,
+        // onMousedown: onMousedown,
+        on: { mousedown: onMousedown },
       };
       return (
         <div class="k-color-picker-paint-container">
