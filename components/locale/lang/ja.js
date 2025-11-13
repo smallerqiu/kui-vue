@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   k: {
     datePicker: {
       selectYear: "年を選択してください",

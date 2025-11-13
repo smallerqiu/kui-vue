@@ -1,7 +1,7 @@
 import { navs } from "../menu";
 import { Col, Row } from '/components/grid'
 import Card from '/components/card'
-import WebIcon from '@/components/WebIcon'
+import WebIcon from '@/src/components/WebIcon'
 export default {
   methods: {
     renders(child) {

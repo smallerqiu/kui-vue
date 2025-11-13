@@ -7,8 +7,8 @@ import { setPlacement } from "../utils/placement";
 import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
 import { defineComponent, watch, onBeforeMount, nextTick, Transition, onMounted, ref, inject } from 'vue'
 import zhCN from "../locale/lang/zh-CN";
-const duration = require('dayjs/plugin/duration');
-const isBetween = require('dayjs/plugin/isBetween');
+import duration from 'dayjs/plugin/duration';
+import isBetween from 'dayjs/plugin/isBetween';
 import localeData from 'dayjs/plugin/localeData';
 import 'dayjs/locale/en-gb';
 

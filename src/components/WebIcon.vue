@@ -10,7 +10,7 @@
 </template>
 <script>
 import { defineComponent, reactive } from 'vue'
-import sprite from '@/assets/img/web.svg'
+import sprite from '@/src/assets/img/web.svg'
 
 export default defineComponent({
   name: 'WebIcon',
