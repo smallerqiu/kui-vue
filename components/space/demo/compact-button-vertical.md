@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space size="middle">
-    <space compact vertical>
+    <Space compact vertical>
       <Button :icon="CloudDownloadOutline"></Button>
       <Button :icon="GameControllerOutline"></Button>
       <Button :icon="HeartOutline"></Button>
@@ -28,19 +28,19 @@
           </Menu>
         </template>
       </Dropdown>
-    </space>
-    <space compact vertical>
+    </Space>
+    <Space compact vertical>
       <Button theme="dashed">Button1</Button>
       <Button theme="dashed">Button2</Button>
       <Button theme="dashed">Button3</Button>
       <Button theme="dashed">Button4</Button>
-    </space>
-    <space compact vertical>
+    </Space>
+    <Space compact vertical>
       <Button>Button1</Button>
       <Button>Button2</Button>
       <Button>Button3</Button>
       <Button>Button4</Button>
-    </space>
+    </Space>
   </Space>
 </template>
 <script setup>

@@ -6,10 +6,10 @@
 ```vue
 <template>
   <Space vertical size="middle">
-    <space compact>
+    <Space compact>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />
-    </space>
+    </Space>
     <Space compact size="small" block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
