@@ -5,7 +5,6 @@ export default defineComponent({
   props: {
     type: { type: String, default: "info" },
     title: String,
-    name: String,
     content: [String, Object],
     icon: [String, Array],
     color: String,
@@ -40,7 +39,7 @@ export default defineComponent({
         }
       } else {
         children.push(<div class="k-notice-title">{title}</div>);
-        children.push(<div class="k-notoce-desc">{content}</div>);
+        children.push(<div class="k-notice-desc">{content}</div>);
         children.push(<Icon class="k-notice-close" type={Close} onClick={onClose} />);
       }
       return (
