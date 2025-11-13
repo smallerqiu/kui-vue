@@ -1,4 +1,3 @@
-import Icon from "../icon";
 import { Button } from "../button";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons";

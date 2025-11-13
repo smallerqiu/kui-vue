@@ -1,14 +1,14 @@
 import { inject } from "vue";
-const THEMEKEY = "theme-mode";
+const THEME_KEY = "theme-mode";
 const toggle = () => {
-  const isDark = localStorage.getItem(THEMEKEY) == "dark";
+  const isDark = localStorage.getItem(THEME_KEY) == "dark";
   const root = document.documentElement;
   if (isDark) {
-    root.setAttribute(THEMEKEY, "light");
-    localStorage.setItem(THEMEKEY, "light");
+    root.setAttribute(THEME_KEY, "light");
+    localStorage.setItem(THEME_KEY, "light");
   } else {
-    root.setAttribute(THEMEKEY, "dark");
-    localStorage.setItem(THEMEKEY, "dark");
+    root.setAttribute(THEME_KEY, "dark");
+    localStorage.setItem(THEME_KEY, "dark");
   }
   return !isDark;
 };
