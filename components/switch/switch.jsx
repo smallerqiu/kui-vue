@@ -3,7 +3,7 @@ import { Loading } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
 import { withInstall } from '../utils/vue';
 const Switch = defineComponent({
-  name: "Switch",
+  name: "KSwitch",
   props: {
     checked: [Boolean, Number],
     type: String,

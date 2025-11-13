@@ -1,7 +1,7 @@
 import { defineComponent, cloneVNode, provide, computed } from "vue";
 import Radio from "./radio.jsx";
 import Button from "./button.jsx";
-import { getChildren } from "../utils/vnode.js";
+import { getChildren } from "../utils/vnode.jsx";
 import { withInstall } from '../utils/vue';
 const RadioGroup = defineComponent({
   name: "RadioGroup",

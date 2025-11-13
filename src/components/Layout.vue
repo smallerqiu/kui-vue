@@ -67,10 +67,6 @@ const activeName = ref([]);
 const theme = ref('');
 const openkeys = ref(['start', 'basic', 'layouts', 'navigation', 'forms', 'datas', 'notices', 'other']);
 
-onMounted(() => {
-  hljs && hljs.highlightAll();
-});
-
 onBeforeMount(() => {
   setActiveKey(route);
 });
@@ -103,15 +99,4 @@ const setActiveKey = ({ path }) => {
   document.title = `${title} ${sub || ""} - KUI`;
   activeName.value = [name];
 };
-
-watch(
-  () => route.path,
-  (to, from) => {
-    nextTick(() => {
-      setTimeout(() => {
-        hljs.highlightAll();
-      }, 300);
-    });
-  }
-);
 </script>

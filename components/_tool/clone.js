@@ -1,5 +1,32 @@
-const pick = require('lodash.pick');
-const assign = require('lodash.assign');
+function pick(obj, keys) {
+  if (!obj || typeof obj !== 'object') {
+    return {};
+  }
+
+  return keys.reduce((acc, key) => {
+    if (key in obj) {
+      acc[key] = obj[key];
+    }
+    return acc;
+  }, {});
+}
+function assign(target, ...sources) {
+  if (!target || typeof target !== 'object') {
+    target = {};
+  }
+
+  for (const source of sources) {
+    if (source && typeof source === 'object') {
+      for (const key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+  }
+
+  return target;
+}
 const DATA_KEYS = [
   'class', 'staticClass', 'style', 'staticStyle',
   'attrs', 'props', 'domProps',

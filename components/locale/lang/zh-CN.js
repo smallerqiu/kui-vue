@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   k: {
     datePicker: {
       selectDate: '请选择日期',

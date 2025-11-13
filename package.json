@@ -1,78 +1,96 @@
 {
-  "name": "kui-vue-4.x",
+  "name": "kui-vue",
+  "private": false,
   "version": "4.0.0",
-  "description": "A lightweight desktop UI component library suitable for Vue 3.",
-  "main": "dist/k-ui.js",
+  "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
+  "type": "module",
+  "main": "dist/k-ui.cjs.js",
   "module": "dist/k-ui.esm.js",
-  "unpkg": "dist/k-ui.min.js",
-  "jsdelivr": "dist/k-ui.min.js",
-  "author": "Qiu",
+  "unpkg": "dist/k-ui.umd.js",
+  "jsdelivr": "dist/k-ui.umd.js",
+  "style": "dist/k-ui.css",
+  "types": "dist/k-ui.d.ts",
+  "files": [
+    "dist",
+    "test",
+    "types",
+    "components/"
+  ],
   "license": "MIT",
-  "typings": "dist/k-ui.d.ts",
-  "homepage": "https://k-ui.cn/",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build:docs": "vite build",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "build:types": "node scripts/gen-dts.js",
+    "preview": "vite preview"
+  },
+  "author": {
+    "name": "Qiu",
+    "email": "smallerqiu@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/chuchur/kui-vue"
+  },
   "bugs": {
-    "url": "https://gitee.com/chuchur/kui-vue/issues"
+    "url": "https://gitee.com/chuchur/kui-vue/issues",
+    "email": "smallerqiu@gmail.com"
   },
   "keywords": [
     "vue",
+    "vue3",
     "kui",
-    "kui-vue"
+    "kyui",
+    "design",
+    "kui-vue",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend"
   ],
-  "scripts": {
-    "start": "npm run serve",
-    "serve": "vue-cli-service serve",
-    "build": "npm",
-    "build:es": "npm",
-    "build:umd": "npm",
-    "build:docs": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:css": "lessc --clean-css='--s1 --advanced --compat' components/styles/index.less dist/k-ui.css && postcss -u autoprefixer -b '> 1%, not ie 11,not dead' dist/k-ui.css -o dist/k-ui.css --no-map"
+  "peerDependencies": {
+    "vue": "^3.5.24"
   },
   "dependencies": {
-    "color": "^5.0.0",
-    "kui-icons": "^4.1.5",
-    "vue": "^3.4.38"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/babel-plugin-jsx": "^1.4.0",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vueuse/core": "^13.0.0",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.8.3",
-    "dayjs": "^1.11.13",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.7.1",
-    "less-loader": "^12.2.0",
-    "lodash.assign": "^4.2.0",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.pick": "^4.4.0",
+    "@babel/parser": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/traverse": "^7.28.5",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-vue-jsx": "^5.1.1",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
+    "@vue/babel-preset-jsx": "^1.4.0",
+    "@vue/compiler-sfc": "3.5.24",
+    "@vueuse/core": "^14.0.0",
+    "autoprefixer": "^10.4.22",
+    "fast-glob": "^3.3.3",
+    "highlight.js": "^11.11.1",
+    "kui-icons": "^4.1.6",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
-    "vue-router": "^4.4.3"
+    "postcss-banner": "^4.0.1",
+    "prettier": "^3.6.2",
+    "rollup": "^4.53.2",
+    "rollup-plugin-dts": "^6.2.3",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "vue-clipboard2": "^0.3.3"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
+  "devDependencies": {
+    "color": "^5.0.2",
+    "dayjs": "^1.11.18",
+    "less": "^4.4.2",
+    "vite": "npm:rolldown-vite@7.1.14",
+    "vue-router": "^4.6.3"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.14"
+  }
 }
