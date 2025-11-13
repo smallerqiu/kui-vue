@@ -54,13 +54,7 @@
     </Space>
   </Flex>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      title: '明月几时有?',
-    }
-  },
-}
+<script setup>
+const title = "明月几时有";
 </script>
 ```

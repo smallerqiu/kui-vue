@@ -1,6 +1,6 @@
 export function getTransitionProp(name) {
   return {
-    name,
+    attrs: { name },
     on: {
       beforeEnter(el) {
         // el.style.overflow = 'hidden';
@@ -49,9 +49,9 @@ export function getTransitionProp(name) {
   }
 }
 
-export function getTranstionHorProp(name) {
+export function getTransitionHorProp(name) {
   return {
-    name,
+    attrs: { name },
     on: {
       beforeEnter(el) {
         el.style.overflow = 'hidden';

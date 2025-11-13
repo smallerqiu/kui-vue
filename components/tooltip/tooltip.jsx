@@ -126,7 +126,8 @@ const Tooltip = defineComponent({
       };
       // const childNodes = [nodeWrapper];
       const props = {
-        "k-placement": currentPlacement.value,
+        // "k-placement": currentPlacement.value, //for 3
+        attrs: { "k-placement": currentPlacement.value, },
         style: styles,
         ref: refPopper,
         on: {

@@ -6,28 +6,17 @@
 ```vue
 <template>
   <Tooltip title="明月几时有,把酒问青天!">
-    <a>月几时有,把酒问青天</a>
+    <a href="#">月几时有,把酒问青天</a>
   </Tooltip>
-  <br/>
-  <br/>
-  <br/>
-  <Tooltip :title="change?'窗前明月光':'凝视地上霜,好冷！'">
-    <a @click="clickHandle">Click me!</a>
+  <br />
+  <br />
+  <br />
+  <Tooltip :title="clicked ? '窗前明月光' : '凝视地上霜,好冷！'">
+    <a @click="clicked = !clicked" href="#">Click me!</a>
   </Tooltip>
-
 </template>
-<script>
-export default{
-  data() {
-    return {
-      change:false
-    }
-  },
-  methods:{
-    clickHandle(){
-      this.change = !this.change
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const clicked = ref(false);
 </script>
 ```

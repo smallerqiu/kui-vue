@@ -59,9 +59,9 @@ const Button = defineComponent({
       const size = props.size || parentSize
       let children = getChildren(slots.default?.());
       const iconOnly = () => {
-        console.log('excluded', children)
+        // console.log('excluded', children)
         const excluded = children.filter(c => c.componentOptions?.tag !== 'transition')
-        console.log(excluded)
+        // console.log(excluded)
         if (!excluded?.length) {
           return props.icon || props.loading
         }

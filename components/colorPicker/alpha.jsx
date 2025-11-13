@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, onMounted, watch } from "vue";
+import { defineComponent, ref, onMounted, watch } from "vue";
 import Color from "color";
 import { clamp } from "@vueuse/core";
 export default defineComponent({
@@ -82,10 +82,14 @@ export default defineComponent({
     return () => {
       let prop = {
         class: "k-color-picker-alpha",
-        width: 190,
-        height: 8,
+        // width: 190, //for 3
+        // height: 8,
+        attrs: { width: 190, height: 8 },
         ref: refPaint,
-        onMousedown: onMousedown,
+        // onMousedown: onMousedown,
+        on: {
+          mousedown: onMousedown,
+        },
       };
       return (
         <div class="k-color-picker-alpha-box">

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space>
-    <Rate :tooltips="desc" v-model:value="value" />
+    <Rate :tooltips="desc" v-model="value" />
     {{ value ? desc[value - 1] : "" }}
   </Space>
 </template>

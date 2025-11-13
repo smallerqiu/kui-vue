@@ -13,30 +13,30 @@
     <Button @click="show5 = true" type="primary">没有蒙层</Button>
     <Button @click="show6 = true" type="primary">没有页脚</Button>
 
-    <Modal title="Draggable" v-model:show="show1" draggable @ok="show1 = false">
+    <Modal title="Draggable" :show.sync="show1" draggable @ok="show1 = false">
       {{ text }}
     </Modal>
 
-    <Modal title="Centered" v-model:show="show2" centered @ok="show2 = false">
+    <Modal title="Centered" :show.sync="show2" centered @ok="show2 = false">
       {{ text }}
     </Modal>
 
     <Modal
       title="Top 200px"
-      v-model:show="show3"
+      :show.sync="show3"
       :top="200"
       @ok="show3 = false"
     >
       {{ text }}
     </Modal>
 
-    <Modal title="Maximized" v-model:show="show4" maximized @ok="show4 = false">
+    <Modal title="Maximized" :show.sync="show4" maximized @ok="show4 = false">
       {{ text }}
     </Modal>
 
     <Modal
       title="Click mask dont't be close"
-      v-model:show="show5"
+      :show.sync="show5"
       :mask="false"
       :mask-closable="false"
       @ok="show5 = false"
@@ -46,7 +46,7 @@
 
     <Modal
       title="No footer"
-      v-model:show="show6"
+      :show.sync="show6"
       :footer="null"
       @ok="show6 = false"
     >

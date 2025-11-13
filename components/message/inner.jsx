@@ -5,22 +5,21 @@ export default defineComponent({
   props: {
     type: { type: String, default: "info" },
     title: String,
-    name: String,
     content: [String, Object],
     icon: [String, Array],
     color: String,
     closable: Boolean,
     noticeType: { type: String, default: "message" },
-    onClose: { type: Function, default: () => {} },
+    onClose: { type: Function, default: () => { } },
   },
   setup(ps) {
     return () => {
       let { noticeType, type, content, title, onClose, closable, icon, color } = ps;
       const classes = [
         `k-${noticeType}-box`,
-        `k-${noticeType}-${type}`,
         {
-          "k-notice-has-icon": noticeType == "notice" && type != "default",
+          [`k-${noticeType}-${type}`]: type,
+          "k-notice-has-icon": noticeType == "notice" && type,
         },
       ];
       let icons = {
@@ -30,7 +29,7 @@ export default defineComponent({
         warning: AlertCircle,
       };
       const children = [];
-      if (type != "default") {
+      if (type in icons) {
         children.push(<Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />);
       }
       if (noticeType == "message") {

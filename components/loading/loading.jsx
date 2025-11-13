@@ -89,8 +89,8 @@ const createInstance = (props = {}) => {
 
   const vm = createVNode(loading, props);
   render(vm, container);
-
-  return vm.component?.exposed;
+  return vm
+  // return vm.component?.exposed; //for 3
 };
 
 let loadInstance = null;
@@ -122,12 +122,14 @@ let Loading = {
     }
   },
   install(app) {
-    app.provide("loading", Loading);
+    // app.provide("loading", Loading);
     // 可选：同时挂到 globalProperties 兼容 this.$loading
-    app.config.globalProperties.$loading = Loading;
+    // app.config.globalProperties.$loading = Loading; //for 3
+    app.prototype.$loading = Loading;
   },
   useLoading() {
-    return inject("loading");
+    // return inject("loading");
+    return Loading
   },
 };
 export default withInstall(Loading);

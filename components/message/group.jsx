@@ -38,15 +38,16 @@ export default defineComponent({
     return () => {
       const { type } = ps;
 
-      let transition = { name: `k-${type}-slide` };
+      // let transitionProps = { name: `k-${type}-slide` }; for 3
+      let transitionProps = { attrs: { name: `k-${type}-slide` } };
       if (type == "notice") {
-        transition = getTransitionProp(`k-${type}-slide`);
-        // delete transition.onEnter; //for 3
-        // delete transition.onBeforeEnter;
-        // transition.onBeforeLeave = (el) => {
-        delete transition.on.enter;
-        delete transition.on.beforeEnter;
-        transition.on.beforeLeave = (el) => {
+        transitionProps = getTransitionProp(`k-${type}-slide`);
+        // delete transitionProps.onEnter; //for 3
+        // delete transitionProps.onBeforeEnter;
+        // transitionProps.onBeforeLeave = (el) => {
+        delete transitionProps.on.enter;
+        delete transitionProps.on.beforeEnter;
+        transitionProps.on.beforeLeave = (el) => {
           el.style.height = window.getComputedStyle(el).height;
           el.style.opacity = 1;
         };
@@ -54,16 +55,17 @@ export default defineComponent({
 
       let children = group.value.map((item, i) => {
         // let props = { ...item }; //for 3
-        const { onClose, key, closable, color, content } = item
+        const ps = { ...item };
+        delete ps.key;
         const props = {
-          key,
-          props: { onClose, closable, color, content }
+          key: item.key,
+          props: { ...ps }
         }
         return <Notice {...props} />;
         // return <Notice {...props} />;
       });
       return (
-        <transition-group tag="div" class={`k-${type}`} {...transition}>
+        <transition-group tag="div" class={`k-${type}`} {...transitionProps}>
           {...children}
         </transition-group>
       );

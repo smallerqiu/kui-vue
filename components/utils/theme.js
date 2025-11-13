@@ -23,7 +23,7 @@ const Theme = {
   },
   useTheme() {
     // return inject("theme", null); //for 3
-    return typeof window !== 'undefined' ? this : null;
+    return Theme
   },
   setThemeMode(event, callback) {
     const x = event.clientX;
