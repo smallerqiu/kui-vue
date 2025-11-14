@@ -23,7 +23,7 @@ const Badge = defineComponent({
         statusNode = [];
       const children = slots.default?.();
 
-      if (typeof count === "number" && count !== 0) {
+      if (typeof count === "number" && count > 0) {
         innerText = count > maxCount ? maxCount + "+" : count;
       } else if (typeof count === "string") {
         innerText = count;

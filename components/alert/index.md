@@ -8,3 +8,4 @@
 | show-icon   | 是否显示图标                                                        | Boolean      | false   |
 | closable    | 是否显示关闭按钮                                                    | Boolean      | false   |
 | close       | 关闭时触发的回调函数                                                | Function     | -       |
+| icon        | 自定义的图标                                                        | Array        | -       |
