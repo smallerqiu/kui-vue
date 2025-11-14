@@ -1,32 +1,60 @@
 <template>
   <div>
     <h3>图标快速检索</h3>
-    <br />
-    <Affix :offsetTop="65">
-      <Flex size="large" style="background-color: var(--kui-color-back);">
-        <RadioGroup v-model:value="type" @change="switchIcon" theme="card" type="button">
-          <RadioButton value="outline">线框风格</RadioButton>
-          <RadioButton value="filled">实底风格</RadioButton>
+    <br>
+    <Affix :offset-top="65">
+      <Flex
+        size="large"
+        style="background-color: var(--kui-color-back);"
+      >
+        <RadioGroup
+          v-model:value="type"
+          theme="card"
+          type="button"
+          @change="switchIcon"
+        >
+          <RadioButton value="outline">
+            线框风格
+          </RadioButton>
+          <RadioButton value="filled">
+            实底风格
+          </RadioButton>
         </RadioGroup>
-        <Space compact size="large" block>
-          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model:value="searchKey" clearable
-            style="background:var(--kui-color-back);">
-          </Input>
-          <Button :icon="icons['Search']" theme="outline"></Button>
+        <Space
+          compact
+          size="large"
+          block
+        >
+          <Input
+            v-model:value="searchKey"
+            placeholder="输入英文关键字，搜索图标，点击图标即可复制"
+            :icon="LogoKui"
+            clearable
+            style="background:var(--kui-color-back);"
+          />
+          <Button
+            :icon="icons['Search']"
+            theme="outline"
+          />
         </Space>
       </Flex>
     </Affix>
 
-    <br />
-    <br />
+    <br>
+    <br>
     <div class="show-icons">
       <template v-if="showIcons.length">
         <div class="icon-head">
           <h3><span>App icons</span></h3>
         </div>
-        <br />
+        <br>
         <div class="icon-list">
-          <span @click.stop="copyHandle(x)" v-for="(x, y) in showIcons" :key="y" class="icon-item">
+          <span
+            v-for="(x, y) in showIcons"
+            :key="y"
+            class="icon-item"
+            @click.stop="copyHandle(x)"
+          >
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
@@ -38,7 +66,12 @@
       <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-list">
-          <span @click.stop="copyHandle(x)" v-for="(x, y) in logo" :key="y" class="icon-item">
+          <span
+            v-for="(x, y) in logo"
+            :key="y"
+            class="icon-item"
+            @click.stop="copyHandle(x)"
+          >
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
@@ -48,7 +81,10 @@
           </span>
         </div>
       </template>
-      <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
+      <h3
+        v-if="!showIcons.length && !logo.length"
+        style="text-align:center;padding-bottom:50px;color:#888;"
+      >
         No results for "{{ searchKey }}"
       </h3>
     </div>

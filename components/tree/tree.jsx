@@ -1,7 +1,6 @@
 import TreeNode from './node.jsx'
 import { getChildren } from '../utils/element.js'
-import cloneVNode from '../utils/clone.js'
-import { withInstall } from '../utils/vue'
+import { withInstall, cloneVNode } from '../utils/vue'
 const Tree = {
   name: 'Tree',
   props: {

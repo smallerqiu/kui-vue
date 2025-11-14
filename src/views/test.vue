@@ -1,13 +1,13 @@
 <template>
   <Space size="middle">
     <Space compact vertical>
-      <Button :icon="CloudDownloadOutline"></Button>
-      <Button :icon="GameControllerOutline"></Button>
-      <Button :icon="HeartOutline"></Button>
-      <Button :icon="MailOutline"></Button>
-      <Button :icon="ShirtOutline"></Button>
+      <Button :icon="CloudDownloadOutline" />
+      <Button :icon="GameControllerOutline" />
+      <Button :icon="HeartOutline" />
+      <Button :icon="MailOutline" />
+      <Button :icon="ShirtOutline" />
       <Dropdown placement="bottom-right">
-        <Button :icon="Ellipsis"></Button>
+        <Button :icon="Ellipsis" />
         <template #overlay>
           <Menu>
             <MenuItem>
@@ -38,9 +38,7 @@
   </Space>
 </template>
 <script setup>
-import { h } from 'vue'
 import {
-  Copy,
   CloudDownloadOutline,
   Ellipsis,
   GameControllerOutline,

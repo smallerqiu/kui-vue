@@ -4,9 +4,8 @@ import { Button } from '../button'
 import Node from './node.jsx'
 import { getTransitionProp } from '../base/transition'
 import { getChildren } from '../utils/element'
-import cloneVNode from '../utils/clone.js'
 import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from 'kui-icons'
-import { withInstall } from '../utils/vue'
+import { withInstall, cloneVNode } from '../utils/vue'
 const TreeNode = {
   name: 'TreeNode',
   props: {

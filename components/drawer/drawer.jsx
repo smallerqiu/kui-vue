@@ -126,8 +126,7 @@ const Drawer = defineComponent({
       );
       const footNode = hasFooter ? (
         <div class="k-drawer-footer">
-          {slots.footer?.()}
-          {!slots.footer && [cancelBtn, okBtn]}
+          {slots.footer ? slots.footer() : [cancelBtn, okBtn]}
         </div>
       ) : null;
 

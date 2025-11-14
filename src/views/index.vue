@@ -5,15 +5,12 @@
       <!-- <div class="logo">K UI</div> -->
       <h1>一套基于Vue.js的桌面UI组件库</h1>
       <div class="btn-content">
-        <Button class="start"
-          :icon="CaretForwardCircle"
-          @click="start"
-          size="large">开始使用</Button>
-        <Button @click="gitee"
-          :icon="LogoGitee"
-          size="large"
-          class="btn-gitee"
-          theme="light">Gitee</Button>
+        <Button class="start" :icon="CaretForwardCircle" size="large" @click="start">
+          开始使用
+        </Button>
+        <Button :icon="LogoGitee" size="large" class="btn-gitee" theme="light" @click="gitee">
+          Gitee
+        </Button>
       </div>
     </section>
     <Footer />
@@ -25,13 +22,13 @@ import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 import { LogoGitee, CaretForwardCircle } from "kui-icons";
 export default {
+  components: {
+    Header, Footer
+  },
   data() {
     return {
       LogoGitee, CaretForwardCircle
     }
-  },
-  components: {
-    Header, Footer
   },
   methods: {
     start() {

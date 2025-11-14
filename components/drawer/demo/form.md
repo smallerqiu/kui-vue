@@ -11,7 +11,7 @@
       <Button @click="show2 = true">自定义</Button>
     </Space>
     <Drawer
-      v-model:show="show1"
+      :show.sync="show1"
       title="表单验证"
       @ok="submitForm"
       @cancel="resetForm"
@@ -64,7 +64,7 @@
         </FormItem>
       </Form>
     </Drawer>
-    <Drawer v-model:show="show2" title="我是自定义标题">
+    <Drawer :show.sync="show2" title="我是自定义标题">
       <p>我是自定义内容</p>
       <template #footer>
         <Button>取消</Button>

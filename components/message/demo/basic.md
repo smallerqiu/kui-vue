@@ -11,16 +11,18 @@
   </Space>
 </template>
 <script setup>
+import { ref } from "vue";
 import { message } from "kui-vue";
-let count = 0;
+let count = ref(0);
 const info = () => {
-  count++;
-  message.info("this is a base message number : " + count);
+  count.value++;
+  message.info("this is a base message number : " + count.value);
 };
 // useMessage
 const api = message.useMessage();
 const useMessage = () => {
-  api.info("this is a base message number : " + count);
+  count.value++;
+  api.info("this is a base message number : " + count.value);
 };
 </script>
 ```

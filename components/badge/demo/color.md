@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space vertical>
+  <Space vertical block>
     <Divider orientation="left">Presets:</Divider>
     <div>
       <div v-for="color in colors" :key="color">
