@@ -36,10 +36,10 @@ const CollapsePanel = defineComponent({
         },
       ];
       const extraNode = slots.extra?.();
-      const aniprop = getTransitionProp("k-collapse-slide");
+      const transitionProps = getTransitionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
-        <transition {...aniprop}>
+        <transition {...transitionProps}>
           <div class="k-collapse-content" v-show={expanded.value}>
             <div class="k-collapse-content-box">{slots.default?.()}</div>
           </div>

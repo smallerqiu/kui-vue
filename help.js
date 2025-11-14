@@ -10,7 +10,7 @@ for (const oldPath of matches) {
   const parts = oldPath.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
   const parentDir = parts[1]; // 例如 aaa、bbb、xyz
 
-  const newDir = parentDir.charAt(0); // 截取首字母，例如 a、b、x
+  // const newDir = parentDir.charAt(0); // 截取首字母，例如 a、b、x
   const newPath = path.join('components', parentDir, 'demo', 'basic.md');
 
   // 创建新路径的目录（如果不存在）

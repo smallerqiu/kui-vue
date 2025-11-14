@@ -4,14 +4,15 @@
     <Layout class="main">
       <Sider :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]">
         <Button size="large" :icon="showMiniNav ? Close : Menu" class="min-menu-nav-btn" theme="outline"
-          @click="showMiniNav = !showMiniNav"></Button>
-        <Menu v-model="activeName" @click="go" class="left-menu" mode="inline" :open-keys="openkeys">
-          <SubMenu :title="item.title" v-for="item in navs" :name="item.title" :key="item.key">
-
+          @click="showMiniNav = !showMiniNav" />
+        <Menu v-model="activeName" class="left-menu" mode="inline" :open-keys="openkeys" @click="go">
+          <SubMenu v-for="item in navs" :key="item.key" :title="item.title" :name="item.title">
             <MenuItem v-for="sub in item.child" :key="sub.name">
-            <WebIcon :name="sub.icon" slot="icon" />
+            <template #icon>
+              <WebIcon :name="sub.icon" />
+            </template>
             <router-link :to="`/${item.key}/${sub.name}`">
-              <Badge dot v-if="sub.update">
+              <Badge v-if="sub.update" dot>
                 <span>{{ sub.sub }}</span>
                 <span class="sub">{{ sub.title }}</span>
               </Badge>
@@ -26,16 +27,16 @@
       </Sider>
       <Content>
         <transition name="fade" mode="out-in">
-          <router-view class="content-inner"></router-view>
+          <router-view class="content-inner" />
         </transition>
         <div class="foot-nav">
-          <a :href="`/${prev.key}/${prev.name}`" @click="e => link(e, 0)" class="nav-prev" v-if="prev.sub">
+          <a v-if="prev.sub" :href="`/${prev.key}/${prev.name}`" class="nav-prev" @click="e => link(e, 0)">
             <Icon :type="ChevronBack" />
             <span class="nav-text">{{ prev.sub }} {{ prev.title }}</span>
-            <WebIcon :name="prev.icon" slot="icon" />
+            <WebIcon slot="icon" :name="prev.icon" />
           </a>
-          <a :href="`/${next.key}/${next.name}`" v-if="next.sub" @click="e => link(e, 1)" class="nav-next">
-            <WebIcon :name="next.icon" slot="icon" />
+          <a v-if="next.sub" :href="`/${next.key}/${next.name}`" class="nav-next" @click="e => link(e, 1)">
+            <WebIcon slot="icon" :name="next.icon" />
             <span class="nav-text">{{ next.sub }} {{ next.title }}</span>
             <Icon :type="ChevronForward" />
           </a>

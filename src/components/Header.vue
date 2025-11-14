@@ -10,34 +10,58 @@
       </div>
       <Divider type="vertical" />
       <div class="search-component">
-        <Select placeholder="搜索..." shape="circle" :icon="Search" theme="light" :showArrow="false" filterable
-          v-model="key" size="large" @change="change" :transfer="false">
-          <Option v-for="(com, index) of menus" :key="index" :value="com.name">{{ com.title }} {{ com.sub }}</Option>
+        <Select v-model="key" placeholder="搜索..." shape="circle" :icon="Search" theme="light" :show-arrow="false"
+          filterable size="large" :transfer="false" @change="change">
+          <Option v-for="(com, index) of menus" :key="index" :value="com.name">
+            {{ com.title }} {{ com.sub }}
+          </Option>
         </Select>
       </div>
-      <Menu mode="horizontal" @click="go" class="top-menu" v-model="topMenu">
-        <MenuItem key="home">首页</MenuItem>
-        <MenuItem key="start">组件</MenuItem>
+      <Menu v-model="topMenu" mode="horizontal" class="top-menu" @click="go">
+        <MenuItem key="home">
+        首页
+        </MenuItem>
+        <MenuItem key="start">
+        组件
+        </MenuItem>
         <SubMenu key="docs" title="文档">
-          <MenuItem key="/start/getting-started">快速开始</MenuItem>
-          <MenuItem key="/start/ssr">SSR 支持</MenuItem>
-          <MenuItem key="/start/language">多语言</MenuItem>
-          <MenuItem key="/start/logs">更新日志</MenuItem>
-          <MenuItem key="/start/theme">主题</MenuItem>
-          <MenuItem key="/start/dark-mode">暗黑模式</MenuItem>
-          <MenuItem key="https://v2.k-ui.cn/">v2.x 文档</MenuItem>
-          <MenuItem key="https://react.k-ui.cn/">For React 文档</MenuItem>
-          <MenuItem key="https://chuchur.com/">Blog</MenuItem>
+          <MenuItem key="/start/getting-started">
+          快速开始
+          </MenuItem>
+          <MenuItem key="/start/ssr">
+          SSR 支持
+          </MenuItem>
+          <MenuItem key="/start/language">
+          多语言
+          </MenuItem>
+          <MenuItem key="/start/logs">
+          更新日志
+          </MenuItem>
+          <MenuItem key="/start/theme">
+          主题
+          </MenuItem>
+          <MenuItem key="/start/dark-mode">
+          暗黑模式
+          </MenuItem>
+          <MenuItem key="https://v2.k-ui.cn/">
+          v2.x 文档
+          </MenuItem>
+          <MenuItem key="https://react.k-ui.cn/">
+          For React 文档
+          </MenuItem>
+          <MenuItem key="https://chuchur.com/">
+          Blog
+          </MenuItem>
         </SubMenu>
       </Menu>
-      <ColorPicker class="theme" mode="rgb" v-model="themeColor" :showArrow="false" style="margin-left:8px"
-        :noAlpha="true" @change="changeThemeColor" />
+      <ColorPicker v-model="themeColor" class="theme" mode="rgb" :show-arrow="false" style="margin-left:8px"
+        :no-alpha="true" @change="changeThemeColor" />
       <Tooltip :title="`切换${theme == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button type="text" :icon="theme == 'dark' ? Sunny : Moon" @click="changeMode" size="large"
-          style="margin:0 8px;" />
+        <Button type="text" :icon="theme == 'dark' ? Sunny : Moon" size="large" style="margin:0 8px;"
+          @click="changeMode" />
       </Tooltip>
       <Tooltip title="Jump to Gitee" placement="bottom">
-        <Button @click="gitee" class="btn-gitee" :icon="LogoGitee" type="text" size="large"></Button>
+        <Button class="btn-gitee" :icon="LogoGitee" type="text" size="large" @click="gitee" />
       </Tooltip>
     </div>
   </Header>

@@ -5,21 +5,21 @@
 
 ```vue
 <template>
-  <div
-    ref="refTarget"
-    style="height:300px;position:relative;overflow:hidden;background:rgba(130, 130, 130, 0.28);"
-  >
-    <Space>
-      <RadioGroup v-model:value="placement">
-        <Radio label="left" value="left" />
-        <Radio label="top" value="top" />
-        <Radio label="right" value="right" />
-        <Radio label="bottom" value="bottom" />
-      </RadioGroup>
-      <Button @click="show = !show">Open</Button>
-    </Space>
+  <Space>
+    <RadioGroup v-model:value="placement" type="button">
+      <RadioButton label="left" value="left" />
+      <RadioButton label="top" value="top" />
+      <RadioButton label="right" value="right" />
+      <RadioButton label="bottom" value="bottom" />
+    </RadioGroup>
+    <Button @click="show = !show">Open</Button>
+  </Space>
+  <br />
+  <br />
+  <Flex ref="refTarget" :style="boxStyle" align="center" justify="center">
+    <p style="color:#999">Drawer 在内部展示.</p>
     <Drawer
-      v-model:show="show"
+      :show.sync="show"
       width="200"
       :footer="null"
       :placement="placement"
@@ -29,12 +29,19 @@
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
-  </div>
+  </Flex>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 const show = ref(false);
 const placement = ref("left");
 const refTarget = ref();
+const boxStyle = {
+  height: "300px",
+  position: "relative",
+  overflow: "hidden",
+  borderRadius: "8px",
+  background: "rgba(130, 130, 130, 0.18)",
+};
 </script>
 ```

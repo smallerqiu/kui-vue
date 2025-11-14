@@ -10,6 +10,7 @@ const Alert = defineComponent({
     type: { type: String, default: "warning" },
     closable: Boolean,
     showIcon: Boolean,
+    icon: [String, Object, Array],
     message: String,
     description: String,
   },
@@ -41,7 +42,7 @@ const Alert = defineComponent({
     const transitionProps = getTransitionProp("k-alert-slide");
 
     return () => {
-      const iconNode = props.showIcon ? <Icon type={icons[props.type]} class="k-alert-icon" /> : null;
+      const iconNode = props.showIcon ? <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" /> : null;
       const closeIcon = props.closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null;
       const descriptionNode = props.description ? <div class="k-alert-description">{props.description}</div> : null;
       const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
@@ -50,8 +51,10 @@ const Alert = defineComponent({
         <transition {...transitionProps}>
           <div class={classes.value} v-show={!closed.value}>
             {iconNode}
-            {msgNode}
-            {descriptionNode}
+            <div class="k-alert-content">
+              {msgNode}
+              {descriptionNode}
+            </div>
             {closeIcon}
           </div>
         </transition>
