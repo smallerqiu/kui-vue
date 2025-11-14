@@ -46,7 +46,7 @@ const DescriptionsItem = defineComponent({
         }
         if (type == "label") {
           return (
-            <td class="k-descripts-item" colSpan={span}>
+            <td class="k-descriptions-item" colSpan={span}>
               <div class="k-descriptions-item-inner">
                 <div class="k-descriptions-item-label">{label}</div>
               </div>
@@ -54,7 +54,7 @@ const DescriptionsItem = defineComponent({
           );
         }
         return (
-          <td class="k-descripts-item" colSpan={span}>
+          <td class="k-descriptions-item" colSpan={span}>
             <div class="k-descriptions-item-inner">
               <div class="k-descriptions-item-content">{children}</div>
             </div>
@@ -62,7 +62,7 @@ const DescriptionsItem = defineComponent({
         );
       }
       return (
-        <td class="k-descripts-item" colSpan={span}>
+        <td class="k-descriptions-item" colSpan={span}>
           <div class="k-descriptions-item-inner">
             <div class="k-descriptions-item-label">{label}</div>
             <div class="k-descriptions-item-content">{children}</div>
