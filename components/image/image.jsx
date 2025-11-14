@@ -1,6 +1,5 @@
 import Icon from '../icon'
 import createInstance from './instance'
-// import { easyEqual } from '../utils/element'
 import { Sync, IconImage, EyeOutline } from 'kui-icons'
 import { t } from '../locale';
 import { withInstall } from '../utils/vue'
