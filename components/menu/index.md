@@ -6,7 +6,7 @@
 | -------------------- | ---------------------------------------- | ------------------------------------------------- | -------- |
 | theme                | 主题颜色                                 | String: light dark                                | light    |
 | v-model:openKeys     | 当前展开的 SubMenu 菜单项 key 数组       | String[]                                          | -        |
-| v-model:selectedKyes | 当前选中的菜单项，可使用 v-model 绑定    | String[]                                          | -        |
+| v-model:selectedKeys | 当前选中的菜单项，可使用 v-model 绑定    | String[]                                          | -        |
 | mode                 | 菜单类型，支持垂直、水平、和内嵌模式三种 | String: vertical vertical-right horizontal inline | vertical |
 | select               | 点击 MenuItem 调用此函数                 | Fun({key, keyPath})                               | -        |
 | openChange           | SubMenu 展开/关闭的回调                  | Fun(openKeys: String[])                           | -        |

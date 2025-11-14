@@ -1,10 +1,10 @@
-## API 
+## API
 
 | 属性     | 说明                                                  | 类型                                                | 默认值 |
 | -------- | ----------------------------------------------------- | --------------------------------------------------- | ------ |
 | type     | 设置按钮类型                                          | `primary` \| `link`\|`warning`\| `text` \| `danger` | -      |
 | htmlType | 设置 button 原生的 type 值                            | String                                              | button |
-| disabled | 按钮失效状态              ˚                           | Boolean                                             | -      |
+| disabled | 按钮失效状态 ˚                                        | Boolean                                             | -      |
 | size     | 按钮尺寸,                                             | `small`\|`large`                                    | -      |
 | shape    | shape=circle 呈现圆型按钮                             | Boolean                                             | false  |
 | theme    | 按钮主题                                              | `outline` \| `light` \| `normal`                    | -      |
