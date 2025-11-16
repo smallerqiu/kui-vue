@@ -5,16 +5,20 @@ suffix，prefix 扩展
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical style="width:512px;"
+    >{{ time }}
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
     <Input
       placeholder="请输入验证码"
-      :icon="ShieldCheckmark"
       :maxlength="8"
-      prefix="¥"
     >
       <template #suffix>
-        <Button :disabled="time != 60" style="width:100px;" @click="sendCode">
+        <Button
+          :disabled="time < 60"
+          style="width:100px;"
+          @click="sendCode"
+          theme="outline"
+        >
           {{ time == 60 ? "获取验证码" : time + "(s)" }}
         </Button>
       </template>
@@ -62,15 +66,19 @@ import {
 import { message } from "kui-vue";
 const time = ref(60);
 const timer = ref();
+import { onUnmounted } from "vue";
+
 const sendCode = () => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
   time.value = 59;
   message.success("验证码发送成功，请注意查收");
   timer.value = setInterval(() => {
+    time.value--; // 先减一更清晰
     if (time.value <= 0) {
       clearInterval(timer.value);
-      time.value = 60;
-    } else {
-      time.value -= 1;
+      time.value = 60; // 重置状态
     }
   }, 1000);
 };
@@ -93,5 +101,11 @@ const treeData = [
     ],
   },
 ];
+
+onUnmounted(() => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
+});
 </script>
 ```

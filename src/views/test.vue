@@ -1,49 +1,90 @@
 <template>
-  <Space size="middle">
-    <Space compact vertical>
-      <Button :icon="CloudDownloadOutline" />
-      <Button :icon="GameControllerOutline" />
-      <Button :icon="HeartOutline" />
-      <Button :icon="MailOutline" />
-      <Button :icon="ShirtOutline" />
-      <Dropdown placement="bottom-right">
-        <Button :icon="Ellipsis" />
-        <template #overlay>
-          <Menu>
-            <MenuItem>
-            <a href="javascript:;">1st menu item</a>
-            </MenuItem>
-            <MenuItem>
-            <a href="javascript:;">2nd menu item</a>
-            </MenuItem>
-            <MenuItem>
-            <a href="javascript:;">3rd menu item</a>
-            </MenuItem>
-          </Menu>
-        </template>
-      </Dropdown>
-    </Space>
-    <!-- <Space compact vertical>
-      <Button theme="dashed">Button1</Button>
-      <Button theme="dashed">Button2</Button>
-      <Button theme="dashed">Button3</Button>
-      <Button theme="dashed">Button4</Button>
-    </Space>
-    <Space compact vertical>
-      <Button>Button1</Button>
-      <Button>Button2</Button>
-      <Button>Button3</Button>
-      <Button>Button4</Button>
-    </Space> -->
+  <Space vertical style="width:512px;">
+    <!-- <Input placeholder="请输入用户名" :icon="PersonOutline" /> -->
+    <Input
+      placeholder="请输入验证码"
+      :icon="ShieldCheckmark"
+      :maxlength="8"
+      prefix="¥"
+    >
+      <template #suffix>
+        <Button :disabled="time != 60" style="width:100px;" @click="sendCode" theme="outline">
+          {{ time == 60 ? "获取验证码" : time + "(s)" }}
+        </Button>
+      </template>
+    </Input>
+    <!-- <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
+      <template #suffix>
+        <Tooltip title="请咨询管理员">
+          <Icon :type="InformationCircleOutline" color="orange" />
+        </Tooltip>
+      </template>
+    </Input>
+    <Input placeholder="请输入金额" suffix="RMB" prefix="¥" />
+    <Input placeholder="请输入域名" suffix=".com" prefix="https://" />
+    <Input placeholder="输入内容" prefix="www.">
+      <template #prefix>
+        <Select :options="options" clearable value="http"></Select>
+      </template>
+      <template #suffix>
+        <Select :options="list" clearable value=".com"></Select>
+      </template>
+    </Input>
+    <Input placeholder="请输入金额" suffix=".00" />
+    <Input placeholder="输入内容" prefix="www.">
+      <template #prefix>
+        <Select :options="options" clearable value="http"></Select>
+      </template>
+      <template #suffix>
+        <TreeSelect
+          :tree-data="treeData"
+          clearable
+          style="width:200px"
+        ></TreeSelect>
+      </template>
+    </Input> -->
   </Space>
 </template>
 <script setup>
+import { ref } from "vue";
 import {
-  CloudDownloadOutline,
-  Ellipsis,
-  GameControllerOutline,
-  HeartOutline,
-  MailOutline,
-  ShirtOutline,
+  InformationCircleOutline,
+  Gift,
+  ShieldCheckmark,
+  PersonOutline,
 } from "kui-icons";
+import { message } from "kui-vue";
+const time = ref(60);
+const timer = ref();
+const sendCode = () => {
+  time.value = 59;
+  message.success("验证码发送成功，请注意查收");
+  timer.value = setInterval(() => {
+    if (time.value <= 0) {
+      clearInterval(timer.value);
+      time.value = 60;
+    } else {
+      time.value -= 1;
+    }
+  }, 1000);
+};
+const options = [
+  { label: "http", value: "http" },
+  { label: "https", value: "https" },
+];
+const list = [
+  { label: ".com", value: ".com" },
+  { label: ".cn", value: ".cn" },
+  { label: ".org", value: ".org" },
+];
+const treeData = [
+  {
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
+  },
+];
 </script>

@@ -14,34 +14,36 @@ const TextArea = defineComponent({
       () => ps.value,
       (v) => {
         currentValue.value = v;
-        console.log(v);
       }
     );
-    const props = {
-      class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
-      attrs: {
-        ...attrs,
-        disabled,
-      },
-      domProps: {
-        value: currentValue.value,
-      },
-      on: {
-        ...listeners,
-        input: (e) => {
-          const v = e.target.value;
-          currentValue.value = v;
-          emit("input", v);
+
+    return () => {
+      const props = {
+        class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
+        attrs: {
+          ...attrs,
+          disabled,
         },
-      },
-      // onInput: (e) => {
-      //   // todo: not update value
-      //   const v = e.target.value;
-      //   currentValue.value = v;
-      //   emit("update:value", v);
-      // },
+        domProps: {
+          value: currentValue.value,
+        },
+        on: {
+          ...listeners,
+          input: (e) => {
+            const v = e.target.value;
+            // currentValue.value = v;
+            emit("input", v);
+          },
+        },
+        // onInput: (e) => {
+        //   // todo: not update value
+        //   const v = e.target.value;
+        //   currentValue.value = v;
+        //   emit("update:value", v);
+        // },
+      };
+      return <textarea {...props} />;
     };
-    return () => <textarea {...props} />;
   },
 });
 export default withInstall(TextArea);

@@ -21,11 +21,11 @@
         :icon="LockClosed"
         :visiblePasswordIcon="visiblePasswordIcon"
       />
-      <Button @click="visiblePasswordIcon = !visiblePasswordIcon">
+      <Button @click="visiblePasswordIcon = !visiblePasswordIcon" theme="outline">
         Toggle
       </Button>
     </Space>
-    <Input placeholder="请输入关进行搜索键字..." @search="search" />
+    <Input placeholder="请输入关进行搜索键字..."  @search="search" />
   </Space>
 </template>
 <script setup>

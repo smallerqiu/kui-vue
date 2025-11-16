@@ -7,7 +7,7 @@ suffix，prefix 扩展
 <template>
   <Space style="width:256px;" vertical>
     <InputNumber placeholder="请填写您的薪资" :icon="LogoYen" size="large">
-      <template slot="suffix">
+      <template #suffix>
         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
           <Icon :type="Heart" color="red" />
         </Tooltip>

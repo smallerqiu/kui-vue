@@ -1,5 +1,6 @@
-import BaseInput from '../base/input'
-import Icon from '../icon'
+import Input from "../input/input";
+import Icon from "../icon";
+import { withInstall } from "../utils/vue";
 import {
   add,
   subtract,
@@ -7,15 +8,15 @@ import {
   isValidNumber,
   isEmpty,
 } from "../utils/number";
-import { ChevronUp } from 'kui-icons'
-import { withInstall } from '../utils/vue'
-const InputNumber = {
-  name: "InputNumber",
+import { ChevronUp } from "kui-icons";
+import { ref, defineComponent, watch, inject } from "vue";
+const InputNumber = defineComponent({
   props: {
     value: [Array, Number, String],
-    min: { type: Number },
-    max: { type: Number },
+    min: { type: Number, default: -Infinity },
+    max: { type: Number, default: Infinity },
     disabled: Boolean,
+    clearable: Boolean,
     readonly: Boolean,
     formatter: Function,
     parser: Function,
@@ -30,37 +31,17 @@ const InputNumber = {
       default: 1,
     },
     theme: String,
-    placeholder: String,
+    // placeholder: String,
     icon: [String, Array],
     id: String,
-
   },
-  watch: {
-    value(v) {
-      this.initValue(v)
-    }
-  },
-  data() {
-    return {
-      inputValue: '',
-      outputValue: '',
-    }
-  },
-  mounted() {
-    this.initValue(this.value)
-  },
-  methods: {
-    initValue(v) {
-      const { input, output } = this.getValue(v, false);
-
-      this.inputValue = input;
-      this.outputValue = output;
-    },
-    getValue(v, edge) {
+  setup(ps, { slots, attrs, emit }) {
+    const parentSize = inject("size", null);
+    const getValue = (v, edge) => {
       let input = "";
       let output = "";
 
-      let { min, max, precision, formatter, parser } = this;
+      let { min, max, precision, formatter, parser } = ps;
 
       if (!isValidNumber(v)) {
         if (isEmpty(v)) {
@@ -92,98 +73,141 @@ const InputNumber = {
       }
       // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
       return { input, output };
-    },
-    calcValue(e, isUp) {
-      let { outputValue } = this
-      if (this.disabled) return;
-      const { step } = this;
-      if (!isValidNumber(outputValue) || isEmpty(outputValue)) {
-        outputValue = 0;
+    };
+    // output is the truth value
+    // input is the show text
+    const { input, output } = getValue(ps.value);
+
+    const inputValue = ref(input);
+    const outputValue = ref(output);
+
+    const calcValue = (e, isUp) => {
+      if (ps.disabled) return;
+      const { step } = ps;
+      if (!isValidNumber(outputValue.value) || isEmpty(outputValue.value)) {
+        outputValue.value = 0;
       }
       let value =
         isUp == 1
-          ? add(String(outputValue), String(step))
-          : subtract(String(outputValue), String(step));
-      const { input, output } = this.getValue(value, true);
+          ? add(String(outputValue.value), String(step))
+          : subtract(String(outputValue.value), String(step));
+      const { input, output } = getValue(value, true);
 
-      this.inputValue = input;
-      this.outputValue = output;
+      // console.log(input,output)
+      // return
+      inputValue.value = input;
+      outputValue.value = output;
       e.preventDefault();
 
-      this.$emit("input", output);
-      this.$emit("change", { target: { value: output } });
-    },
+      emit("input", output);
+      // emit("update:value", output);
+      emit("change", { target: { value: output } });
+    };
 
-    onKeyDown(e) {
-      if (!this.keyboard) return;
+    const onKeyDown = (e) => {
+      if (!ps.keyboard) return;
       if (e.key === "ArrowUp") {
-        this.calcValue(e, 1);
+        calcValue(e, 1);
       } else if (e.key === "ArrowDown") {
-        this.calcValue(e, 0);
+        calcValue(e, 0);
       }
-    },
-    onUpdate(e) {
-      const v = e.target.value;
-      const { input, output } = this.getValue(v, false);
+    };
+    const onUpdate = (e) => {
+      const v = e; //.target.value;
+      const { input, output } = getValue(v, false);
       // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
-      this.inputValue = input;
-      e.target.value = input;
+      inputValue.value = input;
+      // e.target.value = input;
 
       if (!isValidNumber(output) && !isEmpty(v)) {
         return;
       }
-      const { max, min } = this;
+      const { max, min } = ps;
       if ((output && output > max) || (output && output < min)) {
         return;
       }
-      this.outputValue = output;
-      this.$emit("input", output);
-      e.preventDefault?.();
-    },
-    blurHandle(e) {
-      const { input, output } = this.getValue(this.outputValue, true);
+      outputValue.value = output;
+      emit("input", output);
+      // emit("update:value", output);
+      // e.preventDefault();
+    };
+    watch(
+      () => ps.value,
+      (v) => {
+        const { input, output } = getValue(v, false);
 
-      this.inputValue = input;
-      this.outputValue = output;
-      this.$emit("input", output);
-      this.$emit("blur", e);
-    }
+        inputValue.value = input;
+        outputValue.value = output;
+      }
+    );
+    const blurHandle = (e) => {
+      const { input, output } = getValue(outputValue.value, true);
+
+      inputValue.value = input;
+      outputValue.value = output;
+      emit("input", output);
+      // emit("update:value", output);
+      emit("blur", e);
+    };
+    return () => {
+      // const { suffix } = ps;
+
+      const props = {
+        attrs: { ...attrs },
+        // ...ps,
+        props: {
+          inputType: "input-number",
+          value: inputValue.value,
+          clearable: false,
+          size: ps.size || parentSize,
+          disabled: ps.disabled,
+          suffix: ps.suffix,
+          prefix: ps.prefix,
+          icon: ps.icon,
+          // placeholder: ps.placeholder,
+        },
+        on: {
+          input: (e) => {
+            onUpdate(e);
+          },
+          change: (e) => {},
+          blur: (e) => blurHandle(e),
+          keydown: (e) => onKeyDown(e),
+        },
+        // onInput: (e) => {
+        //   onUpdate(e);
+        // },
+        // onChange: (e) => {},
+        // onBlur: (e) => blurHandle(e),
+        // onKeydown: (e) => onKeyDown(e),
+      };
+      return (
+        <Input
+          {...props}
+          scopedSlots={{
+            // suffix: () => slots.suffix?.(),
+            // prefix: () => slots.prefix,
+            controls: () =>
+              ps.controls ? (
+                <div class="k-input-number-controls">
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e, 1)}
+                  >
+                    <Icon type={ChevronUp} />
+                  </span>
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e)}
+                  >
+                    <Icon type={ChevronUp} />
+                  </span>
+                </div>
+              ) : null,
+          }}
+        />
+      );
+    };
   },
-  provide() {
-    return {
-      InputNumber: this
-    }
-  },
-  render() {
-    let { controls } = this
-    const props = {
-      props: {
-        ...this.$props,
-        inputType: 'input-number',
-        value: this.inputValue
-      },
-      attrs: { ...this.$attrs },
-      on: {
-        ...this.$listeners,
-        'input': (e) => this.onUpdate({ target: { value: e } }),
-        'blur': (e) => this.blurHandle(e),
-        'keydown': (e) => this.onKeyDown(e),
-        // 'change': (e) => this.change(e),
-      },
-    }
-    // const { suffix } = this
-    // const suffixNode = this.$slots.suffix || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null)
-    return <BaseInput {...props}>
-      {/* <template slot="suffix">
-        {suffixNode}
-      </template> */}
-      <template slot='controls'>
-        {controls ? <div class="k-input-number-controls">
-          <span class="k-input-number-control" onClick={(e) => this.calcValue(e, 1)}><Icon type={ChevronUp} /></span>
-          <span class="k-input-number-control" onClick={(e) => this.calcValue(e)}><Icon type={ChevronUp} /></span>
-        </div> : null}
-      </template>
-    </BaseInput>
-  }
-}
-export default withInstall(InputNumber)
+});
+export default withInstall(InputNumber);
