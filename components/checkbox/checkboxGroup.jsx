@@ -1,7 +1,7 @@
 import Checkbox from "./checkbox";
-import { defineComponent, provide, /*cloneVNode*/ } from "vue";
+import { defineComponent, provide /*cloneVNode*/ } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from '../utils/vue';
+import { withInstall, cloneVNode } from "../utils/vue";
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: {
@@ -31,7 +31,8 @@ const CheckboxGroup = defineComponent({
       } else {
         v.splice(index, 1);
       }
-      emit("update:value", v);
+      // emit("update:value", v); // for 3
+      emit("input", v);
       emit("change", v);
     };
 
@@ -42,22 +43,50 @@ const CheckboxGroup = defineComponent({
         children = options.map((option) => {
           let pps = {
             key: option.value,
-            value: option.value,
-            size,
-            label: option.label,
-            disabled: ps.disabled || option.disabled,
-            onUpdate: change,
-            checked: ps.value.indexOf(option.value) >= 0,
+            props: {
+              value: option.value,
+              size,
+              label: option.label,
+              disabled: ps.disabled || option.disabled,
+              checked: ps.value.indexOf(option.value) >= 0,
+            },
+            on: {
+              update: change,
+            },
+            // onUpdate: change,
           };
           return <Checkbox {...pps} />;
         });
       } else {
         children = children?.map((child) => {
           // return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
-          return cloneVNode(child, { props: { size, disabled: ps.disabled || child.componentOptions?.propsData.disabled, checked: ps.value.indexOf(child.componentOptions?.propsData.value) >= 0 }, on: { update: change } }, true);
+          return cloneVNode(
+            child,
+            {
+              props: {
+                size,
+                disabled:
+                  ps.disabled || child.componentOptions?.propsData.disabled,
+                checked:
+                  ps.value.indexOf(child.componentOptions?.propsData.value) >=
+                  0,
+              },
+              on: { update: change },
+            },
+            true
+          );
         });
       }
-      return <div class={["k-checkbox-group", { "k-checkbox-group-vertical": direction == "vertical" }]}>{children}</div>;
+      return (
+        <div
+          class={[
+            "k-checkbox-group",
+            { "k-checkbox-group-vertical": direction == "vertical" },
+          ]}
+        >
+          {children}
+        </div>
+      );
     };
   },
 });

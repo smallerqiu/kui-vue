@@ -1,39 +1,47 @@
-import { withInstall } from '../utils/vue'
-const TextArea = {
-	name: 'TextArea',
-	props: {
-		value: [String, Number],
-		theme: String,
-		// disabled: Boolean,
-		size: {
-			default: 'default',
-			validator(value) {
-				return ["small", "large", "default"].indexOf(value) >= 0;
-			}
-		},
-	},
-	provide() {
-		return {
-			TextArea: this
-		}
-	},
-	render() {
-		const { theme } = this;
-		const props = {
-			domProps: {
-				value: this.value,
-			},
-			class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
-			props: { ...this.$props },
-			attrs: { ...this.$attrs },
-			on: {
-				...this.$listeners,
-				input: (e) => {
-					this.$emit('input', e.target.value)
-				}
-			}
-		}
-		return <textarea {...props} />
-	}
-}
-export default withInstall(TextArea)
+import { defineComponent, watch, ref } from "vue";
+import { withInstall } from "../utils/vue";
+const TextArea = defineComponent({
+  name: "TextArea",
+  props: {
+    value: [String, Number, Object, Array],
+    theme: String,
+    disabled: Boolean,
+  },
+  setup(ps, { attrs, emit, listeners }) {
+    const { theme, disabled } = ps;
+    const currentValue = ref(ps.value);
+    watch(
+      () => ps.value,
+      (v) => {
+        currentValue.value = v;
+        console.log(v);
+      }
+    );
+    const props = {
+      class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
+      attrs: {
+        ...attrs,
+        disabled,
+      },
+      domProps: {
+        value: currentValue.value,
+      },
+      on: {
+        ...listeners,
+        input: (e) => {
+          const v = e.target.value;
+          currentValue.value = v;
+          emit("input", v);
+        },
+      },
+      // onInput: (e) => {
+      //   // todo: not update value
+      //   const v = e.target.value;
+      //   currentValue.value = v;
+      //   emit("update:value", v);
+      // },
+    };
+    return () => <textarea {...props} />;
+  },
+});
+export default withInstall(TextArea);

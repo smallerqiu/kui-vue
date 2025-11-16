@@ -1,11 +1,11 @@
 import Icon from "../icon";
 import { Checkmark } from "kui-icons";
 import { defineComponent, inject, ref, watch, computed } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Checkbox = defineComponent({
   name: "Checkbox",
   props: {
-    value: [String, Number, Boolean],
+    value: [String, Number],
     disabled: Boolean,
     label: { type: [String, Number] },
     indeterminate: Boolean,
@@ -41,10 +41,11 @@ const Checkbox = defineComponent({
         const label = ps.label || slots.default?.().text;
         emit("update", { checked, label, value: ps.value });
       } else {
-        // emit("update:checked", checked); for 3
-        emit("input", checked);
+        emit("update:checked", checked); //for 3
+        // emit("input", checked);
+        emit("change", e);
       }
-      e.stopPropagation()
+      e.stopPropagation();
     };
 
     return () => {
@@ -62,13 +63,21 @@ const Checkbox = defineComponent({
         },
       ];
 
-      let innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
+      let innerNode = isChecked.value ? (
+        <Icon type={Checkmark} strokeWidth={60} />
+      ) : null;
       const labelNode = ps.label || slots.default?.();
 
       return (
         <label class={wpClasses} onClick={(e) => e.stopPropagation()}>
           <span class="k-checkbox-symbol">
-            <input type="checkbox" class="k-checkbox-input" checked={isChecked.value} disabled={disabled} onChange={change} />
+            <input
+              type="checkbox"
+              class="k-checkbox-input"
+              checked={isChecked.value}
+              disabled={disabled}
+              onChange={change}
+            />
             <span class="k-checkbox-inner">{innerNode}</span>
           </span>
           {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}

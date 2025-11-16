@@ -16,7 +16,6 @@
     Theme :
     <RadioGroup v-model:value="theme" size="small">
       <RadioButton value="default" label="Default" />
-      <RadioButton value="solid" label="Solid" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
     </RadioGroup>

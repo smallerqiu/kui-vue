@@ -8,39 +8,34 @@
   <Space vertical style="width:512px;">
     <Input placeholder="User Name..." :icon="Person" />
     <Input type="password" placeholder="Password..." :icon="LockClosed" />
-    <Space compact block>
-      <Input
-        type="password"
-        placeholder="Password defalt text"
-        :icon="LockClosed"
-        :visiblePassword="visiblePassword"
-      />
-      <Button @click="visiblePassword = !visiblePassword">Toggle</Button>
-    </Space>
     <Input
       type="password"
       placeholder="Password no toggle"
       :icon="LockClosed"
       :visiblePasswordIcon="false"
     />
+    <Space compact block>
+      <Input
+        type="password"
+        placeholder="Password default text"
+        :icon="LockClosed"
+        :visiblePasswordIcon="visiblePasswordIcon"
+      />
+      <Button @click="visiblePasswordIcon = !visiblePasswordIcon">
+        Toggle
+      </Button>
+    </Space>
     <Input placeholder="请输入关进行搜索键字..." @search="search" />
   </Space>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Person, LockClosed } from "kui-icons";
-export default {
-  data() {
-    return {
-      visiblePassword: true,
-      Person,
-      LockClosed,
-    };
-  },
-  methods: {
-    search() {
-      this.$message.info("This is search event");
-    },
-  },
+import { message } from "kui-vue";
+const visiblePasswordIcon = ref(true);
+const search = (value) => {
+  message.info("This is search event");
+  console.log(value);
 };
 </script>
 ```

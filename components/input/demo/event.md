@@ -9,29 +9,30 @@
     <Input
       placeholder="请输入内容..."
       clearable
-      @change="change"
-      @keypress="keypress"
-      @keyup="keyup"
-      @keydown="keydown"
-      @keydown.enter="keydownEnter"
-      @blur="blur"
-      @focus="focus"
+      @change="events.change"
+      @keypress="events.keypress"
+      @keyup="events.keyup"
+      @keydown="events.keydown"
+      @keydown.enter="events.keydownEnter"
+      @blur="events.blur"
+      @focus="events.focus"
     >
     </Input>
     <TextArea
       placeholder="请输入内容..."
-      @change="change"
-      @keypress="keypress"
-      @keyup="keyup"
-      @keydown="keydown"
-      @keydown.enter="keydownEnter"
-      @blur="blur"
-      @focus="focus"
+      @change="events.change"
+      @keypress="events.keypress"
+      @keyup="events.keyup"
+      @keydown="events.keydown"
+      @keydown.enter="events.keydownEnter"
+      @blur="events.blur"
+      @focus="events.focus"
     />
   </Space>
 </template>
-<script>
-let events = {};
+<script setup>
+import { message } from "kui-vue";
+const events = {};
 [
   "focus",
   "blur",
@@ -41,15 +42,11 @@ let events = {};
   "keydown",
   ,
   "keydownEnter",
-].map((type) => {
+].forEach((type) => {
   events[type] = function (e) {
-    this.$message.info(type);
+    message.info(type);
+    console.log(type, e.target.value);
   };
 });
-export default {
-  methods: {
-    ...events,
-  },
-};
 </script>
 ```

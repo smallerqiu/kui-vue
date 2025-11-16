@@ -158,7 +158,7 @@ export default {
     },
 
     submit({valid, model}) {
-      this.$message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+      this.$message[valid ? 'success' : 'error'](valid ? 'success' : 'failed')
       console.log(model)
     }
   }

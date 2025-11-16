@@ -8,7 +8,7 @@
   <Space>
     <Radio disabled>disabled</Radio>
     <Radio disabled :checked="true">disabled</Radio>
-    <Radio :disabled="disabled" v-model:checked="checked">Radio</Radio>
+    <Radio :disabled="disabled" :checked.sync="checked">Radio</Radio>
     <Button @click="checked = !checked" size="small">
       {{ checked ? "Checked" : "Uncheck" }}
     </Button>

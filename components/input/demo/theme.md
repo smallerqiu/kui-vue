@@ -6,15 +6,8 @@
 ```vue
 <template>
   <Space vertical style="width:512px;">
-    <Checkbox label="Circle" v-model="isShape" />
-    <Input
-      placeholder="请输入内容..."
-      @blur="blur"
-      @focus="focus"
-      @change="change"
-      theme="light"
-      :shape="shape"
-    />
+    <Checkbox label="Circle" v-model:checked="shape" @change="setShape" />
+    <Input placeholder="请输入内容..." theme="light" :shape="shape" />
     <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
     <Input
       placeholder="请输入内容..."
@@ -25,38 +18,24 @@
     <Input
       placeholder="请输入内容..."
       theme="light"
-      @search="focus"
       clearable
       :shape="shape"
+      @search="onSearch"
     />
     <TextArea placeholder="请输入内容..." theme="light" :rows="3" />
   </Space>
 </template>
-<script>
+<script setup>
 import { Search } from "kui-icons";
-export default {
-  data() {
-    return {
-      Search,
-      isShape: false,
-    };
-  },
-  computed: {
-    shape() {
-      return this.isShape ? "circle" : null;
-    },
-  },
-  methods: {
-    blur() {
-      console.log("blur");
-    },
-    focus() {
-      console.log("focus");
-    },
-    change(e) {
-      console.log("change");
-    },
-  },
+import { message } from "kui-vue";
+import { ref } from "vue";
+const shape = ref();
+const setShape = (e) => {
+  shape.value = e.target.checked ? "circle" : null;
+};
+const onSearch = (value) => {
+  message.info("This is search event");
+  console.log(value);
 };
 </script>
 ```

@@ -12,19 +12,16 @@
       size="small"
       placeholder="Small Input"
       :icon="LogoKui"
-      @icon-click="$message.info('点击图标事件')"
+      @icon-click="iconClick"
       clearable
     />
   </Space>
 </template>
-<script>
+<script setup>
 import { LogoKui } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui,
-    };
-  },
+import { message } from "kui-vue";
+const iconClick = () => {
+  message.info("点击图标事件");
 };
 </script>
 ```

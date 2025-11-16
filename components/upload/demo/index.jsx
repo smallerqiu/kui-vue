@@ -6,10 +6,10 @@ import Transform from './transform.md'
 import Exceed from './exceed.md'
 import Custom from './custom.md'
 import Directory from './directory.md'
-import Picture from './picture.md'
+import Pictures from './pictures.md'
 import Avatar from './avatar.md'
 import Draggable from './draggable.md'
-import Form from './form.md'
+import Forms from './forms.md'
 
 import CN from '../index.md'
 export default {
@@ -24,10 +24,10 @@ export default {
         <Transform />
         <Exceed />
         <Custom />
-        <Picture />
+        <Pictures />
         <Avatar />
         <Draggable />
-        <Form />
+        <Forms />
         <CN />
       </div>
     )
