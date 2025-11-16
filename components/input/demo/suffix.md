@@ -14,7 +14,7 @@ suffix，prefix 扩展
       prefix="¥"
     >
       <template #suffix>
-        <Button :disabled="time != 60" style="width:100px;" @click="sendCode">
+        <Button :disabled="disabled" style="width:100px;" @click="sendCode">
           {{ time == 60 ? "获取验证码" : time + "(s)" }}
         </Button>
       </template>
@@ -62,15 +62,19 @@ import {
 import { message } from "kui-vue";
 const time = ref(60);
 const timer = ref();
+const disabled = ref(false);
 const sendCode = () => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
   time.value = 59;
   message.success("验证码发送成功，请注意查收");
+  disabled.value = true;
   timer.value = setInterval(() => {
+    time.value--; // 先减一更清晰
     if (time.value <= 0) {
       clearInterval(timer.value);
-      time.value = 60;
-    } else {
-      time.value -= 1;
+      time.value = 60; // 重置状态
     }
   }, 1000);
 };

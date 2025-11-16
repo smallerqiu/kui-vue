@@ -8,7 +8,8 @@ export default {
       const target = (value === true ? document.body : value) || document.body
 
       if (target != document.body) {
-        target.appendChild(el)
+        const container = target?.$el || target
+        container.appendChild(el)
         el.__data = { parentNode, box: el }
       } else {
 
@@ -26,7 +27,8 @@ export default {
     if (value) {
       const target = value === true ? document.body : value || document.body
       // el.__data.parentNode.appendChild(el)
-      target.removeChild(el.__data.box)
+      const container = target?.$el || target
+      container.removeChild(el.__data.box)
       el.__data = null
     }
   }

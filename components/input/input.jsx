@@ -3,13 +3,12 @@ import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch, inject } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Input = defineComponent({
   name: "Input",
   props: {
     clearable: Boolean,
     visiblePasswordIcon: { type: Boolean, default: true },
-    id: String,
     size: {
       // default: "default",
       validator(value) {
@@ -20,7 +19,18 @@ const Input = defineComponent({
     disabled: Boolean,
     type: {
       validator(value) {
-        return ["text", "textarea", "password", "url", "email", "date", "search", "hidden"].indexOf(value) >= 0;
+        return (
+          [
+            "text",
+            "textarea",
+            "password",
+            "url",
+            "email",
+            "date",
+            "search",
+            "hidden",
+          ].indexOf(value) >= 0
+        );
       },
       default: "text",
     },
@@ -31,7 +41,6 @@ const Input = defineComponent({
     shape: String,
     formatter: Function,
     parser: Function,
-    placeholder: String,
     inputType: { type: String, default: "input" },
   },
   setup(ps, { slots, emit, attrs, expose }) {
@@ -91,14 +100,35 @@ const Input = defineComponent({
     };
     const getSuffix = () => {
       let { suffix, visiblePasswordIcon, type, inputType } = ps;
-      const SearchNode = attrs.onSearch ? <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} /> : null;
+      const SearchNode = attrs.onSearch ? (
+        <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} />
+      ) : null;
 
-      const Password = type == "password" && visiblePasswordIcon ? <Icon class="k-input-password-icon" type={!showPassword.value ? EyeOutline : EyeOffOutline} onClick={togglePassword} /> : null;
+      const Password =
+        type == "password" && visiblePasswordIcon ? (
+          <Icon
+            class="k-input-password-icon"
+            type={!showPassword.value ? EyeOutline : EyeOffOutline}
+            onClick={togglePassword}
+          />
+        ) : null;
 
-      return Password || SearchNode || slots.suffix || (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null);
+      return (
+        Password ||
+        SearchNode ||
+        slots.suffix ||
+        (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null)
+      );
     };
     const getTextInput = (multiple) => {
-      const { disabled, size = parentSize, type, id, theme, shape, placeholder, inputType } = ps;
+      const {
+        disabled,
+        size = parentSize,
+        type,
+        theme,
+        shape,
+        inputType,
+      } = ps;
       const props = {
         value: currentValue.value,
         class: [
@@ -115,8 +145,6 @@ const Input = defineComponent({
         ref: inputRef,
         // ...attrs,
         disabled,
-        id,
-        placeholder,
         onFocus: handleFocus,
         onBlur: handleBlur,
         type,
@@ -130,9 +158,30 @@ const Input = defineComponent({
     };
 
     return () => {
-      const { icon, size = parentSize, disabled, type, clearable, suffix, theme, prefix, shape, inputType } = ps;
+      const {
+        icon,
+        size = parentSize,
+        disabled,
+        type,
+        clearable,
+        suffix,
+        theme,
+        prefix,
+        shape,
+        inputType,
+      } = ps;
 
-      let multiple = (icon || attrs.onSearch || slots.suffix || suffix || slots.prefix || prefix || type == "password" || clearable || slots.controls) && type !== 'hidden'
+      let multiple =
+        (icon ||
+          attrs.onSearch ||
+          slots.suffix ||
+          suffix ||
+          slots.prefix ||
+          prefix ||
+          type == "password" ||
+          clearable ||
+          slots.controls) &&
+        type !== "hidden";
 
       let textInput = getTextInput(multiple);
       if (!multiple) return textInput;
@@ -154,14 +203,40 @@ const Input = defineComponent({
 
       if (slots.prefix || slots.suffix) {
         const preChildren = [];
-        if (slots.prefix) preChildren.push(<div class="k-input-group-prefix">{slots.prefix?.()}</div>);
+        if (slots.prefix)
+          preChildren.push(
+            <div class="k-input-group-prefix">{slots.prefix?.()}</div>
+          );
         const innerChildren = [];
-        if (icon) innerChildren.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
-        if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        if (icon)
+          innerChildren.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              onClick={iconClick}
+            />
+          );
+        if (prefix)
+          innerChildren.push(
+            <div class={`k-${inputType}-prefix`}>{prefix}</div>
+          );
         innerChildren.push(textInput);
-        if (clearable) innerChildren.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        if (clearable)
+          innerChildren.push(
+            <Icon
+              type={CloseCircle}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
+              onClick={clear}
+            />
+          );
         const sufChildren = [];
-        if (slots.suffix) sufChildren.push(<div class="k-input-group-suffix">{slots.suffix?.()}</div>);
+        if (slots.suffix)
+          sufChildren.push(
+            <div class="k-input-group-suffix">{slots.suffix?.()}</div>
+          );
 
         if (slots.controls) innerChildren.push(slots.controls?.());
         return (
@@ -175,10 +250,28 @@ const Input = defineComponent({
         );
       } else {
         const children = [];
-        if (icon) children.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
-        if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        if (icon)
+          children.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              onClick={iconClick}
+            />
+          );
+        if (prefix)
+          children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         children.push(textInput);
-        if (clearable) children.push(<Icon type={CloseCircle} class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]} onClick={clear} />);
+        if (clearable)
+          children.push(
+            <Icon
+              type={CloseCircle}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
+              onClick={clear}
+            />
+          );
         if (suffixNode) children.push(suffixNode);
         if (slots.controls) children.push(slots.controls?.());
 

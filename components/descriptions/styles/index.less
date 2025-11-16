@@ -28,20 +28,23 @@
       margin: 0;
     }
   }
-
+  .k-descriptions-item-label,
+  .k-descriptions-item-content {
+    text-align: start;
+    font-size: 14px;
+    line-height: 1.5;
+  }
   .k-descriptions-row {
     border: none;
     background: none;
   }
 
-  .k-descriptions-row>.k-descriptions-item {
+  .k-descriptions-row > .k-descriptions-item {
     padding-bottom: 16px;
 
     .k-descriptions-item-label,
     .k-descriptions-item-content {
       display: inline-flex;
-      font-size: 14px;
-      line-height: 1.5;
     }
 
     .k-descriptions-item-label {
@@ -56,7 +59,6 @@
 }
 
 .k-descriptions-bordered {
-
   .k-descriptions-view {
     border: 1px solid var(--kui-color-gray-80);
     border-radius: @radius;
@@ -73,8 +75,6 @@
   .k-descriptions-item-label,
   .k-descriptions-item-content {
     padding: 16px 24px;
-    font-size: 14px;
-    line-height: 1.5;
     border-left: 1px solid var(--kui-color-gray-80);
 
     &:first-child {
@@ -100,12 +100,11 @@
 //   }
 // }
 .k-descriptions-middle {
-  .k-descriptions-row>.k-descriptions-item {
+  .k-descriptions-row > .k-descriptions-item {
     padding-bottom: 12px;
   }
 
   &.k-descriptions-bordered {
-
     .k-descriptions-item-label,
     .k-descriptions-item-content {
       padding: 12px 24px;
@@ -114,12 +113,11 @@
 }
 
 .k-descriptions-sm {
-  .k-descriptions-row>.k-descriptions-item {
+  .k-descriptions-row > .k-descriptions-item {
     padding-bottom: 8px;
   }
 
   &.k-descriptions-bordered {
-
     .k-descriptions-item-label,
     .k-descriptions-item-content {
       padding: 8px 16px;

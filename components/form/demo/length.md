@@ -159,7 +159,7 @@ export default {
     },
 
     submit({valid, model}) {
-      message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+      message[valid ? 'success' : 'error'](valid ? 'success' : 'failed')
       console.log(model)
     }
   }

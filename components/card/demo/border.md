@@ -13,9 +13,6 @@
       <p>card content</p>
       <p>card content</p>
       <p>card content</p>
-      <p>card content</p>
-      <p>card content</p>
-      <p>card content</p>
     </Card>
   </div>
 </template>

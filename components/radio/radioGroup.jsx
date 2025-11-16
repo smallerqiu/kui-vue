@@ -1,6 +1,6 @@
 import { defineComponent, cloneVNode, provide, computed } from "vue";
 import Radio from "./radio.jsx";
-import Button from "./button.jsx";
+import RadioButton from "./radioButton.jsx";
 import { getChildren } from "../utils/vnode.jsx";
 import { withInstall } from '../utils/vue';
 const RadioGroup = defineComponent({
@@ -50,7 +50,7 @@ const RadioGroup = defineComponent({
             onUpdate: change,
             checked: ps.value == option.value,
           };
-          return type == "button" ? <Button {...pps} /> : <Radio {...pps} />;
+          return type == "button" ? <RadioButton {...pps} /> : <Radio {...pps} />;
         });
       } else {
         children = children?.map((child) => {

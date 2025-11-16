@@ -1,4 +1,5 @@
 import { t } from "../locale";
+import zhCN from "../locale/lang/zh-CN";
 
 import { DocumentTextOutline, Close, AlertCircle, Add } from "kui-icons";
 let count = 0;
@@ -157,13 +158,13 @@ const Upload = defineComponent({
 
     const selector = showSelector ? <Selector /> : null;
     const onRemove = (index, item) => {
-      if (ps.disabled) return false;
-      let item = this.defaultFileList[i];
-      this.defaultFileList.splice(i, 1);
+      // if (ps.disabled) return false;
+      // let item = this.defaultFileList[i];
+      // this.defaultFileList.splice(i, 1);
 
-      delete this.uploadTemp[item.uid];
-      item.xhr && item.xhr.abort();
-      emit("remove", { fiel: item, fileList: defaultFileList });
+      // delete this.uploadTemp[item.uid];
+      // item.xhr && item.xhr.abort();
+      // emit("remove", { fiel: item, fileList: defaultFileList });
     };
     const renderFileList = () => {
       return (showUploadList && !isPicture) || isPicture ? (

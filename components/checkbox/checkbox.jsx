@@ -42,6 +42,7 @@ const Checkbox = defineComponent({
         emit("update", { checked, label, value: ps.value });
       } else {
         emit("update:checked", checked);
+        emit("change", e);
       }
       e.stopPropagation()
     };

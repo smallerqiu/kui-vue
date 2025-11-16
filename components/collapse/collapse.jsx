@@ -5,15 +5,15 @@ import { withInstall } from '../utils/vue';
 const Collapse = defineComponent({
   name: "Collapse",
   props: {
-    value: Array,
+    activeKey: Array,
     accordion: Boolean,
     sample: Boolean,
   },
   setup(ps, { slots, emit }) {
-    const currentValue = ref(ps.value || []);
+    const currentValue = ref(ps.activeKey || []);
 
     watch(
-      () => ps.value,
+      () => ps.activeKey,
       (nv, no) => {
         currentValue.value = nv;
       }

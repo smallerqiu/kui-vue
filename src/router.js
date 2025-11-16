@@ -19,7 +19,7 @@ let children = [
   { path: '/forms/checkbox', component: () => import('../components/checkbox/demo'), },
   { path: "/basic/button", component: () => import( "../components/button/demo") },
   { path: '/navigation/breadcrumb', component: () => import('../components/breadcrumb/demo'), },
-  // { path: '/navigation/backtop', component: () => import('../components/backtop/demo'), },
+  { path: '/navigation/backtop', component: () => import('../components/backtop/demo'), },
   { path: "/notices/badge", component: () => import( "../components/badge/demo") },
   { path: '/forms/datepicker', component: () => import('../components/datePicker/demo'), },
   { path: "/datas/descriptions", component: () => import( "../components/descriptions/demo") },
@@ -59,7 +59,7 @@ let children = [
   { path: '/notices/popconfirm', component: () => import('../components/popconfirm/demo'), },
   { path: '/notices/progress', component: () => import('../components/progress/demo'), },
   { path: '/navigation/page', component: () => import('../components/page/demo'), },
-  // { path: '/forms/upload', component: () => import('../components/upload/demo'), },
+  { path: '/forms/upload', component: () => import('../components/upload/demo'), },
 ];
 
 import Layout from "./components/Layout";

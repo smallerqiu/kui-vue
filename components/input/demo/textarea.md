@@ -9,6 +9,7 @@
     <TextArea :rows="4" placeholder="请输入内容..." />
     <TextArea :rows="2" placeholder="请输入内容..." />
     <TextArea :rows="2" placeholder="disabled..." disabled />
+    <TextArea :rows="2" placeholder="readonly..." readonly />
   </Space>
 </template>
 ```

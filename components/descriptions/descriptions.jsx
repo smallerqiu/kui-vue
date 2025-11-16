@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import Item from "./descriptionsItem";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Descriptions = defineComponent({
   name: "Descriptions",
   props: {
@@ -12,7 +12,6 @@ const Descriptions = defineComponent({
     size: { type: String, default: "default" },
   },
   setup(ps, { slots }) {
-    // todo: rennder error
     return () => {
       let { column, bordered, layout, size, title, extra } = ps;
 
@@ -23,9 +22,11 @@ const Descriptions = defineComponent({
         temps = [],
         v = 0;
 
-      for (let i = 0; i < children?.length; i++) {
-        let { label, span = 1 } = children[i].props;
-        const children = children[i].children.default?.();
+      let i = 0;
+      for (let child of children) {
+        i++;
+        let { label, span = 1 } = child.props;
+        const childNodes = child.children.default?.();
         let row = rows[len] || [];
         let vertical = layout == "vertical";
 
@@ -33,7 +34,7 @@ const Descriptions = defineComponent({
 
         let cols = bordered && !vertical ? column * 2 : column;
 
-        if (i == children?.length - 1) {
+        if (i == childNodes?.length - 1) {
           if (bordered) {
             span = cols - temp - (vertical ? 0 : 1);
           } else if (temp < cols) {
@@ -44,10 +45,18 @@ const Descriptions = defineComponent({
         if (vertical) {
           let row2 = rows[len + 1] || [];
           if (temp < cols) {
-            row.push(<Item label={label} span={span} type="label" layout={layout} bordered={bordered} />);
+            row.push(
+              <Item
+                label={label}
+                span={span}
+                type="label"
+                layout={layout}
+                bordered={bordered}
+              />
+            );
             row2.push(
               <Item span={span} layout={layout} bordered={bordered}>
-                {children}
+                {childNodes}
               </Item>
             );
             rows[len] = row;
@@ -59,10 +68,18 @@ const Descriptions = defineComponent({
             rows[len] = [];
             rows[len + 1] = [];
             temps[v] = temp + span;
-            rows[len].push(<Item label={label} span={span} type="label" layout={layout} bordered={bordered} />);
+            rows[len].push(
+              <Item
+                label={label}
+                span={span}
+                type="label"
+                layout={layout}
+                bordered={bordered}
+              />
+            );
             rows[len + 1].push(
               <Item span={span} layout={layout} bordered={bordered}>
-                {children}
+                {childNodes}
               </Item>
             );
           }
@@ -74,9 +91,14 @@ const Descriptions = defineComponent({
           if (bordered) {
             if (temp < cols) {
               row.push(
-                <Item label={label} bordered={bordered} span={1} type="label" />,
+                <Item
+                  label={label}
+                  bordered={bordered}
+                  span={1}
+                  type="label"
+                />,
                 <Item span={span} bordered={bordered}>
-                  {children}
+                  {childNodes}
                 </Item>
               );
               rows[len] = row;
@@ -86,9 +108,14 @@ const Descriptions = defineComponent({
               rows[len] = [];
               temps[len] = span + 1;
               rows[len].push(
-                <Item label={label} bordered={bordered} span={1} type="label" />,
+                <Item
+                  label={label}
+                  bordered={bordered}
+                  span={1}
+                  type="label"
+                />,
                 <Item span={span} bordered={bordered}>
-                  {children}
+                  {childNodes}
                 </Item>
               );
             }
@@ -99,7 +126,7 @@ const Descriptions = defineComponent({
             if (temp < cols) {
               row.push(
                 <Item label={label} span={span}>
-                  {children}
+                  {childNodes}
                 </Item>
               );
               rows[len] = row;
@@ -110,7 +137,7 @@ const Descriptions = defineComponent({
               temps[len] = temp + span;
               rows[len].push(
                 <Item label={label} span={span}>
-                  {children}
+                  {childNodes}
                 </Item>
               );
             }
@@ -142,7 +169,9 @@ const Descriptions = defineComponent({
         <div {...props}>
           <div class="k-descriptions-header">
             <div class="k-descriptions-title">{title || slots.title?.()}</div>
-            {extraNode ? <div class="k-descriptions-extra">{extraNode}</div> : null}
+            {extraNode ? (
+              <div class="k-descriptions-extra">{extraNode}</div>
+            ) : null}
           </div>
           <div class="k-descriptions-view">{viewNode}</div>
         </div>
