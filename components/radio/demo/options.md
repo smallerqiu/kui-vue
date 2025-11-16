@@ -11,7 +11,6 @@
       :options="types"
       v-model:value="direction"
       type="button"
-      theme="solid"
     />
     <br />
     <br />

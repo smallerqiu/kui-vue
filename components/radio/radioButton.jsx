@@ -1,6 +1,6 @@
 import { Button } from "../button";
 import { defineComponent, inject } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
@@ -19,10 +19,16 @@ const RadioButton = defineComponent({
       const _label = ps.label || slots.default?.().text;
 
       emit("update", { label: _label, value: ps.value });
-
     };
     return () => {
-      let { disabled, label, size = parentSize, theme, shape, checked } = ps;
+      let {
+        disabled,
+        label,
+        size = parentSize,
+        theme = "default",
+        shape,
+        checked,
+      } = ps;
       const props = {
         ...attrs,
         // onClick: change,
@@ -31,12 +37,12 @@ const RadioButton = defineComponent({
           size: radioGroup?.size || size,
           theme: radioGroup?.theme || theme,
           shape: radioGroup?.shape || shape,
-          type: checked ? "primary" : "default",
+          type: checked ? "primary" : 'default',
         },
         on: {
           ...listeners,
-          click: change
-        }
+          click: change,
+        },
       };
       return <Button {...props}>{label || slots.default?.()}</Button>;
     };

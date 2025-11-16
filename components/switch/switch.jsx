@@ -5,7 +5,8 @@ import { withInstall } from '../utils/vue';
 const Switch = defineComponent({
   name: "KSwitch",
   props: {
-    checked: [Boolean, Number],
+    // checked: [Boolean, Number], //for 3
+    value: [Boolean, Number], //for 3
     type: String,
     disabled: Boolean,
     loading: Boolean,
@@ -19,9 +20,9 @@ const Switch = defineComponent({
     falseText: String,
   },
   setup(ps, { slots, emit }) {
-    const isChecked = ref(ps.checked);
+    const isChecked = ref(ps.value);
     watch(
-      () => ps.checked,
+      () => ps.value,
       (nv, no) => {
         isChecked.value = nv;
       }
@@ -32,7 +33,8 @@ const Switch = defineComponent({
       }
       const checked = !isChecked.value;
       isChecked.value = checked;
-      emit("update:checked", checked);
+      // emit("update:checked", checked); //for 3
+      emit("input", checked); //for 3
       emit("change", checked);
     };
 

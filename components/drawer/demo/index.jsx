@@ -1,7 +1,7 @@
 import Info from './info.md'
 import Basic from './basic.md'
 import Custom from './custom.md'
-import Form from './form.md'
+import WithForm from './withForm.md'
 import Target from './target.md'
 import CN from '../index.md'
 export default {
@@ -11,7 +11,7 @@ export default {
         <Info />
         <Basic />
         <Custom />
-        <Form />
+        <WithForm />
         <Target />
         <CN />
       </div>

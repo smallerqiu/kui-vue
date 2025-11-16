@@ -1,11 +1,11 @@
 import { defineComponent, inject, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Radio = defineComponent({
   name: "Radio",
   props: {
     value: { type: [String, Number] },
     disabled: Boolean,
-    checked: [Boolean, Number],
+    checked: Boolean,
     label: [String, Number],
     size: {
       default: "default",
@@ -63,7 +63,13 @@ const Radio = defineComponent({
       return (
         <label class={classes} onClick={(e) => e.stopPropagation()}>
           <span class="k-radio-symbol">
-            <input type="radio" class="k-radio-input" disabled={disabled} checked={isChecked.value} onChange={change} />
+            <input
+              type="radio"
+              class="k-radio-input"
+              disabled={disabled}
+              checked={isChecked.value}
+              onChange={change}
+            />
             <span class="k-radio-inner"></span>
           </span>
           {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}

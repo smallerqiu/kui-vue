@@ -122,24 +122,18 @@
     </InputGroup>
   </Space>
 </template>
-<script>
+<script setup>
 import { Copy } from "kui-icons";
-export default {
-  data() {
-    return {
-      Copy,
-      treeData: [
-        {
-          title: "fruit",
-          key: "1",
-          children: [
-            { title: "apple", key: "11" },
-            { title: "orange", key: "12" },
-          ],
-        },
-      ],
-    };
+
+const treeData = [
+  {
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
   },
-};
+];
 </script>
 ```

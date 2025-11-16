@@ -5,38 +5,31 @@
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://www.chuchur.com/api/upload/image"
     name="file"
     :headers="headers"
     @change="handleChange"
-    >
+  >
     <Button :icon="CloudUpload">Click to upload</Button>
   </Upload>
 </template>
-<script>
+<script setup>
 import { CloudUpload } from "kui-icons";
-export default{
-  data() {
-    return {
-      CloudUpload,
-      headers:{
-        authorization: 'here is token'
-      }
-    }
-  },
-  methods:{
-    handleChange(info){
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'success') {
-        this.$message.success(`${info.file.filename} uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.filename} upload failed.`);
-      }
-    }
+import { ref } from "vue";
+import { message } from "kui-vue";
+const headers = ref({
+  authorization: "here is token",
+});
+const handleChange = (info) => {
+  if (info.file.status !== "uploading") {
+    console.log(info.file, info.fileList);
   }
-}
+  if (info.file.status === "success") {
+    message.success(`${info.file.filename} uploaded successfully`);
+  } else if (info.file.status === "error") {
+    message.error(`${info.file.filename} upload failed.`);
+  }
+};
 </script>
 ```

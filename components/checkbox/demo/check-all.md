@@ -7,7 +7,7 @@
 <template>
   <div>
     <Checkbox
-      v-model:checked="checkAll"
+      :checked.sync="checkAll"
       :indeterminate="indeterminate"
       @change="handleCheckAll"
     >
@@ -32,15 +32,16 @@ const options = [
 const cities = ref([]);
 
 const handleCheckAll = (e) => {
+  console.log(e.target.checked);
   let checked = e.target.checked;
   cities.value = checked ? options.map((v) => v.value) : [];
-  indeterminate.value = !checked && !options.length;
+  indeterminate.value = (!checked && !options.length);
 };
 const change = (data) => {
   let length = cities.value.length;
-  indeterminate.value = length > 0 && length < options.length;
+  indeterminate.value = (length > 0 && length < options.length);
 
-  checkAll.value = length == options.length;
+  checkAll.value = (length == options.length);
 };
 </script>
 ```

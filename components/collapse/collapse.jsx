@@ -1,20 +1,18 @@
 import { defineComponent, /*cloneVNode,*/ ref, watch } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
-import Vue from "vue";
-const {  cloneVNode } = Vue;
+import { withInstall, cloneVNode } from "../utils/vue";
 const Collapse = defineComponent({
   name: "Collapse",
   props: {
-    value: Array,
+    activeKey: Array,
     accordion: Boolean,
     sample: Boolean,
   },
   setup(ps, { slots, emit }) {
-    const currentValue = ref(ps.value || []);
+    const currentValue = ref(ps.activeKey || []);
 
     watch(
-      () => ps.value,
+      () => ps.activeKey,
       (nv, no) => {
         currentValue.value = nv;
       }
@@ -32,7 +30,8 @@ const Collapse = defineComponent({
       }
       currentValue.value = value;
       emit("change", key);
-      emit("update", value);
+      // emit("update", value); //for 3
+      emit("input", value); //for 3
     };
 
     return () => {
@@ -48,7 +47,13 @@ const Collapse = defineComponent({
         <div class={classes}>
           {children?.map((child) => {
             let active = currentValue.value.includes(child.key);
-            return cloneVNode(child, { active, onExpand: change });
+            // return cloneVNode(child, { active, onExpand: change }); //for 3
+            return cloneVNode(
+              child,
+              // { props:  active, onExpand: change }, //for 3
+              { props: { active }, on: { expand: change } },
+              true
+            );
           })}
         </div>
       );

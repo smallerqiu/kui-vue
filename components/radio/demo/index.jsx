@@ -4,7 +4,7 @@ import Disabled from './disabled.md'
 import Group from './group.md'
 import Options from './options.md'
 import GroupVertical from './group-vertical.md'
-import Button from './button.md'
+import CheckButton from './checkButton.md'
 import CN from '../index.md'
 export default {
   render() {
@@ -16,7 +16,7 @@ export default {
         <Options />
         <Group />
         <GroupVertical />
-        <Button />
+        <CheckButton />
         <CN />
       </div>
     )

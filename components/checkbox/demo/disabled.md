@@ -11,7 +11,7 @@
     <Checkbox indeterminate disabled>indeterminate</Checkbox>
     <br />
     <br />
-    <Checkbox :disabled="disabled" v-model:checked="checked">Checkbox</Checkbox>
+    <Checkbox :disabled="disabled" :checked.sync="checked">Checkbox</Checkbox>
     <Button @click="toggleChecked" size="small">
       {{ checked ? "Checked" : "Uncheck" }}
     </Button>

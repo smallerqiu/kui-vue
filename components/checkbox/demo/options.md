@@ -18,7 +18,6 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { message } from "kui-vue";
 const direction = ref("horizontal");
 const types = [
   { label: "垂直", value: "vertical" },
@@ -35,7 +34,7 @@ const options = [
 const cities = ref(["wuhan"]);
 
 const change = (v) => {
-  message.info(v);
+  console.log(v)
 };
 </script>
 ```

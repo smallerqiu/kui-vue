@@ -9,17 +9,12 @@ export default {
       // let empty = document.createComment('')
 
       if (target != document.body) {
-        target.appendChild(el)
+        const container = target?.$el || target
+        container.appendChild(el)
         el.__data = { parentNode, box: el }
       } else {
 
         let box = document.createElement('div')
-        // box.style.top = 0
-        // box.style.left = 0
-        // box.style.width = '100%'
-        // box.style.position = 'absolute'
-
-        // parentNode.replaceChild(empty, el)
 
         box.appendChild(el)
         target.appendChild(box)
@@ -33,7 +28,8 @@ export default {
     if (value) {
       const target = value === true ? document.body : value || document.body
       el.__data.parentNode.appendChild(el)
-      target.removeChild(el.__data.box)
+      const container = target?.$el || target
+      container.removeChild(el.__data.box)
       el.__data = null
     }
   }

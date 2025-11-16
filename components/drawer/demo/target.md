@@ -18,18 +18,18 @@
   <br />
   <Flex ref="refTarget" :style="boxStyle" align="center" justify="center">
     <p style="color:#999">Drawer 在内部展示.</p>
-    <Drawer
-      :show.sync="show"
-      width="200"
-      :footer="null"
-      :placement="placement"
-      :target="() => refTarget"
-    >
-      <p>something ...</p>
-      <p>something ...</p>
-      <p>something ...</p>
-    </Drawer>
   </Flex>
+  <Drawer
+    :show.sync="show"
+    width="200"
+    :footer="null"
+    :placement="placement"
+    :target="() => refTarget"
+  >
+    <p>something ...</p>
+    <p>something ...</p>
+    <p>something ...</p>
+  </Drawer>
 </template>
 <script setup>
 import { ref, computed } from "vue";

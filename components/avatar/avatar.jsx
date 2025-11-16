@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { defineComponent, ref, onMounted, onUpdated } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Avatar = defineComponent({
   name: "Avatar",
   props: {
@@ -9,7 +9,10 @@ const Avatar = defineComponent({
     size: {
       type: [Number, String],
       default: "default",
-      validator: (val) => (typeof val == "number" ? 1 : ["large", "small", "default"].indexOf(val) >= 0),
+      validator: (val) =>
+        typeof val == "number"
+          ? 1
+          : ["large", "small", "default"].indexOf(val) >= 0,
     },
     src: String,
   },
@@ -20,7 +23,10 @@ const Avatar = defineComponent({
     const updateSize = () => {
       if (innerRef.value) {
         const max = root.value.offsetWidth - 8;
-        const scale = innerRef.value.scrollWidth > max ? max / innerRef.value.scrollWidth : 1;
+        const scale =
+          innerRef.value.scrollWidth > max
+            ? max / innerRef.value.scrollWidth
+            : 1;
         innerRef.value.style.transform = `scale(${scale}) translateX(-50%)`;
       }
     };
@@ -45,8 +51,12 @@ const Avatar = defineComponent({
       }
       let children = slots.default?.();
 
-      let hasIcon = children?.filter((x) => x.type == "Icon").length;
-      let text = children?.length == 1 && typeof children[0].children === "string";
+      // let hasIcon = children?.filter((x) => x.type == "Icon").length; //for 3
+      let hasIcon = children?.filter(
+        (x) => x.componentOptions?.tag == "Icon"
+      ).length; 
+      // let text = children?.length == 1 && typeof children[0].children === "string"; //for 3
+      let text = children?.length == 1 && typeof children[0].text; //for 3
       let cls = [
         "k-avatar",
         {

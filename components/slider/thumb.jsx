@@ -84,27 +84,44 @@ export default defineComponent({
         tooltipVisible,
       } = ps;
       const props = {
-        tabindex: "0",
+        attrs: { tabindex: "0" },
         class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
         style: {
           // left: `${percent}%`,
           zIndex: index.value,
         },
-        onKeydown: onKeydown,
-        onMousedown: onMouseDown,
-        onTouchstart: onMouseDown,
-        onMouseenter: () => {
-          if (!disabled) showTip.value = true;
+        on: {
+          keydown: onKeydown,
+          mousedown: onMouseDown,
+          touchstart: onMouseDown,
+          mouseenter: () => {
+            if (!disabled) showTip.value = true;
+          },
+          mouseleave: (e) => {
+            if (ps.tooltipVisible == true) {
+              showTip.value = true;
+              return;
+            }
+            if (!isMousePressed.value) {
+              showTip.value = false;
+            }
+          },
         },
-        onMouseleave: (e) => {
-          if (ps.tooltipVisible == true) {
-            showTip.value = true;
-            return;
-          }
-          if (!isMousePressed.value) {
-            showTip.value = false;
-          }
-        },
+        // onKeydown: onKeydown, //for 3
+        // onMousedown: onMouseDown,
+        // onTouchstart: onMouseDown,
+        // onMouseenter: () => {
+        //   if (!disabled) showTip.value = true;
+        // },
+        // onMouseleave: (e) => {
+        //   if (ps.tooltipVisible == true) {
+        //     showTip.value = true;
+        //     return;
+        //   }
+        //   if (!isMousePressed.value) {
+        //     showTip.value = false;
+        //   }
+        // },
       };
       let percent,
         diff = max - min;
@@ -135,8 +152,10 @@ export default defineComponent({
       }
       const tipProps = {
         ref: refThumb,
-        title: tip,
-        show: showTip.value,
+        props: {
+          title: tip,
+          show: showTip.value,
+        },
       };
       return (
         <Tooltip {...tipProps}>

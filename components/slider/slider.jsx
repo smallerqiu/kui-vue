@@ -1,7 +1,7 @@
 import Thumb from "./thumb";
 import { multiply, add, subtract } from "../utils/number";
 import { defineComponent, ref, provide, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Slider = defineComponent({
   name: "Slider",
   props: {
@@ -88,7 +88,8 @@ const Slider = defineComponent({
         }
         defaultValue.value = getValue(v);
       }
-      emit("update:value", defaultValue.value);
+      // emit("update:value", defaultValue.value);
+      emit("input", defaultValue.value);
     };
 
     const mouseMove = (e, type) => {
@@ -163,7 +164,8 @@ const Slider = defineComponent({
       }
 
       defaultValue.value = newValue;
-      emit("update:value", newValue);
+      // emit("update:value", newValue);
+      emit("input", newValue);
     };
 
     const getMinStep = (percent) => {
@@ -207,7 +209,8 @@ const Slider = defineComponent({
       }
 
       defaultValue.value = value;
-      emit("update:value", value);
+      // emit("update:value", value);
+      emit("input", value);
     };
     const getActiveOps = (a) => {
       let { reverse, max, min, vertical } = ps;
@@ -279,7 +282,8 @@ const Slider = defineComponent({
                     "k-slider-mark-text",
                     { "k-slider-mark-text-active": active },
                   ]}
-                  style={sty}>
+                  style={sty}
+                >
                   {txt[i]}
                 </div>
               );
@@ -336,18 +340,23 @@ const Slider = defineComponent({
       };
 
       const thumbProps = {
-        vertical,
-        disabled,
-        step,
-        reverse,
-        min,
-        size,
-        max,
-        tipFormatter,
-        tooltipVisible,
-        onKeydownUpdate: keydownUpdate,
-        // value: range ? [].concat(defaultValue.value) : defaultValue.value * 1,
-        onThumbMove: mouseMove,
+        props: {
+          vertical,
+          disabled,
+          step,
+          reverse,
+          min,
+          size,
+          max,
+          tipFormatter,
+          tooltipVisible,
+        },
+        // onKeydownUpdate: keydownUpdate,
+        // onThumbMove: mouseMove,
+        on: {
+          keydownUpdate: keydownUpdate,
+          thumbMove: mouseMove,
+        },
       };
       const children = [];
       if ((included && marks) || !marks) {
@@ -369,7 +378,8 @@ const Slider = defineComponent({
           class={[
             "k-slider",
             { "k-slider-disabled": disabled, "k-slider-vertical": vertical },
-          ]}>
+          ]}
+        >
           <div class="k-slider-bar">
             <div class="k-slider-rail" ref={railRef} onClick={click}></div>
             {...children}
