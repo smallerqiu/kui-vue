@@ -14,6 +14,7 @@
       v-model:value="value"
     />
     <Input placeholder="disabled..." disabled />
+    <Input placeholder="readonly..." readonly />
     <TextArea v-model:value="value" placeholder="disabled..." />
   </Space>
 </template>

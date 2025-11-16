@@ -1,179 +1,53 @@
-import Alert from "./alert";
-import Affix from "./affix";
-import Avatar from "./avatar";
-import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
-import { Button, ButtonGroup } from "./button";
-import Badge from "./badge";
-// import BackTop from './backtop'
-import ColorPicker from "./colorPicker";
-import Card from "./card";
-import { Carousel, CarouselItem } from "./carousel";
-import { Collapse, CollapsePanel } from "./collapse";
-import { Checkbox, CheckboxGroup } from "./checkbox";
-import { DatePicker, /*DateCalendar*/ } from './datePicker'
-import { Descriptions, DescriptionsItem } from "./descriptions";
-import Drawer from "./drawer";
-import { Dropdown, DropdownButton } from "./dropdown";
-import Divider from "./divider";
-import Empty from "./empty";
-// import { Form, FormItem } from './form'
-import Flex from "./flex";
-// import { Image, ImageGroup } from './image'
-import Icon from "./icon";
-import { Input, TextArea, InputGroup } from "./input";
-import InputNumber from "./inputNumber";
-import { Layout, Header, Footer, Content, Sider } from "./layout";
-import loading from "./loading";
-import modal from "./modal";
-import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from "./menu";
-import message from "./message";
-import notice from "./notice";
-import Page from "./page";
-import Poptip from "./poptip";
-import Popconfirm from "./popconfirm";
-import Progress from "./progress";
-import { Radio, RadioGroup, RadioButton } from "./radio";
-import Rate from "./rate";
-import { Select, Option } from "./select";
-import {
-  Skeleton,
-  SkeletonAvatar,
-  SkeletonButton,
-  SkeletonImage,
-  SkeletonText,
-} from "./skeleton";
-import Slider from "./slider";
-import Space from "./space";
-import Spin from "./spin";
-import Switch from "./switch";
-// import Table from './table'
-import Tooltip from "./tooltip";
-import { Tabs, TabPanel } from "./tabs";
-import { TimeLine, TimeLineItem } from "./timeline";
-// import { Tree, TreeNode } from './tree'
-// import TreeSelect from './treeselect'
-import Tag from "./tag";
-import { Row, Col } from "./grid";
-// import Upload from './upload'
-import theme from "./utils/theme";
 import pkg from "../package.json";
-// import './styles/index.less';
 
-// import locale from './locale'
+import * as components from "./components";
+import "./styles/index.less";
 
-const components = {
-  Affix,
-  Alert,
-  Avatar,
-  // BackTop,
-  Badge,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  ButtonGroup,
-  Card,
-  Carousel,
-  CarouselItem,
-  Checkbox,
-  CheckboxGroup,
-  Collapse,
-  CollapsePanel,
-  ColorPicker,
-  Col,
-  Row,
-  DatePicker, //DateCalendar,
-  Descriptions,
-  DescriptionsItem,
-  Dropdown,
-  DropdownButton,
-  Drawer,
-  Divider,
-  Empty,
-  // Form, FormItem,
-  Flex,
-  Icon,
-  // ImageGroup,
-  Input,
-  TextArea,
-  InputGroup,
-  InputNumber,
-  Menu,
-  MenuGroup,
-  MenuItem,
-  MenuDivider,
-  SubMenu,
-  Modal: modal,
-  message,
-  Layout,
-  Header,
-  Footer,
-  Content,
-  Sider,
-  loading,
-  notice,
-  Page,
-  Poptip,
-  Popconfirm,
-  Progress,
-  Radio,
-  RadioGroup,
-  RadioButton,
-  Rate,
-  Select,
-  Option,
-  Space,
-  Spin,
-  Skeleton,
-  SkeletonAvatar,
-  SkeletonButton,
-  SkeletonImage,
-  SkeletonText,
-  Slider,
-  // Table,
-  Tabs,
-  TabPanel,
-  TimeLine,
-  TimeLineItem,
-  Tag,
-  Tooltip,
-  // Tree, TreeNode,
-  // TreeSelect,
-  // Upload
-};
+export * from "./components";
+
 const UI = {
-  ...components,
-  KButton: Button,
-  KHeader: Header,
-  KFooter: Footer,
-  KContent: Content,
-  KSwitch: Switch,
-  KCol: Col,
-  KRow: Row,
-  Version: pkg.version,
+  version: pkg.version,
   lang: {},
-};
-const install = (app, options = {}) => {
-  for (let key in UI) {
-    app.component(key, UI[key]);
-  }
-  app.provide("message", message);
-  app.provide("notice", notice);
-  app.provide("loading", loading);
-  app.provide("modal", modal);
-  app.provide("theme", theme);
-  app.config.globalProperties.$message = message;
-  app.config.globalProperties.$notice = notice;
-  app.config.globalProperties.$modal = modal;
-  app.config.globalProperties.$theme = theme;
-  app.config.globalProperties.$loading = loading;
-  // app.config.globalProperties.$Image = Image;
+  install: function (app, opts = {}) {
+    if (opts.locale) {
+      locale.use(opts.locale);
+    }
+    if (opts.i18n) {
+      locale.setI18n(opts.i18n);
+    }
+
+    for (let key in components) {
+      const component = components[key];
+      if (!key.startsWith("K")) {
+        const kebabName =
+          "k-" +
+          key
+            .replace(/([A-Z])/g, "-$1")
+            .replace(/^-/, "")
+            .toLowerCase();
+        app.component(kebabName, component);
+      }
+      app.component(key, component);
+    }
+    app.provide("message", message);
+    app.provide("notice", notice);
+    app.provide("loading", loading);
+    app.provide("modal", modal);
+    app.provide("theme", theme);
+
+    app.config.globalProperties.$message = components.message;
+    app.config.globalProperties.$notice = components.notice;
+    app.config.globalProperties.$modal = components.modal;
+    app.config.globalProperties.$loading = components.loading;
+    app.config.globalProperties.$image = components.KImage;
+    app.config.globalProperties.$theme = components.theme;
+  },
 };
 
 UI.install = install;
 
 // auto install for CDN
-if (typeof window !== "undefined" && window.Vue) {
-  window.Vue.createApp && window.Vue.createApp({}).use(UI);
-}
-export { message, notice, loading, modal, theme };
+// if (typeof window !== "undefined" && window.Vue) {
+  // window.Vue.createApp && window.Vue.createApp({}).use(UI);
+// }
 export default UI;

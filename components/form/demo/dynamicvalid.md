@@ -95,7 +95,7 @@ export default{
     },
     submit(){
       this.$refs.form.validate(valid=>{
-        message[valid?'success':'error'](valid?'success':'faild')
+        message[valid?'success':'error'](valid?'success':'failed')
       })
     },
     reset(){

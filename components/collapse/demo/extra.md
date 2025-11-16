@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="demo-collapse">
-    <Collapse :value="['1', '2']">
+    <Collapse v-model:activeKey="activeKey">
       <CollapsePanel title="Panel title" key="1">
         <template #extra>
           <Icon :type="SettingsOutline" />
@@ -29,6 +29,8 @@
   </div>
 </template>
 <script setup>
+import { ref } from "vue";
+const activeKey = ref(["1","2"]);
 import { SettingsOutline } from "kui-icons";
 const text = `A long time ago, In a beautiful kingdom, 
   there lived a young king and queen, 

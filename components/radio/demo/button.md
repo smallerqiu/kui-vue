@@ -16,7 +16,6 @@
     Theme :
     <RadioGroup v-model:value="theme" size="small">
       <RadioButton value="default" label="Default" />
-      <RadioButton value="solid" label="Solid" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
     </RadioGroup>
@@ -42,7 +41,7 @@
 import { ref } from "vue";
 const size = ref("default");
 const shape = ref("default");
-const theme = ref("solid");
+const theme = ref("default");
 const date = ref(0);
 const dates = [
   { label: "7天", value: 0 },

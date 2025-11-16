@@ -1,6 +1,6 @@
 import { getChildren } from "../utils/vnode";
 import { defineComponent, cloneVNode } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const InputGroup = defineComponent({
   name: "InputGroup",
   props: {
@@ -13,7 +13,9 @@ const InputGroup = defineComponent({
       type: [String, Number, Array],
       default: "default",
       validator(value) {
-        return typeof value == "number" || Array.isArray(value) ? true : ["small", "middle", "large", "default"].indexOf(value) >= 0;
+        return typeof value == "number" || Array.isArray(value)
+          ? true
+          : ["small", "middle", "large", "default"].indexOf(value) >= 0;
       },
     },
   },
@@ -51,7 +53,7 @@ const InputGroup = defineComponent({
         let child = cloneVNode(
           children[i],
           {
-            ...children[i].props,
+            // ...children[i].props,
             size,
             class: {
               [`k-input-group-first-item`]: i == 0,
@@ -60,7 +62,7 @@ const InputGroup = defineComponent({
             },
           },
           true,
-          true
+          // true
         );
         newChildren.push(child);
       }

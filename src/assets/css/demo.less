@@ -1,0 +1,87 @@
+.demo-grid {
+  .h-64 {
+    height: 64px;
+    line-height: 64px;
+  }
+
+  .h-96 {
+    height: 96px;
+    line-height: 96px;
+  }
+
+  .h-128 {
+    height: 128px;
+    line-height: 128px;
+  }
+
+  .h-72 {
+    height: 72px;
+    line-height: 72px;
+  }
+
+  .k-row-flex {
+    padding: 6px 0;
+  }
+
+  .k-row {
+    margin: 6px 0;
+
+    .k-col {
+      text-align: center;
+      padding: 10px 0;
+      color: #fff;
+
+      &:nth-child(even) {
+        background: var(--kui-color-main-80);
+      }
+
+      &:nth-child(odd) {
+        background: var(--kui-color-main-60);
+      }
+    }
+  }
+
+  .k-row.row-gutter {
+    .k-col {
+      background: transparent;
+
+      div {
+        box-sizing: border-box;
+        line-height: 45px;
+
+        &:nth-child(even) {
+          background: var(--kui-color-main-80);
+        }
+
+        &:nth-child(odd) {
+          background: var(--kui-color-main-60);
+        }
+      }
+    }
+  }
+}
+
+.demo-carousel {
+  .k-carousel {
+    height: 256px;
+
+    .k-carousel-item {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      color: #fff;
+      background: var(--kui-color-main);
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+}
+
+.demo-badge {
+  .box {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: var(--kui-color-main-60);
+  }
+}

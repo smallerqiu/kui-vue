@@ -2,7 +2,7 @@ import { defineComponent, inject } from "vue";
 import Icon from "../icon";
 import { Loading } from "kui-icons";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import { colors } from "../const/var";
 const Button = defineComponent({
   name: "Button",
@@ -44,25 +44,32 @@ const Button = defineComponent({
       type: String,
       default: "default",
       validator(value) {
-        return ["default", "outline", "solid", "light", "dashed", 'card'].includes(value);
+        return [
+          "default",
+          "outline",
+          "solid",
+          "light",
+          "dashed",
+          "card",
+        ].includes(value);
       },
     },
     shape: String,
     href: String,
     target: String,
   },
-  emits: ['click'],
+  emits: ["click"],
   setup(props, { emit, slots, attrs }) {
-    const parentSize = inject('size', null)
+    const parentSize = inject("size", null);
     return () => {
-      const size = props.size || parentSize
+      const size = props.size || parentSize;
       let children = getChildren(slots.default?.());
       const onlyIcon = !children?.length && (props.icon || props.loading);
       const classes = [
         "k-btn",
         {
           [`k-btn-${props.type}`]: !!props.type,
-          [`k-btn-outline`]: props.theme == 'outline',
+          [`k-btn-outline`]: props.theme == "outline",
           ["k-btn-sm"]: size === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
@@ -91,7 +98,7 @@ const Button = defineComponent({
             return;
           }
           emit("click", e);
-        }
+        },
       };
 
       const childNode = children?.map((c) => {
