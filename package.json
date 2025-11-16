@@ -85,6 +85,7 @@
     "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-vue": "^6.0.0",
+    "uuid": "^13.0.0",
     "vue-clipboard2": "^0.3.3",
     "vue-eslint-parser": "^10.2.0",
     "vue-template-compiler": "^2.7.16"
@@ -97,7 +98,6 @@
     "less": "^4.4.2",
     "lodash.assign": "^4.2.0",
     "lodash.clonedeep": "^4.5.0",
-    "lodash.pick": "^4.4.0",
     "vite": "npm:rolldown-vite@7.1.14",
     "vue-router": "^3.6.2"
   },

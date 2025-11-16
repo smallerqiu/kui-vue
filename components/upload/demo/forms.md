@@ -30,20 +30,20 @@
       <Input type="hidden" />
     </FormItem>
     <FormItem label="单个文件" prop="file">
-      <Input readonly placeholder="请上传文件" clearable>
-        <Upload
-          action="https://www.chuchur.com/api/upload/image"
-          name="file"
-          :headers="headers"
-          @change="uploadFile"
-          @remove="() => (form.file = '')"
-          :showUploadList="false"
-          :limit="1"
-          accept="image/*"
-          slot="suffix"
-        >
-          <Button :icon="CloudUploadOutline" type="link" />
-        </Upload>
+      <Input placeholder="请上传文件" clearable>
+        <template #suffix>
+          <Upload
+            action="https://www.chuchur.com/api/upload/image"
+            name="file"
+            :headers="headers"
+            @change="uploadFile"
+            :showUploadList="false"
+            :limit="1"
+            accept="image/*"
+          >
+            <Button :icon="CloudUploadOutline" :loading="loading" theme="outline"/>
+          </Upload>
+        </template>
       </Input>
     </FormItem>
     <FormItem label="多个文件" prop="files">
@@ -69,12 +69,13 @@ import { ref, reactive } from "vue";
 import { message } from "kui-vue";
 const uploadRef = ref(null);
 const formRef = ref(null);
+const loading = ref(false);
 const headers = ref({
   authorization: "here is token",
 });
 const form = reactive({
   avatar: "",
-  file: "",
+  file: "11",
   files: [],
 });
 const rules = ref({
@@ -86,7 +87,10 @@ const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 
 const uploadFile = ({ file }) => {
+  console.log(file);
+  loading.value = true;
   if (file.status == "success") {
+    loading.value = false;
     form.file = file.response.url;
     formRef.value.test("file");
   }

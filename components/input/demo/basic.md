@@ -15,12 +15,12 @@
     />
     <Input placeholder="disabled..." disabled />
     <Input placeholder="readonly..." readonly v-model="value"/>
-    <TextArea v-model="value" placeholder="disabled..." />
+    <TextArea v-model="value" />
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const value = ref();
+const value = ref('');
 const blur = () => {
   console.log("blur");
 };

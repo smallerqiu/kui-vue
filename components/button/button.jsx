@@ -2,7 +2,7 @@ import { defineComponent, inject } from "vue";
 import Icon from "../icon";
 import { Loading } from "kui-icons";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import { colors } from "../const/var";
 const Button = defineComponent({
   name: "Button",
@@ -44,37 +44,46 @@ const Button = defineComponent({
       type: String,
       default: "default",
       validator(value) {
-        return ["default", "outline", "solid", "light", "dashed", 'card'].includes(value);
+        return [
+          "default",
+          "outline",
+          "solid",
+          "light",
+          "dashed",
+          "card",
+        ].includes(value);
       },
     },
     shape: String,
     href: String,
     target: String,
   },
-  emits: ['click'],
+  emits: ["click"],
   setup(props, { emit, slots, attrs, listeners }) {
-    const parentSize = inject('size', null)
+    const parentSize = inject("size", null);
 
     return () => {
-      const size = props.size || parentSize
+      const size = props.size || parentSize;
       let children = getChildren(slots.default?.());
       const iconOnly = () => {
         // console.log('excluded', children)
-        const excluded = children.filter(c => c.componentOptions?.tag !== 'transition')
+        const excluded = children.filter(
+          (c) => c.componentOptions?.tag !== "transition"
+        );
         // console.log(excluded)
         if (!excluded?.length) {
-          return props.icon || props.loading
+          return props.icon || props.loading;
         }
         if (excluded.length === 1) {
-          return excluded[0].componentOptions?.tag === 'Icon'
+          return excluded[0].componentOptions?.tag === "Icon";
         }
-        return false
-      }
+        return false;
+      };
       const classes = [
         "k-btn",
         {
           [`k-btn-${props.type}`]: !!props.type,
-          [`k-btn-outline`]: props.theme == 'outline',
+          [`k-btn-outline`]: props.theme == "outline",
           ["k-btn-sm"]: size === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
@@ -111,16 +120,13 @@ const Button = defineComponent({
               return;
             }
             emit("click", e);
-          }
+          },
         },
       };
 
       const childNode = children?.map((c) => {
-        return typeof c.children === "string" ? (
-          <span>{c.children.trim()}</span>
-        ) : (
-          c
-        );
+        // console.log(c);
+        return typeof c.text === "string" ? <span>{c.text.trim()}</span> : c;
       });
       childNodes = childNodes.concat(childNode);
 
