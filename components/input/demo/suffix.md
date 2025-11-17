@@ -5,13 +5,9 @@ suffix，prefix 扩展
 
 ```vue
 <template>
-  <Space vertical style="width:512px;"
-    >{{ time }}
+  <Space vertical style="width:512px;">
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
-    <Input
-      placeholder="请输入验证码"
-      :maxlength="8"
-    >
+    <Input placeholder="请输入验证码" :maxlength="8">
       <template #suffix>
         <Button
           :disabled="time < 60"

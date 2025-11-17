@@ -7,6 +7,7 @@ import {
   toFixed,
   isValidNumber,
   isEmpty,
+  toDecimalString,
 } from "../utils/number";
 import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch, inject } from "vue";
@@ -37,7 +38,7 @@ const InputNumber = defineComponent({
   },
   setup(ps, { slots, attrs, emit }) {
     const parentSize = inject("size", null);
-    const getValue = (v, edge) => {
+    const getValue = (v, edge, sync) => {
       let input = "";
       let output = "";
 
@@ -52,6 +53,9 @@ const InputNumber = defineComponent({
           output = formatter ? parser?.(String(v)) || v : String(v);
         }
       } else {
+        if (/e/i.test(v) && sync) {
+          v = toDecimalString(v);
+        }
         input = String(v);
         output = v;
       }
@@ -114,7 +118,7 @@ const InputNumber = defineComponent({
     };
     const onUpdate = (e) => {
       const v = e; //.target.value;
-      const { input, output } = getValue(v, false);
+      const { input, output } = getValue(v, false, false);
       // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
       inputValue.value = input;
       // e.target.value = input;
@@ -141,7 +145,7 @@ const InputNumber = defineComponent({
       }
     );
     const blurHandle = (e) => {
-      const { input, output } = getValue(outputValue.value, true);
+      const { input, output } = getValue(outputValue.value, true, true);
 
       inputValue.value = input;
       outputValue.value = output;
@@ -185,8 +189,8 @@ const InputNumber = defineComponent({
         <Input
           {...props}
           scopedSlots={{
-            // suffix: () => slots.suffix?.(),
-            // prefix: () => slots.prefix,
+            suffix: () => slots.suffix?.(),
+            prefix: () => slots.prefix?.(),
             controls: () =>
               ps.controls ? (
                 <div class="k-input-number-controls">

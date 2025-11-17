@@ -1,90 +1,24 @@
 <template>
-  <Space vertical style="width:512px;">
-    <!-- <Input placeholder="请输入用户名" :icon="PersonOutline" /> -->
-    <Input
-      placeholder="请输入验证码"
-      :icon="ShieldCheckmark"
-      :maxlength="8"
-      prefix="¥"
-    >
-      <template #suffix>
-        <Button :disabled="time != 60" style="width:100px;" @click="sendCode" theme="outline">
-          {{ time == 60 ? "获取验证码" : time + "(s)" }}
-        </Button>
-      </template>
-    </Input>
-    <!-- <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
-      <template #suffix>
-        <Tooltip title="请咨询管理员">
-          <Icon :type="InformationCircleOutline" color="orange" />
-        </Tooltip>
-      </template>
-    </Input>
-    <Input placeholder="请输入金额" suffix="RMB" prefix="¥" />
-    <Input placeholder="请输入域名" suffix=".com" prefix="https://" />
-    <Input placeholder="输入内容" prefix="www.">
-      <template #prefix>
-        <Select :options="options" clearable value="http"></Select>
-      </template>
-      <template #suffix>
-        <Select :options="list" clearable value=".com"></Select>
-      </template>
-    </Input>
-    <Input placeholder="请输入金额" suffix=".00" />
-    <Input placeholder="输入内容" prefix="www.">
-      <template #prefix>
-        <Select :options="options" clearable value="http"></Select>
-      </template>
-      <template #suffix>
-        <TreeSelect
-          :tree-data="treeData"
-          clearable
-          style="width:200px"
-        ></TreeSelect>
-      </template>
-    </Input> -->
+  <Space style="width:200px;font-size:12px;" vertical>
+    简单数字输入框: {{ value1 }}
+    <Space>
+      <InputNumber v-model="value1" :keyboard="keyboard" :controls="showControls" />
+      <Checkbox :checked.sync="keyboard">Toggle keyboard</Checkbox>
+      <Checkbox :checked.sync="showControls">Toggle controls</Checkbox>
+    </Space>
+    步长为2: {{ value2 }}
+    <InputNumber :step="2" v-model="value2" />
+    设置了上下界 min=1,max=10: {{ value3 }}
+    <InputNumber :min="1" :max="10" v-model="value3" />
+    禁用
+    <InputNumber disabled />
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-import {
-  InformationCircleOutline,
-  Gift,
-  ShieldCheckmark,
-  PersonOutline,
-} from "kui-icons";
-import { message } from "kui-vue";
-const time = ref(60);
-const timer = ref();
-const sendCode = () => {
-  time.value = 59;
-  message.success("验证码发送成功，请注意查收");
-  timer.value = setInterval(() => {
-    if (time.value <= 0) {
-      clearInterval(timer.value);
-      time.value = 60;
-    } else {
-      time.value -= 1;
-    }
-  }, 1000);
-};
-const options = [
-  { label: "http", value: "http" },
-  { label: "https", value: "https" },
-];
-const list = [
-  { label: ".com", value: ".com" },
-  { label: ".cn", value: ".cn" },
-  { label: ".org", value: ".org" },
-];
-const treeData = [
-  {
-    title: "fruit",
-    key: "1",
-    children: [
-      { title: "apple", key: "11" },
-      { title: "orange", key: "12" },
-    ],
-  },
-];
+const value1 = ref("1");
+const value2 = ref("");
+const value3 = ref("");
+const keyboard = ref(true);
+const showControls = ref(true);
 </script>

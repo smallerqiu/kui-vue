@@ -1,5 +1,5 @@
 import { getChildren } from "../utils/vnode";
-import { defineComponent /*cloneVNode*/ } from "vue";
+import { defineComponent /*cloneVNode*/, provide, inject } from "vue";
 import { withInstall, cloneVNode } from "../utils/vue";
 const InputGroup = defineComponent({
   name: "InputGroup",
@@ -20,6 +20,10 @@ const InputGroup = defineComponent({
     },
   },
   setup(ps, { slots }) {
+    const parentSize = inject("size", null);
+
+    provide("size", ps.size || parentSize);
+
     return () => {
       let { size, compact, block } = ps;
       const props = {
