@@ -14,6 +14,7 @@ const bannerText = `/*!
  */\n`;
 // https://vite.dev/config/
 export default defineConfig({
+  runtimeCompiler: true,
   plugins: [
     vitePluginMd(),
     vueJsx(),
@@ -23,7 +24,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      vue$: "vue/dist/vue.esm.js",
+      // 'vue': "vue/dist/vue.esm.js",
       "@": path.resolve(__dirname, "/"),
       "kui-vue": path.resolve(__dirname, "/components"),
     },
