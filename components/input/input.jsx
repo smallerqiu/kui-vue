@@ -2,7 +2,7 @@ import Icon from "../icon";
 import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
-import { defineComponent, ref, nextTick, watch, inject } from "vue";
+import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
 import { withInstall } from "../utils/vue";
 import InputBox from "./inputBox";
 const Input = defineComponent({
@@ -11,9 +11,8 @@ const Input = defineComponent({
     clearable: Boolean,
     visiblePasswordIcon: { type: Boolean, default: true },
     size: {
-      // default: "default",
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
+        return ["small", "large", "middle", "default"].indexOf(value) >= 0;
       },
     },
     value: [String, Number, Array, Object],
@@ -50,6 +49,8 @@ const Input = defineComponent({
     const showPassword = ref(false);
     const inputRef = ref();
     const parentSize = inject("size", null);
+    
+    provide("size", ps.size || parentSize);
 
     watch(
       () => ps.value,
@@ -128,14 +129,15 @@ const Input = defineComponent({
         shape,
         inputType,
       } = ps;
-
+      const slotSuffix = slots.suffix?.();
+      const slotPrefix = slots.prefix?.();
       let multiple =
         (icon ||
           // attrs.onSearch ||
           "search" in listeners ||
-          slots.suffix ||
+          slotSuffix ||
           suffix ||
-          slots.prefix ||
+          slotPrefix ||
           prefix ||
           type == "password" ||
           clearable ||
@@ -190,11 +192,11 @@ const Input = defineComponent({
       };
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
-      if (slots.prefix || slots.suffix) {
+      if (slotPrefix || slotSuffix) {
         const preChildren = [];
-        if (slots.prefix)
+        if (slotPrefix)
           preChildren.push(
-            <div class="k-input-group-prefix">{slots.prefix?.()}</div>
+            <div class="k-input-group-prefix">{slotPrefix}</div>
           );
         const innerChildren = [];
         if (icon)
@@ -222,9 +224,9 @@ const Input = defineComponent({
             />
           );
         const sufChildren = [];
-        if (slots.suffix)
+        if (slotSuffix)
           sufChildren.push(
-            <div class="k-input-group-suffix">{slots.suffix?.()}</div>
+            <div class="k-input-group-suffix">{slotSuffix}</div>
           );
 
         if (slots.controls) innerChildren.push(slots.controls?.());

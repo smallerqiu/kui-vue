@@ -1,18 +1,18 @@
 <cn>
-#### 基本用法 
-基本用法 
+#### 基本用法
+基本用法 ,使用 keyboard 属性可以控制键盘行为。
 </cn>
 
 ```vue
 <template>
   <Space style="font-size:12px;" vertical>
     简单数字输入框: {{ value1 }}
-    <Space block>
+    <Space>
       <InputNumber
-        v-model:value="value1"
+        v-model="value1"
         :keyboard="keyboard"
         :controls="showControls"
-        style="width: 150px;"
+        style="width: 120px;"
       />
       <Checkbox :checked.sync="keyboard">Toggle keyboard</Checkbox>
       <Checkbox :checked.sync="showControls">Toggle controls</Checkbox>
@@ -25,17 +25,12 @@
     <InputNumber disabled />
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      value1: "1",
-      value2: "",
-      value3: "",
-      keyboard: true,
-      showControls: true,
-    };
-  },
-};
+<script setup>
+import { ref } from "vue";
+const value1 = ref("1");
+const value2 = ref("");
+const value3 = ref("");
+const keyboard = ref(true);
+const showControls = ref(true);
 </script>
 ```

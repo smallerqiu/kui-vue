@@ -144,9 +144,9 @@ const filter = (key) => {
     logo.value = logos
   }
 }
-const copyHandle = (x) => {
-  let text = `<Icon type="${x}" />`
-  copy(text);
+const copyHandle = (name) => {
+  // let text = `<Icon type="${name}" />`
+  copy(name);
   message.success('代码复制成功！')
 }
 </script>

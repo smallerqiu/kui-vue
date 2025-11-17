@@ -9,7 +9,7 @@ export function isEmpty(value) {
   );
 }
 
-//正负,小数,科学技术法
+//正负,小数,科学计数法
 export function isValidNumber(number) {
   if (isEmpty(number)) return false;
   const str = String(number).trim();
@@ -18,11 +18,12 @@ export function isValidNumber(number) {
 // 将数值转为字符串并展开科学计数法
 export function toDecimalString(num) {
   const str = String(num);
-  if (!/e/i.test(str)) return str;
+  if (!/e/i.test(str)) return num;
   return Number(num)
     .toFixed(20)
     .replace(/\.?0+$/, "");
 }
+console.log(toDecimalString(1e3-10))
 
 // 获取小数长度
 export function getDecimalLength(numStr) {

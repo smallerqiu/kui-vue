@@ -5,30 +5,27 @@
 
 ```vue
 <template>
-  <Space style="width:512px;" vertical>
+  <div style="width:512px;">
     <InputNumber
       placeholder="Large Input"
       size="large"
       :icon="LogoKui"
       clearable
     />
+    <br />
+    <br />
     <InputNumber placeholder="Base Input" :icon="LogoKui" clearable />
+    <br />
+    <br />
     <InputNumber
       size="small"
       placeholder="Small Input"
       :icon="LogoKui"
       clearable
     />
-  </Space>
+  </div>
 </template>
-<script>
+<script setup>
 import { LogoKui } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui,
-    };
-  },
-};
 </script>
 ```

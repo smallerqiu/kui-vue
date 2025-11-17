@@ -17,7 +17,7 @@ const Button = defineComponent({
     block: Boolean,
     size: {
       validator(value) {
-        return ["small", "large", "default"].includes(value);
+        return ["small", "large", "middle", "default"].includes(value);
       },
     },
     color: {

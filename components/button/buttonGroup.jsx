@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 const ButtonGroup = defineComponent({
   name: "ButtonGroup",
@@ -7,7 +7,7 @@ const ButtonGroup = defineComponent({
     size: {
       default: "default",
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
+        return ["small", "large", "middle", "default"].indexOf(value) >= 0;
       },
     },
     shape: String,
