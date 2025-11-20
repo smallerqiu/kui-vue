@@ -23,7 +23,7 @@ export function toDecimalString(num) {
     .toFixed(20)
     .replace(/\.?0+$/, "");
 }
-console.log(toDecimalString(1e3-10))
+// console.log(toDecimalString(1e3-10))
 
 // 获取小数长度
 export function getDecimalLength(numStr) {

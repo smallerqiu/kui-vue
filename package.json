@@ -68,7 +68,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
     "@vue/babel-preset-jsx": "^1.4.0",
-    "@vue/compiler-sfc": "3.2.47",
+    "@vue/compiler-sfc": "2.7.16",
     "@vueuse/core": "^8.9.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.39.1",
@@ -96,12 +96,11 @@
     "color": "^5.0.2",
     "dayjs": "^1.11.18",
     "less": "^4.4.2",
-    "lodash.assign": "^4.2.0",
     "lodash.clonedeep": "^4.5.0",
-    "vite": "npm:rolldown-vite@7.1.14",
+    "vite": "npm:rolldown-vite@7.2.2",
     "vue-router": "^3.6.2"
   },
   "overrides": {
-    "vite": "npm:rolldown-vite@7.1.14"
+    "vite": "npm:rolldown-vite@7.2.2"
   }
 }
