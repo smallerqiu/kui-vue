@@ -3,25 +3,72 @@ import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor } from "kui-icons";
 import { defineComponent, ref, getCurrentInstance } from "vue";
 import Vue from "vue";
+// import {
+//   parse,
+//   compileTemplate,
+//   compileScript,
+//   compileStyle,
+// } from "@vue/compiler-sfc";
 const Demo = defineComponent({
   name: "Demo",
   setup(props, { slots }) {
-    const expand = ref(false);
+    const expand = ref(true);
     const { proxy } = getCurrentInstance();
     const codeRef = ref(null);
     const viewRef = ref(null);
 
-    const renderNode = ref();
-
     const renderCode = () => {
-      const templateStr = codeRef.value?.innerText;
-      console.log(templateStr);
-      const vm = new Vue({
-        data() {
-          return { name: "Qiu" };
-        },
-        template: templateStr, // ⚠️ 需要开启 `runtimeCompiler`
-      }).$mount(viewRef.value);
+      // const vm = new Vue(componentOptions).$mount(viewRef.value);
+      fetch("http://127.0.0.1:4000/parse", {
+        method: "POST",
+        body: JSON.stringify({ source: codeRef.value?.innerText }),
+      }).then((r) => {
+        if (!r.ok) {
+          return;
+        }
+        r.json().then((res) => {
+          let { css, js, template } = res.errors;
+          if (css || js || template) {
+            return;
+          }
+          const id = "abcdefg";
+          let code = `
+import Vue from "vue";
+import kui from "kui-vue";
+Vue.use(kui);
+
+${res.script}
+${res.template}
+const options = {
+  render,
+  staticRenderFns
+};
+
+// 创建挂载点
+new Vue(options).$mount('#${id}');`;
+          console.log(code);
+          // 创建 Blob URL
+          const url = URL.createObjectURL(
+            new Blob([code], { type: "application/javascript" })
+          );
+
+          // 创建挂载容器
+          const mountContainer = document.createElement("div");
+          mountContainer.id = id;
+
+          // // 插入到视图容器中
+          viewRef.value.appendChild(mountContainer);
+
+          // // 创建并插入 script 标签
+          const scriptNode = document.createElement("script");
+          scriptNode.src = url;
+          scriptNode.id = "dynamic-component-script";
+          scriptNode.type = "module";
+
+          // // 确保 script 在 mountContainer 之后执行
+          viewRef.value.appendChild(scriptNode);
+        });
+      });
     };
     const copy = () => {
       proxy.$copyText(codeRef.value?.innerText).then(
@@ -35,11 +82,10 @@ const Demo = defineComponent({
     };
     return () => {
       const transitionProps = getTransitionProp();
-
       return (
         <div class="k-demo markdown-body">
           <div class="k-demo-main">
-            <div class="k-content" ref="viewRef">
+            <div class="k-content" ref={viewRef}>
               {slots.component?.()}
             </div>
             <div class="k-desc">
