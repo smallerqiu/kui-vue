@@ -36,7 +36,7 @@ const InputNumber = defineComponent({
     icon: [String, Array],
     id: String,
   },
-  setup(ps, { slots, attrs, emit }) {
+  setup(ps, { slots, attrs, emit, listeners }) {
     const parentSize = inject("size", null);
     const getValue = (v, edge, sync) => {
       let input = "";
@@ -171,6 +171,7 @@ const InputNumber = defineComponent({
           // placeholder: ps.placeholder,
         },
         on: {
+          ...listeners,
           input: (e) => {
             onUpdate(e);
           },

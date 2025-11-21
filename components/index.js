@@ -41,7 +41,7 @@ const UI = {
 
 // auto install
 // if (typeof window !== 'undefined' && window.Vue) {
-// 	UI.install(window.Vue);
+	// UI.install(window.Vue);
 // }
 
 export default UI;

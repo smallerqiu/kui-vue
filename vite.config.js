@@ -27,6 +27,7 @@ export default defineConfig({
       'vue': "vue/dist/vue.esm.js",
       "@": path.resolve(__dirname, "/"),
       "kui-vue": path.resolve(__dirname, "/components"),
+      'vue-template-compiler': 'vue/compiler-sfc',
     },
     extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
   },
