@@ -12,9 +12,11 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { message } from "kui-vue";
 const value = ref(1);
 const test = () => {
   value.value += 1;
+  message.info(`当前值：${value.value}`);
 };
 </script>
 ```

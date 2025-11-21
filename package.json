@@ -75,6 +75,7 @@
     "eslint-plugin-vue": "^10.5.1",
     "fast-glob": "^3.3.3",
     "globals": "^16.5.0",
+    "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
     "kui-icons": "^4.1.6",
     "markdown-it": "^14.1.0",
@@ -87,8 +88,7 @@
     "rollup-plugin-vue": "^6.0.0",
     "uuid": "^13.0.0",
     "vue-clipboard2": "^0.3.3",
-    "vue-eslint-parser": "^10.2.0",
-    "vue-template-compiler": "^2.7.16"
+    "vue-eslint-parser": "^10.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.3.4",

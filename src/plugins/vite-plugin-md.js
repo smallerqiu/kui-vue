@@ -1,6 +1,7 @@
 import MarkdownIt from "markdown-it";
 // import { parseComponent } from 'vue-template-compiler' // don't support script setup
 import { parse } from "@vue/compiler-sfc";
+import hashId from "hash-sum";
 
 import anchor from "markdown-it-anchor";
 import hljs from "highlight.js";
@@ -27,8 +28,9 @@ export default function vitePluginMd() {
   return {
     name: "vite-plugin-md",
     enforce: "pre",
-    transform(src, id) {
-      if (!id.endsWith(".md")) return null;
+    transform(src, path) {
+      if (!path.endsWith(".md")) return null;
+      const id = "k-" + hashId(path);
 
       // 1) optional <cn> block (for description)
       const tagCNReg = /<cn\b[^>]*>(.*?)<\/cn>/gs;
@@ -46,8 +48,9 @@ export default function vitePluginMd() {
 
       if (m) {
         const block = m[1].trim();
+        //for 3
         // const { template, script, styles } = parseComponent(block);
-        // const { descriptor } = parse(block); //for 3
+        // const { descriptor } = parse(block);
         // const { template, script, scriptSetup, styles } = descriptor
 
         //for 2.x
@@ -64,7 +67,7 @@ export default function vitePluginMd() {
           .replace(/}}/g, "&#125;&#125;");
         let result = `
 <template>
-  <Demo>
+  <Demo id="${id}">
     <template #component>${template?.content || ""}</template>
     <template #description>${cnHtml || ""}</template>
     <template #code>${codeHtml}</template>
