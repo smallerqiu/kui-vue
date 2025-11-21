@@ -5,6 +5,7 @@
   border-radius: 12px;
   transition: all 0.3s;
   background-color: var(--kui-color-control-10);
+  overflow: hidden;
   .k-content,
   .k-desc {
     padding: 20px;
@@ -44,13 +45,12 @@
     font-size: 20px;
     display: flex;
 
-
     .k-icon {
       cursor: pointer;
       color: #999;
       flex: 1;
       padding: 10px 0;
-
+      overflow: hidden;
       &:hover {
         // color: #333;
         background-color: var(--kui-color-gray-90);
@@ -59,7 +59,7 @@
   }
 
   .k-code {
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     position: relative;
     outline: none;
     .k-code-pre {
@@ -83,12 +83,13 @@
       height: 100%;
       margin: 0;
       font-size: 14px;
+      box-sizing: border-box;
     }
 
     pre {
       border-top: 1px dashed var(--kui-color-border);
       margin: 0;
-      border-radius:0 0 12px 12px;
+      border-radius: 0 0 12px 12px;
     }
   }
 
@@ -98,7 +99,36 @@
     cursor: pointer;
   }
 }
-
-html[theme-mode=dark] .k-demo .k-desc h4{
+.k-demo-horizontal {
+  display: flex;
+  .k-demo-view {
+    width: 40%;
+    flex-shrink: 0;
+  }
+  .k-code {
+    height: 425px;
+    width: 60%;
+    flex-shrink: 0;
+    display: flex;
+    pre {
+      border-radius: 0 12px 12px 0;
+      flex: 1;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+  }
+  .k-code-tools{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding:5px 20px 5px 10px;
+    background: #eeeeee1e;
+    border-radius: 0 12px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+html[theme-mode="dark"] .k-demo .k-desc h4 {
   background-color: #171717;
 }
