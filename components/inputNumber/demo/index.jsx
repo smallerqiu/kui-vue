@@ -9,12 +9,12 @@ export default {
   render() {
     return (
       <div>
-        {/* <Info /> */}
+        <Info />
         <Basic />
-        {/* <Format /> */}
-        {/* <Ffix /> */}
-        {/* <Size /> */}
-        {/* <CN /> */}
+        <Format />
+        <Ffix />
+        <Size />
+        <CN />
       </div>
     );
   },
