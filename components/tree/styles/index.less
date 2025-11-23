@@ -1,8 +1,8 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-tree {
   .k-tree-item {
-    padding-bottom: 4px;
+    // padding-bottom: 4px;
     margin: 0;
     list-style: none;
     white-space: nowrap;
@@ -10,20 +10,16 @@
     user-select: none;
     display: flex;
     align-items: center;
-		line-height: 1;
+    line-height: 1;
+    transition: all 0.2s ease-in-out;
+
     .k-checkbox {
       margin-right: 4px;
     }
   }
 
-  // .k-tree-children {
-  // 	// margin: 0;
-  // 	.k-tree-item-children {
-  // 		// margin: 0 0 0 24px;
-  // 		position: relative;
-  // 	}
-  // }
-  .k-tree-comment {
+  .k-tree-comment,
+  .k-tree-comment-line {
     display: inline-block;
     width: 24px;
     position: relative;
@@ -52,7 +48,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
-		min-height: 24px;
+    min-height: 24px;
     // transition: all .2s ease-in-out;
     &:hover {
       background: var(--kui-color-hover);
@@ -61,15 +57,9 @@
   }
 
   .k-tree-item-drop {
-    >.k-tree-title {
+    > .k-tree-title {
       background-color: var(--kui-color-main) !important;
       color: #fff;
-    }
-  }
-
-  .k-tree-item-drag {
-    >.k-tree-title {
-      // background-color: tint(var(--kui-color-main), 90%) !important;
     }
   }
 
@@ -93,7 +83,6 @@
   }
 
   .k-tree-item-disabled {
-
     .k-tree-title,
     .k-tree-icon {
       color: var(--kui-color-disable-color);
@@ -101,7 +90,6 @@
     }
 
     .k-tree-title {
-
       &:hover,
       &:focus {
         background-color: transparent;
@@ -132,17 +120,12 @@
 
     // background-color: #fff;
     .k-icon {
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
 
   .k-tree-arrow-open .k-icon {
-    transform: rotate(90deg)
-  }
-
-  .k-tree-children {
-    // overflow: hidden;
-    transition: all .2s ease-in-out;
+    transform: rotate(90deg);
   }
 
   .tree-nodata {
@@ -157,7 +140,6 @@
   position: relative;
 
   .k-tree-title {
-
     &:hover,
     &:focus {
       background-color: transparent;
@@ -167,9 +149,9 @@
   .k-tree-item {
     cursor: pointer;
     position: relative;
-		
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 0;
@@ -189,7 +171,8 @@
       background-color: var(--kui-color-main);
     }
 
-    .k-tree-title ,.k-icon {
+    .k-tree-title,
+    .k-icon {
       background-color: transparent;
       color: #fff;
     }
@@ -225,22 +208,31 @@
     border-left: 1px solid var(--kui-color-border);
     position: absolute;
     height: 100%;
-		z-index: 1;
+    z-index: 1;
   }
-
+  .k-tree-comment-line {
+    &::before {
+      content: "";
+      position: absolute;
+      height: 24px;
+      background-color: var(--kui-color-border);
+      width: 1px;
+      left: 12px;
+    }
+  }
   .k-tree-comment {
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 12px;
       top: 0;
       width: 1px;
-      height: 28px;
+      height: 24px;
       background-color: var(--kui-color-border);
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 12px;
       top: 12px;
@@ -248,20 +240,5 @@
       height: 1px;
       background-color: var(--kui-color-border);
     }
-  }
-
-
-  .k-tree-children:last-child {
-
-    >.k-tree-item>.k-tree-comment::before {
-      height: 12px;
-    }
-
-    >.k-tree-item-children {
-      >.k-tree-line {
-        display: none;
-      }
-    }
-
   }
 }

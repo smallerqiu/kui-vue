@@ -1,11 +1,11 @@
 <cn>
-#### 全选
+### 全选
 全选组合
 </cn>
 
 ```vue
 <template>
-  <div>
+  <Space vertical>
     <Checkbox
       :checked.sync="checkAll"
       :indeterminate="indeterminate"
@@ -13,9 +13,8 @@
     >
       Check all
     </Checkbox>
-    <br />
     <CheckboxGroup :options="options" v-model:value="cities" @change="change" />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";

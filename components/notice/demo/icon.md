@@ -1,5 +1,5 @@
 <cn>
-#### 自定义图标
+### 自定义图标
 自定义图标
 </cn>
 
@@ -13,7 +13,7 @@
 <script setup>
 import { notice } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
-import { getCurrentInstance } from "vue";
+import { h } from "vue";
 const alipay = () => {
   notice.open({
     icon: LogoAlipay,
@@ -23,8 +23,6 @@ const alipay = () => {
     duration: 10,
   });
 };
-const { proxy } = getCurrentInstance();
-const h = proxy.$createElement;
 const wechat = () => {
   let content = h("div", {}, [
     h(

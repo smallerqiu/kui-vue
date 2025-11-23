@@ -1,11 +1,11 @@
 <cn>
-#### 扩展, 前缀和后缀
+### 扩展, 前缀和后缀
 suffix，prefix 扩展
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
     <Input placeholder="请输入验证码" :maxlength="8">
       <template #suffix>

@@ -1,5 +1,5 @@
 <cn>
-#### 主题
+### 主题
 通过 `theme` 设置主题 , shape='circle' ,呈现圆角, multiple 多选模式下, shape 无效
 </cn>
 

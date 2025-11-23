@@ -1,5 +1,5 @@
 <cn>
-#### Block 按钮
+### Block 按钮
 block 属性将使按钮适合其父宽度。
 </cn>
 

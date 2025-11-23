@@ -1,5 +1,5 @@
 <cn>
-#### 组合使用
+### 组合使用
 组合使用可以直接使用 `CheckboxGroup` 的 `options` 来赋值,或者结合 `Checkbox` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
 > `CheckboxGroup` 可以直接使用 `options` 来组合，3.0版本增加
 </cn>

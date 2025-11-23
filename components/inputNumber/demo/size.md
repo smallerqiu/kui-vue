@@ -1,11 +1,11 @@
 <cn>
-#### 尺寸
+### 尺寸
 `large` 为大尺寸， `small` 为小尺寸
 </cn>
 
 ```vue
 <template>
-  <div style="width:512px;">
+  <div>
     <InputNumber
       placeholder="Large Input"
       size="large"

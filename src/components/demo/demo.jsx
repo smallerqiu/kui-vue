@@ -1,7 +1,7 @@
 import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor, Reload } from "kui-icons";
-import { defineComponent, ref, getCurrentInstance, shallowRef } from "vue";
+import { defineComponent, ref, getCurrentInstance, onMounted } from "vue";
 import { parseCode } from "./transform";
 // import {
 //   parse,
@@ -22,6 +22,7 @@ const Demo = defineComponent({
     const expand = ref(true);
     const { proxy } = getCurrentInstance();
     const codeRef = ref(null);
+    const codeOrigin = ref(null);
     const viewRef = ref(null);
     const timer = ref(null);
 
@@ -45,71 +46,82 @@ const Demo = defineComponent({
         }
       );
     };
+    onMounted(() => {
+      codeOrigin.value = codeRef.value?.innerText;
+    });
     return () => {
       const transitionProps = getTransitionProp();
-      const classes = [
-        "k-demo",
-        "markdown-body",
-        { "k-demo-horizontal": props.direction === "horizontal" },
-      ];
+      const vertical = props.direction !== "horizontal";
+      const classes = ["k-demo", { "k-demo-horizontal": !vertical }];
+      const descNode = (
+        <div class="k-desc">
+          <div class="k-desc-content">{slots.description?.()}</div>
+        </div>
+      );
       return (
-        <div class={classes}>
-          <div class="k-demo-view">
-            <div class="k-content" ref={viewRef}>
-              {slots.component?.()}
+        <div class="markdown-body k-demo-container">
+          {!vertical && descNode}
+          <div class={classes}>
+            <div class="k-demo-view">
+              <div class="k-content" ref={viewRef}>
+                {slots.component?.()}
+              </div>
+              {/* {vertical && descNode} */}
             </div>
-            <div class="k-desc">
-              <div class="k-desc-content">{slots.description?.()}</div>
-            </div>
-          </div>
-          {props.direction === "vertical" && (
-            <div class="k-code-actions">
-              <Tooltip title={expand ? "隐藏代码" : "显示代码"}>
-                <Icon
-                  type={CaretHor}
-                  onClick={() => (expand.value = !expand.value)}
-                  style={{ "border-bottom-left-radius": !expand ? "12px" : 0 }}
-                />
-              </Tooltip>
-              <Tooltip title="复制代码">
-                <Icon
-                  type={CopyOutline}
-                  onClick={copy}
-                  style={{ "border-bottom-right-radius": !expand ? "12px" : 0 }}
-                />
-              </Tooltip>
-            </div>
-          )}
-          <transition {...transitionProps}>
-            <div
-              v-show={expand.value}
-              class="k-code"
-              ref={codeRef}
-              contenteditable
-              onInput={renderCode}
-            >
-              <div class="k-code-tools">
-                <Badge status="success" text="实时编译成功" />
-                <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={CopyOutline}
-                    onClick={copy}
+            {vertical && (
+              <div class="k-code-actions">
+                <Tooltip title={expand ? "隐藏代码" : "显示代码"}>
+                  <Icon
+                    type={CaretHor}
+                    onClick={() => (expand.value = !expand.value)}
+                    style={{
+                      "border-bottom-left-radius": !expand ? "12px" : 0,
+                    }}
                   />
                 </Tooltip>
-                <Tooltip title="重置代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={Reload}
-                    onClick={reload}
+                <Tooltip title="复制代码">
+                  <Icon
+                    type={CopyOutline}
+                    onClick={copy}
+                    style={{
+                      "border-bottom-right-radius": !expand ? "12px" : 0,
+                    }}
                   />
                 </Tooltip>
               </div>
-              {slots.code?.()}
-            </div>
-          </transition>
+            )}
+            <transition {...transitionProps}>
+              <div
+                v-show={expand.value}
+                class="k-code-box"
+                contenteditable
+                onInput={renderCode}
+              >
+                <div class="k-code-tools">
+                  <Badge status="success" text="实时编译成功" />
+                  <Tooltip title="复制代码">
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={CopyOutline}
+                      onClick={copy}
+                    />
+                  </Tooltip>
+                  <Tooltip title="重置代码">
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={Reload}
+                      onClick={reload}
+                    />
+                  </Tooltip>
+                </div>
+                <div ref={codeRef} class="k-code">
+                  {slots.code?.()}
+                </div>
+              </div>
+            </transition>
+          </div>
         </div>
       );
     };

@@ -1,11 +1,11 @@
 <cn>
-#### 多表单联动
+### 多表单联动
 在Form之外，通过`submit`从外部提交表单，反之 则推荐使用 `<Button htmlType="submit" />`调用原生提交逻辑
 </cn>
 
 ```vue
 <template>
-  <div style="width:512px">
+  <div>
     <Form name="withmodal" :model="group" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="Gruop" prop="name">
         <Input />

@@ -1,11 +1,11 @@
 <cn>
-#### 事件
+### 事件
 本示例测试组件事件是否正常触发
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     <Input
       placeholder="请输入内容..."
       clearable

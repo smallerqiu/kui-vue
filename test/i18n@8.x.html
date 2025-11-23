@@ -46,10 +46,11 @@
   new Vue({
     el: '#app',
     data: {
-      visible: false
+      visible: true
     },
     methods: {
       show: function () {
+        this.$message.success('success')
         this.visible = true;
       },
       hide: function () {

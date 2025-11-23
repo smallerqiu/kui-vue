@@ -1,11 +1,11 @@
 <cn>
-#### 基础用法
+### 基础用法
 使用 `v-model` 进行数据双向绑定
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     Input: {{ value }}
     <Input
       placeholder="请输入内容..."

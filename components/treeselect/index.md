@@ -25,9 +25,9 @@
 | ----------------- | ------------------------------------------------------------ | -------- |
 | tree-data         | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array    | [\]   |
 | treeCheckable     | 是否显示多选框                                               | Boolean  | false |
-| show-line         | 是否展示连接线                                               | Boolean  | false |
-| show-icon         | 是否展示图标                                                 | Boolean  | true  |
-| show-extra        | 是否默认展示扩展元素                                         | Boolean  | false |
+| showLine         | 是否展示连接线                                               | Boolean  | false |
+| showIcon         | 是否展示图标                                                 | Boolean  | true  |
+| showExtra        | 是否默认展示扩展元素                                         | Boolean  | false |
 | treeCheckStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean  | false |
 | treeExpandedKeys  | 指定展开的节点                                               | Array    | []    |
 | treeExpandedAll   | 是否展开所有节点                                             | Boolean  | false |

@@ -1,5 +1,5 @@
 <cn>
-#### 组合Button使用
+### 组合Button使用
 结合 `RadioGroup`,`RadioButton` 可以组合使用
 </cn>
 

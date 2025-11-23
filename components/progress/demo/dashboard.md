@@ -1,5 +1,5 @@
 <cn>
-#### 盘仪表进度条
+### 盘仪表进度条
 盘仪表进度条。可通过`gapDegree`调节缺口大小。`strokeLinecap="square|round"` 可以调整进度条边缘的形状。
 </cn>
 

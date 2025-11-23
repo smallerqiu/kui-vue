@@ -1,55 +1,54 @@
 <cn>
-#### 可勾选
+### 可勾选
 设置属性 `checkable` 可以对节点进行勾选。
 </cn>
 
 ```vue
 <template>
-  <Checkbox v-model="checkStrictly">父子节点不关联</Checkbox>
+  <Checkbox :checked.sync="checkStrictly">父子节点不关联</Checkbox>
   <br />
   <br />
-  <Tree :data="data" checkable :checkedKeys="checkedKeys" :expandedKeys="expandedKeys" @check="check" :checkStrictly="checkStrictly"/>
+  <Tree
+    :data="data"
+    checkable
+    :checkedKeys="checkedKeys"
+    :expandedKeys="expandedKeys"
+    @check="check"
+    :checkStrictly="checkStrictly"
+  />
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checkStrictly:false,
-      checkedKeys: ['1-1', 'aa', ],
-      expandedKeys: ['1-1', '1-1-2', '1-2', '0-1'],
-      data: [
-        {
-          title: 'tree 1',
-          key: '0-1',
-          children: [
-            {
-              title: 'tree 1-1',
-              key: '1-1',
-              disabled: true,
-              children: [
-                { title: 'leaf 1-1-1' },
-                { title: 'leaf 1-1-2' }
-              ]
-            },
-            {
-              title: 'tree 1-2',
-              key: '1-2',
-              children: [
-                { title: 'leaf 1-2-1', key: 'aa' },
-                { title: 'leaf 1-2-2', key: 'bb' }
-              ]
-            }
-          ]
-        }
-      ],
-    }
+<script setup>
+import { ref } from "vue";
+const checkStrictly = ref(false);
+const checkedKeys = ["1-1", "aa"];
+const expandedKeys = ["1-1", "1-1-2", "1-2", "0-1"];
+const data = [
+  {
+    title: "tree 1",
+    key: "0-1",
+    children: [
+      {
+        title: "tree 1-1",
+        key: "1-1",
+        disabled: true,
+        children: [
+          { title: "leaf 1-1-1", key: "1-1-1" },
+          { title: "leaf 1-1-2" ,key: "1-1-2"},
+        ],
+      },
+      {
+        title: "tree 1-2",
+        key: "1-2",
+        children: [
+          { title: "leaf 1-2-1", key: "aa" },
+          { title: "leaf 1-2-2", key: "bb" },
+        ],
+      },
+    ],
   },
-  methods: {
-    check(data) {
-      console.log(data)
-    }
-  }
-}
+];
+const check = (data) => {
+  console.log(data);
+};
 </script>
-
 ```

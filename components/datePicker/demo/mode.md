@@ -1,5 +1,5 @@
 <cn>
-#### 年/月/日/时间
+### 年/月/日/时间
 使用 `mode` 属性，可以自定义日期显示类型，提供 `year` `month` `date` `time` `dateRange` `dateTimeRange`。
 </cn>
 

@@ -1,5 +1,5 @@
 <cn>
-#### 扩展 / 全局
+### 扩展 / 全局
 可以扩展自定工具和面板。
 </cn>
 
@@ -19,10 +19,10 @@ import {
   Camera,
   Ribbon,
 } from "kui-icons";
+import { h } from "vue";
 export default {
   methods: {
     openImage() {
-      let h = this.$createElement;
       let options = {
         src: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
         slots: {
@@ -75,7 +75,6 @@ export default {
       this.$Image.show(options);
     },
     openImageGroup() {
-      const h = this.$createElement;
       const test = [
         "AAAAAAAAAAAAAAAAAAAAAAAAAA",
         "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
