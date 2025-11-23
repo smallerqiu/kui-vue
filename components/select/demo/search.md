@@ -1,12 +1,12 @@
 <cn>
-#### 远程搜索
+### 远程搜索
 通过设置 `search` 值来呈现过滤模式,设置 `loading` 展示加载模式
 </cn>
 
 ```vue
 <template>
   <div class="demo-select">
-    <Space>
+    <Space vertical>
       <span>单选搜索: </span>
       <Select 
         v-model="s1" 
@@ -19,7 +19,7 @@
       </Space>
     <p></p>
     <br/>
-    <Space>
+    <Space vertical>
       <span>多选搜索</span>
       <Select 
         class="demo-select"

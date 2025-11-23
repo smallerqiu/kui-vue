@@ -1,34 +1,42 @@
 <cn>
-#### 多选
+### 多选
 通过设置 `multiple` 值来呈现多选模式
 </cn>
 
 ```vue
 <template>
   <div>
-    <Space>
-      <Select :width="300" multiple v-model="data" size="large" >
+    <Space vertical>
+      <Button size="small" @click="data = []">Clear</Button>
+      <Button size="small" @click="data = ['3', '1']">
+        Select Banana & Apple
+      </Button>
+      <Select :width="300" multiple v-model="data" size="large">
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
       </Select>
-      <Button size="small" @click="data=[]">Clear</Button>
-      <Button size="small" @click="data=['3','1']">Select Banana & Apple</Button>
     </Space>
-    <br/>
+    <br />
     <Space vertical style="margin-top:10px">
-      <Select :width="300" multiple v-model="data2" clearable :max-tag-count="2"> 
+      <Select
+        :width="300"
+        multiple
+        v-model="data2"
+        clearable
+        :max-tag-count="2"
+      >
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
       </Select>
-      <Select :width="300" size="small" multiple >
+      <Select :width="300" size="small" multiple>
         <Option value="1" label="苹果" />
         <Option value="2" label="香蕉" />
         <Option value="3" label="梨子" />
@@ -39,7 +47,7 @@
       <Select :width="300" multiple v-model="data2" disabled>
         <Option value="1" label="Apple" />
         <Option value="2" label="Orange" />
-        <Option value="3" label="Banana"/>
+        <Option value="3" label="Banana" />
         <Option value="4" label="Pear" />
         <Option value="5" label="Peach" />
         <Option value="6" label="Grape" />
@@ -48,13 +56,13 @@
   </div>
 </template>
 <script>
-export default{
+export default {
   data() {
-   return {
-     data:[],
-     data2:['2','4']
-   } 
-  }
-}
-</script> 
+    return {
+      data: [],
+      data2: ["2", "4"],
+    };
+  },
+};
+</script>
 ```

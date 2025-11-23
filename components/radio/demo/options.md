@@ -1,5 +1,5 @@
 <cn>
-#### 组合使用Options
+### 组合使用Options
 组合使用可以直接使用 `RadioGroup` 的 `options` 来赋值,
 或者结合子组件 `Radio` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
 </cn>
@@ -27,8 +27,6 @@ import { ref } from "vue";
 const options = [
   { label: "Beijing", value: "beijing" },
   { label: "Shenzhen", value: "shenzhen" },
-  { label: "Shanghai", value: "shanghai" },
-  { label: "Guangzhou", value: "guangzhou" },
   { label: "Wuhan", value: "wuhan" },
   { label: "Other", value: "other", disabled: true },
 ];

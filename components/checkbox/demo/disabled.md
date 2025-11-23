@@ -1,11 +1,11 @@
 <cn>
-#### 可不用 / 可控
+### 可不用 / 可控
 通过 `disabled` 设置不可用
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Checkbox disabled>disabled</Checkbox>
     <Checkbox disabled :checked="true">disabled</Checkbox>
     <Checkbox indeterminate disabled>indeterminate</Checkbox>

@@ -1,6 +1,5 @@
 import Info from './info.md'
 import Basic from './basic.md'
-import TreeNode from './treenode.md'
 import Checkable from './checkable.md'
 import CustomRender from './custom-render.md'
 import Disabled from './disabled.md'
@@ -14,7 +13,6 @@ export default {
       <div class="demo-tree">
         <Info />
         <Basic />
-        <TreeNode />
         <Checkable />
         <CustomRender />
         <Disabled />

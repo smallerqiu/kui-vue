@@ -1,11 +1,11 @@
 <cn>
-#### 输入框组合
+### 输入框组合
 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 </cn>
 
 ```vue
 <template>
-  <Space vertical size="middle">
+  <Space vertical size="middle" block>
     <InputGroup>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />

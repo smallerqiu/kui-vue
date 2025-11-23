@@ -7,6 +7,7 @@ export const withInstall = (component) => {
 };
 // vue3 fun for vue 2.7.16
 import Vue from "vue";
+import { h } from "vue";
 export function createVNode(component, props) {
   const instance = new Vue({
     render: (h) => h(component, { props }),
@@ -14,6 +15,7 @@ export function createVNode(component, props) {
   instance.$mount();
   return instance.$children[0]; // 返回组件实例
 }
+
 export function render(vnode, container) {
   if (vnode instanceof Vue) {
     container.appendChild(vnode.$el);
@@ -87,11 +89,11 @@ function getVNodeProps(vnode) {
   return data;
 }
 
-export function cloneVNode(vnode, props = {}, merge = false, child) {
+export function cloneVNode(vnode, props = {}, merge = true, child) {
   if (!vnode) return vnode;
   if (!vnode.tag) return vnode.text;
   // console.log(vnode)
-  const h = vnode.context?.$createElement;
+  // const h = vnode.context?.$createElement;
   const tag = vnode.componentOptions?.Ctor || vnode.tag;
   const vNodeProps = getVNodeProps(vnode);
   let children = vnode.componentOptions?.children || vnode.children || [];
@@ -105,9 +107,7 @@ export function cloneVNode(vnode, props = {}, merge = false, child) {
       // console.log(key,  props[key])
       if (key == "class") {
         vNodeProps[key] = [vNodeProps[key], props[key]];
-      } else if (
-        ["ref", "key",].includes(key)
-      ) {
+      } else if (["ref", "key"].includes(key)) {
         vNodeProps[key] = props[key];
       } else {
         //if (key != 'on') {

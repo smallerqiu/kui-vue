@@ -1,6 +1,6 @@
 import Modal from "./modal.jsx";
 import Toast from "./toast";
-import { /*createVNode, render,*/ inject } from "vue"; // for 3
+// import { /*createVNode, render,*/ inject } from "vue"; // for 3
 import { createVNode, render } from "../utils/vue"; //for 2
 
 let modalList = [];

@@ -1,11 +1,11 @@
 <cn>
-#### 尺寸
+### 尺寸
 `large` 为大尺寸， `small` 为小尺寸
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     <Input placeholder="Large Input" size="large" :icon="LogoKui" clearable />
     <Input placeholder="Base Input" :icon="LogoKui" clearable />
     <Input

@@ -1,5 +1,5 @@
 <cn>
-#### 主题和自定义
+### 主题和自定义
 theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义图标
 </cn>
 

@@ -1,5 +1,5 @@
 <cn>
-#### 组合垂直布局
+### 组合垂直布局
 组合垂直布局
 </cn>
 
@@ -19,6 +19,7 @@
       <Checkbox label="Pear" value="pear" disabled />
     </CheckboxGroup>
   </Space>
+  <br />
   <br />
   <Space vertical align="start">
     <p>{{ cities }}</p>

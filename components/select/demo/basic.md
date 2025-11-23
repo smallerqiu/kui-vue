@@ -1,29 +1,29 @@
 <cn>
-#### 基础用法
+### 基础用法
 通过 `v-model` 进行数据双向绑定
 </cn>
 
 ```vue
 <template>
   <div>
-    <Space>
-      <Select :width="200" v-model="select" :options="data">
+    <Space vertical block>
+      <Button @click="select = ''" size="small">Clear</Button>
+      <Button @click="select = 1" size="small">Choose orange</Button>
+      <Select v-model="select" :options="data">
         <!-- <Option v-for="(x,y) in data" :key="y" :value="x.value" :label="x.label" /> -->
       </Select>
-      <Button @click="select=''" size="small">Clear</Button>
-      <Button @click="select=1" size="small">Choose orange</Button>
     </Space>
     <br />
     <Space vertical style="margin-top:10px;">
-      <Select :width="300" multiple v-model="data2" clearable :max-tag-count="2"> 
+      <Select multiple v-model="data2" clearable :max-tag-count="2">
         <Option :value="1" label="Apple" />
         <Option :value="2" label="Orange" />
-        <Option :value="3" label="Banana"/>
+        <Option :value="3" label="Banana" />
         <Option :value="4" label="Pear" />
         <Option :value="5" label="Peach" />
         <Option :value="6" label="Grape" />
       </Select>
-      <Select :width="200" value="1" disabled>
+      <Select value="1" disabled>
         <Option value="1" label="disabled" />
       </Select>
     </Space>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       select: 2,
-      data2:[1,2,3],
+      data2: [1, 2, 3],
       data: [
         { label: "Apple", value: 0 },
         { label: "Orange", value: 1 },
@@ -42,7 +42,7 @@ export default {
         { label: "Pear", value: 3 },
       ],
     };
-  }
-}
-</script> 
+  },
+};
+</script>
 ```

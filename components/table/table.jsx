@@ -104,7 +104,6 @@ const Table = {
             props.style.right = right + 'px'
           }
           if (c.render) {
-            let h = this.$createElement
             let scope = c.render(h, d, i, c.key)
 
             let { children, attrs } = scope

@@ -1,5 +1,5 @@
 <cn>
-#### 可选择
+### 可选择
 通过给 `columns` 数据设置一项，指定 `type: selection`，即可自动开启多选功能。
 给 `data` 项设置特殊 key `_checked: true` 可以默认选中当前项。
 给 `data` 项设置特殊 key `_disabled: true` 可以禁止选择当前项。

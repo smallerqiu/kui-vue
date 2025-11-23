@@ -34,8 +34,8 @@ export { Collapse, CollapsePanel };
 import { Checkbox, CheckboxGroup } from './checkbox'
 export { Checkbox, CheckboxGroup };
 
-import { DatePicker, DateCalendar } from './datePicker'
-export { DatePicker, DateCalendar };
+// import { DatePicker, DateCalendar } from './datePicker'
+// export { DatePicker, DateCalendar };
 
 import { Descriptions, DescriptionsItem } from './descriptions'
 export { Descriptions, DescriptionsItem };
@@ -140,8 +140,8 @@ export { TimeLine, TimeLineItem };
 import { Tree, TreeNode } from './tree'
 export { Tree, TreeNode };
 
-import TreeSelect from './treeselect'
-export { TreeSelect };
+// import TreeSelect from './treeselect'
+// export { TreeSelect };
 
 import Tag from './tag'
 export { Tag };

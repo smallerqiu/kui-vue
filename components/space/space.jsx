@@ -22,7 +22,6 @@ const Space = defineComponent({
     },
   },
   setup(ps, { slots, attrs }) {
-    // todo: see the console log
     provide('size', ps.size)
     return () => {
       let children = getChildren(slots.default?.())

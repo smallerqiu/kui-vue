@@ -5,9 +5,9 @@
 | data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array   | []     |
 | checkable     | 是否显示多选框                                               | Boolean | false  |
 | draggable     | 是否可以拖拽                                                 | Boolean | false  |
-| show-line     | 是否展示连接线                                               | Boolean | false  |
-| show-icon     | 是否展示图标                                                 | Boolean | true   |
-| show-extra    | 是否默认展示扩展元素                                         | Boolean | false  |
+| showLine     | 是否展示连接线                                               | Boolean | false  |
+| showIcon     | 是否展示图标                                                 | Boolean | true   |
+| showExtra    | 是否默认展示扩展元素                                         | Boolean | false  |
 | checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false  |
 | checkedKeys   | 选中复选框的树节点                                           | Array   | []     |
 | expandedKeys  | 指定展开的节点                                               | Array   | []     |
@@ -26,6 +26,7 @@
 | isLeaf   | 设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点 | Boolean | false  |
 
 ## Tree 事件
+
 | 属性      | 说明                   | 回调参数                                     |
 | --------- | ---------------------- | -------------------------------------------- |
 | load-data | 异步加载数据的方法     | Function(node,callback)                      |

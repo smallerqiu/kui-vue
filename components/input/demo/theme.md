@@ -1,11 +1,11 @@
 <cn>
-#### 主题
+### 主题
 使用 `theme` 设定主题 ,`shape` 呈现圆角 
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     <Checkbox label="Circle" v-model:checked="shape" @change="setShape" />
     <Input placeholder="请输入内容..." theme="light" :shape="shape" />
     <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
