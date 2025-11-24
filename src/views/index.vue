@@ -1,42 +1,38 @@
 <template>
   <Layout class="index">
-    <Header />
+    <AppHeader />
     <section class="index-content">
       <!-- <div class="logo">K UI</div> -->
       <h1>一套基于Vue.js的桌面UI组件库</h1>
       <div class="btn-content">
-        <Button class="start" :icon="CaretForwardCircle" size="large" @click="start">
+        <Button
+          class="start"
+          :icon="CaretForwardCircle"
+          size="large"
+          type="link"
+          href="/start/getting-started"
+        >
           开始使用
         </Button>
-        <Button :icon="LogoGitee" size="large" class="btn-gitee" theme="light" @click="gitee">
+        <Button
+          :icon="LogoGitee"
+          size="large"
+          class="btn-gitee"
+          theme="light"
+          href="https://gitee.com/chuchur/kui-vue"
+          type="link"
+          target="_blank"
+        >
           Gitee
         </Button>
       </div>
     </section>
-    <Footer />
+    <AppFooter />
   </Layout>
 </template>
-<script>
-import '@/src/assets/css/home.less'
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
+<script setup>
+import "@/src/assets/css/home.less";
+import AppHeader from "@/src/components/AppHeader.vue";
+import AppFooter from "@/src/components/AppFooter";
 import { LogoGitee, CaretForwardCircle } from "kui-icons";
-export default {
-  components: {
-    Header, Footer
-  },
-  data() {
-    return {
-      LogoGitee, CaretForwardCircle
-    }
-  },
-  methods: {
-    start() {
-      this.$router.push("/start/getting-started");
-    },
-    gitee() {
-      window.open("//gitee.com/chuchur/kui-vue");
-    },
-  },
-};
 </script>
