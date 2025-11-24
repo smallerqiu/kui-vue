@@ -1,4 +1,4 @@
-import { navs } from "../menu";
+import { navData } from "../menu";
 import { Col, Row, Card } from 'kui-vue'
 import WebIcon from '@/src/components/WebIcon'
 export default {
@@ -20,7 +20,7 @@ export default {
     },
   },
   render() {
-    let nav = navs.filter(x => x.key != 'start')
+    let nav = navData.filter(x => x.key != 'start')
     return (
       <div class="all-components">
         <h1>组件</h1>

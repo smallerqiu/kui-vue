@@ -12,7 +12,7 @@
 import { theme, message } from "kui-vue";
 const switchMode = (event) => {
   message.info(`Current theme mode`);
-  return
+  return;
   theme.setThemeMode(event, (isDark) => {
     message.info(`Current theme mode is ${isDark ? "dark" : "light"}`);
   });

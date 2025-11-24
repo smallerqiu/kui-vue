@@ -5,31 +5,21 @@
     </svg>
   </span>
 </template>
-<script>
-import { defineComponent, reactive } from 'vue'
-import sprite from '@/src/assets/img/web.svg'
-
-export default defineComponent({
-  name: 'WebIcon',
-  setup() {
-    const state = reactive({
-      sprite
-    })
-
-    return {
-      ...state
-    }
+<script setup>
+// import { reactive } from "vue";
+import sprite from "@/src/assets/img/web.svg";
+defineProps({
+  name: String,
+  width: {
+    type: [String, Number],
+    default: "1em",
   },
-  props: {
-    name: String,
-    width: {
-      type: [String, Number],
-      default: '1em'
-    },
-    height: {
-      type: String,
-      default: '1em'
-    }
-  }
-})
+  height: {
+    type: String,
+    default: "1em",
+  },
+});
+// const state = reactive({
+//   sprite,
+// });
 </script>
