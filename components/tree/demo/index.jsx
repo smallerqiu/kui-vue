@@ -11,15 +11,15 @@ export default {
   render() {
     return (
       <div class="demo-tree">
-        <Info />
-        <Basic />
-        <Checkable />
-        <CustomRender />
-        <Disabled />
-        <Sync />
-        <Icon />
+        {/* <Info /> */}
+        {/* <Basic /> */}
+        {/* <Checkable /> */}
+        {/* <CustomRender /> */}
+        {/* <Disabled /> */}
+        {/* <Sync /> */}
+        {/* <Icon /> */}
         <Directory />
-        <CN />
+        {/* <CN /> */}
       </div>
     )
   }

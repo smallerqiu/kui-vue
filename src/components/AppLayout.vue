@@ -1,6 +1,6 @@
 <template>
   <Layout class="root">
-    <!-- <AppHeader /> -->
+    <AppHeader />
     <Layout class="main">
       <Sider
         :class="[
@@ -10,7 +10,7 @@
       >
         <Button
           size="large"
-          :icon="showMiniNav ? Close : Menu"
+          :icon="showMiniNav ? Close : MenuIcon"
           class="min-menu-nav-btn"
           theme="outline"
           @click="showMiniNav = !showMiniNav"
@@ -58,7 +58,9 @@
             @click="(e) => link(e, 0)"
           >
             <Icon :type="ChevronBack" />
-            <span class="nav-text">{{ prevNavData.sub }} {{ prevNavData.title }}</span>
+            <span class="nav-text"
+              >{{ prevNavData.sub }} {{ prevNavData.title }}</span
+            >
             <WebIcon :name="prevNavData.icon" />
           </a>
           <a
@@ -68,7 +70,9 @@
             @click="(e) => link(e, 1)"
           >
             <WebIcon :name="nextNavData.icon" />
-            <span class="nav-text">{{ nextNavData.sub }} {{ nextNavData.title }}</span>
+            <span class="nav-text"
+              >{{ nextNavData.sub }} {{ nextNavData.title }}</span
+            >
             <Icon :type="ChevronForward" />
           </a>
         </div>
@@ -83,9 +87,8 @@ import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import WebIcon from "./WebIcon";
 import { routeData, navData } from "../menu";
-import { ChevronBack, ChevronForward, Menu, Close } from "kui-icons";
+import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
 import { ref, onMounted, getCurrentInstance, reactive } from "vue";
-
 const { proxy } = getCurrentInstance();
 const showMiniNav = ref(false);
 const nextNavData = reactive({});
