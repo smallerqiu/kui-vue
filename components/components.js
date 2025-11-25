@@ -1,156 +1,168 @@
-import Alert from './alert'
+import Alert from "./alert";
 export { Alert };
 
-import Affix from './affix'
+import Affix from "./affix";
 export { Affix };
 
-import Avatar from './avatar'
+import Avatar from "./avatar";
 export { Avatar };
 
-import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
+import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
 export { Breadcrumb, BreadcrumbItem };
 
-import { Button, ButtonGroup } from './button'
+import { Button, ButtonGroup } from "./button";
 export { Button, ButtonGroup };
 
-import Badge from './badge'
+import Badge from "./badge";
 export { Badge };
 
-import BackTop from './backtop'
+import BackTop from "./backtop";
 export { BackTop };
 
-import ColorPicker from './colorPicker'
+import ColorPicker from "./colorPicker";
 export { ColorPicker };
 
-import Card from './card'
+import Card from "./card";
 export { Card };
 
-import { Carousel, CarouselItem } from './carousel'
+import { Carousel, CarouselItem } from "./carousel";
 export { Carousel, CarouselItem };
 
-import { Collapse, CollapsePanel } from './collapse'
+import { Collapse, CollapsePanel } from "./collapse";
 export { Collapse, CollapsePanel };
 
-import { Checkbox, CheckboxGroup } from './checkbox'
+import { Checkbox, CheckboxGroup } from "./checkbox";
 export { Checkbox, CheckboxGroup };
 
 // import { DatePicker, DateCalendar } from './datePicker'
 // export { DatePicker, DateCalendar };
 
-import { Descriptions, DescriptionsItem } from './descriptions'
+import { Descriptions, DescriptionsItem } from "./descriptions";
 export { Descriptions, DescriptionsItem };
 
-import Drawer from './drawer'
+import Drawer from "./drawer";
 export { Drawer };
 
-import { Dropdown, DropdownButton } from './dropdown'
+import { Dropdown, DropdownButton } from "./dropdown";
 export { Dropdown, DropdownButton };
 
-import Divider from './divider'
+import Divider from "./divider";
 export { Divider };
 
-import Empty from './empty'
+import Empty from "./empty";
 export { Empty };
 
-import { Form, FormItem } from './form'
+import { Form, FormItem } from "./form";
 export { Form, FormItem };
 
-import Flex from './flex'
+import Flex from "./flex";
 export { Flex };
 
-import { KImage, ImageGroup } from './image'
+import { KImage, ImageGroup } from "./image";
 export { KImage, ImageGroup };
 
-import Icon from './icon'
+import Icon from "./icon";
 export { Icon };
 
-import { Input, TextArea, InputGroup } from './input'
+import { Input, TextArea, InputGroup } from "./input";
 export { Input, TextArea, InputGroup };
 
-import InputNumber from './inputNumber'
+import InputNumber from "./inputNumber";
 export { InputNumber };
 
-import { Layout, Header, Footer, Content, Sider } from './layout'
+import { Layout, Header, Footer, Content, Sider } from "./layout";
 export { Layout, Header, Footer, Content, Sider };
 
-import loading from './loading'
+import loading from "./loading";
 export { loading };
 
-import modal from './modal'
-const Modal = modal
+import modal from "./modal";
+const Modal = modal;
 export { modal, Modal };
 
-import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from './menu'
+import { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider } from "./menu";
 export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };
 
-import message from './message'
+import message from "./message";
 export { message };
 
-import notice from './notice'
+import notice from "./notice";
 export { notice };
 
-import Page from './page'
+import Page from "./page";
 export { Page };
 
-import Poptip from './poptip'
+import Poptip from "./poptip";
 export { Poptip };
 
-import Popconfirm from './popconfirm'
+import Popconfirm from "./popconfirm";
 export { Popconfirm };
 
-import Progress from './progress'
+import Progress from "./progress";
 export { Progress };
 
-import { Radio, RadioGroup, RadioButton } from './radio'
+import { Radio, RadioGroup, RadioButton } from "./radio";
 export { Radio, RadioGroup, RadioButton };
 
-import Rate from './rate'
+import Rate from "./rate";
 export { Rate };
 
-import { Select, Option } from './select'
+import { Select, Option } from "./select";
 export { Select, Option };
 
-import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from './skeleton'
-export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText };
+import {
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonButton,
+  SkeletonImage,
+  SkeletonText,
+} from "./skeleton";
+export {
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonButton,
+  SkeletonImage,
+  SkeletonText,
+};
 
-import Slider from './slider'
+import Slider from "./slider";
 export { Slider };
 
-import Space from './space'
+import Space from "./space";
 export { Space };
 
-import Spin from './spin'
+import Spin from "./spin";
 export { Spin };
 
-import KSwitch from './switch'
+import KSwitch from "./switch";
 export { KSwitch };
 
-import Table from './table'
+import Table from "./table";
 export { Table };
 
-import Tooltip from './tooltip'
+import Tooltip from "./tooltip";
 export { Tooltip };
 
-import { Tabs, TabPanel } from './tabs'
+import { Tabs, TabPanel } from "./tabs";
 export { Tabs, TabPanel };
 
-import { TimeLine, TimeLineItem } from './timeline'
+import { TimeLine, TimeLineItem } from "./timeline";
 export { TimeLine, TimeLineItem };
 
-import { Tree, TreeNode } from './tree'
-export { Tree, TreeNode };
+import Tree from "./tree";
+export { Tree };
 
 // import TreeSelect from './treeselect'
 // export { TreeSelect };
 
-import Tag from './tag'
+import Tag from "./tag";
 export { Tag };
 
-import { Row, Col } from './grid'
+import { Row, Col } from "./grid";
 export { Row, Col };
 
-import Upload from './upload'
+import Upload from "./upload";
 export { Upload };
 
-import theme from './utils/theme'
+import theme from "./utils/theme";
 export { theme };

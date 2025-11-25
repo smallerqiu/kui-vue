@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Tree :data="data" @load-data="loadData" @expand="expand" />
+  <Tree :data="data" @loadData="loadData" @expand="expand" />
 </template>
 <script setup>
 const data = [
