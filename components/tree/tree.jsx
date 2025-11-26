@@ -26,17 +26,15 @@ const Tree = {
     checkStrictly: Boolean,
   },
 
-  setup(ps, { emit, slots, listeners }) {
+  setup(ps, { emit, listeners }) {
     const defaultData = ref();
     const defaultSelectedKeys = ref(ps.selectedKeys || []);
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
     const defaultCheckedKeys = ref(ps.checkedKeys || []);
     const dragNode = reactive({});
 
-    const hasLoad = "loadData" in listeners;
-
     // 计算半选状态
-    const calculateIndeterminateStates = (nodes, checkedKeys) => {
+    const calculateIndeterminateStates = (nodes) => {
       // 先重置所有节点的 indeterminate 状态
       nodes.forEach((node) => {
         node.indeterminate = false;
@@ -100,10 +98,16 @@ const Tree = {
     ) => {
       const result = [];
       // 栈中存储 [节点, 层级, 是否展开] 的数组
-      const stack = tree.map((node) => [node, 0, parentKey]).reverse();
+      const stack = tree
+        .map((node, i) => {
+          const isLast = i === tree.length - 1;
+          return [node, 0, parentKey, [], isLast];
+        })
+        .reverse();
 
       while (stack.length > 0) {
-        const [node, level, pNodeKey] = stack.pop();
+        const [node, level, pNodeKey, visiblePrefixes, isLastChild] =
+          stack.pop();
         const key = node.key;
         const hasChildren = node.children && node.children.length > 0;
 
@@ -118,13 +122,23 @@ const Tree = {
           selected: selectedKeys.includes(key),
           checked: checkedKeys.includes(key),
           dropping: false,
+          isLastChild: isLastChild,
+          visiblePrefixes: visiblePrefixes,
         });
 
         // 如果节点是展开的且有子节点，则将子节点入栈
         if (hasChildren) {
+          const childPrefixes = [...visiblePrefixes, !isLastChild];
           // 注意：需要反向入栈以保持原来的遍历顺序
           for (let i = node.children.length - 1; i >= 0; i--) {
-            stack.push([node.children[i], level + 1, key]);
+            const childIsLast = i === node.children.length - 1;
+            stack.push([
+              node.children[i],
+              level + 1,
+              key,
+              childPrefixes,
+              childIsLast,
+            ]);
           }
         }
       }
@@ -149,6 +163,7 @@ const Tree = {
     );
 
     const handleExpand = (node) => {
+      if (node.disabled || node.isLeaf) return;
       // 切换展开状态
       const { key } = node;
       node.expanded = !node.expanded;
@@ -326,76 +341,88 @@ const Tree = {
       moveNode: (dragKey, dropKey) => {
         if (dragKey === dropKey) return;
 
-        // 1. 找到被拖拽节点和目标放置节点 (在扁平化列表中)
-        const dragNodeIndex = defaultData.value.findIndex(
+        // 辅助函数：递归查找原始数据中的节点
+        const findRawNode = (nodes, key) => {
+          for (let node of nodes) {
+            if (node.key === key) return node;
+            if (node.children && node.children.length > 0) {
+              const found = findRawNode(node.children, key);
+              if (found) return found;
+            }
+          }
+          return null;
+        };
+
+        // 1. 获取原始数据对象 (关键修改)
+        // 我们不能信任 defaultData 中的副本，必须去 ps.data 里找真身
+        const rawDragNode = findRawNode(ps.data, dragKey);
+        const rawDropNode = findRawNode(ps.data, dropKey);
+
+        if (!rawDragNode || !rawDropNode) return;
+
+        // 2. 从原父节点移除 (操作原始数据)
+        // 查找扁平化数据主要是为了方便找 parentKey
+        const flatDragNode = defaultData.value.find(
           (item) => item.key === dragKey
         );
-        const dropNodeIndex = defaultData.value.findIndex(
-          (item) => item.key === dropKey
-        );
+        let nodeToMove = null;
 
-        if (dragNodeIndex === -1 || dropNodeIndex === -1) return;
-
-        const dragNode = defaultData.value[dragNodeIndex];
-        const dropNode = defaultData.value[dropNodeIndex];
-
-        // 我们需要找到 dragNode 在原始树结构 (ps.data) 中的引用，以便操作它的 children 列表。
-        // 由于 dragNode 是 buildTree 结果的一部分，这里直接操作它的 children 数组。
-
-        // 2. 从原父节点的 children 列表中移除 dragNode 的原始数据
-        // **关键：我们操作的是原始数据（ps.data 的引用）**
-        let nodeToMove = null; // 存储将被移动的原始节点对象
-
-        // 2.1 处理旧父节点
-        if (dragNode.parentKey) {
-          const oldParent = defaultData.value.find(
-            (item) => item.key === dragNode.parentKey
-          );
-          if (oldParent && oldParent.children) {
-            // 找到要移动的节点，并从旧父节点的 children 数组中移除
-            const dragIndex = oldParent.children.findIndex(
-              (child) => child.key === dragKey
+        if (flatDragNode && flatDragNode.parentKey) {
+          // 找到原始父节点
+          const rawOldParent = findRawNode(ps.data, flatDragNode.parentKey);
+          if (rawOldParent && rawOldParent.children) {
+            const index = rawOldParent.children.findIndex(
+              (c) => c.key === dragKey
             );
-
-            if (dragIndex > -1) {
-              // 移除并获取被移除的原始节点对象
-              nodeToMove = oldParent.children.splice(dragIndex, 1)[0];
-
-              // 如果旧父节点 children 列表为空，将其标记为叶子节点
-              if (oldParent.children.length === 0) {
-                oldParent.isLeaf = true;
+            if (index > -1) {
+              nodeToMove = rawOldParent.children.splice(index, 1)[0];
+              // 如果移空了，清理一下，防止某些逻辑误判
+              if (rawOldParent.children.length === 0) {
+                // 可选：delete rawOldParent.children;
+                // 或者保留空数组取决于业务，通常没关系
               }
-            } else {
-              // 异常情况，理论上不应该发生
-              console.warn("Drag node not found in old parent's children.");
-              return;
             }
           }
         } else {
-          // 2.2 处理拖拽根节点的情况（从根列表移除）
-          const dragIndex = ps.data.findIndex((item) => item.key === dragKey);
-          if (dragIndex > -1) {
-            nodeToMove = ps.data.splice(dragIndex, 1)[0];
-          } else {
-            return;
+          // 根节点移除
+          const index = ps.data.findIndex((c) => c.key === dragKey);
+          if (index > -1) {
+            nodeToMove = ps.data.splice(index, 1)[0];
           }
         }
 
-        // 3. 将节点添加到新父节点的 children 列表中
         if (!nodeToMove) return;
 
-        // 确保新父节点不是叶子节点
-        dropNode.isLeaf = false;
+        // 3. 清理残留的扁平化属性 (关键步骤：防止 buildTree 混乱)
+        // 必须删除这些由 buildTree 产生属性，否则它们会干扰下一次 buildTree
+        [
+          "level",
+          "parentKey",
+          "loading",
+          "isLeaf",
+          "expanded",
+          "selected",
+          "checked",
+          "dropping",
+          "indeterminate",
+        ].forEach((prop) => delete nodeToMove[prop]);
 
-        if (!dropNode.children) {
-          dropNode.children = [];
+        // 4. 添加到新父节点 (操作原始数据 rawDropNode)
+        if (!rawDropNode.children) {
+          // 这里是核心修复：直接给原始对象添加 children 属性
+          // Vue 3 的 reactive 对象会自动响应这个添加操作
+          rawDropNode.children = [];
+        }
+        rawDropNode.children.push(nodeToMove);
+
+        // 5. 强制展开新父节点 (更新 expandedKeys)
+        // 我们需要在 buildTree 之前就把 key 放进去，或者在之后放
+        if (!defaultExpandedKeys.value.includes(dropKey)) {
+          defaultExpandedKeys.value.push(dropKey);
         }
 
-        // 将获取到的原始节点对象加入新父节点
-        dropNode.children.push(nodeToMove);
-
-        // 4. 重新构建整个树以更新扁平化数据和所有状态
-        // 这一步会根据更新后的 ps.data 重新计算所有节点的 level, parentKey, checked/indeterminate 状态。
+        // 6. 重新构建树
+        // 此时 ps.data 已经被正确修改，buildTree 会生成正确的结果
         defaultData.value = buildTree(
           ps.data,
           defaultExpandedKeys.value,
@@ -403,16 +430,13 @@ const Tree = {
           defaultCheckedKeys.value
         );
 
-        // 5. （可选）如果需要，在新的 defaultData 中找到移动后的节点并确保它的 expanded 状态与 dropNode 一致
-        const newDragNode = defaultData.value.find(
-          (item) => item.key === dragKey
-        );
-        if (newDragNode) {
-          // 通常会希望新父节点自动展开
-          dropNode.expanded = true;
-          defaultExpandedKeys.value = [
-            ...new Set([...defaultExpandedKeys.value, dropNode.key]),
-          ];
+        // 7. 再次确认状态 (保险起见)
+        // 找到新生成的扁平化节点，确保它是展开状态
+        const newDropNode = defaultData.value.find((n) => n.key === dropKey);
+        if (newDropNode) {
+          newDropNode.expanded = true;
+          // 触发事件通知父组件 keys 变化
+          emit("update:expandedKeys", defaultExpandedKeys.value);
         }
       },
     };
@@ -509,23 +533,23 @@ const Tree = {
       dropNode.dropping = false;
 
       // 检查是否试图将父节点拖到自己的子节点中（防止循环）
-      const isDescendant = (parentKey, childKey) => {
-        if (parentKey === childKey) return true;
+      // const isDescendant = (parentKey, childKey) => {
+      //   if (parentKey === childKey) return true;
 
-        const childNode = defaultData.value.find(
-          (item) => item.key === childKey
-        );
-        if (!childNode || !childNode.parentKey) return false;
+      //   const childNode = defaultData.value.find(
+      //     (item) => item.key === childKey
+      //   );
+      //   if (!childNode || !childNode.parentKey) return false;
 
-        if (childNode.parentKey === parentKey) return true;
+      //   if (childNode.parentKey === parentKey) return true;
 
-        return isDescendant(parentKey, childNode.parentKey);
-      };
+      //   return isDescendant(parentKey, childNode.parentKey);
+      // };
 
-      if (isDescendant(dragNode.key, dropNode.key)) {
-        console.warn("Cannot move a parent node into its own child");
-        return;
-      }
+      // if (isDescendant(dragNode.key, dropNode.key)) {
+      //   console.warn("Cannot move a parent node into its own child");
+      //   return;
+      // }
 
       // 执行节点移动
       updateCheckState.moveNode(dragNode.key, dropNode.key);
@@ -539,10 +563,9 @@ const Tree = {
         dragNode: dragNode.data,
         dropNode: dropNode,
       });
-      console.log("drop");
     };
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = () => {
       if (!ps.draggable) return;
 
       // 清空拖拽状态
@@ -556,15 +579,34 @@ const Tree = {
         item.key = key;
       }
       let arrowCommentNode = [];
-      for (let i = 0; i < item.level; i++) {
-        arrowCommentNode.push(<span class="k-tree-comment-line"></span>);
+      // 渲染前面的缩进线 (Indentation lines)
+      if (item.visiblePrefixes && item.visiblePrefixes.length > 0) {
+        item.visiblePrefixes.forEach((showLine) => {
+          arrowCommentNode.push(
+            <span
+              class={showLine ? "k-tree-indent-line" : "k-tree-indent-empty"}
+            ></span>
+          );
+        });
       }
+
+      // 渲染当前节点的连接头 (Connector)
+      if (item.level > 0) {
+        const connectorClass = item.isLastChild
+          ? "k-tree-connector-last"
+          : "k-tree-connector";
+        arrowCommentNode.push(<span class={connectorClass}></span>);
+      }
+
       if (!item.isLeaf) {
         let arrowCls = ["k-tree-arrow", { "k-tree-arrow-open": item.expanded }];
         let arrowNode = (
           <span
             class={arrowCls}
-            onClick={() => !ps.directory && handleExpand(item)}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!ps.directory) handleExpand(item);
+            }}
           >
             <Button
               size="small"
@@ -585,7 +627,8 @@ const Tree = {
         );
         arrowCommentNode.push(arrowNode);
       } else {
-        arrowCommentNode.push(<span class="k-tree-comment"></span>);
+        // arrowCommentNode.push(<span class="k-tree-comment"></span>);
+        arrowCommentNode.push(<span class="k-tree-arrow-placeholder"></span>);
       }
       // check
       const checkNode = ps.checkable ? (
@@ -641,7 +684,8 @@ const Tree = {
         on: {},
       };
       if (ps.directory) {
-        itemProps.on.click = () => {
+        itemProps.on.click = (e) => {
+          e.stopPropagation();
           onSelect(item);
           handleExpand(item);
         };
@@ -654,28 +698,6 @@ const Tree = {
         </div>
       );
     };
-    const renderChild = () => {
-      // return defaultData.value.map((item, i) => {});
-
-      // 过滤出应该显示的节点
-      const visibleNodes = defaultData.value.filter((node) => {
-        // 根节点总是显示
-        if (node.level === 0) return true;
-
-        // 检查所有祖先节点是否都展开
-        let current = node;
-        while (current.parentKey) {
-          const parent = defaultData.value.find(
-            (item) => item.key === current.parentKey
-          );
-          if (!parent || !parent.expanded) {
-            return false;
-          }
-          current = parent;
-        }
-        return true;
-      });
-    };
     const setCheckHalf = () => {};
     onMounted(() => {
       setCheckHalf();
@@ -684,25 +706,25 @@ const Tree = {
 
     watch(
       () => ps.data,
-      (nv, ov) => {
+      (nv) => {
         defaultData.value = nv || [];
       }
     );
     watch(
       () => ps.checkedKeys,
-      (nv, ov) => {
+      (nv) => {
         defaultCheckedKeys.value = nv || [];
       }
     );
     watch(
       () => ps.selectedKeys,
-      (nv, ov) => {
+      (nv) => {
         defaultSelectedKeys.value = nv || [];
       }
     );
     watch(
       () => ps.expandedKeys,
-      (nv, ov) => {
+      (nv) => {
         defaultExpandedKeys.value = nv || [];
       }
     );
