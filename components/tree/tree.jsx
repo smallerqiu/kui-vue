@@ -1,7 +1,7 @@
 import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
 
-import { ref, reactive, watch, onMounted, onBeforeUnmount } from "vue";
+import { ref, reactive, watch, onMounted, nextTick } from "vue";
 import {
   Sync,
   RemoveCircleOutline,
@@ -32,7 +32,7 @@ const Tree = {
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
     const defaultCheckedKeys = ref(ps.checkedKeys || []);
     const dragNode = reactive({});
-    const hasLoading = "loadData" in listeners;
+    const hasLoad = "loadData" in listeners;
 
     // 计算半选状态
     const calculateIndeterminateStates = (nodes) => {
@@ -111,14 +111,25 @@ const Tree = {
           stack.pop();
         const key = node.key;
         const hasChildren = node.children && node.children.length > 0;
+        let isLeaf = false;
 
+        if (node.isLeaf === true) {
+          isLeaf = true;
+        } else if (hasChildren) {
+          isLeaf = false;
+        } else if (hasLoad) {
+          // 没有 children 但有 loadData，说明是异步节点，显示箭头
+          isLeaf = false;
+        } else {
+          isLeaf = true;
+        }
         // 将当前节点和层级信息加入结果
         result.push({
           ...node,
           level: level,
           parentKey: pNodeKey,
           loading: false,
-          isLeaf: !hasChildren,
+          isLeaf: isLeaf,
           expanded: expandedKeys.includes(key), // 添加展开状态
           selected: selectedKeys.includes(key),
           checked: checkedKeys.includes(key),
@@ -156,17 +167,56 @@ const Tree = {
       return result;
     };
 
-    defaultData.value = buildTree(
-      ps.data,
-      defaultExpandedKeys.value,
-      defaultSelectedKeys.value,
-      defaultCheckedKeys.value
-    );
-
     const handleExpand = (node) => {
-      if (node.isLeaf) return;
+      if (node.isLeaf || node.loading) return;
       // 切换展开状态
       const { key } = node;
+
+      const isAsyncNode =
+        hasLoad &&
+        (!node.children || node.children.length === 0) &&
+        !node.isLeaf;
+
+      if (isAsyncNode && !node.expanded) {
+        node.loading = true;
+        const promise = listeners.loadData(node);
+        if (promise && promise.then) {
+          promise
+            .then(() => {
+              console.log("ok");
+              // 加载成功
+
+              nextTick(() => {
+                const newNode = defaultData.value.find((n) => n.key === key);
+                const targetNode = newNode || node;
+                targetNode.loading = false;
+                targetNode.expanded = true;
+
+                // 注意：这里通常不需要手动把数据 push 进 children。
+                // 因为外部数据变更会触发 watch(() => ps.data)，
+                // 从而触发 buildTree 重新渲染整个树。
+                // 我们只需要确保 expandedKeys 里有这个 key 即可。
+
+                const expandedKeys = defaultExpandedKeys.value;
+                if (!expandedKeys.includes(key)) {
+                  expandedKeys.push(key);
+                  defaultExpandedKeys.value = [...expandedKeys];
+                  emit("update:expandedKeys", defaultExpandedKeys.value);
+                }
+
+                // 触发展开事件
+                emit("expand", { key, expanded: true, targetNode });
+              });
+            })
+            .catch((e) => {
+              // 加载失败，取消 loading
+              node.loading = false;
+              console.error(e);
+            });
+        }
+        return;
+      }
+
       node.expanded = !node.expanded;
 
       // 更新展开的keys数组
@@ -591,7 +641,7 @@ const Tree = {
         });
       }
 
-      if (!item.isLeaf || hasLoading) {
+      if (!item.isLeaf) {
         let arrowCls = ["k-tree-arrow", { "k-tree-arrow-open": item.expanded }];
         let arrowNode = (
           <span
@@ -694,30 +744,48 @@ const Tree = {
     onMounted(() => {
       setCheckHalf();
     });
-    onBeforeUnmount(() => {});
+
+    const updateDefaultData = () => {
+      if (ps.data) {
+        defaultData.value = buildTree(
+          ps.data,
+          defaultExpandedKeys.value,
+          defaultSelectedKeys.value,
+          defaultCheckedKeys.value
+        );
+      }
+    };
+    updateDefaultData();
 
     watch(
       () => ps.data,
-      (nv) => {
-        defaultData.value = nv || [];
+      () => {
+        console.log("www");
+        updateDefaultData();
+      },
+      {
+        deep: true,
       }
     );
     watch(
       () => ps.checkedKeys,
       (nv) => {
         defaultCheckedKeys.value = nv || [];
+        updateDefaultData();
       }
     );
     watch(
       () => ps.selectedKeys,
       (nv) => {
         defaultSelectedKeys.value = nv || [];
+        updateDefaultData();
       }
     );
     watch(
       () => ps.expandedKeys,
       (nv) => {
         defaultExpandedKeys.value = nv || [];
+        updateDefaultData();
       }
     );
 

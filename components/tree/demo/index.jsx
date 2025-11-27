@@ -11,7 +11,7 @@ export default {
   render() {
     return (
       <div class="demo-tree">
-        {/* <Info /> */}
+        <Info />
         <Basic />
         <Checkable />
         <CustomRender />
@@ -19,7 +19,7 @@ export default {
         <Sync />
         <Icon />
         <Directory />
-        {/* <CN /> */}
+        <CN />
       </div>
     )
   }

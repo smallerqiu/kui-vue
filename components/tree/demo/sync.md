@@ -1,6 +1,6 @@
 <cn>
 ### 异步加载
-点击展开节点，动态加载数据 , `isLeaf` 表示是存在子集
+点击展开节点，动态加载数据 , `isLeaf=true` 表示当前节点是叶子节点,不会有子集
 </cn>
 
 ```vue
@@ -8,25 +8,57 @@
   <Tree :data="data" @loadData="loadData" @expand="expand" />
 </template>
 <script setup>
-const data = [
+import { ref, getCurrentInstance } from "vue";
+const data = ref([
   { title: "Expand to load", key: "0-0" },
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
-];
+]);
+const { proxy } = getCurrentInstance();
 const expand = (data) => {
   console.log(data);
 };
+const insertChildren = (nodes, targetKey, childrenData) => {
+  for (const node of nodes) {
+    if (node.key === targetKey) {
+      // 找到目标节点，插入数据
+      // node.children = childrenData; // for vue 3
+
+      // for vue 2
+      if (!("children" in node)) {
+        // 如果 'children' 属性不存在，必须用 Vue.set
+        proxy.$set(node, "children", childrenData);
+      } else {
+        // 如果 'children' 属性已存在，直接赋值是安全的
+        node.children = childrenData;
+      }
+      return true; // 插入成功
+    }
+
+    // 递归查找子节点
+    if (node.children && node.children.length > 0) {
+      if (insertChildren(node.children, targetKey, childrenData)) {
+        return true; // 子树中找到并插入成功
+      }
+    }
+  }
+  return false; // 未找到
+};
+
 let loadCount = 0;
-const loadData = (node, callback) => {
-  loadCount += 1;
-  //模拟异步请求
-  setTimeout(() => {
-    let data = [
-      { title: "Child Node", isLeaf: loadCount >= 2, key: node.key + "-0" },
-      { title: "Child Node", isLeaf: loadCount >= 3, key: node.key + "-1" },
-    ];
-    callback(data);
-  }, 1000);
+const loadData = (node) => {
+  return new Promise((resolve, reject) => {
+    loadCount += 1;
+    //模拟异步请求
+    setTimeout(() => {
+      let fetchedChildren = [
+        { title: "Child Node", isLeaf: loadCount >= 2, key: node.key + "-0" },
+        { title: "Child Node", isLeaf: loadCount >= 3, key: node.key + "-1" },
+      ];
+      insertChildren(data.value, node.key, fetchedChildren);
+      resolve();
+    }, 1000);
+  });
 };
 </script>
 ```
