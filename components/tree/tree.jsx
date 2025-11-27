@@ -32,6 +32,7 @@ const Tree = {
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
     const defaultCheckedKeys = ref(ps.checkedKeys || []);
     const dragNode = reactive({});
+    const hasLoading = "loadData" in listeners;
 
     // 计算半选状态
     const calculateIndeterminateStates = (nodes) => {
@@ -163,7 +164,7 @@ const Tree = {
     );
 
     const handleExpand = (node) => {
-      if (node.disabled || node.isLeaf) return;
+      if (node.isLeaf) return;
       // 切换展开状态
       const { key } = node;
       node.expanded = !node.expanded;
@@ -590,22 +591,14 @@ const Tree = {
         });
       }
 
-      // 渲染当前节点的连接头 (Connector)
-      if (item.level > 0) {
-        const connectorClass = item.isLastChild
-          ? "k-tree-connector-last"
-          : "k-tree-connector";
-        arrowCommentNode.push(<span class={connectorClass}></span>);
-      }
-
-      if (!item.isLeaf) {
+      if (!item.isLeaf || hasLoading) {
         let arrowCls = ["k-tree-arrow", { "k-tree-arrow-open": item.expanded }];
         let arrowNode = (
           <span
             class={arrowCls}
             onClick={(e) => {
               e.stopPropagation();
-              if (!ps.directory) handleExpand(item);
+              handleExpand(item);
             }}
           >
             <Button
@@ -627,7 +620,6 @@ const Tree = {
         );
         arrowCommentNode.push(arrowNode);
       } else {
-        // arrowCommentNode.push(<span class="k-tree-comment"></span>);
         arrowCommentNode.push(<span class="k-tree-arrow-placeholder"></span>);
       }
       // check

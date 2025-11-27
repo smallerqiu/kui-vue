@@ -1,16 +1,16 @@
 ## Table API
 
 | 属性          | 说明                               | 类型                                                | 默认值                  |
-| ------------- | ---------------------------------- | --------------------------------------------------- | ----------------------- |
+| ------------- | ---------------------------------- | --------------------------------------------------- | ----------------------- | --- |
 | bordered      | 是否显示边框                       | Boolean                                             | false                   |
 | width         | 表格的宽度，超出部分出现滚动条     | Number                                              | -                       |
 | height        | 表格高度，超出部分滚动，头部会固定 | Number                                              | -                       |
 | size          | 值为`small`时展示紧凑模式          | String                                              | -                       |
-| emptyText     | 没有数据时展示的提示               | String                                              | '赞无数据'              |
+| emptyText     | 没有数据时展示的提示               | String                                              | '赞无数据'              | -   |
 | loading       | 表格异步加载模式                   | Boolean                                             | false                   |
 | data          | 显示的结构化数据                   | Array                                               | [ ]                     |
 | columns       | 表格列的配置描述，                 | Array                                               | [ ]                     |
-| sticky        | 设置粘性头部和滚动条               | Boolean ,Number                                    | -                       |
+| sticky        | 设置粘性头部和滚动条               | Boolean ,Number                                     | -                       |
 | row-click     | 单击某一行时触发                   | Function                                            | 返回当前行的数据，index |
 | change        | 当排序和筛选改变时触发             | Function                                            | -                       |
 | on-change     | 选中项发生变化时的回调             | Function(keys,selected,selectedRows)                | -                       |

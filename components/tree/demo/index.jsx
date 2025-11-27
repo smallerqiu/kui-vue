@@ -12,12 +12,12 @@ export default {
     return (
       <div class="demo-tree">
         {/* <Info /> */}
-        {/* <Basic /> */}
-        {/* <Checkable /> */}
-        {/* <CustomRender /> */}
-        {/* <Disabled /> */}
-        {/* <Sync /> */}
-        {/* <Icon /> */}
+        <Basic />
+        <Checkable />
+        <CustomRender />
+        <Disabled />
+        <Sync />
+        <Icon />
         <Directory />
         {/* <CN /> */}
       </div>
