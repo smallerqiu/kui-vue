@@ -3,7 +3,7 @@
 .k-tree {
   .k-tree-item {
     // padding-bottom: 4px;
-    margin: 0;
+    margin-bottom: 4px;
     list-style: none;
     white-space: nowrap;
     outline: 0;
@@ -33,9 +33,6 @@
     height: 24px;
   }
 
-  // .k-checkbox-wp {
-  // 	margin: 0;
-  // }
   .k-tree-icon {
     margin-right: 5px;
     vertical-align: middle;
@@ -46,7 +43,6 @@
     display: inline-flex;
     padding: 0 4px;
     align-items: center;
-    // margin: 0 4px;
     z-index: 0;
     border-radius: @radius;
     cursor: pointer;
@@ -56,7 +52,6 @@
     text-overflow: ellipsis;
     font-size: 14px;
     min-height: 24px;
-    // transition: all .2s ease-in-out;
     &:hover {
       background: var(--kui-color-hover);
       outline: none;
@@ -117,15 +112,11 @@
     width: 24px;
     height: 24px;
     position: relative;
-    // text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    // transform: rotate(90deg);
-    // transition: all .2s ease-in-out;
     cursor: pointer;
-
-    // background-color: #fff;
+    margin-right: 3px;
     .k-icon {
       transition: all 0.2s ease-in-out;
     }
@@ -156,7 +147,6 @@
   .k-tree-item {
     cursor: pointer;
     position: relative;
-
     &::before {
       content: "";
       position: absolute;
@@ -214,16 +204,11 @@
 .k-tree-indent-line::before {
   content: "";
   position: absolute;
-  height: 24px;
+  height: 28px;
   top: 0;
   bottom: 0;
   left: 50%; /* 居中画线 */
   border-left: 1px solid var(--kui-color-border);
-}
-
-/* 2. 空白占位 (父节点是最后，下方不需要线) */
-.k-tree-indent-empty {
-  /* 什么都不画 */
 }
 
 //line-en

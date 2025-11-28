@@ -5,13 +5,14 @@
 | data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array   | []     |
 | checkable     | 是否显示多选框                                               | Boolean | false  |
 | draggable     | 是否可以拖拽                                                 | Boolean | false  |
-| showLine     | 是否展示连接线                                               | Boolean | false  |
-| showIcon     | 是否展示图标                                                 | Boolean | true   |
-| showExtra    | 是否默认展示扩展元素                                         | Boolean | false  |
+| showLine      | 是否展示连接线                                               | Boolean | false  |
+| showIcon      | 是否展示图标                                                 | Boolean | true   |
+| extra         | 扩展元素                                                     | slot    | -      |
+| showExtra     | 是否默认展示扩展元素                                         | Boolean | false  |
 | checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false  |
 | checkedKeys   | 选中复选框的树节点                                           | Array   | []     |
 | expandedKeys  | 指定展开的节点                                               | Array   | []     |
-| expandAll   | 是否展开所有节点                                             | Boolean | false  |
+| expandAll     | 是否展开所有节点                                             | Boolean | false  |
 | selectedKeys  | 选中的节点                                                   | Array   | []     |
 | multiple      | 是否支持多选                                                 | Boolean | false  |
 
@@ -27,14 +28,14 @@
 
 ## Tree 事件
 
-| 属性      | 说明                   | 回调参数                                     |
-| --------- | ---------------------- | -------------------------------------------- |
-| loadData | 异步加载数据的方法     | Function(node,callback)                      |
-| select    | 点击树节点时触发       | Function({selectedKeys,selected,node,vnode}) |
-| check     | 点击复选框时触发       | Function({checkedKeys,checked,node,vnode})   |
-| expand    | 展开和收起子节点时触发 | Function({expandedKeys,expanded,node,vnode}) |
-| dragstart | 开始拖拽时调用         | Function({event,node})                       |
-| dragend   | dragend 触发时调用     | Function({event,node})                       |
-| dragenter | dragenter 触发时调用   | Function({event, node, expandedKeys})        |
-| dragleave | dragleave 触发时调用   | Function({event,node})                       |
-| drop      | drop 触发时调用        | Function({event,node,dragNode})              |
+| 属性      | 说明                   | 回调参数                      |
+| --------- | ---------------------- | ----------------------------- |
+| loadData  | 异步加载数据的方法     | Promise Function(node)        |
+| select    | 点击树节点时触发       | Function(node)                |
+| check     | 点击复选框时触发       | Function(node,checked)        |
+| expand    | 展开和收起子节点时触发 | Function({key,expanded,node}) |
+| dragstart | 开始拖拽时调用         | Function(node)                |
+| dragend   | dragend 触发时调用     | Function(node)                |
+| dragenter | dragenter 触发时调用   | Function(node)                |
+| dragleave | dragleave 触发时调用   | Function(node)                |
+| drop      | drop 触发时调用        | Function({dragNode,dropNode}) |
