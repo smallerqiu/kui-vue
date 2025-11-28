@@ -1,0 +1,116 @@
+/* DatePicker.css */
+:root {
+    --dp-bg: #fff;
+    --dp-border: #dcdfe6;
+    --dp-active: #409eff;
+    --dp-hover: #f5f7fa;
+    --dp-text: #606266;
+    --dp-text-header: #303133;
+    --dp-disabled: #edf1f5;
+    --dp-placeholder: #c0c4cc;
+}
+
+.v-datepicker { position: relative; display: inline-block; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+/* 输入框 */
+.v-datepicker-wrapper {
+    display: flex; align-items: center; border: 1px solid var(--dp-border);
+    border-radius: 4px; padding: 0 10px; height: 32px; background: var(--dp-bg);
+    transition: border-color 0.2s;
+}
+.v-datepicker-wrapper:hover { border-color: var(--dp-placeholder); }
+.v-datepicker-wrapper.is-focus { border-color: var(--dp-active); }
+.v-datepicker-wrapper.is-disabled { background: var(--dp-disabled); cursor: not-allowed; }
+
+.v-datepicker-input {
+    flex: 1; border: none; outline: none; height: 100%; width: 100%;
+    color: var(--dp-text); font-size: 14px; background: transparent;
+}
+.v-datepicker-input::placeholder { color: var(--dp-placeholder); }
+
+/* 弹窗面板 */
+.v-datepicker-panel {
+    position: absolute; top: 100%; left: 0; z-index: 2000;
+    background: #fff; border: 1px solid #e4e7ed; box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+    border-radius: 4px; margin-top: 5px; width: 320px;
+    font-size: 14px; color: var(--dp-text); user-select: none;
+}
+
+/* 头部 Header */
+.v-dp-header { 
+    display: flex; justify-content: center; align-items: center; 
+    padding: 10px; border-bottom: 1px solid #ebeef5; position: relative;
+}
+.v-dp-header button { 
+    border: none; background: none; cursor: pointer; padding: 0 5px; color: var(--dp-text-header);
+    transition: color 0.2s;
+}
+.v-dp-header button:hover { color: var(--dp-active); }
+.v-dp-header-label { 
+    font-weight: 500; margin: 0 5px; cursor: pointer; 
+}
+.v-dp-header-label:hover { color: var(--dp-active); }
+/* 左右箭头定位 */
+.v-dp-prev-btn, .v-dp-next-btn { position: absolute; top: 10px; }
+.v-dp-prev-btn { left: 10px; }
+.v-dp-next-btn { right: 10px; }
+
+/* 内容区域 */
+.v-dp-body { padding: 10px; }
+
+/* 日期表格 */
+.v-dp-table { width: 100%; display: flex; flex-wrap: wrap; }
+.v-dp-week-header { display: flex; margin-bottom: 8px; border-bottom: 1px solid #ebeef5; padding-bottom: 5px; }
+.v-dp-cell { 
+    width: 14.28%; height: 36px; display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; border-radius: 0; margin-bottom: 2px;
+}
+.v-dp-cell:hover { background: var(--dp-hover); color: var(--dp-active); }
+.v-dp-cell.is-selected { background: var(--dp-active); color: #fff; border-radius: 4px; }
+/* 范围样式 */
+.v-dp-cell.in-range { background: #f2f6fc; }
+.v-dp-cell.range-start { border-top-left-radius: 4px; border-bottom-left-radius: 4px; background: var(--dp-active); color: #fff; }
+.v-dp-cell.range-end { border-top-right-radius: 4px; border-bottom-right-radius: 4px; background: var(--dp-active); color: #fff; }
+
+.v-dp-cell.not-current { color: #c0c4cc; }
+.v-dp-cell.is-today { color: var(--dp-active); font-weight: bold; }
+.v-dp-cell.is-disabled { background: #f5f7fa; color: #c0c4cc; cursor: not-allowed; }
+
+/* 年/月 表格 */
+.v-dp-year-table, .v-dp-month-table { display: flex; flex-wrap: wrap; padding: 10px 0; }
+.v-dp-year-cell, .v-dp-month-cell {
+    width: 25%; height: 48px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+}
+.v-dp-year-cell:hover, .v-dp-month-cell:hover { color: var(--dp-active); font-weight: bold; }
+.v-dp-year-cell.is-selected, .v-dp-month-cell.is-selected { color: var(--dp-active); font-weight: bold; }
+
+/* 时间面板 (滚动) */
+.v-dp-time-picker { display: flex; height: 200px; overflow: hidden; position: relative; }
+/* 高亮中间选中条 */
+.v-dp-time-picker::after {
+    content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 32px; margin-top: -16px;
+    border-top: 1px solid #e4e7ed; border-bottom: 1px solid #e4e7ed; pointer-events: none;
+}
+.v-dp-time-col {
+    flex: 1; height: 100%; overflow-y: auto; text-align: center; padding: 0; margin: 0; list-style: none;
+    scrollbar-width: none; /* Firefox */
+}
+.v-dp-time-col::-webkit-scrollbar { display: none; }
+.v-dp-time-item { height: 32px; line-height: 32px; cursor: pointer; color: var(--dp-text); font-size: 13px; opacity: 0.8; }
+.v-dp-time-item:hover { background: var(--dp-hover); }
+.v-dp-time-item.active { color: var(--dp-active); font-weight: bold; opacity: 1; }
+/* 垫片 */
+.v-dp-time-col::before, .v-dp-time-col::after { content: ""; display: block; height: 84px; /* (200 - 32)/2 */ }
+
+/* 底部 Footer */
+.v-dp-footer {
+    border-top: 1px solid #e4e7ed; padding: 8px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.v-dp-footer-btn {
+    border: 1px solid #dcdfe6; background: #fff; padding: 5px 12px; 
+    border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.2s;
+}
+.v-dp-footer-btn:hover { color: var(--dp-active); border-color: #c6e2ff; background-color: #ecf5ff; }
+.v-dp-footer-btn.active { color: #fff; background-color: var(--dp-active); border-color: var(--dp-active); }
