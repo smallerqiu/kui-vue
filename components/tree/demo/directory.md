@@ -21,6 +21,7 @@
     <Tree
       :data="data"
       @expand="expand"
+      @check="onCheck"
       :directory="directory"
       :draggable="draggable"
       :checkable="checkable"
@@ -32,7 +33,7 @@
       :expandedKeys="expandedKeys"
       :checkStrictly="checkStrictly"
     >
-      <template #extra="{ node, parent }">
+      <template #extra="node">
         <Space>
           <Button
             size="small"
@@ -44,7 +45,7 @@
             size="small"
             type="text"
             :icon="Trash"
-            @click="(e) => remove(e, node, parent)"
+            @click="(e) => deleteNode(e, node)"
             v-if="node.key != '0-0'"
           />
           <Button
@@ -72,7 +73,7 @@ import {
   LogoAndroid,
   LogoApple,
 } from "kui-icons";
-import { ref } from "vue";
+import { ref, getCurrentInstance } from "vue";
 const directory = ref(true);
 const showLine = ref(true);
 const showIcon = ref(true);
@@ -82,9 +83,9 @@ const showExtra = ref(true);
 const expandedKeys = ref(["0-0", "1-0", "1-1", "1-2"]);
 const checkStrictly = ref(false);
 const multiple = ref(false);
-
+const { proxy } = getCurrentInstance();
 const selectedKeys = ["0-0"];
-const data = [
+const data = ref([
   {
     title: "src",
     key: "0-0",
@@ -124,7 +125,7 @@ const data = [
     key: "0-1",
     icon: FolderOpenOutline,
   },
-];
+]);
 const edit = (e, node) => {
   e.stopPropagation();
   let pop = prompt("修改节点名称", node.title);
@@ -132,21 +133,52 @@ const edit = (e, node) => {
     node.title = pop;
   }
 };
+const insertChildren = (nodes, targetKey, childrenData) => {
+  for (const node of nodes) {
+    if (node.key === targetKey) {
+      // 找到目标节点，插入数据
+      // node.children = childrenData; // for vue 3
+
+      // for vue 2
+      if (!("children" in node)) {
+        node.icon = FolderOpenOutline
+        // 如果 'children' 属性不存在，必须用 Vue.set
+        proxy.$set(node, "children", []);
+      }
+      // 如果 'children' 属性已存在，直接赋值是安全的
+      node.children.push(childrenData);
+      return true; // 插入成功
+    }
+
+    // 递归查找子节点
+    if (node.children && node.children.length > 0) {
+      if (insertChildren(node.children, targetKey, childrenData)) {
+        return true; // 子树中找到并插入成功
+      }
+    }
+  }
+  return false; // 未找到
+};
+const addIndex = ref(0);
 const append = (e, node) => {
   e.stopPropagation();
-  const newChild = { title: "Append Node", children: [] };
-  if (!node.children) {
-    node.children = [];
-  }
+  addIndex.value += 1;
+  const newChild = {
+    title: "Append Node",
+    key: `${node.key}-1-${addIndex.value}`,
+  };
+
+  insertChildren(data.value, node.key, newChild);
+
+
   //展开节点
-  if (this.expandedKeys.indexOf(node.key) < 0) {
-    this.expandedKeys.push(node.key);
+  let keys = expandedKeys.value;
+  if (keys.indexOf(node.key) < 0) {
+    keys.push(node.key);
+    expandedKeys.value = keys;
   }
-  //添加子节点
-  node.children.push(newChild);
 };
-const remove = (e, node, parent) => {
-  let { data } = this;
+const deleteNode = (e, node) => {
   const loop = (data, key, callback) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].key === key) {
@@ -157,13 +189,16 @@ const remove = (e, node, parent) => {
       }
     }
   };
-  loop(data, node.key, (item, index, arr) => {
+  loop(data.value, node.key, (item, index, arr) => {
     arr.splice(index, 1);
   });
 };
 const expand = ({ expanded, node, expandedKeys }) => {
   node.icon = expanded ? FolderOpenOutline : FolderOutline;
   console.log(node);
+};
+const onCheck = (node, checked) => {
+  console.log(node, checked);
 };
 </script>
 ```

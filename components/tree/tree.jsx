@@ -26,7 +26,7 @@ const Tree = {
     checkStrictly: Boolean,
   },
 
-  setup(ps, { emit, listeners }) {
+  setup(ps, { emit, slots, listeners }) {
     const defaultData = ref();
     const defaultSelectedKeys = ref(ps.selectedKeys || []);
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
@@ -504,6 +504,7 @@ const Tree = {
         .map((item) => item.key);
 
       defaultCheckedKeys.value = checkedNodes;
+      emit("check", item, checked);
     };
     const updateNodeStatus = (key, property, value) => {
       const nodeIndex = defaultData.value.findIndex((item) => item.key === key);
@@ -548,6 +549,7 @@ const Tree = {
       dragNode.data = node;
 
       e.dataTransfer.effectAllowed = "move";
+      emit("dragstart", node);
     };
 
     const handleDragOver = (e) => {
@@ -563,12 +565,14 @@ const Tree = {
       // 可以在这里添加视觉反馈，表示可以放置
       e.preventDefault();
       node.dropping = true;
+      emit("dragenter", node);
     };
 
     const handleDragLeave = (e, node) => {
       if (!ps.draggable) return;
       // 清除视觉反馈
       node.dropping = false;
+      emit("dragleave", node);
     };
 
     const handleDrop = (e, dropNode) => {
@@ -616,12 +620,13 @@ const Tree = {
       });
     };
 
-    const handleDragEnd = () => {
+    const handleDragEnd = (node) => {
       if (!ps.draggable) return;
 
       // 清空拖拽状态
       dragNode.key = null;
       dragNode.data = null;
+      emit("dragend", node);
     };
     const renderTreeNode = (item, i) => {
       let key = item.key;
@@ -696,11 +701,11 @@ const Tree = {
       // 添加拖拽事件
       if (ps.draggable) {
         titleProps.on.dragstart = (e) => handleDragStart(e, item);
-        titleProps.on.dragover = handleDragOver;
+        titleProps.on.dragover = () => handleDragOver(item);
         titleProps.on.dragenter = (e) => handleDragEnter(e, item);
         titleProps.on.dragleave = (e) => handleDragLeave(e, item);
         titleProps.on.drop = (e) => handleDrop(e, item);
-        titleProps.on.dragend = handleDragEnd;
+        titleProps.on.dragend = () => handleDragEnd(item);
       }
       if (!ps.directory) {
         titleProps.on.click = () => onSelect(item);
@@ -719,7 +724,7 @@ const Tree = {
           {
             "k-tree-item-disabled": item.disabled,
             "k-tree-item-drop": item.dropping && !item.disabled,
-            // "k-tree-item-extra-hidden": !ps.showExtra,
+            "k-tree-item-extra-hidden": !ps.showExtra,
             "k-tree-item-selected": ps.directory && item.selected,
           },
         ],
@@ -732,11 +737,15 @@ const Tree = {
           handleExpand(item);
         };
       }
+      const extraNode = slots.extra && (
+        <span class="k-tree-item-extra">{slots.extra(item)}</span>
+      );
       return (
         <div {...itemProps}>
           {arrowCommentNode}
           {checkNode}
           {titleNode}
+          {extraNode}
         </div>
       );
     };
@@ -760,7 +769,6 @@ const Tree = {
     watch(
       () => ps.data,
       () => {
-        console.log("www");
         updateDefaultData();
       },
       {
