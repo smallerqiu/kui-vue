@@ -11,7 +11,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div class="demo-badge">
+      <div>
         <Info />
         <Basic />
         <Dot />

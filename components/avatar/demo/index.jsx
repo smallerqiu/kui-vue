@@ -6,7 +6,7 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div class="demo-avatar">
+      <div>
         <Info />
         <Basic />
         <Types />
