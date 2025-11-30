@@ -76,7 +76,7 @@ import Layout from '@/src/components/AppLayout.vue'
 
 let routes =[
 	{ path: '/', component: () => import('@/src/views/index') },
-	{ path: '/test', component: () => import('@/src/views/testd') },
+	{ path: '/test', component: () => import('@/src/views/test') },
 	{ path: '/test-locale', component: () => import('@/src/views/testLocale') },
 	{
 		path: '/',
