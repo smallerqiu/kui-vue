@@ -34,8 +34,8 @@ export { Collapse, CollapsePanel };
 import { Checkbox, CheckboxGroup } from "./checkbox";
 export { Checkbox, CheckboxGroup };
 
-// import { DatePicker, DateCalendar } from './datePicker'
-// export { DatePicker, DateCalendar };
+import { DatePicker } from "./datePicker";
+export { DatePicker };
 
 import { Descriptions, DescriptionsItem } from "./descriptions";
 export { Descriptions, DescriptionsItem };

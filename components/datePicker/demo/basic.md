@@ -1,17 +1,20 @@
 <cn>
 ### 基础用法
-通过 `v-model` 进行数据双向绑定
+选择或者手动输入日期,通过 `v-model` 进行数据双向绑定
 </cn>
 
 ```vue
 <template>
-  <Space wrap> 
-    <DatePicker />
-    <DatePicker placeholder="小尺寸/Small" picker-size="small" />
-    <br />
-    <DatePicker mode="month" placeholder="请选择月份" />
-    <DatePicker mode="dateRange" />
-    <DatePicker mode="dateTimeRange" picker-size="small" />
+  <Space wrap vertical>
+    <DatePicker mode="year" />
+    <DatePicker mode="month" />
+    <DatePicker mode="date" />
+    <DatePicker mode="time" />
+    <DatePicker mode="dateTime" v-model="value" />
   </Space>
 </template>
+<script setup>
+import { ref } from "vue";
+const value = ref("2021-01-01 20:20:20");
+</script>
 ```
