@@ -1,0 +1,67 @@
+/* Table.css */
+.k-table-wrapper {
+  overflow-x: auto;
+  position: relative;
+  /* border: 1px solid #f0f0f0; */
+}
+
+.k-table {
+  width: 100%;
+  border-collapse: separate; /* 关键：sticky 在 collapse 下可能失效 */
+  border-spacing: 0;
+  min-width: 100%;
+}
+
+.k-table th, .k-table td {
+  padding: 12px 16px;
+  /* border-bottom: 1px solid #f0f0f0; */
+  text-align: left;
+  /* background: #fff; 关键：防止透明穿透 */
+}
+
+/* 固定列的核心样式 */
+.k-table-cell-fix-left,
+.k-table-cell-fix-right {
+  position: sticky !important;
+  z-index: 2;
+}
+
+/* 表头层级要更高一点，防止内容遮挡表头 */
+.k-table th.k-table-cell-fix-left,
+.k-table th.k-table-cell-fix-right {
+  z-index: 3;
+}
+
+/* 最后一列左固定需要阴影 */
+.k-table-cell-fix-left-last::after {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 30px;
+  transform: translateX(100%);
+  transition: box-shadow 0.3s;
+  content: "";
+  pointer-events: none;
+  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* 第一列右固定需要阴影 */
+.k-table-cell-fix-right-first::after {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; width: 30px;
+  transform: translateX(-100%);
+  transition: box-shadow 0.3s;
+  content: "";
+  pointer-events: none;
+  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* 排序图标 */
+.k-sorter {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 6px;
+}
+.k-sorter-up.active, .k-sorter-down.active { color: #1890ff; }
