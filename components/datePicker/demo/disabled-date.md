@@ -1,34 +1,37 @@
 <cn>
-### 不可选择日期和时间 
+### 不可选择日期和时间
 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
 </cn>
 
 ```vue
 <template>
-  <Space wrap>
-    <DatePicker :disabledDate="disabledDate"/>
-    <DatePicker :disabledDate="disabledDate" :disabledTime="disabledTime" mode="dateTime" />
-    <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime"/>
+  <Space wrap vertical>
+    <code>not before than today</code>
+    <DatePicker :disabledDate="disabledDate" />
+    <code>not before 09:30</code>
+    <DatePicker :disabledTime="disabledTime1" mode="time" />
+    <code>not before 12:30 today</code>
+    <DatePicker
+      mode="dateTimeRange"
+      :disabledDate="disabledDate"
+      :disabledTime="disabledTime2"
+    />
   </Space>
 </template>
-<script>
-import dayjs from 'dayjs';
-export default {
-  methods:{
-    disabledDate(current){
-      return current && current < dayjs().endOf('day');
-    },
-    range(len){
-      return new Array(len).fill('').map((x,y)=>y)
-    },
-    disabledTime(){
-      return {
-        disabledHours: () => this.range(24).splice(4, 20),
-        disabledMinutes: () => this.range(60).splice(40, 50),
-        disabledSeconds: () => [55, 56],
-      };
-    }
-  }
-}
+<script setup>
+import dayjs from "dayjs";
+
+const disabledDate = (current) => {
+  return current && current < dayjs().endOf("day");
+};
+const range = (len) => {
+  return new Array(len).fill("").map((x, y) => y);
+};
+const disabledTime1 = (date) => {
+  return date < new Date(date.getTime()).setHours(9, 30, 0, 0);
+};
+const disabledTime2 = (date) => {
+  return date < new Date(date.getTime()).setHours(12, 30, 0, 0);
+};
 </script>
 ```

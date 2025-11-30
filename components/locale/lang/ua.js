@@ -1,20 +1,16 @@
 export default  {
   k: {
     datePicker: {
+      selectYear: "Виберіть рік",
+      selectMonth: "Виберіть місяць",
+      selectDate: 'Вибрати дату',
+      selectTime: 'Вибрати час',
       startDate: 'Дата початку',
       endDate: 'Дата завершення',
-      placeholder: 'Вибрати дату',
-      months: ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер', 'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру'],
-      weeks: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-      year: '',
-      month: '',
-      day: '',
       today: 'Сьогодні',
       now: 'Зараз',
       ok: 'Обрати',
-      selectDate: 'Вибрати дату',
-      selectTime: 'Вибрати час',
-      back:'назад'
+      back: 'назад'
     },
     drawer: {
       ok: 'Обрати',

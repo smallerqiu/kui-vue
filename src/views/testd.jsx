@@ -1,5 +1,5 @@
 import { defineComponent, ref } from "vue";
-import DatePicker from "@/components/datePicker/date.jsx";
+import DatePicker from "@/components/datePicker/datepicker.jsx";
 
 export default defineComponent({
   setup() {
@@ -11,6 +11,7 @@ export default defineComponent({
       <div style={{ padding: "20px", width: "400px" }}>
         <h3>基本模式</h3>
         <DatePicker
+          mode="dateTime"
           value={dateVal.value}
           onUpdate:value={(v) => (dateVal.value = v)}
           placeholder="选择日期"
@@ -22,18 +23,18 @@ export default defineComponent({
           mode="dateTimeRange"
           value={rangeVal.value}
           onUpdate:value={(v) => (rangeVal.value = v)}
-        />
+        /> 
 
-        <h3>带时间 (DateTime)</h3>
+        {/* <h3>带时间 (DateTime)</h3>
         <DatePicker
           mode="dateTime"
           value={timeVal.value}
           onUpdate:value={(v) => (timeVal.value = v)}
-          format="YYYY-MM-DD HH:mm"
-        />
+          format="YYYY-MM-DD HH:mm:ss"
+        /> */}
 
         <h3>大尺寸 + 禁用</h3>
-        <DatePicker size="large" disabled />
+        {/* <DatePicker size="large" disabled /> */}
       </div>
     );
   },
