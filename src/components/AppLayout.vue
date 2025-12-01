@@ -1,7 +1,7 @@
 <template>
   <Layout class="root">
     <!-- <AppHeader /> -->
-    <Layout class="main">
+    <!-- <Layout class="main">
       <Sider
         :class="[
           'docs-k-layout-sider',
@@ -45,7 +45,7 @@
             </MenuItem>
           </SubMenu>
         </Menu>
-      </Sider>
+      </Sider> -->
       <Content>
         <transition name="fade" mode="out-in">
           <router-view class="content-inner" />

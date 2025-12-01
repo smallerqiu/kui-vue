@@ -19,7 +19,7 @@ const Demo = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const expand = ref(true);
+    const expanded = ref(props.direction == "vertical" ? false : true);
     const { proxy } = getCurrentInstance();
     const codeRef = ref(null);
     const codeOrigin = ref(null);
@@ -70,12 +70,12 @@ const Demo = defineComponent({
             </div>
             {vertical && (
               <div class="k-code-actions">
-                <Tooltip title={expand ? "隐藏代码" : "显示代码"}>
+                <Tooltip title={expanded.value ? "隐藏代码" : "显示代码"}>
                   <Icon
                     type={CaretHor}
-                    onClick={() => (expand.value = !expand.value)}
+                    onClick={() => (expanded.value = !expanded.value)}
                     style={{
-                      "border-bottom-left-radius": !expand ? "12px" : 0,
+                      "border-bottom-left-radius": !expanded.value ? "12px" : 0,
                     }}
                   />
                 </Tooltip>
@@ -84,7 +84,7 @@ const Demo = defineComponent({
                     type={CopyOutline}
                     onClick={copy}
                     style={{
-                      "border-bottom-right-radius": !expand ? "12px" : 0,
+                      "border-bottom-right-radius": !expanded.value ? "12px" : 0,
                     }}
                   />
                 </Tooltip>
@@ -92,7 +92,7 @@ const Demo = defineComponent({
             )}
             <transition {...transitionProps}>
               <div
-                v-show={expand.value}
+                v-show={expanded.value}
                 class="k-code-box"
                 contenteditable
                 onInput={renderCode}

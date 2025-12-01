@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-table {
   background: var(--kui-color-back);
@@ -16,15 +16,12 @@
     z-index: 3;
   }
 
-
-
-
-  .k-table-cell-fixed-left {
+  .k-table-cell-fix-left {
     position: sticky;
     left: 0;
   }
 
-  .k-table-cell-fixed-right {
+  .k-table-cell-fix-right {
     position: sticky;
     right: 0;
   }
@@ -53,10 +50,9 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background: var(--kui-color-back);
+    // background: var(--kui-color-back);
     margin: 0;
     border-radius: @radius;
-
 
     thead {
       border-bottom: 1px solid var(--kui-color-table-border);
@@ -70,17 +66,12 @@
       border-top-right-radius: @radius;
     }
 
-
-
-
     .k-table {
-      margin: -10px -10px -11px -10px
+      margin: -10px -10px -11px -10px;
     }
 
-
-
-    tr>th,
-    tr>td {
+    tr > th,
+    tr > td {
       font-size: 14px;
       padding: 10px 16px;
       box-sizing: border-box;
@@ -89,7 +80,7 @@
       border-bottom: 1px solid var(--kui-color-table-border);
     }
 
-    tr>th {
+    tr > th {
       background: var(--kui-color-table-header);
       font-weight: 500;
       overflow-wrap: break-word;
@@ -112,7 +103,6 @@
       }
     }
 
-
     .k-table-cell-sorter {
       cursor: pointer;
       user-select: none;
@@ -122,8 +112,6 @@
         flex-direction: row;
         align-items: center;
         line-height: 1;
-
-
       }
 
       .k-table-header-title {
@@ -183,18 +171,17 @@
       }
     }
 
-    tbody>tr {
-
-      .k-table-cell-fixed-left,
-      .k-table-cell-fixed-right {
+    tbody > tr {
+      .k-table-cell-fix-left,
+      .k-table-cell-fix-right {
         background-color: var(--kui-color-back);
       }
 
       &:hover {
         background: var(--kui-color-table-hover);
 
-        .k-table-cell-fixed-left,
-        .k-table-cell-fixed-right {
+        .k-table-cell-fix-left,
+        .k-table-cell-fix-right {
           background-color: var(--kui-color-table-hover);
         }
       }
@@ -211,7 +198,7 @@
         border-bottom: none;
       }
 
-      tbody>tr:hover {
+      tbody > tr:hover {
         background: var(--kui-color-table-hover);
       }
     }
@@ -220,7 +207,7 @@
   .k-table-thead {
     border-top-left-radius: @radius;
     border-top-right-radius: @radius;
-
+    background: var(--kui-color-table-header);
     tr th:first-child,
     tr th:last-child {
       border-radius: 0;
@@ -244,8 +231,8 @@
     border-bottom-right-radius: @radius;
   }
 
-  th>a,
-  td>a {
+  th > a,
+  td > a {
     color: #3a95ff;
   }
 
@@ -264,8 +251,8 @@
     word-break: break-all;
   }
 
-  .k-table-cell-fixed-left-last,
-  .k-table-cell-fixed-right-first {
+  .k-table-cell-fix-left-last,
+  .k-table-cell-fix-right-first {
     &::after {
       content: "";
       position: absolute;
@@ -277,26 +264,26 @@
   }
 
   &-ping-middle {
-    .k-table-cell-fixed-right-first::after {
+    .k-table-cell-fix-right-first::after {
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
     }
 
-    .k-table-cell-fixed-left-last::after {
+    .k-table-cell-fix-left-last::after {
       box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
       right: -30px;
     }
   }
 
   &-ping-right {
-    .k-table-cell-fixed-left-last::after {
+    .k-table-cell-fix-left-last::after {
       box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
       right: -30px;
     }
   }
 
   &-ping-left {
-    .k-table-cell-fixed-right-first::after {
+    .k-table-cell-fix-right-first::after {
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
     }
@@ -304,7 +291,6 @@
 
   &-sm {
     table tr {
-
       th {
         padding: 10px 8px;
       }
@@ -317,7 +303,6 @@
 
   &-lg {
     table tr {
-
       th {
         padding: 20px 16px;
       }
@@ -328,7 +313,7 @@
     }
   }
 
-  .k-table-header+.k-table-container {
+  .k-table-header + .k-table-container {
     table tr th:first-child {
       border-radius: 0;
     }
@@ -413,7 +398,7 @@
   }
 
   &-selection-col {
-    width: 50px
+    width: 50px;
   }
 
   &-expand-icon-col {

@@ -29,6 +29,9 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
+      console.log(path);
+
+      const direction = path.includes("table") ? "vertical" : "horizontal";
       if (!path.endsWith(".md")) return null;
       const id = "k-" + hashId(path);
 
@@ -67,7 +70,7 @@ export default function vitePluginMd() {
           .replace(/}}/g, "&#125;&#125;");
         let result = `
 <template>
-  <Demo id="${id}">
+  <Demo id="${id}" direction="${direction}">
     <template #component>${template?.content || ""}</template>
     <template #description>${cnHtml || ""}</template>
     <template #code>${codeHtml}</template>

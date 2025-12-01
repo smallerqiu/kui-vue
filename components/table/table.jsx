@@ -1,272 +1,401 @@
-import Empty from '../empty'
-import Spin from '../spin'
-import { Checkbox } from '../checkbox'
-import { Radio } from '../radio'
-import ExtendTable from './extend'
-import { sortFixedCol, hasChild, sortColumnsOnline } from './utils'
-import { Remove, Add } from 'kui-icons'
-import { withInstall } from '../utils/vue'
-const Table = {
-  name: 'Table',
+import {
+  defineComponent,
+  ref,
+  computed,
+  reactive,
+  onMounted,
+  onUpdated,
+  watch,
+  nextTick,
+} from "vue";
+import { Checkbox } from "../checkbox";
+import { CaretUp, CaretDown } from "kui-icons";
+import Empty from "../empty";
+import Spin from "../spin";
+// import './Table.css'
+export default defineComponent({
+  name: "Table",
   props: {
-    bordered: Boolean,
+    data: { type: Array, default: () => [] },
+    columns: { type: Array, default: () => [] },
+    selectedKeys: { type: Array, default: () => [] },
+    disabledKeys: { type: Array, default: () => [] },
+    rowKey: { type: String, default: "key" },
+    scroll: { type: Object, default: () => ({}) },
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
-    width: Number,
-    height: [Number, String],
-    data: { type: Array, default: () => [] }, // 表格数据
-    columns: { type: Array, default: () => [] }, // 表格类目
+    bordered: Boolean,
+    checkable: Boolean,
     loading: Boolean,
-    sticky: [Boolean, Number],
     emptyText: String,
   },
-  data() {
-    return {
-      ping: 'left',
-      filters: {},
-      // scrollFocus: 'body',
-    }
-  },
-  render(h) {
-    let { $slots, data, $scopedSlots = {}, loading, height, width, sticky } = this
-    // bordered = true
-    const { header, footer } = $slots
-    let isTableFixed = width || height
-    const content = [], tbody = [];
+  setup(props, { emit }) {
+    const headerWrapperRef = ref(null);
+    const bodyWrapperRef = ref(null);
+    const scrollbarWidth = ref(0);
 
-    //custom head
-    if (header) {
-      content.push(<div class="k-table-header"> {header}</div>)
-    }
+    const innerSelectedKeys = ref(new Set(props.selectedKeys));
 
-
-    let expandNode = $scopedSlots['expandedRowRender']
-
-    //重新排序
-
-    let { columns } = sortFixedCol(this.columns)
-
-    //reset custom header
-    columns.forEach(col => {
-      if (col.renderHeader) {
-        col.$title = col.renderHeader(h, col.title)
-      } else if ($scopedSlots[`header-${col.key}`]) {
-        col.$title = $scopedSlots[`header-${col.key}`](col.title)
+    watch(
+      () => props.selectedKeys,
+      (val) => {
+        innerSelectedKeys.value = new Set(val);
       }
-    })
+    );
+    const isDisabled = (key) => {
+      return props.disabledKeys && props.disabledKeys.includes(key);
+    };
 
-    let _columns = columns
+    const selectionState = computed(() => {
+      const totalData = props.data;
+      const enableData = totalData.filter(
+        (item) => !isDisabled(item[props.rowKey])
+      );
 
-    if (hasChild(this.columns)) {
-      _columns = sortColumnsOnline(columns)
-    }
+      if (enableData.length === 0) {
+        return { all: false, indeterminate: false };
+      }
 
-    let checkAll = data.filter(x => x._checked).length == data.length && data.length > 0;
+      // 在可操作行中，有多少是被选中的
+      const checkedCount = enableData.filter((item) =>
+        innerSelectedKeys.value.has(item[props.rowKey])
+      ).length;
 
-    let indeterminate = data.filter(x => x._checked).length > 0 && !checkAll;
-    //Set Data 
-    data.forEach((d, i) => {
-      let tr = [];
-      // d._checked = d._checked || false
-      // d._disabled = d._disabled || false
+      return {
+        all: checkedCount > 0 && checkedCount === enableData.length,
+        indeterminate: checkedCount > 0 && checkedCount < enableData.length,
+      };
+    });
 
-      let left = 0, right = _columns.filter(c => c.fixed == 'right').map(c => c.width).reduce((a, b) => a + b, 0);
-      _columns.forEach((c, j) => {
-        // $scopedSlots[c.key]({ text: d[c.key] })
-        if (c.key || c.type) {
-          let $scope = d[c.key]
+    const sortState = reactive({ key: null, order: null });
 
-          let props = {
-            class: [{
-              "k-table-cell-ellipsis": c.ellipsis,
-              'k-table-cell-selection': c.type == 'selection',
-              'k-table-cell-fixed-left': c.fixed == 'left',
-              'k-table-cell-fixed-left-last': c.last,
-              'k-table-cell-fixed-right-first': c.first,
-              'k-table-cell-fixed-right': c.fixed == 'right',
-              [c.className]: c.className
-            }],
-            attrs: {
-              title: c.ellipsis ? this.toString(d[c.key]) : null
+    const pingLeft = ref(false);
+    const pingRight = ref(false);
+
+    const fixedInfo = computed(() => {
+      const styles = {};
+      const cols = props.columns;
+      let leftOffset = 0;
+      leftOffset += 50;
+
+      cols.forEach((col) => {
+        if (col.fixed === "left") {
+          styles[col.key] = { position: "sticky", left: `${leftOffset}px` };
+          leftOffset += col.width || 100;
+        }
+      });
+
+      let rightOffset = 0;
+      for (let i = cols.length - 1; i >= 0; i--) {
+        const col = cols[i];
+        if (col.fixed === "right") {
+          styles[col.key] = { position: "sticky", right: `${rightOffset}px` };
+          rightOffset += col.width || 100;
+        }
+      }
+      return styles;
+    });
+
+    const getFixedClass = (col, index) => {
+      const cls = [];
+      if (col.fixed === "left") {
+        cls.push("k-table-cell-fix-left");
+        if (props.columns[index + 1]?.fixed !== "left")
+          cls.push("k-table-cell-fix-left-last");
+      }
+      if (col.fixed === "right") {
+        cls.push("k-table-cell-fix-right");
+        if (props.columns[index - 1]?.fixed !== "right")
+          cls.push("k-table-cell-fix-right-first");
+      }
+      if (col.sorter) {
+        cls.push("k-table-cell-sorter");
+      }
+      return cls;
+    };
+
+    const handleBodyScroll = (e) => {
+      const target = e.target;
+      const { scrollLeft, scrollWidth, clientWidth } = target;
+
+      // 1. 同步 Header 的横向滚动
+      if (headerWrapperRef.value) {
+        headerWrapperRef.value.scrollLeft = scrollLeft;
+      }
+
+      // 2. 阴影显示逻辑
+      pingLeft.value = scrollLeft > 0;
+      pingRight.value = scrollLeft < scrollWidth - clientWidth - 1;
+    };
+
+    const measureScrollbar = () => {
+      const body = bodyWrapperRef.value;
+      if (body) {
+        const width = body.offsetWidth - body.clientWidth;
+        if (scrollbarWidth.value !== width) {
+          scrollbarWidth.value = width;
+        }
+      }
+    };
+
+    onMounted(() => {
+      measureScrollbar();
+      if (bodyWrapperRef.value)
+        handleBodyScroll({ target: bodyWrapperRef.value });
+    });
+
+    onUpdated(() => {
+      measureScrollbar();
+    });
+
+    const handleSort = (col) => {
+      if (!col.sorter) return;
+      if (sortState.key !== col.key) {
+        sortState.key = col.key;
+        sortState.order = "asc";
+      } else {
+        if (sortState.order === "asc") sortState.order = "desc";
+        else if (sortState.order === "desc") sortState.order = null;
+        else sortState.order = "asc";
+      }
+      if (typeof col.sorter === "function") col.sorter(sortState.order);
+    };
+
+    const processedData = computed(() => {
+      let list = [...props.data];
+      if (sortState.key && sortState.order) {
+        list.sort((a, b) => {
+          const valA = a[sortState.key];
+          const valB = b[sortState.key];
+          if (valA === valB) return 0;
+          const result = valA > valB ? 1 : -1;
+          return sortState.order === "asc" ? result : -result;
+        });
+      }
+      return list;
+    });
+
+    const toggleAll = (e) => {
+      const checked = e.target.checked;
+      const newSet = new Set(innerSelectedKeys.value);
+
+      props.data.forEach((item) => {
+        const key = item[props.rowKey];
+        if (!isDisabled(key)) {
+          if (checked) {
+            newSet.add(key);
+          } else {
+            newSet.delete(key);
+          }
+        }
+      });
+
+      innerSelectedKeys.value = newSet;
+      emit("update:selectedKeys", Array.from(newSet));
+    };
+    const toggleOne = (key) => {
+      if (isDisabled(key)) return;
+
+      const newSet = new Set(innerSelectedKeys.value);
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
+
+      innerSelectedKeys.value = newSet;
+      emit("update:selectedKeys", Array.from(newSet));
+    };
+
+    const renderColGroup = () => (
+      <colgroup>
+        <col style={{ width: "50px" }} />
+        {props.columns.map((col) => (
+          <col
+            key={col.key}
+            style={{ width: col.width ? `${col.width}px` : "100px" }}
+          />
+        ))}
+      </colgroup>
+    );
+
+    return () => {
+      // 如果 scroll.x 是数字，使用 scroll.x，否则如果没有 scroll.x 则 auto (但可能有对齐问题)
+      const tableStyle = {
+        width: props.scroll.x
+          ? typeof props.scroll.x === "number"
+            ? `${props.scroll.x}px`
+            : props.scroll.x
+          : "100%",
+        tableLayout: "fixed",
+      };
+
+      return (
+        <div
+          class={[
+            "k-table",
+            {
+              "k-table-sm": props.size == "small",
+              "k-table-lg": props.size == "large",
+              "k-table-bordered": props.bordered,
+              "k-table-ping-left": pingLeft.value,
+              "k-table-ping-right": pingRight.value,
             },
-            style: {}
-          }
-          if (c.fixed == 'left' && j > 0) {
-            left += _columns[j - 1].width
-            props.style.left = left + 'px'
-          }
-          if (c.fixed == 'right' && j < _columns.length - 1) {
-            right -= c.width
-            props.style.right = right + 'px'
-          }
-          if (c.render) {
-            let scope = c.render(h, d, i, c.key)
+          ]}
+          style={{ overflow: "hidden" }}
+        >
+          <div
+            class="k-table-thead"
+            ref={headerWrapperRef}
+            style={{
+              overflow: "hidden",
+              marginBottom: "-1px",
+              paddingRight: `${scrollbarWidth.value}px`,
+            }}
+          >
+            <table style={tableStyle}>
+              {renderColGroup()}
+              <thead>
+                <tr>
+                  <th
+                    class={[
+                      "k-table-cell-fix-left",
+                      pingLeft.value && "k-table-cell-fix-left-last",
+                    ]}
+                    style={{ left: 0 }}
+                  >
+                    <Checkbox
+                      checked={selectionState.value.all}
+                      indeterminate={selectionState.value.indeterminate}
+                      onChange={toggleAll}
+                      disabled={
+                        props.data.length > 0 &&
+                        props.data.every((item) =>
+                          isDisabled(item[props.rowKey])
+                        )
+                      }
+                    />
+                  </th>
+                  {props.columns.map((col, idx) => (
+                    <th
+                      key={col.key}
+                      class={getFixedClass(col, idx)}
+                      style={fixedInfo.value[col.key]}
+                      onClick={() => handleSort(col)}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          cursor: col.sorter ? "pointer" : "default",
+                        }}
+                      >
+                        {col.title}
+                        {col.sorter && (
+                          <span class="k-table-sorter">
+                            <Icon
+                              type={CaretUp}
+                              class={[
+                                "k-sorter-up",
+                                sortState.key === col.key &&
+                                  sortState.order === "asc" &&
+                                  "active",
+                              ]}
+                            />
+                            <Icon
+                              type={CaretDown}
+                              class={[
+                                "k-sorter-down",
+                                sortState.key === col.key &&
+                                  sortState.order === "desc" &&
+                                  "active",
+                              ]}
+                            />
+                          </span>
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            </table>
+          </div>
+          {!props.data ||
+          !props.data.length ||
+          !props.columns ||
+          !props.columns.length ? (
+            <Empty description={props.emptyText} />
+          ) : (
+            <div
+              class="k-table-body"
+              ref={bodyWrapperRef}
+              onScroll={handleBodyScroll}
+              style={{
+                overflowY: props.scroll.y ? "scroll" : "auto",
+                overflowX: props.scroll.x ? "auto" : "hidden",
+                maxHeight: props.scroll.y
+                  ? typeof props.scroll.y === "number"
+                    ? `${props.scroll.y}px`
+                    : props.scroll.y
+                  : "auto",
+              }}
+            >
+              <table style={tableStyle}>
+                {renderColGroup()}
+                <tbody>
+                  {processedData.value.map((record, rowIndex) => {
+                    const rowId = record[props.rowKey];
+                    const rowDisabled = isDisabled(rowId);
+                    return (
+                      <tr key={rowId}>
+                        <td
+                          class={[
+                            "k-table-cell-fix-left",
+                            pingLeft.value && "k-table-cell-fix-left-last",
+                          ]}
+                        >
+                          <Checkbox
+                            checked={innerSelectedKeys.value.has(rowId)}
+                            disabled={rowDisabled}
+                            onChange={() => toggleOne(rowId)}
+                          />
+                        </td>
+                        {props.columns.map((col, colIndex) => {
+                          let spanProps = { rowSpan: 1, colSpan: 1 };
+                          if (col.rowSpan) {
+                            if (rowIndex % col.rowSpan === 0)
+                              spanProps.rowSpan = col.rowSpan;
+                            else return null;
+                          }
+                          if (col.colSpan) spanProps.colSpan = col.colSpan;
 
-            let { children, attrs } = scope
-            if (attrs) {
-              props = Object.assign(props, { attrs })
-              $scope = children || $scope
-            } else {
-              $scope = scope
-            }
-            // console.log($scope)
-          } else if ($scopedSlots[c.key]) {
-            $scope = $scopedSlots[c.key](d[c.key], d, c)
-          } else if (c.type == 'selection') {
-            let props = {
-              props: {
-                disabled: d._disabled,
-                checked: d._checked,
-              },
-              on: {
-                change: e => this.onSelect(d, e, c.checkType)
-              }
-            }
-            $scope = c.checkType == 'radio' ? <Radio {...props} /> : <Checkbox {...props} />
-          }
+                          return (
+                            <td
+                              key={col.key}
+                              {...spanProps}
+                              class={getFixedClass(col, colIndex)}
+                              style={fixedInfo.value[col.key]}
+                            >
+                              {record[col.key]}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
 
-          if (c.ellipsis) {
-            isTableFixed = true
-          }
-
-          if (props.attrs.rowSpan !== 0 && props.attrs.colSpan !== 0) {
-            // tr.push(h('td', props, [!c.fixed ? $scope : null]))  
-            // tr.push(h('td', props, $scope))
-            //or
-            tr.push(<td {...props}>{$scope}</td>)
-          }
-
-        }
-      })
-      if (expandNode) {
-        tr.unshift(<td class="k-table-row-expand-icon-cell"><Button size="small" onClick={() => this.onExpand(d)} icon={d._expanded ? Remove : Add} /></td>)
-      }
-      let trProps = {
-        class: { 'k-table-row-hover': d._hover },
-        key: (d.key || i).toString(),
-        on: {
-          click: () => {
-            this.$emit('row-click', d)
-          }
-        }
-      }
-
-      if (tr.length) {
-        tbody.push(<tr {...trProps}>{tr}</tr>)
-      }
-
-      if (expandNode) {
-        tbody.push(<tr v-show={d._expanded} class="k-table-expand-row"><td></td><td colSpan={_columns.length}>{expandNode(d)}</td></tr>)
-      }
-    })
-
-    let mainProps = {
-      props: {
-        columns: columns,
-        columns2: _columns,
-        body: tbody,
-        height,
-        indeterminate,
-        checkAll,
-        width,
-        sticky,
-        hasExpand: expandNode != null
-      },
-      on: {
-        sorter: this.sorter,
-        'select-all': this.onSelectAll,
-        ping: p => {
-          this.ping = p
-          // todo: class 动态赋值 会重新 render 造成卡顿，后面再细细 可能是table 数据有内存泄露问题
-
-        }
-        // resize: this.resetHeight
-      }
-    }
-    if (columns && columns.length) {
-      content.push(<ExtendTable {...mainProps} />)
-    }
-
-    const rootProps = {
-      // ref: 'table',
-      class: ["k-table", {
-        'k-table-fixed': isTableFixed,
-        'k-table-sm': this.size == 'small',
-        'k-table-lg': this.size == 'large',
-        'k-table-bordered': this.bordered,
-        [`k-table-ping-${this.ping}`]: width !== undefined
-      }]
-    }
-
-    if (!data || !data.length || !columns || !columns.length) {
-      content.push(<Empty description={this.emptyText} />)
-    }
-    //custom footer
-    if (footer) {
-      content.push(<div class="k-table-footer">{footer}</div>)
-    }
-    if (loading) {
-      content.push(<Spin />)
-    }
-    return (<div {...rootProps}>{content}</div>)
+          {props.loading && <Spin />}
+        </div>
+      );
+    };
   },
-
-  methods: {
-    toString(obj) {
-      if (typeof obj === 'object' && obj !== null) {
-        return JSON.stringify(obj);
-      } else {
-        return String(obj);
-      }
-    },
-    sorter(item) {
-      let { key, _order } = item
-      this.$emit('change', this.filters, { key, order: _order })
-    },
-    onExpand(item) {
-      this.$set(item, '_expanded', !item._expanded)
-    },
-    onSelect(item, e, type) {
-      let checked = e.target.checked
-      let checkedItem, keys;
-      if (type == 'radio') {
-        this.data.forEach(obj => {
-          this.$set(obj, '_checked', obj.key == item.key)
-        })
-        checkedItem = item
-        keys = item.key
-      } else {
-        this.$set(item, '_checked', checked)
-        checkedItem = this.data.filter(x => x._checked == true)
-        keys = checkedItem.map(x => x.key).join()
-      }
-
-      this.$emit('on-select', item, checked, checkedItem)
-      this.$emit('on-change', keys, checkedItem, e)
-      // console.log(checkCount, this.indeterminate, this.checkAll, this.data.length)
-    },
-    onSelectAll(e) {
-      let { checked } = e.target
-      this.selectAll(checked, e)
-    },
-    selectAll(checked, e) {
-      this.data.forEach(d => {
-        !d._disabled && this.$set(d, '_checked', checked)
-      })
-      // this.indeterminate = false
-      let checkData = checked ? this.data.filter(x => x._checked) : []
-      this.$emit('on-select-all', checked, checkData)
-
-      let keys = checkData.map(x => x.key).join()
-
-      this.$emit('on-change', keys, checkData, e)
-      this.checkAll = checked
-    }
-  }
-}
-
-export default withInstall(Table)
+});
