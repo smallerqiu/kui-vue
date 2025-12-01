@@ -5,8 +5,8 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" @row-click="test" :sticky="52">
-    <template v-slot:tags="value">
+  <Table :data="data" :columns="columns" @rowClick="rowClick" :sticky="52">
+    <template #tags="{ value }">
       <Space>
         <Tag
           v-for="tag in value"
@@ -16,80 +16,71 @@
         >
       </Space>
     </template>
-    <template v-slot:gender="value">
+    <template #gender="{ value }">
       <Icon
         :type="value == 1 ? Sunny : Moon"
         :color="value == 1 ? 'blue' : '#f50cff'"
         size="15"
       />
     </template>
-    <template v-slot:action="value, record, col">
+    <template #action="{ value, record, col }">
       <Button size="small" @click.stop="(e) => show(record)">more</Button>
     </template>
   </Table>
 </template>
-<script>
+<script setup>
 import { Sunny, Moon } from "kui-icons";
-export default {
-  data() {
-    return {
-      Sunny,
-      Moon,
-      data: [
-        {
-          key: "0",
-          name: "Li Lei",
-          gender: 0,
-          age: 32,
-          address: "Wu Han Guanggu No. 328",
-          tags: ["Python", "Java"],
-        },
-        {
-          key: "1",
-          name: "Liu Hao",
-          gender: 1,
-          age: 28,
-          address: "Wu Han Hongshan No. 128",
-          tags: ["Python", "Java"],
-        },
-        {
-          key: "2",
-          name: "Hu Cong",
-          gender: 0,
-          age: 28,
-          address: "Wu Han Nanhu No. 198",
-          tags: ["JS", "CSS"],
-        },
-        {
-          key: "3",
-          name: "Qiu",
-          gender: 1,
-          age: 28,
-          address: "Wu Han Nanhu No. 188",
-          tags: ["Go", "Python"],
-        },
-      ],
-      columns: [
-        { title: "Name", key: "name" },
-        { title: "Age", key: "age" },
-        { title: "Gender", key: "gender" },
-        { title: "Address", key: "address" },
-        { title: "Tags", key: "tags" },
-        { title: "Action", key: "action" },
-      ],
-    };
+import { message, modal } from "kui-vue";
+const data = [
+  {
+    key: "0",
+    name: "Li Lei",
+    gender: 0,
+    age: 32,
+    address: "Wu Han Guanggu No. 328",
+    tags: ["Python", "Java"],
   },
-  methods: {
-    show(record) {
-      this.$Modal.info({
-        title: "More",
-        content: `Name:${record.name} <br/>Aage:${record.age} <br/>Gender:${record.gender == 0 ? "boy" : "gril"} <br/>Address:${record.address}`,
-      });
-    },
-    test(data) {
-      this.$message.info("Test row click:" + data.name);
-    },
+  {
+    key: "1",
+    name: "Liu Hao",
+    gender: 1,
+    age: 28,
+    address: "Wu Han Hongshan No. 128",
+    tags: ["Python", "Java"],
   },
+  {
+    key: "2",
+    name: "Hu Cong",
+    gender: 0,
+    age: 28,
+    address: "Wu Han Nanhu No. 198",
+    tags: ["JS", "CSS"],
+  },
+  {
+    key: "3",
+    name: "Qiu",
+    gender: 1,
+    age: 28,
+    address: "Wu Han Nanhu No. 188",
+    tags: ["Go", "Python"],
+  },
+];
+const columns = [
+  { title: "Name", key: "name" },
+  { title: "Age", key: "age" },
+  { title: "Gender", key: "gender" },
+  { title: "Address", key: "address" },
+  { title: "Tags", key: "tags" },
+  { title: "Action", key: "action" },
+];
+const show = (record) => {
+  modal.info({
+    title: "Hi",
+    content: `My name is ${record.name}`,
+  });
+};
+const rowClick = (data) => {
+  message.info("Test row click: " + data.name);
 };
 </script>
 ```
