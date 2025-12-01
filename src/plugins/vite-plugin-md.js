@@ -29,8 +29,6 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
-      console.log(path);
-
       const direction = path.includes("table") ? "vertical" : "horizontal";
       if (!path.endsWith(".md")) return null;
       const id = "k-" + hashId(path);

@@ -12,7 +12,6 @@ import { Checkbox } from "../checkbox";
 import { CaretUp, CaretDown } from "kui-icons";
 import Empty from "../empty";
 import Spin from "../spin";
-// import './Table.css'
 export default defineComponent({
   name: "Table",
   props: {
@@ -33,7 +32,7 @@ export default defineComponent({
     loading: Boolean,
     emptyText: String,
   },
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const headerWrapperRef = ref(null);
     const bodyWrapperRef = ref(null);
     const scrollbarWidth = ref(0);
@@ -71,7 +70,7 @@ export default defineComponent({
       };
     });
 
-    const sortState = reactive({ key: null, order: null });
+    const sortState = reactive({ key: null, order: null, sorted: false });
 
     const pingLeft = ref(false);
     const pingRight = ref(false);
@@ -79,8 +78,12 @@ export default defineComponent({
     const fixedInfo = computed(() => {
       const styles = {};
       const cols = props.columns;
+
       let leftOffset = 0;
-      leftOffset += 50;
+      // 只有在开启 checkable 时，才预留 50px 给 checkbox
+      if (props.checkable) {
+        leftOffset += 50;
+      }
 
       cols.forEach((col) => {
         if (col.fixed === "left") {
@@ -88,7 +91,6 @@ export default defineComponent({
           leftOffset += col.width || 100;
         }
       });
-
       let rightOffset = 0;
       for (let i = cols.length - 1; i >= 0; i--) {
         const col = cols[i];
@@ -122,12 +124,10 @@ export default defineComponent({
       const target = e.target;
       const { scrollLeft, scrollWidth, clientWidth } = target;
 
-      // 1. 同步 Header 的横向滚动
       if (headerWrapperRef.value) {
         headerWrapperRef.value.scrollLeft = scrollLeft;
       }
 
-      // 2. 阴影显示逻辑
       pingLeft.value = scrollLeft > 0;
       pingRight.value = scrollLeft < scrollWidth - clientWidth - 1;
     };
@@ -153,7 +153,11 @@ export default defineComponent({
     });
 
     const handleSort = (col) => {
+      // todo : 
       if (!col.sorter) return;
+      const isSyncSort = typeof col.sorter === "function";
+      sortState.sorted = !isSyncSort;
+
       if (sortState.key !== col.key) {
         sortState.key = col.key;
         sortState.order = "asc";
@@ -162,12 +166,12 @@ export default defineComponent({
         else if (sortState.order === "desc") sortState.order = null;
         else sortState.order = "asc";
       }
-      if (typeof col.sorter === "function") col.sorter(sortState.order);
+      if (isSyncSort) col.sorter(sortState);
     };
 
     const processedData = computed(() => {
       let list = [...props.data];
-      if (sortState.key && sortState.order) {
+      if (sortState.key && sortState.order && !sortState.sorted) {
         list.sort((a, b) => {
           const valA = a[sortState.key];
           const valB = b[sortState.key];
@@ -213,7 +217,8 @@ export default defineComponent({
 
     const renderColGroup = () => (
       <colgroup>
-        <col style={{ width: "50px" }} />
+        {props.checkable && <col style={{ width: "50px" }} />}
+
         {props.columns.map((col) => (
           <col
             key={col.key}
@@ -248,6 +253,9 @@ export default defineComponent({
           ]}
           style={{ overflow: "hidden" }}
         >
+          {slots.header ? (
+            <div class="k-table-header">{slots.header()} </div>
+          ) : null}
           <div
             class="k-table-thead"
             ref={headerWrapperRef}
@@ -261,25 +269,27 @@ export default defineComponent({
               {renderColGroup()}
               <thead>
                 <tr>
-                  <th
-                    class={[
-                      "k-table-cell-fix-left",
-                      pingLeft.value && "k-table-cell-fix-left-last",
-                    ]}
-                    style={{ left: 0 }}
-                  >
-                    <Checkbox
-                      checked={selectionState.value.all}
-                      indeterminate={selectionState.value.indeterminate}
-                      onChange={toggleAll}
-                      disabled={
-                        props.data.length > 0 &&
-                        props.data.every((item) =>
-                          isDisabled(item[props.rowKey])
-                        )
-                      }
-                    />
-                  </th>
+                  {props.checkable && (
+                    <th
+                      class={[
+                        "k-table-cell-fix-left",
+                        pingLeft.value && "k-table-cell-fix-left-last",
+                      ]}
+                      style={{ left: 0 }}
+                    >
+                      <Checkbox
+                        checked={selectionState.value.all}
+                        indeterminate={selectionState.value.indeterminate}
+                        onChange={toggleAll}
+                        disabled={
+                          props.data.length > 0 &&
+                          props.data.every((item) =>
+                            isDisabled(item[props.rowKey])
+                          )
+                        }
+                      />
+                    </th>
+                  )}
                   {props.columns.map((col, idx) => (
                     <th
                       key={col.key}
@@ -287,15 +297,12 @@ export default defineComponent({
                       style={fixedInfo.value[col.key]}
                       onClick={() => handleSort(col)}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          cursor: col.sorter ? "pointer" : "default",
-                        }}
-                      >
-                        {col.title}
+                      <div class="k-table-header-col">
+                        {slots[`header-${col.key}`]?.({
+                          value: col.title,
+                          col,
+                          index: idx,
+                        }) || col.title}
                         {col.sorter && (
                           <span class="k-table-sorter">
                             <Icon
@@ -352,19 +359,27 @@ export default defineComponent({
                     const rowId = record[props.rowKey];
                     const rowDisabled = isDisabled(rowId);
                     return (
-                      <tr key={rowId}>
-                        <td
-                          class={[
-                            "k-table-cell-fix-left",
-                            pingLeft.value && "k-table-cell-fix-left-last",
-                          ]}
-                        >
-                          <Checkbox
-                            checked={innerSelectedKeys.value.has(rowId)}
-                            disabled={rowDisabled}
-                            onChange={() => toggleOne(rowId)}
-                          />
-                        </td>
+                      <tr
+                        key={rowId}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          emit("rowClick", record);
+                        }}
+                      >
+                        {props.checkable && (
+                          <td
+                            class={[
+                              "k-table-cell-fix-left",
+                              pingLeft.value && "k-table-cell-fix-left-last",
+                            ]}
+                          >
+                            <Checkbox
+                              checked={innerSelectedKeys.value.has(rowId)}
+                              disabled={rowDisabled}
+                              onChange={() => toggleOne(rowId)}
+                            />
+                          </td>
+                        )}
                         {props.columns.map((col, colIndex) => {
                           let spanProps = { rowSpan: 1, colSpan: 1 };
                           if (col.rowSpan) {
@@ -381,7 +396,13 @@ export default defineComponent({
                               class={getFixedClass(col, colIndex)}
                               style={fixedInfo.value[col.key]}
                             >
-                              {record[col.key]}
+                              {slots[col.key]?.({
+                                record,
+                                col,
+                                value: record[col.key],
+                              }) ||
+                                col.render?.(h, record, colIndex) ||
+                                record[col.key]}
                             </td>
                           );
                         })}
@@ -392,6 +413,9 @@ export default defineComponent({
               </table>
             </div>
           )}
+          {slots.footer ? (
+            <div class="k-table-footer">{slots.footer()} </div>
+          ) : null}
 
           {props.loading && <Spin />}
         </div>

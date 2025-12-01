@@ -3,7 +3,7 @@ import BaseRender from './base-render.md'
 import CustomHeader from './custom-header.md'
 import Info from './info.md'
 import Ellipsis from './ellipsis.md'
-import Filter from './filter.md'
+import Sorter from './sorter.md'
 import Bordered from './bordered.md'
 import Span from './span.md'
 import Edit from './edit.md'
@@ -21,23 +21,23 @@ export default {
     return (
       <div class="demo-table">
         {/* <Info /> */}
-        <Basic />
-        {/* <BaseRender />
-        <CustomHeader />
-        <Bordered />
-        <Ellipsis />
-        <Filter />
-        <Span />
-        <Edit />
-        <FixedHead />
-        <FixedCol />
-        <Fixed />
-        <FixedSpan />
-        <Selection />
-        <Expand />
-        <Embed />
-        <Size />
-        <CN /> */}
+        {/* <Basic /> */}
+        {/* <BaseRender /> */}
+        {/* <CustomHeader /> */}
+        {/* <Bordered /> */}
+        {/* <Ellipsis /> */}
+        <Sorter />
+        {/* <Span /> */}
+        {/* <Edit /> */}
+        {/* <FixedHead /> */}
+        {/* <FixedCol /> */}
+        {/* <Fixed /> */}
+        {/* <FixedSpan /> */}
+        {/* <Selection /> */}
+        {/* <Expand /> */}
+        {/* <Embed /> */}
+        {/* <Size /> */}
+        {/* <CN /> */}
       </div>
     )
   }
