@@ -20,9 +20,9 @@ export default {
   render() {
     return (
       <div class="demo-table">
-        <Info />
+        {/* <Info /> */}
         <Basic />
-        <BaseRender />
+        {/* <BaseRender />
         <CustomHeader />
         <Bordered />
         <Ellipsis />
@@ -37,7 +37,7 @@ export default {
         <Expand />
         <Embed />
         <Size />
-        <CN />
+        <CN /> */}
       </div>
     )
   }
