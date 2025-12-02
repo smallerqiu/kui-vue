@@ -38,6 +38,7 @@ export default defineComponent({
     const scrollbarWidth = ref(0);
 
     const innerSelectedKeys = ref(new Set(props.selectedKeys));
+    const isSplit = computed(() => !!props.scroll.y);
 
     watch(
       () => props.selectedKeys,
@@ -70,7 +71,7 @@ export default defineComponent({
       };
     });
 
-    const sortState = reactive({ key: null, order: null, sorted: false });
+    const sortState = reactive({ key: null, order: null });
 
     const pingLeft = ref(false);
     const pingRight = ref(false);
@@ -123,11 +124,9 @@ export default defineComponent({
     const handleBodyScroll = (e) => {
       const target = e.target;
       const { scrollLeft, scrollWidth, clientWidth } = target;
-
-      if (headerWrapperRef.value) {
+      if (isSplit.value && headerWrapperRef.value) {
         headerWrapperRef.value.scrollLeft = scrollLeft;
       }
-
       pingLeft.value = scrollLeft > 0;
       pingRight.value = scrollLeft < scrollWidth - clientWidth - 1;
     };
@@ -143,20 +142,19 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      measureScrollbar();
-      if (bodyWrapperRef.value)
-        handleBodyScroll({ target: bodyWrapperRef.value });
+      if (isSplit.value) {
+        measureScrollbar();
+        if (bodyWrapperRef.value)
+          handleBodyScroll({ target: bodyWrapperRef.value });
+      }
     });
 
     onUpdated(() => {
-      measureScrollbar();
+      if (isSplit.value) measureScrollbar();
     });
 
     const handleSort = (col) => {
-      // todo : 
       if (!col.sorter) return;
-      const isSyncSort = typeof col.sorter === "function";
-      sortState.sorted = !isSyncSort;
 
       if (sortState.key !== col.key) {
         sortState.key = col.key;
@@ -166,19 +164,23 @@ export default defineComponent({
         else if (sortState.order === "desc") sortState.order = null;
         else sortState.order = "asc";
       }
-      if (isSyncSort) col.sorter(sortState);
+      if (typeof col.sorter === "function") col.sorter(sortState);
+      emit("sort", sortState);
     };
 
     const processedData = computed(() => {
       let list = [...props.data];
-      if (sortState.key && sortState.order && !sortState.sorted) {
-        list.sort((a, b) => {
-          const valA = a[sortState.key];
-          const valB = b[sortState.key];
-          if (valA === valB) return 0;
-          const result = valA > valB ? 1 : -1;
-          return sortState.order === "asc" ? result : -result;
-        });
+      if (sortState.key && sortState.order) {
+        const col = props.columns.find((c) => c.key === sortState.key);
+        if (col && col.sorter === true) {
+          list.sort((a, b) => {
+            const valA = a[sortState.key];
+            const valB = b[sortState.key];
+            if (valA === valB) return 0;
+            const result = valA > valB ? 1 : -1;
+            return sortState.order === "asc" ? result : -result;
+          });
+        }
       }
       return list;
     });
@@ -227,7 +229,147 @@ export default defineComponent({
         ))}
       </colgroup>
     );
+    const renderThead = () => (
+      <thead>
+        <tr>
+          {props.checkable && (
+            <th
+              class={[
+                "k-table-cell-fix-left",
+                pingLeft.value && "k-table-cell-fix-left-last",
+              ]}
+              style={{ left: 0 }}
+            >
+              <Checkbox
+                checked={selectionState.value.all}
+                indeterminate={selectionState.value.indeterminate}
+                onChange={toggleAll}
+                disabled={
+                  props.data.length > 0 &&
+                  props.data.every((item) => isDisabled(item[props.rowKey]))
+                }
+              />
+            </th>
+          )}
+          {props.columns.map((col, idx) => (
+            <th
+              key={col.key}
+              class={getFixedClass(col, idx)}
+              style={fixedInfo.value[col.key]}
+              onClick={() => handleSort(col)}
+            >
+              <div class="k-table-header-col">
+                {slots[`header-${col.key}`]?.({
+                  value: col.title,
+                  col,
+                  index: idx,
+                }) || col.title}
+                {col.sorter && (
+                  <span class="k-table-sorter">
+                    <Icon
+                      type={CaretUp}
+                      class={[
+                        "k-sorter-up",
+                        sortState.key === col.key &&
+                          sortState.order === "asc" &&
+                          "active",
+                      ]}
+                    />
+                    <Icon
+                      type={CaretDown}
+                      class={[
+                        "k-sorter-down",
+                        sortState.key === col.key &&
+                          sortState.order === "desc" &&
+                          "active",
+                      ]}
+                    />
+                  </span>
+                )}
+              </div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+    );
+    const renderTbody = () => (
+      <tbody>
+        {processedData.value.map((record, rowIndex) => {
+          const rowId = record[props.rowKey];
+          const rowDisabled = isDisabled(rowId);
+          return (
+            <tr
+              key={rowId}
+              onClick={(e) => {
+                e.stopPropagation();
+                emit("rowClick", record);
+              }}
+            >
+              {props.checkable && (
+                <td
+                  class={[
+                    "k-table-cell-fix-left",
+                    pingLeft.value && "k-table-cell-fix-left-last",
+                  ]}
+                >
+                  <Checkbox
+                    checked={innerSelectedKeys.value.has(rowId)}
+                    disabled={rowDisabled}
+                    onChange={() => toggleOne(rowId)}
+                  />
+                </td>
+              )}
+              {props.columns.map((col, colIndex) => {
+                let spanProps = { rowSpan: 1, colSpan: 1 };
+                if (col.rowSpan) {
+                  if (rowIndex % col.rowSpan === 0)
+                    spanProps.rowSpan = col.rowSpan;
+                  else return null;
+                }
+                if (col.colSpan) spanProps.colSpan = col.colSpan;
+                if (spanProps.rowSpan === 1) spanProps.rowSpan = null;
+                if (spanProps.colSpan === 1) spanProps.colSpan = null;
 
+                let isCoveredByPrev = false;
+                for (let prevI = 0; prevI < colIndex; prevI++) {
+                  const prevCol = props.columns[prevI];
+                  if (prevCol.colSpan && prevI + prevCol.colSpan > colIndex) {
+                    isCoveredByPrev = true;
+                    break;
+                  }
+                }
+                if (isCoveredByPrev) return null;
+
+                const tdProps = {
+                  attrs: { ...spanProps },
+                };
+                return (
+                  <td
+                    key={col.key}
+                    {...tdProps}
+                    class={getFixedClass(col, colIndex)}
+                    style={fixedInfo.value[col.key]}
+                  >
+                    {slots[col.key]?.({
+                      record,
+                      col,
+                      value: record[col.key],
+                    }) ||
+                      col.render?.(h, record, colIndex) ||
+                      record[col.key]}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    );
+    const isEmpty =
+      !props.data ||
+      !props.data.length ||
+      !props.columns ||
+      !props.columns.length;
     return () => {
       // 如果 scroll.x 是数字，使用 scroll.x，否则如果没有 scroll.x 则 auto (但可能有对齐问题)
       const tableStyle = {
@@ -238,188 +380,94 @@ export default defineComponent({
           : "100%",
         tableLayout: "fixed",
       };
-
-      return (
-        <div
-          class={[
-            "k-table",
-            {
-              "k-table-sm": props.size == "small",
-              "k-table-lg": props.size == "large",
-              "k-table-bordered": props.bordered,
-              "k-table-ping-left": pingLeft.value,
-              "k-table-ping-right": pingRight.value,
-            },
-          ]}
-          style={{ overflow: "hidden" }}
-        >
-          {slots.header ? (
-            <div class="k-table-header">{slots.header()} </div>
-          ) : null}
-          <div
-            class="k-table-thead"
-            ref={headerWrapperRef}
-            style={{
-              overflow: "hidden",
-              marginBottom: "-1px",
-              paddingRight: `${scrollbarWidth.value}px`,
-            }}
-          >
-            <table style={tableStyle}>
-              {renderColGroup()}
-              <thead>
-                <tr>
-                  {props.checkable && (
-                    <th
-                      class={[
-                        "k-table-cell-fix-left",
-                        pingLeft.value && "k-table-cell-fix-left-last",
-                      ]}
-                      style={{ left: 0 }}
-                    >
-                      <Checkbox
-                        checked={selectionState.value.all}
-                        indeterminate={selectionState.value.indeterminate}
-                        onChange={toggleAll}
-                        disabled={
-                          props.data.length > 0 &&
-                          props.data.every((item) =>
-                            isDisabled(item[props.rowKey])
-                          )
-                        }
-                      />
-                    </th>
-                  )}
-                  {props.columns.map((col, idx) => (
-                    <th
-                      key={col.key}
-                      class={getFixedClass(col, idx)}
-                      style={fixedInfo.value[col.key]}
-                      onClick={() => handleSort(col)}
-                    >
-                      <div class="k-table-header-col">
-                        {slots[`header-${col.key}`]?.({
-                          value: col.title,
-                          col,
-                          index: idx,
-                        }) || col.title}
-                        {col.sorter && (
-                          <span class="k-table-sorter">
-                            <Icon
-                              type={CaretUp}
-                              class={[
-                                "k-sorter-up",
-                                sortState.key === col.key &&
-                                  sortState.order === "asc" &&
-                                  "active",
-                              ]}
-                            />
-                            <Icon
-                              type={CaretDown}
-                              class={[
-                                "k-sorter-down",
-                                sortState.key === col.key &&
-                                  sortState.order === "desc" &&
-                                  "active",
-                              ]}
-                            />
-                          </span>
-                        )}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-            </table>
-          </div>
-          {!props.data ||
-          !props.data.length ||
-          !props.columns ||
-          !props.columns.length ? (
-            <Empty description={props.emptyText} />
-          ) : (
+      const tableCls = [
+        "k-table",
+        {
+          "k-table-sm": props.size == "small",
+          "k-table-lg": props.size == "large",
+          "k-table-bordered": props.bordered,
+          "k-table-ping-left": pingLeft.value,
+          "k-table-ping-right": pingRight.value,
+        },
+      ];
+      if (isSplit.value) {
+        return (
+          <div class={tableCls} style={{ overflow: "hidden" }}>
+            {slots.header ? (
+              <div class="k-table-header">{slots.header()} </div>
+            ) : null}
             <div
-              class="k-table-body"
-              ref={bodyWrapperRef}
-              onScroll={handleBodyScroll}
+              class="k-table-thead"
+              ref={headerWrapperRef}
               style={{
-                overflowY: props.scroll.y ? "scroll" : "auto",
-                overflowX: props.scroll.x ? "auto" : "hidden",
-                maxHeight: props.scroll.y
-                  ? typeof props.scroll.y === "number"
-                    ? `${props.scroll.y}px`
-                    : props.scroll.y
-                  : "auto",
+                overflow: "hidden",
+                paddingRight: `${scrollbarWidth.value}px`,
               }}
             >
               <table style={tableStyle}>
                 {renderColGroup()}
-                <tbody>
-                  {processedData.value.map((record, rowIndex) => {
-                    const rowId = record[props.rowKey];
-                    const rowDisabled = isDisabled(rowId);
-                    return (
-                      <tr
-                        key={rowId}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          emit("rowClick", record);
-                        }}
-                      >
-                        {props.checkable && (
-                          <td
-                            class={[
-                              "k-table-cell-fix-left",
-                              pingLeft.value && "k-table-cell-fix-left-last",
-                            ]}
-                          >
-                            <Checkbox
-                              checked={innerSelectedKeys.value.has(rowId)}
-                              disabled={rowDisabled}
-                              onChange={() => toggleOne(rowId)}
-                            />
-                          </td>
-                        )}
-                        {props.columns.map((col, colIndex) => {
-                          let spanProps = { rowSpan: 1, colSpan: 1 };
-                          if (col.rowSpan) {
-                            if (rowIndex % col.rowSpan === 0)
-                              spanProps.rowSpan = col.rowSpan;
-                            else return null;
-                          }
-                          if (col.colSpan) spanProps.colSpan = col.colSpan;
-
-                          return (
-                            <td
-                              key={col.key}
-                              {...spanProps}
-                              class={getFixedClass(col, colIndex)}
-                              style={fixedInfo.value[col.key]}
-                            >
-                              {slots[col.key]?.({
-                                record,
-                                col,
-                                value: record[col.key],
-                              }) ||
-                                col.render?.(h, record, colIndex) ||
-                                record[col.key]}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
+                {renderThead()}
               </table>
             </div>
-          )}
-          {slots.footer ? (
-            <div class="k-table-footer">{slots.footer()} </div>
-          ) : null}
+            {isEmpty ? (
+              <Empty description={props.emptyText} />
+            ) : (
+              <div
+                class="k-table-body"
+                ref={bodyWrapperRef}
+                onScroll={handleBodyScroll}
+                style={{
+                  overflowY: props.scroll.y ? "scroll" : "auto",
+                  overflowX: props.scroll.x ? "auto" : "hidden",
+                  maxHeight: props.scroll.y
+                    ? typeof props.scroll.y === "number"
+                      ? `${props.scroll.y}px`
+                      : props.scroll.y
+                    : "auto",
+                }}
+              >
+                <table style={tableStyle}>
+                  {renderColGroup()}
+                  {renderTbody()}
+                </table>
+              </div>
+            )}
 
-          {props.loading && <Spin />}
-        </div>
-      );
+            {slots.footer ? (
+              <div class="k-table-footer">{slots.footer()} </div>
+            ) : null}
+
+            {props.loading && <Spin />}
+          </div>
+        );
+      } else {
+        return (
+          <div
+            class={tableCls}
+            style={{
+              overflowX: props.scroll.x ? "auto" : "hidden",
+              // 这里可以限制最大高度，但通常模式2用于自适应高度
+              maxHeight: "100%",
+            }}
+            onScroll={handleBodyScroll} // 单表格模式下直接监听容器滚动
+          >
+            {slots.header ? (
+              <div class="k-table-header">{slots.header()} </div>
+            ) : null}
+            <table style={tableStyle}>
+              {renderColGroup()}
+              {renderThead()}
+              {renderTbody()}
+            </table>
+            {isEmpty && <Empty description={props.emptyText} />}
+            {slots.footer ? (
+              <div class="k-table-footer">{slots.footer()} </div>
+            ) : null}
+
+            {props.loading && <Spin />}
+          </div>
+        );
+      }
     };
   },
 });
