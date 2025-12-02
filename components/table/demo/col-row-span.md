@@ -6,8 +6,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ y: '100px' }">
-  </Table>
+  <Table :data="data" :columns="columns" bordered> </Table>
 </template>
 <script setup>
 const data = [
@@ -39,8 +38,9 @@ const columns = [
   {
     title: "Age",
     key: "age",
+    colSpan: 2,
   },
-  { title: "Morning", key: "morning", colSpan: 2 },
+  { title: "Morning", key: "morning" },
   { title: "Night", key: "night" },
 ];
 </script>

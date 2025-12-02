@@ -21,11 +21,11 @@ export default {
     return (
       <div class="demo-table">
         {/* <Info /> */}
-        {/* <Basic /> */}
-        {/* <BaseRender /> */}
-        {/* <CustomHeader /> */}
-        {/* <Bordered /> */}
-        {/* <Sorter /> */}
+        <Basic />
+        <BaseRender />
+        <CustomHeader />
+        <Bordered />
+        <Sorter />
         <ColRowSpan />
         {/* <Edit /> */}
         {/* <FixedHead /> */}
