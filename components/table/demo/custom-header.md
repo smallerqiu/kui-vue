@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" :sticky="52">
+  <Table :data="data" :columns="columns">
     <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->
     <template #header-age="{ value }">
       <Flex size="small">
@@ -56,7 +56,7 @@ const columns = [
     key: "address",
   },
   {
-    title: "Action",
+    title: "Operate",
     key: "action",
     width: 80,
   },

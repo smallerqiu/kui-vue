@@ -38,7 +38,7 @@ export default{
         { title:'Gender', key:'gender', },
         { title:'Address', key:'address' },
         { title:'Tags', key:'tags' },
-        { title:'Action', key:'action' },
+        { title:'Operate', key:'action' },
       ]
     }
   }

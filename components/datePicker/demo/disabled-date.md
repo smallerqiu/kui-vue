@@ -24,9 +24,6 @@ import dayjs from "dayjs";
 const disabledDate = (current) => {
   return current && current < dayjs().endOf("day");
 };
-const range = (len) => {
-  return new Array(len).fill("").map((x, y) => y);
-};
 const disabledTime1 = (date) => {
   return date < new Date(date.getTime()).setHours(9, 30, 0, 0);
 };
