@@ -81,7 +81,7 @@ const columns = [
     },
   },
   {
-    title: "Action",
+    title: "Operate",
     key: "action",
     render: (h, record, i) => {
       return h(

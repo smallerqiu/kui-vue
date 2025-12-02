@@ -10,7 +10,7 @@
     <TabPanel key="2" title="Tab 2"> Content of Tab Pane 2 </TabPanel>
     <TabPanel key="3" title="Tab 3"> Content of Tab Pane 3 </TabPanel>
     <template #extra>
-      <Button size="small">Extra Action</Button>
+      <Button size="small">Extra Operate</Button>
     </template>
   </Tabs>
 </template>

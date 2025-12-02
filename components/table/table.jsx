@@ -151,8 +151,8 @@ export default defineComponent({
           sortState.order === "asc"
             ? "desc"
             : sortState.order === "desc"
-            ? null
-            : "asc";
+              ? null
+              : "asc";
       }
       if (typeof col.sorter === "function") col.sorter(sortState);
       emit("sort", sortState);
@@ -172,8 +172,8 @@ export default defineComponent({
                 ? 1
                 : -1
               : valA > valB
-              ? -1
-              : 1;
+                ? -1
+                : 1;
           });
         }
       }
@@ -403,7 +403,7 @@ export default defineComponent({
           // 修复核心：始终允许横向滚动 (auto)，这样即使没传 scroll.x，内容溢出时也能滚
           style={{
             overflowY: props.scroll.y ? "scroll" : "auto",
-            overflowX: "auto", 
+            overflowX: "auto",
             maxHeight: props.scroll.y
               ? typeof props.scroll.y === "number"
                 ? `${props.scroll.y}px`
@@ -424,10 +424,10 @@ export default defineComponent({
       return (
         <div class={tableCls}>
           {slots.header && <div class="k-table-header">{slots.header()}</div>}
-          
+
           {splitHeader}
           {bodyContent}
-          
+
           {slots.footer && <div class="k-table-footer">{slots.footer()}</div>}
           {props.loading && <Spin />}
         </div>

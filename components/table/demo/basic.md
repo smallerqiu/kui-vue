@@ -71,7 +71,7 @@ const columns = [
   { title: "Gender", key: "gender" },
   { title: "Address", key: "address" },
   { title: "Tags", key: "tags" },
-  { title: "Action", key: "action" },
+  { title: "Operate", key: "action" },
 ];
 const show = (record) => {
   modal.info({

@@ -7,36 +7,33 @@ import Sorter from "./sorter.md";
 import Bordered from "./bordered.md";
 import ColRowSpan from "./col-row-span.md";
 import Edit from "./edit.md";
-import FixedHead from "./fixed-head.md";
+// import FixedHead from "./fixed-head.md";
 import FixedCol from "./fixed-col.md";
 import Fixed from "./fixed.md";
-import FixedSpan from "./fixedspan.md";
+// import FixedSpan from "./fixedspan.md";
 import Selection from "./selection.md";
-import Expand from "./expand.md";
-import Embed from "./embed.md";
+// import Expand from "./expand.md";
+// import Embed from "./embed.md";
 import Size from "./size.md";
 import CN from "../index.md";
 export default {
   render() {
     return (
       <div class="demo-table">
-        {/* <Info /> */}
+        <Info />
         <Basic />
         <BaseRender />
         <CustomHeader />
         <Bordered />
         <Sorter />
         <ColRowSpan />
-        {/* <Edit /> */}
-        {/* <FixedHead /> */}
-        {/* <FixedCol /> */}
+        <Edit />
+        <FixedCol />
         {/* <Fixed /> */}
         {/* <FixedSpan /> */}
-        {/* <Selection /> */}
-        {/* <Expand /> */}
-        {/* <Embed /> */}
-        {/* <Size /> */}
-        {/* <CN /> */}
+        <Selection />
+        <Size />
+        <CN />
       </div>
     );
   },
