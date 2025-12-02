@@ -60,7 +60,8 @@ const Demo = defineComponent({
       );
       return (
         <div class="markdown-body k-demo-container">
-          {!vertical && descNode}
+          {descNode}
+          {/* {!vertical && descNode} */}
           <div class={classes}>
             <div class="k-demo-view">
               <div class="k-content" ref={viewRef}>
@@ -84,7 +85,9 @@ const Demo = defineComponent({
                     type={CopyOutline}
                     onClick={copy}
                     style={{
-                      "border-bottom-right-radius": !expanded.value ? "12px" : 0,
+                      "border-bottom-right-radius": !expanded.value
+                        ? "12px"
+                        : 0,
                     }}
                   />
                 </Tooltip>
