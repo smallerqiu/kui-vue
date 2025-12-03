@@ -27,6 +27,8 @@
       :bordered="bordered"
       :checkable="checkable"
     >
+      <template #header> <div>header</div> </template>
+      <template #footer> <div>footer</div> </template>
       <template #tags="{ value }">
         <Space>
           <Tag

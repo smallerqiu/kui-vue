@@ -50,6 +50,63 @@ export default defineComponent({
         innerSelectedKeys.value = new Set(val);
       }
     );
+    const getFlattedColumns = (cols) => {
+      const result = [];
+      cols.forEach((col) => {
+        if (col.children && col.children.length > 0) {
+          result.push(...getFlattedColumns(col.children));
+        } else {
+          result.push(col);
+        }
+      });
+      return result;
+    };
+    const flattedColumns = computed(() => getFlattedColumns(props.columns));
+
+    const headerRows = computed(() => {
+      const rows = [];
+      let maxDepth = 0;
+
+      const getDepth = (cols, depth = 0) => {
+        cols.forEach((col) => {
+          if (col.children && col.children.length > 0) {
+            getDepth(col.children, depth + 1);
+          } else {
+            maxDepth = Math.max(maxDepth, depth + 1);
+          }
+        });
+      };
+      getDepth(props.columns);
+
+      const traverse = (cols, depth) => {
+        if (!rows[depth]) rows[depth] = [];
+        cols.forEach((col) => {
+          const cell = { ...col };
+          // 计算 colSpan (叶子节点总数)
+          const getLeafCount = (c) => {
+            if (c.children && c.children.length) {
+              return c.children.reduce(
+                (acc, item) => acc + getLeafCount(item),
+                0
+              );
+            }
+            return 1;
+          };
+          cell.colSpan = getLeafCount(col);
+
+          // 计算 rowSpan
+          if (col.children && col.children.length > 0) {
+            cell.rowSpan = 1;
+            traverse(col.children, depth + 1);
+          } else {
+            cell.rowSpan = maxDepth - depth;
+          }
+          rows[depth].push(cell);
+        });
+      };
+      traverse(props.columns, 0);
+      return { rows, maxDepth };
+    });
 
     const isDisabled = (key) =>
       props.disabledKeys && props.disabledKeys.includes(key);
@@ -74,34 +131,35 @@ export default defineComponent({
       const styles = {};
       let leftOffset = props.checkable ? 50 : 0;
 
-      props.columns.forEach((col) => {
+      // 使用 flattedColumns
+      flattedColumns.value.forEach((col) => {
         if (col.fixed === "left") {
-          styles[col.key] = { position: "sticky", left: `${leftOffset}px` };
+          styles[col.key] = { left: `${leftOffset}px` };
           leftOffset += col.width || 100;
         }
       });
 
       let rightOffset = 0;
-      for (let i = props.columns.length - 1; i >= 0; i--) {
-        const col = props.columns[i];
+      for (let i = flattedColumns.value.length - 1; i >= 0; i--) {
+        const col = flattedColumns.value[i];
         if (col.fixed === "right") {
-          styles[col.key] = { position: "sticky", right: `${rightOffset}px` };
+          styles[col.key] = { right: `${rightOffset}px` };
           rightOffset += col.width || 100;
         }
       }
       return styles;
     });
 
-    const getFixedClass = (col, index) => {
+    const getFixedClass = (col, index, isHeader = false) => {
       const cls = [];
       if (col.fixed === "left") {
         cls.push("k-table-cell-fix-left");
-        if (props.columns[index + 1]?.fixed !== "left")
+        if (flattedColumns.value[index + 1]?.fixed !== "left")
           cls.push("k-table-cell-fix-left-last");
       }
       if (col.fixed === "right") {
         cls.push("k-table-cell-fix-right");
-        if (props.columns[index - 1]?.fixed !== "right")
+        if (flattedColumns.value[index - 1]?.fixed !== "right")
           cls.push("k-table-cell-fix-right-first");
       }
       if (col.sorter) cls.push("k-table-cell-sorter");
@@ -161,7 +219,7 @@ export default defineComponent({
     const processedData = computed(() => {
       let list = [...props.data];
       if (sortState.key && sortState.order) {
-        const col = props.columns.find((c) => c.key === sortState.key);
+        const col = flattedColumns.value.find((c) => c.key === sortState.key);
         if (col && col.sorter === true) {
           list.sort((a, b) => {
             const valA = a[sortState.key];
@@ -206,7 +264,7 @@ export default defineComponent({
     const renderColGroup = () => (
       <colgroup>
         {props.checkable && <col style={{ width: "50px" }} />}
-        {props.columns.map((col) => (
+        {flattedColumns.value.map((col) => (
           <col
             key={col.key}
             style={{ width: col.width ? `${col.width}px` : "100px" }}
@@ -215,69 +273,80 @@ export default defineComponent({
       </colgroup>
     );
 
-    const renderThead = () => (
-      <thead>
-        <tr>
-          {props.checkable && (
-            <th
-              class={[
-                "k-table-cell-fix-left",
-                pingLeft.value && "k-table-cell-fix-left-last",
-              ]}
-              style={{ left: 0 }}
-            >
-              <Checkbox
-                checked={selectionState.value.all}
-                indeterminate={selectionState.value.indeterminate}
-                onChange={toggleAll}
-                disabled={
-                  props.data.length > 0 &&
-                  props.data.every((item) => isDisabled(item[props.rowKey]))
-                }
-              />
-            </th>
-          )}
-          {props.columns.map((col, idx) => (
-            <th
-              key={col.key}
-              class={getFixedClass(col, idx)}
-              style={fixedInfo.value[col.key]}
-              onClick={() => handleSort(col)}
-            >
-              <div class="k-table-header-col">
-                {slots[`header-${col.key}`]?.({
-                  value: col.title,
-                  col,
-                  index: idx,
-                }) || col.title}
-                {col.sorter && (
-                  <span class="k-table-sorter">
-                    <Icon
-                      type={CaretUp}
-                      class={[
-                        "k-sorter-up",
-                        sortState.key === col.key &&
-                          sortState.order === "asc" &&
-                          "active",
-                      ]}
-                    />
-                    <Icon
-                      type={CaretDown}
-                      class={[
-                        "k-sorter-down",
-                        sortState.key === col.key &&
-                          sortState.order === "desc" &&
-                          "active",
-                      ]}
-                    />
-                  </span>
-                )}
-              </div>
-            </th>
+    const renderThead = () => {
+      const { rows, maxDepth } = headerRows.value;
+
+      return (
+        <thead>
+          {rows.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {/* Checkbox 只在第一行渲染，并根据最大深度设置 rowSpan */}
+              {props.checkable && rowIndex === 0 && (
+                <th
+                  rowSpan={maxDepth}
+                  class={[
+                    "k-table-cell-fix-left",
+                    pingLeft.value && "k-table-cell-fix-left-last",
+                  ]}
+                  style={{ left: 0, zIndex: 3 }} // 提高层级
+                >
+                  <Checkbox
+                    checked={selectionState.value.all}
+                    indeterminate={selectionState.value.indeterminate}
+                    onChange={toggleAll}
+                    disabled={
+                      props.data.length > 0 &&
+                      props.data.every((item) => isDisabled(item[props.rowKey]))
+                    }
+                  />
+                </th>
+              )}
+
+              {row.map((col, idx) => (
+                <th
+                  key={col.key || idx}
+                  colSpan={col.colSpan}
+                  rowSpan={col.rowSpan}
+                  class={getFixedClass(col, idx, true)}
+                  style={fixedInfo.value[col.key]}
+                  onClick={() => handleSort(col)}
+                >
+                  <div class="k-table-header-col">
+                    {slots[`header-${col.key}`]?.({
+                      value: col.title,
+                      col,
+                      index: idx,
+                    }) || col.title}
+                    {col.sorter && (
+                      <span class="k-table-sorter">
+                        <Icon
+                          type={CaretUp}
+                          class={[
+                            "k-sorter-up",
+                            sortState.key === col.key &&
+                              sortState.order === "asc" &&
+                              "active",
+                          ]}
+                        />
+                        <Icon
+                          type={CaretDown}
+                          class={[
+                            "k-sorter-down",
+                            sortState.key === col.key &&
+                              sortState.order === "desc" &&
+                              "active",
+                          ]}
+                        />
+                      </span>
+                    )}
+                  </div>
+                </th>
+              ))}
+            </tr>
           ))}
-        </tr>
-      </thead>
-    );
+        </thead>
+      );
+    };
 
     const renderTbody = () => (
       <tbody>
@@ -297,7 +366,7 @@ export default defineComponent({
                     "k-table-cell-fix-left",
                     pingLeft.value && "k-table-cell-fix-left-last",
                   ]}
-                  style={{ left: 0 }}
+                  style={{ width: "50px" }}
                 >
                   <Checkbox
                     checked={innerSelectedKeys.value.has(rowId)}
@@ -306,7 +375,7 @@ export default defineComponent({
                   />
                 </td>
               )}
-              {props.columns.map((col, colIndex) => {
+              {flattedColumns.value.map((col, colIndex) => {
                 let spanProps = { rowSpan: 1, colSpan: 1 };
                 if (col.rowSpan && rowIndex % col.rowSpan === 0)
                   spanProps.rowSpan = col.rowSpan;
@@ -316,7 +385,7 @@ export default defineComponent({
                 if (spanProps.colSpan === 1) spanProps.colSpan = null;
 
                 for (let prevI = 0; prevI < colIndex; prevI++) {
-                  const prevCol = props.columns[prevI];
+                  const prevCol = flattedColumns.value[prevI];
                   if (prevCol.colSpan && prevI + prevCol.colSpan > colIndex)
                     return null;
                 }
@@ -412,12 +481,9 @@ export default defineComponent({
           }}
           onScroll={handleBodyScroll}
         >
-          {isEmpty ? (
-            <Empty description={props.emptyText} />
-          ) : (
-            // 如果是拆分模式，只渲染 body；否则渲染 header + body
-            renderTable(!isSplit.value, true)
-          )}
+          {/* // 如果是拆分模式，只渲染 body；否则渲染 header + body */}
+          {renderTable(!isSplit.value, true)}
+          {isEmpty && <Empty description={props.emptyText} />}
         </div>
       );
 

@@ -1,12 +1,12 @@
 ## Table API
 
 | 属性        | 说明                      | 类型     | 默认值     |
-| ----------- | ------------------------- | -------- | ---------- | --- |
+| ----------- | ------------------------- | -------- | ---------- |
 | bordered    | 是否显示边框              | Boolean  | false      |
 | checkable   | 是否显示勾选框            | Boolean  | false      |
 | checkedKeys | 勾选的key集合             | Array    | false      |
 | size        | 值为`small`时展示紧凑模式 | String   | -          |
-| emptyText   | 没有数据时展示的提示      | String   | '赞无数据' | -   |
+| emptyText   | 没有数据时展示的提示      | String   | '赞无数据' |
 | loading     | 表格异步加载模式          | Boolean  | false      |
 | data        | 显示的结构化数据          | Array    | [ ]        |
 | columns     | 表格列的配置描述，        | Array    | [ ]        |
