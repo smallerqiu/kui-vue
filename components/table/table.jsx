@@ -128,26 +128,42 @@ export default defineComponent({
     });
 
     const fixedInfo = computed(() => {
-      const styles = {};
+      const headerStyles = {};
+      const bodyStyles = {};
       let leftOffset = props.checkable ? 50 : 0;
 
       // 使用 flattedColumns
       flattedColumns.value.forEach((col) => {
         if (col.fixed === "left") {
-          styles[col.key] = { left: `${leftOffset}px` };
+          const style = { position: "sticky", left: `${leftOffset}px` };
+          headerStyles[col.key] = style;
+          bodyStyles[col.key] = style;
           leftOffset += col.width || 100;
         }
       });
 
-      let rightOffset = 0;
+      let rightOffset = 0; // + scrollbarWidth.value;
       for (let i = flattedColumns.value.length - 1; i >= 0; i--) {
         const col = flattedColumns.value[i];
         if (col.fixed === "right") {
-          styles[col.key] = { right: `${rightOffset}px` };
+          bodyStyles[col.key] = {
+            position: "sticky",
+            right: `${rightOffset}px`,
+          };
+
+          const headerRight = isSplit.value
+            ? rightOffset + scrollbarWidth.value
+            : rightOffset;
+
+          headerStyles[col.key] = {
+            position: "sticky",
+            right: `${headerRight}px`,
+          };
+
           rightOffset += col.width || 100;
         }
       }
-      return styles;
+      return { header: headerStyles, body: bodyStyles };
     });
 
     const getFixedClass = (col, index, isHeader = false) => {
@@ -186,11 +202,9 @@ export default defineComponent({
     onMounted(() => {
       if (isSplit.value) {
         measureScrollbar();
-        // 初始化时触发一次滚动检测，确保阴影状态正确
         if (bodyWrapperRef.value)
           handleBodyScroll({ target: bodyWrapperRef.value });
       } else if (bodyWrapperRef.value) {
-        // 非 split 模式下也要初始化阴影
         handleBodyScroll({ target: bodyWrapperRef.value });
       }
     });
@@ -261,7 +275,7 @@ export default defineComponent({
 
     // --- Render Functions ---
 
-    const renderColGroup = () => (
+    const renderColGroup = (isHeader = false) => (
       <colgroup>
         {props.checkable && <col style={{ width: "50px" }} />}
         {flattedColumns.value.map((col) => (
@@ -270,6 +284,14 @@ export default defineComponent({
             style={{ width: col.width ? `${col.width}px` : "100px" }}
           />
         ))}
+        {isHeader && isSplit.value && (
+          <col
+            style={{
+              width: `${scrollbarWidth.value}px`,
+              minWidth: `${scrollbarWidth.value}px`,
+            }}
+          />
+        )}
       </colgroup>
     );
 
@@ -308,7 +330,7 @@ export default defineComponent({
                   colSpan={col.colSpan}
                   rowSpan={col.rowSpan}
                   class={getFixedClass(col, idx, true)}
-                  style={fixedInfo.value[col.key]}
+                  style={fixedInfo.value.header[col.key]}
                   onClick={() => handleSort(col)}
                 >
                   <div class="k-table-header-col">
@@ -322,19 +344,19 @@ export default defineComponent({
                         <Icon
                           type={CaretUp}
                           class={[
-                            "k-sorter-up",
+                            "k-table-sorter-up",
                             sortState.key === col.key &&
                               sortState.order === "asc" &&
-                              "active",
+                              "k-table-sorter-active",
                           ]}
                         />
                         <Icon
                           type={CaretDown}
                           class={[
-                            "k-sorter-down",
+                            "k-table-sorter-down",
                             sortState.key === col.key &&
                               sortState.order === "desc" &&
-                              "active",
+                              "k-table-sorter-active",
                           ]}
                         />
                       </span>
@@ -342,6 +364,17 @@ export default defineComponent({
                   </div>
                 </th>
               ))}
+              {isSplit.value && rowIndex === 0 && (
+                <th
+                  rowSpan={maxDepth}
+                  class="k-table-scrollbar-patch"
+                  style={{
+                    // padding: 0,
+                    // border: 0,
+                    width: `${scrollbarWidth.value}px`,
+                  }}
+                />
+              )}
             </tr>
           ))}
         </thead>
@@ -395,7 +428,7 @@ export default defineComponent({
                     key={col.key}
                     {...{ attrs: spanProps }}
                     class={getFixedClass(col, colIndex)}
-                    style={fixedInfo.value[col.key]}
+                    style={fixedInfo.value.body[col.key]}
                   >
                     {slots[col.key]?.({
                       record,
@@ -413,9 +446,7 @@ export default defineComponent({
       </tbody>
     );
 
-    // 通用的 Table 渲染器，接收 showHeader 和 showBody 参数
-    const renderTable = (showHeader, showBody) => {
-      // 修复核心：如果 scroll.x 没传，使用 minWidth: 100%，允许表格自动撑开
+    const renderTable = (isHeader, isBody) => {
       const tableStyle = {
         width:
           props.scroll.x && typeof props.scroll.x === "number"
@@ -426,9 +457,9 @@ export default defineComponent({
       };
       return (
         <table style={tableStyle}>
-          {renderColGroup()}
-          {showHeader && renderThead()}
-          {showBody && renderTbody()}
+          {renderColGroup(isHeader)}
+          {isHeader && renderThead()}
+          {isBody && renderTbody()}
         </table>
       );
     };
@@ -457,7 +488,7 @@ export default defineComponent({
           ref={headerWrapperRef}
           style={{
             overflow: "hidden",
-            paddingRight: `${scrollbarWidth.value}px`,
+            // paddingRight: `${scrollbarWidth.value}px`,
           }}
         >
           {renderTable(true, false)}
@@ -469,7 +500,6 @@ export default defineComponent({
         <div
           class="k-table-body"
           ref={bodyWrapperRef}
-          // 修复核心：始终允许横向滚动 (auto)，这样即使没传 scroll.x，内容溢出时也能滚
           style={{
             overflowY: props.scroll.y ? "scroll" : "auto",
             overflowX: "auto",
@@ -481,7 +511,6 @@ export default defineComponent({
           }}
           onScroll={handleBodyScroll}
         >
-          {/* // 如果是拆分模式，只渲染 body；否则渲染 header + body */}
           {renderTable(!isSplit.value, true)}
           {isEmpty && <Empty description={props.emptyText} />}
         </div>

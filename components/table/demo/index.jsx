@@ -15,19 +15,19 @@ export default {
   render() {
     return (
       <div class="demo-table">
-        {/* <Info /> */}
-        {/* <Basic />
+        <Info />
+        <Basic />
         <BaseRender />
         <CustomHeader />
         <Bordered />
         <TableSorter />
         <ColRowSpan />
-        <TableEdit /> */}
+        <TableEdit />
         <FixedColHead />
         <HeadSpan />
-        {/* <TableCheck /> */}
-        {/* <Size /> */}
-        {/* <CN /> */}
+        <TableCheck />
+        <Size />
+        <CN />
       </div>
     );
   },
