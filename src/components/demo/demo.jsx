@@ -58,8 +58,47 @@ const Demo = defineComponent({
           <div class="k-desc-content">{slots.description?.()}</div>
         </div>
       );
+      const codeNode = (
+        <transition {...transitionProps}>
+          <div
+            v-show={expanded.value}
+            class="k-code-box"
+            contenteditable
+            onInput={renderCode}
+          >
+            <div class="k-code-tools">
+              <Badge status="success" text="实时编译成功" />
+              <Tooltip title="复制代码">
+                <Button
+                  type="text"
+                  size="small"
+                  icon={CopyOutline}
+                  onClick={copy}
+                />
+              </Tooltip>
+              <Tooltip title="重置代码">
+                <Button
+                  type="text"
+                  size="small"
+                  icon={Reload}
+                  onClick={reload}
+                />
+              </Tooltip>
+            </div>
+            <div ref={codeRef} class="k-code">
+              {slots.code?.()}
+            </div>
+          </div>
+        </transition>
+      );
       return (
-        <div class="markdown-body k-demo-container">
+        <div
+          class={[
+            "markdown-body",
+            "k-demo-container",
+            { "k-demo-expanded": expanded.value },
+          ]}
+        >
           {descNode}
           {/* {!vertical && descNode} */}
           <div class={classes}>
@@ -69,61 +108,25 @@ const Demo = defineComponent({
               </div>
               {/* {vertical && descNode} */}
             </div>
+            {vertical && codeNode}
+
             {vertical && (
               <div class="k-code-actions">
                 <Tooltip title={expanded.value ? "隐藏代码" : "显示代码"}>
-                  <Icon
-                    type={CaretHor}
+                  <Button
+                    block
+                    type="text"
+                    icon={CaretHor}
                     onClick={() => (expanded.value = !expanded.value)}
-                    style={{
-                      "border-bottom-left-radius": !expanded.value ? "12px" : 0,
-                    }}
                   />
                 </Tooltip>
+                <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Icon
-                    type={CopyOutline}
-                    onClick={copy}
-                    style={{
-                      "border-bottom-right-radius": !expanded.value
-                        ? "12px"
-                        : 0,
-                    }}
-                  />
+                  <Button type="text" icon={CopyOutline} block onClick={copy} />
                 </Tooltip>
               </div>
             )}
-            <transition {...transitionProps}>
-              <div
-                v-show={expanded.value}
-                class="k-code-box"
-                contenteditable
-                onInput={renderCode}
-              >
-                <div class="k-code-tools">
-                  <Badge status="success" text="实时编译成功" />
-                  <Tooltip title="复制代码">
-                    <Button
-                      type="text"
-                      size="small"
-                      icon={CopyOutline}
-                      onClick={copy}
-                    />
-                  </Tooltip>
-                  <Tooltip title="重置代码">
-                    <Button
-                      type="text"
-                      size="small"
-                      icon={Reload}
-                      onClick={reload}
-                    />
-                  </Tooltip>
-                </div>
-                <div ref={codeRef} class="k-code">
-                  {slots.code?.()}
-                </div>
-              </div>
-            </transition>
+            {!vertical && codeNode}
           </div>
         </div>
       );

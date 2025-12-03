@@ -34,6 +34,7 @@ const columns = [
   { title: "Age", key: "age", fixed: "left" },
   ..._columns,
   { title: "Operate", key: "action", fixed: "right" },
+  { title: "Operate", key: "action1", fixed: "right" },
 ];
 </script>
 ```

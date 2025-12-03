@@ -147,7 +147,14 @@
         }
       }
     }
-
+    .k-table-scrollbar-patch {
+      position: sticky;
+      right: 0;
+      padding: 0;
+      border: 0;
+      z-index: 5;
+      top: 0;
+    }
     .k-table-cell-ellipsis {
       white-space: nowrap;
       overflow: hidden;
@@ -272,14 +279,14 @@
     }
   }
 
-  &-ping-right {
+  &-ping-left {
     .k-table-cell-fix-left-last::after {
       box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
       right: -30px;
     }
   }
 
-  &-ping-left {
+  &-ping-right {
     .k-table-cell-fix-right-first::after {
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
