@@ -18,12 +18,10 @@
 
   .k-table-cell-fix-left {
     position: sticky;
-    left: 0;
   }
 
   .k-table-cell-fix-right {
     position: sticky;
-    right: 0;
   }
 
   .k-spin {
@@ -144,8 +142,7 @@
           color: #ccc;
           height: 7px;
         }
-
-        .active {
+        .k-table-sorter-active {
           color: var(--kui-color-main);
         }
       }
@@ -167,7 +164,7 @@
     th.k-table-cell-selection {
       text-align: center;
       padding: 0;
-
+      left: 0;
       .k-table-header-col {
         justify-content: center;
       }
@@ -299,6 +296,10 @@
         padding: 5px 8px;
       }
     }
+    .k-table-header,
+    .k-table-footer {
+      padding: 10px 8px;
+    }
   }
 
   &-lg {
@@ -310,6 +311,10 @@
       td {
         padding: 16px;
       }
+    }
+    .k-table-header,
+    .k-table-footer {
+      padding: 20px 16px;
     }
   }
 
