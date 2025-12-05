@@ -1,6 +1,7 @@
 import Icon from "../icon";
-import { defineComponent, ref, onMounted, onUpdated } from "vue";
+import { defineComponent, ref, onMounted, onUpdated, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
+
 const Avatar = defineComponent({
   name: "Avatar",
   props: {
@@ -11,76 +12,93 @@ const Avatar = defineComponent({
       default: "default",
       validator: (val) =>
         typeof val == "number"
-          ? 1
+          ? true 
           : ["large", "small", "default"].indexOf(val) >= 0,
     },
     src: String,
   },
 
   setup(props, { slots }) {
+    const group = inject("KAvatarGroup", null);
+
     const innerRef = ref();
     const root = ref();
+
+    const computedSize = computed(() => {
+      return group?.size.value || props.size;
+    });
+
+    const computedShape = computed(() => {
+      return group?.shape.value || props.shape;
+    });
+
     const updateSize = () => {
-      if (innerRef.value) {
+      if (innerRef.value && root.value) {
         const max = root.value.offsetWidth - 8;
-        const scale =
-          innerRef.value.scrollWidth > max
-            ? max / innerRef.value.scrollWidth
-            : 1;
-        innerRef.value.style.transform = `scale(${scale}) translateX(-50%)`;
+        const innerWidth = innerRef.value.offsetWidth || innerRef.value.scrollWidth;
+        
+        if (innerWidth > max) {
+           const scale = max / innerWidth;
+           innerRef.value.style.transform = `scale(${scale}) translateX(-50%)`;
+        } else {
+           innerRef.value.style.transform = 'scale(1) translateX(-50%)';
+        }
       }
     };
-    onMounted(() => {
-      updateSize();
-    });
 
-    onUpdated(() => {
-      updateSize();
-    });
+    onMounted(updateSize);
+    onUpdated(updateSize);
 
     return () => {
-      let { size, shape, src, icon } = props;
+      const sizeVal = computedSize.value;
+      const shapeVal = computedShape.value;
+      const { src, icon } = props;
+
       let styles = {};
-      if (typeof size == "number") {
+      if (typeof sizeVal == "number") {
         styles = {
-          width: `${size}px`,
-          height: `${size}px`,
-          lineHeight: `${size}px`,
-          fontSize: `${size / 2}px`,
+          width: `${sizeVal}px`,
+          height: `${sizeVal}px`,
+          lineHeight: `${sizeVal}px`,
+          fontSize: `${sizeVal / 2}px`,
         };
       }
+
       let children = slots.default?.();
 
-      // let hasIcon = children?.filter((x) => x.type == "Icon").length; //for 3
-      let hasIcon = children?.filter(
-        (x) => x.componentOptions?.tag == "Icon"
-      ).length; 
-      // let text = children?.length == 1 && typeof children[0].children === "string"; //for 3
-      let text = children?.length == 1 && typeof children[0].text; //for 3
-      let cls = [
+
+      // [Vue 3 Upgrade]: Vue 3  
+      // const hasIcon = children?.some(c => c.type?.name === 'Icon');
+      const hasIcon = children?.filter(
+        (x) => x.componentOptions?.tag === "Icon"
+      ).length;
+
+      // [Vue 3 Upgrade]:  Vue 3
+      // const isText = children?.length === 1 && typeof children[0].children === 'string';
+      const isText = children?.length === 1 && (typeof children[0].text === 'string' && children[0].text.trim() !== '');
+
+      const cls = [
         "k-avatar",
         {
-          "k-avatar-lg": size == "large",
-          "k-avatar-sm": size == "small",
-          "k-avatar-image": src,
+          "k-avatar-lg": sizeVal == "large",
+          "k-avatar-sm": sizeVal == "small",
+          "k-avatar-image": src, 
           "k-avatar-icon": icon || hasIcon,
-          "k-avatar-square": shape == "square",
+          "k-avatar-square": shapeVal == "square",
         },
       ];
-      let prop = {
-        ref: root,
-        class: cls,
-        style: styles,
-      };
+
       return (
-        <div {...prop}>
+        <div ref={root} class={cls} style={styles}>
           {icon ? (
             <Icon type={icon} />
           ) : src ? (
             <img src={src} />
-          ) : text ? (
+          ) : isText ? (
             <span class="k-avatar-string" ref={innerRef}>
-              {children}
+              {/* [Vue 3 Upgrade]:  children */}
+              {/* Vue 2 use children[0].text safely to get text */}
+              {children[0].text || children} 
             </span>
           ) : (
             children

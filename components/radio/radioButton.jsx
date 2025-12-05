@@ -1,50 +1,71 @@
 import { Button } from "../button";
-import { defineComponent, inject } from "vue";
+import { defineComponent, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
+
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
-    value: { type: [String, Number, Boolean], default: false },
+    value: { type: [String, Number, Boolean] },
     disabled: Boolean,
-    checked: Boolean,
     label: [String, Number],
+    size: String,
     theme: String,
     shape: String,
-    size: String,
   },
-  setup(ps, { slots, emit, attrs, listeners }) {
-    const radioGroup = inject("radioGroup", null);
-    const parentSize = inject("size", null);
-    const change = (e) => {
-      const _label = ps.label || slots.default?.().text;
+  setup(props, { slots, emit, attrs, listeners }) {
+    const radioGroup = inject("KRadioGroup", null);
 
-      emit("update", { label: _label, value: ps.value });
+    const isChecked = computed(() => {
+      if (radioGroup) {
+        // [Vue 3 Upgrade]: radioGroup.currentValue.value
+        return radioGroup.currentValue.value === props.value;
+      }
+      return false;
+    });
+
+    const isDisabled = computed(() => {
+      return (radioGroup && radioGroup.disabled.value) || props.disabled;
+    });
+
+    const mergedSize = computed(
+      () => (radioGroup && radioGroup.size.value) || props.size
+    );
+    const mergedTheme = computed(
+      () => (radioGroup && radioGroup.theme.value) || props.theme || "default"
+    );
+    const mergedShape = computed(
+      () => (radioGroup && radioGroup.shape.value) || props.shape
+    );
+
+    const handleClick = (e) => {
+      if (isDisabled.value) return;
+
+      if (radioGroup) {
+        radioGroup.onGroupChange(props.value);
+      }
+      emit("click", e);
     };
+
     return () => {
-      let {
-        disabled,
-        label,
-        size = parentSize,
-        theme = "default",
-        shape,
-        checked,
-      } = ps;
-      const props = {
-        ...attrs,
-        // onClick: change,
+      const labelText = props.label || slots.default?.();
+
+      const buttonProps = {
         props: {
-          disabled: radioGroup?.disabled || disabled,
-          size: radioGroup?.size || size,
-          theme: radioGroup?.theme || theme,
-          shape: radioGroup?.shape || shape,
-          type: checked ? "primary" : 'default',
+          ...props,
+          disabled: isDisabled.value,
+          size: mergedSize.value,
+          theme: mergedTheme.value,
+          shape: mergedShape.value,
+          type: isChecked.value ? "primary" : "default",
         },
+        attrs: attrs,
         on: {
           ...listeners,
-          click: change,
+          click: handleClick,
         },
       };
-      return <Button {...props}>{label || slots.default?.()}</Button>;
+
+      return <Button {...buttonProps}>{labelText}</Button>;
     };
   },
 });

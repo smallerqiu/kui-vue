@@ -8,7 +8,7 @@
 <template>
   <Space vertical>
     {{ data }}
-    <CheckboxGroup v-model:value="data">
+    <CheckboxGroup v-model="data">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
@@ -22,7 +22,7 @@
   <br />
   <Space vertical align="start">
     {{ cities }}
-    <CheckboxGroup :options="options" v-model:value="cities" />
+    <CheckboxGroup :options="options" v-model="cities" />
   </Space>
 </template>
 <script setup>

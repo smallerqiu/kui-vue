@@ -14,7 +14,7 @@
     transition: all 0.2s ease-in-out;
     position: relative;
     .k-checkbox {
-      margin-right: 4px;
+      margin: 0 4px;
     }
     &::before {
       content: "";
@@ -42,6 +42,8 @@
   .k-tree-title {
     display: inline-flex;
     padding: 0 4px;
+    box-sizing: border-box;
+    margin-left: 4px;
     align-items: center;
     z-index: 0;
     border-radius: @radius;
@@ -116,7 +118,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-right: 3px;
     .k-icon {
       transition: all 0.2s ease-in-out;
     }

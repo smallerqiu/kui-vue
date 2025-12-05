@@ -1,6 +1,7 @@
-import { /*cloneVNode*/ defineComponent } from "vue";
+import { defineComponent, provide, toRefs } from "vue";
+import { withInstall } from "../utils/vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from '../utils/vue';
+
 const AvatarGroup = defineComponent({
   name: "AvatarGroup",
   props: {
@@ -9,16 +10,17 @@ const AvatarGroup = defineComponent({
     size: [String, Number],
   },
   setup(props, { slots }) {
+    const { shape, size } = toRefs(props);
+
+    provide("KAvatarGroup", {
+      shape,
+      size,
+    });
+
     return () => {
-      let child = getChildren(slots.default?.());
-      let { shape, size } = props;
-      return (
-        <div class="k-avatar-group">
-          {child.map((c) => {
-            return cloneVNode(c, { props: { shape, size } });
-          })}
-        </div>
-      );
+      const children = getChildren(slots.default?.());
+
+      return <div class="k-avatar-group">{children}</div>;
     };
   },
 });

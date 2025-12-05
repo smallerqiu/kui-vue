@@ -701,11 +701,11 @@ const Tree = {
       // 添加拖拽事件
       if (ps.draggable) {
         titleProps.on.dragstart = (e) => handleDragStart(e, item);
-        titleProps.on.dragover = () => handleDragOver(item);
+        titleProps.on.dragover = (e) => handleDragOver(e, item);
         titleProps.on.dragenter = (e) => handleDragEnter(e, item);
         titleProps.on.dragleave = (e) => handleDragLeave(e, item);
         titleProps.on.drop = (e) => handleDrop(e, item);
-        titleProps.on.dragend = () => handleDragEnd(item);
+        titleProps.on.dragend = (e) => handleDragEnd(e, item);
       }
       if (!ps.directory) {
         titleProps.on.click = () => onSelect(item);

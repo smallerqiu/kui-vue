@@ -6,7 +6,7 @@
 | label         | 显示的文字                                    | String 、 Number  | -      |
 | disabled      | 是否禁用当前项                                | Boolean           | false  |
 | indeterminate | 组合辅助选项控制半选状态                      | Boolean           | false  |
-| change        | 在选项状态发生改变时回调                      | Function(e:Event) | -      |
+| change        | 在选项状态发生改变时回调                      | Function(checked) | -      |
 | value         | 组合使用时表示的值                            | String、Number    | -      |
 
 ## CheckboxGroup API
