@@ -27,9 +27,9 @@
           >
             <MenuItem key="1-1" :icon="Home"><span>首页</span></MenuItem>
             <MenuItem key="1-2" :icon="Heart"><span>数据统计</span></MenuItem>
-            <MenuItem key="1-3" :icon="Settings"
-              ><span>能源管理</span></MenuItem
-            >
+            <MenuItem key="1-3" :icon="Settings">
+              <span>能源管理</span>
+            </MenuItem>
           </Menu>
           <Button
             theme="light"
@@ -51,9 +51,9 @@
                   style="width:200px"
                 />
                 <Button :icon="NotificationsOutline" type="text" />
-                <Avatar style="background:#3a95ff" :size="40" shape="square"
-                  >K</Avatar
-                >
+                <Avatar style="background:#3a95ff" :size="40" shape="square">
+                  K
+                </Avatar>
               </Space>
             </Col>
           </Row>

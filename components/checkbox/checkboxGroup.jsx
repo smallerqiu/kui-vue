@@ -1,18 +1,26 @@
 import Checkbox from "./checkbox";
-import { defineComponent, provide /*cloneVNode*/ } from "vue";
-import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { defineComponent, provide, toRefs } from "vue";
+import { withInstall } from "../utils/vue";
+
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: {
+    // [Vue 3 Upgrade]
+    // modelValue: { type: Array, default: () => [] },
+
+    // [Vue 3 Upgrade] :del
+    value: {
+      type: Array,
+      default: () => [],
+    },
+    
     disabled: Boolean,
-    options: Array,
+    options: Array, 
     direction: {
       type: String,
       default: "horizontal",
       validator: (val) => ["horizontal", "vertical"].indexOf(val) >= 0,
     },
-    value: { type: Array, default: () => [] },
     size: {
       default: "default",
       validator(value) {
@@ -21,67 +29,55 @@ const CheckboxGroup = defineComponent({
     },
   },
 
-  setup(ps, { slots, emit }) {
-    provide("checkBoxGroup", ps);
-    const change = ({ checked, label, value }) => {
-      const v = [...ps.value];
-      let index = v.indexOf(value);
-      if (checked) {
-        v.push(value);
+  setup(props, { slots, emit }) {
+    const { disabled, size } = toRefs(props);
+    
+    // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
+    const { value: currentValue } = toRefs(props);
+
+    const onGroupChange = (childValue) => {
+      const val = [...currentValue.value];
+      const index = val.indexOf(childValue);
+
+      if (index > -1) {
+        val.splice(index, 1);
       } else {
-        v.splice(index, 1);
+        val.push(childValue);
       }
-      // emit("update:value", v); // for 3
-      emit("input", v);
-      emit("change", v);
+
+      // [Vue 3 Upgrade]: emit("update:modelValue", val);
+      emit("input", val); // Vue 2 v-model
+      emit("change", val);
     };
 
+    provide("KCheckboxGroup", {
+      currentValue,
+      disabled,
+      size,
+      onGroupChange,
+    });
+
     return () => {
-      const { options, direction, size } = ps;
-      let children = getChildren(slots.default?.());
-      if (options && options?.length) {
-        children = options.map((option) => {
-          let pps = {
-            key: option.value,
-            props: {
-              value: option.value,
-              size,
-              label: option.label,
-              disabled: ps.disabled || option.disabled,
-              checked: ps.value.indexOf(option.value) >= 0,
-            },
-            on: {
-              update: change,
-            },
-            // onUpdate: change,
-          };
-          return <Checkbox {...pps} />;
-        });
+      let children = null;
+      
+      if (props.options && props.options.length) {
+        children = props.options.map((option) => (
+          <Checkbox
+            key={option.value}
+            label={option.label}
+            value={option.value}
+            disabled={option.disabled}
+          />
+        ));
       } else {
-        children = children?.map((child) => {
-          // return cloneVNode(child, { size, disabled: ps.disabled || child.disabled, checked: ps.value.indexOf(child.props.value) >= 0, onUpdate: change });
-          return cloneVNode(
-            child,
-            {
-              props: {
-                size,
-                disabled:
-                  ps.disabled || child.componentOptions?.propsData.disabled,
-                checked:
-                  ps.value.indexOf(child.componentOptions?.propsData.value) >=
-                  0,
-              },
-              on: { update: change },
-            },
-            true
-          );
-        });
+        children = slots.default?.();
       }
+
       return (
         <div
           class={[
             "k-checkbox-group",
-            { "k-checkbox-group-vertical": direction == "vertical" },
+            { "k-checkbox-group-vertical": props.direction == "vertical" },
           ]}
         >
           {children}

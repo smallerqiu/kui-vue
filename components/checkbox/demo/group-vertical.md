@@ -11,7 +11,7 @@
       <Button @click="data = ['apple']" size="small">Select apple</Button>
       {{ data }}
     </Space>
-    <CheckboxGroup v-model:value="data" direction="vertical">
+    <CheckboxGroup v-model="data" direction="vertical">
       <Checkbox label="Apple" value="apple" />
       <Checkbox label="Orange" value="orange" />
       <Checkbox label="Banana" value="banana" />
@@ -25,7 +25,7 @@
     <p>{{ cities }}</p>
     <CheckboxGroup
       :options="options"
-      v-model:value="cities"
+      v-model="cities"
       direction="vertical"
     />
   </Space>

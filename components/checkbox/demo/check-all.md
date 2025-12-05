@@ -7,13 +7,13 @@
 <template>
   <Space vertical>
     <Checkbox
-      :checked.sync="checkAll"
+      v-model="checkAll"
       :indeterminate="indeterminate"
       @change="handleCheckAll"
     >
       Check all
     </Checkbox>
-    <CheckboxGroup :options="options" v-model:value="cities" @change="change" />
+    <CheckboxGroup :options="options" v-model="cities" @change="change" />
   </Space>
 </template>
 <script setup>
@@ -30,9 +30,8 @@ const options = [
 ];
 const cities = ref([]);
 
-const handleCheckAll = (e) => {
-  console.log(e.target.checked);
-  let checked = e.target.checked;
+const handleCheckAll = (checked) => {
+  console.log(checked);
   cities.value = checked ? options.map((v) => v.value) : [];
   indeterminate.value = (!checked && !options.length);
 };

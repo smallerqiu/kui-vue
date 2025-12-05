@@ -6,15 +6,19 @@
 
 ```vue
 <template>
-  <RadioGroup :options="types" v-model:value="direction" type="button" />
-  <br />
-  <br />
-  <CheckboxGroup
-    :options="options"
-    v-model:value="cities"
-    @change="change"
-    :direction="direction"
-  />
+  <Space vertical> 
+    <RadioGroup :options="types" v-model="direction" type="button" />
+    <br />
+    Selected: {{ direction }}
+    <br />
+    cities: {{ cities }}
+    <CheckboxGroup
+      :options="options"
+      v-model="cities"
+      @change="change"
+      :direction="direction"
+    />
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -34,7 +38,7 @@ const options = [
 const cities = ref(["wuhan"]);
 
 const change = (v) => {
-  console.log(v)
+  console.log(v);
 };
 </script>
 ```

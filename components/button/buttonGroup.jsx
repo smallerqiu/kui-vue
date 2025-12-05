@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, provide, toRefs } from "vue";
 import { withInstall } from "../utils/vue";
 
 const ButtonGroup = defineComponent({
@@ -12,15 +12,21 @@ const ButtonGroup = defineComponent({
     },
     shape: String,
   },
-  setup(ps, { slots }) {
+  setup(props, { slots }) {
+    const { size, shape } = toRefs(props);
+
+    provide("KButtonGroup", {
+      size,
+      shape,
+    });
+
     return () => {
-      const { size, shape } = ps;
       const classes = [
         "k-btn-group",
         {
-          ["k-btn-group-sm"]: size == "small",
-          ["k-btn-group-lg"]: size == "large",
-          ["k-btn-group-circle"]: shape == "circle",
+          ["k-btn-group-sm"]: size.value == "small",
+          ["k-btn-group-lg"]: size.value == "large",
+          ["k-btn-group-circle"]: shape.value == "circle",
         },
       ];
       return <div class={classes}>{slots.default?.()}</div>;

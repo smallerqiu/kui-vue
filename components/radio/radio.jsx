@@ -1,12 +1,25 @@
-import { defineComponent, inject, ref, watch } from "vue";
+import { defineComponent, inject, ref, computed } from "vue";
 import { withInstall } from "../utils/vue";
+
 const Radio = defineComponent({
   name: "Radio",
+  // [Vue 3 Upgrade]: del 
+  model: {
+    prop: "checked",
+    event: "change",
+  },
   props: {
-    value: { type: [String, Number] },
+    // [Vue 3 Upgrade]
+    // modelValue: { type: [Boolean, String, Number], default: null },
+
+    // [Vue 3 Upgrade]: Vue 2 use checked & model
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    value: { type: [String, Number, Boolean] },
+    label: { type: [String, Number] },
     disabled: Boolean,
-    checked: Boolean,
-    label: [String, Number],
     size: {
       default: "default",
       validator(value) {
@@ -15,50 +28,54 @@ const Radio = defineComponent({
     },
   },
 
-  setup(ps, { slots, emit }) {
-    const radioGroup = inject("radioGroup", null);
+  setup(props, { slots, emit }) {
+    const radioGroup = inject("KRadioGroup", null);
 
-    watch(
-      () => ps.checked,
-      (nv, no) => {
-        isChecked.value = nv;
-      }
-    );
-
-    const isChecked = ref(ps.checked); // for not set v-model
-
-    const change = (e) => {
-      if (ps.disabled) {
-        return false;
-      }
-      const checked = e.target.checked;
-      isChecked.value = checked;
+    const isChecked = computed(() => {
       if (radioGroup) {
-        const label = ps.label || slots.default?.().text;
-        emit("update", { label, value: ps.value });
-      } else {
-        emit("update:checked", checked);
-        emit("change", e);
+        // [Vue 3 Upgrade]: radioGroup.currentValue.value
+        return radioGroup.currentValue.value === props.value;
       }
-      e.stopPropagation();
+      // [Vue 3 Upgrade]: return props.modelValue === props.value; 
+      return props.checked;
+    });
+
+    const isDisabled = computed(() => {
+      return (radioGroup && radioGroup.disabled.value) || props.disabled;
+    });
+
+    const radioSize = computed(() => {
+      return (radioGroup && radioGroup.size.value) || props.size;
+    });
+
+    const handleChange = (e) => {
+      if (isDisabled.value) return;
+
+      const checked = e.target.checked;
+      
+      if (radioGroup) {
+        if (checked) {
+          radioGroup.onGroupChange(props.value);
+        }
+      } else {
+        // [Vue 3 Upgrade]: emit("update:modelValue", checked);
+        emit("change", checked);
+        emit("input", checked); // 兼容
+      }
     };
 
     return () => {
-      const sz = radioGroup?.size || ps.size;
-
-      const disabled = radioGroup?.disabled || ps.disabled;
-
       const classes = [
         "k-radio",
         {
-          ["k-radio-disabled"]: disabled,
+          ["k-radio-disabled"]: isDisabled.value,
           ["k-radio-checked"]: isChecked.value,
-          ["k-radio-lg"]: sz == "large",
-          ["k-radio-sm"]: sz == "small",
+          ["k-radio-lg"]: radioSize.value === "large",
+          ["k-radio-sm"]: radioSize.value === "small",
         },
       ];
 
-      const labelNode = ps.label || slots.default?.();
+      const labelNode = props.label || slots.default?.();
 
       return (
         <label class={classes} onClick={(e) => e.stopPropagation()}>
@@ -66,9 +83,11 @@ const Radio = defineComponent({
             <input
               type="radio"
               class="k-radio-input"
-              disabled={disabled}
-              checked={isChecked.value}
-              onChange={change}
+              disabled={isDisabled.value}
+              onChange={handleChange}
+              // [Vue 3 Upgrade]: checked={isChecked.value}
+              // [Vue 2 Only]: Vue 2 JSX need domPropsChecked
+              domPropsChecked={isChecked.value}
             />
             <span class="k-radio-inner"></span>
           </span>
