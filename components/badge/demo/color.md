@@ -6,17 +6,19 @@
 ```vue
 <template>
   <Space vertical block>
-    <Divider orientation="left">Presets:</Divider>
-    <div>
-      <div v-for="color in colors" :key="color">
-        <Badge :color="color" :text="color" />
-      </div>
-    </div>
-    <Divider orientation="left">Custom:</Divider>
-    <div>
-      <div v-for="color in custom" :key="color">
-        <Badge :color="color" :text="color" />
-      </div>
+    Presets
+    <Space wrap block>
+      <Badge
+        :color="color"
+        :text="color"
+        v-for="color in colors"
+        :key="color"
+      />
+    </Space>
+    <br />
+    Custom
+    <div v-for="color in custom" :key="color">
+      <Badge :color="color" :text="color" />
     </div>
   </Space>
 </template>

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="alipay" :icon="LogoAlipay"></Button>
     <Button @click="wechat" :icon="LogoWechat"></Button>
   </Space>
@@ -13,7 +13,8 @@
 <script setup>
 import { notice } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
-import { h } from "vue";
+import { getCurrentInstance } from "vue";
+const { proxy } = getCurrentInstance();
 const alipay = () => {
   notice.open({
     icon: LogoAlipay,
@@ -23,6 +24,7 @@ const alipay = () => {
     duration: 10,
   });
 };
+const h = proxy.$createElement;
 const wechat = () => {
   let content = h("div", {}, [
     h(

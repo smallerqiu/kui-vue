@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="config">10秒后关闭</Button>
     <Button @click="config2" type="primary">5秒后关闭</Button>
     <Button @click="config3" type="primary">手动关闭</Button>
@@ -18,14 +18,14 @@ const config = () => {
   message.success("10秒后关闭", 10);
 };
 const config2 = () => {
-  message.config({
+  message.show({
     type: "info",
     duration: 5,
     content: "5秒后关闭",
   });
 };
 const config3 = () => {
-  message.config({
+  message.show({
     type: "info",
     duration: 0,
     closable: true,

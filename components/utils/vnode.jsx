@@ -5,7 +5,7 @@
 import { isVNode, cloneVNode } from "../utils/vue";
 export function cloneNodes(vnode, props, merge = false, child) {
   return vnode.length == 1
-    ? cloneVNode(vnode[0], props, merge, transition)
+    ? cloneVNode(vnode[0], props, merge,)
     : cloneVNode(<span>{vnode}</span>, props, merge, child);
 }
 export function getChildren(VNodes) {

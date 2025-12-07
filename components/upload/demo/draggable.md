@@ -5,7 +5,7 @@ draggable='true'，可以使用拖拽功能
 
 ```vue
 <template>
-  <div style="width:556px">
+  <div style="width:100%">
     <Upload
       action="https://www.chuchur.com/api/upload/image"
       name="file"

@@ -38,7 +38,9 @@ export default function vitePluginMd() {
         "space",
         "menu",
         "page",
-        "tabs"
+        "tabs",
+        "descriptions",
+        'skeleton'
       ];
       let direction = "horizontal";
       vertical_list.forEach((item) => {

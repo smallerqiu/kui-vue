@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="info" type="primary">Show base info </Button>
     <Button @click="useMessage" type="primary">useMessage</Button>
   </Space>

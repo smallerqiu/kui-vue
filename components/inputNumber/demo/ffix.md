@@ -5,7 +5,7 @@ suffix，prefix 扩展
 
 ```vue
 <template>
-  <Space style="width:256px;" vertical>
+  <Space block vertical>
     <InputNumber placeholder="请输入金额" suffix="元" prefix="$" />
     <InputNumber
       placeholder="请输入充值金额"
@@ -16,15 +16,15 @@ suffix，prefix 扩展
     <InputNumber placeholder="请输入金额" suffix=".00" />
   </Space>
   <Divider text="slot" />
-  <Space vertical>
-    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen" size="large">
+  <Space vertical block>
+    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen">
       <template #suffix>
         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
           <Icon :type="HelpCircle" />
         </Tooltip>
       </template>
     </InputNumber>
-    <InputNumber placeholder="请输入充值金额" size="large">
+    <InputNumber placeholder="请输入充值金额">
       <template #prefix>
         <Icon :type="PersonAddOutline" />
       </template>

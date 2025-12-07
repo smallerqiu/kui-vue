@@ -6,7 +6,7 @@ let messageInstance;
 
 let Message = {
   name: "message",
-  config(options = {}) {
+  show(options = {}) {
     options.noticeType = "message";
     if (!messageInstance) {
       messageInstance = newInstance({ type: "message" });
@@ -34,7 +34,7 @@ let Message = {
 };
 ["info", "success", "warning", "error"].forEach((type) => {
   Message[type] = (content, duration, onClose) => {
-    return Message.config({ type, content, duration, onClose });
+    return Message.show({ type, content, duration, onClose });
   };
 });
 

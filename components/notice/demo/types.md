@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="noticeApi('info')">消息提示 </Button>
     <Button @click="noticeApi('warning')">警告提示 </Button>
     <Button @click="noticeApi('success')">成功提示 </Button>

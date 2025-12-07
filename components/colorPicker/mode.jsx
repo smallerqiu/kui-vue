@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, onMounted, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import InputNumber from "../inputNumber";
 import { Input } from "../input";
 import { Select } from "../select";
@@ -126,13 +126,13 @@ export default defineComponent({
           />
         );
       } else if (currentMode.value === "hsl") {
-        const [h, s, l] = color.hsl().array();
+        const [_h, s, l] = color.hsl().array();
         nodes.push(
           <InputNumber
             size="small"
             min={0}
             max={359}
-            value={Math.round(h)}
+            value={Math.round(_h)}
             onChange={(e) => valueChange(e, "h")}
           />
         );

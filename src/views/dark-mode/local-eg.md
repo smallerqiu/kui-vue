@@ -39,24 +39,6 @@
           />
         </Sider>
         <Content class="k-demo-main">
-          <Row type="flex" align="middle" class="header-nav">
-            <Col flex="1"></Col>
-            <Col>
-              <Space :size="20">
-                <Input
-                  :icon="Search"
-                  theme="light"
-                  shape="circle"
-                  placeholder="搜索"
-                  style="width:200px"
-                />
-                <Button :icon="NotificationsOutline" type="text" />
-                <Avatar style="background:#3a95ff" :size="40" shape="square">
-                  K
-                </Avatar>
-              </Space>
-            </Col>
-          </Row>
           <Breadcrumb class="nav">
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>List</BreadcrumbItem>

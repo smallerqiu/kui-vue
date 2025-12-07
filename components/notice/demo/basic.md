@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="info" type="primary">普通提示</Button>
     <Button @click="useNotice" type="primary">useNotice</Button>
   </Space>

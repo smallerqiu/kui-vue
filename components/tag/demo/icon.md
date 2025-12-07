@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag :icon="LogoTwitter" color="#55acee">Twitter</Tag>
     <Tag :icon="LogoYoutube" color="#cd201f">油管</Tag>
     <Tag :icon="LogoQq" color="red">QQ</Tag>

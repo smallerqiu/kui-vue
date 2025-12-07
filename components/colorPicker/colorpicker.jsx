@@ -171,7 +171,8 @@ const ColorPicker = defineComponent({
     const onUpdate = (color) => {
       currentColor.value = color;
       const value = getColor();
-      emit("update:value", value);
+      // emit("update:value", value);
+      emit("input", value);
       emit("change", value);
     };
 

@@ -15,7 +15,7 @@ const Input = defineComponent({
         return ["small", "large", "middle", "default"].indexOf(value) >= 0;
       },
     },
-    value: [String, Number, Array, Object],
+    value: { type: [String, Number, Array, Object] },
     disabled: Boolean,
     type: {
       validator(value) {
@@ -49,7 +49,7 @@ const Input = defineComponent({
     const showPassword = ref(false);
     const inputRef = ref();
     const parentSize = inject("size", null);
-    
+
     provide("size", ps.size || parentSize);
 
     watch(

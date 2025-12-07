@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-input-number {
   position: relative;
@@ -12,12 +12,12 @@
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   background-color: var(--kui-color-back);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   box-sizing: border-box;
   gap: var(--kui-padding-inline);
   padding-left: var(--kui-padding-inline);
-  ;
   overflow: hidden;
+  font-size: 14px;
 
   &:hover:not(.k-input-number-disabled) {
     border-color: var(--kui-color-main);
@@ -33,7 +33,7 @@
   }
 
   .k-input-number-controls {
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
     user-select: none;
     // position: absolute;
     // right: 0;
@@ -115,10 +115,8 @@
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
   }
 
-
-
   .k-input-number-icon {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--kui-color-icon);
   }
 }
@@ -158,7 +156,7 @@
   line-height: 1;
   cursor: pointer;
   user-select: none;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: flex;
 
   &:hover {
@@ -166,8 +164,8 @@
   }
 
   .k-icon {
-    font-size: 16px;
-    transition: all .2s ease-in-out;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
     color: var(--kui-color-icon);
   }
 }
@@ -185,7 +183,7 @@
 .k-input-number-sm {
   gap: var(--kui-padding-inline-sm);
   padding-left: var(--kui-padding-inline-sm);
-
+  font-size: 12px;
   .k-input-number-controls {
     height: 22px;
   }
@@ -197,11 +195,11 @@
   }
 
   .k-input-number-clearable {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .k-input-number-icon {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .k-input-number-suffix {
@@ -214,7 +212,7 @@
 .k-input-number-lg {
   gap: var(--kui-padding-inline-lg);
   padding-left: var(--kui-padding-inline-lg);
-
+  font-size: 16px;
   .k-input-number-controls {
     height: 38px;
   }
@@ -227,16 +225,16 @@
   }
 
   .k-input-number-clearable {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .k-input-number-icon {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .k-input-number-suffix {
     .k-icon {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 }
