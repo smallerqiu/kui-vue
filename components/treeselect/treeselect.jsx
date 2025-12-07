@@ -1,15 +1,34 @@
 import Icon from "../icon";
 import Empty from "../empty";
-import { hasProp, isNotEmpty } from "../utils/element";
-
-import Drop from "../base/drop";
-import { t } from "../locale";
-import { Sync, Close, CloseCircle, ChevronDown } from "kui-icons";
-import { Tree } from "../tree";
+import transfer from "../directives/transfer";
+import resize from "../directives/resize";
+import zhCN from "../locale/lang/zh-CN";
+import { isEmpty } from "../utils/number";
+import { getChildren } from "../utils/vnode";
+import { setPlacement } from "../utils/placement";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { withInstall } from "../utils/vue";
+import Tree from "../tree";
+import {
+  ref,
+  defineComponent,
+  watch,
+  nextTick,
+  inject,
+  toRefs,
+  // Transition,
+  onBeforeMount,
+  onMounted,
+  computed,
+  // cloneVNode,
+} from "vue";
 
-const TreeSelect = {
+const TreeSelect = defineComponent({
   name: "TreeSelect",
+  directives: {
+    transfer,
+    resize,
+  },
   props: {
     placeholder: String,
     size: {
@@ -18,18 +37,34 @@ const TreeSelect = {
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
     },
-    transfer: { type: Boolean, default: true },
+    placement: {
+      validator(value) {
+        return [
+          "top",
+          "top-left",
+          "top-right",
+          "bottom",
+          "bottom-left",
+          "bottom-right",
+        ].includes(value);
+      },
+      default: "bottom-left",
+    },
     width: Number,
+    maxTagCount: Number,
     value: [String, Number, Array],
-    clearable: Boolean,
+    clearable: { type: Boolean, default: true },
     filterable: Boolean,
+    block: Boolean,
     disabled: Boolean,
     multiple: Boolean,
     loading: Boolean,
     bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
+    options: Array,
     theme: String,
     emptyText: String,
+    loadingText: String,
     icon: [String, Array],
     shape: String,
     arrowIcon: [String, Array],
@@ -42,487 +77,483 @@ const TreeSelect = {
     treeExpandedKeys: Array,
     treeExpandedAll: Boolean,
   },
-  provide() {
-    return {
-      Select: this,
+  setup(ps, { slots, emit, attrs, listeners }) {
+    const locale = inject("locale", null) || zhCN;
+
+    const labelText = ref([]);
+    const visible = ref(false);
+    const rendered = ref(false);
+    const currentValue = ref(
+      ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]
+    );
+    const queryInputVisible = ref(false);
+    const queryKey = ref("");
+    const queryInputMirrorRef = ref();
+    const minWidth = ref("");
+    const queryInputFocused = ref(false);
+    const queryInputRef = ref();
+    const hasSearchEvent = "search" in listeners;
+    const refPopper = ref();
+    const transOrigin = ref("bottom");
+    const refCtx = ref();
+    const left = ref(0);
+    const top = ref(0);
+    const currentPlacement = ref(ps.placement);
+    const queryInputEventTimer = ref();
+
+    const activeIndex = ref(-1);
+
+    const reallySize = ref(0);
+    const ctxFocused = ref(false);
+    watch(
+      () => ps.placement,
+      (v) => {
+        currentPlacement.value = v;
+        updatePosition();
+      }
+    );
+    watch(
+      () => ps.value,
+      (v) => {
+        currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
+        updatePosition();
+        updateLabel();
+      }
+    );
+    // const scrollToelement = () => {
+    //   // 影响外层 scroll
+    //   const item = refPopper.value.children[0].children[activeIndex.value];
+    //   item.scrollIntoView({ block: "center" });
+    // };
+
+    onBeforeMount(() => {
+      document.removeEventListener("click", outsideClick);
+    });
+
+    const updatePosition = () => {
+      nextTick(() => {
+        minWidth.value = refCtx.value?.offsetWidth;
+        setPlacement(
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+          3
+        );
+      });
     };
-  },
-  data() {
-    return {
-      label: "",
-      opened: false,
-      currentValue: this.value || this.multiple ? [] : "",
-      showSearch: false,
-      queryKey: "",
-      selectWidth: this.width,
-      isFocus: false,
+
+    onMounted(() => {
+      nextTick(() => {
+        minWidth.value = refCtx.value?.offsetWidth;
+        updateLabel();
+      });
+    });
+
+    const outsideClick = (e) => {
+      const ctx = refCtx.value?.$el || refCtx.value;
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
+        visible.value = false;
+        clearQuery();
+      }
     };
-  },
-  watch: {
-    value(value) {
-      if (isNotEmpty(value)) {
-        this.currentValue = value;
+
+    const isChecked = (value) => {
+      if (ps.multiple) {
+        return currentValue.value?.indexOf(value) >= 0;
       } else {
-        this.currentValue = this.multiple ? [] : "";
+        return !isEmpty(currentValue.value) && currentValue.value[0] === value;
       }
-    },
-    currentValue() {
-      this.setLabel();
-    },
-  },
-  methods: {
-    clearQuery() {
-      if (this.showSearch) {
-        this.queryKey = "";
-        this.$refs.search.value = "";
-        this.$refs.search.style.width = "";
-      }
-      this.showSearch = false;
-    },
-    findNodeByKeyIterative(tree, key) {
-      //迭代搜索（深度优先搜索，DFS） 当树的深度可能导致递归方法栈溢出时。
-      const stack = [...tree];
-      while (stack.length) {
-        const node = stack.pop();
-        if (node.key === key) {
-          return node;
-        }
-        if (node.children) {
-          stack.push(...node.children);
-        }
-      }
-      return null;
-    },
-    getLabel(children, labelValue) {
-      let node = this.findNodeByKeyIterative(children, labelValue);
-      return node?.title || labelValue;
-    },
-    setLabel() {
-      let { currentValue, multiple, label } = this;
+    };
 
-      currentValue = isNotEmpty(currentValue)
-        ? currentValue
-        : multiple
-          ? []
-          : "";
-      let currentLabel = isNotEmpty(label) ? label : multiple ? [] : "";
+    const clearQuery = () => {
+      activeIndex.value = -1;
+      if (ps.filterable || hasSearchEvent) {
+        setTimeout(() => {
+          queryKey.value = "";
+          if (queryInputRef.value) {
+            queryInputRef.value.value = "";
+            queryInputRef.value.style.width = "";
+          }
+          queryInputVisible.value = false;
+        }, 300);
+      }
+    };
 
-      if (multiple) {
-        if (currentValue.length) {
-          let labels = [];
-          currentValue.forEach((value) => {
-            let label = this.getLabel(this.treeData, value);
-            labels.push({ label, key: `label_${value}`, value });
-          });
-          currentLabel = labels;
+    const onSelect = (item) => {
+      const { value, label } = { ...item };
+      let selected = true;
+      if (ps.multiple) {
+        if (currentValue.value?.indexOf(value) >= 0) {
+          selected = false;
+          currentValue.value = currentValue.value.filter((v) => v !== value);
+          labelText.value = labelText.value.filter((v) => v !== label);
         } else {
-          currentLabel = [];
+          currentValue.value.push(value);
+          labelText.value.push(label);
+        }
+        updatePosition();
+        if (hasSearchEvent || ps.filterable) {
+          queryInputRef.value.value = "";
+          queryKey.value = "";
+          showQuery();
         }
       } else {
-        currentLabel = this.getLabel(this.treeData, currentValue);
+        currentValue.value = [value];
+        labelText.value = [label];
+        // toggle();
+        visible.value = false;
+        clearQuery();
       }
-      this.label = currentLabel;
+      const result = ps.multiple ? currentValue.value : currentValue.value[0];
+      // emit("update:value", result);
+      emit("input", result);
 
-      setTimeout(() => {
-        this.setPosition();
-      }, 230);
-    },
-    clear(e) {
-      let label = this.multiple ? [] : "";
-      let value = this.multiple ? [] : "";
-      this.label = label;
-      this.currentValue = value;
-      this.$emit("input", value);
-      this.$emit("change", value);
-      e.stopPropagation();
-    },
-    showDrops() {
-      let isSearch = "search" in this.$listeners;
-
-      this.opened = !this.opened;
-      if (this.filterable || isSearch) {
-        this.showSearch = this.opened;
-        if (this.opened) {
-          this.$nextTick(() => {
-            this.isFocus = true;
-            this.$refs.search.focus();
-          });
-        } else {
-          this.$refs.search.blur();
-          this.isFocus = false;
-
-          setTimeout(() => {
-            this.queryKey = "";
-            this.$refs.search.value = "";
-          }, 200);
-        }
-      }
-      // this.$nextTick(e => this.setPosition())
-    },
-    toggleDrop() {
-      if (this.disabled) {
-        return false;
-      }
-      let isSearch = "search" in this.$listeners;
-      if (isSearch) {
-        // this.$nextTick(e => {
-        this.showSearch = true;
-        this.$nextTick(() => {
-          this.$refs.search.focus();
-          this.isFocus = true;
-        });
-        // })
-        return;
-      }
-      this.showDrops();
-    },
-    setPosition() {
-      // if (!hasProp(this, 'width')) {
-      //   this.selectWidth = this.$el.offsetWidth
-      // }
-      if (this.opened) {
-        this.$refs.overlay.setPosition();
-      }
-    },
-    select({ selectedKeys, selected, node }) {
-      let item = { label: node.title, value: node.key };
-      let { multiple, value, currentValue } = this;
-      // console.log(value, currentValue, item)
-
-      if (this.showSearch) {
-        this.queryKey = "";
-        this.$refs.search.value = "";
-        this.$refs.search.style.width = "";
-      }
-      if (!multiple) {
-        this.opened = false;
-        this.showSearch = false;
-      } else if ("search" in this.$listeners || this.filterable) {
-        this.$nextTick(() => {
-          this.$refs.search.focus();
-          this.isFocus = true;
-        });
-      }
-      let hasValue = hasProp(this, "value");
-      //set value
-      let newValue = value;
-      if (!hasValue) {
-        newValue = this.multiple ? currentValue || [] : item.value;
-        this.currentValue = newValue;
-      }
-
-      if (!multiple) {
-        this.currentValue = item.value;
-        this.currentLabel = item.title;
-      }
-
-      //set label
-      if (!hasValue) {
-        if (multiple) {
-          let currentLabel = this.label || [];
-          let index = currentLabel.findIndex((x) => x.value === item.value); //  .map(x => x.label).indexOf(item.label)
-          if (index === -1) {
-            currentLabel.push({
-              label: item.label,
-              key: item.label + item.value,
-              value: item.value,
+      emit("change", result);
+      emit("select", value, label, selected);
+    };
+    const searchInput = (e) => {
+      queryKey.value = e.target.value;
+      nextTick(() => {
+        e.target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
+        updatePosition();
+      });
+      if (hasSearchEvent) {
+        clearTimeout(queryInputEventTimer.value);
+        queryInputEventTimer.value = setTimeout(() => {
+          if (!rendered.value) {
+            rendered.value = true;
+            document.addEventListener("click", outsideClick);
+            nextTick(() => {
+              visible.value = true;
+              updatePosition();
             });
           } else {
-            currentLabel.splice(index, 1);
+            visible.value = true;
+            updatePosition();
           }
-          this.label = currentLabel;
-        } else {
-          this.label = item.label;
-        }
-        setTimeout(() => {
-          this.setPosition();
-        }, 230);
-      } else {
-        this.$nextTick(() => this.setPosition());
-      }
-      this.$emit("input", this.currentValue);
-      this.$emit("change", this.currentValue);
-
-      this.$emit("select", {
-        selectedKeys,
-        selected,
-        node,
-      });
-    },
-    removeTag(e, i) {
-      if (this.disabled) return;
-      // let values = this.currentValue || []
-      // let labels = this.label || []
-      // this.change({ value: values[i], label: labels[i].label })
-
-      this.currentValue.splice(i, 1);
-      this.$emit("input", this.currentValue);
-      // console.log(this.currentValue,this.label)
-      this.$emit("change", this.currentValue);
-      e.stopPropagation();
-    },
-    searchInput(e) {
-      this.queryKey = e.target.value;
-      //todo:
-      this.$nextTick(() => {
-        //   let max = this.selectWidth - 15 - (this.showArrow ? 25 : 0)
-        e.target.style.width = this.$refs.mirror.offsetWidth + "px";
-        this.setPosition();
-      });
-      if ("search" in this.$listeners) {
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => {
-          this.opened = true;
-          this.$emit("search", e);
+          emit("search", e);
         }, 500);
       }
-    },
-    emptyClick() {
-      if (this.showSearch) {
-        this.$nextTick(() => {
-          this.$refs.search.focus();
-          this.isFocus = true;
+    };
+
+    const emptyClick = (e) => {
+      if (queryInputVisible.value) {
+        nextTick((e) => {
+          queryInputRef.value.focus();
+          queryInputFocused.value = true;
         });
       }
-    },
-    treeCheck() {
-      // console.log(e)
-      // console.log(checkedKeys)
-    },
-  },
-  mounted() {
-    if (hasProp(this, "value")) this.setLabel();
-  },
-  render() {
-    let {
-      disabled,
-      size,
-      multiple,
-      opened,
-      placeholder,
-      showArrow,
-      bordered,
-      clear,
-      removeTag,
-      queryKey,
-      theme,
-      arrowIcon,
-      icon,
-      shape,
-      filterable,
-      clearable,
-      label,
-      toggleDrop,
-      isFocus,
-      currentValue,
-      treeData,
-      treeCheckable,
-      treeShowLine,
-      treeShowIcon,
-      treeCheckStrictly,
-      treeExpandedKeys,
-    } = this;
-    let childNode = [];
-    if (arrowIcon == undefined) {
-      arrowIcon = ChevronDown;
-    }
-    const classes = [
-      "k-tree-select",
-      {
-        "k-tree-select-disabled": disabled,
-        "k-tree-select-open": opened,
-        "k-tree-select-borderless": bordered === false,
-        "k-tree-select-lg": size == "large",
-        "k-tree-select-sm": size == "small",
-        "k-tree-select-light": theme == "light",
-        "k-tree-select-has-icon": !!icon,
-        "k-tree-select-circle": shape == "circle" && !multiple,
-        "k-tree-select-multiple": multiple,
-        "k-tree-select-show-search": isFocus,
-        "k-tree-select-show-tags": multiple && (label || []).length,
-      },
-    ];
-
-    const queryProps = {
-      on: {
-        input: this.searchInput,
-        blur: () => {
-          if (!this.opened) this.showSearch = false;
-          this.isFocus = false;
-        },
-      },
-      ref: "search",
-      class: "k-tree-select-search",
-      attrs: {
-        autoComplete: "off",
-      },
     };
-    const queryNode = (
-      <div
-        v-show={this.showSearch}
-        key="search"
-        class="k-tree-select-search-wrap"
-      >
-        <input {...queryProps} />
-        <span class="k-tree-select-search-mirror" ref="mirror">
-          {queryKey}
-        </span>
-      </div>
-    );
 
-    const loadingNode = (
-      <div class="k-tree-select-loading">
-        <Icon type={Sync} spin />
-        <span>{t("k.select.loading")}</span>
-      </div>
-    );
-    const props = {
-      ref: "overlay",
-      props: {
-        width: this.selectWidth,
-        value: opened,
-        selection: this.$el,
-        transfer: true,
-        extendWidth: true,
-        transitionName: "k-tree-select",
-        className: [
-          "k-tree-select-dropdown",
-          {
-            "k-tree-select-dropdown-multiple": this.multiple,
-            "k-tree-select-dropdown-sm": size == "small",
+    const removeTag = (e, index) => {
+      if (ps.disabled) return;
+      currentValue.value.splice(index, 1);
+      labelText.value.splice(index, 1);
+      e.stopPropagation();
+      updatePosition();
+    };
+    const onClear = (e) => {
+      currentValue.value = [];
+      labelText.value = [];
+      emit("input", ps.multiple ? [] : "");
+      emit("change", ps.multiple ? [] : "");
+      e.stopPropagation();
+    };
+    const showQuery = () => {
+      if (ps.filterable || hasSearchEvent) {
+        queryInputVisible.value = true;
+        nextTick(() => {
+          queryInputRef.value?.focus();
+          queryInputFocused.value = true;
+        });
+      }
+    };
+    const toggle = (show = false) => {
+      if (ps.disabled) {
+        return;
+      }
+      if (hasSearchEvent) {
+        showQuery();
+        return;
+      }
+
+      if (!rendered.value) {
+        rendered.value = true;
+        document.addEventListener("click", outsideClick);
+        nextTick(() => {
+          visible.value = true;
+          updatePosition();
+          showQuery();
+        });
+      } else {
+        visible.value = show || !visible.value;
+        if (visible.value) {
+          updatePosition();
+          showQuery();
+        } else {
+          clearQuery();
+        }
+      }
+    };
+
+    const updateLabel = () => {
+      labelText.value = optionsData.value
+        .filter((item) => currentValue.value.includes(item.value))
+        .map((item) => item.label);
+    };
+    const optionsData = computed(() => {
+      let { options, loading } = ps;
+      if (!options) {
+        options = [];
+        const children = getChildren(slots.default?.());
+        children.forEach((child, index) => {
+          let { label, value, disabled } =
+            child?.componentOptions?.propsData || {};
+          let { children = [] } = child?.componentOptions;
+          options.push({
+            value,
+            disabled,
+            label: label || children[0]?.text || value,
+          });
+        });
+      }
+      return options;
+    });
+    const filterOptions = () => {
+      const key = queryKey.value;
+      const filter = ps.filterable && !isEmpty(key);
+      return filter
+        ? optionsData.value.filter((item) =>
+            item.label.toLowerCase().includes(key.toLowerCase())
+          )
+        : optionsData.value;
+    };
+    const renderTree = () => {
+      return <Tree />;
+    };
+
+    const queryKeydown = ({ key }) => {
+      if (key === "Backspace") {
+        if (
+          queryKey.value == "" &&
+          ps.multiple &&
+          currentValue.value.length > 0
+        ) {
+          labelText.value = labelText.value.slice(0, -1);
+          currentValue.value = currentValue.value.slice(0, -1);
+          emit("input", currentValue.value);
+          // emit("update:value", currentValue.value);
+          emit(
+            "change",
+            ps.multiple ? currentValue.value : currentValue.value[0] || ""
+          );
+          updatePosition();
+        }
+      }
+    };
+    const showClear = computed(() => {
+      return ps.clearable && !ps.disabled && !isEmpty(currentValue.value);
+    });
+    const renderOverlay = () => {
+      let overlay = null;
+      if (rendered.value) {
+        const preCls = "k-select";
+        const props = {
+          ref: refPopper,
+          style: {
+            minWidth: `${minWidth.value}px`,
+            left: `${left.value}px`,
+            top: `${top.value}px`,
+            transformOrigin: transOrigin.value,
           },
-        ],
-      },
-      on: {
-        hide: () => {
-          this.opened = false;
-          setTimeout(() => {
-            this.clearQuery();
-          }, 300);
-        },
-      },
+          class: [
+            "k-select-dropdown",
+            {
+              "k-select-dropdown-multiple": ps.multiple,
+              "k-select-dropdown-sm": ps.size == "small",
+            },
+          ],
+        };
+        const loadingNode = (
+          <div class="k-select-loading">
+            <Icon type={Loading} spin />
+            <span>{locale?.k.select.loading}</span>
+          </div>
+        );
+        overlay = (
+          <transition name={`${preCls}`}>
+            <div v-transfer={true} v-show={visible.value} {...props}>
+              {ps.loading ? (
+                loadingNode
+              ) : ps.treeData?.length ? (
+                renderTree()
+              ) : (
+                <Empty
+                  onClick={emptyClick}
+                  description={locale?.k.select.emptyText}
+                />
+              )}
+            </div>
+          </transition>
+        );
+      }
+      return overlay;
     };
-    const selectedKeys = this.multiple ? currentValue || [] : [currentValue];
-    // console.log(this.$listeners)
-    const treeProps = {
-      props: {
-        data: treeData,
-        checkable: treeCheckable,
-        multiple: multiple,
-        showLine: treeShowLine,
-        showIcon: treeShowIcon,
-        checkStrictly: treeCheckStrictly,
-        expandedKeys: treeExpandedKeys,
-        selectedKeys: selectedKeys,
-        checkedKeys: selectedKeys,
-      },
-      on: {
-        select: this.select,
-        check: this.treeCheck,
-      },
-    };
-    if ("tree-load-data" in this.$listeners) {
-      treeProps.on["load-data"] = this.$listeners["tree-load-data"];
-    }
-    if (this.filterable && queryKey && !this.$listeners.search) {
-      let parsedQuery = String(queryKey).replace(
-        /(\^|\(|\)|\[|\]|\$|\*|\+|\.|\?|\\|\{|\}|\|)/g,
-        "\\$1"
-      );
-      treeProps.props.data = this.filterTreeByKeyword(treeData, parsedQuery);
-    }
-    let overlay = (
-      <Drop {...props}>
-        {this.loading ? (
-          loadingNode
-        ) : !(treeProps.props.data && treeProps.props.data.length) ? (
-          <Empty onClick={this.emptyClick} description={this.emptyText} />
-        ) : (
-          <Tree {...treeProps} />
-        )}
-      </Drop>
-    );
+    return () => {
+      let {
+        disabled,
+        size,
+        multiple,
+        placeholder,
+        showArrow,
+        bordered,
+        theme,
+        arrowIcon,
+        icon,
+        shape,
+        filterable,
+      } = ps;
+      let childNode = [];
+      if (arrowIcon === undefined) {
+        arrowIcon = ChevronDown;
+      }
 
-    label = multiple ? label || [] : label + "";
-    placeholder = placeholder || t("k.select.placeholder");
-    const placeNode =
-      placeholder &&
-      (label === null || label === undefined || !label.length) &&
-      !queryKey ? (
-        <div class="k-tree-select-placeholder">{placeholder}</div>
-      ) : null;
-    const tags = multiple
-      ? label.map((c, i) => {
+      const queryProps = {
+        ref: queryInputRef,
+        class: "k-select-search",
+        autoComplete: "off",
+        on: {
+          change: (e) => e.stopPropagation(),
+          keydown: queryKeydown,
+          input: searchInput,
+          blur: () => {
+            if (!visible.value) {
+              queryInputVisible.value = false;
+            }
+          },
+        },
+      };
+      const queryNode = (
+        <div
+          v-show={queryInputVisible.value}
+          key="search"
+          class="k-select-search-wrap"
+        >
+          <input {...queryProps} />
+          <span class="k-select-search-mirror" ref={queryInputMirrorRef}>
+            {queryKey.value}
+          </span>
+        </div>
+      );
+
+      const placeholderText = placeholder || locale?.k.select.placeholder;
+      const placeNode =
+        placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
+          <div class="k-select-placeholder">{placeholderText}</div>
+        ) : null;
+
+      const labelStyle = {
+        display: queryKey.value.length ? "none" : "",
+      };
+      const renderTags = () => {
+        let tags = labelText.value.map((label, i) => {
           return (
-            <span class="k-tree-select-tag" key={c.key}>
-              {c.label}
+            <span class="k-select-tag" key={label}>
+              {label}
               <Icon type={Close} onClick={(e) => removeTag(e, i)} />
             </span>
           );
-        })
-      : null;
-
-    const labelStyle = {
-      // opacity: this.showSearch ? .4 : 1,
-      display: queryKey.length ? "none" : "",
-    };
-    const labelsNode = multiple ? (
-      [
-        <div class="k-tree-select-labels" name="k-tree-select-tag">
-          {tags}
+        });
+        if (
+          ps.maxTagCount &&
+          ps.maxTagCount > 0 &&
+          tags.length > ps.maxTagCount
+        ) {
+          tags = tags.slice(0, ps.maxTagCount);
+          tags.push(
+            <span class="k-select-tag">
+              +{labelText.value.length - ps.maxTagCount}...
+            </span>
+          );
+        }
+        return tags;
+      };
+      const labelsNode = multiple ? (
+        <div class="k-select-labels" name="k-select-tag">
+          {renderTags()}
           {queryNode}
-        </div>,
-      ]
-    ) : label.length ? (
-      <div class="k-tree-select-label" style={labelStyle}>
-        {label}
-      </div>
-    ) : null;
-    let isSearch = "search" in this.$listeners;
-    childNode.push(labelsNode);
-    placeNode && childNode.push(placeNode);
+        </div>
+      ) : !isEmpty(labelText.value) ? (
+        <div class="k-select-label" style={labelStyle}>
+          {labelText.value[0]}
+        </div>
+      ) : null;
 
-    if ((filterable || isSearch) && !multiple) {
-      childNode.push(queryNode);
-    }
-    // label = "1"
-    const styles = { width: `${this.width}px` };
-    let showClear =
-      !disabled && clearable && isNotEmpty(label) && label.length > 0;
+      childNode.push(labelsNode);
 
-    classes[1]["k-tree-select-has-clear"] = showClear;
-    const iconNodes = [];
+      placeNode && childNode.push(placeNode);
 
-    if (!isSearch && showArrow) {
-      iconNodes.push(<Icon class="k-tree-select-arrow" type={arrowIcon} />);
-    }
-    if (showClear) {
-      iconNodes.push(
-        <Icon
-          class="k-tree-select-clearable"
-          type={CloseCircle}
-          onClick={clear}
-        />
+      if ((filterable || hasSearchEvent) && !multiple) {
+        childNode.push(queryNode);
+      }
+      const styles = { width: `${ps.width}px` };
+
+      const arrowNode =
+        !hasSearchEvent && showArrow ? (
+          <Icon class="k-select-arrow" type={arrowIcon} />
+        ) : null;
+
+      const classes = [
+        "k-select",
+        {
+          "k-select-disabled": disabled,
+          "k-select-block": ps.block,
+          "k-select-opened": visible.value,
+          "k-select-borderless": bordered === false,
+          "k-select-lg": size == "large",
+          "k-select-sm": size == "small",
+          "k-select-light": theme == "light",
+          "k-select-has-icon": !!icon,
+          "k-select-circle": shape == "circle" && !multiple,
+          "k-select-multiple": multiple,
+          "k-select-show-search": queryInputFocused.value,
+          "k-select-show-tags": multiple && !isEmpty(labelText.value),
+          "k-select-has-clear": showClear.value,
+        },
+      ];
+      const clearNode = showClear.value ? (
+        <Icon class="k-select-clearable" type={CloseCircle} onClick={onClear} />
+      ) : null;
+
+      return (
+        <div
+          tabIndex="0"
+          class={classes}
+          style={styles}
+          v-resize={updatePosition}
+          onClick={toggle}
+          onFocus={() => (ctxFocused.value = true)}
+          onBlur={() => (ctxFocused.value = false)}
+          ref={refCtx}
+        >
+          {icon ? <Icon type={icon} class="k-select-icon" /> : null}
+          <div class="k-select-selection">{childNode}</div>
+          <span class="k-select-suffix">
+            {arrowNode}
+            {clearNode}
+          </span>
+          {renderOverlay()}
+        </div>
       );
-    }
-    // console.log(iconNodes)
-
-    iconNodes.push(" ");
-    return (
-      <div
-        tabIndex="0"
-        class={classes}
-        style={styles}
-        onClick={toggleDrop}
-        ref="rel"
-      >
-        {icon ? <Icon type={icon} class="k-tree-select-icon" /> : null}
-        <div class="k-tree-select-selection">{childNode}</div>
-        {iconNodes}
-        {overlay}
-      </div>
-    );
+    };
   },
-};
-
+});
 export default withInstall(TreeSelect);

@@ -152,8 +152,8 @@ export { TimeLine, TimeLineItem };
 import Tree from "./tree";
 export { Tree };
 
-// import TreeSelect from './treeselect'
-// export { TreeSelect };
+import TreeSelect from './treeselect'
+export { TreeSelect };
 
 import Tag from "./tag";
 export { Tag };

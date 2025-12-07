@@ -247,7 +247,6 @@ const Dropdown = defineComponent({
         //   }
         // },
       };
-      console.log(rendered.value, 'rendered')
       const overlay =
         (rendered.value && slots.overlay) ? (
           <transition name="k-dropdown">
