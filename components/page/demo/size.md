@@ -8,13 +8,12 @@
   <div class="demo-page">
     <Page :current="current" :total="50" size="small" />
     <Page :current="current" :total="50" size="small" show-sizer />
-    <Page :current="current" :total="50" size="small" show-elevator />
     <Page
       :current="current"
       :total="50"
       size="small"
       show-elevator
-      show-total
+      show-sizer
     />
   </div>
 </template>

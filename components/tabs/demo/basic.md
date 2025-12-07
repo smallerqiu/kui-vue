@@ -6,7 +6,7 @@
 ```vue
 <template>
   Animated: <KSwitch v-model:checked="animated" />
-  <Tabs v-model:activeKey="current" :animated="animated">
+  <Tabs v-model="current" :animated="animated">
     <TabPanel key="1" title="Tab 1">
       Content of Tab Pane 1
     </TabPanel>

@@ -1,8 +1,6 @@
 import Info from './info.md'
 import Basic from './basic.md'
-import More from './more.md'
-import Sizer from './sizer.md'
-import Elevator from './elevator.md'
+import SizerElevator from './sizer-elevator.md'
 import Size from './size.md'
 import CN from '../index.md'
 export default {
@@ -11,9 +9,7 @@ export default {
       <div>
         <Info />
         <Basic />
-        <More />
-        <Sizer />
-        <Elevator />
+        <SizerElevator/>
         <Size />
         <CN />
       </div>
