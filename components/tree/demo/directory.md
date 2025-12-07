@@ -7,14 +7,14 @@
 <template>
   <div>
     <Space wrap>
-      <Checkbox :checked.sync="directory" label="Directory" />
-      <Checkbox :checked.sync="showLine" label="showLine" />
-      <Checkbox :checked.sync="draggable" label="Draggable" />
-      <Checkbox :checked.sync="checkable" label="Checkable" />
-      <Checkbox :checked.sync="showIcon" label="ShowIcon" />
-      <Checkbox :checked.sync="showExtra" label="ShowExtra" />
-      <Checkbox :checked.sync="multiple" label="Multiple" />
-      <Checkbox :checked.sync="checkStrictly" label="checkStrictly" />
+      <Checkbox v-model="directory" label="Directory" />
+      <Checkbox v-model="showLine" label="showLine" />
+      <Checkbox v-model="draggable" label="Draggable" />
+      <Checkbox v-model="checkable" label="Checkable" />
+      <Checkbox v-model="showIcon" label="ShowIcon" />
+      <Checkbox v-model="showExtra" label="ShowExtra" />
+      <Checkbox v-model="multiple" label="Multiple" />
+      <Checkbox v-model="checkStrictly" label="checkStrictly" />
     </Space>
     <br />
     <br />

@@ -1,9 +1,8 @@
 import Basic from "./basic.md";
 import Info from "./info.md";
 import Disabled from "./disabled.md";
-import Options from "./options.md";
 import Group from "./group.md";
-import GroupVertical from "./group-vertical.md";
+import GroupLayout from "./group-layout.md";
 import CheckAll from "./check-all.md";
 import CN from "../index.md";
 export default {
@@ -12,10 +11,9 @@ export default {
       <div class="demo-checkbox">
         <Info />
         <Basic />
-        <Disabled />
-        <Options />
         <Group />
-        <GroupVertical />
+        <GroupLayout />
+        <Disabled />
         <CheckAll />
         <CN />
       </div>

@@ -1,61 +1,67 @@
-import { Button } from "../button";
-import { defineComponent, inject, computed } from "vue";
+import { defineComponent, watch, ref } from "vue";
 import { withInstall } from "../utils/vue";
-
+import { Button } from "../button/";
 const RadioButton = defineComponent({
   name: "RadioButton",
-  props: {
-    value: { type: [String, Number, Boolean] },
-    disabled: Boolean,
-    label: [String, Number],
-    size: String,
-    theme: String,
-    shape: String,
+  // [Vue 3 Upgrade]: del
+  model: {
+    prop: "checked",
+    event: "input",
   },
+  props: {
+    // [Vue 3 Upgrade]
+    // modelValue: { type: [Boolean, String, Number], default: null },
+
+    // [Vue 3 Upgrade]: Vue 2 use checked & model
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    value: { type: [String, Number, Boolean] },
+    label: { type: [String, Number] },
+    disabled: Boolean,
+    size: {
+      default: "default",
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      },
+    },
+  },
+
   setup(props, { slots, emit, attrs, listeners }) {
-    const radioGroup = inject("KRadioGroup", null);
-
-    const isChecked = computed(() => {
-      if (radioGroup) {
-        // [Vue 3 Upgrade]: radioGroup.currentValue.value
-        return radioGroup.currentValue.value === props.value;
+    const isChecked = ref(props.checked);
+    watch(
+      () => props.checked,
+      (v) => {
+        isChecked.value = v;
       }
-      return false;
-    });
-
-    const isDisabled = computed(() => {
-      return (radioGroup && radioGroup.disabled.value) || props.disabled;
-    });
-
-    const mergedSize = computed(
-      () => (radioGroup && radioGroup.size.value) || props.size
-    );
-    const mergedTheme = computed(
-      () => (radioGroup && radioGroup.theme.value) || props.theme
-    );
-    const mergedShape = computed(
-      () => (radioGroup && radioGroup.shape.value) || props.shape
     );
 
+    const labelText = props.label || slots.default?.();
     const handleClick = (e) => {
-      if (isDisabled.value) return;
+      if (props.disabled) return;
 
-      if (radioGroup) {
-        radioGroup.onGroupChange(props.value);
-      }
-      emit("click", e);
+      const checked = !isChecked.value;
+
+      isChecked.value = checked;
+      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
+      emit("change", {
+        checked: checked,
+        value: props.value,
+        label: labelText,
+      });
+      emit("input", checked);
+      e.preventDefault();
     };
 
     return () => {
-      const labelText = props.label || slots.default?.();
-
       const buttonProps = {
         props: {
           ...props,
-          disabled: isDisabled.value,
-          size: mergedSize.value,
-          theme: mergedTheme.value,
-          shape: mergedShape.value,
+          disabled: props.disabled,
+          size: props.size,
+          theme: props.theme,
+          shape: props.shape,
           type: isChecked.value ? "primary" : "default",
         },
         attrs: attrs,
