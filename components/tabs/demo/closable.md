@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="activeKey" card @remove="remove">
+  <Tabs v-model="activeKey" card @remove="remove">
     <TabPanel
       :title="panel.title"
       v-for="panel in panesData"

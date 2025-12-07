@@ -5,27 +5,21 @@
 
 ```vue
 <template>
-  <div class="demo-page">
+  <Space vertical>
     <Page
       v-model:current="current"
       v-model:pageSize="size"
       :total="50"
-      show-sizer
-      show-total
-      show-elevator
       @change="onChange"
     />
     <Page
       v-model:current="current"
       v-model:pageSize="size"
       :total="50"
-      show-sizer
-      show-total
-      show-elevator
       @change="onChange"
       disabled
     />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";

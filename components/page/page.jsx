@@ -8,7 +8,7 @@ import {
   ChevronDoubleForward,
 } from "kui-icons";
 import { ref, defineComponent, watch, inject, nextTick } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 import zhCN from "../locale/lang/zh-CN";
 const Page = defineComponent({
@@ -105,7 +105,9 @@ const Page = defineComponent({
         let prop = {
           class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
-          onClick: () => toPage(p),
+          on: {
+            click: () => toPage(p),
+          },
         };
         return (
           <li {...prop}>
@@ -117,9 +119,11 @@ const Page = defineComponent({
       if (showPrevMore) {
         let p = {
           class: "k-pager-item k-pager-more",
-          onMouseenter: () => (prevPageGroup.value = true),
-          onMouseleave: () => (prevPageGroup.value = false),
-          onClick: () => toPage(defaultPage.value - 5),
+          on: {
+            mouseenter: () => (prevPageGroup.value = true),
+            mouseleave: () => (prevPageGroup.value = false),
+            click: () => toPage(defaultPage.value - 5),
+          },
         };
         const moreNode = (
           <li {...p}>
@@ -134,9 +138,11 @@ const Page = defineComponent({
       if (showNextMore) {
         let p = {
           class: "k-pager-item k-pager-more",
-          onMouseenter: () => (nextPageGroup.value = true),
-          onMouseleave: () => (nextPageGroup.value = false),
-          onClick: () => toPage(defaultPage.value + 5),
+          on: {
+            mouseenter: () => (nextPageGroup.value = true),
+            mouseleave: () => (nextPageGroup.value = false),
+            click: () => toPage(defaultPage.value + 5),
+          },
         };
         const moreNode = (
           <li {...p}>
@@ -198,7 +204,8 @@ const Page = defineComponent({
               "k-pager-item",
               { "k-pager-item-active": defaultPage.value == 1 },
             ]}
-            onClick={() => toPage(1)}>
+            onClick={() => toPage(1)}
+          >
             <span>1</span>
           </li>
         );
@@ -214,7 +221,8 @@ const Page = defineComponent({
               "k-pager-item",
               { "k-pager-item-active": defaultPage.value == pCount },
             ]}
-            onClick={(e) => toPage(pCount)}>
+            onClick={(e) => toPage(pCount)}
+          >
             <span>{pCount}</span>
           </li>
         );
@@ -223,13 +231,18 @@ const Page = defineComponent({
     };
     const renderSize = () => {
       let prop = {
-        value: defaultPageSize.value,
-        size: ps.size,
-        options: ps.sizeData.map((s) => {
-          return { value: s, label: `${s}${locale?.k.page.pageSize}` };
-        }),
-        disabled: ps.disabled,
-        "onUpdate:value": changeSize,
+        props: {
+          value: defaultPageSize.value,
+          size: ps.size,
+          clearable: false,
+          options: ps.sizeData.map((s) => {
+            return { value: s, label: `${s}${locale?.k.page.pageSize}` };
+          }),
+          disabled: ps.disabled,
+        },
+        on: {
+          change: changeSize,
+        },
       };
       return ps.showSizer ? (
         <div class="k-page-sizer">{<Select {...prop} />}</div>
@@ -240,30 +253,34 @@ const Page = defineComponent({
       let { size } = ps;
       let prop = {
         class: "k-page-options-elevator",
-        size,
-        disabled: ps.disabled,
+        props: {
+          size,
+          disabled: ps.disabled,
+        },
         // value: defaultPage.value,
-        onChange: (e) => {
-          let page = e.target.value;
-          if (Number(page) == NaN) {
-            e.target.value = "";
-            return;
-          }
-          page = Number(page);
+        on: {
+          change: (e) => {
+            let page = e.target.value;
+            if (Number(page) == NaN) {
+              e.target.value = "";
+              return;
+            }
+            page = Number(page);
 
-          let pCount = pageCount.value;
-          if (page > pCount) page = pCount;
-          if (page < 1) page = 1;
+            let pCount = pageCount.value;
+            if (page > pCount) page = pCount;
+            if (page < 1) page = 1;
 
-          if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
-            defaultPage.value = page;
-            emit("update:current", page);
-            emit("change", page, defaultPageSize.value);
-          }
-          nextTick(() => {
-            e.target.value = "";
-          });
-          e.stopPropagation();
+            if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
+              defaultPage.value = page;
+              emit("update:current", page);
+              emit("change", page, defaultPageSize.value);
+            }
+            nextTick(() => {
+              e.target.value = "";
+            });
+            e.stopPropagation();
+          },
         },
         // onChange: (e) => {
         //   // e.stopPropagation();
@@ -279,16 +296,17 @@ const Page = defineComponent({
     };
     return () => {
       const classes = [
-        "k-page",
-        { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
-      ],
+          "k-page",
+          { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
+        ],
         preNode = (
           <li
             class={[
               "k-pager-item k-pager-prev",
               { "k-pager-item-disabled": defaultPage.value == 1 },
             ]}
-            onClick={prePage}>
+            onClick={prePage}
+          >
             <Icon type={ChevronUp} />
           </li>
         ),
@@ -298,7 +316,8 @@ const Page = defineComponent({
               "k-pager-item k-pager-next",
               { "k-pager-item-disabled": defaultPage.value == pageCount.value },
             ]}
-            onClick={nextPage}>
+            onClick={nextPage}
+          >
             <Icon type={ChevronUp} />
           </li>
         ),
@@ -326,4 +345,4 @@ const Page = defineComponent({
     };
   },
 });
-export default withInstall(Page)
+export default withInstall(Page);

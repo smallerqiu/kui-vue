@@ -11,7 +11,7 @@
     </Button>
     <br />
     <br />
-    <Tabs v-model:activeKey="current">
+    <Tabs v-model="current">
       <TabPanel key="1" title="Tab 1"> Content of Tab Pane 1 </TabPanel>
       <TabPanel key="2" title="Tab 2" :disabled="disabled">
         Content of Tab Pane 2
