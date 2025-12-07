@@ -11,6 +11,7 @@
           v-model:value="type"
           theme="card"
           type="button"
+          size="large"
           @change="switchIcon"
         >
           <RadioButton value="outline">
@@ -24,6 +25,7 @@
           compact
           size="large"
           block
+          :wrap="false"
         >
           <Input
             v-model:value="searchKey"

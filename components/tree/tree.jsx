@@ -27,7 +27,7 @@ const Tree = {
   },
 
   setup(ps, { emit, slots, listeners }) {
-    const defaultData = ref();
+    const defaultData = ref([]);
     const defaultSelectedKeys = ref(ps.selectedKeys || []);
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
     const defaultCheckedKeys = ref(ps.checkedKeys || []);
