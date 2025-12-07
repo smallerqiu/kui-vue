@@ -15,8 +15,8 @@
     <br />
     <br />
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       :theme="theme"
       mode="inline"
     >

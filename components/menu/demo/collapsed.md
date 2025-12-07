@@ -14,10 +14,10 @@
     <br />
     <br />
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       theme="dark"
-      :inline-collapsed="collapsed"
+      :inlineCollapsed="collapsed"
       mode="inline"
     >
       <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>

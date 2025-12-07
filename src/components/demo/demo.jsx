@@ -115,6 +115,7 @@ const Demo = defineComponent({
                 <Tooltip title={expanded.value ? "隐藏代码" : "显示代码"}>
                   <Button
                     block
+                    size="large"
                     type="text"
                     icon={CaretHor}
                     onClick={() => (expanded.value = !expanded.value)}
@@ -122,7 +123,7 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button type="text" icon={CopyOutline} block onClick={copy} />
+                  <Button type="text" size="large" icon={CopyOutline} block onClick={copy} />
                 </Tooltip>
               </div>
             )}
