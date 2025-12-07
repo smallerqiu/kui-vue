@@ -406,6 +406,7 @@ export default defineComponent({
       }
     };
     const timeLabelClick = (e, direction) => {
+      e.preventDefault();
       if (timeEditSide.value == direction && currentView.value == "time") {
         currentView.value = "date";
         return;
@@ -542,15 +543,17 @@ export default defineComponent({
             onClick={() =>
               (panelDate.value = panelDate.value.subtract(1, "year"))
             }
-          ></Button>
-
-          <Button
-            icon={ChevronBack}
-            type="text"
-            onClick={() =>
-              (panelDate.value = panelDate.value.subtract(1, "month"))
-            }
           />
+
+          {props.mode !== "year" ? (
+            <Button
+              icon={ChevronBack}
+              type="text"
+              onClick={() =>
+                (panelDate.value = panelDate.value.subtract(1, "month"))
+              }
+            />
+          ) : null}
           <span class="k-picker-header-label">
             <span onClick={() => (currentView.value = "year")}>{year}年</span>
             {props.mode != "year" ? (
@@ -560,16 +563,20 @@ export default defineComponent({
             ) : null}
           </span>
 
-          <Button
-            icon={ChevronForward}
-            type="text"
-            onClick={() => (panelDate.value = panelDate.value.add(1, "month"))}
-          ></Button>
+          {props.mode !== "year" ? (
+            <Button
+              icon={ChevronForward}
+              type="text"
+              onClick={() =>
+                (panelDate.value = panelDate.value.add(1, "month"))
+              }
+            />
+          ) : null}
           <Button
             type="text"
             icon={ChevronDoubleForward}
             onClick={() => (panelDate.value = panelDate.value.add(1, "year"))}
-          ></Button>
+          />
         </div>
       );
     };
@@ -782,7 +789,7 @@ export default defineComponent({
                   ? "active"
                   : "",
               ]}
-              onClick={() => timeLabelClick("start")}
+              onClick={(e) => timeLabelClick(e, "start")}
             >
               {s}
             </div>
@@ -796,7 +803,7 @@ export default defineComponent({
                   ? "active"
                   : "",
               ]}
-              onClick={() => timeLabelClick("end")}
+              onClick={(e) => timeLabelClick(e, "end")}
             >
               {e}
             </div>
@@ -925,7 +932,7 @@ export default defineComponent({
           );
         }
       };
-      const presetClick = ({ value }) => {
+      const presetEmit = ({ value }) => {
         if (typeof value === "function") {
           let date = value();
           if (isRange.value && Array.isArray(date)) {

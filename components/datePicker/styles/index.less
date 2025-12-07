@@ -382,10 +382,14 @@
     &:hover {
       background: var(--kui-color-hover);
     }
+    &.active {
+      color: var(--kui-color-main);
+      text-shadow: 0 0 1px var(--kui-color-main);
+    }
   }
   .k-picker-time-picker {
     display: flex;
-    height: 283px;
+    height: 282px;
     border-top: 1px solid var(--kui-color-border);
   }
   .k-picker-time-col {
@@ -437,11 +441,11 @@
   .k-picker-day-disabled,
   .k-picker-time-disabled {
     color: var(--kui-color-icon);
-    background-color: var(--kui-color-disabled);
+    background-color: var(--kui-color-disable-back);
     opacity: 0.7;
     cursor: not-allowed;
     &:hover {
-      background-color: var(--kui-color-disabled);
+      background-color: var(--kui-color-disable-back);
     }
   }
   /* 垫片：让首尾元素能滚到中间 */
