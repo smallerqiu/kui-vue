@@ -5,19 +5,22 @@ import transfer from "../directives/transfer";
 import resize from "../directives/resize";
 import zhCN from "../locale/lang/zh-CN";
 import { isEmpty } from "../utils/number";
-import { setPlacement } from "../utils/placement"; 
+import { getChildren } from "../utils/vnode";
+import { setPlacement } from "../utils/placement";
 import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { withInstall } from "../utils/vue";
 import {
   ref,
-  reactive,
   defineComponent,
   watch,
   nextTick,
   inject,
-  provide,
+  toRefs,
+  // Transition,
+  onBeforeMount,
+  onMounted,
   computed,
-  onBeforeUnmount
+  // cloneVNode,
 } from "vue";
 
 const Select = defineComponent({
@@ -27,9 +30,6 @@ const Select = defineComponent({
     resize,
   },
   props: {
-    // [Vue 3 Upgrade]: modelValue: [String, Number, Array],
-    value: [String, Number, Array],
-    
     placeholder: String,
     size: {
       default: "default",
@@ -38,21 +38,30 @@ const Select = defineComponent({
       },
     },
     placement: {
-      default: "bottom",
       validator(value) {
-        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "right"].includes(value);
+        return [
+          "top",
+          "top-left",
+          "top-right",
+          "bottom",
+          "bottom-left",
+          "bottom-right",
+        ].includes(value);
       },
+      default: "bottom-left",
     },
     width: Number,
     maxTagCount: Number,
-    clearable: Boolean,
+    value: [String, Number, Array],
+    clearable: { type: Boolean, default: true },
     filterable: Boolean,
+    block: Boolean,
     disabled: Boolean,
     multiple: Boolean,
     loading: Boolean,
-    // bordered: { type: Boolean, default: true },
+    bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
-    options: Array, 
+    options: Array,
     theme: String,
     emptyText: String,
     loadingText: String,
@@ -60,397 +69,570 @@ const Select = defineComponent({
     shape: String,
     arrowIcon: [String, Array],
   },
-  setup(props, { slots, emit }) {
+  setup(ps, { slots, emit, attrs, listeners }) {
     const locale = inject("locale", null) || zhCN;
-    
-    const state = reactive({
-      visible: false,
-      queryKey: "",
-      queryInputFocused: false,
-      rendered: false,
-    });
 
+    const labelText = ref([]);
+    const visible = ref(false);
+    const rendered = ref(false);
     const currentValue = ref(
-      props.multiple ? props.value || [] : (props.value === undefined || props.value === null ? "" : props.value)
+      ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]
     );
+    const queryInputVisible = ref(false);
+    const queryKey = ref("");
+    const queryInputMirrorRef = ref();
+    const minWidth = ref("");
+    const queryInputFocused = ref(false);
+    const queryInputRef = ref();
+    const hasSearchEvent = "search" in listeners;
+    const refPopper = ref();
+    const transOrigin = ref("bottom");
+    const refCtx = ref();
+    const left = ref(0);
+    const top = ref(0);
+    const currentPlacement = ref(ps.placement);
+    const queryInputEventTimer = ref();
 
-    const childOptions = ref([]); 
-    const hoverIndex = ref(-1);
+    const activeIndex = ref(-1);
 
-    const refCtx = ref(null);
-    const refPopper = ref(null);
-    const queryInputRef = ref(null);
-    const queryInputMirrorRef = ref(null);
-
-    const currentPlacement = ref(props.placement);
-    const transOrigin = ref("center top");
-    const placementTop = ref(0);
-    const placementLeft = ref(0);
-    const minWidth = ref(0);
-
-    const registerOption = (option) => {
-      const existing = childOptions.value.find(o => o.value === option.value);
-      if (!existing) {
-        childOptions.value.push(option);
-      } else {
-        existing.label = option.label;
-        existing.disabled = option.disabled;
-      }
-    };
-    
-    const unregisterOption = (val) => {
-      const idx = childOptions.value.findIndex(o => o.value === val);
-      if (idx > -1) {
-        childOptions.value.splice(idx, 1);
-      }
-    };
-
-    const updateOptionLabel = (val, label) => {
-      const option = childOptions.value.find(o => o.value === val);
-      if (option) {
-        option.label = label;
-      }
-    };
-    
-    const setHoverIndex = (idx) => {
-       hoverIndex.value = idx;
-    };
-
-    const onOptionSelect = (val, option) => {
-      if (props.multiple) {
-        const valArray = Array.isArray(currentValue.value) ? [...currentValue.value] : [];
-        const idx = valArray.indexOf(val);
-        if (idx > -1) {
-          valArray.splice(idx, 1); // 反选
-        } else {
-          valArray.push(val); // 选中
-        }
-        currentValue.value = valArray;
-        
-        if (props.filterable) {
-          state.queryKey = "";
-          state.queryInputFocused = true;
-          nextTick(() => queryInputRef.value?.focus());
-        }
+    const reallySize = ref(0);
+    const ctxFocused = ref(false);
+    watch(
+      () => ps.placement,
+      (v) => {
+        currentPlacement.value = v;
         updatePosition();
-      } else {
-        currentValue.value = val;
-        state.visible = false;
-        state.queryKey = "";
       }
-      
-      emit("input", currentValue.value);
-      emit("change", currentValue.value);
-      emit("select", { value: val, label: option.label });
+    );
+    watch(
+      () => ps.value,
+      (v) => {
+        currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
+        updatePosition();
+        updateLabel();
+      }
+    );
+    // const scrollToelement = () => {
+    //   // 影响外层 scroll
+    //   const item = refPopper.value.children[0].children[activeIndex.value];
+    //   item.scrollIntoView({ block: "center" });
+    // };
+    const scrollOptionIntoView = () => {
+      const containerEl = refPopper.value;
+      const optionEl = refPopper.value.children[0].children[activeIndex.value];
+      const optionTop = optionEl.offsetTop;
+      const optionHeight = optionEl.offsetHeight;
+      const containerHeight = containerEl.clientHeight;
+
+      const targetScroll = optionTop - containerHeight / 2 + optionHeight / 2;
+      containerEl.scrollTop = targetScroll;
     };
-
-    provide("KSelect", {
-      props,
-      state,
-      currentValue,
-      childOptions, 
-      hoverIndex,
-      registerOption,
-      unregisterOption,
-      updateOptionLabel,
-      onOptionSelect,
-      setHoverIndex
-    });
-
-    // --- Watchers ---
-    watch(() => props.value, (val) => {
-      if (props.multiple) {
-          currentValue.value = val || [];
-      } else {
-          currentValue.value = val;
+    const onKeydown = (e) => {
+      const key = e.key;
+      if ((!visible.value || optionsData.value.size == 0) && ctxFocused.value) {
+        if (key === "ArrowDown" || key === "ArrowUp") {
+          toggle();
+        }
+        return;
       }
-    });
-    
-    watch(() => props.placement, (val) => {
-      currentPlacement.value = val;
-      updatePosition();
-    });
-
-    const selectedLabels = computed(() => {
-      const getLabel = (val) => {
-        const opt = childOptions.value.find(o => o.value === val);
-        return opt ? opt.label : val;
-      };
-
-      if (props.multiple) {
-         return (currentValue.value || []).map(getLabel);
-      } else {
-         return [getLabel(currentValue.value)];
+      if (visible.value) {
+        if (key === "ArrowDown") {
+          let index = activeIndex.value;
+          if (index < reallySize.value - 1) {
+            index += 1;
+          } else {
+            index = 0;
+          }
+          activeIndex.value = index;
+          scrollOptionIntoView();
+          e.preventDefault();
+          return;
+        } else if (key === "ArrowUp") {
+          let index = activeIndex.value;
+          if (index >= 1) {
+            index -= 1;
+          } else {
+            index = reallySize.value - 1;
+          }
+          activeIndex.value = index;
+          scrollOptionIntoView();
+          e.preventDefault();
+          return;
+        } else if (
+          key === "Enter" &&
+          activeIndex.value >= 0 &&
+          (ctxFocused.value || queryInputFocused.value)
+        ) {
+          let { label, value } = optionsData.value[activeIndex.value];
+          onSelect({ label, value });
+          e.preventDefault();
+          return;
+        } else if (
+          key == "Escape" &&
+          (ctxFocused.value || queryInputFocused.value)
+        ) {
+          visible.value = false;
+          clearQuery();
+          e.preventDefault();
+        }
       }
+    };
+    onBeforeMount(() => {
+      document.removeEventListener("keydown", onKeydown);
+      document.removeEventListener("click", outsideClick);
     });
 
     const updatePosition = () => {
-      if (!state.visible) return;
       nextTick(() => {
+        minWidth.value = refCtx.value?.offsetWidth;
         setPlacement(
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
-          placementTop,
-          placementLeft,
-          3 
+          top,
+          left,
+          3
         );
       });
     };
 
-    const toggle = () => {
-      if (props.disabled) return;
-      if (!state.rendered) state.rendered = true;
-      
-      state.visible = !state.visible;
-      if (state.visible) {
-        state.queryInputFocused = true;
-        document.addEventListener("click", outsideClick);
-        document.addEventListener("keydown", onKeydown);
-        
-        if (refCtx.value) {
-            minWidth.value = refCtx.value.offsetWidth;
-        }
-
-        updatePosition();
-        
-        if (props.filterable) {
-             nextTick(() => queryInputRef.value?.focus());
-        }
-      } else {
-        closeDropdown();
-      }
-    };
-
-    const closeDropdown = () => {
-        state.visible = false;
-        state.queryInputFocused = false;
-        document.removeEventListener("click", outsideClick);
-        document.removeEventListener("keydown", onKeydown);
-    };
+    onMounted(() => {
+      nextTick(() => {
+        minWidth.value = refCtx.value?.offsetWidth;
+        updateLabel();
+      });
+      document.addEventListener("keydown", onKeydown);
+    });
 
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
-      const popper = refPopper.value?.$el || refPopper.value; 
-      if (ctx && ctx.contains(e.target)) return;
-      if (popper && popper.contains(e.target)) return;
-      closeDropdown();
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
+        visible.value = false;
+        clearQuery();
+      }
     };
-    
-    const onKeydown = (e) => {
-       if (!state.visible) return;
-       
-       const query = state.queryKey.toLowerCase();
-       const visibleOpts = childOptions.value.filter(o => {
-         if (o.disabled) return false;
-         if (query && !String(o.label).toLowerCase().includes(query)) return false;
-         return true;
-       });
-       
-       if (visibleOpts.length === 0) return;
 
-       let currentIdx = visibleOpts.findIndex(o => o.value === visibleOpts.find(vo => vo.index === hoverIndex.value)?.value);  
+    const isChecked = (value) => {
+      if (ps.multiple) {
+        return currentValue.value?.indexOf(value) >= 0;
+      } else {
+        return !isEmpty(currentValue.value) && currentValue.value[0] === value;
+      }
+    };
 
-       if (e.key === "ArrowDown") {
-          e.preventDefault();
-          const nextOpt = visibleOpts[currentIdx + 1] || visibleOpts[0];
-          const globalIndex = childOptions.value.findIndex(o => o.value === nextOpt.value);
-          hoverIndex.value = globalIndex;
-          
-          // todo: scrollIntoView 逻辑需要配合 dom 引用
-       } else if (e.key === "ArrowUp") {
-          e.preventDefault();
-          const prevOpt = visibleOpts[currentIdx - 1] || visibleOpts[visibleOpts.length - 1];
-          const globalIndex = childOptions.value.findIndex(o => o.value === prevOpt.value);
-          hoverIndex.value = globalIndex;
-       } else if (e.key === "Enter") {
-          e.preventDefault();
-          if (hoverIndex.value > -1) {
-             const target = childOptions.value[hoverIndex.value];
-             if (target && !target.disabled) {
-                 onOptionSelect(target.value, target);
-             }
+    const clearQuery = () => {
+      activeIndex.value = -1;
+      if (ps.filterable || hasSearchEvent) {
+        setTimeout(() => {
+          queryKey.value = "";
+          if (queryInputRef.value) {
+            queryInputRef.value.value = "";
+            queryInputRef.value.style.width = "";
           }
-       } else if (e.key === "Escape") {
-          closeDropdown();
-       }
+          queryInputVisible.value = false;
+        }, 300);
+      }
     };
 
-    const onClear = (e) => {
-      e.stopPropagation();
-      currentValue.value = props.multiple ? [] : "";
-      emit("input", currentValue.value);
-      emit("change", currentValue.value);
+    const onMouseenter = (index) => {
+      activeIndex.value = index;
     };
 
-    const removeTag = (e, val, index) => {
+    const onSelect = (item) => {
+      const { value, label } = { ...item };
+      let selected = true;
+      if (ps.multiple) {
+        if (currentValue.value?.indexOf(value) >= 0) {
+          selected = false;
+          currentValue.value = currentValue.value.filter((v) => v !== value);
+          labelText.value = labelText.value.filter((v) => v !== label);
+        } else {
+          currentValue.value.push(value);
+          labelText.value.push(label);
+        }
+        updatePosition();
+        if (hasSearchEvent || ps.filterable) {
+          queryInputRef.value.value = "";
+          queryKey.value = "";
+          showQuery();
+        }
+      } else {
+        currentValue.value = [value];
+        labelText.value = [label];
+        // toggle();
+        visible.value = false;
+        clearQuery();
+        activeIndex.value = -1;
+      }
+      const result = ps.multiple ? currentValue.value : currentValue.value[0];
+      // emit("update:value", result);
+      emit("input", result);
+
+      emit("change", result);
+      emit("select", value, label, selected);
+    };
+    const searchInput = (e) => {
+      queryKey.value = e.target.value;
+      activeIndex.value = -1;
+      nextTick(() => {
+        e.target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
+        updatePosition();
+      });
+      if (hasSearchEvent) {
+        clearTimeout(queryInputEventTimer.value);
+        queryInputEventTimer.value = setTimeout(() => {
+          if (!rendered.value) {
+            rendered.value = true;
+            document.addEventListener("click", outsideClick);
+            nextTick(() => {
+              visible.value = true;
+              updatePosition();
+            });
+          } else {
+            visible.value = true;
+            updatePosition();
+          }
+          emit("search", e);
+        }, 500);
+      }
+    };
+
+    const emptyClick = (e) => {
+      if (queryInputVisible.value) {
+        nextTick((e) => {
+          queryInputRef.value.focus();
+          queryInputFocused.value = true;
+        });
+      }
+    };
+
+    const removeTag = (e, index) => {
+      if (ps.disabled) return;
+      currentValue.value.splice(index, 1);
+      labelText.value.splice(index, 1);
       e.stopPropagation();
-      if (props.disabled) return;
-      const newVal = [...currentValue.value];
-      newVal.splice(index, 1);
-      currentValue.value = newVal;
-      emit("input", newVal);
-      emit("change", newVal);
       updatePosition();
     };
-
-    const handleSearchInput = (e) => {
-        state.queryKey = e.target.value;
+    const onClear = (e) => {
+      currentValue.value = [];
+      labelText.value = [];
+      emit("input", ps.multiple ? [] : "");
+      emit("change", ps.multiple ? [] : "");
+      e.stopPropagation();
+    };
+    const showQuery = () => {
+      if (ps.filterable || hasSearchEvent) {
+        queryInputVisible.value = true;
         nextTick(() => {
-           if (queryInputMirrorRef.value && e.target) {
-               e.target.style.width = `${queryInputMirrorRef.value.offsetWidth}px`;
-           }
-           updatePosition();
+          queryInputRef.value?.focus();
+          queryInputFocused.value = true;
         });
-        emit("search", e.target.value);
+      }
     };
-    
-    const handleQueryKeydown = (e) => {
-        if (e.key === "Backspace" && !state.queryKey && props.multiple && currentValue.value.length) {
-            currentValue.value.pop();
-            emit("input", currentValue.value);
-            updatePosition();
+    const toggle = (show = false) => {
+      if (ps.disabled) {
+        return;
+      }
+      if (hasSearchEvent) {
+        showQuery();
+        return;
+      }
+
+      if (!rendered.value) {
+        rendered.value = true;
+        document.addEventListener("click", outsideClick);
+        nextTick(() => {
+          visible.value = true;
+          updatePosition();
+          showQuery();
+        });
+      } else {
+        visible.value = show || !visible.value;
+        if (visible.value) {
+          updatePosition();
+          showQuery();
+        } else {
+          clearQuery();
         }
+      }
     };
 
-    onBeforeUnmount(() => {
-         document.removeEventListener("click", outsideClick);
-         document.removeEventListener("keydown", onKeydown);
+    const updateLabel = () => {
+      labelText.value = optionsData.value
+        .filter((item) => currentValue.value.includes(item.value))
+        .map((item) => item.label);
+    };
+    const optionsData = computed(() => {
+      let { options, loading } = ps;
+      if (!options) {
+        options = [];
+        const children = getChildren(slots.default?.());
+        children.forEach((child, index) => {
+          let { label, value, disabled } =
+            child?.componentOptions?.propsData || {};
+          let { children = [] } = child?.componentOptions;
+          options.push({
+            value,
+            disabled,
+            label: label || children[0]?.text || value,
+          });
+        });
+      }
+      return options;
     });
+    const filterOptions = () => {
+      const key = queryKey.value;
+      const filter = ps.filterable && !isEmpty(key);
+      return filter
+        ? optionsData.value.filter((item) =>
+            item.label.toLowerCase().includes(key.toLowerCase())
+          )
+        : optionsData.value;
+    };
+    const renderOptions = () => {
+      const optionNodes = [];
+      const nodes = filterOptions();
+      reallySize.value = nodes.length;
+      nodes.forEach((item, index) => {
+        let { label, value, disabled } = { ...item };
+        const checked = isChecked(value);
+        optionNodes.push(
+          <Option
+            onSelect={onSelect}
+            onMouseenter={() => onMouseenter(index)}
+            key={value}
+            active={activeIndex.value == index}
+            value={value}
+            label={label}
+            disabled={disabled}
+            checked={checked}
+            multiple={ps.multiple}
+          />
+        );
+      });
 
-    return () => {
-      const renderTriggerContent = () => {
-        if (props.multiple) {
-            const tags = (currentValue.value || []).map((val, i) => {
-               if (props.maxTagCount && i >= props.maxTagCount) {
-                   return i === props.maxTagCount ? <span class="k-select-tag">+{currentValue.value.length - props.maxTagCount}...</span> : null;
-               }
-               const opt = childOptions.value.find(o => o.value === val);
-               const label = opt ? opt.label : val;
-               
-               return (
-                 <span class="k-select-tag" key={val}>
-                   {label}
-                   <Icon type={Close} onClick={(e) => removeTag(e, val, i)} />
-                 </span>
-               );
-            });
-            
-            const searchInput = (
-               <div class="k-select-search-wrap" v-show={state.visible || props.filterable}>
-                  <input 
-                    ref={queryInputRef}
-                    class="k-select-search"
-                    value={state.queryKey}
-                    onInput={handleSearchInput}
-                    onKeydown={handleQueryKeydown}
-                  />
-                  <span ref={queryInputMirrorRef} class="k-select-search-mirror">{state.queryKey}</span>
-               </div>
-            );
-            return <div class="k-select-labels">{tags}{searchInput}</div>;
-        } else {
-            const hasValue = !isEmpty(currentValue.value);
-            const label = selectedLabels.value[0];
-            const showSearch = props.filterable && state.visible;
-            
-            return (
-              <div class="k-select-selection">
-                { !showSearch && hasValue ? <div class="k-select-label">{label}</div> : null }
-                { !showSearch && !hasValue && !state.queryKey ? <div class="k-select-placeholder">{props.placeholder || locale.k.select.placeholder}</div> : null }
-                
-                { props.filterable ? (
-                    <div class="k-select-search-wrap" style={{ display: showSearch ? 'block' : 'none' }}>
-                       <input 
-                         ref={queryInputRef}
-                         class="k-select-search"
-                         value={state.queryKey}
-                         onInput={handleSearchInput}
-                       />
-                    </div>
-                ) : null}
-              </div>
-            );
+      return optionNodes;
+    };
+
+    const queryKeydown = ({ key }) => {
+      if (key === "Backspace") {
+        if (
+          queryKey.value == "" &&
+          ps.multiple &&
+          currentValue.value.length > 0
+        ) {
+          labelText.value = labelText.value.slice(0, -1);
+          currentValue.value = currentValue.value.slice(0, -1);
+          emit("input", currentValue.value);
+          // emit("update:value", currentValue.value);
+          emit(
+            "change",
+            ps.multiple ? currentValue.value : currentValue.value[0] || ""
+          );
+          updatePosition();
         }
-      };
+      }
+    };
+    const showClear = computed(() => {
+      return ps.clearable && !ps.disabled && !isEmpty(currentValue.value);
+    });
+    const renderOverlay = () => {
+      const optionNodes = renderOptions();
 
-      const renderDropdown = () => {
-        if (!state.rendered) return null;
-        
-        let children = null;
-        if (props.options && props.options.length) {
-            children = props.options.map(opt => (
-               <Option 
-                 key={opt.value} 
-                 value={opt.value} 
-                 label={opt.label} 
-                 disabled={opt.disabled} 
-               />
-            ));
-        } else {
-            children = slots.default?.();
-        }
-
-        const dropdownStyle = {
+      let overlay = null;
+      if (rendered.value) {
+        const preCls = "k-select";
+        const props = {
+          ref: refPopper,
+          style: {
             minWidth: `${minWidth.value}px`,
-            left: `${placementLeft.value}px`,  
-            top: `${placementTop.value}px`,    
-            transformOrigin: transOrigin.value,  
+            left: `${left.value}px`,
+            top: `${top.value}px`,
+            transformOrigin: transOrigin.value,
+          },
+          class: [
+            "k-select-dropdown",
+            {
+              "k-select-dropdown-multiple": ps.multiple,
+              "k-select-dropdown-sm": ps.size == "small",
+            },
+          ],
         };
-        
-        const hasContent = (props.options && props.options.length) || (children && children.length);
-
-        return (
-          <transition name="k-select">
-            <div 
-              v-show={state.visible} 
-              class={["k-select-dropdown", { "k-select-dropdown-multiple": props.multiple }]}
-              style={dropdownStyle}
-              ref={refPopper}
-              v-transfer={true} 
-            >
-               { props.loading ? (
-                   <div class="k-select-loading"><Icon type={Loading} spin /> {props.loadingText || locale.k.select.loading}</div>
-               ) : hasContent ? (
-                   <ul>{children}</ul>
-               ) : (
-                   <Empty description={props.emptyText || locale.k.select.emptyText} />
-               )}
+        const loadingNode = (
+          <div class="k-select-loading">
+            <Icon type={Loading} spin />
+            <span>{locale?.k.select.loading}</span>
+          </div>
+        );
+        overlay = (
+          <transition name={`${preCls}`}>
+            <div v-transfer={true} v-show={visible.value} {...props}>
+              {ps.loading ? (
+                loadingNode
+              ) : optionNodes.length ? (
+                <ul>{optionNodes}</ul>
+              ) : (
+                <Empty
+                  onClick={emptyClick}
+                  description={locale?.k.select.emptyText}
+                />
+              )}
             </div>
           </transition>
         );
+      }
+      return overlay;
+    };
+    return () => {
+      let {
+        disabled,
+        size,
+        multiple,
+        placeholder,
+        showArrow,
+        bordered,
+        theme,
+        arrowIcon,
+        icon,
+        shape,
+        filterable,
+      } = ps;
+      let childNode = [];
+      if (arrowIcon === undefined) {
+        arrowIcon = ChevronDown;
+      }
+
+      const queryProps = {
+        ref: queryInputRef,
+        class: "k-select-search",
+        autoComplete: "off",
+        on: {
+          change: (e) => e.stopPropagation(),
+          keydown: queryKeydown,
+          input: searchInput,
+          blur: () => {
+            if (!visible.value) {
+              queryInputVisible.value = false;
+            }
+          },
+        },
       };
+      const queryNode = (
+        <div
+          v-show={queryInputVisible.value}
+          key="search"
+          class="k-select-search-wrap"
+        >
+          <input {...queryProps} />
+          <span class="k-select-search-mirror" ref={queryInputMirrorRef}>
+            {queryKey.value}
+          </span>
+        </div>
+      );
+
+      const placeholderText = placeholder || locale?.k.select.placeholder;
+      const placeNode =
+        placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
+          <div class="k-select-placeholder">{placeholderText}</div>
+        ) : null;
+
+      const labelStyle = {
+        display: queryKey.value.length ? "none" : "",
+      };
+      const renderTags = () => {
+        let tags = labelText.value.map((label, i) => {
+          return (
+            <span class="k-select-tag" key={label}>
+              {label}
+              <Icon type={Close} onClick={(e) => removeTag(e, i)} />
+            </span>
+          );
+        });
+        if (
+          ps.maxTagCount &&
+          ps.maxTagCount > 0 &&
+          tags.length > ps.maxTagCount
+        ) {
+          tags = tags.slice(0, ps.maxTagCount);
+          tags.push(
+            <span class="k-select-tag">
+              +{labelText.value.length - ps.maxTagCount}...
+            </span>
+          );
+        }
+        return tags;
+      };
+      const labelsNode = multiple ? (
+        <div class="k-select-labels" name="k-select-tag">
+          {renderTags()}
+          {queryNode}
+        </div>
+      ) : !isEmpty(labelText.value) ? (
+        <div class="k-select-label" style={labelStyle}>
+          {labelText.value[0]}
+        </div>
+      ) : null;
+
+      childNode.push(labelsNode);
+
+      placeNode && childNode.push(placeNode);
+
+      if ((filterable || hasSearchEvent) && !multiple) {
+        childNode.push(queryNode);
+      }
+      const styles = { width: `${ps.width}px` };
+
+      const arrowNode =
+        !hasSearchEvent && showArrow ? (
+          <Icon class="k-select-arrow" type={arrowIcon} />
+        ) : null;
 
       const classes = [
         "k-select",
         {
-          "k-select-disabled": props.disabled,
-          "k-select-open": state.visible,
-          "k-select-multiple": props.multiple,
-          "k-select-lg": props.size == "large",
-          "k-select-sm": props.size == "small",
-          "k-select-has-clear": props.clearable && !props.disabled && !isEmpty(currentValue.value)
-        }
+          "k-select-disabled": disabled,
+          "k-select-block": ps.block,
+          "k-select-opened": visible.value,
+          "k-select-borderless": bordered === false,
+          "k-select-lg": size == "large",
+          "k-select-sm": size == "small",
+          "k-select-light": theme == "light",
+          "k-select-has-icon": !!icon,
+          "k-select-circle": shape == "circle" && !multiple,
+          "k-select-multiple": multiple,
+          "k-select-show-search": queryInputFocused.value,
+          "k-select-show-tags": multiple && !isEmpty(labelText.value),
+          "k-select-has-clear": showClear.value,
+        },
       ];
-      
-      const showClear = props.clearable && !props.disabled && (!isEmpty(currentValue.value) || (props.multiple && currentValue.value.length));
-      
-      const iconNode = props.loading ? <Icon type={Loading} spin class="k-select-icon" /> :
-                       (showClear ? <Icon type={CloseCircle} class="k-select-clearable" onClick={onClear} /> :
-                       (props.showArrow ? <Icon type={props.arrowIcon || ChevronDown} class="k-select-arrow" /> : null));
+      const clearNode = showClear.value ? (
+        <Icon class="k-select-clearable" type={CloseCircle} onClick={onClear} />
+      ) : null;
 
       return (
-        <div 
-           class={classes} 
-           style={{ width: props.width ? `${props.width}px` : null }}
-           ref={refCtx}
-           v-resize={updatePosition}
-           onClick={toggle}
+        <div
+          tabIndex="0"
+          class={classes}
+          style={styles}
+          v-resize={updatePosition}
+          onClick={toggle}
+          onFocus={() => (ctxFocused.value = true)}
+          onBlur={() => (ctxFocused.value = false)}
+          ref={refCtx}
         >
-           {renderTriggerContent()}
-           {iconNode}
-           {renderDropdown()}
+          {icon ? <Icon type={icon} class="k-select-icon" /> : null}
+          <div class="k-select-selection">{childNode}</div>
+          <span class="k-select-suffix">
+            {arrowNode}
+            {clearNode}
+          </span>
+          {renderOverlay()}
         </div>
       );
     };

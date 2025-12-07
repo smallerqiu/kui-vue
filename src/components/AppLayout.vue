@@ -1,6 +1,6 @@
 <template>
   <Layout class="root">
-    <!-- <AppHeader /> -->
+    <AppHeader />
     <Layout class="main">
       <Sider
         :class="[

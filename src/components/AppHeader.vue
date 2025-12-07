@@ -154,7 +154,7 @@ const go = ({ key, keyPath, item }) => {
     open(key);
   }
 };
-const change = ({ value }) => {
+const change = (value) => {
   let item = routeData.filter((x) => x.name == value)[0] || {};
   proxy.$router.push(`/${item.key}/${value}`);
   setTimeout(() => (queryKey.value = ""), 500);
