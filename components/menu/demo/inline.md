@@ -7,8 +7,8 @@
 <template>
   <div style="width:256px">
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       mode="inline"
     >
       <SubMenu key="sub1" :icon="Mail" title="Navigation One">

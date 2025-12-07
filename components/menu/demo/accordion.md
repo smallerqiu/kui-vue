@@ -7,8 +7,8 @@
 <template>
   <div style="width:256px">
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       @open-change="openChange"
       accordion
       mode="inline"

@@ -14,7 +14,7 @@ import { getTransitionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from '../utils/vue';
+import { withInstall, cloneVNode } from "../utils/vue";
 
 const SubMenu = defineComponent({
   name: "SubMenu",
@@ -125,7 +125,7 @@ const SubMenu = defineComponent({
       }
       const popperPros = {
         ref: refPopper,
-        "k-placement": currentPlacement.value,
+        attrs: { "k-placement": currentPlacement.value },
         style: {
           minWidth: mode.value == "horizontal" ? minWidth.value : null,
           top: top.value + "px",
@@ -151,7 +151,7 @@ const SubMenu = defineComponent({
             hideCurrentPopTimer();
             hidePopTimer?.();
           },
-        }
+        },
       };
       const children = getChildren(slots.default?.());
       const menuItems = children.map((child) => {
@@ -163,10 +163,11 @@ const SubMenu = defineComponent({
       return rendered.value ? (
         <transition name={`k-${preCls}-popup`}>
           <div
-            className={`k-${preCls}-popup`}
+            class={`k-${preCls}-popup`}
             v-show={opened}
             v-transfer={true}
-            {...popperPros}>
+            {...popperPros}
+          >
             <div class={`k-${preCls}-sub`}>
               <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
             </div>
@@ -187,10 +188,9 @@ const SubMenu = defineComponent({
               class={`k-${preCls}-sub`}
               v-show={
                 opened && !inlineCollapsed.value && mode.value != "vertical"
-              }>
-              <ul class={`k-menu k-menu-${mode.value}`}>
-                {slots.default?.()}
-              </ul>
+              }
+            >
+              <ul class={`k-menu k-menu-${mode.value}`}>{slots.default?.()}</ul>
             </div>
           </transition>,
         ];

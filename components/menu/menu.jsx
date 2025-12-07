@@ -1,25 +1,19 @@
-import {
-  defineComponent,
-  ref,
-  watch,
-  provide,
-  inject,
-  onMounted,
-} from "vue";
-import { withInstall } from '../utils/vue';
+import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
+import { withInstall } from "../utils/vue";
 
 const Menu = defineComponent({
   name: "Menu",
   props: {
     theme: String,
     mode: { type: String, default: "vertical" },
-    selectedKeys: { type: Array, default: () => [] },
+    value: { type: Array, default: () => [] },
+    // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.selectedKeys || []);
+    const defaultSelectedKeys = ref(props.value || []); //props.selectedKeys || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);
@@ -32,7 +26,8 @@ const Menu = defineComponent({
     const dropdown = inject("dropdown", null);
 
     watch(
-      () => props.selectedKeys,
+      // () => props.selectedKeys, // for 3
+      () => props.value,
       (value) => {
         defaultSelectedKeys.value = value;
       }
@@ -85,7 +80,8 @@ const Menu = defineComponent({
           (x) => x !== key
         );
       }
-      emit("update:selectedKeys", defaultSelectedKeys.value);
+      emit("input", defaultSelectedKeys.value);
+      // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
       emit("select", { key, keyPath });
 
       if (
