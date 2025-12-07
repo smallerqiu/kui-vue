@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="success">Success</Button>
     <Button @click="error" type="danger">Error</Button>
     <Button @click="warning">Warning</Button>

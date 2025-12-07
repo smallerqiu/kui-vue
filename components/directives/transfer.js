@@ -3,8 +3,9 @@ export default {
     if (value) {
       const parentNode = el.parentNode;
       if (!parentNode) return false;
-
-      const target = (value === true ? document.body : value) || document.body;
+      const target = value.$el
+        ? value.$el
+        : (value === true ? document.body : value) || document.body;
       target.appendChild(el);
       el.__data = { parentNode };
     }

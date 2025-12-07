@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag color="blue" closeable v-for="(t, i) in tags" :key="t">{{ t }}</Tag>
     <Input
       v-if="showInput"

@@ -1,9 +1,17 @@
 import { Button } from "../button";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
-import { defineComponent, ref, watch, onMounted, nextTick, /*Transition,*/ onBeforeMount, inject } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  onMounted,
+  nextTick,
+  /*Transition,*/ onBeforeMount,
+  inject,
+} from "vue";
 import zhCN from "../locale/lang/zh-CN";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
@@ -67,9 +75,9 @@ const Modal = defineComponent({
     const getOffset = (el) => {
       return el
         ? {
-          left: el.offsetLeft,
-          top: el.offsetTop,
-        }
+            left: el.offsetLeft,
+            top: el.offsetTop,
+          }
         : { left: 0, top: 0 };
     };
 
@@ -115,7 +123,12 @@ const Modal = defineComponent({
       emit("close");
     };
     const clickMaskToClose = (e) => {
-      if (!ps.loading && ps.maskClosable && !refModal.value.contains(e.target) && !mousedownIn.value) {
+      if (
+        !ps.loading &&
+        ps.maskClosable &&
+        !refModal.value.contains(e.target) &&
+        !mousedownIn.value
+      ) {
         close();
       }
     };
@@ -136,7 +149,12 @@ const Modal = defineComponent({
       document.removeEventListener("mouseup", mouseup);
     };
     const mousedown = (e) => {
-      if (e.button == 0 && ps.draggable === true && refHeader.value && refHeader.value.contains(e.target)) {
+      if (
+        e.button == 0 &&
+        ps.draggable === true &&
+        refHeader.value &&
+        refHeader.value.contains(e.target)
+      ) {
         isMousePressed.value = true;
         startPos.value = { x: e.clientX, y: e.clientY };
         mousemove(e);
@@ -144,7 +162,8 @@ const Modal = defineComponent({
         document.addEventListener("mouseup", mouseup);
       }
 
-      mousedownIn.value = visible.value && refModal.value && refModal.value.contains(e.target);
+      mousedownIn.value =
+        visible.value && refModal.value && refModal.value.contains(e.target);
     };
 
     return () => {
@@ -167,7 +186,13 @@ const Modal = defineComponent({
         const contents = [];
         ps.showClose &&
           contents.push(
-            <Button icon={Close} onClick={close} size="small" class="k-modal-close" type="text"></Button>
+            <Button
+              icon={Close}
+              size="small"
+              onClick={close}
+              class="k-modal-close"
+              type="text"
+            ></Button>
           );
         ps.title !== null &&
           contents.push(
@@ -188,11 +213,17 @@ const Modal = defineComponent({
               </Button>,
             ];
           }
-          const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
+          const footerNode = footer ? (
+            <div class="k-modal-footer">{footer}</div>
+          ) : null;
 
           contents.push(footerNode);
         }
-        contentNode = <div class="k-modal-content" tabindex="0">{contents}</div>;
+        contentNode = (
+          <div class="k-modal-content" tabindex="0">
+            {contents}
+          </div>
+        );
       }
 
       const style = {
@@ -212,9 +243,20 @@ const Modal = defineComponent({
       return rendered.value ? (
         <div class={classes} v-transfer={ps.transfer}>
           {maskNode}
-          <div class="k-modal-wrap" tabindex="-1" role="dialog" v-show={showInner.value} onClick={clickMaskToClose}>
+          <div
+            class="k-modal-wrap"
+            tabindex="-1"
+            role="dialog"
+            v-show={showInner.value}
+            onClick={clickMaskToClose}
+          >
             <transition name="k-modal-zoom">
-              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
+              <div
+                class="k-modal-inner"
+                ref={refModal}
+                v-show={visible.value}
+                style={style}
+              >
                 {contentNode}
                 <div tabindex="0"></div>
               </div>

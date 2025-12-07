@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="show1 = true" type="primary">可以拖动</Button>
     <Button @click="show2 = true" type="primary">居中显示</Button>
     <Button @click="show3 = true" type="primary">顶部 200px</Button>

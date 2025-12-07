@@ -56,8 +56,7 @@ const Badge = defineComponent({
         }
       }
 
-      const showSup = (displayCount !== null || dot) && !isStatusType;
-
+      const showSup = (displayCount !== null || dot) //&& !isStatusType;
       let supNode = null;
       if (showSup) {
         const supCls = {

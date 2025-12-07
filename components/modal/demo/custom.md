@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="visible1 = true" type="primary">宽300px</Button>
     <Button @click="visible2 = true" type="primary">自定义页脚</Button>
     <Button @click="visible3 = true" type="primary">国际化</Button>

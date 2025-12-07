@@ -21,20 +21,20 @@ export function toDecimalString(num) {
   if (!/e/i.test(str)) return num;
   return Number(num)
     .toFixed(20)
-    .replace(/\.?0+$/, "");
+    .replace(/\.?0+$/, "")
 }
 // console.log(toDecimalString(1e3-10))
 
 // 获取小数长度
-export function getDecimalLength(numStr) {
-  const parts = numStr.split(".");
+export function getDecimalLength(numStr="") {
+  const parts = numStr.toString().split(".");
   return parts[1] ? parts[1].length : 0;
 }
 
 // 加法
 export function add(a, b) {
-  const aStr = toDecimalString(a);
-  const bStr = toDecimalString(b);
+  const aStr = toDecimalString(a)
+  const bStr = toDecimalString(b)
   const maxLen = Math.max(getDecimalLength(aStr), getDecimalLength(bStr));
   const factor = Math.pow(10, maxLen);
   const result =
@@ -67,8 +67,8 @@ export function multiply(a, b) {
   const aStr = toDecimalString(a);
   const bStr = toDecimalString(b);
   const totalLen = getDecimalLength(aStr) + getDecimalLength(bStr);
-  const intA = Number(aStr.replace(".", ""));
-  const intB = Number(bStr.replace(".", ""));
+  const intA = Number(String(aStr).replace(".", ""));
+  const intB = Number(String(bStr).replace(".", ""));
   const result = (intA * intB) / Math.pow(10, totalLen);
   return formatSmart(result);
 }

@@ -30,7 +30,7 @@
       <Input type="hidden" />
     </FormItem>
     <FormItem label="单个文件" prop="file">
-      <Input placeholder="请上传文件" clearable>
+      <Input placeholder="请上传文件" clearable readonly>
         <template #suffix>
           <Upload
             action="https://www.chuchur.com/api/upload/image"
@@ -41,7 +41,11 @@
             :limit="1"
             accept="image/*"
           >
-            <Button :icon="CloudUploadOutline" :loading="loading" theme="outline"/>
+            <Button
+              :icon="CloudUploadOutline"
+              :loading="loading"
+              theme="outline"
+            />
           </Upload>
         </template>
       </Input>
@@ -75,8 +79,8 @@ const headers = ref({
 });
 const form = reactive({
   avatar: "",
-  file: "11",
-  files: [],
+  file: "",
+  files: "",
 });
 const rules = ref({
   avatar: [{ required: true, message: "请上传图像" }],
@@ -85,7 +89,7 @@ const rules = ref({
 });
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-
+const files = ref([]);
 const uploadFile = ({ file }) => {
   console.log(file);
   loading.value = true;
@@ -97,7 +101,9 @@ const uploadFile = ({ file }) => {
 };
 const uploadFiles = ({ file }) => {
   if (file.status == "success") {
-    form.files.push(file.response.url);
+    files.value.push(file.response.url);
+    form.files = files.value.join(",");
+    // form.files.push(file.response.url);
     formRef.value.test("files");
   }
 };
@@ -106,7 +112,8 @@ const remove = ({ file }) => {
   if (file.status == "success") {
     let url = file.response.url;
     let index = form.files.indexOf(url);
-    form.files.splice(index, 1);
+    files.value.splice(index, 1);
+    form.files = files.value.join(",");
     formRef.value.test("files");
   }
 };

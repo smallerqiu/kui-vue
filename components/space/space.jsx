@@ -1,30 +1,34 @@
 import { defineComponent, h, /*cloneVNode*/ provide } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from '../utils/vue';
+import { withInstall, cloneVNode } from "../utils/vue";
 const Space = defineComponent({
   name: "Space",
   props: {
     align: {
       type: String,
       validator(value) {
-        return value ? ["start", "end", "center", "baseline"].includes(value) : true;
+        return value
+          ? ["start", "end", "center", "baseline"].includes(value)
+          : true;
       },
     },
     vertical: Boolean,
-    wrap: Boolean,
+    wrap: { type: Boolean, default: true },
     block: Boolean,
     compact: Boolean,
     size: {
       type: [String, Number, Array],
       validator(value) {
-        return typeof value === "number" || Array.isArray(value) ? true : ["small", "middle", "large"].includes(value);
+        return typeof value === "number" || Array.isArray(value)
+          ? true
+          : ["small", "middle", "large"].includes(value);
       },
     },
   },
   setup(ps, { slots, attrs }) {
-    provide('size', ps.size)
+    provide("size", ps.size);
     return () => {
-      let children = getChildren(slots.default?.())
+      let children = getChildren(slots.default?.());
 
       // console.log(children);
       const split = slots.split?.();
@@ -75,7 +79,9 @@ const Space = defineComponent({
             [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
-        const child = ps.compact ? cloneVNode(children[i], p, true, true) : h("div", p, [children[i]]);
+        const child = ps.compact
+          ? cloneVNode(children[i], p, true, true)
+          : h("div", p, [children[i]]);
         vNodes.push(child);
         if (split && i < children.length - 1) {
           vNodes.push(split);

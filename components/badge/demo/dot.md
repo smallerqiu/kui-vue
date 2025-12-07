@@ -5,9 +5,9 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Badge dot>
-      <div class="box"></div>
+      <div class="badge-box"></div>
     </Badge>
     <Badge dot>
       <Icon :type="NotificationsOutline" />

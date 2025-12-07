@@ -7,16 +7,14 @@
 <template>
   <Space style="font-size:12px;" vertical>
     <InputNumber v-model="value" />
-    <Button @click="test">test</Button>
+    <ButtonGroup>
+      <Button @click="value-=1">-</Button>
+      <Button @click="value+=1">+</Button>
+    </ButtonGroup>
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-import { message } from "kui-vue";
 const value = ref(1);
-const test = () => {
-  value.value += 1;
-  message.info(`当前值：${value.value}`);
-};
 </script>
 ```

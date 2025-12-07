@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag>标签1</Tag>
     <Tag closeable size="middle">标签2</Tag>
     <Tag closeable size="large">标签3</Tag>

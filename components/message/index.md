@@ -9,7 +9,7 @@
 
 另外提供了全局配置和全局销毁的方法：
 
-- `message.config(options)`
+- `message.show(options)`
 - `message.destroy()`
 - `message.useMessage()`
 

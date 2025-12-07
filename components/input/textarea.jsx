@@ -8,7 +8,6 @@ const TextArea = defineComponent({
     disabled: Boolean,
   },
   setup(ps, { attrs, emit, listeners }) {
-    const { theme, disabled } = ps;
     const currentValue = ref(ps.value);
     watch(
       () => ps.value,
@@ -18,8 +17,9 @@ const TextArea = defineComponent({
     );
 
     return () => {
+      const { theme, disabled } = ps;
       const props = {
-        class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
+        class: ["k-textarea", { [`k-textarea-${theme}`]: theme == "light" }],
         attrs: {
           ...attrs,
           disabled,
