@@ -137,11 +137,30 @@
       overflow: auto;
       background-color: var(--kui-color-gray-90);
       border-radius: 0 12px 12px 0;
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: var(--kui-color-control-20);
+        border-radius: 10px;
+        cursor: grab;
+      }
+      &::-webkit-scrollbar-corner,
+      ::-webkit-resizer {
+        background: none;
+      }
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        // background-color: red;
+        background: none;
+      }
       pre {
         border-radius: 0 12px 12px 0;
         flex: 1;
         box-sizing: border-box;
         background-color: transparent;
+        border: none;
       }
       .hljs {
         background-color: transparent;

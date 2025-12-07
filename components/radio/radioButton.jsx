@@ -31,7 +31,7 @@ const RadioButton = defineComponent({
       () => (radioGroup && radioGroup.size.value) || props.size
     );
     const mergedTheme = computed(
-      () => (radioGroup && radioGroup.theme.value) || props.theme || "default"
+      () => (radioGroup && radioGroup.theme.value) || props.theme
     );
     const mergedShape = computed(
       () => (radioGroup && radioGroup.shape.value) || props.shape

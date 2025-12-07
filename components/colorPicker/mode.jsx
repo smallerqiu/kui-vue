@@ -181,6 +181,7 @@ export default defineComponent({
       return (
         <div class={`k-color-picker-mode k-color-picker-${currentMode.value}`}>
           <Select
+            clearable={false}
             bordered={false}
             size="small"
             value={currentMode.value}

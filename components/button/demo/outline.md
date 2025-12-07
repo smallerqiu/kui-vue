@@ -5,19 +5,20 @@
 
 ```vue
 <template>
-  <Flex size="small" wrap>
-    <Space style="padding:10px;" class="demo-back">
+  <Space vertical>
+    <Space vertical>
       <Button type="primary" theme="outline">Primary</Button>
       <Button type="danger" theme="outline">Danger</Button>
       <Button type="warning" theme="outline">Warning</Button>
       <Button theme="outline">Default</Button>
     </Space>
-    <Space style="padding:10px;" class="demo-back">
+    <br />
+    <Space vertical>
       <Button type="primary" theme="dashed">Primary</Button>
       <Button type="danger" theme="dashed">Danger</Button>
       <Button type="warning" theme="dashed">Warning</Button>
       <Button theme="dashed">Default</Button>
     </Space>
-  </Flex>
+  </Space>
 </template>
 ```

@@ -1,11 +1,10 @@
-import { defineComponent, provide, toRefs } from "vue";
+import { defineComponent, provide, inject, toRefs } from "vue";
 import { withInstall } from "../utils/vue";
 
 const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: {
     size: {
-      default: "default",
       validator(value) {
         return ["small", "large", "middle", "default"].indexOf(value) >= 0;
       },
@@ -14,9 +13,10 @@ const ButtonGroup = defineComponent({
   },
   setup(props, { slots }) {
     const { size, shape } = toRefs(props);
+    const parentSize = inject("size", null);
 
     provide("KButtonGroup", {
-      size,
+      size: props.size || parentSize,
       shape,
     });
 

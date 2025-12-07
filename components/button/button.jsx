@@ -40,19 +40,11 @@ const Button = defineComponent({
       },
       default: "default",
     },
-    disabled: Boolean,
+    disabled: { type: Boolean, default: false },
     theme: {
       type: String,
-      default: "default",
       validator(value) {
-        return [
-          "default",
-          "outline",
-          "solid",
-          "light",
-          "dashed",
-          "card",
-        ].includes(value);
+        return ["outline", "solid", "light", "dashed", "card"].includes(value);
       },
     },
     shape: String,
@@ -83,7 +75,7 @@ const Button = defineComponent({
 
     return () => {
       let children = getChildren(slots.default?.());
-      // for Vue 3  
+      // for Vue 3
       // const iconOnly = () => {
       //   const validChildren = children.filter((c) => c.type !== Comment);
       //   if (validChildren.length === 1) {
@@ -109,19 +101,18 @@ const Button = defineComponent({
       const classes = [
         "k-btn",
         {
-          [`k-btn-${props.type}`]: !!props.type,
+          [`k-btn-${props.type}`]: !!props.type && !props.color,
           [`k-btn-outline`]: props.theme == "outline",
           ["k-btn-sm"]: computedSize.value === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
           ["k-btn-icon-only"]: iconOnly(),
-          [`k-btn-color-${props.color}`]: colors.includes(props.color),
+          [`k-btn-${props.color}`]: colors.includes(props.color),
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
         },
       ];
-
       let childNodes = [];
 
       const iconType = props.loading ? Loading : props.icon;
@@ -152,7 +143,7 @@ const Button = defineComponent({
         },
       };
 
-      return props.type === "link" && props.href ? (
+      return props.type === "link" && props.href && !props.disabled ? (
         <a {...commonProps}>{childNodes}</a>
       ) : (
         <button {...commonProps}>{childNodes}</button>
