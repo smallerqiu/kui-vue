@@ -1,15 +1,15 @@
 <cn>
-### 基础用法
+### 单选
 单独使用 `v-model` 的值 `true` 表示选中，为 `false` 表示未选中。
 </cn>
 
 ```vue
 <template>
   <Space vertical>
-    {{ checked }}
+    <code>value: {{ checked }}</code>
     <Checkbox v-model="checked">Checkbox</Checkbox>
     <Button @click="checked = !checked" size="small">
-      {{ checked ? "Uncheck" : "Check" }}
+      {{ !checked ? "Unchecked" : "Checked" }}
     </Button>
     <Checkbox label="Checkbox" />
   </Space>

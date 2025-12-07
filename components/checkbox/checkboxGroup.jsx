@@ -1,6 +1,7 @@
 import Checkbox from "./checkbox";
-import { defineComponent, provide, toRefs } from "vue";
+import { defineComponent, watch, toRefs } from "vue";
 import { withInstall } from "../utils/vue";
+import { getChildren } from "../utils/element";
 
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
@@ -13,9 +14,9 @@ const CheckboxGroup = defineComponent({
       type: Array,
       default: () => [],
     },
-    
+
     disabled: Boolean,
-    options: Array, 
+    options: Array,
     direction: {
       type: String,
       default: "horizontal",
@@ -31,18 +32,23 @@ const CheckboxGroup = defineComponent({
 
   setup(props, { slots, emit }) {
     const { disabled, size } = toRefs(props);
-    
+
     // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
     const { value: currentValue } = toRefs(props);
-
-    const onGroupChange = (childValue) => {
+    watch(
+      () => props.value,
+      (val) => {
+        currentValue.value = val;
+      }
+    );
+    const onChange = ({ value }) => {
       const val = [...currentValue.value];
-      const index = val.indexOf(childValue);
+      const index = val.indexOf(value);
 
       if (index > -1) {
         val.splice(index, 1);
       } else {
-        val.push(childValue);
+        val.push(value);
       }
 
       // [Vue 3 Upgrade]: emit("update:modelValue", val);
@@ -50,28 +56,40 @@ const CheckboxGroup = defineComponent({
       emit("change", val);
     };
 
-    provide("KCheckboxGroup", {
-      currentValue,
-      disabled,
-      size,
-      onGroupChange,
-    });
+    const optionsData = () => {
+      let { options } = props;
+      if (!options) {
+        options = [];
+        const children = getChildren(slots.default?.());
+        children.forEach((child, index) => {
+          let { label, value, disabled } =
+            child?.componentOptions?.propsData || {};
+          let { children = [] } = child?.componentOptions;
+          options.push({
+            value,
+            disabled,
+            label: label || children[0]?.text || value,
+          });
+        });
+      }
+      return options;
+    };
 
     return () => {
-      let children = null;
-      
-      if (props.options && props.options.length) {
-        children = props.options.map((option) => (
+      let options = optionsData();
+      let nodes = [];
+      options.forEach((option) =>
+        nodes.push(
           <Checkbox
             key={option.value}
             label={option.label}
             value={option.value}
-            disabled={option.disabled}
+            checked={currentValue.value.indexOf(option.value) > -1}
+            disabled={props.disabled || option.disabled}
+            onChange={onChange}
           />
-        ));
-      } else {
-        children = slots.default?.();
-      }
+        )
+      );
 
       return (
         <div
@@ -80,7 +98,7 @@ const CheckboxGroup = defineComponent({
             { "k-checkbox-group-vertical": props.direction == "vertical" },
           ]}
         >
-          {children}
+          {nodes}
         </div>
       );
     };

@@ -5,44 +5,45 @@
 
 ```vue
 <template>
-  <div>
-    Shape :
-    <RadioGroup v-model:value="shape" size="small">
+  <Space vertical>
+    <code>Shape : {{ shape }}</code>
+    <RadioGroup v-model="shape" size="small">
       <RadioButton value="default" label="Default" />
       <RadioButton value="circle" label="Circle" />
     </RadioGroup>
-    <br />
-    <br />
-    Theme :
-    <RadioGroup v-model:value="theme" size="small">
+    <code>Theme :{{ theme }}</code>
+    <RadioGroup v-model="theme" size="small">
       <RadioButton value="default" label="Default" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
     </RadioGroup>
-    <br />
-    <br />
-    Size :
-    <RadioGroup v-model:value="size" size="small" :options="sizes">
+    <code>Size :{{ size }}</code>
+    <RadioGroup
+      v-model="size"
+      type="button"
+      size="small"
+      :options="sizes"
+    >
     </RadioGroup>
-    <br />
     <br />
     <RadioGroup
       type="button"
-      v-model:value="date"
+      v-model="value"
       :size="size"
       :theme="theme"
       :shape="shape"
       :options="dates"
     >
     </RadioGroup>
-  </div>
+  </Space>
 </template>
 <script setup>
+import { LogoApple } from "kui-icons";
 import { ref } from "vue";
 const size = ref("default");
 const shape = ref("default");
-const theme = ref("solid");
-const date = ref(0);
+const theme = ref("default");
+const value = ref(0);
 const dates = [
   { label: "7天", value: 0 },
   { label: "1个月", value: 1 },
@@ -51,7 +52,7 @@ const dates = [
   { label: "5年", value: 4, disabled: true },
 ];
 const sizes = [
-  { label: "Large", value: "large", icon: "logo-apple" },
+  { label: "Large", value: "large", icon: LogoApple },
   { label: "Default", value: "default" },
   { label: "Small", value: "small" },
 ];

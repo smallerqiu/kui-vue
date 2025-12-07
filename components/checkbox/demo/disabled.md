@@ -7,9 +7,17 @@
 <template>
   <Space vertical>
     <Checkbox disabled>disabled</Checkbox>
-    <Checkbox disabled :checked="true">disabled</Checkbox>
+    <Checkbox disabled checked>disabled</Checkbox>
     <Checkbox indeterminate disabled>indeterminate</Checkbox>
     <br />
+    <CheckboxGroup disabled :options="options" />
+    <CheckboxGroup>
+      <Checkbox value="Apple" label="apple" />
+      <Checkbox value="Orange" label="orange" disabled />
+      <Checkbox value="Banana" label="banana" />
+      <Checkbox value="Pear" label="pear" disabled />
+      <Checkbox value="Grape" label="grape" />
+    </CheckboxGroup>
     <br />
     <Checkbox :disabled="disabled" v-model="checked">Checkbox</Checkbox>
     <Button @click="toggleChecked" size="small">
@@ -24,6 +32,13 @@
 import { ref } from "vue";
 const disabled = ref(false);
 const checked = ref(false);
+const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Orange", value: "orange" },
+  { label: "Banana", value: "banana" },
+  { label: "Pear", value: "pear" },
+  { label: "Grape", value: "grape" },
+];
 const toggleDisabled = () => {
   disabled.value = !disabled.value;
 };

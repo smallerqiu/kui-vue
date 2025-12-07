@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Checkbox :checked.sync="checkStrictly">父子节点不关联</Checkbox>
+  <Checkbox v-model="checkStrictly">父子节点不关联</Checkbox>
   <br />
   <br />
   <Tree
