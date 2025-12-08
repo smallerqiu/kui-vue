@@ -60,6 +60,7 @@ const buildTree = ({
   parentKey = null,
   hasLoad,
   checkStrictly,
+  checkable,
 }) => {
   const result = [];
   // 栈中存储 [节点, 层级, 是否展开] 的数组
@@ -117,13 +118,15 @@ const buildTree = ({
     }
   }
   // 只在非严格模式下计算 indeterminate 状态
-  if (!checkStrictly) {
-    calculateIndeterminateStates(result, checkedKeys);
-  } else {
-    // 严格模式下清除所有 indeterminate 状态
-    result.forEach((node) => {
-      node.indeterminate = false;
-    });
+  if (checkable) {
+    if (!checkStrictly) {
+      calculateIndeterminateStates(result, checkedKeys);
+    } else {
+      // 严格模式下清除所有 indeterminate 状态
+      result.forEach((node) => {
+        node.indeterminate = false;
+      });
+    }
   }
 
   return result;

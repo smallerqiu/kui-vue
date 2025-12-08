@@ -72,6 +72,11 @@
     text-align: right;
     z-index: 1;
     padding-right: 4px;
+    height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    right: 0
   }
 
   .k-tree-item-extra-hidden {
@@ -201,7 +206,10 @@
   flex-shrink: 0;
 }
 
-/* 1. 垂直贯穿线 (父节点不是最后) */
+
+//line-en
+.k-tree-show-line {
+  /* 1. 垂直贯穿线 (父节点不是最后) */
 .k-tree-indent-line::before {
   content: "";
   position: absolute;
@@ -212,8 +220,6 @@
   border-left: 1px solid var(--kui-color-border);
 }
 
-//line-en
-.k-tree-show-line {
   .k-tree-arrow {
     transform: rotate(90deg);
 

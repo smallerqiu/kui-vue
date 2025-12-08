@@ -10,7 +10,7 @@
     :tree-data="data"
     tree-showLine
     :treeExpandedKeys="expandedKeys"
-    style="width:100%"
+    block
   />
 </template>
 <script setup>
@@ -25,9 +25,8 @@ const data = [
       {
         title: "tree 1-1",
         key: "1-1",
-        disabled: true,
         children: [
-          { title: "leaf 1-1-1", disabled: true, key: "1-1-1" },
+          { title: "leaf 1-1-1", key: "1-1-1" },
           {
             title: "leaf 1-1-2",
             key: "1-1-2",
