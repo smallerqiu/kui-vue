@@ -252,9 +252,8 @@ export default defineComponent({
       return list;
     });
 
-    const toggleAll = (e) => {
+    const toggleAll = ({ checked }) => {
       const newSet = new Set(innerSelectedKeys.value);
-      const checked = e.target.checked;
       props.data.forEach((item) => {
         const key = item[props.rowKey];
         if (!isDisabled(key)) {

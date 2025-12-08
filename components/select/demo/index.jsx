@@ -10,10 +10,10 @@ export default {
   render() {
     return (
       <div class="demo-select">
-        {/* <Info />
+        <Info />
         <Basic />
         <Multiple />
-        <Disabled /> */}
+        <Disabled />
         <Filterable />
         <Size />
         <Theme />

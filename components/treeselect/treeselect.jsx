@@ -9,18 +9,17 @@ import { setPlacement } from "../utils/placement";
 import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { withInstall } from "../utils/vue";
 import Tree from "../tree";
+import { buildTree } from "../tree/utils";
 import {
   ref,
   defineComponent,
   watch,
   nextTick,
   inject,
-  toRefs,
   // Transition,
   onBeforeMount,
   onMounted,
   computed,
-  // cloneVNode,
 } from "vue";
 
 const TreeSelect = defineComponent({
@@ -64,7 +63,6 @@ const TreeSelect = defineComponent({
     options: Array,
     theme: String,
     emptyText: String,
-    loadingText: String,
     icon: [String, Array],
     shape: String,
     arrowIcon: [String, Array],
@@ -75,6 +73,8 @@ const TreeSelect = defineComponent({
     treeShowIcon: { type: Boolean, default: true },
     treeCheckStrictly: Boolean,
     treeExpandedKeys: Array,
+    treeSelectedKeys: Array,
+    treeCheckedKeys: Array,
     treeExpandedAll: Boolean,
   },
   setup(ps, { slots, emit, attrs, listeners }) {
@@ -101,9 +101,11 @@ const TreeSelect = defineComponent({
     const currentPlacement = ref(ps.placement);
     const queryInputEventTimer = ref();
 
-    const activeIndex = ref(-1);
+    const hasLoad = "treeLoadData" in listeners;
+    const defaultSelectedKeys = ref(ps.treeSelectedKeys || []);
+    const defaultExpandedKeys = ref(ps.treeExpandedKeys || []);
+    const defaultCheckedKeys = ref(ps.treeCheckedKeys || []);
 
-    const reallySize = ref(0);
     const ctxFocused = ref(false);
     watch(
       () => ps.placement,
@@ -120,11 +122,6 @@ const TreeSelect = defineComponent({
         updateLabel();
       }
     );
-    // const scrollToelement = () => {
-    //   // 影响外层 scroll
-    //   const item = refPopper.value.children[0].children[activeIndex.value];
-    //   item.scrollIntoView({ block: "center" });
-    // };
 
     onBeforeMount(() => {
       document.removeEventListener("click", outsideClick);
@@ -133,15 +130,14 @@ const TreeSelect = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         minWidth.value = refCtx.value?.offsetWidth;
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
 
@@ -165,16 +161,7 @@ const TreeSelect = defineComponent({
       }
     };
 
-    const isChecked = (value) => {
-      if (ps.multiple) {
-        return currentValue.value?.indexOf(value) >= 0;
-      } else {
-        return !isEmpty(currentValue.value) && currentValue.value[0] === value;
-      }
-    };
-
     const clearQuery = () => {
-      activeIndex.value = -1;
       if (ps.filterable || hasSearchEvent) {
         setTimeout(() => {
           queryKey.value = "";
@@ -188,7 +175,9 @@ const TreeSelect = defineComponent({
     };
 
     const onSelect = (item) => {
-      const { value, label } = { ...item };
+      // const { value, label } = { ...item };
+      const value = item.key,
+        label = item.title;
       let selected = true;
       if (ps.multiple) {
         if (currentValue.value?.indexOf(value) >= 0) {
@@ -199,6 +188,8 @@ const TreeSelect = defineComponent({
           currentValue.value.push(value);
           labelText.value.push(label);
         }
+        defaultSelectedKeys.value = currentValue.value;
+
         updatePosition();
         if (hasSearchEvent || ps.filterable) {
           queryInputRef.value.value = "";
@@ -208,6 +199,7 @@ const TreeSelect = defineComponent({
       } else {
         currentValue.value = [value];
         labelText.value = [label];
+        defaultSelectedKeys.value = [value];
         // toggle();
         visible.value = false;
         clearQuery();
@@ -265,6 +257,7 @@ const TreeSelect = defineComponent({
       labelText.value = [];
       emit("input", ps.multiple ? [] : "");
       emit("change", ps.multiple ? [] : "");
+      clearQuery();
       e.stopPropagation();
     };
     const showQuery = () => {
@@ -305,39 +298,59 @@ const TreeSelect = defineComponent({
     };
 
     const updateLabel = () => {
+      // console.log(optionsData.value);
       labelText.value = optionsData.value
-        .filter((item) => currentValue.value.includes(item.value))
+        .filter((item) => currentValue.value.includes(item.key))
         .map((item) => item.label);
     };
     const optionsData = computed(() => {
-      let { options, loading } = ps;
-      if (!options) {
-        options = [];
-        const children = getChildren(slots.default?.());
-        children.forEach((child, index) => {
-          let { label, value, disabled } =
-            child?.componentOptions?.propsData || {};
-          let { children = [] } = child?.componentOptions;
-          options.push({
-            value,
-            disabled,
-            label: label || children[0]?.text || value,
-          });
-        });
-      }
+      const options = buildTree({
+        data: ps.treeData,
+        expandedKeys: defaultExpandedKeys.value,
+        selectedKeys: defaultSelectedKeys.value,
+        checkedKeys: defaultCheckedKeys.value,
+        hasLoad,
+        checkStrictly: ps.treeCheckStrictly,
+      });
+
       return options;
     });
-    const filterOptions = () => {
-      const key = queryKey.value;
-      const filter = ps.filterable && !isEmpty(key);
-      return filter
-        ? optionsData.value.filter((item) =>
-            item.label.toLowerCase().includes(key.toLowerCase())
-          )
-        : optionsData.value;
-    };
+
+    watch(
+      () => ps.treeCheckedKeys,
+      (nv) => {
+        defaultCheckedKeys.value = nv || [];
+      }
+    );
+    watch(
+      () => ps.treeSelectedKeys,
+      (nv) => {
+        defaultSelectedKeys.value = nv || [];
+      }
+    );
+    watch(
+      () => ps.treeExpandedKeys,
+      (nv) => {
+        defaultExpandedKeys.value = nv || [];
+      }
+    );
     const renderTree = () => {
-      return <Tree />;
+      const props = {
+        props: {
+          loading: ps.loading,
+          data: ps.treeData,
+          expandedKeys: defaultExpandedKeys.value,
+          selectedKeys: defaultSelectedKeys.value,
+          checkedKeys: defaultCheckedKeys.value,
+        },
+        on: {
+          select: onSelect,
+        },
+      };
+      if (hasLoad) {
+        props.on.loadData = listeners.treeLoadData;
+      }
+      return <Tree {...props} />;
     };
 
     const queryKeydown = ({ key }) => {
@@ -484,6 +497,7 @@ const TreeSelect = defineComponent({
             </span>
           );
         }
+        console.log(tags);
         return tags;
       };
       const labelsNode = multiple ? (

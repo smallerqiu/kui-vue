@@ -8,6 +8,7 @@ import {
   AddCircleOutline,
   ChevronForward,
 } from "kui-icons";
+import { buildTree, updateParentIndeterminate } from "./utils";
 const Tree = {
   name: "Tree",
   props: {
@@ -34,139 +35,6 @@ const Tree = {
     const dragNode = reactive({});
     const hasLoad = "loadData" in listeners;
 
-    // 计算半选状态
-    const calculateIndeterminateStates = (nodes) => {
-      // 先重置所有节点的 indeterminate 状态
-      nodes.forEach((node) => {
-        node.indeterminate = false;
-      });
-
-      // 从叶子节点开始向上计算
-      const leafNodes = nodes.filter((node) => node.isLeaf);
-
-      leafNodes.forEach((leaf) => {
-        if (leaf.checked && leaf.parentKey) {
-          updateParentIndeterminate(nodes, leaf.parentKey);
-        }
-      });
-    };
-    // 递归更新父节点的半选状态
-    const updateParentIndeterminate = (nodes, parentKey) => {
-      const parent = nodes.find((node) => node.key === parentKey);
-      if (!parent) return;
-
-      const siblings = nodes.filter((node) => node.parentKey === parentKey);
-      const enabledSiblings = siblings.filter((node) => !node.disabled);
-
-      if (enabledSiblings.length === 0) return;
-
-      const checkedCount = enabledSiblings.filter(
-        (node) => node.checked
-      ).length;
-      const indeterminateCount = enabledSiblings.filter(
-        (node) => node.indeterminate
-      ).length;
-
-      // 如果不是全选也不是全不选，则设置为半选
-      if (checkedCount > 0 && checkedCount < enabledSiblings.length) {
-        parent.indeterminate = true;
-        parent.checked = false;
-      } else if (checkedCount === enabledSiblings.length) {
-        // 全选的情况下，父节点也应该是选中状态
-        parent.checked = true;
-        parent.indeterminate = false;
-      } else if (checkedCount === 0 && indeterminateCount === 0) {
-        // 全不选
-        parent.checked = false;
-        parent.indeterminate = false;
-      } else if (indeterminateCount > 0) {
-        // 子节点中有半选状态
-        parent.indeterminate = true;
-        parent.checked = false;
-      }
-
-      // 继续向祖父节点更新
-      if (parent.parentKey) {
-        updateParentIndeterminate(nodes, parent.parentKey);
-      }
-    };
-    const buildTree = (
-      tree,
-      expandedKeys = [],
-      selectedKeys = [],
-      checkedKeys = [],
-      parentKey = null
-    ) => {
-      const result = [];
-      // 栈中存储 [节点, 层级, 是否展开] 的数组
-      const stack = tree
-        .map((node, i) => {
-          const isLast = i === tree.length - 1;
-          return [node, 0, parentKey, [], isLast];
-        })
-        .reverse();
-
-      while (stack.length > 0) {
-        const [node, level, pNodeKey, visiblePrefixes, isLastChild] =
-          stack.pop();
-        const key = node.key;
-        const hasChildren = node.children && node.children.length > 0;
-        let isLeaf = false;
-
-        if (node.isLeaf === true) {
-          isLeaf = true;
-        } else if (hasChildren) {
-          isLeaf = false;
-        } else if (hasLoad) {
-          // 没有 children 但有 loadData，说明是异步节点，显示箭头
-          isLeaf = false;
-        } else {
-          isLeaf = true;
-        }
-        // 将当前节点和层级信息加入结果
-        result.push({
-          ...node,
-          level: level,
-          parentKey: pNodeKey,
-          loading: false,
-          isLeaf: isLeaf,
-          expanded: expandedKeys.includes(key), // 添加展开状态
-          selected: selectedKeys.includes(key),
-          checked: checkedKeys.includes(key),
-          dropping: false,
-          isLastChild: isLastChild,
-          visiblePrefixes: visiblePrefixes,
-        });
-
-        // 如果节点是展开的且有子节点，则将子节点入栈
-        if (hasChildren) {
-          const childPrefixes = [...visiblePrefixes, !isLastChild];
-          // 注意：需要反向入栈以保持原来的遍历顺序
-          for (let i = node.children.length - 1; i >= 0; i--) {
-            const childIsLast = i === node.children.length - 1;
-            stack.push([
-              node.children[i],
-              level + 1,
-              key,
-              childPrefixes,
-              childIsLast,
-            ]);
-          }
-        }
-      }
-      // 只在非严格模式下计算 indeterminate 状态
-      if (!ps.checkStrictly) {
-        calculateIndeterminateStates(result, checkedKeys);
-      } else {
-        // 严格模式下清除所有 indeterminate 状态
-        result.forEach((node) => {
-          node.indeterminate = false;
-        });
-      }
-
-      return result;
-    };
-
     const handleExpand = (node) => {
       if (node.isLeaf || node.loading) return;
       // 切换展开状态
@@ -183,9 +51,7 @@ const Tree = {
         if (promise && promise.then) {
           promise
             .then(() => {
-              console.log("ok");
               // 加载成功
-
               nextTick(() => {
                 const newNode = defaultData.value.find((n) => n.key === key);
                 const targetNode = newNode || node;
@@ -195,7 +61,7 @@ const Tree = {
                 // 注意：这里通常不需要手动把数据 push 进 children。
                 // 因为外部数据变更会触发 watch(() => ps.data)，
                 // 从而触发 buildTree 重新渲染整个树。
-                // 我们只需要确保 expandedKeys 里有这个 key 即可。
+                // 只需要确保 expandedKeys 里有这个 key 即可。
 
                 const expandedKeys = defaultExpandedKeys.value;
                 if (!expandedKeys.includes(key)) {
@@ -211,7 +77,6 @@ const Tree = {
             .catch((e) => {
               // 加载失败，取消 loading
               node.loading = false;
-              console.error(e);
             });
         }
         return;
@@ -404,15 +269,11 @@ const Tree = {
           return null;
         };
 
-        // 1. 获取原始数据对象 (关键修改)
-        // 我们不能信任 defaultData 中的副本，必须去 ps.data 里找真身
         const rawDragNode = findRawNode(ps.data, dragKey);
         const rawDropNode = findRawNode(ps.data, dropKey);
 
         if (!rawDragNode || !rawDropNode) return;
 
-        // 2. 从原父节点移除 (操作原始数据)
-        // 查找扁平化数据主要是为了方便找 parentKey
         const flatDragNode = defaultData.value.find(
           (item) => item.key === dragKey
         );
@@ -430,7 +291,6 @@ const Tree = {
               // 如果移空了，清理一下，防止某些逻辑误判
               if (rawOldParent.children.length === 0) {
                 // 可选：delete rawOldParent.children;
-                // 或者保留空数组取决于业务，通常没关系
               }
             }
           }
@@ -444,8 +304,6 @@ const Tree = {
 
         if (!nodeToMove) return;
 
-        // 3. 清理残留的扁平化属性 (关键步骤：防止 buildTree 混乱)
-        // 必须删除这些由 buildTree 产生属性，否则它们会干扰下一次 buildTree
         [
           "level",
           "parentKey",
@@ -458,42 +316,33 @@ const Tree = {
           "indeterminate",
         ].forEach((prop) => delete nodeToMove[prop]);
 
-        // 4. 添加到新父节点 (操作原始数据 rawDropNode)
         if (!rawDropNode.children) {
-          // 这里是核心修复：直接给原始对象添加 children 属性
           // Vue 3 的 reactive 对象会自动响应这个添加操作
           rawDropNode.children = [];
         }
         rawDropNode.children.push(nodeToMove);
 
-        // 5. 强制展开新父节点 (更新 expandedKeys)
-        // 我们需要在 buildTree 之前就把 key 放进去，或者在之后放
         if (!defaultExpandedKeys.value.includes(dropKey)) {
           defaultExpandedKeys.value.push(dropKey);
         }
 
-        // 6. 重新构建树
-        // 此时 ps.data 已经被正确修改，buildTree 会生成正确的结果
-        defaultData.value = buildTree(
-          ps.data,
-          defaultExpandedKeys.value,
-          defaultSelectedKeys.value,
-          defaultCheckedKeys.value
-        );
+        defaultData.value = buildTree({
+          data: ps.data,
+          expandedKeys: defaultExpandedKeys.value,
+          selectedKeys: defaultSelectedKeys.value,
+          checkedKeys: defaultCheckedKeys.value,
+          hasLoad,
+          checkStrictly: ps.checkStrictly,
+        });
 
-        // 7. 再次确认状态 (保险起见)
-        // 找到新生成的扁平化节点，确保它是展开状态
         const newDropNode = defaultData.value.find((n) => n.key === dropKey);
         if (newDropNode) {
           newDropNode.expanded = true;
-          // 触发事件通知父组件 keys 变化
           emit("update:expandedKeys", defaultExpandedKeys.value);
         }
       },
     };
-    const toggleCheck = (e, item) => {
-      // console.log(e.target.checked, item.key);
-      const checked = e.target.checked;
+    const toggleCheck = ({ checked }, item) => {
       const { key } = item;
       // 更新节点状态
       updateCheckState.toggleNode(key, checked);
@@ -538,13 +387,11 @@ const Tree = {
 
       emit("select", item);
     };
-    // 拖拽相关处理函数
     const handleDragStart = (e, node) => {
       if (!ps.draggable || node.disabled) return;
       if (!node.isLeaf && node.expanded) {
         handleExpand(node);
       }
-      // 设置拖拽数据
       dragNode.key = node.key;
       dragNode.data = node;
 
@@ -562,7 +409,6 @@ const Tree = {
     const handleDragEnter = (e, node) => {
       if (!ps.draggable || node.disabled || node.key === dragNode.key) return;
 
-      // 可以在这里添加视觉反馈，表示可以放置
       e.preventDefault();
       node.dropping = true;
       emit("dragenter", node);
@@ -586,25 +432,6 @@ const Tree = {
 
       e.preventDefault();
       dropNode.dropping = false;
-
-      // 检查是否试图将父节点拖到自己的子节点中（防止循环）
-      // const isDescendant = (parentKey, childKey) => {
-      //   if (parentKey === childKey) return true;
-
-      //   const childNode = defaultData.value.find(
-      //     (item) => item.key === childKey
-      //   );
-      //   if (!childNode || !childNode.parentKey) return false;
-
-      //   if (childNode.parentKey === parentKey) return true;
-
-      //   return isDescendant(parentKey, childNode.parentKey);
-      // };
-
-      // if (isDescendant(dragNode.key, dropNode.key)) {
-      //   console.warn("Cannot move a parent node into its own child");
-      //   return;
-      // }
 
       // 执行节点移动
       updateCheckState.moveNode(dragNode.key, dropNode.key);
@@ -756,12 +583,14 @@ const Tree = {
 
     const updateDefaultData = () => {
       if (ps.data) {
-        defaultData.value = buildTree(
-          ps.data,
-          defaultExpandedKeys.value,
-          defaultSelectedKeys.value,
-          defaultCheckedKeys.value
-        );
+        defaultData.value = buildTree({
+          data: ps.data,
+          expandedKeys: defaultExpandedKeys.value,
+          selectedKeys: defaultSelectedKeys.value,
+          checkedKeys: defaultCheckedKeys.value,
+          hasLoad,
+          checkStrictly: ps.checkStrictly,
+        });
       }
     };
     updateDefaultData();

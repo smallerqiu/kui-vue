@@ -9,7 +9,7 @@ import Paint from "./paint";
 import Color from "color";
 import Presets from "./presets";
 import { cloneNodes } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import {
   defineComponent,
   ref,
@@ -22,7 +22,8 @@ import {
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
-    transfer, resize
+    transfer,
+    resize,
   },
   props: {
     value: String,
@@ -105,15 +106,14 @@ const ColorPicker = defineComponent({
     });
     const updatePopPosition = () => {
       nextTick(() => {
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
     const outsideClick = (e) => {
@@ -219,7 +219,7 @@ const ColorPicker = defineComponent({
       const props = {
         ref: refPopper,
         // "k-placement": currentPlacement.value,
-        attrs: { "k-placement": currentPlacement.value, },
+        attrs: { "k-placement": currentPlacement.value },
         class: [
           "k-color-picker-dropdown",
           {
@@ -255,7 +255,8 @@ const ColorPicker = defineComponent({
                 <div class="k-color-picker-avatar">
                   <div
                     class="k-color-picker-avatar-inner"
-                    style={`background-color:${currentColor.value}`}></div>
+                    style={`background-color:${currentColor.value}`}
+                  ></div>
                 </div>
                 <div class="k-color-picker-bar-box">
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
@@ -323,17 +324,21 @@ const ColorPicker = defineComponent({
       const triggerClick = ps.trigger == "click";
       return slots.default ? (
         <span>
-          {cloneNodes(slots.default(), {
-            ref: refCtx,
-            on: {
-              click: () => triggerClick && toggle(!visible.value),
-              mouseenter: () => !triggerClick && toggle(true),
-              mouseleave: onMouseleave,
+          {cloneNodes(
+            slots.default(),
+            {
+              ref: refCtx,
+              on: {
+                click: () => triggerClick && toggle(!visible.value),
+                mouseenter: () => !triggerClick && toggle(true),
+                mouseleave: onMouseleave,
+              },
+              // onClick: () => triggerClick && toggle(!visible.value), //for 3
+              // onMouseenter: () => !triggerClick && toggle(true),
+              // onMouseleave: onMouseleave,
             },
-            // onClick: () => triggerClick && toggle(!visible.value), //for 3
-            // onMouseenter: () => !triggerClick && toggle(true),
-            // onMouseleave: onMouseleave,
-          }, true)}
+            true
+          )}
           {drop}
         </span>
       ) : (
@@ -342,11 +347,13 @@ const ColorPicker = defineComponent({
             class="k-color-picker-selection"
             onMouseenter={() => !triggerClick && toggle(true)}
             onMouseleave={onMouseleave}
-            onClick={() => triggerClick && toggle(!visible.value)}>
+            onClick={() => triggerClick && toggle(!visible.value)}
+          >
             <div class="k-color-picker-color">
               <div
                 class="k-color-picker-color-inner"
-                style={`background-color:${currentColor.value}`}></div>
+                style={`background-color:${currentColor.value}`}
+              ></div>
             </div>
             {renderTriggerText()}
           </div>

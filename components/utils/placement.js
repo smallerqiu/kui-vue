@@ -1,4 +1,12 @@
-export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, offset = 3) {
+export function setPlacement({
+  refCtx,
+  refPopper,
+  currentPlacement,
+  transOrigin,
+  top,
+  left,
+  offset = 3,
+}) {
   if (!refCtx.value || !refPopper.value) return;
   const ctx = refCtx.value.$el || refCtx.value;
   let selectionRect = ctx.getBoundingClientRect();
@@ -43,7 +51,10 @@ export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, t
   switch (apt) {
     case "top":
       top.value = selectionRect.top - pickerHeight - offset + scrollTop;
-      left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+      left.value =
+        selectionRect.left +
+        (selectionRect.width - pickerWidth) / 2 +
+        scrollLeft;
       transOrigin.value = "bottom";
       break;
     case "top-left":
@@ -53,12 +64,16 @@ export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, t
       break;
     case "top-right":
       top.value = selectionRect.top - pickerHeight - offset + scrollTop;
-      left.value = selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
+      left.value =
+        selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
       transOrigin.value = "right bottom";
       break;
     case "bottom":
       top.value = selectionRect.top + selectionRect.height + offset + scrollTop;
-      left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+      left.value =
+        selectionRect.left +
+        (selectionRect.width - pickerWidth) / 2 +
+        scrollLeft;
       transOrigin.value = "center top";
       break;
     case "bottom-left":
@@ -68,11 +83,15 @@ export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, t
       break;
     case "bottom-right":
       top.value = selectionRect.top + selectionRect.height + offset + scrollTop;
-      left.value = selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
+      left.value =
+        selectionRect.left + selectionRect.width - pickerWidth + scrollLeft;
       transOrigin.value = "right top";
       break;
     case "left":
-      top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
+      top.value =
+        selectionRect.top +
+        (selectionRect.height - pickerHeight) / 2 +
+        scrollTop;
       left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
       transOrigin.value = "right center";
       break;
@@ -82,28 +101,39 @@ export function setPlacement(refCtx, refPopper, currentPlacement, transOrigin, t
       transOrigin.value = "right top";
       break;
     case "left-bottom":
-      top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
+      top.value =
+        selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
       left.value = selectionRect.left - pickerWidth - offset + scrollLeft;
       transOrigin.value = "right bottom";
       break;
     case "right":
-      top.value = selectionRect.top + (selectionRect.height - pickerHeight) / 2 + scrollTop;
-      left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+      top.value =
+        selectionRect.top +
+        (selectionRect.height - pickerHeight) / 2 +
+        scrollTop;
+      left.value =
+        selectionRect.left + selectionRect.width + offset + scrollLeft;
       transOrigin.value = "left center";
       break;
     case "right-top":
       top.value = selectionRect.top + scrollTop;
-      left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+      left.value =
+        selectionRect.left + selectionRect.width + offset + scrollLeft;
       transOrigin.value = "left top";
       break;
     case "right-bottom":
-      top.value = selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
-      left.value = selectionRect.left + selectionRect.width + offset + scrollLeft;
+      top.value =
+        selectionRect.top + selectionRect.height - pickerHeight + scrollTop;
+      left.value =
+        selectionRect.left + selectionRect.width + offset + scrollLeft;
       transOrigin.value = "left bottom";
       break;
     default:
       // 默认处理
       top.value = selectionRect.top - pickerHeight - offset + scrollTop;
-      left.value = selectionRect.left + (selectionRect.width - pickerWidth) / 2 + scrollLeft;
+      left.value =
+        selectionRect.left +
+        (selectionRect.width - pickerWidth) / 2 +
+        scrollLeft;
   }
 }

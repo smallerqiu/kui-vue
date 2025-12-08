@@ -1,9 +1,15 @@
-import { defineComponent, /*Transition,*/ ref, /*cloneVNode,*/ nextTick, watch, onMounted } from "vue";
+import {
+  defineComponent,
+  /*Transition,*/ ref,
+  /*cloneVNode,*/ nextTick,
+  watch,
+  onMounted,
+} from "vue";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from '../utils/vue';
+import { withInstall, cloneVNode } from "../utils/vue";
 import { colors, placements } from "../const/var";
 const Tooltip = defineComponent({
   name: "Tooltip",
@@ -37,7 +43,14 @@ const Tooltip = defineComponent({
     const showTimer = ref();
     const updatePosition = () => {
       nextTick(() => {
-        setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, 3);
+        setPlacement({
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
     };
     onMounted(() => {
@@ -101,7 +114,7 @@ const Tooltip = defineComponent({
           touchend: hide,
           mouseenter: mouseEnter,
           mouseleave: hide,
-        }
+        },
         // onTouchstart: mouseEnter,
         // onTouchend: hide,
         // onMouseenter: mouseEnter,
@@ -117,7 +130,8 @@ const Tooltip = defineComponent({
         return cloneVNode(node, pp, true);
         // return cloneVNode(node, pp, true, true); //for 3
       });
-      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper =
+        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -127,7 +141,7 @@ const Tooltip = defineComponent({
       // const childNodes = [nodeWrapper];
       const props = {
         // "k-placement": currentPlacement.value, //for 3
-        attrs: { "k-placement": currentPlacement.value, },
+        attrs: { "k-placement": currentPlacement.value },
         style: styles,
         ref: refPopper,
         on: {
@@ -142,7 +156,7 @@ const Tooltip = defineComponent({
               }
             }, 300);
           },
-        }
+        },
         // onMouseenter: () => {
         //   clearTimeout(hideTimer.value);
         //   visible.value = true;
@@ -157,23 +171,43 @@ const Tooltip = defineComponent({
       };
       // if (rendered.value) {
       // childNodes.push(
-      const overlay = rendered.value ? <transition name={`k-${preCls}`}>
-        <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
-          <div class={`k-${preCls}-content`} style={{ backgroundColor: isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : null }}>
-            <div class={`k-${preCls}-title`}>{title}</div>
-            <div class={`k-${preCls}-arrow`}>
-              <svg style={{ fill: isColor(color) ? (colors.includes(color) ? `var(--kui-color-${color})` : color) : "currentcolor" }} viewBox="0 0 24 7">
-                <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
-              </svg>
+      const overlay = rendered.value ? (
+        <transition name={`k-${preCls}`}>
+          <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
+            <div
+              class={`k-${preCls}-content`}
+              style={{
+                backgroundColor: isColor(color)
+                  ? colors.includes(color)
+                    ? `var(--kui-color-${color})`
+                    : color
+                  : null,
+              }}
+            >
+              <div class={`k-${preCls}-title`}>{title}</div>
+              <div class={`k-${preCls}-arrow`}>
+                <svg
+                  style={{
+                    fill: isColor(color)
+                      ? colors.includes(color)
+                        ? `var(--kui-color-${color})`
+                        : color
+                      : "currentcolor",
+                  }}
+                  viewBox="0 0 24 7"
+                >
+                  <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-      </transition> : null
+        </transition>
+      ) : null;
       // );
       // }
-      return cloneVNode(nodeWrapper, {}, true, overlay)
+      return cloneVNode(nodeWrapper, {}, true, overlay);
       // return <>{...childNodes}</>; // for 3
     };
   },
 });
-export default withInstall(Tooltip)
+export default withInstall(Tooltip);
