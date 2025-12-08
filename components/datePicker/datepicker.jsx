@@ -831,15 +831,14 @@ export default defineComponent({
     };
     const updatePosition = () => {
       nextTick(() => {
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
     onUnmounted(() =>

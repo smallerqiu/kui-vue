@@ -10,8 +10,8 @@ import {
   onBeforeMount,
 } from "vue";
 // import cloneVNode from '../utils/clone';
-import { cloneVNode } from '../utils/vue';
-import { withInstall,/* cloneVNode*/ } from '../utils/vue';
+import { cloneVNode } from "../utils/vue";
+import { withInstall /* cloneVNode*/ } from "../utils/vue";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -19,7 +19,8 @@ import { getChildren } from "../utils/vnode";
 const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
-    transfer, resize
+    transfer,
+    resize,
   },
   props: {
     dark: Boolean,
@@ -101,15 +102,14 @@ const Dropdown = defineComponent({
     };
     const updatePosition = () => {
       nextTick(() => {
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
     const showContextmenu = (e) => {
@@ -248,9 +248,14 @@ const Dropdown = defineComponent({
         // },
       };
       const overlay =
-        (rendered.value && slots.overlay) ? (
+        rendered.value && slots.overlay ? (
           <transition name="k-dropdown">
-            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
+            <div
+              v-transfer={true}
+              v-resize={updatePosition}
+              v-show={visible.value}
+              {...props}
+            >
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
                 {ps.arrow ? (
@@ -277,26 +282,27 @@ const Dropdown = defineComponent({
       const pp = ps.target
         ? {}
         : {
-          on: {
-            click: clickEvent,
-            mouseenter: mouseEnterEvent,
-            mouseleave: mouseLeaveEvent,
-            contextmenu: contextmenuEvent,
-          }
-          // onClick: clickEvent, for 3
-          // onMouseenter: mouseEnterEvent,
-          // onMouseleave: mouseLeaveEvent,
-          // onContextmenu: contextmenuEvent,
-        };
+            on: {
+              click: clickEvent,
+              mouseenter: mouseEnterEvent,
+              mouseleave: mouseLeaveEvent,
+              contextmenu: contextmenuEvent,
+            },
+            // onClick: clickEvent, for 3
+            // onMouseenter: mouseEnterEvent,
+            // onMouseleave: mouseLeaveEvent,
+            // onContextmenu: contextmenuEvent,
+          };
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
           ref: refCtx,
           ...pp,
-        }, true,
+        },
+        true,
         overlay
       );
-      return ctxNode
+      return ctxNode;
     };
   },
 });

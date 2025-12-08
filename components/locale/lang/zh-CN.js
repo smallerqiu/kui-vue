@@ -1,7 +1,6 @@
 export default {
   k: {
     datePicker: {
-      selectDate: '请选择日期',
       selectYear: "请选择年",
       selectMonth: "请选择月",
       selectDate: "请选择日期",

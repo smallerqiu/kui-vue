@@ -1,9 +1,16 @@
-import { defineComponent, /*Transition,*/ ref, /*cloneVNode,*/ nextTick, watch, onMounted, onBeforeMount } from "vue";
+import {
+  defineComponent,
+  /*Transition,*/ ref,
+  /*cloneVNode,*/ nextTick,
+  watch,
+  onMounted,
+  onBeforeMount,
+} from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { withInstall, cloneVNode } from '../utils/vue';
-import { placements } from '../const/var'
+import { withInstall, cloneVNode } from "../utils/vue";
+import { placements } from "../const/var";
 const Poptip = defineComponent({
   name: "Poptip",
   directives: {
@@ -43,7 +50,14 @@ const Poptip = defineComponent({
     const showTimer = ref();
     const updatePosition = () => {
       nextTick(() => {
-        setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, 3);
+        setPlacement({
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
     };
     onMounted(() => {
@@ -76,7 +90,12 @@ const Poptip = defineComponent({
     };
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
-      if (refPopper.value && !refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) {
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
         updateShow(false);
       }
     };
@@ -115,7 +134,7 @@ const Poptip = defineComponent({
       const wpProps = {
         ref: refCtx,
         // onMouseleave: hide, //for 3
-        on: { mouseleave: hide }
+        on: { mouseleave: hide },
       };
       if (ps.trigger === "click") {
         // wpProps.onClick = show; for
@@ -140,7 +159,8 @@ const Poptip = defineComponent({
         // return cloneVNode(node, pp, true, true); //for 3
         return cloneVNode(node, pp, true);
       });
-      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper =
+        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -180,24 +200,33 @@ const Poptip = defineComponent({
       };
       // if (rendered.value) {
       // childNodes.push(
-      const overlay = rendered.value ? <transition name={`k-${preCls}`}>
-        <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
-          <div class={`k-${preCls}-content`}>
-            {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
-            <div class={`k-${preCls}-body`}>{content}</div>
-            <div class={`k-${preCls}-arrow`}>
-              <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                <path id="ot" d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
-                <path stroke="currentcolor" id="in" d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
-              </svg>
+      const overlay = rendered.value ? (
+        <transition name={`k-${preCls}`}>
+          <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
+            <div class={`k-${preCls}-content`}>
+              {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
+              <div class={`k-${preCls}-body`}>{content}</div>
+              <div class={`k-${preCls}-arrow`}>
+                <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                  <path
+                    id="ot"
+                    d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                  />
+                  <path
+                    stroke="currentcolor"
+                    id="in"
+                    d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-      </transition> : null
+        </transition>
+      ) : null;
       // );
       // }
       // return <>{...childNodes}</>; //for 3
-      return cloneVNode(nodeWrapper, {}, true, overlay)
+      return cloneVNode(nodeWrapper, {}, true, overlay);
     };
   },
 });

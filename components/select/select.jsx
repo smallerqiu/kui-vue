@@ -185,15 +185,14 @@ const Select = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         minWidth.value = refCtx.value?.offsetWidth;
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
 
@@ -324,6 +323,7 @@ const Select = defineComponent({
       labelText.value = [];
       emit("input", ps.multiple ? [] : "");
       emit("change", ps.multiple ? [] : "");
+      clearQuery();
       e.stopPropagation();
     };
     const showQuery = () => {

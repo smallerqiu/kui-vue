@@ -30,8 +30,8 @@ import { Search } from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";
 const shape = ref();
-const setShape = (e) => {
-  shape.value = e.target.checked ? "circle" : null;
+const setShape = ({ checked }) => {
+  shape.value = checked ? "circle" : null;
 };
 const onSearch = (value) => {
   message.info("This is search event");

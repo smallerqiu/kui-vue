@@ -102,15 +102,15 @@ const SubMenu = defineComponent({
         currentPlacement.value = "right-top";
       }
       nextTick(() => {
-        setPlacement(
+        setPlacement({
           refCtx,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          8
-        );
+          offset: 8,
+        });
       });
     };
     const renderPopper = () => {
