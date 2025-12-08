@@ -1,84 +1,95 @@
-import { getChild } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
-  name: 'Space',
+import { defineComponent, h, /*cloneVNode*/ provide } from "vue";
+import { getChildren } from "../utils/vnode";
+import { withInstall, cloneVNode } from "../utils/vue";
+const Space = defineComponent({
+  name: "Space",
   props: {
     align: {
       type: String,
       validator(value) {
-        return value ? ["start", "end", "center", "baseline"].indexOf(value) >= 0 : true;
-      }
+        return value
+          ? ["start", "end", "center", "baseline"].includes(value)
+          : true;
+      },
     },
     vertical: Boolean,
-    wrap: Boolean,
+    wrap: { type: Boolean, default: true },
     block: Boolean,
     compact: Boolean,
     size: {
       type: [String, Number, Array],
-      // default: 'small',
       validator(value) {
-        return (typeof value == 'number' || Array.isArray(value)) ? true : ["small", "middle", "large"].indexOf(value) >= 0;
-      }
-    }
+        return typeof value === "number" || Array.isArray(value)
+          ? true
+          : ["small", "middle", "large"].includes(value);
+      },
+    },
   },
-  render() {
-    let { align, vertical, $slots, size, wrap, compact, block } = this
-    align = (!vertical && !align) ? 'center' : align
-    const props = {
-      style: {},
-      class: ['k-space', {
-        [`k-space-vertical`]: vertical,
-        [`k-space-compact`]: compact,
-        [`k-space-wrap`]: wrap,
-        [`k-space-block`]: block,
-        [`k-space-align-${align}`]: align,
-      }],
-      on: {
-        ...this.$listeners
-      }
-    }
-    if (!size && !compact) {
-      props.style.gap = '8px'
-    }
-    if (!compact) {
-      if (Array.isArray(size)) {
-        props.style = { gap: `${size[1]}px ${size[0]}px` }
-      } else if (/small|middle|large/.test(size)) {
-        let sizes = { small: 8, middle: 16, large: 24 }
-        props.style.gap = sizes[size] + 'px'
-      } else if (size !== undefined && size !== null) {
-        props.style.gap = `${size}px`
-      }
-    }
-    let childs = $slots.default
-    let split = $slots.split
+  setup(ps, { slots, attrs }) {
+    provide("size", ps.size);
+    return () => {
+      let children = getChildren(slots.default?.());
 
-    childs = getChild(this.$slots.default)
-    let newChilds = []
+      // console.log(children);
+      const split = slots.split?.();
 
-    for (let i = 0; i < childs.length; i++) {
-      let pre = vertical ? 'vertical-' : ''
-      let p = {
-        props: {
-          size
+      const align = !ps.vertical && !ps.align ? "center" : ps.align;
+
+      const style = {};
+      const cls = [
+        "k-space",
+        {
+          [`k-space-vertical`]: ps.vertical,
+          [`k-space-compact`]: ps.compact,
+          [`k-space-wrap`]: ps.wrap,
+          [`k-space-block`]: ps.block,
+          [`k-space-align-${align}`]: align,
         },
-        class: {
-          [`k-space-${pre}first-item`]: i == 0,
-          [`k-space-${pre}item`]: i > 0 && i < childs.length - 1,
-          [`k-space-${pre}last-item`]: i == childs.length - 1,
-        }
-      }
-      let child = compact ? cloneVNode(childs[i], p) : <div {...p}>{childs[i]}</div>
-      // let child = cloneVNode(childs[i], p) 
-      newChilds.push(child)
-      if (split) {
-        if (i < childs.length - 1) {
-          newChilds.push(split)
-        }
-      }
-    }
-    childs = newChilds
+      ];
 
-    return <div {...props}>{childs}</div>
-  }
-}
+      if (!ps.size && !ps.compact) {
+        style.gap = "8px";
+      }
+      if (!ps.compact) {
+        if (Array.isArray(ps.size)) {
+          style.gap = `${ps.size[1]}px ${ps.size[0]}px`;
+        } else if (/small|middle|large/.test(ps.size)) {
+          const sizes = { small: 8, middle: 16, large: 24 };
+          style.gap = `${sizes[ps.size]}px`;
+        } else if (ps.size !== undefined && ps.size !== null) {
+          style.gap = `${ps.size}px`;
+        }
+      }
+      // const _attrs = { ...attrs }
+      // delete _attrs.size;
+      const props = {
+        ...attrs,
+        style,
+        class: cls,
+      };
+
+      const vNodes = [];
+      for (let i = 0; i < children.length; i++) {
+        const pre = ps.vertical ? "vertical-" : "";
+        const p = {
+          props: { size: ps.size },
+          class: {
+            [`k-space-${pre}first-item`]: i === 0,
+            [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
+            [`k-space-${pre}last-item`]: i === children.length - 1,
+          },
+        };
+        const child = ps.compact
+          ? cloneVNode(children[i], p, true, true)
+          : h("div", p, [children[i]]);
+        vNodes.push(child);
+        if (split && i < children.length - 1) {
+          vNodes.push(split);
+        }
+      }
+      // console.log(vNodes);
+      return <div {...props}>{...vNodes}</div>;
+    };
+  },
+});
+export default withInstall(Space);

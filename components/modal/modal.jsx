@@ -1,15 +1,22 @@
-import Icon from '../icon'
-import { Button } from '../button'
-import transfer from "../_tool/transfer";
-import { measureScrollBar, getOffset } from '../_tool/utils'
-import { t } from '../locale'
-// let cacheBodyOverflow = {};
-import { Close } from 'kui-icons'
-
-export default {
+import { Button } from "../button";
+import transfer from "../directives/transfer";
+import { Close } from "kui-icons";
+import {
+  defineComponent,
+  ref,
+  watch,
+  onMounted,
+  nextTick,
+  /*Transition,*/ onBeforeMount,
+  inject,
+} from "vue";
+import zhCN from "../locale/lang/zh-CN";
+import { withInstall } from "../utils/vue";
+const Modal = defineComponent({
+  name: "Modal",
   directives: { transfer },
   props: {
-    value: Boolean,
+    show: Boolean,
     title: String,
     okText: String,
     cancelText: String,
@@ -24,206 +31,240 @@ export default {
     loading: Boolean,
     footer: String,
     transfer: { type: Boolean, default: true },
-    // mode: { type: String, default: 'modal' }
+    escKey: { type: Boolean, default: true },
   },
-  data() {
-    return {
-      rendered: false,
-      show: this.value,
-      showInner: this.value,
-      left: '',
-      currentTop: this.top,
-      isMouseDown: false,
-      mousedownIn: false,
-      startPos: { x: 0, y: 0 },
-      showPoint: { x: 0, y: 0 }
-    }
-  },
-  watch: {
-    value(value) {
-      this.updateProp(value)
-    }
-  },
-  updated() {
-    if (this.show) {
-      this.setPos()
-    }
-  },
-  methods: {
-    updateProp(visible) {
-      if (visible) {
-        this.rendered = true
-        this.$nextTick(e => {
-          this.show = visible
-          this.showInner = visible
-        })
+  setup(ps, { slots, emit }) {
+    const visible = ref(ps.show);
+    const rendered = ref(false);
+    const showInner = ref(ps.show);
+    const left = ref(0);
+    const currentTop = ref(ps.top);
+    const isMousePressed = ref(false);
+    const mousedownIn = ref(false);
+    const startPos = ref({ x: 0, y: 0 });
+    const refModal = ref();
+    const refHeader = ref();
+    const locale = inject("locale", null) || zhCN;
+    const escToClose = (event) => {
+      if (event.key === "Escape") {
+        close();
+      }
+    };
+
+    onBeforeMount(() => {
+      document.removeEventListener("mousedown", mousedown);
+      ps.escKey && document.removeEventListener("keydown", escToClose);
+    });
+    onMounted(() => {
+      document.addEventListener("mousedown", mousedown);
+      ps.escKey && document.addEventListener("keydown", escToClose);
+
+      if (ps.draggable) {
+        left.value = (document.body.offsetWidth - (ps.width || 480)) / 2;
+      }
+      if (ps.show) {
+        toggle(true);
+      }
+    });
+    watch(
+      () => ps.show,
+      (nv, ov) => {
+        toggle(nv);
+      }
+    );
+    const getOffset = (el) => {
+      return el
+        ? {
+            left: el.offsetLeft,
+            top: el.offsetTop,
+          }
+        : { left: 0, top: 0 };
+    };
+
+    const toggle = (value) => {
+      if (!rendered.value && value) {
+        rendered.value = true;
+        toggle(true);
       } else {
-        this.show = false
-        setTimeout(() => {
-          this.showInner = false
-        }, 300);
-      }
-      // this.resetBodyStyle(visible)
-    },
-    // resetBodyStyle(opened) {
-    //   if (!this.$isServer) {
-    //     let target = document.body;
-    //     if (!this.show && !cacheBodyOverflow.hasOwnProperty('overflow')) {
-    //       cacheBodyOverflow = {
-    //         width: target.style.width,
-    //         overflow: target.style.overflow,
-    //         overflowX: target.style.overflowX,
-    //         overflowY: target.style.overflowY,
-    //       }
-    //     }
-    //     if (opened) {
-    //       let barWidth = measureScrollBar(true)
-    //       let hasBar = target.scrollHeight > window.innerHeight || target.offsetHeight > window.innerHeight
-    //       if (barWidth && hasBar) {
-    //         target.style.width = `calc(100% - ${barWidth}px)`
-    //         target.style.overflow = `hidden`
-    //       }
-    //     } else {
-    //       setTimeout(() => {
-    //         let task = (this.tasks && this.tasks.length == 0) || !this.tasks
-    //         task && Object.keys(cacheBodyOverflow).forEach(key => {
-    //           target.style[key] = cacheBodyOverflow[key] || ''
-    //           delete cacheBodyOverflow[key]
-    //         })
-    //       }, 300)
-    //     }
-    //   }
-    // },
-    setPos() {
-      if (this.show && this.$refs.modal) {
-        let { showPoint: { x, y } } = this
-        // let { x, y } = showPoint
-        let { left, top } = getOffset(this.$refs.modal)
-        this.$refs.modal.style['transform-origin'] = `${x - left}px ${y - top}px`
-      }
-    },
-    ok() {
-      this.$emit('ok')
-    },
-    cancel() {
-      this.close()
-      this.$emit('cancel')
-    },
-    close() {
-      this.$emit('input', false)
-      this.$emit('cancel')
-      this.$emit('close')
-    },
-    clickMaskToClose(e) {
-      // console.log(this.mousedownIn)
-      if (!this.loading && this.maskClosable && !this.$refs.modal.contains(e.target) && !this.mousedownIn) {
-        this.close()
-      }
-    },
-    mousemove(e) {
-      if (this.isMouseDown && this.draggable) {
-        let { x, y } = this.startPos
-        this.left += e.clientX - x
-        this.currentTop = this.currentTop || 100
-        this.currentTop += e.clientY - y
-        this.startPos = { x: e.clientX, y: e.clientY }
-        this.setPos()
-        e.preventDefault()
-      }
-    },
-    mouseup(e) {
-      this.isMouseDown = false
-      document.removeEventListener('mousemove', this.mousemove)
-      document.removeEventListener('mouseup', this.mouseup)
-    },
-    mousedown(e) {
-      if (!this.show) {
-        this.showPoint = { x: e.clientX, y: e.clientY }
-      }
-      if (e.button == 0 && this.draggable === true && this.$refs.hRef && this.$refs.hRef.contains(e.target)) {
-        this.isMouseDown = true
-        this.startPos = { x: e.clientX, y: e.clientY }
-        this.mousemove(e)
-        document.addEventListener('mousemove', this.mousemove)
-        document.addEventListener('mouseup', this.mouseup)
-      }
-
-      this.mousedownIn = this.show && this.$refs.modal && this.$refs.modal.contains(e.target)
-    }
-  },
-  beforeDestroy() {
-    !this.$isServer && document.removeEventListener('mousedown', this.mousedown);
-    // this.resetBodyStyle(false)
-  },
-
-  mounted() {
-    if (!this.$isServer) {
-      document.addEventListener('mousedown', this.mousedown)
-
-      if (this.draggable) {
-        this.left = (document.body.offsetWidth - (this.width || 520)) / 2
-      }
-      // console.log(this.value)
-      if (this.value) {
-        this.$nextTick(() => {
-          this.updateProp(true)
-        })
-      }
-    }
-  },
-  render() {
-    let { $slots, show, showInner, draggable, transfer } = this
-
-    //mask
-    let maskNode = null
-    if (this.mask) {
-      maskNode = <transition name="k-modal-fade"><div class="k-modal-mask" v-show={show} /></transition>
-    }
-    let okText = this.okText || t('k.modal.ok')
-    let cancelText = this.cancelText || t('k.modal.cancel')
-    //content
-    let contentNode = $slots.content
-    if (!contentNode) {
-      const contents = []
-      this.showClose && contents.push(<span class="k-modal-close" onClick={this.close}><Icon type={Close} strokeWidth={50} /></span>)
-      this.title !== null && contents.push(<div class="k-modal-header" ref="hRef"><div class="k-modal-header-inner">{this.title}</div></div>)
-      contents.push(<div class="k-modal-body">{$slots.default}</div>)
-
-      //footer
-      if (this.footer !== null) {
-        let footer = $slots.footer
-        if (!footer) {
-          footer = [<Button onClick={this.cancel}>{cancelText}</Button>, <Button onClick={this.ok} type="primary" loading={this.loading}>{okText}</Button>]
+        if (value) {
+          nextTick((e) => {
+            visible.value = value;
+            showInner.value = value;
+            emit("update:show", true);
+            nextTick(() => {
+              updateOrigin();
+            });
+          });
+        } else {
+          visible.value = false;
+          setTimeout(() => {
+            showInner.value = false;
+          }, 300);
+          emit("update:show", false);
         }
-        const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
-
-        contents.push(footerNode)
       }
-      contentNode = <div class="k-modal-content">{contents}</div>
-    }
-
-    const style = {
-      width: `${this.width}px`,
-      top: `${this.currentTop}px`,
-      left: `${this.left}px`,
-    }
-    const classes = [
-      'k-modal', {
-        'k-modal-draggable': draggable,
-        'k-modal-maximized': this.maximized,
-        'k-modal-centered': this.centered,
-        'k-modal-has-footer': this.footer !== null,
+    };
+    const updateOrigin = () => {
+      if (refModal.value) {
+        let { x, y } = window.__kui__point || { x: 0, y: 0 };
+        let { left, top } = getOffset(refModal.value);
+        refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
       }
-    ]
-    return this.rendered ? (<div class={classes} v-transfer={transfer}>
-      {maskNode}
-      <div class="k-modal-wrap" v-show={showInner} onClick={this.clickMaskToClose}>
-        <transition name="k-modal-zoom">
-          <div class="k-modal-inner" ref="modal" v-show={show} style={style}>
-            {contentNode}
+    };
+    const ok = () => {
+      emit("ok");
+    };
+    const cancel = () => {
+      toggle(false);
+      emit("cancel");
+    };
+    const close = () => {
+      toggle(false);
+      emit("close");
+    };
+    const clickMaskToClose = (e) => {
+      if (
+        !ps.loading &&
+        ps.maskClosable &&
+        !refModal.value.contains(e.target) &&
+        !mousedownIn.value
+      ) {
+        close();
+      }
+    };
+    const mousemove = (e) => {
+      if (isMousePressed.value && ps.draggable) {
+        let { x, y } = startPos.value;
+        left.value += e.clientX - x;
+        currentTop.value = currentTop.value || 100;
+        currentTop.value += e.clientY - y;
+        startPos.value = { x: e.clientX, y: e.clientY };
+        updateOrigin();
+        e.preventDefault();
+      }
+    };
+    const mouseup = (e) => {
+      isMousePressed.value = false;
+      document.removeEventListener("mousemove", mousemove);
+      document.removeEventListener("mouseup", mouseup);
+    };
+    const mousedown = (e) => {
+      if (
+        e.button == 0 &&
+        ps.draggable === true &&
+        refHeader.value &&
+        refHeader.value.contains(e.target)
+      ) {
+        isMousePressed.value = true;
+        startPos.value = { x: e.clientX, y: e.clientY };
+        mousemove(e);
+        document.addEventListener("mousemove", mousemove);
+        document.addEventListener("mouseup", mouseup);
+      }
+
+      mousedownIn.value =
+        visible.value && refModal.value && refModal.value.contains(e.target);
+    };
+
+    return () => {
+      let { draggable, width } = ps;
+
+      //mask
+      let maskNode = null;
+      if (ps.mask) {
+        maskNode = (
+          <transition name="k-modal-fade">
+            <div class="k-modal-mask" v-show={visible.value} />
+          </transition>
+        );
+      }
+      let okText = ps.okText || locale?.k.modal.ok;
+      let cancelText = ps.cancelText || locale?.k.modal.cancel;
+      //content
+      let contentNode = slots.content?.();
+      if (!contentNode) {
+        const contents = [];
+        ps.showClose &&
+          contents.push(
+            <Button
+              icon={Close}
+              size="small"
+              onClick={close}
+              class="k-modal-close"
+              type="text"
+            ></Button>
+          );
+        ps.title !== null &&
+          contents.push(
+            <div class="k-modal-header" ref={refHeader}>
+              <div class="k-modal-header-inner">{ps.title}</div>
+            </div>
+          );
+        contents.push(<div class="k-modal-body">{slots.default?.()}</div>);
+
+        //footer
+        if (ps.footer !== null) {
+          let footer = slots.footer?.();
+          if (!footer) {
+            footer = [
+              <Button onClick={cancel}>{cancelText}</Button>,
+              <Button onClick={ok} type="primary" loading={ps.loading}>
+                {okText}
+              </Button>,
+            ];
+          }
+          const footerNode = footer ? (
+            <div class="k-modal-footer">{footer}</div>
+          ) : null;
+
+          contents.push(footerNode);
+        }
+        contentNode = (
+          <div class="k-modal-content" tabindex="0">
+            {contents}
           </div>
-        </transition>
-      </div>
-    </div>) : null
-  }
-}
+        );
+      }
+
+      const style = {
+        width: `${width}px`,
+        top: `${currentTop.value}px`,
+        left: `${left.value}px`,
+      };
+      const classes = [
+        "k-modal",
+        {
+          "k-modal-draggable": draggable,
+          "k-modal-maximized": ps.maximized,
+          "k-modal-centered": ps.centered,
+          "k-modal-has-footer": ps.footer !== null,
+        },
+      ];
+      return rendered.value ? (
+        <div class={classes} v-transfer={ps.transfer}>
+          {maskNode}
+          <div
+            class="k-modal-wrap"
+            tabindex="-1"
+            role="dialog"
+            v-show={showInner.value}
+            onClick={clickMaskToClose}
+          >
+            <transition name="k-modal-zoom">
+              <div
+                class="k-modal-inner"
+                ref={refModal}
+                v-show={visible.value}
+                style={style}
+              >
+                {contentNode}
+                <div tabindex="0"></div>
+              </div>
+            </transition>
+          </div>
+        </div>
+      ) : null;
+    };
+  },
+});
+export default withInstall(Modal);

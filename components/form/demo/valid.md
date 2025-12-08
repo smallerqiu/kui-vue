@@ -1,5 +1,5 @@
 <cn>
-#### 表单验证
+### 表单验证
 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
 </cn>
 
@@ -84,7 +84,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Hardcore" prop="hardcore">
-        <Switch true-text="Yes" false-text="No"  />
+        <KSwitch true-text="Yes" false-text="No"  />
       </FormItem>
       <FormItem label="Other" prop="other">
         <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
@@ -95,7 +95,7 @@
       <FormItem :wrapperCol="{offset:6}">
         <Button type="primary" @click="submit" >Submit</Button>
         <Button style="margin:0 10px" @click="reset" >Reset</Button>
-        <Button type="dashed" @click="setValue" >Set Value</Button>
+        <Button theme="dashed" @click="setValue" >Set Value</Button>
       </FormItem>
     </Form>
 
@@ -245,7 +245,7 @@ export default {
     },
     sendCode() {
       this.time = 59
-      this.$Message.success("验证码发送成功，请注意查收");
+      this.$message.success("验证码发送成功，请注意查收");
       clearInterval(this.timer)
       this.timer = setInterval(e => {
         if (this.time < 1) {
@@ -258,7 +258,7 @@ export default {
     },
     submit() {
       this.$refs.form.validate(valid => {
-        this.$Message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+        this.$message[valid ? 'success' : 'error'](valid ? 'success' : 'failed')
       })
     },
     reset() {

@@ -1,17 +1,21 @@
+import { defineComponent } from "vue";
+import { withInstall } from '../utils/vue';
 
-export default {
+const MenuGroup = defineComponent({
   name: "MenuGroup",
   props: {
-    title: { type: String, required: true }
+    title: { type: String, required: true },
   },
-  render() {
-    return (
-      <li class="k-menu-item-group">
-        <div class="k-menu-item-group-title">{this.$slots.title || this.title}</div>
-        <ul class="k-menu-item-group-list">
-          {this.$slots.default}
-        </ul>
-      </li>
-    )
+  setup(props, { slots }) {
+    return () => {
+      const titleNode = props.title || slots.title?.();
+      return (
+        <li class="k-menu-item-group">
+          <div class="k-menu-item-group-title">{titleNode}</div>
+          <ul class="k-menu-item-group-list">{slots.default?.()}</ul>
+        </li>
+      );
+    };
   },
-}
+});
+export default withInstall(MenuGroup);

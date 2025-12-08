@@ -1,23 +1,30 @@
 @import '../../styles/var.less';
+
 .k-tabs {
   overflow: hidden;
+
   .k-tabs-bar {
     border-bottom: 1px solid var(--kui-color-border);
     margin: 0 0 16px;
     display: flex;
     align-items: center;
-    .k-tabs-tab-btn-next, .k-tabs-tab-btn-prev {
+
+    .k-tabs-tab-btn-next,
+    .k-tabs-tab-btn-prev {
       cursor: pointer;
       text-align: center;
       font-size: 20px;
       padding: 6px 5px 0;
       color: var(--kui-color-icon);
     }
-    .k-tabs-tab-btn-next-disabed, .k-tabs-tab-btn-prev-disabed {
-      color: var(--kui-color-disable-color);
+
+    .k-tabs-tab-btn-next-disabled,
+    .k-tabs-tab-btn-prev-disabled {
+      color: var(--kui-color-disabled);
       cursor: not-allowed;
     }
-    .k-tabs-extra {}
+
+
     .k-tabs-nav-container {
       flex: 1;
       width: 0; // 麻痹，我感觉这是个bug
@@ -26,23 +33,28 @@
       overflow: hidden;
       font-size: 14px;
       margin-bottom: -1px;
+
       .k-tabs-nav-wrap {
         overflow: hidden;
         flex: 1;
         width: 0;
       }
+
       .k-tabs-nav {
         display: inline-block;
         transition: transform .3s;
         white-space: nowrap;
       }
     }
+
     .k-tabs-nav-container-scroll {
       padding: 0;
+
       .k-tabs-nav-scroll {
         transition: transform .3s;
       }
     }
+
     .k-tabs-tab {
       height: 100%;
       margin: 0 32px 0 0;
@@ -56,55 +68,71 @@
       color: var(--kui-color-font);
       display: inline-flex;
       align-items: center;
+
       .k-icon {
         margin-right: 8px;
       }
+
       .k-tabs-close {
         margin: 0 -5px 0 0;
         text-align: center;
         font-size: 16px;
         margin-left: 5px;
         color: var(--kui-color-icon);
+
         &:hover {
           color: var(--kui-color-danger);
         }
       }
+
       &:last-child {
         margin: 0 2px 0 0;
       }
+
       &:hover {
         color: var(--kui-color-main);
       }
     }
+
     .k-tabs-tab-active {
       color: var(--kui-color-main);
       text-shadow: 0 0 0.5px currentcolor;
     }
+
     .k-tabs-tab-disabled {
-      color: var(--kui-color-disable-color);
+      color: var(--kui-color-disabled);
       cursor: not-allowed;
+
       &:hover {
-        color: var(--kui-color-disable-color);
+        color: var(--kui-color-disabled);
       }
     }
+
     .k-tabs-ink-bar {
       position: absolute;
       height: 2px;
+      left: 0;
       background: var(--kui-color-main);
       bottom: 0;
-      transition: transform .3s ease-in-out,
     }
   }
+
   .k-tabs-content {
     width: 100%;
     display: flex;
     flex-direction: row;
     transition: margin-left .3s cubic-bezier(.645, .045, .355, 1);
     will-change: margin-left;
-    .k-tabs-tabpane {
+
+    .k-tabs-tabpanel {
       flex-shrink: 0;
       width: 100%;
       opacity: 1;
+    }
+
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
+      display: none;
+      visibility: hidden;
     }
   }
 }
@@ -121,75 +149,89 @@
   .k-tabs-bar .k-tabs-tab-active::after {
     display: none;
   }
+
   .k-tabs-content {
-    .k-tabs-tabpane {
+    .k-tabs-tabpanel {
       float: left;
       transition: opacity .45s;
+
+      &:not(.k-tabs-tabpanel-active) {
+        display: block;
+        visibility: visible;
+      }
     }
+  }
+
+  .k-tabs-ink-bar {
+    transition: all .3s ease-in-out,
   }
 }
 
 .k-tabs-card {
   .k-tabs-bar {
-    .k-tabs-extra {}
+
     .k-tabs-tab {
       margin-right: 2px;
       border: 1px solid var(--kui-color-border);
       // background: var(--kui-color-back);
       border-bottom-color: transparent;
-      padding: 8px 16px;    
+      padding: 8px 16px;
     }
+
     .k-tabs-tab-active {
       background: var(--kui-color-back);
       border-bottom-color: transparent;
+
       &::after {
         display: none;
       }
     }
   }
+
   .k-tabs-content {
     display: block;
-    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
-      height: 0;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
+
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
+      display: none;
+      visibility: hidden;
     }
   }
 }
 
 .k-tabs-sample {
+
   // background: #fff;
   .k-tabs-bar {
     margin: 0;
     border: none;
+
     .k-tabs-tab {
       margin: 0;
       padding: 10px 16px;
     }
+
     .k-tabs-tab-active {
       background: var(--kui-color-back);
+
       &::after {
         display: none;
       }
     }
   }
+
   .k-tabs-content {
     display: block;
-    .k-tabs-tabpane {
+
+    .k-tabs-tabpanel {
       padding: 16px;
       // background: #fff;
       background: var(--kui-color-back);
       box-sizing: border-box;
     }
-    .k-tabs-tabpane:not(.k-tabs-tabpane-active) {
-      height: 0;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: none;
+
+    .k-tabs-tabpanel:not(.k-tabs-tabpanel-active) {
+      display: none;
+      visibility: hidden;
     }
   }
 }

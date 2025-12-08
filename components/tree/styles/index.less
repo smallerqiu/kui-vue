@@ -1,38 +1,38 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-tree {
   .k-tree-item {
-    padding-bottom: 4px;
-    margin: 0;
+    // padding-bottom: 4px;
+    margin-bottom: 4px;
     list-style: none;
     white-space: nowrap;
     outline: 0;
     user-select: none;
     display: flex;
     align-items: center;
-		line-height: 1;
+    line-height: 1;
+    transition: all 0.2s ease-in-out;
+    position: relative;
     .k-checkbox {
-      margin-right: 4px;
+      margin: 0 4px;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 24px;
     }
   }
 
-  // .k-tree-children {
-  // 	// margin: 0;
-  // 	.k-tree-item-children {
-  // 		// margin: 0 0 0 24px;
-  // 		position: relative;
-  // 	}
-  // }
-  .k-tree-commes {
+  .k-tree-comment,
+  .k-tree-comment-line {
     display: inline-block;
     width: 24px;
     position: relative;
     height: 24px;
   }
 
-  // .k-checkbox-wp {
-  // 	margin: 0;
-  // }
   .k-tree-icon {
     margin-right: 5px;
     vertical-align: middle;
@@ -42,8 +42,9 @@
   .k-tree-title {
     display: inline-flex;
     padding: 0 4px;
+    box-sizing: border-box;
+    margin-left: 4px;
     align-items: center;
-    // margin: 0 4px;
     z-index: 0;
     border-radius: @radius;
     cursor: pointer;
@@ -52,8 +53,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
-		min-height: 24px;
-    // transition: all .2s ease-in-out;
+    min-height: 24px;
     &:hover {
       background: var(--kui-color-hover);
       outline: none;
@@ -61,15 +61,9 @@
   }
 
   .k-tree-item-drop {
-    >.k-tree-title {
+    > .k-tree-title {
       background-color: var(--kui-color-main) !important;
       color: #fff;
-    }
-  }
-
-  .k-tree-item-drag {
-    >.k-tree-title {
-      // background-color: tint(var(--kui-color-main), 90%) !important;
     }
   }
 
@@ -93,15 +87,13 @@
   }
 
   .k-tree-item-disabled {
-
     .k-tree-title,
     .k-tree-icon {
-      color: var(--kui-color-disable-color);
+      color: var(--kui-color-disabled);
       cursor: not-allowed;
     }
 
     .k-tree-title {
-
       &:hover,
       &:focus {
         background-color: transparent;
@@ -122,33 +114,23 @@
     width: 24px;
     height: 24px;
     position: relative;
-    // text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    // transform: rotate(90deg);
-    // transition: all .2s ease-in-out;
     cursor: pointer;
-
-    // background-color: #fff;
     .k-icon {
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
 
   .k-tree-arrow-open .k-icon {
-    transform: rotate(90deg)
-  }
-
-  .k-tree-children {
-    // overflow: hidden;
-    transition: all .2s ease-in-out;
+    transform: rotate(90deg);
   }
 
   .tree-nodata {
     padding: 8px 10px;
     display: block;
-    color: var(--kui-color-disable-color);
+    color: var(--kui-color-disabled);
     font-size: 12px;
   }
 }
@@ -157,7 +139,6 @@
   position: relative;
 
   .k-tree-title {
-
     &:hover,
     &:focus {
       background-color: transparent;
@@ -167,9 +148,8 @@
   .k-tree-item {
     cursor: pointer;
     position: relative;
-		
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 0;
@@ -186,10 +166,11 @@
   .k-tree-item-selected:hover {
     &::before {
       color: #fff;
-      background-color: var(--kui-color-main);
+      background-color: var(--kui-color-selected);
     }
 
-    .k-tree-title ,.k-icon {
+    .k-tree-title,
+    .k-icon {
       background-color: transparent;
       color: #fff;
     }
@@ -199,7 +180,7 @@
     cursor: not-allowed;
 
     .k-tree-title {
-      color: var(--kui-color-disable-color);
+      color: var(--kui-color-disabled);
     }
 
     &::before {
@@ -207,7 +188,31 @@
     }
   }
 }
+//line
+/* 基础缩进块大小 */
+.k-tree-indent-line,
+.k-tree-arrow-placeholder,
+.k-tree-indent-empty {
+  display: inline-block;
+  width: 24px; /* 根据你的设计调整 */
+  height: 24px; /* 或者固定高度 */
+  vertical-align: middle;
+  position: relative;
+  flex-shrink: 0;
+}
 
+/* 1. 垂直贯穿线 (父节点不是最后) */
+.k-tree-indent-line::before {
+  content: "";
+  position: absolute;
+  height: 28px;
+  top: 0;
+  bottom: 0;
+  left: 50%; /* 居中画线 */
+  border-left: 1px solid var(--kui-color-border);
+}
+
+//line-en
 .k-tree-show-line {
   .k-tree-arrow {
     transform: rotate(90deg);
@@ -225,22 +230,31 @@
     border-left: 1px solid var(--kui-color-border);
     position: absolute;
     height: 100%;
-		z-index: 1;
+    z-index: 1;
   }
-
-  .k-tree-commes {
+  .k-tree-comment-line {
     &::before {
-      content: '';
+      content: "";
+      position: absolute;
+      height: 24px;
+      background-color: var(--kui-color-border);
+      width: 1px;
+      left: 12px;
+    }
+  }
+  .k-tree-comment {
+    &::before {
+      content: "";
       position: absolute;
       left: 12px;
       top: 0;
       width: 1px;
-      height: 28px;
+      height: 24px;
       background-color: var(--kui-color-border);
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 12px;
       top: 12px;
@@ -248,20 +262,5 @@
       height: 1px;
       background-color: var(--kui-color-border);
     }
-  }
-
-
-  .k-tree-children:last-child {
-
-    >.k-tree-item>.k-tree-commes::before {
-      height: 12px;
-    }
-
-    >.k-tree-item-children {
-      >.k-tree-line {
-        display: none;
-      }
-    }
-
   }
 }

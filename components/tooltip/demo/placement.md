@@ -1,5 +1,5 @@
 <cn>
-#### 位置
+### 位置
 通过 `placement`控制方向, 位置有十二个方向。
 </cn>
 
@@ -54,13 +54,7 @@
     </Space>
   </Flex>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      title: '明月几时有?',
-    }
-  },
-}
+<script setup>
+const title = "明月几时有";
 </script>
 ```

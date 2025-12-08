@@ -1,12 +1,21 @@
-import BaseInput from '../base/input'
-import Icon from '../icon'
-import { plus, minus, round, toNumber } from '../_tool/number'
-import { ChevronUp } from 'kui-icons'
-export default {
+import Input from "../input/input";
+import Icon from "../icon";
+import { withInstall } from "../utils/vue";
+import {
+  add,
+  subtract,
+  toFixed,
+  isValidNumber,
+  isEmpty,
+  toDecimalString,
+} from "../utils/number";
+import { ChevronUp } from "kui-icons";
+import { ref, defineComponent, watch, inject } from "vue";
+const InputNumber = defineComponent({
   props: {
     value: [Array, Number, String],
-    min: { type: Number },
-    max: { type: Number },
+    min: { type: Number, default: -Infinity },
+    max: { type: Number, default: Infinity },
     disabled: Boolean,
     clearable: Boolean,
     readonly: Boolean,
@@ -17,165 +26,193 @@ export default {
     suffix: String,
     prefix: String,
     controls: { type: Boolean, default: true },
+    keyboard: { type: Boolean, default: true },
     step: {
       type: Number,
       default: 1,
     },
     theme: String,
-    placeholder: String,
+    // placeholder: String,
     icon: [String, Array],
     id: String,
+  },
+  setup(ps, { slots, attrs, emit, listeners }) {
+    const parentSize = inject("size", null);
+    const getValue = (v, edge, sync) => {
+      let input = "";
+      let output = "";
 
-  },
-  watch: {
-    value(v) {
-      if (this.formatter) {
-        v = this.formatter(v + '')
-      }
-      this.defaultValue = v //this.getVal(v)
-      // console.log('watch', this.defaultValue)
-    }
-  },
-  data() {
-    return {
-      defaultValue: this.getVal(this.value),
-    }
-  },
-  methods: {
-    getVal(v) {
-      let { min, max, precision, formatter, parser } = this
-      if (parser) {
-        v = parser(v + '')
-      }
-      if (v !== undefined && v !== '' && v !== null) {
-        v = (v + '').replace(/[^0-9.-]/g, '')
-        if (isNaN(Number(v))) {
-          v = ''
-          // console.log(v)
-          // ios not supper,可惜了
-          // v = (v + '').replace(/^([^-]+)(?=-\S*)/, '') // 移除第一个负号之前的所有字符
-          //   .replace(/(?<!^)-/g, '')         // 移除第一个负号之外的所有负号
-          // .replace(/[^0-9.-]/g, '')        // 移除数字 小数点 负号之外的所有字符
-          // .replace(/(?<!^[\d-]+)\./g, '')   // 移除第一个小数点之外的所有句点
-          // .replace(/^0*(-?\d+)(\.(\d{1,2}))?\S*?$/, '$1$2') // 保留两位小数
-          // console.log(v)
-          // v = (v + '').replace(/(?!-).*?(([0-9]*\.)?[0-9]+).*/g, "$1")
+      let { min, max, precision, formatter, parser } = ps;
+
+      if (!isValidNumber(v)) {
+        if (isEmpty(v)) {
+          input = "";
+          output = "";
+        } else {
+          input = String(v);
+          output = formatter ? parser?.(String(v)) || v : String(v);
         }
-        if (v === '') return ''
-        v = toNumber(v + '')
       } else {
-        return ''
+        if (/e/i.test(v) && sync) {
+          v = toDecimalString(v);
+        }
+        input = String(v);
+        output = v;
       }
-
-
-      if (max !== undefined && v >= max) v = max
-      else if (min !== undefined && v <= min) v = min
-
-      if (precision > 0) {
-        v = round(v, precision)
-      }
-
       if (formatter) {
-        v = formatter(v + '')
+        const value = parser?.(String(input)) || input;
+        input = formatter(String(value));
       }
-
-      return v
-    },
-    setVal(up) {
-      if (this.disabled) return;
-      let { step = 1, defaultValue, parser, formatter } = this
-
-      let v = this.getVal(defaultValue) || 0
-
-      if (parser) {
-        v = parser(v + '')
+      if (edge) {
+        if (precision > 0) {
+          output = toFixed(output, precision);
+        }
+        if (output > max) {
+          output = max;
+          input = formatter?.(String(max)) || max;
+        } else if (output < min) {
+          output = min;
+          input = formatter?.(String(min)) || min;
+        }
       }
-      v = up == 1 ? plus(v, step) : minus(v, step)
+      // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
+      return { input, output };
+    };
+    // output is the truth value
+    // input is the show text
+    const { input, output } = getValue(ps.value);
 
-      let a = this.getVal(v)
+    const inputValue = ref(input);
+    const outputValue = ref(output);
 
-      // console.log('a', a)
-
-      this.defaultValue = a + ''
-
-
-      if (parser) {
-        a = parser(a)
+    const calcValue = (e, isUp) => {
+      if (ps.disabled) return;
+      const { step } = ps;
+      if (!isValidNumber(outputValue.value) || isEmpty(outputValue.value)) {
+        outputValue.value = 0;
       }
+      let value =
+        isUp == 1
+          ? add(String(outputValue.value), String(step))
+          : subtract(String(outputValue.value), String(step));
+      const { input, output } = getValue(value, true);
 
+      // console.log(input,output)
+      // return
+      inputValue.value = input;
+      outputValue.value = output;
+      e.preventDefault();
 
-      this.$emit('input', a)
-      this.$emit('change', a)
-    },
-    change(x) {
-      let { formatter, parser } = this
-      let input = x + '', output = x;
+      emit("input", output);
+      // emit("update:value", output);
+      emit("change", { target: { value: output } });
+    };
 
-      if (formatter) {
-        input = formatter(x + '')
+    const onKeyDown = (e) => {
+      if (!ps.keyboard) return;
+      if (e.key === "ArrowUp") {
+        calcValue(e, 1);
+      } else if (e.key === "ArrowDown") {
+        calcValue(e, 0);
       }
-      // if (formatter) {
-      //   x = formatter(x + '')
-      // }
-      this.defaultValue = input
+    };
+    const onUpdate = (e) => {
+      const v = e; //.target.value;
+      const { input, output } = getValue(v, false, false);
+      // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
+      inputValue.value = input;
+      // e.target.value = input;
 
-      // output = toNumber(output + '')
-
-      this.$emit('input', output)
-      this.$emit('change', output)
-    },
-    blurHandle(e) {
-      let v = this.getVal(e.target.value)
-
-      this.defaultValue = v + ''
-
-      let output = v
-      if (this.parser) {
-        output = this.parser(output + '')
+      if (!isValidNumber(output) && !isEmpty(v)) {
+        return;
       }
-
-      if (output !== '') {
-        output = toNumber(output + '')
+      const { max, min } = ps;
+      if ((output && output > max) || (output && output < min)) {
+        return;
       }
+      outputValue.value = output;
+      emit("input", output);
+      // emit("update:value", output);
+      // e.preventDefault();
+    };
+    watch(
+      () => ps.value,
+      (v) => {
+        const { input, output } = getValue(v, false);
 
-      this.$emit('input', output)
-      this.$emit('blur', e)
-      this.$emit('change', output);
-    }
+        inputValue.value = input;
+        outputValue.value = output;
+      }
+    );
+    const blurHandle = (e) => {
+      const { input, output } = getValue(outputValue.value, true, true);
+
+      inputValue.value = input;
+      outputValue.value = output;
+      emit("input", output);
+      // emit("update:value", output);
+      emit("blur", e);
+    };
+    return () => {
+      // const { suffix } = ps;
+
+      const props = {
+        attrs: { ...attrs },
+        // ...ps,
+        props: {
+          inputType: "input-number",
+          value: inputValue.value,
+          clearable: false,
+          size: ps.size || parentSize,
+          disabled: ps.disabled,
+          suffix: ps.suffix,
+          prefix: ps.prefix,
+          icon: ps.icon,
+          // placeholder: ps.placeholder,
+        },
+        on: {
+          ...listeners,
+          input: (e) => {
+            onUpdate(e);
+          },
+          change: (e) => {},
+          blur: (e) => blurHandle(e),
+          keydown: (e) => onKeyDown(e),
+        },
+        // onInput: (e) => {
+        //   onUpdate(e);
+        // },
+        // onChange: (e) => {},
+        // onBlur: (e) => blurHandle(e),
+        // onKeydown: (e) => onKeyDown(e),
+      };
+      return (
+        <Input
+          {...props}
+          scopedSlots={{
+            suffix: () => slots.suffix?.(),
+            prefix: () => slots.prefix?.(),
+            controls: () =>
+              ps.controls ? (
+                <div class="k-input-number-controls">
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e, 1)}
+                  >
+                    <Icon type={ChevronUp} />
+                  </span>
+                  <span
+                    class="k-input-number-control"
+                    onClick={(e) => calcValue(e)}
+                  >
+                    <Icon type={ChevronUp} />
+                  </span>
+                </div>
+              ) : null,
+          }}
+        />
+      );
+    };
   },
-  provide() {
-    return {
-      InputNumber: this
-    }
-  },
-  render() {
-    let { defaultValue, controls } = this
-    const props = {
-      props: {
-        ...this.$props,
-        inputType: 'input-number',
-        value: defaultValue + ''
-      },
-      attrs: { ...this.$attrs },
-      on: {
-        ...this.$listeners,
-        'input': (e) => this.change(e),
-        'blur': (e) => this.blurHandle(e),
-        // 'change': (e) => this.change(e),
-      },
-    }
-    const { suffix } = this
-    const suffixNode = this.$slots.suffix || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null)
-    return <BaseInput {...props}>
-      <template slot="suffix">
-        {suffixNode}
-      </template>
-      <template slot='contorls'>
-        {controls ? <div class="k-input-number-controls">
-          <span class="k-input-number-control" onClick={() => this.setVal(1)}><Icon type={ChevronUp} /></span>
-          <span class="k-input-number-control" onClick={this.setVal}><Icon type={ChevronUp} /></span>
-        </div> : null}
-      </template>
-    </BaseInput>
-  }
-} 
+});
+export default withInstall(InputNumber);

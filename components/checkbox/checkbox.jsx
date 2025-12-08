@@ -1,82 +1,101 @@
-import { hasProp } from '../_tool/utils'
-import Icon from '../icon'
-import { Checkmark } from 'kui-icons'
-export default {
+import Icon from "../icon";
+import { Checkmark } from "kui-icons";
+import { defineComponent, ref, watch } from "vue";
+import { withInstall } from "../utils/vue";
+
+const Checkbox = defineComponent({
   name: "Checkbox",
+
+  // [Vue 3 Upgrade]: del model
+  model: {
+    prop: "checked",
+    event: "input",
+  },
+
   props: {
-    value: [String, Number, Boolean],
-    disabled: Boolean,
+    // [Vue 3 Upgrade]:
+    // modelValue: { type: [Boolean, String, Number], default: null },
+
+    // [Vue 3 Upgrade]: Vue 2 use checked & model
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+
+    value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
+    disabled: Boolean,
     indeterminate: Boolean,
-    checked: [Boolean, Number],
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
   },
-  model: {
-    prop: 'checked',
-    // event: 'change'
-  },
-  inject: {
-    groupContext: { default: null },
-  },
-  data() {
-    const checked = hasProp(this, 'checked') ? this.checked : (this.checked === true && !this.indeterminate)
-    return {
-      isChecked: checked,
-    }
-  },
-  methods: {
-    change(e) {
-      let { disabled, value, $slots, label, groupContext } = this
-      if (disabled) {
-        return false;
-      }
-      const checked = e.target.checked;
-      this.isChecked = checked;
-      if (groupContext) {
-        label = label || $slots.default.text
-        this.groupContext.change({ label, value })
-      } else {
-        this.$emit("input", checked);
-        this.$emit("change", e);
-      }
-    }
-  },
-  render() {
-    let { disabled, change, $slots, size, label, groupContext, value, indeterminate, checked, isChecked } = this
 
-    if (groupContext) {
-      checked = groupContext.value?.indexOf(value) !== -1
-      disabled = disabled || groupContext.disabled
-      size = groupContext.size
-    } else {
-      if (!hasProp(this, 'checked')) {
-        checked = isChecked
+  setup(props, { slots, emit }) {
+    const isChecked = ref(props.checked);
+    watch(
+      () => props.checked,
+      (v) => {
+        isChecked.value = v;
       }
-    }
-    const wpclasses = ["k-checkbox", {
-      ["k-checkbox-disabled"]: disabled,
-      ["k-checkbox-checked"]: checked && !indeterminate,
-      ["k-checkbox-indeterminate"]: indeterminate,
-      ["k-checkbox-sm"]: size == 'small',
-      ["k-checkbox-lg"]: size == 'large'
-    }]
+    );
 
+    const onChange = (e) => {
+      if (props.disabled) return;
 
-    let inner = checked ? <Icon type={Checkmark} strokeWidth={60} /> : null
-    const labelNode = label || $slots.default
-    return (
-      <label class={wpclasses} onClick={e => e.stopPropagation()}>
-        <span class="k-checkbox-symbol">
-          <input type="checkbox" class="k-checkbox-input" checked={checked} disabled={disabled} onChange={change} />
-          <span class="k-checkbox-inner">{inner}</span>
-        </span>
-        {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
-      </label>
-    )
-  }
-}
+      const targetChecked = e.target.checked;
+
+      isChecked.value = targetChecked;
+      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
+      emit("change", {
+        checked: targetChecked,
+        value: props.value,
+        label: props.label,
+      });
+      emit("input", targetChecked);
+    };
+
+    return () => {
+      const wpClasses = [
+        "k-checkbox",
+        {
+          ["k-checkbox-disabled"]: props.disabled,
+          ["k-checkbox-checked"]: isChecked.value && !props.indeterminate,
+          ["k-checkbox-indeterminate"]: props.indeterminate && !isChecked.value,
+          // ["k-checkbox-sm"]: checkboxSize.value === "small",
+          // ["k-checkbox-lg"]: checkboxSize.value === "large",
+        },
+      ];
+
+      let innerNode = isChecked.value ? (
+        <Icon type={Checkmark} strokeWidth={60} />
+      ) : null;
+
+      const labelNode = props.label || slots.default?.();
+
+      return (
+        <label class={wpClasses} onClick={(e) => e.stopPropagation()}>
+          <span class="k-checkbox-symbol">
+            <input
+              type="checkbox"
+              class="k-checkbox-input"
+              disabled={props.disabled}
+              onChange={onChange}
+              // [Vue 3 Upgrade]: Vue 3 use checked={isChecked.value}
+              // checked={isChecked.value}
+
+              // [Vue 2 Only]: Vue 2 JSX need domPropsChecked to keep DOM status
+              domPropsChecked={isChecked.value}
+            />
+            <span class="k-checkbox-inner">{innerNode}</span>
+          </span>
+          {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
+        </label>
+      );
+    };
+  },
+});
+export default withInstall(Checkbox);

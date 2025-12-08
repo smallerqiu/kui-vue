@@ -1,5 +1,5 @@
 <cn>
-#### 动态校验规则
+### 动态校验规则
 根据不同情况执行不同的校验规则。
 </cn>
 
@@ -94,7 +94,7 @@ export default{
     },
     submit(){
       this.$refs.form.validate(valid=>{
-        this.$Message[valid?'success':'error'](valid?'success':'faild')
+        this.$message[valid?'success':'error'](valid?'success':'failed')
       })
     },
     reset(){

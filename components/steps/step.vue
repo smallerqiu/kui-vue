@@ -1,22 +1,41 @@
 
 <template>
-    <div :class="classes" :style="styles">
-        <div class="k-step-tail">
-            <i></i>
-        </div>
-        <div class="k-step-icon">
-            <Icon :type="icon" v-if="icon"></Icon>
-            <div class="k-step-icon-inner" v-if="!icon">
-                <span v-if="state!='finish' && !icon && state!='error'">{{step}}</span>
-                <Icon type="checkmark" v-if="!icon && state=='finish'" />
-                <Icon type="close" v-if="!icon && state=='error'" />
-            </div>
-        </div>
-        <div class="k-step-main">
-            <div class="k-step-title">{{title}}</div>
-            <div class="k-step-description">{{description}}</div>
-        </div>
+  <div
+    :class="classes"
+    :style="styles"
+  >
+    <div class="k-step-tail">
+      <i />
     </div>
+    <div class="k-step-icon">
+      <Icon
+        v-if="icon"
+        :type="icon"
+      />
+      <div
+        v-if="!icon"
+        class="k-step-icon-inner"
+      >
+        <span v-if="state!='finish' && !icon && state!='error'">{{ step }}</span>
+        <Icon
+          v-if="!icon && state=='finish'"
+          type="checkmark"
+        />
+        <Icon
+          v-if="!icon && state=='error'"
+          type="close"
+        />
+      </div>
+    </div>
+    <div class="k-step-main">
+      <div class="k-step-title">
+        {{ title }}
+      </div>
+      <div class="k-step-description">
+        {{ description }}
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import Icon from '../icon'
@@ -56,7 +75,7 @@ export default {
     mounted() {
         this.dispatch('Steps', 'steps-add', this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.dispatch('Step', 'steps-remove', this)
     }
 }

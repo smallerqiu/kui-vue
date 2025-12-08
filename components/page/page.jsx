@@ -1,78 +1,90 @@
-import { Select, Option } from '../select'
-import { Input } from '../input'
-import Icon from '../icon'
-import { t } from '../locale';
-import { ChevronUp, ChevronDoubleBack, Ellipsis, ChevronDoubleForward } from 'kui-icons'
+import { Select } from "../select";
+import { Input } from "../input";
+import Icon from "../icon";
+import {
+  ChevronUp,
+  ChevronDoubleBack,
+  Ellipsis,
+  ChevronDoubleForward,
+} from "kui-icons";
+import { ref, defineComponent, watch, inject, nextTick } from "vue";
+import { withInstall } from "../utils/vue";
 
-export default {
+import zhCN from "../locale/lang/zh-CN";
+const Page = defineComponent({
   name: "Page",
   props: {
+    disabled: Boolean,
     showSizer: Boolean,
     showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
     total: { default: 0, type: Number },
     pageSize: { default: 10, type: Number },
-    current: { default: 1, type: Number }
+    current: { default: 1, type: Number },
   },
-  model: {
-    prop: 'current',
-    event: 'input'
-  },
-  data() {
-    return {
-      nextPageGroup: false,
-      prevPageGroup: false,
-      pageCount: 0,
-      page: this.current,
-      defaultPageSize: this.pageSize
-    }
-  },
-  watch: {
-    pageSize(v) {
-      this.defaultPageSize = v
-      this.resetPage()
-    },
-    current(v) {
-      this.page = v
-      this.resetPage()
-    },
-    total(v) {
-      this.resetPage()
-    }
-  },
-  mounted() {
-    this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-  },
-  methods: {
-    resetPage() {
-      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-      if (this.page > this.pageCount) {
-        this.page = this.pageCount
-        this.$emit('input', this.page)
-        this.$emit('change', this.page)
+  setup(ps, { emit }) {
+    // todo: select
+    const nextPageGroup = ref(false);
+    const prevPageGroup = ref(false);
+    const pcount = Math.ceil(ps.total / ps.pageSize) || 1;
+    const pageCount = ref(pcount);
+    const defaultPage = ref(ps.current);
+    const defaultPageSize = ref(ps.pageSize);
+    const locale = inject("locale", null) || zhCN;
+
+    watch(
+      () => ps.pageSize,
+      (v) => {
+        defaultPageSize.value = v;
+        resetPage();
       }
-    },
-    renderPage() {
+    );
+    watch(
+      () => ps.total,
+      (v) => {
+        resetPage();
+      }
+    );
+
+    watch(
+      () => ps.current,
+      (v) => {
+        defaultPage.value = v;
+        resetPage();
+      }
+    );
+
+    const resetPage = () => {
+      pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
+      if (defaultPage.value > pageCount.value) {
+        defaultPage.value = pageCount.value;
+      }
+    };
+    const renderPage = () => {
       const groupCount = 7,
-        page = Number(this.page),
-        pageCount = Number(this.pageCount);
+        page = Number(defaultPage.value),
+        pCount = Number(pageCount.value);
       let showPrevMore = false;
       let showNextMore = false;
-      if (pageCount > groupCount) {
-        if (page > groupCount - 3) { showPrevMore = true; }
-        if (page < pageCount - 3) { showNextMore = true; }
+      if (pCount > groupCount) {
+        if (page > groupCount - 3) {
+          showPrevMore = true;
+        }
+        if (page < pCount - 3) {
+          showNextMore = true;
+        }
       }
       const array = [];
       if (showPrevMore && !showNextMore) {
-        const startPage = pageCount - (groupCount - 2);
-        for (let i = startPage; i < pageCount; i++) {
+        const startPage = pCount - (groupCount - 2);
+        for (let i = startPage; i < pCount; i++) {
           array.push(i);
         }
       } else if (!showPrevMore && showNextMore) {
@@ -85,164 +97,252 @@ export default {
           array.push(i);
         }
       } else {
-        for (let i = 2; i < pageCount; i++) {
+        for (let i = 2; i < pCount; i++) {
           array.push(i);
         }
       }
       let child = array.map((p, i) => {
         let prop = {
-          class: ['k-pager-item', { 'k-pager-item-active': page == p }],
+          class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
-          on: { click: e => this.toPage(p) }
-        }
-        return <li {...prop}><span>{p}</span></li>
-      })
+          on: {
+            click: () => toPage(p),
+          },
+        };
+        return (
+          <li {...prop}>
+            <span>{p}</span>
+          </li>
+        );
+      });
 
       if (showPrevMore) {
         let p = {
-          class: 'k-pager-item k-pager-more',
+          class: "k-pager-item k-pager-more",
           on: {
-            mouseenter: () => this.prevPageGroup = true,
-            mouseleave: () => this.prevPageGroup = false,
-            click: () => this.toPage(this.page - 5)
-          }
-        }
-        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.prevPageGroup ? ChevronDoubleBack : Ellipsis} /></li>;
-        child.unshift(moreNode)
+            mouseenter: () => (prevPageGroup.value = true),
+            mouseleave: () => (prevPageGroup.value = false),
+            click: () => toPage(defaultPage.value - 5),
+          },
+        };
+        const moreNode = (
+          <li {...p}>
+            <Icon
+              strokeWidth={30}
+              type={prevPageGroup.value ? ChevronDoubleBack : Ellipsis}
+            />
+          </li>
+        );
+        child.unshift(moreNode);
       }
       if (showNextMore) {
         let p = {
-          class: 'k-pager-item k-pager-more',
+          class: "k-pager-item k-pager-more",
           on: {
-            mouseenter: () => this.nextPageGroup = true,
-            mouseleave: () => this.nextPageGroup = false,
-            click: () => this.toPage(this.page + 5)
-          }
-        }
-        const moreNode = <li {...p}><Icon strokeWidth={30} type={this.nextPageGroup ? ChevronDoubleForward : Ellipsis} /></li>;
-        child.push(moreNode)
+            mouseenter: () => (nextPageGroup.value = true),
+            mouseleave: () => (nextPageGroup.value = false),
+            click: () => toPage(defaultPage.value + 5),
+          },
+        };
+        const moreNode = (
+          <li {...p}>
+            <Icon
+              strokeWidth={30}
+              type={nextPageGroup.value ? ChevronDoubleForward : Ellipsis}
+            />
+          </li>
+        );
+        child.push(moreNode);
       }
-      return child
-    },
-    prePage() {
-      if (this.page > 1) {
-        this.page--;
-        this.$emit('input', this.page)
-        this.$emit('change', this.page)
+      return child;
+    };
+    const prePage = () => {
+      if (ps.disabled) return;
+      if (defaultPage.value > 1) {
+        defaultPage.value--;
+        emit("update:current", defaultPage.value);
+        emit("change", defaultPage.value, defaultPageSize.value);
       }
-    },
-    nextPage() {
-      if (this.page < this.pageCount) {
-        this.page++;
-        this.$emit('input', this.page)
-        this.$emit('change', this.page)
+    };
+    const nextPage = () => {
+      if (ps.disabled) return;
+      if (defaultPage.value < pageCount.value) {
+        defaultPage.value++;
+        emit("update:current", defaultPage.value);
+        emit("change", defaultPage.value, defaultPageSize.value);
       }
-    },
-    toPage(page) {
-      if (page == this.page) return;
+    };
+    const toPage = (page) => {
+      if (ps.disabled) return;
+      if (page == defaultPage.value) return;
       if (page <= 1) {
-        page = 1
-        this.prevPageGroup = false
+        page = 1;
+        prevPageGroup.value = false;
       }
-      if (page >= this.pageCount) {
-        this.nextPageGroup = false
-        page = this.pageCount
+      if (page >= pageCount.value) {
+        nextPageGroup.value = false;
+        page = pageCount.value;
       }
-      this.page = page
-      this.$emit('input', page)
-      this.$emit('change', page)
-    },
-    changeSize({ value }) {
-      this.defaultPageSize = value
-      this.pageCount = Math.ceil(this.total / this.defaultPageSize) || 1;
-      if (this.page > this.pageCount) {
-        this.page = this.pageCount
-        this.$emit('input', page)
-        this.$emit('change', page)
+      defaultPage.value = page;
+      emit("update:current", page);
+      emit("change", defaultPage.value, defaultPageSize.value);
+    };
+    const changeSize = (value) => {
+      defaultPageSize.value = value;
+      pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
+      if (defaultPage.value > pageCount.value) {
+        defaultPage.value = pageCount.value;
+        emit("update:current", defaultPage.value);
       }
-      this.$emit('page-size-change', { current: this.page, pageSize: value })
-    },
-    renderFirst() {
-      if (this.pageCount > 0) {
-        return <li class={["k-pager-item", { 'k-pager-item-active': this.page == 1 }]} onClick={e => this.toPage(1)} >
-          <span>1</span>
-        </li>
+      emit("change", defaultPage.value, defaultPageSize.value);
+    };
+    const renderFirst = () => {
+      if (pageCount.value > 0) {
+        return (
+          <li
+            class={[
+              "k-pager-item",
+              { "k-pager-item-active": defaultPage.value == 1 },
+            ]}
+            onClick={() => toPage(1)}
+          >
+            <span>1</span>
+          </li>
+        );
       }
-      return null
-    },
-    renderLast() {
-      let { pageCount } = this
-      if (pageCount > 1) {
-        return <li class={['k-pager-item', { 'k-pager-item-active': this.page == pageCount }]} onClick={e => this.toPage(pageCount)} >
-          <span>{pageCount}</span>
-        </li>
+      return null;
+    };
+    const renderLast = () => {
+      let pCount = pageCount.value;
+      if (pCount > 1) {
+        return (
+          <li
+            class={[
+              "k-pager-item",
+              { "k-pager-item-active": defaultPage.value == pCount },
+            ]}
+            onClick={(e) => toPage(pCount)}
+          >
+            <span>{pCount}</span>
+          </li>
+        );
       }
-      return null
-    },
-    renderSize() {
+      return null;
+    };
+    const renderSize = () => {
       let prop = {
         props: {
-          value: this.defaultPageSize,
-          size: this.size,
-          options: this.sizeData.map(s => {
-            return { value: s, label: `${s}${t('k.page.pageSize')}` }
-          })
+          value: defaultPageSize.value,
+          size: ps.size,
+          clearable: false,
+          options: ps.sizeData.map((s) => {
+            return { value: s, label: `${s}${locale?.k.page.pageSize}` };
+          }),
+          disabled: ps.disabled,
         },
         on: {
-          input: e => this.defaultPageSize = e,
-          change: this.changeSize
+          change: changeSize,
         },
+      };
+      return ps.showSizer ? (
+        <div class="k-page-sizer">{<Select {...prop} />}</div>
+      ) : null;
+    };
 
-      }
-      return (this.showSizer ? <div class="k-page-sizer"><Select {...prop} /></div > : null)
-    },
-    renderElvator() {
-      let { size } = this
+    const renderElevator = () => {
+      let { size } = ps;
       let prop = {
-        class: 'k-page-options-elevator',
-        props: { size, value: this.page },
+        class: "k-page-options-elevator",
+        props: {
+          size,
+          disabled: ps.disabled,
+        },
+        // value: defaultPage.value,
         on: {
-          blur: e => {
+          change: (e) => {
             let page = e.target.value;
-            let { pageCount } = this
-            if (page > pageCount) page = pageCount
-            if (page < 1) page = 1
-
-            if ((page >= 1 || page <= pageCount) && this.page != page) {
-              this.page = page
-              this.$emit('input', page)
-              this.$emit('change', page)
+            if (Number(page) == NaN) {
+              e.target.value = "";
+              return;
             }
+            page = Number(page);
+
+            let pCount = pageCount.value;
+            if (page > pCount) page = pCount;
+            if (page < 1) page = 1;
+
+            if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
+              defaultPage.value = page;
+              emit("update:current", page);
+              emit("change", page, defaultPageSize.value);
+            }
+            nextTick(() => {
+              e.target.value = "";
+            });
+            e.stopPropagation();
           },
-          // change: e => this.page = e
-        }
-      }
+        },
+        // onChange: (e) => {
+        //   // e.stopPropagation();
+        // },
+      };
+      return ps.showElevator ? (
+        <div class="k-page-options">
+          <span>{locale?.k.page.goto}</span>
+          <Input {...prop} />
+          <span>{locale?.k.page.page}</span>
+        </div>
+      ) : null;
+    };
+    return () => {
+      const classes = [
+          "k-page",
+          { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
+        ],
+        preNode = (
+          <li
+            class={[
+              "k-pager-item k-pager-prev",
+              { "k-pager-item-disabled": defaultPage.value == 1 },
+            ]}
+            onClick={prePage}
+          >
+            <Icon type={ChevronUp} />
+          </li>
+        ),
+        nextNode = (
+          <li
+            class={[
+              "k-pager-item k-pager-next",
+              { "k-pager-item-disabled": defaultPage.value == pageCount.value },
+            ]}
+            onClick={nextPage}
+          >
+            <Icon type={ChevronUp} />
+          </li>
+        ),
+        totalNode = ps.showTotal ? (
+          <div class="k-page-number">
+            <span>
+              {locale?.k.page.total} {ps.total} {locale?.k.page.items}
+            </span>
+          </div>
+        ) : null,
+        pagerNode = renderPage(),
+        sizeNode = renderSize(),
+        elevatorNode = renderElevator(),
+        firstNode = renderFirst(),
+        lastNode = renderLast();
       return (
-        this.showElevator ?
-          <div class="k-page-options">
-            <span>{t('k.page.goto')}</span><Input {...prop} /><span>{t('k.page.page')}</span>
-          </div> : null
-      )
-    }
+        <div class={classes}>
+          {totalNode}
+          <ul class="k-pager">
+            {[preNode, firstNode, pagerNode, lastNode, nextNode]}
+          </ul>
+          {[sizeNode, elevatorNode]}
+        </div>
+      );
+    };
   },
-  render() {
-    const classes = ["k-page", { ["k-page-sm"]: this.size == 'small' }],
-      preNode = <li class={['k-pager-item k-pager-prev', { 'k-pager-item-disabled': this.page == 1 }]} onClick={this.prePage}><Icon type={ChevronUp} /></li>,
-      nextNode = <li class={['k-pager-item k-pager-next', { 'k-pager-item-disabled': this.page == this.pageCount }]} onClick={this.nextPage}><Icon type={ChevronUp} /></li>,
-      totalNode = (this.showTotal ? <div class="k-page-number"><span>{t('k.page.total')} {this.total} {t('k.page.items')}</span></div> : null),
-      pagerNode = this.renderPage(),
-      sizeNode = this.renderSize(),
-      elvatorNode = this.renderElvator(),
-      firstNode = this.renderFirst(),
-      lastNode = this.renderLast()
-    return (
-      <div class={classes}>
-        {totalNode}
-        <ul class="k-pager">
-          {[preNode, firstNode, pagerNode, lastNode, nextNode,]}
-        </ul>
-        {[sizeNode, elvatorNode]}
-      </div>
-    )
-  }
-}
+});
+export default withInstall(Page);
