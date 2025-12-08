@@ -1,20 +1,16 @@
-module.exports =  {
+export default  {
   k: {
     datePicker: {
+      selectYear: "Chọn năm",
+      selectMonth: "Chọn tháng",
+      selectDate: 'Chọn ngày',
+      selectTime: 'Chọn giờ',
       startDate: 'Ngày bắt đầu',
       endDate: 'cuối ngày',
-      placeholder: 'xin hãy chọn ngày',
-      months: ['Th.1', 'Th.2', 'Th.3', 'Th.4', 'Th.5', 'Th.6', 'Th.7', 'Th.8', 'Th.9', 'Th.10', 'Th.11', 'Th.12'],
-      weeks: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-      year: '',
-      month: '',
-      day: '',
       today: 'Hôm nay',
       now: 'Hiện tại',
       ok: 'Ok',
-      selectDate: 'Chọn ngày',
-      selectTime: 'Chọn giờ',
-      back:'Lùi'
+      back: 'Lùi'
     },
     drawer: {
       ok: 'Ok',

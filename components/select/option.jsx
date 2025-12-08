@@ -1,53 +1,47 @@
-import { isNotEmpty } from "../_tool/utils";
-import Icon from '../icon'
-import { Checkmark } from 'kui-icons'
-export default {
+import Icon from "../icon";
+import { Checkmark } from "kui-icons";
+import { defineComponent, computed } from "vue";
+import { withInstall } from '../utils/vue';
+const Option = defineComponent({
   name: "Option",
   props: {
     value: { type: [String, Number], required: true },
     label: { type: [String, Number] },
-    disabled: Boolean
+    disabled: Boolean,
+    checked: Boolean,
+    active: Boolean,
+    multiple: Boolean,
   },
-  inject: {
-    Select: { default: null }
-  },
-  methods: {
-    select() {
-      let { value, label, disabled, Select, $slots } = this
-      if (disabled) return;
-      value = isNotEmpty(value) ? value : this.$vnode.key
-      if (Select) {
-        label = label || $slots.default
-        Select.change({ label, value })
-      }
-    },
-  },
-  render() {
-    let { disabled, Select, value, label, $slots, select } = this
-    value = isNotEmpty(value) ? value : this.$vnode.key
-    let selected = false;
-    label = label || $slots.default
-    let iconNode = null
-    if (Select) {
-      let { currentValue, multiple } = Select
-      if (multiple) {
-        selected = currentValue.indexOf(value) >= 0
-        iconNode = <Icon type={Checkmark} />
-      } else {
-        selected = currentValue === value
-      }
-    }
-    const classes = [
-      "k-select-item",
-      {
-        ["k-select-item-selected"]: selected,
-        ["k-select-item-disabled"]: disabled
-      }
-    ];
-    const childs = <span>{label}{iconNode}</span>
+  methods: {},
+  setup(ps, { slots, emit }) {
+    const labelText = ps.label || slots.default?.() || ps.value;
 
-    return (
-      <li class={classes} onClick={select}>{childs}</li>
-    )
-  }
-}
+    const checked = computed(() => ps.checked);
+    const onSelect = () => {
+      if (ps.disabled) return;
+      // isChecked.value = !isChecked.value;
+      emit("select", { value: ps.value, label: labelText });
+    };
+
+    return () => {
+      const { multiple, disabled } = ps;
+      const classes = [
+        "k-select-item",
+        {
+          ["k-select-item-selected"]: checked.value,
+          ["k-select-item-active"]: ps.active,
+          ["k-select-item-disabled"]: disabled,
+        },
+      ];
+      return (
+        <li class={classes} onClick={onSelect}>
+          <span>
+            {labelText}
+            {multiple ? <Icon type={Checkmark} /> : null}
+          </span>
+        </li>
+      );
+    };
+  },
+});
+export default withInstall(Option);

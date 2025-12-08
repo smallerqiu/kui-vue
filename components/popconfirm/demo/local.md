@@ -1,5 +1,5 @@
 <cn>
-#### 国际化
+### 国际化
 使用 `okText` 和 `cancelText` 自定义按钮文字。
 </cn>
 
@@ -27,10 +27,10 @@
 export default{
   methods:{
     ok(){
-      this.$Message.success('Clicked on Yes')
+      this.$message.success('Clicked on Yes')
     },
     cancel(){
-      this.$Message.info('Clicked on No')
+      this.$message.info('Clicked on No')
     }
   }
 }

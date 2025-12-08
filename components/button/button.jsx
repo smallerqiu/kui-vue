@@ -1,87 +1,154 @@
-import Icon from '../icon'
-import { getChild } from '../_tool/utils'
-import { Sync } from 'kui-icons'
-export default {
+import { defineComponent, inject, computed } from "vue";
+import Icon from "../icon";
+import { Loading } from "kui-icons";
+import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
+import { colors } from "../const/var";
+
+const Button = defineComponent({
   name: "Button",
   props: {
     htmlType: {
       default: "button",
       validator(value) {
-        return ["button", "submit", "reset"].indexOf(value) >= 0;
-      }
+        return ["button", "submit", "reset"].includes(value);
+      },
     },
     icon: [String, Array],
     block: Boolean,
     size: {
-      default: 'default',
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+        return ["small", "large", "middle", "default"].includes(value);
+      },
+    },
+    color: {
+      validator(value) {
+        return colors.includes(value);
+      },
     },
     loading: Boolean,
     type: {
       validator(value) {
-        return (
-          ["danger", "primary", 'warning', "link", "default", "dashed"].indexOf(value) >= 0
-        );
+        return [
+          "primary",
+          "danger",
+          "warning",
+          "default",
+          "text",
+          "link",
+        ].includes(value);
       },
-      default: 'default'
+      default: "default",
     },
-    disabled: Boolean,
+    disabled: { type: Boolean, default: false },
     theme: {
       type: String,
-      default: 'default',
       validator(value) {
-        return ['default', 'light', 'solid', 'normal', 'card'].indexOf(value) > -1
-      }
+        return ["outline", "solid", "light", "dashed", "card"].includes(value);
+      },
     },
     shape: String,
     href: String,
-    target: String
+    target: String,
   },
-  methods: {
-    click(e) {
-      if (!this.loading) {
-        this.$emit('click', e)
-      }
-    }
-  },
+  emits: ["click"],
+  setup(props, { emit, slots, attrs, listeners }) {
+    const buttonGroup = inject("KButtonGroup", null);
 
-  render() {
-    const { $slots, $attrs, size, disabled, click, theme, href, target,
-      shape, htmlType, icon, loading, $listeners, type, block } = this
-    const onlyIcon = !getChild($slots.default, 'Drop').length && icon
-    const classes = [
-      "k-btn",
-      {
-        [`k-btn-${type}`]: !!type && type != 'default',
-        ["k-btn-sm"]: size == 'small',
-        ["k-btn-block"]: !!block,
-        ["k-btn-loading"]: loading,
-        ["k-btn-icon-only"]: onlyIcon,
-        ["k-btn-lg"]: size == 'large',
-        ["k-btn-circle"]: shape == 'circle',
-        [`k-btn-${theme}`]: !!theme && theme != 'default',
+    const parentSize = inject("size", null);
+
+    const computedSize = computed(() => {
+      return props.size || buttonGroup?.size?.value || parentSize || "default";
+    });
+
+    const computedShape = computed(() => {
+      return props.shape || buttonGroup?.shape?.value;
+    });
+
+    const handleClick = (e) => {
+      if (props.loading || props.disabled) {
+        e.preventDefault();
+        return;
       }
-    ]
-    const props = {
-      attrs: { ...$attrs, disabled, type: htmlType },
-      class: classes,
-      on: {
-        ...$listeners,
-        click: click
+      emit("click", e);
+    };
+
+    return () => {
+      let children = getChildren(slots.default?.());
+      // for Vue 3
+      // const iconOnly = () => {
+      //   const validChildren = children.filter((c) => c.type !== Comment);
+      //   if (validChildren.length === 1) {
+      //     return validChildren[0].type.name === "Icon";
+      //   }
+      //   return false;
+      // };
+      const iconOnly = () => {
+        // for 2
+        const excluded = children.filter(
+          (c) => c.componentOptions?.tag !== "transition"
+        );
+
+        if (!excluded?.length) {
+          return props.icon || props.loading;
+        }
+        if (excluded.length === 1) {
+          return excluded[0].componentOptions?.tag === "Icon";
+        }
+        return false;
+      };
+
+      const classes = [
+        "k-btn",
+        {
+          [`k-btn-${props.type}`]: !!props.type && !props.color,
+          [`k-btn-outline`]: props.theme == "outline",
+          ["k-btn-sm"]: computedSize.value === "small",
+          ["k-btn-block"]: !!props.block,
+          ["k-btn-loading"]: props.loading,
+          ["k-btn-icon-only"]: iconOnly(),
+          [`k-btn-${props.color}`]: colors.includes(props.color),
+          ["k-btn-lg"]: computedSize.value === "large",
+          ["k-btn-circle"]: computedShape.value === "circle",
+          [`k-btn-${props.theme}`]: !!props.theme && props.theme !== "default",
+        },
+      ];
+      let childNodes = [];
+
+      const iconType = props.loading ? Loading : props.icon;
+      if (iconType) {
+        childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
-    }
-    const iconType = loading ? Sync : icon;
-    const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null
-    const child = getChild($slots.default)
-    const childs = child.map(c => {
-      return typeof c.text == 'string' ? <span>{c.text.trim()}</span> : c
-    })
-    const is_link = type == 'link' && href
-    return is_link ? <a href={href} target={target} {...props}>{iconNode}{childs}</a> : <button {...props} >
-      {iconNode}
-      {childs}
-    </button >
-  }
-};
+
+      const processedChildren = children?.map((c) => {
+        return typeof c.text === "string" ? <span>{c.text.trim()}</span> : c;
+      });
+
+      if (processedChildren) {
+        childNodes = childNodes.concat(processedChildren);
+      }
+
+      const commonProps = {
+        class: classes,
+        attrs: {
+          ...attrs,
+          href: props.href,
+          target: props.target,
+          disabled: props.disabled,
+          type: props.htmlType, //   submit/reset
+        },
+        on: {
+          ...listeners, // for 2
+          click: handleClick,
+        },
+      };
+
+      return props.type === "link" && props.href && !props.disabled ? (
+        <a {...commonProps}>{childNodes}</a>
+      ) : (
+        <button {...commonProps}>{childNodes}</button>
+      );
+    };
+  },
+});
+export default withInstall(Button);

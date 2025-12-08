@@ -1,7 +1,9 @@
 
-import cloneVNode from '../_tool/clone';
-import { getChild } from '../_tool/utils'
-export default {
+// import cloneVNode from '../utils/clone';
+import { cloneVNode } from '../utils/vue';
+import { getChildren } from '../utils/element'
+import { withInstall } from '../utils/vue'
+const Form = {
   name: "Form",
   props: {
     layout: {
@@ -31,7 +33,7 @@ export default {
     }
   },
   watch: {
-    model(val, Oval) {
+    model() {
       this.validate()
     }
   },
@@ -49,11 +51,11 @@ export default {
         'k-form-sm': size == 'small',
       }
     ];
-    const childs = getChild(this.$slots.default)
+    const children = getChildren(this.$slots.default)
     return (
       <form autocomplete="off" class={classes} ref="form" id={name} onSubmit={this.submit} onReset={this.reset}>
         {
-          childs.map(child => {
+          children.map(child => {
             labelCol = (child.componentOptions && child.componentOptions.propsData.labelCol) || labelCol
             wrapperCol = (child.componentOptions && child.componentOptions.propsData.wrapperCol) || wrapperCol
             return cloneVNode(child, {
@@ -67,7 +69,7 @@ export default {
                   }
                 }
               }
-            })
+            }, true)
           })
         }
       </form >
@@ -89,7 +91,6 @@ export default {
             } else {
               model[key] = value
             }
-            // console.log(model[key],key)
           }
           model = model[key]
         }
@@ -152,3 +153,4 @@ export default {
     },
   }
 }
+export default withInstall(Form)

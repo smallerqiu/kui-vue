@@ -1,11 +1,11 @@
 <cn>
-#### 对齐
+### 对齐
 设置对齐模式。
 </cn>
 
 ```vue
 <template>
-  <div class="demo-space-align">
+  <Flex class="demo-space-align" wrap size="small">
     <Space align="start">
       <div class="block">block</div>
       <Button>button</Button>
@@ -26,24 +26,24 @@
       <Button>button</Button>
       <Tag color="blue">baseline</Tag>
     </Space>
-  </div>
+  </Flex>
 </template>
-<style lang=less>
-  .demo-space-align{
-    .k-space{
-      border:1px solid #0022ff50;
-      padding:5px;
-      margin:0 5px;
-    }
-    .block {
-      border: 1px solid var(--kui-color-border);
-      background:#eee;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-    }
+<style lang="less">
+.demo-space-align {
+  .k-space {
+    border: 1px solid var(--kui-color-border);
+    width: calc(50% - 8px);
+    border-radius: 4px;
   }
+  .block {
+    border: 1px solid var(--kui-color-border);
+    background: #92929252;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+  }
+}
 </style>
 ```

@@ -1,8 +1,8 @@
 
 <template>
-    <div :class="classes">
-        <slot></slot>
-    </div>
+  <div :class="classes">
+    <slot />
+  </div>
 </template>
 <script>
 export default {
@@ -23,17 +23,17 @@ export default {
             children: []
         }
     },
-    watch: {
-        current(v) {
-            this.setState()
-        }
-    },
     computed: {
         classes() {
             return ['k-steps', {
                 ['k-steps-vertical']: this.vertical,
                 ['k-steps-mini']: this.mini,
             }]
+        }
+    },
+    watch: {
+        current(v) {
+            this.setState()
         }
     },
     created() {

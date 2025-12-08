@@ -1,82 +1,86 @@
-import { hasProp } from '../_tool/utils'
-export default {
+import { defineComponent, watch, ref } from "vue";
+import { withInstall } from "../utils/vue";
+
+const Radio = defineComponent({
   name: "Radio",
+  // [Vue 3 Upgrade]: del
+  model: {
+    prop: "checked",
+    event: "input",
+  },
   props: {
-    value: { type: [String, Number, Boolean], default: false },
+    // [Vue 3 Upgrade]
+    // modelValue: { type: [Boolean, String, Number], default: null },
+
+    // [Vue 3 Upgrade]: Vue 2 use checked & model
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    value: { type: [String, Number, Boolean] },
+    label: { type: [String, Number] },
     disabled: Boolean,
-    checked: [Boolean, Number],
-    label: [String, Number],
     size: {
-      default: 'default',
+      default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+      },
     },
   },
-  inject: {
-    groupContext: { default: null },
-  },
-  model: {
-    prop: 'checked',
-  },
-  data() {
-    const checked = hasProp(this, 'checked') ? this.checked : this.value === true
-    return {
-      defaultChecked: checked,
-    }
-  },
-  // watch: {
-  // checked(checked) {
-  // this.$emit("input", checked);
-  // }
-  // },
-  methods: {
-    change(e) {
-      let { disabled, value, $slots, label, groupContext } = this
-      if (disabled) {
-        return false;
+
+  setup(props, { slots, emit }) {
+    const isChecked = ref(props.checked);
+    watch(
+      () => props.checked,
+      (v) => {
+        isChecked.value = v;
       }
+    );
+
+    const handleChange = (e) => {
+      if (props.disabled) return;
       const checked = e.target.checked;
-      this.defaultChecked = checked;
-      if (groupContext) {
-        label = label || $slots.default.text
-        this.groupContext.change({ label, value })
-      } else {
-        this.$emit("input", checked);
-        this.$emit("change", e);
-      }
-    }
+
+      isChecked.value = checked;
+      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
+      emit("change", {
+        checked: checked,
+        value: props.value,
+        label: props.label,
+      });
+      emit("input", checked);
+    };
+
+    return () => {
+      const classes = [
+        "k-radio",
+        {
+          ["k-radio-disabled"]: props.disabled,
+          ["k-radio-checked"]: isChecked.value,
+          // ["k-radio-lg"]: radioSize.value === "large",
+          // ["k-radio-sm"]: radioSize.value === "small",
+        },
+      ];
+
+      const labelNode = props.label || slots.default?.();
+
+      return (
+        <label class={classes} onClick={(e) => e.stopPropagation()}>
+          <span class="k-radio-symbol">
+            <input
+              type="radio"
+              class="k-radio-input"
+              disabled={props.disabled}
+              onChange={handleChange}
+              // [Vue 3 Upgrade]: checked={isChecked.value}
+              // [Vue 2 Only]: Vue 2 JSX need domPropsChecked
+              domPropsChecked={isChecked.value}
+            />
+          </span>
+          {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
+        </label>
+      );
+    };
   },
-
-  render() {
-    let { disabled, change, $slots, label, size, groupContext, value, checked, defaultChecked } = this
-    if (groupContext) {
-      checked = groupContext.defaultValue == value
-      disabled = disabled || groupContext.disabled
-      size = groupContext.size
-    } else {
-      if (!hasProp(this, 'checked')) {
-        checked = defaultChecked
-      }
-    }
-    const wpclasses = [
-      "k-radio", {
-        ["k-radio-disabled"]: disabled,
-        ["k-radio-checked"]: checked,
-        ["k-radio-lg"]: size == 'large',
-        ["k-radio-sm"]: size == 'small',
-      }
-    ];
-
-    const labelNode = label || $slots.default
-    return (
-      <label class={wpclasses} onClick={e => e.stopPropagation()}>
-        <span class="k-radio-symbol">
-          <input type="radio" class="k-radio-input" disabled={disabled} checked={checked} onChange={change} />
-          <span class="k-radio-inner"></span>
-        </span>
-        {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}
-      </label>
-    )
-  }
-};
+});
+export default withInstall(Radio);

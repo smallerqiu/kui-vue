@@ -1,167 +1,167 @@
-import Tooltip from "../tooltip"
-export default {
+import Tooltip from "../tooltip";
+import { defineComponent, ref } from "vue";
+export default defineComponent({
   props: {
     vertical: Boolean,
     disabled: Boolean,
-    range: Boolean,
     reverse: Boolean,
     max: Number,
     min: Number,
     size: String,
     step: Number,
-    value: [Number, Array],
+    value: [Number, String],
     tipFormatter: [Function, Object],
     type: String,
-    tooltipVisible: Boolean
+    tooltipVisible: Boolean,
   },
-  inject: {
-    bar: { default: null },
-  },
-  data() {
-    return {
-      index: 1,
-      showTip: false,
-      touch: false
-    }
-  },
-  mounted() {
-    let touch = !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch)
-    this.touch = touch
-  },
-  methods: {
-    mouseMove(e) {
-      if (this.isMouseDown) {
-        e.preventDefault()
-        let clientX, clientY;
-        // let { clientX, clientY } = e
-        if (e.touches && e.touches.length == 1) {
-          clientX = e.touches[0].clientX
-          clientY = e.touches[0].clientY
-        } else {
-          clientX = e.clientX
-          clientY = e.clientY
-        }
-        // let r = e.target.getBoundingClientRect()
-        // console.log(e)
-        // let clientX = r.left + r.width / 2, clientY = r.top + r.height / 2
-        // console.log(clientX, clientY, r)
-
-        let { width, height, left, right, top, bottom } = this.bar.$refs.rail.getBoundingClientRect()
-        let { value, range, step, max, min, vertical, reverse, type } = this, v = value;
-
-        let percent = 0, diff = max - min;
-        if (reverse) {
-          percent = vertical ? ((height - (clientY - top)) / height) : ((width - (clientX - left)) / width)
-        } else {
-          percent = vertical ? ((clientY - top) / height) : ((clientX - left) / width)
-        }
-        if (percent >= 1) percent = 1
-        else if (percent <= 0) percent = 0
-        // this.defaultValue = value
-        // console.log(percent)
-        let x = range ? (type == 'right' ? v[1] : v[0]) : v
-
-
-        // x = times(Math.round((percent * diff + min) / step), step)
-        x = this.bar.getMinStep(percent * diff)
-
-        if (x >= max) x = max
-        else if (x <= min) x = min
-
-        v = range ? (type == 'right' ? [v[0], x] : [x, v[1]]) : x
-        // console.log(v)
-        this.$emit('input', v)
+  emits: ["thumbMove", "keydown-update"],
+  setup(ps, { slots, emit }) {
+    const isMousePressed = ref(false);
+    const refThumb = ref();
+    const index = ref(1);
+    const showTip = ref(ps.tooltipVisible);
+    const touch = !!(
+      "ontouchstart" in window ||
+      (window.DocumentTouch && document instanceof window.DocumentTouch)
+    );
+    const mouseMove = (e) => {
+      if (isMousePressed.value) {
+        e.preventDefault();
+        emit("thumbMove", e, ps.type);
       }
-    },
-    mouseUp(e) {
-      this.isMouseDown = false
-      this.index = 1
-      if (this.tooltipVisible === true) {
-        this.showTip = true
+    };
+
+    const onKeydown = (e) => {
+      if (ps.disabled) return;
+      if (e.key.includes("Arrow")) {
+        emit("keydown-update", e, ps.type);
+        e.preventDefault();
+      }
+    };
+
+    const mouseUp = (e) => {
+      isMousePressed.value = false;
+      index.value = 1;
+      if (ps.tooltipVisible === true) {
+        showTip.value = true;
       } else {
-        this.showTip = false
-      }
-      let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
-      document.removeEventListener(e1, this.mouseMove)
-      document.removeEventListener(e2, this.mouseUp)
-    },
-    onMouseDown(e) {
-      if (this.disabled) return;
-      this.isMouseDown = true
-      this.showTip = true
-      this.index = 2
-      // this.mouseMove(e)
-      let [e1, e2] = this.touch ? ['touchmove', 'touchend'] : ['mousemove', 'mouseup']
-      document.addEventListener(e1, this.mouseMove)
-      document.addEventListener(e2, this.mouseUp)
-    },
-
-  },
-  render() {
-    let { vertical, value, index, disabled, max, min, size, tipFormatter, range, type, reverse, tooltipVisible } = this
-    const props = {
-      class: ['k-slider-thumb', { 'k-slider-thumb-sm': size == 'small' }],
-      style: {
-        // left: `${percent}%`,
-        zIndex: index
-      },
-      on: {
-        mousedown: this.onMouseDown,
-        touchstart: this.onMouseDown,
-        mouseenter: () => {
-          if (!disabled) this.showTip = true
-        },
-        mouseleave: (e) => {
-          if (this.tooltipVisible == true) {
-            this.showTip = true
-            return
-          }
-          if (!this.isMouseDown) {
-            this.showTip = false
-          }
+        if (e.target.contains(refThumb.value?.$el)) {
+          showTip.value = false;
         }
       }
-    }
-    let percent, diff = max - min;;
-    if (type == 'right') {
-      percent = (((range ? value[1] : value) - min) / diff) * 100
-    } else {
-      percent = ((value[0] - min) / diff) * 100
-    }
-    let sty = {}
-    if (vertical) {
-      sty = reverse ? { bottom: `${percent}%`, transform: 'translateY(50%)' } :
-        { top: `${percent}%` }
-    } else {
-      sty = reverse ? { right: `${percent}%`, transform: 'translateX(50%) translateY(-50%)' } :
-        { left: `${percent}%` }
-    }
-    props.style = Object.assign(props.style, sty)
+      let [e1, e2] = touch
+        ? ["touchmove", "touchend"]
+        : ["mousemove", "mouseup"];
+      document.removeEventListener(e1, mouseMove);
+      document.removeEventListener(e2, mouseUp);
+    };
+    const onMouseDown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // console.log(123);
+      // emit("updatePos", 123123123);
+      if (ps.disabled) return;
+      isMousePressed.value = true;
+      showTip.value = true;
+      index.value = 2;
+      let [e1, e2] = touch
+        ? ["touchmove", "touchend"]
+        : ["mousemove", "mouseup"];
+      document.addEventListener(e1, mouseMove);
+      document.addEventListener(e2, mouseUp);
+    };
 
-    if (tipFormatter === null || tooltipVisible === null) return <div {...props}></div>
+    return () => {
+      let {
+        vertical,
+        value,
+        disabled,
+        max,
+        min,
+        size,
+        tipFormatter,
+        reverse,
+        tooltipVisible,
+      } = ps;
+      const props = {
+        attrs: { tabindex: "0" },
+        class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
+        style: {
+          // left: `${percent}%`,
+          zIndex: index.value,
+        },
+        on: {
+          keydown: onKeydown,
+          mousedown: onMouseDown,
+          touchstart: onMouseDown,
+          mouseenter: () => {
+            if (!disabled) showTip.value = true;
+          },
+          mouseleave: (e) => {
+            if (ps.tooltipVisible == true) {
+              showTip.value = true;
+              return;
+            }
+            if (!isMousePressed.value) {
+              showTip.value = false;
+            }
+          },
+        },
+        // onKeydown: onKeydown, //for 3
+        // onMousedown: onMouseDown,
+        // onTouchstart: onMouseDown,
+        // onMouseenter: () => {
+        //   if (!disabled) showTip.value = true;
+        // },
+        // onMouseleave: (e) => {
+        //   if (ps.tooltipVisible == true) {
+        //     showTip.value = true;
+        //     return;
+        //   }
+        //   if (!isMousePressed.value) {
+        //     showTip.value = false;
+        //   }
+        // },
+      };
+      let percent,
+        diff = max - min;
 
-    let tip = ''
-    if (type == 'right') {
-      tip = this.range ? value[1] : value
-    } else {
-      tip = value[0]
-    }
-    tip = tip.toString()
-
-    if (tipFormatter !== undefined) {
-      tip = tipFormatter(tip)
-    }
-    const tipProps = {
-      props: {
-        title: tip,
-        value: this.showTip,
-        show: tooltipVisible,
-        trigger: 'nromal',
-      },
-      on: {
-        input: value => this.showTip = value
+      percent = ((value - min) / diff) * 100;
+      let sty = {};
+      if (vertical) {
+        sty = reverse
+          ? { bottom: `${percent}%`, transform: "translateY(50%)" }
+          : { top: `${percent}%` };
+      } else {
+        sty = reverse
+          ? {
+              right: `${percent}%`,
+              transform: "translateX(50%) translateY(-50%)",
+            }
+          : { left: `${percent}%` };
       }
-    }
-    return <Tooltip {...tipProps}><div {...props}></div></Tooltip >
-  }
-}
+      props.style = Object.assign(props.style, sty);
+
+      if (tipFormatter === null || tooltipVisible === null)
+        return <div {...props}></div>;
+
+      let tip = value?.toString();
+
+      if (tipFormatter !== undefined) {
+        tip = tipFormatter(tip);
+      }
+      const tipProps = {
+        ref: refThumb,
+        props: {
+          title: tip,
+          show: showTip.value,
+        },
+      };
+      return (
+        <Tooltip {...tipProps}>
+          <div {...props}></div>
+        </Tooltip>
+      );
+    };
+  },
+});

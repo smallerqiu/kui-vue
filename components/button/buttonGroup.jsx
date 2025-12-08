@@ -1,37 +1,36 @@
-import { getChild } from '../_tool/utils'
-export default {
+import { defineComponent, provide, inject, toRefs } from "vue";
+import { withInstall } from "../utils/vue";
+
+const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: {
     size: {
-      default: 'default',
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      }
+        return ["small", "large", "middle", "default"].indexOf(value) >= 0;
+      },
     },
-    shape: String
+    shape: String,
   },
-  data() {
-    return {};
-  },
-  computed: {
-    classes() {
-      const { size, shape } = this
-      return [
+  setup(props, { slots }) {
+    const { size, shape } = toRefs(props);
+    const parentSize = inject("size", null);
+
+    provide("KButtonGroup", {
+      size: props.size || parentSize,
+      shape,
+    });
+
+    return () => {
+      const classes = [
         "k-btn-group",
         {
-          ["k-btn-group-sm"]: size == 'small',
-          ["k-btn-group-lg"]: size == 'large',
-          ["k-btn-group-circle"]: shape == 'circle'
-        }
+          ["k-btn-group-sm"]: size.value == "small",
+          ["k-btn-group-lg"]: size.value == "large",
+          ["k-btn-group-circle"]: shape.value == "circle",
+        },
       ];
-    }
+      return <div class={classes}>{slots.default?.()}</div>;
+    };
   },
-  render() {
-    return (
-      <div class={this.classes}>
-        {getChild(this.$slots.default)}
-      </div>
-    )
-  }
-};
-
+});
+export default withInstall(ButtonGroup);

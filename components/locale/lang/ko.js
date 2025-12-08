@@ -1,37 +1,16 @@
-module.exports =  {
+export default  {
   k: {
     datePicker: {
+      selectYear: "년을 선택하세요",
+      selectMonth: "월을 선택하세요",
+      selectDate: "날짜를 선택하세요",
+      selectTime: '시간 선택',
       startDate: '시작 날짜',
       endDate: '종료 날짜',
-      placeholder: '선택',
-      months: ['1월',
-        '2월',
-        '3월',
-        '4월',
-        '5월',
-        '6월',
-        '7월',
-        '8월',
-        '9월',
-        '10월',
-        '11월',
-        '12월'],
-      weeks: ['일',
-        '월',
-        '화',
-        '수',
-        '목',
-        '금',
-        '토'],
-      year: '',
-      month: '',
-      day: '',
       today: '오늘',
       now: '지금',
       ok: '확인',
-      selectDate: '날짜 선택',
-      selectTime: '시간 선택',
-      back:'되돌아오다'
+      back: '되돌아오다'
     },
     drawer: {
       ok: '확인',

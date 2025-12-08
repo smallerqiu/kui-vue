@@ -1,0 +1,20 @@
+<cn>
+### 基本用法
+基本用法 ,使用 keyboard 属性可以控制键盘行为。
+</cn>
+
+```vue
+<template>
+  <Space style="font-size:12px;" vertical>
+    <InputNumber v-model="value" />
+    <ButtonGroup>
+      <Button @click="value-=1">-</Button>
+      <Button @click="value+=1">+</Button>
+    </ButtonGroup>
+  </Space>
+</template>
+<script setup>
+import { ref } from "vue";
+const value = ref(1);
+</script>
+```

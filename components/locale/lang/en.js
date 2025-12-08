@@ -1,19 +1,15 @@
-module.exports =  {
+export default  {
   k: {
     datePicker: {
+      selectYear: "Select year",
+      selectMonth: "Select month",
+      selectDate: "Select date",
+      selectTime: 'Select time',
       startDate: 'Start date',
       endDate: 'End date',
-      placeholder: 'Select date',
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      weeks: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      year: '',
-      month: '',
-      day: '',
       today: 'Today',
       now: 'Now',
       ok: 'Ok',
-      selectDate: 'Select date',
-      selectTime: 'Select time',
       back: 'Back'
     },
     drawer: {

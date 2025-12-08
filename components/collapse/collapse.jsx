@@ -1,54 +1,63 @@
-import { getChild, hasProp } from '../_tool/utils'
-import cloneVNode from '../_tool/clone'
-export default {
-  name: 'Collapse',
+import { defineComponent, /*cloneVNode,*/ ref, watch } from "vue";
+import { getChildren } from "../utils/vnode";
+import { withInstall, cloneVNode } from "../utils/vue";
+const Collapse = defineComponent({
+  name: "Collapse",
   props: {
-    value: Array,
-    accrodion: Boolean,
-    sample: Boolean
+    activeKey: Array,
+    accordion: Boolean,
+    sample: Boolean,
   },
-  provide() {
-    return {
-      Collapse: this
-    }
-  },
-  data() {
-    return {
-      currentValue: (!hasProp(this, 'value')) ? [] : this.value
-    }
-  },
-  watch: {
-    value(v) {
-      if (v !== undefined && v !== null && v !== '')
-        this.currentValue = v
-    }
-  },
-  methods: {
-    change(key) {
+  setup(ps, { slots, emit }) {
+    const currentValue = ref(ps.activeKey || []);
+
+    watch(
+      () => ps.activeKey,
+      (nv, no) => {
+        currentValue.value = nv;
+      }
+    );
+
+    const change = (key) => {
       if (!key) return;
-      let value = this.currentValue
-      let index = value.indexOf(key)
+      let value = currentValue.value;
+      let index = value.indexOf(key);
 
       if (index >= 0) {
-        this.accrodion ? value = [] : value.splice(index, 1)
+        ps.accordion ? (value = []) : value.splice(index, 1);
       } else {
-        this.accrodion ? value = [key] : value.push(key)
+        ps.accordion ? (value = [key]) : value.push(key);
       }
-      this.currentValue = value
-      this.$emit('change', key)
-      this.$emit('input', value)
-    }
+      currentValue.value = value;
+      emit("change", key);
+      // emit("update", value); //for 3
+      emit("input", value); //for 3
+    };
+
+    return () => {
+      const classes = [
+        "k-collapse",
+        {
+          ["k-collapse-sample"]: ps.sample,
+        },
+      ];
+      const children = getChildren(slots.default?.());
+
+      return (
+        <div class={classes}>
+          {children?.map((child) => {
+            let active = currentValue.value.includes(child.key);
+            // return cloneVNode(child, { active, onExpand: change }); //for 3
+            return cloneVNode(
+              child,
+              // { props:  active, onExpand: change }, //for 3
+              { props: { active }, on: { expand: change } },
+              true
+            );
+          })}
+        </div>
+      );
+    };
   },
-  render() {
-    const classes = ['k-collapse', {
-      ['k-collaplse-sample']: this.sample
-    }]
-    const childs = getChild(this.$slots.default)
-    return (<div class={classes}>{
-      childs.map((child) => {
-        let actived = this.currentValue.indexOf(child.key) >= 0
-        return cloneVNode(child, { props: { actived } })
-      })
-    }</div>)
-  }
-}
+});
+export default withInstall(Collapse);

@@ -12,7 +12,7 @@
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   background-color: var(--kui-color-back);
-  transition: all .3s ease-in-out;
+  transition: border .2s ease-in-out;
   box-sizing: border-box;
   font-size: 14px;
   padding: 0 8px;
@@ -45,7 +45,7 @@
   .k-input-password-icon {
     color: var(--kui-color-icon);
     cursor: pointer;
-    transition: all .2s ease-in-out;
+    transition: font-size .2s ease-in-out;
 
     &:hover {
       color: var(--kui-color-title);
@@ -70,10 +70,11 @@
     &:focus {
       // border-color: var(--kui-color-main);
       outline: none;
+      z-index: 1;
     }
 
     &::placeholder {
-      color: var(--kui-color-disable-color);
+      color: var(--kui-color-disabled);
     }
   }
 
@@ -90,7 +91,7 @@
     line-height: 1;
     // cursor: pointer;
     user-select: none;
-    transition: all .2s ease-in-out;
+    transition: font-size .2s ease-in-out;
     display: flex;
 
     &:hover {
@@ -99,7 +100,7 @@
 
     .k-icon {
       font-size: 16px;
-      transition: all .2s ease-in-out;
+      transition: font-size .2s ease-in-out;
       color: var(--kui-color-icon);
     }
   }
@@ -127,7 +128,7 @@
   display: inline-block;
   width: 100%;
   height: 32px;
-  padding: 4px 10px;
+  padding: 4px 8px;
   font-size: 14px;
   margin: 0;
   border: 1px solid var(--kui-color-border);
@@ -155,7 +156,7 @@
 
   &:disabled {
     cursor: not-allowed;
-    color: var(--kui-color-disable-color);
+    color: var(--kui-color-disabled);
     background: var(--kui-color-disable-back);
     border-color: var(--kui-color-disable-border);
 
@@ -165,7 +166,7 @@
   }
 
   &::placeholder {
-    color: var(--kui-color-disable-color);
+    color: var(--kui-color-disabled);
   }
 
   // &:-webkit-autofill {
@@ -348,7 +349,7 @@ select:-webkit-autofill:focus {
 
 .k-input-disabled[mult] {
   cursor: not-allowed;
-  color: var(--kui-color-disable-color);
+  color: var(--kui-color-disabled);
   background: var(--kui-color-disable-back);
   border-color: var(--kui-color-disable-border);
 
@@ -372,7 +373,7 @@ select:-webkit-autofill:focus {
   box-sizing: border-box;
   align-items: center;
   font-size: 14px;
-  transition: all .3s ease-in-out;
+  transition: font-size .3s ease-in-out;
 
   >.k-icon {
     margin: 0 8px;

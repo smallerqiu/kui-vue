@@ -1,5 +1,5 @@
 <cn>
-#### 辅助校验
+### 辅助校验
 校验一些数据类型
 </cn>
 
@@ -54,7 +54,7 @@
       <FormItem :wrapperCol="{offset:6}">
         <Button type="primary" htmlType="submit">Submit</Button>
         <Button style="margin:0 10px" htmlType="reset">Reset</Button>
-        <Button type="dashed" @click="setValue">Set Value</Button>
+        <Button theme="dashed" @click="setValue">Set Value</Button>
       </FormItem>
     </Form>
   </div>
@@ -158,7 +158,7 @@ export default {
     },
 
     submit({valid, model}) {
-      this.$Message[valid ? 'success' : 'error'](valid ? 'success' : 'faild')
+      this.$message[valid ? 'success' : 'error'](valid ? 'success' : 'failed')
       console.log(model)
     }
   }

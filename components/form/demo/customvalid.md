@@ -1,5 +1,5 @@
 <cn>
-#### 自定义校验规则
+### 自定义校验规则
 自定义验证规则来完成表单验证。
 </cn>
 
@@ -75,7 +75,7 @@ export default{
   methods:{
     submit(){
       this.$refs.form.validate(valid=>{
-        this.$Message[valid?'success':'error'](valid?'success':'faild')
+        this.$message[valid?'success':'error'](valid?'success':'failed')
       })
     },
     reset(){
