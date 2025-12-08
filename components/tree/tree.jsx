@@ -332,6 +332,7 @@ const Tree = {
           selectedKeys: defaultSelectedKeys.value,
           checkedKeys: defaultCheckedKeys.value,
           hasLoad,
+          checkable: ps.checkable,
           checkStrictly: ps.checkStrictly,
         });
 
@@ -353,7 +354,7 @@ const Tree = {
         .map((item) => item.key);
 
       defaultCheckedKeys.value = checkedNodes;
-      emit("check", item, checked);
+      emit("check", item, checked, checkedNodes);
     };
     const updateNodeStatus = (key, property, value) => {
       const nodeIndex = defaultData.value.findIndex((item) => item.key === key);
@@ -589,6 +590,7 @@ const Tree = {
           selectedKeys: defaultSelectedKeys.value,
           checkedKeys: defaultCheckedKeys.value,
           hasLoad,
+          checkable: ps.checkable,
           checkStrictly: ps.checkStrictly,
         });
       }

@@ -28,14 +28,14 @@
 
 ## Tree 事件
 
-| 属性      | 说明                   | 回调参数                      |
-| --------- | ---------------------- | ----------------------------- |
-| loadData  | 异步加载数据的方法     | Promise Function(node)        |
-| select    | 点击树节点时触发       | Function(node)                |
-| check     | 点击复选框时触发       | Function(node,checked)        |
-| expand    | 展开和收起子节点时触发 | Function({key,expanded,node}) |
-| dragstart | 开始拖拽时调用         | Function(node)                |
-| dragend   | dragend 触发时调用     | Function(node)                |
-| dragenter | dragenter 触发时调用   | Function(node)                |
-| dragleave | dragleave 触发时调用   | Function(node)                |
-| drop      | drop 触发时调用        | Function({dragNode,dropNode}) |
+| 属性      | 说明                   | 回调参数                           |
+| --------- | ---------------------- | ---------------------------------- |
+| loadData  | 异步加载数据的方法     | Promise Function(node)             |
+| select    | 点击树节点时触发       | Function(node)                     |
+| check     | 点击复选框时触发       | Function(node,checked,checkedKeys) |
+| expand    | 展开和收起子节点时触发 | Function({key,expanded,node})      |
+| dragstart | 开始拖拽时调用         | Function(node)                     |
+| dragend   | dragend 触发时调用     | Function(node)                     |
+| dragenter | dragenter 触发时调用   | Function(node)                     |
+| dragleave | dragleave 触发时调用   | Function(node)                     |
+| drop      | drop 触发时调用        | Function({dragNode,dropNode})      |

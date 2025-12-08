@@ -7,9 +7,10 @@
 <template>
   <TreeSelect
     :tree-data="data"
-    @tree-load-data="loadData"
+    @treeLoadData="loadData"
+    v-model:treeExpandedKeys="expandedKeys"
     @expand="expand"
-    style="width:100%"
+    block
   />
 </template>
 <script setup>
@@ -19,6 +20,7 @@ const data = ref([
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
 ]);
+const expandedKeys = ref([]);
 const { proxy } = getCurrentInstance();
 const expand = (data) => {
   console.log(data);

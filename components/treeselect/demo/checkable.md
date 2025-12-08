@@ -5,19 +5,24 @@
 
 ```vue
 <template>
-  <TreeSelect
-    v-model="value"
-    :tree-data="data"
-    :treeExpandedKeys="expandedKeys"
-    multiple
-    tree-checkable
-    style="width:100%"
-  />
+  <Space vertical>
+    <Checkbox v-model="treeCheckStrictly">TreeCheckStrictly</Checkbox>
+    <TreeSelect
+      v-model="value"
+      :tree-data="data"
+      :treeExpandedKeys="expandedKeys"
+      multiple
+      block
+      treeCheckable
+      :treeCheckStrictly="treeCheckStrictly"
+    />
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
 const value = ref([]);
+const treeCheckStrictly = ref(false);
 const data = [
   {
     title: "tree 1",
@@ -26,9 +31,8 @@ const data = [
       {
         title: "tree 1-1",
         key: "1-1",
-        disabled: true,
         children: [
-          { title: "leaf 1-1-1", disabled: true, key: "1-1-1" },
+          { title: "leaf 1-1-1", key: "1-1-1" },
           {
             title: "leaf 1-1-2",
             key: "1-1-2",
