@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Drawer component props */
 export interface DrawerProps {
-  value?: boolean;
+  show?: boolean;
   /** default: Title */
   title?: string;
   /** default: 520 */
@@ -17,7 +17,7 @@ export interface DrawerProps {
   closable?: boolean;
   /** default: true */
   footer?: boolean;
-  /** default: false */
+  /** default: true */
   maskClosable?: boolean;
   /** default: undefined */
   target?: (...args: any[]) => any;
@@ -25,12 +25,14 @@ export interface DrawerProps {
   mask?: boolean;
   /** default: false */
   loading?: boolean;
+  /** default: true */
+  escKey?: boolean;
 }
 
 /** Drawer component instance */
 export interface Drawer extends Vue {
   $props: DrawerProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Drawer Vue component type */

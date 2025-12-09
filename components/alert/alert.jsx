@@ -1,66 +1,65 @@
+import { defineComponent, ref, computed } from "vue";
 import Icon from "../icon";
-import {
-  InformationCircle, CloseCircle,
-  CheckmarkCircle, AlertCircle, Close
-} from 'kui-icons'
-import { getTransitionProp } from '../base/transition'
-import { withInstall } from "../utils/vue";
-const Alert = {
+import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, Close } from "kui-icons";
+import { getTransitionProp } from "../base/transition";
+import { withInstall } from '../utils/vue';
+
+const Alert = defineComponent({
   name: "Alert",
   props: {
-    type: {
-      type: String, default: "warning",
-      validator: (val) => ['info', 'success', 'warning', 'error'].includes(val)
-    },
+    type: { type: String, default: "warning" },
     closable: Boolean,
     showIcon: Boolean,
+    icon: [String, Object, Array],
     message: String,
     description: String,
   },
-  data() {
-    return {
-      closed: false
-    };
-  },
-  methods: {
-    close() {
-      this.closed = true;
-      this.$emit("close");
-    }
-  },
-  render() {
+  setup(props, { emit, slots }) {
+    const closed = ref(false);
 
-    let { closed, showIcon, closable, close, $slots, type, description, message } = this
-    const classes = [
-      "k-alert", {
-        [`k-alert-${this.type}`]: type,
-        'k-alert-has-icon': showIcon,
-        'k-alert-has-close': closable,
-        'k-alert-has-description': description
-      }
-    ];
-    let icons = {
+    const close = () => {
+      closed.value = true;
+      emit("close");
+    };
+
+    const classes = computed(() => [
+      "k-alert",
+      {
+        [`k-alert-${props.type}`]: props.type,
+        "k-alert-has-icon": props.showIcon,
+        "k-alert-has-close": props.closable,
+        "k-alert-has-description": props.description,
+      },
+    ]);
+
+    const icons = {
       info: InformationCircle,
       error: CloseCircle,
       success: CheckmarkCircle,
-      warning: AlertCircle
+      warning: AlertCircle,
     };
-    const iconNode = showIcon ? <Icon type={icons[this.type]} class="k-alert-icon" /> : null
-    const closeIcon = closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null
-    description = <div class="k-alert-description">{description}</div>
-    const msg = <div class="k-alert-message">{(message || $slots.default)}</div>
-    const props = getTransitionProp('k-alert-slide')
-    return (
-      <transition {...props} name='k-alert-slide'>
-        <div class={classes} v-show={!closed}>
-          {iconNode}
-          {msg}
-          {description}
-          {closeIcon}
-        </div>
-      </transition >
-    )
-  }
-};
 
+    const transitionProps = getTransitionProp("k-alert-slide");
+
+    return () => {
+      const iconNode = props.showIcon ? <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" /> : null;
+      const closeIcon = props.closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null;
+      const descriptionNode = props.description ? <div class="k-alert-description">{props.description}</div> : null;
+      const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
+
+      return (
+        <transition {...transitionProps}>
+          <div class={classes.value} v-show={!closed.value}>
+            {iconNode}
+            <div class="k-alert-content">
+              {msgNode}
+              {descriptionNode}
+            </div>
+            {closeIcon}
+          </div>
+        </transition>
+      );
+    };
+  },
+});
 export default withInstall(Alert);

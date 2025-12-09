@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Collapse component props */
 export interface CollapseProps {
-  value?: any[];
+  activeKey?: any[];
   accordion?: boolean;
   sample?: boolean;
 }
@@ -10,7 +10,7 @@ export interface CollapseProps {
 /** Collapse component instance */
 export interface Collapse extends Vue {
   $props: CollapseProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Collapse Vue component type */

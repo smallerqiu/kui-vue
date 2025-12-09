@@ -12,7 +12,7 @@ export interface AffixProps {
 /** Affix component instance */
 export interface Affix extends Vue {
   $props: AffixProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Affix Vue component type */

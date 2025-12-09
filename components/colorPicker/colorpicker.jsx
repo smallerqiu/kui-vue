@@ -1,45 +1,37 @@
-import Drop from '../base/drop'
-import { withInstall } from '../utils/vue'
+import transfer from "../directives/transfer";
+import resize from "../directives/resize";
+import { setPlacement } from "../utils/placement";
+const modes = ["rgb", "hex", "hsl"];
 import Mode from "./mode";
 import Hue from "./hue";
 import Alpha from "./alpha";
 import Paint from "./paint";
 import Color from "color";
 import Presets from "./presets";
-import { getChildren } from '../utils/element';
-import cloneVNode from '../utils/clone';
-const modes = ["rgb", "hex", "hsl"];
-
-const ColorPicker = {
-  name: 'ColorPicker',
+import { cloneNodes } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  // Transition,
+} from "vue";
+const ColorPicker = defineComponent({
+  name: "ColorPicker",
+  directives: {
+    transfer,
+    resize,
+  },
   props: {
     value: String,
-    showMode: Boolean,
+    transfer: { type: Boolean, default: true },
     disabled: Boolean,
     disabledAlpha: Boolean,
     showText: Boolean,
-    trigger: {
-      type: String,
-      default: "click",
-      validator(value) {
-        return ["hover", "click"].indexOf(value) >= 0;
-      },
-    },
-    size: {
-      default: 'default',
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      }
-    },
-    mode: {
-      type: String, default: 'hex',
-      validator: function (value) {
-        return modes.includes(value)
-      }
-    },
-    presets: {
-      type: Array,
-    },
+    arrow: Boolean,
     placement: {
       validator(value) {
         return [
@@ -52,205 +44,323 @@ const ColorPicker = {
         ].includes(value);
       },
       default: "bottom-left",
-    }
+    },
+    trigger: {
+      type: String,
+      default: "click",
+      validator(value) {
+        return ["hover", "click"].indexOf(value) >= 0;
+      },
+    },
+    size: {
+      default: "default",
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      },
+    },
+    mode: {
+      type: String,
+      default: "hex",
+      validator: function (value) {
+        return modes.indexOf(value) !== -1;
+      },
+    },
+    show: Boolean,
+    presets: {
+      type: Array,
+    },
   },
-  watch: {
-    value(v1) {
-      this.currentColor = v1
-    }
-  },
-  data() {
-    return {
-      currentMode: this.mode,
-      currentColor: this.value || '#000',
-      opened: false,
-      currentAlpha: 1,
-      currentHue: 0,
-      currentPlacement: this.placement,
-    }
-  },
-  methods: {
 
-    toggleDrop() {
-      if (this.disabled) {
+  setup(ps, { emit, slots }) {
+    // todo 编码格式 时, 要双击 才能先中.
+    const currentMode = ref(ps.mode);
+    const currentColor = ref(ps.value || "#000000ff");
+    const visible = ref(ps.show);
+    const refPopper = ref();
+    const refCtx = ref();
+    const left = ref(0);
+    const top = ref(0);
+    const currentPlacement = ref(ps.placement);
+    const transOrigin = ref("bottom");
+    const rendered = ref(false);
+    const currentAlpha = ref(1);
+    const currentHue = ref(0);
+    const hideTimer = ref();
+
+    watch(
+      () => ps.value,
+      (v) => {
+        currentColor.value = v;
+        // currentAlpha.value = Color(v).alpha();
+        // currentHue.value = Color(v).hue();
+      }
+    );
+    onMounted(() => {
+      if (ps.value) {
+        currentAlpha.value = Color(ps.value).alpha();
+        currentHue.value = Color(ps.value).hue();
+      }
+    });
+    onBeforeUnmount(() => {
+      document.removeEventListener("click", outsideClick);
+    });
+    const updatePopPosition = () => {
+      nextTick(() => {
+        setPlacement({
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
+      });
+    };
+    const outsideClick = (e) => {
+      const ctx = refCtx.value?.$el || refCtx.value;
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
+        clearTimeout(hideTimer.value);
+        hideTimer.value = setTimeout(() => (visible.value = false), 200);
+      }
+    };
+    const toggle = (open) => {
+      if (ps.disabled) {
         return false;
       }
-      this.opened = !this.opened
-    },
-    getColor() {
+      if (open) {
+        if (!rendered.value) {
+          rendered.value = true;
+          document.addEventListener("click", outsideClick);
+          nextTick(() => {
+            visible.value = true;
+            updatePopPosition();
+          });
+        } else {
+          visible.value = true;
+          updatePopPosition();
+        }
+      } else {
+        visible.value = false;
+      }
+      // currentColor = value || "#000"; ??
+    };
+
+    const getColor = () => {
       let text = "";
-      const color = Color(this.currentColor);
-      if (this.currentMode == "hex") {
+      const color = Color(currentColor.value);
+      if (currentMode.value == "hex") {
         text = color.alpha() < 1 ? color.hexa() : color.hex();
-      } else if (this.currentMode == "rgb") {
+      } else if (currentMode.value == "rgb") {
         text = color.rgb().string(0);
-      } else if (this.currentMode == "hsl") {
+      } else if (currentMode.value == "hsl") {
         text = color.hsl().string(0);
       }
       return text;
-    },
-    renderTriggerText() {
-      let text = this.getColor();
-      return this.showText ? (
+    };
+    const renderTriggerText = () => {
+      let text = getColor();
+      return ps.showText ? (
         <div class="k-color-picker-trigger-text">{text}</div>
       ) : null;
-    },
-    updateColor(color) {
-      this.currentAlpha = color.alpha();
-      this.currentHue = color.hue();
-      this.updateColorValue(color.rgb());
-    },
-    updateColorValue(color) {
-      this.currentAlpha = color.alpha();
-      this.currentColor = color;
-      this.currentHue = color.hue();
-      this.onUpdate(color);
-    },
-    onUpdate(color) {
-      this.currentColor = color;
-      const value = this.getColor();
-      this.$emit("input", value);
-      this.$emit("change", value);
-    },
-    onUpdateRGB({ r, g, b }) {
-      const color = Color({ r, g, b, alpha: this.currentAlpha });
-      this.onUpdate(color.rgb());
-    },
-    onUpdateHue(hue) {
+    };
+    const onUpdate = (color) => {
+      currentColor.value = color;
+      const value = getColor();
+      // emit("update:value", value);
+      emit("input", value);
+      emit("change", value);
+    };
+
+    const onUpdateRGB = ({ r, g, b }) => {
+      const color = Color({ r, g, b, alpha: currentAlpha.value });
+      onUpdate(color.rgb());
+    };
+    const onUpdateHue = (hue) => {
       // console.log("hue", hue);
-      this.currentHue = hue;
+      currentHue.value = hue;
       // currentColor.value = color;
       // const value = getColor();
-      const value = Color(this.currentColor).hue(hue).rgb();
-      this.onUpdate(value);
-    },
-    onUpdateAlpha(a) {
-      this.currentAlpha = a;
-      const value = Color(this.currentColor).alpha(a).rgb();
-      this.onUpdate(value);
-    },
-    onUpdateMode(mode) {
-      this.currentMode = mode;
-      this.onUpdate(this.currentColor);
-      this.$emit("update:mode", mode);
+      const value = Color(currentColor.value).hue(hue).rgb();
+      onUpdate(value);
+    };
+
+    const onUpdateAlpha = (a) => {
+      currentAlpha.value = a;
+      const value = Color(currentColor.value).alpha(a).rgb();
+      onUpdate(value);
+    };
+    const onUpdateMode = (mode) => {
+      currentMode.value = mode;
+      onUpdate(currentColor.value);
+      emit("update:mode", mode);
       setTimeout(() => {
-        clearTimeout(this.hideTimer);
+        clearTimeout(hideTimer.value);
       }, 0);
-    },
-    delayHide() {
-      this.hideTimer = setTimeout(() => {
-        this.opened = false;
-      }, 300);
-    },
-    renderDrop() {
+    };
+    const updateColorValue = (color) => {
+      // console.log(color.string(), currentAlpha.value);
+      currentAlpha.value = color.alpha();
+      currentColor.value = color;
+      currentHue.value = color.hue();
+      onUpdate(color);
+    };
+    const updateColor = (color) => {
+      currentAlpha.value = color.alpha();
+      currentHue.value = color.hue();
+      updateColorValue(color.rgb());
+    };
+    const renderDrop = () => {
+      if (!rendered.value) return null;
       const props = {
-        props: {
-          placement: this.placement,
-          transfer: true,
-          value: this.opened,
-          selection: this.$el,
-          className: 'k-color-picker-dropdown',
-          transitionName: 'k-color-picker',
-          extendWidth: false,
-          trigger: this.trigger
+        ref: refPopper,
+        // "k-placement": currentPlacement.value,
+        attrs: { "k-placement": currentPlacement.value },
+        class: [
+          "k-color-picker-dropdown",
+          {
+            "k-color-picker-disabled-alpha": ps.disabledAlpha,
+          },
+        ],
+        style: {
+          left: `${left.value}px`,
+          top: `${top.value}px`,
+          transformOrigin: transOrigin.value,
         },
+        // onMouseenter: () => {
+        //   clearTimeout(hideTimer.value);
+        // },
         on: {
-          hide: this.delayHide,
-        }
-      }
-      return (<Drop {...props}>
-        <div class='k-color-picker-body' onMouseenter={()=>clearTimeout(this.hideTimer)}>
-          <Paint
-            hue={this.currentHue}
-            value={this.currentColor}
-            onUpdateRGB={this.onUpdateRGB}
-          />
-          <div class="k-color-picker-bar">
-            <div class="k-color-picker-avatar">
-              <div
-                class="k-color-picker-avatar-inner"
-                style={`background-color:${this.currentColor}`}></div>
+          mouseenter: () => {
+            clearTimeout(hideTimer.value);
+          },
+        },
+      };
+
+      // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
+      return (
+        <transition name="k-color-picker">
+          <div v-transfer={true} v-show={visible.value} {...props}>
+            <div class="k-color-picker-body">
+              <Paint
+                hue={currentHue.value}
+                value={currentColor.value}
+                onUpdateRGB={onUpdateRGB}
+              />
+              <div class="k-color-picker-bar">
+                <div class="k-color-picker-avatar">
+                  <div
+                    class="k-color-picker-avatar-inner"
+                    style={`background-color:${currentColor.value}`}
+                  ></div>
+                </div>
+                <div class="k-color-picker-bar-box">
+                  <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
+                  {!ps.disabledAlpha ? (
+                    <Alpha
+                      value={currentColor.value}
+                      onUpdateAlpha={onUpdateAlpha}
+                    />
+                  ) : null}
+                </div>
+              </div>
+              <Mode
+                mode={currentMode.value}
+                value={currentColor.value}
+                disabledAlpha={ps.disabledAlpha}
+                onUpdateMode={onUpdateMode}
+                onUpdateColorValue={updateColorValue}
+              />
+              <Presets
+                onUpdateColor={updateColor}
+                value={ps.presets}
+                color={currentColor.value}
+              />
             </div>
-            <div class="k-color-picker-bar-box">
-              <Hue hue={this.currentHue} onUpdateHue={this.onUpdateHue} />
-              {!this.disabledAlpha ? (
-                <Alpha
-                  value={this.currentColor}
-                  onUpdateAlpha={this.onUpdateAlpha}
+            <div class={`k-color-picker-arrow`}>
+              <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                <path
+                  id="ot"
+                  d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
                 />
-              ) : null}
+                <path
+                  stroke="currentcolor"
+                  id="in"
+                  d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                />
+              </svg>
             </div>
           </div>
+        </transition>
+      );
+    };
 
-          <Mode
-            mode={this.currentMode}
-            value={this.currentColor}
-            disabledAlpha={this.disabledAlpha}
-            onUpdateMode={this.onUpdateMode}
-            onUpdateColorValue={this.updateColorValue}
-          />
-          <Presets
-            onUpdateColor={this.updateColor}
-            value={this.presets}
-            color={this.currentColor}
-          />
-          <div class={`k-color-picker-arrow`}>
-            <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-              <path
-                id="ot"
-                d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-              />
-              <path
-                stroke="currentcolor"
-                id="in"
-                d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-              />
-            </svg>
-          </div>
-        </div>
-      </Drop>
-      )
-    }
-  },
-  mounted() {
-    if (this.value) {
-      this.currentAlpha = Color(this.value).alpha();
-      this.currentHue = Color(this.value).hue();
-    }
-  },
-  render() {
-    let drop = this.renderDrop()
-    let style = [
-      'k-color-picker',
-      {
-        'k-color-picker-opened': this.opened,
-        'k-color-picker-disabled': this.disabled,
-        'k-color-picker-sm': this.size == 'small',
-        'k-color-picker-lg': this.size == 'large'
-      },
-    ]
-    const defaultNode = getChildren(this.$slots.default)
-    if (defaultNode.length > 0) {
-      const props = { on: {} }
-      if (this.trigger == 'click') {
-        props.on.click = this.toggleDrop
-      } else if (this.trigger == 'hover') {
-        props.on.mouseenter = this.toggleDrop
-        props.on.mouseleave = this.delayHide
+    const onMouseleave = (e) => {
+      if (ps.disabled) {
+        return;
       }
-      return cloneVNode(defaultNode[0], props, drop)
-    } else {
-      return (<div class={style} onClick={this.toggleDrop}>
-        <div class="k-color-picker-selection">
-          <div class="k-color-picker-color">
-            <div class="k-color-picker-color-inner" style={`background-color:${this.currentColor}`}></div>
-          </div>
-          {this.renderTriggerText()}
-        </div>
-        {drop}
-      </div>)
-    }
-  }
-}
+      if (ps.trigger == "hover") {
+        hideTimer.value = setTimeout(() => {
+          toggle(false);
+        }, 300);
+      }
+    };
 
-export default withInstall(ColorPicker)
+    return () => {
+      let drop = renderDrop();
+      let style = [
+        "k-color-picker",
+        {
+          "k-color-picker-opened": visible.value,
+          "k-color-picker-disabled": ps.disabled,
+          "k-color-picker-sm": ps.size == "small",
+          "k-color-picker-lg": ps.size == "large",
+        },
+      ];
+      const triggerClick = ps.trigger == "click";
+      return slots.default ? (
+        <span>
+          {cloneNodes(
+            slots.default(),
+            {
+              ref: refCtx,
+              on: {
+                click: () => triggerClick && toggle(!visible.value),
+                mouseenter: () => !triggerClick && toggle(true),
+                mouseleave: onMouseleave,
+              },
+              // onClick: () => triggerClick && toggle(!visible.value), //for 3
+              // onMouseenter: () => !triggerClick && toggle(true),
+              // onMouseleave: onMouseleave,
+            },
+            true
+          )}
+          {drop}
+        </span>
+      ) : (
+        <div class={style} ref={refCtx} v-resize={updatePopPosition}>
+          <div
+            class="k-color-picker-selection"
+            onMouseenter={() => !triggerClick && toggle(true)}
+            onMouseleave={onMouseleave}
+            onClick={() => triggerClick && toggle(!visible.value)}
+          >
+            <div class="k-color-picker-color">
+              <div
+                class="k-color-picker-color-inner"
+                style={`background-color:${currentColor.value}`}
+              ></div>
+            </div>
+            {renderTriggerText()}
+          </div>
+          {drop}
+        </div>
+      );
+    };
+  },
+});
+export default withInstall(ColorPicker);

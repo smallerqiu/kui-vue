@@ -3,9 +3,12 @@ import Vue, { VueConstructor } from "vue";
 /** InputNumber component props */
 export interface InputNumberProps {
   value?: any[] | number | string;
+  /** default: undefined */
   min?: number;
+  /** default: undefined */
   max?: number;
   disabled?: boolean;
+  clearable?: boolean;
   readonly?: boolean;
   formatter?: (...args: any[]) => any;
   parser?: (...args: any[]) => any;
@@ -20,7 +23,6 @@ export interface InputNumberProps {
   /** default: 1 */
   step?: number;
   theme?: string;
-  placeholder?: string;
   icon?: string | any[];
   id?: string;
 }
@@ -28,7 +30,7 @@ export interface InputNumberProps {
 /** InputNumber component instance */
 export interface InputNumber extends Vue {
   $props: InputNumberProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** InputNumber Vue component type */

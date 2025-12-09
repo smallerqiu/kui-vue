@@ -13,7 +13,7 @@ export interface SkeletonImageProps {
 /** SkeletonImage component instance */
 export interface SkeletonImage extends Vue {
   $props: SkeletonImageProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** SkeletonImage Vue component type */

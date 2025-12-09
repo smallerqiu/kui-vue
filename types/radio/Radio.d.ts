@@ -3,10 +3,10 @@ import Vue, { VueConstructor } from "vue";
 /** Radio component props */
 export interface RadioProps {
   /** default: false */
+  checked?: boolean;
   value?: string | number | boolean;
-  disabled?: boolean;
-  checked?: boolean | number;
   label?: string | number;
+  disabled?: boolean;
   /** default: default */
   size?: any;
 }
@@ -14,7 +14,7 @@ export interface RadioProps {
 /** Radio component instance */
 export interface Radio extends Vue {
   $props: RadioProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Radio Vue component type */

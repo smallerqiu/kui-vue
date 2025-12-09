@@ -1,8 +1,6 @@
-import Vue from 'vue';
 export default {
   bind(el, { value }) {
-    const SSR = Vue && Vue.prototype.$isServer
-    if (typeof value == 'function' && !SSR) {
+    if (typeof value == 'function') {
       window.addEventListener('scroll', value)
     }
   },

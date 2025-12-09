@@ -2,24 +2,30 @@ import Vue, { VueConstructor } from "vue";
 
 /** Table component props */
 export interface TableProps {
-  bordered?: boolean;
-  /** default: default */
-  size?: any;
-  width?: number;
-  height?: number | string;
   /** default: undefined */
   data?: any[];
   /** default: undefined */
   columns?: any[];
+  /** default: undefined */
+  selectedKeys?: any[];
+  /** default: undefined */
+  disabledKeys?: any[];
+  /** default: key */
+  rowKey?: string;
+  /** default: undefined */
+  scroll?: Record<string, any>;
+  /** default: default */
+  size?: any;
+  bordered?: boolean;
+  checkable?: boolean;
   loading?: boolean;
-  sticky?: boolean | number;
   emptyText?: string;
 }
 
 /** Table component instance */
 export interface Table extends Vue {
   $props: TableProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Table Vue component type */

@@ -3,11 +3,12 @@ import Vue, { VueConstructor } from "vue";
 /** Popconfirm component props */
 export interface PopconfirmProps {
   dark?: boolean;
-  /** default: true */
-  transfer?: boolean;
   title?: string | number | Record<string, any> | any[];
+  size?: string;
   width?: number | string;
+  /** default: 确认 */
   okText?: string;
+  /** default: 取消 */
   cancelText?: string;
   /** default: top */
   placement?: any;
@@ -16,7 +17,7 @@ export interface PopconfirmProps {
 /** Popconfirm component instance */
 export interface Popconfirm extends Vue {
   $props: PopconfirmProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Popconfirm Vue component type */

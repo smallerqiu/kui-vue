@@ -1,22 +1,21 @@
-import Icon from '../icon'
-import { t } from '../locale'
-import Progress from '../progress'
-import Tooltip from '../tooltip'
-import { DocumentTextOutline, Close, AlertCircle, Add } from 'kui-icons'
-let count = 0
-const timestamp = Date.now()
-function getUuid() {
-  return `k-upload-${timestamp}-${count++}`
-}
-import { withInstall } from '../utils/vue'
-const Upload = {
+import { ref, reactive, watch,defineComponent } from "vue";
+import { Add } from "kui-icons";
+import { withInstall } from "../utils/vue";
+import Selector from "./selector";
+import FileList from "./fileList";
+
+const Upload = defineComponent({
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
-    name: { type: String, default: 'file' }, //提交的 name值
+    name: { type: String, default: "file" },
     action: { type: String, required: true },
-    type: { type: String, default: "list", validator: (val) => ['list', 'picture'].indexOf(val) >= 0 },
-    data: { type: Object, default: () => { } },
+    type: {
+      type: String,
+      default: "list",
+      validator: (val) => ["list", "picture"].indexOf(val) >= 0,
+    },
+    data: { type: Object, default: () => ({}) },
     disabled: Boolean,
     directory: Boolean,
     multiple: Boolean,
@@ -31,327 +30,231 @@ const Upload = {
     maxSize: Number,
     uploadText: String,
     uploadSubText: String,
-    uploadIcon: [String, Array],
+    uploadIcon: [String, Object, Array],
     draggable: Boolean,
   },
-  watch: {
-    fileList(v) {
-      this.defaultFileList = v || []
-    }
-  },
-  data() {
-    return {
-      defaultFileList: this.fileList || [],
-      count: 0,
-      uploadTemp: {},
-      dragOver: false
-    };
-  },
-  mounted() {
-  },
-  methods: {
-    formatFileSize(fileSize) {
-      var temp = 0
-      if (fileSize < 1024) {
-        return fileSize + 'B';
-      } else if (fileSize < (1024 * 1024)) {
-        temp = fileSize / 1024;
-        return temp.toFixed(2) + 'KB';
-      } else if (fileSize < (1024 * 1024 * 1024)) {
-        temp = fileSize / (1024 * 1024);
-        return temp.toFixed(2) + 'MB';
-      } else {
-        temp = fileSize / (1024 * 1024 * 1024);
-        return temp.toFixed(2) + 'GB';
+  emits: ["remove", "exceed", "before-upload", "change", "size-error"],
+  setup(props, { emit, slots, expose }) {
+    const defaultFileList = ref(props.fileList || []);
+    const uploadTemp = reactive({});
+
+    // Watch for fileList changes
+    watch(
+      () => props.fileList,
+      (newVal) => {
+        defaultFileList.value = newVal || [];
       }
-    },
-    triggerSelect(e) {
-      e.cancelBubble = true;
-      if (this.disabled) return false;
+    );
 
-      this.$refs["k-upload-file"].click();
-      return false;
-    },
-    remove(i) {
-      if (this.disabled) return false;
-      let item = this.defaultFileList[i]
-      this.defaultFileList.splice(i, 1)
-
-      delete this.uploadTemp[item.uid]
-      item.xhr && item.xhr.abort()
-      this.$emit('remove', {
-        file: item,
-        fileList: this.defaultFileList
-      })
-    },
-    upload() {
-      if (!this.autoTrigger && !this.disabled) {
-        let files = this.uploadTemp
+    const upload = () => {
+      if (!props.autoTrigger && !props.disabled) {
+        let files = uploadTemp;
         for (let k in files) {
-          let item = this.defaultFileList.filter(x => x.uid == k)[0]
-          item && this.uploadFile(item, files[k])
+          let item = defaultFileList.value.filter((x) => x.uid == k)[0];
+          item && uploadFile(item, files[k]);
         }
       }
-    },
-    selectFiles(e) {
-      let { limit, minSize, maxSize, autoTrigger } = this
-      let files = e.dataTransfer ? e.dataTransfer.files : e.target.files
-      for (let i = 0; i < files.length; i++) {
+    };
 
-        let { size, type } = files[i]
-        if (files[i].name == '.DS_Store') {
-          continue;
-        }
-        let item = {
-          uid: getUuid(),
-          filename: files[i].name, size: this.formatFileSize(size),
-          status: 'wait', percent: 0, preview: null,
-        }
-        this.uploadTemp[item.uid] = files[i]
-
-        if (limit && i > limit - 1) {
-          this.$emit('exceed')
-          return;
-        }
-        if ((type || '').indexOf('image') >= 0) {
-          item.preview = window.URL.createObjectURL(files[i])
-        }
-        let error = false
-        if ((minSize !== undefined && minSize >= 0 && size / 1024 < minSize) ||
-          (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
-        ) {
-          error = true
-          item.errorText = t('k.upload.errorFileSize')
-          item.status = 'error'
-        }
-        // if (multiple) {
-        this.defaultFileList.push(item)
-
-        this.$emit('before-upload', {
-          file: item,
-          fileList: this.defaultFileList,
-        })
-
-        if (error) {
-          this.$emit('change', {
-            file: item,
-            fileList: this.defaultFileList,
-          })
-          this.$emit('size-error', {
-            file: item,
-            fileList: this.defaultFileList,
-          })
-          continue;
-        }
-        // } else {
-        // this.defaultFileList = [item]
-        // }
-        if (autoTrigger) {
-          this.uploadFile(item, files[i])
-        }
-      }
-      e.target.value = ''
-    },
-    async uploadFile(item, file) {
-      if (this.transformFile) {
-        this.transformFile(file).then(f => {
-          this.toUpload(item, f)
-        })
+    const uploadFile = async (item, file) => {
+      if (props.transformFile) {
+        props.transformFile(file).then((f) => {
+          toUpload(item, f);
+        });
       } else {
-        this.toUpload(item, file)
+        toUpload(item, file);
       }
-    },
-    toUpload(item, file) {
-      let { action, name, headers, data } = this
+    };
+
+    const toUpload = (item, file) => {
+      let { action, name, headers, data } = props;
       var formdata = new FormData();
       formdata.append(name, file);
+
       if (data) {
         for (let k in data) {
           formdata.append(k, data[k]);
         }
       }
+
       //创建xhr，使用ajax进行文件上传
       var xhr = new XMLHttpRequest();
-      item.xhr = xhr
+      item.xhr = xhr;
 
       xhr.open("post", action);
       if (headers) {
         for (let k in headers) {
-          xhr.setRequestHeader(k, headers[k])
+          xhr.setRequestHeader(k, headers[k]);
         }
       }
+
       //回调
-      xhr.onreadystatechange = event => {
+      xhr.onreadystatechange = (event) => {
         if (xhr.readyState == 4 && xhr.status == 200) {
-          item.status = 'success'
-          delete this.uploadTemp[item.uid]
-          this.$emit('change', {
-            file: Object.assign(item, { response: JSON.parse(xhr.responseText) }),
-            fileList: this.defaultFileList,
-            event
-          })
+          item.status = "success";
+          delete uploadTemp[item.uid];
+          emit("change", {
+            file: Object.assign(item, {
+              response: JSON.parse(xhr.responseText),
+            }),
+            fileList: defaultFileList.value,
+            event,
+          });
         }
-      }
-      xhr.upload.onloadstart = () => item.status = 'uploading'
+      };
+
+      xhr.upload.onloadstart = () => (item.status = "uploading");
+
       //获取上传的进度
       xhr.upload.onprogress = (event) => {
-        // console.log(event)
         if (event.lengthComputable) {
           var percent = (event.loaded / event.total) * 100;
-          // console.log(percent)
-          item.percent = percent
+          item.percent = percent;
         }
-        this.$emit('change', {
+        emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: this.defaultFileList,
-          event
-        })
-      }
-      xhr.onload = () => {
+          fileList: defaultFileList.value,
+          event,
+        });
+      };
+
+      xhr.onload = (event) => {
         if (xhr.status != 200) {
-          item.status = 'error'
-          delete this.uploadTemp[item.uid]
+          item.status = "error";
+          delete uploadTemp[item.uid];
 
-          this.$emit('change', {
+          emit("change", {
             file: Object.assign(item, { response: xhr.responseText }),
-            fileList: this.defaultFileList,
-            event: event
-          })
+            fileList: defaultFileList.value,
+            event: event,
+          });
         }
-      }
-      xhr.onerror = event => {
-        item.status = 'error'
-        delete this.uploadTemp[item.uid]
+      };
 
-        this.$emit('change', {
+      xhr.onerror = (event) => {
+        item.status = "error";
+        delete uploadTemp[item.uid];
+
+        emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: this.defaultFileList,
-          event: event
-        })
-      }
+          fileList: defaultFileList.value,
+          event: event,
+        });
+      };
+
       //将formdata上传
       xhr.send(formdata);
-    },
-    getPreview(item) {
-      if (item.preview == true && item.url) {
-        return <img src={item.url} />
+    };
+
+    expose({ upload });
+
+    return () => {
+      let {
+        type,
+        showUploadList,
+        uploadIcon,
+        name,
+        accept,
+        multiple,
+        directory,
+        limit,
+        uploadText,
+        uploadSubText,
+        draggable,
+        disabled,
+        minSize,
+        maxSize,
+        autoTrigger,
+      } = props;
+
+      let isPicture = type == "picture";
+      if (uploadIcon === undefined) {
+        uploadIcon = Add;
       }
-      if (item.preview) {
-        return <img src={item.preview} />
-      } else if (item.url) {
-        return <img src={item.url} />
-      } else {
-        return null
-      }
-    },
-    onDrop(e) {
-      // var files = e.dataTransfer.files;
-      this.selectFiles(e)
-      e.preventDefault()
-      this.dragOver = false
-      return false
-    },
-    onDragEnter(e) {
-      this.dragOver = true
-      e.preventDefault()
-      return false
-    },
-    onDragOver(e) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
+
+      const propsData = {
+        class: [
+          "k-upload",
+          {
+            ["k-upload-disabled"]: disabled,
+            ["k-upload-picture"]: isPicture,
+            ["k-upload-drag"]: draggable,
+          },
+        ],
+      };
+
+      const selectorProps = {
+        props: {
+          type,
+          disabled,
+          name,
+          accept,
+          multiple,
+          directory,
+          limit,
+          uploadText,
+          uploadSubText,
+          draggable,
+          fileList: defaultFileList.value,
+          uploadIcon,
+          minSize,
+          maxSize,
+          autoTrigger,
+        },
+        on: {
+          upload: ({ item, file }) => {
+            uploadFile(item, file);
+          },
+          select: ({ item, file }) => {
+            uploadTemp[item.uid] = file;
+          },
+          exceed: (data) => {
+            emit("exceed", data);
+          },
+          "before-upload": (data) => {
+            emit("before-upload", data);
+          },
+          change: (data) => {
+            emit("change", data);
+          },
+          "size-error": (data) => {
+            emit("size-error", data);
+          },
+        },
+      };
+      const SelectorNode = (
+        <Selector
+          {...selectorProps}
+          scopedSlots={{ default: () => slots.default?.() }}
+        />
+      );
+      const fileListProps = {
+        props: {
+          type,
+          fileList: defaultFileList.value,
+          showUploadList,
+          disabled,
+        },
+        on: {
+          remove: (data) => {
+            delete uploadTemp[data.file.uid];
+            emit("remove", data);
+          },
+        },
+      };
+      const FileListNode = (
+        <FileList
+          {...fileListProps}
+          scopedSlots={{ selector: () => SelectorNode }}
+        />
+      );
+      return (
+        <div {...propsData}>
+          {!isPicture ? [SelectorNode, FileListNode] : FileListNode}
+        </div>
+      );
+    };
   },
+});
 
-  render() {
-    let { name, accept, multiple, directory, type, showUploadList, uploadIcon,
-      defaultFileList, limit, uploadText, uploadSubText, draggable } = this
-    let isPicture = type == 'picture'
-    if (uploadIcon === undefined) {
-      uploadIcon = Add
-    }
-    const props = {
-      class: [
-        "k-upload",
-        {
-          ["k-upload-disabled"]: this.disabled,
-          ["k-upload-picture"]: isPicture,
-          ["k-upload-drag"]: draggable
-        }
-      ],
-    }
-
-    let addProps = {
-      attrs: {
-        drag: draggable && this.dragOver ? 'over' : null
-      },
-      on: {
-        dragenter: this.onDragEnter,
-        drop: this.onDrop,
-        dragover: this.onDragOver,
-        dragleave: () => this.dragOver = false,
-        click: this.triggerSelect
-      }
-    }
-
-    let showSelector = (isPicture && limit && limit > defaultFileList.length) || !isPicture || !limit
-    const selector = showSelector ? <div class='k-upload-select'>
-      <div class="k-upload-add"  {...addProps}>
-        <input type="file" class="k-upload-file"
-          webkitdirectory={directory}
-          name={name} accept={accept} multiple={multiple}
-          onChange={this.selectFiles} ref="k-upload-file" />
-        {(isPicture || draggable) ? <Icon type={uploadIcon} /> : this.$slots.default}
-        {(isPicture || draggable && uploadText) ? <span class="k-upload-text">{uploadText}</span> : null}
-        {(draggable && uploadSubText) ? <span class="k-upload-sub-text">{this.dragOver ? '松手开始上传' : uploadSubText}</span> : null}
-      </div>
-    </div> : null
-
-
-    const filsList = (selector) => {
-      return (showUploadList && !isPicture) || isPicture ? <div class={`k-upload-${isPicture ? 'picture' : 'file'}-list`}>
-        {
-          defaultFileList.map((item, i) => {
-            let statusText = item.status == 'success' ? t('k.upload.successful') : (item.errorText || t('k.upload.failed'))
-            delete item.errorText
-            item.uid = item.uid || getUuid()
-            return (
-              <div class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]} key={item.uid}>
-                <div class={`k-upload-${isPicture ? 'picture' : 'file'}-preview`}>
-                  {
-                    this.getPreview(item) || <Icon type={DocumentTextOutline} />
-                  }
-                </div>
-                <div class="k-upload-file-item-info">
-                  {!isPicture ? <div class="k-upload-file-main">
-                    <span class="k-upload-file-name">{item.filename}</span>
-                    <span class="k-upload-file-size">{item.size}</span>
-                  </div> : null}
-                  {
-                    (item.status != 'wait') ?
-                      <div class="k-upload-file-status">
-                        {item.status == 'uploading' ?
-                          <Progress percent={item.percent} type={`${isPicture ? 'circle' : 'line'}`} size="small" showInfo={false} status="active" strokeWidth={15} />
-                          :
-                          statusText && !isPicture ? <div class="k-upload-file-status-text"><Icon type={AlertCircle} />{statusText}</div> : null
-                        }
-
-                        {isPicture && item.status == 'error' ? <Tooltip title={statusText} placement="bottom"><Icon type={AlertCircle} /></Tooltip> : null}
-                      </div> : null}
-                </div>
-                <Icon type={Close} class={`k-upload-file-${isPicture ? 'picture' : 'item'}-remove`} onClick={() => this.remove(i)} />
-              </div>
-            )
-          })
-        }
-        {isPicture && selector}
-      </div> : null
-    }
-    return (
-      <div {...props} >
-        {!isPicture ? [selector, filsList()] : filsList(selector)}
-      </div>
-    )
-  }
-}
-
-export default withInstall(Upload)
+export default withInstall(Upload);

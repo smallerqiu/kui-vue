@@ -1,46 +1,55 @@
-import Color from "color";
+import { defineComponent, ref, watch } from "vue";
 import InputNumber from "../inputNumber";
 import { Input } from "../input";
 import { Select } from "../select";
+import Color from "color";
 import { isColor } from "../utils/color";
-
-export default {
+export default defineComponent({
   name: "Mode",
   props: {
     value: [String, Object],
     mode: String,
     disabledAlpha: Boolean,
   },
-  data() {
-    return {
-      currentMode: this.mode || "hex",
-      currentColor: this.value || "#000000",
-      options: [
-        { label: "HEX", value: "hex" },
-        { label: "RGB", value: "rgb" },
-        { label: "HSL", value: "hsl" },
-      ],
-    };
-  },
-  watch: {
-    mode(val) {
-      this.currentMode = val;
-    },
-    value(val) {
-      this.currentColor = val;
-    },
-  },
-  methods: {
-    updateHex(e) {
+  setup(ps, { emit }) {
+    const currentMode = ref(ps.mode || "hex");
+    const currentColor = ref(ps.value || "#000000");
+    const options = [
+      {
+        label: "HEX",
+        value: "hex",
+      },
+      {
+        label: "RGB",
+        value: "rgb",
+      },
+      {
+        label: "HSL",
+        value: "hsl",
+      },
+    ];
+    watch(
+      () => ps.mode,
+      (val) => {
+        currentMode.value = val;
+      }
+    );
+    watch(
+      () => ps.value,
+      (val) => {
+        currentColor.value = val;
+      }
+    );
+    const updateHex = (e) => {
       const hex = `#${e.target.value}`;
       if (!isColor(hex)) return;
       const color = Color(hex).rgb();
-      this.$emit("updateColorValue", color);
-    },
-    valueChange(e, type) {
+      emit("updateColorValue", color);
+    };
+    const valueChange = (e, type) => {
+      // console.log(e.target.value, type);
       const value = parseInt(e.target.value);
-      let color = Color(this.currentColor);
-
+      let color = Color(currentColor.value);
       switch (type) {
         case "r":
           color = color.red(value);
@@ -64,113 +73,124 @@ export default {
           color = color.lightness(value);
           break;
       }
-      this.currentColor = color.rgb();
-      this.$emit("updateColorValue", this.currentColor);
-    },
-    changeMode({ value }) {
-      // console.log(v);
-      this.currentMode = value;
-      this.$emit("updateMode", value);
-    },
+      currentColor.value = color.rgb();
+      emit("updateColorValue", currentColor.value);
+    };
+
+    const changeMode = (v) => {
+      currentMode.value = v;
+      emit("updateMode", v);
+    };
+    return () => {
+      const nodes = [];
+      const color = Color(currentColor.value);
+      const alpha = color.alpha();
+
+      if (currentMode.value === "hex") {
+        const hex = color.hex().slice(1);
+        nodes.push(
+          <Input
+            prefix="#"
+            size="small"
+            value={hex}
+            onChange={(e) => updateHex(e)}
+          />
+        );
+      } else if (currentMode.value === "rgb") {
+        const [r, g, b] = color.rgb().array();
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(r)}
+            onChange={(e) => valueChange(e, "r")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(g)}
+            onChange={(e) => valueChange(e, "g")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={255}
+            value={Math.round(b)}
+            onChange={(e) => valueChange(e, "b")}
+          />
+        );
+      } else if (currentMode.value === "hsl") {
+        const [_h, s, l] = color.hsl().array();
+        nodes.push(
+          <InputNumber
+            size="small"
+            min={0}
+            max={359}
+            value={Math.round(_h)}
+            onChange={(e) => valueChange(e, "h")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            min={0}
+            max={100}
+            value={Math.round(s)}
+            onChange={(e) => valueChange(e, "s")}
+          />
+        );
+        nodes.push(
+          <InputNumber
+            size="small"
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            min={0}
+            max={100}
+            value={Math.round(l)}
+            onChange={(e) => valueChange(e, "l")}
+          />
+        );
+      }
+
+      if (!ps.disabledAlpha) {
+        nodes.push(
+          <InputNumber
+            // suffix="%"
+            formatter={(value) => `${value}%`}
+            parser={(value) => value.replace("%", "")}
+            value={Math.round(alpha * 100)}
+            size="small"
+            min={0}
+            max={100}
+            class="k-color-picker-alpha-input"
+            onChange={(e) => valueChange(e, "a")}
+          />
+        );
+      }
+
+      return (
+        <div class={`k-color-picker-mode k-color-picker-${currentMode.value}`}>
+          <Select
+            clearable={false}
+            bordered={false}
+            size="small"
+            value={currentMode.value}
+            options={options}
+            onChange={changeMode}
+          />
+          <div class="k-color-picker-val">{[...nodes]}</div>
+        </div>
+      );
+    };
   },
-  render() {
-    const nodes = [];
-    const color = Color(this.currentColor);
-    const alpha = color.alpha();
-
-    if (this.currentMode === "hex") {
-      const hex = color.hex().slice(1);
-      nodes.push(
-        <Input
-          prefix="#"
-          size="small"
-          value={hex}
-          onChange={(e) => this.updateHex(e)}
-        />
-      );
-    } else if (this.currentMode === "rgb") {
-      const [r, g, b] = color.rgb().array();
-      nodes.push(
-        <InputNumber
-          size="small"
-          min={0}
-          max={255}
-          value={Math.round(r)}
-          onChange={(e) => this.valueChange(e, "r")}
-        />,
-        <InputNumber
-          size="small"
-          min={0}
-          max={255}
-          value={Math.round(g)}
-          onChange={(e) => this.valueChange(e, "g")}
-        />,
-        <InputNumber
-          size="small"
-          min={0}
-          max={255}
-          value={Math.round(b)}
-          onChange={(e) => this.valueChange(e, "b")}
-        />
-      );
-    } else if (this.currentMode === "hsl") {
-      const [hh, s, l] = color.hsl().array();
-      nodes.push(
-        <InputNumber
-          size="small"
-          min={0}
-          max={359}
-          value={Math.round(hh)}
-          onChange={(e) => this.valueChange(e, "h")}
-        />,
-        <InputNumber
-          size="small"
-          formatter={(v) => `${v}%`}
-          parser={(v) => v.replace("%", "")}
-          min={0}
-          max={100}
-          value={Math.round(s)}
-          onChange={(e) => this.valueChange(e, "s")}
-        />,
-        <InputNumber
-          size="small"
-          formatter={(v) => `${v}%`}
-          parser={(v) => v.replace("%", "")}
-          min={0}
-          max={100}
-          value={Math.round(l)}
-          onChange={(e) => this.valueChange(e, "l")}
-        />
-      );
-    }
-
-    if (!this.disabledAlpha) {
-      nodes.push(
-        <InputNumber
-          formatter={(v) => `${v}%`}
-          parser={(v) => v.replace("%", "")}
-          value={Math.round(alpha * 100)}
-          size="small"
-          min={0}
-          max={100}
-          class="k-color-picker-alpha-input"
-          onChange={(e) => this.valueChange(e, "a")}
-        />
-      );
-    }
-
-    return (
-      <div class={`k-color-picker-mode k-color-picker-${this.currentMode}`}>
-        <Select
-          bordered={false}
-          size="small"
-          value={this.currentMode}
-          options={this.options}
-          onChange={this.changeMode}
-          extendWidth={false}
-        />
-        <div class="k-color-picker-val">{nodes}</div>
-      </div>
-    );
-  },
-};
+});

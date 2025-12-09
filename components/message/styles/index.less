@@ -25,7 +25,7 @@
   .k-message-content {
     box-sizing: content-box;
     line-height: 1;
-    padding: 10px 16px;
+    padding: 10px 12px;
     border-radius: var(--kui-border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: var(--kui-color-control-10);
@@ -85,10 +85,12 @@
 }
 
 
-.k-message-slide-enter-active {
-  animation: k-message-slide .3s ease;
+.k-message-slide-enter-active,
+.k-message-slide-leave-active {
+  animation: k-message-slide 0.3s ease;
+  animation-fill-mode: both; /* ✅ 保证动画结束后样式保留 */
 }
 
 .k-message-slide-leave-active {
-  animation: k-message-slide .3s ease reverse;
+  animation-direction: reverse; /* ✅ 比写 reverse 简洁可控 */
 }

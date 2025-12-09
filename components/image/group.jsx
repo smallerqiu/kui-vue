@@ -1,29 +1,30 @@
+import { withInstall } from "../utils/vue";
+import { defineComponent } from "vue";
 
-import { withInstall } from '../utils/vue'
-const ImageGroup = {
-  name: 'ImageGroup',
+const ImageGroup = defineComponent({
+  name: "ImageGroup",
   provide() {
     return {
       ImageGroup: this,
-    }
+    };
   },
   data() {
     return {
-      data: []
-    }
+      data: [],
+    };
   },
   methods: {
     updateCollection(mount, src) {
       if (mount) {
-        this.data.push(src)
+        this.data.push(src);
       } else {
-        let index = this.data.indexOf(src)
-        this.data.splice(index, 1)
+        let index = this.data.indexOf(src);
+        this.data.splice(index, 1);
       }
-    }
+    },
   },
   render() {
-    return <div class="k-image-group">{this.$slots.default}</div>
-  }
-}
-export default withInstall(ImageGroup)
+    return <div class="k-image-group">{this.$slots.default}</div>;
+  },
+});
+export default withInstall(ImageGroup);

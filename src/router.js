@@ -72,7 +72,7 @@ let children = [
 	{ path: '/forms/upload', component: () => import('@/components/upload/demo'), },
 ];
 
-import Layout from '@/src/components/Layout.vue'
+import Layout from '@/src/components/AppLayout.vue'
 
 let routes =[
 	{ path: '/', component: () => import('@/src/views/index') },

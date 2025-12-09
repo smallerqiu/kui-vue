@@ -1,5 +1,5 @@
 <cn>
-#### 设置图标
+### 设置图标
 通过 `icon` 设置图标
 </cn>
 
@@ -7,20 +7,15 @@
 <template>
   <div>
     <Breadcrumb>
-      <BreadcrumbItem to="/" :icon="Home">Home</BreadcrumbItem>
-      <BreadcrumbItem to="/components/breadcrumb" :icon="Cloud">app</BreadcrumbItem>
-      <BreadcrumbItem :icon="Heart">other</BreadcrumbItem>
+      <BreadcrumbItem href="/" :icon="Home">Home</BreadcrumbItem>
+      <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud">
+        App
+      </BreadcrumbItem>
+      <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
     </Breadcrumb>
   </div>
 </template>
-<script>
-import { Heart, Home, Cloud } from "kui-icons"
-export default{
-  data() {
-    return {
-      Heart, Home, Cloud
-    }
-  }
-}
+<script setup>
+import { Heart, Home, Cloud } from "kui-icons";
 </script>
 ```

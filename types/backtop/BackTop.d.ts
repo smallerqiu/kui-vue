@@ -3,15 +3,17 @@ import Vue, { VueConstructor } from "vue";
 /** BackTop component props */
 export interface BackTopProps {
   /** default: 100 */
-  height?: string | number;
-  right?: string | number;
-  bottom?: string | number;
+  height?: number;
+  right?: number;
+  bottom?: number;
+  /** default: undefined */
+  target?: (...args: any[]) => any;
 }
 
 /** BackTop component instance */
 export interface BackTop extends Vue {
   $props: BackTopProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** BackTop Vue component type */

@@ -1,16 +1,16 @@
 <cn>
-#### 紧凑布局组合
+### 紧凑布局组合
 使用 compact 让表单组件之间紧凑连接且合并边框。
 </cn>
 
 ```vue
 <template>
   <Space vertical size="middle">
-    <space compact>
+    <Space compact>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />
-    </space>
-    <Space compact  size="small" block>
+    </Space>
+    <Space compact size="small" block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
     </Space>
@@ -19,7 +19,10 @@
       <Button type="primary">Submit</Button>
     </Space>
     <Space compact block>
-      <Input :style="{ width: 'calc(100% - 200px)' }" value="git@gitee.com:chuchur/kui-vue.git" />
+      <Input
+        :style="{ width: 'calc(100% - 200px)' }"
+        value="git@gitee.com:chuchur/kui-vue.git"
+      />
       <Tooltip title="copy git url">
         <Button :icon="Copy"></Button>
       </Tooltip>
@@ -32,7 +35,12 @@
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </Space>
     <Space compact block>
-      <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }">
+      <Select
+        clearable
+        multiple
+        :value="['Wuhan001']"
+        :style="{ width: '50%' }"
+      >
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -53,16 +61,16 @@
     </Space>
     <Space compact>
       <Input :style="{ width: '50%' }" value="input content" />
-      <DatePicker  />
+      <DatePicker />
     </Space>
     <Space compact>
-      <DatePicker  mode="dateRange"/>
+      <DatePicker mode="dateRange" />
       <Input :style="{ width: '30%' }" value="input content" />
       <Button type="primary">查询</Button>
     </Space>
     <Space compact>
       <Input :style="{ width: '30%' }" value="input content" />
-      <DatePicker mdoe="dateRange"/>
+      <DatePicker mdoe="dateRange" />
     </Space>
     <Space compact>
       <Select value="Option1-1">
@@ -79,45 +87,52 @@
         <Option value="1">Between</Option>
         <Option value="2">Except</Option>
       </Select>
-      <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
-      <Input :style="{
+      <Input
+        :style="{ width: '100px', textAlig: 'center' }"
+        placeholder="Minimum"
+      />
+      <Input
+        :style="{
           width: '30px',
           borderLef: 0,
           borderRight: 0,
           pointerEvents: 'none',
-        }" placeholder="~" disabled />
-      <Input :style="{
+        }"
+        placeholder="~"
+        disabled
+      />
+      <Input
+        :style="{
           width: '100px',
           textAlig: 'center',
-        }" placeholder="Maximum" />
+        }"
+        placeholder="Maximum"
+      />
     </Space>
     <Space compact>
       <Select value="Option1-1">
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
+      <TreeSelect
+        :tree-data="treeData"
+        clearable
+        style="width:200px"
+      ></TreeSelect>
     </Space>
   </Space>
 </template>
-<script>
-import { Copy } from 'kui-icons'
-export default{
-  data(){
-    return{
-      Copy,
-      treeData:[
-        {
-          title:'fruit',
-          key:'1',
-          children:[
-            {title:'apple',key:'11'},
-            {title:'orange',key:'12'},
-          ]
-        }
-      ]
-    }
-  }
-}
+<script setup>
+import { Copy } from "kui-icons";
+const treeData = [
+  {
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
+  },
+];
 </script>
 ```

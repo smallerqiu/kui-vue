@@ -1,12 +1,16 @@
 <cn>
-#### 内嵌菜单
+### 内嵌菜单
 垂直菜单，子菜单内嵌在菜单区域。
 </cn>
 
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model="current" :open-keys="openKeys" mode="inline">
+    <Menu
+      v-model="current"
+      :openKeys="openKeys"
+      mode="inline"
+    >
       <SubMenu key="sub1" :icon="Mail" title="Navigation One">
         <MenuItem key="1-1" :icon="Heart">Option 1</MenuItem>
         <MenuItem key="1-2" :icon="Heart">Option 2</MenuItem>
@@ -21,7 +25,7 @@
           <MenuItem key="2-4">Option 8</MenuItem>
         </SubMenu>
       </SubMenu>
-       <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
+      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
         <MenuItem key="3-1">Option 9</MenuItem>
         <MenuItem key="3-2">Option 10</MenuItem>
         <MenuItem key="3-3">Option 11</MenuItem>
@@ -30,16 +34,10 @@
     </Menu>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Mail, Heart, Settings } from "kui-icons";
-export default {
-  data() {
-    return {
-      Mail, Heart, Settings,
-      current: ['1-1'],
-      openKeys:['sub1']
-    }
-  },
-}
+const current = ref(["1-1"]);
+const openKeys = ref(["sub1"]);
 </script>
 ```

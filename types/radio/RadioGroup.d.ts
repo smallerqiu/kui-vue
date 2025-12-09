@@ -3,11 +3,10 @@ import Vue, { VueConstructor } from "vue";
 /** RadioGroup component props */
 export interface RadioGroupProps {
   /** default:  */
-  value?: string | number;
+  value?: string | number | boolean;
   disabled?: boolean;
   /** default: horizontal */
   direction?: string;
-  /** default: default */
   size?: any;
   theme?: string;
   shape?: string;
@@ -18,7 +17,7 @@ export interface RadioGroupProps {
 /** RadioGroup component instance */
 export interface RadioGroup extends Vue {
   $props: RadioGroupProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** RadioGroup Vue component type */

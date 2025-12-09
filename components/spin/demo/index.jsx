@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Container from "./container.md";
 import Mode from "./mode.md";
 
@@ -9,7 +9,7 @@ export default {
     return (
       <div class="demo-spin">
         <Info />
-        <Base />
+        <Basic />
         <Container />
         <Mode />
         <CN />

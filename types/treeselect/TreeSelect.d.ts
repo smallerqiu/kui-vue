@@ -5,12 +5,15 @@ export interface TreeSelectProps {
   placeholder?: string;
   /** default: default */
   size?: any;
-  /** default: true */
-  transfer?: boolean;
+  /** default: bottom-left */
+  placement?: any;
   width?: number;
+  maxTagCount?: number;
   value?: string | number | any[];
+  /** default: true */
   clearable?: boolean;
   filterable?: boolean;
+  block?: boolean;
   disabled?: boolean;
   multiple?: boolean;
   loading?: boolean;
@@ -18,6 +21,7 @@ export interface TreeSelectProps {
   bordered?: boolean;
   /** default: true */
   showArrow?: boolean;
+  options?: any[];
   theme?: string;
   emptyText?: string;
   icon?: string | any[];
@@ -30,13 +34,14 @@ export interface TreeSelectProps {
   treeShowIcon?: boolean;
   treeCheckStrictly?: boolean;
   treeExpandedKeys?: any[];
+  treeSelectedKeys?: any[];
   treeExpandedAll?: boolean;
 }
 
 /** TreeSelect component instance */
 export interface TreeSelect extends Vue {
   $props: TreeSelectProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** TreeSelect Vue component type */

@@ -1,39 +1,39 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
+
 .k-card {
   background: var(--kui-color-back);
   position: relative;
   border-radius: var(--kui-border-radius);
   color: var(--kui-color-font);
+
   .k-card-head {
     position: relative;
     border-bottom: 1px solid var(--kui-color-gray-80);
     padding: 14px 16px;
     line-height: 1;
+    display: flex;
+    align-items: center;
+
     .k-card-title-icon {
       vertical-align: middle;
       margin-right: 6px;
       font-size: 14px;
     }
+
     .k-card-title {
-      font-weight: 500;
+      flex: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 80%;
-      display: inline-block;
       font-size: 14px;
-      vertical-align: middle;
+      font-weight: 600;
     }
   }
+
   .k-card-extra {
-    position: absolute;
-    right: 16px;
-    cursor: default;
-    top: 50%;
-    font-size: 12px;
-    transform: translate3d(0, -50%, 0);
-    user-select: none;
+    font-size: 14px;
   }
+
   .k-card-body {
     padding: 16px;
     // font-size: 12px;

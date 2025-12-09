@@ -1,13 +1,13 @@
 <cn>
-#### 点
+### 点
 设置 `dot` 来展示一个点
 </cn>
 
 ```vue
 <template>
-  <Space>
-   <Badge dot>
-      <div class="box"></div>
+  <Space vertical>
+    <Badge dot>
+      <div class="badge-box"></div>
     </Badge>
     <Badge dot>
       <Icon :type="NotificationsOutline" />
@@ -17,14 +17,7 @@
     </Badge>
   </Space>
 </template>
-<script>
-import { NotificationsOutline } from "kui-icons"
-export default{
-  data() {
-    return {
-      NotificationsOutline
-    }
-  }
-}
+<script setup>
+import { NotificationsOutline } from "kui-icons";
 </script>
 ```

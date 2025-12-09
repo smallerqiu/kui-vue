@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-table {
   background: var(--kui-color-back);
@@ -8,7 +8,7 @@
   box-sizing: border-box;
   position: relative;
   color: var(--kui-color-font);
-
+  font-size: 14px;
   &-thead-sticky {
     position: sticky;
     position: -webkit-sticky;
@@ -16,17 +16,12 @@
     z-index: 3;
   }
 
-
-
-
-  .k-table-cell-fixed-left {
+  .k-table-cell-fix-left {
     position: sticky;
-    left: 0;
   }
 
-  .k-table-cell-fixed-right {
+  .k-table-cell-fix-right {
     position: sticky;
-    right: 0;
   }
 
   .k-spin {
@@ -48,15 +43,20 @@
     width: 100%;
     border-radius: @radius;
   }
-
+  .k-table-header-bar {
+    background: var(--kui-color-table-header);
+  }
+  .k-table-header,
+  .k-table-footer {
+    padding: 16px;
+  }
   table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background: var(--kui-color-back);
+    // background: var(--kui-color-back);
     margin: 0;
     border-radius: @radius;
-
 
     thead {
       border-bottom: 1px solid var(--kui-color-table-border);
@@ -70,17 +70,12 @@
       border-top-right-radius: @radius;
     }
 
-
-
-
     .k-table {
-      margin: -10px -10px -11px -10px
+      margin: -10px -10px -11px -10px;
     }
 
-
-
-    tr>th,
-    tr>td {
+    tr > th,
+    tr > td {
       font-size: 14px;
       padding: 10px 16px;
       box-sizing: border-box;
@@ -89,7 +84,7 @@
       border-bottom: 1px solid var(--kui-color-table-border);
     }
 
-    tr>th {
+    tr > th {
       background: var(--kui-color-table-header);
       font-weight: 500;
       overflow-wrap: break-word;
@@ -104,7 +99,7 @@
     .k-table-header-col {
       display: flex;
       max-width: 100%;
-
+      font-weight: 600;
       .k-table-header-title {
         display: flex;
         align-items: center;
@@ -112,8 +107,7 @@
       }
     }
 
-
-    .k-table-cell-sorter {
+    th.k-table-cell-sorter {
       cursor: pointer;
       user-select: none;
 
@@ -122,8 +116,6 @@
         flex-direction: row;
         align-items: center;
         line-height: 1;
-
-
       }
 
       .k-table-header-title {
@@ -150,13 +142,19 @@
           color: #ccc;
           height: 7px;
         }
-
-        .active {
+        .k-table-sorter-active {
           color: var(--kui-color-main);
         }
       }
     }
-
+    .k-table-scrollbar-patch {
+      position: sticky;
+      right: 0;
+      padding: 0;
+      border: 0;
+      z-index: 5;
+      top: 0;
+    }
     .k-table-cell-ellipsis {
       white-space: nowrap;
       overflow: hidden;
@@ -173,7 +171,7 @@
     th.k-table-cell-selection {
       text-align: center;
       padding: 0;
-
+      left: 0;
       .k-table-header-col {
         justify-content: center;
       }
@@ -183,18 +181,17 @@
       }
     }
 
-    tbody>tr {
-
-      .k-table-cell-fixed-left,
-      .k-table-cell-fixed-right {
+    tbody > tr {
+      .k-table-cell-fix-left,
+      .k-table-cell-fix-right {
         background-color: var(--kui-color-back);
       }
 
       &:hover {
         background: var(--kui-color-table-hover);
 
-        .k-table-cell-fixed-left,
-        .k-table-cell-fixed-right {
+        .k-table-cell-fix-left,
+        .k-table-cell-fix-right {
           background-color: var(--kui-color-table-hover);
         }
       }
@@ -211,7 +208,7 @@
         border-bottom: none;
       }
 
-      tbody>tr:hover {
+      tbody > tr:hover {
         background: var(--kui-color-table-hover);
       }
     }
@@ -220,7 +217,7 @@
   .k-table-thead {
     border-top-left-radius: @radius;
     border-top-right-radius: @radius;
-
+    background: var(--kui-color-table-header);
     tr th:first-child,
     tr th:last-child {
       border-radius: 0;
@@ -231,21 +228,15 @@
     overflow: auto;
   }
 
-  &-header {
-    padding: 10px;
-    border-top: 1px solid var(--kui-color-table-border);
-  }
-
   &-footer {
     padding: 10px;
-    border-bottom: 1px solid var(--kui-color-table-border);
     background-color: var(--kui-color-table-header);
     border-bottom-left-radius: @radius;
     border-bottom-right-radius: @radius;
   }
 
-  th>a,
-  td>a {
+  th > a,
+  td > a {
     color: #3a95ff;
   }
 
@@ -264,8 +255,8 @@
     word-break: break-all;
   }
 
-  .k-table-cell-fixed-left-last,
-  .k-table-cell-fixed-right-first {
+  .k-table-cell-fix-left-last,
+  .k-table-cell-fix-right-first {
     &::after {
       content: "";
       position: absolute;
@@ -277,26 +268,26 @@
   }
 
   &-ping-middle {
-    .k-table-cell-fixed-right-first::after {
+    .k-table-cell-fix-right-first::after {
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
     }
 
-    .k-table-cell-fixed-left-last::after {
-      box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
-      right: -30px;
-    }
-  }
-
-  &-ping-right {
-    .k-table-cell-fixed-left-last::after {
+    .k-table-cell-fix-left-last::after {
       box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
       right: -30px;
     }
   }
 
   &-ping-left {
-    .k-table-cell-fixed-right-first::after {
+    .k-table-cell-fix-left-last::after {
+      box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
+      right: -30px;
+    }
+  }
+
+  &-ping-right {
+    .k-table-cell-fix-right-first::after {
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
     }
@@ -304,7 +295,6 @@
 
   &-sm {
     table tr {
-
       th {
         padding: 10px 8px;
       }
@@ -313,11 +303,14 @@
         padding: 5px 8px;
       }
     }
+    .k-table-header,
+    .k-table-footer {
+      padding: 10px 8px;
+    }
   }
 
   &-lg {
     table tr {
-
       th {
         padding: 20px 16px;
       }
@@ -326,9 +319,13 @@
         padding: 16px;
       }
     }
+    .k-table-header,
+    .k-table-footer {
+      padding: 20px 16px;
+    }
   }
 
-  .k-table-header+.k-table-container {
+  .k-table-header + .k-table-body {
     table tr th:first-child {
       border-radius: 0;
     }
@@ -413,7 +410,7 @@
   }
 
   &-selection-col {
-    width: 50px
+    width: 50px;
   }
 
   &-expand-icon-col {

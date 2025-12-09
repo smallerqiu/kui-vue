@@ -1,20 +1,13 @@
 <cn>
-#### 禁用透明度
+### 禁用透明度
 禁用颜色透明度。
 </cn>
 
-
 ```vue
 <template>
-  <ColorPicker v-model="color" disabledAlpha/>
+  <ColorPicker :value="color" disabledAlpha />
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color: '#3a95ff',
-    };
-  }
-}
-</script> 
+<script setup>
+const color = "#3a95ff";
+</script>
 ```

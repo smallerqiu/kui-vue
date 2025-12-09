@@ -4,6 +4,7 @@ import Vue, { VueConstructor } from "vue";
 export interface SpaceProps {
   align?: string;
   vertical?: boolean;
+  /** default: false */
   wrap?: boolean;
   block?: boolean;
   compact?: boolean;
@@ -13,7 +14,7 @@ export interface SpaceProps {
 /** Space component instance */
 export interface Space extends Vue {
   $props: SpaceProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Space Vue component type */

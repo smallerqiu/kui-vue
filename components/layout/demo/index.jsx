@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Layout1 from "./layout1.md";
 import Layout2 from "./layout2.md";
 import Layout3 from "./layout3.md";
@@ -10,7 +10,7 @@ export default {
     return (
       <div class="demo-layout">
         <Info />
-        <Base />
+        <Basic />
         <Layout1 />
         <Layout2 />
         <Layout3 />

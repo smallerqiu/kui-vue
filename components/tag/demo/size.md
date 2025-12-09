@@ -1,17 +1,17 @@
 <cn>
-#### 尺寸和形状
+### 尺寸和形状
 通过 `size` 可控尺寸 ,
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag>标签1</Tag>
     <Tag closeable size="middle">标签2</Tag>
     <Tag closeable size="large">标签3</Tag>
   </Space>
-    <br/>
-    <br/>
+  <br />
+  <br />
   <Space>
     <Tag closeable shape="circle">标签1</Tag>
     <Tag closeable shape="circle" size="middle">标签2</Tag>
