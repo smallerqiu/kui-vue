@@ -11,7 +11,7 @@ export interface TimeLineItemProps {
 /** TimeLineItem component instance */
 export interface TimeLineItem extends Vue {
   $props: TimeLineItemProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** TimeLineItem Vue component type */

@@ -20,14 +20,7 @@
     border-radius: 8px; // var(--kui-border-radius);
     position: relative;
     min-width: 36px;
-    // border: 1px solid #333;
     // }
-    border: 1px solid var(--kui-color-border);
-
-    #ot {
-      stroke-width: 0.1em;
-      stroke: var(--kui-color-border);
-    }
   }
 
   .k-tooltip-title {
@@ -39,8 +32,8 @@
     position: absolute;
     box-sizing: border-box;
     display: flex;
-    width: 23px;
-    height: 9px;
+    width: 24px;
+    height: 7px;
     // color: @dark-back-color-10;
     color: #333;
   }
@@ -51,7 +44,7 @@
     }
 
     .k-tooltip-arrow {
-      bottom: -7px;
+      bottom: -6px;
     }
   }
 
@@ -80,8 +73,8 @@
     }
 
     .k-tooltip-arrow {
-      top: -7px;
-      height: 9px;
+      top: -6px;
+      height: 7px;
       transform: rotate(180deg);
     }
   }
@@ -112,8 +105,8 @@
 
     .k-tooltip-arrow {
       right: -14px;
-      width: 23px;
-      height: 9px;
+      width: 24px;
+      height: 7px;
       transform: rotate(-90deg);
     }
   }
@@ -328,4 +321,11 @@
 .k-tooltip-leave-active {
   // transform-origin: center bottom;
   animation: k-pop-zoom .3s reverse;
+}
+
+body[theme-mode=dark],
+*[theme-mode=dark] {
+  .k-tooltip .k-tooltip-content {
+    // background-color: #999;
+  }
 }

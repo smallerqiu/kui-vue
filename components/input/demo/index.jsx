@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Theme from "./theme.md";
 import Icon from "./icon.md";
 import Suffix from "./suffix.md";
@@ -14,7 +14,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Theme />
         <Icon />
         <Suffix />

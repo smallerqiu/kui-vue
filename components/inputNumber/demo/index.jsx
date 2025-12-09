@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from "./basic.md";
 import Format from "./format.md";
 import Ffix from "./ffix.md";
 import Size from "./size.md";
@@ -10,7 +10,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Format />
         <Ffix />
         <Size />

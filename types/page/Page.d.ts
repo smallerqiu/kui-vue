@@ -2,6 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Page component props */
 export interface PageProps {
+  disabled?: boolean;
   showSizer?: boolean;
   /** default: true */
   showTotal?: boolean;
@@ -21,7 +22,7 @@ export interface PageProps {
 /** Page component instance */
 export interface Page extends Vue {
   $props: PageProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Page Vue component type */

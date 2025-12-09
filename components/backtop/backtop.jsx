@@ -1,80 +1,56 @@
+
 import Icon from "../icon";
 import scroll from "../directives/scroll";
 import { ArrowUp } from "kui-icons";
-import { withInstall } from "../utils/vue";
-
-const BackTop = {
+import { withInstall } from '../utils/vue';
+import { defineComponent, ref } from "vue";
+const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },
   props: {
-    height: { type: [String, Number], default: 100 },
-    right: [String, Number],
-    bottom: [String, Number],
-  },
-  data() {
-    return {
-      timer: null,
-      visible: false,
-    };
-  },
-  methods: {
-    scroll() {
-      const top =
-        document.body.scrollTop ||
-        document.documentElement.scrollTop ||
-        window.scrollY;
-      this.visible = top >= this.height;
-    },
-    handle(e) {
-      this.$emit("click", e);
-      if (this.timer) {
-        clearInterval(this.timer);
-      }
-      let height = 80;
-      this.timer = setInterval(() => {
-        const oTop =
-          document.body.scrollTop ||
-          document.documentElement.scrollTop ||
-          window.scrollY;
-        if (oTop > 0) {
-          document.body.scrollTop = document.documentElement.scrollTop =
-            oTop - height;
-          this.scroll();
-        } else {
-          clearInterval(this.timer);
-        }
-        if (height <= 15) height = 15;
-        else height -= 1;
-      }, 10);
+    height: { type: [Number], default: 100 },
+    right: [Number],
+    bottom: [Number],
+    target: {
+      type: Function,
+      default: () => {
+        return document.body;
+      },
     },
   },
-  render() {
-    let child = this.$slots.default;
-    if (!child) {
-      child = (
-        <div class="k-backtop-content">
-          <Icon type={ArrowUp} />
-        </div>
-      );
+
+  setup(props, { emit, slots }) {
+    const visible = ref(false)
+
+    const onScroll = () => {
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
+      visible.value = scrollTop >= props.height;
+    }
+    const onClick = (e) => {
+      emit("click", e);
+      props.target?.().scrollIntoView({
+        behavior: 'smooth', // 
+        block: 'start',     // align：start / center / end / nearest
+      });
+    }
+
+    let children = slots.default?.()
+    if (!children || children.length == 0) {
+      children = <div class="k-backtop-content"><Icon type={ArrowUp} /></div>
     }
     const styles = {
-      bottom: this.bottom + "px",
-      left: this.right + "px",
-    };
-    return (
-      <transition name="k-backtop-fade">
-        <div
-          class="k-backtop"
-          onClick={this.handle}
-          v-show={this.visible}
-          v-scroll={this.scroll}
-          style={styles}
-        >
-          {child}
-        </div>
-      </transition>
-    );
-  },
-};
-
+      bottom: `${props.bottom}px`,
+      left: `${props.right}px`
+    }
+    return () => {
+      return (
+        <transition name="k-backtop-fade">
+          <div class="k-backtop" onClick={onClick} v-show={visible.value} v-scroll={onScroll} style={styles} >
+            {children}
+          </div>
+        </transition>
+      )
+    }
+  }
+});
 export default withInstall(BackTop);

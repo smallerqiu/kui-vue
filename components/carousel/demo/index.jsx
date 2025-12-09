@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Vertical from './vertical.md'
 import AutoPlay from './autoplay.md'
 import CN from '../index.md'
@@ -8,7 +8,7 @@ export default {
     return (
       <div class="demo-carousel">
         <Info />
-        <Base />
+        <Basic />
         <Vertical />
         <AutoPlay />
         <CN />

@@ -3,16 +3,16 @@ import Vue, { VueConstructor } from "vue";
 /** Button component props */
 export interface ButtonProps {
   /** default: button */
-  htmlType?: "small" | "large" | "default";
+  htmlType?: any;
   icon?: string | any[];
   block?: boolean;
-  size?: string;
-  color?: string;
+  size?: any;
+  color?: any;
   loading?: boolean;
   /** default: default */
-  type?: "default" | "outline" | "solid" | "light" | "dashed" | "card";
+  type?: "outline" | "solid" | "light" | "dashed" | "card";
+  /** default: false */
   disabled?: boolean;
-  /** default: default */
   theme?: string;
   shape?: string;
   href?: string;
@@ -22,7 +22,7 @@ export interface ButtonProps {
 /** Button component instance */
 export interface Button extends Vue {
   $props: ButtonProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Button Vue component type */

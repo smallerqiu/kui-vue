@@ -64,67 +64,6 @@ export function getElementPos(element) {
 }
 
 
-/*
-see: https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js
-*/
-export function cloneVNode(vnode, options = {}, childs) {
-  let { componentOptions, data = {}, children } = vnode
-  if (childs && children) {
-    children = children.concat(childs)
-  } else if (componentOptions && componentOptions.children) {
-    // componentOptions.children.push(childs)
-    // console.log(componentOptions.children)
-    let hasPushed = componentOptions.children.map(x => x.tag).indexOf(childs.tag) >= 0
-    if (!hasPushed) {
-      componentOptions.children = componentOptions.children.concat(childs)
-    }
-  }
-  // let ndata = JSON.parse(JSON.stringify(data))
-  let { attrs = {}, on = {}, style = {} } = data
-
-  data.attrs = Object.assign(attrs, options.attrs)
-  data.style = Object.assign(style, options.style)
-  if (options.on) {
-    for (let eKey in options.on) {
-      on[eKey] = (e) => {
-        // on[eKey] && on[eKey]()
-        options.on[eKey](e)
-      }
-    }
-  }
-  data.on = on
-  const cloned = new vnode.constructor(
-    vnode.tag,
-    data,//vnode.data,
-    children,// vnode.children && vnode.children.slice(),
-    vnode.text,
-    vnode.elm,
-    vnode.context,
-    componentOptions, // vnode.componentOptions
-    vnode.asyncFactory
-  )
-  cloned.ns = vnode.ns
-  cloned.isStatic = vnode.isStatic
-  cloned.key = vnode.key
-  cloned.isComment = vnode.isComment
-  cloned.fnContext = vnode.fnContext
-  cloned.fnOptions = vnode.fnOptions
-  cloned.fnScopeId = vnode.fnScopeId
-  cloned.asyncMeta = vnode.asyncMeta
-  cloned.isCloned = true
-  return cloned
-}
-
-
-export function isVNode(element) {
-  return (
-    element &&
-    typeof element === 'object' &&
-    'componentOptions' in element &&
-    'context' in element &&
-    element.tag !== undefined
-  );
-}
 
 export function getOffset(el) {
   // const rect = el.getBoundingClientRect();

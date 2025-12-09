@@ -6,6 +6,7 @@ export interface AlertProps {
   type?: string;
   closable?: boolean;
   showIcon?: boolean;
+  icon?: string | Record<string, any> | any[];
   message?: string;
   description?: string;
 }
@@ -13,7 +14,7 @@ export interface AlertProps {
 /** Alert component instance */
 export interface Alert extends Vue {
   $props: AlertProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Alert Vue component type */

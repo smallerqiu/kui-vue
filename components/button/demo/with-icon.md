@@ -1,5 +1,5 @@
 <cn>
-#### 带图标
+### 带图标
 通过添加 `icon` 属性 设置按钮按钮图标。
 </cn>
 
@@ -12,17 +12,10 @@
     <Button :icon="Search">搜索</Button>
     <Button type="primary" :icon="Power"></Button>
     <Button :icon="Power"></Button>
-    <Button type="primary">展开选项<Icon :type="ChevronDown"/></Button>
+    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
   </Space>
 </template>
-<script>
-import { ChevronDown, Search,Power } from 'kui-icons'
-export default{
-  data() {
-    return {
-      ChevronDown ,Search, Power
-    }
-  }
-}
+<script setup>
+import { ChevronDown, Search, Power } from "kui-icons";
 </script>
 ```

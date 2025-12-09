@@ -1,5 +1,5 @@
 <cn>
-#### 对齐
+### 对齐
 设置对齐模式。
 </cn>
 
@@ -28,21 +28,22 @@
     </Space>
   </Flex>
 </template>
-<style lang=less>
-  .demo-space-align{
-    .k-space{
-      border:1px solid var(--kui-color-border);
-      width: calc(50% - 8px);
-      border-radius: 4px;
-    }
-    .block {
-      background: var(--kui-color-gray-90);
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-    }
+<style lang="less">
+.demo-space-align {
+  .k-space {
+    border: 1px solid var(--kui-color-border);
+    width: calc(50% - 8px);
+    border-radius: 4px;
   }
+  .block {
+    border: 1px solid var(--kui-color-border);
+    background: #92929252;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+  }
+}
 </style>
 ```

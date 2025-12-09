@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Group from './group.md'
 import Animated from './animated.md'
 import Child from './child.md'
@@ -13,7 +13,7 @@ export default {
     return (
       <div class="demo-progress">
         <Info />
-        <Base />
+        <Basic />
         <Group />
         <Animated />
         <Child />

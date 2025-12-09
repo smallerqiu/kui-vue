@@ -1,45 +1,35 @@
 <cn>
-#### 组合使用
-组合使用可以直接使用 `RadioGroup` 的 `options` 来赋值,或者结合 `Radio` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
-> `RadioGroup` 可以直接使用 `options` 来组合，3.0版本增加
+### 多选
+可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
 </cn>
 
 ```vue
 <template>
-  <Space vertical align="start">
-    <Space>
-      <Button @click="data=''" size="small">Clear</Button>
-      <Button @click="data='apple'" size="small">Select apple</Button>
-      Selected: {{data}}
-    </Space>
-    <RadioGroup v-model="data">
-      <Radio label="Apple" value="apple" />
-      <Radio label="Orange" value="orange" />
-      <Radio label="Banana" value="banana" />
-      <Radio label="Grape" value="grape" disabled/>
-      <Radio label="Pear" value="pear" disabled/>
+  <Space vertical>
+    use options
+    <code>value: {{ value1 }}</code>
+    <RadioGroup :options="options" v-model="value1" />
+    <br />
+    use children
+    <RadioGroup v-model="value1">
+      <Radio
+        :label="item.label"
+        :value="item.value"
+        v-for="(item, i) in options"
+        :key="i"
+      />
     </RadioGroup>
-    
-    {{cities}}
-    <RadioGroup :options="options" v-model="cities"/>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checked: true,
-      data: 'apple',
-      options: [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-      ],
-      cities:'wuhan'
-    };
-  }
-}
+<script setup>
+import { ref } from "vue";
+const value1 = ref("apple");
+const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Orange", value: "orange" },
+  { label: "Banana", value: "banana" },
+  { label: "Pear", value: "pear" },
+  { label: "Grape", value: "grape" },
+];
 </script>
 ```

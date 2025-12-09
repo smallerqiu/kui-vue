@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Half from "./half.md";
 import Tips from "./tips.md";
 import Disabled from "./disabled.md";
@@ -13,7 +13,7 @@ export default {
     return (
       <div class="demo-rate">
         <Info />
-        <Base />
+        <Basic />
         <Half />
         <Tips />
         <Disabled />

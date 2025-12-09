@@ -12,7 +12,7 @@ export interface InputGroupProps {
 /** InputGroup component instance */
 export interface InputGroup extends Vue {
   $props: InputGroupProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** InputGroup Vue component type */

@@ -1,41 +1,46 @@
 <cn>
-#### 动态添加和删除
+### 动态添加和删除
 通过 `closeable` 显示关闭按钮
 </cn>
 
 ```vue
 <template>
   <Space wrap>
-    <Tag color="blue" closeable v-for="(t,i) in tags" :key="t">{{t}}</Tag>
-    <Input v-show="showInput" @blur="add" size="small" style="width:81px" ref="input" :value="tag"/>
-    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">New Tag</Button>
+    <Tag color="blue" closeable v-for="(t, i) in tags" :key="t">{{ t }}</Tag>
+    <Input
+      v-if="showInput"
+      @blur="add"
+      size="small"
+      style="width:81px"
+      ref="inputRef"
+      :value="tag"
+    />
+    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">
+      New Tag
+    </Button>
   </Space>
 </template>
-<script>
+<script setup>
 import { Bookmark } from "kui-icons";
-export default {
-  data() {
-    return {
-      Bookmark,
-      showInput:false,
-      tag:'',
-      tags:['Apple','Banana','Cat','Dog']
-    }
-  },
-  methods:{
-    show(){
-      this.showInput=true
-      this.$refs.input.focus()
-    },
-    add(e){
-      let value = e.target.value.trim()
-      if(value && this.tags.indexOf(value)===-1){
-        this.tags.push(value)
-      }
-      this.tag = ''
-      this.showInput = false
-    }
+import { ref, nextTick } from "vue";
+const showInput = ref(false);
+const tag = ref("");
+const tags = ["Apple", "Banana", "Cat", "Dog"];
+const inputRef = ref();
+const show = () => {
+  showInput.value = true;
+  nextTick(() => {
+    // console.log(inputRef.value)
+    inputRef.value.focus();
+  });
+};
+const add = (e) => {
+  let value = e.target.value.trim();
+  if (value && tags.indexOf(value) === -1) {
+    tags.push(value);
   }
-}
+  tag.value = "";
+  showInput.value = false;
+};
 </script>
 ```

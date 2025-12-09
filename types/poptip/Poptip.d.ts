@@ -3,21 +3,20 @@ import Vue, { VueConstructor } from "vue";
 /** Poptip component props */
 export interface PoptipProps {
   dark?: boolean;
-  /** default: hover */
-  trigger?: string;
-  /** default: true */
-  transfer?: boolean;
-  title?: string;
+  show?: boolean;
+  title?: string | number | Record<string, any> | any[];
+  size?: string;
   width?: number | string;
+  /** default: hover */
+  trigger?: any;
   /** default: top */
   placement?: any;
-  value?: boolean;
 }
 
 /** Poptip component instance */
 export interface Poptip extends Vue {
   $props: PoptipProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Poptip Vue component type */

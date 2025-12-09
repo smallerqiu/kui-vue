@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './base.md'
+import Basic from './basic.md'
 import Accordion from './accordion.md'
 import Nesting from './nesting.md'
 import Sample from './sample.md'
@@ -10,7 +10,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Accordion />
         <Nesting />
         <Extra />

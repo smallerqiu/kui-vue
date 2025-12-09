@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Size from "./size.md";
 import WithNumber from "./withNumber.md";
 import Formatter from "./formatter.md";
@@ -13,7 +13,7 @@ export default {
     return (
       <div class="demo-slider">
         <Info />
-        <Base />
+        <Basic />
         <Size />
         <WithNumber />
         <Formatter />

@@ -1,5 +1,5 @@
 <cn>
-#### 禁用
+### 禁用
 设置为禁用状态。
 </cn>
 
@@ -10,13 +10,7 @@
     <ColorPicker :value="color" disabled showText />
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      color: '#3a95ff',
-    };
-  }
-}
-</script> 
+<script setup>
+const color = "#3a95ff";
+</script>
 ```

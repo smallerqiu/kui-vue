@@ -4,13 +4,14 @@ import Vue, { VueConstructor } from "vue";
 export interface SubMenuProps {
   disabled?: boolean;
   title?: string;
+  isPopup?: boolean;
   icon?: string | any[];
 }
 
 /** SubMenu component instance */
 export interface SubMenu extends Vue {
   $props: SubMenuProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** SubMenu Vue component type */

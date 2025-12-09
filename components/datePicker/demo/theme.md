@@ -1,29 +1,20 @@
 <cn>
-#### 主题和自定义
-theme=light 呈现浅色主题, shape=circle 呈现圆角, dateIcon 可自定义图标
+### 奇葩的主题
+奇奇怪怪的东西
 </cn>
 
 ```vue
 <template>
   <Space vertical>
-    <Checkbox v-model="shape" label="Circle" />
-    <DatePicker theme="light" :shape="shape?'circle':''"/>
-    <DatePicker theme="light" :shape="shape?'circle':''" :dateIcon="ArrowDown"/>
-    <DatePicker theme="light" :shape="shape?'circle':''" :dateIcon="CaretDown"/>
-    <DatePicker theme="light" :shape="shape?'circle':''" :dateIcon="null" placeholder="没有icon"/>
-    <DatePicker mode="month" placeholder="请选择月份" theme="light" :shape="shape?'circle':''"/>
-    <DatePicker mode="dateRange" theme="light" :shape="shape?'circle':''"/>
+    <DatePicker shape="circle" />
+    <DatePicker theme="light" />
+    <DatePicker :dateIcon="ArrowDown" placeholder="自定义日期图标" />
+    <DatePicker :bordered="false" placeholder="无边框" theme="light" />
+
+    <DatePicker mode="dateRange" theme="light" />
   </Space>
 </template>
-<script>
-import { ArrowDown, CaretDown } from "kui-icons";
-export default{
-  data() {
-    return {
-      ArrowDown, CaretDown,
-      shape : false
-    }
-  }
-}
+<script setup>
+import { ArrowDown } from "kui-icons";
 </script>
 ```

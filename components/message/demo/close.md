@@ -1,39 +1,39 @@
 <cn>
-#### 自定义时长
+### 自定义时长
 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="config">10秒后关闭</Button>
     <Button @click="config2" type="primary">5秒后关闭</Button>
     <Button @click="config3" type="primary">手动关闭</Button>
   </Space>
 </template>
-<script>
-export default{
-  methods:{
-    config() {
-      this.$Message.success("10秒后关闭", 10);
+<script setup>
+import { message } from "kui-vue";
+
+const config = () => {
+  message.success("10秒后关闭", 10);
+};
+const config2 = () => {
+  message.show({
+    type: "info",
+    duration: 5,
+    content: "5秒后关闭",
+  });
+};
+const config3 = () => {
+  message.show({
+    type: "info",
+    duration: 0,
+    closable: true,
+    content: "手动关闭",
+    close: () => {
+      message.success("我是回调");
     },
-    config2() {
-      this.$Message.config({
-        type: "info",
-        duration: 5,
-        content: "5秒后关闭"
-      });
-    },
-    config3() {
-      this.$Message.config({
-        type: "info",
-        duration: 0,
-        closable: true,
-        content: "手动关闭",
-        close: () => { this.$Message.success("我是回调"); }
-      });
-    }
-  }
-}
+  });
+};
 </script>
 ```

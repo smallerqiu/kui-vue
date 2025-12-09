@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from './basic.md';
 import Vertical from "./vertical.md";
 import Align from "./align.md";
 import Size from "./size.md";
@@ -16,7 +16,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Vertical />
         <Size />
         <Align />

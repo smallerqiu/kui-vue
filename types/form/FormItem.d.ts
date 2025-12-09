@@ -12,7 +12,7 @@ export interface FormItemProps {
 /** FormItem component instance */
 export interface FormItem extends Vue {
   $props: FormItemProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** FormItem Vue component type */

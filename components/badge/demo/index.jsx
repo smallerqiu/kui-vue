@@ -1,5 +1,5 @@
 
-import Base from './base.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Dot from './dot.md'
 import Max from './max.md'
@@ -11,9 +11,9 @@ import CN from '../index.md'
 export default {
   render() {
     return (
-      <div class="demo-badge">
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Dot />
         <Max />
         <Mark />

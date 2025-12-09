@@ -10,7 +10,7 @@ export interface EmptyProps {
 /** Empty component instance */
 export interface Empty extends Vue {
   $props: EmptyProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Empty Vue component type */

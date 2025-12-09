@@ -1,452 +1,1042 @@
-import Calendar from './datecalendar'
-import Icon from "../icon";
-import { withInstall } from '../utils/vue'
-import dayjs from 'dayjs'
-import Drop from '../base/drop'
-import { t } from '../locale'
-import { CloseCircle, CalendarOutline, TimeOutline } from 'kui-icons'
-import duration from 'dayjs/plugin/duration';
-import isBetween from 'dayjs/plugin/isBetween';
-dayjs.extend(duration);
+import {
+  defineComponent,
+  ref,
+  watch,
+  inject,
+  onMounted,
+  computed,
+  onUnmounted,
+  nextTick,
+} from "vue";
+import dayjs from "dayjs";
+import zhCN from "../locale/lang/zh-CN";
+import isBetween from "dayjs/plugin/isBetween";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import {
+  CloseCircle,
+  CalendarOutline,
+  TimeOutline,
+  ChevronDoubleBack,
+  ChevronBack,
+  ChevronForward,
+  ChevronDoubleForward,
+  ArrowForward,
+} from "kui-icons";
+import { setPlacement } from "../utils/placement";
+import transfer from "../directives/transfer";
+import resize from "../directives/resize";
+import { Button } from "../button";
+import "dayjs/locale/zh-cn";
+import { withInstall } from "../utils/vue";
+// 启用插件
 dayjs.extend(isBetween);
-const DatePicker = {
-  name: 'DatePicker',
+dayjs.extend(customParseFormat);
+dayjs.extend(localeData);
+// dayjs.locale("en-gb");
+dayjs.locale("zh-cn");
+
+const DatePicker = defineComponent({
+  name: "DatePicker",
+  directives: {
+    transfer,
+    resize,
+  },
   props: {
-    value: [String, Date, Number, Array, Object],
+    value: { type: [Date, Object, Array, String, Number], default: null },
+    startDate: { type: [Date, Object, String, Number], default: null },
+    endDate: { type: [Date, Object, String, Number], default: null },
+    valueType: {
+      type: String,
+      default: "string",
+      validator: (v) => ["date", "timestamp", "unix", "string"].includes(v),
+    },
     mode: {
-      type: String, default: 'date', validator(value) {
-        return ["year", "month", "date", 'time', 'dateTime', "dateRange", 'dateTimeRange'].indexOf(value) >= 0;
-      }
+      type: String,
+      default: "date",
+      validator: (v) =>
+        [
+          "year",
+          "month",
+          "date",
+          "time",
+          "dateTime",
+          "dateRange",
+          "dateTimeRange",
+        ].includes(v),
     },
-    disabled: Boolean,
-    transfer: { type: Boolean, default: true },
-    disabledDate: { type: Function, default: () => { } },
-    disabledTime: { type: Function, default: () => { } },
-    format: String,
+    presets: Array,
+    disabled: { type: Boolean },
     clearable: { type: Boolean, default: true },
-    bordered: { type: Boolean, default: true },
-    pickerSize: String,
-    size: {
-      default: 'default',
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      }
-    },
-    placement: String,
+    editable: { type: Boolean, default: true },
+    placeholder: { type: [String, Array], default: "" },
+    format: { type: [String, Array], default: null },
+    disabledDate: { type: Function, default: () => false },
+    disabledTime: { type: Function, default: () => false },
+    size: { type: String, default: "default" },
+    pickerSize: { type: String, default: "default" },
+    dateIcon: { type: [Array, Object] },
     theme: String,
     shape: String,
-    placeholder: [String, Array],
-    dateIcon: [String, Array],
-    presets: Array
-  },
-  provide() {
-    return {
-      DatePicker: this,
-    }
-  },
-  data() {
-    return {
-      opened: false,
-      currentValue: this.value,
-      v1: null, // render selected
-      v2: null, //
-      d1: null, //render date view
-      d2: null,
-      h2: null,
-      fmt: {
-        'year': 'YYYY',
-        'month': 'YYYY-MM',
-        'date': 'YYYY-MM-DD',
-        'dateRange': 'YYYY-MM-DD',
-        'time': 'HH:mm:ss',
-        'dateTime': 'YYYY-MM-DD HH:mm:ss',
-        'dateTimeRange': 'YYYY-MM-DD HH:mm:ss'
-      }
-    }
-  },
-  created() {
-    this.updateCalendarDate()
-  },
-  computed: {
-    label() {
-      let { currentValue, isRange, format, fmt, mode } = this
-      let ft = format || fmt[mode]
-      if (isRange) {
-        let [v1, v2] = currentValue || []
-        return [v1 ? dayjs(v1).format(ft) : null, v2 ? dayjs(v2).format(ft) : null]
-      } else {
-        return currentValue ? dayjs(currentValue).format(ft) : null
-      }
-    },
-    isRange() {
-      return this.mode.indexOf('Range') >= 0
-    },
-    withTime() {
-      return this.mode.indexOf('Time') >= 0// && this.mode != 'time'
-    }
-  },
-  watch: {
-    value(v) {
-      if (this.v != this.currentValue) {
-        // console.log(v)
-        if (!this.isRange) {
-          this.currentValue = v ? dayjs(v) : ''
-        } else {
-          let [a, b] = v || []
-          this.currentValue = [a ? dayjs(a) : null, b ? dayjs(b) : null]
-        }
-        this.updateCalendarDate()
-      }
-    }
-  },
-  methods: {
-    updateCalendarDate() {
-      let { currentValue, isRange } = this
-      if (isRange) {
-        let [a, b] = currentValue || []
-        // if (!this.v1 && a) {
-        //   this.v1 = dayjs(a)
-        // }
-        // if (!this.v2 && b) {
-        //   this.v2 = dayjs(b)
-        // }
-        this.d1 = a ? dayjs(a) : dayjs()
-        this.d2 = b ? dayjs(b) : dayjs().add(1, 'month')
-
-        const oneMonth = dayjs.duration(1, 'month').asDays();
-        const diff = this.d2.diff(this.d1, 'day');
-        if (diff < oneMonth) {
-          this.d2 = dayjs(this.d1).add(1, 'month')
-        }
-        if (!this.v1 && a) {
-          this.v1 = dayjs(a)
-        }
-        if (!this.v2 && b) {
-          this.v2 = dayjs(b)
-        }
-
-        // this.currentValue = [dayjs(this.d1), dayjs(this.d2)]
-      } else {
-        this.d1 = currentValue ? dayjs(currentValue) : dayjs()
-        if (!this.v1 && currentValue) {
-          this.v1 = dayjs(currentValue)
-        }
-      }
-    },
-    clear(e) {
-      let v = null;
-      if (!this.isRange) {
-        this.currentValue = null
-        v = ''
-        this.v1 = null
-      } else {
-        this.currentValue = []
-        v = []
-        this.v1 = null
-        this.v2 = null
-      }
-      this.updateCalendarDate()
-
-      this.$emit("input", v);
-      this.$emit("change", v, v);
-      e && e.stopPropagation()
-    },
-    toggleDrop() {
-      if (this.disabled) {
-        return false;
-      }
-      this.opened = !this.opened;
-
-      if (this.opened) {
-        this.updateCalendarDate()
-      } else {
-        this.validValue()
-      }
-    },
-    picker1Update(value, type) {
-      let { v1, v2, withTime, isRange } = this
-      if (isRange) {
-        if (!type) { //day
-          let result = dayjs(value)
-          if (!v1) {
-            this.v1 = result
-            this.currentValue = [dayjs(value), v2]
-          } else if (v1 && !v2) {
-            this.v2 = result
-            this.currentValue = [v1, this.v2]
-            if (!withTime) {
-              this.opened = false
-            }
-          } else if (v1 && v2) {
-            this.v1 = result
-            this.v2 = null
-            this.currentValue = [dayjs(value), null]
-          }
-          this.updateStr()
-
-        } else {
-          let _v1 = (v1 || dayjs(this.d1))[type](value)
-          this.v1 = _v1
-          if (v2) {
-            const oneMonth = dayjs.duration(1, 'month').asDays();
-            const diff = _v1.diff(v2, 'day');
-            // console.log(oneMonth, diff)
-            if (diff > oneMonth) {
-              v2 = dayjs(_v1).add(1, 'month')
-            }
-            this.v2 = v2
-          }
-          this.currentValue = [_v1, v2]
-          this.updateStr()
-        }
-      } else {
-        let result = !type ? dayjs(value) : (this.v1 || dayjs())[type](value)
-        this.v1 = dayjs(result)
-        this.currentValue = dayjs(result)
-        this.updateStr()
-      }
-    },
-    picker2Update(value, type) {
-      let { v1, v2, withTime } = this
-      if (!type) { //day
-        let result = dayjs(value)
-        if (!v1) {
-          this.v1 = result
-          this.currentValue = [dayjs(value), v2]
-        } else if (v1 && !v2) {
-          this.v2 = result
-          this.currentValue = [v1, this.v2]
-          if (!withTime) {
-            this.opened = false
-          }
-        } else if (v1 && v2) {
-          this.v1 = result
-          this.v2 = null
-          this.currentValue = [dayjs(value), null]
-        }
-        this.updateStr()
-      } else {
-        let _v2 = (v2 || dayjs(this.d2))[type](value)
-        this.v2 = _v2
-        if (v1) {
-          // const oneMonth = dayjs.duration(1, 'month').asDays();
-          const diff = _v2.diff(v1, 'day');
-          // console.log(oneMonth, diff)
-          if (diff < 0) {
-            v1 = dayjs(_v2).subtract(1, 'month')
-          }
-          this.v1 = v1
-        }
-        this.currentValue = [v1, _v2]
-        this.updateStr()
-      }
-    },
-    updateStr() {
-      let { v1, v2, isRange, format, fmt, mode } = this
-      let ft = format || fmt[mode]
-      let dateStr = isRange ? [v1 ? v1.format(ft) : null, v2 ? v2.format(ft) : null] : v1.format(ft)
-      this.$emit('input', dateStr)
-      this.$emit('change', this.currentValue, dateStr)
-      this.updateCalendarDate()
-    },
-    validValue(e) {
-      // 只有一个值的时候, 直接置空
-      if (this.isRange) {
-        let [a, b] = this.currentValue || []
-        if ((a && !b) || (!a && b)) {
-          this.clear(e)
-        }
-      }
-    },
-    getPresetsNode() {
-      let { presets } = this
-      if (presets && presets.length > 1) {
-        let children = []
-        for (let i = 0; i < presets.length; i++) {
-          children.push(<Button type="text" size="small" onClick={() => this.setPreset(presets[i])}>{presets[i].label}</Button>)
-        }
-        return <div class="k-date-picker-presets">{children}</div>
-      }
-      return null
-    },
-    setPreset({ value }) {
-      let { isRange, format, fmt, mode } = this
-      let ft = format || fmt[mode]
-      if (isRange) {
-        let [a, b] = value || []
-        if (a && b) {
-          this.v1 = dayjs(a)
-          this.v2 = dayjs(b)
-          this.currentValue = [dayjs(a), dayjs(b)]
-          let dateStr = [dayjs(a).format(ft), dayjs(b).format(ft)]
-          this.$emit('input', dateStr)
-          this.$emit('change', this.currentValue, dateStr)
-        }
-      } else {
-        this.v1 = dayjs(value)
-        this.currentValue = dayjs(value)
-        let dateStr = this.v1.format(ft)
-        this.$emit('input', dateStr)
-        this.$emit('change', this.currentValue, dateStr)
-      }
-      this.opened = false
-    },
-  },
-  render() {
-    // console.log(t('k.datePicker'))
-    let { currentValue, placeholder, disabled, clearable, v1, v2, d1, d2, h2,
-      opened, size, label, bordered, theme, shape, dateIcon,
-      format, mode, disabledTime, isRange, withTime, disabledDate, pickerSize
-    } = this
-    let childNode = [];
-    if (dateIcon === undefined) {
-      dateIcon = CalendarOutline
-    }
-    if (mode == 'time') {
-      dateIcon = TimeOutline
-    }
-    dateIcon && childNode.push(<Icon type={dateIcon} class="k-icon-calendar" />)
-    let dv1, dv2;
-    if (isRange) {
-      placeholder = placeholder || []
-      if (placeholder && !Array.isArray(placeholder)) {
-        console.error('Please set placeholder as array !')
-        placeholder = []
-      }
-      let p1 = placeholder[0] || t('k.datePicker.startDate'), p2 = placeholder[1] || t('k.datePicker.endDate')
-      let [l1, l2] = label
-      if (l1) {
-        childNode.push(<div class="k-datepicker-value">{l1}</div>)
-      } else {
-        childNode.push(<div class="k-datepicker-placeholder">{p1}</div>)
-      }
-      childNode.push(<div class="k-datepicker-separator">~</div>)
-      if (l2) {
-        childNode.push(<div class="k-datepicker-value">{l2}</div>)
-      } else {
-        childNode.push(<div class="k-datepicker-placeholder">{p2}</div>)
-      }
-      let [a, b] = currentValue || []
-      dv1 = a
-      dv2 = b
-    } else {
-      placeholder = placeholder || t('k.datePicker.placeholder')
-      if (label) {
-        childNode.push(<div class="k-datepicker-value">{label}</div>)
-      } else if (placeholder) {
-        childNode.push(<div class="k-datepicker-placeholder">{placeholder}</div>)
-      }
-
-      dv1 = currentValue
-    }
-
-    // console.log(dv1, dv2)
-
-    let calendar = []
-    let presetsNode = this.getPresetsNode()
-    if (presetsNode) {
-      calendar.push(presetsNode)
-    }
-    const leftProps = {
-      props: {
-        format, mode, opened, disabledTime,
-        disabledDate, value: dv1, date: d1, v1, v2, h2, pickerSize: pickerSize || size
+    bordered: { type: Boolean, default: true },
+    placement: {
+      validator(value) {
+        return [
+          "top",
+          "top-left",
+          "top-right",
+          "bottom",
+          "bottom-left",
+          "bottom-right",
+        ].includes(value);
       },
-      on: {
-        input: (e, f) => this.picker1Update(e, f),
-        close: (v) => {
-          if (v) {
-            this.opened = false
+      default: "bottom-left",
+    },
+  },
+  emits: ["change"],
+
+  setup(props, { emit, slots }) {
+    const locale = inject("locale", null) || zhCN;
+    // --- 状态定义 ---
+    const isVisible = ref(false);
+    const isFocus = ref(false);
+    const rendered = ref(false);
+    const currentPlacement = ref(props.placement);
+    const left = ref(0);
+    const top = ref(0);
+    const transOrigin = ref("bottom");
+    const refPopper = ref(null);
+    const refCtx = ref(null);
+    const local = dayjs().localeData();
+    // console.log(local);
+
+    // DOM 引用，用于滚动计算
+    const timeColRefs = ref({});
+
+    // 面板显示的基准日期
+    const panelDate = ref(dayjs());
+    // 内部存储值 (Dayjs Object 或 Array<Dayjs>)
+    const innerValue = ref(null);
+    // 输入框显示文本
+    const textValue = ref("");
+    const textValueStart = ref(""); // 范围模式-开始
+    const textValueEnd = ref(""); // 范围模式-结束
+    // 范围选择时的悬停日期
+    const hoverDate = ref(null);
+
+    // 视图模式: 'date' | 'month' | 'year' | 'time'
+    const currentView = ref("date");
+
+    // Range 模式下，当前时间面板编辑的是哪一端: 'start' | 'end'
+    const timeEditSide = ref("start");
+    const isRange = computed(() => props.mode.includes("Range"));
+
+    const localPlaceholders = {
+      year: locale?.k.datePicker.selectYear,
+      month: locale?.k.datePicker.selectMonth,
+      date: locale?.k.datePicker.selectDate,
+      dateTime: locale?.k.datePicker.selectDate,
+      time: locale?.k.datePicker.selectTime,
+      startDate: locale?.k.datePicker.startDate,
+      endDate: locale?.k.datePicker.endDate,
+    };
+
+    const formatOutputValue = (dayjsVal) => {
+      if (!dayjsVal) return null;
+      switch (props.valueType) {
+        case "timestamp": // Long (毫秒)
+          return dayjsVal.valueOf();
+        case "unix": // Unix (秒)
+          return dayjsVal.unix();
+        case "string": // String (基于 format)
+          return dayjsVal.format(getFormat());
+        case "date": // Native Date
+        default:
+          return dayjsVal.toDate();
+      }
+    };
+    const getFormat = () => {
+      if (props.format)
+        return Array.isArray(props.format) ? props.format[0] : props.format;
+      const map = {
+        date: "YYYY-MM-DD",
+        dateTime: "YYYY-MM-DD HH:mm:ss",
+        dateRange: "YYYY-MM-DD",
+        dateTimeRange: "YYYY-MM-DD HH:mm:ss",
+        month: "YYYY-MM",
+        time: "HH:mm:ss",
+        year: "YYYY",
+      };
+      return map[props.mode] || "YYYY-MM-DD";
+    };
+
+    const scrollToCurrentTime = () => {
+      nextTick(() => {
+        let activeDate = dayjs();
+        if (props.mode === "dateTimeRange") {
+          const idx = timeEditSide.value === "start" ? 0 : 1;
+          if (innerValue.value && innerValue.value[idx])
+            activeDate = innerValue.value[idx];
+        } else {
+          if (innerValue.value && !Array.isArray(innerValue.value))
+            activeDate = innerValue.value;
+        }
+
+        const targets = {
+          hour: activeDate.hour(),
+          minute: activeDate.minute(),
+          second: activeDate.second(),
+        };
+
+        ["hour", "minute", "second"].forEach((type) => {
+          const el = timeColRefs.value[type];
+          if (el) {
+            el.scrollTop = targets[type] * 32 + 16;
           }
-        },
-        hd: (v) => {
-          this.h2 = v
-        },
-        np: (v) => {
-          this.d1 = v
-          if (this.isRange && (this.d1.isSame(this.d2, 'month') || this.d1.isAfter(d2, 'month'))) {
-            this.d2 = v.add(1, 'month')
+        });
+      });
+    };
+
+    watch([currentView, timeEditSide], ([v]) => {
+      if (v === "time") scrollToCurrentTime();
+    });
+
+    // --- 值同步 ---
+    const syncTextFromValue = () => {
+      const fmt = getFormat();
+
+      // 情况1: 空值
+      if (!innerValue.value) {
+        textValue.value = "";
+        textValueStart.value = "";
+        textValueEnd.value = "";
+        return;
+      }
+
+      // 情况2: Range 模式
+      if (Array.isArray(innerValue.value)) {
+        const [start, end] = innerValue.value;
+        textValueStart.value = start ? start.format(fmt) : "";
+        textValueEnd.value = end ? end.format(fmt) : "";
+        // 兼容单 input 显示 (虽然现在是双input，保留逻辑防止出错)
+        textValue.value = innerValue.value
+          .map((d) => (d ? d.format(fmt) : ""))
+          .join(" - ");
+      }
+      // 情况3: 单选模式
+      else {
+        textValue.value = innerValue.value.format(fmt);
+      }
+    };
+
+    const parsePropValue = (val) => {
+      if (val === null || val === undefined || val === "") return null;
+
+      if (props.valueType === "unix") {
+        return dayjs.unix(Number(val));
+      }
+
+      if (props.valueType === "string") {
+        // return dayjs(val, getFormat());
+      }
+
+      return dayjs(val);
+    };
+
+    watch(
+      () => props.value,
+      (val) => {
+        if (!val) {
+          innerValue.value = null;
+          syncTextFromValue();
+          return;
+        }
+        if (isRange.value && Array.isArray(val)) {
+          innerValue.value = val.map((d) => {
+            const parsed = parsePropValue(d);
+            return parsed.isValid() ? parsed : null;
+          });
+          if (!isFocus.value) syncTextFromValue();
+          // 设置面板基准时间
+          if (innerValue.value[0]) panelDate.value = innerValue.value[0];
+        } else {
+          const d = parsePropValue(val);
+          innerValue.value = d;
+          if (!isFocus.value) syncTextFromValue();
+          if (d.isValid()) panelDate.value = d;
+        }
+      },
+      { immediate: true }
+    );
+
+    const emitValue = (closePanel = true) => {
+      if (!innerValue.value) {
+        emit("input", null);
+        // emit("update:value", null);
+        emit("change", null, "");
+        return;
+      }
+      const fmt = getFormat();
+      if (Array.isArray(innerValue.value)) {
+        const [start, end] = innerValue.value;
+        if (start && end) {
+          // 自动排序，防止开始时间晚于结束时间
+          const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
+          const out = dates.map((d) => formatOutputValue(d));
+          emit("input", out);
+          emit("update:startDate", out[0]);
+          emit("update:endDate", out[1]);
+          // emit(
+          //   "update:value",
+          //   dates.map((d) => d.toDate())
+          // );
+          emit(
+            "change",
+            dates,
+            dates.map((d) => d.format(fmt))
+          );
+
+          innerValue.value = dates;
+          syncTextFromValue();
+
+          if (closePanel) isVisible.value = false;
+        }
+      } else {
+        emit("input", formatOutputValue(innerValue.value));
+        // emit("update:value", innerValue.value.toDate());
+        emit("change", innerValue.value, innerValue.value.format(fmt));
+        syncTextFromValue();
+        if (closePanel) isVisible.value = false;
+      }
+    };
+
+    const handleInput = (e, index = 0) => {
+      const val = e.target.value;
+      const fmt = getFormat();
+
+      if (isRange.value) {
+        if (index === 0) textValueStart.value = val;
+        else textValueEnd.value = val;
+      } else {
+        textValue.value = val;
+      }
+
+      const d = dayjs(val, fmt, true);
+
+      if (d.isValid()) {
+        if (isRange.value) {
+          const newArr = Array.isArray(innerValue.value)
+            ? [...innerValue.value]
+            : [null, null];
+
+          newArr[index] = d;
+          innerValue.value = newArr;
+          panelDate.value = d;
+
+          if (newArr[0] && newArr[1]) {
+            emitValue(false);
           }
+        } else {
+          innerValue.value = d;
+          panelDate.value = d;
+          emitValue(false);
+        }
+      } else if (val === "") {
+        if (isRange.value) {
+          const newArr = Array.isArray(innerValue.value)
+            ? [...innerValue.value]
+            : [null, null];
+          newArr[index] = null;
+          innerValue.value = newArr;
+        } else {
+          innerValue.value = null;
+          emitValue(false);
         }
       }
-    }
-    calendar.push(<Calendar {...leftProps} />)
+    };
 
-    if (isRange) {
-      let rightProps = {
-        props: { format, opened, mode, disabledTime, disabledDate, isRight: true, value: dv2, date: d2, v1, v2, h2, pickerSize },
-        on: {
-          input: (e, f) => this.picker2Update(e, f),
-          close: (v, e) => {
-            if (v) {
-              this.opened = false
-              this.validValue(e)
+    const updatePanelState = () => {
+      if (isVisible.value) return;
+
+      isVisible.value = true;
+      isFocus.value = true;
+
+      if (props.mode === "year") currentView.value = "year";
+      else if (props.mode === "month") currentView.value = "month";
+      else if (props.mode === "time") currentView.value = "time";
+      else currentView.value = "date";
+
+      // 打开时，如果没有值，面板显示当前时间；如果有值，显示选中值的时间
+      if (!innerValue.value) {
+        panelDate.value = dayjs();
+      } else if (!Array.isArray(innerValue.value)) {
+        panelDate.value = innerValue.value;
+      } else if (innerValue.value[0]) {
+        panelDate.value = innerValue.value[0];
+      }
+    };
+
+    // 切换面板
+    const togglePanel = () => {
+      if (props.disabled || isVisible.value) return;
+      if (!rendered.value) {
+        rendered.value = true;
+        document.addEventListener("click", handleClickOutside);
+        nextTick(() => {
+          updatePanelState();
+          updatePosition();
+        });
+      } else {
+        updatePanelState();
+        updatePosition();
+      }
+    };
+
+    const handleClickOutside = (e) => {
+      const ctx = refCtx.value;
+      const popper = refPopper.value;
+      if (
+        popper &&
+        !popper.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
+        isVisible.value = false;
+        isFocus.value = false;
+        syncTextFromValue();
+      }
+    };
+    const timeLabelClick = (e, direction) => {
+      e.preventDefault();
+      if (timeEditSide.value == direction && currentView.value == "time") {
+        currentView.value = "date";
+        return;
+      }
+      timeEditSide.value = direction; //"start";
+      currentView.value = "time";
+    };
+
+    const pickDate = (date) => {
+      if (isRange.value) {
+        let newVal = Array.isArray(innerValue.value)
+          ? [...innerValue.value]
+          : [];
+        // 清理一下可能的 null
+        newVal = newVal.filter((x) => x);
+
+        if (newVal.length === 2 || newVal.length === 0) {
+          newVal = [date.startOf("day")];
+        } else {
+          const first = newVal[0];
+          const second = date;
+
+          let start, end;
+          if (second.isBefore(first)) {
+            start = second;
+            end = first;
+          } else {
+            start = first;
+            end = second;
+          }
+          start = start.startOf("day");
+          end = end.endOf("day");
+          newVal = [start, end];
+        }
+        innerValue.value = newVal;
+
+        if (newVal.length === 2) {
+          if (props.mode === "dateTimeRange") emitValue(false);
+          else emitValue(true);
+        }
+      } else {
+        if (props.mode === "dateTime") {
+          const old = innerValue.value || dayjs();
+          innerValue.value = date
+            .hour(old.hour())
+            .minute(old.minute())
+            .second(old.second());
+          emitValue(false);
+        } else {
+          innerValue.value = date;
+          emitValue(true);
+        }
+      }
+    };
+
+    const pickYear = (y) => {
+      panelDate.value = panelDate.value.year(y);
+      if (props.mode === "year") {
+        innerValue.value = panelDate.value;
+        emitValue(true);
+      } else {
+        setTimeout(() => {
+          currentView.value = "month";
+        }, 0);
+      }
+    };
+
+    const pickMonth = (m) => {
+      panelDate.value = panelDate.value.month(m);
+      if (props.mode === "month") {
+        innerValue.value = panelDate.value;
+        emitValue(true);
+      } else {
+        setTimeout(() => {
+          currentView.value = "date";
+        }, 0);
+      }
+    };
+    const checkTimeDisabled = (d) => {
+      if (!props.disabledTime || !d) return false;
+      // 传入原生 Date 对象给用户校验
+      return props.disabledTime(d.toDate());
+    };
+    const handleTimeScrollPick = (type, val) => {
+      let activeDate = dayjs();
+      let idx = 0;
+
+      if (props.mode === "dateTimeRange") {
+        idx = timeEditSide.value === "start" ? 0 : 1;
+        if (innerValue.value && innerValue.value[idx]) {
+          activeDate = innerValue.value[idx];
+        } else if (
+          Array.isArray(innerValue.value) &&
+          innerValue.value[idx] === null
+        ) {
+          return;
+        }
+      } else {
+        if (innerValue.value && !Array.isArray(innerValue.value)) {
+          activeDate = innerValue.value;
+        }
+      }
+      const nextDate = activeDate.set(type, val);
+
+      if (checkTimeDisabled(nextDate)) {
+        // 如果禁用，直接拦截，不更新值
+        return;
+      }
+
+      if (props.mode === "dateTimeRange") {
+        const newArr = [...(innerValue.value || [null, null])];
+        newArr[idx] = nextDate;
+        innerValue.value = newArr;
+        emitValue(false);
+      } else {
+        innerValue.value = nextDate;
+        emitValue(false);
+      }
+
+      const el = timeColRefs.value[type];
+      if (el) el.scrollTo({ top: val * 32 + 16, behavior: "smooth" });
+    };
+
+    const renderHeader = () => {
+      if (props.mode === "time") return null;
+      const year = panelDate.value.year();
+      const month = panelDate.value.month() + 1;
+
+      return (
+        <div class="k-picker-header">
+          <Button
+            icon={ChevronDoubleBack}
+            type="text"
+            onClick={() =>
+              (panelDate.value = panelDate.value.subtract(1, "year"))
             }
-          },
-          hd: (v) => {
-            this.h2 = v
-          },
-          np: (v) => {
-            this.d2 = v
-            if (this.d2.isSame(this.d1, 'month') || this.d2.isBefore(d1, 'month')) {
-              this.d1 = v.subtract(1, 'month')
-            }
+          />
+
+          {props.mode !== "year" ? (
+            <Button
+              icon={ChevronBack}
+              type="text"
+              onClick={() =>
+                (panelDate.value = panelDate.value.subtract(1, "month"))
+              }
+            />
+          ) : null}
+          <span class="k-picker-header-label">
+            <span onClick={() => (currentView.value = "year")}>{year}年</span>
+            {props.mode != "year" ? (
+              <span onClick={() => (currentView.value = "month")}>
+                {month}月
+              </span>
+            ) : null}
+          </span>
+
+          {props.mode !== "year" ? (
+            <Button
+              icon={ChevronForward}
+              type="text"
+              onClick={() =>
+                (panelDate.value = panelDate.value.add(1, "month"))
+              }
+            />
+          ) : null}
+          <Button
+            type="text"
+            icon={ChevronDoubleForward}
+            onClick={() => (panelDate.value = panelDate.value.add(1, "year"))}
+          />
+        </div>
+      );
+    };
+
+    const renderYearTable = () => {
+      const startY = Math.floor(panelDate.value.year() / 10) * 10;
+      const years = Array.from({ length: 12 }, (_, i) => startY - 1 + i);
+      return (
+        <div class="k-picker-body">
+          <div class="k-picker-year-body">
+            {years.map((y) => (
+              <div
+                key={y}
+                class={[
+                  "k-picker-year-item",
+                  y === panelDate.value.year() ? "k-picker-year-selected" : "",
+                ]}
+                onClick={() => pickYear(y)}
+              >
+                {y}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    const renderMonthTable = () => {
+      const months = local.monthsShort();
+      return (
+        <div class="k-picker-body">
+          <div class="k-picker-month-body">
+            {months.map((m, i) => (
+              <div
+                key={i}
+                class={[
+                  "k-picker-month-item",
+                  i === panelDate.value.month()
+                    ? "k-picker-month-selected"
+                    : "",
+                ]}
+                onClick={() => pickMonth(i)}
+              >
+                {m}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    const renderDateTable = () => {
+      const startOfMonth = panelDate.value.startOf("month");
+      const startDay = startOfMonth.day();
+      const days = [];
+
+      for (let i = startDay; i > 0; i--)
+        days.push({ d: startOfMonth.subtract(i, "day"), type: "prev" });
+      for (let i = 0; i < startOfMonth.daysInMonth(); i++)
+        days.push({ d: startOfMonth.add(i, "day"), type: "curr" });
+      const rem = 42 - days.length;
+      for (let i = 1; i <= rem; i++)
+        days.push({
+          d: startOfMonth.endOf("month").add(i, "day"),
+          type: "next",
+        });
+
+      const weekDays = local.weekdaysMin();
+      return (
+        <div class="k-picker-body">
+          <div class="k-picker-weekdays">
+            {weekDays.map((w) => (
+              <span class="k-picker-weekday" key={w}>
+                {w}
+              </span>
+            ))}
+          </div>
+          <div class="v-dp-table" onMouseleave={() => (hoverDate.value = null)}>
+            {days.map((item, idx) => {
+              const date = item.d;
+              const isDisabled = props.disabledDate(date.toDate());
+
+              let isSelected = false;
+              let inRange = false;
+              let isRangeStart = false;
+              let isRangeEnd = false;
+
+              if (
+                props.mode.includes("Range") &&
+                Array.isArray(innerValue.value)
+              ) {
+                const [s, e] = innerValue.value;
+                if (s && date.isSame(s, "day")) {
+                  isSelected = true;
+                  isRangeStart = true;
+                }
+                if (e && date.isSame(e, "day")) {
+                  isSelected = true;
+                  isRangeEnd = true;
+                }
+
+                if (s && e && date.isBetween(s, e, "day", "[]")) inRange = true;
+                // 悬停预览
+                if (s && !e && hoverDate.value) {
+                  const min = s.isBefore(hoverDate.value) ? s : hoverDate.value;
+                  const max = s.isBefore(hoverDate.value) ? hoverDate.value : s;
+                  if (date.isBetween(min, max, "day", "[]")) inRange = true;
+                }
+              } else if (innerValue.value && !Array.isArray(innerValue.value)) {
+                if (date.isSame(innerValue.value, "day")) isSelected = true;
+              }
+
+              return (
+                <div
+                  key={idx}
+                  class={[
+                    "k-picker-day",
+                    item.type !== "curr" ? "k-picker-day-out" : "",
+                    date.isSame(dayjs(), "day") ? "k-picker-is-today" : "",
+                    isSelected ? "k-picker-day-selected" : "",
+                    inRange && !isSelected ? "k-picker-day-in" : "",
+                    isRangeStart ? "k-picker-range-start" : "",
+                    isRangeEnd ? "k-picker-range-end" : "",
+                    isDisabled ? "k-picker-day-disabled" : "",
+                  ]}
+                  onMouseenter={() => {
+                    if (props.mode.includes("Range")) hoverDate.value = date;
+                  }}
+                  onClick={() => !isDisabled && pickDate(date)}
+                >
+                  {date.date()}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    };
+
+    const renderTimePicker = () => {
+      let activeDate = dayjs();
+      if (props.mode === "dateTimeRange") {
+        const idx = timeEditSide.value === "start" ? 0 : 1;
+        if (innerValue.value && innerValue.value[idx])
+          activeDate = innerValue.value[idx];
+      } else if (innerValue.value && !Array.isArray(innerValue.value)) {
+        activeDate = innerValue.value;
+      }
+
+      const renderCol = (type, max) => {
+        const curr =
+          type === "hour"
+            ? activeDate.hour()
+            : type === "minute"
+              ? activeDate.minute()
+              : activeDate.second();
+        return (
+          <ul
+            class="k-picker-time-col"
+            ref={(el) => (timeColRefs.value[type] = el)}
+          >
+            {Array.from({ length: max }).map((_, i) => {
+              const tempDate = activeDate.set(type, i);
+              const isDisabled = checkTimeDisabled(tempDate);
+              return (
+                <li
+                  key={i}
+                  class={[
+                    "k-picker-time-item",
+                    i === curr ? "active" : "",
+                    isDisabled ? "k-picker-time-disabled" : "",
+                  ]}
+                  onClick={() => !isDisabled && handleTimeScrollPick(type, i)}
+                >
+                  {String(i).padStart(2, "0")}
+                </li>
+              );
+            })}
+          </ul>
+        );
+      };
+
+      return (
+        <div class="k-picker-time-picker">
+          {renderCol("hour", 24)}
+          {renderCol("minute", 60)}
+          {renderCol("second", 60)}
+        </div>
+      );
+    };
+
+    const renderFooter = () => {
+      if (!props.mode.includes("Time")) return null;
+
+      if (props.mode === "dateTimeRange") {
+        const s =
+          innerValue.value && innerValue.value[0]
+            ? innerValue.value[0].format("HH:mm:ss")
+            : "--:--:--";
+        const e =
+          innerValue.value && innerValue.value[1]
+            ? innerValue.value[1].format("HH:mm:ss")
+            : "--:--:--";
+        return (
+          <div class="k-picker-footer">
+            <div
+              class={[
+                "k-picker-footer-time",
+                currentView.value === "time" && timeEditSide.value === "start"
+                  ? "active"
+                  : "",
+              ]}
+              onClick={(e) => timeLabelClick(e, "start")}
+            >
+              {s}
+            </div>
+            <span class="k-picker-footer-time-split">
+              <Icon type={ArrowForward} />
+            </span>
+            <div
+              class={[
+                "k-picker-footer-time",
+                currentView.value === "time" && timeEditSide.value === "end"
+                  ? "active"
+                  : "",
+              ]}
+              onClick={(e) => timeLabelClick(e, "end")}
+            >
+              {e}
+            </div>
+          </div>
+        );
+      } else {
+        const t = (innerValue.value || dayjs()).format("HH:mm:ss");
+        return (
+          <div class="k-picker-footer">
+            <div
+              class={[
+                "k-picker-footer-time",
+                currentView.value === "time" ? "active" : "",
+              ]}
+              onClick={() =>
+                (currentView.value =
+                  currentView.value === "time" ? "date" : "time")
+              }
+            >
+              {t}
+            </div>
+          </div>
+        );
+      }
+    };
+    const updatePosition = () => {
+      nextTick(() => {
+        setPlacement({
+          refCtx,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
+      });
+    };
+    onUnmounted(() =>
+      document.removeEventListener("click", handleClickOutside)
+    );
+
+    return () => {
+      const classes = [
+        "k-datepicker",
+        { "k-datepicker-open": isFocus.value },
+        //   { 'k-datepicker-range': isRange },
+        { "k-datepicker-borderless": props.bordered === false },
+        { "k-datepicker-sm": props.size == "small" },
+        { "k-datepicker-lg": props.size == "large" },
+        //   { 'k-datepicker-with-time': withTime },
+        { "k-datepicker-disabled": props.disabled },
+        { "k-datepicker-light": props.theme == "light" },
+        { "k-datepicker-circle": props.shape == "circle" },
+      ];
+      const showClear = props.clearable && textValue.value && !props.disabled;
+      const selectCls = [
+        "k-datepicker-selection",
+        {
+          "k-datepicker-has-clear": showClear,
+        },
+      ];
+      const dateIcon =
+        props.mode == "time" ? TimeOutline : props.dateIcon || CalendarOutline;
+      const overlayProps = {
+        class: "k-datepicker-overlay",
+        ref: refPopper,
+        style: {
+          left: `${left.value}px`,
+          top: `${top.value}px`,
+          transformOrigin: transOrigin.value,
+        },
+      };
+
+      const renderInput = () => {
+        const fmt = getFormat();
+        const len = fmt ? fmt.length : 10;
+        const size = Math.max(10, len);
+        if (isRange.value) {
+          const placeholders = Array.isArray(props.placeholder)
+            ? props.placeholder
+            : [props.placeholder, props.placeholder];
+          return [
+            <input
+              autocomplete="off"
+              size={size}
+              class="k-datepicker-input"
+              value={textValueStart.value}
+              onInput={(e) => handleInput(e, 0)}
+              placeholder={placeholders[0] || localPlaceholders.startDate}
+              disabled={props.disabled}
+              readonly={props.editable ? false : true}
+              onClick={() => {
+                timeEditSide.value = "start";
+              }} // 聚焦开始
+            />,
+            <span class="k-datepicker-separator">
+              <Icon type={ArrowForward} />
+            </span>,
+            <input
+              size={size}
+              readonly={props.editable ? false : true}
+              autocomplete="off"
+              class="k-datepicker-input"
+              value={textValueEnd.value}
+              onInput={(e) => handleInput(e, 1)}
+              placeholder={placeholders[1] || localPlaceholders.endDate}
+              disabled={props.disabled}
+              onClick={() => {
+                timeEditSide.value = "end";
+              }} // 聚焦结束
+            />,
+          ];
+        } else {
+          return (
+            <input
+              autocomplete="off"
+              readonly={props.editable ? false : true}
+              size={size}
+              class="k-datepicker-input"
+              value={textValue.value}
+              onInput={(e) => handleInput(e)}
+              placeholder={props.placeholder || localPlaceholders[props.mode]}
+              disabled={props.disabled}
+            />
+          );
+        }
+      };
+      const presetEmit = ({ value }) => {
+        if (typeof value === "function") {
+          let date = value();
+          if (isRange.value && Array.isArray(date)) {
+            date = [dayjs(date[0]), dayjs(date[1])];
+            innerValue.value = date;
+            emitValue(true);
+          } else {
+            innerValue.value = dayjs(date);
+            emitValue(true);
           }
         }
       };
-      calendar.push(<Calendar {...rightProps} />)
-    }
+      const renderPresets = () => {
+        if (props.presets && props.presets.length > 0) {
+          return (
+            <div class="k-picker-presets">
+              {props.presets.map((x) => {
+                return (
+                  <Button size="small" onClick={() => presetEmit(x)}>
+                    {x.label}
+                  </Button>
+                );
+              })}
+            </div>
+          );
+        }
+      };
+      const extraEmit = (date) => {
+        if (isRange.value && Array.isArray(date)) {
+          date = [dayjs(date[0]), dayjs(date[1])];
+          innerValue.value = date;
+          emitValue(true);
+        } else {
+          innerValue.value = dayjs(date);
+          emitValue(true);
+        }
+      };
 
-    const props = {
-      props: {
-        className: ['k-datepicker-dropdown', { 'k-datepicker-range-dropdown': isRange }],
-        transfer: true,
-        selection: this.$el,
-        value: this.opened,
-        placement: 'bottom-left',
-        transitionName: 'k-date-picker',
-        extendWidth: false,
-      },
-      on: {
-        // render: () => {
-        // },
-        input: e => {
-          this.opened = e
-        },
-        hide: () => {
-          this.opened = false
-          this.validValue()
-        },
-      }
-    }
-    let overlay = <Drop {...props}>{calendar}</Drop >
+      const renderExtraHeader = () => {
+        return slots.header ? (
+          <div class="k-picker-extra-header">
+            {slots.header({ emit: extraEmit })}
+          </div>
+        ) : null;
+      };
+      const renderExtraFooter = () => {
+        return slots.footer ? (
+          <div class="k-picker-extra-footer">
+            {slots.footer({ emit: extraEmit })}
+          </div>
+        ) : null;
+      };
+      const overlay = rendered.value ? (
+        <transition name="k-date-picker">
+          <div
+            v-transfer={true}
+            ref={refPopper}
+            v-show={isVisible.value}
+            {...overlayProps}
+            mode={props.mode}
+          >
+            {renderPresets()}
+            <div class="k-picker-container">
+              {renderExtraHeader()}
+              {renderHeader()}
+              {currentView.value === "year" && renderYearTable()}
+              {currentView.value === "month" && renderMonthTable()}
+              {currentView.value === "date" && renderDateTable()}
+              {currentView.value === "time" && renderTimePicker()}
+              {renderFooter()}
+              {renderExtraFooter()}
+            </div>
+          </div>
+        </transition>
+      ) : null;
 
-    let showClear = !disabled && clearable && ((isRange && v1 && v2) || (!isRange && v1))
-    showClear && childNode.push(<Icon class="k-datepicker-clearable" type={CloseCircle} onClick={this.clear} />)
-    const selectCls = [
-      "k-datepicker-selection", {
-        "k-datepicker-has-clear": showClear
-      }
-    ]
-    const classes = ['k-datepicker',
-      { 'k-datepicker-open': opened },
-      { 'k-datepicker-range': isRange },
-      { 'k-datepicker-borderless': bordered === false },
-      { 'k-datepicker-sm': size == 'small' },
-      { 'k-datepicker-lg': size == 'large' },
-      { 'k-datepicker-with-time': withTime },
-      { 'k-datepicker-disabled': disabled },
-      { 'k-datepicker-light': theme == 'light' },
-      { 'k-datepicker-circle': shape == 'circle' },
-    ]
-    return (
-      <div tabIndex="0" class={classes}>
-        <div class={selectCls} onClick={this.toggleDrop}>
-          {childNode}
+      return (
+        <div class={classes} ref={refCtx}>
+          <div class={selectCls} onClick={togglePanel}>
+            {renderInput()}
+            <Icon type={dateIcon} class="k-icon-calendar" />
+            {showClear && (
+              <Icon
+                type={CloseCircle}
+                class="k-icon-clean"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  innerValue.value = null;
+                  syncTextFromValue();
+                  emit("input", null); //for 2
+                  emit("update:startDate", null);
+                  emit("update:endDate", null);
+                  //   emit("update:value", null); //for 3
+                  emit("change", null, "");
+                }}
+              />
+            )}
+          </div>
+
+          {overlay}
         </div>
-        {overlay}
-      </div>
-    )
-  }
-}
-export default withInstall(DatePicker)
+      );
+    };
+  },
+});
+
+export default withInstall(DatePicker);

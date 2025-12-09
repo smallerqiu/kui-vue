@@ -2,36 +2,47 @@ import Vue, { VueConstructor } from "vue";
 
 /** DatePicker component props */
 export interface DatePickerProps {
-  value?: string | any | number | any[] | Record<string, any>;
+  /** default: undefined */
+  value?: any | Record<string, any> | any[] | string | number;
+  /** default: undefined */
+  startDate?: any | Record<string, any> | string | number;
+  /** default: undefined */
+  endDate?: any | Record<string, any> | string | number;
+  /** default: string */
+  valueType?: string;
   /** default: date */
   mode?: string;
+  presets?: any[];
   disabled?: boolean;
   /** default: true */
-  transfer?: boolean;
+  clearable?: boolean;
+  /** default: true */
+  editable?: boolean;
+  /** default:  */
+  placeholder?: string | any[];
+  /** default: undefined */
+  format?: string | any[];
   /** default: undefined */
   disabledDate?: (...args: any[]) => any;
   /** default: undefined */
   disabledTime?: (...args: any[]) => any;
-  format?: string;
-  /** default: true */
-  clearable?: boolean;
-  /** default: true */
-  bordered?: boolean;
-  pickerSize?: string;
   /** default: default */
-  size?: any;
-  placement?: string;
+  size?: string;
+  /** default: default */
+  pickerSize?: string;
+  dateIcon?: any[] | Record<string, any>;
   theme?: string;
   shape?: string;
-  placeholder?: string | any[];
-  dateIcon?: string | any[];
-  presets?: any[];
+  /** default: true */
+  bordered?: boolean;
+  /** default: bottom-left */
+  placement?: any;
 }
 
 /** DatePicker component instance */
 export interface DatePicker extends Vue {
   $props: DatePickerProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** DatePicker Vue component type */

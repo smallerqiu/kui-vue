@@ -1,5 +1,5 @@
 <cn>
-#### 极简式页签
+### 极简式页签
 简单的卡片呈现模式。
 </cn>
 
@@ -25,25 +25,18 @@
     </Tabs>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      current:'1'
-    }
-  },
-  methods:{
-    change(key){
-      console.log(key)
-    }
-  }
-}
+<script setup>
+import { ref } from "vue";
+const current = ref("1");
+const change = (key) => {
+  console.log(key);
+};
 </script>
 
 <style scoped>
-.demo-tabs-sample{
-  padding:10px;
-  background-color:rgba(0,0,0,.2);
+.demo-tabs-sample {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
 ```
