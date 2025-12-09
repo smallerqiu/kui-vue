@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <DropdownButton @click="handleButtonClick">
       Dropdown
       <template #overlay>

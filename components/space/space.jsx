@@ -13,7 +13,7 @@ const Space = defineComponent({
       },
     },
     vertical: Boolean,
-    wrap: { type: Boolean, default: true },
+    wrap: { type: Boolean, default: false },
     block: Boolean,
     compact: Boolean,
     size: {

@@ -2,8 +2,18 @@
   display: inline-flex;
 }
 
-.k-space-block {
+.k-space-block > {
   width: 100%;
+  &:not(.k-space-compact) {
+    > .k-space-vertical-item,
+    > .k-space-last-item,
+    > .k-space-first-item,
+    > .k-space-vertical-last-item,
+    > .k-space-vertical-first-item,
+    > .k-space-item {
+      width: 100%;
+    }
+  }
 }
 
 .k-space-wrap {
@@ -72,7 +82,6 @@
     }
   }
 
-
   .k-space-vertical-first-item {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -100,5 +109,4 @@
       z-index: 1;
     }
   }
-
 }

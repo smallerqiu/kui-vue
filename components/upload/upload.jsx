@@ -1,10 +1,10 @@
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, defineComponent } from "vue";
 import { Add } from "kui-icons";
 import { withInstall } from "../utils/vue";
 import Selector from "./selector";
 import FileList from "./fileList";
 
-const Upload = {
+const Upload = defineComponent({
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
@@ -255,6 +255,6 @@ const Upload = {
       );
     };
   },
-};
+});
 
 export default withInstall(Upload);

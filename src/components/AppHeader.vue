@@ -31,7 +31,7 @@
           </Option>
         </Select>
       </div>
-      <Menu v-model="topMenu" mode="horizontal" class="top-menu" @click="go">
+      <Menu v-model="topMenu" mode="horizontal" class="top-menu" @select="go">
         <MenuItem key="home">首页</MenuItem>
         <MenuItem key="start"> 组件 </MenuItem>
         <SubMenu key="docs" title="文档">

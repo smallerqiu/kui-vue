@@ -28,6 +28,7 @@ import transfer from "../directives/transfer";
 import resize from "../directives/resize";
 import { Button } from "../button";
 import "dayjs/locale/zh-cn";
+import { withInstall } from "../utils/vue";
 // 启用插件
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
@@ -35,7 +36,7 @@ dayjs.extend(localeData);
 // dayjs.locale("en-gb");
 dayjs.locale("zh-cn");
 
-export default defineComponent({
+const DatePicker = defineComponent({
   name: "DatePicker",
   directives: {
     transfer,
@@ -1037,3 +1038,5 @@ export default defineComponent({
     };
   },
 });
+
+export default withInstall(DatePicker);

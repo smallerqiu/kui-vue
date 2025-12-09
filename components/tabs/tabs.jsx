@@ -156,7 +156,6 @@ const Tabs = defineComponent({
     const updateInkBarPosition = () => {
       if (!ps.card && !ps.sample) {
         const nav = navRef.value.children[currentIndex.value];
-        console.log(nav);
         if (nav) {
           const inkBar = inkBarRef.value;
           let offsetLeft = nav.offsetLeft;

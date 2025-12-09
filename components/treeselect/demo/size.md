@@ -1,39 +1,52 @@
 <cn>
-### 多选
-多选的树选择。
+### 基础用法
+最简单的用法。
 </cn>
 
 ```vue
 <template>
-  <Space vertical>
+  <Space vertical block style="width: 300px;max-width:100%">
+    <RadioGroup v-model="size" :options="sizes" type="button" />
     <TreeSelect
-      v-model="value1"
+      :size="size"
+      v-model="value"
       :tree-data="data"
+      tree-showLine
       :treeExpandedKeys="expandedKeys"
-      multiple
-      filterable
-      clearable
       block
     />
-    <br />
-    maxTagCount
     <TreeSelect
-      v-model="value2"
+      :size="size"
+      v-model="value"
       :tree-data="data"
+      tree-showLine
       :treeExpandedKeys="expandedKeys"
+      block
+      multiple
+    />
+    <TreeSelect
+      :size="size"
+      v-model="value"
+      :tree-data="data"
+      tree-showLine
+      :treeExpandedKeys="expandedKeys"
+      block
       multiple
       :maxTagCount="2"
-      style="width:100%"
-      filterable
-      clearable
     />
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
+const sizes = [
+  { value: "large", label: "Large" },
+  { value: "default", label: "Default" },
+  { value: "small", label: "Small" },
+];
+const size = ref("default");
+
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
-const value1 = ref(["0-1", "1-1"]);
-const value2 = ref(["0-1", "1-1-2", "1-1-2-1", "1-2-1"]);
+const value = ref();
 const data = [
   {
     title: "tree 1",

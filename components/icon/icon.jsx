@@ -1,4 +1,5 @@
 import { defineComponent } from "vue";
+import { withInstall } from "../utils/vue";
 
 const sty2obj = (stl) => {
   stl = stl.replace(/ /g, "");
@@ -21,7 +22,7 @@ const obj2sty = (obj) => {
   return sty;
 };
 
-export default defineComponent({
+const Icon = defineComponent({
   name: "Icon",
   props: {
     type: [String, Array],
@@ -61,8 +62,8 @@ export default defineComponent({
         style: styles,
         class: classes,
         on: {
-          ...listeners
-        }
+          ...listeners,
+        },
       };
 
       return (
@@ -76,3 +77,5 @@ export default defineComponent({
     };
   },
 });
+
+export default withInstall(Icon);

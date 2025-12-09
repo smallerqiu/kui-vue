@@ -1,7 +1,7 @@
 import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
 
-import { ref, reactive, watch, onMounted, nextTick } from "vue";
+import { ref, reactive, watch, defineComponent, nextTick } from "vue";
 import {
   Sync,
   RemoveCircleOutline,
@@ -9,7 +9,7 @@ import {
   ChevronForward,
 } from "kui-icons";
 import { buildTree, updateParentIndeterminate } from "./utils";
-const Tree = {
+const Tree = defineComponent({
   name: "Tree",
   props: {
     data: Array,
@@ -25,6 +25,8 @@ const Tree = {
     showExtra: { type: Boolean, default: false },
     multiple: { type: Boolean, default: false },
     checkStrictly: Boolean,
+    selectAsCheck: Boolean,
+    queryKey: String,
   },
 
   setup(ps, { emit, slots, listeners }) {
@@ -364,6 +366,10 @@ const Tree = {
     };
     const onSelect = (item) => {
       if (item.disabled) return;
+      if (ps.selectAsCheck) {
+        toggleCheck({ checked: !item.selected }, item);
+        return;
+      }
       let selectedKeys = defaultSelectedKeys.value;
       const { key, selected } = item;
       if (!ps.multiple) {
@@ -577,10 +583,6 @@ const Tree = {
         </div>
       );
     };
-    const setCheckHalf = () => {};
-    onMounted(() => {
-      setCheckHalf();
-    });
 
     const updateDefaultData = () => {
       if (ps.data) {
@@ -629,11 +631,18 @@ const Tree = {
     );
 
     return () => {
-      let { showLine, directory } = ps;
+      let { showLine, directory, queryKey } = ps;
       // 过滤出应该显示的节点
       const visibleNodes = defaultData.value.filter((node) => {
         // 根节点总是显示
         if (node.level === 0) return true;
+        if (
+          queryKey &&
+          queryKey.trim().length &&
+          !node.title.includes(queryKey)
+        ) {
+          return false;
+        }
 
         // 检查所有祖先节点是否都展开
         let current = node;
@@ -670,6 +679,6 @@ const Tree = {
       );
     };
   },
-};
+});
 
 export default withInstall(Tree);
