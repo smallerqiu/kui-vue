@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space vertical align="start" block style="width: 300px;">
+  <Space vertical align="start" block style="width: 300px;max-width:100%;">
     <Select shape="circle" :options="options" placeholder="我是一个圆角" />
     <Select
       shape="circle"

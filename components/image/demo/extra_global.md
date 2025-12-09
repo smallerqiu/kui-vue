@@ -10,7 +10,7 @@
   <br />
   图片组：<Button @click="openImageGroup" size="small">Open Image Group</Button>
 </template>
-<script>
+<script setup>
 import {
   Heart,
   IconImage,
@@ -19,10 +19,11 @@ import {
   Camera,
   Ribbon,
 } from "kui-icons";
-import { h } from "vue";
-export default {
-  methods: {
-    openImage() {
+import { getCurrentInstance } from "vue";
+const { proxy } = getCurrentInstance();
+const h = proxy.$createElement;
+
+  const  openImage =()=> {
       let options = {
         src: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
         slots: {
@@ -73,8 +74,8 @@ export default {
         },
       };
       this.$Image.show(options);
-    },
-    openImageGroup() {
+    }
+   const  openImageGroup =()=> {
       const test = [
         "AAAAAAAAAAAAAAAAAAAAAAAAAA",
         "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
@@ -108,14 +109,12 @@ export default {
 
       let options = getOptions(0);
       this.$Image.show(options);
-    },
-    close() {
+    }
+   const close =() =>{
       this.$message.success("close");
-    },
-    showPanel() {
+    }
+   const showPanel =()=> {
       this.$Image.togglePanel();
     },
-  },
-};
 </script>
 ```

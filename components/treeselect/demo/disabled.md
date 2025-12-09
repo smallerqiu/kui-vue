@@ -1,6 +1,6 @@
 <cn>
-### 多选
-多选的树选择。
+### 禁用
+禁用状态
 </cn>
 
 ```vue
@@ -10,22 +10,39 @@
       v-model="value1"
       :tree-data="data"
       :treeExpandedKeys="expandedKeys"
-      multiple
       filterable
-      clearable
+      disabled
       block
     />
-    <br />
-    maxTagCount
+    <TreeSelect
+      v-model="value1"
+      :tree-data="data"
+      :treeExpandedKeys="expandedKeys"
+      multiple
+      filterable
+      disabled
+      block
+    />
+    disabled items
     <TreeSelect
       v-model="value2"
       :tree-data="data"
       :treeExpandedKeys="expandedKeys"
       multiple
+      treeCheckable
       :maxTagCount="2"
-      style="width:100%"
       filterable
-      clearable
+    />
+    clearable=false
+    <TreeSelect
+      v-model="value2"
+      :tree-data="data"
+      :treeExpandedKeys="expandedKeys"
+      multiple
+      treeCheckable
+      :maxTagCount="2"
+      filterable
+      :clearable="false"
     />
   </Space>
 </template>
@@ -42,6 +59,7 @@ const data = [
       {
         title: "tree 1-1",
         key: "1-1",
+        disabled: true,
         children: [
           { title: "leaf 1-1-1", key: "1-1-1" },
           {
@@ -49,7 +67,7 @@ const data = [
             key: "1-1-2",
             children: [
               { title: "leaf 1-1-2-1", key: "1-1-2-1" },
-              { title: "leaf 1-1-2-2", key: "1-1-2-2" },
+              { title: "leaf 1-1-2-2", disabled: true, key: "1-1-2-2" },
             ],
           },
         ],

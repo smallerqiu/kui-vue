@@ -12,8 +12,9 @@ import { Checkbox } from "../checkbox";
 import { CaretUp, CaretDown } from "kui-icons";
 import Empty from "../empty";
 import Spin from "../spin";
+import { withInstall } from "../utils/vue";
 
-export default defineComponent({
+const Table = defineComponent({
   name: "Table",
   props: {
     data: { type: Array, default: () => [] },
@@ -529,3 +530,5 @@ export default defineComponent({
     };
   },
 });
+
+export default withInstall(Table);

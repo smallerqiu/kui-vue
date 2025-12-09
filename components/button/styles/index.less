@@ -376,12 +376,17 @@
 }
 
 .k-btn-group {
+  display: inline-flex;
+  align-items: center;
   .k-btn:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+  .btn:not(.k-btn:first-child) {
+    margin-left: -1px;
+  }
   .k-btn:last-child {
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0; 
+    border-bottom-left-radius: 0;
   }
 }

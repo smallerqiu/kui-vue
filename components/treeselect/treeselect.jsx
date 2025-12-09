@@ -4,7 +4,6 @@ import transfer from "../directives/transfer";
 import resize from "../directives/resize";
 import zhCN from "../locale/lang/zh-CN";
 import { isEmpty } from "../utils/number";
-import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
 import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
 import { withInstall } from "../utils/vue";
@@ -347,6 +346,8 @@ const TreeSelect = defineComponent({
           expandedKeys: [...defaultExpandedKeys.value],
           selectedKeys: [...currentValue.value],
           checkedKeys: [...currentValue.value],
+          selectAsCheck: ps.treeCheckable,
+          queryKey: queryKey.value,
         },
         on: {
           select: onSelect,
