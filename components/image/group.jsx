@@ -1,22 +1,30 @@
 import { withInstall } from "../utils/vue";
-import { ref, provide } from "vue";
-const ImageGroup = {
+import { defineComponent } from "vue";
+
+const ImageGroup = defineComponent({
   name: "ImageGroup",
-  setup(props, { slots }) {
-    const data = ref([]);
-    const updateCollection = (mount, src) => {
+  provide() {
+    return {
+      ImageGroup: this,
+    };
+  },
+  data() {
+    return {
+      data: [],
+    };
+  },
+  methods: {
+    updateCollection(mount, src) {
       if (mount) {
         this.data.push(src);
       } else {
         let index = this.data.indexOf(src);
         this.data.splice(index, 1);
       }
-    };
-    provide("ImageGroup", { data, updateCollection });
-    
-    return () => {
-      return <div class="k-image-group">{slots.default?.()}</div>;
-    };
+    },
   },
-};
+  render() {
+    return <div class="k-image-group">{this.$slots.default}</div>;
+  },
+});
 export default withInstall(ImageGroup);

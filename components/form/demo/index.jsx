@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Base from "./basic.md";
 import Align from "./align.md";
 import Length from "./length.md";
 import WithModal from "./withmodal.md";
