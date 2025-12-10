@@ -10,7 +10,8 @@ const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
   props: {
-    show: Boolean,
+    // show: Boolean, //for 3
+    value: Boolean,
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
     height: { default: 256, type: [Number, String] },
@@ -27,11 +28,14 @@ const Drawer = defineComponent({
   },
   setup(ps, { slots, emit }) {
     const locale = inject("locale", null) || zhCN;
-    const rendered = ref(ps.show);
-    const visible = ref(ps.show);
-    const open = ref(ps.show);
+    const rendered = ref(ps.value); // for 2
+    // const rendered = ref(ps.show); // for 3
+    const visible = ref(ps.value);
+    // const visible = ref(ps.show); // for 3
+    const opened = ref(ps.show);
     watch(
-      () => ps.show,
+      // () => ps.show, // for 3
+      () => ps.value,
       (nv, ov) => {
         if (nv) {
           toggle(nv);
@@ -95,10 +99,10 @@ const Drawer = defineComponent({
 
     const openHandle = () => {
       if (visible.value) {
-        open.value = true;
+        opened.value = true;
       } else {
         setTimeout(() => {
-          open.value = false;
+          opened.value = false;
         }, 300);
       }
       lockScroll(visible.value);
@@ -139,7 +143,7 @@ const Drawer = defineComponent({
       const transitionName = `k-drawer-${placement}`;
       const target = ps.target();
       const isBody = target == document.body;
-      const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open.value }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !ps.mask }];
+      const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-opened": opened.value }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !ps.mask }];
       let styles = {};
       if (placement == "left" || placement == "right") styles.width = /%/.test(width) ? width : width + "px";
       if (placement == "top" || placement == "bottom") styles.height = /%/.test(height) ? height : height + "px";

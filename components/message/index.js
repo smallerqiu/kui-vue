@@ -1,6 +1,6 @@
 import newInstance from "./instance";
 import { inject } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 let messageInstance;
 
@@ -17,8 +17,8 @@ let Message = {
   destroy() {
     if (messageInstance) {
       messageInstance.destroy();
+      document.body.removeChild(messageInstance.$el);
       messageInstance = null;
-      document.body.removeChild(document.querySelector(".k-message"));
     }
   },
   install(app) {
@@ -29,7 +29,7 @@ let Message = {
   },
   useMessage() {
     // return inject("message"); //for 3
-    return Message
+    return Message;
   },
 };
 ["info", "success", "warning", "error"].forEach((type) => {

@@ -1,6 +1,6 @@
 // import { inject } from "vue";
 import newInstance from "../message/instance";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 let noticeInstance;
 
@@ -20,13 +20,13 @@ let Notice = {
   destroy() {
     if (noticeInstance) {
       noticeInstance.destroy();
+      document.body.removeChild(noticeInstance.$el);
       noticeInstance = null;
-      document.body.removeChild(document.querySelector(".k-notice"));
     }
   },
   useNotice() {
     // return inject("notice"); //for 3
-    return Notice
+    return Notice;
   },
   install(app) {
     // app.provide("notice", Notice);

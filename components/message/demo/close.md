@@ -9,6 +9,7 @@
     <Button @click="config">10秒后关闭</Button>
     <Button @click="config2" type="primary">5秒后关闭</Button>
     <Button @click="config3" type="primary">手动关闭</Button>
+    <Button @click="destroy" type="primary">destroy</Button>
   </Space>
 </template>
 <script setup>
@@ -34,6 +35,9 @@ const config3 = () => {
       message.success("我是回调");
     },
   });
+};
+const destroy = () => {
+  message.destroy();
 };
 </script>
 ```

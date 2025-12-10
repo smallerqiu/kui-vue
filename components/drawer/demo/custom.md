@@ -16,7 +16,7 @@
       <Button @click="show = true">Open</Button>
     </Space>
     <Drawer
-      :show.sync="show"
+      v-model="show"
       height="300"
       :placement="placement"
       title="What's your name? "
