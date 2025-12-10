@@ -8,7 +8,7 @@ export const withInstall = (component) => {
 // vue3 fun for vue 2.7.16
 import Vue, { h } from "vue";
 export function createVNode(component, props) {
-  console.log('create',props)
+  // console.log('create',props)
   const instance = new Vue({
     render: (h) => h(component, { ...props }),
   });
