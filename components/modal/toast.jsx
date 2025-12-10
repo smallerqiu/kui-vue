@@ -103,7 +103,8 @@ export default defineComponent({
         <Modal
           class={classes}
           // v-model:show={visible.value} //for 3
-          show={visible.value}
+          value={visible.value}
+          // show={visible.value}  //for 3
           maskClosable={false}
           transfer={false}
           // v-slots={{ //for 3

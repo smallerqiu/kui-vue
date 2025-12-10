@@ -72,13 +72,19 @@ const Space = defineComponent({
       for (let i = 0; i < children.length; i++) {
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
-          props: { size: ps.size },
+          // props: { size: ps.size },
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
             [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
+        if (
+          typeof ps.size === "string" &&
+          ["large", "small"].includes(ps.size)
+        ) {
+          p.props.size = ps.size;
+        }
         const child = ps.compact
           ? cloneVNode(children[i], p, true, true)
           : h("div", p, [children[i]]);
