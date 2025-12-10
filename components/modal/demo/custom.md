@@ -12,14 +12,14 @@
     <Button @click="visible4 = true" type="primary">异步关闭</Button>
     <Modal
       title="Width 300px"
-      :show.sync="visible1"
+      v-model="visible1"
       :width="300"
       @ok="visible1 = false"
     >
       <p>content</p>
     </Modal>
 
-    <Modal title="Custom footer" :show.sync="visible2">
+    <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template #footer>
         <Button :icon="Save" @click="visible2 = false" type="primary"
@@ -30,7 +30,7 @@
 
     <Modal
       title="Are you ok ?"
-      :show.sync="visible3"
+      v-model="visible3"
       ok-text="Ok"
       cancel-text="Cancel"
       @ok="okHandle"
@@ -40,7 +40,7 @@
 
     <Modal
       title="提交表单"
-      :show.sync="visible4"
+      v-model="visible4"
       :loading="loading"
       @ok="submit"
       @close="close"

@@ -16,7 +16,8 @@ const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
   props: {
-    show: Boolean,
+    // show: Boolean, //for 3
+    value: Boolean, //for 2
     title: String,
     okText: String,
     cancelText: String,
@@ -34,9 +35,11 @@ const Modal = defineComponent({
     escKey: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    const visible = ref(ps.show);
+    // const visible = ref(ps.show); // for3
+    const visible = ref(ps.value);
     const rendered = ref(false);
-    const showInner = ref(ps.show);
+    // const showInner = ref(ps.show); // for 3
+    const showInner = ref(ps.value);
     const left = ref(0);
     const currentTop = ref(ps.top);
     const isMousePressed = ref(false);
@@ -62,12 +65,14 @@ const Modal = defineComponent({
       if (ps.draggable) {
         left.value = (document.body.offsetWidth - (ps.width || 480)) / 2;
       }
-      if (ps.show) {
+      // if (ps.show) { //for 3
+      if (ps.value) {
         toggle(true);
       }
     });
     watch(
-      () => ps.show,
+      // () => ps.show, //for 3
+      () => ps.value,
       (nv, ov) => {
         toggle(nv);
       }

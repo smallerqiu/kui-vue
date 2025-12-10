@@ -12,13 +12,13 @@
       <Button @click="show3 = !show3">点蒙层不关闭</Button>
       <Button @click="show4 = !show4">没有蒙层</Button>
     </Space>
-    <Drawer :show.sync="show" :footer="null" @ok="show = false">
+    <Drawer v-model="show" :footer="null" @ok="show = false">
       <p>something ...</p>
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
     <Drawer
-      :show.sync="show2"
+      v-model="show2"
       width="30%"
       title="Width 30%"
       @ok="show2 = false"
@@ -28,7 +28,7 @@
       <p>something ...</p>
     </Drawer>
     <Drawer
-      :show.sync="show3"
+      v-model="show3"
       title="Click mask to close"
       :mask-closable="false"
       @ok="show3 = false"
@@ -38,7 +38,7 @@
       <p>something ...</p>
     </Drawer>
     <Drawer
-      :show.sync="show4"
+      v-model="show4"
       title="Click mask to close"
       :mask="false"
       @ok="submit"
