@@ -58,8 +58,8 @@ export { Form, FormItem };
 import Flex from "./flex";
 export { Flex };
 
-import { KImage, ImageGroup } from "./image";
-export { KImage, ImageGroup };
+import { KImage } from "./image";
+export { KImage };
 
 import Icon from "./icon";
 export { Icon };
@@ -152,7 +152,7 @@ export { TimeLine, TimeLineItem };
 import Tree from "./tree";
 export { Tree };
 
-import TreeSelect from './treeselect'
+import TreeSelect from "./treeselect";
 export { TreeSelect };
 
 import Tag from "./tag";

@@ -43,13 +43,13 @@ const ImagePreview = defineComponent({
       left: 0,
       top: 0,
       isMouseDown: false,
-      type,
-      visible: value,
-      src: origin || src,
+      type: type.value,
+      visible: value.value,
+      src: origin.value || src.value,
       loading: false,
       error: false,
       vertical: true,
-      isShowPanel: showPanel,
+      isShowPanel: showPanel.value,
       panelRight: 0,
       touch: false,
     });
@@ -269,20 +269,29 @@ const ImagePreview = defineComponent({
     watch(
       () => state.src,
       (src) => {
-        if (state.type == "media") return;
-        const img = new Image();
+        if (state.type == "media" || !src) return;
+        let image = new Image();
+        let isCompleted = false;
+
+        const cleanup = () => {
+          if (isCompleted) return;
+          isCompleted = true;
+          image.onload = null;
+          image.onerror = null;
+          image = null;
+        };
         state.loading = true;
         state.error = false;
-        img.onload = () => {
+        image.onload = () => {
           state.loading = false;
-          img = null;
+          cleanup();
         };
-        img.onerror = () => {
+        image.onerror = () => {
           state.loading = false;
-          img = null;
           state.error = true;
+          cleanup();
         };
-        img.src = src;
+        image.src = src;
       }
     );
 
@@ -348,7 +357,7 @@ const ImagePreview = defineComponent({
       };
       const imgProps = {
         class: "k-image-preview-img",
-        attrs: { src: src },
+        attrs: { src },
         style: imgStyle,
         ref: imgRef,
       };
