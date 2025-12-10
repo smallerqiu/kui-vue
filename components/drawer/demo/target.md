@@ -20,7 +20,7 @@
     <p style="color:#999">Drawer 在内部展示.</p>
   </Flex>
   <Drawer
-    :show.sync="show"
+    v-model="show"
     width="200"
     :footer="null"
     :placement="placement"

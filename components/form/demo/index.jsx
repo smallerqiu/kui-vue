@@ -6,8 +6,7 @@ import WithModal from "./withmodal.md";
 import Valid from "./valid.md";
 import CustomValid from "./customvalid.md";
 import DynamicValid from "./dynamicvalid.md";
-import CN from '../index.md'
-
+import CN from "../index.md";
 
 export default {
   render() {
@@ -24,5 +23,5 @@ export default {
         <CN />
       </div>
     );
-  }
-}
+  },
+};

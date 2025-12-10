@@ -14,7 +14,7 @@
       :title="null"
       :footer="null"
       :showClose="false"
-      :show.sync="custom"
+      v-model="custom"
     >
       <Space direction="vertical" style="width:100%">
         <h2>我是一个标题</h2>
@@ -22,14 +22,14 @@
       </Space>
     </Modal>
 
-    <Modal title="基本对话框" :show.sync="visible" @ok="okHandle">
+    <Modal title="基本对话框" v-model="visible" @ok="okHandle">
       <p>This is the content of a basic modal.</p>
       <p>More content...</p>
     </Modal>
 
     <Modal
       title="基本对话框"
-      :show.sync="visible1"
+      v-model="visible1"
       @ok="visible1 = false"
       :mask-closable="true"
     >
