@@ -10,4 +10,4 @@
 | count          | star 总数              | Number                  | -      |
 | disabled       | 只读，无法进行交互     | String                  | -      |
 | tooltips       | 自定义每项的提示信息   | String[]                | -      |
-| change         | 选择时的回调           | Function(value:number)) | -      |
+| change         | 选择时的回调           | Function(value:Number)) | -      |

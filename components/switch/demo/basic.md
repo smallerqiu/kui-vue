@@ -5,12 +5,11 @@
 
 ```vue
 <template>
-  <Space>
-    <k-switch v-model:checked="checked" />
-    value:
-    {{ checked }}
+  <Space vertical>
+    value: {{ checked }}
+    <k-switch v-model="checked" />
     <Button @click="checked = !checked" size="small">
-      {{ checked ? "Uncheck" : "Check" }}
+      {{ !checked ? "Uncheck" : "Checked" }}
     </Button>
     <k-switch checked />
   </Space>

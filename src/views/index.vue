@@ -1,10 +1,9 @@
 <template>
   <Layout class="index">
-    <!-- <AppHeader /> -->
-    <!-- <section class="index-content"> -->
-      <!-- <div class="logo">K UI</div> -->
-      <!-- <h1>一套基于Vue.js的桌面UI组件库</h1> -->
-      <!-- <div class="btn-content">
+    <AppHeader />
+    <section class="index-content">
+      <h1>一套基于Vue.js的桌面UI组件库</h1>
+      <div class="btn-content">
         <Button
           class="start"
           :icon="CaretForwardCircle"
@@ -23,11 +22,11 @@
           type="link"
           target="_blank"
         >
-          Gitee
+          GITEE
         </Button>
-      </div> -->
-    <!-- </section> -->
-    <!-- <AppFooter /> -->
+      </div>
+    </section>
+    <AppFooter />
   </Layout>
 </template>
 <script setup>

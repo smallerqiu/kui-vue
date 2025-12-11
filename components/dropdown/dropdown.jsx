@@ -91,11 +91,12 @@ const Dropdown = defineComponent({
 
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
+      if (refPopper.value) return;
       if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
+        (!refPopper.value.contains(e.target) &&
+          ctx &&
+          !ctx.contains(e.target)) ||
+        (ps.trigger == "contextmenu" && !refPopper.value.contains(e.target))
       ) {
         visible.value = false;
       }

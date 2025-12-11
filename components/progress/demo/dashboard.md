@@ -6,12 +6,12 @@
 ```vue
 <template>
   gapDegree：{{ gap }}
-  <Slider v-model:value="gap" :min="50" :max="160" />
+  <Slider v-model="gap" :min="50" :max="160" />
   <br />
   <br />
   <RadioGroup
     :options="caps"
-    v-model:value="strokeLinecap"
+    v-model="strokeLinecap"
     type="button"
     theme="light"
   />

@@ -14,11 +14,11 @@ export default {
         <Info />
         <Basic />
         <Origin />
-        <Errors />
-        <Group />
-        <Extra />
-        <Global />
-        <ExtraGlobal />
+        {/* <Errors /> */}
+        {/* <Group /> */}
+        {/* <Extra /> */}
+        {/* <Global /> */}
+        {/* <ExtraGlobal /> */}
         <CN />
       </div>
     )

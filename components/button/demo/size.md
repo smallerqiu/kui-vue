@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space vertical align="start">
-    <RadioGroup v-model:value="size">
+    <RadioGroup v-model="size">
       <RadioButton value="large" label="Large" @click="()=>{}"/>
       <RadioButton value="default" label="Default" />
       <RadioButton value="small" label="Small" />

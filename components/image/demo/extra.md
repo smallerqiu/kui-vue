@@ -58,7 +58,7 @@
   <ImageGroup>
     <KImage
       :width="120"
-      v-for="(img, i) in imgs"
+      v-for="(img, i) in imageData"
       :key="i"
       :src="img.src"
       @switch="onSwitch"
@@ -119,7 +119,7 @@ import {
   Camera,
 } from "kui-icons";
 import { message, KImage } from "kui-vue";
-const imgs = [
+const imageData = [
   {
     src: "https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg",
     title: "kui for vue.js.jpg",

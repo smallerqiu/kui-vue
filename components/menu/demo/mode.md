@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <KSwitch @change="changeMode" v-model:checked="checked" /> Change Mode
+    <KSwitch @change="changeMode" v-model="checked" /> Change Mode
     <KSwitch true-text="dark" false-text="light" @change="changeTheme" /> Change
     Theme
     <br />

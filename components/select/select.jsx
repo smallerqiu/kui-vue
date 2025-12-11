@@ -458,6 +458,7 @@ const Select = defineComponent({
           },
           class: [
             "k-select-dropdown",
+            "k-scroll",
             {
               "k-select-dropdown-multiple": ps.multiple,
               "k-select-dropdown-sm": ps.size == "small",

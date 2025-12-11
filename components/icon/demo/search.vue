@@ -14,7 +14,7 @@
           <RadioButton value="outline">线框风格</RadioButton>
           <RadioButton value="filled">实底风格</RadioButton>
         </RadioGroup>
-        <Space compact size="large" :wrap="false">
+        <Space compact size="large" block>
           <Input
             v-model:value="searchKey"
             placeholder="输入英文关键字，搜索图标，点击图标即可复制"

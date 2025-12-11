@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" theme-mode="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -46,7 +46,7 @@
   new Vue({
     el: '#app',
     data: {
-      visible: true
+      visible: false
     },
     methods: {
       show: function () {
@@ -54,7 +54,7 @@
         this.visible = true;
       },
       hide: function () {
-        this.visible = false;
+        //this.visible = false;
         this.$message.success('success')
       }
     }

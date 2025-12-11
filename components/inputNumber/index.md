@@ -2,8 +2,8 @@
 
 | 属性           | 说明                                                       | 类型          | 默认值 |
 | -------------- | ---------------------------------------------------------- | ------------- | ------ |
-| min            | 最小值                                                     | number        | 0      |
-| max            | 最大值                                                     | number        | 100    |
+| min            | 最小值                                                     | Number        | 0      |
+| max            | 最大值                                                     | Number        | 100    |
 | step           | 每次改变步数，可以为小数                                   | Number,String | 1      |
 | value(v-model) | 当前值                                                     | Number        | -      |
 | formatter      | 指定输入框展示值的格式                                     | Function      | -      |
@@ -15,4 +15,4 @@
 | suffix         | 自定义后缀                                                 | String,slot   | -      |
 | prefix         | 前缀内容                                                   | String,slot   | -      |
 | controls       | 是否显示增减按钮                                           | Boolean       | true   |
-| clearable      | 是否现示清除按钮                                           | Boolean        | false  |
+| clearable      | 是否现示清除按钮                                           | Boolean       | false  |

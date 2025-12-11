@@ -849,7 +849,7 @@ const DatePicker = defineComponent({
     return () => {
       const classes = [
         "k-datepicker",
-        { "k-datepicker-open": isFocus.value },
+        { "k-datepicker-opened": isFocus.value },
         //   { 'k-datepicker-range': isRange },
         { "k-datepicker-borderless": props.bordered === false },
         { "k-datepicker-sm": props.size == "small" },
@@ -890,6 +890,7 @@ const DatePicker = defineComponent({
             <input
               autocomplete="off"
               size={size}
+              tabindex={-1}
               class="k-datepicker-input"
               value={textValueStart.value}
               onInput={(e) => handleInput(e, 0)}
@@ -905,6 +906,7 @@ const DatePicker = defineComponent({
             </span>,
             <input
               size={size}
+              tabindex={-1}
               readonly={props.editable ? false : true}
               autocomplete="off"
               class="k-datepicker-input"
@@ -920,6 +922,7 @@ const DatePicker = defineComponent({
         } else {
           return (
             <input
+              tabindex={-1}
               autocomplete="off"
               readonly={props.editable ? false : true}
               size={size}
@@ -1010,7 +1013,7 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refCtx}>
+        <div class={classes} ref={refCtx} tabindex={0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />

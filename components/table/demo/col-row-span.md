@@ -10,38 +10,31 @@
 </template>
 <script setup>
 const data = [
-  {
-    key: "0",
-    name: "Li Lei",
-    age: 32,
-    night: "orange",
-    morning: "apple",
-  },
-  { key: "1", name: "Liu Hao", age: 28, night: "orange", morning: "ale" },
-  { key: "2", name: "Hu Cong", age: 28, night: "orange", morning: "ale" },
-  { key: "3", name: "Qiu", age: 28, night: "orange", morning: "ale" },
-  {
-    key: "4",
-    name: "WangKang",
-    age: 28,
-    night: "orange",
-    morning: "apple",
-  },
+  { key: "1", name: "张三", age: 25, city: "北京" },
+  { key: "2", name: "李四", age: 30, city: "上海" },
+  { key: "3", name: "王五", age: 35, city: "广州" },
+  { key: "4", name: "赵六", age: 40, city: "深圳" },
+  { key: "5", name: "邱大", age: 38, city: "武汉" },
 ];
 const columns = [
   {
-    title: "Name",
+    title: "姓名",
     key: "name",
-    rowSpan: 3,
-    fixed: "left",
+    width: 100,
+    // 第三行第一列向下合并一行
+    rowSpan: (record, index) => (index == 2 ? 2 : 1),
   },
   {
-    title: "Age",
+    title: "年龄",
     key: "age",
-    colSpan: 2,
+    width: 100,
+    colSpan: (record, index) => (index == 1 ? 2 : 1),
   },
-  { title: "Morning", key: "morning" },
-  { title: "Night", key: "night" },
+  {
+    title: "城市",
+    key: "city",
+    width: 100,
+  },
 ];
 </script>
 ```

@@ -106,7 +106,8 @@ const Drawer = defineComponent({
         }, 300);
       }
       lockScroll(visible.value);
-      emit("update:show", visible.value);
+      emit("update:show", visible.value); // for 3
+      emit("input", visible.value);
     };
 
     const close = () => {

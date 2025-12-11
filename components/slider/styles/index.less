@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-slider {
   width: 100%;
@@ -21,7 +21,9 @@
     -webkit-user-select: none;
     user-select: none;
     touch-action: none;
-    box-shadow: 0 4px 6px rgb(0 0 0 / 10%), 0 0 1px rgb(0 0 0 / 30%);
+    box-shadow:
+      0 4px 6px rgb(0 0 0 / 10%),
+      0 0 1px rgb(0 0 0 / 30%);
     width: 24px;
     height: 24px;
     margin: 0;
@@ -33,7 +35,11 @@
     border: 1px solid var(--kui-color-border);
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    &:focus {
+      outline-color: var(--kui-color-main-80);
+    }
     &:active {
       border: 1px solid var(--kui-color-main);
       cursor: grabbing;
@@ -162,7 +168,7 @@
 }
 
 .k-slider-disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: not-allowed;
 
   .k-slider-thumb,

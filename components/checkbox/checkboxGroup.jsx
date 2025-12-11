@@ -15,6 +15,7 @@ const CheckboxGroup = defineComponent({
       default: () => [],
     },
 
+    theme: String,
     disabled: Boolean,
     options: Array,
     direction: {
@@ -31,7 +32,7 @@ const CheckboxGroup = defineComponent({
   },
 
   setup(props, { slots, emit }) {
-    const { disabled, size } = toRefs(props);
+    // const { disabled, size } = toRefs(props);
 
     // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
     const { value: currentValue } = toRefs(props);
@@ -86,6 +87,8 @@ const CheckboxGroup = defineComponent({
             value={option.value}
             checked={currentValue.value.indexOf(option.value) > -1}
             disabled={props.disabled || option.disabled}
+            theme={props.theme}
+            size={props.size}
             onChange={onChange}
           />
         )

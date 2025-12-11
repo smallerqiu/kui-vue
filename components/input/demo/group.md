@@ -28,7 +28,7 @@
       </Tooltip>
     </InputGroup>
     <InputGroup>
-      <Select value="Shenzheng" clearable>
+      <Select value="Shenzheng" clearable >
         <Option value="Wuhan">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -40,6 +40,7 @@
         multiple
         :value="['Wuhan001']"
         :style="{ width: '50%' }"
+        :maxTagCount="1"
       >
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>

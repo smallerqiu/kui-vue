@@ -20,6 +20,7 @@ const Tooltip = defineComponent({
     dark: Boolean,
     title: [String, Number, Object, Array],
     color: String,
+    disabled: Boolean,
     size: String,
     width: [Number, String],
     placement: {
@@ -74,6 +75,7 @@ const Tooltip = defineComponent({
       }
     );
     const mouseEnter = () => {
+      if (ps.disabled) return;
       if (!rendered.value) {
         rendered.value = true;
         nextTick(() => {
@@ -147,6 +149,7 @@ const Tooltip = defineComponent({
         on: {
           mouseenter: () => {
             clearTimeout(hideTimer.value);
+            if (ps.disabled) return;
             visible.value = true;
           },
           mouseleave: () => {

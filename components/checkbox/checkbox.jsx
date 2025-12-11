@@ -24,6 +24,7 @@ const Checkbox = defineComponent({
 
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
+    theme: String,
     disabled: Boolean,
     indeterminate: Boolean,
     size: {
@@ -57,16 +58,24 @@ const Checkbox = defineComponent({
       });
       emit("input", targetChecked);
     };
-
+    const triggleCheck = (e) => {
+      // onChange({ target: { checked: isChecked.value } });
+      if (e.code == "Space") {
+        onChange({ target: { checked: !isChecked.value } });
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
     return () => {
       const wpClasses = [
         "k-checkbox",
         {
+          ["k-checkbox-light"]: props.theme == "light",
           ["k-checkbox-disabled"]: props.disabled,
           ["k-checkbox-checked"]: isChecked.value && !props.indeterminate,
           ["k-checkbox-indeterminate"]: props.indeterminate && !isChecked.value,
-          // ["k-checkbox-sm"]: checkboxSize.value === "small",
-          // ["k-checkbox-lg"]: checkboxSize.value === "large",
+          ["k-checkbox-sm"]: props.size === "small",
+          ["k-checkbox-lg"]: props.size === "large",
         },
       ];
 
@@ -77,10 +86,11 @@ const Checkbox = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={wpClasses} onClick={(e) => e.stopPropagation()}>
+        <label class={wpClasses} onKeydown={triggleCheck} tabindex="0">
           <span class="k-checkbox-symbol">
             <input
               type="checkbox"
+              tabindex="-1"
               class="k-checkbox-input"
               disabled={props.disabled}
               onChange={onChange}
@@ -90,7 +100,7 @@ const Checkbox = defineComponent({
               // [Vue 2 Only]: Vue 2 JSX need domPropsChecked to keep DOM status
               domPropsChecked={isChecked.value}
             />
-            <span class="k-checkbox-inner">{innerNode}</span>
+            {innerNode}
           </span>
           {labelNode ? <span class="k-checkbox-label">{labelNode}</span> : null}
         </label>
