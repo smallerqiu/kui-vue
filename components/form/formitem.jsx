@@ -191,7 +191,6 @@ export default defineComponent({
                   const theme = propsData.theme || Form.theme;
                   const shape = propsData.shape || Form.shape;
                   const disabled = propsData.disabled || Form.disabled;
-
                   const childProps = {
                     id,
                     size,

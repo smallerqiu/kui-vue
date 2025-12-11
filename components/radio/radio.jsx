@@ -1,4 +1,4 @@
-import { defineComponent, watch, ref } from "vue";
+import { defineComponent, watch, ref, inject } from "vue";
 import { withInstall } from "../utils/vue";
 
 const Radio = defineComponent({
@@ -20,6 +20,7 @@ const Radio = defineComponent({
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
     disabled: Boolean,
+    theme: String,
     size: {
       default: "default",
       validator(value) {
@@ -30,6 +31,8 @@ const Radio = defineComponent({
 
   setup(props, { slots, emit }) {
     const isChecked = ref(props.checked);
+    // const theme = inject("theme", null);
+    // console.log(props.theme,theme)
     watch(
       () => props.checked,
       (v) => {
@@ -37,8 +40,8 @@ const Radio = defineComponent({
       }
     );
 
-    const handleChange = (e) => {
-      if (props.disabled) return;
+    const onChange = (e) => {
+      if (props.disabled || isChecked.value) return;
       const checked = e.target.checked;
 
       isChecked.value = checked;
@@ -50,28 +53,37 @@ const Radio = defineComponent({
       });
       emit("input", checked);
     };
-
+    const triggleCheck = (e) => {
+      // onChange({ target: { checked: isChecked.value } });
+      if (e.code == "Space") {
+        onChange({ target: { checked: !isChecked.value } });
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
     return () => {
       const classes = [
         "k-radio",
         {
+          ["k-radio-light"]: props.theme == "light",
           ["k-radio-disabled"]: props.disabled,
           ["k-radio-checked"]: isChecked.value,
-          // ["k-radio-lg"]: radioSize.value === "large",
-          // ["k-radio-sm"]: radioSize.value === "small",
+          ["k-radio-lg"]: props.size === "large",
+          ["k-radio-sm"]: props.size === "small",
         },
       ];
 
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={classes} onClick={(e) => e.stopPropagation()}>
+        <label class={classes} tabindex="0" onKeydown={triggleCheck}>
           <span class="k-radio-symbol">
             <input
               type="radio"
+              tabindex="-1"
               class="k-radio-input"
               disabled={props.disabled}
-              onChange={handleChange}
+              onChange={onChange}
               // [Vue 3 Upgrade]: checked={isChecked.value}
               // [Vue 2 Only]: Vue 2 JSX need domPropsChecked
               domPropsChecked={isChecked.value}

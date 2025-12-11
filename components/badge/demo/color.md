@@ -7,7 +7,7 @@
 <template>
   <Space vertical block>
     Presets
-    <Space wrap block>
+    <Space wrap >
       <Badge
         :color="color"
         :text="color"

@@ -1,8 +1,6 @@
 html {
   --mwd: 1376px;
   --swd: 272px;
-  ;
-
 }
 
 .back {
@@ -29,7 +27,20 @@ pre tt,
 kbd,
 samp,
 .serif {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    Noto Sans,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    Segoe UI Symbol,
+    "Noto Color Emoji";
   -moz-font-feature-settings: "kern";
   font-feature-settings: "kern";
   -webkit-font-smoothing: antialiased;
@@ -46,10 +57,14 @@ a {
 pre,
 code {
   font-size: 14px;
-  font-family: lucida console, Consolas, Monaco, andale mono, ubuntu mono, monospace;
+  font-family:
+    lucida console,
+    Consolas,
+    Monaco,
+    andale mono,
+    ubuntu mono,
+    monospace;
 }
-
-
 
 .k-layout {
   .header {
@@ -157,16 +172,16 @@ code {
       }
 
       .left-menu {
-        width: var(--swd) // position: fixed;
-          // left: 0;
-          // padding-top: 20px;
-          // z-index: 100;
-          // overflow-y: auto;
-          // bottom: 0;
-          // width: 300px;
-          // top: 54px;
-          // overflow-x: hidden;
-          // padding-right: 1px;
+        width: var(--swd); // position: fixed;
+        // left: 0;
+        // padding-top: 20px;
+        // z-index: 100;
+        // overflow-y: auto;
+        // bottom: 0;
+        // width: 300px;
+        // top: 54px;
+        // overflow-x: hidden;
+        // padding-right: 1px;
       }
 
       .left-menu {
@@ -182,7 +197,7 @@ code {
       }
     }
 
-    &>.k-layout-content {
+    & > .k-layout-content {
       // padding: 20px 40px 0px;
       padding-top: 20px;
       padding-left: calc((100vw - var(--mwd)) / 2 + var(--swd) + 30px);
@@ -264,7 +279,7 @@ code {
   }
 
   .k-card {
-    transition: all .5s;
+    transition: all 0.5s;
     cursor: pointer;
 
     &:hover {
@@ -287,7 +302,7 @@ code {
 
     .icon-view {
       font-size: 60px;
-      transition: all .5s;
+      transition: all 0.5s;
       color: var(--kui-color-font);
     }
   }
@@ -327,7 +342,7 @@ code {
   }
 }
 
-html[theme-mode=dark] {
+html[theme-mode="dark"] {
   .k-layout {
     .header {
       background-color: rgba(0, 0, 0, 0.2);
@@ -343,19 +358,23 @@ html[theme-mode=dark] {
   }
 
   .markdown-body {
-
-    .hightlight pre,
-    p>code,
-    li>code,
-    td>code,
-    pre {
+    .hljs {
       background-color: var(--kui-color-gray-90);
+    }
+    .hightlight pre,
+    p > code,
+    li > code,
+    td > code,
+    pre {
+      // background-color: var(--kui-color-gray-90);
     }
   }
 }
-
+.markdown-body > pre >.hljs {
+  border-radius: 12px;
+}
 @media (max-width: 1399px) {
-  .k-layout .main>.k-layout-content {
+  .k-layout .main > .k-layout-content {
     padding-left: var(--swd);
     width: auto;
 
@@ -378,7 +397,7 @@ html[theme-mode=dark] {
     }
   }
 
-  .k-layout .main>.k-layout-content {
+  .k-layout .main > .k-layout-content {
     // padding-left: 0;
     padding: 20px 22px 0px;
 
@@ -402,7 +421,7 @@ html[theme-mode=dark] {
     width: 272px;
     max-width: 272px;
     z-index: 1002;
-    transition: all .3s;
+    transition: all 0.3s;
 
     .min-menu-nav-btn {
       display: block;
@@ -423,13 +442,9 @@ html[theme-mode=dark] {
   .k-layout .main .docs-k-layout-sider-show {
     transform: translateX(0);
   }
-
-
 }
 
-@media (max-width:750px) {
-
-
+@media (max-width: 750px) {
   .k-layout {
     .header {
       min-width: auto;
@@ -451,13 +466,9 @@ html[theme-mode=dark] {
       .theme {
         display: none;
       }
-
-
     }
 
-
-
-    .main>.k-layout-content {
+    .main > .k-layout-content {
       padding: 20px 22px 0px;
     }
   }
@@ -467,7 +478,7 @@ html[theme-mode=dark] {
   }
 }
 
-@media (max-width:550px) {
+@media (max-width: 550px) {
   .k-layout .header .top-menu {
     display: none;
   }
@@ -510,10 +521,10 @@ html[theme-mode=dark] {
     float: none;
     margin-left: 0;
     opacity: 0;
-    transition: all .3s;
+    transition: all 0.3s;
   }
 
-  &>ul {
+  & > ul {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -532,14 +543,13 @@ html[theme-mode=dark] {
   }
 }
 
-
 .web-icon {
   display: flex;
   align-items: center;
   line-height: 0;
 }
 
-.k-demo-main .k-content>div {
+.k-demo-main .k-content > div {
   max-width: 100%;
 }
 

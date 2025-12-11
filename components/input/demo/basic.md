@@ -13,6 +13,7 @@
       @focus="focus"
       v-model="value"
     />
+    <Input placeholder="clearable=false" :clearable="false" />
     <Input placeholder="disabled..." disabled />
     <Input placeholder="readonly..." readonly v-model="value"/>
     <TextArea v-model="value" />

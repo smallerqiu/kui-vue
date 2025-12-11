@@ -5,9 +5,9 @@
 
 ```vue
 <template>
-  <div>
-    <KSwitch loading checked /> <br />
+  <Space vertical>
+    <KSwitch loading :value="true" />
     <KSwitch loading checked size="small" />
-  </div>
+  </Space>
 </template>
 ```

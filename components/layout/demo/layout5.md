@@ -93,11 +93,14 @@ const openKeys = ref(["t2"]);
   }
 
   .demo-sider-collapsed {
-    width: 80px;
+    width: 60px;
     overflow: hidden;
 
     .logo-title {
       opacity: 0;
+    }
+    .logo-box {
+      padding-left: 16px;
     }
   }
 
@@ -118,7 +121,7 @@ const openKeys = ref(["t2"]);
     height: 60px;
     padding-left: 25px;
     white-space: nowrap;
-
+    transition: all 0.3s;
     .logo {
       margin-right: 8px;
     }

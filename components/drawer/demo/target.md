@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space>
-    <RadioGroup v-model:value="placement" type="button">
+    <RadioGroup v-model="placement" type="button">
       <RadioButton label="left" value="left" />
       <RadioButton label="top" value="top" />
       <RadioButton label="right" value="right" />

@@ -29,6 +29,7 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
+      console.log(path);
       const vertical_list = [
         "table",
         "grid",
@@ -40,7 +41,13 @@ export default function vitePluginMd() {
         "page",
         "tabs",
         "descriptions",
-        'skeleton'
+        "skeleton",
+        "form",
+        "input/demo/group",
+        "slider/demo/marks",
+        "tree/demo/directory",
+        "alert/demo/icon",
+        "alert/demo/customIcon",
       ];
       let direction = "horizontal";
       vertical_list.forEach((item) => {

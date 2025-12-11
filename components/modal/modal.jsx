@@ -95,7 +95,8 @@ const Modal = defineComponent({
           nextTick((e) => {
             visible.value = value;
             showInner.value = value;
-            emit("update:show", true);
+            // emit("update:show", true); // for 3
+            emit("input", true);
             nextTick(() => {
               updateOrigin();
             });
@@ -105,7 +106,8 @@ const Modal = defineComponent({
           setTimeout(() => {
             showInner.value = false;
           }, 300);
-          emit("update:show", false);
+          // emit("update:show", false);// for 3
+          emit("input", false); // for 2
         }
       }
     };

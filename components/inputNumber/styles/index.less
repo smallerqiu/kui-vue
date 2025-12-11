@@ -18,10 +18,11 @@
   padding-left: var(--kui-padding-inline);
   overflow: hidden;
   font-size: 14px;
-
-  &:hover:not(.k-input-number-disabled) {
+  outline: 1px solid transparent;
+  &:not(.k-input-number-light, .k-input-number-disabled):hover {
     border-color: var(--kui-color-main);
-
+  }
+  &:hover:not(.k-input-number-disabled) {
     .k-input-number-controls {
       opacity: 1;
       width: 20px;
@@ -100,25 +101,24 @@
     min-width: 10px;
     line-height: 1.571;
 
-    &::placeholder {
-      color: var(--kui-color-disabled);
-    }
-
     &:focus {
       // border-color: var(--kui-color-main);
       outline: none;
     }
   }
+}
+.k-input-number-focus {
+  outline-offset: 1px;
+  outline: 2px solid var(--kui-color-main-80);
+}
+.k-input-number-focus:not(.k-input-number-light) {
+  border-color: var(--kui-color-main);
+  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+}
 
-  &.k-input-number-focus {
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
-  }
-
-  .k-input-number-icon {
-    font-size: 14px;
-    color: var(--kui-color-icon);
-  }
+.k-input-number-icon {
+  font-size: 14px;
+  color: var(--kui-color-icon);
 }
 
 .k-input-number[single] {
@@ -126,7 +126,7 @@
   width: auto;
   padding-right: var(--kui-padding-inline);
 
-  &:hover {
+  &:not(.k-input-number-light):hover {
     border-color: var(--kui-color-main);
   }
 
@@ -240,7 +240,7 @@
 }
 
 .k-input-number-light {
-  border: none;
+  border-color: transparent;
   background-color: var(--kui-color-gray-80);
 
   &:focus,

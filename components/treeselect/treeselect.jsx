@@ -386,7 +386,7 @@ const TreeSelect = defineComponent({
     const renderOverlay = () => {
       let overlay = null;
       if (rendered.value) {
-        const preCls = "k-select";
+        const preCls = "k-tree-select";
         const props = {
           ref: refPopper,
           style: {
@@ -396,15 +396,16 @@ const TreeSelect = defineComponent({
             transformOrigin: transOrigin.value,
           },
           class: [
-            "k-select-dropdown",
+            "k-tree-select-dropdown",
+            "k-scroll",
             {
-              "k-select-dropdown-multiple": ps.multiple,
-              "k-select-dropdown-sm": ps.size == "small",
+              "k-tree-select-dropdown-multiple": ps.multiple,
+              "k-tree-select-dropdown-sm": ps.size == "small",
             },
           ],
         };
         const loadingNode = (
-          <div class="k-select-loading">
+          <div class="k-tree-select-loading">
             <Icon type={Loading} spin />
             <span>{locale?.k.select.loading}</span>
           </div>
@@ -449,7 +450,7 @@ const TreeSelect = defineComponent({
 
       const queryProps = {
         ref: queryInputRef,
-        class: "k-select-search",
+        class: "k-tree-select-search",
         autoComplete: "off",
         on: {
           change: (e) => e.stopPropagation(),
@@ -466,10 +467,10 @@ const TreeSelect = defineComponent({
         <div
           v-show={queryInputVisible.value}
           key="search"
-          class="k-select-search-wrap"
+          class="k-tree-select-search-wrap"
         >
           <input {...queryProps} />
-          <span class="k-select-search-mirror" ref={queryInputMirrorRef}>
+          <span class="k-tree-select-search-mirror" ref={queryInputMirrorRef}>
             {queryKey.value}
           </span>
         </div>
@@ -478,7 +479,7 @@ const TreeSelect = defineComponent({
       const placeholderText = placeholder || locale?.k.select.placeholder;
       const placeNode =
         placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
-          <div class="k-select-placeholder">{placeholderText}</div>
+          <div class="k-tree-select-placeholder">{placeholderText}</div>
         ) : null;
 
       const labelStyle = {
@@ -487,7 +488,7 @@ const TreeSelect = defineComponent({
       const renderTags = () => {
         let tags = labelText.value.map((label, i) => {
           return (
-            <span class="k-select-tag" key={label}>
+            <span class="k-tree-select-tag" key={label}>
               {label}
               <Icon type={Close} onClick={(e) => removeTag(e, i)} />
             </span>
@@ -500,7 +501,7 @@ const TreeSelect = defineComponent({
         ) {
           tags = tags.slice(0, ps.maxTagCount);
           tags.push(
-            <span class="k-select-tag">
+            <span class="k-tree-select-tag">
               +{labelText.value.length - ps.maxTagCount}...
             </span>
           );
@@ -508,12 +509,12 @@ const TreeSelect = defineComponent({
         return tags;
       };
       const labelsNode = multiple ? (
-        <div class="k-select-labels" name="k-select-tag">
+        <div class="k-tree-select-labels" name="k-tree-select-tag">
           {renderTags()}
           {queryNode}
         </div>
       ) : !isEmpty(labelText.value) ? (
-        <div class="k-select-label" style={labelStyle}>
+        <div class="k-tree-select-label" style={labelStyle}>
           {labelText.value[0]}
         </div>
       ) : null;
@@ -529,29 +530,29 @@ const TreeSelect = defineComponent({
 
       const arrowNode =
         !hasSearchEvent && showArrow ? (
-          <Icon class="k-select-arrow" type={arrowIcon} />
+          <Icon class="k-tree-select-arrow" type={arrowIcon} />
         ) : null;
 
       const classes = [
-        "k-select",
+        "k-tree-select",
         {
-          "k-select-disabled": disabled,
-          "k-select-block": ps.block,
-          "k-select-opened": visible.value,
-          "k-select-borderless": bordered === false,
-          "k-select-lg": size == "large",
-          "k-select-sm": size == "small",
-          "k-select-light": theme == "light",
-          "k-select-has-icon": !!icon,
-          "k-select-circle": shape == "circle" && !multiple,
-          "k-select-multiple": multiple,
-          "k-select-show-search": queryInputFocused.value,
-          "k-select-show-tags": multiple && !isEmpty(labelText.value),
-          "k-select-has-clear": showClear.value,
+          "k-tree-select-disabled": disabled,
+          "k-tree-select-block": ps.block,
+          "k-tree-select-opened": visible.value,
+          "k-tree-select-borderless": bordered === false,
+          "k-tree-select-lg": size == "large",
+          "k-tree-select-sm": size == "small",
+          "k-tree-select-light": theme == "light",
+          "k-tree-select-has-icon": !!icon,
+          "k-tree-select-circle": shape == "circle" && !multiple,
+          "k-tree-select-multiple": multiple,
+          "k-tree-select-show-search": queryInputFocused.value,
+          "k-tree-select-show-tags": multiple && !isEmpty(labelText.value),
+          "k-tree-select-has-clear": showClear.value,
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon class="k-select-clearable" type={CloseCircle} onClick={onClear} />
+        <Icon class="k-tree-select-clearable" type={CloseCircle} onClick={onClear} />
       ) : null;
 
       return (
@@ -565,9 +566,9 @@ const TreeSelect = defineComponent({
           onBlur={() => (ctxFocused.value = false)}
           ref={refCtx}
         >
-          {icon ? <Icon type={icon} class="k-select-icon" /> : null}
-          <div class="k-select-selection">{childNode}</div>
-          <span class="k-select-suffix">
+          {icon ? <Icon type={icon} class="k-tree-select-icon" /> : null}
+          <div class="k-tree-select-selection">{childNode}</div>
+          <span class="k-tree-select-suffix">
             {arrowNode}
             {clearNode}
           </span>

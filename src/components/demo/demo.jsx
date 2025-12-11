@@ -85,7 +85,7 @@ const Demo = defineComponent({
                 />
               </Tooltip>
             </div>
-            <div ref={codeRef} class="k-code">
+            <div ref={codeRef} class="k-code k-scroll">
               {slots.code?.()}
             </div>
           </div>
@@ -103,7 +103,7 @@ const Demo = defineComponent({
           {/* {!vertical && descNode} */}
           <div class={classes}>
             <div class="k-demo-view">
-              <div class="k-content" ref={viewRef}>
+              <div class="k-content k-scroll" ref={viewRef}>
                 {slots.component?.()}
               </div>
               {/* {vertical && descNode} */}

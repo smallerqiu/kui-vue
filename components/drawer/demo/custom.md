@@ -6,8 +6,8 @@
 ```vue
 <template>
   <div>
-    <Space>
-      <RadioGroup v-model:value="placement">
+    <Space wrap>
+      <RadioGroup v-model="placement">
         <Radio label="left" value="left" />
         <Radio label="top" value="top" />
         <Radio label="right" value="right" />

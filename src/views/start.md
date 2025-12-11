@@ -1,6 +1,6 @@
 # 快速上手
 
-在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/),[vue-devtools](https://github.com/vuejs/vue-devtools)
+在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools)
 
 ## 1. 初始化一个项目
 
@@ -112,7 +112,7 @@ import "kui-vue/components/button/style";
 ```html
 <template>
   <div>
-    <button type="primary"></button> ✅ 推荐
+    <Button type="primary"></Button> ✅ 推荐
     <k-button type="primary"></k-button> ✅
   </div>
 </template>
@@ -122,6 +122,9 @@ import "kui-vue/components/button/style";
 
 ```html
 <template>
-  <div><k-switch type="primary"></k-switch> ✅ <k-image></k-image> ✅</div>
+  <div>
+    <k-switch type="primary"></k-switch> ✅ 
+    <k-image></k-image> ✅
+  </div>
 </template>
 ```

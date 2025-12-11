@@ -58,10 +58,15 @@ const Upload = defineComponent({
 
     const uploadFile = async (item, file) => {
       if (props.transformFile) {
-        props.transformFile(file).then((f) => {
-          toUpload(item, f);
-        });
+        const promise = props.transformFile(file);
+        if (promise && promise.then) {
+          promise.then((f) => {
+            console.log(f)
+            toUpload(item, f);
+          });
+        }
       } else {
+        console.log(file)
         toUpload(item, file);
       }
     };

@@ -18,7 +18,7 @@
       footer
     >
       <Form
-        ref="form"
+        ref="refForm"
         :model="form"
         :rules="rules"
         label-align="left"
@@ -35,7 +35,6 @@
           <DatePicker
             clearable
             format="YYYY/MM/DD hh:mm:ss"
-            style="width:210px"
           ></DatePicker>
         </FormItem>
         <FormItem label="Radio" prop="radio">
@@ -77,11 +76,11 @@
 <script setup>
 import { message } from "kui-vue";
 import { Home } from "kui-icons";
-import { ref } from "vue";
+import { ref,reactive } from "vue";
 const refForm = ref();
 const show1 = ref(false);
 const show2 = ref(false);
-const form = {
+const form = reactive({
   switch: true,
   input: "",
   number: "",
@@ -93,7 +92,7 @@ const form = {
   radios: "",
   checkbox_group: [],
   textarea: "",
-};
+});
 const rules = {
   input: [{ required: true }],
   number: [{ required: true }],

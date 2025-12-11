@@ -8,7 +8,7 @@
   <Space vertical align="start">
     <k-switch disabled />
     <Space>
-      <k-switch :disabled="disabled" v-model:checked="checked" />
+      <k-switch :disabled="disabled" v-model="checked" />
       <Button size="small" @click="checked = !checked">
         {{ checked ? "Uncheck" : "Check" }}
       </Button>

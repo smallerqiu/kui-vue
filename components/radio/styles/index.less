@@ -78,16 +78,25 @@
   line-height: 1;
   color: var(--kui-color-font);
   align-items: center;
-
+  outline: none;
+  &:focus {
+    .k-radio-symbol {
+      outline: 2px solid var(--kui-color-main-80);
+    }
+  }
   .k-radio-symbol {
     display: inline-block;
     outline: 0;
     position: relative;
+    box-sizing: border-box;
     margin: 0;
     width: 16px;
     height: 16px;
     border: 1px solid var(--kui-color-border);
     border-radius: 50%;
+    background-color: var(--kui-color-back);
+    outline: 2px solid transparent;
+    outline-offset: 1px;
     &:after {
       box-sizing: content-box;
       width: 0;
@@ -134,6 +143,11 @@
       border: 1px solid var(--kui-color-main);
       box-shadow: 0 0 0 2px var(--kui-color-main-90);
     }
+  }
+}
+.k-radio-light {
+  .k-radio-symbol {
+    background: var(--kui-color-gray-80);
   }
 }
 
@@ -186,6 +200,10 @@
 .k-radio-sm {
   .k-radio-label {
     font-size: 12px;
+  }
+  .k-radio-symbol {
+    width: 14px;
+    height: 14px;
   }
 }
 

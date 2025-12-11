@@ -3,9 +3,9 @@ import { Col, Row, Card } from 'kui-vue'
 import WebIcon from '@/src/components/WebIcon'
 export default {
   methods: {
-    renders(child) {
+    renders(children) {
       let span = [], rows = [];
-      child.forEach((item, i) => {
+      children.forEach((item, i) => {
         let card = <Col span={6} ><router-link to={`/${item.key}/${item.name}`}><Card bordered title={item.sub + ' ' + item.title} ><WebIcon class="icon-view" name={item.icon} /></Card></router-link></Col>
         span.push(card)
       })
@@ -29,7 +29,7 @@ export default {
           nav.map((item, x) => {
             return (
               [<h2>{item.title}</h2>,
-              this.renders(item.child)])
+              this.renders(item.children)])
           })
         }
       </div>

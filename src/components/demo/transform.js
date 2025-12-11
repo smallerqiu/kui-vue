@@ -1,7 +1,7 @@
 export const parseCode = (source, viewRef, id) => {
   // const vm = new Vue(componentOptions).$mount(viewRef.value);
-  fetch("http://127.0.0.1:4000/parse", {
-  // fetch("https://k-ui.cn/parse", {
+  // fetch("http://127.0.0.1:4000/parse", {
+  fetch("https://k-ui.cn/parse", {
     method: "POST",
     body: JSON.stringify({ source }),
   }).then((r) => {

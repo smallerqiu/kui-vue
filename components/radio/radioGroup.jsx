@@ -71,7 +71,6 @@ const RadioGroup = defineComponent({
     return () => {
       let options = optionsData();
       let nodes = [];
-
       const Component = currentType.value === "button" ? RadioButton : Radio;
       options.forEach((option) =>
         nodes.push(
@@ -84,6 +83,7 @@ const RadioGroup = defineComponent({
             disabled={props.disabled || option.disabled}
             icon={option.icon}
             size={props.size}
+            theme={props.theme}
           />
         )
       );

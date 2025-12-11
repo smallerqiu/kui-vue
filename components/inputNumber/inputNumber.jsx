@@ -168,6 +168,7 @@ const InputNumber = defineComponent({
           suffix: ps.suffix,
           prefix: ps.prefix,
           icon: ps.icon,
+          theme: ps.theme,
           // placeholder: ps.placeholder,
         },
         on: {

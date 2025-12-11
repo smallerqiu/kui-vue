@@ -8,7 +8,7 @@ import InputBox from "./inputBox";
 const Input = defineComponent({
   name: "Input",
   props: {
-    clearable: Boolean,
+    clearable: { type: Boolean, default: true },
     visiblePasswordIcon: { type: Boolean, default: true },
     size: {
       validator(value) {
@@ -178,12 +178,14 @@ const Input = defineComponent({
 
       if (!multiple) return textInput;
 
-      let clearableShow = clearable && !isEmpty(currentValue.value);
+      let clearableShow =
+        clearable && !isEmpty(currentValue.value) && type != "password";
       const props = {
         class: {
           [`k-${inputType}`]: true,
           [`k-${inputType}-focus`]: focused.value,
           [`k-${inputType}-disabled`]: disabled,
+          [`k-${inputType}-has-clear`]: clearableShow,
           [`k-${inputType}-sm`]: size == "small",
           [`k-${inputType}-lg`]: size == "large",
           [`k-${inputType}-${theme}`]: theme && theme != "solid",

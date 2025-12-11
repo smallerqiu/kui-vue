@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <RadioGroup v-model:value="mode">
+  <RadioGroup v-model="mode">
     <Radio label="left" value="left" />
     <Radio label="center" value="center" />
     <Radio label="alternate" value="alternate" />
@@ -18,19 +18,10 @@
       优化成吨的改善和体验
     </TimeLineItem>
     <TimeLineItem color="orange" time="2020-11-02">
-      <p>新增一些很友好的功能</p>
-      <p>新增一些很友好的功能</p>
-      <p>新增一些很友好的功能</p>
+      <div>新增一些很友好的功能</div>
+      <div>新增一些很友好的功能</div>
       <template #extra>更多的辅助细节</template>
-    </TimeLineItem>
-    <TimeLineItem
-      :icon="Ribbon"
-      color="#3593ff"
-      time="2020-11-01"
-      extra="更多的辅助细节"
-    >
-      发布2.0版本
-    </TimeLineItem>
+    </TimeLineItem> 
     <TimeLineItem
       :icon="Build"
       color="red"

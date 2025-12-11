@@ -45,7 +45,7 @@ const localesConfig = locales.map((lang) => ({
 }));
 
 export default [
-  // ...localesConfig,
+  ...localesConfig,
   {
     input: "types/index.d.ts",
     output: {
