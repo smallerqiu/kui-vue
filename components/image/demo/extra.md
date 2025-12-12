@@ -11,103 +11,50 @@
     src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
     @close="close"
   >
-    <template slot="tool">
-      <Icon :type="Heart" color="#3a95ff" @click="showPanel" />
+    <template #tool>
+      <Icon :type="Heart" color="#3a95ff" @click="togglePanel" />
     </template>
-    <div slot="panel" class="img-panel">
-      <h2>详情</h2>
-      <Row type="flex">
-        <Col><Icon :type="IconImage" /></Col>
-        <Col flex="1">
-          <p class="title">IMG_202005050505.jpg</p>
-          <p class="sub">3120x4160 , 2.8MB</p>
-        </Col>
-      </Row>
-      <Row type="flex">
-        <Col><Icon :type="Calendar" /></Col>
-        <Col>
-          <p class="title">时间：2020年5月5日</p>
-          <p class="sub">星期五，下午05:05</p>
-        </Col>
-      </Row>
-      <Row type="flex">
-        <Col><Icon :type="Location" /></Col>
-        <Col flex="1">
-          <p class="title">武汉.江滩</p>
-          <p class="sub">湖北省武汉市汉口江滩</p>
-        </Col>
-      </Row>
-      <Row type="flex">
-        <Col><Icon :type="Camera" /></Col>
-        <Col flex="1">
-          <p class="title">相机：Iphone 12 Pro</p>
-          <p class="sub">2048/1000000s ISO-9999</p>
-        </Col>
-      </Row>
-      <Row type="flex">
-        <Col><Icon :type="Ribbon" /></Col>
-        <Col flex="1">
-          <p class="title">镜头：索尼</p>
-          <p class="sub">f/10 10.5mm</p>
-        </Col>
-      </Row>
-    </div>
-  </KImage>
-  <br />
-  图片组：
-  <ImageGroup>
-    <KImage
-      :width="120"
-      v-for="(img, i) in imageData"
-      :key="i"
-      :src="img.src"
-      @switch="onSwitch"
-      @close="close"
-      :showPanel="true"
-    >
-      <template slot="tool">
-        <Icon :type="Heart" color="#3a95ff" @click="showPanel" />
-      </template>
-      <div slot="panel" class="img-panel">
+    <template #panel>
+      <div class="img-panel">
         <h2>详情</h2>
         <Row type="flex">
           <Col><Icon :type="IconImage" /></Col>
           <Col flex="1">
-            <p class="title">{{ img.title }}</p>
-            <p class="sub">{{ img.desc }}</p>
+            <p class="title">IMG_202005050505.jpg</p>
+            <p class="sub">3120x4160 , 2.8MB</p>
           </Col>
         </Row>
         <Row type="flex">
           <Col><Icon :type="Calendar" /></Col>
           <Col>
-            <p class="title">时间：{{ img.date }}</p>
-            <p class="sub">{{ img.dateSub }}</p>
+            <p class="title">时间：2020年5月5日</p>
+            <p class="sub">星期五，下午05:05</p>
           </Col>
         </Row>
         <Row type="flex">
           <Col><Icon :type="Location" /></Col>
           <Col flex="1">
-            <p class="title">{{ img.address }}</p>
-            <p class="sub">{{ img.addressSub }}</p>
+            <p class="title">武汉.江滩</p>
+            <p class="sub">湖北省武汉市汉口江滩</p>
           </Col>
         </Row>
         <Row type="flex">
           <Col><Icon :type="Camera" /></Col>
           <Col flex="1">
-            <p class="title">相机：{{ img.camera }}</p>
-            <p class="sub">{{ img.cameraSub }}</p>
+            <p class="title">相机：Iphone 12 Pro</p>
+            <p class="sub">2048/1000000s ISO-9999</p>
           </Col>
         </Row>
         <Row type="flex">
           <Col><Icon :type="Ribbon" /></Col>
           <Col flex="1">
-            <p class="title">镜头：{{ img.disc }}</p>
-            <p class="sub">{{ img.discSub }}</p>
+            <p class="title">镜头：索尼</p>
+            <p class="sub">f/10 10.5mm</p>
           </Col>
         </Row>
       </div>
-    </KImage>
-  </ImageGroup>
+    </template>
+  </KImage>
 </template>
 <script setup>
 import {
@@ -153,7 +100,7 @@ const onSwitch = (index) => {
 const close = () => {
   message.success("close");
 };
-const showPanel = () => {
+const togglePanel = () => {
   KImage.togglePanel();
 };
 </script>
