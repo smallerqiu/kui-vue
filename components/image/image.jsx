@@ -62,10 +62,11 @@ const KImage = defineComponent({
           src,
           data: props.data,
           origin: props.origin,
-          slots: slots,
+          slots: { ...slots },
           showPanel: props.showPanel,
           type: props.type,
         },
+        scopedSlots: { ...slots },
       };
 
       if (!origin) {

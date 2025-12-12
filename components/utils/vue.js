@@ -9,7 +9,7 @@ export const withInstall = (component) => {
 import Vue, { h } from "vue";
 export function createVNode(component, props) {
   const instance = new Vue({
-    render: (h) => h(component, { props }),
+    render: (h) => h(component, { ...props }),
   });
   instance.$mount();
   return instance.$children[0]; // 返回组件实例

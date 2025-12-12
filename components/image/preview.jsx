@@ -34,6 +34,7 @@ const ImagePreview = defineComponent({
     showPanel: Boolean,
   },
   setup(props, { emit, slots, expose }) {
+    console.log(props,slots)
     const { value, type, src, origin, showPanel } = toRefs(props);
     const state = reactive({
       scale: 1,
@@ -81,6 +82,7 @@ const ImagePreview = defineComponent({
     };
 
     const mousewheel = (e) => {
+      if (!state.visible) return;
       const { deltaY } = e;
       setScale(deltaY && deltaY < 0);
       e.stopPropagation();
@@ -88,6 +90,8 @@ const ImagePreview = defineComponent({
     };
 
     const mousedown = (e) => {
+      if (!state.visible) return;
+
       if (imgRef.value && imgRef.value.contains(e.target)) {
         if (e.button && e.button != 0) return;
         let clientX, clientY;
@@ -156,6 +160,7 @@ const ImagePreview = defineComponent({
     };
 
     const mouseup = () => {
+      if (!state.visible) return;
       state.isMouseDown = false;
       resetPosition();
       const [e1, e2] = state.touch
@@ -166,6 +171,7 @@ const ImagePreview = defineComponent({
     };
 
     const mousemove = (e) => {
+      if (!state.visible) return;
       if (state.isMouseDown) {
         e.preventDefault();
         let clientX, clientY;
