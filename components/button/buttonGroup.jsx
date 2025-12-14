@@ -1,12 +1,14 @@
 import { defineComponent, provide, inject, toRefs } from "vue";
 import { withInstall } from "../utils/vue";
+import { sizeMap, filterSize } from "../utils/size";
 
 const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: {
     size: {
+      type: String,
       validator(value) {
-        return ["small", "large", "middle", "default"].indexOf(value) >= 0;
+        return sizeMap.indexOf(value) >= 0;
       },
     },
     shape: String,
@@ -16,7 +18,7 @@ const ButtonGroup = defineComponent({
     const parentSize = inject("size", null);
 
     provide("KButtonGroup", {
-      size: props.size || parentSize,
+      size: props.size || filterSize(parentSize),
       shape,
     });
 

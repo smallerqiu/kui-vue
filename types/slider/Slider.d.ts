@@ -11,8 +11,8 @@ export interface SliderProps {
   /** default: 1 */
   step?: number;
   size?: string;
-  range?: boolean;
   vertical?: boolean;
+  range?: boolean;
   reverse?: boolean;
   marks?: Record<string, any>;
   /** default: true */
@@ -24,7 +24,7 @@ export interface SliderProps {
 /** Slider component instance */
 export interface Slider extends Vue {
   $props: SliderProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Slider Vue component type */

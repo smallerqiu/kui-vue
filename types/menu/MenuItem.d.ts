@@ -4,13 +4,15 @@ import Vue, { VueConstructor } from "vue";
 export interface MenuItemProps {
   icon?: string | any[];
   title?: string;
+  label?: string;
   disabled?: boolean;
+  isPopup?: boolean;
 }
 
 /** MenuItem component instance */
 export interface MenuItem extends Vue {
   $props: MenuItemProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** MenuItem Vue component type */

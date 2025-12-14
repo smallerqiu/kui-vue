@@ -3,7 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** Form component props */
 export interface FormProps {
   /** default: horizontal */
-  layout?: any;
+  layout?: string;
   model?: Record<string, any>;
   name?: string;
   labelCol?: Record<string, any>;
@@ -11,7 +11,7 @@ export interface FormProps {
   /** default: undefined */
   rules?: Record<string, any>;
   /** default: default */
-  size?: any;
+  size?: string;
   theme?: string;
   shape?: string;
   disabled?: boolean;
@@ -20,7 +20,7 @@ export interface FormProps {
 /** Form component instance */
 export interface Form extends Vue {
   $props: FormProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Form Vue component type */

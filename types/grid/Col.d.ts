@@ -10,7 +10,7 @@ export interface ColProps {
 /** Col component instance */
 export interface Col extends Vue {
   $props: ColProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Col Vue component type */

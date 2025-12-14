@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Switch component props */
 export interface SwitchProps {
-  checked?: boolean | number;
+  value?: boolean | number;
   type?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -15,7 +15,7 @@ export interface SwitchProps {
 /** Switch component instance */
 export interface Switch extends Vue {
   $props: SwitchProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Switch Vue component type */

@@ -4,7 +4,7 @@ import { Loading } from "kui-icons";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 import { colors } from "../const/var";
-
+import { sizeMap, filterSize } from "../utils/size";
 const Button = defineComponent({
   name: "Button",
   props: {
@@ -17,8 +17,9 @@ const Button = defineComponent({
     icon: [String, Array],
     block: Boolean,
     size: {
+      size: String,
       validator(value) {
-        return ["small", "large", "middle", "default"].includes(value);
+        return sizeMap.includes(value);
       },
     },
     color: {
@@ -58,7 +59,12 @@ const Button = defineComponent({
     const parentSize = inject("size", null);
 
     const computedSize = computed(() => {
-      return props.size || buttonGroup?.size?.value || parentSize || "default";
+      return (
+        props.size ||
+        buttonGroup?.size?.value ||
+        filterSize(parentSize) ||
+        "default"
+      );
     });
 
     const computedShape = computed(() => {

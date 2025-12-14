@@ -13,7 +13,7 @@ export interface SkeletonTextProps {
 /** SkeletonText component instance */
 export interface SkeletonText extends Vue {
   $props: SkeletonTextProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** SkeletonText Vue component type */

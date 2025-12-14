@@ -5,8 +5,9 @@ export interface TreeProps {
   data?: any[];
   selectedKeys?: any[];
   expandedKeys?: any[];
-  expandedAll?: boolean;
   checkedKeys?: any[];
+  directory?: boolean;
+  expandAll?: boolean;
   checkable?: boolean;
   draggable?: boolean;
   showLine?: boolean;
@@ -17,13 +18,14 @@ export interface TreeProps {
   /** default: false */
   multiple?: boolean;
   checkStrictly?: boolean;
-  directory?: boolean;
+  selectAsCheck?: boolean;
+  queryKey?: string;
 }
 
 /** Tree component instance */
 export interface Tree extends Vue {
   $props: TreeProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Tree Vue component type */

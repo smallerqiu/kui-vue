@@ -119,6 +119,7 @@ export default [
           isProduction: true, //process.env.NODE_ENV === "production",
           optimizeSSR: false,
         },
+        // isWebComponent: false,
       }),
       babel({
         babelHelpers: "bundled",
@@ -137,6 +138,7 @@ export default [
             "@vue/babel-preset-jsx",
             {
               compositionAPI: true,
+              injectH: true
             },
           ],
         ],

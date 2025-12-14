@@ -2,11 +2,13 @@ import Vue, { VueConstructor } from "vue";
 
 /** Checkbox component props */
 export interface CheckboxProps {
+  /** default: false */
+  checked?: boolean;
   value?: string | number | boolean;
-  disabled?: boolean;
   label?: string | number;
+  theme?: string;
+  disabled?: boolean;
   indeterminate?: boolean;
-  checked?: boolean | number;
   /** default: default */
   size?: any;
 }
@@ -14,7 +16,7 @@ export interface CheckboxProps {
 /** Checkbox component instance */
 export interface Checkbox extends Vue {
   $props: CheckboxProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Checkbox Vue component type */

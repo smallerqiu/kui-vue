@@ -33,11 +33,12 @@ const ImagePreview = defineComponent({
     data: { type: Array, default: () => [] },
     showPanel: Boolean,
   },
-  setup(props, { emit, slots, expose }) {
-    console.log(props,slots)
-    const { value, type, src, origin, showPanel } = toRefs(props);
+  setup(props, { emit, slots, expose, listeners }) {
+    // console.log(props, listeners, slots);
+    const { value, type, src, origin, showPanel, data } = toRefs(props);
     const state = reactive({
       scale: 1,
+      data,
       rotate: 0,
       startPos: { x: 0, y: 0 },
       initPos: { x: 0, y: 0 },
@@ -198,9 +199,9 @@ const ImagePreview = defineComponent({
       newIndex = Math.max(0, newIndex);
       newIndex = Math.min(newIndex, data.length - 1);
 
-      if (props.global && !slots.panel) {
-        state.src = data[newIndex];
-      }
+      // if (props.global && !slots.panel) {
+      state.src = data[newIndex];
+      // }
 
       if ((left && index == 0) || (!left && index == data.length - 1)) return;
       emit("switch", newIndex);
@@ -319,24 +320,33 @@ const ImagePreview = defineComponent({
         const event = touch ? "touchstart" : "mousedown";
         document.addEventListener(event, mousedown, { passive: false });
         document.addEventListener("mousewheel", mousewheel, { passive: false });
+
+        document.addEventListener("keydown", escToClose);
       }
     });
 
     onBeforeUnmount(() => {
       document.removeEventListener("mousewheel", mousewheel);
+      document.removeEventListener("keydown", escToClose);
     });
     const show = (options = {}) => {
-      if (options.src) {
-        state.src = options.src;
+      if (options?.props?.src) {
+        state.src = options.props.src;
       }
-      if (options.type) {
-        state.type = options.type;
+      if (options?.props?.type) {
+        state.type = options.props.type;
       }
       state.visible = true;
     };
 
     const hide = () => {
       state.visible = false;
+    };
+
+    const escToClose = (e) => {
+      if (e.keyCode === 27) {
+        hide();
+      }
     };
 
     expose({ show, hide, togglePanel });
@@ -424,7 +434,7 @@ const ImagePreview = defineComponent({
                 <div class="k-image-preview-img-wrap" style={moveStyle}>
                   {type == "media" ? (
                     <video controls {...imgProps} />
-                  ) : !state.error ? (
+                  ) : !state.error && !state.loading ? (
                     <img {...imgProps} />
                   ) : (
                     <div class="k-image-preview-img-error">

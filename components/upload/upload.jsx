@@ -61,7 +61,6 @@ const Upload = defineComponent({
         const promise = props.transformFile(file);
         if (promise && promise.then) {
           promise.then((f) => {
-            console.log(f)
             toUpload(item, f);
           });
         }

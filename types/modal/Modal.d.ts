@@ -21,12 +21,14 @@ export interface ModalProps {
   footer?: string;
   /** default: true */
   transfer?: boolean;
+  /** default: true */
+  escKey?: boolean;
 }
 
 /** Modal component instance */
 export interface Modal extends Vue {
   $props: ModalProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Modal Vue component type */

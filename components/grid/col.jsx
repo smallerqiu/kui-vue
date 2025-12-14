@@ -32,17 +32,17 @@ const Col = defineComponent({
         style: {},
       };
       if (Array.isArray(gutter)) {
-        let [v = 0, h = 0] = gutter;
-        if (v == h && v > 0) {
+        let [v = 0, _h = 0] = gutter;
+        if (v == _h && v > 0) {
           props.style.padding = `${v / 2}px`;
-        } else if (v > 0 && h > 0) {
-          props.style.padding = `${h / 2}px ${v / 2}px`;
+        } else if (v > 0 && _h > 0) {
+          props.style.padding = `${_h / 2}px ${v / 2}px`;
         } else {
           if (v > 0) {
             props.style.paddingLeft = `${v / 2}px`;
             props.style.paddingRight = `${v / 2}px`;
           }
-          if (h > 0) {
+          if (_h > 0) {
             props.style.paddingTop = `${v / 2}px`;
             props.style.paddingTop = `${v / 2}px`;
           }

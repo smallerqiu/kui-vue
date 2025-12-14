@@ -1,6 +1,6 @@
 // import { inject } from "vue";
 import newInstance from "../message/instance";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 let noticeInstance;
 
@@ -13,7 +13,7 @@ let Notice = {
     }
     options.noticeType = "notice";
     if (!noticeInstance) {
-      noticeInstance = newInstance({ type: "notice" });
+      noticeInstance = newInstance({ props: { type: "notice" } });
     }
     noticeInstance.show(options);
   },
@@ -26,7 +26,7 @@ let Notice = {
   },
   useNotice() {
     // return inject("notice"); //for 3
-    return Notice
+    return Notice;
   },
   install(app) {
     // app.provide("notice", Notice);

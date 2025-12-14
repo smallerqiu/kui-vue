@@ -27,14 +27,14 @@ export interface UploadProps {
   maxSize?: number;
   uploadText?: string;
   uploadSubText?: string;
-  uploadIcon?: string | any[];
+  uploadIcon?: string | Record<string, any> | any[];
   draggable?: boolean;
 }
 
 /** Upload component instance */
 export interface Upload extends Vue {
   $props: UploadProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Upload Vue component type */
