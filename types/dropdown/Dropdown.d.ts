@@ -7,16 +7,18 @@ export interface DropdownProps {
   trigger?: string;
   /** default: true */
   transfer?: boolean;
-  showPlacementArrow?: boolean;
-  value?: boolean;
+  disabled?: boolean;
+  arrow?: boolean;
+  show?: boolean;
   /** default: bottom-left */
   placement?: any;
+  target?: Record<string, any>;
 }
 
 /** Dropdown component instance */
 export interface Dropdown extends Vue {
   $props: DropdownProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Dropdown Vue component type */

@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Tabs component props */
 export interface TabsProps {
-  value?: string;
+  value?: string | number;
   card?: boolean;
   sample?: boolean;
   centered?: boolean;
@@ -13,7 +13,7 @@ export interface TabsProps {
 /** Tabs component instance */
 export interface Tabs extends Vue {
   $props: TabsProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Tabs Vue component type */

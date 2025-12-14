@@ -1,6 +1,7 @@
 import { getChildren } from "../utils/vnode";
 import { defineComponent /*cloneVNode*/, provide, inject } from "vue";
 import { withInstall, cloneVNode } from "../utils/vue";
+import { sizeMap, filterSize } from "../utils/size";
 const InputGroup = defineComponent({
   name: "InputGroup",
   props: {
@@ -10,19 +11,16 @@ const InputGroup = defineComponent({
       default: true,
     },
     size: {
-      type: [String, Number, Array],
-      default: "default",
+      type: String,
       validator(value) {
-        return typeof value == "number" || Array.isArray(value)
-          ? true
-          : ["small", "middle", "large", "default"].indexOf(value) >= 0;
+        return sizeMap.indexOf(value) >= 0;
       },
     },
   },
   setup(ps, { slots }) {
     const parentSize = inject("size", null);
 
-    provide("size", ps.size || parentSize);
+    provide("size", ps.size || filterSize(parentSize));
 
     return () => {
       let { size, compact, block } = ps;

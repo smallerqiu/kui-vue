@@ -2,31 +2,30 @@ import Vue, { VueConstructor } from "vue";
 
 /** Input component props */
 export interface InputProps {
-  /** default: false */
+  /** default: true */
   clearable?: boolean;
-  id?: string;
-  /** default: default */
+  /** default: true */
+  visiblePasswordIcon?: boolean;
   size?: any;
   value?: string | number | any[] | Record<string, any>;
+  disabled?: boolean;
   /** default: text */
   type?: any;
   icon?: string | any[];
   suffix?: string;
   prefix?: string;
-  disabled?: boolean;
-  readonly?: boolean;
-  visiblePassword?: boolean;
-  /** default: true */
-  visiblePasswordIcon?: boolean;
-  /** default: solid */
   theme?: string;
   shape?: string;
+  formatter?: (...args: any[]) => any;
+  parser?: (...args: any[]) => any;
+  /** default: input */
+  inputType?: string;
 }
 
 /** Input component instance */
 export interface Input extends Vue {
   $props: InputProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Input Vue component type */

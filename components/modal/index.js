@@ -15,18 +15,21 @@ let createInstance = (props = {}) => {
   document.body.appendChild(container);
 
   const vm = createVNode(Toast, {
-    ...props,
-    onDestroy: () => {
-      setTimeout(() => {
-        modalList = modalList.filter((item) => item !== instance);
-        document.body.contains(container) && document.body.removeChild(container);
-      }, 300);
+    props,
+    on: {
+      destroy: () => {
+        setTimeout(() => {
+          modalList = modalList.filter((item) => item !== instance);
+          document.body.contains(container) &&
+            document.body.removeChild(container);
+        }, 300);
+      },
     },
   });
   render(vm, container);
 
   // let instance = vm.component?.exposed; //for 3
-  let instance = vm //  for 2
+  let instance = vm; //  for 2
   instance.destroy = () => {
     instance.hide();
     modalList = modalList.filter((item) => item !== instance);
@@ -65,6 +68,6 @@ Modal.install = (app) => {
 
 Modal.useModal = () => {
   // return inject("modal"); //for 3
-  return Modal
+  return Modal;
 };
 export default Modal;

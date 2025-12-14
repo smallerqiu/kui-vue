@@ -5,133 +5,35 @@
 
 ```vue
 <template>
-  单张图：
-  <KImage
-    :width="120"
-    src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
-    @close="close"
-  >
-    <template #tool>
-      <Icon :type="Heart" color="#3a95ff" @click="togglePanel" />
-    </template>
-    <template #panel>
-      <div class="img-panel">
-        <h2>详情</h2>
-        <Row type="flex">
-          <Col><Icon :type="IconImage" /></Col>
-          <Col flex="1">
-            <p class="title">IMG_202005050505.jpg</p>
-            <p class="sub">3120x4160 , 2.8MB</p>
-          </Col>
-        </Row>
-        <Row type="flex">
-          <Col><Icon :type="Calendar" /></Col>
-          <Col>
-            <p class="title">时间：2020年5月5日</p>
-            <p class="sub">星期五，下午05:05</p>
-          </Col>
-        </Row>
-        <Row type="flex">
-          <Col><Icon :type="Location" /></Col>
-          <Col flex="1">
-            <p class="title">武汉.江滩</p>
-            <p class="sub">湖北省武汉市汉口江滩</p>
-          </Col>
-        </Row>
-        <Row type="flex">
-          <Col><Icon :type="Camera" /></Col>
-          <Col flex="1">
-            <p class="title">相机：Iphone 12 Pro</p>
-            <p class="sub">2048/1000000s ISO-9999</p>
-          </Col>
-        </Row>
-        <Row type="flex">
-          <Col><Icon :type="Ribbon" /></Col>
-          <Col flex="1">
-            <p class="title">镜头：索尼</p>
-            <p class="sub">f/10 10.5mm</p>
-          </Col>
-        </Row>
-      </div>
-    </template>
-  </KImage>
+  <Space vertical>
+    <KImage
+      :width="120"
+      :height="120"
+      src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
+      @close="close"
+      ref="imgRef"
+    >
+      <template #tool>
+        <Icon :type="Heart" color="#3a95ff" @click="togglePanel" />
+        <Icon :type="Star" color="#3a95ff" @click="togglePanel" />
+      </template>
+      <template #panel>
+        <div>Some thing here.</div>
+      </template>
+    </KImage>
+  </Space>
 </template>
 <script setup>
-import {
-  Ribbon,
-  Heart,
-  IconImage,
-  Calendar,
-  Location,
-  Camera,
-} from "kui-icons";
-import { message, KImage } from "kui-vue";
-const imageData = [
-  {
-    src: "https://cdn.chuchur.com/upload/demo/kui-for-vue.jpg",
-    title: "kui for vue.js.jpg",
-    desc: "一套基于Vuejs的桌面UI组件库",
-    date: "2017年8月7日",
-    dateSub: "星期五，下午05:05",
-    address: "广东.深圳",
-    addressSub: "广东省深圳市国际软件园",
-    camera: "javascript",
-    cameraSub: "vuejs",
-    disc: "VUE",
-    discSub: "VUEJS 2.x",
-  },
-  {
-    src: "https://cdn.chuchur.com/upload/demo/kui-react.jpg",
-    title: "kui for react.jpg",
-    desc: "一套基于Reactjs的桌面UI组件库",
-    date: "2018年10月7日",
-    dateSub: "星期五，下午05:05",
-    address: "湖北.武汉",
-    addressSub: "湖北省武汉市软件产业园",
-    camera: "javascript",
-    cameraSub: "reactjs",
-    disc: "REACT",
-    discSub: "REACTJS 16.x",
-  },
-];
-const onSwitch = (index) => {
-  console.log(index);
-};
+import { Heart, Star } from "kui-icons";
+import { ref } from "vue";
+const imgRef = ref();
+import { message } from "kui-vue";
+
 const close = () => {
-  message.success("close");
+  message.info("close");
 };
 const togglePanel = () => {
-  KImage.togglePanel();
+  imgRef.value.togglePanel();
 };
-</script>
-
-<style lang="less">
-.img-panel {
-  padding: 0 50px;
-  width: 256px;
-  overflow: hidden;
-  h2 {
-    color: #fff;
-    font-size: 20px;
-  }
-  .k-row {
-    margin: 20px 0 30px;
-    font-size: 13px;
-    .k-icon {
-      font-size: 24px;
-      color: #999;
-      margin-right: 20px;
-      margin-top: 8px;
-    }
-    .title {
-      color: #eee;
-      margin: 0;
-    }
-    .sub {
-      color: #999;
-      margin-top: 5px;
-    }
-  }
-}
-</style>
+</script> 
 ```

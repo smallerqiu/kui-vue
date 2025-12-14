@@ -17,6 +17,7 @@ const Tag = defineComponent({
         return ["small", "large", "middle"].indexOf(value) >= 0;
       },
     },
+    theme: String,
   },
   setup(ps, { slots, emit, listeners }) {
     const visible = ref(true);
@@ -41,6 +42,7 @@ const Tag = defineComponent({
             ["k-tag-has-color"]: isColor(color) && !colors.includes(color),
             ["k-tag-closeable"]: closeable,
             ["k-tag-hidden"]: hidden.value,
+            ["k-tag-light"]: ps.theme == "light",
           },
         ],
         on: { ...listeners },

@@ -11,6 +11,7 @@ import {
 } from "../utils/number";
 import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch, inject } from "vue";
+import { sizeMap, filterSize } from "../utils/size";
 const InputNumber = defineComponent({
   props: {
     value: [Array, Number, String],
@@ -21,7 +22,12 @@ const InputNumber = defineComponent({
     readonly: Boolean,
     formatter: Function,
     parser: Function,
-    size: String,
+    size: {
+      type: String,
+      validator(value) {
+        return sizeMap.indexOf(value) >= 0;
+      },
+    },
     precision: Number,
     suffix: String,
     prefix: String,
@@ -163,7 +169,7 @@ const InputNumber = defineComponent({
           inputType: "input-number",
           value: inputValue.value,
           clearable: false,
-          size: ps.size || parentSize,
+          size: ps.size || filterSize(parentSize),
           disabled: ps.disabled,
           suffix: ps.suffix,
           prefix: ps.prefix,

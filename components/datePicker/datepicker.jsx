@@ -254,7 +254,7 @@ const DatePicker = defineComponent({
         if (isRange.value && Array.isArray(val)) {
           innerValue.value = val.map((d) => {
             const parsed = parsePropValue(d);
-            return parsed.isValid() ? parsed : null;
+            return parsed?.isValid() ? parsed : null;
           });
           if (!isFocus.value) syncTextFromValue();
           // 设置面板基准时间
@@ -263,7 +263,7 @@ const DatePicker = defineComponent({
           const d = parsePropValue(val);
           innerValue.value = d;
           if (!isFocus.value) syncTextFromValue();
-          if (d.isValid()) panelDate.value = d;
+          if (d?.isValid()) panelDate.value = d;
         }
       },
       { immediate: true }

@@ -21,7 +21,7 @@ export interface RateProps {
 /** Rate component instance */
 export interface Rate extends Vue {
   $props: RateProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Rate Vue component type */

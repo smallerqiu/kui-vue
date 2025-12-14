@@ -15,7 +15,7 @@ export interface BadgeProps {
 /** Badge component instance */
 export interface Badge extends Vue {
   $props: BadgeProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Badge Vue component type */

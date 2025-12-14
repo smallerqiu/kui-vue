@@ -118,11 +118,14 @@ import "kui-vue/components/button/style";
 </template>
 ```
 
-但是 `Switch` 、 `Image` 只支持 以k开头的小写 :
+但是 `Switch` 、 `Image` 只支持 以k开头 :
 
 ```html
 <template>
   <div>
+    <KSwitch type="primary"></KSwitch> ✅ 推荐
+    <KImage></KImage> ✅
+    <!-- ok -->
     <k-switch type="primary"></k-switch> ✅ 
     <k-image></k-image> ✅
   </div>

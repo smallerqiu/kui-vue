@@ -2,17 +2,14 @@ import Vue, { VueConstructor } from "vue";
 
 /** BreadcrumbItem component props */
 export interface BreadcrumbItemProps {
-  /** default: / */
-  separator?: string;
-  to?: string;
-  replace?: boolean;
-  icon?: string | any[];
+  href?: string;
+  icon?: string | any[] | Record<string, any>;
 }
 
 /** BreadcrumbItem component instance */
 export interface BreadcrumbItem extends Vue {
   $props: BreadcrumbItemProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** BreadcrumbItem Vue component type */

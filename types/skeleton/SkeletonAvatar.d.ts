@@ -14,7 +14,7 @@ export interface SkeletonAvatarProps {
 /** SkeletonAvatar component instance */
 export interface SkeletonAvatar extends Vue {
   $props: SkeletonAvatarProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** SkeletonAvatar Vue component type */

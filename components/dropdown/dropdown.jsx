@@ -91,7 +91,7 @@ const Dropdown = defineComponent({
 
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
-      if (refPopper.value) return;
+      if (!refPopper.value) return;
       if (
         (!refPopper.value.contains(e.target) &&
           ctx &&
@@ -114,6 +114,7 @@ const Dropdown = defineComponent({
       });
     };
     const showContextmenu = (e) => {
+      if (!refPopper.value) return;
       // todo : when the menu is opened, then resize the window at this time, the position is not accurate.
       let pickerHeight = refPopper.value.offsetHeight;
       let pickerWidth = refPopper.value.offsetWidth;

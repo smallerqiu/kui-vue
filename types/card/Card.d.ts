@@ -11,7 +11,7 @@ export interface CardProps {
 /** Card component instance */
 export interface Card extends Vue {
   $props: CardProps;
-  $emit: (event: string, ...args: any[]) => this;
+  $emit(event: string, ...args: any[]): void;
 }
 
 /** Card Vue component type */

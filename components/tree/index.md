@@ -7,7 +7,7 @@
 | draggable     | 是否可以拖拽                                                 | Boolean | false  |
 | showLine      | 是否展示连接线                                               | Boolean | false  |
 | showIcon      | 是否展示图标                                                 | Boolean | true   |
-| extra         | 扩展元素                                                     | slot    | -      |
+| extra         | 扩展元素                                                     | slot(node)    | -      |
 | showExtra     | 是否默认展示扩展元素                                         | Boolean | false  |
 | checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false  |
 | checkedKeys   | 选中复选框的树节点                                           | Array   | []     |

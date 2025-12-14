@@ -14,35 +14,3 @@
 | switch      | 多图切换触发事件                                | Function(index)  | -      |
 | tool        | 自定义工具栏按钮                                | slot             | -      |
 | panel       | 自定义扩展面板                                  | slot             | -      |
-
-## Image.method()
-
-组件提供了一些静态方法 `this.$Image.show(options)`
-
-参数 options 为对象，具体说明如下：
-
-| 属性  | 说明                                            | 类型             | 默认值 |
-| ----- | ----------------------------------------------- | ---------------- | ------ |
-| src   | 显示单张图片预览地址                            | String           | -      |
-| data  | 多图模式地址集合                                | Array            | -      |
-| index | 多图模式，指定默认显示第几张图片                | [String、Number] | -      |
-| slots | 自定义扩展面板插槽                              | Object           | -      |
-| type  | 使 Preview 展示 video 标签，取值['img','media'] | String           | img    |
-| on    | 自定义事件集合                                  | Object           | -      |
-
-```js
-options = {
-  src: "https://xxx",
-  data: ["https://xxx", "https://xxx"],
-  index: 0,
-  type: "img", //临时需求,后期可能会移植到新的组件中
-  slots: {
-    tool: VNode, //or[VNode,VNode]
-    panel: VNode, //or[VNode,VNode]
-  },
-  on: {
-    switch: () => {},
-    close: () => {},
-  },
-};
-```
