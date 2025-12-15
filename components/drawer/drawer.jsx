@@ -10,8 +10,9 @@ import {
   /*Transition,*/ watch,
   onMounted,
   onBeforeUnmount,
+  computed,
 } from "vue";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { withInstall } from "../utils/vue";
 
 const Drawer = defineComponent({
@@ -152,12 +153,12 @@ const Drawer = defineComponent({
       const hasFooter = ps.footer || slots.footer;
       const cancelBtn = (
         <Button onClick={cancel}>
-          {cancelText || locale?.value.k.drawer.cancel}
+          {cancelText || locale?.value.k.common.cancel}
         </Button>
       );
       const okBtn = (
         <Button type="primary" onClick={ok} loading={loading}>
-          {okText || locale?.value.k.drawer.ok}
+          {okText || locale?.value.k.common.ok}
         </Button>
       );
       const footNode = hasFooter ? (

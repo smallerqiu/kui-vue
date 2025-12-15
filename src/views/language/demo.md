@@ -21,10 +21,17 @@
           <DatePicker mode="date" />
           <DatePicker mode="time" />
           <DatePicker mode="dateTime" />
+          <DatePicker mode="dateRange" />
         </Space>
-        <Space vertical>
-          <Select />
-          <Select :value="[]" multiple />
+        <Space>
+          <Select style="width: 120px" />
+          <Select
+            :value="[]"
+            multiple
+            style="width: 120px"
+            @search="selectSearch"
+            :loading="loading"
+          />
         </Space>
         <Space vertical>
           <Page :total="50" show-total showSizer showElevator />
@@ -36,31 +43,75 @@
           <Popconfirm title="Are you sure?">
             <Button>Pop Confirm</Button>
           </Popconfirm>
+          <Button @click="openDrawer">Open Drawer</Button>
         </Space>
         <Space>
           <Table :columns="columns" />
         </Space>
+        <Space>
+          TreeSelect : <TreeSelect :treeData="[]" style="width:180px" />
+        </Space>
+        <Space>
+          Image :
+          <KImage
+            :width="120"
+            :height="120"
+            src="https://cdn.chuchur.com/upload/cat/cat1.jpg"
+          />
+        </Space>
+        <Space>
+          <Upload
+            action="https://www.chuchur.com/api/upload/image"
+            name="file"
+            directory
+            :fileList="fileList"
+          >
+            <Button :icon="CloudUploadOutline">Click to upload</Button>
+          </Upload>
+        </Space>
         <Modal v-model:visible="visible" title="Basic Modal" />
+        <Drawer v-model:visible="visible1" title="Basic Drawer" />
       </Space>
     </ConfigProvider>
   </Space>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
-import en from "kui-vue/locale/lang/en";
-import zh from "kui-vue/locale/lang/zh-CN";
+import { ref, reactive, provide } from "vue";
+import en from "kui-vue/locale/en";
+import zh from "kui-vue/locale/zh-CN";
 import dayjs from "dayjs";
 import { modal, message } from "kui-vue";
 const lang = ref("en");
 const locale = ref(en);
+dayjs.locale("en");
 const data = [];
 const columns = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
 ];
 
+const fileList = ref([
+  {
+    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+    status: "uploading",
+    filename: "test.jpg",
+    size: "222kb",
+    percent: 50,
+    status: "uploading",
+  },
+  {
+    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+    status: "error",
+    filename: "test.jpg",
+    size: "222kb",
+  },
+]);
+
+const loading = ref(false);
+
 const visible = ref(false);
+const visible1 = ref(false);
 
 const changeLocale = (value) => {
   locale.value = value === "en" ? en : zh;
@@ -74,17 +125,25 @@ const changeLocale = (value) => {
 const showModal = () => {
   visible.value = true;
 };
+const openDrawer = () => {
+  visible1.value = true;
+};
+
+// modal 等 全局方法, 需要使用 modal.useModal() 获取 context
+provide("locale", locale); // 当前演示demo,需要注入locale , 实际全局不需注入
+
+const modalApi = modal.useModal();
 const showInfo = () => {
-  modal.info({
-    title: "",
-    content: "你打开了一个窗口！",
+  modalApi.info({
+    title: "Hello",
+    content: "modal info.",
     onOk: () => {
       message.info("info");
     },
   });
 };
 const showConfirm = () => {
-  modal.confirm({
+  modalApi.confirm({
     title: "您确认要这么做吗",
     content: "此操作不可逆转，谨慎！！！",
     onOk: () => {
@@ -94,6 +153,13 @@ const showConfirm = () => {
       message.info("你点了取消");
     },
   });
+};
+
+const selectSearch = () => {
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
 };
 </script>
 ```

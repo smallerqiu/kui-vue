@@ -12,18 +12,10 @@ export default {
       ok: 'Okay',
       back: 'zurück'
     },
-    drawer: {
-      ok: 'Okay',
-      cancel: 'Abbrechen'
-    },
     empty: {
       description: 'noch keine Daten',
     },
-    pop: {
-      ok: 'Okay',
-      cancel: 'Abbrechen'
-    },
-    modal: {
+    common: {
       ok: 'Okay',
       cancel: 'Abbrechen'
     },

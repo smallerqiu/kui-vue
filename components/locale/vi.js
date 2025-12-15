@@ -12,18 +12,10 @@ export default  {
       ok: 'Ok',
       back: 'Lùi'
     },
-    drawer: {
-      ok: 'Ok',
-      cancel: 'Huỷ'
-    },
     empty: {
       description: 'Không có dữ liệu',
     },
-    pop: {
-      ok: 'Ok',
-      cancel: 'Huỷ'
-    },
-    modal: {
+    common: {
       ok: 'Ok',
       cancel: 'Huỷ'
     },

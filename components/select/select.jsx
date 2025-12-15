@@ -3,7 +3,7 @@ import Icon from "../icon";
 import Empty from "../empty";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
@@ -70,9 +70,8 @@ const Select = defineComponent({
     arrowIcon: [String, Array],
   },
   setup(ps, { slots, emit, attrs, listeners }) {
-    const injectedLocale = inject("locale", zhCN);
-
     const locale = computed(() => {
+      const injectedLocale = inject("locale", zhCN);
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
         : injectedLocale;
@@ -109,6 +108,17 @@ const Select = defineComponent({
         currentPlacement.value = v;
         updatePosition();
       }
+    );
+    watch(
+      () => ps.options,
+      (v) => {
+        updateLabel();
+        // 如果下拉框是打开状态，重新计算位置（防止数据变多导致高度变化）
+        if (visible.value) {
+          updatePosition();
+        }
+      },
+      { deep: true }
     );
     watch(
       () => ps.value,
@@ -376,6 +386,7 @@ const Select = defineComponent({
     };
     const optionsData = computed(() => {
       let { options, loading } = ps;
+      if (loading) return [];
       if (!options) {
         options = [];
         const children = getChildren(slots.default?.());
@@ -412,7 +423,7 @@ const Select = defineComponent({
           <Option
             onSelect={onSelect}
             onMouseenter={() => onMouseenter(index)}
-            key={value}
+            key={`${value}-${label}`}
             active={activeIndex.value == index}
             value={value}
             label={label}
@@ -474,7 +485,7 @@ const Select = defineComponent({
         const loadingNode = (
           <div class="k-select-loading">
             <Icon type={Loading} spin />
-            <span>{locale?.value.k.select.loading}</span>
+            <span>{locale.value.k.select.loading}</span>
           </div>
         );
         overlay = (
@@ -487,7 +498,7 @@ const Select = defineComponent({
               ) : (
                 <Empty
                   onClick={emptyClick}
-                  description={locale?.value.k.select.emptyText}
+                  description={locale.value.k.select.emptyText}
                 />
               )}
             </div>

@@ -5,6 +5,8 @@ import {
   watch,
   onMounted,
   onBeforeMount,
+  inject,
+  computed,
 } from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
@@ -13,6 +15,7 @@ import Icon from "../icon";
 import { Button } from "../button";
 import { setPlacement } from "../utils/placement";
 import { withInstall, cloneVNode } from "../utils/vue";
+import zhCN from "../locale/zh-CN";
 const Popconfirm = defineComponent({
   name: "Popconfirm",
   directives: {
@@ -23,8 +26,8 @@ const Popconfirm = defineComponent({
     title: [String, Number, Object, Array],
     size: String,
     width: [Number, String],
-    okText: { type: String, default: "确认" },
-    cancelText: { type: String, default: "取消" },
+    okText: { type: String },
+    cancelText: { type: String },
     placement: {
       validator(value) {
         return [
@@ -46,6 +49,13 @@ const Popconfirm = defineComponent({
     },
   },
   setup(ps, { slots, attrs, emit }) {
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const rendered = ref(false);
     const visible = ref(false);
     const refPopper = ref();
@@ -208,10 +218,10 @@ const Popconfirm = defineComponent({
               </div>
               <div class={`k-${preCls}-footer`}>
                 <Button size="small" onClick={cancel}>
-                  {ps.cancelText}
+                  {ps.cancelText || locale.value.k.common.cancel}
                 </Button>
                 <Button size="small" type="primary" onClick={ok}>
-                  {ps.okText}
+                  {ps.okText || locale.value.k.common.ok}
                 </Button>
               </div>
               <div class={`k-${preCls}-arrow`}>

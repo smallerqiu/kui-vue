@@ -12,18 +12,10 @@ export default  {
       ok: 'OK',
       back: '返回'
     },
-    drawer: {
-      ok: 'OK',
-      cancel: 'キャンセル'
-    },
     empty: {
       description: 'データなし',
     },
-    pop: {
-      ok: 'OK',
-      cancel: 'キャンセル'
-    },
-    modal: {
+    common: {
       ok: 'OK',
       cancel: 'キャンセル'
     },

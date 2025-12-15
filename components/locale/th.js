@@ -13,18 +13,10 @@ export default {
         ok: "ตกลง",
         back: "เบื้องหลัง",
       },
-      drawer: {
-        ok: "ตกลง",
-        cancel: "ยกเลิก",
-      },
       empty: {
         description: "ไม่พบข้อมูล",
       },
-      pop: {
-        ok: "ตกลง",
-        cancel: "ยกเลิก",
-      },
-      modal: {
+      common: {
         ok: "ตกลง",
         cancel: "ยกเลิก",
       },

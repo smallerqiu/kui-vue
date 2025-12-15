@@ -22,7 +22,7 @@ const bannerText = `/*!
 
 // build locales
 const locales = fs
-  .readdirSync(path.resolve("components/locale/lang"))
+  .readdirSync(path.resolve("components/locale"))
   .filter((f) => f.endsWith(".js"))
   .map((f) => f.replace(".js", ""));
 

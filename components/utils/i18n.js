@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import zhCN from './lang/zh-CN'
+import zhCN from '../locale/zh-CN'
 
 const state = Vue.observable({
   currentLang: 'zhCN',

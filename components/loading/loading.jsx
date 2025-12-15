@@ -1,5 +1,10 @@
-import { defineComponent, ref, /*createVNode,render, */ onBeforeUnmount, /*Transition*/ } from "vue";
-import { withInstall, createVNode, render } from '../utils/vue';
+import {
+  defineComponent,
+  ref,
+  /*createVNode,render, */ onBeforeUnmount /*Transition*/,
+  getCurrentInstance,
+} from "vue";
+import { withInstall, createVNode, render } from "../utils/vue";
 
 const loading = defineComponent({
   setup(ps, { expose }) {
@@ -71,7 +76,10 @@ const loading = defineComponent({
             ["k-loading-line-error"]: isError.value,
           },
         ],
-        style: { width: `${percent.value}%`, transitionDuration: !animate.value ? '0s' : null },
+        style: {
+          width: `${percent.value}%`,
+          transitionDuration: !animate.value ? "0s" : null,
+        },
       };
       return (
         <transition name="fade">
@@ -83,20 +91,20 @@ const loading = defineComponent({
     };
   },
 });
-const createInstance = (props = {}) => {
+const createInstance = (props = {}, context) => {
   const container = document.createElement("div");
   document.body.appendChild(container);
 
-  const vm = createVNode(loading, props);
+  const vm = createVNode(loading, props, context);
   render(vm, container);
-  return vm
+  return vm;
   // return vm.component?.exposed; //for 3
 };
 
 let loadInstance = null;
 
-const getInstance = (props = {}) => {
-  loadInstance = loadInstance || createInstance(props);
+const getInstance = (props = {}, context) => {
+  loadInstance = loadInstance || createInstance(props, context);
   return loadInstance;
 };
 
@@ -118,7 +126,9 @@ let Loading = {
     if (loadInstance) {
       loadInstance.destroy();
       loadInstance = null;
-      document.body.removeChild(document.querySelector(".k-loading-wrap")?.parentNode);
+      document.body.removeChild(
+        document.querySelector(".k-loading-wrap")?.parentNode
+      );
     }
   },
   install(app) {
@@ -128,8 +138,19 @@ let Loading = {
     app.prototype.$loading = Loading;
   },
   useLoading() {
-    // return inject("loading");
-    return Loading
+    const instance = getCurrentInstance();
+    const proxy = instance ? instance.proxy : null;
+    const loadingWrapper = {};
+
+    ["start", "finish", "error", "update"].forEach((type) => {
+      loadingWrapper[type] = (props = {}) => {
+        return getInstance(null, proxy);
+      };
+    });
+
+    loadingWrapper.destroy = Loading.destroy;
+
+    return loadingWrapper;
   },
 };
 export default withInstall(Loading);

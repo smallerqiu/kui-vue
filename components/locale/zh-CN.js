@@ -12,18 +12,10 @@ export default {
       ok: '确定',
       back: '返回'
     },
-    drawer: {
-      ok: '确定',
-      cancel: '取消'
-    },
     empty: {
       description: '暂无数据',
     },
-    pop: {
-      ok: '确定',
-      cancel: '取消'
-    },
-    modal: {
+    common: {
       ok: '确定',
       cancel: '取消'
     },

@@ -12,18 +12,10 @@ export default  {
       ok: 'OK',
       back: 'indietro'
     },
-    drawer: {
-      ok: 'OK',
-      cancel: 'Cancella'
-    },
     empty: {
       description: 'Nessun dato',
     },
-    pop: {
-      ok: 'OK',
-      cancel: 'Cancella'
-    },
-    modal: {
+    common: {
       ok: 'OK',
       cancel: 'Cancella'
     },
