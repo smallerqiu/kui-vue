@@ -48,6 +48,7 @@ export default function vitePluginMd() {
         "tree/demo/directory",
         "alert/demo/icon",
         "alert/demo/customIcon",
+        "views/language/demo",
       ];
       let direction = "horizontal";
       vertical_list.forEach((item) => {

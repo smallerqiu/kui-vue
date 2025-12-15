@@ -110,6 +110,9 @@ export { Rate };
 import { Select, Option } from "./select";
 export { Select, Option };
 
+import ConfigProvider from "./config";
+export { ConfigProvider };
+
 import {
   Skeleton,
   SkeletonAvatar,

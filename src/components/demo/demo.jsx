@@ -31,6 +31,7 @@ const Demo = defineComponent({
     };
 
     const renderCode = async () => {
+      return;
       clearTimeout(timer.value);
       timer.value = setTimeout(() => {
         parseCode(codeRef.value?.innerText, viewRef, props.id);
@@ -66,25 +67,27 @@ const Demo = defineComponent({
             contenteditable
             onInput={renderCode}
           >
-            <div class="k-code-tools">
-              <Badge status="success" text="实时编译成功" />
-              <Tooltip title="复制代码">
-                <Button
-                  type="text"
-                  size="small"
-                  icon={CopyOutline}
-                  onClick={copy}
-                />
-              </Tooltip>
-              <Tooltip title="重置代码">
+            {!vertical ? (
+              <div class="k-code-tools">
+                {/* <Badge status="success" text="实时编译成功" /> */}
+                <Tooltip title="复制代码">
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={CopyOutline}
+                    onClick={copy}
+                  />
+                </Tooltip>
+                {/* <Tooltip title="重置代码">
                 <Button
                   type="text"
                   size="small"
                   icon={Reload}
                   onClick={reload}
                 />
-              </Tooltip>
-            </div>
+              </Tooltip> */}
+              </div>
+            ) : null}
             <div ref={codeRef} class="k-code k-scroll">
               {slots.code?.()}
             </div>
@@ -123,7 +126,13 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button type="text" size="large" icon={CopyOutline} block onClick={copy} />
+                  <Button
+                    type="text"
+                    size="large"
+                    icon={CopyOutline}
+                    block
+                    onClick={copy}
+                  />
                 </Tooltip>
               </div>
             )}

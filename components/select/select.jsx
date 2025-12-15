@@ -70,7 +70,13 @@ const Select = defineComponent({
     arrowIcon: [String, Array],
   },
   setup(ps, { slots, emit, attrs, listeners }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
     const labelText = ref([]);
     const visible = ref(false);
@@ -468,7 +474,7 @@ const Select = defineComponent({
         const loadingNode = (
           <div class="k-select-loading">
             <Icon type={Loading} spin />
-            <span>{locale?.k.select.loading}</span>
+            <span>{locale?.value.k.select.loading}</span>
           </div>
         );
         overlay = (
@@ -481,7 +487,7 @@ const Select = defineComponent({
               ) : (
                 <Empty
                   onClick={emptyClick}
-                  description={locale?.k.select.emptyText}
+                  description={locale?.value.k.select.emptyText}
                 />
               )}
             </div>
@@ -537,7 +543,7 @@ const Select = defineComponent({
         </div>
       );
 
-      const placeholderText = placeholder || locale?.k.select.placeholder;
+      const placeholderText = placeholder || locale?.value.k.select.placeholder;
       const placeNode =
         placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
           <div class="k-select-placeholder">{placeholderText}</div>

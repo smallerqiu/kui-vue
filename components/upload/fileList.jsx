@@ -1,11 +1,11 @@
-import { ref, defineComponent, inject } from "vue";
+import { ref, defineComponent, inject, computed } from "vue";
 import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
 import zhCN from "../locale/lang/zh-CN";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
 
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export default defineComponent({
   name: "UploadFileList",
@@ -20,7 +20,13 @@ export default defineComponent({
     disabled: Boolean,
   },
   setup(ps, { emit, slots }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
     const defaultFileList = ref(ps.fileList || []);
 
@@ -60,8 +66,8 @@ export default defineComponent({
           {defaultFileList.value.map((item, i) => {
             let statusText =
               item.status == "success"
-                ? locale?.k.upload.successful
-                : item.errorText || locale?.k.upload.failed;
+                ? locale?.value.k.upload.successful
+                : item.errorText || locale?.value.k.upload.failed;
             delete item.errorText;
             item.uid = item.uid || uuid();
             return (
