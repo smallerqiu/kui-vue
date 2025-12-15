@@ -61,8 +61,8 @@ import VueI18n from "vue-i18n";
 import KUI from "kui-vue";
 Vue.use(VueI18n);
 
-import kui_en from "kui-vue/components/locale/lang/en";
-import kui_zh from "kui-vue/components/locale/lang/zh-CN";
+import kui_en from "kui-vue/components/locale/en";
+import kui_zh from "kui-vue/components/locale/zh-CN";
 
 //Others
 let zh = { hello: "你好" };

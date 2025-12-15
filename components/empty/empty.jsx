@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { FileTrayOutline } from "kui-icons";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { defineComponent, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
 const Empty = defineComponent({
@@ -11,7 +11,6 @@ const Empty = defineComponent({
     imageStyle: Object,
   },
   setup(ps, { slots }) {
-    let { image, imageStyle, description } = ps;
     const injectedLocale = inject("locale", zhCN);
 
     const locale = computed(() => {
@@ -21,6 +20,7 @@ const Empty = defineComponent({
     });
 
     return () => {
+      let { image, imageStyle, description } = ps;
       return (
         <div class="k-empty">
           {!image && !slots.image ? (

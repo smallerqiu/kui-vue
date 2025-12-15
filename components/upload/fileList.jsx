@@ -1,6 +1,6 @@
 import { ref, defineComponent, inject, computed } from "vue";
 import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 import Progress from "../progress";

@@ -6,10 +6,11 @@ import {
   onMounted,
   computed,
   onUnmounted,
+  reactive,
   nextTick,
 } from "vue";
 import dayjs from "dayjs";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -104,6 +105,9 @@ const DatePicker = defineComponent({
           : injectedLocale) || zhCN
       );
     });
+    const local = () => {
+      return dayjs().localeData();
+    };
 
     // --- 状态定义 ---
     const isVisible = ref(false);
@@ -115,7 +119,6 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
     const refCtx = ref(null);
-    const local = dayjs().localeData();
     // console.log(local);
 
     // DOM 引用，用于滚动计算
@@ -603,7 +606,7 @@ const DatePicker = defineComponent({
     };
 
     const renderMonthTable = () => {
-      const months = local.monthsShort();
+      const months = local().monthsShort();
       return (
         <div class="k-picker-body">
           <div class="k-picker-month-body">
@@ -642,7 +645,7 @@ const DatePicker = defineComponent({
           type: "next",
         });
 
-      const weekDays = local.weekdaysMin();
+      const weekDays = local().weekdaysMin();
       return (
         <div class="k-picker-body">
           <div class="k-picker-weekdays">

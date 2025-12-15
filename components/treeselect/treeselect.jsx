@@ -2,7 +2,7 @@ import Icon from "../icon";
 import Empty from "../empty";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";

@@ -12,18 +12,10 @@ export default  {
       ok: 'Обрати',
       back: 'назад'
     },
-    drawer: {
-      ok: 'Обрати',
-      cancel: 'Відміна'
-    },
     empty: {
       description: 'Немає даних',
     },
-    pop: {
-      ok: 'Обрати',
-      cancel: 'Відміна'
-    },
-    modal: {
+    common: {
       ok: 'Обрати',
       cancel: 'Відміна'
     },

@@ -9,7 +9,7 @@ import {
   AlertCircle,
   HelpCircle,
 } from "kui-icons";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 export default defineComponent({
   name: "Toast",
   props: {
@@ -108,7 +108,7 @@ export default defineComponent({
       //footer
       let footerNode = [
         <Button type="primary" loading={loading.value} onClick={ok}>
-          {okText || locale?.value.k.modal.ok}
+          {okText || locale?.value.k.common.ok}
         </Button>,
       ];
 
@@ -116,7 +116,7 @@ export default defineComponent({
         footerNode.unshift(
           <Button onClick={cancel}>
             {" "}
-            {cancelText || locale?.value.k.modal.cancel}
+            {cancelText || locale?.value.k.common.cancel}
           </Button>
         );
       }

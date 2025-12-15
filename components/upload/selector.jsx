@@ -1,5 +1,5 @@
 import { ref, defineComponent, inject, computed } from "vue";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { v4 as uuid } from "uuid";
 
 export default defineComponent({

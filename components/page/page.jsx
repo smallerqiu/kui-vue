@@ -10,7 +10,7 @@ import {
 import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
 import { withInstall } from "../utils/vue";
 
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 const Page = defineComponent({
   name: "Page",
   props: {

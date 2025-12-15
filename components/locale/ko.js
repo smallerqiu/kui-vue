@@ -12,18 +12,10 @@ export default  {
       ok: '확인',
       back: '되돌아오다'
     },
-    drawer: {
-      ok: '확인',
-      cancel: '취소'
-    },
     empty: {
       description: '데이터 없음',
     },
-    pop: {
-      ok: '확인',
-      cancel: '취소'
-    },
-    modal: {
+    common: {
       ok: '확인',
       cancel: '취소'
     },

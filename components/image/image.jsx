@@ -5,12 +5,13 @@ import {
   onBeforeUnmount,
   watch,
   inject,
+  computed,
 } from "vue";
 import Icon from "../icon";
 import newInstance from "./instance";
 import { Loading, IconImage, EyeOutline } from "kui-icons";
 import { withInstall } from "../utils/vue";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 
 const KImage = defineComponent({
   name: "KImage",

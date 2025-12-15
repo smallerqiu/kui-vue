@@ -12,18 +12,10 @@ export default  {
       ok: 'Ok',
       back: 'Back'
     },
-    drawer: {
-      ok: 'Ok',
-      cancel: 'Cancel'
-    },
     empty: {
       description: 'No Data'
     },
-    pop: {
-      ok: 'Ok',
-      cancel: 'Cancel'
-    },
-    modal: {
+    common: {
       ok: 'Ok',
       cancel: 'Cancel'
     },

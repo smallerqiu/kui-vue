@@ -1,5 +1,5 @@
 import pkg from "../package.json";
-import locale from "./locale";
+import locale from "./utils/i18n";
 
 import * as components from "./components";
 import "./styles/index.less";

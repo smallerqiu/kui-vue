@@ -12,18 +12,10 @@ export default  {
       ok: 'Εντάξει',
       back: 'πίσω'
     },
-    drawer: {
-      ok: 'Εντάξει',
-      cancel: 'Ακύρωση'
-    },
     empty: {
       description: 'Χωρίς δεδομένα',
     },
-    pop: {
-      ok: 'Εντάξει',
-      cancel: 'Ακύρωση'
-    },
-    modal: {
+    common: {
       ok: 'Εντάξει',
       cancel: 'Ακύρωση'
     },

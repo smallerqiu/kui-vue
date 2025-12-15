@@ -11,7 +11,7 @@ import {
   /*Transition,*/ onBeforeMount,
   inject,
 } from "vue";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
@@ -192,8 +192,8 @@ const Modal = defineComponent({
           </transition>
         );
       }
-      let okText = ps.okText || locale?.value.k.modal.ok;
-      let cancelText = ps.cancelText || locale?.value.k.modal.cancel;
+      let okText = ps.okText || locale?.value.k.common.ok;
+      let cancelText = ps.cancelText || locale?.value.k.common.cancel;
       //content
       let contentNode = slots.content?.();
       if (!contentNode) {
