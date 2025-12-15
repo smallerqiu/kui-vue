@@ -12,10 +12,10 @@ Router.prototype.push = function push(location) {
 
 let children = [
 	{ path: '/start/getting-started', component: () => import('./views/start.md') },
-	{ path: '/start/language', component: () => import('./views/i18n.md') },
+	{ path: '/start/language', component: () => import('./views/language/index') },
 	{ path: '/start/logs', component: () => import('./views/log.md') },
 	{ path: '/start/ssr', component: () => import('./views/ssr.md') },
-	{ path: '/start/theme', component: () => import('./views/theme.md') },
+	// { path: '/start/theme', component: () => import('./views/theme.md') },
 	{ path: '/start/dark-mode', component: () => import('./views/dark-mode/index') },
 	{ path: '/start/components', component: () => import('./views/all.jsx') },
 	

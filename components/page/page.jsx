@@ -7,7 +7,7 @@ import {
   Ellipsis,
   ChevronDoubleForward,
 } from "kui-icons";
-import { ref, defineComponent, watch, inject, nextTick } from "vue";
+import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
 import { withInstall } from "../utils/vue";
 
 import zhCN from "../locale/lang/zh-CN";
@@ -33,12 +33,16 @@ const Page = defineComponent({
     // todo: select
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
-    const pcount = Math.ceil(ps.total / ps.pageSize) || 1;
-    const pageCount = ref(pcount);
+    const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
     const defaultPage = ref(ps.current);
     const defaultPageSize = ref(ps.pageSize);
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
 
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     watch(
       () => ps.pageSize,
       (v) => {
@@ -236,7 +240,7 @@ const Page = defineComponent({
           size: ps.size,
           clearable: false,
           options: ps.sizeData.map((s) => {
-            return { value: s, label: `${s}${locale?.k.page.pageSize}` };
+            return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
           }),
           disabled: ps.disabled,
         },
@@ -288,9 +292,9 @@ const Page = defineComponent({
       };
       return ps.showElevator ? (
         <div class="k-page-options">
-          <span>{locale?.k.page.goto}</span>
+          <span>{locale?.value.k.page.goto}</span>
           <Input {...prop} />
-          <span>{locale?.k.page.page}</span>
+          <span>{locale?.value.k.page.page}</span>
         </div>
       ) : null;
     };
@@ -324,7 +328,8 @@ const Page = defineComponent({
         totalNode = ps.showTotal ? (
           <div class="k-page-number">
             <span>
-              {locale?.k.page.total} {ps.total} {locale?.k.page.items}
+              {locale?.value.k.page.total} {ps.total}{" "}
+              {locale?.value.k.page.items}
             </span>
           </div>
         ) : null,

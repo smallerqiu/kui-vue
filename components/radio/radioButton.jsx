@@ -40,7 +40,7 @@ const RadioButton = defineComponent({
 
     const labelText = props.label || slots.default?.();
     const handleClick = (e) => {
-      if (props.disabled) return;
+      if (props.disabled || isChecked.value) return;
 
       const checked = !isChecked.value;
 

@@ -1,8 +1,14 @@
 import Modal from "./modal.jsx";
 import Icon from "../icon";
 import { Button } from "../button";
-import { defineComponent, ref, inject } from "vue";
-import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, HelpCircle } from "kui-icons";
+import { defineComponent, ref, inject, computed } from "vue";
+import {
+  InformationCircle,
+  CloseCircle,
+  CheckmarkCircle,
+  AlertCircle,
+  HelpCircle,
+} from "kui-icons";
 import zhCN from "../locale/lang/zh-CN";
 export default defineComponent({
   name: "Toast",
@@ -17,17 +23,29 @@ export default defineComponent({
     onCancel: Function,
     type: {
       validator(value) {
-        return ["info", "success", "error", "warning", "confirm"].includes(value);
+        return ["info", "success", "error", "warning", "confirm"].includes(
+          value
+        );
       },
       default: "info",
     },
   },
   setup(ps, { expose, emit }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const loading = ref(false);
     const visible = ref(false);
     const isPromise = (obj) => {
-      return !!obj && (typeof obj === "object" || typeof obj === "function") && typeof obj.then === "function";
+      return (
+        !!obj &&
+        (typeof obj === "object" || typeof obj === "function") &&
+        typeof obj.then === "function"
+      );
     };
     const show = () => {
       visible.value = true;
@@ -50,7 +68,7 @@ export default defineComponent({
           .then((e) => {
             hide();
           })
-          .catch((e) => { });
+          .catch((e) => {});
       } else {
         hide();
       }
@@ -74,7 +92,13 @@ export default defineComponent({
       //header
       let header = (
         <div class="k-toast-header">
-          {type || icon ? <Icon class="k-toast-icon" type={icon || icons[type]} color={color} /> : null}
+          {type || icon ? (
+            <Icon
+              class="k-toast-icon"
+              type={icon || icons[type]}
+              color={color}
+            />
+          ) : null}
           <div class="k-toast-title">{title}</div>
         </div>
       );
@@ -84,12 +108,17 @@ export default defineComponent({
       //footer
       let footerNode = [
         <Button type="primary" loading={loading.value} onClick={ok}>
-          {okText || locale?.k.modal.ok}
+          {okText || locale?.value.k.modal.ok}
         </Button>,
       ];
 
       if (type == "confirm") {
-        footerNode.unshift(<Button onClick={cancel}> {cancelText || locale?.k.modal.cancel}</Button>);
+        footerNode.unshift(
+          <Button onClick={cancel}>
+            {" "}
+            {cancelText || locale?.value.k.modal.cancel}
+          </Button>
+        );
       }
       let footer = <div class="k-toast-footer">{footerNode}</div>;
 
@@ -110,7 +139,8 @@ export default defineComponent({
           // v-slots={{ //for 3
           scopedSlots={{
             content: () => [header, body, footer],
-          }}></Modal>
+          }}
+        ></Modal>
       );
     };
   },

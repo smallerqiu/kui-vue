@@ -96,7 +96,15 @@ const DatePicker = defineComponent({
   emits: ["change"],
 
   setup(props, { emit, slots }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+    const locale = computed(() => {
+      return (
+        (injectedLocale instanceof Object && "value" in injectedLocale
+          ? injectedLocale.value
+          : injectedLocale) || zhCN
+      );
+    });
+
     // --- 状态定义 ---
     const isVisible = ref(false);
     const isFocus = ref(false);
@@ -130,16 +138,6 @@ const DatePicker = defineComponent({
     // Range 模式下，当前时间面板编辑的是哪一端: 'start' | 'end'
     const timeEditSide = ref("start");
     const isRange = computed(() => props.mode.includes("Range"));
-
-    const localPlaceholders = {
-      year: locale?.k.datePicker.selectYear,
-      month: locale?.k.datePicker.selectMonth,
-      date: locale?.k.datePicker.selectDate,
-      dateTime: locale?.k.datePicker.selectDate,
-      time: locale?.k.datePicker.selectTime,
-      startDate: locale?.k.datePicker.startDate,
-      endDate: locale?.k.datePicker.endDate,
-    };
 
     const formatOutputValue = (dayjsVal) => {
       if (!dayjsVal) return null;
@@ -201,11 +199,10 @@ const DatePicker = defineComponent({
       if (v === "time") scrollToCurrentTime();
     });
 
-    // --- 值同步 ---
     const syncTextFromValue = () => {
       const fmt = getFormat();
 
-      // 情况1: 空值
+      //  空值
       if (!innerValue.value) {
         textValue.value = "";
         textValueStart.value = "";
@@ -213,7 +210,7 @@ const DatePicker = defineComponent({
         return;
       }
 
-      // 情况2: Range 模式
+      //  Range 模式
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
         textValueStart.value = start ? start.format(fmt) : "";
@@ -223,7 +220,7 @@ const DatePicker = defineComponent({
           .map((d) => (d ? d.format(fmt) : ""))
           .join(" - ");
       }
-      // 情况3: 单选模式
+      //   单选模式
       else {
         textValue.value = innerValue.value.format(fmt);
       }
@@ -847,6 +844,15 @@ const DatePicker = defineComponent({
     );
 
     return () => {
+      const localPlaceholders = {
+        year: locale?.value.k.datePicker.selectYear,
+        month: locale?.value.k.datePicker.selectMonth,
+        date: locale?.value.k.datePicker.selectDate,
+        dateTime: locale?.value.k.datePicker.selectDate,
+        time: locale?.value.k.datePicker.selectTime,
+        startDate: locale?.value.k.datePicker.startDate,
+        endDate: locale?.value.k.datePicker.endDate,
+      };
       const classes = [
         "k-datepicker",
         { "k-datepicker-opened": isFocus.value },

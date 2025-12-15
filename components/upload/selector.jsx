@@ -1,6 +1,6 @@
-import { ref, defineComponent, inject } from "vue";
+import { ref, defineComponent, inject, computed } from "vue";
 import zhCN from "../locale/lang/zh-CN";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export default defineComponent({
   name: "Selector",
@@ -26,7 +26,13 @@ export default defineComponent({
     },
   },
   setup(ps, { emit, slots }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const dragOver = ref(false);
     const uploadFileRef = ref(null);
     const defaultFileList = ref(ps.fileList || []);
@@ -87,7 +93,7 @@ export default defineComponent({
           (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
         ) {
           error = true;
-          item.errorText = locale?.k.upload.errorFileSize;
+          item.errorText = locale?.value.k.upload.errorFileSize;
           item.status = "error";
         }
 

@@ -35,7 +35,13 @@ const KImage = defineComponent({
 
     const preview = ref();
     const ImageGroup = inject("ImageGroup", null);
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
     // global api
     const togglePanel = () => {
@@ -221,7 +227,7 @@ const KImage = defineComponent({
           {!loading.value && !error.value ? (
             <div class="k-image-preview-mask">
               <Icon type={EyeOutline} />
-              {locale?.k.image.preview}
+              {locale?.value.k.image.preview}
             </div>
           ) : null}
           {slots.default?.()}

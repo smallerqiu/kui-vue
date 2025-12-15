@@ -7,6 +7,7 @@ import {
   watch,
   onMounted,
   nextTick,
+  computed,
   /*Transition,*/ onBeforeMount,
   inject,
 } from "vue";
@@ -47,7 +48,13 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const escToClose = (event) => {
       if (event.key === "Escape") {
         close();
@@ -185,8 +192,8 @@ const Modal = defineComponent({
           </transition>
         );
       }
-      let okText = ps.okText || locale?.k.modal.ok;
-      let cancelText = ps.cancelText || locale?.k.modal.cancel;
+      let okText = ps.okText || locale?.value.k.modal.ok;
+      let cancelText = ps.cancelText || locale?.value.k.modal.cancel;
       //content
       let contentNode = slots.content?.();
       if (!contentNode) {
