@@ -6,10 +6,12 @@ import {
   inject,
   toRefs,
   reactive,
+  computed,
 } from "vue";
 import { Row, Col } from "../grid";
 import { getChildren } from "../utils/element";
 import { cloneVNode, isVNode } from "../utils/vue";
+import zhCN from "../locale/zh-CN";
 
 export default defineComponent({
   name: "FormItem",
@@ -21,6 +23,14 @@ export default defineComponent({
     rules: [Array, Object],
   },
   setup(props, { emit, slots }) {
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
+
     const valid = ref(true);
     const message = ref("");
 
@@ -38,7 +48,12 @@ export default defineComponent({
             itemValue !== undefined &&
             itemValue !== "" &&
             itemValue !== false;
-        msg = msg || "This field is required";
+        msg =
+          msg ||
+          locale.value?.k.form.required.replace(
+            "{label}",
+            props.label || props.prop
+          );
       } else {
         if (rule.pattern) {
           isValid = rule.pattern.test(itemValue);
@@ -48,15 +63,28 @@ export default defineComponent({
               isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
                 itemValue
               );
-              msg = msg || "Incorrect email format";
+              msg = msg || locale.value?.k.form.email;
               break;
             case "mobile":
               isValid = /^[1][3-9][0-9]{9}$/.test(itemValue);
-              msg = msg || "Incorrect mobile phone number format";
+              msg = msg || locale.value?.k.form.mobile;
               break;
             case "number":
               isValid = /^(-?\d+)(\.\d+)?$/.test(itemValue);
-              msg = msg || "Incorrect number format";
+              if (isValid) {
+                if (rule.min !== undefined && itemValue < rule.min) {
+                  isValid = false;
+                  msg =
+                    msg ||
+                    locale.value?.k.form.num_min.replace("{min}", rule.min);
+                } else if (rule.max !== undefined && itemValue > rule.max) {
+                  isValid = false;
+                  msg =
+                    msg ||
+                    locale.value?.k.form.num_max.replace("{max}", rule.max);
+                }
+              }
+              msg = msg || locale.value?.k.form.number;
               break;
             default:
               break;
@@ -69,15 +97,15 @@ export default defineComponent({
             }
           });
         } else if (rule.min !== undefined || rule.max !== undefined) {
-          const _type = typeof itemValue;
+          const valueType = typeof itemValue;
 
           if (rule.min !== undefined) {
             if (Array.isArray(itemValue)) {
               isValid = itemValue.length >= rule.min;
-            } else if (_type === "string") {
+            } else if (valueType === "string") {
               isValid =
                 itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
-            } else if (_type === "number") {
+            } else if (valueType === "number") {
               isValid = itemValue >= rule.min;
             }
           }
@@ -85,10 +113,10 @@ export default defineComponent({
           if (rule.max !== undefined && isValid) {
             if (Array.isArray(itemValue)) {
               isValid = itemValue.length <= rule.max;
-            } else if (_type === "string") {
+            } else if (valueType === "string") {
               isValid =
                 itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
-            } else if (_type === "number") {
+            } else if (valueType === "number") {
               isValid = itemValue <= rule.max;
             }
           }

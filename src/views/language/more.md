@@ -11,7 +11,7 @@
 - 韩语(ko)
 - 俄语(ru)
 - 泰语(th)
-- 乌克兰语(ua)
+- 乌克兰语(uk)
 - 越南语(vi)
 
 欢迎贡献代码，以支持更多语言。[Join](https://gitee.com/chuchur/kui-vue/tree/master/components/locale/lang)

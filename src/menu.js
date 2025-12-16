@@ -17,7 +17,7 @@ const navData = [
         icon: "language",
       },
       { title: "更新日志", sub: "Update Log", name: "logs", icon: "logs" },
-      { title: "定制主题", sub: "Themes", name: "theme", icon: "theme" },
+      // { title: "定制主题", sub: "Themes", name: "theme", icon: "theme" },
       { title: "暗色模式", sub: "Dark Mode", name: "dark-mode", icon: "dark" },
       {
         title: "组件总览",
@@ -104,7 +104,7 @@ const navData = [
   },
   {
     title: "数据展示",
-    key: "datas",
+    key: "data",
     children: [
       { title: "头像", sub: "Avatar", name: "avatar", icon: "avatar" },
       { title: "卡片", sub: "Card", name: "card", icon: "card" },

@@ -114,21 +114,16 @@ export function cloneVNode(vnode, props = {}, merge = true, child) {
         vNodeProps[key] = { ...vNodeProps[key], ...props[key] };
       }
     }
-    // merge event
-    // let nEven = { ...props.on };
-    // let oEven = { ...vNodeProps.on }
-
-    // for (let eKey in nEven) {
-    //   nEven[eKey] = (e) => {
-    //     props.on[eKey](e)
-    //     oEven[eKey] && oEven[eKey](e)
-    //   }
-    // }
-    // vNodeProps.on = { ...oEven, ...nEven }
   }
-  // console.log(vNodeProps, props,);
-  // console.log('children', children, vnode);
-  return h(tag, vNodeProps, children);
+  const cloned = h(tag, vNodeProps, children);
+
+  cloned.context = vnode.context; //fix: inject context
+
+  if (vNodeProps.scopedSlots) {
+      cloned.data.scopedSlots = vNodeProps.scopedSlots;
+  }
+
+  return cloned;
 }
 
 export function isVNode(node) {

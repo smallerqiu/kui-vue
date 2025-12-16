@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:512px">
+  <div style="max-width:512px">
     <Form
       name="withmodal"
       :model="group"

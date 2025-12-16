@@ -18,6 +18,7 @@ const Page = defineComponent({
     showSizer: Boolean,
     showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
+    theme: String,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
       default: "default",
@@ -239,6 +240,7 @@ const Page = defineComponent({
           value: defaultPageSize.value,
           size: ps.size,
           clearable: false,
+          theme: ps.theme,
           options: ps.sizeData.map((s) => {
             return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
           }),
@@ -259,6 +261,7 @@ const Page = defineComponent({
         class: "k-page-options-elevator",
         props: {
           size,
+          theme: ps.theme,
           disabled: ps.disabled,
         },
         // value: defaultPage.value,
@@ -301,7 +304,11 @@ const Page = defineComponent({
     return () => {
       const classes = [
           "k-page",
-          { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
+          {
+            ["k-page-sm"]: ps.size == "small",
+            "k-page-light": ps.theme == "light",
+            "k-page-disabled": ps.disabled,
+          },
         ],
         preNode = (
           <li

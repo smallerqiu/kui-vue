@@ -6,16 +6,17 @@
 ```vue
 <template>
   <Space vertical>
-    <Button @click="noticeApi('info')">消息提示 </Button>
-    <Button @click="noticeApi('warning')">警告提示 </Button>
-    <Button @click="noticeApi('success')">成功提示 </Button>
-    <Button @click="noticeApi('error')">错误提示 </Button>
+    <Button @click="openNotice('info')">消息提示 </Button>
+    <Button @click="openNotice('warning')">警告提示 </Button>
+    <Button @click="openNotice('success')">成功提示 </Button>
+    <Button @click="openNotice('error')">错误提示 </Button>
   </Space>
 </template>
 <script setup>
 import { notice } from "kui-vue";
-const noticeApi = (type) => {
-  notice[type]({
+const noticeApi = notice.useNotice();
+const openNotice = (type) => {
+  noticeApi[type]({
     title: "通知的标题",
     content: "通知的描述",
     duration: 5,

@@ -20,7 +20,7 @@
           class="left-menu"
           mode="inline"
           :open-keys="openKeys"
-          @click="go"
+          @select="go"
         >
           <SubMenu
             v-for="item in navData"
@@ -118,8 +118,9 @@ const link = (e, t) => {
   setActiveKey({ path });
 };
 const go = ({ key, keyPath }) => {
-  let [m, n] = keyPath;
-  let path = `/${m}/${n}`;
+  // console.log(key, keyPath);
+  let [n] = keyPath;
+  let path = `/${n}/${key}`;
   proxy.$router.push(path);
   setActiveKey({ path });
   showMiniNav.value = false;
