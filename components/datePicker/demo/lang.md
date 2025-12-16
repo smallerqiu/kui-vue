@@ -14,7 +14,7 @@ DatePicker 支持多语言。依赖 `dayjs`.
   </Space>
 </template>
 <script setup>
-import en from "kui-vue/locale/lang/en";
+import en from "kui-vue/locale/en";
 import { ref } from "vue";
 import dayjs from "dayjs";
 const value = ref("2021-01-01 20:20:20");

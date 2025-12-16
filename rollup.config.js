@@ -27,7 +27,7 @@ const locales = fs
   .map((f) => f.replace(".js", ""));
 
 const localesConfig = locales.map((lang) => ({
-  input: `components/locale/lang/${lang}.js`,
+  input: `components/locale/${lang}.js`,
   output: {
     file: `dist/locale/${lang}.js`,
     format: "umd",
