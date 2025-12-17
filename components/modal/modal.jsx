@@ -7,10 +7,11 @@ import {
   watch,
   onMounted,
   nextTick,
+  computed,
   /*Transition,*/ onBeforeMount,
   inject,
 } from "vue";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
@@ -47,7 +48,13 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const escToClose = (event) => {
       if (event.key === "Escape") {
         close();
@@ -95,7 +102,8 @@ const Modal = defineComponent({
           nextTick((e) => {
             visible.value = value;
             showInner.value = value;
-            emit("update:show", true);
+            // emit("update:show", true); // for 3
+            emit("input", true);
             nextTick(() => {
               updateOrigin();
             });
@@ -105,7 +113,8 @@ const Modal = defineComponent({
           setTimeout(() => {
             showInner.value = false;
           }, 300);
-          emit("update:show", false);
+          // emit("update:show", false);// for 3
+          emit("input", false); // for 2
         }
       }
     };
@@ -183,8 +192,8 @@ const Modal = defineComponent({
           </transition>
         );
       }
-      let okText = ps.okText || locale?.k.modal.ok;
-      let cancelText = ps.cancelText || locale?.k.modal.cancel;
+      let okText = ps.okText || locale?.value.k.common.ok;
+      let cancelText = ps.cancelText || locale?.value.k.common.cancel;
       //content
       let contentNode = slots.content?.();
       if (!contentNode) {

@@ -2,9 +2,18 @@ import { Button } from "../button";
 import Icon from "../icon";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
-import { defineComponent, inject, nextTick, ref, /*Transition,*/ watch, onMounted, onBeforeUnmount } from "vue";
-import zhCN from "../locale/lang/zh-CN";
-import { withInstall } from '../utils/vue';
+import {
+  defineComponent,
+  inject,
+  nextTick,
+  ref,
+  /*Transition,*/ watch,
+  onMounted,
+  onBeforeUnmount,
+  computed,
+} from "vue";
+import zhCN from "../locale/zh-CN";
+import { withInstall } from "../utils/vue";
 
 const Drawer = defineComponent({
   name: "Drawer",
@@ -27,7 +36,13 @@ const Drawer = defineComponent({
     escKey: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     const rendered = ref(ps.value); // for 2
     // const rendered = ref(ps.show); // for 3
     const visible = ref(ps.value);
@@ -45,7 +60,10 @@ const Drawer = defineComponent({
 
     onMounted(() => {
       if (!window.__kui_body_style) {
-        window.__kui_body_style = { overflowY: document.body.style.overflowY, paddingRight: document.body.style.paddingRight };
+        window.__kui_body_style = {
+          overflowY: document.body.style.overflowY,
+          paddingRight: document.body.style.paddingRight,
+        };
       }
       ps.escKey && document.addEventListener("keydown", escToClose);
     });
@@ -55,7 +73,8 @@ const Drawer = defineComponent({
 
     const lockScroll = (lock) => {
       if (lock) {
-        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        const scrollbarWidth =
+          window.innerWidth - document.documentElement.clientWidth;
         const hasScrollbar = scrollbarWidth > 0;
         if (hasScrollbar) {
           document.body.style.overflowY = "hidden";
@@ -106,7 +125,8 @@ const Drawer = defineComponent({
         }, 300);
       }
       lockScroll(visible.value);
-      emit("update:show", visible.value);
+      emit("update:show", visible.value); // for 3
+      emit("input", visible.value);
     };
 
     const close = () => {
@@ -120,12 +140,25 @@ const Drawer = defineComponent({
     };
 
     return () => {
-      const { title, cancelText, okText, placement, width, height, closable, loading } = ps;
+      const {
+        title,
+        cancelText,
+        okText,
+        placement,
+        width,
+        height,
+        closable,
+        loading,
+      } = ps;
       const hasFooter = ps.footer || slots.footer;
-      const cancelBtn = <Button onClick={cancel}>{cancelText || locale?.k.drawer.cancel}</Button>;
+      const cancelBtn = (
+        <Button onClick={cancel}>
+          {cancelText || locale?.value.k.common.cancel}
+        </Button>
+      );
       const okBtn = (
         <Button type="primary" onClick={ok} loading={loading}>
-          {okText || locale?.k.drawer.ok}
+          {okText || locale?.value.k.common.ok}
         </Button>
       );
       const footNode = hasFooter ? (
@@ -143,16 +176,29 @@ const Drawer = defineComponent({
       const transitionName = `k-drawer-${placement}`;
       const target = ps.target();
       const isBody = target == document.body;
-      const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-opened": opened.value }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !ps.mask }];
+      const classes = [
+        "k-drawer",
+        `k-drawer-${placement}`,
+        { "k-drawer-opened": opened.value },
+        { "k-drawer-has-footer": hasFooter },
+        { "k-drawer-nobody": !isBody },
+        { "k-drawer-nomask": !ps.mask },
+      ];
       let styles = {};
-      if (placement == "left" || placement == "right") styles.width = /%/.test(width) ? width : width + "px";
-      if (placement == "top" || placement == "bottom") styles.height = /%/.test(height) ? height : height + "px";
+      if (placement == "left" || placement == "right")
+        styles.width = /%/.test(width) ? width : width + "px";
+      if (placement == "top" || placement == "bottom")
+        styles.height = /%/.test(height) ? height : height + "px";
 
       let maskNode = null;
       if (ps.mask) {
         maskNode = (
           <transition name="k-drawer-fade">
-            <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]} v-show={visible.value} onClick={maskToClose}></div>
+            <div
+              class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]}
+              v-show={visible.value}
+              onClick={maskToClose}
+            ></div>
           </transition>
         );
       }

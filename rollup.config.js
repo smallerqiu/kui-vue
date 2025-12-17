@@ -22,12 +22,12 @@ const bannerText = `/*!
 
 // build locales
 const locales = fs
-  .readdirSync(path.resolve("components/locale/lang"))
+  .readdirSync(path.resolve("components/locale"))
   .filter((f) => f.endsWith(".js"))
   .map((f) => f.replace(".js", ""));
 
 const localesConfig = locales.map((lang) => ({
-  input: `components/locale/lang/${lang}.js`,
+  input: `components/locale/${lang}.js`,
   output: {
     file: `dist/locale/${lang}.js`,
     format: "umd",
@@ -107,9 +107,20 @@ export default [
         extensions: [".js", ".jsx", ".vue"],
         browser: true,
         preferBuiltins: false,
+        alias: {
+          vue: "vue/dist/vue.esm.js",
+        },
       }),
       commonjs({ include: "node_modules/**" }),
-      vue({ css: true }),
+      vue({
+        css: true,
+        compileTemplate: true, // 显式启用模板编译
+        template: {
+          isProduction: true, //process.env.NODE_ENV === "production",
+          optimizeSSR: false,
+        },
+        // isWebComponent: false,
+      }),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules/**",
@@ -126,8 +137,8 @@ export default [
           [
             "@vue/babel-preset-jsx",
             {
-              vModel: false,
               compositionAPI: true,
+              injectH: true
             },
           ],
         ],

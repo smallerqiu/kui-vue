@@ -45,7 +45,7 @@ suffix，prefix 扩展
         <TreeSelect
           :tree-data="treeData"
           clearable
-          style="width:200px"
+          style="width:100px"
         ></TreeSelect>
       </template>
     </Input>

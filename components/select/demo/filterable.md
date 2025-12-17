@@ -7,7 +7,7 @@
 <template>
   <Space vertical block>
     <span>单选过滤 :</span>
-    <Select v-model="vvv.a" block placeholder="单选过滤" filterable>
+    <Select v-model="value1" block placeholder="单选过滤" filterable>
       <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
     </Select>
     <br />
@@ -50,10 +50,7 @@
   </Space>
 </template>
 <script setup>
-import { ref, reactive } from "vue";
-const vvv = reactive({
-  a: "",
-});
+import { ref } from "vue";
 const value1 = ref("");
 const value2 = ref([]);
 const value3 = ref("");

@@ -7,6 +7,7 @@ import Presets from './presets.md'
 import Disabled from './disabled.md'
 import DisabledDate from './disabled-date.md'
 import Size from './size.md'
+import Lang from './lang.md'
 import CN from '../index.md'
 export default {
   render() {
@@ -21,6 +22,7 @@ export default {
         <Presets />
         <Theme />
         <Size />
+        <Lang />
         <CN />
       </div>
     )

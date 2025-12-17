@@ -27,9 +27,9 @@
           >
             <MenuItem key="1-1" :icon="Home"><span>首页</span></MenuItem>
             <MenuItem key="1-2" :icon="Heart"><span>数据统计</span></MenuItem>
-            <MenuItem key="1-3" :icon="Settings"
-              ><span>能源管理</span></MenuItem
-            >
+            <MenuItem key="1-3" :icon="Settings">
+              <span>能源管理</span>
+            </MenuItem>
           </Menu>
           <Button
             theme="light"
@@ -53,12 +53,12 @@
               </MenuItem>
             </Menu>
             <Page :current="1" :total="50" />
-            <div>
+            <Space>
               <Tag>标签1</Tag>
               <Tag>标签2</Tag>
               <Tag>标签3</Tag>
               <Tag closeable>标签4</Tag>
-            </div>
+            </Space>
             <div style="width:512px;">
               <Form
                 :labelCol="{ span: 5 }"
@@ -84,6 +84,9 @@
                 </FormItem>
                 <FormItem label="Input">
                   <Input placeholder="input..." />
+                </FormItem>
+                <FormItem label="InputNumber">
+                  <InputNumber placeholder="input..." />
                 </FormItem>
                 <FormItem label="Select">
                   <Select>

@@ -110,6 +110,7 @@ const Menu = defineComponent({
         }
       }
       emit("update:openKeys", defaultOpenKeys.value);
+      emit("openChange", defaultOpenKeys.value);
     };
     provide("openKeysChange", openKeysChange);
     provide("selectedKeysChange", selectedKeysChange);

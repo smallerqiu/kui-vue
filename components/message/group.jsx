@@ -62,7 +62,6 @@ export default defineComponent({
           props: { ...ps }
         }
         return <Notice {...props} />;
-        // return <Notice {...props} />;
       });
       return (
         <transition-group tag="div" class={`k-${type}`} {...transitionProps}>

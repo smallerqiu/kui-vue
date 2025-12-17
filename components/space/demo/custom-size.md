@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Slider v-model:value="size" :max="50" />
+    <Slider v-model="size" :max="50" />
     <Space :size="size">
       <Button type="primary">Primary</Button>
       <Button type="danger">Danger</Button>

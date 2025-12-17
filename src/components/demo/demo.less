@@ -2,10 +2,9 @@
   border: 1px solid var(--kui-color-border);
   margin: 10px 0;
   position: relative;
-  border-radius: 12px;
+  border-radius: 13px;
   transition: all 0.3s;
-  background-color: var(--kui-color-control-10);
-  // overflow: hidden;
+  background-color: var(--kui-color-back-10);
   .k-content,
   .k-desc {
     padding: 20px;
@@ -23,7 +22,7 @@
       font-size: 15px;
       font-weight: 600;
       // background: var(--kui-color-back);
-      background-color: var(--kui-color-control-10);
+      background-color: var(--kui-color-back-10);
       line-height: 1;
       padding: 5px 10px 5px 0;
     }
@@ -125,36 +124,22 @@
   .k-content {
     overflow: auto;
     min-height: 425px;
+    height: 425px;
   }
   .k-code-box {
     height: 425px;
     width: 60%;
     flex-shrink: 0;
     display: flex;
+    border-top-right-radius: 12px;
+    overflow: hidden;
     .k-code {
       display: flex;
       flex: 1px;
       overflow: auto;
       background-color: var(--kui-color-gray-90);
       border-radius: 0 12px 12px 0;
-      &::-webkit-scrollbar-track {
-        background: none;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: var(--kui-color-control-20);
-        border-radius: 10px;
-        cursor: grab;
-      }
-      &::-webkit-scrollbar-corner,
-      ::-webkit-resizer {
-        background: none;
-      }
-      &::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-        // background-color: red;
-        background: none;
-      }
+    
       pre {
         border-radius: 0 12px 12px 0;
         flex: 1;

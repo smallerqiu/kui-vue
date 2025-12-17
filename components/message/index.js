@@ -1,5 +1,4 @@
 import newInstance from "./instance";
-import { inject } from "vue";
 import { withInstall } from "../utils/vue";
 
 let messageInstance;
@@ -9,7 +8,7 @@ let Message = {
   show(options = {}) {
     options.noticeType = "message";
     if (!messageInstance) {
-      messageInstance = newInstance({ type: "message" });
+      messageInstance = newInstance({ props: { type: "message" } });
     }
     // console.log(messageInstance, options);
     messageInstance?.show(options);

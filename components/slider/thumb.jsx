@@ -34,7 +34,7 @@ export default defineComponent({
     const onKeydown = (e) => {
       if (ps.disabled) return;
       if (e.key.includes("Arrow")) {
-        emit("keydown-update", e, ps.type);
+        emit("keydownUpdate", e, ps.type);
         e.preventDefault();
       }
     };
@@ -155,11 +155,12 @@ export default defineComponent({
         props: {
           title: tip,
           show: showTip.value,
+          disabled: ps.disabled,
         },
       };
       return (
         <Tooltip {...tipProps}>
-          <div {...props}></div>
+          <div {...props} tabindex={0}></div>
         </Tooltip>
       );
     };

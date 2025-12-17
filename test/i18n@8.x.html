@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" theme-mode="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../dist/k-ui.css" />
     <script src="https://unpkg.com/vue@2.x"></script>
     <script src="https://unpkg.com/dayjs"></script>
-    <script src="https://unpkg.com/vue-i18n@8.x"></script>
+    <!-- <script src="https://unpkg.com/vue-i18n@8.x"></script> -->
     <script src="../dist/k-ui.umd.js?t=22"></script>
 
     <script src="../dist/locale/en.js"></script>
@@ -37,53 +37,25 @@
 
   <body>
     <div id="app">
-      <k-space>
-        <k-button @click="show">Click me!</k-button>
-        <k-date-picker mode="dateRange" v-model="date"></k-date-picker>
-        <k-select v-model="select" :options="options" filterable> </k-select>
-      </k-space>
-      <k-modal v-model="visible" title="Welcome" @ok="hide">
-        Welcome to use kui
-      </k-modal>
+      <k-config-provider :locale="locale">
+        <div>
+          <k-button @click="show">Click me!</k-button>
+          <k-date-picker></k-date-picker>
+          <k-modal v-model="visible" title="Welcome" @ok="hide">
+            Welcome to use kui
+          </k-modal>
+        </div>
+      </k-config-provider>
     </div>
   </body>
   <script>
-    let i18n = new VueI18n({
-      locale: "de", // set locale
-      messages: {
-        en: kui_lang_en,
-        zhCN: kui_lang_zhCN,
-        de: kui_lang_de,
-        ua: kui_lang_ua,
-      },
-    });
-    Vue.use(kui.default, { i18n });
+    Vue.use(kui.default);
 
     new Vue({
       el: "#app",
       data: {
-        date: [],
-        visible: true,
-        select: "",
-        options: [],
-      },
-      mounted() {
-        setTimeout(() => {
-          this.options = [
-            {
-              label: "Option 1",
-              value: "1",
-            },
-            {
-              label: "Option 2",
-              value: "2",
-            },
-            {
-              label: "Option 3",
-              value: "3",
-            },
-          ];
-        }, 2000);
+        visible: false,
+        locale: kui_lang_en,
       },
       methods: {
         show: function () {
@@ -91,13 +63,15 @@
           this.visible = true;
         },
         hide: function () {
-          this.visible = false;
+          //this.visible = false;
           this.$message.success("success");
         },
       },
+      mounted() {
+        setTimeout(() => {
+          this.locale = kui_lang_ua;
+        }, 2000);
+      },
     });
-    setTimeout(() => {
-      i18n.locale = "ua";
-    }, 2000);
   </script>
 </html>

@@ -409,24 +409,69 @@ const Table = defineComponent({
                 </td>
               )}
               {flattedColumns.value.map((col, colIndex) => {
-                let spanProps = { rowSpan: 1, colSpan: 1 };
-                if (col.rowSpan && rowIndex % col.rowSpan === 0)
-                  spanProps.rowSpan = col.rowSpan;
-                else if (col.rowSpan) return null;
-                if (col.colSpan) spanProps.colSpan = col.colSpan;
-                if (spanProps.rowSpan === 1) spanProps.rowSpan = null;
-                if (spanProps.colSpan === 1) spanProps.colSpan = null;
+                // 检查当前单元格是否应该渲染（未被其他单元格合并）
+                const shouldRenderCell = () => {
+                  // 检查水平方向是否被前面的单元格合并
+                  for (let i = 0; i < colIndex; i++) {
+                    const prevCol = flattedColumns.value[i];
+                    const prevColSpan =
+                      typeof prevCol.colSpan === "function"
+                        ? prevCol.colSpan(record, rowIndex) // 这里应该是 rowIndex
+                        : prevCol.colSpan;
 
-                for (let prevI = 0; prevI < colIndex; prevI++) {
-                  const prevCol = flattedColumns.value[prevI];
-                  if (prevCol.colSpan && prevI + prevCol.colSpan > colIndex)
-                    return null;
+                    // 如果前面的单元格跨越了当前单元格的位置，则当前单元格不应该渲染
+                    if (prevColSpan && i + prevColSpan > colIndex) {
+                      return false;
+                    }
+                  }
+
+                  // 检查垂直方向是否被上面的单元格合并
+                  for (let i = 0; i < rowIndex; i++) {
+                    const prevRecord = processedData.value[i];
+                    const prevRowSpan =
+                      typeof col.rowSpan === "function"
+                        ? col.rowSpan(prevRecord, i) // 这里应该是 i
+                        : col.rowSpan;
+
+                    if (prevRowSpan && i + prevRowSpan > rowIndex) {
+                      return false;
+                    }
+                  }
+
+                  return true;
+                };
+
+                // 如果不应该渲染，则返回null
+                if (!shouldRenderCell()) {
+                  return null;
+                }
+
+                // 计算当前单元格的跨行列属性
+                let attrs = {};
+
+                const colSpanValue =
+                  typeof col.colSpan === "function"
+                    ? col.colSpan(record, rowIndex) // 这里可能需要根据具体情况调整参数顺序
+                    : col.colSpan;
+
+                const rowSpanValue =
+                  typeof col.rowSpan === "function"
+                    ? col.rowSpan(record, rowIndex)
+                    : col.rowSpan;
+
+                // 只有当跨行列数大于1时才添加对应属性
+                if (colSpanValue > 1) {
+                  attrs.colspan = colSpanValue;
+                }
+
+                if (rowSpanValue > 1) {
+                  attrs.rowspan = rowSpanValue;
                 }
 
                 return (
                   <td
                     key={col.key}
-                    {...{ attrs: spanProps }}
+                    attrs={attrs}
                     class={getFixedClass(col, colIndex)}
                     style={fixedInfo.value.body[col.key]}
                   >
@@ -498,7 +543,7 @@ const Table = defineComponent({
       // Body 容器
       const bodyContent = (
         <div
-          class="k-table-body"
+          class="k-table-body k-scroll"
           ref={bodyWrapperRef}
           style={{
             overflowY: props.scroll.y ? "scroll" : "auto",

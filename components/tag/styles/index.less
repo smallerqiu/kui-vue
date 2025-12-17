@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-tag {
   display: inline-block;
@@ -13,7 +13,6 @@
   box-sizing: border-box;
   white-space: nowrap;
   vertical-align: middle;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   color: var(--kui-color-font);
@@ -30,12 +29,11 @@
     font-size: 18px;
     margin-left: 2px;
     color: var(--kui-sub-title);
-
+    cursor: pointer;
     &:hover {
       color: var(--kui-color-danger);
     }
   }
-
 
   &.k-tag-closeable {
     padding-right: 7px;
@@ -113,9 +111,10 @@
     background-color: var(--kui-color-lime-90);
   }
 }
-
-
-
+.k-tag-light {
+  border-color: transparent;
+  background-color: var(--kui-color-gray-80);
+}
 .k-tag-has-color {
   color: #fff;
   border-color: transparent;
@@ -124,8 +123,6 @@
     color: #fff;
   }
 }
-
-
 
 .k-tag-sm {
   height: 24px;
@@ -141,7 +138,7 @@
   }
 
   &.k-tag-circle {
-    border-radius: 10px;
+    border-radius: 16px;
   }
 }
 
@@ -161,7 +158,9 @@
     border-radius: 20px;
   }
 }
-
+.k-tag-hidden {
+  visibility: hidden;
+}
 @keyframes k-tag-zoom {
   from {
     opacity: 0;
@@ -175,9 +174,9 @@
 }
 
 .k-tag-enter-active {
-  animation: k-tag-zoom .2s ease-out;
+  animation: k-tag-zoom 0.2s ease-out;
 }
 
 .k-tag-leave-active {
-  animation: k-tag-zoom .2s ease-out reverse;
+  animation: k-tag-zoom 0.2s ease-out reverse;
 }

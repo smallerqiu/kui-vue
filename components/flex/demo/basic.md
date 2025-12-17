@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model:value="value">
+    <RadioGroup v-model="value">
       <Radio value="horizontal">horizontal</Radio>
       <Radio value="vertical">vertical</Radio>
     </RadioGroup>

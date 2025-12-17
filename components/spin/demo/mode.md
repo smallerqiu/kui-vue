@@ -14,7 +14,7 @@
     </Spin>
     <br />
     <br />
-    Loading state：<k-switch v-model:checked="spinning" />
+    Loading state：<k-switch v-model="spinning" />
     <br />
     <br />
     <RadioGroup v-model="mode">

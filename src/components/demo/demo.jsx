@@ -15,7 +15,7 @@ const Demo = defineComponent({
     id: String,
     direction: {
       type: String,
-      default: "vertical",
+      default: "horizontal",
     },
   },
   setup(props, { slots }) {
@@ -31,6 +31,7 @@ const Demo = defineComponent({
     };
 
     const renderCode = async () => {
+      return;
       clearTimeout(timer.value);
       timer.value = setTimeout(() => {
         parseCode(codeRef.value?.innerText, viewRef, props.id);
@@ -63,29 +64,31 @@ const Demo = defineComponent({
           <div
             v-show={expanded.value}
             class="k-code-box"
-            // contenteditable
-            // onInput={renderCode}
+            contenteditable
+            onInput={renderCode}
           >
-            {/* <div class="k-code-tools">
-              <Badge status="success" text="实时编译成功" />
-              <Tooltip title="复制代码">
-                <Button
-                  type="text"
-                  size="small"
-                  icon={CopyOutline}
-                  onClick={copy}
-                />
-              </Tooltip>
-              <Tooltip title="重置代码">
+            {!vertical ? (
+              <div class="k-code-tools">
+                {/* <Badge status="success" text="实时编译成功" /> */}
+                <Tooltip title="复制代码">
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={CopyOutline}
+                    onClick={copy}
+                  />
+                </Tooltip>
+                {/* <Tooltip title="重置代码">
                 <Button
                   type="text"
                   size="small"
                   icon={Reload}
                   onClick={reload}
                 />
-              </Tooltip>
-            </div> */}
-            <div ref={codeRef} class="k-code">
+              </Tooltip> */}
+              </div>
+            ) : null}
+            <div ref={codeRef} class="k-code k-scroll">
               {slots.code?.()}
             </div>
           </div>
@@ -103,7 +106,7 @@ const Demo = defineComponent({
           {/* {!vertical && descNode} */}
           <div class={classes}>
             <div class="k-demo-view">
-              <div class="k-content" ref={viewRef}>
+              <div class="k-content k-scroll" ref={viewRef}>
                 {slots.component?.()}
               </div>
               {/* {vertical && descNode} */}
@@ -123,7 +126,13 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button type="text" size="large" icon={CopyOutline} block onClick={copy} />
+                  <Button
+                    type="text"
+                    size="large"
+                    icon={CopyOutline}
+                    block
+                    onClick={copy}
+                  />
                 </Tooltip>
               </div>
             )}

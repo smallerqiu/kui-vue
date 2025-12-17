@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-page">
+  <Space vertical>
     <Page :current="current" :total="50" size="small" />
     <Page :current="current" :total="50" size="small" show-sizer />
     <Page
@@ -15,7 +15,7 @@
       show-elevator
       show-sizer
     />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
