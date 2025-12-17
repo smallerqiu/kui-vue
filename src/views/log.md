@@ -12,6 +12,38 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+## 3.6.0
+
+`2025-12-12`
+
+- 对所有组件都进行了重构 , 重新定义了一些属性
+- 移除了对i18n 的支持 , 多语言使用 `ConfigProvider`
+- 大部分组件都支持 `theme=light`
+- 完善聚焦模式, 友好支持无鼠标操作.
+
+`DatePicker`
+
+- 移除了双面板模式, 支持编辑框
+- 新增支持多种日期输出格式
+- 预设时间 `presets :[{label:'xxx',value:'xxx'}]` => `presets :[{label:'xxx',value:()=>'xxx'}]`
+
+`Dropdown`
+
+- slot `content` => `overlay`
+
+`Table`
+
+- 移除了单选模式
+- `width, height` => `scroll:{x , y}`
+
+`Menu`
+
+- event `client` => `select`
+
+`Page`
+
+- 移除事件 `pageSizeChange` 合并到 `change(page,pageSize)`
+
 ## 3.5.1
 
 `2025-11-2`
@@ -36,7 +68,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 `2024-11-28`
 
 - 修复Select数据问题
-  
+
 ## 3.4.8
 
 `2024-10-24`
@@ -53,7 +85,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - Input 扩展细节和可隐藏密码输入
 - InputNumber 扩展优化
 - 其它一细节优化
-  
+
 ## 3.4.6
 
 `2024-09-03`
@@ -70,7 +102,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - 增强Space组件细节,增加一些可控属性
 - 修复Slider 组件的change事件触发问题
 - 修复其它若干细节
-  
+
 ## 3.4.4
 
 `2024-07-23`
@@ -94,14 +126,14 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - 修复 Upload 上传失败监听问题
 - Image 优化预览和滚轮缩放
 - 其他各种细节
-  
+
 ## 3.4.1
 
 `2024-06-03`
 
 - 暗黑主题调整
 - Table组件 优化
-  
+
 ## 3.4.0
 
 `2024-06-02`
@@ -120,7 +152,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 `2024-05-09`
 
 - 细节优化
-  
+
 ## 3.3.10
 
 `2024-05-06`
@@ -133,7 +165,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 `2024-04-08`
 
 - 优化`Card`,`Table`组件细节
-  
+
 ## 3.3.8
 
 `2024-04-04`
@@ -204,7 +236,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - 完善 Image 组件下载图片的问题
 - 修复 Table 组件一些细节问题
 - 修复 Input TextArea 聚焦事件的触发问题
-  
+
 ## 3.3
 
 `2022-06-20`
@@ -355,7 +387,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - is-center => centered
 - can-move => draggable
 
- `Tree`
+`Tree`
 
 - 新增 `TreeNode` 组件，移除 `rende-content` 函数
 - 新增 `show-line` 属性，控制直线显示
@@ -394,15 +426,15 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 - 属性`buttontype` 更名为 `htmltype`
 
- `Checkbox`
+`Checkbox`
 
 - 完善文字居中，完善默认选中的问题
 
- `Radio`
+`Radio`
 
 - 完善文字居中，完善默认选中的问题
 
- `Switch`
+`Switch`
 
 - 完善文字居中，完善默认选中的问题
 
@@ -413,7 +445,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 `Tabs`
 
 - 修复子组件变化无法更新的bug
-- 修复在 `Modal` 组件内的一些问题  
+- 修复在 `Modal` 组件内的一些问题
 
 `Tooltip`
 
@@ -496,7 +528,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 - 修复一系列问题
 - Tree 新增自定义渲染节点
- `Table`
+  `Table`
 - 新增全选/反选
 - 新增自定义渲染表头
 - 新增 `Divider` 组件
@@ -506,7 +538,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 ## 3.0 Orange
 
- `2020-9-14`
+`2020-9-14`
 
 `Icon`
 
@@ -535,21 +567,21 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 - 重写 Input组件，分离出 `TextArea`
 
- `Select`
+`Select`
 
 - 重写 Select组件
 - 新增多选功能
 - 新增过滤滤
 - 新增异步查询
 
- `Datepicker`
+`Datepicker`
 
 - 重写 Datepicker组件
 - 新增大尺寸和尺寸模式
 - 新增选择色块
 - 优化一系列动画
 
- `Table`
+`Table`
 
 - 重写 Table组件
 - 新增可控的Header 和 Footer
@@ -561,7 +593,7 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 - 新增行可展开
 - 新增可嵌套子表格
 
- `Form`
+`Form`
 
 - 完善 动态校验规则
 
@@ -633,13 +665,13 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 ## 2.3.5
 
- `2019-10-17`
+`2019-10-17`
 
 - 👏 优化 `Modal` 关闭动画
 - 🐞 修复 `Select` 组件表单验证的问题
 - 💪 完善 `Table` `row-click` 冒泡不执行的问题
 
-## 
+##
 
 - 更多更新日志，请查看[V2版本](https://v2.k-ui.cn/#/log)
 
