@@ -20,6 +20,7 @@ import {
   onBeforeMount,
   onMounted,
   computed,
+  onBeforeUpdate,
   // cloneVNode,
 } from "vue";
 
@@ -97,11 +98,15 @@ const Select = defineComponent({
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
     const queryInputEventTimer = ref();
-
     const activeIndex = ref(-1);
 
     const reallySize = ref(0);
     const ctxFocused = ref(false);
+
+    // 只能说vue2 确实垃圾. 这因该是设计缺陷, 在v3里 这个问题得到了解决.
+    const slotUpdateTrigger = ref(0);
+
+
     watch(
       () => ps.placement,
       (v) => {
@@ -120,6 +125,10 @@ const Select = defineComponent({
       },
       { deep: true }
     );
+    onBeforeUpdate(() => {
+      slotUpdateTrigger.value++;
+      console.log(optionsData.value,labelText.value)
+    });
     watch(
       () => ps.value,
       (v) => {
@@ -282,6 +291,7 @@ const Select = defineComponent({
         labelText.value = [label];
         // toggle();
         visible.value = false;
+        emit("openChange", false);
         clearQuery();
         activeIndex.value = -1;
       }
@@ -290,7 +300,7 @@ const Select = defineComponent({
       emit("input", result);
 
       emit("change", result);
-      emit("select", value, label, selected);
+      emit("select", { value, label, selected });
     };
     const searchInput = (e) => {
       queryKey.value = e.target.value;
@@ -307,10 +317,12 @@ const Select = defineComponent({
             document.addEventListener("click", outsideClick);
             nextTick(() => {
               visible.value = true;
+              emit("openChange", true);
               updatePosition();
             });
           } else {
             visible.value = true;
+            emit("openChange", true);
             updatePosition();
           }
           emit("search", e);
@@ -365,11 +377,13 @@ const Select = defineComponent({
         document.addEventListener("click", outsideClick);
         nextTick(() => {
           visible.value = true;
+          emit("openChange", true);
           updatePosition();
           showQuery();
         });
       } else {
         visible.value = show || !visible.value;
+        emit("openChange", visible.value);
         if (visible.value) {
           updatePosition();
           showQuery();
@@ -385,6 +399,7 @@ const Select = defineComponent({
         .map((item) => item.label);
     };
     const optionsData = computed(() => {
+      slotUpdateTrigger.value;
       let { options, loading } = ps;
       if (loading) return [];
       if (!options) {
@@ -457,7 +472,12 @@ const Select = defineComponent({
       }
     };
     const showClear = computed(() => {
-      return ps.clearable && !ps.disabled && !isEmpty(currentValue.value);
+      return (
+        ps.clearable &&
+        !ps.disabled &&
+        !isEmpty(currentValue.value) &&
+        !isEmpty(labelText.value)
+      );
     });
     const renderOverlay = () => {
       const optionNodes = renderOptions();

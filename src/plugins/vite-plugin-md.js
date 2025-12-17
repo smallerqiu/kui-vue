@@ -29,7 +29,6 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
-      console.log(path);
       const vertical_list = [
         "table",
         "grid",
