@@ -70,16 +70,10 @@ Using a script tag for global use:
     <Button type="primary" @click="test">Primary</Button>
   </div>
 </template>
-<script>
-  export default {
-    data() {
-      return {};
-    },
-    methods: {
-      test() {
-        this.$message.info("Hello kui !");
-      },
-    },
+<script setup>
+  import { message } from "kui-vue";
+  const test = () => {
+    message.info("Hello kui !");
   };
 </script>
 ```

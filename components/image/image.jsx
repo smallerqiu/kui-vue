@@ -23,6 +23,7 @@ const KImage = defineComponent({
     height: [String, Number],
     width: [String, Number],
     placeholder: String,
+    data: Array,
     imgStyle: Object,
     showPanel: Boolean,
   },

@@ -13,7 +13,7 @@
     <DropdownButton>
       Dropdown
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item

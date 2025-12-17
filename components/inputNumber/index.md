@@ -15,4 +15,4 @@
 | suffix         | 自定义后缀                                                 | String,slot   | -      |
 | prefix         | 前缀内容                                                   | String,slot   | -      |
 | controls       | 是否显示增减按钮                                           | Boolean       | true   |
-| clearable      | 是否现示清除按钮                                           | Boolean       | false  |
+| clearable      | 是否显示清除按钮                                           | Boolean       | false  |

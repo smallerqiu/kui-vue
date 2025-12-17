@@ -7,13 +7,13 @@
 <template>
   <Space class="demo-color-picker" vertical>
     <Space>
-      <ColorPicker v-model="color1">
+      <ColorPicker v-model:value="color1">
         <Button type="primary">Open</Button>
       </ColorPicker>
       {{ color1 }}
     </Space>
     <Space>
-      <ColorPicker v-model="color2" trigger="hover">
+      <ColorPicker v-model:value="color2" trigger="hover">
         <Button type="primary">Hover</Button>
       </ColorPicker>
       {{ color2 }}

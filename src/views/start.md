@@ -112,7 +112,7 @@ import "kui-vue/components/button/style";
 ```html
 <template>
   <div>
-    <Button type="primary"></Button> ✅ 推荐
+    <button type="primary"></button> ✅ 推荐
     <k-button type="primary"></k-button> ✅
   </div>
 </template>
