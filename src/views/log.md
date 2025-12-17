@@ -44,6 +44,13 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 - 移除事件 `pageSizeChange` 合并到 `change(page,pageSize)`
 
+`Message ,Notice ,Modal`
+
+- Message `Message` => `message`
+- Notice `Notice` => `notice`
+- Modal `Modal` => `modal`
+- Message `Message.config` => `message.show`
+
 ## 3.5.1
 
 `2025-11-2`
