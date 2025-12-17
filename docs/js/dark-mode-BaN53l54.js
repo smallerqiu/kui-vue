@@ -1,0 +1,285 @@
+import{F as e,Gt as t,Ot as n,Pt as r,Wt as i,at as a,ct as o,j as s,pn as c,xt as l}from"./vue-B8LCe6Yo.js";import{i as u,m as d,o as f}from"./index-_kkE29nq.js";var p=d({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h1`,[e._v(`暗色模式`)]),t(`p`,[e._v(`3.2.5+ 版本 重新设计了 浅色模式和暗色模式, 可以更方便的切换, 并且支持局部范围使用暗色模式`)]),t(`h2`,{attrs:{id:`使用`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#使用`}},[e._v(`使用`)])]),t(`p`,[e._v(`3.2.5之后的版本暗色模式的切换是通过给 根元素节点 添加属性 [theme-mode='dark'] 来实现的 ,下面是例子:`)]),t(`pre`,[t(`code`,{staticClass:`hljs language-js`},[t(`span`,{staticClass:`hljs-keyword`},[e._v(`const`)]),e._v(` body = `),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`document`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`documentElement`)]),e._v(`;
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`if`)]),e._v(` (body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`hasAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`)) {
+  body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`removeAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`);
+} `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`else`)]),e._v(` {
+  body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`setAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`, `),t(`span`,{staticClass:`hljs-string`},[e._v(`"dark"`)]),e._v(`);
+}
+`)])])])}],!1,null,null,null,null).exports,m=d({__name:`mode`,setup(e){return{__sfc:!0,switchMode:e=>{f.info(`Current theme mode`),u.setThemeMode(e,e=>{f.info(`Current theme mode is ${e?`dark`:`light`}`)})}}}},function(){var e=this,t=e._self._c,n=e._self._setupProxy;return t(`Demo`,{attrs:{id:`k-0de62738`,direction:`vertical`},scopedSlots:e._u([{key:`component`,fn:function(){return[t(`Button`,{attrs:{theme:`light`},on:{click:n.switchMode}},[e._v(`切换主题`)])]},proxy:!0},{key:`description`,fn:function(){return[t(`h4`,[e._v(`切换主题`)]),t(`p`,[e._v(`简单的切换例子, 开箱即用`)])]},proxy:!0},{key:`code`,fn:function(){return[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`theme`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"light"`)]),e._v(` @`),t(`span`,{staticClass:`hljs-attr`},[e._v(`click`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"switchMode"`)]),e._v(`>`)]),e._v(`切换主题`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`script`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`setup`)]),e._v(`>`)]),t(`span`,{staticClass:`language-javascript`},[e._v(`
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`import`)]),e._v(` { theme, message } `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`from`)]),e._v(` `),t(`span`,{staticClass:`hljs-string`},[e._v(`"kui-vue"`)]),e._v(`;
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`const`)]),e._v(` `),t(`span`,{staticClass:`hljs-title function_`},[e._v(`switchMode`)]),e._v(` = (`),t(`span`,{staticClass:`hljs-params`},[e._v(`event`)]),e._v(`) => {
+  message.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`info`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v("`Current theme mode`")]),e._v(`);
+  theme.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`setThemeMode`)]),e._v(`(event, `),t(`span`,{staticClass:`hljs-function`},[e._v(`(`),t(`span`,{staticClass:`hljs-params`},[e._v(`isDark`)]),e._v(`) =>`)]),e._v(` {
+    message.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`info`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v("`Current theme mode is "),t(`span`,{staticClass:`hljs-subst`},[e._v("${isDark ? "),t(`span`,{staticClass:`hljs-string`},[e._v(`"dark"`)]),e._v(` : `),t(`span`,{staticClass:`hljs-string`},[e._v(`"light"`)]),e._v(`}`)]),e._v("`")]),e._v(`);
+  });
+};
+`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`script`)]),e._v(`>`)]),e._v(`
+`)])])]},proxy:!0}])})},[],!1,null,null,null,null).exports,h=d({},function(){var e=this;return e._self._c,e._m(0)},[function(){var e=this,t=e._self._c;return t(`div`,{staticClass:`markdown-body`},[t(`h2`,{attrs:{id:`主题跟随系统`,tabindex:`-1`}},[t(`a`,{staticClass:`header-anchor`,attrs:{href:`#主题跟随系统`}},[e._v(`主题跟随系统`)])]),t(`p`,[e._v(`macOS 下的系统主题可以通过 系统偏好设置 -> 通用 -> 外观 来配置。`)]),t(`p`,[e._v(`在浏览器 (Chrome >= 76, Safari >= 12.1) 中可以通过媒体查询来设定:`)]),t(`pre`,[t(`code`,{staticClass:`hljs language-css`},[t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.day`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#eee`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: black;
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.night`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#333`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: white;
+}
+
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`@media`)]),e._v(` (`),t(`span`,{staticClass:`hljs-attribute`},[e._v(`prefers-color-scheme`)]),e._v(`: dark) {
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.day`)]),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.dark-scheme`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#333`)]),e._v(`;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: white;
+  }
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.night`)]),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.dark-scheme`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: black;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#ddd`)]),e._v(`;
+  }
+}
+
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`@media`)]),e._v(` (`),t(`span`,{staticClass:`hljs-attribute`},[e._v(`prefers-color-scheme`)]),e._v(`: light) {
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.day`)]),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.light-scheme`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: white;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#555`)]),e._v(`;
+  }
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.night`)]),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.light-scheme`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#eee`)]),e._v(`;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: black;
+  }
+}
+`)])]),t(`p`,[e._v(`当然也可以通过JS 来监听 :`)]),t(`pre`,[t(`code`,{staticClass:`hljs language-js`},[t(`span`,{staticClass:`hljs-keyword`},[e._v(`const`)]),e._v(` monitor = `),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`window`)]),e._v(`.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`matchMedia`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"(prefers-color-scheme: dark)"`)]),e._v(`);
+
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`function`)]),e._v(` `),t(`span`,{staticClass:`hljs-title function_`},[e._v(`matchMode`)]),e._v(`(`),t(`span`,{staticClass:`hljs-params`},[e._v(`e`)]),e._v(`) {
+  `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`const`)]),e._v(` body = `),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`document`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`documentElement`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`if`)]),e._v(` (e.`),t(`span`,{staticClass:`hljs-property`},[e._v(`matches`)]),e._v(`) {
+    `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`if`)]),e._v(` (!body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`hasAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`)) {
+      body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`setAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`, `),t(`span`,{staticClass:`hljs-string`},[e._v(`"dark"`)]),e._v(`);
+    }
+  } `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`else`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`if`)]),e._v(` (body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`hasAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`)) {
+      body.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`removeAttribute`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme-mode"`)]),e._v(`);
+    }
+  }
+}
+
+`),t(`span`,{staticClass:`hljs-comment`},[e._v(`// monitor.addListener(matchMode); //旧的api已经废弃`)]),e._v(`
+monitor.`),t(`span`,{staticClass:`hljs-title function_`},[e._v(`addEventListener`)]),e._v(`(`),t(`span`,{staticClass:`hljs-string`},[e._v(`"change"`)]),e._v(`, matchMode);
+`)])]),t(`h1`,[e._v(`局部模式`)]),t(`p`,[e._v(`在顶级元素上添加 'theme-mode=dark' 或者 'theme-mode=light' 属性 ，这个元素下的组件会使用对应模式的颜色变量。`)]),t(`p`,[e._v(`注意: 局部暗色/亮色对弹出层不生效`)])])}],!1,null,null,null,null).exports,g=d({data(){return{LogoKui:l,Home:o,Heart:a,Settings:t,ChevronBack:s,ChevronForward:e,Search:i,NotificationsOutline:r,Mail:n,current:[`1`],left:[`1-1`],collapsed:!1,dark:!1,size:`default`,theme:!1,checked:!1,shape:``}},methods:{change(){this.dark=!this.dark},toggle(){this.collapsed=!this.collapsed}}},function(){var e=this,t=e._self._c;return t(`Demo`,{attrs:{id:`k-30541b23`,direction:`vertical`},scopedSlots:e._u([{key:`component`,fn:function(){return[t(`div`,[t(`Button`,{attrs:{theme:`light`},on:{click:e.change}},[e._v(`局部暗色`)]),t(`div`,{staticClass:`k-demo-layout`},[t(`Layout`,{staticClass:`layout-back`},[t(`Sider`,{staticClass:`demo-sider`,style:{width:e.collapsed?`60px`:`200px`}},[t(`div`,{staticClass:`logo-box`},[t(`Icon`,{staticClass:`logo`,attrs:{type:e.LogoKui,size:`30`}}),t(`transition`,[t(`span`,{directives:[{name:`show`,rawName:`v-show`,value:!e.collapsed,expression:`!collapsed`}]},[e._v(`KUI运营后台`)])])],1),t(`Menu`,{staticStyle:{border:`none`},attrs:{mode:`inline`,"inline-collapsed":e.collapsed},model:{value:e.left,callback:function(t){e.left=t},expression:`left`}},[t(`MenuItem`,{key:`1-1`,attrs:{icon:e.Home}},[t(`span`,[e._v(`首页`)])]),t(`MenuItem`,{key:`1-2`,attrs:{icon:e.Heart}},[t(`span`,[e._v(`数据统计`)])]),t(`MenuItem`,{key:`1-3`,attrs:{icon:e.Settings}},[t(`span`,[e._v(`能源管理`)])])],1),t(`Button`,{staticClass:`btn-expand`,attrs:{theme:`light`,icon:e.collapsed?e.ChevronForward:e.ChevronBack},on:{click:e.toggle}})],1),t(`Content`,{staticClass:`k-demo-main`},[t(`Breadcrumb`,{staticClass:`nav`},[t(`BreadcrumbItem`,[e._v(`Home`)]),t(`BreadcrumbItem`,[e._v(`List`)]),t(`BreadcrumbItem`,[e._v(`App`)])],1),t(`div`,{staticClass:`demo-dark`,attrs:{"theme-mode":e.dark?`dark`:`light`}},[t(`Menu`,{attrs:{mode:`horizontal`},model:{value:e.current,callback:function(t){e.current=t},expression:`current`}},[t(`MenuItem`,{key:`1`,attrs:{icon:e.Mail}},[e._v(`Navigation One`)]),t(`MenuItem`,{key:`2`,attrs:{icon:e.Heart,disabled:``}},[e._v(`Navigation Two`)]),t(`MenuItem`,{key:`4`},[t(`a`,{attrs:{href:`https://k-ui.cn`,target:`_blank`}},[e._v(`Navigation -Link`)])])],1),t(`Page`,{attrs:{current:1,total:50}}),t(`Space`,[t(`Tag`,[e._v(`标签1`)]),t(`Tag`,[e._v(`标签2`)]),t(`Tag`,[e._v(`标签3`)]),t(`Tag`,{attrs:{closeable:``}},[e._v(`标签4`)])],1),t(`div`,{staticStyle:{width:`512px`}},[t(`Form`,{attrs:{labelCol:{span:5},wrapperCol:{span:16},size:e.size,theme:e.theme?`light`:``,shape:e.checked?`circle`:``}},[t(`FormItem`,{attrs:{label:`主题`}},[t(`Checkbox`,{staticStyle:{"margin-right":`8px`},attrs:{label:`Light`},model:{value:e.theme,callback:function(t){e.theme=t},expression:`theme`}}),t(`Checkbox`,{attrs:{label:`Circle`},model:{value:e.checked,callback:function(t){e.checked=t},expression:`checked`}})],1),t(`FormItem`,{attrs:{label:`尺寸`}},[t(`RadioGroup`,{model:{value:e.size,callback:function(t){e.size=t},expression:`size`}},[t(`RadioButton`,{attrs:{value:`large`,label:`Large`}}),t(`RadioButton`,{attrs:{value:`default`,label:`Default`}}),t(`RadioButton`,{attrs:{value:`small`,label:`Small`}})],1)],1),t(`FormItem`,{attrs:{label:`Input`}},[t(`Input`,{attrs:{placeholder:`input...`}})],1),t(`FormItem`,{attrs:{label:`InputNumber`}},[t(`InputNumber`,{attrs:{placeholder:`input...`}})],1),t(`FormItem`,{attrs:{label:`Select`}},[t(`Select`,[t(`Option`,{attrs:{value:`0`,label:`Apple`}}),t(`Option`,{attrs:{value:`1`,label:`Banana`}}),t(`Option`,{attrs:{value:`2`,label:`Orange`}})],1)],1),t(`FormItem`,{attrs:{label:`DatePicker`}},[t(`DatePicker`)],1),t(`FormItem`,{attrs:{label:`Radio`}},[t(`RadioGroup`,[t(`Radio`,{attrs:{value:`0`,label:`Apple`}}),t(`Radio`,{attrs:{value:`1`,label:`Banana`}}),t(`Radio`,{attrs:{value:`2`,label:`Orange`}})],1)],1),t(`FormItem`,{attrs:{label:`Checkbox`}},[t(`CheckboxGroup`,[t(`Checkbox`,{attrs:{value:`0`,label:`Apple`}}),t(`Checkbox`,{attrs:{value:`1`,label:`Banana`}}),t(`Checkbox`,{attrs:{value:`2`,label:`Orange`}})],1)],1),t(`FormItem`,{attrs:{label:`Switch`}},[t(`k-switch`,{attrs:{"true-text":`Yes`,"false-text":`No`}})],1),t(`FormItem`,{attrs:{label:`Text`}},[t(`TextArea`,{attrs:{placeholder:`Please input...`}})],1),t(`FormItem`,{attrs:{wrapperCol:{offset:5}}},[t(`Button`,{attrs:{type:`primary`,circle:``}},[e._v(`Submit`)]),t(`Button`,{staticStyle:{"margin-left":`10px`},attrs:{circle:``}},[e._v(`Cancel`)])],1)],1)],1)],1),t(`Footer`,[e._v(`KUI ©2018 Created by Qiu`)])],1)],1)],1)],1)]},proxy:!0},{key:`description`,fn:function(){return[t(`h4`,[e._v(`切换主题`)]),t(`p`,[e._v(`简单的切换例子`)])]},proxy:!0},{key:`code`,fn:function(){return[t(`pre`,[t(`code`,{staticClass:`hljs language-html`},[t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`theme`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"light"`)]),e._v(` @`),t(`span`,{staticClass:`hljs-attr`},[e._v(`click`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"change"`)]),e._v(`>`)]),e._v(`局部暗色`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"k-demo-layout"`)]),e._v(`>`)]),e._v(`
+      `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Layout`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"layout-back"`)]),e._v(`>`)]),e._v(`
+        `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Sider`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"demo-sider"`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:style`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"{ width: collapsed ? '60px' : '200px' }"`)]),e._v(`
+        >`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"logo-box"`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Icon`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:type`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"LogoKui"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`size`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"30"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"logo"`)]),e._v(` />`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`transition`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-show`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"!collapsed"`)]),e._v(`>`)]),e._v(`KUI运营后台`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`transition`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Menu`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`mode`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"inline"`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-model`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"left"`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:inline-collapsed`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"collapsed"`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`style`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"border:none;"`)]),e._v(`
+          >`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1-1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Home"`)]),e._v(`>`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),e._v(`首页`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1-2"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Heart"`)]),e._v(`>`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),e._v(`数据统计`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1-3"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Settings"`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),e._v(`能源管理`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`span`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Menu`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`theme`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"light"`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"!collapsed ? ChevronBack : ChevronForward"`)]),e._v(`
+            @`),t(`span`,{staticClass:`hljs-attr`},[e._v(`click`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"toggle"`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"btn-expand"`)]),e._v(`
+          />`)]),e._v(`
+        `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Sider`)]),e._v(`>`)]),e._v(`
+        `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Content`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"k-demo-main"`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Breadcrumb`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"nav"`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`Home`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`List`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`App`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`BreadcrumbItem`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Breadcrumb`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`class`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"demo-dark"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:theme-mode`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"dark ? 'dark' : 'light'"`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Menu`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`mode`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"horizontal"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-model`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"current"`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Mail"`)]),e._v(`>`)]),e._v(`Navigation One`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"2"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:icon`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Heart"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`disabled`)]),e._v(`>`)]),e._v(`Navigation Two`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`key`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"4"`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`href`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"https://k-ui.cn"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`target`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"_blank"`)]),e._v(`>`)]),e._v(`Navigation -Link`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`a`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`MenuItem`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Menu`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Page`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:current`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:total`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"50"`)]),e._v(` />`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Space`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`标签1`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`标签2`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`标签3`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`closeable`)]),e._v(`>`)]),e._v(`标签4`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Tag`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Space`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`style`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"width:512px;"`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Form`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:labelCol`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"{ span: 5 }"`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:wrapperCol`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"{ span: 16 }"`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:size`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"size"`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:theme`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme ? 'light' : ''"`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:shape`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"checked ? 'circle' : ''"`)]),e._v(`
+              >`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"主题"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Checkbox`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-model`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"theme"`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Light"`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-attr`},[e._v(`style`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"margin-right:8px;"`)]),e._v(`
+                  />`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Checkbox`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-model`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"checked"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Circle"`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"尺寸"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioGroup`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`v-model`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"size"`)]),e._v(`>`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioButton`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"large"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Large"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioButton`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"default"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Default"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioButton`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"small"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Small"`)]),e._v(` />`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioGroup`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Input"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Input`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`placeholder`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"input..."`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"InputNumber"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`InputNumber`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`placeholder`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"input..."`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Select"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Select`)]),e._v(`>`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Option`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"0"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Apple"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Option`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Banana"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Option`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"2"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Orange"`)]),e._v(` />`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Select`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"DatePicker"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`DatePicker`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Radio"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioGroup`)]),e._v(`>`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Radio`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"0"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Apple"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Radio`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Banana"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Radio`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"2"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Orange"`)]),e._v(` />`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`RadioGroup`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Checkbox"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`CheckboxGroup`)]),e._v(`>`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Checkbox`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"0"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Apple"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Checkbox`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Banana"`)]),e._v(` />`)]),e._v(`
+                    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Checkbox`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`value`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"2"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Orange"`)]),e._v(` />`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`CheckboxGroup`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Switch"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`k-switch`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`true-text`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Yes"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`false-text`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"No"`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`label`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Text"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`TextArea`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`placeholder`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"Please input..."`)]),e._v(` />`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`:wrapperCol`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"{ offset: 5 }"`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`type`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"primary"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`circle`)]),e._v(`>`)]),e._v(`Submit`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(`>`)]),e._v(`
+                  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`style`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"margin-left: 10px"`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`circle`)]),e._v(`>`)]),e._v(`Cancel`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Button`)]),e._v(`>`)]),e._v(`
+                `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`FormItem`)]),e._v(`>`)]),e._v(`
+              `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Form`)]),e._v(`>`)]),e._v(`
+            `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+          `),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`Footer`)]),e._v(`>`)]),e._v(`KUI ©2018 Created by Qiu`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Footer`)]),e._v(`>`)]),e._v(`
+        `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Content`)]),e._v(`>`)]),e._v(`
+      `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`Layout`)]),e._v(`>`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+  `),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`div`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`template`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`script`)]),e._v(`>`)]),t(`span`,{staticClass:`language-javascript`},[e._v(`
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`import`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`LogoKui`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Home`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Heart`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Settings`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`ChevronBack`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`ChevronForward`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Search`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`NotificationsOutline`)]),e._v(`,
+  `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Mail`)]),e._v(`,
+} `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`from`)]),e._v(` `),t(`span`,{staticClass:`hljs-string`},[e._v(`"kui-icons"`)]),e._v(`;
+`),t(`span`,{staticClass:`hljs-keyword`},[e._v(`export`)]),e._v(` `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`default`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-title function_`},[e._v(`data`)]),e._v(`(`),t(`span`,{staticClass:`hljs-params`}),e._v(`) {
+    `),t(`span`,{staticClass:`hljs-keyword`},[e._v(`return`)]),e._v(` {
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`LogoKui`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Home`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Heart`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Settings`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`ChevronBack`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`ChevronForward`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Search`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`NotificationsOutline`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-title class_`},[e._v(`Mail`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`current`)]),e._v(`: [`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1"`)]),e._v(`],
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`left`)]),e._v(`: [`),t(`span`,{staticClass:`hljs-string`},[e._v(`"1-1"`)]),e._v(`],
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`collapsed`)]),e._v(`: `),t(`span`,{staticClass:`hljs-literal`},[e._v(`false`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`dark`)]),e._v(`: `),t(`span`,{staticClass:`hljs-literal`},[e._v(`false`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`size`)]),e._v(`: `),t(`span`,{staticClass:`hljs-string`},[e._v(`"default"`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`theme`)]),e._v(`: `),t(`span`,{staticClass:`hljs-literal`},[e._v(`false`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`checked`)]),e._v(`: `),t(`span`,{staticClass:`hljs-literal`},[e._v(`false`)]),e._v(`,
+      `),t(`span`,{staticClass:`hljs-attr`},[e._v(`shape`)]),e._v(`: `),t(`span`,{staticClass:`hljs-string`},[e._v(`""`)]),e._v(`,
+    };
+  },
+  `),t(`span`,{staticClass:`hljs-attr`},[e._v(`methods`)]),e._v(`: {
+    `),t(`span`,{staticClass:`hljs-title function_`},[e._v(`change`)]),e._v(`(`),t(`span`,{staticClass:`hljs-params`}),e._v(`) {
+      `),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`this`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`dark`)]),e._v(` = !`),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`this`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`dark`)]),e._v(`;
+    },
+    `),t(`span`,{staticClass:`hljs-title function_`},[e._v(`toggle`)]),e._v(`(`),t(`span`,{staticClass:`hljs-params`}),e._v(`) {
+      `),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`this`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`collapsed`)]),e._v(` = !`),t(`span`,{staticClass:`hljs-variable language_`},[e._v(`this`)]),e._v(`.`),t(`span`,{staticClass:`hljs-property`},[e._v(`collapsed`)]),e._v(`;
+    },
+  },
+};
+`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`script`)]),e._v(`>`)]),e._v(`
+`),t(`span`,{staticClass:`hljs-tag`},[e._v(`<`),t(`span`,{staticClass:`hljs-name`},[e._v(`style`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`scoped`)]),e._v(` `),t(`span`,{staticClass:`hljs-attr`},[e._v(`lang`)]),e._v(`=`),t(`span`,{staticClass:`hljs-string`},[e._v(`"less"`)]),e._v(`>`)]),t(`span`,{staticClass:`language-css`},[e._v(`
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.demo-dark`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`padding`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`20px`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`0`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#ddd`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`margin`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`20px`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`background`)]),e._v(`: `),t(`span`,{staticClass:`hljs-built_in`},[e._v(`var`)]),e._v(`(--kui-color-back);
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-layout`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.logo-box`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`box-sizing`)]),e._v(`: border-box;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`display`)]),e._v(`: flex;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`align-items`)]),e._v(`: center;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`padding`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`16px`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`0`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`17px`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`16px`)]),e._v(`;
+    `),t(`span`,{staticClass:`hljs-comment`},[e._v(`/* background:var(--kui-color-gray-90); */`)]),e._v(`
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`white-space`)]),e._v(`: nowrap;
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`overflow`)]),e._v(`: hidden;
+    `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.logo`)]),e._v(` {
+      `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`margin-right`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`8px`)]),e._v(`;
+    }
+  }
+  `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.header-nav`)]),e._v(` {
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`border-bottom`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`1px`)]),e._v(` solid `),t(`span`,{staticClass:`hljs-built_in`},[e._v(`var`)]),e._v(`(--kui-color-border);
+    `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`padding-bottom`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`10px`)]),e._v(`;
+  }
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.btn-expand`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`position`)]),e._v(`: absolute;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`bottom`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`10px`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`left`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`12px`)]),e._v(`;
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-layout`)]),e._v(` `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.demo-sider`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`left`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`0`)]),e._v(`;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`position`)]),e._v(`: relative;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`border-right`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`1px`)]),e._v(` solid `),t(`span`,{staticClass:`hljs-built_in`},[e._v(`var`)]),e._v(`(--kui-color-border);
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`transition`)]),e._v(`: all `),t(`span`,{staticClass:`hljs-number`},[e._v(`0.3s`)]),e._v(` ease `),t(`span`,{staticClass:`hljs-number`},[e._v(`0s`)]),e._v(`;
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-layout`)]),e._v(` `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-main`)]),e._v(` `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.nav`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`padding`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`16px`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`0`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`0`)]),e._v(` `),t(`span`,{staticClass:`hljs-number`},[e._v(`16px`)]),e._v(`;
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-layout`)]),e._v(` `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-main`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`overflow`)]),e._v(`: auto;
+}
+`),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-demo-layout`)]),e._v(` `),t(`span`,{staticClass:`hljs-selector-class`},[e._v(`.k-layout-footer`)]),e._v(` {
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`text-align`)]),e._v(`: center;
+  `),t(`span`,{staticClass:`hljs-attribute`},[e._v(`color`)]),e._v(`: `),t(`span`,{staticClass:`hljs-number`},[e._v(`#999`)]),e._v(`;
+}
+`)]),t(`span`,{staticClass:`hljs-tag`},[e._v(`</`),t(`span`,{staticClass:`hljs-name`},[e._v(`style`)]),e._v(`>`)]),e._v(`
+`)])])]},proxy:!0}])})},[],!1,null,`94fba7de`,null,null).exports,_={render(){return c(`div`,[c(p),c(m),c(h),c(g)])}};export{_ as default};
