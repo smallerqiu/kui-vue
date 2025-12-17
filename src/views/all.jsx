@@ -10,13 +10,13 @@ export default {
         span.push(card)
       })
       if (span.length < 4) {
-        rows.push(<Row gutter={20}>{span}</Row>)
+        rows.push(<Row gutter={20}>{span}</Row>);
       } else {
         for (let i = 0; i < span.length; i += 4) {
-          rows.push(<Row gutter={20}>{span.slice(i, i + 4)}</Row>)
+          rows.push(<Row gutter={20}>{span.slice(i, i + 4)}</Row>);
         }
       }
-      return rows
+      return rows;
     },
   },
   render() {
@@ -33,6 +33,6 @@ export default {
           })
         }
       </div>
-    )
-  }
-}
+    );
+  },
+};
