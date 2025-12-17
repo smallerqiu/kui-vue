@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-form {
   .k-form-item {
@@ -32,11 +32,11 @@
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     justify-content: flex-end;
 
     &::after {
-      content: ':';
+      content: ":";
       padding: 0 8px 0 5px;
     }
   }
@@ -46,7 +46,7 @@
     min-height: 32px;
     display: flex;
     align-items: center;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 
   .k-form-item-error-tip {
@@ -79,7 +79,6 @@
     .k-input[mult].k-input-focus {
       border-color: var(--kui-color-danger);
       box-shadow: 0 0 0 2px var(--kui-color-danger-90);
-
     }
 
     .k-input,
@@ -96,25 +95,41 @@
       }
     }
 
-    .k-select,
-    .k-tree-select {
+    .k-select {
       border-color: var(--kui-color-danger);
-
       .k-select-arrow {
         color: var(--kui-color-danger);
       }
     }
+    .k-tree-select {
+      border-color: var(--kui-color-danger);
 
-    .k-radio-group .k-btn {
+      .k-tree-select-arrow {
+        color: var(--kui-color-danger);
+      }
+    }
+    .k-radio .k-radio-symbol {
+      border-color: var(--kui-color-danger);
+    }
+    .k-checkbox .k-checkbox-symbol {
       border-color: var(--kui-color-danger);
     }
 
-    .k-select-open .k-select,
-    .k-tree-select-open .k-tree-select {
+    .k-slider .k-slider-thumb {
+      border-color: var(--kui-color-danger);
+    }
+    
+
+    .k-radio-group .k-btn {
+      border:1px solid  var(--kui-color-danger);
+    }
+
+    .k-select-opened .k-select,
+    .k-tree-select-opened .k-tree-select {
       box-shadow: 0 0 0 2px var(--kui-color-danger-90);
     }
 
-    .k-datepicker-open {
+    .k-datepicker-opened {
       box-shadow: 0 0 0 2px var(--kui-color-danger-90);
     }
   }
@@ -174,7 +189,8 @@
   }
 }
 
-.k-form-lg {}
+.k-form-lg {
+}
 
 .k-form-sm {
   .k-form-item-label {
@@ -199,11 +215,10 @@
   }
 }
 
-
 .k-form-item-fade-enter-active {
-  animation: k-form-item-fade .3s;
+  animation: k-form-item-fade 0.3s;
 }
 
 .k-form-item-fade-leave-active {
-  animation: k-form-item-fade .3s reverse;
+  animation: k-form-item-fade 0.3s reverse;
 }

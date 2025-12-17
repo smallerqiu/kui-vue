@@ -1,7 +1,7 @@
 import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
 
-import { ref, reactive, watch, onMounted, nextTick,defineComponent } from "vue";
+import { ref, reactive, watch, defineComponent, nextTick } from "vue";
 import {
   Sync,
   RemoveCircleOutline,

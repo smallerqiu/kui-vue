@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-input[mult] {
   position: relative;
@@ -12,7 +12,7 @@
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   background-color: var(--kui-color-back);
-  transition: border .2s ease-in-out;
+  transition: border 0.2s ease-in-out;
   box-sizing: border-box;
   font-size: 14px;
   padding: 0 8px;
@@ -45,7 +45,7 @@
   .k-input-password-icon {
     color: var(--kui-color-icon);
     cursor: pointer;
-    transition: font-size .2s ease-in-out;
+    transition: font-size 0.2s ease-in-out;
 
     &:hover {
       color: var(--kui-color-title);
@@ -72,16 +72,14 @@
       outline: none;
       z-index: 1;
     }
-
-    &::placeholder {
-      color: var(--kui-color-disabled);
-    }
   }
 
   &.k-input-focus {
     border-color: var(--kui-color-main);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
     z-index: 1;
+    outline-offset: 1px;
+    outline: 2px solid var(--kui-color-main-80);
   }
 
   .k-input-suffix,
@@ -91,7 +89,7 @@
     line-height: 1;
     // cursor: pointer;
     user-select: none;
-    transition: font-size .2s ease-in-out;
+    transition: font-size 0.2s ease-in-out;
     display: flex;
 
     &:hover {
@@ -100,7 +98,7 @@
 
     .k-icon {
       font-size: 16px;
-      transition: font-size .2s ease-in-out;
+      transition: font-size 0.2s ease-in-out;
       color: var(--kui-color-icon);
     }
   }
@@ -119,7 +117,6 @@
       border-bottom-left-radius: 0;
     }
   }
-
 }
 
 .k-input[single],
@@ -139,7 +136,7 @@
   background-image: none;
   position: relative;
   cursor: text;
-  transition: border .3s ease-in-out;
+  transition: border 0.3s ease-in-out;
   // flex-shrink: 0;
   line-height: 1.571;
 
@@ -148,6 +145,8 @@
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
     border-color: var(--kui-color-main);
     outline: none;
+    outline-offset: 1px;
+    outline: 2px solid var(--kui-color-main-80);
   }
 
   &:hover {
@@ -163,10 +162,6 @@
     &:hover {
       border-color: var(--kui-color-disable-border);
     }
-  }
-
-  &::placeholder {
-    color: var(--kui-color-disabled);
   }
 
   // &:-webkit-autofill {
@@ -201,15 +196,30 @@ select:-webkit-autofill:focus {
   line-height: 1.571;
   resize: vertical;
   outline: none;
+  &:focus {
+    outline-offset: 1px;
+    outline: 2px solid var(--kui-color-main-80);
+  }
 }
 
 .k-input-clearable {
   cursor: pointer;
   font-size: 15px;
   color: var(--kui-color-gray);
-
+  position: absolute;
+  right: 8px;
+  background-color: var(--kui-color-back);
+  display: none;
+  z-index: 3;
   &:hover {
     color: var(--kui-color-font);
+  }
+}
+&.k-input-has-clear {
+  &:hover {
+    .k-input-clearable {
+      display: block;
+    }
   }
 }
 
@@ -220,20 +230,22 @@ select:-webkit-autofill:focus {
 
 .k-textarea-sm {
   font-size: 12px;
+  padding: 2px var(--kui-padding-inline-sm);
 }
 
 .k-textarea-lg {
   font-size: 16px;
+  padding: 4px 10px;
 }
 
 .k-input-sm[single] {
-  padding: 2px 4px;
+  padding: 2px var(--kui-padding-inline-sm);
   height: 24px;
   font-size: 12px;
 }
 
 .k-input-sm[mult] {
-  padding: 0 4px;
+  padding: 0 var(--kui-padding-inline-sm);
   gap: 4px;
   height: 24px;
   font-size: 12px;
@@ -275,7 +287,7 @@ select:-webkit-autofill:focus {
   height: 40px;
   font-size: 14px;
 
-  >[class^="k-"]:not(.k-icon) {
+  > [class^="k-"]:not(.k-icon) {
     margin: 0 -1px;
   }
 }
@@ -295,8 +307,6 @@ select:-webkit-autofill:focus {
     // background-color: red;
   }
 }
-
-
 
 .k-input-lg[mult] {
   height: 40px;
@@ -341,6 +351,11 @@ select:-webkit-autofill:focus {
     border-color: transparent;
     box-shadow: none;
   }
+  &:hover {
+    .k-input-clearable {
+      background-color: transparent;
+    }
+  }
 }
 
 .k-input-circle[single] {
@@ -373,9 +388,9 @@ select:-webkit-autofill:focus {
   box-sizing: border-box;
   align-items: center;
   font-size: 14px;
-  transition: font-size .3s ease-in-out;
+  transition: font-size 0.3s ease-in-out;
 
-  >.k-icon {
+  > .k-icon {
     margin: 0 8px;
   }
 }
@@ -390,8 +405,6 @@ select:-webkit-autofill:focus {
   border-collapse: separate;
   border-spacing: 0;
   align-items: self-start;
-
-
 
   .k-input-group-first-item {
     border-top-right-radius: 0;
@@ -412,8 +425,8 @@ select:-webkit-autofill:focus {
     }
   }
 
-  .k-select-open,
-  .k-datepicker-open {
+  .k-select-opened,
+  .k-datepicker-opened {
     z-index: 1;
   }
 
@@ -428,7 +441,6 @@ select:-webkit-autofill:focus {
 }
 
 .k-input-group-sm {
-
   .k-input-group-suffix,
   .k-input-group-prefix {
     height: 24px;
@@ -442,7 +454,6 @@ select:-webkit-autofill:focus {
 }
 
 .k-input-group-lg {
-
   .k-input-group-suffix,
   .k-input-group-prefix {
     height: 40px;

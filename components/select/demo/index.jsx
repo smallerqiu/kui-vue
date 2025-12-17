@@ -10,14 +10,14 @@ export default {
   render() {
     return (
       <div class="demo-select">
-        {/* <Info /> */}
+        <Info />
         <Basic />
-        {/* <Multiple /> */}
-        {/* <Disabled /> */}
-        {/* <Filterable /> */}
-        {/* <Size /> */}
-        {/* <Theme /> */}
-        {/* <CN /> */}
+        <Multiple />
+        <Disabled />
+        <Filterable />
+        <Size />
+        <Theme />
+        <CN />
       </div>
     );
   },

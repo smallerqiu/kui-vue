@@ -6,13 +6,13 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model:value="flexSize">
+    <RadioGroup v-model="flexSize">
       <Radio value="small" label="small" />
       <Radio value="middle" label="middle" />
       <Radio value="large" label="large" />
     </RadioGroup>
-    <Checkbox v-model:checked="customize" label="customize" />
-    <Slider v-model:value="flexSize" :step="1" :max="50" v-if="customize" />
+    <Checkbox v-model="customize" label="customize" />
+    <Slider v-model="flexSize" :step="1" :max="50" v-if="customize" />
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>

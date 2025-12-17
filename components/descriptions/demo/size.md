@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <RadioGroup :options="types" v-model:value="size" type="button" />
+  <RadioGroup :options="types" v-model="size" type="button" />
   <br />
   <br />
   <Descriptions title="订单信息" bordered :size="size">

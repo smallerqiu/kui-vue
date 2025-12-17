@@ -19,6 +19,7 @@ const RadioButton = defineComponent({
     },
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
+    theme: String,
     disabled: Boolean,
     size: {
       default: "default",
@@ -39,7 +40,7 @@ const RadioButton = defineComponent({
 
     const labelText = props.label || slots.default?.();
     const handleClick = (e) => {
-      if (props.disabled) return;
+      if (props.disabled || isChecked.value) return;
 
       const checked = !isChecked.value;
 
@@ -70,6 +71,10 @@ const RadioButton = defineComponent({
           click: handleClick,
         },
       };
+
+      if (props.theme == "default") {
+        delete buttonProps.props.theme;
+      }
 
       return <Button {...buttonProps}>{labelText}</Button>;
     };

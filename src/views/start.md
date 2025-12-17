@@ -1,14 +1,14 @@
 # 快速上手
 
-在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/),[vue-devtools](https://github.com/vuejs/vue-devtools)
+在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools)
 
 ## 1. 初始化一个项目
 
 ```bash
 # npm 7+，需要添加额外的 --：
-$ npm create vite@latest kui-demo -- --template vue
+$ npm create vite@latest my-app -- --template vue
 #or
-$ yarn create vite kui-demo --template vue
+$ yarn create vite my-app --template vue
 ```
 
 然后按照提示操作即可！
@@ -118,10 +118,16 @@ import "kui-vue/components/button/style";
 </template>
 ```
 
-但是 `Switch` 、 `Image` 只支持 以k开头的小写 :
+但是 `Switch` 、 `Image` 只支持 以k开头 :
 
 ```html
 <template>
-  <div><k-switch type="primary"></k-switch> ✅ <k-image></k-image> ✅</div>
+  <div>
+    <KSwitch type="primary"></KSwitch> ✅ 推荐
+    <KImage></KImage> ✅
+    <!-- ok -->
+    <k-switch type="primary"></k-switch> ✅ 
+    <k-image></k-image> ✅
+  </div>
 </template>
 ```

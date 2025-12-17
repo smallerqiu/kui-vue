@@ -33,7 +33,7 @@ const Dropdown = defineComponent({
     },
     transfer: { type: Boolean, default: true },
     disabled: Boolean,
-    arrow: Boolean,
+    arrow: { type: Boolean, default: false },
     show: Boolean,
     placement: {
       validator(value) {
@@ -91,11 +91,12 @@ const Dropdown = defineComponent({
 
     const outsideClick = (e) => {
       const ctx = refCtx.value?.$el || refCtx.value;
+      if (!refPopper.value) return;
       if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
+        (!refPopper.value.contains(e.target) &&
+          ctx &&
+          !ctx.contains(e.target)) ||
+        (ps.trigger == "contextmenu" && !refPopper.value.contains(e.target))
       ) {
         visible.value = false;
       }
@@ -113,6 +114,7 @@ const Dropdown = defineComponent({
       });
     };
     const showContextmenu = (e) => {
+      if (!refPopper.value) return;
       // todo : when the menu is opened, then resize the window at this time, the position is not accurate.
       let pickerHeight = refPopper.value.offsetHeight;
       let pickerWidth = refPopper.value.offsetWidth;
@@ -216,7 +218,7 @@ const Dropdown = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
-        "k-placement": currentPlacement.value,
+        attrs: { "k-placement": currentPlacement.value },
         class: ["k-dropdown", { "k-dropdown-has-arrow": ps.arrow }],
         on: {
           click: (e) => {
@@ -262,13 +264,13 @@ const Dropdown = defineComponent({
                   <div class={`k-dropdown-arrow`}>
                     <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
                       <path
+                        d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
                         id="ot"
-                        d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
                       />
                       <path
-                        stroke="currentcolor"
+                        d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
                         id="in"
-                        d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                        stroke="currentcolor"
                       />
                     </svg>
                   </div>

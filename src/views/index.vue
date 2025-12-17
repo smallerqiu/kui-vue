@@ -22,7 +22,7 @@
           type="link"
           target="_blank"
         >
-          Gitee
+          GITEE
         </Button>
       </div>
     </section>

@@ -6,10 +6,11 @@ import {
   onMounted,
   computed,
   onUnmounted,
+  reactive,
   nextTick,
 } from "vue";
 import dayjs from "dayjs";
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -96,7 +97,22 @@ const DatePicker = defineComponent({
   emits: ["change"],
 
   setup(props, { emit, slots }) {
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+    const locale = computed(() => {
+      return (
+        (injectedLocale instanceof Object && "value" in injectedLocale
+          ? injectedLocale.value
+          : injectedLocale) || zhCN
+      );
+    });
+    const local = () => {
+      return dayjs().locale(localeName.value).localeData();
+    };
+
+    const localeName = computed(() => {
+      return locale.value.name || "zh-cn";
+    });
+
     // --- 状态定义 ---
     const isVisible = ref(false);
     const isFocus = ref(false);
@@ -107,7 +123,6 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
     const refCtx = ref(null);
-    const local = dayjs().localeData();
     // console.log(local);
 
     // DOM 引用，用于滚动计算
@@ -131,28 +146,28 @@ const DatePicker = defineComponent({
     const timeEditSide = ref("start");
     const isRange = computed(() => props.mode.includes("Range"));
 
-    const localPlaceholders = {
-      year: locale?.k.datePicker.selectYear,
-      month: locale?.k.datePicker.selectMonth,
-      date: locale?.k.datePicker.selectDate,
-      dateTime: locale?.k.datePicker.selectDate,
-      time: locale?.k.datePicker.selectTime,
-      startDate: locale?.k.datePicker.startDate,
-      endDate: locale?.k.datePicker.endDate,
-    };
+    watch(localeName, () => {
+      syncTextFromValue();
+    });
 
+    // CJK 语系习惯 "年-月" 顺序
+    const isYearFirst = computed(() => {
+      const name = localeName.value.toLowerCase();
+      return ["zh", "ja", "ko"].some((k) => name.includes(k));
+    });
     const formatOutputValue = (dayjsVal) => {
       if (!dayjsVal) return null;
+      const d = dayjsVal.locale(localeName.value);
       switch (props.valueType) {
         case "timestamp": // Long (毫秒)
-          return dayjsVal.valueOf();
+          return d.valueOf();
         case "unix": // Unix (秒)
-          return dayjsVal.unix();
+          return d.unix();
         case "string": // String (基于 format)
-          return dayjsVal.format(getFormat());
+          return d.format(getFormat());
         case "date": // Native Date
         default:
-          return dayjsVal.toDate();
+          return d.toDate();
       }
     };
     const getFormat = () => {
@@ -201,11 +216,10 @@ const DatePicker = defineComponent({
       if (v === "time") scrollToCurrentTime();
     });
 
-    // --- 值同步 ---
     const syncTextFromValue = () => {
       const fmt = getFormat();
-
-      // 情况1: 空值
+      const fmtDate = (d) => (d ? d.locale(localeName.value).format(fmt) : "");
+      //  空值
       if (!innerValue.value) {
         textValue.value = "";
         textValueStart.value = "";
@@ -213,34 +227,28 @@ const DatePicker = defineComponent({
         return;
       }
 
-      // 情况2: Range 模式
+      //  Range 模式
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
         textValueStart.value = start ? start.format(fmt) : "";
         textValueEnd.value = end ? end.format(fmt) : "";
         // 兼容单 input 显示 (虽然现在是双input，保留逻辑防止出错)
-        textValue.value = innerValue.value
-          .map((d) => (d ? d.format(fmt) : ""))
-          .join(" - ");
-      }
-      // 情况3: 单选模式
-      else {
-        textValue.value = innerValue.value.format(fmt);
+        textValue.value = innerValue.value.map((d) => fmtDate(d)).join(" - ");
+      } else {
+        textValue.value = fmtDate(innerValue.value);
       }
     };
 
     const parsePropValue = (val) => {
       if (val === null || val === undefined || val === "") return null;
-
+      let d;
       if (props.valueType === "unix") {
-        return dayjs.unix(Number(val));
+        d = dayjs.unix(Number(val));
+      } else {
+        d = dayjs(val);
       }
 
-      if (props.valueType === "string") {
-        // return dayjs(val, getFormat());
-      }
-
-      return dayjs(val);
+      return d.isValid() ? d.locale(localeName.value) : null;
     };
 
     watch(
@@ -254,7 +262,7 @@ const DatePicker = defineComponent({
         if (isRange.value && Array.isArray(val)) {
           innerValue.value = val.map((d) => {
             const parsed = parsePropValue(d);
-            return parsed.isValid() ? parsed : null;
+            return parsed?.isValid() ? parsed : null;
           });
           if (!isFocus.value) syncTextFromValue();
           // 设置面板基准时间
@@ -263,7 +271,7 @@ const DatePicker = defineComponent({
           const d = parsePropValue(val);
           innerValue.value = d;
           if (!isFocus.value) syncTextFromValue();
-          if (d.isValid()) panelDate.value = d;
+          if (d?.isValid()) panelDate.value = d;
         }
       },
       { immediate: true }
@@ -277,6 +285,8 @@ const DatePicker = defineComponent({
         return;
       }
       const fmt = getFormat();
+      const getStr = (d) => d.locale(localeName.value).format(fmt);
+
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
         if (start && end) {
@@ -293,7 +303,7 @@ const DatePicker = defineComponent({
           emit(
             "change",
             dates,
-            dates.map((d) => d.format(fmt))
+            dates.map((d) => getStr(d))
           );
 
           innerValue.value = dates;
@@ -304,7 +314,7 @@ const DatePicker = defineComponent({
       } else {
         emit("input", formatOutputValue(innerValue.value));
         // emit("update:value", innerValue.value.toDate());
-        emit("change", innerValue.value, innerValue.value.format(fmt));
+        emit("change", innerValue.value, getStr(innerValue.value));
         syncTextFromValue();
         if (closePanel) isVisible.value = false;
       }
@@ -321,7 +331,7 @@ const DatePicker = defineComponent({
         textValue.value = val;
       }
 
-      const d = dayjs(val, fmt, true);
+      const d = dayjs(val, fmt, localeName.value, true);
 
       if (d.isValid()) {
         if (isRange.value) {
@@ -367,12 +377,15 @@ const DatePicker = defineComponent({
       else currentView.value = "date";
 
       // 打开时，如果没有值，面板显示当前时间；如果有值，显示选中值的时间
+      let base = dayjs().locale(localeName.value);
       if (!innerValue.value) {
-        panelDate.value = dayjs();
+        panelDate.value = base;
       } else if (!Array.isArray(innerValue.value)) {
         panelDate.value = innerValue.value;
       } else if (innerValue.value[0]) {
         panelDate.value = innerValue.value[0];
+      } else {
+        panelDate.value = base;
       }
     };
 
@@ -533,8 +546,28 @@ const DatePicker = defineComponent({
 
     const renderHeader = () => {
       if (props.mode === "time") return null;
-      const year = panelDate.value.year();
-      const month = panelDate.value.month() + 1;
+
+      const pDate = panelDate.value.locale(localeName.value);
+      const year = pDate.year();
+      const monthName = pDate.format("MMM");
+      // const month = pDate.month() + 1;
+
+      const yearSuffix = locale.value.k.datePicker.year || "";
+      const yearLabel = `${year}${yearSuffix}`;
+
+      const yearNode = (
+        <span onClick={() => (currentView.value = "year")}>{yearLabel}</span>
+      );
+
+      const monthNode =
+        props.mode !== "year" ? (
+          <span
+            class="k-picker-header-month-btn"
+            onClick={() => (currentView.value = "month")}
+          >
+            {monthName}
+          </span>
+        ) : null;
 
       return (
         <div class="k-picker-header">
@@ -542,7 +575,7 @@ const DatePicker = defineComponent({
             icon={ChevronDoubleBack}
             type="text"
             onClick={() =>
-              (panelDate.value = panelDate.value.subtract(1, "year"))
+              (panelDate.value = panelDate.value.subtract(10, "year"))
             }
           />
 
@@ -556,12 +589,7 @@ const DatePicker = defineComponent({
             />
           ) : null}
           <span class="k-picker-header-label">
-            <span onClick={() => (currentView.value = "year")}>{year}年</span>
-            {props.mode != "year" ? (
-              <span onClick={() => (currentView.value = "month")}>
-                {month}月
-              </span>
-            ) : null}
+            {isYearFirst.value ? [yearNode, monthNode] : [monthNode, yearNode]}
           </span>
 
           {props.mode !== "year" ? (
@@ -576,7 +604,7 @@ const DatePicker = defineComponent({
           <Button
             type="text"
             icon={ChevronDoubleForward}
-            onClick={() => (panelDate.value = panelDate.value.add(1, "year"))}
+            onClick={() => (panelDate.value = panelDate.value.add(10, "year"))}
           />
         </div>
       );
@@ -606,7 +634,7 @@ const DatePicker = defineComponent({
     };
 
     const renderMonthTable = () => {
-      const months = local.monthsShort();
+      const months = local().monthsShort();
       return (
         <div class="k-picker-body">
           <div class="k-picker-month-body">
@@ -630,22 +658,39 @@ const DatePicker = defineComponent({
     };
 
     const renderDateTable = () => {
+      const currentLocaleData = local();
+      const firstDayOfWeek = currentLocaleData.firstDayOfWeek();
+
       const startOfMonth = panelDate.value.startOf("month");
-      const startDay = startOfMonth.day();
+      const startDay = startOfMonth.day(); // 当前月第一天是周几 (0-6, 0总是周日)
+
       const days = [];
 
-      for (let i = startDay; i > 0; i--)
+      const diff = (startDay - firstDayOfWeek + 7) % 7;
+
+      for (let i = diff; i > 0; i--) {
         days.push({ d: startOfMonth.subtract(i, "day"), type: "prev" });
-      for (let i = 0; i < startOfMonth.daysInMonth(); i++)
+      }
+
+      for (let i = 0; i < startOfMonth.daysInMonth(); i++) {
         days.push({ d: startOfMonth.add(i, "day"), type: "curr" });
+      }
+
       const rem = 42 - days.length;
-      for (let i = 1; i <= rem; i++)
+      for (let i = 1; i <= rem; i++) {
         days.push({
           d: startOfMonth.endOf("month").add(i, "day"),
           type: "next",
         });
+      }
 
-      const weekDays = local.weekdaysMin();
+      const weekDaysRaw = currentLocaleData.weekdaysMin();
+
+      const weekDays = [
+        ...weekDaysRaw.slice(firstDayOfWeek),
+        ...weekDaysRaw.slice(0, firstDayOfWeek),
+      ];
+
       return (
         <div class="k-picker-body">
           <div class="k-picker-weekdays">
@@ -847,9 +892,18 @@ const DatePicker = defineComponent({
     );
 
     return () => {
+      const localPlaceholders = {
+        year: locale?.value.k.datePicker.selectYear,
+        month: locale?.value.k.datePicker.selectMonth,
+        date: locale?.value.k.datePicker.selectDate,
+        dateTime: locale?.value.k.datePicker.selectDate,
+        time: locale?.value.k.datePicker.selectTime,
+        startDate: locale?.value.k.datePicker.startDate,
+        endDate: locale?.value.k.datePicker.endDate,
+      };
       const classes = [
         "k-datepicker",
-        { "k-datepicker-open": isFocus.value },
+        { "k-datepicker-opened": isFocus.value },
         //   { 'k-datepicker-range': isRange },
         { "k-datepicker-borderless": props.bordered === false },
         { "k-datepicker-sm": props.size == "small" },
@@ -890,6 +944,7 @@ const DatePicker = defineComponent({
             <input
               autocomplete="off"
               size={size}
+              tabindex={-1}
               class="k-datepicker-input"
               value={textValueStart.value}
               onInput={(e) => handleInput(e, 0)}
@@ -905,6 +960,7 @@ const DatePicker = defineComponent({
             </span>,
             <input
               size={size}
+              tabindex={-1}
               readonly={props.editable ? false : true}
               autocomplete="off"
               class="k-datepicker-input"
@@ -920,6 +976,7 @@ const DatePicker = defineComponent({
         } else {
           return (
             <input
+              tabindex={-1}
               autocomplete="off"
               readonly={props.editable ? false : true}
               size={size}
@@ -1010,7 +1067,7 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refCtx}>
+        <div class={classes} ref={refCtx} tabindex={0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />

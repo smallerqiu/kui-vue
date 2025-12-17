@@ -2,7 +2,11 @@
   <Space vertical>
     <Select />
     <DatePicker />
-    <Select :options="locales" v-model="locale" @change="switchLocale" />
+    <Select
+      v-model="locale"
+      :options="locales"
+      @change="switchLocale"
+    />
   </Space>
 </template>
 <script>

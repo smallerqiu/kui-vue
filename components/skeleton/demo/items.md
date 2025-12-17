@@ -6,32 +6,32 @@
 ```vue
 <template>
   <Space :size="15">
-    <Checkbox v-model:checked="animated" label="Animated" />
-    <Checkbox v-model:checked="block" label="Button block" />
-    Size: <RadioGroup :options="sizes" v-model:value="size" type="button" />
+    <Checkbox v-model="animated" label="Animated" />
+    <Checkbox v-model="block" label="Button block" />
+    Size: <RadioGroup :options="sizes" v-model="size" type="button" />
   </Space>
   <br />
   <br />
   <Space :size="15">
     Button Shape:
-    <RadioGroup :options="btnShapes" v-model:value="btnShape" type="button" />
+    <RadioGroup :options="btnShapes" v-model="btnShape" type="button" />
     Avatar Shape:
     <RadioGroup
       :options="avatarShapes"
-      v-model:value="avatarShape"
+      v-model="avatarShape"
       type="button"
     />
   </Space>
   <br />
   <br />
   <Space :size="15">
-    Image radius: <Slider v-model:value="radius" style="width:300px;" />
+    Image radius: <Slider v-model="radius" style="width:300px;" />
   </Space>
   <br />
   <Space :size="15">
     Image Size:
     <Slider
-      v-model:value="imgSize"
+      v-model="imgSize"
       range
       :min="96"
       :max="320"

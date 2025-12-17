@@ -7,7 +7,9 @@
 <template>
   <Space vertical>
     <Page v-model:current="current" :total="100" />
+    <code>showSizer</code>
     <Page v-model:current="current" :total="100" showSizer :page-size="20" />
+    <code>showElevator</code>
     <Page
       v-model:current="current"
       :total="100"
@@ -16,6 +18,17 @@
       :pageSize="30"
       :sizeData="sizeData"
     />
+    <code>theme="light"</code>
+    <Page
+      v-model:current="current"
+      :total="100"
+      showSizer
+      showElevator
+      :pageSize="30"
+      theme="light"
+      :sizeData="sizeData"
+    />
+    <code>disabled</code>
     <Page
       v-model:current="current"
       :total="100"

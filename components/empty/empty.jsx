@@ -1,8 +1,8 @@
 import Icon from "../icon";
 import { FileTrayOutline } from "kui-icons";
-import zhCN from "../locale/lang/zh-CN";
-import { defineComponent, inject } from "vue";
-import { withInstall } from '../utils/vue';
+import zhCN from "../locale/zh-CN";
+import { defineComponent, inject, computed } from "vue";
+import { withInstall } from "../utils/vue";
 const Empty = defineComponent({
   name: "Empty",
   props: {
@@ -11,15 +11,35 @@ const Empty = defineComponent({
     imageStyle: Object,
   },
   setup(ps, { slots }) {
-    let { image, imageStyle, description } = ps;
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
     return () => {
+      let { image, imageStyle, description } = ps;
       return (
         <div class="k-empty">
-          {!image && !slots.image ? <Icon type={FileTrayOutline} class="k-empty-icon" /> : slots.image ? slots.image() : <img src={image} class="k-empty-image" style={imageStyle} />}
-          {description !== null ? <p class="k-empty-description">{description || slots.description?.() || locale?.k.empty.description}</p> : null}
-          {slots.default ? <div class="k-empty-footer">{slots.default()}</div> : null}
+          {!image && !slots.image ? (
+            <Icon type={FileTrayOutline} class="k-empty-icon" />
+          ) : slots.image ? (
+            slots.image()
+          ) : (
+            <img src={image} class="k-empty-image" style={imageStyle} />
+          )}
+          {description !== null ? (
+            <p class="k-empty-description">
+              {description ||
+                slots.description?.() ||
+                locale?.value.k.empty.description}
+            </p>
+          ) : null}
+          {slots.default ? (
+            <div class="k-empty-footer">{slots.default()}</div>
+          ) : null}
         </div>
       );
     };

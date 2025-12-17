@@ -6,10 +6,7 @@
 ```vue
 <template>
   <Space class="demo-color-picker" vertical>
-    <Space> <ColorPicker v-model:value="color1" /> HEX: {{ color1 }} </Space>
-    <Space>
-      <ColorPicker v-model:value="color2" mode="rgb" /> RGB: {{ color2 }}
-    </Space>
+    <Space> <ColorPicker v-model="color1" /> HEX: {{ color1 }} </Space>
     <Space>
       <ColorPicker v-model:value="color3" mode="hsl" /> HSL: {{ color3 }}
     </Space>

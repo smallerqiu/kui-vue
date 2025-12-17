@@ -10,6 +10,7 @@
       v-model="current"
       :openKeys="openKeys"
       mode="inline"
+      @openChange="openChange"
     >
       <SubMenu key="sub1" :icon="Mail" title="Navigation One">
         <MenuItem key="1-1" :icon="Heart">Option 1</MenuItem>
@@ -39,5 +40,8 @@ import { ref } from "vue";
 import { Mail, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub1"]);
+const openChange = (openKeys) => {
+  console.log(openKeys);
+}
 </script>
 ```

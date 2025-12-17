@@ -12,7 +12,7 @@
       </Col>
       <Col :span="4">
         <InputNumber
-          v-model:value="n1"
+          v-model="n1"
           :min="1"
           :max="20"
           style="margin-left: 16px"

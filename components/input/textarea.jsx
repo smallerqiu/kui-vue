@@ -5,6 +5,7 @@ const TextArea = defineComponent({
   props: {
     value: [String, Number, Object, Array],
     theme: String,
+    size: String,
     disabled: Boolean,
   },
   setup(ps, { attrs, emit, listeners }) {
@@ -17,9 +18,16 @@ const TextArea = defineComponent({
     );
 
     return () => {
-      const { theme, disabled } = ps;
+      const { theme, disabled, size } = ps;
       const props = {
-        class: ["k-textarea", { [`k-textarea-${theme}`]: theme == "light" }],
+        class: [
+          "k-textarea",
+          {
+            [`k-textarea-${theme}`]: theme == "light",
+            "k-textarea-sm": size == "small",
+            "k-textarea-lg": size == "large",
+          },
+        ],
         attrs: {
           ...attrs,
           disabled,

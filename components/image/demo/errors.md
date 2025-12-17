@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <KImage
       :width="120"
       src="https://k-ui.cn/error.jpg"

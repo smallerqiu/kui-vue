@@ -2,8 +2,8 @@ import Icon from "../icon";
 import { Close } from "kui-icons";
 import { defineComponent, /*Transition,*/ ref } from "vue";
 import { isColor } from "../utils/color";
-import { withInstall } from '../utils/vue';
-import { colors } from '../const/var'
+import { withInstall } from "../utils/vue";
+import { colors } from "../const/var";
 const Tag = defineComponent({
   name: "Tag",
   props: {
@@ -17,12 +17,17 @@ const Tag = defineComponent({
         return ["small", "large", "middle"].indexOf(value) >= 0;
       },
     },
+    theme: String,
   },
   setup(ps, { slots, emit, listeners }) {
     const visible = ref(true);
+    const hidden = ref(false);
     const closeHandler = () => {
       emit("close");
       visible.value = false;
+      setTimeout(() => {
+        hidden.value = true;
+      }, 300);
     };
     return () => {
       const { shape, icon, size, color, closeable } = ps;
@@ -36,10 +41,15 @@ const Tag = defineComponent({
             ["k-tag-circle"]: shape == "circle",
             ["k-tag-has-color"]: isColor(color) && !colors.includes(color),
             ["k-tag-closeable"]: closeable,
+            ["k-tag-hidden"]: hidden.value,
+            ["k-tag-light"]: ps.theme == "light",
           },
         ],
         on: { ...listeners },
-        style: { backgroundColor: isColor(color) && !colors.includes(color) ? color : null },
+        style: {
+          backgroundColor:
+            isColor(color) && !colors.includes(color) ? color : null,
+        },
       };
       const children = [];
       if (icon) {
@@ -47,7 +57,9 @@ const Tag = defineComponent({
       }
       children.push(<span class="k-tag-text">{slots.default?.()}</span>);
       if (closeable) {
-        children.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
+        children.push(
+          <Icon class="k-tag-close" type={Close} onClick={closeHandler} />
+        );
       }
       return (
         <transition name="k-tag">
@@ -59,4 +71,4 @@ const Tag = defineComponent({
     };
   },
 });
-export default withInstall(Tag)
+export default withInstall(Tag);

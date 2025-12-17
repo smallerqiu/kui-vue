@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Avatar :icon="HeartOutline" />
     <Avatar>
       <Icon :type="HeartOutline" />

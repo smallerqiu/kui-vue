@@ -11,7 +11,7 @@
     <CheckboxGroup :options="options" v-model="value1" />
     <br />
     use children
-    <CheckboxGroup v-model="value1">
+    <CheckboxGroup v-model="value1" theme="light">
       <Checkbox
         :label="item.label"
         :value="item.value"

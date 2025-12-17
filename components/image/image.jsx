@@ -1,9 +1,17 @@
-import { defineComponent, ref, onMounted, onBeforeUnmount, watch } from "vue";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  inject,
+  computed,
+} from "vue";
 import Icon from "../icon";
 import newInstance from "./instance";
 import { Loading, IconImage, EyeOutline } from "kui-icons";
-import { t } from "../locale";
 import { withInstall } from "../utils/vue";
+import zhCN from "../locale/zh-CN";
 
 const KImage = defineComponent({
   name: "KImage",
@@ -19,24 +27,40 @@ const KImage = defineComponent({
     imgStyle: Object,
     showPanel: Boolean,
   },
-  setup(props, { emit, slots, expose }) {
+  setup(props, { emit, slots, expose, listeners }) {
     const loading = ref(false);
     const showImg = ref(false);
-    const imageUrl = ref("");
+    const imageUrl = ref(null);
     const error = ref(false);
     const imgWidth = ref(0);
     const imgHeight = ref(0);
 
     const preview = ref();
+    const ImageGroup = inject("ImageGroup", null);
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
     // global api
     const togglePanel = () => {
+      if (ImageGroup) {
+        ImageGroup.togglePanel();
+        return;
+      }
       if (preview.value) {
         preview.value.togglePanel();
       }
     };
     // global api
     const show = (options) => {
+      if (ImageGroup) {
+        ImageGroup.show(options);
+        return;
+      }
       if (!preview.value) {
         preview.value = newInstance({ ...options });
       }
@@ -55,20 +79,24 @@ const KImage = defineComponent({
     const showPreview = (e) => {
       const { origin, src } = props;
       if ((!src && !origin) || error.value) return;
-
       const options = {
-        on: {},
+        on: {
+          close: () => {
+            emit("close");
+          },
+          switch: (index) => {
+            emit("switch", index);
+          },
+        },
         props: {
-          src,
-          data: props.data,
-          origin: props.origin,
-          slots: slots,
+          src: origin || src,
           showPanel: props.showPanel,
           type: props.type,
         },
+        scopedSlots: { ...slots },
       };
 
-      if (!origin) {
+      if (!origin || props.type == "media") {
         show(options);
       } else {
         loading.value = true;
@@ -76,7 +104,7 @@ const KImage = defineComponent({
           origin,
           () => {
             loading.value = false;
-            options.src = origin;
+            options.props.src = origin;
             show(options);
           },
           () => {
@@ -153,12 +181,15 @@ const KImage = defineComponent({
 
     onMounted(() => {
       reload();
+      ImageGroup?.register(props.origin || props.src);
     });
 
     onBeforeUnmount(() => {
-      if (preview) {
-        preview.destroy();
-      }
+      // if (preview) {
+      //   preview.destroy();
+      // }
+      destroy();
+      ImageGroup?.unregister(props.origin || props.src);
     });
 
     return () => {
@@ -198,7 +229,7 @@ const KImage = defineComponent({
           {!loading.value && !error.value ? (
             <div class="k-image-preview-mask">
               <Icon type={EyeOutline} />
-              {t("k.image.preview")}
+              {locale?.value.k.image.preview}
             </div>
           ) : null}
           {slots.default?.()}

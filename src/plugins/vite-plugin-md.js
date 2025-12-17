@@ -29,26 +29,37 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
-      // const vertical_list = [
-      //   "table",
-      //   "grid",
-      //   "dark-mode",
-      //   "flex",
-      //   "layout",
-      //   "space",
-      //   "menu",
-      //   "page",
-      //   "tabs",
-      //   "descriptions",
-      //   'skeleton'
-      // ];
-      let direction = "vertical";
-      // vertical_list.forEach((item) => {
-      //   if (path.includes(item)) {
-      //     direction = "vertical";
-      //   }
-      // });
-      
+      console.log(path);
+      const vertical_list = [
+        "table",
+        "grid",
+        "dark-mode",
+        "flex",
+        "layout",
+        "space",
+        "menu",
+        "page",
+        "tabs",
+        "descriptions",
+        "skeleton",
+        "form",
+        "input/demo/group",
+        "slider/demo/marks",
+        "tree/demo/directory",
+        "alert/demo/icon",
+        "alert/demo/customIcon",
+        "views/language/demo",
+      ];
+      let direction = "horizontal";
+      vertical_list.forEach((item) => {
+        if (path.includes(item)) {
+          direction = "vertical";
+        }
+      });
+      // if (vertical_list.includes(path.split("/").pop().split(".")[0])) {
+      //   direction = "vertical";
+      // }
+      // const direction = path.includes("table") ? "vertical" : "horizontal";
       if (!path.endsWith(".md")) return null;
       const id = "k-" + hashId(path);
 

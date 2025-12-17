@@ -5,25 +5,19 @@
 
 ```vue
 <template>
-  <Flex vertical size="small">
-    <Space>
+  <Flex size="small">
+    <Space vertical>
       <Button type="primary">Primary</Button>
-      <Button disabled type="primary">Primary(disabled)</Button>
-    </Space>
-    <Space>
       <Button type="danger">Danger</Button>
-      <Button type="danger" disabled>Danger(disabled)</Button>
-    </Space>
-    <Space>
       <Button>Default</Button>
-      <Button disabled>Default(disabled)</Button>
-    </Space>
-    <Space>
       <Button type="text">Text</Button>
-      <Button disabled type="text">Text(disabled)</Button>
-    </Space>
-    <Space>
       <Button type="link">Link</Button>
+    </Space>
+    <Space vertical>
+      <Button disabled type="primary">Primary(disabled)</Button>
+      <Button type="danger" disabled>Danger(disabled)</Button>
+      <Button disabled>Default(disabled)</Button>
+      <Button disabled type="text">Text(disabled)</Button>
       <Button disabled type="link">Link(disabled)</Button>
     </Space>
   </Flex>

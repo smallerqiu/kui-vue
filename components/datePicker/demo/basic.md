@@ -9,7 +9,7 @@
     <DatePicker mode="year" />
     <DatePicker mode="month" />
     <DatePicker mode="date" />
-    <DatePicker mode="time" />
+    <DatePicker mode="time" @change="(v) => console.log(v)" />
     <DatePicker mode="dateTime" v-model="value" />
   </Space>
 </template>

@@ -5,14 +5,17 @@ import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
 import { withInstall } from "../utils/vue";
 import InputBox from "./inputBox";
+import { sizeMap, filterSize } from "../utils/size";
+
 const Input = defineComponent({
   name: "Input",
   props: {
-    clearable: Boolean,
+    clearable: { type: Boolean, default: true },
     visiblePasswordIcon: { type: Boolean, default: true },
     size: {
+      type: String,
       validator(value) {
-        return ["small", "large", "middle", "default"].indexOf(value) >= 0;
+        return sizeMap.indexOf(value) >= 0;
       },
     },
     value: { type: [String, Number, Array, Object] },
@@ -50,7 +53,7 @@ const Input = defineComponent({
     const inputRef = ref();
     const parentSize = inject("size", null);
 
-    provide("size", ps.size || parentSize);
+    provide("size", ps.size || filterSize(parentSize));
 
     watch(
       () => ps.value,
@@ -119,7 +122,7 @@ const Input = defineComponent({
     return () => {
       const {
         icon,
-        size = parentSize,
+        size = filterSize(parentSize),
         disabled,
         type,
         clearable,
@@ -178,12 +181,14 @@ const Input = defineComponent({
 
       if (!multiple) return textInput;
 
-      let clearableShow = clearable && !isEmpty(currentValue.value);
+      let clearableShow =
+        clearable && !isEmpty(currentValue.value) && type != "password";
       const props = {
         class: {
           [`k-${inputType}`]: true,
           [`k-${inputType}-focus`]: focused.value,
           [`k-${inputType}-disabled`]: disabled,
+          [`k-${inputType}-has-clear`]: clearableShow,
           [`k-${inputType}-sm`]: size == "small",
           [`k-${inputType}-lg`]: size == "large",
           [`k-${inputType}-${theme}`]: theme && theme != "solid",

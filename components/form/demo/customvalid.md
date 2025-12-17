@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div style="width:600px;">
+  <div style="max-width:600px;">
     <Form
       :model="form"
       :rules="rules"

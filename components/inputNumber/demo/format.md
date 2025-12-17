@@ -7,19 +7,19 @@
 <template>
   <Space vertical block>
     <code> 0.1+0.2 = 0.3 (yes) ,输出：{{ n }}</code>
-    <InputNumber :step="0.2" v-model:value="n" />
+    <InputNumber :step="0.2" v-model="n" />
     <code>步长为 0.00000000000001 ,输出：{{ n1 }}</code>
     <InputNumber
-      v-model:value="n1"
+      v-model="n1"
       :min="0"
       :max="10"
       :step="0.00000000000001"
     />
     <code>保留2位小数, 输出：{{ n3 }}</code>
-    <InputNumber :precision="2" v-model:value="n3" />
+    <InputNumber :precision="2" v-model="n3" />
     <code> 货币，千分位,输出： {{ n4 }}</code>
     <InputNumber
-      v-model:value="n4"
+      v-model="n4"
       :min="0"
       :formatter="
         (value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -28,7 +28,7 @@
     />
     <code>百分比% ,输出： {{ n5 }}</code>
     <InputNumber
-      v-model:value="n5"
+      v-model="n5"
       :min="0"
       :max="100"
       :formatter="(value) => `${value}%`"
@@ -36,12 +36,12 @@
     />
     <code>只能输入数字,输出： {{ n6 }}</code>
     <InputNumber
-      v-model:value="n6"
+      v-model="n6"
       :formatter="(value) => value.replace(/\D/g, '')"
     />
     <code>自定义 ,输出：{{ n7 }}</code>
     <InputNumber
-      v-model:value="n7"
+      v-model="n7"
       :formatter="(value) => String(value).split('').join('-')"
       :parser="(value) => value.replace(/\-/g, '')"
     />

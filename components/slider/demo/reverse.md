@@ -5,17 +5,19 @@
 
 ```vue
 <template>
-  <div style="max-width:520px;">
-    <Slider v-model:value="v1" :reverse="reverse" />
+  <Space style="max-width:520px;" vertical block>
+    <code>
+      Reversed:
+      <KSwitch v-model="reverse" size="small" />
+    </code>
+    <Slider v-model="v1" :reverse="reverse" />
     <Slider
-      v-model:value="v2"
+      v-model="v2"
       range
       :reverse="reverse"
       :marks="{ 40: '40°C', 50: '50°C' }"
     />
-    Reversed:
-    <KSwitch v-model:checked="reverse" size="small" />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";

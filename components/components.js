@@ -58,8 +58,8 @@ export { Form, FormItem };
 import Flex from "./flex";
 export { Flex };
 
-import { KImage } from "./image";
-export { KImage };
+import { KImage, ImageGroup } from "./image";
+export { KImage, ImageGroup };
 
 import Icon from "./icon";
 export { Icon };
@@ -109,6 +109,9 @@ export { Rate };
 
 import { Select, Option } from "./select";
 export { Select, Option };
+
+import ConfigProvider from "./config";
+export { ConfigProvider };
 
 import {
   Skeleton,
