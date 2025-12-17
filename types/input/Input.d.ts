@@ -6,7 +6,7 @@ export interface InputProps {
   clearable?: boolean;
   /** default: true */
   visiblePasswordIcon?: boolean;
-  size?: any;
+  size?: string;
   value?: string | number | any[] | Record<string, any>;
   disabled?: boolean;
   /** default: text */

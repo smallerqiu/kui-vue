@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** ButtonGroup component props */
 export interface ButtonGroupProps {
-  size?: any;
+  size?: string;
   shape?: string;
 }
 

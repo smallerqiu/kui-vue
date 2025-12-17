@@ -8,6 +8,7 @@ export interface DropdownProps {
   /** default: true */
   transfer?: boolean;
   disabled?: boolean;
+  /** default: false */
   arrow?: boolean;
   show?: boolean;
   /** default: bottom-left */

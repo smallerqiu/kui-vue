@@ -7,6 +7,10 @@ const ConfigProvider = defineComponent({
       type: Object,
       default: () => null,
     },
+    // theme: {
+    //   type: Object,
+    //   default: () => null,
+    // },
   },
   setup(props, { slots }) {
     const locale = ref(props.locale);
@@ -17,8 +21,8 @@ const ConfigProvider = defineComponent({
       () => props.locale,
       (newVal) => {
         locale.value = newVal;
-      }
-      // { immediate: true }
+      },
+      { immediate: true }
     );
     return () => {
       return slots.default?.();
