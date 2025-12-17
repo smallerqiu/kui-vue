@@ -1,12 +1,20 @@
 import Icon from "../icon";
 import { Loading } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Switch = defineComponent({
   name: "KSwitch",
+  model: {
+    prop: "checked",
+    event: "input",
+  },
   props: {
+    checked: {
+      type: Boolean,
+      default: false,
+    },
     // checked: [Boolean, Number], //for 3
-    value: [Boolean, Number], //for 3
+    value: [Boolean, Number], //for 2
     type: String,
     disabled: Boolean,
     loading: Boolean,
@@ -20,9 +28,10 @@ const Switch = defineComponent({
     falseText: String,
   },
   setup(ps, { slots, emit }) {
-    const isChecked = ref(ps.value);
+    const isChecked = ref(ps.checked);
     watch(
-      () => ps.value,
+      () => ps.checked,
+      // () => ps.value,
       (nv, no) => {
         isChecked.value = nv;
       }
@@ -69,7 +78,8 @@ const Switch = defineComponent({
           class={classes}
           onClick={change}
           disabled={disabled || loading}
-          type="button">
+          type="button"
+        >
           {textNode}
           {loadNode}
         </button>

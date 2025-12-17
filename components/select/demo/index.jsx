@@ -12,12 +12,12 @@ export default {
       <div class="demo-select">
         <Info />
         <Basic />
-        <Multiple />
+        {/* <Multiple />
         <Disabled />
         <Filterable />
         <Size />
         <Theme />
-        <CN />
+        <CN /> */}
       </div>
     );
   },
