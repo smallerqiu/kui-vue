@@ -5,8 +5,7 @@ export interface InputGroupProps {
   block?: boolean;
   /** default: true */
   compact?: boolean;
-  /** default: default */
-  size?: string | number | any[];
+  size?: string;
 }
 
 /** InputGroup component instance */

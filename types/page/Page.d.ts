@@ -7,6 +7,7 @@ export interface PageProps {
   /** default: true */
   showTotal?: boolean;
   showElevator?: boolean;
+  theme?: string;
   /** default: undefined */
   sizeData?: any[];
   /** default: default */

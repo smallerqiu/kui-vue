@@ -6,9 +6,7 @@ export interface PopconfirmProps {
   title?: string | number | Record<string, any> | any[];
   size?: string;
   width?: number | string;
-  /** default: 确认 */
   okText?: string;
-  /** default: 取消 */
   cancelText?: string;
   /** default: top */
   placement?: any;
