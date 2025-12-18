@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <span>©2022 KUI. All rights reserved.</span>
+    <span>©{{year}} KUI. All rights reserved.</span>
     <a href="https://beian.miit.gov.cn" target="_blank" class="beian">
       <img
         src="https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/beian.png"
@@ -13,3 +13,6 @@
     </span>
   </footer>
 </template>
+<script setup>
+const year = new Date().getFullYear()  
+</script>

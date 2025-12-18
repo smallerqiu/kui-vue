@@ -34,11 +34,6 @@
       :formatter="(value) => `${value}%`"
       :parser="(value) => value.replace('%', '')"
     />
-    <code>只能输入数字,输出： {{ n6 }}</code>
-    <InputNumber
-      v-model="n6"
-      :formatter="(value) => value.replace(/\D/g, '')"
-    />
     <code>自定义 ,输出：{{ n7 }}</code>
     <InputNumber
       v-model="n7"

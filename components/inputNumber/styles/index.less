@@ -32,79 +32,79 @@
   .k-input-number-clearable-hidden {
     visibility: hidden;
   }
+}
 
-  .k-input-number-controls {
-    transition: all 0.15s ease-in-out;
-    user-select: none;
-    // position: absolute;
-    // right: 0;
-    // top: 0;
-    // width: 20px;
-    display: flex;
-    flex-direction: column;
-    color: var(--kui-color-icon);
-    border-left: 1px solid var(--kui-color-border);
-    background-color: var(--kui-color-back);
-    font-size: 11px;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
+.k-input-number-controls {
+  transition: all 0.15s ease-in-out;
+  user-select: none;
+  // position: absolute;
+  // right: 0;
+  // top: 0;
+  // width: 20px;
+  display: flex;
+  flex-direction: column;
+  color: var(--kui-color-icon);
+  border-left: 1px solid var(--kui-color-border);
+  background-color: var(--kui-color-back);
+  font-size: 11px;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.k-input-number-control {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--kui-color-main);
+    background-color: var(--kui-color-hover);
   }
 
-  .k-input-number-control {
-    flex: 1;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--kui-color-main);
-      background-color: var(--kui-color-hover);
-    }
-
-    &:active {
-      color: var(--kui-color-main);
-      background-color: var(--kui-color-active);
-    }
-
-    &:first-child {
-      border-radius: 0 @radius 0 0;
-    }
-
-    &:last-child {
-      border-top: 1px solid var(--kui-color-border);
-      border-radius: 0 0 @radius 0;
-
-      .k-icon {
-        transform: rotate(180deg);
-      }
-    }
+  &:active {
+    color: var(--kui-color-main);
+    background-color: var(--kui-color-active);
   }
 
-  .k-input-number-text {
-    padding-left: 0;
-    border: none;
-    height: 30px;
-    line-height: 1.5;
-    padding: 4px 0;
-    font-size: 14px;
-    color: var(--kui-color-font);
-    background-color: transparent;
-    background-image: none;
-    box-sizing: border-box;
-    flex: 1;
-    min-width: 10px;
-    line-height: 1.571;
+  &:first-child {
+    border-radius: 0 @radius 0 0;
+  }
 
-    &:focus {
-      // border-color: var(--kui-color-main);
-      outline: none;
+  &:last-child {
+    border-top: 1px solid var(--kui-color-border);
+    border-radius: 0 0 @radius 0;
+
+    .k-icon {
+      transform: rotate(180deg);
     }
+  }
+}
+
+.k-input-number-text {
+  padding-left: 0;
+  border: none;
+  height: 30px;
+  line-height: 1.5;
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--kui-color-font);
+  background-color: transparent;
+  background-image: none;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 10px;
+  line-height: 1.571;
+
+  &:focus {
+    // border-color: var(--kui-color-main);
+    outline: none;
   }
 }
 .k-input-number-focus {

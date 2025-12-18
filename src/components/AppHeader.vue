@@ -54,6 +54,7 @@
         style="margin-left: 8px"
         :no-alpha="true"
         @change="changeThemeColor"
+        placement="bottom-right"
       />
       <Tooltip
         :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`"

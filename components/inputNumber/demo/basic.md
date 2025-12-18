@@ -5,12 +5,19 @@
 
 ```vue
 <template>
-  <Space style="font-size:12px;" vertical>
+  <Space style="font-size:12px;max-width:200px" block vertical>
     <InputNumber v-model="value" />
-    <ButtonGroup>
-      <Button @click="value-=1">-</Button>
-      <Button @click="value+=1">+</Button>
-    </ButtonGroup>
+
+    <code>readonly</code>
+    <InputNumber v-model="value" readonly />
+    <code>disabled</code>
+    <InputNumber v-model="value" disabled />
+    <code>group</code>
+    <InputGroup>
+      <Button @click="value -= 1" theme="outline">-</Button>
+      <InputNumber v-model="value" :controls="false" />
+      <Button @click="value += 1" theme="outline">+</Button>
+    </InputGroup>
   </Space>
 </template>
 <script setup>

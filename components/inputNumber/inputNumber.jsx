@@ -103,7 +103,6 @@ const InputNumber = defineComponent({
           : subtract(String(outputValue.value), String(step));
       const { input, output } = getValue(value, true);
 
-      // console.log(input,output)
       // return
       inputValue.value = input;
       outputValue.value = output;
@@ -125,7 +124,6 @@ const InputNumber = defineComponent({
     const onUpdate = (e) => {
       const v = e; //.target.value;
       const { input, output } = getValue(v, false, false);
-      // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
       inputValue.value = input;
       // e.target.value = input;
 
@@ -152,7 +150,7 @@ const InputNumber = defineComponent({
     );
     const blurHandle = (e) => {
       const { input, output } = getValue(outputValue.value, true, true);
-
+      // console.log(input, output)
       inputValue.value = input;
       outputValue.value = output;
       emit("input", output);
@@ -163,7 +161,7 @@ const InputNumber = defineComponent({
       // const { suffix } = ps;
 
       const props = {
-        attrs: { ...attrs },
+        attrs: { ...attrs, readonly: ps.readonly },
         // ...ps,
         props: {
           inputType: "input-number",
@@ -200,7 +198,7 @@ const InputNumber = defineComponent({
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),
             controls: () =>
-              ps.controls ? (
+              ps.controls && !ps.readonly ? (
                 <div class="k-input-number-controls">
                   <span
                     class="k-input-number-control"
