@@ -7,7 +7,7 @@
 <template>
   <Space vertical>
     use options to set options
-    <!-- <Select v-model="value1" :options="data" /> -->
+    <Select v-model="value1" :options="data" />
     <br />
     use children to set options
     <Select v-model="value2">

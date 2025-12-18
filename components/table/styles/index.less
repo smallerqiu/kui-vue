@@ -16,12 +16,14 @@
     z-index: 3;
   }
 
-  .k-table-cell-fix-left {
-    position: sticky;
-  }
-
+  .k-table-cell-fix-left,
   .k-table-cell-fix-right {
     position: sticky;
+    box-sizing: border-box;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    contain: layout;
   }
 
   .k-spin {
@@ -328,7 +330,10 @@
       padding: 20px 16px;
     }
   }
-
+  .k-table-body {
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+  }
   .k-table-header + .k-table-body {
     table tr th:first-child {
       border-radius: 0;

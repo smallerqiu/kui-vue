@@ -59,10 +59,12 @@ const value4 = ref([]);
 const loading = ref(false);
 
 const optionsData = ref([]);
-const fetchData = () => {
+const fetchData = (e) => {
   loading.value = true;
   setTimeout(() => {
-    optionsData.value = options;
+    optionsData.value = options.filter((v) =>
+      v.includes(e.target.value.trim())
+    );
     loading.value = false;
   }, 1000);
 };

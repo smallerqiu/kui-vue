@@ -34,6 +34,8 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 `Table`
 
 - 移除了单选模式
+- columns {type:'selection'} => `checkable`
+- rowSpan,colSpan => `Number | Function`
 - `width, height` => `scroll:{x , y}`
 
 `Menu`

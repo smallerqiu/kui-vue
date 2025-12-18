@@ -218,7 +218,6 @@ const DatePicker = defineComponent({
 
     const syncTextFromValue = () => {
       const fmt = getFormat();
-      const fmtDate = (d) => (d ? d.locale(localeName.value).format(fmt) : "");
       //  空值
       if (!innerValue.value) {
         textValue.value = "";
@@ -227,13 +226,12 @@ const DatePicker = defineComponent({
         return;
       }
 
+      const fmtDate = (d) => (d ? d.locale(localeName.value).format(fmt) : "");
       //  Range 模式
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
         textValueStart.value = start ? start.format(fmt) : "";
         textValueEnd.value = end ? end.format(fmt) : "";
-        // 兼容单 input 显示 (虽然现在是双input，保留逻辑防止出错)
-        textValue.value = innerValue.value.map((d) => fmtDate(d)).join(" - ");
       } else {
         textValue.value = fmtDate(innerValue.value);
       }
@@ -245,7 +243,11 @@ const DatePicker = defineComponent({
       if (props.valueType === "unix") {
         d = dayjs.unix(Number(val));
       } else {
-        d = dayjs(val);
+        const fmt = getFormat();
+        d = dayjs(val, fmt, localeName.value);
+        if (!d.isValid()) {
+          d = dayjs(val);
+        }
       }
 
       return d.isValid() ? d.locale(localeName.value) : null;
@@ -414,9 +416,9 @@ const DatePicker = defineComponent({
         ctx &&
         !ctx.contains(e.target)
       ) {
+        syncTextFromValue();
         isVisible.value = false;
         isFocus.value = false;
-        syncTextFromValue();
       }
     };
     const timeLabelClick = (e, direction) => {
@@ -795,7 +797,10 @@ const DatePicker = defineComponent({
                     i === curr ? "active" : "",
                     isDisabled ? "k-picker-time-disabled" : "",
                   ]}
-                  onClick={() => !isDisabled && handleTimeScrollPick(type, i)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    !isDisabled && handleTimeScrollPick(type, i);
+                  }}
                 >
                   {String(i).padStart(2, "0")}
                 </li>

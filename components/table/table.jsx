@@ -136,7 +136,11 @@ const Table = defineComponent({
       // 使用 flattedColumns
       flattedColumns.value.forEach((col) => {
         if (col.fixed === "left") {
-          const style = { position: "sticky", left: `${leftOffset}px` };
+          const style = {
+            position: "sticky",
+            transform: "translateZ(0)",
+            left: `${leftOffset}px`,
+          };
           headerStyles[col.key] = style;
           bodyStyles[col.key] = style;
           leftOffset += col.width || 100;
@@ -150,6 +154,7 @@ const Table = defineComponent({
           bodyStyles[col.key] = {
             position: "sticky",
             right: `${rightOffset}px`,
+            transform: "translateZ(0)",
           };
 
           const headerRight = isSplit.value
@@ -159,6 +164,7 @@ const Table = defineComponent({
           headerStyles[col.key] = {
             position: "sticky",
             right: `${headerRight}px`,
+            transform: "translateZ(0)",
           };
 
           rightOffset += col.width || 100;
@@ -183,13 +189,26 @@ const Table = defineComponent({
       return cls;
     };
 
+    let scrollRafId = 0;
     const handleBodyScroll = (e) => {
-      const { scrollLeft, scrollWidth, clientWidth } = e.target;
-      if (isSplit.value && headerWrapperRef.value) {
-        headerWrapperRef.value.scrollLeft = scrollLeft;
-      }
-      pingLeft.value = scrollLeft > 0;
-      pingRight.value = scrollLeft < scrollWidth - clientWidth - 1;
+      const target = e?.target;
+      if (!target || !isSplit.value) return;
+
+      if (scrollRafId) cancelAnimationFrame(scrollRafId);
+      scrollRafId = requestAnimationFrame(() => {
+        const { scrollLeft, scrollWidth, clientWidth } = target;
+        if (isSplit.value && headerWrapperRef.value) {
+          headerWrapperRef.value.scrollLeft = scrollLeft;
+        }
+
+        // 优化边界检测，避免亚像素抖动
+        const maxScrollLeft = Math.max(0, scrollWidth - clientWidth);
+        const nextPingLeft = scrollLeft > 0.5;
+        const nextPingRight = scrollLeft < maxScrollLeft - 0.5;
+
+        if (pingLeft.value !== nextPingLeft) pingLeft.value = nextPingLeft;
+        if (pingRight.value !== nextPingRight) pingRight.value = nextPingRight;
+      });
     };
 
     const measureScrollbar = () => {
@@ -272,8 +291,6 @@ const Table = defineComponent({
       innerSelectedKeys.value = newSet;
       emit("update:selectedKeys", Array.from(newSet));
     };
-
-    // --- Render Functions ---
 
     const renderColGroup = (isHeader = false) => (
       <colgroup>
@@ -381,6 +398,68 @@ const Table = defineComponent({
       );
     };
 
+    const mergeMatrix = computed(() => {
+      const data = processedData.value;
+      const cols = flattedColumns.value;
+
+      // 结构: matrix[rowIndex][colIndex] = { rowSpan: 1, colSpan: 1, show: true }
+      const matrix = [];
+
+      if (!data.length) return matrix;
+
+      for (let i = 0; i < data.length; i++) {
+        matrix[i] = [];
+        for (let j = 0; j < cols.length; j++) {
+          matrix[i][j] = { rowSpan: 1, colSpan: 1, show: true };
+        }
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < cols.length; j++) {
+          if (!matrix[i][j].show) continue;
+
+          const record = data[i];
+          const col = cols[j];
+
+          let rowspan = 1;
+          let colspan = 1;
+
+          if (col.rowSpan) {
+            rowspan =
+              typeof col.rowSpan === "function"
+                ? col.rowSpan(record, i)
+                : col.rowSpan;
+          }
+          if (col.colSpan) {
+            colspan =
+              typeof col.colSpan === "function"
+                ? col.colSpan(record, i)
+                : col.colSpan;
+          }
+
+          if (rowspan === 1 && colspan === 1) continue;
+
+          matrix[i][j].rowSpan = rowspan;
+          matrix[i][j].colSpan = colspan;
+
+          for (let r = 0; r < rowspan; r++) {
+            for (let c = 0; c < colspan; c++) {
+              if (r === 0 && c === 0) continue; // 跳过自己
+
+              const targetRow = i + r;
+              const targetCol = j + c;
+
+              if (matrix[targetRow] && matrix[targetRow][targetCol]) {
+                matrix[targetRow][targetCol].show = false;
+              }
+            }
+          }
+        }
+      }
+
+      return matrix;
+    });
+
     const renderTbody = () => (
       <tbody>
         {processedData.value.map((record, rowIndex) => {
@@ -409,65 +488,13 @@ const Table = defineComponent({
                 </td>
               )}
               {flattedColumns.value.map((col, colIndex) => {
-                // 检查当前单元格是否应该渲染（未被其他单元格合并）
-                const shouldRenderCell = () => {
-                  // 检查水平方向是否被前面的单元格合并
-                  for (let i = 0; i < colIndex; i++) {
-                    const prevCol = flattedColumns.value[i];
-                    const prevColSpan =
-                      typeof prevCol.colSpan === "function"
-                        ? prevCol.colSpan(record, rowIndex) // 这里应该是 rowIndex
-                        : prevCol.colSpan;
+                const cellState = mergeMatrix.value[rowIndex]?.[colIndex];
 
-                    // 如果前面的单元格跨越了当前单元格的位置，则当前单元格不应该渲染
-                    if (prevColSpan && i + prevColSpan > colIndex) {
-                      return false;
-                    }
-                  }
+                if (!cellState || !cellState.show) return null;
 
-                  // 检查垂直方向是否被上面的单元格合并
-                  for (let i = 0; i < rowIndex; i++) {
-                    const prevRecord = processedData.value[i];
-                    const prevRowSpan =
-                      typeof col.rowSpan === "function"
-                        ? col.rowSpan(prevRecord, i) // 这里应该是 i
-                        : col.rowSpan;
-
-                    if (prevRowSpan && i + prevRowSpan > rowIndex) {
-                      return false;
-                    }
-                  }
-
-                  return true;
-                };
-
-                // 如果不应该渲染，则返回null
-                if (!shouldRenderCell()) {
-                  return null;
-                }
-
-                // 计算当前单元格的跨行列属性
-                let attrs = {};
-
-                const colSpanValue =
-                  typeof col.colSpan === "function"
-                    ? col.colSpan(record, rowIndex) // 这里可能需要根据具体情况调整参数顺序
-                    : col.colSpan;
-
-                const rowSpanValue =
-                  typeof col.rowSpan === "function"
-                    ? col.rowSpan(record, rowIndex)
-                    : col.rowSpan;
-
-                // 只有当跨行列数大于1时才添加对应属性
-                if (colSpanValue > 1) {
-                  attrs.colspan = colSpanValue;
-                }
-
-                if (rowSpanValue > 1) {
-                  attrs.rowspan = rowSpanValue;
-                }
-
+                const attrs = {};
+                if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
+                if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
                 return (
                   <td
                     key={col.key}

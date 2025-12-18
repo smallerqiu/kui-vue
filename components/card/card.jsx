@@ -31,7 +31,7 @@ const Card = defineComponent({
             {titleNode}
             {extraNode}
           </div>
-          {selfSlot ? <div class="k-card-body">{selfSlot}</div> : null}
+          {selfSlot ? <div class="k-card-body k-scroll">{selfSlot}</div> : null}
         </div>
       );
     };
