@@ -15,7 +15,6 @@ import {
   watch,
   nextTick,
   inject,
-  toRefs,
   // Transition,
   onBeforeMount,
   onMounted,
@@ -78,7 +77,7 @@ const Select = defineComponent({
         : injectedLocale;
     });
 
-    const labelText = ref([]);
+    // const labelText = ref([]);
     const visible = ref(false);
     const rendered = ref(false);
     const currentValue = ref(
@@ -102,46 +101,41 @@ const Select = defineComponent({
 
     const reallySize = ref(0);
     const ctxFocused = ref(false);
+    const updateTrigger = ref(0);
 
-    // 只能说vue2 确实垃圾. 这因该是设计缺陷, 在v3里 这个问题得到了解决.
-    const slotUpdateTrigger = ref(0);
-
+    onBeforeUpdate(() => {
+      updateTrigger.value++;
+    });
 
     watch(
       () => ps.placement,
       (v) => {
         currentPlacement.value = v;
-        updatePosition();
+        if (visible.value) {
+          updatePosition();
+        }
       }
     );
     watch(
       () => ps.options,
       (v) => {
-        updateLabel();
-        // 如果下拉框是打开状态，重新计算位置（防止数据变多导致高度变化）
         if (visible.value) {
           updatePosition();
         }
       },
       { deep: true }
     );
-    onBeforeUpdate(() => {
-      slotUpdateTrigger.value++;
-      console.log(optionsData.value,labelText.value)
-    });
+
     watch(
       () => ps.value,
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
-        updatePosition();
-        updateLabel();
+        if (visible.value) {
+          updatePosition();
+        }
       }
     );
-    // const scrollToelement = () => {
-    //   // 影响外层 scroll
-    //   const item = refPopper.value.children[0].children[activeIndex.value];
-    //   item.scrollIntoView({ block: "center" });
-    // };
+
     const scrollOptionIntoView = () => {
       const containerEl = refPopper.value;
       const optionEl = refPopper.value.children[0].children[activeIndex.value];
@@ -207,6 +201,12 @@ const Select = defineComponent({
       document.removeEventListener("click", outsideClick);
     });
 
+    const labelText = computed(() => {
+      return optionsData.value
+        .filter((item) => currentValue.value.includes(item.value))
+        .map((item) => item.label);
+    });
+
     const updatePosition = () => {
       nextTick(() => {
         minWidth.value = refCtx.value?.offsetWidth;
@@ -224,7 +224,6 @@ const Select = defineComponent({
     onMounted(() => {
       nextTick(() => {
         minWidth.value = refCtx.value?.offsetWidth;
-        updateLabel();
       });
       document.addEventListener("keydown", onKeydown);
     });
@@ -275,7 +274,6 @@ const Select = defineComponent({
         if (currentValue.value?.indexOf(value) >= 0) {
           selected = false;
           currentValue.value = currentValue.value.filter((v) => v !== value);
-          labelText.value = labelText.value.filter((v) => v !== label);
         } else {
           currentValue.value.push(value);
           labelText.value.push(label);
@@ -288,8 +286,6 @@ const Select = defineComponent({
         }
       } else {
         currentValue.value = [value];
-        labelText.value = [label];
-        // toggle();
         visible.value = false;
         emit("openChange", false);
         clearQuery();
@@ -342,13 +338,11 @@ const Select = defineComponent({
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
-      labelText.value.splice(index, 1);
       e.stopPropagation();
       updatePosition();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      labelText.value = [];
       emit("input", ps.multiple ? [] : "");
       emit("change", ps.multiple ? [] : "");
       clearQuery();
@@ -393,13 +387,8 @@ const Select = defineComponent({
       }
     };
 
-    const updateLabel = () => {
-      labelText.value = optionsData.value
-        .filter((item) => currentValue.value.includes(item.value))
-        .map((item) => item.label);
-    };
     const optionsData = computed(() => {
-      slotUpdateTrigger.value;
+      updateTrigger.value;
       let { options, loading } = ps;
       if (loading) return [];
       if (!options) {
@@ -420,7 +409,7 @@ const Select = defineComponent({
     });
     const filterOptions = () => {
       const key = queryKey.value;
-      const filter = ps.filterable && !isEmpty(key);
+      const filter = ps.filterable && key.trim() !== "";
       return filter
         ? optionsData.value.filter((item) =>
             item.label.toLowerCase().includes(key.toLowerCase())
@@ -459,7 +448,6 @@ const Select = defineComponent({
           ps.multiple &&
           currentValue.value.length > 0
         ) {
-          labelText.value = labelText.value.slice(0, -1);
           currentValue.value = currentValue.value.slice(0, -1);
           emit("input", currentValue.value);
           // emit("update:value", currentValue.value);
@@ -480,10 +468,9 @@ const Select = defineComponent({
       );
     });
     const renderOverlay = () => {
-      const optionNodes = renderOptions();
-
       let overlay = null;
       if (rendered.value) {
+        const optionNodes = renderOptions();
         const preCls = "k-select";
         const props = {
           ref: refPopper,
