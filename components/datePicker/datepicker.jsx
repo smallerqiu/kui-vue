@@ -105,6 +105,7 @@ const DatePicker = defineComponent({
           : injectedLocale) || zhCN
       );
     });
+    //todo: clearable range.
     const local = () => {
       return dayjs().locale(localeName.value).localeData();
     };
