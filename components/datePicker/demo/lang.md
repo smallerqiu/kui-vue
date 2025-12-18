@@ -19,7 +19,7 @@ import { ref } from "vue";
 import dayjs from "dayjs";
 const value = ref("2021-01-01 20:20:20");
 
-import "dayjs/locale/en-gb";
-dayjs.locale("en-gb");
+import "dayjs/locale/en";
+dayjs.locale("en");
 </script>
 ```

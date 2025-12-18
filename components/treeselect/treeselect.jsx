@@ -84,7 +84,6 @@ const TreeSelect = defineComponent({
         : injectedLocale;
     });
 
-    const labelText = ref([]);
     const visible = ref(false);
     const rendered = ref(false);
     const currentValue = ref(
@@ -122,7 +121,6 @@ const TreeSelect = defineComponent({
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
         updatePosition();
-        updateLabel();
       }
     );
 
@@ -147,7 +145,6 @@ const TreeSelect = defineComponent({
     onMounted(() => {
       nextTick(() => {
         minWidth.value = refCtx.value?.offsetWidth;
-        updateLabel();
       });
     });
 
@@ -214,13 +211,11 @@ const TreeSelect = defineComponent({
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
-      labelText.value.splice(index, 1);
       e.stopPropagation();
       updatePosition();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      labelText.value = [];
       emit("input", ps.multiple ? [] : "");
       emit("change", ps.multiple ? [] : "");
 
@@ -263,12 +258,12 @@ const TreeSelect = defineComponent({
         }
       }
     };
-
-    const updateLabel = () => {
-      labelText.value = optionsData.value
+    const labelText = computed(() => {
+      return optionsData.value
         .filter((item) => currentValue.value.includes(item.key))
         .map((item) => item.title);
-    };
+    });
+
     const optionsData = computed(() => {
       const options = buildTree({
         data: ps.treeData,
@@ -317,10 +312,8 @@ const TreeSelect = defineComponent({
         if (currentValue.value?.indexOf(value) >= 0) {
           selected = false;
           currentValue.value = currentValue.value.filter((v) => v !== value);
-          labelText.value = labelText.value.filter((v) => v !== label);
         } else {
           currentValue.value.push(value);
-          labelText.value.push(label);
         }
 
         updatePosition();
@@ -331,7 +324,6 @@ const TreeSelect = defineComponent({
         }
       } else {
         currentValue.value = [value];
-        labelText.value = [label];
         visible.value = false;
         clearQuery();
       }
@@ -374,7 +366,6 @@ const TreeSelect = defineComponent({
           ps.multiple &&
           currentValue.value.length > 0
         ) {
-          labelText.value = labelText.value.slice(0, -1);
           currentValue.value = currentValue.value.slice(0, -1);
           emit("input", currentValue.value);
           // emit("update:value", currentValue.value);
@@ -558,7 +549,11 @@ const TreeSelect = defineComponent({
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon class="k-tree-select-clearable" type={CloseCircle} onClick={onClear} />
+        <Icon
+          class="k-tree-select-clearable"
+          type={CloseCircle}
+          onClick={onClear}
+        />
       ) : null;
 
       return (
