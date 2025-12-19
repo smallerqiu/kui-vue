@@ -186,9 +186,9 @@ const Drawer = defineComponent({
       ];
       let styles = {};
       if (placement == "left" || placement == "right")
-        styles.width = /%/.test(width) ? width : width + "px";
+        styles.width = typeof width === "number" ? `${width}px` : width;
       if (placement == "top" || placement == "bottom")
-        styles.height = /%/.test(height) ? height : height + "px";
+        styles.height = typeof height === "number" ? `${height}px` : height;
 
       let maskNode = null;
       if (ps.mask) {

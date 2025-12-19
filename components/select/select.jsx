@@ -92,7 +92,7 @@ const Select = defineComponent({
     const hasSearchEvent = "search" in listeners;
     const refPopper = ref();
     const transOrigin = ref("bottom");
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -209,9 +209,9 @@ const Select = defineComponent({
 
     const updatePosition = () => {
       nextTick(() => {
-        minWidth.value = refCtx.value?.offsetWidth;
+        minWidth.value = refSelection.value?.offsetWidth;
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -223,13 +223,13 @@ const Select = defineComponent({
 
     onMounted(() => {
       nextTick(() => {
-        minWidth.value = refCtx.value?.offsetWidth;
+        minWidth.value = refSelection.value?.offsetWidth;
       });
       document.addEventListener("keydown", onKeydown);
     });
 
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -649,7 +649,7 @@ const Select = defineComponent({
           onClick={toggle}
           onFocus={() => (ctxFocused.value = true)}
           onBlur={() => (ctxFocused.value = false)}
-          ref={refCtx}
+          ref={refSelection}
         >
           {icon ? <Icon type={icon} class="k-select-icon" /> : null}
           <div class="k-select-selection">{childNode}</div>

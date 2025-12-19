@@ -35,7 +35,7 @@ const Tooltip = defineComponent({
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -45,7 +45,7 @@ const Tooltip = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -109,7 +109,7 @@ const Tooltip = defineComponent({
         },
       ];
       const wpProps = {
-        ref: refCtx,
+        ref: refSelection,
         on: {
           touchstart: mouseEnter,
           touchmove: updatePosition,

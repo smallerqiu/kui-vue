@@ -72,12 +72,11 @@ const ColorPicker = defineComponent({
   },
 
   setup(ps, { emit, slots }) {
-    // todo 编码格式 时, 要双击 才能先中.
     const currentMode = ref(ps.mode);
     const currentColor = ref(ps.value || "#000000ff");
     const visible = ref(ps.show);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -107,7 +106,7 @@ const ColorPicker = defineComponent({
     const updatePopPosition = () => {
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -117,7 +116,7 @@ const ColorPicker = defineComponent({
       });
     };
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -327,7 +326,7 @@ const ColorPicker = defineComponent({
           {cloneNodes(
             slots.default(),
             {
-              ref: refCtx,
+              ref: refSelection,
               on: {
                 click: () => triggerClick && toggle(!visible.value),
                 mouseenter: () => !triggerClick && toggle(true),
@@ -342,7 +341,7 @@ const ColorPicker = defineComponent({
           {drop}
         </span>
       ) : (
-        <div class={style} ref={refCtx} v-resize={updatePopPosition}>
+        <div class={style} ref={refSelection} v-resize={updatePopPosition}>
           <div
             class="k-color-picker-selection"
             onMouseenter={() => !triggerClick && toggle(true)}

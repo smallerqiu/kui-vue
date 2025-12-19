@@ -13,7 +13,7 @@ import { CaretUp, CaretDown } from "kui-icons";
 import Empty from "../empty";
 import Spin from "../spin";
 import { withInstall } from "../utils/vue";
-
+import Icon from "../icon";
 const Table = defineComponent({
   name: "Table",
   props: {
@@ -192,8 +192,7 @@ const Table = defineComponent({
     let scrollRafId = 0;
     const handleBodyScroll = (e) => {
       const target = e?.target;
-      if (!target || !isSplit.value) return;
-
+      if (!target) return;
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
       scrollRafId = requestAnimationFrame(() => {
         const { scrollLeft, scrollWidth, clientWidth } = target;
@@ -298,7 +297,10 @@ const Table = defineComponent({
         {flattedColumns.value.map((col) => (
           <col
             key={col.key}
-            style={{ width: col.width ? `${col.width}px` : "100px" }}
+            style={{
+              width: col.width ? `${col.width}px` : "auto",
+              minWidth: col.width ? `${col.width}px` : "150px",
+            }}
           />
         ))}
         {isHeader && isSplit.value && (
@@ -574,7 +576,7 @@ const Table = defineComponent({
           ref={bodyWrapperRef}
           style={{
             overflowY: props.scroll.y ? "scroll" : "auto",
-            overflowX: "auto",
+            overflowX: props.data?.length ? "auto" : "hidden",
             maxHeight: props.scroll.y
               ? typeof props.scroll.y === "number"
                 ? `${props.scroll.y}px`

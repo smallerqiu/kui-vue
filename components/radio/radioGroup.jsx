@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 import Radio from "./radio.jsx";
 import RadioButton from "./radioButton.jsx";
 import { withInstall } from "../utils/vue";
@@ -32,7 +32,6 @@ const RadioGroup = defineComponent({
   setup(props, { slots, emit }) {
     // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
     const currentValue = ref(props.value);
-    const currentType = ref(props.type);
     const onChange = ({ value }) => {
       currentValue.value = value;
       // [Vue 3 Upgrade]: emit("update:modelValue", val);
@@ -45,7 +44,7 @@ const RadioGroup = defineComponent({
         currentValue.value = val;
       }
     );
-    const optionsData = () => {
+    const optionsData = computed(() => {
       let { options } = props;
       if (!options) {
         options = [];
@@ -55,9 +54,6 @@ const RadioGroup = defineComponent({
           let { label, value, disabled, icon } =
             child?.componentOptions?.propsData || {};
           let { children = [], tag } = child?.componentOptions;
-          if (tag == "RadioButton") {
-            currentType.value = "button";
-          }
           options.push({
             value,
             icon,
@@ -67,11 +63,11 @@ const RadioGroup = defineComponent({
         });
       }
       return options;
-    };
+    });
     return () => {
-      let options = optionsData();
+      let options = optionsData.value;
       let nodes = [];
-      const Component = currentType.value === "button" ? RadioButton : Radio;
+      const Component = props.type === "button" ? RadioButton : Radio;
       options.forEach((option) =>
         nodes.push(
           <Component
@@ -90,11 +86,12 @@ const RadioGroup = defineComponent({
       const classes = [
         "k-radio-group",
         {
+          "k-radio-button-group": props.type === "button",
           "k-radio-circle": props.shape === "circle",
           "k-radio-group-light":
-            props.theme === "light" && currentType.value === "button",
+            props.theme === "light" && props.type === "button",
           "k-radio-group-card":
-            props.theme === "card" && currentType.value === "button",
+            props.theme === "card" && props.type === "button",
           "k-radio-group-vertical": props.direction === "vertical",
         },
       ];

@@ -156,18 +156,11 @@
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
-
-  .k-checkbox {
-    margin-right: 16px;
-  }
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .k-checkbox-group-vertical {
-  display: block;
-
-  .k-checkbox {
-    display: block;
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
+  flex-direction: column;
+  align-items: self-start;
 }

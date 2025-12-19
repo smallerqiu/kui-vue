@@ -1,5 +1,5 @@
 import Checkbox from "./checkbox";
-import { defineComponent, watch, toRefs } from "vue";
+import { defineComponent, watch, toRefs, computed } from "vue";
 import { withInstall } from "../utils/vue";
 import { getChildren } from "../utils/element";
 
@@ -57,7 +57,7 @@ const CheckboxGroup = defineComponent({
       emit("change", val);
     };
 
-    const optionsData = () => {
+    const optionsData = computed(() => {
       let { options } = props;
       if (!options) {
         options = [];
@@ -74,10 +74,10 @@ const CheckboxGroup = defineComponent({
         });
       }
       return options;
-    };
+    });
 
     return () => {
-      let options = optionsData();
+      let options = optionsData.value;
       let nodes = [];
       options.forEach((option) =>
         nodes.push(

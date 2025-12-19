@@ -128,37 +128,12 @@ const Slider = defineComponent({
       const v = ps.range ? [...defaultValue.value] : defaultValue.value;
       let newValue = null;
       if (ps.range) {
-        // todo:
-        // v = type === "right" ? [v[0], x] : [x, v[1]];
-        // 可以交叉
         let [a, b] = [...v];
-        // let x1 = Math.min(a, b, x);
-        // let y1 = Math.max(a, b, x);
         if (type == "right") {
-          // if (x > a) {
-          //   newValue = [a, x];
-          // } else if (x < a) {
-          //   newValue = [x, b ];
-          // } else {
-          //   console.log(a, b, x);
           newValue = [a, x];
-          // }
         } else {
           newValue = [x, b];
         }
-
-        // let [x1, y1] = [...newValue];
-        // if (x1 > y1) {
-        //   newValue = [y1, x1];
-        // }
-        // console.log(x1,y1);
-
-        // 不能交叉
-        // if (type === "right") {
-        //   v = [v[0], Math.max(v[0], x)]; // 右边不能小于左边
-        // } else {
-        //   v = [Math.min(x, v[1]), v[1]]; // 左边不能大于右边
-        // }
       } else {
         newValue = x;
       }

@@ -98,7 +98,7 @@ const TreeSelect = defineComponent({
     const hasSearchEvent = "search" in listeners;
     const refPopper = ref();
     const transOrigin = ref("bottom");
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -130,9 +130,9 @@ const TreeSelect = defineComponent({
 
     const updatePosition = () => {
       nextTick(() => {
-        minWidth.value = refCtx.value?.offsetWidth;
+        minWidth.value = refSelection.value?.offsetWidth;
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -144,12 +144,12 @@ const TreeSelect = defineComponent({
 
     onMounted(() => {
       nextTick(() => {
-        minWidth.value = refCtx.value?.offsetWidth;
+        minWidth.value = refSelection.value?.offsetWidth;
       });
     });
 
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -565,7 +565,7 @@ const TreeSelect = defineComponent({
           onClick={toggle}
           onFocus={() => (ctxFocused.value = true)}
           onBlur={() => (ctxFocused.value = false)}
-          ref={refCtx}
+          ref={refSelection}
         >
           {icon ? <Icon type={icon} class="k-tree-select-icon" /> : null}
           <div class="k-tree-select-selection">{childNode}</div>

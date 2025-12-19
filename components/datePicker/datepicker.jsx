@@ -105,7 +105,6 @@ const DatePicker = defineComponent({
           : injectedLocale) || zhCN
       );
     });
-    //todo: clearable range.
     const local = () => {
       return dayjs().locale(localeName.value).localeData();
     };
@@ -123,7 +122,7 @@ const DatePicker = defineComponent({
     const top = ref(0);
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
-    const refCtx = ref(null);
+    const refSelection = ref(null);
     // console.log(local);
 
     // DOM 引用，用于滚动计算
@@ -409,7 +408,7 @@ const DatePicker = defineComponent({
     };
 
     const handleClickOutside = (e) => {
-      const ctx = refCtx.value;
+      const ctx = refSelection.value;
       const popper = refPopper.value;
       if (
         popper &&
@@ -884,7 +883,7 @@ const DatePicker = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -919,7 +918,10 @@ const DatePicker = defineComponent({
         { "k-datepicker-light": props.theme == "light" },
         { "k-datepicker-circle": props.shape == "circle" },
       ];
-      const showClear = props.clearable && textValue.value && !props.disabled;
+      const showClear =
+        props.clearable &&
+        (textValue.value || (textValueStart.value && textValueStart.value)) &&
+        !props.disabled;
       const selectCls = [
         "k-datepicker-selection",
         {
@@ -1073,7 +1075,7 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refCtx} tabindex={0}>
+        <div class={classes} ref={refSelection} tabindex={0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />
