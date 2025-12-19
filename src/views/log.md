@@ -12,6 +12,12 @@ npm install kui-vue@latest --registry=http://registry.npmjs.org
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+## 3.6.1
+
+`2025-12-19`
+
+- 修复 Select, Table 细节
+
 ## 3.6.0
 
 `2025-12-12`
