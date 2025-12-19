@@ -8,6 +8,12 @@
 npm install kui-vue@latest --registry=http://registry.npmjs.org
 ```
 
+vite 好像有缓存, 可手动清除
+
+```bash
+rm -rf node_modules/.vite
+```
+
 ## 4.0
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
