@@ -55,7 +55,7 @@ const Dropdown = defineComponent({
 
   setup(ps, { slots, emit, attrs, listeners }) {
     const visible = ref(ps.show);
-    const refCtx = ref(null);
+    const refSelection = ref(null);
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const refPopper = ref();
@@ -90,7 +90,7 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (!refPopper.value) return;
       if (
         (!refPopper.value.contains(e.target) &&
@@ -101,10 +101,12 @@ const Dropdown = defineComponent({
         visible.value = false;
       }
     };
-    const updatePosition = () => {
+    const updatePosition = (e) => {
+      const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
+          position,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -112,39 +114,6 @@ const Dropdown = defineComponent({
           left,
         });
       });
-    };
-    const showContextmenu = (e) => {
-      if (!refPopper.value) return;
-      // todo : when the menu is opened, then resize the window at this time, the position is not accurate.
-      let pickerHeight = refPopper.value.offsetHeight;
-      let pickerWidth = refPopper.value.offsetWidth;
-      let clientHeight = document.documentElement.clientHeight;
-      let clientWidth = document.documentElement.clientWidth;
-
-      let offsetTop =
-        document.body.scrollTop ||
-        document.documentElement.scrollTop ||
-        window.scrollY;
-      let offsetLeft =
-        document.body.scrollLeft ||
-        document.documentElement.scrollLeft ||
-        window.scrollX;
-      let x = e.clientX + offsetLeft;
-      let y = e.clientY + offsetTop;
-      let showInRight = clientWidth - e.clientX > pickerWidth;
-      let showInBottom = clientHeight - e.clientY > pickerHeight;
-      let transformOrigin = "top center";
-
-      if (!showInRight) {
-        x -= pickerWidth;
-      }
-      if (!showInBottom) {
-        y -= pickerHeight;
-        transformOrigin = "bottom center";
-      }
-      left.value = x;
-      top.value = y;
-      transOrigin.value = transformOrigin;
     };
     const toggle = (open, e) => {
       if (open) {
@@ -154,12 +123,12 @@ const Dropdown = defineComponent({
           nextTick(() => {
             visible.value = true;
             emit("update:visible", true);
-            e ? showContextmenu(e) : updatePosition();
+            updatePosition(e);
           });
         } else {
           visible.value = true;
           emit("update:visible", true);
-          e ? showContextmenu(e) : updatePosition();
+          updatePosition(e);
         }
       } else {
         visible.value = false;
@@ -298,7 +267,7 @@ const Dropdown = defineComponent({
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
-          ref: refCtx,
+          ref: refSelection,
           ...pp,
         },
         true,

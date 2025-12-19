@@ -1,14 +1,9 @@
 @import "../../styles/var.less";
 
 .k-radio-group {
-  // display: inline-block;
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
-  // font-size: 0;
-  // vertical-align: middle;
-  white-space: nowrap;
-
   .k-btn {
     position: relative;
     margin-left: -1px;
@@ -46,19 +41,18 @@
     border-color: var(--kui-color-main);
   }
 
-  .k-radio {
-    margin-right: 16px;
-  }
-
   .k-radio-label {
     font-size: 14px;
   }
-
-  // .k-btn-solid {
-  //   margin-left: -1px;
-  // }
 }
-
+.k-radio-button-group,
+.k-radio-group-card {
+  flex-wrap: nowrap;
+}
+.k-radio-group:not(.k-radio-button-group, .k-radio-group-card) {
+  gap: 16px;
+  flex-wrap: wrap;
+}
 .k-radio-circle:not(.k-radio-group-card) {
   .k-btn:first-child {
     border-top-left-radius: 30px;
@@ -208,13 +202,8 @@
 }
 
 .k-radio-group-vertical {
-  display: block;
-
-  .k-radio {
-    display: block;
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
+  flex-direction: column;
+  align-items: self-start;
 }
 
 .k-radio-group-light {

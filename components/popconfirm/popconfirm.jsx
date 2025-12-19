@@ -59,7 +59,7 @@ const Popconfirm = defineComponent({
     const rendered = ref(false);
     const visible = ref(false);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -69,7 +69,7 @@ const Popconfirm = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -101,7 +101,7 @@ const Popconfirm = defineComponent({
       }
     );
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -152,7 +152,7 @@ const Popconfirm = defineComponent({
         },
       ];
       const wpProps = {
-        ref: refCtx,
+        ref: refSelection,
         // onClick: mouseEnter, //for 3
         on: {
           click: mouseEnter,

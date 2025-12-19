@@ -11,6 +11,7 @@
       <RadioGroup v-model="lang" type="button" @change="changeLocale">
         <RadioButton value="en">English</RadioButton>
         <RadioButton value="zh">中文</RadioButton>
+        <RadioButton value="de">De</RadioButton>
       </RadioGroup>
     </Space>
     <ConfigProvider :locale="locale">
@@ -101,9 +102,12 @@
 <script setup>
 import { ref, reactive, provide } from "vue";
 import en from "kui-vue/locale/en";
+import de from "kui-vue/locale/de";
+import uk from "kui-vue/locale/uk";
 import zh from "kui-vue/locale/zh-CN";
 import dayjs from "dayjs";
 import { modal, message } from "kui-vue";
+import "dayjs/locale/de";
 const lang = ref("en");
 const locale = ref(en);
 dayjs.locale("en");
@@ -148,11 +152,17 @@ const rules = {
   email: [{ required: true }, { type: "mail" }],
   age: [{ required: true }, { type: "number", min: 10, max: 50 }],
 };
-
+const langs = {
+  en,
+  zh,
+  de,
+};
 const changeLocale = (value) => {
-  locale.value = value === "en" ? en : zh;
+  locale.value = langs[value];
   if (value === "en") {
     dayjs.locale("en");
+  } else if (value == "de") {
+    dayjs.locale("de");
   } else {
     dayjs.locale("zh-cn");
   }

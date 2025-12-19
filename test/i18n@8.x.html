@@ -7,13 +7,15 @@
     <link rel="stylesheet" type="text/css" href="../dist/k-ui.css" />
     <script src="https://unpkg.com/vue@2.x"></script>
     <script src="https://unpkg.com/dayjs"></script>
+    <!-- <script src="https://app.unpkg.com/dayjs@1.11.19/files/locale/zh-cn.js"></script> -->
+    <script src="https://app.unpkg.com/dayjs@1.11.19/files/locale/de.js"></script>
     <!-- <script src="https://unpkg.com/vue-i18n@8.x"></script> -->
     <script src="../dist/k-ui.umd.js?t=22"></script>
 
     <script src="../dist/locale/en.js"></script>
     <script src="../dist/locale/zh-CN.js"></script>
     <script src="../dist/locale/de.js"></script>
-    <script src="../dist/locale/ua.js"></script>
+    <script src="../dist/locale/uk.js"></script>
     <style>
       body,
       html {
@@ -69,7 +71,9 @@
       },
       mounted() {
         setTimeout(() => {
-          this.locale = kui_lang_ua;
+          console.log("change locale", kui_lang_de);
+          dayjs.locale("de");
+          this.locale = kui_lang_de;
         }, 2000);
       },
     });

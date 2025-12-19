@@ -41,7 +41,7 @@ const Poptip = defineComponent({
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -51,7 +51,7 @@ const Poptip = defineComponent({
     const updatePosition = () => {
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -89,7 +89,7 @@ const Poptip = defineComponent({
       emit("update:show", value);
     };
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -132,7 +132,7 @@ const Poptip = defineComponent({
         },
       ];
       const wpProps = {
-        ref: refCtx,
+        ref: refSelection,
         // onMouseleave: hide, //for 3
         on: { mouseleave: hide },
       };

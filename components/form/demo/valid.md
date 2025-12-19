@@ -131,6 +131,7 @@ const validateReadme = (rule, value, callback) => {
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const time = ref(60);
+const timer = ref(null);
 const size = ref("default");
 const formRef = ref(null);
 const treeData = [

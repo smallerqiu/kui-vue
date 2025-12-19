@@ -18,7 +18,6 @@
           theme="light"
           :show-arrow="false"
           filterable
-          size="large"
           :transfer="false"
           @change="change"
         >
@@ -54,29 +53,26 @@
         style="margin-left: 8px"
         :no-alpha="true"
         @change="changeThemeColor"
-        placement="bottom-right"
       />
       <Tooltip
         :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`"
         placement="bottom"
       >
         <Button
-          type="text"
+          theme="light"
           :icon="themeMode == 'dark' ? Sunny : Moon"
-          size="large"
           style="margin: 0 8px"
           @click="changeMode"
         />
       </Tooltip>
-      <Tooltip title="Jump to Gitee" placement="bottom">
-        <Button
-          class="btn-gitee"
-          :icon="LogoGitee"
-          type="link"
-          size="large"
-          href="https//gitee.com/chuchur/kui-vue"
+      <Tooltip title="Jump to Gitee">
+        <a
           target="_blank"
-        />
+          class="k-btn k-btn-light k-btn-icon-only"
+          href="https://gitee.com/chuchur/kui-vue"
+        >
+          <Icon :type="LogoGitee" />
+        </a>
       </Tooltip>
     </div>
   </Header>

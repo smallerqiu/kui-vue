@@ -27,7 +27,7 @@ const SubMenu = defineComponent({
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
-    const refCtx = ref();
+    const refSelection = ref(null);
     const refPopper = ref();
     const top = ref(0);
     const left = ref(0);
@@ -54,7 +54,7 @@ const SubMenu = defineComponent({
 
     onMounted(() => {
       nextTick(() => {
-        const width = refCtx.value?.offsetWidth;
+        const width = refSelection.value?.offsetWidth;
         minWidth.value = `${width}px`;
 
         if (openKeys.value.indexOf(key) >= 0) {
@@ -103,7 +103,7 @@ const SubMenu = defineComponent({
       }
       nextTick(() => {
         setPlacement({
-          refCtx,
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
@@ -178,7 +178,7 @@ const SubMenu = defineComponent({
     const renderSubmenu = () => {
       const inline = mode.value != "horizontal";
       const opened = openKeys.value.indexOf(key) >= 0;
-      // todo: mode 从inline 切换 vertical 时 会卡一下, 为查明原因. 后面在细看
+      // todo: mode 从inline 切换 vertical 时 会卡一下
 
       if (inline) {
         const transitionProps = getTransitionProp("k-collapse-slide");
@@ -223,7 +223,7 @@ const SubMenu = defineComponent({
         inlineCollapsed.value
       ) {
         // popper
-        titleProps.ref = refCtx;
+        titleProps.ref = refSelection;
         // titleProps.onMouseenter = () => { for 3
         titleProps.on.mouseenter = () => {
           if (ps.disabled) return;

@@ -31,7 +31,6 @@ const Page = defineComponent({
     current: { default: 1, type: Number },
   },
   setup(ps, { emit }) {
-    // todo: select
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
