@@ -9,7 +9,7 @@ import {
   computed,
 } from "vue";
 import { Row, Col } from "../grid";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { cloneVNode, isVNode } from "../utils/vue";
 import zhCN from "../locale/zh-CN";
 

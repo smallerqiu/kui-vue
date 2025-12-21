@@ -76,7 +76,7 @@
                   <Checkbox v-model="checked" label="Circle" />
                 </FormItem>
                 <FormItem label="尺寸">
-                  <RadioGroup v-model="size">
+                  <RadioGroup v-model="size" type="button">
                     <RadioButton value="large" label="Large" />
                     <RadioButton value="default" label="Default" />
                     <RadioButton value="small" label="Small" />

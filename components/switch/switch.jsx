@@ -14,7 +14,6 @@ const Switch = defineComponent({
       default: false,
     },
     // checked: [Boolean, Number], //for 3
-    value: [Boolean, Number], //for 2
     type: String,
     disabled: Boolean,
     loading: Boolean,
@@ -31,7 +30,6 @@ const Switch = defineComponent({
     const isChecked = ref(ps.checked);
     watch(
       () => ps.checked,
-      // () => ps.value,
       (nv, no) => {
         isChecked.value = nv;
       }

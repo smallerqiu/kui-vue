@@ -7,7 +7,7 @@
 <template>
   <div>
     <Space>
-      Size:<RadioGroup v-model="size" size="small">
+      Size:<RadioGroup v-model="size" size="small" type="button">
         <RadioButton value="large" label="Large" />
         <RadioButton value="default" label="Default" />
         <RadioButton value="small" label="Small" />

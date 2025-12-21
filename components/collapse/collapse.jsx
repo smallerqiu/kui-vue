@@ -4,23 +4,23 @@ import { withInstall, cloneVNode } from "../utils/vue";
 const Collapse = defineComponent({
   name: "Collapse",
   props: {
-    activeKey: Array,
+    openKeys: Array,
     accordion: Boolean,
     sample: Boolean,
   },
   setup(ps, { slots, emit }) {
-    const currentValue = ref(ps.activeKey || []);
+    const defaultOpenKeys = ref(ps.openKeys || []);
 
     watch(
-      () => ps.activeKey,
+      () => ps.openKeys,
       (nv, no) => {
-        currentValue.value = nv;
+        defaultOpenKeys.value = nv;
       }
     );
 
     const change = (key) => {
       if (!key) return;
-      let value = currentValue.value;
+      let value = defaultOpenKeys.value;
       let index = value.indexOf(key);
 
       if (index >= 0) {
@@ -28,10 +28,9 @@ const Collapse = defineComponent({
       } else {
         ps.accordion ? (value = [key]) : value.push(key);
       }
-      currentValue.value = value;
-      emit("change", key);
-      // emit("update", value); //for 3
-      emit("input", value); //for 3
+      defaultOpenKeys.value = value;
+      emit("change", key, value);
+      emit("update:openKeys", value); 
     };
 
     return () => {
@@ -46,7 +45,7 @@ const Collapse = defineComponent({
       return (
         <div class={classes}>
           {children?.map((child) => {
-            let active = currentValue.value.includes(child.key);
+            let active = defaultOpenKeys.value.includes(child.key);
             // return cloneVNode(child, { active, onExpand: change }); //for 3
             return cloneVNode(
               child,

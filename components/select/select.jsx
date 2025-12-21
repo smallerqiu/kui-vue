@@ -276,7 +276,6 @@ const Select = defineComponent({
           currentValue.value = currentValue.value.filter((v) => v !== value);
         } else {
           currentValue.value.push(value);
-          labelText.value.push(label);
         }
         updatePosition();
         if (hasSearchEvent || ps.filterable) {

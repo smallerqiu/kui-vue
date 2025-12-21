@@ -86,8 +86,8 @@ const Input = defineComponent({
     const togglePassword = (e) => {
       if (ps.disabled) return;
       showPassword.value = !showPassword.value;
-      let type = showPassword.value ? "text" : "password";
-      inputRef.value.type = type;
+      // let type = showPassword.value ? "text" : "password";
+      // inputRef.value.type = type;
     };
 
     const searchEvent = (e) => {
@@ -158,7 +158,7 @@ const Input = defineComponent({
           inputRef: inputRef,
           inputType,
           value: currentValue.value,
-          showPassword: ps.showPassword,
+          showPassword: showPassword.value,
         },
         on: {
           ...listeners,
@@ -180,9 +180,11 @@ const Input = defineComponent({
       let textInput = <InputBox {...inputProps} />;
 
       if (!multiple) return textInput;
-
       let clearableShow =
-        clearable && !isEmpty(currentValue.value) && type != "password";
+        clearable &&
+        !isEmpty(currentValue.value) &&
+        type != "password" &&
+        attrs.readonly === undefined;
       const props = {
         class: {
           [`k-${inputType}`]: true,
