@@ -2,7 +2,7 @@ import { defineComponent, ref, watch, computed } from "vue";
 import Radio from "./radio.jsx";
 import RadioButton from "./radioButton.jsx";
 import { withInstall } from "../utils/vue";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 
 const RadioGroup = defineComponent({
   name: "RadioGroup",

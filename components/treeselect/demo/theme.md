@@ -17,7 +17,6 @@
       block
       :icon="Search"
       :treeData="data"
-      block
       placeholder="我多了一个图标"
     />
     <TreeSelect

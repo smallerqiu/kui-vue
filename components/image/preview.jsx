@@ -9,7 +9,7 @@ import {
   toRefs,
 } from "vue";
 import Icon from "../icon";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 import {
   Refresh,

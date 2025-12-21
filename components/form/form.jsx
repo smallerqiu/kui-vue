@@ -1,6 +1,6 @@
 // form.vue 或 form.jsx
 import { defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { cloneVNode, withInstall } from "../utils/vue";
 
 const Form = defineComponent({

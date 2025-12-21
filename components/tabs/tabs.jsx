@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
 import {
   defineComponent,

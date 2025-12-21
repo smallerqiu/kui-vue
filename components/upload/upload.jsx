@@ -65,7 +65,6 @@ const Upload = defineComponent({
           });
         }
       } else {
-        console.log(file)
         toUpload(item, file);
       }
     };

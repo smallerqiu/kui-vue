@@ -17,6 +17,7 @@ const Tooltip = defineComponent({
     transfer,
   },
   props: {
+    show: Boolean,
     dark: Boolean,
     title: [String, Number, Object, Array],
     color: String,
@@ -31,7 +32,7 @@ const Tooltip = defineComponent({
     },
     show: Boolean,
   },
-  setup(ps, { slots, attrs }) {
+  setup(ps, { slots, attrs, emit }) {
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref();
@@ -42,6 +43,10 @@ const Tooltip = defineComponent({
     const transOrigin = ref("bottom");
     const hideTimer = ref();
     const showTimer = ref();
+    const updateShow = (value) => {
+      visible.value = value;
+      emit("update:show", value);
+    };
     const updatePosition = () => {
       nextTick(() => {
         setPlacement({
@@ -79,19 +84,19 @@ const Tooltip = defineComponent({
       if (!rendered.value) {
         rendered.value = true;
         nextTick(() => {
-          visible.value = true;
+          updateShow(true);
           updatePosition();
         });
       } else {
         clearTimeout(showTimer.value);
-        visible.value = true;
+        updateShow(true);
         updatePosition();
       }
     };
     const hide = () => {
       hideTimer.value = setTimeout(() => {
         if (!ps.show) {
-          visible.value = false;
+          updateShow(false);
         }
       }, 300);
     };
@@ -150,24 +155,24 @@ const Tooltip = defineComponent({
           mouseenter: () => {
             clearTimeout(hideTimer.value);
             if (ps.disabled) return;
-            visible.value = true;
+            updateShow(true);
           },
           mouseleave: () => {
             showTimer.value = setTimeout(() => {
               if (!ps.show) {
-                visible.value = false;
+                updateShow(false);
               }
             }, 300);
           },
         },
         // onMouseenter: () => {
         //   clearTimeout(hideTimer.value);
-        //   visible.value = true;
+        //   updateShow(true)
         // },
         // onMouseleave: () => {
         //   showTimer.value = setTimeout(() => {
         //     if (!ps.show) {
-        //       visible.value = false;
+        //       updateShow(false)
         //     }
         //   }, 300);
         // },

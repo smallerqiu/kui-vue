@@ -31,7 +31,7 @@ const config3 = () => {
     duration: 0,
     closable: true,
     content: "手动关闭",
-    close: () => {
+    onClose: () => {
       message.success("我是回调");
     },
   });

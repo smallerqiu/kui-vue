@@ -12,13 +12,13 @@ export default defineComponent({
     const group = ref([]);
 
     const show = (options) => {
-      let { duration, close, closable, noticeType } = options;
+      let { duration, onClose, closable, noticeType } = options;
       let key = getUuid();
       options.key = key;
       options.duration = isNaN(Number(duration)) ? 3.5 : duration;
       let timer;
       let callback = (key) => {
-        typeof close === "function" && close();
+        typeof onClose === "function" && onClose();
         group.value = group.value.filter((item) => item.key !== key);
         clearTimeout(timer);
         timer = null;

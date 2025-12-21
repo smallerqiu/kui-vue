@@ -40,25 +40,28 @@ const Radio = defineComponent({
       }
     );
 
-    const onChange = (e) => {
-      if (props.disabled || isChecked.value) return;
-      const checked = e.target.checked;
-
+    const emitValue = (checked) => {
       isChecked.value = checked;
-      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
       emit("change", {
         checked: checked,
         value: props.value,
-        label: props.label,
+        label: props.label || slots.default?.(),
       });
       emit("input", checked);
     };
-    const triggleCheck = (e) => {
-      // onChange({ target: { checked: isChecked.value } });
+    const onChange = (e) => {
+      if (props.disabled || isChecked.value) return;
+      const checked = e.target.checked;
+      e.preventDefault();
+      e.stopPropagation();
+      emitValue(checked);
+    };
+    const triggerCheck = (e) => {
       if (e.code == "Space") {
-        onChange({ target: { checked: !isChecked.value } });
         e.preventDefault();
         e.stopPropagation();
+        if (props.disabled || isChecked.value) return;
+        emitValue(!isChecked.value);
       }
     };
     return () => {
@@ -76,7 +79,7 @@ const Radio = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={classes} tabindex="0" onKeydown={triggleCheck}>
+        <label class={classes} tabindex="0" onKeydown={triggerCheck}>
           <span class="k-radio-symbol">
             <input
               type="radio"

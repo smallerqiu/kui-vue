@@ -15,7 +15,7 @@
       :wrapperCol="wrapperCol"
     >
       <FormItem label="Size">
-        <RadioGroup v-model="size">
+        <RadioGroup v-model="size" type="button">
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
@@ -79,7 +79,7 @@
         <Radio label="Only One?" />
       </FormItem>
       <FormItem label="System" prop="system">
-        <RadioGroup>
+        <RadioGroup type="button">
           <RadioButton value="0" label="Mac OS" />
           <RadioButton value="1" label="Windows" />
           <RadioButton value="2" label="Linux" />
