@@ -1,43 +1,73 @@
 <cn>
-#### 过滤
+### 过滤 和 搜索
 通过设置 `filterable` 值来呈现过滤模式
 </cn>
 
 ```vue
 <template>
-  <div class="demo-select">
-    <Space>
-      <span>单选过滤 :</span>
-      <Select
-        :width="300"
-        v-model:value="data"
-        placeholder="单选过滤"
-        filterable
-      >
-        <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
-      </Select>
-    </Space>
-    <p></p>
+  <Space vertical block>
+    <span>单选过滤 :</span>
+    <Select v-model="value1" block placeholder="单选过滤" filterable>
+      <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
+    </Select>
     <br />
-    <Space>
-      <span>多选过滤 :</span>
-      <Select
-        class="demo-select"
-        multiple
-        :width="300"
-        v-model:value="data2"
-        placeholder="多选过滤"
-        filterable
-      >
-        <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
-      </Select>
-    </Space>
-  </div>
+    <span>多选过滤 :</span>
+    <Select
+      class="demo-select"
+      multiple
+      :maxTagCount="3"
+      block
+      v-model="value2"
+      placeholder="多选过滤"
+      filterable
+    >
+      <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
+    </Select>
+    <br />
+    <span>单选搜索: </span>
+    <Select
+      v-model="value3"
+      @search="fetchData"
+      block
+      :loading="loading"
+      placeholder="单选搜索"
+    >
+      <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
+    </Select>
+    <br />
+    <span>多选搜索</span>
+    <Select
+      multiple
+      block
+      :maxTagCount="3"
+      :loading="loading"
+      @search="fetchData"
+      v-model="value4"
+      placeholder="多选过滤"
+    >
+      <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
+    </Select>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const data = ref("");
-const data2 = ref([]);
+const value1 = ref("");
+const value2 = ref([]);
+const value3 = ref("");
+const value4 = ref([]);
+
+const loading = ref(false);
+
+const optionsData = ref([]);
+const fetchData = (e) => {
+  loading.value = true;
+  setTimeout(() => {
+    optionsData.value = options.filter((v) =>
+      v.includes(e.target.value.trim())
+    );
+    loading.value = false;
+  }, 1000);
+};
 
 const options = [
   "almond",
@@ -167,12 +197,4 @@ const options = [
   "watermelon",
 ];
 </script>
-<style lang="less">
-.demo-select {
-  .k-select-item,
-  .k-select-tag {
-    text-transform: capitalize;
-  }
-}
-</style>
 ```

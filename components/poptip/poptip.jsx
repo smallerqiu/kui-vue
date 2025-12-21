@@ -1,9 +1,18 @@
-import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, onMounted, onBeforeMount } from "vue";
+import {
+  defineComponent,
+  Transition,
+  ref,
+  cloneVNode,
+  nextTick,
+  watch,
+  onMounted,
+  onBeforeMount,
+} from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { withInstall } from '../utils/vue';
-import { placements } from '../const/var'
+import { withInstall } from "../utils/vue";
+import { placements } from "../const/var";
 const Poptip = defineComponent({
   name: "Poptip",
   directives: {
@@ -34,7 +43,7 @@ const Poptip = defineComponent({
     const rendered = ref(ps.show);
     const visible = ref(ps.show);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -43,7 +52,14 @@ const Poptip = defineComponent({
     const showTimer = ref();
     const updatePosition = () => {
       nextTick(() => {
-        setPlacement(refCtx, refPopper, currentPlacement, transOrigin, top, left, 3);
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
     };
     onMounted(() => {
@@ -75,8 +91,13 @@ const Poptip = defineComponent({
       emit("update:show", value);
     };
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
-      if (refPopper.value && !refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) {
+      const ctx = refSelection.value?.$el || refSelection.value;
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target) &&
+        ctx &&
+        !ctx.contains(e.target)
+      ) {
         updateShow(false);
       }
     };
@@ -113,10 +134,11 @@ const Poptip = defineComponent({
         },
       ];
       const wpProps = {
-        ref: refCtx,
-        onMouseleave: hide,
+        ref: refSelection,
+        onMouseleave: hide, //for 3
       };
       if (ps.trigger === "click") {
+        // wpProps.onClick = show; for
         wpProps.onClick = show;
       } else if (ps.trigger === "hover") {
         wpProps.onMouseenter = show;
@@ -127,12 +149,14 @@ const Poptip = defineComponent({
       const children = getChildren(slots.default?.());
       const nodes = children?.map((node) => {
         let pp = { ...attrs };
+
         if (children.length == 1) {
           pp = { ...pp, ...wpProps };
         }
         return cloneVNode(node, pp, true, true);
       });
-      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper =
+        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -158,23 +182,37 @@ const Poptip = defineComponent({
       };
       if (rendered.value) {
         childNodes.push(
+          // const overlay = rendered.value ? (
           <Transition name={`k-${preCls}`}>
-            <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
+            <div
+              class={cls}
+              v-transfer={true}
+              v-show={visible.value}
+              {...props}
+            >
               <div class={`k-${preCls}-content`}>
                 {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
                 <div class={`k-${preCls}-body`}>{content}</div>
                 <div class={`k-${preCls}-arrow`}>
                   <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                    <path id="ot" d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
-                    <path stroke="currentcolor" id="in" d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z" />
+                    <path
+                      id="ot"
+                      d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
+                    <path
+                      stroke="currentcolor"
+                      id="in"
+                      d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
                   </svg>
                 </div>
               </div>
             </div>
           </Transition>
+          // ) : null;
         );
       }
-      return <>{...childNodes}</>;
+      return <>{...childNodes}</>; //for 3
     };
   },
 });

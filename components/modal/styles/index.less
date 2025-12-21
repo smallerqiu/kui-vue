@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-modal {
   color: var(--kui-color-font);
@@ -21,7 +21,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(55, 55, 55, .6);
+    background-color: rgba(55, 55, 55, 0.6);
     height: 100%;
     z-index: 1001;
     overflow: hidden;
@@ -29,7 +29,7 @@
 
   .k-modal-inner {
     position: relative;
-    background-color: var(--kui-color-control-10);
+    background-color: var(--kui-color-back-10);
     border: 1px solid var(--kui-color-gray-80);
     z-index: 1001;
     outline: 0;
@@ -37,7 +37,7 @@
     top: 100px;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: 0 0 10px 3px rgba(55, 55, 55, .2);
+    box-shadow: 0 0 10px 3px rgba(55, 55, 55, 0.2);
     width: 480px; // animation: darken .5s ease-in-out;
   }
 
@@ -48,17 +48,17 @@
     height: 100%;
     overflow: hidden;
     padding: 0 20px;
-    outline: none;
 
     .k-modal-close {
       position: absolute;
+      cursor: pointer;
+      color: var(--kui-color-font);
       top: 20px;
       right: 20px;
-
+      transition: all 0.3s ease-in-out;
       .k-icon {
         font-size: 20px;
       }
-
       &:hover {
         color: var(--kui-color-danger);
         border-radius: var(--kui-border-radius);
@@ -137,7 +137,7 @@
       width: 0;
       height: 100%;
       vertical-align: middle;
-      content: '';
+      content: "";
     }
   }
 
@@ -161,13 +161,12 @@
     left: 0;
     border-radius: 0;
 
-
     .k-modal-footer {
       position: absolute;
       width: 100%;
       bottom: 0;
       left: 0;
-      background: var(--kui-color-control-10);
+      background: var(--kui-color-back-10);
       box-sizing: border-box;
       padding-right: 20px;
     }
@@ -177,7 +176,7 @@
 .k-toast {
   .k-modal-inner {
     width: 416px;
-    background: var(--kui-color-control-10);
+    background: var(--kui-color-back-10);
     border-radius: var(--kui-border-radius);
     padding: 20px;
     border-radius: 12px;
@@ -246,17 +245,17 @@
 }
 
 .k-modal-fade-enter-active {
-  animation: k-modal-fade .4s linear;
+  animation: k-modal-fade 0.4s linear;
 }
 
 .k-modal-fade-leave-active {
-  animation: k-modal-fade .4s linear reverse;
+  animation: k-modal-fade 0.4s linear reverse;
 }
 
 @keyframes k-modal-zoom {
   from {
     opacity: 0;
-    transform: scale3d(.3, .3, 0)
+    transform: scale3d(0.3, 0.3, 0);
   }
 
   to {
@@ -265,9 +264,9 @@
 }
 
 .k-modal-zoom-enter-active {
-  animation: k-modal-zoom .25s cubic-bezier(.78, .14, .15, .86);
+  animation: k-modal-zoom 0.25s cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 
 .k-modal-zoom-leave-active {
-  animation: k-modal-zoom .25s cubic-bezier(.78, .14, .15, .86) reverse;
+  animation: k-modal-zoom 0.25s cubic-bezier(0.78, 0.14, 0.15, 0.86) reverse;
 }

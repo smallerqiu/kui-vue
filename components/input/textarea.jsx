@@ -5,15 +5,10 @@ const TextArea = defineComponent({
   props: {
     value: [String, Number, Object, Array],
     theme: String,
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
+    size: String,
+    disabled: Boolean,
   },
-  setup(ps, { attrs, emit }) {
-    const { theme } = ps;
+  setup(ps, { attrs, emit, listeners }) {
     const currentValue = ref(ps.value);
     watch(
       () => ps.value,
@@ -23,17 +18,33 @@ const TextArea = defineComponent({
     );
 
     return () => {
+      const { theme, disabled, size } = ps;
       const props = {
-        class: ["k-textarea", { [`k-textarea-${theme}`]: theme }],
-        // ...attrs,
-        // ...ps,
-        value: currentValue.value,
+        class: [
+          "k-textarea",
+          {
+            [`k-textarea-${theme}`]: theme == "light",
+            "k-textarea-sm": size == "small",
+            "k-textarea-lg": size == "large",
+          },
+        ],
+        ...attrs,
+        disabled,
+        domProps: {
+          value: currentValue.value,
+        },
+        ...listeners,
         onInput: (e) => {
-          // todo: not update value
           const v = e.target.value;
-          currentValue.value = v;
+          // currentValue.value = v;
           emit("update:value", v);
         },
+        // onInput: (e) => {
+        //   // todo: not update value
+        //   const v = e.target.value;
+        //   currentValue.value = v;
+        //   emit("update:value", v);
+        // },
       };
       return <textarea {...props} />;
     };

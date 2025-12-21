@@ -1,27 +1,26 @@
-import { navs } from "../menu";
-import { Col, Row } from '/components/grid'
-import Card from '/components/card'
+import { navData } from "../menu";
+import { Col, Row, Card } from 'kui-vue'
 import WebIcon from '@/src/components/WebIcon'
 export default {
   methods: {
-    renders(child) {
+    renders(children) {
       let span = [], rows = [];
-      child.forEach((item, i) => {
+      children.forEach((item, i) => {
         let card = <Col span={6} ><router-link to={`/${item.key}/${item.name}`}><Card bordered title={item.sub + ' ' + item.title} ><WebIcon class="icon-view" name={item.icon} /></Card></router-link></Col>
         span.push(card)
       })
       if (span.length < 4) {
-        rows.push(<Row gutter={20}>{span}</Row>)
+        rows.push(<Row gutter={20}>{span}</Row>);
       } else {
         for (let i = 0; i < span.length; i += 4) {
-          rows.push(<Row gutter={20}>{span.slice(i, i + 4)}</Row>)
+          rows.push(<Row gutter={20}>{span.slice(i, i + 4)}</Row>);
         }
       }
-      return rows
+      return rows;
     },
   },
   render() {
-    let nav = navs.filter(x => x.key != 'start')
+    let nav = navData.filter(x => x.key != 'start')
     return (
       <div class="all-components">
         <h1>组件</h1>
@@ -30,10 +29,10 @@ export default {
           nav.map((item, x) => {
             return (
               [<h2>{item.title}</h2>,
-              this.renders(item.child)])
+              this.renders(item.children)])
           })
         }
       </div>
-    )
-  }
-}
+    );
+  },
+};

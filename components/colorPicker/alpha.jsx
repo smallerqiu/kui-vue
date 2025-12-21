@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, onMounted, watch } from "vue";
+import { defineComponent, ref, onMounted, watch } from "vue";
 import Color from "color";
 import { clamp } from "@vueuse/core";
 export default defineComponent({
@@ -95,7 +95,8 @@ export default defineComponent({
             style={{
               left: dotPos.value + "px",
               backgroundColor: `${currentColor.value}`,
-            }}></span>
+            }}
+          ></span>
         </div>
       );
     };

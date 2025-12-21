@@ -1,20 +1,21 @@
 <cn>
-#### 尺寸/自定义
+### 尺寸/自定义
 size 可以控制操作杆的大小
 </cn>
 
 ```vue
 <template>
-  <div style="max-width:520px;">
+  <Space style="max-width:520px;" vertical block>
+    <code>Disabled: <KSwitch v-model="disabled" /></code>
     <Slider
-      v-model:value="v1"
+      v-model="v1"
       :step="10"
       :disabled="disabled"
       :min="20"
       size="small"
     />
     <Slider
-      v-model:value="v2"
+      v-model="v2"
       range
       :disabled="disabled"
       :min="10"
@@ -22,7 +23,7 @@ size 可以控制操作杆的大小
       size="small"
     />
     <Slider
-      v-model:value="v1"
+      v-model="v1"
       :step="10"
       :disabled="disabled"
       :min="20"
@@ -30,7 +31,7 @@ size 可以控制操作杆的大小
       class="slider-demo-custom"
     />
     <Slider
-      v-model:value="v2"
+      v-model="v2"
       range
       :disabled="disabled"
       :min="10"
@@ -48,8 +49,7 @@ size 可以控制操作杆的大小
     ></Slider>
     <br />
     <br />
-    Disabled: <KSwitch v-model:checked="disabled" />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";

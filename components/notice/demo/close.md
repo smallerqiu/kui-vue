@@ -1,11 +1,11 @@
 <cn>
-#### 自定义时长
+### 自定义时长
 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s`
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="config">10秒后关闭</Button>
     <Button @click="config2" type="primary">5秒后关闭</Button>
     <Button @click="config3" type="primary">手动关闭</Button>
@@ -36,7 +36,7 @@ const config3 = () => {
     duration: 0,
     title: "温馨提示",
     content: "手动关闭",
-    close: () => {
+    onClose: () => {
       message.success("我是回调");
     },
   });

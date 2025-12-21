@@ -1,15 +1,12 @@
-// 利用vue 的状态管理 结合 vue transition 和 css3 的 transition 实现 Jqeury toggle
-// 给需要的 元素加上 css  transition: height .2s ease-in-out;
-// by chuchur
 export function getTransitionProp(name) {
   return {
     name,
-    onBeforeEnter: (el) => {
+    onBeforeEnter(el) {
       // el.style.overflow = 'hidden';
       el.style.height = 0;
       el.style.opacity = 0.1;
     },
-    onEnter: (el) => {
+    onEnter(el) {
       if (el.scrollHeight !== 0) {
         el.style.height = el.scrollHeight + "px"; //window.getComputedStyle(el).height
         el.style.opacity = 1;
@@ -18,16 +15,16 @@ export function getTransitionProp(name) {
         el.style.opacity = "";
       }
     },
-    onAfterEnter: (el) => {
+    onAfterEnter(el) {
       el.style.height = "";
       el.style.overflow = "";
       el.style.opacity = "";
     },
-    onBeforeLeave: (el) => {
+    onBeforeLeave(el) {
       el.style.height = el.scrollHeight + "px";
       el.style.opacity = 1;
     },
-    onLeave: (el) => {
+    onLeave(el) {
       if (el.scrollHeight !== 0) {
         el.style.height = 0;
         el.style.paddingTop = 0;
@@ -35,10 +32,10 @@ export function getTransitionProp(name) {
         el.style.marginTop = 0;
         el.style.marginBottom = 0;
         el.style.opacity = 0;
-        el.style.overflow = 'hidden';
+        // el.style.overflow = 'hidden';
       }
     },
-    onAfterLeave: (el) => {
+    onAfterLeave(el) {
       el.style.height = "";
       el.style.paddingTop = "";
       el.style.paddingBottom = "";
@@ -50,53 +47,51 @@ export function getTransitionProp(name) {
   };
 }
 
-export function getTranstionHorProp(name) {
+export function getTransitionHorProp(name) {
   return {
     name,
-    on: {
-      beforeEnter(el) {
-        el.style.overflow = "hidden";
-        el.style.width = 0;
-        el.style.opacity = 0.1;
-      },
-      enter(el) {
-        if (el.scrollWidth !== 0) {
-          el.style.width = el.scrollWidth + "px";
-          el.style.opacity = 1;
-        } else {
-          el.style.width = "";
-          el.style.opacity = "";
-        }
-      },
-      afterEnter(el) {
-        el.style.width = "";
-        el.style.overflow = "";
-        el.style.opacity = "";
-      },
-      beforeLeave(el) {
+    onBeforeEnter(el) {
+      el.style.overflow = "hidden";
+      el.style.width = 0;
+      el.style.opacity = 0.1;
+    },
+    onEnter(el) {
+      if (el.scrollWidth !== 0) {
         el.style.width = el.scrollWidth + "px";
         el.style.opacity = 1;
-      },
-      leave(el) {
-        if (el.scrollWidth !== 0) {
-          el.style.width = 0;
-          el.style.paddingLeft = 0;
-          el.style.paddingRight = 0;
-          el.style.marginLeft = 0;
-          el.style.marginRight = 0;
-          el.style.opacity = 0;
-          el.style.overflow = "hidden";
-        }
-      },
-      afterLeave(el) {
+      } else {
         el.style.width = "";
-        el.style.paddingLeft = "";
-        el.style.paddingRight = "";
-        el.style.marginLeft = "";
-        el.style.marginRight = "";
         el.style.opacity = "";
-        el.style.overflow = "";
-      },
+      }
+    },
+    onAfterEnter(el) {
+      el.style.width = "";
+      el.style.overflow = "";
+      el.style.opacity = "";
+    },
+    onBeforeLeave(el) {
+      el.style.width = el.scrollWidth + "px";
+      el.style.opacity = 1;
+    },
+    onLeave(el) {
+      if (el.scrollWidth !== 0) {
+        el.style.width = 0;
+        el.style.paddingLeft = 0;
+        el.style.paddingRight = 0;
+        el.style.marginLeft = 0;
+        el.style.marginRight = 0;
+        el.style.opacity = 0;
+        el.style.overflow = "hidden";
+      }
+    },
+    onAfterLeave(el) {
+      el.style.width = "";
+      el.style.paddingLeft = "";
+      el.style.paddingRight = "";
+      el.style.marginLeft = "";
+      el.style.marginRight = "";
+      el.style.opacity = "";
+      el.style.overflow = "";
     },
   };
 }

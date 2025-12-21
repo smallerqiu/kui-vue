@@ -1,12 +1,12 @@
 <cn>
-#### Spin类型
+### Spin类型
 可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。
 </cn>
 
 ```vue
 <template>
   <div>
-    <Spin v-model:value="spinning" :mode="mode">
+    <Spin v-model="spinning" :mode="mode">
       <div class="deme-spin-container demo-back">
         床前明月光，疑是地上霜。<br />
         举头望明月，低头思故乡。
@@ -14,10 +14,10 @@
     </Spin>
     <br />
     <br />
-    Loading state：<k-switch v-model:checked="spinning" />
+    Loading state：<k-switch v-model="spinning" />
     <br />
     <br />
-    <RadioGroup v-model:value="mode">
+    <RadioGroup v-model="mode">
       <Radio value="bounce" label="Bounce" />
       <Radio value="flip" label="Flip" />
       <Radio value="rotate" label="Rotate" />

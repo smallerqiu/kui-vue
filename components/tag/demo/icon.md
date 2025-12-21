@@ -1,11 +1,11 @@
 <cn>
-#### 图标
+### 图标
 可以设置 icon 属性，或者直接在 Tag 内使用 Icon 组件。
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag :icon="LogoTwitter" color="#55acee">Twitter</Tag>
     <Tag :icon="LogoYoutube" color="#cd201f">油管</Tag>
     <Tag :icon="LogoQq" color="red">QQ</Tag>

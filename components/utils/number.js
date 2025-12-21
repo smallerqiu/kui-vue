@@ -9,7 +9,7 @@ export function isEmpty(value) {
   );
 }
 
-//正负,小数,科学技术法
+//正负,小数,科学计数法
 export function isValidNumber(number) {
   if (isEmpty(number)) return false;
   const str = String(number).trim();
@@ -18,22 +18,23 @@ export function isValidNumber(number) {
 // 将数值转为字符串并展开科学计数法
 export function toDecimalString(num) {
   const str = String(num);
-  if (!/e/i.test(str)) return str;
+  if (!/e/i.test(str)) return num;
   return Number(num)
     .toFixed(20)
-    .replace(/\.?0+$/, "");
+    .replace(/\.?0+$/, "")
 }
+// console.log(toDecimalString(1e3-10))
 
 // 获取小数长度
-export function getDecimalLength(numStr) {
-  const parts = numStr.split(".");
+export function getDecimalLength(numStr="") {
+  const parts = numStr.toString().split(".");
   return parts[1] ? parts[1].length : 0;
 }
 
 // 加法
 export function add(a, b) {
-  const aStr = toDecimalString(a);
-  const bStr = toDecimalString(b);
+  const aStr = toDecimalString(a)
+  const bStr = toDecimalString(b)
   const maxLen = Math.max(getDecimalLength(aStr), getDecimalLength(bStr));
   const factor = Math.pow(10, maxLen);
   const result =
@@ -66,8 +67,8 @@ export function multiply(a, b) {
   const aStr = toDecimalString(a);
   const bStr = toDecimalString(b);
   const totalLen = getDecimalLength(aStr) + getDecimalLength(bStr);
-  const intA = Number(aStr.replace(".", ""));
-  const intB = Number(bStr.replace(".", ""));
+  const intA = Number(String(aStr).replace(".", ""));
+  const intB = Number(String(bStr).replace(".", ""));
   const result = (intA * intB) / Math.pow(10, totalLen);
   return formatSmart(result);
 }
@@ -77,5 +78,5 @@ export function toFixed(value, n) {
   return isScientificNotation(value) ? rounded : Number(rounded);
 }
 
-// import { clamp } from "@vueuse/core";
-// export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+

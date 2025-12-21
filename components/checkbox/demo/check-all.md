@@ -1,21 +1,21 @@
 <cn>
-#### 全选
+### 全选
 全选组合
 </cn>
 
 ```vue
 <template>
-  <div>
+  <Space vertical>
+    <code>value: {{ cities }}</code>
     <Checkbox
-      v-model:checked="checkAll"
+      v-model="checkAll"
       :indeterminate="indeterminate"
       @change="handleCheckAll"
     >
       Check all
     </Checkbox>
-    <br />
-    <CheckboxGroup :options="options" v-model:value="cities" @change="change" />
-  </div>
+    <CheckboxGroup :options="options" v-model="cities" @change="change" />
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -31,8 +31,8 @@ const options = [
 ];
 const cities = ref([]);
 
-const handleCheckAll = (e) => {
-  let checked = e.target.checked;
+const handleCheckAll = ({ checked }) => {
+  console.log(checked);
   cities.value = checked ? options.map((v) => v.value) : [];
   indeterminate.value = !checked && !options.length;
 };

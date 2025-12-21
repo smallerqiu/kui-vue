@@ -1,20 +1,20 @@
 <cn>
-#### 暗黑模式
-简单的切换例子
+#### 切换主题
+简单的切换例子, 开箱即用
 </cn>
 
 ```vue
 <template>
-  <Button theme="light" @click="switchMode">切换</Button>
+  <Button theme="light" @click="switchMode">切换主题</Button>
 </template>
 
 <script setup>
 import { theme, message } from "kui-vue";
-const api = theme.useTheme();
 const switchMode = (event) => {
-  api.setThemeMode(event, (isDark) =>
-    message.info(isDark ? "暗色模式已开启" : "暗色模式已关闭")
-  );
+  message.info(`Current theme mode`);
+  theme.setThemeMode(event, (isDark) => {
+    message.info(`Current theme mode is ${isDark ? "dark" : "light"}`);
+  });
 };
 </script>
 ```

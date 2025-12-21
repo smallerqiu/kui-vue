@@ -4,7 +4,7 @@ import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 import { defineComponent, ref, inject } from "vue";
 import { Ellipsis } from "kui-icons";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const DropdownButton = defineComponent({
   name: "DropdownButton",
   props: {
@@ -17,9 +17,9 @@ const DropdownButton = defineComponent({
     arrow: Boolean,
     placement: { type: String, default: "bottom-right" },
   },
-  setup(ps, { slots }) {
+  emits: ["click"],
+  setup(ps, { slots, emit }) {
     const refTrigger = ref();
-
     return () => {
       return (
         <Dropdown
@@ -28,6 +28,7 @@ const DropdownButton = defineComponent({
           placement={ps.placement}
           target={refTrigger}
           disabled={ps.disabled}
+          // v-slots={{ //for 3
           v-slots={{
             default: () => (
               <ButtonGroup
@@ -35,19 +36,29 @@ const DropdownButton = defineComponent({
                 size={ps.size}
                 theme={ps.theme}
                 dark={ps.dark}
-                shape={ps.shape}>
-                <Button disabled={ps.disabled}>{slots.default?.()}</Button>
+                shape={ps.shape}
+              >
+                <Button
+                  disabled={ps.disabled}
+                  onClick={(e) => {
+                    emit("click", e);
+                  }}
+                >
+                  {slots.default?.()}
+                </Button>
                 <TriggerButton
                   disabled={ps.disabled}
                   ref={refTrigger}
                   icon={!slots.icon ? Ellipsis : null}
-                  class="k-dropdown-trigger">
+                  class="k-dropdown-trigger"
+                >
                   {slots.icon?.()}
                 </TriggerButton>
               </ButtonGroup>
             ),
             overlay: () => slots.overlay?.(),
-          }}></Dropdown>
+          }}
+        ></Dropdown>
       );
     };
   },

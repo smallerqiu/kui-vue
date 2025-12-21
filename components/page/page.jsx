@@ -7,10 +7,10 @@ import {
   Ellipsis,
   ChevronDoubleForward,
 } from "kui-icons";
-import { ref, defineComponent, watch, inject, nextTick } from "vue";
-import { withInstall } from '../utils/vue';
+import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
+import { withInstall } from "../utils/vue";
 
-import zhCN from "../locale/lang/zh-CN";
+import zhCN from "../locale/zh-CN";
 const Page = defineComponent({
   name: "Page",
   props: {
@@ -18,6 +18,7 @@ const Page = defineComponent({
     showSizer: Boolean,
     showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
+    theme: String,
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
       default: "default",
@@ -30,15 +31,18 @@ const Page = defineComponent({
     current: { default: 1, type: Number },
   },
   setup(ps, { emit }) {
-    // todo: select
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
-    const pcount = Math.ceil(ps.total / ps.pageSize) || 1;
-    const pageCount = ref(pcount);
+    const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
     const defaultPage = ref(ps.current);
     const defaultPageSize = ref(ps.pageSize);
-    const locale = inject("locale", null) || zhCN;
+    const injectedLocale = inject("locale", zhCN);
 
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
     watch(
       () => ps.pageSize,
       (v) => {
@@ -198,7 +202,8 @@ const Page = defineComponent({
               "k-pager-item",
               { "k-pager-item-active": defaultPage.value == 1 },
             ]}
-            onClick={() => toPage(1)}>
+            onClick={() => toPage(1)}
+          >
             <span>1</span>
           </li>
         );
@@ -214,7 +219,8 @@ const Page = defineComponent({
               "k-pager-item",
               { "k-pager-item-active": defaultPage.value == pCount },
             ]}
-            onClick={(e) => toPage(pCount)}>
+            onClick={(e) => toPage(pCount)}
+          >
             <span>{pCount}</span>
           </li>
         );
@@ -225,11 +231,13 @@ const Page = defineComponent({
       let prop = {
         value: defaultPageSize.value,
         size: ps.size,
+        clearable: false,
+        theme: ps.theme,
         options: ps.sizeData.map((s) => {
-          return { value: s, label: `${s}${locale?.k.page.pageSize}` };
+          return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
         }),
         disabled: ps.disabled,
-        "onUpdate:value": changeSize,
+        onChange: changeSize,
       };
       return ps.showSizer ? (
         <div class="k-page-sizer">{<Select {...prop} />}</div>
@@ -241,6 +249,7 @@ const Page = defineComponent({
       let prop = {
         class: "k-page-options-elevator",
         size,
+        theme: ps.theme,
         disabled: ps.disabled,
         // value: defaultPage.value,
         onChange: (e) => {
@@ -271,24 +280,29 @@ const Page = defineComponent({
       };
       return ps.showElevator ? (
         <div class="k-page-options">
-          <span>{locale?.k.page.goto}</span>
+          <span>{locale?.value.k.page.goto}</span>
           <Input {...prop} />
-          <span>{locale?.k.page.page}</span>
+          <span>{locale?.value.k.page.page}</span>
         </div>
       ) : null;
     };
     return () => {
       const classes = [
-        "k-page",
-        { ["k-page-sm"]: ps.size == "small", "k-page-disabled": ps.disabled },
-      ],
+          "k-page",
+          {
+            ["k-page-sm"]: ps.size == "small",
+            "k-page-light": ps.theme == "light",
+            "k-page-disabled": ps.disabled,
+          },
+        ],
         preNode = (
           <li
             class={[
               "k-pager-item k-pager-prev",
               { "k-pager-item-disabled": defaultPage.value == 1 },
             ]}
-            onClick={prePage}>
+            onClick={prePage}
+          >
             <Icon type={ChevronUp} />
           </li>
         ),
@@ -298,14 +312,16 @@ const Page = defineComponent({
               "k-pager-item k-pager-next",
               { "k-pager-item-disabled": defaultPage.value == pageCount.value },
             ]}
-            onClick={nextPage}>
+            onClick={nextPage}
+          >
             <Icon type={ChevronUp} />
           </li>
         ),
         totalNode = ps.showTotal ? (
           <div class="k-page-number">
             <span>
-              {locale?.k.page.total} {ps.total} {locale?.k.page.items}
+              {locale?.value.k.page.total} {ps.total}{" "}
+              {locale?.value.k.page.items}
             </span>
           </div>
         ) : null,
@@ -326,4 +342,4 @@ const Page = defineComponent({
     };
   },
 });
-export default withInstall(Page)
+export default withInstall(Page);

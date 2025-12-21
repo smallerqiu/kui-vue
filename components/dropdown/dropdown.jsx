@@ -9,7 +9,7 @@ import {
   onMounted,
   onBeforeMount,
 } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -17,7 +17,8 @@ import { getChildren } from "../utils/vnode";
 const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
-    transfer, resize
+    transfer,
+    resize,
   },
   props: {
     dark: Boolean,
@@ -30,7 +31,7 @@ const Dropdown = defineComponent({
     },
     transfer: { type: Boolean, default: true },
     disabled: Boolean,
-    arrow: Boolean,
+    arrow: { type: Boolean, default: false },
     show: Boolean,
     placement: {
       validator(value) {
@@ -49,10 +50,10 @@ const Dropdown = defineComponent({
     },
     target: Object,
   },
-
-  setup(ps, { slots, emit }) {
+  emits: ["update:visible"],
+  setup(ps, { slots, emit, attrs, listeners }) {
     const visible = ref(ps.show);
-    const refCtx = ref();
+    const refSelection = ref(null);
     const currentPlacement = ref(ps.placement);
     const transOrigin = ref("bottom");
     const refPopper = ref();
@@ -87,60 +88,30 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
+      if (!refPopper.value) return;
       if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
+        (!refPopper.value.contains(e.target) &&
+          ctx &&
+          !ctx.contains(e.target)) ||
+        (ps.trigger == "contextmenu" && !refPopper.value.contains(e.target))
       ) {
         visible.value = false;
       }
     };
-    const updatePosition = () => {
+    const updatePosition = (e) => {
+      const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
-        setPlacement(
-          refCtx,
+        setPlacement({
+          refSelection,
+          position,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
-    };
-    const showContextmenu = (e) => {
-      // todo : when the menu is opened, then resize the window at this time, the position is not accurate.
-      let pickerHeight = refPopper.value.offsetHeight;
-      let pickerWidth = refPopper.value.offsetWidth;
-      let clientHeight = document.documentElement.clientHeight;
-      let clientWidth = document.documentElement.clientWidth;
-
-      let offsetTop =
-        document.body.scrollTop ||
-        document.documentElement.scrollTop ||
-        window.scrollY;
-      let offsetLeft =
-        document.body.scrollLeft ||
-        document.documentElement.scrollLeft ||
-        window.scrollX;
-      let x = e.clientX + offsetLeft;
-      let y = e.clientY + offsetTop;
-      let showInRight = clientWidth - e.clientX > pickerWidth;
-      let showInBottom = clientHeight - e.clientY > pickerHeight;
-      let transformOrigin = "top center";
-
-      if (!showInRight) {
-        x -= pickerWidth;
-      }
-      if (!showInBottom) {
-        y -= pickerHeight;
-        transformOrigin = "bottom center";
-      }
-      left.value = x;
-      top.value = y;
-      transOrigin.value = transformOrigin;
     };
     const toggle = (open, e) => {
       if (open) {
@@ -150,12 +121,12 @@ const Dropdown = defineComponent({
           nextTick(() => {
             visible.value = true;
             emit("update:visible", true);
-            e ? showContextmenu(e) : updatePosition();
+            updatePosition(e);
           });
         } else {
           visible.value = true;
           emit("update:visible", true);
-          e ? showContextmenu(e) : updatePosition();
+          updatePosition(e);
         }
       } else {
         visible.value = false;
@@ -204,25 +175,9 @@ const Dropdown = defineComponent({
       }
     };
 
-    provide("dropdown-tirgger-in", mouseEnterEvent);
-    provide("dropdown-tirgger-out", mouseLeaveEvent);
+    provide("dropdown-trigger-in", mouseEnterEvent);
+    provide("dropdown-trigger-out", mouseLeaveEvent);
     return () => {
-      let nodes = getChildren(slots.default?.());
-      const pp = ps.target
-        ? {}
-        : {
-          onClick: clickEvent,
-          onMouseenter: mouseEnterEvent,
-          onMouseleave: mouseLeaveEvent,
-          onContextmenu: contextmenuEvent,
-        };
-      const ctxNode = cloneVNode(
-        nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
-        {
-          ref: refCtx,
-          ...pp,
-        }
-      );
       const props = {
         ref: refPopper,
         style: {
@@ -232,6 +187,7 @@ const Dropdown = defineComponent({
         },
         "k-placement": currentPlacement.value,
         class: ["k-dropdown", { "k-dropdown-has-arrow": ps.arrow }],
+
         onClick: (e) => {
           toggle(false);
         },
@@ -249,20 +205,25 @@ const Dropdown = defineComponent({
       const overlay =
         rendered.value && slots.overlay ? (
           <Transition name="k-dropdown">
-            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
+            <div
+              v-transfer={true}
+              v-resize={updatePosition}
+              v-show={visible.value}
+              {...props}
+            >
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
                 {ps.arrow ? (
                   <div class={`k-dropdown-arrow`}>
                     <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
                       <path
+                        d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
                         id="ot"
-                        d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
                       />
                       <path
-                        stroke="currentcolor"
+                        d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
                         id="in"
-                        d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                        stroke="currentcolor"
                       />
                     </svg>
                   </div>
@@ -271,6 +232,24 @@ const Dropdown = defineComponent({
             </div>
           </Transition>
         ) : null;
+
+      let nodes = getChildren(slots.default?.());
+      const pp = ps.target
+        ? {}
+        : {
+            onClick: clickEvent,
+            onMouseenter: mouseEnterEvent,
+            onMouseleave: mouseLeaveEvent,
+            onContextmenu: contextmenuEvent,
+          };
+      const ctxNode = cloneVNode(
+        nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
+        {
+          ref: refSelection,
+          ...pp,
+        },
+        true
+      );
       return (
         <>
           {ctxNode} {overlay}

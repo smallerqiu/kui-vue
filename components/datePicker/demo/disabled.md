@@ -1,16 +1,19 @@
 <cn>
-#### 禁用
-选择框的不可用状态。通过 `disabled` 设置
+### 禁用和不可编辑
+选择框的不可用 、 不可编辑, 不可清除 状态。
 </cn>
 
 ```vue
 <template>
-  <div>
-    <DatePicker disabled value="2019-10-12" />
+  <Space wrap vertical>
+    <code>disabled = true</code>
+    <DatePicker disabled />
     <br />
-    <DatePicker disabled size="small" value="2019-10" />
+    <code>editable = false</code>
+    <DatePicker :editable="false" />
     <br />
-    <DatePicker disabled type="dateRange" />
-  </div>
+    <code>clearable = false</code>
+    <DatePicker :clearable="false" />
+  </Space>
 </template>
 ```

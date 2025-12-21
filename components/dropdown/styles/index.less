@@ -7,48 +7,28 @@
   z-index: 1001;
 
   .k-dropdown-content {
-    background: var(--kui-color-control-10);
+    background: var(--kui-color-back-10);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: var(--kui-border-radius);
-    border: 1px solid var(--kui-color-border);
   }
 
   .k-dropdown-menu {
     min-width: 150px;
+    border: 1px solid var(--kui-color-border);
   }
 
   .k-dropdown-menu-item-icon {
     margin-right: 8px;
   }
 
-
+  #ot {
+    stroke-width: 1px;
+    stroke: var(--kui-color-border);
+  }
 }
 
-.k-dropdown-menu-submenu-arrow {
-  // mode inline
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  &::after,
-  &::before {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 1.5px;
-    background-color: currentcolor;
-    border-radius: 6px;
-    transition: all .3s cubic-bezier(.215, .61, .355, 1);
-  }
-
-  &::before {
-    transform: rotate(45deg) translateY(-2.5px);
-  }
-
-  &::after {
-    transform: rotate(-45deg) translateY(2.5px);
-  }
+.k-dropdown-menu {
+  border: 1px solid var(--kui-color-border);
 }
 
 .k-dropdown-has-arrow {
@@ -81,7 +61,7 @@
       height: 9px;
     }
 
-    .k-dropdown-content {
+    .k-dropdown-body {
       margin-bottom: 12px;
     }
   }
@@ -112,7 +92,7 @@
       transform: rotate(180deg);
     }
 
-    .k-dropdown-content {
+    .k-dropdown-body {
       margin-top: 12px;
     }
   }
@@ -142,7 +122,7 @@
       box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
     }
 
-    .k-dropdown-content {
+    .k-dropdown-body {
       margin-right: 12px;
     }
   }
@@ -172,7 +152,7 @@
       box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
     }
 
-    .k-dropdown-content {
+    .k-dropdown-body {
       margin-left: 12px;
     }
   }
@@ -216,16 +196,4 @@
 
 .k-dropdown-fade-leave-active {
   animation: dropdown-zoom .3s reverse;
-}
-
-.k-dropdown-button {
-  .k-dropdown-trigger {
-    padding: 0;
-    width: 32px;
-  }
-}
-
-.k-dropdown-content #ot {
-  stroke-width: 0.1em;
-  stroke: var(--kui-color-border);
 }

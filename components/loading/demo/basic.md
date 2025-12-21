@@ -1,11 +1,11 @@
 <cn>
-#### 基本用法 
+### 基本用法 
 最简单的用法。
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>  
     <Button @click="start()">start</Button>
     <Button @click="finish">finish</Button>
     <Button @click="error">error</Button>

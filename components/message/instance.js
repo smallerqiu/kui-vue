@@ -1,14 +1,10 @@
-import {  createVNode, render } from "vue";
+import { createVNode, render } from "vue";
 import Group from "./group";
 
 const newInstance = (props = {}) => {
-  const container = document.createElement("div");
-  document.body.appendChild(container);
-
   const vm = createVNode(Group, props);
-  render(vm, container);
-
-  return vm.component?.exposed
+  render(vm, document.body);
+  return vm.component?.exposed; // for 3
 };
 
-export default newInstance;
+export { newInstance };

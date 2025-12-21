@@ -1,17 +1,17 @@
 import Info from './info.md'
-import Base from './basic.md'
+import Basic from './basic.md'
 import Trigger from './trigger.md'
-import Closeinside from './closeinside.md'
+import CloseInside from './closeinside.md'
 import Placement from './placement.md'
 import CN from '../index.md'
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div class="demo-poptip">
         <Info />
-        <Base />
+        <Basic />
         <Trigger />
-        <Closeinside />
+        <CloseInside />
         <Placement />
         <CN />
       </div>

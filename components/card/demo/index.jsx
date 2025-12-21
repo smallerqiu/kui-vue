@@ -1,13 +1,13 @@
-import Base from './basic.md'
+import Basic from './basic.md'
 import Info from './info.md'
 import Border from './border.md'
 import CN from '../index.md'
 export default {
-  setup() {
-    return ()=>(
+  render() {
+    return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Border />
         <CN />
       </div>

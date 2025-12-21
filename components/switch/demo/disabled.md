@@ -1,5 +1,5 @@
 <cn>
-#### 禁用 / 可控
+### 禁用 / 可控
 通过 `disabled` 属性设置组件是否被禁用
 </cn>
 
@@ -8,7 +8,7 @@
   <Space vertical align="start">
     <k-switch disabled />
     <Space>
-      <k-switch :disabled="disabled" v-model:checked="checked" />
+      <k-switch :disabled="disabled" v-model="checked" />
       <Button size="small" @click="checked = !checked">
         {{ checked ? "Uncheck" : "Check" }}
       </Button>

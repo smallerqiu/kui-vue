@@ -1,16 +1,16 @@
 import Info from "./info.md";
-import Base from './basic.md';
+import Basic from "./basic.md";
 import Format from "./format.md";
 import Ffix from "./ffix.md";
 import Size from "./size.md";
 
 import CN from "../index.md";
 export default {
-  setup() {
-    return () => (
-      <div class="demo-inputnumber">
+  render() {
+    return (
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Format />
         <Ffix />
         <Size />

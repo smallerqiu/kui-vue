@@ -1,5 +1,5 @@
 <cn>
-#### Button 紧凑布局
+### Button 紧凑布局
 Button 组件紧凑排列的示例。
 </cn>
 

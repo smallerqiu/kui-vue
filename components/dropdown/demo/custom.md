@@ -1,5 +1,5 @@
 <cn>
-#### 菜单隐藏方式
+### 菜单隐藏方式
 默认是点击关闭菜单，可以关闭此功能。
 </cn>
 
@@ -8,7 +8,7 @@
   <Dropdown v-model:show="visible">
     <a> Hover me <Icon :type="ChevronDown" /> </a>
     <template #overlay>
-      <Menu @click="handleMenuClick">
+      <Menu @select="handleMenuClick">
         <MenuItem key="1"> Not close the menu. </MenuItem>
         <MenuItem key="2"> Not close the menu also. </MenuItem>
         <MenuItem key="3"> Close the menu </MenuItem>

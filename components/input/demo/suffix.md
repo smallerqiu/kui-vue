@@ -1,20 +1,20 @@
 <cn>
-#### 扩展, 前缀和后缀
+### 扩展, 前缀和后缀
 suffix，prefix 扩展
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
+  <Space vertical block>
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
-    <Input
-      placeholder="请输入验证码"
-      :icon="ShieldCheckmark"
-      :maxlength="8"
-      prefix="¥"
-    >
+    <Input placeholder="请输入验证码" :maxlength="8">
       <template #suffix>
-        <Button :disabled="disabled" style="width:100px;" @click="sendCode">
+        <Button
+          :disabled="time < 60"
+          style="width:100px;"
+          @click="sendCode"
+          theme="outline"
+        >
           {{ time == 60 ? "获取验证码" : time + "(s)" }}
         </Button>
       </template>
@@ -45,7 +45,7 @@ suffix，prefix 扩展
         <TreeSelect
           :tree-data="treeData"
           clearable
-          style="width:200px"
+          style="width:100px"
         ></TreeSelect>
       </template>
     </Input>
@@ -62,14 +62,14 @@ import {
 import { message } from "kui-vue";
 const time = ref(60);
 const timer = ref();
-const disabled = ref(false);
+import { onUnmounted } from "vue";
+
 const sendCode = () => {
   if (timer.value) {
     clearInterval(timer.value);
   }
   time.value = 59;
   message.success("验证码发送成功，请注意查收");
-  disabled.value = true;
   timer.value = setInterval(() => {
     time.value--; // 先减一更清晰
     if (time.value <= 0) {
@@ -97,5 +97,11 @@ const treeData = [
     ],
   },
 ];
+
+onUnmounted(() => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
+});
 </script>
 ```

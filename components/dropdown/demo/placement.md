@@ -1,11 +1,11 @@
 <cn>
-#### 弹出位置
+### 弹出位置
 支持 6 个弹出位置。
 </cn>
 
 ```vue
 <template>
-  <div id="dropdown-demo-placement">
+  <Space id="dropdown-demo-placement" wrap>
     <template v-for="(placement, index) in placements">
       <Dropdown :placement="placement">
         <Button>{{ placement }}</Button>
@@ -42,7 +42,7 @@
         </template>
       </Dropdown>
     </template>
-  </div>
+  </Space>
 </template>
 
 <script setup>

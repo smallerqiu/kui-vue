@@ -1,12 +1,12 @@
 <cn>
-#### 植入目标元素
+### 植入目标元素
 可以在目标元素内展开
 </cn>
 
 ```vue
 <template>
   <Space>
-    <RadioGroup v-model:value="placement" type="button">
+    <RadioGroup v-model="placement" type="button">
       <RadioButton label="left" value="left" />
       <RadioButton label="top" value="top" />
       <RadioButton label="right" value="right" />
@@ -20,7 +20,7 @@
     <p style="color:#999">Drawer 在内部展示.</p>
   </Flex>
   <Drawer
-    v-model:show="show"
+    v-model="show"
     width="200"
     :footer="null"
     :placement="placement"

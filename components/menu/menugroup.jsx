@@ -1,4 +1,4 @@
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 import { withInstall } from '../utils/vue';
 
 const MenuGroup = defineComponent({

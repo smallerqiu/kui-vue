@@ -1,12 +1,13 @@
-import { defineComponent, cloneVNode, provide, computed } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 import Radio from "./radio.jsx";
 import RadioButton from "./radioButton.jsx";
-import { getChildren } from "../utils/vnode.jsx";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
+import { getChildren } from "../utils/vnode";
+
 const RadioGroup = defineComponent({
   name: "RadioGroup",
   props: {
-    value: { type: [String, Number], default: "" },
+    modelValue: { type: [String, Number, Boolean], default: "" },
     disabled: Boolean,
     direction: {
       type: String,
@@ -14,7 +15,6 @@ const RadioGroup = defineComponent({
       validator: (val) => ["horizontal", "vertical"].indexOf(val) >= 0,
     },
     size: {
-      // default: "default",
       validator(value) {
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
@@ -22,47 +22,71 @@ const RadioGroup = defineComponent({
     theme: String,
     shape: String,
     options: Array,
-    type: String,
+    type: String, // 'button' or default
   },
-  setup(ps, { slots, emit }) {
-    provide("radioGroup", ps);
-
-    const change = ({ label, value }) => {
-      emit("update:value", value);
-      emit("change", { label, value });
+  setup(props, { slots, emit }) {
+    const currentValue = ref(props.modelValue);
+    const onChange = ({ value }) => {
+      currentValue.value = value;
+      emit("update:modelValue", value);
+      emit("change", value);
     };
-
-    return () => {
-      const { options, type, direction, theme, shape, size } = ps;
-      let children = getChildren(slots.default?.());
-
-      if (options && options.length) {
-        children = options.map((option) => {
-          let pps = {
-            theme: theme,
-            shape: shape,
-            size: size,
-            icon: option.icon,
-            key: option.key,
-            value: option.value,
-            label: option.label,
-            disabled: ps.disabled || option.disabled,
-            onUpdate: change,
-            checked: ps.value == option.value,
-          };
-          return type == "button" ? <RadioButton {...pps} /> : <Radio {...pps} />;
-        });
-      } else {
-        children = children?.map((child) => {
-          return cloneVNode(child, { size, theme, shape, checked: ps.value == child?.props?.value, onUpdate: change });
+    watch(
+      () => props.modelValue,
+      (val) => {
+        currentValue.value = val;
+      }
+    );
+    const optionsData = computed(() => {
+      let { options } = props;
+      if (!options) {
+        options = [];
+        const children = getChildren(slots.default?.());
+        children.forEach((child, index) => {
+          let { label, value, disabled, icon } = child.props;
+          options.push({
+            value,
+            icon,
+            disabled,
+            label: label || child.children?.default()[0].children || value,
+          });
         });
       }
-      const classes = ["k-radio-group", { "k-radio-circle": shape == "circle" },
-        { "k-radio-group-light": theme == "light" && type == "button" },
-        { "k-radio-group-card": theme == "card" && type == "button" },
-        { "k-radio-group-vertical": direction == "vertical" }];
+      return options;
+    });
+    return () => {
+      let options = optionsData.value;
+      let nodes = [];
+      const Component = props.type === "button" ? RadioButton : Radio;
+      options.forEach((option) =>
+        nodes.push(
+          <Component
+            key={option.value}
+            label={option.label}
+            value={option.value}
+            onChange={onChange}
+            checked={currentValue.value === option.value}
+            disabled={props.disabled || option.disabled}
+            icon={option.icon}
+            size={props.size}
+            theme={props.theme}
+          />
+        )
+      );
+      const classes = [
+        "k-radio-group",
+        {
+          "k-radio-button-group": props.type === "button",
+          "k-radio-circle": props.shape === "circle",
+          "k-radio-group-light":
+            props.theme === "light" && props.type === "button",
+          "k-radio-group-card":
+            props.theme === "card" && props.type === "button",
+          "k-radio-group-vertical": props.direction === "vertical",
+        },
+      ];
 
-      return <div class={classes}>{children}</div>;
+      return <div class={classes}>{nodes}</div>;
     };
   },
 });

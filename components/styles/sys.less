@@ -12,21 +12,27 @@
   background-color: var(--kui-color-main);
   color: #fff;
 }
-
+input::placeholder,
+textarea::placeholder {
+  color: var(--kui-color-disabled);
+}
 .k-scroll {
   &::-webkit-scrollbar {
-    background-color: var(--kui-color-back);
-    width: 8px;
-    height: 8px;
-    padding: 2px;
+    // background-color: var(--kui-color-back);
+    width: 10px;
+    height: 10px;
   }
 
-  &::-webkit-scrollbar-track {}
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 8px;
     width: 6px;
     height: 6px;
+    min-height: 55px;
+    min-width: 55px;
     background-color: var(--kui-color-border);
   }
 
@@ -43,35 +49,36 @@
 a {
   color: var(--kui-color-main);
   text-decoration: none;
-  outline: none;
-  background-color: transparent;
-
 }
 
-
-// theme 
+// theme
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  isolation: isolate;
+  will-change: transform, opacity;
 }
 
-[theme-mode=light]::view-transition-old(root) {
+[theme-mode="light"]::view-transition-old(root) {
   z-index: 999;
 }
 
-[theme-mode=light]::view-transition-new(root) {
+[theme-mode="light"]::view-transition-new(root) {
   z-index: 1;
 }
 
-[theme-mode=dark]::view-transition-old(root) {
+[theme-mode="dark"]::view-transition-old(root) {
   z-index: 1;
 }
 
-[theme-mode=dark]::view-transition-new(root) {
+[theme-mode="dark"]::view-transition-new(root) {
   z-index: 999;
 }
 
 :root {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  // transition: none !important;
 }

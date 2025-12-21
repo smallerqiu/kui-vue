@@ -1,5 +1,17 @@
 <cn>
-#### 顶部-侧边布局
+### 顶部-侧边布局
+拥有顶部导航及侧边栏的页面，多用于展示类网站。
+</cn>
+
+````vue
+<cn>
+### 顶部-侧边布局
+拥有顶部导航及侧边栏的页面，多用于展示类网站。
+</cn>
+
+```vue
+<cn>
+### 顶部-侧边布局
 拥有顶部导航及侧边栏的页面，多用于展示类网站。
 </cn>
 
@@ -60,10 +72,10 @@
               <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
             </Menu>
           </Sider>
-          <Content>Content</Content>
+          <Content>Conent</Content>
         </Layout>
       </Content>
-      <Footer class="demo-footer">KUI ©2025 Created by Qiu</Footer>
+      <Footer class="demo-footer">KUI ©2025 Created by chuchur</Footer>
     </Layout>
   </div>
 </template>
@@ -149,4 +161,4 @@ import {
   }
 }
 </style>
-```
+````

@@ -1,5 +1,5 @@
 <cn>
-#### 按钮组合
+### 按钮组合
 将多个 `Button` 放入 `ButtonGroup` 内，可实现按钮组合的效果。
 </cn>
 
@@ -13,7 +13,7 @@
     <DropdownButton>
       Dropdown
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item
@@ -34,5 +34,9 @@
 </template>
 <script setup>
 import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
+
+const handleMenuClick = (e) => {
+  console.log("click", e);
+};
 </script>
 ```

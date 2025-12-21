@@ -1,11 +1,11 @@
 <cn>
-#### 动态添加和删除
+### 动态添加和删除
 通过 `closeable` 显示关闭按钮
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Tag color="blue" closeable v-for="(t, i) in tags" :key="t">{{ t }}</Tag>
     <Input
       v-if="showInput"

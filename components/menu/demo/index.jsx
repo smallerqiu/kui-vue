@@ -1,7 +1,7 @@
 import Info from "./info.md";
-import Base from './basic.md';
+import Basic from './basic.md';
 import InLine from "./inline.md";
-import Accrodion from "./accordion.md";
+import Accordion from "./accordion.md";
 import Vertical from "./vertical.md";
 import Theme from "./theme.md";
 import Collapsed from "./collapsed.md";
@@ -9,13 +9,13 @@ import Mode from "./mode.md";
 import CN from "../index.md";
 
 export default {
-  setup() {
-    return () => (
-      <div class="demo-menu">
+  render() {
+    return (
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <InLine />
-        <Accrodion />
+        <Accordion />
         <Vertical />
         <Theme />
         <Mode />

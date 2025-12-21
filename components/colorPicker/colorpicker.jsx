@@ -9,7 +9,7 @@ import Paint from "./paint";
 import Color from "color";
 import Presets from "./presets";
 import { cloneNodes } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import {
   defineComponent,
   ref,
@@ -22,10 +22,11 @@ import {
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
-    transfer, resize
+    transfer,
+    resize,
   },
   props: {
-    value: String,
+    modelValue: String,
     transfer: { type: Boolean, default: true },
     disabled: Boolean,
     disabledAlpha: Boolean,
@@ -71,12 +72,11 @@ const ColorPicker = defineComponent({
   },
 
   setup(ps, { emit, slots }) {
-    // todo 编码格式 时, 要双击 才能先中.
     const currentMode = ref(ps.mode);
-    const currentColor = ref(ps.value || "#000000ff");
+    const currentColor = ref(ps.modelValue || "#000000ff");
     const visible = ref(ps.show);
     const refPopper = ref();
-    const refCtx = ref();
+    const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(ps.placement);
@@ -87,7 +87,7 @@ const ColorPicker = defineComponent({
     const hideTimer = ref();
 
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentColor.value = v;
         // currentAlpha.value = Color(v).alpha();
@@ -95,9 +95,9 @@ const ColorPicker = defineComponent({
       }
     );
     onMounted(() => {
-      if (ps.value) {
-        currentAlpha.value = Color(ps.value).alpha();
-        currentHue.value = Color(ps.value).hue();
+      if (ps.modelValue) {
+        currentAlpha.value = Color(ps.modelValue).alpha();
+        currentHue.value = Color(ps.modelValue).hue();
       }
     });
     onBeforeUnmount(() => {
@@ -105,19 +105,18 @@ const ColorPicker = defineComponent({
     });
     const updatePopPosition = () => {
       nextTick(() => {
-        setPlacement(
-          refCtx,
+        setPlacement({
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          3
-        );
+        });
       });
     };
     const outsideClick = (e) => {
-      const ctx = refCtx.value?.$el || refCtx.value;
+      const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target) &&
@@ -171,7 +170,7 @@ const ColorPicker = defineComponent({
     const onUpdate = (color) => {
       currentColor.value = color;
       const value = getColor();
-      emit("update:value", value);
+      emit("update:modelValue", value);
       emit("change", value);
     };
 
@@ -248,7 +247,8 @@ const ColorPicker = defineComponent({
                 <div class="k-color-picker-avatar">
                   <div
                     class="k-color-picker-avatar-inner"
-                    style={`background-color:${currentColor.value}`}></div>
+                    style={`background-color:${currentColor.value}`}
+                  ></div>
                 </div>
                 <div class="k-color-picker-bar-box">
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
@@ -315,26 +315,32 @@ const ColorPicker = defineComponent({
       ];
       const triggerClick = ps.trigger == "click";
       return slots.default ? (
-        <>
-          {cloneNodes(slots.default(), {
-            ref: refCtx,
-            onClick: () => triggerClick && toggle(!visible.value),
-            onMouseenter: () => !triggerClick && toggle(true),
-            onMouseleave: onMouseleave,
-          })}
+        <span>
+          {cloneNodes(
+            slots.default(),
+            {
+              ref: refSelection,
+              onClick: () => triggerClick && toggle(!visible.value),
+              onMouseenter: () => !triggerClick && toggle(true),
+              onMouseleave: onMouseleave,
+            },
+            true
+          )}
           {drop}
-        </>
+        </span>
       ) : (
-        <div class={style} ref={refCtx} v-resize={updatePopPosition}>
+        <div class={style} ref={refSelection} v-resize={updatePopPosition}>
           <div
             class="k-color-picker-selection"
             onMouseenter={() => !triggerClick && toggle(true)}
             onMouseleave={onMouseleave}
-            onClick={() => triggerClick && toggle(!visible.value)}>
+            onClick={() => triggerClick && toggle(!visible.value)}
+          >
             <div class="k-color-picker-color">
               <div
                 class="k-color-picker-color-inner"
-                style={`background-color:${currentColor.value}`}></div>
+                style={`background-color:${currentColor.value}`}
+              ></div>
             </div>
             {renderTriggerText()}
           </div>

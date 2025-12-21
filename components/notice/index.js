@@ -1,19 +1,18 @@
+import { newInstance } from "../message/instance";
+import { withInstall } from "../utils/vue";
 import { inject } from "vue";
-import newInstance from "../message/instance";
-import { withInstall } from '../utils/vue';
-
 let noticeInstance;
 
 let Notice = {
   name: "notice",
-  open(options = {}) {
-    options = Object.assign({ type: "default" }, options);
+  open(options = {}, context = null) {
+    options = Object.assign({ type: null }, options);
     if (options.icon) {
       delete options.type;
     }
     options.noticeType = "notice";
     if (!noticeInstance) {
-      noticeInstance = newInstance({ type: "notice" });
+      noticeInstance = newInstance({ type: "notice" }, context);
     }
     noticeInstance.show(options);
   },
@@ -25,10 +24,9 @@ let Notice = {
     }
   },
   useNotice() {
-    return inject("notice");
+    return Notice
   },
   install(app) {
-    app.provide("notice", Notice);
     // 可选：同时挂到 globalProperties 兼容 this.$notice
     app.config.globalProperties.$notice = Notice;
   },

@@ -1,2 +1,2 @@
-import loading from './loading.jsx'
-export default loading
+import Loading from './loading.jsx'
+export default Loading

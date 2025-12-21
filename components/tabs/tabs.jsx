@@ -1,19 +1,29 @@
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
-import { defineComponent, onMounted, onBeforeMount, ref, nextTick, watch, cloneVNode, computed } from "vue";
-import { withInstall } from '../utils/vue';
+import {
+  defineComponent,
+  onMounted,
+  onBeforeMount,
+  ref,
+  nextTick,
+  watch,
+  computed,
+  cloneVNode,
+} from "vue";
+import { withInstall } from "../utils/vue";
 const Tabs = defineComponent({
   name: "Tabs",
   props: {
-    activeKey: String,
+    // activeKey: [String,Number], // for 3
+    modelValue: [String, Number],
     card: Boolean,
     sample: Boolean,
     centered: Boolean,
     animated: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    const defaultActiveKey = ref(ps.activeKey);
+    const defaultActiveKey = ref(ps.modelValue);
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
@@ -24,14 +34,11 @@ const Tabs = defineComponent({
     const navBoxRef = ref();
     const inkBarRef = ref();
 
-    // const children = getChildren(slots.default?.());
-    const children = computed(() => {
-      return getChildren(slots.default?.());
-    });
     watch(
-      () => ps.activeKey,
-      () => {
-        defaultActiveKey.value = ps.activeKey;
+      // () => ps.activeKey,
+      () => ps.modelValue,
+      (nv) => {
+        defaultActiveKey.value = nv;
         updateIndex();
       }
     );
@@ -90,7 +97,7 @@ const Tabs = defineComponent({
         nav.style.transform = `translate3d(${navLeft}px,0,0)`;
 
         resetActivePosition();
-        updateInkBarPosition()
+        updateInkBarPosition();
         updateNav();
       });
     };
@@ -124,16 +131,21 @@ const Tabs = defineComponent({
     };
     const tabClick = ({ disabled, key }, index) => {
       if (!disabled) {
-        emit("update:activeKey", key);
+        emit("update:value", key);
+        // emit("update:activeKey", key);
         emit("tab-click", key);
         defaultActiveKey.value = key;
         currentIndex.value = index;
         emit("change", key);
+        updateIndex(); // for 2
       }
     };
     const updateIndex = () => {
       nextTick(() => {
-        currentIndex.value = children.value?.map((p) => p.key).indexOf(defaultActiveKey.value);
+        const nodes = getChildren(slots.default?.());
+        currentIndex.value = nodes
+          ?.map((p) => p.key)
+          .indexOf(defaultActiveKey.value);
         resetActivePosition();
         updateInkBarPosition();
       });
@@ -162,26 +174,53 @@ const Tabs = defineComponent({
         scrollable.value = navBox.scrollWidth > navBox.clientWidth;
       });
     };
-    const renderNav = () => {
-      return children.value?.map((panel, index) => {
+    const renderNodes = () => {
+      const nodes = getChildren(slots.default?.());
+      const panels = nodes?.map((item) => {
+        return cloneVNode(
+          item,
+          {
+            activeKey: defaultActiveKey.value,
+            onResetNavPosition: () => resetNavPosition(),
+          },
+          true
+        );
+      });
+
+      const navNodes = nodes?.map((panel, index) => {
         const key = panel.key;
+
         let { icon, title, closable, disabled } = panel.props;
         disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
         const prop = {
-          class: ["k-tabs-tab", { ["k-tabs-tab-active"]: key == defaultActiveKey.value, ["k-tabs-tab-disabled"]: disabled }],
+          class: [
+            "k-tabs-tab",
+            {
+              ["k-tabs-tab-active"]: key === defaultActiveKey.value,
+              ["k-tabs-tab-disabled"]: disabled,
+            },
+          ],
           onClick: () => tabClick({ disabled, key }, index),
         };
         return (
           <div {...prop}>
             {icon ? <Icon type={icon} /> : null}
             {title}
-            {closable && ps.card ? <Icon type={Close} class="k-tabs-close" strokeWidth={45} onClick={(e) => closeTab(key, e)} /> : null}
+            {closable && ps.card ? (
+              <Icon
+                type={Close}
+                class="k-tabs-close"
+                strokeWidth={45}
+                onClick={(e) => closeTab(key, e)}
+              />
+            ) : null}
           </div>
         );
       });
-    };
 
+      return { panels, navNodes };
+    };
     return () => {
       const { card, animated, centered, sample } = ps;
       const classes = [
@@ -201,40 +240,55 @@ const Tabs = defineComponent({
         paneStyle.marginLeft = `-${100 * currentIndex.value}%`;
       }
 
-      const navCls = ["k-tabs-nav-container", { ["k-tabs-nav-container-scroll"]: scrollable.value }];
-      const childrenNode = children.value?.map((item) => {
-        return cloneVNode(item, {
-          activeKey: defaultActiveKey.value,
-          onResetNavPosition: () => resetNavPosition(),
-        });
-      });
+      const navCls = [
+        "k-tabs-nav-container",
+        { ["k-tabs-nav-container-scroll"]: scrollable.value },
+      ];
+
+      const { panels, navNodes } = renderNodes();
       return (
         <div class={classes}>
           <div class="k-tabs-bar">
             <div class={navCls}>
               {scrollable.value ? (
-                <span class={["k-tabs-tab-btn-prev", { "k-tabs-tab-btn-prev-disabled": prevBtnDisabled.value }]} onClick={() => scroll("left")}>
+                <span
+                  class={[
+                    "k-tabs-tab-btn-prev",
+                    { "k-tabs-tab-btn-prev-disabled": prevBtnDisabled.value },
+                  ]}
+                  onClick={() => scroll("left")}
+                >
                   <Icon type={ChevronBack} />
                 </span>
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
                 <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
-                  {!card && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
+                  {!card && !sample ? (
+                    <div class="k-tabs-ink-bar" ref={inkBarRef} />
+                  ) : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
-                    {renderNav()}
+                    {navNodes}
                   </div>
                 </div>
               </div>
               {scrollable.value ? (
-                <span class={["k-tabs-tab-btn-next", { "k-tabs-tab-btn-next-disabled": nextBtnDisabled.value }]} onClick={() => scroll("right")}>
+                <span
+                  class={[
+                    "k-tabs-tab-btn-next",
+                    { "k-tabs-tab-btn-next-disabled": nextBtnDisabled.value },
+                  ]}
+                  onClick={() => scroll("right")}
+                >
                   <Icon type={ChevronForward} />
                 </span>
               ) : null}
             </div>
-            {slots.extra ? <div class="k-tabs-extra">{slots.extra()}</div> : null}
+            {slots.extra ? (
+              <div class="k-tabs-extra">{slots.extra()}</div>
+            ) : null}
           </div>
           <div class="k-tabs-content" style={paneStyle}>
-            {childrenNode}
+            {panels}
           </div>
         </div>
       );

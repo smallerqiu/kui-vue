@@ -5,11 +5,11 @@
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <DropdownButton @click="handleButtonClick">
       Dropdown
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item
@@ -28,7 +28,7 @@
     <DropdownButton>
       Dropdown
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item
@@ -48,7 +48,7 @@
     <DropdownButton disabled @click="handleButtonClick">
       Dropdown
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item
@@ -66,7 +66,7 @@
     </DropdownButton>
     <Dropdown>
       <template #overlay>
-        <Menu @click="handleMenuClick">
+        <Menu @select="handleMenuClick">
           <MenuItem key="1">
             <Icon :type="PersonAddOutline" />
             1st menu item

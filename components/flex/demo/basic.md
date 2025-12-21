@@ -1,12 +1,12 @@
 <cn>
-#### 基本布局 
+### 基本布局 
 最简单的用法。
 </cn>
 
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model:value="value">
+    <RadioGroup v-model="value">
       <Radio value="horizontal">horizontal</Radio>
       <Radio value="vertical">vertical</Radio>
     </RadioGroup>

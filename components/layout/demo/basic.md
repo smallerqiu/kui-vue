@@ -1,11 +1,11 @@
 <cn>
-#### 典型布局
+### 典型布局
 典型的页面布局。
 </cn>
 
 ```vue
 <template>
-  <Flex class="demo-k-layout" wrap size="small">
+  <Flex class="demo-k-layout" size="small" wrap>
     <Layout>
       <Header>Header</Header>
       <Content>Content</Content>
@@ -44,7 +44,7 @@
 .demo-k-layout > .k-layout {
   color: #fff;
   min-width: calc(50% - 8px);
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .demo-k-layout .k-layout-header {

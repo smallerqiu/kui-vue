@@ -1,31 +1,40 @@
 <cn>
-#### 扩展, 前缀和后缀
+### 扩展, 前缀和后缀
 suffix，prefix 扩展
 </cn>
 
 ```vue
 <template>
-  <Space style="width:256px;" vertical>
-    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen" size="large">
-      <template slot="suffix">
-        <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-          <Icon :type="Heart" color="red" />
-        </Tooltip>
-      </template>
-    </InputNumber>
+  <Space block vertical>
     <InputNumber placeholder="请输入金额" suffix="元" prefix="$" />
     <InputNumber
       placeholder="请输入充值金额"
       :step="50"
       suffix="元"
       prefix="充值"
-      :min="10"
-      :max="500"
     />
     <InputNumber placeholder="请输入金额" suffix=".00" />
   </Space>
+  <Divider text="slot" />
+  <Space vertical block>
+    <InputNumber placeholder="请填写您的薪资" :icon="LogoYen">
+      <template #suffix>
+        <Tooltip title="此处如果不知道怎么填，请咨询管理员">
+          <Icon :type="HelpCircle" />
+        </Tooltip>
+      </template>
+    </InputNumber>
+    <InputNumber placeholder="请输入充值金额">
+      <template #prefix>
+        <Icon :type="PersonAddOutline" />
+      </template>
+      <template #suffix>
+        <Button>现在充值</Button>
+      </template>
+    </InputNumber>
+  </Space>
 </template>
 <script setup>
-import { Heart, LogoYen } from "kui-icons";
+import { HelpCircle, LogoYen, PersonAddOutline } from "kui-icons";
 </script>
 ```

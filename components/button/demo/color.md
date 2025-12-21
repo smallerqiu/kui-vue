@@ -1,5 +1,5 @@
 <cn>
-#### 多彩
+### 多彩
 使用 `color` 可以衍生出更多的变体按钮。
 </cn>
 
@@ -7,19 +7,19 @@
 <template>
   <Flex size="small" wrap>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="solid"
-        >Solid</Button
-      >
+      <Button v-for="color in colors" :color="color" :key="color" theme="solid">
+        Solid
+      </Button>
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="outline"
-        >Outline</Button
-      >
+      <Button v-for="color in colors" :color="color" :key="color" theme="outline">
+        Outline
+      </Button>
     </Flex>
     <Flex size="small" wrap>
-      <Button v-for="color in colors" :color="color" theme="dashed"
-        >Dashed</Button
-      >
+      <Button v-for="color in colors" :color="color" :key="color" theme="dashed">
+        Dashed
+      </Button>
     </Flex>
   </Flex>
 </template>

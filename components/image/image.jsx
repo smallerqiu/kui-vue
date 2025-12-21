@@ -1,11 +1,20 @@
-import Icon from '../icon'
-import createInstance from './instance'
-import { withInstall } from '../utils/vue';
-// import { easyEqual } from '../_tool/utils'
-import { Loading, IconImage ,EyeOutline} from 'kui-icons'
-import { t } from '../locale';
-const Image = defineComponent({
-  name: 'kImage',
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  inject,
+  computed,
+} from "vue";
+import Icon from "../icon";
+import newInstance from "./instance";
+import { Loading, IconImage, EyeOutline } from "kui-icons";
+import { withInstall } from "../utils/vue";
+import zhCN from "../locale/zh-CN";
+
+const KImage = defineComponent({
+  name: "KImage",
   props: {
     alt: String,
     src: String,
@@ -14,159 +23,214 @@ const Image = defineComponent({
     height: [String, Number],
     width: [String, Number],
     placeholder: String,
+    data: Array,
     imgStyle: Object,
-    showPanel: Boolean
+    showPanel: Boolean,
   },
-  inject: {
-    ImageGroup: { default: null },
-  },
-  data() {
-    return {
-      loading: false,
-      showImg: false,
-      imageUrl: '',
-      error: false,
-      imgWidth: 0,
-      imgHeight: 0
-      // visible: false,
-      // origins: ''
-    }
-  },
-  watch: {
-    src(src) {
-      this.reload()
-    },
-    // origin(origin) {
+  setup(props, { emit, slots, expose, listeners }) {
+    const loading = ref(false);
+    const showImg = ref(false);
+    const imageUrl = ref(null);
+    const error = ref(false);
+    const imgWidth = ref(0);
+    const imgHeight = ref(0);
 
-    // }
-  },
-  beforeDestroy() {
-    let preview = this.preview
-    preview && preview.destroy()
-    this.ImageGroup && this.ImageGroup.updateCollection(false, this.origin || this.src || this._uid + '')
-  },
-  methods: {
-    togglePanel() {
-      if (this.preview) {
-        this.preview.togglePanel()
-      }
-    },
-    show(options) {
-      let preview = this.preview || createInstance({ type: options.type })
-      preview.show(options)
-    },
-    destroy() {
-      if (this.preview) {
-        this.preview.destroy()
-      }
-    },
-    showPreview(e) {
-      let { origin, src, error, ImageGroup, $slots, showPanel, $listeners, type } = this
-      if ((!src && !origin) || error) return;
+    const preview = ref();
+    const ImageGroup = inject("ImageGroup", null);
+    const injectedLocale = inject("locale", zhCN);
 
-      let showSwitch = ImageGroup != null
-      let options = { src, slots: $slots, showPanel, on: { ...$listeners }, _globle: false, type }
-      // { data, src, index }
-      if (showSwitch) {
-        options.data = ImageGroup.data
-        options.index = ImageGroup.data.indexOf(src)
-        options.on.switch = (index) => {
-          this.$emit('switch', index)
-          if (ImageGroup) {
-            let { $slots, $props } = ImageGroup.$children[index]
-            options.slots = $slots
-            options.src = ImageGroup.data[index]//$props.origin || $props.src
-            this.show(options)
-          }
-        }
-      }
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
-      if (!origin) {
-        this.show(options);
+    // global api
+    const togglePanel = () => {
+      if (ImageGroup) {
+        ImageGroup.togglePanel();
+        return;
+      }
+      if (preview.value) {
+        preview.value.togglePanel();
+      }
+    };
+    // global api
+    const show = (options) => {
+      if (ImageGroup) {
+        ImageGroup.show(options);
+        return;
+      }
+      if (!preview.value) {
+        preview.value = newInstance({ ...options });
+      }
+      preview.value.show();
+    };
+
+    // global api
+    const destroy = () => {
+      if (preview.value) {
+        document.body.removeChild(preview.value.$el);
+      }
+    };
+
+    expose({ show, destroy, togglePanel });
+
+    const showPreview = (e) => {
+      const { origin, src } = props;
+      if ((!src && !origin) || error.value) return;
+      const options = {
+        onClose: () => {
+          emit("close");
+        },
+        onSwitch: (index) => {
+          emit("switch", index);
+        },
+        src: origin || src,
+        showPanel: props.showPanel,
+        type: props.type,
+        scopedSlots: { ...slots },
+      };
+
+      if (!origin || props.type == "media") {
+        show(options);
       } else {
-        this.loading = true
-        this.loadimg(origin, () => {
-          // this.origins = this.origin
-          // this.visible = true
-          this.loading = false
-          options.src = origin
-
-          this.show(options);
-        }, () => {
-          this.loading = false
-        })
+        loading.value = true;
+        loadImage(
+          origin,
+          () => {
+            loading.value = false;
+            options.props.src = origin;
+            show(options);
+          },
+          () => {
+            loading.value = false;
+          }
+        );
       }
-      e.preventDefault()
-    },
-    loadimg(src, callback, err) {
+      e.preventDefault();
+    };
+
+    const loadImage = (src, callback, err) => {
       if (!src) return;
-      let image = new Image()
+
+      let image = new Image();
+      let isCompleted = false;
+
+      const cleanup = () => {
+        if (isCompleted) return;
+        isCompleted = true;
+        image.onload = null;
+        image.onerror = null;
+        image = null;
+      };
 
       image.onload = () => {
-        let { width, height } = image
-        callback && callback({ width, height })
-        image = null
-      }
-      image.onerror = () => {
-        err && err()
-        image = null
-      }
-      image.src = src
-    },
-    reload() {
-      let { src, placeholder } = this
-      if (src) {
-        this.loadimg(src, ({ width, height }) => {
-          this.showImg = true
-          this.imageUrl = src
-          this.error = false
-          this.imgWidth = width
-          this.imgHeight = height
-        }, () => {
-          this.error = true
-          this.showImg = !!placeholder || false
-          this.imageUrl = placeholder || null
-        })
-      } else {
-        this.error = true
-        this.showImg = false
-        this.imageUrl = null
-      }
-    },
+        if (!isCompleted) {
+          const { width, height } = image;
+          callback && callback({ width, height });
+        }
+        cleanup();
+      };
 
-  },
-  mounted() {
-    this.reload()
-    this.ImageGroup && this.ImageGroup.updateCollection(true, this.origin || this.src || this._uid + '')
-  },
-  render() {
-    const { imageUrl, alt, width, height, showImg, imgStyle,
-      error, loading, placeholder } = this
-    const props = {
-      style: {
-        width: `${width}px`,
-        height: `${height}px`,
-      },
-      class: 'k-image',
-      on: {
-        click: this.showPreview
+      image.onerror = () => {
+        if (!isCompleted) {
+          err && err();
+        }
+        cleanup();
+      };
+
+      image.src = src;
+    };
+
+    const reload = () => {
+      const { src, placeholder } = props;
+      if (src) {
+        loadImage(
+          src,
+          ({ width, height }) => {
+            showImg.value = true;
+            imageUrl.value = src;
+            error.value = false;
+            imgWidth.value = width;
+            imgHeight.value = height;
+          },
+          () => {
+            error.value = true;
+            showImg.value = !!placeholder || false;
+            imageUrl.value = placeholder || null;
+          }
+        );
+      } else {
+        error.value = true;
+        showImg.value = false;
+        imageUrl.value = null;
       }
-    }
-    const imgProps = {
-      style: imgStyle,
-      class: 'k-image-img',
-      attrs: { alt, src: imageUrl },
-    }
-    return <div {...props}>
-      {/* <Preview {...imageProps} /> */}
-      {showImg || (!showImg && placeholder) ? <img {...imgProps} /> : null}
-      {(!showImg || error) && !placeholder ? <Icon type={IconImage} class="k-image-error" /> : null}
-      {loading ? <div class="k-image-loading" key="wocao">
-        <Icon type={Loading} spin class="k-image-loading-icon" />
-      </div> : null}
-      {!loading && !error ?<div class="k-image-preview-mask"><Icon type={EyeOutline} />{t('k.image.preview')}</div>:null}
-      {this.$slots.default}
-    </div>
-  }
-})
-export default withInstall(Image);
+    };
+
+    watch(
+      () => props.src,
+      () => {
+        reload();
+      }
+    );
+
+    onMounted(() => {
+      reload();
+      ImageGroup?.register(props.origin || props.src);
+    });
+
+    onBeforeUnmount(() => {
+      // if (preview) {
+      //   preview.destroy();
+      // }
+      destroy();
+      ImageGroup?.unregister(props.origin || props.src);
+    });
+
+    return () => {
+      const { alt, width, height, imgStyle, placeholder } = props;
+
+      const containerProps = {
+        style: {
+          width: width ? `${width}px` : undefined,
+          height: height ? `${height}px` : undefined,
+        },
+        class: "k-image",
+        onClick: showPreview,
+      };
+
+      const imgProps = {
+        style: imgStyle,
+        class: "k-image-img",
+        alt: alt,
+        src: imageUrl.value,
+      };
+
+      return (
+        <div {...containerProps}>
+          {showImg.value || (!showImg.value && placeholder) ? (
+            <img {...imgProps} />
+          ) : null}
+          {(!showImg.value || error.value) && !placeholder ? (
+            <Icon type={IconImage} class="k-image-error" />
+          ) : null}
+          {loading.value ? (
+            <div class="k-image-loading" key="image-loading">
+              <Icon type={Loading} spin class="k-image-loading-icon" />
+            </div>
+          ) : null}
+          {!loading.value && !error.value ? (
+            <div class="k-image-preview-mask">
+              <Icon type={EyeOutline} />
+              {locale?.value.k.image.preview}
+            </div>
+          ) : null}
+          {slots.default?.()}
+        </div>
+      );
+    };
+  },
+});
+
+export default withInstall(KImage);

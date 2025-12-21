@@ -1,14 +1,14 @@
 import Info from './info.md'
-import Base from './basic.md'
+import Basic from './basic.md'
 import Types from './types.md'
 import Change from './change.md'
 import CN from '../index.md'
 export default {
-  setup() {
-    return ()=>(
-      <div class="demo-avatar">
+  render() {
+    return (
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Types />
         <Change />
         <CN />
