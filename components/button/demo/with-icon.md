@@ -1,11 +1,11 @@
 <cn>
-#### 带图标
+### 带图标
 通过添加 `icon` 属性 设置按钮按钮图标。
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" shape="circle"></Button>
     <Button type="primary" :icon="Search">搜索</Button>
     <Button :icon="Search" shape="circle"></Button>

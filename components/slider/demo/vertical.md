@@ -1,32 +1,21 @@
 <cn>
-#### 垂直
+### 垂直
 垂直方向的 Slider。
 </cn>
 
 ```vue
 <template>
-  <div class="demo-slider-vertical">
-    <Slider vertical :value="35"></Slider>
-  </div>
-  <div class="demo-slider-vertical">
-    <Slider vertical reverse :value="35"></Slider>
-  </div>
-  <div class="demo-slider-vertical">
-    <Slider vertical range :value="[20, 60]"></Slider>
-  </div>
-  <div class="demo-slider-vertical">
-    <Slider vertical reverse range :value="[20, 60]"></Slider>
-  </div>
-  <div class="demo-slider-vertical">
+  <Space style="height: 300px;" block class="demo-slider-vertical" :size="35">
+    <Slider vertical :value="35" />
+    <Slider vertical reverse :value="35" />
+    <Slider vertical range :value="[20, 60]" />
     <Slider
       vertical
       range
       :marks="{ 20: '20°C', 40: '40°C' }"
       :step="10"
       :value="[20, 60]"
-    ></Slider>
-  </div>
-  <div class="demo-slider-vertical">
+    />
     <Slider
       vertical
       reverse
@@ -34,16 +23,12 @@
       :marks="{ 20: '20°C', 40: '40°C' }"
       :step="10"
       :value="[20, 60]"
-    ></Slider>
-  </div>
+    />
+  </Space>
 </template>
 <style lang="less">
-.demo-slider-vertical {
-  height: 300px;
-  margin-left: 30px;
-  margin-top: 10px;
-  padding-right: 30px;
-  display: inline-block;
+.demo-slider-vertical > div {
+  height: 100%;
 }
 </style>
 ```

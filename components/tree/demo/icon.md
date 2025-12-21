@@ -1,5 +1,5 @@
 <cn>
-#### 自定义图标
+### 自定义图标
 可以针对不同的节点定制图标。
 </cn>
 
@@ -7,7 +7,7 @@
 <template>
   <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" />
 </template>
-<script>
+<script setup>
 import {
   FolderOpenOutline,
   FolderOutline,
@@ -18,57 +18,48 @@ import {
   LogoAndroid,
   LogoApple,
 } from "kui-icons";
-export default {
-  data() {
-    return {
-      FolderOpenOutline,
-      FolderOutline,
-      expandedKeys: ["0-0", "1-0", "1-1", "1-2"],
-      data: [
-        {
-          title: "src",
-          key: "0-0",
-          icon: FolderOpenOutline,
-          children: [
-            {
-              title: "assets",
-              key: "1-0",
-              icon: FolderOpenOutline,
-              children: [
-                { title: "main.js", icon: LogoTwitter, disabled: true },
-                { title: "test.py", icon: LogoQq },
-              ],
-            },
-            {
-              title: "pages",
-              expand: true,
-              key: "1-1",
-              icon: FolderOpenOutline,
-              children: [
-                { title: "index.html", icon: LogoFeishu },
-                { title: "index.md", icon: LogoWechat },
-              ],
-            },
-            {
-              title: "app",
-              expand: true,
-              key: "1-2",
-              icon: FolderOpenOutline,
-              children: [
-                { title: "zen.apk", icon: LogoAndroid },
-                { title: "zen.ipa", icon: LogoApple },
-              ],
-            },
-          ],
-        },
-      ],
-    };
+
+const expandedKeys = ["0-0", "1-0", "1-1", "1-2"];
+const data = [
+  {
+    title: "src",
+    key: "0-0",
+    icon: FolderOpenOutline,
+    children: [
+      {
+        title: "assets",
+        key: "1-0",
+        icon: FolderOpenOutline,
+        children: [
+          { title: "main.js", icon: LogoTwitter, disabled: true, key: "1-0-0" },
+          { title: "test.py", icon: LogoQq, key: "1-0-1" },
+        ],
+      },
+      {
+        title: "pages",
+        expand: true,
+        key: "1-1",
+        icon: FolderOpenOutline,
+        children: [
+          { title: "index.html", icon: LogoFeishu, key: "1-1-0" },
+          { title: "index.md", icon: LogoWechat, key: "1-1-1" },
+        ],
+      },
+      {
+        title: "app",
+        expand: true,
+        key: "1-2",
+        icon: FolderOpenOutline,
+        children: [
+          { title: "zen.apk", icon: LogoAndroid, key: "1-2-0" },
+          { title: "zen.ipa", icon: LogoApple, key: "1-2-1" },
+        ],
+      },
+    ],
   },
-  methods: {
-    expand({ expanded, node }) {
-      node.icon = expanded ? FolderOpenOutline : FolderOutline;
-    },
-  },
+];
+const expand = ({ expanded, node }) => {
+  node.icon = expanded ? FolderOpenOutline : FolderOutline;
 };
 </script>
 ```

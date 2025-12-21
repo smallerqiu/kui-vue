@@ -16,7 +16,7 @@ export default defineComponent({
     size: Number,
     index: Number,
   },
-  emits: ["update"], 
+  emits: ["update"],
   setup(ps, { slots, emit }) {
     const update = (e, t) => {
       if (ps.disabled) return;
@@ -39,7 +39,7 @@ export default defineComponent({
             "k-star-half": half,
           },
         ],
-        onClick: (e) => update(e, "C"),
+        onClick: (e) => update(e, "C"), //for 3
         onMousemove: (e) => update(e, "M"),
       };
       const characterNode = typeof character == "function" ? character(ps.index) : character;

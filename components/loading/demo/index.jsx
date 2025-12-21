@@ -1,13 +1,13 @@
 import Info from "./info.md";
-import Base from './basic.md';
+import Basic from './basic.md';
 
 import CN from "../index.md";
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div class="demo-loading">
         <Info />
-        <Base />
+        <Basic />
         <CN />
       </div>
     );

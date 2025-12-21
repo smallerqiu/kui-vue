@@ -1,6 +1,7 @@
 import { defineComponent } from "vue";
 import Item from "./descriptionsItem";
 import { withInstall } from "../utils/vue";
+import { getChildren } from "../utils/vnode";
 const Descriptions = defineComponent({
   name: "Descriptions",
   props: {
@@ -15,8 +16,7 @@ const Descriptions = defineComponent({
     return () => {
       let { column, bordered, layout, size, title, extra } = ps;
 
-      let children = slots.default?.();
-
+      let children = getChildren(slots.default?.());
       let rows = { 0: [] },
         len = 0,
         temps = [],
@@ -25,8 +25,8 @@ const Descriptions = defineComponent({
       let i = 0;
       for (let child of children) {
         i++;
-        let { label, span = 1 } = child.props;
-        const childNodes = child.children.default?.();
+        let { label, span = 1 } = child.props; //for 3
+        let childNodes = child?.children;
         let row = rows[len] || [];
         let vertical = layout == "vertical";
 

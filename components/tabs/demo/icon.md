@@ -1,11 +1,11 @@
 <cn>
-#### 图标
+### 图标
 有图标的标签。
 </cn>
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="current">
+  <Tabs v-model="current">
     <TabPanel key="1" title="Tab 1" :icon="LogoApple">
       Content of Tab Pane 1
     </TabPanel>

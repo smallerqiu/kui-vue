@@ -14,7 +14,7 @@ import { getTransitionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 const SubMenu = defineComponent({
   name: "SubMenu",
@@ -22,12 +22,12 @@ const SubMenu = defineComponent({
   props: {
     disabled: Boolean,
     title: String,
-    ispopup: Boolean,
+    isPopup: Boolean,
     // key: String,
     icon: [String, Array],
   },
   setup(ps, { slots, attrs }) {
-    const refCtx = ref();
+    const refSelection = ref(null);
     const refPopper = ref();
     const top = ref(0);
     const left = ref(0);
@@ -53,7 +53,7 @@ const SubMenu = defineComponent({
 
     onMounted(() => {
       nextTick(() => {
-        const width = refCtx.value?.offsetWidth;
+        const width = refSelection.value?.offsetWidth;
         minWidth.value = `${width}px`;
 
         if (openKeys.value.indexOf(key) >= 0) {
@@ -77,7 +77,7 @@ const SubMenu = defineComponent({
     provide("clearPopTimer", clearCurrentPopTimer);
     provide("hidePopTimer", hideCurrentPopTimer);
 
-    const showPoper = () => {
+    const showPopper = () => {
       // if (!rendered.value) {
       rendered.value = true;
       nextTick(() => {
@@ -101,15 +101,15 @@ const SubMenu = defineComponent({
         currentPlacement.value = "right-top";
       }
       nextTick(() => {
-        setPlacement(
-          refCtx,
+        setPlacement({
+          refSelection,
           refPopper,
           currentPlacement,
           transOrigin,
           top,
           left,
-          8
-        );
+          offset: 8,
+        });
       });
     };
     const renderPopper = () => {
@@ -122,7 +122,7 @@ const SubMenu = defineComponent({
       ) {
         leftValue += 3;
       }
-      const poperPros = {
+      const popperPros = {
         ref: refPopper,
         "k-placement": currentPlacement.value,
         style: {
@@ -144,16 +144,17 @@ const SubMenu = defineComponent({
       const children = getChildren(slots.default?.());
       const menuItems = children.map((child) => {
         // if (child.type.name == "MenuItem") {
-        return cloneVNode(child, { ispopup: true });
+        return cloneVNode(child, { isPopup: true }); //for 3
         // }
       });
       return rendered.value ? (
         <Transition name={`k-${preCls}-popup`}>
           <div
-            className={`k-${preCls}-popup`}
+            class={`k-${preCls}-popup`}
             v-show={opened}
             v-transfer={true}
-            {...poperPros}>
+            {...popperPros}
+          >
             <div class={`k-${preCls}-sub`}>
               <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
             </div>
@@ -164,20 +165,19 @@ const SubMenu = defineComponent({
     const renderSubmenu = () => {
       const inline = mode.value != "horizontal";
       const opened = openKeys.value.indexOf(key) >= 0;
-      // todo: mode 从inline 切换 vertical 时 会卡一下, 为查明原因. 后面在细看
+      // todo: mode 从inline 切换 vertical 时 会卡一下
 
       if (inline) {
-        const aniprop = getTransitionProp("k-collapse-slide");
+        const transitionProps = getTransitionProp("k-collapse-slide");
         const node = [
-          <Transition {...aniprop}>
+          <Transition {...transitionProps}>
             <div
               class={`k-${preCls}-sub`}
               v-show={
                 opened && !inlineCollapsed.value && mode.value != "vertical"
-              }>
-              <ul class={`k-menu k-menu-${mode.value}`}>
-                {slots.default?.()}
-              </ul>
+              }
+            >
+              <ul class={`k-menu k-menu-${mode.value}`}>{slots.default?.()}</ul>
             </div>
           </Transition>,
         ];
@@ -208,11 +208,11 @@ const SubMenu = defineComponent({
         inlineCollapsed.value
       ) {
         // popper
-        titleProps.ref = refCtx;
-        titleProps.onMouseenter = () => {
+        titleProps.ref = refSelection;
+        titleProps.onMouseenter = () => { 
           if (ps.disabled) return;
           clearCurrentPopTimer();
-          showPoper();
+          showPopper();
         };
         titleProps.onMouseleave = () => {
           if (ps.disabled) return;
@@ -221,7 +221,7 @@ const SubMenu = defineComponent({
           }, 200);
         };
       }
-      if (keyPah.length && inline && !ps.ispopup) {
+      if (keyPah.length && inline && !ps.isPopup) {
         titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
       }
       let title = ps.title || slots.title?.();
@@ -245,11 +245,11 @@ const SubMenu = defineComponent({
           [`k-${preCls}-disabled`]: ps.disabled,
         },
       ];
-      const poper = renderSubmenu();
+      const popper = renderSubmenu();
       return (
         <li class={classes}>
           {titleNode}
-          {poper}
+          {popper}
         </li>
       );
     };

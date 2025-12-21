@@ -1,8 +1,14 @@
 import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
 import { ChevronUp } from "kui-icons";
-import { defineComponent, ref, watch, computed, Transition, getCurrentInstance, nextTick, inject } from "vue";
-import { withInstall } from '../utils/vue';
+import {
+  defineComponent,
+  ref,
+  watch,
+  Transition, getCurrentInstance,
+  nextTick,
+} from "vue";
+import { withInstall } from "../utils/vue";
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: {
@@ -25,7 +31,8 @@ const CollapsePanel = defineComponent({
     );
 
     const handleClick = () => {
-      emit("expand", instance.vnode.key); 
+      const key = instance.vnode.key; //for 3
+      emit("expand", key);
     };
 
     return () => {
@@ -39,7 +46,7 @@ const CollapsePanel = defineComponent({
       const transitionProps = getTransitionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
-        <Transition {...transitionProps} time="300">
+        <Transition {...transitionProps} time="350">
           <div class="k-collapse-content" v-show={expanded.value}>
             <div class="k-collapse-content-box">{slots.default?.()}</div>
           </div>
@@ -50,7 +57,9 @@ const CollapsePanel = defineComponent({
           <div class="k-collapse-header" onClick={handleClick}>
             <Icon type={ChevronUp} class="k-collapse-arrow" />
             <span class="k-collapse-title">{ps.title}</span>
-            {extraNode ? <span class="k-collapse-extra">{extraNode}</span> : null}
+            {extraNode ? (
+              <span class="k-collapse-extra">{extraNode}</span>
+            ) : null}
           </div>
           {panelNode}
         </div>

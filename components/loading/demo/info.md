@@ -13,23 +13,22 @@
 ```js
 // # router.js
 
-import { createRouter, createWebHistory } from "vue-router";
-import { loading } from 'kui-vue'
+import Vue from 'vue'
+import Router from 'vue-router'
+import { Loading } from 'kui-vue'
 
-let router = createRouter({
-  history: createWebHistory(),
-  ...
+Vue.use(Router)
+let router = new Router({
+  ....
 })
 router.beforeEach((to, from, next) => {
-  loading.start();
+  Loading.start();
   next();
 });
 
 router.afterEach(route => {
-  loading.finish();
+  Loading.finish();
 });
-
-export default router;
 ```
 
 如果你使用的是 `axios`.

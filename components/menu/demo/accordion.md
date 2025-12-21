@@ -1,5 +1,5 @@
 <cn>
-#### 只展开当前父级菜单
+### 只展开当前父级菜单
 点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
 </cn>
 
@@ -7,8 +7,8 @@
 <template>
   <div style="width:256px">
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       @open-change="openChange"
       accordion
       mode="inline"

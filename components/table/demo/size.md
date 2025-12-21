@@ -1,75 +1,60 @@
 <cn>
-#### 动态控制表格属性
+### 动态控制表格属性
 选择不同配置组合查看效果。
 </cn>
 
 ```vue
 <template>
   <div>
-    <Form :labelCol="{ span: 5 }" :wrapperCol="{ span: 16 }" layout="inline">
-      <FormItem label="Size">
-        <RadioGroup v-model:value="size" size="small">
-          <RadioButton value="large" label="Large" />
-          <RadioButton value="default" label="Default" />
-          <RadioButton value="small" label="Small" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Bordered">
-        <k-switch v-model:checked="bordered" />
-      </FormItem>
-      <FormItem label="Loading">
-        <k-switch v-model:checked="loading" />
-      </FormItem>
-      <FormItem label="Checkbox">
-        <k-switch v-model:checked="checkbox" @change="setCheckbox" />
-      </FormItem>
-      <FormItem label="CheckType">
-        <RadioGroup
-          v-model:value="checkType"
-          size="small"
-          @change="setCheckType"
-        >
-          <RadioButton value="checkbox" label="checkbox" />
-          <RadioButton value="radio" label="radio" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Empty">
-        <k-switch v-model:checked="empty" @change="setEmpty" />
-      </FormItem>
-    </Form>
-
+    <Space>
+      Size:<RadioGroup v-model="size" size="small" type="button">
+        <RadioButton value="large" label="Large" />
+        <RadioButton value="default" label="Default" />
+        <RadioButton value="small" label="Small" />
+      </RadioGroup>
+      Border: <k-switch v-model="bordered" />
+      Loading:
+      <k-switch v-model="loading" />
+      Checkbox: <k-switch v-model="checkable" />
+      Empty:
+      <k-switch v-model="empty" @change="setEmpty" />
+    </Space>
     <Table
-      :data="data"
+      :data="dataSource"
       :columns="columns"
       :loading="loading"
       :size="size"
       :bordered="bordered"
+      :checkable="checkable"
     >
-      <template v-slot:tags="values">
+      <template #header> <div>header</div> </template>
+      <template #footer> <div>footer</div> </template>
+      <template #tags="{ value }">
         <Space>
           <Tag
-            v-for="tag in values"
+            v-for="tag in value"
             :key="tag"
             :color="tag == 'Python' ? 'green' : 'blue'"
-            >{{ tag }}</Tag
           >
+            {{ tag }}
+          </Tag>
         </Space>
       </template>
-      <Icon
-        :type="text == 1 ? Moon : Sunny"
-        slot="gender"
-        slot-scope="text"
-        :color="text == 1 ? 'blue' : '#f50cff'"
-        size="15"
-      />
-      <template v-slot:action>
-        <a href="javascript:;">Edit</a>
-        <a href="javascript:;">Delete</a>
+      <template #gender="{ value }">
+        <Icon
+          :type="value == 1 ? Moon : Sunny"
+          :color="value == 1 ? 'blue' : '#f50cff'"
+          size="15"
+        />
+      </template>
+      <template #action>
+        <Button size="small">test</Button>
       </template>
     </Table>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import { Moon, Sunny } from "kui-icons";
 const data = [
   {
@@ -105,50 +90,23 @@ const data = [
     tags: ["Go", "Python"],
   },
 ];
-export default {
-  data() {
-    return {
-      Moon,
-      Sunny,
-      size: "default",
-      checkbox: true,
-      bordered: true,
-      showHeader: true,
-      showFooter: true,
-      loading: false,
-      empty: false,
-      checkType: "checkbox",
-      data: data,
-      columns: [
-        { type: "selection", checkType: "checkbox" },
-        { title: "Name", key: "name" },
-        { title: "Age", key: "age", sorter: true },
-        { title: "Gender", key: "gender" },
-        { title: "Address", key: "address" },
-        { title: "Tags", key: "tags" },
-        { title: "Action", key: "action" },
-      ],
-    };
-  },
-  methods: {
-    setCheckbox(checked) {
-      !checked
-        ? this.columns.splice(0, 1)
-        : this.columns.unshift({
-            type: "selection",
-            checkType: this.checkType,
-          });
-    },
-    setEmpty(empty) {
-      this.data = empty ? [] : data;
-    },
-    setCheckType({ value }) {
-      if (this.checkbox) {
-        this.checkType = value;
-        this.columns[0].checkType = value;
-      }
-    },
-  },
+const columns = [
+  { title: "Name", key: "name" },
+  { title: "Age", key: "age", sorter: true },
+  { title: "Gender", key: "gender" },
+  { title: "Address", key: "address" },
+  { title: "Tags", key: "tags" },
+  { title: "Operate", key: "action" },
+];
+const size = ref("default");
+const bordered = ref(true);
+const checkable = ref(false);
+const loading = ref(false);
+const empty = ref(false);
+const dataSource = ref(data);
+
+const setEmpty = (empty) => {
+  dataSource.value = empty ? [] : data;
 };
 </script>
 ```

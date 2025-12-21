@@ -1,11 +1,11 @@
 <cn>
-#### 输入框组合
+### 输入框组合
 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 </cn>
 
 ```vue
 <template>
-  <Space vertical size="middle">
+  <Space vertical size="middle" block style="width:600px;max-width:100%">
     <InputGroup>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />
@@ -28,7 +28,7 @@
       </Tooltip>
     </InputGroup>
     <InputGroup>
-      <Select value="Shenzheng" clearable>
+      <Select value="Shenzheng" clearable >
         <Option value="Wuhan">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -40,6 +40,7 @@
         multiple
         :value="['Wuhan001']"
         :style="{ width: '50%' }"
+        :maxTagCount="1"
       >
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>

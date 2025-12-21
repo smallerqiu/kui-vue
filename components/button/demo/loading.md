@@ -1,11 +1,11 @@
 <cn>
-#### 加载中状态
+### 加载中状态
 添加 `loading` 属性即可让按钮处于加载状态
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <Button type="primary" :icon="Search" loading>Loading</Button>
     <Button
       type="primary"

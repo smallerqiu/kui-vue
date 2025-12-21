@@ -1,26 +1,21 @@
-import { t } from "../locale";
-import zhCN from "../locale/lang/zh-CN";
-
-import { DocumentTextOutline, Close, AlertCircle, Add } from "kui-icons";
-let count = 0;
-const timestamp = Date.now();
-
+import { ref, reactive, watch, defineComponent } from "vue";
+import { Add } from "kui-icons";
+import { withInstall } from "../utils/vue";
 import Selector from "./selector";
-import FileItem from "./fileItem";
-import { defineComponent } from "vue";
-import { withInstall } from '../utils/vue';
+import FileList from "./fileList";
+
 const Upload = defineComponent({
   name: "Upload",
   props: {
     method: { type: String, default: "post" },
-    name: { type: String, default: "file" }, //提交的 name值
+    name: { type: String, default: "file" },
     action: { type: String, required: true },
     type: {
       type: String,
       default: "list",
       validator: (val) => ["list", "picture"].indexOf(val) >= 0,
     },
-    data: { type: Object, default: () => { } },
+    data: { type: Object, default: () => ({}) },
     disabled: Boolean,
     directory: Boolean,
     multiple: Boolean,
@@ -35,51 +30,56 @@ const Upload = defineComponent({
     maxSize: Number,
     uploadText: String,
     uploadSubText: String,
-    uploadIcon: [String, Array],
+    uploadIcon: [String, Object, Array],
     draggable: Boolean,
   },
-  watch: {
-    fileList(v) {
-      this.defaultFileList = v || [];
-    },
-  },
-  data() {
-    return {
-      defaultFileList: this.fileList || [],
-      count: 0,
-      uploadTemp: {},
-    };
-  },
+  emits: ["remove", "exceed", "before-upload", "change", "size-error"],
+  setup(props, { emit, slots, expose }) {
+    const defaultFileList = ref(props.fileList || []);
+    const uploadTemp = reactive({});
 
-  methods: {
-    upload() {
-      if (!this.autoTrigger && !this.disabled) {
-        let files = this.uploadTemp;
+    // Watch for fileList changes
+    watch(
+      () => props.fileList,
+      (newVal) => {
+        defaultFileList.value = newVal || [];
+      }
+    );
+
+    const upload = () => {
+      if (!props.autoTrigger && !props.disabled) {
+        let files = uploadTemp;
         for (let k in files) {
-          let item = this.defaultFileList.filter((x) => x.uid == k)[0];
-          item && this.uploadFile(item, files[k]);
+          let item = defaultFileList.value.filter((x) => x.uid == k)[0];
+          item && uploadFile(item, files[k]);
         }
       }
-    },
+    };
 
-    async uploadFile(item, file) {
-      if (this.transformFile) {
-        this.transformFile(file).then((f) => {
-          this.toUpload(item, f);
-        });
+    const uploadFile = async (item, file) => {
+      if (props.transformFile) {
+        const promise = props.transformFile(file);
+        if (promise && promise.then) {
+          promise.then((f) => {
+            toUpload(item, f);
+          });
+        }
       } else {
-        this.toUpload(item, file);
+        toUpload(item, file);
       }
-    },
-    toUpload(item, file) {
-      let { action, name, headers, data } = this;
+    };
+
+    const toUpload = (item, file) => {
+      let { action, name, headers, data } = props;
       var formdata = new FormData();
       formdata.append(name, file);
+
       if (data) {
         for (let k in data) {
           formdata.append(k, data[k]);
         }
       }
+
       //创建xhr，使用ajax进行文件上传
       var xhr = new XMLHttpRequest();
       item.xhr = xhr;
@@ -90,110 +90,166 @@ const Upload = defineComponent({
           xhr.setRequestHeader(k, headers[k]);
         }
       }
+
       //回调
       xhr.onreadystatechange = (event) => {
         if (xhr.readyState == 4 && xhr.status == 200) {
           item.status = "success";
-          delete this.uploadTemp[item.uid];
-          this.$emit("change", {
+          delete uploadTemp[item.uid];
+          emit("change", {
             file: Object.assign(item, {
               response: JSON.parse(xhr.responseText),
             }),
-            fileList: this.defaultFileList,
+            fileList: defaultFileList.value,
             event,
           });
         }
       };
+
       xhr.upload.onloadstart = () => (item.status = "uploading");
+
       //获取上传的进度
       xhr.upload.onprogress = (event) => {
-        // console.log(event)
         if (event.lengthComputable) {
           var percent = (event.loaded / event.total) * 100;
-          // console.log(percent)
           item.percent = percent;
         }
-        this.$emit("change", {
+        emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: this.defaultFileList,
+          fileList: defaultFileList.value,
           event,
         });
       };
-      xhr.onload = (e) => {
+
+      xhr.onload = (event) => {
         if (xhr.status != 200) {
           item.status = "error";
-          delete this.uploadTemp[item.uid];
+          delete uploadTemp[item.uid];
 
-          this.$emit("change", {
+          emit("change", {
             file: Object.assign(item, { response: xhr.responseText }),
-            fileList: this.defaultFileList,
+            fileList: defaultFileList.value,
             event: event,
           });
         }
       };
+
       xhr.onerror = (event) => {
         item.status = "error";
-        delete this.uploadTemp[item.uid];
+        delete uploadTemp[item.uid];
 
-        this.$emit("change", {
+        emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: this.defaultFileList,
+          fileList: defaultFileList.value,
           event: event,
         });
       };
+
       //将formdata上传
       xhr.send(formdata);
-    },
-  },
-
-  setup(ps, { slots, emit }) {
-    let { type, showUploadList, defaultFileList } = this;
-    let isPicture = type == "picture";
-    const uploadTemp = reactive({});
-
-    let showSelector =
-      (isPicture && ps.limit && ps.limit > defaultFileList.length) ||
-      !isPicture ||
-      !ps.limit;
-
-    const selector = showSelector ? <Selector /> : null;
-    const onRemove = (index, item) => {
-      // if (ps.disabled) return false;
-      // let item = this.defaultFileList[i];
-      // this.defaultFileList.splice(i, 1);
-
-      // delete this.uploadTemp[item.uid];
-      // item.xhr && item.xhr.abort();
-      // emit("remove", { fiel: item, fileList: defaultFileList });
     };
-    const renderFileList = () => {
-      return (showUploadList && !isPicture) || isPicture ? (
-        <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
-          {defaultFileList.map((item, i) => {
-            return <FileItem onRemove={onRemove} item={item} index={i} />;
-          })}
-          {isPicture && selector}
-        </div>
-      ) : null;
-    };
+
+    expose({ upload });
 
     return () => {
-      const props = {
+      let {
+        type,
+        showUploadList,
+        uploadIcon,
+        name,
+        accept,
+        multiple,
+        directory,
+        limit,
+        uploadText,
+        uploadSubText,
+        draggable,
+        disabled,
+        minSize,
+        maxSize,
+        autoTrigger,
+      } = props;
+
+      let isPicture = type == "picture";
+      if (uploadIcon === undefined) {
+        uploadIcon = Add;
+      }
+
+      const propsData = {
         class: [
           "k-upload",
           {
-            ["k-upload-disabled"]: ps.disabled,
+            ["k-upload-disabled"]: disabled,
             ["k-upload-picture"]: isPicture,
-            ["k-upload-drag"]: ps.draggable,
+            ["k-upload-drag"]: draggable,
           },
         ],
       };
-      const filelist = renderFileList();
 
+      const selectorProps = {
+        type,
+        disabled,
+        name,
+        accept,
+        multiple,
+        directory,
+        limit,
+        uploadText,
+        uploadSubText,
+        draggable,
+        fileList: defaultFileList.value,
+        uploadIcon,
+        minSize,
+        maxSize,
+        autoTrigger,
+        onUpload: ({ item, file }) => {
+          uploadFile(item, file);
+        },
+        onSelect: ({ item, file }) => {
+          uploadTemp[item.uid] = file;
+        },
+        onExceed: (data) => {
+          emit("exceed", data);
+        },
+        onBeforeUpload: (data) => {
+          emit("before-upload", data);
+        },
+        onChange: (data) => {
+          emit("change", data);
+        },
+        onSizeError: (data) => {
+          emit("size-error", data);
+        },
+      };
+      const SelectorNode = (
+        <Selector
+          {...selectorProps}
+          v-slots={{ default: () => slots.default?.() }}
+        />
+      );
+      const fileListProps = {
+        type,
+        fileList: defaultFileList.value,
+        showUploadList,
+        disabled,
+        onRemove: (data) => {
+          delete uploadTemp[data.file.uid];
+          emit("remove", data);
+        },
+      };
+      const FileListNode = (
+        <FileList
+          {...fileListProps}
+          v-slots={{ selector: () => SelectorNode }}
+        />
+      );
       return (
-        <div {...props}>{!isPicture ? [selector, filsList] : filsList}</div>
+        <div {...propsData}>
+          {!isPicture ? [SelectorNode, FileListNode] : FileListNode}
+        </div>
       );
     };
   },
 });
-export default withInstall(Upload)
+
+export default withInstall(Upload);

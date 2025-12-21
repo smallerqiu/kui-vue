@@ -1,12 +1,12 @@
 <cn>
-#### 主题
+### 主题
 使用 `theme` 设定主题 ,`shape` 呈现圆角 
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
-    <Checkbox label="Circle" v-model:checked="shape" @change="setShape" />
+  <Space vertical block>
+    <Checkbox label="Circle" v-model="isCircle" @change="setShape" />
     <Input placeholder="请输入内容..." theme="light" :shape="shape" />
     <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
     <Input
@@ -29,9 +29,10 @@
 import { Search } from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";
+const isCircle = ref();
 const shape = ref();
-const setShape = (e) => {
-  shape.value = e.target.checked ? "circle" : null;
+const setShape = ({ checked }) => {
+  shape.value = checked ? "circle" : null;
 };
 const onSearch = (value) => {
   message.info("This is search event");

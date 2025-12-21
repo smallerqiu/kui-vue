@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './basic.md'
+import Basic from './basic.md'
 import Group from './group.md'
 import Animated from './animated.md'
 import Child from './child.md'
@@ -9,11 +9,11 @@ import Custom from './custom.md'
 
 import CN from '../index.md'
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div class="demo-progress">
         <Info />
-        <Base />
+        <Basic />
         <Group />
         <Animated />
         <Child />

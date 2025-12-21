@@ -1,25 +1,25 @@
 <cn>
-#### 自定义
+### 自定义
 自定义 `Modal`
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="visible1 = true" type="primary">宽300px</Button>
     <Button @click="visible2 = true" type="primary">自定义页脚</Button>
     <Button @click="visible3 = true" type="primary">国际化</Button>
     <Button @click="visible4 = true" type="primary">异步关闭</Button>
     <Modal
       title="Width 300px"
-      v-model:show="visible1"
+      v-model="visible1"
       :width="300"
       @ok="visible1 = false"
     >
       <p>content</p>
     </Modal>
 
-    <Modal title="Custom footer" v-model:show="visible2">
+    <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template #footer>
         <Button :icon="Save" @click="visible2 = false" type="primary"
@@ -30,7 +30,7 @@
 
     <Modal
       title="Are you ok ?"
-      v-model:show="visible3"
+      v-model="visible3"
       ok-text="Ok"
       cancel-text="Cancel"
       @ok="okHandle"
@@ -40,7 +40,7 @@
 
     <Modal
       title="提交表单"
-      v-model:show="visible4"
+      v-model="visible4"
       :loading="loading"
       @ok="submit"
       @close="close"

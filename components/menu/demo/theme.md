@@ -1,5 +1,5 @@
 <cn>
-#### 主题
+### 主题
 内建了两套主题 `light|dark`，默认 `light`。
 </cn>
 
@@ -15,8 +15,8 @@
     <br />
     <br />
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       :theme="theme"
       mode="inline"
     >

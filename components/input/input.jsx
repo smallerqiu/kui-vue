@@ -2,20 +2,25 @@ import Icon from "../icon";
 import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
 import InputGroup from "./inputGroup.jsx";
-import { defineComponent, ref, nextTick, watch, inject } from "vue";
+import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
+import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
+import InputBox from "./inputBox";
+import { sizeMap, filterSize } from "../utils/size";
+
 const Input = defineComponent({
   name: "Input",
   props: {
-    clearable: Boolean,
+    clearable: { type: Boolean, default: true },
     visiblePasswordIcon: { type: Boolean, default: true },
     size: {
-      // default: "default",
+      type: String,
       validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
+        return sizeMap.indexOf(value) >= 0;
       },
     },
-    value: [String, Number, Array, Object],
+    modelValue: { type: [String, Number, Array, Object] },
+    value: { type: [String, Number, Array, Object] },
     disabled: Boolean,
     type: {
       validator(value) {
@@ -43,15 +48,17 @@ const Input = defineComponent({
     parser: Function,
     inputType: { type: String, default: "input" },
   },
-  setup(ps, { slots, emit, attrs, expose }) {
-    const currentValue = ref(ps.value);
+  setup(ps, { slots, emit, attrs, expose, listeners }) {
+    const currentValue = ref(ps.modelValue || ps.value);
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref();
     const parentSize = inject("size", null);
 
+    provide("size", ps.size || filterSize(parentSize));
+
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentValue.value = v;
       }
@@ -67,31 +74,19 @@ const Input = defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
+      emit("update:modelValue", "");
       currentValue.value = "";
-      emit("update:value", "");
-      nextTick(() => focus());
+      nextTick(() => {
+        focus();
+      });
     };
     const iconClick = () => {
       !ps.disabled && emit("icon-click");
     };
-    const handleInput = (e) => {
-      let v = e.target.value;
-      currentValue.value = v;
-      emit("update:value", v);
-    };
-    const handleFocus = (e) => {
-      focused.value = true;
-      emit("focus", e);
-    };
-    const handleBlur = (e) => {
-      emit("blur", e);
-      focused.value = false;
-    };
+
     const togglePassword = (e) => {
       if (ps.disabled) return;
       showPassword.value = !showPassword.value;
-      let type = showPassword.value ? "text" : "password";
-      inputRef.value.type = type;
     };
 
     const searchEvent = (e) => {
@@ -100,7 +95,7 @@ const Input = defineComponent({
     };
     const getSuffix = () => {
       let { suffix, visiblePasswordIcon, type, inputType } = ps;
-      const SearchNode = attrs.onSearch ? (
+      const SearchNode = attrs?.onSearch ? (
         <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} />
       ) : null;
 
@@ -112,55 +107,16 @@ const Input = defineComponent({
             onClick={togglePassword}
           />
         ) : null;
-
-      return (
-        Password ||
-        SearchNode ||
-        slots.suffix ||
-        (suffix ? <div class={`k-${inputType}-suffix`}>{suffix}</div> : null)
-      );
-    };
-    const getTextInput = (multiple) => {
-      const {
-        disabled,
-        size = parentSize,
-        type,
-        theme,
-        shape,
-        inputType,
-      } = ps;
-      const props = {
-        value: currentValue.value,
-        class: [
-          {
-            [`k-${inputType}`]: !multiple,
-            [`k-${inputType}-text`]: multiple,
-            [`k-${inputType}-disabled`]: disabled,
-            [`k-${inputType}-sm`]: size == "small" && !multiple,
-            [`k-${inputType}-lg`]: size == "large" && !multiple,
-            [`k-${inputType}-${theme}`]: theme != "solid" && !multiple && theme,
-            [`k-${inputType}-circle`]: shape == "circle" && !multiple,
-          },
-        ],
-        ref: inputRef,
-        // ...attrs,
-        disabled,
-        onFocus: handleFocus,
-        onBlur: handleBlur,
-        type,
-        onInput: handleInput,
-      };
-
-      if (!showPassword.value && type == "password") {
-        props.type = "text";
-      }
-      return <input {...props} single />;
+      const suffixNode =
+        slots.suffix?.() ||
+        (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
+      return Password || SearchNode || suffixNode;
     };
 
     return () => {
       const {
         icon,
-        size = parentSize,
+        size = filterSize(parentSize),
         disabled,
         type,
         clearable,
@@ -170,42 +126,76 @@ const Input = defineComponent({
         shape,
         inputType,
       } = ps;
-
+      const slotSuffix = getChildren(slots.suffix?.());
+      const slotPrefix = getChildren(slots.prefix?.());
       let multiple =
         (icon ||
           attrs.onSearch ||
-          slots.suffix ||
+          slotSuffix.length ||
           suffix ||
-          slots.prefix ||
+          slotPrefix.length ||
           prefix ||
           type == "password" ||
           clearable ||
           slots.controls) &&
         type !== "hidden";
+      const inputProps = {
+        ...attrs,
+        disabled,
+        multiple,
+        size,
+        type,
+        theme,
+        shape,
+        inputRef: inputRef,
+        inputType,
+        value: currentValue.value,
+        showPassword: showPassword.value,
+        ...listeners,
+        onInput: (e) => {
+          let v = e.target.value;
+          currentValue.value = v;
+          emit("update:modelValue", v);
+          e.preventDefault();
+          e.stopPropagation();
+        },
+        onFocus: (e) => {
+          focused.value = true;
+          emit("focus", e);
+        },
+        onBlur: (e) => {
+          focused.value = false;
+          emit("blur", e);
+        },
+      };
+      let textInput = <InputBox {...inputProps} />;
 
-      let textInput = getTextInput(multiple);
       if (!multiple) return textInput;
 
-      let clearableShow = clearable && !isEmpty(currentValue.value);
+      let clearableShow =
+        clearable &&
+        !isEmpty(currentValue.value) &&
+        type != "password" &&
+        attrs.readonly === undefined;
       const props = {
         class: {
           [`k-${inputType}`]: true,
           [`k-${inputType}-focus`]: focused.value,
           [`k-${inputType}-disabled`]: disabled,
+          [`k-${inputType}-has-clear`]: clearableShow,
           [`k-${inputType}-sm`]: size == "small",
           [`k-${inputType}-lg`]: size == "large",
           [`k-${inputType}-${theme}`]: theme && theme != "solid",
           [`k-${inputType}-circle`]: shape == "circle",
         },
       };
-      const suffixNode = getSuffix();
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
-      if (slots.prefix || slots.suffix) {
+      if (slotPrefix.length > 0 || slotSuffix.length > 0) {
         const preChildren = [];
-        if (slots.prefix)
+        if (slotPrefix.length)
           preChildren.push(
-            <div class="k-input-group-prefix">{slots.prefix?.()}</div>
+            <div class="k-input-group-prefix">{slotPrefix}</div>
           );
         const innerChildren = [];
         if (icon)
@@ -233,22 +223,23 @@ const Input = defineComponent({
             />
           );
         const sufChildren = [];
-        if (slots.suffix)
+        if (slotSuffix.length)
           sufChildren.push(
-            <div class="k-input-group-suffix">{slots.suffix?.()}</div>
+            <div class="k-input-group-suffix">{slotSuffix}</div>
           );
 
         if (slots.controls) innerChildren.push(slots.controls?.());
         return (
           <InputGroup size={size}>
-            {...preChildren}
+            {preChildren}
             <div {...props} mult>
               {innerChildren}
             </div>
-            {...sufChildren}
+            {sufChildren}
           </InputGroup>
         );
       } else {
+        const suffixNode = getSuffix();
         const children = [];
         if (icon)
           children.push(

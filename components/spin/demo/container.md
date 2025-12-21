@@ -1,12 +1,12 @@
 <cn>
-#### 卡片加载中
+### 卡片加载中
 可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。
 </cn>
 
 ```vue
 <template>
   <div>
-    <Spin v-model:value="spinning">
+    <Spin v-model="spinning">
       <div class="deme-spin-container demo-back">
         床前明月光，疑是地上霜。<br />
         举头望明月，低头思故乡。
@@ -14,7 +14,7 @@
     </Spin>
     <br />
     <br />
-    Loading state：<KSwitch v-model:checked="spinning" />
+    Loading state：<KSwitch v-model="spinning" />
   </div>
 </template>
 <script setup>

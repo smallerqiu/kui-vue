@@ -1,13 +1,13 @@
 <cn>
-#### 尺寸
+### 尺寸
 `small` 为小尺寸， `large` 为大尺寸
 </cn>
 
 ```vue
 <template>
   <Space vertical align="start">
-    <RadioGroup v-model:value="size">
-      <RadioButton value="large" label="Large" />
+    <RadioGroup v-model="size" type="button">
+      <RadioButton value="large" label="Large" @click="()=>{}"/>
       <RadioButton value="default" label="Default" />
       <RadioButton value="small" label="Small" />
     </RadioGroup>

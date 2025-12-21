@@ -1,5 +1,13 @@
-import { defineComponent, ref, createVNode, render, onBeforeUnmount, Transition } from "vue";
-import { withInstall } from '../utils/vue';
+import {
+  defineComponent,
+  ref,
+  createVNode,
+  render,
+  onBeforeUnmount,
+  Transition,
+  getCurrentInstance,
+} from "vue";
+import { withInstall } from "../utils/vue";
 
 const loading = defineComponent({
   setup(ps, { expose }) {
@@ -71,7 +79,10 @@ const loading = defineComponent({
             ["k-loading-line-error"]: isError.value,
           },
         ],
-        style: { width: `${percent.value}%`, transitionDuration: !animate.value ? '0s' : null },
+        style: {
+          width: `${percent.value}%`,
+          transitionDuration: !animate.value ? "0s" : null,
+        },
       };
       return (
         <Transition name="fade">
@@ -83,20 +94,16 @@ const loading = defineComponent({
     };
   },
 });
-const createInstance = (props = {}) => {
-  const container = document.createElement("div");
-  document.body.appendChild(container);
-
-  const vm = createVNode(loading, props);
-  render(vm, container);
-
-  return vm.component?.exposed;
+const createInstance = (props = {}, context) => {
+  const vm = createVNode(loading, props, context);
+  render(vm, document.body);
+  return vm.component?.exposed; //for 3
 };
 
 let loadInstance = null;
 
-const getInstance = (props = {}) => {
-  loadInstance = loadInstance || createInstance(props);
+const getInstance = (props = {}, context) => {
+  loadInstance = loadInstance || createInstance(props, context);
   return loadInstance;
 };
 
@@ -118,16 +125,30 @@ let Loading = {
     if (loadInstance) {
       loadInstance.destroy();
       loadInstance = null;
-      document.body.removeChild(document.querySelector(".k-loading-wrap")?.parentNode);
+      document.body.removeChild(
+        document.querySelector(".k-loading-wrap")?.parentNode
+      );
     }
   },
   install(app) {
-    app.provide("loading", Loading);
+    // app.provide("loading", Loading);
     // 可选：同时挂到 globalProperties 兼容 this.$loading
-    app.config.globalProperties.$loading = Loading;
+    app.config.globalProperties.$loading = Loading; //for 3
   },
   useLoading() {
-    return inject("loading");
+    const instance = getCurrentInstance();
+    const proxy = instance ? instance.proxy : null;
+    const loadingWrapper = {};
+
+    ["start", "finish", "error", "update"].forEach((type) => {
+      loadingWrapper[type] = (props = {}) => {
+        return getInstance(null, proxy);
+      };
+    });
+
+    loadingWrapper.destroy = Loading.destroy;
+
+    return loadingWrapper;
   },
 };
 export default withInstall(Loading);

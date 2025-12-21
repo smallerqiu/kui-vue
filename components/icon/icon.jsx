@@ -1,4 +1,5 @@
 import { defineComponent } from "vue";
+import { withInstall } from "../utils/vue";
 
 const sty2obj = (stl) => {
   stl = stl.replace(/ /g, "");
@@ -21,7 +22,7 @@ const obj2sty = (obj) => {
   return sty;
 };
 
-export default defineComponent({
+const Icon = defineComponent({
   name: "Icon",
   props: {
     type: [String, Array],
@@ -31,7 +32,7 @@ export default defineComponent({
     strokeWidth: [String, Number],
     // sprite: Boolean
   },
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots, attrs, listeners }) {
     const renderPaths = () => {
       let paths = Array.isArray(props.type) ? props.type : [];
       return paths.map((i) => {
@@ -56,11 +57,11 @@ export default defineComponent({
       if (props.size) {
         styles.fontSize = `${props.size}px`;
       }
-
       const propsObj = {
         ...attrs,
         style: styles,
         class: classes,
+        ...listeners,
       };
 
       return (
@@ -74,3 +75,5 @@ export default defineComponent({
     };
   },
 });
+
+export default withInstall(Icon);

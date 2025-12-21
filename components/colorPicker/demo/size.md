@@ -1,5 +1,5 @@
 <cn>
-#### 尺寸大小
+### 尺寸大小 / 不可用
 `small` 为小尺寸， `large` 为大尺寸
 </cn>
 
@@ -7,16 +7,29 @@
 <template>
   <Space vertical>
     <Space>
-      <ColorPicker :value="color3" size="small" />
-      <ColorPicker showText :value="color3" size="small" />
+      <Space vertical>
+        <ColorPicker :modelValue="color3" size="small" />
+        <ColorPicker :modelValue="color2" />
+        <ColorPicker :modelValue="color1" size="large" />
+      </Space>
+      <Space vertical>
+        <ColorPicker showText :modelValue="color3" size="small" />
+        <ColorPicker showText :modelValue="color2" />
+        <ColorPicker showText :modelValue="color1" size="large" />
+      </Space>
     </Space>
-    <Space>
-      <ColorPicker :value="color2" />
-      <ColorPicker showText :value="color2" />
-    </Space>
-    <Space>
-      <ColorPicker :value="color1" size="large" />
-      <ColorPicker showText :value="color1" size="large" />
+    <br />
+    <Space vertical>
+      <code>disabled</code>
+      <Space>
+        <ColorPicker :modelValue="color2" disabled />
+        <ColorPicker showText :modelValue="color2" disabled />
+      </Space>
+      <br />
+      <code>disabledAlpha</code>
+      <ColorPicker showText disabledAlpha :modelValue="color2" />
+      <code>presets colors</code>
+      <ColorPicker v-model="color1" :presets="presetsColors" />
     </Space>
   </Space>
 </template>
@@ -24,5 +37,6 @@
 const color1 = "#3a95ff";
 const color2 = "#3a95ff";
 const color3 = "#3a95ff";
+const presetsColors = ["#9c27b0", "red", "blue"];
 </script>
 ```

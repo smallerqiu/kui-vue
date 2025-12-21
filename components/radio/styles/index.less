@@ -1,21 +1,16 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-radio-group {
-  // display: inline-block;
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
-  // font-size: 0;
-  // vertical-align: middle;
-  white-space: nowrap;
-
   .k-btn {
     position: relative;
     margin-left: -1px;
     z-index: 0;
     border-radius: 0;
 
-    // &:focus,
+    &:focus,
     &:hover {
       z-index: 2;
     }
@@ -46,19 +41,18 @@
     border-color: var(--kui-color-main);
   }
 
-  .k-radio {
-    margin-right: 16px;
-  }
-
   .k-radio-label {
     font-size: 14px;
   }
-
-  // .k-btn-solid {
-  //   margin-left: -1px;
-  // }
 }
-
+.k-radio-button-group,
+.k-radio-group-card {
+  flex-wrap: nowrap;
+}
+.k-radio-group:not(.k-radio-button-group, .k-radio-group-card) {
+  gap: 16px;
+  flex-wrap: wrap;
+}
 .k-radio-circle:not(.k-radio-group-card) {
   .k-btn:first-child {
     border-top-left-radius: 30px;
@@ -74,37 +68,29 @@
 .k-radio {
   user-select: none;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   line-height: 1;
   color: var(--kui-color-font);
-
-
-
+  align-items: center;
+  outline: none;
+  &:focus {
+    .k-radio-symbol {
+      outline: 2px solid var(--kui-color-main-80);
+    }
+  }
   .k-radio-symbol {
     display: inline-block;
-    vertical-align: middle;
-    white-space: nowrap;
     outline: 0;
-    line-height: 1;
     position: relative;
-    margin: 0;
-    font-size: 0;
-  }
-
-  .k-radio-inner {
     box-sizing: border-box;
-    display: inline-block;
+    margin: 0;
     width: 16px;
     height: 16px;
-    position: relative;
-    top: 0;
-    left: 0;
     border: 1px solid var(--kui-color-border);
-    border-radius: 2px;
-    background-color: var(--kui-color-back);
-    transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
     border-radius: 50%;
-
+    background-color: var(--kui-color-back);
+    outline: 2px solid transparent;
+    outline-offset: 1px;
     &:after {
       box-sizing: content-box;
       width: 0;
@@ -116,7 +102,7 @@
       transform: translate3d(-50%, -50%, 0);
       content: "";
       background-color: var(--kui-color-main);
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
 
@@ -132,31 +118,35 @@
     opacity: 0;
     cursor: inherit;
     margin: 0;
-    padding: 0;
-
-    &:focus-visible+span {
-      outline: 2px solid var(--kui-color-main-60);
-      outline-offset: 1px;
-    }
-  }
-
-  // &:focus,
-  &:hover {
-    .k-radio-inner {
-      border: 1px solid var(--kui-color-main);
-      box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    &:focus,
+    &:hover {
+      + .k-radio-inner {
+        // border: 1px solid var(--kui-color-main);
+        // box-shadow: 0 0 0 2px var(--kui-color-main-90);
+      }
     }
   }
 
   .k-radio-label {
     font-size: 14px;
-    padding-left: 8px;
-    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  &:not(.k-radio-disabled):hover {
+    .k-radio-symbol {
+      border: 1px solid var(--kui-color-main);
+      box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    }
+  }
+}
+.k-radio-light {
+  .k-radio-symbol {
+    background: var(--kui-color-gray-80);
   }
 }
 
 .k-radio-checked {
-  .k-radio-inner {
+  .k-radio-symbol {
     background: var(--kui-color-main);
     border-color: var(--kui-color-main);
 
@@ -172,17 +162,16 @@
 .k-radio-disabled {
   cursor: not-allowed;
   // opacity: .5;
-  color: var(--kui-color-disable-color);
+  color: var(--kui-color-disabled);
 
   &.k-radio {
     .k-radio-input {
       cursor: not-allowed;
     }
 
-    .k-radio-inner {
+    .k-radio-symbol {
       background: var(--kui-color-disable-back);
       border-color: var(--kui-color-disable-border);
-      box-shadow: none;
 
       &:after {
         background-color: var(--kui-color-disable-border);
@@ -196,7 +185,7 @@
     font-size: 16px;
   }
 
-  .k-radio-inner {
+  .k-radio-symbol {
     width: 18px;
     height: 18px;
   }
@@ -206,28 +195,27 @@
   .k-radio-label {
     font-size: 12px;
   }
+  .k-radio-symbol {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .k-radio-group-vertical {
-  display: block;
-
-  .k-radio {
-    display: block;
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
+  flex-direction: column;
+  align-items: self-start;
 }
 
 .k-radio-group-light {
   .k-btn {
     margin-left: 0;
 
-    &:nth-child(n+2) {
+    &:nth-child(n + 2) {
       position: relative;
 
       &::before {
         position: absolute;
-        content: '';
+        content: "";
         left: -1px;
         border-left: 1px solid var(--kui-color-border);
         height: 50%;
@@ -264,5 +252,4 @@
   .k-btn-sm {
     height: 16px;
   }
-
 }

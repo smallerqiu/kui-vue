@@ -1,12 +1,12 @@
 <cn>
-#### 极简式页签
+### 极简式页签
 简单的卡片呈现模式。
 </cn>
 
 ```vue
 <template>
   <div class="demo-tabs-sample">
-    <Tabs v-model:activeKey="current" sample @change="change">
+    <Tabs v-model="current" sample @change="change">
       <TabPanel key="1" title="Tab 1">
         <p>Content of Tab Pane 1</p>
         <p>Content of Tab Pane 1</p>

@@ -1,7 +1,11 @@
 import Icon from "../icon";
 import { Checkmark } from "kui-icons";
-import { defineComponent, ref, inject, computed, onMounted } from "vue";
-import { withInstall } from '../utils/vue';
+import {
+  defineComponent,
+  computed,
+  inject,
+} from "vue";
+import { withInstall } from "../utils/vue";
 const Option = defineComponent({
   name: "Option",
   props: {

@@ -12,19 +12,23 @@ export default defineComponent({
     const group = ref([]);
 
     const show = (options) => {
-      let { duration, close, closable, noticeType } = options;
+      let { duration, onClose, closable, noticeType } = options;
       let key = getUuid();
       options.key = key;
       options.duration = isNaN(Number(duration)) ? 3.5 : duration;
       let timer;
       let callback = (key) => {
-        typeof close === "function" && close();
+        typeof onClose === "function" && onClose();
         group.value = group.value.filter((item) => item.key !== key);
         clearTimeout(timer);
         timer = null;
       };
-      options.duration > 0 && (timer = setTimeout(callback, options.duration * 1000, key));
-      if ((closable === true && noticeType == "message") || noticeType == "notice") {
+      options.duration > 0 &&
+        (timer = setTimeout(callback, options.duration * 1000, key));
+      if (
+        (closable === true && noticeType == "message") ||
+        noticeType == "notice"
+      ) {
         options.onClose = () => callback(key);
       }
       group.value.push(options);
@@ -38,24 +42,23 @@ export default defineComponent({
     return () => {
       const { type } = ps;
 
-      let transition = { name: `k-${type}-slide` };
+      let transitionProps = { name: `k-${type}-slide` }; 
       if (type == "notice") {
-        transition = getTransitionProp(`k-${type}-slide`);
-        delete transition.onEnter;
-        delete transition.onBeforeEnter;
-        transition.onBeforeLeave = (el) => {
+        transitionProps = getTransitionProp(`k-${type}-slide`);
+        delete transitionProps.onEnter; //for 3
+        delete transitionProps.onBeforeEnter;
+        transitionProps.onBeforeLeave = (el) => {
           el.style.height = window.getComputedStyle(el).height;
           el.style.opacity = 1;
         };
       }
 
       let children = group.value.map((item, i) => {
-        let props = { ...item };
-        delete props.duration;
+        let props = { ...item }; //for 3
         return <Notice {...props} />;
       });
       return (
-        <TransitionGroup tag="div" class={`k-${type}`} {...transition}>
+        <TransitionGroup tag="div" class={`k-${type}`} {...transitionProps}>
           {...children}
         </TransitionGroup>
       );

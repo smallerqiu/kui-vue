@@ -1,11 +1,11 @@
 <cn>
-#### 多级菜单
+### 多级菜单
 传入的菜单里有多个层级。
 </cn>
 
 ```vue
 <template>
-  <Dropdown :show="true">
+  <Dropdown>
     <Button theme="light">
       多级菜单
       <Icon :type="ChevronDown" />

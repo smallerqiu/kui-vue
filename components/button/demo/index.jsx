@@ -1,5 +1,5 @@
 import Info from './info.md'
-import Base from './basic.md'
+import Basic from './basic.md'
 import Disabled from './disabled.md'
 import Size from './size.md'
 import Outline from './outline.md'
@@ -11,11 +11,11 @@ import Color from './color.md'
 import Group from './group.md'
 import CN from '../index.md'
 export default {
-  setup(props, { slots }) {
-    return () => (
-      <div class="demo-button">
+  render() {
+    return (
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Outline />
         <Color />
         <Light />

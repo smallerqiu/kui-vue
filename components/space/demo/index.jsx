@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from './basic.md';
+import Basic from './basic.md';
 import Vertical from "./vertical.md";
 import Align from "./align.md";
 import Size from "./size.md";
@@ -12,22 +12,22 @@ import CompactButtonVertical from "./compact-button-vertical.md";
 
 import CN from "../index.md";
 export default {
-  setup() {
-    return () => (
-      <div class="demo-space">
+  render() {
+    return (
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Vertical />
         <Size />
         <Align />
-        <CustomSize />
-        <Warp />
-        <Split />
-        <Compact />
-        <CompactButton />
-        <CompactButtonVertical />
+        {/* <CustomSize /> */}
+        {/* <Warp /> */}
+        {/* <Split /> */}
+        {/* <Compact /> */}
+        {/* <CompactButton /> */}
+        {/* <CompactButtonVertical /> */}
         <CN />
       </div>
     );
   },
-};
+}

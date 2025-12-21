@@ -1,11 +1,11 @@
 <cn>
-#### 提示类型
+### 提示类型
 通过 `type` 来设置提示类型
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="warning">Warning </Button>
     <Button @click="success">Success </Button>
     <Button @click="error">Error</Button>

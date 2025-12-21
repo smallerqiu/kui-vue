@@ -1,12 +1,12 @@
 <cn>
-#### 顶部导航
+### 顶部导航
 水平的顶部导航菜单。
 </cn>
 
 ```vue
 <template>
   <div>
-    <Menu mode="horizontal" v-model:selectedKeys="current">
+    <Menu mode="horizontal" v-model="current">
       <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
       <MenuItem key="2" :icon="Heart" disabled>Navigation Two</MenuItem>
       <SubMenu key="3" :icon="Settings" title="Navigation - Submenu">

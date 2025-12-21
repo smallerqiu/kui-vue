@@ -1,13 +1,13 @@
 <cn>
-#### 自定义
+### 自定义
 通过 `title` 来设置标题， `width` 控制宽度， 还有 `placement` 控制方向
 </cn>
 
 ```vue
 <template>
   <div>
-    <Space>
-      <RadioGroup v-model:value="placement">
+    <Space wrap>
+      <RadioGroup v-model="placement">
         <Radio label="left" value="left" />
         <Radio label="top" value="top" />
         <Radio label="right" value="right" />
@@ -16,7 +16,7 @@
       <Button @click="show = true">Open</Button>
     </Space>
     <Drawer
-      v-model:show="show"
+      v-model="show"
       height="300"
       :placement="placement"
       title="What's your name? "

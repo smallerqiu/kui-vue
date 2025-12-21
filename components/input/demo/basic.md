@@ -1,26 +1,27 @@
 <cn>
-#### 基础用法
+### 基础用法
 使用 `v-model` 进行数据双向绑定
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
-    Input: {{ value }}
+  <Space vertical block>
+   <code>v-model: {{ value }}</code>
     <Input
       placeholder="请输入内容..."
       @blur="blur"
       @focus="focus"
-      v-model:value="value"
+      v-model="value"
     />
+    <Input placeholder="clearable=false" :clearable="false" />
     <Input placeholder="disabled..." disabled />
-    <Input placeholder="readonly..." readonly />
-    <TextArea v-model:value="value" placeholder="disabled..." />
+    <Input placeholder="readonly..." readonly v-model="value"/>
+    <TextArea v-model="value" />
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const value = ref("111");
+const value = ref('123');
 const blur = () => {
   console.log("blur");
 };

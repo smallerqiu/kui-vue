@@ -1,10 +1,10 @@
 import Star from "./star";
-import { defineComponent, ref } from "vue";
-import { withInstall } from '../utils/vue';
+import { defineComponent, ref, watch } from "vue";
+import { withInstall } from "../utils/vue";
 const Rate = defineComponent({
   name: "Rate",
   props: {
-    value: { type: Number, default: 0 },
+    modelValue: { type: Number, default: 0 },
     allowClear: { type: Boolean, default: true },
     allowHalf: Boolean,
     character: [String, Function],
@@ -17,9 +17,15 @@ const Rate = defineComponent({
     color: String,
   },
   setup(ps, { slots, emit }) {
-    const initValue = ref(ps.value);
+    const initValue = ref(ps.modelValue);
     const tempValue = ref();
     const cleared = ref(false);
+    watch(
+      () => ps.modelValue,
+      (v) => {
+        initValue.value = v;
+      }
+    );
     const update = (t, index, percent) => {
       if (t == "M") {
         if (cleared.value) return;
@@ -39,7 +45,8 @@ const Rate = defineComponent({
           cleared.value = true;
           tempValue.value = null;
         }
-        emit("update:value", initValue.value);
+        emit("update:modelValue", initValue.value); //for 3
+        emit("change", initValue.value);
       }
     };
 
@@ -50,7 +57,17 @@ const Rate = defineComponent({
 
     return () => {
       const tpValue = tempValue.value || initValue.value;
-      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
+      let {
+        count,
+        allowHalf,
+        character,
+        disabled,
+        tooltips = [],
+        icon,
+        showScore,
+        size,
+        color,
+      } = ps;
       const stars = [];
       if (isNaN(Number(count)) || count <= 0) {
         count = 5;
@@ -71,7 +88,7 @@ const Rate = defineComponent({
           percent: percent < 100 ? percent : null,
           tooltips: tooltips[i - 1],
           index: i,
-          onUpdate: update,
+          onUpdate: update, //for 3
         };
         stars.push(<Star {...sp} />);
       }
@@ -86,7 +103,9 @@ const Rate = defineComponent({
       return (
         <div {...props}>
           {stars}
-          {showScore ? <span class="k-rate-score">{ps.value}</span> : null}
+          {showScore ? (
+            <span class="k-rate-score">{initValue.value}</span>
+          ) : null}
         </div>
       );
     };

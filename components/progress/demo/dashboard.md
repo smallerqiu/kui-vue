@@ -1,17 +1,17 @@
 <cn>
-#### 盘仪表进度条
+### 盘仪表进度条
 盘仪表进度条。可通过`gapDegree`调节缺口大小。`strokeLinecap="square|round"` 可以调整进度条边缘的形状。
 </cn>
 
 ```vue
 <template>
   gapDegree：{{ gap }}
-  <Slider v-model:value="gap" :min="50" :max="160" />
+  <Slider v-model="gap" :min="50" :max="160" />
   <br />
   <br />
   <RadioGroup
     :options="caps"
-    v-model:value="strokeLinecap"
+    v-model="strokeLinecap"
     type="button"
     theme="light"
   />

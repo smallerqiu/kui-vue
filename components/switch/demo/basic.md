@@ -1,16 +1,15 @@
 <cn>
-#### 基本用法
+### 基本用法
 可使用 `v-model` 进行数据双向绑定
 </cn>
 
 ```vue
 <template>
-  <Space>
-    <k-switch v-model:checked="checked" />
-    value:
-    {{ checked }}
+  <Space vertical>
+    value: {{ checked }}
+    <k-switch v-model="checked" />
     <Button @click="checked = !checked" size="small">
-      {{ checked ? "Uncheck" : "Check" }}
+      {{ !checked ? "Uncheck" : "Checked" }}
     </Button>
     <k-switch checked />
   </Space>

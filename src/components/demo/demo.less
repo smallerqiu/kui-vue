@@ -2,9 +2,9 @@
   border: 1px solid var(--kui-color-border);
   margin: 10px 0;
   position: relative;
-  border-radius: 12px;
+  border-radius: 13px;
   transition: all 0.3s;
-  background-color: var(--kui-color-control-10);
+  background-color: var(--kui-color-back-10);
   .k-content,
   .k-desc {
     padding: 20px;
@@ -22,7 +22,7 @@
       font-size: 15px;
       font-weight: 600;
       // background: var(--kui-color-back);
-      background-color: var(--kui-color-control-10);
+      background-color: var(--kui-color-back-10);
       line-height: 1;
       padding: 5px 10px 5px 0;
     }
@@ -43,24 +43,20 @@
     text-align: center;
     font-size: 20px;
     display: flex;
-
-
-    .k-icon {
-      cursor: pointer;
-      color: #999;
+    align-items: center;
+    border-radius: 0 0 12px 12px;
+    background-color: var(--kui-color-back);
+    overflow: hidden;
+    .k-btn {
       flex: 1;
-      padding: 10px 0;
-
-      &:hover {
-        // color: #333;
-        background-color: var(--kui-color-gray-90);
-      }
+      border-radius: 0;
     }
   }
 
-  .k-code {
-    transition: all .3s ease;
+  .k-code-box {
+    transition: all 0.3s ease;
     position: relative;
+    outline: none;
     .k-code-pre {
       height: 100%;
       min-height: 100%;
@@ -79,15 +75,16 @@
 
     .hljs {
       // background: rgba(241, 241, 241, 0.43) !important;
-      height: 100%;
+      // height: 100%;
       margin: 0;
       font-size: 14px;
+      box-sizing: border-box;
     }
 
     pre {
       border-top: 1px dashed var(--kui-color-border);
       margin: 0;
-      border-radius:0 0 12px 12px;
+      // border-radius: 0 0 12px 12px;
     }
   }
 
@@ -96,8 +93,69 @@
     color: #7d7d7d;
     cursor: pointer;
   }
+  .k-code-tools {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 20px 5px 10px;
+    background: #eeeeee1e;
+    border-radius: 0 12px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(3px);
+  }
 }
-
-html[theme-mode=dark] .k-demo .k-desc h4{
+.k-demo-expanded {
+  .k-code-actions {
+    position: sticky;
+    bottom: 0;
+  }
+}
+.k-demo-horizontal {
+  display: flex;
+  .k-demo-view {
+    width: 40%;
+    flex-shrink: 0;
+  }
+  pre {
+    border-radius: 0 0 12px 12px;
+  }
+  .k-content {
+    overflow: auto;
+    min-height: 425px;
+    height: 425px;
+  }
+  .k-code-box {
+    height: 425px;
+    width: 60%;
+    flex-shrink: 0;
+    display: flex;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+    .k-code {
+      display: flex;
+      flex: 1px;
+      overflow: auto;
+      background-color: var(--kui-color-gray-90);
+      border-radius: 0 12px 12px 0;
+    
+      pre {
+        border-radius: 0 12px 12px 0;
+        flex: 1;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: none;
+      }
+      .hljs {
+        background-color: transparent;
+      }
+    }
+  }
+}
+html[theme-mode="dark"] .k-demo .k-desc h4 {
   background-color: #171717;
+}
+.k-demo-container {
+  margin-bottom: 60px;
 }

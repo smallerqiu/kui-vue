@@ -1,8 +1,14 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, Transition } from "vue";
 import Icon from "../icon";
-import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, Close } from "kui-icons";
+import {
+  InformationCircle,
+  CloseCircle,
+  CheckmarkCircle,
+  AlertCircle,
+  Close,
+} from "kui-icons";
 import { getTransitionProp } from "../base/transition";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 const Alert = defineComponent({
   name: "Alert",
@@ -42,13 +48,24 @@ const Alert = defineComponent({
     const transitionProps = getTransitionProp("k-alert-slide");
 
     return () => {
-      const iconNode = props.showIcon ? <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" /> : null;
-      const closeIcon = props.closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null;
-      const descriptionNode = props.description ? <div class="k-alert-description">{props.description}</div> : null;
-      const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
+      const iconNode = props.showIcon ? (
+        <Icon
+          type={props.icon ? props.icon : icons[props.type]}
+          class="k-alert-icon"
+        />
+      ) : null;
+      const closeIcon = props.closable ? (
+        <Icon class="k-alert-close" type={Close} onClick={close} />
+      ) : null;
+      const descriptionNode = props.description ? (
+        <div class="k-alert-description">{props.description}</div>
+      ) : null;
+      const msgNode = (
+        <div class="k-alert-message">{props.message || slots.default?.()}</div>
+      );
 
       return (
-        <transition {...transitionProps}>
+        <Transition {...transitionProps}>
           <div class={classes.value} v-show={!closed.value}>
             {iconNode}
             <div class="k-alert-content">
@@ -57,7 +74,7 @@ const Alert = defineComponent({
             </div>
             {closeIcon}
           </div>
-        </transition>
+        </Transition>
       );
     };
   },

@@ -1,5 +1,5 @@
 <cn>
-#### 滚动容器
+### 滚动容器
 用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 </cn>
 
@@ -28,14 +28,17 @@ const containerRef = ref();
 .demo-affix-scroll {
   height: 300px;
   overflow-y: scroll;
-  background-image: linear-gradient(-45deg, #cdcdcd 25%, #eeeeee50 0),
-    linear-gradient(45deg, #cdcdcd 25%, #eeeeee50 0), linear-gradient(
-      -45deg,
-      #eeeeee50 75%,
-      #cdcdcd 0
-    ), linear-gradient(45deg, #eeeeee50 75%, #cdcdcd 0);
+  background-image:
+    linear-gradient(-45deg, #cdcdcd 25%, #eeeeee50 0),
+    linear-gradient(45deg, #cdcdcd 25%, #eeeeee50 0),
+    linear-gradient(-45deg, #eeeeee50 75%, #cdcdcd 0),
+    linear-gradient(45deg, #eeeeee50 75%, #cdcdcd 0);
   background-size: 40px 40px;
-  background-position: 0 0, 0 -20px, -20px 20px, 20px 0;
+  background-position:
+    0 0,
+    0 -20px,
+    -20px 20px,
+    20px 0;
 }
 .demo-affix-inner {
   height: 800px;

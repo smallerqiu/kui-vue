@@ -1,12 +1,12 @@
 <cn>
-#### 简洁模式
+### 简洁模式
 设置 `sample` 呈现没有边框的简洁样式。
 </cn>
 
 ```vue
 <template>
   <div class="demo-collapse">
-    <Collapse v-model:activeKey="activeKey" sample>
+    <Collapse :openKeys="openKeys" sample>
       <CollapsePanel title="Panel title" key="1">
         <div>{{ text }}</div>
       </CollapsePanel>
@@ -21,7 +21,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const activeKey = ref(["1"]);
+const openKeys = ref(["1"]);
 const text = `A long time ago, In a beautiful kingdom, 
   there lived a young king and queen, 
   the people loved them so much; `;

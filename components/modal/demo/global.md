@@ -1,11 +1,11 @@
 <cn>
-#### 全局模式
+### 全局模式
 使用 全局模式
 </cn>
 
 ```vue
 <template>
-  <Space>
+  <Space vertical>
     <Button @click="success">Success</Button>
     <Button @click="error" type="danger">Error</Button>
     <Button @click="warning">Warning</Button>

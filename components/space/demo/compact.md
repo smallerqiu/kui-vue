@@ -1,5 +1,5 @@
 <cn>
-#### 紧凑布局组合
+### 紧凑布局组合
 使用 compact 让表单组件之间紧凑连接且合并边框。
 </cn>
 
@@ -114,7 +114,11 @@
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <!-- <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect> -->
+      <TreeSelect
+        :tree-data="treeData"
+        clearable
+        style="width:200px"
+      ></TreeSelect>
     </Space>
   </Space>
 </template>

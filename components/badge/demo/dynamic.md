@@ -1,5 +1,5 @@
 <cn>
-#### 可控
+### 可控
 动态控制
 </cn>
 
@@ -7,7 +7,7 @@
 <template>
   <Space>
     <Badge :dot="show">
-      <div class="box"></div>
+      <div class="badge-box"></div>
     </Badge>
     <Badge :dot="show">
       <Icon :type="NotificationsOutline" />
@@ -20,7 +20,7 @@
   <Divider />
   <Space :size="20">
     <Badge :count="count" :max-count="20">
-      <div class="box"></div>
+      <div class="badge-box"></div>
     </Badge>
     <ButtonGroup circle>
       <Button @click="minus">-</Button>

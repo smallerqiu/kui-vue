@@ -1,4 +1,4 @@
-import { inject } from "vue";
+import { withInstall } from "./vue";
 const THEME_KEY = "theme-mode";
 const toggle = () => {
   const isDark = localStorage.getItem(THEME_KEY) == "dark";
@@ -16,11 +16,14 @@ const toggle = () => {
 const Theme = {
   name: "Theme",
   install(app) {
-    app.provide("theme", Theme);
-    app.config.globalProperties.$theme = Theme;
+    app.prototype.$theme = Theme;
+    // for 3
+    // app.provide("theme", Theme);
+    // app.config.globalProperties.$theme = Theme;
   },
   useTheme() {
-    return inject("theme", null);
+    // return inject("theme", null); //for 3
+    return Theme
   },
   setThemeMode(event, callback) {
     const x = event.clientX;
@@ -43,7 +46,7 @@ const Theme = {
             `circle(0px at ${x}px ${y}px)`,
             `circle(${endRadius}px at ${x}px ${y}px)`,
           ];
-          root.animate(
+          const ani = root.animate(
             {
               clipPath: !isDark ? clippath.reverse() : clippath,
             },
@@ -54,7 +57,10 @@ const Theme = {
                 ? "::view-transition-old(root)"
                 : "::view-transition-new(root)",
             }
-          );
+          )
+          ani.onfinish = () => {
+            // root.style.clipPath = "none";
+          }
         });
     } else {
       isDark = toggle();
@@ -63,4 +69,4 @@ const Theme = {
   },
 };
 
-export default Theme;
+export default withInstall(Theme);

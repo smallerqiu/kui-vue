@@ -89,7 +89,7 @@ const Progress = defineComponent({
         // front color
         style = {
           strokeDasharray: `${(percent / 100) * (len - (dashboard ? gap : 0))}px ${len}px`, //长度,间距 ,实线和虚线的长度
-          transition: `stroke-dasharray .3s ease 0s;opacity ease 0s;`,
+          transition: `stroke-dasharray .3s ease 0s,opacity 0.3s ease 0s`,
           strokeDashoffset: dashboard ? -gap / 2 : 0,
           stroke: strokeColor,
           strokeLinecap: strokeLinecap,

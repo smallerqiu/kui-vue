@@ -1,56 +1,167 @@
-import { ref, defineComponent, Transition } from "vue";
+import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
-import { CopyOutline, CaretHor } from "kui-icons";
+import { CopyOutline, CaretHor, Reload } from "kui-icons";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  Transition,
+} from "vue";
+import { parseCode } from "./transform";
 import { useClipboard } from "@vueuse/core";
-import Icon from "kui-vue/icon";
-import { message } from "kui-vue";
-export default defineComponent({
+const { copy, isSupported } = useClipboard();
+
+const Demo = defineComponent({
   name: "Demo",
+  props: {
+    id: String,
+    direction: {
+      type: String,
+      default: "horizontal",
+    },
+  },
   setup(props, { slots }) {
-    const expand = ref(false);
-    const code = ref(null);
+    const expanded = ref(props.direction == "vertical" ? false : true);
+    const codeRef = ref(null);
+    const codeOrigin = ref(null);
+    const viewRef = ref(null);
+    const timer = ref(null);
+    const styleElement = null;
 
-    const transProp = getTransitionProp();
+    const error = ref("");
 
-    const { copy, isSupported } = useClipboard();
+    // 用于存储当前的 Vue app 实例，以便销毁
+    let currentApp = null;
 
-    const toggleExpand = () => {
-      expand.value = !expand.value;
+    const reload = () => {
+      parseCode({
+        source: codeRef.value?.innerText,
+        viewRef,
+        error,
+        currentApp,
+        mountNode: viewRef,
+        styleElement,
+      });
     };
 
-    // const { copy: copyToClipboard } = useCopyToClipboard();
-
-    const handleCopy = () => {
-      try {
-        copy(code.value.innerText);
-        message.success("Copied!");
-      } catch (e) {
-        console.log(e);
-        message.error("复制代码失败，请手动复制");
+    const renderCode = async () => {
+      clearTimeout(timer.value);
+      timer.value = setTimeout(() => {
+        reload();
+      }, 500);
+    };
+    const copyCode = () => {
+      if (isSupported) {
+        copy(codeRef.value?.innerText)
+          .then((res) => {
+            message.success("Copied!");
+          })
+          .catch(() => {
+            message.error("复制代码失败，请手动复制");
+          });
+      } else {
+        message.error("请手动复制");
       }
     };
-    return () => (
-      <div class="k-demo markdown-body">
-        <div class="k-demo-main">
-          <div class="k-content"> {slots.component?.()}</div>
-          <div class="k-desc">
-            <div class="k-desc-content">{slots.description?.()}</div>
-          </div>
-          <div class="k-code-actions">
-            <Tooltip title={expand.value ? "隐藏代码" : "显示代码"}>
-              <Icon type={CaretHor} onClick={toggleExpand} style={{ "border-bottom-left-radius": !expand.value ? "12px" : 0 }} />
-            </Tooltip>
-            <Tooltip title="复制代码">
-              <Icon type={CopyOutline} onClick={handleCopy} style={{ "border-bottom-right-radius": !expand.value ? "12px" : 0 }} />
-            </Tooltip>
-          </div>
+    onMounted(() => {
+      codeOrigin.value = codeRef.value?.innerText;
+    });
+    onBeforeUnmount(() => {
+      if (styleElement) document.head.removeChild(styleElement);
+    });
+    return () => {
+      const transitionProps = getTransitionProp();
+      const vertical = props.direction !== "horizontal";
+      const classes = ["k-demo", { "k-demo-horizontal": !vertical }];
+      const descNode = (
+        <div class="k-desc">
+          <div class="k-desc-content">{slots.description?.()}</div>
         </div>
-        <Transition {...transProp}>
-          <div v-show={expand.value} class="k-code" ref={code}>
-            {slots.code?.()}
+      );
+      const codeNode = (
+        <Transition {...transitionProps}>
+          <div
+            v-show={expanded.value}
+            class="k-code-box"
+            contenteditable
+            onInput={renderCode}
+          >
+            {!vertical ? (
+              <div class="k-code-tools">
+                <Badge status="success" text="实时编译成功" />
+                <Tooltip title="复制代码">
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={CopyOutline}
+                    onClick={copyCode}
+                  />
+                </Tooltip>
+                <Tooltip title="重置代码">
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={Reload}
+                    onClick={reload}
+                  />
+                </Tooltip>
+              </div>
+            ) : null}
+            <div ref={codeRef} class="k-code k-scroll">
+              {slots.code?.()}
+            </div>
           </div>
         </Transition>
-      </div>
-    );
+      );
+      return (
+        <div
+          class={[
+            "markdown-body",
+            "k-demo-container",
+            { "k-demo-expanded": expanded.value },
+          ]}
+        >
+          {descNode}
+          {/* {!vertical && descNode} */}
+          <div class={classes}>
+            <div class="k-demo-view">
+              <div class="k-content k-scroll" ref={viewRef}>
+                {slots.component?.()}
+              </div>
+              {/* {vertical && descNode} */}
+            </div>
+            {vertical && codeNode}
+
+            {vertical && (
+              <div class="k-code-actions">
+                <Tooltip title={expanded.value ? "隐藏代码" : "显示代码"}>
+                  <Button
+                    block
+                    size="large"
+                    type="text"
+                    icon={CaretHor}
+                    onClick={() => (expanded.value = !expanded.value)}
+                  />
+                </Tooltip>
+                <Divider type="vertical" />
+                <Tooltip title="复制代码">
+                  <Button
+                    type="text"
+                    size="large"
+                    icon={CopyOutline}
+                    block
+                    onClick={copyCode}
+                  />
+                </Tooltip>
+              </div>
+            )}
+            {!vertical && codeNode}
+          </div>
+        </div>
+      );
+    };
   },
 });
+
+export default Demo;

@@ -67,28 +67,28 @@
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
     "@vue/babel-preset-jsx": "^1.4.0",
-    "@vue/compiler-sfc": "3.5.24",
-    "@vueuse/core": "^14.0.0",
-    "autoprefixer": "^10.4.22",
+    "@vue/compiler-sfc": "3.5.26",
+    "@vueuse/core": "^14.1.0",
+    "autoprefixer": "^10.4.23",
     "fast-glob": "^3.3.3",
+    "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
     "kui-icons": "^4.1.6",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "postcss-banner": "^4.0.1",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.4",
     "rollup": "^4.53.2",
-    "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-vue": "^6.0.0",
-    "vue-clipboard2": "^0.3.3"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "color": "^5.0.2",
-    "dayjs": "^1.11.18",
-    "less": "^4.4.2",
+    "color": "^5.0.3",
+    "dayjs": "^1.11.19",
+    "less": "^4.5.1",
     "vite": "npm:rolldown-vite@7.1.14",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.4"
   },
   "overrides": {
     "vite": "npm:rolldown-vite@7.1.14"

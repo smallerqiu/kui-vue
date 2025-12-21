@@ -1,17 +1,20 @@
 import Input from "../input/input";
 import Icon from "../icon";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import {
   add,
   subtract,
   toFixed,
   isValidNumber,
   isEmpty,
+  toDecimalString,
 } from "../utils/number";
 import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch, inject } from "vue";
+import { sizeMap, filterSize } from "../utils/size";
 const InputNumber = defineComponent({
   props: {
+    modelValue: [Array, Number, String],
     value: [Array, Number, String],
     min: { type: Number, default: -Infinity },
     max: { type: Number, default: Infinity },
@@ -20,7 +23,12 @@ const InputNumber = defineComponent({
     readonly: Boolean,
     formatter: Function,
     parser: Function,
-    size: String,
+    size: {
+      type: String,
+      validator(value) {
+        return sizeMap.indexOf(value) >= 0;
+      },
+    },
     precision: Number,
     suffix: String,
     prefix: String,
@@ -31,13 +39,13 @@ const InputNumber = defineComponent({
       default: 1,
     },
     theme: String,
-    placeholder: String,
+    // placeholder: String,
     icon: [String, Array],
     id: String,
   },
-  setup(ps, { slots, attrs, emit }) {
-    const parentSize = inject('size', null)
-    const getValue = (v, edge) => {
+  setup(ps, { slots, attrs, emit, listeners }) {
+    const parentSize = inject("size", null);
+    const getValue = (v, edge, sync) => {
       let input = "";
       let output = "";
 
@@ -52,6 +60,9 @@ const InputNumber = defineComponent({
           output = formatter ? parser?.(String(v)) || v : String(v);
         }
       } else {
+        if (/e/i.test(v) && sync) {
+          v = toDecimalString(v);
+        }
         input = String(v);
         output = v;
       }
@@ -76,7 +87,7 @@ const InputNumber = defineComponent({
     };
     // output is the truth value
     // input is the show text
-    const { input, output } = getValue(ps.value);
+    const { input, output } = getValue(ps.modelValue || ps.value);
 
     const inputValue = ref(input);
     const outputValue = ref(output);
@@ -93,11 +104,12 @@ const InputNumber = defineComponent({
           : subtract(String(outputValue.value), String(step));
       const { input, output } = getValue(value, true);
 
+      // return
       inputValue.value = input;
       outputValue.value = output;
       e.preventDefault();
 
-      emit("update:value", output);
+      emit("update:modelValue", output);
       emit("change", { target: { value: output } });
     };
 
@@ -110,11 +122,10 @@ const InputNumber = defineComponent({
       }
     };
     const onUpdate = (e) => {
-      const v = e.target.value;
-      const { input, output } = getValue(v, false);
-      // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
+      const v = e; //.target.value;
+      const { input, output } = getValue(v, false, false);
       inputValue.value = input;
-      e.target.value = input;
+      // e.target.value = input;
 
       if (!isValidNumber(output) && !isEmpty(v)) {
         return;
@@ -124,11 +135,10 @@ const InputNumber = defineComponent({
         return;
       }
       outputValue.value = output;
-      emit("update:value", output);
-      e.preventDefault();
+      emit("update:modelValue", output);
     };
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         const { input, output } = getValue(v, false);
 
@@ -137,49 +147,56 @@ const InputNumber = defineComponent({
       }
     );
     const blurHandle = (e) => {
-      const { input, output } = getValue(outputValue.value, true);
-
+      const { input, output } = getValue(outputValue.value, true, true);
+      // console.log(input, output)
       inputValue.value = input;
       outputValue.value = output;
-      emit("update:value", output);
+      emit("update:modelValue", output);
       emit("blur", e);
     };
     return () => {
-      // const { suffix } = ps;
-
+      // const { suffix } = ps; 
       const props = {
         ...attrs,
-        ...ps,
+        readonly: ps.readonly,
+        // ...ps,
         inputType: "input-number",
-        value: inputValue.value,
+        modelValue: inputValue.value,
         clearable: false,
-        size: ps.size || parentSize,
-        onInput: (e) => {
+        size: ps.size || filterSize(parentSize),
+        disabled: ps.disabled,
+        suffix: ps.suffix,
+        prefix: ps.prefix,
+        icon: ps.icon,
+        theme: ps.theme,
+        // placeholder: ps.placeholder,
+        // ...listeners,
+        "onUpdate:modelValue":(e)=>{
           onUpdate(e);
         },
-        onChange: (e) => { },
+        onChange: (e) => {},
         onBlur: (e) => blurHandle(e),
         onKeydown: (e) => onKeyDown(e),
       };
-      // const suffixNode =
-      //   slots.suffix?.() ||
-      //   (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null);
       return (
         <Input
           {...props}
           v-slots={{
-            // suffix: () => suffixNode,
+            suffix: () => slots.suffix?.(),
+            prefix: () => slots.prefix?.(),
             controls: () =>
-              ps.controls ? (
+              ps.controls && !ps.readonly ? (
                 <div class="k-input-number-controls">
                   <span
                     class="k-input-number-control"
-                    onClick={(e) => calcValue(e, 1)}>
+                    onClick={(e) => calcValue(e, 1)}
+                  >
                     <Icon type={ChevronUp} />
                   </span>
                   <span
                     class="k-input-number-control"
-                    onClick={(e) => calcValue(e)}>
+                    onClick={(e) => calcValue(e)}
+                  >
                     <Icon type={ChevronUp} />
                   </span>
                 </div>
@@ -190,4 +207,4 @@ const InputNumber = defineComponent({
     };
   },
 });
-export default withInstall(InputNumber)
+export default withInstall(InputNumber);

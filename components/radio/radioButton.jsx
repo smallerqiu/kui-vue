@@ -1,38 +1,73 @@
-import { Button } from "../button";
-import { defineComponent, inject } from "vue";
-import { withInstall } from '../utils/vue';
+import { defineComponent, watch, ref } from "vue";
+import { withInstall } from "../utils/vue";
+import { Button } from "../button/";
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
+    // [Vue 3 Upgrade]
+    modelValue: { type: [Boolean], default: false },
+    label: { type: [String, Number] },
     value: { type: [String, Number] },
+    theme: String,
     disabled: Boolean,
     checked: Boolean,
-    label: [String, Number],
-    theme: String,
-    shape: String,
-    size: String,
+    size: {
+      default: "default",
+      validator(value) {
+        return ["small", "large", "default"].indexOf(value) >= 0;
+      },
+    },
   },
-  setup(ps, { slots, emit, attrs }) {
-    const radioGroup = inject("radioGroup", null);
-    const parentSize = inject("size", null);
-    const change = (e) => {
-      const _label = ps.label || slots.default?.().text;
 
-      emit("update", { label: _label, value: ps.value });
+  setup(props, { slots, emit, attrs, listeners }) {
+    const isChecked = ref(props.modelValue || props.checked);
+    watch(
+      () => props.modelValue,
+      (v) => {
+        isChecked.value = v;
+      }
+    );
+    watch(
+      () => props.checked,
+      (v) => {
+        isChecked.value = v;
+      }
+    );
 
+    const labelText = props.label || slots.default?.();
+    const handleClick = (e) => {
+      if (props.disabled || isChecked.value) return;
+
+      const checked = !isChecked.value;
+
+      isChecked.value = checked;
+      emit("change", {
+        checked: checked,
+        value: props.value,
+        label: labelText,
+      });
+      emit("update:modelValue", checked);
+      e.preventDefault();
     };
+
     return () => {
-      let { disabled, label, size = parentSize, theme, shape, checked } = ps;
-      const props = {
+      const buttonProps = {
+        ...props,
+        disabled: props.disabled,
+        size: props.size,
+        theme: props.theme,
+        shape: props.shape,
+        type: isChecked.value ? "primary" : "default",
         ...attrs,
-        onClick: change,
-        disabled: radioGroup?.disabled || disabled,
-        size: radioGroup?.size || size,
-        theme: radioGroup?.theme || theme,
-        shape: radioGroup?.shape || shape,
-        type: checked ? "primary" : "default",
+        ...listeners,
+        onClick: handleClick,
       };
-      return <Button {...props}>{label || slots.default?.()}</Button>;
+
+      if (props.theme == "default") {
+        delete buttonProps.theme;
+      }
+
+      return <Button {...buttonProps}>{labelText}</Button>;
     };
   },
 });

@@ -1,19 +1,19 @@
 <cn>
-#### 切换菜单类型
+### 切换菜单类型
 展示动态切换模式。
 </cn>
 
 ```vue
 <template>
   <div>
-    <KSwitch @change="changeMode" v-model:checked="checked" /> Change Mode
+    <KSwitch @change="changeMode" v-model="checked" /> Change Mode
     <KSwitch true-text="dark" false-text="light" @change="changeTheme" /> Change
     Theme
     <br />
     <br />
     <Menu
-      v-model:selectedKeys="current"
-      v-model:open-keys="openKeys"
+      v-model="current"
+      :openKeys="openKeys"
       :theme="theme"
       :mode="mode"
       style="width:256px"

@@ -1,34 +1,24 @@
-import Info from './info.md'
-import Base from './basic.md'
-import Theme from './theme.md'
-import Icons from './icon.md'
-import Size from './size.md'
-import MaxTagCount from './maxTagCount.md'
-import Clearable from './clearable.md'
-import NoBordered from './nobordered.md'
-import Placement from './placement.md'
-import Multiple from './multiple.md'
-import Filterable from './filterable.md'
-import Search from './search.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import Multiple from "./multiple.md";
+import Disabled from "./disabled.md";
+import Theme from "./theme.md";
+import Size from "./size.md";
+import Filterable from "./filterable.md";
+import CN from "../index.md";
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div class="demo-select">
         <Info />
-        <Base />
-        <Theme />
-        <Icons />
-        <Size />
-        <MaxTagCount />
-        <Clearable />
-        <NoBordered />
-        <Placement />
+        <Basic />
         <Multiple />
+        <Disabled />
         <Filterable />
-        <Search />
+        <Size />
+        <Theme />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

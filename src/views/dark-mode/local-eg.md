@@ -15,9 +15,9 @@
         >
           <div class="logo-box">
             <Icon :type="LogoKui" size="30" class="logo" />
-            <transition>
+            <Transition>
               <span v-show="!collapsed">KUI运营后台</span>
-            </transition>
+            </Transition>
           </div>
           <Menu
             mode="inline"
@@ -39,24 +39,6 @@
           />
         </Sider>
         <Content class="k-demo-main">
-          <Row type="flex" align="middle" class="header-nav">
-            <Col flex="1"></Col>
-            <Col>
-              <Space :size="20">
-                <Input
-                  :icon="Search"
-                  theme="light"
-                  shape="circle"
-                  placeholder="搜索"
-                  style="width:200px"
-                />
-                <Button :icon="NotificationsOutline" type="text" />
-                <Avatar style="background:#3a95ff" :size="40" shape="square">
-                  K
-                </Avatar>
-              </Space>
-            </Col>
-          </Row>
           <Breadcrumb class="nav">
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>List</BreadcrumbItem>
@@ -71,12 +53,12 @@
               </MenuItem>
             </Menu>
             <Page :current="1" :total="50" />
-            <div>
+            <Space>
               <Tag>标签1</Tag>
               <Tag>标签2</Tag>
               <Tag>标签3</Tag>
               <Tag closeable>标签4</Tag>
-            </div>
+            </Space>
             <div style="width:512px;">
               <Form
                 :labelCol="{ span: 5 }"
@@ -94,7 +76,7 @@
                   <Checkbox v-model="checked" label="Circle" />
                 </FormItem>
                 <FormItem label="尺寸">
-                  <RadioGroup v-model="size">
+                  <RadioGroup v-model="size" type="button">
                     <RadioButton value="large" label="Large" />
                     <RadioButton value="default" label="Default" />
                     <RadioButton value="small" label="Small" />
@@ -102,6 +84,9 @@
                 </FormItem>
                 <FormItem label="Input">
                   <Input placeholder="input..." />
+                </FormItem>
+                <FormItem label="InputNumber">
+                  <InputNumber placeholder="input..." />
                 </FormItem>
                 <FormItem label="Select">
                   <Select>
@@ -147,6 +132,7 @@
   </div>
 </template>
 <script>
+import { Transition } from "vue";
 import {
   LogoKui,
   Home,

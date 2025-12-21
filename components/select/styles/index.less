@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-select {
   display: inline-flex;
@@ -16,19 +16,21 @@
   background-color: var(--kui-color-back);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
-  padding-left: 8px;
-  transition: border .3s ease-in-out;
+  padding: 0 8px;
+  transition: border 0.3s ease-in-out;
   line-height: 1.571;
+  position: relative;
   // max-width: 100%;
-
-  &:hover,
-  &:focus {
+  &:not(.k-select-disabled, .k-select-borderless):focus {
+    outline: 2px solid var(--kui-color-main-80);
+    outline-offset: 1px;
+  }
+  &:hover {
     border-color: var(--kui-color-main);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
   }
 
   &-selection {
-
     box-sizing: border-box;
     outline: 0;
     -webkit-user-select: none;
@@ -46,6 +48,7 @@
     overflow: hidden;
     height: 100%;
     box-sizing: border-box;
+    contain: layout;
   }
 
   .k-select-icon {
@@ -75,7 +78,7 @@
   }
 
   &-labels {
-    transition: font-size .25s ease-in-out;
+    transition: font-size 0.25s ease-in-out;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +95,7 @@
       font-size: 12px;
       position: relative;
       line-height: 18px;
-      transition: all .25s ease-in-out;
+      transition: all 0.25s ease-in-out;
 
       .k-icon {
         // position: absolute;
@@ -102,10 +105,6 @@
         display: block;
         // top: 50%;
         // transform: translateY(-50%);
-
-        &:hover {
-          color: var(--kui-color-danger);
-        }
       }
     }
 
@@ -137,11 +136,11 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-disable-color);
+    color: var(--kui-color-disabled);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
-    transition: font-size .25s ease-in-out;
+    transition: font-size 0.25s ease-in-out;
     line-height: 1;
   }
 
@@ -157,7 +156,7 @@
     line-height: 1.571;
     cursor: pointer;
     font-size: 14px;
-    transition: font-size .25s ease-in-out;
+    transition: font-size 0.25s ease-in-out;
   }
 
   &-arrow {
@@ -165,27 +164,30 @@
     box-sizing: border-box;
     transform: rotate(0deg);
     transform-origin: center;
-    transition: transform .3s ease-in-out;
-    transition: font-size .25s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transition: font-size 0.25s ease-in-out;
     color: var(--kui-color-icon);
-    margin: 0 8px;
+    margin-left: 8px;
 
     #chevron-up {
       transform: rotate(180deg);
     }
   }
-
+  .k-select-suffix {
+    display: flex;
+    align-items: center;
+  }
   &-clearable {
-    display: none;
+    position: absolute;
+    right: 8px;
     font-size: 14px;
     color: var(--kui-color-icon);
-    margin: 0 8px;
-
+    display: none;
+    cursor: pointer;
     &:hover {
       color: var(--kui-color-font);
     }
   }
-
 
   .k-select-search-mirror,
   .k-select-search {
@@ -193,10 +195,12 @@
     color: var(--kui-color-font);
   }
 
-
-
   &.k-select-circle {
     border-radius: 30px;
+  }
+
+  &:not(.k-select-disabled) .k-select-tag .k-icon :hover {
+    color: var(--kui-color-danger);
   }
 }
 
@@ -219,7 +223,6 @@
     position: absolute;
   }
 }
-
 
 .k-select-light {
   &.k-select {
@@ -244,18 +247,18 @@
     border-color: transparent;
   }
 }
-
-
-
+.k-select-block {
+  width: 100%;
+}
 .k-select-dropdown {
   user-select: none;
   border-radius: var(--kui-border-radius);
   width: inherit;
   max-height: 200px;
   overflow: auto;
-  background-color: var(--kui-color-control-10);
+  background-color: var(--kui-color-back-10);
   box-sizing: border-box;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   position: absolute;
   z-index: 1003;
   padding: 5px;
@@ -303,11 +306,11 @@
     border-radius: @radius;
     margin-bottom: 1px;
 
-    &:hover {
+    &:not(.k-select-item-disabled):hover {
       background: var(--kui-color-hover);
     }
 
-    &:active {
+    &:not(.k-select-item-disabled):active {
       background: var(--kui-color-active);
     }
 
@@ -348,7 +351,7 @@
 
   .k-select-item-disabled {
     background: var(--kui-color-disable-back);
-    color: var(--kui-color-disable-color);
+    color: var(--kui-color-disabled);
     cursor: not-allowed;
   }
 }
@@ -366,7 +369,7 @@
 }
 
 .k-select-sm {
-  padding-left: 4px;
+  padding: 0 var(--kui-padding-inline-sm);
 
   .k-select-icon {
     font-size: 14px;
@@ -387,11 +390,11 @@
 
   .k-select-arrow {
     font-size: 12px;
-    margin: 0 4px;
+    margin-left: 4px;
   }
 
   .k-select-clearable {
-    margin: 0 4px;
+    right: 4px;
     font-size: 12px;
   }
 
@@ -418,7 +421,7 @@
     margin: 2px 0;
 
     .k-select-tag {
-      padding: 2px 5px;
+      padding: 1px 5px;
       line-height: 1;
 
       .k-icon {
@@ -481,7 +484,6 @@
   }
 
   .k-select-labels {
-
     .k-select-tag {
       padding: 7px;
       font-size: 14px;
@@ -493,7 +495,6 @@
     }
 
     .k-select-search-wrap {
-
       .k-select-search {
         height: 28px;
         line-height: 28px;
@@ -505,12 +506,12 @@
   }
 }
 
-.k-select-open {
+.k-select-opened {
   border-color: var(--kui-color-main);
   box-shadow: 0 0 0 2px var(--kui-color-main-90);
 
   .k-select-label {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &.k-select-light .k-select-selection {
@@ -520,7 +521,7 @@
 }
 
 .k-select-disabled {
-  color: var(--kui-color-disable-color);
+  color: var(--kui-color-disabled);
   background: var(--kui-color-disable-back);
 
   .k-select-label {
@@ -549,13 +550,14 @@
     }
 
     .k-select-arrow {
-      display: none;
+      opacity: 0;
     }
   }
 }
 
 .k-select-borderless {
   border-color: transparent;
+  background-color: transparent;
   box-shadow: none;
 
   &:hover,
@@ -571,25 +573,24 @@
   }
 }
 
-
 @keyframes drop-down {
   0% {
     opacity: 0;
-    transform: scaleY(0)
+    transform: scaleY(0);
   }
 
   to {
     opacity: 1;
-    transform: scaleY(1)
+    transform: scaleY(1);
   }
 }
 
 .k-select-enter-active {
   transform-origin: 0 0;
-  animation: drop-down .3s;
+  animation: drop-down 0.3s;
 }
 
 .k-select-leave-active {
   transform-origin: 0 0;
-  animation: drop-down .3s reverse
+  animation: drop-down 0.3s reverse;
 }

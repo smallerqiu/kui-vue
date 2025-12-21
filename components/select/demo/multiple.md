@@ -1,63 +1,38 @@
 <cn>
-#### 多选
+### 多选
 通过设置 `multiple` 值来呈现多选模式
 </cn>
 
 ```vue
 <template>
-  <div>
-    <Space>
-      <Select :width="300" multiple v-model:value="data" size="large">
-        <Option value="1" label="Apple" />
-        <Option value="2" label="Orange" />
-        <Option value="3" label="Banana" />
-        <Option value="4" label="Pear" />
-        <Option value="5" label="Peach" />
-        <Option value="6" label="Grape" />
-      </Select>
-      <Button size="small" @click="Clear">Clear</Button>
-      <Button size="small" @click="onSelect">Select Banana & Apple</Button>
-    </Space>
+  <Space vertical block>
+    use options to set options
+    <Select v-model="value1" block :options="data" multiple />
     <br />
-    <Space vertical style="margin-top:10px">
-      <Select :width="300" multiple v-model:value="data2" clearable>
-        <Option value="1" label="Apple" />
-        <Option value="2" label="Orange" />
-        <Option value="3" label="Banana" />
-        <Option value="4" label="Pear" />
-        <Option value="5" label="Peach" />
-        <Option value="6" label="Grape" />
-      </Select>
-      <Select :width="300" size="small" multiple>
-        <Option value="1" label="苹果" />
-        <Option value="2" label="香蕉" />
-        <Option value="3" label="梨子" />
-        <Option value="4" label="火龙果" />
-        <Option value="5" label="桃子" />
-        <Option value="6" label="葡萄" />
-      </Select>
-      <Select :width="300" multiple v-model:value="data2" disabled>
-        <Option value="1" label="Apple" />
-        <Option value="2" label="Orange" />
-        <Option value="3" label="Banana" />
-        <Option value="4" label="Pear" />
-        <Option value="5" label="Peach" />
-        <Option value="6" label="Grape" />
-      </Select>
-    </Space>
-  </div>
+    use children to set options
+    <Select v-model="value2" block multiple>
+      <Option :value="0">Grape</Option>
+      <Option :value="1" label="Apple" />
+      <Option :value="2" label="Orange" />
+      <Option :value="3" label="Banana" />
+      <Option :value="4" label="Pear" />
+    </Select>
+    <br />
+    maxTagCount:
+    <Select v-model="value3" block :maxTagCount="2" :options="data" multiple />
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const data = ref([]);
-const data2 = ref(["2", "4"]);
-const Clear = () => {
-  data.value = [];
-  data2.value = [];
-};
-const onSelect = () => {
-  data.value = ["3", "1"];
-  data2.value = ["3", "1"];
-};
+const value1 = ref([0, 2]);
+const value2 = ref([0, 2]);
+const value3 = ref([0, 2, 3]);
+const data = [
+  { label: "Apple", value: 0 },
+  { label: "Orange", value: 1 },
+  { label: "Banana", value: 2 },
+  { label: "Pear", value: 3 },
+  { label: "Grape", value: 4 },
+];
 </script>
 ```

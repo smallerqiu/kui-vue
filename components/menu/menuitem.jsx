@@ -1,15 +1,11 @@
 import Icon from "../icon";
-import Tooltip from "../tooltip";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import {
   defineComponent,
   ref,
-  reactive,
   getCurrentInstance,
-  watch,
   inject,
-  nextTick,
   onMounted,
 } from "vue";
 
@@ -21,7 +17,7 @@ const MenuItem = defineComponent({
     // key: String,
     label: String,
     disabled: Boolean,
-    ispopup: Boolean,
+    isPopup: Boolean,
   },
 
   setup(ps, { slots }) {
@@ -32,7 +28,7 @@ const MenuItem = defineComponent({
     const mode = inject("menu-mode", null);
     const dropdown = inject("dropdown", null);
     const active = ref(false);
-    const key = instance.vnode.key;
+    const key = instance.vnode.key; //for 3
     const keyPah = inject("menu-key-path", []);
     const selectedKeysChange = inject("selectedKeysChange", null);
     // const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
@@ -57,11 +53,12 @@ const MenuItem = defineComponent({
           paddingLeft:
             (mode.value == "inline" || mode.value == "vertical") &&
             keyPah.length &&
-            !ps.ispopup
+            !ps.isPopup
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
         onMouseenter: () => {
+          //for 3
           if (disabled) return;
           active.value = true;
         },

@@ -1,26 +1,18 @@
 import Info from './info.md'
-import Base from './basic.md'
-import CustomTriggle from './customTriggle.md'
-import Mode from './mode.md'
+import Basic from './basic.md'
 import Size from './size.md'
+import CustomTrigger from './customTrigger.md'
 import Placement from './placement.md'
-import Disabled from './disabled.md'
-import DisabledAlpha from './disabledAlpha.md'
-import Presets from './presets.md'
 import CN from '../index.md'
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <Size />
-        <Disabled />
-        <DisabledAlpha />
-        <CustomTriggle />
+        <CustomTrigger />
         <Placement />
-        <Mode />
-        <Presets />
         <CN />
       </div>
     )

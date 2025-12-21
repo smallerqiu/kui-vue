@@ -1,5 +1,5 @@
 <cn>
-#### 固定侧边栏
+### 固定侧边栏
 当内容较长时，使用固定侧边栏可以提供更好的体验。
 </cn>
 
@@ -52,7 +52,7 @@
         >
           Content
         </div>
-        <Footer>KUI ©2025 Created by Qiu</Footer>
+        <Footer>KUI ©2025 Created by chuchur</Footer>
       </Content>
     </Layout>
   </div>
@@ -98,11 +98,14 @@ const openKeys = ref(["t2"]);
   }
 
   .demo-sider-collapsed {
-    width: 80px;
+    width: 60px;
     overflow: hidden;
 
     .logo-title {
       opacity: 0;
+    }
+    .logo-box {
+      padding-left: 16px;
     }
   }
 
@@ -123,6 +126,7 @@ const openKeys = ref(["t2"]);
     height: 60px;
     padding-left: 25px;
     white-space: nowrap;
+    transition: all 0.3s;
 
     .logo {
       margin-right: 8px;

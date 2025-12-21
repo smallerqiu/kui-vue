@@ -1,11 +1,11 @@
 <cn>
-#### 自定义尺寸
+### 自定义尺寸
 自定义尺寸，适应在各种容器中展示。
 </cn>
 
 ```vue
 <template>
-  <RadioGroup :options="types" v-model:value="size" type="button" />
+  <RadioGroup :options="types" v-model="size" type="button" />
   <br />
   <br />
   <Descriptions title="订单信息" bordered :size="size">

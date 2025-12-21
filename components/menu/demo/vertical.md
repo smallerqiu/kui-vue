@@ -1,12 +1,12 @@
 <cn>
-#### 垂直菜单
+### 垂直菜单
 子菜单是弹出的形式。
 </cn>
 
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model:selectedKeys="current" mode="vertical">
+    <Menu v-model="current" mode="vertical">
       <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
       <MenuItem key="1-2" :icon="Grid">Option 2</MenuItem>
       <SubMenu key="sub2" :icon="Heart" title="Navigation Two">

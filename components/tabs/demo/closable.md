@@ -1,12 +1,12 @@
 <cn>
-#### 新增和关闭页签 
+### 新增和关闭页签 
 只有卡片样式的页签支持新增和关闭选项。
 使用 `closable={false}` 禁止关闭。
 </cn>
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="activeKey" card @remove="remove">
+  <Tabs v-model="activeKey" card @remove="remove">
     <TabPanel
       :title="panel.title"
       v-for="panel in panesData"

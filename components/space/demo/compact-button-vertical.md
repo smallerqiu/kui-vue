@@ -1,5 +1,5 @@
 <cn>
-#### 垂直方向紧凑布局
+### 垂直方向紧凑布局
 垂直方向的紧凑布局，目前仅支持 Button 组合。
 </cn>
 
@@ -12,7 +12,7 @@
       <Button :icon="HeartOutline"></Button>
       <Button :icon="MailOutline"></Button>
       <Button :icon="ShirtOutline"></Button>
-      <Dropdown placement="bottom-right">
+      <Dropdown placement="bottom-left">
         <Button :icon="Ellipsis"></Button>
         <template #overlay>
           <Menu slot="content">

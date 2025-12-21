@@ -1,21 +1,21 @@
 <cn>
-#### 自定义页头和页脚
+### 自定义页头和页脚
 添加表格边框线，页头和页脚。
 </cn>
 
 ```vue
 <template>
   <Table :data="data" :columns="columns" bordered :sticky="52">
-    <template v-slot:fullname="value">
+    <template #fullname="{ value }">
       <a>{{ value }}</a>
     </template>
-    <template v-slot:price="value">
+    <template #price="{ value }">
       <span :class="{ 'test-table-price': value > 20000 }">
         ￥{{ value }}/㎡
       </span>
     </template>
-    <template v-slot:header> Header </template>
-    <template v-slot:footer> Footer </template>
+    <template #header> Header </template>
+    <template #footer> Footer </template>
   </Table>
 </template>
 <script>
@@ -43,28 +43,18 @@ export default {
         },
         {
           key: "3",
-          fullname: "Chuchur",
+          fullname: "Qiu",
           price: 28000,
           address: "Wu Han Nanhu No. 188",
         },
       ],
       columns: [
         { title: "Name", key: "fullname" },
-        { title: "Housing price", key: "price", className: "test-table-cell" },
+        { title: "Housing price", key: "price" },
         { title: "Address", key: "address" },
       ],
     };
   },
 };
 </script>
-<style scoped>
-.test-table-cell {
-  text-align: right;
-}
-.test-table-price {
-  color: red;
-  background: yellow;
-  font-weight: bold;
-}
-</style>
 ```

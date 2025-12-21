@@ -1,32 +1,32 @@
 <cn>
-#### 典型表单
+### 典型表单
 包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
 </cn>
 
 ```vue
 <template>
-  <div style="width:512px;">
+  <div>
     <Space>
-      <Checkbox v-model:checked="disabled" label="Form disabled" />
+      <Checkbox v-model="state.disabled" label="Form disabled" />
     </Space>
     <Form
       :labelCol="{ span: 5 }"
-      :disabled="disabled"
+      :disabled="state.disabled"
       :wrapperCol="{ span: 16 }"
-      :size="size"
-      :theme="theme ? 'light' : ''"
-      :shape="checked ? 'circle' : ''"
+      :size="state.size"
+      :theme="state.isLight ? 'light' : ''"
+      :shape="state.checked ? 'circle' : ''"
     >
       <FormItem label="主题">
         <Checkbox
-          v-model:checked="theme"
+          v-model="state.isLight"
           label="Light"
           style="margin-right:8px;"
         />
-        <Checkbox v-model:checked="checked" label="Circle" />
+        <Checkbox v-model="state.checked" label="Circle" />
       </FormItem>
       <FormItem label="尺寸">
-        <RadioGroup v-model:checked="size" type="button">
+        <RadioGroup v-model="state.size" type="button">
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
@@ -69,7 +69,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Switch">
-        <Switch true-text="Yes" false-text="No" />
+        <KSwitch true-text="Yes" false-text="No" />
       </FormItem>
       <FormItem label="Text">
         <TextArea placeholder="Please input..." />
@@ -81,27 +81,24 @@
     </Form>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      disabled: true,
-      size: "default",
-      theme: false,
-      checked: false,
-      shape: "",
-      treeData: [
-        {
-          title: "food",
-          key: "0",
-          children: [
-            { title: "apple", key: "0-1" },
-            { title: "orange", key: "0-2" },
-          ],
-        },
-      ],
-    };
+<script setup>
+import { reactive } from "vue";
+const state = reactive({
+  disabled: false,
+  size: "default",
+  isLight: false,
+  checked: false,
+  shape: "",
+});
+const treeData = [
+  {
+    title: "food",
+    key: "0",
+    children: [
+      { title: "apple", key: "0-1" },
+      { title: "orange", key: "0-2" },
+    ],
   },
-};
+];
 </script>
 ```

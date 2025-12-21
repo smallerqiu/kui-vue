@@ -1,27 +1,19 @@
-import {
-  defineComponent,
-  ref,
-  reactive,
-  computed,
-  watch,
-  provide,
-  inject,
-  onMounted,
-} from "vue";
-import { withInstall } from '../utils/vue';
+import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
+import { withInstall } from "../utils/vue";
 
 const Menu = defineComponent({
   name: "Menu",
   props: {
     theme: String,
     mode: { type: String, default: "vertical" },
-    selectedKeys: { type: Array, default: () => [] },
+    modelValue: { type: Array, default: () => [] },
+    // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.selectedKeys || []);
+    const defaultSelectedKeys = ref(props.modelValue || []); //props.selectedKeys || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);
@@ -34,7 +26,8 @@ const Menu = defineComponent({
     const dropdown = inject("dropdown", null);
 
     watch(
-      () => props.selectedKeys,
+      // () => props.selectedKeys, // for 3
+      () => props.modelValue,
       (value) => {
         defaultSelectedKeys.value = value;
       }
@@ -78,6 +71,7 @@ const Menu = defineComponent({
     };
     const dropdownMenuSelected = inject("dropdown-menu-selected", null);
     const selectedKeysChange = (key, selected, keyPath) => {
+      // console.log('selectedKeysChange')
       // console.log(key, selected, keyPath)
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];
@@ -86,7 +80,8 @@ const Menu = defineComponent({
           (x) => x !== key
         );
       }
-      emit("update:selectedKeys", defaultSelectedKeys.value);
+      emit("update:value", defaultSelectedKeys.value);
+      // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
       emit("select", { key, keyPath });
 
       if (
@@ -115,6 +110,7 @@ const Menu = defineComponent({
         }
       }
       emit("update:openKeys", defaultOpenKeys.value);
+      emit("openChange", defaultOpenKeys.value);
     };
     provide("openKeysChange", openKeysChange);
     provide("selectedKeysChange", selectedKeysChange);

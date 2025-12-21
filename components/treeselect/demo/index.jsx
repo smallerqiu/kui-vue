@@ -1,21 +1,27 @@
-import Info from './info.md'
-import Base from './basic.md'
-import Multiple from './multiple.md'
-import Checkable from './checkable.md'
-import Aync from './sync.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import Multiple from "./multiple.md";
+import Checkable from "./checkable.md";
+import Disabled from "./disabled.md";
+import Async from "./sync.md";
+import Size from "./size.md";
+import Theme from "./theme.md";
 
-import CN from '../index.md'
+import CN from "../index.md";
 export default {
   render() {
     return (
-      <div class="demo-tree">
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Multiple />
         <Checkable />
-        <Aync />
+        <Disabled />
+        <Async />
+        <Size />
+        <Theme />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

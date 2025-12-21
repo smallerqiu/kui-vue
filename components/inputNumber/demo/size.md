@@ -1,29 +1,25 @@
 <cn>
-#### 尺寸
+### 尺寸
 `large` 为大尺寸， `small` 为小尺寸
 </cn>
 
 ```vue
 <template>
-  <div style="width:512px;">
+  <Space vertical block>
     <InputNumber
       placeholder="Large Input"
       size="large"
       :icon="LogoKui"
       clearable
     />
-    <br />
-    <br />
     <InputNumber placeholder="Base Input" :icon="LogoKui" clearable />
-    <br />
-    <br />
     <InputNumber
       size="small"
       placeholder="Small Input"
       :icon="LogoKui"
       clearable
     />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { LogoKui } from "kui-icons";

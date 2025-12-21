@@ -1,11 +1,11 @@
 <cn>
-#### 自定义
+### 自定义
 自定义图片、描述、附属内容。
 </cn>
 
 ```vue
 <template>
-  <div>
+  <Space vertical block> 
     <Empty
       image="https://cdn.chuchur.com/img/thumb.png"
       description="暂时没有图片"
@@ -23,7 +23,7 @@
       </template>
       <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
     </Empty>
-  </div>
+  </Space>
 </template>
 <script setup>
 import { Add } from "kui-icons";

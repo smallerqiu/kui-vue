@@ -1,14 +1,14 @@
 import Info from './info.md'
-import Base from './basic.md'
+import Basic from './basic.md'
 import Placement from './placement.md'
 import Color from './color.md'
 import CN from '../index.md'
 export default {
-  setup() {
-    return () => (
+  render() {
+    return (
       <div class="demo-tooltip">
         <Info />
-        <Base />
+        <Basic />
         <Placement />
         <Color />
         <CN />

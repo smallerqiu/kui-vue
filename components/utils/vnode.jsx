@@ -1,10 +1,11 @@
 import { isVNode, Comment, Fragment, Text, cloneVNode } from "vue";
-export function cloneNodes(vnode, props, merge = false, transition = false) {
+
+export function cloneNodes(vnode, props, merge = false, child) {
   return vnode.length == 1
-    ? cloneVNode(vnode[0], props, merge, transition)
-    : cloneVNode(<span>{vnode}</span>, props, merge, transition);
+    ? cloneVNode(vnode[0], props, merge)
+    : cloneVNode(<span>{vnode}</span>, props, merge, child);
 }
-export function getChildren(vnodes) {
+export function getChildren(VNodes) {
   const result = [];
   const loop = (nodes) => {
     nodes?.forEach((vnode) => {
@@ -23,6 +24,6 @@ export function getChildren(vnodes) {
     });
   };
 
-  loop(vnodes);
+  loop(VNodes);
   return result;
 }

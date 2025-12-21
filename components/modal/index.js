@@ -1,6 +1,7 @@
 import Modal from "./modal.jsx";
 import Toast from "./toast";
 import { createVNode, render, inject } from "vue";
+import { getCurrentInstance } from "vue";
 
 let modalList = [];
 
@@ -12,20 +13,23 @@ if (typeof window !== "undefined") {
 let createInstance = (props = {}) => {
   const container = document.createElement("div");
   document.body.appendChild(container);
-
-  const vm = createVNode(Toast, {
-    ...props,
-    onDestroy: () => {
-      setTimeout(() => {
-        modalList = modalList.filter((item) => item !== instance);
-        document.body.contains(container) && document.body.removeChild(container);
-      }, 300);
+  const vm = createVNode(
+    Toast,
+    {
+      ...props,
+      destroy: () => {
+        setTimeout(() => {
+          modalList = modalList.filter((item) => item !== instance);
+          document.body.contains(container) &&
+            document.body.removeChild(container);
+        }, 300);
+      },
     },
-  });
+  );
   render(vm, container);
 
   let instance = vm.component?.exposed;
-  instance.destroy = () => {
+  instance.onDestroy = () => {
     instance.hide();
     modalList = modalList.filter((item) => item !== instance);
     setTimeout(() => {
@@ -50,17 +54,32 @@ Modal.show = (props = {}) => {
   return getModal(props);
 };
 
-Modal.destroyAll = (e) => {
+Modal.destroyAll = () => {
   modalList.forEach((toast) => {
     toast.destroy();
   });
 };
 Modal.install = (app) => {
-  app.provide("modal", Modal);
+  // app.provide("modal", Modal);
   app.config.globalProperties.$modal = Modal;
 };
 
-Modal.useModal= () => {
-  return inject("modal");
+Modal.useModal = () => {
+  // return inject("modal"); //for 3
+  const instance = getCurrentInstance();
+  const proxy = instance ? instance.proxy : null;
+  // console.log(proxy);
+  const modalWrapper = {};
+
+  ["info", "success", "warning", "error", "confirm", "show"].forEach((type) => {
+    modalWrapper[type] = (props = {}) => {
+      const config = type === "show" ? props : Object.assign({ type }, props);
+      return getModal(config, proxy);
+    };
+  });
+
+  modalWrapper.destroyAll = Modal.destroyAll;
+
+  return modalWrapper;
 };
 export default Modal;
