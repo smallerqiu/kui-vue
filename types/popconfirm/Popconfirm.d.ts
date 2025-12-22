@@ -3,6 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** Popconfirm component props */
 export interface PopconfirmProps {
   dark?: boolean;
+  show?: boolean;
   title?: string | number | Record<string, any> | any[];
   size?: string;
   width?: number | string;
