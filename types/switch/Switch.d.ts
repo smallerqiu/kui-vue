@@ -3,8 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** Switch component props */
 export interface SwitchProps {
   /** default: false */
-  checked?: boolean;
-  value?: boolean | number;
+  checked?: boolean | number;
   type?: string;
   disabled?: boolean;
   loading?: boolean;

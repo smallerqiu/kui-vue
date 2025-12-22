@@ -2,6 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Tooltip component props */
 export interface TooltipProps {
+  show?: boolean;
   dark?: boolean;
   title?: string | number | Record<string, any> | any[];
   color?: string;
