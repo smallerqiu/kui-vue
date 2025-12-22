@@ -13,7 +13,6 @@
         <Select
           v-model="queryKey"
           placeholder="搜索..."
-          shape="circle"
           :icon="Search"
           theme="light"
           :show-arrow="false"

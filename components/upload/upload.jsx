@@ -1,8 +1,10 @@
-import { ref, reactive, watch, defineComponent } from "vue";
+import { ref, reactive, watch, defineComponent, inject, computed } from "vue";
 import { Add } from "kui-icons";
 import { withInstall } from "../utils/vue";
 import Selector from "./selector";
 import FileList from "./fileList";
+import { v4 as uuid } from "uuid";
+import zhCN from "../locale/zh-CN";
 
 const Upload = defineComponent({
   name: "Upload",
@@ -35,22 +37,119 @@ const Upload = defineComponent({
   },
   emits: ["remove", "exceed", "before-upload", "change", "size-error"],
   setup(props, { emit, slots, expose }) {
-    const defaultFileList = ref(props.fileList || []);
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
+    const innerFileList = ref([...(props.fileList || [])]);
     const uploadTemp = reactive({});
 
     // Watch for fileList changes
     watch(
       () => props.fileList,
       (newVal) => {
-        defaultFileList.value = newVal || [];
+        innerFileList.value = newVal || [];
       }
     );
+    const formatFileSize = (fileSize) => {
+      var temp = 0;
+      if (fileSize < 1024) {
+        return fileSize + "B";
+      } else if (fileSize < 1024 * 1024) {
+        temp = fileSize / 1024;
+        return temp.toFixed(2) + "KB";
+      } else if (fileSize < 1024 * 1024 * 1024) {
+        temp = fileSize / (1024 * 1024);
+        return temp.toFixed(2) + "MB";
+      } else {
+        temp = fileSize / (1024 * 1024 * 1024);
+        return temp.toFixed(2) + "GB";
+      }
+    };
+    const onSelectFiles = (files) => {
+      const currentCount = innerFileList.value?.length;
+      const { limit, minSize, maxSize } = props;
+      for (let i = 0; i < files.length; i++) {
+        let { size, type } = files[i];
+        if (files[i].name == ".DS_Store") {
+          continue;
+        }
+
+        let item = {
+          uid: uuid(),
+          filename: files[i].name,
+          size: formatFileSize(size),
+          status: "wait",
+          percent: 0,
+          preview: null,
+        };
+
+        if (limit && currentCount + i >= limit) {
+          emit("exceed");
+          return;
+        }
+        if ((type || "").indexOf("image/") >= 0) {
+          item.preview = window.URL.createObjectURL(files[i]);
+        }
+
+        if (
+          (minSize !== undefined && minSize >= 0 && size / 1024 < minSize) ||
+          (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
+        ) {
+          item.errorText = locale?.value.k.upload.errorFileSize;
+          item.status = "error";
+
+          emit("change", {
+            file: item,
+            fileList: innerFileList.value,
+          });
+          emit("size-error", {
+            file: item,
+            fileList: innerFileList.value,
+          });
+          continue;
+        }
+
+        emit("before-upload", {
+          file: item,
+          fileList: innerFileList.value,
+        });
+        handleSelect({ item, file: files[i] });
+      }
+    };
+    // 处理 Selector 发来的选择事件
+    const handleSelect = ({ item, file }) => {
+      innerFileList.value.push(item);
+      uploadTemp[item.uid] = file;
+
+      emit("update:fileList", innerFileList.value);
+      emit("change", { file: item, fileList: innerFileList.value });
+
+      if (props.autoTrigger) {
+        uploadFile(item, file);
+      }
+    };
+
+    // 处理 FileList 发来的移除事件
+    const handleRemove = ({ index, file }) => {
+      innerFileList.value.splice(index, 1);
+      delete uploadTemp[file.uid];
+
+      // 释放内存
+      if (file.preview) window.URL.revokeObjectURL(file.preview);
+
+      emit("update:fileList", innerFileList.value);
+      emit("remove", { file, fileList: innerFileList.value });
+    };
 
     const upload = () => {
       if (!props.autoTrigger && !props.disabled) {
         let files = uploadTemp;
         for (let k in files) {
-          let item = defaultFileList.value.filter((x) => x.uid == k)[0];
+          let item = innerFileList.value.filter((x) => x.uid == k)[0];
           item && uploadFile(item, files[k]);
         }
       }
@@ -100,7 +199,7 @@ const Upload = defineComponent({
             file: Object.assign(item, {
               response: JSON.parse(xhr.responseText),
             }),
-            fileList: defaultFileList.value,
+            fileList: innerFileList.value,
             event,
           });
         }
@@ -116,7 +215,7 @@ const Upload = defineComponent({
         }
         emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: defaultFileList.value,
+          fileList: innerFileList.value,
           event,
         });
       };
@@ -128,7 +227,7 @@ const Upload = defineComponent({
 
           emit("change", {
             file: Object.assign(item, { response: xhr.responseText }),
-            fileList: defaultFileList.value,
+            fileList: innerFileList.value,
             event: event,
           });
         }
@@ -140,7 +239,7 @@ const Upload = defineComponent({
 
         emit("change", {
           file: Object.assign(item, { response: xhr.responseText }),
-          fileList: defaultFileList.value,
+          fileList: innerFileList.value,
           event: event,
         });
       };
@@ -165,9 +264,6 @@ const Upload = defineComponent({
         uploadSubText,
         draggable,
         disabled,
-        minSize,
-        maxSize,
-        autoTrigger,
       } = props;
 
       let isPicture = type == "picture";
@@ -197,29 +293,10 @@ const Upload = defineComponent({
         uploadText,
         uploadSubText,
         draggable,
-        fileList: defaultFileList.value,
+        fileList: innerFileList.value,
         uploadIcon,
-        minSize,
-        maxSize,
-        autoTrigger,
-        onUpload: ({ item, file }) => {
-          uploadFile(item, file);
-        },
-        onSelect: ({ item, file }) => {
-          uploadTemp[item.uid] = file;
-        },
-        onExceed: (data) => {
-          emit("exceed", data);
-        },
-        onBeforeUpload: (data) => {
-          emit("before-upload", data);
-        },
-        onChange: (data) => {
-          emit("change", data);
-        },
-        onSizeError: (data) => {
-          emit("size-error", data);
-        },
+        locale: locale.value,
+        onSelect: onSelectFiles,
       };
       const SelectorNode = (
         <Selector
@@ -229,13 +306,11 @@ const Upload = defineComponent({
       );
       const fileListProps = {
         type,
-        fileList: defaultFileList.value,
+        fileList: innerFileList.value,
         showUploadList,
         disabled,
-        onRemove: (data) => {
-          delete uploadTemp[data.file.uid];
-          emit("remove", data);
-        },
+        locale: locale.value,
+        onRemove: handleRemove,
       };
       const FileListNode = (
         <FileList

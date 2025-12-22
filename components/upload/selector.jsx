@@ -1,6 +1,4 @@
-import { ref, defineComponent, inject, computed } from "vue";
-import zhCN from "../locale/zh-CN";
-import { v4 as uuid } from "uuid";
+import { ref, defineComponent } from "vue";
 
 export default defineComponent({
   name: "Selector",
@@ -14,11 +12,9 @@ export default defineComponent({
     uploadText: String,
     uploadSubText: String,
     draggable: Boolean,
+    locale: Object,
     fileList: Array,
     uploadIcon: [String, Object, Array],
-    minSize: Number,
-    maxSize: Number,
-    autoTrigger: { type: Boolean, default: true },
     type: {
       type: String,
       default: "list",
@@ -26,102 +22,19 @@ export default defineComponent({
     },
   },
   setup(ps, { emit, slots }) {
-    const injectedLocale = inject("locale", zhCN);
-
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
-    });
     const dragOver = ref(false);
     const uploadFileRef = ref(null);
-    const defaultFileList = ref(ps.fileList || []);
     const onDragEnter = (e) => {
       dragOver.value = true;
       e.preventDefault();
       return false;
     };
-    const formatFileSize = (fileSize) => {
-      var temp = 0;
-      if (fileSize < 1024) {
-        return fileSize + "B";
-      } else if (fileSize < 1024 * 1024) {
-        temp = fileSize / 1024;
-        return temp.toFixed(2) + "KB";
-      } else if (fileSize < 1024 * 1024 * 1024) {
-        temp = fileSize / (1024 * 1024);
-        return temp.toFixed(2) + "MB";
-      } else {
-        temp = fileSize / (1024 * 1024 * 1024);
-        return temp.toFixed(2) + "GB";
-      }
-    };
+
     const selectFiles = (e) => {
-      let { limit, minSize, maxSize, autoTrigger } = ps;
       let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-
-      for (let i = 0; i < files.length; i++) {
-        let { size, type } = files[i];
-        if (files[i].name == ".DS_Store") {
-          continue;
-        }
-
-        let item = {
-          uid: uuid(),
-          filename: files[i].name,
-          size: formatFileSize(size),
-          status: "wait",
-          percent: 0,
-          preview: null,
-        };
-
-        emit("select", { item, file: files[i] });
-
-        // uploadTemp[item.uid] = files[i];
-
-        if (limit && i > limit - 1) {
-          emit("exceed");
-          return;
-        }
-        if ((type || "").indexOf("image/") >= 0) {
-          item.preview = window.URL.createObjectURL(files[i]);
-        }
-
-        let error = false;
-        if (
-          (minSize !== undefined && minSize >= 0 && size / 1024 < minSize) ||
-          (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
-        ) {
-          error = true;
-          item.errorText = locale?.value.k.upload.errorFileSize;
-          item.status = "error";
-        }
-
-        defaultFileList.value.push(item);
-
-        emit("before-upload", {
-          file: item,
-          fileList: defaultFileList.value,
-        });
-
-        if (error) {
-          emit("change", {
-            file: item,
-            fileList: defaultFileList.value,
-          });
-          emit("size-error", {
-            file: item,
-            fileList: defaultFileList.value,
-          });
-          continue;
-        }
-
-        if (autoTrigger) {
-          emit("upload", { item, file: files[i] });
-          // uploadFile(item, files[i]);
-        }
-      }
+      emit("select", files);
       e.target.value = "";
+      e.preventDefault();
     };
     const onDrop = (e) => {
       selectFiles(e);
@@ -169,10 +82,9 @@ export default defineComponent({
         onClick: triggerSelect,
       };
       let showSelector =
-        (isPicture && limit && limit > defaultFileList.value.length) ||
+        (isPicture && limit && limit > (ps.fileList?.length || 0)) ||
         !isPicture ||
         !limit;
-      // console.log(type, isPicture, draggable);
       return showSelector ? (
         <div class="k-upload-select">
           <div class="k-upload-add" {...addProps}>
@@ -197,7 +109,9 @@ export default defineComponent({
             ) : null}
             {draggable && uploadSubText ? (
               <span class="k-upload-sub-text">
-                {dragOver.value ? "松手开始上传" : uploadSubText}
+                {dragOver.value
+                  ? ps.locale?.k.upload.releaseToUpload
+                  : uploadSubText}
               </span>
             ) : null}
           </div>
