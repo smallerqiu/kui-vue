@@ -5,14 +5,12 @@
 
 ```vue
 <template>
-  <div>
-    Select: <br /><br />
+  <Space vertical block>
+    Select:
     <Select :width="220" />
-    <br />
-    <br />
-    Table: <br /><br />
+    Table: 
     <Table :data="[]" :columns="columns" />
-  </div>
+  </Space>
 </template>
 <script setup>
 const columns = [{ title: "Name" }, { title: "Age" }];
