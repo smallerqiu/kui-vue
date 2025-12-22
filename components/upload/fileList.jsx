@@ -1,6 +1,5 @@
 import { ref, defineComponent, inject, computed } from "vue";
 import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
-import zhCN from "../locale/zh-CN";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
@@ -11,6 +10,7 @@ export default defineComponent({
   name: "UploadFileList",
   props: {
     showUploadList: { type: Boolean, default: true },
+    locale: Object,
     type: {
       type: String,
       default: "list",
@@ -19,17 +19,7 @@ export default defineComponent({
     fileList: Array,
     disabled: Boolean,
   },
-  setup(ps, { emit, slots }) {
-    const injectedLocale = inject("locale", zhCN);
-
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
-    });
-
-    const defaultFileList = ref(ps.fileList || []);
-
+  setup(ps, { emit, slots }) { 
     const getPreview = (item) => {
       if (item.preview == true && item.url) {
         return <img src={item.url} />;
@@ -45,15 +35,11 @@ export default defineComponent({
 
     const remove = (i) => {
       if (ps.disabled) return false;
-      let item = defaultFileList.value[i];
-      defaultFileList.value.splice(i, 1);
-
-      // delete uploadTemp[item.uid];
+      let item = ps.fileList[i];
       if (item.xhr) item.xhr.abort();
-
       emit("remove", {
+        index: i,
         file: item,
-        fileList: defaultFileList.value,
       });
     };
 
@@ -63,11 +49,11 @@ export default defineComponent({
 
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
-          {defaultFileList.value.map((item, i) => {
+          {(ps.fileList || []).map((item, i) => {
             let statusText =
               item.status == "success"
-                ? locale?.value.k.upload.successful
-                : item.errorText || locale?.value.k.upload.failed;
+                ? ps.locale?.k.upload.successful
+                : item.errorText || ps.locale?.k.upload.failed;
             delete item.errorText;
             item.uid = item.uid || uuid();
             return (

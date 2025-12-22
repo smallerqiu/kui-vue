@@ -49,6 +49,7 @@ export default {
       successful: "thành công",
       failed: "thất bại",
       errorFileSize: "Phạm vi bất hợp pháp",
+      releaseToUpload: "Thả ra để bắt đầu tải lên",
     },
     image: {
       preview: "Xem thử",
