@@ -18,7 +18,7 @@ const Checkbox = defineComponent({
 
     // [Vue 3 Upgrade]: Vue 2 use checked & model
     checked: {
-      type: Boolean,
+      type: [Boolean, Number],
       default: false,
     },
 

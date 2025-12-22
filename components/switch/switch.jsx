@@ -10,7 +10,7 @@ const Switch = defineComponent({
   },
   props: {
     checked: {
-      type: Boolean,
+      type: [Boolean, Number],
       default: false,
     },
     // checked: [Boolean, Number], //for 3
