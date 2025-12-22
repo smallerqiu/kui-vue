@@ -5,8 +5,6 @@
 
 ```vue
 <template>
-  <div>
-    <Empty />
-  </div>
+  <Empty />
 </template>
 ```
