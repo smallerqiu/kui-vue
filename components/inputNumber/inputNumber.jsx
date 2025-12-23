@@ -1,211 +1,187 @@
+import { ref, defineComponent, watch, inject, computed } from "vue";
+import Big from "big.js";
 import Input from "../input/input";
 import Icon from "../icon";
 import { withInstall } from "../utils/vue";
-import {
-  add,
-  subtract,
-  toFixed,
-  isValidNumber,
-  isEmpty,
-  toDecimalString,
-} from "../utils/number";
-import { ChevronUp } from "kui-icons";
-import { ref, defineComponent, watch, inject } from "vue";
+import { ChevronUp, ChevronDown } from "kui-icons";
 import { sizeMap, filterSize } from "../utils/size";
+import {
+  isRealNum,
+  normalize,
+  safeNormalize,
+  isValidBig,
+} from "../utils/number";
+
 const InputNumber = defineComponent({
   name: "InputNumber",
   props: {
-    modelValue: [Array, Number, String],
-    value: [Array, Number, String],
+    modelValue: [Number, String],
+    value: [Number, String],
     min: { type: Number, default: -Infinity },
     max: { type: Number, default: Infinity },
-    disabled: Boolean,
-    clearable: Boolean,
-    readonly: Boolean,
+    step: { type: Number, default: 1 },
+    precision: Number,
     formatter: Function,
     parser: Function,
+    disabled: Boolean,
+    readonly: Boolean,
+    controls: { type: Boolean, default: true },
+    suffix: String,
+    prefix: String,
+    icon: [String, Array],
     size: {
       type: String,
       validator(value) {
         return sizeMap.indexOf(value) >= 0;
       },
     },
-    precision: Number,
-    suffix: String,
-    prefix: String,
-    controls: { type: Boolean, default: true },
-    keyboard: { type: Boolean, default: true },
-    step: {
-      type: Number,
-      default: 1,
-    },
-    theme: String,
-    // placeholder: String,
-    icon: [String, Array],
-    id: String,
+    placeholder: String,
   },
-  setup(ps, { slots, attrs, emit, listeners }) {
+  emits: ["update:modelValue", "change", "blur"],
+
+  setup(props, { slots, attrs, emit }) {
     const parentSize = inject("size", null);
-    const getValue = (v, edge, sync) => {
-      let input = "";
-      let output = "";
 
-      let { min, max, precision, formatter, parser } = ps;
+    // 内部存储的合法字符串值
+    const innerValue = ref("");
+    // 用户正在输入时的原始字符串（如 "001"）
+    const userInput = ref(null);
 
-      if (!isValidNumber(v)) {
-        if (isEmpty(v)) {
-          input = "";
-          output = "";
-        } else {
-          input = String(v);
-          output = formatter ? parser?.(String(v)) || v : String(v);
-        }
-      } else {
-        if (/e/i.test(v) && sync) {
-          v = toDecimalString(v);
-        }
-        input = String(v);
-        output = v;
+    // 边界与精度处理函数
+    const clamp = (val) => {
+      if (!isValidBig(val)) {
+        // 如果输入为空，返回空；如果是 "-" 这种中间态，返回当前值或空，防止报错
+        return val === "" ? "" : innerValue.value;
       }
-      if (formatter) {
-        const value = parser?.(String(input)) || input;
-        input = formatter(String(value));
-      }
-      if (edge) {
-        if (precision > 0) {
-          output = toFixed(output, precision);
-        }
-        if (output > max) {
-          output = max;
-          input = formatter?.(String(max)) || max;
-        } else if (output < min) {
-          output = min;
-          input = formatter?.(String(min)) || min;
-        }
-      }
-      // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
-      return { input, output };
-    };
-    // output is the truth value
-    // input is the show text
-    const { input, output } = getValue(ps.modelValue || ps.value);
 
-    const inputValue = ref(input);
-    const outputValue = ref(output);
+      try {
+        let b = new Big(val);
 
-    const calcValue = (e, isUp) => {
-      if (ps.disabled) return;
-      const { step } = ps;
-      if (!isValidNumber(outputValue.value) || isEmpty(outputValue.value)) {
-        outputValue.value = 0;
-      }
-      let value =
-        isUp == 1
-          ? add(String(outputValue.value), String(step))
-          : subtract(String(outputValue.value), String(step));
-      const { input, output } = getValue(value, true);
+        // 关键点 2: 比较前再次确保边界值也是有效的数字
+        if (props.max !== Infinity && b.gt(props.max)) b = new Big(props.max);
+        if (props.min !== -Infinity && b.lt(props.min)) b = new Big(props.min);
 
-      // return
-      inputValue.value = input;
-      outputValue.value = output;
-      e.preventDefault();
-
-      emit("update:modelValue", output);
-      emit("change", { target: { value: output } });
-    };
-
-    const onKeyDown = (e) => {
-      if (!ps.keyboard) return;
-      if (e.key === "ArrowUp") {
-        calcValue(e, 1);
-      } else if (e.key === "ArrowDown") {
-        calcValue(e, 0);
+        return props.precision !== undefined
+          ? b.toFixed(props.precision)
+          : b.toFixed();
+      } catch (e) {
+        return innerValue.value; // 发生意外错误时兜底，返回上一次合法值
       }
     };
-    const onUpdate = (e) => {
-      const v = e; //.target.value;
-      const { input, output } = getValue(v, false, false);
-      inputValue.value = input;
-      // e.target.value = input;
 
-      if (!isValidNumber(output) && !isEmpty(v)) {
-        return;
-      }
-      const { max, min } = ps;
-      if ((output && output > max) || (output && output < min)) {
-        return;
-      }
-      outputValue.value = output;
-      emit("update:modelValue", output);
-    };
+    // 监听外部 modelValue 变化
     watch(
-      () => ps.modelValue,
-      (v) => {
-        const { input, output } = getValue(v, false);
-
-        inputValue.value = input;
-        outputValue.value = output;
-      }
+      () => props.modelValue,
+      (val) => {
+        const next = normalize(val, props.precision);
+        if (next !== innerValue.value) {
+          innerValue.value = next;
+        }
+      },
+      { immediate: true }
     );
-    const blurHandle = (e) => {
-      const { input, output } = getValue(outputValue.value, true, true);
-      // console.log(input, output)
-      inputValue.value = input;
-      outputValue.value = output;
+
+    // 计算最终显示在 Input 里的字符串
+    const displayValue = computed(() => {
+      // 如果用户正在输入，显示用户的原始输入
+      if (userInput.value !== null) return userInput.value;
+
+      if (innerValue.value === "") return "";
+      return props.formatter
+        ? props.formatter(innerValue.value)
+        : innerValue.value;
+    });
+
+    const triggerUpdate = (val) => {
+      const clampedStr = clamp(val);
+      innerValue.value = clampedStr;
+      userInput.value = null;
+
+      const output = clampedStr === "" ? undefined : Number(clampedStr);
       emit("update:modelValue", output);
-      emit("blur", e);
+      emit("change", output);
     };
+
+    const handleInput = (val) => {
+      userInput.value = val; // 允许用户输入 "-", "00", "." 等中间状态
+
+      const parsed = props.parser ? props.parser(val) : val;
+
+      // 只有当解析出的是完整合法的数字时，才更新内部 innerValue
+      if (isValidBig(parsed)) {
+        innerValue.value = safeNormalize(parsed, props.precision);
+      }
+    };
+
+    const handleBlur = (event) => {
+      triggerUpdate(
+        userInput.value !== null ? userInput.value : innerValue.value
+      );
+      emit("blur", event);
+    };
+
+    const stepAction = (type) => {
+      if (props.disabled || props.readonly) return;
+
+      const current = isRealNum(innerValue.value) ? innerValue.value : 0;
+      const b = new Big(current);
+      const step = new Big(props.step);
+
+      const next = type === "up" ? b.plus(step) : b.minus(step);
+      triggerUpdate(next.toFixed());
+    };
+
     return () => {
-      // const { suffix } = ps;
-      const props = {
+      const inputProps = {
         ...attrs,
-        readonly: ps.readonly,
-        // ...ps,
-        inputType: "input-number",
-        modelValue: inputValue.value,
+        modelValue: displayValue.value,
+        disabled: props.disabled,
+        readonly: props.readonly,
         clearable: false,
-        size: ps.size || filterSize(parentSize),
-        disabled: ps.disabled,
-        suffix: ps.suffix,
-        prefix: ps.prefix,
-        icon: ps.icon,
-        theme: ps.theme,
-        // placeholder: ps.placeholder,
-        // ...listeners,
-        "onUpdate:modelValue": (e) => {
-          onUpdate(e);
+        placeholder: props.placeholder,
+        suffix: props.suffix,
+        prefix: props.prefix,
+        size: props.size || filterSize(parentSize),
+        icon: props.icon,
+        theme: props.theme,
+        inputType: "input-number",
+        "onUpdate:modelValue": handleInput,
+        onBlur: handleBlur,
+        onKeydown: (e) => {
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            stepAction("up");
+          }
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            stepAction("down");
+          }
         },
-        onChange: (e) => {},
-        onBlur: (e) => blurHandle(e),
-        onKeydown: (e) => onKeyDown(e),
       };
+
       return (
         <Input
-          {...props}
+          {...inputProps}
           v-slots={{
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),
             controls: () =>
-              ps.controls && !ps.readonly && !ps.disabled ? (
+              props.controls &&
+              !props.readonly && (
                 <div class="k-input-number-controls">
-                  <span
-                    class="k-input-number-control"
-                    onClick={(e) => calcValue(e, 1)}
-                  >
+                  <span class="control-btn" onClick={() => stepAction("up")}>
                     <Icon type={ChevronUp} />
                   </span>
-                  <span
-                    class="k-input-number-control"
-                    onClick={(e) => calcValue(e)}
-                  >
-                    <Icon type={ChevronUp} />
+                  <span class="control-btn" onClick={() => stepAction("down")}>
+                    <Icon type={ChevronDown} />
                   </span>
                 </div>
-              ) : null,
+              ),
           }}
         />
       );
     };
   },
 });
+
 export default withInstall(InputNumber);

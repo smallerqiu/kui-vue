@@ -21,20 +21,20 @@ export function toDecimalString(num) {
   if (!/e/i.test(str)) return num;
   return Number(num)
     .toFixed(20)
-    .replace(/\.?0+$/, "")
+    .replace(/\.?0+$/, "");
 }
 // console.log(toDecimalString(1e3-10))
 
 // 获取小数长度
-export function getDecimalLength(numStr="") {
+export function getDecimalLength(numStr = "") {
   const parts = numStr.toString().split(".");
   return parts[1] ? parts[1].length : 0;
 }
 
 // 加法
 export function add(a, b) {
-  const aStr = toDecimalString(a)
-  const bStr = toDecimalString(b)
+  const aStr = toDecimalString(a);
+  const bStr = toDecimalString(b);
   const maxLen = Math.max(getDecimalLength(aStr), getDecimalLength(bStr));
   const factor = Math.pow(10, maxLen);
   const result =
@@ -80,3 +80,41 @@ export function toFixed(value, n) {
 
 export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
+import Big from "big.js";
+
+export const isRealNum = (val) => {
+  if (val === null || val === "" || Array.isArray(val)) return false;
+  try {
+    new Big(val);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const normalize = (val, precision) => {
+  if (!isRealNum(val)) return "";
+  const b = new Big(val);
+  // precision 为空时返回原始精度字符串，否则强制截断/四舍五入
+  return precision !== undefined ? b.toFixed(precision) : b.toFixed();
+};
+
+export const isValidBig = (val) => {
+  if (val === null || val === undefined || val === "") return false;
+
+  // 过滤掉只有符号或只有小数点的中间状态
+  const str = String(val).trim();
+  if (str === "-" || str === "." || str === "-.") return false;
+
+  try {
+    new Big(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+export const safeNormalize = (val, precision) => {
+  if (!isValidBig(val)) return "";
+  const b = new Big(val);
+  return precision !== undefined ? b.toFixed(precision) : b.toFixed();
+};
