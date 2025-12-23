@@ -1,5 +1,4 @@
 import { ref, reactive, watch, defineComponent, inject, computed } from "vue";
-import { Add } from "kui-icons";
 import { withInstall } from "../utils/vue";
 import Selector from "./selector";
 import FileList from "./fileList";
@@ -35,7 +34,15 @@ const Upload = defineComponent({
     uploadIcon: [String, Object, Array],
     draggable: Boolean,
   },
-  emits: ["remove", "exceed", "before-upload", "change", "size-error"],
+  emits: [
+    "remove",
+    "exceed",
+    "beforeUpload",
+    "change",
+    "sizeError",
+    "update:fileList",
+    "onSelectFiles",
+  ],
   setup(props, { emit, slots, expose }) {
     const injectedLocale = inject("locale", zhCN);
 
@@ -52,7 +59,8 @@ const Upload = defineComponent({
       () => props.fileList,
       (newVal) => {
         innerFileList.value = newVal || [];
-      }
+      },
+      { deep: true }
     );
     const formatFileSize = (fileSize) => {
       var temp = 0;
@@ -69,19 +77,24 @@ const Upload = defineComponent({
         return temp.toFixed(2) + "GB";
       }
     };
+
+    const triggerUpdate = (fileItem) => {
+      emit("update:fileList", innerFileList.value);
+      emit("change", { file: fileItem, fileList: innerFileList.value });
+    };
     const onSelectFiles = (files) => {
       const currentCount = innerFileList.value?.length;
       const { limit, minSize, maxSize } = props;
       for (let i = 0; i < files.length; i++) {
-        let { size, type } = files[i];
-        if (files[i].name == ".DS_Store") {
+        const file = files[i];
+        if (file.name == ".DS_Store") {
           continue;
         }
 
         let item = {
           uid: uuid(),
-          filename: files[i].name,
-          size: formatFileSize(size),
+          filename: file.name,
+          size: formatFileSize(file.size),
           status: "wait",
           percent: 0,
           preview: null,
@@ -91,54 +104,59 @@ const Upload = defineComponent({
           emit("exceed");
           return;
         }
-        if ((type || "").indexOf("image/") >= 0) {
-          item.preview = window.URL.createObjectURL(files[i]);
+        if ((file.type || "").indexOf("image/") >= 0) {
+          item.preview = window.URL.createObjectURL(file);
         }
 
         if (
-          (minSize !== undefined && minSize >= 0 && size / 1024 < minSize) ||
-          (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
+          (minSize !== undefined &&
+            minSize >= 0 &&
+            file.size / 1024 < minSize) ||
+          (maxSize !== undefined && maxSize >= 0 && file.size / 1024 > maxSize)
         ) {
           item.errorText = locale?.value.k.upload.errorFileSize;
           item.status = "error";
-
-          emit("change", {
-            file: item,
-            fileList: innerFileList.value,
-          });
-          emit("size-error", {
+          innerFileList.value.push(item);
+          triggerUpdate(item);
+          emit("sizeError", {
             file: item,
             fileList: innerFileList.value,
           });
           continue;
         }
 
-        emit("before-upload", {
-          file: item,
-          fileList: innerFileList.value,
-        });
-        handleSelect({ item, file: files[i] });
+        handleSelect({ item, file });
       }
+
+      emit("onSelectFiles", innerFileList.value);
     };
     // 处理 Selector 发来的选择事件
     const handleSelect = ({ item, file }) => {
       innerFileList.value.push(item);
-      uploadTemp[item.uid] = file;
 
-      emit("update:fileList", innerFileList.value);
-      emit("change", { file: item, fileList: innerFileList.value });
+      const reactiveItem = innerFileList.value.find((x) => x.uid === item.uid);
+      if (!reactiveItem) return;
+
+      uploadTemp[reactiveItem.uid] = file;
+      triggerUpdate(reactiveItem);
 
       if (props.autoTrigger) {
-        uploadFile(item, file);
+        uploadFile(reactiveItem, file);
       }
     };
 
     // 处理 FileList 发来的移除事件
     const handleRemove = ({ index, file }) => {
+      const item = innerFileList.value[index];
+      if (!item) return;
+
+      if (item.xhr) {
+        item.xhr.abort();
+      }
+
       innerFileList.value.splice(index, 1);
       delete uploadTemp[file.uid];
 
-      // 释放内存
       if (file.preview) window.URL.revokeObjectURL(file.preview);
 
       emit("update:fileList", innerFileList.value);
@@ -147,21 +165,27 @@ const Upload = defineComponent({
 
     const upload = () => {
       if (!props.autoTrigger && !props.disabled) {
-        let files = uploadTemp;
-        for (let k in files) {
-          let item = innerFileList.value.filter((x) => x.uid == k)[0];
-          item && uploadFile(item, files[k]);
-        }
+        Object.keys(uploadTemp).forEach((uid) => {
+          const item = innerFileList.value.find((x) => x.uid === uid);
+          const file = uploadTemp[uid];
+          if (item && file && item.status === "wait") {
+            uploadFile(item, file);
+          }
+        });
       }
     };
 
     const uploadFile = async (item, file) => {
+      emit("beforeUpload", {
+        file: item,
+        fileList: innerFileList.value,
+      });
       if (props.transformFile) {
-        const promise = props.transformFile(file);
-        if (promise && promise.then) {
-          promise.then((f) => {
-            toUpload(item, f);
-          });
+        const result = props.transformFile(file);
+        if (result instanceof Promise) {
+          result.then((f) => toUpload(item, f));
+        } else {
+          toUpload(item, result);
         }
       } else {
         toUpload(item, file);
@@ -169,89 +193,71 @@ const Upload = defineComponent({
     };
 
     const toUpload = (item, file) => {
-      let { action, name, headers, data } = props;
-      var formdata = new FormData();
+      const { action, name, headers, data } = props;
+      const formdata = new FormData();
       formdata.append(name, file);
 
       if (data) {
-        for (let k in data) {
+        for (const k in data) {
           formdata.append(k, data[k]);
         }
       }
 
-      //创建xhr，使用ajax进行文件上传
-      var xhr = new XMLHttpRequest();
-      item.xhr = xhr;
+      const xhr = new XMLHttpRequest();
+      item.xhr = xhr; // 将 xhr 挂载到对象上以便取消
 
       xhr.open("post", action);
       if (headers) {
-        for (let k in headers) {
+        for (const k in headers) {
           xhr.setRequestHeader(k, headers[k]);
         }
       }
 
-      //回调
-      xhr.onreadystatechange = (event) => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          item.status = "success";
-          delete uploadTemp[item.uid];
-          emit("change", {
-            file: Object.assign(item, {
-              response: JSON.parse(xhr.responseText),
-            }),
-            fileList: innerFileList.value,
-            event,
-          });
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            item.status = "success";
+            item.percent = 100; // 确保完成是 100%
+            try {
+              item.response = JSON.parse(xhr.responseText);
+            } catch (e) {
+              item.response = xhr.responseText;
+            }
+            delete uploadTemp[item.uid];
+            triggerUpdate(item);
+          } else {
+            // 处理非 200 的完成状态
+            handleError();
+          }
         }
       };
 
-      xhr.upload.onloadstart = () => (item.status = "uploading");
+      xhr.upload.onloadstart = () => {
+        item.status = "uploading";
+        triggerUpdate(item);
+      };
 
-      //获取上传的进度
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable) {
-          var percent = (event.loaded / event.total) * 100;
-          item.percent = percent;
-        }
-        emit("change", {
-          file: Object.assign(item, { response: xhr.responseText }),
-          fileList: innerFileList.value,
-          event,
-        });
-      };
-
-      xhr.onload = (event) => {
-        if (xhr.status != 200) {
-          item.status = "error";
-          delete uploadTemp[item.uid];
-
-          emit("change", {
-            file: Object.assign(item, { response: xhr.responseText }),
-            fileList: innerFileList.value,
-            event: event,
-          });
+          // 直接修改响应式对象，Vue 会自动更新 UI
+          item.percent = (event.loaded / event.total) * 100;
         }
       };
 
-      xhr.onerror = (event) => {
+      const handleError = () => {
         item.status = "error";
         delete uploadTemp[item.uid];
-
-        emit("change", {
-          file: Object.assign(item, { response: xhr.responseText }),
-          fileList: innerFileList.value,
-          event: event,
-        });
+        triggerUpdate(item);
       };
 
-      //将formdata上传
+      xhr.onerror = handleError;
       xhr.send(formdata);
     };
 
     expose({ upload });
 
     return () => {
-      let {
+      const {
         type,
         showUploadList,
         uploadIcon,
@@ -266,21 +272,7 @@ const Upload = defineComponent({
         disabled,
       } = props;
 
-      let isPicture = type == "picture";
-      if (uploadIcon === undefined) {
-        uploadIcon = Add;
-      }
-
-      const propsData = {
-        class: [
-          "k-upload",
-          {
-            ["k-upload-disabled"]: disabled,
-            ["k-upload-picture"]: isPicture,
-            ["k-upload-drag"]: draggable,
-          },
-        ],
-      };
+      const isPicture = type === "picture";
 
       const selectorProps = {
         type,
@@ -319,7 +311,16 @@ const Upload = defineComponent({
         />
       );
       return (
-        <div {...propsData}>
+        <div
+          class={[
+            "k-upload",
+            {
+              "k-upload-disabled": disabled,
+              "k-upload-picture": isPicture,
+              "k-upload-drag": draggable,
+            },
+          ]}
+        >
           {!isPicture ? [SelectorNode, FileListNode] : FileListNode}
         </div>
       );

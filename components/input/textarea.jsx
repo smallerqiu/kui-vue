@@ -3,15 +3,16 @@ import { withInstall } from "../utils/vue";
 const TextArea = defineComponent({
   name: "TextArea",
   props: {
+    modelValue: [String, Number, Object, Array],
     value: [String, Number, Object, Array],
     theme: String,
     size: String,
     disabled: Boolean,
   },
   setup(ps, { attrs, emit, listeners }) {
-    const currentValue = ref(ps.value);
+    const currentValue = ref(ps.modelValue || ps.value);
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentValue.value = v;
       }
@@ -30,14 +31,12 @@ const TextArea = defineComponent({
         ],
         ...attrs,
         disabled,
-        domProps: {
-          value: currentValue.value,
-        },
+        value: currentValue.value,
         ...listeners,
         onInput: (e) => {
           const v = e.target.value;
           // currentValue.value = v;
-          emit("update:value", v);
+          emit("update:modelValue", v);
         },
         // onInput: (e) => {
         //   // todo: not update value

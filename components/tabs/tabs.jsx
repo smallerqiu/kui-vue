@@ -17,13 +17,14 @@ const Tabs = defineComponent({
   props: {
     // activeKey: [String,Number], // for 3
     modelValue: [String, Number],
+    value: [String, Number],
     card: Boolean,
     sample: Boolean,
     centered: Boolean,
     animated: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    const defaultActiveKey = ref(ps.modelValue);
+    const defaultActiveKey = ref(ps.modelValue || ps.value);
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
@@ -131,13 +132,15 @@ const Tabs = defineComponent({
     };
     const tabClick = ({ disabled, key }, index) => {
       if (!disabled) {
-        emit("update:value", key);
+        emit("update:modelValue", key);
         // emit("update:activeKey", key);
         emit("tab-click", key);
-        defaultActiveKey.value = key;
-        currentIndex.value = index;
-        emit("change", key);
-        updateIndex(); // for 2
+        if (defaultActiveKey.value !== key) {
+          defaultActiveKey.value = key;
+          currentIndex.value = index;
+          updateIndex();
+          emit("change", key);
+        }
       }
     };
     const updateIndex = () => {

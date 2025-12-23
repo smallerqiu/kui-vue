@@ -1,4 +1,6 @@
 import { ref, defineComponent } from "vue";
+import Icon from "../icon";
+import { Add } from "kui-icons";
 
 export default defineComponent({
   name: "Selector",
@@ -21,7 +23,7 @@ export default defineComponent({
       validator: (val) => ["list", "picture"].indexOf(val) >= 0,
     },
   },
-  setup(ps, { emit, slots }) {
+  setup(props, { emit, slots }) {
     const dragOver = ref(false);
     const uploadFileRef = ref(null);
     const onDragEnter = (e) => {
@@ -29,37 +31,37 @@ export default defineComponent({
       e.preventDefault();
       return false;
     };
+    const onDragLeave = () => {
+      dragOver.value = false;
+    };
 
     const selectFiles = (e) => {
-      let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-      emit("select", files);
-      e.target.value = "";
+      const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+      if (files && files.length > 0) {
+        emit("select", files);
+      }
+      e.target.value = ""; // 清空 input 防止重复选同文件不触发 change
       e.preventDefault();
+      dragOver.value = false;
     };
     const onDrop = (e) => {
       selectFiles(e);
-      e.preventDefault();
-      dragOver.value = false;
       return false;
     };
 
     const onDragOver = (e) => {
       e.stopPropagation();
       e.preventDefault();
+      dragOver.value = true;
     };
 
     const triggerSelect = (e) => {
-      e.cancelBubble = true;
-      if (ps.disabled) return false;
-
-      if (uploadFileRef.value) {
-        uploadFileRef.value.click();
-      }
-      return false;
+      if (props.disabled) return;
+      uploadFileRef.value?.click();
     };
 
     return () => {
-      let {
+      const {
         name,
         accept,
         multiple,
@@ -71,23 +73,26 @@ export default defineComponent({
         draggable,
         uploadIcon,
         type,
-      } = ps;
+        fileList,
+        locale,
+      } = props;
       let isPicture = type == "picture";
+      const isLimitExceeded = limit && fileList && fileList.length >= limit;
+      const showSelector = !isPicture || !isLimitExceeded;
+      if (!showSelector) return null;
+
       let addProps = {
-        drag: draggable && dragOver.value ? "over" : null,
-        onDragenter: onDragEnter,
-        onDrop: onDrop,
-        onDragover: onDragOver,
-        onDragleave: () => (dragOver.value = false),
+        class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
+        onDragenter: draggable ? onDragEnter : null,
+        onDrop: draggable ? onDrop : null,
+        onDragover: draggable ? onDragOver : null,
+        onDragleave: draggable ? onDragLeave : null,
         onClick: triggerSelect,
       };
-      let showSelector =
-        (isPicture && limit && limit > (ps.fileList?.length || 0)) ||
-        !isPicture ||
-        !limit;
+
       return showSelector ? (
         <div class="k-upload-select">
-          <div class="k-upload-add" {...addProps}>
+          <div {...addProps}>
             <input
               type="file"
               class="k-upload-file"
@@ -100,20 +105,20 @@ export default defineComponent({
               ref={uploadFileRef}
             />
             {isPicture || draggable ? (
-              <Icon type={uploadIcon} />
+              <Icon type={uploadIcon || Add} />
             ) : (
               slots.default?.()
             )}
-            {isPicture || (draggable && uploadText) ? (
+            {(isPicture || (draggable && uploadText)) && (
               <span class="k-upload-text">{uploadText}</span>
-            ) : null}
-            {draggable && uploadSubText ? (
+            )}
+            {draggable && uploadSubText && (
               <span class="k-upload-sub-text">
                 {dragOver.value
-                  ? ps.locale?.k.upload.releaseToUpload
+                  ? locale?.k.upload.releaseToUpload
                   : uploadSubText}
               </span>
-            ) : null}
+            )}
           </div>
         </div>
       ) : null;

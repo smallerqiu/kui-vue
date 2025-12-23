@@ -8,28 +8,26 @@
   <div>
     <Row>
       <Col :span="12">
-        <Slider v-model:value="n1" :min="1" :max="20" />
+        <Slider v-model="n1" :min="1" :max="20" />
       </Col>
       <Col :span="4">
         <InputNumber
           v-model="n1"
           :min="1"
           :max="20"
-          style="margin-left: 16px"
         />
       </Col>
     </Row>
     <Row>
       <Col :span="12">
-        <Slider v-model:value="n2" :min="0" :max="1" :step="0.01" />
+        <Slider v-model="n2" :min="0" :max="1" :step="0.01" />
       </Col>
       <Col :span="4">
         <InputNumber
-          v-model:value="n2"
+          v-model="n2"
           :min="0"
           :max="1"
           :step="0.01"
-          style="margin-left: 16px"
         />
       </Col>
     </Row>

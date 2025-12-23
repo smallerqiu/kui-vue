@@ -4,6 +4,7 @@
 
 | 属性                 | 说明                                     | 类型                                              | 默认值   |
 | -------------------- | ---------------------------------------- | ------------------------------------------------- | -------- |
+| v-model(:modelValue) | 当前选中的菜单项                         | String[]                                          | []       |
 | theme                | 主题颜色                                 | String: light dark                                | light    |
 | v-model:openKeys     | 当前展开的 SubMenu 菜单项 key 数组       | String[]                                          | -        |
 | v-model:selectedKeys | 当前选中的菜单项，可使用 v-model 绑定    | String[]                                          | -        |

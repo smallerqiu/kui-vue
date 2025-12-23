@@ -128,6 +128,7 @@ const Input = defineComponent({
       } = ps;
       const slotSuffix = getChildren(slots.suffix?.());
       const slotPrefix = getChildren(slots.prefix?.());
+      const slotControls= getChildren(slots.controls?.());
       let multiple =
         (icon ||
           attrs.onSearch ||
@@ -137,7 +138,7 @@ const Input = defineComponent({
           prefix ||
           type == "password" ||
           clearable ||
-          slots.controls) &&
+          slotControls.length) &&
         type !== "hidden";
       const inputProps = {
         ...attrs,
@@ -228,7 +229,7 @@ const Input = defineComponent({
             <div class="k-input-group-suffix">{slotSuffix}</div>
           );
 
-        if (slots.controls) innerChildren.push(slots.controls?.());
+        if (slotControls.length) innerChildren.push(slotControls);
         return (
           <InputGroup size={size}>
             {preChildren}
@@ -264,7 +265,7 @@ const Input = defineComponent({
             />
           );
         if (suffixNode) children.push(suffixNode);
-        if (slots.controls) children.push(slots.controls?.());
+        if (slotControls.length) children.push(slotControls);
 
         return (
           <div {...props} mult>
