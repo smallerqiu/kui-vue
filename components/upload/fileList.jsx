@@ -1,10 +1,9 @@
-import { ref, defineComponent, inject, computed } from "vue";
+import { defineComponent } from "vue";
 import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
 
-import { v4 as uuid } from "uuid";
 
 export default defineComponent({
   name: "UploadFileList",
@@ -19,50 +18,42 @@ export default defineComponent({
     fileList: Array,
     disabled: Boolean,
   },
-  setup(ps, { emit, slots }) { 
+  setup(props, { emit, slots }) {
     const getPreview = (item) => {
-      if (item.preview == true && item.url) {
-        return <img src={item.url} />;
-      }
-      if (item.preview) {
+      if (item.preview && typeof item.preview === "string") {
         return <img src={item.preview} />;
-      } else if (item.url) {
-        return <img src={item.url} />;
-      } else {
-        return null;
       }
+      if (item.url) {
+        return <img src={item.url} />;
+      }
+      return null;
     };
 
-    const remove = (i) => {
-      if (ps.disabled) return false;
-      let item = ps.fileList[i];
-      if (item.xhr) item.xhr.abort();
-      emit("remove", {
-        index: i,
-        file: item,
-      });
+    const handleRemove = (index, item) => {
+      if (props.disabled) return;
+      emit("remove", { index, file: item });
     };
 
     return () => {
-      let { showUploadList, type } = ps;
-      let isPicture = type == "picture";
+      const { showUploadList, type, fileList, locale } = props;
+      const isPicture = type === "picture";
+
+      if (!showUploadList && !isPicture) return null;
 
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
-          {(ps.fileList || []).map((item, i) => {
+          {fileList.map((item, i) => {
             let statusText =
               item.status == "success"
-                ? ps.locale?.k.upload.successful
-                : item.errorText || ps.locale?.k.upload.failed;
-            delete item.errorText;
-            item.uid = item.uid || uuid();
+                ? locale?.k.upload.successful
+                : item.errorText || locale?.k.upload.failed;
             return (
               <div
                 class={[
                   `k-upload-file-${type}-item`,
                   `k-upload-file-status-${item.status}`,
                 ]}
-                key={item.uid}
+                key={item.uid || i}
               >
                 <div
                   class={`k-upload-${isPicture ? "picture" : "file"}-preview`}
@@ -76,7 +67,7 @@ export default defineComponent({
                       <span class="k-upload-file-size">{item.size}</span>
                     </div>
                   ) : null}
-                  {item.status != "wait" ? (
+                  {item.status !== "wait" && (
                     <div class="k-upload-file-status">
                       {item.status == "uploading" ? (
                         <Progress
@@ -94,18 +85,18 @@ export default defineComponent({
                         </div>
                       ) : null}
 
-                      {isPicture && item.status == "error" ? (
+                      {isPicture && item.status == "error" && (
                         <Tooltip title={statusText} placement="bottom">
                           <Icon type={AlertCircle} />
                         </Tooltip>
-                      ) : null}
+                      )}
                     </div>
-                  ) : null}
+                  )}
                 </div>
                 <Icon
                   type={Close}
                   class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
-                  onClick={() => remove(i)}
+                  onClick={() => handleRemove(i, item)}
                 />
               </div>
             );

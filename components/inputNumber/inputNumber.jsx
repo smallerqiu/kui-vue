@@ -13,6 +13,7 @@ import { ChevronUp } from "kui-icons";
 import { ref, defineComponent, watch, inject } from "vue";
 import { sizeMap, filterSize } from "../utils/size";
 const InputNumber = defineComponent({
+  name: "InputNumber",
   props: {
     modelValue: [Array, Number, String],
     value: [Array, Number, String],
@@ -155,7 +156,7 @@ const InputNumber = defineComponent({
       emit("blur", e);
     };
     return () => {
-      // const { suffix } = ps; 
+      // const { suffix } = ps;
       const props = {
         ...attrs,
         readonly: ps.readonly,
@@ -171,7 +172,7 @@ const InputNumber = defineComponent({
         theme: ps.theme,
         // placeholder: ps.placeholder,
         // ...listeners,
-        "onUpdate:modelValue":(e)=>{
+        "onUpdate:modelValue": (e) => {
           onUpdate(e);
         },
         onChange: (e) => {},
@@ -185,7 +186,7 @@ const InputNumber = defineComponent({
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),
             controls: () =>
-              ps.controls && !ps.readonly ? (
+              ps.controls && !ps.readonly && !ps.disabled ? (
                 <div class="k-input-number-controls">
                   <span
                     class="k-input-number-control"

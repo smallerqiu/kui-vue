@@ -7,13 +7,14 @@ const Menu = defineComponent({
     theme: String,
     mode: { type: String, default: "vertical" },
     modelValue: { type: Array, default: () => [] },
+    value: { type: Array, default: () => [] },
     // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.modelValue || []); //props.selectedKeys || []);
+    const defaultSelectedKeys = ref(props.modelValue || props.value || []); //props.selectedKeys || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);

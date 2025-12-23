@@ -160,11 +160,11 @@ export function setPlacement({
 
   // 边界修正 (Safe Clamp) ---
   // 无论哪种模式，最后都要保证不飞出屏幕
-  if (calcLeft < 0) calcLeft = 0;
-  else if (calcLeft + pickerW > clientWidth) calcLeft = clientWidth - pickerW;
+  // if (calcLeft < 0) calcLeft = 0;
+  // else if (calcLeft + pickerW > clientWidth) calcLeft = clientWidth - pickerW;
 
-  if (calcTop < 0) calcTop = 0;
-  else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
+  // if (calcTop < 0) calcTop = 0;
+  // else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
 
   // 赋值
   top.value = calcTop + scrollTop;
