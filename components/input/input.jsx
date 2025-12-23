@@ -140,13 +140,13 @@ const Input = defineComponent({
         (icon ||
           // attrs.onSearch ||
           "search" in listeners ||
-          slotSuffix.length ||
+          slotSuffix.length > 0 ||
           suffix ||
-          slotPrefix.length ||
+          slotPrefix.length > 0 ||
           prefix ||
           type == "password" ||
           clearable ||
-          slotControls.length) &&
+          slotControls.length > 0) &&
         type !== "hidden";
       const inputProps = {
         attrs: { ...attrs },
