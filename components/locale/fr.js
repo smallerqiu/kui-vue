@@ -41,6 +41,7 @@ export default {
       placeholder: "Choisir",
       loading: "Chargement...",
       emptyText: "Aucune donnée",
+      releaseToUpload: "Relâchez pour commencer le téléversement",
     },
     table: {
       emptyText: "Aucune donnée",
