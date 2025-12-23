@@ -49,6 +49,7 @@ export default {
       successful: "성취",
       failed: "패하다",
       errorFileSize: "잘못된 파일 크기",
+      releaseToUpload: "놓으면 업로드가 시작됩니다.",
     },
     image: {
       preview: "미리 보기",
