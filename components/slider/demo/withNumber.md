@@ -15,7 +15,6 @@
           v-model="n1"
           :min="1"
           :max="20"
-          style="margin-left: 16px"
         />
       </Col>
     </Row>
@@ -29,7 +28,6 @@
           :min="0"
           :max="1"
           :step="0.01"
-          style="margin-left: 16px"
         />
       </Col>
     </Row>

@@ -137,10 +137,12 @@ const Tabs = defineComponent({
         emit("input", key);
         // emit("update:activeKey", key);
         emit("tab-click", key);
-        defaultActiveKey.value = key;
-        currentIndex.value = index;
-        emit("change", key);
-        updateIndex(); // for 2
+        if (defaultActiveKey.value !== key) {
+          defaultActiveKey.value = key;
+          currentIndex.value = index;
+          updateIndex();
+          emit("change", key);
+        }
       }
     };
     const updateIndex = () => {

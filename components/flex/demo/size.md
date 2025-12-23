@@ -6,13 +6,19 @@
 ```vue
 <template>
   <Flex vertical size="middle">
-    <RadioGroup v-model="flexSize">
+    <RadioGroup v-model="flexSize" @change="changeSize">
       <Radio value="small" label="small" />
       <Radio value="middle" label="middle" />
       <Radio value="large" label="large" />
     </RadioGroup>
-    <Checkbox v-model="customize" label="customize" />
-    <Slider v-model="flexSize" :step="1" :max="50" v-if="customize" />
+    <Checkbox v-model="isCustomize" label="customize" />
+    <Slider
+      v-model="customize"
+      :step="1"
+      :max="50"
+      v-if="isCustomize"
+      @change="changeSize"
+    />
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>
@@ -24,7 +30,10 @@
 <script setup>
 import { ref } from "vue";
 const flexSize = ref("small");
-const gap = ref(8);
-const customize = ref(false);
+const customize = ref(8);
+const isCustomize = ref(false);
+const changeSize = (value) => {
+  flexSize.value = value;
+};
 </script>
 ```
