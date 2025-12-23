@@ -275,39 +275,44 @@ const Upload = defineComponent({
       const isPicture = type === "picture";
 
       const selectorProps = {
-        type,
-        disabled,
-        name,
-        accept,
-        multiple,
-        directory,
-        limit,
-        uploadText,
-        uploadSubText,
-        draggable,
-        fileList: innerFileList.value,
-        uploadIcon,
-        locale: locale.value,
-        onSelect: onSelectFiles,
+        props: {
+          type,
+          disabled,
+          name,
+          accept,
+          multiple,
+          directory,
+          limit,
+          uploadText,
+          uploadSubText,
+          draggable,
+          fileList: innerFileList.value,
+          uploadIcon,
+          locale: locale.value,
+        },
+        on: { select: onSelectFiles },
       };
       const SelectorNode = (
         <Selector
           {...selectorProps}
-          v-slots={{ default: () => slots.default?.() }}
+          scopedSlots={{ default: () => slots.default?.() }}
         />
       );
       const fileListProps = {
-        type,
-        fileList: innerFileList.value,
-        showUploadList,
-        disabled,
-        locale: locale.value,
-        onRemove: handleRemove,
+        props: {
+          type,
+          fileList: innerFileList.value,
+          showUploadList,
+          disabled,
+          locale: locale.value,
+        },
+        on: { remove: handleRemove },
       };
+      console.log(innerFileList.value, 222);
       const FileListNode = (
         <FileList
           {...fileListProps}
-          v-slots={{ selector: () => SelectorNode }}
+          scopedSlots={{ selector: () => SelectorNode }}
         />
       );
       return (

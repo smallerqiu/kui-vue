@@ -34,10 +34,11 @@ export default defineComponent({
     };
 
     return () => {
-      const { showUploadList, type, fileList, locale } = props;
+      const { showUploadList, type, fileList=[], locale } = props;
       const isPicture = type === "picture";
 
       if (!showUploadList && !isPicture) return null;
+      console.log(fileList)
 
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
