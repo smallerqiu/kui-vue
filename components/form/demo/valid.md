@@ -151,7 +151,7 @@ const form = ref({
   repassword: "",
   phone: "",
   captcha: "",
-  slider: 5,
+  slider: 3,
   tree: "",
   gender: "",
   one: false,
@@ -195,7 +195,7 @@ const rules = {
     { required: true, message: "请输入验证码" },
   ],
   slider: [
-    { min: 3, message: "最小值为3" },
+    { min: 5, message: "最小值为5" },
     { max: 50, message: "最大值为50" },
   ],
   gender: [{ required: true, message: "请选择性别" }],
@@ -249,8 +249,8 @@ const sendCode = () => {
   }, 1000);
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
-    message[valid ? "success" : "error"](valid ? "success" : "faild");
+  formRef.value.validate(({ valid }) => {
+    message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {

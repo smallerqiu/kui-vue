@@ -40,7 +40,7 @@ export default defineComponent({
 
     const test = (rule) => {
       let isValid = valid.value;
-      const itemValue = Form.testProp?.(props.prop);
+      const itemValue = Form.getValueFromProp?.(props.prop);
       let msg = rule.message;
 
       if (rule.required) {
@@ -213,8 +213,10 @@ export default defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  const tag = child.type?.name || child.type;
-                  const value = prop ? Form.testProp?.(prop) : "";
+                  const tag = child.type?.name;
+                  const value = prop
+                    ? Form.getValueFromProp?.(prop) || undefined
+                    : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
                   const theme = propsData.theme || Form.theme;
@@ -229,34 +231,21 @@ export default defineComponent({
                   };
 
                   const childEvents = {};
-
                   if (prop) {
-                    if (
-                      [
-                        "Radio",
-                        "Checkbox",
-                        "Switch",
-                        "k-switch",
-                        "k-radio",
-                        "k-checkbox",
-                      ].includes(tag)
-                    ) {
+                    if (/(switch|radio|checkbox)/.test(tag)) {
                       childProps.checked = value || false;
                     } else {
-                      childProps.value = value;
+                      childProps.modelValue = value;
                     }
 
-                    childEvents.onInput = (value) => {
+                    childEvents["onUpdate:modelValue"] = (value) => {
                       if (tag) {
                         Form.updateMode?.(prop, value);
                         testValue();
                       }
                     };
                   }
-
-                  if (
-                    ["Input", "k-input", "TextArea", "k-textarea"].includes(tag)
-                  ) {
+                  if (/(input|textarea)/.test(tag)) {
                     childEvents.onBlur = () => {
                       testValue();
                     };
@@ -270,11 +259,13 @@ export default defineComponent({
                   return child;
                 }
               })}
-              <Transition name="k-form-item-fade">
-                {!valid.value ? (
-                  <div class="k-form-item-error-tip">{message.value}</div>
-                ) : null}
-              </Transition>
+              {prop ? (
+                <Transition name="k-form-item-fade">
+                  {!valid.value ? (
+                    <div class="k-form-item-error-tip">{message.value}</div>
+                  ) : null}
+                </Transition>
+              ) : null}
             </div>
           </Col>
         </Row>

@@ -39,6 +39,7 @@ const Form = defineComponent({
     shape: String,
     disabled: Boolean,
   },
+  emits: ["submit", "change"],
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
     const formItems = ref({});
@@ -46,29 +47,17 @@ const Form = defineComponent({
     const { model, rules, size, shape, theme, disabled, layout, name } =
       toRefs(props);
 
-    const updateMode = (prop, value = "") => {
-      const keys = prop
-        .replace(/\[(\w+)\]/g, ".$1")
-        .replace(/^\./, "")
-        .split(".");
-      let currentModel = model.value || {};
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        if (key in currentModel) {
-          if (i === keys.length - 1 || keys.length === 1) {
-            const val = currentModel[key];
-            if (typeof val === "boolean") {
-              currentModel[key] = value || false;
-            } else if (Array.isArray(val)) {
-              currentModel[key] = value || [];
-            } else {
-              currentModel[key] = value;
-            }
-          }
-          currentModel = currentModel[key];
-        }
+    const updateMode = (prop, value = undefined) => {
+      const { o, k } = getPropByPath(model.value, prop);
+      console.log(o, k, value);
+      if (o) {
+        o[k] = value;
+        emit("change", model.value);
       }
-      emit("change", model.value);
+    };
+    const getValueFromProp = (path) => {
+      const { v } = getPropByPath(model.value, path);
+      return v;
     };
 
     const reset = () => {
@@ -88,32 +77,32 @@ const Form = defineComponent({
       }
     };
 
-    const testProp = (path) => {
-      const keys = path
-        .replace(/\[(\w+)\]/g, ".$1")
-        .replace(/^\./, "")
-        .split(".");
-      let currentModel = model.value || {};
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        if (key in currentModel) {
-          currentModel = JSON.parse(JSON.stringify(currentModel[key]));
-        } else {
-          console.warn(`Invalid form item prop: ${path}`);
-          // 可根据需要启用警告或错误提示
-        }
+    const getPropByPath = (obj, path) => {
+      let tempObj = obj;
+      path = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
+      const keyArr = path.split(".");
+      let i = 0;
+      for (let len = keyArr.length; i < len - 1; ++i) {
+        if (!tempObj) break;
+        let key = keyArr[i];
+        tempObj = tempObj[key];
       }
-      return currentModel === model.value ||
-        JSON.stringify(currentModel) === "{}"
-        ? null
-        : currentModel;
+      const lastKey = keyArr[keyArr.length - 1];
+      return {
+        o: tempObj,
+        k: lastKey,
+        v: tempObj ? tempObj[lastKey] : null,
+      };
     };
-
-    const submit = (e) => {
-      e?.preventDefault();
+    const onSubmit = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      submit();
+      return false;
+    };
+    const submit = () => {
       validate((valid) => {
-        const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
-        emit("submit", { valid, model: modelCopy });
+        emit("submit", valid);
       });
     };
 
@@ -155,7 +144,7 @@ const Form = defineComponent({
       size,
       shape,
       theme,
-      testProp,
+      getValueFromProp,
       updateMode,
       register,
       unregister,
@@ -181,7 +170,7 @@ const Form = defineComponent({
           ref={formRef}
           class={classes}
           id={name}
-          onSubmit={submit}
+          onSubmit={onSubmit}
           onReset={reset}
           autocomplete="off"
         >

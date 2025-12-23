@@ -66,7 +66,7 @@ const form = ref({
   IDnumber: "",
   pwd: "",
   repwd: "",
-})
+});
 const rules = {
   fullname: [
     { required: true, message: "请输入姓名" },
@@ -77,8 +77,8 @@ const rules = {
   repwd: [{ validator: validateRePassword }],
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
-    message[valid ? "success" : "error"](valid ? "success" : "faild");
+  formRef.value.validate(({ valid }) => {
+    message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {

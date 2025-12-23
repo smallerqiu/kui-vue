@@ -94,6 +94,7 @@ const Slider = defineComponent({
         defaultValue.value = getValue(v);
       }
       emit("update:modelValue", defaultValue.value);
+      emit("change", defaultValue.value);
     };
 
     const mouseMove = (e, type) => {
@@ -189,6 +190,7 @@ const Slider = defineComponent({
 
       defaultValue.value = value;
       emit("update:modelValue", value);
+      emit("change", value);
     };
     const getActiveOps = (a) => {
       let { reverse, max, min, vertical } = ps;
