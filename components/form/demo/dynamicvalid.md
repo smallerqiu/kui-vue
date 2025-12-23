@@ -93,11 +93,11 @@ const add = () => {
 const remove = (index) => {
   // let item = this.form.webs.filter(x=>x.index==index)[0]
   // let index = this.form.webs.indexOf(item)
-form.value.webs.splice(index, 1);
+  form.value.webs.splice(index, 1);
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
-    message[valid ? "success" : "error"](valid ? "success" : "faild");
+  formRef.value.validate(({ valid }) => {
+    message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {
