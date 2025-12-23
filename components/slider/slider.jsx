@@ -5,7 +5,7 @@ import { withInstall } from "../utils/vue";
 const Slider = defineComponent({
   name: "Slider",
   props: {
-    value: [Array, Number, String],
+    value: [Array, Number],
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
     disabled: Boolean,
@@ -36,6 +36,7 @@ const Slider = defineComponent({
         v = value;
         if (value >= max) v = max;
         else if (value <= min) v = min;
+        if (typeof v !== "number") return min || 0;
         // let percent = (v - min) * 100 / diff
         // v = this.getMinStep(percent)
       } else {
@@ -61,6 +62,9 @@ const Slider = defineComponent({
     watch(
       () => ps.value,
       (nv, no) => {
+        if (!ps.range && typeof nv !== "number") {
+          return;
+        }
         defaultValue.value = getValue();
       }
     );
@@ -141,6 +145,7 @@ const Slider = defineComponent({
       defaultValue.value = newValue;
       // emit("update:value", newValue);
       emit("input", newValue);
+      emit("change", newValue);
     };
 
     const getMinStep = (percent) => {

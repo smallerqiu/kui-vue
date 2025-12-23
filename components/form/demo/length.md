@@ -144,20 +144,8 @@ const setValue = () => {
   };
 };
 
-const sendCode = () => {
-  message.success("验证码发送成功，请注意查收");
-  clearInterval(timer.value);
-  timer.value = setInterval((e) => {
-    if (time.value < 1) {
-      clearInterval(timer.value);
-      time.value = 60;
-    } else {
-      time.value -= 1;
-    }
-  }, 1000);
-};
 const submit = ({ valid, model }) => {
-  message[valid ? "success" : "error"](valid ? "success" : "faild");
+  message[valid ? "success" : "error"](valid ? "success" : "failed");
   console.log(model);
 };
 </script>

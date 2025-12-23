@@ -6,6 +6,7 @@ import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
 import { withInstall } from "../utils/vue";
 import InputBox from "./inputBox";
 import { sizeMap, filterSize } from "../utils/size";
+import { getChildren } from "../utils/vnode";
 
 const Input = defineComponent({
   name: "Input",
@@ -132,19 +133,20 @@ const Input = defineComponent({
         shape,
         inputType,
       } = ps;
-      const slotSuffix = slots.suffix?.();
-      const slotPrefix = slots.prefix?.();
+      const slotSuffix = getChildren(slots.suffix?.());
+      const slotPrefix = getChildren(slots.prefix?.());
+      const slotControls = getChildren(slots.controls?.());
       let multiple =
         (icon ||
           // attrs.onSearch ||
           "search" in listeners ||
-          slotSuffix ||
+          slotSuffix.length ||
           suffix ||
-          slotPrefix ||
+          slotPrefix.length ||
           prefix ||
           type == "password" ||
           clearable ||
-          slots.controls) &&
+          slotControls.length) &&
         type !== "hidden";
       const inputProps = {
         attrs: { ...attrs },
@@ -199,9 +201,9 @@ const Input = defineComponent({
       };
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
-      if (slotPrefix || slotSuffix) {
+      if (slotPrefix.length || slotSuffix.length) {
         const preChildren = [];
-        if (slotPrefix)
+        if (slotPrefix.length)
           preChildren.push(
             <div class="k-input-group-prefix">{slotPrefix}</div>
           );
@@ -231,12 +233,12 @@ const Input = defineComponent({
             />
           );
         const sufChildren = [];
-        if (slotSuffix)
+        if (slotSuffix.length)
           sufChildren.push(
             <div class="k-input-group-suffix">{slotSuffix}</div>
           );
 
-        if (slots.controls) innerChildren.push(slots.controls?.());
+        if (slotControls.length) innerChildren.push(slotControls);
         return (
           <InputGroup size={size}>
             {preChildren}
@@ -272,7 +274,7 @@ const Input = defineComponent({
             />
           );
         if (suffixNode) children.push(suffixNode);
-        if (slots.controls) children.push(slots.controls?.());
+        if (slotControls.length) children.push(slotControls);
 
         return (
           <div {...props} mult>

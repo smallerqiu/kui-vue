@@ -1,6 +1,6 @@
-import { ref, defineComponent, inject, computed } from "vue";
-import zhCN from "../locale/zh-CN";
-import { v4 as uuid } from "uuid";
+import { ref, defineComponent } from "vue";
+import Icon from "../icon";
+import { Add } from "kui-icons";
 
 export default defineComponent({
   name: "Selector",
@@ -14,139 +14,54 @@ export default defineComponent({
     uploadText: String,
     uploadSubText: String,
     draggable: Boolean,
+    locale: Object,
     fileList: Array,
     uploadIcon: [String, Object, Array],
-    minSize: Number,
-    maxSize: Number,
-    autoTrigger: { type: Boolean, default: true },
     type: {
       type: String,
       default: "list",
       validator: (val) => ["list", "picture"].indexOf(val) >= 0,
     },
   },
-  setup(ps, { emit, slots }) {
-    const injectedLocale = inject("locale", zhCN);
-
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
-    });
+  setup(props, { emit, slots }) {
     const dragOver = ref(false);
     const uploadFileRef = ref(null);
-    const defaultFileList = ref(ps.fileList || []);
     const onDragEnter = (e) => {
       dragOver.value = true;
       e.preventDefault();
       return false;
     };
-    const formatFileSize = (fileSize) => {
-      var temp = 0;
-      if (fileSize < 1024) {
-        return fileSize + "B";
-      } else if (fileSize < 1024 * 1024) {
-        temp = fileSize / 1024;
-        return temp.toFixed(2) + "KB";
-      } else if (fileSize < 1024 * 1024 * 1024) {
-        temp = fileSize / (1024 * 1024);
-        return temp.toFixed(2) + "MB";
-      } else {
-        temp = fileSize / (1024 * 1024 * 1024);
-        return temp.toFixed(2) + "GB";
-      }
+    const onDragLeave = () => {
+      dragOver.value = false;
     };
+
     const selectFiles = (e) => {
-      let { limit, minSize, maxSize, autoTrigger } = ps;
-      let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-
-      for (let i = 0; i < files.length; i++) {
-        let { size, type } = files[i];
-        if (files[i].name == ".DS_Store") {
-          continue;
-        }
-
-        let item = {
-          uid: uuid(),
-          filename: files[i].name,
-          size: formatFileSize(size),
-          status: "wait",
-          percent: 0,
-          preview: null,
-        };
-
-        emit("select", { item, file: files[i] });
-
-        // uploadTemp[item.uid] = files[i];
-
-        if (limit && i > limit - 1) {
-          emit("exceed");
-          return;
-        }
-        if ((type || "").indexOf("image/") >= 0) {
-          item.preview = window.URL.createObjectURL(files[i]);
-        }
-
-        let error = false;
-        if (
-          (minSize !== undefined && minSize >= 0 && size / 1024 < minSize) ||
-          (maxSize !== undefined && maxSize >= 0 && size / 1024 > maxSize)
-        ) {
-          error = true;
-          item.errorText = locale?.value.k.upload.errorFileSize;
-          item.status = "error";
-        }
-
-        defaultFileList.value.push(item);
-
-        emit("before-upload", {
-          file: item,
-          fileList: defaultFileList.value,
-        });
-
-        if (error) {
-          emit("change", {
-            file: item,
-            fileList: defaultFileList.value,
-          });
-          emit("size-error", {
-            file: item,
-            fileList: defaultFileList.value,
-          });
-          continue;
-        }
-
-        if (autoTrigger) {
-          emit("upload", { item, file: files[i] });
-          // uploadFile(item, files[i]);
-        }
+      const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+      if (files && files.length > 0) {
+        emit("select", files);
       }
-      e.target.value = "";
+      e.target.value = ""; // 清空 input 防止重复选同文件不触发 change
+      e.preventDefault();
+      dragOver.value = false;
     };
     const onDrop = (e) => {
       selectFiles(e);
-      e.preventDefault();
-      dragOver.value = false;
       return false;
     };
 
     const onDragOver = (e) => {
       e.stopPropagation();
       e.preventDefault();
+      dragOver.value = true;
     };
 
     const triggerSelect = (e) => {
-      e.cancelBubble = true;
-      if (ps.disabled) return false;
-
-      if (uploadFileRef.value) {
-        uploadFileRef.value.click();
-      }
-      return false;
+      if (props.disabled) return;
+      uploadFileRef.value?.click();
     };
 
     return () => {
-      let {
+      const {
         name,
         accept,
         multiple,
@@ -158,28 +73,26 @@ export default defineComponent({
         draggable,
         uploadIcon,
         type,
-      } = ps;
+        fileList,
+        locale,
+      } = props;
       let isPicture = type == "picture";
+      const isLimitExceeded = limit && fileList && fileList.length >= limit;
+      const showSelector = !isPicture || !isLimitExceeded;
+      if (!showSelector) return null;
+
       let addProps = {
-        attrs: {
-          drag: draggable && dragOver.value ? "over" : null,
-        },
-        on: {
-          dragenter: onDragEnter,
-          drop: onDrop,
-          dragover: onDragOver,
-          dragleave: () => (dragOver.value = false),
-          click: triggerSelect,
-        },
+        class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
+        onDragenter: draggable ? onDragEnter : null,
+        onDrop: draggable ? onDrop : null,
+        onDragover: draggable ? onDragOver : null,
+        onDragleave: draggable ? onDragLeave : null,
+        onClick: triggerSelect,
       };
-      let showSelector =
-        (isPicture && limit && limit > defaultFileList.value.length) ||
-        !isPicture ||
-        !limit;
-      // console.log(type, isPicture, draggable);
+
       return showSelector ? (
         <div class="k-upload-select">
-          <div class="k-upload-add" {...addProps}>
+          <div {...addProps}>
             <input
               type="file"
               class="k-upload-file"
@@ -192,18 +105,20 @@ export default defineComponent({
               ref={uploadFileRef}
             />
             {isPicture || draggable ? (
-              <Icon type={uploadIcon} />
+              <Icon type={uploadIcon || Add} />
             ) : (
               slots.default?.()
             )}
-            {isPicture || (draggable && uploadText) ? (
+            {(isPicture || (draggable && uploadText)) && (
               <span class="k-upload-text">{uploadText}</span>
-            ) : null}
-            {draggable && uploadSubText ? (
+            )}
+            {draggable && uploadSubText && (
               <span class="k-upload-sub-text">
-                {dragOver.value ? "松手开始上传" : uploadSubText}
+                {dragOver.value
+                  ? locale?.k.upload.releaseToUpload
+                  : uploadSubText}
               </span>
-            ) : null}
+            )}
           </div>
         </div>
       ) : null;
