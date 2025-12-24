@@ -1,366 +1,201 @@
+import { defineComponent, ref, watch, computed, provide } from "vue";
 import Thumb from "./thumb";
-import { multiply, add, subtract } from "../utils/number";
-import { defineComponent, ref, watch } from "vue";
 import { withInstall } from "../utils/vue";
+import Big from "big.js";
+import { getClosestStep } from "../utils/number";
+
 const Slider = defineComponent({
   name: "Slider",
   props: {
-    modelValue: [Array, Number],
-    value: [Array, Number],
+    modelValue: { type: [Array, Number], default: 0 },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
+    step: { type: Number, default: 1 },
     disabled: Boolean,
-    step: {
-      type: Number,
-      default: 1,
-      validator: (val) => val !== 0,
-    },
-    size: String,
     vertical: Boolean,
-    range: Boolean,
     reverse: Boolean,
+    range: Boolean,
     marks: Object,
     included: { type: Boolean, default: true },
-    tipFormatter: [Function, Object],
+    tipFormatter: Function,
     tooltipVisible: Boolean,
   },
-  setup(ps, { emit, slots }) {
+  emits: ["update:modelValue", "change"],
+
+  setup(props, { emit }) {
     const railRef = ref();
-    const getValue = (value) => {
-      if (value === undefined) {
-        value = ps.modelValue || ps.value;
+    const internalValue = ref(props.range ? [props.min, props.min] : props.min);
+
+    // 格式化与校验
+    const formatValue = (val) => {
+      if (props.range) {
+        const arr = Array.isArray(val) ? [...val] : [props.min, props.min];
+        return arr.map(v => getClosestStep(v, props)).sort((a, b) => a - b);
       }
-      let { min, max } = ps,
-        v = 0;
-      // let diff = max - min;
-      if (!ps.range) {
-        v = value;
-        if (value >= max) v = max;
-        else if (value <= min) v = min;
-        if (typeof v !== "number") return min || 0;
-        // let percent = (v - min) * 100 / diff
-        // v = this.getMinStep(percent)
+      return getClosestStep(val, props);
+    };
+
+    watch(() => props.modelValue, (nv) => {
+      internalValue.value = formatValue(nv);
+    }, { immediate: true });
+
+    const getPercent = (val) => {
+      const diff = props.max - props.min;
+      return diff === 0 ? 0 : ((val - props.min) / diff) * 100;
+    };
+
+    /**
+     * 关键逻辑：根据 vertical 和 reverse 计算点击位置的百分比
+     */
+    const getPercentFromEvent = (e) => {
+      const { width, height, left, top, bottom, right } = railRef.value.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      let pct = 0;
+      if (props.vertical) {
+        // 垂直模式：标准逻辑是底部(bottom)为0
+        pct = (bottom - clientY) / height;
+        if (props.reverse) pct = 1 - pct; // 反转：顶部为0
       } else {
-        if (!Array.isArray(value)) {
-          v = [0, 0];
-        } else {
-          v = [].concat(value);
+        // 水平模式：标准逻辑是左侧(left)为0
+        pct = (clientX - left) / width;
+        if (props.reverse) pct = 1 - pct; // 反转：右侧为0
+      }
+      return Math.max(0, Math.min(1, pct));
+    };
+
+    const handleInteraction = (e, type) => {
+      if (props.disabled) return;
+      const pct = getPercentFromEvent(e);
+      const rawValue = new Big(props.max - props.min).times(pct).plus(props.min);
+      const newValue = getClosestStep(Number(rawValue), props);
+
+      let nextValue;
+      if (props.range) {
+        const [v1, v2] = internalValue.value;
+        if (type === 'left') nextValue = [newValue, v2];
+        else if (type === 'right') nextValue = [v1, newValue];
+        else {
+          // 点击轨道，移动最近的滑块
+          nextValue = Math.abs(newValue - v1) < Math.abs(newValue - v2) ? [newValue, v2] : [v1, newValue];
         }
-        let [x, y] = v;
-
-        if (x >= max) x = max;
-        else if (x <= min) x = min;
-
-        if (y >= max) y = max;
-        else if (y <= min) y = min;
-
-        v = [x, y];
-      }
-      return v;
-    };
-    const value = getValue();
-    const defaultValue = ref(value);
-    watch(
-      () => ps.modelValue,
-      (nv, no) => {
-        if (!ps.range && typeof nv !== "number") {
-          return;
-        }
-        defaultValue.value = getValue();
-      }
-    );
-
-    const keydownUpdate = (e, type) => {
-      // emit("keydown-update", e, ps.type);
-      let step = ps.step || 1;
-      const plus = e.key === "ArrowRight" || e.key === "ArrowUp";
-      if (ps.range) {
-        let [a, b] = defaultValue.value;
-        let v;
-        if (plus) {
-          v = type === "right" ? [a, add(b, step)] : [add(a, step), b];
-        } else {
-          v =
-            type === "right" ? [a, subtract(b, step)] : [subtract(a, step), b];
-        }
-        defaultValue.value = getValue(v);
+        nextValue.sort((a, b) => a - b);
       } else {
-        let v = defaultValue.value;
-        if (plus) {
-          v = add(v, step);
-        } else {
-          v = subtract(v, step) * 1;
-        }
-        defaultValue.value = getValue(v);
+        nextValue = newValue;
       }
-      emit("update:modelValue", defaultValue.value);
-      emit("change", defaultValue.value);
+
+      internalValue.value = nextValue;
+      emit("update:modelValue", nextValue);
+      emit("change", nextValue);
     };
 
-    const mouseMove = (e, type) => {
-      let clientX, clientY;
-      if (e.touches && e.touches.length == 1) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
+    const handleKeydown = (e, type) => {
+      if (props.disabled) return;
+      const isPlus = ["ArrowRight", "ArrowUp"].includes(e.key);
+      const isMinus = ["ArrowLeft", "ArrowDown"].includes(e.key);
+      if (!isPlus && !isMinus) return;
+
+      const stepBase = isPlus ? props.step : -props.step;
+      let nextValue;
+
+      if (props.range) {
+        let [v1, v2] = internalValue.value;
+        if (type === 'left') v1 = Number(new Big(v1).plus(stepBase));
+        else v2 = Number(new Big(v2).plus(stepBase));
+        nextValue = formatValue([v1, v2]);
       } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
+        nextValue = formatValue(Number(new Big(internalValue.value).plus(stepBase)));
       }
 
-      let { width, height, left, top } = railRef.value.getBoundingClientRect();
-      let { max, min, vertical, reverse, step } = ps;
-
-      let percent = 0,
-        diff = max - min;
-      if (reverse) {
-        percent = vertical
-          ? (height - (clientY - top)) / height
-          : (width - (clientX - left)) / width;
-      } else {
-        percent = vertical
-          ? (clientY - top) / height
-          : (clientX - left) / width;
-      }
-      if (percent >= 1) percent = 1;
-      else if (percent <= 0) percent = 0;
-
-      let x = getMinStep(percent * diff);
-
-      if (x >= max) x = max;
-      else if (x <= min) x = min;
-
-      // 使用解构创建新数组，避免引用问题
-      const v = ps.range ? [...defaultValue.value] : defaultValue.value;
-      let newValue = null;
-      if (ps.range) {
-        let [a, b] = [...v];
-        if (type == "right") {
-          newValue = [a, x];
-        } else {
-          newValue = [x, b];
-        }
-      } else {
-        newValue = x;
-      }
-
-      defaultValue.value = newValue;
-      emit("update:modelValue", newValue);
-      emit("change", newValue);
-    };
-
-    const getMinStep = (percent) => {
-      let { marks, step, min } = ps;
-      if (!marks) return multiply(Math.round((percent + min) / step), step);
-      let steps = Object.keys(marks); //, values = []
-      steps = steps.map((x) => x - min);
-      if (step) {
-        steps.push(multiply(Math.round(percent / step), step));
-      }
-
-      let result = steps.reduce((x, y) =>
-        Math.abs(x - percent) > Math.abs(y - percent) ? y : x
-      );
-      // let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
-      // console.log(percent, result, steps)
-      return result + min;
-    };
-
-    const click = (e) => {
-      let { disabled, vertical, step, max, min, reverse } = ps;
-      if (disabled) return;
-      let { width, height } = e.target.getBoundingClientRect();
-      let { layerX, layerY } = e;
-
-      let percent = 0,
-        diff = max - min;
-      if (reverse) {
-        percent = vertical
-          ? ((height - layerY) / height) * diff
-          : ((width - layerX) / width) * diff;
-      } else {
-        percent = vertical ? (layerY / height) * diff : (layerX / width) * diff;
-      }
-      let value = getMinStep(percent);
-
-      if (ps.range) {
-        let [x, y] = defaultValue.value;
-        let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y;
-        value = value >= half && y > x ? [x, value] : [value, y];
-      }
-
-      defaultValue.value = value;
-      emit("update:modelValue", value);
-      emit("change", value);
-    };
-    const getActiveOps = (a) => {
-      let { reverse, max, min, vertical } = ps;
-      let active;
-      if (ps.range) {
-        let [x, y] = defaultValue.value;
-        active = x < y ? a >= x && a <= y : a <= x && a >= y;
-      } else {
-        active = a <= defaultValue.value;
-      }
-      let diff = max - min;
-      let pos = ((a - min) / diff) * 100 + "%";
-      let sty = {};
-      if (reverse) {
-        sty = vertical
-          ? { bottom: pos, transform: "translateY(50%)" }
-          : { right: pos, transform: "translateX(50%)" };
-      } else {
-        sty = vertical ? { top: pos } : { left: pos };
-      }
-      return { active, sty };
-    };
-    const getThumbValue = (t) => {
-      if (!ps.range) {
-        return defaultValue.value;
-      } else {
-        let [a, b] = [...defaultValue.value];
-        return t == 0 ? a * 1 : b * 1;
-      }
+      internalValue.value = nextValue;
+      emit("update:modelValue", nextValue);
     };
 
     return () => {
-      let {
-        vertical,
-        disabled,
-        step,
-        reverse,
-        max,
-        marks,
-        min,
-        tooltipVisible,
-        tipFormatter,
-        size,
-        included,
-      } = ps;
-      const renderMark = () => {
-        let { marks } = ps;
-        let mks = Object.keys(marks || {});
-        let txt = Object.values(marks || {});
+      const { vertical, reverse, max, min, included, marks, disabled } = props;
+
+      // 渲染激活轨道 (Track)
+      const renderTrack = () => {
+        if (!included && marks) return null;
+        const [v1, v2] = props.range ? internalValue.value : [min, internalValue.value];
+        const p1 = getPercent(v1);
+        const p2 = getPercent(v2);
+
+        let style = {};
+        if (vertical) {
+          style = reverse 
+            ? { top: `${p1}%`, height: `${p2 - p1}%` } 
+            : { bottom: `${p1}%`, height: `${p2 - p1}%` };
+        } else {
+          style = reverse 
+            ? { right: `${p1}%`, width: `${p2 - p1}%` } 
+            : { left: `${p1}%`, width: `${p2 - p1}%` };
+        }
+        return <div class="k-slider-track" style={style}></div>;
+      };
+
+      // 渲染刻度 (Marks)
+      const renderMarks = () => {
+        if (!marks) return null;
+        const mKeys = Object.keys(marks).map(Number);
+        
         return (
-          <div div class="k-slider-marks">
-            {mks.map((v) => {
-              const { active, sty } = getActiveOps(v);
+          <div class="k-slider-marks">
+            {mKeys.map(val => {
+              const p = getPercent(val);
+              const isActive = props.range 
+                ? (val >= internalValue.value[0] && val <= internalValue.value[1])
+                : (val <= internalValue.value);
+
+              let style = {};
+              if (vertical) {
+                style = reverse ? { top: `${p}%` } : { bottom: `${p}%` };
+              } else {
+                style = reverse ? { right: `${p}%` } : { left: `${p}%` };
+              }
+
               return (
-                <div
-                  class={[
-                    "k-slider-mark-symbol",
-                    { "k-slider-mark-symbol-active": active },
-                  ]}
-                  style={sty}
-                />
-              );
-            })}
-            {mks.map((v, i) => {
-              let { active, sty } = getActiveOps(v);
-              return (
-                <div
-                  class={[
-                    "k-slider-mark-text",
-                    { "k-slider-mark-text-active": active },
-                  ]}
-                  style={sty}
-                >
-                  {txt[i]}
+                <div key={val} class="k-slider-mark-item" style={style}>
+                  <span class={["k-slider-mark-dot", { "is-active": isActive }]}></span>
+                  <div class={["k-slider-mark-text", { "is-active": isActive }]}>
+                    {marks[val]}
+                  </div>
                 </div>
               );
             })}
           </div>
         );
       };
-      const renderTrack = () => {
-        let { vertical, max, min, reverse } = ps;
-        let percent1 = 0,
-          percent2 = 0,
-          diff = max - min;
-        let w, l;
 
-        if (!ps.range) {
-          percent2 = ((defaultValue.value - min) / diff) * 100;
-        } else {
-          let [x, y] = defaultValue.value;
-          percent1 = ((x - min) / diff) * 100;
-          percent2 = ((y - min) / diff) * 100;
-        }
-        let trackSty = {};
-        if (percent2 > percent1) {
-          w = percent2 - percent1;
-          l = percent1;
-        } else {
-          w = percent1 - percent2;
-          l = percent2;
-        }
-        if (reverse) {
-          trackSty = vertical
-            ? {
-                height: `${w}%`,
-                top: "auto",
-                bottom: `${l}%`,
-              }
-            : {
-                width: `${w}%`,
-                left: "auto",
-                right: `${l}%`,
-              };
-        } else {
-          trackSty = vertical
-            ? {
-                height: `${w}%`,
-                top: `${l}%`,
-              }
-            : {
-                width: `${w}%`,
-                left: `${l}%`,
-              };
-        }
-        return <div class="k-slider-track" style={{ ...trackSty }}></div>;
-      };
+      const thumbs = (props.range ? [0, 1] : [1]).map(idx => (
+        <Thumb
+          key={idx}
+          value={props.range ? internalValue.value[idx] : internalValue.value}
+          min={min}
+          max={max}
+          vertical={vertical}
+          reverse={reverse}
+          disabled={disabled}
+          tooltipVisible={props.tooltipVisible}
+          tipFormatter={props.tipFormatter}
+          onThumbMove={(e) => handleInteraction(e, props.range && idx === 0 ? 'left' : 'right')}
+          onKeydownUpdate={(e) => handleKeydown(e, props.range && idx === 0 ? 'left' : 'right')}
+        />
+      ));
 
-      const thumbProps = {
-        vertical,
-        disabled,
-        step,
-        reverse,
-        min,
-        size,
-        max,
-        tipFormatter,
-        tooltipVisible,
-        onKeydownUpdate: keydownUpdate,
-        onThumbMove: mouseMove,
-      };
-      const children = [];
-      if ((included && marks) || !marks) {
-        const track = renderTrack();
-        children.push(track);
-      }
-      if (ps.range) {
-        let v = getThumbValue(0);
-        children.push(<Thumb {...thumbProps} value={v} />);
-      }
-      let v2 = getThumbValue(1);
-      children.push(<Thumb {...thumbProps} type="right" value={v2} />);
-      if (marks) {
-        const mark = renderMark();
-        children.push(mark);
-      }
       return (
-        <div
-          class={[
-            "k-slider",
-            { "k-slider-disabled": disabled, "k-slider-vertical": vertical },
-          ]}
-        >
+        <div class={["k-slider", { "k-slider-disabled": disabled, "k-slider-vertical": vertical, "k-slider-reverse": reverse }]}>
           <div class="k-slider-bar">
-            <div class="k-slider-rail" ref={railRef} onClick={click}></div>
-            {...children}
+            <div class="k-slider-rail" ref={railRef} onClick={handleInteraction}></div>
+            {renderTrack()}
+            {thumbs}
+            {renderMarks()}
           </div>
         </div>
       );
     };
   },
 });
+
 export default withInstall(Slider);

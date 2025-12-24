@@ -1,147 +1,80 @@
+import { defineComponent, ref, computed } from "vue";
 import Tooltip from "../tooltip";
-import { defineComponent, ref } from "vue";
+
 export default defineComponent({
   props: {
-    vertical: Boolean,
-    disabled: Boolean,
-    reverse: Boolean,
-    max: Number,
+    value: Number,
     min: Number,
-    size: String,
-    step: Number,
-    value: [Number, String],
-    tipFormatter: [Function, Object],
-    type: String,
+    max: Number,
+    vertical: Boolean,
+    reverse: Boolean,
+    disabled: Boolean,
     tooltipVisible: Boolean,
+    tipFormatter: Function,
   },
-  emits: ["thumbMove", "keydown-update"],
-  setup(ps, { slots, emit }) {
-    const isMousePressed = ref(false);
-    const refThumb = ref();
-    const index = ref(1);
-    const showTip = ref(ps.tooltipVisible);
-    const touch = !!(
-      "ontouchstart" in window ||
-      (window.DocumentTouch && document instanceof window.DocumentTouch)
-    );
-    const mouseMove = (e) => {
-      if (isMousePressed.value) {
-        e.preventDefault();
-        emit("thumbMove", e, ps.type);
+  emits: ["thumbMove", "keydownUpdate"],
+  setup(props, { emit }) {
+    const isDragging = ref(false);
+    const isHover = ref(false);
+
+    const percent = computed(() => {
+      const diff = props.max - props.min;
+      return diff === 0 ? 0 : ((props.value - props.min) / diff) * 100;
+    });
+
+    const thumbStyle = computed(() => {
+      const p = percent.value;
+      if (props.vertical) {
+        // 垂直模式：标准 bottom 定位，反向 top 定位
+        return props.reverse 
+          ? { top: `${p}%`, transform: 'translateY(-50%)' } 
+          : { bottom: `${p}%`, transform: 'translateY(50%)' };
       }
+      // 水平模式：标准 left 定位，反向 right 定位
+      return props.reverse 
+        ? { right: `${p}%`, transform: 'translateX(50%)' } 
+        : { left: `${p}%`, transform: 'translateX(-50%)' };
+    });
+
+    const handleMove = (e) => {
+      if (isDragging.value) emit("thumbMove", e);
     };
 
-    const onKeydown = (e) => {
-      if (ps.disabled) return;
-      if (e.key.includes("Arrow")) {
-        emit("keydownUpdate", e, ps.type);
-        e.preventDefault();
-      }
+    const stopDrag = () => {
+      isDragging.value = false;
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", stopDrag);
+      document.removeEventListener("touchmove", handleMove);
+      document.removeEventListener("touchend", stopDrag);
     };
 
-    const mouseUp = (e) => {
-      isMousePressed.value = false;
-      index.value = 1;
-      if (ps.tooltipVisible === true) {
-        showTip.value = true;
-      } else {
-        if (e.target.contains(refThumb.value?.$el)) {
-          showTip.value = false;
-        }
-      }
-      let [e1, e2] = touch
-        ? ["touchmove", "touchend"]
-        : ["mousemove", "mouseup"];
-      document.removeEventListener(e1, mouseMove);
-      document.removeEventListener(e2, mouseUp);
-    };
-    const onMouseDown = (e) => {
+    const startDrag = (e) => {
+      if (props.disabled) return;
       e.preventDefault();
       e.stopPropagation();
-      // console.log(123);
-      // emit("updatePos", 123123123);
-      if (ps.disabled) return;
-      isMousePressed.value = true;
-      showTip.value = true;
-      index.value = 2;
-      let [e1, e2] = touch
-        ? ["touchmove", "touchend"]
-        : ["mousemove", "mouseup"];
-      document.addEventListener(e1, mouseMove);
-      document.addEventListener(e2, mouseUp);
+      isDragging.value = true;
+      document.addEventListener("mousemove", handleMove);
+      document.addEventListener("mouseup", stopDrag);
+      document.addEventListener("touchmove", handleMove, { passive: false });
+      document.addEventListener("touchend", stopDrag);
     };
 
     return () => {
-      let {
-        vertical,
-        value,
-        disabled,
-        max,
-        min,
-        size,
-        tipFormatter,
-        reverse,
-        tooltipVisible,
-      } = ps;
-      const props = {
-        tabindex: "0",
-        class: ["k-slider-thumb", { "k-slider-thumb-sm": size == "small" }],
-        style: {
-          // left: `${percent}%`,
-          zIndex: index.value,
-        },
-        onKeydown: onKeydown, //for 3
-        onMousedown: onMouseDown,
-        onTouchstart: onMouseDown,
-        onMouseenter: () => {
-          if (!disabled) showTip.value = true;
-        },
-        onMouseleave: (e) => {
-          if (ps.tooltipVisible == true) {
-            showTip.value = true;
-            return;
-          }
-          if (!isMousePressed.value) {
-            showTip.value = false;
-          }
-        },
-      };
-      let percent,
-        diff = max - min;
+      const displayValue = props.tipFormatter ? props.tipFormatter(props.value) : props.value;
+      const showTooltip = props.tooltipVisible || isDragging.value || isHover.value;
 
-      percent = ((value - min) / diff) * 100;
-      let sty = {};
-      if (vertical) {
-        sty = reverse
-          ? { bottom: `${percent}%`, transform: "translateY(50%)" }
-          : { top: `${percent}%` };
-      } else {
-        sty = reverse
-          ? {
-              right: `${percent}%`,
-              transform: "translateX(50%) translateY(-50%)",
-            }
-          : { left: `${percent}%` };
-      }
-      props.style = Object.assign(props.style, sty);
-
-      if (tipFormatter === null || tooltipVisible === null)
-        return <div {...props}></div>;
-
-      let tip = value?.toString();
-
-      if (tipFormatter !== undefined) {
-        tip = tipFormatter(tip);
-      }
-      const tipProps = {
-        ref: refThumb,
-        title: tip,
-        show: showTip.value,
-        disabled: ps.disabled,
-      };
       return (
-        <Tooltip {...tipProps}>
-          <div {...props} tabindex={0}></div>
+        <Tooltip title={displayValue} show={showTooltip && !props.disabled}>
+          <div
+            class="k-slider-thumb"
+            style={thumbStyle.value}
+            tabindex={props.disabled ? -1 : 0}
+            onMousedown={startDrag}
+            onTouchstart={startDrag}
+            onKeydown={(e) => emit("keydownUpdate", e)}
+            onMouseenter={() => isHover.value = true}
+            onMouseleave={() => isHover.value = false}
+          />
         </Tooltip>
       );
     };
