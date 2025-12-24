@@ -1,98 +1,21 @@
 <template>
-  <Row>
-    <Col :span="16">
-      <Form
-        :model="form"
-        ref="formRef"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
-      >
-        <FormItem
-          label="姓名"
-          prop="cname"
-          :rules="[{ required: true, message: '请输入姓名' }]"
-        >
-          <Input clearable />
-        </FormItem>
-        <FormItem
-          label="性别"
-          prop="info.gender"
-          :rules="[{ required: true, message: '请输入性别' }]"
-        >
-          <Select clearable style="width: 100%">
-            <Option value="1" label="男" />
-            <Option value="0" label="女" />
-          </Select>
-        </FormItem>
-        <FormItem
-          label="年龄"
-          prop="info.age"
-          :rules="[{ required: true, message: '请输入年龄' }]"
-        >
-          <Input clearable />
-        </FormItem>
-        <FormItem
-          :label="'网址' + item.key"
-          :prop="'webs.' + i + '.value'"
-          v-for="(item, i) in form.webs"
-          :key="item.key"
-          :rules="{ required: true, message: '网址不能为空' }"
-        >
-          <Input style="width: 230px" />
-          <Icon
-            :type="RemoveCircleOutline"
-            @click="(e) => remove(i)"
-            v-if="i > 0"
-            style="font-size: 25px; margin: 0 10px"
-          />
-        </FormItem>
-        <FormItem :wrapperCol="{ offset: 5 }">
-          <Button type="primary" @click="submit">Submit</Button>
-          <Button @click="add" style="margin: 0 10px">Add</Button>
-          <Button @click="reset">Reset</Button>
-        </FormItem>
-      </Form>
-    </Col>
-    <Col :span="8">
-      <pre style="max-height: 320px; overflow: &quot;scroll&quot;">{{
-        JSON.stringify(form, null, 2)
-      }}</pre>
-    </Col>
-  </Row>
+  <Space style="max-width:520px;" vertical block>
+    <code>Disabled: <k-switch v-model="disabled" /></code>
+    <code>v-model: {{ v1 }}</code>
+    <Slider v-model="v1" :step="10" :disabled="disabled" :min="20" />
+    <code>v-model: {{ v2 }}</code>
+    <Slider v-model="v2" range :disabled="disabled" :min="10" :max="80" />
+    <Slider
+      :marks="{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }"
+      :step="null"
+      :disabled="disabled"
+      :value="25"
+    ></Slider>
+  </Space>
 </template>
 <script setup>
-import { RemoveCircleOutline } from "kui-icons";
 import { ref } from "vue";
-import { message } from "kui-vue";
-const labelCol = { span: 5 };
-const wrapperCol = { span: 16 };
-const formRef = ref();
-const count = ref(2);
-const form = ref({
-  cname: "",
-  info: {
-    gender: "",
-    age: "",
-  },
-  webs: [
-    { value: "", key: "0" },
-    { value: "", key: "1" },
-  ],
-});
-const add = () => {
-  count.value = count.value + 1;
-  let item = { value: "", key: count.value };
-  form.value.webs.push(item);
-};
-const remove = (index) => {
-  form.value.webs.splice(index, 1);
-};
-const submit = () => {
-  formRef.value.validate((valid) => {
-    message[valid ? "success" : "error"](valid ? "success" : "failed");
-  });
-};
-const reset = () => {
-  formRef.value.reset();
-};
+const v1 = ref(30);
+const v2 = ref([30, 50]);
+const disabled = ref(false);
 </script>
