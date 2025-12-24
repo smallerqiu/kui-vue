@@ -71,6 +71,7 @@
     "@vue/compiler-sfc": "2.7.16",
     "@vueuse/core": "^8.9.4",
     "autoprefixer": "^10.4.21",
+    "big.js": "^7.0.1",
     "eslint": "^9.39.1",
     "eslint-plugin-vue": "^10.5.1",
     "fast-glob": "^3.3.3",
