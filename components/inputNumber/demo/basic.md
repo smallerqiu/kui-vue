@@ -6,6 +6,7 @@
 ```vue
 <template>
   <Space style="font-size:12px;max-width:200px" block vertical>
+    <code>v-model: {{value}}</code>
     <InputNumber v-model="value" />
 
     <code>readonly</code>
