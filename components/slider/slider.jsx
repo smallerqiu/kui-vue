@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, computed, provide } from "vue";
+import { defineComponent, ref, watch, nextTick } from "vue";
 import Thumb from "./thumb";
 import { withInstall } from "../utils/vue";
 import Big from "big.js";
@@ -10,7 +10,7 @@ const Slider = defineComponent({
     modelValue: { type: [Array, Number], default: 0 },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
-    step: { type: Number, default: 1 },
+    step: { type: [Number, Object], default: 1 },
     disabled: Boolean,
     vertical: Boolean,
     reverse: Boolean,
@@ -23,130 +23,273 @@ const Slider = defineComponent({
   emits: ["update:modelValue", "change"],
 
   setup(props, { emit }) {
+    const thumbRefs = ref([]);
+    const setThumbRef = (el, index) => {
+      if (el) thumbRefs.value[index] = el;
+    };
+
     const railRef = ref();
+    // 记录当前正在拖拽的是哪一个滑块 (0 或 1，-1表示未拖拽)
+    const draggingIndex = ref(-1);
+
+    // 内部值始终保持排序状态
     const internalValue = ref(props.range ? [props.min, props.min] : props.min);
 
-    // 格式化与校验
+    const sortValue = (val) => {
+      if (Array.isArray(val)) {
+        return [...val].sort((a, b) => a - b);
+      }
+      return val;
+    };
+
     const formatValue = (val) => {
       if (props.range) {
         const arr = Array.isArray(val) ? [...val] : [props.min, props.min];
-        return arr.map(v => getClosestStep(v, props)).sort((a, b) => a - b);
+        return sortValue(arr.map((v) => getClosestStep(v, props)));
       }
       return getClosestStep(val, props);
     };
 
-    watch(() => props.modelValue, (nv) => {
-      internalValue.value = formatValue(nv);
-    }, { immediate: true });
+    watch(
+      () => props.modelValue,
+      (nv) => {
+        // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
+        if (draggingIndex.value === -1) {
+          internalValue.value = formatValue(nv);
+        }
+      },
+      { immediate: true }
+    );
 
     const getPercent = (val) => {
       const diff = props.max - props.min;
-      return diff === 0 ? 0 : ((val - props.min) / diff) * 100;
+      return diff === 0
+        ? 0
+        : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
     };
 
-    /**
-     * 关键逻辑：根据 vertical 和 reverse 计算点击位置的百分比
-     */
-    const getPercentFromEvent = (e) => {
-      const { width, height, left, top, bottom, right } = railRef.value.getBoundingClientRect();
+    // 计算鼠标位置对应的数值
+    const getValueFromEvent = (e) => {
+      const rect = railRef.value.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-      let pct = 0;
+      let percent;
       if (props.vertical) {
-        // 垂直模式：标准逻辑是底部(bottom)为0
-        pct = (bottom - clientY) / height;
-        if (props.reverse) pct = 1 - pct; // 反转：顶部为0
+        // 垂直模式：CSS bottom 是 0%，top 是 100%
+        // clientY 越小（越靠上），percent 越大
+        percent = (rect.bottom - clientY) / rect.height;
+        if (props.reverse) percent = 1 - percent;
       } else {
-        // 水平模式：标准逻辑是左侧(left)为0
-        pct = (clientX - left) / width;
-        if (props.reverse) pct = 1 - pct; // 反转：右侧为0
+        // 水平模式：CSS left 是 0%，right 是 100%
+        percent = (clientX - rect.left) / rect.width;
+        if (props.reverse) percent = 1 - percent;
       }
-      return Math.max(0, Math.min(1, pct));
+
+      const rawValue = new Big(props.max - props.min)
+        .times(percent)
+        .plus(props.min);
+      return getClosestStep(Number(rawValue), props);
     };
 
-    const handleInteraction = (e, type) => {
-      if (props.disabled) return;
-      const pct = getPercentFromEvent(e);
-      const rawValue = new Big(props.max - props.min).times(pct).plus(props.min);
-      const newValue = getClosestStep(Number(rawValue), props);
+    // 处理滑块拖动
+    const handleThumbMove = (e) => {
+      if (props.disabled || draggingIndex.value === -1) return;
 
-      let nextValue;
+      const newValue = getValueFromEvent(e);
+      let nextInternal = null;
+
+      if (props.range) {
+        const oldValues = [...internalValue.value];
+        // 暂时更新当前拖动的那个值，不去排序
+        oldValues[draggingIndex.value] = newValue;
+
+        // 检查是否发生交错 (Crossover)
+        // 如果拖动的是 index 0 (左滑块)，但它现在比 index 1 (右滑块) 大
+        // 那么它们需要交换值，并且我也要交换 draggingIndex，这样鼠标就依然抓着那个数值
+        if (oldValues[0] > oldValues[1]) {
+          // 交换值
+          nextInternal = [oldValues[1], oldValues[0]];
+          // 交换控制权
+          draggingIndex.value = draggingIndex.value === 0 ? 1 : 0;
+        } else {
+          nextInternal = oldValues;
+        }
+      } else {
+        nextInternal = newValue;
+      }
+
+      if (
+        JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)
+      ) {
+        internalValue.value = nextInternal;
+        emit("update:modelValue", nextInternal);
+        emit("change", nextInternal);
+      }
+    };
+
+    // 处理轨道点击
+    const handleRailClick = (e) => {
+      if (props.disabled) return;
+      const newValue = getValueFromEvent(e);
+
       if (props.range) {
         const [v1, v2] = internalValue.value;
-        if (type === 'left') nextValue = [newValue, v2];
-        else if (type === 'right') nextValue = [v1, newValue];
-        else {
-          // 点击轨道，移动最近的滑块
-          nextValue = Math.abs(newValue - v1) < Math.abs(newValue - v2) ? [newValue, v2] : [v1, newValue];
-        }
-        nextValue.sort((a, b) => a - b);
-      } else {
-        nextValue = newValue;
-      }
+        // 移动离点击点最近的那个滑块
+        const dist1 = Math.abs(newValue - v1);
+        const dist2 = Math.abs(newValue - v2);
+        const targetIndex = dist1 <= dist2 ? 0 : 1;
 
-      internalValue.value = nextValue;
-      emit("update:modelValue", nextValue);
-      emit("change", nextValue);
+        const nextValues = [...internalValue.value];
+        nextValues[targetIndex] = newValue;
+
+        // 点击导致跳变时，也要保证顺序
+        internalValue.value = sortValue(nextValues);
+      } else {
+        internalValue.value = newValue;
+      }
+      emit("update:modelValue", internalValue.value);
+      emit("change", internalValue.value);
     };
 
-    const handleKeydown = (e, type) => {
+    const handleThumbDown = (index) => {
+      if (props.disabled) return;
+      draggingIndex.value = index;
+
+      const onMove = (e) => handleThumbMove(e);
+      const onUp = () => {
+        draggingIndex.value = -1;
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+        document.removeEventListener("touchmove", onMove);
+        document.removeEventListener("touchend", onUp);
+      };
+
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onUp);
+    };
+
+    const handleKeydown = (e, index) => {
       if (props.disabled) return;
       const isPlus = ["ArrowRight", "ArrowUp"].includes(e.key);
       const isMinus = ["ArrowLeft", "ArrowDown"].includes(e.key);
       if (!isPlus && !isMinus) return;
+      e.preventDefault();
 
-      const stepBase = isPlus ? props.step : -props.step;
       let nextValue;
+      const currentValues = props.range
+        ? [...internalValue.value]
+        : [internalValue.value];
+      const targetValue = currentValues[index];
 
-      if (props.range) {
-        let [v1, v2] = internalValue.value;
-        if (type === 'left') v1 = Number(new Big(v1).plus(stepBase));
-        else v2 = Number(new Big(v2).plus(stepBase));
-        nextValue = formatValue([v1, v2]);
+      if (props.step === null || props.step === undefined) {
+        if (props.marks) {
+          const mKeys = Object.keys(props.marks)
+            .map(Number)
+            .sort((a, b) => a - b);
+          const currIdx = mKeys.indexOf(getClosestStep(targetValue, props));
+          let nextIdx = isPlus ? currIdx + 1 : currIdx - 1;
+          nextIdx = Math.max(0, Math.min(mKeys.length - 1, nextIdx));
+          nextValue = mKeys[nextIdx];
+        }
       } else {
-        nextValue = formatValue(Number(new Big(internalValue.value).plus(stepBase)));
+        nextValue = Number(
+          new Big(targetValue).plus(isPlus ? props.step : -props.step)
+        );
       }
 
-      internalValue.value = nextValue;
-      emit("update:modelValue", nextValue);
+      // 理键盘交错逻辑 ---
+      if (props.range) {
+        const otherIndex = index === 0 ? 1 : 0;
+        const otherValue = currentValues[otherIndex];
+
+        // 检查是否发生越界交换
+        const isCrossForward = index === 0 && nextValue > otherValue;
+        const isCrossBackward = index === 1 && nextValue < otherValue;
+
+        if (isCrossForward || isCrossBackward) {
+          //  交换数据
+          const nextInternal = [];
+          nextInternal[index] = otherValue;
+          nextInternal[otherIndex] = getClosestStep(nextValue, props);
+          internalValue.value = nextInternal.sort((a, b) => a - b);
+
+          // 转移焦点
+          nextTick(() => {
+            // 找到另一个 Thumb 的原生 DOM 并聚焦
+            const targetThumb = thumbRefs.value[otherIndex];
+            if (targetThumb) {
+              targetThumb.focus();
+            }
+          });
+        } else {
+          // 正常非交错移动
+          currentValues[index] = nextValue;
+          internalValue.value = formatValue(currentValues);
+        }
+      } else {
+        internalValue.value = formatValue(nextValue);
+      }
+
+      emit("update:modelValue", internalValue.value);
+      emit("change", internalValue.value);
     };
 
     return () => {
-      const { vertical, reverse, max, min, included, marks, disabled } = props;
+      const { vertical, reverse, min, max, disabled, marks, included } = props;
 
-      // 渲染激活轨道 (Track)
       const renderTrack = () => {
         if (!included && marks) return null;
-        const [v1, v2] = props.range ? internalValue.value : [min, internalValue.value];
+
+        // 确保 v1 是小的，v2 是大的
+        const [rawV1, rawV2] = props.range
+          ? internalValue.value
+          : [min, internalValue.value];
+        const v1 = Math.min(rawV1, rawV2);
+        const v2 = Math.max(rawV1, rawV2);
+
         const p1 = getPercent(v1);
         const p2 = getPercent(v2);
+        const length = p2 - p1;
 
         let style = {};
         if (vertical) {
-          style = reverse 
-            ? { top: `${p1}%`, height: `${p2 - p1}%` } 
-            : { bottom: `${p1}%`, height: `${p2 - p1}%` };
+          // 垂直模式
+          // reverse=false: bottom=p1, height=len
+          // reverse=true:  top=p1, height=len
+          style = reverse
+            ? { top: `${p1}%`, height: `${length}%` }
+            : { bottom: `${p1}%`, height: `${length}%` };
         } else {
-          style = reverse 
-            ? { right: `${p1}%`, width: `${p2 - p1}%` } 
-            : { left: `${p1}%`, width: `${p2 - p1}%` };
+          // 水平模式
+          // reverse=false: left=p1, width=len
+          // reverse=true:  right=p1, width=len
+          style = reverse
+            ? { right: `${p1}%`, width: `${length}%` }
+            : { left: `${p1}%`, width: `${length}%` };
         }
         return <div class="k-slider-track" style={style}></div>;
       };
 
-      // 渲染刻度 (Marks)
       const renderMarks = () => {
         if (!marks) return null;
         const mKeys = Object.keys(marks).map(Number);
-        
+
         return (
           <div class="k-slider-marks">
-            {mKeys.map(val => {
+            {mKeys.map((val) => {
               const p = getPercent(val);
-              const isActive = props.range 
-                ? (val >= internalValue.value[0] && val <= internalValue.value[1])
-                : (val <= internalValue.value);
+              // 判断激活状态：值是否在当前选中范围内
+              let isActive = false;
+              if (props.range) {
+                isActive =
+                  val >= internalValue.value[0] &&
+                  val <= internalValue.value[1];
+              } else {
+                isActive = val <= internalValue.value;
+              }
 
               let style = {};
               if (vertical) {
@@ -157,8 +300,12 @@ const Slider = defineComponent({
 
               return (
                 <div key={val} class="k-slider-mark-item" style={style}>
-                  <span class={["k-slider-mark-dot", { "is-active": isActive }]}></span>
-                  <div class={["k-slider-mark-text", { "is-active": isActive }]}>
+                  <span
+                    class={["k-slider-mark-dot", { "is-active": isActive }]}
+                  ></span>
+                  <div
+                    class={["k-slider-mark-text", { "is-active": isActive }]}
+                  >
                     {marks[val]}
                   </div>
                 </div>
@@ -168,29 +315,50 @@ const Slider = defineComponent({
         );
       };
 
-      const thumbs = (props.range ? [0, 1] : [1]).map(idx => (
-        <Thumb
-          key={idx}
-          value={props.range ? internalValue.value[idx] : internalValue.value}
-          min={min}
-          max={max}
-          vertical={vertical}
-          reverse={reverse}
-          disabled={disabled}
-          tooltipVisible={props.tooltipVisible}
-          tipFormatter={props.tipFormatter}
-          onThumbMove={(e) => handleInteraction(e, props.range && idx === 0 ? 'left' : 'right')}
-          onKeydownUpdate={(e) => handleKeydown(e, props.range && idx === 0 ? 'left' : 'right')}
-        />
-      ));
+      const thumbs = (props.range ? [0, 1] : [0]).map((idx) => {
+        // 单滑块模式下，index 为 0，值取 internalValue
+        const val = props.range
+          ? internalValue.value[idx]
+          : internalValue.value;
+        return (
+          <Thumb
+            key={idx}
+            ref={(el) => setThumbRef(el, idx)}
+            value={val}
+            min={min}
+            max={max}
+            vertical={vertical}
+            reverse={reverse}
+            disabled={disabled}
+            tooltipVisible={props.tooltipVisible}
+            tipFormatter={props.tipFormatter}
+            dragging={draggingIndex.value === idx} // 告诉子组件是否被激活
+            onDragStart={() => handleThumbDown(idx)}
+            onKeydownUpdate={(e) => handleKeydown(e, idx)}
+          />
+        );
+      });
 
       return (
-        <div class={["k-slider", { "k-slider-disabled": disabled, "k-slider-vertical": vertical, "k-slider-reverse": reverse }]}>
+        <div
+          class={[
+            "k-slider",
+            {
+              "k-slider-disabled": disabled,
+              "k-slider-vertical": vertical,
+              "k-slider-reverse": reverse,
+            },
+          ]}
+        >
           <div class="k-slider-bar">
-            <div class="k-slider-rail" ref={railRef} onClick={handleInteraction}></div>
+            <div
+              class="k-slider-rail"
+              ref={railRef}
+              onClick={handleRailClick}
+            ></div>
             {renderTrack()}
-            {thumbs}
             {renderMarks()}
+            {thumbs}
           </div>
         </div>
       );

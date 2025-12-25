@@ -11,69 +11,70 @@ export default defineComponent({
     disabled: Boolean,
     tooltipVisible: Boolean,
     tipFormatter: Function,
+    dragging: Boolean, // 接收父组件传入的拖拽状态
   },
-  emits: ["thumbMove", "keydownUpdate"],
-  setup(props, { emit }) {
-    const isDragging = ref(false);
+  emits: ["dragStart", "keydownUpdate"],
+  setup(props, { emit, expose }) {
     const isHover = ref(false);
+    const elRef = ref(null);
 
+    expose({
+      focus: () => {
+        elRef.value?.focus();
+      },
+    });
+
+    // 计算位置百分比
     const percent = computed(() => {
       const diff = props.max - props.min;
-      return diff === 0 ? 0 : ((props.value - props.min) / diff) * 100;
+      if (diff === 0) return 0;
+      return Math.max(
+        0,
+        Math.min(100, ((props.value - props.min) / diff) * 100)
+      );
     });
 
     const thumbStyle = computed(() => {
       const p = percent.value;
       if (props.vertical) {
-        // 垂直模式：标准 bottom 定位，反向 top 定位
-        return props.reverse 
-          ? { top: `${p}%`, transform: 'translateY(-50%)' } 
-          : { bottom: `${p}%`, transform: 'translateY(50%)' };
+        return props.reverse
+          ? { top: `${p}%`, transform: "translate(-50%, -50%)" } // 垂直反向：Top
+          : { bottom: `${p}%`, transform: "translate(-50%, 50%)" }; // 垂直标准：Bottom
       }
-      // 水平模式：标准 left 定位，反向 right 定位
-      return props.reverse 
-        ? { right: `${p}%`, transform: 'translateX(50%)' } 
-        : { left: `${p}%`, transform: 'translateX(-50%)' };
+      return props.reverse
+        ? { right: `${p}%`, transform: "translate(50%, -50%)" } // 水平反向：Right
+        : { left: `${p}%`, transform: "translate(-50%, -50%)" }; // 水平标准：Left
     });
 
-    const handleMove = (e) => {
-      if (isDragging.value) emit("thumbMove", e);
-    };
-
-    const stopDrag = () => {
-      isDragging.value = false;
-      document.removeEventListener("mousemove", handleMove);
-      document.removeEventListener("mouseup", stopDrag);
-      document.removeEventListener("touchmove", handleMove);
-      document.removeEventListener("touchend", stopDrag);
-    };
-
-    const startDrag = (e) => {
+    const handleDown = (e) => {
       if (props.disabled) return;
-      e.preventDefault();
+      e.preventDefault(); // 防止选中文本
       e.stopPropagation();
-      isDragging.value = true;
-      document.addEventListener("mousemove", handleMove);
-      document.addEventListener("mouseup", stopDrag);
-      document.addEventListener("touchmove", handleMove, { passive: false });
-      document.addEventListener("touchend", stopDrag);
+      emit("dragStart", e);
     };
 
     return () => {
-      const displayValue = props.tipFormatter ? props.tipFormatter(props.value) : props.value;
-      const showTooltip = props.tooltipVisible || isDragging.value || isHover.value;
-
+      const displayValue = props.tipFormatter
+        ? props.tipFormatter(props.value)
+        : String(props.value);
+      const showTooltip =
+        props.tooltipVisible === true ? true : props.dragging || isHover.value;
       return (
-        <Tooltip title={displayValue} show={showTooltip && !props.disabled}>
+        <Tooltip
+          title={displayValue}
+          show={showTooltip && !props.disabled}
+          placement={props.vertical ? "right" : "top"}
+        >
           <div
-            class="k-slider-thumb"
+            class={["k-slider-thumb", { "is-dragging": props.dragging }]}
             style={thumbStyle.value}
+            ref={elRef}
             tabindex={props.disabled ? -1 : 0}
-            onMousedown={startDrag}
-            onTouchstart={startDrag}
+            onMousedown={handleDown}
+            onTouchstart={handleDown}
             onKeydown={(e) => emit("keydownUpdate", e)}
-            onMouseenter={() => isHover.value = true}
-            onMouseleave={() => isHover.value = false}
+            onMouseenter={() => (isHover.value = true)}
+            onMouseleave={() => (isHover.value = false)}
           />
         </Tooltip>
       );

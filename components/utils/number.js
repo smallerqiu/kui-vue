@@ -42,7 +42,7 @@ export const isValidBig = (val) => {
 
 const toBigSafe = (val, name) => {
   try {
-    if (val === null || val === undefined || val === '') {
+    if (val === null || val === undefined || val === "") {
       throw new Error();
     }
     return new Big(val);
@@ -53,30 +53,42 @@ const toBigSafe = (val, name) => {
 };
 
 export const getClosestStep = (val, { min, max, step, marks }) => {
-  const safeStep = (step && step > 0) ? step : 1;
+  const bMin = toBigSafe(min);
+  const bMax = toBigSafe(max);
+  const bVal = toBigSafe(val);
 
-  const bMin = toBigSafe(min, 'min');
-  const bMax = toBigSafe(max, 'max');
-  const bVal = toBigSafe(val, 'val');
-  const bStep = toBigSafe(safeStep, 'step');
+  const markValues = marks ? Object.keys(marks).map(Number) : [];
 
-  // 公式: min + round((val - min) / step) * step
+  // 如果 step 为 null，强制吸附到最近的 mark 点
+  if (step === null || step === undefined) {
+    if (markValues.length > 0) {
+      // 在 marks 数组中寻找绝对值差最小的点
+      const closestMark = markValues.reduce((prev, curr) => {
+        return Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev;
+      });
+      return closestMark;
+    }
+    // 如果既没有 step 也没有 marks，则不做吸附，直接返回经边界约束的值
+    const clampedVal = bVal.gt(bMax) ? bMax : bVal.lt(bMin) ? bMin : bVal;
+    return Number(clampedVal.toFixed());
+  }
+
+  // 存在步长 step
+  const bStep = toBigSafe(step || 1);
   const diff = bVal.minus(bMin);
-  
   const stepCount = Math.round(Number(diff.div(bStep)));
   let closest = bMin.plus(bStep.times(stepCount));
 
-  // 如果存在 marks，检查是否有 marks 比当前 step 计算出的点更近
-  if (marks && Object.keys(marks).length > 0) {
-    const markValues = Object.keys(marks).map(m => Number(m));
-    markValues.forEach(m => {
+  // 同时对比 step 点和 marks 点，谁近取谁
+  if (markValues.length > 0) {
+    markValues.forEach((m) => {
       if (Math.abs(m - val) < Math.abs(Number(closest.minus(val)))) {
         closest = new Big(m);
       }
     });
   }
 
-  // 4. 边界约束
+  // 边界约束
   if (closest.gt(bMax)) return Number(bMax.toFixed());
   if (closest.lt(bMin)) return Number(bMin.toFixed());
 
