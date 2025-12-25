@@ -7,13 +7,13 @@
 ```vue
 <template>
   <div style="max-width:520px;">
-    <Slider :tipFormatter="(v) => `${v}%`" :value="20" />
+    <Slider :tipFormatter="(v) => `${v}%`" :modelValue="20" />
     <br />
     <br />
-    <Slider :tipFormatter="null" :value="10" />
+    <Slider :tipFormatter="null" :modelValue="10" />
     <br />
     <br />
-    <Slider :value="10" :tooltipVisible="true" />
+    <Slider :modelValue="10" :tooltipVisible="true" />
   </div>
 </template>
 ```

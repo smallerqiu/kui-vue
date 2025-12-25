@@ -39,8 +39,8 @@
             :icon="collapsed ? MenuUnfold : MenuFold"
             @click="collapsed = !collapsed"
             class="btn-collapsed"
-            ><i></i
-          ></Button>
+            >
+            </Button>
         </div>
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
