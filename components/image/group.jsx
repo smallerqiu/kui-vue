@@ -1,54 +1,40 @@
+import { defineComponent, ref, provide, computed } from "vue";
+import ImagePreview from "./preview";
 import { withInstall } from "../utils/vue";
-import { defineComponent, ref, provide, onUnmounted } from "vue";
-import newInstance from "./instance";
 
-const ImageGroup = defineComponent({
+export const ImageGroup = defineComponent({
   name: "ImageGroup",
-  props: {
-    data: Array,
-  },
-  setup(props, { emit, slots, expose }) {
-    const data = ref(props.data || []);
-    const preview = ref();
-    const show = (options) => {
-      if (!preview.value) {
-        options.props.data = data.value;
-        preview.value = newInstance({ ...options });
-      }
-      preview.value.show(options);
-    };
-    const togglePanel = () => {
-      if (preview.value) {
-        preview.value.togglePanel();
-      }
+  setup(_, { slots }) {
+    const dataSet = ref(new Set());
+    const isVisible = ref(false);
+    const currentSrc = ref("");
+
+    const dataArray = computed(() => Array.from(dataSet.value));
+
+    const show = (src) => {
+      currentSrc.value = src;
+      isVisible.value = true;
     };
 
-    const register = (item) => {
-      data.value.push(item);
-    };
-
-    const unregister = (item) => {
-      const index = data.value.indexOf(item);
-      if (index >= 0) {
-        data.value.splice(index, 1);
-      }
-    };
-
-    provide("ImageGroup", { show, register, unregister, data, togglePanel });
-
-    const destroy = () => {
-      if (preview.value) {
-        document.body.removeChild(preview.value.$el);
-      }
-    };
-
-    onUnmounted(() => {
-      destroy();
+    provide("ImageGroup", {
+      data: dataArray,
+      register: (src) => dataSet.value.add(src),
+      unregister: (src) => dataSet.value.delete(src),
+      show,
     });
 
-    return () => {
-      return <div class="k-image-group">{slots.default?.()}</div>;
-    };
+    return () => (
+      <div class="k-image-group">
+        {slots.default?.()}
+        <ImagePreview
+          v-model:visible={isVisible.value}
+          src={currentSrc.value}
+          data={dataArray.value}
+          onSwitch={(idx) => (currentSrc.value = dataArray.value[idx])}
+        />
+      </div>
+    );
   },
 });
+
 export default withInstall(ImageGroup);
