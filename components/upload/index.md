@@ -15,9 +15,9 @@
 | draggable      | 是否支持拖拽上传                                                                                                               | Boolean        | false  |
 | fileList       | 上传的文件列表                                                                                                                 | Array          | false  |
 | name           | 发到后台的文件参数名,默认`file`                                                                                                | String         | 'file' |
-| uploadIcon     | 上传域的辅助图标                                                                                                               | String         | 'file' |
-| uploadText     | 上传域的辅助文字                                                                                                               | String         | 'file' |
-| uploadSubText  | 上传域的二级辅助文字                                                                                                           | String         | 'file' |
+| uploadIcon     | 上传域的辅助图标                                                                                                               | String         | Add    |
+| uploadText     | 上传域的辅助文字                                                                                                               | String         | -      |
+| uploadSubText  | 上传域的二级辅助文字                                                                                                           | String         | -      |
 | limit          | 最多允许上传文件个数                                                                                                           | Number         | -      |
 | minSize        | 上传文件最小单位(KB)                                                                                                           | String         | -      |
 | maxSize        | 上传文件最大单位(KB)                                                                                                           | String         | -      |

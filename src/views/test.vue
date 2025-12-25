@@ -1,21 +1,30 @@
 <template>
-  <Space style="max-width:520px;" vertical block>
-    <code>Disabled: <k-switch v-model="disabled" /></code>
-    <code>v-model: {{ v1 }}</code>
-    <Slider v-model="v1" :step="10" :disabled="disabled" :min="20" />
-    <code>v-model: {{ v2 }}</code>
-    <Slider v-model="v2" range :disabled="disabled" :min="10" :max="80" />
-    <Slider
-      :marks="{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }"
-      :step="null"
-      :disabled="disabled"
-      :value="25"
-    ></Slider>
+  <Space vertical>
+    <ImageGroup>
+      <KImage
+        :width="80"
+        :height="80"
+        v-for="(item, index) in data"
+        :key="index"
+        :src="item"
+      />
+    </ImageGroup>
+    <code>Use group data</code>
+    <ImageGroup :data="data">
+      <KImage
+        :width="80"
+        :height="80"
+        src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
+      />
+    </ImageGroup>
   </Space>
 </template>
 <script setup>
-import { ref } from "vue";
-const v1 = ref(30);
-const v2 = ref([30, 50]);
-const disabled = ref(false);
+const data = [
+  "https://cdn.chuchur.com/upload/cat/cat1.jpg",
+  "https://cdn.chuchur.com/upload/cat/cat2.webp",
+  "https://cdn.chuchur.com/upload/cat/cat3.webp",
+  "https://cdn.chuchur.com/upload/cat/cat4.jpg",
+  "https://cdn.chuchur.com/upload/cat/cat5.jpg",
+];
 </script>
