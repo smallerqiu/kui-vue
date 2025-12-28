@@ -5,7 +5,8 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" ref="selection" checkable>
+  <code>selectedKeys: {{selectedKeys}}</code>
+  <Table :data="data" :columns="columns" ref="selection" checkable :selectedKeys.sync="selectedKeys"> 
     <template #tags="{ value }">
       <Space>
         <Tag
@@ -24,6 +25,8 @@
   </Table>
 </template>
 <script setup>
+import { ref } from "vue";
+const selectedKeys = ref([]);
 const data = [
   {
     key: "0",
