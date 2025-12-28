@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Dropdown>
+  <Dropdown arrow placement="bottom">
     <Button type="text"> Hover me </Button>
     <template #overlay>
       <Menu>
