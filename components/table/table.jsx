@@ -143,7 +143,7 @@ const Table = defineComponent({
           };
           headerStyles[col.key] = style;
           bodyStyles[col.key] = style;
-          leftOffset += col.width || 100;
+          leftOffset += col.width || 150;
         }
       });
 
@@ -167,7 +167,7 @@ const Table = defineComponent({
             transform: "translateZ(0)",
           };
 
-          rightOffset += col.width || 100;
+          rightOffset += col.width || 150;
         }
       }
       return { header: headerStyles, body: bodyStyles };
@@ -480,7 +480,7 @@ const Table = defineComponent({
                     "k-table-cell-fix-left",
                     pingLeft.value && "k-table-cell-fix-left-last",
                   ]}
-                  style={{ width: "50px" }}
+                  style={{ width: "50px", left: 0 }}
                 >
                   <Checkbox
                     checked={innerSelectedKeys.value.has(rowId)}
