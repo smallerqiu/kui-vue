@@ -12,13 +12,13 @@ export default {
   render() {
     return (
       <div>
-        <Info />
+        {/* <Info />
         <Basic />
         <InLine />
         <Accordion />
         <Vertical />
         <Theme />
-        <Mode />
+        <Mode /> */}
         <Collapsed />
         <CN />
       </div>
