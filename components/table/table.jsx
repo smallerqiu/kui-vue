@@ -213,7 +213,9 @@ const Table = defineComponent({
     const measureScrollbar = () => {
       if (bodyWrapperRef.value) {
         const width =
-          bodyWrapperRef.value.offsetWidth - bodyWrapperRef.value.clientWidth;
+          bodyWrapperRef.value.offsetWidth -
+          bodyWrapperRef.value.clientWidth -
+          (props.bordered ? 1 : 0);
         if (scrollbarWidth.value !== width) scrollbarWidth.value = width;
       }
     };

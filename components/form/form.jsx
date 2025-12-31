@@ -47,7 +47,7 @@ const Form = defineComponent({
     const { model, rules, size, shape, theme, disabled, layout, name } =
       toRefs(props);
 
-    const updateMode = (prop, value = undefined) => {
+    const updateMode = (prop, value = null) => {
       const { o, k } = getPropByPath(model.value, prop);
       console.log(o, k, value);
       if (o) {
