@@ -39,7 +39,7 @@ const Form = defineComponent({
     const { model, rules, size, shape, theme, disabled, layout, name } =
       toRefs(props);
 
-    const updateMode = (prop, value = "") => {
+    const updateMode = (prop, value = null) => {
       const keys = prop
         .replace(/\[(\w+)\]/g, ".$1")
         .replace(/^\./, "")

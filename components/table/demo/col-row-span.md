@@ -22,7 +22,7 @@ const columns = [
     key: "name",
     width: 100,
     // 第三行第一列向下合并一行
-    rowSpan: (record, index) => (index == 2 ? 2 : 1),
+    rowSpan: (record, index) => (index == 2 ? 3 : 1),
   },
   {
     title: "年龄",

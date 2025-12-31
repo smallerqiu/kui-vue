@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, nextTick } from "vue";
+import { defineComponent, ref, watch, nextTick, inject } from "vue";
 import Thumb from "./thumb";
 import { withInstall } from "../utils/vue";
 import Big from "big.js";
@@ -16,6 +16,7 @@ const Slider = defineComponent({
     reverse: Boolean,
     range: Boolean,
     marks: Object,
+    size: [String, Number],
     included: { type: Boolean, default: true },
     tipFormatter: Function,
     tooltipVisible: Boolean,
@@ -23,6 +24,7 @@ const Slider = defineComponent({
   emits: ["input", "change"],
 
   setup(props, { emit }) {
+    const size = inject("size", null);
     const thumbRefs = ref([]);
     const setThumbRef = (el, index) => {
       if (el) thumbRefs.value[index] = el;
@@ -327,6 +329,7 @@ const Slider = defineComponent({
             value={val}
             min={min}
             max={max}
+            size={props.size || size}
             vertical={vertical}
             reverse={reverse}
             disabled={disabled}

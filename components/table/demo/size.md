@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Space>
+    <Space wrap>
       Size:<RadioGroup v-model="size" size="small" type="button">
         <RadioButton value="large" label="Large" />
         <RadioButton value="default" label="Default" />
