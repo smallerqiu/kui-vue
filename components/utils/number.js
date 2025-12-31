@@ -47,7 +47,7 @@ const toBigSafe = (val, name) => {
     }
     return new Big(val);
   } catch (e) {
-    console.error(`Slider Error: [${name}] is an invalid number:`, val);
+    // console.error(`Slider Error: [${name}] is an invalid number:`, val);
     return new Big(0); // 降级处理
   }
 };

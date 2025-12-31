@@ -9,6 +9,7 @@ export default defineComponent({
     vertical: Boolean,
     reverse: Boolean,
     disabled: Boolean,
+    size: [String, Number],
     tooltipVisible: Boolean,
     tipFormatter: Function,
     dragging: Boolean, // 接收父组件传入的拖拽状态
@@ -57,14 +58,22 @@ export default defineComponent({
       const displayValue = props.tipFormatter
         ? props.tipFormatter(props.value)
         : String(props.value);
-      // Tooltip 显示条件：强制显示 OR (正在拖拽 OR 鼠标悬停)
       const showTooltip =
         props.tooltipVisible === true ? true : props.dragging || isHover.value;
-
       return (
-        <Tooltip title={displayValue} show={showTooltip && !props.disabled}>
+        <Tooltip
+          title={displayValue}
+          show={showTooltip && !props.disabled}
+          placement={props.vertical ? "right" : "top"}
+        >
           <div
-            class={["k-slider-thumb", { "is-dragging": props.dragging }]}
+            class={[
+              "k-slider-thumb",
+              {
+                "is-dragging": props.dragging,
+                "k-slider-thumb-sm": props.size === "small",
+              },
+            ]}
             style={thumbStyle.value}
             ref={elRef}
             tabindex={props.disabled ? -1 : 0}

@@ -82,19 +82,12 @@ const InputNumber = defineComponent({
         ? props.formatter(innerValue.value)
         : innerValue.value;
     });
-    const triggerFinalUpdate = (val) => {
-      const clampedStr = clamp(val);
-      innerValue.value = clampedStr;
-      userInput.value = null;
 
-      const output = clampedStr === "" ? undefined : Number(clampedStr);
-      emitValue(output);
-    };
     const triggerUpdate = (val) => {
-      const clampedStr = clamp(val);
+      const parsed = props.parser ? props.parser(val) : val;
+      const clampedStr = clamp(parsed);
       innerValue.value = clampedStr;
       userInput.value = null;
-
       const output = clampedStr === "" ? undefined : Number(clampedStr);
       emitValue(output);
     };
@@ -140,7 +133,7 @@ const InputNumber = defineComponent({
           ? new Big(current).plus(props.step)
           : new Big(current).minus(props.step);
 
-      triggerFinalUpdate(next.toFixed());
+      triggerUpdate(next.toFixed());
     };
     return () => {
       // const { suffix } = ps;
