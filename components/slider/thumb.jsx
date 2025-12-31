@@ -7,6 +7,7 @@ export default defineComponent({
     min: Number,
     max: Number,
     vertical: Boolean,
+    size: [String, Number],
     reverse: Boolean,
     disabled: Boolean,
     tooltipVisible: Boolean,
@@ -66,7 +67,13 @@ export default defineComponent({
           placement={props.vertical ? "right" : "top"}
         >
           <div
-            class={["k-slider-thumb", { "is-dragging": props.dragging }]}
+            class={[
+              "k-slider-thumb",
+              {
+                "is-dragging": props.dragging,
+                "k-slider-thumb-sm": props.size === "small",
+              },
+            ]}
             style={thumbStyle.value}
             ref={elRef}
             tabindex={props.disabled ? -1 : 0}
