@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-tabs-sample">
+  <div class="demo-back">
     <Tabs v-model="current" sample @change="change">
       <TabPanel key="1" title="Tab 1">
         <p>Content of Tab Pane 1</p>
@@ -32,11 +32,4 @@ const change = (key) => {
   console.log(key);
 };
 </script>
-
-<style scoped>
-.demo-tabs-sample {
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-</style>
 ```

@@ -1,6 +1,7 @@
 import Star from "./star";
 import { defineComponent, ref, watch } from "vue";
 import { withInstall } from "../utils/vue";
+import { sizeMap, filterSize } from "../utils/size";
 const Rate = defineComponent({
   name: "Rate",
   props: {
@@ -13,7 +14,7 @@ const Rate = defineComponent({
     disabled: Boolean,
     tooltips: Array,
     showScore: Boolean,
-    size: Number,
+    size: [Number, String],
     color: String,
   },
   setup(ps, { slots, emit }) {
@@ -65,9 +66,13 @@ const Rate = defineComponent({
         tooltips = [],
         icon,
         showScore,
-        size,
         color,
       } = ps;
+      let size = ps.size;
+      if (typeof size == "string" && filterSize(size)) {
+        let sizeValue = [20, 24, 32];
+        size = sizeValue[sizeMap.indexOf(size)];
+      }
       const stars = [];
       if (isNaN(Number(count)) || count <= 0) {
         count = 5;

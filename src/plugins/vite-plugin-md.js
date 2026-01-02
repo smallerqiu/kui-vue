@@ -28,6 +28,7 @@ export default function vitePluginMd() {
     name: "vite-plugin-md",
     enforce: "pre",
     transform(src, path) {
+      if (!path.endsWith(".md")) return null;
       const vertical_list = [
         "table",
         "grid",
@@ -58,7 +59,6 @@ export default function vitePluginMd() {
       //   direction = "vertical";
       // }
       // const direction = path.includes("table") ? "vertical" : "horizontal";
-      if (!path.endsWith(".md")) return null;
       const id = "k-" + hashId(path);
 
       // 1) optional <cn> block (for description)
