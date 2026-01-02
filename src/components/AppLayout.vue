@@ -105,7 +105,7 @@ const openKeys = [
   "layouts",
   "navigation",
   "forms",
-  "datas",
+  "data",
   "notices",
   "other",
 ];

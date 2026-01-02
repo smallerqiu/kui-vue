@@ -1,18 +1,19 @@
-import Basic from "./basic.md";
 import Info from "./info.md";
-import Border from "./border.md";
-import NoTitle from "./notitle.md";
+import Basic from './basic.md'; 
+import Card from './card.md'; 
+import WithCard from './with-card.md'; 
+
 import CN from "../index.md";
 export default {
   render() {
     return (
       <div>
         <Info />
+        <Card />
         <Basic />
-        <Border />
-        <NoTitle />
+        <WithCard />
         <CN />
       </div>
     );
   },
-};
+}

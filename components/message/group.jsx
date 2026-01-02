@@ -23,8 +23,12 @@ export default defineComponent({
         clearTimeout(timer);
         timer = null;
       };
-      options.duration > 0 && (timer = setTimeout(callback, options.duration * 1000, key));
-      if ((closable === true && noticeType == "message") || noticeType == "notice") {
+      options.duration > 0 &&
+        (timer = setTimeout(callback, options.duration * 1000, key));
+      if (
+        (closable === true && noticeType == "message") ||
+        noticeType == "notice"
+      ) {
         options.onClose = () => callback(key);
       }
       group.value.push(options);
@@ -59,8 +63,11 @@ export default defineComponent({
         delete ps.key;
         const props = {
           key: item.key,
-          props: { ...ps }
-        }
+          props: { ...ps },
+          on: {
+            close: () => ps.onClose?.(),
+          },
+        };
         return <Notice {...props} />;
       });
       return (

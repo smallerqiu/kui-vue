@@ -122,6 +122,12 @@ const navData = [
         icon: "descriptions",
       },
       { title: "图片", sub: "Image", name: "image", icon: "images" },
+      {
+        title: "统计卡片",
+        sub: "StatCard",
+        name: "statcard",
+        icon: "card",
+      },
       { title: "表格", sub: "Table", name: "table", icon: "table" },
       { title: "时间轴", sub: "TimeLine", name: "timeline", icon: "timeline" },
       { title: "树形控件", sub: "Tree", name: "tree", icon: "tree" },
