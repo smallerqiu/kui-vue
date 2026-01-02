@@ -125,7 +125,7 @@ const Demo = defineComponent({
           {descNode}
           {/* {!vertical && descNode} */}
           <div class={classes}>
-            <div class="k-demo-view">
+            <div class={`k-demo-view k-demo-view-${props.direction}`}>
               <div class="k-content k-scroll" ref={viewRef}>
                 {slots.component?.()}
               </div>

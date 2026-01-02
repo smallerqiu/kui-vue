@@ -110,6 +110,9 @@ export { Rate };
 import { Select, Option } from "./select";
 export { Select, Option };
 
+import { StatCard, StatNumber } from "./statCard";
+export { StatCard, StatNumber };
+
 import ConfigProvider from "./config";
 export { ConfigProvider };
 
