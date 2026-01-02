@@ -18,6 +18,16 @@ rm -rf node_modules/.vite
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+## 3.6.3
+
+`2026-1-2`
+
+- 修复 Select, TreeSelect 细节
+- 修复 Table border 细节
+- 新增 StatCard 统计卡片 组件, Dashboard 专用
+- 新增 StatNumber 组件, 动态数字展示
+- 修复 message, notice 关闭细节
+
 ## 3.6.2
 
 `2025-12-22`

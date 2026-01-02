@@ -308,7 +308,7 @@ const Upload = defineComponent({
         },
         on: { remove: handleRemove },
       };
-      console.log(innerFileList.value, 222);
+      // console.log(innerFileList.value, 222);
       const FileListNode = (
         <FileList
           {...fileListProps}

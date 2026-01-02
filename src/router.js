@@ -58,6 +58,7 @@ let children = [
 	{ path: '/layouts/space', component: () => import('@/components/space/demo'), },
 	{ path: '/notices/spin', component: () => import('@/components/spin/demo'), },
 	{ path: '/forms/switch', component: () => import('@/components/switch/demo'), },
+	{ path: '/data/statcard', component: () => import('@/components/statCard/demo'), },
 	{ path: '/data/table', component: () => import('@/components/table/demo'), },
 	{ path: '/notices/tag', component: () => import('@/components/tag/demo'), },
 	{ path: '/navigation/tabs', component: () => import('@/components/tabs/demo'), },

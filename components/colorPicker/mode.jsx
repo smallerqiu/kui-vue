@@ -48,7 +48,7 @@ export default defineComponent({
     };
     const valueChange = (e, type) => {
       // console.log(e.target.value, type);
-      const value = parseInt(e.target.value);
+      const value = parseInt(e);
       let color = Color(currentColor.value);
       switch (type) {
         case "r":

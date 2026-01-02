@@ -10,9 +10,9 @@
       <template #extra>
         <a href="#">更多</a>
       </template>
-      <p>card content</p>
-      <p>card content</p>
-      <p>card content</p>
+      <div>card content</div>
+      <div>card content</div>
+      <div>card content</div>
     </Card>
   </div>
 </template>

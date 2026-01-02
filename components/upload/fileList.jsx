@@ -38,7 +38,7 @@ export default defineComponent({
       const isPicture = type === "picture";
 
       if (!showUploadList && !isPicture) return null;
-      console.log(fileList)
+      // console.log(fileList)
 
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>

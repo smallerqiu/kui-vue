@@ -16,6 +16,8 @@
     uploadText="上传图片"
   >
   </Upload>
+  <br />
+  <Button @click="test">change</Button>
 </template>
 <script setup>
 import { ref } from "vue";
@@ -42,6 +44,18 @@ const handleChange = (info) => {
   if (info.file.status !== "uploading") {
     console.log(info.file, info.fileList);
   }
+};
+const test = () => {
+  fileList.value = [
+    {
+      url: "https://cdn.chuchur.com/upload/cat/cat1.jpg",
+      status: "uploading",
+      filename: "test.jpg",
+      size: "222kb",
+      percent: 50,
+      status: "uploading",
+    },
+  ];
 };
 </script>
 ```

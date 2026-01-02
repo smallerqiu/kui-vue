@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space>
+  <Space wrap>
     <RadioGroup v-model="placement" type="button">
       <RadioButton label="left" value="left" />
       <RadioButton label="top" value="top" />
@@ -21,7 +21,7 @@
   </Flex>
   <Drawer
     v-model="show"
-    width="200"
+    width="50%"
     :footer="null"
     :placement="placement"
     :target="() => refTarget"

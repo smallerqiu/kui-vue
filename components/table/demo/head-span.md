@@ -27,7 +27,7 @@ const columns = [
   {
     title: "Name",
     key: "name",
-    width: 100,
+    width: 120,
     fixed: "left",
   },
   {
@@ -80,7 +80,7 @@ const columns = [
   {
     title: "Gender",
     key: "gender",
-    width: 80,
+    width: 85,
     fixed: "right",
   },
 ];
