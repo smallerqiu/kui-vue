@@ -4,7 +4,7 @@ import { withInstall } from "../utils/vue.js";
 const CountUpNumber = defineComponent({
   name: "CountUpNumber",
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -19,7 +19,7 @@ const CountUpNumber = defineComponent({
     const el = ref(null);
     let countUp;
     onMounted(() => {
-      countUp = new CountUp(el.value, props.value, {
+      countUp = new CountUp(el.value, props.modelValue, {
         duration: props.duration,
         separator: props.separator || ",",
         decimalPlaces: props.precision,
@@ -30,7 +30,7 @@ const CountUpNumber = defineComponent({
       countUp = null;
     });
     watch(
-      () => props.value,
+      () => props.modelValue,
       (newVal) => {
         if (countUp) {
           countUp.update(newVal);

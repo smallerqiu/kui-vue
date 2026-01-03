@@ -9,6 +9,7 @@
     <Form
       name="withmodal"
       :model="group"
+      @submit="onSubmit2"
       :rules="rules"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
@@ -17,14 +18,14 @@
         <Input />
       </FormItem>
       <FormItem label="UserList">
-        <div style="fontSize: 13px; color: '#aaa'; line-height: 1.5">
+        <Space>
           <template v-if="group.list.length">
-            <p :key="i" v-for="(item, i) in group.list">
+            <Tag theme="light" :key="i" v-for="(item, i) in group.list">
               {{ item.username }} - {{ item.age }}
-            </p>
+            </Tag>
           </template>
           <span v-else>No user</span>
-        </div>
+        </Space>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>
@@ -62,6 +63,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { message } from "kui-vue";
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const formRef = ref();
@@ -96,6 +98,9 @@ const onOk = () => {
 };
 const onCancel = () => {
   formRef.value.reset();
+};
+const onSubmit2 = ({ valid }) => {
+  message[valid ? "success" : "error"](valid ? "success" : "failed");
 };
 </script>
 ```

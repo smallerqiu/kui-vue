@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-grid">
+  <Space vertical block>
     <Row>
       <Col :span="8">col-8</Col>
       <Col :span="8" :offset="8">col-8 | offset-8</Col>
@@ -18,6 +18,6 @@
     <Row>
       <Col :span="12" :offset="12">col-12 offset-12</Col>
     </Row>
-  </div>
+  </Space>
 </template>
 ```

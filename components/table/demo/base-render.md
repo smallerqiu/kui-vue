@@ -8,7 +8,7 @@
   <Table :data="data" :sticky="52" :columns="columns" />
 </template>
 <script setup>
-import { modal } from "kui-vue";
+import { modal, Icon, Space, Button, Tag } from "kui-vue";
 import { Sunny, Moon } from "kui-icons";
 const data = [
   {
@@ -51,12 +51,10 @@ const columns = [
     title: "Gender",
     key: "gender",
     render: (h, { gender }, i) => {
-      return h("Icon", {
-        props: {
-          type: gender == 1 ? Sunny : Moon,
-          color: gender == 1 ? "blue" : "#f50cff",
-          size: 15,
-        },
+      return h(Icon, {
+        type: gender == 1 ? Sunny : Moon,
+        color: gender == 1 ? "blue" : "#f50cff",
+        size: 15,
       });
     },
   },
@@ -65,14 +63,12 @@ const columns = [
     title: "Tags",
     key: "tags",
     render: (h, { tags }, i) => {
-      return h("Space", {}, [
+      return h(Space, {}, [
         tags.map(function (tag) {
           return h(
-            "Tag",
+            Tag,
             {
-              props: {
-                color: tag == "Python" ? "green" : "blue",
-              },
+              color: tag == "Python" ? "green" : "blue",
             },
             tag
           );
@@ -85,18 +81,14 @@ const columns = [
     key: "action",
     render: (h, record, i) => {
       return h(
-        "Button",
+        Button,
         {
-          props: {
-            size: "small",
-          },
-          on: {
-            click: (e) => {
-              modal.info({
-                title: "More",
-                content: `My name is ${record.name}`,
-              });
-            },
+          size: "small",
+          onClick: (e) => {
+            modal.info({
+              title: "More",
+              content: `My name is ${record.name}`,
+            });
           },
         },
         "more"

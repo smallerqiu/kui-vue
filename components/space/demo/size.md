@@ -6,7 +6,7 @@
 
 ```vue
 <template>
-  <Tabs v-model:activeKey="current" @change="change" style="width:350px;">
+  <Tabs v-model="current" @change="change" style="width:350px;">
     <TabPanel key="1" title="Small">
       <Space size="small">
         <Button v-for="x in 5" :key="x">Small</Button>
