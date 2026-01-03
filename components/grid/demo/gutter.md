@@ -5,15 +5,13 @@
 
 ```vue
 <template>
-  <div class="demo-grid">
-    gutter = 10
+  <Space vertical block>
+    <code>gutter = 10</code>
     <Row :gutter="10" class="row-gutter">
       <Col :span="12"><div>col-12</div></Col>
       <Col :span="12"><div>col-12</div></Col>
     </Row>
-    <br />
-    <br />
-    Horizontal Gutter (px):{{ h }}
+    <code>Horizontal Gutter (px):{{ h }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="h"
@@ -23,7 +21,7 @@
         :step="null"
       />
     </div>
-    Vertical Gutter (px):{{ v }}
+    <code>Vertical Gutter (px):{{ v }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="v"
@@ -33,7 +31,7 @@
         :step="null"
       />
     </div>
-    Column Count:{{ cols }}
+    <code>Column Count:{{ cols }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="cols"
@@ -51,7 +49,7 @@
         <div>col-{{ cols }}</div>
       </Col>
     </Row>
-  </div>
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";

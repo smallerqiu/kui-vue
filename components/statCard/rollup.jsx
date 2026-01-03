@@ -3,7 +3,7 @@ import { defineComponent, onMounted, ref, watch } from "vue";
 export default defineComponent({
   name: "RollUp",
   props: {
-    value: { type: [Number, String], default: 0 },
+    modelValue: { type: [Number, String], default: 0 },
     duration: { type: Number, default: 1.2 },
     precision: { type: Number, default: 0 },
   },
@@ -24,13 +24,13 @@ export default defineComponent({
       );
     };
 
-    displayChars.value = getChars(props.value);
+    displayChars.value = getChars(props.modelValue);
 
     onMounted(() => {
-      displayChars.value = format(props.value);
+      displayChars.value = format(props.modelValue);
     });
     watch(
-      () => props.value,
+      () => props.modelValue,
       (newVal) => {
         displayChars.value = format(newVal);
       }

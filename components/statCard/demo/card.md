@@ -28,12 +28,12 @@ const items2 = [
   {
     value: 5872,
     desc: "点赞人数",
-    prefix: h("Icon", { props: { type: Heart } }),
+    prefix: h("Icon", { type: Heart }),
   },
   {
     value: 9873672,
     desc: "收藏人数",
-    prefix: h("Icon", { props: { type: Star } }),
+    prefix: h("Icon", { type: Star }),
   },
 ];
 </script>

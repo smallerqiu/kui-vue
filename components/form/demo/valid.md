@@ -230,6 +230,7 @@ const setValue = () => {
     captcha: "8888",
     gender: "1",
     slider: 5,
+    rate: 5,
     number: 5,
     tree: "0",
     system: "0",

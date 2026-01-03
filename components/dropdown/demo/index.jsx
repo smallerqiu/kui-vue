@@ -14,9 +14,9 @@ export default {
         <Basic />
         <RightMenu />
         <DropdownButton />
-        {/* <Divider /> */}
-        {/* <Placement /> */}
-        {/* <Cascading /> */}
+        <Divider />
+        <Placement />
+        <Cascading />
         <CN />
       </div>
     )

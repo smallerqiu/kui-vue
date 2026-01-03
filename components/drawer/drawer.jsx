@@ -44,7 +44,6 @@ const Drawer = defineComponent({
     });
     const rendered = ref(ps.modelValue); 
     const visible = ref(ps.modelValue); 
-    const opened = ref(ps.show);
     watch( 
       () => ps.modelValue,
       (nv, ov) => {
@@ -114,15 +113,14 @@ const Drawer = defineComponent({
 
     const openHandle = () => {
       if (visible.value) {
-        opened.value = true;
+        visible.value = true;
       } else {
         setTimeout(() => {
-          opened.value = false;
+          visible.value = false;
         }, 300);
       }
-      lockScroll(visible.value);
       // emit("update:show", visible.value); // for 3
-      emit("update:value", visible.value);
+      emit("update:modelValue", visible.value);
     };
 
     const close = () => {
@@ -175,7 +173,6 @@ const Drawer = defineComponent({
       const classes = [
         "k-drawer",
         `k-drawer-${placement}`,
-        { "k-drawer-opened": opened.value },
         { "k-drawer-has-footer": hasFooter },
         { "k-drawer-nobody": !isBody },
         { "k-drawer-nomask": !ps.mask },

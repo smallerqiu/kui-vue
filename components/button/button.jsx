@@ -82,26 +82,13 @@ const Button = defineComponent({
     return () => {
       let children = getChildren(slots.default?.());
       // for Vue 3
-      // const iconOnly = () => {
-      //   const validChildren = children.filter((c) => c.type !== Comment);
-      //   if (validChildren.length === 1) {
-      //     return validChildren[0].type.name === "Icon";
-      //   }
-      //   return false;
-      // };
       const iconOnly = () => {
-        // for 2
-        const excluded = children.filter(
-          (c) => c.componentOptions?.tag !== "transition"
-        );
+        const validChildren = children.filter((c) => c.type !== Comment);
+        if (validChildren.length === 1) {
+          return validChildren[0].type.name === "Icon";
+        }
 
-        if (!excluded?.length) {
-          return props.icon || props.loading;
-        }
-        if (excluded.length === 1) {
-          return excluded[0].componentOptions?.tag === "Icon";
-        }
-        return false;
+        return props.icon !== undefined;
       };
 
       const classes = [

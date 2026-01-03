@@ -49,7 +49,7 @@ const Form = defineComponent({
 
     const updateMode = (prop, value = null) => {
       const { o, k } = getPropByPath(model.value, prop);
-      console.log(o, k, value);
+      // console.log(o, k, value);
       if (o) {
         o[k] = value;
         emit("change", model.value);
@@ -118,7 +118,8 @@ const Form = defineComponent({
       });
 
       if (typeof callback === "function") {
-        callback(result);
+        const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
+        callback({ valid: result, model: modelCopy });
       }
     };
 

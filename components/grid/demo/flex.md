@@ -6,42 +6,42 @@ Flex 布局基础。
 
 ```vue
 <template>
-  <div class="demo-grid">
-    <p>start</p>
+  <Space vertical block>
+    <code>start</code>
     <Row type="flex" justify="start" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>center</p>
+    <code>center</code>
     <Row type="flex" justify="center" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>end</p>
+    <code>end</code>
     <Row type="flex" justify="end" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>space-around</p>
+    <code>space-around</code>
     <Row type="flex" justify="space-around" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>space-between</p>
+    <code>space-between</code>
     <Row type="flex" justify="space-between" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-  </div>
+  </Space>
 </template>
 ```

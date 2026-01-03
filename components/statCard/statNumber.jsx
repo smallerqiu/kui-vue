@@ -5,7 +5,7 @@ import RollUp from "./rollup.jsx";
 const StatNumber = defineComponent({
   name: "StatNumber",
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -26,12 +26,10 @@ const StatNumber = defineComponent({
   setup(props, { slots }) {
     return () => {
       const items = {
-        props: {
-          value: props.value,
-          separator: props.separator,
-          duration: props.duration,
-          precision: props.precision,
-        },
+        modelValue: props.modelValue,
+        separator: props.separator,
+        duration: props.duration,
+        precision: props.precision,
       };
       const prefixNode = props.prefix || slots.prefix?.();
       const suffixNode = props.suffix || slots.suffix?.();

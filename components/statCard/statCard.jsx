@@ -24,7 +24,7 @@ const StatCard = defineComponent({
                         prefix: () => item.prefix || slots.prefix,
                         suffix: () => item.suffix || slots.suffix,
                       }}
-                      value={item.value}
+                      modelValue={item.value}
                       duration={item.duration}
                       type={props.statNumberType}
                     />
