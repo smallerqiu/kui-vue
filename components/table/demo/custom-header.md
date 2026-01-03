@@ -58,7 +58,7 @@ const columns = [
   {
     title: "Operate",
     key: "action",
-    width: 80,
+    width: 90,
   },
 ];
 const show = (record) => {
