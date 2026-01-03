@@ -18,7 +18,7 @@
     <Input
       placeholder="请输入内容..."
       theme="light"
-      clearable
+      :clearable="false"
       :shape="shape"
       @search="onSearch"
     />
