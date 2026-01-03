@@ -4,7 +4,7 @@
 
 ```vue
 <template>
-  <Space vertical class="demo-back"> 
+  <Space vertical class="demo-view-fill"> 
     <Card :bordered="false">
       <StatNumber
         v-model="value"

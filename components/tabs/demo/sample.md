@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-back">
+  <div class="demo-view-fill">
     <Tabs v-model="current" sample @change="change">
       <TabPanel key="1" title="Tab 1">
         <p>Content of Tab Pane 1</p>
