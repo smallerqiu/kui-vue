@@ -60,8 +60,8 @@ export default defineComponent({
         // onBlur: handleBlur,
         // onInput: handleInput,
       };
-      if (!ps.showPassword && type == "password") {
-        props.type = "text";
+      if (ps.showPassword === true && type == "password") {
+        props.attrs.type = "text";
       }
       return <input {...props} single />;
     };

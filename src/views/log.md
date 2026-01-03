@@ -8,7 +8,7 @@
 npm install kui-vue@latest --registry=http://registry.npmjs.org
 ```
 
-vite 好像有缓存, 可手动清除
+vite 如果有缓存, 可手动清除
 
 ```bash
 rm -rf node_modules/.vite
@@ -17,6 +17,27 @@ rm -rf node_modules/.vite
 ## 4.0
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
+
+## 3.6.3
+
+`2026-1-2`
+
+- 修复 Select, TreeSelect 细节
+- 修复 Table border 细节
+- 新增 StatCard 统计卡片 组件, Dashboard 专用
+- 新增 StatNumber 组件, 动态数字展示
+- 修复 message, notice 关闭细节
+
+## 3.6.2
+
+`2025-12-22`
+
+- 单选支持 `number` 类型
+- Pop 组件对齐细节
+- Empty 居中细节
+- DropdownButton `click` 事件
+- Rate 支持 `v-model`
+- Collapse `activeKeys` => `openKeys`
 
 ## 3.6.1
 

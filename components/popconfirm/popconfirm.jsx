@@ -23,6 +23,7 @@ const Popconfirm = defineComponent({
   },
   props: {
     dark: Boolean,
+    show: Boolean,
     title: [String, Number, Object, Array],
     size: String,
     width: [Number, String],
@@ -100,6 +101,10 @@ const Popconfirm = defineComponent({
         }
       }
     );
+    const updateShow = (value) => {
+      visible.value = value;
+      emit("update:show", value);
+    };
     const outsideClick = (e) => {
       const ctx = refSelection.value?.$el || refSelection.value;
       if (
@@ -108,7 +113,7 @@ const Popconfirm = defineComponent({
         ctx &&
         !ctx.contains(e.target)
       ) {
-        visible.value = false;
+        updateShow(false);
       }
     };
     const mouseEnter = () => {
@@ -116,29 +121,22 @@ const Popconfirm = defineComponent({
         rendered.value = true;
         document.addEventListener("click", outsideClick);
         nextTick(() => {
-          visible.value = true;
+          updateShow(true);
           updatePosition();
         });
       } else {
         clearTimeout(showTimer.value);
-        visible.value = true;
+        updateShow(true);
         updatePosition();
       }
     };
-    const hide = () => {
-      hideTimer.value = setTimeout(() => {
-        if (!ps.show) {
-          visible.value = false;
-        }
-      }, 300);
-    };
     const ok = () => {
-      visible.value = false;
+      updateShow(false);
       emit("ok");
     };
 
     const cancel = () => {
-      visible.value = false;
+      updateShow(false);
       emit("cancel");
     };
     return () => {
@@ -183,24 +181,24 @@ const Popconfirm = defineComponent({
         on: {
           mouseenter: () => {
             clearTimeout(hideTimer.value);
-            visible.value = true;
+            updateShow(true);
           },
           mouseleave: () => {
             showTimer.value = setTimeout(() => {
               if (!ps.show) {
-                visible.value = false;
+                updateShow(false);
               }
             }, 300);
           },
         },
         // onMouseenter: () => {
         //   clearTimeout(hideTimer.value);
-        //   visible.value = true;
+        //   updateShow(true;
         // },
         // onMouseleave: () => {
         //   showTimer.value = setTimeout(() => {
         //     if (!ps.show) {
-        //       visible.value = false;
+        //       updateShow(false;
         //     }
         //   }, 300);
         // },

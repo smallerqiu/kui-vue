@@ -5,19 +5,19 @@
 
 ```vue
 <template>
-  <div class="demo-grid">
-    <Row>
+  <Space block vertical>
+    <Row class="demo-back">
       <Col :span="8">col-8</Col>
       <Col :span="8" :offset="8">col-8 | offset-8</Col>
     </Row>
-    <Row>
+    <Row class="demo-back">
       <Col :span="6">col-6</Col>
       <Col :span="6" :offset="6">col-6 | offset-6</Col>
       <Col :span="6">col-6</Col>
     </Row>
-    <Row>
+    <Row class="demo-back">
       <Col :span="12" :offset="12">col-12 offset-12</Col>
     </Row>
-  </div>
+  </Space>
 </template>
 ```

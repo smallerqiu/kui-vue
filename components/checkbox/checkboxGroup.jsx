@@ -1,7 +1,7 @@
 import Checkbox from "./checkbox";
 import { defineComponent, watch, toRefs, computed } from "vue";
 import { withInstall } from "../utils/vue";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",

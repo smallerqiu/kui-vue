@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import {loading} from 'kui-vue'
 Vue.use(Router)
 
 // 解决 vue-router在3.0版本以上重复路由报错问题
@@ -58,6 +58,7 @@ let children = [
 	{ path: '/layouts/space', component: () => import('@/components/space/demo'), },
 	{ path: '/notices/spin', component: () => import('@/components/spin/demo'), },
 	{ path: '/forms/switch', component: () => import('@/components/switch/demo'), },
+	{ path: '/data/statcard', component: () => import('@/components/statCard/demo'), },
 	{ path: '/data/table', component: () => import('@/components/table/demo'), },
 	{ path: '/notices/tag', component: () => import('@/components/tag/demo'), },
 	{ path: '/navigation/tabs', component: () => import('@/components/tabs/demo'), },
@@ -94,13 +95,13 @@ let routers = new Router({
 
 
 routers.beforeEach(function (to, from, next) {
+	loading.start()
 	typeof (_hmt) != 'undefined' && window._hmt.push(['_trackPageview', to.path]);
 	next()
 
 })
-// routers.afterEach((to, from, next) => {
+routers.afterEach((to, from, next) => {
 	// (process.env.NODE_ENV == 'development') &&
-	// loading.finish();
-	// kui.Loading.finish();
-// });
+	loading.finish();
+});
 export default routers

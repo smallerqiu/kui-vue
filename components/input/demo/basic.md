@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space vertical block>
-    Input: {{ value }}
+    <code>v-model: {{ value }}</code>
     <Input
       placeholder="请输入内容..."
       @blur="blur"

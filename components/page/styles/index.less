@@ -158,7 +158,13 @@
   cursor: not-allowed;
   .k-pager-item {
     color: var(--kui-color-disabled);
-    border-color: var(--kui-color-disabled);
+    border-color: var(--kui-color-disable-border);
+  }
+  .k-pager-item-active {
+    color: var(--kui-color-disabled);
+    :hover {
+      color: var(--kui-color-disabled);
+    }
   }
   * {
     cursor: not-allowed;

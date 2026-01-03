@@ -49,6 +49,7 @@ export default {
       successful: "上传成功",
       failed: "上传失败",
       errorFileSize: "文件尺寸不合法",
+      releaseToUpload: "松手开始上传",
     },
     image: {
       preview: "预览",

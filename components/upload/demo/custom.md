@@ -13,8 +13,7 @@ name 为上传文件名
     :headers="headers"
     :data="prams"
     :autoTrigger="false"
-    @before-upload="beforeUpload"
-    @remove="beforeUpload"
+    @onSelectFiles="onSelectFiles"
     multiple
     ref="uploadRef"
   >
@@ -39,6 +38,10 @@ const headers = ref({
 const beforeUpload = (info) => {
   console.log(info.file, info.fileList);
   disabled.value = info.fileList.length == 0;
+};
+const onSelectFiles = (fileList) => {
+  console.log(fileList);
+  disabled.value = fileList.length == 0;
 };
 const startUpload = () => {
   console.log("startUpload",uploadRef);

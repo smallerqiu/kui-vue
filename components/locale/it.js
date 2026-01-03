@@ -49,6 +49,7 @@ export default {
       successful: "successo",
       failed: "fail",
       errorFileSize: "Dimensione file illegale",
+      releaseToUpload: "Rilascia per avviare il caricamento",
     },
     image: {
       preview: "anteprima",

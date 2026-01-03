@@ -29,7 +29,7 @@ const Table = defineComponent({
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
     },
-    bordered: Boolean,
+    bordered: { type: Boolean, default: false },
     checkable: Boolean,
     loading: Boolean,
     emptyText: String,
@@ -143,7 +143,7 @@ const Table = defineComponent({
           };
           headerStyles[col.key] = style;
           bodyStyles[col.key] = style;
-          leftOffset += col.width || 100;
+          leftOffset += col.width || 150;
         }
       });
 
@@ -167,7 +167,7 @@ const Table = defineComponent({
             transform: "translateZ(0)",
           };
 
-          rightOffset += col.width || 100;
+          rightOffset += col.width || 150;
         }
       }
       return { header: headerStyles, body: bodyStyles };
@@ -213,7 +213,9 @@ const Table = defineComponent({
     const measureScrollbar = () => {
       if (bodyWrapperRef.value) {
         const width =
-          bodyWrapperRef.value.offsetWidth - bodyWrapperRef.value.clientWidth;
+          bodyWrapperRef.value.offsetWidth -
+          bodyWrapperRef.value.clientWidth -
+          (props.bordered ? 1 : 0);
         if (scrollbarWidth.value !== width) scrollbarWidth.value = width;
       }
     };
@@ -480,7 +482,7 @@ const Table = defineComponent({
                     "k-table-cell-fix-left",
                     pingLeft.value && "k-table-cell-fix-left-last",
                   ]}
-                  style={{ width: "50px" }}
+                  style={{ width: "50px", left: 0 }}
                 >
                   <Checkbox
                     checked={innerSelectedKeys.value.has(rowId)}

@@ -18,7 +18,7 @@ const Checkbox = defineComponent({
 
     // [Vue 3 Upgrade]: Vue 2 use checked & model
     checked: {
-      type: Boolean,
+      type: [Boolean, Number],
       default: false,
     },
 
@@ -43,27 +43,28 @@ const Checkbox = defineComponent({
         isChecked.value = v;
       }
     );
-
+    const emitValue = (checked) => {
+      isChecked.value = checked;
+      emit("change", {
+        checked: checked,
+        value: props.value,
+        label: props.label || slots.default?.(),
+      });
+      emit("input", checked);
+    };
     const onChange = (e) => {
       if (props.disabled) return;
-
-      const targetChecked = e.target.checked;
-
-      isChecked.value = targetChecked;
-      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
-      emit("change", {
-        checked: targetChecked,
-        value: props.value,
-        label: props.label,
-      });
-      emit("input", targetChecked);
+      const checked = e.target.checked;
+      e.preventDefault();
+      e.stopPropagation();
+      emitValue(checked);
     };
-    const triggleCheck = (e) => {
-      // onChange({ target: { checked: isChecked.value } });
+    const triggerCheck = (e) => {
       if (e.code == "Space") {
-        onChange({ target: { checked: !isChecked.value } });
         e.preventDefault();
         e.stopPropagation();
+        if (props.disabled) return;
+        emitValue(!isChecked.value);
       }
     };
     return () => {
@@ -86,7 +87,7 @@ const Checkbox = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={wpClasses} onKeydown={triggleCheck} tabindex="0">
+        <label class={wpClasses} onKeydown={triggerCheck} tabindex="0">
           <span class="k-checkbox-symbol">
             <input
               type="checkbox"

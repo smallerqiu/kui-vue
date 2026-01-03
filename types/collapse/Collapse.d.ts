@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Collapse component props */
 export interface CollapseProps {
-  activeKey?: any[];
+  openKeys?: any[];
   accordion?: boolean;
   sample?: boolean;
 }

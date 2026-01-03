@@ -3,7 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** Radio component props */
 export interface RadioProps {
   /** default: false */
-  checked?: boolean;
+  checked?: boolean | number;
   value?: string | number | boolean;
   label?: string | number;
   disabled?: boolean;

@@ -13,7 +13,7 @@
         lineHeight: '200px',
         color: '#999',
       }"
-      class="demo-back"
+      class="demo-view-fill"
     >
       Right Click on here
     </div>

@@ -3,13 +3,12 @@
 .k-card {
   background: var(--kui-color-back);
   position: relative;
-  border-radius: var(--kui-border-radius);
+  border-radius: var(--kui-border-card-radius);
   color: var(--kui-color-font);
 
   .k-card-head {
     position: relative;
-    border-bottom: 1px solid var(--kui-color-gray-80);
-    padding: 14px 16px;
+    padding: 16px;
     line-height: 1;
     display: flex;
     align-items: center;
@@ -42,4 +41,7 @@
 
 .k-card-bordered {
   border: 1px solid var(--kui-color-border);
+  .k-card-head {
+    border-bottom: 1px solid var(--kui-color-border);
+  }
 }

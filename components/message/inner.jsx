@@ -1,5 +1,11 @@
 import Icon from "../icon";
-import { Close, InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle } from "kui-icons";
+import {
+  Close,
+  InformationCircle,
+  CloseCircle,
+  CheckmarkCircle,
+  AlertCircle,
+} from "kui-icons";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
@@ -8,13 +14,16 @@ export default defineComponent({
     content: [String, Object],
     icon: [String, Array],
     color: String,
+    duration: Number,
     closable: Boolean,
     noticeType: { type: String, default: "message" },
-    onClose: { type: Function, default: () => { } },
   },
-  setup(ps) {
+  setup(ps, { emit }) {
+    const onClose = () => {
+      emit("close");
+    };
     return () => {
-      let { noticeType, type, content, title, onClose, closable, icon, color } = ps;
+      let { noticeType, type, content, title, closable, icon, color } = ps;
       const classes = [
         `k-${noticeType}-box`,
         {
@@ -30,17 +39,27 @@ export default defineComponent({
       };
       const children = [];
       if (type in icons) {
-        children.push(<Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />);
+        children.push(
+          <Icon
+            type={icon || icons[type]}
+            color={color}
+            class={`k-${noticeType}-icon`}
+          />
+        );
       }
       if (noticeType == "message") {
         children.push(<span>{content}</span>);
         if (closable) {
-          children.push(<Icon class="k-message-close" type={Close} onClick={onClose} />);
+          children.push(
+            <Icon class="k-message-close" type={Close} onClick={onClose} />
+          );
         }
       } else {
         children.push(<div class="k-notice-title">{title}</div>);
         children.push(<div class="k-notice-desc">{content}</div>);
-        children.push(<Icon class="k-notice-close" type={Close} onClick={onClose} />);
+        children.push(
+          <Icon class="k-notice-close" type={Close} onClick={onClose} />
+        );
       }
       return (
         <div class={classes}>

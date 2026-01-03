@@ -49,6 +49,7 @@ export default {
       successful: "успешно",
       failed: "неудача",
       errorFileSize: " Неверный размер файла",
+      releaseToUpload: "Отпустите, чтобы начать загрузку",
     },
     image: {
       preview: "просмотр",

@@ -15,7 +15,7 @@
       :wrapperCol="wrapperCol"
     >
       <FormItem label="Size">
-        <RadioGroup v-model="size">
+        <RadioGroup v-model="size" type="button">
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />
           <RadioButton value="small" label="Small" />
@@ -69,6 +69,9 @@
       <FormItem label="Slider" prop="slider">
         <Slider />
       </FormItem>
+      <FormItem label="Rate" prop="rate">
+        <Rate />
+      </FormItem>
       <FormItem label="Gender" prop="gender">
         <RadioGroup>
           <Radio value="0" label="Girl" />
@@ -79,7 +82,7 @@
         <Radio label="Only One?" />
       </FormItem>
       <FormItem label="System" prop="system">
-        <RadioGroup>
+        <RadioGroup type="button">
           <RadioButton value="0" label="Mac OS" />
           <RadioButton value="1" label="Windows" />
           <RadioButton value="2" label="Linux" />
@@ -152,6 +155,7 @@ const form = ref({
   phone: "",
   captcha: "",
   slider: 5,
+  rate: 0,
   tree: "",
   gender: "",
   one: false,
@@ -199,6 +203,10 @@ const rules = {
     { max: 50, message: "最大值为50" },
   ],
   gender: [{ required: true, message: "请选择性别" }],
+  rate: [
+    { required: true, message: "请选择评分" },
+    { min: 1, message: "评分最小1分" },
+  ],
   one: [{ required: true, message: "霸王选项" }],
   system: [{ required: true, message: "请选择系统类型" }],
   hardcore: [{ required: true, message: "霸王选项" }],
@@ -250,7 +258,7 @@ const sendCode = () => {
 };
 const submit = () => {
   formRef.value.validate((valid) => {
-    message[valid ? "success" : "error"](valid ? "success" : "faild");
+    message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {

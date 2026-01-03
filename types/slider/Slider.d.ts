@@ -2,22 +2,23 @@ import Vue, { VueConstructor } from "vue";
 
 /** Slider component props */
 export interface SliderProps {
-  value?: any[] | number | string;
+  /** default: 0 */
+  value?: any[] | number;
   /** default: 0 */
   min?: number;
   /** default: 100 */
   max?: number;
-  disabled?: boolean;
   /** default: 1 */
-  step?: number;
-  size?: string;
+  step?: number | Record<string, any>;
+  disabled?: boolean;
   vertical?: boolean;
-  range?: boolean;
   reverse?: boolean;
+  range?: boolean;
   marks?: Record<string, any>;
+  size?: string | number;
   /** default: true */
   included?: boolean;
-  tipFormatter?: ((...args: any[]) => any) | Record<string, any>;
+  tipFormatter?: (...args: any[]) => any;
   tooltipVisible?: boolean;
 }
 
