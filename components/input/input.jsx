@@ -6,6 +6,7 @@ import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
 import { withInstall } from "../utils/vue";
 import InputBox from "./inputBox";
 import { sizeMap, filterSize } from "../utils/size";
+import { getChildren } from "../utils/vnode";
 
 const Input = defineComponent({
   name: "Input",
@@ -86,8 +87,8 @@ const Input = defineComponent({
     const togglePassword = (e) => {
       if (ps.disabled) return;
       showPassword.value = !showPassword.value;
-      let type = showPassword.value ? "text" : "password";
-      inputRef.value.type = type;
+      // let type = showPassword.value ? "text" : "password";
+      // inputRef.value.type = type;
     };
 
     const searchEvent = (e) => {
@@ -132,19 +133,20 @@ const Input = defineComponent({
         shape,
         inputType,
       } = ps;
-      const slotSuffix = slots.suffix?.();
-      const slotPrefix = slots.prefix?.();
+      const slotSuffix = getChildren(slots.suffix?.());
+      const slotPrefix = getChildren(slots.prefix?.());
+      const slotControls = getChildren(slots.controls?.());
       let multiple =
         (icon ||
           // attrs.onSearch ||
           "search" in listeners ||
-          slotSuffix ||
+          slotSuffix.length > 0 ||
           suffix ||
-          slotPrefix ||
+          slotPrefix.length > 0 ||
           prefix ||
           type == "password" ||
           clearable ||
-          slots.controls) &&
+          slotControls.length > 0) &&
         type !== "hidden";
       const inputProps = {
         attrs: { ...attrs },
@@ -158,7 +160,7 @@ const Input = defineComponent({
           inputRef: inputRef,
           inputType,
           value: currentValue.value,
-          showPassword: ps.showPassword,
+          showPassword: showPassword.value,
         },
         on: {
           ...listeners,
@@ -180,9 +182,11 @@ const Input = defineComponent({
       let textInput = <InputBox {...inputProps} />;
 
       if (!multiple) return textInput;
-
       let clearableShow =
-        clearable && !isEmpty(currentValue.value) && type != "password";
+        clearable &&
+        !isEmpty(currentValue.value) &&
+        type != "password" &&
+        attrs.readonly === undefined;
       const props = {
         class: {
           [`k-${inputType}`]: true,
@@ -197,9 +201,9 @@ const Input = defineComponent({
       };
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
-      if (slotPrefix || slotSuffix) {
+      if (slotPrefix.length || slotSuffix.length) {
         const preChildren = [];
-        if (slotPrefix)
+        if (slotPrefix.length)
           preChildren.push(
             <div class="k-input-group-prefix">{slotPrefix}</div>
           );
@@ -229,12 +233,12 @@ const Input = defineComponent({
             />
           );
         const sufChildren = [];
-        if (slotSuffix)
+        if (slotSuffix.length)
           sufChildren.push(
             <div class="k-input-group-suffix">{slotSuffix}</div>
           );
 
-        if (slots.controls) innerChildren.push(slots.controls?.());
+        if (slotControls.length) innerChildren.push(slotControls);
         return (
           <InputGroup size={size}>
             {preChildren}
@@ -270,7 +274,7 @@ const Input = defineComponent({
             />
           );
         if (suffixNode) children.push(suffixNode);
-        if (slots.controls) children.push(slots.controls?.());
+        if (slotControls.length) children.push(slotControls);
 
         return (
           <div {...props} mult>

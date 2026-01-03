@@ -5,18 +5,21 @@
 
 ```vue
 <template>
-  <TreeSelect
-    v-model="value"
-    :tree-data="data"
-    tree-showLine
-    :treeExpandedKeys="expandedKeys"
-    block
-  />
+  <Space vertical>
+    <code>v-model: {{ value }}</code>
+    <TreeSelect
+      v-model="value"
+      :tree-data="data"
+      tree-showLine
+      :treeExpandedKeys="expandedKeys"
+      block
+    />
+  </Space>
 </template>
 <script setup>
 import { ref } from "vue";
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
-const value = ref();
+const value = ref("0-1");
 const data = [
   {
     title: "tree 1",

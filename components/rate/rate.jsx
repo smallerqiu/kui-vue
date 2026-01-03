@@ -1,6 +1,7 @@
 import Star from "./star";
-import { defineComponent, ref } from "vue";
-import { withInstall } from '../utils/vue';
+import { defineComponent, ref, watch } from "vue";
+import { withInstall } from "../utils/vue";
+import { sizeMap, filterSize } from "../utils/size";
 const Rate = defineComponent({
   name: "Rate",
   props: {
@@ -13,13 +14,19 @@ const Rate = defineComponent({
     disabled: Boolean,
     tooltips: Array,
     showScore: Boolean,
-    size: Number,
+    size: [Number, String],
     color: String,
   },
   setup(ps, { slots, emit }) {
     const initValue = ref(ps.value);
     const tempValue = ref();
     const cleared = ref(false);
+    watch(
+      () => ps.value,
+      (v) => {
+        initValue.value = v;
+      }
+    );
     const update = (t, index, percent) => {
       if (t == "M") {
         if (cleared.value) return;
@@ -41,6 +48,7 @@ const Rate = defineComponent({
         }
         // emit("update:value", initValue.value); //for 3
         emit("input", initValue.value);
+        emit("change", initValue.value);
       }
     };
 
@@ -51,7 +59,21 @@ const Rate = defineComponent({
 
     return () => {
       const tpValue = tempValue.value || initValue.value;
-      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, size, color } = ps;
+      let {
+        count,
+        allowHalf,
+        character,
+        disabled,
+        tooltips = [],
+        icon,
+        showScore,
+        color,
+      } = ps;
+      let size = ps.size;
+      if (typeof size == "string" && filterSize(size)) {
+        let sizeValue = [20, 24, 32];
+        size = sizeValue[sizeMap.indexOf(size)];
+      }
       const stars = [];
       if (isNaN(Number(count)) || count <= 0) {
         count = 5;
@@ -76,7 +98,7 @@ const Rate = defineComponent({
           },
           on: {
             update: update,
-          }
+          },
           // onUpdate: update, //for 3
         };
         stars.push(<Star {...sp} />);
@@ -95,7 +117,9 @@ const Rate = defineComponent({
       return (
         <div {...props}>
           {stars}
-          {showScore ? <span class="k-rate-score">{ps.value}</span> : null}
+          {showScore ? (
+            <span class="k-rate-score">{initValue.value}</span>
+          ) : null}
         </div>
       );
     };

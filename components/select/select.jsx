@@ -202,9 +202,11 @@ const Select = defineComponent({
     });
 
     const labelText = computed(() => {
-      return optionsData.value
-        .filter((item) => currentValue.value.includes(item.value))
-        .map((item) => item.label);
+      const lookup = new Map();
+      optionsData.value.forEach((item) => {
+        lookup.set(item.value, item.label);
+      });
+      return currentValue.value.map(val => lookup.get(val) ?? val);
     });
 
     const updatePosition = () => {
@@ -276,7 +278,6 @@ const Select = defineComponent({
           currentValue.value = currentValue.value.filter((v) => v !== value);
         } else {
           currentValue.value.push(value);
-          labelText.value.push(label);
         }
         updatePosition();
         if (hasSearchEvent || ps.filterable) {

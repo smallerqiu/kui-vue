@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons";
 import {
   defineComponent,
@@ -137,10 +137,12 @@ const Tabs = defineComponent({
         emit("input", key);
         // emit("update:activeKey", key);
         emit("tab-click", key);
-        defaultActiveKey.value = key;
-        currentIndex.value = index;
-        emit("change", key);
-        updateIndex(); // for 2
+        if (defaultActiveKey.value !== key) {
+          defaultActiveKey.value = key;
+          currentIndex.value = index;
+          updateIndex();
+          emit("change", key);
+        }
       }
     };
     const updateIndex = () => {

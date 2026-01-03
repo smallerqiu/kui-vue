@@ -49,6 +49,7 @@ export default {
       successful: "επιτυχία",
       failed: "Αποτυχία",
       errorFileSize: "Παράνομο μέγεθος αρχείου",
+      releaseToUpload: "Αφήστε για να ξεκινήσει η μεταφόρτωση",
     },
     image: {
       preview: "προεπισκόπηση",

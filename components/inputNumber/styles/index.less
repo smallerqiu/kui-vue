@@ -22,7 +22,7 @@
   &:not(.k-input-number-light, .k-input-number-disabled):hover {
     border-color: var(--kui-color-main);
   }
-  &:hover:not(.k-input-number-disabled) {
+  &:not(.k-input-number-disabled):hover {
     .k-input-number-controls {
       opacity: 1;
       width: 20px;
@@ -111,7 +111,7 @@
   outline-offset: 1px;
   outline: 2px solid var(--kui-color-main-80);
 }
-.k-input-number-focus:not(.k-input-number-light) {
+.k-input-number-focus:not(.k-input-number-light, .k-input-number-disabled) {
   border-color: var(--kui-color-main);
   box-shadow: 0 0 0 2px var(--kui-color-main-90);
 }
@@ -126,7 +126,7 @@
   width: auto;
   padding-right: var(--kui-padding-inline);
 
-  &:not(.k-input-number-light):hover {
+  &:not(.k-input-number-light, .k-input-number-disabled):hover {
     border-color: var(--kui-color-main);
   }
 

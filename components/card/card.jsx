@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { defineComponent } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Card = defineComponent({
   name: "Card",
   props: {
@@ -21,16 +21,26 @@ const Card = defineComponent({
       // console.log(extraSlot)
       const titleSlot = slots.title?.();
       const selfSlot = slots.default?.();
-      const extraNode = extraSlot ? <div class="k-card-extra">{extraSlot}</div> : null;
-      const iconNode = icon ? <Icon type={icon} class="k-card-title-icon" /> : null;
-      const titleNode = title ? <span class="k-card-title">{title}</span> : titleSlot || null;
+      const extraNode = extraSlot ? (
+        <div class="k-card-extra">{extraSlot}</div>
+      ) : null;
+      const iconNode = icon ? (
+        <Icon type={icon} class="k-card-title-icon" />
+      ) : null;
+      const titleNode = title ? (
+        <span class="k-card-title">{title}</span>
+      ) : (
+        titleSlot || null
+      );
       return (
         <div class={classes}>
-          <div class="k-card-head">
-            {iconNode}
-            {titleNode}
-            {extraNode}
-          </div>
+          {titleNode && (
+            <div class="k-card-head">
+              {iconNode}
+              {titleNode}
+              {extraNode}
+            </div>
+          )}
           {selfSlot ? <div class="k-card-body k-scroll">{selfSlot}</div> : null}
         </div>
       );

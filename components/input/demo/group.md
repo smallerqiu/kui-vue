@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space vertical size="middle" block>
+  <Space vertical size="middle" block style="width:600px;max-width:100%">
     <InputGroup>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />

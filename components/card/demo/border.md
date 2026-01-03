@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div class="demo-card">
+  <div class="demo-view-fill">
     <Card title="卡片标题" :icon="Heart" :bordered="false">
       <template #extra>
         <a href="#">更多</a>
@@ -19,10 +19,4 @@
 <script setup>
 import { Heart } from "kui-icons";
 </script>
-<style scoped>
-.demo-card {
-  padding: 20px;
-  background-color: #7f7f7f26;
-}
-</style>
 ```

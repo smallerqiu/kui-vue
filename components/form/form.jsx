@@ -1,6 +1,6 @@
 // form.vue 或 form.jsx
 import { defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
-import { getChildren } from "../utils/element";
+import { getChildren } from "../utils/vnode";
 import { cloneVNode, withInstall } from "../utils/vue";
 
 const Form = defineComponent({
@@ -39,7 +39,7 @@ const Form = defineComponent({
     const { model, rules, size, shape, theme, disabled, layout, name } =
       toRefs(props);
 
-    const updateMode = (prop, value = "") => {
+    const updateMode = (prop, value = null) => {
       const keys = prop
         .replace(/\[(\w+)\]/g, ".$1")
         .replace(/^\./, "")

@@ -14,7 +14,7 @@ export interface RateProps {
   disabled?: boolean;
   tooltips?: any[];
   showScore?: boolean;
-  size?: number;
+  size?: number | string;
   color?: string;
 }
 

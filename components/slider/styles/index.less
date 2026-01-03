@@ -37,11 +37,13 @@
     transform: translateX(-50%) translateY(-50%);
     outline: 2px solid transparent;
     outline-offset: 1px;
+    z-index: 0;
     &:focus {
       outline-color: var(--kui-color-main-80);
     }
-    &:active {
+    &.is-dragging {
       border: 1px solid var(--kui-color-main);
+      z-index: 1;
       cursor: grabbing;
     }
   }
@@ -82,12 +84,14 @@
     position: absolute;
     width: 100%;
     top: 12px;
-    left: 0;
     font-size: 14px;
     z-index: 0;
   }
+  .k-slider-mark-item {
+    position: absolute;
+  }
 
-  .k-slider-mark-symbol {
+  .k-slider-mark-dot {
     position: absolute;
     height: 4px;
     width: 4px;
@@ -98,7 +102,7 @@
     pointer-events: none;
     box-sizing: content-box;
 
-    &-active {
+    &.is-active {
       border-color: var(--kui-color-main);
     }
   }
@@ -130,7 +134,7 @@
   .k-slider-track {
     width: 4px;
     left: 14px;
-    top: 0;
+    top: auto;
   }
 
   .k-slider-rail {
@@ -149,15 +153,11 @@
 
   .k-slider-thumb {
     transform: translateY(-50%);
-    margin: 0 0 0 3px;
     top: auto;
+    left: 50%;
   }
 
-  .k-slider-thumb-sm {
-    margin-left: 9px;
-  }
-
-  .k-slider-mark-symbol,
+  .k-slider-mark-dot,
   .k-slider-mark-text {
     transform: translateY(-50%);
   }
@@ -174,7 +174,6 @@
   .k-slider-thumb,
   .k-slider-thumb:active {
     cursor: not-allowed;
-    // border-color: inherit;
   }
 
   .k-slider-rail {

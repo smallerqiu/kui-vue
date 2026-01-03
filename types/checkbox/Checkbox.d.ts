@@ -3,7 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** Checkbox component props */
 export interface CheckboxProps {
   /** default: false */
-  checked?: boolean;
+  checked?: boolean | number;
   value?: string | number | boolean;
   label?: string | number;
   theme?: string;
