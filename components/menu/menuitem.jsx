@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 import {
   defineComponent,
   ref,
@@ -53,8 +53,8 @@ const MenuItem = defineComponent({
         style: {
           paddingLeft:
             (mode.value == "inline" || mode.value == "vertical") &&
-              keyPah.length &&
-              !ps.isPopup
+            keyPah.length &&
+            !ps.isPopup
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
@@ -83,7 +83,7 @@ const MenuItem = defineComponent({
             if (disabled) return;
             selectedKeysChange?.(key, true, keyPah);
           },
-        }
+        },
       };
 
       // 没有子集的时候才展示
