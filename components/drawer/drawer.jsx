@@ -63,22 +63,6 @@ const Drawer = defineComponent({
       toggleContainerScroll(ps.target(), false);
     });
 
-    const lockScroll = (lock) => {
-      toggleContainerScroll(ps.target(), false);
-      if (lock) {
-        const scrollbarWidth =
-          window.innerWidth - document.documentElement.clientWidth;
-        const hasScrollbar = scrollbarWidth > 0;
-        if (hasScrollbar) {
-          document.body.style.overflowY = "hidden";
-          document.body.style.paddingRight = `${scrollbarWidth}px`; // 防止布局跳动
-        }
-      } else {
-        let { overflowY, paddingRight } = window.__kui_body_style;
-        document.body.style.overflowY = overflowY || "";
-        document.body.style.paddingRight = paddingRight || "";
-      }
-    };
     const toggle = (value) => {
       if (!rendered.value && value) {
         rendered.value = true;
@@ -98,7 +82,6 @@ const Drawer = defineComponent({
           emit("update:modelValue", false);
         }
       }
-      lockScroll(value);
     };
     const escToClose = (event) => {
       if (event.key === "Escape") {

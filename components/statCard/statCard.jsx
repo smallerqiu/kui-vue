@@ -20,7 +20,7 @@ const StatCard = defineComponent({
                 <div key={index} class="k-stat-card-item">
                   <div class="k-stat-card-item-value">
                     <StatNumber
-                      scopedSlots={{
+                      v-slots={{
                         prefix: () => item.prefix || slots.prefix,
                         suffix: () => item.suffix || slots.suffix,
                       }}
