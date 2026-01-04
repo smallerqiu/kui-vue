@@ -27,3 +27,49 @@ export function getChildren(VNodes) {
   loop(VNodes);
   return result;
 }
+
+
+let scrollbarWidth = null;
+
+const getScrollbarWidth = () => {
+  if (scrollbarWidth !== null) {
+    return scrollbarWidth;
+  }
+
+  const outer = document.createElement("div");
+  outer.style.visibility = "hidden";
+  outer.style.overflow = "scroll";
+  outer.style.msOverflowStyle = "scrollbar";
+  document.body.appendChild(outer);
+
+  const inner = document.createElement("div");
+  outer.appendChild(inner);
+
+  scrollbarWidth = outer.offsetWidth - outer.clientWidth;
+
+  outer.parentNode.removeChild(outer);
+
+  return scrollbarWidth;
+};
+const injectedStyles = new Map();
+export const toggleContainerScroll = (target, lock) => {
+  if (!target || target != document.body) return;
+  if (lock) {
+    if (injectedStyles.has("body")) return;
+    const scrollbarWidth = getScrollbarWidth();
+    const styleElement = document.createElement("style");
+    styleElement.type = "text/css";
+    const styleContent = `html body { overflow: hidden !important; width: calc(100vw - ${scrollbarWidth}px); }`;
+    styleElement.appendChild(document.createTextNode(styleContent));
+    document.head.appendChild(styleElement);
+
+    injectedStyles.set("body", styleElement);
+  } else {
+    // 移除对应的样式
+    const styleElement = injectedStyles.get("body");
+    if (styleElement && styleElement.parentNode) {
+      styleElement.parentNode.removeChild(styleElement);
+      injectedStyles.delete("body");
+    }
+  }
+};

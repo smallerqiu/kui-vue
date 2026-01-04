@@ -16,7 +16,7 @@ import {
   nextTick,
   inject,
   Transition,
-  onBeforeMount,
+  onBeforeUnmount,
   onMounted,
   computed,
   onBeforeUpdate,
@@ -194,7 +194,7 @@ const Select = defineComponent({
         }
       }
     };
-    onBeforeMount(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener("keydown", onKeydown);
       document.removeEventListener("click", outsideClick);
     });
@@ -204,7 +204,7 @@ const Select = defineComponent({
       optionsData.value.forEach((item) => {
         lookup.set(item.value, item.label);
       });
-      return currentValue.value.map(val => lookup.get(val) ?? val);
+      return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
 
     const updatePosition = () => {
@@ -290,10 +290,7 @@ const Select = defineComponent({
         clearQuery();
         activeIndex.value = -1;
       }
-      const result = ps.multiple ? currentValue.value : currentValue.value[0];
-      emit("update:modelValue", result);
-
-      emit("change", result);
+      emitValue()
       emit("select", { value, label, selected });
     };
     const searchInput = (e) => {
@@ -332,17 +329,23 @@ const Select = defineComponent({
         });
       }
     };
-
+    const emitValue = () => {
+      const result = ps.multiple
+        ? currentValue.value
+        : currentValue.value[0] || null;
+      emit("update:modelValue", result);
+      emit("change", result);
+    };
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
       e.stopPropagation();
       updatePosition();
+      emitValue();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      emit("update:modelValue", ps.multiple ? [] : "");
-      emit("change", ps.multiple ? [] : "");
+      emitValue();
       clearQuery();
       e.stopPropagation();
     };
@@ -445,11 +448,7 @@ const Select = defineComponent({
           currentValue.value.length > 0
         ) {
           currentValue.value = currentValue.value.slice(0, -1);
-          emit("update:modelValue", currentValue.value);
-          emit(
-            "change",
-            ps.multiple ? currentValue.value : currentValue.value[0] || ""
-          );
+          emitValue();
           updatePosition();
         }
       }

@@ -7,14 +7,15 @@ import {
   inject,
   nextTick,
   ref,
-  Transition, watch,
+  Transition,
+  watch,
   onMounted,
   onBeforeUnmount,
   computed,
 } from "vue";
 import zhCN from "../locale/zh-CN";
 import { withInstall } from "../utils/vue";
-
+import { toggleContainerScroll } from "../utils/vnode";
 const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
@@ -22,7 +23,7 @@ const Drawer = defineComponent({
     modelValue: Boolean,
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
-    height: { default: 256, type: [Number, String] },
+    height: { default: 520, type: [Number, String] },
     okText: String,
     cancelText: String,
     placement: { type: String, default: "right" },
@@ -42,9 +43,10 @@ const Drawer = defineComponent({
         ? injectedLocale.value
         : injectedLocale;
     });
-    const rendered = ref(ps.modelValue); 
-    const visible = ref(ps.modelValue); 
-    watch( 
+    const rendered = ref(ps.modelValue);
+    const visible = ref(ps.modelValue);
+    const opened = ref(ps.modelValue);
+    watch(
       () => ps.modelValue,
       (nv, ov) => {
         if (nv) {
@@ -54,19 +56,15 @@ const Drawer = defineComponent({
     );
 
     onMounted(() => {
-      if (!window.__kui_body_style) {
-        window.__kui_body_style = {
-          overflowY: document.body.style.overflowY,
-          paddingRight: document.body.style.paddingRight,
-        };
-      }
       ps.escKey && document.addEventListener("keydown", escToClose);
     });
     onBeforeUnmount(() => {
       ps.escKey && document.removeEventListener("keydown", escToClose);
+      toggleContainerScroll(ps.target(), false);
     });
 
     const lockScroll = (lock) => {
+      toggleContainerScroll(ps.target(), false);
       if (lock) {
         const scrollbarWidth =
           window.innerWidth - document.documentElement.clientWidth;
@@ -81,17 +79,26 @@ const Drawer = defineComponent({
         document.body.style.paddingRight = paddingRight || "";
       }
     };
-    const toggle = (v) => {
-      if (v && !rendered.value) {
+    const toggle = (value) => {
+      if (!rendered.value && value) {
         rendered.value = true;
-        nextTick(() => {
-          visible.value = true;
-          openHandle();
-        });
+        toggle(true);
       } else {
-        visible.value = v;
-        openHandle();
+        if (value) {
+          nextTick((e) => {
+            visible.value = value;
+            opened.value = value;
+            emit("update:modelValue", true);
+          });
+        } else {
+          visible.value = false;
+          setTimeout(() => {
+            opened.value = false;
+          }, 300);
+          emit("update:modelValue", false);
+        }
       }
+      lockScroll(value);
     };
     const escToClose = (event) => {
       if (event.key === "Escape") {
@@ -99,7 +106,7 @@ const Drawer = defineComponent({
       }
     };
 
-    const maskToClose = () => {
+    const clickMaskToClose = () => {
       if (ps.maskClosable) {
         close();
       }
@@ -108,25 +115,12 @@ const Drawer = defineComponent({
     const cancel = () => {
       emit("cancel");
       visible.value = false;
-      openHandle();
-    };
-
-    const openHandle = () => {
-      if (visible.value) {
-        visible.value = true;
-      } else {
-        setTimeout(() => {
-          visible.value = false;
-        }, 300);
-      }
-      // emit("update:show", visible.value); // for 3
-      emit("update:modelValue", visible.value);
+      toggle(false);
     };
 
     const close = () => {
-      visible.value = false;
       emit("close");
-      openHandle();
+      toggle(false);
     };
 
     const ok = () => {
@@ -162,9 +156,13 @@ const Drawer = defineComponent({
       ) : null;
 
       const closeNode = closable ? (
-        <span class="k-drawer-close" onClick={close}>
-          <Icon type={Close} />
-        </span>
+        <Button
+          class="k-drawer-close"
+          size="small"
+          type="text"
+          onClick={close}
+          icon={Close}
+        ></Button>
       ) : null;
 
       const transitionName = `k-drawer-${placement}`;
@@ -174,8 +172,8 @@ const Drawer = defineComponent({
         "k-drawer",
         `k-drawer-${placement}`,
         { "k-drawer-has-footer": hasFooter },
-        { "k-drawer-nobody": !isBody },
-        { "k-drawer-nomask": !ps.mask },
+        { "k-drawer-to-body": isBody },
+        { "k-drawer-no-mask": !ps.mask },
       ];
       let styles = {};
       if (placement == "left" || placement == "right")
@@ -188,9 +186,9 @@ const Drawer = defineComponent({
         maskNode = (
           <Transition name="k-drawer-fade">
             <div
-              class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]}
+              class={["k-drawer-mask", { "k-drawer-mask-to-body": isBody }]}
               v-show={visible.value}
-              onClick={maskToClose}
+              onClick={clickMaskToClose}
             ></div>
           </Transition>
         );
@@ -198,18 +196,20 @@ const Drawer = defineComponent({
       return rendered.value ? (
         <div class={classes} v-transfer={target}>
           {maskNode}
-          <Transition name={transitionName}>
-            <div class="k-drawer-box" v-show={visible.value} style={styles}>
-              <div class="k-drawer-content">
-                <div class="k-drawer-header">
-                  {closeNode}
-                  <div class="k-drawer-header-inner">{title}</div>
+          <div class="k-drawer-wrap" tabindex="-1" v-show={opened.value}>
+            <Transition name={transitionName}>
+              <div class="k-drawer-box" v-show={visible.value} style={styles}>
+                <div class="k-drawer-content">
+                  <div class="k-drawer-header">
+                    {closeNode}
+                    <div class="k-drawer-header-inner">{title}</div>
+                  </div>
+                  <div class="k-drawer-body">{slots.default?.()}</div>
+                  {footNode}
                 </div>
-                <div class="k-drawer-body">{slots.default?.()}</div>
-                {footNode}
               </div>
-            </div>
-          </Transition>
+            </Transition>
+          </div>
         </div>
       ) : null;
     };
