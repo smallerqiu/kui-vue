@@ -12,28 +12,8 @@
       @open-change="openChange"
       accordion
       mode="inline"
-    >
-      <SubMenu key="sub1" :icon="Mail" title="Navigation One">
-        <MenuItem key="1-1">Option 1</MenuItem>
-        <MenuItem key="1-2">Option 2</MenuItem>
-        <MenuItem key="1-3">Option 3</MenuItem>
-        <MenuItem key="1-4">Option 4</MenuItem>
-      </SubMenu>
-      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu key="sub2-1" title="SubMenu">
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+      :items="items"
+    />
   </div>
 </template>
 <script setup>
@@ -45,5 +25,47 @@ const openKeys = ref(["sub1"]);
 const openChange = (openKeys) => {
   console.log(openKeys);
 };
+
+const items = [
+  {
+    title: "Navigation One",
+    key: "sub1",
+    icon: Mail,
+    children: [
+      { title: "Option 1", key: "1-1" },
+      { title: "Option 2", key: "1-2" },
+      { title: "Option 3", key: "1-3" },
+      { title: "Option 4", key: "1-4" },
+    ],
+  },
+  {
+    title: "Navigation Two",
+    key: "sub2",
+    icon: Heart,
+    children: [
+      { title: "Option 5", key: "2-1" },
+      { title: "Option 6", key: "2-2" },
+      {
+        title: "Submenu",
+        key: "sub2-1",
+        children: [
+          { title: "Option 7", key: "2-1-1" },
+          { title: "Option 8", key: "2-1-2" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Navigation Three",
+    key: "sub3",
+    icon: Settings,
+    children: [
+      { title: "Option 9", key: "3-1" },
+      { title: "Option 10", key: "3-2" },
+      { title: "Option 11", key: "3-3" },
+      { title: "Option 12", key: "3-4" },
+    ],
+  },
+];
 </script>
 ```
