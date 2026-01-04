@@ -13,7 +13,7 @@ export interface TabsProps {
 /** Tabs component instance */
 export interface Tabs extends Vue {
   $props: TabsProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Tabs Vue component type */

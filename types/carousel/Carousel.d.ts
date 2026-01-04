@@ -17,7 +17,7 @@ export interface CarouselProps {
 /** Carousel component instance */
 export interface Carousel extends Vue {
   $props: CarouselProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Carousel Vue component type */

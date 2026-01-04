@@ -17,7 +17,7 @@ export interface RadioGroupProps {
 /** RadioGroup component instance */
 export interface RadioGroup extends Vue {
   $props: RadioGroupProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** RadioGroup Vue component type */

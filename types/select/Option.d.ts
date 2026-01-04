@@ -13,7 +13,7 @@ export interface OptionProps {
 /** Option component instance */
 export interface Option extends Vue {
   $props: OptionProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Option Vue component type */

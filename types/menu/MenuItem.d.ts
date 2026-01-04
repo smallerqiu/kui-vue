@@ -12,7 +12,7 @@ export interface MenuItemProps {
 /** MenuItem component instance */
 export interface MenuItem extends Vue {
   $props: MenuItemProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** MenuItem Vue component type */

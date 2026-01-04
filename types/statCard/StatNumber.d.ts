@@ -17,7 +17,7 @@ export interface StatNumberProps {
 /** StatNumber component instance */
 export interface StatNumber extends Vue {
   $props: StatNumberProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** StatNumber Vue component type */

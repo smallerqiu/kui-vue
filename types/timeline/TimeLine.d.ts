@@ -9,7 +9,7 @@ export interface TimeLineProps {
 /** TimeLine component instance */
 export interface TimeLine extends Vue {
   $props: TimeLineProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** TimeLine Vue component type */

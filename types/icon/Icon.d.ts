@@ -12,7 +12,7 @@ export interface IconProps {
 /** Icon component instance */
 export interface Icon extends Vue {
   $props: IconProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Icon Vue component type */

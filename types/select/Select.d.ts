@@ -33,7 +33,7 @@ export interface SelectProps {
 /** Select component instance */
 export interface Select extends Vue {
   $props: SelectProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Select Vue component type */

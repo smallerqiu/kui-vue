@@ -13,7 +13,7 @@ export interface DescriptionsItemProps {
 /** DescriptionsItem component instance */
 export interface DescriptionsItem extends Vue {
   $props: DescriptionsItemProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** DescriptionsItem Vue component type */

@@ -7,7 +7,7 @@ export interface DrawerProps {
   title?: string;
   /** default: 520 */
   width?: number | string;
-  /** default: 256 */
+  /** default: 520 */
   height?: number | string;
   okText?: string;
   cancelText?: string;
@@ -32,7 +32,7 @@ export interface DrawerProps {
 /** Drawer component instance */
 export interface Drawer extends Vue {
   $props: DrawerProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Drawer Vue component type */

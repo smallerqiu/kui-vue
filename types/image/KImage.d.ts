@@ -17,7 +17,7 @@ export interface KImageProps {
 /** KImage component instance */
 export interface KImage extends Vue {
   $props: KImageProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** KImage Vue component type */
