@@ -209,7 +209,7 @@ ${propsContent}
 /** ${name} component instance */
 export interface ${name} extends Vue {
   $props: ${name}Props;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** ${name} Vue component type */

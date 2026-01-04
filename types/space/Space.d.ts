@@ -14,7 +14,7 @@ export interface SpaceProps {
 /** Space component instance */
 export interface Space extends Vue {
   $props: SpaceProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Space Vue component type */

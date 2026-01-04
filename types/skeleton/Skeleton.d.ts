@@ -16,7 +16,7 @@ export interface SkeletonProps {
 /** Skeleton component instance */
 export interface Skeleton extends Vue {
   $props: SkeletonProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Skeleton Vue component type */

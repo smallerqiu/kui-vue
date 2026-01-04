@@ -12,7 +12,7 @@ export interface TabPanelProps {
 /** TabPanel component instance */
 export interface TabPanel extends Vue {
   $props: TabPanelProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** TabPanel Vue component type */

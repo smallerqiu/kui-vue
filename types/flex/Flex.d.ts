@@ -12,7 +12,7 @@ export interface FlexProps {
 /** Flex component instance */
 export interface Flex extends Vue {
   $props: FlexProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Flex Vue component type */

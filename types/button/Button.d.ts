@@ -22,7 +22,7 @@ export interface ButtonProps {
 /** Button component instance */
 export interface Button extends Vue {
   $props: ButtonProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Button Vue component type */

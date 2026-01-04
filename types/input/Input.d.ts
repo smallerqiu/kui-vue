@@ -25,7 +25,7 @@ export interface InputProps {
 /** Input component instance */
 export interface Input extends Vue {
   $props: InputProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Input Vue component type */

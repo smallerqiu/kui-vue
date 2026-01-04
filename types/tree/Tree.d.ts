@@ -25,7 +25,7 @@ export interface TreeProps {
 /** Tree component instance */
 export interface Tree extends Vue {
   $props: TreeProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Tree Vue component type */

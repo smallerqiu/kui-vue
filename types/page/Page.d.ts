@@ -23,7 +23,7 @@ export interface PageProps {
 /** Page component instance */
 export interface Page extends Vue {
   $props: PageProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Page Vue component type */

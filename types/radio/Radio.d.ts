@@ -15,7 +15,7 @@ export interface RadioProps {
 /** Radio component instance */
 export interface Radio extends Vue {
   $props: RadioProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Radio Vue component type */

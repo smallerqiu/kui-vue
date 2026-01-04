@@ -16,7 +16,7 @@ export interface CheckboxGroupProps {
 /** CheckboxGroup component instance */
 export interface CheckboxGroup extends Vue {
   $props: CheckboxGroupProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** CheckboxGroup Vue component type */

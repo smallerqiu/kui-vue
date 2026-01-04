@@ -9,7 +9,7 @@ export interface BreadcrumbItemProps {
 /** BreadcrumbItem component instance */
 export interface BreadcrumbItem extends Vue {
   $props: BreadcrumbItemProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** BreadcrumbItem Vue component type */

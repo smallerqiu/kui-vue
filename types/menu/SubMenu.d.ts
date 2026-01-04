@@ -11,7 +11,7 @@ export interface SubMenuProps {
 /** SubMenu component instance */
 export interface SubMenu extends Vue {
   $props: SubMenuProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** SubMenu Vue component type */

@@ -6,7 +6,7 @@ export interface MenuDividerProps {}
 /** MenuDivider component instance */
 export interface MenuDivider extends Vue {
   $props: MenuDividerProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** MenuDivider Vue component type */

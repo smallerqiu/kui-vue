@@ -25,7 +25,7 @@ export interface SliderProps {
 /** Slider component instance */
 export interface Slider extends Vue {
   $props: SliderProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Slider Vue component type */

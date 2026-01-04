@@ -8,7 +8,7 @@ export interface siderProps {
 /** sider component instance */
 export interface sider extends Vue {
   $props: siderProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** sider Vue component type */

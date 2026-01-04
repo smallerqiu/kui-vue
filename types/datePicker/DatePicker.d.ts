@@ -42,7 +42,7 @@ export interface DatePickerProps {
 /** DatePicker component instance */
 export interface DatePicker extends Vue {
   $props: DatePickerProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** DatePicker Vue component type */

@@ -11,7 +11,7 @@ export interface StatCardProps {
 /** StatCard component instance */
 export interface StatCard extends Vue {
   $props: StatCardProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** StatCard Vue component type */

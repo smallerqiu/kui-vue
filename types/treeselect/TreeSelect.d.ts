@@ -41,7 +41,7 @@ export interface TreeSelectProps {
 /** TreeSelect component instance */
 export interface TreeSelect extends Vue {
   $props: TreeSelectProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** TreeSelect Vue component type */

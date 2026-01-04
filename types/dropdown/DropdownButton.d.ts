@@ -16,7 +16,7 @@ export interface DropdownButtonProps {
 /** DropdownButton component instance */
 export interface DropdownButton extends Vue {
   $props: DropdownButtonProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** DropdownButton Vue component type */

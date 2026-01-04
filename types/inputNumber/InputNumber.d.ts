@@ -30,7 +30,7 @@ export interface InputNumberProps {
 /** InputNumber component instance */
 export interface InputNumber extends Vue {
   $props: InputNumberProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** InputNumber Vue component type */

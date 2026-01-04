@@ -6,9 +6,11 @@
 ```vue
 <template>
   <Space vertical block>
+    <code>v-model: {{value1}}</code>
     use options to set options
     <Select v-model="value1" block :options="data" multiple />
     <br />
+    <code>v-model: {{value2}}</code>
     use children to set options
     <Select v-model="value2" block multiple>
       <Option :value="0">Grape</Option>
@@ -18,6 +20,7 @@
       <Option :value="4" label="Pear" />
     </Select>
     <br />
+    <code>v-model: {{value3}}</code>
     maxTagCount:
     <Select v-model="value3" block :maxTagCount="2" :options="data" multiple />
   </Space>

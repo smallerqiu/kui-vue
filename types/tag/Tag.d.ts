@@ -14,7 +14,7 @@ export interface TagProps {
 /** Tag component instance */
 export interface Tag extends Vue {
   $props: TagProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Tag Vue component type */

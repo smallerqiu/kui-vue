@@ -14,7 +14,7 @@ export interface AlertProps {
 /** Alert component instance */
 export interface Alert extends Vue {
   $props: AlertProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Alert Vue component type */

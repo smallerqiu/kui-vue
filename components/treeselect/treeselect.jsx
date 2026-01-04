@@ -207,18 +207,24 @@ const TreeSelect = defineComponent({
         });
       }
     };
+    const emitValue = () => {
+      const result = ps.multiple
+        ? currentValue.value
+        : currentValue.value[0] || null;
+      emit("input", result);
+      emit("change", result);
+    };
 
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
       e.stopPropagation();
+      emitValue();
       updatePosition();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      emit("input", ps.multiple ? [] : "");
-      emit("change", ps.multiple ? [] : "");
-
+      emitValue();
       clearQuery();
       e.stopPropagation();
     };
@@ -263,7 +269,7 @@ const TreeSelect = defineComponent({
       optionsData.value.forEach((item) => {
         lookup.set(item.value, item.label);
       });
-      return currentValue.value.map(val => lookup.get(val) ?? val);
+      return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
 
     const optionsData = computed(() => {
@@ -303,7 +309,7 @@ const TreeSelect = defineComponent({
     const onCheck = ({ key }, checked, checkedKeys) => {
       const result = [...checkedKeys];
       currentValue.value = result;
-      emit("input", result);
+      emitValue();
     };
     const onSelect = (item) => {
       const { key: value, title: label } = { ...item };
@@ -329,10 +335,7 @@ const TreeSelect = defineComponent({
         visible.value = false;
         clearQuery();
       }
-      const result = ps.multiple ? currentValue.value : currentValue.value[0];
-      // emit("update:value", result);
-      emit("input", result);
-      emit("change", result);
+      emitValue();
       emit("select", value, label, selected);
     };
     const renderTree = () => {
@@ -369,12 +372,7 @@ const TreeSelect = defineComponent({
           currentValue.value.length > 0
         ) {
           currentValue.value = currentValue.value.slice(0, -1);
-          emit("input", currentValue.value);
-          // emit("update:value", currentValue.value);
-          emit(
-            "change",
-            ps.multiple ? currentValue.value : currentValue.value[0] || ""
-          );
+          emitValue();
           updatePosition();
         }
       }
