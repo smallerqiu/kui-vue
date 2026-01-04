@@ -1,43 +1,46 @@
 <template>
-  <div>
-    <Space wrap>
-      <RadioGroup v-model="placement" type="button">
-        <RadioButton label="left" value="left" />
-        <RadioButton label="top" value="top" />
-        <RadioButton label="right" value="right" />
-        <RadioButton label="bottom" value="bottom" />
-      </RadioGroup>
-      <Button @click="show = !show">Open</Button>
-    </Space>
+  <div style="width:256px">
+    <Button
+      @click="change"
+      :icon="collapsed ? MenuFold : MenuUnfold"
+      type="primary"
+    ></Button>
     <br />
     <br />
-    <Flex ref="refTarget" :style="boxStyle" align="center" justify="center">
-      <p style="color: #999">Drawer 在内部展示.</p>
-    </Flex>
-    <Drawer
-      v-model="show"
-      width="50%"
-      height="50%"
-      :footer="null"
-      :placement="placement"
-      :target="() => refTarget"
+    <Menu
+      v-model="current"
+      :openKeys="openKeys"
+      theme="dark"
+      :inlineCollapsed="collapsed"
+      mode="inline"
     >
-      <p>something ...</p>
-      <p>something ...</p>
-      <p>something ...</p>
-    </Drawer>
+      <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
+      <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
+      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
+        <MenuItem key="2-1" :icon="Mail">Option 5</MenuItem>
+        <MenuItem key="2-2" :icon="Mail">Option 6</MenuItem>
+        <SubMenu title="SubMenu" key="sub2-1" :icon="Mail">
+          <MenuItem key="2-3" :icon="Mail">Option 7</MenuItem>
+          <MenuItem key="2-4" :icon="Mail">Option 8</MenuItem>
+        </SubMenu>
+      </SubMenu>
+      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
+        <MenuItem key="3-1" :icon="Mail">Option 9</MenuItem>
+        <MenuItem key="3-2" :icon="Mail">Option 10</MenuItem>
+        <MenuItem key="3-3" :icon="Mail">Option 11</MenuItem>
+        <MenuItem key="3-4" :icon="Mail">Option 12</MenuItem>
+      </SubMenu>
+    </Menu>
   </div>
 </template>
 <script setup>
-import { ref, computed } from "vue";
-const show = ref(false);
-const placement = ref("left");
-const refTarget = ref();
-const boxStyle = {
-  height: "300px",
-  position: "relative",
-  overflow: "hidden",
-  borderRadius: "8px",
-  background: "rgba(130, 130, 130, 0.18)",
+import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
+import { ref } from "vue";
+const current = ref(["1-1"]);
+const openKeys = ref(["sub2"]);
+const collapsed = ref(false);
+
+const change = () => {
+  collapsed.value = !collapsed.value;
 };
 </script>

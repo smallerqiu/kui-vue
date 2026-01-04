@@ -1,6 +1,6 @@
 import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
 import { withInstall } from "../utils/vue";
-
+import RecursiveMenu from "./recursiveMenu";
 const Menu = defineComponent({
   name: "Menu",
   props: {
@@ -9,6 +9,7 @@ const Menu = defineComponent({
     value: { type: Array, default: () => [] },
     // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
+    items: Array,
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
@@ -117,6 +118,7 @@ const Menu = defineComponent({
 
     return () => {
       const preCls = dropdown ? "dropdown-menu" : "menu";
+      const { items } = props;
       const cls = [
         `k-${preCls} k-${preCls}-${currentMode.value}`,
         {
@@ -125,7 +127,11 @@ const Menu = defineComponent({
       ];
       return (
         <ul class={cls} theme-mode={props.theme}>
-          {slots.default?.()}
+          {items && items.length
+            ? items.map((item) => {
+                return <RecursiveMenu item={item} key={item.key} />;
+              })
+            : slots.default?.()}
         </ul>
       );
     };
