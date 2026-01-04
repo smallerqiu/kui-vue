@@ -17,14 +17,14 @@
         <Input />
       </FormItem>
       <FormItem label="UserList">
-        <div style="fontSize: 13px; color: '#aaa'; line-height: 1.5">
+        <Space>
           <template v-if="group.list.length">
-            <p :key="i" v-for="(item, i) in group.list">
+            <Tag theme="light" :key="i" v-for="(item, i) in group.list">
               {{ item.username }} - {{ item.age }}
-            </p>
+            </Tag>
           </template>
           <span v-else>No user</span>
-        </div>
+        </Space>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>

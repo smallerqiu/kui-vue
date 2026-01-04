@@ -8,6 +8,7 @@ export interface MenuProps {
   /** default: undefined */
   value?: any[];
   accordion?: boolean;
+  items?: any[];
   inlineCollapsed?: boolean;
   /** default: undefined */
   openKeys?: any[];
