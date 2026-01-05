@@ -54,7 +54,7 @@ const items = [
   },
   {
     key: "sub3",
-    icon: "Settings",
+    icon: Settings,
     title: "Navigation Three",
     children: [
       { key: "3-1", title: "Option 9" },

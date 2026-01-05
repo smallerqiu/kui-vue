@@ -290,7 +290,7 @@ const Select = defineComponent({
         clearQuery();
         activeIndex.value = -1;
       }
-      emitValue()
+      emitValue();
       emit("select", { value, label, selected });
     };
     const searchInput = (e) => {
@@ -530,7 +530,7 @@ const Select = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         onChange: (e) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
