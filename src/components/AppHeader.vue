@@ -29,21 +29,13 @@
           </Option>
         </Select>
       </div>
-      <Menu v-model="topMenu" mode="horizontal" class="top-menu" @select="go">
-        <MenuItem key="home">首页</MenuItem>
-        <MenuItem key="start"> 组件 </MenuItem>
-        <SubMenu key="docs" title="文档">
-          <MenuItem key="/start/getting-started"> 快速开始 </MenuItem>
-          <MenuItem key="/start/ssr"> SSR 支持 </MenuItem>
-          <MenuItem key="/start/language"> 多语言 </MenuItem>
-          <MenuItem key="/start/logs"> 更新日志 </MenuItem>
-          <MenuItem key="/start/theme"> 主题 </MenuItem>
-          <MenuItem key="/start/dark-mode"> 暗黑模式 </MenuItem>
-          <MenuItem key="https://v2.k-ui.cn/"> v2.x 文档 </MenuItem>
-          <MenuItem key="https://react.k-ui.cn/"> For React 文档 </MenuItem>
-          <MenuItem key="https://chuchur.com/"> Blog </MenuItem>
-        </SubMenu>
-      </Menu>
+      <Menu
+        v-model="topMenu"
+        mode="horizontal"
+        class="top-menu"
+        :items="items"
+        @select="go"
+      />
       <ColorPicker
         v-model="themeColor"
         class="theme"
@@ -91,6 +83,25 @@ const queryKey = ref("");
 
 const { proxy } = getCurrentInstance();
 
+const items = [
+  { key: "home", title: "首页" },
+  { key: "start", title: "组件" },
+  {
+    key: "docs",
+    title: "文档",
+    children: [
+      { key: "/start/getting-started", title: "快速开始" },
+      { key: "/start/ssr", title: "SSR 支持" },
+      { key: "/start/language", title: "多语言" },
+      { key: "/start/logs", title: "更新日志" },
+      { key: "/start/theme", title: "主题" },
+      { key: "/start/dark-mode", title: "暗黑模式" },
+      { key: "https://v2.k-ui.cn/", title: "v2.x 文档" },
+      { key: "https://react.k-ui.cn/", title: "For React 文档" },
+      { key: "https://chuchur.com/", title: "Blog" },
+    ],
+  },
+];
 onMounted(() => {
   let localThemeMode = localStorage.getItem("theme-mode") || "";
   let localThemeColor = localStorage.getItem("themeColor") || "";

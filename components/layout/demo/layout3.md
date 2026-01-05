@@ -41,14 +41,8 @@
             class="demo-left-menu"
             mode="inline"
             style="padding-top:20px;"
-          >
-            <MenuItem key="t1" :icon="Home">首页</MenuItem>
-            <SubMenu key="t2" :icon="StatsChart" title="数据统计">
-              <MenuItem key="t2-1">今日订单</MenuItem>
-              <MenuItem key="t2-2">今日销售额</MenuItem>
-            </SubMenu>
-            <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
-          </Menu>
+            :items="items"
+          />
         </Sider>
         <Layout class="k-demo-main">
           <Breadcrumb class="nav">
@@ -72,6 +66,19 @@ import {
   NotificationsOutline,
   Search,
 } from "kui-icons";
+const items = [
+  { key: "t1", icon: Home, title: "首页" },
+  {
+    key: "t2",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t2-1", title: "今日订单" },
+      { key: "t2-2", title: "今日销售额" },
+    ],
+  },
+  { key: "t3", icon: Settings, title: "能源管理" },
+];
 </script>
 <style scoped lang="less">
 .k-demo-layout {

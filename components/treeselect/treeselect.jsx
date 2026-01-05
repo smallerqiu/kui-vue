@@ -272,7 +272,7 @@ const TreeSelect = defineComponent({
     const labelText = computed(() => {
       const lookup = new Map();
       optionsData.value.forEach((item) => {
-        lookup.set(item.value, item.label);
+        lookup.set(item.key, item.title);
       });
       return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
@@ -314,7 +314,7 @@ const TreeSelect = defineComponent({
     const onCheck = ({ key }, checked, checkedKeys) => {
       const result = [...checkedKeys];
       currentValue.value = result;
-      emitValue()
+      emitValue();
     };
     const onSelect = (item) => {
       const { key: value, title: label } = { ...item };
@@ -340,7 +340,7 @@ const TreeSelect = defineComponent({
         visible.value = false;
         clearQuery();
       }
-      emitValue()
+      emitValue();
       emit("select", value, label, selected);
     };
     const renderTree = () => {
@@ -373,7 +373,7 @@ const TreeSelect = defineComponent({
           currentValue.value.length > 0
         ) {
           currentValue.value = currentValue.value.slice(0, -1);
-          emitValue()
+          emitValue();
           updatePosition();
         }
       }
@@ -449,7 +449,7 @@ const TreeSelect = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-tree-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         onChange: (e) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,

@@ -4,8 +4,9 @@
 
 | 属性                 | 说明                                     | 类型                                              | 默认值   |
 | -------------------- | ---------------------------------------- | ------------------------------------------------- | -------- |
-| v-model(:modelValue) | 当前选中的菜单项                         | String[]                                          | []       |
+| value(v-model)       | 当前选中的菜单项                         | String: []                                        | light    |
 | theme                | 主题颜色                                 | String: light dark                                | light    |
+| items                | 菜单数据                                 | Array                                             | -        |
 | v-model:openKeys     | 当前展开的 SubMenu 菜单项 key 数组       | String[]                                          | -        |
 | v-model:selectedKeys | 当前选中的菜单项，可使用 v-model 绑定    | String[]                                          | -        |
 | mode                 | 菜单类型，支持垂直、水平、和内嵌模式三种 | String: vertical vertical-right horizontal inline | vertical |
@@ -14,7 +15,17 @@
 | accordion            | 是否只允许菜单展开一项                   | Boolean                                           | false    |
 | inline-collapsed     | inline 时菜单是否收起状态                | Boolean                                           | false    |
 
-### Menu.Item
+### Menu(items)
+
+| 属性     | 说明                     | 类型    | 默认值 |
+| -------- | ------------------------ | ------- | ------ |
+| icon     | item 的图标              | String  | -      |
+| disabled | 是否禁用                 | Boolean | false  |
+| key      | item 的唯一标志          | String  | -      |
+| title    | 设置收缩时展示的悬浮标题 | String  | -      |
+| children | 菜单子集                 | Array   | -      |
+
+### MenuItem
 
 | 属性     | 说明                     | 类型    | 默认值 |
 | -------- | ------------------------ | ------- | ------ |
@@ -23,7 +34,7 @@
 | key      | item 的唯一标志          | String  | -      |
 | title    | 设置收缩时展示的悬浮标题 | String  | -      |
 
-### Menu.SubMenu
+### SubMenu
 
 | 属性     | 说明            | 类型         | 默认值 |
 | -------- | --------------- | ------------ | ------ |
@@ -32,7 +43,7 @@
 | key      | item 的唯一标志 | String       | -      |
 | title    | 子菜单项值      | String,slots | -      |
 
-### Menu.MenuGroup
+### MenuGroup
 
 | 属性  | 说明     | 类型         | 默认值 |
 | ----- | -------- | ------------ | ------ |
