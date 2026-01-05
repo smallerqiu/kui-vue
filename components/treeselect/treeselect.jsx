@@ -267,7 +267,7 @@ const TreeSelect = defineComponent({
     const labelText = computed(() => {
       const lookup = new Map();
       optionsData.value.forEach((item) => {
-        lookup.set(item.value, item.label);
+        lookup.set(item.key, item.title);
       });
       return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
@@ -448,7 +448,7 @@ const TreeSelect = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-tree-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         on: {
           change: (e) => e.stopPropagation(),
           keydown: queryKeydown,
