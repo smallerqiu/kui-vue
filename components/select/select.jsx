@@ -539,7 +539,7 @@ const Select = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         on: {
           change: (e) => e.stopPropagation(),
           keydown: queryKeydown,

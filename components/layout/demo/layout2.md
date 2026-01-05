@@ -45,20 +45,10 @@
               :selectedKeys="['t1']"
               :openKeys="['t2']"
               class="demo-left-menu"
+              :items="items"
               mode="inline"
               style="padding-top:20px;"
-            >
-              <MenuItem key="t1" :icon="Home">首页</MenuItem>
-              <SubMenu key="t2" :icon="StatsChart" title="数据统计">
-                <MenuItem key="t2-1">今日订单</MenuItem>
-                <MenuItem key="t2-2">今日销售额</MenuItem>
-              </SubMenu>
-              <SubMenu key="t3" :icon="StatsChart" title="数据统计">
-                <MenuItem key="t3-1">今日订单</MenuItem>
-                <MenuItem key="t3-2">今日销售额</MenuItem>
-              </SubMenu>
-              <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
-            </Menu>
+            />
           </Sider>
           <Content>Conent</Content>
         </Layout>
@@ -79,6 +69,29 @@ import {
   Search,
   NotificationsOutline,
 } from "kui-icons";
+
+const items = [
+  { key: "t1", icon: Home, title: "首页" },
+  {
+    key: "t2",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t2-1", title: "今日订单" },
+      { key: "t2-2", title: "今日销售额" },
+    ],
+  },
+  {
+    key: "t3",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t3-1", title: "今日订单" },
+      { key: "t3-2", title: "今日销售额" },
+    ],
+  },
+  { key: "t4", icon: Settings, title: "能源管理" },
+];
 </script>
 <style scoped lang="less">
 .k-demo-layout {
@@ -149,4 +162,4 @@ import {
   }
 }
 </style>
-````
+```
