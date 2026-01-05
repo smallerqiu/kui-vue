@@ -1,10 +1,10 @@
 ## StatCard API
 
-| 属性  | 说明         | 类型              | 默认值    |
-| ----- | ------------ | ----------------- | --------- |
-| title | 卡片标题     | String            | -         |
-| items | 展示的数据   | Array             | []        |
-| statNumberType  | 数值变化类型 | `rollup, countup` | 'countup' |
+| 属性           | 说明         | 类型              | 默认值    |
+| -------------- | ------------ | ----------------- | --------- |
+| title          | 卡片标题     | String            | -         |
+| items          | 展示的数据   | Array             | []        |
+| statNumberType | 数值变化类型 | `rollup, countup` | 'countup' |
 
 ### items Options
 

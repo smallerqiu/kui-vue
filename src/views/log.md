@@ -18,6 +18,13 @@ rm -rf node_modules/.vite
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
 
+## 3.6.5
+
+`2026-1-5`
+
+- 修正 TreeSelect 选中时label显示为title
+- Menu 支持 `items` 属性渲染子菜单.
+
 ## 3.6.4
 
 `2026-1-4`
