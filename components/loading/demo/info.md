@@ -15,19 +15,19 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-import { Loading } from 'kui-vue'
+import { loading } from 'kui-vue'
 
 Vue.use(Router)
 let router = new Router({
   ....
 })
 router.beforeEach((to, from, next) => {
-  Loading.start();
+  loading.start();
   next();
 });
 
 router.afterEach(route => {
-  Loading.finish();
+  loading.finish();
 });
 ```
 
