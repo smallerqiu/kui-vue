@@ -73,8 +73,9 @@ const Slider = defineComponent({
     // 计算鼠标位置对应的数值
     const getValueFromEvent = (e) => {
       const rect = railRef.value.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const touch = e.touches?.[0] || e.changedTouches?.[0];
+      const clientX = touch ? touch.clientX : e.clientX;
+      const clientY = touch ? touch.clientY : e.clientY;
 
       let percent;
       if (props.vertical) {
@@ -89,13 +90,17 @@ const Slider = defineComponent({
       }
 
       const rawValue = new Big(props.max - props.min)
-        .times(percent)
+        .times(Math.max(0, Math.min(1, percent)))
         .plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
 
     // 处理滑块拖动
     const handleThumbMove = (e) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
       if (props.disabled || draggingIndex.value === -1) return;
 
       const newValue = getValueFromEvent(e);
@@ -153,24 +158,31 @@ const Slider = defineComponent({
       emit("input", internalValue.value);
       emit("change", internalValue.value);
     };
-
+    const touch = !!(
+      "ontouchstart" in window ||
+      (window.DocumentTouch && document instanceof window.DocumentTouch)
+    );
     const handleThumbDown = (index) => {
       if (props.disabled) return;
       draggingIndex.value = index;
 
+      let [e1, e2] = touch
+        ? ["touchmove", "touchend"]
+        : ["mousemove", "mouseup"];
+      console.log(e1,e2,222);
       const onMove = (e) => handleThumbMove(e);
       const onUp = () => {
         draggingIndex.value = -1;
-        document.removeEventListener("mousemove", onMove);
-        document.removeEventListener("mouseup", onUp);
-        document.removeEventListener("touchmove", onMove);
-        document.removeEventListener("touchend", onUp);
+        document.removeEventListener(e1, onMove);
+        document.removeEventListener(e2, onUp);
+        // document.removeEventListener("touchmove", onMove);
+        // document.removeEventListener("touchend", onUp);
       };
 
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onUp);
-      document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onUp);
+      document.addEventListener(e1, onMove);
+      document.addEventListener(e2, onUp);
+      // document.addEventListener("touchmove", onMove, { passive: false });
+      // document.addEventListener("touchend", onUp);
     };
 
     const handleKeydown = (e, index) => {
@@ -202,7 +214,6 @@ const Slider = defineComponent({
         );
       }
 
-      // 理键盘交错逻辑 ---
       if (props.range) {
         const otherIndex = index === 0 ? 1 : 0;
         const otherValue = currentValues[otherIndex];
@@ -357,6 +368,7 @@ const Slider = defineComponent({
             <div
               class="k-slider-rail"
               ref={railRef}
+              onTouchstart={handleRailClick}
               onClick={handleRailClick}
             ></div>
             {renderTrack()}
