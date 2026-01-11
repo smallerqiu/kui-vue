@@ -92,8 +92,8 @@
             </FormItem>
           </Form>
         </Space>
-        <Modal v-model:visible="visible" title="Basic Modal" />
-        <Drawer v-model:visible="visible1" title="Basic Drawer" />
+        <Modal v-model="visible" title="Basic Modal" />
+        <Drawer v-model="visible1" title="Basic Drawer" />
       </Space>
     </ConfigProvider>
   </Space>
@@ -175,12 +175,8 @@ const openDrawer = () => {
   visible1.value = true;
 };
 
-// modal 等 全局方法, 需要使用 modal.useModal() 获取 context
-provide("locale", locale); // 当前演示demo,需要注入locale , 实际全局不需注入
-
-const modalApi = modal.useModal();
 const showInfo = () => {
-  modalApi.info({
+  modal.info({
     title: "Hello",
     content: "modal info.",
     onOk: () => {
@@ -189,7 +185,7 @@ const showInfo = () => {
   });
 };
 const showConfirm = () => {
-  modalApi.confirm({
+  modal.confirm({
     title: "您确认要这么做吗",
     content: "此操作不可逆转，谨慎！！！",
     onOk: () => {

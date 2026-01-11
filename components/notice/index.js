@@ -1,6 +1,5 @@
 import { newInstance } from "../message/instance";
 import { withInstall } from "../utils/vue";
-import { inject } from "vue";
 let noticeInstance;
 
 let Notice = {
@@ -12,19 +11,16 @@ let Notice = {
     }
     options.noticeType = "notice";
     if (!noticeInstance) {
-      noticeInstance = newInstance({ type: "notice" }, context);
+      noticeInstance = newInstance({ type: "notice", key: "notice" }, context);
     }
     noticeInstance.show(options);
   },
   destroy() {
     if (noticeInstance) {
+      noticeInstance.clean();
       noticeInstance.destroy();
       noticeInstance = null;
-      document.body.removeChild(document.querySelector(".k-notice"));
     }
-  },
-  useNotice() {
-    return Notice
   },
   install(app) {
     // 可选：同时挂到 globalProperties 兼容 this.$notice

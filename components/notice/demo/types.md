@@ -14,9 +14,8 @@
 </template>
 <script setup>
 import { notice } from "kui-vue";
-const noticeApi = notice.useNotice();
 const openNotice = (type) => {
-  noticeApi[type]({
+  notice[type]({
     title: "通知的标题",
     content: "通知的描述",
     duration: 5,

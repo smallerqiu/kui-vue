@@ -1,20 +1,20 @@
 ## Tree API
 
-| 属性          | 说明                                                         | 类型    | 默认值 |
-| ------------- | ------------------------------------------------------------ | ------- | ------ |
-| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array   | []     |
-| checkable     | 是否显示多选框                                               | Boolean | false  |
-| draggable     | 是否可以拖拽                                                 | Boolean | false  |
-| showLine      | 是否展示连接线                                               | Boolean | false  |
-| showIcon      | 是否展示图标                                                 | Boolean | true   |
-| extra         | 扩展元素                                                     | slot(node)    | -      |
-| showExtra     | 是否默认展示扩展元素                                         | Boolean | false  |
-| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false  |
-| checkedKeys   | 选中复选框的树节点                                           | Array   | []     |
-| expandedKeys  | 指定展开的节点                                               | Array   | []     |
-| selectedKeys  | 选中的节点                                                   | Array   | []     |
-| multiple      | 是否支持多选                                                 | Boolean | false  |
-| loading       | 异步加载状态                                                 | Boolean | false  |
+| 属性          | 说明                                                         | 类型       | 默认值 |
+| ------------- | ------------------------------------------------------------ | ---------- | ------ |
+| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array      | []     |
+| checkable     | 是否显示多选框                                               | Boolean    | false  |
+| draggable     | 是否可以拖拽                                                 | Boolean    | false  |
+| showLine      | 是否展示连接线                                               | Boolean    | false  |
+| showIcon      | 是否展示图标                                                 | Boolean    | true   |
+| extra         | 扩展元素                                                     | slot(node) | -      |
+| showExtra     | 是否默认展示扩展元素                                         | Boolean    | false  |
+| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean    | false  |
+| checkedKeys   | 选中复选框的树节点                                           | Array      | []     |
+| expandedKeys  | 指定展开的节点                                               | Array      | []     |
+| selectedKeys  | 选中的节点                                                   | Array      | []     |
+| multiple      | 是否支持多选                                                 | Boolean    | false  |
+| loading       | 异步加载状态                                                 | Boolean    | false  |
 
 ## TreeNode API
 

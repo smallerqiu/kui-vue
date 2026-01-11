@@ -92,7 +92,7 @@ export default defineComponent({
           <Input
             prefix="#"
             size="small"
-            value={hex}
+            modelValue={hex}
             onChange={(e) => updateHex(e)}
           />
         );
@@ -103,7 +103,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(r)}
+            modelValue={Math.round(r)}
             onChange={(e) => valueChange(e, "r")}
           />
         );
@@ -112,7 +112,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(g)}
+            modelValue={Math.round(g)}
             onChange={(e) => valueChange(e, "g")}
           />
         );
@@ -121,7 +121,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(b)}
+            modelValue={Math.round(b)}
             onChange={(e) => valueChange(e, "b")}
           />
         );
@@ -132,7 +132,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={359}
-            value={Math.round(_h)}
+            modelValue={Math.round(_h)}
             onChange={(e) => valueChange(e, "h")}
           />
         );
@@ -144,7 +144,7 @@ export default defineComponent({
             parser={(value) => value.replace("%", "")}
             min={0}
             max={100}
-            value={Math.round(s)}
+            modelValue={Math.round(s)}
             onChange={(e) => valueChange(e, "s")}
           />
         );
@@ -156,7 +156,7 @@ export default defineComponent({
             parser={(value) => value.replace("%", "")}
             min={0}
             max={100}
-            value={Math.round(l)}
+            modelValue={Math.round(l)}
             onChange={(e) => valueChange(e, "l")}
           />
         );
@@ -168,7 +168,7 @@ export default defineComponent({
             // suffix="%"
             formatter={(value) => `${value}%`}
             parser={(value) => value.replace("%", "")}
-            value={Math.round(alpha * 100)}
+            modelValue={Math.round(alpha * 100)}
             size="small"
             min={0}
             max={100}

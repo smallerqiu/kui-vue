@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/var.less";
 
 .k-tabs {
   overflow: hidden;
@@ -24,7 +24,6 @@
       cursor: not-allowed;
     }
 
-
     .k-tabs-nav-container {
       flex: 1;
       width: 0; // 麻痹，我感觉这是个bug
@@ -42,7 +41,7 @@
 
       .k-tabs-nav {
         display: inline-block;
-        transition: transform .3s;
+        transition: transform 0.3s;
         white-space: nowrap;
       }
     }
@@ -51,7 +50,7 @@
       padding: 0;
 
       .k-tabs-nav-scroll {
-        transition: transform .3s;
+        transition: transform 0.3s;
       }
     }
 
@@ -61,8 +60,9 @@
       padding: 10px 0 10px;
       font-size: 14px;
       cursor: pointer;
+      -webkit-user-select: none;
       user-select: none;
-      transition: color .3s;
+      transition: color 0.3s;
       border-top-left-radius: var(--kui-border-radius);
       border-top-right-radius: var(--kui-border-radius);
       color: var(--kui-color-font);
@@ -121,7 +121,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    transition: margin-left .3s cubic-bezier(.645, .045, .355, 1);
+    transition: margin-left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     will-change: margin-left;
 
     .k-tabs-tabpanel {
@@ -153,7 +153,7 @@
   .k-tabs-content {
     .k-tabs-tabpanel {
       float: left;
-      transition: opacity .45s;
+      transition: opacity 0.45s;
 
       &:not(.k-tabs-tabpanel-active) {
         display: block;
@@ -163,13 +163,12 @@
   }
 
   .k-tabs-ink-bar {
-    transition: all .3s ease-in-out,
+    transition: all 0.3s ease-in-out;
   }
 }
 
 .k-tabs-card {
   .k-tabs-bar {
-
     .k-tabs-tab {
       margin-right: 2px;
       border: 1px solid var(--kui-color-border);
@@ -199,7 +198,6 @@
 }
 
 .k-tabs-sample {
-
   // background: #fff;
   .k-tabs-bar {
     margin: 0;

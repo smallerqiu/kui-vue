@@ -12,13 +12,10 @@
 
 ```js
 // # router.js
+import { createRouter, createWebHistory } from "vue-router";
+import { loading } from 'kui-vue'
 
-import Vue from 'vue'
-import Router from 'vue-router'
-import { Loading } from 'kui-vue'
-
-Vue.use(Router)
-let router = new Router({
+const router = createRouter({
   ....
 })
 router.beforeEach((to, from, next) => {
@@ -29,6 +26,8 @@ router.beforeEach((to, from, next) => {
 router.afterEach(route => {
   Loading.finish();
 });
+
+export default router;
 ```
 
 如果你使用的是 `axios`.

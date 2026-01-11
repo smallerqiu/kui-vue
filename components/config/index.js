@@ -1,5 +1,5 @@
 import { withInstall } from "../utils/vue";
-import { defineComponent, provide, ref, watch } from "vue";
+import { defineComponent, provide, ref, watch, getCurrentInstance } from "vue";
 const ConfigProvider = defineComponent({
   name: "ConfigProvider",
   props: {
@@ -15,8 +15,11 @@ const ConfigProvider = defineComponent({
   setup(props, { slots }) {
     const locale = ref(props.locale);
     provide("locale", locale);
-
-    // for 2
+    const instance = getCurrentInstance();
+    if (instance && instance.appContext) {
+      instance.appContext.provides["locale"] = locale;
+    }
+    window.__kui_context = instance
     watch(
       () => props.locale,
       (newVal) => {

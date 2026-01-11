@@ -48,7 +48,6 @@ const Modal = defineComponent({
     const refModal = ref();
     const refHeader = ref();
     const injectedLocale = inject("locale", zhCN);
-
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value

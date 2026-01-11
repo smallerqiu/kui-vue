@@ -33,16 +33,16 @@ export default defineComponent({
       }
       group.value.push(options);
     };
-    const destroy = () => {
+    const clean = () => {
       group.value = [];
     };
 
-    expose({ show, destroy });
+    expose({ show, clean });
 
     return () => {
       const { type } = ps;
 
-      let transitionProps = { name: `k-${type}-slide` }; 
+      let transitionProps = { name: `k-${type}-slide` };
       if (type == "notice") {
         transitionProps = getTransitionProp(`k-${type}-slide`);
         delete transitionProps.onEnter; //for 3
