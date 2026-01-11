@@ -26,10 +26,6 @@ let Message = {
     // app.config.globalProperties.$message = Message; //for 3
     app.prototype.$message = Message;
   },
-  useMessage() {
-    // return inject("message"); //for 3
-    return Message;
-  },
 };
 ["info", "success", "warning", "error"].forEach((type) => {
   Message[type] = (content, duration, onClose) => {

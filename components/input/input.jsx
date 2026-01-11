@@ -97,27 +97,29 @@ const Input = defineComponent({
     };
     const getSuffix = () => {
       let { suffix, visiblePasswordIcon, type, inputType } = ps;
-      const SearchNode =
-        "search" in listeners ? (
-          <Icon
-            type={Search}
-            class="k-input-search-icon"
-            onClick={searchEvent}
-          />
-        ) : null;
 
-      const Password =
-        type == "password" && visiblePasswordIcon ? (
+      if (type == "password" && visiblePasswordIcon) {
+        return (
           <Icon
             class="k-input-password-icon"
             type={!showPassword.value ? EyeOutline : EyeOffOutline}
             onClick={togglePassword}
           />
-        ) : null;
-      const suffixNode =
-        slots.suffix?.() ||
-        (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
-      return Password || SearchNode || suffixNode;
+        );
+      } else if ("search" in listeners) {
+        return (
+          <Icon
+            type={Search}
+            class="k-input-search-icon"
+            onClick={searchEvent}
+          />
+        );
+      } else {
+        return (
+          slots.suffix?.() ||
+          (suffix ? <div class="k-input-suffix">{suffix}</div> : null)
+        );
+      }
     };
 
     return () => {

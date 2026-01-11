@@ -150,7 +150,6 @@ const InputNumber = defineComponent({
           prefix: props.prefix,
           icon: props.icon,
           theme: props.theme,
-          placeholder: props.placeholder,
         },
         on: {
           ...listeners,

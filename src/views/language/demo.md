@@ -174,13 +174,9 @@ const showModal = () => {
 const openDrawer = () => {
   visible1.value = true;
 };
-
-// modal 等 全局方法, 需要使用 modal.useModal() 获取 context
-provide("locale", locale); // 当前演示demo,需要注入locale , 实际全局不需注入
-
-const modalApi = modal.useModal();
 const showInfo = () => {
-  modalApi.info({
+  modal.show({
+    type: "info",
     title: "Hello",
     content: "modal info.",
     onOk: () => {
@@ -189,14 +185,14 @@ const showInfo = () => {
   });
 };
 const showConfirm = () => {
-  modalApi.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+  modal.confirm({
+    title: "Please confirm",
+    content: "This operation is irreversible, caution!!!!",
     onOk: () => {
-      message.success("你点了确认");
+      message.success("ok");
     },
     onCancel: () => {
-      message.info("你点了取消");
+      message.info("cancel");
     },
   });
 };

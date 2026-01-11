@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle; // transition: opacity .2s ease-in-out;
+  -webkit-user-select: none;
   user-select: none;
   // outline: none;
   border: 1px solid transparent;
@@ -31,7 +32,7 @@
   outline: 0px solid transparent;
   outline-offset: 1px;
 
-  &:not(.k-btn-link,.k-btn-text):focus {
+  &:not(.k-btn-link, .k-btn-text):focus {
     outline: 2px solid var(--kui-color-main-80);
     outline-offset: 1px;
   }
@@ -51,7 +52,6 @@
     height: 32px;
     width: 32px;
   }
-
 }
 
 .k-btn-sm {

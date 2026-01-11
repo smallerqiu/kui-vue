@@ -14,7 +14,6 @@ const traverse = traverseModule.default;
 const COMPONENTS_DIR = path.resolve("components");
 const OUT_DIR = path.resolve("types");
 
-// ---------------- Prettier Config ----------------
 const prettierConfig =
   (await prettier.resolveConfig(process.cwd())) || {
     singleQuote: false,
@@ -22,7 +21,6 @@ const prettierConfig =
     trailingComma: "es5",
   };
 
-// ---------------- Type Mapping ----------------
 const TYPE_MAP = {
   String: "string",
   Number: "number",
@@ -32,7 +30,6 @@ const TYPE_MAP = {
   Function: "(...args: any[]) => any",
 };
 
-// ---------------- Safe mkdir / clean ----------------
 function ensureCleanDir(dir) {
   if (fs.existsSync(dir)) {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -40,7 +37,6 @@ function ensureCleanDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
-// ---------------- 扫描 index.js 获取组件实际文件路径 ----------------
 function getComponentFiles(entryFile) {
   const code = fs.readFileSync(entryFile, "utf8");
   const ast = parse(code, {
@@ -98,7 +94,6 @@ function getComponentFiles(entryFile) {
     const dir = path.dirname(entryFile);
     let target = relPath;
 
-    // ✅ 这里是关键修复：只在没有扩展名时追加 .jsx
     if (!path.extname(target)) {
       target += ".jsx";
     }
@@ -113,7 +108,6 @@ function getComponentFiles(entryFile) {
   return componentFiles;
 }
 
-// ---------------- 解析 props ----------------
 function parseProps(propsNode, source = "") {
   const props = [];
   if (!propsNode || !Array.isArray(propsNode.properties)) return props;
@@ -181,7 +175,6 @@ function parseProps(propsNode, source = "") {
   return props;
 }
 
-// ---------------- 生成 d.ts 内容 ----------------
 function genDts(name, props) {
   const propsContent = props
     .map((p) => {
@@ -219,7 +212,6 @@ export default ${name};
 `;
 }
 
-// ---------------- 主函数 ----------------
 async function main() {
   const entryFiles = await fg(["**/index.js"], {
     cwd: COMPONENTS_DIR,
@@ -311,7 +303,6 @@ async function main() {
     }
   }
 
-  // 生成 index.d.ts
   const indexContent = exports
     .map(
       (e) =>

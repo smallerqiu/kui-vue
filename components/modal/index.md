@@ -24,7 +24,6 @@
 - modal.success(options)
 - modal.warning(options)
 - modal.error(options)
-- modal.show(options)
 - modal.confirm(options)
 
 另外提供了全局配置和全局销毁的方法：
