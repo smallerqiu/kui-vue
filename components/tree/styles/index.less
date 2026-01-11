@@ -7,6 +7,7 @@
     list-style: none;
     white-space: nowrap;
     outline: 0;
+    -webkit-user-select: none;
     user-select: none;
     display: flex;
     align-items: center;
@@ -76,7 +77,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     position: absolute;
-    right: 0
+    right: 0;
   }
 
   .k-tree-item-extra-hidden {
@@ -204,19 +205,18 @@
   flex-shrink: 0;
 }
 
-
 //line-en
 .k-tree-show-line {
   /* 1. 垂直贯穿线 (父节点不是最后) */
-.k-tree-indent-line::before {
-  content: "";
-  position: absolute;
-  height: 28px;
-  top: 0;
-  bottom: 0;
-  left: 50%; /* 居中画线 */
-  border-left: 1px solid var(--kui-color-border);
-}
+  .k-tree-indent-line::before {
+    content: "";
+    position: absolute;
+    height: 28px;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* 居中画线 */
+    border-left: 1px solid var(--kui-color-border);
+  }
 
   .k-tree-arrow {
     transform: rotate(90deg);

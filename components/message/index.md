@@ -11,7 +11,6 @@
 
 - `message.show(options)`
 - `message.destroy()`
-- `message.useMessage()`
 
 参数 `options` 为对象，具体说明如下：
 

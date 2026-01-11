@@ -20,8 +20,8 @@
             placeholder="输入英文关键字，搜索图标，点击图标即可复制"
             :icon="LogoKui"
             clearable
-            @input="filter"
             style="background: var(--kui-color-back)"
+            @input="filter"
           />
           <Button :icon="icons['Search']" theme="outline" />
         </Space>
@@ -79,7 +79,7 @@
   </div>
 </template>
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { message } from "kui-vue";
 import { useClipboard } from "@vueuse/core";
 import * as icons from "kui-icons";
@@ -143,7 +143,7 @@ const copyHandle = (name) => {
 
   .icon-item {
     text-align: center;
-    width: 145px;
+    width: 128px;
     height: 80px;
     line-height: 80px;
     color: var(--kui-color-font);

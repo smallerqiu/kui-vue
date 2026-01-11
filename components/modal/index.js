@@ -2,15 +2,14 @@ import Modal from "./modal.jsx";
 import Toast from "./toast";
 // import { /*createVNode, render,*/ inject } from "vue"; // for 3
 import { createVNode, render } from "../utils/vue"; //for 2
-import { getCurrentInstance } from "vue";
 
 let modalList = [];
-
 if (typeof window !== "undefined") {
   document.addEventListener("mousedown", (e) => {
     window.__kui__point = { x: e.clientX, y: e.clientY };
   });
 }
+
 let createInstance = (props = {}, context = null) => {
   const container = document.createElement("div");
   document.body.appendChild(container);
@@ -68,24 +67,5 @@ Modal.install = (app) => {
   // app.provide("modal", Modal);
   // app.config.globalProperties.$modal = Modal;
   app.prototype.$modal = Modal;
-};
-
-Modal.useModal = () => {
-  // return inject("modal"); //for 3
-  const instance = getCurrentInstance();
-  const proxy = instance ? instance.proxy : null;
-  // console.log(proxy);
-  const modalWrapper = {};
-
-  ["info", "success", "warning", "error", "confirm", "show"].forEach((type) => {
-    modalWrapper[type] = (props = {}) => {
-      const config = type === "show" ? props : Object.assign({ type }, props);
-      return getModal(config, proxy);
-    };
-  });
-
-  modalWrapper.destroyAll = Modal.destroyAll;
-
-  return modalWrapper;
 };
 export default Modal;

@@ -11,7 +11,7 @@ const UI = {
   locale: locale.use,
   i18n: locale.i18n,
   lang: {},
-  install: function (Vue, opts = {}) {
+  install: function (app, opts = {}) {
     if (opts.locale) {
       locale.use(opts.locale);
     }
@@ -28,16 +28,16 @@ const UI = {
             .replace(/([A-Z])/g, "-$1")
             .replace(/^-/, "")
             .toLowerCase();
-        Vue.component(kebabName, component);
+        app.component(kebabName, component);
       }
-      Vue.component(key, component);
+      app.component(key, component);
     });
-    Vue.prototype.$message = components.message;
-    Vue.prototype.$notice = components.notice;
-    Vue.prototype.$modal = components.modal;
-    Vue.prototype.$loading = components.loading;
-    Vue.prototype.$image = components.KImage;
-    Vue.prototype.$theme = components.theme;
+    app.prototype.$message = components.message;
+    app.prototype.$notice = components.notice;
+    app.prototype.$modal = components.modal;
+    app.prototype.$loading = components.loading;
+    app.prototype.$image = components.KImage;
+    app.prototype.$theme = components.theme;
   },
 };
 
