@@ -1,93 +1,38 @@
 <template>
-  <Table :data="data" :sticky="52" :columns="columns" />
+  <Space vertical>
+    <Button @click="config">10秒后关闭</Button>
+    <Button @click="config2" type="primary">5秒后关闭</Button>
+    <Button @click="config3" type="primary">手动关闭</Button>
+  </Space>
 </template>
 <script setup>
-import { modal, Icon, Space } from "kui-vue";
-import { Sunny, Moon } from "kui-icons";
-const data = [
-  {
-    key: "0",
-    name: "Li Lei",
-    gender: 0,
-    age: 32,
-    address: "Wu Han Guanggu No. 328",
-    tags: ["Python", "Java"],
-  },
-  {
-    key: "1",
-    name: "Liu Hao",
-    gender: 1,
-    age: 28,
-    address: "Wu Han Hongshan No. 128",
-    tags: ["Python", "Java"],
-  },
-  {
-    key: "2",
-    name: "Hu Cong",
-    gender: 0,
-    age: 28,
-    address: "Wu Han Nanhu No. 198",
-    tags: ["JS", "CSS"],
-  },
-  {
-    key: "3",
-    name: "Qiu",
-    gender: 1,
-    age: 28,
-    address: "Wu Han Nanhu No. 188",
-    tags: ["Go", "Python"],
-  },
-];
-const columns = [
-  { title: "Name", key: "name" },
-  { title: "Age", key: "age" },
-  {
-    title: "Gender",
-    key: "gender",
-    render: (h, { gender }, i) => {
-      return h(Icon, {
-        type: gender == 1 ? Sunny : Moon,
-        color: gender == 1 ? "blue" : "#f50cff",
-        size: 15,
-      });
+import { notice, message } from "kui-vue";
+
+const config = () => {
+  notice.open({
+    type: "success",
+    duration: 10,
+    title: "温馨提示",
+    content: "10秒后关闭",
+  });
+};
+const config2 = () => {
+  notice.open({
+    type: "info",
+    duration: 5,
+    title: "温馨提示",
+    content: "5秒后关闭",
+  });
+};
+const config3 = () => {
+  notice.open({
+    type: "info",
+    duration: 0,
+    title: "温馨提示",
+    content: "手动关闭",
+    onClose: () => {
+      message.success("我是回调");
     },
-  },
-  { title: "Address", key: "address" },
-  {
-    title: "Tags",
-    key: "tags",
-    render: (h, { tags }, i) => {
-      return h("Space", {}, [
-        tags.map(function (tag) {
-          return h(
-            "Tag",
-            {
-              color: tag == "Python" ? "green" : "blue",
-            },
-            tag
-          );
-        }),
-      ]);
-    },
-  },
-  {
-    title: "Operate",
-    key: "action",
-    render: (h, record, i) => {
-      return h(
-        "Button",
-        {
-          size: "small",
-          onClick: (e) => {
-            modal.info({
-              title: "More",
-              content: `My name is ${record.name}`,
-            });
-          },
-        },
-        "more"
-      );
-    },
-  },
-];
+  });
+};
 </script>

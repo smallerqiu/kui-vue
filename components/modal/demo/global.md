@@ -12,26 +12,10 @@
     <Button @click="info" type="primary">Info</Button>
     <Button @click="show" :icon="Moon">Custom icon</Button>
   </Space>
-  <p>
-    <Button @click="useModalShow">useModal</Button>
-  </p>
 </template>
 <script setup>
 import { Moon } from "kui-icons";
 import { modal, message } from "kui-vue";
-
-// 使用 useModal
-const useModal = modal.useModal();
-const useModalShow = () => {
-  useModal.success({
-    title: "操作成功",
-    content: "恭喜你操作成功！",
-    onOk: () => {
-      message.info("success");
-    },
-  });
-};
-
 //
 const success = () => {
   modal.success({

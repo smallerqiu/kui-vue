@@ -17,6 +17,7 @@ const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
+ * Homepage: https://k-ui.cn
  * Author: Qiu / https://chuchur.com
  */\n`
 
@@ -97,7 +98,7 @@ export default [
             overrideBrowserslist: ['> 1%', 'not ie 11', 'not dead']
           }),
           banner({
-            banner: `${pkg.name} v${pkg.version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nAuthor: Qiu / www.chuchur.com\n`,
+            banner: `${pkg.name} v${pkg.version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nHomepage: https://k-ui.cn\nAuthor: Qiu / www.chuchur.com\n`,
             important: true
           })
         ]

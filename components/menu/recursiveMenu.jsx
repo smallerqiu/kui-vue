@@ -17,6 +17,7 @@ const RecursiveMenu = defineComponent({
           isPopup={props.isPopup}
           title={item.title}
           icon={item.icon}
+          disabled={item.disabled}
         >
           {item.children.map((child) => {
             return <RecursiveSubMenu item={child} key={child.key} />;

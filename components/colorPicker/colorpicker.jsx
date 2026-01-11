@@ -27,6 +27,7 @@ const ColorPicker = defineComponent({
   },
   props: {
     modelValue: String,
+    value: String,
     transfer: { type: Boolean, default: true },
     disabled: Boolean,
     disabledAlpha: Boolean,
@@ -73,7 +74,7 @@ const ColorPicker = defineComponent({
 
   setup(ps, { emit, slots }) {
     const currentMode = ref(ps.mode);
-    const currentColor = ref(ps.modelValue || "#000000ff");
+    const currentColor = ref(ps.modelValue || ps.value || "#000000ff");
     const visible = ref(ps.show);
     const refPopper = ref();
     const refSelection = ref();
@@ -240,7 +241,7 @@ const ColorPicker = defineComponent({
             <div class="k-color-picker-body">
               <Paint
                 hue={currentHue.value}
-                value={currentColor.value}
+                modelValue={currentColor.value}
                 onUpdateRGB={onUpdateRGB}
               />
               <div class="k-color-picker-bar">
@@ -254,7 +255,7 @@ const ColorPicker = defineComponent({
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
                   {!ps.disabledAlpha ? (
                     <Alpha
-                      value={currentColor.value}
+                      modelValue={currentColor.value}
                       onUpdateAlpha={onUpdateAlpha}
                     />
                   ) : null}
@@ -262,14 +263,14 @@ const ColorPicker = defineComponent({
               </div>
               <Mode
                 mode={currentMode.value}
-                value={currentColor.value}
+                modelValue={currentColor.value}
                 disabledAlpha={ps.disabledAlpha}
                 onUpdateMode={onUpdateMode}
                 onUpdateColorValue={updateColorValue}
               />
               <Presets
                 onUpdateColor={updateColor}
-                value={ps.presets}
+                modelValue={ps.presets}
                 color={currentColor.value}
               />
             </div>

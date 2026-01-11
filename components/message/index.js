@@ -8,13 +8,14 @@ let Message = {
   show(options = {}) {
     options.noticeType = "message";
     if (!messageInstance) {
-      messageInstance = newInstance({ type: "message" });
+      messageInstance = newInstance({ type: "message", key: "message" });
     }
     // console.log(messageInstance, options);
     messageInstance?.show(options);
   },
   destroy() {
     if (messageInstance) {
+      messageInstance.clean();
       messageInstance.destroy();
       messageInstance = null;
     }
@@ -23,10 +24,6 @@ let Message = {
     // app.provide("message", Message);
     // 可选：同时挂到 globalProperties 兼容 this.$message
     app.config.globalProperties.$message = Message; //for 3
-  },
-  useMessage() {
-    // return inject("message"); //for 3
-    return Message;
   },
 };
 ["info", "success", "warning", "error"].forEach((type) => {

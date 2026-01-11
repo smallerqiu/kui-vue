@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import { loading } from 'kui-vue'
 let children = [
   {
     path: "/start/getting-started",
@@ -217,7 +217,12 @@ const router = createRouter({
 
 router.beforeEach(function (to, from, next) {
   // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
+  loading.start();
   next();
+});
+
+router.afterEach(route => {
+  loading.finish();
 });
 
 export default router;

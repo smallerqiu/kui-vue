@@ -9,6 +9,7 @@ const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
+ * Homepage: https://k-ui.cn
  * Author: Qiu / https://chuchur.com
  */\n`
 // https://vite.dev/config/

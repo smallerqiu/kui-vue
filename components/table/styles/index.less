@@ -9,8 +9,8 @@
   font-size: 14px;
   overflow: hidden;
   &-thead-sticky {
-    position: sticky;
     position: -webkit-sticky;
+    position: sticky;
     top: 0;
     z-index: 3;
   }
@@ -19,10 +19,11 @@
   .k-table-cell-fix-right {
     position: sticky;
     box-sizing: border-box;
-    backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     will-change: transform;
     contain: layout;
+    z-index: 2;
   }
 
   .k-spin {
@@ -115,6 +116,7 @@
 
     th.k-table-cell-sorter {
       cursor: pointer;
+      -webkit-user-select: none;
       user-select: none;
 
       .k-table-header-col {

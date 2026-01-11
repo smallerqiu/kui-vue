@@ -5,7 +5,7 @@
     <Affix :offset-top="65">
       <Flex size="large" style="background-color: var(--kui-color-back)">
         <RadioGroup
-          v-model:value="type"
+          v-model="type"
           theme="card"
           type="button"
           size="large"
@@ -16,7 +16,7 @@
         </RadioGroup>
         <Space compact size="large" block>
           <Input
-            v-model:value="searchKey"
+            v-model="searchKey"
             placeholder="输入英文关键字，搜索图标，点击图标即可复制"
             :icon="LogoKui"
             clearable
@@ -143,7 +143,7 @@ const copyHandle = (name) => {
 
   .icon-item {
     text-align: center;
-    width: 145px;
+    width: 128px;
     height: 80px;
     line-height: 80px;
     color: var(--kui-color-font);

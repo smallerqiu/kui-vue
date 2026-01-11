@@ -93,24 +93,34 @@ const Input = defineComponent({
       if (ps.disabled) return;
       emit("search", currentValue.value);
     };
-    const getSuffix = () => {
+    const getSuffix = (slotSuffix) => {
       let { suffix, visiblePasswordIcon, type, inputType } = ps;
-      const SearchNode = attrs?.onSearch ? (
-        <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} />
-      ) : null;
 
-      const Password =
-        type == "password" && visiblePasswordIcon ? (
+      if (type == "password" && visiblePasswordIcon) {
+        return (
           <Icon
             class="k-input-password-icon"
             type={!showPassword.value ? EyeOutline : EyeOffOutline}
             onClick={togglePassword}
           />
-        ) : null;
-      const suffixNode =
-        slots.suffix?.() ||
-        (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
-      return Password || SearchNode || suffixNode;
+        );
+      } else if (attrs?.onSearch) {
+        return (
+          <Icon
+            type={Search}
+            class="k-input-search-icon"
+            onClick={searchEvent}
+          />
+        );
+      } else {
+        if (slotSuffix.length > 0) {
+          return slotSuffix;
+        }
+        if (suffix) {
+          return <div class="k-input-suffix">{suffix}</div>;
+        }
+        return null;
+      }
     };
 
     return () => {
@@ -240,7 +250,7 @@ const Input = defineComponent({
           </InputGroup>
         );
       } else {
-        const suffixNode = getSuffix();
+        const suffixNode = getSuffix(slotSuffix);
         const children = [];
         if (icon)
           children.push(
