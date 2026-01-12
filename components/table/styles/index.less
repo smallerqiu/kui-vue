@@ -5,7 +5,7 @@
   margin: 10px 0;
   box-sizing: border-box;
   position: relative;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   overflow: hidden;
   &-thead-sticky {
@@ -33,17 +33,17 @@
     left: 0;
     top: 0;
     z-index: 100;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
 
     .k-spin-loading {
-      border-radius: @radius;
+      border-radius: var(--kui-border-radius);
       background-color: var(--kui-color-spin);
     }
   }
 
   .k-table-container {
     width: 100%;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
   }
   .k-table-header-bar {
     background: var(--kui-color-table-header);
@@ -59,18 +59,18 @@
     border-spacing: 0;
     // background: var(--kui-color-back);
     margin: 0;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
 
     thead {
       border-bottom: 1px solid var(--kui-color-table-border);
     }
 
     tr th:first-child {
-      border-top-left-radius: @radiusInner;
+      border-top-left-radius: var(--kui-border-radius-card);
     }
 
     tr th:last-child {
-      border-top-right-radius: @radiusInner;
+      border-top-right-radius: var(--kui-border-radius-card);
     }
 
     .k-table {
@@ -151,7 +151,7 @@
           height: 7px;
         }
         .k-table-sorter-active {
-          color: var(--kui-color-main);
+          color: var(--kui-color-primary);
         }
       }
     }
@@ -218,8 +218,8 @@
   }
 
   .k-table-thead {
-    border-top-left-radius: @radiusInner;
-    border-top-right-radius: @radiusInner;
+    border-top-left-radius: var(--kui-border-radius-card);
+    border-top-right-radius: var(--kui-border-radius-card);
     background: var(--kui-color-table-header);
   }
 
@@ -229,8 +229,8 @@
 
   &-footer {
     padding: 10px;
-    border-bottom-left-radius: @radiusInner;
-    border-bottom-right-radius: @radiusInner;
+    border-bottom-left-radius: var(--kui-border-radius-card);
+    border-bottom-right-radius: var(--kui-border-radius-card);
   }
 
   th > a,
@@ -343,23 +343,23 @@
     }
   }
   & {
-    border-top-left-radius: @radius;
-    border-top-right-radius: @radius;
+    border-top-left-radius: var(--kui-border-radius);
+    border-top-right-radius: var(--kui-border-radius);
     .k-table-thead {
-      border-top-left-radius: @radius;
-      border-top-right-radius: @radius;
+      border-top-left-radius: var(--kui-border-radius);
+      border-top-right-radius: var(--kui-border-radius);
     }
     .k-table-body {
-      border-top-left-radius: @radius;
-      border-top-right-radius: @radius;
+      border-top-left-radius: var(--kui-border-radius);
+      border-top-right-radius: var(--kui-border-radius);
     }
     .k-table-footer {
-      border-bottom-left-radius: @radius;
-      border-bottom-right-radius: @radius;
+      border-bottom-left-radius: var(--kui-border-radius);
+      border-bottom-right-radius: var(--kui-border-radius);
     }
     .k-table-header {
-      border-top-left-radius: @radiusInner;
-      border-top-right-radius: @radiusInner;
+      border-top-left-radius: var(--kui-border-radius-card);
+      border-top-right-radius: var(--kui-border-radius-card);
     }
   }
   &-bordered {
@@ -445,7 +445,7 @@
       cursor: pointer;
 
       &:hover {
-        color: var(--kui-color-main);
+        color: var(--kui-color-primary);
       }
     }
   }

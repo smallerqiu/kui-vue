@@ -1,7 +1,7 @@
 @import "../../styles/var.less";
 
 .k-modal {
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
 
   .k-modal-wrap {
     position: fixed;
@@ -52,7 +52,7 @@
     .k-modal-close {
       position: absolute;
       cursor: pointer;
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
       top: 20px;
       right: 20px;
       transition: all 0.3s ease-in-out;
@@ -60,7 +60,7 @@
         font-size: 20px;
       }
       &:hover {
-        color: var(--kui-color-danger);
+        color: var(--kui-color-error);
         border-radius: var(--kui-border-radius);
         background-color: var(--kui-color-gray-80);
         // transform: rotate(360deg);
@@ -222,7 +222,7 @@
 }
 
 .k-toast-error .k-toast-icon {
-  color: var(--kui-color-danger);
+  color: var(--kui-color-error);
 }
 
 .k-toast-warning .k-toast-icon {
@@ -230,7 +230,7 @@
 }
 
 .k-toast-info .k-toast-icon {
-  color: var(--kui-color-main);
+  color: var(--kui-color-primary);
 }
 
 .k-toast-confirm .k-toast-icon {

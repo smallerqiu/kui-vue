@@ -14,7 +14,7 @@
       <div
         v-for="x in 4"
         :style="{
-          'background-color': 'var(--kui-color-main)',
+          'background-color': 'var(--kui-color-primary)',
           opacity: x % 2 ? 1 : 0.8,
           height: '40px',
           width: '25%',

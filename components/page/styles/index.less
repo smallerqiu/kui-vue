@@ -1,7 +1,7 @@
 @import "../../styles/var.less";
 
 .k-page {
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   -webkit-user-select: none;
   user-select: none;
@@ -17,7 +17,7 @@
   }
   .k-pager-item {
     background: transparent;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     min-width: 32px;
     height: 32px;
     line-height: 1;
@@ -45,12 +45,12 @@
   }
 
   .k-pager-item-active {
-    border: 1px solid var(--kui-color-main);
-    color: var(--kui-color-main);
+    border: 1px solid var(--kui-color-primary);
+    color: var(--kui-color-primary);
 
     &:hover {
       background: none;
-      color: var(--kui-color-main-hover);
+      color: var(--kui-color-primary-hover);
     }
   }
 
@@ -82,7 +82,7 @@
     cursor: not-allowed;
 
     .k-icon {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
     }
 
     &:hover {
@@ -90,7 +90,7 @@
       background: none;
 
       .k-icon {
-        color: var(--kui-color-disabled);
+        color: var(--kui-color-text-disabled);
       }
     }
   }
@@ -135,7 +135,7 @@
     &:hover {
       background-color: var(--kui-color-hover);
       .k-icon {
-        color: var(--kui-color-main-hover);
+        color: var(--kui-color-primary-hover);
       }
     }
 
@@ -157,13 +157,13 @@
 .k-page-disabled {
   cursor: not-allowed;
   .k-pager-item {
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     border-color: var(--kui-color-disable-border);
   }
   .k-pager-item-active {
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     :hover {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
     }
   }
   * {

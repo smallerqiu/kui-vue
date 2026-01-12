@@ -8,7 +8,7 @@
   -webkit-user-select: none;
   user-select: none;
   line-height: 1;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   white-space: nowrap;
   outline: none;
   &:focus {
@@ -65,13 +65,13 @@
 
   &.k-checkbox-indeterminate {
     .k-checkbox-symbol {
-      // background: var(--kui-color-main);
-      // border-color: var(--kui-color-main);
+      // background: var(--kui-color-primary);
+      // border-color: var(--kui-color-primary);
       position: relative;
 
       &:after {
         box-sizing: content-box;
-        background-color: var(--kui-color-main);
+        background-color: var(--kui-color-primary);
         position: absolute;
         width: 8px;
         height: 8px;
@@ -86,7 +86,7 @@
   }
 
   &:hover .k-checkbox-symbol {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
   }
 
   .k-checkbox-label {
@@ -123,14 +123,14 @@
 }
 .k-checkbox-checked {
   .k-checkbox-symbol {
-    background: var(--kui-color-main);
-    border-color: var(--kui-color-main);
+    background: var(--kui-color-primary);
+    border-color: var(--kui-color-primary);
   }
 }
 
 .k-checkbox-disabled {
   cursor: not-allowed;
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
 
   &.k-checkbox {
     .k-checkbox-input {
@@ -140,11 +140,11 @@
     .k-checkbox-symbol {
       background: var(--kui-color-disable-back);
       border-color: var(--kui-color-disable-border);
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
 
       &:after {
         background-color: var(--kui-color-disable-back);
-        color: var(--kui-color-disabled);
+        color: var(--kui-color-text-disabled);
       }
     }
   }
