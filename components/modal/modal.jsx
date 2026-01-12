@@ -1,6 +1,7 @@
 import { Button } from "../button";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons";
+import { getMousePoint } from "../config/context";
 import {
   defineComponent,
   ref,
@@ -120,7 +121,7 @@ const Modal = defineComponent({
     };
     const updateOrigin = () => {
       if (refModal.value) {
-        let { x, y } = window.__kui__point || { x: 0, y: 0 };
+        let { x, y } = getMousePoint();
         let { left, top } = getOffset(refModal.value);
         refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
       }
