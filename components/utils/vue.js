@@ -1,3 +1,5 @@
+import { getAppContext } from "../config/context";
+
 export const withInstall = (component) => {
   component.install = function (app) {
     app.component(component.name, component);
@@ -9,7 +11,7 @@ export const withInstall = (component) => {
 import Vue, { h } from "vue";
 export function createVNode(component, props, parent) {
   const instance = new Vue({
-    parent: parent || window.__kui_context?.proxy,
+    parent: parent || getAppContext()?.proxy,
     render: (h) => h(component, { ...props }),
   });
   instance.$mount();
