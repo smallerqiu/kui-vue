@@ -43,7 +43,7 @@
       outline-color: var(--kui-color-main-80);
     }
     &.is-dragging {
-      border: 1px solid var(--kui-color-main);
+      border: 1px solid var(--kui-color-primary);
       z-index: 1;
       cursor: grabbing;
     }
@@ -52,7 +52,7 @@
   .k-slider-thumb-sm {
     height: 14px;
     width: 14px;
-    border: 2px solid var(--kui-color-main);
+    border: 2px solid var(--kui-color-primary);
 
     &:active {
       border-width: 2px;
@@ -64,7 +64,7 @@
     height: 4px;
     cursor: pointer;
     border-radius: 2px;
-    background: var(--kui-color-main);
+    background: var(--kui-color-primary);
     position: absolute;
     top: 14px;
     pointer-events: none;
@@ -104,20 +104,20 @@
     box-sizing: content-box;
 
     &.is-active {
-      border-color: var(--kui-color-main);
+      border-color: var(--kui-color-primary);
     }
   }
 
   .k-slider-mark-text {
     position: absolute;
     transform: translateX(-50%);
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     z-index: 0;
     line-height: 1;
     margin-top: 18px;
 
     &-active {
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
   }
 }

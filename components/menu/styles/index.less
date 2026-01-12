@@ -10,9 +10,9 @@
   font-size: 14px;
   position: relative;
   zoom: 1;
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg-container);
   list-style: none;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   // transition: background-color .3s cubic-bezier(.645, .045, .355, 1), width .3s cubic-bezier(.645, .045, .355, 1);
   transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   -webkit-user-select: none;
@@ -64,7 +64,7 @@
     align-items: center;
     line-height: 1;
     &:hover {
-      background-color: var(--kui-color-hover);
+      background-color: var(--kui-color-primary-hover);
     }
   }
 
@@ -81,7 +81,7 @@
   }
 
   a {
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     text-decoration: none;
 
     &::before {
@@ -98,7 +98,7 @@
 
   .k-menu-submenu-selected {
     .k-menu-submenu-title {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
     }
   }
 
@@ -109,7 +109,7 @@
     }
 
     * {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
       cursor: not-allowed;
     }
   }
@@ -151,19 +151,19 @@
       position: absolute;
       width: 0;
       height: 0;
-      border-right: 3px solid var(--kui-color-main);
+      border-right: 3px solid var(--kui-color-primary);
       top: 50%;
       right: 0;
       transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
     &:active {
-      background: var(--kui-color-active);
+      background: var(--kui-color-primary-active);
     }
   }
 
   .k-menu-submenu-active .k-menu-submenu-title:active {
-    background: var(--kui-color-active);
+    background: var(--kui-color-primary-active);
   }
 
   .k-menu-submenu-title {
@@ -206,11 +206,11 @@
     }
 
     &:hover {
-      background-color: var(--kui-color-hover);
+      background-color: var(--kui-color-primary-hover);
     }
 
     &:active {
-      background-color: var(--kui-color-active);
+      background-color: var(--kui-color-primary-active);
     }
   }
 
@@ -234,7 +234,7 @@
 
   //light
   .k-menu-item-selected {
-    background-color: var(--kui-color-selected);
+    background-color: var(--kui-color-primary-bg);
 
     &::after {
       display: none;
@@ -248,13 +248,13 @@
   display: inline-flex;
 
   .k-menu-item-selected {
-    background-color: var(--kui-color-selected);
+    background-color: var(--kui-color-primary-bg);
   }
 
   .k-menu-submenu-active,
   .k-menu-submenu-selected {
     .k-menu-submenu-title {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
     }
   }
 
@@ -264,11 +264,11 @@
     border-radius: var(--kui-border-radius);
 
     &:hover {
-      background-color: var(--kui-color-hover);
+      background-color: var(--kui-color-primary-hover);
     }
 
     &:active {
-      background-color: var(--kui-color-active);
+      background-color: var(--kui-color-primary-active);
     }
   }
 
@@ -376,13 +376,13 @@
   > .k-menu-submenu-selected,
   > .k-menu-item-active,
   > .k-menu-submenu-active {
-    border-bottom-color: var(--kui-color-main);
+    border-bottom-color: var(--kui-color-primary);
     background-color: transparent;
   }
 
   .k-menu-submenu {
     .k-menu-item-selected {
-      background-color: var(--kui-color-selected);
+      background-color: var(--kui-color-primary-bg);
     }
   }
 }
@@ -443,8 +443,8 @@
     .k-menu {
       margin: 0;
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-      border-radius: var(--kui-border-radius-outer);
-      background-color: var(--kui-color-back-10);
+      border-radius: var(--kui-border-radius);
+      background-color: var(--kui-color-bg-elevated);
       border: 1px solid var(--kui-color-border);
 
       .k-menu-item {
@@ -490,7 +490,7 @@
 
   .k-menu-submenu-selected {
     .k-menu-submenu-title {
-      background-color: var(--kui-color-selected);
+      background-color: var(--kui-color-primary-bg);
     }
   }
 

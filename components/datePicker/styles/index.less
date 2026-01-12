@@ -4,7 +4,7 @@
   display: inline-flex;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   background: none;
   font-size: 14px;
   position: relative;
@@ -23,7 +23,7 @@
   outline: 2px solid transparent;
   outline-offset: 1px;
   &:hover {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
   }
   &:focus {
     outline: 2px solid var(--kui-color-main-80);
@@ -117,7 +117,7 @@
 }
 
 .k-datepicker-opened {
-  border-color: var(--kui-color-main);
+  border-color: var(--kui-color-primary);
   box-shadow: 0 0 0 2px var(--kui-color-main-90);
   outline: 2px solid var(--kui-color-main-80);
   &.k-datepicker-light {
@@ -195,7 +195,7 @@
 
 .k-datepicker-disabled {
   border-color: var(--kui-color-disable-border);
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
   cursor: not-allowed;
   background: var(--kui-color-disable-back);
 
@@ -266,7 +266,7 @@
   }
   .k-picker-day {
     cursor: pointer;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     border-radius: var(--kui-border-radius);
     position: relative;
     display: inline-block;
@@ -298,8 +298,8 @@
     background: var(--kui-color-main-90);
   }
   .k-picker-is-today {
-    // border: 1px solid var(--kui-color-main);
-    color: var(--kui-color-main);
+    // border: 1px solid var(--kui-color-primary);
+    color: var(--kui-color-primary);
     background-color: var(--kui-color-gray-90);
 
     &:after {
@@ -307,7 +307,7 @@
       position: absolute;
       width: 5px;
       height: 5px;
-      background: var(--kui-color-main);
+      background: var(--kui-color-primary);
       right: 1px;
       top: 1px;
       border-radius: 50%;
@@ -315,7 +315,7 @@
   }
   .k-picker-header-label {
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     cursor: pointer;
     font-weight: bold;
     flex: 1;
@@ -325,7 +325,7 @@
     justify-content: center;
     gap: 5px;
     span:hover {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
     }
   }
   .k-picker-month-body,
@@ -354,9 +354,9 @@
   .k-picker-month-selected {
     color: #fff;
     font-weight: bold;
-    background: var(--kui-color-main);
+    background: var(--kui-color-primary);
     &:hover {
-      background: var(--kui-color-main);
+      background: var(--kui-color-primary);
     }
     &::after {
       background-color: #fff;
@@ -391,8 +391,8 @@
       background: var(--kui-color-hover);
     }
     &.active {
-      color: var(--kui-color-main);
-      text-shadow: 0 0 1px var(--kui-color-main);
+      color: var(--kui-color-primary);
+      text-shadow: 0 0 1px var(--kui-color-primary);
     }
   }
   .k-picker-time-picker {
@@ -432,7 +432,7 @@
     height: 32px;
     line-height: 32px;
     cursor: pointer;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     font-size: 13px;
     opacity: 0.6;
     transition: all 0.2s;
@@ -442,7 +442,7 @@
     }
   }
   .k-picker-time-item.active {
-    color: var(--kui-color-main);
+    color: var(--kui-color-primary);
     font-weight: bold;
     opacity: 1;
     transform: scale(1.1);

@@ -47,9 +47,9 @@
     margin-left: 4px;
     align-items: center;
     z-index: 0;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     cursor: pointer;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     line-height: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -63,7 +63,7 @@
 
   .k-tree-item-drop {
     > .k-tree-title {
-      background-color: var(--kui-color-main) !important;
+      background-color: var(--kui-color-primary) !important;
       color: #fff;
     }
   }
@@ -95,7 +95,7 @@
   .k-tree-item-disabled {
     .k-tree-title,
     .k-tree-icon {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
       cursor: not-allowed;
     }
 
@@ -136,7 +136,7 @@
   .tree-nodata {
     padding: 8px 10px;
     display: block;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     font-size: 12px;
   }
 }
@@ -184,7 +184,7 @@
     cursor: not-allowed;
 
     .k-tree-title {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
     }
 
     &::before {

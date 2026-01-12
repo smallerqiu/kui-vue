@@ -28,7 +28,7 @@
       :style="{
         width: '100%',
         height: '120px',
-        border: '1px solid var(--kui-color-main)',
+        border: '1px solid var(--kui-color-primary)',
         'border-radius': '5px',
       }"
     >
