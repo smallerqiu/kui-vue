@@ -1,6 +1,6 @@
 @import '../../styles/less-css-var.less';
 .k-btn {
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   height: 32px;
   line-height: 1;
@@ -11,10 +11,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: middle; // transition: opacity .2s ease-in-out;
+  vertical-align: middle; 
   -webkit-user-select: none;
   user-select: none;
-  // outline: none;
   border: 1px solid transparent;
   transition:
     height 0.3s ease-in-out,
@@ -24,7 +23,7 @@
     font-size 0.3s ease;
   z-index: 0;
   white-space: nowrap;
-  background-color: var(--kui-color-gray-90);
+  background-color: var(--kui-color-bg-component);
   cursor: pointer;
   outline-offset: 2px;
   gap: 8px;
@@ -55,7 +54,6 @@
 
 .k-btn-sm {
   height: 24px;
-  // line-height: 22px;
   font-size: 12px;
   padding: 0 8px;
   gap: 4px;
@@ -94,9 +92,8 @@
   background: 0 0;
   border: none;
 
-  // &:focus,
   &:hover {
-    background-color: var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-component);
   }
 
   &:active {
@@ -107,7 +104,7 @@
 .k-btn-link {
   background: none;
   border: none;
-  color: var(--kui-color-main);
+  color: var(--kui-color-primary);
   text-decoration: none;
 }
 
@@ -129,22 +126,22 @@
 .k-btn-default:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
   border: none;
   &:not(:disabled):hover {
-    color: var(--kui-color-main);
+    color: var(--kui-color-primary);
   }
 }
 
 .k-btn-primary:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
   border: none;
   color: #fff;
-  background: var(--kui-color-main);
-  border-color: var(--kui-color-main);
+  background: var(--kui-color-primary);
+  border-color: var(--kui-color-primary);
 }
 
 .k-btn-danger:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
   border: none;
   color: #fff;
-  border-color: var(--kui-color-danger);
-  background: var(--kui-color-danger);
+  border-color: var(--kui-color-error);
+  background: var(--kui-color-error);
 }
 
 .k-btn-warning:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
@@ -166,12 +163,12 @@
     background-color: var(--kui-color-gray-90);
   }
   &.k-btn-primary {
-    color: var(--kui-color-main);
-    border-color: var(--kui-color-main);
+    color: var(--kui-color-primary);
+    border-color: var(--kui-color-primary);
   }
   &.k-btn-danger {
-    color: var(--kui-color-danger);
-    border-color: var(--kui-color-danger);
+    color: var(--kui-color-error);
+    border-color: var(--kui-color-error);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
@@ -357,10 +354,10 @@
   background: var(--kui-color-gray-80);
   border: none;
   &.k-btn-primary {
-    color: var(--kui-color-main);
+    color: var(--kui-color-primary);
   }
   &.k-btn-danger {
-    color: var(--kui-color-danger);
+    color: var(--kui-color-error);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
@@ -369,7 +366,7 @@
 
 .k-btn:disabled {
   cursor: not-allowed;
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
   background-color: var(--kui-color-disable-back);
   border-color: var(--kui-color-disable-border);
 }

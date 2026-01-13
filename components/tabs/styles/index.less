@@ -20,7 +20,7 @@
 
     .k-tabs-tab-btn-next-disabled,
     .k-tabs-tab-btn-prev-disabled {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
       cursor: not-allowed;
     }
 
@@ -65,7 +65,7 @@
       transition: color 0.3s;
       border-top-left-radius: var(--kui-border-radius);
       border-top-right-radius: var(--kui-border-radius);
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
       display: inline-flex;
       align-items: center;
 
@@ -81,7 +81,7 @@
         color: var(--kui-color-icon);
 
         &:hover {
-          color: var(--kui-color-danger);
+          color: var(--kui-color-error);
         }
       }
 
@@ -90,21 +90,21 @@
       }
 
       &:hover {
-        color: var(--kui-color-main);
+        color: var(--kui-color-primary);
       }
     }
 
     .k-tabs-tab-active {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
       text-shadow: 0 0 0.5px currentcolor;
     }
 
     .k-tabs-tab-disabled {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
       cursor: not-allowed;
 
       &:hover {
-        color: var(--kui-color-disabled);
+        color: var(--kui-color-text-disabled);
       }
     }
 
@@ -112,7 +112,7 @@
       position: absolute;
       height: 2px;
       left: 0;
-      background: var(--kui-color-main);
+      background: var(--kui-color-primary);
       bottom: 0;
     }
   }
