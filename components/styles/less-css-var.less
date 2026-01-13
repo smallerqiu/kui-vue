@@ -1,0 +1,234 @@
+@import "./less-var.less";
+:root {
+  /* 基础尺寸 */
+  --kui-border-radius: @radius;
+  --kui-border-radius-card: @cardRadius;
+
+  --kui-padding-block-sm: 2px;
+  --kui-padding-block: 6px;
+  --kui-padding-block-lg: 6px;
+  --kui-padding-inline-sm: 6px;
+  --kui-padding-inline: 8px;
+  --kui-padding-inline-lg: 10px;
+
+  .kui-color-vars();
+
+  /* 默认进入亮色模式 */
+  .theme-light-vars();
+}
+
+[theme-mode="dark"] {
+  .theme-dark-vars();
+}
+
+.theme-light-vars() {
+  color-scheme: light;
+  /* 文字色体系 */
+  --kui-color-text: @text-color; /* 正文 */
+  --kui-color-text-title: @title-color; /* 标题 */
+  --kui-color-text-description: @description-color; /* 描述/次要 */
+
+  /* 边框与分割线  */
+  --kui-color-border: @border-color;
+  --kui-color-border-disabled: @disable-border-color;
+  --kui-color-border-split: @gray-3;
+
+  /* 背景体系 */
+  --kui-color-bg-layout: @gray-2; /* 页面大背景 */
+  --kui-color-bg-container: @gary-9; /* 卡片/容器背景 */
+  --kui-color-bg-component: @gray-8; /* 基础组件/表头背景 */
+  --kui-color-bg-elevated: @white; /* Modal/Popover 背景 */
+
+  /* 状态色 (针对 Table/List Hover) */
+  --kui-color-fill-hover: rgba(0, 0, 0, 0.06);
+  --kui-color-fill-active: rgba(0, 0, 0, 0.15);
+
+  /* 阴影 */
+  --kui-color-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08);
+
+  /* --- 交互项 (Item) 专用变量 --- */
+  // Hover 状态：轻微的灰色反馈
+  --kui-color-item-hover: rgba(0, 0, 0, 0.04);
+
+  // Active/Pressed 状态：点击时的深色反馈
+  --kui-color-item-active: rgba(0, 0, 0, 0.08);
+
+  // Selected 状态背景：通常使用淡化的品牌色
+  --kui-color-item-selected-bg: var(--kui-color-primary-bg);
+
+  // Selected 状态文字：直接使用品牌主色
+  --kui-color-item-selected-text: var(--kui-color-primary);
+}
+
+.theme-dark-vars() {
+  color-scheme: dark;
+
+  /* 深色品牌色调整 */
+  --kui-color-primary: #1668dc;
+  --kui-color-primary-hover: #317ef3;
+  --kui-color-primary-bg: #111a2c;
+
+  /* 文字色体系 */
+  ---kui-color-text: @dark-text-color; /* 正文 */
+  --kui-color-text-title: @dark-title-color; /* 标题 */
+  --kui-color-text-description: @dark-description-color; /* 描述/次要 */
+
+  /* 背景体系映射 */
+  // --kui-color-bg-layout: @dark-bg-base;
+  // --kui-color-bg-container: @dark-bg-container;
+  // --kui-color-bg-elevated: @dark-bg-elevated;
+  // --kui-color-bg-component: #262626;
+
+  /* 边框 */
+  --kui-color-border: @dark-border-color;
+  --kui-color-border-disabled: @dark-disable-border-color;
+  --kui-color-border-split: #303030;
+
+  /* 阴影 */
+  --kui-color-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.45);
+
+  /* --- 交互项 (Item) 暗黑适配 --- */
+  --kui-color-item-hover: rgba(255, 255, 255, 0.08);
+  --kui-color-item-active: rgba(255, 255, 255, 0.12);
+
+  // 选中背景依然使用暗黑模式下的主色背景 [cite: 14]
+  --kui-color-item-selected-bg: var(--kui-color-primary-bg);
+  --kui-color-item-selected-text: var(--kui-color-primary);
+}
+
+.kui-color-vars() {
+  --kui-color-primary: @main;
+  --kui-color-primary-1: @main-1;
+  --kui-color-primary-3: @main-3;
+  --kui-color-primary-6: @main-6;
+  --kui-color-primary-8: @main-8;
+  --kui-color-primary-9: @main-9;
+
+  --kui-color-success: @success;
+  --kui-color-success-1: @success-1;
+  --kui-color-success-3: @success-3;
+  --kui-color-success-6: @success-6;
+  --kui-color-success-8: @success-8;
+  --kui-color-success-9: @success-9;
+
+  --kui-color-warning: @warning;
+  --kui-color-warning-1: @warning-1;
+  --kui-color-warning-3: @warning-3;
+  --kui-color-warning-6: @warning-6;
+  --kui-color-warning-8: @warning-8;
+  --kui-color-warning-9: @warning-9;
+
+  --kui-color-danger: @danger;
+  --kui-color-danger-1: @danger-1;
+  --kui-color-danger-3: @danger-3;
+  --kui-color-danger-6: @danger-6;
+  --kui-color-danger-8: @danger-8;
+  --kui-color-danger-9: @danger-9;
+
+  --kui-color-pink: @pink;
+  --kui-color-pink-3: @pink-3;
+  --kui-color-pink-6: @pink-6;
+  --kui-color-pink-8: @pink-8;
+  --kui-color-pink-9: @pink-9;
+
+  --kui-color-red: @red;
+  --kui-color-red-3: @red-3;
+  --kui-color-red-6: @red-6;
+  --kui-color-red-8: @red-8;
+  --kui-color-red-9: @red-9;
+
+  --kui-color-yellow: @yellow;
+  --kui-color-yellow-3: @yellow-3;
+  --kui-color-yellow-6: @yellow-6;
+  --kui-color-yellow-8: @yellow-8;
+  --kui-color-yellow-9: @yellow-9;
+
+  --kui-color-orange: @orange;
+  --kui-color-orange-3: @orange-3;
+  --kui-color-orange-6: @orange-6;
+  --kui-color-orange-8: @orange-8;
+  --kui-color-orange-9: @orange-9;
+
+  --kui-color-cyan: @cyan;
+  --kui-color-cyan-3: @cyan-3;
+  --kui-color-cyan-6: @cyan-6;
+  --kui-color-cyan-8: @cyan-8;
+  --kui-color-cyan-9: @cyan-9;
+
+  --kui-color-violet: @violet;
+  --kui-color-violet-3: @violet-3;
+  --kui-color-violet-6: @violet-6;
+  --kui-color-violet-8: @violet-8;
+  --kui-color-violet-9: @violet-9;
+
+  --kui-color-green: @green;
+  --kui-color-green-3: @green-3;
+  --kui-color-green-6: @green-6;
+  --kui-color-green-8: @green-8;
+  --kui-color-green-9: @green-9;
+
+  --kui-color-blue: @blue;
+  --kui-color-blue-3: @blue-3;
+  --kui-color-blue-6: @blue-6;
+  --kui-color-blue-8: @blue-8;
+  --kui-color-blue-9: @blue-9;
+
+  --kui-color-purple: @purple;
+  --kui-color-purple-3: @purple-3;
+  --kui-color-purple-6: @purple-6;
+  --kui-color-purple-8: @purple-8;
+  --kui-color-purple-9: @purple-9;
+
+  --kui-color-brown: @brown;
+  --kui-color-brown-3: @brown-3;
+  --kui-color-brown-6: @brown-6;
+  --kui-color-brown-8: @brown-8;
+  --kui-color-brown-9: @brown-9;
+
+  --kui-color-teal: @teal;
+  --kui-color-teal-3: @teal-3;
+  --kui-color-teal-6: @teal-6;
+  --kui-color-teal-8: @teal-8;
+  --kui-color-teal-9: @teal-9;
+
+  --kui-color-magenta: @magenta;
+  --kui-color-magenta-3: @magenta-3;
+  --kui-color-magenta-6: @magenta-6;
+  --kui-color-magenta-8: @magenta-8;
+  --kui-color-magenta-9: @magenta-9;
+
+  --kui-color-olive: @olive;
+  --kui-color-olive-3: @olive-3;
+  --kui-color-olive-6: @olive-6;
+  --kui-color-olive-8: @olive-8;
+  --kui-color-olive-9: @olive-9;
+
+  --kui-color-volcano: @volcano;
+  --kui-color-volcano-3: @volcano-3;
+  --kui-color-volcano-6: @volcano-6;
+  --kui-color-volcano-8: @volcano-8;
+  --kui-color-volcano-9: @volcano-9;
+
+  --kui-color-gold: @gold;
+  --kui-color-gold-3: @gold-3;
+  --kui-color-gold-6: @gold-6;
+  --kui-color-gold-8: @gold-8;
+  --kui-color-gold-9: @gold-9;
+
+  --kui-color-lime: @lime;
+  --kui-color-lime-3: @lime-3;
+  --kui-color-lime-6: @lime-6;
+  --kui-color-lime-8: @lime-8;
+  --kui-color-lime-9: @lime-9;
+
+  --kui-color-gray: @gray;
+  --kui-color-gray-1: @gray-1;
+  --kui-color-gray-2: @gray-2;
+  --kui-color-gray-3: @gray-3;
+  --kui-color-gray-4: @gray-4;
+  --kui-color-gray-5: @gray-5;
+  --kui-color-gray-6: @gray-6;
+  --kui-color-gray-7: @gray-7;
+  --kui-color-gray-8: @gray-8;
+  --kui-color-gray-9: @gray-9;
+}
