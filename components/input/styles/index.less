@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   // flex-shrink: 0;
   align-items: center;
   border: 1px solid var(--kui-color-border);
@@ -22,7 +22,7 @@
   line-height: 1.571;
 
   &:hover {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
   }
 
   .k-select {
@@ -38,7 +38,7 @@
     cursor: pointer;
 
     &:hover {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
     }
   }
 
@@ -59,7 +59,7 @@
     line-height: 1;
     padding: 0;
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     background-color: transparent;
     background-image: none;
     box-sizing: border-box;
@@ -68,14 +68,14 @@
     line-height: 1.571;
 
     &:focus {
-      // border-color: var(--kui-color-main);
+      // border-color: var(--kui-color-primary);
       outline: none;
       z-index: 1;
     }
   }
 
   &.k-input-focus {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
     z-index: 1;
     outline-offset: 1px;
@@ -94,7 +94,7 @@
     display: flex;
 
     &:hover {
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
 
     .k-icon {
@@ -131,7 +131,7 @@
   margin: 0;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   // background-color: transparent;
   background-color: var(--kui-color-back);
   background-image: none;
@@ -144,19 +144,19 @@
   &:focus {
     // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
     outline: none;
     outline-offset: 1px;
     outline: 2px solid var(--kui-color-main-80);
   }
 
   &:hover {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
   }
 
   &:disabled {
     cursor: not-allowed;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     background: var(--kui-color-disable-back);
     border-color: var(--kui-color-disable-border);
 
@@ -182,8 +182,8 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  // border:none;// 1px solid var(--kui-color-main);
-  -webkit-text-fill-color: var(--kui-color-font);
+  // border:none;// 1px solid var(--kui-color-primary);
+  -webkit-text-fill-color: var(--kui-color-text);
   -webkit-box-shadow: 0 0 0px 1000px var(--kui-color-back) inset;
   transition: background-color 5000s ease-in-out 0s;
 }
@@ -213,7 +213,7 @@ select:-webkit-autofill:focus {
   display: none;
   z-index: 3;
   &:hover {
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 }
 &.k-input-has-clear {
@@ -365,7 +365,7 @@ select:-webkit-autofill:focus {
 
 .k-input-disabled[mult] {
   cursor: not-allowed;
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
   background: var(--kui-color-disable-back);
   border-color: var(--kui-color-disable-border);
 
@@ -382,7 +382,7 @@ select:-webkit-autofill:focus {
 .k-input-group-prefix {
   border: 1px solid var(--kui-color-border);
   display: flex;
-  border-radius: @radius;
+  border-radius: var(--kui-border-radius);
   flex: 1;
   height: 32px;
   line-height: 1;

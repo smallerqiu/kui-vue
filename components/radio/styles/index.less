@@ -27,7 +27,7 @@
   }
 
   .k-btn-hollow {
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     border-color: var(--kui-color-border);
   }
 
@@ -37,8 +37,8 @@
 
   .k-btn-primary.k-btn-hollow {
     z-index: 2;
-    color: var(--kui-color-main);
-    border-color: var(--kui-color-main);
+    color: var(--kui-color-primary);
+    border-color: var(--kui-color-primary);
   }
 
   .k-radio-label {
@@ -71,7 +71,7 @@
   cursor: pointer;
   display: inline-flex;
   line-height: 1;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   align-items: center;
   outline: none;
   &:focus {
@@ -102,7 +102,7 @@
       top: 50%;
       transform: translate3d(-50%, -50%, 0);
       content: "";
-      background-color: var(--kui-color-main);
+      background-color: var(--kui-color-primary);
       transition: all 0.2s ease-in-out;
     }
   }
@@ -122,7 +122,7 @@
     &:focus,
     &:hover {
       + .k-radio-inner {
-        // border: 1px solid var(--kui-color-main);
+        // border: 1px solid var(--kui-color-primary);
         // box-shadow: 0 0 0 2px var(--kui-color-main-90);
       }
     }
@@ -135,7 +135,7 @@
 
   &:not(.k-radio-disabled):hover {
     .k-radio-symbol {
-      border: 1px solid var(--kui-color-main);
+      border: 1px solid var(--kui-color-primary);
       box-shadow: 0 0 0 2px var(--kui-color-main-90);
     }
   }
@@ -148,8 +148,8 @@
 
 .k-radio-checked {
   .k-radio-symbol {
-    background: var(--kui-color-main);
-    border-color: var(--kui-color-main);
+    background: var(--kui-color-primary);
+    border-color: var(--kui-color-primary);
 
     &:after {
       opacity: 1;
@@ -163,7 +163,7 @@
 .k-radio-disabled {
   cursor: not-allowed;
   // opacity: .5;
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
 
   &.k-radio {
     .k-radio-input {

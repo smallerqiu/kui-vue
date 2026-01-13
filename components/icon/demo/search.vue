@@ -146,7 +146,7 @@ const copyHandle = (name) => {
     width: 128px;
     height: 80px;
     line-height: 80px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     display: inline-flex;
     flex-direction: column;
     align-items: center;

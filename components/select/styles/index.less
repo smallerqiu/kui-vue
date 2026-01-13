@@ -6,14 +6,14 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   position: relative;
   outline: none;
   box-sizing: border-box;
   // flex-shrink: 0;
   align-items: center;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg-container);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding: 0 8px;
@@ -26,7 +26,7 @@
     outline-offset: 1px;
   }
   &:hover {
-    border-color: var(--kui-color-main);
+    border-color: var(--kui-color-primary);
     box-shadow: 0 0 0 2px var(--kui-color-main-90);
   }
 
@@ -73,7 +73,7 @@
       background: none;
       outline: none;
       font-size: 14px;
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
   }
 
@@ -136,7 +136,7 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
@@ -185,14 +185,14 @@
     display: none;
     cursor: pointer;
     &:hover {
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
   }
 
   .k-select-search-mirror,
   .k-select-search {
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 
   &.k-select-circle {
@@ -200,7 +200,7 @@
   }
 
   &:not(.k-select-disabled) .k-select-tag .k-icon :hover {
-    color: var(--kui-color-danger);
+    color: var(--kui-color-error);
   }
 }
 
@@ -276,7 +276,7 @@
   .k-select-loading {
     padding: 10px;
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     display: flex;
     align-items: center;
 
@@ -294,7 +294,7 @@
     line-height: 1;
     padding: 8px 8px;
     clear: both;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     font-size: 14px;
     white-space: nowrap;
     list-style: none;
@@ -304,7 +304,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
     position: relative;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     margin-bottom: 1px;
 
     &:not(.k-select-item-disabled):hover {
@@ -345,14 +345,14 @@
     }
 
     .k-icon {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
       display: block;
     }
   }
 
   .k-select-item-disabled {
     background: var(--kui-color-disable-back);
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     cursor: not-allowed;
   }
 }
@@ -446,7 +446,7 @@
   .k-select-search-mirror,
   .k-select-search {
     font-size: 12px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 }
 
@@ -508,7 +508,7 @@
 }
 
 .k-select-opened {
-  border-color: var(--kui-color-main);
+  border-color: var(--kui-color-primary);
   box-shadow: 0 0 0 2px var(--kui-color-main-90);
 
   .k-select-label {
@@ -522,7 +522,7 @@
 }
 
 .k-select-disabled {
-  color: var(--kui-color-disabled);
+  color: var(--kui-color-text-disabled);
   background: var(--kui-color-disable-back);
 
   .k-select-label {
