@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 .k-btn {
   color: var(--kui-color-text);
   font-size: 14px;
@@ -11,7 +11,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: middle; 
+  vertical-align: middle;
   -webkit-user-select: none;
   user-select: none;
   border: 1px solid transparent;
@@ -31,7 +31,7 @@
   outline-offset: 1px;
 
   &:not(.k-btn-link, .k-btn-text):focus {
-    outline: 2px solid var(--kui-color-main-80);
+    outline: 2px solid var(--kui-color-outline);
     outline-offset: 1px;
   }
   &:not(:disabled):hover {
@@ -92,7 +92,7 @@
   background: 0 0;
   border: none;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: var(--kui-color-bg-component);
   }
 
@@ -140,8 +140,8 @@
 .k-btn-danger:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
   border: none;
   color: #fff;
-  border-color: var(--kui-color-error);
-  background: var(--kui-color-error);
+  border-color: var(--kui-color-danger);
+  background: var(--kui-color-danger);
 }
 
 .k-btn-warning:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
@@ -167,8 +167,8 @@
     border-color: var(--kui-color-primary);
   }
   &.k-btn-danger {
-    color: var(--kui-color-error);
-    border-color: var(--kui-color-error);
+    color: var(--kui-color-danger);
+    border-color: var(--kui-color-danger);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
@@ -357,18 +357,18 @@
     color: var(--kui-color-primary);
   }
   &.k-btn-danger {
-    color: var(--kui-color-error);
+    color: var(--kui-color-danger);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
   }
 }
-
+.k-btn:not(.k-btn-link, .k-btn-text):disabled {
+  background-color: var(--kui-color-bg-component);
+}
 .k-btn:disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
-  background-color: var(--kui-color-disable-back);
-  border-color: var(--kui-color-disable-border);
 }
 
 .k-btn-group {
