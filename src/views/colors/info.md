@@ -4,7 +4,7 @@
 
 | 组件分类                                       | 说明                                                                   |
 | ---------------------------------------------- | ---------------------------------------------------------------------- |
-| 基础/反馈 (Alert, Badge, Progress, Tag)        | --kui-color-success, --kui-color-error 等                              |
+| 基础/反馈 (Alert, Badge, Progress, Tag)        | --kui-color-success, --kui-color-danger 等                              |
 | 导航 (Menu, Tabs, Breadcrumb)                  | 文字用 --kui-color-text-description，激活态用 --kui-color-primary      |
 | 容器 (Card, Collapse, Modal, Drawer, StatCard) | 背景用 --kui-color-bg-container，边框用 --kui-color-border-split       |
 | 表单 (Input, Select, Checkbox, KSwitch)        | 边框用 --kui-color-border，Focus 用 --kui-color-primary                |
