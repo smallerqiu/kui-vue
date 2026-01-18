@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-tree-select {
   display: inline-flex;
@@ -13,7 +13,7 @@
   box-sizing: border-box;
   // flex-shrink: 0;
   align-items: center;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding: 0 8px;
@@ -27,7 +27,7 @@
   }
   &:hover {
     border-color: var(--kui-color-primary);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    box-shadow: var(--kui-component-shadow);
   }
 
   &-selection {
@@ -97,13 +97,9 @@
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        // position: absolute;
-        // right: 3px;
         font-size: 16px;
         text-align: center;
         display: block;
-        // top: 50%;
-        // transform: translateY(-50%);
       }
     }
 
@@ -184,7 +180,10 @@
     display: none;
     cursor: pointer;
     &:hover {
-      color: var(--kui-color-text);
+      color: var(--kui-color-icon-hover);
+    }
+    &:active {
+      color: var(--kui-color-icon-active);
     }
   }
 
@@ -226,7 +225,7 @@
 .k-tree-select-light {
   &.k-tree-select {
     border-color: transparent;
-    background: var(--kui-color-gray-80);
+    background: var(--kui-color-bg-component);
     transition: none;
     // box-shadow: none;
 
@@ -236,7 +235,7 @@
     }
 
     .k-tree-select-tag {
-      background-color: var(--kui-color-gray-80);
+      background-color: var(--kui-color-bg-component);
       border-color: transparent;
     }
   }
@@ -256,14 +255,15 @@
   width: inherit;
   max-height: 272px;
   overflow: auto;
-  background-color: var(--kui-color-back-10);
+  background-color: var(--kui-color-bg-pop);
   box-sizing: border-box;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--kui-pop-shadow);
+
   position: absolute;
   z-index: 1003;
   padding: 5px;
   box-sizing: border-box;
-  border: 1px solid var(--kui-color-gray-80);
+  border: 1px solid var(--kui-color-pop-border);
 
   .k-tree-select-loading {
     padding: 10px;
@@ -311,7 +311,6 @@
   .k-tree-select-label {
     line-height: 22px;
     height: 22px;
-    // padding-right: 23px;
     font-size: 12px;
   }
 
@@ -418,7 +417,7 @@
 
 .k-tree-select-opened {
   border-color: var(--kui-color-primary);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  box-shadow: var(--kui-component-shadow);
 
   .k-tree-select-label {
     opacity: 0.5;
@@ -432,7 +431,7 @@
 
 .k-tree-select-disabled {
   color: var(--kui-color-text-disabled);
-  background: var(--kui-color-disable-back);
+  background: var(--kui-color-bg-component-disabled);
 
   .k-tree-select-label {
     cursor: not-allowed;
@@ -444,12 +443,6 @@
 
   .k-tree-select-arrow {
     color: var(--kui-color-disable-border);
-  }
-
-  &:hover,
-  &:focus {
-    border-color: var(--kui-color-disable-border);
-    box-shadow: none;
   }
 }
 

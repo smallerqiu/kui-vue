@@ -3,7 +3,7 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offset-top="65">
-      <Flex size="large" style="background-color: var(--kui-color-back)">
+      <Flex size="large" style="background-color: var(--kui-color-bg)">
         <RadioGroup
           v-model:value="type"
           theme="card"
@@ -20,10 +20,9 @@
             placeholder="输入英文关键字，搜索图标，点击图标即可复制"
             :icon="LogoKui"
             clearable
-            style="background: var(--kui-color-back)"
             @input="filter"
           />
-          <Button :icon="icons['Search']" theme="outline" />
+          <Button :icon="icons['Search']" />
         </Space>
       </Flex>
     </Affix>

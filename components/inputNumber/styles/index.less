@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-input-number {
   position: relative;
@@ -11,8 +11,8 @@
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
-  background-color: var(--kui-color-back);
-  transition: all 0.3s ease-in-out;
+  background-color: var(--kui-color-bg);
+  transition: border 0.2s ease-in-out;
   box-sizing: border-box;
   gap: var(--kui-padding-inline);
   padding-left: var(--kui-padding-inline);
@@ -38,15 +38,10 @@
   transition: all 0.15s ease-in-out;
   -webkit-user-select: none;
   user-select: none;
-  // position: absolute;
-  // right: 0;
-  // top: 0;
-  // width: 20px;
   display: flex;
   flex-direction: column;
   color: var(--kui-color-icon);
   border-left: 1px solid var(--kui-color-border);
-  background-color: var(--kui-color-back);
   font-size: 11px;
   justify-content: center;
   align-items: center;
@@ -66,12 +61,12 @@
 
   &:hover {
     color: var(--kui-color-primary);
-    background-color: var(--kui-color-hover);
+    background-color: var(--kui-color-bg-component-hover);
   }
 
   &:active {
     color: var(--kui-color-primary);
-    background-color: var(--kui-color-active);
+    background-color: var(--kui-color-bg-component-active);
   }
 
   &:first-child {
@@ -81,10 +76,6 @@
   &:last-child {
     border-top: 1px solid var(--kui-color-border);
     border-bottom-right-radius: var(--kui-border-radius);
-
-    .k-icon {
-      transform: rotate(180deg);
-    }
   }
 }
 
@@ -102,10 +93,13 @@
   flex: 1;
   min-width: 10px;
   line-height: 1.571;
-
+  outline: none;
   &:focus {
     // border-color: var(--kui-color-primary);
-    outline: none;
+    // outline: none;
+    // border: none;
+    // outline-offset: 1px;
+    // outline: 2px solid var(--kui-color-outline);
   }
 }
 .k-input-number-focus {
@@ -114,7 +108,7 @@
 }
 .k-input-number-focus:not(.k-input-number-light, .k-input-number-disabled) {
   border-color: var(--kui-color-primary);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  box-shadow: var(--kui-component-shadow);
 }
 
 .k-input-number-icon {
@@ -132,9 +126,9 @@
   }
 
   &:focus {
-    outline: none;
-    border-color: var(--kui-color-primary);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    // outline: none;
+    // border-color: var(--kui-color-primary);
+    // box-shadow: var(--kui-component-shadow);
   }
 }
 
@@ -175,10 +169,13 @@
 .k-input-number-clearable {
   cursor: pointer;
   font-size: 15px;
-  color: var(--kui-color-gray);
+  color: var(--kui-color-icon);
 
   &:hover {
-    color: var(--kui-color-text);
+    color: var(--kui-color-icon-hover);
+  }
+  &:active {
+    color: var(--kui-color-icon-active);
   }
 }
 
@@ -243,7 +240,7 @@
 
 .k-input-number-light {
   border-color: transparent;
-  background-color: var(--kui-color-gray-80);
+  background-color: var(--kui-color-bg-component);
 
   &:focus,
   &.k-input-number-focus {
@@ -254,12 +251,7 @@
 .k-input-number-disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
-  background: var(--kui-color-disable-back);
-  border-color: var(--kui-color-disable-border);
-
-  &:hover {
-    border-color: var(--kui-color-disable-border);
-  }
+  background: var(--kui-color-bg-component-disabled);
 
   & * {
     cursor: not-allowed;

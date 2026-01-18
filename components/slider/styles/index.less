@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-slider {
   width: 100%;
@@ -32,7 +32,7 @@
     border-radius: 50%;
     position: absolute;
     cursor: grab;
-    background: var(--kui-color-back);
+    background: var(--kui-color-bg);
     border: 1px solid var(--kui-color-border);
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -40,7 +40,7 @@
     outline-offset: 1px;
     z-index: 0;
     &:focus {
-      outline-color: var(--kui-color-main-80);
+      outline-color: var(--kui-color-primary-8);
     }
     &.is-dragging {
       border: 1px solid var(--kui-color-primary);
@@ -56,7 +56,7 @@
 
     &:active {
       border-width: 2px;
-      box-shadow: 0 0 2px 5px var(--kui-color-main-60);
+      box-shadow: 0 0 2px 5px var(--kui-color-primary-6);
     }
   }
 
@@ -75,7 +75,7 @@
     cursor: pointer;
     height: 4px;
     border-radius: 2px;
-    background: var(--kui-color-border);
+    background: var(--kui-color-bg-component);
     position: absolute;
     width: 100%;
     top: 14px;
@@ -97,7 +97,7 @@
     height: 4px;
     width: 4px;
     border: 2px solid var(--kui-color-border);
-    background: var(--kui-color-back);
+    background: var(--kui-color-bg);
     border-radius: 50%;
     transform: translateX(-50%);
     pointer-events: none;
@@ -111,7 +111,7 @@
   .k-slider-mark-text {
     position: absolute;
     transform: translateX(-50%);
-    color: var(--kui-color-text-disabled);
+    color: var(--kui-color-text-placeholder);
     z-index: 0;
     line-height: 1;
     margin-top: 18px;

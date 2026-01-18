@@ -1,46 +1,94 @@
 <template>
-  <div style="width:256px">
-    <Button
-      @click="change"
-      :icon="collapsed ? MenuFold : MenuUnfold"
-      type="primary"
-    ></Button>
-    <br />
-    <br />
-    <Menu
-      v-model="current"
-      :openKeys="openKeys"
-      theme="dark"
-      :inlineCollapsed="collapsed"
-      mode="inline"
+  <div style="max-width: 512px">
+    <Form
+      name="withmodal"
+      :model="group"
+      :rules="rules"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
     >
-      <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
-      <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
-      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
-        <MenuItem key="2-1" :icon="Mail">Option 5</MenuItem>
-        <MenuItem key="2-2" :icon="Mail">Option 6</MenuItem>
-        <SubMenu title="SubMenu" key="sub2-1" :icon="Mail">
-          <MenuItem key="2-3" :icon="Mail">Option 7</MenuItem>
-          <MenuItem key="2-4" :icon="Mail">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
-        <MenuItem key="3-1" :icon="Mail">Option 9</MenuItem>
-        <MenuItem key="3-2" :icon="Mail">Option 10</MenuItem>
-        <MenuItem key="3-3" :icon="Mail">Option 11</MenuItem>
-        <MenuItem key="3-4" :icon="Mail">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+      <FormItem label="Group" prop="name">
+        <Input />
+      </FormItem>
+      <FormItem label="UserList">
+        <Space>
+          <template v-if="group.list.length">
+            <Tag theme="light" :key="i" v-for="(item, i) in group.list">
+              {{ item.username }} - {{ item.age }}
+            </Tag>
+          </template>
+          <span v-else>No user</span>
+        </Space>
+      </FormItem>
+      <FormItem :wrapperCol="{ offset: 6 }">
+        <Button type="primary" htmlType="submit">Submit</Button>
+        <Button @click="() => (visible = true)" style="margin-left: 10px">
+          Add User
+        </Button>
+      </FormItem>
+    </Form>
+
+    <Modal
+      v-model="visible"
+      title="新增用户"
+      :width="450"
+      @ok="onOk"
+      @cancel="onCancel"
+    >
+      <Form
+        :labelCol="labelCol"
+        :wrapperCol="wrapperCol"
+        name="modal"
+        :model="form"
+        :rules="userRules"
+        @submit="onSubmit"
+        ref="formRef"
+      >
+        <FormItem label="Username" prop="username">
+          <Input placeholder="请输入姓名" />
+        </FormItem>
+        <FormItem label="Age" prop="age">
+          <Input placeholder="请输入年龄" />
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 <script setup>
-import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
 import { ref } from "vue";
-const current = ref(["1-1"]);
-const openKeys = ref(["sub2"]);
-const collapsed = ref(false);
-
-const change = () => {
-  collapsed.value = !collapsed.value;
+const labelCol = { span: 6 };
+const wrapperCol = { span: 16 };
+const formRef = ref();
+const rules = {
+  name: [{ required: true, message: "请输入组织名称" }],
+};
+const form = ref({
+  username: "",
+  age: "",
+});
+const userRules = {
+  username: [{ required: true, message: "请输入组织名称" }],
+  age: [
+    { required: true, message: "请输入年龄" },
+    { type: "number", message: "请输入正确的年龄" },
+  ],
+};
+const visible = ref(false);
+const group = ref({
+  name: "",
+  list: [],
+});
+const onSubmit = ({ valid, model }) => {
+  if (valid) {
+    group.value.list.push(model);
+    formRef.value.reset();
+    visible.value = false;
+  }
+};
+const onOk = () => {
+  formRef.value.submit();
+};
+const onCancel = () => {
+  formRef.value.reset();
 };
 </script>

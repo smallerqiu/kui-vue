@@ -1,10 +1,10 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 .k-progress {
   .k-progress-inner {
     display: inline-block;
     border-radius: 10px;
-    background-color: var(--kui-color-gray-80);
-    stroke: var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-component);
+    stroke: var(--kui-color-bg-component);
     overflow: hidden;
     vertical-align: middle;
     width: calc(100% - 38px);
@@ -66,7 +66,6 @@
     transform: translate(-50%, -50%);
     text-align: center;
     .k-icon {
-      // font-size: 30px;
       font-size: 1.5em;
     }
   }
@@ -97,7 +96,7 @@
       top: 0;
       width: 0;
       height: 100%;
-      background-color: var(--kui-color-back);
+      background-color: var(--kui-color-bg);
       opacity: 0;
       border-radius: 10px;
       animation: k-progress-active 2.4s linear infinite;

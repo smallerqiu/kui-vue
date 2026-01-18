@@ -22,7 +22,7 @@
       font-size: 12px;
       white-space: nowrap;
       z-index: 10;
-      box-shadow: 0 0 0 1px var(--kui-color-back);
+      box-shadow: 0 0 0 1px var(--kui-color-shadow);
       box-sizing: border-box;
       display: block;
       padding: 0 6px;
@@ -48,10 +48,6 @@
 
    &-dot {
       position: absolute;
-      // transform: translateX(-50%);
-      // transform-origin: 0 center;
-      // top: -4px;
-      // right: -8px;
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
@@ -61,7 +57,6 @@
       border-radius: 50%;
       background: var(--kui-color-danger);
       z-index: 10;
-      // box-shadow: 0 0 0 1px #fff;
    }
 
    &-no-child {
@@ -71,11 +66,9 @@
 
    &-status-dot {
       position: relative;
-      // top: -1px;
       display: inline-block;
       width: 6px;
       height: 6px;
-      // vertical-align: middle;
       border-radius: 50%;
    }
 

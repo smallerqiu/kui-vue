@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-message {
   font-size: 14px;
@@ -18,7 +18,7 @@
     box-sizing: content-box;
     padding: 0 12px 14px 12px;
     text-align: center;
-    transition: all .3s;
+    transition: all 0.3s;
     // margin-top: -8px;
   }
 
@@ -27,8 +27,10 @@
     line-height: 1;
     padding: 10px 12px;
     border-radius: var(--kui-border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: var(--kui-color-back-10);
+    box-shadow: var(--kui-pop-shadow);
+
+    background: var(--kui-color-bg-pop);
+    border: 1px solid var(--kui-color-pop-border);
     display: inline-flex;
     align-items: center;
     pointer-events: all;
@@ -42,16 +44,10 @@
   }
 
   .k-message-close {
-    overflow: hidden;
     cursor: pointer;
     margin-left: 15px;
-    font-size: 18px;
-    vertical-align: sub;
-    border-radius: var(--kui-border-radius);
-    padding: 2px;
-
-    &:hover {
-      background-color: var(--kui-color-gray-80);
+    .k-icon {
+      font-size: 16px;
     }
   }
 }
@@ -83,7 +79,6 @@
     margin-top: 0;
   }
 }
-
 
 .k-message-slide-enter-active,
 .k-message-slide-leave-active {

@@ -42,7 +42,6 @@ const colors = [
   "purple",
   "pink",
   "brown",
-  "gray",
 ];
 </script>
 ```

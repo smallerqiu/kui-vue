@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-checkbox {
   cursor: pointer;
@@ -29,7 +29,7 @@
     width: 16px;
     height: 16px;
     border: 1px solid var(--kui-color-border);
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg-component);
     color: #fff;
     overflow: hidden;
     outline: 2px solid transparent;
@@ -65,8 +65,6 @@
 
   &.k-checkbox-indeterminate {
     .k-checkbox-symbol {
-      // background: var(--kui-color-primary);
-      // border-color: var(--kui-color-primary);
       position: relative;
 
       &:after {
@@ -85,7 +83,7 @@
     }
   }
 
-  &:hover .k-checkbox-symbol {
+  &:hover:not(.k-checkbox-disabled) .k-checkbox-symbol {
     border-color: var(--kui-color-primary);
   }
 
@@ -118,10 +116,10 @@
 }
 .k-checkbox-light {
   .k-checkbox-symbol {
-    background-color: var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-component);
   }
 }
-.k-checkbox-checked {
+.k-checkbox-checked:not(.k-checkbox-disabled) {
   .k-checkbox-symbol {
     background: var(--kui-color-primary);
     border-color: var(--kui-color-primary);
@@ -132,25 +130,18 @@
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
 
-  &.k-checkbox {
-    .k-checkbox-input {
-      cursor: not-allowed;
-    }
+  .k-checkbox-input {
+    cursor: not-allowed;
+  }
 
-    .k-checkbox-symbol {
-      background: var(--kui-color-disable-back);
-      border-color: var(--kui-color-disable-border);
-      color: var(--kui-color-text-disabled);
-
-      &:after {
-        background-color: var(--kui-color-disable-back);
-        color: var(--kui-color-text-disabled);
-      }
-    }
+  .k-checkbox-symbol {
+    border-color: var(--kui-color-border-disabled);
+    background-color: var(--kui-color-bg-component-disabled);
+    color: var(--kui-color-text-disabled);
   }
 
   &.k-checkbox-indeterminate .k-checkbox-symbol:after {
-    background-color: var(--kui-color-disable-border);
+    background-color: var(--kui-color-border-disabled);
   }
 }
 

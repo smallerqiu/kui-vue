@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 .k-descriptions {
   .k-descriptions-header {
     display: flex;
@@ -61,12 +61,12 @@
 
 .k-descriptions-bordered {
   .k-descriptions-view {
-    border: 1px solid var(--kui-color-gray-80);
+    border: 1px solid var(--kui-color-border);
     border-radius: var(--kui-border-radius);
   }
 
   .k-descriptions-row {
-    border-bottom: 1px solid var(--kui-color-gray-80);
+    border-bottom: 1px solid var(--kui-color-border);
 
     &:last-child {
       border-bottom: none;
@@ -76,7 +76,7 @@
   .k-descriptions-item-label,
   .k-descriptions-item-content {
     padding: 16px 24px;
-    border-left: 1px solid var(--kui-color-gray-80);
+    border-left: 1px solid var(--kui-color-border);
 
     &:first-child {
       border: none;
@@ -84,22 +84,11 @@
   }
 
   .k-descriptions-item-label {
-    background: var(--kui-color-gray-90);
+    background: var(--kui-color-bg-component);
     font-weight: 400;
   }
 }
 
-// .k-descriptions-vertical {
-//   .k-descriptions-row > .k-descriptions-item {
-//     padding-bottom: 0;
-//   }
-//   &.k-descriptions-bordered {
-//     .k-descriptions-item-label, .k-descriptions-item-content {
-//       border: none;
-//       background: none;
-//     }
-//   }
-// }
 .k-descriptions-middle {
   .k-descriptions-row > .k-descriptions-item {
     padding-bottom: 12px;

@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-select {
   display: inline-flex;
@@ -20,14 +20,13 @@
   transition: border 0.3s ease-in-out;
   line-height: 1.571;
   position: relative;
-  // max-width: 100%;
   &:not(.k-select-disabled, .k-select-borderless):focus {
     outline: 2px solid var(--kui-color-outline);
     outline-offset: 1px;
   }
   &:hover {
     border-color: var(--kui-color-primary);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    box-shadow: var(--kui-component-shadow);
   }
 
   &-selection {
@@ -88,7 +87,7 @@
     .k-select-tag {
       padding: 2px 5px;
       border: 1px solid var(--kui-color-border);
-      background-color: var(--kui-color-border);
+      background-color: var(--kui-color-bg-component);
       border-radius: var(--kui-border-radius);
       display: inline-flex;
       align-items: center;
@@ -98,13 +97,9 @@
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        // position: absolute;
-        // right: 3px;
         font-size: 16px;
         text-align: center;
         display: block;
-        // top: 50%;
-        // transform: translateY(-50%);
       }
     }
 
@@ -136,7 +131,7 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-text-disabled);
+    color: var(--kui-color-text-placeholder);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
@@ -185,7 +180,10 @@
     display: none;
     cursor: pointer;
     &:hover {
-      color: var(--kui-color-text);
+      color: var(--kui-color-icon-hover);
+    }
+    &:active {
+      color: var(--kui-color-icon-active);
     }
   }
 
@@ -227,9 +225,8 @@
 .k-select-light {
   &.k-select {
     border-color: transparent;
-    background: var(--kui-color-gray-80);
+    background: var(--kui-color-bg-component);
     transition: none;
-    // box-shadow: none;
 
     &:hover {
       box-shadow: none;
@@ -237,7 +234,7 @@
     }
 
     .k-select-tag {
-      background-color: var(--kui-color-gray-80);
+      background-color: var(--kui-color-bg-component);
       border-color: transparent;
     }
   }
@@ -257,14 +254,15 @@
   width: inherit;
   max-height: 200px;
   overflow: auto;
-  background-color: var(--kui-color-back-10);
+  background-color: var(--kui-color-bg-pop);
+  border: 1px solid var(--kui-color-pop-border);
   box-sizing: border-box;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--kui-pop-shadow);
+
   position: absolute;
   z-index: 1003;
   padding: 5px;
-  box-sizing: border-box;
-  border: 1px solid var(--kui-color-gray-80);
+  box-sizing: border-box; 
 
   ul {
     padding: 0;
@@ -307,12 +305,12 @@
     border-radius: var(--kui-border-radius);
     margin-bottom: 1px;
 
-    &:not(.k-select-item-disabled):hover {
-      background: var(--kui-color-hover);
+    &:not(.k-select-item-disabled, .k-select-item-selected):hover {
+      background: var(--kui-color-item-hover);
     }
 
-    &:not(.k-select-item-disabled):active {
-      background: var(--kui-color-active);
+    &:not(.k-select-item-disabled, .k-select-item-selected):active {
+      background: var(--kui-color-item-active);
     }
 
     .k-icon {
@@ -337,12 +335,8 @@
   }
 
   .k-select-item-selected {
-    background: var(--kui-color-selected);
+    background: var(--kui-color-item-selected);
     font-weight: 500;
-
-    &:hover {
-      background: var(--kui-color-selected);
-    }
 
     .k-icon {
       color: var(--kui-color-primary);
@@ -351,7 +345,7 @@
   }
 
   .k-select-item-disabled {
-    background: var(--kui-color-disable-back);
+    background: var(--kui-color-item-disable);
     color: var(--kui-color-text-disabled);
     cursor: not-allowed;
   }
@@ -402,7 +396,6 @@
   .k-select-label {
     line-height: 22px;
     height: 22px;
-    // padding-right: 23px;
     font-size: 12px;
   }
 
@@ -509,7 +502,6 @@
 
 .k-select-opened {
   border-color: var(--kui-color-primary);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
 
   .k-select-label {
     opacity: 0.5;
@@ -523,7 +515,7 @@
 
 .k-select-disabled {
   color: var(--kui-color-text-disabled);
-  background: var(--kui-color-disable-back);
+  background: var(--kui-color-bg-component-disabled);
 
   .k-select-label {
     cursor: not-allowed;
@@ -535,12 +527,6 @@
 
   .k-select-arrow {
     color: var(--kui-color-disable-border);
-  }
-
-  &:hover,
-  &:focus {
-    border-color: var(--kui-color-disable-border);
-    box-shadow: none;
   }
 }
 

@@ -13,7 +13,7 @@
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
-      <FormItem label="Gruop" prop="name">
+      <FormItem label="Group" prop="name">
         <Input />
       </FormItem>
       <FormItem label="UserList">
@@ -50,7 +50,7 @@
         @submit="onSubmit"
         ref="formRef"
       >
-        <FormItem label="Usename" prop="username">
+        <FormItem label="Username" prop="username">
           <Input placeholder="请输入姓名" />
         </FormItem>
         <FormItem label="Age" prop="age">

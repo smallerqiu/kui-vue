@@ -4,7 +4,6 @@
   position: relative;
   border-radius: 13px;
   transition: all 0.3s;
-  background-color: var(--kui-color-back-10);
   .k-content,
   .k-desc {
     padding: 20px;
@@ -21,8 +20,6 @@
       top: -55px;
       font-size: 15px;
       font-weight: 600;
-      // background: var(--kui-color-back);
-      background-color: var(--kui-color-back-10);
       line-height: 1;
       padding: 5px 10px 5px 0;
     }
@@ -45,7 +42,7 @@
     display: flex;
     align-items: center;
     border-radius: 0 0 12px 12px;
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg-container);
     overflow: hidden;
     .k-btn {
       flex: 1;
@@ -57,6 +54,7 @@
     transition: all 0.3s ease;
     position: relative;
     outline: none;
+    background-color: var(--kui-color-bg-container);
     .k-code-pre {
       height: 100%;
       min-height: 100%;
@@ -74,8 +72,6 @@
     }
 
     .hljs {
-      // background: rgba(241, 241, 241, 0.43) !important;
-      // height: 100%;
       margin: 0;
       font-size: 14px;
       box-sizing: border-box;
@@ -84,7 +80,6 @@
     pre {
       border-top: 1px dashed var(--kui-color-border);
       margin: 0;
-      // border-radius: 0 0 12px 12px;
     }
   }
 
@@ -103,6 +98,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
   }
 }
@@ -132,14 +128,14 @@
     flex-shrink: 0;
     display: flex;
     border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
     overflow: hidden;
     .k-code {
       display: flex;
       flex: 1px;
       overflow: auto;
-      background-color: var(--kui-color-gray-90);
       border-radius: 0 12px 12px 0;
-    
+
       pre {
         border-radius: 0 12px 12px 0;
         flex: 1;
@@ -153,9 +149,7 @@
     }
   }
 }
-html[theme-mode="dark"] .k-demo .k-desc h4 {
-  background-color: #171717;
-}
+
 .k-demo-container {
   margin-bottom: 60px;
 }

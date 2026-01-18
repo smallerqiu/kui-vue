@@ -1,6 +1,6 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
-.k-input[mult] {
+.k-input[multiple] {
   position: relative;
   display: inline-flex;
   width: 100%;
@@ -11,7 +11,7 @@
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg);
   transition: border 0.2s ease-in-out;
   box-sizing: border-box;
   font-size: 14px;
@@ -21,7 +21,7 @@
   overflow: hidden;
   line-height: 1.571;
 
-  &:hover {
+  &:not(.k-input-disabled, .k-input-light):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -48,7 +48,7 @@
     transition: font-size 0.2s ease-in-out;
 
     &:hover {
-      color: var(--kui-color-title);
+      color: var(--kui-color-text-title);
     }
   }
 
@@ -76,7 +76,7 @@
 
   &.k-input-focus {
     border-color: var(--kui-color-primary);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    box-shadow: var(--kui-component-shadow);
     z-index: 1;
     outline-offset: 1px;
     outline: 2px solid var(--kui-color-outline);
@@ -133,7 +133,7 @@
   border-radius: var(--kui-border-radius);
   color: var(--kui-color-text);
   // background-color: transparent;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg);
   background-image: none;
   position: relative;
   cursor: text;
@@ -142,8 +142,7 @@
   line-height: 1.571;
 
   &:focus {
-    // box-shadow: 0 0 5px rgba(59, 180, 242, 0.55);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    box-shadow: var(--kui-component-shadow);
     border-color: var(--kui-color-primary);
     outline: none;
     outline-offset: 1px;
@@ -157,12 +156,7 @@
   &:disabled {
     cursor: not-allowed;
     color: var(--kui-color-text-disabled);
-    background: var(--kui-color-disable-back);
-    border-color: var(--kui-color-disable-border);
-
-    &:hover {
-      border-color: var(--kui-color-disable-border);
-    }
+    background: var(--kui-color-bg-component-disabled);
   }
 
   // &:-webkit-autofill {
@@ -184,7 +178,7 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   // border:none;// 1px solid var(--kui-color-primary);
   -webkit-text-fill-color: var(--kui-color-text);
-  -webkit-box-shadow: 0 0 0px 1000px var(--kui-color-back) inset;
+  -webkit-box-shadow: 0 0 0px 1000px var(--kui-color-bg) inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -206,14 +200,17 @@ select:-webkit-autofill:focus {
 .k-input-clearable {
   cursor: pointer;
   font-size: 15px;
-  color: var(--kui-color-gray);
+  color: var(--kui-color-icon);
   position: absolute;
   right: 8px;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg-component);
   display: none;
   z-index: 3;
   &:hover {
-    color: var(--kui-color-text);
+    color: var(--kui-color-icon-hover);
+  }
+  &:active {
+    color: var(--kui-color-icon-active);
   }
 }
 &.k-input-has-clear {
@@ -245,7 +242,7 @@ select:-webkit-autofill:focus {
   font-size: 12px;
 }
 
-.k-input-sm[mult] {
+.k-input-sm[multiple] {
   padding: 0 var(--kui-padding-inline-sm);
   gap: 4px;
   height: 24px;
@@ -289,7 +286,7 @@ select:-webkit-autofill:focus {
   font-size: 14px;
 
   > [class^="k-"]:not(.k-icon) {
-    margin: 0 -1px;
+    // margin: 0 -1px 0 0;
   }
 }
 
@@ -309,7 +306,7 @@ select:-webkit-autofill:focus {
   }
 }
 
-.k-input-lg[mult] {
+.k-input-lg[multiple] {
   height: 40px;
 
   .k-input-text {
@@ -340,11 +337,11 @@ select:-webkit-autofill:focus {
   display: none;
 }
 
-.k-input-light[mult],
+.k-input-light[multiple],
 .k-input-light[single],
 .k-textarea-light {
   border-color: transparent;
-  background-color: var(--kui-color-gray-80);
+  background-color: var(--kui-color-bg-component);
 
   &:focus,
   &:hover,
@@ -363,24 +360,17 @@ select:-webkit-autofill:focus {
   border-radius: 20px;
 }
 
-.k-input-disabled[mult] {
+.k-input-disabled[multiple] {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
-  background: var(--kui-color-disable-back);
-  border-color: var(--kui-color-disable-border);
-
-  &:hover {
-    border-color: var(--kui-color-disable-border);
-  }
+  background: var(--kui-color-bg-component-disabled);
 
   & * {
     cursor: not-allowed;
   }
 }
-
 .k-input-group-suffix,
 .k-input-group-prefix {
-  border: 1px solid var(--kui-color-border);
   display: flex;
   border-radius: var(--kui-border-radius);
   flex: 1;
@@ -393,6 +383,12 @@ select:-webkit-autofill:focus {
 
   > .k-icon {
     margin: 0 8px;
+  }
+}
+.k-input-group:not(.k-input-group-light) {
+  .k-input-group-suffix,
+  .k-input-group-prefix {
+    border: 1px solid var(--kui-color-border);
   }
 }
 

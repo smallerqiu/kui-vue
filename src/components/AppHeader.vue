@@ -2,11 +2,11 @@
   <Header class="header">
     <div class="header-inner">
       <div class="logo" @click="$router.push('/')">
-        <!-- <Icon :type="LogoKui" />
+        <Icon :type="LogoKui" />
         <span class="wrap-name">
           <span class="name">K UIKIT</span>
           <span class="ver">v {{ version }}</span>
-        </span> -->
+        </span>
       </div>
       <Divider type="vertical" />
       <div class="search-component">
@@ -29,13 +29,13 @@
           </Option>
         </Select>
       </div>
-      <!-- <Menu
+      <Menu
         v-model="topMenu"
         mode="horizontal"
         class="top-menu"
         :items="items"
         @select="go"
-      /> -->
+      />
       <ColorPicker
         v-model="themeColor"
         class="theme"
@@ -132,17 +132,16 @@ const changeThemeColor = (v) => {
   // let str = v.slice(0, v.length-1)
   let cssText = `
       body[theme-type='custom']{
-          --kui-color-main:rgba(${r},${g},${b});
-          --kui-color-main-hover:rgba(${r},${g},${b},.9);
-          --kui-color-main-active:rgba(${r},${g},${b},.75);
-          --kui-color-main-10:rgba(${r},${g},${b},.9);
-          --kui-color-main-30:rgba(${r},${g},${b},.7);
-          --kui-color-main-60:rgba(${r},${g},${b},.4);
-          --kui-color-main-80:rgba(${r},${g},${b},.2);
-          --kui-color-main-90:rgba(${r},${g},${b},.1);
-          --kui-color-hover:rgba(${r},${g},${b},.2);
-          --kui-color-active:rgba(${r},${g},${b},.3);
-          --kui-color-selected:rgba(${r},${g},${b},.1);
+          --kui-color-primary:rgba(${r},${g},${b});
+          --kui-color-primary-hover:rgba(${r},${g},${b},.9);
+          --kui-color-primary-active:rgba(${r},${g},${b},.75);
+          --kui-color-primary-1:rgba(${r},${g},${b},.9);
+          --kui-color-primary-3:rgba(${r},${g},${b},.7);
+          --kui-color-primary-6:rgba(${r},${g},${b},.4);
+          --kui-color-primary-8:rgba(${r},${g},${b},.2);
+          --kui-color-primary-9:rgba(${r},${g},${b},.1);
+          --kui-color-item-selected:rgba(${r},${g},${b},.2);
+          --kui-color-outline:rgba(${r},${g},${b},.2);
       }
       `;
   stl.innerHTML = cssText;

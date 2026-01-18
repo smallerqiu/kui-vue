@@ -33,13 +33,13 @@
           </Col>
         </Row>
       </Header>
-      <Content class="k-demo-main demo-back">
+      <Content class="k-demo-main">
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb>
-        <Layout class="demo-back">
+        <Layout class="layout-back">
           <Sider style="background:transparent;">
             <Menu
               :selectedKeys="['t1']"
@@ -53,7 +53,7 @@
           <Content>Conent</Content>
         </Layout>
       </Content>
-      <Footer class="demo-footer">KUI ©2025 Created by chuchur</Footer>
+      <Footer class="demo-footer"> KUI ©2025 Created by chuchur </Footer>
     </Layout>
   </div>
 </template>
@@ -98,7 +98,7 @@ const items = [
   .demo-header {
     padding: 0 50px 0;
     min-width: 500px;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg-3);
     height: 60px;
     align-items: center;
     display: flex;
@@ -107,7 +107,6 @@ const items = [
   .demo-top-nav {
     flex: 1;
   }
-
   .logo-box {
     /* width: 190px; */
     position: relative;
@@ -136,7 +135,7 @@ const items = [
 
   .demo-back,
   .demo-footer {
-    background-color: var(--kui-color-gray-90);
+    // background-color: var(--kui-color-bg);
   }
 
   .k-demo-main {
@@ -158,7 +157,7 @@ const items = [
 
   .k-layout-footer {
     text-align: center;
-    color: #999;
+    color: var(--kui-color-text-description);
   }
 }
 </style>

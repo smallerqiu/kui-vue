@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-tabs {
   overflow: hidden;
@@ -26,7 +26,7 @@
 
     .k-tabs-nav-container {
       flex: 1;
-      width: 0; // 麻痹，我感觉这是个bug
+      width: 0;
       display: flex;
       position: relative;
       overflow: hidden;
@@ -172,7 +172,6 @@
     .k-tabs-tab {
       margin-right: 2px;
       border: 1px solid var(--kui-color-border);
-      // background: var(--kui-color-back);
       border-bottom-color: transparent;
       padding: 8px 16px;
     }
@@ -198,7 +197,6 @@
 }
 
 .k-tabs-sample {
-  // background: #fff;
   .k-tabs-bar {
     margin: 0;
     border: none;
@@ -209,11 +207,14 @@
     }
 
     .k-tabs-tab-active {
-      background: var(--kui-color-back);
+      background: var(--kui-color-bg-component);
 
       &::after {
         display: none;
       }
+    }
+    .k-tabs-nav-container {
+      margin-bottom: 0;
     }
   }
 
@@ -222,8 +223,7 @@
 
     .k-tabs-tabpanel {
       padding: 16px;
-      // background: #fff;
-      background: var(--kui-color-back);
+      background: var(--kui-color-bg-component);
       box-sizing: border-box;
     }
 

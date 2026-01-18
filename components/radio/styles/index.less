@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-radio-group {
   display: inline-flex;
@@ -48,6 +48,9 @@
 .k-radio-button-group,
 .k-radio-group-card {
   flex-wrap: nowrap;
+  .k-btn {
+    border: 1px solid transparent;
+  }
 }
 .k-radio-group:not(.k-radio-button-group, .k-radio-group-card) {
   gap: 16px;
@@ -89,7 +92,7 @@
     height: 16px;
     border: 1px solid var(--kui-color-border);
     border-radius: 50%;
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg-component);
     outline: 2px solid transparent;
     outline-offset: 1px;
     &:after {
@@ -119,30 +122,16 @@
     opacity: 0;
     cursor: inherit;
     margin: 0;
-    &:focus,
-    &:hover {
-      + .k-radio-inner {
-        // border: 1px solid var(--kui-color-primary);
-        // box-shadow: 0 0 0 2px var(--kui-color-main-90);
-      }
-    }
   }
 
   .k-radio-label {
     font-size: 14px;
     margin-left: 8px;
   }
-
-  &:not(.k-radio-disabled):hover {
-    .k-radio-symbol {
-      border: 1px solid var(--kui-color-primary);
-      box-shadow: 0 0 0 2px var(--kui-color-main-90);
-    }
-  }
 }
 .k-radio-light {
   .k-radio-symbol {
-    background: var(--kui-color-gray-80);
+    background: var(--kui-color-bg-component);
   }
 }
 
@@ -155,14 +144,13 @@
       opacity: 1;
       width: 6px;
       height: 6px;
-      background-color: #fff; //var(--kui-color-back);
+      background-color: #fff;
     }
   }
 }
 
 .k-radio-disabled {
   cursor: not-allowed;
-  // opacity: .5;
   color: var(--kui-color-text-disabled);
 
   &.k-radio {
@@ -171,11 +159,11 @@
     }
 
     .k-radio-symbol {
-      background: var(--kui-color-disable-back);
-      border-color: var(--kui-color-disable-border);
+      background: var(--kui-color-bg-component-disabled);
+      border-color: var(--kui-color-border-disabled);
 
       &:after {
-        background-color: var(--kui-color-disable-border);
+        background-color: var(--kui-color-border-disabled);
       }
     }
   }
@@ -229,7 +217,7 @@
 
 .k-radio-group-card {
   padding: 4px;
-  background-color: var(--kui-color-gray-80);
+  background-color: var(--kui-color-bg-component);
   border-radius: var(--kui-border-radius);
 
   .k-btn {

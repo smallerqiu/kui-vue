@@ -16,11 +16,15 @@ import {
   Close,
   ArrowDown,
   IconImage,
+  ArrowBack,
+  ArrowForward,
+  Add,Remove,
   ChevronUp,
   Loading,
   AddCircleOutline,
   RemoveCircleOutline,
 } from "kui-icons";
+import Slider from "../slider";
 
 const ImagePreview = defineComponent({
   name: "ImagePreview",
@@ -407,7 +411,16 @@ const ImagePreview = defineComponent({
                     ]}
                     onClick={() => setScale(1)}
                   >
-                    <Icon type={AddCircleOutline} />
+                    <Icon type={Add} />
+                  </li>
+                  <li class="k-image-preview-action k-image-preview-action-scale">
+                    <Slider
+                      value={state.scale}
+                      min={1}
+                      max={5}
+                      size="small"
+                      onChange={(val) => (state.scale = val)}
+                    />
                   </li>
                   <li
                     class={[
@@ -416,7 +429,7 @@ const ImagePreview = defineComponent({
                     ]}
                     onClick={() => setScale(0)}
                   >
-                    <Icon type={RemoveCircleOutline} />
+                    <Icon type={Remove} />
                   </li>
                   <li
                     class="k-image-preview-action k-image-preview-action-rotate-right"
@@ -454,7 +467,7 @@ const ImagePreview = defineComponent({
                         ]}
                         onClick={() => switchImage(1)}
                       >
-                        <Icon type={ChevronUp} />
+                        <Icon type={ArrowBack} />
                       </div>,
                       <div
                         class={[
@@ -466,7 +479,7 @@ const ImagePreview = defineComponent({
                         ]}
                         onClick={() => switchImage()}
                       >
-                        <Icon type={ChevronUp} />
+                        <Icon type={ArrowForward} />
                       </div>,
                     ]
                   : null}
