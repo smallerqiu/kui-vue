@@ -32,7 +32,7 @@ const InputNumber = defineComponent({
       type: Number,
       default: 1,
     },
-    theme: String,
+    theme: { type: String, default: "light" },
     icon: [String, Array],
     id: String,
   },

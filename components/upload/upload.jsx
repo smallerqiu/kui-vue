@@ -105,7 +105,11 @@ const Upload = defineComponent({
           return;
         }
         if ((file.type || "").indexOf("image/") >= 0) {
-          item.preview = window.URL.createObjectURL(file);
+          const isImageByName = (name = "") =>
+            /\.(png|jpe?g|gif|webp|bmp|ico|svg|avif|apng)$/i.test(name);
+          if (isImageByName(file.name)) {
+            item.preview = window.URL.createObjectURL(file);
+          }
         }
 
         if (

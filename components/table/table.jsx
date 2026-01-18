@@ -29,7 +29,7 @@ const Table = defineComponent({
         return ["small", "large", "default"].indexOf(value) >= 0;
       },
     },
-    bordered: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: true },
     checkable: Boolean,
     loading: Boolean,
     emptyText: String,

@@ -23,7 +23,6 @@
     font-size 0.3s ease;
   z-index: 0;
   white-space: nowrap;
-  background-color: var(--kui-color-bg-component);
   cursor: pointer;
   outline-offset: 2px;
   gap: 8px;
@@ -33,12 +32,6 @@
   &:not(.k-btn-link, .k-btn-text):focus {
     outline: 2px solid var(--kui-color-outline);
     outline-offset: 1px;
-  }
-  &:not(:disabled):hover {
-    filter: brightness(85%);
-  }
-  &:not(:disabled):active {
-    filter: brightness(70%);
   }
 
   .k-icon {
@@ -93,11 +86,11 @@
   border: none;
 
   &:not(:disabled):hover {
-    background-color: var(--kui-color-bg-component);
+    background-color: var(--kui-color-bg-component-hover);
   }
 
-  &:active {
-    background: var(--kui-color-gray-60);
+  &:not(:disabled):active {
+    background-color: var(--kui-color-bg-component-active);
   }
 }
 
@@ -106,6 +99,13 @@
   border: none;
   color: var(--kui-color-primary);
   text-decoration: none;
+  &:not(:disabled):hover {
+    color: var(--kui-color-primary-hover);
+  }
+
+  &:not(:disabled):active {
+    color: var(--kui-color-primary-active);
+  }
 }
 
 .k-btn-block {
@@ -123,10 +123,14 @@
 .k-btn-circle {
   border-radius: 30px;
 }
-.k-btn-default:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
+.k-btn-default:not(.k-btn-outline, .k-btn-dashed, .k-btn-light, .k-btn-solid) {
   border: none;
+  background-color: var(--kui-color-bg-component);
   &:not(:disabled):hover {
-    color: var(--kui-color-primary);
+    background-color: var(--kui-color-bg-component-hover);
+  }
+  &:not(:disabled):active {
+    background-color: var(--kui-color-bg-component-active);
   }
 }
 
@@ -135,6 +139,12 @@
   color: #fff;
   background: var(--kui-color-primary);
   border-color: var(--kui-color-primary);
+  &:not(:disabled):hover {
+    background-color: var(--kui-color-primary-hover);
+  }
+  &:not(:disabled):active {
+    background-color: var(--kui-color-primary-active);
+  }
 }
 
 .k-btn-danger:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
@@ -142,6 +152,12 @@
   color: #fff;
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
+  &:not(:disabled):hover {
+    background-color: var(--kui-color-danger-hover);
+  }
+  &:not(:disabled):active {
+    background-color: var(--kui-color-danger-active);
+  }
 }
 
 .k-btn-warning:not(.k-btn-outline, .k-btn-dashed, .k-btn-light) {
@@ -149,6 +165,12 @@
   color: #fff;
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
+  &:not(:disabled):hover {
+    background-color: var(--kui-color-warning-hover);
+  }
+  &:not(:disabled):active {
+    background-color: var(--kui-color-warning-active);
+  }
 }
 
 .k-btn-outline,
@@ -160,199 +182,235 @@
     outline: none;
   }
   &:hover {
-    background-color: var(--kui-color-gray-90);
+    background-color: var(--kui-color-bg-component-hover);
+  }
+  &:active {
+    background-color: var(--kui-color-bg-component-active);
   }
   &.k-btn-primary {
     color: var(--kui-color-primary);
-    border-color: var(--kui-color-primary);
+    border-color: var(--kui-color-primary-6);
   }
   &.k-btn-danger {
     color: var(--kui-color-danger);
-    border-color: var(--kui-color-danger);
+    border-color: var(--kui-color-danger-6);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
-    border-color: var(--kui-color-warning);
+    border-color: var(--kui-color-warning-6);
   }
 
   &.k-btn-default {
     border-color: var(--kui-color-border);
   }
   &.k-btn-pink {
-    color: var(--kui-color-pink-30);
-    border-color: var(--kui-color-pink-60);
+    color: var(--kui-color-pink-3);
+    border-color: var(--kui-color-pink-6);
   }
 
   &.k-btn-red {
-    color: var(--kui-color-red-30);
-    border-color: var(--kui-color-red-60);
+    color: var(--kui-color-red-3);
+    border-color: var(--kui-color-red-6);
   }
 
   &.k-btn-yellow {
-    color: var(--kui-color-yellow-30);
-    border-color: var(--kui-color-yellow-60);
+    color: var(--kui-color-yellow-3);
+    border-color: var(--kui-color-yellow-6);
   }
 
   &.k-btn-orange {
-    color: var(--kui-color-orange-30);
-    border-color: var(--kui-color-orange-60);
+    color: var(--kui-color-orange-3);
+    border-color: var(--kui-color-orange-6);
   }
 
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-30);
-    border-color: var(--kui-color-cyan-60);
+    color: var(--kui-color-cyan-3);
+    border-color: var(--kui-color-cyan-6);
   }
 
   &.k-btn-olive {
-    color: var(--kui-color-olive-30);
-    border-color: var(--kui-color-olive-60);
+    color: var(--kui-color-olive-3);
+    border-color: var(--kui-color-olive-6);
   }
 
   &.k-btn-brown {
-    color: var(--kui-color-brown-30);
-    border-color: var(--kui-color-brown-60);
+    color: var(--kui-color-brown-3);
+    border-color: var(--kui-color-brown-6);
   }
 
   &.k-btn-violet {
-    color: var(--kui-color-violet-30);
-    border-color: var(--kui-color-violet-60);
+    color: var(--kui-color-violet-3);
+    border-color: var(--kui-color-violet-6);
   }
 
   &.k-btn-teal {
-    color: var(--kui-color-teal-30);
-    border-color: var(--kui-color-teal-60);
+    color: var(--kui-color-teal-3);
+    border-color: var(--kui-color-teal-6);
   }
 
   &.k-btn-green {
-    color: var(--kui-color-green-30);
-    border-color: var(--kui-color-green-60);
+    color: var(--kui-color-green-3);
+    border-color: var(--kui-color-green-6);
   }
 
   &.k-btn-gray {
-    color: var(--kui-color-gray-30);
-    border-color: var(--kui-color-gray-60);
+    color: var(--kui-color-gray-3);
+    border-color: var(--kui-color-gray-6);
   }
 
   &.k-btn-blue {
-    color: var(--kui-color-blue-30);
-    border-color: var(--kui-color-blue-60);
+    color: var(--kui-color-blue-3);
+    border-color: var(--kui-color-blue-6);
   }
 
   &.k-btn-purple {
-    color: var(--kui-color-purple-30);
-    border-color: var(--kui-color-purple-60);
+    color: var(--kui-color-purple-3);
+    border-color: var(--kui-color-purple-6);
   }
 
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-30);
-    border-color: var(--kui-color-cyan-60);
+    color: var(--kui-color-cyan-3);
+    border-color: var(--kui-color-cyan-6);
   }
 
   &.k-btn-magenta {
-    color: var(--kui-color-magenta-30);
-    border-color: var(--kui-color-magenta-60);
+    color: var(--kui-color-magenta-3);
+    border-color: var(--kui-color-magenta-6);
   }
 
   &.k-btn-volcano {
-    color: var(--kui-color-volcano-30);
-    border-color: var(--kui-color-volcano-60);
+    color: var(--kui-color-volcano-3);
+    border-color: var(--kui-color-volcano-6);
   }
 
   &.k-btn-gold {
-    color: var(--kui-color-gold-30);
-    border-color: var(--kui-color-gold-60);
+    color: var(--kui-color-gold-3);
+    border-color: var(--kui-color-gold-6);
   }
 
   &.k-btn-lime {
-    color: var(--kui-color-lime-30);
-    border-color: var(--kui-color-lime-60);
+    color: var(--kui-color-lime-3);
+    border-color: var(--kui-color-lime-6);
+  }
+  &:disabled {
+    border-color: var(--kui-color-border-disabled);
   }
 }
 
 .k-btn-solid {
   color: #fff;
   border: none;
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: filter 0.2s;
+  }
+  &:hover:not(:disabled)::before {
+    filter: brightness(0.8);
+  }
+  &:active:not(:disabled)::before {
+    filter: brightness(0.6);
+  }
+
   &.k-btn-default {
-    color: var(--kui-color-dark);
-    background-color: var(--kui-color-default);
+    color: var(--kui-color-reverse-text);
+    &::before {
+      background-color: var(--kui-color-reverse);
+    }
   }
 
-  &.k-btn-pink {
-    background-color: var(--kui-color-pink-30);
+  &.k-btn-pink::before {
+    background-color: var(--kui-color-pink-3);
   }
 
-  &.k-btn-red {
-    background-color: var(--kui-color-red-30);
+  &.k-btn-red::before {
+    background-color: var(--kui-color-red-3);
   }
 
-  &.k-btn-yellow {
-    background-color: var(--kui-color-yellow-30);
+  &.k-btn-yellow::before {
+    background-color: var(--kui-color-yellow-3);
   }
 
-  &.k-btn-orange {
-    background-color: var(--kui-color-orange-30);
+  &.k-btn-orange::before {
+    background-color: var(--kui-color-orange-3);
   }
 
-  &.k-btn-cyan {
-    background-color: var(--kui-color-cyan-30);
+  &.k-btn-cyan::before {
+    background-color: var(--kui-color-cyan-3);
   }
 
-  &.k-btn-olive {
-    background-color: var(--kui-color-olive-30);
+  &.k-btn-olive::before {
+    background-color: var(--kui-color-olive-3);
   }
 
-  &.k-btn-brown {
-    background-color: var(--kui-color-brown-30);
+  &.k-btn-brown::before {
+    background-color: var(--kui-color-brown-3);
   }
 
-  &.k-btn-violet {
-    background-color: var(--kui-color-violet-30);
+  &.k-btn-violet::before {
+    background-color: var(--kui-color-violet-3);
   }
 
-  &.k-btn-teal {
-    background-color: var(--kui-color-teal-30);
+  &.k-btn-teal::before {
+    background-color: var(--kui-color-teal-3);
   }
 
-  &.k-btn-green {
-    background-color: var(--kui-color-green-30);
+  &.k-btn-green::before {
+    background-color: var(--kui-color-green-3);
   }
 
-  &.k-btn-gray {
-    background-color: var(--kui-color-gray-30);
+  &.k-btn-gray::before {
+    background-color: var(--kui-color-gray-3);
   }
 
-  &.k-btn-blue {
-    background-color: var(--kui-color-blue-30);
+  &.k-btn-blue::before {
+    background-color: var(--kui-color-blue-3);
   }
 
-  &.k-btn-purple {
-    background-color: var(--kui-color-purple-30);
+  &.k-btn-purple::before {
+    background-color: var(--kui-color-purple-3);
   }
 
-  &.k-btn-cyan {
-    background-color: var(--kui-color-cyan-30);
+  &.k-btn-cyan::before {
+    background-color: var(--kui-color-cyan-3);
   }
 
-  &.k-btn-magenta {
-    background-color: var(--kui-color-magenta-30);
+  &.k-btn-magenta::before {
+    background-color: var(--kui-color-magenta-3);
   }
 
-  &.k-btn-volcano {
-    background-color: var(--kui-color-volcano-30);
+  &.k-btn-volcano::before {
+    background-color: var(--kui-color-volcano-3);
   }
 
-  &.k-btn-gold {
-    background-color: var(--kui-color-gold-30);
+  &.k-btn-gold::before {
+    background-color: var(--kui-color-gold-3);
   }
 
-  &.k-btn-lime {
-    background-color: var(--kui-color-lime-30);
+  &.k-btn-lime::before {
+    background-color: var(--kui-color-lime-3);
+  }
+  &:disabled {
+    background: none;
+    &::before {
+      background-color: var(--kui-color-bg-component-disabled);
+    }
   }
 }
 
 .k-btn-light {
-  background: var(--kui-color-gray-80);
+  background: var(--kui-color-bg-component);
   border: none;
+  &:hover {
+    background-color: var(--kui-color-bg-component-hover);
+  }
+  &:active {
+    background-color: var(--kui-color-bg-component-active);
+  }
   &.k-btn-primary {
     color: var(--kui-color-primary);
   }
@@ -363,8 +421,8 @@
     color: var(--kui-color-warning);
   }
 }
-.k-btn:not(.k-btn-link, .k-btn-text):disabled {
-  background-color: var(--kui-color-bg-component);
+.k-btn:not(.k-btn-link, .k-btn-text, .k-btn-solid):disabled {
+  background-color: var(--kui-color-bg-component-disabled);
 }
 .k-btn:disabled {
   cursor: not-allowed;

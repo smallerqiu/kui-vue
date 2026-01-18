@@ -1,13 +1,14 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-form {
+  padding: 3px;
+  box-sizing: border-box;
   .k-form-item {
     margin-bottom: 24px;
     vertical-align: top;
     zoom: 1;
     color: var(--kui-color-text);
 
-    // margin-bottom: 5px;
     .k-form-item {
       margin-bottom: 0;
       flex: 1;
@@ -76,9 +77,9 @@
   }
 
   .k-form-item-error {
-    .k-input[mult].k-input-focus {
+    .k-input[multiple].k-input-focus {
       border-color: var(--kui-color-danger);
-      box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
     }
 
     .k-input,
@@ -91,7 +92,7 @@
       &:hover,
       &:focus {
         border-color: var(--kui-color-danger);
-        box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+        box-shadow: 0 0 0 2px var(--kui-color-danger-9);
       }
     }
 
@@ -118,26 +119,24 @@
     .k-slider .k-slider-thumb {
       border-color: var(--kui-color-danger);
     }
-    
 
     .k-radio-group .k-btn {
-      border:1px solid  var(--kui-color-danger);
+      border: 1px solid var(--kui-color-danger);
     }
 
     .k-select-opened .k-select,
     .k-tree-select-opened .k-tree-select {
-      box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
     }
 
     .k-datepicker-opened {
-      box-shadow: 0 0 0 2px var(--kui-color-danger-90);
+      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
     }
   }
 }
 
 .k-form-label-right {
   .k-form-item-label {
-    // text-align: right;
     justify-content: flex-end;
   }
 }

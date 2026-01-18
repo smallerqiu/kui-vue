@@ -25,82 +25,146 @@
   color-scheme: light;
   /* 文字色体系 */
   --kui-color-text: @text-color; /* 正文 */
-  --kui-color-text-disabled: @disable-text-color; /* 正文 */
+  --kui-color-text-disabled: @disable-text-color;
   --kui-color-text-title: @title-color; /* 标题 */
   --kui-color-text-description: @description-color; /* 描述/次要 */
-
+  --kui-color-text-placeholder: @placeholder-color; /* 占位符 */
+  --kui-color-icon: @icon-color;
+  --kui-color-icon-hover: @icon-color-hover;
+  --kui-color-icon-active: @icon-color-active;
   /* 边框与分割线  */
   --kui-color-border: @border-color;
-  --kui-color-outline: @main-8;
+  --kui-color-pop-border: @pop-border-color;
+  --kui-color-outline: @outline-color;
   --kui-color-border-disabled: @disable-border-color;
   --kui-color-border-split: @gray-3;
 
   /* 背景体系 */
-  --kui-color-bg-layout: @gray-2; /* 页面大背景 */
-  --kui-color-bg-container: @gray-9; /* 卡片/容器背景 */
-  --kui-color-bg-component: @gray-8; /* 基础组件/表头背景 */
-  --kui-color-bg-elevated: @white; /* Modal/Popover 背景 */
+  --kui-color-reverse: @dark-gray-3;
+  --kui-color-reverse-text: @dark-gray-8;
+  --kui-color-bg: @page-color; /* 页面背景 */
+  --kui-color-bg-layout: @layout-color; /* 布局背景 */
+  --kui-color-bg-container: @container-color; /* 卡片/容器背景 */
 
-  /* 状态色 (针对 Table/List Hover) */
-  --kui-color-fill-hover: rgba(0, 0, 0, 0.06);
-  --kui-color-fill-active: rgba(0, 0, 0, 0.15);
+  --kui-pop-shadow: @pop-shadow; /* 弹窗 阴影 */
+  --kui-color-bg-pop: @pop-color; /* 弹窗背景 */
+  --kui-color-bg-pop-dark: @dark-pop-color;
+
+  --kui-color-skeleton: @skeleton-color;
+  --kui-color-skeleton-high: @skeleton-high-color;
+
+  --kui-color-bg-component: @component-color; /* 基础组件/表头背景 */
+  --kui-color-bg-component-hover: @component-color-hover;
+  --kui-color-bg-component-active: @component-color-active;
+  --kui-color-bg-component-disabled: @component-color-disabled;
+  --kui-color-bg-elevated: @dark-gray-4; /* Modal/Popover 背景 */
+
+  --kui-color-scrollbar-thumb: @scrollbar-thumb-color;
+  --kui-color-scrollbar-thumb-hover: @scrollbar-thumb-color-hover;
+
+  /* --- 交互项 (Item) 暗黑适配 --- */
+  --kui-color-item-hover: @item-hover-color;
+  --kui-color-item-active: @item-active-color;
+  --kui-color-item-selected: @item-selected-color;
+  --kui-color-item-disabled: @item-disabled-color;
+
+  /* table */
+  --kui-color-table-row: @table-row-bg-color;
+  --kui-color-table-col: @table-col-bg-color;
+  --kui-color-table-col-hover: @table-col-bg-color-hover;
+  --kui-color-table-col-active: @table-col-bg-color-active;
 
   /* 阴影 */
-  --kui-color-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08);
+  --kui-component-shadow: @component-shadow;
+  --kui-color-shadow: @shadow-color;
+  --kui-color-mask: @mask-color;
+  --kui-color-spin-mask: @spin-mask-color;
 
-  /* --- 交互项 (Item) 专用变量 --- */
-  // Hover 状态：轻微的灰色反馈
-  --kui-color-item-hover: rgba(0, 0, 0, 0.04);
-
-  // Active/Pressed 状态：点击时的深色反馈
-  --kui-color-item-active: rgba(0, 0, 0, 0.08);
-
-  // Selected 状态背景：通常使用淡化的品牌色
-  --kui-color-item-selected-bg: var(--kui-color-primary-bg);
-
-  // Selected 状态文字：直接使用品牌主色
-  --kui-color-item-selected-text: var(--kui-color-primary);
+  --kui-color-bg-1: @gray-1;
+  --kui-color-bg-2: @gray-2;
+  --kui-color-bg-3: @gray-3;
+  --kui-color-bg-4: @gray-4;
+  --kui-color-bg-5: @gray-5;
+  --kui-color-bg-6: @gray-6;
+  --kui-color-bg-7: @gray-7;
+  --kui-color-bg-8: @gray-8;
+  --kui-color-bg-9: @gray-9;
 }
 
 .theme-dark-vars() {
   color-scheme: dark;
 
   /* 深色品牌色调整 */
-  --kui-color-primary: #1668dc;
-  --kui-color-primary-hover: #317ef3;
-  --kui-color-primary-bg: #111a2c;
+  // --kui-color-primary: #1668dc;
+  // --kui-color-primary-hover: #317ef3;
+  // --kui-color-primary-bg: #111a2c;
 
   /* 文字色体系 */
-  ---kui-color-text: @dark-text-color; /* 正文 */
+  --kui-color-text: @dark-text-color; /* 正文 */
   --kui-color-text-disabled: @dark-disable-text-color; /* 正文 */
   --kui-color-text-title: @dark-title-color; /* 标题 */
   --kui-color-text-description: @dark-description-color; /* 描述/次要 */
+  --kui-color-text-placeholder: @dark-placeholder-color; /* 占位符 */
+  --kui-color-icon: @dark-icon-color;
+  --kui-color-icon-hover: @dark-icon-color-hover;
+  --kui-color-icon-active: @dark-icon-color-active;
 
   /* 背景体系映射 */
-  // --kui-color-bg-layout: @dark-bg-base;
-  // --kui-color-bg-container: @dark-bg-container;
-  // --kui-color-bg-elevated: @dark-bg-elevated;
-  // --kui-color-bg-component: #262626;
+  --kui-color-reverse-text: @gray-7;
+  --kui-color-reverse: @gray-2;
+  --kui-color-bg: @dark-page-color; /* 页面大背景 */
+  --kui-color-bg-layout: @dark-layout-color; /* 布局背景 */
+  --kui-color-bg-container: @dark-container-color; /* 卡片/容器背景 */
+  --kui-color-bg-pop: @dark-pop-color; /* 弹窗背景 */
+  --kui-color-skeleton: @dark-skeleton-color; /* 骨架屏 */
+  --kui-color-skeleton-high: @dark-skeleton-high-color;
+
+  --kui-color-bg-component: @dark-component-color;
+  --kui-color-bg-component-hover: @dark-component-color-hover;
+  --kui-color-bg-component-active: @dark-component-color-active;
+  --kui-color-bg-component-disabled: @dark-component-color-disabled;
+
+  --kui-color-scrollbar-thumb: @dark-scrollbar-thumb-color;
+  --kui-color-scrollbar-thumb-hover: @dark-scrollbar-thumb-color-hover;
 
   /* 边框 */
   --kui-color-border: @dark-border-color;
+  --kui-color-pop-border: @dark-pop-border-color;
   --kui-color-border-disabled: @dark-disable-border-color;
   --kui-color-border-split: #303030;
 
+  /* table */
+  --kui-color-table-row: @dark-table-row-bg-color;
+  --kui-color-table-col: @dark-table-col-bg-color;
+  --kui-color-table-col-hover: @dark-table-col-bg-color-hover;
+  --kui-color-table-col-active: @dark-table-col-bg-color-active;
+
   /* 阴影 */
-  --kui-color-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.45);
+  --kui-color-shadow: @dark-shadow-color;
+  --kui-color-mask: @dark-mask-color;
+  --kui-color-spin-mask: @dark-spin-mask-color;
 
   /* --- 交互项 (Item) 暗黑适配 --- */
-  --kui-color-item-hover: rgba(255, 255, 255, 0.08);
-  --kui-color-item-active: rgba(255, 255, 255, 0.12);
+  --kui-color-item-hover: @dark-item-hover-color;
+  --kui-color-item-active: @dark-item-active-color;
+  --kui-color-item-selected: @dark-item-selected-color;
+  --kui-color-item-disabled: @dark-item-disabled-color;
 
-  // 选中背景依然使用暗黑模式下的主色背景 [cite: 14]
-  --kui-color-item-selected-bg: var(--kui-color-primary-bg);
-  --kui-color-item-selected-text: var(--kui-color-primary);
+  --kui-color-bg-1: @dark-gray-1;
+  --kui-color-bg-2: @dark-gray-2;
+  --kui-color-bg-3: @dark-gray-3;
+  --kui-color-bg-4: @dark-gray-4;
+  --kui-color-bg-5: @dark-gray-5;
+  --kui-color-bg-6: @dark-gray-6;
+  --kui-color-bg-7: @dark-gray-7;
+  --kui-color-bg-8: @dark-gray-8;
+  --kui-color-bg-9: @dark-gray-9;
 }
 
 .kui-color-vars() {
   --kui-color-primary: @main;
+  --kui-color-primary-hover: @main-1;
+  --kui-color-primary-active: @main-2;
   --kui-color-primary-1: @main-1;
   --kui-color-primary-3: @main-3;
   --kui-color-primary-6: @main-6;
@@ -115,6 +179,8 @@
   --kui-color-success-9: @success-9;
 
   --kui-color-warning: @warning;
+  --kui-color-warning-hover: @warning-1;
+  --kui-color-warning-active: @warning-2;
   --kui-color-warning-1: @warning-1;
   --kui-color-warning-3: @warning-3;
   --kui-color-warning-6: @warning-6;
@@ -122,6 +188,8 @@
   --kui-color-warning-9: @warning-9;
 
   --kui-color-danger: @danger;
+  --kui-color-danger-hover: @danger-1;
+  --kui-color-danger-active: @danger-2;
   --kui-color-danger-1: @danger-1;
   --kui-color-danger-3: @danger-3;
   --kui-color-danger-6: @danger-6;

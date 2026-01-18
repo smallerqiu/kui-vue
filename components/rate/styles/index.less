@@ -1,4 +1,4 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-rate {
   display: inline-flex;
@@ -11,7 +11,7 @@
     display: inline-flex;
     margin-right: 8px;
     position: relative;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     align-items: center;
     transform: translateZ(0);
@@ -36,7 +36,7 @@
 
     .k-star-back {
       line-height: 1;
-      color: var(--kui-color-border);
+      color: var(--kui-color-bg-component-active);
     }
   }
 
@@ -46,21 +46,18 @@
 
   .k-star-half {
     .k-star-front {
-      // color: orange;
       opacity: 1;
     }
   }
 
   .k-star-full {
     .k-star-front {
-      // color: orange;
       width: 100%;
       opacity: 1;
     }
   }
 
   .k-rate-score {
-    // color: orange;
     font-size: 14px;
   }
 }

@@ -23,7 +23,6 @@
       />
       <Button
         @click="visiblePasswordIcon = !visiblePasswordIcon"
-        theme="outline"
       >
         Toggle
       </Button>

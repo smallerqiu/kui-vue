@@ -54,13 +54,7 @@
     </Space>
   </Flex>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      title: 'Are you sure to delete this task?',
-    }
-  }
-}
+<script setup>
+const title = "Are you sure to delete this task?";
 </script>
 ```

@@ -1,6 +1,7 @@
 import { defineComponent } from "vue";
 import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
 import Icon from "../icon";
+import { Button } from "../button";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
 
@@ -34,7 +35,7 @@ export default defineComponent({
     };
 
     return () => {
-      const { showUploadList, type, fileList=[], locale } = props;
+      const { showUploadList, type, fileList = [], locale } = props;
       const isPicture = type === "picture";
 
       if (!showUploadList && !isPicture) return null;
@@ -93,8 +94,10 @@ export default defineComponent({
                     </div>
                   )}
                 </div>
-                <Icon
-                  type={Close}
+                <Button
+                  type="text"
+                  size="small"
+                  icon={Close}
                   class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
                   onClick={() => handleRemove(i, item)}
                 />

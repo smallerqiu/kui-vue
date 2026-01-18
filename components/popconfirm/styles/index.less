@@ -1,10 +1,8 @@
-@import '../../styles/less-css-var.less';
+@import "../../styles/less-css-var.less";
 
 .k-popconfirm {
   display: inline-block;
-  // position: relative;
   min-width: 200px;
-  // max-width: 300px;
   font-size: 12px;
   line-height: 1.5;
   position: absolute;
@@ -137,19 +135,16 @@
 }
 
 .k-popconfirm-content {
-  // .k-popconfirm-inner {
-  background: var(--kui-color-back-10);
-  // background: #333;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 12px; //var(--kui-border-radius);
+  background: var(--kui-color-bg-pop);
+      box-shadow: var(--kui-pop-shadow);
+
+  border-radius: 12px;
   position: relative;
-  // border: 1px solid var(--kui-color-border);
-  // }
-  border: 1px solid var(--kui-color-border);
+  border: 1px solid var(--kui-color-pop-border);
 
   #ot {
     stroke-width: 0.1em;
-    stroke: var(--kui-color-border);
+    stroke: var(--kui-color-pop-border);
   }
 
   .k-popconfirm-body {
@@ -180,8 +175,7 @@
     position: absolute;
     box-sizing: border-box;
     display: flex;
-    color: var(--kui-color-back-10);
-    // color:inherit;
+    color: var(--kui-color-bg-pop);
     width: 23px;
     height: 9px;
   }

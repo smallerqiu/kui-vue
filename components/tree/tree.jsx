@@ -530,6 +530,7 @@ const Tree = defineComponent({
         },
         attrs: {
           draggable: ps.draggable && !item.disabled,
+          disabled: item.disabled,
         },
       };
       // 添加拖拽事件

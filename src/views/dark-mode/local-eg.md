@@ -188,7 +188,6 @@ export default {
     display: flex;
     align-items: center;
     padding: 16px 0 17px 16px;
-    /* background:var(--kui-color-gray-90); */
     white-space: nowrap;
     overflow: hidden;
     .logo {

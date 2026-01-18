@@ -18,7 +18,7 @@ const Page = defineComponent({
     showSizer: Boolean,
     showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
-    theme: String,
+    theme: { type: String, default: "light" },
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
       default: "default",

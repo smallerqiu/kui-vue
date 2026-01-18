@@ -44,7 +44,6 @@
             <Button
               :icon="CloudUploadOutline"
               :loading="loading"
-              theme="outline"
             />
           </Upload>
         </template>
