@@ -1,4 +1,4 @@
-@import "../../styles/var.less";
+@import "../../styles/less-css-var.less";
 
 .k-switch {
   min-width: 44px;
@@ -6,8 +6,8 @@
   line-height: 22px;
   border-radius: 12px;
   vertical-align: middle;
-  border: none; // 1px solid var(--kui-color-border);
-  background-color: var(--kui-color-gray-80);
+  border: none; 
+  background-color: var(--kui-color-bg-component);
   font-size: 12px;
   position: relative;
   cursor: pointer;
@@ -20,15 +20,13 @@
   box-sizing: border-box;
   overflow: hidden;
   outline: none;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   padding: 0;
   flex-shrink: 0;
   outline: 2px solid transparent;
   outline-offset: 1px;
   &:focus {
-    outline: 2px solid var(--kui-color-main-80);
-    // border: 1px solid var(--kui-color-main);
-    // box-shadow: 0 0 5px var(--kui-color-main-30);
+    outline: 2px solid var(--kui-color-outline);
   }
 
   .k-icon {
@@ -53,7 +51,7 @@
   }
 
   .k-switch-inner {
-    color: var(--kui-color-gray-70);
+    color: var(--kui-color-icon);
     margin-left: 25px;
     margin-right: 8px;
     display: flex;
@@ -67,7 +65,7 @@
   }
 
   .k-switch-loading {
-    color: #000; //var(--kui-color-main);
+    color: #000;
     position: absolute;
     left: 4px;
     top: 50%;
@@ -102,7 +100,6 @@
     left: 3px;
     font-size: 10px;
     margin-top: -5px;
-    // top: 3px;
   }
 
   &.k-switch-checked {
@@ -118,8 +115,8 @@
 }
 
 .k-switch-checked {
-  background: var(--kui-color-main);
-  border-color: var(--kui-color-main);
+  background: var(--kui-color-primary);
+  border-color: var(--kui-color-primary);
 
   &::before {
     left: 100%;
@@ -134,21 +131,9 @@
   }
 
   .k-switch-loading {
-    // margin-left: -3px;
     left: auto;
     right: 4px;
   }
-
-  // &:hover,
-  // &:focus {
-  //    border-color: var(--kui-color-main-hover);
-  //    background: var(--kui-color-main-hover);
-  // }
-
-  // &:active {
-  //    border-color: var(--kui-color-main-active);
-  //    background: var(--kui-color-main-active);
-  // }
 }
 
 .k-switch-disabled {

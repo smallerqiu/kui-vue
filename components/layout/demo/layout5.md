@@ -39,8 +39,7 @@
             :icon="collapsed ? MenuUnfold : MenuFold"
             @click="collapsed = !collapsed"
             class="btn-collapsed"
-            >
-            </Button>
+          ></Button>
         </div>
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
@@ -49,7 +48,7 @@
         </Breadcrumb>
         <div
           style="padding:200px 0;text-align:center;color:#ddd;margin:20px;"
-          class="demo-back"
+          class="layout-content"
         >
           Content
         </div>
@@ -75,11 +74,12 @@ const openKeys = ref(["t2"]);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
+  border: 1px solid var(--kui-color-border);
   .demo-sider {
     /*这里是例子，实际中请适当修改*/
     left: 0;
     width: 200px;
-    background: var(--kui-color-back);
+    background: var(--kui-color-bg);
     transition: width 0.3s;
   }
 
@@ -90,6 +90,9 @@ const openKeys = ref(["t2"]);
 
   .btn-collapsed {
     transition: all 0.3s;
+  }
+  .layout-content {
+    background: var(--kui-color-bg);
   }
 
   .demo-sider-collapsed {

@@ -55,11 +55,11 @@ const top = ref(["t1"]);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg);
 
   .demo-header {
     padding: 0 50px 0;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg-3);
     height: 60px;
     align-items: center;
     display: flex;
@@ -82,11 +82,11 @@ const top = ref(["t1"]);
   }
 
   .layout-back {
-    background-color: #86868625;
+    background-color: var(--kui-color-bg);
   }
 
   .demo-back {
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg-3);
   }
 
   .demo-top-menu {

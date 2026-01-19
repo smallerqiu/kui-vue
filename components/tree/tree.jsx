@@ -36,7 +36,7 @@ const Tree = defineComponent({
     queryKey: String,
   },
 
-  setup(ps, { emit, slots,attrs, listeners }) {
+  setup(ps, { emit, slots, attrs, listeners }) {
     const defaultData = ref([]);
     const defaultSelectedKeys = ref(ps.selectedKeys || []);
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
@@ -533,6 +533,7 @@ const Tree = defineComponent({
       let titleProps = {
         class: ["k-tree-title", { "k-tree-title-selected": item.selected }],
         draggable: ps.draggable && !item.disabled,
+        disabled: item.disabled,
       };
       // 添加拖拽事件
       if (ps.draggable) {

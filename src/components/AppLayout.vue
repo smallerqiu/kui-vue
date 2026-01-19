@@ -12,7 +12,6 @@
           size="large"
           :icon="showMiniNav ? Close : MenuIcon"
           class="min-menu-nav-btn"
-          theme="outline"
           @click="showMiniNav = !showMiniNav"
         />
         <Menu

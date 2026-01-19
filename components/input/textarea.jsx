@@ -5,7 +5,7 @@ const TextArea = defineComponent({
   props: {
     modelValue: [String, Number, Object, Array],
     value: [String, Number, Object, Array],
-    theme: String,
+    theme: { type: String, default: "light" },
     size: String,
     disabled: Boolean,
   },

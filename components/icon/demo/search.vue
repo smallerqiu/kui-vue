@@ -3,7 +3,7 @@
     <h3>图标快速检索</h3>
     <br />
     <Affix :offset-top="65">
-      <Flex size="large" style="background-color: var(--kui-color-back)">
+      <Flex size="large" style="background-color: var(--kui-color-bg)">
         <RadioGroup
           v-model="type"
           theme="card"
@@ -21,9 +21,8 @@
             :icon="LogoKui"
             clearable
             @input="filter"
-            style="background: var(--kui-color-back)"
           />
-          <Button :icon="icons['Search']" theme="outline" />
+          <Button :icon="icons['Search']" />
         </Space>
       </Flex>
     </Affix>
@@ -132,8 +131,9 @@ const filter = (key) => {
 };
 const copyHandle = (name) => {
   // let text = `<Icon type="${name}" />`
-  copy(name);
-  message.success("代码复制成功！");
+  copy(name).then(() => {
+    message.success("代码复制成功！");
+  });
 };
 </script>
 <style lang="less">

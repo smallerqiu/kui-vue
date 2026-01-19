@@ -9,6 +9,7 @@ import InputBox from "./inputBox";
 import { sizeMap, filterSize } from "../utils/size";
 
 const Input = defineComponent({
+  inheritAttrs: false,
   name: "Input",
   props: {
     clearable: { type: Boolean, default: true },
@@ -42,7 +43,7 @@ const Input = defineComponent({
     icon: [String, Array],
     suffix: String,
     prefix: String,
-    theme: String,
+    theme: { type: String, default: "light" },
     shape: String,
     formatter: Function,
     parser: Function,
@@ -151,7 +152,7 @@ const Input = defineComponent({
           slotControls.length > 0) &&
         type !== "hidden";
       const inputProps = {
-        ...attrs,
+        htmlAttrs: { ...attrs },
         disabled,
         multiple,
         size,
@@ -241,9 +242,9 @@ const Input = defineComponent({
 
         if (slotControls.length) innerChildren.push(slotControls);
         return (
-          <InputGroup size={size}>
+          <InputGroup size={size} theme={theme}>
             {preChildren}
-            <div {...props} mult>
+            <div {...props} multiple>
               {innerChildren}
             </div>
             {sufChildren}
@@ -278,7 +279,7 @@ const Input = defineComponent({
         if (slotControls.length) children.push(slotControls);
 
         return (
-          <div {...props} mult>
+          <div {...props} multiple>
             {...children}
           </div>
         );

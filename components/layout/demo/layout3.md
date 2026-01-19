@@ -40,7 +40,6 @@
             :openKeys="['t2']"
             class="demo-left-menu"
             mode="inline"
-            style="padding-top:20px;"
             :items="items"
           />
         </Sider>
@@ -82,15 +81,17 @@ const items = [
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg-layout);
+  border: 1px solid var(--kui-color-border);
 
   .demo-header {
     padding: 0 20px 0;
     min-width: 500px;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg);
     height: 60px;
     align-items: center;
     display: flex;
+    border-bottom: 1px solid var(--kui-color-border);
   }
 
   .demo-top-nav {
@@ -98,7 +99,6 @@ const items = [
   }
 
   .logo-box {
-    /* width: 190px; */
     position: relative;
     z-index: 801;
     box-sizing: border-box;
@@ -120,7 +120,7 @@ const items = [
   }
 
   .demo-content {
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg);
   }
 
   .demo-left-menu {

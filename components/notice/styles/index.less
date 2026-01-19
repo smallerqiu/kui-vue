@@ -1,9 +1,9 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-notice {
   font-size: 14px;
   line-height: 1.5;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
@@ -20,12 +20,13 @@
 
   .k-notice-box {
     box-sizing: content-box;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     padding: 16px 35px 16px 16px;
-    border-radius: var(--kui-border-radius);
-    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: var(--kui-color-back-10);
+    border-radius: var(--kui-border-radius-card);
+       box-shadow: var(--kui-pop-shadow);
+
+    background: var(--kui-color-bg-pop);
+    border: 1px solid var(--kui-color-pop-border);
     line-height: 1.5;
     position: relative;
     margin-bottom: 16px;
@@ -38,7 +39,7 @@
 
   .k-notice-title {
     font-size: 16px;
-    color: var(--kui-color-title);
+    color: var(--kui-color-text-title);
     margin-bottom: 8px;
     line-height: 22px;
     vertical-align: middle;
@@ -64,20 +65,13 @@
     right: 8px;
     top: 13px;
     outline: none;
-    cursor: pointer;
-    color: var(--kui-color-font);
-    font-size: 20px;
-    padding: 3px;
-    display: block;
-    border-radius: var(--kui-border-radius);
-
-    &:hover {
-      background-color: var(--kui-color-gray-80);
+    .k-icon {
+      font-size: 16px;
     }
   }
 
   .k-notice-info .k-notice-icon {
-    color: var(--kui-color-main);
+    color: var(--kui-color-primary);
   }
 
   .k-notice-error .k-notice-icon {
@@ -111,14 +105,14 @@
 
   to {
     opacity: 0;
-    transform: scaleY(.5);
+    transform: scaleY(0.5);
   }
 }
 
 .k-notice-slide-enter-active {
-  animation: k-notice-slide-in .3s ease;
+  animation: k-notice-slide-in 0.3s ease;
 }
 
 .k-notice-slide-leave-active {
-  animation: k-notice-slide-out .3s ease;
+  animation: k-notice-slide-out 0.3s ease;
 }

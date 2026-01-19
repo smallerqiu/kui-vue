@@ -9,12 +9,7 @@ suffix，prefix 扩展
     <Input placeholder="请输入用户名" :icon="PersonOutline" />
     <Input placeholder="请输入验证码" :maxlength="8">
       <template #suffix>
-        <Button
-          :disabled="time < 60"
-          style="width:100px;"
-          @click="sendCode"
-          theme="outline"
-        >
+        <Button :disabled="time < 60" style="width:100px;" @click="sendCode">
           {{ time == 60 ? "获取验证码" : time + "(s)" }}
         </Button>
       </template>
@@ -22,7 +17,7 @@ suffix，prefix 扩展
     <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
       <template #suffix>
         <Tooltip title="请咨询管理员">
-          <Icon :type="InformationCircleOutline" color="orange" />
+          <Icon :type="InformationCircleOutline" />
         </Tooltip>
       </template>
     </Input>
