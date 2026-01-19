@@ -64,7 +64,7 @@ export default defineComponent({
         // onInput: handleInput,
       };
 
-      if (ps.autoComplete != "off") {
+      if (ps.htmlAttrs.autoComplete != "on") {
         props.attrs = {
           ...props.attrs,
           "data-1p-ignore": true,
