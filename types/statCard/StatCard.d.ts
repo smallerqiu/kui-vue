@@ -6,6 +6,8 @@ export interface StatCardProps {
   /** default: undefined */
   items?: any[];
   statNumberType?: string;
+  /** default: false */
+  bordered?: boolean;
 }
 
 /** StatCard component instance */

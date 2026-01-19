@@ -4,7 +4,7 @@ import { withInstall } from "../utils/vue";
 const Card = defineComponent({
   name: "Card",
   props: {
-    bordered: { type: Boolean, default: true },
+    bordered: { type: Boolean, default: false },
     title: String,
     icon: [String, Array],
   },

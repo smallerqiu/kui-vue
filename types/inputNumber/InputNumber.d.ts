@@ -22,6 +22,7 @@ export interface InputNumberProps {
   keyboard?: boolean;
   /** default: 1 */
   step?: number;
+  /** default: light */
   theme?: string;
   icon?: string | any[];
   id?: string;

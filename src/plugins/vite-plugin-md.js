@@ -44,6 +44,7 @@ export default function vitePluginMd() {
         "skeleton",
         "form",
         "input/demo/group",
+        "statCard/demo/card",
         "slider/demo/marks",
         "tree/demo/directory",
         "alert/demo/icon",

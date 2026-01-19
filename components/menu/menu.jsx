@@ -117,7 +117,7 @@ const Menu = defineComponent({
     provide("selectedKeysChange", selectedKeysChange);
 
     return () => {
-      const preCls = dropdown ? "dropdown-menu" : "menu";
+      const preCls = dropdown ? "dropdown-menu k-scroll" : "menu";
       const { items } = props;
       const cls = [
         `k-${preCls} k-${preCls}-${currentMode.value}`,

@@ -14,6 +14,7 @@ export interface InputProps {
   icon?: string | any[];
   suffix?: string;
   prefix?: string;
+  /** default: light */
   theme?: string;
   shape?: string;
   formatter?: (...args: any[]) => any;

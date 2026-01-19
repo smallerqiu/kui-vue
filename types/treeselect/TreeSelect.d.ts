@@ -22,6 +22,7 @@ export interface TreeSelectProps {
   /** default: true */
   showArrow?: boolean;
   options?: any[];
+  /** default: light */
   theme?: string;
   emptyText?: string;
   icon?: string | any[];

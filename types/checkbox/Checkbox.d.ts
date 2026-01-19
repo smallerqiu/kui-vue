@@ -6,6 +6,7 @@ export interface CheckboxProps {
   checked?: boolean | number;
   value?: string | number | boolean;
   label?: string | number;
+  /** default: light */
   theme?: string;
   disabled?: boolean;
   indeterminate?: boolean;

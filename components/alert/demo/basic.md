@@ -6,10 +6,10 @@
 ```vue
 <template>
   <div>
-    <Alert type="success">Success Text</Alert>
-    <Alert type="info">Info Text</Alert>
-    <Alert type="warning">Warning Text</Alert>
-    <Alert type="error">Error Text</Alert>
+    <Alert :showIcon="false" type="success">Success Text</Alert>
+    <Alert :showIcon="false" type="info">Info Text</Alert>
+    <Alert :showIcon="false" type="warning">Warning Text</Alert>
+    <Alert :showIcon="false" type="error">Error Text</Alert>
   </div>
 </template>
 ```

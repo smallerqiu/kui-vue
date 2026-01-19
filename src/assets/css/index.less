@@ -206,7 +206,7 @@ code {
 
     &:hover {
       color: var(--kui-color-text);
-      background: var(--kui-color-bg-component-hover); 
+      background: var(--kui-color-bg-component-hover);
     }
 
     &:active {
@@ -387,8 +387,8 @@ html[theme-mode="dark"] {
       top: 20px;
       border-radius: 0 5px 5px 0;
       z-index: 1000;
-      background: var(--kui-color-bg-container);
-
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       .k-icon {
         font-size: 22px;
       }

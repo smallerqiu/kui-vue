@@ -22,6 +22,7 @@ export interface SelectProps {
   /** default: true */
   showArrow?: boolean;
   options?: any[];
+  /** default: light */
   theme?: string;
   emptyText?: string;
   loadingText?: string;

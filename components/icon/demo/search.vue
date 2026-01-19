@@ -131,8 +131,9 @@ const filter = (key) => {
 };
 const copyHandle = (name) => {
   // let text = `<Icon type="${name}" />`
-  copy(name);
-  message.success("代码复制成功！");
+  copy(name).then(() => {
+    message.success("代码复制成功！");
+  });
 };
 </script>
 <style lang="less">

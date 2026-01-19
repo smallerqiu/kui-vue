@@ -5,10 +5,12 @@ export interface AlertProps {
   /** default: warning */
   type?: string;
   closable?: boolean;
+  /** default: true */
   showIcon?: boolean;
   icon?: string | Record<string, any> | any[];
   message?: string;
   description?: string;
+  bordered?: boolean;
 }
 
 /** Alert component instance */

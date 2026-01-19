@@ -31,6 +31,7 @@ export interface DatePickerProps {
   /** default: default */
   pickerSize?: string;
   dateIcon?: any[] | Record<string, any>;
+  /** default: light */
   theme?: string;
   shape?: string;
   /** default: true */
