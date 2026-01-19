@@ -22,22 +22,22 @@
         </RadioGroup>
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input clearable />
+        <Input clearable placeholder="Email"/>
       </FormItem>
       <FormItem label="Number" prop="number">
-        <InputNumber />
+        <InputNumber placeholder="Number"/>
       </FormItem>
       <FormItem label="Password" prop="password">
-        <Input type="password" />
+        <Input type="password" placeholder="password"/>
       </FormItem>
       <FormItem label="Confirm Password" prop="repassword">
-        <Input type="password" />
+        <Input type="password" placeholder="Confirm Password"/>
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input />
+        <Input placeholder="Phone Number"/>
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input>
+        <Input placeholder="Captcha"/>
           <Button
             slot="suffix"
             :size="size"
