@@ -13,6 +13,7 @@ export default defineComponent({
     value: [String, Number, Object],
     showPassword: Boolean,
     inputRef: Object,
+    htmlAttrs: Object,
   },
   setup(ps, { emit, slots, attrs, listeners }) {
     const handleInput = (e) => {
@@ -44,6 +45,8 @@ export default defineComponent({
         ],
         attrs: {
           ...attrs,
+          ...ps.htmlAttrs,
+
           disabled,
           type,
         },
@@ -60,6 +63,16 @@ export default defineComponent({
         // onBlur: handleBlur,
         // onInput: handleInput,
       };
+
+      if (ps.autoComplete != "off") {
+        props.attrs = {
+          ...props.attrs,
+          "data-1p-ignore": true,
+          "data-lpignore": true,
+          "data-dashlane-ignore": "true",
+          autoComplete: "new-password",
+        };
+      }
       if (ps.showPassword === true && type == "password") {
         props.attrs.type = "text";
       }

@@ -8,6 +8,7 @@ export interface TagProps {
   icon?: string | any[];
   /** default: small */
   size?: any;
+  /** default: light */
   theme?: string;
 }
 

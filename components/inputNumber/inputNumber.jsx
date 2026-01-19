@@ -7,6 +7,7 @@ import { ChevronUp, ChevronDown } from "kui-icons";
 import { sizeMap, filterSize } from "../utils/size";
 import { normalize, isValidBig } from "../utils/number";
 const InputNumber = defineComponent({
+  inheritAttrs: false,
   name: "InputNumber",
   props: {
     value: [Array, Number, String],

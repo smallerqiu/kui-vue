@@ -9,6 +9,7 @@ import { sizeMap, filterSize } from "../utils/size";
 import { getChildren } from "../utils/vnode";
 
 const Input = defineComponent({
+  inheritAttrs: false,
   name: "Input",
   props: {
     clearable: { type: Boolean, default: true },
@@ -60,7 +61,7 @@ const Input = defineComponent({
       () => ps.value,
       (v) => {
         currentValue.value = v;
-      }
+      },
     );
 
     const focus = () => {
@@ -151,8 +152,8 @@ const Input = defineComponent({
           slotControls.length > 0) &&
         type !== "hidden";
       const inputProps = {
-        attrs: { ...attrs },
         props: {
+          htmlAttrs: { ...attrs },
           disabled,
           multiple,
           size,
@@ -207,7 +208,7 @@ const Input = defineComponent({
         const preChildren = [];
         if (slotPrefix.length)
           preChildren.push(
-            <div class="k-input-group-prefix">{slotPrefix}</div>
+            <div class="k-input-group-prefix">{slotPrefix}</div>,
           );
         const innerChildren = [];
         if (icon)
@@ -216,11 +217,11 @@ const Input = defineComponent({
               type={icon}
               class={`k-${inputType}-icon`}
               onClick={iconClick}
-            />
+            />,
           );
         if (prefix)
           innerChildren.push(
-            <div class={`k-${inputType}-prefix`}>{prefix}</div>
+            <div class={`k-${inputType}-prefix`}>{prefix}</div>,
           );
         innerChildren.push(textInput);
         if (clearable)
@@ -232,12 +233,12 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />
+            />,
           );
         const sufChildren = [];
         if (slotSuffix.length)
           sufChildren.push(
-            <div class="k-input-group-suffix">{slotSuffix}</div>
+            <div class="k-input-group-suffix">{slotSuffix}</div>,
           );
 
         if (slotControls.length) innerChildren.push(slotControls);
@@ -259,7 +260,7 @@ const Input = defineComponent({
               type={icon}
               class={`k-${inputType}-icon`}
               onClick={iconClick}
-            />
+            />,
           );
         if (prefix)
           children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
@@ -273,11 +274,10 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />
+            />,
           );
         if (suffixNode) children.push(suffixNode);
         if (slotControls.length) children.push(slotControls);
-
         return (
           <div {...props} multiple>
             {...children}

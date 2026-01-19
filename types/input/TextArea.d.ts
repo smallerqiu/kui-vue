@@ -3,6 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** TextArea component props */
 export interface TextAreaProps {
   value?: string | number | Record<string, any> | any[];
+  /** default: light */
   theme?: string;
   size?: string;
   disabled?: boolean;

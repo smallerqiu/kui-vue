@@ -3,6 +3,8 @@ import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor, Reload } from "kui-icons";
 import { defineComponent, ref, getCurrentInstance, onMounted } from "vue";
 import { parseCode } from "./transform";
+import { useClipboard } from "@vueuse/core";
+const { copy, isSupported } = useClipboard();
 // import {
 //   parse,
 //   compileTemplate,
@@ -37,15 +39,15 @@ const Demo = defineComponent({
         parseCode(codeRef.value?.innerText, viewRef, props.id);
       }, 500);
     };
-    const copy = () => {
-      proxy.$copyText(codeRef.value?.innerText).then(
-        () => {
+    const copyCode = () => {
+      console.log(32423);
+      copy(codeRef.value?.innerText)
+        .then(() => {
           message.success("Copied!");
-        },
-        () => {
+        })
+        .catch(() => {
           message.error("复制代码失败，请手动复制");
-        }
-      );
+        });
     };
     onMounted(() => {
       codeOrigin.value = codeRef.value?.innerText;
@@ -75,7 +77,7 @@ const Demo = defineComponent({
                     type="text"
                     size="small"
                     icon={CopyOutline}
-                    onClick={copy}
+                    onClick={copyCode}
                   />
                 </Tooltip>
                 {/* <Tooltip title="重置代码">
@@ -131,7 +133,7 @@ const Demo = defineComponent({
                     size="large"
                     icon={CopyOutline}
                     block
-                    onClick={copy}
+                    onClick={copyCode}
                   />
                 </Tooltip>
               </div>

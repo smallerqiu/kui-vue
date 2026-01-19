@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Flex size="small" vertical>
-    <Space>
+    <Space wrap>
       <Button type="primary" theme="light">Primary</Button>
       <Button type="danger" theme="light">Danger</Button>
       <Button type="warning" theme="light">Warning</Button>

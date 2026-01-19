@@ -5,6 +5,8 @@ export interface InputGroupProps {
   block?: boolean;
   /** default: true */
   compact?: boolean;
+  /** default: light */
+  theme?: string;
   size?: string;
 }
 

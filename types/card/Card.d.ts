@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Card component props */
 export interface CardProps {
-  /** default: true */
+  /** default: false */
   bordered?: boolean;
   title?: string;
   icon?: string | any[];
