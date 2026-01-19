@@ -14,7 +14,7 @@
     background: @dark-pop-color;
     box-shadow: 0 2px 8px @shadow-color;
     color: #fff;
-    border-radius: 8px;
+    border-radius: var(--kui-border-radius-card);
     position: relative;
     min-width: 36px;
   }
@@ -115,13 +115,13 @@
 
   &[k-placement="left-bottom"] {
     .k-tooltip-arrow {
-      bottom: 14px;
+      bottom: 15px;
     }
   }
 
   &[k-placement="left-top"] {
     .k-tooltip-arrow {
-      top: 14px;
+      top: 15px;
     }
   }
 
@@ -132,8 +132,8 @@
 
     .k-tooltip-arrow {
       left: -14px;
-      width: 23px;
-      height: 9px;
+      width: 24px;
+      height: 7px;
       transform: rotate(90deg);
     }
   }
@@ -147,13 +147,13 @@
 
   &[k-placement="right-top"] {
     .k-tooltip-arrow {
-      top: 14px;
+      top: 15px;
     }
   }
 
   &[k-placement="right-bottom"] {
     .k-tooltip-arrow {
-      bottom: 14px;
+      bottom: 15px;
     }
   }
 }

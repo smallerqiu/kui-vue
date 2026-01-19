@@ -48,13 +48,13 @@ const Page = defineComponent({
       (v) => {
         defaultPageSize.value = v;
         resetPage();
-      }
+      },
     );
     watch(
       () => ps.total,
       (v) => {
         resetPage();
-      }
+      },
     );
 
     watch(
@@ -62,7 +62,7 @@ const Page = defineComponent({
       (v) => {
         defaultPage.value = v;
         resetPage();
-      }
+      },
     );
 
     const resetPage = () => {
@@ -262,6 +262,7 @@ const Page = defineComponent({
           size,
           theme: ps.theme,
           disabled: ps.disabled,
+          clearable: false,
         },
         // value: defaultPage.value,
         on: {

@@ -30,7 +30,6 @@ export default function vitePluginMd() {
     enforce: "pre",
     transform(src, path) {
       if (!path.endsWith(".md")) return null;
-      // this.addWatchFile(path);
       const vertical_list = [
         "table",
         "grid",
