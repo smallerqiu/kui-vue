@@ -8,11 +8,14 @@ const StatCard = defineComponent({
     title: String,
     items: { type: Array, default: () => [] },
     statNumberType: String,
+    bordered: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
       return (
-        <div class="k-stat-card">
+        <div
+          class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}
+        >
           <div class="k-stat-card-title">{props.title}</div>
           <div class="k-stat-card-items">
             {(props.items || []).map((item, index) => {

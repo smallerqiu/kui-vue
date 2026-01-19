@@ -78,7 +78,7 @@ const DatePicker = defineComponent({
     size: { type: String, default: "default" },
     pickerSize: { type: String, default: "default" },
     dateIcon: { type: [Array, Object] },
-    theme: String,
+    theme: { type: String, default: "light" },
     shape: String,
     bordered: { type: Boolean, default: true },
     placement: {
@@ -1070,7 +1070,11 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refSelection} tabindex={0}>
+        <div
+          class={classes}
+          ref={refSelection}
+          tabindex={props.disabled ? null : 0}
+        >
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />

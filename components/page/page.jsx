@@ -18,7 +18,7 @@ const Page = defineComponent({
     showSizer: Boolean,
     showTotal: { type: Boolean, default: true },
     showElevator: Boolean,
-    theme: String,
+    theme: { type: String, default: "light" },
     sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
     size: {
       default: "default",
@@ -246,11 +246,12 @@ const Page = defineComponent({
 
     const renderElevator = () => {
       let { size } = ps;
-      let prop = {
+      let props = {
         class: "k-page-options-elevator",
         size,
         theme: ps.theme,
         disabled: ps.disabled,
+        clearable: false,
         // value: defaultPage.value,
         onChange: (e) => {
           let page = e.target.value;
@@ -281,7 +282,7 @@ const Page = defineComponent({
       return ps.showElevator ? (
         <div class="k-page-options">
           <span>{locale?.value.k.page.goto}</span>
-          <Input {...prop} />
+          <Input {...props} />
           <span>{locale?.value.k.page.page}</span>
         </div>
       ) : null;

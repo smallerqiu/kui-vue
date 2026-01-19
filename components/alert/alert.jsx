@@ -15,10 +15,11 @@ const Alert = defineComponent({
   props: {
     type: { type: String, default: "warning" },
     closable: Boolean,
-    showIcon: Boolean,
+    showIcon: { type: Boolean, default: true },
     icon: [String, Object, Array],
     message: String,
     description: String,
+    bordered: Boolean,
   },
   setup(props, { emit, slots }) {
     const closed = ref(false);
@@ -34,6 +35,7 @@ const Alert = defineComponent({
         [`k-alert-${props.type}`]: props.type,
         "k-alert-has-icon": props.showIcon,
         "k-alert-has-close": props.closable,
+        "k-alert-bordered": props.bordered,
         "k-alert-has-description": props.description,
       },
     ]);

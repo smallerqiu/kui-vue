@@ -1,11 +1,11 @@
-@import "../../styles/var.less";
+@import '../../styles/less-css-var.less';
 
 .k-table {
   width: 100%;
   margin: 10px 0;
   box-sizing: border-box;
   position: relative;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   overflow: hidden;
   &-thead-sticky {
@@ -33,44 +33,43 @@
     left: 0;
     top: 0;
     z-index: 100;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
 
     .k-spin-loading {
-      border-radius: @radius;
-      background-color: var(--kui-color-spin);
+      border-radius: var(--kui-border-radius);
+      background-color: var(--kui-color-spin-mask);
     }
   }
 
   .k-table-container {
     width: 100%;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
   }
   .k-table-header-bar {
-    background: var(--kui-color-table-header);
+    background: var(--kui-color-table-col);
   }
   .k-table-header,
   .k-table-footer {
-    background-color: var(--kui-color-table-header);
+    background-color: var(--kui-color-table-col);
     padding: 16px;
   }
   table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0;
-    // background: var(--kui-color-back);
+    border-spacing: 0; 
     margin: 0;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
 
     thead {
-      border-bottom: 1px solid var(--kui-color-table-border);
+      border-bottom: 1px solid var(--kui-color-border);
     }
 
     tr th:first-child {
-      border-top-left-radius: @radiusInner;
+      // border-top-left-radius: var(--kui-border-radius);
     }
 
     tr th:last-child {
-      border-top-right-radius: @radiusInner;
+      // border-top-right-radius: var(--kui-border-radius);
     }
 
     .k-table {
@@ -84,11 +83,11 @@
       box-sizing: border-box;
       word-break: break-all;
       word-wrap: break-word;
-      border-bottom: 1px solid var(--kui-color-table-border);
+      border-bottom: 1px solid var(--kui-color-border);
     }
 
     tr > th {
-      background: var(--kui-color-table-header);
+      background: var(--kui-color-table-row);
       font-weight: 500;
       overflow-wrap: break-word;
       text-align: left;
@@ -134,7 +133,10 @@
       }
 
       &:hover {
-        background: var(--kui-color-table-header-hover);
+        background: var(--kui-color-table-col-hover);
+      }
+      &:active {
+        background: var(--kui-color-table-col-active);
       }
 
       .k-table-sorter {
@@ -151,7 +153,7 @@
           height: 7px;
         }
         .k-table-sorter-active {
-          color: var(--kui-color-main);
+          color: var(--kui-color-primary);
         }
       }
     }
@@ -161,6 +163,7 @@
       padding: 0;
       z-index: 5;
       top: 0;
+      border-radius: 0 var(--kui-border-radius) 0 0;
     }
     .k-table-cell-ellipsis {
       white-space: nowrap;
@@ -191,36 +194,36 @@
     tbody > tr {
       .k-table-cell-fix-left,
       .k-table-cell-fix-right {
-        background-color: var(--kui-color-back);
+        background-color: var(--kui-color-bg);
       }
 
       &:hover {
-        background: var(--kui-color-table-hover);
+        background: var(--kui-color-table-row);
 
         .k-table-cell-fix-left,
         .k-table-cell-fix-right {
-          background-color: var(--kui-color-table-hover);
+          background-color: var(--kui-color-table-row);
         }
       }
     }
 
     .k-table-expand-row {
       &:hover {
-        background: var(--kui-color-table-hover);
+        background: var(--kui-color-table-row);
       }
     }
 
     td table {
       tbody > tr:hover {
-        background: var(--kui-color-table-hover);
+        background: var(--kui-color-table-row);
       }
     }
   }
 
   .k-table-thead {
-    border-top-left-radius: @radiusInner;
-    border-top-right-radius: @radiusInner;
-    background: var(--kui-color-table-header);
+    border-top-left-radius: var(--kui-border-radius);
+    border-top-right-radius: var(--kui-border-radius);
+    background: var(--kui-color-table-row);
   }
 
   &-thead {
@@ -229,8 +232,8 @@
 
   &-footer {
     padding: 10px;
-    border-bottom-left-radius: @radiusInner;
-    border-bottom-right-radius: @radiusInner;
+    border-bottom-left-radius: var(--kui-border-radius);
+    border-bottom-right-radius: var(--kui-border-radius);
   }
 
   th > a,
@@ -325,8 +328,7 @@
     }
   }
   .k-table-body {
-    background: var(--kui-color-back);
-    -webkit-overflow-scrolling: touch;
+    background: var(--kui-color-bg);
     will-change: scroll-position;
   }
   .k-table-thead + .k-table-body {
@@ -343,39 +345,39 @@
     }
   }
   & {
-    border-top-left-radius: @radius;
-    border-top-right-radius: @radius;
+    border-top-left-radius: var(--kui-border-radius);
+    border-top-right-radius: var(--kui-border-radius);
     .k-table-thead {
-      border-top-left-radius: @radius;
-      border-top-right-radius: @radius;
+      border-top-left-radius: var(--kui-border-radius);
+      border-top-right-radius: var(--kui-border-radius);
     }
     .k-table-body {
-      border-top-left-radius: @radius;
-      border-top-right-radius: @radius;
+      border-top-left-radius: var(--kui-border-radius);
+      border-top-right-radius: var(--kui-border-radius);
     }
     .k-table-footer {
-      border-bottom-left-radius: @radius;
-      border-bottom-right-radius: @radius;
+      border-bottom-left-radius: var(--kui-border-radius);
+      border-bottom-right-radius: var(--kui-border-radius);
     }
     .k-table-header {
-      border-top-left-radius: @radiusInner;
-      border-top-right-radius: @radiusInner;
+      border-top-left-radius: var(--kui-border-radius-card);
+      border-top-right-radius: var(--kui-border-radius-card);
     }
   }
   &-bordered {
     .k-table-thead {
-      border-top: 1px solid var(--kui-color-table-border);
-      border-left: 1px solid var(--kui-color-table-border);
+      border-top: 1px solid var(--kui-color-border);
+      border-left: 1px solid var(--kui-color-border);
     }
     .k-table-body {
-      border-right: 1px solid var(--kui-color-table-border);
-      border-top: 1px solid var(--kui-color-table-border);
-      border-left: 1px solid var(--kui-color-table-border);
+      border-right: 1px solid var(--kui-color-border);
+      border-top: 1px solid var(--kui-color-border);
+      border-left: 1px solid var(--kui-color-border);
     }
     .k-table-footer {
-      border-right: 1px solid var(--kui-color-table-border);
-      border-bottom: 1px solid var(--kui-color-table-border);
-      border-left: 1px solid var(--kui-color-table-border);
+      border-right: 1px solid var(--kui-color-border);
+      border-bottom: 1px solid var(--kui-color-border);
+      border-left: 1px solid var(--kui-color-border);
     }
     .k-scroll {
       &::-webkit-scrollbar {
@@ -384,25 +386,25 @@
       &::-webkit-scrollbar-corner {
         border-bottom: 1px solid var(--kui-color-border);
         border-left: 1px solid var(--kui-color-border);
-        background-color: var(--kui-color-back);
+        background-color: var(--kui-color-bg);
       }
     }
     thead {
       th {
-        border-bottom: 1px solid var(--kui-color-table-border);
-        border-right: 1px solid var(--kui-color-table-border);
+        border-bottom: 1px solid var(--kui-color-border);
+        border-right: 1px solid var(--kui-color-border);
       }
     }
 
     .k-table-header {
-      border-left: 1px solid var(--kui-color-table-border);
-      border-right: 1px solid var(--kui-color-table-border);
-      border-top: 1px solid var(--kui-color-table-border);
+      border-left: 1px solid var(--kui-color-border);
+      border-right: 1px solid var(--kui-color-border);
+      border-top: 1px solid var(--kui-color-border);
     }
 
     th,
     td {
-      border-right: 1px solid var(--kui-color-table-border);
+      border-right: 1px solid var(--kui-color-border);
     }
     // tr th:last-child,
     tr td:last-child {
@@ -413,7 +415,7 @@
     }
 
     .k-table-fixed-right {
-      border-left: 1px solid var(--kui-color-table-border);
+      border-left: 1px solid var(--kui-color-border);
     }
 
     & .k-table {
@@ -445,7 +447,7 @@
       cursor: pointer;
 
       &:hover {
-        color: var(--kui-color-main);
+        color: var(--kui-color-primary);
       }
     }
   }

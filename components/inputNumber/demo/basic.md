@@ -14,9 +14,9 @@
     <InputNumber v-model="value" disabled />
     <code>group</code>
     <InputGroup>
-      <Button @click="value -= 1" theme="outline">-</Button>
+      <Button @click="value -= 1">-</Button>
       <InputNumber v-model="value" :controls="false" />
-      <Button @click="value += 1" theme="outline">+</Button>
+      <Button @click="value += 1">+</Button>
     </InputGroup>
   </Space>
 </template>

@@ -16,6 +16,14 @@
 // 当然也在  Modal 或者 Drawer @close 的时候 重置表单
 export default{
   methods :{
+    open() {
+      this.visible = true; //先打开弹窗
+      this.reset();
+    },
+    close() {
+      this.reset();
+      this.visible = false; //后关闭弹窗
+    },
     reset(){
       this.$nextTick(()=>{
         this.$refs.form.reset()

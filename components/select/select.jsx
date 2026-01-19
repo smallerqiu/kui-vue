@@ -62,7 +62,7 @@ const Select = defineComponent({
     bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
     options: Array,
-    theme: String,
+    theme: { type: String, default: "light" },
     emptyText: String,
     loadingText: String,
     icon: [String, Array],

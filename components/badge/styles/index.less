@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import '../../styles/less-css-var.less';
 
 .k-badge {
    position: relative;
@@ -17,15 +17,16 @@
       min-width: 20px;
       background: #ed3f14;
       color: #fff;
-      line-height: 20px;
-      text-align: center;
+      line-height: 1;
       font-size: 12px;
       white-space: nowrap;
       z-index: 10;
-      box-shadow: 0 0 0 1px var(--kui-color-back);
       box-sizing: border-box;
-      display: block;
+      display: flex;
       padding: 0 6px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--kui-color-border);
    }
 
    &-mark {
@@ -48,10 +49,6 @@
 
    &-dot {
       position: absolute;
-      // transform: translateX(-50%);
-      // transform-origin: 0 center;
-      // top: -4px;
-      // right: -8px;
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
@@ -61,7 +58,6 @@
       border-radius: 50%;
       background: var(--kui-color-danger);
       z-index: 10;
-      // box-shadow: 0 0 0 1px #fff;
    }
 
    &-no-child {
@@ -71,16 +67,14 @@
 
    &-status-dot {
       position: relative;
-      // top: -1px;
       display: inline-block;
       width: 6px;
       height: 6px;
-      // vertical-align: middle;
       border-radius: 50%;
    }
 
    &-status-text {
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
       font-size: 14px;
       margin-left: 8px;
    }

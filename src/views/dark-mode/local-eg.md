@@ -15,9 +15,9 @@
         >
           <div class="logo-box">
             <Icon :type="LogoKui" size="30" class="logo" />
-            <Transition>
+            <transition>
               <span v-show="!collapsed">KUI运营后台</span>
-            </Transition>
+            </transition>
           </div>
           <Menu
             mode="inline"
@@ -44,24 +44,33 @@
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-          <div class="demo-dark" :theme-mode="dark ? 'dark' : 'light'">
-            <Menu mode="horizontal" v-model="current">
-              <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
-              <MenuItem key="2" :icon="Heart" disabled>Navigation Two</MenuItem>
-              <MenuItem key="4">
-                <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
-              </MenuItem>
-            </Menu>
-            <Page :current="1" :total="50" />
-            <Space>
-              <Tag>标签1</Tag>
-              <Tag>标签2</Tag>
-              <Tag>标签3</Tag>
-              <Tag closeable>标签4</Tag>
+          <div
+            class="demo-dark"
+            :theme-mode="dark ? 'dark' : 'light'"
+            style="background: var(--kui-color-bg);"
+          >
+            <Space vertical block>
+              <Menu mode="horizontal" v-model="current">
+                <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
+                <MenuItem key="2" :icon="Heart" disabled>
+                  Navigation Two
+                </MenuItem>
+                <MenuItem key="4">
+                  <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
+                </MenuItem>
+              </Menu>
+              <Page :current="1" :total="50" />
+              <Space>
+                <Tag>标签1</Tag>
+                <Tag>标签2</Tag>
+                <Tag>标签3</Tag>
+                <Tag closeable>标签4</Tag>
+              </Space>
             </Space>
+
             <div style="width:512px;">
               <Form
-                :labelCol="{ span: 5 }"
+                :labelCol="{ span: 8 }"
                 :wrapperCol="{ span: 16 }"
                 :size="size"
                 :theme="theme ? 'light' : ''"
@@ -131,8 +140,8 @@
     </div>
   </div>
 </template>
-<script>
-import { Transition } from "vue";
+<script setup>
+import { ref } from "vue";
 import {
   LogoKui,
   Home,
@@ -144,36 +153,20 @@ import {
   NotificationsOutline,
   Mail,
 } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui,
-      Home,
-      Heart,
-      Settings,
-      ChevronBack,
-      ChevronForward,
-      Search,
-      NotificationsOutline,
-      Mail,
-      current: ["1"],
-      left: ["1-1"],
-      collapsed: false,
-      dark: false,
-      size: "default",
-      theme: false,
-      checked: false,
-      shape: "",
-    };
-  },
-  methods: {
-    change() {
-      this.dark = !this.dark;
-    },
-    toggle() {
-      this.collapsed = !this.collapsed;
-    },
-  },
+
+const current = ref(["1"]);
+const left = ["1-1"];
+const collapsed = ref(false);
+const dark = ref(false);
+const size = "default";
+const theme = ref(false);
+const checked = ref(false);
+const shape = ref("");
+const change = () => {
+  dark.value = !dark.value;
+};
+const toggle = () => {
+  collapsed.value = !collapsed.value;
 };
 </script>
 <style scoped lang="less">
@@ -189,7 +182,6 @@ export default {
     display: flex;
     align-items: center;
     padding: 16px 0 17px 16px;
-    /* background:var(--kui-color-gray-90); */
     white-space: nowrap;
     overflow: hidden;
     .logo {

@@ -17,7 +17,7 @@ const Tag = defineComponent({
         return ["small", "large", "middle"].indexOf(value) >= 0;
       },
     },
-    theme: String,
+    theme: { type: String, default: "light" },
   },
   setup(ps, { slots, emit, listeners }) {
     const visible = ref(true);

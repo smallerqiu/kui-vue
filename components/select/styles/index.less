@@ -1,4 +1,4 @@
-@import "../../styles/var.less";
+@import "../../styles/less-css-var.less";
 
 .k-select {
   display: inline-flex;
@@ -6,28 +6,27 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   position: relative;
   outline: none;
   box-sizing: border-box;
   // flex-shrink: 0;
   align-items: center;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg-container);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding: 0 8px;
   transition: border 0.3s ease-in-out;
   line-height: 1.571;
   position: relative;
-  // max-width: 100%;
   &:not(.k-select-disabled, .k-select-borderless):focus {
-    outline: 2px solid var(--kui-color-main-80);
+    outline: 2px solid var(--kui-color-outline);
     outline-offset: 1px;
   }
   &:hover {
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    border-color: var(--kui-color-primary);
+    box-shadow: var(--kui-component-shadow);
   }
 
   &-selection {
@@ -73,7 +72,7 @@
       background: none;
       outline: none;
       font-size: 14px;
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
   }
 
@@ -88,7 +87,7 @@
     .k-select-tag {
       padding: 2px 5px;
       border: 1px solid var(--kui-color-border);
-      background-color: var(--kui-color-border);
+      background-color: var(--kui-color-bg-component);
       border-radius: var(--kui-border-radius);
       display: inline-flex;
       align-items: center;
@@ -98,13 +97,9 @@
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        // position: absolute;
-        // right: 3px;
         font-size: 16px;
         text-align: center;
         display: block;
-        // top: 50%;
-        // transform: translateY(-50%);
       }
     }
 
@@ -136,7 +131,7 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-placeholder);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
@@ -185,14 +180,17 @@
     display: none;
     cursor: pointer;
     &:hover {
-      color: var(--kui-color-font);
+      color: var(--kui-color-icon-hover);
+    }
+    &:active {
+      color: var(--kui-color-icon-active);
     }
   }
 
   .k-select-search-mirror,
   .k-select-search {
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 
   &.k-select-circle {
@@ -227,9 +225,8 @@
 .k-select-light {
   &.k-select {
     border-color: transparent;
-    background: var(--kui-color-gray-80);
+    background: var(--kui-color-bg-component);
     transition: none;
-    // box-shadow: none;
 
     &:hover {
       box-shadow: none;
@@ -237,7 +234,7 @@
     }
 
     .k-select-tag {
-      background-color: var(--kui-color-gray-80);
+      background-color: var(--kui-color-bg-component);
       border-color: transparent;
     }
   }
@@ -257,14 +254,15 @@
   width: inherit;
   max-height: 200px;
   overflow: auto;
-  background-color: var(--kui-color-back-10);
+  background-color: var(--kui-color-bg-pop);
+  border: 1px solid var(--kui-color-pop-border);
   box-sizing: border-box;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--kui-pop-shadow);
+
   position: absolute;
   z-index: 1003;
   padding: 5px;
-  box-sizing: border-box;
-  border: 1px solid var(--kui-color-gray-80);
+  box-sizing: border-box; 
 
   ul {
     padding: 0;
@@ -276,7 +274,7 @@
   .k-select-loading {
     padding: 10px;
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     display: flex;
     align-items: center;
 
@@ -294,7 +292,7 @@
     line-height: 1;
     padding: 8px 8px;
     clear: both;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     font-size: 14px;
     white-space: nowrap;
     list-style: none;
@@ -304,15 +302,15 @@
     text-overflow: ellipsis;
     cursor: pointer;
     position: relative;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     margin-bottom: 1px;
 
-    &:not(.k-select-item-disabled):hover {
-      background: var(--kui-color-hover);
+    &:not(.k-select-item-disabled, .k-select-item-selected):hover {
+      background: var(--kui-color-item-hover);
     }
 
-    &:not(.k-select-item-disabled):active {
-      background: var(--kui-color-active);
+    &:not(.k-select-item-disabled, .k-select-item-selected):active {
+      background: var(--kui-color-item-active);
     }
 
     .k-icon {
@@ -337,22 +335,18 @@
   }
 
   .k-select-item-selected {
-    background: var(--kui-color-selected);
+    background: var(--kui-color-item-selected);
     font-weight: 500;
 
-    &:hover {
-      background: var(--kui-color-selected);
-    }
-
     .k-icon {
-      color: var(--kui-color-main);
+      color: var(--kui-color-primary);
       display: block;
     }
   }
 
   .k-select-item-disabled {
-    background: var(--kui-color-disable-back);
-    color: var(--kui-color-disabled);
+    background: var(--kui-color-item-disable);
+    color: var(--kui-color-text-disabled);
     cursor: not-allowed;
   }
 }
@@ -402,7 +396,6 @@
   .k-select-label {
     line-height: 22px;
     height: 22px;
-    // padding-right: 23px;
     font-size: 12px;
   }
 
@@ -446,7 +439,7 @@
   .k-select-search-mirror,
   .k-select-search {
     font-size: 12px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 }
 
@@ -508,8 +501,7 @@
 }
 
 .k-select-opened {
-  border-color: var(--kui-color-main);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  border-color: var(--kui-color-primary);
 
   .k-select-label {
     opacity: 0.5;
@@ -522,8 +514,8 @@
 }
 
 .k-select-disabled {
-  color: var(--kui-color-disabled);
-  background: var(--kui-color-disable-back);
+  color: var(--kui-color-text-disabled);
+  background: var(--kui-color-bg-component-disabled);
 
   .k-select-label {
     cursor: not-allowed;
@@ -535,12 +527,6 @@
 
   .k-select-arrow {
     color: var(--kui-color-disable-border);
-  }
-
-  &:hover,
-  &:focus {
-    border-color: var(--kui-color-disable-border);
-    box-shadow: none;
   }
 }
 

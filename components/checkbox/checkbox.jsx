@@ -13,7 +13,7 @@ const Checkbox = defineComponent({
     modelValue: { type: [String, Number, Boolean] },
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
-    theme: String,
+    theme: { type: String, default: "light" },
     disabled: Boolean,
     indeterminate: Boolean,
     size: {

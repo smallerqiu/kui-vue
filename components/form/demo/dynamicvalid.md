@@ -91,8 +91,6 @@ const add = () => {
   form.value.webs.push(item);
 };
 const remove = (index) => {
-  // let item = this.form.webs.filter(x=>x.index==index)[0]
-  // let index = this.form.webs.indexOf(item)
   form.value.webs.splice(index, 1);
 };
 const submit = () => {

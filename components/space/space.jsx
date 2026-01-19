@@ -1,6 +1,7 @@
 import { defineComponent, h, cloneVNode, provide } from "vue";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
+import { filterSize } from "../utils/size";
 const Space = defineComponent({
   name: "Space",
   props: {
@@ -21,7 +22,7 @@ const Space = defineComponent({
       validator(value) {
         return typeof value === "number" || Array.isArray(value)
           ? true
-          : ["small", "middle", "large"].includes(value);
+          : filterSize(value);
       },
     },
   },

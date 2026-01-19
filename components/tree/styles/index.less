@@ -1,4 +1,4 @@
-@import "../../styles/var.less";
+@import "../../styles/less-css-var.less";
 
 .k-tree {
   .k-tree-item {
@@ -47,23 +47,27 @@
     margin-left: 4px;
     align-items: center;
     z-index: 0;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     cursor: pointer;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     line-height: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
     min-height: 24px;
-    &:hover {
-      background: var(--kui-color-hover);
-      outline: none;
+    &:not([disabled="disabled"],.k-tree-title-selected) {
+      &:hover {
+        background-color: var(--kui-color-item-hover);
+      }
+      &:active {
+        background-color: var(--kui-color-item-active);
+      }
     }
   }
 
   .k-tree-item-drop {
     > .k-tree-title {
-      background-color: var(--kui-color-main) !important;
+      background-color: var(--kui-color-primary) !important;
       color: #fff;
     }
   }
@@ -95,24 +99,13 @@
   .k-tree-item-disabled {
     .k-tree-title,
     .k-tree-icon {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-disabled);
       cursor: not-allowed;
-    }
-
-    .k-tree-title {
-      &:hover,
-      &:focus {
-        background-color: transparent;
-      }
     }
   }
 
   .k-tree-title-selected {
-    background: var(--kui-color-selected);
-
-    &:hover {
-      background: var(--kui-color-selected);
-    }
+    background: var(--kui-color-item-selected);
   }
 
   .k-tree-arrow {
@@ -136,7 +129,7 @@
   .tree-nodata {
     padding: 8px 10px;
     display: block;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     font-size: 12px;
   }
 }
@@ -144,17 +137,11 @@
 .k-tree-directory {
   position: relative;
 
-  .k-tree-title {
-    &:hover,
-    &:focus {
-      background-color: transparent;
-    }
-  }
-
   .k-tree-item {
     cursor: pointer;
     position: relative;
     &::before {
+      border-radius: var(--kui-border-radius);
       content: "";
       position: absolute;
       left: 0;
@@ -164,14 +151,18 @@
     }
   }
 
-  .k-tree-item:hover::before {
-    background-color: var(--kui-color-hover);
+  .k-tree-item:not(.k-tree-item-selected) {
+    &:hover::before {
+      background-color: var(--kui-color-item-hover);
+    }
+    &:active::before {
+      background-color: var(--kui-color-item-active);
+    }
   }
 
-  .k-tree-item-selected,
-  .k-tree-item-selected:hover {
+  .k-tree-item-selected {
     &::before {
-      background-color: var(--kui-color-selected);
+      background-color: var(--kui-color-item-selected);
     }
 
     .k-tree-title,
@@ -179,19 +170,8 @@
       background-color: transparent;
     }
   }
-
-  .k-tree-item-disabled:hover {
-    cursor: not-allowed;
-
-    .k-tree-title {
-      color: var(--kui-color-disabled);
-    }
-
-    &::before {
-      display: none;
-    }
-  }
 }
+
 //line
 /* 基础缩进块大小 */
 .k-tree-indent-line,

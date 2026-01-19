@@ -6,16 +6,30 @@
 ```vue
 <template>
   <Space vertical block>
-    <StatCard title="今日订单" :items="items" />
-    <StatCard statNumberType="rollup" title="今日进账" :items="items1" />
-    <StatCard statNumberType="rollup" title="媒体数据" :items="items2">
-    </StatCard>
+    <Checkbox v-model="bordered">Show border</Checkbox>
+    <Space block style="max-width: 900px;">
+      <StatCard title="今日订单" :items="items" :bordered="bordered" />
+      <StatCard
+        statNumberType="rollup"
+        title="今日进账"
+        :items="items1"
+        :bordered="bordered"
+      />
+      <StatCard
+        statNumberType="rollup"
+        title="媒体数据"
+        :items="items2"
+        :bordered="bordered"
+      >
+      </StatCard>
+    </Space>
   </Space>
 </template>
 <script setup>
 import { ref, h } from "vue";
 import { Icon } from "kui-vue";
 import { Star, Heart } from "kui-icons";
+const bordered = ref(false);
 const items = [
   { value: 5872, desc: "订单数" },
   { value: 9873672, desc: "订单总金额", prefix: "￥" },

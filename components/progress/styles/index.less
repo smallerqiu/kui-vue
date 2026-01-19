@@ -1,10 +1,10 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 .k-progress {
   .k-progress-inner {
     display: inline-block;
     border-radius: 10px;
-    background-color: var(--kui-color-gray-80);
-    stroke: var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-component);
+    stroke: var(--kui-color-bg-component);
     overflow: hidden;
     vertical-align: middle;
     width: calc(100% - 38px);
@@ -13,16 +13,16 @@
   .k-progress-bg {
     height: 8px;
     border-radius: 10px;
-    background-color: var(--kui-color-main);
-    stroke: var(--kui-color-main);
+    background-color: var(--kui-color-primary);
+    stroke: var(--kui-color-primary);
     width: 30%;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
   .k-progress-text {
     display: inline-block;
     width: 30px;
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     line-height: 1;
     white-space: nowrap;
     vertical-align: middle;
@@ -51,7 +51,8 @@
   }
 }
 
-.k-progress-circle, .k-progress-dashboard {
+.k-progress-circle,
+.k-progress-dashboard {
   width: 120px;
   height: 120px;
   display: inline-block;
@@ -65,7 +66,6 @@
     transform: translate(-50%, -50%);
     text-align: center;
     .k-icon {
-      // font-size: 30px;
       font-size: 1.5em;
     }
   }
@@ -77,7 +77,7 @@
     opacity: 0;
   }
   80% {
-    opacity: .3;
+    opacity: 0.3;
     width: 80%;
   }
   100% {
@@ -90,13 +90,13 @@
   .k-progress-bg {
     position: relative;
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 0;
       width: 0;
       height: 100%;
-      background-color: var(--kui-color-back);
+      background-color: var(--kui-color-bg);
       opacity: 0;
       border-radius: 10px;
       animation: k-progress-active 2.4s linear infinite;

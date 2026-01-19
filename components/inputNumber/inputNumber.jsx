@@ -8,6 +8,7 @@ import { sizeMap, filterSize } from "../utils/size";
 import { normalize, isValidBig } from "../utils/number";
 
 const InputNumber = defineComponent({
+  inheritAttrs: false,
   name: "InputNumber",
   props: {
     modelValue: [Number, String],
@@ -23,6 +24,7 @@ const InputNumber = defineComponent({
     controls: { type: Boolean, default: true },
     suffix: String,
     prefix: String,
+    theme: { type: String, default: "light" },
     icon: [String, Array],
     size: {
       type: String,

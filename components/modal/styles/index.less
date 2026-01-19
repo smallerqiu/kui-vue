@@ -1,7 +1,7 @@
-@import "../../styles/var.less";
+@import "../../styles/less-css-var.less";
 
 .k-modal {
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
 
   .k-modal-wrap {
     position: fixed;
@@ -12,7 +12,6 @@
     z-index: 1001;
     overflow: auto;
     outline: 0;
-    -webkit-overflow-scrolling: touch;
   }
 
   .k-modal-mask {
@@ -21,7 +20,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(55, 55, 55, 0.6);
+    background-color: var(--kui-color-mask);
     height: 100%;
     z-index: 1001;
     overflow: hidden;
@@ -29,16 +28,17 @@
 
   .k-modal-inner {
     position: relative;
-    background-color: var(--kui-color-back-10);
-    border: 1px solid var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-pop);
+    border: 1px solid var(--kui-color-pop-border);
     z-index: 1001;
     outline: 0;
     border-radius: 12px;
     top: 100px;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: 0 0 10px 3px rgba(55, 55, 55, 0.2);
-    width: 480px; // animation: darken .5s ease-in-out;
+    box-shadow: var(--kui-pop-shadow);
+
+    width: 480px;
   }
 
   .k-modal-content {
@@ -51,8 +51,6 @@
 
     .k-modal-close {
       position: absolute;
-      cursor: pointer;
-      color: var(--kui-color-font);
       top: 20px;
       right: 20px;
       transition: all 0.3s ease-in-out;
@@ -61,14 +59,10 @@
       }
       &:hover {
         color: var(--kui-color-danger);
-        border-radius: var(--kui-border-radius);
-        background-color: var(--kui-color-gray-80);
-        // transform: rotate(360deg);
       }
     }
 
     .k-modal-header {
-      // border-bottom: 1px solid var(--kui-color-gray-80);
       padding: 20px 0;
       line-height: 1;
       font-size: 14px;
@@ -87,17 +81,14 @@
     }
 
     .k-modal-body {
-      // padding:20px 0;
       margin-bottom: 20px;
       font-size: 14px;
       line-height: 1.5;
-      // height: calc(100% - 43px - 45px);
       overflow: auto;
       box-sizing: border-box;
     }
 
     .k-modal-footer {
-      // border-top: 1px solid var(--kui-color-gray-80);
       padding: 0 0 20px 0;
       text-align: right;
       display: inline-block;
@@ -167,7 +158,6 @@
       width: 100%;
       bottom: 0;
       left: 0;
-      background: var(--kui-color-back-10);
       box-sizing: border-box;
       padding-right: 20px;
     }
@@ -177,7 +167,7 @@
 .k-toast {
   .k-modal-inner {
     width: 416px;
-    background: var(--kui-color-back-10);
+    background: var(--kui-color-bg-pop);
     border-radius: var(--kui-border-radius);
     padding: 20px;
     border-radius: 12px;
@@ -230,7 +220,7 @@
 }
 
 .k-toast-info .k-toast-icon {
-  color: var(--kui-color-main);
+  color: var(--kui-color-primary);
 }
 
 .k-toast-confirm .k-toast-icon {
