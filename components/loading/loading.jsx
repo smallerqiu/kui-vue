@@ -7,6 +7,7 @@ import {
   Transition,
   getCurrentInstance,
 } from "vue";
+import { getAppContext } from "../config/context";
 import { withInstall } from "../utils/vue";
 
 const loading = defineComponent({
@@ -97,6 +98,7 @@ const loading = defineComponent({
 const createInstance = (props = {}, context) => {
   const vm = createVNode(loading, props, context);
   render(vm, document.body);
+  vm.appContext = context?.appContext || getAppContext()?.appContext;
   return vm.component?.exposed; //for 3
 };
 

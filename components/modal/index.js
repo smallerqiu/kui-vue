@@ -1,22 +1,20 @@
 import Modal from "./modal.jsx";
 import Toast from "./toast";
 import { createVNode, render, getCurrentInstance } from "vue";
+import { recordMousePoint } from "../config/context";
+import { getAppContext } from "../config/context";
 
 let modalList = [];
+recordMousePoint();
 
-if (typeof window !== "undefined") {
-  document.addEventListener("mousedown", (e) => {
-    window.__kui__point = { x: e.clientX, y: e.clientY };
-  });
-}
-let createInstance = (props = {}, context = null) => {
+let showModal = (props = {}, context = null) => {
   context = getCurrentInstance();
   const container = document.createElement("div");
   document.body.appendChild(container);
   const vm = createVNode(Toast, {
     ...props,
   });
-  vm.appContext = context?.appContext || window.__kui_context?.appContext;
+  vm.appContext = context?.appContext || getAppContext()?.appContext;
   render(vm, container);
 
   let instance = vm.component?.exposed;
@@ -30,22 +28,17 @@ let createInstance = (props = {}, context = null) => {
       }
     }, 100);
   };
-  return instance;
-};
-
-let getModal = (props = {}, context = null) => {
-  let instance = createInstance(props, context);
   instance.show();
   modalList.push(instance);
   return instance;
 };
 
 ["info", "success", "warning", "error", "confirm"].forEach((type) => {
-  Modal[type] = (props = {}) => getModal(Object.assign({ type }, props));
+  Modal[type] = (props = {}) => showModal(Object.assign({ type }, props));
 });
 
 Modal.show = (props = {}) => {
-  return getModal(props);
+  return showModal(props);
 };
 
 Modal.destroyAll = () => {
