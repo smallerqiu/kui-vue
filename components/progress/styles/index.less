@@ -1,14 +1,16 @@
 @import "../../styles/less-css-var.less";
 .k-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
   .k-progress-inner {
     display: inline-block;
     border-radius: 10px;
     background-color: var(--kui-color-bg-component);
     stroke: var(--kui-color-bg-component);
     overflow: hidden;
-    vertical-align: middle;
-    width: calc(100% - 38px);
-    margin-right: 8px;
+    flex: 1;
   }
   .k-progress-bg {
     height: 8px;
@@ -19,13 +21,12 @@
     transition: all 0.3s ease-in-out;
   }
   .k-progress-text {
-    display: inline-block;
-    width: 30px;
+    display: inline-flex;
+    align-items: center;
     font-size: 14px;
     color: var(--kui-color-text);
     line-height: 1;
     white-space: nowrap;
-    vertical-align: middle;
     .k-icon {
       font-size: 20px;
     }
