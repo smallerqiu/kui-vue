@@ -35,8 +35,8 @@ const items = [
 ];
 
 const items1 = [
-  { value: 5872, desc: "支付宝收入", prefix: "$" },
-  { value: 9873672, desc: "微信收入", prefix: "￥" },
+  { value: 5872, desc: "支付宝收入", prefix: "$", precision: 2 },
+  { value: 9873672, desc: "微信收入", prefix: "￥", precision: 2 },
 ];
 const items2 = [
   {

@@ -3,8 +3,11 @@ import Vue, { VueConstructor } from "vue";
 /** StatCard component props */
 export interface StatCardProps {
   title?: string;
+  /** default: 0 */
+  precision?: number;
   /** default: undefined */
   items?: any[];
+  separator?: string;
   statNumberType?: string;
   /** default: false */
   bordered?: boolean;

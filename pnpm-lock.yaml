@@ -101,6 +101,9 @@ importers:
       rollup-plugin-vue:
         specifier: ^6.0.0
         version: 6.0.0(@vue/compiler-sfc@2.7.16)
+      up:
+        specifier: ^1.0.2
+        version: 1.0.2
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
@@ -2578,6 +2581,9 @@ packages:
   unicode-property-aliases-ecmascript@2.2.0:
     resolution: {integrity: sha512-hpbDzxUY9BFwX+UeBnxv3Sh1q7HFxj48DTmXchNgRa46lO8uj3/1iEn3MiNUYTg1g9ctIqXCCERn8gYZhHC5lQ==}
     engines: {node: '>=4'}
+
+  up@1.0.2:
+    resolution: {integrity: sha512-PKVGUj7i1qMWSR83H3PZpw1h+21wAr1qxqF/8zgTVHS+sHTsu1zvepQDoDJN0Kv49quNJwWgAKDAK2xPy7jocg==}
 
   update-browserslist-db@1.2.3:
     resolution: {integrity: sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==}
@@ -5156,6 +5162,8 @@ snapshots:
   unicode-match-property-value-ecmascript@2.2.1: {}
 
   unicode-property-aliases-ecmascript@2.2.0: {}
+
+  up@1.0.2: {}
 
   update-browserslist-db@1.2.3(browserslist@4.28.1):
     dependencies:
