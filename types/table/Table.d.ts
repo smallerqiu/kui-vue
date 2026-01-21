@@ -16,7 +16,7 @@ export interface TableProps {
   scroll?: Record<string, any>;
   /** default: default */
   size?: any;
-  /** default: true */
+  /** default: false */
   bordered?: boolean;
   checkable?: boolean;
   loading?: boolean;

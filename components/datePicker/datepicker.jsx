@@ -3,10 +3,8 @@ import {
   ref,
   watch,
   inject,
-  onMounted,
   computed,
   onUnmounted,
-  reactive,
   nextTick,
 } from "vue";
 import dayjs from "dayjs";
@@ -113,7 +111,6 @@ const DatePicker = defineComponent({
       return locale.value.name || "zh-cn";
     });
 
-    // --- 状态定义 ---
     const isVisible = ref(false);
     const isFocus = ref(false);
     const rendered = ref(false);
@@ -123,9 +120,7 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
     const refSelection = ref(null);
-    // console.log(local);
 
-    // DOM 引用，用于滚动计算
     const timeColRefs = ref({});
 
     // 面板显示的基准日期

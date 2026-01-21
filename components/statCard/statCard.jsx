@@ -6,7 +6,9 @@ const StatCard = defineComponent({
   name: "StatCard",
   props: {
     title: String,
+    precision: { type: Number, default: 0 },
     items: { type: Array, default: () => [] },
+    separator: String,
     statNumberType: String,
     bordered: { type: Boolean, default: false },
   },
@@ -29,6 +31,16 @@ const StatCard = defineComponent({
                       }}
                       value={item.value}
                       duration={item.duration}
+                      precision={
+                        item.precision !== undefined
+                          ? item.precision
+                          : props.precision
+                      }
+                      separator={
+                        item.separator !== undefined
+                          ? item.separator
+                          : props.separator
+                      }
                       type={props.statNumberType}
                     />
                   </div>
