@@ -7,13 +7,13 @@ import { isColor } from "../utils/color";
 export default defineComponent({
   name: "Mode",
   props: {
-    value: [String, Object],
+    modelValue: [String, Object],
     mode: String,
     disabledAlpha: Boolean,
   },
   setup(ps, { emit }) {
     const currentMode = ref(ps.mode || "hex");
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
     const options = [
       {
         label: "HEX",
@@ -35,7 +35,7 @@ export default defineComponent({
       }
     );
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (val) => {
         currentColor.value = val;
       }
@@ -85,7 +85,7 @@ export default defineComponent({
       const nodes = [];
       const color = Color(currentColor.value);
       const alpha = color.alpha();
-
+      
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
         nodes.push(

@@ -41,12 +41,10 @@ export default function vitePluginMd() {
         "tabs",
         "descriptions",
         "skeleton",
-        "form",
+        "form/",
         "input/demo/group",
         "slider/demo/marks",
         "tree/demo/directory",
-        "alert/demo/icon",
-        "alert/demo/customIcon",
         "views/language/demo",
         "statCard/demo/card",
       ];

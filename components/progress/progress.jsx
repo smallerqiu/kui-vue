@@ -1,7 +1,7 @@
 import Icon from "../icon";
 import { CheckmarkCircle, CloseCircle, Close, Checkmark } from "kui-icons";
 import { defineComponent, watch, ref } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Progress = defineComponent({
   name: "Progress",
   props: {
@@ -42,7 +42,7 @@ const Progress = defineComponent({
       () => ps.percent,
       (nv, no) => {
         currentPercent.value = nv;
-      }
+      },
     );
     const currentPercent = ref(ps.percent);
     const renderTip = () => {
@@ -108,8 +108,20 @@ const Progress = defineComponent({
 
       return (
         <svg viewBox={`0 0 ${50 * 2} ${50 * 2}`}>
-          <path d={d} fill="none" stroke-width={strokeWidth} style={ds} class="k-progress-inner" />
-          <path d={d} fill="none" stroke-width={strokeWidth} style={style} class="k-progress-bg" />
+          <path
+            d={d}
+            fill="none"
+            stroke-width={strokeWidth}
+            style={ds}
+            class="k-progress-inner"
+          />
+          <path
+            d={d}
+            fill="none"
+            stroke-width={strokeWidth}
+            style={style}
+            class="k-progress-bg"
+          />
         </svg>
       );
     };
@@ -139,7 +151,13 @@ const Progress = defineComponent({
       if (currentPercent.value == 100 && status != "exception") {
         status = "success";
       }
-      let classes = ["k-progress", `k-progress-${type}`, `k-progress-${status}`, { "k-progress-sm": type == "line" && size == "small" }, { "k-progress-hide-info": !showInfo }];
+      let classes = [
+        "k-progress",
+        `k-progress-${type}`,
+        `k-progress-${status}`,
+        { "k-progress-sm": type == "line" && size == "small" },
+        { "k-progress-hide-info": !showInfo },
+      ];
       let tipNode = renderTip();
       let bar = renderBar(),
         style = {};

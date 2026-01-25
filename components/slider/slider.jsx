@@ -19,7 +19,7 @@ const Slider = defineComponent({
     size: [String, Number],
     included: { type: Boolean, default: true },
     tipFormatter: Function,
-    tooltipVisible: Boolean,
+    tooltipVisible: { type: Boolean, default: null },
   },
   emits: ["update:modelValue", "change"],
 

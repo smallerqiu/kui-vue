@@ -110,7 +110,6 @@ const openKeys = ref(["t2"]);
   .demo-left-menu {
     border: none;
     height: calc(100% - 105px);
-    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 1px;

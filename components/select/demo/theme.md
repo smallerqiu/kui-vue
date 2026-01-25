@@ -40,9 +40,10 @@
   </Space>
 </template>
 <script setup>
+import { ref } from "vue";
 import { Search, CaretDown } from "kui-icons";
 
-const value = ["1", "3"];
+const value = ref(["1", "3"]);
 const options = [
   { label: "Apple", value: "1" },
   { label: "Orange", value: "2" },

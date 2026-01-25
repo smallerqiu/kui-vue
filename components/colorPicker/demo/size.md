@@ -34,9 +34,10 @@
   </Space>
 </template>
 <script setup>
-const color1 = "#3a95ff";
-const color2 = "#3a95ff";
-const color3 = "#3a95ff";
-const presetsColors = ["#9c27b0", "red", "blue"];
+import { ref } from "vue";
+const color1 = ref("#3a95ff");
+const color2 = ref("#3a95ff");
+const color3 = ref("#3a95ff");
+const presetsColors = ref(["#9c27b0", "red", "blue"]);
 </script>
 ```

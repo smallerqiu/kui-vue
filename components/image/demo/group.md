@@ -31,7 +31,7 @@ const data = [
   "https://cdn.chuchur.com/upload/cat/cat2.webp",
   "https://cdn.chuchur.com/upload/cat/cat3.webp",
   "https://cdn.chuchur.com/upload/cat/cat4.jpg",
-  "https://cdn.chuchur.com/upload/cat/cat5.jpg",
+  "https://cdn.chuchur.com/upload/cat/cat5---.jpg",
 ];
 </script>
 ```

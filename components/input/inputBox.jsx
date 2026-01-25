@@ -15,6 +15,7 @@ export default defineComponent({
     inputRef: Object,
     htmlAttrs: Object,
   },
+  emits: ["update:value", "focus", "blur"],
   setup(ps, { emit, slots, attrs, listeners }) {
     const handleInput = (e) => {
       // let v = e.target.value;
@@ -23,6 +24,8 @@ export default defineComponent({
     };
     const handleFocus = (e) => {
       emit("focus", e);
+      e.preventDefault();
+      e.stopPropagation();
     };
     const handleBlur = (e) => {
       emit("blur", e);
@@ -43,6 +46,7 @@ export default defineComponent({
             [`k-${inputType}-${theme}`]: theme != "solid" && !multiple && theme,
             [`k-${inputType}-circle`]: shape == "circle" && !multiple,
           },
+          ps.htmlAttrs.class,
         ],
         disabled,
         type,
@@ -61,7 +65,7 @@ export default defineComponent({
         props["data-1p-ignore"] = true;
         props["data-lpignore"] = true;
         props["data-dashlane-ignore"] = "true";
-        props.autoComplete = "nope"// "new-password";
+        props.autoComplete = "nope"; // "new-password";
       }
       return <input {...props} single />;
     };

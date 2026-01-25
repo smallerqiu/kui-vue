@@ -92,7 +92,7 @@ const TreeSelect = defineComponent({
         ? ps.modelValue || ps.value || []
         : isEmpty(ps.modelValue || ps.value)
           ? []
-          : [ps.modelValue || ps.value]
+          : [ps.modelValue || ps.value],
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -119,14 +119,14 @@ const TreeSelect = defineComponent({
       (v) => {
         currentPlacement.value = v;
         updatePosition();
-      }
+      },
     );
     watch(
       () => ps.modelValue,
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
         updatePosition();
-      }
+      },
     );
 
     onBeforeMount(() => {
@@ -294,13 +294,13 @@ const TreeSelect = defineComponent({
       () => ps.treeCheckedKeys,
       (nv) => {
         defaultCheckedKeys.value = nv || [];
-      }
+      },
     );
     watch(
       () => ps.treeExpandedKeys,
       (nv) => {
         defaultExpandedKeys.value = nv || [];
-      }
+      },
     );
     const onExpand = ({ key, expanded, targetNode }) => {
       let index = defaultExpandedKeys.value.indexOf(key);
@@ -449,7 +449,7 @@ const TreeSelect = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-tree-select-search",
-        attrs: { autoComplete: "off" },
+        autoComplete: "off",
         onChange: (e) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
@@ -499,7 +499,7 @@ const TreeSelect = defineComponent({
           tags.push(
             <span class="k-tree-select-tag">
               +{labelText.value.length - ps.maxTagCount}...
-            </span>
+            </span>,
           );
         }
         return tags;

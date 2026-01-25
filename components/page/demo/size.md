@@ -6,10 +6,10 @@
 ```vue
 <template>
   <Space vertical>
-    <Page :current="current" :total="50" size="small" />
-    <Page :current="current" :total="50" size="small" show-sizer />
+    <Page :page="page" :total="50" size="small" />
+    <Page :page="page" :total="50" size="small" show-sizer />
     <Page
-      :current="current"
+      :page="page"
       :total="50"
       size="small"
       show-elevator
@@ -19,6 +19,6 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const current = ref(1);
+const page = ref(1);
 </script>
 ```

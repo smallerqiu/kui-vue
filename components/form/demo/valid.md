@@ -37,25 +37,26 @@
         <Input placeholder="Please enter phone number" />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input placeholder="Please enter captcha" />
+        <Input placeholder="Please enter captcha">
           <Button
             slot="suffix"
             :size="size"
             :disabled="time != 60"
             style="width:100px;"
             @click="sendCode"
-            >{{ time == 60 ? "获取验证码" : time + "(s)" }}</Button
           >
+            {{ time == 60 ? "获取验证码" : time + "(s)" }}
+          </Button>
         </Input>
       </FormItem>
       <FormItem label="Country">
-        <FormItem prop="country">
+        <FormItem prop="country" >
           <Select clearable style="width:100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
-        <FormItem prop="city">
+        <FormItem prop="city" label="city">
           <Select clearable style="width:100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />

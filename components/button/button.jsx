@@ -78,17 +78,19 @@ const Button = defineComponent({
       }
       emit("click", e);
     };
-
+    const children = computed(() => getChildren(slots.default?.()));
     return () => {
-      let children = getChildren(slots.default?.());
       // for Vue 3
       const iconOnly = () => {
-        const validChildren = children.filter((c) => c.type !== Comment);
-        if (validChildren.length === 1) {
-          return validChildren[0].type.name === "Icon";
+        const excluded = children.value.filter((c) => c.type !== Comment);
+        if (!excluded?.length) {
+          return props.icon || props.loading;
+        }
+        if (excluded.length === 1) {
+          return excluded[0].type.name === "Icon";
         }
 
-        return props.icon !== undefined;
+        return false
       };
 
       const classes = [
@@ -113,7 +115,7 @@ const Button = defineComponent({
         childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
 
-      const processedChildren = children?.map((c) => {
+      const processedChildren = children.value?.map((c) => {
         return typeof c.text === "string" ? <span>{c.text.trim()}</span> : c;
       });
 

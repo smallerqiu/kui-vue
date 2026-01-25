@@ -19,12 +19,9 @@
       </FormItem>
       <FormItem label="UserList">
         <Space>
-          <template v-if="group.list.length">
-            <Tag theme="light" :key="i" v-for="(item, i) in group.list">
-              {{ item.username }} - {{ item.age }}
-            </Tag>
-          </template>
-          <span v-else>No user</span>
+          <Tag theme="light" :key="i" v-for="(item, i) in group.list">
+            {{ item.username }} - {{ item.age }}
+          </Tag>
         </Space>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">

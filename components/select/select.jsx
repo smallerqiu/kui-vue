@@ -84,7 +84,7 @@ const Select = defineComponent({
         ? ps.modelValue || ps.value || []
         : isEmpty(ps.modelValue || ps.value)
           ? []
-          : [ps.modelValue || ps.value]
+          : [ps.modelValue || ps.value],
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -112,7 +112,7 @@ const Select = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
     watch(
       () => ps.options,
@@ -121,7 +121,7 @@ const Select = defineComponent({
           updatePosition();
         }
       },
-      { deep: true }
+      { deep: true },
     );
 
     watch(
@@ -131,7 +131,7 @@ const Select = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
 
     const scrollOptionIntoView = () => {
@@ -332,7 +332,7 @@ const Select = defineComponent({
     const emitValue = () => {
       const result = ps.multiple
         ? currentValue.value
-        : currentValue.value[0] || null;
+        : currentValue.value[0];
       emit("update:modelValue", result);
       emit("change", result);
     };
@@ -411,7 +411,7 @@ const Select = defineComponent({
       const filter = ps.filterable && key.trim() !== "";
       return filter
         ? optionsData.value.filter((item) =>
-            item.label.toLowerCase().includes(key.toLowerCase())
+            item.label.toLowerCase().includes(key.toLowerCase()),
           )
         : optionsData.value;
     };
@@ -433,7 +433,7 @@ const Select = defineComponent({
             disabled={disabled}
             checked={checked}
             multiple={ps.multiple}
-          />
+          />,
         );
       });
 
@@ -530,7 +530,7 @@ const Select = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-select-search",
-        attrs: { autoComplete: "off" },
+        autoComplete: "off",
         onChange: (e) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
@@ -580,7 +580,7 @@ const Select = defineComponent({
           tags.push(
             <span class="k-select-tag">
               +{labelText.value.length - ps.maxTagCount}...
-            </span>
+            </span>,
           );
         }
         return tags;

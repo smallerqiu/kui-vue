@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical block>
     <Alert type="success" showIcon closable>Success Text</Alert>
     <Alert type="info" showIcon closable>Info Text</Alert>
     <Alert type="warning" showIcon closable>Warning Text</Alert>
@@ -17,6 +17,6 @@
       message="Success Tip"
       description="Congratulations, the operation is successful."
     />
-  </div>
+  </Space>
 </template>
 ```

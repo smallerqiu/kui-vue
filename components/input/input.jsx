@@ -62,7 +62,7 @@ const Input = defineComponent({
       () => ps.modelValue,
       (v) => {
         currentValue.value = v;
-      }
+      },
     );
 
     const focus = () => {
@@ -190,16 +190,20 @@ const Input = defineComponent({
         type != "password" &&
         attrs.readonly === undefined;
       const props = {
-        class: {
-          [`k-${inputType}`]: true,
-          [`k-${inputType}-focus`]: focused.value,
-          [`k-${inputType}-disabled`]: disabled,
-          [`k-${inputType}-has-clear`]: clearableShow,
-          [`k-${inputType}-sm`]: size == "small",
-          [`k-${inputType}-lg`]: size == "large",
-          [`k-${inputType}-${theme}`]: theme && theme != "solid",
-          [`k-${inputType}-circle`]: shape == "circle",
-        },
+        class: [
+          {
+            [`k-${inputType}`]: true,
+            [`k-${inputType}-focus`]: focused.value,
+            [`k-${inputType}-disabled`]: disabled,
+            [`k-${inputType}-has-clear`]: clearableShow,
+            [`k-${inputType}-sm`]: size == "small",
+            [`k-${inputType}-lg`]: size == "large",
+            [`k-${inputType}-${theme}`]: theme && theme != "solid",
+            [`k-${inputType}-circle`]: shape == "circle",
+          },
+          attrs.class,
+        ],
+        style: attrs.style,
       };
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
@@ -207,7 +211,7 @@ const Input = defineComponent({
         const preChildren = [];
         if (slotPrefix.length)
           preChildren.push(
-            <div class="k-input-group-prefix">{slotPrefix}</div>
+            <div class="k-input-group-prefix">{slotPrefix}</div>,
           );
         const innerChildren = [];
         if (icon)
@@ -216,11 +220,11 @@ const Input = defineComponent({
               type={icon}
               class={`k-${inputType}-icon`}
               onClick={iconClick}
-            />
+            />,
           );
         if (prefix)
           innerChildren.push(
-            <div class={`k-${inputType}-prefix`}>{prefix}</div>
+            <div class={`k-${inputType}-prefix`}>{prefix}</div>,
           );
         innerChildren.push(textInput);
         if (clearable)
@@ -232,12 +236,12 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />
+            />,
           );
         const sufChildren = [];
         if (slotSuffix.length > 0)
           sufChildren.push(
-            <div class="k-input-group-suffix">{slotSuffix}</div>
+            <div class="k-input-group-suffix">{slotSuffix}</div>,
           );
 
         if (slotControls.length) innerChildren.push(slotControls);
@@ -259,7 +263,7 @@ const Input = defineComponent({
               type={icon}
               class={`k-${inputType}-icon`}
               onClick={iconClick}
-            />
+            />,
           );
         if (prefix)
           children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
@@ -273,7 +277,7 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />
+            />,
           );
         if (suffixNode) children.push(suffixNode);
         if (slotControls.length) children.push(slotControls);

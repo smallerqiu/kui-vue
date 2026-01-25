@@ -1,97 +1,182 @@
-import { defineComponent, ref, watch, inject, onMounted, onBeforeUnmount, computed } from "vue";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  inject,
+} from "vue";
 import Icon from "../icon";
-import ImagePreview from "./preview";
-import { Loading, IconImage, EyeOutline } from "kui-icons";
+import newInstance from "./instance";
+import { Loading, IconImage } from "kui-icons";
+import { withInstall } from "../utils/vue";
+import { loadImage } from "./utils";
 
-export default defineComponent({
+const KImage = defineComponent({
   name: "KImage",
   props: {
+    alt: String,
     src: String,
+    type: String,
     origin: String,
-    width: [String, Number],
     height: [String, Number],
+    width: [String, Number],
+    placeholder: String,
     data: Array,
+    imgStyle: Object,
+    showPanel: Boolean,
   },
-  setup(props, { slots }) {
-    const isError = ref(false);
-    const isLoading = ref(true);
-    const isPreviewVisible = ref(false);
-    
-    const imageGroup = inject("ImageGroup", null);
-    
-    // 如果在 Group 内，优先使用 Group 的数据
-    const previewData = computed(() => {
-      if (imageGroup) return imageGroup.data.value;
-      return props.data || [props.origin || props.src];
-    });
+  setup(props, { emit, slots, expose, listeners }) {
+    const loading = ref(false);
+    const showPlaceholder = ref(false);
+    const imageUrl = ref(null);
+    const imgWidth = ref(0);
+    const imgHeight = ref(0);
 
-    const currentSrc = ref(props.origin || props.src);
+    const preview = ref();
+    const ImageGroup = inject("ImageGroup", null);
 
-    const handlePreview = () => {
-      if (isError.value) return;
-      if (imageGroup) {
-        imageGroup.show(props.origin || props.src);
-      } else {
-        isPreviewVisible.value = true;
+    // global api
+    const togglePanel = () => {
+      const instance = ImageGroup || preview.value;
+      if (instance) {
+        instance.togglePanel();
+      }
+    };
+    // global api
+    const show = (props, slots) => {
+      if (ImageGroup) {
+        ImageGroup.show(props, slots);
+        return;
+      }
+      if (!preview.value) {
+        preview.value = newInstance({ ...props }, null, slots);
+      }
+      preview.value.show(props);
+    };
+
+    // global api
+    const destroy = () => {
+      if (preview.value) {
+        preview.value.destroy();
+        preview.value = null;
+      }
+      if (ImageGroup) {
+        ImageGroup.destroy();
       }
     };
 
-    const onImageLoad = () => {
-      isLoading.value = false;
-      isError.value = false;
+    expose({ show, destroy, togglePanel });
+
+    const showPreview = (e) => {
+      const { origin, src } = props;
+      if ((!src && !origin) || showPlaceholder.value || loading.value) return;
+      const options = {
+        onClose: () => {
+          emit("close");
+          setTimeout(() => {
+            destroy();
+          }, 200);
+        },
+        onSwitch: (index) => {
+          emit("switch", index);
+        },
+        src: origin || src,
+        showPanel: props.showPanel,
+        type: props.type,
+      };
+      show(options, slots);
+      e.preventDefault();
     };
 
-    const onImageError = () => {
-      isLoading.value = false;
-      isError.value = true;
+    const reload = () => {
+      const { src, placeholder } = props;
+      if (src) {
+        loading.value = true;
+        loadImage(
+          src,
+          ({ width, height }) => {
+            showPlaceholder.value = false;
+            loading.value = false;
+            imageUrl.value = src;
+            imgWidth.value = width;
+            imgHeight.value = height;
+          },
+          () => {
+            loading.value = false;
+            showPlaceholder.value = true;
+            imageUrl.value = placeholder || null;
+          },
+        );
+      } else {
+        showPlaceholder.value = true;
+        imageUrl.value = placeholder || null;
+      }
     };
+
+    watch(
+      () => props.src,
+      () => {
+        reload();
+      },
+    );
 
     onMounted(() => {
-      imageGroup?.register(props.origin || props.src);
+      reload();
+      ImageGroup?.register(props.origin || props.src);
     });
 
     onBeforeUnmount(() => {
-      imageGroup?.unregister(props.origin || props.src);
+      destroy();
+      ImageGroup?.unregister(props.origin || props.src);
     });
 
-    return () => (
-      <div 
-        class="k-image" 
-        style={{ width: `${props.width}px`, height: `${props.height}px` }}
-        onClick={handlePreview}
-      >
-        {isError.value ? (
-          <div class="k-image-error"><Icon type={IconImage} /></div>
-        ) : (
-          <img 
-            src={props.src} 
-            onLoad={onImageLoad} 
-            onError={onImageError} 
-            class="k-image-inner"
-          />
-        )}
+    return () => {
+      const { alt, width, height, imgStyle, placeholder } = props;
 
-        {isLoading.value && (
-          <div class="k-image-loading"><Icon type={Loading} spin /></div>
-        )}
+      const containerProps = {
+        style: {
+          width: width ? `${width}px` : undefined,
+          height: height ? `${height}px` : undefined,
+        },
+        class: "k-image",
+        onClick: showPreview,
+      };
 
-        {!isLoading.value && !isError.value && (
-          <div class="k-image-mask">
-            <Icon type={EyeOutline} />
-            <span>预览</span>
-          </div>
-        )}
+      const imgProps = {
+        style: imgStyle,
+        class: "k-image-img",
+        alt: alt,
+        src: imageUrl.value,
+      };
+      const nodes = [];
 
-        {/* 预览器：只有非 Group 模式下才由 KImage 自己持有 */}
-        {!imageGroup && (
-          <ImagePreview 
-            v-model:visible={isPreviewVisible.value}
-            src={currentSrc.value}
-            data={previewData.value}
-            onSwitch={(idx) => currentSrc.value = previewData.value[idx]}
-          />
-        )}
-      </div>
-    );
-  }
+      if (loading.value) {
+        nodes.push(
+          <div class="k-image-loading">
+            <Icon type={Loading} spin class="k-image-loading-icon" />
+          </div>,
+        );
+      } else {
+        if (showPlaceholder.value) {
+          if (imageUrl.value) {
+            nodes.push(<img {...imgProps} />);
+          } else {
+            nodes.push(<Icon type={IconImage} class="k-image-error" />);
+          }
+        } else {
+          nodes.push(<img {...imgProps} />);
+        }
+      }
+
+      return (
+        <div {...containerProps}>
+          {nodes}
+          {slots.default?.()}
+        </div>
+      );
+    };
+  },
 });
+
+export default withInstall(KImage);

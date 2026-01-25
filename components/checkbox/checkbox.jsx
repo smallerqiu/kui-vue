@@ -83,7 +83,7 @@ const Checkbox = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={wpClasses} onKeydown={triggerCheck} tabindex="0">
+        <label class={wpClasses} onKeydown={triggerCheck} tabindex={props.disabled ? null : 0}>
           <span class="k-checkbox-symbol">
             <input
               type="checkbox"
