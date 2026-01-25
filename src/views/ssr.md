@@ -2,15 +2,15 @@
 
 ## nuxt 环境构建
 
-使用npx 或者 yarn 初始化项目,使用npm i npx -g 安装npx 或 yarn
-
 ```bash
-$ npx create-nuxt-app <project-name>
+$ npm init nuxt-app <project-name>
 #or
 $ yarn create nuxt-app <project-name>
 ```
 
-更多详情请参阅 <https://nuxtjs.org/guide/installation>
+更多详情请参阅 [<https://nuxtjs.org/guide/installation>](https://v2.nuxt.com/docs/get-started/installation)
+
+`vue2` 对应的是 `nuxt2`
 
 一步步完成后找到`plugins`目录，新建`kui.js`，写入以下内容：
 

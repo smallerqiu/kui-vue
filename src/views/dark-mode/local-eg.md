@@ -21,7 +21,7 @@
           </div>
           <Menu
             mode="inline"
-            v-model="left"
+            v-model="leftMenuActiveKeys"
             :inline-collapsed="collapsed"
             style="border:none;"
           >
@@ -155,10 +155,10 @@ import {
 } from "kui-icons";
 
 const current = ref(["1"]);
-const left = ["1-1"];
+const leftMenuActiveKeys = ref(["1-1"]);
 const collapsed = ref(false);
 const dark = ref(false);
-const size = "default";
+const size = ref("default");
 const theme = ref(false);
 const checked = ref(false);
 const shape = ref("");

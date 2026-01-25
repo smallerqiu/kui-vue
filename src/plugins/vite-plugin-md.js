@@ -42,13 +42,11 @@ export default function vitePluginMd() {
         "tabs",
         "descriptions",
         "skeleton",
-        "form",
+        "form/",
         "input/demo/group",
         "statCard/demo/card",
         "slider/demo/marks",
         "tree/demo/directory",
-        "alert/demo/icon",
-        "alert/demo/customIcon",
         "views/language/demo",
       ];
       let direction = "horizontal";

@@ -18,7 +18,7 @@ export interface PageProps {
   /** default: 10 */
   pageSize?: number;
   /** default: 1 */
-  current?: number;
+  page?: number;
 }
 
 /** Page component instance */

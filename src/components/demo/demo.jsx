@@ -40,7 +40,6 @@ const Demo = defineComponent({
       }, 500);
     };
     const copyCode = () => {
-      console.log(32423);
       copy(codeRef.value?.innerText)
         .then(() => {
           message.success("Copied!");

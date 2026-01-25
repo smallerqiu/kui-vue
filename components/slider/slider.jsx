@@ -19,7 +19,7 @@ const Slider = defineComponent({
     size: [String, Number],
     included: { type: Boolean, default: true },
     tipFormatter: Function,
-    tooltipVisible: Boolean,
+    tooltipVisible: { type: Boolean, default: null },
   },
   emits: ["input", "change"],
 
@@ -60,7 +60,7 @@ const Slider = defineComponent({
           internalValue.value = formatValue(nv);
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     const getPercent = (val) => {
@@ -169,7 +169,6 @@ const Slider = defineComponent({
       let [e1, e2] = touch
         ? ["touchmove", "touchend"]
         : ["mousemove", "mouseup"];
-      console.log(e1,e2,222);
       const onMove = (e) => handleThumbMove(e);
       const onUp = () => {
         draggingIndex.value = -1;
@@ -210,7 +209,7 @@ const Slider = defineComponent({
         }
       } else {
         nextValue = Number(
-          new Big(targetValue).plus(isPlus ? props.step : -props.step)
+          new Big(targetValue).plus(isPlus ? props.step : -props.step),
         );
       }
 

@@ -18,13 +18,16 @@ import {
   IconImage,
   ArrowBack,
   ArrowForward,
-  Add,Remove,
+  Add,
+  Remove,
+  ChevronBack,
   ChevronUp,
+  ChevronForward,
   Loading,
-  AddCircleOutline,
-  RemoveCircleOutline,
 } from "kui-icons";
 import Slider from "../slider";
+import { Button } from "../button";
+import { loadImage } from "./utils";
 
 const ImagePreview = defineComponent({
   name: "ImagePreview",
@@ -38,7 +41,6 @@ const ImagePreview = defineComponent({
     showPanel: Boolean,
   },
   setup(props, { emit, slots, expose, listeners }) {
-    // console.log(props, listeners, slots);
     const { value, type, src, origin, showPanel, data } = toRefs(props);
     const state = reactive({
       scale: 1,
@@ -62,7 +64,7 @@ const ImagePreview = defineComponent({
 
     const imgRef = ref(null);
     const panelRef = ref(null);
-
+    const maxScale = 10;
     const updatePanelRight = () => {
       state.panelRight =
         panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
@@ -76,7 +78,9 @@ const ImagePreview = defineComponent({
 
     const setScale = (zoom) => {
       state.scale = zoom ? state.scale + 1 : state.scale - 1;
-      state.scale = zoom ? Math.min(state.scale, 5) : Math.max(1, state.scale);
+      state.scale = zoom
+        ? Math.min(state.scale, maxScale)
+        : Math.max(1, state.scale);
       resetPosition();
     };
 
@@ -203,9 +207,7 @@ const ImagePreview = defineComponent({
       newIndex = Math.max(0, newIndex);
       newIndex = Math.min(newIndex, data.length - 1);
 
-      // if (props.global && !slots.panel) {
       state.src = data[newIndex];
-      // }
 
       if ((left && index == 0) || (!left && index == data.length - 1)) return;
       emit("switch", newIndex);
@@ -262,7 +264,7 @@ const ImagePreview = defineComponent({
       () => props.src,
       (src) => {
         state.src = src;
-      }
+      },
     );
 
     watch(
@@ -274,36 +276,26 @@ const ImagePreview = defineComponent({
             updatePanelRight();
           });
         }
-      }
+      },
     );
 
     watch(
       () => state.src,
       (src) => {
         if (state.type == "media" || !src) return;
-        let image = new Image();
-        let isCompleted = false;
-
-        const cleanup = () => {
-          if (isCompleted) return;
-          isCompleted = true;
-          image.onload = null;
-          image.onerror = null;
-          image = null;
-        };
         state.loading = true;
-        state.error = false;
-        image.onload = () => {
-          state.loading = false;
-          cleanup();
-        };
-        image.onerror = () => {
-          state.loading = false;
-          state.error = true;
-          cleanup();
-        };
-        image.src = src;
-      }
+        loadImage(
+          src,
+          ({ width, height }) => {
+            state.loading = false;
+            state.error = false;
+          },
+          () => {
+            state.loading = false;
+            state.error = true;
+          },
+        );
+      },
     );
 
     watch(
@@ -311,7 +303,7 @@ const ImagePreview = defineComponent({
       (value) => {
         state.isShowPanel = value;
         updatePanelRight();
-      }
+      },
     );
 
     onMounted(() => {
@@ -343,17 +335,13 @@ const ImagePreview = defineComponent({
       state.visible = true;
     };
 
-    const hide = () => {
-      state.visible = false;
-    };
-
     const escToClose = (e) => {
       if (e.keyCode === 27) {
-        hide();
+        close();
       }
     };
 
-    expose({ show, hide, togglePanel });
+    expose({ show, close, togglePanel });
 
     return () => {
       const {
@@ -386,41 +374,50 @@ const ImagePreview = defineComponent({
 
       return (
         <div class="k-image-preview-root">
-          <transition name="k-image-zoom">
-            <div class="k-image-preview" v-show={visible}>
-              <div class="k-image-preview-mask" onClick={close}></div>
+          <div class="k-image-preview" v-show={visible}>
+            <transition name="k-image-fade">
               <div
-                class="k-image-preview-wrap"
-                style={{ right: panelRight + "px" }}
-              >
-                <ul class="k-image-preview-control">
-                  <li class="k-image-preview-action" onClick={close}>
-                    <Icon type={Close} />
-                  </li>
-                  <li class="k-image-preview-action-divider" />
-                  {tools.map((tool) => {
-                    return <li class="k-image-preview-action">{tool}</li>;
-                  })}
-                  <li class="k-image-preview-action" onClick={download}>
-                    <Icon type={ArrowDown} />
+                class="k-image-preview-mask"
+                onClick={close}
+                v-show={visible}
+              ></div>
+            </transition>
+            <div
+              class="k-image-preview-wrap"
+              style={{ right: panelRight + "px" }}
+            >
+              <transition name="k-image-fade">
+                <ul class="k-image-preview-control" v-show={visible}>
+                  <li class="k-image-preview-action-nav">
+                    <Button
+                      icon={ChevronBack}
+                      type="text"
+                      disabled={!data.length || data.indexOf(src) == 0}
+                      onClick={() => switchImage(1)}
+                    />
+                    <span>
+                      {data?.indexOf(src) + 1 || 1}/{data?.length || 1}
+                    </span>
+                    <Button
+                      icon={ChevronForward}
+                      type="text"
+                      disabled={
+                        !data.length || data.indexOf(src) == data.length - 1
+                      }
+                      onClick={() => switchImage()}
+                    />
                   </li>
                   <li
-                    class={[
-                      "k-image-preview-action",
-                      { "k-image-preview-action-disabled": scale >= 5 },
-                    ]}
-                    onClick={() => setScale(1)}
+                    class="k-image-preview-action k-image-preview-action-rotate-left"
+                    onClick={() => setRotate(1)}
                   >
-                    <Icon type={Add} />
+                    <Icon type={Refresh} />
                   </li>
-                  <li class="k-image-preview-action k-image-preview-action-scale">
-                    <Slider
-                      value={state.scale}
-                      min={1}
-                      max={5}
-                      size="small"
-                      onChange={(val) => (state.scale = val)}
-                    />
+                  <li
+                    class="k-image-preview-action k-image-preview-action-rotate-right"
+                    onClick={() => setRotate(0)}
+                  >
+                    <Icon type={Refresh} />
                   </li>
                   <li
                     class={[
@@ -431,67 +428,84 @@ const ImagePreview = defineComponent({
                   >
                     <Icon type={Remove} />
                   </li>
-                  <li
-                    class="k-image-preview-action k-image-preview-action-rotate-right"
-                    onClick={() => setRotate(0)}
-                  >
-                    <Icon type={Refresh} />
+                  <li class="k-image-preview-action k-image-preview-action-scale">
+                    <Slider
+                      modelValue={state.scale}
+                      min={1}
+                      max={maxScale}
+                      size="small"
+                      tooltipVisible={false}
+                      onChange={(val) => (state.scale = val)}
+                    />
                   </li>
                   <li
-                    class="k-image-preview-action k-image-preview-action-rotate-left"
-                    onClick={() => setRotate(1)}
+                    class={[
+                      "k-image-preview-action",
+                      { "k-image-preview-action-disabled": scale >= 5 },
+                    ]}
+                    onClick={() => setScale(1)}
                   >
-                    <Icon type={Refresh} />
+                    <Icon type={Add} />
+                  </li>
+                  <li class="k-image-preview-action" onClick={download}>
+                    <Icon type={ArrowDown} />
+                  </li>
+                  {tools.map((tool) => {
+                    return <li class="k-image-preview-action">{tool}</li>;
+                  })}
+                  <li class="k-image-preview-action-divider" />
+                  <li class="k-image-preview-action" onClick={close}>
+                    <Icon type={Close} />
                   </li>
                 </ul>
-                <div class="k-image-preview-img-wrap" style={moveStyle}>
-                  {type == "media" ? (
-                    <video controls {...imgProps} />
-                  ) : !state.error && !state.loading ? (
-                    <img {...imgProps} />
-                  ) : (
-                    <div class="k-image-preview-img-error">
-                      <Icon type={IconImage} />
-                    </div>
-                  )}
-                </div>
-                {props.data.length > 1
-                  ? [
-                      <div
-                        class={[
-                          "k-image-preview-switch-left",
-                          {
-                            "k-image-preview-switch-disabled":
-                              data.indexOf(src) == 0,
-                          },
-                        ]}
-                        onClick={() => switchImage(1)}
-                      >
-                        <Icon type={ArrowBack} />
-                      </div>,
-                      <div
-                        class={[
-                          "k-image-preview-switch-right",
-                          {
-                            "k-image-preview-switch-disabled":
-                              data.indexOf(src) == data.length - 1,
-                          },
-                        ]}
-                        onClick={() => switchImage()}
-                      >
-                        <Icon type={ArrowForward} />
-                      </div>,
-                    ]
-                  : null}
-                {loading ? (
-                  <div class="k-image-preview-loading">
-                    <Icon type={Loading} spin />
+              </transition>
+              <div class="k-image-preview-img-wrap" style={moveStyle}>
+                {type == "media" ? (
+                  <video controls {...imgProps} v-show={visible} />
+                ) : !state.error && !state.loading ? (
+                  <img {...imgProps} v-show={visible} />
+                ) : !loading ? (
+                  <div class="k-image-preview-img-error">
+                    <Icon type={IconImage} />
                   </div>
                 ) : null}
               </div>
-              {getPanel()}
+              {props.data.length > 1
+                ? [
+                    <div
+                      class={[
+                        "k-image-preview-switch-left",
+                        {
+                          "k-image-preview-switch-disabled":
+                            data.indexOf(src) == 0,
+                        },
+                      ]}
+                      onClick={() => switchImage(1)}
+                    >
+                      <Icon type={ArrowBack} />
+                    </div>,
+                    <div
+                      class={[
+                        "k-image-preview-switch-right",
+                        {
+                          "k-image-preview-switch-disabled":
+                            data.indexOf(src) == data.length - 1,
+                        },
+                      ]}
+                      onClick={() => switchImage()}
+                    >
+                      <Icon type={ArrowForward} />
+                    </div>,
+                  ]
+                : null}
+              {loading ? (
+                <div class="k-image-preview-loading">
+                  <Icon type={Loading} spin />
+                </div>
+              ) : null}
             </div>
-          </transition>
+            {getPanel()}
+          </div>
         </div>
       );
     };

@@ -7,7 +7,7 @@ const ImageGroup = defineComponent({
   props: {
     data: Array,
   },
-  setup(props, { emit, slots, expose }) {
+  setup(props, { slots }) {
     const data = ref(props.data || []);
     const preview = ref();
     const show = (options) => {
@@ -33,14 +33,20 @@ const ImageGroup = defineComponent({
         data.value.splice(index, 1);
       }
     };
-
-    provide("ImageGroup", { show, register, unregister, data, togglePanel });
-
     const destroy = () => {
       if (preview.value) {
         document.body.removeChild(preview.value.$el);
+        preview.value = null;
       }
     };
+    provide("ImageGroup", {
+      show,
+      destroy,
+      register,
+      unregister,
+      data,
+      togglePanel,
+    });
 
     onUnmounted(() => {
       destroy();

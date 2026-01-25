@@ -19,6 +19,7 @@ export interface SliderProps {
   /** default: true */
   included?: boolean;
   tipFormatter?: (...args: any[]) => any;
+  /** default: undefined */
   tooltipVisible?: boolean;
 }
 
