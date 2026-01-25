@@ -2,7 +2,7 @@ import { createVNode, render } from "vue";
 import Group from "./group";
 import { getAppContext } from "../config/context";
 
-const newInstance = (props = {}) => {
+const newInstance = (props = {}, context = null) => {
   const containerId = `k-${props.type}-box`;
   let container = document.getElementById(containerId);
   if (!container) {

@@ -96,10 +96,25 @@ const loading = defineComponent({
   },
 });
 const createInstance = (props = {}, context) => {
+  const containerId = `k-loading-box`;
+  let container = document.getElementById(containerId);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
   const vm = createVNode(loading, props, context);
-  render(vm, document.body);
+  render(vm, container);
   vm.appContext = context?.appContext || getAppContext()?.appContext;
-  return vm.component?.exposed; //for 3
+
+  const instance = vm.component?.exposed; // for 3
+  instance.destroy = () => {
+    render(null, container);
+    if (container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+  };
+  return instance;
 };
 
 let loadInstance = null;
@@ -127,30 +142,12 @@ let Loading = {
     if (loadInstance) {
       loadInstance.destroy();
       loadInstance = null;
-      document.body.removeChild(
-        document.querySelector(".k-loading-wrap")?.parentNode
-      );
     }
   },
   install(app) {
     // app.provide("loading", Loading);
     // 可选：同时挂到 globalProperties 兼容 this.$loading
     app.config.globalProperties.$loading = Loading; //for 3
-  },
-  useLoading() {
-    const instance = getCurrentInstance();
-    const proxy = instance ? instance.proxy : null;
-    const loadingWrapper = {};
-
-    ["start", "finish", "error", "update"].forEach((type) => {
-      loadingWrapper[type] = (props = {}) => {
-        return getInstance(null, proxy);
-      };
-    });
-
-    loadingWrapper.destroy = Loading.destroy;
-
-    return loadingWrapper;
   },
 };
 export default withInstall(Loading);

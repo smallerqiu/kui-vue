@@ -20,12 +20,12 @@ export default {
         <Vertical />
         <Size />
         <Align />
-        {/* <CustomSize /> */}
-        {/* <Warp /> */}
-        {/* <Split /> */}
-        {/* <Compact /> */}
-        {/* <CompactButton /> */}
-        {/* <CompactButtonVertical /> */}
+        <CustomSize />
+        <Warp />
+        <Split />
+        <Compact />
+        <CompactButton />
+        <CompactButtonVertical />
         <CN />
       </div>
     );

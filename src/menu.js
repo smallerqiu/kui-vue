@@ -126,7 +126,7 @@ const navData = [
         title: "统计卡片",
         sub: "StatCard",
         name: "statcard",
-        icon: "statcard",
+        icon: "card",
       },
       { title: "表格", sub: "Table", name: "table", icon: "table" },
       { title: "时间轴", sub: "TimeLine", name: "timeline", icon: "timeline" },

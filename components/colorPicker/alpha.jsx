@@ -4,21 +4,21 @@ import { clamp } from "@vueuse/core";
 export default defineComponent({
   name: "Alpha",
   props: {
-    value: [String, Object],
+    modelValue: [String, Object],
   },
   setup(ps, { emit }) {
     const dotPos = ref(0);
     const refPaint = ref();
     const isMousePressed = ref(false);
     // const painter = ref();
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (val) => {
         currentColor.value = val;
         renderPaint();
         updatePos();
-      }
+      },
     );
 
     onMounted(() => {
@@ -50,7 +50,7 @@ export default defineComponent({
       const x = clamp(
           e.clientX - canvas.getBoundingClientRect().left,
           0,
-          width
+          width,
         ),
         alpha = +(x / width).toFixed(2);
       dotPos.value = x - 7;

@@ -1,40 +1,61 @@
-import { defineComponent, ref, provide, computed } from "vue";
-import ImagePreview from "./preview";
 import { withInstall } from "../utils/vue";
+import { defineComponent, ref, provide, onUnmounted } from "vue";
+import newInstance from "./instance";
 
-export const ImageGroup = defineComponent({
+const ImageGroup = defineComponent({
   name: "ImageGroup",
-  setup(_, { slots }) {
-    const dataSet = ref(new Set());
-    const isVisible = ref(false);
-    const currentSrc = ref("");
+  props: {
+    data: Array,
+  },
+  setup(props, { slots }) {
+    const data = ref(props.data || []);
+    const preview = ref();
+    const show = (props, slots) => {
+      if (!preview.value) {
+        props.data = data.value;
+        preview.value = newInstance({ ...props }, null, slots);
+      }
+      preview.value.show(props);
+    };
+    const togglePanel = () => {
+      if (preview.value) {
+        preview.value.togglePanel();
+      }
+    };
 
-    const dataArray = computed(() => Array.from(dataSet.value));
+    const register = (item) => {
+      data.value.push(item);
+    };
 
-    const show = (src) => {
-      currentSrc.value = src;
-      isVisible.value = true;
+    const unregister = (item) => {
+      const index = data.value.indexOf(item);
+      if (index >= 0) {
+        data.value.splice(index, 1);
+      }
+    };
+    const destroy = () => {
+      if (preview.value) {
+        preview.value.destroy();
+        preview.value = null;
+      }
     };
 
     provide("ImageGroup", {
-      data: dataArray,
-      register: (src) => dataSet.value.add(src),
-      unregister: (src) => dataSet.value.delete(src),
       show,
+      destroy,
+      register,
+      unregister,
+      data,
+      togglePanel,
     });
 
-    return () => (
-      <div class="k-image-group">
-        {slots.default?.()}
-        <ImagePreview
-          v-model:visible={isVisible.value}
-          src={currentSrc.value}
-          data={dataArray.value}
-          onSwitch={(idx) => (currentSrc.value = dataArray.value[idx])}
-        />
-      </div>
-    );
+    onUnmounted(() => {
+      destroy();
+    });
+
+    return () => {
+      return <div class="k-image-group">{slots.default?.()}</div>;
+    };
   },
 });
-
 export default withInstall(ImageGroup);

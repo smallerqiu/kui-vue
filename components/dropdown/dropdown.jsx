@@ -247,6 +247,7 @@ const Dropdown = defineComponent({
         {
           ref: refSelection,
           ...pp,
+          ...attrs,
         },
         true
       );

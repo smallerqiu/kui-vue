@@ -2,9 +2,12 @@ import {
   defineComponent,
   ref,
   reactive,
-  computed,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  nextTick,
+  toRefs,
   Transition,
-  Teleport,
 } from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
@@ -14,91 +17,114 @@ import {
   Close,
   ArrowDown,
   IconImage,
+  ArrowBack,
+  ArrowForward,
+  Add,
+  Remove,
+  ChevronBack,
   ChevronUp,
+  ChevronForward,
   Loading,
-  AddCircleOutline,
-  RemoveCircleOutline,
 } from "kui-icons";
+import Slider from "../slider";
+import { Button } from "../button";
+import { loadImage } from "./utils";
 
 const ImagePreview = defineComponent({
   name: "ImagePreview",
   props: {
     type: String,
     src: String,
-    visible: Boolean,
+    origin: String,
+    hasControl: Boolean,
+    value: Boolean,
     data: { type: Array, default: () => [] },
+    showPanel: Boolean,
   },
-  emits: ["update:visible", "close", "switch"],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose, listeners }) {
+    const { value, type, src, origin, showPanel, data } = toRefs(props);
     const state = reactive({
       scale: 1,
+      data,
       rotate: 0,
+      startPos: { x: 0, y: 0 },
+      initPos: { x: 0, y: 0 },
       left: 0,
       top: 0,
-      isDragging: false,
+      isMouseDown: false,
+      type: type.value,
+      visible: value.value,
+      src: origin.value || src.value,
+      loading: false,
+      error: false,
+      vertical: true,
+      isShowPanel: showPanel.value,
+      panelRight: 0,
+      touch: false,
     });
 
-    const imgRef = ref(null);
-    const startPos = { x: 0, y: 0 };
-    const currentIndex = computed(() => props.data.indexOf(props.src));
-
-    const handleRotate = (dir) => {
-      state.rotate += dir === "left" ? -90 : 90;
-      checkBoundary();
-    };
-    const resetTransform = () => {
-      state.scale = 1;
-      state.rotate = 0;
-      state.left = 0;
-      state.top = 0;
+    const refImage = ref(null);
+    const panelRef = ref(null);
+    const maxScale = 10;
+    const updatePanelRight = () => {
+      state.panelRight =
+        panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
     };
 
-    const onSwitch = (dir) => {
-      const nextIndex = currentIndex.value + dir;
-      if (nextIndex >= 0 && nextIndex < props.data.length) {
-        resetTransform();
-        emit("switch", nextIndex);
+    const setRotate = (left) => {
+      state.rotate = left ? state.rotate - 90 : state.rotate + 90;
+      state.vertical = !state.vertical;
+      resetPosition();
+    };
+
+    const setScale = (zoom) => {
+      state.scale = zoom ? state.scale + 1 : state.scale - 1;
+      state.scale = zoom
+        ? Math.min(state.scale, maxScale)
+        : Math.max(1, state.scale);
+      resetPosition();
+    };
+
+    const close = () => {
+      state.visible = false;
+      emit("input", false);
+      emit("close");
+    };
+
+    const mousewheel = (e) => {
+      if (!state.visible) return;
+      const { deltaY } = e;
+      setScale(deltaY && deltaY < 0);
+      e.stopPropagation();
+      e.preventDefault();
+    };
+
+    const mousedown = (e) => {
+      if (!state.visible) return;
+
+      if (refImage.value && refImage.value.contains(e.target)) {
+        if (e.button && e.button != 0) return;
+        let clientX, clientY;
+        if (e.touches && e.touches.length == 1) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
+        state.isMouseDown = true;
+        state.startPos = { x: clientX, y: clientY };
+        state.initPos = { x: clientX, y: clientY };
+        mousemove(e);
+        const [e1, e2] = state.touch
+          ? ["touchmove", "touchend"]
+          : ["mousemove", "mouseup"];
+        document.addEventListener(e1, mousemove, { passive: false });
+        document.addEventListener(e2, mouseup, { passive: false });
       }
     };
 
-    const handleScale = (delta) => {
-      const next = delta > 0 ? state.scale + 0.5 : state.scale - 0.5;
-      state.scale = Math.max(1, Math.min(5, next));
-      checkBoundary();
-    };
-
-    const onMouseDown = (e) => {
-      if (e.button !== 0) return;
-      e.preventDefault();
-      e.stopPropagation();
-      state.isDragging = true;
-      const event = e.touches ? e.touches[0] : e;
-
-      startPos.x = event.clientX - state.left;
-      startPos.y = event.clientY - state.top;
-
-      const move = (me) => {
-        if (!state.isDragging) return;
-        const mEvent = me.touches ? me.touches[0] : me;
-        state.left = mEvent.clientX - startPos.x;
-        state.top = mEvent.clientY - startPos.y;
-      };
-
-      const up = () => {
-        state.isDragging = false;
-        checkBoundary();
-        document.removeEventListener("mousemove", move);
-        document.removeEventListener("mouseup", up);
-      };
-
-      document.addEventListener("mousemove", move);
-      document.addEventListener("mouseup", up);
-    };
-    const close = () => {
-      emit("update:visible", false);
-    };
-
-    const checkBoundary = () => {
+    const resetPosition = () => {
       if (state.error) return;
       const { innerHeight, innerWidth } = window;
       const scale = state.scale;
@@ -106,10 +132,12 @@ const ImagePreview = defineComponent({
       const left = state.left;
       const vertical = state.vertical;
 
-      if (!imgRef.value) return;
+      if (!refImage.value) return;
 
-      let offsetWidth = imgRef.value.offsetWidth;
-      let offsetHeight = imgRef.value.offsetHeight;
+      let offsetWidth = refImage.value.offsetWidth;
+      let offsetHeight = refImage.value.offsetHeight;
+      let panelWidth =
+        panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
       let newWidth = offsetWidth + "";
       let newHeight = offsetHeight + "";
 
@@ -118,8 +146,8 @@ const ImagePreview = defineComponent({
         newHeight = offsetWidth + "";
       }
 
-      if (newWidth * scale >= innerWidth) {
-        let maxLeft = (newWidth * scale - innerWidth) / 2;
+      if (newWidth * scale >= innerWidth - panelWidth) {
+        let maxLeft = (newWidth * scale - (innerWidth - panelWidth)) / 2;
         if (left >= maxLeft) {
           state.left = maxLeft;
         } else if (state.left < -maxLeft) {
@@ -141,6 +169,51 @@ const ImagePreview = defineComponent({
       }
     };
 
+    const mouseup = () => {
+      if (!state.visible) return;
+      state.isMouseDown = false;
+      resetPosition();
+      const [e1, e2] = state.touch
+        ? ["touchmove", "touchend"]
+        : ["mousemove", "mouseup"];
+      document.removeEventListener(e1, mousemove);
+      document.removeEventListener(e2, mouseup);
+    };
+
+    const mousemove = (e) => {
+      if (!state.visible) return;
+      if (state.isMouseDown) {
+        e.preventDefault();
+        let clientX, clientY;
+        if (e.touches && e.touches.length == 1) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
+        const { x, y } = state.startPos;
+        state.left += clientX - x;
+        state.top += clientY - y;
+        state.startPos = { x: clientX, y: clientY };
+      }
+    };
+
+    const switchImage = (left) => {
+      state.scale = 1;
+      const data = props.data || [];
+      const index = data.indexOf(state.src);
+      let newIndex = index + 0;
+      newIndex = left ? newIndex - 1 : newIndex + 1;
+      newIndex = Math.max(0, newIndex);
+      newIndex = Math.min(newIndex, data.length - 1);
+
+      state.src = data[newIndex];
+
+      if ((left && index == 0) || (!left && index == data.length - 1)) return;
+      emit("switch", newIndex);
+    };
+
     const download = () => {
       if (!state.error) {
         const x = new XMLHttpRequest();
@@ -157,129 +230,285 @@ const ImagePreview = defineComponent({
       }
     };
 
+    const togglePanel = () => {
+      state.isShowPanel = !state.isShowPanel;
+      emit("togglePanel", state.isShowPanel);
+      nextTick(() => resetPosition());
+      updatePanelRight();
+    };
+
+    const getPanel = () => {
+      const panel = getChildren(slots.panel?.());
+      if (panel.length) {
+        return (
+          <div
+            class={[
+              "k-image-preview-panel",
+              { "k-image-preview-panel-hidden": !state.isShowPanel },
+            ]}
+            ref={panelRef}
+          >
+            <span
+              class="k-image-preview-panel-action"
+              onClick={() => togglePanel()}
+            >
+              <Icon type={ChevronUp} />
+            </span>
+            {panel}
+          </div>
+        );
+      }
+      return null;
+    };
+
+    watch(
+      () => props.src,
+      (src) => {
+        state.src = src;
+      },
+    );
+
+    watch(
+      () => props.value,
+      (value) => {
+        state.visible = value;
+        if (value) {
+          nextTick(() => {
+            updatePanelRight();
+          });
+        }
+      },
+    );
+
+    watch(
+      () => state.src,
+      (src) => {
+        if (state.type == "media" || !src) return;
+
+        state.loading = true;
+        loadImage(
+          src,
+          ({ width, height }) => {
+            state.loading = false;
+            state.error = false;
+          },
+          () => {
+            state.loading = false;
+            state.error = true;
+          },
+        );
+      },
+    );
+
+    watch(
+      () => props.showPanel,
+      (value) => {
+        state.isShowPanel = value;
+        updatePanelRight();
+      },
+    );
+
+    onMounted(() => {
+      if (typeof window !== "undefined") {
+        const touch = !!(
+          "ontouchstart" in window ||
+          (window.DocumentTouch && document instanceof window.DocumentTouch)
+        );
+        state.touch = touch;
+        const event = touch ? "touchstart" : "mousedown";
+        document.addEventListener(event, mousedown, { passive: false });
+        document.addEventListener("mousewheel", mousewheel, { passive: false });
+
+        document.addEventListener("keydown", escToClose);
+      }
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener("mousewheel", mousewheel);
+      document.removeEventListener("keydown", escToClose);
+    });
+
+    const show = (props = {}) => {
+      if (props?.src) {
+        state.src = props.src;
+      }
+      if (props?.type) {
+        state.type = props.type;
+      }
+      state.visible = true;
+    };
+
+    const escToClose = (e) => {
+      if (e.keyCode === 27) {
+        close();
+      }
+    };
+
+    expose({ show, close, togglePanel });
+
     return () => {
-      const { scale, rotate, left, top, data, loading, panelRight, type } =
-        state;
+      const {
+        scale,
+        rotate,
+        visible,
+        src,
+        left,
+        top,
+        data,
+        loading,
+        panelRight,
+        type,
+      } = state;
       const imgStyle = {
         transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
       };
       const moveStyle = {
         transform: `translate3d(${left}px, ${top}px, 0px)`,
-        transition: state.isDragging ? "0s" : null,
+        transition: state.isMouseDown ? "0s" : null,
       };
       const imgProps = {
         class: "k-image-preview-img",
-        src: props.src,
+        src,
         style: imgStyle,
-        ref: imgRef,
-        onMouseDown,
+        ref: refImage,
       };
 
       const tools = getChildren(slots.tool?.());
 
       return (
-        <Teleport to="body">
-          <Transition name="k-image-zoom">
-            {props.visible && (
-              <div class="k-image-preview-root">
-                <div class="k-image-preview">
-                  <div class="k-image-preview-mask" onClick={close}></div>
-                  <div
-                    class="k-image-preview-wrap"
-                    style={{ right: panelRight + "px" }}
+        <div class="k-image-preview-root">
+          <div class="k-image-preview" v-show={visible}>
+            <Transition name="k-image-fade">
+              <div
+                class="k-image-preview-mask"
+                onClick={close}
+                v-show={visible}
+              ></div>
+            </Transition>
+            <div
+              class="k-image-preview-wrap"
+              style={{ right: panelRight + "px" }}
+            >
+              <Transition name="k-image-fade">
+                <ul class="k-image-preview-control" v-show={visible}>
+                  <li class="k-image-preview-action-nav">
+                    <Button
+                      icon={ChevronBack}
+                      type="text"
+                      disabled={!data.length || data.indexOf(src) == 0}
+                      onClick={() => switchImage(1)}
+                    />
+                    <span>{data?.indexOf(src)+1||1}/{data?.length || 1}</span>
+                    <Button
+                      icon={ChevronForward}
+                      type="text"
+                      disabled={
+                        !data.length || data.indexOf(src) == data.length - 1
+                      }
+                      onClick={() => switchImage()}
+                    />
+                  </li>
+                  <li
+                    class="k-image-preview-action k-image-preview-action-rotate-left"
+                    onClick={() => setRotate(1)}
                   >
-                    <ul class="k-image-preview-control">
-                      <li class="k-image-preview-action" onClick={close}>
-                        <Icon type={Close} />
-                      </li>
-                      <li class="k-image-preview-action-divider" />
-                      {tools.map((tool) => {
-                        return <li class="k-image-preview-action">{tool}</li>;
-                      })}
-                      <li class="k-image-preview-action" onClick={download}>
-                        <Icon type={ArrowDown} />
-                      </li>
-                      <li
-                        class={[
-                          "k-image-preview-action",
-                          { "k-image-preview-action-disabled": scale >= 5 },
-                        ]}
-                        onClick={() => handleScale(1)}
-                      >
-                        <Icon type={AddCircleOutline} />
-                      </li>
-                      <li
-                        class={[
-                          "k-image-preview-action",
-                          { "k-image-preview-action-disabled": scale <= 1 },
-                        ]}
-                        onClick={() => handleScale(-1)}
-                      >
-                        <Icon type={RemoveCircleOutline} />
-                      </li>
-                      <li
-                        class="k-image-preview-action k-image-preview-action-rotate-right"
-                        onClick={() => handleRotate('left')}
-                      >
-                        <Icon type={Refresh} />
-                      </li>
-                      <li
-                        class="k-image-preview-action k-image-preview-action-rotate-left"
-                        onClick={() => handleRotate('right')}
-                      >
-                        <Icon type={Refresh} />
-                      </li>
-                    </ul>
-                    <div class="k-image-preview-img-wrap" style={moveStyle}>
-                      {type == "media" ? (
-                        <video controls {...imgProps} />
-                      ) : !state.error && !state.loading ? (
-                        <img {...imgProps} />
-                      ) : (
-                        <div class="k-image-preview-img-error">
-                          <Icon type={IconImage} />
-                        </div>
-                      )}
-                    </div>
-                    {props.data.length > 1
-                      ? [
-                          <div
-                            class={[
-                              "k-image-preview-switch-left",
-                              {
-                                "k-image-preview-switch-disabled":
-                                  currentIndex.value === 0,
-                              },
-                            ]}
-                            onClick={() => onSwitch(1)}
-                          >
-                            <Icon type={ChevronUp} />
-                          </div>,
-                          <div
-                            class={[
-                              "k-image-preview-switch-right",
-                              {
-                                "k-image-preview-switch-disabled":
-                                  currentIndex.value === data.length - 1,
-                              },
-                            ]}
-                            onClick={() => onSwitch()}
-                          >
-                            <Icon type={ChevronUp} />
-                          </div>,
-                        ]
-                      : null}
-                    {loading ? (
-                      <div class="k-image-preview-loading">
-                        <Icon type={Loading} spin />
-                      </div>
-                    ) : null}
+                    <Icon type={Refresh} />
+                  </li>
+                  <li
+                    class="k-image-preview-action k-image-preview-action-rotate-right"
+                    onClick={() => setRotate(0)}
+                  >
+                    <Icon type={Refresh} />
+                  </li>
+                  <li
+                    class={[
+                      "k-image-preview-action",
+                      { "k-image-preview-action-disabled": scale <= 1 },
+                    ]}
+                    onClick={() => setScale(0)}
+                  >
+                    <Icon type={Remove} />
+                  </li>
+                  <li class="k-image-preview-action k-image-preview-action-scale">
+                    <Slider
+                      modelValue={state.scale}
+                      min={1}
+                      max={maxScale}
+                      size="small"
+                      tooltipVisible={false}
+                      onChange={(val) => (state.scale = val)}
+                    />
+                  </li>
+                  <li
+                    class={[
+                      "k-image-preview-action",
+                      { "k-image-preview-action-disabled": scale >= 5 },
+                    ]}
+                    onClick={() => setScale(1)}
+                  >
+                    <Icon type={Add} />
+                  </li>
+                  <li class="k-image-preview-action" onClick={download}>
+                    <Icon type={ArrowDown} />
+                  </li>
+                  {tools.map((tool) => {
+                    return <li class="k-image-preview-action">{tool}</li>;
+                  })}
+                  <li class="k-image-preview-action-divider" />
+                  <li class="k-image-preview-action" onClick={close}>
+                    <Icon type={Close} />
+                  </li>
+                </ul>
+              </Transition>
+
+              <div class="k-image-preview-img-wrap" style={moveStyle}>
+                {type == "media" ? (
+                  <video controls {...imgProps} v-show={visible} />
+                ) : !state.error && !state.loading ? (
+                  <img {...imgProps} v-show={visible} />
+                ) : !loading ? (
+                  <div class="k-image-preview-img-error">
+                    <Icon type={IconImage} />
                   </div>
-                </div>
+                ) : null}
               </div>
-            )}
-          </Transition>
-        </Teleport>
+              {props.data.length > 1
+                ? [
+                    <div
+                      class={[
+                        "k-image-preview-switch-left",
+                        {
+                          "k-image-preview-switch-disabled":
+                            data.indexOf(src) == 0,
+                        },
+                      ]}
+                      onClick={() => switchImage(1)}
+                    >
+                      <Icon type={ArrowBack} />
+                    </div>,
+                    <div
+                      class={[
+                        "k-image-preview-switch-right",
+                        {
+                          "k-image-preview-switch-disabled":
+                            data.indexOf(src) == data.length - 1,
+                        },
+                      ]}
+                      onClick={() => switchImage()}
+                    >
+                      <Icon type={ArrowForward} />
+                    </div>,
+                  ]
+                : null}
+              {loading ? (
+                <div class="k-image-preview-loading">
+                  <Icon type={Loading} spin />
+                </div>
+              ) : null}
+            </div>
+            {getPanel()}
+          </div>
+        </div>
       );
     };
   },

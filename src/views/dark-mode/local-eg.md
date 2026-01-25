@@ -21,7 +21,7 @@
           </div>
           <Menu
             mode="inline"
-            v-model="left"
+            v-model="leftMenuActiveKeys"
             :inline-collapsed="collapsed"
             style="border:none;"
           >
@@ -74,7 +74,7 @@
                 :wrapperCol="{ span: 16 }"
                 :size="size"
                 :theme="theme ? 'light' : ''"
-                :shape="checked ? 'circle' : ''"
+                :shape="isCircle ? 'circle' : ''"
               >
                 <FormItem label="主题">
                   <Checkbox
@@ -82,7 +82,7 @@
                     label="Light"
                     style="margin-right:8px;"
                   />
-                  <Checkbox v-model="checked" label="Circle" />
+                  <Checkbox v-model="isCircle" label="Circle" />
                 </FormItem>
                 <FormItem label="尺寸">
                   <RadioGroup v-model="size" type="button">
@@ -155,12 +155,12 @@ import {
 } from "kui-icons";
 
 const current = ref(["1"]);
-const left = ["1-1"];
+const leftMenuActiveKeys = ref(["1-1"]);
 const collapsed = ref(false);
 const dark = ref(false);
-const size = "default";
+const size = ref("default");
 const theme = ref(false);
-const checked = ref(false);
+const isCircle = ref(false);
 const shape = ref("");
 const change = () => {
   dark.value = !dark.value;

@@ -5,18 +5,18 @@ export default defineComponent({
   name: "Paint",
   props: {
     hue: Number,
-    value: [String, Object],
+    modelValue: [String, Object],
   },
   setup(ps, { emit }) {
     const refPaint = ref();
     const dotPos = reactive({ x: 0, y: 0 });
     const isMousePressed = ref(false);
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
 
     watch(
       () => ps.hue,
       (val) => {
-        currentColor.value = ps.value;
+        currentColor.value = ps.modelValue;
         renderPaint();
         updatePos();
       }

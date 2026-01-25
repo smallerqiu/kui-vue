@@ -40,7 +40,6 @@ const events = {};
   "keypress",
   "keyup",
   "keydown",
-  ,
   "keydownEnter",
 ].forEach((type) => {
   events[type] = function (e) {

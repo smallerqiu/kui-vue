@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <div>
+  <Space vertical block>
     <Alert type="success" showIcon :icon="LogoAlipay">Success Text</Alert>
     <Alert type="info" showIcon :icon="LogoWechat">Info Text</Alert>
     <Alert type="warning" showIcon :icon="LogoApple">Warning Text</Alert>
@@ -39,7 +39,7 @@
       message="Error"
       description="Encountered an error, please press any key to continue."
     />
-  </div>
+  </Space>
 </template>
 <script setup>
 import { LogoAlipay, LogoWechat, LogoApple, LogoGoogle } from "kui-icons";

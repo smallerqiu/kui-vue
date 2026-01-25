@@ -6,7 +6,7 @@ export default defineComponent({
   name: "Presets",
   props: {
     color: [String, Object],
-    value: {
+    modelValue: {
       type: Array,
       default: () => [
         "#f44336",
@@ -45,8 +45,8 @@ export default defineComponent({
       emit("updateColor", Color(color).rgb());
     };
     return () => {
-      if (ps.value.length == 0) return null;
-      let color = ps.value.map((c) => (
+      if (ps.modelValue.length == 0) return null;
+      let color = ps.modelValue.map((c) => (
         <span style={"background-color:" + c} onClick={(e) => updateColor(c)}>
           {currentColor.value.hexa() == Color(c).hexa() ? (
             <Icon type={Checkmark} />

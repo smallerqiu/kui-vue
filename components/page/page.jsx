@@ -28,13 +28,13 @@ const Page = defineComponent({
     },
     total: { default: 0, type: Number },
     pageSize: { default: 10, type: Number },
-    current: { default: 1, type: Number },
+    page: { default: 1, type: Number },
   },
   setup(ps, { emit }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
-    const defaultPage = ref(ps.current);
+    const defaultPage = ref(ps.page);
     const defaultPageSize = ref(ps.pageSize);
     const injectedLocale = inject("locale", zhCN);
 
@@ -58,7 +58,7 @@ const Page = defineComponent({
     );
 
     watch(
-      () => ps.current,
+      () => ps.page,
       (v) => {
         defaultPage.value = v;
         resetPage();
@@ -158,7 +158,7 @@ const Page = defineComponent({
       if (ps.disabled) return;
       if (defaultPage.value > 1) {
         defaultPage.value--;
-        emit("update:current", defaultPage.value);
+        emit("update:page", defaultPage.value);
         emit("change", defaultPage.value, defaultPageSize.value);
       }
     };
@@ -166,7 +166,7 @@ const Page = defineComponent({
       if (ps.disabled) return;
       if (defaultPage.value < pageCount.value) {
         defaultPage.value++;
-        emit("update:current", defaultPage.value);
+        emit("update:page", defaultPage.value);
         emit("change", defaultPage.value, defaultPageSize.value);
       }
     };
@@ -182,7 +182,7 @@ const Page = defineComponent({
         page = pageCount.value;
       }
       defaultPage.value = page;
-      emit("update:current", page);
+      emit("update:page", page);
       emit("change", defaultPage.value, defaultPageSize.value);
     };
     const changeSize = (value) => {
@@ -190,7 +190,7 @@ const Page = defineComponent({
       pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
         defaultPage.value = pageCount.value;
-        emit("update:current", defaultPage.value);
+        emit("update:page", defaultPage.value);
       }
       emit("change", defaultPage.value, defaultPageSize.value);
     };
@@ -267,7 +267,7 @@ const Page = defineComponent({
 
           if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
             defaultPage.value = page;
-            emit("update:current", page);
+            emit("update:page", page);
             emit("change", page, defaultPageSize.value);
           }
           nextTick(() => {

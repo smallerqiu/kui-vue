@@ -10,7 +10,7 @@ export default defineComponent({
     size: [String, Number],
     reverse: Boolean,
     disabled: Boolean,
-    tooltipVisible: Boolean,
+    tooltipVisible: { type: Boolean, default: null },
     tipFormatter: Function,
     dragging: Boolean, // 接收父组件传入的拖拽状态
   },
@@ -63,6 +63,7 @@ export default defineComponent({
       return (
         <Tooltip
           title={displayValue}
+          disabled={props.disabled || props.tooltipVisible === false}
           show={showTooltip && !props.disabled}
           placement={props.vertical ? "right" : "top"}
         >
@@ -76,7 +77,7 @@ export default defineComponent({
             ]}
             style={thumbStyle.value}
             ref={elRef}
-            tabindex={props.disabled ? -1 : 0}
+            tabindex={props.disabled ? null : 0}
             onMousedown={handleDown}
             onTouchstart={handleDown}
             onKeydown={(e) => emit("keydownUpdate", e)}
