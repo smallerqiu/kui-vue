@@ -1,7 +1,7 @@
 import { navData } from "../menu";
 import { Col, Row, Card } from "kui-vue";
 import WebIcon from "@/src/components/WebIcon";
-import { defineComponent, set } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
   setup() {
     const renderChildren = (children) => {

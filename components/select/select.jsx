@@ -339,7 +339,7 @@ const Select = defineComponent({
     const emitValue = () => {
       const result = ps.multiple
         ? currentValue.value
-        : currentValue.value[0] || null;
+        : currentValue.value[0];
       emit("input", result);
       emit("change", result);
     };

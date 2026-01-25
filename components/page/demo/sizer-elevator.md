@@ -6,12 +6,12 @@
 ```vue
 <template>
   <Space vertical>
-    <Page v-model:current="current" :total="100" />
+    <Page v-model:page="page" :total="100" />
     <code>showSizer</code>
-    <Page v-model:current="current" :total="100" showSizer :page-size="20" />
+    <Page v-model:page="page" :total="100" showSizer :page-size="20" />
     <code>showElevator</code>
     <Page
-      v-model:current="current"
+      v-model:page="page"
       :total="100"
       showSizer
       showElevator
@@ -20,7 +20,7 @@
     />
     <code>theme="light"</code>
     <Page
-      v-model:current="current"
+      v-model:page="page"
       :total="100"
       showSizer
       showElevator
@@ -30,7 +30,7 @@
     />
     <code>disabled</code>
     <Page
-      v-model:current="current"
+      v-model:page="page"
       :total="100"
       disabled
       showSizer
@@ -42,7 +42,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const current = ref(3);
+const page = ref(3);
 const sizeData = [30, 50, 80, 100];
 </script>
 ```

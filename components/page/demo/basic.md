@@ -7,13 +7,13 @@
 <template>
   <Space vertical>
     <Page
-      v-model:current="current"
+      v-model:page="page"
       v-model:pageSize="size"
       :total="50"
       @change="onChange"
     />
     <Page
-      v-model:current="current"
+      v-model:page="page"
       v-model:pageSize="size"
       :total="50"
       @change="onChange"
@@ -24,7 +24,7 @@
 <script setup>
 import { ref } from "vue";
 import { message } from "kui-vue";
-const current = ref(1);
+const page = ref(1);
 const size = ref(15);
 const onChange = (page, pageSize) => {
   console.log(page, pageSize);

@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "3.6.8",
+  "version": "3.6.9",
   "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
   "type": "module",
   "main": "dist/k-ui.cjs.js",
@@ -87,7 +87,6 @@
     "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-vue": "^6.0.0",
-    "up": "^1.0.2",
     "uuid": "^13.0.0",
     "vue-eslint-parser": "^10.2.0"
   },

@@ -22,30 +22,31 @@
         </RadioGroup>
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input clearable placeholder="Email"/>
+        <Input clearable placeholder="Email" />
       </FormItem>
       <FormItem label="Number" prop="number">
-        <InputNumber placeholder="Number"/>
+        <InputNumber placeholder="Number" />
       </FormItem>
       <FormItem label="Password" prop="password">
-        <Input type="password" placeholder="password"/>
+        <Input type="password" placeholder="password" />
       </FormItem>
       <FormItem label="Confirm Password" prop="repassword">
-        <Input type="password" placeholder="Confirm Password"/>
+        <Input type="password" placeholder="Confirm Password" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input placeholder="Phone Number"/>
+        <Input placeholder="Phone Number" />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input placeholder="Captcha"/>
+        <Input placeholder="Captcha">
           <Button
             slot="suffix"
             :size="size"
             :disabled="time != 60"
             style="width:100px;"
             @click="sendCode"
-            >{{ time == 60 ? "获取验证码" : time + "(s)" }}</Button
           >
+            {{ time == 60 ? "获取验证码" : time + "(s)" }}
+          </Button>
         </Input>
       </FormItem>
       <FormItem label="Country">
