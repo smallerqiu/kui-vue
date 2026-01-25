@@ -139,7 +139,7 @@ const loading = ref(false);
 const visible = ref(false);
 const visible1 = ref(false);
 
-const labelCol = { span: 6 };
+const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
 
 const form = reactive({
