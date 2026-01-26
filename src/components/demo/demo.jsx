@@ -31,17 +31,15 @@ const Demo = defineComponent({
 
     const error = ref("");
 
-    // 用于存储当前的 Vue app 实例，以便销毁
-    let currentApp = null;
-
+    const currentApp = ref(null);
     const reload = () => {
+      const source = codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
       parseCode({
-        source: codeRef.value?.innerText,
+        source: source,
         viewRef,
         error,
-        currentApp,
-        mountNode: viewRef,
-        styleElement,
+        currentApp, 
+        id: props.id || 'default',
       });
     };
 
@@ -114,6 +112,11 @@ const Demo = defineComponent({
           </div>
         </Transition>
       );
+      let refProps = {
+        class:`k-content k-scroll k-demo-view-${props.id}`,
+        ref:viewRef,
+        [`data-v-${props.id}`]:''
+      }
       return (
         <div
           class={[
@@ -123,13 +126,11 @@ const Demo = defineComponent({
           ]}
         >
           {descNode}
-          {/* {!vertical && descNode} */}
           <div class={classes}>
             <div class={`k-demo-view k-demo-view-${props.direction}`}>
-              <div class="k-content k-scroll" ref={viewRef}>
+              <div {...refProps}>
                 {slots.component?.()}
               </div>
-              {/* {vertical && descNode} */}
             </div>
             {vertical && codeNode}
 

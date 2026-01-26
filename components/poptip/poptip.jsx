@@ -212,7 +212,7 @@ const Poptip = defineComponent({
           // ) : null;
         );
       }
-      return <>{...childNodes}</>; //for 3
+      return childNodes //for 3
     };
   },
 });

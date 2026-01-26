@@ -23,12 +23,12 @@ const bannerText = `/*!
 
 // build locales
 const locales = fs
-  .readdirSync(path.resolve('components/locale/lang'))
-  .filter(f => f.endsWith('.js'))
-  .map(f => f.replace('.js', ''))
+  .readdirSync(path.resolve("components/locale"))
+  .filter((f) => f.endsWith(".js"))
+  .map((f) => f.replace(".js", ""));
 
 const localesConfig = locales.map(lang => ({
-  input: `components/locale/lang/${lang}.js`,
+  input: `components/locale/${lang}.js`,
   output: {
     file: `dist/locale/${lang}.js`,
     format: 'umd',
@@ -39,7 +39,9 @@ const localesConfig = locales.map(lang => ({
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
-      presets: [['@babel/preset-env', { modules: false }]]
+      presets: [
+        ['@babel/preset-env', { modules: false }],
+      ]
     }),
     terser()
   ]
@@ -108,7 +110,6 @@ export default [
         extensions: ['.js', '.jsx', '.vue'],
         browser: true,
         preferBuiltins: false
-
       }),
       commonjs({ include: 'node_modules/**' }),
       vue({ css: true }),
@@ -122,8 +123,10 @@ export default [
             targets: { esmodules: true },
             exclude: ["@babel/plugin-transform-regenerator"],
           }],
-          ['@vue/babel-preset-jsx']
-        ]
+        ],
+        plugins: [
+          '@vue/babel-plugin-jsx'
+        ],
       }),
       terser(),
       // license({

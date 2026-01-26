@@ -1,137 +1,106 @@
-import { createApp } from "vue";
-import * as compiler from "@vue/compiler-sfc";
-const updateStyle = (styleElement, css) => {
-  if (styleElement) {
-    document.head.removeChild(styleElement);
-  }
-  styleElement = document.createElement("style");
-  styleElement.innerHTML = css;
-  document.head.appendChild(styleElement);
-};
-const compileSFC = async (content, styleElement) => {
-  const id = "data-v-" + Math.random().toString(36).slice(2, 8);
-  const filename = "anonymous.vue";
-
-  const { descriptor, errors } = compiler.parse(content, { filename });
-  if (errors.length) throw new Error(errors[0].message);
-
-  let scriptContent = "const __sfc__ = {}";
-  let bindings = undefined;
-
-  if (descriptor.script || descriptor.scriptSetup) {
-    try {
-      const scriptResult = compiler.compileScript(descriptor, {
-        id,
-        inlineTemplate: true, // 尝试让 setup 自动包含 render 函数
-        templateOptions: {
-          compilerOptions: { hoistStatic: false },
-        },
-      });
-      scriptContent = compiler.rewriteDefault(scriptResult.content, "__sfc__");
-      bindings = scriptResult.bindings; // 获取 script setup 导出的变量
-    } catch (e) {
-      throw new Error("Script Compile Error: " + e.message);
-    }
-  }
-
-  let templateContent = "";
-  if (descriptor.template && !descriptor.scriptSetup) {
-    try {
-      const templateResult = compiler.compileTemplate({
-        source: descriptor.template.content,
-        id,
-        filename,
-        compilerOptions: {
-          hoistStatic: false,
-          bindingMetadata: bindings,
-        },
-      });
-      templateContent = templateResult.code.replace(
-        /\bexport function render\b/,
-        "const _render"
-      );
-    } catch (e) {
-      throw new Error("Template Compile Error: " + e.message);
-    }
-  }
-
-  // 编译 Style
-  let css = "";
-  for (const style of descriptor.styles) {
-    const styleResult = compiler.compileStyle({
-      source: style.content,
-      id,
-      scoped: style.scoped,
-      filename,
-    });
-    css += styleResult.code;
-  }
-  updateStyle(css, styleElement);
-
-  let moduleCode = `
-    import { openBlock, createElementBlock, createVNode, resolveComponent } from 'vue'
-    
-    ${scriptContent}
-    
-    ${templateContent}
-    
-    if (typeof _render !== 'undefined') {
-      __sfc__.render = _render
-    }
-    
-    __sfc__.__scopeId = '${id}'
-    __sfc__.__file = '${filename}'
-    
-    export default __sfc__
-  `;
-
-  return moduleCode;
-};
-
-export const parseCode = async ({
-  source,
-  error,
-  currentApp,
-  mountNode,
-  styleElement,
-}) => {
-  error.value = "";
-
-  if (currentApp) {
-    currentApp.unmount();
-    currentApp = null;
-  }
-
-  if (mountNode.value) {
-    mountNode.value.innerHTML = "";
-  }
-
+const Vue = await import(/* @vite-ignore */ 'vue'); 
+const Kui = await import(/* @vite-ignore */ 'kui-vue');
+import {
+  parse,
+  compileScript,
+  compileTemplate,
+  compileStyle,
+  rewriteDefault,
+} from "@vue/compiler-sfc";
+export async function parseCode({ source, id, viewRef, error, currentApp }) {
   try {
-    const jsCode = await compileSFC(source, styleElement);
-    const blob = new Blob([jsCode], { type: "text/javascript" });
-    const url = URL.createObjectURL(blob);
-    const module = await import(url);
-    // 获取导出的组件
-    const Component = module.default;
+    error.value = "";
+    const { descriptor } = parse(source);
+    const scopeId = `data-v-${id}`;
 
-    if (!Component) {
-      throw new Error("代码必须 export default 一个 Vue 组件对象");
+    let scriptCode = "";
+    if (descriptor.script || descriptor.scriptSetup) {
+      // 编译 script，并在内部处理好 bindings
+      const compiledScript = compileScript(descriptor, { id: scopeId });
+      // 将 export default 转换为 const __sfc__ =
+      scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
+    } else {
+      scriptCode = "const __sfc__ = {}";
     }
 
-    currentApp = createApp(Component);
+    // Template
+    let templateCode = "";
+    if (descriptor.template) {
+      const compiledTemplate = compileTemplate({
+        source: descriptor.template.content,
+        id: scopeId,
+        scoped: true,
+        filename: "App.vue",
+        compilerOptions: {
+          bindingMetadata: descriptor.scriptSetup
+            ? compileScript(descriptor, { id: scopeId }).bindings
+            : undefined,
+        },
+      });
+      // 将模板中的 export function render 替换掉，防止冲突
+      templateCode = compiledTemplate.code.replace(
+        /export\ (function|const)\ render/,
+        "$1 render",
+      );
+    }
 
-    // 错误边界处理（防止用户代码报错导致主应用崩塌）
-    currentApp.config.errorHandler = (err) => {
-      console.error("用户代码运行时错误:", err);
-      error.value = "Runtime Error: " + err.message;
-    };
+    let cssCode = "";
+    for (const s of descriptor.styles) {
+      const compiledStyle = compileStyle({
+        source: s.content,
+        id: scopeId,
+        scoped: s.scoped,
+      });
+      cssCode += compiledStyle.code + "\n";
+    }
 
-    currentApp.mount(mountNode.value);
+    const finalCode = `
+      ${templateCode}
+      ${scriptCode}
+      __sfc__.render = render;
+      __sfc__.__scopeId = "${scopeId}";
+      export default __sfc__;
+    `;
 
-    // 释放内存
+    const blob = new Blob([finalCode], { type: "text/javascript" });
+    const url = URL.createObjectURL(blob);
+
+    const { default: component } = await import(/* @vite-ignore */ url);
     URL.revokeObjectURL(url);
+
+    if (currentApp.value) {
+      currentApp.value.unmount();
+      currentApp.value = null;
+    }
+
+    const app = Vue.createApp(component);
+    const KuiPlugin = Kui.default || Kui;
+    if (KuiPlugin.install) {
+      app.use(KuiPlugin);
+    }
+
+    const mountNode = document.createElement("div");
+    mountNode.setAttribute(scopeId, "");
+
+    viewRef.value.innerHTML = "";
+    viewRef.value.appendChild(mountNode);
+    app.mount(mountNode);
+
+    currentApp.value = app;
+
+    updateStyle(id, cssCode);
   } catch (err) {
-    console.log(err);
     error.value = err.message;
+    console.error("Render Error:", err);
   }
-};
+}
+
+function updateStyle(id, css) {
+  let el = document.getElementById(`style-${id}`);
+  if (!el) {
+    el = document.createElement("style");
+    el.id = `style-${id}`;
+    document.head.appendChild(el);
+  }
+  el.innerHTML = css;
+}

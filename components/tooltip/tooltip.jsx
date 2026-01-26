@@ -197,7 +197,7 @@ const Tooltip = defineComponent({
           </Transition>
         );
       }
-      return <>{...childNodes}</>; // for 3
+      return childNodes // for 3
     };
   },
 });

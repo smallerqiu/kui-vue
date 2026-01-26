@@ -22,10 +22,6 @@ let Notice = {
       noticeInstance = null;
     }
   },
-  install(app) {
-    // 可选：同时挂到 globalProperties 兼容 this.$notice
-    app.config.globalProperties.$notice = Notice;
-  },
 };
 
 ["info", "success", "warning", "error"].forEach((type) => {

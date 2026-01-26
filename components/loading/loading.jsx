@@ -144,10 +144,5 @@ let Loading = {
       loadInstance = null;
     }
   },
-  install(app) {
-    // app.provide("loading", Loading);
-    // 可选：同时挂到 globalProperties 兼容 this.$loading
-    app.config.globalProperties.$loading = Loading; //for 3
-  },
 };
 export default withInstall(Loading);

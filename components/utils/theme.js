@@ -15,16 +15,6 @@ const toggle = () => {
 
 const Theme = {
   name: "Theme",
-  install(app) {
-    app.prototype.$theme = Theme;
-    // for 3
-    // app.provide("theme", Theme);
-    // app.config.globalProperties.$theme = Theme;
-  },
-  useTheme() {
-    // return inject("theme", null); //for 3
-    return Theme
-  },
   setThemeMode(event, callback) {
     const x = event.clientX;
     const y = event.clientY;

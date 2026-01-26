@@ -14,7 +14,6 @@ import {
   inject,
 } from "vue";
 import zhCN from "../locale/zh-CN";
-import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
@@ -276,4 +275,4 @@ const Modal = defineComponent({
     };
   },
 });
-export default withInstall(Modal);
+export default Modal
