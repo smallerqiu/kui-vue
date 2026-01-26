@@ -3,6 +3,7 @@ import Toast from "./toast";
 import { createVNode, render, getCurrentInstance } from "vue";
 import { recordMousePoint } from "../config/context";
 import { getAppContext } from "../config/context";
+import { withInstall } from "../utils/vue";
 
 let modalList = [];
 recordMousePoint();
@@ -46,9 +47,5 @@ Modal.destroyAll = () => {
     toast.destroy();
   });
 };
-Modal.install = (app) => {
-  // app.provide("modal", Modal);
-  app.config.globalProperties.$modal = Modal;
-};
 
-export default Modal;
+export default withInstall(Modal);

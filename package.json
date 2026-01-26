@@ -66,6 +66,7 @@
     "@vitejs/plugin-vue": "^6.0.3",
     "@vitejs/plugin-vue-jsx": "^5.1.3",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
+    "@vue/babel-plugin-jsx": "^2.0.1",
     "@vue/babel-preset-jsx": "^1.4.0",
     "@vue/compiler-sfc": "3.5.26",
     "@vueuse/core": "^14.1.0",
@@ -80,6 +81,7 @@
     "postcss-banner": "^4.0.1",
     "prettier": "^3.8.1",
     "rollup": "^4.56.0",
+    "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-vue": "^6.0.0",
     "uuid": "^13.0.0"

@@ -252,9 +252,7 @@ const Dropdown = defineComponent({
         true
       );
       return (
-        <>
-          {ctxNode} {overlay}
-        </>
+          [ctxNode,overlay]
       );
     };
   },
