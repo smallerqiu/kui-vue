@@ -162,7 +162,7 @@ let children = [
   { path: "/data/tree", component: () => import("../components/tree/demo") },
   {
     path: "/forms/treeselect",
-    component: () => import("../components/treeselect/demo"),
+    component: () => import("../components/treeSelect/demo"),
   },
   {
     path: "/notices/poptip",

@@ -1,6 +1,6 @@
 import { version } from "../package.json";
 import * as components from "./components";
-import { installGlobal } from "./utils/vue";
+import { globalComponents, installGlobal } from "./utils/vue";
 export * from "./components";
 import "./styles/index.less";
 
@@ -10,17 +10,19 @@ const UI = {
   install: (app) => {
     Object.keys(components).forEach((key) => {
       const component = components[key];
-      if (!key.startsWith("K")) {
-        const kebabName =
-          "k-" +
-          key
-            .replace(/([A-Z])/g, "-$1")
-            .replace(/^-/, "")
-            .toLowerCase();
-        app.component(kebabName, component);
+      if (globalComponents.includes(key)) {
         installGlobal(app, component);
+      } else if (!key.startsWith("K")) {
+        const name = key
+          .replace(/([A-Z])/g, "-$1")
+          .replace(/^-/, "")
+          .toLowerCase();
+        const kebabName = `k-${name}`;
+        app.component(kebabName, component);
+        app.component(key, component);
+      } else {
+        app.component(key, component);
       }
-      app.component(key, component);
     });
   },
 };

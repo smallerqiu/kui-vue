@@ -1,5 +1,5 @@
-const Vue = await import(/* @vite-ignore */ 'vue'); 
-const Kui = await import(/* @vite-ignore */ 'kui-vue');
+import * as Vue from "vue";
+import * as Kui from "kui-vue";
 import {
   parse,
   compileScript,
@@ -7,7 +7,14 @@ import {
   compileStyle,
   rewriteDefault,
 } from "@vue/compiler-sfc";
-export async function parseCode({ source, id, viewRef, error, currentApp }) {
+export async function parseCode({
+  source,
+  id,
+  viewRef,
+  error,
+  currentApp,
+  buildState,
+}) {
   try {
     error.value = "";
     const { descriptor } = parse(source);
@@ -89,7 +96,11 @@ export async function parseCode({ source, id, viewRef, error, currentApp }) {
     currentApp.value = app;
 
     updateStyle(id, cssCode);
+    buildState.state = "success";
+    buildState.text = "实时编译成功";
   } catch (err) {
+    buildState.state = "error";
+    buildState.text = "Build Error";
     error.value = err.message;
     console.error("Render Error:", err);
   }

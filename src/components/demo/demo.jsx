@@ -4,6 +4,7 @@ import { CopyOutline, CaretHor, Reload } from "kui-icons";
 import {
   defineComponent,
   ref,
+  reactive,
   onMounted,
   onBeforeUnmount,
   Transition,
@@ -27,27 +28,38 @@ const Demo = defineComponent({
     const codeOrigin = ref(null);
     const viewRef = ref(null);
     const timer = ref(null);
-    const styleElement = null;
+    const buildState = reactive({
+      text: "实时编译成功",
+      state: "success",
+    });
 
     const error = ref("");
 
     const currentApp = ref(null);
     const reload = () => {
-      const source = codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
+      const source =
+        codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
       parseCode({
         source: source,
         viewRef,
         error,
-        currentApp, 
-        id: props.id || 'default',
+        currentApp,
+        id: props.id || "default",
+        buildState,
       });
     };
 
     const renderCode = async () => {
+      buildState.text = "编译中...";
+      buildState.state = "default";
       clearTimeout(timer.value);
       timer.value = setTimeout(() => {
         reload();
       }, 500);
+    };
+    const restoreCode = () => {
+      codeRef.value.innerHTML = codeOrigin.value;
+      reload();
     };
     const copyCode = () => {
       if (isSupported) {
@@ -63,10 +75,13 @@ const Demo = defineComponent({
       }
     };
     onMounted(() => {
-      codeOrigin.value = codeRef.value?.innerText;
+      codeOrigin.value = codeRef.value?.innerHTML;
     });
     onBeforeUnmount(() => {
-      if (styleElement) document.head.removeChild(styleElement);
+      if (currentApp.value) {
+        currentApp.value.unmount();
+        currentApp.value = null;
+      }
     });
     return () => {
       const transitionProps = getTransitionProp();
@@ -87,7 +102,7 @@ const Demo = defineComponent({
           >
             {!vertical ? (
               <div class="k-code-tools">
-                <Badge status="success" text="实时编译成功" />
+                <Badge status={buildState.state} text={buildState.text} />
                 <Tooltip title="复制代码">
                   <Button
                     type="text"
@@ -101,7 +116,7 @@ const Demo = defineComponent({
                     type="text"
                     size="small"
                     icon={Reload}
-                    onClick={reload}
+                    onClick={restoreCode}
                   />
                 </Tooltip>
               </div>
@@ -112,11 +127,12 @@ const Demo = defineComponent({
           </div>
         </Transition>
       );
+      const scopeIdAttr = `data-v-${props.id}`;
       let refProps = {
-        class:`k-content k-scroll k-demo-view-${props.id}`,
-        ref:viewRef,
-        [`data-v-${props.id}`]:''
-      }
+        class: `k-content k-scroll k-demo-view-${props.id}`,
+        ref: viewRef,
+        [scopeIdAttr]: "",
+      };
       return (
         <div
           class={[
@@ -128,9 +144,7 @@ const Demo = defineComponent({
           {descNode}
           <div class={classes}>
             <div class={`k-demo-view k-demo-view-${props.direction}`}>
-              <div {...refProps}>
-                {slots.component?.()}
-              </div>
+              <div {...refProps}>{slots.component?.()}</div>
             </div>
             {vertical && codeNode}
 
