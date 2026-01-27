@@ -27,7 +27,7 @@ rm -rf node_modules/.vite
 
 `2026-1-21`
 
-- `Progess`,`Select` 等细节优化
+- `Progress`,`Select` 等细节优化
 - `StatCard` 小数优化
 
 ## 3.6.7
