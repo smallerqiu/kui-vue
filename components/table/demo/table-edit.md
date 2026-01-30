@@ -1,7 +1,11 @@
 <cn>
 ### 可编辑单元格
 带单元格编辑功能的表格。
-</cn>
+ </cn>
+<en>
+### Editable Cells
+Table with in-cell editing capabilities.
+</en>
 
 ```vue
 <template>

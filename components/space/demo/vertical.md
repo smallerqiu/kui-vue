@@ -2,6 +2,10 @@
 ### 垂直间距
 相邻组件垂直间距。
 </cn>
+<en>
+### Vertical Spacing
+Vertical spacing between adjacent components.
+</en>
 
 ```vue
 <template>

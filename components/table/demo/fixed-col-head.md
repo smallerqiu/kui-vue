@@ -1,8 +1,12 @@
 <cn>
 ### 固定头/列
 对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据，需要设置表格的宽度 `scroll.x` 和 `scroll.y `
-如果布局被破坏，请把宽度 `x` 值改大。支持: { y:`calc(100% - 500px)` }
 </cn>
+<en>
+### Fixed Header / Columns
+For tables with many columns, fix the left and/or right columns and horizontally scroll the rest. You need to set the table width with scroll.x and scroll.y.
+If the layout is disrupted, increase the x width value. Supports: { y: `calc(100% - 500px)` }
+</en>
 
 ```vue
 <template>

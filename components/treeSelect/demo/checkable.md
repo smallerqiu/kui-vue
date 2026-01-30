@@ -1,7 +1,11 @@
 <cn>
 ### 可勾选
 使用勾选框实现多选功能。
-</cn>
+ </cn>
+<en>
+### Checkable
+Use checkboxes to enable multi-select.
+</en>
 
 ```vue
 <template>

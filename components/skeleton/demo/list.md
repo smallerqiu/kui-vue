@@ -2,6 +2,10 @@
 ### 列表
 在列表组件中使用加载占位符。
 </cn>
+<en>
+### List
+Use skeleton placeholders in a list.
+</en>
 
 ```vue
 <template>
@@ -34,10 +38,10 @@ const item = {
   desc: "李白有《李太白集》传世，诗作中多以醉时写的，代表作有《望庐山瀑布》《行路难》《蜀道难》《将进酒》《早发白帝城》等多首。 [3]  李白所作词赋，宋人已有传记（如文莹《湘山野录》卷上），就其开创意义及艺术成就而言，“李白词”享有极为崇高的地位。",
 };
 const showSkeleton = () => {
-  (loading.value = true),
+  ((loading.value = true),
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 3000));
 };
 </script>
 <style>

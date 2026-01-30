@@ -2,6 +2,10 @@
 ### Flex 对齐
 Flex 子元素垂直对齐。
 </cn>
+<en>
+### Flex Alignment
+Flex items are vertically aligned within the row.
+</en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 呈现方向
 指定 `mode` 可以改变呈现方向
 </cn>
+<en>
+### Layout Direction
+Setting mode can change the timeline's layout direction.
+</en>
 
 ```vue
 <template>
@@ -21,7 +25,7 @@
       <div>新增一些很友好的功能</div>
       <div>新增一些很友好的功能</div>
       <template #extra>更多的辅助细节</template>
-    </TimeLineItem> 
+    </TimeLineItem>
     <TimeLineItem
       :icon="Build"
       color="red"

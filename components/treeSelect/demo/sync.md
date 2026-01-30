@@ -1,7 +1,11 @@
 <cn>
 ### 异步加载
 点击展开节点，动态加载数据。
-</cn>
+ </cn>
+<en>
+### Async Loading
+Click to expand a node to load data dynamically.
+</en>
 
 ```vue
 <template>

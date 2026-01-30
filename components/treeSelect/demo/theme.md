@@ -1,7 +1,11 @@
 <cn>
 ### 奇葩的定义
 一些奇奇怪怪的东西
-</cn>
+ </cn>
+<en>
+### Odd Definitions
+Some quirky things
+</en>
 
 ```vue
 <template>
@@ -37,7 +41,7 @@
       block
       placeholder="我的下拉箭头不一样"
       :arrowIcon="CaretDown"
-    /> 
+    />
     <TreeSelect
       :bordered="false"
       :treeData="data"

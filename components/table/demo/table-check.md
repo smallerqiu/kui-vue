@@ -3,6 +3,11 @@
 `checkable=true`，即可自动开启多选功能。
 注意: 默认勾选的依赖为 `key` , 可以通过 `rowKey` 属性进行自定义。 如: `rowKey="ID"`
 </cn>
+<en>
+### Checkable
+Setting checkable to true enables multi-select by default.
+Note: The default key used for selection is the `key` field; you can customize with the `rowKey` property. For example: `rowKey` = "ID".
+</en>
 
 ```vue
 <template>

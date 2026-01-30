@@ -1,7 +1,11 @@
 <cn>
 ### 上传限制
 limit 限制上传数量, minSize 和 maxSize 属性可以自定义上传文件大小的限制。
-</cn>
+ </cn>
+<en>
+### Upload limit
+The limit prop restricts how many files can be uploaded. The minSize and maxSize properties can customize the size limits of uploaded files.
+</en>
 
 ```vue
 <template>

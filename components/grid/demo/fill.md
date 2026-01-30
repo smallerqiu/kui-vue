@@ -2,6 +2,10 @@
 ### Flex 填充
 Col 提供 flex 属性以支持填充。
 </cn>
+<en>
+### Flex Fill
+Col provides the flex prop to enable flexible sizing.
+</en>
 
 ```vue
 <template>

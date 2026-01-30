@@ -2,6 +2,10 @@
 ### 拖拽上传
 draggable='true'，可以使用拖拽功能
 </cn>
+<en>
+### Drag-and-drop Upload
+draggable='true', enables drag-and-drop functionality
+</en>
 
 ```vue
 <template>

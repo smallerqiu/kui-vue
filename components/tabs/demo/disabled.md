@@ -2,6 +2,10 @@
 ### 禁用
 禁用某一项。
 </cn>
+<en>
+### Disabled
+Disable a tab.
+</en>
 
 ```vue
 <template>

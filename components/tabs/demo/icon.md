@@ -2,6 +2,10 @@
 ### 图标
 有图标的标签。
 </cn>
+<en>
+### Icons
+Tabs with icons.
+</en>
 
 ```vue
 <template>

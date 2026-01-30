@@ -1,7 +1,11 @@
 <cn>
 ### 基础用法
 最简单的用法，浮层的大小由内容区域决定。
-</cn>
+ </cn>
+<en>
+### Basic Usage
+The simplest usage; the tooltip size is determined by the content area.
+</en>
 
 ```vue
 <template>

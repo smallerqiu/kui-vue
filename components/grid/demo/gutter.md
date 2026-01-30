@@ -2,6 +2,10 @@
 ### 分栏间隔
 使用 `gutter` 熟悉来设置分栏的间隔,如果需要垂直间距，可以写成数组形式 [水平间距, 垂直间距]
 </cn>
+<en>
+### Gutter Spacing
+Use the gutter to set horizontal spacing between columns; if you need vertical spacing, specify an array like [horizontal, vertical].
+</en>
 
 ```vue
 <template>

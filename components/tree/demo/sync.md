@@ -1,7 +1,11 @@
 <cn>
 ### 异步加载
 点击展开节点，动态加载数据 , `isLeaf=true` 表示当前节点是叶子节点,不会有子集
-</cn>
+ </cn>
+<en>
+### Async Loading
+Click to expand a node to load data dynamically. `isLeaf=true` indicates the current node is a leaf and will not have children.
+</en>
 
 ```vue
 <template>
@@ -22,7 +26,7 @@ const insertChildren = (nodes, targetKey, childrenData) => {
   for (const node of nodes) {
     if (node.key === targetKey) {
       // 找到目标节点，插入数据
-      node.children = childrenData; 
+      node.children = childrenData;
       return true; // 插入成功
     }
 

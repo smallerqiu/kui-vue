@@ -4,6 +4,12 @@
 autoTrigger='false'，选中文件后将不会自动触发上传。需要手动调用 ref 上的 upload 方法触发
 name 为上传文件名
 </cn>
+<en>
+### Manual Upload / Custom Attributes
+By setting data and headers you can attach custom upload attributes.
+autoTrigger='false', after selecting files the upload will not be triggered automatically. You need to manually call the ref's upload method to trigger.
+name is the upload file name
+</en>
 
 ```vue
 <template>
@@ -40,8 +46,8 @@ const onSelectFiles = (fileList) => {
   disabled.value = fileList.length == 0;
 };
 const startUpload = () => {
-  console.log("startUpload",uploadRef);
+  console.log("startUpload", uploadRef);
   uploadRef.value.upload();
-}
+};
 </script>
 ```

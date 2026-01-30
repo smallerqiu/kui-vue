@@ -1,7 +1,11 @@
 <cn>
 ### 多选
 多选的树选择。
-</cn>
+ </cn>
+<en>
+### Multi-select
+Multi-select tree selection.
+</en>
 
 ```vue
 <template>

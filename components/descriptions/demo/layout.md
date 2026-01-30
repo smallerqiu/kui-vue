@@ -2,6 +2,10 @@
 ### 垂直
 垂直的列表。
 </cn>
+<en>
+### Vertical
+Vertical descriptions list.
+</en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 自定义页头和页脚
 添加表格边框线，页头和页脚。
 </cn>
+<en>
+### Custom Header and Footer
+Add borders to the table, header, and footer.
+</en>
 
 ```vue
 <template>

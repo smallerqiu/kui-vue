@@ -2,6 +2,10 @@
 ### 尺寸和形状
 通过 `size` 可控尺寸 ,
 </cn>
+<en>
+### Size and Shape
+Control the size via the `size` prop.
+</en>
 
 ```vue
 <template>
