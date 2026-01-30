@@ -3,6 +3,10 @@
 Flex 布局基础。
 使用 `row-flex` 定义 `flex` 布局，其子元素根据不同的值 `start`,`center`,`end`,`space-between`,`space-around`，分别定义其在父节点里面的排版方式。
 </cn>
+<en>
+### Flex Layout
+Flex layout basics. Use Row flex to define a flex layout; its children align according to values like start, center, end, space-between, and space-around.
+</en>
 
 ```vue
 <template>

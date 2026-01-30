@@ -2,6 +2,10 @@
 ### 基本用法
 通过 `closeable` 显示关闭按钮，点击隐藏标签，触发 `close` 回调
 </cn>
+<en>
+### Basic Usage
+Using closeable shows a close button; clicking hides the tag and triggers the close callback.
+</en>
 
 ```vue
 <template>

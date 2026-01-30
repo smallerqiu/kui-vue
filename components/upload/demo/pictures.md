@@ -1,7 +1,11 @@
 <cn>
 ### 照片墙
 设置 type = 'picture'，用户可以上传图片并在列表中显示缩略图
-</cn>
+ </cn>
+<en>
+### Photo Wall
+Set type = 'picture'; users can upload images and thumbnails will be displayed in the list.
+</en>
 
 ```vue
 <template>

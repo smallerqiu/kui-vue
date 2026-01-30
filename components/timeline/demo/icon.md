@@ -1,7 +1,11 @@
 <cn>
 ### 图标
 给 `TimeLineItem` 设置 `icon` 和 `color` 可以改变图标展示
-</cn>
+ </cn>
+<en>
+### Icons
+Set icon and color on TimeLineItem to customize its icon display.
+</en>
 
 ```vue
 <template>

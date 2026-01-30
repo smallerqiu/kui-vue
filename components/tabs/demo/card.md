@@ -2,6 +2,10 @@
 ### 卡片式页签 
 另一种样式的页签。
 </cn>
+<en>
+### Card Tabs
+Another style of tabs.
+</en>
 
 ```vue
 <template>

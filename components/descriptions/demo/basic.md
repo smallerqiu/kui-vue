@@ -2,6 +2,10 @@
 ### 基础用法
 简单的展示。
 </cn>
+<en>
+### Basic Usage
+A simple display.
+</en>
 
 ```vue
 <template>

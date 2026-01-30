@@ -1,7 +1,11 @@
 <cn>
 ### 禁用节点
 设置属性 `disabled` 可以禁用节点。
-</cn>
+ </cn>
+<en>
+### Disabled Node
+Setting the `disabled` attribute disables the node.
+</en>
 
 ```vue
 <template>

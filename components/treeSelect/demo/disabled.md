@@ -1,7 +1,11 @@
 <cn>
 ### 禁用
 禁用状态
-</cn>
+ </cn>
+<en>
+### Disabled
+Disabled state
+</en>
 
 ```vue
 <template>

@@ -1,7 +1,11 @@
 <cn>
 ### 基本用法
 `TimeLine` 内部必须包含 `TimeLineItem`
-</cn>
+ </cn>
+<en>
+### Basic Usage
+TimeLine must contain at least one TimeLineItem inside.
+</en>
 
 ```vue
 <template>

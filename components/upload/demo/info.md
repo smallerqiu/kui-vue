@@ -1,11 +1,17 @@
 # Upload 上传
 
-上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。
+Upload is the process of sending information (web pages, text, images, videos, etc.) to a remote server via the web interface or an upload tool.
 
-## 何时使用
+<en>
+### Upload
+Uploading is the process of sending information (web pages, text, images, videos, etc.) to a remote server via a web interface or upload tool.
 
-- 当需要上传一个或一些文件时。
-- 当需要展现上传的进度时。
-- 当需要使用拖拽交互时。
+### When to use
 
-## 代码演示
+- When you need to upload one or more files.
+- When you need to display upload progress.
+- When you want to support drag-and-drop interaction.
+
+### Code Demo
+
+</en>

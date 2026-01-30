@@ -2,6 +2,10 @@
 ### 基本用法
 `col` 必须放在 `row` 里面
 </cn>
+<en>
+### Basic Usage
+Columns must be placed inside a Row.
+</en>
 
 ```vue
 <template>

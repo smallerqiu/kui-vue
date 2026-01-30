@@ -2,6 +2,10 @@
 ### 垂直带边框
 垂直带边框和背景颜色的列表。
 </cn>
+<en>
+### Vertical with Borders
+Vertical list with borders and background color.
+</en>
 
 ```vue
 <template>

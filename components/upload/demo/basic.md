@@ -2,6 +2,10 @@
 ### 点击上传
 经典款式，用户点击按钮弹出文件选择框。
 </cn>
+<en>
+### Click to Upload
+Classic style: clicking the button opens the file picker.
+</en>
 
 ```vue
 <template>

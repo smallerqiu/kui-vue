@@ -2,6 +2,10 @@
 ### 自定义尺寸
 自定义尺寸，适应在各种容器中展示。
 </cn>
+<en>
+### Custom Size
+Custom size, suitable for display in various containers.
+</en>
 
 ```vue
 <template>

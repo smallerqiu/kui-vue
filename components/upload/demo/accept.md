@@ -7,6 +7,18 @@ accept 支持传入以下两种类型字符串：
 
 例如只允许用户上传 PNG 和 PDF 文件，accept 可以这样写： accept = '.pdf,.png' 或 accept = 'application/pdf,image/png'（将 PNG 与 PDF 的 MIME type 通过,连接起来即可）。
 </cn>
+<en>
+
+### Upload File Type
+
+The accept attribute (native HTML input attribute) can restrict the type of files that can be uploaded.
+accept supports two formats of type strings:
+
+- File extension list (recommended), e.g. .jpg, .png, etc.;
+- MIME types list; see MDN for reference.
+
+For example, to allow only PNG and PDF files, accept can be written as: accept = '.pdf,.png' or accept = 'application/pdf,image/png' (combine PNG and PDF MIME types with a comma).
+</en>
 
 ```vue
 <template>

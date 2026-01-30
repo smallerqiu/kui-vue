@@ -2,6 +2,10 @@
 ### 基本用法(使用render)
 使用自定义`render`来初始化表格
 </cn>
+<en>
+### Basic Usage (Using render)
+Use a custom render to render the table cells.
+</en>
 
 ```vue
 <template>
@@ -70,7 +74,7 @@ const columns = [
             {
               color: tag == "Python" ? "green" : "blue",
             },
-            tag
+            tag,
           );
         }),
       ]);
@@ -91,7 +95,7 @@ const columns = [
             });
           },
         },
-        "more"
+        "more",
       );
     },
   },

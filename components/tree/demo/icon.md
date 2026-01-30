@@ -1,7 +1,11 @@
 <cn>
 ### 自定义图标
 可以针对不同的节点定制图标。
-</cn>
+ </cn>
+<en>
+### Custom Icons
+Icons can be customized for different nodes.
+</en>
 
 ```vue
 <template>

@@ -1,7 +1,11 @@
 <cn>
 ### 群控
 展示目录、连接线、拖动、复选框、图标、扩展
-</cn>
+ </cn>
+<en>
+### Group Control
+Show directory, connectors, drag, checkboxes, icons, and expansion.
+</en>
 
 ```vue
 <template>
@@ -141,8 +145,8 @@ const insertChildren = (nodes, targetKey, childrenData) => {
 
       // for vue 2
       if (!("children" in node)) {
-        node.icon = FolderOpenOutline
-        node.children = []
+        node.icon = FolderOpenOutline;
+        node.children = [];
       }
       // 如果 'children' 属性已存在，直接赋值是安全的
       node.children.push(childrenData);
@@ -168,7 +172,6 @@ const append = (e, node) => {
   };
 
   insertChildren(data.value, node.key, newChild);
-
 
   //展开节点
   let keys = expandedKeys.value;

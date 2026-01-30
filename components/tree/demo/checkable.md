@@ -1,7 +1,11 @@
 <cn>
 ### 可勾选
 设置属性 `checkable` 可以对节点进行勾选。
-</cn>
+ </cn>
+<en>
+### Checkable
+Setting the `checkable` attribute allows checking nodes.
+</en>
 
 ```vue
 <template>
@@ -33,7 +37,7 @@ const data = [
         disabled: true,
         children: [
           { title: "leaf 1-1-1", key: "1-1-1" },
-          { title: "leaf 1-1-2" ,key: "1-1-2"},
+          { title: "leaf 1-1-2", key: "1-1-2" },
         ],
       },
       {

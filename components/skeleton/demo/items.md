@@ -2,6 +2,10 @@
 ### 按钮/头像/图像
 骨架按钮、头像、和图像。
 </cn>
+<en>
+### Button / Avatar / Image
+Skeleton Button, Avatar, and Image.
+</en>
 
 ```vue
 <template>
@@ -16,11 +20,7 @@
     Button Shape:
     <RadioGroup :options="btnShapes" v-model="btnShape" type="button" />
     Avatar Shape:
-    <RadioGroup
-      :options="avatarShapes"
-      v-model="avatarShape"
-      type="button"
-    />
+    <RadioGroup :options="avatarShapes" v-model="avatarShape" type="button" />
   </Space>
   <br />
   <br />
@@ -30,13 +30,7 @@
   <br />
   <Space :size="15">
     Image Size:
-    <Slider
-      v-model="imgSize"
-      range
-      :min="96"
-      :max="320"
-      style="width:300px;"
-    />
+    <Slider v-model="imgSize" range :min="96" :max="320" style="width:300px;" />
   </Space>
   <br />
   <br />

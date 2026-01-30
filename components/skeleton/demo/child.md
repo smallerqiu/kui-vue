@@ -2,6 +2,10 @@
 ### 子组件
 加载占位图包含子组件。
 </cn>
+<en>
+### Child Components
+Loading skeleton with child components.
+</en>
 
 ```vue
 <template>
@@ -22,10 +26,10 @@ import { ref } from "vue";
 const loading = ref(false);
 
 const showSkeleton = () => {
-  (loading.value = true),
+  ((loading.value = true),
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 3000));
 };
 </script>
 <style lang="less">

@@ -3,6 +3,10 @@
 间距预设大、中、小三种大小。
 通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。
 </cn>
+<en>
+### Spacing Size
+Spacing presets: large, middle, small. By setting size to large or middle, spacing becomes large or middle respectively. If size is not set, spacing is small.
+</en>
 
 ```vue
 <template>

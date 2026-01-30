@@ -1,7 +1,11 @@
 <cn>
 ### 扩展节点
 节点的扩展节点
-</cn>
+ </cn>
+<en>
+### Node Extensions
+Extensions for nodes
+</en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 全选
 全选组合
 </cn>
+<en>
+### Check All
+Select or deselect all options.
+</en>
 
 ```vue
 <template>
