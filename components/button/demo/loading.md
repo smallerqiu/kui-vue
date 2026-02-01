@@ -7,26 +7,13 @@
 <template>
   <Space wrap>
     <Button type="primary" :icon="Search" loading>Loading</Button>
-    <Button
-      type="primary"
-      :icon="Search"
-      loading
-      size="small"
-      @click="message.info('test')"
-    >
+    <Button type="primary" :icon="Search" loading size="small" @click="message.info('test')">
       Loading
     </Button>
     <Button type="primary" loading shape="circle"></Button>
-    <Button type="primary" :loading="loading" @click="handleLoading">
-      Click me
-    </Button>
+    <Button type="primary" :loading="loading" @click="handleLoading"> Click me </Button>
     <br />
-    <Button
-      type="primary"
-      :icon="Power"
-      :loading="delayLoading"
-      @click="handleDelay"
-    >
+    <Button type="primary" :icon="Power" :loading="delayLoading" @click="handleDelay">
       延迟1s加载
     </Button>
   </Space>

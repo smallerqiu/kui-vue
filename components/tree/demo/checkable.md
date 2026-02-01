@@ -33,7 +33,7 @@ const data = [
         disabled: true,
         children: [
           { title: "leaf 1-1-1", key: "1-1-1" },
-          { title: "leaf 1-1-2" ,key: "1-1-2"},
+          { title: "leaf 1-1-2", key: "1-1-2" },
         ],
       },
       {

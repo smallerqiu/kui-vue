@@ -1,2 +1,2 @@
-import Popconfirm from './popconfirm.jsx'
-export default Popconfirm
+import Popconfirm from "./popconfirm.jsx";
+export default Popconfirm;

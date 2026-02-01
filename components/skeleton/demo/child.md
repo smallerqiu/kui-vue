@@ -22,10 +22,10 @@ import { ref } from "vue";
 const loading = ref(false);
 
 const showSkeleton = () => {
-  (loading.value = true),
+  ((loading.value = true),
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 3000));
 };
 </script>
 <style lang="less">

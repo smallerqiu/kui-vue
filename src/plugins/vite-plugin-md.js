@@ -66,9 +66,7 @@ export default function vitePluginMd() {
       let cnHtml = null;
       const cnMatch = tagCNReg.exec(src);
       if (cnMatch && cnMatch[1]) {
-        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(
-          cnMatch[1]
-        );
+        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(cnMatch[1]);
       }
 
       // 2) detect first ```vue fenced block

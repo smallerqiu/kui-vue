@@ -7,21 +7,16 @@
 <template>
   <Space vertical block>
     <code>v-model: {{ value }}</code>
-    <Input
-      placeholder="请输入内容..."
-      @blur="blur"
-      @focus="focus"
-      v-model="value"
-    />
+    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" v-model="value" />
     <Input placeholder="clearable=false" :clearable="false" />
     <Input placeholder="disabled..." disabled />
-    <Input placeholder="readonly..." readonly v-model="value"/>
+    <Input placeholder="readonly..." readonly v-model="value" />
     <TextArea v-model="value" />
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-const value = ref('');
+const value = ref("");
 const blur = () => {
   console.log("blur");
 };

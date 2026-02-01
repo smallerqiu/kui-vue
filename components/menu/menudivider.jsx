@@ -1,5 +1,5 @@
 import { defineComponent, inject, computed } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 const MenuDivider = defineComponent({
   name: "MenuDivider",

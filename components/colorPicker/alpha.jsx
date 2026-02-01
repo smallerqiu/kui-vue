@@ -47,11 +47,7 @@ export default defineComponent({
     const onMouseMove = (e) => {
       const canvas = refPaint.value;
       let width = canvas.width;
-      const x = clamp(
-        e.clientX - canvas.getBoundingClientRect().left,
-        0,
-        width
-      ),
+      const x = clamp(e.clientX - canvas.getBoundingClientRect().left, 0, width),
         alpha = +(x / width).toFixed(2);
       dotPos.value = x - 7;
 
@@ -99,7 +95,8 @@ export default defineComponent({
             style={{
               left: dotPos.value + "px",
               backgroundColor: `${currentColor.value}`,
-            }}></span>
+            }}
+          ></span>
         </div>
       );
     };

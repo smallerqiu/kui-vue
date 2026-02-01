@@ -28,19 +28,11 @@
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>
-        <Button @click="() => (visible = true)" style="margin-left:10px"
-          >Add User</Button
-        >
+        <Button @click="() => (visible = true)" style="margin-left:10px">Add User</Button>
       </FormItem>
     </Form>
 
-    <Modal
-      v-model="visible"
-      title="新增用户"
-      :width="450"
-      @ok="onOk"
-      @cancel="onCancel"
-    >
+    <Modal v-model="visible" title="新增用户" :width="450" @ok="onOk" @cancel="onCancel">
       <Form
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"

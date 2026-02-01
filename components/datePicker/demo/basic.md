@@ -7,11 +7,11 @@
 <template>
   <Space wrap vertical>
     <code>v-model : {{ year }}</code>
-    <DatePicker mode="year" v-model="year"/>
+    <DatePicker mode="year" v-model="year" />
     <code>v-model : {{ month }}</code>
-    <DatePicker mode="month" v-model="month"/>
+    <DatePicker mode="month" v-model="month" />
     <code>v-model : {{ date }}</code>
-    <DatePicker mode="date" v-model="date"/>
+    <DatePicker mode="date" v-model="date" />
     <code>v-model : {{ time }}</code>
     <DatePicker mode="time" v-model="time" />
     <code>v-model : {{ datetime }}</code>

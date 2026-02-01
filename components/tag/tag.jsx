@@ -47,8 +47,7 @@ const Tag = defineComponent({
         ],
         on: { ...listeners },
         style: {
-          backgroundColor:
-            isColor(color) && !colors.includes(color) ? color : null,
+          backgroundColor: isColor(color) && !colors.includes(color) ? color : null,
         },
       };
       const children = [];
@@ -57,9 +56,7 @@ const Tag = defineComponent({
       }
       children.push(<span class="k-tag-text">{slots.default?.()}</span>);
       if (closeable) {
-        children.push(
-          <Icon class="k-tag-close" type={Close} onClick={closeHandler} />,
-        );
+        children.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
       }
       return (
         <transition name="k-tag">

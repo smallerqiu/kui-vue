@@ -137,8 +137,7 @@ const Tooltip = defineComponent({
         return cloneVNode(node, pp, true);
         // return cloneVNode(node, pp, true, true); //for 3
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,

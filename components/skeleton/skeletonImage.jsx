@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const SkeletonImage = defineComponent({
   name: "SkeletonImage",
   props: {

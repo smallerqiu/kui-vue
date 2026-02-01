@@ -9,18 +9,8 @@
     <Checkbox v-model="bordered">Show border</Checkbox>
     <Space block style="max-width: 900px;">
       <StatCard title="今日订单" :items="items" :bordered="bordered" />
-      <StatCard
-        statNumberType="rollup"
-        title="今日进账"
-        :items="items1"
-        :bordered="bordered"
-      />
-      <StatCard
-        statNumberType="rollup"
-        title="媒体数据"
-        :items="items2"
-        :bordered="bordered"
-      >
+      <StatCard statNumberType="rollup" title="今日进账" :items="items1" :bordered="bordered" />
+      <StatCard statNumberType="rollup" title="媒体数据" :items="items2" :bordered="bordered">
       </StatCard>
     </Space>
   </Space>

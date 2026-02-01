@@ -1,7 +1,7 @@
 import Info from "./info.md";
-import Basic from './basic.md'; 
-import Card from './card.md'; 
-import WithCard from './with-card.md'; 
+import Basic from "./basic.md";
+import Card from "./card.md";
+import WithCard from "./with-card.md";
 
 import CN from "../index.md";
 export default {
@@ -16,4 +16,4 @@ export default {
       </div>
     );
   },
-}
+};

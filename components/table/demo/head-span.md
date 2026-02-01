@@ -5,8 +5,7 @@ columns[n] 可以内嵌 children，以渲染分组表头。
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ x: true, y: 300 }">
-  </Table>
+  <Table :data="data" :columns="columns" bordered :scroll="{ x: true, y: 300 }"> </Table>
 </template>
 <script setup>
 const data = [];

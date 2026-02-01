@@ -14,14 +14,7 @@
     <br />
     <Select v-model="value1" :size="size" filterable block :options="data" />
     <Select v-model="value2" :size="size" block :options="data" multiple />
-    <Select
-      v-model="value3"
-      :size="size"
-      :maxTagCount="2"
-      :options="data"
-      multiple
-      block
-    />
+    <Select v-model="value3" :size="size" :maxTagCount="2" :options="data" multiple block />
   </Space>
 </template>
 <script setup>

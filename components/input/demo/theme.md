@@ -9,12 +9,7 @@
     <Checkbox label="Circle" v-model="isCircle" @change="setShape" />
     <Input placeholder="请输入内容..." theme="light" :shape="shape" />
     <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
-    <Input
-      placeholder="请输入内容..."
-      theme="light"
-      :icon="Search"
-      :shape="shape"
-    />
+    <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape" />
     <Input
       placeholder="请输入内容..."
       theme="light"

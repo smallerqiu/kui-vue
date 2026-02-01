@@ -18,13 +18,12 @@ let showModal = (props = {}, context = null) => {
         destroy: () => {
           setTimeout(() => {
             modalList = modalList.filter((item) => item !== instance);
-            document.body.contains(container) &&
-              document.body.removeChild(container);
+            document.body.contains(container) && document.body.removeChild(container);
           }, 300);
         },
       },
     },
-    context,
+    context
   );
   render(vm, container);
 

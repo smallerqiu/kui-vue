@@ -46,8 +46,8 @@ const sizes = [
 const size = ref("default");
 
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
-const value = ref('0-1');
-const value1 = ref(['0-1']);
+const value = ref("0-1");
+const value1 = ref(["0-1"]);
 const data = [
   {
     title: "tree 1",

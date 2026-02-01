@@ -1,15 +1,7 @@
 import Icon from "../icon";
 import resize from "../directives/resize";
 import { ArrowBack, ArrowForward } from "kui-icons/dist/icons";
-import {
-  defineComponent,
-  provide,
-  ref,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-} from "vue";
+import { defineComponent, provide, ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
 import { withInstall } from "../utils/vue";
 const Carousel = defineComponent({
   name: "Carousel",
@@ -39,7 +31,7 @@ const Carousel = defineComponent({
       () => ps.value,
       (nv, ov) => {
         currentIndex.value = nv;
-      },
+      }
     );
     const next = () => {
       toSwitch("right");
@@ -149,10 +141,7 @@ const Carousel = defineComponent({
       const dotsNode = (
         <ul class="k-carousel-dots">
           {children?.map((x, i) => (
-            <li
-              class={{ "k-carousel-dots-active": index == i }}
-              onClick={() => goTo(i)}
-            ></li>
+            <li class={{ "k-carousel-dots-active": index == i }} onClick={() => goTo(i)}></li>
           ))}
         </ul>
       );

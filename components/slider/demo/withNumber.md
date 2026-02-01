@@ -11,11 +11,7 @@
         <Slider v-model:value="n1" :min="1" :max="20" />
       </Col>
       <Col :span="4">
-        <InputNumber
-          v-model="n1"
-          :min="1"
-          :max="20"
-        />
+        <InputNumber v-model="n1" :min="1" :max="20" />
       </Col>
     </Row>
     <Row>
@@ -23,12 +19,7 @@
         <Slider v-model:value="n2" :min="0" :max="1" :step="0.01" />
       </Col>
       <Col :span="4">
-        <InputNumber
-          v-model:value="n2"
-          :min="0"
-          :max="1"
-          :step="0.01"
-        />
+        <InputNumber v-model:value="n2" :min="0" :max="1" :step="0.01" />
       </Col>
     </Row>
   </div>

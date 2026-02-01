@@ -9,28 +9,13 @@
   <br />
   <br />
   <Card v-for="x in 3" class="demo-skeleton-card" title="诗一首" :key="x">
-    <SkeletonImage
-      animated
-      :loading="loading"
-      :radius="8"
-      style="width:166px;height:100px;"
-    >
+    <SkeletonImage animated :loading="loading" :radius="8" style="width:166px;height:100px;">
       <div class="cover" />
     </SkeletonImage>
-    <SkeletonText
-      animated
-      :loading="loading"
-      size="small"
-      style="min-width:80px;margin:8px 0;"
-    >
+    <SkeletonText animated :loading="loading" size="small" style="min-width:80px;margin:8px 0;">
       <h2>静夜思.李白</h2>
     </SkeletonText>
-    <SkeletonText
-      animated
-      :loading="loading"
-      size="small"
-      style="min-width:130px;"
-    >
+    <SkeletonText animated :loading="loading" size="small" style="min-width:130px;">
       <span>床前明月光, 疑是地上霜, 举头望明月, 低头思故乡.</span>
     </SkeletonText>
   </Card>
@@ -40,10 +25,10 @@ import { ref } from "vue";
 const loading = ref(false);
 
 const showSkeleton = () => {
-  (loading.value = true),
+  ((loading.value = true),
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 3000));
 };
 </script>
 <style>
@@ -57,8 +42,7 @@ const showSkeleton = () => {
   height: 100px;
   width: 166px;
   border-radius: 8px;
-  background: url("https://cdn.chuchur.com/upload/demo/test_300.jpg") no-repeat
-    center;
+  background: url("https://cdn.chuchur.com/upload/demo/test_300.jpg") no-repeat center;
   background-size: cover;
 }
 .demo-skeleton-card h2 {

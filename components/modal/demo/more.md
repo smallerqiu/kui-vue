@@ -21,12 +21,7 @@
       {{ text }}
     </Modal>
 
-    <Modal
-      title="Top 200px"
-      v-model="show3"
-      :top="200"
-      @ok="show3 = false"
-    >
+    <Modal title="Top 200px" v-model="show3" :top="200" @ok="show3 = false">
       {{ text }}
     </Modal>
 
@@ -44,12 +39,7 @@
       {{ text }}
     </Modal>
 
-    <Modal
-      title="No footer"
-      v-model="show6"
-      :footer="null"
-      @ok="show6 = false"
-    >
+    <Modal title="No footer" v-model="show6" :footer="null" @ok="show6 = false">
       {{ text }}
     </Modal>
   </Space>

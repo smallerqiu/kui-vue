@@ -56,28 +56,18 @@ const Switch = defineComponent({
           ["k-switch-sm"]: ps.size == "small",
         },
       ];
-      const children =
-        slots.checked?.() || trueText || slots.unchecked?.() || falseText;
-      const loadNode = loading ? (
-        <Icon spin type={Loading} class="k-switch-loading" />
-      ) : null;
+      const children = slots.checked?.() || trueText || slots.unchecked?.() || falseText;
+      const loadNode = loading ? <Icon spin type={Loading} class="k-switch-loading" /> : null;
 
       const textNode =
         size != "small" && children ? (
           <span class="k-switch-inner">
-            {isChecked.value
-              ? slots.checked?.() || trueText
-              : slots.unchecked?.() || falseText}
+            {isChecked.value ? slots.checked?.() || trueText : slots.unchecked?.() || falseText}
           </span>
         ) : null;
 
       return (
-        <button
-          class={classes}
-          onClick={change}
-          disabled={disabled || loading}
-          type="button"
-        >
+        <button class={classes} onClick={change} disabled={disabled || loading} type="button">
           {textNode}
           {loadNode}
         </button>

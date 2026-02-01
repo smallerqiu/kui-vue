@@ -24,7 +24,8 @@
     "build": "npm run build:types && rollup -c --bundleConfigAsCjs --treeshake",
     "build:types": "node scripts/gen-dts.js",
     "preview": "vite preview",
-    "lint": "npx eslint . --fix"
+    "lint": "npx eslint . --fix",
+    "format": "prettier --write ."
   },
   "author": {
     "name": "Qiu",

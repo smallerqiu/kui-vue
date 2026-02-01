@@ -30,7 +30,7 @@ const Collapse = defineComponent({
       }
       defaultOpenKeys.value = value;
       emit("change", key, value);
-      emit("update:openKeys", value); 
+      emit("update:openKeys", value);
     };
 
     return () => {

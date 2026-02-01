@@ -12,7 +12,7 @@ for (const oldPath of matches) {
   const fileName = parts[parts.length - 1]; // 例如 aaa、bbb、xyz
 
   // const newDir = parentDir.charAt(0); // 截取首字母，例如 a、b、x
-  const newPath = path.join("../kui-vue-v4", ...parts.slice(2, parts.length ));
+  const newPath = path.join("../kui-vue-v4", ...parts.slice(2, parts.length));
 
   // 创建新路径的目录（如果不存在）
   // const newDirPath = path.dirname(newPath);

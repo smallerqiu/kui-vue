@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Theme from "./theme.md";
 import Icon from "./icon.md";
 import Suffix from "./suffix.md";
@@ -24,5 +24,5 @@ export default {
         <CN />
       </div>
     );
-  }
+  },
 };

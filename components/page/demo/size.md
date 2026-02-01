@@ -8,13 +8,7 @@
   <Space vertical>
     <Page :page="page" :total="50" size="small" />
     <Page :page="page" :total="50" size="small" show-sizer />
-    <Page
-      :page="page"
-      :total="50"
-      size="small"
-      show-elevator
-      show-sizer
-    />
+    <Page :page="page" :total="50" size="small" show-elevator show-sizer />
   </Space>
 </template>
 <script setup>

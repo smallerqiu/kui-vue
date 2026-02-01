@@ -23,7 +23,7 @@ export default defineComponent({
           mode="dateTimeRange"
           value={rangeVal.value}
           onUpdate:value={(v) => (rangeVal.value = v)}
-        /> 
+        />
 
         {/* <h3>带时间 (DateTime)</h3>
         <DatePicker

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space style="height: 300px;" block class="demo-slider-vertical" :size="35">
-    <Slider vertical :value="35" size="small"/>
+    <Slider vertical :value="35" size="small" />
     <Slider vertical reverse :value="35" />
     <Slider vertical range :value="[20, 60]" />
     <Slider

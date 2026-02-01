@@ -117,10 +117,7 @@ const SubMenu = defineComponent({
       // pop
       const opened = openKeys.value.indexOf(key) >= 0;
       let leftValue = left.value;
-      if (
-        (mode.value == "horizontal" && keyPah.length) ||
-        mode.value == "vertical"
-      ) {
+      if ((mode.value == "horizontal" && keyPah.length) || mode.value == "vertical") {
         leftValue += 3;
       }
       const popperPros = {
@@ -162,12 +159,7 @@ const SubMenu = defineComponent({
       });
       return rendered.value ? (
         <transition name={`k-${preCls}-popup`}>
-          <div
-            class={`k-${preCls}-popup`}
-            v-show={opened}
-            v-transfer={true}
-            {...popperPros}
-          >
+          <div class={`k-${preCls}-popup`} v-show={opened} v-transfer={true} {...popperPros}>
             <div class={`k-${preCls}-sub`}>
               <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
             </div>
@@ -186,9 +178,7 @@ const SubMenu = defineComponent({
           <transition {...transitionProps}>
             <div
               class={`k-${preCls}-sub`}
-              v-show={
-                opened && !inlineCollapsed.value && mode.value != "vertical"
-              }
+              v-show={opened && !inlineCollapsed.value && mode.value != "vertical"}
             >
               <ul class={`k-menu k-menu-${mode.value}`}>{slots.default?.()}</ul>
             </div>
@@ -217,11 +207,7 @@ const SubMenu = defineComponent({
           if (ps.disabled) return;
           openKeysChange?.(key, !opened, keyPah);
         };
-      } else if (
-        mode.value == "horizontal" ||
-        mode.value == "vertical" ||
-        inlineCollapsed.value
-      ) {
+      } else if (mode.value == "horizontal" || mode.value == "vertical" || inlineCollapsed.value) {
         // popper
         titleProps.ref = refSelection;
         // titleProps.onMouseenter = () => { for 3
@@ -247,9 +233,7 @@ const SubMenu = defineComponent({
         <div {...titleProps}>
           {ps.icon ? <Icon type={ps.icon} class="k-menu-item-icon" /> : null}
           {<span class={`k-${preCls}-title-content`}>{title}</span>}
-          {mode.value == "horizontal" && !keyPah.length ? null : (
-            <i class={`k-${preCls}-arrow`} />
-          )}
+          {mode.value == "horizontal" && !keyPah.length ? null : <i class={`k-${preCls}-arrow`} />}
         </div>
       );
 

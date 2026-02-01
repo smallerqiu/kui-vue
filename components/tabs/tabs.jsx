@@ -1,15 +1,7 @@
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons/dist/icons";
-import {
-  defineComponent,
-  onMounted,
-  onBeforeMount,
-  ref,
-  nextTick,
-  watch,
-  computed,
-} from "vue";
+import { defineComponent, onMounted, onBeforeMount, ref, nextTick, watch, computed } from "vue";
 import { withInstall, cloneVNode } from "../utils/vue";
 const Tabs = defineComponent({
   name: "Tabs",
@@ -148,9 +140,7 @@ const Tabs = defineComponent({
     const updateIndex = () => {
       nextTick(() => {
         const nodes = getChildren(slots.default?.());
-        currentIndex.value = nodes
-          ?.map((p) => p.key)
-          .indexOf(defaultActiveKey.value);
+        currentIndex.value = nodes?.map((p) => p.key).indexOf(defaultActiveKey.value);
         resetActivePosition();
         updateInkBarPosition();
       });
@@ -190,8 +180,7 @@ const Tabs = defineComponent({
 
       const navNodes = nodes?.map((panel, index) => {
         const key = panel.key;
-        let { icon, title, closable, disabled } =
-          panel?.componentOptions?.propsData || {}; // for 2
+        let { icon, title, closable, disabled } = panel?.componentOptions?.propsData || {}; // for 2
 
         // let { icon, title, closable, disabled } = panel.props; // for 3
         disabled = disabled !== undefined && disabled != false;
@@ -268,9 +257,7 @@ const Tabs = defineComponent({
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
                 <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
-                  {!card && !sample ? (
-                    <div class="k-tabs-ink-bar" ref={inkBarRef} />
-                  ) : null}
+                  {!card && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
                     {navNodes}
                   </div>
@@ -288,9 +275,7 @@ const Tabs = defineComponent({
                 </span>
               ) : null}
             </div>
-            {slots.extra ? (
-              <div class="k-tabs-extra">{slots.extra()}</div>
-            ) : null}
+            {slots.extra ? <div class="k-tabs-extra">{slots.extra()}</div> : null}
           </div>
           <div class="k-tabs-content" style={paneStyle}>
             {panels}

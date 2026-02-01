@@ -62,22 +62,12 @@ const Demo = defineComponent({
       );
       const codeNode = (
         <transition {...transitionProps}>
-          <div
-            v-show={expanded.value}
-            class="k-code-box"
-            contenteditable
-            onInput={renderCode}
-          >
+          <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
             {!vertical ? (
               <div class="k-code-tools">
                 {/* <Badge status="success" text="实时编译成功" /> */}
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={CopyOutline}
-                    onClick={copyCode}
-                  />
+                  <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
                 </Tooltip>
                 {/* <Tooltip title="重置代码">
                 <Button
@@ -96,13 +86,7 @@ const Demo = defineComponent({
         </transition>
       );
       return (
-        <div
-          class={[
-            "markdown-body",
-            "k-demo-container",
-            { "k-demo-expanded": expanded.value },
-          ]}
-        >
+        <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
           {descNode}
           {/* {!vertical && descNode} */}
           <div class={classes}>
@@ -127,13 +111,7 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="large"
-                    icon={CopyOutline}
-                    block
-                    onClick={copyCode}
-                  />
+                  <Button type="text" size="large" icon={CopyOutline} block onClick={copyCode} />
                 </Tooltip>
               </div>
             )}

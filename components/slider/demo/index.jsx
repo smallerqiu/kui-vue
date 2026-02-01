@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Size from "./size.md";
 import WithNumber from "./withNumber.md";
 import Formatter from "./formatter.md";

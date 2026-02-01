@@ -17,22 +17,12 @@
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
-    <Drawer
-      v-model="show2"
-      width="30%"
-      title="Width 30%"
-      @ok="show2 = false"
-    >
+    <Drawer v-model="show2" width="30%" title="Width 30%" @ok="show2 = false">
       <p>something ...</p>
       <p>something ...</p>
       <p>something ...</p>
     </Drawer>
-    <Drawer
-      v-model="show3"
-      title="Click mask to close"
-      :mask-closable="false"
-      @ok="show3 = false"
-    >
+    <Drawer v-model="show3" title="Click mask to close" :mask-closable="false" @ok="show3 = false">
       <p>something ...</p>
       <p>something ...</p>
       <p>something ...</p>

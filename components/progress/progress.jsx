@@ -42,7 +42,7 @@ const Progress = defineComponent({
       () => ps.percent,
       (nv, no) => {
         currentPercent.value = nv;
-      },
+      }
     );
     const currentPercent = ref(ps.percent);
     const renderTip = () => {
@@ -108,20 +108,8 @@ const Progress = defineComponent({
 
       return (
         <svg viewBox={`0 0 ${50 * 2} ${50 * 2}`}>
-          <path
-            d={d}
-            fill="none"
-            stroke-width={strokeWidth}
-            style={ds}
-            class="k-progress-inner"
-          />
-          <path
-            d={d}
-            fill="none"
-            stroke-width={strokeWidth}
-            style={style}
-            class="k-progress-bg"
-          />
+          <path d={d} fill="none" stroke-width={strokeWidth} style={ds} class="k-progress-inner" />
+          <path d={d} fill="none" stroke-width={strokeWidth} style={style} class="k-progress-bg" />
         </svg>
       );
     };

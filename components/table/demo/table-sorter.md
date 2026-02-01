@@ -5,8 +5,7 @@
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" :loading="loading" @sort="sort">
-  </Table>
+  <Table :data="data" :columns="columns" :loading="loading" @sort="sort"> </Table>
 </template>
 <script setup>
 import { ref, onMounted } from "vue";

@@ -36,8 +36,7 @@ const Form = defineComponent({
     const formRef = ref(null);
     const formItems = ref({});
 
-    const { model, rules, size, shape, theme, disabled, layout, name } =
-      toRefs(props);
+    const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
 
     const updateMode = (prop, value = null) => {
       const keys = prop
@@ -96,8 +95,7 @@ const Form = defineComponent({
           // 可根据需要启用警告或错误提示
         }
       }
-      return currentModel === model.value ||
-        JSON.stringify(currentModel) === "{}"
+      return currentModel === model.value || JSON.stringify(currentModel) === "{}"
         ? null
         : currentModel;
     };
@@ -179,10 +177,8 @@ const Form = defineComponent({
           autocomplete="off"
         >
           {children.map((child) => {
-            const childLabelCol =
-              child?.componentOptions?.propsData?.labelCol || labelCol;
-            const childWrapperCol =
-              child?.componentOptions?.propsData?.wrapperCol || wrapperCol;
+            const childLabelCol = child?.componentOptions?.propsData?.labelCol || labelCol;
+            const childWrapperCol = child?.componentOptions?.propsData?.wrapperCol || wrapperCol;
             // const childLabelCol = child.props?.labelCol || labelCol; // for 3
             // const childWrapperCol = child.props?.wrapperCol || wrapperCol;  // for 3
 

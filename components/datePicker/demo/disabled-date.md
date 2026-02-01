@@ -11,11 +11,7 @@
     <code>not before 09:30</code>
     <DatePicker :disabledTime="disabledTime1" mode="time" />
     <code>not before 12:30 today</code>
-    <DatePicker
-      mode="dateTimeRange"
-      :disabledDate="disabledDate"
-      :disabledTime="disabledTime2"
-    />
+    <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime2" />
   </Space>
 </template>
 <script setup>

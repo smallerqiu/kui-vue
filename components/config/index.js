@@ -1,11 +1,5 @@
 import { withInstall } from "../utils/vue";
-import {
-  defineComponent,
-  provide,
-  ref,
-  watch,
-  getCurrentInstance,
-} from "vue";
+import { defineComponent, provide, ref, watch, getCurrentInstance } from "vue";
 import { setAppContext } from "./context";
 const ConfigProvider = defineComponent({
   name: "ConfigProvider",

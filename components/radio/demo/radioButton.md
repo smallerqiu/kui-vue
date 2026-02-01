@@ -18,8 +18,7 @@
       <RadioButton value="card" label="Card" />
     </RadioGroup>
     <code>Size :{{ size }}</code>
-    <RadioGroup v-model="size" type="button" size="small" :options="sizes">
-    </RadioGroup>
+    <RadioGroup v-model="size" type="button" size="small" :options="sizes"> </RadioGroup>
     <br />
     <RadioGroup
       type="button"

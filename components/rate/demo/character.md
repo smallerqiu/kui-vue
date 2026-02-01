@@ -18,14 +18,7 @@
   </Space>
 </template>
 <script setup>
-import {
-  Heart,
-  VolumeOff,
-  VolumeLow,
-  VolumeMedium,
-  VolumeHigh,
-  VolumeMute,
-} from "kui-icons";
+import { Heart, VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";
 const icons = [VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute];
 </script>
 ```

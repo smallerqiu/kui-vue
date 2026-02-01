@@ -1,2 +1,2 @@
-import Table from './table.jsx'
-export default Table
+import Table from "./table.jsx";
+export default Table;
