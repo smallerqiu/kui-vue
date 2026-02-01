@@ -1,14 +1,7 @@
 import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
-import {
-  defineComponent,
-  ref,
-  reactive,
-  onMounted,
-  onBeforeUnmount,
-  Transition,
-} from "vue";
+import { defineComponent, ref, reactive, onMounted, onBeforeUnmount, Transition } from "vue";
 import { parseCode } from "./transform";
 import { useClipboard } from "@vueuse/core";
 const { copy, isSupported } = useClipboard();
@@ -37,8 +30,7 @@ const Demo = defineComponent({
 
     const currentApp = ref(null);
     const reload = () => {
-      const source =
-        codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
+      const source = codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
       parseCode({
         source: source,
         viewRef,
@@ -94,30 +86,15 @@ const Demo = defineComponent({
       );
       const codeNode = (
         <Transition {...transitionProps}>
-          <div
-            v-show={expanded.value}
-            class="k-code-box"
-            contenteditable
-            onInput={renderCode}
-          >
+          <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
             {!vertical ? (
               <div class="k-code-tools">
                 <Badge status={buildState.state} text={buildState.text} />
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={CopyOutline}
-                    onClick={copyCode}
-                  />
+                  <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
                 </Tooltip>
                 <Tooltip title="重置代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={Reload}
-                    onClick={restoreCode}
-                  />
+                  <Button type="text" size="small" icon={Reload} onClick={restoreCode} />
                 </Tooltip>
               </div>
             ) : null}
@@ -134,13 +111,7 @@ const Demo = defineComponent({
         [scopeIdAttr]: "",
       };
       return (
-        <div
-          class={[
-            "markdown-body",
-            "k-demo-container",
-            { "k-demo-expanded": expanded.value },
-          ]}
-        >
+        <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
           {descNode}
           <div class={classes}>
             <div class={`k-demo-view k-demo-view-${props.direction}`}>
@@ -161,13 +132,7 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="large"
-                    icon={CopyOutline}
-                    block
-                    onClick={copyCode}
-                  />
+                  <Button type="text" size="large" icon={CopyOutline} block onClick={copyCode} />
                 </Tooltip>
               </div>
             )}

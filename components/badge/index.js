@@ -1,2 +1,2 @@
-import Badge from './badge.jsx'
-export default Badge
+import Badge from "./badge.jsx";
+export default Badge;

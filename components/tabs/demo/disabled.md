@@ -17,9 +17,7 @@ Disable a tab.
     <br />
     <Tabs v-model="current">
       <TabPanel key="1" title="Tab 1"> Content of Tab Pane 1 </TabPanel>
-      <TabPanel key="2" title="Tab 2" :disabled="disabled">
-        Content of Tab Pane 2
-      </TabPanel>
+      <TabPanel key="2" title="Tab 2" :disabled="disabled"> Content of Tab Pane 2 </TabPanel>
       <TabPanel key="3" title="Tab 3"> Content of Tab Pane 3 </TabPanel>
     </Tabs>
   </div>

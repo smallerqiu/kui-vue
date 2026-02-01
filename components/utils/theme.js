@@ -47,10 +47,10 @@ const Theme = {
                 ? "::view-transition-old(root)"
                 : "::view-transition-new(root)",
             }
-          )
+          );
           ani.onfinish = () => {
             // root.style.clipPath = "none";
-          }
+          };
         });
     } else {
       isDark = toggle();

@@ -14,9 +14,7 @@ Bordered list with borders and background color.
     <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
     <DescriptionsItem label="电话">13888888888</DescriptionsItem>
     <DescriptionsItem label="下单时间">2022-05-03 12:12:33</DescriptionsItem>
-    <DescriptionsItem label="付款时间" :span="3"
-      >2022-05-03 12:15:33</DescriptionsItem
-    >
+    <DescriptionsItem label="付款时间" :span="3">2022-05-03 12:15:33</DescriptionsItem>
     <DescriptionsItem label="状态" :span="5"
       ><Badge status="success" text="已发货"
     /></DescriptionsItem>

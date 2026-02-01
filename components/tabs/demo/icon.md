@@ -10,12 +10,8 @@ Tabs with icons.
 ```vue
 <template>
   <Tabs v-model="current">
-    <TabPanel key="1" title="Tab 1" :icon="LogoApple">
-      Content of Tab Pane 1
-    </TabPanel>
-    <TabPanel key="2" title="Tab 2" :icon="LogoMicrosoft">
-      Content of Tab Pane 2
-    </TabPanel>
+    <TabPanel key="1" title="Tab 1" :icon="LogoApple"> Content of Tab Pane 1 </TabPanel>
+    <TabPanel key="2" title="Tab 2" :icon="LogoMicrosoft"> Content of Tab Pane 2 </TabPanel>
   </Tabs>
 </template>
 <script setup>

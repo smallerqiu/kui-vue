@@ -155,8 +155,7 @@ const Poptip = defineComponent({
         }
         return cloneVNode(node, pp, true, true);
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -184,12 +183,7 @@ const Poptip = defineComponent({
         childNodes.push(
           // const overlay = rendered.value ? (
           <Transition name={`k-${preCls}`}>
-            <div
-              class={cls}
-              v-transfer={true}
-              v-show={visible.value}
-              {...props}
-            >
+            <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
               <div class={`k-${preCls}-content`}>
                 {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
                 <div class={`k-${preCls}-body`}>{content}</div>
@@ -212,7 +206,7 @@ const Poptip = defineComponent({
           // ) : null;
         );
       }
-      return childNodes //for 3
+      return childNodes; //for 3
     };
   },
 });

@@ -24,9 +24,7 @@ Skeleton Button, Avatar, and Image.
   </Space>
   <br />
   <br />
-  <Space :size="15">
-    Image radius: <Slider v-model="radius" style="width:300px;" />
-  </Space>
+  <Space :size="15"> Image radius: <Slider v-model="radius" style="width:300px;" /> </Space>
   <br />
   <Space :size="15">
     Image Size:
@@ -41,12 +39,7 @@ Skeleton Button, Avatar, and Image.
   </Space>
   <br />
   <br />
-  <SkeletonButton
-    :animated="animated"
-    :size="size"
-    :shape="btnShape"
-    :block="block"
-  />
+  <SkeletonButton :animated="animated" :size="size" :shape="btnShape" :block="block" />
   <br />
   <br />
   <SkeletonImage :animated="animated" :radius="radius" :size="imgSize" />

@@ -33,15 +33,7 @@
 <script setup>
 import { message } from "kui-vue";
 const events = {};
-[
-  "focus",
-  "blur",
-  "change",
-  "keypress",
-  "keyup",
-  "keydown",
-  "keydownEnter",
-].forEach((type) => {
+["focus", "blur", "change", "keypress", "keyup", "keydown", "keydownEnter"].forEach((type) => {
   events[type] = function (e) {
     message.info(type);
     console.log(type, e.target.value);

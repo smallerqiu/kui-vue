@@ -36,9 +36,9 @@ const Modal = defineComponent({
     transfer: { type: Boolean, default: true },
     escKey: { type: Boolean, default: true },
   },
-  setup(ps, { slots, emit }) { 
+  setup(ps, { slots, emit }) {
     const visible = ref(ps.modelValue);
-    const rendered = ref(false); 
+    const rendered = ref(false);
     const showInner = ref(ps.modelValue);
     const left = ref(0);
     const currentTop = ref(ps.top);
@@ -69,12 +69,12 @@ const Modal = defineComponent({
 
       if (ps.draggable) {
         left.value = (document.body.offsetWidth - (ps.width || 480)) / 2;
-      } 
+      }
       if (ps.modelValue) {
         toggle(true);
       }
     });
-    watch( 
+    watch(
       () => ps.modelValue,
       (nv, ov) => {
         toggle(nv);
@@ -97,7 +97,7 @@ const Modal = defineComponent({
         if (value) {
           nextTick((e) => {
             visible.value = value;
-            showInner.value = value; 
+            showInner.value = value;
             emit("update:modelValue", true);
             nextTick(() => {
               updateOrigin();
@@ -107,14 +107,14 @@ const Modal = defineComponent({
           visible.value = false;
           setTimeout(() => {
             showInner.value = false;
-          }, 300); 
-          emit("update:modelValue", false);  
+          }, 300);
+          emit("update:modelValue", false);
         }
       }
     };
     const updateOrigin = () => {
       if (refModal.value) {
-        let { x, y } = getMousePoint()
+        let { x, y } = getMousePoint();
         let { left, top } = getOffset(refModal.value);
         refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
       }
@@ -170,8 +170,7 @@ const Modal = defineComponent({
         document.addEventListener("mouseup", mouseup);
       }
 
-      mousedownIn.value =
-        visible.value && refModal.value && refModal.value.contains(e.target);
+      mousedownIn.value = visible.value && refModal.value && refModal.value.contains(e.target);
     };
 
     return () => {
@@ -221,9 +220,7 @@ const Modal = defineComponent({
               </Button>,
             ];
           }
-          const footerNode = footer ? (
-            <div class="k-modal-footer">{footer}</div>
-          ) : null;
+          const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
           contents.push(footerNode);
         }
@@ -259,12 +256,7 @@ const Modal = defineComponent({
             onClick={clickMaskToClose}
           >
             <Transition name="k-modal-zoom">
-              <div
-                class="k-modal-inner"
-                ref={refModal}
-                v-show={visible.value}
-                style={style}
-              >
+              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
                 {contentNode}
                 <div tabindex="0"></div>
               </div>
@@ -275,4 +267,4 @@ const Modal = defineComponent({
     };
   },
 });
-export default Modal
+export default Modal;

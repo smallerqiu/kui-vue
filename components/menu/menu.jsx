@@ -79,9 +79,7 @@ const Menu = defineComponent({
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];
       } else {
-        defaultSelectedKeys.value = defaultSelectedKeys.value.filter(
-          (x) => x !== key
-        );
+        defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
       emit("update:value", defaultSelectedKeys.value);
       // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
@@ -105,9 +103,7 @@ const Menu = defineComponent({
         defaultOpenKeys.value = opened ? [...keyPath, key] : keyPath;
       } else {
         if (!opened) {
-          defaultOpenKeys.value = defaultOpenKeys.value.filter(
-            (x) => x !== key
-          );
+          defaultOpenKeys.value = defaultOpenKeys.value.filter((x) => x !== key);
         } else {
           defaultOpenKeys.value.push(key);
         }

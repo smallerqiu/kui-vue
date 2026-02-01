@@ -35,5 +35,5 @@ const close = () => {
 const togglePanel = () => {
   imgRef.value.togglePanel();
 };
-</script> 
+</script>
 ```

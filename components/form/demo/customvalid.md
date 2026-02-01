@@ -6,13 +6,7 @@
 ```vue
 <template>
   <div style="max-width:600px;">
-    <Form
-      :model="form"
-      :rules="rules"
-      ref="formRef"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-    >
+    <Form :model="form" :rules="rules" ref="formRef" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <FormItem label="姓名" prop="fullname">
         <Input clearable />
       </FormItem>

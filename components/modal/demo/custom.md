@@ -10,44 +10,23 @@
     <Button @click="visible2 = true" type="primary">自定义页脚</Button>
     <Button @click="visible3 = true" type="primary">国际化</Button>
     <Button @click="visible4 = true" type="primary">异步关闭</Button>
-    <Modal
-      title="Width 300px"
-      v-model="visible1"
-      :width="300"
-      @ok="visible1 = false"
-    >
+    <Modal title="Width 300px" v-model="visible1" :width="300" @ok="visible1 = false">
       <p>content</p>
     </Modal>
 
     <Modal title="Custom footer" v-model="visible2">
       <p>content</p>
       <template #footer>
-        <Button :icon="Save" @click="visible2 = false" type="primary"
-          >Save</Button
-        >
+        <Button :icon="Save" @click="visible2 = false" type="primary">Save</Button>
       </template>
     </Modal>
 
-    <Modal
-      title="Are you ok ?"
-      v-model="visible3"
-      ok-text="Ok"
-      cancel-text="Cancel"
-      @ok="okHandle"
-    >
+    <Modal title="Are you ok ?" v-model="visible3" ok-text="Ok" cancel-text="Cancel" @ok="okHandle">
       <p>Yes , I'm fine !</p>
     </Modal>
 
-    <Modal
-      title="提交表单"
-      v-model="visible4"
-      :loading="loading"
-      @ok="submit"
-      @close="close"
-    >
-      <p>
-        Name：<Input placeholder="Please input your name" style="width:200px" />
-      </p>
+    <Modal title="提交表单" v-model="visible4" :loading="loading" @ok="submit" @close="close">
+      <p>Name：<Input placeholder="Please input your name" style="width:200px" /></p>
     </Modal>
   </Space>
 </template>

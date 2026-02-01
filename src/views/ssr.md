@@ -2,14 +2,13 @@
 
 ## nuxt 环境构建
 
-
 ```bash
 $ npm create nuxt@latest kui-demo
 #or
 $ npm create nuxt@latest kui-demo
 ```
 
-选择 `minimal – Minimal setup for Nuxt 4`  ,`minimal` 只包含最基础的 Nuxt 4 配置
+选择 `minimal – Minimal setup for Nuxt 4` ,`minimal` 只包含最基础的 Nuxt 4 配置
 
 更多详情请参阅 <https://nuxt.com/>
 

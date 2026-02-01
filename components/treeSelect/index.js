@@ -1,2 +1,2 @@
-import TreeSelect from './treeSelect' 
-export default TreeSelect
+import TreeSelect from "./treeSelect";
+export default TreeSelect;

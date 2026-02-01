@@ -45,10 +45,7 @@ app.use(kui).mount("#app");
 
 ```html
 <template>
-  <div>
-    <Button type="primary"></Button> ✅ 推荐
-    <k-button type="primary"></k-button> ✅
-  </div>
+  <div><button type="primary"></button> ✅ 推荐 <k-button type="primary"></k-button> ✅</div>
 </template>
 ```
 
@@ -57,11 +54,9 @@ app.use(kui).mount("#app");
 ```html
 <template>
   <div>
-    <KSwitch type="primary"></KSwitch> ✅ 推荐 
-    <KImage></KImage> ✅
+    <KSwitch type="primary"></KSwitch> ✅ 推荐 <KImage></KImage> ✅
     <!-- ok -->
-    <k-switch type="primary"></k-switch> ✅ 
-    <k-image></k-image> ✅
+    <k-switch type="primary"></k-switch> ✅ <k-image></k-image> ✅
   </div>
 </template>
 ```

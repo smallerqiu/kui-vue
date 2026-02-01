@@ -35,7 +35,7 @@ const CountUpNumber = defineComponent({
         if (countUp) {
           countUp.update(newVal);
         }
-      },
+      }
     );
     watch(
       () => props.precision,
@@ -43,7 +43,7 @@ const CountUpNumber = defineComponent({
         if (countUp) {
           countUp.options.decimalPlaces = newVal;
         }
-      },
+      }
     );
 
     return () => <span class="k-stat-countup-number" ref={el}></span>;

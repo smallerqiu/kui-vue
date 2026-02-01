@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Tips from "./tips.md";
 import Character from "./character.md";
 

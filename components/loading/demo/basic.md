@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space wrap>  
+  <Space wrap>
     <Button @click="start()">start</Button>
     <Button @click="finish">finish</Button>
     <Button @click="error">error</Button>

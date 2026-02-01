@@ -19,9 +19,7 @@ Use closeable to display a close button.
       ref="inputRef"
       :value="tag"
     />
-    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">
-      New Tag
-    </Button>
+    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput"> New Tag </Button>
   </Space>
 </template>
 <script setup>

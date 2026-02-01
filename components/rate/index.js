@@ -1,2 +1,2 @@
-import Rate from './rate'
-export default Rate
+import Rate from "./rate";
+export default Rate;

@@ -1,12 +1,7 @@
 import { Select } from "../select";
 import { Input } from "../input";
 import Icon from "../icon";
-import {
-  ChevronUp,
-  ChevronDoubleBack,
-  Ellipsis,
-  ChevronDoubleForward,
-} from "kui-icons/dist/icons";
+import { ChevronUp, ChevronDoubleBack, Ellipsis, ChevronDoubleForward } from "kui-icons/dist/icons";
 import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
 import { withInstall } from "../utils/vue";
 
@@ -127,10 +122,7 @@ const Page = defineComponent({
         };
         const moreNode = (
           <li {...p}>
-            <Icon
-              strokeWidth={30}
-              type={prevPageGroup.value ? ChevronDoubleBack : Ellipsis}
-            />
+            <Icon strokeWidth={30} type={prevPageGroup.value ? ChevronDoubleBack : Ellipsis} />
           </li>
         );
         child.unshift(moreNode);
@@ -144,10 +136,7 @@ const Page = defineComponent({
         };
         const moreNode = (
           <li {...p}>
-            <Icon
-              strokeWidth={30}
-              type={nextPageGroup.value ? ChevronDoubleForward : Ellipsis}
-            />
+            <Icon strokeWidth={30} type={nextPageGroup.value ? ChevronDoubleForward : Ellipsis} />
           </li>
         );
         child.push(moreNode);
@@ -198,10 +187,7 @@ const Page = defineComponent({
       if (pageCount.value > 0) {
         return (
           <li
-            class={[
-              "k-pager-item",
-              { "k-pager-item-active": defaultPage.value == 1 },
-            ]}
+            class={["k-pager-item", { "k-pager-item-active": defaultPage.value == 1 }]}
             onClick={() => toPage(1)}
           >
             <span>1</span>
@@ -215,10 +201,7 @@ const Page = defineComponent({
       if (pCount > 1) {
         return (
           <li
-            class={[
-              "k-pager-item",
-              { "k-pager-item-active": defaultPage.value == pCount },
-            ]}
+            class={["k-pager-item", { "k-pager-item-active": defaultPage.value == pCount }]}
             onClick={(e) => toPage(pCount)}
           >
             <span>{pCount}</span>
@@ -239,9 +222,7 @@ const Page = defineComponent({
         disabled: ps.disabled,
         onChange: changeSize,
       };
-      return ps.showSizer ? (
-        <div class="k-page-sizer">{<Select {...prop} />}</div>
-      ) : null;
+      return ps.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
     };
 
     const renderElevator = () => {
@@ -321,8 +302,7 @@ const Page = defineComponent({
         totalNode = ps.showTotal ? (
           <div class="k-page-number">
             <span>
-              {locale?.value.k.page.total} {ps.total}{" "}
-              {locale?.value.k.page.items}
+              {locale?.value.k.page.total} {ps.total} {locale?.value.k.page.items}
             </span>
           </div>
         ) : null,
@@ -334,9 +314,7 @@ const Page = defineComponent({
       return (
         <div class={classes}>
           {totalNode}
-          <ul class="k-pager">
-            {[preNode, firstNode, pagerNode, lastNode, nextNode]}
-          </ul>
+          <ul class="k-pager">{[preNode, firstNode, pagerNode, lastNode, nextNode]}</ul>
           {[sizeNode, elevatorNode]}
         </div>
       );

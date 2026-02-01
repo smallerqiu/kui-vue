@@ -1,12 +1,4 @@
-import {
-  defineComponent,
-  Transition,
-  ref,
-  cloneVNode,
-  nextTick,
-  watch,
-  onMounted,
-} from "vue";
+import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, onMounted } from "vue";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
@@ -132,8 +124,7 @@ const Tooltip = defineComponent({
         }
         return cloneVNode(node, pp, true, true);
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -161,12 +152,7 @@ const Tooltip = defineComponent({
       if (rendered.value) {
         childNodes.push(
           <Transition name={`k-${preCls}`}>
-            <div
-              class={cls}
-              v-transfer={true}
-              v-show={visible.value}
-              {...props}
-            >
+            <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
               <div
                 class={`k-${preCls}-content`}
                 style={{
@@ -197,7 +183,7 @@ const Tooltip = defineComponent({
           </Transition>
         );
       }
-      return childNodes // for 3
+      return childNodes; // for 3
     };
   },
 });

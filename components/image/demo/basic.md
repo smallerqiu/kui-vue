@@ -7,11 +7,7 @@
 <template>
   <Space wrap vertical>
     <code>Image</code>
-    <KImage
-      :width="120"
-      :height="120"
-      src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
-    />
+    <KImage :width="120" :height="120" src="https://cdn.chuchur.com/upload/demo/test_300.jpg" />
     <code>Media</code>
     <KImage
       :width="120"

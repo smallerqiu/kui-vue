@@ -15,13 +15,6 @@
 </template>
 
 <script setup>
-const placements = [
-  "bottom-left",
-  "bottom",
-  "bottom-right",
-  "top-left",
-  "top",
-  "top-right",
-];
+const placements = ["bottom-left", "bottom", "bottom-right", "top-left", "top", "top-right"];
 </script>
 ```

@@ -1,11 +1,11 @@
-import Info from './info.md'
-import Basic from './basic.md'
-import RightMenu from './rightmenu.md'
-import DropdownButton from './dropdownbutton.md'
-import Divider from './divider.md'
-import Placement from './placement.md'
-import Cascading from './cascading.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import RightMenu from "./rightmenu.md";
+import DropdownButton from "./dropdownbutton.md";
+import Divider from "./divider.md";
+import Placement from "./placement.md";
+import Cascading from "./cascading.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
@@ -19,6 +19,6 @@ export default {
         <Cascading />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

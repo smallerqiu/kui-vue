@@ -50,7 +50,7 @@
         </Input>
       </FormItem>
       <FormItem label="Country">
-        <FormItem prop="country" >
+        <FormItem prop="country">
           <Select clearable style="width:100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />

@@ -113,9 +113,7 @@ const Upload = defineComponent({
         }
 
         if (
-          (minSize !== undefined &&
-            minSize >= 0 &&
-            file.size / 1024 < minSize) ||
+          (minSize !== undefined && minSize >= 0 && file.size / 1024 < minSize) ||
           (maxSize !== undefined && maxSize >= 0 && file.size / 1024 > maxSize)
         ) {
           item.errorText = locale?.value.k.upload.errorFileSize;
@@ -295,10 +293,7 @@ const Upload = defineComponent({
         onSelect: onSelectFiles,
       };
       const SelectorNode = (
-        <Selector
-          {...selectorProps}
-          v-slots={{ default: () => slots.default?.() }}
-        />
+        <Selector {...selectorProps} v-slots={{ default: () => slots.default?.() }} />
       );
       const fileListProps = {
         type,
@@ -309,10 +304,7 @@ const Upload = defineComponent({
         onRemove: handleRemove,
       };
       const FileListNode = (
-        <FileList
-          {...fileListProps}
-          v-slots={{ selector: () => SelectorNode }}
-        />
+        <FileList {...fileListProps} v-slots={{ selector: () => SelectorNode }} />
       );
       return (
         <div

@@ -11,8 +11,7 @@ export function getChildren(VNodes) {
     nodes?.forEach((vnode) => {
       if (!isVNode(vnode)) return;
       if (vnode.type === Comment) return;
-      if (vnode.type === Text && vnode.children?.toString().trim() === "")
-        return;
+      if (vnode.type === Text && vnode.children?.toString().trim() === "") return;
 
       // 处理 Fragment 节点
       if (vnode.type === Fragment && Array.isArray(vnode.children)) {
@@ -27,7 +26,6 @@ export function getChildren(VNodes) {
   loop(VNodes);
   return result;
 }
-
 
 let scrollbarWidth = null;
 

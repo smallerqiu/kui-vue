@@ -14,9 +14,7 @@ Add borders to the table, header, and footer.
       <a>{{ value }}</a>
     </template>
     <template #price="{ value }">
-      <span :class="{ 'test-table-price': value > 20000 }">
-        ￥{{ value }}/㎡
-      </span>
+      <span :class="{ 'test-table-price': value > 20000 }"> ￥{{ value }}/㎡ </span>
     </template>
     <template #header> Header </template>
     <template #footer> Footer </template>

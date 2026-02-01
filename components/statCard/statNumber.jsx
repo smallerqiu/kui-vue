@@ -36,11 +36,7 @@ const StatNumber = defineComponent({
       return (
         <div class="k-stat-number">
           {prefixNode && <span class="k-stat-number-prefix">{prefixNode}</span>}
-          {props.type === "rollup" ? (
-            <RollUp {...items} />
-          ) : (
-            <CountUp {...items} />
-          )}
+          {props.type === "rollup" ? <RollUp {...items} /> : <CountUp {...items} />}
           {suffixNode && <span class="k-stat-number-suffix">{suffixNode}</span>}
         </div>
       );

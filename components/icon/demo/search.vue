@@ -4,13 +4,7 @@
     <br />
     <Affix :offset-top="65">
       <Flex size="large" style="background-color: var(--kui-color-bg)">
-        <RadioGroup
-          v-model="type"
-          theme="card"
-          type="button"
-          size="large"
-          @change="switchIcon"
-        >
+        <RadioGroup v-model="type" theme="card" type="button" size="large" @change="switchIcon">
           <RadioButton value="outline">线框风格</RadioButton>
           <RadioButton value="filled">实底风格</RadioButton>
         </RadioGroup>
@@ -36,12 +30,7 @@
         </div>
         <br />
         <div class="icon-list">
-          <span
-            v-for="(x, y) in showIcons"
-            :key="y"
-            class="icon-item"
-            @click.stop="copyHandle(x)"
-          >
+          <span v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
@@ -52,12 +41,7 @@
       <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-list">
-          <span
-            v-for="(x, y) in logo"
-            :key="y"
-            class="icon-item"
-            @click.stop="copyHandle(x)"
-          >
+          <span v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
@@ -89,11 +73,7 @@ const iconKeys = Object.keys(icons);
 
 let logos = iconKeys.filter((x) => /Logo/.test(x));
 let outlines = iconKeys
-  .filter(
-    (x) =>
-      (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) &&
-      !/Logo/.test(x),
-  )
+  .filter((x) => (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) && !/Logo/.test(x))
   .sort();
 
 let filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();

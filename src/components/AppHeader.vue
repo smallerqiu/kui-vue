@@ -20,22 +20,12 @@
           :transfer="false"
           @change="change"
         >
-          <Option
-            v-for="(com, index) of routeData"
-            :key="index"
-            :value="com.name"
-          >
+          <Option v-for="(com, index) of routeData" :key="index" :value="com.name">
             {{ com.title }} {{ com.sub }}
           </Option>
         </Select>
       </div>
-      <Menu
-        v-model="topMenu"
-        mode="horizontal"
-        class="top-menu"
-        :items="items"
-        @select="go"
-      />
+      <Menu v-model="topMenu" mode="horizontal" class="top-menu" :items="items" @select="go" />
       <ColorPicker
         v-model="themeColor"
         class="theme"
@@ -45,10 +35,7 @@
         :no-alpha="true"
         @change="changeThemeColor"
       />
-      <Tooltip
-        :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`"
-        placement="bottom"
-      >
+      <Tooltip :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
         <Button
           theme="light"
           :icon="themeMode == 'dark' ? Sunny : Moon"

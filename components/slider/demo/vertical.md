@@ -9,13 +9,7 @@
     <Slider vertical :modelValue="35" size="small" />
     <Slider vertical reverse :modelValue="35" />
     <Slider vertical range :modelValue="[20, 60]" />
-    <Slider
-      vertical
-      range
-      :marks="{ 20: '20°C', 40: '40°C' }"
-      :step="10"
-      :modelValue="[20, 60]"
-    />
+    <Slider vertical range :marks="{ 20: '20°C', 40: '40°C' }" :step="10" :modelValue="[20, 60]" />
     <Slider
       vertical
       reverse

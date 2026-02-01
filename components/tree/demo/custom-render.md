@@ -11,9 +11,7 @@ Extensions for nodes
 <template>
   <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" showExtra>
     <template v-slot:extra="node">
-      <Button size="small" @click="test(node)" style="margin-right:5px">
-        test
-      </Button>
+      <Button size="small" @click="test(node)" style="margin-right:5px"> test </Button>
     </template>
   </Tree>
 </template>

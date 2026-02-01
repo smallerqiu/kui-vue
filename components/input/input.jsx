@@ -26,16 +26,9 @@ const Input = defineComponent({
     type: {
       validator(value) {
         return (
-          [
-            "text",
-            "textarea",
-            "password",
-            "url",
-            "email",
-            "date",
-            "search",
-            "hidden",
-          ].indexOf(value) >= 0
+          ["text", "textarea", "password", "url", "email", "date", "search", "hidden"].indexOf(
+            value
+          ) >= 0
         );
       },
       default: "text",
@@ -62,7 +55,7 @@ const Input = defineComponent({
       () => ps.modelValue,
       (v) => {
         currentValue.value = v;
-      },
+      }
     );
 
     const focus = () => {
@@ -106,13 +99,7 @@ const Input = defineComponent({
           />
         );
       } else if (attrs?.onSearch) {
-        return (
-          <Icon
-            type={Search}
-            class="k-input-search-icon"
-            onClick={searchEvent}
-          />
-        );
+        return <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} />;
       } else {
         if (slotSuffix.length > 0) {
           return slotSuffix;
@@ -210,22 +197,13 @@ const Input = defineComponent({
       if (slotPrefix.length > 0 || slotSuffix.length > 0) {
         const preChildren = [];
         if (slotPrefix.length)
-          preChildren.push(
-            <div class="k-input-group-prefix">{slotPrefix}</div>,
-          );
+          preChildren.push(<div class="k-input-group-prefix">{slotPrefix}</div>);
         const innerChildren = [];
         if (icon)
           innerChildren.push(
-            <Icon
-              type={icon}
-              class={`k-${inputType}-icon`}
-              onClick={iconClick}
-            />,
+            <Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />
           );
-        if (prefix)
-          innerChildren.push(
-            <div class={`k-${inputType}-prefix`}>{prefix}</div>,
-          );
+        if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         innerChildren.push(textInput);
         if (clearable)
           innerChildren.push(
@@ -236,13 +214,11 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />,
+            />
           );
         const sufChildren = [];
         if (slotSuffix.length > 0)
-          sufChildren.push(
-            <div class="k-input-group-suffix">{slotSuffix}</div>,
-          );
+          sufChildren.push(<div class="k-input-group-suffix">{slotSuffix}</div>);
 
         if (slotControls.length) innerChildren.push(slotControls);
         return (
@@ -258,15 +234,8 @@ const Input = defineComponent({
         const suffixNode = getSuffix(slotSuffix);
         const children = [];
         if (icon)
-          children.push(
-            <Icon
-              type={icon}
-              class={`k-${inputType}-icon`}
-              onClick={iconClick}
-            />,
-          );
-        if (prefix)
-          children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+          children.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
+        if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         children.push(textInput);
         if (clearable)
           children.push(
@@ -277,7 +246,7 @@ const Input = defineComponent({
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
               onClick={clear}
-            />,
+            />
           );
         if (suffixNode) children.push(suffixNode);
         if (slotControls.length) children.push(slotControls);

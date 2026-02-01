@@ -26,17 +26,10 @@ Setting mode can change the timeline's layout direction.
       <div>新增一些很友好的功能</div>
       <template #extra>更多的辅助细节</template>
     </TimeLineItem>
-    <TimeLineItem
-      :icon="Build"
-      color="red"
-      time="2020-10-03"
-      extra="更多的辅助细节"
-    >
+    <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="更多的辅助细节">
       修复bug
     </TimeLineItem>
-    <TimeLineItem time="2020-10-01" extra="更多的辅助细节">
-      发布1.0版本
-    </TimeLineItem>
+    <TimeLineItem time="2020-10-01" extra="更多的辅助细节"> 发布1.0版本 </TimeLineItem>
   </TimeLine>
 </template>
 <script setup>

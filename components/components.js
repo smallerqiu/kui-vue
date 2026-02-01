@@ -115,20 +115,8 @@ export { StatCard, StatNumber };
 import ConfigProvider from "./config";
 export { ConfigProvider };
 
-import {
-  Skeleton,
-  SkeletonAvatar,
-  SkeletonButton,
-  SkeletonImage,
-  SkeletonText,
-} from "./skeleton";
-export {
-  Skeleton,
-  SkeletonAvatar,
-  SkeletonButton,
-  SkeletonImage,
-  SkeletonText,
-};
+import { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from "./skeleton";
+export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText };
 
 import Slider from "./slider";
 export { Slider };

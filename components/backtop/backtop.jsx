@@ -23,9 +23,7 @@ const BackTop = defineComponent({
 
     const onScroll = () => {
       let scrollTop =
-        document.body.scrollTop ||
-        document.documentElement.scrollTop ||
-        window.scrollY;
+        document.body.scrollTop || document.documentElement.scrollTop || window.scrollY;
       visible.value = scrollTop >= props.height;
     };
     const onClick = (e) => {

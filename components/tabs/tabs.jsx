@@ -146,9 +146,7 @@ const Tabs = defineComponent({
     const updateIndex = () => {
       nextTick(() => {
         const nodes = getChildren(slots.default?.());
-        currentIndex.value = nodes
-          ?.map((p) => p.key)
-          .indexOf(defaultActiveKey.value);
+        currentIndex.value = nodes?.map((p) => p.key).indexOf(defaultActiveKey.value);
         resetActivePosition();
         updateInkBarPosition();
       });
@@ -266,9 +264,7 @@ const Tabs = defineComponent({
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
                 <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
-                  {!card && !sample ? (
-                    <div class="k-tabs-ink-bar" ref={inkBarRef} />
-                  ) : null}
+                  {!card && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
                     {navNodes}
                   </div>
@@ -286,9 +282,7 @@ const Tabs = defineComponent({
                 </span>
               ) : null}
             </div>
-            {slots.extra ? (
-              <div class="k-tabs-extra">{slots.extra()}</div>
-            ) : null}
+            {slots.extra ? <div class="k-tabs-extra">{slots.extra()}</div> : null}
           </div>
           <div class="k-tabs-content" style={paneStyle}>
             {panels}

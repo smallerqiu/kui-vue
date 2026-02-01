@@ -11,11 +11,7 @@ Select or deselect all options.
 <template>
   <Space vertical>
     <code>value: {{ cities }}</code>
-    <Checkbox
-      v-model="checkAll"
-      :indeterminate="indeterminate"
-      @change="handleCheckAll"
-    >
+    <Checkbox v-model="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">
       Check all
     </Checkbox>
     <CheckboxGroup :options="options" v-model="cities" @change="change" />

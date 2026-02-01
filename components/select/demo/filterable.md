@@ -26,13 +26,7 @@
     </Select>
     <br />
     <span>单选搜索: </span>
-    <Select
-      v-model="value3"
-      @search="fetchData"
-      block
-      :loading="loading"
-      placeholder="单选搜索"
-    >
+    <Select v-model="value3" @search="fetchData" block :loading="loading" placeholder="单选搜索">
       <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
     </Select>
     <br />
@@ -63,9 +57,7 @@ const optionsData = ref([]);
 const fetchData = (e) => {
   loading.value = true;
   setTimeout(() => {
-    optionsData.value = options.filter((v) =>
-      v.includes(e.target.value.trim())
-    );
+    optionsData.value = options.filter((v) => v.includes(e.target.value.trim()));
     loading.value = false;
   }, 1000);
 };

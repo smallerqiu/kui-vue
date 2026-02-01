@@ -49,16 +49,10 @@
         <Space>
           <Table :columns="columns" />
         </Space>
-        <Space>
-          TreeSelect : <TreeSelect :treeData="[]" style="width:180px" />
-        </Space>
+        <Space> TreeSelect : <TreeSelect :treeData="[]" style="width:180px" /> </Space>
         <Space>
           Image :
-          <KImage
-            :width="120"
-            :height="120"
-            src="https://cdn.chuchur.com/upload/cat/cat1.jpg"
-          />
+          <KImage :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
         </Space>
         <Space>
           <Upload
@@ -71,12 +65,7 @@
           </Upload>
         </Space>
         <Space block style="max-width:500px;">
-          <Form
-            :model="form"
-            :rules="rules"
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-          >
+          <Form :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <FormItem label="Name" prop="name">
               <Input placeholder="Please input" />
             </FormItem>

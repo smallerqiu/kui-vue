@@ -14,12 +14,11 @@ const traverse = traverseModule.default;
 const COMPONENTS_DIR = path.resolve("components");
 const OUT_DIR = path.resolve("types");
 
-const prettierConfig =
-  (await prettier.resolveConfig(process.cwd())) || {
-    singleQuote: false,
-    semi: true,
-    trailingComma: "es5",
-  };
+const prettierConfig = (await prettier.resolveConfig(process.cwd())) || {
+  singleQuote: false,
+  semi: true,
+  trailingComma: "es5",
+};
 
 const TYPE_MAP = {
   String: "string",
@@ -63,10 +62,7 @@ function getComponentFiles(entryFile) {
         exports.push(decl.name);
       }
 
-      if (
-        decl.type === "CallExpression" &&
-        decl.callee.name === "withInstall"
-      ) {
+      if (decl.type === "CallExpression" && decl.callee.name === "withInstall") {
         const arg = decl.arguments[0];
         if (arg?.type === "Identifier") {
           // export default withInstall(Affix)
@@ -123,9 +119,7 @@ function parseProps(propsNode, source = "") {
     if (p.value.type === "Identifier") {
       type = TYPE_MAP[p.value.name] || "any";
     } else if (p.value.type === "ArrayExpression") {
-      type = p.value.elements
-        .map((el) => TYPE_MAP[el.name] || "any")
-        .join(" | ");
+      type = p.value.elements.map((el) => TYPE_MAP[el.name] || "any").join(" | ");
     } else if (p.value.type === "ObjectExpression") {
       for (const prop of p.value.properties) {
         const keyName = prop.key?.name;
@@ -135,19 +129,13 @@ function parseProps(propsNode, source = "") {
           if (prop.value.type === "Identifier") {
             type = TYPE_MAP[prop.value.name] || "any";
           } else if (prop.value.type === "ArrayExpression") {
-            type = prop.value.elements
-              .map((el) => TYPE_MAP[el.name] || "any")
-              .join(" | ");
+            type = prop.value.elements.map((el) => TYPE_MAP[el.name] || "any").join(" | ");
           }
         }
 
         if (keyName === "default") {
           hasDefault = true;
-          if (
-            ["StringLiteral", "NumericLiteral", "BooleanLiteral"].includes(
-              prop.value.type
-            )
-          ) {
+          if (["StringLiteral", "NumericLiteral", "BooleanLiteral"].includes(prop.value.type)) {
             defaultVal = prop.value.value;
           }
         }

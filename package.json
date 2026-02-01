@@ -23,7 +23,8 @@
     "build:docs": "vite build",
     "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
     "build:types": "node scripts/gen-dts.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write ."
   },
   "author": {
     "name": "Qiu",

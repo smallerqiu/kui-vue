@@ -164,8 +164,7 @@ const Popconfirm = defineComponent({
         }
         return cloneVNode(node, pp, true);
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,
@@ -194,12 +193,7 @@ const Popconfirm = defineComponent({
         childNodes.push(
           // const overlay = rendered.value ? (
           <Transition name={`k-${preCls}`}>
-            <div
-              class={cls}
-              v-transfer={true}
-              v-show={visible.value}
-              {...props}
-            >
+            <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
               <div class={`k-${preCls}-content`}>
                 <div class={`k-${preCls}-body`}>
                   <Icon type={HelpCircle} />
@@ -236,7 +230,7 @@ const Popconfirm = defineComponent({
           // ) : null;
         );
       }
-      return childNodes //for 3
+      return childNodes; //for 3
     };
   },
 });

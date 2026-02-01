@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Layout1 from "./layout1.md";
 import Layout2 from "./layout2.md";
 import Layout3 from "./layout3.md";

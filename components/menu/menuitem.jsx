@@ -1,13 +1,7 @@
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import {
-  defineComponent,
-  ref,
-  getCurrentInstance,
-  inject,
-  onMounted,
-} from "vue";
+import { defineComponent, ref, getCurrentInstance, inject, onMounted } from "vue";
 
 const MenuItem = defineComponent({
   name: "MenuItem",
@@ -51,9 +45,7 @@ const MenuItem = defineComponent({
         ],
         style: {
           paddingLeft:
-            (mode.value == "inline" || mode.value == "vertical") &&
-            keyPah.length &&
-            !ps.isPopup
+            (mode.value == "inline" || mode.value == "vertical") && keyPah.length && !ps.isPopup
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
@@ -74,9 +66,7 @@ const MenuItem = defineComponent({
 
       // 没有子集的时候才展示
       let titleNode = (
-        <span class={`k-${preCls}-title-content`}>
-          {title || getChildren(slots.default?.())}
-        </span>
+        <span class={`k-${preCls}-title-content`}>{title || getChildren(slots.default?.())}</span>
       );
       let iconNode = slots.icon ? (
         <span class={`k-${preCls}-item-icon`}>{slots.icon()}</span>
