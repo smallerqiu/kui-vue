@@ -1,5 +1,13 @@
+const globalComponents = ["message", "modal", "notice", "loading", "theme"];
+export { globalComponents };
+
 import { getAppContext } from "../config/context";
 
+export const installGlobal = (app, component) => {
+  if (globalComponents.includes(component.name)) {
+    app.prototype[`$${component.name}`] = component;
+  }
+};
 export const withInstall = (component) => {
   component.install = function (app) {
     app.component(component.name, component);

@@ -3,7 +3,7 @@ import Big from "big.js";
 import Input from "../input/input";
 import Icon from "../icon";
 import { withInstall } from "../utils/vue";
-import { ChevronUp, ChevronDown } from "kui-icons";
+import { ChevronUp, ChevronDown } from "kui-icons/dist/icons";
 import { sizeMap, filterSize } from "../utils/size";
 import { normalize, isValidBig } from "../utils/number";
 const InputNumber = defineComponent({

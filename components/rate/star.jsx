@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import Tooltip from "../tooltip";
-import { Star } from "kui-icons";
+import { Star } from "kui-icons/dist/icons";
 import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "Star",

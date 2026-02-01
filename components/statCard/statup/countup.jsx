@@ -1,6 +1,6 @@
 import { CountUp } from "./countup.js";
 import { ref, watch, onMounted, defineComponent, onUnmounted } from "vue";
-import { withInstall } from "../utils/vue.js";
+import { withInstall } from "../../utils/vue.js";
 const CountUpNumber = defineComponent({
   name: "CountUpNumber",
   props: {

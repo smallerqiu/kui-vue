@@ -8,7 +8,7 @@ import {
   CheckmarkCircle,
   AlertCircle,
   HelpCircle,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import zhCN from "../locale/zh-CN";
 export default defineComponent({
   name: "Toast",

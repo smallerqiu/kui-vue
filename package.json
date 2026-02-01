@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "3.6.9",
+  "version": "3.6.10",
   "description": "A lightweight desktop UI component library suitable for Vue.js 2.",
   "type": "module",
   "main": "dist/k-ui.cjs.js",
@@ -21,7 +21,7 @@
     "start": "npm run dev",
     "dev": "vite",
     "build:docs": "vite build",
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "npm run build:types && rollup -c --bundleConfigAsCjs --treeshake",
     "build:types": "node scripts/gen-dts.js",
     "preview": "vite preview",
     "lint": "npx eslint . --fix"
@@ -56,7 +56,7 @@
     "vue": "2.7.16"
   },
   "dependencies": {
-    "kui-icons": "^4.1.6",
+    "kui-icons": "^4.2.0",
     "color": "^5.0.3",
     "dayjs": "^1.11.19",
     "uuid": "^13.0.0",
