@@ -10,7 +10,7 @@ import {
 } from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-import { HelpCircle } from "kui-icons";
+import { HelpCircle } from "kui-icons/dist/icons";
 import Icon from "../icon";
 import { Button } from "../button";
 import { setPlacement } from "../utils/placement";
@@ -164,8 +164,7 @@ const Popconfirm = defineComponent({
         }
         return cloneVNode(node, pp, true);
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,

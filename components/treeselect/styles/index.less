@@ -1,4 +1,4 @@
-@import "../../styles/var.less";
+@import "../../styles/less-css-var.less";
 
 .k-tree-select {
   display: inline-flex;
@@ -6,14 +6,14 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   font-size: 14px;
   position: relative;
   outline: none;
   box-sizing: border-box;
   // flex-shrink: 0;
   align-items: center;
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding: 0 8px;
@@ -22,12 +22,12 @@
   position: relative;
   // max-width: 100%;
   &:not(.k-tree-select-disabled, .k-tree-select-borderless):focus {
-    outline: 2px solid var(--kui-color-main-80);
+    outline: 2px solid var(--kui-color-outline);
     outline-offset: 1px;
   }
   &:hover {
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+    border-color: var(--kui-color-primary);
+    box-shadow: var(--kui-component-shadow);
   }
 
   &-selection {
@@ -72,7 +72,7 @@
       background: none;
       outline: none;
       font-size: 14px;
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
     }
   }
 
@@ -97,13 +97,9 @@
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        // position: absolute;
-        // right: 3px;
         font-size: 16px;
         text-align: center;
         display: block;
-        // top: 50%;
-        // transform: translateY(-50%);
       }
     }
 
@@ -135,7 +131,7 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-disabled);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
@@ -184,14 +180,17 @@
     display: none;
     cursor: pointer;
     &:hover {
-      color: var(--kui-color-font);
+      color: var(--kui-color-icon-hover);
+    }
+    &:active {
+      color: var(--kui-color-icon-active);
     }
   }
 
   .k-tree-select-search-mirror,
   .k-tree-select-search {
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 
   &.k-tree-select-circle {
@@ -226,7 +225,7 @@
 .k-tree-select-light {
   &.k-tree-select {
     border-color: transparent;
-    background: var(--kui-color-gray-80);
+    background: var(--kui-color-bg-component);
     transition: none;
     // box-shadow: none;
 
@@ -236,7 +235,7 @@
     }
 
     .k-tree-select-tag {
-      background-color: var(--kui-color-gray-80);
+      background-color: var(--kui-color-bg-component);
       border-color: transparent;
     }
   }
@@ -250,24 +249,26 @@
   width: 100%;
 }
 .k-tree-select-dropdown {
+  -webkit-user-select: none;
   user-select: none;
   border-radius: var(--kui-border-radius);
   width: inherit;
   max-height: 272px;
   overflow: auto;
-  background-color: var(--kui-color-back-10);
+  background-color: var(--kui-color-bg-pop);
   box-sizing: border-box;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--kui-pop-shadow);
+
   position: absolute;
   z-index: 1003;
   padding: 5px;
   box-sizing: border-box;
-  border: 1px solid var(--kui-color-gray-80);
+  border: 1px solid var(--kui-color-pop-border);
 
   .k-tree-select-loading {
     padding: 10px;
     font-size: 14px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
     display: flex;
     align-items: center;
 
@@ -310,7 +311,6 @@
   .k-tree-select-label {
     line-height: 22px;
     height: 22px;
-    // padding-right: 23px;
     font-size: 12px;
   }
 
@@ -354,7 +354,7 @@
   .k-tree-select-search-mirror,
   .k-tree-select-search {
     font-size: 12px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 }
 
@@ -416,8 +416,8 @@
 }
 
 .k-tree-select-opened {
-  border-color: var(--kui-color-main);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  border-color: var(--kui-color-primary);
+  box-shadow: var(--kui-component-shadow);
 
   .k-tree-select-label {
     opacity: 0.5;
@@ -430,8 +430,8 @@
 }
 
 .k-tree-select-disabled {
-  color: var(--kui-color-disabled);
-  background: var(--kui-color-disable-back);
+  color: var(--kui-color-text-disabled);
+  background: var(--kui-color-bg-component-disabled);
 
   .k-tree-select-label {
     cursor: not-allowed;
@@ -443,12 +443,6 @@
 
   .k-tree-select-arrow {
     color: var(--kui-color-disable-border);
-  }
-
-  &:hover,
-  &:focus {
-    border-color: var(--kui-color-disable-border);
-    box-shadow: none;
   }
 }
 

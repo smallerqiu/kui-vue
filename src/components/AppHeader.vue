@@ -20,30 +20,12 @@
           :transfer="false"
           @change="change"
         >
-          <Option
-            v-for="(com, index) of routeData"
-            :key="index"
-            :value="com.name"
-          >
+          <Option v-for="(com, index) of routeData" :key="index" :value="com.name">
             {{ com.title }} {{ com.sub }}
           </Option>
         </Select>
       </div>
-      <Menu v-model="topMenu" mode="horizontal" class="top-menu" @select="go">
-        <MenuItem key="home">首页</MenuItem>
-        <MenuItem key="start"> 组件 </MenuItem>
-        <SubMenu key="docs" title="文档">
-          <MenuItem key="/start/getting-started"> 快速开始 </MenuItem>
-          <MenuItem key="/start/ssr"> SSR 支持 </MenuItem>
-          <MenuItem key="/start/language"> 多语言 </MenuItem>
-          <MenuItem key="/start/logs"> 更新日志 </MenuItem>
-          <MenuItem key="/start/theme"> 主题 </MenuItem>
-          <MenuItem key="/start/dark-mode"> 暗黑模式 </MenuItem>
-          <MenuItem key="https://v2.k-ui.cn/"> v2.x 文档 </MenuItem>
-          <MenuItem key="https://react.k-ui.cn/"> For React 文档 </MenuItem>
-          <MenuItem key="https://chuchur.com/"> Blog </MenuItem>
-        </SubMenu>
-      </Menu>
+      <Menu v-model="topMenu" mode="horizontal" class="top-menu" :items="items" @select="go" />
       <ColorPicker
         v-model="themeColor"
         class="theme"
@@ -53,10 +35,7 @@
         :no-alpha="true"
         @change="changeThemeColor"
       />
-      <Tooltip
-        :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`"
-        placement="bottom"
-      >
+      <Tooltip :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
         <Button
           theme="light"
           :icon="themeMode == 'dark' ? Sunny : Moon"
@@ -91,6 +70,27 @@ const queryKey = ref("");
 
 const { proxy } = getCurrentInstance();
 
+const items = [
+  { key: "home", title: "首页" },
+  { key: "start", title: "组件" },
+  {
+    key: "docs",
+    title: "文档",
+    children: [
+      { key: "/start/getting-started", title: "快速开始" },
+      { key: "/start/ssr", title: "SSR 支持" },
+      { key: "/start/language", title: "多语言" },
+      { key: "/start/logs", title: "更新日志" },
+      { key: "/start/theme", title: "主题" },
+      { key: "/start/dark-mode", title: "暗黑模式" },
+      { key: "https://v2.k-ui.cn/", title: "v2.x 文档" },
+      { key: "https://k-ui.cn/", title: "v4.x 文档" },
+      { key: "https://react.k-ui.cn/", title: "For React 文档" },
+      { key: "https://chuchur.com/", title: "Blog" },
+    ],
+  },
+];
+
 onMounted(() => {
   let localThemeMode = localStorage.getItem("theme-mode") || "";
   let localThemeColor = localStorage.getItem("themeColor") || "";
@@ -120,17 +120,16 @@ const changeThemeColor = (v) => {
   // let str = v.slice(0, v.length-1)
   let cssText = `
       body[theme-type='custom']{
-          --kui-color-main:rgba(${r},${g},${b});
-          --kui-color-main-hover:rgba(${r},${g},${b},.9);
-          --kui-color-main-active:rgba(${r},${g},${b},.75);
-          --kui-color-main-10:rgba(${r},${g},${b},.9);
-          --kui-color-main-30:rgba(${r},${g},${b},.7);
-          --kui-color-main-60:rgba(${r},${g},${b},.4);
-          --kui-color-main-80:rgba(${r},${g},${b},.2);
-          --kui-color-main-90:rgba(${r},${g},${b},.1);
-          --kui-color-hover:rgba(${r},${g},${b},.2);
-          --kui-color-active:rgba(${r},${g},${b},.3);
-          --kui-color-selected:rgba(${r},${g},${b},.1);
+          --kui-color-primary:rgba(${r},${g},${b});
+          --kui-color-primary-hover:rgba(${r},${g},${b},.9);
+          --kui-color-primary-active:rgba(${r},${g},${b},.75);
+          --kui-color-primary-1:rgba(${r},${g},${b},.9);
+          --kui-color-primary-3:rgba(${r},${g},${b},.7);
+          --kui-color-primary-6:rgba(${r},${g},${b},.4);
+          --kui-color-primary-8:rgba(${r},${g},${b},.2);
+          --kui-color-primary-9:rgba(${r},${g},${b},.1);
+          --kui-color-item-selected:rgba(${r},${g},${b},.2);
+          --kui-color-outline:rgba(${r},${g},${b},.2);
       }
       `;
   stl.innerHTML = cssText;

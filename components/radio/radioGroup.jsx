@@ -51,8 +51,7 @@ const RadioGroup = defineComponent({
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
           // console.log(child);
-          let { label, value, disabled, icon } =
-            child?.componentOptions?.propsData || {};
+          let { label, value, disabled, icon } = child?.componentOptions?.propsData || {};
           let { children = [], tag } = child?.componentOptions;
           options.push({
             value,
@@ -88,10 +87,8 @@ const RadioGroup = defineComponent({
         {
           "k-radio-button-group": props.type === "button",
           "k-radio-circle": props.shape === "circle",
-          "k-radio-group-light":
-            props.theme === "light" && props.type === "button",
-          "k-radio-group-card":
-            props.theme === "card" && props.type === "button",
+          "k-radio-group-light": props.theme === "light" && props.type === "button",
+          "k-radio-group-card": props.theme === "card" && props.type === "button",
           "k-radio-group-vertical": props.direction === "vertical",
         },
       ];

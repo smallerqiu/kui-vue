@@ -41,11 +41,7 @@
             :limit="1"
             accept="image/*"
           >
-            <Button
-              :icon="CloudUploadOutline"
-              :loading="loading"
-              theme="outline"
-            />
+            <Button :icon="CloudUploadOutline" :loading="loading" />
           </Upload>
         </template>
       </Input>

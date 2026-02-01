@@ -30,7 +30,6 @@ export default function vitePluginMd() {
     enforce: "pre",
     transform(src, path) {
       if (!path.endsWith(".md")) return null;
-      // this.addWatchFile(path);
       const vertical_list = [
         "table",
         "grid",
@@ -43,12 +42,11 @@ export default function vitePluginMd() {
         "tabs",
         "descriptions",
         "skeleton",
-        "form",
+        "form/",
         "input/demo/group",
+        "statCard/demo/card",
         "slider/demo/marks",
         "tree/demo/directory",
-        "alert/demo/icon",
-        "alert/demo/customIcon",
         "views/language/demo",
       ];
       let direction = "horizontal";
@@ -68,9 +66,7 @@ export default function vitePluginMd() {
       let cnHtml = null;
       const cnMatch = tagCNReg.exec(src);
       if (cnMatch && cnMatch[1]) {
-        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(
-          cnMatch[1]
-        );
+        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(cnMatch[1]);
       }
 
       // 2) detect first ```vue fenced block

@@ -16,8 +16,8 @@
     <Rate :icon="Heart" color="red" :value="2.5" :size="30" />
     <code>allowHalf = true</code>
     <Rate :icon="Heart" allowHalf color="red" :value="2.5" :size="30" />
-     <code>disabled (readonly)</code>
-    <Rate :value="3.7" disabled showScore/>
+    <code>disabled (readonly)</code>
+    <Rate :value="3.7" disabled showScore />
   </Space>
 </template>
 <script setup>

@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div>
-    <Card title="卡片标题" :icon="Heart" bordered>
+    <Card title="卡片标题" :icon="Heart">
       <template #extra>
         <a href="#">更多</a>
       </template>

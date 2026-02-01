@@ -31,9 +31,7 @@ const options = {
 // 创建挂载点
 new Vue(options).$mount('#${id}');`;
       // 创建 Blob URL
-      const url = URL.createObjectURL(
-        new Blob([code], { type: "application/javascript" })
-      );
+      const url = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
       // 创建挂载容器
       const mountContainer = document.createElement("div");

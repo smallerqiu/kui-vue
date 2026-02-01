@@ -22,6 +22,7 @@ export interface TreeSelectProps {
   /** default: true */
   showArrow?: boolean;
   options?: any[];
+  /** default: light */
   theme?: string;
   emptyText?: string;
   icon?: string | any[];
@@ -41,7 +42,7 @@ export interface TreeSelectProps {
 /** TreeSelect component instance */
 export interface TreeSelect extends Vue {
   $props: TreeSelectProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** TreeSelect Vue component type */

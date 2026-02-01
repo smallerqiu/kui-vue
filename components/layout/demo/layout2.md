@@ -16,11 +16,7 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu
-              mode="horizontal"
-              :selectedKeys="['t1']"
-              class="demo-top-menu"
-            >
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -33,59 +29,64 @@
           </Col>
         </Row>
       </Header>
-      <Content class="k-demo-main demo-back">
+      <Content class="k-demo-main">
         <Breadcrumb class="nav">
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem>List</BreadcrumbItem>
           <BreadcrumbItem>App</BreadcrumbItem>
         </Breadcrumb>
-        <Layout class="demo-back">
+        <Layout class="layout-back">
           <Sider style="background:transparent;">
             <Menu
               :selectedKeys="['t1']"
               :openKeys="['t2']"
               class="demo-left-menu"
+              :items="items"
               mode="inline"
               style="padding-top:20px;"
-            >
-              <MenuItem key="t1" :icon="Home">首页</MenuItem>
-              <SubMenu key="t2" :icon="StatsChart" title="数据统计">
-                <MenuItem key="t2-1">今日订单</MenuItem>
-                <MenuItem key="t2-2">今日销售额</MenuItem>
-              </SubMenu>
-              <SubMenu key="t3" :icon="StatsChart" title="数据统计">
-                <MenuItem key="t3-1">今日订单</MenuItem>
-                <MenuItem key="t3-2">今日销售额</MenuItem>
-              </SubMenu>
-              <MenuItem key="t4" :icon="Settings">能源管理</MenuItem>
-            </Menu>
+            />
           </Sider>
           <Content>Conent</Content>
         </Layout>
       </Content>
-      <Footer class="demo-footer">KUI ©2025 Created by chuchur</Footer>
+      <Footer class="demo-footer"> KUI ©2025 Created by chuchur </Footer>
     </Layout>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
 const left = ref("t1");
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  Scan,
-  Search,
-  NotificationsOutline,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, Scan, Search, NotificationsOutline } from "kui-icons";
+
+const items = [
+  { key: "t1", icon: Home, title: "首页" },
+  {
+    key: "t2",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t2-1", title: "今日订单" },
+      { key: "t2-2", title: "今日销售额" },
+    ],
+  },
+  {
+    key: "t3",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t3-1", title: "今日订单" },
+      { key: "t3-2", title: "今日销售额" },
+    ],
+  },
+  { key: "t4", icon: Settings, title: "能源管理" },
+];
 </script>
 <style scoped lang="less">
 .k-demo-layout {
   .demo-header {
     padding: 0 50px 0;
     min-width: 500px;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg-3);
     height: 60px;
     align-items: center;
     display: flex;
@@ -94,7 +95,6 @@ import {
   .demo-top-nav {
     flex: 1;
   }
-
   .logo-box {
     /* width: 190px; */
     position: relative;
@@ -123,7 +123,7 @@ import {
 
   .demo-back,
   .demo-footer {
-    background-color: var(--kui-color-gray-90);
+    // background-color: var(--kui-color-bg);
   }
 
   .k-demo-main {
@@ -145,8 +145,8 @@ import {
 
   .k-layout-footer {
     text-align: center;
-    color: #999;
+    color: var(--kui-color-text-description);
   }
 }
 </style>
-````
+```

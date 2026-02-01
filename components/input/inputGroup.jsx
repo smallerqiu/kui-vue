@@ -10,6 +10,7 @@ const InputGroup = defineComponent({
       type: Boolean,
       default: true,
     },
+    theme: { type: String, default: "light" },
     size: {
       type: String,
       validator(value) {
@@ -31,6 +32,7 @@ const InputGroup = defineComponent({
           {
             [`k-input-group-compact`]: compact,
             [`k-input-group-block`]: block,
+            [`k-input-group-light`]: ps.theme === "light",
             [`k-input-group-lg`]: size == "large",
             [`k-input-group-sm`]: size == "small",
           },

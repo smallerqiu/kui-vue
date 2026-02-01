@@ -14,15 +14,12 @@ const traverse = traverseModule.default;
 const COMPONENTS_DIR = path.resolve("components");
 const OUT_DIR = path.resolve("types");
 
-// ---------------- Prettier Config ----------------
-const prettierConfig =
-  (await prettier.resolveConfig(process.cwd())) || {
-    singleQuote: false,
-    semi: true,
-    trailingComma: "es5",
-  };
+const prettierConfig = (await prettier.resolveConfig(process.cwd())) || {
+  singleQuote: false,
+  semi: true,
+  trailingComma: "es5",
+};
 
-// ---------------- Type Mapping ----------------
 const TYPE_MAP = {
   String: "string",
   Number: "number",
@@ -32,7 +29,6 @@ const TYPE_MAP = {
   Function: "(...args: any[]) => any",
 };
 
-// ---------------- Safe mkdir / clean ----------------
 function ensureCleanDir(dir) {
   if (fs.existsSync(dir)) {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -40,7 +36,6 @@ function ensureCleanDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
-// ---------------- 扫描 index.js 获取组件实际文件路径 ----------------
 function getComponentFiles(entryFile) {
   const code = fs.readFileSync(entryFile, "utf8");
   const ast = parse(code, {
@@ -67,10 +62,7 @@ function getComponentFiles(entryFile) {
         exports.push(decl.name);
       }
 
-      if (
-        decl.type === "CallExpression" &&
-        decl.callee.name === "withInstall"
-      ) {
+      if (decl.type === "CallExpression" && decl.callee.name === "withInstall") {
         const arg = decl.arguments[0];
         if (arg?.type === "Identifier") {
           // export default withInstall(Affix)
@@ -98,7 +90,6 @@ function getComponentFiles(entryFile) {
     const dir = path.dirname(entryFile);
     let target = relPath;
 
-    // ✅ 这里是关键修复：只在没有扩展名时追加 .jsx
     if (!path.extname(target)) {
       target += ".jsx";
     }
@@ -113,7 +104,6 @@ function getComponentFiles(entryFile) {
   return componentFiles;
 }
 
-// ---------------- 解析 props ----------------
 function parseProps(propsNode, source = "") {
   const props = [];
   if (!propsNode || !Array.isArray(propsNode.properties)) return props;
@@ -129,9 +119,7 @@ function parseProps(propsNode, source = "") {
     if (p.value.type === "Identifier") {
       type = TYPE_MAP[p.value.name] || "any";
     } else if (p.value.type === "ArrayExpression") {
-      type = p.value.elements
-        .map((el) => TYPE_MAP[el.name] || "any")
-        .join(" | ");
+      type = p.value.elements.map((el) => TYPE_MAP[el.name] || "any").join(" | ");
     } else if (p.value.type === "ObjectExpression") {
       for (const prop of p.value.properties) {
         const keyName = prop.key?.name;
@@ -141,19 +129,13 @@ function parseProps(propsNode, source = "") {
           if (prop.value.type === "Identifier") {
             type = TYPE_MAP[prop.value.name] || "any";
           } else if (prop.value.type === "ArrayExpression") {
-            type = prop.value.elements
-              .map((el) => TYPE_MAP[el.name] || "any")
-              .join(" | ");
+            type = prop.value.elements.map((el) => TYPE_MAP[el.name] || "any").join(" | ");
           }
         }
 
         if (keyName === "default") {
           hasDefault = true;
-          if (
-            ["StringLiteral", "NumericLiteral", "BooleanLiteral"].includes(
-              prop.value.type
-            )
-          ) {
+          if (["StringLiteral", "NumericLiteral", "BooleanLiteral"].includes(prop.value.type)) {
             defaultVal = prop.value.value;
           }
         }
@@ -181,7 +163,6 @@ function parseProps(propsNode, source = "") {
   return props;
 }
 
-// ---------------- 生成 d.ts 内容 ----------------
 function genDts(name, props) {
   const propsContent = props
     .map((p) => {
@@ -209,7 +190,7 @@ ${propsContent}
 /** ${name} component instance */
 export interface ${name} extends Vue {
   $props: ${name}Props;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** ${name} Vue component type */
@@ -219,7 +200,6 @@ export default ${name};
 `;
 }
 
-// ---------------- 主函数 ----------------
 async function main() {
   const entryFiles = await fg(["**/index.js"], {
     cwd: COMPONENTS_DIR,
@@ -311,7 +291,6 @@ async function main() {
     }
   }
 
-  // 生成 index.d.ts
   const indexContent = exports
     .map(
       (e) =>

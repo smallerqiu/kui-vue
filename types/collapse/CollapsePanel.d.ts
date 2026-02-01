@@ -9,7 +9,7 @@ export interface CollapsePanelProps {
 /** CollapsePanel component instance */
 export interface CollapsePanel extends Vue {
   $props: CollapsePanelProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** CollapsePanel Vue component type */

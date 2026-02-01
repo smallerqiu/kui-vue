@@ -8,11 +8,7 @@
   <Flex vertical size="small" align="start">
     <span>Justify</span>
     <RadioGroup v-model="justify" theme="card" type="button">
-      <RadioButton
-        v-for="(item, index) in justifyOps"
-        :key="index"
-        :value="item"
-      >
+      <RadioButton v-for="(item, index) in justifyOps" :key="index" :value="item">
         {{ item }}
       </RadioButton>
     </RadioGroup>
@@ -28,7 +24,7 @@
       :style="{
         width: '100%',
         height: '120px',
-        border: '1px solid var(--kui-color-main)',
+        border: '1px solid var(--kui-color-bg-2)',
         'border-radius': '5px',
       }"
     >

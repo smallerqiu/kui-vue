@@ -6,7 +6,7 @@
 ```vue
 <template>
   <div class="demo-view-fill">
-    <Card title="卡片标题" :icon="Heart" :bordered="false">
+    <Card title="卡片标题" :icon="Heart" bordered>
       <template #extra>
         <a href="#">更多</a>
       </template>

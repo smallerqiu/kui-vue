@@ -8,13 +8,14 @@ export interface TagProps {
   icon?: string | any[];
   /** default: small */
   size?: any;
+  /** default: light */
   theme?: string;
 }
 
 /** Tag component instance */
 export interface Tag extends Vue {
   $props: TagProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Tag Vue component type */

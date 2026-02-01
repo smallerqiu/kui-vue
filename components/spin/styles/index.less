@@ -1,19 +1,15 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-spin {
-  // min-width: 50px;
-  // min-height: 50px;
   display: inline-block;
   position: relative;
 
-  // width:32px;
-  // height: 32px;
   &-loading {
-    background-color: var(--kui-color-spin);
+    background-color: var(--kui-color-spin-mask);
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: all .3s;
+    transition: all 0.3s;
     left: 0;
     top: 0;
     z-index: 100;
@@ -21,7 +17,7 @@
 
   &-flip {
     &::after {
-      content: '';
+      content: "";
       width: 40px;
       height: 40px;
       position: absolute;
@@ -29,65 +25,61 @@
       left: 50%;
       margin-left: -20px;
       margin-top: -20px;
-      background-color: var(--kui-color-main);
-      animation: k-spin-animate-flip 4s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+      background-color: var(--kui-color-primary);
+      animation: k-spin-animate-flip 4s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
     }
   }
 
   &-bounce {
-
     &::before,
     &::after {
-      content: '';
+      content: "";
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: var(--kui-color-main);
+      background-color: var(--kui-color-primary);
       opacity: 0.6;
       position: absolute;
       top: 50%;
       left: 50%;
       margin-left: -20px;
       margin-top: -20px;
-      animation: k-spin-animate-bounce 2.0s infinite ease-in-out;
+      animation: k-spin-animate-bounce 2s infinite ease-in-out;
     }
 
     &::before {
-      animation-delay: -1.0s;
+      animation-delay: -1s;
     }
   }
 
   &-zoom {
-
     &::before,
     &::after {
-      content: '';
+      content: "";
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: var(--kui-color-main);
+      background: var(--kui-color-primary);
       opacity: 0.6;
       position: absolute;
       top: 50%;
       left: 50%;
       margin-left: -20px;
       margin-top: -20px;
-      animation: k-spin-animate-zoom 2s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-      // animation: zoom 2.0s infinite ease-in-out;
+      animation: k-spin-animate-zoom 2s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
     }
 
     &::before {
-      animation-delay: -1.0s;
+      animation-delay: -1s;
     }
   }
 
   &-rotate {
-
     &::before,
     &::after {
-      border: 4px solid var(--kui-color-main-90);
+      border: 4px solid var(--kui-color-primary-9);
       border-radius: 50%;
-      content: '';
+      content: "";
       width: 32px;
       height: 32px;
       position: absolute;
@@ -95,26 +87,19 @@
       left: 50%;
       box-sizing: border-box;
       transform: translateX(-50%) translateY(-50%);
-      // margin-left: -20px;
-      // margin-top: -20px;
     }
 
     &::after {
       border: 4px solid transparent;
-      border-top-color: var(--kui-color-main);
+      border-top-color: var(--kui-color-primary);
       animation: k-spin-animate-rotate 1s infinite linear;
       transform-origin: left top;
     }
   }
-
 }
 
 .k-spin-lg {
-  // width: 40px;
-  // height: 40px;
-
   .k-spin-rotate {
-
     &::before,
     &::after {
       border-width: 5px;
@@ -126,7 +111,6 @@
 
 .k-spin-sm {
   .k-spin-rotate {
-
     &::before,
     &::after {
       border-width: 3px;
@@ -186,25 +170,24 @@
 }
 
 @keyframes k-spin-animate-bounce {
-
   0%,
   100% {
-    transform: scale(0.0);
+    transform: scale(0);
   }
 
   50% {
-    transform: scale(1.0);
+    transform: scale(1);
   }
 }
 
 @keyframes k-spin-animate-zoom {
   0% {
-    transform: scale(0.0);
+    transform: scale(0);
     opacity: 1;
   }
 
   100% {
-    transform: scale(1.0);
-    opacity: 0
+    transform: scale(1);
+    opacity: 0;
   }
 }

@@ -6,29 +6,45 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Menu v-model="current" mode="vertical">
-      <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
-      <MenuItem key="1-2" :icon="Grid">Option 2</MenuItem>
-      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu key="sub2-1" title="SubMenu">
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+    <Menu v-model="current" mode="vertical" :items="items" />
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
 import { Mail, Grid, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);
+
+const items = [
+  { key: "1-1", icon: Mail, title: "Option 1" },
+  { key: "1-2", icon: Grid, title: "Option 2" },
+  {
+    key: "sub2",
+    icon: Heart,
+    title: "Navigation Two",
+    children: [
+      { key: "2-1", title: "Option 5" },
+      { key: "2-2", title: "Option 6" },
+      {
+        key: "sub2-1",
+        title: "SubMenu",
+        children: [
+          { key: "2-3", title: "Option 7" },
+          { key: "2-4", title: "Option 8" },
+        ],
+      },
+    ],
+  },
+  {
+    key: "sub3",
+    icon: Settings,
+    title: "Navigation Three",
+    children: [
+      { key: "3-1", title: "Option 9" },
+      { key: "3-2", title: "Option 10" },
+      { key: "3-3", title: "Option 11" },
+      { key: "3-4", title: "Option 12" },
+    ],
+  },
+];
 </script>
 ```

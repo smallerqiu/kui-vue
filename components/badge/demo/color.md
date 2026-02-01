@@ -7,13 +7,8 @@
 <template>
   <Space vertical block>
     Presets
-    <Space wrap >
-      <Badge
-        :color="color"
-        :text="color"
-        v-for="color in colors"
-        :key="color"
-      />
+    <Space wrap>
+      <Badge :color="color" :text="color" v-for="color in colors" :key="color" />
     </Space>
     <br />
     Custom

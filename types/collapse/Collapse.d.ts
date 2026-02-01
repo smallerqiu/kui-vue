@@ -10,7 +10,7 @@ export interface CollapseProps {
 /** Collapse component instance */
 export interface Collapse extends Vue {
   $props: CollapseProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Collapse Vue component type */

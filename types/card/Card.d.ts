@@ -2,7 +2,7 @@ import Vue, { VueConstructor } from "vue";
 
 /** Card component props */
 export interface CardProps {
-  /** default: true */
+  /** default: false */
   bordered?: boolean;
   title?: string;
   icon?: string | any[];
@@ -11,7 +11,7 @@ export interface CardProps {
 /** Card component instance */
 export interface Card extends Vue {
   $props: CardProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Card Vue component type */

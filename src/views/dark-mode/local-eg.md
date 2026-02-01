@@ -9,10 +9,7 @@
     <Button theme="light" @click="change">局部暗色</Button>
     <div class="k-demo-layout">
       <Layout class="layout-back">
-        <Sider
-          class="demo-sider"
-          :style="{ width: collapsed ? '60px' : '200px' }"
-        >
+        <Sider class="demo-sider" :style="{ width: collapsed ? '60px' : '200px' }">
           <div class="logo-box">
             <Icon :type="LogoKui" size="30" class="logo" />
             <transition>
@@ -21,7 +18,7 @@
           </div>
           <Menu
             mode="inline"
-            v-model="left"
+            v-model="leftMenuActiveKeys"
             :inline-collapsed="collapsed"
             style="border:none;"
           >
@@ -44,35 +41,38 @@
             <BreadcrumbItem>List</BreadcrumbItem>
             <BreadcrumbItem>App</BreadcrumbItem>
           </Breadcrumb>
-          <div class="demo-dark" :theme-mode="dark ? 'dark' : 'light'">
-            <Menu mode="horizontal" v-model="current">
-              <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
-              <MenuItem key="2" :icon="Heart" disabled>Navigation Two</MenuItem>
-              <MenuItem key="4">
-                <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
-              </MenuItem>
-            </Menu>
-            <Page :current="1" :total="50" />
-            <Space>
-              <Tag>标签1</Tag>
-              <Tag>标签2</Tag>
-              <Tag>标签3</Tag>
-              <Tag closeable>标签4</Tag>
+          <div
+            class="demo-dark"
+            :theme-mode="dark ? 'dark' : 'light'"
+            style="background: var(--kui-color-bg);"
+          >
+            <Space vertical block>
+              <Menu mode="horizontal" v-model="current">
+                <MenuItem key="1" :icon="Mail">Navigation One</MenuItem>
+                <MenuItem key="2" :icon="Heart" disabled> Navigation Two </MenuItem>
+                <MenuItem key="4">
+                  <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
+                </MenuItem>
+              </Menu>
+              <Page :current="1" :total="50" />
+              <Space>
+                <Tag>标签1</Tag>
+                <Tag>标签2</Tag>
+                <Tag>标签3</Tag>
+                <Tag closeable>标签4</Tag>
+              </Space>
             </Space>
+
             <div style="width:512px;">
               <Form
-                :labelCol="{ span: 5 }"
+                :labelCol="{ span: 8 }"
                 :wrapperCol="{ span: 16 }"
                 :size="size"
                 :theme="theme ? 'light' : ''"
                 :shape="checked ? 'circle' : ''"
               >
                 <FormItem label="主题">
-                  <Checkbox
-                    v-model="theme"
-                    label="Light"
-                    style="margin-right:8px;"
-                  />
+                  <Checkbox v-model="theme" label="Light" style="margin-right:8px;" />
                   <Checkbox v-model="checked" label="Circle" />
                 </FormItem>
                 <FormItem label="尺寸">
@@ -131,7 +131,8 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
 import {
   LogoKui,
   Home,
@@ -143,36 +144,20 @@ import {
   NotificationsOutline,
   Mail,
 } from "kui-icons";
-export default {
-  data() {
-    return {
-      LogoKui,
-      Home,
-      Heart,
-      Settings,
-      ChevronBack,
-      ChevronForward,
-      Search,
-      NotificationsOutline,
-      Mail,
-      current: ["1"],
-      left: ["1-1"],
-      collapsed: false,
-      dark: false,
-      size: "default",
-      theme: false,
-      checked: false,
-      shape: "",
-    };
-  },
-  methods: {
-    change() {
-      this.dark = !this.dark;
-    },
-    toggle() {
-      this.collapsed = !this.collapsed;
-    },
-  },
+
+const current = ref(["1"]);
+const leftMenuActiveKeys = ref(["1-1"]);
+const collapsed = ref(false);
+const dark = ref(false);
+const size = ref("default");
+const theme = ref(false);
+const checked = ref(false);
+const shape = ref("");
+const change = () => {
+  dark.value = !dark.value;
+};
+const toggle = () => {
+  collapsed.value = !collapsed.value;
 };
 </script>
 <style scoped lang="less">
@@ -188,7 +173,6 @@ export default {
     display: flex;
     align-items: center;
     padding: 16px 0 17px 16px;
-    /* background:var(--kui-color-gray-90); */
     white-space: nowrap;
     overflow: hidden;
     .logo {

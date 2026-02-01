@@ -12,7 +12,7 @@ export interface RowProps {
 /** Row component instance */
 export interface Row extends Vue {
   $props: RowProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Row Vue component type */

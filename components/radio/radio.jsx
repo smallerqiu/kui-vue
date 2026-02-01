@@ -79,7 +79,7 @@ const Radio = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={classes} tabindex="0" onKeydown={triggerCheck}>
+        <label class={classes} tabindex={props.disabled ? null : 0} onKeydown={triggerCheck}>
           <span class="k-radio-symbol">
             <input
               type="radio"

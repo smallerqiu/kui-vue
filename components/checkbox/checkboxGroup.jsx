@@ -63,8 +63,7 @@ const CheckboxGroup = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
-          let { label, value, disabled } =
-            child?.componentOptions?.propsData || {};
+          let { label, value, disabled } = child?.componentOptions?.propsData || {};
           let { children = [] } = child?.componentOptions;
           options.push({
             value,

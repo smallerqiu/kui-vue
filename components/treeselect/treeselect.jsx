@@ -5,7 +5,7 @@ import resize from "../directives/resize";
 import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
-import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import Tree from "../tree";
 import { buildTree } from "../tree/utils";
@@ -37,14 +37,9 @@ const TreeSelect = defineComponent({
     },
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -60,7 +55,7 @@ const TreeSelect = defineComponent({
     bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
     options: Array,
-    theme: String,
+    theme: { type: String, default: "light" },
     emptyText: String,
     icon: [String, Array],
     shape: String,
@@ -86,9 +81,7 @@ const TreeSelect = defineComponent({
 
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref(
-      ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]
-    );
+    const currentValue = ref(ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]);
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref();
@@ -207,18 +200,22 @@ const TreeSelect = defineComponent({
         });
       }
     };
+    const emitValue = () => {
+      const result = ps.multiple ? currentValue.value : currentValue.value[0] || null;
+      emit("input", result);
+      emit("change", result);
+    };
 
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
       e.stopPropagation();
+      emitValue();
       updatePosition();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      emit("input", ps.multiple ? [] : "");
-      emit("change", ps.multiple ? [] : "");
-
+      emitValue();
       clearQuery();
       e.stopPropagation();
     };
@@ -261,9 +258,9 @@ const TreeSelect = defineComponent({
     const labelText = computed(() => {
       const lookup = new Map();
       optionsData.value.forEach((item) => {
-        lookup.set(item.value, item.label);
+        lookup.set(item.key, item.title);
       });
-      return currentValue.value.map(val => lookup.get(val) ?? val);
+      return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
 
     const optionsData = computed(() => {
@@ -303,7 +300,7 @@ const TreeSelect = defineComponent({
     const onCheck = ({ key }, checked, checkedKeys) => {
       const result = [...checkedKeys];
       currentValue.value = result;
-      emit("input", result);
+      emitValue();
     };
     const onSelect = (item) => {
       const { key: value, title: label } = { ...item };
@@ -329,10 +326,7 @@ const TreeSelect = defineComponent({
         visible.value = false;
         clearQuery();
       }
-      const result = ps.multiple ? currentValue.value : currentValue.value[0];
-      // emit("update:value", result);
-      emit("input", result);
-      emit("change", result);
+      emitValue();
       emit("select", value, label, selected);
     };
     const renderTree = () => {
@@ -363,18 +357,9 @@ const TreeSelect = defineComponent({
 
     const queryKeydown = ({ key }) => {
       if (key === "Backspace") {
-        if (
-          queryKey.value == "" &&
-          ps.multiple &&
-          currentValue.value.length > 0
-        ) {
+        if (queryKey.value == "" && ps.multiple && currentValue.value.length > 0) {
           currentValue.value = currentValue.value.slice(0, -1);
-          emit("input", currentValue.value);
-          // emit("update:value", currentValue.value);
-          emit(
-            "change",
-            ps.multiple ? currentValue.value : currentValue.value[0] || ""
-          );
+          emitValue();
           updatePosition();
         }
       }
@@ -417,10 +402,7 @@ const TreeSelect = defineComponent({
               ) : ps.treeData?.length ? (
                 renderTree()
               ) : (
-                <Empty
-                  onClick={emptyClick}
-                  description={locale?.value.k.select.emptyText}
-                />
+                <Empty onClick={emptyClick} description={locale?.value.k.select.emptyText} />
               )}
             </div>
           </transition>
@@ -450,7 +432,7 @@ const TreeSelect = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-tree-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         on: {
           change: (e) => e.stopPropagation(),
           keydown: queryKeydown,
@@ -463,11 +445,7 @@ const TreeSelect = defineComponent({
         },
       };
       const queryNode = (
-        <div
-          v-show={queryInputVisible.value}
-          key="search"
-          class="k-tree-select-search-wrap"
-        >
+        <div v-show={queryInputVisible.value} key="search" class="k-tree-select-search-wrap">
           <input {...queryProps} />
           <span class="k-tree-select-search-mirror" ref={queryInputMirrorRef}>
             {queryKey.value}
@@ -493,16 +471,10 @@ const TreeSelect = defineComponent({
             </span>
           );
         });
-        if (
-          ps.maxTagCount &&
-          ps.maxTagCount > 0 &&
-          tags.length > ps.maxTagCount
-        ) {
+        if (ps.maxTagCount && ps.maxTagCount > 0 && tags.length > ps.maxTagCount) {
           tags = tags.slice(0, ps.maxTagCount);
           tags.push(
-            <span class="k-tree-select-tag">
-              +{labelText.value.length - ps.maxTagCount}...
-            </span>
+            <span class="k-tree-select-tag">+{labelText.value.length - ps.maxTagCount}...</span>
           );
         }
         return tags;
@@ -528,9 +500,7 @@ const TreeSelect = defineComponent({
       const styles = { width: `${ps.width}px` };
 
       const arrowNode =
-        !hasSearchEvent && showArrow ? (
-          <Icon class="k-tree-select-arrow" type={arrowIcon} />
-        ) : null;
+        !hasSearchEvent && showArrow ? <Icon class="k-tree-select-arrow" type={arrowIcon} /> : null;
 
       const classes = [
         "k-tree-select",
@@ -551,11 +521,7 @@ const TreeSelect = defineComponent({
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon
-          class="k-tree-select-clearable"
-          type={CloseCircle}
-          onClick={onClear}
-        />
+        <Icon class="k-tree-select-clearable" type={CloseCircle} onClick={onClear} />
       ) : null;
 
       return (

@@ -27,12 +27,7 @@
     ></Slider>
     <br />
     <code>Marks & step=10</code>
-    <Slider
-      :marks="{ 25: '25°C', 36: '36°C' }"
-      :step="10"
-      :value="[0, 100]"
-      :range="true"
-    ></Slider>
+    <Slider :marks="{ 25: '25°C', 36: '36°C' }" :step="10" :value="[0, 100]" :range="true"></Slider>
     <br />
     <code>step=null</code>
     <Slider

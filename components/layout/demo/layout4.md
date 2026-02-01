@@ -37,7 +37,6 @@
           :icon="collapsed ? ChevronForward : ChevronBack"
           @click="collapsed = !collapsed"
           class="btn-collapsed"
-          ><i></i
         ></Button>
       </Sider>
       <Content class="k-demo-main">
@@ -48,7 +47,7 @@
         </Breadcrumb>
         <div
           style="padding:200px 0;text-align:center;color:#ddd;margin:20px;"
-          class="demo-back"
+          class="layout-content"
         >
           Content
         </div>
@@ -58,14 +57,7 @@
   </div>
 </template>
 <script setup>
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  ChevronBack,
-  ChevronForward,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, ChevronBack, ChevronForward } from "kui-icons";
 import { ref } from "vue";
 const top = ref(["t1"]);
 const collapsed = ref(false);
@@ -75,13 +67,12 @@ const openKeys = ref(["t2"]);
 <style scoped lang="less">
 .k-demo-layout {
   overflow: hidden;
-
+  border: 1px solid var(--kui-color-border);
   .demo-sider {
     height: 360px;
-    /*这里是例子，实际中请适当修改*/
     left: 0;
     width: 200px;
-    background: var(--kui-color-back);
+    background: var(--kui-color-bg);
     transition: width 0.3s;
   }
 
@@ -94,13 +85,17 @@ const openKeys = ref(["t2"]);
     position: absolute;
     bottom: 0;
     left: 0;
+    // right:0;
+    width: 100%;
     transition: all 0.3s;
   }
 
   .demo-sider-collapsed {
     width: 60px;
     overflow: hidden;
-
+    .k-menu {
+      overflow: hidden;
+    }
     .logo-title {
       opacity: 0;
     }
@@ -136,12 +131,14 @@ const openKeys = ref(["t2"]);
   .k-demo-main {
     overflow: auto;
     height: 360px;
-    background-color: #7f7f7f17;
+    background-color: var(--kui-color-bg-layout);
     .nav {
       padding: 20px 0 0 20px;
     }
   }
-
+  .layout-content {
+    background-color: var(--kui-color-bg);
+  }
   .k-layout-footer {
     text-align: center;
     color: #999;

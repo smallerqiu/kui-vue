@@ -59,16 +59,7 @@ const Rate = defineComponent({
 
     return () => {
       const tpValue = tempValue.value || initValue.value;
-      let {
-        count,
-        allowHalf,
-        character,
-        disabled,
-        tooltips = [],
-        icon,
-        showScore,
-        color,
-      } = ps;
+      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, color } = ps;
       let size = ps.size;
       if (typeof size == "string" && filterSize(size)) {
         let sizeValue = [20, 24, 32];
@@ -117,9 +108,7 @@ const Rate = defineComponent({
       return (
         <div {...props}>
           {stars}
-          {showScore ? (
-            <span class="k-rate-score">{initValue.value}</span>
-          ) : null}
+          {showScore ? <span class="k-rate-score">{initValue.value}</span> : null}
         </div>
       );
     };

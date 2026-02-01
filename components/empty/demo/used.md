@@ -8,7 +8,7 @@
   <Space vertical block>
     Select:
     <Select :width="220" />
-    Table: 
+    Table:
     <Table :data="[]" :columns="columns" />
   </Space>
 </template>

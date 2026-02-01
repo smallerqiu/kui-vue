@@ -13,7 +13,7 @@ export interface BackTopProps {
 /** BackTop component instance */
 export interface BackTop extends Vue {
   $props: BackTopProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** BackTop Vue component type */

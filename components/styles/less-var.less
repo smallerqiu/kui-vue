@@ -1,0 +1,296 @@
+// --- 基础半径 ---
+@radius: 6px;
+@cardRadius: 10px;
+@component-shadow: 0 0 2px @main-9;
+@pop-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+// --- 功能色体系 ---
+@main: #54a9ff;
+@main-1: fadeout(@main, 10%);
+@main-2: fadeout(@main, 20%);
+@main-3: fadeout(@main, 30%);
+@main-6: fadeout(@main, 60%);
+@main-8: fadeout(@main, 80%);
+@main-9: fadeout(@main, 90%);
+
+// 成功色
+@success: #00bb5d;
+@success-1: fadeout(@success, 10%);
+@success-2: fadeout(@success, 20%);
+@success-3: fadeout(@success, 30%);
+@success-6: fadeout(@success, 60%);
+@success-8: fadeout(@success, 80%);
+@success-9: fadeout(@success, 90%);
+
+// 错误色
+@danger: #fc725a;
+@danger-1: fadeout(@danger, 10%);
+@danger-2: fadeout(@danger, 20%);
+@danger-3: fadeout(@danger, 30%);
+@danger-6: fadeout(@danger, 60%);
+@danger-8: fadeout(@danger, 80%);
+@danger-9: fadeout(@danger, 90%);
+@dark-danger: darken(@danger, 20%);
+
+// 警告色
+@warning: #ffae43;
+@warning-1: fadeout(@warning, 10%);
+@warning-2: fadeout(@warning, 20%);
+@warning-3: fadeout(@warning, 30%);
+@warning-6: fadeout(@warning, 60%);
+@warning-8: fadeout(@warning, 80%);
+@warning-9: fadeout(@warning, 90%);
+
+// 粉色
+@pink: darken(pink, 15%);
+@pink-3: fadeout(@pink, 30%);
+@pink-6: fadeout(@pink, 60%);
+@pink-8: fadeout(@pink, 80%);
+@pink-9: fadeout(@pink, 90%);
+
+// 红色
+@red: lighten(red, 5%);
+@red-3: fadeout(@red, 30%);
+@red-6: fadeout(@red, 60%);
+@red-8: fadeout(@red, 80%);
+@red-9: fadeout(@red, 90%);
+
+// 黄色
+@yellow: darken(yellow, 10%);
+@yellow-3: fadeout(@yellow, 30%);
+@yellow-6: fadeout(@yellow, 60%);
+@yellow-8: fadeout(@yellow, 80%);
+@yellow-9: fadeout(@yellow, 90%);
+
+// 橙色
+@orange: orange;
+@orange-3: fadeout(@orange, 30%);
+@orange-6: fadeout(@orange, 60%);
+@orange-8: fadeout(@orange, 80%);
+@orange-9: fadeout(@orange, 90%);
+
+// 青色
+@cyan: darken(cyan, 10%);
+@cyan-3: fadeout(@cyan, 30%);
+@cyan-6: fadeout(@cyan, 60%);
+@cyan-8: fadeout(@cyan, 80%);
+@cyan-9: fadeout(@cyan, 90%);
+
+// 紫色
+@violet: violet;
+@violet-3: fadeout(@violet, 30%);
+@violet-6: fadeout(@violet, 60%);
+@violet-8: fadeout(@violet, 80%);
+@violet-9: fadeout(@violet, 90%);
+
+// 绿色
+@green: lighten(green, 15%);
+@green-3: fadeout(@green, 30%);
+@green-6: fadeout(@green, 60%);
+@green-8: fadeout(@green, 80%);
+@green-9: fadeout(@green, 90%);
+
+// 蓝色
+@blue: mix(blue, cyan, 50%);
+@blue-3: fadeout(@blue, 30%);
+@blue-6: fadeout(@blue, 60%);
+@blue-8: fadeout(@blue, 80%);
+@blue-9: fadeout(@blue, 90%);
+
+// 紫色
+@purple: lighten(purple, 15%);
+@purple-3: fadeout(@purple, 30%);
+@purple-6: fadeout(@purple, 60%);
+@purple-8: fadeout(@purple, 80%);
+@purple-9: fadeout(@purple, 90%);
+
+// 褐色
+@brown: mix(brown, orange, 50%);
+@brown-3: fadeout(@brown, 30%);
+@brown-6: fadeout(@brown, 60%);
+@brown-8: fadeout(@brown, 80%);
+@brown-9: fadeout(@brown, 90%);
+
+//鸭绿色 / 水鸭色
+@teal: teal;
+@teal-3: fadeout(@teal, 30%);
+@teal-6: fadeout(@teal, 60%);
+@teal-8: fadeout(@teal, 80%);
+@teal-9: fadeout(@teal, 90%);
+
+//洋红
+@magenta: magenta;
+@magenta-3: fadeout(@magenta, 30%);
+@magenta-6: fadeout(@magenta, 60%);
+@magenta-8: fadeout(@magenta, 80%);
+@magenta-9: fadeout(@magenta, 90%);
+
+//橄榄
+@olive: olive;
+@olive-3: fadeout(@olive, 30%);
+@olive-6: fadeout(@olive, 60%);
+@olive-8: fadeout(@olive, 80%);
+@olive-9: fadeout(@olive, 90%);
+
+//火红
+@volcano: mix(red, orange, 60%);
+@volcano-3: fadeout(@volcano, 30%);
+@volcano-6: fadeout(@volcano, 60%);
+@volcano-8: fadeout(@volcano, 80%);
+@volcano-9: fadeout(@volcano, 90%);
+
+//金色
+@gold: darken(gold, 15%);
+@gold-3: fadeout(@gold, 30%);
+@gold-6: fadeout(@gold, 60%);
+@gold-8: fadeout(@gold, 80%);
+@gold-9: fadeout(@gold, 90%);
+
+//绿黄色
+@lime: darken(lime, 15%);
+@lime-3: fadeout(@lime, 30%);
+@lime-6: fadeout(@lime, 60%);
+@lime-8: fadeout(@lime, 80%);
+@lime-9: fadeout(@lime, 90%);
+
+//灰色
+@gray: gray;
+@gray-1: #fafafa; //页面底色 / 卡片底色（极浅）
+@gray-2: #f5f5f5; //次级背景 / hover 背景（浅）
+@gray-3: #eeeeee; //分割区域底 / 表格斑马纹
+@gray-4: #d9d9d9; //边框 / 分割线（常用线)
+@gray-5: #bfbfbf; //禁用边框 / 弱提示图标
+@gray-6: #8c8c8c; //次要文字 / placeholder
+@gray-7: #595959; //正文文字（偏深但不黑）
+@gray-8: #262626; //标题文字 / 强调文字
+@gray-9: #141414; //最高对比文字 / 深色背景上的“黑”
+
+@dark-gray-1: #0f0f0f; //App 最深背景（极暗）
+@dark-gray-2: #141414; //页面底色 / 大面积背景
+@dark-gray-3: #1f1f1f; //卡片底 / 容器底
+@dark-gray-4: #262626; //悬浮层底 / 次级容器
+@dark-gray-5: #303030; //分割区域底 / active 背景
+@dark-gray-6: #434343; //边框（暗色常用线）
+@dark-gray-7: #595959; //弱分割线 / 禁用边框 / 次要图标
+@dark-gray-8: #bfbfbf; //次要文字 / placeholder（暗色）
+@dark-gray-9: #f5f5f5; //主文字 / 标题文字（暗色）
+
+// --- 通用颜色  ---
+
+// 页面背景色
+@page-color: #fff;
+@dark-page-color: @dark-gray-2;
+
+// 布局背景色
+@layout-color: @gray-2;
+@dark-layout-color: @dark-gray-3;
+
+// 容器背景色
+@container-color: @gray-3;
+@dark-container-color: @dark-gray-4;
+
+// 组件背景色
+@component: #353a41b3;
+@component-color: fadeout(@component, 60%);
+@component-color-hover: fadeout(@component, 55%);
+@component-color-active: fadeout(@component, 50%);
+@component-color-disabled: fadeout(@component, 65%);
+
+@dark-component: #585d64d8;
+@dark-component-color: fadeout(@dark-component, 60%);
+@dark-component-color-hover: fadeout(@dark-component, 55%);
+@dark-component-color-active: fadeout(@dark-component, 50%);
+@dark-component-color-disabled: fadeout(@dark-component, 65%);
+
+// 列表项背景色
+@item: #40464eb1;
+@item-hover-color: fadeout(@item, 60%);
+@item-active-color: fadeout(@item, 55%);
+@item-selected-color: fadeout(@main, 80%);
+@item-disabled-color: fadeout(@item, 60%);
+
+@dark-item: #686e76b6;
+@dark-item-hover-color: fadeout(@dark-item, 60%);
+@dark-item-active-color: fadeout(@dark-item, 55%);
+@dark-item-selected-color: fadeout(@main, 80%);
+@dark-item-disabled-color: fadeout(@dark-item, 60%);
+
+// 悬浮背景色
+@pop-color: #fff;
+@dark-pop-color: @dark-gray-4;
+
+// 边框颜色
+@outline-color: @main-8;
+@border-color: #e9e9e9;
+@dark-border-color: #333;
+
+@pop-border-color: #e7e7e7;
+@dark-pop-border-color: #313131;
+
+// 占位符颜色
+@placeholder-color: @gray-6;
+@dark-placeholder-color: @dark-gray-7;
+
+// 骨架屏颜色
+@skeleton-color: rgba(0, 0, 0, 0.107);
+@skeleton-high-color: rgba(171, 171, 171, 0.107);
+@dark-skeleton-color: rgba(84, 84, 84, 0.201);
+@dark-skeleton-high-color: rgba(81, 81, 81, 0.331);
+
+//禁用边框颜色
+@disable-border-color: @gray-3;
+@dark-disable-border-color: @dark-gray-5;
+
+// 正文文字颜色
+@text-color: @gray-8;
+@dark-text-color: @dark-gray-9;
+
+// 禁用正文文字颜色
+@disable-text-color: @gray-5;
+@dark-disable-text-color: @dark-gray-7;
+
+// 标题文字颜色
+@title-color: @gray-9;
+@dark-title-color: @dark-gray-9;
+
+// 辅助/描述文字颜色
+@description-color: @gray-6;
+@dark-description-color: @dark-gray-8;
+
+// 组件中图标颜色
+@icon-color: #939393c4;
+@icon-color-hover: #717171c4;
+@icon-color-active: rgba(100, 100, 100, 0.769);
+
+@dark-icon-color: #939393c4;
+@dark-icon-color-hover: #9d9d9dc4;
+@dark-icon-color-active: #b9b9b9c4;
+
+// 遮罩层颜色
+@mask-color: #0009;
+@dark-mask-color: #0009;
+
+@shadow-color: rgba(0, 0, 0, 0.257);
+@dark-shadow-color: #0009;
+
+// 加载中遮罩层颜色
+@spin-mask-color: rgba(255, 255, 255, 0.5);
+@dark-spin-mask-color: rgba(22, 22, 22, 0.837);
+
+// 滚动条颜色
+@scrollbar-thumb-color: rgba(30, 30, 30, 0.202);
+@scrollbar-thumb-color-hover: rgba(0, 0, 0, 0.1);
+
+@dark-scrollbar-thumb-color: rgba(117, 117, 117, 0.465);
+@dark-scrollbar-thumb-color-hover: rgba(0, 0, 0, 0.1);
+
+// 表格
+@table-row-bg-color: @gray-2;
+@table-col-bg-color: @gray-2;
+@table-col-bg-color-hover: @gray-3;
+@table-col-bg-color-active: #e6e6e6;
+
+@dark-table-row-bg-color: #202121;
+@dark-table-col-bg-color: #202121;
+@dark-table-col-bg-color-hover: #232424;
+@dark-table-col-bg-color-active: #242525;

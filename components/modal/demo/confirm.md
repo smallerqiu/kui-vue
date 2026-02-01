@@ -18,13 +18,13 @@ import { modal, message } from "kui-vue";
 
 const confirm = () => {
   modal.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+    title: "Please confirm",
+    content: "This operation is irreversible, caution!!!!",
     onOk: () => {
-      message.success("你点了确认");
+      message.success("OK");
     },
     onCancel: () => {
-      message.info("你点了取消");
+      message.info("cancel");
     },
   });
 };
@@ -38,8 +38,8 @@ const custom = () => {
 };
 const Async = () => {
   modal.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+    title: "Please confirm",
+    content: "This operation is irreversible, caution!!!!",
     onOk: () => {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, 2000);

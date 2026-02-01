@@ -3,10 +3,11 @@ import Big from "big.js";
 import Input from "../input/input";
 import Icon from "../icon";
 import { withInstall } from "../utils/vue";
-import { ChevronUp, ChevronDown } from "kui-icons";
+import { ChevronUp, ChevronDown } from "kui-icons/dist/icons";
 import { sizeMap, filterSize } from "../utils/size";
 import { normalize, isValidBig } from "../utils/number";
 const InputNumber = defineComponent({
+  inheritAttrs: false,
   name: "InputNumber",
   props: {
     value: [Array, Number, String],
@@ -32,7 +33,7 @@ const InputNumber = defineComponent({
       type: Number,
       default: 1,
     },
-    theme: String,
+    theme: { type: String, default: "light" },
     icon: [String, Array],
     id: String,
   },
@@ -52,9 +53,7 @@ const InputNumber = defineComponent({
         if (props.max !== Infinity && b.gt(props.max)) b = new Big(props.max);
         if (props.min !== -Infinity && b.lt(props.min)) b = new Big(props.min);
 
-        return props.precision !== undefined
-          ? b.toFixed(props.precision)
-          : b.toFixed();
+        return props.precision !== undefined ? b.toFixed(props.precision) : b.toFixed();
       } catch (e) {
         return innerValue.value;
       }
@@ -78,9 +77,7 @@ const InputNumber = defineComponent({
       if (userInput.value !== null) return userInput.value;
 
       if (innerValue.value === "") return "";
-      return props.formatter
-        ? props.formatter(innerValue.value)
-        : innerValue.value;
+      return props.formatter ? props.formatter(innerValue.value) : innerValue.value;
     });
 
     const triggerUpdate = (val) => {
@@ -118,9 +115,7 @@ const InputNumber = defineComponent({
     };
 
     const handleBlur = (event) => {
-      triggerUpdate(
-        userInput.value !== null ? userInput.value : innerValue.value
-      );
+      triggerUpdate(userInput.value !== null ? userInput.value : innerValue.value);
       emit("blur", event);
     };
 
@@ -129,9 +124,7 @@ const InputNumber = defineComponent({
 
       const current = isValidBig(innerValue.value) ? innerValue.value : 0;
       const next =
-        type === "up"
-          ? new Big(current).plus(props.step)
-          : new Big(current).minus(props.step);
+        type === "up" ? new Big(current).plus(props.step) : new Big(current).minus(props.step);
 
       triggerUpdate(next.toFixed());
     };
@@ -150,7 +143,6 @@ const InputNumber = defineComponent({
           prefix: props.prefix,
           icon: props.icon,
           theme: props.theme,
-          placeholder: props.placeholder,
         },
         on: {
           ...listeners,
@@ -177,16 +169,10 @@ const InputNumber = defineComponent({
             controls: () =>
               props.controls && !props.readonly && !props.disabled ? (
                 <div class="k-input-number-controls">
-                  <span
-                    class="k-input-number-control"
-                    onClick={() => stepAction("up")}
-                  >
+                  <span class="k-input-number-control" onClick={() => stepAction("up")}>
                     <Icon type={ChevronUp} />
                   </span>
-                  <span
-                    class="k-input-number-control"
-                    onClick={() => stepAction("down")}
-                  >
+                  <span class="k-input-number-control" onClick={() => stepAction("down")}>
                     <Icon type={ChevronDown} />
                   </span>
                 </div>

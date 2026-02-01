@@ -1,6 +1,6 @@
 import { ref, defineComponent } from "vue";
 import Icon from "../icon";
-import { Add } from "kui-icons";
+import { Add } from "kui-icons/dist/icons";
 
 export default defineComponent({
   name: "Selector",
@@ -109,19 +109,13 @@ export default defineComponent({
               onChange={selectFiles}
               ref={uploadFileRef}
             />
-            {isPicture || draggable ? (
-              <Icon type={uploadIcon || Add} />
-            ) : (
-              slots.default?.()
-            )}
+            {isPicture || draggable ? <Icon type={uploadIcon || Add} /> : slots.default?.()}
             {(isPicture || (draggable && uploadText)) && (
               <span class="k-upload-text">{uploadText}</span>
             )}
             {draggable && uploadSubText && (
               <span class="k-upload-sub-text">
-                {dragOver.value
-                  ? locale?.k.upload.releaseToUpload
-                  : uploadSubText}
+                {dragOver.value ? locale?.k.upload.releaseToUpload : uploadSubText}
               </span>
             )}
           </div>

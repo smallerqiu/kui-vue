@@ -34,6 +34,6 @@ import { ref } from "vue";
 const show = ref(true);
 const count = ref(5);
 const add = () => count.value++;
-const minus = () => count.value>=1 && count.value--;
+const minus = () => count.value >= 1 && count.value--;
 </script>
 ```

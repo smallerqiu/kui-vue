@@ -9,12 +9,7 @@
     <RadioGroup :options="types" v-model="direction" type="button" />
     <code>direction: {{ direction }}</code>
     <code>value: {{ cities }}</code>
-    <RadioGroup
-      :options="options"
-      v-model="cities"
-      @change="change"
-      :direction="direction"
-    />
+    <RadioGroup :options="options" v-model="cities" @change="change" :direction="direction" />
   </Space>
 </template>
 <script setup>

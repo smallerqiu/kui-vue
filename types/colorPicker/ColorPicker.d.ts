@@ -24,7 +24,7 @@ export interface ColorPickerProps {
 /** ColorPicker component instance */
 export interface ColorPicker extends Vue {
   $props: ColorPickerProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** ColorPicker Vue component type */

@@ -1,8 +1,8 @@
-import Info from './info.md'
-import Basic from './basic.md'
-import Default from './default.md'
-import WithText from './with-text.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import Default from "./default.md";
+import WithText from "./with-text.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
@@ -13,6 +13,6 @@ export default {
         <WithText />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

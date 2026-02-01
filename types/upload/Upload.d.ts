@@ -34,7 +34,7 @@ export interface UploadProps {
 /** Upload component instance */
 export interface Upload extends Vue {
   $props: UploadProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Upload Vue component type */

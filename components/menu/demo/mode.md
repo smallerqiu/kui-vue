@@ -6,9 +6,10 @@
 ```vue
 <template>
   <div>
-    <KSwitch @change="changeMode" v-model="checked" /> Change Mode
-    <KSwitch true-text="dark" false-text="light" @change="changeTheme" /> Change
-    Theme
+    <Space>
+      <Button @click="changeMode">Change Mode</Button>
+      <Button @click="changeTheme"> Change Theme </Button>
+    </Space>
     <br />
     <br />
     <Menu
@@ -17,24 +18,8 @@
       :theme="theme"
       :mode="mode"
       style="width:256px"
-    >
-      <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
-      <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
-      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu key="sub2-1" title="SubMenu">
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-      <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+      :items="items"
+    />
   </div>
 </template>
 <script setup>
@@ -44,13 +29,44 @@ const current = ref(["1-1"]);
 const openKeys = ref(["sub2"]);
 const mode = ref("inline");
 const theme = ref("light");
-const checked = ref(false);
 
-const changeMode = (checked) => {
-  mode.value = checked ? "vertical" : "inline";
+const changeMode = () => {
+  mode.value = mode.value == "inline" ? "vertical" : "inline";
 };
-const changeTheme = (checked) => {
-  theme.value = checked ? "dark" : "light";
+const changeTheme = () => {
+  theme.value = theme.value == "light" ? "dark" : "light";
 };
+const items = [
+  { key: "1-1", icon: Mail, title: "Option 1" },
+  { key: "1-2", icon: Grid, title: "Option 2" },
+  {
+    key: "sub2",
+    icon: Heart,
+    title: "Navigation Two",
+    children: [
+      { key: "2-1", title: "Option 5" },
+      { key: "2-2", title: "Option 6" },
+      {
+        key: "sub2-1",
+        title: "SubMenu",
+        children: [
+          { key: "2-3", title: "Option 7" },
+          { key: "2-4", title: "Option 8" },
+        ],
+      },
+    ],
+  },
+  {
+    key: "sub3",
+    icon: Settings,
+    title: "Navigation Three",
+    children: [
+      { key: "3-1", title: "Option 9" },
+      { key: "3-2", title: "Option 10" },
+      { key: "3-3", title: "Option 11" },
+      { key: "3-4", title: "Option 12" },
+    ],
+  },
+];
 </script>
 ```

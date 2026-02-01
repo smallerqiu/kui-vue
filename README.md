@@ -67,7 +67,7 @@ Using a script tag for global use:
 ```html
 <template>
   <div>
-    <Button type="primary" @click="test">Primary</Button>
+    <button type="primary" @click="test">Primary</button>
   </div>
 </template>
 <script setup>

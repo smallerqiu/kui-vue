@@ -16,7 +16,7 @@ export interface SwitchProps {
 /** Switch component instance */
 export interface Switch extends Vue {
   $props: SwitchProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Switch Vue component type */

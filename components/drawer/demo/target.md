@@ -22,6 +22,7 @@
   <Drawer
     v-model="show"
     width="50%"
+    height="50%"
     :footer="null"
     :placement="placement"
     :target="() => refTarget"

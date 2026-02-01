@@ -13,10 +13,7 @@ export function setPlacement({
   // 模式检测 & 基准矩形
   let rect = null;
   // 是否是鼠标右键/坐标模式
-  const isMouseMode =
-    position &&
-    typeof position.x === "number" &&
-    typeof position.y === "number";
+  const isMouseMode = position && typeof position.x === "number" && typeof position.y === "number";
 
   if (isMouseMode) {
     // 鼠标模式：0x0 虚拟矩形
@@ -38,8 +35,7 @@ export function setPlacement({
 
   const pickerH = refPopper.value.offsetHeight;
   const pickerW = refPopper.value.offsetWidth;
-  const { clientHeight, clientWidth, scrollTop, scrollLeft } =
-    document.documentElement;
+  const { clientHeight, clientWidth, scrollTop, scrollLeft } = document.documentElement;
 
   // 计算居中坐标 (仅用于检测)
   const centerLeft = rect.left + rect.width / 2 - pickerW / 2;
@@ -83,10 +79,8 @@ export function setPlacement({
   // 交叉轴翻转 (Cross Axis Logic)
   if (side === "top" || side === "bottom") {
     // 如果有明确对齐要求 (比如鼠标模式强制了 left，或者 Select 指定了 bottom-left)
-    if (align === "left" && !check.alignLeft && check.alignRight)
-      align = "right";
-    else if (align === "right" && !check.alignRight && check.alignLeft)
-      align = "left";
+    if (align === "left" && !check.alignLeft && check.alignRight) align = "right";
+    else if (align === "right" && !check.alignRight && check.alignLeft) align = "left";
     // 如果没有对齐要求 (说明是 Select 的 bottom 居中模式)
     // 且居中放不下，尝试贴边降级
     else if (!align && !check.centerH) {
@@ -95,10 +89,8 @@ export function setPlacement({
       else if (check.alignRight) align = "right"; // 左也不行，试右贴边
     }
   } else if (side === "left" || side === "right") {
-    if (align === "top" && !check.alignTop && check.alignBottom)
-      align = "bottom";
-    else if (align === "bottom" && !check.alignBottom && check.alignTop)
-      align = "top";
+    if (align === "top" && !check.alignTop && check.alignBottom) align = "bottom";
+    else if (align === "bottom" && !check.alignBottom && check.alignTop) align = "top";
     else if (!align && !check.centerV) {
       if (check.alignTop) align = "top";
       else if (check.alignBottom) align = "bottom";

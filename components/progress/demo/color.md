@@ -12,12 +12,7 @@
     style="width:300px;margin-bottom:30px;"
   />
   <Progress :percent="percent" type="circle" :format="format2" :color="color" />
-  <Progress
-    :percent="percent"
-    type="dashboard"
-    :format="format3"
-    :color="color"
-  />
+  <Progress :percent="percent" type="dashboard" :format="format3" :color="color" />
   <br />
   <ButtonGroup circle>
     <Button @click="decline" :icon="Remove" />

@@ -1,6 +1,7 @@
 import { defineComponent } from "vue";
-import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
+import { DocumentTextOutline, Close, AlertCircle } from "kui-icons/dist/icons";
 import Icon from "../icon";
+import { Button } from "../button";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
 
@@ -34,7 +35,7 @@ export default defineComponent({
     };
 
     return () => {
-      const { showUploadList, type, fileList=[], locale } = props;
+      const { showUploadList, type, fileList = [], locale } = props;
       const isPicture = type === "picture";
 
       if (!showUploadList && !isPicture) return null;
@@ -49,15 +50,10 @@ export default defineComponent({
                 : item.errorText || locale?.k.upload.failed;
             return (
               <div
-                class={[
-                  `k-upload-file-${type}-item`,
-                  `k-upload-file-status-${item.status}`,
-                ]}
+                class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]}
                 key={item.uid || i}
               >
-                <div
-                  class={`k-upload-${isPicture ? "picture" : "file"}-preview`}
-                >
+                <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
                   {getPreview(item) || <Icon type={DocumentTextOutline} />}
                 </div>
                 <div class="k-upload-file-item-info">
@@ -93,8 +89,10 @@ export default defineComponent({
                     </div>
                   )}
                 </div>
-                <Icon
-                  type={Close}
+                <Button
+                  type="text"
+                  size="small"
+                  icon={Close}
                   class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
                   onClick={() => handleRemove(i, item)}
                 />

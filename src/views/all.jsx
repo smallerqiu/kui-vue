@@ -1,14 +1,24 @@
 import { navData } from "../menu";
-import { Col, Row, Card } from 'kui-vue'
-import WebIcon from '@/src/components/WebIcon'
-export default {
-  methods: {
-    renders(children) {
-      let span = [], rows = [];
+import { Col, Row, Card } from "kui-vue";
+import WebIcon from "@/src/components/WebIcon";
+import { defineComponent } from "vue";
+export default defineComponent({
+  setup() {
+    const renderChildren = (children) => {
+      let span = [],
+        rows = [];
       children.forEach((item, i) => {
-        let card = <Col span={6} ><router-link to={`/${item.key}/${item.name}`}><Card bordered title={item.sub + ' ' + item.title} ><WebIcon class="icon-view" name={item.icon} /></Card></router-link></Col>
-        span.push(card)
-      })
+        let card = (
+          <Col span={6}>
+            <router-link to={`/${item.key}/${item.name}`}>
+              <Card bordered title={item.sub + " " + item.title}>
+                <WebIcon class="icon-view" name={item.icon} />
+              </Card>
+            </router-link>
+          </Col>
+        );
+        span.push(card);
+      });
       if (span.length < 4) {
         rows.push(<Row gutter={20}>{span}</Row>);
       } else {
@@ -17,22 +27,21 @@ export default {
         }
       }
       return rows;
-    },
+    };
+
+    return () => {
+      let nav = navData.filter((x) => x.key != "start");
+      return (
+        <div class="all-components">
+          <h1>组件</h1>
+          <p>
+            <code>kui</code> 提供了65款组件，之后会根据需求补充，欢迎提供建议！
+          </p>
+          {nav.map((item, x) => {
+            return [<h2>{item.title}</h2>, renderChildren(item.children)];
+          })}
+        </div>
+      );
+    };
   },
-  render() {
-    let nav = navData.filter(x => x.key != 'start')
-    return (
-      <div class="all-components">
-        <h1>组件</h1>
-        <p><code>kui</code> 提供了65款组件，之后会根据需求补充，欢迎提供建议！</p>
-        {
-          nav.map((item, x) => {
-            return (
-              [<h2>{item.title}</h2>,
-              this.renders(item.children)])
-          })
-        }
-      </div>
-    );
-  },
-};
+});

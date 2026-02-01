@@ -6,7 +6,7 @@ Flex 布局基础。
 
 ```vue
 <template>
-  <Space  block vertical>
+  <Space block vertical>
     <code>start</code>
     <Row type="flex" justify="start" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>

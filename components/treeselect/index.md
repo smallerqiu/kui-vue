@@ -9,7 +9,7 @@
 | size        | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | String                           | -          |
 | emptyText   | 没有数据时展示的提示                                       | String                           | '赞无数据' |
 | multiple    | 是否呈现多选模式                                           | Boolean                          | false      |
-| loading     | 异步加载状态                                           | Boolean                          | false      |
+| loading     | 异步加载状态                                               | Boolean                          | false      |
 | clearable   | 是否可以清空选项                                           | Boolean                          | false      |
 | bordered    | 是否显示边框                                               | Boolean                          | true       |
 | showArrow   | 是否显示下拉按钮                                           | Boolean                          | true       |

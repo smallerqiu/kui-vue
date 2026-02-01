@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
 import { withInstall } from "../utils/vue.js";
-import CountUp from "./countup.jsx";
-import RollUp from "./rollup.jsx";
+import CountUp from "./statup/countup.jsx";
+import RollUp from "./statup/rollup.jsx";
 const StatNumber = defineComponent({
   name: "StatNumber",
   props: {
@@ -38,11 +38,7 @@ const StatNumber = defineComponent({
       return (
         <div class="k-stat-number">
           {prefixNode && <span class="k-stat-number-prefix">{prefixNode}</span>}
-          {props.type === "rollup" ? (
-            <RollUp {...items} />
-          ) : (
-            <CountUp {...items} />
-          )}
+          {props.type === "rollup" ? <RollUp {...items} /> : <CountUp {...items} />}
           {suffixNode && <span class="k-stat-number-suffix">{suffixNode}</span>}
         </div>
       );

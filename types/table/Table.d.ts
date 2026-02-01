@@ -26,7 +26,7 @@ export interface TableProps {
 /** Table component instance */
 export interface Table extends Vue {
   $props: TableProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Table Vue component type */

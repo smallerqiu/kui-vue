@@ -16,11 +16,7 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu
-              mode="horizontal"
-              :selectedKeys="['t1']"
-              class="demo-top-menu"
-            >
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -40,15 +36,8 @@
             :openKeys="['t2']"
             class="demo-left-menu"
             mode="inline"
-            style="padding-top:20px;"
-          >
-            <MenuItem key="t1" :icon="Home">首页</MenuItem>
-            <SubMenu key="t2" :icon="StatsChart" title="数据统计">
-              <MenuItem key="t2-1">今日订单</MenuItem>
-              <MenuItem key="t2-2">今日销售额</MenuItem>
-            </SubMenu>
-            <MenuItem key="t3" :icon="Settings">能源管理</MenuItem>
-          </Menu>
+            :items="items"
+          />
         </Sider>
         <Layout class="k-demo-main">
           <Breadcrumb class="nav">
@@ -63,27 +52,34 @@
   </div>
 </template>
 <script setup>
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  Scan,
-  NotificationsOutline,
-  Search,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, Scan, NotificationsOutline, Search } from "kui-icons";
+const items = [
+  { key: "t1", icon: Home, title: "首页" },
+  {
+    key: "t2",
+    icon: StatsChart,
+    title: "数据统计",
+    children: [
+      { key: "t2-1", title: "今日订单" },
+      { key: "t2-2", title: "今日销售额" },
+    ],
+  },
+  { key: "t3", icon: Settings, title: "能源管理" },
+];
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg-layout);
+  border: 1px solid var(--kui-color-border);
 
   .demo-header {
     padding: 0 20px 0;
     min-width: 500px;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg);
     height: 60px;
     align-items: center;
     display: flex;
+    border-bottom: 1px solid var(--kui-color-border);
   }
 
   .demo-top-nav {
@@ -91,7 +87,6 @@ import {
   }
 
   .logo-box {
-    /* width: 190px; */
     position: relative;
     z-index: 801;
     box-sizing: border-box;
@@ -113,7 +108,7 @@ import {
   }
 
   .demo-content {
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg);
   }
 
   .demo-left-menu {

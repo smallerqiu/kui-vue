@@ -15,7 +15,7 @@ export interface SpinProps {
 /** Spin component instance */
 export interface Spin extends Vue {
   $props: SpinProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Spin Vue component type */

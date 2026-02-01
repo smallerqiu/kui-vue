@@ -28,7 +28,7 @@ export interface ModalProps {
 /** Modal component instance */
 export interface Modal extends Vue {
   $props: ModalProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Modal Vue component type */

@@ -19,29 +19,20 @@
       <Button type="primary">Submit</Button>
     </InputGroup>
     <InputGroup>
-      <Input
-        :style="{ width: 'calc(100% - 200px)' }"
-        value="git@gitee.com:chuchur/kui-vue.git"
-      />
+      <Input :style="{ width: 'calc(100% - 200px)' }" value="git@gitee.com:chuchur/kui-vue.git" />
       <Tooltip title="copy git url">
         <Button :icon="Copy"></Button>
       </Tooltip>
     </InputGroup>
     <InputGroup>
-      <Select value="Shenzheng" clearable >
+      <Select value="Shenzheng" clearable>
         <Option value="Wuhan">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </InputGroup>
     <InputGroup>
-      <Select
-        clearable
-        multiple
-        :value="['Wuhan001']"
-        :style="{ width: '50%' }"
-        :maxTagCount="1"
-      >
+      <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }" :maxTagCount="1">
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -88,10 +79,7 @@
         <Option value="1">Between</Option>
         <Option value="2">Except</Option>
       </Select>
-      <Input
-        :style="{ width: '100px', textAlig: 'center' }"
-        placeholder="Minimum"
-      />
+      <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
       <Input
         :style="{
           width: '30px',
@@ -115,11 +103,7 @@
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <TreeSelect
-        :tree-data="treeData"
-        clearable
-        style="width:200px"
-      ></TreeSelect>
+      <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
     </InputGroup>
   </Space>
 </template>

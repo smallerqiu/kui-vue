@@ -1,3 +1,13 @@
+const globalComponents = ["message", "modal", "notice", "loading", "theme"];
+export { globalComponents };
+
+import { getAppContext } from "../config/context";
+
+export const installGlobal = (app, component) => {
+  if (globalComponents.includes(component.name)) {
+    app.prototype[`$${component.name}`] = component;
+  }
+};
 export const withInstall = (component) => {
   component.install = function (app) {
     app.component(component.name, component);
@@ -9,7 +19,7 @@ export const withInstall = (component) => {
 import Vue, { h } from "vue";
 export function createVNode(component, props, parent) {
   const instance = new Vue({
-    parent,
+    parent: parent || getAppContext()?.proxy,
     render: (h) => h(component, { ...props }),
   });
   instance.$mount();
@@ -120,7 +130,7 @@ export function cloneVNode(vnode, props = {}, merge = true, child) {
   cloned.context = vnode.context; //fix: inject context
 
   if (vNodeProps.scopedSlots) {
-      cloned.data.scopedSlots = vNodeProps.scopedSlots;
+    cloned.data.scopedSlots = vNodeProps.scopedSlots;
   }
 
   return cloned;

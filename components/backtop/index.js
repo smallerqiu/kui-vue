@@ -1,2 +1,2 @@
-import BackTop from './backtop.jsx'
-export default BackTop
+import BackTop from "./backtop.jsx";
+export default BackTop;

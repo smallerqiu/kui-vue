@@ -9,9 +9,7 @@ const updateParentIndeterminate = (nodes, parentKey) => {
   if (enabledSiblings.length === 0) return;
 
   const checkedCount = enabledSiblings.filter((node) => node.checked).length;
-  const indeterminateCount = enabledSiblings.filter(
-    (node) => node.indeterminate
-  ).length;
+  const indeterminateCount = enabledSiblings.filter((node) => node.indeterminate).length;
 
   // 如果不是全选也不是全不选，则设置为半选
   if (checkedCount > 0 && checkedCount < enabledSiblings.length) {
@@ -107,13 +105,7 @@ const buildTree = ({
       // 注意：需要反向入栈以保持原来的遍历顺序
       for (let i = node.children.length - 1; i >= 0; i--) {
         const childIsLast = i === node.children.length - 1;
-        stack.push([
-          node.children[i],
-          level + 1,
-          key,
-          childPrefixes,
-          childIsLast,
-        ]);
+        stack.push([node.children[i], level + 1, key, childPrefixes, childIsLast]);
       }
     }
   }

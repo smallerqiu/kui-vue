@@ -22,6 +22,7 @@ export interface InputNumberProps {
   keyboard?: boolean;
   /** default: 1 */
   step?: number;
+  /** default: light */
   theme?: string;
   icon?: string | any[];
   id?: string;
@@ -30,7 +31,7 @@ export interface InputNumberProps {
 /** InputNumber component instance */
 export interface InputNumber extends Vue {
   $props: InputNumberProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** InputNumber Vue component type */

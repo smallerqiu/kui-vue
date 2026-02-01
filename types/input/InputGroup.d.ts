@@ -5,13 +5,15 @@ export interface InputGroupProps {
   block?: boolean;
   /** default: true */
   compact?: boolean;
+  /** default: light */
+  theme?: string;
   size?: string;
 }
 
 /** InputGroup component instance */
 export interface InputGroup extends Vue {
   $props: InputGroupProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** InputGroup Vue component type */
