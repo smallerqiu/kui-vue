@@ -8,7 +8,7 @@ export interface MenuGroupProps {
 /** MenuGroup component instance */
 export interface MenuGroup extends Vue {
   $props: MenuGroupProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** MenuGroup Vue component type */

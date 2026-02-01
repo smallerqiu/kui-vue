@@ -1,13 +1,7 @@
 import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
-import { ChevronUp } from "kui-icons";
-import {
-  defineComponent,
-  ref,
-  watch,
-  /*Transition,*/ getCurrentInstance,
-  nextTick,
-} from "vue";
+import { ChevronUp } from "kui-icons/dist/icons";
+import { defineComponent, ref, watch, /*Transition,*/ getCurrentInstance, nextTick } from "vue";
 import { withInstall } from "../utils/vue";
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
@@ -58,9 +52,7 @@ const CollapsePanel = defineComponent({
           <div class="k-collapse-header" onClick={handleClick}>
             <Icon type={ChevronUp} class="k-collapse-arrow" />
             <span class="k-collapse-title">{ps.title}</span>
-            {extraNode ? (
-              <span class="k-collapse-extra">{extraNode}</span>
-            ) : null}
+            {extraNode ? <span class="k-collapse-extra">{extraNode}</span> : null}
           </div>
           {panelNode}
         </div>

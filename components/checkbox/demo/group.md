@@ -12,12 +12,7 @@
     <br />
     use children
     <CheckboxGroup v-model="value" theme="light">
-      <Checkbox
-        :label="item.label"
-        :value="item.value"
-        v-for="(item, i) in options"
-        :key="i"
-      />
+      <Checkbox :label="item.label" :value="item.value" v-for="(item, i) in options" :key="i" />
     </CheckboxGroup>
   </Space>
 </template>

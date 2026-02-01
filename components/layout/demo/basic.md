@@ -42,27 +42,27 @@
   text-align: center;
 }
 .demo-k-layout > .k-layout {
-  color: #fff;
+  color: var(--kui-color-text-description);
   min-width: calc(50% - 8px);
   border-radius: 10px;
   overflow: hidden;
 }
 .demo-k-layout .k-layout-header {
-  background-color: var(--kui-color-main-60);
+  background-color: var(--kui-color-bg-3);
   height: 64px;
   line-height: 64px;
 }
 .demo-k-layout .k-layout-footer {
-  background-color: var(--kui-color-main-60);
+  background-color: var(--kui-color-bg-3);
 }
 .demo-k-layout .k-layout-content {
   min-height: 120px;
   line-height: 120px;
-  background-color: var(--kui-color-main-30);
+  background-color: var(--kui-color-bg-2);
 }
 .demo-k-layout .k-layout-sider {
   line-height: 120px;
-  background-color: var(--kui-color-main-10);
+  background-color: var(--kui-color-bg-4);
   width: 30%;
 }
 </style>

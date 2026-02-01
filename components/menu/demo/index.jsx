@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import InLine from "./inline.md";
 import Accordion from "./accordion.md";
 import Vertical from "./vertical.md";

@@ -16,7 +16,7 @@ export interface PopconfirmProps {
 /** Popconfirm component instance */
 export interface Popconfirm extends Vue {
   $props: PopconfirmProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Popconfirm Vue component type */

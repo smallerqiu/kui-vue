@@ -17,11 +17,7 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu
-              mode="horizontal"
-              :selectedKeys="['t1']"
-              class="demo-top-menu"
-            >
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -42,9 +38,7 @@
         </Breadcrumb>
         <Content class="demo-back">Conent</Content>
       </Content>
-      <Footer style="background:transparent;"
-        >KUI ©2025 Created by chuchur</Footer
-      >
+      <Footer style="background:transparent;"> KUI ©2025 Created by chuchur </Footer>
     </Layout>
   </div>
 </template>
@@ -55,11 +49,11 @@ const top = ref(["t1"]);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg);
 
   .demo-header {
     padding: 0 50px 0;
-    background-color: var(--kui-color-main-90);
+    background-color: var(--kui-color-bg-3);
     height: 60px;
     align-items: center;
     display: flex;
@@ -82,11 +76,11 @@ const top = ref(["t1"]);
   }
 
   .layout-back {
-    background-color: #86868625;
+    background-color: var(--kui-color-bg);
   }
 
   .demo-back {
-    background-color: var(--kui-color-back);
+    background-color: var(--kui-color-bg-3);
   }
 
   .demo-top-menu {

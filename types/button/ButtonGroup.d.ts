@@ -9,7 +9,7 @@ export interface ButtonGroupProps {
 /** ButtonGroup component instance */
 export interface ButtonGroup extends Vue {
   $props: ButtonGroupProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** ButtonGroup Vue component type */

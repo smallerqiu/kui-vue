@@ -12,12 +12,7 @@
     <br />
     use children
     <RadioGroup v-model="value">
-      <Radio
-        :label="item.label"
-        :value="item.value"
-        v-for="(item, i) in options"
-        :key="i"
-      />
+      <Radio :label="item.label" :value="item.value" v-for="(item, i) in options" :key="i" />
     </RadioGroup>
   </Space>
 </template>

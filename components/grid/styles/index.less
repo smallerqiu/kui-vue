@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-row {
   display: flex;
@@ -12,8 +12,8 @@
   min-height: 1px;
 }
 
-@fix :~'k-col';
-@counts :24;
+@fix: ~"k-col";
+@counts: 24;
 
 .make_col(@index) when(@index>0) {
   .@{fix}-@{index} {

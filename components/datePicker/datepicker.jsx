@@ -1,14 +1,4 @@
-import {
-  defineComponent,
-  ref,
-  watch,
-  inject,
-  onMounted,
-  computed,
-  onUnmounted,
-  reactive,
-  nextTick,
-} from "vue";
+import { defineComponent, ref, watch, inject, computed, onUnmounted, nextTick } from "vue";
 import dayjs from "dayjs";
 import zhCN from "../locale/zh-CN";
 import isBetween from "dayjs/plugin/isBetween";
@@ -23,7 +13,7 @@ import {
   ChevronForward,
   ChevronDoubleForward,
   ArrowForward,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -56,15 +46,7 @@ const DatePicker = defineComponent({
       type: String,
       default: "date",
       validator: (v) =>
-        [
-          "year",
-          "month",
-          "date",
-          "time",
-          "dateTime",
-          "dateRange",
-          "dateTimeRange",
-        ].includes(v),
+        ["year", "month", "date", "time", "dateTime", "dateRange", "dateTimeRange"].includes(v),
     },
     presets: Array,
     disabled: { type: Boolean },
@@ -77,19 +59,14 @@ const DatePicker = defineComponent({
     size: { type: String, default: "default" },
     pickerSize: { type: String, default: "default" },
     dateIcon: { type: [Array, Object] },
-    theme: String,
+    theme: { type: String, default: "light" },
     shape: String,
     bordered: { type: Boolean, default: true },
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -113,7 +90,6 @@ const DatePicker = defineComponent({
       return locale.value.name || "zh-cn";
     });
 
-    // --- 状态定义 ---
     const isVisible = ref(false);
     const isFocus = ref(false);
     const rendered = ref(false);
@@ -123,9 +99,7 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
     const refSelection = ref(null);
-    // console.log(local);
 
-    // DOM 引用，用于滚动计算
     const timeColRefs = ref({});
 
     // 面板显示的基准日期
@@ -171,8 +145,7 @@ const DatePicker = defineComponent({
       }
     };
     const getFormat = () => {
-      if (props.format)
-        return Array.isArray(props.format) ? props.format[0] : props.format;
+      if (props.format) return Array.isArray(props.format) ? props.format[0] : props.format;
       const map = {
         date: "YYYY-MM-DD",
         dateTime: "YYYY-MM-DD HH:mm:ss",
@@ -190,11 +163,9 @@ const DatePicker = defineComponent({
         let activeDate = dayjs();
         if (props.mode === "dateTimeRange") {
           const idx = timeEditSide.value === "start" ? 0 : 1;
-          if (innerValue.value && innerValue.value[idx])
-            activeDate = innerValue.value[idx];
+          if (innerValue.value && innerValue.value[idx]) activeDate = innerValue.value[idx];
         } else {
-          if (innerValue.value && !Array.isArray(innerValue.value))
-            activeDate = innerValue.value;
+          if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
         }
 
         const targets = {
@@ -337,9 +308,7 @@ const DatePicker = defineComponent({
 
       if (d.isValid()) {
         if (isRange.value) {
-          const newArr = Array.isArray(innerValue.value)
-            ? [...innerValue.value]
-            : [null, null];
+          const newArr = Array.isArray(innerValue.value) ? [...innerValue.value] : [null, null];
 
           newArr[index] = d;
           innerValue.value = newArr;
@@ -355,9 +324,7 @@ const DatePicker = defineComponent({
         }
       } else if (val === "") {
         if (isRange.value) {
-          const newArr = Array.isArray(innerValue.value)
-            ? [...innerValue.value]
-            : [null, null];
+          const newArr = Array.isArray(innerValue.value) ? [...innerValue.value] : [null, null];
           newArr[index] = null;
           innerValue.value = newArr;
         } else {
@@ -410,12 +377,7 @@ const DatePicker = defineComponent({
     const handleClickOutside = (e) => {
       const ctx = refSelection.value;
       const popper = refPopper.value;
-      if (
-        popper &&
-        !popper.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
-      ) {
+      if (popper && !popper.contains(e.target) && ctx && !ctx.contains(e.target)) {
         syncTextFromValue();
         isVisible.value = false;
         isFocus.value = false;
@@ -433,9 +395,7 @@ const DatePicker = defineComponent({
 
     const pickDate = (date) => {
       if (isRange.value) {
-        let newVal = Array.isArray(innerValue.value)
-          ? [...innerValue.value]
-          : [];
+        let newVal = Array.isArray(innerValue.value) ? [...innerValue.value] : [];
         // 清理一下可能的 null
         newVal = newVal.filter((x) => x);
 
@@ -466,10 +426,7 @@ const DatePicker = defineComponent({
       } else {
         if (props.mode === "dateTime") {
           const old = innerValue.value || dayjs();
-          innerValue.value = date
-            .hour(old.hour())
-            .minute(old.minute())
-            .second(old.second());
+          innerValue.value = date.hour(old.hour()).minute(old.minute()).second(old.second());
           emitValue(false);
         } else {
           innerValue.value = date;
@@ -514,10 +471,7 @@ const DatePicker = defineComponent({
         idx = timeEditSide.value === "start" ? 0 : 1;
         if (innerValue.value && innerValue.value[idx]) {
           activeDate = innerValue.value[idx];
-        } else if (
-          Array.isArray(innerValue.value) &&
-          innerValue.value[idx] === null
-        ) {
+        } else if (Array.isArray(innerValue.value) && innerValue.value[idx] === null) {
           return;
         }
       } else {
@@ -557,16 +511,11 @@ const DatePicker = defineComponent({
       const yearSuffix = locale.value.k.datePicker.year || "";
       const yearLabel = `${year}${yearSuffix}`;
 
-      const yearNode = (
-        <span onClick={() => (currentView.value = "year")}>{yearLabel}</span>
-      );
+      const yearNode = <span onClick={() => (currentView.value = "year")}>{yearLabel}</span>;
 
       const monthNode =
         props.mode !== "year" ? (
-          <span
-            class="k-picker-header-month-btn"
-            onClick={() => (currentView.value = "month")}
-          >
+          <span class="k-picker-header-month-btn" onClick={() => (currentView.value = "month")}>
             {monthName}
           </span>
         ) : null;
@@ -576,18 +525,14 @@ const DatePicker = defineComponent({
           <Button
             icon={ChevronDoubleBack}
             type="text"
-            onClick={() =>
-              (panelDate.value = panelDate.value.subtract(10, "year"))
-            }
+            onClick={() => (panelDate.value = panelDate.value.subtract(10, "year"))}
           />
 
           {props.mode !== "year" ? (
             <Button
               icon={ChevronBack}
               type="text"
-              onClick={() =>
-                (panelDate.value = panelDate.value.subtract(1, "month"))
-              }
+              onClick={() => (panelDate.value = panelDate.value.subtract(1, "month"))}
             />
           ) : null}
           <span class="k-picker-header-label">
@@ -598,9 +543,7 @@ const DatePicker = defineComponent({
             <Button
               icon={ChevronForward}
               type="text"
-              onClick={() =>
-                (panelDate.value = panelDate.value.add(1, "month"))
-              }
+              onClick={() => (panelDate.value = panelDate.value.add(1, "month"))}
             />
           ) : null}
           <Button
@@ -645,9 +588,7 @@ const DatePicker = defineComponent({
                 key={i}
                 class={[
                   "k-picker-month-item",
-                  i === panelDate.value.month()
-                    ? "k-picker-month-selected"
-                    : "",
+                  i === panelDate.value.month() ? "k-picker-month-selected" : "",
                 ]}
                 onClick={() => pickMonth(i)}
               >
@@ -712,10 +653,7 @@ const DatePicker = defineComponent({
               let isRangeStart = false;
               let isRangeEnd = false;
 
-              if (
-                props.mode.includes("Range") &&
-                Array.isArray(innerValue.value)
-              ) {
+              if (props.mode.includes("Range") && Array.isArray(innerValue.value)) {
                 const [s, e] = innerValue.value;
                 if (s && date.isSame(s, "day")) {
                   isSelected = true;
@@ -768,8 +706,7 @@ const DatePicker = defineComponent({
       let activeDate = dayjs();
       if (props.mode === "dateTimeRange") {
         const idx = timeEditSide.value === "start" ? 0 : 1;
-        if (innerValue.value && innerValue.value[idx])
-          activeDate = innerValue.value[idx];
+        if (innerValue.value && innerValue.value[idx]) activeDate = innerValue.value[idx];
       } else if (innerValue.value && !Array.isArray(innerValue.value)) {
         activeDate = innerValue.value;
       }
@@ -782,10 +719,7 @@ const DatePicker = defineComponent({
               ? activeDate.minute()
               : activeDate.second();
         return (
-          <ul
-            class="k-picker-time-col"
-            ref={(el) => (timeColRefs.value[type] = el)}
-          >
+          <ul class="k-picker-time-col" ref={(el) => (timeColRefs.value[type] = el)}>
             {Array.from({ length: max }).map((_, i) => {
               const tempDate = activeDate.set(type, i);
               const isDisabled = checkTimeDisabled(tempDate);
@@ -836,9 +770,7 @@ const DatePicker = defineComponent({
             <div
               class={[
                 "k-picker-footer-time",
-                currentView.value === "time" && timeEditSide.value === "start"
-                  ? "active"
-                  : "",
+                currentView.value === "time" && timeEditSide.value === "start" ? "active" : "",
               ]}
               onClick={(e) => timeLabelClick(e, "start")}
             >
@@ -850,9 +782,7 @@ const DatePicker = defineComponent({
             <div
               class={[
                 "k-picker-footer-time",
-                currentView.value === "time" && timeEditSide.value === "end"
-                  ? "active"
-                  : "",
+                currentView.value === "time" && timeEditSide.value === "end" ? "active" : "",
               ]}
               onClick={(e) => timeLabelClick(e, "end")}
             >
@@ -865,14 +795,8 @@ const DatePicker = defineComponent({
         return (
           <div class="k-picker-footer">
             <div
-              class={[
-                "k-picker-footer-time",
-                currentView.value === "time" ? "active" : "",
-              ]}
-              onClick={() =>
-                (currentView.value =
-                  currentView.value === "time" ? "date" : "time")
-              }
+              class={["k-picker-footer-time", currentView.value === "time" ? "active" : ""]}
+              onClick={() => (currentView.value = currentView.value === "time" ? "date" : "time")}
             >
               {t}
             </div>
@@ -892,9 +816,7 @@ const DatePicker = defineComponent({
         });
       });
     };
-    onUnmounted(() =>
-      document.removeEventListener("click", handleClickOutside)
-    );
+    onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
     return () => {
       const localPlaceholders = {
@@ -928,8 +850,7 @@ const DatePicker = defineComponent({
           "k-datepicker-has-clear": showClear,
         },
       ];
-      const dateIcon =
-        props.mode == "time" ? TimeOutline : props.dateIcon || CalendarOutline;
+      const dateIcon = props.mode == "time" ? TimeOutline : props.dateIcon || CalendarOutline;
       const overlayProps = {
         class: "k-datepicker-overlay",
         ref: refPopper,
@@ -1038,16 +959,12 @@ const DatePicker = defineComponent({
 
       const renderExtraHeader = () => {
         return slots.header ? (
-          <div class="k-picker-extra-header">
-            {slots.header({ emit: extraEmit })}
-          </div>
+          <div class="k-picker-extra-header">{slots.header({ emit: extraEmit })}</div>
         ) : null;
       };
       const renderExtraFooter = () => {
         return slots.footer ? (
-          <div class="k-picker-extra-footer">
-            {slots.footer({ emit: extraEmit })}
-          </div>
+          <div class="k-picker-extra-footer">{slots.footer({ emit: extraEmit })}</div>
         ) : null;
       };
       const overlay = rendered.value ? (
@@ -1075,7 +992,7 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refSelection} tabindex={0}>
+        <div class={classes} ref={refSelection} tabindex={props.disabled ? null : 0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />

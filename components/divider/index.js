@@ -1,2 +1,2 @@
-import Divider from './divider.jsx'
-export default Divider
+import Divider from "./divider.jsx";
+export default Divider;

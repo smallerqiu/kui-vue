@@ -88,14 +88,7 @@ export default defineComponent({
 
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
-        nodes.push(
-          <Input
-            prefix="#"
-            size="small"
-            value={hex}
-            onChange={(e) => updateHex(e)}
-          />
-        );
+        nodes.push(<Input prefix="#" size="small" value={hex} onChange={(e) => updateHex(e)} />);
       } else if (currentMode.value === "rgb") {
         const [r, g, b] = color.rgb().array();
         nodes.push(

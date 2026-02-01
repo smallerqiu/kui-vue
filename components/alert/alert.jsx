@@ -1,18 +1,25 @@
 import { defineComponent, ref, computed } from "vue";
 import Icon from "../icon";
-import { InformationCircle, CloseCircle, CheckmarkCircle, AlertCircle, Close } from "kui-icons";
+import {
+  InformationCircle,
+  CloseCircle,
+  CheckmarkCircle,
+  AlertCircle,
+  Close,
+} from "kui-icons/dist/icons";
 import { getTransitionProp } from "../base/transition";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 const Alert = defineComponent({
   name: "Alert",
   props: {
     type: { type: String, default: "warning" },
     closable: Boolean,
-    showIcon: Boolean,
+    showIcon: { type: Boolean, default: true },
     icon: [String, Object, Array],
     message: String,
     description: String,
+    bordered: Boolean,
   },
   setup(props, { emit, slots }) {
     const closed = ref(false);
@@ -28,6 +35,7 @@ const Alert = defineComponent({
         [`k-alert-${props.type}`]: props.type,
         "k-alert-has-icon": props.showIcon,
         "k-alert-has-close": props.closable,
+        "k-alert-bordered": props.bordered,
         "k-alert-has-description": props.description,
       },
     ]);
@@ -42,9 +50,15 @@ const Alert = defineComponent({
     const transitionProps = getTransitionProp("k-alert-slide");
 
     return () => {
-      const iconNode = props.showIcon ? <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" /> : null;
-      const closeIcon = props.closable ? <Icon class="k-alert-close" type={Close} onClick={close} /> : null;
-      const descriptionNode = props.description ? <div class="k-alert-description">{props.description}</div> : null;
+      const iconNode = props.showIcon ? (
+        <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" />
+      ) : null;
+      const closeIcon = props.closable ? (
+        <Icon class="k-alert-close" type={Close} onClick={close} />
+      ) : null;
+      const descriptionNode = props.description ? (
+        <div class="k-alert-description">{props.description}</div>
+      ) : null;
       const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
 
       return (

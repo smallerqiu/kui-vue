@@ -10,6 +10,7 @@ const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
+ * Homepage: https://k-ui.cn
  * Author: Qiu / https://chuchur.com
  */\n`;
 // https://vite.dev/config/
@@ -42,16 +43,10 @@ export default defineConfig({
           if (assetInfo.name && assetInfo.name.endsWith(".css")) {
             return "css/[name]-[hash][extname]";
           }
-          if (
-            assetInfo.name &&
-            /\.(png|jpe?g|gif|svg|webp|avif|ico)$/.test(assetInfo.name)
-          ) {
+          if (assetInfo.name && /\.(png|jpe?g|gif|svg|webp|avif|ico)$/.test(assetInfo.name)) {
             return "img/[name]-[hash][extname]";
           }
-          if (
-            assetInfo.name &&
-            /\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)
-          ) {
+          if (assetInfo.name && /\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
             return "fonts/[name]-[hash][extname]";
           }
           return "assets/[name]-[hash][extname]";
@@ -61,8 +56,7 @@ export default defineConfig({
             if (id.includes("vue")) return "vue";
             if (id.includes("kui-vue")) return "ui-lib";
             if (id.includes("dayjs")) return "dayjs";
-            if (id.includes("vue-router") || id.includes("vuex"))
-              return "vue-vendor";
+            if (id.includes("vue-router") || id.includes("vuex")) return "vue-vendor";
           }
         },
       },

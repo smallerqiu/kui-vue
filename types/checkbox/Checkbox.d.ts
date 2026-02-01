@@ -6,6 +6,7 @@ export interface CheckboxProps {
   checked?: boolean | number;
   value?: string | number | boolean;
   label?: string | number;
+  /** default: light */
   theme?: string;
   disabled?: boolean;
   indeterminate?: boolean;
@@ -16,7 +17,7 @@ export interface CheckboxProps {
 /** Checkbox component instance */
 export interface Checkbox extends Vue {
   $props: CheckboxProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Checkbox Vue component type */

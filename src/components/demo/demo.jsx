@@ -1,8 +1,10 @@
 import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
-import { CopyOutline, CaretHor, Reload } from "kui-icons";
+import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
 import { defineComponent, ref, getCurrentInstance, onMounted } from "vue";
 import { parseCode } from "./transform";
+import { useClipboard } from "@vueuse/core";
+const { copy, isSupported } = useClipboard();
 // import {
 //   parse,
 //   compileTemplate,
@@ -37,15 +39,14 @@ const Demo = defineComponent({
         parseCode(codeRef.value?.innerText, viewRef, props.id);
       }, 500);
     };
-    const copy = () => {
-      proxy.$copyText(codeRef.value?.innerText).then(
-        () => {
+    const copyCode = () => {
+      copy(codeRef.value?.innerText)
+        .then(() => {
           message.success("Copied!");
-        },
-        () => {
+        })
+        .catch(() => {
           message.error("复制代码失败，请手动复制");
-        }
-      );
+        });
     };
     onMounted(() => {
       codeOrigin.value = codeRef.value?.innerText;
@@ -61,22 +62,12 @@ const Demo = defineComponent({
       );
       const codeNode = (
         <transition {...transitionProps}>
-          <div
-            v-show={expanded.value}
-            class="k-code-box"
-            contenteditable
-            onInput={renderCode}
-          >
+          <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
             {!vertical ? (
               <div class="k-code-tools">
                 {/* <Badge status="success" text="实时编译成功" /> */}
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={CopyOutline}
-                    onClick={copy}
-                  />
+                  <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
                 </Tooltip>
                 {/* <Tooltip title="重置代码">
                 <Button
@@ -95,13 +86,7 @@ const Demo = defineComponent({
         </transition>
       );
       return (
-        <div
-          class={[
-            "markdown-body",
-            "k-demo-container",
-            { "k-demo-expanded": expanded.value },
-          ]}
-        >
+        <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
           {descNode}
           {/* {!vertical && descNode} */}
           <div class={classes}>
@@ -126,13 +111,7 @@ const Demo = defineComponent({
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title="复制代码">
-                  <Button
-                    type="text"
-                    size="large"
-                    icon={CopyOutline}
-                    block
-                    onClick={copy}
-                  />
+                  <Button type="text" size="large" icon={CopyOutline} block onClick={copyCode} />
                 </Tooltip>
               </div>
             )}

@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Callbacks from "./callbacks.md";
 import Container from "./container.md";
 import Bottom from "./bottom.md";

@@ -1,11 +1,12 @@
 import Icon from "../icon";
+import { Button } from "../button";
 import {
   Close,
   InformationCircle,
   CloseCircle,
   CheckmarkCircle,
   AlertCircle,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
@@ -40,25 +41,27 @@ export default defineComponent({
       const children = [];
       if (type in icons) {
         children.push(
-          <Icon
-            type={icon || icons[type]}
-            color={color}
-            class={`k-${noticeType}-icon`}
-          />
+          <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />
         );
       }
       if (noticeType == "message") {
         children.push(<span>{content}</span>);
         if (closable) {
           children.push(
-            <Icon class="k-message-close" type={Close} onClick={onClose} />
+            <Button
+              class="k-message-close"
+              size="small"
+              type="text"
+              icon={Close}
+              onClick={onClose}
+            />
           );
         }
       } else {
         children.push(<div class="k-notice-title">{title}</div>);
         children.push(<div class="k-notice-desc">{content}</div>);
         children.push(
-          <Icon class="k-notice-close" type={Close} onClick={onClose} />
+          <Button class="k-notice-close" size="small" type="text" icon={Close} onClick={onClose} />
         );
       }
       return (

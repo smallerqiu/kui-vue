@@ -49,16 +49,10 @@
         <Space>
           <Table :columns="columns" />
         </Space>
-        <Space>
-          TreeSelect : <TreeSelect :treeData="[]" style="width:180px" />
-        </Space>
+        <Space> TreeSelect : <TreeSelect :treeData="[]" style="width:180px" /> </Space>
         <Space>
           Image :
-          <KImage
-            :width="120"
-            :height="120"
-            src="https://cdn.chuchur.com/upload/cat/cat1.jpg"
-          />
+          <KImage :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
         </Space>
         <Space>
           <Upload
@@ -71,12 +65,7 @@
           </Upload>
         </Space>
         <Space block style="max-width:500px;">
-          <Form
-            :model="form"
-            :rules="rules"
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-          >
+          <Form :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <FormItem label="Name" prop="name">
               <Input placeholder="Please input" />
             </FormItem>
@@ -139,7 +128,7 @@ const loading = ref(false);
 const visible = ref(false);
 const visible1 = ref(false);
 
-const labelCol = { span: 6 };
+const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
 
 const form = reactive({
@@ -174,13 +163,9 @@ const showModal = () => {
 const openDrawer = () => {
   visible1.value = true;
 };
-
-// modal 等 全局方法, 需要使用 modal.useModal() 获取 context
-provide("locale", locale); // 当前演示demo,需要注入locale , 实际全局不需注入
-
-const modalApi = modal.useModal();
 const showInfo = () => {
-  modalApi.info({
+  modal.show({
+    type: "info",
     title: "Hello",
     content: "modal info.",
     onOk: () => {
@@ -189,14 +174,14 @@ const showInfo = () => {
   });
 };
 const showConfirm = () => {
-  modalApi.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+  modal.confirm({
+    title: "Please confirm",
+    content: "This operation is irreversible, caution!!!!",
     onOk: () => {
-      message.success("你点了确认");
+      message.success("ok");
     },
     onCancel: () => {
-      message.info("你点了取消");
+      message.info("cancel");
     },
   });
 };

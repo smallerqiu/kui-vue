@@ -14,6 +14,7 @@ export interface InputProps {
   icon?: string | any[];
   suffix?: string;
   prefix?: string;
+  /** default: light */
   theme?: string;
   shape?: string;
   formatter?: (...args: any[]) => any;
@@ -25,7 +26,7 @@ export interface InputProps {
 /** Input component instance */
 export interface Input extends Vue {
   $props: InputProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Input Vue component type */

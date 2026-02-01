@@ -3,6 +3,7 @@ import Vue, { VueConstructor } from "vue";
 /** TextArea component props */
 export interface TextAreaProps {
   value?: string | number | Record<string, any> | any[];
+  /** default: light */
   theme?: string;
   size?: string;
   disabled?: boolean;
@@ -11,7 +12,7 @@ export interface TextAreaProps {
 /** TextArea component instance */
 export interface TextArea extends Vue {
   $props: TextAreaProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** TextArea Vue component type */

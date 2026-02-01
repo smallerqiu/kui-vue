@@ -35,12 +35,7 @@
     >
       <template #extra="node">
         <Space>
-          <Button
-            size="small"
-            type="text"
-            :icon="Add"
-            @click="(e) => append(e, node)"
-          />
+          <Button size="small" type="text" :icon="Add" @click="(e) => append(e, node)" />
           <Button
             size="small"
             type="text"
@@ -48,12 +43,7 @@
             @click="(e) => deleteNode(e, node)"
             v-if="node.key != '0-0'"
           />
-          <Button
-            size="small"
-            type="text"
-            :icon="IconEdit"
-            @click="(e) => edit(e, node)"
-          />
+          <Button size="small" type="text" :icon="IconEdit" @click="(e) => edit(e, node)" />
         </Space>
       </template>
     </Tree>
@@ -141,7 +131,7 @@ const insertChildren = (nodes, targetKey, childrenData) => {
 
       // for vue 2
       if (!("children" in node)) {
-        node.icon = FolderOpenOutline
+        node.icon = FolderOpenOutline;
         // 如果 'children' 属性不存在，必须用 Vue.set
         proxy.$set(node, "children", []);
       }
@@ -169,7 +159,6 @@ const append = (e, node) => {
   };
 
   insertChildren(data.value, node.key, newChild);
-
 
   //展开节点
   let keys = expandedKeys.value;

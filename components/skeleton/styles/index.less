@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 .k-skeleton {
   display: table;
   width: 100%;
@@ -22,7 +22,7 @@
       margin-top: 20px;
       list-style: none;
       padding-left: 0;
-      &>li {
+      & > li {
         width: 100%;
         height: 16px;
         list-style: none;
@@ -32,14 +32,24 @@
           width: 61%;
         }
       }
-      &>li+li {
+      & > li + li {
         margin-top: 16px;
       }
     }
   }
   &.k-skeleton-animated {
-    .k-skeleton-paragraph>li, .k-skeleton-avatar, .k-skeleton-title, .k-skeleton-btn, .k-skeleton-image, .k-skeleton-text {
-      background: linear-gradient(90deg, var(--kui-color-skeleton) 25%, var(--kui-color-skeleton-mid) 37%, var(--kui-color-skeleton) 63%);
+    .k-skeleton-paragraph > li,
+    .k-skeleton-avatar,
+    .k-skeleton-title,
+    .k-skeleton-btn,
+    .k-skeleton-image,
+    .k-skeleton-text {
+      background: linear-gradient(
+        90deg,
+        var(--kui-color-skeleton) 25%,
+        var(--kui-color-skeleton-high) 37%,
+        var(--kui-color-skeleton) 63%
+      );
       background-size: 400% 100%;
       -webkit-animation: k-skeleton-loading 1.4s ease infinite;
       animation: k-skeleton-loading 1.4s ease infinite;
@@ -51,7 +61,6 @@
       width: 100%;
     }
   }
-  //text
   .k-skeleton-text {
     display: inline-block;
     vertical-align: top;
@@ -75,7 +84,7 @@
     display: inline-block;
     vertical-align: top;
     background: var(--kui-color-skeleton);
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
     width: 64px;
     min-width: 64px;
     height: 32px;
@@ -150,7 +159,6 @@
     min-height: 96px;
     height: 100%;
     width: 100%;
-    // line-height: 96px;
     font-size: 30px;
     color: var(--kui-color-icon);
   }
@@ -159,27 +167,21 @@
 .k-skeleton-ele {
   display: inline-block;
   width: auto;
-//   &.k-skeleton-block {
-//     width: 100%;
-//     .k-skeleton-btn {
-//       width: 100%;
-//     }
-//   }
 }
 @keyframes k-skeleton-loading {
   0% {
-    background-position: 100% 50%
+    background-position: 100% 50%;
   }
   to {
-    background-position: 0 50%
+    background-position: 0 50%;
   }
 }
 
 @-webkit-keyframes k-skeleton-loading {
   0% {
-    background-position: 100% 50%
+    background-position: 100% 50%;
   }
   to {
-    background-position: 0 50%
+    background-position: 0 50%;
   }
 }

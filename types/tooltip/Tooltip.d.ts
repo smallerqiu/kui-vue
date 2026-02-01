@@ -17,7 +17,7 @@ export interface TooltipProps {
 /** Tooltip component instance */
 export interface Tooltip extends Vue {
   $props: TooltipProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Tooltip Vue component type */

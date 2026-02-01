@@ -7,6 +7,7 @@ export interface PageProps {
   /** default: true */
   showTotal?: boolean;
   showElevator?: boolean;
+  /** default: light */
   theme?: string;
   /** default: undefined */
   sizeData?: any[];
@@ -17,13 +18,13 @@ export interface PageProps {
   /** default: 10 */
   pageSize?: number;
   /** default: 1 */
-  current?: number;
+  page?: number;
 }
 
 /** Page component instance */
 export interface Page extends Vue {
   $props: PageProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Page Vue component type */

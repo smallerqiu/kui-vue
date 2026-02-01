@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { Close } from "kui-icons";
+import { Close } from "kui-icons/dist/icons";
 import { defineComponent, /*Transition,*/ ref } from "vue";
 import { isColor } from "../utils/color";
 import { withInstall } from "../utils/vue";
@@ -17,7 +17,7 @@ const Tag = defineComponent({
         return ["small", "large", "middle"].indexOf(value) >= 0;
       },
     },
-    theme: String,
+    theme: { type: String, default: "light" },
   },
   setup(ps, { slots, emit, listeners }) {
     const visible = ref(true);
@@ -47,8 +47,7 @@ const Tag = defineComponent({
         ],
         on: { ...listeners },
         style: {
-          backgroundColor:
-            isColor(color) && !colors.includes(color) ? color : null,
+          backgroundColor: isColor(color) && !colors.includes(color) ? color : null,
         },
       };
       const children = [];
@@ -57,9 +56,7 @@ const Tag = defineComponent({
       }
       children.push(<span class="k-tag-text">{slots.default?.()}</span>);
       if (closeable) {
-        children.push(
-          <Icon class="k-tag-close" type={Close} onClick={closeHandler} />
-        );
+        children.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
       }
       return (
         <transition name="k-tag">

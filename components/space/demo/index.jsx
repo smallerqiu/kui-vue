@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Vertical from "./vertical.md";
 import Align from "./align.md";
 import Size from "./size.md";
@@ -30,4 +30,4 @@ export default {
       </div>
     );
   },
-}
+};

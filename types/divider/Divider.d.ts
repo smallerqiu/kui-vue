@@ -13,7 +13,7 @@ export interface DividerProps {
 /** Divider component instance */
 export interface Divider extends Vue {
   $props: DividerProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Divider Vue component type */

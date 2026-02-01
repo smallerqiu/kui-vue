@@ -7,7 +7,7 @@ import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import {
   ref,
@@ -20,6 +20,7 @@ import {
   onMounted,
   computed,
   onBeforeUpdate,
+  onBeforeUnmount,
   // cloneVNode,
 } from "vue";
 
@@ -39,14 +40,9 @@ const Select = defineComponent({
     },
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -62,7 +58,7 @@ const Select = defineComponent({
     bordered: { type: Boolean, default: true },
     showArrow: { type: Boolean, default: true },
     options: Array,
-    theme: String,
+    theme: { type: String, default: "light" },
     emptyText: String,
     loadingText: String,
     icon: [String, Array],
@@ -80,9 +76,7 @@ const Select = defineComponent({
     // const labelText = ref([]);
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref(
-      ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]
-    );
+    const currentValue = ref(ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]);
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref();
@@ -138,6 +132,7 @@ const Select = defineComponent({
 
     const scrollOptionIntoView = () => {
       const containerEl = refPopper.value;
+      if (!containerEl) return;
       const optionEl = refPopper.value.children[0].children[activeIndex.value];
       const optionTop = optionEl.offsetTop;
       const optionHeight = optionEl.offsetHeight;
@@ -148,7 +143,7 @@ const Select = defineComponent({
     };
     const onKeydown = (e) => {
       const key = e.key;
-      if ((!visible.value || optionsData.value.size == 0) && ctxFocused.value) {
+      if ((!visible.value || optionsData.value.length == 0) && ctxFocused.value) {
         if (key === "ArrowDown" || key === "ArrowUp") {
           toggle();
         }
@@ -186,17 +181,14 @@ const Select = defineComponent({
           onSelect({ label, value });
           e.preventDefault();
           return;
-        } else if (
-          key == "Escape" &&
-          (ctxFocused.value || queryInputFocused.value)
-        ) {
+        } else if (key == "Escape" && (ctxFocused.value || queryInputFocused.value)) {
           visible.value = false;
           clearQuery();
           e.preventDefault();
         }
       }
     };
-    onBeforeMount(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener("keydown", onKeydown);
       document.removeEventListener("click", outsideClick);
     });
@@ -206,7 +198,7 @@ const Select = defineComponent({
       optionsData.value.forEach((item) => {
         lookup.set(item.value, item.label);
       });
-      return currentValue.value.map(val => lookup.get(val) ?? val);
+      return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
 
     const updatePosition = () => {
@@ -292,11 +284,7 @@ const Select = defineComponent({
         clearQuery();
         activeIndex.value = -1;
       }
-      const result = ps.multiple ? currentValue.value : currentValue.value[0];
-      // emit("update:value", result);
-      emit("input", result);
-
-      emit("change", result);
+      emitValue();
       emit("select", { value, label, selected });
     };
     const searchInput = (e) => {
@@ -335,17 +323,21 @@ const Select = defineComponent({
         });
       }
     };
-
+    const emitValue = () => {
+      const result = ps.multiple ? currentValue.value : currentValue.value[0];
+      emit("input", result);
+      emit("change", result);
+    };
     const removeTag = (e, index) => {
       if (ps.disabled) return;
       currentValue.value.splice(index, 1);
       e.stopPropagation();
       updatePosition();
+      emitValue();
     };
     const onClear = (e) => {
       currentValue.value = [];
-      emit("input", ps.multiple ? [] : "");
-      emit("change", ps.multiple ? [] : "");
+      emitValue();
       clearQuery();
       e.stopPropagation();
     };
@@ -396,8 +388,7 @@ const Select = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
-          let { label, value, disabled } =
-            child?.componentOptions?.propsData || {};
+          let { label, value, disabled } = child?.componentOptions?.propsData || {};
           let { children = [] } = child?.componentOptions;
           options.push({
             value,
@@ -412,9 +403,7 @@ const Select = defineComponent({
       const key = queryKey.value;
       const filter = ps.filterable && key.trim() !== "";
       return filter
-        ? optionsData.value.filter((item) =>
-            item.label.toLowerCase().includes(key.toLowerCase())
-          )
+        ? optionsData.value.filter((item) => item.label.toLowerCase().includes(key.toLowerCase()))
         : optionsData.value;
     };
     const renderOptions = () => {
@@ -444,28 +433,16 @@ const Select = defineComponent({
 
     const queryKeydown = ({ key }) => {
       if (key === "Backspace") {
-        if (
-          queryKey.value == "" &&
-          ps.multiple &&
-          currentValue.value.length > 0
-        ) {
+        if (queryKey.value == "" && ps.multiple && currentValue.value.length > 0) {
           currentValue.value = currentValue.value.slice(0, -1);
-          emit("input", currentValue.value);
-          // emit("update:value", currentValue.value);
-          emit(
-            "change",
-            ps.multiple ? currentValue.value : currentValue.value[0] || ""
-          );
+          emitValue();
           updatePosition();
         }
       }
     };
     const showClear = computed(() => {
       return (
-        ps.clearable &&
-        !ps.disabled &&
-        !isEmpty(currentValue.value) &&
-        !isEmpty(labelText.value)
+        ps.clearable && !ps.disabled && !isEmpty(currentValue.value) && !isEmpty(labelText.value)
       );
     });
     const renderOverlay = () => {
@@ -504,10 +481,7 @@ const Select = defineComponent({
               ) : optionNodes.length ? (
                 <ul>{optionNodes}</ul>
               ) : (
-                <Empty
-                  onClick={emptyClick}
-                  description={locale.value.k.select.emptyText}
-                />
+                <Empty onClick={emptyClick} description={locale.value.k.select.emptyText} />
               )}
             </div>
           </transition>
@@ -537,7 +511,7 @@ const Select = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-select-search",
-        autoComplete: "off",
+        attrs: { autoComplete: "off" },
         on: {
           change: (e) => e.stopPropagation(),
           keydown: queryKeydown,
@@ -550,11 +524,7 @@ const Select = defineComponent({
         },
       };
       const queryNode = (
-        <div
-          v-show={queryInputVisible.value}
-          key="search"
-          class="k-select-search-wrap"
-        >
+        <div v-show={queryInputVisible.value} key="search" class="k-select-search-wrap">
           <input {...queryProps} />
           <span class="k-select-search-mirror" ref={queryInputMirrorRef}>
             {queryKey.value}
@@ -580,16 +550,10 @@ const Select = defineComponent({
             </span>
           );
         });
-        if (
-          ps.maxTagCount &&
-          ps.maxTagCount > 0 &&
-          tags.length > ps.maxTagCount
-        ) {
+        if (ps.maxTagCount && ps.maxTagCount > 0 && tags.length > ps.maxTagCount) {
           tags = tags.slice(0, ps.maxTagCount);
           tags.push(
-            <span class="k-select-tag">
-              +{labelText.value.length - ps.maxTagCount}...
-            </span>
+            <span class="k-select-tag">+{labelText.value.length - ps.maxTagCount}...</span>
           );
         }
         return tags;
@@ -615,9 +579,7 @@ const Select = defineComponent({
       const styles = { width: `${ps.width}px` };
 
       const arrowNode =
-        !hasSearchEvent && showArrow ? (
-          <Icon class="k-select-arrow" type={arrowIcon} />
-        ) : null;
+        !hasSearchEvent && showArrow ? <Icon class="k-select-arrow" type={arrowIcon} /> : null;
 
       const classes = [
         "k-select",

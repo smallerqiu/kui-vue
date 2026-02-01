@@ -48,7 +48,7 @@
         </Breadcrumb>
         <div
           style="padding:200px 0;text-align:center;color:#ddd;margin:20px;"
-          class="demo-back"
+          class="layout-content"
         >
           Content
         </div>
@@ -58,14 +58,7 @@
   </div>
 </template>
 <script setup>
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  MenuFold,
-  MenuUnfold,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, MenuFold, MenuUnfold } from "kui-icons";
 import { ref } from "vue";
 const top = ref(["t1"]);
 const collapsed = ref(false);
@@ -74,11 +67,12 @@ const openKeys = ref(["t2"]);
 </script>
 <style scoped lang="less">
 .k-demo-layout {
+  border: 1px solid var(--kui-color-border);
   .demo-sider {
     /*这里是例子，实际中请适当修改*/
     left: 0;
     width: 200px;
-    background: var(--kui-color-back);
+    background: var(--kui-color-bg);
     transition: width 0.3s;
   }
 
@@ -89,6 +83,9 @@ const openKeys = ref(["t2"]);
 
   .btn-collapsed {
     transition: all 0.3s;
+  }
+  .layout-content {
+    background: var(--kui-color-bg);
   }
 
   .demo-sider-collapsed {
@@ -106,7 +103,6 @@ const openKeys = ref(["t2"]);
   .demo-left-menu {
     border: none;
     height: calc(100% - 105px);
-    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 1px;

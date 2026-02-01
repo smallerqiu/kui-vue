@@ -30,7 +30,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const openKeys = ref(["1","2"]);
+const openKeys = ref(["1", "2"]);
 import { SettingsOutline } from "kui-icons";
 const text = `A long time ago, In a beautiful kingdom, 
   there lived a young king and queen, 

@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Row = defineComponent({
   name: "Row",
   props: {

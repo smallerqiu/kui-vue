@@ -8,6 +8,7 @@ export interface MenuProps {
   /** default: undefined */
   value?: any[];
   accordion?: boolean;
+  items?: any[];
   inlineCollapsed?: boolean;
   /** default: undefined */
   openKeys?: any[];
@@ -16,7 +17,7 @@ export interface MenuProps {
 /** Menu component instance */
 export interface Menu extends Vue {
   $props: MenuProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Menu Vue component type */

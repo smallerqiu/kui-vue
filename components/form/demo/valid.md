@@ -22,30 +22,31 @@
         </RadioGroup>
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input clearable />
+        <Input clearable placeholder="Email" />
       </FormItem>
       <FormItem label="Number" prop="number">
-        <InputNumber />
+        <InputNumber placeholder="Number" />
       </FormItem>
       <FormItem label="Password" prop="password">
-        <Input type="password" />
+        <Input type="password" placeholder="password" />
       </FormItem>
       <FormItem label="Confirm Password" prop="repassword">
-        <Input type="password" />
+        <Input type="password" placeholder="Confirm Password" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input />
+        <Input placeholder="Phone Number" />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input>
+        <Input placeholder="Captcha">
           <Button
             slot="suffix"
             :size="size"
             :disabled="time != 60"
             style="width:100px;"
             @click="sendCode"
-            >{{ time == 60 ? "获取验证码" : time + "(s)" }}</Button
           >
+            {{ time == 60 ? "获取验证码" : time + "(s)" }}
+          </Button>
         </Input>
       </FormItem>
       <FormItem label="Country">
@@ -230,6 +231,7 @@ const setValue = () => {
     captcha: "8888",
     gender: "1",
     slider: 5,
+    rate: 5,
     number: 5,
     tree: "0",
     system: "0",

@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { Checkmark } from "kui-icons";
+import { Checkmark } from "kui-icons/dist/icons";
 import { defineComponent, ref, watch } from "vue";
 import { withInstall } from "../utils/vue";
 
@@ -24,7 +24,7 @@ const Checkbox = defineComponent({
 
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
-    theme: String,
+    theme: { type: String, default: "light" },
     disabled: Boolean,
     indeterminate: Boolean,
     size: {
@@ -80,14 +80,12 @@ const Checkbox = defineComponent({
         },
       ];
 
-      let innerNode = isChecked.value ? (
-        <Icon type={Checkmark} strokeWidth={60} />
-      ) : null;
+      let innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
 
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={wpClasses} onKeydown={triggerCheck} tabindex="0">
+        <label class={wpClasses} onKeydown={triggerCheck} tabindex={props.disabled ? null : 0}>
           <span class="k-checkbox-symbol">
             <input
               type="checkbox"

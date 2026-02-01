@@ -2,12 +2,7 @@ import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
 
 import { ref, reactive, watch, defineComponent, nextTick } from "vue";
-import {
-  Sync,
-  RemoveCircleOutline,
-  AddCircleOutline,
-  ChevronForward,
-} from "kui-icons";
+import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from "kui-icons/dist/icons";
 import { buildTree, updateParentIndeterminate } from "./utils";
 const Tree = defineComponent({
   name: "Tree",
@@ -42,10 +37,7 @@ const Tree = defineComponent({
       // 切换展开状态
       const { key } = node;
 
-      const isAsyncNode =
-        hasLoad &&
-        (!node.children || node.children.length === 0) &&
-        !node.isLeaf;
+      const isAsyncNode = hasLoad && (!node.children || node.children.length === 0) && !node.isLeaf;
 
       if (isAsyncNode && !node.expanded) {
         node.loading = true;
@@ -151,9 +143,7 @@ const Tree = defineComponent({
           }
         };
 
-        const parentNode = defaultData.value.find(
-          (item) => item.key === parentKey
-        );
+        const parentNode = defaultData.value.find((item) => item.key === parentKey);
         if (parentNode) {
           updateChild(parentNode);
         }
@@ -167,16 +157,12 @@ const Tree = defineComponent({
           const node = defaultData.value.find((item) => item.key === nodeKey);
           if (!node || !node.parentKey) return;
 
-          const parent = defaultData.value.find(
-            (item) => item.key === node.parentKey
-          );
+          const parent = defaultData.value.find((item) => item.key === node.parentKey);
           if (!parent) return;
 
           // 获取所有未禁用的子节点
           const allChildren = defaultData.value.filter(
-            (item) =>
-              parent.children &&
-              parent.children.some((child) => child.key === item.key)
+            (item) => parent.children && parent.children.some((child) => child.key === item.key)
           );
 
           const enabledChildren = allChildren.filter((item) => !item.disabled);
@@ -188,12 +174,8 @@ const Tree = defineComponent({
           }
 
           // 计算各种状态的子节点数量
-          const checkedCount = enabledChildren.filter(
-            (item) => item.checked
-          ).length;
-          const indeterminateCount = enabledChildren.filter(
-            (item) => item.indeterminate
-          ).length;
+          const checkedCount = enabledChildren.filter((item) => item.checked).length;
+          const indeterminateCount = enabledChildren.filter((item) => item.indeterminate).length;
 
           // 全选状态
           if (checkedCount === enabledChildren.length) {
@@ -236,9 +218,7 @@ const Tree = defineComponent({
         const nodes = [...defaultData.value]; // 创建副本
 
         // 先处理被选中的叶子节点
-        const checkedLeafNodes = nodes.filter(
-          (node) => node.isLeaf && node.checked
-        );
+        const checkedLeafNodes = nodes.filter((node) => node.isLeaf && node.checked);
         checkedLeafNodes.forEach((leaf) => {
           if (leaf.parentKey) {
             updateParentIndeterminate(nodes, leaf.parentKey);
@@ -247,9 +227,7 @@ const Tree = defineComponent({
 
         // 再同步回原数据
         nodes.forEach((node) => {
-          const originalNode = defaultData.value.find(
-            (n) => n.key === node.key
-          );
+          const originalNode = defaultData.value.find((n) => n.key === node.key);
           if (originalNode) {
             originalNode.indeterminate = node.indeterminate;
           }
@@ -276,18 +254,14 @@ const Tree = defineComponent({
 
         if (!rawDragNode || !rawDropNode) return;
 
-        const flatDragNode = defaultData.value.find(
-          (item) => item.key === dragKey
-        );
+        const flatDragNode = defaultData.value.find((item) => item.key === dragKey);
         let nodeToMove = null;
 
         if (flatDragNode && flatDragNode.parentKey) {
           // 找到原始父节点
           const rawOldParent = findRawNode(ps.data, flatDragNode.parentKey);
           if (rawOldParent && rawOldParent.children) {
-            const index = rawOldParent.children.findIndex(
-              (c) => c.key === dragKey
-            );
+            const index = rawOldParent.children.findIndex((c) => c.key === dragKey);
             if (index > -1) {
               nodeToMove = rawOldParent.children.splice(index, 1)[0];
               // 如果移空了，清理一下，防止某些逻辑误判
@@ -351,9 +325,7 @@ const Tree = defineComponent({
       updateCheckState.toggleNode(key, checked);
 
       // 同步到响应式数据
-      const checkedNodes = defaultData.value
-        .filter((item) => item.checked)
-        .map((item) => item.key);
+      const checkedNodes = defaultData.value.filter((item) => item.checked).map((item) => item.key);
 
       defaultCheckedKeys.value = checkedNodes;
       emit("check", item, checked, checkedNodes);
@@ -382,9 +354,7 @@ const Tree = defineComponent({
 
         selectedKeys = !selected ? [key] : [];
       } else {
-        selected
-          ? selectedKeys.splice(selectedKeys.indexOf(key), 1)
-          : selectedKeys.push(key);
+        selected ? selectedKeys.splice(selectedKeys.indexOf(key), 1) : selectedKeys.push(key);
       }
       updateNodeStatus(key, "selected", !selected);
 
@@ -429,12 +399,7 @@ const Tree = defineComponent({
     };
 
     const handleDrop = (e, dropNode) => {
-      if (
-        !ps.draggable ||
-        !dragNode.key ||
-        dropNode.disabled ||
-        dropNode.key === dragNode.key
-      )
+      if (!ps.draggable || !dragNode.key || dropNode.disabled || dropNode.key === dragNode.key)
         return;
 
       e.preventDefault();
@@ -473,9 +438,7 @@ const Tree = defineComponent({
       if (item.visiblePrefixes && item.visiblePrefixes.length > 0) {
         item.visiblePrefixes.forEach((showLine) => {
           arrowCommentNode.push(
-            <span
-              class={showLine ? "k-tree-indent-line" : "k-tree-indent-empty"}
-            ></span>
+            <span class={showLine ? "k-tree-indent-line" : "k-tree-indent-empty"}></span>
           );
         });
       }
@@ -530,6 +493,7 @@ const Tree = defineComponent({
         },
         attrs: {
           draggable: ps.draggable && !item.disabled,
+          disabled: item.disabled,
         },
       };
       // 添加拖拽事件
@@ -571,9 +535,7 @@ const Tree = defineComponent({
           handleExpand(item);
         };
       }
-      const extraNode = slots.extra && (
-        <span class="k-tree-item-extra">{slots.extra(item)}</span>
-      );
+      const extraNode = slots.extra && <span class="k-tree-item-extra">{slots.extra(item)}</span>;
       return (
         <div {...itemProps}>
           {arrowCommentNode}
@@ -636,20 +598,14 @@ const Tree = defineComponent({
       const visibleNodes = defaultData.value.filter((node) => {
         // 根节点总是显示
         if (node.level === 0) return true;
-        if (
-          queryKey &&
-          queryKey.trim().length &&
-          !node.title.includes(queryKey)
-        ) {
+        if (queryKey && queryKey.trim().length && !node.title.includes(queryKey)) {
           return false;
         }
 
         // 检查所有祖先节点是否都展开
         let current = node;
         while (current.parentKey) {
-          const parent = defaultData.value.find(
-            (item) => item.key === current.parentKey
-          );
+          const parent = defaultData.value.find((item) => item.key === current.parentKey);
           if (!parent || !parent.expanded) {
             return false;
           }

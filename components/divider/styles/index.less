@@ -1,9 +1,8 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 .k-divider {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: rgba(0, 0, 0, .65);
   font-size: 14px;
   line-height: 1.5;
   list-style: none;
@@ -11,21 +10,22 @@
   &-dashed {
     background: none;
     border: dashed var(--kui-color-border);
-    border-width: 1px 0 0
+    border-width: 1px 0 0;
   }
-  &, &-vertical {
+  &,
+  &-vertical {
     position: relative;
-    top: -.06em;
+    top: -0.06em;
     display: inline-block;
     width: 1px;
-    height: .9em;
+    height: 0.9em;
     margin: 0 8px;
     vertical-align: middle;
   }
   .k-divider-inner-text {
     display: inline-block;
     padding: 0 10px;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
   &-dashed {
     background: none;
@@ -34,7 +34,7 @@
   }
   &-vertical {
     .k-divider-dashed {
-      border-width: 0 0 0 1px
+      border-width: 0 0 0 1px;
     }
   }
   &-horizontal {
@@ -44,36 +44,38 @@
     min-width: 100%;
     height: 1px;
     margin: 24px 0;
-    &.k-divider-with-text-center, &.k-divider-with-text-left, &.k-divider-with-text-right {
+    &.k-divider-with-text-center,
+    &.k-divider-with-text-left,
+    &.k-divider-with-text-right {
       display: table;
       margin: 16px 0;
-      color: rgba(0, 0, 0, .85);
       font-weight: 500;
       font-size: 16px;
       white-space: nowrap;
       text-align: center;
       background: transparent;
-      &::after, &::before {
-        // position: relative;
+      &::after,
+      &::before {
         top: 50%;
         display: table-cell;
         width: 50%;
         border-top: 1px solid var(--kui-color-border);
         transform: translateY(50%);
-        content: ""
+        content: "";
       }
     }
-    &.k-divider-with-text-left::after, &.k-divider-with-text-right::before {
+    &.k-divider-with-text-left::after,
+    &.k-divider-with-text-right::before {
       top: 50%;
-      width: 95%
+      width: 95%;
     }
     &.k-divider-with-text-right::after {
       top: 50%;
-      width: 5%
+      width: 5%;
     }
     &.k-divider-with-text-left::before {
       top: 50%;
-      width: 5%
+      width: 5%;
     }
   }
 }

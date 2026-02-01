@@ -105,13 +105,15 @@ const Upload = defineComponent({
           return;
         }
         if ((file.type || "").indexOf("image/") >= 0) {
-          item.preview = window.URL.createObjectURL(file);
+          const isImageByName = (name = "") =>
+            /\.(png|jpe?g|gif|webp|bmp|ico|svg|avif|apng)$/i.test(name);
+          if (isImageByName(file.name)) {
+            item.preview = window.URL.createObjectURL(file);
+          }
         }
 
         if (
-          (minSize !== undefined &&
-            minSize >= 0 &&
-            file.size / 1024 < minSize) ||
+          (minSize !== undefined && minSize >= 0 && file.size / 1024 < minSize) ||
           (maxSize !== undefined && maxSize >= 0 && file.size / 1024 > maxSize)
         ) {
           item.errorText = locale?.value.k.upload.errorFileSize;
@@ -293,10 +295,7 @@ const Upload = defineComponent({
         on: { select: onSelectFiles },
       };
       const SelectorNode = (
-        <Selector
-          {...selectorProps}
-          scopedSlots={{ default: () => slots.default?.() }}
-        />
+        <Selector {...selectorProps} scopedSlots={{ default: () => slots.default?.() }} />
       );
       const fileListProps = {
         props: {
@@ -310,10 +309,7 @@ const Upload = defineComponent({
       };
       // console.log(innerFileList.value, 222);
       const FileListNode = (
-        <FileList
-          {...fileListProps}
-          scopedSlots={{ selector: () => SelectorNode }}
-        />
+        <FileList {...fileListProps} scopedSlots={{ selector: () => SelectorNode }} />
       );
       return (
         <div

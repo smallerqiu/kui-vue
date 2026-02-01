@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space vertical block> 
+  <Space vertical block>
     <Empty
       image="https://cdn.chuchur.com/img/thumb.png"
       description="暂时没有图片"

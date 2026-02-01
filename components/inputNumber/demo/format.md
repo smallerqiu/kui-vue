@@ -16,9 +16,7 @@
     <InputNumber
       v-model="n4"
       :min="0"
-      :formatter="
-        (value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      "
+      :formatter="(value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
       :parser="(value) => value.replace(/\￥\s?|(,*)/g, '')"
     />
     <code>百分比% ,输出： {{ n5 }}</code>

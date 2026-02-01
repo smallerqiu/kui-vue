@@ -1,6 +1,7 @@
 import { Button } from "../button";
 import transfer from "../directives/transfer";
-import { Close } from "kui-icons";
+import { Close } from "kui-icons/dist/icons";
+import { getMousePoint } from "../config/context";
 import {
   defineComponent,
   ref,
@@ -12,7 +13,6 @@ import {
   inject,
 } from "vue";
 import zhCN from "../locale/zh-CN";
-import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
@@ -120,7 +120,7 @@ const Modal = defineComponent({
     };
     const updateOrigin = () => {
       if (refModal.value) {
-        let { x, y } = window.__kui__point || { x: 0, y: 0 };
+        let { x, y } = getMousePoint();
         let { left, top } = getOffset(refModal.value);
         refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
       }
@@ -176,8 +176,7 @@ const Modal = defineComponent({
         document.addEventListener("mouseup", mouseup);
       }
 
-      mousedownIn.value =
-        visible.value && refModal.value && refModal.value.contains(e.target);
+      mousedownIn.value = visible.value && refModal.value && refModal.value.contains(e.target);
     };
 
     return () => {
@@ -227,9 +226,7 @@ const Modal = defineComponent({
               </Button>,
             ];
           }
-          const footerNode = footer ? (
-            <div class="k-modal-footer">{footer}</div>
-          ) : null;
+          const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
           contents.push(footerNode);
         }
@@ -265,12 +262,7 @@ const Modal = defineComponent({
             onClick={clickMaskToClose}
           >
             <transition name="k-modal-zoom">
-              <div
-                class="k-modal-inner"
-                ref={refModal}
-                v-show={visible.value}
-                style={style}
-              >
+              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
                 {contentNode}
                 <div tabindex="0"></div>
               </div>
@@ -281,4 +273,4 @@ const Modal = defineComponent({
     };
   },
 });
-export default withInstall(Modal);
+export default Modal;

@@ -1,6 +1,6 @@
 import { defineComponent, inject, computed } from "vue";
 import Icon from "../icon";
-import { Loading } from "kui-icons";
+import { Loading } from "kui-icons/dist/icons";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 import { colors } from "../const/var";
@@ -30,14 +30,7 @@ const Button = defineComponent({
     loading: Boolean,
     type: {
       validator(value) {
-        return [
-          "primary",
-          "danger",
-          "warning",
-          "default",
-          "text",
-          "link",
-        ].includes(value);
+        return ["primary", "danger", "warning", "default", "text", "link"].includes(value);
       },
       default: "default",
     },
@@ -59,12 +52,7 @@ const Button = defineComponent({
     const parentSize = inject("size", null);
 
     const computedSize = computed(() => {
-      return (
-        props.size ||
-        buttonGroup?.size?.value ||
-        filterSize(parentSize) ||
-        "default"
-      );
+      return props.size || buttonGroup?.size?.value || filterSize(parentSize) || "default";
     });
 
     const computedShape = computed(() => {
@@ -91,9 +79,7 @@ const Button = defineComponent({
       // };
       const iconOnly = () => {
         // for 2
-        const excluded = children.filter(
-          (c) => c.componentOptions?.tag !== "transition"
-        );
+        const excluded = children.filter((c) => c.componentOptions?.tag !== "transition");
 
         if (!excluded?.length) {
           return props.icon || props.loading;

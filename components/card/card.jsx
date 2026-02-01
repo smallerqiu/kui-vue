@@ -4,7 +4,7 @@ import { withInstall } from "../utils/vue";
 const Card = defineComponent({
   name: "Card",
   props: {
-    bordered: { type: Boolean, default: true },
+    bordered: { type: Boolean, default: false },
     title: String,
     icon: [String, Array],
   },
@@ -21,17 +21,9 @@ const Card = defineComponent({
       // console.log(extraSlot)
       const titleSlot = slots.title?.();
       const selfSlot = slots.default?.();
-      const extraNode = extraSlot ? (
-        <div class="k-card-extra">{extraSlot}</div>
-      ) : null;
-      const iconNode = icon ? (
-        <Icon type={icon} class="k-card-title-icon" />
-      ) : null;
-      const titleNode = title ? (
-        <span class="k-card-title">{title}</span>
-      ) : (
-        titleSlot || null
-      );
+      const extraNode = extraSlot ? <div class="k-card-extra">{extraSlot}</div> : null;
+      const iconNode = icon ? <Icon type={icon} class="k-card-title-icon" /> : null;
+      const titleNode = title ? <span class="k-card-title">{title}</span> : titleSlot || null;
       return (
         <div class={classes}>
           {titleNode && (

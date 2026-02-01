@@ -11,7 +11,7 @@
 | data         | 显示的结构化数据          | Array                 | [ ]        |
 | columns      | 表格列的配置描述，        | Array                 | [ ]        |
 | rowKey       | 勾选时的依据              | String                | key        |
-| onRowClick     | 单击某一行时触发          | Function              | -          |
+| onRowClick   | 单击某一行时触发          | Function              | -          |
 | onSort       | 点击排序时触发            | Function({key,order}) | -          |
 
 ## Column API

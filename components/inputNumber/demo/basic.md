@@ -6,7 +6,7 @@
 ```vue
 <template>
   <Space style="font-size:12px;max-width:200px" block vertical>
-    <code>v-model: {{value}}</code>
+    <code>v-model: {{ value }}</code>
     <InputNumber v-model="value" />
 
     <code>readonly</code>
@@ -15,9 +15,9 @@
     <InputNumber v-model="value" disabled />
     <code>group</code>
     <InputGroup>
-      <Button @click="value -= 1" theme="outline">-</Button>
+      <Button @click="value -= 1">-</Button>
       <InputNumber v-model="value" :controls="false" />
-      <Button @click="value += 1" theme="outline">+</Button>
+      <Button @click="value += 1">+</Button>
     </InputGroup>
   </Space>
 </template>

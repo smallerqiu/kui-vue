@@ -28,7 +28,7 @@ export interface ProgressProps {
 /** Progress component instance */
 export interface Progress extends Vue {
   $props: ProgressProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Progress Vue component type */

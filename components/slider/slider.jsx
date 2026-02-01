@@ -19,7 +19,7 @@ const Slider = defineComponent({
     size: [String, Number],
     included: { type: Boolean, default: true },
     tipFormatter: Function,
-    tooltipVisible: Boolean,
+    tooltipVisible: { type: Boolean, default: null },
   },
   emits: ["input", "change"],
 
@@ -65,16 +65,15 @@ const Slider = defineComponent({
 
     const getPercent = (val) => {
       const diff = props.max - props.min;
-      return diff === 0
-        ? 0
-        : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
+      return diff === 0 ? 0 : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
     };
 
     // 计算鼠标位置对应的数值
     const getValueFromEvent = (e) => {
       const rect = railRef.value.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const touch = e.touches?.[0] || e.changedTouches?.[0];
+      const clientX = touch ? touch.clientX : e.clientX;
+      const clientY = touch ? touch.clientY : e.clientY;
 
       let percent;
       if (props.vertical) {
@@ -89,13 +88,17 @@ const Slider = defineComponent({
       }
 
       const rawValue = new Big(props.max - props.min)
-        .times(percent)
+        .times(Math.max(0, Math.min(1, percent)))
         .plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
 
     // 处理滑块拖动
     const handleThumbMove = (e) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
       if (props.disabled || draggingIndex.value === -1) return;
 
       const newValue = getValueFromEvent(e);
@@ -121,9 +124,7 @@ const Slider = defineComponent({
         nextInternal = newValue;
       }
 
-      if (
-        JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)
-      ) {
+      if (JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)) {
         internalValue.value = nextInternal;
         emit("input", nextInternal);
         emit("change", nextInternal);
@@ -153,24 +154,28 @@ const Slider = defineComponent({
       emit("input", internalValue.value);
       emit("change", internalValue.value);
     };
-
+    const touch = !!(
+      "ontouchstart" in window ||
+      (window.DocumentTouch && document instanceof window.DocumentTouch)
+    );
     const handleThumbDown = (index) => {
       if (props.disabled) return;
       draggingIndex.value = index;
 
+      let [e1, e2] = touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       const onMove = (e) => handleThumbMove(e);
       const onUp = () => {
         draggingIndex.value = -1;
-        document.removeEventListener("mousemove", onMove);
-        document.removeEventListener("mouseup", onUp);
-        document.removeEventListener("touchmove", onMove);
-        document.removeEventListener("touchend", onUp);
+        document.removeEventListener(e1, onMove);
+        document.removeEventListener(e2, onUp);
+        // document.removeEventListener("touchmove", onMove);
+        // document.removeEventListener("touchend", onUp);
       };
 
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onUp);
-      document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onUp);
+      document.addEventListener(e1, onMove);
+      document.addEventListener(e2, onUp);
+      // document.addEventListener("touchmove", onMove, { passive: false });
+      // document.addEventListener("touchend", onUp);
     };
 
     const handleKeydown = (e, index) => {
@@ -181,9 +186,7 @@ const Slider = defineComponent({
       e.preventDefault();
 
       let nextValue;
-      const currentValues = props.range
-        ? [...internalValue.value]
-        : [internalValue.value];
+      const currentValues = props.range ? [...internalValue.value] : [internalValue.value];
       const targetValue = currentValues[index];
 
       if (props.step === null || props.step === undefined) {
@@ -197,12 +200,9 @@ const Slider = defineComponent({
           nextValue = mKeys[nextIdx];
         }
       } else {
-        nextValue = Number(
-          new Big(targetValue).plus(isPlus ? props.step : -props.step)
-        );
+        nextValue = Number(new Big(targetValue).plus(isPlus ? props.step : -props.step));
       }
 
-      // 理键盘交错逻辑 ---
       if (props.range) {
         const otherIndex = index === 0 ? 1 : 0;
         const otherValue = currentValues[otherIndex];
@@ -246,9 +246,7 @@ const Slider = defineComponent({
         if (!included && marks) return null;
 
         // 确保 v1 是小的，v2 是大的
-        const [rawV1, rawV2] = props.range
-          ? internalValue.value
-          : [min, internalValue.value];
+        const [rawV1, rawV2] = props.range ? internalValue.value : [min, internalValue.value];
         const v1 = Math.min(rawV1, rawV2);
         const v2 = Math.max(rawV1, rawV2);
 
@@ -286,9 +284,7 @@ const Slider = defineComponent({
               // 判断激活状态：值是否在当前选中范围内
               let isActive = false;
               if (props.range) {
-                isActive =
-                  val >= internalValue.value[0] &&
-                  val <= internalValue.value[1];
+                isActive = val >= internalValue.value[0] && val <= internalValue.value[1];
               } else {
                 isActive = val <= internalValue.value;
               }
@@ -302,14 +298,8 @@ const Slider = defineComponent({
 
               return (
                 <div key={val} class="k-slider-mark-item" style={style}>
-                  <span
-                    class={["k-slider-mark-dot", { "is-active": isActive }]}
-                  ></span>
-                  <div
-                    class={["k-slider-mark-text", { "is-active": isActive }]}
-                  >
-                    {marks[val]}
-                  </div>
+                  <span class={["k-slider-mark-dot", { "is-active": isActive }]}></span>
+                  <div class={["k-slider-mark-text", { "is-active": isActive }]}>{marks[val]}</div>
                 </div>
               );
             })}
@@ -319,9 +309,7 @@ const Slider = defineComponent({
 
       const thumbs = (props.range ? [0, 1] : [0]).map((idx) => {
         // 单滑块模式下，index 为 0，值取 internalValue
-        const val = props.range
-          ? internalValue.value[idx]
-          : internalValue.value;
+        const val = props.range ? internalValue.value[idx] : internalValue.value;
         return (
           <Thumb
             key={idx}
@@ -357,6 +345,7 @@ const Slider = defineComponent({
             <div
               class="k-slider-rail"
               ref={railRef}
+              onTouchstart={handleRailClick}
               onClick={handleRailClick}
             ></div>
             {renderTrack()}

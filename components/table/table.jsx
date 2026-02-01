@@ -1,15 +1,6 @@
-import {
-  defineComponent,
-  ref,
-  computed,
-  reactive,
-  onMounted,
-  onUpdated,
-  watch,
-  h,
-} from "vue";
+import { defineComponent, ref, computed, reactive, onMounted, onUpdated, watch, h } from "vue";
 import { Checkbox } from "../checkbox";
-import { CaretUp, CaretDown } from "kui-icons";
+import { CaretUp, CaretDown } from "kui-icons/dist/icons";
 import Empty from "../empty";
 import Spin from "../spin";
 import { withInstall } from "../utils/vue";
@@ -86,10 +77,7 @@ const Table = defineComponent({
           // 计算 colSpan (叶子节点总数)
           const getLeafCount = (c) => {
             if (c.children && c.children.length) {
-              return c.children.reduce(
-                (acc, item) => acc + getLeafCount(item),
-                0
-              );
+              return c.children.reduce((acc, item) => acc + getLeafCount(item), 0);
             }
             return 1;
           };
@@ -109,13 +97,10 @@ const Table = defineComponent({
       return { rows, maxDepth };
     });
 
-    const isDisabled = (key) =>
-      props.disabledKeys && props.disabledKeys.includes(key);
+    const isDisabled = (key) => props.disabledKeys && props.disabledKeys.includes(key);
 
     const selectionState = computed(() => {
-      const enableData = props.data.filter(
-        (item) => !isDisabled(item[props.rowKey])
-      );
+      const enableData = props.data.filter((item) => !isDisabled(item[props.rowKey]));
       if (enableData.length === 0) return { all: false, indeterminate: false };
 
       const checkedCount = enableData.filter((item) =>
@@ -157,9 +142,7 @@ const Table = defineComponent({
             transform: "translateZ(0)",
           };
 
-          const headerRight = isSplit.value
-            ? rightOffset + scrollbarWidth.value
-            : rightOffset;
+          const headerRight = isSplit.value ? rightOffset + scrollbarWidth.value : rightOffset;
 
           headerStyles[col.key] = {
             position: "sticky",
@@ -223,8 +206,7 @@ const Table = defineComponent({
     onMounted(() => {
       if (isSplit.value) {
         measureScrollbar();
-        if (bodyWrapperRef.value)
-          handleBodyScroll({ target: bodyWrapperRef.value });
+        if (bodyWrapperRef.value) handleBodyScroll({ target: bodyWrapperRef.value });
       } else if (bodyWrapperRef.value) {
         handleBodyScroll({ target: bodyWrapperRef.value });
       }
@@ -241,11 +223,7 @@ const Table = defineComponent({
         sortState.order = "asc";
       } else {
         sortState.order =
-          sortState.order === "asc"
-            ? "desc"
-            : sortState.order === "desc"
-              ? null
-              : "asc";
+          sortState.order === "asc" ? "desc" : sortState.order === "desc" ? null : "asc";
       }
       if (typeof col.sorter === "function") col.sorter(sortState);
       emit("sort", sortState);
@@ -260,13 +238,7 @@ const Table = defineComponent({
             const valA = a[sortState.key];
             const valB = b[sortState.key];
             if (valA === valB) return 0;
-            return sortState.order === "asc"
-              ? valA > valB
-                ? 1
-                : -1
-              : valA > valB
-                ? -1
-                : 1;
+            return sortState.order === "asc" ? (valA > valB ? 1 : -1) : valA > valB ? -1 : 1;
           });
         }
       }
@@ -327,10 +299,7 @@ const Table = defineComponent({
               {props.checkable && rowIndex === 0 && (
                 <th
                   rowSpan={maxDepth}
-                  class={[
-                    "k-table-cell-fix-left",
-                    pingLeft.value && "k-table-cell-fix-left-last",
-                  ]}
+                  class={["k-table-cell-fix-left", pingLeft.value && "k-table-cell-fix-left-last"]}
                   style={{ left: 0, zIndex: 3 }} // 提高层级
                 >
                   <Checkbox
@@ -429,16 +398,10 @@ const Table = defineComponent({
           let colspan = 1;
 
           if (col.rowSpan) {
-            rowspan =
-              typeof col.rowSpan === "function"
-                ? col.rowSpan(record, i)
-                : col.rowSpan;
+            rowspan = typeof col.rowSpan === "function" ? col.rowSpan(record, i) : col.rowSpan;
           }
           if (col.colSpan) {
-            colspan =
-              typeof col.colSpan === "function"
-                ? col.colSpan(record, i)
-                : col.colSpan;
+            colspan = typeof col.colSpan === "function" ? col.colSpan(record, i) : col.colSpan;
           }
 
           if (rowspan === 1 && colspan === 1) continue;
@@ -478,10 +441,7 @@ const Table = defineComponent({
             >
               {props.checkable && (
                 <td
-                  class={[
-                    "k-table-cell-fix-left",
-                    pingLeft.value && "k-table-cell-fix-left-last",
-                  ]}
+                  class={["k-table-cell-fix-left", pingLeft.value && "k-table-cell-fix-left-last"]}
                   style={{ width: "50px", left: 0 }}
                 >
                   <Checkbox
@@ -551,11 +511,7 @@ const Table = defineComponent({
           "k-table-ping-right": pingRight.value,
         },
       ];
-      const isEmpty =
-        !props.data ||
-        !props.data.length ||
-        !props.columns ||
-        !props.columns.length;
+      const isEmpty = !props.data || !props.data.length || !props.columns || !props.columns.length;
 
       // 拆分模式下的 Header
       const splitHeader = isSplit.value && (

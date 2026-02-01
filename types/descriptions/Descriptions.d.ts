@@ -16,7 +16,7 @@ export interface DescriptionsProps {
 /** Descriptions component instance */
 export interface Descriptions extends Vue {
   $props: DescriptionsProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Descriptions Vue component type */

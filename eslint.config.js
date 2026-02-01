@@ -8,7 +8,7 @@ import globals from "globals";
 export default [
   // 忽略目录
   {
-    ignores: ["dist", "node_modules", "docs"]
+    ignores: ["dist", "node_modules", "docs"],
   },
 
   // Vue + JSX 文件配置
@@ -17,22 +17,22 @@ export default [
     languageOptions: {
       parser: vueParser, // Vue 文件用 vue-eslint-parser
       parserOptions: {
-        parser: babelParser,     // 内部再用 babel 解析 JS/JSX
+        parser: babelParser, // 内部再用 babel 解析 JS/JSX
         ecmaVersion: 2021,
         sourceType: "module",
         requireConfigFile: false, // 不需要 .babelrc
         ecmaFeatures: {
-          jsx: true
-        }
+          jsx: true,
+        },
       },
       globals: {
         ...globals.browser,
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
 
     plugins: {
-      vue
+      vue,
     },
 
     rules: {
@@ -49,7 +49,7 @@ export default [
 
       // 可选：JS 规则（按需开启）
       "no-unused-vars": "warn",
-      "no-undef": "error"
-    }
-  }
+      "no-undef": "error",
+    },
+  },
 ];

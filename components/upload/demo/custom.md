@@ -44,8 +44,8 @@ const onSelectFiles = (fileList) => {
   disabled.value = fileList.length == 0;
 };
 const startUpload = () => {
-  console.log("startUpload",uploadRef);
+  console.log("startUpload", uploadRef);
   uploadRef.value.upload();
-}
+};
 </script>
 ```

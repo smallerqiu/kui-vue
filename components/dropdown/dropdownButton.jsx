@@ -3,7 +3,7 @@ import ButtonGroup from "../button/buttonGroup";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 import { defineComponent, ref, inject } from "vue";
-import { Ellipsis } from "kui-icons";
+import { Ellipsis } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 const DropdownButton = defineComponent({
   name: "DropdownButton",

@@ -16,7 +16,7 @@ export interface PoptipProps {
 /** Poptip component instance */
 export interface Poptip extends Vue {
   $props: PoptipProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Poptip Vue component type */

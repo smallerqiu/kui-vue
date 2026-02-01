@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-breadcrumb {
   line-height: 1;
@@ -19,31 +19,18 @@
   &-item {
     display: inline-flex;
     align-items: center;
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-placeholder);
 
     a {
-      color: var(--kui-color-disabled);
+      color: var(--kui-color-text-placeholder);
 
       &:hover {
-        color: var(--kui-color-main);
+        color: var(--kui-color-primary);
       }
     }
 
     .k-icon {
-      // color: var(--kui-color-disabled);
       margin-right: 4px;
-
-      &:hover {
-        // color: var(--kui-color-main);
-      }
-    }
-
-    &:hover {
-      // color: var(--kui-color-main);
-    }
-
-    &:active {
-      // color: var(--kui-color-main-active);
     }
   }
 
@@ -54,13 +41,12 @@
   }
 
   &-separator {
-    color: var(--kui-color-disabled);
+    color: var(--kui-color-text-placeholder);
   }
 
   li {
     &:last-child {
-      // background-color: red;
-      color: var(--kui-color-font);
+      color: var(--kui-color-text);
 
       .k-breadcrumb-separator {
         display: none;

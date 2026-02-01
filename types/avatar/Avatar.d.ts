@@ -12,7 +12,7 @@ export interface AvatarProps {
 /** Avatar component instance */
 export interface Avatar extends Vue {
   $props: AvatarProps;
-  $emit(event: string, ...args: any[]): void;
+  $emit(event: string, ...args: any[]): this;
 }
 
 /** Avatar Vue component type */

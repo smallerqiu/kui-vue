@@ -1,15 +1,14 @@
 import { defineComponent, h, /*cloneVNode*/ provide } from "vue";
 import { getChildren } from "../utils/vnode";
 import { withInstall, cloneVNode } from "../utils/vue";
+import { filterSize } from "../utils/size";
 const Space = defineComponent({
   name: "Space",
   props: {
     align: {
       type: String,
       validator(value) {
-        return value
-          ? ["start", "end", "center", "baseline"].includes(value)
-          : true;
+        return value ? ["start", "end", "center", "baseline"].includes(value) : true;
       },
     },
     vertical: Boolean,
@@ -19,9 +18,7 @@ const Space = defineComponent({
     size: {
       type: [String, Number, Array],
       validator(value) {
-        return typeof value === "number" || Array.isArray(value)
-          ? true
-          : ["small", "middle", "large"].includes(value);
+        return typeof value === "number" || Array.isArray(value) ? true : filterSize(value);
       },
     },
   },
@@ -79,10 +76,7 @@ const Space = defineComponent({
             [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
-        if (
-          typeof ps.size === "string" &&
-          ["large", "small"].includes(ps.size)
-        ) {
+        if (typeof ps.size === "string" && ["large", "small"].includes(ps.size)) {
           p.props.size = ps.size;
         }
         const child = ps.compact

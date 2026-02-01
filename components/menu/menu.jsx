@@ -1,6 +1,6 @@
 import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
 import { withInstall } from "../utils/vue";
-
+import RecursiveMenu from "./recursiveMenu";
 const Menu = defineComponent({
   name: "Menu",
   props: {
@@ -9,6 +9,7 @@ const Menu = defineComponent({
     value: { type: Array, default: () => [] },
     // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
+    items: Array,
     inlineCollapsed: Boolean,
     openKeys: { type: Array, default: () => [] },
   },
@@ -76,9 +77,7 @@ const Menu = defineComponent({
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];
       } else {
-        defaultSelectedKeys.value = defaultSelectedKeys.value.filter(
-          (x) => x !== key
-        );
+        defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
       emit("input", defaultSelectedKeys.value);
       // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
@@ -102,9 +101,7 @@ const Menu = defineComponent({
         defaultOpenKeys.value = opened ? [...keyPath, key] : keyPath;
       } else {
         if (!opened) {
-          defaultOpenKeys.value = defaultOpenKeys.value.filter(
-            (x) => x !== key
-          );
+          defaultOpenKeys.value = defaultOpenKeys.value.filter((x) => x !== key);
         } else {
           defaultOpenKeys.value.push(key);
         }
@@ -116,7 +113,8 @@ const Menu = defineComponent({
     provide("selectedKeysChange", selectedKeysChange);
 
     return () => {
-      const preCls = dropdown ? "dropdown-menu" : "menu";
+      const preCls = dropdown ? "dropdown-menu k-scroll" : "menu";
+      const { items } = props;
       const cls = [
         `k-${preCls} k-${preCls}-${currentMode.value}`,
         {
@@ -125,7 +123,11 @@ const Menu = defineComponent({
       ];
       return (
         <ul class={cls} theme-mode={props.theme}>
-          {slots.default?.()}
+          {items && items.length
+            ? items.map((item) => {
+                return <RecursiveMenu item={item} key={item.key} />;
+              })
+            : slots.default?.()}
         </ul>
       );
     };

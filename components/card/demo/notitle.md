@@ -10,7 +10,7 @@
       <div>card content</div>
       <div>card content</div>
     </Card>
-    <Card :bordered="false">
+    <Card bordered>
       <div>card content</div>
       <div>card content</div>
       <div>card content</div>
