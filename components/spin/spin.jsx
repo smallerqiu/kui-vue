@@ -1,5 +1,5 @@
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Spin = defineComponent({
   name: "Spin",
   props: {

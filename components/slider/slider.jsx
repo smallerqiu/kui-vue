@@ -65,9 +65,7 @@ const Slider = defineComponent({
 
     const getPercent = (val) => {
       const diff = props.max - props.min;
-      return diff === 0
-        ? 0
-        : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
+      return diff === 0 ? 0 : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
     };
 
     // 计算鼠标位置对应的数值
@@ -88,9 +86,7 @@ const Slider = defineComponent({
         if (props.reverse) percent = 1 - percent;
       }
 
-      const rawValue = new Big(props.max - props.min)
-        .times(percent)
-        .plus(props.min);
+      const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
 
@@ -121,9 +117,7 @@ const Slider = defineComponent({
         nextInternal = newValue;
       }
 
-      if (
-        JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)
-      ) {
+      if (JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)) {
         internalValue.value = nextInternal;
         emit("update:modelValue", nextInternal);
         emit("change", nextInternal);
@@ -181,9 +175,7 @@ const Slider = defineComponent({
       e.preventDefault();
 
       let nextValue;
-      const currentValues = props.range
-        ? [...internalValue.value]
-        : [internalValue.value];
+      const currentValues = props.range ? [...internalValue.value] : [internalValue.value];
       const targetValue = currentValues[index];
 
       if (props.step === null || props.step === undefined) {
@@ -197,9 +189,7 @@ const Slider = defineComponent({
           nextValue = mKeys[nextIdx];
         }
       } else {
-        nextValue = Number(
-          new Big(targetValue).plus(isPlus ? props.step : -props.step)
-        );
+        nextValue = Number(new Big(targetValue).plus(isPlus ? props.step : -props.step));
       }
 
       // 理键盘交错逻辑 ---
@@ -246,9 +236,7 @@ const Slider = defineComponent({
         if (!included && marks) return null;
 
         // 确保 v1 是小的，v2 是大的
-        const [rawV1, rawV2] = props.range
-          ? internalValue.value
-          : [min, internalValue.value];
+        const [rawV1, rawV2] = props.range ? internalValue.value : [min, internalValue.value];
         const v1 = Math.min(rawV1, rawV2);
         const v2 = Math.max(rawV1, rawV2);
 
@@ -286,9 +274,7 @@ const Slider = defineComponent({
               // 判断激活状态：值是否在当前选中范围内
               let isActive = false;
               if (props.range) {
-                isActive =
-                  val >= internalValue.value[0] &&
-                  val <= internalValue.value[1];
+                isActive = val >= internalValue.value[0] && val <= internalValue.value[1];
               } else {
                 isActive = val <= internalValue.value;
               }
@@ -302,14 +288,8 @@ const Slider = defineComponent({
 
               return (
                 <div key={val} class="k-slider-mark-item" style={style}>
-                  <span
-                    class={["k-slider-mark-dot", { "is-active": isActive }]}
-                  ></span>
-                  <div
-                    class={["k-slider-mark-text", { "is-active": isActive }]}
-                  >
-                    {marks[val]}
-                  </div>
+                  <span class={["k-slider-mark-dot", { "is-active": isActive }]}></span>
+                  <div class={["k-slider-mark-text", { "is-active": isActive }]}>{marks[val]}</div>
                 </div>
               );
             })}
@@ -319,9 +299,7 @@ const Slider = defineComponent({
 
       const thumbs = (props.range ? [0, 1] : [0]).map((idx) => {
         // 单滑块模式下，index 为 0，值取 internalValue
-        const val = props.range
-          ? internalValue.value[idx]
-          : internalValue.value;
+        const val = props.range ? internalValue.value[idx] : internalValue.value;
         return (
           <Thumb
             key={idx}
@@ -354,11 +332,7 @@ const Slider = defineComponent({
           ]}
         >
           <div class="k-slider-bar">
-            <div
-              class="k-slider-rail"
-              ref={railRef}
-              onClick={handleRailClick}
-            ></div>
+            <div class="k-slider-rail" ref={railRef} onClick={handleRailClick}></div>
             {renderTrack()}
             {renderMarks()}
             {thumbs}

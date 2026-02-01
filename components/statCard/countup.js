@@ -23,16 +23,14 @@ export class CountUp {
 
     this.options = Object.assign({}, this.defaults, options);
 
-    this.el =
-      typeof target === "string" ? document.getElementById(target) : target;
+    this.el = typeof target === "string" ? document.getElementById(target) : target;
 
     this.error = "";
     this.paused = true;
     this.once = false;
     this.finalEndVal = null;
 
-    this.formattingFn =
-      this.options.formattingFn || this.formatNumber.bind(this);
+    this.formattingFn = this.options.formattingFn || this.formatNumber.bind(this);
     this.easingFn = this.options.easingFn || this.easeOutExpo.bind(this);
 
     endVal = endVal == null ? this.parse(this.el?.innerHTML || "0") : endVal;
@@ -77,23 +75,13 @@ export class CountUp {
 
     if (this.useEasing) {
       this.frameVal = this.countDown
-        ? this.startVal -
-          this.easingFn(progress, 0, this.startVal - this.endVal, this.duration)
-        : this.easingFn(
-            progress,
-            this.startVal,
-            this.endVal - this.startVal,
-            this.duration
-          );
+        ? this.startVal - this.easingFn(progress, 0, this.startVal - this.endVal, this.duration)
+        : this.easingFn(progress, this.startVal, this.endVal - this.startVal, this.duration);
     } else {
-      this.frameVal =
-        this.startVal +
-        (this.endVal - this.startVal) * (progress / this.duration);
+      this.frameVal = this.startVal + (this.endVal - this.startVal) * (progress / this.duration);
     }
 
-    const wentPast = this.countDown
-      ? this.frameVal < this.endVal
-      : this.frameVal > this.endVal;
+    const wentPast = this.countDown ? this.frameVal < this.endVal : this.frameVal > this.endVal;
 
     this.frameVal = wentPast ? this.endVal : this.frameVal;
     this.frameVal = Number(this.frameVal.toFixed(this.options.decimalPlaces));
@@ -167,10 +155,7 @@ export class CountUp {
     this.countDown = this.startVal > end;
 
     const animateAmount = end - this.startVal;
-    if (
-      Math.abs(animateAmount) > this.options.smartEasingThreshold &&
-      this.options.useEasing
-    ) {
+    if (Math.abs(animateAmount) > this.options.smartEasingThreshold && this.options.useEasing) {
       this.finalEndVal = end;
       const up = this.countDown ? 1 : -1;
       this.endVal = end + up * this.options.smartEasingAmount;
@@ -230,9 +215,7 @@ export class CountUp {
   parse(str) {
     const sep = this.options.separator.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const dec = this.options.decimal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return parseFloat(
-      str.replace(new RegExp(sep, "g"), "").replace(new RegExp(dec), ".")
-    );
+    return parseFloat(str.replace(new RegExp(sep, "g"), "").replace(new RegExp(dec), "."));
   }
 
   handleScroll() {

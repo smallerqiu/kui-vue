@@ -30,16 +30,7 @@ export default defineComponent({
     };
 
     return () => {
-      let {
-        full,
-        half,
-        character,
-        tooltips,
-        icon,
-        percent,
-        disabled,
-        size,
-      } = ps;
+      let { full, half, character, tooltips, icon, percent, disabled, size } = ps;
       const props = {
         class: [
           "k-star",
@@ -51,8 +42,7 @@ export default defineComponent({
         onClick: (e) => update(e, "C"), //for 3
         onMousemove: (e) => update(e, "M"),
       };
-      const characterNode =
-        typeof character == "function" ? character(ps.index) : character;
+      const characterNode = typeof character == "function" ? character(ps.index) : character;
       const iconType = typeof icon == "function" ? icon(ps.index) : icon;
       // if (typeof character == "function") {
       //   character = character(ps.value);
@@ -63,10 +53,7 @@ export default defineComponent({
       // character = character ? <span>{character}</span> : null;
       const node = (
         <span {...props}>
-          <span
-            class={["k-star-front", {}]}
-            style={{ width: disabled ? percent + "%" : null }}
-          >
+          <span class={["k-star-front", {}]} style={{ width: disabled ? percent + "%" : null }}>
             {characterNode || <Icon type={iconType || Star} size={size} />}
           </span>
           <span class="k-star-back">

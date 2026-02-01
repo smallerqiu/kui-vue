@@ -50,21 +50,14 @@ export default defineComponent({
             itemValue !== undefined &&
             itemValue !== "" &&
             itemValue !== false;
-        msg =
-          msg ||
-          locale.value?.k.form.required.replace(
-            "{label}",
-            props.label || props.prop
-          );
+        msg = msg || locale.value?.k.form.required.replace("{label}", props.label || props.prop);
       } else {
         if (rule.pattern) {
           isValid = rule.pattern.test(itemValue);
         } else if (rule.type) {
           switch (rule.type) {
             case "mail":
-              isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
-                itemValue
-              );
+              isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(itemValue);
               msg = msg || locale.value?.k.form.email;
               break;
             case "mobile":
@@ -76,14 +69,10 @@ export default defineComponent({
               if (isValid) {
                 if (rule.min !== undefined && itemValue < rule.min) {
                   isValid = false;
-                  msg =
-                    msg ||
-                    locale.value?.k.form.num_min.replace("{min}", rule.min);
+                  msg = msg || locale.value?.k.form.num_min.replace("{min}", rule.min);
                 } else if (rule.max !== undefined && itemValue > rule.max) {
                   isValid = false;
-                  msg =
-                    msg ||
-                    locale.value?.k.form.num_max.replace("{max}", rule.max);
+                  msg = msg || locale.value?.k.form.num_max.replace("{max}", rule.max);
                 }
               }
               msg = msg || locale.value?.k.form.number;
@@ -105,8 +94,7 @@ export default defineComponent({
             if (Array.isArray(itemValue)) {
               isValid = itemValue.length >= rule.min;
             } else if (valueType === "string") {
-              isValid =
-                itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
+              isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
             } else if (valueType === "number") {
               isValid = itemValue >= rule.min;
             }
@@ -116,8 +104,7 @@ export default defineComponent({
             if (Array.isArray(itemValue)) {
               isValid = itemValue.length <= rule.max;
             } else if (valueType === "string") {
-              isValid =
-                itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
+              isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
             } else if (valueType === "number") {
               isValid = itemValue <= rule.max;
             }
@@ -175,9 +162,7 @@ export default defineComponent({
       const { label, prop } = props;
       const rules = props.rules || (Form.rules || {})[prop] || [];
       const required =
-        rules.constructor === Object
-          ? rules.required
-          : rules.filter((r) => r.required).length > 0;
+        rules.constructor === Object ? rules.required : rules.filter((r) => r.required).length > 0;
 
       const classes = [
         "k-form-item",
@@ -214,9 +199,7 @@ export default defineComponent({
               {children.map((child) => {
                 if (isVNode(child)) {
                   const tag = child.type?.name;
-                  const value = prop
-                    ? Form.getValueFromProp?.(prop) || undefined
-                    : undefined;
+                  const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
                   const theme = propsData.theme || Form.theme;
@@ -261,9 +244,7 @@ export default defineComponent({
               })}
               {prop ? (
                 <Transition name="k-form-item-fade">
-                  {!valid.value ? (
-                    <div class="k-form-item-error-tip">{message.value}</div>
-                  ) : null}
+                  {!valid.value ? <div class="k-form-item-error-tip">{message.value}</div> : null}
                 </Transition>
               ) : null}
             </div>

@@ -6,11 +6,7 @@ export function getChildren(children = [], name) {
   // return child.filter(c => !isEmptyNode(c, name) )
   return children.filter((c) => {
     let tag_name = "";
-    if (
-      name &&
-      c.componentOptions != null &&
-      c.componentOptions.Ctor != undefined
-    ) {
+    if (name && c.componentOptions != null && c.componentOptions.Ctor != undefined) {
       tag_name = c.componentOptions.Ctor.extendOptions.name;
     }
     if (!isEmptyNode(c) && name !== tag_name) {

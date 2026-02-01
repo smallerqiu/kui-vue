@@ -1,3 +1,3 @@
-import Tabs from './tabs.jsx'
-import TabPanel from './tabpanel.jsx'
-export { Tabs, TabPanel }
+import Tabs from "./tabs.jsx";
+import TabPanel from "./tabpanel.jsx";
+export { Tabs, TabPanel };

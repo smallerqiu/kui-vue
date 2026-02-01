@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { loading } from 'kui-vue'
+import { loading } from "kui-vue";
 let children = [
   {
     path: "/start/getting-started",
@@ -221,7 +221,7 @@ router.beforeEach(function (to, from, next) {
   next();
 });
 
-router.afterEach(route => {
+router.afterEach((route) => {
   loading.finish();
 });
 

@@ -23,9 +23,7 @@ export default defineComponent({
     onCancel: Function,
     type: {
       validator(value) {
-        return ["info", "success", "error", "warning", "confirm"].includes(
-          value
-        );
+        return ["info", "success", "error", "warning", "confirm"].includes(value);
       },
       default: "info",
     },
@@ -93,11 +91,7 @@ export default defineComponent({
       let header = (
         <div class="k-toast-header">
           {type || icon ? (
-            <Icon
-              class="k-toast-icon"
-              type={icon || icons[type]}
-              color={color}
-            />
+            <Icon class="k-toast-icon" type={icon || icons[type]} color={color} />
           ) : null}
           <div class="k-toast-title">{title}</div>
         </div>
@@ -114,10 +108,7 @@ export default defineComponent({
 
       if (type == "confirm") {
         footerNode.unshift(
-          <Button onClick={cancel}>
-            {" "}
-            {cancelText || locale?.value.k.common.cancel}
-          </Button>
+          <Button onClick={cancel}> {cancelText || locale?.value.k.common.cancel}</Button>
         );
       }
       let footer = <div class="k-toast-footer">{footerNode}</div>;

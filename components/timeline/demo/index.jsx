@@ -1,8 +1,8 @@
-import Info from './info.md'
-import Basic from './basic.md'
-import Icon from './icon.md'
-import Mode from './mode.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import Icon from "./icon.md";
+import Mode from "./mode.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
@@ -13,6 +13,6 @@ export default {
         <Mode />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

@@ -12,13 +12,7 @@
       <Radio value="large" label="large" />
     </RadioGroup>
     <Checkbox v-model="isCustomize" label="customize" />
-    <Slider
-      v-model="customize"
-      :step="1"
-      :max="50"
-      v-if="isCustomize"
-      @change="changeSize"
-    />
+    <Slider v-model="customize" :step="1" :max="50" v-if="isCustomize" @change="changeSize" />
     <Flex :size="flexSize">
       <Button type="primary">Primary</Button>
       <Button>Default</Button>

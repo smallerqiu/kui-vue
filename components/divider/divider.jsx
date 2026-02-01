@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Divider = defineComponent({
   name: "Divider",
   props: {
@@ -33,7 +33,11 @@ const Divider = defineComponent({
           [`k-divider-with-text-${props.orientation}`]: props.orientation && textNode,
         },
       ];
-      return <div class={classes}>{textNode ? <span class="k-divider-inner-text">{textNode}</span> : null}</div>;
+      return (
+        <div class={classes}>
+          {textNode ? <span class="k-divider-inner-text">{textNode}</span> : null}
+        </div>
+      );
     };
   },
 });

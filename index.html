@@ -8,11 +8,11 @@
     <script type="importmap">
       {
         "imports": {
-          "vue": "http://localhost:7005/js/vue.esm-browser.js",
-          "@vue/compiler-sfc": "https://unpkg.com/@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js",
+          "vue": "%VITE_APP_VUE_ESM_URL%",
+          "@vue/compiler-sfc": "%VITE_APP_IMPORT_URL%/js/compiler-sfc.esm-browser.js",
           "dayjs": "https://esm.sh/dayjs",
-          "kui-vue": "http://localhost:7005/js/k-ui.esm.js",
-          "kui-icons": "http://localhost:7005/js/kui-icons.esm.js"
+          "kui-vue": "%VITE_APP_IMPORT_URL%/js/k-ui.esm.js",
+          "kui-icons": "%VITE_APP_IMPORT_URL%/js/kui-icons.esm.js"
         }
       }
     </script>

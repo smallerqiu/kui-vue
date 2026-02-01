@@ -10,13 +10,7 @@
       <Button @click="show1 = true">普通表单</Button>
       <Button @click="show2 = true">自定义</Button>
     </Space>
-    <Drawer
-      v-model="show1"
-      title="表单验证"
-      @ok="submitForm"
-      @cancel="resetForm"
-      footer
-    >
+    <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
       <Form
         ref="refForm"
         :model="form"
@@ -32,10 +26,7 @@
           <Input number clearable></Input>
         </FormItem>
         <FormItem label="DatePicker" prop="datepicker">
-          <DatePicker
-            clearable
-            format="YYYY/MM/DD hh:mm:ss"
-          ></DatePicker>
+          <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
         </FormItem>
         <FormItem label="Radio" prop="radio">
           <Radio>男</Radio>
@@ -76,7 +67,7 @@
 <script setup>
 import { message } from "kui-vue";
 import { Home } from "kui-icons";
-import { ref,reactive } from "vue";
+import { ref, reactive } from "vue";
 const refForm = ref();
 const show1 = ref(false);
 const show2 = ref(false);

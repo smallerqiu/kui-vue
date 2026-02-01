@@ -19,24 +19,9 @@
       <Button theme="light" :icon="Camera"></Button>
     </Space>
     <Space>
-      <Button
-        type="primary"
-        theme="light"
-        :icon="Camera"
-        shape="circle"
-      ></Button>
-      <Button
-        type="danger"
-        theme="light"
-        :icon="Camera"
-        shape="circle"
-      ></Button>
-      <Button
-        type="warning"
-        theme="light"
-        :icon="Camera"
-        shape="circle"
-      ></Button>
+      <Button type="primary" theme="light" :icon="Camera" shape="circle"></Button>
+      <Button type="danger" theme="light" :icon="Camera" shape="circle"></Button>
+      <Button type="warning" theme="light" :icon="Camera" shape="circle"></Button>
       <Button theme="light" :icon="Camera" shape="circle"></Button>
     </Space>
   </Flex>

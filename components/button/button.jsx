@@ -30,14 +30,7 @@ const Button = defineComponent({
     loading: Boolean,
     type: {
       validator(value) {
-        return [
-          "primary",
-          "danger",
-          "warning",
-          "default",
-          "text",
-          "link",
-        ].includes(value);
+        return ["primary", "danger", "warning", "default", "text", "link"].includes(value);
       },
       default: "default",
     },
@@ -59,12 +52,7 @@ const Button = defineComponent({
     const parentSize = inject("size", null);
 
     const computedSize = computed(() => {
-      return (
-        props.size ||
-        buttonGroup?.size?.value ||
-        filterSize(parentSize) ||
-        "default"
-      );
+      return props.size || buttonGroup?.size?.value || filterSize(parentSize) || "default";
     });
 
     const computedShape = computed(() => {
@@ -90,7 +78,7 @@ const Button = defineComponent({
           return excluded[0].type.name === "Icon";
         }
 
-        return false
+        return false;
       };
 
       const classes = [

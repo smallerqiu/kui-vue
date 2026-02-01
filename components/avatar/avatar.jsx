@@ -1,12 +1,5 @@
 import Icon from "../icon";
-import {
-  defineComponent,
-  ref,
-  onMounted,
-  onUpdated,
-  inject,
-  computed,
-} from "vue";
+import { defineComponent, ref, onMounted, onUpdated, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
 
 const Avatar = defineComponent({
@@ -18,9 +11,7 @@ const Avatar = defineComponent({
       type: [Number, String],
       default: "default",
       validator: (val) =>
-        typeof val == "number"
-          ? true
-          : ["large", "small", "default"].indexOf(val) >= 0,
+        typeof val == "number" ? true : ["large", "small", "default"].indexOf(val) >= 0,
     },
     src: String,
   },
@@ -42,8 +33,7 @@ const Avatar = defineComponent({
     const updateSize = () => {
       if (innerRef.value && root.value) {
         const max = root.value.offsetWidth - 8;
-        const innerWidth =
-          innerRef.value.offsetWidth || innerRef.value.scrollWidth;
+        const innerWidth = innerRef.value.offsetWidth || innerRef.value.scrollWidth;
 
         if (innerWidth > max) {
           const scale = max / innerWidth;
@@ -76,8 +66,7 @@ const Avatar = defineComponent({
 
       const hasIcon = children?.some((c) => c.type?.name === "Icon");
 
-      const isText =
-        children?.length === 1 && typeof children[0].children === "string";
+      const isText = children?.length === 1 && typeof children[0].children === "string";
 
       const cls = [
         "k-avatar",

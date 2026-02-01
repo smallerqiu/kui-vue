@@ -9,26 +9,11 @@
   <Slider v-model="gap" :min="50" :max="160" />
   <br />
   <br />
-  <RadioGroup
-    :options="caps"
-    v-model="strokeLinecap"
-    type="button"
-    theme="light"
-  />
+  <RadioGroup :options="caps" v-model="strokeLinecap" type="button" theme="light" />
   <br />
   <br />
-  <Progress
-    type="dashboard"
-    :percent="50"
-    :gapDegree="gap"
-    :strokeLinecap="strokeLinecap"
-  />
-  <Progress
-    type="dashboard"
-    :percent="100"
-    :gapDegree="gap"
-    :strokeLinecap="strokeLinecap"
-  />
+  <Progress type="dashboard" :percent="50" :gapDegree="gap" :strokeLinecap="strokeLinecap" />
+  <Progress type="dashboard" :percent="100" :gapDegree="gap" :strokeLinecap="strokeLinecap" />
 </template>
 <script setup>
 import { ref } from "vue";

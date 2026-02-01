@@ -10,15 +10,7 @@ import Color from "color";
 import Presets from "./presets";
 import { cloneNodes } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import {
-  defineComponent,
-  ref,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  Transition,
-} from "vue";
+import { defineComponent, ref, watch, onMounted, onBeforeUnmount, nextTick, Transition } from "vue";
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
@@ -35,14 +27,9 @@ const ColorPicker = defineComponent({
     arrow: Boolean,
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -164,9 +151,7 @@ const ColorPicker = defineComponent({
     };
     const renderTriggerText = () => {
       let text = getColor();
-      return ps.showText ? (
-        <div class="k-color-picker-trigger-text">{text}</div>
-      ) : null;
+      return ps.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
     const onUpdate = (color) => {
       currentColor.value = color;
@@ -254,10 +239,7 @@ const ColorPicker = defineComponent({
                 <div class="k-color-picker-bar-box">
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
                   {!ps.disabledAlpha ? (
-                    <Alpha
-                      modelValue={currentColor.value}
-                      onUpdateAlpha={onUpdateAlpha}
-                    />
+                    <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
                   ) : null}
                 </div>
               </div>

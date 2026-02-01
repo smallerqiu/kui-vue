@@ -1,12 +1,4 @@
-import {
-  cloneVNode,
-  defineComponent,
-  ref,
-  provide,
-  watch,
-  toRefs,
-  reactive,
-} from "vue";
+import { cloneVNode, defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 
@@ -44,8 +36,7 @@ const Form = defineComponent({
     const formRef = ref(null);
     const formItems = ref({});
 
-    const { model, rules, size, shape, theme, disabled, layout, name } =
-      toRefs(props);
+    const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
 
     const updateMode = (prop, value = null) => {
       const { o, k } = getPropByPath(model.value, prop);

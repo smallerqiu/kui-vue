@@ -1,8 +1,8 @@
-@import './color.less';
+@import "./color.less";
 
 html,
-*[theme-mode=light],
-*[theme-mode=light] {
+*[theme-mode="light"],
+*[theme-mode="light"] {
   color-scheme: light;
   --kui-control-height-sm: 24px;
   --kui-control-height: 30px;
@@ -168,12 +168,12 @@ html,
   --kui-color-table-border: #f0f0f0;
   --kui-color-table-hover: #fafafa;
   --kui-color-table-header-hover: #f1f1f1;
-  --kui-color-shadow: rgba(0, 0, 0, .15);
+  --kui-color-shadow: rgba(0, 0, 0, 0.15);
 }
 
-[theme-mode=dark],
-html[theme-mode=dark],
-*[theme-mode=dark] {
+[theme-mode="dark"],
+html[theme-mode="dark"],
+*[theme-mode="dark"] {
   color-scheme: dark;
   --kui-color-default: @dark-default;
   --kui-color-dark: @default;
@@ -203,5 +203,5 @@ html[theme-mode=dark],
   --kui-color-table-border: #303030;
   --kui-color-table-hover: #262626;
   --kui-color-table-header-hover: #303030;
-  --kui-color-shadow: rgba(0, 0, 0, .65);
+  --kui-color-shadow: rgba(0, 0, 0, 0.65);
 }

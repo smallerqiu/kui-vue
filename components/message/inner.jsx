@@ -41,11 +41,7 @@ export default defineComponent({
       const children = [];
       if (type in icons) {
         children.push(
-          <Icon
-            type={icon || icons[type]}
-            color={color}
-            class={`k-${noticeType}-icon`}
-          />
+          <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />
         );
       }
       if (noticeType == "message") {
@@ -65,13 +61,7 @@ export default defineComponent({
         children.push(<div class="k-notice-title">{title}</div>);
         children.push(<div class="k-notice-desc">{content}</div>);
         children.push(
-          <Button
-            class="k-notice-close"
-            size="small"
-            type="text"
-            icon={Close}
-            onClick={onClose}
-          />
+          <Button class="k-notice-close" size="small" type="text" icon={Close} onClick={onClose} />
         );
       }
       return (

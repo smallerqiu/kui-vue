@@ -1,9 +1,4 @@
-import {
-  defineComponent,
-  onMounted,
-  onBeforeUnmount,
-  getCurrentInstance,
-} from "vue";
+import { defineComponent, onMounted, onBeforeUnmount, getCurrentInstance } from "vue";
 import { withInstall } from "../utils/vue";
 const TabPanel = defineComponent({
   name: "TabPanel",
@@ -22,12 +17,7 @@ const TabPanel = defineComponent({
     const key = instance.vnode.key;
     return () => {
       return (
-        <div
-          class={[
-            "k-tabs-tabpanel",
-            { "k-tabs-tabpanel-active": ps.activeKey == key },
-          ]}
-        >
+        <div class={["k-tabs-tabpanel", { "k-tabs-tabpanel-active": ps.activeKey == key }]}>
           {slots.default?.()}
         </div>
       );

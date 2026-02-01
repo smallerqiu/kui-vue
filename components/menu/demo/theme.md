@@ -6,21 +6,10 @@
 ```vue
 <template>
   <div style="width:256px">
-    <KSwitch
-      true-text="dark"
-      false-text="light"
-      @change="change"
-      :checked="theme == 'dark'"
-    />
+    <KSwitch true-text="dark" false-text="light" @change="change" :checked="theme == 'dark'" />
     <br />
     <br />
-    <Menu
-      v-model="current"
-      :openKeys="openKeys"
-      :theme="theme"
-      mode="inline"
-      :items="items"
-    />
+    <Menu v-model="current" :openKeys="openKeys" :theme="theme" mode="inline" :items="items" />
   </div>
 </template>
 <script setup>

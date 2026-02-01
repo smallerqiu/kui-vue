@@ -1,6 +1,6 @@
 import { defineComponent, inject } from "vue";
 import Icon from "../icon";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const BreadcrumbItem = defineComponent({
   name: "BreadcrumbItem",
   props: {
@@ -10,11 +10,7 @@ const BreadcrumbItem = defineComponent({
   setup(ps, { slots, emit }) {
     const separator = inject("separator", null);
     return () => {
-      const iconNode = slots.icon ? (
-        slots.icon()
-      ) : ps.icon ? (
-        <Icon type={ps.icon} />
-      ) : null;
+      const iconNode = slots.icon ? slots.icon() : ps.icon ? <Icon type={ps.icon} /> : null;
       return (
         <li class="k-breadcrumb-item" onClick={(e) => emit("click", e)}>
           {ps.href ? (

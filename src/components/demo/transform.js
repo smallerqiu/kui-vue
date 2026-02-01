@@ -7,14 +7,7 @@ import {
   compileStyle,
   rewriteDefault,
 } from "@vue/compiler-sfc";
-export async function parseCode({
-  source,
-  id,
-  viewRef,
-  error,
-  currentApp,
-  buildState,
-}) {
+export async function parseCode({ source, id, viewRef, error, currentApp, buildState }) {
   try {
     error.value = "";
     const { descriptor } = parse(source);
@@ -45,10 +38,7 @@ export async function parseCode({
         },
       });
       // 将模板中的 export function render 替换掉，防止冲突
-      templateCode = compiledTemplate.code.replace(
-        /export\ (function|const)\ render/,
-        "$1 render",
-      );
+      templateCode = compiledTemplate.code.replace(/export\ (function|const)\ render/, "$1 render");
     }
 
     let cssCode = "";

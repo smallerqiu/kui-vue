@@ -65,9 +65,7 @@ export default function vitePluginMd() {
       let cnHtml = null;
       const cnMatch = tagCNReg.exec(src);
       if (cnMatch && cnMatch[1]) {
-        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(
-          cnMatch[1]
-        );
+        cnHtml = new MarkdownIt({ html: true, breaks: true }).render(cnMatch[1]);
       }
 
       // 2) detect first ```vue fenced block
@@ -78,7 +76,7 @@ export default function vitePluginMd() {
         const block = m[1].trim();
         //for 3
         const { descriptor } = parse(block);
-        const { template, script, scriptSetup, styles } = descriptor
+        const { template, script, scriptSetup, styles } = descriptor;
 
         //for 2.x
         // const { template, script, scriptSetup, styles } = parse({

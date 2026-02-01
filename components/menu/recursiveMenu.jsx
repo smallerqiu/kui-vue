@@ -24,12 +24,7 @@ const RecursiveMenu = defineComponent({
           })}
         </SubMenu>
       ) : (
-        <MenuItem
-          key={item.key}
-          isPopup={props.isPopup}
-          icon={item.icon}
-          disabled={item.disabled}
-        >
+        <MenuItem key={item.key} isPopup={props.isPopup} icon={item.icon} disabled={item.disabled}>
           {item.title}
         </MenuItem>
       );

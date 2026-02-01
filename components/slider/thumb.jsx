@@ -29,10 +29,7 @@ export default defineComponent({
     const percent = computed(() => {
       const diff = props.max - props.min;
       if (diff === 0) return 0;
-      return Math.max(
-        0,
-        Math.min(100, ((props.value - props.min) / diff) * 100)
-      );
+      return Math.max(0, Math.min(100, ((props.value - props.min) / diff) * 100));
     });
 
     const thumbStyle = computed(() => {
@@ -58,8 +55,7 @@ export default defineComponent({
       const displayValue = props.tipFormatter
         ? props.tipFormatter(props.value)
         : String(props.value);
-      const showTooltip =
-        props.tooltipVisible === true ? true : props.dragging || isHover.value;
+      const showTooltip = props.tooltipVisible === true ? true : props.dragging || isHover.value;
       return (
         <Tooltip
           title={displayValue}

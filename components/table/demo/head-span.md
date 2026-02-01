@@ -9,8 +9,7 @@ Columns[n] can nest children to render grouped headers.
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ x: true, y: 300 }">
-  </Table>
+  <Table :data="data" :columns="columns" bordered :scroll="{ x: true, y: 300 }"> </Table>
 </template>
 <script setup>
 const data = [];

@@ -39,12 +39,7 @@ Show directory, connectors, drag, checkboxes, icons, and expansion.
     >
       <template #extra="node">
         <Space>
-          <Button
-            size="small"
-            type="text"
-            :icon="Add"
-            @click="(e) => append(e, node)"
-          />
+          <Button size="small" type="text" :icon="Add" @click="(e) => append(e, node)" />
           <Button
             size="small"
             type="text"
@@ -52,12 +47,7 @@ Show directory, connectors, drag, checkboxes, icons, and expansion.
             @click="(e) => deleteNode(e, node)"
             v-if="node.key != '0-0'"
           />
-          <Button
-            size="small"
-            type="text"
-            :icon="IconEdit"
-            @click="(e) => edit(e, node)"
-          />
+          <Button size="small" type="text" :icon="IconEdit" @click="(e) => edit(e, node)" />
         </Space>
       </template>
     </Tree>

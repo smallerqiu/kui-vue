@@ -2,10 +2,7 @@ import { defineComponent } from "vue";
 import { withInstall } from "../utils/vue";
 const formatStyle = (styles) => {
   return Object.entries(styles)
-    .map(
-      ([key, value]) =>
-        `${key.replace(/([A-Z])/g, "-$1").toLowerCase()}:${value}`,
-    )
+    .map(([key, value]) => `${key.replace(/([A-Z])/g, "-$1").toLowerCase()}:${value}`)
     .join(";");
 };
 
@@ -16,9 +13,7 @@ const parseStyle = (styleString) => {
   styleString.split(";").forEach((rule) => {
     const [property, value] = rule.split(":");
     if (property && value) {
-      const propName = property
-        .trim()
-        .replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+      const propName = property.trim().replace(/-([a-z])/g, (g) => g[1].toUpperCase());
       styles[propName] = value.trim();
     }
   });

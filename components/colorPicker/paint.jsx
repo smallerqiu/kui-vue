@@ -59,11 +59,7 @@ export default defineComponent({
     const onMouseMove = (e) => {
       const canvas = refPaint.value;
       const { width, height } = canvas;
-      const x = clamp(
-        e.clientX - canvas.getBoundingClientRect().left,
-        0,
-        width - 1
-      ),
+      const x = clamp(e.clientX - canvas.getBoundingClientRect().left, 0, width - 1),
         y = clamp(e.clientY - canvas.getBoundingClientRect().top, 0, height);
 
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -104,9 +100,7 @@ export default defineComponent({
       return (
         <div class="k-color-picker-paint-container">
           <canvas {...prop} />
-          <span
-            class="k-color-picker-paint-dot"
-            style={{ left: x + "px", top: y + "px" }}></span>
+          <span class="k-color-picker-paint-dot" style={{ left: x + "px", top: y + "px" }}></span>
         </div>
       );
     };

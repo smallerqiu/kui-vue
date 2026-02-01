@@ -74,7 +74,7 @@ const columns = [
             {
               color: tag == "Python" ? "green" : "blue",
             },
-            tag,
+            tag
           );
         }),
       ]);
@@ -95,7 +95,7 @@ const columns = [
             });
           },
         },
-        "more",
+        "more"
       );
     },
   },

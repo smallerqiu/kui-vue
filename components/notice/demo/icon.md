@@ -25,11 +25,7 @@ const alipay = () => {
 };
 const wechat = () => {
   let content = h("div", {}, [
-    h(
-      "p",
-      { style: "margin:10px 0" },
-      "微信新增了一些新功能，我们邀请您体验！",
-    ),
+    h("p", { style: "margin:10px 0" }, "微信新增了一些新功能，我们邀请您体验！"),
     h(Button, { type: "primary", size: "small" }, "去看看"),
   ]);
   console.log(content);

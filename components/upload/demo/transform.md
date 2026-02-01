@@ -44,7 +44,7 @@ const transformFile = (file) => {
         (img.width - canvas.width) / 2,
         (img.height - canvas.height) / 2,
         canvas.width,
-        canvas.height,
+        canvas.height
       );
       // canvas to file obj
       let data = canvas.toDataURL("image/png");

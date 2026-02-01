@@ -1,9 +1,9 @@
-import Info from './info.md'
-import Basic from './basic.md'
-import Errors from './errors.md'
-import Group from './group.md'
-import Extra from './extra.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import Errors from "./errors.md";
+import Group from "./group.md";
+import Extra from "./extra.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
@@ -15,6 +15,6 @@ export default {
         <Extra />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

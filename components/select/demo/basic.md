@@ -6,10 +6,10 @@
 ```vue
 <template>
   <Space vertical>
-    use options to set options : {{value1}}
+    use options to set options : {{ value1 }}
     <Select v-model="value1" :options="data" />
     <br />
-    use children to set options: {{value2}}
+    use children to set options: {{ value2 }}
     <Select v-model="value2">
       <Option :value="item.value" v-for="item in data" :key="item.value">
         {{ item.label }}

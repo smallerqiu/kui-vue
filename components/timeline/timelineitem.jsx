@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import Icon from "../icon";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const TimeLineItem = defineComponent({
   name: "TimeLineItem",
   props: {
@@ -13,7 +13,8 @@ const TimeLineItem = defineComponent({
     return () => {
       let { icon, color, time } = ps;
       const styles = { color };
-      const iconNode = slots.dot?.() || (icon ? <Icon type={icon} /> : <span class="k-time-line-head"></span>);
+      const iconNode =
+        slots.dot?.() || (icon ? <Icon type={icon} /> : <span class="k-time-line-head"></span>);
       const iconCls = ["k-time-line-dot"];
       let extraNode = ps.extra || slots.extra?.();
       return (

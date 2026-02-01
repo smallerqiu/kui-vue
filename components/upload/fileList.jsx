@@ -5,7 +5,6 @@ import { Button } from "../button";
 import Tooltip from "../tooltip";
 import Progress from "../progress";
 
-
 export default defineComponent({
   name: "UploadFileList",
   props: {
@@ -50,15 +49,10 @@ export default defineComponent({
                 : item.errorText || locale?.k.upload.failed;
             return (
               <div
-                class={[
-                  `k-upload-file-${type}-item`,
-                  `k-upload-file-status-${item.status}`,
-                ]}
+                class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]}
                 key={item.uid || i}
               >
-                <div
-                  class={`k-upload-${isPicture ? "picture" : "file"}-preview`}
-                >
+                <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
                   {getPreview(item) || <Icon type={DocumentTextOutline} />}
                 </div>
                 <div class="k-upload-file-item-info">

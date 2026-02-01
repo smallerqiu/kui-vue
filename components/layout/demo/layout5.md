@@ -58,14 +58,7 @@
   </div>
 </template>
 <script setup>
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  MenuFold,
-  MenuUnfold,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, MenuFold, MenuUnfold } from "kui-icons";
 import { ref } from "vue";
 const top = ref(["t1"]);
 const collapsed = ref(false);

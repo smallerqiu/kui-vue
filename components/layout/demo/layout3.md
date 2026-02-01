@@ -16,11 +16,7 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu
-              mode="horizontal"
-              :selectedKeys="['t1']"
-              class="demo-top-menu"
-            >
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -56,15 +52,7 @@
   </div>
 </template>
 <script setup>
-import {
-  LogoKui,
-  Home,
-  StatsChart,
-  Settings,
-  Scan,
-  NotificationsOutline,
-  Search,
-} from "kui-icons";
+import { LogoKui, Home, StatsChart, Settings, Scan, NotificationsOutline, Search } from "kui-icons";
 const items = [
   { key: "t1", icon: Home, title: "首页" },
   {

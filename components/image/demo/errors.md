@@ -21,6 +21,6 @@ import { ref } from "vue";
 const src = ref("https://cdn.chuchur.com/upload/demo/test_300.jpg");
 const loadOrigin = () => {
   src.value = "https://k-ui.cn/error.jpg";
-}
+};
 </script>
 ```

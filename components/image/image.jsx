@@ -1,11 +1,4 @@
-import {
-  defineComponent,
-  ref,
-  onMounted,
-  onBeforeUnmount,
-  watch,
-  inject,
-} from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount, watch, inject } from "vue";
 import Icon from "../icon";
 import newInstance from "./instance";
 import { Loading, IconImage } from "kui-icons/dist/icons";
@@ -106,7 +99,7 @@ const KImage = defineComponent({
             loading.value = false;
             showPlaceholder.value = true;
             imageUrl.value = placeholder || null;
-          },
+          }
         );
       } else {
         showPlaceholder.value = true;
@@ -118,7 +111,7 @@ const KImage = defineComponent({
       () => props.src,
       () => {
         reload();
-      },
+      }
     );
 
     onMounted(() => {
@@ -155,7 +148,7 @@ const KImage = defineComponent({
         nodes.push(
           <div class="k-image-loading">
             <Icon type={Loading} spin class="k-image-loading-icon" />
-          </div>,
+          </div>
         );
       } else {
         if (showPlaceholder.value) {

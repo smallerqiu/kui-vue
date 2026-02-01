@@ -76,9 +76,7 @@ const Checkbox = defineComponent({
         },
       ];
 
-      let innerNode = isChecked.value ? (
-        <Icon type={Checkmark} strokeWidth={60} />
-      ) : null;
+      let innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
 
       const labelNode = props.label || slots.default?.();
 

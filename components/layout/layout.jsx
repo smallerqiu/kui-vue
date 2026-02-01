@@ -1,5 +1,5 @@
 import { defineComponent, ref, computed, provide, inject, onMounted, onBeforeUnmount } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 
 function createComponent(suffixCls, name) {
   return (Component) => {
@@ -7,7 +7,7 @@ function createComponent(suffixCls, name) {
       name,
       setup(props, { slots }) {
         const prop = {
-            suffixCls: suffixCls,
+          suffixCls: suffixCls,
         };
         return () => <Component {...prop}>{slots.default?.()}</Component>;
       },
@@ -36,7 +36,10 @@ const layout = defineComponent({
 
     provide("collectSider", collectSider);
 
-    const classes = computed(() => [`k-${props.suffixCls}`, { "k-layout-has-sider": siders.value > 0 }]);
+    const classes = computed(() => [
+      `k-${props.suffixCls}`,
+      { "k-layout-has-sider": siders.value > 0 },
+    ]);
 
     return () => <div class={classes.value}>{slots.default?.()}</div>;
   },
@@ -45,7 +48,7 @@ const layout = defineComponent({
 const sider = defineComponent({
   props: { suffixCls: String },
   setup(props, { slots }) {
-    const collectSider = inject("collectSider", () => { });
+    const collectSider = inject("collectSider", () => {});
 
     onMounted(() => {
       collectSider(true);
