@@ -20,32 +20,30 @@
 ![](https://k-ui.cn/img/theme.jpg)
 
 [English](./readme.md) | 简体中文
+
 </div>
 
+# 文档
 
-# 文档   
-* [快速开始](https://k-ui.cn/start/getting-started)
-* [组件总览](https://k-ui.cn/start/components)
-* [自定义主题](https://k-ui.cn/start/theme)
-* [暗色模式](https://k-ui.cn/start/dark-mode)
-* [Icons](https://k-ui.cn/basic/icons)
-* [国际化](https://k-ui.cn/start/language)
-* [更新日志](https://k-ui.cn/start/logs)
-
+- [快速开始](https://k-ui.cn/start/getting-started)
+- [组件总览](https://k-ui.cn/start/components)
+- [自定义主题](https://k-ui.cn/start/theme)
+- [暗色模式](https://k-ui.cn/start/dark-mode)
+- [Icons](https://k-ui.cn/basic/icons)
+- [国际化](https://k-ui.cn/start/language)
+- [更新日志](https://k-ui.cn/start/logs)
 
 # 特性
+
 - 50+高质量组件
 - 国际化支持 14 种语言
-- 支持Vue3.x  
-- 支持 SSR   
-- 支持 [Nuxt.js](https://nuxtjs.org/)   
-- 支持 Electron   
+- 支持Vue3.x
+- 支持 SSR
+- 支持 [Nuxt.js](https://nuxtjs.org/)
+- 支持 Electron
 - 大多数组件和功能支持IE9及以上浏览器，一些组件和功能不支持IE
 
-
-
 # 安装
-
 
 ```sh
 #with npm:
@@ -59,41 +57,43 @@ npm add kui-vue
 
 ```html
 <!-- import stylesheet -->
-<link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css">
+<link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
 <!-- import kui -->
 <script src="//unpkg.com/kui-vue/dist/k-ui.js"></script>
 ```
 
 # 使用
+
 ```html
 <template>
   <div>
-    <Button type="primary" @click="test">Primary</Button>
+    <button type="primary" @click="test">Primary</button>
   </div>
 </template>
 <script setup>
-import { mgessage } from "kui-vue";
-const test = ()=>{
-  message.info('Hello kui !')
-}
+  import { mgessage } from "kui-vue";
+  const test = () => {
+    message.info("Hello kui !");
+  };
 </script>
 ```
+
 # 平台支持
 
 KUI 支持所有主要的现代浏览器。
 
-|[<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome|[<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox|[<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari|[<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge|[<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron|
-|--|--|--|--|--|
-| latest 2 versions | latest 2 versions | latest 2 versions | Edge | latest 2 versions |
-
+| [<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome | [<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox | [<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari | [<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge | [<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| latest 2 versions                                                                                                                                                                                                 | latest 2 versions                                                                                                                                                                                                       | latest 2 versions                                                                                                                                                                                                 | Edge                                                                                                                                                                                                         | latest 2 versions                                                                                                                                                                                                             |
 
 # 生态
-[KUI for react](https://react.k-ui.cn)    
+
+[KUI for react](https://react.k-ui.cn)
 
 [KUI for mobile](https://gitee.com/chuchur/kui-vue-mobile)
 
-
 # 协议
+
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2017-present, Chuchur

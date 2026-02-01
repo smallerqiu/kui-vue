@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { isEmpty } from "../utils/number";
-import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons";
+import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons/dist/icons";
 import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
 import { getChildren } from "../utils/vnode";

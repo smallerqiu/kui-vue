@@ -12,7 +12,7 @@ import {
 } from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-import { HelpCircle } from "kui-icons";
+import { HelpCircle } from "kui-icons/dist/icons";
 import Icon from "../icon";
 import { Button } from "../button";
 import { setPlacement } from "../utils/placement";

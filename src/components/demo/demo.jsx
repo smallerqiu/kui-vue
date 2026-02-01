@@ -1,6 +1,6 @@
 import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
-import { CopyOutline, CaretHor, Reload } from "kui-icons";
+import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
 import {
   defineComponent,
   ref,

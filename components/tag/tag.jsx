@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { Close } from "kui-icons";
+import { Close } from "kui-icons/dist/icons";
 import { defineComponent, Transition, ref } from "vue";
 import { isColor } from "../utils/color";
 import { withInstall } from "../utils/vue";

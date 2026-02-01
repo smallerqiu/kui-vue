@@ -5,7 +5,7 @@ import resize from "../directives/resize";
 import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
-import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import Tree from "../tree";
 import { buildTree } from "../tree/utils";

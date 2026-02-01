@@ -22,7 +22,7 @@ import {
   ChevronForward,
   ChevronDoubleForward,
   ArrowForward,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";

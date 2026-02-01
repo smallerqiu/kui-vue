@@ -14,7 +14,7 @@ import {
   RemoveCircleOutline,
   AddCircleOutline,
   ChevronForward,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { buildTree, updateParentIndeterminate } from "./utils";
 const Tree = defineComponent({
   name: "Tree",

@@ -20,7 +20,7 @@
             placeholder="输入英文关键字，搜索图标，点击图标即可复制"
             :icon="LogoKui"
             clearable
-            @input="filter"
+            @update:modelValue="filter"
           />
           <Button :icon="icons['Search']" />
         </Space>
@@ -46,7 +46,6 @@
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <!-- <span class="item-text">{{ x }}</span> -->
           </span>
         </div>
       </template>
@@ -64,7 +63,6 @@
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <!-- <span class="item-text">{{ x }}</span> -->
           </span>
         </div>
       </template>
@@ -82,27 +80,23 @@ import { ref, watch } from "vue";
 import { message } from "kui-vue";
 import { useClipboard } from "@vueuse/core";
 import * as icons from "kui-icons";
-// import sprite from 'kui-icons/lib/sprite.svg'
-// import icons from '../lib/kui-icons'
-// import sprite from '../lib/sprite.svg'
+// import sprite from 'kui-icons/dist/sprite.svg'
 const { copy, isSupported } = useClipboard();
 
 const LogoKui = icons.LogoKui;
 
 const iconKeys = Object.keys(icons);
-let logos = iconKeys.filter((x) => /Logo/.test(x));
-let outlines = iconKeys.filter((x) => {
-  let flag = false;
-  if (/Outline/.test(x)) {
-    flag = true;
-  } else {
-    flag =
-      iconKeys.filter((y) => y == x + "Outline").length <= 0 && !/Logo/.test(x);
-  }
-  if (flag) return x;
-});
 
-let filledIcons = iconKeys.filter((x) => !/Logo/.test(x) && !/Outline/.test(x));
+let logos = iconKeys.filter((x) => /Logo/.test(x));
+let outlines = iconKeys
+  .filter(
+    (x) =>
+      (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) &&
+      !/Logo/.test(x),
+  )
+  .sort();
+
+let filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();
 
 const searchKey = ref("");
 const type = ref("filled");
