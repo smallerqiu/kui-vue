@@ -6,7 +6,7 @@ import {
   CheckmarkCircle,
   AlertCircle,
   Close,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { getTransitionProp } from "../base/transition";
 import { withInstall } from "../utils/vue";
 

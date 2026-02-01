@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import resize from "../directives/resize";
-import { ArrowBack, ArrowForward } from "kui-icons";
+import { ArrowBack, ArrowForward } from "kui-icons/dist/icons";
 import {
   defineComponent,
   provide,

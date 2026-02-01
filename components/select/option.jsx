@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { Checkmark } from "kui-icons";
+import { Checkmark } from "kui-icons/dist/icons";
 import {
   defineComponent,
   computed,

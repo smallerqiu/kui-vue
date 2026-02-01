@@ -11,7 +11,7 @@
   </Space>
 </template>
 <script setup>
-import { notice } from "kui-vue";
+import { notice, Button } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
 import { getCurrentInstance, h } from "vue";
 const alipay = () => {
@@ -28,9 +28,9 @@ const wechat = () => {
     h(
       "p",
       { style: "margin:10px 0" },
-      "微信新增了一些新功能，我们邀请您体验！"
+      "微信新增了一些新功能，我们邀请您体验！",
     ),
-    h("Button", {  type: "primary", size: "small" }, "去看看"),
+    h(Button, { type: "primary", size: "small" }, "去看看"),
   ]);
   console.log(content);
   notice.open({

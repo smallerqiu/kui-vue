@@ -1,7 +1,7 @@
 import { Button } from "../button";
 import Icon from "../icon";
 import transfer from "../directives/transfer";
-import { Close } from "kui-icons";
+import { Close } from "kui-icons/dist/icons";
 import {
   defineComponent,
   inject,

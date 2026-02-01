@@ -9,7 +9,7 @@ import {
   h,
 } from "vue";
 import { Checkbox } from "../checkbox";
-import { CaretUp, CaretDown } from "kui-icons";
+import { CaretUp, CaretDown } from "kui-icons/dist/icons";
 import Empty from "../empty";
 import Spin from "../spin";
 import { withInstall } from "../utils/vue";

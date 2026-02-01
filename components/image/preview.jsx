@@ -13,7 +13,6 @@ import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 import {
-  Refresh,
   Close,
   ArrowDown,
   IconImage,
@@ -25,7 +24,9 @@ import {
   ChevronUp,
   ChevronForward,
   Loading,
-} from "kui-icons";
+  RotateLeft,
+  RotateRight,
+} from "kui-icons/dist/icons";
 import Slider from "../slider";
 import { Button } from "../button";
 import { loadImage } from "./utils";
@@ -398,7 +399,9 @@ const ImagePreview = defineComponent({
                       disabled={!data.length || data.indexOf(src) == 0}
                       onClick={() => switchImage(1)}
                     />
-                    <span>{data?.indexOf(src)+1||1}/{data?.length || 1}</span>
+                    <span>
+                      {data?.indexOf(src) + 1 || 1}/{data?.length || 1}
+                    </span>
                     <Button
                       icon={ChevronForward}
                       type="text"
@@ -412,13 +415,13 @@ const ImagePreview = defineComponent({
                     class="k-image-preview-action k-image-preview-action-rotate-left"
                     onClick={() => setRotate(1)}
                   >
-                    <Icon type={Refresh} />
+                    <Icon type={RotateLeft} />
                   </li>
                   <li
                     class="k-image-preview-action k-image-preview-action-rotate-right"
                     onClick={() => setRotate(0)}
                   >
-                    <Icon type={Refresh} />
+                    <Icon type={RotateRight} />
                   </li>
                   <li
                     class={[

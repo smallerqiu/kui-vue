@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { DocumentTextOutline, Close, AlertCircle } from "kui-icons";
+import { DocumentTextOutline, Close, AlertCircle } from "kui-icons/dist/icons";
 import Icon from "../icon";
 import { Button } from "../button";
 import Tooltip from "../tooltip";
