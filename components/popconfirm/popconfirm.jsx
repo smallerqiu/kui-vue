@@ -164,8 +164,7 @@ const Popconfirm = defineComponent({
         }
         return cloneVNode(node, pp, true);
       });
-      const nodeWrapper =
-        nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
       const styles = {
         left: `${left.value}px`,

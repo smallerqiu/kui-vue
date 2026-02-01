@@ -47,13 +47,7 @@ const Descriptions = defineComponent({
           let row2 = rows[len + 1] || [];
           if (temp < cols) {
             row.push(
-              <Item
-                label={label}
-                span={span}
-                type="label"
-                layout={layout}
-                bordered={bordered}
-              />
+              <Item label={label} span={span} type="label" layout={layout} bordered={bordered} />
             );
             row2.push(
               <Item span={span} layout={layout} bordered={bordered}>
@@ -70,13 +64,7 @@ const Descriptions = defineComponent({
             rows[len + 1] = [];
             temps[v] = temp + span;
             rows[len].push(
-              <Item
-                label={label}
-                span={span}
-                type="label"
-                layout={layout}
-                bordered={bordered}
-              />
+              <Item label={label} span={span} type="label" layout={layout} bordered={bordered} />
             );
             rows[len + 1].push(
               <Item span={span} layout={layout} bordered={bordered}>
@@ -92,12 +80,7 @@ const Descriptions = defineComponent({
           if (bordered) {
             if (temp < cols) {
               row.push(
-                <Item
-                  label={label}
-                  bordered={bordered}
-                  span={1}
-                  type="label"
-                />,
+                <Item label={label} bordered={bordered} span={1} type="label" />,
                 <Item span={span} bordered={bordered}>
                   {childNodes}
                 </Item>
@@ -109,12 +92,7 @@ const Descriptions = defineComponent({
               rows[len] = [];
               temps[len] = span + 1;
               rows[len].push(
-                <Item
-                  label={label}
-                  bordered={bordered}
-                  span={1}
-                  type="label"
-                />,
+                <Item label={label} bordered={bordered} span={1} type="label" />,
                 <Item span={span} bordered={bordered}>
                   {childNodes}
                 </Item>
@@ -170,9 +148,7 @@ const Descriptions = defineComponent({
         <div {...props}>
           <div class="k-descriptions-header">
             <div class="k-descriptions-title">{title || slots.title?.()}</div>
-            {extraNode ? (
-              <div class="k-descriptions-extra">{extraNode}</div>
-            ) : null}
+            {extraNode ? <div class="k-descriptions-extra">{extraNode}</div> : null}
           </div>
           <div class="k-descriptions-view">{viewNode}</div>
         </div>

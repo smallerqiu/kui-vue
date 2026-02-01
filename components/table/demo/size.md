@@ -31,11 +31,7 @@
       <template #footer> <div>footer</div> </template>
       <template #tags="{ value }">
         <Space>
-          <Tag
-            v-for="tag in value"
-            :key="tag"
-            :color="tag == 'Python' ? 'green' : 'blue'"
-          >
+          <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">
             {{ tag }}
           </Tag>
         </Space>

@@ -36,12 +36,7 @@
         </div>
         <br />
         <div class="icon-list">
-          <span
-            v-for="(x, y) in showIcons"
-            :key="y"
-            class="icon-item"
-            @click.stop="copyHandle(x)"
-          >
+          <span v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
@@ -53,12 +48,7 @@
       <template v-if="logo.length">
         <h3>Logos</h3>
         <div class="icon-list">
-          <span
-            v-for="(x, y) in logo"
-            :key="y"
-            class="icon-item"
-            @click.stop="copyHandle(x)"
-          >
+          <span v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
@@ -96,8 +86,7 @@ let outlines = iconKeys.filter((x) => {
   if (/Outline/.test(x)) {
     flag = true;
   } else {
-    flag =
-      iconKeys.filter((y) => y == x + "Outline").length <= 0 && !/Logo/.test(x);
+    flag = iconKeys.filter((y) => y == x + "Outline").length <= 0 && !/Logo/.test(x);
   }
   if (flag) return x;
 });

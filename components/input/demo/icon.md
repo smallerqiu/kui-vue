@@ -21,17 +21,9 @@
         :icon="LockClosed"
         :visiblePasswordIcon="visiblePasswordIcon"
       />
-      <Button
-        @click="visiblePasswordIcon = !visiblePasswordIcon"
-      >
-        Toggle
-      </Button>
+      <Button @click="visiblePasswordIcon = !visiblePasswordIcon"> Toggle </Button>
     </Space>
-    <Input
-      placeholder="请输入关进行搜索键字..."
-      :clearable="false"
-      @search="search"
-    />
+    <Input placeholder="请输入关进行搜索键字..." :clearable="false" @search="search" />
   </Space>
 </template>
 <script setup>

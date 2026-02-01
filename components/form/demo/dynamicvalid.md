@@ -7,17 +7,8 @@
 <template>
   <Row>
     <Col :span="16">
-      <Form
-        :model="form"
-        ref="formRef"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
-      >
-        <FormItem
-          label="姓名"
-          prop="cname"
-          :rules="[{ required: true, message: '请输入姓名' }]"
-        >
+      <Form :model="form" ref="formRef" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <FormItem label="姓名" prop="cname" :rules="[{ required: true, message: '请输入姓名' }]">
           <Input clearable />
         </FormItem>
         <FormItem
@@ -30,11 +21,7 @@
             <Option value="0" label="女" />
           </Select>
         </FormItem>
-        <FormItem
-          label="年龄"
-          prop="info.age"
-          :rules="[{ required: true, message: '请输入年龄' }]"
-        >
+        <FormItem label="年龄" prop="info.age" :rules="[{ required: true, message: '请输入年龄' }]">
           <Input clearable />
         </FormItem>
         <FormItem
@@ -60,9 +47,7 @@
       </Form>
     </Col>
     <Col :span="8">
-      <pre style="max-height:320px;overflow:'scroll'">{{
-        JSON.stringify(form, null, 2)
-      }}</pre>
+      <pre style="max-height:320px;overflow:'scroll'">{{ JSON.stringify(form, null, 2) }}</pre>
     </Col>
   </Row>
 </template>

@@ -67,8 +67,7 @@ const ImagePreview = defineComponent({
     const panelRef = ref(null);
     const maxScale = 10;
     const updatePanelRight = () => {
-      state.panelRight =
-        panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
+      state.panelRight = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
     };
 
     const setRotate = (left) => {
@@ -79,9 +78,7 @@ const ImagePreview = defineComponent({
 
     const setScale = (zoom) => {
       state.scale = zoom ? state.scale + 1 : state.scale - 1;
-      state.scale = zoom
-        ? Math.min(state.scale, maxScale)
-        : Math.max(1, state.scale);
+      state.scale = zoom ? Math.min(state.scale, maxScale) : Math.max(1, state.scale);
       resetPosition();
     };
 
@@ -116,9 +113,7 @@ const ImagePreview = defineComponent({
         state.startPos = { x: clientX, y: clientY };
         state.initPos = { x: clientX, y: clientY };
         mousemove(e);
-        const [e1, e2] = state.touch
-          ? ["touchmove", "touchend"]
-          : ["mousemove", "mouseup"];
+        const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
         document.addEventListener(e1, mousemove, { passive: false });
         document.addEventListener(e2, mouseup, { passive: false });
       }
@@ -136,8 +131,7 @@ const ImagePreview = defineComponent({
 
       let offsetWidth = imgRef.value.offsetWidth;
       let offsetHeight = imgRef.value.offsetHeight;
-      let panelWidth =
-        panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
+      let panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
       let newWidth = offsetWidth + "";
       let newHeight = offsetHeight + "";
 
@@ -173,9 +167,7 @@ const ImagePreview = defineComponent({
       if (!state.visible) return;
       state.isMouseDown = false;
       resetPosition();
-      const [e1, e2] = state.touch
-        ? ["touchmove", "touchend"]
-        : ["mousemove", "mouseup"];
+      const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       document.removeEventListener(e1, mousemove);
       document.removeEventListener(e2, mouseup);
     };
@@ -248,10 +240,7 @@ const ImagePreview = defineComponent({
             ]}
             ref={panelRef}
           >
-            <span
-              class="k-image-preview-panel-action"
-              onClick={() => togglePanel()}
-            >
+            <span class="k-image-preview-panel-action" onClick={() => togglePanel()}>
               <Icon type={ChevronUp} />
             </span>
             {panel}
@@ -265,7 +254,7 @@ const ImagePreview = defineComponent({
       () => props.src,
       (src) => {
         state.src = src;
-      },
+      }
     );
 
     watch(
@@ -277,7 +266,7 @@ const ImagePreview = defineComponent({
             updatePanelRight();
           });
         }
-      },
+      }
     );
 
     watch(
@@ -294,9 +283,9 @@ const ImagePreview = defineComponent({
           () => {
             state.loading = false;
             state.error = true;
-          },
+          }
         );
-      },
+      }
     );
 
     watch(
@@ -304,7 +293,7 @@ const ImagePreview = defineComponent({
       (value) => {
         state.isShowPanel = value;
         updatePanelRight();
-      },
+      }
     );
 
     onMounted(() => {
@@ -345,18 +334,7 @@ const ImagePreview = defineComponent({
     expose({ show, close, togglePanel });
 
     return () => {
-      const {
-        scale,
-        rotate,
-        visible,
-        src,
-        left,
-        top,
-        data,
-        loading,
-        panelRight,
-        type,
-      } = state;
+      const { scale, rotate, visible, src, left, top, data, loading, panelRight, type } = state;
       const imgStyle = {
         transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
       };
@@ -377,16 +355,9 @@ const ImagePreview = defineComponent({
         <div class="k-image-preview-root">
           <div class="k-image-preview" v-show={visible}>
             <transition name="k-image-fade">
-              <div
-                class="k-image-preview-mask"
-                onClick={close}
-                v-show={visible}
-              ></div>
+              <div class="k-image-preview-mask" onClick={close} v-show={visible}></div>
             </transition>
-            <div
-              class="k-image-preview-wrap"
-              style={{ right: panelRight + "px" }}
-            >
+            <div class="k-image-preview-wrap" style={{ right: panelRight + "px" }}>
               <transition name="k-image-fade">
                 <ul class="k-image-preview-control" v-show={visible}>
                   <li class="k-image-preview-action-nav">
@@ -402,9 +373,7 @@ const ImagePreview = defineComponent({
                     <Button
                       icon={ChevronForward}
                       type="text"
-                      disabled={
-                        !data.length || data.indexOf(src) == data.length - 1
-                      }
+                      disabled={!data.length || data.indexOf(src) == data.length - 1}
                       onClick={() => switchImage()}
                     />
                   </li>
@@ -477,8 +446,7 @@ const ImagePreview = defineComponent({
                       class={[
                         "k-image-preview-switch-left",
                         {
-                          "k-image-preview-switch-disabled":
-                            data.indexOf(src) == 0,
+                          "k-image-preview-switch-disabled": data.indexOf(src) == 0,
                         },
                       ]}
                       onClick={() => switchImage(1)}
@@ -489,8 +457,7 @@ const ImagePreview = defineComponent({
                       class={[
                         "k-image-preview-switch-right",
                         {
-                          "k-image-preview-switch-disabled":
-                            data.indexOf(src) == data.length - 1,
+                          "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1,
                         },
                       ]}
                       onClick={() => switchImage()}

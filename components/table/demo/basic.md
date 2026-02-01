@@ -8,20 +8,13 @@
   <Table :data="data" :columns="columns" @rowClick="rowClick" :sticky="52">
     <template #tags="{ value }">
       <Space>
-        <Tag
-          v-for="tag in value"
-          :key="tag"
-          :color="tag == 'Python' ? 'green' : 'blue'"
-          >{{ tag }}</Tag
-        >
+        <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">{{
+          tag
+        }}</Tag>
       </Space>
     </template>
     <template #gender="{ value }">
-      <Icon
-        :type="value == 1 ? Sunny : Moon"
-        :color="value == 1 ? 'blue' : '#f50cff'"
-        size="15"
-      />
+      <Icon :type="value == 1 ? Sunny : Moon" :color="value == 1 ? 'blue' : '#f50cff'" size="15" />
     </template>
     <template #action="{ value, record, col }">
       <Button size="small" @click.stop="(e) => show(record)">more</Button>

@@ -37,14 +37,9 @@ const TreeSelect = defineComponent({
     },
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -86,9 +81,7 @@ const TreeSelect = defineComponent({
 
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref(
-      ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]
-    );
+    const currentValue = ref(ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]);
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref();
@@ -208,9 +201,7 @@ const TreeSelect = defineComponent({
       }
     };
     const emitValue = () => {
-      const result = ps.multiple
-        ? currentValue.value
-        : currentValue.value[0] || null;
+      const result = ps.multiple ? currentValue.value : currentValue.value[0] || null;
       emit("input", result);
       emit("change", result);
     };
@@ -366,11 +357,7 @@ const TreeSelect = defineComponent({
 
     const queryKeydown = ({ key }) => {
       if (key === "Backspace") {
-        if (
-          queryKey.value == "" &&
-          ps.multiple &&
-          currentValue.value.length > 0
-        ) {
+        if (queryKey.value == "" && ps.multiple && currentValue.value.length > 0) {
           currentValue.value = currentValue.value.slice(0, -1);
           emitValue();
           updatePosition();
@@ -415,10 +402,7 @@ const TreeSelect = defineComponent({
               ) : ps.treeData?.length ? (
                 renderTree()
               ) : (
-                <Empty
-                  onClick={emptyClick}
-                  description={locale?.value.k.select.emptyText}
-                />
+                <Empty onClick={emptyClick} description={locale?.value.k.select.emptyText} />
               )}
             </div>
           </transition>
@@ -461,11 +445,7 @@ const TreeSelect = defineComponent({
         },
       };
       const queryNode = (
-        <div
-          v-show={queryInputVisible.value}
-          key="search"
-          class="k-tree-select-search-wrap"
-        >
+        <div v-show={queryInputVisible.value} key="search" class="k-tree-select-search-wrap">
           <input {...queryProps} />
           <span class="k-tree-select-search-mirror" ref={queryInputMirrorRef}>
             {queryKey.value}
@@ -491,16 +471,10 @@ const TreeSelect = defineComponent({
             </span>
           );
         });
-        if (
-          ps.maxTagCount &&
-          ps.maxTagCount > 0 &&
-          tags.length > ps.maxTagCount
-        ) {
+        if (ps.maxTagCount && ps.maxTagCount > 0 && tags.length > ps.maxTagCount) {
           tags = tags.slice(0, ps.maxTagCount);
           tags.push(
-            <span class="k-tree-select-tag">
-              +{labelText.value.length - ps.maxTagCount}...
-            </span>
+            <span class="k-tree-select-tag">+{labelText.value.length - ps.maxTagCount}...</span>
           );
         }
         return tags;
@@ -526,9 +500,7 @@ const TreeSelect = defineComponent({
       const styles = { width: `${ps.width}px` };
 
       const arrowNode =
-        !hasSearchEvent && showArrow ? (
-          <Icon class="k-tree-select-arrow" type={arrowIcon} />
-        ) : null;
+        !hasSearchEvent && showArrow ? <Icon class="k-tree-select-arrow" type={arrowIcon} /> : null;
 
       const classes = [
         "k-tree-select",
@@ -549,11 +521,7 @@ const TreeSelect = defineComponent({
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon
-          class="k-tree-select-clearable"
-          type={CloseCircle}
-          onClick={onClear}
-        />
+        <Icon class="k-tree-select-clearable" type={CloseCircle} onClick={onClear} />
       ) : null;
 
       return (

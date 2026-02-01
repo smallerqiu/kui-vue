@@ -33,14 +33,10 @@ const Empty = defineComponent({
             )}
             {description !== null ? (
               <p class="k-empty-description">
-                {description ||
-                  slots.description?.() ||
-                  locale?.value.k.empty.description}
+                {description || slots.description?.() || locale?.value.k.empty.description}
               </p>
             ) : null}
-            {slots.default ? (
-              <div class="k-empty-footer">{slots.default()}</div>
-            ) : null}
+            {slots.default ? <div class="k-empty-footer">{slots.default()}</div> : null}
           </div>
         </div>
       );

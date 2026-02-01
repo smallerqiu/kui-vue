@@ -1,5 +1,5 @@
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Skeleton = defineComponent({
   name: "Skeleton",
   props: {

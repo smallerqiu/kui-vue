@@ -2,12 +2,7 @@
   <Layout class="root">
     <AppHeader />
     <Layout class="main">
-      <Sider
-        :class="[
-          'docs-k-layout-sider',
-          { 'docs-k-layout-sider-show': showMiniNav },
-        ]"
-      >
+      <Sider :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]">
         <Button
           size="large"
           :icon="showMiniNav ? Close : MenuIcon"
@@ -21,12 +16,7 @@
           :open-keys="openKeys"
           @select="go"
         >
-          <SubMenu
-            v-for="item in navData"
-            :key="item.key"
-            :title="item.title"
-            :name="item.title"
-          >
+          <SubMenu v-for="item in navData" :key="item.key" :title="item.title" :name="item.title">
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
                 <WebIcon :name="sub.icon" />
@@ -57,9 +47,7 @@
             @click="(e) => link(e, 0)"
           >
             <Icon :type="ChevronBack" />
-            <span class="nav-text">
-              {{ prevNavData.sub }} {{ prevNavData.title }}
-            </span>
+            <span class="nav-text"> {{ prevNavData.sub }} {{ prevNavData.title }} </span>
             <WebIcon :name="prevNavData.icon" />
           </a>
           <a
@@ -69,9 +57,7 @@
             @click="(e) => link(e, 1)"
           >
             <WebIcon :name="nextNavData.icon" />
-            <span class="nav-text">
-              {{ nextNavData.sub }} {{ nextNavData.title }}
-            </span>
+            <span class="nav-text"> {{ nextNavData.sub }} {{ nextNavData.title }} </span>
             <Icon :type="ChevronForward" />
           </a>
         </div>
@@ -86,28 +72,14 @@ import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import WebIcon from "./WebIcon";
 import { routeData, navData } from "../menu";
-import {
-  ChevronBack,
-  ChevronForward,
-  Menu as MenuIcon,
-  Close,
-} from "kui-icons";
+import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
 import { ref, onMounted, getCurrentInstance, reactive } from "vue";
 const { proxy } = getCurrentInstance();
 const showMiniNav = ref(false);
 const nextNavData = reactive({});
 const prevNavData = reactive({});
 const activeName = ref([]);
-const openKeys = [
-  "start",
-  "basic",
-  "layouts",
-  "navigation",
-  "forms",
-  "data",
-  "notices",
-  "other",
-];
+const openKeys = ["start", "basic", "layouts", "navigation", "forms", "data", "notices", "other"];
 const link = (e, t) => {
   e.stopPropagation();
   e.preventDefault();

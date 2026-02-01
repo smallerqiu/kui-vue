@@ -6,11 +6,7 @@
 ```vue
 <template>
   <div style="width:256px">
-    <Button
-      @click="change"
-      :icon="collapsed ? MenuFold : MenuUnfold"
-      type="primary"
-    ></Button>
+    <Button @click="change" :icon="collapsed ? MenuFold : MenuUnfold" type="primary"></Button>
     <br />
     <br />
     <Menu
@@ -63,9 +59,9 @@ const items = [
       { title: "Option 9", key: "4-1-1", icon: Mail },
       { title: "Option 10", key: "4-1-2", icon: Mail },
       { title: "Option 11", key: "4-1-3", icon: Mail },
-      { title: "Option 12", key: "4-1-4", icon: Mail }
-    ]
-  }
+      { title: "Option 12", key: "4-1-4", icon: Mail },
+    ],
+  },
 ];
 </script>
 ```

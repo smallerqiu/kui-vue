@@ -16,27 +16,15 @@
     Button Shape:
     <RadioGroup :options="btnShapes" v-model="btnShape" type="button" />
     Avatar Shape:
-    <RadioGroup
-      :options="avatarShapes"
-      v-model="avatarShape"
-      type="button"
-    />
+    <RadioGroup :options="avatarShapes" v-model="avatarShape" type="button" />
   </Space>
   <br />
   <br />
-  <Space :size="15">
-    Image radius: <Slider v-model="radius" style="width:300px;" />
-  </Space>
+  <Space :size="15"> Image radius: <Slider v-model="radius" style="width:300px;" /> </Space>
   <br />
   <Space :size="15">
     Image Size:
-    <Slider
-      v-model="imgSize"
-      range
-      :min="96"
-      :max="320"
-      style="width:300px;"
-    />
+    <Slider v-model="imgSize" range :min="96" :max="320" style="width:300px;" />
   </Space>
   <br />
   <br />
@@ -47,12 +35,7 @@
   </Space>
   <br />
   <br />
-  <SkeletonButton
-    :animated="animated"
-    :size="size"
-    :shape="btnShape"
-    :block="block"
-  />
+  <SkeletonButton :animated="animated" :size="size" :shape="btnShape" :block="block" />
   <br />
   <br />
   <SkeletonImage :animated="animated" :radius="radius" :size="imgSize" />

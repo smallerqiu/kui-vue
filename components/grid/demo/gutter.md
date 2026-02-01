@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Space  block vertical>
+  <Space block vertical>
     gutter = 10
     <Row :gutter="10" class="row-gutter">
       <Col :span="12"><div>col-12</div></Col>

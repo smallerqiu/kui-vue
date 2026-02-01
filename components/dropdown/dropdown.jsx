@@ -38,14 +38,9 @@ const Dropdown = defineComponent({
     placement: {
       validator(value) {
         return (
-          [
-            "top",
-            "top-left",
-            "top-right",
-            "bottom",
-            "bottom-left",
-            "bottom-right",
-          ].indexOf(value) >= 0
+          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].indexOf(
+            value
+          ) >= 0
         );
       },
       default: "bottom-left",
@@ -93,9 +88,7 @@ const Dropdown = defineComponent({
       const ctx = refSelection.value?.$el || refSelection.value;
       if (!refPopper.value) return;
       if (
-        (!refPopper.value.contains(e.target) &&
-          ctx &&
-          !ctx.contains(e.target)) ||
+        (!refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) ||
         (ps.trigger == "contextmenu" && !refPopper.value.contains(e.target))
       ) {
         visible.value = false;
@@ -221,12 +214,7 @@ const Dropdown = defineComponent({
       const overlay =
         rendered.value && slots.overlay ? (
           <transition name="k-dropdown">
-            <div
-              v-transfer={true}
-              v-resize={updatePosition}
-              v-show={visible.value}
-              {...props}
-            >
+            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
                 {ps.arrow ? (

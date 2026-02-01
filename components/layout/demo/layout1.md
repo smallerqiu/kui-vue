@@ -17,11 +17,7 @@
             </a>
           </Col>
           <Col flex="1">
-            <Menu
-              mode="horizontal"
-              :selectedKeys="['t1']"
-              class="demo-top-menu"
-            >
+            <Menu mode="horizontal" :selectedKeys="['t1']" class="demo-top-menu">
               <MenuItem key="t1">首页</MenuItem>
               <MenuItem key="t2">新闻</MenuItem>
               <MenuItem key="t3">知识库</MenuItem>
@@ -42,9 +38,7 @@
         </Breadcrumb>
         <Content class="demo-back">Conent</Content>
       </Content>
-      <Footer style="background:transparent;">
-        KUI ©2025 Created by chuchur
-      </Footer>
+      <Footer style="background:transparent;"> KUI ©2025 Created by chuchur </Footer>
     </Layout>
   </div>
 </template>

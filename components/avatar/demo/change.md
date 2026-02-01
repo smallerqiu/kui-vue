@@ -6,10 +6,7 @@
 ```vue
 <template>
   <Space>
-    <Avatar
-      size="large"
-      :style="{ backgroundColor: color, verticalAlign: 'middle' }"
-    >
+    <Avatar size="large" :style="{ backgroundColor: color, verticalAlign: 'middle' }">
       {{ text }}
     </Avatar>
     <Button size="small" @click="changeValue">change</Button>

@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Basic from './basic.md';
+import Basic from "./basic.md";
 import Container from "./container.md";
 import Mode from "./mode.md";
 
@@ -16,4 +16,4 @@ export default {
       </div>
     );
   },
-}
+};

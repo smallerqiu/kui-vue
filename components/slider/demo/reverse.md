@@ -11,12 +11,7 @@
       <KSwitch v-model="reverse" size="small" />
     </code>
     <Slider v-model="v1" :reverse="reverse" />
-    <Slider
-      v-model="v2"
-      range
-      :reverse="reverse"
-      :marks="{ 40: '40°C', 50: '50°C' }"
-    />
+    <Slider v-model="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />
   </Space>
 </template>
 <script setup>

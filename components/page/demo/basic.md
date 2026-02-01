@@ -6,19 +6,8 @@
 ```vue
 <template>
   <Space vertical>
-    <Page
-      v-model:page="page"
-      v-model:pageSize="size"
-      :total="50"
-      @change="onChange"
-    />
-    <Page
-      v-model:page="page"
-      v-model:pageSize="size"
-      :total="50"
-      @change="onChange"
-      disabled
-    />
+    <Page v-model:page="page" v-model:pageSize="size" :total="50" @change="onChange" />
+    <Page v-model:page="page" v-model:pageSize="size" :total="50" @change="onChange" disabled />
   </Space>
 </template>
 <script setup>

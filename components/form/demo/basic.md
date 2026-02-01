@@ -18,11 +18,7 @@
       :shape="state.checked ? 'circle' : ''"
     >
       <FormItem label="主题">
-        <Checkbox
-          v-model="state.isLight"
-          label="Light"
-          style="margin-right:8px;"
-        />
+        <Checkbox v-model="state.isLight" label="Light" style="margin-right:8px;" />
         <Checkbox v-model="state.checked" label="Circle" />
       </FormItem>
       <FormItem label="尺寸">

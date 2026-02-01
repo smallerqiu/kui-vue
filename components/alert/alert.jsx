@@ -51,10 +51,7 @@ const Alert = defineComponent({
 
     return () => {
       const iconNode = props.showIcon ? (
-        <Icon
-          type={props.icon ? props.icon : icons[props.type]}
-          class="k-alert-icon"
-        />
+        <Icon type={props.icon ? props.icon : icons[props.type]} class="k-alert-icon" />
       ) : null;
       const closeIcon = props.closable ? (
         <Icon class="k-alert-close" type={Close} onClick={close} />
@@ -62,9 +59,7 @@ const Alert = defineComponent({
       const descriptionNode = props.description ? (
         <div class="k-alert-description">{props.description}</div>
       ) : null;
-      const msgNode = (
-        <div class="k-alert-message">{props.message || slots.default?.()}</div>
-      );
+      const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
 
       return (
         <transition {...transitionProps}>

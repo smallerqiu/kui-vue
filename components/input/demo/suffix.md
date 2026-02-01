@@ -17,7 +17,7 @@ suffix，prefix 扩展
     <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
       <template #suffix>
         <Tooltip title="请咨询管理员">
-          <Button :icon="InformationCircleOutline"  />
+          <Button :icon="InformationCircleOutline" />
         </Tooltip>
       </template>
     </Input>
@@ -37,23 +37,14 @@ suffix，prefix 扩展
         <Select :options="options" clearable value="http"></Select>
       </template>
       <template #suffix>
-        <TreeSelect
-          :tree-data="treeData"
-          clearable
-          style="width:100px"
-        ></TreeSelect>
+        <TreeSelect :tree-data="treeData" clearable style="width:100px"></TreeSelect>
       </template>
     </Input>
   </Space>
 </template>
 <script setup>
 import { ref } from "vue";
-import {
-  InformationCircleOutline,
-  Gift,
-  ShieldCheckmark,
-  PersonOutline,
-} from "kui-icons";
+import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from "kui-icons";
 import { message } from "kui-vue";
 const time = ref(60);
 const timer = ref();

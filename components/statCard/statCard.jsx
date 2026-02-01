@@ -15,9 +15,7 @@ const StatCard = defineComponent({
   setup(props, { slots }) {
     return () => {
       return (
-        <div
-          class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}
-        >
+        <div class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}>
           <div class="k-stat-card-title">{props.title}</div>
           <div class="k-stat-card-items">
             {(props.items || []).map((item, index) => {
@@ -31,16 +29,8 @@ const StatCard = defineComponent({
                       }}
                       value={item.value}
                       duration={item.duration}
-                      precision={
-                        item.precision !== undefined
-                          ? item.precision
-                          : props.precision
-                      }
-                      separator={
-                        item.separator !== undefined
-                          ? item.separator
-                          : props.separator
-                      }
+                      precision={item.precision !== undefined ? item.precision : props.precision}
+                      separator={item.separator !== undefined ? item.separator : props.separator}
                       type={props.statNumberType}
                     />
                   </div>

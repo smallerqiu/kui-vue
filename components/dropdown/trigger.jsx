@@ -15,7 +15,8 @@ export default defineComponent({
           icon={ps.icon}
           {...attrs}
           onMouseenter={() => mouseEnterEvent?.()}
-          onMouseleave={() => mouseLeaveEvent?.()}>
+          onMouseleave={() => mouseLeaveEvent?.()}
+        >
           {slots.default?.()}
         </Button>
       );

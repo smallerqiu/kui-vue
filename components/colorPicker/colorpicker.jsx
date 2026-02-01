@@ -34,14 +34,9 @@ const ColorPicker = defineComponent({
     arrow: Boolean,
     placement: {
       validator(value) {
-        return [
-          "top",
-          "top-left",
-          "top-right",
-          "bottom",
-          "bottom-left",
-          "bottom-right",
-        ].includes(value);
+        return ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].includes(
+          value
+        );
       },
       default: "bottom-left",
     },
@@ -163,9 +158,7 @@ const ColorPicker = defineComponent({
     };
     const renderTriggerText = () => {
       let text = getColor();
-      return ps.showText ? (
-        <div class="k-color-picker-trigger-text">{text}</div>
-      ) : null;
+      return ps.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
     const onUpdate = (color) => {
       currentColor.value = color;
@@ -245,11 +238,7 @@ const ColorPicker = defineComponent({
         <transition name="k-color-picker">
           <div v-transfer={true} v-show={visible.value} {...props}>
             <div class="k-color-picker-body">
-              <Paint
-                hue={currentHue.value}
-                value={currentColor.value}
-                onUpdateRGB={onUpdateRGB}
-              />
+              <Paint hue={currentHue.value} value={currentColor.value} onUpdateRGB={onUpdateRGB} />
               <div class="k-color-picker-bar">
                 <div class="k-color-picker-avatar">
                   <div
@@ -260,10 +249,7 @@ const ColorPicker = defineComponent({
                 <div class="k-color-picker-bar-box">
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
                   {!ps.disabledAlpha ? (
-                    <Alpha
-                      value={currentColor.value}
-                      onUpdateAlpha={onUpdateAlpha}
-                    />
+                    <Alpha value={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
                   ) : null}
                 </div>
               </div>
@@ -274,11 +260,7 @@ const ColorPicker = defineComponent({
                 onUpdateMode={onUpdateMode}
                 onUpdateColorValue={updateColorValue}
               />
-              <Presets
-                onUpdateColor={updateColor}
-                value={ps.presets}
-                color={currentColor.value}
-              />
+              <Presets onUpdateColor={updateColor} value={ps.presets} color={currentColor.value} />
             </div>
             <div class={`k-color-picker-arrow`}>
               <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">

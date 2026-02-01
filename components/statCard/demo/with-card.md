@@ -4,14 +4,9 @@
 
 ```vue
 <template>
-  <Space vertical class="demo-view-fill"> 
+  <Space vertical class="demo-view-fill">
     <Card :bordered="false">
-      <StatNumber
-        v-model="value"
-        prefix="$"
-        suffix="%"
-        style="font-size: 2em;"
-      />
+      <StatNumber v-model="value" prefix="$" suffix="%" style="font-size: 2em;" />
     </Card>
     <Card :bordered="false" title="今日趋势">
       <StatNumber v-model="value" suffix="%" style="font-size: 2em;color:green">
@@ -19,12 +14,7 @@
       </StatNumber>
     </Card>
     <Card :bordered="false" title="昨日趋势">
-      <StatNumber
-        v-model="value"
-        suffix="%"
-        style="font-size: 2em;color: red;"
-        type="rollup"
-      >
+      <StatNumber v-model="value" suffix="%" style="font-size: 2em;color: red;" type="rollup">
         <template #prefix><Icon :type="ArrowDown" /></template>
       </StatNumber>
     </Card>

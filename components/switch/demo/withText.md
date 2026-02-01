@@ -25,14 +25,7 @@
   </Space>
 </template>
 <script setup>
-import {
-  Checkmark,
-  Close,
-  LogoApple,
-  LogoMicrosoft,
-  Airplane,
-  Wifi,
-} from "kui-icons";
+import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
 import { ref } from "vue";
 const checked = ref(false);
 </script>

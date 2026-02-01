@@ -1,5 +1,5 @@
 import { defineComponent, provide } from "vue";
-import { withInstall } from '../utils/vue';
+import { withInstall } from "../utils/vue";
 const Breadcrumb = defineComponent({
   name: "Breadcrumb",
   props: {

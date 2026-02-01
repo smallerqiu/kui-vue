@@ -176,8 +176,7 @@ const Modal = defineComponent({
         document.addEventListener("mouseup", mouseup);
       }
 
-      mousedownIn.value =
-        visible.value && refModal.value && refModal.value.contains(e.target);
+      mousedownIn.value = visible.value && refModal.value && refModal.value.contains(e.target);
     };
 
     return () => {
@@ -227,9 +226,7 @@ const Modal = defineComponent({
               </Button>,
             ];
           }
-          const footerNode = footer ? (
-            <div class="k-modal-footer">{footer}</div>
-          ) : null;
+          const footerNode = footer ? <div class="k-modal-footer">{footer}</div> : null;
 
           contents.push(footerNode);
         }
@@ -265,12 +262,7 @@ const Modal = defineComponent({
             onClick={clickMaskToClose}
           >
             <transition name="k-modal-zoom">
-              <div
-                class="k-modal-inner"
-                ref={refModal}
-                v-show={visible.value}
-                style={style}
-              >
+              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
                 {contentNode}
                 <div tabindex="0"></div>
               </div>

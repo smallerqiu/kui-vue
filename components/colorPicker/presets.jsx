@@ -48,9 +48,7 @@ export default defineComponent({
       if (ps.value.length == 0) return null;
       let color = ps.value.map((c) => (
         <span style={"background-color:" + c} onClick={(e) => updateColor(c)}>
-          {currentColor.value.hexa() == Color(c).hexa() ? (
-            <Icon type={Checkmark} />
-          ) : null}
+          {currentColor.value.hexa() == Color(c).hexa() ? <Icon type={Checkmark} /> : null}
         </span>
       ));
       return <div class="k-color-picker-presets">{color}</div>;
