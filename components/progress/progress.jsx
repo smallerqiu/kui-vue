@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { CheckmarkCircle, CloseCircle, Close, Checkmark } from "kui-icons";
+import { CheckmarkCircle, CloseCircle, Close, Checkmark } from "kui-icons/dist/icons";
 import { defineComponent, watch, ref } from "vue";
 import { withInstall } from "../utils/vue";
 const Progress = defineComponent({

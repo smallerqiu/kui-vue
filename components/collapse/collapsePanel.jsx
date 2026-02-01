@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
-import { ChevronUp } from "kui-icons";
+import { ChevronUp } from "kui-icons/dist/icons";
 import {
   defineComponent,
   ref,

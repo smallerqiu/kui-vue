@@ -7,7 +7,7 @@ import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons";
+import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import {
   ref,

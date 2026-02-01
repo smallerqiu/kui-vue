@@ -6,7 +6,7 @@ import {
   CloseCircle,
   CheckmarkCircle,
   AlertCircle,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {

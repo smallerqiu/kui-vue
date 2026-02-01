@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
 import { withInstall } from "../utils/vue.js";
-import CountUp from "./countup.jsx";
-import RollUp from "./rollup.jsx";
+import CountUp from "./statup/countup.jsx";
+import RollUp from "./statup/rollup.jsx";
 const StatNumber = defineComponent({
   name: "StatNumber",
   props: {

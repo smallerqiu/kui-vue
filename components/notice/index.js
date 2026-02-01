@@ -23,12 +23,6 @@ let Notice = {
       noticeInstance = null;
     }
   },
-  install(app) {
-    // app.provide("notice", Notice);
-    // 可选：同时挂到 globalProperties 兼容 this.$notice
-    // app.config.globalProperties.$notice = Notice;
-    app.prototype.$notice = Notice;
-  },
 };
 
 ["info", "success", "warning", "error"].forEach((type) => {

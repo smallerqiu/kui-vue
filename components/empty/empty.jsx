@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { FileTrayOutline } from "kui-icons";
+import { FileTrayOutline } from "kui-icons/dist/icons";
 import zhCN from "../locale/zh-CN";
 import { defineComponent, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";

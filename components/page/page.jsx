@@ -6,7 +6,7 @@ import {
   ChevronDoubleBack,
   Ellipsis,
   ChevronDoubleForward,
-} from "kui-icons";
+} from "kui-icons/dist/icons";
 import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
 import { withInstall } from "../utils/vue";
 

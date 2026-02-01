@@ -1,6 +1,6 @@
 import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import Color from "color";
-import { Checkmark } from "kui-icons";
+import { Checkmark } from "kui-icons/dist/icons";
 import Icon from "../icon";
 export default defineComponent({
   name: "Presets",

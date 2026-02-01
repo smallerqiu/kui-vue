@@ -95,6 +95,7 @@
     background-color: var(--kui-color-bg-component);
     outline: 2px solid transparent;
     outline-offset: 1px;
+    flex-shrink: 0;
     &:after {
       box-sizing: content-box;
       width: 0;
@@ -132,6 +133,8 @@
   .k-radio-label {
     font-size: 14px;
     margin-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 .k-radio-light {

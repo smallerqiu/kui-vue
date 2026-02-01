@@ -1,6 +1,6 @@
 import { Button } from "../button";
 import transfer from "../directives/transfer";
-import { Close } from "kui-icons";
+import { Close } from "kui-icons/dist/icons";
 import { getMousePoint } from "../config/context";
 import {
   defineComponent,
@@ -13,7 +13,6 @@ import {
   inject,
 } from "vue";
 import zhCN from "../locale/zh-CN";
-import { withInstall } from "../utils/vue";
 const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
@@ -282,4 +281,4 @@ const Modal = defineComponent({
     };
   },
 });
-export default withInstall(Modal);
+export default Modal;

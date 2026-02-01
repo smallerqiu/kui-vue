@@ -97,6 +97,7 @@ const items = [
       { key: "/start/theme", title: "主题" },
       { key: "/start/dark-mode", title: "暗黑模式" },
       { key: "https://v2.k-ui.cn/", title: "v2.x 文档" },
+      { key: "https://k-ui.cn/", title: "v4.x 文档" },
       { key: "https://react.k-ui.cn/", title: "For React 文档" },
       { key: "https://chuchur.com/", title: "Blog" },
     ],

@@ -8,7 +8,7 @@ import {
 } from "vue";
 import Icon from "../icon";
 import newInstance from "./instance";
-import { Loading, IconImage, EyeOutline } from "kui-icons";
+import { Loading, IconImage, EyeOutline } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import { loadImage } from "./utils";
 
