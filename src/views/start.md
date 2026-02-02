@@ -29,15 +29,16 @@ $ yarn add kui-vue
 import { createApp } from "vue";
 import App from "./App.vue";
 import kui from "kui-vue";
+
+// 引入样式
 import "kui-vue/dist/k-ui.css";
 
 const app = createApp(App);
-app.component("Demo", Demo);
 
 app.use(kui).mount("#app");
 ```
 
-以上代码便完成了 K UI 的引入。注意: 样式文件需要单独引入。
+以上代码便完成了 KUI 的引入。注意: 样式文件需要单独引入。
 
 ### 使用规范
 
@@ -45,7 +46,10 @@ app.use(kui).mount("#app");
 
 ```html
 <template>
-  <div><button type="primary"></button> ✅ 推荐 <k-button type="primary"></k-button> ✅</div>
+  <div>
+    <KButton type="primary">button</KButton> ✅ 推荐 
+    <k-button type="primary">button</k-button> ✅
+  </div>
 </template>
 ```
 
@@ -54,9 +58,11 @@ app.use(kui).mount("#app");
 ```html
 <template>
   <div>
-    <KSwitch type="primary"></KSwitch> ✅ 推荐 <KImage></KImage> ✅
+    <KSwitch type="primary"/> ✅ 推荐 
+    <KImage src="xxx" /> ✅
     <!-- ok -->
-    <k-switch type="primary"></k-switch> ✅ <k-image></k-image> ✅
+    <k-switch type="primary" /> ✅ 
+    <k-image src="xxx" /> ✅
   </div>
 </template>
 ```
