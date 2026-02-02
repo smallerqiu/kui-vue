@@ -2,6 +2,7 @@
 
 ![kui](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
 
+4.x 版本支持Vue3, 基于Vue2 的文档请参阅 <https://v3.k-ui.cn>
 遇到问题,请在 [Gitee](https://gitee.com/chuchur/kui-vue/issues) 提issue
 
 ```bash
@@ -18,13 +19,22 @@ rm -rf node_modules/.vite
 
 4.0 版本正在开发中，支持Vue3，后续基于Vue2的版本将不再维护。
 
-## 3.6.1
+## 3.6.10
 
-`2025-12-19`
+`2026-2-1`
 
-- 修复 Select, Table 细节
+- 细节优化调整
 
-## More
+## 3.6.9
+
+`2026-1-25`
+
+- Page 的页码属性由current改为page
+- Image 调整,增加页签
+- Slider 隐藏提示修复
+- 其它细节优化
+
+### More
 
 - 更多更新日志，请查看[V3版本](https://v3.k-ui.cn/#/log)
 
