@@ -1,5 +1,4 @@
-// import { inject } from "vue";
-import newInstance from "../message/instance";
+import { newInstance } from "../message/instance";
 import { withInstall } from "../utils/vue";
 let noticeInstance;
 
@@ -12,14 +11,14 @@ let Notice = {
     }
     options.noticeType = "notice";
     if (!noticeInstance) {
-      noticeInstance = newInstance({ props: { type: "notice" } }, context);
+      noticeInstance = newInstance({ type: "notice", key: "notice" }, context);
     }
     noticeInstance.show(options);
   },
   destroy() {
     if (noticeInstance) {
+      noticeInstance.clean();
       noticeInstance.destroy();
-      document.body.removeChild(noticeInstance.$el);
       noticeInstance = null;
     }
   },

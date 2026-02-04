@@ -8,11 +8,11 @@
 <template>
   <Space style="max-width:520px;" vertical block>
     <code>show %</code>
-    <Slider :tipFormatter="(v) => `${v}%`" :value="20" />
+    <Slider :tipFormatter="(v) => `${v}%`" :modelValue="20" />
     <code>hide tooltip</code>
-    <Slider :tooltipVisible="false" :value="20" />
+    <Slider :tooltipVisible="false" :modelValue="20" />
     <code>show tooltip for ever</code>
-    <Slider :value="70" :tooltipVisible="true" />
+    <Slider :modelValue="70" :tooltipVisible="true" />
   </Space>
 </template>
 ```

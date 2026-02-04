@@ -16,7 +16,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const value = ref("");
+const value = ref("123");
 const blur = () => {
   console.log("blur");
 };

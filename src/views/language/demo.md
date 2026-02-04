@@ -81,8 +81,8 @@
             </FormItem>
           </Form>
         </Space>
-        <Modal v-model:visible="visible" title="Basic Modal" />
-        <Drawer v-model:visible="visible1" title="Basic Drawer" />
+        <Modal v-model="visible" title="Basic Modal" />
+        <Drawer v-model="visible1" title="Basic Drawer" />
       </Space>
     </ConfigProvider>
   </Space>
@@ -128,7 +128,7 @@ const loading = ref(false);
 const visible = ref(false);
 const visible1 = ref(false);
 
-const labelCol = { span: 8 };
+const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 
 const form = reactive({
@@ -163,9 +163,9 @@ const showModal = () => {
 const openDrawer = () => {
   visible1.value = true;
 };
+
 const showInfo = () => {
-  modal.show({
-    type: "info",
+  modal.info({
     title: "Hello",
     content: "modal info.",
     onOk: () => {
@@ -175,13 +175,13 @@ const showInfo = () => {
 };
 const showConfirm = () => {
   modal.confirm({
-    title: "Please confirm",
-    content: "This operation is irreversible, caution!!!!",
+    title: "您确认要这么做吗",
+    content: "此操作不可逆转，谨慎！！！",
     onOk: () => {
-      message.success("ok");
+      message.success("你点了确认");
     },
     onCancel: () => {
-      message.info("cancel");
+      message.info("你点了取消");
     },
   });
 };

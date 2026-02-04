@@ -1,4 +1,5 @@
 import { Button } from "../button";
+import Icon from "../icon";
 import transfer from "../directives/transfer";
 import { Close } from "kui-icons/dist/icons";
 import {
@@ -6,7 +7,8 @@ import {
   inject,
   nextTick,
   ref,
-  /*Transition,*/ watch,
+  Transition,
+  watch,
   onMounted,
   onBeforeUnmount,
   computed,
@@ -14,12 +16,11 @@ import {
 import zhCN from "../locale/zh-CN";
 import { withInstall } from "../utils/vue";
 import { toggleContainerScroll } from "../utils/vnode";
-
 const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
   props: {
-    value: Boolean,
+    modelValue: Boolean,
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
     height: { default: 520, type: [Number, String] },
@@ -42,11 +43,11 @@ const Drawer = defineComponent({
         ? injectedLocale.value
         : injectedLocale;
     });
-    const rendered = ref(ps.value);
-    const visible = ref(ps.value);
-    const opened = ref(ps.value);
+    const rendered = ref(ps.modelValue);
+    const visible = ref(ps.modelValue);
+    const opened = ref(ps.modelValue);
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (nv, ov) => {
         if (nv) {
           toggle(nv);
@@ -63,7 +64,6 @@ const Drawer = defineComponent({
     });
 
     const toggle = (value) => {
-      toggleContainerScroll(ps.target(), value);
       if (!rendered.value && value) {
         rendered.value = true;
         toggle(true);
@@ -72,14 +72,14 @@ const Drawer = defineComponent({
           nextTick((e) => {
             visible.value = value;
             opened.value = value;
-            emit("input", true);
+            emit("update:modelValue", true);
           });
         } else {
           visible.value = false;
           setTimeout(() => {
             opened.value = false;
           }, 300);
-          emit("input", false);
+          emit("update:modelValue", false);
         }
       }
     };
@@ -97,6 +97,7 @@ const Drawer = defineComponent({
 
     const cancel = () => {
       emit("cancel");
+      visible.value = false;
       toggle(false);
     };
 
@@ -149,23 +150,24 @@ const Drawer = defineComponent({
         styles.width = typeof width === "number" ? `${width}px` : width;
       if (placement == "top" || placement == "bottom")
         styles.height = typeof height === "number" ? `${height}px` : height;
+
       let maskNode = null;
       if (ps.mask) {
         maskNode = (
-          <transition name="k-drawer-fade">
+          <Transition name="k-drawer-fade">
             <div
               class={["k-drawer-mask", { "k-drawer-mask-to-body": isBody }]}
               v-show={visible.value}
               onClick={clickMaskToClose}
             ></div>
-          </transition>
+          </Transition>
         );
       }
       return rendered.value ? (
         <div class={classes} v-transfer={target}>
           {maskNode}
           <div class="k-drawer-wrap" tabindex="-1" v-show={opened.value}>
-            <transition name={transitionName}>
+            <Transition name={transitionName}>
               <div class="k-drawer-box" v-show={visible.value} style={styles}>
                 <div class="k-drawer-content">
                   <div class="k-drawer-header">
@@ -176,7 +178,7 @@ const Drawer = defineComponent({
                   {footNode}
                 </div>
               </div>
-            </transition>
+            </Transition>
           </div>
         </div>
       ) : null;

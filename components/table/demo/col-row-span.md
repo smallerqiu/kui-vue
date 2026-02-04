@@ -1,7 +1,7 @@
 <cn>
-### 表格行/列合并
-表头只支持列合并，使用 column 里的 colSpan 进行设置。
-表格支持行/列合并，使用 render 里的单元格属性 colSpan 或者 rowSpan 设值为 0 时，设置的表格不会渲染。
+### Table Row/Column Span
+Headers support only column spanning; use colSpan inside column definitions to configure.
+The table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.
 </cn>
 
 ```vue
@@ -22,7 +22,7 @@ const columns = [
     key: "name",
     width: 100,
     // 第三行第一列向下合并一行
-    rowSpan: (record, index) => (index == 2 ? 3 : 1),
+    rowSpan: (record, index) => (index == 2 ? 2 : 1),
   },
   {
     title: "年龄",

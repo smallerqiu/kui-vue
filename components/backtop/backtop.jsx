@@ -2,7 +2,7 @@ import Icon from "../icon";
 import scroll from "../directives/scroll";
 import { ArrowUp } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, Transition } from "vue";
 const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },
@@ -48,7 +48,7 @@ const BackTop = defineComponent({
     };
     return () => {
       return (
-        <transition name="k-backtop-fade">
+        <Transition name="k-backtop-fade">
           <div
             class="k-backtop"
             onClick={onClick}
@@ -58,7 +58,7 @@ const BackTop = defineComponent({
           >
             {children}
           </div>
-        </transition>
+        </Transition>
       );
     };
   },

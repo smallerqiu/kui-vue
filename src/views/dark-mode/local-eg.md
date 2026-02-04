@@ -69,11 +69,11 @@
                 :wrapperCol="{ span: 16 }"
                 :size="size"
                 :theme="theme ? 'light' : ''"
-                :shape="checked ? 'circle' : ''"
+                :shape="isCircle ? 'circle' : ''"
               >
                 <FormItem label="主题">
                   <Checkbox v-model="theme" label="Light" style="margin-right:8px;" />
-                  <Checkbox v-model="checked" label="Circle" />
+                  <Checkbox v-model="isCircle" label="Circle" />
                 </FormItem>
                 <FormItem label="尺寸">
                   <RadioGroup v-model="size" type="button">
@@ -151,7 +151,7 @@ const collapsed = ref(false);
 const dark = ref(false);
 const size = ref("default");
 const theme = ref(false);
-const checked = ref(false);
+const isCircle = ref(false);
 const shape = ref("");
 const change = () => {
   dark.value = !dark.value;

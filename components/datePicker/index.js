@@ -1,2 +1,2 @@
-import DatePicker from "./datepicker.jsx";
+import DatePicker from "./datePicker.jsx";
 export { DatePicker };

@@ -2,6 +2,10 @@
 ### 基本用法
 默认选中第一项。
 </cn>
+<en>
+### Basic Usage
+The first item is selected by default.
+</en>
 
 ```vue
 <template>

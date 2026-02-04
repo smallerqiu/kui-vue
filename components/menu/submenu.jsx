@@ -5,16 +5,16 @@ import {
   inject,
   getCurrentInstance,
   onMounted,
-  // cloneVNode,
+  cloneVNode,
   nextTick,
-  // Transition, //for 3
+  Transition,
 } from "vue";
 import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
 import transfer from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 
 const SubMenu = defineComponent({
   name: "SubMenu",
@@ -33,8 +33,7 @@ const SubMenu = defineComponent({
     const left = ref(0);
     const minWidth = ref("");
     const instance = getCurrentInstance();
-    // const key = instance.vnode.key; //for 3
-    const key = instance.proxy.$vnode.key;
+    const key = instance.vnode.key;
     const mode = inject("menu-mode", null);
     const selectedKeys = inject("menu-selected-keys", ref([]));
     const openKeys = inject("menu-open-keys", ref([]));
@@ -122,49 +121,37 @@ const SubMenu = defineComponent({
       }
       const popperPros = {
         ref: refPopper,
-        attrs: { "k-placement": currentPlacement.value },
+        "k-placement": currentPlacement.value,
         style: {
           minWidth: mode.value == "horizontal" ? minWidth.value : null,
           top: top.value + "px",
           left: leftValue + "px",
           transformOrigin: transOrigin.value,
         },
-        // onMouseenter: () => {
-        //   clearCurrentPopTimer();
-        //   openKeysChange?.(key, true, keyPah);
-        //   clearPopTimer?.();
-        // },
-        // onMouseleave: () => {
-        //   hideCurrentPopTimer();
-        //   hidePopTimer?.();
-        // },
-        on: {
-          mouseenter: () => {
-            clearCurrentPopTimer();
-            openKeysChange?.(key, true, keyPah);
-            clearPopTimer?.();
-          },
-          mouseleave: () => {
-            hideCurrentPopTimer();
-            hidePopTimer?.();
-          },
+        onMouseenter: () => {
+          clearCurrentPopTimer();
+          openKeysChange?.(key, true, keyPah);
+          clearPopTimer?.();
+        },
+        onMouseleave: () => {
+          hideCurrentPopTimer();
+          hidePopTimer?.();
         },
       };
       const children = getChildren(slots.default?.());
       const menuItems = children.map((child) => {
         // if (child.type.name == "MenuItem") {
-        // return cloneVNode(child, { isPopup: true }); //for 3
-        return cloneVNode(child, { props: { isPopup: true } }, true);
+        return cloneVNode(child, { isPopup: true }); //for 3
         // }
       });
       return rendered.value ? (
-        <transition name={`k-${preCls}-popup`}>
+        <Transition name={`k-${preCls}-popup`}>
           <div class={`k-${preCls}-popup`} v-show={opened} v-transfer={true} {...popperPros}>
             <div class={`k-${preCls}-sub`}>
               <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
             </div>
           </div>
-        </transition>
+        </Transition>
       ) : null;
     };
     const renderSubmenu = () => {
@@ -175,14 +162,14 @@ const SubMenu = defineComponent({
       if (inline) {
         const transitionProps = getTransitionProp("k-collapse-slide");
         const node = [
-          <transition {...transitionProps}>
+          <Transition {...transitionProps}>
             <div
               class={`k-${preCls}-sub`}
               v-show={opened && !inlineCollapsed.value && mode.value != "vertical"}
             >
               <ul class={`k-menu k-menu-${mode.value}`}>{slots.default?.()}</ul>
             </div>
-          </transition>,
+          </Transition>,
         ];
         if (inlineCollapsed.value || mode.value == "vertical") {
           node.push(renderPopper());
@@ -199,25 +186,21 @@ const SubMenu = defineComponent({
       let titleProps = {
         class: `k-${preCls}-title`,
         style: {},
-        on: {},
       };
       if (mode.value == "inline" && !inlineCollapsed.value) {
-        // titleProps.onClick = () => {
-        titleProps.on.click = () => {
+        titleProps.onClick = () => {
           if (ps.disabled) return;
           openKeysChange?.(key, !opened, keyPah);
         };
       } else if (mode.value == "horizontal" || mode.value == "vertical" || inlineCollapsed.value) {
         // popper
         titleProps.ref = refSelection;
-        // titleProps.onMouseenter = () => { for 3
-        titleProps.on.mouseenter = () => {
+        titleProps.onMouseenter = () => {
           if (ps.disabled) return;
           clearCurrentPopTimer();
           showPopper();
         };
-        // titleProps.onMouseleave = () => {
-        titleProps.on.mouseleave = () => {
+        titleProps.onMouseleave = () => {
           if (ps.disabled) return;
           popTimer.value = setTimeout(() => {
             openKeysChange?.(key, false, keyPah);

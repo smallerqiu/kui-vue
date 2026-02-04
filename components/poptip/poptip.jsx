@@ -1,7 +1,9 @@
 import {
   defineComponent,
-  /*Transition,*/ ref,
-  /*cloneVNode,*/ nextTick,
+  Transition,
+  ref,
+  cloneVNode,
+  nextTick,
   watch,
   onMounted,
   onBeforeMount,
@@ -9,7 +11,7 @@ import {
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
 import { setPlacement } from "../utils/placement";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 import { placements } from "../const/var";
 const Poptip = defineComponent({
   name: "Poptip",
@@ -133,31 +135,25 @@ const Poptip = defineComponent({
       ];
       const wpProps = {
         ref: refSelection,
-        // onMouseleave: hide, //for 3
-        on: { mouseleave: hide },
+        onMouseleave: hide, //for 3
       };
       if (ps.trigger === "click") {
         // wpProps.onClick = show; for
-        wpProps.on.click = show;
+        wpProps.onClick = show;
       } else if (ps.trigger === "hover") {
-        // wpProps.onMouseenter = show;
-        wpProps.on.mouseenter = show;
+        wpProps.onMouseenter = show;
       } else if (ps.trigger === "focus") {
-        // wpProps.onFocus = show;
-        // wpProps.onBlur = hide;
-        wpProps.on.focus = show;
-        wpProps.on.blur = hide;
+        wpProps.onFocus = show;
+        wpProps.onBlur = hide;
       }
       const children = getChildren(slots.default?.());
       const nodes = children?.map((node) => {
-        // let pp = { ...attrs };
-        let pp = { attrs: { ...attrs } };
+        let pp = { ...attrs };
 
         if (children.length == 1) {
           pp = { ...pp, ...wpProps };
         }
-        // return cloneVNode(node, pp, true, true); //for 3
-        return cloneVNode(node, pp, true);
+        return cloneVNode(node, pp, true, true);
       });
       const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
 
@@ -166,66 +162,51 @@ const Poptip = defineComponent({
         top: `${top.value}px`,
         transformOrigin: transOrigin.value,
       };
-      // const childNodes = [nodeWrapper];
+      const childNodes = [nodeWrapper];
       const props = {
-        // "k-placement": currentPlacement.value, //for 3
-        attrs: { "k-placement": currentPlacement.value },
+        "k-placement": currentPlacement.value,
         style: styles,
         ref: refPopper,
-        on: {
-          mouseenter: () => {
-            clearTimeout(hideTimer.value);
-            updateShow(true);
-          },
-          mouseleave: () => {
-            showTimer.value = setTimeout(() => {
-              if (!ps.show) {
-                updateShow(false);
-              }
-            }, 300);
-          },
+        onMouseenter: () => {
+          clearTimeout(hideTimer.value);
+          updateShow(true);
         },
-        // onMouseenter: () => {
-        //   clearTimeout(hideTimer.value);
-        //   updateShow(true);
-        // },
-        // onMouseleave: () => {
-        //   showTimer.value = setTimeout(() => {
-        //     if (!ps.show) {
-        //       updateShow(false);
-        //     }
-        //   }, 300);
-        // },
+        onMouseleave: () => {
+          showTimer.value = setTimeout(() => {
+            if (!ps.show) {
+              updateShow(false);
+            }
+          }, 300);
+        },
       };
-      // if (rendered.value) {
-      // childNodes.push(
-      const overlay = rendered.value ? (
-        <transition name={`k-${preCls}`}>
-          <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
-            <div class={`k-${preCls}-content`}>
-              {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
-              <div class={`k-${preCls}-body`}>{content}</div>
-              <div class={`k-${preCls}-arrow`}>
-                <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                  <path
-                    id="ot"
-                    d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                  />
-                  <path
-                    stroke="currentcolor"
-                    id="in"
-                    d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                  />
-                </svg>
+      if (rendered.value) {
+        childNodes.push(
+          // const overlay = rendered.value ? (
+          <Transition name={`k-${preCls}`}>
+            <div class={cls} v-transfer={true} v-show={visible.value} {...props}>
+              <div class={`k-${preCls}-content`}>
+                {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
+                <div class={`k-${preCls}-body`}>{content}</div>
+                <div class={`k-${preCls}-arrow`}>
+                  <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                    <path
+                      id="ot"
+                      d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
+                    <path
+                      stroke="currentcolor"
+                      id="in"
+                      d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-        </transition>
-      ) : null;
-      // );
-      // }
-      // return <>{...childNodes}</>; //for 3
-      return cloneVNode(nodeWrapper, {}, true, overlay);
+          </Transition>
+          // ) : null;
+        );
+      }
+      return childNodes; //for 3
     };
   },
 });

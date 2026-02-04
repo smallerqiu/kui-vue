@@ -1,7 +1,11 @@
 <cn>
 ### 图标
 可以设置 icon 属性，或者直接在 Tag 内使用 Icon 组件。
-</cn>
+ </cn>
+<en>
+### Icons
+You can set the icon prop, or use the Icon component directly inside Tag.
+</en>
 
 ```vue
 <template>

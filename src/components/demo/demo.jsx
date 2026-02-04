@@ -1,16 +1,11 @@
 import { Icon, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
-import { defineComponent, ref, getCurrentInstance, onMounted } from "vue";
+import { defineComponent, ref, reactive, onMounted, onBeforeUnmount, Transition } from "vue";
 import { parseCode } from "./transform";
 import { useClipboard } from "@vueuse/core";
 const { copy, isSupported } = useClipboard();
-// import {
-//   parse,
-//   compileTemplate,
-//   compileScript,
-//   compileStyle,
-// } from "@vue/compiler-sfc";
+
 const Demo = defineComponent({
   name: "Demo",
   props: {
@@ -22,34 +17,63 @@ const Demo = defineComponent({
   },
   setup(props, { slots }) {
     const expanded = ref(props.direction == "vertical" ? false : true);
-    const { proxy } = getCurrentInstance();
     const codeRef = ref(null);
     const codeOrigin = ref(null);
     const viewRef = ref(null);
     const timer = ref(null);
+    const buildState = reactive({
+      text: "实时编译成功",
+      state: "success",
+    });
 
+    const error = ref("");
+
+    const currentApp = ref(null);
     const reload = () => {
-      parseCode(codeRef.value?.innerText, viewRef, props.id);
+      const source = codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
+      parseCode({
+        source: source,
+        viewRef,
+        error,
+        currentApp,
+        id: props.id || "default",
+        buildState,
+      });
     };
 
     const renderCode = async () => {
-      return;
+      buildState.text = "编译中...";
+      buildState.state = "default";
       clearTimeout(timer.value);
       timer.value = setTimeout(() => {
-        parseCode(codeRef.value?.innerText, viewRef, props.id);
+        reload();
       }, 500);
     };
+    const restoreCode = () => {
+      codeRef.value.innerHTML = codeOrigin.value;
+      reload();
+    };
     const copyCode = () => {
-      copy(codeRef.value?.innerText)
-        .then(() => {
-          message.success("Copied!");
-        })
-        .catch(() => {
-          message.error("复制代码失败，请手动复制");
-        });
+      if (isSupported) {
+        copy(codeRef.value?.innerText)
+          .then((res) => {
+            message.success("Copied!");
+          })
+          .catch(() => {
+            message.error("复制代码失败，请手动复制");
+          });
+      } else {
+        message.error("请手动复制");
+      }
     };
     onMounted(() => {
-      codeOrigin.value = codeRef.value?.innerText;
+      codeOrigin.value = codeRef.value?.innerHTML;
+    });
+    onBeforeUnmount(() => {
+      if (currentApp.value) {
+        currentApp.value.unmount();
+        currentApp.value = null;
+      }
     });
     return () => {
       const transitionProps = getTransitionProp();
@@ -61,40 +85,37 @@ const Demo = defineComponent({
         </div>
       );
       const codeNode = (
-        <transition {...transitionProps}>
+        <Transition {...transitionProps}>
           <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
             {!vertical ? (
               <div class="k-code-tools">
-                {/* <Badge status="success" text="实时编译成功" /> */}
+                <Badge status={buildState.state} text={buildState.text} />
                 <Tooltip title="复制代码">
                   <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
                 </Tooltip>
-                {/* <Tooltip title="重置代码">
-                <Button
-                  type="text"
-                  size="small"
-                  icon={Reload}
-                  onClick={reload}
-                />
-              </Tooltip> */}
+                <Tooltip title="重置代码">
+                  <Button type="text" size="small" icon={Reload} onClick={restoreCode} />
+                </Tooltip>
               </div>
             ) : null}
             <div ref={codeRef} class="k-code k-scroll">
               {slots.code?.()}
             </div>
           </div>
-        </transition>
+        </Transition>
       );
+      const scopeIdAttr = `data-v-${props.id}`;
+      let refProps = {
+        class: `k-content k-scroll k-demo-view-${props.id}`,
+        ref: viewRef,
+        [scopeIdAttr]: "",
+      };
       return (
         <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
           {descNode}
-          {/* {!vertical && descNode} */}
           <div class={classes}>
             <div class={`k-demo-view k-demo-view-${props.direction}`}>
-              <div class="k-content k-scroll" ref={viewRef}>
-                {slots.component?.()}
-              </div>
-              {/* {vertical && descNode} */}
+              <div {...refProps}>{slots.component?.()}</div>
             </div>
             {vertical && codeNode}
 

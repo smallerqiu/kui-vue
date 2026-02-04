@@ -1,7 +1,7 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, watch, inject } from "vue";
 import Icon from "../icon";
 import newInstance from "./instance";
-import { Loading, IconImage, EyeOutline } from "kui-icons/dist/icons";
+import { Loading, IconImage } from "kui-icons/dist/icons";
 import { withInstall } from "../utils/vue";
 import { loadImage } from "./utils";
 
@@ -37,13 +37,13 @@ const KImage = defineComponent({
       }
     };
     // global api
-    const show = (props) => {
+    const show = (props, slots) => {
       if (ImageGroup) {
-        ImageGroup.show(props);
+        ImageGroup.show(props, slots);
         return;
       }
       if (!preview.value) {
-        preview.value = newInstance({ ...props });
+        preview.value = newInstance({ ...props }, null, slots);
       }
       preview.value.show(props);
     };
@@ -51,7 +51,7 @@ const KImage = defineComponent({
     // global api
     const destroy = () => {
       if (preview.value) {
-        document.body.removeChild(preview.value.$el);
+        preview.value.destroy();
         preview.value = null;
       }
       if (ImageGroup) {
@@ -65,26 +65,20 @@ const KImage = defineComponent({
       const { origin, src } = props;
       if ((!src && !origin) || showPlaceholder.value || loading.value) return;
       const options = {
-        on: {
-          close: () => {
-            emit("close");
-            setTimeout(() => {
-              destroy();
-            }, 200);
-          },
-          switch: (index) => {
-            emit("switch", index);
-          },
+        onClose: () => {
+          emit("close");
+          setTimeout(() => {
+            destroy();
+          }, 200);
         },
-        props: {
-          src: origin || src,
-          showPanel: props.showPanel,
-          type: props.type,
+        onSwitch: (index) => {
+          emit("switch", index);
         },
-        scopedSlots: { ...slots },
+        src: origin || src,
+        showPanel: props.showPanel,
+        type: props.type,
       };
-
-      show(options);
+      show(options, slots);
       e.preventDefault();
     };
 
@@ -139,16 +133,14 @@ const KImage = defineComponent({
           height: height ? `${height}px` : undefined,
         },
         class: "k-image",
-        on: { click: showPreview },
+        onClick: showPreview,
       };
 
       const imgProps = {
         style: imgStyle,
         class: "k-image-img",
-        attrs: {
-          alt: alt,
-          src: imageUrl.value,
-        },
+        alt: alt,
+        src: imageUrl.value,
       };
       const nodes = [];
 

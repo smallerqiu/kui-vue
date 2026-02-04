@@ -1,5 +1,5 @@
 /**
- * 自动为 Vue 2 + JSX 组件库生成类型声明 (.d.ts)
+ * 自动为 Vue 3 + JSX 组件库生成类型声明 (.d.ts)
  * 入口文件模式：只解析每个组件目录中的 index.js
  */
 
@@ -169,9 +169,7 @@ function genDts(name, props) {
       const def = p.hasDefault ? `/** default: ${p.defaultVal} */\n  ` : "  ";
       let t = p.type;
 
-      if (t.includes("|") && t.includes("=>")) {
-        t = t.replace(/\(\.\.\.args: any\[\]\) => any/g, "((...args: any[]) => any)");
-      } else if (t.includes("=>") && !t.includes("|")) {
+      if (t.includes("=>")) {
         t = "((...args: any[]) => any)";
       }
 
@@ -180,21 +178,19 @@ function genDts(name, props) {
     .join("\n");
 
   return `
-import Vue, { VueConstructor } from "vue";
+import type { DefineComponent } from "vue";
 
 /** ${name} component props */
 export interface ${name}Props {
 ${propsContent}
 }
 
-/** ${name} component instance */
-export interface ${name} extends Vue {
-  $props: ${name}Props;
-  $emit(event: string, ...args: any[]): this;
-}
-
-/** ${name} Vue component type */
-declare const ${name}: VueConstructor<${name}>;
+/** ${name} Vue 3 component */
+declare const ${name}: DefineComponent<
+  ${name}Props,
+  {},
+  any
+>;
 
 export default ${name};
 `;

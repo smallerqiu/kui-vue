@@ -1,7 +1,11 @@
 <cn>
 ### 可勾选
 设置属性 `checkable` 可以对节点进行勾选。
-</cn>
+ </cn>
+<en>
+### Checkable
+Setting the `checkable` attribute allows checking nodes.
+</en>
 
 ```vue
 <template>

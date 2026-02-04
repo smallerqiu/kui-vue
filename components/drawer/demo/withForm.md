@@ -101,7 +101,7 @@ const rules = {
 };
 
 const submitForm = () => {
-  refForm.value.validate((valid) => {
+  refForm.value.validate(({ valid }) => {
     if (valid) {
       message.success("验证通过");
       show1.value = false;

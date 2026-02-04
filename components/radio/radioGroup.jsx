@@ -7,12 +7,7 @@ import { getChildren } from "../utils/vnode";
 const RadioGroup = defineComponent({
   name: "RadioGroup",
   props: {
-    // [Vue 3 Upgrade]: del
-    // modelValue: { type: [String, Number, Boolean], default: "" },
-
-    // [Vue 3 Upgrade]: Vue 2 use v-model
-    value: { type: [String, Number, Boolean], default: "" },
-
+    modelValue: { type: [String, Number, Boolean], default: "" },
     disabled: Boolean,
     direction: {
       type: String,
@@ -30,16 +25,14 @@ const RadioGroup = defineComponent({
     type: String, // 'button' or default
   },
   setup(props, { slots, emit }) {
-    // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
-    const currentValue = ref(props.value);
+    const currentValue = ref(props.modelValue);
     const onChange = ({ value }) => {
       currentValue.value = value;
-      // [Vue 3 Upgrade]: emit("update:modelValue", val);
-      emit("input", value);
+      emit("update:modelValue", value);
       emit("change", value);
     };
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val) => {
         currentValue.value = val;
       }
@@ -50,14 +43,12 @@ const RadioGroup = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
-          // console.log(child);
-          let { label, value, disabled, icon } = child?.componentOptions?.propsData || {};
-          let { children = [], tag } = child?.componentOptions;
+          let { label, value, disabled, icon } = child.props;
           options.push({
             value,
             icon,
             disabled,
-            label: label || children[0]?.text || value,
+            label: label || child.children?.default()[0].children || value,
           });
         });
       }
@@ -74,7 +65,7 @@ const RadioGroup = defineComponent({
             label={option.label}
             value={option.value}
             onChange={onChange}
-            checked={currentValue?.value === option.value}
+            checked={currentValue.value === option.value}
             disabled={props.disabled || option.disabled}
             icon={option.icon}
             size={props.size}

@@ -1,7 +1,11 @@
 <cn>
 ### 多彩标签
 多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
-</cn>
+ </cn>
+<en>
+### Colorful Tags
+Tags with various preset color styles for different scenarios. If the presets do not meet your needs, you can set a specific color value directly.
+</en>
 
 ```vue
 <template>

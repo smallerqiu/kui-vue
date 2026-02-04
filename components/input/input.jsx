@@ -3,10 +3,10 @@ import { isEmpty } from "../utils/number";
 import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons/dist/icons";
 import InputGroup from "./inputGroup.jsx";
 import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
+import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
 import InputBox from "./inputBox";
 import { sizeMap, filterSize } from "../utils/size";
-import { getChildren } from "../utils/vnode";
 
 const Input = defineComponent({
   inheritAttrs: false,
@@ -20,6 +20,7 @@ const Input = defineComponent({
         return sizeMap.indexOf(value) >= 0;
       },
     },
+    modelValue: { type: [String, Number, Array, Object] },
     value: { type: [String, Number, Array, Object] },
     disabled: Boolean,
     type: {
@@ -42,7 +43,7 @@ const Input = defineComponent({
     inputType: { type: String, default: "input" },
   },
   setup(ps, { slots, emit, attrs, expose, listeners }) {
-    const currentValue = ref(ps.value);
+    const currentValue = ref(ps.modelValue || ps.value);
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref();
@@ -51,7 +52,7 @@ const Input = defineComponent({
     provide("size", ps.size || filterSize(parentSize));
 
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentValue.value = v;
       }
@@ -67,8 +68,7 @@ const Input = defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
-      // emit("update:value", ""); // for 3
-      emit("input", "");
+      emit("update:modelValue", "");
       currentValue.value = "";
       nextTick(() => {
         focus();
@@ -81,15 +81,13 @@ const Input = defineComponent({
     const togglePassword = (e) => {
       if (ps.disabled) return;
       showPassword.value = !showPassword.value;
-      // let type = showPassword.value ? "text" : "password";
-      // inputRef.value.type = type;
     };
 
     const searchEvent = (e) => {
       if (ps.disabled) return;
       emit("search", currentValue.value);
     };
-    const getSuffix = () => {
+    const getSuffix = (slotSuffix) => {
       let { suffix, visiblePasswordIcon, type, inputType } = ps;
 
       if (type == "password" && visiblePasswordIcon) {
@@ -100,10 +98,16 @@ const Input = defineComponent({
             onClick={togglePassword}
           />
         );
-      } else if ("search" in listeners) {
+      } else if (attrs?.onSearch) {
         return <Icon type={Search} class="k-input-search-icon" onClick={searchEvent} />;
       } else {
-        return slots.suffix?.() || (suffix ? <div class="k-input-suffix">{suffix}</div> : null);
+        if (slotSuffix.length > 0) {
+          return slotSuffix;
+        }
+        if (suffix) {
+          return <div class="k-input-suffix">{suffix}</div>;
+        }
+        return null;
       }
     };
 
@@ -125,8 +129,7 @@ const Input = defineComponent({
       const slotControls = getChildren(slots.controls?.());
       let multiple =
         (icon ||
-          // attrs.onSearch ||
-          "search" in listeners ||
+          attrs.onSearch ||
           slotSuffix.length > 0 ||
           suffix ||
           slotPrefix.length > 0 ||
@@ -136,59 +139,62 @@ const Input = defineComponent({
           slotControls.length > 0) &&
         type !== "hidden";
       const inputProps = {
-        props: {
-          htmlAttrs: { ...attrs },
-          disabled,
-          multiple,
-          size,
-          type,
-          theme,
-          shape,
-          inputRef: inputRef,
-          inputType,
-          value: currentValue.value,
-          showPassword: showPassword.value,
+        htmlAttrs: { ...attrs },
+        disabled,
+        multiple,
+        size,
+        type,
+        theme,
+        shape,
+        inputRef: inputRef,
+        inputType,
+        value: currentValue.value,
+        showPassword: showPassword.value,
+        ...listeners,
+        onInput: (e) => {
+          let v = e.target.value;
+          currentValue.value = v;
+          emit("update:modelValue", v);
+          e.preventDefault();
+          e.stopPropagation();
         },
-        on: {
-          ...listeners,
-          input: (e) => {
-            let v = e.target.value;
-            currentValue.value = v;
-            emit("input", v);
-          },
-          focus: (e) => {
-            focused.value = true;
-            emit("focus", e);
-          },
-          blur: (e) => {
-            focused.value = false;
-            emit("blur", e);
-          },
+        onFocus: (e) => {
+          focused.value = true;
+          emit("focus", e);
+        },
+        onBlur: (e) => {
+          focused.value = false;
+          emit("blur", e);
         },
       };
       let textInput = <InputBox {...inputProps} />;
 
       if (!multiple) return textInput;
+
       let clearableShow =
         clearable &&
         !isEmpty(currentValue.value) &&
         type != "password" &&
         attrs.readonly === undefined;
       const props = {
-        class: {
-          [`k-${inputType}`]: true,
-          [`k-${inputType}-focus`]: focused.value,
-          [`k-${inputType}-disabled`]: disabled,
-          [`k-${inputType}-has-clear`]: clearableShow,
-          [`k-${inputType}-sm`]: size == "small",
-          [`k-${inputType}-lg`]: size == "large",
-          [`k-${inputType}-${theme}`]: theme && theme != "solid",
-          [`k-${inputType}-circle`]: shape == "circle",
-        },
+        class: [
+          {
+            [`k-${inputType}`]: true,
+            [`k-${inputType}-focus`]: focused.value,
+            [`k-${inputType}-disabled`]: disabled,
+            [`k-${inputType}-has-clear`]: clearableShow,
+            [`k-${inputType}-sm`]: size == "small",
+            [`k-${inputType}-lg`]: size == "large",
+            [`k-${inputType}-${theme}`]: theme && theme != "solid",
+            [`k-${inputType}-circle`]: shape == "circle",
+          },
+          attrs.class,
+        ],
+        style: attrs.style,
       };
       // const prefixNode = prefix ? <div class={`k-input-prefix`}>{prefix}</div> : null;
 
-      if (slotPrefix.length || slotSuffix.length) {
+      if (slotPrefix.length > 0 || slotSuffix.length > 0) {
         const preChildren = [];
         if (slotPrefix.length)
           preChildren.push(<div class="k-input-group-prefix">{slotPrefix}</div>);
@@ -211,7 +217,7 @@ const Input = defineComponent({
             />
           );
         const sufChildren = [];
-        if (slotSuffix.length)
+        if (slotSuffix.length > 0)
           sufChildren.push(<div class="k-input-group-suffix">{slotSuffix}</div>);
 
         if (slotControls.length) innerChildren.push(slotControls);
@@ -225,7 +231,7 @@ const Input = defineComponent({
           </InputGroup>
         );
       } else {
-        const suffixNode = getSuffix();
+        const suffixNode = getSuffix(slotSuffix);
         const children = [];
         if (icon)
           children.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={iconClick} />);
@@ -244,6 +250,7 @@ const Input = defineComponent({
           );
         if (suffixNode) children.push(suffixNode);
         if (slotControls.length) children.push(slotControls);
+
         return (
           <div {...props} multiple>
             {...children}

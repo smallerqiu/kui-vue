@@ -1,14 +1,13 @@
-import Vue from "vue";
-import App from "./App.vue";
+import { createApp } from "vue";
 import router from "./router";
+import App from "./App.vue";
 import kui from "kui-vue";
-Vue.use(kui);
-import "@/src/assets/css/index.less";
-import "@/src/assets/css/demo.less";
-import Demo from "@/src/components/demo";
-Vue.use(Demo);
-new Vue({
-  // kui,
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+import "kui-vue/styles/index.less";
+import "./assets/css/index.less";
+import "./assets/css/demo.less";
+import Demo from "./components/demo";
+
+const app = createApp(App);
+app.component("Demo", Demo);
+
+app.use(kui).use(router).mount("#app");

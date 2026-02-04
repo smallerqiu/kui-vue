@@ -7,10 +7,12 @@ import {
   toRefs,
   reactive,
   computed,
+  isVNode,
+  cloneVNode,
+  Transition,
 } from "vue";
 import { Row, Col } from "../grid";
 import { getChildren } from "../utils/vnode";
-import { cloneVNode, isVNode } from "../utils/vue";
 import zhCN from "../locale/zh-CN";
 
 export default defineComponent({
@@ -38,7 +40,7 @@ export default defineComponent({
 
     const test = (rule) => {
       let isValid = valid.value;
-      const itemValue = Form.testProp?.(props.prop);
+      const itemValue = Form.getValueFromProp?.(props.prop);
       let msg = rule.message;
 
       if (rule.required) {
@@ -175,8 +177,8 @@ export default defineComponent({
         delete props.wrapperCol?.offset;
       }
       if (Form.layout != "inline") {
-        labelProp = { props: { ...props.labelCol } };
-        wrapperProp = { props: { ...props.wrapperCol } };
+        labelProp = { ...props.labelCol };
+        wrapperProp = { ...props.wrapperCol };
       }
 
       const children = getChildren(slots.default?.());
@@ -196,10 +198,9 @@ export default defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  // const tag = child.type?.name || child.type; //for 3
-                  const tag = child?.componentOptions?.tag || child.tag; //for 2
-                  const value = prop ? Form.testProp?.(prop) : "";
-                  const propsData = child?.componentOptions?.propsData || {}; //for 2
+                  const tag = child.type?.name;
+                  const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
+                  const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
                   const theme = propsData.theme || Form.theme;
                   const shape = propsData.shape || Form.shape;
@@ -212,44 +213,40 @@ export default defineComponent({
                     ...(shape ? { shape } : {}),
                   };
 
-                  const childEvents = { on: {} };
-
+                  const childEvents = {};
                   if (prop) {
-                    if (
-                      ["Radio", "Checkbox", "Switch", "k-switch", "k-radio", "k-checkbox"].includes(
-                        tag
-                      )
-                    ) {
+                    if (/(switch|radio|checkbox)/.test(tag)) {
                       childProps.checked = value || false;
                     } else {
-                      childProps.value = value;
+                      childProps.modelValue = value;
                     }
 
-                    childEvents.on.input = (value) => {
+                    childEvents["onUpdate:modelValue"] = (value) => {
                       if (tag) {
                         Form.updateMode?.(prop, value);
                         testValue();
                       }
                     };
                   }
-
-                  if (["Input", "k-input", "TextArea", "k-textarea"].includes(tag)) {
-                    childEvents.on.blur = () => {
+                  if (/(input|textarea)/.test(tag)) {
+                    childEvents.onBlur = () => {
                       testValue();
                     };
                   }
 
                   return cloneVNode(child, {
-                    props: { ...childProps },
+                    ...childProps,
                     ...childEvents,
                   });
                 } else {
                   return child;
                 }
               })}
-              <transition name="k-form-item-fade">
-                {!valid.value ? <div class="k-form-item-error-tip">{message.value}</div> : null}
-              </transition>
+              {prop ? (
+                <Transition name="k-form-item-fade">
+                  {!valid.value ? <div class="k-form-item-error-tip">{message.value}</div> : null}
+                </Transition>
+              ) : null}
             </div>
           </Col>
         </Row>

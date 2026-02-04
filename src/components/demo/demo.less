@@ -59,7 +59,7 @@
       height: 100%;
       min-height: 100%;
       font-size: 0;
-      overflow: hidden; // margin: 10px 0;
+      overflow: hidden;
       transition: height 0.3s ease-in-out;
       line-height: 2;
     }
@@ -153,10 +153,16 @@
 .k-demo-container {
   margin-bottom: 60px;
 }
-.markdown-body p code {
+
+.k-desc-content p code {
   padding: 1px 5px;
   background-color: var(--kui-color-bg-container);
   border-radius: 2px;
   color: var(--kui-color-primary);
-  margin: 0 3px;
+}
+
+.k-demo-view [class^="k-demo-view-"] {
+  all: initial;
+  display: block;
+  font-family: inherit;
 }

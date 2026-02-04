@@ -5,7 +5,7 @@ function getUuid() {
   const timestamp = Date.now();
   return `k-message-${timestamp}-${count++}`;
 }
-import { defineComponent, /*TransitionGroup,*/ ref } from "vue";
+import { defineComponent, TransitionGroup, ref } from "vue";
 export default defineComponent({
   props: { type: String },
   setup(ps, { expose }) {
@@ -29,47 +29,34 @@ export default defineComponent({
       }
       group.value.push(options);
     };
-    const destroy = () => {
+    const clean = () => {
       group.value = [];
     };
 
-    expose({ show, destroy });
+    expose({ show, clean });
 
     return () => {
       const { type } = ps;
 
-      // let transitionProps = { name: `k-${type}-slide` }; for 3
-      let transitionProps = { attrs: { name: `k-${type}-slide` } };
+      let transitionProps = { name: `k-${type}-slide` };
       if (type == "notice") {
         transitionProps = getTransitionProp(`k-${type}-slide`);
-        // delete transitionProps.onEnter; //for 3
-        // delete transitionProps.onBeforeEnter;
-        // transitionProps.onBeforeLeave = (el) => {
-        delete transitionProps.on.enter;
-        delete transitionProps.on.beforeEnter;
-        transitionProps.on.beforeLeave = (el) => {
+        delete transitionProps.onEnter; //for 3
+        delete transitionProps.onBeforeEnter;
+        transitionProps.onBeforeLeave = (el) => {
           el.style.height = window.getComputedStyle(el).height;
           el.style.opacity = 1;
         };
       }
 
       let children = group.value.map((item, i) => {
-        // let props = { ...item }; //for 3
-        const ps = { ...item };
-        delete ps.key;
-        const props = {
-          key: item.key,
-          props: { ...ps },
-          on: {
-            close: () => ps.onClose?.(),
-          },
-        };
+        let props = { ...item }; //for 3
         return <Notice {...props} />;
       });
       return (
-        <transition-group tag="div" class={`k-${type}`} {...transitionProps}>
+        <TransitionGroup tag="div" class={`k-${type}`} {...transitionProps}>
           {...children}
-        </transition-group>
+        </TransitionGroup>
       );
     };
   },

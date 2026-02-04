@@ -15,13 +15,11 @@ import {
   watch,
   nextTick,
   inject,
-  // Transition,
-  onBeforeMount,
+  Transition,
+  onBeforeUnmount,
   onMounted,
   computed,
   onBeforeUpdate,
-  onBeforeUnmount,
-  // cloneVNode,
 } from "vue";
 
 const Select = defineComponent({
@@ -48,6 +46,7 @@ const Select = defineComponent({
     },
     width: Number,
     maxTagCount: Number,
+    modelValue: [String, Number, Array],
     value: [String, Number, Array],
     clearable: { type: Boolean, default: true },
     filterable: Boolean,
@@ -73,17 +72,22 @@ const Select = defineComponent({
         : injectedLocale;
     });
 
-    // const labelText = ref([]);
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref(ps.multiple ? ps.value || [] : isEmpty(ps.value) ? [] : [ps.value]);
+    const currentValue = ref(
+      ps.multiple
+        ? ps.modelValue || ps.value || []
+        : isEmpty(ps.modelValue || ps.value)
+          ? []
+          : [ps.modelValue || ps.value]
+    );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref();
     const minWidth = ref("");
     const queryInputFocused = ref(false);
     const queryInputRef = ref();
-    const hasSearchEvent = "search" in listeners;
+    const hasSearchEvent = attrs?.onSearch;
     const refPopper = ref();
     const transOrigin = ref("bottom");
     const refSelection = ref();
@@ -95,11 +99,6 @@ const Select = defineComponent({
 
     const reallySize = ref(0);
     const ctxFocused = ref(false);
-    const updateTrigger = ref(0);
-
-    onBeforeUpdate(() => {
-      updateTrigger.value++;
-    });
 
     watch(
       () => ps.placement,
@@ -121,7 +120,7 @@ const Select = defineComponent({
     );
 
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentValue.value = ps.multiple ? v || [] : isEmpty(v) ? [] : [v];
         if (visible.value) {
@@ -132,7 +131,6 @@ const Select = defineComponent({
 
     const scrollOptionIntoView = () => {
       const containerEl = refPopper.value;
-      if (!containerEl) return;
       const optionEl = refPopper.value.children[0].children[activeIndex.value];
       const optionTop = optionEl.offsetTop;
       const optionHeight = optionEl.offsetHeight;
@@ -143,7 +141,7 @@ const Select = defineComponent({
     };
     const onKeydown = (e) => {
       const key = e.key;
-      if ((!visible.value || optionsData.value.length == 0) && ctxFocused.value) {
+      if ((!visible.value || optionsData.value.size == 0) && ctxFocused.value) {
         if (key === "ArrowDown" || key === "ArrowUp") {
           toggle();
         }
@@ -325,7 +323,7 @@ const Select = defineComponent({
     };
     const emitValue = () => {
       const result = ps.multiple ? currentValue.value : currentValue.value[0];
-      emit("input", result);
+      emit("update:modelValue", result);
       emit("change", result);
     };
     const removeTag = (e, index) => {
@@ -381,19 +379,18 @@ const Select = defineComponent({
     };
 
     const optionsData = computed(() => {
-      updateTrigger.value;
       let { options, loading } = ps;
       if (loading) return [];
       if (!options) {
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
-          let { label, value, disabled } = child?.componentOptions?.propsData || {};
-          let { children = [] } = child?.componentOptions;
+          let { label, value, disabled } = child?.props;
+          // console.log();
           options.push({
             value,
             disabled,
-            label: label || children[0]?.text || value,
+            label: label || child?.children?.default?.()[0]?.children || value,
           });
         });
       }
@@ -474,7 +471,7 @@ const Select = defineComponent({
           </div>
         );
         overlay = (
-          <transition name={`${preCls}`}>
+          <Transition name={`${preCls}`}>
             <div v-transfer={true} v-show={visible.value} {...props}>
               {ps.loading ? (
                 loadingNode
@@ -484,7 +481,7 @@ const Select = defineComponent({
                 <Empty onClick={emptyClick} description={locale.value.k.select.emptyText} />
               )}
             </div>
-          </transition>
+          </Transition>
         );
       }
       return overlay;
@@ -511,16 +508,14 @@ const Select = defineComponent({
       const queryProps = {
         ref: queryInputRef,
         class: "k-select-search",
-        attrs: { autoComplete: "off" },
-        on: {
-          change: (e) => e.stopPropagation(),
-          keydown: queryKeydown,
-          input: searchInput,
-          blur: () => {
-            if (!visible.value) {
-              queryInputVisible.value = false;
-            }
-          },
+        autoComplete: "off",
+        onChange: (e) => e.stopPropagation(),
+        onKeydown: queryKeydown,
+        onInput: searchInput,
+        onBlur: () => {
+          if (!visible.value) {
+            queryInputVisible.value = false;
+          }
         },
       };
       const queryNode = (

@@ -1,6 +1,6 @@
-import { defineComponent, /*cloneVNode,*/ ref, watch } from "vue";
+import { defineComponent, cloneVNode, ref, watch } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 const Collapse = defineComponent({
   name: "Collapse",
   props: {
@@ -29,8 +29,8 @@ const Collapse = defineComponent({
         ps.accordion ? (value = [key]) : value.push(key);
       }
       defaultOpenKeys.value = value;
-      emit("change", key, value);
-      emit("update:openKeys", value);
+      emit("change", key);
+      emit("update", value);
     };
 
     return () => {
@@ -46,13 +46,7 @@ const Collapse = defineComponent({
         <div class={classes}>
           {children?.map((child) => {
             let active = defaultOpenKeys.value.includes(child.key);
-            // return cloneVNode(child, { active, onExpand: change }); //for 3
-            return cloneVNode(
-              child,
-              // { props:  active, onExpand: change }, //for 3
-              { props: { active }, on: { expand: change } },
-              true
-            );
+            return cloneVNode(child, { active, onExpand: change });
           })}
         </div>
       );

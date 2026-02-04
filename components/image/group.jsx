@@ -10,12 +10,12 @@ const ImageGroup = defineComponent({
   setup(props, { slots }) {
     const data = ref(props.data || []);
     const preview = ref();
-    const show = (options) => {
+    const show = (props, slots) => {
       if (!preview.value) {
-        options.props.data = data.value;
-        preview.value = newInstance({ ...options });
+        props.data = data.value;
+        preview.value = newInstance({ ...props }, null, slots);
       }
-      preview.value.show(options);
+      preview.value.show(props);
     };
     const togglePanel = () => {
       if (preview.value) {
@@ -35,10 +35,11 @@ const ImageGroup = defineComponent({
     };
     const destroy = () => {
       if (preview.value) {
-        document.body.removeChild(preview.value.$el);
+        preview.value.destroy();
         preview.value = null;
       }
     };
+
     provide("ImageGroup", {
       show,
       destroy,

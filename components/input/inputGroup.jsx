@@ -1,6 +1,6 @@
 import { getChildren } from "../utils/vnode";
-import { defineComponent /*cloneVNode*/, provide, inject } from "vue";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { defineComponent, cloneVNode, provide, inject, Comment } from "vue";
+import { withInstall } from "../utils/vue";
 import { sizeMap, filterSize } from "../utils/size";
 const InputGroup = defineComponent({
   name: "InputGroup",
@@ -63,6 +63,7 @@ const InputGroup = defineComponent({
                 [`k-input-group-last-item`]: i == children.length - 1,
               },
             },
+            true,
             true
           );
         });

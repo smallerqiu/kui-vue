@@ -1,7 +1,11 @@
 <cn>
 ### 位置
 通过 `placement`控制方向, 位置有十二个方向。
-</cn>
+ </cn>
+<en>
+### Position
+Control direction via placement; there are twelve positions.
+</en>
 
 ```vue
 <template>

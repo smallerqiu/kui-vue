@@ -23,11 +23,11 @@ const StatCard = defineComponent({
                 <div key={index} class="k-stat-card-item">
                   <div class="k-stat-card-item-value">
                     <StatNumber
-                      scopedSlots={{
+                      v-slots={{
                         prefix: () => item.prefix || slots.prefix,
                         suffix: () => item.suffix || slots.suffix,
                       }}
-                      value={item.value}
+                      modelValue={item.value}
                       duration={item.duration}
                       precision={item.precision !== undefined ? item.precision : props.precision}
                       separator={item.separator !== undefined ? item.separator : props.separator}

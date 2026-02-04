@@ -3,14 +3,14 @@
 ## nuxt 环境构建
 
 ```bash
-$ npm init nuxt-app <project-name>
+$ npm create nuxt@latest kui-demo
 #or
-$ yarn create nuxt-app <project-name>
+$ npm create nuxt@latest kui-demo
 ```
 
-更多详情请参阅 [<https://nuxtjs.org/guide/installation>](https://v2.nuxt.com/docs/get-started/installation)
+选择 `minimal – Minimal setup for Nuxt 4` ,`minimal` 只包含最基础的 Nuxt 4 配置
 
-`vue2` 对应的是 `nuxt2`
+更多详情请参阅 <https://nuxt.com/>
 
 一步步完成后找到`plugins`目录，新建`kui.js`，写入以下内容：
 

@@ -3,24 +3,14 @@ import { withInstall } from "../utils/vue";
 import { Button } from "../button/";
 const RadioButton = defineComponent({
   name: "RadioButton",
-  // [Vue 3 Upgrade]: del
-  model: {
-    prop: "checked",
-    event: "input",
-  },
   props: {
     // [Vue 3 Upgrade]
-    // modelValue: { type: [Boolean, String, Number], default: null },
-
-    // [Vue 3 Upgrade]: Vue 2 use checked & model
-    checked: {
-      type: [Boolean, Number],
-      default: false,
-    },
-    value: { type: [String, Number, Boolean] },
+    modelValue: { type: [Boolean], default: false },
     label: { type: [String, Number] },
+    value: { type: [String, Number] },
     theme: String,
     disabled: Boolean,
+    checked: Boolean,
     size: {
       default: "default",
       validator(value) {
@@ -30,7 +20,13 @@ const RadioButton = defineComponent({
   },
 
   setup(props, { slots, emit, attrs, listeners }) {
-    const isChecked = ref(props.checked);
+    const isChecked = ref(props.modelValue || props.checked);
+    watch(
+      () => props.modelValue,
+      (v) => {
+        isChecked.value = v;
+      }
+    );
     watch(
       () => props.checked,
       (v) => {
@@ -45,35 +41,30 @@ const RadioButton = defineComponent({
       const checked = !isChecked.value;
 
       isChecked.value = checked;
-      // [Vue 3 Upgrade]: emit("update:modelValue", targetChecked);
       emit("change", {
         checked: checked,
         value: props.value,
         label: labelText,
       });
-      emit("input", checked);
+      emit("update:modelValue", checked);
       e.preventDefault();
     };
 
     return () => {
       const buttonProps = {
-        props: {
-          ...props,
-          disabled: props.disabled,
-          size: props.size,
-          theme: props.theme,
-          shape: props.shape,
-          type: isChecked.value ? "primary" : "default",
-        },
-        attrs: attrs,
-        on: {
-          ...listeners,
-          click: handleClick,
-        },
+        ...props,
+        disabled: props.disabled,
+        size: props.size,
+        theme: props.theme,
+        shape: props.shape,
+        type: isChecked.value ? "primary" : "default",
+        ...attrs,
+        ...listeners,
+        onClick: handleClick,
       };
 
       if (props.theme == "default") {
-        delete buttonProps.props.theme;
+        delete buttonProps.theme;
       }
 
       return <Button {...buttonProps}>{labelText}</Button>;

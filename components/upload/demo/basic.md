@@ -3,6 +3,11 @@
 经典款式，用户点击按钮弹出文件选择框。
 </cn>
 
+<en>
+### Click to Upload
+Classic style: clicking the button opens the file picker.
+</en>
+
 ```vue
 <template>
   <Upload
@@ -22,12 +27,12 @@ const headers = ref({
   authorization: "here is token",
 });
 const handleChange = (info) => {
-  if (info.file.status !== "uploading") {
+  if (info.file?.status !== "uploading") {
     console.log(info.file, info.fileList);
   }
-  if (info.file.status === "success") {
+  if (info.file?.status === "success") {
     message.success(`${info.file.filename} uploaded successfully`);
-  } else if (info.file.status === "error") {
+  } else if (info.file?.status === "error") {
     message.error(`${info.file.filename} upload failed.`);
   }
 };

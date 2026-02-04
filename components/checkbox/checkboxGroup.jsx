@@ -1,20 +1,12 @@
 import Checkbox from "./checkbox";
-import { defineComponent, watch, toRefs, computed } from "vue";
+import { defineComponent, watch, ref, computed } from "vue";
 import { withInstall } from "../utils/vue";
 import { getChildren } from "../utils/vnode";
 
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: {
-    // [Vue 3 Upgrade]
-    // modelValue: { type: Array, default: () => [] },
-
-    // [Vue 3 Upgrade] :del
-    value: {
-      type: Array,
-      default: () => [],
-    },
-
+    modelValue: { type: Array, default: () => [] },
     theme: String,
     disabled: Boolean,
     options: Array,
@@ -32,12 +24,9 @@ const CheckboxGroup = defineComponent({
   },
 
   setup(props, { slots, emit }) {
-    // const { disabled, size } = toRefs(props);
-
-    // [Vue 3 Upgrade]: const { modelValue: currentValue } = toRefs(props);
-    const { value: currentValue } = toRefs(props);
+    const currentValue = ref(props.modelValue);
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val) => {
         currentValue.value = val;
       }
@@ -51,9 +40,7 @@ const CheckboxGroup = defineComponent({
       } else {
         val.push(value);
       }
-
-      // [Vue 3 Upgrade]: emit("update:modelValue", val);
-      emit("input", val); // Vue 2 v-model
+      emit("update:modelValue", val);
       emit("change", val);
     };
 
@@ -63,12 +50,11 @@ const CheckboxGroup = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child, index) => {
-          let { label, value, disabled } = child?.componentOptions?.propsData || {};
-          let { children = [] } = child?.componentOptions;
+          let { label, value, disabled } = child?.props;
           options.push({
             value,
             disabled,
-            label: label || children[0]?.text || value,
+            label: label || child.children?.default()[0].children || value,
           });
         });
       }

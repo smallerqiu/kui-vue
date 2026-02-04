@@ -1,17 +1,15 @@
 import {
   defineComponent,
   ref,
-  // cloneVNode,
+  cloneVNode,
   watch,
-  // Transition,
+  Transition,
   nextTick,
   provide,
   onMounted,
   onBeforeMount,
 } from "vue";
-// import cloneVNode from '../utils/clone';
-import { cloneVNode } from "../utils/vue";
-import { withInstall /* cloneVNode*/ } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
 import resize from "../directives/resize";
@@ -47,7 +45,7 @@ const Dropdown = defineComponent({
     },
     target: Object,
   },
-
+  emits: ["update:visible"],
   setup(ps, { slots, emit, attrs, listeners }) {
     const visible = ref(ps.show);
     const refSelection = ref(null);
@@ -180,40 +178,26 @@ const Dropdown = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
-        attrs: { "k-placement": currentPlacement.value },
+        "k-placement": currentPlacement.value,
         class: ["k-dropdown", { "k-dropdown-has-arrow": ps.arrow }],
-        on: {
-          click: (e) => {
-            toggle(false);
-          },
-          mouseenter: () => {
-            clearTimeout(showTimer.value);
-          },
-          mouseleave: () => {
-            if (ps.trigger == "hover") {
-              showTimer.value = setTimeout(() => {
-                toggle(false);
-              }, 300);
-            }
-          },
+
+        onClick: (e) => {
+          toggle(false);
         },
-        // onClick: (e) => { for 3
-        //   toggle(false);
-        // },
-        // onMouseenter: () => {
-        //   clearTimeout(showTimer.value);
-        // },
-        // onMouseleave: () => {
-        //   if (ps.trigger == "hover") {
-        //     showTimer.value = setTimeout(() => {
-        //       toggle(false);
-        //     }, 300);
-        //   }
-        // },
+        onMouseenter: () => {
+          clearTimeout(showTimer.value);
+        },
+        onMouseleave: () => {
+          if (ps.trigger == "hover") {
+            showTimer.value = setTimeout(() => {
+              toggle(false);
+            }, 300);
+          }
+        },
       };
       const overlay =
         rendered.value && slots.overlay ? (
-          <transition name="k-dropdown">
+          <Transition name="k-dropdown">
             <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
@@ -234,34 +218,28 @@ const Dropdown = defineComponent({
                 ) : null}
               </div>
             </div>
-          </transition>
+          </Transition>
         ) : null;
 
       let nodes = getChildren(slots.default?.());
       const pp = ps.target
         ? {}
         : {
-            on: {
-              click: clickEvent,
-              mouseenter: mouseEnterEvent,
-              mouseleave: mouseLeaveEvent,
-              contextmenu: contextmenuEvent,
-            },
-            // onClick: clickEvent, for 3
-            // onMouseenter: mouseEnterEvent,
-            // onMouseleave: mouseLeaveEvent,
-            // onContextmenu: contextmenuEvent,
+            onClick: clickEvent,
+            onMouseenter: mouseEnterEvent,
+            onMouseleave: mouseLeaveEvent,
+            onContextmenu: contextmenuEvent,
           };
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
           ref: refSelection,
           ...pp,
+          ...attrs,
         },
-        true,
-        overlay
+        true
       );
-      return ctxNode;
+      return [ctxNode, overlay];
     };
   },
 });

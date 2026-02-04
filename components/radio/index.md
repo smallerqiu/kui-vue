@@ -1,11 +1,12 @@
 ## Radio API
 
-| 属性     | 说明                                               | 类型                            | 默认值 |
-| -------- | -------------------------------------------------- | ------------------------------- | ------ |
-| checked  | 是否选中状态，可以使用 `checked.sync` 双向绑定数据 | Boolean                         | false  |
-| label    | 文字提示                                           | String 、 Number                | -      |
-| disabled | 是否禁用当前项                                     | Boolean                         | false  |
-| change   | 在选项状态发生改变时回调                           | Function({value,label,checked}) | -      |
+| 属性       | 说明                     | 类型                            | 默认值 |
+| ---------- | ------------------------ | ------------------------------- | ------ |
+| modelValue | 是否选中状态(v-model)    | Boolean                         | false  |
+| checked    | 是否选中状态             | Boolean                         | false  |
+| label      | 文字提示                 | String 、 Number                | -      |
+| disabled   | 是否禁用当前项           | Boolean                         | false  |
+| change     | 在选项状态发生改变时回调 | Function({value,label,checked}) | -      |
 
 ## RadioGroup API
 

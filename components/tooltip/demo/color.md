@@ -1,7 +1,11 @@
 <cn>
 ### 多彩文字提示
 多种预设色彩的文字提示样式，用作不同场景使用。
-</cn>
+ </cn>
+<en>
+### Colorful Tooltip
+Various preset color styles for tooltips, for use in different scenarios.
+</en>
 
 ```vue
 <template>

@@ -9,21 +9,19 @@
     <Form
       name="withmodal"
       :model="group"
+      @submit="onSubmit2"
       :rules="rules"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
-      <FormItem label="Group" prop="name">
+      <FormItem label="Gruop" prop="name">
         <Input />
       </FormItem>
       <FormItem label="UserList">
         <Space>
-          <template v-if="group.list.length">
-            <Tag theme="light" :key="i" v-for="(item, i) in group.list">
-              {{ item.username }} - {{ item.age }}
-            </Tag>
-          </template>
-          <span v-else>No user</span>
+          <Tag theme="light" :key="i" v-for="(item, i) in group.list">
+            {{ item.username }} - {{ item.age }}
+          </Tag>
         </Space>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
@@ -42,7 +40,7 @@
         @submit="onSubmit"
         ref="formRef"
       >
-        <FormItem label="Username" prop="username">
+        <FormItem label="Usename" prop="username">
           <Input placeholder="请输入姓名" />
         </FormItem>
         <FormItem label="Age" prop="age">
@@ -54,6 +52,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { message } from "kui-vue";
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const formRef = ref();
@@ -88,6 +87,9 @@ const onOk = () => {
 };
 const onCancel = () => {
   formRef.value.reset();
+};
+const onSubmit2 = ({ valid }) => {
+  message[valid ? "success" : "error"](valid ? "success" : "failed");
 };
 </script>
 ```

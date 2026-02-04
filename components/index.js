@@ -7,7 +7,7 @@ import "./styles/index.less";
 const UI = {
   version: version,
   lang: {},
-  install: function (app) {
+  install: (app) => {
     Object.keys(components).forEach((key) => {
       const component = components[key];
       if (globalComponents.includes(key)) {

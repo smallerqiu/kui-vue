@@ -144,9 +144,8 @@ const setValue = () => {
   };
 };
 
-const submit = ({ valid, model }) => {
+const submit = ({ valid }) => {
   message[valid ? "success" : "error"](valid ? "success" : "failed");
-  console.log(model);
 };
 </script>
 ```

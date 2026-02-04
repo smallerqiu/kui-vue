@@ -2,6 +2,10 @@
 ### 设置换行 
 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 </cn>
+<en>
+### Wrap
+When spacing is horizontal, wrap controls whether to wrap automatically; default is false.
+</en>
 
 ```vue
 <template>

@@ -79,7 +79,7 @@ const remove = (index) => {
   form.value.webs.splice(index, 1);
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
+  formRef.value.validate(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

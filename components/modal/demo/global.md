@@ -16,7 +16,6 @@
 <script setup>
 import { Moon } from "kui-icons";
 import { modal, message } from "kui-vue";
-
 //
 const success = () => {
   modal.success({

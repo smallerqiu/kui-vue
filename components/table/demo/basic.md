@@ -1,7 +1,11 @@
 <cn>
 ### 基本用法
 一个普通的表格
-</cn>
+ </cn>
+<en>
+### Basic Usage
+A normal table
+</en>
 
 ```vue
 <template>

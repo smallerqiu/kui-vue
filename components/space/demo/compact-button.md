@@ -2,6 +2,10 @@
 ### Button 紧凑布局
 Button 组件紧凑排列的示例。
 </cn>
+<en>
+### Button Compact Layout
+Examples of compact button arrangements.
+</en>
 
 ```vue
 <template>

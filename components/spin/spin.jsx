@@ -3,7 +3,7 @@ import { withInstall } from "../utils/vue";
 const Spin = defineComponent({
   name: "Spin",
   props: {
-    value: { type: Boolean, default: true },
+    modelValue: { type: Boolean, default: true },
     delay: { type: Number, default: 500 },
     size: {
       type: String,
@@ -21,10 +21,10 @@ const Spin = defineComponent({
     },
   },
   setup(ps, { slots }) {
-    const spinning = ref(ps.value);
+    const spinning = ref(ps.modelValue);
     let timer = null;
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (nv, no) => {
         if (nv) {
           spinning.value = nv;

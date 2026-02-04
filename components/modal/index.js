@@ -1,40 +1,33 @@
 import Modal from "./modal.jsx";
 import Toast from "./toast";
-// import { /*createVNode, render,*/ inject } from "vue"; // for 3
-import { createVNode, render } from "../utils/vue"; //for 2
+import { createVNode, render, getCurrentInstance } from "vue";
 import { recordMousePoint } from "../config/context";
+import { getAppContext } from "../config/context";
 import { withInstall } from "../utils/vue";
-let modalList = [];
 
+let modalList = [];
 recordMousePoint();
+
 let showModal = (props = {}, context = null) => {
+  context = getCurrentInstance();
   const container = document.createElement("div");
   document.body.appendChild(container);
-  const vm = createVNode(
-    Toast,
-    {
-      props,
-      on: {
-        destroy: () => {
-          setTimeout(() => {
-            modalList = modalList.filter((item) => item !== instance);
-            document.body.contains(container) && document.body.removeChild(container);
-          }, 300);
-        },
-      },
-    },
-    context
-  );
+  const vm = createVNode(Toast, {
+    ...props,
+  });
+  vm.appContext = context?.appContext || getAppContext()?.appContext;
   render(vm, container);
 
-  // let instance = vm.component?.exposed; //for 3
-  let instance = vm; //  for 2
+  let instance = vm.component?.exposed;
   instance.destroy = () => {
     instance.hide();
     modalList = modalList.filter((item) => item !== instance);
     setTimeout(() => {
-      document.body.contains(container) && document.body.removeChild(container);
-    }, 300);
+      render(null, container);
+      if (container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+    }, 100);
   };
   instance.show();
   modalList.push(instance);

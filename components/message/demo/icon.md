@@ -13,7 +13,6 @@
 <script setup>
 import { message } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
-let count = 0;
 
 const alipay = () => {
   message.show({

@@ -5,23 +5,12 @@ import { withInstall } from "../utils/vue";
 
 const Checkbox = defineComponent({
   name: "Checkbox",
-
-  // [Vue 3 Upgrade]: del model
-  model: {
-    prop: "checked",
-    event: "input",
-  },
-
   props: {
-    // [Vue 3 Upgrade]:
-    // modelValue: { type: [Boolean, String, Number], default: null },
-
-    // [Vue 3 Upgrade]: Vue 2 use checked & model
     checked: {
-      type: [Boolean, Number],
+      type: Boolean,
       default: false,
     },
-
+    modelValue: { type: [String, Number, Boolean] },
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
     theme: { type: String, default: "light" },
@@ -36,9 +25,15 @@ const Checkbox = defineComponent({
   },
 
   setup(props, { slots, emit }) {
-    const isChecked = ref(props.checked);
+    const isChecked = ref(props.modelValue || props.checked);
     watch(
       () => props.checked,
+      (v) => {
+        isChecked.value = v;
+      }
+    );
+    watch(
+      () => props.modelValue,
       (v) => {
         isChecked.value = v;
       }
@@ -50,13 +45,14 @@ const Checkbox = defineComponent({
         value: props.value,
         label: props.label || slots.default?.(),
       });
-      emit("input", checked);
+      emit("update:modelValue", checked);
+      emit("update:checked", checked);
     };
     const onChange = (e) => {
       if (props.disabled) return;
-      const checked = e.target.checked;
-      e.preventDefault();
       e.stopPropagation();
+      e.preventDefault();
+      const checked = e.target.checked;
       emitValue(checked);
     };
     const triggerCheck = (e) => {
@@ -93,11 +89,7 @@ const Checkbox = defineComponent({
               class="k-checkbox-input"
               disabled={props.disabled}
               onChange={onChange}
-              // [Vue 3 Upgrade]: Vue 3 use checked={isChecked.value}
-              // checked={isChecked.value}
-
-              // [Vue 2 Only]: Vue 2 JSX need domPropsChecked to keep DOM status
-              domPropsChecked={isChecked.value}
+              checked={isChecked.value}
             />
             {innerNode}
           </span>

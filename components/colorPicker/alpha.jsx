@@ -4,16 +4,16 @@ import { clamp } from "@vueuse/core";
 export default defineComponent({
   name: "Alpha",
   props: {
-    value: [String, Object],
+    modelValue: [String, Object],
   },
   setup(ps, { emit }) {
     const dotPos = ref(0);
     const refPaint = ref();
     const isMousePressed = ref(false);
     // const painter = ref();
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (val) => {
         currentColor.value = val;
         renderPaint();
@@ -78,14 +78,10 @@ export default defineComponent({
     return () => {
       let prop = {
         class: "k-color-picker-alpha",
-        // width: 190, //for 3
-        // height: 8,
-        attrs: { width: 190, height: 8 },
+        width: 190,
+        height: 8,
         ref: refPaint,
-        // onMousedown: onMousedown,
-        on: {
-          mousedown: onMousedown,
-        },
+        onMousedown: onMousedown,
       };
       return (
         <div class="k-color-picker-alpha-box">

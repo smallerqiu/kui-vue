@@ -9,15 +9,15 @@
     <code>v-model: {{ value }}</code>
     <Rate v-model="value" />
     <code>show score</code>
-    <Rate :value="2.5" showScore />
+    <Rate :modelValue="2.5" showScore />
     <code>size = 30</code>
-    <Rate :size="30" :value="2" />
+    <Rate :size="30" :modelValue="2" />
     <code>custom icon</code>
-    <Rate :icon="Heart" color="red" :value="2.5" :size="30" />
+    <Rate :icon="Heart" color="red" :modelValue="2.5" :size="30" />
     <code>allowHalf = true</code>
-    <Rate :icon="Heart" allowHalf color="red" :value="2.5" :size="30" />
+    <Rate :icon="Heart" allowHalf color="red" :modelValue="2.5" :size="30" />
     <code>disabled (readonly)</code>
-    <Rate :value="3.7" disabled showScore />
+    <Rate :modelValue="3.7" disabled showScore />
   </Space>
 </template>
 <script setup>

@@ -1,7 +1,11 @@
 <cn>
 ### 上传文件夹
 通过传入 directory 为 true，可以支持上传文件夹下的所有文件
-</cn>
+ </cn>
+<en>
+### Upload Folder
+Set directory to true to enable uploading all files within a folder.
+</en>
 
 ```vue
 <template>

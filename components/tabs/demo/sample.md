@@ -2,6 +2,10 @@
 ### 极简式页签
 简单的卡片呈现模式。
 </cn>
+<en>
+### Minimal Tabs
+A simple card-style presentation.
+</en>
 
 ```vue
 <template>

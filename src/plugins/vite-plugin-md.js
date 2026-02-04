@@ -1,5 +1,4 @@
 import MarkdownIt from "markdown-it";
-// import { parseComponent } from 'vue-template-compiler' // don't support script setup
 import { parse } from "@vue/compiler-sfc";
 import hashId from "hash-sum";
 
@@ -44,10 +43,10 @@ export default function vitePluginMd() {
         "skeleton",
         "form/",
         "input/demo/group",
-        "statCard/demo/card",
         "slider/demo/marks",
         "tree/demo/directory",
         "views/language/demo",
+        "statCard/demo/card",
       ];
       let direction = "horizontal";
       vertical_list.forEach((item) => {
@@ -76,14 +75,13 @@ export default function vitePluginMd() {
       if (m) {
         const block = m[1].trim();
         //for 3
-        // const { template, script, styles } = parseComponent(block);
-        // const { descriptor } = parse(block);
-        // const { template, script, scriptSetup, styles } = descriptor
+        const { descriptor } = parse(block);
+        const { template, script, scriptSetup, styles } = descriptor;
 
         //for 2.x
-        const { template, script, scriptSetup, styles } = parse({
-          source: block,
-        });
+        // const { template, script, scriptSetup, styles } = parse({
+        //   source: block,
+        // });
         // pretty code preview
         let codeHtml = markdown.render("```html\n" + block + "\n```"); //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
         codeHtml = codeHtml

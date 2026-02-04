@@ -1,11 +1,13 @@
 import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
 import { withInstall } from "../utils/vue";
 import RecursiveMenu from "./recursiveMenu";
+
 const Menu = defineComponent({
   name: "Menu",
   props: {
     theme: String,
     mode: { type: String, default: "vertical" },
+    modelValue: { type: Array, default: () => [] },
     value: { type: Array, default: () => [] },
     // selectedKeys: { type: Array, default: () => [] },  // for 3
     accordion: Boolean,
@@ -14,7 +16,7 @@ const Menu = defineComponent({
     openKeys: { type: Array, default: () => [] },
   },
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.value || []); //props.selectedKeys || []);
+    const defaultSelectedKeys = ref(props.modelValue || props.value || []); //props.selectedKeys || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);
@@ -28,7 +30,7 @@ const Menu = defineComponent({
 
     watch(
       // () => props.selectedKeys, // for 3
-      () => props.value,
+      () => props.modelValue,
       (value) => {
         defaultSelectedKeys.value = value;
       }
@@ -79,7 +81,7 @@ const Menu = defineComponent({
       } else {
         defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
-      emit("input", defaultSelectedKeys.value);
+      emit("update:value", defaultSelectedKeys.value);
       // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
       emit("select", { key, keyPath });
 

@@ -5,7 +5,7 @@
 
 ```vue
 <template>
-  <Poptip title="标题" trigger="click" :show.sync="show">
+  <Poptip title="标题" trigger="click" v-model:show="show">
     <template #content>
       <Button @click="test" size="small">Close</Button>
     </template>

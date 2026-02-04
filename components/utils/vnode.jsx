@@ -1,8 +1,5 @@
-// import { isVNode, Comment, Fragment, Text, cloneVNode } from "vue"; // for v3
-// import Vue from "vue";
-// const { Comment, Fragment, Text } = Vue;
-import hashId from "hash-sum";
-import { isVNode, cloneVNode } from "../utils/vue";
+import { isVNode, Comment, Fragment, Text, cloneVNode } from "vue";
+
 export function cloneNodes(vnode, props, merge = false, child) {
   return vnode.length == 1
     ? cloneVNode(vnode[0], props, merge)
@@ -13,12 +10,11 @@ export function getChildren(VNodes) {
   const loop = (nodes) => {
     nodes?.forEach((vnode) => {
       if (!isVNode(vnode)) return;
+      if (vnode.type === Comment) return;
+      if (vnode.type === Text && vnode.children?.toString().trim() === "") return;
 
-      if (vnode.isComment) return;
-
-      if (!vnode.tag && vnode.text?.toString().trim() === "") return;
-
-      if (!vnode.tag && Array.isArray(vnode.children)) {
+      // 处理 Fragment 节点
+      if (vnode.type === Fragment && Array.isArray(vnode.children)) {
         loop(vnode.children);
         return;
       }
@@ -30,6 +26,7 @@ export function getChildren(VNodes) {
   loop(VNodes);
   return result;
 }
+
 let scrollbarWidth = null;
 
 const getScrollbarWidth = () => {

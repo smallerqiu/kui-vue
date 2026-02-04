@@ -1,7 +1,11 @@
 <cn>
 ### 基础用法
 最简单的用法，展示可选中，默认展开功能。
-</cn>
+ </cn>
+<en>
+### Basic Usage
+The simplest usage; shows selectable items and default expanded behavior.
+</en>
 
 ```vue
 <template>

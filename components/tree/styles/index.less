@@ -2,7 +2,6 @@
 
 .k-tree {
   .k-tree-item {
-    // padding-bottom: 4px;
     margin-bottom: 4px;
     list-style: none;
     white-space: nowrap;
@@ -172,29 +171,25 @@
   }
 }
 
-//line
-/* 基础缩进块大小 */
 .k-tree-indent-line,
 .k-tree-arrow-placeholder,
 .k-tree-indent-empty {
   display: inline-block;
-  width: 24px; /* 根据你的设计调整 */
-  height: 24px; /* 或者固定高度 */
+  width: 24px;
+  height: 24px;
   vertical-align: middle;
   position: relative;
   flex-shrink: 0;
 }
 
-//line-en
 .k-tree-show-line {
-  /* 1. 垂直贯穿线 (父节点不是最后) */
   .k-tree-indent-line::before {
     content: "";
     position: absolute;
     height: 28px;
     top: 0;
     bottom: 0;
-    left: 50%; /* 居中画线 */
+    left: 50%;
     border-left: 1px solid var(--kui-color-border);
   }
 

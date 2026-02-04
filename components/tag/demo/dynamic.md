@@ -2,6 +2,10 @@
 ### 动态添加和删除
 通过 `closeable` 显示关闭按钮
 </cn>
+<en>
+### Dynamic Add/Remove
+Use closeable to display a close button.
+</en>
 
 ```vue
 <template>
