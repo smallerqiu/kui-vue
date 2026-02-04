@@ -1,111 +1,106 @@
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  nextTick,
+  toRefs,
+  Transition,
+} from "vue";
 import Icon from "../icon";
-import transfer from "../directives/transfer";
-import { getChildren, measureScrollBar } from "../utils/element";
-import { withInstall } from '../utils/vue'
-let cacheBodyOverflow = {};
-import { Refresh, Close, ArrowDown, IconImage, ChevronUp, Sync, AddCircleOutline, RemoveCircleOutline } from "kui-icons";
-const ImagePreview = {
+import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
+import {
+  Close,
+  ArrowDown,
+  IconImage,
+  ArrowBack,
+  ArrowForward,
+  Add,
+  Remove,
+  ChevronBack,
+  ChevronUp,
+  ChevronForward,
+  Loading,
+  RotateLeft,
+  RotateRight,
+} from "kui-icons/dist/icons";
+import Slider from "../slider";
+import { Button } from "../button";
+import { loadImage } from "./utils";
+
+const ImagePreview = defineComponent({
   name: "ImagePreview",
-  directives: { transfer },
   props: {
     type: String,
+    src: String,
     origin: String,
     hasControl: Boolean,
     value: Boolean,
-    transfer: { type: Boolean, default: false },
     data: { type: Array, default: () => [] },
-    showSwitch: Boolean,
     showPanel: Boolean,
-    global: { type: Boolean, default: true },
   },
-  data() {
-    return {
+  setup(props, { emit, slots, expose, listeners }) {
+    const { value, type, src, origin, showPanel, data } = toRefs(props);
+    const state = reactive({
       scale: 1,
+      data,
       rotate: 0,
       startPos: { x: 0, y: 0 },
       initPos: { x: 0, y: 0 },
       left: 0,
       top: 0,
       isMouseDown: false,
-      visible: this.value,
-      src: this.origin,
+      type: type.value,
+      visible: value.value,
+      src: origin.value || src.value,
       loading: false,
       error: false,
       vertical: true,
-      isShowPanel: this.showPanel,
+      isShowPanel: showPanel.value,
       panelRight: 0,
       touch: false,
+    });
+
+    const refImage = ref(null);
+    const panelRef = ref(null);
+    const maxScale = 10;
+    const updatePanelRight = () => {
+      state.panelRight = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
     };
-  },
-  watch: {
-    origin(src) {
-      this.src = src;
-    },
-    value(show) {
-      this.visible = show;
-      this.resetBodyStyle(show);
-      if (show) {
-        this.$nextTick(() => {
-          this.updatePanelRight();
-        });
-      }
-    },
-    src(src) {
-      if (this.type == "media") return;
-      let img = new Image();
-      this.loading = true;
-      this.error = false;
-      img.onload = () => {
-        this.loading = false;
-        img = null;
-      };
-      img.onerror = () => {
-        this.loading = false;
-        img = null;
-        this.error = true;
-      };
-      img.src = src;
-      // }
-    },
-    showPanel(value) {
-      this.isShowPanel = value;
-      this.updatePanelRight();
-    },
-  },
-  methods: {
-    updatePanelRight() {
-      let panel = this.$refs.panelRef;
-      this.panelRight = panel && this.isShowPanel ? panel.offsetWidth : 0;
-    },
-    setRotate(left) {
-      let { rotate } = this;
-      rotate = left ? rotate - 90 : rotate + 90;
-      this.vertical = !this.vertical;
-      this.rotate = rotate;
-      this.resetPosition();
-    },
-    setScale(zoom) {
-      let { scale } = this;
-      scale = zoom ? scale + 1 : scale - 1;
-      scale = zoom ? Math.min(scale, 5) : Math.max(1, scale);
-      this.scale = scale;
-      this.resetPosition();
-    },
-    close() {
-      this.visible = false;
-      // this.scale = 1
-      // this.rotate = 0
-      this.$emit("input", false);
-      this.$emit("close");
-    },
-    mousewheel(e) {
-      let { deltaY } = e;
-      this.setScale(deltaY && deltaY < 0);
+
+    const setRotate = (left) => {
+      state.rotate = left ? state.rotate - 90 : state.rotate + 90;
+      state.vertical = !state.vertical;
+      resetPosition();
+    };
+
+    const setScale = (zoom) => {
+      state.scale = zoom ? state.scale + 1 : state.scale - 1;
+      state.scale = zoom ? Math.min(state.scale, maxScale) : Math.max(1, state.scale);
+      resetPosition();
+    };
+
+    const close = () => {
+      state.visible = false;
+      emit("input", false);
+      emit("close");
+    };
+
+    const mousewheel = (e) => {
+      if (!state.visible) return;
+      const { deltaY } = e;
+      setScale(deltaY && deltaY < 0);
       e.stopPropagation();
       e.preventDefault();
-    },
-    mousedown(e) {
-      if (this.$refs.imgRef && this.$refs.imgRef.contains(e.target)) {
+    };
+
+    const mousedown = (e) => {
+      if (!state.visible) return;
+
+      if (refImage.value && refImage.value.contains(e.target)) {
         if (e.button && e.button != 0) return;
         let clientX, clientY;
         if (e.touches && e.touches.length == 1) {
@@ -115,23 +110,32 @@ const ImagePreview = {
           clientX = e.clientX;
           clientY = e.clientY;
         }
-        this.isMouseDown = true;
-        this.startPos = { x: clientX, y: clientY };
-        this.initPos = { x: clientX, y: clientY };
-        this.mousemove(e);
-        let [e1, e2] = this.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
-        document.addEventListener(e1, this.mousemove, { passive: false });
-        document.addEventListener(e2, this.mouseup, { passive: false });
+        state.isMouseDown = true;
+        state.startPos = { x: clientX, y: clientY };
+        state.initPos = { x: clientX, y: clientY };
+        mousemove(e);
+        const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
+        document.addEventListener(e1, mousemove, { passive: false });
+        document.addEventListener(e2, mouseup, { passive: false });
       }
-    },
-    resetPosition() {
-      if (this.error) return;
-      let { innerHeight, innerWidth } = window;
-      let { $refs, scale, top, left, vertical } = this;
-      let { offsetWidth, offsetHeight } = $refs.imgRef;
-      let panelWidth = $refs.panelRef && this.isShowPanel ? $refs.panelRef.offsetWidth : 0;
+    };
+
+    const resetPosition = () => {
+      if (state.error) return;
+      const { innerHeight, innerWidth } = window;
+      const scale = state.scale;
+      const top = state.top;
+      const left = state.left;
+      const vertical = state.vertical;
+
+      if (!refImage.value) return;
+
+      let offsetWidth = refImage.value.offsetWidth;
+      let offsetHeight = refImage.value.offsetHeight;
+      let panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
       let newWidth = offsetWidth + "";
       let newHeight = offsetHeight + "";
+
       if (!vertical) {
         newWidth = offsetHeight + "";
         newHeight = offsetWidth + "";
@@ -140,34 +144,38 @@ const ImagePreview = {
       if (newWidth * scale >= innerWidth - panelWidth) {
         let maxLeft = (newWidth * scale - (innerWidth - panelWidth)) / 2;
         if (left >= maxLeft) {
-          this.left = maxLeft;
-        } else if (this.left < -maxLeft) {
-          this.left = -maxLeft;
+          state.left = maxLeft;
+        } else if (state.left < -maxLeft) {
+          state.left = -maxLeft;
         }
       } else {
-        this.left = 0;
+        state.left = 0;
       }
+
       if (newHeight * scale >= innerHeight) {
         let maxTop = (newHeight * scale - innerHeight) / 2;
-
         if (top >= maxTop) {
-          this.top = maxTop;
+          state.top = maxTop;
         } else if (top < -maxTop) {
-          this.top = -maxTop;
+          state.top = -maxTop;
         }
       } else {
-        this.top = 0;
+        state.top = 0;
       }
-    },
-    mouseup() {
-      this.isMouseDown = false;
-      this.resetPosition();
-      let [e1, e2] = this.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
-      document.removeEventListener(e1, this.mousemove);
-      document.removeEventListener(e2, this.mouseup);
-    },
-    mousemove(e) {
-      if (this.isMouseDown) {
+    };
+
+    const mouseup = () => {
+      if (!state.visible) return;
+      state.isMouseDown = false;
+      resetPosition();
+      const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
+      document.removeEventListener(e1, mousemove);
+      document.removeEventListener(e2, mouseup);
+    };
+
+    const mousemove = (e) => {
+      if (!state.visible) return;
+      if (state.isMouseDown) {
         e.preventDefault();
         let clientX, clientY;
         if (e.touches && e.touches.length == 1) {
@@ -177,81 +185,63 @@ const ImagePreview = {
           clientX = e.clientX;
           clientY = e.clientY;
         }
-        let { x, y } = this.startPos;
-        this.left += clientX - x;
-        this.top += clientY - y;
-        this.startPos = { x: clientX, y: clientY };
+        const { x, y } = state.startPos;
+        state.left += clientX - x;
+        state.top += clientY - y;
+        state.startPos = { x: clientX, y: clientY };
       }
-    },
-    switchImage(left) {
-      this.scale = 1;
-      let { data = [], src } = this;
-      let index = data.indexOf(src),
-        i = index + 0;
-      index = left ? index - 1 : index + 1;
-      index = Math.max(0, index);
-      index = Math.min(index, data.length - 1);
-      if (this.global && !this.$slots.panel) {
-        this.src = data[index];
-      }
-      if ((left && i == 0) || (!left && i == data.length - 1)) return;
-      this.$emit("switch", index);
-    },
-    download() {
-      if (!this.error) {
-        var x = new XMLHttpRequest();
-        x.open("GET", this.src, true);
+    };
+
+    const switchImage = (left) => {
+      state.scale = 1;
+      const data = props.data || [];
+      const index = data.indexOf(state.src);
+      let newIndex = index + 0;
+      newIndex = left ? newIndex - 1 : newIndex + 1;
+      newIndex = Math.max(0, newIndex);
+      newIndex = Math.min(newIndex, data.length - 1);
+
+      state.src = data[newIndex];
+
+      if ((left && index == 0) || (!left && index == data.length - 1)) return;
+      emit("switch", newIndex);
+    };
+
+    const download = () => {
+      if (!state.error) {
+        const x = new XMLHttpRequest();
+        x.open("GET", state.src, true);
         x.responseType = "blob";
         x.onload = function () {
-          var url = window.URL.createObjectURL(x.response);
-          var a = document.createElement("a");
+          const url = window.URL.createObjectURL(x.response);
+          const a = document.createElement("a");
           a.href = url;
           a.download = "";
           a.click();
         };
         x.send();
+      }
+    };
 
-        // window.open(this.src)
-      }
-    },
-    resetBodyStyle(opened) {
-      let target = document.body;
-      if (!this.show && !Object.prototype.hasOwnProperty.call(cacheBodyOverflow, "overflow")) {
-        cacheBodyOverflow = {
-          width: target.style.width,
-          overflow: target.style.overflow,
-          overflowX: target.style.overflowX,
-          overflowY: target.style.overflowY,
-        };
-      }
-      if (opened) {
-        let barWidth = measureScrollBar(true);
-        let hasBar = target.scrollHeight > target.clientHeight || target.offsetHeight > target.clientHeight;
-        if (barWidth && hasBar) {
-          target.style.width = `calc(100% - ${barWidth}px)`;
-          target.style.overflow = `hidden`;
-        }
-      } else {
-        setTimeout(() => {
-          Object.keys(cacheBodyOverflow).forEach((key) => {
-            target.style[key] = cacheBodyOverflow[key] || "";
-            delete cacheBodyOverflow[key];
-          });
-        }, 300);
-      }
-    },
-    togglePanel() {
-      this.isShowPanel = !this.isShowPanel;
-      this.$emit("toggle-panel", this.isShowPanel);
-      this.$nextTick(() => this.resetPosition());
-      this.updatePanelRight();
-    },
-    getPanel() {
-      let panel = getChildren(this.$slots.panel);
+    const togglePanel = () => {
+      state.isShowPanel = !state.isShowPanel;
+      emit("togglePanel", state.isShowPanel);
+      nextTick(() => resetPosition());
+      updatePanelRight();
+    };
+
+    const getPanel = () => {
+      const panel = getChildren(slots.panel?.());
       if (panel.length) {
         return (
-          <div class={["k-image-preview-panel", { "k-image-preview-panel-hidden": !this.isShowPanel }]} ref="panelRef">
-            <span class="k-image-preview-panel-action" onClick={() => this.togglePanel()}>
+          <div
+            class={[
+              "k-image-preview-panel",
+              { "k-image-preview-panel-hidden": !state.isShowPanel },
+            ]}
+            ref={panelRef}
+          >
+            <span class="k-image-preview-panel-action" onClick={() => togglePanel()}>
               <Icon type={ChevronUp} />
             </span>
             {panel}
@@ -259,99 +249,239 @@ const ImagePreview = {
         );
       }
       return null;
-    },
-  },
-  beforeDestroy() {
-    document.removeEventListener("mousewheel", this.mousewheel);
-  },
-  mounted() {
-    if (typeof window !== "undefined") {
-      let touch = !!("ontouchstart" in window || (window.DocumentTouch && document instanceof window.DocumentTouch));
-      this.touch = touch;
-      let even = touch ? "touchstart" : "mousedown";
-      document.addEventListener(even, this.mousedown, { passive: false });
-      document.addEventListener("mousewheel", this.mousewheel, { passive: false });
-    }
-  },
-  render() {
-    const { scale, rotate, visible, src, left, top, transfer, showSwitch, data, loading, panelRight, type } = this;
-    const imgStyle = {
-      transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
     };
-    const moveStyle = {
-      transform: `translate3d(${left}px, ${top}px, 0px)`,
-      transition: this.isMouseDown ? "0s" : null,
+
+    watch(
+      () => props.src,
+      (src) => {
+        state.src = src;
+      }
+    );
+
+    watch(
+      () => props.value,
+      (value) => {
+        state.visible = value;
+        if (value) {
+          nextTick(() => {
+            updatePanelRight();
+          });
+        }
+      }
+    );
+
+    watch(
+      () => state.src,
+      (src) => {
+        if (state.type == "media" || !src) return;
+
+        state.loading = true;
+        loadImage(
+          src,
+          ({ width, height }) => {
+            state.loading = false;
+            state.error = false;
+          },
+          () => {
+            state.loading = false;
+            state.error = true;
+          }
+        );
+      }
+    );
+
+    watch(
+      () => props.showPanel,
+      (value) => {
+        state.isShowPanel = value;
+        updatePanelRight();
+      }
+    );
+
+    onMounted(() => {
+      if (typeof window !== "undefined") {
+        const touch = !!(
+          "ontouchstart" in window ||
+          (window.DocumentTouch && document instanceof window.DocumentTouch)
+        );
+        state.touch = touch;
+        const event = touch ? "touchstart" : "mousedown";
+        document.addEventListener(event, mousedown, { passive: false });
+        document.addEventListener("mousewheel", mousewheel, { passive: false });
+
+        document.addEventListener("keydown", escToClose);
+      }
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener("mousewheel", mousewheel);
+      document.removeEventListener("keydown", escToClose);
+    });
+
+    const show = (props = {}) => {
+      if (props?.src) {
+        state.src = props.src;
+      }
+      if (props?.type) {
+        state.type = props.type;
+      }
+      state.visible = true;
     };
-    const imgProps = {
-      class: "k-image-preview-img",
-      attrs: { src },
-      style: imgStyle,
-      ref: "imgRef",
+
+    const escToClose = (e) => {
+      if (e.keyCode === 27) {
+        close();
+      }
     };
-    let tools = getChildren(this.$slots.tool);
-    return (
-      <div class="k-image-preview-root" v-transfer={transfer}>
-        <transition name="k-image-zoom">
+
+    expose({ show, close, togglePanel });
+
+    return () => {
+      const { scale, rotate, visible, src, left, top, data, loading, panelRight, type } = state;
+      const imgStyle = {
+        transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
+      };
+      const moveStyle = {
+        transform: `translate3d(${left}px, ${top}px, 0px)`,
+        transition: state.isMouseDown ? "0s" : null,
+      };
+      const imgProps = {
+        class: "k-image-preview-img",
+        src,
+        style: imgStyle,
+        ref: refImage,
+      };
+
+      const tools = getChildren(slots.tool?.());
+
+      return (
+        <div class="k-image-preview-root">
           <div class="k-image-preview" v-show={visible}>
-            <div class="k-image-preview-mask" onClick={this.close}></div>
+            <Transition name="k-image-fade">
+              <div class="k-image-preview-mask" onClick={close} v-show={visible}></div>
+            </Transition>
             <div class="k-image-preview-wrap" style={{ right: panelRight + "px" }}>
-              <ul class="k-image-preview-control">
-                <li class="k-image-preview-action" onClick={this.close}>
-                  <Icon type={Close} />
-                </li>
-                <li class="k-image-preview-action-divider" />
-                {tools.map((tool) => {
-                  return <li class="k-image-preview-action">{tool}</li>;
-                })}
-                <li class="k-image-preview-action" onClick={this.download}>
-                  <Icon type={ArrowDown} />
-                </li>
-                <li class={["k-image-preview-action", { "k-image-preview-action-disabled": scale >= 5 }]} onClick={() => this.setScale(1)}>
-                  <Icon type={AddCircleOutline} />
-                </li>
-                <li class={["k-image-preview-action", { "k-image-preview-action-disabled": scale <= 1 }]} onClick={() => this.setScale(0)}>
-                  <Icon type={RemoveCircleOutline} />
-                </li>
-                <li class="k-image-preview-action k-image-preview-action-rotate-right" onClick={() => this.setRotate(0)}>
-                  <Icon type={Refresh} />
-                </li>
-                <li class="k-image-preview-action k-image-preview-action-rotate-left" onClick={() => this.setRotate(1)}>
-                  <Icon type={Refresh} />
-                </li>
-              </ul>
+              <Transition name="k-image-fade">
+                <ul class="k-image-preview-control" v-show={visible}>
+                  <li class="k-image-preview-action-nav">
+                    <Button
+                      icon={ChevronBack}
+                      type="text"
+                      disabled={!data.length || data.indexOf(src) == 0}
+                      onClick={() => switchImage(1)}
+                    />
+                    <span>
+                      {data?.indexOf(src) + 1 || 1}/{data?.length || 1}
+                    </span>
+                    <Button
+                      icon={ChevronForward}
+                      type="text"
+                      disabled={!data.length || data.indexOf(src) == data.length - 1}
+                      onClick={() => switchImage()}
+                    />
+                  </li>
+                  <li
+                    class="k-image-preview-action k-image-preview-action-rotate-left"
+                    onClick={() => setRotate(1)}
+                  >
+                    <Icon type={RotateLeft} />
+                  </li>
+                  <li
+                    class="k-image-preview-action k-image-preview-action-rotate-right"
+                    onClick={() => setRotate(0)}
+                  >
+                    <Icon type={RotateRight} />
+                  </li>
+                  <li
+                    class={[
+                      "k-image-preview-action",
+                      { "k-image-preview-action-disabled": scale <= 1 },
+                    ]}
+                    onClick={() => setScale(0)}
+                  >
+                    <Icon type={Remove} />
+                  </li>
+                  <li class="k-image-preview-action k-image-preview-action-scale">
+                    <Slider
+                      modelValue={state.scale}
+                      min={1}
+                      max={maxScale}
+                      size="small"
+                      tooltipVisible={false}
+                      onChange={(val) => (state.scale = val)}
+                    />
+                  </li>
+                  <li
+                    class={[
+                      "k-image-preview-action",
+                      { "k-image-preview-action-disabled": scale >= 5 },
+                    ]}
+                    onClick={() => setScale(1)}
+                  >
+                    <Icon type={Add} />
+                  </li>
+                  <li class="k-image-preview-action" onClick={download}>
+                    <Icon type={ArrowDown} />
+                  </li>
+                  {tools.map((tool) => {
+                    return <li class="k-image-preview-action">{tool}</li>;
+                  })}
+                  <li class="k-image-preview-action-divider" />
+                  <li class="k-image-preview-action" onClick={close}>
+                    <Icon type={Close} />
+                  </li>
+                </ul>
+              </Transition>
+
               <div class="k-image-preview-img-wrap" style={moveStyle}>
                 {type == "media" ? (
-                  <video controls {...imgProps} />
-                ) : !this.error ? (
-                  <img {...imgProps} />
-                ) : (
+                  <video controls {...imgProps} v-show={visible} />
+                ) : !state.error && !state.loading ? (
+                  <img {...imgProps} v-show={visible} />
+                ) : !loading ? (
                   <div class="k-image-preview-img-error">
                     <Icon type={IconImage} />
                   </div>
-                )}
+                ) : null}
               </div>
-              {showSwitch
+              {props.data.length > 1
                 ? [
-                  <div class={["k-image-preview-switch-left", { "k-image-preview-switch-disabled": data.indexOf(src) == 0 }]} onClick={() => this.switchImage(1)}>
-                    <Icon type={ChevronUp} />
-                  </div>,
-                  <div class={["k-image-preview-switch-right", { "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1 }]} onClick={() => this.switchImage()}>
-                    <Icon type={ChevronUp} />
-                  </div>,
-                ]
+                    <div
+                      class={[
+                        "k-image-preview-switch-left",
+                        {
+                          "k-image-preview-switch-disabled": data.indexOf(src) == 0,
+                        },
+                      ]}
+                      onClick={() => switchImage(1)}
+                    >
+                      <Icon type={ArrowBack} />
+                    </div>,
+                    <div
+                      class={[
+                        "k-image-preview-switch-right",
+                        {
+                          "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1,
+                        },
+                      ]}
+                      onClick={() => switchImage()}
+                    >
+                      <Icon type={ArrowForward} />
+                    </div>,
+                  ]
                 : null}
               {loading ? (
                 <div class="k-image-preview-loading">
-                  <Icon type={Sync} spin />
+                  <Icon type={Loading} spin />
                 </div>
               ) : null}
             </div>
-            {this.getPanel()}
+            {getPanel()}
           </div>
-        </transition>
-      </div>
-    );
+        </div>
+      );
+    };
   },
-};
+});
 
 export default withInstall(ImagePreview);

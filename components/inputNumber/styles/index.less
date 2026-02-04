@@ -1,26 +1,25 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-input-number {
   position: relative;
   display: inline-flex;
-  // flex-shrink: 0;
-  // max-width: 100%;
-  // min-width: 0;
   width: 100%;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
-  background-color: var(--kui-color-back);
-  transition: all .3s ease-in-out;
+  background-color: var(--kui-color-bg);
+  transition: border 0.2s ease-in-out;
   box-sizing: border-box;
   gap: var(--kui-padding-inline);
-  padding-left: var(--kui-padding-inline);;
+  padding-left: var(--kui-padding-inline);
   overflow: hidden;
-
-  &:hover:not(.k-input-number-disabled) {
-    border-color: var(--kui-color-main);
-
+  font-size: 14px;
+  outline: 1px solid transparent;
+  &:not(.k-input-number-light, .k-input-number-disabled):hover {
+    border-color: var(--kui-color-primary);
+  }
+  &:not(.k-input-number-disabled):hover {
     .k-input-number-controls {
       opacity: 1;
       width: 20px;
@@ -30,96 +29,76 @@
   .k-input-number-clearable-hidden {
     visibility: hidden;
   }
+}
 
-  .k-input-number-controls {
-    transition: all .15s ease-in-out;
-    user-select: none;
-    // position: absolute;
-    // right: 0;
-    // top: 0;
-    // width: 20px;
-    display: flex;
-    flex-direction: column;
-    color: var(--kui-color-icon);
-    border-left: 1px solid var(--kui-color-border);
-    background-color: var(--kui-color-back);
-    font-size: 11px;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
+.k-input-number-controls {
+  transition: all 0.15s ease-in-out;
+  -webkit-user-select: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  color: var(--kui-color-icon);
+  border-left: 1px solid var(--kui-color-border);
+  font-size: 11px;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.k-input-number-control {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--kui-color-primary);
+    background-color: var(--kui-color-bg-component-hover);
   }
 
-  .k-input-number-control {
-    flex: 1;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--kui-color-main);
-      background-color: var(--kui-color-hover);
-    }
-
-    &:active {
-      color: var(--kui-color-main);
-      background-color: var(--kui-color-active);
-    }
-
-    &:first-child {
-      border-radius: 0 @radius 0 0;
-    }
-
-    &:last-child {
-      border-top: 1px solid var(--kui-color-border);
-      border-radius: 0 0 @radius 0;
-
-      .k-icon {
-        transform: rotate(180deg);
-      }
-    }
+  &:active {
+    color: var(--kui-color-primary);
+    background-color: var(--kui-color-bg-component-active);
   }
 
-  .k-input-number-text {
-    padding-left: 0;
-    border: none;
-    height: 30px;
-    line-height: 1.5;
-    padding: 4px 0;
-    font-size: 14px;
-    color: var(--kui-color-font);
-    background-color: transparent;
-    background-image: none;
-    box-sizing: border-box;
-    flex: 1;
-    min-width: 10px;
-    line-height: 1.571;
-
-    &::placeholder {
-      color: var(--kui-color-disable-color);
-    }
-
-    &:focus {
-      // border-color: var(--kui-color-main);
-      outline: none;
-    }
+  &:last-child {
+    border-top: 1px solid var(--kui-color-border);
   }
+}
 
-  &.k-input-number-focus {
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
-  }
+.k-input-number-text {
+  padding-left: 0;
+  border: none;
+  height: 30px;
+  line-height: 1.5;
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--kui-color-text);
+  background-color: transparent;
+  background-image: none;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 10px;
+  line-height: 1.571;
+  outline: none;
+}
+.k-input-number-focus {
+  outline-offset: 1px;
+  outline: 2px solid var(--kui-color-outline);
+}
+.k-input-number-focus:not(.k-input-number-light, .k-input-number-disabled) {
+  border-color: var(--kui-color-primary);
+  box-shadow: var(--kui-component-shadow);
+}
 
-
-
-  .k-input-number-icon {
-    font-size: 16px;
-    color: var(--kui-color-icon);
-  }
+.k-input-number-icon {
+  font-size: 14px;
+  color: var(--kui-color-icon);
 }
 
 .k-input-number[single] {
@@ -127,14 +106,8 @@
   width: auto;
   padding-right: var(--kui-padding-inline);
 
-  &:hover {
-    border-color: var(--kui-color-main);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--kui-color-main);
-    box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  &:not(.k-input-number-light, .k-input-number-disabled):hover {
+    border-color: var(--kui-color-primary);
   }
 }
 
@@ -156,17 +129,18 @@
   white-space: nowrap;
   line-height: 1;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: flex;
 
   &:hover {
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 
   .k-icon {
-    font-size: 16px;
-    transition: all .2s ease-in-out;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
     color: var(--kui-color-icon);
   }
 }
@@ -174,17 +148,20 @@
 .k-input-number-clearable {
   cursor: pointer;
   font-size: 15px;
-  color: var(--kui-color-gray);
+  color: var(--kui-color-icon);
 
   &:hover {
-    color: var(--kui-color-font);
+    color: var(--kui-color-icon-hover);
+  }
+  &:active {
+    color: var(--kui-color-icon-active);
   }
 }
 
 .k-input-number-sm {
   gap: var(--kui-padding-inline-sm);
   padding-left: var(--kui-padding-inline-sm);
-
+  font-size: 12px;
   .k-input-number-controls {
     height: 22px;
   }
@@ -196,11 +173,11 @@
   }
 
   .k-input-number-clearable {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .k-input-number-icon {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .k-input-number-suffix {
@@ -213,6 +190,7 @@
 .k-input-number-lg {
   gap: var(--kui-padding-inline-lg);
   padding-left: var(--kui-padding-inline-lg);
+  font-size: 16px;
   .k-input-number-controls {
     height: 38px;
   }
@@ -225,23 +203,23 @@
   }
 
   .k-input-number-clearable {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .k-input-number-icon {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .k-input-number-suffix {
     .k-icon {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 }
 
 .k-input-number-light {
-  border: none;
-  background-color: var(--kui-color-gray-80);
+  border-color: transparent;
+  background-color: var(--kui-color-bg-component);
 
   &:focus,
   &.k-input-number-focus {
@@ -251,13 +229,8 @@
 
 .k-input-number-disabled {
   cursor: not-allowed;
-  color: var(--kui-color-disable-color);
-  background: var(--kui-color-disable-back);
-  border-color: var(--kui-color-disable-border);
-
-  &:hover {
-    border-color: var(--kui-color-disable-border);
-  }
+  color: var(--kui-color-text-disabled);
+  background: var(--kui-color-bg-component-disabled);
 
   & * {
     cursor: not-allowed;

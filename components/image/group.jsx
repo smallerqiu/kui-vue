@@ -1,29 +1,61 @@
+import { withInstall } from "../utils/vue";
+import { defineComponent, ref, provide, onUnmounted } from "vue";
+import newInstance from "./instance";
 
-import { withInstall } from '../utils/vue'
-const ImageGroup = {
-  name: 'ImageGroup',
-  provide() {
-    return {
-      ImageGroup: this,
-    }
+const ImageGroup = defineComponent({
+  name: "ImageGroup",
+  props: {
+    data: Array,
   },
-  data() {
-    return {
-      data: []
-    }
-  },
-  methods: {
-    updateCollection(mount, src) {
-      if (mount) {
-        this.data.push(src)
-      } else {
-        let index = this.data.indexOf(src)
-        this.data.splice(index, 1)
+  setup(props, { slots }) {
+    const data = ref(props.data || []);
+    const preview = ref();
+    const show = (props, slots) => {
+      if (!preview.value) {
+        props.data = data.value;
+        preview.value = newInstance({ ...props }, null, slots);
       }
-    }
+      preview.value.show(props);
+    };
+    const togglePanel = () => {
+      if (preview.value) {
+        preview.value.togglePanel();
+      }
+    };
+
+    const register = (item) => {
+      data.value.push(item);
+    };
+
+    const unregister = (item) => {
+      const index = data.value.indexOf(item);
+      if (index >= 0) {
+        data.value.splice(index, 1);
+      }
+    };
+    const destroy = () => {
+      if (preview.value) {
+        preview.value.destroy();
+        preview.value = null;
+      }
+    };
+
+    provide("ImageGroup", {
+      show,
+      destroy,
+      register,
+      unregister,
+      data,
+      togglePanel,
+    });
+
+    onUnmounted(() => {
+      destroy();
+    });
+
+    return () => {
+      return <div class="k-image-group">{slots.default?.()}</div>;
+    };
   },
-  render() {
-    return <div class="k-image-group">{this.$slots.default}</div>
-  }
-}
-export default withInstall(ImageGroup)
+});
+export default withInstall(ImageGroup);

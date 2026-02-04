@@ -1,14 +1,10 @@
-import Vue from 'vue';
 export default {
-  bind(el, { value }) {
-    const SSR = Vue && Vue.prototype.$isServer
-    if (typeof value == 'function' && !SSR) {
-      window.addEventListener('resize', value)
+  mounted(el, { value }) {
+    if (typeof value == "function") {
+      window.addEventListener("resize", value);
     }
   },
-  unbind(el, { value }) {
-    const SSR = Vue && Vue.prototype.$isServer
-    if (typeof value == 'function' && !SSR)
-      window.removeEventListener('resize', value)
-  }
-}
+  unmounted(el, { value }) {
+    if (typeof value == "function") window.removeEventListener("resize", value);
+  },
+};

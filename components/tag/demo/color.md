@@ -1,21 +1,23 @@
 <cn>
-#### 多彩标签 
+### 多彩标签
 多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
-</cn>
+ </cn>
+<en>
+### Colorful Tags
+Tags with various preset color styles for different scenarios. If the presets do not meet your needs, you can set a specific color value directly.
+</en>
 
 ```vue
 <template>
   <div>
-    <h4 style="margin-bottom: 16px">
-      Presets:
-    </h4>
+    <h4 style="margin-bottom: 16px">Presets:</h4>
     <Space wrap>
-      <Tag :color="color" v-for="(color,i) in colors" :key="i">{{color}}</Tag> 
+      <Tag :color="color" v-for="(color, i) in colors" :key="i">
+        {{ color }}
+      </Tag>
     </Space>
-    <h4 style="margin:16px 0">
-      Custom:
-    </h4>
-    <Space wrap>
+    <h4 style="margin:16px 0">Custom:</h4>
+    <Space>
       <Tag color="#c20">#c20</Tag>
       <Tag color="#39f">#39f</Tag>
       <Tag color="#e3f">#e3f</Tag>
@@ -23,26 +25,20 @@
     </Space>
   </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      colors:[
-      'pink',
-      'red',
-      'yellow',
-      'orange',
-      'cyan',
-      'green',
-      'blue',
-      'purple',
-      'magenta',
-      'volcano',
-      'gold',
-      'lime',
-      ]
-    }
-  }
-} 
+<script setup>
+const colors = [
+  "pink",
+  "red",
+  "yellow",
+  "orange",
+  "cyan",
+  "green",
+  "blue",
+  "purple",
+  "magenta",
+  "volcano",
+  "gold",
+  "lime",
+];
 </script>
 ```

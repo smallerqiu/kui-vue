@@ -1,28 +1,30 @@
-import newInstance from './instance'
-import { withInstall } from '../utils/vue'
+import { newInstance } from "./instance";
+import { withInstall } from "../utils/vue";
+
 let messageInstance;
 
 let Message = {
-  name: 'Message',
-  config(options = {}) {
-    options.noticeType = 'message'
+  name: "message",
+  show(options = {}) {
+    options.noticeType = "message";
     if (!messageInstance) {
-      messageInstance = newInstance({ type: 'message' })
+      messageInstance = newInstance({ type: "message", key: "message" });
     }
-    messageInstance.show(options);
+    // console.log(messageInstance, options);
+    messageInstance?.show(options);
   },
   destroy() {
     if (messageInstance) {
-      messageInstance.destroy()
+      messageInstance.clean();
+      messageInstance.destroy();
       messageInstance = null;
-      document.body.removeChild(document.querySelector('.k-message'));
     }
-  }
+  },
 };
-['info', 'success', 'warning', 'error'].forEach(type => {
+["info", "success", "warning", "error"].forEach((type) => {
   Message[type] = (content, duration, onClose) => {
-    return Message.config({ type, content, duration, onClose })
-  }
-})
+    return Message.show({ type, content, duration, onClose });
+  };
+});
 
 export default withInstall(Message);

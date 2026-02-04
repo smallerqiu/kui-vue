@@ -1,44 +1,37 @@
 <cn>
-#### 主题
+### 主题
 使用 `theme` 设定主题 ,`shape` 呈现圆角 
 </cn>
 
 ```vue
 <template>
-  <Space vertical style="width:512px;">
-    <Checkbox label="Circle" v-model="isShape"/>
-    <Input placeholder="请输入内容..." @blur="blur" @focus="focus" @change="change" theme="light" :shape="shape"/>
-    <Input placeholder="disabled..." disabled theme="light" :shape="shape"/>
-    <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape"/>
-    <Input placeholder="请输入内容..." theme="light" @search="focus" clearable :shape="shape"/>
-    <TextArea placeholder="请输入内容..." theme="light" :rows="3"/>
+  <Space vertical block>
+    <Checkbox label="Circle" v-model="isCircle" @change="setShape" />
+    <Input placeholder="请输入内容..." theme="light" :shape="shape" />
+    <Input placeholder="disabled..." disabled theme="light" :shape="shape" />
+    <Input placeholder="请输入内容..." theme="light" :icon="Search" :shape="shape" />
+    <Input
+      placeholder="请输入内容..."
+      theme="light"
+      :clearable="false"
+      :shape="shape"
+      @search="onSearch"
+    />
+    <TextArea placeholder="请输入内容..." theme="light" :rows="3" />
   </Space>
 </template>
-<script>
+<script setup>
 import { Search } from "kui-icons";
-export default{
-  data() {
-    return {
-      Search,
-      isShape :false
-    }
-  },
-  computed:{
-    shape() { 
-      return this.isShape ? 'circle' : null
-    }
-  },
-  methods:{
-    blur(){
-      console.log('blur')
-    },
-    focus(){
-      console.log('focus')
-    },
-    change(e){
-      console.log('change')
-    },
-  }
-}
+import { message } from "kui-vue";
+import { ref } from "vue";
+const isCircle = ref();
+const shape = ref();
+const setShape = ({ checked }) => {
+  shape.value = checked ? "circle" : null;
+};
+const onSearch = (value) => {
+  message.info("This is search event");
+  console.log(value);
+};
 </script>
 ```

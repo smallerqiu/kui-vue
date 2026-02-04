@@ -1,5 +1,5 @@
 <cn>
-#### 缩起内嵌菜单
+### 缩起内嵌菜单
 内嵌菜单可以被缩起/展开。
 </cn>
 
@@ -7,44 +7,61 @@
 <template>
   <div style="width:256px">
     <Button @click="change" :icon="collapsed ? MenuFold : MenuUnfold" type="primary"></Button>
-    <br/>
-    <br/>
-    <Menu v-model="current" :open-keys="openKeys" theme="dark" :inline-collapsed="!collapsed" mode="inline">
-      <MenuItem key="1-1" :icon="Mail">Option 1</MenuItem>
-      <MenuItem key="1-2" :icon="Grid"><span>Option 2</span></MenuItem>
-      <SubMenu key="sub2" :icon="Heart" title="Navigation Two">
-        <MenuItem key="2-1">Option 5</MenuItem>
-        <MenuItem key="2-2">Option 6</MenuItem>
-        <SubMenu title="SubMenu" key="sub2-1">
-          <MenuItem key="2-3">Option 7</MenuItem>
-          <MenuItem key="2-4">Option 8</MenuItem>
-        </SubMenu>
-      </SubMenu>
-       <SubMenu key="sub3" :icon="Settings" title="Navigation Three">
-        <MenuItem key="3-1">Option 9</MenuItem>
-        <MenuItem key="3-2">Option 10</MenuItem>
-        <MenuItem key="3-3">Option 11</MenuItem>
-        <MenuItem key="3-4">Option 12</MenuItem>
-      </SubMenu>
-    </Menu>
+    <br />
+    <br />
+    <Menu
+      v-model="current"
+      :openKeys="openKeys"
+      theme="dark"
+      :inlineCollapsed="collapsed"
+      mode="inline"
+      :items="items"
+    />
   </div>
 </template>
-<script>
-import { MenuFold, MenuUnfold, Mail, Grid, Heart,Settings } from "kui-icons";
-export default {
-  data() {
-    return {
-      MenuFold, MenuUnfold, Mail, Grid, Heart,Settings,
-      current: ['1-1'],
-      openKeys:['sub2'],
-      collapsed: false
-    }
+<script setup>
+import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
+import { ref } from "vue";
+const current = ref(["1-1"]);
+const openKeys = ref(["3-1"]);
+const collapsed = ref(false);
+
+const change = () => {
+  collapsed.value = !collapsed.value;
+};
+
+const items = [
+  { title: "Option 1", key: "1-1", icon: Mail },
+  { title: "Option 2", key: "2-1", icon: Grid },
+  {
+    title: "Navigation Two",
+    key: "3-1",
+    icon: Heart,
+    children: [
+      { title: "Option 5", key: "3-1-1", icon: Mail },
+      { title: "Option 6", key: "3-1-2", icon: Mail },
+      {
+        title: "SubMenu",
+        key: "3-1-3",
+        icon: Mail,
+        children: [
+          { title: "Option 7", key: "3-1-3-1", icon: Mail },
+          { title: "Option 8", key: "3-1-3-2", icon: Mail },
+        ],
+      },
+    ],
   },
-  methods:{
-    change(){
-      this.collapsed = !this.collapsed
-    }
-  }
-}
+  {
+    title: "Navigation Three",
+    key: "4-1",
+    icon: Settings,
+    children: [
+      { title: "Option 9", key: "4-1-1", icon: Mail },
+      { title: "Option 10", key: "4-1-2", icon: Mail },
+      { title: "Option 11", key: "4-1-3", icon: Mail },
+      { title: "Option 12", key: "4-1-4", icon: Mail },
+    ],
+  },
+];
 </script>
 ```

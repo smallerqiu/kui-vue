@@ -1,34 +1,64 @@
-import MarkdownIt from 'markdown-it'
-import { parseComponent } from 'vue-template-compiler'
-import anchor from 'markdown-it-anchor'
-import hljs from 'highlight.js'
+import MarkdownIt from "markdown-it";
+import { parse } from "@vue/compiler-sfc";
+import hashId from "hash-sum";
+
+import anchor from "markdown-it-anchor";
+import hljs from "highlight.js";
 
 export default function vitePluginMd() {
-
   const markdown = new MarkdownIt({
     html: true,
     breaks: true,
     highlight(code, lang) {
       if (lang && hljs.getLanguage(lang)) {
-        return `<pre><code class="hljs language-${lang}">${hljs.highlight(code, { language: lang }).value}</code></pre>`
+        return `<pre><code class="hljs language-${lang}">${hljs.highlight(code, { language: lang }).value}</code></pre>`;
       }
-      return `<pre><code class="hljs">${markdown.utils.escapeHtml(code)}</code></pre>`
-    }
+      return `<pre><code class="hljs">${markdown.utils.escapeHtml(code)}</code></pre>`;
+    },
   }).use(anchor, {
     level: 2,
-    slugify: (string) =>
-      string.toLocaleLowerCase().trim().split(' ').join('-'),
+    slugify: (string) => string.toLocaleLowerCase().trim().split(" ").join("-"),
     permalink: anchor.permalink.headerLink(),
-    permalinkClass: 'anchor',
-    permalinkSymbol: '#',
-    permalinkBefore: false
-  })
+    permalinkClass: "anchor",
+    permalinkSymbol: "#",
+    permalinkBefore: false,
+  });
 
   return {
-    name: 'vite-plugin-md',
-    enforce: 'pre',
-    transform(src, id) {
-      if (!id.endsWith('.md')) return null;
+    name: "vite-plugin-md",
+    enforce: "pre",
+    transform(src, path) {
+      if (!path.endsWith(".md")) return null;
+      const vertical_list = [
+        "table",
+        "grid",
+        "dark-mode",
+        "flex",
+        "layout",
+        "space",
+        "menu",
+        "page",
+        "tabs",
+        "descriptions",
+        "skeleton",
+        "form/",
+        "input/demo/group",
+        "slider/demo/marks",
+        "tree/demo/directory",
+        "views/language/demo",
+        "statCard/demo/card",
+      ];
+      let direction = "horizontal";
+      vertical_list.forEach((item) => {
+        if (path.includes(item)) {
+          direction = "vertical";
+        }
+      });
+      // if (vertical_list.includes(path.split("/").pop().split(".")[0])) {
+      //   direction = "vertical";
+      // }
+      // const direction = path.includes("table") ? "vertical" : "horizontal";
+      const id = "k-" + hashId(path);
 
       // 1) optional <cn> block (for description)
       const tagCNReg = /<cn\b[^>]*>(.*?)<\/cn>/gs;
@@ -44,27 +74,40 @@ export default function vitePluginMd() {
 
       if (m) {
         const block = m[1].trim();
-        const { template, script, styles } = parseComponent(block);
+        //for 3
+        const { descriptor } = parse(block);
+        const { template, script, scriptSetup, styles } = descriptor;
 
+        //for 2.x
+        // const { template, script, scriptSetup, styles } = parse({
+        //   source: block,
+        // });
         // pretty code preview
-        let codeHtml = markdown.render('```html\n' + block + '\n```') //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
-        codeHtml = codeHtml.replace(/{{/g, '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>').replace(/}}/g, '&#125;&#125;');
+        let codeHtml = markdown.render("```html\n" + block + "\n```"); //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
+        codeHtml = codeHtml
+          .replace(
+            /{{/g,
+            '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
+          )
+          .replace(/}}/g, "&#125;&#125;");
         let result = `
 <template>
-  <Demo>
-    <template slot="component">${template?.content || ''}</template>
-    <template slot="description">${cnHtml || ''}</template>
-    <template slot="code">${codeHtml}</template>
+  <Demo id="${id}" direction="${direction}">
+    <template #component>${template?.content || ""}</template>
+    <template #description>${cnHtml || ""}</template>
+    <template #code>${codeHtml}</template>
   </Demo>
 </template>
 `;
 
-        if (script?.content) {
+        if (scriptSetup?.content) {
+          result += `<script setup>${scriptSetup.content}</script>`;
+        } else if (script?.content) {
           result += `<script>${script.content}</script>`;
         }
         if (Array.isArray(styles) && styles.length) {
-          styles.forEach(s => {
-            result += `<style ${s.scoped ? 'scoped' : ''} ${s.lang ? `lang="${s.lang}"` : ''}>${s.content}</style>`;
+          styles.forEach((s) => {
+            result += `<style ${s.scoped ? "scoped" : ""} ${s.lang ? `lang="${s.lang}"` : ""}>${s.content}</style>`;
           });
         }
 
@@ -75,6 +118,6 @@ export default function vitePluginMd() {
       const html = markdown.render(src);
       const wrapped = `<template><div class="markdown-body">${html}</div></template>`;
       return { code: wrapped, map: null };
-    }
-  }
+    },
+  };
 }

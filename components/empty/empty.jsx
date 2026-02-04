@@ -1,23 +1,46 @@
 import Icon from "../icon";
-import { t } from "../locale";
-import { FileTrayOutline } from "kui-icons";
-import { withInstall } from '../utils/vue'
-const Empty = {
-  name: 'Empty',
+import { FileTrayOutline } from "kui-icons/dist/icons";
+import zhCN from "../locale/zh-CN";
+import { defineComponent, inject, computed } from "vue";
+import { withInstall } from "../utils/vue";
+const Empty = defineComponent({
+  name: "Empty",
   props: {
     description: String,
     image: String,
-    imageStyle: Object
+    imageStyle: Object,
   },
-  render() {
-    let { image, imageStyle, $slots, description } = this
+  setup(ps, { slots }) {
+    const injectedLocale = inject("locale", zhCN);
 
-    return (<div class="k-empty">
-      {(!image && !$slots.image) ? <Icon type={FileTrayOutline} class="k-empty-icon" /> : ($slots.image ? $slots.image : <img src={image} class="k-empty-image" style={imageStyle} />)}
-      {description !== null ? <p class="k-empty-description">{description || $slots.description || t('k.empty.description')}</p> : null}
-      {$slots.default ? <div class="k-empty-footer">{$slots.default}</div> : null}
-    </div>)
-  }
-}
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
 
-export default withInstall(Empty)
+    return () => {
+      let { image, imageStyle, description } = ps;
+      return (
+        <div class="k-empty">
+          <div class="k-empty-content">
+            {!image && !slots.image ? (
+              <Icon type={FileTrayOutline} class="k-empty-icon" />
+            ) : slots.image ? (
+              slots.image()
+            ) : (
+              <img src={image} class="k-empty-image" style={imageStyle} />
+            )}
+            {description !== null ? (
+              <p class="k-empty-description">
+                {description || slots.description?.() || locale?.value.k.empty.description}
+              </p>
+            ) : null}
+            {slots.default ? <div class="k-empty-footer">{slots.default()}</div> : null}
+          </div>
+        </div>
+      );
+    };
+  },
+});
+export default withInstall(Empty);

@@ -1,168 +1,188 @@
 import { Button } from "../button";
 import Icon from "../icon";
-import { t } from "../locale";
 import transfer from "../directives/transfer";
-import { measureScrollBar } from "../utils/element";
-import { Close } from "kui-icons";
-
-let cacheBodyOverflow = {};
-
-import { withInstall } from '../utils/vue'
-const Drawer = {
+import { Close } from "kui-icons/dist/icons";
+import {
+  defineComponent,
+  inject,
+  nextTick,
+  ref,
+  Transition,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  computed,
+} from "vue";
+import zhCN from "../locale/zh-CN";
+import { withInstall } from "../utils/vue";
+import { toggleContainerScroll } from "../utils/vnode";
+const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
   props: {
-    value: Boolean,
+    modelValue: Boolean,
     title: { default: "Title", type: String },
     width: { default: 520, type: [Number, String] },
-    height: { default: 256, type: [Number, String] },
+    height: { default: 520, type: [Number, String] },
     okText: String,
     cancelText: String,
     placement: { type: String, default: "right" },
     closable: { type: Boolean, default: true },
     footer: { type: Boolean, default: true },
-    maskClosable: { type: Boolean, default: false },
+    maskClosable: { type: Boolean, default: true },
     target: { type: Function, default: () => document.body },
     mask: { type: Boolean, default: true },
     loading: { type: Boolean, default: false },
+    escKey: { type: Boolean, default: true },
   },
-  watch: {
-    value(v) {
-      this.rendered = true;
-      this.$nextTick(() => {
-        this.visible = v;
-        this.openHandle();
-        this.resetBodyStyle(v);
-      });
-    },
-  },
-  data() {
-    return {
-      visible: this.value,
-      rendered: this.value,
-      open: this.value,
+  setup(ps, { slots, emit }) {
+    const injectedLocale = inject("locale", zhCN);
+
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
+    const rendered = ref(ps.modelValue);
+    const visible = ref(ps.modelValue);
+    const opened = ref(ps.modelValue);
+    watch(
+      () => ps.modelValue,
+      (nv, ov) => {
+        if (nv) {
+          toggle(nv);
+        }
+      }
+    );
+
+    onMounted(() => {
+      ps.escKey && document.addEventListener("keydown", escToClose);
+    });
+    onBeforeUnmount(() => {
+      ps.escKey && document.removeEventListener("keydown", escToClose);
+      toggleContainerScroll(ps.target(), false);
+    });
+
+    const toggle = (value) => {
+      if (!rendered.value && value) {
+        rendered.value = true;
+        toggle(true);
+      } else {
+        if (value) {
+          nextTick((e) => {
+            visible.value = value;
+            opened.value = value;
+            emit("update:modelValue", true);
+          });
+        } else {
+          visible.value = false;
+          setTimeout(() => {
+            opened.value = false;
+          }, 300);
+          emit("update:modelValue", false);
+        }
+      }
+    };
+    const escToClose = (event) => {
+      if (event.key === "Escape") {
+        close();
+      }
+    };
+
+    const clickMaskToClose = () => {
+      if (ps.maskClosable) {
+        close();
+      }
+    };
+
+    const cancel = () => {
+      emit("cancel");
+      visible.value = false;
+      toggle(false);
+    };
+
+    const close = () => {
+      emit("close");
+      toggle(false);
+    };
+
+    const ok = () => {
+      emit("ok");
+    };
+
+    return () => {
+      const { title, cancelText, okText, placement, width, height, closable, loading } = ps;
+      const hasFooter = ps.footer || slots.footer;
+      const cancelBtn = (
+        <Button onClick={cancel}>{cancelText || locale?.value.k.common.cancel}</Button>
+      );
+      const okBtn = (
+        <Button type="primary" onClick={ok} loading={loading}>
+          {okText || locale?.value.k.common.ok}
+        </Button>
+      );
+      const footNode = hasFooter ? (
+        <div class="k-drawer-footer">{slots.footer ? slots.footer() : [cancelBtn, okBtn]}</div>
+      ) : null;
+
+      const closeNode = closable ? (
+        <Button
+          class="k-drawer-close"
+          size="small"
+          type="text"
+          onClick={close}
+          icon={Close}
+        ></Button>
+      ) : null;
+
+      const transitionName = `k-drawer-${placement}`;
+      const target = ps.target();
+      const isBody = target == document.body;
+      const classes = [
+        "k-drawer",
+        `k-drawer-${placement}`,
+        { "k-drawer-has-footer": hasFooter },
+        { "k-drawer-to-body": isBody },
+        { "k-drawer-no-mask": !ps.mask },
+      ];
+      let styles = {};
+      if (placement == "left" || placement == "right")
+        styles.width = typeof width === "number" ? `${width}px` : width;
+      if (placement == "top" || placement == "bottom")
+        styles.height = typeof height === "number" ? `${height}px` : height;
+
+      let maskNode = null;
+      if (ps.mask) {
+        maskNode = (
+          <Transition name="k-drawer-fade">
+            <div
+              class={["k-drawer-mask", { "k-drawer-mask-to-body": isBody }]}
+              v-show={visible.value}
+              onClick={clickMaskToClose}
+            ></div>
+          </Transition>
+        );
+      }
+      return rendered.value ? (
+        <div class={classes} v-transfer={target}>
+          {maskNode}
+          <div class="k-drawer-wrap" tabindex="-1" v-show={opened.value}>
+            <Transition name={transitionName}>
+              <div class="k-drawer-box" v-show={visible.value} style={styles}>
+                <div class="k-drawer-content">
+                  <div class="k-drawer-header">
+                    {closeNode}
+                    <div class="k-drawer-header-inner">{title}</div>
+                  </div>
+                  <div class="k-drawer-body">{slots.default?.()}</div>
+                  {footNode}
+                </div>
+              </div>
+            </Transition>
+          </div>
+        </div>
+      ) : null;
     };
   },
-  beforeDestroy() {
-    this.resetBodyStyle(false);
-  },
-  methods: {
-    ok() {
-      this.$emit("ok");
-    },
-    onKeyUp(e) {
-      if (this.visible) {
-        if (e.keyCode == 27) this.close();
-      }
-    },
-    cancel() {
-      this.$emit("cancel");
-      this.close();
-    },
-    openHandle() {
-      if (this.visible) {
-        this.open = true;
-      } else {
-        setTimeout(() => {
-          this.open = false;
-        }, 300);
-      }
-    },
-    close() {
-      this.visible = false;
-      this.$emit("input", false);
-      this.$emit("cancel");
-      this.$emit("close");
-      this.openHandle();
-    },
-    maskToClose() {
-      if (this.maskClosable) {
-        this.close();
-      }
-    },
-    resetBodyStyle(opened) {
-      let target = this.target();
-      if (opened && !Object.prototype.hasOwnProperty.call(cacheBodyOverflow, "overflow")) {
-        cacheBodyOverflow = {
-          width: target.style.width,
-          overflow: target.style.overflow,
-          overflowX: target.style.overflowX,
-          overflowY: target.style.overflowY,
-        };
-      }
-      if (opened) {
-        let barWidth = measureScrollBar(true);
-        let el = target == document.body ? document.documentElement : target;
-        let hasBar = el.scrollHeight > el.clientHeight || el.offsetHeight > el.clientHeight;
-        if (barWidth && hasBar) {
-          target.style.width = `calc(100% - ${barWidth}px)`;
-          target.style.overflowY = `hidden`;
-        }
-      } else {
-        setTimeout(() => {
-          Object.keys(cacheBodyOverflow).forEach((key) => {
-            target.style[key] = cacheBodyOverflow[key] || "";
-            delete cacheBodyOverflow[key];
-          });
-        }, 300);
-      }
-    },
-  },
-  render() {
-    if (typeof window === "undefined") return null;
-    const { title, visible, cancelText, okText, ok, placement, cancel, $slots, width, height, open, closable, close, loading } = this;
-    const hasFooter = this.footer || $slots.footer;
-    const cancelBtn = <Button onClick={cancel}>{cancelText || t("k.drawer.cancel")}</Button>;
-    const okBtn = (
-      <Button type="primary" onClick={ok} loading={loading}>
-        {okText || t("k.drawer.ok")}
-      </Button>
-    );
-    const footNode = hasFooter ? (
-      <div class="k-drawer-footer">
-        {$slots.footer}
-        {!$slots.footer && [cancelBtn, okBtn]}
-      </div>
-    ) : null;
-    const closeNode = closable ? (
-      <span class="k-drawer-close" onClick={close}>
-        <Icon type={Close} />
-      </span>
-    ) : null;
-    const transitionName = `k-drawer-${placement}`;
-    const target = this.target();
-    const isBody = target == document.body;
-    const classes = ["k-drawer", `k-drawer-${placement}`, { "k-drawer-open": open }, { "k-drawer-has-footer": hasFooter }, { "k-drawer-nobody": !isBody }, { "k-drawer-nomask": !this.mask }];
-    let styles = {};
-    if (placement == "left" || placement == "right") styles.width = /%/.test(width) ? width : width + "px";
-    if (placement == "top" || placement == "bottom") styles.height = /%/.test(height) ? height : height + "px";
-    // const wrapCls =
-    let maskNode = null;
-    if (this.mask) {
-      maskNode = (
-        <transition name="k-drawer-fade">
-          <div class={["k-drawer-mask", { "k-drawer-mask-nobody": !isBody }]} v-show={visible} onClick={this.maskToClose}></div>
-        </transition>
-      );
-    }
-    return this.rendered ? (
-      <div class={classes} v-transfer={target}>
-        {maskNode}
-        <transition name={transitionName}>
-          <div class="k-drawer-box" v-show={visible} style={styles}>
-            <div class="k-drawer-content">
-              <div class="k-drawer-header">
-                {closeNode}
-                <div class="k-drawer-header-inner">{title}</div>
-              </div>
-              <div class="k-drawer-body">{$slots.default}</div>
-              {footNode}
-            </div>
-          </div>
-        </transition>
-      </div>
-    ) : null;
-  },
-};
-
+});
 export default withInstall(Drawer);

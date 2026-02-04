@@ -1,17 +1,15 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-popconfirm {
   display: inline-block;
-  // position: relative;
   min-width: 200px;
-  // max-width: 300px;
   font-size: 12px;
   line-height: 1.5;
   position: absolute;
   z-index: 1001;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
 
-  &[k-placement^=top] {
+  &[k-placement^="top"] {
     .k-popconfirm-arrow {
       bottom: -7px;
       height: 9px;
@@ -22,26 +20,26 @@
     }
   }
 
-  &[k-placement=top] {
+  &[k-placement="top"] {
     .k-popconfirm-arrow {
       left: 50%;
       transform: translateX(-50%);
     }
   }
 
-  &[k-placement=top-right] {
+  &[k-placement="top-right"] {
     .k-popconfirm-arrow {
       right: 10px;
     }
   }
 
-  &[k-placement=top-left] {
+  &[k-placement="top-left"] {
     .k-popconfirm-arrow {
       left: 10px;
     }
   }
 
-  &[k-placement^=bottom] {
+  &[k-placement^="bottom"] {
     .k-popconfirm-arrow {
       top: -7px;
       height: 9px;
@@ -53,25 +51,25 @@
     }
   }
 
-  &[k-placement=bottom] {
+  &[k-placement="bottom"] {
     .k-popconfirm-arrow {
       left: 50%;
     }
   }
 
-  &[k-placement=bottom-left] {
+  &[k-placement="bottom-left"] {
     .k-popconfirm-arrow {
       left: 10px;
     }
   }
 
-  &[k-placement=bottom-right] {
+  &[k-placement="bottom-right"] {
     .k-popconfirm-arrow {
       right: 10px;
     }
   }
 
-  &[k-placement^=left] {
+  &[k-placement^="left"] {
     .k-popconfirm-arrow {
       right: -14px;
       width: 23px;
@@ -84,26 +82,26 @@
     }
   }
 
-  &[k-placement=left] {
+  &[k-placement="left"] {
     .k-popconfirm-arrow {
       top: 50%;
       transform: translateY(-50%) rotate(-90deg);
     }
   }
 
-  &[k-placement=left-bottom] {
+  &[k-placement="left-bottom"] {
     .k-popconfirm-arrow {
       bottom: 17px;
     }
   }
 
-  &[k-placement=left-top] {
+  &[k-placement="left-top"] {
     .k-popconfirm-arrow {
       top: 17px;
     }
   }
 
-  &[k-placement^=right] {
+  &[k-placement^="right"] {
     .k-popconfirm-arrow {
       left: -14px;
       width: 23px;
@@ -116,20 +114,20 @@
     }
   }
 
-  &[k-placement=right] {
+  &[k-placement="right"] {
     .k-popconfirm-arrow {
       top: 50%;
       transform: translateY(-50%) rotate(90deg);
     }
   }
 
-  &[k-placement=right-top] {
+  &[k-placement="right-top"] {
     .k-popconfirm-arrow {
       top: 17px;
     }
   }
 
-  &[k-placement=right-bottom] {
+  &[k-placement="right-bottom"] {
     .k-popconfirm-arrow {
       bottom: 17px;
     }
@@ -137,32 +135,31 @@
 }
 
 .k-popconfirm-content {
-  // .k-popconfirm-inner {
-  background: var(--kui-color-control-10);
-  // background: #333;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 12px; //var(--kui-border-radius);
+  background: var(--kui-color-bg-pop);
+  box-shadow: var(--kui-pop-shadow);
+
+  border-radius: var(--kui-border-radius-card);
   position: relative;
-  // border: 1px solid var(--kui-color-border);
-  // }
-  border: 1px solid var(--kui-color-border);
+  border: 1px solid var(--kui-color-pop-border);
 
   #ot {
     stroke-width: 0.1em;
-    stroke: var(--kui-color-border);
+    stroke: var(--kui-color-pop-border);
   }
 
   .k-popconfirm-body {
     padding: 18px 18px 10px 18px;
     box-sizing: border-box;
     position: relative;
+    display: flex;
+    align-items: flex-start;
   }
 
   .k-icon {
-    position: absolute;
     font-size: 18px;
     color: var(--kui-color-warning);
-    top: 19px;
+    margin-right: 5px;
+    margin-top: 2px;
   }
 
   .k-popconfirm-footer {
@@ -171,7 +168,6 @@
   }
 
   .k-popconfirm-title {
-    padding: 0 0 0 24px;
     font-size: 14px;
   }
 
@@ -179,8 +175,7 @@
     position: absolute;
     box-sizing: border-box;
     display: flex;
-    color: var(--kui-color-control-10);
-    // color:inherit;
+    color: var(--kui-color-bg-pop);
     width: 23px;
     height: 9px;
   }
@@ -198,7 +193,7 @@
 @keyframes k-pop-zoom {
   from {
     opacity: 0;
-    transform: scale(.8, .8);
+    transform: scale(0.8, 0.8);
   }
 
   to {
@@ -207,13 +202,10 @@
   }
 }
 
-
 .k-popconfirm-enter-active {
-  // transform-origin: center bottom;
-  animation: k-pop-zoom .3s;
+  animation: k-pop-zoom 0.3s;
 }
 
 .k-popconfirm-leave-active {
-  // transform-origin: center bottom;
-  animation: k-pop-zoom .3s reverse;
+  animation: k-pop-zoom 0.3s reverse;
 }

@@ -4,7 +4,7 @@
     </a>
 </p>
 <h1 align="center">
-   KUI for Vue
+   KUI for Vue   
 </h1>
 
 <div align="center">
@@ -17,7 +17,7 @@
 ![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/k-ui.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
 ![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/k-ui.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
 
-![theme](https://k-ui.cn/img/theme.jpg)
+![](https://k-ui.cn/img/theme.jpg)
 
 [English](./readme.md) | 简体中文
 
@@ -37,7 +37,7 @@
 
 - 50+高质量组件
 - 国际化支持 14 种语言
-- 支持Vue2.x
+- 支持Vue3.x
 - 支持 SSR
 - 支持 [Nuxt.js](https://nuxtjs.org/)
 - 支持 Electron
@@ -46,11 +46,11 @@
 # 安装
 
 ```sh
-# with npm:
+#with npm:
 npm install kui-vue
 
-# with yarn:
-yarn add kui-vue
+#with yarn:
+npm add kui-vue
 ```
 
 使用脚本标记进行全局使用：
@@ -59,7 +59,7 @@ yarn add kui-vue
 <!-- import stylesheet -->
 <link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
 <!-- import kui -->
-<script src="//unpkg.com/kui-vue@3.x"></script>
+<script src="//unpkg.com/kui-vue/dist/k-ui.js"></script>
 ```
 
 # 使用
@@ -67,19 +67,13 @@ yarn add kui-vue
 ```html
 <template>
   <div>
-    <Button type="primary" @click="test">Primary</Button>
+    <button type="primary" @click="test">Primary</button>
   </div>
 </template>
-<script>
-  export default {
-    data() {
-      return {};
-    },
-    methods: {
-      test() {
-        this.$Message.info("Hello kui !");
-      },
-    },
+<script setup>
+  import { mgessage } from "kui-vue";
+  const test = () => {
+    message.info("Hello kui !");
   };
 </script>
 ```
@@ -102,4 +96,4 @@ KUI 支持所有主要的现代浏览器。
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017-present, Qiu
+Copyright (c) 2017-present, Chuchur

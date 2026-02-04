@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-backtop {
   box-sizing: border-box;
@@ -17,21 +17,18 @@
   border-radius: var(--kui-border-radius);
 
   &-content {
-    background-color: rgba(0, 0, 0, .45);
-    opacity: .5;
+    background-color: var(--kui-color-bg-component);
     height: 40px;
-    transition: opacity .3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     text-align: center;
     line-height: 40px;
-    color: #fff;
+    color: var(--kui-color-text);
 
     &:hover {
-      opacity: 1;
+      background-color: var(--kui-color-bg-component-hover);
     }
-
-    .k-ion {
-      font-size: 20px;
-      color: #fff;
+    &:active {
+      background-color: var(--kui-color-bg-component-active);
     }
   }
 }
@@ -46,11 +43,10 @@
   }
 }
 
-
 .k-backtop-fade-enter-active {
-  animation: k-backtop-fade .4s;
+  animation: k-backtop-fade 0.4s;
 }
 
 .k-backtop-fade-leave-active {
-  animation: k-backtop-fade .4s reverse;
+  animation: k-backtop-fade 0.4s reverse;
 }

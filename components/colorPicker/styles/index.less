@@ -1,7 +1,6 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-color-picker {
-  // width: 55px;
   height: 32px;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
@@ -10,21 +9,20 @@
   box-sizing: border-box;
   align-items: center;
   padding: 3px;
+  outline: 1px solid transparent;
 
-  &:hover,
-  &:focus {
-    border-color: var(--kui-color-main-hover);
+  &:not(.k-color-picker-disabled):hover {
+    border-color: var(--kui-color-primary-hover);
   }
 
-  &:active {
-    opacity: .8;
+  &:not(.k-color-picker-disabled):active {
+    opacity: 0.8;
   }
 
   .k-color-picker-selection {
     line-height: 1.571;
     display: flex;
     align-items: center;
-    // padding: 2px;
     cursor: pointer;
   }
 
@@ -32,17 +30,24 @@
     height: 24px;
     width: 24px;
     border-radius: 12%;
-    // margin: 2px;
     overflow: hidden;
-    background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
-    background-size: 50% 50%;
-    background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
-    box-shadow: inset 0 0 1px 0 rgba(255, 255, 255, 0.25);
+    background-image:
+      linear-gradient(-45deg, #cdcdcd 25%, transparent 0),
+      linear-gradient(45deg, #cdcdcd 25%, transparent 0),
+      linear-gradient(-45deg, transparent 75%, #cdcdcd 0),
+      linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+    background-size: 11px 11px;
+    background-position:
+      0 0,
+      0 -5.5px,
+      -5.5px 5.5px,
+      5.5px 0;
+    box-shadow: inset 0 0 1px 0 var(--kui-color-shadow);
 
     .k-color-picker-color-inner {
       height: 100%;
       width: 100%;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 0 0 1px var(--kui-color-shadow);
       border-radius: inherit;
     }
   }
@@ -51,7 +56,7 @@
     margin: 0 5px;
     font-size: 16px;
     color: var(--kui-color-icon);
-    transition: transform .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   .k-color-picker-trigger-text {
@@ -61,10 +66,9 @@
   }
 }
 
-
 .k-color-picker-opened {
-  border: 1px solid var(--kui-color-main);
-  box-shadow: 0 0 0 2px var(--kui-color-main-90);
+  border: 1px solid var(--kui-color-primary);
+  box-shadow: 0 0 0 2px var(--kui-color-primary-9);
 
   .k-color-picker-arrow {
     transform: rotate(180deg);
@@ -73,28 +77,19 @@
 
 .k-color-picker-disabled {
   cursor: not-allowed;
-  background: var(--kui-color-disable-back);
-  border-color: var(--kui-color-disable-border);
+  background: var(--kui-color-bg-component-disabled);
+  border-color: var(--kui-color-border-disabled);
 
   * {
     cursor: not-allowed;
   }
 
   .k-color-picker-color {
-    opacity: .5;
-  }
-
-  &:hover {
-    border-color: var(--kui-color-disable-border);
-  }
-
-  &:active {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 
 .k-color-picker-lg {
-  // width: 70px;
   height: 40px;
 
   .k-color-picker-color {
@@ -112,7 +107,6 @@
 }
 
 .k-color-picker-sm {
-  // width: 45px;
   height: 22px;
   padding: 2px;
 
@@ -129,7 +123,6 @@
   .k-color-picker-trigger-text {
     font-size: 12px;
   }
-
 }
 
 .k-color-picker-dropdown {
@@ -138,17 +131,14 @@
   position: absolute;
   z-index: 1001;
 
-
   .k-color-picker-paint-dot {
     width: 15px;
     height: 15px;
     display: block;
     position: absolute;
     box-sizing: border-box;
-    // background: var(--kui-color-back);
-    // border: 2px solid #fff;
-    border: 2px solid var(--kui-color-back);
-    box-shadow: 0 0 0 px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--kui-color-bg);
+    box-shadow: 0 0 0 px var(--kui-color-shadow);
     border-radius: 50%;
     top: 10px;
     left: 10px;
@@ -158,7 +148,7 @@
   .k-color-picker-paint {
     width: 234px;
     height: 136px;
-    border-radius: @radius;
+    border-radius: var(--kui-border-radius);
   }
 
   .k-color-picker-bar {
@@ -170,17 +160,37 @@
     width: 28px;
     height: 28px;
     border-radius: 6px;
+    overflow: hidden;
     float: left;
-    background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
-    background-size: 11px 11px;
-    background-position: 0 0, 0 -5.5px, -5.5px 5.5px, 5.5px 0;
+    position: relative;
+    &::before {
+      z-index: 0;
+      border-radius: 7px;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(-45deg, #cdcdcd 25%, transparent 0),
+        linear-gradient(45deg, #cdcdcd 25%, transparent 0),
+        linear-gradient(-45deg, transparent 75%, #cdcdcd 0),
+        linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+      background-size: 11px 11px;
+      background-position:
+        0 0,
+        0 -5.5px,
+        -5.5px 5.5px,
+        5.5px 0;
+    }
+
     box-shadow: inset 0 0 1px 0 rgba(255, 255, 255, 0.25);
 
     .k-color-picker-avatar-inner {
       border-radius: 6px;
       width: 100%;
       height: 100%;
-      // border: 1px solid var(--kui-color-border);
+      position: relative;
+      z-index: 1;
       box-sizing: border-box;
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
     }
@@ -201,9 +211,17 @@
     }
 
     .k-color-picker-alpha {
-      background-image: linear-gradient(-45deg, #cdcdcd 25%, transparent 0), linear-gradient(45deg, #cdcdcd 25%, transparent 0), linear-gradient(-45deg, transparent 75%, #cdcdcd 0), linear-gradient(45deg, transparent 75%, #cdcdcd 0);
+      background-image:
+        linear-gradient(-45deg, #cdcdcd 25%, transparent 0),
+        linear-gradient(45deg, #cdcdcd 25%, transparent 0),
+        linear-gradient(-45deg, transparent 75%, #cdcdcd 0),
+        linear-gradient(45deg, transparent 75%, #cdcdcd 0);
       background-size: 7px 7px;
-      background-position: 0 0, 0 -4px, -4px 4px, 4px 0;
+      background-position:
+        0 0,
+        0 -4px,
+        -4px 4px,
+        4px 0;
       border: 1px solid #a1a1a1;
       box-sizing: border-box;
     }
@@ -213,7 +231,7 @@
       height: 12px;
       display: block;
       position: absolute;
-      border: 2px solid var(--kui-color-back);
+      border: 2px solid var(--kui-color-bg);
       box-shadow: 0 0 0 1px rgb(0 0 0 / 7%);
       border-radius: 50%;
       pointer-events: none;
@@ -245,7 +263,7 @@
 
     .k-select {
       min-width: 0;
-      padding: 0;
+      padding: 0 5px;
 
       .k-select-arrow {
         margin: 0;
@@ -264,10 +282,6 @@
     min-width: 0;
     justify-content: space-around;
 
-    .k-input-number {
-      // flex: 0 0 44px;
-    }
-
     .k-color-picker-alpha-input {
       max-width: 45px;
       flex-shrink: 0;
@@ -285,7 +299,7 @@
     flex-wrap: wrap;
     gap: 6px;
 
-    >span {
+    > span {
       display: inline-block;
       width: 20px;
       height: 20px;
@@ -324,14 +338,14 @@
     display: flex;
     width: 24px;
     height: 9px;
-    color: var(--kui-color-back);
+    color: var(--kui-color-bg-pop);
   }
 
   .k-color-picker-body {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--kui-pop-shadow);
     border-radius: var(--kui-border-radius);
-    background: var(--kui-color-back);
-    border: 1px solid var(--kui-color-gray-80);
+    background: var(--kui-color-bg-pop);
+    border: 1px solid var(--kui-color-pop-border);
     padding: 10px;
     box-sizing: border-box;
   }
@@ -342,10 +356,10 @@
 
   #ot {
     stroke-width: 1px;
-    stroke: var(--kui-color-border);
+    stroke: var(--kui-color-pop-border);
   }
 
-  &[k-placement^=top] {
+  &[k-placement^="top"] {
     .k-color-picker-body {
       margin-bottom: 10px;
     }
@@ -356,8 +370,7 @@
     }
   }
 
-
-  &[k-placement^=bottom] {
+  &[k-placement^="bottom"] {
     .k-color-picker-body {
       margin-top: 10px;
     }
@@ -369,27 +382,28 @@
     }
   }
 
-  &[k-placement=bottom-left],
-  &[k-placement=top-left] {
+  &[k-placement="bottom-left"],
+  &[k-placement="top-left"] {
     .k-color-picker-arrow {
       left: 6px;
     }
   }
 
-  &[k-placement=bottom-right],
-  &[k-placement=top-right] {
+  &[k-placement="bottom-right"],
+  &[k-placement="top-right"] {
     .k-color-picker-arrow {
       right: 6px;
     }
   }
 
-  &[k-placement=bottom]{
+  &[k-placement="bottom"] {
     .k-color-picker-arrow {
       left: 50%;
       transform: translateX(-50%) rotate(180deg);
     }
   }
-  &[k-placement=top] {
+
+  &[k-placement="top"] {
     .k-color-picker-arrow {
       left: 50%;
       transform: translateX(-50%);
@@ -408,25 +422,24 @@
 @keyframes k-picker-zoom {
   0% {
     opacity: 0;
-    transform: scale(0.8)
+    transform: scale(0.8);
   }
 
   to {
     opacity: 1;
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
 .k-color-picker-enter-active {
   transform-origin: 0 0;
-  animation: k-picker-zoom .2s;
+  animation: k-picker-zoom 0.2s;
 }
 
 .k-color-picker-leave-active {
   transform-origin: 0 0;
-  animation: k-picker-zoom .2s reverse;
+  animation: k-picker-zoom 0.2s reverse;
 }
-
 
 .k-color-picker-disabled-alpha {
   .k-color-picker-bar-box {

@@ -1,49 +1,53 @@
 <cn>
-#### 手动上传/自定义属性
+### 手动上传/自定义属性
 通过设置 data、headers 可添加自定义上传属性
 autoTrigger='false'，选中文件后将不会自动触发上传。需要手动调用 ref 上的 upload 方法触发
 name 为上传文件名
 </cn>
+<en>
+### Manual Upload / Custom Attributes
+By setting data and headers you can attach custom upload attributes.
+autoTrigger='false', after selecting files the upload will not be triggered automatically. You need to manually call the ref's upload method to trigger.
+name is the upload file name
+</en>
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://www.chuchur.com/api/upload/image"
     name="file"
     :headers="headers"
-    :data="pramas"
+    :data="prams"
     :autoTrigger="false"
-    @before-upload="beforeUpload"
-    @remove="beforeUpload"
+    @onSelectFiles="onSelectFiles"
     multiple
-    ref="upload"
-    >
-    <Button :icon="CloudUploadOutline" >点击选择上传文件</Button>
+    ref="uploadRef"
+  >
+    <Button :icon="CloudUploadOutline">点击选择上传文件</Button>
   </Upload>
-  <br/>
-  <Button :disabled="disabled" @click="$refs.upload.upload()">开始上传</Button>
+  <br />
+  <Button :disabled="disabled" @click="startUpload">开始上传</Button>
 </template>
-<script>
+<script setup>
+import { ref } from "vue";
+import { message } from "kui-vue";
 import { CloudUploadOutline } from "kui-icons";
-export default{
-  data() {
-    return {
-      CloudUploadOutline,
-      pramas:{
-        type:'image',
-        time: Date.now()
-      },
-      headers:{
-        authorization: 'here is token'
-      },
-      disabled:true,
-    }
-  },
-  methods:{
-    beforeUpload(info){
-      this.disabled = info.fileList.length == 0
-    },
-  }
-}
+const uploadRef = ref(null);
+const disabled = ref(true);
+const prams = ref({
+  type: "image",
+  time: Date.now(),
+});
+const headers = ref({
+  authorization: "here is token",
+});
+const onSelectFiles = (fileList) => {
+  console.log(fileList);
+  disabled.value = fileList.length == 0;
+};
+const startUpload = () => {
+  console.log("startUpload", uploadRef);
+  uploadRef.value.upload();
+};
 </script>
 ```

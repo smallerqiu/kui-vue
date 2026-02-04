@@ -1,47 +1,30 @@
-import pkg from '../package.json'
-import locale from './locale'
-
-import * as components from './components';
-import './styles/index.less';
-
-export * from './components';
+import { version } from "../package.json";
+import * as components from "./components";
+import { globalComponents, installGlobal } from "./utils/vue";
+export * from "./components";
+import "./styles/index.less";
 
 const UI = {
-	version: pkg.version,
-	locale: locale.use,
-	i18n: locale.i18n,
-	lang: {},
-	install: function (Vue, opts = {}) {
-		if (opts.locale) {
-			locale.use(opts.locale);
-		}
-		if (opts.i18n) {
-			locale.setI18n(opts.i18n);
-		}
-
-		for (let key in components) {
-			const component = components[key]
-			if (!key.startsWith('K')) {
-				const kebabName = 'k-' + key
-					.replace(/([A-Z])/g, '-$1')
-					.replace(/^-/, '')
-					.toLowerCase()
-				Vue.component(kebabName, component);
-			}
-			Vue.component(key, component);
-		}
-		Vue.prototype.$Message = components.Message;
-		Vue.prototype.$Notice = components.Notice;
-		Vue.prototype.$Modal = components.Modal;
-		Vue.prototype.$Loading = components.Loading;
-		Vue.prototype.$Image = components.KImage;
-		Vue.prototype.$Theme = components.Theme;
-	}
-}
-
-// auto install
-// if (typeof window !== 'undefined' && window.Vue) {
-// 	UI.install(window.Vue);
-// }
+  version: version,
+  lang: {},
+  install: (app) => {
+    Object.keys(components).forEach((key) => {
+      const component = components[key];
+      if (globalComponents.includes(key)) {
+        installGlobal(app, component);
+      } else if (!key.startsWith("K")) {
+        const name = key
+          .replace(/([A-Z])/g, "-$1")
+          .replace(/^-/, "")
+          .toLowerCase();
+        const kebabName = `k-${name}`;
+        app.component(kebabName, component);
+        app.component(key, component);
+      } else {
+        app.component(key, component);
+      }
+    });
+  },
+};
 
 export default UI;

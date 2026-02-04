@@ -1,47 +1,45 @@
 <cn>
-#### 组合使用
-组合使用可以直接使用 `CheckboxGroup` 的 `options` 来赋值,或者结合 `Checkbox` 来组合使用,通过 `disabled` 可以设置组件是否被禁用
-> `CheckboxGroup` 可以直接使用 `options` 来组合，3.0版本增加
+### 多选
+可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
 </cn>
+<en>
+### Multiple Select
+You can set options via the options prop, or define them via child components.
+</en>
 
 ```vue
 <template>
-  <Space>
-    {{data}}
-    <CheckboxGroup v-model="data">
-      <Checkbox label="Apple" value="apple" />
-      <Checkbox label="Orange" value="orange" />
-      <Checkbox label="Banana" value="banana" />
-      <Checkbox label="Grape" value="grape" disabled/>
-      <Checkbox label="Pear" value="pear" disabled/>
+  <Space vertical>
+    use options
+    <code>value: {{ value }}</code>
+    <CheckboxGroup :options="options" v-model="value" />
+    <br />
+    use children
+    <CheckboxGroup v-model="value" theme="light">
+      <Checkbox :label="item.label" :value="item.value" v-for="(item, i) in options" :key="i" />
     </CheckboxGroup>
-    <Button @click="data=[]" size="small">Clear</Button>
-    <Button @click="data=['apple']" size="small">Select apple</Button>
-  </Space>
-  <br/>
-  <br/>
-  <Space vertical align="start">
-    {{cities}}
-    <CheckboxGroup :options="options" v-model="cities"/>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checked: true,
-      data: ['apple','grape'],
-      options: [
-        { label: 'Beijing', value: 'beijing' },
-        { label: 'Shenzhen', value: 'shenzhen' },
-        { label: 'Shanghai', value: 'shanghai' },
-        { label: 'Guangzhou', value: 'guangzhou' },
-        { label: 'Wuhan', value: 'wuhan' },
-        { label: 'Other', value: 'other',disabled:true },
-      ],
-      cities:['wuhan']
-    };
-  }
-}
+<script setup>
+import { ref } from "vue";
+const value = ref(["apple", "grape"]);
+const options = ref([
+  { label: "Apple", value: "apple" },
+  { label: "Orange", value: "orange" },
+  { label: "Banana", value: "banana" },
+  { label: "Pear", value: "pear" },
+  { label: "Grape", value: "grape" },
+]);
+
+// 异步更新数据
+setTimeout(() => {
+  options.value = [
+    { label: "Apple1", value: "apple" },
+    { label: "Orange1", value: "orange" },
+    { label: "Banana1", value: "banana" },
+    { label: "Pear1", value: "pear" },
+    { label: "Grape1", value: "grape" },
+  ];
+}, 1000);
 </script>
 ```

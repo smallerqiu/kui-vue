@@ -1,16 +1,13 @@
-import Vue from 'vue';
-import App from './App.vue'
-import router from './router'
-import kui from 'kui-vue'
-Vue.use(kui)
-import Copy from 'vue-clipboard2'
-Vue.use(Copy)
-import '@/src/assets/css/index.less'
-import '@/src/assets/css/demo.less'
-import Demo from '@/src/components/demo'
-Vue.use(Demo)
-new Vue({
-  // kui,
-  router,
-  render: h => h(App),
-}).$mount('#app');
+import { createApp } from "vue";
+import router from "./router";
+import App from "./App.vue";
+import kui from "kui-vue";
+import "kui-vue/styles/index.less";
+import "./assets/css/index.less";
+import "./assets/css/demo.less";
+import Demo from "./components/demo";
+
+const app = createApp(App);
+app.component("Demo", Demo);
+
+app.use(kui).use(router).mount("#app");

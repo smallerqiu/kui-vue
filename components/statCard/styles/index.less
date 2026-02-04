@@ -1,0 +1,80 @@
+@import "../../styles/less-css-var.less";
+.k-stat-card {
+  background-color: var(--kui-color-bg-component);
+  border-radius: var(--kui-border-radius-card);
+  width: 100%;
+  padding: 16px;
+  line-height: 1;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+.k-stat-card-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.k-stat-card-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.k-stat-card-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.k-stat-card-item-value {
+  font-size: 20px;
+  font-weight: 600;
+}
+.k-stat-card-item-desc {
+  color: var(--kui-color-text-description);
+  font-size: 12px;
+}
+.k-stat-number {
+  font-family: monospace;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+.k-stat-roll-number-container {
+  display: inline-flex;
+  line-height: 1;
+  height: 1em;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  .k-stat-roll-number-slot {
+    position: relative;
+    display: inline-block;
+    height: 1em;
+  }
+  .k-stat-roll-number-column {
+    display: flex;
+    flex-direction: column;
+  }
+  .k-stat-roll-number-column span,
+  .k-stat-roll-number-separator {
+    display: inline-block;
+    height: 1em;
+    width: 0.6em;
+    text-align: center;
+  }
+}
+.k-stat-number-suffix {
+  margin-left: 4px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.k-stat-number-prefix {
+  margin-right: 4px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+.k-stat-card-bordered {
+  border: 1px solid var(--kui-color-border);
+  background-color: transparent;
+}

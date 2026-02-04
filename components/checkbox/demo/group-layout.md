@@ -1,0 +1,35 @@
+<cn>
+### 组合布局
+组合布局
+</cn>
+
+```vue
+<template>
+  <Space vertical>
+    <RadioGroup :options="types" v-model="direction" type="button" />
+    <code>direction: {{ direction }}</code>
+    <code>value: {{ cities }}</code>
+    <CheckboxGroup :options="options" v-model="cities" @change="change" :direction="direction" />
+  </Space>
+</template>
+<script setup>
+import { ref } from "vue";
+const direction = ref("horizontal");
+const types = [
+  { label: "垂直", value: "vertical" },
+  { label: "水平", value: "horizontal" },
+];
+const options = [
+  { label: "Beijing", value: "beijing" },
+  { label: "Shanghai", value: "shanghai" },
+  { label: "Guangzhou", value: "guangzhou" },
+  { label: "Wuhan", value: "wuhan" },
+  { label: "Other", value: "other" },
+];
+const cities = ref(["wuhan"]);
+
+const change = (v) => {
+  console.log(v);
+};
+</script>
+```

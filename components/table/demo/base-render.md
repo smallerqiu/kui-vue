@@ -1,72 +1,104 @@
 <cn>
-#### 基本用法(使用render)
+### 基本用法(使用render)
 使用自定义`render`来初始化表格
 </cn>
+<en>
+### Basic Usage (Using render)
+Use a custom render to render the table cells.
+</en>
 
 ```vue
 <template>
-  <Table :data="data" :sticky="52"
-    :columns="columns" />
+  <Table :data="data" :sticky="52" :columns="columns" />
 </template>
-<script>
+<script setup>
+import { modal, Icon, Space, Button, Tag } from "kui-vue";
 import { Sunny, Moon } from "kui-icons";
-export default {
-  data() {
-    return {
-      data: [
-        { key: '0', name: 'Li Lei', gender: 0, age: 32, address: 'Wu Han Guanggu No. 328', tags: ['Python', 'Java'] },
-        { key: '1', name: 'Liu Hao', gender: 1, age: 28, address: 'Wu Han Hongshan No. 128', tags: ['Python', 'Java'] },
-        { key: '2', name: 'Hu Cong', gender: 0, age: 28, address: 'Wu Han Nanhu No. 198', tags: ['JS', 'CSS'] },
-        { key: '3', name: 'Chuchur', gender: 1, age: 28, address: 'Wu Han Nanhu No. 188', tags: ['Go', 'Python'] },
-      ],
-      columns: [
-        { title: 'Name', key: 'name' },
-        { title: 'Age', key: 'age', },
+const data = [
+  {
+    key: "0",
+    name: "Li Lei",
+    gender: 0,
+    age: 32,
+    address: "Wu Han Guanggu No. 328",
+    tags: ["Python", "Java"],
+  },
+  {
+    key: "1",
+    name: "Liu Hao",
+    gender: 1,
+    age: 28,
+    address: "Wu Han Hongshan No. 128",
+    tags: ["Python", "Java"],
+  },
+  {
+    key: "2",
+    name: "Hu Cong",
+    gender: 0,
+    age: 28,
+    address: "Wu Han Nanhu No. 198",
+    tags: ["JS", "CSS"],
+  },
+  {
+    key: "3",
+    name: "Qiu",
+    gender: 1,
+    age: 28,
+    address: "Wu Han Nanhu No. 188",
+    tags: ["Go", "Python"],
+  },
+];
+const columns = [
+  { title: "Name", key: "name" },
+  { title: "Age", key: "age" },
+  {
+    title: "Gender",
+    key: "gender",
+    render: (h, { gender }, i) => {
+      return h(Icon, {
+        type: gender == 1 ? Sunny : Moon,
+        color: gender == 1 ? "blue" : "#f50cff",
+        size: 15,
+      });
+    },
+  },
+  { title: "Address", key: "address" },
+  {
+    title: "Tags",
+    key: "tags",
+    render: (h, { tags }, i) => {
+      return h(Space, {}, [
+        tags.map(function (tag) {
+          return h(
+            Tag,
+            {
+              color: tag == "Python" ? "green" : "blue",
+            },
+            tag
+          );
+        }),
+      ]);
+    },
+  },
+  {
+    title: "Operate",
+    key: "action",
+    render: (h, record, i) => {
+      return h(
+        Button,
         {
-          title: 'Gender', key: 'gender',
-          render: (h, { gender }, i) => {
-            return h('Icon', {
-              props: {
-                type: gender == 1 ? Sunny : Moon,
-                color: gender == 1 ? 'blue' : '#f50cff',
-                size: 15
-              }
-            })
-          }
+          size: "small",
+          onClick: (e) => {
+            modal.info({
+              title: "More",
+              content: `My name is ${record.name}`,
+            });
+          },
         },
-        { title: 'Address', key: 'address' },
-        {
-          title: 'Tags', key: 'tags', render: (h, { tags }, i) => {
-            return h('Space',{},[tags.map(function (tag) {
-              return h('Tag', {
-                props: {
-                  color: tag == 'Python' ? 'green' : 'blue'
-                }
-              }, tag)
-            })])
-          }
-        },
-        {
-          title: 'Action', key: 'action',
-          render: (h, record, i) => {
-            return h('Button', {
-              props: {
-                size: 'small',
-              },
-              on: {
-                'click': e => {
-                  this.$Modal.info({
-                    title: 'More',
-                    content: `Name:${record.name} <br/>Aage:${record.age} <br/>Gender:${record.gender == 0 ? 'boy' : 'gril'} <br/>Address:${record.address}`,
-                  })
-                }
-              },
-            }, 'more')
-          }
-        },
-      ]
-    }
-  }
-}
+        "more"
+      );
+    },
+  },
+];
 </script>
 ```

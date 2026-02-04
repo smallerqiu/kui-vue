@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-breadcrumb {
   line-height: 1;
@@ -6,33 +6,46 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--kui-color-disable-color);
   font-size: 14px;
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
   &-item {
     display: inline-flex;
     align-items: center;
+    color: var(--kui-color-text-placeholder);
+
+    a {
+      color: var(--kui-color-text-placeholder);
+
+      &:hover {
+        color: var(--kui-color-primary);
+      }
+    }
 
     .k-icon {
       margin-right: 4px;
     }
-
-    &:hover {
-      color: var(--kui-color-main);
-    }
-
-    &:active {
-      color: var(--kui-color-main-active);
-    }
   }
 
   &-link {
-    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
   }
 
-  >span {
+  &-separator {
+    color: var(--kui-color-text-placeholder);
+  }
+
+  li {
     &:last-child {
-      color: var(--kui-color-title);
+      color: var(--kui-color-text);
 
       .k-breadcrumb-separator {
         display: none;
@@ -41,6 +54,6 @@
   }
 
   &-separator {
-    margin: 0 5px;
+    margin: 0 8px;
   }
 }

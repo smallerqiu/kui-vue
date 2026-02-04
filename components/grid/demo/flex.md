@@ -1,47 +1,51 @@
 <cn>
-#### Flex 布局
+### Flex 布局
 Flex 布局基础。
 使用 `row-flex` 定义 `flex` 布局，其子元素根据不同的值 `start`,`center`,`end`,`space-between`,`space-around`，分别定义其在父节点里面的排版方式。
 </cn>
+<en>
+### Flex Layout
+Flex layout basics. Use Row flex to define a flex layout; its children align according to values like start, center, end, space-between, and space-around.
+</en>
 
 ```vue
 <template>
-  <div class="demo-grid">
-    <p>start</p>
+  <Space vertical block>
+    <code>start</code>
     <Row type="flex" justify="start" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>center</p>
+    <code>center</code>
     <Row type="flex" justify="center" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>end</p>
+    <code>end</code>
     <Row type="flex" justify="end" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>space-around</p>
+    <code>space-around</code>
     <Row type="flex" justify="space-around" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-    <p>space-between</p>
+    <code>space-between</code>
     <Row type="flex" justify="space-between" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
       <Col :span="4"><div>col-4</div></Col>
     </Row>
-  </div>
+  </Space>
 </template>
 ```

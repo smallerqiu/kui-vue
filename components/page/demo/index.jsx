@@ -1,22 +1,18 @@
-import Info from './info.md'
-import Base from './base.md'
-import More from './more.md'
-import Sizer from './sizer.md'
-import Elevator from './elevator.md'
-import Size from './size.md'
-import CN from '../index.md'
+import Info from "./info.md";
+import Basic from "./basic.md";
+import SizerElevator from "./sizer-elevator.md";
+import Size from "./size.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
       <div>
         <Info />
-        <Base />
-        <More />
-        <Sizer />
-        <Elevator />
+        <Basic />
+        <SizerElevator />
         <Size />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

@@ -1,7 +1,13 @@
 # Checkbox 多选框
-多选框
 
-## 何时使用
-- 在一组可选项中进行多项选择时；
-- 单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
-## 代码演示
+<en>
+### Checkbox
+
+When to use
+
+- In a group of options, allow multiple selections.
+- Used alone to toggle between two states, similar to switch. The difference is that a switch toggling triggers state change immediately, while checkbox is typically used for state indication and combined with a submit action.
+
+### Demos
+
+</en>

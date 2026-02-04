@@ -1,3 +1,2 @@
-import DateCalendar from './datecalendar.jsx'
-import DatePicker from './datepicker.jsx'
-export { DatePicker, DateCalendar }
+import DatePicker from "./datePicker.jsx";
+export { DatePicker };

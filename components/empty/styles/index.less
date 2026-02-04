@@ -1,20 +1,37 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
+
 .k-empty {
   text-align: center;
-  color: var(--kui-color-gray-60);
+  color: var(--kui-color-text-placeholder);
   font-size: 13px;
-  // cursor: not-allowed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .k-empty-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+  }
   .k-empty-icon {
     font-size: 40px;
-    padding: 10px 0;
+    padding: 0;
+    margin: 0;
+
     path {
       stroke-width: 15px !important;
     }
   }
+
   .k-empty-description {
-    padding-bottom: 10px;
+    padding: 0;
     line-height: 1.5;
+    margin: 0;
   }
+
   .k-empty-footer {
     margin-top: 20px;
     text-align: center;

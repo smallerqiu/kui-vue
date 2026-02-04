@@ -1,5 +1,5 @@
 import Info from "./info.md";
-import Base from "./base.md";
+import Basic from "./basic.md";
 import InLine from "./inline.md";
 import Accordion from "./accordion.md";
 import Vertical from "./vertical.md";
@@ -13,7 +13,7 @@ export default {
     return (
       <div>
         <Info />
-        <Base />
+        <Basic />
         <InLine />
         <Accordion />
         <Vertical />

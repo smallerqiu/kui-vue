@@ -1,19 +1,26 @@
-import Vue from 'vue';
+import { createVNode, render } from "vue";
 import Group from "./group";
+import { getAppContext } from "../config/context";
 
-const newInstance = (props = {}) => {
-  const Notice = new Vue({
-    render(h) {
-      return h(Group, {
-        props: props
-      });
+const newInstance = (props = {}, context = null) => {
+  const containerId = `k-${props.type}-box`;
+  let container = document.getElementById(containerId);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
+  const vm = createVNode(Group, props);
+  vm.appContext = context?.appContext || getAppContext()?.appContext;
+  render(vm, container);
+  const instance = vm.component?.exposed; // for 3
+  instance.destroy = () => {
+    render(null, container);
+    if (container.parentNode) {
+      container.parentNode.removeChild(container);
     }
-  });
+  };
+  return instance;
+};
 
-  const component = Notice.$mount();
-  document.body.appendChild(component.$el);
-  const notice = Notice.$children[0];
-  return notice
-}
-
-export default newInstance
+export { newInstance };

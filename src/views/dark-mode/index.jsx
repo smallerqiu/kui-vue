@@ -1,7 +1,7 @@
-import Info from './base.md'
-import Mode from './mode.md'
-import Local from './local.md'
-import LocalEg from './local-eg.md'
+import Info from "./basic.md";
+import Mode from "./mode.md";
+import Local from "./local.md";
+import LocalEg from "./local-eg.md";
 export default {
   render() {
     return (
@@ -11,6 +11,6 @@ export default {
         <Local />
         <LocalEg />
       </div>
-    )
-  }
-}
+    );
+  },
+};
