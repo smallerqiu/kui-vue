@@ -36,9 +36,12 @@
         </Menu>
       </Sider>
       <Content>
-        <transition name="fade" mode="out-in">
-          <router-view class="content-inner" />
-        </transition>
+        <RouterView v-slot="{ Component, route }" class="content-inner">
+          <Transition name="fade" mode="out-in">
+            <component :is="Component" :key="route.fullPath" />
+          </Transition>
+        </RouterView>
+
         <div class="foot-nav">
           <a
             v-if="prevNavData.sub"
@@ -73,7 +76,7 @@ import AppFooter from "./AppFooter";
 import WebIcon from "./WebIcon";
 import { routeData, navData } from "../menu";
 import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
-import { ref, onMounted, getCurrentInstance, reactive } from "vue";
+import { ref, onMounted, getCurrentInstance, reactive, Transition } from "vue";
 const { proxy } = getCurrentInstance();
 const showMiniNav = ref(false);
 const nextNavData = reactive({});

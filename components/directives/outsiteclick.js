@@ -1,10 +1,10 @@
 export default {
-  bind(el, { value }) {
+  mounted(el, { value }) {
     if (typeof value == "function") {
       document.addEventListener("click", value);
     }
   },
-  unbind(el, { value }) {
+  unmounted(el, { value }) {
     if (typeof value == "function") document.removeEventListener("click", value);
   },
 };

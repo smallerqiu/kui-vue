@@ -7,7 +7,7 @@
 <template>
   <Space id="dropdown-demo-placement" wrap>
     <template v-for="placement in placements">
-      <ColorPicker value="red" size="small" :placement="placement">
+      <ColorPicker modelValue="red" size="small" :placement="placement">
         <Button>{{ placement }}</Button>
       </ColorPicker>
     </template>

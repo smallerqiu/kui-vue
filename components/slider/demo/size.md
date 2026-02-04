@@ -32,7 +32,7 @@ size 可以控制操作杆的大小
       :step="null"
       :disabled="disabled"
       size="small"
-      :value="25"
+      :modelValue="25"
     ></Slider>
     <br />
     <br />

@@ -66,27 +66,18 @@ const Button = defineComponent({
       }
       emit("click", e);
     };
-
+    const children = computed(() => getChildren(slots.default?.()));
     return () => {
-      let children = getChildren(slots.default?.());
       // for Vue 3
-      // const iconOnly = () => {
-      //   const validChildren = children.filter((c) => c.type !== Comment);
-      //   if (validChildren.length === 1) {
-      //     return validChildren[0].type.name === "Icon";
-      //   }
-      //   return false;
-      // };
       const iconOnly = () => {
-        // for 2
-        const excluded = children.filter((c) => c.componentOptions?.tag !== "transition");
-
+        const excluded = children.value.filter((c) => c.type !== Comment);
         if (!excluded?.length) {
           return props.icon || props.loading;
         }
         if (excluded.length === 1) {
-          return excluded[0].componentOptions?.tag === "Icon";
+          return excluded[0].type.name === "Icon";
         }
+
         return false;
       };
 
@@ -112,7 +103,7 @@ const Button = defineComponent({
         childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
 
-      const processedChildren = children?.map((c) => {
+      const processedChildren = children.value?.map((c) => {
         return typeof c.text === "string" ? <span>{c.text.trim()}</span> : c;
       });
 
@@ -121,18 +112,13 @@ const Button = defineComponent({
       }
 
       const commonProps = {
+        ...attrs,
         class: classes,
-        attrs: {
-          ...attrs,
-          href: props.href,
-          target: props.target,
-          disabled: props.disabled,
-          type: props.htmlType, //   submit/reset
-        },
-        on: {
-          ...listeners, // for 2
-          click: handleClick,
-        },
+        href: props.href,
+        target: props.target,
+        disabled: props.disabled,
+        type: props.htmlType, //   submit/reset
+        onClick: handleClick,
       };
 
       return props.type === "link" && props.href && !props.disabled ? (

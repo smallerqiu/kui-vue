@@ -22,22 +22,22 @@
         </RadioGroup>
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input clearable placeholder="Email" />
+        <Input clearable placeholder="Please enter your email" />
       </FormItem>
       <FormItem label="Number" prop="number">
-        <InputNumber placeholder="Number" />
+        <InputNumber placeholder="Please enter your number" />
       </FormItem>
       <FormItem label="Password" prop="password">
-        <Input type="password" placeholder="password" />
+        <Input type="password" placeholder="Please enter password" />
       </FormItem>
       <FormItem label="Confirm Password" prop="repassword">
-        <Input type="password" placeholder="Confirm Password" />
+        <Input type="password" placeholder="Please enter password" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input placeholder="Phone Number" />
+        <Input placeholder="Please enter phone number" />
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
-        <Input placeholder="Captcha">
+        <Input placeholder="Please enter captcha">
           <Button
             slot="suffix"
             :size="size"
@@ -56,7 +56,7 @@
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
-        <FormItem prop="city">
+        <FormItem prop="city" label="city">
           <Select clearable style="width:100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
@@ -155,7 +155,7 @@ const form = ref({
   repassword: "",
   phone: "",
   captcha: "",
-  slider: 5,
+  slider: 3,
   rate: 0,
   tree: "",
   gender: "",
@@ -200,7 +200,7 @@ const rules = {
     { required: true, message: "请输入验证码" },
   ],
   slider: [
-    { min: 3, message: "最小值为3" },
+    { min: 5, message: "最小值为5" },
     { max: 50, message: "最大值为50" },
   ],
   gender: [{ required: true, message: "请选择性别" }],
@@ -259,7 +259,7 @@ const sendCode = () => {
   }, 1000);
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
+  formRef.value.validate(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

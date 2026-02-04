@@ -10,15 +10,7 @@ import Color from "color";
 import Presets from "./presets";
 import { cloneNodes } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import {
-  defineComponent,
-  ref,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  // Transition,
-} from "vue";
+import { defineComponent, ref, watch, onMounted, onBeforeUnmount, nextTick, Transition } from "vue";
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
@@ -26,6 +18,7 @@ const ColorPicker = defineComponent({
     resize,
   },
   props: {
+    modelValue: String,
     value: String,
     transfer: { type: Boolean, default: true },
     disabled: Boolean,
@@ -68,7 +61,7 @@ const ColorPicker = defineComponent({
 
   setup(ps, { emit, slots }) {
     const currentMode = ref(ps.mode);
-    const currentColor = ref(ps.value || "#000000ff");
+    const currentColor = ref(ps.modelValue || ps.value || "#000000ff");
     const visible = ref(ps.show);
     const refPopper = ref();
     const refSelection = ref();
@@ -82,7 +75,7 @@ const ColorPicker = defineComponent({
     const hideTimer = ref();
 
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentColor.value = v;
         // currentAlpha.value = Color(v).alpha();
@@ -90,9 +83,9 @@ const ColorPicker = defineComponent({
       }
     );
     onMounted(() => {
-      if (ps.value) {
-        currentAlpha.value = Color(ps.value).alpha();
-        currentHue.value = Color(ps.value).hue();
+      if (ps.modelValue) {
+        currentAlpha.value = Color(ps.modelValue).alpha();
+        currentHue.value = Color(ps.modelValue).hue();
       }
     });
     onBeforeUnmount(() => {
@@ -163,8 +156,7 @@ const ColorPicker = defineComponent({
     const onUpdate = (color) => {
       currentColor.value = color;
       const value = getColor();
-      // emit("update:value", value);
-      emit("input", value);
+      emit("update:modelValue", value);
       emit("change", value);
     };
 
@@ -210,8 +202,7 @@ const ColorPicker = defineComponent({
       if (!rendered.value) return null;
       const props = {
         ref: refPopper,
-        // "k-placement": currentPlacement.value,
-        attrs: { "k-placement": currentPlacement.value },
+        "k-placement": currentPlacement.value,
         class: [
           "k-color-picker-dropdown",
           {
@@ -223,22 +214,21 @@ const ColorPicker = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
-        // onMouseenter: () => {
-        //   clearTimeout(hideTimer.value);
-        // },
-        on: {
-          mouseenter: () => {
-            clearTimeout(hideTimer.value);
-          },
+        onMouseenter: () => {
+          clearTimeout(hideTimer.value);
         },
       };
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       return (
-        <transition name="k-color-picker">
+        <Transition name="k-color-picker">
           <div v-transfer={true} v-show={visible.value} {...props}>
             <div class="k-color-picker-body">
-              <Paint hue={currentHue.value} value={currentColor.value} onUpdateRGB={onUpdateRGB} />
+              <Paint
+                hue={currentHue.value}
+                modelValue={currentColor.value}
+                onUpdateRGB={onUpdateRGB}
+              />
               <div class="k-color-picker-bar">
                 <div class="k-color-picker-avatar">
                   <div
@@ -249,18 +239,22 @@ const ColorPicker = defineComponent({
                 <div class="k-color-picker-bar-box">
                   <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
                   {!ps.disabledAlpha ? (
-                    <Alpha value={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
+                    <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
                   ) : null}
                 </div>
               </div>
               <Mode
                 mode={currentMode.value}
-                value={currentColor.value}
+                modelValue={currentColor.value}
                 disabledAlpha={ps.disabledAlpha}
                 onUpdateMode={onUpdateMode}
                 onUpdateColorValue={updateColorValue}
               />
-              <Presets onUpdateColor={updateColor} value={ps.presets} color={currentColor.value} />
+              <Presets
+                onUpdateColor={updateColor}
+                modelValue={ps.presets}
+                color={currentColor.value}
+              />
             </div>
             <div class={`k-color-picker-arrow`}>
               <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
@@ -276,7 +270,7 @@ const ColorPicker = defineComponent({
               </svg>
             </div>
           </div>
-        </transition>
+        </Transition>
       );
     };
 
@@ -309,14 +303,9 @@ const ColorPicker = defineComponent({
             slots.default(),
             {
               ref: refSelection,
-              on: {
-                click: () => triggerClick && toggle(!visible.value),
-                mouseenter: () => !triggerClick && toggle(true),
-                mouseleave: onMouseleave,
-              },
-              // onClick: () => triggerClick && toggle(!visible.value), //for 3
-              // onMouseenter: () => !triggerClick && toggle(true),
-              // onMouseleave: onMouseleave,
+              onClick: () => triggerClick && toggle(!visible.value),
+              onMouseenter: () => !triggerClick && toggle(true),
+              onMouseleave: onMouseleave,
             },
             true
           )}

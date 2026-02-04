@@ -1,5 +1,5 @@
 export default {
-  inserted(el, { value }, vnode) {
+  mounted(el, { value }, vnode) {
     if (value) {
       const parentNode = el.parentNode;
       if (!parentNode) return false;
@@ -10,7 +10,7 @@ export default {
       el.__data = { parentNode };
     }
   },
-  unbind(el, { value }) {
+  unmounted(el, { value }) {
     if (value) {
       el.__data.parentNode.appendChild(el);
       el.__data = null;

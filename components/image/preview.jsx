@@ -7,6 +7,7 @@ import {
   watch,
   nextTick,
   toRefs,
+  Transition,
 } from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
@@ -63,7 +64,7 @@ const ImagePreview = defineComponent({
       touch: false,
     });
 
-    const imgRef = ref(null);
+    const refImage = ref(null);
     const panelRef = ref(null);
     const maxScale = 10;
     const updatePanelRight = () => {
@@ -99,7 +100,7 @@ const ImagePreview = defineComponent({
     const mousedown = (e) => {
       if (!state.visible) return;
 
-      if (imgRef.value && imgRef.value.contains(e.target)) {
+      if (refImage.value && refImage.value.contains(e.target)) {
         if (e.button && e.button != 0) return;
         let clientX, clientY;
         if (e.touches && e.touches.length == 1) {
@@ -127,10 +128,10 @@ const ImagePreview = defineComponent({
       const left = state.left;
       const vertical = state.vertical;
 
-      if (!imgRef.value) return;
+      if (!refImage.value) return;
 
-      let offsetWidth = imgRef.value.offsetWidth;
-      let offsetHeight = imgRef.value.offsetHeight;
+      let offsetWidth = refImage.value.offsetWidth;
+      let offsetHeight = refImage.value.offsetHeight;
       let panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
       let newWidth = offsetWidth + "";
       let newHeight = offsetHeight + "";
@@ -273,6 +274,7 @@ const ImagePreview = defineComponent({
       () => state.src,
       (src) => {
         if (state.type == "media" || !src) return;
+
         state.loading = true;
         loadImage(
           src,
@@ -315,12 +317,13 @@ const ImagePreview = defineComponent({
       document.removeEventListener("mousewheel", mousewheel);
       document.removeEventListener("keydown", escToClose);
     });
-    const show = (options = {}) => {
-      if (options?.props?.src) {
-        state.src = options.props.src;
+
+    const show = (props = {}) => {
+      if (props?.src) {
+        state.src = props.src;
       }
-      if (options?.props?.type) {
-        state.type = options.props.type;
+      if (props?.type) {
+        state.type = props.type;
       }
       state.visible = true;
     };
@@ -344,9 +347,9 @@ const ImagePreview = defineComponent({
       };
       const imgProps = {
         class: "k-image-preview-img",
-        attrs: { src },
+        src,
         style: imgStyle,
-        ref: imgRef,
+        ref: refImage,
       };
 
       const tools = getChildren(slots.tool?.());
@@ -354,11 +357,11 @@ const ImagePreview = defineComponent({
       return (
         <div class="k-image-preview-root">
           <div class="k-image-preview" v-show={visible}>
-            <transition name="k-image-fade">
+            <Transition name="k-image-fade">
               <div class="k-image-preview-mask" onClick={close} v-show={visible}></div>
-            </transition>
+            </Transition>
             <div class="k-image-preview-wrap" style={{ right: panelRight + "px" }}>
-              <transition name="k-image-fade">
+              <Transition name="k-image-fade">
                 <ul class="k-image-preview-control" v-show={visible}>
                   <li class="k-image-preview-action-nav">
                     <Button
@@ -400,7 +403,7 @@ const ImagePreview = defineComponent({
                   </li>
                   <li class="k-image-preview-action k-image-preview-action-scale">
                     <Slider
-                      value={state.scale}
+                      modelValue={state.scale}
                       min={1}
                       max={maxScale}
                       size="small"
@@ -428,7 +431,8 @@ const ImagePreview = defineComponent({
                     <Icon type={Close} />
                   </li>
                 </ul>
-              </transition>
+              </Transition>
+
               <div class="k-image-preview-img-wrap" style={moveStyle}>
                 {type == "media" ? (
                   <video controls {...imgProps} v-show={visible} />

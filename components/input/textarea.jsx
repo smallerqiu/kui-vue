@@ -3,15 +3,16 @@ import { withInstall } from "../utils/vue";
 const TextArea = defineComponent({
   name: "TextArea",
   props: {
+    modelValue: [String, Number, Object, Array],
     value: [String, Number, Object, Array],
     theme: { type: String, default: "light" },
     size: String,
     disabled: Boolean,
   },
   setup(ps, { attrs, emit, listeners }) {
-    const currentValue = ref(ps.value);
+    const currentValue = ref(ps.modelValue || ps.value);
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (v) => {
         currentValue.value = v;
       }
@@ -28,20 +29,14 @@ const TextArea = defineComponent({
             "k-textarea-lg": size == "large",
           },
         ],
-        attrs: {
-          ...attrs,
-          disabled,
-        },
-        domProps: {
-          value: currentValue.value,
-        },
-        on: {
-          ...listeners,
-          input: (e) => {
-            const v = e.target.value;
-            // currentValue.value = v;
-            emit("input", v);
-          },
+        ...attrs,
+        disabled,
+        value: currentValue.value,
+        ...listeners,
+        onInput: (e) => {
+          const v = e.target.value;
+          // currentValue.value = v;
+          emit("update:modelValue", v);
         },
         // onInput: (e) => {
         //   // todo: not update value

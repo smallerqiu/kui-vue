@@ -1,7 +1,11 @@
 <cn>
 ### 排序
 `sorter=true` 现有的数据排序 , 为‘function’时,可自定义排序规则
-</cn>
+ </cn>
+<en>
+### Sorting
+Set sorter to true to enable sorting of the data; if sorter is a function, you can provide a custom sorting rule.
+</en>
 
 ```vue
 <template>

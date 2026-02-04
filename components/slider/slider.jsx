@@ -7,7 +7,7 @@ import { getClosestStep } from "../utils/number";
 const Slider = defineComponent({
   name: "Slider",
   props: {
-    value: { type: [Array, Number], default: 0 },
+    modelValue: { type: [Array, Number], default: 0 },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
     step: { type: [Number, Object], default: 1 },
@@ -21,7 +21,7 @@ const Slider = defineComponent({
     tipFormatter: Function,
     tooltipVisible: { type: Boolean, default: null },
   },
-  emits: ["input", "change"],
+  emits: ["update:modelValue", "change"],
 
   setup(props, { emit }) {
     const size = inject("size", null);
@@ -53,7 +53,7 @@ const Slider = defineComponent({
     };
 
     watch(
-      () => props.value,
+      () => props.modelValue,
       (nv) => {
         // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
         if (draggingIndex.value === -1) {
@@ -71,9 +71,8 @@ const Slider = defineComponent({
     // 计算鼠标位置对应的数值
     const getValueFromEvent = (e) => {
       const rect = railRef.value.getBoundingClientRect();
-      const touch = e.touches?.[0] || e.changedTouches?.[0];
-      const clientX = touch ? touch.clientX : e.clientX;
-      const clientY = touch ? touch.clientY : e.clientY;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
       let percent;
       if (props.vertical) {
@@ -87,18 +86,12 @@ const Slider = defineComponent({
         if (props.reverse) percent = 1 - percent;
       }
 
-      const rawValue = new Big(props.max - props.min)
-        .times(Math.max(0, Math.min(1, percent)))
-        .plus(props.min);
+      const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
 
     // 处理滑块拖动
     const handleThumbMove = (e) => {
-      if (e.cancelable) {
-        e.preventDefault();
-      }
-
       if (props.disabled || draggingIndex.value === -1) return;
 
       const newValue = getValueFromEvent(e);
@@ -126,7 +119,7 @@ const Slider = defineComponent({
 
       if (JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)) {
         internalValue.value = nextInternal;
-        emit("input", nextInternal);
+        emit("update:modelValue", nextInternal);
         emit("change", nextInternal);
       }
     };
@@ -151,31 +144,27 @@ const Slider = defineComponent({
       } else {
         internalValue.value = newValue;
       }
-      emit("input", internalValue.value);
+      emit("update:modelValue", internalValue.value);
       emit("change", internalValue.value);
     };
-    const touch = !!(
-      "ontouchstart" in window ||
-      (window.DocumentTouch && document instanceof window.DocumentTouch)
-    );
+
     const handleThumbDown = (index) => {
       if (props.disabled) return;
       draggingIndex.value = index;
 
-      let [e1, e2] = touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
       const onMove = (e) => handleThumbMove(e);
       const onUp = () => {
         draggingIndex.value = -1;
-        document.removeEventListener(e1, onMove);
-        document.removeEventListener(e2, onUp);
-        // document.removeEventListener("touchmove", onMove);
-        // document.removeEventListener("touchend", onUp);
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+        document.removeEventListener("touchmove", onMove);
+        document.removeEventListener("touchend", onUp);
       };
 
-      document.addEventListener(e1, onMove);
-      document.addEventListener(e2, onUp);
-      // document.addEventListener("touchmove", onMove, { passive: false });
-      // document.addEventListener("touchend", onUp);
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onUp);
     };
 
     const handleKeydown = (e, index) => {
@@ -203,6 +192,7 @@ const Slider = defineComponent({
         nextValue = Number(new Big(targetValue).plus(isPlus ? props.step : -props.step));
       }
 
+      // 理键盘交错逻辑 ---
       if (props.range) {
         const otherIndex = index === 0 ? 1 : 0;
         const otherValue = currentValues[otherIndex];
@@ -235,7 +225,7 @@ const Slider = defineComponent({
         internalValue.value = formatValue(nextValue);
       }
 
-      emit("input", internalValue.value);
+      emit("update:modelValue", internalValue.value);
       emit("change", internalValue.value);
     };
 
@@ -342,12 +332,7 @@ const Slider = defineComponent({
           ]}
         >
           <div class="k-slider-bar">
-            <div
-              class="k-slider-rail"
-              ref={railRef}
-              onTouchstart={handleRailClick}
-              onClick={handleRailClick}
-            ></div>
+            <div class="k-slider-rail" ref={railRef} onClick={handleRailClick}></div>
             {renderTrack()}
             {renderMarks()}
             {thumbs}

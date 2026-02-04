@@ -1,53 +1,107 @@
-export const parseCode = (source, viewRef, id) => {
-  // const vm = new Vue(componentOptions).$mount(viewRef.value);
-  // fetch("http://127.0.0.1:4000/parse", {
-  fetch("https://k-ui.cn/parse", {
-    method: "POST",
-    body: JSON.stringify({ source }),
-  }).then((r) => {
-    if (!r.ok) {
-      return;
+import * as Vue from "vue";
+import * as Kui from "kui-vue";
+import {
+  parse,
+  compileScript,
+  compileTemplate,
+  compileStyle,
+  rewriteDefault,
+} from "@vue/compiler-sfc";
+export async function parseCode({ source, id, viewRef, error, currentApp, buildState }) {
+  try {
+    error.value = "";
+    const { descriptor } = parse(source);
+    const scopeId = `data-v-${id}`;
+
+    let scriptCode = "";
+    if (descriptor.script || descriptor.scriptSetup) {
+      // 编译 script，并在内部处理好 bindings
+      const compiledScript = compileScript(descriptor, { id: scopeId });
+      // 将 export default 转换为 const __sfc__ =
+      scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
+    } else {
+      scriptCode = "const __sfc__ = {}";
     }
-    r.json().then((res) => {
-      let { css, js, template } = res.errors;
-      if (css || js || template) {
-        return;
-      }
-      let importCode = res.script.split("export")[0];
-      const match = res.script.match(/export\s+default\s+\{([\s\S]*)\}/);
-      let setupCode = match?.[1] || "";
-      let code = `
-import Vue from "vue";
-import kui from "kui-vue";
-Vue.use(kui);
-${importCode}
-${res.template}
-const options = {
-  render,
-  staticRenderFns,
-  ${setupCode.replace("__sfc", "wocao")}
-};
 
-// 创建挂载点
-new Vue(options).$mount('#${id}');`;
-      // 创建 Blob URL
-      const url = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+    // Template
+    let templateCode = "";
+    if (descriptor.template) {
+      const compiledTemplate = compileTemplate({
+        source: descriptor.template.content,
+        id: scopeId,
+        scoped: true,
+        filename: "App.vue",
+        compilerOptions: {
+          bindingMetadata: descriptor.scriptSetup
+            ? compileScript(descriptor, { id: scopeId }).bindings
+            : undefined,
+        },
+      });
+      // 将模板中的 export function render 替换掉，防止冲突
+      templateCode = compiledTemplate.code.replace(/export\ (function|const)\ render/, "$1 render");
+    }
 
-      // 创建挂载容器
-      const mountContainer = document.createElement("div");
-      mountContainer.id = id;
+    let cssCode = "";
+    for (const s of descriptor.styles) {
+      const compiledStyle = compileStyle({
+        source: s.content,
+        id: scopeId,
+        scoped: s.scoped,
+      });
+      cssCode += compiledStyle.code + "\n";
+    }
 
-      const scriptNode = document.createElement("script");
-      scriptNode.src = url;
-      scriptNode.type = "module";
+    const finalCode = `
+      ${templateCode}
+      ${scriptCode}
+      __sfc__.render = render;
+      __sfc__.__scopeId = "${scopeId}";
+      export default __sfc__;
+    `;
 
-      mountContainer.appendChild(scriptNode);
-      const height = viewRef.value.clientHeight;
-      viewRef.value.style.height = height + "px";
-      viewRef.value.replaceChild(mountContainer, viewRef.value.children[0]);
-      setTimeout(() => {
-        viewRef.value.style.height = "";
-      }, 500);
-    });
-  });
-};
+    const blob = new Blob([finalCode], { type: "text/javascript" });
+    const url = URL.createObjectURL(blob);
+
+    const { default: component } = await import(/* @vite-ignore */ url);
+    URL.revokeObjectURL(url);
+
+    if (currentApp.value) {
+      currentApp.value.unmount();
+      currentApp.value = null;
+    }
+
+    const app = Vue.createApp(component);
+    const KuiPlugin = Kui.default || Kui;
+    if (KuiPlugin.install) {
+      app.use(KuiPlugin);
+    }
+
+    const mountNode = document.createElement("div");
+    mountNode.setAttribute(scopeId, "");
+
+    viewRef.value.innerHTML = "";
+    viewRef.value.appendChild(mountNode);
+    app.mount(mountNode);
+
+    currentApp.value = app;
+
+    updateStyle(id, cssCode);
+    buildState.state = "success";
+    buildState.text = "实时编译成功";
+  } catch (err) {
+    buildState.state = "error";
+    buildState.text = "Build Error";
+    error.value = err.message;
+    console.error("Render Error:", err);
+  }
+}
+
+function updateStyle(id, css) {
+  let el = document.getElementById(`style-${id}`);
+  if (!el) {
+    el = document.createElement("style");
+    el.id = `style-${id}`;
+    document.head.appendChild(el);
+  }
+  el.innerHTML = css;
+}

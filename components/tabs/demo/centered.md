@@ -2,6 +2,10 @@
 ### 居中
 标签居中展示。
 </cn>
+<en>
+### Centered
+Tabs are centered.
+</en>
 
 ```vue
 <template>

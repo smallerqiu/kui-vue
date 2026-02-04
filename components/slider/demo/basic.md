@@ -15,7 +15,7 @@
       :marks="{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }"
       :step="null"
       :disabled="disabled"
-      :value="25"
+      :modelValue="25"
     ></Slider>
   </Space>
 </template>

@@ -7,14 +7,14 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import banner from "postcss-banner";
 import postcss from "rollup-plugin-postcss";
-import { name, version } from "./package.json";
+import pkg from "./package.json";
 import autoprefixer from "autoprefixer";
 import fs from "fs";
 import path from "path";
 import { dts } from "rollup-plugin-dts";
 
 const bannerText = `/*!
- * ${name} v${version}
+ * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -59,6 +59,7 @@ export default [
   {
     external: ["vue", "dayjs"],
     input: "components/index.js",
+    // input: 'components/bin/index.js',
     output: [
       {
         file: "dist/k-ui.esm.js",
@@ -84,9 +85,6 @@ export default [
         },
       },
     ],
-    treeshake: {
-      moduleSideEffects: false,
-    },
     plugins: [
       postcss({
         extract: "k-ui.css",
@@ -100,7 +98,7 @@ export default [
             overrideBrowserslist: ["> 1%", "not ie 11", "not dead"],
           }),
           banner({
-            banner: `${name} v${version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nHomepage: https://k-ui.cn\nAuthor: Qiu / https://www.chuchur.com\n`,
+            banner: `${pkg.name} v${pkg.version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nHomepage: https://k-ui.cn\nAuthor: Qiu / www.chuchur.com\n`,
             important: true,
           }),
         ],
@@ -110,20 +108,9 @@ export default [
         extensions: [".js", ".jsx", ".vue"],
         browser: true,
         preferBuiltins: false,
-        alias: {
-          vue: "vue/dist/vue.esm.js",
-        },
       }),
       commonjs({ include: "node_modules/**" }),
-      vue({
-        css: true,
-        compileTemplate: true, // 显式启用模板编译
-        template: {
-          isProduction: true, //process.env.NODE_ENV === "production",
-          optimizeSSR: false,
-        },
-        // isWebComponent: false,
-      }),
+      vue({ css: true }),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules/**",
@@ -137,14 +124,8 @@ export default [
               exclude: ["@babel/plugin-transform-regenerator"],
             },
           ],
-          [
-            "@vue/babel-preset-jsx",
-            {
-              compositionAPI: true,
-              injectH: true,
-            },
-          ],
         ],
+        plugins: ["@vue/babel-plugin-jsx"],
       }),
       terser({
         compress: {
@@ -154,7 +135,7 @@ export default [
         // mangle: true, // 变量名混淆
       }),
       // license({
-      //   banner: `${name} v${version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nAuthor: Qiu / www.chuchur.com\n`
+      //   banner: `${pkg.name} v${pkg.version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nAuthor: Qiu / www.chuchur.com\n`
       // }),
     ],
   },

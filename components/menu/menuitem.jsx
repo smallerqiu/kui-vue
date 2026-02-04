@@ -22,8 +22,7 @@ const MenuItem = defineComponent({
     const mode = inject("menu-mode", null);
     const dropdown = inject("dropdown", null);
     const active = ref(false);
-    // const key = instance.vnode.key; //for 3
-    const key = instance.proxy.$vnode.key;
+    const key = instance.vnode.key; //for 3
     const keyPah = inject("menu-key-path", []);
     const selectedKeysChange = inject("selectedKeysChange", null);
     // const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
@@ -50,31 +49,18 @@ const MenuItem = defineComponent({
               ? `${keyPah.length * 16 + 16}px`
               : null,
         },
-        // onMouseenter: () => { //for 3
-        //   if (disabled) return;
-        //   active.value = true;
-        // },
-        // onMouseleave: () => {
-        //   if (disabled) return;
-        //   active.value = false;
-        // },
-        // onClick: () => {
-        //   if (disabled) return;
-        //   selectedKeysChange?.(key, true, keyPah);
-        // },
-        on: {
-          mouseenter: () => {
-            if (disabled) return;
-            active.value = true;
-          },
-          mouseleave: () => {
-            if (disabled) return;
-            active.value = false;
-          },
-          click: () => {
-            if (disabled) return;
-            selectedKeysChange?.(key, true, keyPah);
-          },
+        onMouseenter: () => {
+          //for 3
+          if (disabled) return;
+          active.value = true;
+        },
+        onMouseleave: () => {
+          if (disabled) return;
+          active.value = false;
+        },
+        onClick: () => {
+          if (disabled) return;
+          selectedKeysChange?.(key, true, keyPah);
         },
       };
 

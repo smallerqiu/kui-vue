@@ -104,9 +104,7 @@ const Page = defineComponent({
         let prop = {
           class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
-          on: {
-            click: () => toPage(p),
-          },
+          onClick: () => toPage(p),
         };
         return (
           <li {...prop}>
@@ -118,11 +116,9 @@ const Page = defineComponent({
       if (showPrevMore) {
         let p = {
           class: "k-pager-item k-pager-more",
-          on: {
-            mouseenter: () => (prevPageGroup.value = true),
-            mouseleave: () => (prevPageGroup.value = false),
-            click: () => toPage(defaultPage.value - 5),
-          },
+          onMouseenter: () => (prevPageGroup.value = true),
+          onMouseleave: () => (prevPageGroup.value = false),
+          onClick: () => toPage(defaultPage.value - 5),
         };
         const moreNode = (
           <li {...p}>
@@ -134,11 +130,9 @@ const Page = defineComponent({
       if (showNextMore) {
         let p = {
           class: "k-pager-item k-pager-more",
-          on: {
-            mouseenter: () => (nextPageGroup.value = true),
-            mouseleave: () => (nextPageGroup.value = false),
-            click: () => toPage(defaultPage.value + 5),
-          },
+          onMouseenter: () => (nextPageGroup.value = true),
+          onMouseleave: () => (nextPageGroup.value = false),
+          onClick: () => toPage(defaultPage.value + 5),
         };
         const moreNode = (
           <li {...p}>
@@ -218,57 +212,49 @@ const Page = defineComponent({
     };
     const renderSize = () => {
       let prop = {
-        props: {
-          value: defaultPageSize.value,
-          size: ps.size,
-          clearable: false,
-          theme: ps.theme,
-          options: ps.sizeData.map((s) => {
-            return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
-          }),
-          disabled: ps.disabled,
-        },
-        on: {
-          change: changeSize,
-        },
+        value: defaultPageSize.value,
+        size: ps.size,
+        clearable: false,
+        theme: ps.theme,
+        options: ps.sizeData.map((s) => {
+          return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
+        }),
+        disabled: ps.disabled,
+        onChange: changeSize,
       };
       return ps.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
     };
 
     const renderElevator = () => {
       let { size } = ps;
-      let prop = {
+      let props = {
         class: "k-page-options-elevator",
-        props: {
-          size,
-          theme: ps.theme,
-          disabled: ps.disabled,
-          clearable: false,
-        },
+        size,
+        theme: ps.theme,
+        disabled: ps.disabled,
+        clearable: false,
         // value: defaultPage.value,
-        on: {
-          change: (e) => {
-            let page = e.target.value;
-            if (Number(page) == NaN) {
-              e.target.value = "";
-              return;
-            }
-            page = Number(page);
+        onChange: (e) => {
+          let page = e.target.value;
+          if (Number(page) == NaN) {
+            e.target.value = "";
+            return;
+          }
+          page = Number(page);
 
-            let pCount = pageCount.value;
-            if (page > pCount) page = pCount;
-            if (page < 1) page = 1;
+          let pCount = pageCount.value;
+          if (page > pCount) page = pCount;
+          if (page < 1) page = 1;
 
-            if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
-              defaultPage.value = page;
-              emit("update:page", page);
-              emit("change", page, defaultPageSize.value);
-            }
-            nextTick(() => {
-              e.target.value = "";
-            });
-            e.stopPropagation();
-          },
+          if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
+            defaultPage.value = page;
+            emit("update:page", page);
+            emit("change", page, defaultPageSize.value);
+          }
+          nextTick(() => {
+            e.target.value = "";
+          });
+          e.stopPropagation();
         },
         // onChange: (e) => {
         //   // e.stopPropagation();
@@ -277,7 +263,7 @@ const Page = defineComponent({
       return ps.showElevator ? (
         <div class="k-page-options">
           <span>{locale?.value.k.page.goto}</span>
-          <Input {...prop} />
+          <Input {...props} />
           <span>{locale?.value.k.page.page}</span>
         </div>
       ) : null;

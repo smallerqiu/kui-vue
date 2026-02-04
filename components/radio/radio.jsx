@@ -3,22 +3,12 @@ import { withInstall } from "../utils/vue";
 
 const Radio = defineComponent({
   name: "Radio",
-  // [Vue 3 Upgrade]: del
-  model: {
-    prop: "checked",
-    event: "input",
-  },
   props: {
     // [Vue 3 Upgrade]
-    // modelValue: { type: [Boolean, String, Number], default: null },
-
-    // [Vue 3 Upgrade]: Vue 2 use checked & model
-    checked: {
-      type: [Boolean, Number],
-      default: false,
-    },
+    modelValue: { type: [Boolean, String, Number], default: null },
     value: { type: [String, Number, Boolean] },
     label: { type: [String, Number] },
+    checked: Boolean,
     disabled: Boolean,
     theme: String,
     size: {
@@ -30,9 +20,15 @@ const Radio = defineComponent({
   },
 
   setup(props, { slots, emit }) {
-    const isChecked = ref(props.checked);
+    const isChecked = ref(props.modelValue || props.checked);
     // const theme = inject("theme", null);
     // console.log(props.theme,theme)
+    watch(
+      () => props.modelValue,
+      (v) => {
+        isChecked.value = v;
+      }
+    );
     watch(
       () => props.checked,
       (v) => {
@@ -47,13 +43,14 @@ const Radio = defineComponent({
         value: props.value,
         label: props.label || slots.default?.(),
       });
-      emit("input", checked);
+      emit("update:modelValue", checked);
+      emit("update:checked", checked);
     };
     const onChange = (e) => {
       if (props.disabled || isChecked.value) return;
-      const checked = e.target.checked;
-      e.preventDefault();
       e.stopPropagation();
+      e.preventDefault();
+      const checked = e.target.checked;
       emitValue(checked);
     };
     const triggerCheck = (e) => {
@@ -87,9 +84,7 @@ const Radio = defineComponent({
               class="k-radio-input"
               disabled={props.disabled}
               onChange={onChange}
-              // [Vue 3 Upgrade]: checked={isChecked.value}
-              // [Vue 2 Only]: Vue 2 JSX need domPropsChecked
-              domPropsChecked={isChecked.value}
+              checked={isChecked.value}
             />
           </span>
           {labelNode ? <span class="k-radio-label">{labelNode}</span> : null}

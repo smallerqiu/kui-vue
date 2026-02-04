@@ -7,9 +7,7 @@ function createComponent(suffixCls, name) {
       name,
       setup(props, { slots }) {
         const prop = {
-          props: {
-            suffixCls: suffixCls,
-          },
+          suffixCls: suffixCls,
         };
         return () => <Component {...prop}>{slots.default?.()}</Component>;
       },

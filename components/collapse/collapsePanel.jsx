@@ -1,7 +1,7 @@
 import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
 import { ChevronUp } from "kui-icons/dist/icons";
-import { defineComponent, ref, watch, /*Transition,*/ getCurrentInstance, nextTick } from "vue";
+import { defineComponent, ref, watch, Transition, getCurrentInstance, nextTick } from "vue";
 import { withInstall } from "../utils/vue";
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
@@ -25,8 +25,7 @@ const CollapsePanel = defineComponent({
     );
 
     const handleClick = () => {
-      // const key = instance.vnode.key; //for 3
-      const key = instance.proxy.$vnode.key;
+      const key = instance.vnode.key; //for 3
       emit("expand", key);
     };
 
@@ -41,11 +40,11 @@ const CollapsePanel = defineComponent({
       const transitionProps = getTransitionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
-        <transition {...transitionProps} time="350">
+        <Transition {...transitionProps} time="350">
           <div class="k-collapse-content" v-show={expanded.value}>
             <div class="k-collapse-content-box">{slots.default?.()}</div>
           </div>
-        </transition>
+        </Transition>
       ) : null;
       return (
         <div class={classes}>

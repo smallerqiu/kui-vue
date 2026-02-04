@@ -1,4 +1,13 @@
-import { defineComponent, ref, watch, inject, computed, onUnmounted, nextTick } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  inject,
+  computed,
+  onUnmounted,
+  nextTick,
+  Transition,
+} from "vue";
 import dayjs from "dayjs";
 import zhCN from "../locale/zh-CN";
 import isBetween from "dayjs/plugin/isBetween";
@@ -34,7 +43,7 @@ const DatePicker = defineComponent({
     resize,
   },
   props: {
-    value: { type: [Date, Object, Array, String, Number], default: null },
+    modelValue: { type: [Date, Object, Array, String, Number], default: null },
     startDate: { type: [Date, Object, String, Number], default: null },
     endDate: { type: [Date, Object, String, Number], default: null },
     valueType: {
@@ -71,7 +80,7 @@ const DatePicker = defineComponent({
       default: "bottom-left",
     },
   },
-  emits: ["change"],
+  // emits: ["change", "update:modelValue"],
 
   setup(props, { emit, slots }) {
     const injectedLocale = inject("locale", zhCN);
@@ -90,6 +99,7 @@ const DatePicker = defineComponent({
       return locale.value.name || "zh-cn";
     });
 
+    // --- 状态定义 ---
     const isVisible = ref(false);
     const isFocus = ref(false);
     const rendered = ref(false);
@@ -99,7 +109,9 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref(null);
     const refSelection = ref(null);
+    // console.log(local);
 
+    // DOM 引用，用于滚动计算
     const timeColRefs = ref({});
 
     // 面板显示的基准日期
@@ -225,7 +237,7 @@ const DatePicker = defineComponent({
     };
 
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val) => {
         if (!val) {
           innerValue.value = null;
@@ -252,8 +264,7 @@ const DatePicker = defineComponent({
 
     const emitValue = (closePanel = true) => {
       if (!innerValue.value) {
-        emit("input", null);
-        // emit("update:value", null);
+        emit("update:modelValue", null);
         emit("change", null, "");
         return;
       }
@@ -266,13 +277,9 @@ const DatePicker = defineComponent({
           // 自动排序，防止开始时间晚于结束时间
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
           const out = dates.map((d) => formatOutputValue(d));
-          emit("input", out);
+          emit("update:modelValue", out);
           emit("update:startDate", out[0]);
           emit("update:endDate", out[1]);
-          // emit(
-          //   "update:value",
-          //   dates.map((d) => d.toDate())
-          // );
           emit(
             "change",
             dates,
@@ -285,8 +292,7 @@ const DatePicker = defineComponent({
           if (closePanel) isVisible.value = false;
         }
       } else {
-        emit("input", formatOutputValue(innerValue.value));
-        // emit("update:value", innerValue.value.toDate());
+        emit("update:modelValue", formatOutputValue(innerValue.value));
         emit("change", innerValue.value, getStr(innerValue.value));
         syncTextFromValue();
         if (closePanel) isVisible.value = false;
@@ -968,7 +974,7 @@ const DatePicker = defineComponent({
         ) : null;
       };
       const overlay = rendered.value ? (
-        <transition name="k-date-picker">
+        <Transition name="k-date-picker">
           <div
             v-transfer={true}
             ref={refPopper}
@@ -988,7 +994,7 @@ const DatePicker = defineComponent({
               {renderExtraFooter()}
             </div>
           </div>
-        </transition>
+        </Transition>
       ) : null;
 
       return (
@@ -1004,10 +1010,9 @@ const DatePicker = defineComponent({
                   e.stopPropagation();
                   innerValue.value = null;
                   syncTextFromValue();
-                  emit("input", null); //for 2
                   emit("update:startDate", null);
                   emit("update:endDate", null);
-                  //   emit("update:value", null); //for 3
+                  emit("update:modelValue", null);
                   emit("change", null, "");
                 }}
               />

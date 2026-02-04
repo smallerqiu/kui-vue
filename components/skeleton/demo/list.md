@@ -2,6 +2,10 @@
 ### 列表
 在列表组件中使用加载占位符。
 </cn>
+<en>
+### List
+Use skeleton placeholders in a list.
+</en>
 
 ```vue
 <template>

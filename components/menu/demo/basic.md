@@ -38,7 +38,7 @@ const items = [
     ],
   },
   {
-    title: h("a", { attrs: { href: "https://k-ui.cn", target: "_blank" } }, "Navigation -Link"),
+    title: h("a", { href: "https://k-ui.cn", target: "_blank" }, "Navigation -Link"),
     key: "4",
   },
 ];

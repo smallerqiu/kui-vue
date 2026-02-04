@@ -1,7 +1,7 @@
 import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
 
-import { ref, reactive, watch, defineComponent, nextTick } from "vue";
+import { ref, reactive, watch, defineComponent, nextTick, TransitionGroup } from "vue";
 import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from "kui-icons/dist/icons";
 import { buildTree, updateParentIndeterminate } from "./utils";
 const Tree = defineComponent({
@@ -24,13 +24,13 @@ const Tree = defineComponent({
     queryKey: String,
   },
 
-  setup(ps, { emit, slots, listeners }) {
+  setup(ps, { emit, slots, attrs, listeners }) {
     const defaultData = ref([]);
     const defaultSelectedKeys = ref(ps.selectedKeys || []);
     const defaultExpandedKeys = ref(ps.expandedKeys || []);
     const defaultCheckedKeys = ref(ps.checkedKeys || []);
     const dragNode = reactive({});
-    const hasLoad = "loadData" in listeners;
+    const hasLoad = attrs.onLoadData;
 
     const handleExpand = (node) => {
       if (node.isLeaf || node.loading) return;
@@ -41,7 +41,7 @@ const Tree = defineComponent({
 
       if (isAsyncNode && !node.expanded) {
         node.loading = true;
-        const promise = listeners.loadData(node);
+        const promise = attrs?.onLoadData(node);
         if (promise && promise.then) {
           promise
             .then(() => {
@@ -488,25 +488,20 @@ const Tree = defineComponent({
       //title
       let titleProps = {
         class: ["k-tree-title", { "k-tree-title-selected": item.selected }],
-        on: {
-          // click: () => onSelect(item),
-        },
-        attrs: {
-          draggable: ps.draggable && !item.disabled,
-          disabled: item.disabled,
-        },
+        draggable: ps.draggable && !item.disabled,
+        disabled: item.disabled,
       };
       // 添加拖拽事件
       if (ps.draggable) {
-        titleProps.on.dragstart = (e) => handleDragStart(e, item);
-        titleProps.on.dragover = (e) => handleDragOver(e, item);
-        titleProps.on.dragenter = (e) => handleDragEnter(e, item);
-        titleProps.on.dragleave = (e) => handleDragLeave(e, item);
-        titleProps.on.drop = (e) => handleDrop(e, item);
-        titleProps.on.dragend = (e) => handleDragEnd(e, item);
+        titleProps.onDragstart = (e) => handleDragStart(e, item);
+        titleProps.onDragover = (e) => handleDragOver(e, item);
+        titleProps.onDragenter = (e) => handleDragEnter(e, item);
+        titleProps.onDragleave = (e) => handleDragLeave(e, item);
+        titleProps.onDrop = (e) => handleDrop(e, item);
+        titleProps.onDragend = (e) => handleDragEnd(e, item);
       }
       if (!ps.directory) {
-        titleProps.on.click = () => onSelect(item);
+        titleProps.onClick = () => onSelect(item);
       }
 
       const titleNode = (
@@ -526,10 +521,9 @@ const Tree = defineComponent({
             "k-tree-item-selected": ps.directory && item.selected,
           },
         ],
-        on: {},
       };
       if (ps.directory) {
-        itemProps.on.click = (e) => {
+        itemProps.onClick = (e) => {
           e.stopPropagation();
           onSelect(item);
           handleExpand(item);
@@ -625,12 +619,12 @@ const Tree = defineComponent({
             },
           ]}
         >
-          <transition-group {...onProps} tag="div" class="k-tree-node-list">
+          <TransitionGroup {...onProps} tag="div" class="k-tree-node-list">
             {visibleNodes.map((item, index) => {
               // 为每个节点添加唯一的 key 用于动画
               return renderTreeNode(item, index);
             })}
-          </transition-group>
+          </TransitionGroup>
         </div>
       );
     };

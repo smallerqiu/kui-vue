@@ -1,10 +1,14 @@
 import {
   defineComponent,
   ref,
-  /*createVNode,render, */ onBeforeUnmount /*Transition*/,
+  createVNode,
+  render,
+  onBeforeUnmount,
+  Transition,
   getCurrentInstance,
 } from "vue";
-import { withInstall, createVNode, render } from "../utils/vue";
+import { getAppContext } from "../config/context";
+import { withInstall } from "../utils/vue";
 
 const loading = defineComponent({
   setup(ps, { expose }) {
@@ -82,24 +86,35 @@ const loading = defineComponent({
         },
       };
       return (
-        <transition name="fade">
+        <Transition name="fade">
           <div class="k-loading-wrap" v-show={visible.value}>
             <div {...props}></div>
           </div>
-        </transition>
+        </Transition>
       );
     };
   },
 });
 const createInstance = (props = {}, context) => {
-  // const container = document.createElement("div");
-  // container.id = `k-loading-box`;
-  // document.body.appendChild(container);
-
+  const containerId = `k-loading-box`;
+  let container = document.getElementById(containerId);
+  if (!container) {
+    container = document.createElement("div");
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
   const vm = createVNode(loading, props, context);
-  render(vm, document.body);
-  return vm;
-  // return vm.component?.exposed; //for 3
+  render(vm, container);
+  vm.appContext = context?.appContext || getAppContext()?.appContext;
+
+  const instance = vm.component?.exposed; // for 3
+  instance.destroy = () => {
+    render(null, container);
+    if (container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+  };
+  return instance;
 };
 
 let loadInstance = null;
@@ -126,7 +141,6 @@ let Loading = {
   destroy() {
     if (loadInstance) {
       loadInstance.destroy();
-      document.body.removeChild(loadInstance.$el);
       loadInstance = null;
     }
   },

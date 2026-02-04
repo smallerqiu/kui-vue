@@ -267,7 +267,7 @@ const Table = defineComponent({
 
     const renderColGroup = (isHeader = false) => (
       <colgroup>
-        {props.checkable && <col style={{ width: "50px" }} />}
+        {props.checkable && <col style={{ width: "50px", left: 0 }} />}
         {flattedColumns.value.map((col) => (
           <col
             key={col.key}
@@ -462,7 +462,7 @@ const Table = defineComponent({
                 return (
                   <td
                     key={col.key}
-                    attrs={attrs}
+                    {...attrs}
                     class={getFixedClass(col, colIndex)}
                     style={fixedInfo.value.body[col.key]}
                   >

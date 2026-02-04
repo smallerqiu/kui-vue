@@ -1,7 +1,6 @@
-// form.vue 或 form.jsx
-import { defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
+import { cloneVNode, defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
 import { getChildren } from "../utils/vnode";
-import { cloneVNode, withInstall } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 
 const Form = defineComponent({
   name: "Form",
@@ -32,6 +31,7 @@ const Form = defineComponent({
     shape: String,
     disabled: Boolean,
   },
+  emits: ["submit", "change"],
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
     const formItems = ref({});
@@ -39,28 +39,16 @@ const Form = defineComponent({
     const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
 
     const updateMode = (prop, value = null) => {
-      const keys = prop
-        .replace(/\[(\w+)\]/g, ".$1")
-        .replace(/^\./, "")
-        .split(".");
-      let currentModel = model.value || {};
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        if (key in currentModel) {
-          if (i === keys.length - 1 || keys.length === 1) {
-            const val = currentModel[key];
-            if (typeof val === "boolean") {
-              currentModel[key] = value || false;
-            } else if (Array.isArray(val)) {
-              currentModel[key] = value || [];
-            } else {
-              currentModel[key] = value;
-            }
-          }
-          currentModel = currentModel[key];
-        }
+      const { o, k } = getPropByPath(model.value, prop);
+      // console.log(o, k, value);
+      if (o) {
+        o[k] = value;
+        emit("change", model.value);
       }
-      emit("change", model.value);
+    };
+    const getValueFromProp = (path) => {
+      const { v } = getPropByPath(model.value, path);
+      return v;
     };
 
     const reset = () => {
@@ -80,31 +68,32 @@ const Form = defineComponent({
       }
     };
 
-    const testProp = (path) => {
-      const keys = path
-        .replace(/\[(\w+)\]/g, ".$1")
-        .replace(/^\./, "")
-        .split(".");
-      let currentModel = model.value || {};
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        if (key in currentModel) {
-          currentModel = JSON.parse(JSON.stringify(currentModel[key]));
-        } else {
-          console.warn(`Invalid form item prop: ${path}`);
-          // 可根据需要启用警告或错误提示
-        }
+    const getPropByPath = (obj, path) => {
+      let tempObj = obj;
+      path = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
+      const keyArr = path.split(".");
+      let i = 0;
+      for (let len = keyArr.length; i < len - 1; ++i) {
+        if (!tempObj) break;
+        let key = keyArr[i];
+        tempObj = tempObj[key];
       }
-      return currentModel === model.value || JSON.stringify(currentModel) === "{}"
-        ? null
-        : currentModel;
+      const lastKey = keyArr[keyArr.length - 1];
+      return {
+        o: tempObj,
+        k: lastKey,
+        v: tempObj ? tempObj[lastKey] : null,
+      };
     };
-
-    const submit = (e) => {
-      e?.preventDefault();
+    const onSubmit = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      submit();
+      return false;
+    };
+    const submit = () => {
       validate((valid) => {
-        const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
-        emit("submit", { valid, model: modelCopy });
+        emit("submit", valid);
       });
     };
 
@@ -120,7 +109,8 @@ const Form = defineComponent({
       });
 
       if (typeof callback === "function") {
-        callback(result);
+        const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
+        callback({ valid: result, model: modelCopy });
       }
     };
 
@@ -146,7 +136,7 @@ const Form = defineComponent({
       size,
       shape,
       theme,
-      testProp,
+      getValueFromProp,
       updateMode,
       register,
       unregister,
@@ -172,38 +162,19 @@ const Form = defineComponent({
           ref={formRef}
           class={classes}
           id={name}
-          onSubmit={submit}
+          onSubmit={onSubmit}
           onReset={reset}
           autocomplete="off"
         >
           {children.map((child) => {
-            const childLabelCol = child?.componentOptions?.propsData?.labelCol || labelCol;
-            const childWrapperCol = child?.componentOptions?.propsData?.wrapperCol || wrapperCol;
-            // const childLabelCol = child.props?.labelCol || labelCol; // for 3
-            // const childWrapperCol = child.props?.wrapperCol || wrapperCol;  // for 3
+            const childLabelCol = child.props?.labelCol || labelCol; // for 3
+            const childWrapperCol = child.props?.wrapperCol || wrapperCol; // for 3
 
             return cloneVNode(
               child,
               {
-                props: {
-                  labelCol: childLabelCol,
-                  wrapperCol: childWrapperCol,
-                },
-                on: {
-                  // collect: ({ context, push }) => {
-                  //   if (push) {
-                  //     formItems.value.push(context);
-                  //     if (context.prop && model.value) {
-                  //       testProp(context.prop);
-                  //     }
-                  //   } else {
-                  //     const index = formItems.value.indexOf(context);
-                  //     if (index !== -1) {
-                  //       formItems.value.splice(index, 1);
-                  //     }
-                  //   }
-                  // },
-                },
+                labelCol: childLabelCol,
+                wrapperCol: childWrapperCol,
               },
               true
             );

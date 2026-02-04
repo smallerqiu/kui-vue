@@ -18,7 +18,7 @@ import { Heart } from 'kui-icons'
 ## 使用 Sprite 模式
 
 ```js
-import sprite from "kui-icons/lib/sprite.svg";
+import sprite from "kui-icons/dist/sprite.svg";
 
 <svg width="1em" height="1em">
   <use xlink:href={`${sprite}#LogoKui`}></use>

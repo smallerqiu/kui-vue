@@ -2,6 +2,10 @@
 ### 子组件
 加载占位图包含子组件。
 </cn>
+<en>
+### Child Components
+Loading skeleton with child components.
+</en>
 
 ```vue
 <template>

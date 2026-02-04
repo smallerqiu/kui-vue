@@ -2,6 +2,10 @@
 ### 上传头像
 limit等于上传文件数量时, 则不显示选择文件组件,
 </cn>
+<en>
+### Upload avatar
+When the limit equals the number of uploaded files, the file picker is not displayed.
+</en>
 
 ```vue
 <template>

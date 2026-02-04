@@ -71,7 +71,7 @@ const rules = {
   repwd: [{ validator: validateRePassword }],
 };
 const submit = () => {
-  formRef.value.validate((valid) => {
+  formRef.value.validate(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

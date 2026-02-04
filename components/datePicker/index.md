@@ -2,7 +2,7 @@
 
 | 属性         | 说明                                                                                                               | 类型                              | 默认值     |
 | ------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------------- | ---------- |
-| value        | 默认时间值                                                                                                         | Date, Array,Object, String,Number | -          |
+| modelValue   | 默认时间值                                                                                                         | Date, Array,Object, String,Number | -          |
 | startDate    | 开始时间 (取值)                                                                                                    | Date, Array,Object, String,Number | -          |
 | endDate      | 结束时间 (取值)                                                                                                    | Date, Array,Object, String,Number | -          |
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year`,`month`,`date`,`time`,`dateTime`,`dateRange`,`dateTimeRange` | String                            | date       |

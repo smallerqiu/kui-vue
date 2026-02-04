@@ -15,15 +15,17 @@ export default defineComponent({
     inputRef: Object,
     htmlAttrs: Object,
   },
+  emits: ["update:value", "focus", "blur"],
   setup(ps, { emit, slots, attrs, listeners }) {
     const handleInput = (e) => {
       // let v = e.target.value;
       // currentValue.value = v;
-      // emit("update:value", v); // for 3
-      emit("input", e); // for 3
+      emit("update:value", e);
     };
     const handleFocus = (e) => {
       emit("focus", e);
+      e.preventDefault();
+      e.stopPropagation();
     };
     const handleBlur = (e) => {
       emit("blur", e);
@@ -32,6 +34,8 @@ export default defineComponent({
       const { disabled, multiple, size, type, theme, shape, inputType } = ps;
       const props = {
         ref: ps.inputRef,
+        ...attrs,
+        ...ps.htmlAttrs,
         class: [
           {
             [`k-${inputType}`]: !multiple,
@@ -42,39 +46,26 @@ export default defineComponent({
             [`k-${inputType}-${theme}`]: theme != "solid" && !multiple && theme,
             [`k-${inputType}-circle`]: shape == "circle" && !multiple,
           },
+          ps.htmlAttrs.class,
         ],
-        attrs: {
-          ...attrs,
-          ...ps.htmlAttrs,
+        disabled,
+        type,
+        value: ps.value,
+        ...listeners,
 
-          disabled,
-          type,
-        },
-        domProps: {
-          value: ps.value,
-        },
-        on: {
-          ...listeners,
-          focus: handleFocus,
-          blur: handleBlur,
-          input: handleInput,
-        },
-        // onFocus: handleFocus,
-        // onBlur: handleBlur,
-        // onInput: handleInput,
+        onFocus: handleFocus,
+        onBlur: handleBlur,
+        onInput: handleInput,
       };
 
-      if (ps.htmlAttrs.autoComplete != "on") {
-        props.attrs = {
-          ...props.attrs,
-          "data-1p-ignore": true,
-          "data-lpignore": true,
-          "data-dashlane-ignore": "true",
-          autoComplete: "new-password",
-        };
-      }
       if (ps.showPassword === true && type == "password") {
-        props.attrs.type = "text";
+        props.type = "text";
+      }
+      if (ps.htmlAttrs.autoComplete != "on") {
+        props["data-1p-ignore"] = true;
+        props["data-lpignore"] = true;
+        props["data-dashlane-ignore"] = "true";
+        props.autoComplete = "nope"; // "new-password";
       }
       return <input {...props} single />;
     };

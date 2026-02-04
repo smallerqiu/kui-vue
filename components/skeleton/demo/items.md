@@ -2,6 +2,10 @@
 ### 按钮/头像/图像
 骨架按钮、头像、和图像。
 </cn>
+<en>
+### Button / Avatar / Image
+Skeleton Button, Avatar, and Image.
+</en>
 
 ```vue
 <template>

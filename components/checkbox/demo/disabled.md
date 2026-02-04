@@ -2,6 +2,10 @@
 ### 可不用 / 可控
 通过 `disabled` 设置不可用
 </cn>
+<en>
+### Disabled / Toggle
+Use disabled to disable the checkbox; you can toggle disabled state.
+</en>
 
 ```vue
 <template>

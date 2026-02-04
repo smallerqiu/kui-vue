@@ -1,12 +1,22 @@
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { Close, ChevronBack, ChevronForward } from "kui-icons/dist/icons";
-import { defineComponent, onMounted, onBeforeMount, ref, nextTick, watch, computed } from "vue";
-import { withInstall, cloneVNode } from "../utils/vue";
+import {
+  defineComponent,
+  onMounted,
+  onBeforeMount,
+  ref,
+  nextTick,
+  watch,
+  computed,
+  cloneVNode,
+} from "vue";
+import { withInstall } from "../utils/vue";
 const Tabs = defineComponent({
   name: "Tabs",
   props: {
     // activeKey: [String,Number], // for 3
+    modelValue: [String, Number],
     value: [String, Number],
     card: Boolean,
     sample: Boolean,
@@ -14,7 +24,7 @@ const Tabs = defineComponent({
     animated: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    const defaultActiveKey = ref(ps.value);
+    const defaultActiveKey = ref(ps.modelValue || ps.value);
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
@@ -25,13 +35,9 @@ const Tabs = defineComponent({
     const navBoxRef = ref();
     const inkBarRef = ref();
 
-    // const children = ref(getChildren(slots.default?.()));
-    const children = computed(() => {
-      return getChildren(slots.default?.());
-    });
     watch(
       // () => ps.activeKey,
-      () => ps.value,
+      () => ps.modelValue,
       (nv) => {
         defaultActiveKey.value = nv;
         updateIndex();
@@ -126,7 +132,7 @@ const Tabs = defineComponent({
     };
     const tabClick = ({ disabled, key }, index) => {
       if (!disabled) {
-        emit("input", key);
+        emit("update:modelValue", key);
         // emit("update:activeKey", key);
         emit("tab-click", key);
         if (defaultActiveKey.value !== key) {
@@ -172,17 +178,20 @@ const Tabs = defineComponent({
     const renderNodes = () => {
       const nodes = getChildren(slots.default?.());
       const panels = nodes?.map((item) => {
-        return cloneVNode(item, {
-          props: { activeKey: defaultActiveKey.value },
-          on: { resetNavPosition: () => resetNavPosition() },
-        });
+        return cloneVNode(
+          item,
+          {
+            activeKey: defaultActiveKey.value,
+            onResetNavPosition: () => resetNavPosition(),
+          },
+          true
+        );
       });
 
       const navNodes = nodes?.map((panel, index) => {
         const key = panel.key;
-        let { icon, title, closable, disabled } = panel?.componentOptions?.propsData || {}; // for 2
 
-        // let { icon, title, closable, disabled } = panel.props; // for 3
+        let { icon, title, closable, disabled } = panel.props;
         disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
         const prop = {
@@ -193,9 +202,7 @@ const Tabs = defineComponent({
               ["k-tabs-tab-disabled"]: disabled,
             },
           ],
-          on: {
-            click: () => tabClick({ disabled, key }, index),
-          },
+          onClick: () => tabClick({ disabled, key }, index),
         };
         return (
           <div {...prop}>

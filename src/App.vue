@@ -1,8 +1,10 @@
 <template>
   <ConfigProvider :locale="locale">
-    <transition name="fade" mode="out-in">
-      <router-view />
-    </transition>
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="fade" mode="out-in">
+        <component :is="Component" :key="route.fullPath" />
+      </Transition>
+    </RouterView>
   </ConfigProvider>
 </template>
 <script setup>

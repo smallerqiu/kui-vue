@@ -5,18 +5,18 @@ export default defineComponent({
   name: "Paint",
   props: {
     hue: Number,
-    value: [String, Object],
+    modelValue: [String, Object],
   },
   setup(ps, { emit }) {
     const refPaint = ref();
     const dotPos = reactive({ x: 0, y: 0 });
     const isMousePressed = ref(false);
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
 
     watch(
       () => ps.hue,
       (val) => {
-        currentColor.value = ps.value;
+        currentColor.value = ps.modelValue;
         renderPaint();
         updatePos();
       }
@@ -92,12 +92,10 @@ export default defineComponent({
       let { x, y } = dotPos;
       let prop = {
         class: "k-color-picker-paint",
-        // width: 234,
-        // height: 136,
-        attrs: { width: 234, height: 136 },
+        width: 234,
+        height: 136,
         ref: refPaint,
-        // onMousedown: onMousedown,
-        on: { mousedown: onMousedown },
+        onMousedown: onMousedown,
       };
       return (
         <div class="k-color-picker-paint-container">

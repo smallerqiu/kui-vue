@@ -2,6 +2,10 @@
 ### 附加内容 
 可以在页签右边添加附加操作。
 </cn>
+<en>
+### Extra Content
+You can add extra actions on the right side of the tabs.
+</en>
 
 ```vue
 <template>

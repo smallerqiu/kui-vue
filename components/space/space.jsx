@@ -1,6 +1,6 @@
-import { defineComponent, h, /*cloneVNode*/ provide } from "vue";
+import { defineComponent, h, cloneVNode, provide } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall, cloneVNode } from "../utils/vue";
+import { withInstall } from "../utils/vue";
 import { filterSize } from "../utils/size";
 const Space = defineComponent({
   name: "Space",
@@ -69,7 +69,6 @@ const Space = defineComponent({
       for (let i = 0; i < children.length; i++) {
         const pre = ps.vertical ? "vertical-" : "";
         const p = {
-          props: {},
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
@@ -77,7 +76,7 @@ const Space = defineComponent({
           },
         };
         if (typeof ps.size === "string" && ["large", "small"].includes(ps.size)) {
-          p.props.size = ps.size;
+          p.size = ps.size;
         }
         const child = ps.compact
           ? cloneVNode(children[i], p, true, true)

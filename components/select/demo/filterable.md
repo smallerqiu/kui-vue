@@ -1,7 +1,7 @@
 <cn>
 ### 过滤 和 搜索
 通过设置 `filterable` 值来呈现过滤模式
-注意: filterable 和 onSearch 不可以同时使用,搜索的结果会被过滤
+> filterable 和 onSearch 不可以同时使用, 搜索的结果会被过滤
 </cn>
 
 ```vue

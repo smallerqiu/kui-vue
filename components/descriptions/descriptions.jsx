@@ -25,9 +25,8 @@ const Descriptions = defineComponent({
       let i = 0;
       for (let child of children) {
         i++;
-        // let { label, span = 1 } = child.props; //for 3
-        let { label, span = 1 } = child?.componentOptions?.propsData;
-        let childNodes = child?.componentOptions?.children;
+        let { label, span = 1 } = child.props; //for 3
+        let childNodes = child?.children;
         let row = rows[len] || [];
         let vertical = layout == "vertical";
 

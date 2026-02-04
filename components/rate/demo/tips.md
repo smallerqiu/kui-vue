@@ -12,9 +12,9 @@
     </Space>
     <br />
     <code>allowClear = true</code>
-    <Rate :allowClear="true" :value="3" />
+    <Rate :allowClear="true" :modelValue="3" />
     <code>allowClear = false</code>
-    <Rate :allowClear="false" :value="3" />
+    <Rate :allowClear="false" :modelValue="3" />
   </Space>
 </template>
 <script setup>

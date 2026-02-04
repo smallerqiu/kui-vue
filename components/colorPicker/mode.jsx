@@ -7,13 +7,13 @@ import { isColor } from "../utils/color";
 export default defineComponent({
   name: "Mode",
   props: {
-    value: [String, Object],
+    modelValue: [String, Object],
     mode: String,
     disabledAlpha: Boolean,
   },
   setup(ps, { emit }) {
     const currentMode = ref(ps.mode || "hex");
-    const currentColor = ref(ps.value || "#000000");
+    const currentColor = ref(ps.modelValue || "#000000");
     const options = [
       {
         label: "HEX",
@@ -35,7 +35,7 @@ export default defineComponent({
       }
     );
     watch(
-      () => ps.value,
+      () => ps.modelValue,
       (val) => {
         currentColor.value = val;
       }
@@ -88,7 +88,9 @@ export default defineComponent({
 
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
-        nodes.push(<Input prefix="#" size="small" value={hex} onChange={(e) => updateHex(e)} />);
+        nodes.push(
+          <Input prefix="#" size="small" modelValue={hex} onChange={(e) => updateHex(e)} />
+        );
       } else if (currentMode.value === "rgb") {
         const [r, g, b] = color.rgb().array();
         nodes.push(
@@ -96,7 +98,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(r)}
+            modelValue={Math.round(r)}
             onChange={(e) => valueChange(e, "r")}
           />
         );
@@ -105,7 +107,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(g)}
+            modelValue={Math.round(g)}
             onChange={(e) => valueChange(e, "g")}
           />
         );
@@ -114,7 +116,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={255}
-            value={Math.round(b)}
+            modelValue={Math.round(b)}
             onChange={(e) => valueChange(e, "b")}
           />
         );
@@ -125,7 +127,7 @@ export default defineComponent({
             size="small"
             min={0}
             max={359}
-            value={Math.round(_h)}
+            modelValue={Math.round(_h)}
             onChange={(e) => valueChange(e, "h")}
           />
         );
@@ -137,7 +139,7 @@ export default defineComponent({
             parser={(value) => value.replace("%", "")}
             min={0}
             max={100}
-            value={Math.round(s)}
+            modelValue={Math.round(s)}
             onChange={(e) => valueChange(e, "s")}
           />
         );
@@ -149,7 +151,7 @@ export default defineComponent({
             parser={(value) => value.replace("%", "")}
             min={0}
             max={100}
-            value={Math.round(l)}
+            modelValue={Math.round(l)}
             onChange={(e) => valueChange(e, "l")}
           />
         );
@@ -161,7 +163,7 @@ export default defineComponent({
             // suffix="%"
             formatter={(value) => `${value}%`}
             parser={(value) => value.replace("%", "")}
-            value={Math.round(alpha * 100)}
+            modelValue={Math.round(alpha * 100)}
             size="small"
             min={0}
             max={100}
@@ -177,7 +179,7 @@ export default defineComponent({
             clearable={false}
             bordered={false}
             size="small"
-            value={currentMode.value}
+            modelValue={currentMode.value}
             options={options}
             onChange={changeMode}
           />

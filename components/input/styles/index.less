@@ -7,7 +7,6 @@
   max-width: 100%;
   min-width: 0;
   color: var(--kui-color-text);
-  // flex-shrink: 0;
   align-items: center;
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
@@ -55,7 +54,6 @@
   .k-input-text {
     padding-left: 0;
     border: none;
-    // height: 30px;
     line-height: 1;
     padding: 0;
     font-size: 14px;
@@ -68,7 +66,6 @@
     line-height: 1.571;
 
     &:focus {
-      // border-color: var(--kui-color-primary);
       outline: none;
       z-index: 1;
     }
@@ -84,10 +81,8 @@
 
   .k-input-suffix,
   .k-input-prefix {
-    // font-size: 12px;
     white-space: nowrap;
     line-height: 1;
-    // cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
     transition: font-size 0.2s ease-in-out;
@@ -132,13 +127,11 @@
   border: 1px solid var(--kui-color-border);
   border-radius: var(--kui-border-radius);
   color: var(--kui-color-text);
-  // background-color: transparent;
   background-color: var(--kui-color-bg);
   background-image: none;
   position: relative;
   cursor: text;
   transition: border 0.3s ease-in-out;
-  // flex-shrink: 0;
   line-height: 1.571;
 
   &:focus {
@@ -158,28 +151,6 @@
     color: var(--kui-color-text-disabled);
     background: var(--kui-color-bg-component-disabled);
   }
-
-  // &:-webkit-autofill {
-  //   box-shadow: 0 0 0px 1000px white inset !important;
-  // }
-  // &:-webkit-autofill:focus {
-  //   box-shadow: 0 0 0px 1000px white inset !important;
-  // }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  // border:none;// 1px solid var(--kui-color-primary);
-  -webkit-text-fill-color: var(--kui-color-text);
-  -webkit-box-shadow: 0 0 0px 1000px var(--kui-color-bg) inset;
-  transition: background-color 5000s ease-in-out 0s;
 }
 
 .k-textarea {
@@ -281,17 +252,12 @@ select:-webkit-autofill:focus {
 .k-input-group-prefix {
   height: 40px;
   font-size: 14px;
-
-  > [class^="k-"]:not(.k-icon) {
-    // margin: 0 -1px 0 0;
-  }
 }
 
 .k-input-group-suffix {
   & *:first-child {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    // background-color: red;
   }
 }
 
@@ -299,7 +265,6 @@ select:-webkit-autofill:focus {
   & *:last-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    // background-color: red;
   }
 }
 

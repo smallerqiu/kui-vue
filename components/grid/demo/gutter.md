@@ -2,16 +2,20 @@
 ### 分栏间隔
 使用 `gutter` 熟悉来设置分栏的间隔,如果需要垂直间距，可以写成数组形式 [水平间距, 垂直间距]
 </cn>
+<en>
+### Gutter Spacing
+Use the gutter to set horizontal spacing between columns; if you need vertical spacing, specify an array like [horizontal, vertical].
+</en>
 
 ```vue
 <template>
-  <Space block vertical>
-    gutter = 10
+  <Space vertical block>
+    <code>gutter = 10</code>
     <Row :gutter="10" class="row-gutter">
       <Col :span="12"><div>col-12</div></Col>
       <Col :span="12"><div>col-12</div></Col>
     </Row>
-    Horizontal Gutter (px):{{ h }}
+    <code>Horizontal Gutter (px):{{ h }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="h"
@@ -21,7 +25,7 @@
         :step="null"
       />
     </div>
-    Vertical Gutter (px):{{ v }}
+    <code>Vertical Gutter (px):{{ v }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="v"
@@ -31,7 +35,7 @@
         :step="null"
       />
     </div>
-    Column Count:{{ cols }}
+    <code>Column Count:{{ cols }}</code>
     <div style="width:55%;padding:10px;">
       <Slider
         v-model="cols"

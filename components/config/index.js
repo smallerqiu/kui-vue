@@ -16,9 +16,12 @@ const ConfigProvider = defineComponent({
   setup(props, { slots }) {
     const locale = ref(props.locale);
     provide("locale", locale);
+    const instance = getCurrentInstance();
+    if (instance && instance.appContext) {
+      instance.appContext.provides["locale"] = locale;
+    }
     const context = getCurrentInstance();
     setAppContext(context);
-    // for 2
     watch(
       () => props.locale,
       (newVal) => {

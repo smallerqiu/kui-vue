@@ -83,14 +83,13 @@ const items = [
       { key: "/start/logs", title: "更新日志" },
       { key: "/start/theme", title: "主题" },
       { key: "/start/dark-mode", title: "暗黑模式" },
+      { key: "https://v3.k-ui.cn/", title: "v3.x 文档(for vue2)" },
       { key: "https://v2.k-ui.cn/", title: "v2.x 文档" },
-      { key: "https://k-ui.cn/", title: "v4.x 文档" },
       { key: "https://react.k-ui.cn/", title: "For React 文档" },
       { key: "https://chuchur.com/", title: "Blog" },
     ],
   },
 ];
-
 onMounted(() => {
   let localThemeMode = localStorage.getItem("theme-mode") || "";
   let localThemeColor = localStorage.getItem("themeColor") || "";

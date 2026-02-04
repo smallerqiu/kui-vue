@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, Transition } from "vue";
 import Icon from "../icon";
 import {
   InformationCircle,
@@ -62,7 +62,7 @@ const Alert = defineComponent({
       const msgNode = <div class="k-alert-message">{props.message || slots.default?.()}</div>;
 
       return (
-        <transition {...transitionProps}>
+        <Transition {...transitionProps}>
           <div class={classes.value} v-show={!closed.value}>
             {iconNode}
             <div class="k-alert-content">
@@ -71,7 +71,7 @@ const Alert = defineComponent({
             </div>
             {closeIcon}
           </div>
-        </transition>
+        </Transition>
       );
     };
   },

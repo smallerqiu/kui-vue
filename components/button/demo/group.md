@@ -10,7 +10,7 @@
       <Button>通讯录</Button>
       <Button :icon="PersonOutline"></Button>
     </ButtonGroup>
-    <DropdownButton>
+    <DropdownButton @click="handleButtonClick">
       Dropdown
       <template #overlay>
         <Menu @select="handleMenuClick">
@@ -37,6 +37,9 @@ import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
 
 const handleMenuClick = (e) => {
   console.log("click", e);
+};
+const handleButtonClick = (e) => {
+  console.log("click left button", e);
 };
 </script>
 ```

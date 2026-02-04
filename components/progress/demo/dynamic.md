@@ -2,6 +2,10 @@
 ### 动态展示
 会动的进度条才是好进度条。
 </cn>
+<en>
+### Dynamic Display
+Animated progress bars show progress better.
+</en>
 
 ```vue
 <template>

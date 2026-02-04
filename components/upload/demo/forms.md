@@ -1,7 +1,11 @@
 <cn>
 ### 表单校验
 上传表单校验
-</cn>
+ </cn>
+<en>
+### Form Validation
+Upload form validation
+</en>
 
 ```vue
 <template>

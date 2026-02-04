@@ -64,16 +64,9 @@ const Avatar = defineComponent({
 
       let children = slots.default?.();
 
-      // [Vue 3 Upgrade]: Vue 3
-      // const hasIcon = children?.some(c => c.type?.name === 'Icon');
-      const hasIcon = children?.filter((x) => x.componentOptions?.tag === "Icon").length;
+      const hasIcon = children?.some((c) => c.type?.name === "Icon");
 
-      // [Vue 3 Upgrade]:  Vue 3
-      // const isText = children?.length === 1 && typeof children[0].children === 'string';
-      const isText =
-        children?.length === 1 &&
-        typeof children[0].text === "string" &&
-        children[0].text.trim() !== "";
+      const isText = children?.length === 1 && typeof children[0].children === "string";
 
       const cls = [
         "k-avatar",
@@ -94,9 +87,7 @@ const Avatar = defineComponent({
             <img src={src} />
           ) : isText ? (
             <span class="k-avatar-string" ref={innerRef}>
-              {/* [Vue 3 Upgrade]:  children */}
-              {/* Vue 2 use children[0].text safely to get text */}
-              {children[0].text || children}
+              {children}
             </span>
           ) : (
             children

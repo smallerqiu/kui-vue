@@ -6,24 +6,18 @@
 ```vue
 <template>
   <Space style="height: 300px;" block class="demo-slider-vertical" :size="35">
-    <Slider vertical :value="35" size="small" />
-    <Slider vertical reverse :value="35" />
-    <Slider vertical range :value="[20, 60]" />
-    <Slider
-      vertical
-      range
-      size="small"
-      :marks="{ 20: '20°C', 40: '40°C' }"
-      :step="10"
-      :value="[20, 60]"
-    />
+    <Slider vertical :modelValue="35" size="small" />
+    <Slider vertical reverse :modelValue="35" />
+    <Slider vertical range :modelValue="[20, 60]" />
+    <Slider vertical range :marks="{ 20: '20°C', 40: '40°C' }" :step="10" :modelValue="[20, 60]" />
     <Slider
       vertical
       reverse
+      size="small"
       range
       :marks="{ 20: '20°C', 40: '40°C' }"
       :step="10"
-      :value="[20, 60]"
+      :modelValue="[20, 60]"
     />
   </Space>
 </template>

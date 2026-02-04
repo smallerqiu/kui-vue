@@ -17,7 +17,7 @@ suffix，prefix 扩展
     <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
       <template #suffix>
         <Tooltip title="请咨询管理员">
-          <Button :icon="InformationCircleOutline" />
+          <Icon :type="InformationCircleOutline" />
         </Tooltip>
       </template>
     </Input>

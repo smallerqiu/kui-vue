@@ -20,6 +20,6 @@
 | content  | 提示内容                                                          | String,Vnode | -      |
 | duration | 自动关闭的延时，单位秒，0 为 不自动关闭                           | Number       | 3      |
 | closable | 是否可手动关闭                                                    | Boolean      | false  |
-| onClose  | 关闭时的回调                                                      | Function     | -      |
+| close    | 关闭时的回调                                                      | Function     | -      |
 | icon     | 自定义图标                                                        | String       | -      |
 | color    | 自定义图标颜色                                                    | String       | -      |

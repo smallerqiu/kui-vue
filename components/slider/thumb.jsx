@@ -7,9 +7,9 @@ export default defineComponent({
     min: Number,
     max: Number,
     vertical: Boolean,
+    size: [String, Number],
     reverse: Boolean,
     disabled: Boolean,
-    size: [String, Number],
     tooltipVisible: { type: Boolean, default: null },
     tipFormatter: Function,
     dragging: Boolean, // 接收父组件传入的拖拽状态

@@ -1,6 +1,6 @@
 import Icon from "../icon";
 import { Close } from "kui-icons/dist/icons";
-import { defineComponent, /*Transition,*/ ref } from "vue";
+import { defineComponent, Transition, ref } from "vue";
 import { isColor } from "../utils/color";
 import { withInstall } from "../utils/vue";
 import { colors } from "../const/var";
@@ -45,7 +45,7 @@ const Tag = defineComponent({
             ["k-tag-light"]: ps.theme == "light",
           },
         ],
-        on: { ...listeners },
+        ...listeners,
         style: {
           backgroundColor: isColor(color) && !colors.includes(color) ? color : null,
         },
@@ -59,11 +59,11 @@ const Tag = defineComponent({
         children.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
       }
       return (
-        <transition name="k-tag">
+        <Transition name="k-tag">
           <div {...props} v-show={visible.value}>
             {...children}
           </div>
-        </transition>
+        </Transition>
       );
     };
   },

@@ -9,7 +9,8 @@ import {
   onMounted,
   nextTick,
   computed,
-  /*Transition,*/ onBeforeMount,
+  Transition,
+  onBeforeMount,
   inject,
 } from "vue";
 import zhCN from "../locale/zh-CN";
@@ -18,7 +19,7 @@ const Modal = defineComponent({
   directives: { transfer },
   props: {
     // show: Boolean, //for 3
-    value: Boolean, //for 2
+    modelValue: Boolean, //for 2
     title: String,
     okText: String,
     cancelText: String,
@@ -36,11 +37,9 @@ const Modal = defineComponent({
     escKey: { type: Boolean, default: true },
   },
   setup(ps, { slots, emit }) {
-    // const visible = ref(ps.show); // for3
-    const visible = ref(ps.value);
+    const visible = ref(ps.modelValue);
     const rendered = ref(false);
-    // const showInner = ref(ps.show); // for 3
-    const showInner = ref(ps.value);
+    const showInner = ref(ps.modelValue);
     const left = ref(0);
     const currentTop = ref(ps.top);
     const isMousePressed = ref(false);
@@ -49,7 +48,6 @@ const Modal = defineComponent({
     const refModal = ref();
     const refHeader = ref();
     const injectedLocale = inject("locale", zhCN);
-
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
@@ -72,14 +70,12 @@ const Modal = defineComponent({
       if (ps.draggable) {
         left.value = (document.body.offsetWidth - (ps.width || 480)) / 2;
       }
-      // if (ps.show) { //for 3
-      if (ps.value) {
+      if (ps.modelValue) {
         toggle(true);
       }
     });
     watch(
-      // () => ps.show, //for 3
-      () => ps.value,
+      () => ps.modelValue,
       (nv, ov) => {
         toggle(nv);
       }
@@ -102,8 +98,7 @@ const Modal = defineComponent({
           nextTick((e) => {
             visible.value = value;
             showInner.value = value;
-            // emit("update:show", true); // for 3
-            emit("input", true);
+            emit("update:modelValue", true);
             nextTick(() => {
               updateOrigin();
             });
@@ -113,8 +108,7 @@ const Modal = defineComponent({
           setTimeout(() => {
             showInner.value = false;
           }, 300);
-          // emit("update:show", false);// for 3
-          emit("input", false); // for 2
+          emit("update:modelValue", false);
         }
       }
     };
@@ -186,9 +180,9 @@ const Modal = defineComponent({
       let maskNode = null;
       if (ps.mask) {
         maskNode = (
-          <transition name="k-modal-fade">
+          <Transition name="k-modal-fade">
             <div class="k-modal-mask" v-show={visible.value} />
-          </transition>
+          </Transition>
         );
       }
       let okText = ps.okText || locale?.value.k.common.ok;
@@ -261,12 +255,12 @@ const Modal = defineComponent({
             v-show={showInner.value}
             onClick={clickMaskToClose}
           >
-            <transition name="k-modal-zoom">
+            <Transition name="k-modal-zoom">
               <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
                 {contentNode}
                 <div tabindex="0"></div>
               </div>
-            </transition>
+            </Transition>
           </div>
         </div>
       ) : null;

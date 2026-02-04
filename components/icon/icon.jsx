@@ -1,25 +1,24 @@
 import { defineComponent } from "vue";
 import { withInstall } from "../utils/vue";
-
-const sty2obj = (stl) => {
-  stl = stl.replace(/ /g, "");
-  let s = stl.split(";");
-  let obj = {};
-  s.map((atr) => {
-    let [k, v] = atr.split(":");
-    if (k) {
-      obj[k] = v;
-    }
-  });
-  return obj;
+const formatStyle = (styles) => {
+  return Object.entries(styles)
+    .map(([key, value]) => `${key.replace(/([A-Z])/g, "-$1").toLowerCase()}:${value}`)
+    .join(";");
 };
 
-const obj2sty = (obj) => {
-  let sty = "";
-  for (let k in obj) {
-    sty += `${k}:${obj[k]};`;
-  }
-  return sty;
+const parseStyle = (styleString) => {
+  const styles = {};
+  if (!styleString) return styles;
+
+  styleString.split(";").forEach((rule) => {
+    const [property, value] = rule.split(":");
+    if (property && value) {
+      const propName = property.trim().replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+      styles[propName] = value.trim();
+    }
+  });
+
+  return styles;
 };
 
 const Icon = defineComponent({
@@ -36,15 +35,15 @@ const Icon = defineComponent({
     const renderPaths = () => {
       let paths = Array.isArray(props.type) ? props.type : [];
       return paths.map((i) => {
-        let sty = i.s ? i.s : "fill:currentColor";
+        let style = i.s || "fill:currentColor";
         if (props.strokeWidth) {
-          let o = sty2obj(sty);
-          if (o["stroke-width"]) {
-            o["stroke-width"] = props.strokeWidth;
-            sty = obj2sty(o);
+          let o = parseStyle(style);
+          if (o["strokeWidth"]) {
+            o["strokeWidth"] = props.strokeWidth;
+            style = formatStyle(o);
           }
         }
-        return <path d={i.d} style={sty} />;
+        return <path d={i.d} style={style} />;
       });
     };
 
@@ -61,9 +60,6 @@ const Icon = defineComponent({
         ...attrs,
         style: styles,
         class: classes,
-        on: {
-          ...listeners,
-        },
       };
 
       return (
@@ -71,7 +67,6 @@ const Icon = defineComponent({
           <svg viewBox="0 0 512 512" width="1em" height="1em">
             {renderPaths()}
           </svg>
-          {slots.default?.()}
         </i>
       );
     };

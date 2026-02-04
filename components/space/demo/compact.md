@@ -2,6 +2,10 @@
 ### 紧凑布局组合
 使用 compact 让表单组件之间紧凑连接且合并边框。
 </cn>
+<en>
+### Compact Layouts
+Use compact to tightly stack form components and merge borders.
+</en>
 
 ```vue
 <template>

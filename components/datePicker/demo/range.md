@@ -8,15 +8,20 @@
   <Space wrap vertical>
     <code>start date: {{ start1 }}</code>
     <code>end date: {{ end1 }}</code>
-    <DatePicker mode="dateRange" v-model="value1" :startDate.sync="start1" :endDate.sync="end1" />
+    <DatePicker
+      mode="dateRange"
+      v-model="value1"
+      v-model:startDate="start1"
+      v-model:endDate="end1"
+    />
     <br />
     <code>start date: {{ start2 }}</code>
     <code>end date: {{ end2 }}</code>
     <DatePicker
       mode="dateTimeRange"
       v-model="value2"
-      :startDate.sync="start2"
-      :endDate.sync="end2"
+      v-model:startDate="start2"
+      v-model:endDate="end2"
     />
   </Space>
 </template>

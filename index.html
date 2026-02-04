@@ -5,8 +5,18 @@
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>一套基于Vue.js的桌面UI组件库- KUI</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "%VITE_APP_VUE_ESM_URL%",
+          "@vue/compiler-sfc": "%VITE_APP_IMPORT_URL%/js/compiler-sfc.esm-browser.js",
+          "dayjs": "https://esm.sh/dayjs",
+          "kui-vue": "%VITE_APP_IMPORT_URL%/js/k-ui.esm.js",
+          "kui-icons": "%VITE_APP_IMPORT_URL%/js/kui-icons.esm.js"
+        }
+      }
+    </script>
   </head>
-
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>

@@ -2,6 +2,10 @@
 ### 带边框的
 带边框和背景颜色列表。
 </cn>
+<en>
+### Bordered
+Bordered list with borders and background color.
+</en>
 
 ```vue
 <template>
