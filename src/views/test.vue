@@ -1,25 +1,23 @@
 <template>
-  <Space>
-    value:
-    {{ checked }}
-    <k-switch v-model="checked" />
-    <DatePicker />
-    <Button @click="checked = !checked" size="small">{{ checked ? 'Uncheck' : 'Check' }}</Button>
-    <k-switch checked />
-    <Button @click="test">test</Button>
+  <Space compact vertical>
+    <Button :icon="MailOutline"></Button>
+    <Button :icon="ShirtOutline"></Button>
+    <Dropdown placement="bottom-left">
+      <Button :icon="Ellipsis"></Button>
+      <template #overlay>
+        <A>22</A>
+      </template>
+    </Dropdown>
   </Space>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      checked: false
-    }
-  },
-  methods: {
-    test() {
-      window.i18n.locale = 'ua'
-    }
-  }
-}
+<script setup>
+import {
+  Copy,
+  CloudDownloadOutline,
+  Ellipsis,
+  GameControllerOutline,
+  HeartOutline,
+  MailOutline,
+  ShirtOutline,
+} from "kui-icons";
 </script>

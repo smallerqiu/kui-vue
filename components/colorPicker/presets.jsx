@@ -1,12 +1,12 @@
+import { defineComponent, reactive, ref, onMounted, watch } from "vue";
 import Color from "color";
+import { Checkmark } from "kui-icons/dist/icons";
 import Icon from "../icon";
-import { Checkmark } from "kui-icons";
-
-export default {
+export default defineComponent({
   name: "Presets",
   props: {
     color: [String, Object],
-    value: {
+    modelValue: {
       type: Array,
       default: () => [
         "#f44336",
@@ -32,38 +32,26 @@ export default {
       ],
     },
   },
-  data() {
-    return {
-      currentColor: Color(this.color || "#000000"),
+  setup(ps, { emit }) {
+    const currentColor = ref(Color(ps.color));
+    watch(
+      () => ps.color,
+      (val) => {
+        currentColor.value = Color(val);
+      }
+    );
+    const updateColor = (color) => {
+      currentColor.value = Color(color);
+      emit("updateColor", Color(color).rgb());
+    };
+    return () => {
+      if (ps.modelValue.length == 0) return null;
+      let color = ps.modelValue.map((c) => (
+        <span style={"background-color:" + c} onClick={(e) => updateColor(c)}>
+          {currentColor.value.hexa() == Color(c).hexa() ? <Icon type={Checkmark} /> : null}
+        </span>
+      ));
+      return <div class="k-color-picker-presets">{color}</div>;
     };
   },
-  watch: {
-    color(val) {
-      this.currentColor = Color(val);
-    },
-  },
-  methods: {
-    updateColor(color) {
-      this.currentColor = Color(color);
-      this.$emit("updateColor", Color(color).rgb());
-    },
-  },
-  render() {
-    if (!this.value.length) return null;
-
-    const colors = this.value.map((c) => {
-      const isActive = this.currentColor.hexa() === Color(c).hexa();
-      return (
-        <span
-          class={["k-color-picker-preset"]}
-          style={{ backgroundColor: c }}
-          onClick={() => this.updateColor(c)}
-        >
-          {isActive ? <Icon type={Checkmark} /> : null}
-        </span>
-      );
-    });
-
-    return <div class="k-color-picker-presets">{colors}</div>;
-  },
-};
+});

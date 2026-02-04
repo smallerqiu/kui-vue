@@ -1,0 +1,309 @@
+@import "./less-var.less";
+:root {
+  /* 基础尺寸 */
+  --kui-border-radius: @radius;
+  --kui-border-radius-card: @cardRadius;
+
+  --kui-padding-block-sm: 2px;
+  --kui-padding-block: 6px;
+  --kui-padding-block-lg: 6px;
+  --kui-padding-inline-sm: 6px;
+  --kui-padding-inline: 8px;
+  --kui-padding-inline-lg: 10px;
+
+  .kui-color-vars();
+
+  /* 默认进入亮色模式 */
+  .theme-light-vars();
+}
+
+[theme-mode="dark"] {
+  .theme-dark-vars();
+}
+
+[theme-mode="light"] {
+  .theme-light-vars();
+}
+
+.theme-light-vars() {
+  color-scheme: light;
+  /* 文字色体系 */
+  --kui-color-text: @text-color; /* 正文 */
+  --kui-color-text-disabled: @disable-text-color;
+  --kui-color-text-title: @title-color; /* 标题 */
+  --kui-color-text-description: @description-color; /* 描述/次要 */
+  --kui-color-text-placeholder: @placeholder-color; /* 占位符 */
+  --kui-color-icon: @icon-color;
+  --kui-color-icon-hover: @icon-color-hover;
+  --kui-color-icon-active: @icon-color-active;
+  /* 边框与分割线  */
+  --kui-color-border: @border-color;
+  --kui-color-pop-border: @pop-border-color;
+  --kui-color-outline: @outline-color;
+  --kui-color-border-disabled: @disable-border-color;
+  --kui-color-border-split: @gray-3;
+
+  /* 背景体系 */
+  --kui-color-reverse: @dark-gray-3;
+  --kui-color-reverse-text: @dark-gray-8;
+  --kui-color-bg: @page-color; /* 页面背景 */
+  --kui-color-bg-layout: @layout-color; /* 布局背景 */
+  --kui-color-bg-container: @container-color; /* 卡片/容器背景 */
+
+  --kui-pop-shadow: @pop-shadow; /* 弹窗 阴影 */
+  --kui-color-bg-pop: @pop-color; /* 弹窗背景 */
+  --kui-color-bg-pop-dark: @dark-pop-color;
+
+  --kui-color-skeleton: @skeleton-color;
+  --kui-color-skeleton-high: @skeleton-high-color;
+
+  --kui-color-bg-component: @component-color; /* 基础组件/表头背景 */
+  --kui-color-bg-component-hover: @component-color-hover;
+  --kui-color-bg-component-active: @component-color-active;
+  --kui-color-bg-component-disabled: @component-color-disabled;
+  --kui-color-bg-elevated: @dark-gray-4; /* Modal/Popover 背景 */
+
+  --kui-color-scrollbar-thumb: @scrollbar-thumb-color;
+  --kui-color-scrollbar-thumb-hover: @scrollbar-thumb-color-hover;
+
+  /* --- 交互项 (Item) 暗黑适配 --- */
+  --kui-color-item-hover: @item-hover-color;
+  --kui-color-item-active: @item-active-color;
+  --kui-color-item-selected: @item-selected-color;
+  --kui-color-item-disabled: @item-disabled-color;
+
+  /* table */
+  --kui-color-table-row: @table-row-bg-color;
+  --kui-color-table-col: @table-col-bg-color;
+  --kui-color-table-col-hover: @table-col-bg-color-hover;
+  --kui-color-table-col-active: @table-col-bg-color-active;
+
+  /* 阴影 */
+  --kui-component-shadow: @component-shadow;
+  --kui-color-shadow: @shadow-color;
+  --kui-color-mask: @mask-color;
+  --kui-color-spin-mask: @spin-mask-color;
+
+  --kui-color-bg-1: @gray-1;
+  --kui-color-bg-2: @gray-2;
+  --kui-color-bg-3: @gray-3;
+  --kui-color-bg-4: @gray-4;
+  --kui-color-bg-5: @gray-5;
+  --kui-color-bg-6: @gray-6;
+  --kui-color-bg-7: @gray-7;
+  --kui-color-bg-8: @gray-8;
+  --kui-color-bg-9: @gray-9;
+}
+
+.theme-dark-vars() {
+  color-scheme: dark;
+
+  /* 深色品牌色调整 */
+  // --kui-color-primary: #1668dc;
+  // --kui-color-primary-hover: #317ef3;
+  // --kui-color-primary-bg: #111a2c;
+
+  /* 文字色体系 */
+  --kui-color-text: @dark-text-color; /* 正文 */
+  --kui-color-text-disabled: @dark-disable-text-color; /* 正文 */
+  --kui-color-text-title: @dark-title-color; /* 标题 */
+  --kui-color-text-description: @dark-description-color; /* 描述/次要 */
+  --kui-color-text-placeholder: @dark-placeholder-color; /* 占位符 */
+  --kui-color-icon: @dark-icon-color;
+  --kui-color-icon-hover: @dark-icon-color-hover;
+  --kui-color-icon-active: @dark-icon-color-active;
+
+  /* 背景体系映射 */
+  --kui-color-reverse-text: @gray-7;
+  --kui-color-reverse: @gray-2;
+  --kui-color-bg: @dark-page-color; /* 页面大背景 */
+  --kui-color-bg-layout: @dark-layout-color; /* 布局背景 */
+  --kui-color-bg-container: @dark-container-color; /* 卡片/容器背景 */
+  --kui-color-bg-pop: @dark-pop-color; /* 弹窗背景 */
+  --kui-color-skeleton: @dark-skeleton-color; /* 骨架屏 */
+  --kui-color-skeleton-high: @dark-skeleton-high-color;
+
+  --kui-color-bg-component: @dark-component-color;
+  --kui-color-bg-component-hover: @dark-component-color-hover;
+  --kui-color-bg-component-active: @dark-component-color-active;
+  --kui-color-bg-component-disabled: @dark-component-color-disabled;
+
+  --kui-color-scrollbar-thumb: @dark-scrollbar-thumb-color;
+  --kui-color-scrollbar-thumb-hover: @dark-scrollbar-thumb-color-hover;
+
+  /* 边框 */
+  --kui-color-border: @dark-border-color;
+  --kui-color-pop-border: @dark-pop-border-color;
+  --kui-color-border-disabled: @dark-disable-border-color;
+  --kui-color-border-split: #303030;
+
+  /* table */
+  --kui-color-table-row: @dark-table-row-bg-color;
+  --kui-color-table-col: @dark-table-col-bg-color;
+  --kui-color-table-col-hover: @dark-table-col-bg-color-hover;
+  --kui-color-table-col-active: @dark-table-col-bg-color-active;
+
+  /* 阴影 */
+  --kui-color-shadow: @dark-shadow-color;
+  --kui-color-mask: @dark-mask-color;
+  --kui-color-spin-mask: @dark-spin-mask-color;
+
+  /* --- 交互项 (Item) 暗黑适配 --- */
+  --kui-color-item-hover: @dark-item-hover-color;
+  --kui-color-item-active: @dark-item-active-color;
+  --kui-color-item-selected: @dark-item-selected-color;
+  --kui-color-item-disabled: @dark-item-disabled-color;
+
+  --kui-color-bg-1: @dark-gray-1;
+  --kui-color-bg-2: @dark-gray-2;
+  --kui-color-bg-3: @dark-gray-3;
+  --kui-color-bg-4: @dark-gray-4;
+  --kui-color-bg-5: @dark-gray-5;
+  --kui-color-bg-6: @dark-gray-6;
+  --kui-color-bg-7: @dark-gray-7;
+  --kui-color-bg-8: @dark-gray-8;
+  --kui-color-bg-9: @dark-gray-9;
+}
+
+.kui-color-vars() {
+  --kui-color-primary: @main;
+  --kui-color-primary-hover: @main-1;
+  --kui-color-primary-active: @main-2;
+  --kui-color-primary-1: @main-1;
+  --kui-color-primary-3: @main-3;
+  --kui-color-primary-6: @main-6;
+  --kui-color-primary-8: @main-8;
+  --kui-color-primary-9: @main-9;
+
+  --kui-color-success: @success;
+  --kui-color-success-1: @success-1;
+  --kui-color-success-3: @success-3;
+  --kui-color-success-6: @success-6;
+  --kui-color-success-8: @success-8;
+  --kui-color-success-9: @success-9;
+
+  --kui-color-warning: @warning;
+  --kui-color-warning-hover: @warning-1;
+  --kui-color-warning-active: @warning-2;
+  --kui-color-warning-1: @warning-1;
+  --kui-color-warning-3: @warning-3;
+  --kui-color-warning-6: @warning-6;
+  --kui-color-warning-8: @warning-8;
+  --kui-color-warning-9: @warning-9;
+
+  --kui-color-danger: @danger;
+  --kui-color-danger-hover: @danger-1;
+  --kui-color-danger-active: @danger-2;
+  --kui-color-danger-1: @danger-1;
+  --kui-color-danger-3: @danger-3;
+  --kui-color-danger-6: @danger-6;
+  --kui-color-danger-8: @danger-8;
+  --kui-color-danger-9: @danger-9;
+
+  --kui-color-pink: @pink;
+  --kui-color-pink-3: @pink-3;
+  --kui-color-pink-6: @pink-6;
+  --kui-color-pink-8: @pink-8;
+  --kui-color-pink-9: @pink-9;
+
+  --kui-color-red: @red;
+  --kui-color-red-3: @red-3;
+  --kui-color-red-6: @red-6;
+  --kui-color-red-8: @red-8;
+  --kui-color-red-9: @red-9;
+
+  --kui-color-yellow: @yellow;
+  --kui-color-yellow-3: @yellow-3;
+  --kui-color-yellow-6: @yellow-6;
+  --kui-color-yellow-8: @yellow-8;
+  --kui-color-yellow-9: @yellow-9;
+
+  --kui-color-orange: @orange;
+  --kui-color-orange-3: @orange-3;
+  --kui-color-orange-6: @orange-6;
+  --kui-color-orange-8: @orange-8;
+  --kui-color-orange-9: @orange-9;
+
+  --kui-color-cyan: @cyan;
+  --kui-color-cyan-3: @cyan-3;
+  --kui-color-cyan-6: @cyan-6;
+  --kui-color-cyan-8: @cyan-8;
+  --kui-color-cyan-9: @cyan-9;
+
+  --kui-color-violet: @violet;
+  --kui-color-violet-3: @violet-3;
+  --kui-color-violet-6: @violet-6;
+  --kui-color-violet-8: @violet-8;
+  --kui-color-violet-9: @violet-9;
+
+  --kui-color-green: @green;
+  --kui-color-green-3: @green-3;
+  --kui-color-green-6: @green-6;
+  --kui-color-green-8: @green-8;
+  --kui-color-green-9: @green-9;
+
+  --kui-color-blue: @blue;
+  --kui-color-blue-3: @blue-3;
+  --kui-color-blue-6: @blue-6;
+  --kui-color-blue-8: @blue-8;
+  --kui-color-blue-9: @blue-9;
+
+  --kui-color-purple: @purple;
+  --kui-color-purple-3: @purple-3;
+  --kui-color-purple-6: @purple-6;
+  --kui-color-purple-8: @purple-8;
+  --kui-color-purple-9: @purple-9;
+
+  --kui-color-brown: @brown;
+  --kui-color-brown-3: @brown-3;
+  --kui-color-brown-6: @brown-6;
+  --kui-color-brown-8: @brown-8;
+  --kui-color-brown-9: @brown-9;
+
+  --kui-color-teal: @teal;
+  --kui-color-teal-3: @teal-3;
+  --kui-color-teal-6: @teal-6;
+  --kui-color-teal-8: @teal-8;
+  --kui-color-teal-9: @teal-9;
+
+  --kui-color-magenta: @magenta;
+  --kui-color-magenta-3: @magenta-3;
+  --kui-color-magenta-6: @magenta-6;
+  --kui-color-magenta-8: @magenta-8;
+  --kui-color-magenta-9: @magenta-9;
+
+  --kui-color-olive: @olive;
+  --kui-color-olive-3: @olive-3;
+  --kui-color-olive-6: @olive-6;
+  --kui-color-olive-8: @olive-8;
+  --kui-color-olive-9: @olive-9;
+
+  --kui-color-volcano: @volcano;
+  --kui-color-volcano-3: @volcano-3;
+  --kui-color-volcano-6: @volcano-6;
+  --kui-color-volcano-8: @volcano-8;
+  --kui-color-volcano-9: @volcano-9;
+
+  --kui-color-gold: @gold;
+  --kui-color-gold-3: @gold-3;
+  --kui-color-gold-6: @gold-6;
+  --kui-color-gold-8: @gold-8;
+  --kui-color-gold-9: @gold-9;
+
+  --kui-color-lime: @lime;
+  --kui-color-lime-3: @lime-3;
+  --kui-color-lime-6: @lime-6;
+  --kui-color-lime-8: @lime-8;
+  --kui-color-lime-9: @lime-9;
+
+  --kui-color-gray: @gray;
+  --kui-color-gray-1: @gray-1;
+  --kui-color-gray-2: @gray-2;
+  --kui-color-gray-3: @gray-3;
+  --kui-color-gray-4: @gray-4;
+  --kui-color-gray-5: @gray-5;
+  --kui-color-gray-6: @gray-6;
+  --kui-color-gray-7: @gray-7;
+  --kui-color-gray-8: @gray-8;
+  --kui-color-gray-9: @gray-9;
+}

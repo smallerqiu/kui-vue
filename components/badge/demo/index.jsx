@@ -1,19 +1,18 @@
-
-import Base from './base.md'
-import Info from './info.md'
-import Dot from './dot.md'
-import Max from './max.md'
-import Dynamic from './dynamic.md'
-import Mark from './mark.md'
-import Status from './status.md'
-import Color from './color.md'
-import CN from '../index.md'
+import Basic from "./basic.md";
+import Info from "./info.md";
+import Dot from "./dot.md";
+import Max from "./max.md";
+import Dynamic from "./dynamic.md";
+import Mark from "./mark.md";
+import Status from "./status.md";
+import Color from "./color.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
-      <div class="demo-badge">
+      <div>
         <Info />
-        <Base />
+        <Basic />
         <Dot />
         <Max />
         <Mark />
@@ -22,6 +21,6 @@ export default {
         <Color />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

@@ -1,13 +1,16 @@
-
 <cn>
-#### 上传头像
+### 上传头像
 limit等于上传文件数量时, 则不显示选择文件组件,
 </cn>
+<en>
+### Upload avatar
+When the limit equals the number of uploaded files, the file picker is not displayed.
+</en>
 
 ```vue
 <template>
-  <Upload 
-    action="https://run.mocky.io/v3/79c1cb9d-040a-43d9-919d-91ded176a9c2" 
+  <Upload
+    action="https://www.chuchur.com/api/upload/image"
     name="file"
     type="picture"
     :headers="headers"
@@ -16,27 +19,19 @@ limit等于上传文件数量时, 则不显示选择文件组件,
     accept="image/*"
     :uploadIcon="CameraOutline"
     uploadText="上传头像"
-    >
+  >
   </Upload>
 </template>
-<script>
-import { CameraOutline } from 'kui-icons'
-export default{
-  data() {
-    return {
-      CameraOutline,
-      headers:{
-        authorization: 'here is token'
-      },
-    }
-  },
-  methods:{
-    handleChange(info){
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-    }
+<script setup>
+import { CameraOutline } from "kui-icons";
+import { ref } from "vue";
+const headers = ref({
+  authorization: "here is token",
+});
+const handleChange = (info) => {
+  if (info.file.status !== "uploading") {
+    console.log(info.file, info.fileList);
   }
-}
+};
 </script>
 ```

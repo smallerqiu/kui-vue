@@ -1,7 +1,7 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-modal {
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
 
   .k-modal-wrap {
     position: fixed;
@@ -12,7 +12,6 @@
     z-index: 1001;
     overflow: auto;
     outline: 0;
-    -webkit-overflow-scrolling: touch;
   }
 
   .k-modal-mask {
@@ -21,7 +20,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(55, 55, 55, .6);
+    background-color: var(--kui-color-mask);
     height: 100%;
     z-index: 1001;
     overflow: hidden;
@@ -29,16 +28,17 @@
 
   .k-modal-inner {
     position: relative;
-    background-color: var(--kui-color-control-10);
-    border: 1px solid var(--kui-color-gray-80);
+    background-color: var(--kui-color-bg-pop);
+    border: 1px solid var(--kui-color-pop-border);
     z-index: 1001;
     outline: 0;
     border-radius: 12px;
     top: 100px;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: 0 0 10px 3px rgba(55, 55, 55, .2);
-    width: 480px; // animation: darken .5s ease-in-out;
+    box-shadow: var(--kui-pop-shadow);
+
+    width: 480px;
   }
 
   .k-modal-content {
@@ -48,38 +48,26 @@
     height: 100%;
     overflow: hidden;
     padding: 0 20px;
+    outline: none;
 
     .k-modal-close {
       position: absolute;
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--kui-color-font);
-      width: 20px;
-      height: 20px;
       top: 20px;
       right: 20px;
-      transition: all .3s ease-in-out;
-
+      transition: all 0.3s ease-in-out;
       .k-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
+        font-size: 20px;
       }
-
       &:hover {
         color: var(--kui-color-danger);
-        border-radius: var(--kui-border-radius);
-        background-color: var(--kui-color-gray-80);
-        // transform: rotate(360deg);
       }
     }
 
     .k-modal-header {
-      // border-bottom: 1px solid var(--kui-color-gray-80);
       padding: 20px 0;
       line-height: 1;
       font-size: 14px;
+      -webkit-user-select: none;
       user-select: none;
 
       .k-modal-header-inner {
@@ -94,17 +82,14 @@
     }
 
     .k-modal-body {
-      // padding:20px 0;
       margin-bottom: 20px;
       font-size: 14px;
       line-height: 1.5;
-      // height: calc(100% - 43px - 45px);
       overflow: auto;
       box-sizing: border-box;
     }
 
     .k-modal-footer {
-      // border-top: 1px solid var(--kui-color-gray-80);
       padding: 0 0 20px 0;
       text-align: right;
       display: inline-block;
@@ -145,7 +130,7 @@
       width: 0;
       height: 100%;
       vertical-align: middle;
-      content: '';
+      content: "";
     }
   }
 
@@ -169,13 +154,11 @@
     left: 0;
     border-radius: 0;
 
-
     .k-modal-footer {
       position: absolute;
       width: 100%;
       bottom: 0;
       left: 0;
-      background: var(--kui-color-control-10);
       box-sizing: border-box;
       padding-right: 20px;
     }
@@ -185,7 +168,7 @@
 .k-toast {
   .k-modal-inner {
     width: 416px;
-    background: var(--kui-color-control-10);
+    background: var(--kui-color-bg-pop);
     border-radius: var(--kui-border-radius);
     padding: 20px;
     border-radius: 12px;
@@ -193,6 +176,8 @@
   }
 
   .k-toast-header {
+    display: flex;
+    align-items: center;
     .k-toast-icon {
       font-size: 28px;
       margin-right: 12px;
@@ -209,7 +194,7 @@
 
   .k-toast-content {
     padding-left: 40px;
-    padding-top: 8px;
+    margin-top: 8px;
     font-size: 14px;
   }
 
@@ -236,7 +221,7 @@
 }
 
 .k-toast-info .k-toast-icon {
-  color: var(--kui-color-main);
+  color: var(--kui-color-primary);
 }
 
 .k-toast-confirm .k-toast-icon {
@@ -254,17 +239,17 @@
 }
 
 .k-modal-fade-enter-active {
-  animation: k-modal-fade .4s linear;
+  animation: k-modal-fade 0.4s linear;
 }
 
 .k-modal-fade-leave-active {
-  animation: k-modal-fade .4s linear reverse;
+  animation: k-modal-fade 0.4s linear reverse;
 }
 
 @keyframes k-modal-zoom {
   from {
     opacity: 0;
-    transform: scale3d(.3, .3, 0)
+    transform: scale3d(0.3, 0.3, 0);
   }
 
   to {
@@ -273,9 +258,9 @@
 }
 
 .k-modal-zoom-enter-active {
-  animation: k-modal-zoom .25s cubic-bezier(.78, .14, .15, .86);
+  animation: k-modal-zoom 0.25s cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 
 .k-modal-zoom-leave-active {
-  animation: k-modal-zoom .25s cubic-bezier(.78, .14, .15, .86) reverse;
+  animation: k-modal-zoom 0.25s cubic-bezier(0.78, 0.14, 0.15, 0.86) reverse;
 }

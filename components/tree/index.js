@@ -1,3 +1,2 @@
-import Tree from './tree'
-import TreeNode from './node'
-export { Tree, TreeNode }
+import Tree from "./tree";
+export default Tree;

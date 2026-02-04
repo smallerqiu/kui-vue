@@ -1,95 +1,80 @@
-import { withInstall } from '../utils/vue'
+import { defineComponent, ref, computed, provide, inject, onMounted, onBeforeUnmount } from "vue";
+import { withInstall } from "../utils/vue";
+
 function createComponent(suffixCls, name) {
-  return Component => {
-    return {
+  return (Component) => {
+    return defineComponent({
       name,
-      render() {
+      setup(props, { slots }) {
         const prop = {
-          props: { suffixCls },
-        }
-        return (
-          <Component {...prop}>{this.$slots.default}</Component>
-        )
-      }
-    }
-  }
+          suffixCls: suffixCls,
+        };
+        return () => <Component {...prop}>{slots.default?.()}</Component>;
+      },
+    });
+  };
 }
 
-const Base = {
+const layoutTemp = defineComponent({
   props: { suffixCls: String },
-  render() {
-    const { $slots, suffixCls } = this
+  setup(props, { slots }) {
     const prop = {
-      class: `k-${suffixCls}`
-    }
-    return (
-      <div {...prop}>{$slots.default}</div>
-    )
-  }
-}
+      class: `k-${props.suffixCls}`,
+    };
+    return () => <div {...prop}>{slots.default?.()}</div>;
+  },
+});
 
-const layoutBase = {
+const layout = defineComponent({
   props: { suffixCls: String },
-  data() {
-    return {
-      siders: 0
-    }
-  },
-  provide() {
-    return {
-      collectSider: (ismount) => {
-        ismount ? this.siders++ : this.siders--
-      }
-    }
-  },
-  computed: {
-    classes() {
-      const { suffixCls, siders } = this
-      return [`k-${suffixCls}`, { 'k-layout-has-sider': siders > 0 }]
-    }
-  },
-  render() {
-    const { $slots, classes } = this
-    const prop = {
-      class: classes
-    }
-    return (
-      <div {...prop}>{$slots.default}</div>
-    )
-  }
-}
+  setup(props, { slots }) {
+    const siders = ref(0);
 
-const siderBase = {
+    const collectSider = (mounted) => {
+      mounted ? siders.value++ : siders.value--;
+    };
+
+    provide("collectSider", collectSider);
+
+    const classes = computed(() => [
+      `k-${props.suffixCls}`,
+      { "k-layout-has-sider": siders.value > 0 },
+    ]);
+
+    return () => <div class={classes.value}>{slots.default?.()}</div>;
+  },
+});
+
+const sider = defineComponent({
   props: { suffixCls: String },
-  inject: {
-    collectSider: { default: () => { } },
-  },
-  mounted() {
-    this.collectSider(true)
-  },
-  beforeDestroy() {
-    this.collectSider()
-  },
-  render() {
-    const { $slots, suffixCls } = this
+  setup(props, { slots }) {
+    const collectSider = inject("collectSider", () => {});
+
+    onMounted(() => {
+      collectSider(true);
+    });
+
+    onBeforeUnmount(() => {
+      collectSider();
+    });
+
     const prop = {
-      class: `k-${suffixCls}`
-    }
-    return (
-      <div {...prop}>{$slots.default}</div>
-    )
-  }
-}
+      class: `k-${props.suffixCls}`,
+    };
 
-const Content = createComponent('layout-content', 'Content')(Base)
-const Header = createComponent('layout-header', 'Header')(Base)
-const Footer = createComponent('layout-footer', 'Footer')(Base)
-const Layout = createComponent('layout', 'Layout')(layoutBase)
-const Sider = createComponent('layout-sider', 'Sider')(siderBase)
+    return () => <div {...prop}>{slots.default?.()}</div>;
+  },
+});
 
-Layout.Sider = Sider
-Layout.Content = Content
-Layout.Header = Header
-Layout.Footer = Footer
+const Content = createComponent("layout-content", "Content")(layoutTemp);
+const Header = createComponent("layout-header", "Header")(layoutTemp);
+const Footer = createComponent("layout-footer", "Footer")(layoutTemp);
+const Layout = createComponent("layout", "Layout")(layout);
+const Sider = createComponent("layout-sider", "Sider")(sider);
 
-export default withInstall(Layout)
+Layout.Sider = withInstall(Sider);
+Layout.Content = withInstall(Content);
+Layout.Header = withInstall(Header);
+Layout.Footer = withInstall(Footer);
+
+export default Layout;

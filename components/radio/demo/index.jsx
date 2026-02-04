@@ -1,24 +1,22 @@
-import Base from './base.md'
-import Info from './info.md'
-import Disabled from './disabled.md'
-import Group from './group.md'
-import Options from './options.md'
-import GroupVertical from './group-vertical.md'
-import Button from './button.md'
-import CN from '../index.md'
+import Basic from "./basic.md";
+import Info from "./info.md";
+import Disabled from "./disabled.md";
+import Group from "./group.md";
+import GroupLayout from "./group-layout.md";
+import RadioButton from "./radioButton.md";
+import CN from "../index.md";
 export default {
   render() {
     return (
       <div class="demo-radio">
         <Info />
-        <Base />
-        <Disabled />
-        <Options />
+        <Basic />
         <Group />
-        <GroupVertical />
-        <Button />
+        <GroupLayout />
+        <Disabled />
+        <RadioButton />
         <CN />
       </div>
-    )
-  }
-}
+    );
+  },
+};

@@ -1,4 +1,4 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 
 .k-tag {
   display: inline-block;
@@ -7,16 +7,14 @@
   flex-shrink: 0;
   padding: 0 15px;
   border: 1px solid var(--kui-color-border);
-  background-color: var(--kui-color-back);
   font-size: 14px;
   border-radius: var(--kui-border-radius);
   box-sizing: border-box;
   white-space: nowrap;
   vertical-align: middle;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  color: var(--kui-color-font);
+  color: var(--kui-color-text);
 
   &.k-tag-circle {
     border-radius: 16px;
@@ -29,93 +27,93 @@
   .k-tag-close {
     font-size: 18px;
     margin-left: 2px;
-    color: var(--kui-sub-title);
-
+    color: var(--kui-color-text-description);
+    cursor: pointer;
     &:hover {
       color: var(--kui-color-danger);
     }
   }
-
 
   &.k-tag-closeable {
     padding-right: 7px;
   }
 
   &-pink {
-    color: var(--kui-color-pink-30);
-    border-color: var(--kui-color-pink-60);
-    background-color: var(--kui-color-pink-90);
+    color: var(--kui-color-pink-3);
+    border-color: var(--kui-color-pink-6);
+    background-color: var(--kui-color-pink-9);
   }
 
   &-red {
-    color: var(--kui-color-red-30);
-    border-color: var(--kui-color-red-60);
-    background-color: var(--kui-color-red-90);
+    color: var(--kui-color-red-3);
+    border-color: var(--kui-color-red-6);
+    background-color: var(--kui-color-red-9);
   }
 
   &-yellow {
-    color: var(--kui-color-yellow-30);
-    border-color: var(--kui-color-yellow-60);
-    background-color: var(--kui-color-yellow-90);
+    color: var(--kui-color-yellow-3);
+    border-color: var(--kui-color-yellow-6);
+    background-color: var(--kui-color-yellow-9);
   }
 
   &-orange {
-    color: var(--kui-color-orange-30);
-    border-color: var(--kui-color-orange-60);
-    background-color: var(--kui-color-orange-90);
+    color: var(--kui-color-orange-3);
+    border-color: var(--kui-color-orange-6);
+    background-color: var(--kui-color-orange-9);
   }
 
   &-cyan {
-    color: var(--kui-color-cyan-30);
-    border-color: var(--kui-color-cyan-60);
-    background-color: var(--kui-color-cyan-90);
+    color: var(--kui-color-cyan-3);
+    border-color: var(--kui-color-cyan-6);
+    background-color: var(--kui-color-cyan-9);
   }
 
   &-green {
-    color: var(--kui-color-green-30);
-    border-color: var(--kui-color-green-60);
-    background-color: var(--kui-color-green-90);
+    color: var(--kui-color-green-3);
+    border-color: var(--kui-color-green-6);
+    background-color: var(--kui-color-green-9);
   }
 
   &-blue {
-    color: var(--kui-color-blue-30);
-    border-color: var(--kui-color-blue-60);
-    background-color: var(--kui-color-blue-90);
+    color: var(--kui-color-blue-3);
+    border-color: var(--kui-color-blue-6);
+    background-color: var(--kui-color-blue-9);
   }
 
   &-purple {
-    color: var(--kui-color-purple-30);
-    border-color: var(--kui-color-purple-60);
-    background-color: var(--kui-color-purple-90);
+    color: var(--kui-color-purple-3);
+    border-color: var(--kui-color-purple-6);
+    background-color: var(--kui-color-purple-9);
   }
 
   &-magenta {
-    color: var(--kui-color-magenta-30);
-    border-color: var(--kui-color-magenta-60);
-    background-color: var(--kui-color-magenta-90);
+    color: var(--kui-color-magenta-3);
+    border-color: var(--kui-color-magenta-6);
+    background-color: var(--kui-color-magenta-9);
   }
 
   &-volcano {
-    color: var(--kui-color-volcano-30);
-    border-color: var(--kui-color-volcano-60);
-    background-color: var(--kui-color-volcano-90);
+    color: var(--kui-color-volcano-3);
+    border-color: var(--kui-color-volcano-6);
+    background-color: var(--kui-color-volcano-9);
   }
 
   &-gold {
-    color: var(--kui-color-gold-30);
-    border-color: var(--kui-color-gold-60);
-    background-color: var(--kui-color-gold-90);
+    color: var(--kui-color-gold-3);
+    border-color: var(--kui-color-gold-6);
+    background-color: var(--kui-color-gold-9);
   }
 
   &-lime {
-    color: var(--kui-color-lime-30);
-    border-color: var(--kui-color-lime-60);
-    background-color: var(--kui-color-lime-90);
+    color: var(--kui-color-lime-3);
+    border-color: var(--kui-color-lime-6);
+    background-color: var(--kui-color-lime-9);
   }
 }
-
-
-
+.k-tag-light {
+  border-color: transparent;
+  background-color: var(--kui-color-bg-component);
+}
 .k-tag-has-color {
   color: #fff;
   border-color: transparent;
@@ -124,8 +122,6 @@
     color: #fff;
   }
 }
-
-
 
 .k-tag-sm {
   height: 24px;
@@ -141,7 +137,7 @@
   }
 
   &.k-tag-circle {
-    border-radius: 10px;
+    border-radius: 16px;
   }
 }
 
@@ -161,7 +157,9 @@
     border-radius: 20px;
   }
 }
-
+.k-tag-hidden {
+  visibility: hidden;
+}
 @keyframes k-tag-zoom {
   from {
     opacity: 0;
@@ -175,9 +173,9 @@
 }
 
 .k-tag-enter-active {
-  animation: k-tag-zoom .2s ease-out;
+  animation: k-tag-zoom 0.2s ease-out;
 }
 
 .k-tag-leave-active {
-  animation: k-tag-zoom .2s ease-out reverse;
+  animation: k-tag-zoom 0.2s ease-out reverse;
 }

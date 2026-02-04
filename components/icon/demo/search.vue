@@ -2,55 +2,114 @@
   <div>
     <h3>图标快速检索</h3>
     <br />
-    <Affix :offsetTop="65">
-      <Flex size="large" style="background-color: var(--kui-color-back);">
-        <RadioGroup size="large" v-model="type" @change="switchIcon" theme="card" type="button">
+    <Affix :offset-top="65">
+      <Flex size="large" style="background-color: var(--kui-color-bg)">
+        <RadioGroup v-model="type" theme="card" type="button" size="large" @change="switchIcon">
           <RadioButton value="outline">线框风格</RadioButton>
           <RadioButton value="filled">实底风格</RadioButton>
         </RadioGroup>
-        <Space size="large" compact block>
-          <Input placeholder="输入英文关键字，搜索图标，点击图标即可复制" :icon="LogoKui" v-model="key" @input="search" clearable
-            style="background:var(--kui-color-back);">
-          </Input>
-          <Button :icon="icons['Search']" theme="outline"></Button>
+        <Space compact size="large" block>
+          <Input
+            v-model="searchKey"
+            placeholder="输入英文关键字，搜索图标，点击图标即可复制"
+            :icon="LogoKui"
+            clearable
+            @update:modelValue="filter"
+          />
+          <Button :icon="icons['Search']" />
         </Space>
       </Flex>
     </Affix>
+
+    <br />
+    <br />
     <div class="show-icons">
       <template v-if="showIcons.length">
         <div class="icon-head">
           <h3><span>App icons</span></h3>
         </div>
         <br />
-        <Flex class="icon-list" size="small" wrap>
-          <span @click.stop="copy(x)" v-for="(x, y) in showIcons" :key="y" class="icon-item">
+        <div class="icon-list">
+          <span v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <span class="item-text">{{ x }}</span>
           </span>
-        </Flex>
+        </div>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
-        <Flex class="icon-list" size="small" wrap>
-          <span @click.stop="copy(x)" v-for="(x, y) in logo" :key="y" class="icon-item">
+        <div class="icon-list">
+          <span v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-            <span class="item-text">{{ x }}</span>
           </span>
-        </Flex>
+        </div>
       </template>
-      <h3 v-if="!showIcons.length && !logo.length" style="text-align:center;padding-bottom:50px;color:#888;">
-        No results for "{{ key }}"
+      <h3
+        v-if="!showIcons.length && !logo.length"
+        style="text-align: center; padding-bottom: 50px; color: #888"
+      >
+        No results for "{{ searchKey }}"
       </h3>
     </div>
   </div>
 </template>
+<script setup>
+import { ref, watch } from "vue";
+import { message } from "kui-vue";
+import { useClipboard } from "@vueuse/core";
+import * as icons from "kui-icons";
+// import sprite from 'kui-icons/dist/sprite.svg'
+const { copy, isSupported } = useClipboard();
+
+const LogoKui = icons.LogoKui;
+
+const iconKeys = Object.keys(icons);
+
+let logos = iconKeys.filter((x) => /Logo/.test(x));
+let outlines = iconKeys
+  .filter((x) => (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) && !/Logo/.test(x))
+  .sort();
+
+let filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();
+
+const searchKey = ref("");
+const type = ref("filled");
+const logo = ref(logos || []);
+const showIcons = ref(filledIcons || []);
+
+const switchIcon = () => {
+  filter(searchKey.value);
+};
+
+const filter = (key) => {
+  key = key.replace(/ /g, "");
+  let origin = type.value == "outline" ? outlines : filledIcons;
+  if (key) {
+    key = key.toLowerCase();
+    showIcons.value = origin.filter((x) => {
+      return x.replace("Outline", "").toLowerCase().indexOf(key) >= 0;
+    });
+    logo.value = logos.filter((x) => {
+      return x.toLowerCase().indexOf(key) >= 0;
+    });
+  } else {
+    showIcons.value = origin;
+    logo.value = logos;
+  }
+};
+const copyHandle = (name) => {
+  // let text = `<Icon type="${name}" />`
+  copy(name).then(() => {
+    message.success("代码复制成功！");
+  });
+};
+</script>
 <style lang="less">
 .icon-list {
   // overflow: hidden;
@@ -58,24 +117,26 @@
 
   .icon-item {
     text-align: center;
-    width: 200px;
+    width: 128px;
     height: 80px;
     line-height: 80px;
     color: var(--kui-color-font);
-    // float: left;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 32px;
     cursor: pointer;
-    transition: color 0.3s ease-in-out;
-    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--kui-color-border);
+    margin: 0 -1px -1px 0;
 
     &:hover {
       color: #3a95ff;
-      // background: #f5f5f5;
-      box-shadow: 0 0 15px #ddd;
+      animation: flashing 2s ease-in-out infinite; /* 添加漂浮动画 */
+      .k-icon {
+        animation: float 2s ease-in-out infinite; /* 添加漂浮动画 */
+      }
     }
   }
 
@@ -85,75 +146,27 @@
     padding: 10px 0;
   }
 }
-</style>
-<script>
-// import { LogoKui } from 'kui-icons'
-import * as icons from 'kui-icons'
-// console.log(icons)
-// import sprite from 'kui-icons/lib/sprite.svg'
-// import icons from '../lib/kui-icons'
-// import sprite from '../lib/sprite.svg'
 
-const iconKeys = Object.keys(icons);
-let logos = iconKeys.filter(x => /Logo/.test(x)),
-  outlines = iconKeys.filter(x => {
-    let flag = false;
-    if (/Outline/.test(x)) {
-      flag = true
-    } else {
-      flag = iconKeys.filter(y => y == x + 'Outline').length <= 0 && !/Logo/.test(x)
-    }
-    if (flag) return x;
-  }),
-  filleds = iconKeys.filter(x => !/Logo/.test(x) && !/Outline/.test(x));
-// let logos = [], filleds = [];
-export default {
-  data() {
-    return {
-      icons,
-      LogoKui: icons.LogoKui,
-      // sprite,
-      key: '',
-      type: 'filled',
-      logo: logos || [],
-      showIcons: filleds || []
-    }
-  },
-  methods: {
-    switchIcon() {
-      this.filter(this.key)
-    },
-    search(e) {
-      let key = this.key//e.target.value
-      key = key.replace(/ /g, '')
-      this.filter(key)
-    },
-    filter(key) {
-      let { showIcons, logo, type } = this
-      let origin = type == 'outline' ? outlines : filleds;
-      if (key) {
-        key = key.toLowerCase()
-        showIcons = origin.filter(x => {
-          return x.replace('Outline', '').toLowerCase().indexOf(key) >= 0
-        })
-        logo = logos.filter(x => {
-          return x.toLowerCase().indexOf(key) >= 0
-        })
-      } else {
-        showIcons = origin
-        logo = logos
-      }
-      this.showIcons = showIcons
-      this.logo = logo
-    },
-    copy(text) {
-      // let text = `<Icon type="${x}" />`
-      this.$copyText(text).then(e => {
-        this.$Message.success('Copied!')
-      }, e => {
-        this.$Message.error('Copy failed.')
-      })
-    }
-  },
+@keyframes flashing {
+  0% {
+    box-shadow: inset 0 0 15px 0px rgba(58, 149, 255, 0.1);
+  }
+  50% {
+    box-shadow: inset 0 0 15px 5px rgba(58, 149, 255, 0.1);
+  }
+  100% {
+    box-shadow: inset 0 0 15px 0px rgba(58, 149, 255, 0.1);
+  }
 }
-</script>
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+</style>

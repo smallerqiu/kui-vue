@@ -1,39 +1,44 @@
-@import '../../styles/var.less';
+@import "../../styles/less-css-var.less";
 .k-collapse {
-  background-color: var(--kui-color-back);
+  background-color: var(--kui-color-bg);
   border: 1px solid var(--kui-color-border);
-  border-radius: var(--kui-border-radius);
-  border-bottom: 0;
+  border-radius: var(--kui-border-radius-card);
   overflow: hidden;
-  color: var(--kui-color-font);
-  &>.k-collapse-item {
-    border-bottom: 1px solid var(--kui-color-border);
-    &>.k-collapse-header {
+  color: var(--kui-color-text);
+  & > .k-collapse-item {
+    & > .k-collapse-header {
       line-height: 22px;
       padding: 12px 16px 12px 40px;
       cursor: pointer;
       position: relative;
-      color: var(--kui-color-title);
+      color: var(--kui-color-text-title);
       font-size: 14px;
-      &>.k-collapse-arrow {
+      border-bottom: 1px solid var(--kui-color-border);
+      border-top: 1px solid var(--kui-color-border);
+      margin-top: -1px;
+      & > .k-collapse-arrow {
         position: absolute;
         left: 16px;
         top: 50%;
         transform: translateY(-50%);
         svg {
           transform: rotate(90deg);
-          transition: transform .3s ease-in-out;
+          transition: transform 0.3s ease-in-out;
         }
       }
-      &>.k-collapse-extra {
+      & > .k-collapse-extra {
         float: right;
       }
     }
+    &:last-child {
+      .k-collapse-header {
+        margin-bottom: -1px;
+      }
+    }
+
     .k-collapse-content {
-      // background-color: #fff;
-      border-top: 1px solid var(--kui-color-border);
       padding: 0 16px;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
       box-sizing: border-box;
       overflow: hidden;
       .k-collapse-content-box {
@@ -41,8 +46,8 @@
       }
     }
   }
-  &>.k-collapse-item-active {
-    &>.k-collapse-header .k-collapse-arrow svg {
+  & > .k-collapse-item-active {
+    & > .k-collapse-header .k-collapse-arrow svg {
       transform: rotate(180deg);
     }
   }
@@ -52,11 +57,14 @@
   border: none;
   background: none;
   .k-collapse-item {
-    background: var(--kui-color-gray-90);
+    background: var(--kui-color-bg-component);
     border: none;
     margin-bottom: 10px;
-    border-radius: var(--kui-border-radius);
+    border-radius: var(--kui-border-radius-card);
     overflow: hidden;
+    .k-collapse-header {
+      border: none;
+    }
     .k-collapse-content {
       border: none;
       background: none;

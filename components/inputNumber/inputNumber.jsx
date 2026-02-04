@@ -1,189 +1,185 @@
-import BaseInput from '../base/input'
-import Icon from '../icon'
-import {
-  add,
-  subtract,
-  toFixed,
-  isValidNumber,
-  isEmpty,
-} from "../utils/number";
-import { ChevronUp } from 'kui-icons'
-import { withInstall } from '../utils/vue'
-const InputNumber = {
+import { ref, defineComponent, watch, inject, computed } from "vue";
+import Big from "big.js";
+import Input from "../input/input";
+import Icon from "../icon";
+import { withInstall } from "../utils/vue";
+import { ChevronUp, ChevronDown } from "kui-icons/dist/icons";
+import { sizeMap, filterSize } from "../utils/size";
+import { normalize, isValidBig } from "../utils/number";
+
+const InputNumber = defineComponent({
+  inheritAttrs: false,
   name: "InputNumber",
   props: {
-    value: [Array, Number, String],
-    min: { type: Number },
-    max: { type: Number },
-    disabled: Boolean,
-    readonly: Boolean,
+    modelValue: [Number, String],
+    value: [Number, String],
+    min: { type: Number, default: -Infinity },
+    max: { type: Number, default: Infinity },
+    step: { type: Number, default: 1 },
+    precision: Number,
     formatter: Function,
     parser: Function,
-    size: String,
-    precision: Number,
+    disabled: Boolean,
+    readonly: Boolean,
+    controls: { type: Boolean, default: true },
     suffix: String,
     prefix: String,
-    controls: { type: Boolean, default: true },
-    keyboard: { type: Boolean, default: true },
-    step: {
-      type: Number,
-      default: 1,
-    },
-    theme: String,
-    placeholder: String,
+    theme: { type: String, default: "light" },
     icon: [String, Array],
-    id: String,
-
-  },
-  watch: {
-    value(v) {
-      this.initValue(v)
-    }
-  },
-  data() {
-    return {
-      inputValue: '',
-      outputValue: '',
-    }
-  },
-  mounted() {
-    this.initValue(this.value)
-  },
-  methods: {
-    initValue(v) {
-      const { input, output } = this.getValue(v, false);
-
-      this.inputValue = input;
-      this.outputValue = output;
+    size: {
+      type: String,
+      validator(value) {
+        return sizeMap.indexOf(value) >= 0;
+      },
     },
-    getValue(v, edge) {
-      let input = "";
-      let output = "";
+    placeholder: String,
+  },
+  emits: ["update:modelValue", "change", "blur"],
 
-      let { min, max, precision, formatter, parser } = this;
+  setup(props, { slots, attrs, emit }) {
+    const parentSize = inject("size", null);
+    const innerValue = ref("");
+    const userInput = ref(null);
 
-      if (!isValidNumber(v)) {
-        if (isEmpty(v)) {
-          input = "";
-          output = "";
-        } else {
-          input = String(v);
-          output = formatter ? parser?.(String(v)) || v : String(v);
+    const clamp = (val) => {
+      if (!isValidBig(val)) {
+        return val === "" ? "" : innerValue.value;
+      }
+
+      try {
+        let b = new Big(val);
+
+        if (props.max !== Infinity && b.gt(props.max)) b = new Big(props.max);
+        if (props.min !== -Infinity && b.lt(props.min)) b = new Big(props.min);
+
+        return props.precision !== undefined ? b.toFixed(props.precision) : b.toFixed();
+      } catch (e) {
+        return innerValue.value;
+      }
+    };
+
+    watch(
+      () => props.modelValue,
+      (val) => {
+        const next = normalize(val, props.precision);
+        if (next !== innerValue.value) {
+          innerValue.value = next;
         }
-      } else {
-        input = String(v);
-        output = v;
-      }
-      if (formatter) {
-        const value = parser?.(String(input)) || input;
-        input = formatter(String(value));
-      }
-      if (edge) {
-        if (precision > 0) {
-          output = toFixed(output, precision);
-        }
-        if (output > max) {
-          output = max;
-          input = formatter?.(String(max)) || max;
-        } else if (output < min) {
-          output = min;
-          input = formatter?.(String(min)) || min;
-        }
-      }
-      // console.log(`origin: ${v}`, `input: ${input}`, `output: ${output}`);
-      return { input, output };
-    },
-    calcValue(e, isUp) {
-      let { outputValue } = this
-      if (this.disabled) return;
-      const { step } = this;
-      if (!isValidNumber(outputValue) || isEmpty(outputValue)) {
-        outputValue = 0;
-      }
-      let value =
-        isUp == 1
-          ? add(String(outputValue), String(step))
-          : subtract(String(outputValue), String(step));
-      const { input, output } = this.getValue(value, true);
+      },
+      { immediate: true }
+    );
+    const emitValue = (value) => {
+      emit("update:modelValue", value);
+      emit("change", value);
+    };
+    const displayValue = computed(() => {
+      if (userInput.value !== null) return userInput.value;
 
-      this.inputValue = input;
-      this.outputValue = output;
-      e.preventDefault();
+      if (innerValue.value === "") return "";
+      return props.formatter ? props.formatter(innerValue.value) : innerValue.value;
+    });
+    const triggerUpdate = (val) => {
+      const parsed = props.parser ? props.parser(val) : val;
+      const clampedStr = clamp(parsed);
+      innerValue.value = clampedStr;
+      userInput.value = null;
 
-      this.$emit("input", output);
-      this.$emit("change", { target: { value: output } });
-    },
+      const output = clampedStr === "" ? undefined : Number(clampedStr);
+      emitValue(output);
+    };
 
-    onKeyDown(e) {
-      if (!this.keyboard) return;
-      if (e.key === "ArrowUp") {
-        this.calcValue(e, 1);
-      } else if (e.key === "ArrowDown") {
-        this.calcValue(e, 0);
-      }
-    },
-    onUpdate(e) {
-      const v = e.target.value;
-      const { input, output } = this.getValue(v, false);
-      // console.log("update", `origin: ${v}`, `input: ${input}`, `output: ${output}`);
-      this.inputValue = input;
-      e.target.value = input;
-
-      if (!isValidNumber(output) && !isEmpty(v)) {
+    const handleInput = (val) => {
+      userInput.value = val;
+      const parsed = props.parser ? props.parser(val) : val;
+      if (val === "") {
+        innerValue.value = "";
+        emitValue(undefined);
         return;
       }
-      const { max, min } = this;
-      if ((output && output > max) || (output && output < min)) {
-        return;
-      }
-      this.outputValue = output;
-      this.$emit("input", output);
-      e.preventDefault?.();
-    },
-    blurHandle(e) {
-      const { input, output } = this.getValue(this.outputValue, true);
 
-      this.inputValue = input;
-      this.outputValue = output;
-      this.$emit("input", output);
-      this.$emit("blur", e);
-    }
+      if (isValidBig(parsed)) {
+        const bigVal = new Big(parsed);
+        const normalizedStr = bigVal.toFixed();
+
+        innerValue.value = normalizedStr;
+        emitValue(Number(normalizedStr));
+
+        if (props.formatter) {
+          const formatted = props.formatter(normalizedStr);
+          if (formatted !== userInput.value) {
+            userInput.value = formatted;
+          }
+        }
+      }
+    };
+
+    const handleBlur = (event) => {
+      triggerUpdate(userInput.value !== null ? userInput.value : innerValue.value);
+      emit("blur", event);
+    };
+
+    const stepAction = (type) => {
+      if (props.disabled || props.readonly) return;
+
+      const current = isValidBig(innerValue.value) ? innerValue.value : 0;
+      const next =
+        type === "up" ? new Big(current).plus(props.step) : new Big(current).minus(props.step);
+
+      triggerUpdate(next.toFixed());
+    };
+
+    return () => {
+      const inputProps = {
+        ...attrs,
+        modelValue: displayValue.value,
+        disabled: props.disabled,
+        readonly: props.readonly,
+        clearable: false,
+        placeholder: props.placeholder,
+        suffix: props.suffix,
+        prefix: props.prefix,
+        size: props.size || filterSize(parentSize),
+        icon: props.icon,
+        theme: props.theme,
+        inputType: "input-number",
+        "onUpdate:modelValue": handleInput,
+        onBlur: handleBlur,
+        onKeydown: (e) => {
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            stepAction("up");
+          }
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            stepAction("down");
+          }
+        },
+      };
+
+      return (
+        <Input
+          {...inputProps}
+          v-slots={{
+            suffix: () => slots.suffix?.(),
+            prefix: () => slots.prefix?.(),
+            controls: () =>
+              props.controls &&
+              !props.readonly &&
+              !props.disabled && (
+                <div class="k-input-number-controls">
+                  <span class="k-input-number-control" onClick={() => stepAction("up")}>
+                    <Icon type={ChevronUp} />
+                  </span>
+                  <span class="k-input-number-control" onClick={() => stepAction("down")}>
+                    <Icon type={ChevronDown} />
+                  </span>
+                </div>
+              ),
+          }}
+        />
+      );
+    };
   },
-  provide() {
-    return {
-      InputNumber: this
-    }
-  },
-  render() {
-    let { controls } = this
-    const props = {
-      props: {
-        ...this.$props,
-        inputType: 'input-number',
-        value: this.inputValue
-      },
-      attrs: { ...this.$attrs },
-      on: {
-        ...this.$listeners,
-        'input': (e) => this.onUpdate({ target: { value: e } }),
-        'blur': (e) => this.blurHandle(e),
-        'keydown': (e) => this.onKeyDown(e),
-        // 'change': (e) => this.change(e),
-      },
-    }
-    // const { suffix } = this
-    // const suffixNode = this.$slots.suffix || (suffix ? <div class="k-input-number-suffix">{suffix}</div> : null)
-    return <BaseInput {...props}>
-      {/* <template slot="suffix">
-        {suffixNode}
-      </template> */}
-      <template slot='controls'>
-        {controls ? <div class="k-input-number-controls">
-          <span class="k-input-number-control" onClick={(e) => this.calcValue(e, 1)}><Icon type={ChevronUp} /></span>
-          <span class="k-input-number-control" onClick={(e) => this.calcValue(e)}><Icon type={ChevronUp} /></span>
-        </div> : null}
-      </template>
-    </BaseInput>
-  }
-}
-export default withInstall(InputNumber)
+});
+
+export default withInstall(InputNumber);

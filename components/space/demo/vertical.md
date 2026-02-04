@@ -1,7 +1,11 @@
 <cn>
-#### 垂直间距
+### 垂直间距
 相邻组件垂直间距。
 </cn>
+<en>
+### Vertical Spacing
+Vertical spacing between adjacent components.
+</en>
 
 ```vue
 <template>
@@ -16,14 +20,7 @@
     </Card>
   </Space>
 </template>
-<script>
-import { Heart } from 'kui-icons'
-export default{
-  data() {
-    return {
-      Heart
-    }
-  }
-}
+<script setup>
+import { Heart } from "kui-icons";
 </script>
 ```

@@ -1,16 +1,16 @@
 <cn>
-#### 输入框组合
+### 输入框组合
 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 </cn>
 
 ```vue
 <template>
-  <Space vertical size="middle">
+  <Space vertical size="middle" block style="width:600px;max-width:100%">
     <InputGroup>
       <Input style="width:20%" value="027" />
       <Input style="width:30%" value="28398987" />
     </InputGroup>
-    <InputGroup  size="small">
+    <InputGroup size="small">
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
     </InputGroup>
@@ -32,7 +32,7 @@
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </InputGroup>
     <InputGroup>
-      <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }">
+      <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }" :maxTagCount="1">
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -52,17 +52,17 @@
       <InputNumber :value="12" />
     </InputGroup>
     <InputGroup>
-      <Input :style="{ width: '50%' }" value="input content" :icon="Copy"/>
-      <DatePicker  />
+      <Input :style="{ width: '50%' }" value="input content" :icon="Copy" />
+      <DatePicker />
     </InputGroup>
     <InputGroup>
-      <DatePicker  mode="dateRange"/>
+      <DatePicker mode="dateRange" />
       <Input :style="{ width: '30%' }" value="input content" />
       <Button type="primary">查询</Button>
     </InputGroup>
     <InputGroup>
       <Input :style="{ width: '30%' }" value="input content" />
-      <DatePicker mdoe="dateRange"/>
+      <DatePicker mdoe="dateRange" />
     </InputGroup>
     <InputGroup>
       <Select value="Option1-1">
@@ -80,16 +80,23 @@
         <Option value="2">Except</Option>
       </Select>
       <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
-      <Input :style="{
+      <Input
+        :style="{
           width: '30px',
           borderLef: 0,
           borderRight: 0,
           pointerEvents: 'none',
-        }" placeholder="~" disabled />
-      <Input :style="{
+        }"
+        placeholder="~"
+        disabled
+      />
+      <Input
+        :style="{
           width: '100px',
           textAlig: 'center',
-        }" placeholder="Maximum" />
+        }"
+        placeholder="Maximum"
+      />
     </InputGroup>
     <InputGroup>
       <Select value="Option1-1">
@@ -100,24 +107,18 @@
     </InputGroup>
   </Space>
 </template>
-<script>
-import { Copy } from 'kui-icons'
-export default{
-  data(){
-    return{
-      Copy,
-      treeData:[
-        {
-          title:'fruit',
-          key:'1',
-          children:[
-            {title:'apple',key:'11'},
-            {title:'orange',key:'12'},
-          ]
-        }
-      ]
-    }
-  }
-}
+<script setup>
+import { Copy } from "kui-icons";
+
+const treeData = [
+  {
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
+  },
+];
 </script>
 ```

@@ -1,16 +1,20 @@
 <cn>
-#### 紧凑布局组合
+### 紧凑布局组合
 使用 compact 让表单组件之间紧凑连接且合并边框。
 </cn>
+<en>
+### Compact Layouts
+Use compact to tightly stack form components and merge borders.
+</en>
 
 ```vue
 <template>
-  <Space vertical size="middle">
-    <space compact>
-      <Input style="width:20%" value="027" />
-      <Input style="width:30%" value="28398987" />
-    </space>
-    <Space compact  size="small" block>
+  <Space vertical size="middle" block style="max-width: 520px">
+    <Space compact :style="{ width: '50%' }">
+      <Input :style="{ width: '50%' }" value="027" />
+      <Input :style="{ width: '50%' }" value="28398987" />
+    </Space>
+    <Space compact size="small" block>
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
       <Button type="primary">Submit</Button>
     </Space>
@@ -38,12 +42,12 @@
       </Select>
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </Space>
-    <Space compact>
+    <Space compact block>
       <Input :style="{ width: '30%' }" value="0755" />
       <Input clearable :style="{ width: '50%' }" value="28398987" />
       <Input :style="{ width: '20%' }" value="+1" />
     </Space>
-    <Space compact>
+    <Space compact block>
       <Select value="Option1">
         <Option value="Option1">Option1</Option>
         <Option value="Option2">Option2</Option>
@@ -51,18 +55,18 @@
       <Input :style="{ width: '50%' }" value="input content" />
       <InputNumber :value="12" />
     </Space>
-    <Space compact>
+    <Space compact block>
       <Input :style="{ width: '50%' }" value="input content" />
-      <DatePicker  />
+      <DatePicker />
     </Space>
-    <Space compact>
-      <DatePicker  mode="dateRange"/>
+    <Space compact block>
+      <DatePicker mode="dateRange" />
       <Input :style="{ width: '30%' }" value="input content" />
       <Button type="primary">查询</Button>
     </Space>
-    <Space compact>
+    <Space compact block>
       <Input :style="{ width: '30%' }" value="input content" />
-      <DatePicker mdoe="dateRange"/>
+      <DatePicker mdoe="dateRange" />
     </Space>
     <Space compact>
       <Select value="Option1-1">
@@ -80,16 +84,23 @@
         <Option value="2">Except</Option>
       </Select>
       <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
-      <Input :style="{
+      <Input
+        :style="{
           width: '30px',
           borderLef: 0,
           borderRight: 0,
           pointerEvents: 'none',
-        }" placeholder="~" disabled />
-      <Input :style="{
+        }"
+        placeholder="~"
+        disabled
+      />
+      <Input
+        :style="{
           width: '100px',
           textAlig: 'center',
-        }" placeholder="Maximum" />
+        }"
+        placeholder="Maximum"
+      />
     </Space>
     <Space compact>
       <Select value="Option1-1">
@@ -100,24 +111,17 @@
     </Space>
   </Space>
 </template>
-<script>
-import { Copy } from 'kui-icons'
-export default{
-  data(){
-    return{
-      Copy,
-      treeData:[
-        {
-          title:'fruit',
-          key:'1',
-          children:[
-            {title:'apple',key:'11'},
-            {title:'orange',key:'12'},
-          ]
-        }
-      ]
-    }
-  }
-}
+<script setup>
+import { Copy } from "kui-icons";
+const treeData = [
+  {
+    title: "fruit",
+    key: "1",
+    children: [
+      { title: "apple", key: "11" },
+      { title: "orange", key: "12" },
+    ],
+  },
+];
 </script>
 ```

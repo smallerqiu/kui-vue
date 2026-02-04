@@ -1,13 +1,15 @@
-import { withInstall } from '../utils/vue'
-const MenuDivider = {
-  name: 'MenuDivider',
-  inject: {
-    Dropdown: { default: null },
-  },
-  render() {
-    const preCls = this.Dropdown ? 'dropdown-menu' : 'menu';
-    return <li class={`k-${preCls}-item-divider`} />
-  }
-}
+import { defineComponent, inject, computed } from "vue";
+import { withInstall } from "../utils/vue";
 
-export default withInstall(MenuDivider)
+const MenuDivider = defineComponent({
+  name: "MenuDivider",
+  setup() {
+    const dropdown = inject("dropdown", null);
+    return () => {
+      const preCls = dropdown ? "dropdown-menu" : "menu";
+
+      return <li class={`k-${preCls}-item-divider`} />;
+    };
+  },
+});
+export default withInstall(MenuDivider);

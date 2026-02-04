@@ -1,250 +1,346 @@
-import Thumb from './thumb'
-import { multiply } from '../utils/number'
-import { withInstall } from '../utils/vue'
-const Slider = {
+import { defineComponent, ref, watch, nextTick, inject } from "vue";
+import Thumb from "./thumb";
+import { withInstall } from "../utils/vue";
+import Big from "big.js";
+import { getClosestStep } from "../utils/number";
+
+const Slider = defineComponent({
   name: "Slider",
   props: {
-    value: [Array, Number, String],
+    modelValue: { type: [Array, Number], default: 0 },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
+    step: { type: [Number, Object], default: 1 },
     disabled: Boolean,
-    step: {
-      type: Number,
-      default: 1,
-      validator: (val) => val !== 0
-    },
-    size: String,
-    range: Boolean,
     vertical: Boolean,
     reverse: Boolean,
+    range: Boolean,
     marks: Object,
+    size: [String, Number],
     included: { type: Boolean, default: true },
-    tipFormatter: [Function, Object],
-    tooltipVisible: Boolean
+    tipFormatter: Function,
+    tooltipVisible: { type: Boolean, default: null },
   },
-  watch: {
-    value() {
-      this.defaultValue = this.getValue()
-    }
-  },
-  provide() {
-    return {
-      bar: this,
-    }
-  },
-  data() {
-    return {
-      defaultValue: this.getValue(),
-      // percent1: 0,
-      // percent2: 0,
-      // width: 0,
-      // left: 0,
-      isMouseDown: false
-    }
-  },
-  methods: {
-    getMinStep(percent) {
-      let { marks, step, min } = this
-      if (!marks) return multiply(Math.round((percent + min) / step), step)
-      let steps = Object.keys(marks);//, values = []
-      steps = steps.map(x => x - min)
-      if (step) {
-        steps.push(multiply(Math.round((percent) / step), step))
+  emits: ["update:modelValue", "change"],
+
+  setup(props, { emit }) {
+    const size = inject("size", null);
+    const thumbRefs = ref([]);
+    const setThumbRef = (el, index) => {
+      if (el) thumbRefs.value[index] = el;
+    };
+
+    const railRef = ref();
+    // 记录当前正在拖拽的是哪一个滑块 (0 或 1，-1表示未拖拽)
+    const draggingIndex = ref(-1);
+
+    // 内部值始终保持排序状态
+    const internalValue = ref(props.range ? [props.min, props.min] : props.min);
+
+    const sortValue = (val) => {
+      if (Array.isArray(val)) {
+        return [...val].sort((a, b) => a - b);
+      }
+      return val;
+    };
+
+    const formatValue = (val) => {
+      if (props.range) {
+        const arr = Array.isArray(val) ? [...val] : [props.min, props.min];
+        return sortValue(arr.map((v) => getClosestStep(v, props)));
+      }
+      return getClosestStep(val, props);
+    };
+
+    watch(
+      () => props.modelValue,
+      (nv) => {
+        // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
+        if (draggingIndex.value === -1) {
+          internalValue.value = formatValue(nv);
+        }
+      },
+      { immediate: true }
+    );
+
+    const getPercent = (val) => {
+      const diff = props.max - props.min;
+      return diff === 0 ? 0 : Math.max(0, Math.min(100, ((val - props.min) / diff) * 100));
+    };
+
+    // 计算鼠标位置对应的数值
+    const getValueFromEvent = (e) => {
+      const rect = railRef.value.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      let percent;
+      if (props.vertical) {
+        // 垂直模式：CSS bottom 是 0%，top 是 100%
+        // clientY 越小（越靠上），percent 越大
+        percent = (rect.bottom - clientY) / rect.height;
+        if (props.reverse) percent = 1 - percent;
+      } else {
+        // 水平模式：CSS left 是 0%，right 是 100%
+        percent = (clientX - rect.left) / rect.width;
+        if (props.reverse) percent = 1 - percent;
       }
 
-      let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
-      // let result = steps.reduce((x, y) => Math.abs(x - percent) > Math.abs(y - percent) ? y : x)
-      // console.log(percent, result, steps)
-      return result + min
-    },
-    getValue() {
-      let { value = 0, range, min, max } = this, v;
-      // let diff = max - min;
-      if (!range) {
-        v = value
-        if (value >= max) v = max
-        else if (value <= min) v = min
-        // let percent = (v - min) * 100 / diff
-        // v = this.getMinStep(percent)
-      } else {
+      const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
+      return getClosestStep(Number(rawValue), props);
+    };
 
-        if (!Array.isArray(value)) {
-          v = [0, 0]
+    // 处理滑块拖动
+    const handleThumbMove = (e) => {
+      if (props.disabled || draggingIndex.value === -1) return;
+
+      const newValue = getValueFromEvent(e);
+      let nextInternal = null;
+
+      if (props.range) {
+        const oldValues = [...internalValue.value];
+        // 暂时更新当前拖动的那个值，不去排序
+        oldValues[draggingIndex.value] = newValue;
+
+        // 检查是否发生交错 (Crossover)
+        // 如果拖动的是 index 0 (左滑块)，但它现在比 index 1 (右滑块) 大
+        // 那么它们需要交换值，并且我也要交换 draggingIndex，这样鼠标就依然抓着那个数值
+        if (oldValues[0] > oldValues[1]) {
+          // 交换值
+          nextInternal = [oldValues[1], oldValues[0]];
+          // 交换控制权
+          draggingIndex.value = draggingIndex.value === 0 ? 1 : 0;
         } else {
-          v = [].concat(value)
-        }
-        let [x, y] = v
-
-        // let p1 = (x - min) * 100 / diff
-        // let p2 = (y - min) * 100 / diff
-        // x = this.getMinStep(p1)
-        // y = this.getMinStep(p2)
-        // console.log(p1 * 100, p2 * 100)
-
-        if (x >= max) x = max
-        else if (x <= min) x = min
-
-        if (y >= max) y = max
-        else if (y <= min) y = min
-
-        v = [x, y]
-      }
-      return v
-    },
-    click(e) {
-      let { disabled, range, vertical, max, min, defaultValue, reverse } = this
-      if (disabled) return;
-      let { width, height } = e.target.getBoundingClientRect()
-      let { layerX, layerY } = e
-
-      let percent = 0, diff = max - min;
-      if (reverse) {
-        percent = vertical ? (((height - layerY) / height) * diff) : (((width - layerX) / width) * diff);
-      } else {
-        percent = vertical ? ((layerY / height) * diff) : ((layerX / width) * diff);
-      }
-      let value = this.getMinStep(percent)
-      // let value = times(Math.round((percent + min) / step), step)
-      // console.log(value, step)
-
-      if (range) {
-        let [x, y] = defaultValue
-        let half = y > x ? (y - x) / 2 + x : (x - y) / 2 + y
-        value = value >= half && y > x ? [x, value] : [value, y]
-      }
-
-      this.defaultValue = value
-      this.$emit('input', value)
-      this.$emit('change', value)
-    },
-    getActiveOps(a) {
-      let { defaultValue, reverse, max, min, vertical } = this
-      let active;
-      if (this.range) {
-        let [x, y] = defaultValue
-        active = x < y ? (a >= x && a <= y) : (a <= x && a >= y)
-        // console.log(a, active, `${a} >= ${x} && ${a} <= ${y}`)
-      } else {
-        active = a <= defaultValue
-      }
-      let diff = max - min
-      let pos = ((a - min) / diff) * 100 + '%'
-      let sty = {}
-      if (reverse) {
-        sty = vertical ?
-          { bottom: pos, transform: 'translateY(50%)' } :
-          { right: pos, transform: 'translateX(50%)' }
-      } else {
-        sty = vertical ?
-          { top: pos } :
-          { left: pos }
-      }
-      return { active, sty }
-    },
-    renderMark() {
-      let { marks } = this
-      if (!marks) return null
-      let mks = Object.keys(marks || {})
-      let txt = Object.values(marks || {})
-
-      return <div div class="k-slider-marks" >
-        {
-          mks.map(v => {
-            const { active, sty } = this.getActiveOps(v);
-            return <div class={['k-slider-mark-symbol', { 'k-slider-mark-symbol-active': active }]} style={sty} />
-          })
-        }
-        {
-          mks.map((v, i) => {
-            let { active, sty } = this.getActiveOps(v);
-            return <div class={['k-slider-mark-text', { 'k-slider-mark-text-active': active }]} style={sty}>{txt[i]}</div>
-          })
-        }
-      </div>
-    },
-    renderTrack() {
-      let { vertical, max, min, defaultValue, range, included, marks, reverse } = this
-      let percent1 = 0, percent2 = 0, diff = max - min;
-      let w, l;
-
-      if (!range) {
-        percent2 = ((defaultValue - min) / diff) * 100
-
-      } else {
-        let [x, y] = defaultValue
-        percent1 = ((x - min) / diff) * 100
-        percent2 = ((y - min) / diff) * 100
-      }
-      let trackSty = {}
-      // console.log(percent1, percent2)
-      if (percent2 > percent1) {
-        w = percent2 - percent1
-        l = percent1
-      } else {
-        w = percent1 - percent2
-        l = percent2
-      }
-      if (reverse) {
-        trackSty = vertical ? {
-          height: `${w}%`,
-          top: 'auto',
-          bottom: `${l}%`
-        } : {
-          width: `${w}%`,
-          left: 'auto',
-          right: `${l}%`
+          nextInternal = oldValues;
         }
       } else {
-        trackSty = vertical ? {
-          height: `${w}%`,
-          top: `${l}%`
-        } : {
-          width: `${w}%`,
-          left: `${l}%`
-        }
+        nextInternal = newValue;
       }
-      return (included && marks) || !marks ?
-        <div class="k-slider-track" style={{ ...trackSty }}></div> : null
 
-    },
-    thumbProps() {
-      let { vertical, disabled, range, step, reverse, max, min, defaultValue, tooltipVisible, tipFormatter, size } = this
-      return {
-        props: {
-          vertical, disabled, range, step, reverse, min, size,
-          max, tipFormatter, tooltipVisible,
-          value: range ? [].concat(defaultValue) : defaultValue * 1
-        },
-        on: {
-          input: (value) => {
-            if (value !== defaultValue) {
-              this.defaultValue = value
-              this.$emit('input', value)
-              this.$emit('change', value)
+      if (JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)) {
+        internalValue.value = nextInternal;
+        emit("update:modelValue", nextInternal);
+        emit("change", nextInternal);
+      }
+    };
+
+    // 处理轨道点击
+    const handleRailClick = (e) => {
+      if (props.disabled) return;
+      const newValue = getValueFromEvent(e);
+
+      if (props.range) {
+        const [v1, v2] = internalValue.value;
+        // 移动离点击点最近的那个滑块
+        const dist1 = Math.abs(newValue - v1);
+        const dist2 = Math.abs(newValue - v2);
+        const targetIndex = dist1 <= dist2 ? 0 : 1;
+
+        const nextValues = [...internalValue.value];
+        nextValues[targetIndex] = newValue;
+
+        // 点击导致跳变时，也要保证顺序
+        internalValue.value = sortValue(nextValues);
+      } else {
+        internalValue.value = newValue;
+      }
+      emit("update:modelValue", internalValue.value);
+      emit("change", internalValue.value);
+    };
+
+    const handleThumbDown = (index) => {
+      if (props.disabled) return;
+      draggingIndex.value = index;
+
+      const onMove = (e) => handleThumbMove(e);
+      const onUp = () => {
+        draggingIndex.value = -1;
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+        document.removeEventListener("touchmove", onMove);
+        document.removeEventListener("touchend", onUp);
+      };
+
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onUp);
+    };
+
+    const handleKeydown = (e, index) => {
+      if (props.disabled) return;
+      const isPlus = ["ArrowRight", "ArrowUp"].includes(e.key);
+      const isMinus = ["ArrowLeft", "ArrowDown"].includes(e.key);
+      if (!isPlus && !isMinus) return;
+      e.preventDefault();
+
+      let nextValue;
+      const currentValues = props.range ? [...internalValue.value] : [internalValue.value];
+      const targetValue = currentValues[index];
+
+      if (props.step === null || props.step === undefined) {
+        if (props.marks) {
+          const mKeys = Object.keys(props.marks)
+            .map(Number)
+            .sort((a, b) => a - b);
+          const currIdx = mKeys.indexOf(getClosestStep(targetValue, props));
+          let nextIdx = isPlus ? currIdx + 1 : currIdx - 1;
+          nextIdx = Math.max(0, Math.min(mKeys.length - 1, nextIdx));
+          nextValue = mKeys[nextIdx];
+        }
+      } else {
+        nextValue = Number(new Big(targetValue).plus(isPlus ? props.step : -props.step));
+      }
+
+      // 理键盘交错逻辑 ---
+      if (props.range) {
+        const otherIndex = index === 0 ? 1 : 0;
+        const otherValue = currentValues[otherIndex];
+
+        // 检查是否发生越界交换
+        const isCrossForward = index === 0 && nextValue > otherValue;
+        const isCrossBackward = index === 1 && nextValue < otherValue;
+
+        if (isCrossForward || isCrossBackward) {
+          //  交换数据
+          const nextInternal = [];
+          nextInternal[index] = otherValue;
+          nextInternal[otherIndex] = getClosestStep(nextValue, props);
+          internalValue.value = nextInternal.sort((a, b) => a - b);
+
+          // 转移焦点
+          nextTick(() => {
+            // 找到另一个 Thumb 的原生 DOM 并聚焦
+            const targetThumb = thumbRefs.value[otherIndex];
+            if (targetThumb) {
+              targetThumb.focus();
             }
-          }
+          });
+        } else {
+          // 正常非交错移动
+          currentValues[index] = nextValue;
+          internalValue.value = formatValue(currentValues);
         }
+      } else {
+        internalValue.value = formatValue(nextValue);
       }
-    }
+
+      emit("update:modelValue", internalValue.value);
+      emit("change", internalValue.value);
+    };
+
+    return () => {
+      const { vertical, reverse, min, max, disabled, marks, included } = props;
+
+      const renderTrack = () => {
+        if (!included && marks) return null;
+
+        // 确保 v1 是小的，v2 是大的
+        const [rawV1, rawV2] = props.range ? internalValue.value : [min, internalValue.value];
+        const v1 = Math.min(rawV1, rawV2);
+        const v2 = Math.max(rawV1, rawV2);
+
+        const p1 = getPercent(v1);
+        const p2 = getPercent(v2);
+        const length = p2 - p1;
+
+        let style = {};
+        if (vertical) {
+          // 垂直模式
+          // reverse=false: bottom=p1, height=len
+          // reverse=true:  top=p1, height=len
+          style = reverse
+            ? { top: `${p1}%`, height: `${length}%` }
+            : { bottom: `${p1}%`, height: `${length}%` };
+        } else {
+          // 水平模式
+          // reverse=false: left=p1, width=len
+          // reverse=true:  right=p1, width=len
+          style = reverse
+            ? { right: `${p1}%`, width: `${length}%` }
+            : { left: `${p1}%`, width: `${length}%` };
+        }
+        return <div class="k-slider-track" style={style}></div>;
+      };
+
+      const renderMarks = () => {
+        if (!marks) return null;
+        const mKeys = Object.keys(marks).map(Number);
+
+        return (
+          <div class="k-slider-marks">
+            {mKeys.map((val) => {
+              const p = getPercent(val);
+              // 判断激活状态：值是否在当前选中范围内
+              let isActive = false;
+              if (props.range) {
+                isActive = val >= internalValue.value[0] && val <= internalValue.value[1];
+              } else {
+                isActive = val <= internalValue.value;
+              }
+
+              let style = {};
+              if (vertical) {
+                style = reverse ? { top: `${p}%` } : { bottom: `${p}%` };
+              } else {
+                style = reverse ? { right: `${p}%` } : { left: `${p}%` };
+              }
+
+              return (
+                <div key={val} class="k-slider-mark-item" style={style}>
+                  <span class={["k-slider-mark-dot", { "is-active": isActive }]}></span>
+                  <div class={["k-slider-mark-text", { "is-active": isActive }]}>{marks[val]}</div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      };
+
+      const thumbs = (props.range ? [0, 1] : [0]).map((idx) => {
+        // 单滑块模式下，index 为 0，值取 internalValue
+        const val = props.range ? internalValue.value[idx] : internalValue.value;
+        return (
+          <Thumb
+            key={idx}
+            ref={(el) => setThumbRef(el, idx)}
+            value={val}
+            min={min}
+            max={max}
+            size={props.size || size}
+            vertical={vertical}
+            reverse={reverse}
+            disabled={disabled}
+            tooltipVisible={props.tooltipVisible}
+            tipFormatter={props.tipFormatter}
+            dragging={draggingIndex.value === idx} // 告诉子组件是否被激活
+            onDragStart={() => handleThumbDown(idx)}
+            onKeydownUpdate={(e) => handleKeydown(e, idx)}
+          />
+        );
+      });
+
+      return (
+        <div
+          class={[
+            "k-slider",
+            {
+              "k-slider-disabled": disabled,
+              "k-slider-vertical": vertical,
+              "k-slider-reverse": reverse,
+            },
+          ]}
+        >
+          <div class="k-slider-bar">
+            <div class="k-slider-rail" ref={railRef} onClick={handleRailClick}></div>
+            {renderTrack()}
+            {renderMarks()}
+            {thumbs}
+          </div>
+        </div>
+      );
+    };
   },
-  render() {
-    let { disabled, vertical, range } = this
-    let leftProps = this.thumbProps()
-    let rightProps = this.thumbProps()
-    let trackNode = this.renderTrack()
-    let markNode = this.renderMark()
+});
 
-    return <div class={['k-slider', { 'k-slider-disabled': disabled, 'k-slider-vertical': vertical }]}>
-      <div class="k-slider-bar">
-        <div class="k-slider-rail" ref="rail" onClick={this.click}></div>
-        {trackNode}
-        {range ? <Thumb {...leftProps} /> : null}
-        <Thumb {...rightProps} type="right" />
-        {markNode}
-      </div>
-      {/* {this.renderMark()} */}
-    </div>
-  }
-}
-
-export default withInstall(Slider)
+export default withInstall(Slider);

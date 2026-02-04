@@ -1,61 +1,63 @@
 import Notice from "./inner";
 import { getTransitionProp } from "../base/transition";
-
 let count = 0;
-const timestamp = Date.now();
 function getUuid() {
+  const timestamp = Date.now();
   return `k-message-${timestamp}-${count++}`;
 }
-
-export default {
+import { defineComponent, TransitionGroup, ref } from "vue";
+export default defineComponent({
   props: { type: String },
-  data() {
-    return {
-      group: [],
-    };
-  },
-  methods: {
-    show(options) {
-      let { duration, close, closable, noticeType } = options;
+  setup(ps, { expose }) {
+    const group = ref([]);
+
+    const show = (options) => {
+      let { duration, onClose, closable, noticeType } = options;
       let key = getUuid();
-      options.name = key;
+      options.key = key;
       options.duration = isNaN(Number(duration)) ? 3.5 : duration;
       let timer;
-      let callback = () => {
-        typeof close === "function" && close();
-        this.group = this.group.filter((item) => item.name !== key);
+      let callback = (key) => {
+        typeof onClose === "function" && onClose();
+        group.value = group.value.filter((item) => item.key !== key);
         clearTimeout(timer);
         timer = null;
       };
-      options.duration > 0 && (timer = setTimeout(callback, options.duration * 1000));
-      if ((closable === true && noticeType == "message") || noticeType == "notice") options.onClose = callback;
-      this.group.push(options);
-    },
-    destroy() {
-      this.group = [];
-    },
+      options.duration > 0 && (timer = setTimeout(callback, options.duration * 1000, key));
+      if ((closable === true && noticeType == "message") || noticeType == "notice") {
+        options.onClose = () => callback(key);
+      }
+      group.value.push(options);
+    };
+    const clean = () => {
+      group.value = [];
+    };
+
+    expose({ show, clean });
+
+    return () => {
+      const { type } = ps;
+
+      let transitionProps = { name: `k-${type}-slide` };
+      if (type == "notice") {
+        transitionProps = getTransitionProp(`k-${type}-slide`);
+        delete transitionProps.onEnter; //for 3
+        delete transitionProps.onBeforeEnter;
+        transitionProps.onBeforeLeave = (el) => {
+          el.style.height = window.getComputedStyle(el).height;
+          el.style.opacity = 1;
+        };
+      }
+
+      let children = group.value.map((item, i) => {
+        let props = { ...item }; //for 3
+        return <Notice {...props} />;
+      });
+      return (
+        <TransitionGroup tag="div" class={`k-${type}`} {...transitionProps}>
+          {...children}
+        </TransitionGroup>
+      );
+    };
   },
-  render() {
-    const { type } = this;
-    let transition = { name: `k-${type}-slide` };
-    if (type == "notice") {
-      transition = getTransitionProp();
-      delete transition.on.enter;
-      delete transition.on.beforeEnter;
-      transition.on.beforeLeave = (el) => {
-        el.style.height = window.getComputedStyle(el).height;
-        el.style.opacity = 1;
-      };
-    }
-    let childs = this.group.map((item, i) => {
-      let props = { props: { ...item } };
-      let key = item.name || getUuid();
-      return <Notice {...props} key={key} />;
-    });
-    return (
-      <transition-group tag="div" class={`k-${type}`} name={`k-${type}-slide`} {...transition}>
-        {childs}
-      </transition-group>
-    );
-  },
-};
+});

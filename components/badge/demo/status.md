@@ -1,5 +1,5 @@
 <cn>
-#### 状态点
+### 状态点
 用于表示状态的小圆点。
 </cn>
 
@@ -11,7 +11,7 @@
     <Badge status="default" />
     <Badge status="warning" />
   </Space>
-  <br/>
+  <br />
   <Space vertical>
     <Badge status="success" text="Success" />
     <Badge status="error" text="Error" />

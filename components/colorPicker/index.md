@@ -1,12 +1,9 @@
 ## API
-| 属性          | 说明                                                 | 类型     | 默认值 |
-| ------------- | ---------------------------------------------------- | -------- | ------ |
-| value         | 当前激活的面板的 `name`，可以使用 `v-model` 双向绑定 | String   | -      |
-| mode          | 颜色展示类型,提供3种模式(`hex` 、 `rgb` 、`hsl`)   | String   | 'hex'  |
-| presets       | 自定义颜色盘,最多20种                                | Array    | [...]  |
-| show-mode     | 是否展示颜色模式                                     | Boolean  | false  |
-| disabledAlpha | 是否禁用透明                                         | Boolean  | false  |
-| icon          | 自定义下拉箭头                                       | Boolean  | true   |
-| shape         | shape='circle' 呈现圆形                              | String   | -      |
-| placement     | 色盘初始化展示位置                                   | String   | -      |
-| change        | 颜色值改变的时候触发,返回颜色的值                    | Function | -      |
+
+| 属性          | 说明                                               | 类型     | 默认值 |
+| ------------- | -------------------------------------------------- | -------- | ------ |
+| modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | String   | -      |
+| mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | String   | 'hex'  |
+| presets       | 自定义颜色盘                                       | Array    | [...]  |
+| disabledAlpha | 是否禁用透明                                       | Boolean  | false  |
+| change        | 颜色值改变的时候触发,返回颜色的值                  | Function | -      |

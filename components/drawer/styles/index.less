@@ -1,13 +1,14 @@
-@import '../../styles/var.less';
-@import './animal.less';
+@import "../../styles/less-css-var.less";
+@import "./animal.less";
 
 .k-drawer {
-  position: fixed;
+  position: absolute;
   z-index: 1002;
   top: 0;
-
+  width: 100%;
+  pointer-events: none;
   .k-drawer-mask {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -15,9 +16,9 @@
     background-color: var(--kui-color-mask);
     height: 100%;
     width: 100%;
-    z-index: 1000; // animation: mmask .5s ease-in-out;
+    z-index: 1000;
     overflow: hidden;
-    pointer-events: all
+    pointer-events: all;
   }
 
   .k-drawer-box {
@@ -25,52 +26,37 @@
     z-index: 1001;
     outline: 0;
     pointer-events: all;
-    width: 520px; // animation: fadeIn .5s ease-in-out;
-    // transition: transform .3s;
+    width: 520px;
   }
 
   .k-drawer-content {
     position: relative;
-    background-color: var(--kui-color-control-10);
+    background-color: var(--kui-color-bg-pop);
     border: 0;
     background-clip: padding-box;
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 8px 0 var(--kui-color-shadow);
 
     .k-drawer-close {
-      // position: absolute;
-      right: 16px;
       cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      color: var(--kui-color-font);
-      // line-height: 43px;
-      // width: 43px;
-      // right: 0;
-      text-align: center;
-      // top: 0;
-      transition: all .3s ease-in-out;
       margin-right: 12px;
-
-      &:hover {
-        .k-icon {
+      .k-icon {
+        font-size: 20px;
+        &:hover {
           color: var(--kui-color-danger);
-          background-color: var(--kui-color-gray-80);
-          border-radius: var(--kui-border-radius);
         }
-
-        // transform: rotate(360deg);
       }
     }
 
     .k-drawer-header {
-      // border-bottom: 1px solid var(--kui-color-border);
       padding: 14px 16px;
       line-height: 1;
       font-size: 14px;
       font-weight: 600;
-      color: var(--kui-color-title);
+      color: var(--kui-color-text-title);
+      -webkit-user-select: none;
       user-select: none;
       display: flex;
       align-items: center;
@@ -90,16 +76,13 @@
     padding: 16px;
     font-size: 14px;
     line-height: 1.5;
-    // height: calc(100% - 43px);
-    // height: 100%;
     flex: 1;
     overflow: auto;
     box-sizing: border-box;
-    color: var(--kui-color-font);
+    color: var(--kui-color-text);
   }
 
   .k-drawer-footer {
-    // border-top: 1px solid var(--kui-color-border);
     padding: 10px 16px;
     text-align: right;
     display: inline-block;
@@ -111,35 +94,27 @@
     }
   }
 }
-
-.k-drawer-has-footer {
-  .k-drawer-body {
-    // height: calc(100% - 43px);
-  }
-}
-
-.k-drawer-open {
-
-  &.k-drawer-left,
-  &.k-drawer-right {
-    width: 100%;
-  }
-
-  &.k-drawer-top,
-  &.k-drawer-bottom {
-    height: 100%;
-  }
-
-  &.k-drawer-bottom .k-drawer-box {
-    bottom: 0;
-  }
+.k-drawer-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .k-drawer-right {
-  // width: 100%;
   height: 100%;
   right: 0;
-
+  .k-drawer-wrap {
+    height: 100%;
+  }
   .k-drawer-box {
     top: 0;
     bottom: 0;
@@ -148,7 +123,6 @@
 }
 
 .k-drawer-left {
-  // width: 0%;
   height: 100%;
   left: 0;
 
@@ -160,42 +134,36 @@
 }
 
 .k-drawer-top {
-  width: 100%;
-  // height: 0;
+  height: 100%;
   top: 0;
 
   .k-drawer-box {
     top: 0;
     left: 0;
     width: 100%;
-    // height: 0;
   }
 }
 
 .k-drawer-bottom {
-  width: 100%;
-  // height: 0;
-  // bottom: 0;
-  // right: 0;
-  // left: 0;
+  height: 100%;
 
   .k-drawer-box {
     width: 100%;
-    // height: 0;
     left: 0;
     bottom: 0;
   }
 }
 
-.k-drawer-nobody {
-  position: absolute;
+.k-drawer-to-body {
+  position: fixed;
   pointer-events: none;
   top: 0;
-  width: 100%;
-  height: 100%;
-
-  .k-drawer-mask-nobody {
-    position: absolute;
+  height: auto;
+  .k-drawer-wrap {
+    position: fixed;
+  }
+  .k-drawer-mask-to-body {
+    position: fixed;
     pointer-events: all;
   }
 
@@ -204,6 +172,6 @@
   }
 }
 
-.k-drawer-nomask {
+.k-drawer-no-mask {
   pointer-events: none;
 }

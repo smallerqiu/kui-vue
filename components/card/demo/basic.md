@@ -1,0 +1,22 @@
+<cn>
+### 基本用法
+通过 `title` 和 `icon` 可设置标题和图标
+</cn>
+
+```vue
+<template>
+  <div>
+    <Card title="卡片标题" :icon="Heart">
+      <template #extra>
+        <a href="#">更多</a>
+      </template>
+      <div>card content</div>
+      <div>card content</div>
+      <div>card content</div>
+    </Card>
+  </div>
+</template>
+<script setup>
+import { Heart } from "kui-icons";
+</script>
+```

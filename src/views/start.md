@@ -1,100 +1,44 @@
 # 快速上手
 
-在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vue-cli](https://cli.vuejs.org/),[vue-devtools](https://github.com/vuejs/vue-devtools)
+在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools)
 
-## 引入 KUI
-
-### 1.安装脚手架
-
-[vue-cli](https://github.com/vuejs/vue-cli)
+## 1. 初始化一个项目
 
 ```bash
-$ npm install -g @vue/cli
-# OR
-$ yarn global add @vue/cli
+# npm 7+，需要添加额外的 --：
+$ npm create vite@latest my-app -- --template vue
+#or
+$ yarn create vite my-app --template vue
 ```
 
-### 2. 初始化一个项目
+然后按照提示操作即可！
 
-```bash
-$vue create kui-demo
-```
+## 2. 使用组件
 
 从 yarn 或 npm 安装并引入 kui-vue。
 
 ```bash
-$ npm install kui-vue@latest
+$ npm install kui-vue
 #or
-$ yarn add kui-vue@latest
+$ yarn add kui-vue
 ```
 
-### 3. 使用组件
-
-一般在 **webpack** 入口页面 `main.js` 中如下配置：
+一般在入口页面 `main.js` 中如下配置：
 
 ```js
-import Vue from "vue";
-import App from "./App";
+import { createApp } from "vue";
+import App from "./App.vue";
 import kui from "kui-vue";
+
+// 引入样式
 import "kui-vue/dist/k-ui.css";
 
-Vue.use(kui);
+const app = createApp(App);
 
-new Vue({
-  el: "#app",
-  components: { App },
-  template: "<App/>",
-});
+app.use(kui).mount("#app");
 ```
 
-以上代码便完成了 Kui 的引入。注意: 样式文件需要单独引入。
-
-### 局部导入组件
-
-```js
-import Vue from "vue";
-import { Button, Message } from "kui-vue";
-import App from "./App";
-
-Vue.config.productionTip = false;
-Vue.use(Button);
-
-Vue.prototype.$message = Message;
-
-new Vue({
-  el: "#app",
-  components: { App },
-  template: "<App/>",
-});
-```
-
-## 兼容性
-
-Kui Vue 支持所有的现代浏览器和 IE9+。
-
-对于 IE 系列浏览器，需提供 [es5-shim](https://github.com/es-shims/es5-shim) 和 [es6-shim](https://github.com/paulmillr/es6-shim) 等 Polyfills 的支持。
-
-如果你使用了 babel，强烈推荐使用 [babel-polyfill](https://babeljs.io/docs/usage/polyfill/) 和 [babel-plugin-transform-runtime](https://babeljs.io/docs/plugins/transform-runtime/) 来替代以上两个 shim。
-
-## 按需加载
-
-- 使用 babel-plugin-import（推荐）。
-
-```js
-// .babelrc or babel-loader option
-{
-  "plugins": [
-    ["import", { "libraryName": "kui-vue", "style": "css" }] // `style: true` 会加载 less 文件
-  ]
-}
-```
-
-- 手动引入
-
-```js
-import Button from "kui-vue/components/button";
-import "kui-vue/components/button/style";
-```
+以上代码便完成了 KUI 的引入。注意: 样式文件需要单独引入。
 
 ### 使用规范
 
@@ -103,19 +47,22 @@ import "kui-vue/components/button/style";
 ```html
 <template>
   <div>
-    <Button type="primary"></Button> ✅ 推荐
-    <k-button type="primary"></k-button> ✅
+    <KButton type="primary">button</KButton> ✅ 推荐 
+    <k-button type="primary">button</k-button> ✅
   </div>
 </template>
 ```
 
-但是 `Switch` 、 `Image` 只支持 以k开头的小写 :
+但是 `Switch` 、 `Image` 只支持 以k开头 :
 
 ```html
 <template>
   <div>
-    <k-switch type="primary"></k-switch> ✅
-    <k-image></k-image> ✅
+    <KSwitch type="primary"/> ✅ 推荐 
+    <KImage src="xxx" /> ✅
+    <!-- ok -->
+    <k-switch type="primary" /> ✅ 
+    <k-image src="xxx" /> ✅
   </div>
 </template>
 ```

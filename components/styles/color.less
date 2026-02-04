@@ -1,6 +1,8 @@
-@radius: 5px; //
-@radiusOuter: (@radius * 1.5); // outer radius
-@default: #2E2E2E;
+@radius: 5px;
+@cardRadius: 8px;
+@radiusInner: (@radius * 1.5);
+@radiusOuter: (@radius * 1.5);
+@default: #2e2e2e;
 // colors
 @main: #54a9ff; // main
 @main-hover: darken(@main, 10%);
@@ -93,7 +95,7 @@
 @brown-80: fadeout(@brown, 80%);
 @brown-90: fadeout(@brown, 90%);
 
-@teal : teal; //鸭绿色 / 水鸭色
+@teal: teal; //鸭绿色 / 水鸭色
 @teal-30: fadeout(@teal, 30%);
 @teal-60: fadeout(@teal, 60%);
 @teal-80: fadeout(@teal, 80%);
@@ -138,23 +140,23 @@
 @gray-80: fadeout(@gray, 80%);
 @gray-90: fadeout(@gray, 90%);
 
-@dark: rgba(0, 0, 0, .75);
+@dark: rgba(0, 0, 0, 0.75);
 
-@mask-color: rgba(0, 0, 0, .6);
-@mask-color-30: rgba(0, 0, 0, .3);
-@mask-color-90: rgba(0, 0, 0, .9);
+@mask-color: rgba(0, 0, 0, 0.6);
+@mask-color-30: rgba(0, 0, 0, 0.3);
+@mask-color-90: rgba(0, 0, 0, 0.9);
 
-@spin-color: rgba(255, 255, 255, .6);
-@dark-spin-color: rgba(0, 0, 0, .6);
+@spin-color: rgba(255, 255, 255, 0.6);
+@dark-spin-color: rgba(0, 0, 0, 0.6);
 
-@font-color: rgba(0, 0, 0, .75);
-@dark-font-color: rgba(255, 255, 255, .9);
+@font-color: rgba(0, 0, 0, 0.75);
+@dark-font-color: rgba(255, 255, 255, 0.9);
 
-@title-color: rgba(0, 0, 0, .85);
-@dark-title-color: rgba(255, 255, 255, .85);
+@title-color: rgba(0, 0, 0, 0.85);
+@dark-title-color: rgba(255, 255, 255, 0.85);
 
-@sub-title-color: rgba(0, 0, 0, .65);
-@dark-sub-title-color: rgba(255, 255, 255, .65);
+@sub-title-color: rgba(0, 0, 0, 0.65);
+@dark-sub-title-color: rgba(255, 255, 255, 0.65);
 
 @back-color: #fff;
 @back-color-10: #fff;
@@ -181,8 +183,12 @@
 @dark-back-color-80: lighten(@dark-back-color, 80%);
 @dark-back-color-90: lighten(@dark-back-color, 90%);
 
-@icon-color: rgba(0, 0, 0, .4);
-@dark-icon-color: rgba(255, 255, 255, .4);
+@icon-color: rgba(0, 0, 0, 0.4);
+@icon-color-hover: rgba(0, 0, 0, 0.8);
+@icon-color-active: rgba(0, 0, 0, 0.5);
+@dark-icon-color: rgba(255, 255, 255, 0.4);
+@dark-icon-color-hover: rgba(255, 255, 255, 0.8);
+@dark-icon-color-active: rgba(255, 255, 255, 0.5);
 
 @hover-color: fadeout(@gray, 90%); //item 的 hover 颜色
 @active-color: fadeout(@gray, 80%); //item 的 hover 颜色
@@ -197,7 +203,7 @@
 @disable-back: #f5f5f5; //禁用背景颜色
 @dark-disable-back: fadeout(@back-color, 90%);
 
-@disable-color: rgba(0, 0, 0, .3); //禁用文字颜色
-@dark-disable-color: rgba(255, 255, 255, .3);
+@disable-color: rgba(0, 0, 0, 0.3); //禁用文字颜色
+@dark-disable-color: rgba(255, 255, 255, 0.3);
 
-@dark-default:#FAF3E0;
+@dark-default: #faf3e0;
