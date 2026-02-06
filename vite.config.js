@@ -41,6 +41,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "docs", // default: dist
       sourcemap: false,
+      minify: "terser",
       rollupOptions: {
         external: ["vue", "kui-vue", "@vue/compiler-sfc"],
         output: {
