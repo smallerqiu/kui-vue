@@ -58,6 +58,9 @@ export { Form, FormItem };
 import Flex from "./flex";
 export { Flex };
 
+import { Grid, GridItem } from "./grid";
+export { Grid, GridItem };
+
 import { KImage, ImageGroup } from "./image";
 export { KImage, ImageGroup };
 
@@ -151,7 +154,7 @@ export { TreeSelect };
 import Tag from "./tag";
 export { Tag };
 
-import { Row, Col } from "./grid";
+import { Row, Col } from "./rowCol";
 export { Row, Col };
 
 import Upload from "./upload";

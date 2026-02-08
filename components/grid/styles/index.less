@@ -1,70 +1,9 @@
-@import "../../styles/less-css-var.less";
-
-.k-row {
-  display: flex;
-  box-sizing: border-box;
-  flex-flow: row wrap;
+.k-grid {
+  display: grid;
+  width: 100%;
 }
 
-.k-col {
-  position: relative;
-  max-width: 100%;
-  min-height: 1px;
-}
-
-@fix: ~"k-col";
-@counts: 24;
-
-.make_col(@index) when(@index>0) {
-  .@{fix}-@{index} {
-    display: block;
-    box-sizing: border-box;
-    max-width: percentage((@index / @counts));
-    flex: 0 0 percentage((@index / @counts));
-  }
-
-  .@{fix}-offset-@{index} {
-    margin-left: percentage((@index / @counts));
-  }
-
-  .make_col((@index - 1));
-}
-
-.make_col(@counts);
-
-.k-row-flex {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.k-row-flex-top {
-  align-items: flex-start;
-}
-
-.k-row-flex-middle {
-  align-items: center;
-}
-
-.k-row-flex-bottom {
-  align-items: flex-end;
-}
-
-.k-row-flex-start {
-  justify-content: flex-start;
-}
-
-.k-row-flex-end {
-  justify-content: flex-end;
-}
-
-.k-row-flex-center {
-  justify-content: center;
-}
-
-.k-row-flex-space-around {
-  justify-content: space-around;
-}
-
-.k-row-flex-space-between {
-  justify-content: space-between;
+.k-grid-item {
+  min-width: 0;
+  overflow: hidden;
 }

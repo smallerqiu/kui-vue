@@ -6,12 +6,12 @@
       <div class="btn-content">
         <Button
           class="start"
-          :icon="CaretForwardCircle"
-          size="large"
           type="link"
+          size="large"
           href="/start/getting-started"
         >
-          开始使用
+          快速上手
+          <Icon :type="ArrowForward" />
         </Button>
         <Button
           :icon="LogoGitee"
@@ -33,5 +33,5 @@
 import "@/src/assets/css/home.less";
 import AppHeader from "@/src/components/AppHeader.vue";
 import AppFooter from "@/src/components/AppFooter";
-import { LogoGitee, CaretForwardCircle } from "kui-icons";
+import { LogoGitee, ArrowForward } from "kui-icons";
 </script>

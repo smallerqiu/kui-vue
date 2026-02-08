@@ -22,7 +22,7 @@ const Demo = defineComponent({
     const viewRef = ref(null);
     const timer = ref(null);
     const buildState = reactive({
-      text: "实时编译成功",
+      text: "可实时编辑",
       state: "success",
     });
 

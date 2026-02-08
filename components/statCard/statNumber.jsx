@@ -1,5 +1,6 @@
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { withInstall } from "../utils/vue.js";
+import { getChildren } from "../utils/vnode.jsx";
 import CountUp from "./countup.jsx";
 import RollUp from "./rollup.jsx";
 const StatNumber = defineComponent({
@@ -24,6 +25,9 @@ const StatNumber = defineComponent({
     suffix: String,
   },
   setup(props, { slots }) {
+    const prefixNode = props.prefix || getChildren(slots.prefix?.());
+    const suffixNode = props.suffix || getChildren(slots.suffix?.());
+    console.log(prefixNode);
     return () => {
       const items = {
         modelValue: props.modelValue,
@@ -31,13 +35,13 @@ const StatNumber = defineComponent({
         duration: props.duration,
         precision: props.precision,
       };
-      const prefixNode = props.prefix || slots.prefix?.();
-      const suffixNode = props.suffix || slots.suffix?.();
+
+      console.log(prefixNode);
       return (
         <div class="k-stat-number">
-          {prefixNode && <span class="k-stat-number-prefix">{prefixNode}</span>}
+          {prefixNode?.length > 0 && <span class="k-stat-number-prefix">{prefixNode}</span>}
           {props.type === "rollup" ? <RollUp {...items} /> : <CountUp {...items} />}
-          {suffixNode && <span class="k-stat-number-suffix">{suffixNode}</span>}
+          {suffixNode?.length > 0 && <span class="k-stat-number-suffix">{suffixNode}</span>}
         </div>
       );
     };
