@@ -63,4 +63,4 @@ monitor.addEventListener("change", matchMode);
 
 在顶级元素上添加 'theme-mode=dark' 或者 'theme-mode=light' 属性 ，这个元素下的组件会使用对应模式的颜色变量。
 
-注意: 局部暗色/亮色对弹出层不生效
+> 注意: 局部暗色/亮色对弹出层不生效

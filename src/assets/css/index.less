@@ -1,6 +1,7 @@
 html {
-  --mwd: 1376px;
-  --swd: 272px;
+  --docs-body-width: 1376px;
+  --docs-sidebar-width: 272px;
+  --docs-header-height: 60px;
 }
 
 body {
@@ -37,8 +38,6 @@ samp,
   font-feature-settings: "kern";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
   font-synthesis: none;
 }
 
@@ -60,22 +59,34 @@ code {
 
 .k-layout {
   .header {
-    height: 60px;
-    background: rgba(255, 255, 255, 0.2);
+    height: var(--docs-header-height);
+    // background: rgba(255, 255, 255, 0.2);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    position: sticky;
+    background-color: var(--kui-color-bg);
+    position: fixed;
     width: 100%;
     top: 0;
     z-index: 1001;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     min-width: 1015px;
     padding: 0 20px;
     display: flex;
     align-items: center;
-
+    border-bottom: 1px solid var(--kui-color-border);
+    .k-menu-item,
+    .k-menu-submenu-active {
+      &:hover {
+        border-color: transparent;
+        color: var(--kui-color-primary);
+      }
+    }
+    .k-menu-item-selected,
+    .k-menu-submenu-active {
+      border-color: transparent;
+    }
     .header-inner {
-      width: var(--mwd);
+      width: var(--docs-body-width);
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -142,6 +153,7 @@ code {
   }
 
   .main {
+    padding-top: var(--docs-header-height);
     background: var(--kui-color-bg);
     display: block;
 
@@ -149,15 +161,15 @@ code {
       position: fixed;
       height: calc(100vh - 60px);
       top: 60px;
-      padding: 0 0 96px calc((100% - var(--mwd)) / 2);
-      max-width: calc((100% - var(--mwd)) / 2 + var(--swd));
+      padding: 0 0 96px calc((100% - var(--docs-body-width)) / 2);
+      max-width: calc((100% - var(--docs-body-width)) / 2 + var(--docs-sidebar-width));
 
       .min-menu-nav-btn {
         position: absolute;
         display: none;
       }
       .left-menu {
-        width: var(--swd);
+        width: var(--docs-sidebar-width);
         padding-bottom: 20px;
         padding-top: 30px;
         height: 100%;
@@ -171,7 +183,7 @@ code {
 
     & > .k-layout-content {
       padding-top: 20px;
-      padding-left: calc((100vw - var(--mwd)) / 2 + var(--swd) + 30px);
+      padding-left: calc((100vw - var(--docs-body-width)) / 2 + var(--docs-sidebar-width) + 30px);
       width: 1066px;
 
       .footer {
@@ -182,10 +194,10 @@ code {
 }
 
 .foot-nav {
-  margin-top: 40px;
+  margin: 40px 0;
   display: flex;
   justify-content: space-between;
-
+  gap: 16px;
   a {
     flex: 1;
     padding: 20px;
@@ -196,6 +208,7 @@ code {
     border-radius: 12px;
     color: var(--kui-color-text);
     text-decoration: none;
+    gap: 8px;
 
     &:hover {
       color: var(--kui-color-text);
@@ -208,20 +221,7 @@ code {
   }
 
   .nav-prev {
-    margin-right: 10px;
     text-align: right;
-
-    .nav-text {
-      margin-right: 10px;
-    }
-  }
-
-  .nav-next {
-    margin-left: 10px;
-
-    .nav-text {
-      margin-left: 10px;
-    }
   }
 
   .web-icon {
@@ -322,7 +322,7 @@ html[theme-mode="dark"] {
 }
 @media (max-width: 1399px) {
   .k-layout .main > .k-layout-content {
-    padding-left: var(--swd);
+    padding-left: var(--docs-sidebar-width);
     width: auto;
 
     .content-inner {
@@ -536,5 +536,33 @@ html[theme-mode="dark"] {
         margin-left: 0;
       }
     }
+  }
+}
+
+blockquote {
+  margin: 20px 0;
+  padding: 20px 10px 20px 40px;
+  background-color: var(--kui-color-bg-component);
+  border-radius: var(--kui-border-radius);
+  position: relative;
+  &::before {
+    content: "ⓘ";
+    position: absolute;
+    font-weight: 600;
+    font-size: 15px;
+    top: 22px;
+    left: 16px;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+    line-height: 22px;
+  }
+  ul {
+    padding: 0 0 0 20px;
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--kui-color-text-description);
   }
 }

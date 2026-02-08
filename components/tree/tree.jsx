@@ -52,7 +52,7 @@ const Tree = defineComponent({
                 targetNode.loading = false;
                 targetNode.expanded = true;
 
-                // 注意：这里通常不需要手动把数据 push 进 children。
+                // 这里通常不需要手动把数据 push 进 children。
                 // 因为外部数据变更会触发 watch(() => ps.data)，
                 // 从而触发 buildTree 重新渲染整个树。
                 // 只需要确保 expandedKeys 里有这个 key 即可。

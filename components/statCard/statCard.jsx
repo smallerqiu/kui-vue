@@ -10,17 +10,21 @@ const StatCard = defineComponent({
     items: { type: Array, default: () => [] },
     separator: String,
     statNumberType: String,
+    reverse: Boolean,
     bordered: { type: Boolean, default: false },
   },
   setup(props, { slots }) {
     return () => {
       return (
         <div class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}>
-          <div class="k-stat-card-title">{props.title}</div>
+          {props.title && <div class="k-stat-card-title">{props.title}</div>}
           <div class="k-stat-card-items">
             {(props.items || []).map((item, index) => {
               return (
-                <div key={index} class="k-stat-card-item">
+                <div
+                  key={index}
+                  class={["k-stat-card-item", { "k-stat-card-item-reverse": props.reverse }]}
+                >
                   <div class="k-stat-card-item-value">
                     <StatNumber
                       v-slots={{

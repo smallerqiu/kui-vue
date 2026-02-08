@@ -1,17 +1,12 @@
 # Tabs 标签页
 
-<en>
-### Tabs
-Tab switching component.
+选项卡切换组件。
 
-### When to use
+## 何时使用
 
-Provide areas to organize and display large blocks of content in a clean interface.
+提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
 
-- Card-style tabs with closable style, commonly used at the top of a container.
-- Standard tab bar with plain lines for primary container switching; most commonly used Tabs.
+- 卡片式的页签，提供可关闭的样式，常用于容器顶部。
+- 标准线条式页签，用于容器内部的主功能切换，这是最常用的 Tabs。
 
-### Demos
-
-</en>
-## Code Demos
+## 代码演示

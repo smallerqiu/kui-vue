@@ -29,26 +29,26 @@
           <h3><span>App icons</span></h3>
         </div>
         <br />
-        <div class="icon-list">
-          <span v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
+        <Grid class="icon-list" :itemMinWidth="130">
+          <GridItem v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-          </span>
-        </div>
+          </GridItem>
+        </Grid>
       </template>
       <template v-if="logo.length">
         <h3>Logos</h3>
-        <div class="icon-list">
-          <span v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
+        <Grid class="icon-list" :itemMinWidth="130">
+          <GridItem v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
             <Icon :type="icons[x]" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
-          </span>
-        </div>
+          </GridItem>
+        </Grid>
       </template>
       <h3
         v-if="!showIcons.length && !logo.length"
@@ -113,13 +113,11 @@ const copyHandle = (name) => {
 <style lang="less">
 .icon-list {
   // overflow: hidden;
-  display: inline-block;
+  // display: inline-block;
 
   .icon-item {
     text-align: center;
-    width: 128px;
     height: 80px;
-    line-height: 80px;
     color: var(--kui-color-font);
     display: inline-flex;
     flex-direction: column;

@@ -16,7 +16,7 @@
           :open-keys="openKeys"
           @select="go"
         >
-          <SubMenu v-for="item in navData" :key="item.key" :title="item.title" :name="item.title">
+          <MenuGroup v-for="item in navData" :key="item.key" :title="item.title" :name="item.title">
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
                 <WebIcon :name="sub.icon" />
@@ -32,7 +32,7 @@
                 </template>
               </router-link>
             </MenuItem>
-          </SubMenu>
+          </MenuGroup>
         </Menu>
       </Sider>
       <Content>
@@ -64,7 +64,7 @@
             <Icon :type="ChevronForward" />
           </a>
         </div>
-        <AppFooter />
+        <!-- <AppFooter /> -->
       </Content>
     </Layout>
   </Layout>
@@ -72,7 +72,7 @@
 
 <script setup>
 import AppHeader from "./AppHeader";
-import AppFooter from "./AppFooter";
+// import AppFooter from "./AppFooter";
 import WebIcon from "./WebIcon";
 import { routeData, navData } from "../menu";
 import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
@@ -93,10 +93,12 @@ const link = (e, t) => {
 };
 const go = ({ key, keyPath }) => {
   // console.log(key, keyPath);
-  let [n] = keyPath;
-  let path = `/${n}/${key}`;
-  proxy.$router.push(path);
-  setActiveKey({ path });
+  // return;
+  // console.log(key, keyPath);
+  // let [n] = keyPath;
+  // let path = `/${n}/${key}`;
+  // proxy.$router.push(path);
+  // setActiveKey({ path });
   showMiniNav.value = false;
 };
 const getPath = (name) => {
