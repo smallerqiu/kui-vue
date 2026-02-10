@@ -11,7 +11,7 @@ import {
   cloneVNode,
   Transition,
 } from "vue";
-import { Row, Col } from "../grid";
+import { Row, Col } from "../rowCol";
 import { getChildren } from "../utils/vnode";
 import zhCN from "../locale/zh-CN";
 
