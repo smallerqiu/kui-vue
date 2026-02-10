@@ -5,7 +5,7 @@ import Range from "./range.md";
 import Theme from "./theme.md";
 import Presets from "./presets.md";
 import Disabled from "./disabled.md";
-import DisabledDate from "./disabled-date.md";
+import DisabledDate from "./disabledDate.md";
 import Size from "./size.md";
 import Lang from "./lang.md";
 import CN from "../index.md";

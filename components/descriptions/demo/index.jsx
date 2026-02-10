@@ -2,8 +2,8 @@ import Basic from "./basic.md";
 import Info from "./info.md";
 import Bordered from "./bordered.md";
 import Size from "./size.md";
-import Layout from "./layout.md";
-import LayoutBordered from "./layout-bordered.md";
+import Vertical from "./vertical.md";
+import VerticalBordered from "./verticalBordered.md";
 import CN from "../index.md";
 export default {
   render() {
@@ -13,8 +13,8 @@ export default {
         <Basic />
         <Bordered />
         <Size />
-        <Layout />
-        <LayoutBordered />
+        <Vertical />
+        <VerticalBordered />
         <CN />
       </div>
     );
