@@ -78,7 +78,7 @@
     "@vue/babel-plugin-jsx": "^2.0.1",
     "@vue/babel-preset-jsx": "^1.4.0",
     "@vue/compiler-sfc": "3.5.27",
-    "@vueuse/core": "^14.2.0",
+    "@vueuse/core": "^14.2.1",
     "autoprefixer": "^10.4.24",
     "fast-glob": "^3.3.3",
     "hash-sum": "^2.0.0",

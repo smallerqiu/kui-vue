@@ -1,6 +1,6 @@
 import Info from "./info.md";
 import Basic from "./basic.md";
-import SizerElevator from "./sizer-elevator.md";
+import SizerElevator from "./sizerElevator.md";
 import Size from "./size.md";
 import CN from "../index.md";
 export default {

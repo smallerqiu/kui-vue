@@ -1,6 +1,6 @@
 import Info from "./info.md";
 import Basic from "./basic.md";
-import FileList from "./file-list.md";
+import FileList from "./fileList.md";
 import Accept from "./accept.md";
 import Transform from "./transform.md";
 import Exceed from "./exceed.md";

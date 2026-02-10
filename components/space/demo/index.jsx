@@ -3,12 +3,12 @@ import Basic from "./basic.md";
 import Vertical from "./vertical.md";
 import Align from "./align.md";
 import Size from "./size.md";
-import CustomSize from "./custom-size.md";
+import CustomSize from "./customSize.md";
 import Warp from "./wrap.md";
 import Split from "./split.md";
 import Compact from "./compact.md";
-import CompactButton from "./compact-button.md";
-import CompactButtonVertical from "./compact-button-vertical.md";
+import CompactButton from "./compactButton.md";
+import CompactButtonVertical from "./compactVertical.md";
 
 import CN from "../index.md";
 export default {
