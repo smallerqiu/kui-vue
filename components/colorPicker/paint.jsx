@@ -51,7 +51,7 @@ export default defineComponent({
         // 通过hsv 计算xy不能反推
         const [h, s, v] = Color(currentColor.value).hsv().array();
         const x = (s / 100) * width; // s 为 0~100，映射到宽度
-        const y = height - (v / 100) * height; // v 为 0~100，映射到高度（注意你是从上白到下黑）
+        const y = height - (v / 100) * height; // v 为 0~100，映射到高度（从上白到下黑）
         dotPos.x = x - 7;
         dotPos.y = y - 7;
       }

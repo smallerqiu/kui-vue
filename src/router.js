@@ -86,6 +86,7 @@ let children = [
   },
   { path: "/forms/form", component: () => import("../components/form/demo") },
   { path: "/layouts/flex", component: () => import("../components/flex/demo") },
+  { path: "/layouts/row-col", component: () => import("../components/rowCol/demo") },
   { path: "/layouts/grid", component: () => import("../components/grid/demo") },
   { path: "/data/image", component: () => import("../components/image/demo") },
   { path: "/forms/input", component: () => import("../components/input/demo") },

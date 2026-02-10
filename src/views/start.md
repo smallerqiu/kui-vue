@@ -1,5 +1,10 @@
 # 快速上手
 
+> 你正在阅读的是 基于 Vue 3 的文档！
+>
+> - Vue 2 已于 2023 年 12 月 31 日停止维护
+> - 基于 Vue 2 的 UI 库已经停止维护,请尽快升级
+
 在开始之前，如果您刚开始接触Vue，建议您先细看 Vue及其相关文档： [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools)
 
 ## 1. 初始化一个项目
@@ -58,7 +63,7 @@ app.use(kui).mount("#app");
 ```html
 <template>
   <div>
-    <KSwitch type="primary"/> ✅ 推荐 
+    <KSwitch type="primary" /> ✅ 推荐 
     <KImage src="xxx" /> ✅
     <!-- ok -->
     <k-switch type="primary" /> ✅ 

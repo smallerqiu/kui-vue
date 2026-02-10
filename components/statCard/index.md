@@ -1,12 +1,13 @@
 ## StatCard API
 
-| 属性           | 说明         | 类型              | 默认值    |
-| -------------- | ------------ | ----------------- | --------- |
-| title          | 卡片标题     | String            | -         |
-| items          | 展示的数据   | Array             | []        |
-| precision      | 数值精度     | Number            | 0         |
-| statNumberType | 数值变化类型 | `rollup, countup` | 'countup' |
-| separator      | 分隔符       | String            | -         |
+| 属性           | 说明                      | 类型              | 默认值    |
+| -------------- | ------------------------- | ----------------- | --------- |
+| title          | 卡片标题                  | String            | -         |
+| items          | 展示的数据                | Array             | []        |
+| precision      | 数值精度                  | Number            | 0         |
+| statNumberType | 数值变化类型              | `rollup, countup` | 'countup' |
+| separator      | 分隔符                    | String            | -         |
+| reverse        | 数值/数值描述是否反相排列 | Boolean           | false     |
 
 ### items Options
 

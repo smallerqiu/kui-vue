@@ -1,4 +1,4 @@
-import Row from "./row.jsx";
-import Col from "./col.jsx";
+import Grid from "./grid.jsx";
+import GridItem from "./gridItem.jsx";
 
-export { Row, Col };
+export { Grid, GridItem };
