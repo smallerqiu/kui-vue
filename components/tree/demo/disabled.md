@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Disabled Node
-Setting the `disabled` attribute disables the node.
-</en>
+Set the `disabled` attribute to disable a node.
+ </en>
 
 ```vue
 <template>

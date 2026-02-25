@@ -2,6 +2,10 @@
 ### 基本用法 
 基本用法 
 </cn>
+<en>
+### Basic Usage 
+Basic usage. 
+</en>
 
 ```vue
 <template>

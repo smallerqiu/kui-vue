@@ -3,8 +3,8 @@
 可以在页签右边添加附加操作。
 </cn>
 <en>
-### Extra Content
-You can add extra actions on the right side of the tabs.
+### Extra Content 
+You can add extra operations to the right of the tabs.
 </en>
 
 ```vue

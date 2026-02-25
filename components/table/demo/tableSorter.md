@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Sorting
-Set sorter to true to enable sorting of the data; if sorter is a function, you can provide a custom sorting rule.
-</en>
+`sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
+ </en>
 
 ```vue
 <template>

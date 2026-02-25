@@ -2,6 +2,10 @@
 ### 基本用法
 通过 `href` 添加跳转链接
 </cn>
+<en>
+### Basic Usage
+Add navigation links via `href`.
+</en>
 
 ```vue
 <template>

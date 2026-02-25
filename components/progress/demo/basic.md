@@ -2,6 +2,10 @@
 ### 进度条
 标准的进度条。
 </cn>
+<en>
+### Progress Bar
+A standard progress bar.
+</en>
 
 ```vue
 <template>

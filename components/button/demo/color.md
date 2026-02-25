@@ -2,6 +2,10 @@
 ### 多彩
 使用 `color` 可以衍生出更多的变体按钮。
 </cn>
+<en>
+### Color Variants
+Use `color` to create more button variants.
+</en>
 
 ```vue
 <template>

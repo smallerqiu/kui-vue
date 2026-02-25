@@ -2,6 +2,10 @@
 ### 自动播放
 通过设置 `autoplay` ，可实现定时自动播放，通过 `delay` 设置间隔播放时间，默认 `3000` ，单位毫秒 
 </cn>
+<en>
+### Autoplay
+Enable timed autoplay by setting `autoplay`. Use `delay` to set the interval. The default is `3000` milliseconds.
+</en>
 
 ```vue
 <template>

@@ -2,26 +2,30 @@
 ### 自定义
 自定义图片、描述、附属内容。
 </cn>
+<en>
+### Custom
+Customize the image, description, and extra content.
+</en>
 
 ```vue
 <template>
   <Space vertical block>
     <Empty
       image="https://cdn.chuchur.com/img/thumb.png"
-      description="暂时没有图片"
+      description="No image"
       :imageStyle="{ height: '60px' }"
     >
-      <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
+      <Button type="primary" circle :icon="Add" size="small">Upload a image</Button>
     </Empty>
-    <br />
+    <br />z
     Use slot
     <br />
     <Empty>
-      <template #description>暂时没有<a>图片</a></template>
+      <template #description>Currently no <a>images</a></template>
       <template #image>
         <img src="https://cdn.chuchur.com/img/thumb.png" style="height:60px" />
       </template>
-      <Button type="primary" circle :icon="Add" size="small">上传图片</Button>
+      <Button type="primary" circle :icon="Add" size="small">Upload a image</Button>
     </Empty>
   </Space>
 </template>

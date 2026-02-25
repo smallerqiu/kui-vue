@@ -2,6 +2,10 @@
 ### 多彩徽标
 多种预设色彩的徽标样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
 </cn>
+<en>
+### Colorful Badge
+Multiple preset color styles for different scenarios. If presets do not meet your needs, you can set a specific color value.
+</en>
 
 ```vue
 <template>

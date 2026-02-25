@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Basic Usage
-The simplest usage; shows selectable items and default expanded behavior.
-</en>
+The simplest usage, showing selectable items with default expansion.
+ </en>
 
 ```vue
 <template>

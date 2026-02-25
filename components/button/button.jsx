@@ -1,4 +1,4 @@
-import { defineComponent, inject, computed } from "vue";
+import { defineComponent, inject, computed, Comment } from "vue";
 import Icon from "../icon";
 import { Loading } from "kui-icons/dist/icons";
 import { getChildren } from "../utils/vnode";

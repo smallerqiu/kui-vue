@@ -2,15 +2,19 @@
 ### 基本用法
 通过 `v-model` 双向绑定 `Drawer` 是否展示 , title 为null或false时不显示标题
 </cn>
+<en>
+### Basic Usage
+Use `v-model` for two-way binding to control whether the `Drawer` is displayed. If `title` is null or false, the title is not shown.
+</en>
 
 ```vue
 <template>
   <div>
     <Space wrap>
-      <Button @click="show = !show">普通抽屉</Button>
+      <Button @click="show = !show">Open</Button>
       <Button @click="show2 = !show2">Width 30%</Button>
-      <Button @click="show3 = !show3">点蒙层不关闭</Button>
-      <Button @click="show4 = !show4">没有蒙层</Button>
+      <Button @click="show3 = !show3">Click mask can't close</Button>
+      <Button @click="show4 = !show4">No mask</Button>
     </Space>
     <Drawer v-model="show" :footer="null" @ok="show = false">
       <p>something ...</p>

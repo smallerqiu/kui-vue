@@ -2,15 +2,19 @@
 ### 表单模式
 内容将呈现表单模式，有页头和页尾, 可自定义页尾
 </cn>
+<en>
+### Form Mode
+Content will be presented in form mode, with a header and footer, and the footer can be customized.
+</en>
 
 ```vue
 <template>
   <div>
     <Space>
-      <Button @click="show1 = true">普通表单</Button>
-      <Button @click="show2 = true">自定义</Button>
+      <Button @click="show1 = true">Drawer with forms</Button>
+      <Button @click="show2 = true">Custom</Button>
     </Space>
-    <Drawer v-model="show1" title="表单验证" @ok="submitForm" @cancel="resetForm" footer>
+    <Drawer v-model="show1" title="Forms valid" @ok="submitForm" @cancel="resetForm" footer>
       <Form
         ref="refForm"
         :model="form"
@@ -29,37 +33,37 @@
           <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
         </FormItem>
         <FormItem label="Radio" prop="radio">
-          <Radio>男</Radio>
+          <Radio>Man</Radio>
         </FormItem>
         <FormItem label="RadioGroup" prop="radios">
           <RadioGroup>
-            <Radio value="0" label="武汉" />
-            <Radio value="1" label="深圳" />
-            <Radio value="2" label="杭州" />
+            <Radio value="0" label="Wuhan" />
+            <Radio value="1" label="Shenzhen" />
+            <Radio value="2" label="Hangzhou" />
           </RadioGroup>
         </FormItem>
         <FormItem label="Checkbox" prop="checkbox">
-          <Checkbox>男</Checkbox>
+          <Checkbox>Man</Checkbox>
         </FormItem>
         <FormItem label="CheckboxGroup" prop="checkbox_group">
           <CheckboxGroup>
-            <Checkbox value="0" label="武汉" />
-            <Checkbox value="1" label="杭州" />
-            <Checkbox value="2" label="上海" />
-            <Checkbox value="3" label="北京" />
+            <Checkbox value="0" label="Wuhan" />
+            <Checkbox value="1" label="Hangzhou" />
+            <Checkbox value="2" label="Shanghai" />
+            <Checkbox value="3" label="Beijing" />
           </CheckboxGroup>
         </FormItem>
         <FormItem label="Text" prop="textarea">
-          <TextArea placeholder="情输入..." />
+          <TextArea placeholder="Please enter something..." />
         </FormItem>
       </Form>
     </Drawer>
-    <Drawer v-model="show2" title="我是自定义标题">
-      <p>我是自定义内容</p>
+    <Drawer v-model="show2" title="I am custom title">
+      <p>Content...</p>
       <template #footer>
-        <Button>取消</Button>
-        <Button type="danger">驳回</Button>
-        <Button>通过</Button>
+        <Button>Cancel</Button>
+        <Button type="danger">Reject</Button>
+        <Button>Inject</Button>
       </template>
     </Drawer>
   </div>
@@ -103,10 +107,10 @@ const rules = {
 const submitForm = () => {
   refForm.value.validate(({ valid }) => {
     if (valid) {
-      message.success("验证通过");
+      message.success("Successfully");
       show1.value = false;
     } else {
-      message.error("验证失败");
+      message.error("Failed");
     }
   });
 };

@@ -4,12 +4,12 @@
 </cn>
 <en>
 ### Basic Usage (Using render)
-Use a custom render to render the table cells.
+Use custom `render` to initialize the table.
 </en>
 
 ```vue
 <template>
-  <Table :data="data" :sticky="52" :columns="columns" />
+  <Table :data="data" :columns="columns" />
 </template>
 <script setup>
 import { modal, Icon, Space, Button, Tag } from "kui-vue";
@@ -67,17 +67,22 @@ const columns = [
     title: "Tags",
     key: "tags",
     render: (h, { tags }, i) => {
-      return h(Space, {}, [
-        tags.map(function (tag) {
-          return h(
-            Tag,
-            {
-              color: tag == "Python" ? "green" : "blue",
-            },
-            tag
-          );
-        }),
-      ]);
+      return h(
+        Space,
+        {},
+        {
+          default: () =>
+            tags.map(function (tag) {
+              return h(
+                Tag,
+                {
+                  color: tag == "Python" ? "green" : "blue",
+                },
+                { default: () => tag }
+              );
+            }),
+        }
+      );
     },
   },
   {
@@ -95,7 +100,7 @@ const columns = [
             });
           },
         },
-        "more"
+        { default: () => "more" }
       );
     },
   },

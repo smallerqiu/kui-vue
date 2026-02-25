@@ -2,6 +2,10 @@
 ### 扩展, 前缀和后缀
 suffix，prefix 扩展
 </cn>
+<en>
+### Extension, Prefix and Suffix
+suffix, prefix extension
+</en>
 
 ```vue
 <template>

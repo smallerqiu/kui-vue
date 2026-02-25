@@ -2,6 +2,10 @@
 ### 浅色主题
 浅色主题
 </cn>
+<en>
+### Light Theme
+Light theme.
+</en>
 
 ```vue
 <template>

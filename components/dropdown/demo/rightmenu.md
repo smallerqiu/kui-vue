@@ -2,6 +2,10 @@
 ### 右键菜单
 默认是移入触发菜单，可以点击鼠标右键触发。
 </cn>
+<en>
+### Right-click menu  
+By default, the menu is triggered by hovering, but it can also be triggered by clicking the right mouse button.
+</en>
 
 ```vue
 <template>

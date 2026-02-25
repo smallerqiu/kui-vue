@@ -2,13 +2,17 @@
 ### 提示框
 全局的确认提示框，可以异步关闭
 </cn>
+<en>
+### Confirmation Dialog
+A global confirmation dialog that can be closed asynchronously.
+</en>
 
 ```vue
 <template>
   <Space vertical>
-    <Button @click="confirm()">标准调用</Button>
-    <Button @click="custom()">国际化</Button>
-    <Button @click="Async()">异步关闭</Button>
+    <Button @click="confirm()">Confirm</Button>
+    <Button @click="custom()">Internationalization</Button>
+    <Button @click="Async()">Asynchronous shutdown</Button>
     <Button @click="closeAll()">Close All</Button>
   </Space>
 </template>
@@ -18,13 +22,13 @@ import { modal, message } from "kui-vue";
 
 const confirm = () => {
   modal.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+    title: "Are you sure to do this?",
+    content: "This operation is irreversible, proceed with caution!!!",
     onOk: () => {
-      message.success("你点了确认");
+      message.success("you clicked ok");
     },
     onCancel: () => {
-      message.info("你点了取消");
+      message.info("you clicked cancel");
     },
   });
 };
@@ -38,8 +42,8 @@ const custom = () => {
 };
 const Async = () => {
   modal.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
+    title: "Are you sure to do this?",
+    content: "This operation is irreversible, proceed with caution!!!",
     onOk: () => {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, 2000);
@@ -55,8 +59,8 @@ const closeAll = () => {
     setTimeout((e) => {
       modal.confirm({
         title: "Destroy All",
-        content: "给你一个惊喜！",
-        cancelText: "全部关闭",
+        content: "A surprise of the universe",
+        cancelText: "Close all",
         onCancel: () => {
           modal.destroyAll();
         },

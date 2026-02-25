@@ -2,19 +2,23 @@
 ### 基本用法
 `Notice` 的基本用法
 </cn>
+<en>
+### Basic Usage
+Basic usage of `Notice`.
+</en>
 
 ```vue
 <template>
   <Space vertical>
-    <Button @click="info" type="primary">普通提示</Button>
+    <Button @click="info" type="primary">Notice</Button>
   </Space>
 </template>
 <script setup>
 import { notice } from "kui-vue";
 const info = () => {
   notice.open({
-    title: "通知的标题",
-    content: "通知的描述",
+    title: "Title",
+    content: "The content of the notice.",
     duration: 5,
   });
 };

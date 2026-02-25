@@ -2,6 +2,10 @@
 ### 其他字符
 可以将星星替换为其他字符，比如字母，数字，字体图标甚至中文。
 </cn>
+<en>
+### Other Characters
+Stars can be replaced with other characters, such as letters, numbers, font icons, or even Chinese characters.
+</en>
 
 ```vue
 <template>

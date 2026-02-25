@@ -5,7 +5,8 @@ Flex 布局基础。
 </cn>
 <en>
 ### Flex Layout
-Flex layout basics. Use Row flex to define a flex layout; its children align according to values like start, center, end, space-between, and space-around.
+Flex layout basics.
+Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.
 </en>
 
 ```vue

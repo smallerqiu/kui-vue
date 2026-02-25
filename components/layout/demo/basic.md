@@ -2,6 +2,10 @@
 ### 典型布局
 典型的页面布局。
 </cn>
+<en>
+### Typical Layout
+A typical page layout.
+</en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 线条粗细
 可以通过 `strokeWidth` 属性设置图标的线条。
 </cn>
+<en>
+### Stroke Width
+You can set the icon's stroke width via the `strokeWidth` attribute.
+</en>
 
 ```vue
 <template>

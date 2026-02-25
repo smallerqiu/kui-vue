@@ -2,6 +2,10 @@
 ### 箭头
 可以展示一个箭头。
 </cn>
+<en>
+### Arrow
+An arrow can be displayed.
+</en>
 
 ```vue
 <template>

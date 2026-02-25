@@ -2,6 +2,10 @@
 ### 缩起内嵌菜单
 内嵌菜单可以被缩起/展开。
 </cn>
+<en>
+### Collapsible Inline Menu
+Inline menus can be collapsed/expanded.
+</en>
 
 ```vue
 <template>

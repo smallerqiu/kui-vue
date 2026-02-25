@@ -2,6 +2,10 @@
 ### 基本用法
 基本用法 ,使用 keyboard 属性可以控制键盘行为。
 </cn>
+<en>
+### Basic Usage
+Basic usage. The `keyboard` attribute can control keyboard behavior.
+</en>
 
 ```vue
 <template>

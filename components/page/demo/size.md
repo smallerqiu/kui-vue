@@ -2,6 +2,10 @@
 ### 尺寸
 展示小尺寸。
 </cn>
+<en>
+### Size
+Display small size.
+</en>
 
 ```vue
 <template>

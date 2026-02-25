@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Checkable
-Use checkboxes to enable multi-select.
-</en>
+Use checkboxes to enable multi-selection.
+ </en>
 
 ```vue
 <template>

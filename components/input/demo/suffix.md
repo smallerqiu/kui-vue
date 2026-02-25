@@ -2,28 +2,32 @@
 ### 扩展, 前缀和后缀
 suffix，prefix 扩展
 </cn>
+<en>
+### Extension, Prefix and Suffix
+suffix, prefix extension.
+</en>
 
 ```vue
 <template>
   <Space vertical block>
-    <Input placeholder="请输入用户名" :icon="PersonOutline" />
-    <Input placeholder="请输入验证码" :maxlength="8">
+    <Input placeholder="Please input username" :icon="PersonOutline" />
+    <Input placeholder="Please input the captcha" :maxlength="8">
       <template #suffix>
-        <Button :disabled="time < 60" style="width:100px;" @click="sendCode">
-          {{ time == 60 ? "获取验证码" : time + "(s)" }}
+        <Button :disabled="time < 60" @click="sendCode">
+          {{ time == 60 ? "Get verification code" : time + "(s)" }}
         </Button>
       </template>
     </Input>
-    <Input placeholder="请填写你要喝的Coffee" :icon="Gift">
+    <Input placeholder="Please input" :icon="Gift">
       <template #suffix>
-        <Tooltip title="请咨询管理员">
-          <Icon :type="InformationCircleOutline" />
+        <Tooltip title="Please contact the administrator">
+          <Button :icon="InformationCircleOutline" />
         </Tooltip>
       </template>
     </Input>
-    <Input placeholder="请输入金额" suffix="RMB" prefix="¥" />
-    <Input placeholder="请输入域名" suffix=".com" prefix="https://" />
-    <Input placeholder="输入内容" prefix="www.">
+    <Input placeholder="Please enter the amount" suffix="RMB" prefix="¥" />
+    <Input placeholder="Please enter the domain" suffix=".com" prefix="https://" />
+    <Input placeholder="Please input" prefix="www.">
       <template #prefix>
         <Select :options="options" clearable value="http"></Select>
       </template>
@@ -31,8 +35,8 @@ suffix，prefix 扩展
         <Select :options="list" clearable value=".com"></Select>
       </template>
     </Input>
-    <Input placeholder="请输入金额" suffix=".00" />
-    <Input placeholder="输入内容" prefix="www.">
+    <Input placeholder="Please input" suffix=".00" />
+    <Input placeholder="Please input" prefix="www.">
       <template #prefix>
         <Select :options="options" clearable value="http"></Select>
       </template>
@@ -55,12 +59,12 @@ const sendCode = () => {
     clearInterval(timer.value);
   }
   time.value = 59;
-  message.success("验证码发送成功，请注意查收");
+  message.success("Verification code sent successfully");
   timer.value = setInterval(() => {
-    time.value--; // 先减一更清晰
+    time.value--;
     if (time.value <= 0) {
       clearInterval(timer.value);
-      time.value = 60; // 重置状态
+      time.value = 60;
     }
   }, 1000);
 };

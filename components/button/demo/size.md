@@ -2,6 +2,10 @@
 ### 尺寸
 `small` 为小尺寸， `large` 为大尺寸
 </cn>
+<en>
+### Size
+`small` for small size, `large` for large size.
+</en>
 
 ```vue
 <template>

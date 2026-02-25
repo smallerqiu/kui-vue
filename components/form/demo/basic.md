@@ -2,6 +2,10 @@
 ### 典型表单
 包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
 </cn>
+<en>
+### Typical Form
+Includes various form items, such as input fields, selectors, switches, radio buttons, checkboxes, etc.
+</en>
 
 ```vue
 <template>
@@ -17,11 +21,11 @@
       :theme="state.isLight ? 'light' : ''"
       :shape="state.checked ? 'circle' : ''"
     >
-      <FormItem label="主题">
+      <FormItem label="Theme">
         <Checkbox v-model="state.isLight" label="Light" style="margin-right:8px;" />
         <Checkbox v-model="state.checked" label="Circle" />
       </FormItem>
-      <FormItem label="尺寸">
+      <FormItem label="Size">
         <RadioGroup v-model="state.size" type="button">
           <RadioButton value="large" label="Large" />
           <RadioButton value="default" label="Default" />

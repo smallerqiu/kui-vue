@@ -2,6 +2,10 @@
 ### 位置
 通过 `placement`控制方向, 位置有十二个方向。
 </cn>
+<en>
+### Position
+Control the direction via `placement`, with twelve available positions.
+</en>
 
 ```vue
 <template>
@@ -104,7 +108,7 @@
   </Flex>
 </template>
 <script setup>
-const tip = "明月几时有,把酒问青天!";
-const title = "标题";
+const tip = "See the light through the mist!";
+const title = "Title";
 </script>
 ```

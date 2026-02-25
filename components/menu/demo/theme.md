@@ -2,6 +2,10 @@
 ### 主题
 内建了两套主题 `light|dark`，默认 `light`。
 </cn>
+<en>
+### Theme
+Two built-in themes: `light|dark`, defaulting to `light`.
+</en>
 
 ```vue
 <template>

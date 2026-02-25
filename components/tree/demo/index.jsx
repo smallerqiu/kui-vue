@@ -1,4 +1,5 @@
-import Info from "./info.md";
+import InfoCn from "./info.md";
+import InfoEn from "./info.en_US.md";
 import Basic from "./basic.md";
 import Checkable from "./checkable.md";
 import CustomRender from "./customRender.md";
@@ -7,11 +8,23 @@ import Sync from "./sync.md";
 import Icon from "./icon.md";
 import Directory from "./directory.md";
 import CN from "../index.md";
+import EN from "../index.en_US.md";
+import { computed, inject } from "vue";
 export default {
+  setup() {
+    const locale = inject("locale");
+    const API = computed(() => {
+      return locale.value.name === "zh-cn" ? CN : EN;
+    });
+    const Info = computed(() => {
+      return locale.value.name === "zh-cn" ? InfoCn : InfoEn;
+    });
+    return { API, Info };
+  },
   render() {
     return (
       <div>
-        <Info />
+        <this.Info />
         <Basic />
         <Checkable />
         <CustomRender />
@@ -19,7 +32,7 @@ export default {
         <Sync />
         <Icon />
         <Directory />
-        <CN />
+        <this.API />
       </div>
     );
   },

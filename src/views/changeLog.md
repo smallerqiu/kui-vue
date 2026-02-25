@@ -3,7 +3,7 @@
 ![kui](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
 
 4.x 版本支持Vue3, 基于Vue2 的文档请参阅 <https://v3.k-ui.cn>
-遇到问题,请在 [Gitee](https://gitee.com/chuchur/kui-vue/issues) 提issue
+遇到问题,请在 [Github](https://github.com/smallerqiu/kui-vue/issues) 提issue
 
 ```bash
 npm install kui-vue@latest --registry=http://registry.npmjs.org
@@ -46,7 +46,7 @@ rm -rf node_modules/.vite
 
 ### More
 
-- 更多更新日志，请查看[V3版本](https://v3.k-ui.cn/#/log)
+- 更多更新日志，请查看[V3版本](https://v3.k-ui.cn/log)
 
 ## 2.3.5
 

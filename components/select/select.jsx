@@ -1,4 +1,4 @@
-import Option from "./option";
+import Option from "./option.jsx";
 import Icon from "../icon";
 import Empty from "../empty";
 import transfer from "../directives/transfer";
@@ -19,7 +19,6 @@ import {
   onBeforeUnmount,
   onMounted,
   computed,
-  onBeforeUpdate,
 } from "vue";
 
 const Select = defineComponent({

@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Basic Usage
-The simplest skeleton placeholder.
-</en>
+The simplest placeholder effect.
+ </en>
 
 ```vue
 <template>

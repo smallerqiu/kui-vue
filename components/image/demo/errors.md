@@ -2,6 +2,10 @@
 ### 容错处理
 加载失败显示图像占位符。
 </cn>
+<en>
+### Error Handling
+Show an image placeholder on load failure.
+</en>
 
 ```vue
 <template>

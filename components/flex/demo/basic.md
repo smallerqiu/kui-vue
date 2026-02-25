@@ -2,6 +2,10 @@
 ### 基本布局 
 最简单的用法。
 </cn>
+<en>
+### Basic Layout 
+The simplest usage.
+</en>
 
 ```vue
 <template>

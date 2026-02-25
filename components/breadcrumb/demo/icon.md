@@ -2,6 +2,10 @@
 ### 设置图标
 通过 `icon` 设置图标
 </cn>
+<en>
+### Set Icon
+Set the icon via `icon`.
+</en>
 
 ```vue
 <template>

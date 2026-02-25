@@ -5,7 +5,7 @@
 
 <en>
 ### Click to Upload
-Classic style: clicking the button opens the file picker.
+Classic style. When the user clicks the button, a file selection dialog pops up.
 </en>
 
 ```vue

@@ -2,6 +2,10 @@
 ### 手风琴
 设置 `accordion` 只允许同时展开一个面板
 </cn>
+<en>
+### Accordion
+Set `accordion` to allow only one panel to be expanded at a time.
+</en>
 
 ```vue
 <template>

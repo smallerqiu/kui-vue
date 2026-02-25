@@ -2,6 +2,10 @@
 ### 固定侧边栏
 当内容较长时，使用固定侧边栏可以提供更好的体验。
 </cn>
+<en>
+### Fixed Sidebar
+When content is long, a fixed sidebar provides a better user experience.
+</en>
 
 ```vue
 <template>

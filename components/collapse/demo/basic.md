@@ -2,6 +2,10 @@
 ### 基本用法
 默认可以同时展开一个或者多个面板
 </cn>
+<en>
+### Basic Usage
+By default, one or multiple panels can be expanded at the same time.
+</en>
 
 ```vue
 <template>

@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Custom Size
-Custom size, suitable for display in various containers.
+Customize the size to adapt to various containers.
 </en>
 
 ```vue
@@ -12,34 +12,34 @@ Custom size, suitable for display in various containers.
   <RadioGroup :options="types" v-model="size" type="button" />
   <br />
   <br />
-  <Descriptions title="订单信息" bordered :size="size">
+  <Descriptions title="Order Information" bordered :size="size">
     <template #extra>
-      <Button size="small" type="primary">更新信息</Button>
+      <Button size="small" type="primary">Update Information</Button>
     </template>
-    <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
-    <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
-    <DescriptionsItem label="电话">13888888888</DescriptionsItem>
-    <DescriptionsItem label="价格">￥ 199.99</DescriptionsItem>
-    <DescriptionsItem label="优惠金额">￥ 0.99</DescriptionsItem>
-    <DescriptionsItem label="实付金额">￥ 199.00</DescriptionsItem>
-    <DescriptionsItem label="备注信息" :span="5">
-      请把货物发至: <br />
-      湖北省武汉市洪山区 光谷 188号 <br />
-      让快递小哥轻拿轻放<br />
-      谢谢！
+    <DescriptionsItem label="Order Numbers">20202203302200</DescriptionsItem>
+    <DescriptionsItem label="Name">Qiu</DescriptionsItem>
+    <DescriptionsItem label="Phone">13888888888</DescriptionsItem>
+    <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
+    <DescriptionsItem label="Discount Amount">￥ 0.99</DescriptionsItem>
+    <DescriptionsItem label="Paid Amount">￥ 199.00</DescriptionsItem>
+    <DescriptionsItem label="Remark" :span="5">
+      Please deliver the goods to: <br />
+      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />
+      Kindly ask the courier to handle with care.<br />
+      Thank you!
     </DescriptionsItem>
   </Descriptions>
   <br />
   <br />
-  <Descriptions title="订单信息" :size="size">
+  <Descriptions title="Order Information" :size="size">
     <template #extra>
-      <Button size="small" type="primary">更新信息</Button>
+      <Button size="small" type="primary">Update Information</Button>
     </template>
-    <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
-    <DescriptionsItem label="价格">￥ 199.99</DescriptionsItem>
-    <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
-    <DescriptionsItem label="电话">13888888888</DescriptionsItem>
-    <DescriptionsItem label="收货地址"> 湖北省武汉市洪山区 光谷 188号 </DescriptionsItem>
+    <DescriptionsItem label="Order Numbers">20202203302200</DescriptionsItem>
+    <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
+    <DescriptionsItem label="Name">Qiu</DescriptionsItem>
+    <DescriptionsItem label="Phone">13888888888</DescriptionsItem>
+    <DescriptionsItem label="Shipping Address"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>
   </Descriptions>
 </template>
 <script setup>

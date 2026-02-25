@@ -2,6 +2,10 @@
 ### 切换菜单类型
 展示动态切换模式。
 </cn>
+<en>
+### Switch Menu Type
+Demonstrates dynamic mode switching.
+</en>
 
 ```vue
 <template>

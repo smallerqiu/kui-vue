@@ -1,6 +1,9 @@
 <cn>
 ### 只展示数字
 </cn>
+<en>
+### Display Numbers Only
+</en>
 
 ```vue
 <template>

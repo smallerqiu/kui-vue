@@ -2,6 +2,10 @@
 ### 尺寸/自定义
 size 可以控制操作杆的大小
 </cn>
+<en>
+### Size/Custom
+`size` can control the size of the handle.
+</en>
 
 ```vue
 <template>

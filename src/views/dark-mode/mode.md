@@ -2,10 +2,14 @@
 #### 切换主题
 简单的切换例子, 开箱即用
 </cn>
+<en>
+#### Switch Theme  
+A simple toggle example, ready to use out of the box
+</en>
 
 ```vue
 <template>
-  <Button theme="light" @click="switchMode">切换主题</Button>
+  <Button theme="light" @click="switchMode">Switch</Button>
 </template>
 
 <script setup>

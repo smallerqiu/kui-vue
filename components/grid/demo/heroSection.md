@@ -3,7 +3,8 @@
 `grid-column-start` 和 `grid-row-start` 的重叠能力,文字浮动在图片某处
 </cn>
 <en>
-### Hero Section
+### Hero Section Overlay Layout (Layering)
+The overlapping capability of `grid-column-start` and `grid-row-start`, with text floating over a specific part of an image.
 </en>
 
 ```vue

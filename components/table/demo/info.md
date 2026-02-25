@@ -29,15 +29,15 @@ const dataSource = [
 
 const columns = [
   {
-    title: '姓名',
+    title: 'Name',
     key: 'name',
   },
   {
-    title: '年龄',
+    title: 'Age',
     key: 'age',
   },
   {
-    title: '住址',
+    title: 'Address',
     key: 'address',
   },
 ];

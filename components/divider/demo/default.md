@@ -2,17 +2,21 @@
 ### 水平分割线
 默认为水平分割线，可在中间加入文字。
 </cn>
+<en>
+### Horizontal Divider
+Default is a horizontal divider, with text that can be added in the middle.
+</en>
 
 ```vue
 <template>
   <div>
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
+    <p>See the light through the mist.！</p>
     <Divider />
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
-    <Divider>李白</Divider>
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
+    <p>See the light through the mist.！</p>
+    <Divider>Text</Divider>
+    <p>See the light through the mist.！</p>
     <Divider dashed />
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
+    <p>See the light through the mist.！</p>
   </div>
 </template>
 ```

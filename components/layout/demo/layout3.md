@@ -2,6 +2,10 @@
 ### 顶部-侧边布局-通栏
 同样拥有顶部导航及侧边栏，区别是两边未留边距，多用于应用型的网站。
 </cn>
+<en>
+### Top-Side Layout - Full Width
+Also features top navigation and a sidebar, but differs in that there are no side margins, commonly used for application-type websites.
+</en>
 
 ```vue
 <template>

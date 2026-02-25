@@ -2,6 +2,10 @@
 ### 输入框组合
 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 </cn>
+<en>
+### Input Group
+Use `InputGroup` to tightly connect components and merge borders. Default is `true`.
+</en>
 
 ```vue
 <template>
@@ -58,7 +62,7 @@
     <InputGroup>
       <DatePicker mode="dateRange" />
       <Input :style="{ width: '30%' }" value="input content" />
-      <Button type="primary">查询</Button>
+      <Button type="primary">Query</Button>
     </InputGroup>
     <InputGroup>
       <Input :style="{ width: '30%' }" value="input content" />
@@ -79,7 +83,7 @@
         <Option value="1">Between</Option>
         <Option value="2">Except</Option>
       </Select>
-      <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
+      <Input :style="{ width: '100px', textAlign: 'center' }" placeholder="Minimum" />
       <Input
         :style="{
           width: '30px',
@@ -93,7 +97,7 @@
       <Input
         :style="{
           width: '100px',
-          textAlig: 'center',
+          textAlign: 'center',
         }"
         placeholder="Maximum"
       />

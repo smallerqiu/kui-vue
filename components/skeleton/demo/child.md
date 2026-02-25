@@ -3,23 +3,23 @@
 加载占位图包含子组件。
 </cn>
 <en>
-### Child Components
-Loading skeleton with child components.
+### Child Component
+Loading placeholder includes child components.
 </en>
 
 ```vue
 <template>
   <Skeleton :loading="loading" :rows="2" animated>
     <div class="skeleton-demo">
-      <h4>KUI是一套基于Vue.js的桌面UI组件库</h4>
+      <h4>KUI is a desktop UI component library based on Vue.js</h4>
       <p>
-        拥有数十个有用且美观的组件，非常友好的API，适合任何技能水平的同学，丰富的文档，支持Electron,SSR，Nuxt.js....
+        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...
       </p>
     </div>
   </Skeleton>
   <br />
   <br />
-  <Button :disabled="loading" @click="showSkeleton">重新加载</Button>
+  <Button :disabled="loading" @click="showSkeleton">Reload</Button>
 </template>
 <script setup>
 import { ref } from "vue";

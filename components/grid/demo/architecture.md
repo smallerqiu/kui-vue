@@ -7,11 +7,18 @@
 - 第三层：Row/Col —— 简单的 1D 比例划分（如底部的两个并排表格）。
 
 - 第四层：Flex —— 极细微的内容对齐（卡片标题 + 图标）。
-</cn>
+  </cn>
 
 <en>
-### Architecture
-</en>
+### Layout Hierarchy Design (Architecture)
+- Layer 1: Layout series — the main page skeleton (Header + Sider + Content).
+
+- Layer 2: Grid series — the primary 2D layout for the content area (stat cards, Bento chart matrix).
+
+- Layer 3: Row/Col — simple 1D proportional division (e.g., two side-by-side tables at the bottom).
+
+- Layer 4: Flex — extremely fine-grained content alignment (card title + icon).
+  </en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 条目 / 跳转
 改变每页显示条目数。
 </cn>
+<en>
+### Items / Jump
+Change the number of items displayed per page.
+</en>
 
 ```vue
 <template>

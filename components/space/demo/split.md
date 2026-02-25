@@ -3,8 +3,8 @@
 相邻组件分隔符。
 </cn>
 <en>
-### Separator
-Separator between adjacent components.
+### Divider
+Divider between adjacent components.
 </en>
 
 ```vue

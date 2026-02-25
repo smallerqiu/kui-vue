@@ -3,8 +3,8 @@
 选择不同配置组合查看效果。
 </cn>
 <en>
-### Dynamic Table Properties
-Experiment with different configuration combinations to see the effects.
+### Dynamically Control Table Properties
+Select different configuration combinations to see the effects.
 </en>
 
 ```vue
@@ -83,7 +83,7 @@ const data = [
   },
   {
     key: "3",
-    name: "Chuchur",
+    name: "Qiu",
     gender: 1,
     age: 28,
     address: "Wu Han Nanhu No. 188",

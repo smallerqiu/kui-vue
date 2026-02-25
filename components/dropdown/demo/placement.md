@@ -2,6 +2,10 @@
 ### 弹出位置
 支持 6 个弹出位置。
 </cn>
+<en>
+### Popup Position
+Supports 6 popup positions.
+</en>
 
 ```vue
 <template>

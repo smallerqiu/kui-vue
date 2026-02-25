@@ -1,0 +1,32 @@
+export default {
+  index: {
+    desc: "A set of desktop UI component library based on Vue.js",
+    btn_quick_start: "Quick Started",
+  },
+  text: {
+    components: "Components",
+    components_desc: "provides plenty of UI components to enrich your web applications",
+  },
+  menu: {
+    home: "Home",
+    components: "Components",
+    docs: "Docs",
+    langTip: "切换简体中文",
+    start: "Started",
+    universal: "Universal",
+    layout: "Layouts",
+    navigation: "Navigation",
+    form: "Forms",
+    data: "Data",
+    notice: "Notices",
+    other: "Others",
+    quick_start: "Quick Started",
+    usage_with_nuxt: "Usage With Nuxt",
+    language: "Multi Language",
+    change_log: "Change Log",
+    dark_mode: "Dark Mode",
+    docs_v3: "Docs v3.x (for vue2)",
+    docs_v2: "Docs v2.x",
+    docs_react: "Docs For React",
+  },
+};

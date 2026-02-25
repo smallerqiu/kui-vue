@@ -4,12 +4,12 @@
 </cn>
 <en>
 ### Custom Header and Footer
-Add borders to the table, header, and footer.
+Add table border lines, header, and footer.
 </en>
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" bordered :sticky="52">
+  <Table :data="data" :columns="columns" bordered>
     <template #fullname="{ value }">
       <a>{{ value }}</a>
     </template>

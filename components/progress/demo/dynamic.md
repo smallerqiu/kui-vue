@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Dynamic Display
-Animated progress bars show progress better.
+A moving progress bar is a good progress bar.
 </en>
 
 ```vue

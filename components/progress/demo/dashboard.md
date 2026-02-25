@@ -2,6 +2,10 @@
 ### 盘仪表进度条
 盘仪表进度条。可通过`gapDegree`调节缺口大小。`strokeLinecap="square|round"` 可以调整进度条边缘的形状。
 </cn>
+<en>
+### Dashboard-style Progress Bar
+Dashboard-style progress bar. Adjust the gap size via `gapDegree`. Use `strokeLinecap="square|round"` to adjust the shape of the progress bar's edges.
+</en>
 
 ```vue
 <template>

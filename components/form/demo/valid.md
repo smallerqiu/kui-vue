@@ -2,6 +2,10 @@
 #### 表单验证
 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
 </cn>
+<en>
+#### Form Validation
+Help users discover and correct errors as early as possible, while preventing mistakes.
+</en>
 
 ```vue
 <template>
@@ -30,7 +34,7 @@
       <FormItem label="Password" prop="password">
         <Input type="password" placeholder="Please enter password" />
       </FormItem>
-      <FormItem label="Confirm Password" prop="repassword">
+      <FormItem label="Confirm Password" prop="confirm_password">
         <Input type="password" placeholder="Please enter password" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
@@ -38,14 +42,8 @@
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
         <Input placeholder="Please enter captcha">
-          <Button
-            slot="suffix"
-            :size="size"
-            :disabled="time != 60"
-            style="width:100px;"
-            @click="sendCode"
-          >
-            {{ time == 60 ? "获取验证码" : time + "(s)" }}
+          <Button slot="suffix" :size="size" :disabled="time != 60" @click="sendCode">
+            {{ time == 60 ? "Get verification code" : time + "(s)" }}
           </Button>
         </Input>
       </FormItem>
@@ -92,7 +90,7 @@
       <FormItem label="Birthday" prop="birthday">
         <DatePicker clearable />
       </FormItem>
-      <FormItem label="Hobby" prop="hobby">
+      <FormItem label="Hobby" prop="hobbies">
         <CheckboxGroup>
           <Checkbox value="0" label="Football" />
           <Checkbox value="1" label="Music" />
@@ -104,7 +102,7 @@
         <KSwitch true-text="Yes" false-text="No" />
       </FormItem>
       <FormItem label="Other" prop="other">
-        <TextArea placeholder="最多只能输入10个字符" v-model="form.other" />
+        <TextArea placeholder="Maximum 10 characters" v-model="form.other" />
       </FormItem>
       <FormItem prop="readme" :wrapperCol="{ offset: 6 }">
         <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>
@@ -152,7 +150,7 @@ const form = ref({
   email: "",
   number: "",
   password: "",
-  repassword: "",
+  confirm_password: "",
   phone: "",
   captcha: "",
   slider: 3,
@@ -164,69 +162,79 @@ const form = ref({
   birthday: "",
   country: "",
   city: "",
-  hobby: [],
+  hobbies: [],
   hardcore: "",
   other: "",
   readme: false,
 });
 const rules = {
   email: [
-    { type: "mail", message: "请输入有效的电子邮箱" },
-    { required: true, message: "请输入电子邮箱" },
+    { type: "mail", message: "Please input a valid email" },
+    { required: true, message: "The email is required" },
   ],
   number: [
-    { type: "number", message: "请输入有效的请输入数字" },
-    { required: true, message: "请输入数字" },
+    { type: "number", message: "Please input a valid number" },
+    { required: true, message: "The number is required" },
   ],
   password: [
-    { min: 8, max: 20, message: "密码长度请控制在8-20位之间", trigger: "blur" },
-    { required: true, message: "请输入密码" },
+    {
+      min: 8,
+      max: 20,
+      message: "Please keep the password length between 8-20 digits.",
+      trigger: "blur",
+    },
+    { required: true, message: "The password is required" },
   ],
-  repassword: [
-    { min: 8, max: 20, message: "密码长度请控制在8-20位之间", trigger: "blur" },
+  confirm_password: [
+    {
+      min: 8,
+      max: 20,
+      message: "Please keep the password length between 8-20 digits.",
+      trigger: "blur",
+    },
     { validator: validatePass },
-    { required: true, message: "请重复输入密码" },
+    { required: true, message: "Please confirm the password" },
   ],
   phone: [
-    { type: "mobile", message: "请输入正确的手机号码" },
-    { required: true, message: "请输入手机号" },
+    { type: "mobile", message: "Please input the correct phone number" },
+    { required: true, message: "Please input your phone number" },
   ],
-  birthday: [{ required: true, message: "请选择出生日期" }],
-  country: [{ required: true, message: "请选择国家" }],
-  tree: [{ required: true, message: "请选择Food" }],
-  city: [{ required: true, message: "请选择城市" }],
+  birthday: [{ required: true, message: "Please select your birthday" }],
+  country: [{ required: true, message: "Please select your country" }],
+  tree: [{ required: true, message: "Please select your food" }],
+  city: [{ required: true, message: "Please select your city" }],
   captcha: [
-    { type: "number", message: "验证码为数字" },
-    { required: true, message: "请输入验证码" },
+    { type: "number", message: "The captcha must be a number" },
+    { required: true, message: "Please input the captcha" },
   ],
   slider: [
-    { min: 5, message: "最小值为5" },
-    { max: 50, message: "最大值为50" },
+    { min: 5, message: "Minimum value is 5" },
+    { max: 50, message: "Maximum value is 50" },
   ],
-  gender: [{ required: true, message: "请选择性别" }],
+  gender: [{ required: true, message: "Please select your gender" }],
   rate: [
-    { required: true, message: "请选择评分" },
-    { min: 1, message: "评分最小1分" },
+    { required: true, message: "Please select your rate" },
+    { min: 1, message: "The minimum value is 1" },
   ],
   one: [{ required: true, message: "霸王选项" }],
-  system: [{ required: true, message: "请选择系统类型" }],
+  system: [{ required: true, message: "Please select your system" }],
   hardcore: [{ required: true, message: "霸王选项" }],
   readme: [{ validator: validateReadme }],
-  hobby: [
-    { required: true, message: "请选择爱好" },
-    { max: 3, message: "最多只能选择3个爱好" },
-    { min: 2, message: "最少选择2个爱好" },
+  hobbies: [
+    { required: true, message: "Please select your hobbies" },
+    { max: 3, message: "Maximum value is 3" },
+    { min: 2, message: "Minimum value is 2" },
   ],
   other: [
-    { required: true, message: "请填写其他信息" },
-    { max: 10, message: "最多只能输入10个字符" },
+    { required: true, message: "Please fill in other information" },
+    { max: 10, message: "Maximum characters is 10" },
   ],
 };
 const setValue = () => {
   form.value = {
     email: "master@k-ui.cn",
     password: "abc@123@123",
-    repassword: "abc@123@123",
+    confirm_password: "abc@123@123",
     phone: "13888888888",
     captcha: "8888",
     gender: "1",
@@ -239,15 +247,15 @@ const setValue = () => {
     birthday: "1995-05-05",
     country: "1",
     city: "1",
-    hobby: ["0", "1"],
+    hobbies: ["0", "1"],
     hardcore: true,
-    other: "测试数据",
+    other: "Test data",
     readme: true,
   };
 };
 const sendCode = () => {
   time.value = 59;
-  message.success("验证码发送成功，请注意查收");
+  message.success("The verification code has been sent.");
   clearInterval(timer.value);
   timer.value = setInterval((e) => {
     if (time.value < 1) {

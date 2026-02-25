@@ -3,8 +3,8 @@
 columns[n] 可以内嵌 children，以渲染分组表头。
 </cn>
 <en>
-### Grouped Headers
-Columns[n] can nest children to render grouped headers.
+### Header Grouping 
+`columns[n]` can nest `children` to render grouped headers.
 </en>
 
 ```vue

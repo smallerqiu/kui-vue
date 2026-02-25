@@ -2,6 +2,10 @@
 ### 基本
 头像有三种尺寸，两种形状可选。
 </cn>
+<en>
+### Basic
+Avatars support three sizes and two shapes.
+</en>
 
 ```vue
 <template>

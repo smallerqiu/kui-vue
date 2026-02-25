@@ -2,7 +2,10 @@
 ### 多语言切换示例
 通过修改 ConfigProvider 的 locale 属性，切换语言。
 </cn>
-
+<en>
+### Multilingual switching example
+Switch languages by modifying the locale property of ConfigProvider.
+</en>
 ```vue
 <template>
   <Space vertical block>
@@ -193,4 +196,7 @@ const selectSearch = () => {
   }, 1000);
 };
 </script>
+
+```
+
 ```

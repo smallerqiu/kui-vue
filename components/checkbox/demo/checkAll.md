@@ -3,8 +3,8 @@
 全选组合
 </cn>
 <en>
-### Check All
-Select or deselect all options.
+### Select All
+Select-all combination.
 </en>
 
 ```vue

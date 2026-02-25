@@ -2,6 +2,10 @@
 ### 尺寸
 适合放在较狭窄的区域内。
 </cn>
+<en>
+### Size
+Suitable for placement in narrower areas.
+</en>
 
 ```vue
 <template>

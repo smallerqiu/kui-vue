@@ -2,6 +2,10 @@
 ### 基本用法
 点击打开颜色面板
 </cn>
+<en>
+### Basic Usage
+Click to open the color panel.
+</en>
 
 ```vue
 <template>

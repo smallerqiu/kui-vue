@@ -2,6 +2,10 @@
 ### 分隔符
 通过 `separator` 设置分隔符
 </cn>
+<en>
+### Separator
+Set the separator via `separator`.
+</en>
 
 ```vue
 <template>

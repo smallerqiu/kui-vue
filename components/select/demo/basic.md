@@ -2,6 +2,10 @@
 ### 单选
 通过 `v-model` 进行数据双向绑定
 </cn>
+<en>
+### Single Selection
+Use `v-model` for two-way data binding.
+</en>
 
 ```vue
 <template>

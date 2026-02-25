@@ -3,9 +3,9 @@
 limit 限制上传数量, minSize 和 maxSize 属性可以自定义上传文件大小的限制。
  </cn>
 <en>
-### Upload limit
-The limit prop restricts how many files can be uploaded. The minSize and maxSize properties can customize the size limits of uploaded files.
-</en>
+### Upload Restrictions
+`limit` restricts the number of uploads. The `minSize` and `maxSize` attributes allow you to customize file size limits for uploads.
+ </en>
 
 ```vue
 <template>
@@ -18,12 +18,12 @@ The limit prop restricts how many files can be uploaded. The minSize and maxSize
     :maxSize="1024"
     @exceed="
       () => {
-        message.warning(`最多只能上传${limit}个文件`);
+        message.warning(`You can upload a maximum of ${limit} files.`);
       }
     "
     @sizeError="
       ({ file }) => {
-        message.warning(`${file.filename}大小超过限制`);
+        message.warning(`The size of ${file.filename} exceeds the limit`);
       }
     "
     @change="handleChange"
@@ -31,7 +31,7 @@ The limit prop restricts how many files can be uploaded. The minSize and maxSize
     multiple
   >
     <Button :icon="CloudUploadOutline" :disabled="disabled">
-      点击上传 (最小200KB, 最大1MB,最多上传 {{ limit }} 项)
+      Click to upload (Minimum 200KB, Maximum 1MB, up to {{ limit }} items)
     </Button>
   </Upload>
 </template>

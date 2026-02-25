@@ -5,7 +5,7 @@
 <en>
 ### Basic Usage
 The simplest usage.
-</en>
+ </en>
 
 ```vue
 <template>

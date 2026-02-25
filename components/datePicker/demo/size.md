@@ -2,6 +2,10 @@
 ### 尺寸
 通过 `small` ,`large` 来设置选择框的大小呈现
 </cn>
+<en>
+### Size
+Use `small` and `large` to set the size of the picker.
+</en>
 
 ```vue
 <template>
@@ -13,7 +17,7 @@
     </RadioGroup>
     <Space vertical>
       <DatePicker :size="size" :picker-size="size" />
-      <DatePicker mode="month" placeholder="请选择月份" :size="size" :picker-size="size" />
+      <DatePicker mode="month" :size="size" :picker-size="size" />
       <DatePicker :size="size" mode="dateRange" :picker-size="size" />
     </Space>
   </Space>

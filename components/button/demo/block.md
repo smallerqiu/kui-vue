@@ -2,6 +2,10 @@
 ### Block 按钮
 block 属性将使按钮适合其父宽度。
 </cn>
+<en>
+### Block Button
+The `block` property makes the button fit the width of its parent.
+</en>
 
 ```vue
 <template>

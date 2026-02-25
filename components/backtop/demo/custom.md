@@ -2,6 +2,10 @@
 ### 基本用法
 可以自定义回到顶部按钮的样式 `bottom` 为 `100px`
 </cn>
+<en>
+### Basic Usage
+You can customize the back-to-top button style, for example setting `bottom` to `100px`.
+</en>
 
 ```vue
 <template>
@@ -9,7 +13,7 @@
     <BackTop :bottom="100">
       <div class="custom-back-top">UP</div>
     </BackTop>
-    自定义按钮为蓝色的按钮
+    The custom button is the blue button
   </div>
 </template>
 <style scoped>

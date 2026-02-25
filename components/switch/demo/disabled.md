@@ -2,6 +2,10 @@
 ### 禁用 / 可控
 通过 `disabled` 属性设置组件是否被禁用
 </cn>
+<en>
+### Disabled / Controllable
+Use the `disabled` attribute to set whether the component is disabled.
+</en>
 
 ```vue
 <template>

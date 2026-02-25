@@ -3,9 +3,9 @@
 单独使用 `v-model` 的值 `true` 表示选中，为 `false` 表示未选中。
  </cn>
 <en>
-### Radio Button
-Using v-model, true means checked, false means unchecked.
-</en>
+### Single Selection
+When used alone, a `v-model` value of `true` means checked, and `false` means unchecked.
+ </en>
 ```vue
 <template>
   <Space vertical>

@@ -1,22 +1,22 @@
 const navData = [
   {
-    title: "开始",
-    key: "start",
+    title: "menu.start",
+    key: "guide",
     children: [
       {
         title: "快速开始",
-        sub: "Getting Started",
-        name: "getting-started",
+        sub: "Quick Started",
+        name: "quick-started",
         icon: "Start",
       },
-      { title: "SSR 支持", sub: "SSR", name: "ssr", icon: "Ssr" },
+      { title: "在Nuxt中使用", sub: "Usage With Nuxt", name: "usage-with-nuxt", icon: "Ssr" },
       {
         title: "国际化",
         sub: "Multilingual",
         name: "language",
         icon: "Language",
       },
-      { title: "更新日志", sub: "Update Log", name: "logs", icon: "Logs" },
+      { title: "更新日志", sub: "Change Log", name: "change-log", icon: "Logs" },
       // { title: "定制主题", sub: "Themes", name: "theme", icon: "theme" },
       { title: "暗色模式", sub: "Dark Mode", name: "dark-mode", icon: "Dark" },
       {
@@ -28,7 +28,7 @@ const navData = [
     ],
   },
   {
-    title: "通用",
+    title: "menu.universal",
     key: "basic",
     children: [
       { title: "按钮", sub: "Button", name: "button", icon: "Button" },
@@ -36,7 +36,7 @@ const navData = [
     ],
   },
   {
-    title: "布局",
+    title: "menu.layout",
     key: "layouts",
     children: [
       { title: "分割线", sub: "Divider", name: "divider", icon: "Divider" },
@@ -48,7 +48,7 @@ const navData = [
     ],
   },
   {
-    title: "导航",
+    title: "menu.navigation",
     key: "navigation",
     children: [
       { title: "图钉", sub: "Affix", name: "affix", icon: "Affix" },
@@ -72,7 +72,7 @@ const navData = [
     ],
   },
   {
-    title: "表单",
+    title: "menu.form",
     key: "forms",
     children: [
       { title: "输入框", sub: "Input", name: "input", icon: "Input" },
@@ -104,7 +104,7 @@ const navData = [
     ],
   },
   {
-    title: "数据展示",
+    title: "menu.data",
     key: "data",
     children: [
       { title: "头像", sub: "Avatar", name: "avatar", icon: "Avatar" },
@@ -136,7 +136,7 @@ const navData = [
     ],
   },
   {
-    title: "反馈",
+    title: "menu.notice",
     key: "notices",
     children: [
       { title: "警告提示", sub: "Alert", name: "alert", icon: "Alert" },
@@ -163,7 +163,7 @@ const navData = [
     ],
   },
   {
-    title: "其他",
+    title: "menu.other",
     key: "other",
     children: [
       {

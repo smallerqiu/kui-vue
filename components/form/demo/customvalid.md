@@ -2,22 +2,26 @@
 #### 自定义校验规则
 自定义验证规则来完成表单验证。
 </cn>
+<en>
+#### Custom Validation Rules
+Use custom validation rules to complete form validation.
+</en>
 
 ```vue
 <template>
   <div style="max-width:600px;">
     <Form :model="form" :rules="rules" ref="formRef" :labelCol="labelCol" :wrapperCol="wrapperCol">
-      <FormItem label="姓名" prop="fullname">
+      <FormItem label="Name" prop="fullname">
         <Input clearable />
       </FormItem>
-      <FormItem label="身份证号码" prop="IDnumber">
-        <Input placeholder="非必填" />
+      <FormItem label="ID Card Number" prop="IDnumber">
+        <Input placeholder="Optional" />
       </FormItem>
-      <FormItem label="密码" prop="pwd">
-        <Input type="password" placeholder="请输入密码" />
+      <FormItem label="Password" prop="pwd">
+        <Input type="password" placeholder="Please input your password" />
       </FormItem>
-      <FormItem label="重复密码" prop="repwd">
-        <Input type="password" placeholder="请重复输入密码" />
+      <FormItem label="Confirm Password" prop="repwd">
+        <Input type="password" placeholder="Please confirm your password" />
       </FormItem>
       <FormItem :wrapperCol="{ offset: 5 }">
         <Button type="primary" @click="submit">Submit</Button>
@@ -32,13 +36,13 @@ import { message } from "kui-vue";
 const formRef = ref(null);
 const validateIDNumber = (rule, value, callback) => {
   if (value && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-    return callback(new Error("请输入正确的身份证号码"));
+    return callback(new Error("Please enter the correct ID number"));
   }
   callback();
 };
 const validatePassword = (rule, value, callback) => {
   if (!value) {
-    callback(new Error("请输入密码"));
+    callback(new Error("Please input your password"));
   } else {
     formRef.value.test("repwd");
     callback();
@@ -46,9 +50,9 @@ const validatePassword = (rule, value, callback) => {
 };
 const validateRePassword = (rule, value, callback) => {
   if (!value) {
-    callback(new Error("请再次输入密码"));
+    callback(new Error("Please input your password again"));
   } else if (value != form.value.pwd) {
-    callback(new Error("两次密码输入不一致"));
+    callback(new Error("The two passwords do not match."));
   } else {
     callback();
   }
@@ -64,7 +68,7 @@ const form = ref({
 const rules = {
   fullname: [
     { required: true, message: "请输入姓名" },
-    { message: "姓名只能是中文", pattern: /^[\u4e00-\u9fa5]+$/ },
+    { message: "Name must be in Chinese", pattern: /^[\u4e00-\u9fa5]+$/ },
   ],
   IDnumber: [{ validator: validateIDNumber }],
   pwd: [{ validator: validatePassword }],

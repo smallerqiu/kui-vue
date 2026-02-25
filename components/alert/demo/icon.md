@@ -2,6 +2,10 @@
 ### 图标
 `showIcon` 来设置是否显示图标
 </cn>
+<en>
+### Icon
+Use `showIcon` to control whether the icon is displayed.
+</en>
 
 ```vue
 <template>

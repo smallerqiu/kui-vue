@@ -2,14 +2,18 @@
 ### 自定义
 自定义 `Modal`
 </cn>
+<en>
+### Custom
+Custom `Modal`.
+</en>
 
 ```vue
 <template>
   <Space vertical>
-    <Button @click="visible1 = true" type="primary">宽300px</Button>
-    <Button @click="visible2 = true" type="primary">自定义页脚</Button>
-    <Button @click="visible3 = true" type="primary">国际化</Button>
-    <Button @click="visible4 = true" type="primary">异步关闭</Button>
+    <Button @click="visible1 = true" type="primary">Width: 300px</Button>
+    <Button @click="visible2 = true" type="primary">Custom footer</Button>
+    <Button @click="visible3 = true" type="primary">Internationalization</Button>
+    <Button @click="visible4 = true" type="primary">Asynchronous shutdown</Button>
     <Modal title="Width 300px" v-model="visible1" :width="300" @ok="visible1 = false">
       <p>content</p>
     </Modal>
@@ -25,7 +29,7 @@
       <p>Yes , I'm fine !</p>
     </Modal>
 
-    <Modal title="提交表单" v-model="visible4" :loading="loading" @ok="submit" @close="close">
+    <Modal title="Submit forms" v-model="visible4" :loading="loading" @ok="submit" @close="close">
       <p>Name：<Input placeholder="Please input your name" style="width:200px" /></p>
     </Modal>
   </Space>

@@ -4,9 +4,9 @@
 > 注意: 默认勾选的依赖为 `key` , 可以通过 `rowKey` 属性进行自定义。 如: `rowKey="ID"`
 </cn>
 <en>
-### Checkable
-Setting checkable to true enables multi-select by default.
-Note: The default key used for selection is the `key` field; you can customize with the `rowKey` property. For example: `rowKey` = "ID".
+### Checkbox Selection
+Set `checkable=true` to automatically enable multi-selection.
+> Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
 </en>
 
 ```vue
@@ -62,7 +62,7 @@ const data = [
   },
   {
     key: "3",
-    name: "Chuchur",
+    name: "Qiu",
     gender: 1,
     age: 28,
     address: "Wu Han Nanhu No. 188",

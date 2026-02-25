@@ -2,6 +2,10 @@
 ### 垂直
 垂直方向的 Slider。
 </cn>
+<en>
+### Vertical
+Vertical Slider.
+</en>
 
 ```vue
 <template>

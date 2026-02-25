@@ -2,14 +2,18 @@
 ### 奇葩的主题
 奇奇怪怪的东西
 </cn>
+<en>
+### Weird Theme
+Strange things.
+</en>
 
 ```vue
 <template>
   <Space vertical>
     <DatePicker shape="circle" />
     <DatePicker theme="light" />
-    <DatePicker :dateIcon="ArrowDown" placeholder="自定义日期图标" />
-    <DatePicker :bordered="false" placeholder="无边框" theme="light" />
+    <DatePicker :dateIcon="ArrowDown" placeholder="Custom Icon" />
+    <DatePicker :bordered="false" placeholder="No Border" theme="light" />
 
     <DatePicker mode="dateRange" theme="light" />
   </Space>

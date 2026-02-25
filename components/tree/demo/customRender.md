@@ -3,9 +3,9 @@
 节点的扩展节点
  </cn>
 <en>
-### Node Extensions
-Extensions for nodes
-</en>
+### Extended Node
+Extended node for a tree item.
+ </en>
 
 ```vue
 <template>

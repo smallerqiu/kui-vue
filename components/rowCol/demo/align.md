@@ -4,7 +4,7 @@ Flex 子元素垂直对齐。
 </cn>
 <en>
 ### Flex Alignment
-Flex items are vertically aligned within the row.
+Vertical alignment of Flex child elements.
 </en>
 
 ```vue

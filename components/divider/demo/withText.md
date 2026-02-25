@@ -2,17 +2,21 @@
 ### 带文字的分割线
 分割线中带有文字，可以用 orientation 指定文字位置。
 </cn>
+<en>
+### Divider with Text
+A divider with text in the middle, where `orientation` can specify the text position.
+</en>
 
 ```vue
 <template>
   <div>
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
-    <Divider orientation="left" text="李白" />
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
-    <Divider>李白</Divider>
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
-    <Divider orientation="right" text="李白" />
-    <p>床前明月光，疑是地上霜，举头望明月，低头思故乡！</p>
+    <p>See the light through the mist.！</p>
+    <Divider orientation="left" text="Text" />
+    <p>See the light through the mist.！</p>
+    <Divider>Text</Divider>
+    <p>See the light through the mist.！</p>
+    <Divider orientation="right" text="Text" />
+    <p>See the light through the mist.！</p>
   </div>
 </template>
 ```

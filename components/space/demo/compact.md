@@ -3,8 +3,8 @@
 使用 compact 让表单组件之间紧凑连接且合并边框。
 </cn>
 <en>
-### Compact Layouts
-Use compact to tightly stack form components and merge borders.
+### Compact Layout Group
+Use `compact` to tightly connect form components and merge borders.
 </en>
 
 ```vue
@@ -83,7 +83,7 @@ Use compact to tightly stack form components and merge borders.
         <Option value="1">Between</Option>
         <Option value="2">Except</Option>
       </Select>
-      <Input :style="{ width: '100px', textAlig: 'center' }" placeholder="Minimum" />
+      <Input :style="{ width: '100px', textAlign: 'center' }" placeholder="Minimum" />
       <Input
         :style="{
           width: '30px',
@@ -97,7 +97,7 @@ Use compact to tightly stack form components and merge borders.
       <Input
         :style="{
           width: '100px',
-          textAlig: 'center',
+          textAlign: 'center',
         }"
         placeholder="Maximum"
       />

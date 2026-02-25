@@ -2,6 +2,10 @@
 ### 状态点
 用于表示状态的小圆点。
 </cn>
+<en>
+### Status Dot
+A small dot used to indicate status.
+</en>
 
 ```vue
 <template>

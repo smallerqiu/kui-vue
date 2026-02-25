@@ -2,6 +2,10 @@
 ### 固定底部
 最简单的用法。
 </cn>
+<en>
+### Fixed at Bottom
+The simplest usage.
+</en>
 
 ```vue
 <template>

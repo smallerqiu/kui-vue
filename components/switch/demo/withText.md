@@ -2,6 +2,10 @@
 ### 文字 / 图标
 通过 `true-text` 和 `false-text` 设置选中和非选中呈现文字, 通过设置 `slot` 为 `(checked|unchecked)` 控制内容
 </cn>
+<en>
+### Text / Icon
+Use `true-text` and `false-text` to set the text displayed when selected and unselected. Use the `slot` `(checked|unchecked)` to control the content.
+</en>
 
 ```vue
 <template>

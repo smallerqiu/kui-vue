@@ -2,6 +2,10 @@
 ### 尺寸
 通过 `width` 和 `size` 可控制组件尺寸大小
 </cn>
+<en>
+### Size
+Control component size via `width` and `size`.
+</en>
 
 ```vue
 <template>

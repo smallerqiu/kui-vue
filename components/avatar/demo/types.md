@@ -2,6 +2,10 @@
 ### 类型
 支持三种类型：图片、Icon 以及字符，其中 Icon 和字符型可以自定义图标颜色及背景色。
 </cn>
+<en>
+### Types
+Three types are supported: Image, Icon, and Text. Icon and Text avatars support custom icon color and background color.
+</en>
 
 ```vue
 <template>

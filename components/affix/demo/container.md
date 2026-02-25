@@ -2,6 +2,10 @@
 ### 滚动容器
 用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 </cn>
+<en>
+### Scroll Container
+Use `target` to set the element whose scroll event `Affix` listens to. Defaults to `window`.
+</en>
 
 ```vue
 <template>

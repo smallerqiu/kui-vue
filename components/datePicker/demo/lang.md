@@ -2,6 +2,10 @@
 ### 多语言
 DatePicker 支持多语言。依赖 `dayjs`.
 </cn>
+<en>
+### Multi-language
+DatePicker supports multiple languages, depending on `dayjs`.
+</en>
 
 ```vue
 <template>

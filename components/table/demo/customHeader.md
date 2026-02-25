@@ -2,6 +2,10 @@
 ### 自定义表头
 一个可以自定义表头的表格  , 可以通过 `#header-`定义表头
 </cn>
+<en>
+### Custom Table Header
+A table with a customizable header. You can define the header via `#header-`.
+</en>
 
 ```vue
 <template>
@@ -46,13 +50,13 @@ const data = [
     address: "Wu Han Hongshan No. 128",
   },
   { key: "2", name: "Hu Cong", age: 28, address: "Wu Han Nanhu No. 198" },
-  { key: "3", name: "Chuchur", age: 28, address: "Wu Han Nanhu No. 188" },
+  { key: "3", name: "Qiu", age: 28, address: "Wu Han Nanhu No. 188" },
 ];
 const columns = [
   { title: "Name", key: "name" },
-  { title: "年龄", key: "age" },
+  { title: "Age", key: "age" },
   {
-    title: "地址",
+    title: "Address",
     key: "address",
   },
   {

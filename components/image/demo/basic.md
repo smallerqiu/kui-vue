@@ -2,6 +2,10 @@
 ### 基本用法
 简单的展示。
 </cn>
+<en>
+### Basic Usage
+Simple display.
+</en>
 
 ```vue
 <template>
@@ -16,7 +20,7 @@
       src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
       origin="https://cdn.chuchur.com/upload/demo/test.mp4"
     />
-    <code>加载大图</code>
+    <code>Loading large image</code>
     <KImage
       :width="120"
       :height="120"

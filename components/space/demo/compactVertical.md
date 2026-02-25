@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Vertical Compact Layout
-Vertical compact layout, Only Button combinations are currently supported.
+Vertical compact layout, currently only supporting Button combinations.
 </en>
 
 ```vue

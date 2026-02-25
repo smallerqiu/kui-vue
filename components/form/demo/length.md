@@ -2,6 +2,10 @@
 #### 辅助校验
 校验一些数据类型
 </cn>
+<en>
+#### Auxiliary Validation
+Validate certain data types.
+</en>
 
 ```vue
 <template>
@@ -15,22 +19,22 @@
       :labelCol="labelCol"
     >
       <FormItem label="Number" prop="number">
-        <Input clearable placeholder="校验数字" />
+        <Input clearable placeholder="Verify numbers" />
       </FormItem>
       <FormItem label="Text" prop="text">
-        <Input clearable placeholder="校验字符长度" />
+        <Input clearable placeholder="Validate character length" />
       </FormItem>
       <FormItem label="E-mail" prop="email">
-        <Input clearable placeholder="校验邮箱" />
+        <Input clearable placeholder="Verify e-mail" />
       </FormItem>
       <FormItem label="Phone Number" prop="phone">
-        <Input placeholder="校验手机号" />
+        <Input placeholder="Verify phone number" />
       </FormItem>
-      <FormItem label="Password" prop="pwd">
-        <Input type="password" placeholder="校验密码" />
+      <FormItem label="Password" prop="password">
+        <Input type="password" placeholder="Verify password" />
       </FormItem>
-      <FormItem label="Confirm Password" prop="repwd">
-        <Input type="password" placeholder="校验重复密码" />
+      <FormItem label="Confirm Password" prop="confirm_password">
+        <Input type="password" placeholder="Verify confirm password" />
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
@@ -47,7 +51,7 @@
           </Select>
         </FormItem>
       </FormItem>
-      <FormItem label="Hobby" prop="hobbys">
+      <FormItem label="Hobby" prop="hobbies">
         <CheckboxGroup>
           <Checkbox value="0" label="Football" />
           <Checkbox value="1" label="Music" />
@@ -56,7 +60,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Other" prop="other">
-        <TextArea placeholder="校验文本长度" />
+        <TextArea placeholder="Verify the information you entered" />
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>
@@ -70,8 +74,8 @@
 import { ref, reactive } from "vue";
 import { message } from "kui-vue";
 const validatePass = (rule, value, callback) => {
-  if (value !== form.value.pwd) {
-    return callback(new Error("两次密码不一致"));
+  if (value !== form.value.password) {
+    return callback(new Error("The two passwords do not match!"));
   }
   callback();
 };
@@ -84,49 +88,59 @@ const form = ref({
   text: "",
   email: "",
   phone: "",
-  pwd: "",
-  repwd: "",
+  password: "",
+  confirm_password: "",
   country: "",
   city: "",
-  hobbys: [],
+  hobbies: [],
   other: "",
 });
 const rules = {
   number: [
-    { required: true, message: "请填写数字" },
-    { type: "number", message: "只能填写数字" },
+    { required: true, message: "The number is required" },
+    { type: "number", message: "Only numbers can be entered" },
   ],
   text: [
-    { required: true, message: "此项必填" },
-    { max: 5, message: "最多只能输入5个字符" },
+    { required: true, message: "The text is required" },
+    { max: 5, message: "Maximum of 5 characters" },
   ],
   email: [
-    { type: "mail", message: "请输入有效的电子邮箱" },
-    { required: true, message: "请输入电子邮箱" },
+    { type: "mail", message: "Please enter the correct email" },
+    { required: true, message: "The email is required" },
   ],
-  pwd: [
-    { min: 8, max: 20, message: "密码长度请控制在8-20位之间", trigger: "blur" },
-    { required: true, message: "请输入密码" },
+  password: [
+    {
+      min: 8,
+      max: 20,
+      message: "Please keep the password length between 8-20 digits.",
+      trigger: "blur",
+    },
+    { required: true, message: "Please enter the password" },
   ],
-  repwd: [
-    { min: 8, max: 20, message: "密码长度请控制在8-20位之间", trigger: "blur" },
+  confirm_password: [
+    {
+      min: 8,
+      max: 20,
+      message: "Please keep the password length between 8-20 digits.",
+      trigger: "blur",
+    },
     { validator: validatePass },
-    { required: true, message: "请重复输入密码" },
+    { required: true, message: "Please enter the password again" },
   ],
   phone: [
-    { type: "mobile", message: "请输入正确的手机号码" },
-    { required: true, message: "请输入手机号" },
+    { type: "mobile", message: "Please enter the correct phone number" },
+    { required: true, message: "Please enter the phone number" },
   ],
-  country: [{ required: true, message: "请选择国家" }],
-  city: [{ required: true, message: "请选择城市" }],
-  hobbys: [
-    { required: true, message: "请选择爱好" },
-    { max: 3, message: "最多只能选择3个爱好" },
-    { min: 2, message: "最少选择2个爱好" },
+  country: [{ required: true, message: "Please select the country" }],
+  city: [{ required: true, message: "Please select the city" }],
+  hobbies: [
+    { required: true, message: "Please select at least one hobby" },
+    { max: 3, message: "Maximum of 3 hobbies" },
+    { min: 2, message: "Minimum of 2 hobbies" },
   ],
   other: [
-    { required: true, message: "请填写其他信息" },
-    { max: 5, message: "最多只能输入5个字符" },
+    { required: true, message: "Please input others" },
+    { max: 5, message: "Maximum of 5 characters" },
   ],
 };
 const setValue = () => {
@@ -134,12 +148,12 @@ const setValue = () => {
     number: 123,
     text: "bacd",
     email: "master@k-ui.cn",
-    pwd: "abc@123@123",
-    repwd: "abc@123@123",
+    password: "abc@123@123",
+    confirm_password: "abc@123@123",
     phone: "13888888888",
     country: "1",
     city: "1",
-    hobbys: ["0", "1"],
+    hobbies: ["0", "1"],
     other: "abcd",
   };
 };

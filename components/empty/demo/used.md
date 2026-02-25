@@ -2,6 +2,10 @@
 ### 默认展示
 默认会在以上组件展示
 </cn>
+<en>
+### Default Display
+Will be displayed by default in the above components.
+</en>
 
 ```vue
 <template>

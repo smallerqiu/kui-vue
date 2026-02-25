@@ -2,6 +2,10 @@
 ### 组合Button使用
 结合 `RadioGroup`,`RadioButton` 可以组合使用
 </cn>
+<en>
+### Combined with Button
+Combine `RadioGroup` and `RadioButton` for usage.
+</en>
 
 ```vue
 <template>
@@ -39,11 +43,11 @@ const shape = ref("default");
 const theme = ref("default");
 const value = ref(0);
 const dates = [
-  { label: "7天", value: 0 },
-  { label: "1个月", value: 1 },
-  { label: "1季度", value: 2 },
-  { label: "1年", value: 3 },
-  { label: "5年", value: 4, disabled: true },
+  { label: "1 week", value: 0 },
+  { label: "1 month", value: 1 },
+  { label: "Q1", value: 2 },
+  { label: "1 year", value: 3 },
+  { label: "5 years", value: 4, disabled: true },
 ];
 const sizes = [
   { label: "Large", value: "large", icon: LogoApple },

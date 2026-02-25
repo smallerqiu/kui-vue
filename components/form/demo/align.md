@@ -2,6 +2,10 @@
 #### 对齐方式
 根据具体目标和制约因素，选择最佳的标签对齐方式。
 </cn>
+<en>
+#### Alignment
+Choose the best label alignment based on specific goals and constraints.
+</en>
 
 ```vue
 <template>

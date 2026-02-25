@@ -2,12 +2,16 @@
 ### 按钮组合
 将多个 `Button` 放入 `ButtonGroup` 内，可实现按钮组合的效果。
 </cn>
+<en>
+### Button Group
+Place multiple `Button` components inside `ButtonGroup` to group them.
+</en>
 
 ```vue
 <template>
   <Space>
     <ButtonGroup>
-      <Button>通讯录</Button>
+      <Button>Address</Button>
       <Button :icon="PersonOutline"></Button>
     </ButtonGroup>
     <DropdownButton @click="handleButtonClick">

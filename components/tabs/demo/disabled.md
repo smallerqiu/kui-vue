@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Disabled
-Disable a tab.
+Disable a specific tab.
 </en>
 
 ```vue

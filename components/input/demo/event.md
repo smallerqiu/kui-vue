@@ -2,12 +2,16 @@
 ### 事件
 本示例测试组件事件是否正常触发
 </cn>
+<en>
+### Events
+This example tests whether component events are triggered normally.
+</en>
 
 ```vue
 <template>
   <Space vertical block>
     <Input
-      placeholder="请输入内容..."
+      placeholder="Please input"
       clearable
       @change="events.change"
       @keypress="events.keypress"
@@ -19,7 +23,7 @@
     >
     </Input>
     <TextArea
-      placeholder="请输入内容..."
+      placeholder="Please input"
       @change="events.change"
       @keypress="events.keypress"
       @keyup="events.keyup"

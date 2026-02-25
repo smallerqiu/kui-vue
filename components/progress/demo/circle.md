@@ -2,6 +2,10 @@
 ### 进度圈
 圆形的进度条。
 </cn>
+<en>
+### Circular Progress
+A circular progress bar.
+</en>
 
 ```vue
 <template>
@@ -12,7 +16,7 @@
     <template #format>
       <div class="demo-progress">
         <h2 style="margin:0">13389</h2>
-        <span>今日步数</span>
+        <span>Steps</span>
       </div>
     </template>
   </Progress>

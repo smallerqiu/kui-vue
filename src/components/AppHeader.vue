@@ -12,7 +12,7 @@
       <div class="search-component">
         <Select
           v-model="queryKey"
-          placeholder="搜索..."
+          placeholder="Search"
           :icon="Search"
           theme="light"
           :show-arrow="false"
@@ -26,70 +26,75 @@
         </Select>
       </div>
       <Menu v-model="topMenu" mode="horizontal" class="top-menu" :items="items" @select="go" />
-      <ColorPicker
-        v-model="themeColor"
-        class="theme"
-        mode="rgb"
-        :show-arrow="false"
-        style="margin-left: 8px"
-        :no-alpha="true"
-        @change="changeThemeColor"
-      />
-      <Tooltip :title="`切换${themeMode == 'dark' ? '浅色' : '暗色'}主题`" placement="bottom">
-        <Button
-          theme="light"
-          :icon="themeMode == 'dark' ? Sunny : Moon"
-          style="margin: 0 8px"
-          @click="changeMode"
+      <Space>
+        <ColorPicker
+          v-model="themeColor"
+          class="theme"
+          mode="rgb"
+          :show-arrow="false"
+          style="margin-left: 8px"
+          :no-alpha="true"
+          @change="changeThemeColor"
         />
-      </Tooltip>
-      <Tooltip title="Jump to Gitee">
+        <Tooltip :title="`${$t('menu.langTip')}`" placement="bottom">
+          <Button theme="light" :icon="Language" @click="changeLang" />
+        </Tooltip>
+        <Tooltip
+          :title="`Switch ${themeMode == 'dark' ? 'light' : 'dark'} theme`"
+          placement="bottom"
+        >
+          <Button theme="light" :icon="themeMode == 'dark' ? Sunny : Moon" @click="changeMode" />
+        </Tooltip>
         <a
           target="_blank"
           class="k-btn k-btn-light k-btn-icon-only"
-          href="https://gitee.com/chuchur/kui-vue"
+          href="https://github.com/smallerqiu/kui-vue"
         >
-          <Icon :type="LogoGitee" />
+          <Icon :type="LogoGithub" />
         </a>
-      </Tooltip>
+      </Space>
     </div>
   </Header>
 </template>
 <script setup>
 import { routeData } from "../menu";
-import { ref, onMounted, getCurrentInstance } from "vue";
-import { LogoKui, LogoGitee, Sunny, Moon, Search } from "kui-icons";
+import { ref, onMounted, computed, inject, reactive } from "vue";
+import { LogoKui, LogoGithub, Sunny, Moon, Search, Language } from "kui-icons";
 import pkg from "/package.json";
 import Color from "color";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
 import { theme } from "kui-vue";
 const version = pkg.version;
 const themeColor = ref("#3a95ff");
 const topMenu = ref([]);
 const themeMode = ref("");
 const queryKey = ref("");
+const $t = inject("$t");
+const changeLang = inject("changeLang");
 
-const { proxy } = getCurrentInstance();
-
-const items = [
-  { key: "home", title: "首页" },
-  { key: "start", title: "组件" },
-  {
-    key: "docs",
-    title: "文档",
-    children: [
-      { key: "/start/getting-started", title: "快速开始" },
-      { key: "/start/ssr", title: "SSR 支持" },
-      { key: "/start/language", title: "多语言" },
-      { key: "/start/logs", title: "更新日志" },
-      { key: "/start/theme", title: "主题" },
-      { key: "/start/dark-mode", title: "暗黑模式" },
-      { key: "https://v3.k-ui.cn/", title: "v3.x 文档(for vue2)" },
-      { key: "https://v2.k-ui.cn/", title: "v2.x 文档" },
-      { key: "https://react.k-ui.cn/", title: "For React 文档" },
-      { key: "https://chuchur.com/", title: "Blog" },
-    ],
-  },
-];
+const items = computed(() => {
+  return [
+    { key: "home", title: $t("menu.home") },
+    { key: "guide", title: $t("menu.components") },
+    {
+      key: "docs",
+      title: $t("menu.docs"),
+      children: [
+        { key: "/guide/quick-started", title: $t("menu.quick_start") },
+        { key: "/guide/usage-with-nuxt", title: $t("menu.usage_with_nuxt") },
+        { key: "/guide/language", title: $t("menu.language") },
+        { key: "/guide/change-log", title: $t("menu.change_log") },
+        { key: "/guide/dark-mode", title: $t("menu.dark_mode") },
+        { key: "https://v3.k-ui.cn/", title: $t("menu.docs_v3") },
+        { key: "https://v2.k-ui.cn/", title: $t("menu.docs_v2") },
+        { key: "https://react.k-ui.cn/", title: $t("menu.docs_react") },
+        { key: "https://chuchur.com/", title: "Blog" },
+      ],
+    },
+  ];
+});
 onMounted(() => {
   let localThemeMode = localStorage.getItem("theme-mode") || "";
   let localThemeColor = localStorage.getItem("themeColor") || "";
@@ -101,7 +106,7 @@ onMounted(() => {
     themeColor.value = localThemeColor;
     changeThemeColor(localThemeColor);
   }
-  let path = proxy.$route.path;
+  let path = route.path;
   topMenu.value = path == "/" ? ["home"] : ["start"];
 });
 
@@ -141,16 +146,16 @@ const changeMode = (event) => {
 const go = ({ key, keyPath, item }) => {
   if (key == "home") {
     topMenu.value = ["home"];
-    proxy.$router.push("/");
-  } else if (key == "start") {
-    proxy.$router.push("/start/getting-started");
+    router.push("/");
+  } else if (key == "guide") {
+    router.push("/guide/getting-started");
   } else {
     open(key);
   }
 };
 const change = (value) => {
   let item = routeData.filter((x) => x.name == value)[0] || {};
-  proxy.$router.push(`/${item.key}/${value}`);
+  router.push(`/${item.key}/${value}`);
   setTimeout(() => (queryKey.value = ""), 500);
 };
 </script>

@@ -2,6 +2,10 @@
 ### 可控
 动态控制
 </cn>
+<en>
+### Controlled
+Dynamic control.
+</en>
 
 ```vue
 <template>
@@ -13,7 +17,7 @@
       <Icon :type="NotificationsOutline" />
     </Badge>
     <Badge :dot="show">
-      <a href="#">我是一个连接</a>
+      <a href="#">Link</a>
     </Badge>
     <k-switch @change="show = !show" />
   </Space>

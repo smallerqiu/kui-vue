@@ -2,6 +2,10 @@
 ### 边框主题
 只呈现边框
 </cn>
+<en>
+### Outline Theme
+Only display the border.
+</en>
 
 ```vue
 <template>

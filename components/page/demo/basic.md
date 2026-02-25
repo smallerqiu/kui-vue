@@ -2,6 +2,10 @@
 ### 基本用法
 基础分页。
 </cn>
+<en>
+### Basic Usage
+Basic pagination.
+</en>
 
 ```vue
 <template>

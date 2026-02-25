@@ -2,6 +2,10 @@
 ### 只展开当前父级菜单
 点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
 </cn>
+<en>
+### Expand Only Current Parent Menu
+Clicking a menu item collapses all other expanded menus, keeping the menu focused and clean.
+</en>
 
 ```vue
 <template>

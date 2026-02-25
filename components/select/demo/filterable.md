@@ -3,34 +3,39 @@
 通过设置 `filterable` 值来呈现过滤模式
 > filterable 和 onSearch 不可以同时使用, 搜索的结果会被过滤
 </cn>
+<en>
+### Filtering and Searching
+Set the `filterable` value to present filtering mode.
+> `filterable` and `onSearch` cannot be used simultaneously; search results will be filtered.
+</en>
 
 ```vue
 <template>
   <Space vertical block>
-    <span>单选过滤 :</span>
-    <Select v-model="value1" block placeholder="单选过滤" filterable>
+    <span>Filtering :</span>
+    <Select v-model="value1" block placeholder="Filtering" filterable>
       <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
     </Select>
     <br />
-    <span>多选过滤 :</span>
+    <span>Multiple Filtering :</span>
     <Select
       class="demo-select"
       multiple
       :maxTagCount="3"
       block
       v-model="value2"
-      placeholder="多选过滤"
+      placeholder="Multiple Filtering"
       filterable
     >
       <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
     </Select>
     <br />
-    <span>单选搜索: </span>
-    <Select v-model="value3" @search="fetchData" block :loading="loading" placeholder="单选搜索">
+    <span>Search: </span>
+    <Select v-model="value3" @search="fetchData" block :loading="loading" placeholder="Search">
       <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
     </Select>
     <br />
-    <span>多选搜索</span>
+    <span>Multiple Search</span>
     <Select
       multiple
       block
@@ -38,7 +43,7 @@
       :loading="loading"
       @search="fetchData"
       v-model="value4"
-      placeholder="多选过滤"
+      placeholder="Multiple Search"
     >
       <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
     </Select>

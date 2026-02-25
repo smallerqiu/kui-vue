@@ -2,6 +2,10 @@
 ### 从浮层内关闭
 使用 `v-model` 属性控制浮层显示。
 </cn>
+<en>
+### Close from Inside the Floating Layer
+Use the `v-model` attribute to control the floating layer's visibility.
+</en>
 
 ```vue
 <template>

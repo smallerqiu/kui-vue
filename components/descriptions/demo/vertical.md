@@ -4,17 +4,17 @@
 </cn>
 <en>
 ### Vertical
-Vertical descriptions list.
+Vertical list.
 </en>
 
 ```vue
 <template>
-  <Descriptions title="订单信息" layout="vertical">
-    <DescriptionsItem label="订单编号">20202203302200</DescriptionsItem>
-    <DescriptionsItem label="价格">￥ 199.99</DescriptionsItem>
-    <DescriptionsItem label="姓名">王大锤</DescriptionsItem>
-    <DescriptionsItem label="电话">13888888888</DescriptionsItem>
-    <DescriptionsItem label="收货地址"> 湖北省武汉市洪山区 光谷 188号 </DescriptionsItem>
+  <Descriptions title="Order Information" layout="vertical">
+    <DescriptionsItem label="Order Numbers">20202203302200</DescriptionsItem>
+    <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
+    <DescriptionsItem label="Name">Qiu</DescriptionsItem>
+    <DescriptionsItem label="Phone">13888888888</DescriptionsItem>
+    <DescriptionsItem label="Shipping Address"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>
   </Descriptions>
 </template>
 ```

@@ -3,7 +3,7 @@
 相邻组件水平间距。
 </cn>
 <en>
-### Basic Usage
+### Basic Usage 
 Horizontal spacing between adjacent components.
 </en>
 

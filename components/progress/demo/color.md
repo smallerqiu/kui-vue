@@ -2,6 +2,10 @@
 ### 颜色和格式
 自定义颜色和自定义格式。
 </cn>
+<en>
+### Color and Format
+Customize color and format.
+</en>
 
 ```vue
 <template>
@@ -29,18 +33,18 @@ const format2 = (pt) => {
   return pt + "℃";
 };
 const format3 = (pt) => {
-  return pt + "升";
+  return pt + "L";
 };
 const format1 = () => {
   let pt = percent.value;
   if (pt < 30) {
-    return "空";
+    return "Empty";
   } else if (pt >= 30 && pt < 50) {
-    return "弱";
+    return "Weak";
   } else if (pt >= 50 && pt < 80) {
-    return "中";
+    return "Normal";
   } else if (pt >= 80) {
-    return "强";
+    return "Strong";
   }
 };
 const increase = () => {

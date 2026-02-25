@@ -2,6 +2,10 @@
 ### 自定义触发器
 自定义颜色面板的触发器。
 </cn>
+<en>
+### Custom Trigger
+Customize the trigger for the color panel.
+</en>
 
 ```vue
 <template>
