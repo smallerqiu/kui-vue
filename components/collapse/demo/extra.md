@@ -2,6 +2,10 @@
 ### 额外节点
 可以同时展开多个面板。
 </cn>
+<en>
+### Extra Nodes
+Multiple panels can be expanded simultaneously.
+</en>
 
 ```vue
 <template>

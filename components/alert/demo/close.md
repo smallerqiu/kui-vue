@@ -2,6 +2,10 @@
 ### 可关闭
 `closable` 来控制是否显示可关闭按钮,平滑、自然隐藏关闭
 </cn>
+<en>
+### Closable
+Use `closable` to control whether the close button is displayed, with smooth and natural closing animation.
+</en>
 
 ```vue
 <template>

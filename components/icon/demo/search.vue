@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h3>图标快速检索</h3>
+    <h3>Icons Filter</h3>
     <br />
     <Affix :offset-top="65">
       <Flex size="large" style="background-color: var(--kui-color-bg)">
         <RadioGroup v-model="type" theme="card" type="button" size="large" @change="switchIcon">
-          <RadioButton value="outline">线框风格</RadioButton>
-          <RadioButton value="filled">实底风格</RadioButton>
+          <RadioButton value="outline">Outline</RadioButton>
+          <RadioButton value="filled">Solid</RadioButton>
         </RadioGroup>
         <Space compact size="large" block>
           <Input
             v-model="searchKey"
-            placeholder="输入英文关键字，搜索图标，点击图标即可复制"
+            placeholder="Enter keyword to search for icons, then click on the icon to copy it."
             :icon="LogoKui"
             clearable
             @update:modelValue="filter"
@@ -30,7 +30,12 @@
         </div>
         <br />
         <Grid class="icon-list" :itemMinWidth="130">
-          <GridItem v-for="(x, y) in showIcons" :key="y" class="icon-item" @click.stop="copyHandle(x)">
+          <GridItem
+            v-for="(x, y) in showIcons"
+            :key="y"
+            class="icon-item"
+            @click.stop="copyHandle(x)"
+          >
             <Icon :type="icons[x]" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>

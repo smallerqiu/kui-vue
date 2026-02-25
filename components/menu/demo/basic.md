@@ -2,6 +2,10 @@
 ### 顶部导航
 水平的顶部导航菜单。
 </cn>
+<en>
+### Top Navigation
+Horizontal top navigation menu.
+</en>
 
 ```vue
 <template>
@@ -38,7 +42,11 @@ const items = [
     ],
   },
   {
-    title: h("a", { href: "https://k-ui.cn", target: "_blank" }, "Navigation -Link"),
+    title: h(
+      "a",
+      { href: "https://k-ui.cn", target: "_blank" },
+      { default: () => "Navigation -Link" }
+    ),
     key: "4",
   },
 ];

@@ -3,8 +3,8 @@
 limit等于上传文件数量时, 则不显示选择文件组件,
 </cn>
 <en>
-### Upload avatar
-When the limit equals the number of uploaded files, the file picker is not displayed.
+### Upload Avatar
+When `limit` equals the number of uploaded files, the file selection component will not be displayed.
 </en>
 
 ```vue
@@ -18,7 +18,7 @@ When the limit equals the number of uploaded files, the file picker is not displ
     :limit="1"
     accept="image/*"
     :uploadIcon="CameraOutline"
-    uploadText="上传头像"
+    uploadText="Upload Avatar"
   >
   </Upload>
 </template>

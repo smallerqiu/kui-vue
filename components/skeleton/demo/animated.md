@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Animation Effect
-Displays animation effects.
+Show animation effect.
 </en>
 
 ```vue

@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Upload Folder
-Set directory to true to enable uploading all files within a folder.
-</en>
+By setting `directory` to `true`, you can support uploading all files from a folder.
+ </en>
 
 ```vue
 <template>

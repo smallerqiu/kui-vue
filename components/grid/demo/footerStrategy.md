@@ -3,7 +3,8 @@
 从“多列垂直排列”到“单列折叠”的极致压缩。
 </cn>
 <en>
-### Footer Strategy
+### Responsive Footer / Menu (Footer Strategy)
+Extreme compression from "multi-column vertical arrangement" to "single-column folding".
 </en>
 
 ```vue

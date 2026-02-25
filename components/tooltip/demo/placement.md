@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Position
-Control direction via placement; there are twelve positions.
-</en>
+Control the direction via `placement`. There are twelve available positions.
+ </en>
 
 ```vue
 <template>
@@ -59,6 +59,6 @@ Control direction via placement; there are twelve positions.
   </Flex>
 </template>
 <script setup>
-const title = "明月几时有";
+const title = "Title";
 </script>
 ```

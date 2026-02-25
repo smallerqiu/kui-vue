@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Size
-The select size options are: `small`, `default`, `large`.
-</en>
+The select box sizes are: `small`, `default`, `large`.
+ </en>
 
 ```vue
 <template>

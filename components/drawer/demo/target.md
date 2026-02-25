@@ -2,6 +2,10 @@
 ### 植入目标元素
 可以在目标元素内展开
 </cn>
+<en>
+### Inject into Target Element
+Can be expanded within the target element.
+</en>
 
 ```vue
 <template>
@@ -17,7 +21,7 @@
   <br />
   <br />
   <Flex ref="refTarget" :style="boxStyle" align="center" justify="center">
-    <p style="color:#999">Drawer 在内部展示.</p>
+    <p style="color:#999">Drawer inside with target.</p>
   </Flex>
   <Drawer
     v-model="show"

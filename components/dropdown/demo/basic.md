@@ -2,6 +2,10 @@
 ### 基本用法
 最简单的下拉菜单。
 </cn>
+<en>
+### Basic Usage
+The simplest dropdown menu.
+</en>
 
 ```vue
 <template>

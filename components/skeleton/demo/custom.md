@@ -2,21 +2,25 @@
 ### 自定义
 自定义效果。
 </cn>
+<en>
+### Custom
+Custom effect.
+</en>
 
 ```vue
 <template>
-  <Button :disabled="loading" @click="showSkeleton">重新加载</Button>
+  <Button :disabled="loading" @click="showSkeleton">Reload</Button>
   <br />
   <br />
-  <Card v-for="x in 3" class="demo-skeleton-card" title="诗一首" :key="x">
+  <Card v-for="x in 3" class="demo-skeleton-card" title="A Poem" :key="x">
     <SkeletonImage animated :loading="loading" :radius="8" style="width:166px;height:100px;">
       <div class="cover" />
     </SkeletonImage>
     <SkeletonText animated :loading="loading" size="small" style="min-width:80px;margin:8px 0;">
-      <h2>静夜思.李白</h2>
+      <p>Tony Stack</p>
     </SkeletonText>
     <SkeletonText animated :loading="loading" size="small" style="min-width:130px;">
-      <span>床前明月光, 疑是地上霜, 举头望明月, 低头思故乡.</span>
+      <span>I am Iron Man.</span>
     </SkeletonText>
   </Card>
 </template>

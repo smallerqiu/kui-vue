@@ -2,6 +2,10 @@
 #### 带下拉框的按钮
 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
 </cn>
+<en>
+#### Button with a dropdown menu  
+On the left is the button, and on the right is an additional related function menu. The icon property can be set to modify the icon on the right.
+</en>
 
 ```vue
 <template>

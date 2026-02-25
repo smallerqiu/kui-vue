@@ -2,6 +2,10 @@
 ### 不可选择日期和时间
 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
 </cn>
+<en>
+### Disabled Dates and Times
+Use `disabledDate` and `disabledTime` to disable selecting specific dates and times, respectively.
+</en>
 
 ```vue
 <template>

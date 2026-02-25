@@ -4,18 +4,18 @@
  </cn>
 <en>
 ### Basic Usage
-The simplest usage; the tooltip size is determined by the content area.
-</en>
+The simplest usage. The size of the floating layer is determined by the content area.
+ </en>
 
 ```vue
 <template>
-  <Tooltip title="明月几时有,把酒问青天!">
-    <a href="#">月几时有,把酒问青天</a>
+  <Tooltip title="How to behave?">
+    <a href="#">Hover me</a>
   </Tooltip>
   <br />
   <br />
   <br />
-  <Tooltip :title="clicked ? '窗前明月光' : '凝视地上霜,好冷！'">
+  <Tooltip :title="clicked ? 'How are you?' : `I'm fine!`">
     <a @click="clicked = !clicked" href="#">Click me!</a>
   </Tooltip>
 </template>

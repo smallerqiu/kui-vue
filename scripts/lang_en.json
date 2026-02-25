@@ -1,0 +1,385 @@
+{
+  "affix": {
+    "basic": "\n### Basic Usage \nThe simplest usage.\n",
+    "bottom": "\n### Fixed at Bottom\nThe simplest usage.\n",
+    "callbacks": "\n### Fixed State Change Callback \nYou can get whether it is fixed.\n",
+    "container": "\n### Scroll Container\nUse `target` to set the element whose scroll event `Affix` listens to. Defaults to `window`.\n"
+  },
+  "alert": {
+    "basic": "\n### Basic Usage\nControl the display type via `type`.\n",
+    "close": "\n### Closable\nUse `closable` to control whether the close button is displayed, with smooth and natural closing animation.\n",
+    "customIcon": "\n### Custom Icon\nUse `showIcon` to control whether the icon is displayed.\n",
+    "icon": "\n### Icon\nUse `showIcon` to control whether the icon is displayed.\n"
+  },
+  "avatar": {
+    "basic": "\n### Basic\nAvatars support three sizes and two shapes.\n",
+    "change": "\n### Auto Font Size Adjustment\nFor text avatars, when the string is long, the font size automatically adjusts based on the avatar width.\n",
+    "types": "\n### Types\nThree types are supported: Image, Icon, and Text. Icon and Text avatars support custom icon color and background color.\n"
+  },
+  "backtop": {
+    "basic": "\n### Basic Usage\nThe default position is 50px from the right and bottom of the page. It appears when scrolling 400px from the top.\n",
+    "custom": "\n### Basic Usage\nYou can customize the back-to-top button style, for example setting `bottom` to `100px`.\n"
+  },
+  "badge": {
+    "basic": "\n### Basic Usage\nBasic usage of `Badge`.\n",
+    "color": "\n### Colorful Badge\nMultiple preset color styles for different scenarios. If presets do not meet your needs, you can set a specific color value.\n",
+    "dot": "\n### Dot\nSet `dot` to display a dot.\n",
+    "dynamic": "\n### Controlled\nDynamic control.\n",
+    "mark": "\n### Standalone Usage\nUsing without wrapping any element makes it standalone and allows custom styling.\nThe badge in the top-right corner is limited to red.\n",
+    "max": "\n### Max Value / Custom\nUse `max-count` with `count`. In numeric mode, values exceeding the max will be hidden. If `count` is not a number, it will not be calculated.\n",
+    "status": "\n### Status Dot\nA small dot used to indicate status.\n"
+  },
+  "breadcrumb": {
+    "basic": "\n### Basic Usage\nAdd navigation links via `href`.\n",
+    "icon": "\n### Set Icon\nSet the icon via `icon`.\n",
+    "separator": "\n### Separator\nSet the separator via `separator`.\n"
+  },
+  "button": {
+    "basic": "\n### Basic Usage\nUse the `type` property to define a `Button`.\n",
+    "block": "\n### Block Button\nThe `block` property makes the button fit the width of its parent.\n",
+    "color": "\n### Color Variants\nUse `color` to create more button variants.\n",
+    "disabled": "\n### Disabled\nAdd the `disabled` property to make the button unavailable.\n",
+    "group": "\n### Button Group\nPlace multiple `Button` components inside `ButtonGroup` to group them.\n",
+    "light": "\n### Light Theme\nLight theme.\n",
+    "loading": "\n### Loading State\nAdd the `loading` property to put the button in a loading state.\n",
+    "outline": "\n### Outline Theme\nOnly display the border.\n",
+    "size": "\n### Size\n`small` for small size, `large` for large size.\n",
+    "withIcon": "\n### With Icon\nSet the button icon by adding the `icon` property.\n"
+  },
+  "card": {
+    "basic": "\n### Basic Usage\nSet the title and icon via `title` and `icon`.\n",
+    "border": "\n### Border\nUse `bordered` to control whether the border is displayed.\n",
+    "notitle": "\n### A Very Weird Card\n"
+  },
+  "carousel": {
+    "autoplay": "\n### Autoplay\nEnable timed autoplay by setting `autoplay`. Use `delay` to set the interval. The default is `3000` milliseconds.\n",
+    "basic": "\n### Basic Usage\nThe simplest usage. You can specify the initial value via `value (v-model)`.\n",
+    "vertical": "\n### Vertical\nEnable vertical mode by setting `vertical`. In this mode, left and right arrows are hidden.\n"
+  },
+  "checkbox": {
+    "basic": "\n### Single Selection\nWhen used alone, a `v-model` value of `true` means checked, and `false` means unchecked.\n ",
+    "checkAll": "\n### Select All\nSelect-all combination.\n",
+    "disabled": "\n### Disabled / Controlled\nSet disabled state via `disabled`.\n",
+    "group": "\n### Multiple Selection\nYou can use the `options` property to define options, or use child components instead.\n",
+    "groupLayout": "\n### Group Layout\nGroup layout.\n"
+  },
+  "collapse": {
+    "accordion": "\n### Accordion\nSet `accordion` to allow only one panel to be expanded at a time.\n",
+    "basic": "\n### Basic Usage\nBy default, one or multiple panels can be expanded at the same time.\n",
+    "extra": "\n### Extra Nodes\nMultiple panels can be expanded simultaneously.\n",
+    "nesting": "\n### Nested Panels\nNested collapse panels.\n",
+    "sample": "\n### Simple Mode\nSet `sample` to display a borderless, minimal style.\n"
+  },
+  "colorPicker": {
+    "basic": "\n### Basic Usage\nClick to open the color panel.\n",
+    "customTrigger": "\n### Custom Trigger\nCustomize the trigger for the color panel.\n",
+    "placement": "\n### Popup Placement\nSupports 6 popup placements. If there is not enough space above, the panel will automatically appear below.\n",
+    "size": "\n### Size / Disabled\n`small` for small size, `large` for large size.\n"
+  },
+  "datePicker": {
+    "basic": "\n### Basic Usage\nSelect or manually input a date. Use `v-model` for two-way data binding.\n",
+    "disabled": "\n### Disabled and Non-editable\nThe disabled, non-editable, and non-clearable states of the picker.\n",
+    "disabledDate": "\n### Disabled Dates and Times\nUse `disabledDate` and `disabledTime` to disable selecting specific dates and times, respectively.\n",
+    "lang": "\n### Multi-language\nDatePicker supports multiple languages, depending on `dayjs`.\n",
+    "presets": "\n### Preset Ranges\nYou can preset common date ranges to improve user experience.\n",
+    "range": "\n### Date Range\nSupports date and time range selection. It's recommended to use `startDate` and `endDate` for values.\n",
+    "size": "\n### Size\nUse `small` and `large` to set the size of the picker.\n",
+    "theme": "\n### Weird Theme\nStrange things.\n",
+    "valueType": "\n### Output Type\nSpecify the output type via `valueType`.\n"
+  },
+  "descriptions": {
+    "basic": "\n### Basic Usage\nSimple display.\n",
+    "bordered": "\n### Bordered\nList with borders and background colors.\n",
+    "size": "\n### Custom Size\nCustomize the size to adapt to various containers.\n",
+    "vertical": "\n### Vertical\nVertical list.\n",
+    "verticalBordered": "\n### Vertical Bordered\nVertical list with borders and background colors.\n"
+  },
+  "divider": {
+    "basic": "\n### Vertical Divider\nUse type=\"vertical\" to set an inline vertical divider.\n",
+    "default": "\n### Horizontal Divider\nDefault is a horizontal divider, with text that can be added in the middle.\n",
+    "withText": "\n### Divider with Text\nA divider with text in the middle, where `orientation` can specify the text position.\n"
+  },
+  "drawer": {
+    "basic": "\n### Basic Usage\nUse `v-model` for two-way binding to control whether the `Drawer` is displayed. If `title` is null or false, the title is not shown.\n",
+    "custom": "\n### Custom\nUse `title` to set the title, `width` to control the width, and `placement` to control the direction.\n",
+    "target": "\n### Inject into Target Element\nCan be expanded within the target element.\n",
+    "withForm": "\n### Form Mode\nContent will be presented in form mode, with a header and footer, and the footer can be customized.\n"
+  },
+  "dropdown": {
+    "arrow": "\n### Arrow\nAn arrow can be displayed.\n",
+    "basic": "\n### Basic Usage\nThe simplest dropdown menu.\n",
+    "cascading": "\n### Multi-level Menu\nThe passed menu has multiple levels.\n",
+    "divider": "\n### Other Elements\nDividers and disabled menu items.\n",
+    "dropdownButton": "\n#### Button with Dropdown\nLeft is a button, right is an additional related function menu. You can set the `icon` attribute to modify the right icon.\n",
+    "placement": "\n### Popup Position\nSupports 6 popup positions.\n",
+    "rightMenu": "\n### Right-click Menu\nBy default, the menu is triggered on hover, but it can also be triggered by a right mouse click.\n"
+  },
+  "empty": {
+    "basic": "\n### Basic Usage\nSimple display.\n",
+    "custom": "\n### Custom\nCustomize the image, description, and extra content.\n",
+    "nodesc": "\n### No Description\nDisplay without description.\n",
+    "used": "\n### Default Display\nWill be displayed by default in the above components.\n"
+  },
+  "flex": {
+    "align": "\n### Alignment\nSet the alignment mode.\n",
+    "basic": "\n### Basic Layout \nThe simplest usage.\n",
+    "size": "\n### Spacing Size\nUse `size` to set the spacing between elements. Presets include `small`, `middle`, and `large`, or you can define a custom spacing.\n",
+    "wrap": "\n### Set Wrapping \nWhen spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.\n"
+  },
+  "form": {
+    "align": "\n#### Alignment\nChoose the best label alignment based on specific goals and constraints.\n",
+    "basic": "\n### Typical Form\nIncludes various form items, such as input fields, selectors, switches, radio buttons, checkboxes, etc.\n",
+    "customvalid": "\n#### Custom Validation Rules\nUse custom validation rules to complete form validation.\n",
+    "dynamicvalid": "\n#### Dynamic Validation Rules\nExecute different validation rules based on different conditions.\n",
+    "length": "\n#### Auxiliary Validation\nValidate certain data types.\n",
+    "valid": "\n#### Form Validation\nHelp users discover and correct errors as early as possible, while preventing mistakes.\n",
+    "withmodal": "\n#### Multi-form Linkage\nOutside the Form, submit the form via `submit` from the outside. Conversely, it's recommended to use `<Button htmlType=\"submit\" />` to call the native submission logic.\n"
+  },
+  "grid": {
+    "alignWhiteSpace": "\n### Complex Data Detail Page (Alignment & Whitespace)\nEffect of a Descriptions list, but automatically adjusts display density on different screens.\n",
+    "architecture": "\n### Layout Hierarchy Design (Architecture)\n- Layer 1: Layout series — the main page skeleton (Header + Sider + Content).\n\n- Layer 2: Grid series — the primary 2D layout for the content area (stat cards, Bento chart matrix).\n\n- Layer 3: Row/Col — simple 1D proportional division (e.g., two side-by-side tables at the bottom).\n\n- Layer 4: Flex — extremely fine-grained content alignment (card title + icon).\n",
+    "autoFillMinWidth": "\n### Dashboard Card Layout (Auto-fill + Min-Width)\nNo need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width.\n\n> When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.\n",
+    "basic": "\n### Basic Usage\n\n> The `offset` logic of Grid is based on `grid-column-start`. In `dense` fill mode, `offset` might cause unexpected \"gap-filling\" behavior.\n\n",
+    "bento": "\n### Image Gallery / Masonry (Bento Grid Style)\nAsymmetric layout.\n",
+    "breakpointFallback": "\n### Complex Form Responsiveness (Breakpoint Fallback)\nThe logic for finding breakpoints up or down. For example, if `md` is defined but `lg` is not, can the system correctly apply the `md` value?\n",
+    "fixedRowsAreas": "\n### Holy Grail Layout / Admin Panel (Fixed Rows & Areas)\nThe vertical control power of `rows` and `rowSpan`.\n",
+    "footerStrategy": "\n### Responsive Footer / Menu (Footer Strategy)\nExtreme compression from \"multi-column vertical arrangement\" to \"single-column folding\".\n",
+    "heroSection": "\n### Hero Section Overlay Layout (Layering)\nThe overlapping capability of `grid-column-start` and `grid-row-start`, with text floating over a specific part of an image.\n",
+    "suffixDisplayNone": "\n### Responsive Hiding & Forced Sorting (Suffix & Display None)\n`span: 0` completely removes the DOM placeholder, and `suffix` spans across all dynamic items.\n"
+  },
+  "icon": {
+    "basic": "\n### Basic Usage\nYou can set the icon's type, size, and color via the `type`, `size`, and `color` attributes, respectively. You can also use the `spin` attribute to achieve a rotating animation effect.\n",
+    "stroke": "\n### Stroke Width\nYou can set the icon's stroke width via the `strokeWidth` attribute.\n"
+  },
+  "image": {
+    "basic": "\n### Basic Usage\nSimple display.\n",
+    "errors": "\n### Error Handling\nShow an image placeholder on load failure.\n",
+    "extra": "\n### Extension\nCan extend custom tools and panels.\n",
+    "group": "\n### Photo Wall\nClick the left/right buttons to preview multiple images.\n"
+  },
+  "input": {
+    "basic": "\n### Basic Usage\nUse `v-model` for two-way data binding.\n",
+    "event": "\n### Events\nThis example tests whether component events are triggered normally.\n",
+    "group": "\n### Input Group\nUse `InputGroup` to tightly connect components and merge borders. Default is `true`.\n",
+    "icon": "\n### With Icon\nBy setting the `icon` attribute, you can add an icon to the input field, which is only effective for `input`. This allows for quick implementation of features like password visibility toggle or search.\n",
+    "size": "\n### Size\n`large` for large size, `small` for small size.\n",
+    "suffix": "\n### Extension, Prefix and Suffix\nsuffix, prefix extension.\n",
+    "textarea": "\n### Textarea\nControl the number of rows via `rows`.\n",
+    "theme": "\n### Theme\nUse `theme` to set the theme, and `shape` for rounded corners.\n"
+  },
+  "inputNumber": {
+    "basic": "\n### Basic Usage\nBasic usage. The `keyboard` attribute can control keyboard behavior.\n",
+    "ffix": "\n### Extension, Prefix and Suffix\nsuffix, prefix extension\n",
+    "format": "\n### High-Precision Decimals / Formatted Display \nFormat numbers using `formatter` to display data with specific meaning, often used in conjunction with `parser`. \n",
+    "size": "\n### Size\n`large` for large size, `small` for small size\n"
+  },
+  "layout": {
+    "basic": "\n### Typical Layout\nA typical page layout.\n",
+    "layout1": "\n### Top-Middle-Bottom Layout \nThe most basic \"Top-Middle-Bottom\" layout.\nThe main navigation is usually placed at the top of the page, from left to right: logo, primary navigation items, auxiliary menus (user, settings, notifications, etc.). Content is typically placed within a fixed width (e.g., 1200px), ensuring a stable page layout unaffected by the user's terminal display. The top-to-bottom structure aligns with users' vertical browsing habits and is a classic website navigation model. This layout improves information display efficiency in the main work area but sacrifices some vertical space. Additionally, due to the horizontal space limitation of the navigation bar, it is unsuitable for information structures with many primary navigation items.\n",
+    "layout2": "\n### Top-Side Layout\nA page with top navigation and a sidebar, commonly used for showcase websites.\n",
+    "layout3": "\n### Top-Side Layout - Full Width\nAlso features top navigation and a sidebar, but differs in that there are no side margins, commonly used for application-type websites.\n",
+    "layout4": "\n### Fixed Sidebar\nWhen content is long, a fixed sidebar provides a better user experience.\n",
+    "layout5": "\n### Side Layout / Collapsed Mode\nA two-column side layout. When horizontal page space is limited, the side navigation can be collapsed.\nThe side navigation uses a left-right structure on the page, with the main navigation usually fixed on the left side and auxiliary menus placed at the top of the work area. Content adapts to the browser terminal, improving the utilization of horizontal space, but the overall page layout is less stable. This navigation mode has strong hierarchical scalability, allowing first, second, and third-level navigation items to be displayed more smoothly and cohesively. The side navigation can also be fixed, enabling users to quickly locate and switch their current position during operation and browsing, offering high operational efficiency. However, this type of navigation sacrifices some horizontal space for page content.\n"
+  },
+  "loading": {
+    "basic": "\n### Basic Usage \nThe simplest usage.\n"
+  },
+  "menu": {
+    "accordion": "\n### Expand Only Current Parent Menu\nClicking a menu item collapses all other expanded menus, keeping the menu focused and clean.\n",
+    "basic": "\n### Top Navigation\nHorizontal top navigation menu.\n",
+    "collapsed": "\n### Collapsible Inline Menu\nInline menus can be collapsed/expanded.\n",
+    "inline": "\n### Inline Menu\nVertical menu, with submenus embedded within the menu area.\n",
+    "mode": "\n### Switch Menu Type\nDemonstrates dynamic mode switching.\n",
+    "theme": "\n### Theme\nTwo built-in themes: `light|dark`, defaulting to `light`.\n",
+    "vertical": "\n### Vertical Menu\nSubmenus appear as popups.\n"
+  },
+  "message": {
+    "basic": "\n### Normal Prompt\nInformational feedback prompt.\n",
+    "close": "\n### Custom Duration\nCan be custom configured. Use `duration` to control the auto-close duration (default `3s`). Use `closable` to show a close button.\n",
+    "icon": "\n### Custom Icon\nCustom icon.\n",
+    "types": "\n### Prompt Types\nSet the prompt type via `type`.\n"
+  },
+  "modal": {
+    "basic": "\n### Basic Usage\nUse `v-model` for two-way data binding.\n",
+    "confirm": "\n### Confirmation Dialog\nA global confirmation dialog that can be closed asynchronously.\n",
+    "custom": "\n### Custom\nCustom `Modal`.\n",
+    "global": "\n### Global Mode\nUse global mode.\n",
+    "more": "\n### Other Properties\nWhen the footer is not needed, set `footer` to `null`.\n"
+  },
+  "notice": {
+    "basic": "\n### Basic Usage\nBasic usage of `Notice`.\n",
+    "close": "\n### Custom Duration\nCan be custom configured. Use `duration` to control the auto-close duration (default `3s`).\n",
+    "icon": "\n### Custom Icon\nCustom icon.\n",
+    "types": "\n### Notification with Icon\nCall different methods to display different types.\n"
+  },
+  "page": {
+    "basic": "\n### Basic Usage\nBasic pagination.\n",
+    "size": "\n### Size\nDisplay small size.\n",
+    "sizerElevator": "\n### Items / Jump\nChange the number of items displayed per page.\n"
+  },
+  "popconfirm": {
+    "basic": "\n### Basic Usage\nThe simplest usage.\n",
+    "local": "\n### Internationalization\nUse `okText` and `cancelText` to customize button text.\n",
+    "placement": "\n### Position\nControl the direction via `placement`, with twelve available positions.\n"
+  },
+  "poptip": {
+    "basic": "\n### Basic Usage\nThe simplest usage, where the floating layer's size is determined by the content area.\n",
+    "closeinside": "\n### Close from Inside the Floating Layer\nUse the `v-model` attribute to control the floating layer's visibility.\n",
+    "placement": "\n### Position\nControl the direction via `placement`, with twelve available positions.\n",
+    "trigger": "\n### Trigger Mode\nControl the trigger mode via `trigger`, with options for mouse hover (`hover`) or click (`click`).\n"
+  },
+  "progress": {
+    "basic": "\n### Progress Bar\nA standard progress bar.\n",
+    "circle": "\n### Circular Progress\nA circular progress bar.\n",
+    "color": "\n### Color and Format\nCustomize color and format.\n",
+    "dashboard": "\n### Dashboard-style Progress Bar\nDashboard-style progress bar. Adjust the gap size via `gapDegree`. Use `strokeLinecap=\"square|round\"` to adjust the shape of the progress bar's edges.\n",
+    "dynamic": "\n### Dynamic Display\nA moving progress bar is a good progress bar.\n",
+    "size": "\n### Size\nSuitable for placement in narrower areas.\n"
+  },
+  "radio": {
+    "basic": "\n### Single Selection\nWhen used alone, the `v-model` value is `true` for selected and `false` for unselected.\n",
+    "disabled": "\n### Disabled / Controllable\nSet `disabled` to make it unavailable.\n",
+    "group": "\n### Multiple Selection\nYou can use the `options` attribute to set options, or use child components to set options.\n",
+    "radioButton": "\n### Combined with Button\nCombine `RadioGroup` and `RadioButton` for usage.\n",
+    "vertical": "\n### Group Layout\nGroup layout.\n"
+  },
+  "rate": {
+    "basic": "\n### Basic Usage \nThe simplest usage.\n",
+    "character": "\n### Other Characters\nStars can be replaced with other characters, such as letters, numbers, font icons, or even Chinese characters.\n",
+    "tips": "\n### Text Display / Allow Clear\nAdd text display to the rating component.\n"
+  },
+  "rowCol": {
+    "align": "\n### Flex Alignment\nVertical alignment of Flex child elements.\n",
+    "basic": "\n### Basic Usage\n`col` must be placed inside `row`.\n",
+    "fill": "\n### Flex Fill\nCol provides a flex property to support filling.\n",
+    "flex": "\n### Flex Layout\nFlex layout basics.\nUse `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.\n",
+    "gutter": "\n### Column Gutter\nUse the `gutter` attribute to set the spacing between columns. For vertical spacing, it can be written as an array [horizontal spacing, vertical spacing].\n",
+    "offset": "\n### Grid Offset\nBy setting the `offset` attribute, columns can be offset left or right, with the offset grid count being the value of `offset`.\n "
+  },
+  "select": {
+    "basic": "\n### Single Selection\nUse `v-model` for two-way data binding.\n",
+    "disabled": "\n### Disabled and Non-clearable\nUse `v-model` for two-way data binding.\n",
+    "filterable": "\n### Filtering and Searching\nSet the `filterable` value to present filtering mode.\n> `filterable` and `onSearch` cannot be used simultaneously; search results will be filtered.\n",
+    "multiple": "\n### Multiple Selection\nSet the `multiple` value to present multi-select mode.\n",
+    "size": "\n### Size\nControl component size via `width` and `size`.\n",
+    "theme": "\n### Weird Definition\nSome strange things.\n"
+  },
+  "skeleton": {
+    "animated": "\n### Animation Effect\nShow animation effect.\n",
+    "basic": "\n### Basic Usage\nThe simplest placeholder effect.\n ",
+    "child": "\n### Child Component\nLoading placeholder includes child components.\n",
+    "custom": "\n### Custom\nCustom effect.\n",
+    "group": "\n### Combination\nYou can configure the number of skeleton screen paragraphs to better approximate the real rendering effect. The first line will be rendered as a paragraph start of 35% length.\n",
+    "items": "\n### Button/Avatar/Image\nSkeleton buttons, avatars, and images.\n",
+    "list": "\n### List\nUse loading placeholders in list components.\n"
+  },
+  "slider": {
+    "basic": "\n### Basic Usage \nBasic usage. \n",
+    "formatter": "\n### Custom Tooltip \nUse `tipFormatter` to set the display format of the Tooltip.\nWhen `tooltipVisible` is true, the Tooltip will always be shown; when false, it will never be shown, even during dragging or hovering.\n",
+    "marks": "\n### With Labels \nUse the `marks` attribute to mark slider ticks, and use `value` to specify the slider position. \n",
+    "reverse": "\n### Reverse\nSet `reverse` to invert the slider.\n",
+    "size": "\n### Size/Custom\n`size` can control the size of the handle.\n",
+    "vertical": "\n### Vertical\nVertical Slider.\n",
+    "withNumber": "\n### Controlled\nControlled and synchronized with Input.\n"
+  },
+  "space": {
+    "align": "\n### Alignment\nSet the alignment mode.\n",
+    "basic": "\n### Basic Usage \nHorizontal spacing between adjacent components.\n",
+    "compact": "\n### Compact Layout Group\nUse `compact` to tightly connect form components and merge borders.\n",
+    "compactButton": "\n### Button Compact Layout\nExample of compactly arranged Button components.\n",
+    "compactVertical": "\n### Vertical Compact Layout\nVertical compact layout, currently only supporting Button combinations.\n",
+    "customSize": "\n### Custom Size\nCustomize spacing size.\n",
+    "size": "\n### Spacing Size\nPreset spacing sizes: large, medium, and small.\nSet `size` to `large` or `middle` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.\n",
+    "split": "\n### Divider\nDivider between adjacent components.\n",
+    "vertical": "\n### Vertical Spacing\nVertical spacing between adjacent components.\n",
+    "wrap": "\n### Set Wrapping \nWhen the spacing is horizontal, you can use `wrap` to set whether to wrap automatically. The default is false.\n"
+  },
+  "spin": {
+    "basic": "\n### Basic Usage \nA simple loading state.\n",
+    "container": "\n### Card Loading\nYou can directly embed content into Spin to turn an existing container into a loading state.\n",
+    "mode": "\n### Spin Type\nYou can directly embed content into Spin to turn an existing container into a loading state.\n"
+  },
+  "statCard": {
+    "basic": "\n### Display Numbers Only\n",
+    "card": "\n### Card Display\nUsed in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices. \n",
+    "withCard": "\n### Strange Cards\n"
+  },
+  "switch": {
+    "basic": "\n### Basic Usage\nCan use `v-model` for two-way data binding.\n",
+    "disabled": "\n### Disabled / Controllable\nUse the `disabled` attribute to set whether the component is disabled.\n",
+    "loading": "\n### Loading\nIndicates that the switch operation is still in progress.\n",
+    "size": "\n### Two Sizes\n`size=\"small\"` indicates a small switch.\n",
+    "withText": "\n### Text / Icon\nUse `true-text` and `false-text` to set the text displayed when selected and unselected. Use the `slot` `(checked|unchecked)` to control the content.\n"
+  },
+  "table": {
+    "baseRender": "\n### Basic Usage (Using render)\nUse custom `render` to initialize the table.\n",
+    "basic": "\n### Basic Usage\nA regular table.\n ",
+    "bordered": "\n### Custom Header and Footer\nAdd table border lines, header, and footer.\n",
+    "colRowSpan": "\n### Table Row/Column Span\nHeaders support only column spanning; use colSpan inside column definitions to configure.\nThe table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.\n",
+    "customHeader": "\n### Custom Table Header\nA table with a customizable header. You can define the header via `#header-`.\n",
+    "fixedColHeader": "\n### Fixed Header/Columns\nFor data with many columns, you can fix the front and back columns and scroll horizontally to view other data. You need to set the table's width `scroll.x` and `scroll.y`.\n",
+    "headerSpan": "\n### Header Grouping \n`columns[n]` can nest `children` to render grouped headers.\n",
+    "size": "\n### Dynamically Control Table Properties\nSelect different configuration combinations to see the effects.\n",
+    "tableCheck": "\n### Checkbox Selection\nSet `checkable=true` to automatically enable multi-selection.\n> Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey=\"ID\"`.\n",
+    "tableEdit": "\n### Editable Cells\nA table with cell editing functionality.\n ",
+    "tableSorter": "\n### Sorting\n`sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.\n "
+  },
+  "tabs": {
+    "basic": "\n### Basic Usage\nThe first item is selected by default.\n",
+    "card": "\n### Card-style Tabs \nAnother style of tabs.\n",
+    "centered": "\n### Centered\nTabs are centered.\n",
+    "closable": "\n### Add and Close Tabs \nOnly card-style tabs support adding and closing options.\nUse `closable={false}` to disable closing.\n",
+    "disabled": "\n### Disabled\nDisable a specific tab.\n",
+    "extra": "\n### Extra Content \nYou can add extra operations to the right of the tabs.\n",
+    "icon": "\n### Icon\nTabs with icons.\n",
+    "sample": "\n### Minimalist Tabs\nSimple card presentation mode.\n"
+  },
+  "tag": {
+    "basic": "\n### Basic Usage\nUse `closeable` to show a close button. Clicking hides the tag and triggers the `close` callback.\n",
+    "color": "\n### Colorful Tags\nMultiple preset tag colors for different scenarios. If the presets don't meet your needs, you can set a specific color value.\n ",
+    "dynamic": "\n### Dynamic Add and Remove\nUse `closeable` to show a close button.\n",
+    "icon": "\n### Icon\nYou can set the `icon` attribute or directly use the Icon component inside the Tag.\n ",
+    "size": "\n### Size and Shape\nControl size via `size`.\n"
+  },
+  "timeline": {
+    "basic": "\n### Basic Usage\n`TimeLine` must contain `TimeLineItem`.\n ",
+    "icon": "\n### Icon\nSet the `icon` and `color` properties on `TimeLineItem` to change the icon display.\n ",
+    "mode": "\n### Display Direction\nSpecify the `mode` to change the display direction.\n"
+  },
+  "tooltip": {
+    "basic": "\n### Basic Usage\nThe simplest usage. The size of the floating layer is determined by the content area.\n ",
+    "color": "\n### Colorful Text Tips\nMultiple preset colors for text tips, used in different scenarios.\n ",
+    "placement": "\n### Position\nControl the direction via `placement`. There are twelve available positions.\n "
+  },
+  "tree": {
+    "basic": "\n### Basic Usage\nThe simplest usage, showing selectable items with default expansion.\n ",
+    "checkable": "\n### Checkable\nSet the `checkable` attribute to allow nodes to be checked.\n ",
+    "customRender": "\n### Extended Node\nExtended node for a tree item.\n ",
+    "directory": "\n### Group Control\nDisplays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.\n ",
+    "disabled": "\n### Disabled Node\nSet the `disabled` attribute to disable a node.\n ",
+    "icon": "\n### Custom Icon\nYou can customize icons for different nodes.\n ",
+    "sync": "\n### Asynchronous Loading\nClick to expand a node and load data dynamically. `isLeaf=true` indicates the current node is a leaf node and has no children.\n "
+  },
+  "treeselect": {
+    "basic": "\n### Basic Usage\nThe simplest usage.\n ",
+    "checkable": "\n### Checkable\nUse checkboxes to enable multi-selection.\n ",
+    "disabled": "\n### Disabled\nDisabled state.\n ",
+    "multiple": "\n### Multiple Selection\nA tree select component that supports multiple selections.\n ",
+    "size": "\n### Size\nThe select box sizes are: `small`, `default`, `large`.\n ",
+    "sync": "\n### Asynchronous Loading\nClick to expand a node and load data dynamically.\n ",
+    "theme": "\n### Weird Definition\nSome strange and unusual things.\n "
+  },
+  "upload": {
+    "accept": "\n### Upload File Types\nUse the `accept` attribute (a native HTML input attribute) to restrict the types of files that can be uploaded.\n`accept` supports two types of string values:\n- A set of file extensions (recommended), such as `.jpg`, `.png`, etc.\n- A set of MIME types for files. Refer to the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types) documentation.\n\nFor example, to only allow users to upload PNG and PDF files, `accept` can be written as: `accept = '.pdf,.png'` or `accept = 'application/pdf,image/png'` (simply connect the MIME types for PNG and PDF with a comma).\n",
+    "avatar": "\n### Upload Avatar\nWhen `limit` equals the number of uploaded files, the file selection component will not be displayed.\n",
+    "basic": "\n### Click to Upload\nClassic style. When the user clicks the button, a file selection dialog pops up.\n",
+    "custom": "\n### Manual Upload / Custom Properties\nBy setting `data` and `headers`, you can add custom upload properties.\nWhen `autoTrigger='false'`, selecting a file will not automatically trigger the upload. You need to manually call the `upload` method on the ref to trigger it.\n`name` is the uploaded filename.\n",
+    "directory": "\n### Upload Folder\nBy setting `directory` to `true`, you can support uploading all files from a folder.\n ",
+    "draggable": "\n### Drag and Drop Upload\nSet `draggable='true'` to enable drag-and-drop functionality.\n",
+    "exceed": "\n### Upload Restrictions\n`limit` restricts the number of uploads. The `minSize` and `maxSize` attributes allow you to customize file size limits for uploads.\n ",
+    "fileList": "\n### Upload Multiple Files\nBy setting the `multiple` attribute, you can support selecting and uploading multiple files simultaneously.\nIf not set, only one file can be uploaded by default.\n",
+    "forms": "\n### Form Validation\nUpload form validation.\n ",
+    "pictures": "\n### Photo Wall\nSet `type = 'picture'` to allow users to upload images and display thumbnails in a list.\n ",
+    "transform": "\n### Pre-upload Image Processing\nUse `transformFile` to process the file before it is uploaded, for example, to compress it.\n "
+  }
+}

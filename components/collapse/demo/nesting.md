@@ -2,6 +2,10 @@
 ### 嵌套面板
 嵌套折叠面板。
 </cn>
+<en>
+### Nested Panels
+Nested collapse panels.
+</en>
 
 ```vue
 <template>

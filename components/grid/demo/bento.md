@@ -3,7 +3,8 @@
 非对称布局
 </cn>
 <en>
-### Bento Grid
+### Image Gallery / Masonry (Bento Grid Style)
+Asymmetric layout.
 </en>
 
 ```vue
@@ -102,7 +103,7 @@ const features = [
 <style scoped>
 .demo-container {
   padding: 40px 20px;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 

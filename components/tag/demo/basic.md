@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Basic Usage
-Using closeable shows a close button; clicking hides the tag and triggers the close callback.
+Use `closeable` to show a close button. Clicking hides the tag and triggers the `close` callback.
 </en>
 
 ```vue

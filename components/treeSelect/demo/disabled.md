@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Disabled
-Disabled state
-</en>
+Disabled state.
+ </en>
 
 ```vue
 <template>

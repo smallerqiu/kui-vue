@@ -2,6 +2,10 @@
 ### 点
 设置 `dot` 来展示一个点
 </cn>
+<en>
+### Dot
+Set `dot` to display a dot.
+</en>
 
 ```vue
 <template>
@@ -13,7 +17,7 @@
       <Icon :type="NotificationsOutline" />
     </Badge>
     <Badge dot>
-      <a href="#">我是一个连接</a>
+      <a href="#">Link</a>
     </Badge>
   </Space>
 </template>

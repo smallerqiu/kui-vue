@@ -2,6 +2,10 @@
 ### 自定义尺寸
 自定义间距大小。
 </cn>
+<en>
+### Custom Size
+Customize spacing size.
+</en>
 
 ```vue
 <template>

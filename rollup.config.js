@@ -41,7 +41,7 @@ const localesConfig = locales.map((lang) => ({
       exclude: "node_modules/**",
       presets: [["@babel/preset-env", { modules: false }]],
     }),
-    terser(),
+    // terser(),
   ],
 }));
 
@@ -127,13 +127,13 @@ export default [
         ],
         plugins: ["@vue/babel-plugin-jsx"],
       }),
-      terser({
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-        // mangle: true, // 变量名混淆
-      }),
+      // terser({
+      //   compress: {
+      //     drop_console: true,
+      //     drop_debugger: true,
+      //   },
+      //   // mangle: true, // 变量名混淆
+      // }),
       // license({
       //   banner: `${pkg.name} v${pkg.version}\nCopyright 2017-present, kui-vue.\nAll rights reserved.\nAuthor: Qiu / www.chuchur.com\n`
       // }),

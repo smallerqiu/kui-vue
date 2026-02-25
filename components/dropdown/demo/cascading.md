@@ -2,12 +2,16 @@
 ### 多级菜单
 传入的菜单里有多个层级。
 </cn>
+<en>
+### Multi-level Menu
+The passed menu has multiple levels.
+</en>
 
 ```vue
 <template>
   <Dropdown>
     <Button theme="light">
-      多级菜单
+      Multi-level Menu
       <Icon :type="ChevronDown" />
     </Button>
     <template #overlay>

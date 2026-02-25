@@ -2,6 +2,10 @@
 ### 自定义
 通过 `title` 来设置标题， `width` 控制宽度， 还有 `placement` 控制方向
 </cn>
+<en>
+### Custom
+Use `title` to set the title, `width` to control the width, and `placement` to control the direction.
+</en>
 
 ```vue
 <template>

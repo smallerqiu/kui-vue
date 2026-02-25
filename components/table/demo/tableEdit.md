@@ -4,13 +4,13 @@
  </cn>
 <en>
 ### Editable Cells
-Table with in-cell editing capabilities.
-</en>
+A table with cell editing functionality.
+ </en>
 
 ```vue
 <template>
   <Button @click="add">Add</Button>
-  <Table :data="data" :columns="columns" bordered :sticky="52">
+  <Table :data="data" :columns="columns" bordered>
     <template #name="{ value, record }">
       <Input v-model="record.name" size="small" v-if="record.isEdit" />
       <template v-else>{{ value }}</template>
@@ -34,7 +34,7 @@ Table with in-cell editing capabilities.
         <Button size="small" v-if="record.isEdit" @click="record.isEdit = false"> Cancel </Button>
         <Popconfirm
           v-if="!record.isEdit"
-          title="您确认删除这条内容吗?"
+          title="Are you sure delete this content?"
           @ok="(e) => removeRow(record.key)"
         >
           <Button size="small" type="danger">Delete</Button>
@@ -70,7 +70,7 @@ const data = ref([
   },
   {
     key: "3",
-    name: "Chuchur",
+    name: "Qiu",
     age: 32,
     address: "Wu Han Nanhu No. 188",
     isEdit: false,

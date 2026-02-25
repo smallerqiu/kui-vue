@@ -2,34 +2,38 @@
 #### 动态校验规则
 根据不同情况执行不同的校验规则。
 </cn>
+<en>
+#### Dynamic Validation Rules
+Execute different validation rules based on different conditions.
+</en>
 
 ```vue
 <template>
   <Row>
     <Col :span="16">
       <Form :model="form" ref="formRef" :labelCol="labelCol" :wrapperCol="wrapperCol">
-        <FormItem label="姓名" prop="cname" :rules="[{ required: true, message: '请输入姓名' }]">
+        <FormItem label="Name" prop="cname" :rules="[{ required: true, message: 'Please input your name' }]">
           <Input clearable />
         </FormItem>
         <FormItem
-          label="性别"
+          label="Gender"
           prop="info.gender"
-          :rules="[{ required: true, message: '请输入性别' }]"
+          :rules="[{ required: true, message: 'Please select your gender' }]"
         >
           <Select clearable style="width:100%;">
             <Option value="1" label="男" />
             <Option value="0" label="女" />
           </Select>
         </FormItem>
-        <FormItem label="年龄" prop="info.age" :rules="[{ required: true, message: '请输入年龄' }]">
+        <FormItem label="年龄" prop="info.age" :rules="[{ required: true, message: 'Please input your age' }]">
           <Input clearable />
         </FormItem>
         <FormItem
-          :label="'网址' + item.key"
+          :label="'Web Site' + item.key"
           :prop="'webs.' + i + '.value'"
           v-for="(item, i) in form.webs"
           :key="item.key"
-          :rules="{ required: true, message: '网址不能为空' }"
+          :rules="{ required: true, message: 'Web site is required' }"
         >
           <Input style="width:230px" />
           <Icon

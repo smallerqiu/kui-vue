@@ -3,8 +3,8 @@
 使用 `gutter` 熟悉来设置分栏的间隔,如果需要垂直间距，可以写成数组形式 [水平间距, 垂直间距]
 </cn>
 <en>
-### Gutter Spacing
-Use the gutter to set horizontal spacing between columns; if you need vertical spacing, specify an array like [horizontal, vertical].
+### Column Gutter
+Use the `gutter` attribute to set the spacing between columns. For vertical spacing, it can be written as an array [horizontal spacing, vertical spacing].
 </en>
 
 ```vue

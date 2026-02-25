@@ -2,6 +2,10 @@
 ### 禁用
 通过添加 `disabled` 属性可将按钮设置为不可用状态。
 </cn>
+<en>
+### Disabled
+Add the `disabled` property to make the button unavailable.
+</en>
 
 ```vue
 <template>

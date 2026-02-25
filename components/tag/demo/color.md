@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Colorful Tags
-Tags with various preset color styles for different scenarios. If the presets do not meet your needs, you can set a specific color value directly.
-</en>
+Multiple preset tag colors for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+ </en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 带图标
 通过添加 `icon` 属性 设置按钮按钮图标。
 </cn>
+<en>
+### With Icon
+Set the button icon by adding the `icon` property.
+</en>
 
 ```vue
 <template>

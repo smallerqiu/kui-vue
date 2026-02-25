@@ -2,6 +2,10 @@
 ### 提示类型
 通过 `type` 来设置提示类型
 </cn>
+<en>
+### Prompt Types
+Set the prompt type via `type`.
+</en>
 
 ```vue
 <template>
@@ -14,13 +18,13 @@
 <script setup>
 import { message } from "kui-vue";
 const warning = () => {
-  message.warning("警告提示");
+  message.warning("I am a warning message.");
 };
 const success = () => {
-  message.success("成功提示");
+  message.success("I am a success message.");
 };
 const error = () => {
-  message.error("错误提示");
+  message.error("I am a error message.");
 };
 </script>
 ```

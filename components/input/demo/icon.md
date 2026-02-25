@@ -2,6 +2,10 @@
 ### 带图标
 通过设置 `icon` 属性，可设置输入框图标，只对 `input` 有效。可以快速的实现 ，密码显示隐藏，搜索
 </cn>
+<en>
+### With Icon
+By setting the `icon` attribute, you can add an icon to the input field, which is only effective for `input`. This allows for quick implementation of features like password visibility toggle or search.
+</en>
 
 ```vue
 <template>
@@ -24,7 +28,7 @@
       <Button @click="visiblePasswordIcon = !visiblePasswordIcon"> Toggle </Button>
     </Space>
 
-    <Input placeholder="请输入关进行搜索键字..." :clearable="false" @search="search" />
+    <Input placeholder="Please input" :clearable="false" @search="search" />
   </Space>
 </template>
 <script setup>

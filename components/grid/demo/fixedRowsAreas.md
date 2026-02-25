@@ -2,7 +2,8 @@
 ### 圣杯布局/管理后台 (Fixed Rows & Areas)
 `rows` 和 `rowSpan` 的垂直控制力。</cn>
 <en>
-### Fixed Rows & Areas
+### Holy Grail Layout / Admin Panel (Fixed Rows & Areas)
+The vertical control power of `rows` and `rowSpan`.
 </en>
 
 ```vue

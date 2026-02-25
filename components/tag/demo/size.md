@@ -4,16 +4,16 @@
 </cn>
 <en>
 ### Size and Shape
-Control the size via the `size` prop.
+Control size via `size`.
 </en>
 
 ```vue
 <template>
   <Space vertical>
-    <Checkbox v-model="isCircle">圆角</Checkbox>
-    <Checkbox v-model="isLight">Light</Checkbox>
+    <Checkbox v-model="isCircle">Circle</Checkbox>
+    <Checkbox v-model="isLight">Light Theme</Checkbox>
     <RadioGroup v-model="size" type="button" :options="sizes" />
-    <Tag v-for="x in 3" :key="x" :size="size" :shape="shape" :theme="light">标签{{ x }}</Tag>
+    <Tag v-for="x in 3" :key="x" :size="size" :shape="shape" :theme="light">Tag{{ x }}</Tag>
   </Space>
 </template>
 <script setup>

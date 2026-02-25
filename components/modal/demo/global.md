@@ -2,6 +2,10 @@
 ### 全局模式
 使用 全局模式
 </cn>
+<en>
+### Global Mode
+Use global mode.
+</en>
 
 ```vue
 <template>
@@ -19,8 +23,8 @@ import { modal, message } from "kui-vue";
 //
 const success = () => {
   modal.success({
-    title: "操作成功",
-    content: "恭喜你操作成功！",
+    title: "Successfully Done",
+    content: "Congratulations on your successful operation!",
     onOk: () => {
       message.info("success");
     },
@@ -29,8 +33,8 @@ const success = () => {
 
 const error = () => {
   modal.error({
-    title: "操作失败",
-    content: "很遗憾，您可能没有权限！",
+    title: "Failed",
+    content: "Sorry, operation failed！",
     onOk: () => {
       message.info("error");
     },
@@ -39,8 +43,8 @@ const error = () => {
 
 const warning = () => {
   modal.warning({
-    title: "温馨提示",
-    content: "此操作不可逆转，请谨慎！",
+    title: "Warning",
+    content: "This is a warning message.",
     onOk: () => {
       message.info("warning");
     },
@@ -49,8 +53,8 @@ const warning = () => {
 
 const info = () => {
   modal.info({
-    title: "操作提示",
-    content: "你打开了一个窗口！",
+    title: "Alert",
+    content: "You opened a modal.",
     onOk: () => {
       message.info("info");
     },
@@ -59,8 +63,8 @@ const info = () => {
 
 const show = () => {
   modal.show({
-    title: "《静夜思》",
-    content: "床前明月光，疑是地上霜，举头望明月，低头思故乡！",
+    title: "I ams a modal",
+    content: "See the light through the mist.",
     icon: Moon,
     color: "#eccb23",
     onOk: () => {

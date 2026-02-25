@@ -2,22 +2,26 @@
 ### 带图标的提醒
 通过调用不同的方法，可展示不同的类型
 </cn>
+<en>
+### Notification with Icon
+Call different methods to display different types.
+</en>
 
 ```vue
 <template>
   <Space vertical>
-    <Button @click="openNotice('info')">消息提示 </Button>
-    <Button @click="openNotice('warning')">警告提示 </Button>
-    <Button @click="openNotice('success')">成功提示 </Button>
-    <Button @click="openNotice('error')">错误提示 </Button>
+    <Button @click="openNotice('info')">Info </Button>
+    <Button @click="openNotice('warning')">Warning </Button>
+    <Button @click="openNotice('success')">Success </Button>
+    <Button @click="openNotice('error')">Error </Button>
   </Space>
 </template>
 <script setup>
 import { notice } from "kui-vue";
 const openNotice = (type) => {
   notice[type]({
-    title: "通知的标题",
-    content: "通知的描述",
+    title: "Title",
+    content: "Content message.",
     duration: 5,
   });
 };

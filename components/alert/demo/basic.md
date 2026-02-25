@@ -2,6 +2,10 @@
 ### 基本用法
 通过 `type` 来控制展示类型
 </cn>
+<en>
+### Basic Usage
+Control the display type via `type`.
+</en>
 
 ```vue
 <template>

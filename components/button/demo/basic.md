@@ -2,6 +2,10 @@
 ### 基本用法
 使用 `type` 属性来定义 `Button`。
 </cn>
+<en>
+### Basic Usage
+Use the `type` property to define a `Button`.
+</en>
 
 ```vue
 <template>

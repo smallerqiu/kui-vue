@@ -1,4 +1,5 @@
-import Info from "./info.md";
+import InfoCn from "./info.md";
+import InfoEn from "./info.en_US.md";
 import Basic from "./basic.md";
 import FileList from "./fileList.md";
 import Accept from "./accept.md";
@@ -12,11 +13,23 @@ import Draggable from "./draggable.md";
 import Forms from "./forms.md";
 
 import CN from "../index.md";
+import EN from "../index.en_US.md";
+import { computed, inject } from "vue";
 export default {
+  setup() {
+    const locale = inject("locale");
+    const API = computed(() => {
+      return locale.value.name === "zh-cn" ? CN : EN;
+    });
+    const Info = computed(() => {
+      return locale.value.name === "zh-cn" ? InfoCn : InfoEn;
+    });
+    return { API, Info };
+  },
   render() {
     return (
       <div class="demo-upload">
-        <Info />
+        <this.Info />
         <Basic />
         <FileList />
         <Directory />
@@ -28,7 +41,7 @@ export default {
         <Avatar />
         <Draggable />
         <Forms />
-        <CN />
+        <this.API />
       </div>
     );
   },

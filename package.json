@@ -24,7 +24,8 @@
     "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
     "build:types": "node scripts/gen-dts.js",
     "preview": "vite preview",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format1": "prettier --write ./components/*/index.md"
   },
   "author": {
     "name": "Qiu",
@@ -32,10 +33,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/chuchur/kui-vue"
+    "url": "https://github.com/smallerqiu/kui-vue"
   },
   "bugs": {
-    "url": "https://gitee.com/chuchur/kui-vue/issues",
+    "url": "https://github.com/smallerqiu/kui-vue/issues",
     "email": "smallerqiu@gmail.com"
   },
   "keywords": [
@@ -84,7 +85,7 @@
     "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
     "less": "^4.5.1",
-    "markdown-it": "^14.1.0",
+    "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^9.2.0",
     "postcss-banner": "^4.0.1",
     "prettier": "^3.8.1",

@@ -1,0 +1,32 @@
+export default {
+  index: {
+    desc: "一套基于Vue.js的桌面UI组件库",
+    btn_quick_start: "快速上手",
+  },
+  text: {
+    components: "组件",
+    components_desc: "为 Web 应用提供了丰富的基础 UI 组件",
+  },
+  menu: {
+    home: "首页",
+    components: "组件",
+    docs: "文档",
+    langTip: "Switch to English",
+    start: "开始",
+    universal: "通用",
+    layout: "布局",
+    navigation: "导航",
+    form: "表单",
+    data: "数据",
+    notice: "反馈",
+    other: "其它",
+    quick_start: "快速开始",
+    usage_with_nuxt: "在Nuxt.js中使用",
+    language: "多语言",
+    change_log: "更新日志",
+    dark_mode: "暗黑模式",
+    docs_v3: "v3.x 文档(for vue2)",
+    docs_v2: "v2.x 文档",
+    docs_react: "For React 文档",
+  },
+};

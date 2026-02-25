@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Group Control
-Show directory, connectors, drag, checkboxes, icons, and expansion.
-</en>
+Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.
+ </en>
 
 ```vue
 <template>
@@ -67,7 +67,7 @@ import {
   LogoAndroid,
   LogoApple,
 } from "kui-icons";
-import { ref, getCurrentInstance } from "vue";
+import { ref } from "vue";
 const directory = ref(true);
 const showLine = ref(true);
 const showIcon = ref(true);
@@ -77,7 +77,6 @@ const showExtra = ref(true);
 const expandedKeys = ref(["0-0", "1-0", "1-1", "1-2"]);
 const checkStrictly = ref(false);
 const multiple = ref(false);
-const { proxy } = getCurrentInstance();
 const selectedKeys = ["0-0"];
 const data = ref([
   {

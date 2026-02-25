@@ -3,8 +3,8 @@
 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 </cn>
 <en>
-### Wrap
-When spacing is horizontal, wrap controls whether to wrap automatically; default is false.
+### Set Wrapping 
+When the spacing is horizontal, you can use `wrap` to set whether to wrap automatically. The default is false.
 </en>
 
 ```vue

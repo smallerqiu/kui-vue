@@ -2,6 +2,10 @@
 ### 照片墙
 点击左右切换按钮可以预览多张图片。
 </cn>
+<en>
+### Photo Wall
+Click the left/right buttons to preview multiple images.
+</en>
 
 ```vue
 <template>

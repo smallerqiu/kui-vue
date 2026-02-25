@@ -2,6 +2,10 @@
 ### 自定义图标
 自定义图标
 </cn>
+<en>
+### Custom Icon
+Custom icon.
+</en>
 
 ```vue
 <template>
@@ -18,21 +22,25 @@ const alipay = () => {
   notice.open({
     icon: LogoAlipay,
     color: "#0082d9ff",
-    title: "尊敬的用户你好",
-    content: "我们很高兴通知您，您下个月花呗12900元，不用还了！",
+    title: "Dear user, hello",
+    content:
+      "We are pleased to inform you that you don't need to repay your Huabei balance of 12,900 yuan next month！",
     duration: 10,
   });
 };
 const wechat = () => {
   let content = h("div", {}, [
-    h("p", { style: "margin:10px 0" }, "微信新增了一些新功能，我们邀请您体验！"),
-    h(Button, { type: "primary", size: "small" }, "去看看"),
+    h(
+      "p",
+      { style: "margin:10px 0" },
+      "WeChat has added some new features, and we invite you to try them out.！"
+    ),
+    h(Button, { type: "primary", size: "small" }, { default: () => "Go and see" }),
   ]);
-  console.log(content);
   notice.open({
     icon: LogoWechat,
-    color: "#00ff9e",
-    title: "尊敬的用户你好",
+    color: "#00c87b",
+    title: "Dear user, hello",
     content,
     duration: 10,
   });

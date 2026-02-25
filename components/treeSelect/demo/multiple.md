@@ -3,9 +3,9 @@
 多选的树选择。
  </cn>
 <en>
-### Multi-select
-Multi-select tree selection.
-</en>
+### Multiple Selection
+A tree select component that supports multiple selections.
+ </en>
 
 ```vue
 <template>

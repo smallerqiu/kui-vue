@@ -3,8 +3,8 @@
 简单的卡片呈现模式。
 </cn>
 <en>
-### Minimal Tabs
-A simple card-style presentation.
+### Minimalist Tabs
+Simple card presentation mode.
 </en>
 
 ```vue

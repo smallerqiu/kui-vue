@@ -2,6 +2,10 @@
 ### 反向
 设置 `reverse` 可以将滑动条置反。
 </cn>
+<en>
+### Reverse
+Set `reverse` to invert the slider.
+</en>
 
 ```vue
 <template>

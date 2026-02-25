@@ -2,6 +2,10 @@
 ### 其它属性
 不需要页脚时，可以把 `footer` 为`null`
 </cn>
+<en>
+### Other Properties
+When the footer is not needed, set `footer` to `null`.
+</en>
 
 ```vue
 <template>

@@ -1,7 +1,16 @@
-import { Icon, Tooltip, message } from "kui-vue";
+import { Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
-import { defineComponent, ref, reactive, onMounted, onBeforeUnmount, Transition } from "vue";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+  onBeforeUnmount,
+  Transition,
+  computed,
+  inject,
+} from "vue";
 import { parseCode } from "./transform";
 import { useClipboard } from "@vueuse/core";
 const { copy, isSupported } = useClipboard();
@@ -75,13 +84,22 @@ const Demo = defineComponent({
         currentApp.value = null;
       }
     });
+
+    const locale = inject("locale");
+
+    const lang = computed(() => {
+      return locale.value?.name || "en";
+    });
+
     return () => {
       const transitionProps = getTransitionProp();
       const vertical = props.direction !== "horizontal";
       const classes = ["k-demo", { "k-demo-horizontal": !vertical }];
       const descNode = (
         <div class="k-desc">
-          <div class="k-desc-content">{slots.description?.()}</div>
+          <div class="k-desc-content">
+            {lang.value == "en" ? slots.descriptionEn?.() : slots.description?.()}
+          </div>
         </div>
       );
       const codeNode = (

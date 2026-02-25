@@ -3,9 +3,9 @@
 点击展开节点，动态加载数据。
  </cn>
 <en>
-### Async Loading
-Click to expand a node to load data dynamically.
-</en>
+### Asynchronous Loading
+Click to expand a node and load data dynamically.
+ </en>
 
 ```vue
 <template>
@@ -18,14 +18,13 @@ Click to expand a node to load data dynamically.
   />
 </template>
 <script setup>
-import { ref, getCurrentInstance } from "vue";
+import { ref } from "vue";
 const data = ref([
   { title: "Expand to load", key: "0-0" },
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
 ]);
 const expandedKeys = ref([]);
-const { proxy } = getCurrentInstance();
 const expand = (data) => {
   console.log(data);
 };

@@ -2,6 +2,10 @@
 ### 简洁模式
 设置 `sample` 呈现没有边框的简洁样式。
 </cn>
+<en>
+### Simple Mode
+Set `sample` to display a borderless, minimal style.
+</en>
 
 ```vue
 <template>

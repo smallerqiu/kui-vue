@@ -2,6 +2,10 @@
 ### 基本用法
 可使用 `v-model` 进行数据双向绑定
 </cn>
+<en>
+### Basic Usage
+Can use `v-model` for two-way data binding.
+</en>
 
 ```vue
 <template>

@@ -3,9 +3,9 @@
 利用 transformFile 可以在文件上传前处理文件, 上传之前压缩等
  </cn>
 <en>
-### Pre-upload image processing
-Using transformFile to process the file before uploading, such as pre-upload compression.
-</en>
+### Pre-upload Image Processing
+Use `transformFile` to process the file before it is uploaded, for example, to compress it.
+ </en>
 
 ```vue
 <template>
@@ -19,7 +19,7 @@ Using transformFile to process the file before uploading, such as pre-upload com
     :limit="1"
     accept="image/*"
     :uploadIcon="CameraOutline"
-    uploadText="上传头像"
+    uploadText="Upload Image"
   >
   </Upload>
 </template>

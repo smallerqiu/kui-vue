@@ -3,8 +3,8 @@
 可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
 </cn>
 <en>
-### Multiple Select
-You can set options via the options prop, or define them via child components.
+### Multiple Selection
+You can use the `options` property to define options, or use child components instead.
 </en>
 
 ```vue

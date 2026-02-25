@@ -20,7 +20,7 @@ $ yarn create vite my-app --template vue
 
 ## 2. 使用组件
 
-从 yarn 或 npm 安装并引入 kui-vue。
+从 `yarn` 或 `npm` 安装并引入 `kui-vue`。
 
 ```bash
 $ npm install kui-vue
@@ -43,7 +43,7 @@ const app = createApp(App);
 app.use(kui).mount("#app");
 ```
 
-以上代码便完成了 KUI 的引入。注意: 样式文件需要单独引入。
+以上代码便完成了 `KUI` 的引入。注意: 样式文件需要单独引入。
 
 ### 使用规范
 
@@ -53,6 +53,7 @@ app.use(kui).mount("#app");
 <template>
   <div>
     <KButton type="primary">button</KButton> ✅ 推荐 
+    <!-- ok -->
     <k-button type="primary">button</k-button> ✅
   </div>
 </template>
@@ -64,9 +65,11 @@ app.use(kui).mount("#app");
 <template>
   <div>
     <KSwitch type="primary" /> ✅ 推荐 
+    <!-- ok -->
     <KImage src="xxx" /> ✅
     <!-- ok -->
     <k-switch type="primary" /> ✅ 
+    <!-- ok -->
     <k-image src="xxx" /> ✅
   </div>
 </template>

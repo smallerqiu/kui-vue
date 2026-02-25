@@ -2,6 +2,10 @@
 ### 内嵌菜单
 垂直菜单，子菜单内嵌在菜单区域。
 </cn>
+<en>
+### Inline Menu
+Vertical menu, with submenus embedded within the menu area.
+</en>
 
 ```vue
 <template>

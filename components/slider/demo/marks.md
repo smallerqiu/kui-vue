@@ -2,6 +2,10 @@
 ### 带标签的 
 使用 marks 属性标注滑块的刻度，使用 value 指定滑块位置。 
 </cn>
+<en>
+### With Labels 
+Use the `marks` attribute to mark slider ticks, and use `value` to specify the slider position. 
+</en>
 
 ```vue
 <template>

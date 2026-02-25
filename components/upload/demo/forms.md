@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Form Validation
-Upload form validation
-</en>
+Upload form validation.
+ </en>
 
 ```vue
 <template>
@@ -17,7 +17,7 @@ Upload form validation
     :labelCol="labelCol"
     ref="formRef"
   >
-    <FormItem label="图像" prop="avatar">
+    <FormItem label="Avatar" prop="avatar">
       <Upload
         action="https://www.chuchur.com/api/upload/image"
         name="file"
@@ -28,13 +28,13 @@ Upload form validation
         :limit="1"
         accept="image/*"
         :uploadIcon="CameraOutline"
-        uploadText="上传头像"
+        uploadText="Upload Avatar"
       >
       </Upload>
       <Input type="hidden" />
     </FormItem>
-    <FormItem label="单个文件" prop="file">
-      <Input placeholder="请上传文件" clearable readonly>
+    <FormItem label="Single file" prop="file">
+      <Input placeholder="Please upload file" clearable readonly>
         <template #suffix>
           <Upload
             action="https://www.chuchur.com/api/upload/image"
@@ -50,7 +50,7 @@ Upload form validation
         </template>
       </Input>
     </FormItem>
-    <FormItem label="多个文件" prop="files">
+    <FormItem label="Multiple files" prop="files">
       <Upload
         action="https://www.chuchur.com/api/upload/image"
         name="file"
@@ -58,12 +58,12 @@ Upload form validation
         @change="uploadFiles"
         @remove="remove"
         accept="image/*"
-        ><Button theme="light">上传文件</Button>
+        ><Button theme="light">Upload File</Button>
       </Upload>
       <Input type="hidden" />
     </FormItem>
     <FormItem :wrapperCol="{ offset: 6 }">
-      <Button type="primary" htmlType="submit">提交表单</Button>
+      <Button type="primary" htmlType="submit">Submit Forms</Button>
     </FormItem>
   </Form>
 </template>
@@ -83,11 +83,11 @@ const form = reactive({
   files: "",
 });
 const rules = ref({
-  avatar: [{ required: true, message: "请上传图像" }],
-  file: [{ required: true, message: "请上传文件" }],
-  files: [{ required: true, message: "请上传文件" }],
+  avatar: [{ required: true, message: "Please select an avatar" }],
+  file: [{ required: true, message: "Please select a file" }],
+  files: [{ required: true, message: "Please select a file" }],
 });
-const labelCol = { span: 6 };
+const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
 const files = ref([]);
 const uploadFile = ({ file }) => {

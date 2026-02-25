@@ -2,6 +2,10 @@
 ### 多选
 可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
 </cn>
+<en>
+### Multiple Selection
+You can use the `options` attribute to set options, or use child components to set options.
+</en>
 
 ```vue
 <template>

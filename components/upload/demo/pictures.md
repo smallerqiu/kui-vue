@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Photo Wall
-Set type = 'picture'; users can upload images and thumbnails will be displayed in the list.
-</en>
+Set `type = 'picture'` to allow users to upload images and display thumbnails in a list.
+ </en>
 
 ```vue
 <template>
@@ -17,7 +17,7 @@ Set type = 'picture'; users can upload images and thumbnails will be displayed i
     @change="handleChange"
     :fileList="fileList"
     accept="image/*"
-    uploadText="上传图片"
+    uploadText="Upload Avatar"
   >
   </Upload>
   <br />

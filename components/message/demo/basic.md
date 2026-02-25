@@ -2,6 +2,10 @@
 ### 普通提示
 信息提醒反馈。
 </cn>
+<en>
+### Normal Prompt
+Informational feedback prompt.
+</en>
 
 ```vue
 <template>

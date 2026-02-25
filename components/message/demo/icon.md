@@ -2,6 +2,10 @@
 ### 自定图标
 自定图标。
 </cn>
+<en>
+### Custom Icon
+Custom icon.
+</en>
 
 ```vue
 <template>
@@ -18,14 +22,14 @@ const alipay = () => {
   message.show({
     color: "#0f87ffff",
     icon: LogoAlipay,
-    content: "支付宝到账100万",
+    content: "You have received 1,000,000 yuan via Alipay.",
   });
 };
 const wechat = () => {
   message.show({
     color: "#00d76fff",
     icon: LogoWechat,
-    content: "微信收款100万",
+    content: "WeChat payment received: 1 million yuan",
   });
 };
 </script>

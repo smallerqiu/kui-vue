@@ -1,6 +1,9 @@
 <cn>
 ### 很奇怪的卡片
 </cn>
+<en>
+### A Very Weird Card
+</en>
 
 ```vue
 <template>

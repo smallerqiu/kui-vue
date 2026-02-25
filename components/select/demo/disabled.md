@@ -2,6 +2,10 @@
 ### 禁用和不可清除
 通过 `v-model` 进行数据双向绑定
 </cn>
+<en>
+### Disabled and Non-clearable
+Use `v-model` for two-way data binding.
+</en>
 
 ```vue
 <template>

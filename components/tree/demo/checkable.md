@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Checkable
-Setting the `checkable` attribute allows checking nodes.
-</en>
+Set the `checkable` attribute to allow nodes to be checked.
+ </en>
 
 ```vue
 <template>

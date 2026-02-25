@@ -16,20 +16,19 @@
           :open-keys="openKeys"
           @select="go"
         >
-          <MenuGroup v-for="item in navData" :key="item.key" :title="item.title" :name="item.title">
+          <MenuGroup
+            v-for="item in navData"
+            :key="item.key"
+            :title="$t(item.title)"
+            :name="item.title"
+          >
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
                 <WebIcon :name="sub.icon" />
               </template>
               <router-link :to="`/${item.key}/${sub.name}`">
-                <Badge v-if="sub.update" dot>
-                  <span>{{ sub.sub }}</span>
-                  <span class="sub">{{ sub.title }}</span>
-                </Badge>
-                <template v-else>
-                  <span>{{ sub.sub }}</span>
-                  <span class="sub">{{ sub.title }}</span>
-                </template>
+                <span>{{ sub.sub }}</span>
+                <span class="sub" v-if="lang != 'en'">{{ sub.title }}</span>
               </router-link>
             </MenuItem>
           </MenuGroup>
@@ -47,20 +46,24 @@
             v-if="prevNavData.sub"
             :href="`/${prevNavData.key}/${prevNavData.name}`"
             class="nav-prev"
-            @click="(e) => link(e, 0)"
+            @click="(e) => navTo(e, 0)"
           >
             <Icon :type="ChevronBack" />
-            <span class="nav-text"> {{ prevNavData.sub }} {{ prevNavData.title }} </span>
+            <span class="nav-text">
+              {{ prevNavData.sub }} {{ locale.name != "en" ? prevNavData.title : "" }}
+            </span>
             <WebIcon :name="prevNavData.icon" />
           </a>
           <a
             v-if="nextNavData.sub"
             :href="`/${nextNavData.key}/${nextNavData.name}`"
             class="nav-next"
-            @click="(e) => link(e, 1)"
+            @click="(e) => navTo(e, 1)"
           >
             <WebIcon :name="nextNavData.icon" />
-            <span class="nav-text"> {{ nextNavData.sub }} {{ nextNavData.title }} </span>
+            <span class="nav-text">
+              {{ nextNavData.sub }} {{ locale.name != "en" ? nextNavData.title : "" }}
+            </span>
             <Icon :type="ChevronForward" />
           </a>
         </div>
@@ -76,34 +79,38 @@ import AppHeader from "./AppHeader";
 import WebIcon from "./WebIcon";
 import { routeData, navData } from "../menu";
 import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
-import { ref, onMounted, getCurrentInstance, reactive, Transition } from "vue";
-const { proxy } = getCurrentInstance();
+import { ref, onMounted, reactive, Transition, computed, inject } from "vue";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 const showMiniNav = ref(false);
 const nextNavData = reactive({});
 const prevNavData = reactive({});
 const activeName = ref([]);
 const openKeys = ["start", "basic", "layouts", "navigation", "forms", "data", "notices", "other"];
-const link = (e, t) => {
+
+const locale = inject("locale");
+const $t = inject("$t");
+
+const lang = computed(() => {
+  // console.log(locale.value.name)
+  return locale.value?.name || "en";
+});
+const navTo = (e, t) => {
   e.stopPropagation();
   e.preventDefault();
   let c = t ? nextNavData : prevNavData;
   let path = `/${c.key}/${c.name}`;
-  proxy.$router.push(path);
+  router.push(path);
   setActiveKey({ path });
 };
 const go = ({ key, keyPath }) => {
-  // console.log(key, keyPath);
-  // return;
-  // console.log(key, keyPath);
-  // let [n] = keyPath;
-  // let path = `/${n}/${key}`;
-  // proxy.$router.push(path);
-  // setActiveKey({ path });
   showMiniNav.value = false;
 };
-const getPath = (name) => {
-  let [m, n] = name.split("/").filter((x) => x);
-  let index = routeData.findIndex((x) => x.key == m && x.name == n);
+const getPath = (path) => {
+  let [m, n] = path.split("/").filter((x) => x);
+  let index = routeData.findIndex((x) => x.key == m && x.name == n.replace("-en", ""));
+
   return {
     current: routeData[index],
     prev: routeData[index - 1],
@@ -111,7 +118,7 @@ const getPath = (name) => {
   };
 };
 const setActiveKey = ({ path }) => {
-  let { current, prev = {}, next = {} } = getPath(path);
+  let { current = {}, prev = {}, next = {} } = getPath(path);
   // console.log(current, prev, next);
   Object.assign(prevNavData, prev);
   Object.assign(nextNavData, next);
@@ -120,6 +127,6 @@ const setActiveKey = ({ path }) => {
   activeName.value = [name];
 };
 onMounted(() => {
-  setActiveKey(proxy.$route);
+  setActiveKey(route);
 });
 </script>

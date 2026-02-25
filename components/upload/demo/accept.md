@@ -9,15 +9,15 @@ accept 支持传入以下两种类型字符串：
 </cn>
 <en>
 
-### Upload File Type
+### Upload File Types
 
-The accept attribute (native HTML input attribute) can restrict the type of files that can be uploaded.
-accept supports two formats of type strings:
+Use the `accept` attribute (a native HTML input attribute) to restrict the types of files that can be uploaded.
+`accept` supports two types of string values:
 
-- File extension list (recommended), e.g. .jpg, .png, etc.;
-- MIME types list; see MDN for reference.
+- A set of file extensions (recommended), such as `.jpg`, `.png`, etc.
+- A set of MIME types for files. Refer to the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types) documentation.
 
-For example, to allow only PNG and PDF files, accept can be written as: accept = '.pdf,.png' or accept = 'application/pdf,image/png' (combine PNG and PDF MIME types with a comma).
+For example, to only allow users to upload PNG and PDF files, `accept` can be written as: `accept = '.pdf,.png'` or `accept = 'application/pdf,image/png'` (simply connect the MIME types for PNG and PDF with a comma).
 </en>
 
 ```vue

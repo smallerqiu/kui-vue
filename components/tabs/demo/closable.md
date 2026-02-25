@@ -3,6 +3,11 @@
 只有卡片样式的页签支持新增和关闭选项。
 使用 `closable={false}` 禁止关闭。
 </cn>
+<en>
+### Add and Close Tabs 
+Only card-style tabs support adding and closing options.
+Use `closable={false}` to disable closing.
+</en>
 
 ```vue
 <template>

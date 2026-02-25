@@ -4,12 +4,12 @@
  </cn>
 <en>
 ### Basic Usage
-A normal table
-</en>
+A regular table.
+ </en>
 
 ```vue
 <template>
-  <Table :data="data" :columns="columns" @rowClick="rowClick" :sticky="52">
+  <Table :data="data" :columns="columns" @rowClick="rowClick">
     <template #tags="{ value }">
       <Space>
         <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">{{

@@ -2,6 +2,10 @@
 ### 文案展现 / 允许清除
 给评分组件加上文案展示。
 </cn>
+<en>
+### Text Display / Allow Clear
+Add text display to the rating component.
+</en>
 
 ```vue
 <template>

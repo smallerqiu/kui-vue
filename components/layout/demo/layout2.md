@@ -2,6 +2,10 @@
 ### 顶部-侧边布局
 拥有顶部导航及侧边栏的页面，多用于展示类网站。
 </cn>
+<en>
+### Top-Side Layout
+A page with top navigation and a sidebar, commonly used for showcase websites.
+</en>
 
 ```vue
 <template>

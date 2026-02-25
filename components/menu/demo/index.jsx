@@ -1,4 +1,5 @@
-import Info from "./info.md";
+import InfoCn from "./info.md";
+import InfoEn from "./info.en_US.md";
 import Basic from "./basic.md";
 import InLine from "./inline.md";
 import Accordion from "./accordion.md";
@@ -7,12 +8,24 @@ import Theme from "./theme.md";
 import Collapsed from "./collapsed.md";
 import Mode from "./mode.md";
 import CN from "../index.md";
+import EN from "../index.en_US.md";
+import { computed, inject } from "vue";
 
 export default {
+  setup() {
+    const locale = inject("locale");
+    const API = computed(() => {
+      return locale.value.name === "zh-cn" ? CN : EN;
+    });
+    const Info = computed(() => {
+      return locale.value.name === "zh-cn" ? InfoCn : InfoEn;
+    });
+    return { API, Info };
+  },
   render() {
     return (
       <div>
-        <Info />
+        <this.Info />
         <Basic />
         <InLine />
         <Accordion />
@@ -20,7 +33,7 @@ export default {
         <Theme />
         <Mode />
         <Collapsed />
-        <CN />
+        <this.API />
       </div>
     );
   },

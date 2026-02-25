@@ -2,6 +2,10 @@
 ### 加载中状态
 添加 `loading` 属性即可让按钮处于加载状态
 </cn>
+<en>
+### Loading State
+Add the `loading` property to put the button in a loading state.
+</en>
 
 ```vue
 <template>

@@ -2,6 +2,10 @@
 ### 时间区域
 支持时间日期区间选择。取值建议用 `startDate` , `endDate`
 </cn>
+<en>
+### Date Range
+Supports date and time range selection. It's recommended to use `startDate` and `endDate` for values.
+</en>
 
 ```vue
 <template>

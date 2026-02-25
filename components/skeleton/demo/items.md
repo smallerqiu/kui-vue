@@ -3,8 +3,8 @@
 骨架按钮、头像、和图像。
 </cn>
 <en>
-### Button / Avatar / Image
-Skeleton Button, Avatar, and Image.
+### Button/Avatar/Image
+Skeleton buttons, avatars, and images.
 </en>
 
 ```vue

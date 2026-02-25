@@ -2,6 +2,10 @@
 ### 对齐方式
 设置对齐模式。
 </cn>
+<en>
+### Alignment
+Set the alignment mode.
+</en>
 
 ```vue
 <template>

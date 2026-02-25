@@ -3,20 +3,20 @@
 可以设置 icon 属性，或者直接在 Tag 内使用 Icon 组件。
  </cn>
 <en>
-### Icons
-You can set the icon prop, or use the Icon component directly inside Tag.
-</en>
+### Icon
+You can set the `icon` attribute or directly use the Icon component inside the Tag.
+ </en>
 
 ```vue
 <template>
   <Space wrap>
-    <Tag :icon="LogoTwitter" color="#55acee">Twitter</Tag>
-    <Tag :icon="LogoYoutube" color="#cd201f">油管</Tag>
+    <Tag :icon="LogoX" color="#55acee">Twitter</Tag>
+    <Tag :icon="LogoYoutube" color="#cd201f">Youtube</Tag>
     <Tag :icon="LogoQq" color="red">QQ</Tag>
-    <Tag :icon="LogoWechat" closeable color="green">微信</Tag>
+    <Tag :icon="LogoWechat" closeable color="green">Wechat</Tag>
   </Space>
 </template>
 <script setup>
-import { LogoTwitter, LogoYoutube, LogoQq, LogoWechat } from "kui-icons";
+import { LogoX, LogoYoutube, LogoQq, LogoWechat } from "kui-icons";
 </script>
 ```

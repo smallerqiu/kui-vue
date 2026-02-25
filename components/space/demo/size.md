@@ -5,7 +5,8 @@
 </cn>
 <en>
 ### Spacing Size
-Spacing presets: large, middle, small. By setting size to large or middle, spacing becomes large or middle respectively. If size is not set, spacing is small.
+Preset spacing sizes: large, medium, and small.
+Set `size` to `large` or `middle` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.
 </en>
 
 ```vue

@@ -3,7 +3,7 @@
 有图标的标签。
 </cn>
 <en>
-### Icons
+### Icon
 Tabs with icons.
 </en>
 

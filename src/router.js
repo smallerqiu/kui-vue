@@ -1,19 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { loading } from "kui-vue";
+const lang = localStorage.getItem("lang") || "en";
 let children = [
   {
-    path: "/start/getting-started",
-    component: () => import("./views/start.md"),
+    path: "/guide/quick-started",
+    component: () => import("./views/quickStarted.md"),
   },
-  { path: "/start/language", component: () => import("./views/language") },
-  { path: "/start/logs", component: () => import("./views/log.md") },
-  { path: "/start/ssr", component: () => import("./views/ssr.md") },
-  // { path: '/start/theme', component: () => import('./views/theme.md') },
   {
-    path: "/start/dark-mode",
+    path: "/guide/quick-started-en",
+    component: () => import("./views/quickStarted.en_US.md"),
+  },
+  { path: "/guide/language", component: () => import("./views/language") },
+  { path: "/guide/change-log", component: () => import("./views/changeLog.md") },
+  { path: "/guide/change-log-en", component: () => import("./views/changeLog.en_US.md") },
+  { path: "/guide/usage-with-nuxt", component: () => import("./views/usageWithNuxt.md") },
+  { path: "/guide/usage-with-nuxt-en", component: () => import("./views/usageWithNuxt.en_US.md") },
+  // { path: '/guide/theme', component: () => import('./views/theme.md') },
+  {
+    path: "/guide/dark-mode",
     component: () => import("./views/dark-mode/index"),
   },
-  { path: "/start/components", component: () => import("./views/all.jsx") },
+  { path: "/guide/components", component: () => import("./views/components.jsx") },
 
   {
     path: "/notices/alert",
@@ -217,12 +224,35 @@ const router = createRouter({
 });
 
 router.beforeEach(function (to, from, next) {
-  // typeof (_hmt) != 'undefined' && _hmt.push(['_trackPageview', to.path]);
   loading.start();
+
+  const quickPath = /quick-started|usage-with-nuxt|change-log/;
+  if (quickPath.test(to.path)) {
+    if (lang == "en") {
+      if (!to.path.includes("-en")) {
+        next(`${to.path}-en`);
+        return;
+      }
+    } else {
+      if (to.path.includes("-en")) {
+        next(to.path.replace("-en", ""));
+        return;
+      }
+    }
+  }
   next();
 });
 
-router.afterEach((route) => {
+router.afterEach((to) => {
+  typeof window._hmt != "undefined" && window._hmt.push(["_trackPageview", to.fullPath]);
+
+  if (typeof gtag !== "undefined") {
+    gtag("config", "G-1KNV6YTVBM", {
+      page_path: to.fullPath,
+      page_title: to.meta.title || document.title,
+      page_location: window.location.origin + to.fullPath,
+    });
+  }
   loading.finish();
 });
 

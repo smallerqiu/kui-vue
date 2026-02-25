@@ -4,8 +4,8 @@
  </cn>
 <en>
 ### Grid Offset
-By setting the offset attribute, shift the column left or right by the number of grid units specified by offset.
-</en>
+By setting the `offset` attribute, columns can be offset left or right, with the offset grid count being the value of `offset`.
+ </en>
 
 ```vue
 <template>

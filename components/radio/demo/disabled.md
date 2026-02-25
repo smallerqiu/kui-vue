@@ -2,6 +2,10 @@
 ### 可不用 / 可控
 通过 `disabled` 设置不可用
 </cn>
+<en>
+### Disabled / Controllable
+Set `disabled` to make it unavailable.
+</en>
 
 ```vue
 <template>

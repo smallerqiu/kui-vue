@@ -2,6 +2,10 @@
 ### 尺寸
 `large` 为大尺寸， `small` 为小尺寸
 </cn>
+<en>
+### Size
+`large` for large size, `small` for small size.
+</en>
 
 ```vue
 <template>
@@ -21,7 +25,7 @@
 import { LogoKui } from "kui-icons";
 import { message } from "kui-vue";
 const iconClick = () => {
-  message.info("点击图标事件");
+  message.info("You click the icon");
 };
 </script>
 ```

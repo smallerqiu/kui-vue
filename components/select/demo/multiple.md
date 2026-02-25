@@ -2,6 +2,10 @@
 ### 多选
 通过设置 `multiple` 值来呈现多选模式
 </cn>
+<en>
+### Multiple Selection
+Set the `multiple` value to present multi-select mode.
+</en>
 
 ```vue
 <template>

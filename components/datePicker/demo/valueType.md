@@ -2,6 +2,10 @@
 ### 输出类型
 通过 `valueType` 指定输出类型
 </cn>
+<en>
+### Output Type
+Specify the output type via `valueType`.
+</en>
 
 ```vue
 <template>

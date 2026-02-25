@@ -4,9 +4,9 @@
 不设置为默认, 只能上传一个文件
 </cn>
 <en>
-### Upload multiple files
-Setting the multiple attribute enables selecting and uploading multiple files at once.
-If not set, the default is that only one file can be uploaded.
+### Upload Multiple Files
+By setting the `multiple` attribute, you can support selecting and uploading multiple files simultaneously.
+If not set, only one file can be uploaded by default.
 </en>
 
 ```vue

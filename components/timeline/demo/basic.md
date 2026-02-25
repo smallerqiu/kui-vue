@@ -4,16 +4,16 @@
  </cn>
 <en>
 ### Basic Usage
-TimeLine must contain at least one TimeLineItem inside.
+`TimeLine` must contain `TimeLineItem`.
 </en>
 
 ```vue
 <template>
   <div>
     <TimeLine>
-      <TimeLineItem time="2020-11-03">发布3.0版本</TimeLineItem>
-      <TimeLineItem time="2019-10-25">发布2.0版本</TimeLineItem>
-      <TimeLineItem time="2018-10-08">发布1.0版本</TimeLineItem>
+      <TimeLineItem time="2020-11-03">Release version 3.0</TimeLineItem>
+      <TimeLineItem time="2019-10-25">Release version 2.0</TimeLineItem>
+      <TimeLineItem time="2018-10-08">Release version 1.0</TimeLineItem>
     </TimeLine>
   </div>
 </template>

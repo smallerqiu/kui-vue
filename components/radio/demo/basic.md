@@ -2,6 +2,10 @@
 ### 单选
 单独使用 `v-model` 的值 `true` 表示选中，为 `false` 表示未选中。
 </cn>
+<en>
+### Single Selection
+When used alone, the `v-model` value is `true` for selected and `false` for unselected.
+</en>
 
 ```vue
 <template>

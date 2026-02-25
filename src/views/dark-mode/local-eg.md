@@ -2,18 +2,22 @@
 #### 切换主题
 简单的切换例子
 </cn>
+<en>
+#### Switch theme
+Simple switching example
+</en>
 
 ```vue
 <template>
   <div>
-    <Button theme="light" @click="change">局部暗色</Button>
+    <Button theme="light" @click="change">Local darkening</Button>
     <div class="k-demo-layout">
       <Layout class="layout-back">
         <Sider class="demo-sider" :style="{ width: collapsed ? '60px' : '200px' }">
           <div class="logo-box">
             <Icon :type="LogoKui" size="30" class="logo" />
             <transition>
-              <span v-show="!collapsed">KUI运营后台</span>
+              <span v-show="!collapsed">Dashboard</span>
             </transition>
           </div>
           <Menu
@@ -22,10 +26,10 @@
             :inline-collapsed="collapsed"
             style="border:none;"
           >
-            <MenuItem key="1-1" :icon="Home"><span>首页</span></MenuItem>
-            <MenuItem key="1-2" :icon="Heart"><span>数据统计</span></MenuItem>
+            <MenuItem key="1-1" :icon="Home"><span>Home</span></MenuItem>
+            <MenuItem key="1-2" :icon="Heart"><span>Data statistics</span></MenuItem>
             <MenuItem key="1-3" :icon="Settings">
-              <span>能源管理</span>
+              <span>Settings</span>
             </MenuItem>
           </Menu>
           <Button
@@ -56,10 +60,10 @@
               </Menu>
               <Page :current="1" :total="50" />
               <Space>
-                <Tag>标签1</Tag>
-                <Tag>标签2</Tag>
-                <Tag>标签3</Tag>
-                <Tag closeable>标签4</Tag>
+                <Tag>Tag1</Tag>
+                <Tag>Tag2</Tag>
+                <Tag>Tag3</Tag>
+                <Tag closeable>Tag4</Tag>
               </Space>
             </Space>
 
@@ -71,11 +75,11 @@
                 :theme="theme ? 'light' : ''"
                 :shape="isCircle ? 'circle' : ''"
               >
-                <FormItem label="主题">
+                <FormItem label="Theme">
                   <Checkbox v-model="theme" label="Light" style="margin-right:8px;" />
                   <Checkbox v-model="isCircle" label="Circle" />
                 </FormItem>
-                <FormItem label="尺寸">
+                <FormItem label="Size">
                   <RadioGroup v-model="size" type="button">
                     <RadioButton value="large" label="Large" />
                     <RadioButton value="default" label="Default" />

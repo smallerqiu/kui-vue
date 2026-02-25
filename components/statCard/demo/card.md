@@ -2,6 +2,10 @@
 ### 卡片展示
 用于 Dashboard 场景 , 结合 `Grid` 可以很好的适配多种设备. 
 </cn>
+<en>
+### Card Display
+Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices. 
+</en>
 
 ```vue
 <template>
@@ -14,7 +18,7 @@
     <Grid :cols="{ xs: 1, sm: 2, md: 3 }" :xGap="16" :yGap="16">
       <GridItem>
         <StatCard
-          :title="showTitle ? '今日订单' : null"
+          :title="showTitle ? `Today's Orders` : null"
           :reverse="reverse"
           :items="items"
           :bordered="bordered"
@@ -23,7 +27,7 @@
       <GridItem>
         <StatCard
           statNumberType="rollup"
-          :title="showTitle ? '今日进账' : null"
+          :title="showTitle ? `Today's income` : null"
           :items="items1"
           :bordered="bordered"
           :reverse="reverse"
@@ -33,7 +37,7 @@
         <StatCard
           :reverse="reverse"
           statNumberType="rollup"
-          :title="showTitle ? '媒体数据' : null"
+          :title="showTitle ? 'Media data' : null"
           :items="items2"
           :bordered="bordered"
         />
@@ -49,23 +53,23 @@ const showTitle = ref(true);
 const reverse = ref(false);
 const bordered = ref(false);
 const items = [
-  { value: 5872, desc: "订单数" },
-  { value: 9873672, desc: "订单总金额", prefix: "￥" },
+  { value: 5872, desc: "Number of orders" },
+  { value: 9873672, desc: "Total Order Amount", prefix: "￥" },
 ];
 
 const items1 = [
-  { value: 5872, desc: "支付宝收入", prefix: "$", precision: 2 },
-  { value: 9873672, desc: "微信收入", prefix: "￥", precision: 2 },
+  { value: 5872, desc: "Alipay Revenue", prefix: "$", precision: 2 },
+  { value: 9873672, desc: "WeChat Revenue", prefix: "￥", precision: 2 },
 ];
 const items2 = [
   {
     value: 5872,
-    desc: "点赞人数",
+    desc: "Number of likes",
     prefix: h(Icon, { type: Heart }),
   },
   {
     value: 9873672,
-    desc: "收藏人数",
+    desc: "Number of Favorites",
     prefix: h(Icon, { type: Star }),
   },
 ];

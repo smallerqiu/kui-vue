@@ -2,6 +2,10 @@
 ### 组合布局
 组合布局
 </cn>
+<en>
+### Group Layout
+Group layout.
+</en>
 
 ```vue
 <template>
@@ -16,8 +20,8 @@
 import { ref } from "vue";
 const direction = ref("horizontal");
 const types = [
-  { label: "垂直", value: "vertical" },
-  { label: "水平", value: "horizontal" },
+  { label: "Vertical", value: "vertical" },
+  { label: "Horizontal", value: "horizontal" },
 ];
 const options = [
   { label: "Beijing", value: "beijing" },

@@ -19,7 +19,7 @@ const breakpointMap = {
 export const GRID_KEY = Symbol("GRID_KEY");
 
 export function useBreakpoint(elRef) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   const active = ref("md");
   let rafId = null;
 

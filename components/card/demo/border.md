@@ -2,13 +2,17 @@
 ### 边框
 `bordered` 可以设置是否显示边框
 </cn>
+<en>
+### Border
+Use `bordered` to control whether the border is displayed.
+</en>
 
 ```vue
 <template>
   <div class="demo-view-fill">
-    <Card title="卡片标题" :icon="Heart" bordered>
+    <Card title="Title" :icon="Heart" bordered>
       <template #extra>
-        <a href="#">更多</a>
+        <a href="#">more</a>
       </template>
       <p>card content</p>
       <p>card content</p>

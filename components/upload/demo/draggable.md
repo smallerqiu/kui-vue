@@ -3,8 +3,8 @@
 draggable='true'，可以使用拖拽功能
 </cn>
 <en>
-### Drag-and-drop Upload
-draggable='true', enables drag-and-drop functionality
+### Drag and Drop Upload
+Set `draggable='true'` to enable drag-and-drop functionality.
 </en>
 
 ```vue
@@ -16,8 +16,8 @@ draggable='true', enables drag-and-drop functionality
       :headers="headers"
       draggable
       :uploadIcon="CloudUploadOutline"
-      uploadText="点击上传文件或拖拽文件到这里"
-      uploadSubText="支持任意类型文件"
+      uploadText="Click to upload files or drag files here"
+      uploadSubText="Supports any type of file"
       @change="handleChange"
     >
     </Upload>

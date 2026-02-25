@@ -3,8 +3,8 @@
 通过 `disabled` 设置不可用
 </cn>
 <en>
-### Disabled / Toggle
-Use disabled to disable the checkbox; you can toggle disabled state.
+### Disabled / Controlled
+Set disabled state via `disabled`.
 </en>
 
 ```vue

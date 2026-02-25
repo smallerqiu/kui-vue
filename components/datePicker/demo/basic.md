@@ -2,6 +2,10 @@
 ### 基本用法
 选择或者手动输入日期,通过 `v-model` 进行数据双向绑定
 </cn>
+<en>
+### Basic Usage
+Select or manually input a date. Use `v-model` for two-way data binding.
+</en>
 
 ```vue
 <template>

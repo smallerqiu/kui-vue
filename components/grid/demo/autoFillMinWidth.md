@@ -3,15 +3,20 @@
 无需手动设置断点，依靠 `itemMinWidth` 让容器根据宽度自动增减列数。
 
 > 当设置了 `itemMinWidth` 时，cols` 参数将失效。这是一种内容驱动的布局方式，非常适合图片画廊或卡片列表，它能保证在容器缩放时，卡片始终保持合适的宽度而不会过于拥挤。
-</cn>
-<en>
-### Auto fill + Min-Width
-</en>
+> </cn>
+> <en>
+
+### Dashboard Card Layout (Auto-fill + Min-Width)
+
+No need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width.
+
+> When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.
+> </en>
 
 ```vue
 <template>
   <Grid :itemMinWidth="256" :xGap="16" :yGap="16">
-    <GridItem v-for="(x, i) in data" :key="i" class="box"> 卡片 {{ i + 1 }} (最小 256px) </GridItem>
+    <GridItem v-for="(x, i) in data" :key="i" class="box"> Card {{ i + 1 }} (Minimum 256px) </GridItem>
   </Grid>
 </template>
 <script setup>

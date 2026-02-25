@@ -4,7 +4,7 @@
 </cn>
 <en>
 ### Basic Usage
-Columns must be placed inside a Row.
+`col` must be placed inside `row`.
 </en>
 
 ```vue

@@ -2,6 +2,10 @@
 ### 扩展
 可以扩展自定工具和面板。
 </cn>
+<en>
+### Extension
+Can extend custom tools and panels.
+</en>
 
 ```vue
 <template>

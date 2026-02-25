@@ -3,8 +3,8 @@
 指定 `mode` 可以改变呈现方向
 </cn>
 <en>
-### Layout Direction
-Setting mode can change the timeline's layout direction.
+### Display Direction
+Specify the `mode` to change the display direction.
 </en>
 
 ```vue
@@ -18,18 +18,18 @@ Setting mode can change the timeline's layout direction.
   <br />
   <br />
   <TimeLine :mode="mode">
-    <TimeLineItem color="green" time="2020-11-03" extra="更多的辅助细节">
-      优化成吨的改善和体验
+    <TimeLineItem color="green" time="2020-11-03" extra="More auxiliary details">
+      Optimized tons of improvements and experiences
     </TimeLineItem>
     <TimeLineItem color="orange" time="2020-11-02">
-      <div>新增一些很友好的功能</div>
-      <div>新增一些很友好的功能</div>
-      <template #extra>更多的辅助细节</template>
+      <div>Added some very user-friendly features</div>
+      <div>Added some very user-friendly features</div>
+      <template #extra>More auxiliary details</template>
     </TimeLineItem>
-    <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="更多的辅助细节">
-      修复bug
+    <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="More auxiliary details">
+      Fix bug
     </TimeLineItem>
-    <TimeLineItem time="2020-10-01" extra="更多的辅助细节"> 发布1.0版本 </TimeLineItem>
+    <TimeLineItem time="2020-10-01" extra="More auxiliary details"> Release version 1.0 </TimeLineItem>
   </TimeLine>
 </template>
 <script setup>

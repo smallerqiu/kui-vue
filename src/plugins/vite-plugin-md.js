@@ -32,9 +32,10 @@ export default function vitePluginMd() {
       const vertical_list = [
         "table",
         "grid",
+        "rowCol/demo",
         "dark-mode",
         "flex",
-        "layout",
+        "layout/demo",
         "space",
         "menu",
         "page",
@@ -61,11 +62,17 @@ export default function vitePluginMd() {
       const id = "k-" + hashId(path);
 
       // 1) optional <cn> block (for description)
-      const tagCNReg = /<cn\b[^>]*>(.*?)<\/cn>/gs;
+      const enRegex = /<en>(.*?)<\/en>/gs;
+      const cnRegex = /<cn>(.*?)<\/cn>/gs;
       let cnHtml = null;
-      const cnMatch = tagCNReg.exec(src);
+      let enHtml = null;
+      const cnMatch = cnRegex.exec(src);
       if (cnMatch && cnMatch[1]) {
         cnHtml = new MarkdownIt({ html: true, breaks: true }).render(cnMatch[1]);
+      }
+      const enMatch = enRegex.exec(src);
+      if (enMatch && enMatch[1]) {
+        enHtml = new MarkdownIt({ html: true, breaks: true }).render(enMatch[1]);
       }
 
       // 2) detect first ```vue fenced block
@@ -78,12 +85,8 @@ export default function vitePluginMd() {
         const { descriptor } = parse(block);
         const { template, script, scriptSetup, styles } = descriptor;
 
-        //for 2.x
-        // const { template, script, scriptSetup, styles } = parse({
-        //   source: block,
-        // });
         // pretty code preview
-        let codeHtml = markdown.render("```html\n" + block + "\n```"); //new MarkdownIt({ html: true, breaks: true }).render('```html\n' + block + '\n```');
+        let codeHtml = markdown.render("```html\n" + block + "\n```");
         codeHtml = codeHtml
           .replace(
             /{{/g,
@@ -93,8 +96,9 @@ export default function vitePluginMd() {
         let result = `
 <template>
   <Demo id="${id}" direction="${direction}">
-    <template #component>${template?.content || ""}</template>
-    <template #description>${cnHtml || ""}</template>
+    <template #component>${template?.content}</template>
+    <template #description>${cnHtml}</template>
+    <template #descriptionEn>${enHtml}</template>
     <template #code>${codeHtml}</template>
   </Demo>
 </template>

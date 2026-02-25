@@ -2,6 +2,10 @@
 ### 其他元素
 分割线和不可用菜单项。
 </cn>
+<en>
+### Other Elements
+Dividers and disabled menu items.
+</en>
 
 ```vue
 <template>

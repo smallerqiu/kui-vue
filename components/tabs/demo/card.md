@@ -3,7 +3,7 @@
 另一种样式的页签。
 </cn>
 <en>
-### Card Tabs
+### Card-style Tabs 
 Another style of tabs.
 </en>
 

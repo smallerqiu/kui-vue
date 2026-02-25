@@ -2,13 +2,16 @@
 ### 自定义时长
 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
 </cn>
+<en>
+### Custom Duration
+Can be custom configured. Use `duration` to control the auto-close duration (default `3s`). Use `closable` to show a close button.
+</en>
 
 ```vue
 <template>
   <Space vertical>
-    <Button @click="config">10秒后关闭</Button>
-    <Button @click="config2" type="primary">5秒后关闭</Button>
-    <Button @click="config3" type="primary">手动关闭</Button>
+    <Button @click="config">Closing in 10s</Button>
+    <Button @click="config3" type="primary">Manually close</Button>
     <Button @click="destroy" type="primary">destroy</Button>
   </Space>
 </template>
@@ -16,23 +19,17 @@
 import { message } from "kui-vue";
 
 const config = () => {
-  message.success("10秒后关闭", 10);
+  message.success("Closing in 10s", 10);
 };
-const config2 = () => {
-  message.show({
-    type: "info",
-    duration: 5,
-    content: "5秒后关闭",
-  });
-};
+
 const config3 = () => {
   message.show({
     type: "info",
     duration: 0,
     closable: true,
-    content: "手动关闭",
+    content: "Manually close",
     onClose: () => {
-      message.success("我是回调");
+      message.success("I am callback");
     },
   });
 };

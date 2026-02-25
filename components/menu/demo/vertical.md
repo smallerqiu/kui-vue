@@ -2,6 +2,10 @@
 ### 垂直菜单
 子菜单是弹出的形式。
 </cn>
+<en>
+### Vertical Menu
+Submenus appear as popups.
+</en>
 
 ```vue
 <template>
