@@ -62,7 +62,7 @@ Use `compact` to tightly connect form components and merge borders.
     <Space compact block>
       <DatePicker mode="dateRange" />
       <Input :style="{ width: '30%' }" value="input content" />
-      <Button type="primary">查询</Button>
+      <Button type="primary">Query</Button>
     </Space>
     <Space compact block>
       <Input :style="{ width: '30%' }" value="input content" />

@@ -25,13 +25,15 @@ const Demo = defineComponent({
     },
   },
   setup(props, { slots }) {
+    const $t = inject("$t");
+
     const expanded = ref(props.direction == "vertical" ? false : true);
     const codeRef = ref(null);
     const codeOrigin = ref(null);
     const viewRef = ref(null);
     const timer = ref(null);
     const buildState = reactive({
-      text: "可实时编辑",
+      text: $t('text.build_tip'),
       state: "success",
     });
 
@@ -51,7 +53,7 @@ const Demo = defineComponent({
     };
 
     const renderCode = async () => {
-      buildState.text = "编译中...";
+      buildState.text = $t('text.building');
       buildState.state = "default";
       clearTimeout(timer.value);
       timer.value = setTimeout(() => {
@@ -65,7 +67,7 @@ const Demo = defineComponent({
     const copyCode = () => {
       if (isSupported) {
         copy(codeRef.value?.innerText)
-          .then((res) => {
+          .then(() => {
             message.success("Copied!");
           })
           .catch(() => {
@@ -108,10 +110,10 @@ const Demo = defineComponent({
             {!vertical ? (
               <div class="k-code-tools">
                 <Badge status={buildState.state} text={buildState.text} />
-                <Tooltip title="复制代码">
+                <Tooltip title={$t('text.copy_code')}>
                   <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
                 </Tooltip>
-                <Tooltip title="重置代码">
+                <Tooltip title={$t('text.restore_code')}>
                   <Button type="text" size="small" icon={Reload} onClick={restoreCode} />
                 </Tooltip>
               </div>
@@ -139,7 +141,7 @@ const Demo = defineComponent({
 
             {vertical && (
               <div class="k-code-actions">
-                <Tooltip title={expanded.value ? "隐藏代码" : "显示代码"}>
+                <Tooltip title={expanded.value ? $t('text.collapse_code') : $t('text.expand_code')}>
                   <Button
                     block
                     size="large"
@@ -149,7 +151,7 @@ const Demo = defineComponent({
                   />
                 </Tooltip>
                 <Divider type="vertical" />
-                <Tooltip title="复制代码">
+                <Tooltip title={$t('text.copy_code')}>
                   <Button type="text" size="large" icon={CopyOutline} block onClick={copyCode} />
                 </Tooltip>
               </div>

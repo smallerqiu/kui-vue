@@ -33,15 +33,16 @@ export default defineComponent({
     });
 
     const thumbStyle = computed(() => {
-      const p = percent.value;
-      if (props.vertical) {
-        return props.reverse
-          ? { top: `${p}%`, transform: "translate(-50%, -50%)" } // 垂直反向：Top
-          : { bottom: `${p}%`, transform: "translate(-50%, 50%)" }; // 垂直标准：Bottom
-      }
-      return props.reverse
-        ? { right: `${p}%`, transform: "translate(50%, -50%)" } // 水平反向：Right
-        : { left: `${p}%`, transform: "translate(-50%, -50%)" }; // 水平标准：Left
+      const p = percent.value / 100;
+      const size = props.size === "small" ? 14 : 24;
+
+      // Thumb 始终遵循标准的 Active Range 映射，确保不溢出容器
+      // 不需要做分段处理，分段是留给 Track 的
+      const position = `calc(${p * 100}% + ${(0.5 - p) * size}px)`;
+
+      return props.vertical
+        ? { [props.reverse ? "top" : "bottom"]: position, transform: "translate(-50%, 50%)" }
+        : { [props.reverse ? "right" : "left"]: position, transform: "translate(-50%, -50%)" };
     });
 
     const handleDown = (e) => {

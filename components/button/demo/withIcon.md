@@ -11,12 +11,12 @@ Set the button icon by adding the `icon` property.
 <template>
   <Space wrap>
     <Button type="primary" :icon="Search" shape="circle"></Button>
-    <Button type="primary" :icon="Search">搜索</Button>
+    <Button type="primary" :icon="Search">Search</Button>
     <Button :icon="Search" shape="circle"></Button>
-    <Button :icon="Search">搜索</Button>
+    <Button :icon="Search">Search</Button>
     <Button type="primary" :icon="Power"></Button>
     <Button :icon="Power"></Button>
-    <Button type="primary">展开选项<Icon :type="ChevronDown" /></Button>
+    <Button type="primary">Expand<Icon :type="ChevronDown" /></Button>
   </Space>
 </template>
 <script setup>

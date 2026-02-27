@@ -18,7 +18,7 @@ Add the `loading` property to put the button in a loading state.
     <Button type="primary" :loading="loading" @click="handleLoading"> Click me </Button>
     <br />
     <Button type="primary" :icon="Power" :loading="delayLoading" @click="handleDelay">
-      延迟1s加载
+      1s delay
     </Button>
   </Space>
 </template>

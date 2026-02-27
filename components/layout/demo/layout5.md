@@ -57,7 +57,7 @@ The side navigation uses a left-right structure on the page, with the main navig
         >
           Content
         </div>
-        <Footer>KUI ©2025 Created by chuchur</Footer>
+        <Footer>KUI ©2025 Created by Qiu</Footer>
       </Content>
     </Layout>
   </div>

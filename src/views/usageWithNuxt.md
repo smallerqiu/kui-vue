@@ -1,6 +1,6 @@
 # 服务端渲染的支持
 
-## nuxt 环境构建
+## Nuxt 初始化
 
 ```bash
 $ npm create nuxt@latest kui-demo
@@ -12,53 +12,30 @@ $ npm create nuxt@latest kui-demo
 
 更多详情请参阅 <https://nuxt.com/>
 
-一步步完成后找到`plugins`目录，新建`kui.js`，写入以下内容：
+## Plugins 配置
+
+在根目录 `app` 新建`plugins`目录，在`plugins`目录新建`kui.ts`，写入以下内容：
 
 ```js
-import Vue from "vue";
-import kui from "kui-vue";
+// plugins/kui.ts
+import { defineNuxtPlugin } from '#app'
+import Kui from 'kui-vue'
+import 'kui-vue/dist/k-ui.css'
 
-Vue.use(kui);
-import "kui-vue/dist/k-ui.css";
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(Kui)
+})
 ```
 
-然后修改根目录`nuxt.config.js`，修改配置文件，如下
+然后修改根目录`nuxt.config.ts`，修改配置文件，如下
 
 ```js
-module.exports = {
-  /*
-   ** Headers of the page
-   */
-  head: {
-    title: "{ { name }}",
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        hid: "description",
-        name: "description",
-        content: "{ { escape description }}",
-      },
-    ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-  },
-  plugins: [
-    { src: "~plugins/kui", ssr: true }, // add
-  ],
-  //....
-};
+export default defineNuxtConfig({
+  compatibilityDate: "2025-07-15",
+  devtools: { enabled: true },
+  ... // 其他配置
+  plugins: ["~/plugins/kui.ts"],  // 添加
+});
 ```
 
-至此，配置完成，所有组件将支持服务端渲染了。只要是对Nuxt universal 模式的支持
-
-有遇无法编译问题,修改 `nuxt.config.js`
-
-```js
-export default{
-  ...
-    build:{
-++    transpile:['kui-vue']
-    }
-  ...
-}
-```
+至此，配置完成。

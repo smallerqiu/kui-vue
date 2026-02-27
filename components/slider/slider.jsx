@@ -71,20 +71,19 @@ const Slider = defineComponent({
     // 计算鼠标位置对应的数值
     const getValueFromEvent = (e) => {
       const rect = railRef.value.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const size = props.size == "small" ? 12 : 24;
+      const radius = size / 2;
 
-      let percent;
-      if (props.vertical) {
-        // 垂直模式：CSS bottom 是 0%，top 是 100%
-        // clientY 越小（越靠上），percent 越大
-        percent = (rect.bottom - clientY) / rect.height;
-        if (props.reverse) percent = 1 - percent;
-      } else {
-        // 水平模式：CSS left 是 0%，right 是 100%
-        percent = (clientX - rect.left) / rect.width;
-        if (props.reverse) percent = 1 - percent;
-      }
+      let clientPos = props.vertical
+        ? rect.bottom - (e.touches ? e.touches[0].clientY : e.clientY)
+        : (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+
+      if (props.reverse) clientPos = (props.vertical ? rect.height : rect.width) - clientPos;
+
+      // 这里的计算要扣除两端的 radius 宽度
+      // percent = (当前像素位置 - 半径) / (总长度 - 两个半径)
+      const availableWidth = (props.vertical ? rect.height : rect.width) - size;
+      const percent = Math.max(0, Math.min(1, (clientPos - radius) / availableWidth));
 
       const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
       return getClosestStep(Number(rawValue), props);
@@ -229,36 +228,56 @@ const Slider = defineComponent({
       emit("change", internalValue.value);
     };
 
+    const getProgressPositions = (val, totalWidth) => {
+      const p = getPercent(val) / 100; // 0 - 1
+      const size = props.size === "small" ? 14 : 24;
+      const radius = size / 2;
+
+      // 临界点控制：这里建议使用 0.1 (10%)
+      const T = 0.1;
+
+      // 计算 Thumb 中心位置
+      const thumbPos = p * (totalWidth - size) + radius;
+
+      // 计算 Track/Mark 对齐位置 (带临界点补偿)
+      let trackPos;
+      if (p < T) {
+        const thumbAtT = T * (totalWidth - size) + radius;
+        trackPos = (p / T) * thumbAtT;
+      } else if (p > 1 - T) {
+        const thumbAtNotT = (1 - T) * (totalWidth - size) + radius;
+        const ratio = (p - (1 - T)) / T;
+        trackPos = thumbAtNotT + ratio * (totalWidth - thumbAtNotT);
+      } else {
+        trackPos = thumbPos;
+      }
+
+      return { thumbPos, trackPos };
+    };
+
     return () => {
       const { vertical, reverse, min, max, disabled, marks, included } = props;
-
       const renderTrack = () => {
-        if (!included && marks) return null;
+        const rect = railRef.value?.getBoundingClientRect() || { width: 0, height: 0 };
+        const totalLength = props.vertical ? rect.height : rect.width;
 
-        // 确保 v1 是小的，v2 是大的
-        const [rawV1, rawV2] = props.range ? internalValue.value : [min, internalValue.value];
-        const v1 = Math.min(rawV1, rawV2);
-        const v2 = Math.max(rawV1, rawV2);
+        const [v1, v2] = props.range ? internalValue.value : [props.min, internalValue.value];
 
-        const p1 = getPercent(v1);
-        const p2 = getPercent(v2);
-        const length = p2 - p1;
+        // 获取两个端点的计算位置
+        const pos1 = getProgressPositions(Math.min(v1, v2), totalLength).trackPos;
+        const pos2 = getProgressPositions(Math.max(v1, v2), totalLength).trackPos;
+
+        // 如果不是 range 模式，起始点强制为 0
+        const start = props.range ? `${pos1}px` : "0px";
+        const length = props.range ? `${pos2 - pos1}px` : `${pos2}px`;
 
         let style = {};
-        if (vertical) {
-          // 垂直模式
-          // reverse=false: bottom=p1, height=len
-          // reverse=true:  top=p1, height=len
-          style = reverse
-            ? { top: `${p1}%`, height: `${length}%` }
-            : { bottom: `${p1}%`, height: `${length}%` };
+        if (props.vertical) {
+          style = props.reverse
+            ? { top: start, height: length }
+            : { bottom: start, height: length };
         } else {
-          // 水平模式
-          // reverse=false: left=p1, width=len
-          // reverse=true:  right=p1, width=len
-          style = reverse
-            ? { right: `${p1}%`, width: `${length}%` }
-            : { left: `${p1}%`, width: `${length}%` };
+          style = props.reverse ? { right: start, width: length } : { left: start, width: length };
         }
         return <div class="k-slider-track" style={style}></div>;
       };
@@ -281,9 +300,13 @@ const Slider = defineComponent({
 
               let style = {};
               if (vertical) {
-                style = reverse ? { top: `${p}%` } : { bottom: `${p}%` };
+                style = reverse
+                  ? { top: `${p}%`, transform: `translateY(-${p}%)` }
+                  : { bottom: `${p}%`, transform: `translateY(${p}%)` };
               } else {
-                style = reverse ? { right: `${p}%` } : { left: `${p}%` };
+                style = reverse
+                  ? { right: `${p}%`, transform: `translateX(${p}%)` }
+                  : { left: `${p}%`, transform: `translateX(-${p}%)` };
               }
 
               return (

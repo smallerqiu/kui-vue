@@ -10,9 +10,9 @@ suffix, prefix extension
 ```vue
 <template>
   <Space block vertical>
-    <InputNumber placeholder="请输入金额" suffix="元" prefix="$" />
-    <InputNumber placeholder="请输入充值金额" :step="50" suffix="元" prefix="充值" />
-    <InputNumber placeholder="请输入金额" suffix=".00" />
+    <InputNumber placeholder="Please input amount" suffix="元" prefix="¥" />
+    <InputNumber placeholder="Please input amount" :step="50" suffix="元" prefix="充值" />
+    <InputNumber placeholder="Please input amount" suffix=".00" />
   </Space>
   <Divider text="slot" />
   <Space vertical block>
@@ -23,12 +23,12 @@ suffix, prefix extension
         </Tooltip>
       </template>
     </InputNumber>
-    <InputNumber placeholder="请输入充值金额">
+    <InputNumber placeholder="Please input amount">
       <template #prefix>
         <Button :icon="PersonAddOutline" />
       </template>
       <template #suffix>
-        <Button>现在充值</Button>
+        <Button>Top up</Button>
       </template>
     </InputNumber>
   </Space>

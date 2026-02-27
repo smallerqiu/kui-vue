@@ -120,7 +120,7 @@ import { ref, reactive } from "vue";
 import { message } from "kui-vue";
 const validatePass = (rule, value, callback) => {
   if (value !== form.value.password) {
-    return callback(new Error("两次密码不一致"));
+    return callback(new Error("Please confirm the password"));
   }
   callback();
 };

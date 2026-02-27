@@ -6,6 +6,12 @@ export default {
   text: {
     components: "Components",
     components_desc: "provides plenty of UI components to enrich your web applications",
+    build_tip: "Editable in real-time",
+    building:'Building...',
+    expand_code: "Extend Code",
+    collapse_code: "Collapse Code",
+    copy_code: "Copy Code",
+    restore_code: "Restore Code",
   },
   menu: {
     home: "Home",

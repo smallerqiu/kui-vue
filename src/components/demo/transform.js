@@ -87,7 +87,7 @@ export async function parseCode({ source, id, viewRef, error, currentApp, buildS
 
     updateStyle(id, cssCode);
     buildState.state = "success";
-    buildState.text = "实时编译成功";
+    buildState.text = "Build Success";
   } catch (err) {
     buildState.state = "error";
     buildState.text = "Build Error";
