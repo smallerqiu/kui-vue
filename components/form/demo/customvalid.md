@@ -67,7 +67,7 @@ const form = ref({
 });
 const rules = {
   fullname: [
-    { required: true, message: "请输入姓名" },
+    { required: true, message: "Please input your name" },
     { message: "Name must be in Chinese", pattern: /^[\u4e00-\u9fa5]+$/ },
   ],
   IDnumber: [{ validator: validateIDNumber }],

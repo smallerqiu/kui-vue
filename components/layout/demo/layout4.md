@@ -55,7 +55,7 @@ When content is long, a fixed sidebar provides a better user experience.
         >
           Content
         </div>
-        <Footer>KUI ©2025 Created by chuchur</Footer>
+        <Footer>KUI ©2025 Created by Qiu</Footer>
       </Content>
     </Layout>
   </div>

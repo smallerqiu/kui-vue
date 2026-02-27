@@ -6,6 +6,12 @@ export default {
   text: {
     components: "组件",
     components_desc: "为 Web 应用提供了丰富的基础 UI 组件",
+    build_tip: "可实时编辑",
+    building:'正在构建...',
+    expand_code: "展开代码",
+    collapse_code: "收起代码",
+    copy_code: "复制代码",
+    restore_code: "还原代码",
   },
   menu: {
     home: "首页",
