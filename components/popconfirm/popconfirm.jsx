@@ -6,7 +6,7 @@ import {
   nextTick,
   watch,
   onMounted,
-  onBeforeMount,
+  onUnmounted,
   inject,
   computed,
 } from "vue";
@@ -82,12 +82,12 @@ const Popconfirm = defineComponent({
       });
     };
     onMounted(() => {
-      if (ps.show) {
-        updatePosition();
-      }
+      updatePosition();
+      window.addEventListener("resize", updatePosition);
     });
-    onBeforeMount(() => {
+    onUnmounted(() => {
       document.removeEventListener("click", outsideClick);
+      window.removeEventListener("resize", updatePosition);
     });
     watch(
       () => ps.show,

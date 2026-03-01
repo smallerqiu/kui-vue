@@ -11,6 +11,8 @@ Basic usage.
 <template>
   <Space style="max-width:520px;" vertical block>
     <code>Disabled: <k-switch v-model="disabled" /></code>
+    <code>v-model: {{ v }}</code>
+    <Slider v-model="v" :step="1" :disabled="disabled" />
     <code>v-model: {{ v1 }}</code>
     <Slider v-model="v1" :step="10" :disabled="disabled" :min="20" />
     <code>v-model: {{ v2 }}</code>
@@ -25,6 +27,7 @@ Basic usage.
 </template>
 <script setup>
 import { ref } from "vue";
+const v = ref(10);
 const v1 = ref(30);
 const v2 = ref([30, 50]);
 const disabled = ref(false);

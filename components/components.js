@@ -4,8 +4,11 @@ export { Alert };
 import Affix from "./affix";
 export { Affix };
 
-import Avatar from "./avatar";
-export { Avatar };
+import { Avatar, AvatarGroup } from "./avatar";
+export { Avatar, AvatarGroup };
+
+import { Anchor, AnchorLink } from "./anchor";
+export { Anchor, AnchorLink };
 
 import { Breadcrumb, BreadcrumbItem } from "./breadcrumb";
 export { Breadcrumb, BreadcrumbItem };

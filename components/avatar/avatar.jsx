@@ -1,5 +1,5 @@
 import Icon from "../icon";
-import { defineComponent, ref, onMounted, onUpdated, inject, computed } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
 
 const Avatar = defineComponent({
@@ -21,6 +21,7 @@ const Avatar = defineComponent({
 
     const innerRef = ref();
     const root = ref();
+    let observer = null;
 
     const computedSize = computed(() => {
       return group?.size.value || props.size;
@@ -35,8 +36,8 @@ const Avatar = defineComponent({
         const max = root.value.offsetWidth - 8;
         const innerWidth = innerRef.value.offsetWidth || innerRef.value.scrollWidth;
 
-        if (innerWidth > max) {
-          const scale = max / innerWidth;
+        if (innerWidth > 0 && innerWidth > max) {
+          const scale = Math.min(max / innerWidth, 1);
           innerRef.value.style.transform = `scale(${scale}) translateX(-50%)`;
         } else {
           innerRef.value.style.transform = "scale(1) translateX(-50%)";
@@ -44,8 +45,22 @@ const Avatar = defineComponent({
       }
     };
 
-    onMounted(updateSize);
-    onUpdated(updateSize);
+    onMounted(() => {
+      observer = new ResizeObserver(() => {
+        window.requestAnimationFrame(updateSize);
+      });
+
+      if (root.value) observer.observe(root.value);
+      if (innerRef.value) observer.observe(innerRef.value);
+
+      updateSize();
+    });
+    onBeforeUnmount(() => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    });
 
     return () => {
       const sizeVal = computedSize.value;

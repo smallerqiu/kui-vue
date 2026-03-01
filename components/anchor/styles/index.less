@@ -1,0 +1,54 @@
+@import "../../styles/less-css-var.less";
+
+.k-anchor-wrapper {
+  padding-left: 2px;
+  background-color: transparent;
+}
+.k-anchor-affix {
+  position: sticky;
+  top: 0;
+}
+.k-anchor {
+  position: relative;
+  padding-left: 12px;
+  border-left: 2px solid var(--kui-color-border);
+
+  .k-anchor-ink-ball {
+    position: absolute;
+    left: -2px;
+    width: 2px;
+    background-color: var(--kui-color-primary, #1890ff);
+    transition: all 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    border-radius: 2px;
+  }
+}
+
+.k-anchor-link {
+  padding: 4px 0 4px 16px;
+  line-height: 1.143;
+
+  .k-anchor-link-title {
+    display: block;
+    position: relative;
+    transition: all 0.3s;
+    color: var(--kui-color-text);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+      color: var(--kui-color-primary, #1890ff);
+    }
+  }
+
+  &-active > .k-anchor-link-title {
+    color: var(--kui-color-primary, #1890ff);
+    font-weight: 500;
+  }
+
+  .k-anchor-link {
+    padding-left: 12px;
+  }
+}

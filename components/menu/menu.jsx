@@ -125,7 +125,7 @@ const Menu = defineComponent({
       ];
       return (
         <ul class={cls} theme-mode={props.theme}>
-          {items && items.length
+          {items && items.length>0
             ? items.map((item) => {
                 return <RecursiveMenu item={item} key={item.key} />;
               })

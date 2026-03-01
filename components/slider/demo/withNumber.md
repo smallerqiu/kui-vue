@@ -10,7 +10,7 @@ Controlled and synchronized with Input.
 ```vue
 <template>
   <div>
-    <Row>
+    <Row :gutter="8">
       <Col :span="12">
         <Slider v-model="n1" :min="1" :max="20" />
       </Col>
@@ -18,7 +18,7 @@ Controlled and synchronized with Input.
         <InputNumber v-model="n1" :min="1" :max="20" />
       </Col>
     </Row>
-    <Row>
+    <Row :gutter="8">
       <Col :span="12">
         <Slider v-model="n2" :min="0" :max="1" :step="0.01" />
       </Col>

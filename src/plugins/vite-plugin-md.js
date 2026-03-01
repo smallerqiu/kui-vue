@@ -43,6 +43,7 @@ export default function vitePluginMd() {
         "descriptions",
         "skeleton",
         "form/",
+        "anchor/",
         "input/demo/group",
         "slider/demo/marks",
         "tree/demo/directory",

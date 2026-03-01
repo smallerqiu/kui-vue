@@ -1,7 +1,17 @@
 import Icon from "../icon";
 import resize from "../directives/resize";
 import { ArrowBack, ArrowForward } from "kui-icons/dist/icons";
-import { defineComponent, provide, ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
+import {
+  defineComponent,
+  provide,
+  ref,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  Fragment,
+  computed,
+} from "vue";
 import { withInstall } from "../utils/vue";
 const Carousel = defineComponent({
   name: "Carousel",
@@ -26,11 +36,37 @@ const Carousel = defineComponent({
 
     provide("width", width);
     provide("height", height);
+    const flatten = (vnodes) => {
+      let result = [];
+      vnodes.forEach((vnode) => {
+        if (vnode.type === Fragment) {
+          result.push(...flatten(vnode.children));
+        } else {
+          result.push(vnode);
+        }
+      });
+      return result;
+    };
+
+    const children = computed(() => {
+      const raw = slots.default?.() || [];
+      return flatten(raw);
+    });
 
     watch(
       () => ps.value,
       (nv, ov) => {
         currentIndex.value = nv;
+      }
+    );
+    watch(
+      () => children.value.length,
+      (newLen, oldLen) => {
+        if (newLen !== oldLen) {
+          // 数据量变了，重置到第一张或当前合法的索引
+          currentIndex.value = 0;
+          posIndex.value = ps.loop ? 1 : 0;
+        }
       }
     );
     const next = () => {
@@ -55,7 +91,7 @@ const Carousel = defineComponent({
         change("right");
       }, parseInt(ps.delay));
     };
-    let children = slots.default?.();
+
     const toSwitch = (type) => {
       clearInterval(autoTimer.value);
       if (playing.value) return;
@@ -66,7 +102,10 @@ const Carousel = defineComponent({
     const change = (type) => {
       animate.value = true;
 
-      const total = ps.loop ? children?.length + 2 : children?.length;
+      const len = children.value.length;
+      if (len === 0) return;
+
+      const total = ps.loop ? len + 2 : len;
       let index = posIndex.value;
       let nextCurrent = currentIndex.value;
 
@@ -74,7 +113,7 @@ const Carousel = defineComponent({
         index = (index + 1) % total;
 
         if (ps.loop) {
-          nextCurrent = (nextCurrent + 1) % children?.length;
+          nextCurrent = (nextCurrent + 1) % len;
         } else {
           nextCurrent = index;
         }
@@ -82,7 +121,7 @@ const Carousel = defineComponent({
         index = (index - 1 + total) % total;
 
         if (ps.loop) {
-          nextCurrent = (nextCurrent - 1 + children?.length) % children?.length;
+          nextCurrent = (nextCurrent - 1 + len) % len;
         } else {
           nextCurrent = index;
         }
@@ -95,7 +134,7 @@ const Carousel = defineComponent({
       setTimeout(() => {
         playing.value = false;
         if (ps.loop) {
-          let count = ps.loop ? children?.length + 2 : children?.length;
+          let count = ps.loop ? len + 2 : len;
           if (posIndex.value === count - 1) {
             animate.value = false;
             posIndex.value = 1;
@@ -126,11 +165,16 @@ const Carousel = defineComponent({
     });
 
     return () => {
+      const items = children.value;
+      const len = items.length;
+
+      if (len === 0) return null;
+
       let { vertical } = ps;
-      const first = children?.[0];
-      const last = children?.[children.length - 1];
-      const newChildren = ps.loop ? [last, ...children, first] : children;
-      let index = Math.min(children?.length - 1, currentIndex.value);
+      const first = items[0];
+      const last = items[len - 1];
+      const newChildren = ps.loop ? [last, ...items, first] : items;
+      let index = Math.min(len - 1, currentIndex.value);
       index = Math.max(0, index);
       const classes = [
         "k-carousel",
@@ -140,7 +184,7 @@ const Carousel = defineComponent({
       ];
       const dotsNode = (
         <ul class="k-carousel-dots">
-          {children?.map((x, i) => (
+          {children.value?.map((x, i) => (
             <li class={{ "k-carousel-dots-active": index == i }} onClick={() => goTo(i)}></li>
           ))}
         </ul>
