@@ -1,4 +1,13 @@
-import { defineComponent, Transition, ref, cloneVNode, nextTick, watch, onMounted } from "vue";
+import {
+  defineComponent,
+  Transition,
+  ref,
+  cloneVNode,
+  nextTick,
+  watch,
+  onMounted,
+  onUnmounted,
+} from "vue";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import transfer from "../directives/transfer";
@@ -54,10 +63,12 @@ const Tooltip = defineComponent({
       });
     };
     onMounted(() => {
-      if (ps.show) {
-        updatePosition();
-      }
+      updatePosition();
+      window.addEventListener("resize", updatePosition);
     });
+    onUnmounted(()=>{
+      window.removeEventListener("resize", updatePosition);
+    })
     watch(
       () => ps.show,
       (nv, no) => {

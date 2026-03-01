@@ -1,9 +1,8 @@
 import InfoCn from "./info.md";
 import InfoEn from "./info.en_US.md";
 import Basic from "./basic.md";
-import Types from "./types.md";
-import BadgeGroup from "./badgeGroup.md";
-import Change from "./change.md";
+import NestedAnchors from "./nestedAnchors.md";
+import WithinContainer from "./withinContainer.md";
 import CN from "../index.md";
 import EN from "../index.en_US.md";
 import { computed, inject } from "vue";
@@ -23,9 +22,8 @@ export default {
       <div>
         <this.Info />
         <Basic />
-        <Types />
-        <BadgeGroup />
-        <Change />
+        <NestedAnchors />
+        <WithinContainer />
         <this.API />
       </div>
     );

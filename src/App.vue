@@ -12,7 +12,7 @@ import { ref, computed, provide } from "vue";
 import { message } from "kui-vue";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const router = useRouter();
+// const router = useRouter();
 import ui_en from "@/components/locale/en";
 import ui_zh from "@/components/locale/zh-CN";
 import local_en from "./lang/en";

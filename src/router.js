@@ -30,6 +30,10 @@ let children = [
     path: "/navigation/affix",
     component: () => import("../components/affix/demo"),
   },
+    {
+    path: "/navigation/anchor",
+    component: () => import("../components/anchor/demo"),
+  },
   {
     path: "/data/avatar",
     component: () => import("../components/avatar/demo"),

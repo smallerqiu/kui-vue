@@ -51,6 +51,7 @@ const navData = [
     title: "menu.navigation",
     key: "navigation",
     children: [
+      { title: "锚点", sub: "Anchor", name: "anchor", icon: "Anchor" },
       { title: "图钉", sub: "Affix", name: "affix", icon: "Affix" },
       {
         title: "面包屑",

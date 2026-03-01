@@ -12,7 +12,11 @@ Execute different validation rules based on different conditions.
   <Row>
     <Col :span="16">
       <Form :model="form" ref="formRef" :labelCol="labelCol" :wrapperCol="wrapperCol">
-        <FormItem label="Name" prop="cname" :rules="[{ required: true, message: 'Please input your name' }]">
+        <FormItem
+          label="Name"
+          prop="cname"
+          :rules="[{ required: true, message: 'Please input your name' }]"
+        >
           <Input clearable />
         </FormItem>
         <FormItem
@@ -25,7 +29,11 @@ Execute different validation rules based on different conditions.
             <Option value="0" label="女" />
           </Select>
         </FormItem>
-        <FormItem label="年龄" prop="info.age" :rules="[{ required: true, message: 'Please input your age' }]">
+        <FormItem
+          label="Age"
+          prop="info.age"
+          :rules="[{ required: true, message: 'Please input your age' }]"
+        >
           <Input clearable />
         </FormItem>
         <FormItem
@@ -51,7 +59,7 @@ Execute different validation rules based on different conditions.
       </Form>
     </Col>
     <Col :span="8">
-      <pre style="max-height:320px;overflow:'scroll'">{{ JSON.stringify(form, null, 2) }}</pre>
+      <pre style="height:100%;overflow:scroll;line-height:1.4">{{ JSON.stringify(form, null, 2) }}</pre>
     </Col>
   </Row>
 </template>

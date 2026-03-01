@@ -1,6 +1,7 @@
 import { defineComponent, provide, toRefs } from "vue";
 import { withInstall } from "../utils/vue";
 import { getChildren } from "../utils/vnode";
+import Avatar from "./avatar";
 
 const AvatarGroup = defineComponent({
   name: "AvatarGroup",
@@ -19,8 +20,17 @@ const AvatarGroup = defineComponent({
 
     return () => {
       const children = getChildren(slots.default?.());
+      const { maxCount } = props;
 
-      return <div class="k-avatar-group">{children}</div>;
+      let childrenToShow = children;
+      if (maxCount && maxCount < children.length) {
+        childrenToShow = children.slice(0, maxCount);
+        childrenToShow.push(
+          <Avatar key="_k_avatar_plus_">{`+${children.length - maxCount}`}</Avatar>
+        );
+      }
+
+      return <div class="k-avatar-group">{childrenToShow}</div>;
     };
   },
 });

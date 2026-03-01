@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, nextTick, inject } from "vue";
+import { defineComponent, ref, watch, nextTick, inject, onMounted, onUnmounted } from "vue";
 import Thumb from "./thumb";
 import { withInstall } from "../utils/vue";
 import Big from "big.js";
@@ -25,6 +25,7 @@ const Slider = defineComponent({
 
   setup(props, { emit }) {
     const size = inject("size", null);
+    const railWidth = ref(0);
     const thumbRefs = ref([]);
     const setThumbRef = (el, index) => {
       if (el) thumbRefs.value[index] = el;
@@ -52,6 +53,21 @@ const Slider = defineComponent({
       return getClosestStep(val, props);
     };
 
+    const updateSize = () => {
+      if (railRef.value) {
+        railWidth.value = props.vertical ? railRef.value.offsetHeight : railRef.value.offsetWidth;
+      }
+    };
+
+    onMounted(() => {
+      updateSize();
+      window.addEventListener("resize", updateSize);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("resize", updateSize);
+    });
+
     watch(
       () => props.modelValue,
       (nv) => {
@@ -71,20 +87,22 @@ const Slider = defineComponent({
     // 计算鼠标位置对应的数值
     const getValueFromEvent = (e) => {
       const rect = railRef.value.getBoundingClientRect();
-      const size = props.size == "small" ? 12 : 24;
-      const radius = size / 2;
+      const W = props.vertical ? rect.height : rect.width;
+      const size = props.size === "small" ? 18 : 24;
+      const R = size / 2;
 
-      let clientPos = props.vertical
+      // 1. 获取点击位置距离【物理起点】（Left/Bottom）的距离
+      let distFromPhysicalStart = props.vertical
         ? rect.bottom - (e.touches ? e.touches[0].clientY : e.clientY)
         : (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
 
-      if (props.reverse) clientPos = (props.vertical ? rect.height : rect.width) - clientPos;
+      // 2. 如果是反向，转换成距离【逻辑起点】（Right/Top）的距离
+      const distFromLogicalStart = props.reverse
+        ? W - distFromPhysicalStart
+        : distFromPhysicalStart;
 
-      // 这里的计算要扣除两端的 radius 宽度
-      // percent = (当前像素位置 - 半径) / (总长度 - 两个半径)
-      const availableWidth = (props.vertical ? rect.height : rect.width) - size;
-      const percent = Math.max(0, Math.min(1, (clientPos - radius) / availableWidth));
-
+      // 3. 计算比例并映射回数值
+      const percent = Math.max(0, Math.min(1, (distFromLogicalStart - R) / (W - size)));
       const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
@@ -228,44 +246,41 @@ const Slider = defineComponent({
       emit("change", internalValue.value);
     };
 
-    const getProgressPositions = (val, totalWidth) => {
+    const getCoord = (val) => {
       const p = getPercent(val) / 100; // 0 - 1
-      const size = props.size === "small" ? 14 : 24;
-      const radius = size / 2;
+      const size = props.size === "small" ? 18 : 24;
+      const R = size / 2;
 
-      // 临界点控制：这里建议使用 0.1 (10%)
-      const T = 0.1;
+      const W = railWidth.value;
+      if (W === 0) return 0;
+
+      // 临界点控制
+      const D = 18;
 
       // 计算 Thumb 中心位置
-      const thumbPos = p * (totalWidth - size) + radius;
+      const thumbPos = p * (W - size) + R;
 
-      // 计算 Track/Mark 对齐位置 (带临界点补偿)
-      let trackPos;
-      if (p < T) {
-        const thumbAtT = T * (totalWidth - size) + radius;
-        trackPos = (p / T) * thumbAtT;
-      } else if (p > 1 - T) {
-        const thumbAtNotT = (1 - T) * (totalWidth - size) + radius;
-        const ratio = (p - (1 - T)) / T;
-        trackPos = thumbAtNotT + ratio * (totalWidth - thumbAtNotT);
+      if (thumbPos < D) {
+        // [左端追赶区] 从 0 到 D
+        return ((thumbPos - R) / (D - R)) * D;
+      } else if (thumbPos > W - D) {
+        // [右端追赶区] 从 W-D 到 W
+        return W - D + ((thumbPos - (W - D)) / (D - R)) * D;
       } else {
-        trackPos = thumbPos;
+        // [中间对齐区]
+        return thumbPos;
       }
-
-      return { thumbPos, trackPos };
     };
 
     return () => {
       const { vertical, reverse, min, max, disabled, marks, included } = props;
-      const renderTrack = () => {
-        const rect = railRef.value?.getBoundingClientRect() || { width: 0, height: 0 };
-        const totalLength = props.vertical ? rect.height : rect.width;
 
+      const renderTrack = () => {
         const [v1, v2] = props.range ? internalValue.value : [props.min, internalValue.value];
 
         // 获取两个端点的计算位置
-        const pos1 = getProgressPositions(Math.min(v1, v2), totalLength).trackPos;
-        const pos2 = getProgressPositions(Math.max(v1, v2), totalLength).trackPos;
+        const pos1 = getCoord(Math.min(v1, v2));
+        const pos2 = getCoord(Math.max(v1, v2));
 
         // 如果不是 range 模式，起始点强制为 0
         const start = props.range ? `${pos1}px` : "0px";
@@ -289,7 +304,7 @@ const Slider = defineComponent({
         return (
           <div class="k-slider-marks">
             {mKeys.map((val) => {
-              const p = getPercent(val);
+              const coord = getCoord(val);
               // 判断激活状态：值是否在当前选中范围内
               let isActive = false;
               if (props.range) {
@@ -300,13 +315,29 @@ const Slider = defineComponent({
 
               let style = {};
               if (vertical) {
+                // 垂直模式：根据方向使用 bottom 或 top
                 style = reverse
-                  ? { top: `${p}%`, transform: `translateY(-${p}%)` }
-                  : { bottom: `${p}%`, transform: `translateY(${p}%)` };
+                  ? { top: `${coord}px`, transform: "translateY(-50%)" }
+                  : { bottom: `${coord}px`, transform: "translateY(50%)" };
+
+                if (val == props.max) {
+                  style.marginTop = "-4px";
+                }
+                if (val == props.min) {
+                  style.marginTop = "4px";
+                }
               } else {
+                // 水平模式：根据方向使用 left 或 right
                 style = reverse
-                  ? { right: `${p}%`, transform: `translateX(${p}%)` }
-                  : { left: `${p}%`, transform: `translateX(-${p}%)` };
+                  ? { right: `${coord}px`, transform: "translateX(50%)" }
+                  : { left: `${coord}px`, transform: "translateX(-50%)" };
+
+                if (val == props.max) {
+                  style.marginLeft = "-4px";
+                }
+                if (val == props.min) {
+                  style.marginLeft = "4px";
+                }
               }
 
               return (
@@ -345,6 +376,7 @@ const Slider = defineComponent({
 
       return (
         <div
+          type={vertical ? "vertical" : "horizontal"}
           class={[
             "k-slider",
             {

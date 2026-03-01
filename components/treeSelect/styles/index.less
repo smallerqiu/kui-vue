@@ -129,7 +129,7 @@
     line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--kui-color-text-disabled);
+    color: var(--kui-color-text-placeholder);
     white-space: nowrap;
     max-width: 100%;
     box-sizing: border-box;
@@ -221,20 +221,18 @@
 }
 
 .k-tree-select-light {
-  &.k-tree-select {
+  border-color: transparent;
+  background: var(--kui-color-bg-component);
+  transition: none;
+
+  &:hover {
+    box-shadow: none;
     border-color: transparent;
-    background: var(--kui-color-bg-component);
-    transition: none;
+  }
 
-    &:hover {
-      box-shadow: none;
-      border-color: transparent;
-    }
-
-    .k-tree-select-tag {
-      background-color: var(--kui-color-bg-component);
-      border-color: transparent;
-    }
+  .k-tree-select-tag {
+    background-color: var(--kui-color-bg-component);
+    border-color: transparent;
   }
 
   &:focus .k-tree-select {

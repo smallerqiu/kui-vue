@@ -6,7 +6,7 @@ import {
   nextTick,
   watch,
   onMounted,
-  onBeforeMount,
+  onUnmounted,
 } from "vue";
 import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
@@ -63,12 +63,12 @@ const Poptip = defineComponent({
       });
     };
     onMounted(() => {
-      if (ps.show) {
-        updatePosition();
-      }
+      updatePosition();
+      window.addEventListener("resize", updatePosition);
     });
-    onBeforeMount(() => {
+    onUnmounted(() => {
       document.removeEventListener("click", outsideClick);
+      window.removeEventListener("resize", updatePosition);
     });
     watch(
       () => ps.show,
