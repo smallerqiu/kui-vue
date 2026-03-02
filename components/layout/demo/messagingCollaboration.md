@@ -13,46 +13,49 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
 
 ```vue
 <template>
-  <k-layout class="chat-container">
-    <k-sider style="width:260px;" class="chat-sider">
+  <Layout class="chat-container">
+    <Sider style="width:260px;" class="chat-sider">
       <div class="sider-header">
-        <k-input placeholder="Search conversation..." />
+        <Input placeholder="Search conversation..." />
       </div>
-      <k-menu mode="inline" :selectedKeys="['c1']" style="border:none">
-        <k-menu-item key="c1"># Core R&D Team <k-badge :count="5" offset="[10, 0]" /></k-menu-item>
-        <k-menu-item key="c2"># Visual Design UI</k-menu-item>
-        <k-menu-item key="c3"># Customer Support (1-on-1)</k-menu-item>
-      </k-menu>
-    </k-sider>
+      <Menu mode="inline" v-model="selectedKeys" style="border:none;padding:10px;">
+        <MenuItem key="c1"># Core R&D Team <Badge :count="5" offset="[10, 0]" /></MenuItem>
+        <MenuItem key="c2"># Visual Design UI</MenuItem>
+        <MenuItem key="c3"># Customer Support (1-on-1)</MenuItem>
+      </Menu>
+    </Sider>
 
-    <k-layout>
-      <k-header class="chat-header">
+    <Layout>
+      <Header class="chat-header">
         <div class="chat-title"># Core R&D Team <small>(128 members)</small></div>
-      </k-header>
+      </Header>
 
-      <k-content class="chat-messages">
+      <Content class="chat-messages">
         <div class="msg-group" v-for="i in 20" :key="i">
-          <k-avatar size="small" />
+          <Avatar size="small" />
           <div class="msg-bubble">
             <div class="msg-info">User_{{ i }} <span>10:30 AM</span></div>
             <div class="msg-text">This is simulated historical message content.</div>
           </div>
         </div>
-      </k-content>
+      </Content>
 
-      <k-footer class="chat-input-box">
+      <Footer class="chat-input-box">
         <div class="toolbar">
-          <k-icon name="smile" /> <k-icon name="picture" /> <k-icon name="paper-clip" />
+          <Icon name="smile" /> <Icon name="picture" /> <Icon name="paper-clip" />
         </div>
-        <k-text-area :rows="3" placeholder="Press Cmd + Enter to send the message..." />
+        <TextArea :rows="3" placeholder="Press Cmd + Enter to send the message..." />
         <div class="input-actions">
-          <k-button type="primary" size="small">Send</k-button>
+          <Button type="primary" size="small">Send</Button>
         </div>
-      </k-footer>
-    </k-layout>
-  </k-layout>
+      </Footer>
+    </Layout>
+  </Layout>
 </template>
-
+<script setup>
+import { ref } from "vue";
+const selectedKeys = ref(["c1"]);
+</script>
 <style scoped>
 .chat-container {
   height: 80vh;
@@ -65,7 +68,7 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
   border-right: 1px solid var(--kui-color-border);
 }
 .sider-header {
-  padding: 16px;
+  padding: 10px;
 }
 .chat-header {
   background: var(--kui-color-bg-2);

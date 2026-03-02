@@ -9,7 +9,7 @@ A typical page layout.
 
 ```vue
 <template>
-  <Flex class="demo-k-layout" size="small" wrap>
+  <Flex class="demo-Layout" size="small" wrap>
     <Layout>
       <Header>Header</Header>
       <Content>Content</Content>
@@ -42,29 +42,29 @@ A typical page layout.
   </Flex>
 </template>
 <style scoped>
-.demo-k-layout {
+.demo-Layout {
   text-align: center;
 }
-.demo-k-layout > .k-layout {
+.demo-Layout > .Layout {
   color: var(--kui-color-text-description);
   min-width: calc(50% - 8px);
   border-radius: 10px;
   overflow: hidden;
 }
-.demo-k-layout .k-layout-header {
+.demo-Layout .Layout-header {
   background-color: var(--kui-color-bg-3);
   height: 64px;
   line-height: 64px;
 }
-.demo-k-layout .k-layout-footer {
+.demo-Layout .Layout-footer {
   background-color: var(--kui-color-bg-3);
 }
-.demo-k-layout .k-layout-content {
+.demo-Layout .Layout-content {
   min-height: 120px;
   line-height: 120px;
   background-color: var(--kui-color-bg-2);
 }
-.demo-k-layout .k-layout-sider {
+.demo-Layout .Layout-sider {
   line-height: 120px;
   background-color: var(--kui-color-bg-4);
   width: 30%;

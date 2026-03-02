@@ -67,7 +67,6 @@
             <Icon :type="ChevronForward" />
           </a>
         </div>
-        <!-- <AppFooter /> -->
       </Content>
     </Layout>
   </Layout>
@@ -123,7 +122,7 @@ const setActiveKey = ({ path }) => {
   Object.assign(prevNavData, prev);
   Object.assign(nextNavData, next);
   let { title, sub, name } = current;
-  document.title = `${title} ${sub || ""} - KUI`;
+  document.title = `${lang.value != "en" ? title : ""} ${sub || ""} - KUI`;
   activeName.value = [name];
 };
 onMounted(() => {

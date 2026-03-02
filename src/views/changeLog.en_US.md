@@ -1,6 +1,6 @@
 # Changelog
 
-Version 4.x supports Vue 3. For Vue 2-based documentation, please refer to <https://v3.k-ui.cn>.
+Version 4.x supports `Vue 3`. For Vue 2-based documentation, please refer to <https://v3.k-ui.cn>.
 If you encounter any issues, please submit them via [Github](https://github.com/smallerqiu/kui-vue/issues).
 
 ```bash
@@ -12,6 +12,16 @@ Vite might have caching; you can clear it manually if needed.
 ```bash
 rm -rf node_modules/.vite
 ```
+
+`2026-3-2`
+
+- Fix compatibility issues with Nuxt.js
+- Fixed the issue with Drawer closing.  
+- Optimized the Slider component (justified alignment).  
+- Added new Anchor and AnchorLink components.  
+- Added new AvatarGroup component.  
+- Fixed Carousel (v-for bugs).  
+- Enhanced the POP series of components.
 
 ## 4.0.1
 

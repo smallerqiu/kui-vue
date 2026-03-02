@@ -14,24 +14,24 @@ Suitable for portal websites, showcase websites, or personal blogs with a large 
 
 ```vue
 <template>
-  <k-layout class="portal-layout">
-    <k-header class="portal-header">
+  <Layout class="portal-layout">
+    <Header class="portal-header">
       <div class="container">
         <Space class="logo"><Icon :type="LogoKui" :size="20" />KUI PRO</Space>
-        <k-menu mode="horizontal" class="portal-menu">
-          <k-menu-item key="home">Home</k-menu-item>
-          <k-menu-item key="comp">Components</k-menu-item>
-          <k-menu-item key="resource">Resources</k-menu-item>
-          <k-menu-item key="community">Community</k-menu-item>
-        </k-menu>
+        <Menu mode="horizontal" class="portal-menu">
+          <MenuItem key="home">Home</MenuItem>
+          <MenuItem key="comp">Components</MenuItem>
+          <MenuItem key="resource">Resources</MenuItem>
+          <MenuItem key="community">Community</MenuItem>
+        </Menu>
         <Space class="actions">
-          <k-button size="small">Sign in</k-button>
-          <k-button type="primary" size="small">Get started</k-button>
+          <Button size="small">Sign in</Button>
+          <Button type="primary" size="small">Get started</Button>
         </Space>
       </div>
-    </k-header>
+    </Header>
 
-    <k-content>
+    <Content>
       <Carousel :loop="true" >
         <CarouselItem v-for="x in 3" style="height:300px;">
           <div class="hero">
@@ -41,17 +41,17 @@ Suitable for portal websites, showcase websites, or personal blogs with a large 
         </CarouselItem>
       </Carousel>
       <div class="container content-main">
-        <k-row :gutter="24">
-          <k-col :span="8" v-for="i in 3" :key="i">
-            <k-card hoverable title="Feature Showcase">
+        <Row :gutter="24">
+          <Col :span="8" v-for="i in 3" :key="i">
+            <Card hoverable title="Feature Showcase">
               <p>Powered by native CSS Variables, it supports instant theme switching.</p>
-            </k-card>
-          </k-col>
-        </k-row>
+            </Card>
+          </Col>
+        </Row>
       </div>
-    </k-content>
+    </Content>
 
-    <k-footer class="portal-footer">
+    <Footer class="portal-footer">
       <div class="container footer-grid">
         <div class="footer-col">
           <h4>About KUI</h4>
@@ -66,10 +66,10 @@ Suitable for portal websites, showcase websites, or personal blogs with a large 
           <a>Report Bug</a><br /><a>Q & A</a>
         </div>
       </div>
-      <k-divider />
+      <Divider />
       <div class="copyright">Copyright © 2026 KUI Team. All Rights Reserved.</div>
-    </k-footer>
-  </k-layout>
+    </Footer>
+  </Layout>
 </template>
 <script setup>
 import { LogoKui } from "kui-icons";
