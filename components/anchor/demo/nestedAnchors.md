@@ -25,14 +25,14 @@ Suitable for documents with multi-level headings.
     </Col>
     
     <Col style="width: 200px; padding-top: 40px;">
-      <k-anchor container=".anchor-d2">
-        <k-anchor-link href="#api" title="API">
-          <k-anchor-link href="#props" title="Props">
-            <k-anchor-link href="#anchor-props" title="Anchor Props" />
-          </k-anchor-link>
-          <k-anchor-link href="#events" title="Events" />
-        </k-anchor-link>
-      </k-anchor>
+      <Anchor container=".anchor-d2">
+        <AnchorLink href="#api" title="API">
+          <AnchorLink href="#props" title="Props">
+            <AnchorLink href="#anchor-props" title="Anchor Props" />
+          </AnchorLink>
+          <AnchorLink href="#events" title="Events" />
+        </AnchorLink>
+      </Anchor>
     </Col>
   </Row>
 </template>
