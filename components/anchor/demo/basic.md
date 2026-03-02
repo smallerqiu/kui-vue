@@ -9,30 +9,43 @@ The most common scenario: displaying a long article on the right with fixed anch
 
 ```vue
 <template>
-  <k-layout style="background: #fff; padding: 24px;max-height:500px;overflow:auto;" class="anchor-d1">
-    <k-row :gutter="24">
-      <k-col :span="18">
-        <section id="part-1" style="height: 500px; background: #fafafa; margin-bottom: 20px; padding: 20px;">
+  <Layout class="anchor-d1">
+    <Row :gutter="24">
+      <Col :span="18">
+        <section id="part-1" style="margin-bottom: 20px; ">
           <h2>Part 1：Basic</h2>
           <p>Here is the basic content...</p>
         </section>
-        <section id="part-2" style="height: 500px; background: #f0f2f5; margin-bottom: 20px; padding: 20px;">
+        <section id="part-2" style=" margin-bottom: 20px; ">
           <h2>Part 2：Guide</h2>
           <p>Here is the advanced content...</p>
         </section>
-        <section id="part-3" style="height: 500px; background: #fafafa; padding: 20px;">
+        <section id="part-3">
           <h2>Part 3：FQA</h2>
           <p>Here is the FAQ content...</p>
         </section>
-      </k-col>
-      <k-col :span="6">
-        <k-anchor :offsetTop="20" container=".anchor-d1">
-          <k-anchor-link href="#part-1" title="Basic" />
-          <k-anchor-link href="#part-2" title="Guide" />
-          <k-anchor-link href="#part-3" title="FAQ" />
-        </k-anchor>
-      </k-col>
-    </k-row>
-  </k-layout>
+      </Col>
+      <Col :span="6">
+        <Anchor :offsetTop="20" container=".anchor-d1">
+          <AnchorLink href="#part-1" title="Basic" />
+          <AnchorLink href="#part-2" title="Guide" />
+          <AnchorLink href="#part-3" title="FAQ" />
+        </Anchor>
+      </Col>
+    </Row>
+  </Layout>
 </template>
+<style scoped>
+.anchor-d1 {
+  background: var(--kui-color-bg);
+  padding: 24px;
+  max-height: 500px;
+  overflow: auto;
+}
+section {
+  height: 500px;
+  background: var(--kui-color-bg-container);
+  padding: 20px;
+}
+</style>
 ```
