@@ -5,57 +5,60 @@
 此 Demo 重点展示了 Layout 如何通过多层嵌套，将屏幕空间切分为极小但有序的功能区。
 </cn>
 <en>
-### Modern Enterprise Admin Console
-The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems.
-- Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer.
-- Matching components: Menu (vertical mode), Breadcrumb, Avatar.
+### Visual Editor Layout (IDE / Low-code Layout)  
+- Scenario: Similar to VS Code, Figma, or low-code platforms.  
+- Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer).  
+This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.
 </en>
 
 ```vue
 <template>
-  <k-layout class="ide-layout">
-    <k-layout>
-      <k-sider width="48" class="ide-rail" theme="dark">
-        <div class="rail-icon active"><k-icon name="files" /></div>
-        <div class="rail-icon"><k-icon name="search" /></div>
-        <div class="rail-icon"><k-icon name="git-branch" /></div>
-      </k-sider>
+  <Layout class="ide-layout">
+    <Layout>
+      <Sider width="48" class="ide-rail" theme="dark">
+        <div class="rail-icon active"><Icon :type="Documents" /></div>
+        <div class="rail-icon"><Icon :type="Search" /></div>
+        <div class="rail-icon"><Icon :type="GitBranch" /></div>
+      </Sider>
 
-      <k-sider width="200" class="ide-explorer">
-        <div class="panel-title">资源管理器</div>
+      <Sider width="200" class="ide-explorer">
+        <div class="panel-title">Explorer</div>
         <div class="file-tree">
           <div class="file-item active">index.vue</div>
           <div class="file-item">slider.jsx</div>
           <div class="file-item">styles.less</div>
         </div>
-      </k-sider>
+      </Sider>
 
-      <k-layout>
-        <k-header class="editor-tabs">
+      <Layout>
+        <Header class="editor-tabs">
           <div class="tab active">index.vue</div>
           <div class="tab">slider.jsx</div>
-        </k-header>
-        <k-content class="editor-main">
+        </Header>
+        <Content class="editor-main">
           <pre class="code-preview"><code>export default { ... }</code></pre>
-        </k-content>
-      </k-layout>
+        </Content>
+      </Layout>
 
-      <k-sider width="240" class="ide-inspector">
-        <div class="panel-title">属性设置</div>
+      <Sider style="width:240" class="ide-inspector">
+        <div class="panel-title">Attribute Settings</div>
         <div class="inspector-content">
-          <div class="setting-row"><span>显示模式:</span> <k-switch /></div>
-          <div class="setting-row"><span>主色调:</span> <k-input size="small" /></div>
+          <div class="setting-row"><span>Display mode:</span> <k-switch /></div>
+          <div class="setting-row"><span>Main color:</span> <Input size="small" /></div>
         </div>
-      </k-sider>
-    </k-layout>
+      </Sider>
+    </Layout>
 
-    <k-footer class="ide-status-bar">
+    <Footer class="ide-status-bar">
       <div class="status-left">Ready</div>
       <div class="status-right">UTF-8 | Vue 3 | Line 10, Col 5</div>
-    </k-footer>
-  </k-layout>
+    </Footer>
+  </Layout>
 </template>
-
+<script setup>
+import { Documents, GitBranch, Search } from "kui-icons";
+import { ref } from "vue";
+</script>
 <style scoped>
 .ide-layout {
   height: 100vh;
@@ -87,6 +90,7 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
 .ide-inspector {
   background: #252526;
   border-right: 1px solid #111;
+  font-size: 12px;
 }
 .panel-title {
   padding: 10px 16px;

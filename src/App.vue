@@ -63,17 +63,4 @@ const changeLang = () => {
 provide("$t", $t);
 provide("changeLang", changeLang);
 
-// alert v4
-const iknow = localStorage.getItem("iknow-v4");
-if (!iknow) {
-  message.show({
-    type: "warning",
-    duration: 0,
-    closable: true,
-    content: "当前文档为v4.x 版本，不支持Vue2, Vue2 项目请使用v3.x ！",
-    onClose: () => {
-      localStorage.setItem("iknow-v4", "yes");
-    },
-  });
-}
 </script>

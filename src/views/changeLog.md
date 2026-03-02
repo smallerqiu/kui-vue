@@ -2,7 +2,7 @@
 
 ![kui](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
 
-4.x 版本支持Vue3, 基于Vue2 的文档请参阅 <https://v3.k-ui.cn>
+4.x 版本支持 `Vue3`, 基于 `Vue2` 的文档请参阅 <https://v3.k-ui.cn>
 遇到问题,请在 [Github](https://github.com/smallerqiu/kui-vue/issues) 提issue
 
 ```bash
@@ -14,6 +14,18 @@ vite 好像有缓存, 可手动清除
 ```bash
 rm -rf node_modules/.vite
 ```
+
+## 4.0.2
+
+`2026-3-2`
+
+- 修复对 Nuxt.js 的兼容问题
+- 修复 Drawer 关闭问题。
+- 优化 Slider 组件(两端对齐)。
+- 新增 Anchor, AnchorLink 组件。
+- 新增 AvatarGroup 组件。
+- 修复 Carousel (v-for bugs)。
+- 完善 POP 一系列组件。
 
 ## 4.0.1
 

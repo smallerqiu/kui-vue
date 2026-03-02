@@ -49,9 +49,7 @@ const Drawer = defineComponent({
     watch(
       () => ps.modelValue,
       (nv, ov) => {
-        if (nv) {
-          toggle(nv);
-        }
+        toggle(nv);
       }
     );
 

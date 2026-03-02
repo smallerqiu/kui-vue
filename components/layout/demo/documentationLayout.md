@@ -14,30 +14,30 @@ Imitate the structure of official documentation like Vue or React, with a focus 
 
 ```vue
 <template>
-  <k-layout class="demo-docs-layout">
-    <k-header class="docs-header">
+  <Layout class="demo-docs-layout">
+    <Header class="docs-header">
       <Space class="logo"><Icon :type="LogoKui" :size="20" />KUI Docs</Space>
-      <k-input placeholder="Search..." style="width: 300px" />
-    </k-header>
+      <Input placeholder="Search..." style="width: 300px" />
+    </Header>
 
-    <k-layout class="docs-body">
-      <k-sider width="280" class="docs-sider-left">
+    <Layout class="docs-body">
+      <Sider width="280" class="docs-sider-left">
         <div class="sider-menu-wrapper">
-          <k-menu mode="inline" :defaultOpenKeys="['g1']" class="docs-menu">
-            <k-menu-group key="g1" title="Guide">
-              <k-menu-item key="intro">Started</k-menu-item>
-              <k-menu-item key="custom">Custom Theme</k-menu-item>
-            </k-menu-group>
-            <k-menu-group key="g2" title="Universal">
-              <k-menu-item key="btn">Button</k-menu-item>
-              <k-menu-item key="icon">Icon</k-menu-item>
-              <k-menu-item key="layout">Layout</k-menu-item>
-            </k-menu-group>
-          </k-menu>
+          <Menu mode="inline" :defaultOpenKeys="['g1']" class="docs-menu">
+            <Menu-group key="g1" title="Guide">
+              <MenuItem key="intro">Started</MenuItem>
+              <MenuItem key="custom">Custom Theme</MenuItem>
+            </Menu-group>
+            <Menu-group key="g2" title="Universal">
+              <MenuItem key="btn">Button</MenuItem>
+              <MenuItem key="icon">Icon</MenuItem>
+              <MenuItem key="layout">Layout</MenuItem>
+            </Menu-group>
+          </Menu>
         </div>
-      </k-sider>
+      </Sider>
 
-      <k-content class="docs-content">
+      <Content class="docs-content">
         <article class="markdown-body">
           <h1>Layout</h1>
           <p>Assist in overall page layout planning.</p>
@@ -46,20 +46,20 @@ Imitate the structure of official documentation like Vue or React, with a focus 
             <div class="code-demo-box">Sample code display area...</div>
           </section>
         </article>
-      </k-content>
+      </Content>
 
-      <k-sider width="200" class="docs-sider-right" hide-trigger>
+      <Sider width="200" class="docs-sider-right" hide-trigger>
         <div class="anchor-wrapper">
           <p class="anchor-title">Contents</p>
-          <k-anchor>
-            <k-anchor-link href="#part-1" title="Basic" />
-            <k-anchor-link href="#part-2" title="Sidebar collapse" />
-            <k-anchor-link href="#part-3" title="Custom trigger" />
-          </k-anchor>
+          <Anchor>
+            <AnchorLink href="#part-1" title="Basic" />
+            <AnchorLink href="#part-2" title="Sidebar collapse" />
+            <AnchorLink href="#part-3" title="Custom trigger" />
+          </Anchor>
         </div>
-      </k-sider>
-    </k-layout>
-  </k-layout>
+      </Sider>
+    </Layout>
+  </Layout>
 </template>
 <script setup>
 import { LogoKui } from "kui-icons";

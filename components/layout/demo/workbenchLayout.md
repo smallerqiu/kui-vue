@@ -3,47 +3,45 @@
 左侧导航 + 中间看板 + 右侧详情面板 (Right Sider)。
 </cn>
 <en>
-### Modern Enterprise Admin Console
-The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems.
-- Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer.
-- Matching components: Menu (vertical mode), Breadcrumb, Avatar.
+### Task Workbench (The "Workbench" Details Layout)
+Left navigation + Middle dashboard + Right detail panel (Right Sider).
 </en>
 
 ```vue
 <template>
-  <k-layout class="workbench-layout">
-    <k-sider width="80" class="app-rail">
-      <k-avatar :size="40" class="app-logo">P</k-avatar>
-      <k-menu mode="vertical" :inlineCollapsed="true" style="border:none;">
-        <k-menu-item key="t1" :icon="CheckmarkCircle"></k-menu-item>
-        <k-menu-item key="t2" :icon="Calendar"></k-menu-item>
-        <k-menu-item key="t3" :icon="StatsChart"></k-menu-item>
-      </k-menu>
-    </k-sider>
+  <Layout class="workbench-layout">
+    <Sider width="80" class="app-rail">
+      <Avatar :size="40" class="app-logo">P</Avatar>
+      <Menu mode="vertical" :inlineCollapsed="true" style="border:none;" v-model="selectedKeys">
+        <MenuItem key="t1" :icon="CheckmarkCircle"></MenuItem>
+        <MenuItem key="t2" :icon="Calendar"></MenuItem>
+        <MenuItem key="t3" :icon="StatsChart"></MenuItem>
+      </Menu>
+    </Sider>
 
-    <k-layout>
-      <k-header class="workbench-header">
+    <Layout>
+      <Header class="workbench-header">
         <div class="header-breadcrumb">
           <span class="proj-name">Project A</span> / <span>Current iteration</span>
         </div>
-        <div class="header-ops">
-          <k-avatar-group :max-count="3">
-            <k-avatar src="https://cdn.chuchur.com/img/chick.jpeg"  :size="20"/>
-            <k-avatar src="https://cdn.chuchur.com/img/monkey.jpeg" :size="20"/>
-          </k-avatar-group>
-        </div>
-      </k-header>
+        <Flex class="header-ops">
+          <AvatarGroup :max-count="3">
+            <Avatar src="https://cdn.chuchur.com/img/chick.jpeg"  :size="25"/>
+            <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" :size="25"/>
+          </AvatarGroup>
+        </Flex>
+      </Header>
 
-      <k-layout style="overflow:hidden;">
-        <k-content class="workbench-main">
+      <Layout style="overflow:hidden;">
+        <Content class="workbench-main">
           <div class="task-list">
             <div v-for="i in 10" :key="i" class="task-item" @click="showDetail = true">
               Task #00{{ i }} - Optimization algorithm
             </div>
           </div>
-        </k-content>
+        </Content>
 
-        <k-sider
+        <Sider
           v-if="showDetail"
           width="350"
           class="detail-panel"
@@ -53,26 +51,27 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
         >
           <div class="detail-header">
             <h4>Task Details</h4>
-            <k-button type="text" @click="showDetail = false">Close</k-button>
+            <Button type="text" @click="showDetail = false">Close</Button>
           </div>
           <div class="detail-body">
             <p><strong>Status:</strong> In progress</p>
             <p><strong>Executor:</strong> Qiu</p>
-            <k-divider />
+            <Divider />
             <p>
               Description: We need to ensure that the transform still takes effect in reverse
               mode....
             </p>
           </div>
-        </k-sider>
-      </k-layout>
-    </k-layout>
-  </k-layout>
+        </Sider>
+      </Layout>
+    </Layout>
+  </Layout>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { CheckmarkCircle, Calendar, StatsChart } from "kui-icons";
+const selectedKeys = ref(['t1'])
 const showDetail = ref(true);
 </script>
 
@@ -93,12 +92,12 @@ const showDetail = ref(true);
   background: var(--kui-color-primary);
 }
 .workbench-header {
-  background: var(--kui-color-bg-2);
+  background: var(--kui-color-bg-3);
   border-bottom: 1px solid var(--kui-color-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
+  padding: 10px 24px;
 }
 .proj-name {
   font-weight: bold;
@@ -131,7 +130,7 @@ const showDetail = ref(true);
 }
 .detail-header {
   padding: 16px 20px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--kui-color-border);
   display: flex;
   justify-content: space-between;
 }

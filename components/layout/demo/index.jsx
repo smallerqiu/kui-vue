@@ -1,11 +1,5 @@
 import InfoCn from "./info.md";
 import InfoEn from "./info.en_US.md";
-// import Basic from "./basic.md";
-// import Layout1 from "./layout1.md";
-// import Layout2 from "./layout2.md";
-// import Layout3 from "./layout3.md";
-// import Layout4 from "./layout4.md";
-// import Layout5 from "./layout5.md";
 import EnterpriseAdminConsole from "./enterpriseAdminConsole.md";
 import PortalExhibition from "./portalExhibition.md";
 import DocumentationLayout from "./documentationLayout.md";
@@ -31,12 +25,6 @@ export default {
         <WorkbenchLayout />
         <MessagingCollaboration />
         <LowCodeLayout />
-        {/* <Basic />
-        <Layout1 />
-        <Layout2 />
-        <Layout3 />
-        <Layout4 />
-        <Layout5 /> */}
       </div>
     );
   },

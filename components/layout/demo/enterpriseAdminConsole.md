@@ -13,64 +13,66 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
 
 ```vue
 <template>
-  <k-layout class="admin-wrapper">
-    <k-sider v-model:collapsed="collapsed" collapsible class="admin-sider">
+  <Layout class="admin-wrapper">
+    <Sider v-model:collapsed="collapsed" collapsible class="admin-sider">
       <div class="admin-logo">
         <!-- <img src="/logo.svg" alt="logo" /> -->
         <Icon :type="LogoKui" />
         <span v-if="!collapsed">KUI Console</span>
       </div>
       <Menu
-        v-model:selectedKeys="selectedKeys"
+        v-model="selectedKeys"
+        v-model:openKeys="openKeys"
         mode="inline"
         :items="items"
         class="admin-menu"
       >
       </Menu>
-      <k-button type="text" @click="collapsed = !collapsed">
-        <k-icon :name="collapsed ? 'menu-unfold' : 'menu-fold'" />
-      </k-button>
-    </k-sider>
+      <Button type="text" @click="collapsed = !collapsed">
+        <Icon :name="collapsed ? 'menu-unfold' : 'menu-fold'" />
+      </Button>
+    </Sider>
 
-    <k-layout>
-      <k-header class="admin-header">
+    <Layout>
+      <Header class="admin-header">
         <div class="header-left">
-          <k-breadcrumb>
-            <k-breadcrumb-item>Home</k-breadcrumb-item>
-            <k-breadcrumb-item>User Management</k-breadcrumb-item>
-            <k-breadcrumb-item>User List</k-breadcrumb-item>
-          </k-breadcrumb>
+          <Breadcrumb>
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>User Management</BreadcrumbItem>
+            <BreadcrumbItem>User List</BreadcrumbItem>
+          </Breadcrumb>
         </div>
         <Space class="header-right">
-          <k-input placeholder="搜索功能..." style="width: 200px" />
-          <k-divider type="vertical" />
-          <k-avatar :icon="Person" :size="25" />
+          <Input placeholder="搜索功能..." style="width: 200px" />
+          <Divider type="vertical" />
+          <Avatar :icon="Person" :size="25" />
           <span class="user-name">Admin</span>
         </Space>
-      </k-header>
+      </Header>
 
-      <k-content class="admin-content-area">
+      <Content class="admin-content-area">
         <div class="content-wrapper">
           <div class="page-header">
             <h2>User List</h2>
-            <k-button type="primary">Add User</k-button>
+            <Button type="primary">Add User</Button>
           </div>
           <div class="data-card">
             <div class="skeleton-table" v-for="i in 5" :key="i"></div>
           </div>
         </div>
-      </k-content>
+      </Content>
 
-      <k-footer class="admin-footer">
+      <Footer class="admin-footer">
         KUI Design Platform ©2026 Crafted with ❤️ for Developers
-      </k-footer>
-    </k-layout>
-  </k-layout>
+      </Footer>
+    </Layout>
+  </Layout>
 </template>
 <script setup>
 import { ref } from "vue";
 import { LogoKui, Home, StatsChart, People, Settings, Key, Person } from "kui-icons";
-const selectedKeys = ref([]);
+const selectedKeys = ref(["t2-1"]);
+const openKeys = ref(["t2", "t3"]);
 const collapsed = ref(false);
 const items = [
   { key: "t1", icon: Home, title: "Dashboard" },
