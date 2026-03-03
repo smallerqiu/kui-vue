@@ -466,7 +466,7 @@ const Select = defineComponent({
         const loadingNode = (
           <div class="k-select-loading">
             <Icon type={Loading} spin />
-            <span>{locale.value.k.select.loading}</span>
+            <span>{locale?.value.k.select.loading}</span>
           </div>
         );
         overlay = (
@@ -477,7 +477,7 @@ const Select = defineComponent({
               ) : optionNodes.length ? (
                 <ul>{optionNodes}</ul>
               ) : (
-                <Empty onClick={emptyClick} description={locale.value.k.select.emptyText} />
+                <Empty onClick={emptyClick} description={locale?.value.k.select.emptyText} />
               )}
             </div>
           </Transition>
