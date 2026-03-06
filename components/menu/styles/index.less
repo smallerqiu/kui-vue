@@ -32,6 +32,8 @@
     white-space: nowrap;
     transition: font-size 0.3s ease-in-out;
     line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .k-menu-item-icon {
@@ -170,6 +172,8 @@
     border-radius: var(--kui-border-radius);
     .k-menu-submenu-title-content {
       flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .k-menu-submenu-arrow {
       &::after,
