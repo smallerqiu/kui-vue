@@ -13,14 +13,24 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 4.0.3
+
+`2026-3-2`
+
+- Fixed multilingual issues in Select  
+- Optimized Menu details  
+- Fixed flickering issue during theme switching
+
+## 4.0.2
+
 `2026-3-2`
 
 - Fix compatibility issues with Nuxt.js
-- Fixed the issue with Drawer closing.  
-- Optimized the Slider component (justified alignment).  
-- Added new Anchor and AnchorLink components.  
-- Added new AvatarGroup component.  
-- Fixed Carousel (v-for bugs).  
+- Fixed the issue with Drawer closing.
+- Optimized the Slider component (justified alignment).
+- Added new Anchor and AnchorLink components.
+- Added new AvatarGroup component.
+- Fixed Carousel (v-for bugs).
 - Enhanced the POP series of components.
 
 ## 4.0.1

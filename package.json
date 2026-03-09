@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "type": "module",
   "main": "dist/k-ui.cjs.js",
@@ -31,6 +31,7 @@
     "name": "Qiu",
     "email": "smallerqiu@gmail.com"
   },
+  "homepage": "https://k-ui.cn",
   "repository": {
     "type": "git",
     "url": "https://github.com/smallerqiu/kui-vue"
@@ -48,11 +49,10 @@
     "design",
     "kui-vue",
     "vueComponent",
-    "component",
-    "components",
     "ui",
-    "framework",
-    "frontend"
+    "ui-library",
+    "vue3-components",
+    "ui-kit"
   ],
   "peerDependencies": {
     "vue": "^3.0.0"
@@ -68,11 +68,11 @@
     "@babel/parser": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
     "@babel/traverse": "^7.29.0",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vitejs/plugin-vue-jsx": "^5.1.4",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
