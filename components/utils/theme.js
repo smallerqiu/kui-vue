@@ -1,6 +1,7 @@
+import { nextTick } from "vue";
 import { withInstall } from "./vue";
 const THEME_KEY = "theme-mode";
-const toggle = () => {
+const toggleTheme = () => {
   const isDark = localStorage.getItem(THEME_KEY) == "dark";
   const root = document.documentElement;
   if (isDark) {
@@ -16,46 +17,43 @@ const toggle = () => {
 const Theme = {
   name: "Theme",
   setThemeMode(event, callback) {
+    const isAppearanceTransition =
+      document.startViewTransition &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!isAppearanceTransition || !event) {
+      const isDark = toggleTheme();
+      callback?.(isDark);
+    }
     const x = event.clientX;
     const y = event.clientY;
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
-    const root = document.documentElement;
-    let isDark = localStorage.getItem("theme") == "dark";
+    let isDark = localStorage.getItem(THEME_KEY) == "dark";
 
-    if (typeof document.startViewTransition === "function") {
-      document
-        .startViewTransition(() => {
-          isDark = toggle();
-          callback?.(isDark);
-        })
-        .ready.then(() => {
-          const clippath = [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ];
-          const ani = root.animate(
-            {
-              clipPath: !isDark ? clippath.reverse() : clippath,
-            },
-            {
-              duration: 500,
-              easing: "ease-in-out",
-              pseudoElement: !isDark
-                ? "::view-transition-old(root)"
-                : "::view-transition-new(root)",
-            }
-          );
-          ani.onfinish = () => {
-            // root.style.clipPath = "none";
-          };
-        });
-    } else {
-      isDark = toggle();
+    const transition = document.startViewTransition(async () => {
+      isDark = toggleTheme();
       callback?.(isDark);
-    }
+      await nextTick();
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+      const animate = document.documentElement.animate(
+        {
+          clipPath: !isDark ? clipPath.reverse() : clipPath,
+        },
+        {
+          duration: 500,
+          easing: "ease-in-out",
+          pseudoElement: !isDark ? "::view-transition-old(root)" : "::view-transition-new(root)",
+        }
+      );
+      animate.onfinish = () => {
+        transition.skipTransition();
+      };
+    });
   },
 };
 
