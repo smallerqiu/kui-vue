@@ -2,7 +2,7 @@ import { Ellipsis } from "kui-icons";
 import { defineComponent, ref } from "vue";
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";
-import { withInstall } from "../utils/vue";
+
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 const DropdownButton = defineComponent({
@@ -63,4 +63,4 @@ const DropdownButton = defineComponent({
     };
   },
 });
-export default withInstall(DropdownButton);
+export default DropdownButton;

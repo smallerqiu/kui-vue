@@ -1,5 +1,5 @@
 import { defineComponent, inject } from "vue";
-import { withInstall } from "../utils/vue";
+
 const Col = defineComponent({
   name: "Col",
   props: {
@@ -61,4 +61,4 @@ const Col = defineComponent({
     };
   },
 });
-export default withInstall(Col);
+export default Col;

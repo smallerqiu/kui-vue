@@ -1,5 +1,5 @@
-import { withInstall } from "../utils/vue";
-import { defineComponent, ref, provide, onUnmounted } from "vue";
+
+import { defineComponent, onUnmounted, provide, ref } from "vue";
 import newInstance from "./instance";
 
 const ImageGroup = defineComponent({
@@ -58,4 +58,4 @@ const ImageGroup = defineComponent({
     };
   },
 });
-export default withInstall(ImageGroup);
+export default ImageGroup;

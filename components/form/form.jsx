@@ -1,6 +1,6 @@
-import { cloneVNode, defineComponent, ref, provide, watch, toRefs, reactive } from "vue";
+import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 
 const Form = defineComponent({
   name: "Form",
@@ -185,4 +185,4 @@ const Form = defineComponent({
   },
 });
 
-export default withInstall(Form);
+export default Form;

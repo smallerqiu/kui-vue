@@ -1,5 +1,5 @@
-import { defineComponent, watch, ref, inject } from "vue";
-import { withInstall } from "../utils/vue";
+import { defineComponent, ref, watch } from "vue";
+
 
 const Radio = defineComponent({
   name: "Radio",
@@ -93,4 +93,4 @@ const Radio = defineComponent({
     };
   },
 });
-export default withInstall(Radio);
+export default Radio;

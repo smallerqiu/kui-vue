@@ -1,6 +1,5 @@
 import { computed, defineComponent, ref, watch } from "vue";
 import { getChildren } from "../utils/vnode.jsx";
-import { withInstall } from "../utils/vue.js";
 import RadioButton from "./radio-button.jsx";
 import Radio from "./radio.jsx";
 
@@ -88,4 +87,4 @@ const RadioGroup = defineComponent({
     };
   },
 });
-export default withInstall(RadioGroup);
+export default RadioGroup;

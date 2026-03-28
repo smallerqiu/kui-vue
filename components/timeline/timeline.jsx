@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue";
+
 const TimeLine = defineComponent({
   name: "TimeLine",
   props: {
@@ -18,4 +18,4 @@ const TimeLine = defineComponent({
     };
   },
 });
-export default withInstall(TimeLine);
+export default TimeLine;

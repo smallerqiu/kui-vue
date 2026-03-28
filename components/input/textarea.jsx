@@ -1,5 +1,5 @@
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
+
 const TextArea = defineComponent({
   name: "TextArea",
   props: {
@@ -49,4 +49,4 @@ const TextArea = defineComponent({
     };
   },
 });
-export default withInstall(TextArea);
+export default TextArea;

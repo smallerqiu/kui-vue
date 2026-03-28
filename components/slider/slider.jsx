@@ -1,6 +1,6 @@
-import { defineComponent, ref, watch, nextTick, inject, onMounted, onUnmounted } from "vue";
+import { defineComponent, inject, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import Thumb from "./thumb";
-import { withInstall } from "../utils/vue";
+
 import Big from "big.js";
 import { getClosestStep } from "../utils/number";
 
@@ -398,4 +398,4 @@ const Slider = defineComponent({
   },
 });
 
-export default withInstall(Slider);
+export default Slider;

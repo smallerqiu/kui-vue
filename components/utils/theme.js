@@ -1,5 +1,4 @@
 import { nextTick } from "vue";
-import { withInstall } from "./vue";
 const THEME_KEY = "theme-mode";
 const toggleTheme = () => {
   const isDark = localStorage.getItem(THEME_KEY) == "dark";
@@ -57,4 +56,4 @@ const Theme = {
   },
 };
 
-export default withInstall(Theme);
+export default Theme;

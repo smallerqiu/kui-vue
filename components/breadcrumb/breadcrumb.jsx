@@ -1,5 +1,5 @@
 import { defineComponent, provide } from "vue";
-import { withInstall } from "../utils/vue";
+
 const Breadcrumb = defineComponent({
   name: "Breadcrumb",
   props: {
@@ -16,4 +16,4 @@ const Breadcrumb = defineComponent({
     };
   },
 });
-export default withInstall(Breadcrumb);
+export default Breadcrumb;

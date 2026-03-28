@@ -5,7 +5,7 @@ import Icon from "../icon";
 import Input from "../input/input";
 import { isValidBig, normalize } from "../utils/number";
 import { filterSize, sizeMap } from "../utils/size";
-import { withInstall } from "../utils/vue";
+
 
 const InputNumber = defineComponent({
   inheritAttrs: false,
@@ -182,4 +182,4 @@ const InputNumber = defineComponent({
   },
 });
 
-export default withInstall(InputNumber);
+export default InputNumber;

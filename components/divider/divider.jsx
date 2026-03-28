@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 
-import { withInstall } from "../utils/vue";
+
 const Divider = defineComponent({
   name: "Divider",
   props: {
@@ -41,4 +41,4 @@ const Divider = defineComponent({
     };
   },
 });
-export default withInstall(Divider);
+export default Divider;

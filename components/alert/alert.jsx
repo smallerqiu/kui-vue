@@ -8,7 +8,7 @@ import {
 import { computed, defineComponent, ref, Transition } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 
 const Alert = defineComponent({
   name: "Alert",
@@ -76,4 +76,4 @@ const Alert = defineComponent({
     };
   },
 });
-export default withInstall(Alert);
+export default Alert;

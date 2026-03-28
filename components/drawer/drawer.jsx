@@ -14,7 +14,7 @@ import { Button } from "../button";
 import transfer from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
@@ -182,4 +182,4 @@ const Drawer = defineComponent({
     };
   },
 });
-export default withInstall(Drawer);
+export default Drawer;

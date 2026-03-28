@@ -1,5 +1,5 @@
 import { getTransitionProp } from "../base/transition";
-import { withInstall } from "../utils/vue";
+
 
 import { AddCircleOutline, ChevronForward, RemoveCircleOutline, Sync } from "kui-icons";
 import { defineComponent, nextTick, reactive, ref, TransitionGroup, watch } from "vue";
@@ -631,4 +631,4 @@ const Tree = defineComponent({
   },
 });
 
-export default withInstall(Tree);
+export default Tree;

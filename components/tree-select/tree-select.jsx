@@ -19,7 +19,7 @@ import Tree from "../tree";
 import { buildTree } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
-import { withInstall } from "../utils/vue";
+
 
 const TreeSelect = defineComponent({
   name: "TreeSelect",
@@ -548,4 +548,4 @@ const TreeSelect = defineComponent({
     };
   },
 });
-export default withInstall(TreeSelect);
+export default TreeSelect;

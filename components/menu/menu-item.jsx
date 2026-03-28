@@ -1,7 +1,7 @@
 import { defineComponent, getCurrentInstance, inject, onMounted, ref } from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 
 const MenuItem = defineComponent({
   name: "MenuItem",
@@ -82,4 +82,4 @@ const MenuItem = defineComponent({
     };
   },
 });
-export default withInstall(MenuItem);
+export default MenuItem;

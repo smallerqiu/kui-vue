@@ -1,6 +1,6 @@
-import Icon from "../icon";
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue";
+import Icon from "../icon";
+
 const Card = defineComponent({
   name: "Card",
   props: {
@@ -39,4 +39,4 @@ const Card = defineComponent({
     };
   },
 });
-export default withInstall(Card);
+export default Card;

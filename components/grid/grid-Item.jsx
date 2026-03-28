@@ -1,5 +1,5 @@
 import { computed, defineComponent, inject } from "vue";
-import { withInstall } from "../utils/vue";
+
 import { GRID_KEY } from "./useBreakpoint";
 
 const GridItem = defineComponent({
@@ -52,4 +52,4 @@ const GridItem = defineComponent({
   },
 });
 
-export default withInstall(GridItem);
+export default GridItem;

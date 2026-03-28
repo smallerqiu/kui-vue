@@ -1,7 +1,7 @@
 import { Loading } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const Switch = defineComponent({
   name: "KSwitch",
   props: {
@@ -73,4 +73,4 @@ const Switch = defineComponent({
     };
   },
 });
-export default withInstall(Switch);
+export default Switch;

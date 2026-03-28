@@ -17,7 +17,7 @@ import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 const Popconfirm = defineComponent({
   name: "Popconfirm",
   directives: {
@@ -234,4 +234,4 @@ const Popconfirm = defineComponent({
     };
   },
 });
-export default withInstall(Popconfirm);
+export default Popconfirm;

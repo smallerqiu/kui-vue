@@ -1,6 +1,6 @@
+import { computed, defineComponent, ref, watch } from "vue";
 import Checkbox from "./checkbox";
-import { defineComponent, watch, ref, computed } from "vue";
-import { withInstall } from "../utils/vue";
+
 import { getChildren } from "../utils/vnode";
 
 const CheckboxGroup = defineComponent({
@@ -92,4 +92,4 @@ const CheckboxGroup = defineComponent({
     };
   },
 });
-export default withInstall(CheckboxGroup);
+export default CheckboxGroup;

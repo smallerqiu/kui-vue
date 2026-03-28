@@ -12,7 +12,7 @@ import {
 } from "vue";
 import resize from "../directives/resize";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const Carousel = defineComponent({
   name: "Carousel",
   directives: { resize },
@@ -234,4 +234,4 @@ const Carousel = defineComponent({
     };
   },
 });
-export default withInstall(Carousel);
+export default Carousel;

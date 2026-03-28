@@ -1,14 +1,13 @@
 import {
-  defineComponent,
-  ref,
   createVNode,
-  render,
+  defineComponent,
   onBeforeUnmount,
-  Transition,
-  getCurrentInstance,
+  ref,
+  render,
+  Transition
 } from "vue";
 import { getAppContext } from "../config/context";
-import { withInstall } from "../utils/vue";
+
 
 const loading = defineComponent({
   setup(ps, { expose }) {
@@ -145,4 +144,4 @@ let Loading = {
     }
   },
 };
-export default withInstall(Loading);
+export default Loading;

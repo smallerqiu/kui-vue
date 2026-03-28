@@ -1,7 +1,7 @@
 import { Checkmark, CheckmarkCircle, Close, CloseCircle } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const Progress = defineComponent({
   name: "Progress",
   props: {
@@ -161,4 +161,4 @@ const Progress = defineComponent({
     };
   },
 });
-export default withInstall(Progress);
+export default Progress;

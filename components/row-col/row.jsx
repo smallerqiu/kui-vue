@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
+
 const Row = defineComponent({
   name: "Row",
   props: {
@@ -66,4 +66,4 @@ const Row = defineComponent({
     };
   },
 });
-export default withInstall(Row);
+export default Row;

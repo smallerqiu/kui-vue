@@ -1,7 +1,7 @@
 import { Checkmark } from "kui-icons";
 import { computed, defineComponent } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const Option = defineComponent({
   name: "Option",
   props: {
@@ -44,4 +44,4 @@ const Option = defineComponent({
     };
   },
 });
-export default withInstall(Option);
+export default Option;

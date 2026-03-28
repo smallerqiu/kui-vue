@@ -4,7 +4,7 @@ import { colors } from "../const/var";
 import Icon from "../icon";
 import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 const Button = defineComponent({
   name: "Button",
   props: {
@@ -129,4 +129,4 @@ const Button = defineComponent({
     };
   },
 });
-export default withInstall(Button);
+export default Button;

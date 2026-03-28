@@ -1,7 +1,7 @@
-import Star from "./star";
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
-import { sizeMap, filterSize } from "../utils/size";
+import Star from "./star";
+
+import { filterSize, sizeMap } from "../utils/size";
 const Rate = defineComponent({
   name: "Rate",
   props: {
@@ -105,4 +105,4 @@ const Rate = defineComponent({
     };
   },
 });
-export default withInstall(Rate);
+export default Rate;
