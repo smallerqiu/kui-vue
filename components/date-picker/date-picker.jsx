@@ -1,33 +1,33 @@
-import {
-  defineComponent,
-  ref,
-  watch,
-  inject,
-  computed,
-  onUnmounted,
-  nextTick,
-  Transition,
-} from "vue";
 import dayjs from "dayjs";
-import zhCN from "../locale/zh-CN";
+import "dayjs/locale/zh-cn";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import {
-  CloseCircle,
-  CalendarOutline,
-  TimeOutline,
-  ChevronDoubleBack,
-  ChevronBack,
-  ChevronForward,
-  ChevronDoubleForward,
   ArrowForward,
-} from "kui-icons/dist/icons";
-import { setPlacement } from "../utils/placement";
-import transfer from "../directives/transfer";
-import resize from "../directives/resize";
+  CalendarOutline,
+  ChevronBack,
+  ChevronDoubleBack,
+  ChevronDoubleForward,
+  ChevronForward,
+  CloseCircle,
+  TimeOutline,
+} from "kui-icons";
+import {
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onUnmounted,
+  ref,
+  Transition,
+  watch,
+} from "vue";
 import { Button } from "../button";
-import "dayjs/locale/zh-cn";
+import resize from "../directives/resize";
+import transfer from "../directives/transfer";
+import zhCN from "../locale/zh-CN";
+import { setPlacement } from "../utils/placement";
 import { withInstall } from "../utils/vue";
 // 启用插件
 dayjs.extend(isBetween);

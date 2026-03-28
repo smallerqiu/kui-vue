@@ -1,7 +1,7 @@
+import { FileTrayOutline } from "kui-icons";
+import { computed, defineComponent, inject } from "vue";
 import Icon from "../icon";
-import { FileTrayOutline } from "kui-icons/dist/icons";
 import zhCN from "../locale/zh-CN";
-import { defineComponent, inject, computed } from "vue";
 import { withInstall } from "../utils/vue";
 const Empty = defineComponent({
   name: "Empty",

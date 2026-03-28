@@ -1,10 +1,10 @@
-import { defineComponent, inject, computed, Comment } from "vue";
+import { Loading } from "kui-icons";
+import { Comment, computed, defineComponent, inject } from "vue";
+import { colors } from "../const/var";
 import Icon from "../icon";
-import { Loading } from "kui-icons/dist/icons";
+import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import { colors } from "../const/var";
-import { sizeMap, filterSize } from "../utils/size";
 const Button = defineComponent({
   name: "Button",
   props: {

@@ -1,17 +1,17 @@
-import Icon from "../icon";
-import resize from "../directives/resize";
-import { ArrowBack, ArrowForward } from "kui-icons/dist/icons";
+import { ArrowBack, ArrowForward } from "kui-icons";
 import {
+  Fragment,
+  computed,
   defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
   provide,
   ref,
   watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  Fragment,
-  computed,
 } from "vue";
+import resize from "../directives/resize";
+import Icon from "../icon";
 import { withInstall } from "../utils/vue";
 const Carousel = defineComponent({
   name: "Carousel",

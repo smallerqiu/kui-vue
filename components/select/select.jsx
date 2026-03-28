@@ -1,25 +1,25 @@
-import Option from "./option.jsx";
-import Icon from "../icon";
-import Empty from "../empty";
-import transfer from "../directives/transfer";
-import resize from "../directives/resize";
-import zhCN from "../locale/zh-CN";
-import { isEmpty } from "../utils/number";
-import { getChildren } from "../utils/vnode";
-import { setPlacement } from "../utils/placement";
-import { Loading, Close, CloseCircle, ChevronDown } from "kui-icons/dist/icons";
-import { withInstall } from "../utils/vue";
+import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
-  ref,
+  computed,
   defineComponent,
-  watch,
-  nextTick,
   inject,
-  Transition,
+  nextTick,
   onBeforeUnmount,
   onMounted,
-  computed,
+  ref,
+  Transition,
+  watch,
 } from "vue";
+import resize from "../directives/resize";
+import transfer from "../directives/transfer";
+import Empty from "../empty";
+import Icon from "../icon";
+import zhCN from "../locale/zh-CN";
+import { isEmpty } from "../utils/number";
+import { setPlacement } from "../utils/placement";
+import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
+import Option from "./option.jsx";
 
 const Select = defineComponent({
   name: "Select",

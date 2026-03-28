@@ -1,4 +1,4 @@
-import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons/dist/icons";
+import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,

@@ -1,13 +1,13 @@
-import { defineComponent, ref, computed, Transition } from "vue";
-import Icon from "../icon";
 import {
-  InformationCircle,
-  CloseCircle,
-  CheckmarkCircle,
   AlertCircle,
+  CheckmarkCircle,
   Close,
-} from "kui-icons/dist/icons";
+  CloseCircle,
+  InformationCircle,
+} from "kui-icons";
+import { computed, defineComponent, ref, Transition } from "vue";
 import { getTransitionProp } from "../base/transition";
+import Icon from "../icon";
 import { withInstall } from "../utils/vue";
 
 const Alert = defineComponent({

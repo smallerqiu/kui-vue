@@ -1,4 +1,4 @@
-import { Ellipsis } from "kui-icons/dist/icons";
+import { Ellipsis } from "kui-icons";
 import { defineComponent, ref } from "vue";
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";

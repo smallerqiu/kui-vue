@@ -1,34 +1,34 @@
 import {
-  defineComponent,
-  ref,
-  reactive,
-  onMounted,
-  onBeforeUnmount,
-  watch,
-  nextTick,
-  toRefs,
-  Transition,
-} from "vue";
-import Icon from "../icon";
-import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
-import {
-  Close,
-  ArrowDown,
-  IconImage,
-  ArrowBack,
-  ArrowForward,
   Add,
-  Remove,
+  ArrowBack,
+  ArrowDown,
+  ArrowForward,
   ChevronBack,
-  ChevronUp,
   ChevronForward,
+  ChevronUp,
+  Close,
+  IconImage,
   Loading,
+  Remove,
   RotateLeft,
   RotateRight,
-} from "kui-icons/dist/icons";
-import Slider from "../slider";
+} from "kui-icons";
+import {
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  toRefs,
+  Transition,
+  watch,
+} from "vue";
 import { Button } from "../button";
+import Icon from "../icon";
+import Slider from "../slider";
+import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
 import { loadImage } from "./utils";
 
 const ImagePreview = defineComponent({

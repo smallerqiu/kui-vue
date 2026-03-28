@@ -1,15 +1,15 @@
-import Modal from "./modal.jsx";
-import Icon from "../icon";
-import { Button } from "../button";
-import { defineComponent, ref, inject, computed } from "vue";
 import {
-  InformationCircle,
-  CloseCircle,
-  CheckmarkCircle,
   AlertCircle,
+  CheckmarkCircle,
+  CloseCircle,
   HelpCircle,
-} from "kui-icons/dist/icons";
+  InformationCircle,
+} from "kui-icons";
+import { computed, defineComponent, inject, ref } from "vue";
+import { Button } from "../button";
+import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
+import Modal from "./modal.jsx";
 export default defineComponent({
   name: "Toast",
   props: {

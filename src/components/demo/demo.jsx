@@ -1,18 +1,18 @@
+import { useClipboard } from "@vueuse/core";
+import { CaretHor, CopyOutline, Reload } from "kui-icons";
 import { Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
-import { CopyOutline, CaretHor, Reload } from "kui-icons/dist/icons";
 import {
-  defineComponent,
-  ref,
-  reactive,
-  onMounted,
-  onBeforeUnmount,
   Transition,
   computed,
+  defineComponent,
   inject,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
 } from "vue";
 import { parseCode } from "./transform";
-import { useClipboard } from "@vueuse/core";
 const { copy, isSupported } = useClipboard();
 
 const Demo = defineComponent({

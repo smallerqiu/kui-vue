@@ -1,4 +1,4 @@
-import { Add } from "kui-icons/dist/icons";
+import { Add } from "kui-icons";
 import { defineComponent, ref } from "vue";
 import Icon from "../icon";
 
