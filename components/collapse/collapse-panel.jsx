@@ -1,7 +1,7 @@
-import Icon from "../icon";
+import { ChevronUp } from "kui-icons";
+import { Transition, defineComponent, getCurrentInstance, nextTick, ref, watch } from "vue";
 import { getTransitionProp } from "../base/transition";
-import { ChevronUp } from "kui-icons/dist/icons";
-import { defineComponent, ref, watch, Transition, getCurrentInstance, nextTick } from "vue";
+import Icon from "../icon";
 import { withInstall } from "../utils/vue";
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",

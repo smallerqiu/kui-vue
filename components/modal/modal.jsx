@@ -1,18 +1,18 @@
-import { Button } from "../button";
-import transfer from "../directives/transfer";
-import { Close } from "kui-icons/dist/icons";
-import { getMousePoint } from "../config/context";
+import { Close } from "kui-icons";
 import {
-  defineComponent,
-  ref,
-  watch,
-  onMounted,
-  nextTick,
   computed,
-  Transition,
-  onBeforeMount,
+  defineComponent,
   inject,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  Transition,
+  watch,
 } from "vue";
+import { Button } from "../button";
+import { getMousePoint } from "../config/context";
+import transfer from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 const Modal = defineComponent({
   name: "Modal",

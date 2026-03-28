@@ -1,11 +1,11 @@
-import { ref, defineComponent, watch, inject, computed } from "vue";
 import Big from "big.js";
-import Input from "../input/input";
+import { ChevronDown, ChevronUp } from "kui-icons";
+import { computed, defineComponent, inject, ref, watch } from "vue";
 import Icon from "../icon";
+import Input from "../input/input";
+import { isValidBig, normalize } from "../utils/number";
+import { filterSize, sizeMap } from "../utils/size";
 import { withInstall } from "../utils/vue";
-import { ChevronUp, ChevronDown } from "kui-icons/dist/icons";
-import { sizeMap, filterSize } from "../utils/size";
-import { normalize, isValidBig } from "../utils/number";
 
 const InputNumber = defineComponent({
   inheritAttrs: false,

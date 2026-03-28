@@ -1,13 +1,13 @@
-import Icon from "../icon";
-import { Button } from "../button";
 import {
-  Close,
-  InformationCircle,
-  CloseCircle,
-  CheckmarkCircle,
   AlertCircle,
-} from "kui-icons/dist/icons";
+  CheckmarkCircle,
+  Close,
+  CloseCircle,
+  InformationCircle,
+} from "kui-icons";
 import { defineComponent } from "vue";
+import { Button } from "../button";
+import Icon from "../icon";
 export default defineComponent({
   props: {
     type: { type: String, default: "info" },

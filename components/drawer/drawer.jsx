@@ -1,21 +1,20 @@
-import { Button } from "../button";
-import Icon from "../icon";
-import transfer from "../directives/transfer";
-import { Close } from "kui-icons/dist/icons";
+import { Close } from "kui-icons";
 import {
+  computed,
   defineComponent,
   inject,
   nextTick,
+  onBeforeUnmount,
+  onMounted,
   ref,
   Transition,
   watch,
-  onMounted,
-  onBeforeUnmount,
-  computed,
 } from "vue";
+import { Button } from "../button";
+import transfer from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
-import { withInstall } from "../utils/vue";
 import { toggleContainerScroll } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
 const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },

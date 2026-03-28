@@ -1,4 +1,4 @@
-import { CloseCircle, EyeOffOutline, EyeOutline, Search } from "kui-icons/dist/icons";
+import { CloseCircle, EyeOffOutline, EyeOutline, Search } from "kui-icons";
 import { defineComponent, inject, nextTick, provide, ref, watch } from "vue";
 import Icon from "../icon";
 import { isEmpty } from "../utils/number";

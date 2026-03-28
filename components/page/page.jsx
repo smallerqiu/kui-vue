@@ -1,4 +1,4 @@
-import { ChevronDoubleBack, ChevronDoubleForward, ChevronUp, Ellipsis } from "kui-icons/dist/icons";
+import { ChevronDoubleBack, ChevronDoubleForward, ChevronUp, Ellipsis } from "kui-icons";
 import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
 import Icon from "../icon";
 import { Input } from "../input";

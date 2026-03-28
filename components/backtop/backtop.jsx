@@ -1,8 +1,8 @@
-import Icon from "../icon";
-import scroll from "../directives/scroll";
-import { ArrowUp } from "kui-icons/dist/icons";
-import { withInstall } from "../utils/vue";
+import { ArrowUp } from "kui-icons";
 import { defineComponent, ref, Transition } from "vue";
+import scroll from "../directives/scroll";
+import Icon from "../icon";
+import { withInstall } from "../utils/vue";
 const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },

@@ -1,23 +1,23 @@
+import { HelpCircle } from "kui-icons";
 import {
-  defineComponent,
-  Transition,
-  ref,
   cloneVNode,
+  computed,
+  defineComponent,
+  inject,
   nextTick,
-  watch,
   onMounted,
   onUnmounted,
-  inject,
-  computed,
+  ref,
+  Transition,
+  watch,
 } from "vue";
-import transfer from "../directives/transfer";
-import { getChildren } from "../utils/vnode";
-import { HelpCircle } from "kui-icons/dist/icons";
-import Icon from "../icon";
 import { Button } from "../button";
-import { setPlacement } from "../utils/placement";
-import { withInstall } from "../utils/vue";
+import transfer from "../directives/transfer";
+import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
+import { setPlacement } from "../utils/placement";
+import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
 const Popconfirm = defineComponent({
   name: "Popconfirm",
   directives: {

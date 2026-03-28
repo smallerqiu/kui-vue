@@ -1,6 +1,6 @@
-import Icon from "../icon";
-import { Checkmark } from "kui-icons/dist/icons";
+import { Checkmark } from "kui-icons";
 import { defineComponent, ref, watch } from "vue";
+import Icon from "../icon";
 import { withInstall } from "../utils/vue";
 
 const Checkbox = defineComponent({

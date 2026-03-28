@@ -1,4 +1,4 @@
-import { ChevronBack, ChevronForward, Close } from "kui-icons/dist/icons";
+import { ChevronBack, ChevronForward, Close } from "kui-icons";
 import {
   cloneVNode,
   defineComponent,

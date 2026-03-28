@@ -1,4 +1,4 @@
-import { Close } from "kui-icons/dist/icons";
+import { Close } from "kui-icons";
 import { defineComponent, ref, Transition } from "vue";
 import { colors } from "../const/var";
 import Icon from "../icon";

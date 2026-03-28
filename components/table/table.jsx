@@ -1,10 +1,10 @@
-import { defineComponent, ref, computed, reactive, onMounted, onUpdated, watch, h } from "vue";
+import { CaretDown, CaretUp } from "kui-icons";
+import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
 import { Checkbox } from "../checkbox";
-import { CaretUp, CaretDown } from "kui-icons/dist/icons";
 import Empty from "../empty";
+import Icon from "../icon";
 import Spin from "../spin";
 import { withInstall } from "../utils/vue";
-import Icon from "../icon";
 const Table = defineComponent({
   name: "Table",
   props: {
