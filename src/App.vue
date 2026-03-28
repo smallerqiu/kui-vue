@@ -7,10 +7,9 @@
     </RouterView>
   </ConfigProvider>
 </template>
-<script setup>
-import { ref, computed, provide } from "vue";
-import { message } from "kui-vue";
-import { useRoute, useRouter } from "vue-router";
+<script setup lang="ts">
+import { computed, provide, ref } from "vue";
+import { useRoute } from "vue-router";
 const route = useRoute();
 // const router = useRouter();
 import ui_en from "@/components/locale/en";

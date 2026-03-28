@@ -5,7 +5,7 @@
     </svg>
   </span>
 </template>
-<script setup>
+<script setup lang="ts">
 // import { reactive } from "vue";
 import sprite from "@/src/assets/img/web.svg";
 defineProps({

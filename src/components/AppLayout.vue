@@ -72,14 +72,14 @@
   </Layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AppHeader from "./AppHeader";
 // import AppFooter from "./AppFooter";
+import { ChevronBack, ChevronForward, Close, Menu as MenuIcon } from "kui-icons";
+import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { navData, routeData } from "../menu";
 import WebIcon from "./WebIcon";
-import { routeData, navData } from "../menu";
-import { ChevronBack, ChevronForward, Menu as MenuIcon, Close } from "kui-icons";
-import { ref, onMounted, reactive, Transition, computed, inject } from "vue";
-import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 const showMiniNav = ref(false);
