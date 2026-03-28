@@ -1,3 +1,3 @@
 import Button from "./button";
-import ButtonGroup from "./buttonGroup";
+import ButtonGroup from "./button-group";
 export { Button, ButtonGroup };

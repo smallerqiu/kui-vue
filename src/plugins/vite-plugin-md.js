@@ -1,9 +1,9 @@
-import MarkdownIt from "markdown-it";
 import { parse } from "@vue/compiler-sfc";
 import hashId from "hash-sum";
+import MarkdownIt from "markdown-it";
 
-import anchor from "markdown-it-anchor";
 import hljs from "highlight.js";
+import anchor from "markdown-it-anchor";
 
 export default function vitePluginMd() {
   const markdown = new MarkdownIt({
@@ -32,7 +32,7 @@ export default function vitePluginMd() {
       const vertical_list = [
         "table",
         "grid",
-        "rowCol/demo",
+        "row-col/demo",
         "dark-mode",
         "flex",
         "layout/demo",
@@ -48,7 +48,7 @@ export default function vitePluginMd() {
         "slider/demo/marks",
         "tree/demo/directory",
         "views/language/demo",
-        "statCard/demo/card",
+        "stat-card/demo/card",
       ];
       let direction = "horizontal";
       vertical_list.forEach((item) => {

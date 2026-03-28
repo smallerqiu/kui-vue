@@ -1,8 +1,8 @@
-import { defineComponent, ref, watch } from "vue";
-import InputNumber from "../inputNumber";
-import { Input } from "../input";
-import { Select } from "../select";
 import Color from "color";
+import { defineComponent, ref, watch } from "vue";
+import { Input } from "../input";
+import InputNumber from "../input-number";
+import { Select } from "../select";
 import { isColor } from "../utils/color";
 export default defineComponent({
   name: "Mode",

@@ -1,7 +1,7 @@
-import RecursiveSubMenu from "./recursiveMenu.jsx";
-import SubMenu from "./submenu.jsx";
-import MenuItem from "./menuitem.jsx";
 import { defineComponent } from "vue";
+import MenuItem from "./menu-item.jsx";
+import RecursiveSubMenu from "./recursive-menu.jsx";
+import SubMenu from "./sub-menu.jsx";
 const RecursiveMenu = defineComponent({
   name: "RecursiveMenu",
   props: {

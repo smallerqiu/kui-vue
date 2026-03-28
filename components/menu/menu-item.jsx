@@ -1,7 +1,7 @@
+import { defineComponent, getCurrentInstance, inject, onMounted, ref } from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import { defineComponent, ref, getCurrentInstance, inject, onMounted } from "vue";
 
 const MenuItem = defineComponent({
   name: "MenuItem",

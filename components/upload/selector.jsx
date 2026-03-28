@@ -1,6 +1,6 @@
-import { ref, defineComponent } from "vue";
-import Icon from "../icon";
 import { Add } from "kui-icons/dist/icons";
+import { defineComponent, ref } from "vue";
+import Icon from "../icon";
 
 export default defineComponent({
   name: "Selector",

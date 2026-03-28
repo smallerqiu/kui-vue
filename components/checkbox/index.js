@@ -1,3 +1,3 @@
+import CheckboxGroup from "./checkbox-group.jsx";
 import Checkbox from "./checkbox.jsx";
-import CheckboxGroup from "./checkboxGroup.jsx";
 export { Checkbox, CheckboxGroup };

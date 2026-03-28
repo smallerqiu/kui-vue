@@ -1,19 +1,19 @@
 import {
+  cloneVNode,
+  computed,
   defineComponent,
-  ref,
+  inject,
+  isVNode,
   onBeforeUnmount,
   onMounted,
-  inject,
-  toRefs,
   reactive,
-  computed,
-  isVNode,
-  cloneVNode,
+  ref,
+  toRefs,
   Transition,
 } from "vue";
-import { Row, Col } from "../rowCol";
-import { getChildren } from "../utils/vnode";
 import zhCN from "../locale/zh-CN";
+import { Col, Row } from "../row-col";
+import { getChildren } from "../utils/vnode";
 
 export default defineComponent({
   name: "FormItem",

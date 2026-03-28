@@ -1,13 +1,13 @@
+import { computed, inject } from "vue";
+import EN from "../index.en_US.md";
+import CN from "../index.md";
 import Basic from "./basic.md";
-import InfoCn from "./info.md";
-import InfoEn from "./info.en_US.md";
 import Disabled from "./disabled.md";
 import Group from "./group.md";
-import GroupLayout from "./vertical.md";
+import InfoEn from "./info.en_US.md";
+import InfoCn from "./info.md";
 import RadioButton from "./radioButton.md";
-import CN from "../index.md";
-import EN from "../index.en_US.md";
-import { computed, inject } from "vue";
+import GroupLayout from "./vertical.md";
 export default {
   setup() {
     const locale = inject("locale");

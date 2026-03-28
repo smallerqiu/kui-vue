@@ -1,16 +1,15 @@
+import { ChevronBack, ChevronForward, Close } from "kui-icons/dist/icons";
+import {
+  cloneVNode,
+  defineComponent,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  watch
+} from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
-import { Close, ChevronBack, ChevronForward } from "kui-icons/dist/icons";
-import {
-  defineComponent,
-  onMounted,
-  onBeforeMount,
-  ref,
-  nextTick,
-  watch,
-  computed,
-  cloneVNode,
-} from "vue";
 import { withInstall } from "../utils/vue";
 const Tabs = defineComponent({
   name: "Tabs",

@@ -1,6 +1,6 @@
-import { defineComponent, computed } from "vue";
-import { withInstall } from "../utils/vue.js";
+import { defineComponent } from "vue";
 import { getChildren } from "../utils/vnode.jsx";
+import { withInstall } from "../utils/vue.js";
 import CountUp from "./countup.jsx";
 import RollUp from "./rollup.jsx";
 const StatNumber = defineComponent({

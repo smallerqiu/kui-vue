@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from "vue-router";
 import { loading } from "kui-vue";
+import { createRouter, createWebHistory } from "vue-router";
 const lang = localStorage.getItem("lang") || "en";
 let children = [
   {
@@ -49,7 +49,7 @@ let children = [
   },
   {
     path: "/other/colorpicker",
-    component: () => import("../components/colorPicker/demo"),
+    component: () => import("../components/color-picker/demo"),
   },
   {
     path: "/forms/checkbox",
@@ -73,7 +73,7 @@ let children = [
   },
   {
     path: "/forms/datepicker",
-    component: () => import("../components/datePicker/demo"),
+    component: () => import("../components/date-picker/demo"),
   },
   {
     path: "/data/descriptions",
@@ -97,13 +97,13 @@ let children = [
   },
   { path: "/forms/form", component: () => import("../components/form/demo") },
   { path: "/layouts/flex", component: () => import("../components/flex/demo") },
-  { path: "/layouts/row-col", component: () => import("../components/rowCol/demo") },
+  { path: "/layouts/row-col", component: () => import("../components/row-col/demo") },
   { path: "/layouts/grid", component: () => import("../components/grid/demo") },
   { path: "/data/image", component: () => import("../components/image/demo") },
   { path: "/forms/input", component: () => import("../components/input/demo") },
   {
     path: "/forms/inputnumber",
-    component: () => import("../components/inputNumber/demo"),
+    component: () => import("../components/input-number/demo"),
   },
   { path: "/basic/icons", component: () => import("../components/icon/demo") },
   {
@@ -155,7 +155,7 @@ let children = [
   },
   {
     path: "/data/statcard",
-    component: () => import("@/components/statCard/demo"),
+    component: () => import("@/components/stat-card/demo"),
   },
   { path: "/data/table", component: () => import("../components/table/demo") },
   { path: "/notices/tag", component: () => import("../components/tag/demo") },
@@ -174,7 +174,7 @@ let children = [
   { path: "/data/tree", component: () => import("../components/tree/demo") },
   {
     path: "/forms/treeselect",
-    component: () => import("../components/treeSelect/demo"),
+    component: () => import("../components/tree-select/demo"),
   },
   {
     path: "/notices/poptip",
@@ -227,24 +227,22 @@ const router = createRouter({
   },
 });
 
-router.beforeEach(function (to, from, next) {
+router.beforeEach(function (to) {
   loading.start();
 
   const quickPath = /quick-started|usage-with-nuxt|change-log/;
   if (quickPath.test(to.path)) {
     if (lang == "en") {
       if (!to.path.includes("-en")) {
-        next(`${to.path}-en`);
-        return;
+        return `${to.path}-en`
       }
     } else {
       if (to.path.includes("-en")) {
-        next(to.path.replace("-en", ""));
-        return;
+        return to.path.replace("-en", "")
       }
     }
   }
-  next();
+  return;
 });
 
 router.afterEach((to) => {

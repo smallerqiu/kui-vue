@@ -1,10 +1,10 @@
+import { Ellipsis } from "kui-icons/dist/icons";
+import { defineComponent, ref } from "vue";
 import Button from "../button/button";
-import ButtonGroup from "../button/buttonGroup";
+import ButtonGroup from "../button/button-group";
+import { withInstall } from "../utils/vue";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
-import { defineComponent, ref, inject } from "vue";
-import { Ellipsis } from "kui-icons/dist/icons";
-import { withInstall } from "../utils/vue";
 const DropdownButton = defineComponent({
   name: "DropdownButton",
   props: {

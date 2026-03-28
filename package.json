@@ -61,7 +61,7 @@
     "big.js": "^7.0.1",
     "color": "^5.0.3",
     "dayjs": "^1.11.20",
-    "kui-icons": "^4.3.0",
+    "kui-icons": "^4.3.2",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

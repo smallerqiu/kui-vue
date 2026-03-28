@@ -1,12 +1,12 @@
+import { CloseCircle, EyeOffOutline, EyeOutline, Search } from "kui-icons/dist/icons";
+import { defineComponent, inject, nextTick, provide, ref, watch } from "vue";
 import Icon from "../icon";
 import { isEmpty } from "../utils/number";
-import { Search, CloseCircle, EyeOutline, EyeOffOutline } from "kui-icons/dist/icons";
-import InputGroup from "./inputGroup.jsx";
-import { defineComponent, ref, nextTick, watch, inject, provide } from "vue";
+import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";
-import InputBox from "./inputBox";
-import { sizeMap, filterSize } from "../utils/size";
+import InputBox from "./input-box.jsx";
+import InputGroup from "./input-group.jsx";
 
 const Input = defineComponent({
   inheritAttrs: false,

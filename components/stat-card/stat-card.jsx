@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import { withInstall } from "../utils/vue.js";
-import StatNumber from "./statNumber.jsx";
+import StatNumber from "./stat-number.jsx";
 
 const StatCard = defineComponent({
   name: "StatCard",

@@ -1,8 +1,8 @@
-import { withInstall } from "../utils/vue";
 import { getTransitionProp } from "../base/transition";
+import { withInstall } from "../utils/vue";
 
-import { ref, reactive, watch, defineComponent, nextTick, TransitionGroup } from "vue";
-import { Sync, RemoveCircleOutline, AddCircleOutline, ChevronForward } from "kui-icons/dist/icons";
+import { AddCircleOutline, ChevronForward, RemoveCircleOutline, Sync } from "kui-icons/dist/icons";
+import { defineComponent, nextTick, reactive, ref, TransitionGroup, watch } from "vue";
 import { buildTree, updateParentIndeterminate } from "./utils";
 const Tree = defineComponent({
   name: "Tree",
