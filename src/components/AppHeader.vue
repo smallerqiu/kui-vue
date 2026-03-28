@@ -56,16 +56,16 @@
     </div>
   </Header>
 </template>
-<script setup>
-import { routeData } from "../menu";
-import { ref, onMounted, computed, inject, reactive } from "vue";
-import { LogoKui, LogoGithub, Sunny, Moon, Search, Language } from "kui-icons";
-import pkg from "/package.json";
+<script setup lang="ts">
 import Color from "color";
+import { Language, LogoGithub, LogoKui, Moon, Search, Sunny } from "kui-icons";
+import { theme } from "kui-vue";
+import { computed, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { routeData } from "../menu";
+import pkg from "/package.json";
 const route = useRoute();
 const router = useRouter();
-import { theme } from "kui-vue";
 const version = pkg.version;
 const themeColor = ref("#3a95ff");
 const topMenu = ref([]);
