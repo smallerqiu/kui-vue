@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue";
+
 const formatStyle = (styles) => {
   return Object.entries(styles)
     .map(([key, value]) => `${key.replace(/([A-Z])/g, "-$1").toLowerCase()}:${value}`)
@@ -73,4 +73,4 @@ const Icon = defineComponent({
   },
 });
 
-export default withInstall(Icon);
+export default Icon;

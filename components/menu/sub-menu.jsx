@@ -14,7 +14,7 @@ import transfer from "../directives/transfer";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 
 const SubMenu = defineComponent({
   name: "SubMenu",
@@ -239,4 +239,4 @@ const SubMenu = defineComponent({
     };
   },
 });
-export default withInstall(SubMenu);
+export default SubMenu;

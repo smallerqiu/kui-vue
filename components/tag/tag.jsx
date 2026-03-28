@@ -3,7 +3,7 @@ import { defineComponent, ref, Transition } from "vue";
 import { colors } from "../const/var";
 import Icon from "../icon";
 import { isColor } from "../utils/color";
-import { withInstall } from "../utils/vue";
+
 const Tag = defineComponent({
   name: "Tag",
   props: {
@@ -68,4 +68,4 @@ const Tag = defineComponent({
     };
   },
 });
-export default withInstall(Tag);
+export default Tag;

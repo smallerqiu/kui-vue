@@ -28,7 +28,7 @@ import { Button } from "../button";
 import Icon from "../icon";
 import Slider from "../slider";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 import { loadImage } from "./utils";
 
 const ImagePreview = defineComponent({
@@ -484,4 +484,4 @@ const ImagePreview = defineComponent({
   },
 });
 
-export default withInstall(ImagePreview);
+export default ImagePreview;

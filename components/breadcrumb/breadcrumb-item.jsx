@@ -1,6 +1,6 @@
 import { defineComponent, inject } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const BreadcrumbItem = defineComponent({
   name: "BreadcrumbItem",
   props: {
@@ -30,4 +30,4 @@ const BreadcrumbItem = defineComponent({
     };
   },
 });
-export default withInstall(BreadcrumbItem);
+export default BreadcrumbItem;

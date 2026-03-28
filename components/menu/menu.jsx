@@ -1,5 +1,5 @@
 import { defineComponent, inject, onMounted, provide, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
+
 import RecursiveMenu from "./recursive-menu";
 
 const Menu = defineComponent({
@@ -135,4 +135,4 @@ const Menu = defineComponent({
     };
   },
 });
-export default withInstall(Menu);
+export default Menu;

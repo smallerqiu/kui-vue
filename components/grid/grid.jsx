@@ -1,6 +1,6 @@
 import { computed, defineComponent, provide, ref } from "vue";
-import { withInstall } from "../utils/vue";
-import { useBreakpoint, GRID_KEY } from "./useBreakpoint";
+
+import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
 const Grid = defineComponent({
   name: "Grid",
   props: {
@@ -70,4 +70,4 @@ const Grid = defineComponent({
   },
 });
 
-export default withInstall(Grid);
+export default Grid;

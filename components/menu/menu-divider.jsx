@@ -1,5 +1,5 @@
 import { defineComponent, inject } from "vue";
-import { withInstall } from "../utils/vue";
+
 
 const MenuDivider = defineComponent({
   name: "MenuDivider",
@@ -12,4 +12,4 @@ const MenuDivider = defineComponent({
     };
   },
 });
-export default withInstall(MenuDivider);
+export default MenuDivider;

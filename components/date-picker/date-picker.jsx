@@ -28,7 +28,7 @@ import resize from "../directives/resize";
 import transfer from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
-import { withInstall } from "../utils/vue";
+
 // 启用插件
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
@@ -1026,4 +1026,4 @@ const DatePicker = defineComponent({
   },
 });
 
-export default withInstall(DatePicker);
+export default DatePicker;

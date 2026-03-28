@@ -1,5 +1,5 @@
-import { defineComponent, ref, provide, onMounted, onBeforeUnmount, nextTick, watch } from "vue";
-import { withInstall } from "../utils/vue";
+import { defineComponent, nextTick, onBeforeUnmount, onMounted, provide, ref, watch } from "vue";
+
 
 const Anchor = defineComponent({
   name: "Anchor",
@@ -134,4 +134,4 @@ const Anchor = defineComponent({
   },
 });
 
-export default withInstall(Anchor);
+export default Anchor;

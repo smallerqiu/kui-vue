@@ -1,7 +1,7 @@
 import { IconImage, Loading } from "kui-icons";
 import { defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 import newInstance from "./instance";
 import { loadImage } from "./utils";
 
@@ -172,4 +172,4 @@ const KImage = defineComponent({
   },
 });
 
-export default withInstall(KImage);
+export default KImage;

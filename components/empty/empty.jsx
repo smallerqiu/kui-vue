@@ -2,7 +2,7 @@ import { FileTrayOutline } from "kui-icons";
 import { computed, defineComponent, inject } from "vue";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
-import { withInstall } from "../utils/vue";
+
 const Empty = defineComponent({
   name: "Empty",
   props: {
@@ -43,4 +43,4 @@ const Empty = defineComponent({
     };
   },
 });
-export default withInstall(Empty);
+export default Empty;

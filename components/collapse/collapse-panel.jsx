@@ -2,7 +2,7 @@ import { ChevronUp } from "kui-icons";
 import { Transition, defineComponent, getCurrentInstance, nextTick, ref, watch } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: {
@@ -59,4 +59,4 @@ const CollapsePanel = defineComponent({
     };
   },
 });
-export default withInstall(CollapsePanel);
+export default CollapsePanel;

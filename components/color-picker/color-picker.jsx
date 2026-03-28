@@ -1,16 +1,16 @@
-import transfer from "../directives/transfer";
-import resize from "../directives/resize";
-import { setPlacement } from "../utils/placement";
-const modes = ["rgb", "hex", "hsl"];
-import Mode from "./mode";
-import Hue from "./hue";
-import Alpha from "./alpha";
-import Paint from "./paint";
 import Color from "color";
-import Presets from "./presets";
+import resize from "../directives/resize";
+import transfer from "../directives/transfer";
+import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
-import { defineComponent, ref, watch, onMounted, onBeforeUnmount, nextTick, Transition } from "vue";
+import Alpha from "./alpha";
+import Hue from "./hue";
+import Mode from "./mode";
+import Paint from "./paint";
+import Presets from "./presets";
+const modes = ["rgb", "hex", "hsl"];
+
+import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, Transition, watch } from "vue";
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
@@ -333,4 +333,4 @@ const ColorPicker = defineComponent({
     };
   },
 });
-export default withInstall(ColorPicker);
+export default ColorPicker;

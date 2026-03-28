@@ -1,5 +1,5 @@
-import { defineComponent, onMounted, onBeforeUnmount, getCurrentInstance } from "vue";
-import { withInstall } from "../utils/vue";
+import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted } from "vue";
+
 const TabPanel = defineComponent({
   name: "TabPanel",
   props: {
@@ -24,4 +24,4 @@ const TabPanel = defineComponent({
     };
   },
 });
-export default withInstall(TabPanel);
+export default TabPanel;

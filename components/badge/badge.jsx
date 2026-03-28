@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue";
+
 
 const Badge = defineComponent({
   name: "Badge",
@@ -87,4 +87,4 @@ const Badge = defineComponent({
     };
   },
 });
-export default withInstall(Badge);
+export default Badge;

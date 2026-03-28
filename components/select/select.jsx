@@ -18,7 +18,7 @@ import zhCN from "../locale/zh-CN";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 import Option from "./option.jsx";
 
 const Select = defineComponent({
@@ -620,4 +620,4 @@ const Select = defineComponent({
     };
   },
 });
-export default withInstall(Select);
+export default Select;

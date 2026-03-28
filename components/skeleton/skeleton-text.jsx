@@ -1,5 +1,5 @@
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
+
 const SkeletonText = defineComponent({
   name: "SkeletonText",
   props: {
@@ -54,4 +54,4 @@ const SkeletonText = defineComponent({
     };
   },
 });
-export default withInstall(SkeletonText);
+export default SkeletonText;

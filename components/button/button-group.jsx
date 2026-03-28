@@ -1,6 +1,6 @@
-import { defineComponent, provide, inject, toRefs } from "vue";
-import { withInstall } from "../utils/vue";
-import { sizeMap, filterSize } from "../utils/size";
+import { defineComponent, inject, provide, toRefs } from "vue";
+
+import { filterSize, sizeMap } from "../utils/size";
 
 const ButtonGroup = defineComponent({
   name: "ButtonGroup",
@@ -35,4 +35,4 @@ const ButtonGroup = defineComponent({
     };
   },
 });
-export default withInstall(ButtonGroup);
+export default ButtonGroup;

@@ -1,6 +1,6 @@
+import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref } from "vue";
 import Icon from "../icon";
-import { defineComponent, ref, onMounted, onBeforeUnmount, inject, computed } from "vue";
-import { withInstall } from "../utils/vue";
+
 
 const Avatar = defineComponent({
   name: "Avatar",
@@ -112,4 +112,4 @@ const Avatar = defineComponent({
     };
   },
 });
-export default withInstall(Avatar);
+export default Avatar;

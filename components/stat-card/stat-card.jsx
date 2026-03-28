@@ -1,5 +1,4 @@
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue.js";
 import StatNumber from "./stat-number.jsx";
 
 const StatCard = defineComponent({
@@ -48,4 +47,4 @@ const StatCard = defineComponent({
     };
   },
 });
-export default withInstall(StatCard);
+export default StatCard;

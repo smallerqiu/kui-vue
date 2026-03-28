@@ -1,5 +1,5 @@
 import { defineComponent, inject } from "vue";
-import { withInstall } from "../utils/vue";
+
 const CarouselItem = defineComponent({
   name: "CarouselItem",
   setup(props, { slots }) {
@@ -15,4 +15,4 @@ const CarouselItem = defineComponent({
     };
   },
 });
-export default withInstall(CarouselItem);
+export default CarouselItem;

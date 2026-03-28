@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 import Item from "./descriptions-item";
 const Descriptions = defineComponent({
   name: "Descriptions",
@@ -155,4 +155,4 @@ const Descriptions = defineComponent({
     };
   },
 });
-export default withInstall(Descriptions);
+export default Descriptions;

@@ -10,7 +10,7 @@ import {
 } from "vue";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 const Tabs = defineComponent({
   name: "Tabs",
   props: {
@@ -291,4 +291,4 @@ const Tabs = defineComponent({
     };
   },
 });
-export default withInstall(Tabs);
+export default Tabs;

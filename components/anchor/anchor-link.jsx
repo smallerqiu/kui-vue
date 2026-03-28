@@ -1,5 +1,5 @@
-import { defineComponent, inject, onMounted, onBeforeUnmount, watch } from "vue";
-import { withInstall } from "../utils/vue";
+import { defineComponent, inject, onBeforeUnmount, onMounted } from "vue";
+
 
 const AnchorLink = defineComponent({
   name: "AnchorLink",
@@ -42,4 +42,4 @@ const AnchorLink = defineComponent({
   },
 });
 
-export default withInstall(AnchorLink);
+export default AnchorLink;

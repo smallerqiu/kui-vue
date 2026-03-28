@@ -4,7 +4,7 @@ import { Checkbox } from "../checkbox";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
-import { withInstall } from "../utils/vue";
+
 const Table = defineComponent({
   name: "Table",
   props: {
@@ -563,4 +563,4 @@ const Table = defineComponent({
   },
 });
 
-export default withInstall(Table);
+export default Table;

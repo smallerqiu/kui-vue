@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { withInstall } from "../utils/vue";
+
 const DescriptionsItem = defineComponent({
   name: "DescriptionsItem",
   props: {
@@ -72,4 +72,4 @@ const DescriptionsItem = defineComponent({
     };
   },
 });
-export default withInstall(DescriptionsItem);
+export default DescriptionsItem;

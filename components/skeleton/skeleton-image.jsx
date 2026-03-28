@@ -1,6 +1,6 @@
-import Icon from "../icon";
 import { defineComponent, ref, watch } from "vue";
-import { withInstall } from "../utils/vue";
+import Icon from "../icon";
+
 const SkeletonImage = defineComponent({
   name: "SkeletonImage",
   props: {
@@ -72,4 +72,4 @@ const SkeletonImage = defineComponent({
     };
   },
 });
-export default withInstall(SkeletonImage);
+export default SkeletonImage;

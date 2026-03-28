@@ -3,7 +3,7 @@ import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
 import Icon from "../icon";
 import { Input } from "../input";
 import { Select } from "../select";
-import { withInstall } from "../utils/vue";
+
 
 import zhCN from "../locale/zh-CN";
 const Page = defineComponent({
@@ -321,4 +321,4 @@ const Page = defineComponent({
     };
   },
 });
-export default withInstall(Page);
+export default Page;

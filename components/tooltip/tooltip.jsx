@@ -1,18 +1,18 @@
 import {
-  defineComponent,
-  Transition,
-  ref,
   cloneVNode,
+  defineComponent,
   nextTick,
-  watch,
   onMounted,
   onUnmounted,
+  ref,
+  Transition,
+  watch,
 } from "vue";
+import transfer from "../directives/transfer";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
-import transfer from "../directives/transfer";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 import { colors, placements } from "../const/var";
 const Tooltip = defineComponent({
   name: "Tooltip",
@@ -198,4 +198,4 @@ const Tooltip = defineComponent({
     };
   },
 });
-export default withInstall(Tooltip);
+export default Tooltip;

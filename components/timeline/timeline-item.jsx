@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import Icon from "../icon";
-import { withInstall } from "../utils/vue";
+
 const TimeLineItem = defineComponent({
   name: "TimeLineItem",
   props: {
@@ -32,4 +32,4 @@ const TimeLineItem = defineComponent({
     };
   },
 });
-export default withInstall(TimeLineItem);
+export default TimeLineItem;

@@ -1,7 +1,7 @@
 import { cloneVNode, defineComponent, inject, provide } from "vue";
 import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 const InputGroup = defineComponent({
   name: "InputGroup",
   props: {
@@ -72,4 +72,4 @@ const InputGroup = defineComponent({
     };
   },
 });
-export default withInstall(InputGroup);
+export default InputGroup;

@@ -1,6 +1,6 @@
-import { defineComponent, h, cloneVNode, provide } from "vue";
+import { cloneVNode, defineComponent, h, provide } from "vue";
 import { getChildren } from "../utils/vnode";
-import { withInstall } from "../utils/vue";
+
 import { filterSize } from "../utils/size";
 const Space = defineComponent({
   name: "Space",
@@ -91,4 +91,4 @@ const Space = defineComponent({
     };
   },
 });
-export default withInstall(Space);
+export default Space;

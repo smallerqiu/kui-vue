@@ -1,6 +1,6 @@
 import { defineComponent, ref, watch } from "vue";
 import { Button } from "../button";
-import { withInstall } from "../utils/vue";
+
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: {
@@ -71,4 +71,4 @@ const RadioButton = defineComponent({
     };
   },
 });
-export default withInstall(RadioButton);
+export default RadioButton;

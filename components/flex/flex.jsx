@@ -1,5 +1,5 @@
 import { defineComponent, provide } from "vue";
-import { withInstall } from "../utils/vue";
+
 const Flex = defineComponent({
   name: "Flex",
   props: {
@@ -67,4 +67,4 @@ const Flex = defineComponent({
     };
   },
 });
-export default withInstall(Flex);
+export default Flex;

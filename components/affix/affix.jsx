@@ -1,6 +1,6 @@
+import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import resize from "../directives/resize";
-import { defineComponent, onMounted, onBeforeUnmount, watch, ref, nextTick } from "vue";
-import { withInstall } from "../utils/vue";
+
 
 const Affix = defineComponent({
   name: "Affix",
@@ -102,4 +102,4 @@ const Affix = defineComponent({
     };
   },
 });
-export default withInstall(Affix);
+export default Affix;

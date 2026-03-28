@@ -1,18 +1,18 @@
 import {
-  defineComponent,
-  ref,
-  cloneVNode,
-  watch,
   Transition,
+  cloneVNode,
+  defineComponent,
   nextTick,
-  provide,
-  onMounted,
   onBeforeMount,
+  onMounted,
+  provide,
+  ref,
+  watch,
 } from "vue";
-import { withInstall } from "../utils/vue";
-import { setPlacement } from "../utils/placement";
-import transfer from "../directives/transfer";
+
 import resize from "../directives/resize";
+import transfer from "../directives/transfer";
+import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 const Dropdown = defineComponent({
   name: "Dropdown",
@@ -243,4 +243,4 @@ const Dropdown = defineComponent({
     };
   },
 });
-export default withInstall(Dropdown);
+export default Dropdown;
