@@ -1,9 +1,9 @@
-import { ref, reactive, watch, defineComponent, inject, computed } from "vue";
-import { withInstall } from "../utils/vue";
-import Selector from "./selector";
-import FileList from "./fileList";
 import { v4 as uuid } from "uuid";
+import { computed, defineComponent, inject, reactive, ref, watch } from "vue";
 import zhCN from "../locale/zh-CN";
+import { withInstall } from "../utils/vue";
+import FileList from "./file-list";
+import Selector from "./selector";
 
 const Upload = defineComponent({
   name: "Upload",

@@ -1,3 +1,3 @@
 import Descriptions from "./descriptions";
-import DescriptionsItem from "./descriptionsItem";
+import DescriptionsItem from "./descriptions-item";
 export { Descriptions, DescriptionsItem };

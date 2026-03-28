@@ -1,9 +1,9 @@
-import Icon from "../icon";
 import { Close } from "kui-icons/dist/icons";
-import { defineComponent, Transition, ref } from "vue";
+import { defineComponent, ref, Transition } from "vue";
+import { colors } from "../const/var";
+import Icon from "../icon";
 import { isColor } from "../utils/color";
 import { withInstall } from "../utils/vue";
-import { colors } from "../const/var";
 const Tag = defineComponent({
   name: "Tag",
   props: {

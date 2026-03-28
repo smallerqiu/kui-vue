@@ -1,6 +1,6 @@
-import { defineComponent, ref, watch, provide, inject, onMounted } from "vue";
+import { defineComponent, inject, onMounted, provide, ref, watch } from "vue";
 import { withInstall } from "../utils/vue";
-import RecursiveMenu from "./recursiveMenu";
+import RecursiveMenu from "./recursive-menu";
 
 const Menu = defineComponent({
   name: "Menu",

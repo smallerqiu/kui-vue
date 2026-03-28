@@ -1,17 +1,17 @@
 import {
-  defineComponent,
-  ref,
-  provide,
-  inject,
-  getCurrentInstance,
-  onMounted,
   cloneVNode,
+  defineComponent,
+  getCurrentInstance,
+  inject,
   nextTick,
+  onMounted,
+  provide,
+  ref,
   Transition,
 } from "vue";
-import Icon from "../icon";
 import { getTransitionProp } from "../base/transition";
 import transfer from "../directives/transfer";
+import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 import { withInstall } from "../utils/vue";

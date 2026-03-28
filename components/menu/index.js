@@ -1,6 +1,6 @@
+import MenuDivider from "./menu-divider.jsx";
+import MenuGroup from "./menu-group.jsx";
+import MenuItem from "./menu-item.jsx";
 import Menu from "./menu.jsx";
-import MenuGroup from "./menugroup.jsx";
-import MenuItem from "./menuitem.jsx";
-import SubMenu from "./submenu.jsx";
-import MenuDivider from "./menudivider.jsx";
-export { Menu, MenuGroup, MenuItem, SubMenu, MenuDivider };
+import SubMenu from "./sub-menu.jsx";
+export { Menu, MenuDivider, MenuGroup, MenuItem, SubMenu };

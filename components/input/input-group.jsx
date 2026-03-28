@@ -1,7 +1,7 @@
+import { cloneVNode, defineComponent, inject, provide } from "vue";
+import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
-import { defineComponent, cloneVNode, provide, inject, Comment } from "vue";
 import { withInstall } from "../utils/vue";
-import { sizeMap, filterSize } from "../utils/size";
 const InputGroup = defineComponent({
   name: "InputGroup",
   props: {

@@ -1,8 +1,8 @@
-import { Select } from "../select";
-import { Input } from "../input";
+import { ChevronDoubleBack, ChevronDoubleForward, ChevronUp, Ellipsis } from "kui-icons/dist/icons";
+import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
 import Icon from "../icon";
-import { ChevronUp, ChevronDoubleBack, Ellipsis, ChevronDoubleForward } from "kui-icons/dist/icons";
-import { ref, defineComponent, watch, inject, nextTick, computed } from "vue";
+import { Input } from "../input";
+import { Select } from "../select";
 import { withInstall } from "../utils/vue";
 
 import zhCN from "../locale/zh-CN";

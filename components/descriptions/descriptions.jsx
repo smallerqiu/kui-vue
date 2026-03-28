@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
-import Item from "./descriptionsItem";
-import { withInstall } from "../utils/vue";
 import { getChildren } from "../utils/vnode";
+import { withInstall } from "../utils/vue";
+import Item from "./descriptions-item";
 const Descriptions = defineComponent({
   name: "Descriptions",
   props: {
