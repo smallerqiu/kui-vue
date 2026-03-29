@@ -102,13 +102,13 @@ export default defineComponent({
       //footer
       let footerNode = [
         <Button type="primary" loading={loading.value} onClick={ok}>
-          {okText || locale?.value.k.common.ok}
+          {okText || locale.value?.k.common.ok}
         </Button>,
       ];
 
       if (type == "confirm") {
         footerNode.unshift(
-          <Button onClick={cancel}> {cancelText || locale?.value.k.common.cancel}</Button>
+          <Button onClick={cancel}> {cancelText || locale.value?.k.common.cancel}</Button>
         );
       }
       let footer = <div class="k-toast-footer">{footerNode}</div>;

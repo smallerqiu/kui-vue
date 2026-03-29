@@ -217,7 +217,7 @@ const Page = defineComponent({
         clearable: false,
         theme: ps.theme,
         options: ps.sizeData.map((s) => {
-          return { value: s, label: `${s}${locale?.value.k.page.pageSize}` };
+          return { value: s, label: `${s}${locale.value?.k.page.pageSize}` };
         }),
         disabled: ps.disabled,
         onChange: changeSize,
@@ -262,9 +262,9 @@ const Page = defineComponent({
       };
       return ps.showElevator ? (
         <div class="k-page-options">
-          <span>{locale?.value.k.page.goto}</span>
+          <span>{locale.value?.k.page.goto}</span>
           <Input {...props} />
-          <span>{locale?.value.k.page.page}</span>
+          <span>{locale.value?.k.page.page}</span>
         </div>
       ) : null;
     };
@@ -302,7 +302,7 @@ const Page = defineComponent({
         totalNode = ps.showTotal ? (
           <div class="k-page-number">
             <span>
-              {locale?.value.k.page.total} {ps.total} {locale?.value.k.page.items}
+              {locale.value?.k.page.total} {ps.total} {locale.value?.k.page.items}
             </span>
           </div>
         ) : null,

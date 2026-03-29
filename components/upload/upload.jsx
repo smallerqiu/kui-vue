@@ -116,7 +116,7 @@ const Upload = defineComponent({
           (minSize !== undefined && minSize >= 0 && file.size / 1024 < minSize) ||
           (maxSize !== undefined && maxSize >= 0 && file.size / 1024 > maxSize)
         ) {
-          item.errorText = locale?.value.k.upload.errorFileSize;
+          item.errorText = locale.value?.k.upload.errorFileSize;
           item.status = "error";
           innerFileList.value.push(item);
           triggerUpdate(item);

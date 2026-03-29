@@ -201,10 +201,10 @@ const Popconfirm = defineComponent({
                 </div>
                 <div class={`k-${preCls}-footer`}>
                   <Button size="small" onClick={cancel}>
-                    {ps.cancelText || locale.value.k.common.cancel}
+                    {ps.cancelText || locale.value?.k.common.cancel}
                   </Button>
                   <Button size="small" type="primary" onClick={ok}>
-                    {ps.okText || locale.value.k.common.ok}
+                    {ps.okText || locale.value?.k.common.ok}
                   </Button>
                 </div>
                 <div class={`k-${preCls}-arrow`}>

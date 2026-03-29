@@ -16,7 +16,7 @@ const Empty = defineComponent({
   props: emptyProps,
   emits: ["click"],
   setup(props, { slots }) {
-    const injectedLocale = inject("locale", zhCN);
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
