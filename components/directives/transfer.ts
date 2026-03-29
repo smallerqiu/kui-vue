@@ -1,5 +1,6 @@
-export default {
-  mounted(el, { value }, vnode) {
+import type { ObjectDirective } from "vue";
+export const transfer: ObjectDirective = {
+  mounted(el, { value }) {
     if (value) {
       const parentNode = el.parentNode;
       if (!parentNode) return false;

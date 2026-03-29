@@ -20,12 +20,10 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
-    "build:docs": "vite build",
-    "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
-    "build:types": "node scripts/gen-dts.js",
+    "build:docs": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format1": "prettier --write ./components/*/index.md"
+    "format:md": "prettier --write ./components/*/index.md"
   },
   "author": {
     "name": "Qiu",
@@ -65,18 +63,19 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/tsconfig": "^0.9.0",
     "@vueuse/core": "^14.2.1",
     "fast-glob": "^3.3.3",
     "highlight.js": "^11.11.1",
     "less": "^4.6.4",
     "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^9.2.0",
-    "vue-router": "^5.0.4",
-    "@types/node": "^25.5.0",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "@vue/tsconfig": "^0.9.0",
     "typescript": "~5.9.3",
     "vite": "^8.0.1",
+    "vue-router": "^5.0.4",
     "vue-tsc": "^3.2.5"
   }
 }

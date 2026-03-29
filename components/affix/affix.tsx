@@ -1,11 +1,9 @@
+import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import {
-  CSSProperties,
   defineComponent,
-  ExtractPropTypes,
   nextTick,
   onBeforeUnmount,
   onMounted,
-  PropType,
   ref,
   watch,
 } from "vue";
@@ -30,13 +28,18 @@ const Affix = defineComponent({
   props: affixProps,
   emits: ["change"],
   setup(props, { slots, emit }) {
-    let target: HTMLElement | Window | null = null;
     const affixRef = ref<HTMLElement>();
 
     const fixed = ref(false);
     const styles = ref<CSSProperties>({});
-    const placeholderStyles = ref<CSSProperties | null>(null);
+    const placeholderStyles = ref<CSSProperties>({});
     let resizeObserver: ResizeObserver | null = null;
+    let target: HTMLElement | Window | null = null;
+
+    const getTarget = () => {
+      const res = props.target?.();
+      return res?.value || res;
+    };
 
     const updatePosition = () => {
       if (!affixRef.value || !target) return;
@@ -77,47 +80,69 @@ const Affix = defineComponent({
 
       placeholderStyles.value = isFixed
         ? { height: `${rect.height}px`, width: `${rect.width}px` }
-        : null;
+        : {};
       if (fixed.value !== isFixed) {
         fixed.value = isFixed;
         emit("change", isFixed);
       }
     };
 
-    onBeforeUnmount(() => {
+    const removeEventListeners = () => {
       target?.removeEventListener("scroll", updatePosition);
-      if (resizeObserver != null) {
-        resizeObserver.disconnect();
+      window.removeEventListener("resize", updatePosition);
+      resizeObserver?.disconnect();
+      resizeObserver = null;
+    };
+
+    const addEventListeners = () => {
+      target = getTarget();
+      if (!target) return;
+
+      target.addEventListener("scroll", updatePosition);
+      window.addEventListener("resize", updatePosition);
+
+      if (target !== window && "ResizeObserver" in window) {
+        resizeObserver = new ResizeObserver(updatePosition);
+        resizeObserver.observe(target as HTMLElement);
       }
+      updatePosition();
+    };
+
+    onBeforeUnmount(() => {
+      removeEventListeners();
     });
 
     onMounted(() => {
-      nextTick(() => {
-        const res = props.target?.();
-        target = res?.value || res;
-        target?.addEventListener("scroll", updatePosition);
-        updatePosition();
-        if (target && target !== window && "ResizeObserver" in window) {
-          resizeObserver = new ResizeObserver(updatePosition);
-          resizeObserver.observe(target as HTMLElement);
-        }
-      });
+      nextTick(addEventListeners);
     });
 
     watch(
       () => [props.offsetTop, props.offsetBottom, props.target],
       () => {
-        nextTick(updatePosition);
+        removeEventListeners();
+        nextTick(addEventListeners);
       }
     );
 
-    return () => (
-      <div style={placeholderStyles.value as CSSProperties} ref={affixRef} v-resize={updatePosition}>
-        <div style={styles.value} class={{ ["k-affix"]: fixed.value }}>
-          {slots.default?.()}
+    return () => {
+      const wrapperProps = {
+        ref: affixRef,
+        style: placeholderStyles.value,
+      };
+
+      const innerProps = {
+        style: styles.value,
+        class: ["k-affix", { "k-affix-fixed": fixed.value }],
+      };
+
+      return (
+        <div {...wrapperProps} v-resize={updatePosition}>
+          <div {...innerProps}>
+            {slots.default?.()}
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
   },
 });
 export default Affix;
