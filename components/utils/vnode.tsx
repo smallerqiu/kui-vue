@@ -1,9 +1,9 @@
-import { isVNode, Comment, Fragment, Text, cloneVNode } from "vue";
+import { Comment, Fragment, Text, cloneVNode, isVNode } from "vue";
 
-export function cloneNodes(vnode, props, merge = false, child) {
+export function cloneNodes(vnode, props, merge = false, cloneTransition?:boolean) {
   return vnode.length == 1
     ? cloneVNode(vnode[0], props, merge)
-    : cloneVNode(<span>{vnode}</span>, props, merge, child);
+    : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);
 }
 export function getChildren(VNodes) {
   const result = [];
