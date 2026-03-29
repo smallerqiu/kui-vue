@@ -1,14 +1,14 @@
 import Big from "big.js";
-export function isEmpty(value) {
+export const isEmpty = (value: any): boolean => {
   return (
     value == null || // null 或 undefined
     (typeof value === "string" && value.trim() === "") || // 空字符串
     (Array.isArray(value) && value.length === 0) || // 空数组
     (typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0) // 空对象
   );
-}
+};
 
-export const isRealNum = (val) => {
+export const isRealNum = (val: any): boolean => {
   if (val === null || val === "" || Array.isArray(val)) return false;
   try {
     new Big(val);
@@ -18,13 +18,13 @@ export const isRealNum = (val) => {
   }
 };
 
-export const normalize = (val, precision) => {
+export const normalize = (val: any, precision?: number) => {
   if (!isRealNum(val)) return "";
   const b = new Big(val);
   return precision !== undefined ? b.toFixed(precision) : b.toFixed();
 };
 
-export const isValidBig = (val) => {
+export const isValidBig = (val:any) => {
   if (val === null || val === undefined || val === "") return false;
 
   const str = String(val).trim();
@@ -38,7 +38,7 @@ export const isValidBig = (val) => {
   }
 };
 
-const toBigSafe = (val, name) => {
+const toBigSafe = (val:any) => {
   try {
     if (val === null || val === undefined || val === "") {
       throw new Error();
@@ -50,7 +50,7 @@ const toBigSafe = (val, name) => {
   }
 };
 
-export const getClosestStep = (val, { min, max, step, marks }) => {
+export const getClosestStep = (val:number, { min, max, step, marks }) => {
   const bMin = toBigSafe(min);
   const bMax = toBigSafe(max);
   const bVal = toBigSafe(val);

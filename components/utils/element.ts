@@ -24,10 +24,10 @@ export function contains(ele, target) {
 }
 
 //此处不能判断数组，要判断数组自行判断
-export function isNotEmpty(str) {
+export function isNotEmpty(str:any) {
   return str !== "" && str !== undefined && str !== null;
 }
-export function isEmpty(str) {
+export function isEmpty(str:any) {
   return str === "" || str === undefined || str === null || str.length === 0;
 }
 
@@ -37,7 +37,7 @@ export function hasProp(context, key) {
   return key in props;
 }
 
-export function getElementPosBody(element) {
+export function getElementPosBody(element:HTMLElement) {
   let pos = {
     left: 0,
     top: 0,
@@ -50,7 +50,7 @@ export function getElementPosBody(element) {
   return pos;
 }
 
-export function getElementPos(element) {
+export function getElementPos(element:HTMLElement) {
   var parent = element; //.offsetParent;
   let pos = {
     left: 0,
@@ -61,12 +61,12 @@ export function getElementPos(element) {
   while (parent !== null) {
     pos.left += parent.offsetLeft;
     pos.top += parent.offsetTop;
-    parent = parent.offsetParent;
+    parent = parent.offsetParent as HTMLElement;
   }
   return pos;
 }
 
-export function getOffset(el) {
+export function getOffset(el:HTMLElement) {
   // const rect = el.getBoundingClientRect();
   const pos = el
     ? {
@@ -79,8 +79,8 @@ export function getOffset(el) {
 
 //
 
-let _scrollBarWidth;
-let _scrollBarHeight;
+let _scrollBarWidth:number;
+let _scrollBarHeight:number;
 
 export function measureScrollBar(direction = "vertical") {
   if (typeof document === "undefined" || typeof window === "undefined") {
@@ -98,7 +98,7 @@ export function measureScrollBar(direction = "vertical") {
     width: "50px",
     height: "50px",
   };
-  Object.keys(style).forEach((st) => {
+  Object.keys(style).forEach((st:string) => {
     div.style[st] = style[st];
   });
   if (isVertical) {

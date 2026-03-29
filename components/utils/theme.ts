@@ -1,6 +1,6 @@
 import { nextTick } from "vue";
 const THEME_KEY = "theme-mode";
-const toggleTheme = () => {
+const toggleTheme = (): boolean => {
   const isDark = localStorage.getItem(THEME_KEY) == "dark";
   const root = document.documentElement;
   if (isDark) {
@@ -15,9 +15,9 @@ const toggleTheme = () => {
 
 const Theme = {
   name: "Theme",
-  setThemeMode(event, callback) {
+  setThemeMode(event: MouseEvent, callback: (isDark: boolean) => void): void {
     const isAppearanceTransition =
-      document.startViewTransition &&
+      document.startViewTransition !== undefined &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!isAppearanceTransition || !event) {
       const isDark = toggleTheme();
