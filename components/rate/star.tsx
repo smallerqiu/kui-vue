@@ -52,7 +52,7 @@ export default defineComponent({
       const characterNode = typeof character === "function" ? character(index) : character;
       const iconType = typeof icon === "function" ? icon(index) : icon;
       const startProps ={
-        class:['k-start-front'],
+        class:['k-star-front'],
         style:{ width: disabled && percent !== undefined ? `${percent}%` : undefined }
       }
       const node = (

@@ -1,35 +1,37 @@
 import { AlertCircle, Close, DocumentTextOutline } from "kui-icons";
-import { defineComponent } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import Icon from "../icon";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
+import type { UploadFile } from "./index";
+
+export const uploadFileListProps = {
+  showUploadList: { type: Boolean, default: true },
+  locale: Object as PropType<any>,
+  type: {
+    type: String as PropType<"list" | "picture">,
+    default: "list",
+    validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
+  },
+  fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
+  disabled: Boolean,
+};
+
+export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
 
 export default defineComponent({
   name: "UploadFileList",
-  props: {
-    showUploadList: { type: Boolean, default: true },
-    locale: Object,
-    type: {
-      type: String,
-      default: "list",
-      validator: (val) => ["list", "picture"].indexOf(val) >= 0,
-    },
-    fileList: Array,
-    disabled: Boolean,
-  },
+  props: uploadFileListProps,
+  emits: ["remove"],
   setup(props, { emit, slots }) {
-    const getPreview = (item) => {
-      if (item.preview && typeof item.preview === "string") {
-        return <img src={item.preview} />;
-      }
-      if (item.url) {
-        return <img src={item.url} />;
-      }
+    const getPreview = (item: any) => {
+      if (item.preview) return <img src={item.preview} alt="" />;
+      if (item.url) return <img src={item.url} alt="" />;
       return null;
     };
 
-    const handleRemove = (index, item) => {
+    const handleRemove = (index: number, item: UploadFile) => {
       if (props.disabled) return;
       emit("remove", { index, file: item });
     };
@@ -43,8 +45,8 @@ export default defineComponent({
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
           {fileList.map((item, i) => {
-            let statusText =
-              item.status == "success"
+            const statusText =
+              item.status === "success"
                 ? locale?.k.upload.successful
                 : item.errorText || locale?.k.upload.failed;
             return (
@@ -64,7 +66,7 @@ export default defineComponent({
                   ) : null}
                   {item.status !== "wait" && (
                     <div class="k-upload-file-status">
-                      {item.status == "uploading" ? (
+                      {item.status === "uploading" ? (
                         <Progress
                           percent={item.percent}
                           type={`${isPicture ? "circle" : "line"}`}
@@ -80,7 +82,7 @@ export default defineComponent({
                         </div>
                       ) : null}
 
-                      {isPicture && item.status == "error" && (
+                      {isPicture && item.status === "error" && (
                         <Tooltip title={statusText} placement="bottom">
                           <Icon type={AlertCircle} />
                         </Tooltip>
