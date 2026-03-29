@@ -1,61 +1,65 @@
 import { Add } from "kui-icons";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
 import Icon from "../icon";
+import type { UploadFile } from "./index";
+
+export const selectorProps = {
+  disabled: Boolean,
+  name: { type: String, default: "file" },
+  accept: String,
+  multiple: Boolean,
+  directory: Boolean,
+  limit: Number,
+  uploadText: String,
+  uploadSubText: String,
+  draggable: Boolean,
+  locale: Object as PropType<any>,
+  fileList: Array as PropType<UploadFile[]>,
+  uploadIcon: [String, Object, Array] as PropType<any>,
+  type: {
+    type: String as PropType<"list" | "picture">,
+    default: "list",
+    validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
+  },
+};
+
+export type SelectorProps = ExtractPropTypes<typeof selectorProps>;
 
 export default defineComponent({
   name: "Selector",
-  props: {
-    disabled: Boolean,
-    name: { type: String, default: "file" },
-    accept: String,
-    multiple: Boolean,
-    directory: Boolean,
-    limit: Number,
-    uploadText: String,
-    uploadSubText: String,
-    draggable: Boolean,
-    locale: Object,
-    fileList: Array,
-    uploadIcon: [String, Object, Array],
-    type: {
-      type: String,
-      default: "list",
-      validator: (val) => ["list", "picture"].indexOf(val) >= 0,
-    },
-  },
+  props: selectorProps,
+  emits: ["select"],
   setup(props, { emit, slots }) {
     const dragOver = ref(false);
-    const uploadFileRef = ref(null);
-    const onDragEnter = (e) => {
+    const uploadFileRef = ref<HTMLInputElement | null>(null);
+
+    const onDragEnter = (e: DragEvent) => {
       dragOver.value = true;
       e.preventDefault();
-      return false;
     };
     const onDragLeave = () => {
       dragOver.value = false;
     };
 
-    const selectFiles = (e) => {
-      const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-      if (files && files.length > 0) {
-        emit("select", files);
-      }
-      e.target.value = ""; // 清空 input 防止重复选同文件不触发 change
+    const selectFiles = (e: Event | DragEvent) => {
+      const files = (e as DragEvent).dataTransfer ? (e as DragEvent).dataTransfer?.files : (e.target as HTMLInputElement).files;
+      if (files && files.length > 0) emit("select", files);
+      if (e.target) (e.target as HTMLInputElement).value = ""; 
       e.preventDefault();
       dragOver.value = false;
     };
-    const onDrop = (e) => {
+
+    const onDrop = (e: DragEvent) => {
       selectFiles(e);
-      return false;
     };
 
-    const onDragOver = (e) => {
+    const onDragOver = (e: DragEvent) => {
       e.stopPropagation();
       e.preventDefault();
       dragOver.value = true;
     };
 
-    const triggerSelect = (e) => {
+    const triggerSelect = () => {
       if (props.disabled) return;
       uploadFileRef.value?.click();
     };
@@ -76,17 +80,17 @@ export default defineComponent({
         fileList,
         locale,
       } = props;
-      let isPicture = type == "picture";
-      const isLimitExceeded = limit && fileList && fileList.length >= limit;
+      const isPicture = type === "picture";
+      const isLimitExceeded = !!(limit && fileList && fileList.length >= limit);
       const showSelector = !isPicture || !isLimitExceeded;
       if (!showSelector) return null;
 
       let addProps = {
         class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
-        onDragenter: draggable ? onDragEnter : null,
-        onDrop: draggable ? onDrop : null,
-        onDragover: draggable ? onDragOver : null,
-        onDragleave: draggable ? onDragLeave : null,
+        onDragenter: draggable ? onDragEnter : undefined,
+        onDrop: draggable ? onDrop : undefined,
+        onDragover: draggable ? onDragOver : undefined,
+        onDragleave: draggable ? onDragLeave : undefined,
         onClick: triggerSelect,
       };
 
@@ -96,7 +100,7 @@ export default defineComponent({
             <input
               type="file"
               class="k-upload-file"
-              webkitdirectory={directory}
+              {...({ webkitdirectory: directory ? "true" : undefined } as any)}
               name={name}
               accept={accept}
               disabled={disabled}
