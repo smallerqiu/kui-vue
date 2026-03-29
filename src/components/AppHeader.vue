@@ -140,8 +140,8 @@ const changeThemeColor = (v) => {
   document.body.setAttribute("theme-type", "custom");
   localStorage.setItem("themeColor", v);
 };
-const changeMode = (event) => {
-  theme.setThemeMode(event, (v) => (themeMode.value = v ? "dark" : "light"));
+const changeMode = (event:MouseEvent) => {
+  theme.setThemeMode(event, (v:boolean) => (themeMode.value = v ? "dark" : "light"));
 };
 const go = ({ key, keyPath, item }) => {
   if (key == "home") {
