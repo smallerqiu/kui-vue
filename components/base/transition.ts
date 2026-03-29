@@ -1,30 +1,31 @@
+import type { RendererElement } from "vue";
 export function getTransitionProp(name: string) {
   return {
     name,
-    onBeforeEnter(el: HTMLElement) {
+    onBeforeEnter(el: RendererElement) {
       // el.style.overflow = 'hidden';
       el.style.height = "0";
       el.style.opacity = "0.1";
     },
-    onEnter(el: HTMLElement) {
+    onEnter(el: RendererElement) {
       if (el.scrollHeight !== 0) {
-        el.style.height = el.scrollHeight + "px"; //window.getComputedStyle(el:HTMLElement).height
+        el.style.height = el.scrollHeight + "px"; //window.getComputedStyle(el:RendererElement).height
         el.style.opacity = "1";
       } else {
         el.style.height = "";
         el.style.opacity = "";
       }
     },
-    onAfterEnter(el: HTMLElement) {
+    onAfterEnter(el: RendererElement) {
       el.style.height = "";
       el.style.overflow = "";
       el.style.opacity = "";
     },
-    onBeforeLeave(el: HTMLElement) {
+    onBeforeLeave(el: RendererElement) {
       el.style.height = el.scrollHeight + "px";
       el.style.opacity = "1";
     },
-    onLeave(el: HTMLElement) {
+    onLeave(el: RendererElement) {
       if (el.scrollHeight !== 0) {
         el.style.height = "0";
         el.style.paddingTop = "0";
@@ -35,7 +36,7 @@ export function getTransitionProp(name: string) {
         // el.style.overflow = 'hidden';
       }
     },
-    onAfterLeave(el: HTMLElement) {
+    onAfterLeave(el: RendererElement) {
       el.style.height = "";
       el.style.paddingTop = "";
       el.style.paddingBottom = "";
@@ -50,12 +51,12 @@ export function getTransitionProp(name: string) {
 export function getTransitionHorProp(name: string) {
   return {
     name,
-    onBeforeEnter(el: HTMLElement) {
+    onBeforeEnter(el: RendererElement) {
       el.style.overflow = "hidden";
       el.style.width = "0";
       el.style.opacity = "0.1";
     },
-    onEnter(el: HTMLElement) {
+    onEnter(el: RendererElement) {
       if (el.scrollWidth !== 0) {
         el.style.width = el.scrollWidth + "px";
         el.style.opacity = "1";
@@ -64,16 +65,16 @@ export function getTransitionHorProp(name: string) {
         el.style.opacity = "";
       }
     },
-    onAfterEnter(el: HTMLElement) {
+    onAfterEnter(el: RendererElement) {
       el.style.width = "";
       el.style.overflow = "";
       el.style.opacity = "";
     },
-    onBeforeLeave(el: HTMLElement) {
+    onBeforeLeave(el: RendererElement) {
       el.style.width = el.scrollWidth + "px";
       el.style.opacity = "1";
     },
-    onLeave(el: HTMLElement) {
+    onLeave(el: RendererElement) {
       if (el.scrollWidth !== 0) {
         el.style.width = "0";
         el.style.paddingLeft = "0";
@@ -84,7 +85,7 @@ export function getTransitionHorProp(name: string) {
         el.style.overflow = "hidden";
       }
     },
-    onAfterLeave(el: HTMLElement) {
+    onAfterLeave(el: RendererElement) {
       el.style.width = "";
       el.style.paddingLeft = "";
       el.style.paddingRight = "";
