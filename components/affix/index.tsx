@@ -145,4 +145,5 @@ const Affix = defineComponent({
     };
   },
 });
+
 export default Affix;
