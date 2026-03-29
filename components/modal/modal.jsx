@@ -185,8 +185,8 @@ const Modal = defineComponent({
           </Transition>
         );
       }
-      let okText = ps.okText || locale?.value.k.common.ok;
-      let cancelText = ps.cancelText || locale?.value.k.common.cancel;
+      let okText = ps.okText || locale.value?.k.common.ok;
+      let cancelText = ps.cancelText || locale.value?.k.common.cancel;
       //content
       let contentNode = slots.content?.();
       if (!contentNode) {

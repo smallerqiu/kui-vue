@@ -111,11 +111,11 @@ const Drawer = defineComponent({
       const { title, cancelText, okText, placement, width, height, closable, loading } = ps;
       const hasFooter = ps.footer || slots.footer;
       const cancelBtn = (
-        <Button onClick={cancel}>{cancelText || locale?.value.k.common.cancel}</Button>
+        <Button onClick={cancel}>{cancelText || locale.value?.k.common.cancel}</Button>
       );
       const okBtn = (
         <Button type="primary" onClick={ok} loading={loading}>
-          {okText || locale?.value.k.common.ok}
+          {okText || locale.value?.k.common.ok}
         </Button>
       );
       const footNode = hasFooter ? (
