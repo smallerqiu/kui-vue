@@ -1,47 +1,55 @@
 import Big from "big.js";
 import { ChevronDown, ChevronUp } from "kui-icons";
-import { computed, defineComponent, inject, ref, watch } from "vue";
-import Icon from "../icon";
-import Input from "../input/input";
+import {
+  computed,
+  defineComponent,
+  inject,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
+import Icon, { type IconType } from "../icon";
+import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
 import { filterSize, sizeMap } from "../utils/size";
 
+export const inputNumberProps = {
+  modelValue: [Number, String] as PropType<number | string>,
+  value: [Number, String] as PropType<number | string>,
+  min: { type: Number, default: -Infinity },
+  max: { type: Number, default: Infinity },
+  step: { type: Number, default: 1 },
+  precision: Number,
+  formatter: Function as PropType<(value: string | number) => string>,
+  parser: Function as PropType<(value: string) => string | number>,
+  disabled: Boolean,
+  readonly: Boolean,
+  controls: { type: Boolean, default: true },
+  suffix: String,
+  prefix: String,
+  theme: { type: String, default: "light" },
+  icon: [Array] as PropType<IconType[]>,
+  size: {
+    type: String as PropType<(typeof sizeMap)[number]>,
+  },
+  placeholder: String,
+};
+
+export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;
 
 const InputNumber = defineComponent({
   inheritAttrs: false,
   name: "InputNumber",
-  props: {
-    modelValue: [Number, String],
-    value: [Number, String],
-    min: { type: Number, default: -Infinity },
-    max: { type: Number, default: Infinity },
-    step: { type: Number, default: 1 },
-    precision: Number,
-    formatter: Function,
-    parser: Function,
-    disabled: Boolean,
-    readonly: Boolean,
-    controls: { type: Boolean, default: true },
-    suffix: String,
-    prefix: String,
-    theme: { type: String, default: "light" },
-    icon: [String, Array],
-    size: {
-      type: String,
-      validator(value) {
-        return sizeMap.indexOf(value) >= 0;
-      },
-    },
-    placeholder: String,
-  },
+  props: inputNumberProps,
   emits: ["update:modelValue", "change", "blur"],
 
   setup(props, { slots, attrs, emit }) {
-    const parentSize = inject("size", null);
+    const parentSize = inject<string | null>("size", null);
     const innerValue = ref("");
-    const userInput = ref(null);
+    const userInput = ref<string | null>(null);
 
-    const clamp = (val) => {
+    const clamp = (val: string | number) => {
       if (!isValidBig(val)) {
         return val === "" ? "" : innerValue.value;
       }
@@ -68,19 +76,22 @@ const InputNumber = defineComponent({
       },
       { immediate: true }
     );
-    const emitValue = (value) => {
+
+    const emitValue = (value: number | undefined) => {
       emit("update:modelValue", value);
       emit("change", value);
     };
+
     const displayValue = computed(() => {
       if (userInput.value !== null) return userInput.value;
 
       if (innerValue.value === "") return "";
       return props.formatter ? props.formatter(innerValue.value) : innerValue.value;
     });
-    const triggerUpdate = (val) => {
-      const parsed = props.parser ? props.parser(val) : val;
-      const clampedStr = clamp(parsed);
+
+    const triggerUpdate = (val: string | number) => {
+      const parsed = props.parser ? props.parser(String(val)) : val;
+      const clampedStr = clamp(String(parsed));
       innerValue.value = clampedStr;
       userInput.value = null;
 
@@ -88,7 +99,7 @@ const InputNumber = defineComponent({
       emitValue(output);
     };
 
-    const handleInput = (val) => {
+    const handleInput = (val: string) => {
       userInput.value = val;
       const parsed = props.parser ? props.parser(val) : val;
       if (val === "") {
@@ -113,12 +124,12 @@ const InputNumber = defineComponent({
       }
     };
 
-    const handleBlur = (event) => {
+    const handleBlur = (event: FocusEvent) => {
       triggerUpdate(userInput.value !== null ? userInput.value : innerValue.value);
       emit("blur", event);
     };
 
-    const stepAction = (type) => {
+    const stepAction = (type: "up" | "down") => {
       if (props.disabled || props.readonly) return;
 
       const current = isValidBig(innerValue.value) ? innerValue.value : 0;
@@ -138,13 +149,13 @@ const InputNumber = defineComponent({
         placeholder: props.placeholder,
         suffix: props.suffix,
         prefix: props.prefix,
-        size: props.size || filterSize(parentSize),
+        size: props.size || filterSize(parentSize) || undefined,
         icon: props.icon,
         theme: props.theme,
         inputType: "input-number",
         "onUpdate:modelValue": handleInput,
         onBlur: handleBlur,
-        onKeydown: (e) => {
+        onKeydown: (e: KeyboardEvent) => {
           if (e.key === "ArrowUp") {
             e.preventDefault();
             stepAction("up");
@@ -156,25 +167,25 @@ const InputNumber = defineComponent({
         },
       };
 
+      const controls =
+        props.controls && !props.readonly && !props.disabled ? (
+          <div class="k-input-number-controls">
+            <span class="k-input-number-control" onClick={() => stepAction("up")}>
+              <Icon type={ChevronUp} />
+            </span>
+            <span class="k-input-number-control" onClick={() => stepAction("down")}>
+              <Icon type={ChevronDown} />
+            </span>
+          </div>
+        ) : null;
+
       return (
         <Input
           {...inputProps}
           v-slots={{
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),
-            controls: () =>
-              props.controls &&
-              !props.readonly &&
-              !props.disabled && (
-                <div class="k-input-number-controls">
-                  <span class="k-input-number-control" onClick={() => stepAction("up")}>
-                    <Icon type={ChevronUp} />
-                  </span>
-                  <span class="k-input-number-control" onClick={() => stepAction("down")}>
-                    <Icon type={ChevronDown} />
-                  </span>
-                </div>
-              ),
+            controls: () => controls,
           }}
         />
       );
