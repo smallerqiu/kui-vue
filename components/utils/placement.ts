@@ -1,4 +1,17 @@
- 
+import type { Ref } from "vue";
+interface PlacementOptions {
+  refSelection: Ref<HTMLElement | null>;
+  refPopper: Ref<HTMLElement | null>;
+  currentPlacement: Ref<string>;
+  position?: {
+    x: number;
+    y: number;
+  } | null;
+  transOrigin: Ref<string>;
+  top: Ref<number>;
+  left: Ref<number>;
+  offset?: number;
+}
 export function setPlacement({
   refSelection,
   refPopper,
@@ -8,7 +21,7 @@ export function setPlacement({
   top,
   left,
   offset = 3,
-}) {
+}: PlacementOptions) {
   if (!refPopper.value) return;
 
   // 模式检测 & 基准矩形
@@ -28,7 +41,7 @@ export function setPlacement({
     };
   } else if (refSelection && refSelection.value) {
     // 元素模式：真实 DOM 矩形
-    const selection = refSelection.value.$el || refSelection.value;
+    const selection = refSelection.value;
     rect = selection.getBoundingClientRect();
   } else {
     return;
