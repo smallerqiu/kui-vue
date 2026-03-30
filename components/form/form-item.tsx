@@ -1,4 +1,4 @@
-import type { PropType } from "vue";
+import type { ExtractPropTypes, PropType } from "vue";
 import {
   cloneVNode,
   computed,
@@ -39,6 +39,8 @@ export const formItemProps = {
   wrapperCol: Object as PropType<ColProps>,
   rules: [Array, Object] as PropType<FormRule | FormRule[]>,
 };
+
+export type FormItemProps = ExtractPropTypes<typeof formItemProps>;
 
 export default defineComponent({
   name: "FormItem",
@@ -100,7 +102,7 @@ export default defineComponent({
               break;
           }
         } else if (typeof rule.validator === "function") {
-          rule.validator(rule, itemValue, (error: Error) => {
+          rule.validator(rule, itemValue, (error: any) => {
             isValid = error === undefined;
             if (error) {
               msg = error.message;
@@ -137,7 +139,7 @@ export default defineComponent({
       return isValid;
     };
 
-    const validate = (rules: FormRule | FormRule[], trigger?: string) => {
+    const validate = (rules: FormRule | FormRule[], _?: string) => {
       // TODO trigger
       if (!rules) return true;
 
@@ -185,10 +187,11 @@ export default defineComponent({
     return () => {
       const { label, prop = "" } = props;
       const rules = getRule(prop);
-      const required =
-        rules?.constructor === Object
-          ? rules.required
-          : rules.filter((r: FormRule) => r.required).length > 0;
+      const required = rules
+        ? rules?.constructor === Object
+          ? (rules as FormRule).required
+          : (rules as FormRule[]).filter((r: FormRule) => r.required).length > 0
+        : false;
 
       const classes = [
         "k-form-item",
@@ -224,7 +227,8 @@ export default defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  const tag = child.type?.name;
+                  // todo tag
+                  const tag = (child.type as any)?.name;
                   const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;

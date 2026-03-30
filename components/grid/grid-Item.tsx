@@ -1,17 +1,25 @@
+import type { CSSProperties, ExtractPropTypes } from "vue";
 import { computed, defineComponent, inject } from "vue";
-
 import { GRID_KEY } from "./useBreakpoint";
+
+export const gridItemProps = {
+  span: { type: [Number, String, Object], default: 1 }, // 跨越几列
+  rowSpan: { type: [Number, String, Object], default: 1 }, // 跨越几行
+  offset: { type: [Number, Object], default: 0 }, // 左侧偏移（通过 grid-column-start 实现）
+  suffix: { type: Boolean, default: false }, // 是否作为末尾填充
+};
+
+export type GridItemProps = ExtractPropTypes<typeof gridItemProps>;
+
+interface GridContext {
+  resolveResponsive: (span: GridItemProps["span"], defaultValue: number) => number;
+}
 
 const GridItem = defineComponent({
   name: "GridItem",
-  props: {
-    span: { type: [Number, String, Object], default: 1 }, // 跨越几列
-    rowSpan: { type: [Number, String, Object], default: 1 }, // 跨越几行
-    offset: { type: [Number, Object], default: 0 }, // 左侧偏移（通过 grid-column-start 实现）
-    suffix: { type: Boolean, default: false }, // 是否作为末尾填充
-  },
+  props: gridItemProps,
   setup(props, { slots }) {
-    const context = inject(GRID_KEY);
+    const context: GridContext | undefined = inject(GRID_KEY);
     const itemStyle = computed(() => {
       if (!context) return {};
 
@@ -19,7 +27,7 @@ const GridItem = defineComponent({
       const rs = context.resolveResponsive(props.rowSpan, 1);
       const o = context.resolveResponsive(props.offset, 0);
       if (s === 0) return { display: "none" };
-      const styles = {};
+      const styles: CSSProperties = {};
       if (s !== 1) {
         styles.gridColumn = `span ${s} / span ${s}`;
       }
@@ -42,12 +50,13 @@ const GridItem = defineComponent({
       return styles;
     });
 
+    const itemProps = {
+      class: "k-grid-item",
+      style: itemStyle.value,
+    };
+
     return () => {
-      return (
-        <div class="k-grid-item" style={itemStyle.value}>
-          {slots.default?.()}
-        </div>
-      );
+      return <div {...itemProps}>{slots.default?.()}</div>;
     };
   },
 });

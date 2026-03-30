@@ -1,28 +1,32 @@
+import type { CSSProperties, ExtractPropTypes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
-
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
+
+export const gridProps = {
+  cols: { type: [Number, String, Object], default: 24 },
+  rows: { type: [Number, String, Object], default: "auto" },
+  autoRows: { type: String, default: "auto" },
+  xGap: { type: [Number, String, Object], default: 0 },
+  yGap: { type: [Number, String, Object], default: 0 },
+  itemMinWidth: { type: Number },
+  align: { type: String },
+  justify: { type: String },
+  debug: { type: Boolean },
+};
+export type GridProps = ExtractPropTypes<typeof gridProps>;
+
 const Grid = defineComponent({
   name: "Grid",
-  props: {
-    cols: { type: [Number, String, Object], default: 24 },
-    rows: { type: [Number, String, Object], default: "auto" },
-    autoRows: { type: String, default: "auto" },
-    xGap: { type: [Number, String, Object], default: 0 },
-    yGap: { type: [Number, String, Object], default: 0 },
-    itemMinWidth: { type: Number },
-    align: { type: String },
-    justify: { type: String },
-    debug: { type: Boolean },
-  },
-  setup(props, { emit, slots, attrs, listeners }) {
+  props: gridProps,
+  setup(props, { slots }) {
     const gridRef = ref();
     const breakpoint = useBreakpoint(gridRef);
 
-    const resolveResponsive = (val, fallback) => {
+    const resolveResponsive = (val: any, fallback: any) => {
       if (val === undefined) return fallback;
       if (typeof val !== "object") return val;
       const order = ["xxl", "xl", "lg", "md", "sm", "xs"];
-      const currentIndex = order.indexOf(breakpoint.value);
+      const currentIndex = order.indexOf(breakpoint?.value || "md");
 
       for (let i = currentIndex; i < order.length; i++) {
         const key = order[i];
@@ -38,9 +42,9 @@ const Grid = defineComponent({
       const activeRows = resolveResponsive(props.rows, "auto");
       const activeXGap = resolveResponsive(props.xGap, 0);
       const activeYGap = resolveResponsive(props.yGap, 0);
-      const parseGap = (val) => (typeof val === "number" ? `${val}px` : val);
+      const parseGap = (val: number | string) => (typeof val === "number" ? `${val}px` : val);
 
-      const style = {
+      const style: CSSProperties = {
         gridTemplateColumns: props.itemMinWidth
           ? `repeat(auto-fill, minmax(${props.itemMinWidth}px, 1fr))`
           : typeof activeCols === "number"
@@ -59,13 +63,13 @@ const Grid = defineComponent({
       }
       return style;
     });
-
+    const gridProps = {
+      class: "k-grid",
+      style: gridStyle.value,
+      ref: gridRef,
+    };
     return () => {
-      return (
-        <div class="k-grid" style={gridStyle.value} ref={gridRef}>
-          {slots.default?.()}
-        </div>
-      );
+      return <div {...gridProps}>{slots.default?.()}</div>;
     };
   },
 });
