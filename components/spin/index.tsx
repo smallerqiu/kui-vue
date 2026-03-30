@@ -1,43 +1,42 @@
+import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
+
+export const spinProps = {
+  modelValue: { type: Boolean, default: true },
+  delay: { type: Number, default: 500 },
+  size: {
+    type: String as PropType<"large" | "default" | "small">,
+    default: "default",
+  },
+  mode: {
+    type: String as PropType<"bounce" | "flip" | "rotate" | "zoom">,
+    default: "rotate",
+  },
+};
+
+export type SpinProps = ExtractPropTypes<typeof spinProps>;
 
 const Spin = defineComponent({
   name: "Spin",
-  props: {
-    modelValue: { type: Boolean, default: true },
-    delay: { type: Number, default: 500 },
-    size: {
-      type: String,
-      default: "default",
-      validator(value) {
-        return ["large", "default", "small"].indexOf(value) >= 0;
-      },
-    },
-    mode: {
-      type: String,
-      default: "rotate",
-      validator(value) {
-        return ["bounce", "flip", "rotate", "zoom"].indexOf(value) >= 0;
-      },
-    },
-  },
-  setup(ps, { slots }) {
-    const spinning = ref(ps.modelValue);
-    let timer = null;
+  props: spinProps,
+  setup(props, { slots }) {
+    const spinning = ref(props.modelValue);
+    let timer: number | undefined = undefined;
     watch(
-      () => ps.modelValue,
-      (nv, no) => {
+      () => props.modelValue,
+      (nv) => {
         if (nv) {
           spinning.value = nv;
         } else {
           clearTimeout(timer);
           timer = setTimeout(() => {
             spinning.value = nv;
-          }, ps.delay);
+          }, props.delay);
         }
       }
     );
     return () => {
-      let { mode, size } = ps;
+      let { mode, size } = props;
       const classes = [
         {
           [`k-spin-loading`]: spinning.value,
