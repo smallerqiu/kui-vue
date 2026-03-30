@@ -1,38 +1,64 @@
 import { CaretDown, CaretUp } from "kui-icons";
+import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
 import { Checkbox } from "../checkbox";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
 
+interface Column {
+  key: string;
+  title: string;
+  width?: number;
+  fixed?: "left" | "right";
+  sorter?: boolean | ((state: SortState) => void);
+  render?: (h:any,record: any,colIndex:number) => void;
+  colSpan?: number | ((record: any, index: number) => number);
+  rowSpan?: number | ((record: any, index: number) => number);
+  children?: Column[];
+}
+
+export const tableProps = {
+  data: { type: Array, default: () => [] },
+  columns: { type: Array as PropType<Column[]>, default: () => [] },
+  selectedKeys: { type: Array as PropType<string[]>, default: () => [] },
+  disabledKeys: { type: Array as PropType<string[]>, default: () => [] },
+  rowKey: { type: String, default: "key" },
+  scroll: { type: Object as PropType<{ x: number; y: number }>, default: () => ({}) },
+  size: {
+    type: String as PropType<"small" | "large" | "default">,
+    default: "default",
+  },
+  bordered: { type: Boolean, default: false },
+  checkable: Boolean,
+  loading: Boolean,
+  emptyText: String,
+};
+
+interface Matrix {
+  rowSpan: number;
+  colSpan: number;
+  show: boolean;
+}
+
+export type TableProps = ExtractPropTypes<typeof tableProps>;
+
+interface SortState {
+  key: string;
+  order: null | "desc" | "asc";
+}
+
 const Table = defineComponent({
   name: "Table",
-  props: {
-    data: { type: Array, default: () => [] },
-    columns: { type: Array, default: () => [] },
-    selectedKeys: { type: Array, default: () => [] },
-    disabledKeys: { type: Array, default: () => [] },
-    rowKey: { type: String, default: "key" },
-    scroll: { type: Object, default: () => ({}) },
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
-    bordered: { type: Boolean, default: false },
-    checkable: Boolean,
-    loading: Boolean,
-    emptyText: String,
-  },
+  props: tableProps,
   emits: ["update:selectedKeys", "rowClick", "sort"],
   setup(props, { emit, slots }) {
-    const headerWrapperRef = ref(null);
-    const bodyWrapperRef = ref(null);
+    const headerWrapperRef = ref<HTMLElement>();
+    const bodyWrapperRef = ref<HTMLElement>();
     const scrollbarWidth = ref(0);
     const innerSelectedKeys = ref(new Set(props.selectedKeys));
     const isSplit = computed(() => !!props.scroll.y);
-    const sortState = reactive({ key: null, order: null });
+    const sortState = reactive<SortState>({ key: "", order: null });
     const pingLeft = ref(false);
     const pingRight = ref(false);
 
@@ -42,8 +68,8 @@ const Table = defineComponent({
         innerSelectedKeys.value = new Set(val);
       }
     );
-    const getFlattedColumns = (cols) => {
-      const result = [];
+    const getFlattedColumns = (cols: Column[]): Column[] => {
+      const result: Column[] = [];
       cols.forEach((col) => {
         if (col.children && col.children.length > 0) {
           result.push(...getFlattedColumns(col.children));
@@ -56,10 +82,10 @@ const Table = defineComponent({
     const flattedColumns = computed(() => getFlattedColumns(props.columns));
 
     const headerRows = computed(() => {
-      const rows = [];
+      const rows: Column[][] = [];
       let maxDepth = 0;
 
-      const getDepth = (cols, depth = 0) => {
+      const getDepth = (cols: Column[], depth = 0) => {
         cols.forEach((col) => {
           if (col.children && col.children.length > 0) {
             getDepth(col.children, depth + 1);
@@ -70,12 +96,12 @@ const Table = defineComponent({
       };
       getDepth(props.columns);
 
-      const traverse = (cols, depth) => {
+      const traverse = (cols: Column[], depth: number) => {
         if (!rows[depth]) rows[depth] = [];
         cols.forEach((col) => {
-          const cell = { ...col };
+          const cell: Column = { ...col };
           // 计算 colSpan (叶子节点总数)
-          const getLeafCount = (c) => {
+          const getLeafCount = (c: Column): number => {
             if (c.children && c.children.length) {
               return c.children.reduce((acc, item) => acc + getLeafCount(item), 0);
             }
@@ -97,13 +123,13 @@ const Table = defineComponent({
       return { rows, maxDepth };
     });
 
-    const isDisabled = (key) => props.disabledKeys && props.disabledKeys.includes(key);
+    const isDisabled = (key: string) => props.disabledKeys && props.disabledKeys.includes(key);
 
     const selectionState = computed(() => {
-      const enableData = props.data.filter((item) => !isDisabled(item[props.rowKey]));
+      const enableData = props.data.filter((item: any) => !isDisabled(item[props.rowKey]));
       if (enableData.length === 0) return { all: false, indeterminate: false };
 
-      const checkedCount = enableData.filter((item) =>
+      const checkedCount = enableData.filter((item: any) =>
         innerSelectedKeys.value.has(item[props.rowKey])
       ).length;
 
@@ -114,14 +140,14 @@ const Table = defineComponent({
     });
 
     const fixedInfo = computed(() => {
-      const headerStyles = {};
-      const bodyStyles = {};
+      const headerStyles: Record<string, CSSProperties> = {};
+      const bodyStyles: Record<string, CSSProperties> = {};
       let leftOffset = props.checkable ? 50 : 0;
 
       // 使用 flattedColumns
       flattedColumns.value.forEach((col) => {
         if (col.fixed === "left") {
-          const style = {
+          const style: CSSProperties = {
             position: "sticky",
             transform: "translateZ(0)",
             left: `${leftOffset}px`,
@@ -156,7 +182,7 @@ const Table = defineComponent({
       return { header: headerStyles, body: bodyStyles };
     });
 
-    const getFixedClass = (col, index, isHeader = false) => {
+    const getFixedClass = (col: Column, index: number, isHeader = false) => {
       const cls = [];
       if (col.fixed === "left") {
         cls.push("k-table-cell-fix-left");
@@ -216,7 +242,7 @@ const Table = defineComponent({
       if (isSplit.value) measureScrollbar();
     });
 
-    const handleSort = (col) => {
+    const handleSort = (col: Column) => {
       if (!col.sorter) return;
       if (sortState.key !== col.key) {
         sortState.key = col.key;
@@ -234,7 +260,7 @@ const Table = defineComponent({
       if (sortState.key && sortState.order) {
         const col = flattedColumns.value.find((c) => c.key === sortState.key);
         if (col && col.sorter === true) {
-          list.sort((a, b) => {
+          list.sort((a: any, b: any) => {
             const valA = a[sortState.key];
             const valB = b[sortState.key];
             if (valA === valB) return 0;
@@ -247,7 +273,7 @@ const Table = defineComponent({
 
     const toggleAll = ({ checked }) => {
       const newSet = new Set(innerSelectedKeys.value);
-      props.data.forEach((item) => {
+      props.data.forEach((item: any) => {
         const key = item[props.rowKey];
         if (!isDisabled(key)) {
           checked ? newSet.add(key) : newSet.delete(key);
@@ -257,7 +283,7 @@ const Table = defineComponent({
       emit("update:selectedKeys", Array.from(newSet));
     };
 
-    const toggleOne = (key) => {
+    const toggleOne = (key: string) => {
       if (isDisabled(key)) return;
       const newSet = new Set(innerSelectedKeys.value);
       newSet.has(key) ? newSet.delete(key) : newSet.add(key);
@@ -293,12 +319,12 @@ const Table = defineComponent({
 
       return (
         <thead>
-          {rows.map((row, rowIndex) => (
+          {rows.map((row, rowIndex: number) => (
             <tr key={rowIndex}>
               {/* Checkbox 只在第一行渲染，并根据最大深度设置 rowSpan */}
               {props.checkable && rowIndex === 0 && (
                 <th
-                  rowSpan={maxDepth}
+                  rowspan={maxDepth}
                   class={["k-table-cell-fix-left", pingLeft.value && "k-table-cell-fix-left-last"]}
                   style={{ left: 0, zIndex: 3 }} // 提高层级
                 >
@@ -308,17 +334,17 @@ const Table = defineComponent({
                     onChange={toggleAll}
                     disabled={
                       props.data.length > 0 &&
-                      props.data.every((item) => isDisabled(item[props.rowKey]))
+                      props.data.every((item:any) => isDisabled(item[props.rowKey]))
                     }
                   />
                 </th>
               )}
 
-              {row.map((col, idx) => (
+              {row.map((col: Column, idx: number) => (
                 <th
                   key={col.key || idx}
-                  colSpan={col.colSpan}
-                  rowSpan={col.rowSpan}
+                  colspan={col.colSpan as number}
+                  rowspan={col.rowSpan as number}
                   class={getFixedClass(col, idx, true)}
                   style={fixedInfo.value.header[col.key]}
                   onClick={() => handleSort(col)}
@@ -356,7 +382,7 @@ const Table = defineComponent({
               ))}
               {isSplit.value && rowIndex === 0 && (
                 <th
-                  rowSpan={maxDepth}
+                  rowspan={maxDepth}
                   class="k-table-scrollbar-patch"
                   style={{
                     // padding: 0,
@@ -376,7 +402,7 @@ const Table = defineComponent({
       const cols = flattedColumns.value;
 
       // 结构: matrix[rowIndex][colIndex] = { rowSpan: 1, colSpan: 1, show: true }
-      const matrix = [];
+      const matrix: Matrix[][] = [];
 
       if (!data.length) return matrix;
 
@@ -392,7 +418,7 @@ const Table = defineComponent({
           if (!matrix[i][j].show) continue;
 
           const record = data[i];
-          const col = cols[j];
+          const col: Column = cols[j];
 
           let rowspan = 1;
           let colspan = 1;
@@ -429,7 +455,7 @@ const Table = defineComponent({
 
     const renderTbody = () => (
       <tbody>
-        {processedData.value.map((record, rowIndex) => {
+        {processedData.value.map((record:any, rowIndex) => {
           const rowId = record[props.rowKey];
           return (
             <tr
@@ -456,7 +482,7 @@ const Table = defineComponent({
 
                 if (!cellState || !cellState.show) return null;
 
-                const attrs = {};
+                const attrs:Record<string,any> = {};
                 if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
                 if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
                 return (
@@ -482,8 +508,8 @@ const Table = defineComponent({
       </tbody>
     );
 
-    const renderTable = (isHeader, isBody) => {
-      const tableStyle = {
+    const renderTable = (isHeader:boolean, isBody:boolean) => {
+      const tableStyle:CSSProperties = {
         width:
           props.scroll.x && typeof props.scroll.x === "number"
             ? `${props.scroll.x}px`

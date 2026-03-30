@@ -125,16 +125,6 @@ export default defineComponent({
       const preCls = "tooltip";
       const { color } = props;
 
-      const cls = [
-        `k-${preCls}`,
-        {
-          [`k-${preCls}-${color}`]: color && !isColor(color),
-          [`k-${preCls}-has-color`]: isColor(color),
-          [`k-${preCls}-has-arrow`]: true,
-          [`k-${preCls}-dark`]: props.dark,
-        },
-      ];
-
       const wpProps = {
         ref: refSelection,
         onTouchstart: mouseEnter,
@@ -159,6 +149,15 @@ export default defineComponent({
       };
 
       const overlayProps = {
+        class: [
+          `k-${preCls}`,
+          {
+            [`k-${preCls}-${color}`]: color && !isColor(color),
+            [`k-${preCls}-has-color`]: isColor(color),
+            [`k-${preCls}-has-arrow`]: true,
+            [`k-${preCls}-dark`]: props.dark,
+          },
+        ],
         "k-placement": currentPlacement.value,
         style: styles,
         ref: refPopper,
@@ -193,7 +192,7 @@ export default defineComponent({
       };
       const tooltipOverlay = rendered.value ? (
         <Transition name={`k-${preCls}`}>
-          <div v-transfer={true} v-show={visible.value} class={cls} {...overlayProps}>
+          <div v-transfer={true} v-show={visible.value} {...overlayProps}>
             <div {...contentProps}>
               <div class={`k-${preCls}-title`}>{title}</div>
               <div class={`k-${preCls}-arrow`}>
