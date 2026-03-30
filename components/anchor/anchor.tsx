@@ -13,7 +13,7 @@ import {
 } from "vue";
 
 // 定义 provide/inject 的接口，确保类型安全
-export interface KAnchorInjection {
+export interface AnchorContext {
   activeLink: Ref<string>;
   registerLink: (link: string) => void;
   unregisterLink: (link: string) => void;
@@ -127,7 +127,7 @@ const Anchor = defineComponent({
       }, 600); // 略长于 smooth 动画时间
     };
 
-    provide<KAnchorInjection>("kAnchor", {
+    provide<AnchorContext>("kAnchor", {
       activeLink,
       registerLink: (link: string) => links.add(link),
       unregisterLink: (link: string) => links.delete(link),
