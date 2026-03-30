@@ -1,5 +1,5 @@
-import { ref, onMounted, onUnmounted, readonly } from "vue";
-
+import type { Ref } from "vue";
+import { onMounted, onUnmounted, readonly, ref } from "vue";
 // const screens = {
 //   xs: "(max-width: 575px)",
 //   sm: "(min-width: 576px)",
@@ -8,7 +8,7 @@ import { ref, onMounted, onUnmounted, readonly } from "vue";
 //   xl: "(min-width: 1200px)",
 //   xxl: "(min-width: 1600px)",
 // };
-const breakpointMap = {
+const breakpointMap: Record<number, string> = {
   0: "xs",
   576: "sm",
   768: "md",
@@ -18,10 +18,10 @@ const breakpointMap = {
 };
 export const GRID_KEY = Symbol("GRID_KEY");
 
-export function useBreakpoint(elRef) {
-  if (typeof window === "undefined") return;
+export function useBreakpoint(elRef: Ref<HTMLElement | null>): Ref<string> | null {
+  if (typeof window === "undefined") return null;
   const active = ref("md");
-  let rafId = null;
+  let rafId: number | null = null;
 
   const observer = new ResizeObserver((entries) => {
     if (rafId) cancelAnimationFrame(rafId);
