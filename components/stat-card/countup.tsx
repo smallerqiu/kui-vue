@@ -1,13 +1,13 @@
 import { defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
-import { CountUp } from "./countup.js";
+import { CountUp } from "./utils/countup";
 const CountUpNumber = defineComponent({
   name: "CountUpNumber",
   props: {
     modelValue: {
-      type: Number,
+      type: [Number],
       required: true,
     },
-    separator: String,
+    separator: { type: String, default: "," },
     duration: {
       type: Number,
       default: 1.2,
@@ -15,15 +15,17 @@ const CountUpNumber = defineComponent({
     precision: { type: Number, default: 0 },
   },
   setup(props) {
-    const el = ref(null);
-    let countUp;
+    const el = ref<HTMLElement>();
+    let countUp: CountUp | null = null;
     onMounted(() => {
-      countUp = new CountUp(el.value, props.modelValue, {
-        duration: props.duration,
-        separator: props.separator || ",",
-        decimalPlaces: props.precision,
-      });
-      countUp.start();
+      if (el.value) {
+        countUp = new CountUp(el.value, props.modelValue, {
+          duration: props.duration,
+          separator: props.separator || ",",
+          decimalPlaces: props.precision,
+        });
+        countUp.start();
+      }
     });
     onUnmounted(() => {
       countUp = null;

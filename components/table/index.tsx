@@ -12,7 +12,7 @@ interface Column {
   width?: number;
   fixed?: "left" | "right";
   sorter?: boolean | ((state: SortState) => void);
-  render?: (h:any,record: any,colIndex:number) => void;
+  render?: (h: any, record: any, colIndex: number) => void;
   colSpan?: number | ((record: any, index: number) => number);
   rowSpan?: number | ((record: any, index: number) => number);
   children?: Column[];
@@ -182,7 +182,7 @@ const Table = defineComponent({
       return { header: headerStyles, body: bodyStyles };
     });
 
-    const getFixedClass = (col: Column, index: number, isHeader = false) => {
+    const getFixedClass = (col: Column, index: number) => {
       const cls = [];
       if (col.fixed === "left") {
         cls.push("k-table-cell-fix-left");
@@ -199,8 +199,8 @@ const Table = defineComponent({
     };
 
     let scrollRafId = 0;
-    const handleBodyScroll = (e) => {
-      const target = e?.target;
+    const handleBodyScroll = (target: HTMLElement) => {
+      // const target = e?.target;
       if (!target) return;
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
       scrollRafId = requestAnimationFrame(() => {
@@ -232,9 +232,9 @@ const Table = defineComponent({
     onMounted(() => {
       if (isSplit.value) {
         measureScrollbar();
-        if (bodyWrapperRef.value) handleBodyScroll({ target: bodyWrapperRef.value });
+        if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
       } else if (bodyWrapperRef.value) {
-        handleBodyScroll({ target: bodyWrapperRef.value });
+        handleBodyScroll(bodyWrapperRef.value);
       }
     });
 
@@ -271,7 +271,7 @@ const Table = defineComponent({
       return list;
     });
 
-    const toggleAll = ({ checked }) => {
+    const toggleAll = ({ checked }: { checked: boolean }) => {
       const newSet = new Set(innerSelectedKeys.value);
       props.data.forEach((item: any) => {
         const key = item[props.rowKey];
@@ -334,7 +334,7 @@ const Table = defineComponent({
                     onChange={toggleAll}
                     disabled={
                       props.data.length > 0 &&
-                      props.data.every((item:any) => isDisabled(item[props.rowKey]))
+                      props.data.every((item: any) => isDisabled(item[props.rowKey]))
                     }
                   />
                 </th>
@@ -345,7 +345,7 @@ const Table = defineComponent({
                   key={col.key || idx}
                   colspan={col.colSpan as number}
                   rowspan={col.rowSpan as number}
-                  class={getFixedClass(col, idx, true)}
+                  class={getFixedClass(col, idx)}
                   style={fixedInfo.value.header[col.key]}
                   onClick={() => handleSort(col)}
                 >
@@ -455,7 +455,7 @@ const Table = defineComponent({
 
     const renderTbody = () => (
       <tbody>
-        {processedData.value.map((record:any, rowIndex) => {
+        {processedData.value.map((record: any, rowIndex) => {
           const rowId = record[props.rowKey];
           return (
             <tr
@@ -482,7 +482,7 @@ const Table = defineComponent({
 
                 if (!cellState || !cellState.show) return null;
 
-                const attrs:Record<string,any> = {};
+                const attrs: Record<string, any> = {};
                 if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
                 if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
                 return (
@@ -508,8 +508,8 @@ const Table = defineComponent({
       </tbody>
     );
 
-    const renderTable = (isHeader:boolean, isBody:boolean) => {
-      const tableStyle:CSSProperties = {
+    const renderTable = (isHeader: boolean, isBody: boolean) => {
+      const tableStyle: CSSProperties = {
         width:
           props.scroll.x && typeof props.scroll.x === "number"
             ? `${props.scroll.x}px`
@@ -567,7 +567,7 @@ const Table = defineComponent({
                 : props.scroll.y
               : undefined,
           }}
-          onScroll={handleBodyScroll}
+          onScroll={(e) => handleBodyScroll(e.target as HTMLDivElement)}
         >
           {renderTable(!isSplit.value, true)}
           {isEmpty && <Empty description={props.emptyText} />}
