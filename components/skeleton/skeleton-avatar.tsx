@@ -1,20 +1,17 @@
 import { defineComponent, ref, watch } from "vue";
 
+import type { CSSProperties } from "vue";
+
+import { skeletonProps } from "./types";
+
 const SkeletonAvatar = defineComponent({
   name: "SkeletonAvatar",
-  props: {
-    animated: Boolean,
-    radius: Number,
-    loading: Boolean,
-    delay: { type: Number, default: 500 },
-    shape: String,
-    size: [Number, String],
-  },
-  setup(ps, { slots }) {
-    const show = ref(ps.loading);
+  props: skeletonProps,
+  setup(props, { slots }) {
+    const show = ref(props.loading);
     const timer = ref();
     watch(
-      () => ps.loading,
+      () => props.loading,
       (v) => {
         if (v) {
           show.value = v;
@@ -22,14 +19,14 @@ const SkeletonAvatar = defineComponent({
           clearTimeout(timer.value);
           timer.value = setTimeout(() => {
             show.value = v;
-          }, ps.delay);
+          }, props.delay);
         }
       }
     );
 
     return () => {
-      let { size, animated, radius, shape } = ps;
-      let props = {
+      let { size, animated, radius, shape } = props;
+      let _props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -46,7 +43,7 @@ const SkeletonAvatar = defineComponent({
             [`k-skeleton-avatar-${shape}`]: shape != "default",
           },
         ],
-        style: {},
+        style: {} as CSSProperties,
       };
       let child = slots.default?.();
 
@@ -57,7 +54,7 @@ const SkeletonAvatar = defineComponent({
       if (radius) {
         innerProps.style["border-radius"] = `${radius}px`;
       }
-      return <div {...props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+      return <div {..._props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
     };
   },
 });

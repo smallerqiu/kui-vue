@@ -1,15 +1,10 @@
-import { defineComponent, ref, watch } from "vue";
+import { ImagesOutline } from "kui-icons";
+import { type CSSProperties, defineComponent, ref, watch } from "vue";
 import Icon from "../icon";
-
+import { skeletonProps } from "./types";
 const SkeletonImage = defineComponent({
   name: "SkeletonImage",
-  props: {
-    animated: Boolean,
-    loading: Boolean,
-    delay: { type: Number, default: 500 },
-    radius: Number,
-    size: [Number, Array],
-  },
+  props: skeletonProps,
   setup(ps, { slots }) {
     const show = ref(ps.loading);
     const timer = ref();
@@ -38,7 +33,7 @@ const SkeletonImage = defineComponent({
       };
       let innerProps = {
         class: ["k-skeleton-image"],
-        style: {},
+        style: {} as CSSProperties,
         // style: {
         //   'border-radius': radius ? radius + 'px' : ''
         // }
@@ -64,7 +59,7 @@ const SkeletonImage = defineComponent({
             child
           ) : (
             <span {...innerProps}>
-              <Icon type="image-outline" class="k-skeleton-image-icon" />
+              <Icon type={ImagesOutline} class="k-skeleton-image-icon" />
             </span>
           )}
         </div>
