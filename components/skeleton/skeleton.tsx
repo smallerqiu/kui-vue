@@ -1,15 +1,12 @@
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, type ExtractPropTypes, ref, watch } from "vue";
+
+import { skeletonProps } from './types';
+
+export type SkeletonProps = ExtractPropTypes<typeof skeletonProps>;
 
 const Skeleton = defineComponent({
   name: "Skeleton",
-  props: {
-    animated: Boolean,
-    avatar: [Boolean, Object],
-    loading: Boolean,
-    title: { type: Number, default: 35 },
-    delay: { type: Number, default: 500 },
-    rows: { type: Number, default: 3 },
-  },
+  props: skeletonProps,
   setup(ps, { slots }) {
     const show = ref(ps.loading);
     const timer = ref();

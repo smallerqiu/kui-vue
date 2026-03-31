@@ -1,21 +1,16 @@
+import type { CSSProperties } from "vue";
 import { defineComponent, ref, watch } from "vue";
+
+import { skeletonProps } from "./types";
 
 const SkeletonButton = defineComponent({
   name: "SkeletonButton",
-  props: {
-    animated: Boolean,
-    block: Boolean,
-    loading: Boolean,
-    delay: { type: Number, default: 500 },
-    shape: String,
-    size: String,
-    width: Number,
-  },
-  setup(ps, { slots }) {
-    const show = ref(ps.loading);
+  props: skeletonProps,
+  setup(props, { slots }) {
+    const show = ref(props.loading);
     const timer = ref();
     watch(
-      () => ps.loading,
+      () => props.loading,
       (v) => {
         if (v) {
           show.value = v;
@@ -23,13 +18,13 @@ const SkeletonButton = defineComponent({
           clearTimeout(timer.value);
           timer.value = setTimeout(() => {
             show.value = v;
-          }, ps.delay);
+          }, props.delay);
         }
       }
     );
     return () => {
-      let { size, animated, block, shape, show, width } = ps;
-      let props = {
+      let { size, animated, block, shape, width } = props;
+      let _props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -47,14 +42,14 @@ const SkeletonButton = defineComponent({
             [`k-skeleton-btn-${shape}`]: shape != "default",
           },
         ],
-        style: {},
+        style: {} as CSSProperties,
       };
       let child = slots.default?.();
 
       if (width) {
         innerProps.style.width = `${width}px`;
       }
-      return <div {...props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+      return <div {..._props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
     };
   },
 });
