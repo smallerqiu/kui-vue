@@ -1,11 +1,11 @@
-import { defineComponent, ref, computed } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import Tooltip from "../tooltip";
 
 export default defineComponent({
   props: {
-    value: Number,
-    min: Number,
-    max: Number,
+    value: { type: Number, required: true },
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 100 },
     vertical: Boolean,
     size: [String, Number],
     reverse: Boolean,
@@ -17,7 +17,7 @@ export default defineComponent({
   emits: ["dragStart", "keydownUpdate"],
   setup(props, { emit, expose }) {
     const isHover = ref(false);
-    const elRef = ref(null);
+    const elRef = ref<HTMLElement>();
 
     expose({
       focus: () => {
@@ -49,7 +49,7 @@ export default defineComponent({
         : { left: position, transform: "translate(-50%, -50%)" }; // 正向：translateX(-50%)
     });
 
-    const handleDown = (e) => {
+    const handleDown = (e: MouseEvent | TouchEvent) => {
       if (props.disabled) return;
       e.preventDefault(); // 防止选中文本
       e.stopPropagation();
@@ -61,6 +61,23 @@ export default defineComponent({
         ? props.tipFormatter(props.value)
         : String(props.value);
       const showTooltip = props.tooltipVisible === true ? true : props.dragging || isHover.value;
+      const thumpProps = {
+        class: [
+          "k-slider-thumb",
+          {
+            "is-dragging": props.dragging,
+            "k-slider-thumb-sm": props.size === "small",
+          },
+        ],
+        style: thumbStyle.value,
+        ref: elRef,
+        tabindex: props.disabled ? undefined : 0,
+        onMousedown: handleDown,
+        onTouchstart: handleDown,
+        onKeydown: (e: KeyboardEvent) => emit("keydownUpdate", e),
+        onMouseenter: () => (isHover.value = true),
+        onMouseleave: () => (isHover.value = false),
+      };
       return (
         <Tooltip
           title={displayValue}
@@ -68,23 +85,7 @@ export default defineComponent({
           show={showTooltip && !props.disabled}
           placement={props.vertical ? "right" : "top"}
         >
-          <div
-            class={[
-              "k-slider-thumb",
-              {
-                "is-dragging": props.dragging,
-                "k-slider-thumb-sm": props.size === "small",
-              },
-            ]}
-            style={thumbStyle.value}
-            ref={elRef}
-            tabindex={props.disabled ? null : 0}
-            onMousedown={handleDown}
-            onTouchstart={handleDown}
-            onKeydown={(e) => emit("keydownUpdate", e)}
-            onMouseenter={() => (isHover.value = true)}
-            onMouseleave={() => (isHover.value = false)}
-          />
+          <div {...thumpProps} />
         </Tooltip>
       );
     };
