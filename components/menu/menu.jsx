@@ -9,7 +9,7 @@ const Menu = defineComponent({
     mode: { type: String, default: "vertical" },
     modelValue: { type: Array, default: () => [] },
     value: { type: Array, default: () => [] },
-    // selectedKeys: { type: Array, default: () => [] },  // for 3
+    // selectedKeys: { type: Array, default: () => [] },  
     accordion: Boolean,
     items: Array,
     inlineCollapsed: Boolean,
@@ -29,7 +29,7 @@ const Menu = defineComponent({
     const dropdown = inject("dropdown", null);
 
     watch(
-      // () => props.selectedKeys, // for 3
+      // () => props.selectedKeys, 
       () => props.modelValue,
       (value) => {
         defaultSelectedKeys.value = value;
@@ -82,7 +82,7 @@ const Menu = defineComponent({
         defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
       emit("update:value", defaultSelectedKeys.value);
-      // emit("update:selectedKeys", defaultSelectedKeys.value); // for 3
+      // emit("update:selectedKeys", defaultSelectedKeys.value); 
       emit("select", { key, keyPath });
 
       if (

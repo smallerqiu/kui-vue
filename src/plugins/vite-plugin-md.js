@@ -82,7 +82,7 @@ export default function vitePluginMd() {
 
       if (m) {
         const block = m[1].trim();
-        //for 3
+        
         const { descriptor } = parse(block);
         const { template, script, scriptSetup, styles } = descriptor;
 

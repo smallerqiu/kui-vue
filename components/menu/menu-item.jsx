@@ -22,7 +22,7 @@ const MenuItem = defineComponent({
     const mode = inject("menu-mode", null);
     const dropdown = inject("dropdown", null);
     const active = ref(false);
-    const key = instance.vnode.key; //for 3
+    const key = instance.vnode.key; 
     const keyPah = inject("menu-key-path", []);
     const selectedKeysChange = inject("selectedKeysChange", null);
     // const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
@@ -50,7 +50,7 @@ const MenuItem = defineComponent({
               : null,
         },
         onMouseenter: () => {
-          //for 3
+          
           if (disabled) return;
           active.value = true;
         },

@@ -67,7 +67,7 @@ export default defineComponent({
   emits: ["update:modelValue", "change", "select", "openChange", "search"],
   setup(props, { slots, emit, attrs }) {
     const locale = computed(() => {
-      const injectedLocale = inject("locale", zhCN);
+      const injectedLocale = inject<Record<string,any>>("locale", zhCN);
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
         : injectedLocale;

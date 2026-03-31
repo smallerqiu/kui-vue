@@ -171,8 +171,8 @@ const Form = defineComponent({
           autocomplete="off"
         >
           {children.map((child) => {
-            const childLabelCol = child.props?.labelCol || labelCol; // for 3
-            const childWrapperCol = child.props?.wrapperCol || wrapperCol; // for 3
+            const childLabelCol = child.props?.labelCol || labelCol; 
+            const childWrapperCol = child.props?.wrapperCol || wrapperCol; 
 
             return cloneVNode(
               child,

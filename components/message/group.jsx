@@ -1,11 +1,11 @@
-import Notice from "./inner";
+import { defineComponent, ref, TransitionGroup } from "vue";
 import { getTransitionProp } from "../base/transition";
+import Notice from "./inner";
 let count = 0;
 function getUuid() {
   const timestamp = Date.now();
   return `k-message-${timestamp}-${count++}`;
 }
-import { defineComponent, TransitionGroup, ref } from "vue";
 export default defineComponent({
   props: { type: String },
   setup(ps, { expose }) {
@@ -41,7 +41,7 @@ export default defineComponent({
       let transitionProps = { name: `k-${type}-slide` };
       if (type == "notice") {
         transitionProps = getTransitionProp(`k-${type}-slide`);
-        delete transitionProps.onEnter; //for 3
+        delete transitionProps.onEnter; 
         delete transitionProps.onBeforeEnter;
         transitionProps.onBeforeLeave = (el) => {
           el.style.height = window.getComputedStyle(el).height;
@@ -50,7 +50,7 @@ export default defineComponent({
       }
 
       let children = group.value.map((item, i) => {
-        let props = { ...item }; //for 3
+        let props = { ...item }; 
         return <Notice {...props} />;
       });
       return (

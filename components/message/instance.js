@@ -1,6 +1,6 @@
 import { createVNode, render } from "vue";
-import Group from "./group";
 import { getAppContext } from "../config/context";
+import Group from "./group";
 
 const newInstance = (props = {}, context = null) => {
   const containerId = `k-${props.type}-box`;
@@ -13,7 +13,7 @@ const newInstance = (props = {}, context = null) => {
   const vm = createVNode(Group, props);
   vm.appContext = context?.appContext || getAppContext()?.appContext;
   render(vm, container);
-  const instance = vm.component?.exposed; // for 3
+  const instance = vm.component?.exposed; 
   instance.destroy = () => {
     render(null, container);
     if (container.parentNode) {
