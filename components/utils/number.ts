@@ -24,7 +24,7 @@ export const normalize = (val: any, precision?: number) => {
   return precision !== undefined ? b.toFixed(precision) : b.toFixed();
 };
 
-export const isValidBig = (val:any) => {
+export const isValidBig = (val: any) => {
   if (val === null || val === undefined || val === "") return false;
 
   const str = String(val).trim();
@@ -38,7 +38,7 @@ export const isValidBig = (val:any) => {
   }
 };
 
-const toBigSafe = (val:any) => {
+const toBigSafe = (val: any) => {
   try {
     if (val === null || val === undefined || val === "") {
       throw new Error();
@@ -50,7 +50,9 @@ const toBigSafe = (val:any) => {
   }
 };
 
-export const getClosestStep = (val:number, { min, max, step, marks }) => {
+import type { SliderProps } from "../slider";
+
+export const getClosestStep = (val: number, { min, max, step, marks }: SliderProps) => {
   const bMin = toBigSafe(min);
   const bMax = toBigSafe(max);
   const bVal = toBigSafe(val);
