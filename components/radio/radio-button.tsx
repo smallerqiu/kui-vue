@@ -1,25 +1,32 @@
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
+import type { IconType } from "../icon";
+
+export const radioButtonProps = {
+  modelValue: { type: [Boolean], default: false },
+  label: { type: String },
+  value: { type: [String, Number] },
+  theme: String,
+  disabled: Boolean,
+  checked: Boolean,
+  icon: Array as PropType<IconType[]>,
+  size: {
+    type: String as PropType<"small" | "large" | "default">,
+    default: "default",
+  },
+  shape: {
+    type: String as PropType<"circle" | "square">,
+    default: "square",
+  },
+};
+
+export type RadioButtonProps = ExtractPropTypes<typeof radioButtonProps>;
 
 const RadioButton = defineComponent({
   name: "RadioButton",
-  props: {
-    // [Vue 3 Upgrade]
-    modelValue: { type: [Boolean], default: false },
-    label: { type: [String, Number] },
-    value: { type: [String, Number] },
-    theme: String,
-    disabled: Boolean,
-    checked: Boolean,
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
-  },
-
-  setup(props, { slots, emit, attrs, listeners }) {
+  props: radioButtonProps,
+  emits: ["change", "update:modelValue"],
+  setup(props, { slots, emit, attrs }) {
     const isChecked = ref(props.modelValue || props.checked);
     watch(
       () => props.modelValue,
@@ -35,7 +42,7 @@ const RadioButton = defineComponent({
     );
 
     const labelText = props.label || slots.default?.();
-    const handleClick = (e) => {
+    const handleClick = (e: Event) => {
       if (props.disabled || isChecked.value) return;
 
       const checked = !isChecked.value;
@@ -51,7 +58,7 @@ const RadioButton = defineComponent({
     };
 
     return () => {
-      const buttonProps = {
+      const buttonProps: Record<string, any> = {
         ...props,
         disabled: props.disabled,
         size: props.size,
@@ -59,13 +66,8 @@ const RadioButton = defineComponent({
         shape: props.shape,
         type: isChecked.value ? "primary" : "default",
         ...attrs,
-        ...listeners,
         onClick: handleClick,
       };
-
-      if (props.theme == "default") {
-        delete buttonProps.theme;
-      }
 
       return <Button {...buttonProps}>{labelText}</Button>;
     };
