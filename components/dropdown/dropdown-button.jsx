@@ -28,7 +28,6 @@ const DropdownButton = defineComponent({
           placement={ps.placement}
           target={refTrigger}
           disabled={ps.disabled}
-          // v-slots={{ //for 3
           v-slots={{
             default: () => (
               <ButtonGroup

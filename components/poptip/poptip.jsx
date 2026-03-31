@@ -135,7 +135,7 @@ const Poptip = defineComponent({
       ];
       const wpProps = {
         ref: refSelection,
-        onMouseleave: hide, //for 3
+        onMouseleave: hide, 
       };
       if (ps.trigger === "click") {
         // wpProps.onClick = show; for
@@ -206,7 +206,7 @@ const Poptip = defineComponent({
           // ) : null;
         );
       }
-      return childNodes; //for 3
+      return childNodes; 
     };
   },
 });

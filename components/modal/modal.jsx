@@ -18,8 +18,8 @@ const Modal = defineComponent({
   name: "Modal",
   directives: { transfer },
   props: {
-    // show: Boolean, //for 3
-    modelValue: Boolean, //for 2
+    // show: Boolean, 
+    modelValue: Boolean, 
     title: String,
     okText: String,
     cancelText: String,

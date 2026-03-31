@@ -1,24 +1,23 @@
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 
+export const radioProps = {
+  modelValue: { type: [Boolean, String, Number], default: null },
+  value: { type: [String, Number, Boolean] },
+  label: { type: [String, Number] },
+  checked: Boolean,
+  disabled: Boolean,
+  theme: String,
+  size: {
+    type: String as PropType<"small" | "large" | "default">,
+    default: "default",
+  },
+};
+
+export type RadioProps = ExtractPropTypes<typeof radioProps>;
 
 const Radio = defineComponent({
   name: "Radio",
-  props: {
-    // [Vue 3 Upgrade]
-    modelValue: { type: [Boolean, String, Number], default: null },
-    value: { type: [String, Number, Boolean] },
-    label: { type: [String, Number] },
-    checked: Boolean,
-    disabled: Boolean,
-    theme: String,
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
-  },
-
+  props: radioProps,
   setup(props, { slots, emit }) {
     const isChecked = ref(props.modelValue || props.checked);
     // const theme = inject("theme", null);
@@ -46,7 +45,7 @@ const Radio = defineComponent({
       emit("update:modelValue", checked);
       emit("update:checked", checked);
     };
-    const onChange = (e) => {
+    const onChange = (e: Event) => {
       if (props.disabled || isChecked.value) return;
       e.stopPropagation();
       e.preventDefault();
@@ -76,7 +75,7 @@ const Radio = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={classes} tabindex={props.disabled ? null : 0} onKeydown={triggerCheck}>
+        <label class={classes} tabindex={props.disabled ? undefined : 0} onKeydown={triggerCheck}>
           <span class="k-radio-symbol">
             <input
               type="radio"

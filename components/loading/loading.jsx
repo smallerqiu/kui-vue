@@ -106,7 +106,7 @@ const createInstance = (props = {}, context) => {
   render(vm, container);
   vm.appContext = context?.appContext || getAppContext()?.appContext;
 
-  const instance = vm.component?.exposed; // for 3
+  const instance = vm.component?.exposed; 
   instance.destroy = () => {
     render(null, container);
     if (container.parentNode) {

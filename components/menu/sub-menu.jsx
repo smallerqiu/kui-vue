@@ -141,7 +141,7 @@ const SubMenu = defineComponent({
       const children = getChildren(slots.default?.());
       const menuItems = children.map((child) => {
         // if (child.type.name == "MenuItem") {
-        return cloneVNode(child, { isPopup: true }); //for 3
+        return cloneVNode(child, { isPopup: true }); 
         // }
       });
       return rendered.value ? (

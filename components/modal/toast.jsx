@@ -122,7 +122,7 @@ export default defineComponent({
       return (
         <Modal
           class={classes}
-          v-model={visible.value} //for 3
+          v-model={visible.value} 
           maskClosable={false}
           transfer={false}
           v-slots={{

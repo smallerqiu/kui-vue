@@ -154,7 +154,7 @@ const Popconfirm = defineComponent({
       ];
       const wpProps = {
         ref: refSelection,
-        onClick: mouseEnter, //for 3
+        onClick: mouseEnter, 
       };
       const children = getChildren(slots.default?.());
       const nodes = children?.map((node) => {
@@ -173,7 +173,7 @@ const Popconfirm = defineComponent({
       };
       const childNodes = [nodeWrapper];
       const props = {
-        "k-placement": currentPlacement.value, //for 3
+        "k-placement": currentPlacement.value, 
         style: styles,
         ref: refPopper,
         onMouseenter: () => {
@@ -230,7 +230,7 @@ const Popconfirm = defineComponent({
           // ) : null;
         );
       }
-      return childNodes; //for 3
+      return childNodes; 
     };
   },
 });
