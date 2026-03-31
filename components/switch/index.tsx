@@ -1,35 +1,39 @@
 import { Loading } from "kui-icons";
+import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
 import Icon from "../icon";
 
+export const switchProps = {
+  checked: [Boolean, Number],
+  modelValue: [Boolean, Number],
+  type: String,
+  disabled: Boolean,
+  loading: Boolean,
+  size: {
+    default: "default",
+    type: String as PropType<"small" | "default" | "large">,
+  },
+  trueText: String,
+  falseText: String,
+};
+
+export type SwitchProps = ExtractPropTypes<typeof switchProps>;
+
 const Switch = defineComponent({
   name: "KSwitch",
-  props: {
-    checked: [Boolean, Number], //for 3
-    modelValue: [Boolean, Number], //for 2
-    type: String,
-    disabled: Boolean,
-    loading: Boolean,
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "default", "large"].indexOf(value) >= 0;
-      },
-    },
-    trueText: String,
-    falseText: String,
-  },
+  props: switchProps,
+  emits: ["update:modelValue", "change"],
   setup(ps, { slots, emit }) {
     const isChecked = ref(ps.modelValue || ps.checked);
     watch(
       () => ps.modelValue,
-      (nv, no) => {
+      (nv) => {
         isChecked.value = nv;
       }
     );
     watch(
       () => ps.checked,
-      (nv, no) => {
+      (nv) => {
         isChecked.value = nv;
       }
     );
@@ -39,7 +43,7 @@ const Switch = defineComponent({
       }
       const checked = !isChecked.value;
       isChecked.value = checked;
-      emit("update:modelValue", checked); //for 2
+      emit("update:modelValue", checked);
       emit("change", checked);
     };
 

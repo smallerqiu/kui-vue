@@ -1,24 +1,39 @@
+import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
-import StatNumber from "./stat-number.jsx";
+import StatNumber from "./stat-number";
+
+interface StatNumberItem {
+  value: number;
+  duration?: number;
+  precision?: number;
+  separator?: string;
+  prefix?: string;
+  suffix?: string;
+  desc?: string;
+}
+
+export const statCardProps = {
+  title: String,
+  precision: { type: Number, default: 0 },
+  items: { type: Array as PropType<StatNumberItem[]>, default: () => [] },
+  separator: String,
+  statNumberType: String as PropType<"rollup" | "countup">,
+  reverse: Boolean,
+  bordered: { type: Boolean, default: false },
+};
+
+export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
 
 const StatCard = defineComponent({
   name: "StatCard",
-  props: {
-    title: String,
-    precision: { type: Number, default: 0 },
-    items: { type: Array, default: () => [] },
-    separator: String,
-    statNumberType: String,
-    reverse: Boolean,
-    bordered: { type: Boolean, default: false },
-  },
+  props: statCardProps,
   setup(props, { slots }) {
     return () => {
       return (
         <div class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}>
           {props.title && <div class="k-stat-card-title">{props.title}</div>}
           <div class="k-stat-card-items">
-            {(props.items || []).map((item, index) => {
+            {(props.items || []).map((item: StatNumberItem, index) => {
               return (
                 <div
                   key={index}
