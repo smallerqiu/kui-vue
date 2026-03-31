@@ -1,28 +1,30 @@
-import { computed, defineComponent, ref, watch } from "vue";
-import { getChildren } from "../utils/vnode.js";
-import RadioButton from "./radio-button.jsx";
-import Radio from "./radio.js";
+import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import { getChildren } from "../utils/vnode";
+import Radio, { type RadioProps } from "./radio";
+import RadioButton from "./radio-button";
+
+export const radioGroupProps = {
+  modelValue: { type: [String, Number], default: "" },
+  disabled: Boolean,
+  direction: {
+    type: String as PropType<"horizontal" | "vertical">,
+    default: "horizontal",
+  },
+  size: {
+    type: String as PropType<"small" | "large" | "default">,
+  },
+  theme: String,
+  shape: String as PropType<"circle" | "square">,
+  options: Array as PropType<RadioProps[]>,
+  type: String,
+};
+
+export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
 
 const RadioGroup = defineComponent({
   name: "RadioGroup",
-  props: {
-    modelValue: { type: [String, Number, Boolean], default: "" },
-    disabled: Boolean,
-    direction: {
-      type: String,
-      default: "horizontal",
-      validator: (val) => ["horizontal", "vertical"].indexOf(val) >= 0,
-    },
-    size: {
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
-    theme: String,
-    shape: String,
-    options: Array,
-    type: String, // 'button' or default
-  },
+  props: radioGroupProps,
+  emits: ["update:modelValue", "change"],
   setup(props, { slots, emit }) {
     const currentValue = ref(props.modelValue);
     const onChange = ({ value }) => {
@@ -41,9 +43,9 @@ const RadioGroup = defineComponent({
       if (!options) {
         options = [];
         const children = getChildren(slots.default?.());
-        children.forEach((child, index) => {
+        children.forEach((child) => {
           let { label, value, disabled, icon } = child.props;
-          options.push({
+          options?.push({
             value,
             icon,
             disabled,

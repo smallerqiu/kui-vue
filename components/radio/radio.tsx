@@ -1,12 +1,14 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
+import type { IconType } from "../icon";
 
 export const radioProps = {
-  modelValue: { type: [Boolean, String, Number], default: null },
+  modelValue: { type: [Boolean, String, Number], default: false },
   value: { type: [String, Number, Boolean] },
-  label: { type: [String, Number] },
+  label: { type: [String] },
   checked: Boolean,
   disabled: Boolean,
   theme: String,
+  icon: Array as PropType<IconType[]>,
   size: {
     type: String as PropType<"small" | "large" | "default">,
     default: "default",
@@ -18,8 +20,9 @@ export type RadioProps = ExtractPropTypes<typeof radioProps>;
 const Radio = defineComponent({
   name: "Radio",
   props: radioProps,
+  emits: ["update:modelValue", "change", "update:checked"],
   setup(props, { slots, emit }) {
-    const isChecked = ref(props.modelValue || props.checked);
+    const isChecked = ref<any>(props.modelValue || props.checked);
     // const theme = inject("theme", null);
     // console.log(props.theme,theme)
     watch(
@@ -35,7 +38,7 @@ const Radio = defineComponent({
       }
     );
 
-    const emitValue = (checked) => {
+    const emitValue = (checked: boolean) => {
       isChecked.value = checked;
       emit("change", {
         checked: checked,
@@ -49,10 +52,10 @@ const Radio = defineComponent({
       if (props.disabled || isChecked.value) return;
       e.stopPropagation();
       e.preventDefault();
-      const checked = e.target.checked;
+      const checked = (e.target as HTMLInputElement).checked;
       emitValue(checked);
     };
-    const triggerCheck = (e) => {
+    const triggerCheck = (e: KeyboardEvent) => {
       if (e.code == "Space") {
         e.preventDefault();
         e.stopPropagation();
