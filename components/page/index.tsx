@@ -1,37 +1,45 @@
 import { ChevronDoubleBack, ChevronDoubleForward, ChevronUp, Ellipsis } from "kui-icons";
-import { computed, defineComponent, inject, nextTick, ref, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType
+} from "vue";
 import Icon from "../icon";
-import { Input } from "../input";
+import InputNumber from "../input-number";
+import zhCN from "../locale/zh-CN";
 import { Select } from "../select";
 
+export const pageProps = {
+  disabled: Boolean,
+  showSizer: Boolean,
+  showTotal: { type: Boolean, default: true },
+  showElevator: Boolean,
+  theme: { type: String, default: "light" },
+  sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
+  size: {
+    default: "default",
+    type: String as PropType<"small" | "large" | "default">,
+  },
+  total: { default: 0, type: Number },
+  pageSize: { default: 10, type: Number },
+  page: { default: 1, type: Number },
+};
+export type PageProps = ExtractPropTypes<typeof pageProps>;
 
-import zhCN from "../locale/zh-CN";
 const Page = defineComponent({
   name: "Page",
-  props: {
-    disabled: Boolean,
-    showSizer: Boolean,
-    showTotal: { type: Boolean, default: true },
-    showElevator: Boolean,
-    theme: { type: String, default: "light" },
-    sizeData: { type: Array, default: () => [10, 15, 20, 30, 40] },
-    size: {
-      default: "default",
-      validator(value) {
-        return ["small", "large", "default"].indexOf(value) >= 0;
-      },
-    },
-    total: { default: 0, type: Number },
-    pageSize: { default: 10, type: Number },
-    page: { default: 1, type: Number },
-  },
+  props: pageProps,
   setup(ps, { emit }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
     const defaultPage = ref(ps.page);
     const defaultPageSize = ref(ps.pageSize);
-    const injectedLocale = inject("locale", zhCN);
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
@@ -47,7 +55,7 @@ const Page = defineComponent({
     );
     watch(
       () => ps.total,
-      (v) => {
+      () => {
         resetPage();
       }
     );
@@ -104,7 +112,7 @@ const Page = defineComponent({
         let prop = {
           class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
-          onClick: () => toPage(p),
+          onClick: (e: MouseEvent) => toPage(e, p),
         };
         return (
           <li {...prop}>
@@ -118,7 +126,7 @@ const Page = defineComponent({
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (prevPageGroup.value = true),
           onMouseleave: () => (prevPageGroup.value = false),
-          onClick: () => toPage(defaultPage.value - 5),
+          onClick: (e: MouseEvent) => toPage(e, defaultPage.value - 5),
         };
         const moreNode = (
           <li {...p}>
@@ -132,7 +140,7 @@ const Page = defineComponent({
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (nextPageGroup.value = true),
           onMouseleave: () => (nextPageGroup.value = false),
-          onClick: () => toPage(defaultPage.value + 5),
+          onClick: (e: MouseEvent) => toPage(e, defaultPage.value + 5),
         };
         const moreNode = (
           <li {...p}>
@@ -159,7 +167,8 @@ const Page = defineComponent({
         emit("change", defaultPage.value, defaultPageSize.value);
       }
     };
-    const toPage = (page) => {
+    const toPage = (e: MouseEvent, page: number) => {
+      e.preventDefault();
       if (ps.disabled) return;
       if (page == defaultPage.value) return;
       if (page <= 1) {
@@ -174,7 +183,7 @@ const Page = defineComponent({
       emit("update:page", page);
       emit("change", defaultPage.value, defaultPageSize.value);
     };
-    const changeSize = (value) => {
+    const changeSize = (value: number) => {
       defaultPageSize.value = value;
       pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
@@ -188,7 +197,7 @@ const Page = defineComponent({
         return (
           <li
             class={["k-pager-item", { "k-pager-item-active": defaultPage.value == 1 }]}
-            onClick={() => toPage(1)}
+            onClick={(e) => toPage(e, 1)}
           >
             <span>1</span>
           </li>
@@ -202,7 +211,7 @@ const Page = defineComponent({
         return (
           <li
             class={["k-pager-item", { "k-pager-item-active": defaultPage.value == pCount }]}
-            onClick={(e) => toPage(pCount)}
+            onClick={(e) => toPage(e, pCount)}
           >
             <span>{pCount}</span>
           </li>
@@ -234,13 +243,10 @@ const Page = defineComponent({
         disabled: ps.disabled,
         clearable: false,
         // value: defaultPage.value,
-        onChange: (e) => {
-          let page = e.target.value;
-          if (Number(page) == NaN) {
-            e.target.value = "";
+        onChange: (page:number) => {
+          if (page == undefined) {
             return;
           }
-          page = Number(page);
 
           let pCount = pageCount.value;
           if (page > pCount) page = pCount;
@@ -251,19 +257,12 @@ const Page = defineComponent({
             emit("update:page", page);
             emit("change", page, defaultPageSize.value);
           }
-          nextTick(() => {
-            e.target.value = "";
-          });
-          e.stopPropagation();
         },
-        // onChange: (e) => {
-        //   // e.stopPropagation();
-        // },
       };
       return ps.showElevator ? (
         <div class="k-page-options">
           <span>{locale.value?.k.page.goto}</span>
-          <Input {...props} />
+          <InputNumber {...props} />
           <span>{locale.value?.k.page.page}</span>
         </div>
       ) : null;

@@ -19,17 +19,16 @@ export const colors = [
   "gray",
 ];
 
-export const placements = [
-  "top",
-  "top-left",
-  "top-right",
-  "bottom",
-  "bottom-left",
-  "bottom-right",
-  "left",
-  "left-bottom",
-  "left-top",
-  "right",
-  "right-top",
-  "right-bottom",
-];
+export type placements =
+  | "top"
+  | "top-left"
+  | "top-right"
+  | "bottom"
+  | "bottom-left"
+  | "bottom-right"
+  | "left"
+  | "left-bottom"
+  | "left-top"
+  | "right"
+  | "right-top"
+  | "right-bottom";

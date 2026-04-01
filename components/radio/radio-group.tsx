@@ -1,7 +1,16 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
-import Radio, { type RadioProps } from "./radio";
+import Radio from "./radio";
 import RadioButton from "./radio-button";
+import type { ChangeEvent } from "./types";
+
+export interface RadioOptionsProps {
+  label?: string;
+  value?: string | number;
+  disabled?: boolean;
+  icon?: IconType[];
+}
 
 export const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },
@@ -15,8 +24,8 @@ export const radioGroupProps = {
   },
   theme: String,
   shape: String as PropType<"circle" | "square">,
-  options: Array as PropType<RadioProps[]>,
-  type: String,
+  options: Array as PropType<RadioOptionsProps[]>,
+  type: String as PropType<"radio" | "button">,
 };
 
 export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
@@ -27,7 +36,7 @@ const RadioGroup = defineComponent({
   emits: ["update:modelValue", "change"],
   setup(props, { slots, emit }) {
     const currentValue = ref(props.modelValue);
-    const onChange = ({ value }) => {
+    const onChange = ({ value }: ChangeEvent) => {
       currentValue.value = value;
       emit("update:modelValue", value);
       emit("change", value);
@@ -49,7 +58,7 @@ const RadioGroup = defineComponent({
             value,
             icon,
             disabled,
-            label: label || child.children?.default()[0].children || value,
+            label: label || child.children?.default() || value,
           });
         });
       }
@@ -57,12 +66,12 @@ const RadioGroup = defineComponent({
     });
     return () => {
       let options = optionsData.value;
-      let nodes = [];
+      let nodes: any = [];
       const Component = props.type === "button" ? RadioButton : Radio;
       options.forEach((option) =>
         nodes.push(
           <Component
-            key={option.value}
+            key={option.label}
             label={option.label}
             value={option.value}
             onChange={onChange}

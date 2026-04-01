@@ -12,7 +12,7 @@ import {
   type PropType,
   type VNode,
 } from "vue";
-import { colors, placements } from "../const/var";
+import { colors, type placements } from "../const/var";
 import { transfer } from "../directives/transfer";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
@@ -27,10 +27,7 @@ export const tooltipProps = {
   size: String as PropType<"small" | "large" | "default">,
   width: [Number, String] as PropType<number | string>,
   placement: {
-    type: String as PropType<(typeof placements)[number]>,
-    validator(value: string) {
-      return placements.includes(value);
-    },
+    type: String as PropType< placements>,
     default: "top",
   },
 };
