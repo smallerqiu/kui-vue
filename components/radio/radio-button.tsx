@@ -1,6 +1,7 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { IconType } from "../icon";
+import type { ChangeEvent } from "./types";
 
 export const radioButtonProps = {
   modelValue: { type: [Boolean], default: false },
@@ -52,7 +53,7 @@ const RadioButton = defineComponent({
         checked: checked,
         value: props.value,
         label: labelText,
-      });
+      } as ChangeEvent);
       emit("update:modelValue", checked);
       e.preventDefault();
     };
