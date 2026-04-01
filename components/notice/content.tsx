@@ -1,30 +1,32 @@
-import {
-  AlertCircle,
-  CheckmarkCircle,
-  Close,
-  CloseCircle,
-  InformationCircle,
-} from "kui-icons";
-import { defineComponent } from "vue";
+import { AlertCircle, CheckmarkCircle, Close, CloseCircle, InformationCircle } from "kui-icons";
+import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
-import Icon from "../icon";
+import Icon, { type IconType } from "../icon";
+
+export const contentProps = {
+  type: { type: String as PropType<"info" | "error" | "success" | "warning">, default: "info" },
+  title: String,
+  content: [String, Object],
+  icon:  Array as PropType<IconType[]>,
+  color: String,
+  key: String,
+  duration: Number,
+  closable: Boolean,
+  onClose: Function as PropType<() => void>,
+  noticeType: { type: String as PropType<"message" | "notice">, default: "message" },
+};
+
+export type ContentProps = ExtractPropTypes<typeof contentProps>;
+
 export default defineComponent({
-  props: {
-    type: { type: String, default: "info" },
-    title: String,
-    content: [String, Object],
-    icon: [String, Array],
-    color: String,
-    duration: Number,
-    closable: Boolean,
-    noticeType: { type: String, default: "message" },
-  },
-  setup(ps, { emit }) {
+  props: contentProps,
+  emits: ["close"],
+  setup(props, { emit }) {
     const onClose = () => {
       emit("close");
     };
     return () => {
-      let { noticeType, type, content, title, closable, icon, color } = ps;
+      let { noticeType, type, content, title, closable, icon, color } = props;
       const classes = [
         `k-${noticeType}-box`,
         {
