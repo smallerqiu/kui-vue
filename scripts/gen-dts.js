@@ -3,12 +3,12 @@
  * 入口文件模式：只解析每个组件目录中的 index.js
  */
 
-import fs from "fs";
-import path from "path";
-import fg from "fast-glob";
-import prettier from "prettier";
 import { parse } from "@babel/parser";
 import traverseModule from "@babel/traverse";
+import fg from "fast-glob";
+import fs from "fs";
+import path from "path";
+import prettier from "prettier";
 
 const traverse = traverseModule.default;
 const COMPONENTS_DIR = path.resolve("components");
@@ -34,6 +34,12 @@ function ensureCleanDir(dir) {
     fs.rmSync(dir, { recursive: true, force: true });
   }
   fs.mkdirSync(dir, { recursive: true });
+}
+
+function toPascalCase(str) {
+  return str
+    .replace(/-(\w)/g, (_, c) => c.toUpperCase()) // 把 -a 变成 A
+    .replace(/^\w/, (c) => c.toUpperCase());      // 首字母大写
 }
 
 function getComponentFiles(entryFile) {
@@ -215,7 +221,8 @@ async function main() {
         plugins: ["jsx"],
       });
 
-      let compName = path.basename(file, ".jsx");
+      let fileName = path.basename(file).replace(/\.(tsx|ts|jsx|js)$/, "");
+      let compName = toPascalCase(fileName);
       let compOptionsNode = null;
       let compOptionsSource = "";
 
