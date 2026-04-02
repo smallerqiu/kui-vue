@@ -1,31 +1,41 @@
-import { defineComponent, getCurrentInstance, inject, onMounted, ref } from "vue";
-import Icon from "../icon";
+import {
+  defineComponent,
+  inject,
+  onMounted,
+  ref,
+  type ExtractPropTypes,
+  type PropType,
+  type Ref,
+} from "vue";
+import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
+export const menuItemProps = {
+  icon: Array as PropType<IconType[]>,
+  title: String,
+  key: { type: String, required: true },
+  disabled: Boolean,
+  isPopup: Boolean,
+};
+
+export type MenuItemProps = ExtractPropTypes<typeof menuItemProps>;
 
 const MenuItem = defineComponent({
   name: "MenuItem",
-  props: {
-    icon: [String, Array],
-    title: String,
-    // key: String,
-    label: String,
-    disabled: Boolean,
-    isPopup: Boolean,
-  },
+  props: menuItemProps,
 
-  setup(ps, { slots }) {
-    let { icon, disabled, title } = ps;
-    const instance = getCurrentInstance();
+  setup(props, { slots }) {
+    let { icon, disabled, title, key } = props;
+    // const instance = getCurrentInstance();
+    // const key = instance?.vnode.key;
 
-    const selectedKeys = inject("menu-selected-keys", ref([]));
-    const mode = inject("menu-mode", null);
+    const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
+    const mode = inject<Ref<string>>("menu-mode");
     const dropdown = inject("dropdown", null);
     const active = ref(false);
-    const key = instance.vnode.key; 
     const keyPah = inject("menu-key-path", []);
-    const selectedKeysChange = inject("selectedKeysChange", null);
-    // const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
+    const selectedKeysChange =
+      inject<(key: string, selected: boolean, keyPath: string[]) => void>("selectedKeysChange");
 
     onMounted(() => {
       const selected = selectedKeys.value.indexOf(key) >= 0;
@@ -34,7 +44,7 @@ const MenuItem = defineComponent({
     return () => {
       const preCls = dropdown ? "dropdown-menu" : "menu";
       const selected = selectedKeys.value.indexOf(key) >= 0 && !dropdown;
-      const props = {
+      const _props = {
         class: [
           `k-${preCls}-item`,
           {
@@ -45,12 +55,13 @@ const MenuItem = defineComponent({
         ],
         style: {
           paddingLeft:
-            (mode.value == "inline" || mode.value == "vertical") && keyPah.length && !ps.isPopup
+            (mode?.value == "inline" || mode?.value == "vertical") &&
+            keyPah.length &&
+            !props.isPopup
               ? `${keyPah.length * 16 + 16}px`
-              : null,
+              : undefined,
         },
         onMouseenter: () => {
-          
           if (disabled) return;
           active.value = true;
         },
@@ -74,7 +85,7 @@ const MenuItem = defineComponent({
         <Icon type={icon} class={`k-${preCls}-item-icon`} />
       ) : null;
       return (
-        <li {...props}>
+        <li {..._props}>
           {iconNode}
           {titleNode}
         </li>

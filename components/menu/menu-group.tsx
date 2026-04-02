@@ -1,11 +1,14 @@
-import { defineComponent } from "vue";
+import { defineComponent, type ExtractPropTypes } from "vue";
 
+export const menuGroupProps = {
+  title: { type: String, required: true },
+};
+
+export type MenuGroupProps = ExtractPropTypes<typeof menuGroupProps>;
 
 const MenuGroup = defineComponent({
   name: "MenuGroup",
-  props: {
-    title: { type: String, required: true },
-  },
+  props: menuGroupProps,
   setup(props, { slots }) {
     return () => {
       const titleNode = props.title || slots.title?.();

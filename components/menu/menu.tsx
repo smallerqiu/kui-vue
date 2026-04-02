@@ -1,22 +1,42 @@
-import { defineComponent, inject, onMounted, provide, ref, watch } from "vue";
+import {
+  defineComponent,
+  inject,
+  onMounted,
+  provide,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 
+import type { IconType } from "../icon";
 import RecursiveMenu from "./recursive-menu";
+
+export const menuProps = {
+  theme: String,
+  mode: { type: String as PropType<"vertical" | "horizontal">, default: "vertical" },
+  modelValue: { type: Array as PropType<string[]>, default: () => [] },
+  accordion: Boolean,
+  items: Array as PropType<MenuItemProps[]>,
+  inlineCollapsed: Boolean,
+  openKeys: { type: Array as PropType<string[]>, default: () => [] },
+};
+
+export interface MenuItemProps {
+  icon?: IconType[];
+  title?: string;
+  key?: string;
+  disabled?: boolean;
+  children?: MenuItemProps[];
+}
+
+export type MenuProps = ExtractPropTypes<typeof menuProps>;
 
 const Menu = defineComponent({
   name: "Menu",
-  props: {
-    theme: String,
-    mode: { type: String, default: "vertical" },
-    modelValue: { type: Array, default: () => [] },
-    value: { type: Array, default: () => [] },
-    // selectedKeys: { type: Array, default: () => [] },  
-    accordion: Boolean,
-    items: Array,
-    inlineCollapsed: Boolean,
-    openKeys: { type: Array, default: () => [] },
-  },
+  props: menuProps,
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.modelValue || props.value || []); //props.selectedKeys || []);
+    const defaultSelectedKeys = ref(props.modelValue || []);
     const defaultOpenKeys = ref(props.openKeys || []);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);
@@ -29,7 +49,6 @@ const Menu = defineComponent({
     const dropdown = inject("dropdown", null);
 
     watch(
-      // () => props.selectedKeys, 
       () => props.modelValue,
       (value) => {
         defaultSelectedKeys.value = value;
@@ -62,7 +81,7 @@ const Menu = defineComponent({
       setCollapsed(props.inlineCollapsed);
     });
 
-    const setCollapsed = (collapsed) => {
+    const setCollapsed = (collapsed: boolean) => {
       if (collapsed) {
         if (defaultOpenKeys.value.length > 0) {
           tempOpenKeys.value = defaultOpenKeys.value;
@@ -72,17 +91,15 @@ const Menu = defineComponent({
         defaultOpenKeys.value = tempOpenKeys.value;
       }
     };
-    const dropdownMenuSelected = inject("dropdown-menu-selected", null);
-    const selectedKeysChange = (key, selected, keyPath) => {
-      // console.log('selectedKeysChange')
-      // console.log(key, selected, keyPath)
+    const dropdownMenuSelected =
+      inject<(data: { key: string; keyPath: string[] }) => void>("dropdown-menu-selected");
+    const selectedKeysChange = (key: string, selected: boolean, keyPath: string[]) => {
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];
       } else {
         defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
       emit("update:value", defaultSelectedKeys.value);
-      // emit("update:selectedKeys", defaultSelectedKeys.value); 
       emit("select", { key, keyPath });
 
       if (
@@ -98,7 +115,7 @@ const Menu = defineComponent({
       dropdownMenuSelected?.({ key, keyPath });
     };
 
-    const openKeysChange = (key, opened, keyPath) => {
+    const openKeysChange = (key: string, opened: boolean, keyPath: string[]) => {
       if (props.accordion) {
         defaultOpenKeys.value = opened ? [...keyPath, key] : keyPath;
       } else {
@@ -125,7 +142,7 @@ const Menu = defineComponent({
       ];
       return (
         <ul class={cls} theme-mode={props.theme}>
-          {items && items.length>0
+          {items && items.length > 0
             ? items.map((item) => {
                 return <RecursiveMenu item={item} key={item.key} />;
               })

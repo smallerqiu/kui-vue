@@ -1,11 +1,12 @@
-import { defineComponent } from "vue";
-import MenuItem from "./menu-item.jsx";
-import RecursiveSubMenu from "./recursive-menu.jsx";
-import SubMenu from "./sub-menu.jsx";
+import { defineComponent, type PropType } from "vue";
+import type { MenuItemProps } from "./menu";
+import MenuItem from "./menu-item";
+import RecursiveSubMenu from "./recursive-menu";
+import SubMenu from "./sub-menu";
 const RecursiveMenu = defineComponent({
   name: "RecursiveMenu",
   props: {
-    item: Object,
+    item: { type: Object as PropType<MenuItemProps>, required: true },
     isPopup: Boolean,
   },
   setup(props) {
