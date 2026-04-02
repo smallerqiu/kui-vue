@@ -1,5 +1,5 @@
 import { defineComponent, inject, onBeforeUnmount, onMounted, type ExtractPropTypes } from "vue";
-import type { KAnchorInjection } from "./anchor";
+import type { AnchorContext } from "./anchor";
 
 export const anchorLinkProps = {
   href: { type: String, required: true },
@@ -12,7 +12,7 @@ const AnchorLink = defineComponent({
   name: "AnchorLink",
   props: anchorLinkProps,
   setup(props, { slots, attrs }) {
-    const kAnchor = inject<KAnchorInjection | null>("kAnchor", null);
+    const kAnchor = inject<AnchorContext | null>("kAnchor", null);
 
     onMounted(() => {
       kAnchor?.registerLink(props.href);
@@ -44,9 +44,7 @@ const AnchorLink = defineComponent({
 
       return (
         <div {...linkWrapperProps}>
-          <a {...linkProps}>
-            {slots.title ? slots.title() : props.title}
-          </a>
+          <a {...linkProps}>{slots.title ? slots.title() : props.title}</a>
           {slots.default?.()}
         </div>
       );

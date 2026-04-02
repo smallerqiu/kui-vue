@@ -5,10 +5,10 @@ import {
   HelpCircle,
   InformationCircle,
 } from "kui-icons";
-import { computed, defineComponent, inject, ref } from "vue";
-import { Button } from "../button";
-import Icon from "../icon";
-import zhCN from "../locale/zh-CN";
+import { computed, defineComponent, inject, ref, type PropType } from "vue";
+import { Button } from "../button/index.js";
+import Icon, { type IconType } from "../icon/index.jsx";
+import zhCN from "../locale/zh-CN.js";
 import Modal from "./modal.jsx";
 export default defineComponent({
   name: "Toast",
@@ -18,18 +18,16 @@ export default defineComponent({
     cancelText: String,
     content: String,
     color: String,
-    icon: [Object, Array],
+    icon: Array as PropType<IconType[]>,
     onOk: Function,
     onCancel: Function,
     type: {
-      validator(value) {
-        return ["info", "success", "error", "warning", "confirm"].includes(value);
-      },
+      type: String as PropType<"info" | "success" | "error" | "warning" | "confirm">,
       default: "info",
     },
   },
   setup(ps, { expose, emit }) {
-    const injectedLocale = inject("locale", zhCN);
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
@@ -38,12 +36,8 @@ export default defineComponent({
     });
     const loading = ref(false);
     const visible = ref(false);
-    const isPromise = (obj) => {
-      return (
-        !!obj &&
-        (typeof obj === "object" || typeof obj === "function") &&
-        typeof obj.then === "function"
-      );
+    const isPromise = (obj: any): boolean => {
+      return typeof obj === "object" && typeof obj.then === "function";
     };
     const show = () => {
       visible.value = true;
@@ -63,10 +57,10 @@ export default defineComponent({
       if (isPromise(fun)) {
         loading.value = true;
         fun
-          .then((e) => {
+          .then(() => {
             hide();
           })
-          .catch((e) => {});
+          .catch(() => {});
       } else {
         hide();
       }
@@ -122,7 +116,7 @@ export default defineComponent({
       return (
         <Modal
           class={classes}
-          v-model={visible.value} 
+          v-model={visible.value}
           maskClosable={false}
           transfer={false}
           v-slots={{
