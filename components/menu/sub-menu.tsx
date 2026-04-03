@@ -15,7 +15,7 @@ import {
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { transfer } from "../directives/transfer";
-import Icon, { IconType } from "../icon";
+import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 

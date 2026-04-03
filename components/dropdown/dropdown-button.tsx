@@ -3,12 +3,12 @@ import { defineComponent, type ExtractPropTypes, type PropType, ref } from "vue"
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";
 
-import { type TypeDropPlacements } from "../const/var";
+import { type TypeDropPlacements, type TypeSize } from "../const/var";
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 export const dropdownButtonProps = {
-  size: String,
+  size: String as PropType<TypeSize>,
   shape: String,
   disabled: Boolean,
   icon: Array as PropType<IconType[]>,

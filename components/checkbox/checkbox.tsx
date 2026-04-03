@@ -1,7 +1,7 @@
 import { Checkmark } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeSize } from "../const/var";
 import Icon from "../icon";
-import { sizeMap } from "../utils/size";
 
 export const checkboxProps = {
   checked: {
@@ -15,7 +15,7 @@ export const checkboxProps = {
   disabled: Boolean,
   indeterminate: Boolean,
   size: {
-    type: String as PropType<(typeof sizeMap)[number]>,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
 };

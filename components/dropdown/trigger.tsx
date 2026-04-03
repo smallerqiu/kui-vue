@@ -1,6 +1,6 @@
 import { defineComponent, inject, type PropType } from "vue";
 import Button from "../button/button";
-import { IconType } from "../icon";
+import { type IconType } from "../icon";
 export default defineComponent({
   name: "TriggerButton",
   props: {
