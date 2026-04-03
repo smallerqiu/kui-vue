@@ -10,12 +10,11 @@
 <script setup lang="ts">
 import { computed, provide, ref } from "vue";
 import { useRoute } from "vue-router";
-const route = useRoute();
-// const router = useRouter();
-import ui_en from "@/components/locale/en";
-import ui_zh from "@/components/locale/zh-CN";
+import ui_en from "../components/locale/en";
+import ui_zh from "../components/locale/zh-CN";
 import local_en from "./lang/en";
 import local_zh from "./lang/zh";
+const route = useRoute();
 
 const lang = ref(localStorage.getItem("lang") || "en");
 const messages = computed(() => (lang.value === "en" ? en : zh));
@@ -31,7 +30,7 @@ const zh = {
   ...local_zh,
 };
 
-const t = (obj, path, defaultValue = null) => {
+const t = (obj: any, path: string, defaultValue = null) => {
   if (obj == null || !path) return defaultValue;
 
   const keys = String(path).split(".").filter(Boolean);
@@ -47,7 +46,7 @@ const t = (obj, path, defaultValue = null) => {
   return cur;
 };
 
-const $t = (key, defaultValue = "") => t(messages.value, key, defaultValue);
+const $t = (key: string, defaultValue?: any) => t(messages.value, key, defaultValue);
 
 const changeLang = () => {
   const value = lang.value === "en" ? "zh" : "en";
@@ -61,5 +60,4 @@ const changeLang = () => {
 
 provide("$t", $t);
 provide("changeLang", changeLang);
-
 </script>

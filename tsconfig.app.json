@@ -15,7 +15,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+
+    /* alias */
+    "baseUrl": ".", 
+    "paths": {
+      "@/*": ["/*"] 
+    }
   },
   "include": [
     "src/**/*.ts",

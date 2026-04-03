@@ -9,7 +9,7 @@ export interface MessageOptions {
   color?: string;
   onClose?: () => void;
 }
-let Message: any = {
+let message: any = {
   name: "message",
   show(options: MessageOptions = {}) {
     if (!messageInstance) {
@@ -25,11 +25,18 @@ let Message: any = {
       messageInstance = null;
     }
   },
+  info(content: string, duration: number, onClose: () => void) {
+    return this.show({ type: "info", content, duration, onClose });
+  },
+  error(content: string, duration: number, onClose: () => void) {
+    return this.show({ type: "error", content, duration, onClose });
+  },
+  success(content: string, duration: number, onClose: () => void) {
+    return this.show({ type: "success", content, duration, onClose });
+  },
+  warning(content: string, duration: number, onClose: () => void) {
+    return this.show({ type: "warning", content, duration, onClose });
+  },
 };
-["info", "success", "warning", "error"].forEach((type) => {
-  Message[type] = (content: string, duration: number, onClose: () => void) => {
-    return Message.show({ type, content, duration, onClose });
-  };
-});
 
-export default Message;
+export default message;

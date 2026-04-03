@@ -6,6 +6,7 @@
     "module": "ESNext",
     "types": ["node"],
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,  //导入路径的文件名大小写
 
     /* Bundler mode */
     "moduleResolution": "bundler",
