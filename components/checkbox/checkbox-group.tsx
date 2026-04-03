@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import { sizeMap } from "../utils/size";
+import type { TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
 
@@ -16,7 +16,7 @@ export const checkboxGroupProps = {
     default: "horizontal",
   },
   size: {
-    type: String as PropType<(typeof sizeMap)[number]>,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
 };

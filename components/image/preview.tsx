@@ -14,7 +14,7 @@ import {
   RotateRight,
 } from "kui-icons";
 import {
-  CSSProperties,
+  type CSSProperties,
   defineComponent,
   nextTick,
   onBeforeUnmount,

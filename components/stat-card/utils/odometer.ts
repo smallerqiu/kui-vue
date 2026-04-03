@@ -1,4 +1,4 @@
-import { CountUpPlugin } from "./countup";
+import { type CountUpPlugin } from "./countup";
 
 export interface OdometerOptions {
   duration?: number; // barrel animation in seconds,
