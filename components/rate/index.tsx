@@ -1,13 +1,20 @@
-import { defineComponent, ref, watch, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
+import { type TypeSize } from "../const/var";
 import type { IconType } from "../icon";
-import { filterSize, sizeMap } from "../utils/size";
 import Star from "./star";
 export const rateProps = {
   modelValue: { type: Number, default: 0 },
   allowClear: { type: Boolean, default: true },
   allowHalf: Boolean,
   color: String,
-  size: [Number, String] as PropType<number | string>,
+  size: [Number, String] as PropType<number | TypeSize>,
   showScore: Boolean,
   tooltips: Array as PropType<string[]>,
   disabled: Boolean,
@@ -48,10 +55,10 @@ export default defineComponent({
         // click
         let value = index - (props.allowHalf ? (percent < 0.5 ? 0.5 : 0) : 0);
         value = parseFloat(value.toFixed(2));
-        
+
         const nextValue = value === initValue.value && props.allowClear ? 0 : value;
         initValue.value = nextValue;
-        
+
         if (nextValue === 0) {
           cleared.value = true;
           tempValue.value = null;
@@ -68,11 +75,21 @@ export default defineComponent({
 
     return () => {
       const tpValue = tempValue.value !== null ? tempValue.value : initValue.value;
-      let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, color, size } = props;
+      let {
+        count,
+        allowHalf,
+        character,
+        disabled,
+        tooltips = [],
+        icon,
+        showScore,
+        color,
+        size,
+      } = props;
 
-      if (typeof size === "string" && filterSize(size)) {
-        const sizeValue = [20, 24, 32];
-        size = sizeValue[sizeMap.indexOf(size)];
+      if (typeof size === "string") {
+        const sizeValue = { small: 20, middle: 24, large: 32, default: 24 };
+        size = sizeValue[size];
       }
 
       const stars = [];
@@ -102,9 +119,9 @@ export default defineComponent({
         stars.push(<Star {...sp} />);
       }
 
-      const containerStyle: CSSProperties = { 
+      const containerStyle: CSSProperties = {
         fontSize: size + "px",
-        color: color || undefined
+        color: color || undefined,
       };
 
       const containerProps = {

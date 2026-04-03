@@ -25,7 +25,7 @@ interface FormContext {
   unregister?: (item: any) => void;
   layout?: "inline" | "horizontal" | "vertical";
   name?: string;
-  size?: "large" | "small" | "mini";
+  size?: "large" | "small";
   shape?: "square" | "round" | "circle";
   disabled?: boolean;
   theme?: "light" | "dark";

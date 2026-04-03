@@ -20,6 +20,7 @@ import {
   Transition,
   watch,
 } from "vue";
+import type { TypeDropPlacements, TypeSize } from "../const/var";
 type ColorMode = "hex" | "rgb" | "hsl";
 export const colorPickerProps = {
   modelValue: String,
@@ -30,9 +31,7 @@ export const colorPickerProps = {
   showText: Boolean,
   arrow: Boolean,
   placement: {
-    type: String as PropType<
-      "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right"
-    >,
+    type: String as PropType<TypeDropPlacements>,
     default: "bottom-left",
   },
   trigger: {
@@ -40,7 +39,7 @@ export const colorPickerProps = {
     default: "click",
   },
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
   mode: {
@@ -161,7 +160,7 @@ const ColorPicker = defineComponent({
       emit("change", value);
     };
 
-    const onUpdateRGB = ({ r, g, b }:ColorObject) => {
+    const onUpdateRGB = ({ r, g, b }: ColorObject) => {
       const color = Color({ r, g, b, alpha: currentAlpha.value });
       onUpdate(color.rgb());
     };
@@ -184,14 +183,14 @@ const ColorPicker = defineComponent({
         clearTimeout(hideTimer.value);
       }, 0);
     };
-    const updateColorValue = (color:any) => {
+    const updateColorValue = (color: any) => {
       // console.log(color.string(), currentAlpha.value);
       currentAlpha.value = color.alpha();
       currentColor.value = color;
       currentHue.value = color.hue();
       onUpdate(color);
     };
-    const updateColor = (color:any) => {
+    const updateColor = (color: any) => {
       currentAlpha.value = color.alpha();
       currentHue.value = color.hue();
       updateColorValue(color.rgb());

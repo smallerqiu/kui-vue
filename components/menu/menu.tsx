@@ -17,17 +17,17 @@ export const menuProps = {
   mode: { type: String as PropType<"vertical" | "horizontal">, default: "vertical" },
   modelValue: { type: Array as PropType<string[]>, default: () => [] },
   accordion: Boolean,
-  items: Array as PropType<MenuItemProps[]>,
+  items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean,
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
 };
 
-export interface MenuItemProps {
+export interface MenuOptionsProps {
   icon?: IconType[];
   title?: string;
   key: string;
   disabled?: boolean;
-  children?: MenuItemProps[];
+  children?: MenuOptionsProps[];
 }
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>;

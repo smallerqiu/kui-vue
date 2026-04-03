@@ -19,7 +19,7 @@ export const colors = [
   "gray",
 ];
 
-export type placements =
+export type TypePlacements =
   | "top"
   | "top-left"
   | "top-right"
@@ -32,3 +32,13 @@ export type placements =
   | "right"
   | "right-top"
   | "right-bottom";
+
+export type TypeDropPlacements =
+  | "top"
+  | "top-left"
+  | "top-right"
+  | "bottom"
+  | "bottom-left"
+  | "bottom-right";
+
+export type TypeSize = "small" | "middle" | "large" | "default";

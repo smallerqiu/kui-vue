@@ -1,5 +1,13 @@
-import { cloneVNode, defineComponent, inject, provide, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
-import { filterSize } from "../utils/size";
+import {
+  cloneVNode,
+  defineComponent,
+  inject,
+  provide,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
+import { type TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 
 export const inputGroupProps = {
@@ -10,7 +18,7 @@ export const inputGroupProps = {
   },
   theme: { type: String, default: "light" },
   size: {
-    type: [String, Array, Number] as PropType<string | number | any[]>,
+    type: [String, Array, Number] as PropType<TypeSize | number | number[]>,
   },
 };
 
@@ -20,13 +28,13 @@ export default defineComponent({
   name: "InputGroup",
   props: inputGroupProps,
   setup(props, { slots }) {
-    const parentSize = inject<string | null>("size", null);
-    provide("size", props.size || filterSize(parentSize));
+    const parentSize = inject<string>("size");
+    provide("size", props.size || parentSize);
 
     return () => {
       const { size, compact, block, theme } = props;
       const styles: CSSProperties = {};
-      
+
       const rootProps = {
         style: styles,
         class: [
@@ -42,7 +50,7 @@ export default defineComponent({
       };
 
       if (!compact && size !== undefined) {
-        if (typeof size === 'number') {
+        if (typeof size === "number") {
           styles.gap = `${size}px`;
         }
       }

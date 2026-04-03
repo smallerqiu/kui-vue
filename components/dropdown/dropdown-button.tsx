@@ -1,44 +1,47 @@
 import { Ellipsis } from "kui-icons";
-import { defineComponent, ref } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, ref } from "vue";
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";
 
+import { type TypeDropPlacements } from "../const/var";
+import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
+export const dropdownButtonProps = {
+  size: String,
+  shape: String,
+  disabled: Boolean,
+  icon: Array as PropType<IconType[]>,
+  theme: String,
+  dark: Boolean,
+  arrow: Boolean,
+  placement: { type: String as PropType<TypeDropPlacements>, default: "bottom-right" },
+};
+export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
+
 const DropdownButton = defineComponent({
   name: "DropdownButton",
-  props: {
-    size: String,
-    shape: String,
-    disabled: Boolean,
-    icon: [String, Array, Object],
-    theme: String,
-    dark: Boolean,
-    arrow: Boolean,
-    placement: { type: String, default: "bottom-right" },
-  },
+  props: dropdownButtonProps,
   emits: ["click"],
-  setup(ps, { slots, emit }) {
+  setup(props, { slots, emit }) {
     const refTrigger = ref();
     return () => {
       return (
         <Dropdown
-          dark={ps.dark}
-          arrow={ps.arrow}
-          placement={ps.placement}
+          dark={props.dark}
+          arrow={props.arrow}
+          placement={props.placement}
           target={refTrigger}
-          disabled={ps.disabled}
+          disabled={props.disabled}
           v-slots={{
             default: () => (
               <ButtonGroup
                 class="k-dropdown-button"
-                size={ps.size}
-                theme={ps.theme}
-                dark={ps.dark}
-                shape={ps.shape}
+                size={props.size}
+                shape={props.shape}
               >
                 <Button
-                  disabled={ps.disabled}
+                  disabled={props.disabled}
                   onClick={(e) => {
                     emit("click", e);
                   }}
@@ -46,7 +49,7 @@ const DropdownButton = defineComponent({
                   {slots.default?.()}
                 </Button>
                 <TriggerButton
-                  disabled={ps.disabled}
+                  disabled={props.disabled}
                   ref={refTrigger}
                   icon={!slots.icon ? Ellipsis : undefined}
                   class="k-dropdown-trigger"

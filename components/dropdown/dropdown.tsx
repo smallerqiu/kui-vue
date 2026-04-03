@@ -1,4 +1,6 @@
 import {
+  type ExtractPropTypes,
+  type PropType,
   Transition,
   cloneVNode,
   defineComponent,
@@ -10,55 +12,52 @@ import {
   watch,
 } from "vue";
 
+import type { TypeDropPlacements } from "../const/var";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
+
+export const dropdownProps = {
+  dark: Boolean,
+  trigger: {
+    type: String as PropType<"hover" | "click" | "contextmenu">,
+    default: "hover",
+  },
+  transfer: { type: Boolean, default: true },
+  disabled: Boolean,
+  arrow: { type: Boolean, default: false },
+  show: Boolean,
+  placement: {
+    type: String as PropType<TypeDropPlacements>,
+    default: "bottom-left",
+  },
+  target: Object,
+};
+
+export type DropdownProps = ExtractPropTypes<typeof dropdownProps>;
+
 const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
     transfer,
     resize,
   },
-  props: {
-    dark: Boolean,
-    trigger: {
-      type: String,
-      default: "hover",
-      validator(value) {
-        return ["hover", "click", "contextmenu"].indexOf(value) >= 0;
-      },
-    },
-    transfer: { type: Boolean, default: true },
-    disabled: Boolean,
-    arrow: { type: Boolean, default: false },
-    show: Boolean,
-    placement: {
-      validator(value) {
-        return (
-          ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].indexOf(
-            value
-          ) >= 0
-        );
-      },
-      default: "bottom-left",
-    },
-    target: Object,
-  },
+  props: dropdownProps,
   emits: ["update:visible"],
-  setup(ps, { slots, emit, attrs, listeners }) {
-    const visible = ref(ps.show);
-    const refSelection = ref(null);
-    const currentPlacement = ref(ps.placement);
+  setup(props, { slots, emit, attrs }) {
+    const visible = ref(props.show);
+    const refSelection = ref<HTMLElement | null>(null);
+    const currentPlacement = ref(props.placement);
     const transOrigin = ref("bottom");
-    const refPopper = ref();
+    const refPopper = ref<HTMLElement | null>(null);
     const left = ref(0);
     const top = ref(0);
     const rendered = ref(false);
-    const showTimer = ref(false);
+    const showTimer = ref<number>();
     provide("dropdown", true);
     onMounted(() => {
-      if (ps.show) {
+      if (props.show) {
         toggle(true);
       }
     });
@@ -69,30 +68,32 @@ const Dropdown = defineComponent({
     provide("clearPopTimer", clearPopTimer);
 
     watch(
-      () => ps.placement,
+      () => props.placement,
       (v) => {
         currentPlacement.value = v;
         updatePosition();
       }
     );
     watch(
-      () => ps.show,
+      () => props.show,
       (v) => {
         toggle(v);
       }
     );
 
-    const outsideClick = (e) => {
-      const ctx = refSelection.value?.$el || refSelection.value;
+    const outsideClick = (e: PointerEvent) => {
+      const ctx = refSelection.value;
       if (!refPopper.value) return;
+      const target = e.target as HTMLElement;
       if (
-        (!refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) ||
-        (ps.trigger == "contextmenu" && !refPopper.value.contains(e.target))
+        (!refPopper.value.contains(target) && ctx && !ctx.contains(target)) ||
+        (props.trigger == "contextmenu" && !refPopper.value.contains(target))
       ) {
         visible.value = false;
       }
     };
-    const updatePosition = (e) => {
+    const updatePosition = (e?: MouseEvent) => {
+      if (!e) return;
       const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
         setPlacement({
@@ -106,7 +107,7 @@ const Dropdown = defineComponent({
         });
       });
     };
-    const toggle = (open, e) => {
+    const toggle = (open: boolean, e?: MouseEvent) => {
       if (open) {
         if (!rendered.value) {
           rendered.value = true;
@@ -131,38 +132,38 @@ const Dropdown = defineComponent({
     };
     provide("dropdown-menu-selected", hidePopper);
 
-    const clickEvent = (e) => {
-      if (ps.disabled) {
+    const clickEvent = () => {
+      if (props.disabled) {
         return;
       }
-      if (ps.trigger == "click") {
+      if (props.trigger == "click") {
         toggle(true);
       }
     };
-    const mouseLeaveEvent = (e) => {
-      if (ps.disabled) {
+    const mouseLeaveEvent = (e: MouseEvent) => {
+      if (props.disabled) {
         return;
       }
-      if (ps.trigger == "hover") {
+      if (props.trigger == "hover") {
         showTimer.value = setTimeout(() => {
-          toggle(false);
+          toggle(false, e);
         }, 300);
       }
     };
-    const mouseEnterEvent = (e) => {
-      if (ps.disabled) {
+    const mouseEnterEvent = (e: MouseEvent) => {
+      if (props.disabled) {
         return;
       }
-      if (ps.trigger == "hover") {
+      if (props.trigger == "hover") {
         clearTimeout(showTimer.value);
-        toggle(true);
+        toggle(true, e);
       }
     };
-    const contextmenuEvent = (e) => {
-      if (ps.disabled) {
+    const contextmenuEvent = (e: MouseEvent) => {
+      if (props.disabled) {
         return;
       }
-      if (ps.trigger == "contextmenu") {
+      if (props.trigger == "contextmenu") {
         e.preventDefault();
         toggle(true, e);
       }
@@ -171,7 +172,7 @@ const Dropdown = defineComponent({
     provide("dropdown-trigger-in", mouseEnterEvent);
     provide("dropdown-trigger-out", mouseLeaveEvent);
     return () => {
-      const props = {
+      const _props = {
         ref: refPopper,
         style: {
           left: `${left.value}px`,
@@ -179,16 +180,16 @@ const Dropdown = defineComponent({
           transformOrigin: transOrigin.value,
         },
         "k-placement": currentPlacement.value,
-        class: ["k-dropdown", { "k-dropdown-has-arrow": ps.arrow }],
+        class: ["k-dropdown", { "k-dropdown-has-arrow": props.arrow }],
 
-        onClick: (e) => {
-          toggle(false);
+        onClick: (e: MouseEvent) => {
+          toggle(false, e);
         },
         onMouseenter: () => {
           clearTimeout(showTimer.value);
         },
         onMouseleave: () => {
-          if (ps.trigger == "hover") {
+          if (props.trigger == "hover") {
             showTimer.value = setTimeout(() => {
               toggle(false);
             }, 300);
@@ -198,10 +199,10 @@ const Dropdown = defineComponent({
       const overlay =
         rendered.value && slots.overlay ? (
           <Transition name="k-dropdown">
-            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {...props}>
+            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {..._props}>
               <div class={`k-dropdown-content`}>
                 <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
-                {ps.arrow ? (
+                {props.arrow ? (
                   <div class={`k-dropdown-arrow`}>
                     <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
                       <path
@@ -222,7 +223,7 @@ const Dropdown = defineComponent({
         ) : null;
 
       let nodes = getChildren(slots.default?.());
-      const pp = ps.target
+      const pp = props.target
         ? {}
         : {
             onClick: clickEvent,

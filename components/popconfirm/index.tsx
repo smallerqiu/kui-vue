@@ -1,20 +1,20 @@
 import { HelpCircle } from "kui-icons";
 import {
-  cloneVNode,
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  Transition,
-  watch,
-  type ExtractPropTypes,
-  type PropType,
+    cloneVNode,
+    computed,
+    defineComponent,
+    inject,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    Transition,
+    watch,
+    type ExtractPropTypes,
+    type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { placements } from "../const/var";
+import type { TypePlacements } from "../const/var";
 import { transfer } from "../directives/transfer";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -30,7 +30,7 @@ export const popconfirmProps = {
   okText: { type: String },
   cancelText: { type: String },
   placement: {
-    type: String as PropType<placements>,
+    type: String as PropType<TypePlacements>,
     default: "top",
   },
 };

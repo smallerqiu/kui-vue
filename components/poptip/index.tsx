@@ -1,20 +1,20 @@
 import {
-  cloneVNode,
-  defineComponent,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  Transition,
-  watch,
-  type ExtractPropTypes,
-  type PropType
+    cloneVNode,
+    defineComponent,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    Transition,
+    watch,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-import type { placements } from "../const/var";
+import type { TypePlacements } from "../const/var";
 
 export type PoptipProps = ExtractPropTypes<typeof poptipProps>;
 
@@ -30,7 +30,7 @@ export const poptipProps = {
     default: "hover",
   },
   placement: {
-    type: String as PropType<placements>,
+    type: String as PropType<TypePlacements>,
     default: "top",
   },
 };

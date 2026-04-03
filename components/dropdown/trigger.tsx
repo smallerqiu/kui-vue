@@ -1,13 +1,15 @@
+import { defineComponent, inject, type PropType } from "vue";
 import Button from "../button/button";
-import { defineComponent, inject } from "vue";
+import { IconType } from "../icon";
 export default defineComponent({
   name: "TriggerButton",
   props: {
-    icon: [String, Array, Object],
+    icon: Array as PropType<IconType[]>,
+    disabled: Boolean,
   },
   setup(ps, { attrs, slots }) {
-    const mouseEnterEvent = inject("dropdown-trigger-in", null);
-    const mouseLeaveEvent = inject("dropdown-trigger-out", null);
+    const mouseEnterEvent = inject<() => void>("dropdown-trigger-in");
+    const mouseLeaveEvent = inject<() => void>("dropdown-trigger-out");
     // console.log(mouseEnterEvent);
     return () => {
       return (

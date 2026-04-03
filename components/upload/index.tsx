@@ -1,5 +1,15 @@
 import { v4 as uuid } from "uuid";
-import { computed, defineComponent, inject, reactive, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  reactive,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
+import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
 import Selector from "./selector";
@@ -40,7 +50,7 @@ export const uploadProps = {
   maxSize: Number, // KB
   uploadText: String,
   uploadSubText: String,
-  uploadIcon: [String, Object, Array] as PropType<any>,
+  uploadIcon: Array as PropType<IconType[]>,
   draggable: Boolean,
 };
 
@@ -97,7 +107,7 @@ export default defineComponent({
 
     const onSelectFiles = (files: FileList | File[]) => {
       const { limit, minSize, maxSize } = props;
-      const fileArray = Array.from(files).filter(f => f.name !== ".DS_Store");
+      const fileArray = Array.from(files).filter((f) => f.name !== ".DS_Store");
 
       fileArray.forEach((file, index) => {
         const currentCount = innerFileList.value.length;
@@ -198,7 +208,7 @@ export default defineComponent({
       formdata.append(name, file);
 
       if (data) {
-        Object.keys(data).forEach(k => formdata.append(k, data[k]));
+        Object.keys(data).forEach((k) => formdata.append(k, data[k]));
       }
 
       const xhr = new XMLHttpRequest();
@@ -286,7 +296,11 @@ export default defineComponent({
         onSelect: onSelectFiles,
       };
       const SelectorNode = (
-        <Selector key="selector" {...selectorProps} v-slots={{ default: () => slots.default?.() }} />
+        <Selector
+          key="selector"
+          {...selectorProps}
+          v-slots={{ default: () => slots.default?.() }}
+        />
       );
       const fileListProps = {
         type,

@@ -1,4 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeSize } from "../const/var";
 import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
@@ -20,7 +21,7 @@ export const radioGroupProps = {
     default: "horizontal",
   },
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
   },
   theme: String,
   shape: String as PropType<"circle" | "square">,

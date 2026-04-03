@@ -4,18 +4,12 @@ export const dividerProps = {
   type: {
     type: String as PropType<"horizontal" | "vertical">,
     default: "horizontal",
-    validator(value: string) {
-      return ["horizontal", "vertical"].includes(value);
-    },
   },
   text: String,
   dashed: Boolean,
   orientation: {
     type: String as PropType<"left" | "right" | "center">,
     default: "center",
-    validator(value: string) {
-      return ["left", "right", "center"].includes(value);
-    },
   },
 };
 

@@ -33,6 +33,7 @@
     "components/**/*.tsx"
   ],
   "exclude": [
-    "components/**/demo/*"
+    "components/**/demo/*",
+    "node_modules/*"
   ]
 }

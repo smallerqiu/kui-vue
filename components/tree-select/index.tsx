@@ -14,6 +14,7 @@ import {
   type PropType,
   type VNodeChild,
 } from "vue";
+import type { TypeDropPlacements, TypeSize } from "../const/var";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Empty from "../empty";
@@ -24,8 +25,7 @@ import { buildTree, type TreeKey, type TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 
-type TreeSelectValue = TreeKey | TreeKey[] | null | undefined;
-type TreeSelectSize = "small" | "large" | "default";
+type TreeSelectValue = TreeKey | TreeKey[] | null | undefined; 
 type TreeSelectPlacement =
   | "top"
   | "top-left"
@@ -43,21 +43,12 @@ interface SearchEventTarget extends EventTarget {
 export const treeSelectProps = {
   placeholder: String,
   size: {
-    type: String as PropType<TreeSelectSize>,
+    type: String as PropType<TypeSize>,
     default: "default",
-    validator(value: TreeSelectSize) {
-      return ["small", "large", "default"].indexOf(value) >= 0;
-    },
   },
   placement: {
-    type: String as PropType<TreeSelectPlacement>,
-    default: "bottom-left",
-    validator(value: TreeSelectPlacement) {
-      return (
-        ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"].indexOf(value) >=
-        0
-      );
-    },
+    type: String as PropType<TypeDropPlacements>,
+    default: "bottom-left", 
   },
   width: Number,
   maxTagCount: Number,

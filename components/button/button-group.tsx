@@ -6,11 +6,11 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { filterSize, sizeMap } from "../utils/size";
+import { type TypeSize } from "../const/var";
 
 export const buttonGroupProps = {
   size: {
-    type: String as PropType<typeof sizeMap[number]>,
+    type: String as PropType<TypeSize>,
   },
   shape: String as PropType<"circle" | string>,
 };
@@ -22,10 +22,10 @@ export default defineComponent({
   props: buttonGroupProps,
   setup(props, { slots }) {
     const { size, shape } = toRefs(props);
-    const parentSize = inject<string | null>("size", null);
+    const parentSize = inject<string>("size");
 
     provide("KButtonGroup", {
-      size: props.size || filterSize(parentSize),
+      size: props.size || parentSize,
       shape,
     });
 

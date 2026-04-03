@@ -24,6 +24,7 @@ export const submenuProps = {
   title: String,
   isPopup: Boolean,
   icon: Array as PropType<IconType[]>,
+  key: String,
 };
 
 export type SubMenuProps = ExtractPropTypes<typeof submenuProps>;
@@ -33,16 +34,16 @@ const SubMenu = defineComponent({
   directives: { transfer },
   props: submenuProps,
   setup(props, { slots }) {
-    const refSelection = ref<HTMLElement>();
-    const refPopper = ref();
+    const refSelection = ref<HTMLElement | null>(null);
+    const refPopper = ref<HTMLElement | null>(null);
     const top = ref(0);
     const left = ref(0);
     const minWidth = ref("");
     const instance = getCurrentInstance();
-    const key = instance?.vnode.key;
+    const key = props.key || instance?.vnode.key as string;
     const menuMode = inject<Ref<string | null>>("menu-mode", ref(null));
-    const selectedKeys = inject("menu-selected-keys", ref([]));
-    const openKeys = inject("menu-open-keys", ref([]));
+    const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
+    const openKeys = inject<Ref<string[]>>("menu-open-keys", ref([]));
     const openKeysChange =
       inject<(key: string, opened: boolean, path: string[]) => void>("openKeysChange");
     const clearPopTimer = inject<() => void>("clearPopTimer");
@@ -55,6 +56,8 @@ const SubMenu = defineComponent({
     const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";
 
     const rendered = ref(false);
+
+    // const key = props.key as string;
 
     onMounted(() => {
       nextTick(() => {
@@ -89,10 +92,6 @@ const SubMenu = defineComponent({
         openKeysChange?.(key as string, true, keyPah);
         updatePosition();
       });
-      // } else {
-      //   openKeysChange?.(key, true, keyPah);
-      //   updatePosition();
-      // }
     };
     const updatePosition = () => {
       // console.log(mode, keyPah);
@@ -160,11 +159,10 @@ const SubMenu = defineComponent({
       ) : null;
     };
     const renderSubmenu = () => {
-      const inline = menuMode.value != "horizontal";
       const opened = openKeys.value.indexOf(key) >= 0;
       // todo: mode 从inline 切换 vertical 时 会卡一下
       const popper = renderPopper();
-      if (inline) {
+      if (menuMode.value != "horizontal") {
         const transitionProps = getTransitionProp("k-collapse-slide");
         const node = [
           <Transition {...transitionProps}>
@@ -216,7 +214,7 @@ const SubMenu = defineComponent({
           }, 200);
         };
       }
-      if (keyPah.length && inline && !props.isPopup) {
+      if (keyPah.length && menuMode.value != "horizontal" && !props.isPopup) {
         titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
       }
       let title = props.title || slots.title?.();
