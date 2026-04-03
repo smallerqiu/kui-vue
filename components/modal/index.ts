@@ -1,5 +1,6 @@
 import { createVNode, getCurrentInstance, render } from "vue";
 import { getAppContext, recordMousePoint } from "../config/context";
+import type { IconType } from "../icon";
 import Modal from "./modal";
 import Toast from "./toast";
 
@@ -33,19 +34,41 @@ let showModal = (props = {}) => {
   }
   return instance;
 };
+export interface ModalApiProps {
+  title: string;
+  okText?: string;
+  cancelText?: string;
+  content: string;
+  color?: string;
+  icon?: IconType[];
+  onOk?: Function;
+  onCancel?: Function;
+  type?: "info" | "success" | "error" | "warning" | "confirm";
+}
+export const modal = {
+  show(props: ModalApiProps) {
+    return showModal(props);
+  },
 
-["info", "success", "warning", "error", "confirm"].forEach((type) => {
-  Modal[type] = (props = {}) => showModal(Object.assign({ type }, props));
-});
-
-Modal.show = (props = {}) => {
-  return showModal(props);
+  destroyAll() {
+    modalList.forEach((toast) => {
+      toast.destroy();
+    });
+  },
+  info(props: ModalApiProps) {
+    return showModal({ type: "info", ...props });
+  },
+  success(props: ModalApiProps) {
+    return showModal({ type: "success", ...props });
+  },
+  warning(props: ModalApiProps) {
+    return showModal({ type: "warning", ...props });
+  },
+  error(props: ModalApiProps) {
+    return showModal({ type: "", ...props });
+  },
+  confirm(props: ModalApiProps) {
+    return showModal({ type: "confirm", ...props });
+  },
 };
-
-Modal.destroyAll = () => {
-  modalList.forEach((toast) => {
-    toast.destroy();
-  });
-};
-
 export default Modal;

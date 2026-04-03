@@ -10,7 +10,7 @@ export interface NoticeOptions {
   color?: string;
   onClose?: () => void;
 }
-let Notice: any = {
+let notice: any = {
   name: "notice",
   open(options: NoticeOptions = {}) {
     if (!noticeInstance) {
@@ -26,12 +26,18 @@ let Notice: any = {
       noticeInstance = null;
     }
   },
+  info(options: NoticeOptions) {
+    return this.open({ type: "info", ...options });
+  },
+  success(options: NoticeOptions) {
+    return this.open({ type: "success", ...options });
+  },
+  warning(options: NoticeOptions) {
+    return this.open({ type: "warning", ...options });
+  },
+  error(options: NoticeOptions) {
+    return this.open({ type: "error", ...options });
+  },
 };
 
-["info", "success", "warning", "error"].forEach((type) => {
-  Notice[type] = (options: NoticeOptions) => {
-    return Notice.open({ type, ...options });
-  };
-});
-
-export default Notice;
+export default notice;
