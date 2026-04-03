@@ -1,11 +1,15 @@
-export const loadImage = (src, callback, err) => {
+interface ImageInfo {
+  width: number;
+  height: number;
+}
+export const loadImage = (src: string, callback?: (info: ImageInfo) => void, err?: () => void) => {
   if (!src) return;
 
-  let image = new Image();
+  let image: HTMLImageElement | null = new Image();
   let isCompleted = false;
 
   const cleanup = () => {
-    if (isCompleted) return;
+    if (isCompleted || !image) return;
     isCompleted = true;
     image.onload = null;
     image.onerror = null;
@@ -13,7 +17,7 @@ export const loadImage = (src, callback, err) => {
   };
 
   image.onload = () => {
-    if (!isCompleted) {
+    if (!isCompleted && image) {
       const { width, height } = image;
       callback && callback({ width, height });
     }

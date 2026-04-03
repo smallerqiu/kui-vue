@@ -1,21 +1,18 @@
 import Button from "../button/button";
-import { defineComponent, inject, type PropType } from "vue";
-
-export const triggerButtonProps = {
-  icon: [String, Array, Object] as PropType<string | any[] | object>,
-};
-
+import { defineComponent, inject } from "vue";
 export default defineComponent({
   name: "TriggerButton",
-  props: triggerButtonProps,
-  setup(props, { attrs, slots }) {
-    const mouseEnterEvent = inject<(() => void) | null>("dropdown-trigger-in", null);
-    const mouseLeaveEvent = inject<(() => void) | null>("dropdown-trigger-out", null);
-
+  props: {
+    icon: [String, Array, Object],
+  },
+  setup(ps, { attrs, slots }) {
+    const mouseEnterEvent = inject("dropdown-trigger-in", null);
+    const mouseLeaveEvent = inject("dropdown-trigger-out", null);
+    // console.log(mouseEnterEvent);
     return () => {
       return (
         <Button
-          icon={props.icon}
+          icon={ps.icon}
           {...attrs}
           onMouseenter={() => mouseEnterEvent?.()}
           onMouseleave={() => mouseLeaveEvent?.()}

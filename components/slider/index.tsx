@@ -13,6 +13,7 @@ import {
 import Thumb from "./thumb";
 
 import Big from "big.js";
+import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
 export const sliderProps = {
@@ -107,15 +108,7 @@ const Slider = defineComponent({
       const R = size / 2;
 
       // 获取点击位置距离【物理起点】（Left/Bottom）的距离
-      let x = 0,
-        y = 0;
-      if ("touches" in e) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-      } else {
-        x = e.clientX;
-        y = e.clientY;
-      }
+      let [x, y] = getPosition(e);
       let distFromPhysicalStart = props.vertical ? rect.bottom - y : x - rect.left;
 
       // 如果是反向，转换成距离【逻辑起点】（Right/Top）的距离

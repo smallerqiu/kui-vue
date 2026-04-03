@@ -1,19 +1,30 @@
+import {
+  defineComponent,
+  type ExtractPropTypes,
+  onUnmounted,
+  type PropType,
+  provide,
+  ref,
+} from "vue";
+import createInstance from "./instance";
+import type { ImagePreviewProps } from "./preview";
 
-import { defineComponent, onUnmounted, provide, ref } from "vue";
-import newInstance from "./instance";
+export const imageGroupProps = {
+  data: Array as PropType<string[]>,
+};
+
+export type ImageGroupProps = ExtractPropTypes<typeof imageGroupProps>;
 
 const ImageGroup = defineComponent({
   name: "ImageGroup",
-  props: {
-    data: Array,
-  },
+  props: imageGroupProps,
   setup(props, { slots }) {
     const data = ref(props.data || []);
     const preview = ref();
-    const show = (props, slots) => {
+    const show = (props: ImagePreviewProps, slots: any) => {
       if (!preview.value) {
         props.data = data.value;
-        preview.value = newInstance({ ...props }, null, slots);
+        preview.value = createInstance({ ...props }, slots);
       }
       preview.value.show(props);
     };
@@ -23,11 +34,11 @@ const ImageGroup = defineComponent({
       }
     };
 
-    const register = (item) => {
+    const register = (item: string) => {
       data.value.push(item);
     };
 
-    const unregister = (item) => {
+    const unregister = (item: string) => {
       const index = data.value.indexOf(item);
       if (index >= 0) {
         data.value.splice(index, 1);
