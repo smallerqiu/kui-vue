@@ -10,9 +10,9 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import { type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
-import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
 import InputBox from "./input-box";
 import InputGroup from "./input-group";
@@ -20,12 +20,14 @@ import InputGroup from "./input-group";
 export const inputProps = {
   clearable: { type: Boolean, default: true },
   visiblePasswordIcon: { type: Boolean, default: true },
-  size: { type: String as PropType<typeof sizeMap[number]> },
+  size: { type: String as PropType<TypeSize> },
   modelValue: { type: [String, Number, Array, Object] as PropType<any> },
   value: { type: [String, Number, Array, Object] as PropType<any> },
   disabled: Boolean,
   type: {
-    type: String as PropType<"text" | "textarea" | "password" | "url" | "email" | "date" | "search" | "hidden">,
+    type: String as PropType<
+      "text" | "textarea" | "password" | "url" | "email" | "date" | "search" | "hidden"
+    >,
     default: "text",
   },
   icon: [Array] as PropType<IconType[]>,
@@ -48,11 +50,16 @@ export default defineComponent({
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();
-    const parentSize = inject<string | null>("size", null);
+    const parentSize = inject<TypeSize | null>("size", null);
 
-    provide("size", props.size || filterSize(parentSize));
+    provide("size", props.size || parentSize);
 
-    watch(() => props.modelValue, (v) => { currentValue.value = v; });
+    watch(
+      () => props.modelValue,
+      (v) => {
+        currentValue.value = v;
+      }
+    );
 
     const focus = () => inputRef.value?.focus();
     const blur = () => inputRef.value?.blur();
@@ -81,15 +88,25 @@ export default defineComponent({
           />
         );
       } else if (attrs?.onSearch) {
-        return <Icon type={Search} class="k-input-search-icon" onClick={() => emit("search", currentValue.value)} />;
+        return (
+          <Icon
+            type={Search}
+            class="k-input-search-icon"
+            onClick={() => emit("search", currentValue.value)}
+          />
+        );
       }
-      return slotSuffix.length > 0 ? slotSuffix : suffix ? <div class="k-input-suffix">{suffix}</div> : null;
+      return slotSuffix.length > 0 ? (
+        slotSuffix
+      ) : suffix ? (
+        <div class="k-input-suffix">{suffix}</div>
+      ) : null;
     };
 
     return () => {
       const {
         icon,
-        size = filterSize(parentSize)||undefined,
+        size = parentSize || undefined,
         disabled,
         type,
         clearable,
@@ -146,7 +163,11 @@ export default defineComponent({
       const textInput = <InputBox {...inputBoxProps} />;
       if (!multiple) return textInput;
 
-      const clearableShow = clearable && !isEmpty(currentValue.value) && type !== "password" && attrs.readonly === undefined;
+      const clearableShow =
+        clearable &&
+        !isEmpty(currentValue.value) &&
+        type !== "password" &&
+        attrs.readonly === undefined;
 
       const rootProps = {
         class: [
@@ -166,22 +187,35 @@ export default defineComponent({
       };
 
       if (slotPrefix.length > 0 || slotSuffix.length > 0) {
-        const preChildren = slotPrefix.length ? <div class="k-input-group-prefix">{slotPrefix}</div> : null;
+        const preChildren = slotPrefix.length ? (
+          <div class="k-input-group-prefix">{slotPrefix}</div>
+        ) : null;
         const innerChildren: any[] = [];
-        if (icon) innerChildren.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={() => !disabled && emit("icon-click")} />);
+        if (icon)
+          innerChildren.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              onClick={() => !disabled && emit("icon-click")}
+            />
+          );
         if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         innerChildren.push(textInput);
         if (clearable) {
           innerChildren.push(
             <Icon
               type={CloseCircle}
-              class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
               onClick={clear}
             />
           );
         }
         if (slotControls.length) innerChildren.push(slotControls);
-        const sufChildren = slotSuffix.length > 0 ? <div class="k-input-group-suffix">{slotSuffix}</div> : null;
+        const sufChildren =
+          slotSuffix.length > 0 ? <div class="k-input-group-suffix">{slotSuffix}</div> : null;
 
         return (
           <InputGroup size={size} theme={theme}>
@@ -195,14 +229,24 @@ export default defineComponent({
       } else {
         const suffixNode = getSuffix(slotSuffix);
         const children: any[] = [];
-        if (icon) children.push(<Icon type={icon} class={`k-${inputType}-icon`} onClick={() => !disabled && emit("icon-click")} />);
+        if (icon)
+          children.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              onClick={() => !disabled && emit("icon-click")}
+            />
+          );
         if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         children.push(textInput);
         if (clearable) {
           children.push(
             <Icon
               type={CloseCircle}
-              class={[`k-${inputType}-clearable`, { [`k-${inputType}-clearable-hidden`]: !clearableShow }]}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
               onClick={clear}
             />
           );

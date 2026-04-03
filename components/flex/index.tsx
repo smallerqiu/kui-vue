@@ -1,5 +1,6 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, provide } from "vue";
+import { type TypeSize } from "../const/var";
 
 export const flexProps = {
   align: {
@@ -13,12 +14,7 @@ export const flexProps = {
   vertical: Boolean,
   wrap: Boolean,
   size: {
-    type: [String, Number, Array] as PropType<string | number | (string | number)[]>,
-    validator(value: any) {
-      return typeof value == "number" || Array.isArray(value)
-        ? true
-        : ["small", "middle", "large"].indexOf(value) >= 0;
-    },
+    type: [String, Number, Array] as PropType<TypeSize | number | (string | number)[]>,
   },
 };
 
@@ -50,7 +46,7 @@ const Flex = defineComponent({
       if (Array.isArray(size)) {
         _props.style = { gap: `${size[1]}px ${size[0]}px` } as CSSProperties;
       } else if (/small|middle|large/.test(size)) {
-        const sizes: Record<string, number> = { small: 8, middle: 16, large: 24 };
+        const sizes: Record<string, number> = { small: 8, middle: 16, large: 24, default: 16 };
         _props.style.gap = sizes[size] + "px";
       } else if (size !== undefined && size !== null) {
         _props.style.gap = `${size}px`;

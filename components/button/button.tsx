@@ -7,9 +7,8 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { colors } from "../const/var";
+import { colors, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
-import { filterSize, sizeMap } from "../utils/size";
 import { getChildren } from "../utils/vnode";
 
 export const buttonProps = {
@@ -20,7 +19,7 @@ export const buttonProps = {
   icon: [Array] as PropType<IconType[]>,
   block: Boolean,
   size: {
-    type: String as PropType<(typeof sizeMap)[number]>,
+    type: String as PropType<TypeSize>,
   },
   color: {
     type: String as PropType<(typeof colors)[number]>,
@@ -44,13 +43,13 @@ export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 export default defineComponent({
   name: "Button",
   props: buttonProps,
-  emits: ["click"],
+  emits: ["click","mouseenter","mouseleave"],
   setup(props, { emit, slots, attrs }) {
     const buttonGroup = inject<any>("KButtonGroup", null);
     const parentSize = inject<string | null>("size", null);
 
     const computedSize = computed(() => {
-      return props.size || buttonGroup?.size || filterSize(parentSize) || "default";
+      return props.size || buttonGroup?.size || parentSize || "default";
     });
 
     const computedShape = computed(() => {

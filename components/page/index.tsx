@@ -8,6 +8,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
+import type { TypeSize } from "../const/var";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
@@ -22,7 +23,7 @@ export const pageProps = {
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
     default: "default",
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
   },
   total: { default: 0, type: Number },
   pageSize: { default: 10, type: Number },

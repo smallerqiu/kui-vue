@@ -1,13 +1,13 @@
 import { Comment, Fragment, Text, cloneVNode, isVNode } from "vue";
 
-export function cloneNodes(vnode, props, merge = false, cloneTransition?:boolean) {
+export function cloneNodes(vnode:any, props:any, merge = false, cloneTransition?: boolean) {
   return vnode.length == 1
     ? cloneVNode(vnode[0], props, merge)
     : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);
 }
-export function getChildren(VNodes) {
-  const result = [];
-  const loop = (nodes) => {
+export function getChildren(VNodes?: any[]) {
+  const result: any[] = [];
+  const loop = (nodes?: any[]) => {
     nodes?.forEach((vnode) => {
       if (!isVNode(vnode)) return;
       if (vnode.type === Comment) return;
@@ -27,7 +27,7 @@ export function getChildren(VNodes) {
   return result;
 }
 
-let scrollbarWidth = null;
+let scrollbarWidth: number | null = null;
 
 const getScrollbarWidth = () => {
   if (scrollbarWidth !== null) {
@@ -37,7 +37,6 @@ const getScrollbarWidth = () => {
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";
   outer.style.overflow = "scroll";
-  outer.style.msOverflowStyle = "scrollbar";
   document.body.appendChild(outer);
 
   const inner = document.createElement("div");
@@ -45,12 +44,12 @@ const getScrollbarWidth = () => {
 
   scrollbarWidth = outer.offsetWidth - outer.clientWidth;
 
-  outer.parentNode.removeChild(outer);
+  outer.parentNode?.removeChild(outer);
 
   return scrollbarWidth;
 };
-const injectedStyles = new Map();
-export const toggleContainerScroll = (target, lock) => {
+const injectedStyles = new Map<string, HTMLStyleElement>();
+export const toggleContainerScroll = (target: HTMLElement | null, lock: boolean) => {
   if (!target || target != document.body) return;
   if (lock) {
     if (injectedStyles.has("body")) return;

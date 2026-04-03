@@ -3,6 +3,7 @@ import { getAppContext, recordMousePoint } from "../config/context";
 import type { IconType } from "../icon";
 import Modal from "./modal";
 import Toast from "./toast";
+export type { ModalProps } from "./modal";
 
 let modalList: any[] = [];
 recordMousePoint();

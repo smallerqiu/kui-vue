@@ -22,16 +22,22 @@ import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
+import type { TypeDropPlacements, TypeSize } from "../const/var";
 import Option from "./option"; // 导入 Option 组件
 
+export interface SelectOption {
+  label: string | number;
+  value: string | number;
+  disabled?: boolean;
+}
 export const selectProps = {
   placeholder: String,
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
   placement: {
-    type: String as PropType<"top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right">,
+    type: String as PropType<TypeDropPlacements>,
     default: "bottom-left",
   },
   width: Number,
@@ -46,7 +52,7 @@ export const selectProps = {
   loading: Boolean,
   bordered: { type: Boolean, default: true },
   showArrow: { type: Boolean, default: true },
-  options: Array as PropType<Array<{ label: string | number; value: string | number; disabled?: boolean }>>,
+  options: Array as PropType<Array<SelectOption>>,
   theme: { type: String, default: "light" },
   emptyText: String,
   loadingText: String,
@@ -67,7 +73,7 @@ export default defineComponent({
   emits: ["update:modelValue", "change", "select", "openChange", "search"],
   setup(props, { slots, emit, attrs }) {
     const locale = computed(() => {
-      const injectedLocale = inject<Record<string,any>>("locale", zhCN);
+      const injectedLocale = inject<Record<string, any>>("locale", zhCN);
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
         : injectedLocale;
@@ -77,7 +83,7 @@ export default defineComponent({
     const rendered = ref(false);
     const currentValue = ref<any[]>(
       props.multiple
-        ? (props.modelValue || props.value || []) as any[]
+        ? ((props.modelValue || props.value || []) as any[])
         : isEmpty(props.modelValue || props.value)
           ? []
           : [props.modelValue || props.value]
@@ -123,7 +129,7 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (v) => {
-        currentValue.value = props.multiple ? (v || []) as any[] : isEmpty(v) ? [] : [v];
+        currentValue.value = props.multiple ? ((v || []) as any[]) : isEmpty(v) ? [] : [v];
         if (visible.value) {
           updatePosition();
         }
@@ -402,7 +408,8 @@ export default defineComponent({
         return options;
       }
 
-      const data: Array<{ label: string | number; value: string | number; disabled?: boolean }> = [];
+      const data: Array<{ label: string | number; value: string | number; disabled?: boolean }> =
+        [];
       const children = getChildren(slots.default?.());
       children.forEach((child: any) => {
         if (child?.props) {
@@ -422,7 +429,9 @@ export default defineComponent({
       const key = queryKey.value;
       const filter = props.filterable && key.trim() !== "";
       return filter
-        ? optionsData.value.filter((item) => String(item.label).toLowerCase().includes(key.toLowerCase()))
+        ? optionsData.value.filter((item) =>
+            String(item.label).toLowerCase().includes(key.toLowerCase())
+          )
         : optionsData.value;
     };
 
@@ -462,7 +471,10 @@ export default defineComponent({
 
     const showClear = computed(() => {
       return (
-        props.clearable && !props.disabled && !isEmpty(currentValue.value) && !isEmpty(labelText.value)
+        props.clearable &&
+        !props.disabled &&
+        !isEmpty(currentValue.value) &&
+        !isEmpty(labelText.value)
       );
     });
 
@@ -502,7 +514,10 @@ export default defineComponent({
             ) : optionNodes.length ? (
               <ul>{optionNodes}</ul>
             ) : (
-              <Empty onClick={emptyClick} description={props.emptyText || locale.value?.k.select.emptyText} />
+              <Empty
+                onClick={emptyClick}
+                description={props.emptyText || locale.value?.k.select.emptyText}
+              />
             )}
           </div>
         </Transition>
@@ -578,7 +593,7 @@ export default defineComponent({
           {queryNode}
         </div>
       ) : !isEmpty(labelText.value) ? (
-        <div class="k-select-label" v-show={queryKey.value.length >0 }>
+        <div class="k-select-label" v-show={queryKey.value.length > 0}>
           {labelText.value[0]}
         </div>
       ) : null;

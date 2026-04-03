@@ -2,7 +2,7 @@ import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } fr
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
-
+import type { TypeSize } from "../const/var";
 import type { ColProps, FormRule } from "./types";
 
 export const formProps = {
@@ -19,7 +19,7 @@ export const formProps = {
     default: () => ({}),
   },
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
   theme: String,

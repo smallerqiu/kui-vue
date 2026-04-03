@@ -1,10 +1,11 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeSize } from "../const/var";
 
 export const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
   value: [String, Number, Object, Array] as PropType<any>,
   theme: { type: String, default: "light" },
-  size: String as PropType<"small" | "large" | "default">,
+  size: String as PropType<TypeSize>,
   disabled: Boolean,
 };
 

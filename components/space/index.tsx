@@ -1,7 +1,7 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { cloneVNode, defineComponent, h, provide } from "vue";
+import { type TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
-
 export const spaceProps = {
   align: {
     type: String as PropType<"start" | "end" | "center" | "baseline">,
@@ -11,7 +11,7 @@ export const spaceProps = {
   block: Boolean,
   compact: Boolean,
   size: {
-    type: [String, Number, Array] as PropType<"large" | "small" | "middle" | number | number[]>,
+    type: [String, Number, Array] as PropType<TypeSize | number | number[]>,
   },
 };
 
@@ -50,7 +50,7 @@ const Space = defineComponent({
         if (Array.isArray(size)) {
           style.gap = `${size[1]}px ${size[0]}px`;
         } else if (typeof size === "string") {
-          const sizes = { small: 8, middle: 16, large: 24 };
+          const sizes = { small: 8, middle: 16, large: 24, default: 16 };
           style.gap = `${sizes[size]}px`;
         } else if (typeof size !== "number") {
           style.gap = `${size}px`;

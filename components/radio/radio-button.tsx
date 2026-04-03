@@ -1,5 +1,6 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
+import type { TypeSize } from "../const/var";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
@@ -12,7 +13,7 @@ export const radioButtonProps = {
   checked: Boolean,
   icon: Array as PropType<IconType[]>,
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
   shape: {

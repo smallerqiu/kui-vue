@@ -9,10 +9,10 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import { type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
-import { filterSize, sizeMap } from "../utils/size";
 
 export const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
@@ -31,7 +31,7 @@ export const inputNumberProps = {
   theme: { type: String, default: "light" },
   icon: [Array] as PropType<IconType[]>,
   size: {
-    type: String as PropType<(typeof sizeMap)[number]>,
+    type: String as PropType<TypeSize>,
   },
   placeholder: String,
 };
@@ -45,7 +45,7 @@ const InputNumber = defineComponent({
   emits: ["update:modelValue", "change", "blur"],
 
   setup(props, { slots, attrs, emit }) {
-    const parentSize = inject<string | null>("size", null);
+    const parentSize = inject<TypeSize>("size");
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
 
@@ -149,7 +149,7 @@ const InputNumber = defineComponent({
         placeholder: props.placeholder,
         suffix: props.suffix,
         prefix: props.prefix,
-        size: props.size || filterSize(parentSize) || undefined,
+        size: props.size || parentSize,
         icon: props.icon,
         theme: props.theme,
         inputType: "input-number",

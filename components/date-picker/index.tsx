@@ -28,9 +28,10 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
+import type { TypeDropPlacements, TypeSize } from "../const/var";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
-import Icon from '../icon';
+import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
 dayjs.extend(isBetween);
@@ -47,7 +48,9 @@ export const datePickerProps = {
     default: "string",
   },
   mode: {
-    type: String as PropType<"year" | "month" | "date" | "time" | "dateTime" | "dateRange" | "dateTimeRange">,
+    type: String as PropType<
+      "year" | "month" | "date" | "time" | "dateTime" | "dateRange" | "dateTimeRange"
+    >,
     default: "date",
   },
   presets: Array as PropType<Array<{ label: string; value: any }>>,
@@ -58,14 +61,14 @@ export const datePickerProps = {
   format: { type: [String, Array] as PropType<string | string[]>, default: null },
   disabledDate: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
   disabledTime: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
-  size: { type: String as PropType<"small" | "large" | "default">, default: "default" },
-  pickerSize: { type: String as PropType<"small" | "large" | "default">, default: "default" },
+  size: { type: String as PropType<TypeSize>, default: "default" },
+  pickerSize: { type: String as PropType<TypeSize>, default: "default" },
   dateIcon: [Array, Object] as PropType<any>,
   theme: { type: String as PropType<string>, default: "light" },
   shape: String,
   bordered: { type: Boolean, default: true },
   placement: {
-    type: String as PropType<"top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right">,
+    type: String as PropType<TypeDropPlacements>,
     default: "bottom-left",
   },
 };
@@ -80,7 +83,7 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const injectedLocale = inject<any>("locale", zhCN);
-    const locale = computed(() => (injectedLocale?.value || injectedLocale || zhCN));
+    const locale = computed(() => injectedLocale?.value || injectedLocale || zhCN);
     const localeName = computed(() => locale.value?.name || "zh-cn");
     const local = () => dayjs().locale(localeName.value).localeData();
 
@@ -105,7 +108,9 @@ export default defineComponent({
     const timeEditSide = ref<"start" | "end">("start");
 
     const isRange = computed(() => props.mode.includes("Range"));
-    const isYearFirst = computed(() => ["zh", "ja", "ko"].some((k) => localeName.value.toLowerCase().includes(k)));
+    const isYearFirst = computed(() =>
+      ["zh", "ja", "ko"].some((k) => localeName.value.toLowerCase().includes(k))
+    );
 
     const getFormat = () => {
       if (props.format) return Array.isArray(props.format) ? props.format[0] : props.format;
@@ -125,10 +130,14 @@ export default defineComponent({
       if (!dayjsVal) return null;
       const d = dayjsVal.locale(localeName.value);
       switch (props.valueType) {
-        case "timestamp": return d.valueOf();
-        case "unix": return d.unix();
-        case "string": return d.format(getFormat());
-        default: return d.toDate();
+        case "timestamp":
+          return d.valueOf();
+        case "unix":
+          return d.unix();
+        case "string":
+          return d.format(getFormat());
+        default:
+          return d.toDate();
       }
     };
 
@@ -149,24 +158,35 @@ export default defineComponent({
 
     const parsePropValue = (val: any): Dayjs | null => {
       if (!val) return null;
-      let d = props.valueType === "unix" ? dayjs.unix(Number(val)) : dayjs(val, getFormat(), localeName.value);
+      let d =
+        props.valueType === "unix"
+          ? dayjs.unix(Number(val))
+          : dayjs(val, getFormat(), localeName.value);
       if (!d.isValid()) d = dayjs(val);
       return d.isValid() ? d.locale(localeName.value) : null;
     };
 
-    watch(() => props.modelValue, (val) => {
-      if (!val) { innerValue.value = null; syncTextFromValue(); return; }
-      if (isRange.value && Array.isArray(val)) {
-        innerValue.value = val.map(d => parsePropValue(d));
-        if (!isFocus.value) syncTextFromValue();
-        if ((innerValue.value as any[])[0]) panelDate.value = (innerValue.value as any[])[0];
-      } else {
-        const d = parsePropValue(val);
-        innerValue.value = d;
-        if (!isFocus.value) syncTextFromValue();
-        if (d?.isValid()) panelDate.value = d;
-      }
-    }, { immediate: true });
+    watch(
+      () => props.modelValue,
+      (val) => {
+        if (!val) {
+          innerValue.value = null;
+          syncTextFromValue();
+          return;
+        }
+        if (isRange.value && Array.isArray(val)) {
+          innerValue.value = val.map((d) => parsePropValue(d));
+          if (!isFocus.value) syncTextFromValue();
+          if ((innerValue.value as any[])[0]) panelDate.value = (innerValue.value as any[])[0];
+        } else {
+          const d = parsePropValue(val);
+          innerValue.value = d;
+          if (!isFocus.value) syncTextFromValue();
+          if (d?.isValid()) panelDate.value = d;
+        }
+      },
+      { immediate: true }
+    );
 
     const emitValue = (closePanel = true) => {
       if (!innerValue.value) {
@@ -179,11 +199,15 @@ export default defineComponent({
         const [start, end] = innerValue.value;
         if (start && end) {
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
-          const out = dates.map(d => formatOutputValue(d));
+          const out = dates.map((d) => formatOutputValue(d));
           emit("update:modelValue", out);
           emit("update:startDate", out[0]);
           emit("update:endDate", out[1]);
-          emit("change", dates, dates.map(d => d.locale(localeName.value).format(fmt)));
+          emit(
+            "change",
+            dates,
+            dates.map((d) => d.locale(localeName.value).format(fmt))
+          );
           innerValue.value = dates;
           syncTextFromValue();
           if (closePanel) isVisible.value = false;
@@ -201,7 +225,8 @@ export default defineComponent({
       const val = (e.target as HTMLInputElement).value;
       const fmt = getFormat();
       if (isRange.value) {
-        if (index === 0) textValueStart.value = val; else textValueEnd.value = val;
+        if (index === 0) textValueStart.value = val;
+        else textValueEnd.value = val;
       } else {
         textValue.value = val;
       }
@@ -231,7 +256,9 @@ export default defineComponent({
     };
 
     const updatePosition = () => {
-      nextTick(() => setPlacement({ refSelection, refPopper, currentPlacement, transOrigin, top, left }));
+      nextTick(() =>
+        setPlacement({ refSelection, refPopper, currentPlacement, transOrigin, top, left })
+      );
     };
 
     const togglePanel = () => {
@@ -242,19 +269,28 @@ export default defineComponent({
       }
       isVisible.value = true;
       isFocus.value = true;
-      const map: Record<string, typeof currentView.value> = { year: "year", month: "month", time: "time" };
+      const map: Record<string, typeof currentView.value> = {
+        year: "year",
+        month: "month",
+        time: "time",
+      };
       currentView.value = map[props.mode] || "date";
-      
+
       let base = dayjs().locale(localeName.value);
       if (!innerValue.value) panelDate.value = base;
       else if (!Array.isArray(innerValue.value)) panelDate.value = innerValue.value;
       else panelDate.value = (innerValue.value as any[])[0] || base;
-      
+
       updatePosition();
     };
 
     const handleClickOutside = (e: MouseEvent) => {
-      if (refPopper.value && !refPopper.value.contains(e.target as Node) && refSelection.value && !refSelection.value.contains(e.target as Node)) {
+      if (
+        refPopper.value &&
+        !refPopper.value.contains(e.target as Node) &&
+        refSelection.value &&
+        !refSelection.value.contains(e.target as Node)
+      ) {
         syncTextFromValue();
         isVisible.value = false;
         isFocus.value = false;
@@ -263,7 +299,7 @@ export default defineComponent({
 
     const pickDate = (date: Dayjs) => {
       if (isRange.value) {
-        let newVal = Array.isArray(innerValue.value) ? [...innerValue.value].filter(x => x) : [];
+        let newVal = Array.isArray(innerValue.value) ? [...innerValue.value].filter((x) => x) : [];
         if (newVal.length === 2 || newVal.length === 0) {
           newVal = [date.startOf("day")];
         } else {
@@ -291,7 +327,8 @@ export default defineComponent({
       if (props.mode === "dateTimeRange") {
         idx = timeEditSide.value === "start" ? 0 : 1;
         const currentSide = (innerValue.value as any[])?.[idx];
-        if (currentSide) activeDate = currentSide; else return;
+        if (currentSide) activeDate = currentSide;
+        else return;
       } else {
         if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
       }
@@ -300,7 +337,7 @@ export default defineComponent({
       if (props.disabledTime(nextDate.toDate())) return;
 
       if (props.mode === "dateTimeRange") {
-        const newArr = [...(innerValue.value as any[] || [null, null])];
+        const newArr = [...((innerValue.value as any[]) || [null, null])];
         newArr[idx] = nextDate;
         innerValue.value = newArr;
       } else {
@@ -320,17 +357,42 @@ export default defineComponent({
       const monthName = pDate.format("MMM");
 
       const yearNode = <span onClick={() => (currentView.value = "year")}>{yearLabel}</span>;
-      const monthNode = props.mode !== "year" ? (
-        <span class="k-picker-header-month-btn" onClick={() => (currentView.value = "month")}>{monthName}</span>
-      ) : null;
+      const monthNode =
+        props.mode !== "year" ? (
+          <span class="k-picker-header-month-btn" onClick={() => (currentView.value = "month")}>
+            {monthName}
+          </span>
+        ) : null;
 
       return (
         <div class="k-picker-header">
-          <Button icon={ChevronDoubleBack} type="text" onClick={() => (panelDate.value = panelDate.value.subtract(10, "year"))} />
-          {props.mode !== "year" && <Button icon={ChevronBack} type="text" onClick={() => (panelDate.value = panelDate.value.subtract(1, "month"))} />}
-          <span class="k-picker-header-label">{isYearFirst.value ? [yearNode, monthNode] : [monthNode, yearNode]}</span>
-          {props.mode !== "year" && <Button icon={ChevronForward} type="text" onClick={() => (panelDate.value = panelDate.value.add(1, "month"))} />}
-          <Button type="text" icon={ChevronDoubleForward} onClick={() => (panelDate.value = panelDate.value.add(10, "year"))} />
+          <Button
+            icon={ChevronDoubleBack}
+            type="text"
+            onClick={() => (panelDate.value = panelDate.value.subtract(10, "year"))}
+          />
+          {props.mode !== "year" && (
+            <Button
+              icon={ChevronBack}
+              type="text"
+              onClick={() => (panelDate.value = panelDate.value.subtract(1, "month"))}
+            />
+          )}
+          <span class="k-picker-header-label">
+            {isYearFirst.value ? [yearNode, monthNode] : [monthNode, yearNode]}
+          </span>
+          {props.mode !== "year" && (
+            <Button
+              icon={ChevronForward}
+              type="text"
+              onClick={() => (panelDate.value = panelDate.value.add(1, "month"))}
+            />
+          )}
+          <Button
+            type="text"
+            icon={ChevronDoubleForward}
+            onClick={() => (panelDate.value = panelDate.value.add(10, "year"))}
+          />
         </div>
       );
     };
@@ -342,10 +404,22 @@ export default defineComponent({
         <div class="k-picker-body">
           <div class="k-picker-year-body">
             {years.map((y) => (
-              <div key={y} class={["k-picker-year-item", { "k-picker-year-selected": y === panelDate.value.year() }]} onClick={() => {
-                panelDate.value = panelDate.value.year(y);
-                if (props.mode === "year") { innerValue.value = panelDate.value; emitValue(true); } else currentView.value = "month";
-              }}>{y}</div>
+              <div
+                key={y}
+                class={[
+                  "k-picker-year-item",
+                  { "k-picker-year-selected": y === panelDate.value.year() },
+                ]}
+                onClick={() => {
+                  panelDate.value = panelDate.value.year(y);
+                  if (props.mode === "year") {
+                    innerValue.value = panelDate.value;
+                    emitValue(true);
+                  } else currentView.value = "month";
+                }}
+              >
+                {y}
+              </div>
             ))}
           </div>
         </div>
@@ -358,10 +432,22 @@ export default defineComponent({
         <div class="k-picker-body">
           <div class="k-picker-month-body">
             {months.map((m, i) => (
-              <div key={i} class={["k-picker-month-item", { "k-picker-month-selected": i === panelDate.value.month() }]} onClick={() => {
-                panelDate.value = panelDate.value.month(i);
-                if (props.mode === "month") { innerValue.value = panelDate.value; emitValue(true); } else currentView.value = "date";
-              }}>{m}</div>
+              <div
+                key={i}
+                class={[
+                  "k-picker-month-item",
+                  { "k-picker-month-selected": i === panelDate.value.month() },
+                ]}
+                onClick={() => {
+                  panelDate.value = panelDate.value.month(i);
+                  if (props.mode === "month") {
+                    innerValue.value = panelDate.value;
+                    emitValue(true);
+                  } else currentView.value = "date";
+                }}
+              >
+                {m}
+              </div>
             ))}
           </div>
         </div>
@@ -375,27 +461,48 @@ export default defineComponent({
       const diff = (startOfMonth.day() - firstDayOfWeek + 7) % 7;
       const days: { d: Dayjs; type: string }[] = [];
 
-      for (let i = diff; i > 0; i--) days.push({ d: startOfMonth.subtract(i, "day"), type: "prev" });
-      for (let i = 0; i < startOfMonth.daysInMonth(); i++) days.push({ d: startOfMonth.add(i, "day"), type: "curr" });
+      for (let i = diff; i > 0; i--)
+        days.push({ d: startOfMonth.subtract(i, "day"), type: "prev" });
+      for (let i = 0; i < startOfMonth.daysInMonth(); i++)
+        days.push({ d: startOfMonth.add(i, "day"), type: "curr" });
       const rem = 42 - days.length;
-      for (let i = 1; i <= rem; i++) days.push({ d: startOfMonth.endOf("month").add(i, "day"), type: "next" });
+      for (let i = 1; i <= rem; i++)
+        days.push({ d: startOfMonth.endOf("month").add(i, "day"), type: "next" });
 
       const weekDaysRaw = currentLocaleData.weekdaysMin();
-      const weekDays = [...weekDaysRaw.slice(firstDayOfWeek), ...weekDaysRaw.slice(0, firstDayOfWeek)];
+      const weekDays = [
+        ...weekDaysRaw.slice(firstDayOfWeek),
+        ...weekDaysRaw.slice(0, firstDayOfWeek),
+      ];
 
       return (
         <div class="k-picker-body">
-          <div class="k-picker-weekdays">{weekDays.map(w => <span class="k-picker-weekday" key={w}>{w}</span>)}</div>
+          <div class="k-picker-weekdays">
+            {weekDays.map((w) => (
+              <span class="k-picker-weekday" key={w}>
+                {w}
+              </span>
+            ))}
+          </div>
           <div class="v-dp-table" onMouseleave={() => (hoverDate.value = null)}>
             {days.map((item, idx) => {
               const date = item.d;
               const isDisabled = props.disabledDate(date.toDate());
-              let isSelected = false, inRange = false, isRangeStart = false, isRangeEnd = false;
+              let isSelected = false,
+                inRange = false,
+                isRangeStart = false,
+                isRangeEnd = false;
 
               if (isRange.value && Array.isArray(innerValue.value)) {
                 const [s, e] = innerValue.value;
-                if (s && date.isSame(s, "day")) { isSelected = true; isRangeStart = true; }
-                if (e && date.isSame(e, "day")) { isSelected = true; isRangeEnd = true; }
+                if (s && date.isSame(s, "day")) {
+                  isSelected = true;
+                  isRangeStart = true;
+                }
+                if (e && date.isSame(e, "day")) {
+                  isSelected = true;
+                  isRangeEnd = true;
+                }
                 if (s && e && date.isBetween(s, e, "day", "[]")) inRange = true;
                 if (s && !e && hoverDate.value) {
                   const [min, max] = [s, hoverDate.value].sort((a, b) => a.valueOf() - b.valueOf());
@@ -406,15 +513,23 @@ export default defineComponent({
               }
 
               return (
-                <div key={idx} class={["k-picker-day", {
-                  "k-picker-day-out": item.type !== "curr",
-                  "k-picker-is-today": date.isSame(dayjs(), "day"),
-                  "k-picker-day-selected": isSelected,
-                  "k-picker-day-in": inRange && !isSelected,
-                  "k-picker-range-start": isRangeStart,
-                  "k-picker-range-end": isRangeEnd,
-                  "k-picker-day-disabled": isDisabled
-                }]} onMouseenter={() => isRange.value && (hoverDate.value = date)} onClick={() => !isDisabled && pickDate(date)}>
+                <div
+                  key={idx}
+                  class={[
+                    "k-picker-day",
+                    {
+                      "k-picker-day-out": item.type !== "curr",
+                      "k-picker-is-today": date.isSame(dayjs(), "day"),
+                      "k-picker-day-selected": isSelected,
+                      "k-picker-day-in": inRange && !isSelected,
+                      "k-picker-range-start": isRangeStart,
+                      "k-picker-range-end": isRangeEnd,
+                      "k-picker-day-disabled": isDisabled,
+                    },
+                  ]}
+                  onMouseenter={() => isRange.value && (hoverDate.value = date)}
+                  onClick={() => !isDisabled && pickDate(date)}
+                >
                   {date.date()}
                 </div>
               );
@@ -427,7 +542,8 @@ export default defineComponent({
     const renderTimePicker = () => {
       let activeDate = dayjs();
       if (props.mode === "dateTimeRange") {
-        activeDate = (innerValue.value as any[])?.[timeEditSide.value === "start" ? 0 : 1] || dayjs();
+        activeDate =
+          (innerValue.value as any[])?.[timeEditSide.value === "start" ? 0 : 1] || dayjs();
       } else if (innerValue.value && !Array.isArray(innerValue.value)) {
         activeDate = innerValue.value as Dayjs;
       }
@@ -439,8 +555,17 @@ export default defineComponent({
             {Array.from({ length: max }).map((_, i) => {
               const isDisabled = props.disabledTime(activeDate.set(type as any, i).toDate());
               return (
-                <li key={i} class={["k-picker-time-item", { active: i === curr, "k-picker-time-disabled": isDisabled }]}
-                  onClick={(e) => { e.stopPropagation(); !isDisabled && handleTimeScrollPick(type, i); }}>
+                <li
+                  key={i}
+                  class={[
+                    "k-picker-time-item",
+                    { active: i === curr, "k-picker-time-disabled": isDisabled },
+                  ]}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    !isDisabled && handleTimeScrollPick(type, i);
+                  }}
+                >
                   {String(i).padStart(2, "0")}
                 </li>
               );
@@ -461,19 +586,52 @@ export default defineComponent({
     const renderFooter = () => {
       if (!props.mode.includes("Time")) return null;
       if (props.mode === "dateTimeRange") {
-        const [s, e] = (innerValue.value as any[] || [null, null]).map(d => d ? d.format("HH:mm:ss") : "--:--:--");
+        const [s, e] = ((innerValue.value as any[]) || [null, null]).map((d) =>
+          d ? d.format("HH:mm:ss") : "--:--:--"
+        );
         return (
           <div class="k-picker-footer">
-            <div class={["k-picker-footer-time", { active: currentView.value === "time" && timeEditSide.value === "start" }]} onClick={(e) => { e.preventDefault(); timeEditSide.value = "start"; currentView.value = "time"; }}>{s}</div>
-            <span class="k-picker-footer-time-split"><Icon type={ArrowForward} /></span>
-            <div class={["k-picker-footer-time", { active: currentView.value === "time" && timeEditSide.value === "end" }]} onClick={(e) => { e.preventDefault(); timeEditSide.value = "end"; currentView.value = "time"; }}>{e}</div>
+            <div
+              class={[
+                "k-picker-footer-time",
+                { active: currentView.value === "time" && timeEditSide.value === "start" },
+              ]}
+              onClick={(e) => {
+                e.preventDefault();
+                timeEditSide.value = "start";
+                currentView.value = "time";
+              }}
+            >
+              {s}
+            </div>
+            <span class="k-picker-footer-time-split">
+              <Icon type={ArrowForward} />
+            </span>
+            <div
+              class={[
+                "k-picker-footer-time",
+                { active: currentView.value === "time" && timeEditSide.value === "end" },
+              ]}
+              onClick={(e) => {
+                e.preventDefault();
+                timeEditSide.value = "end";
+                currentView.value = "time";
+              }}
+            >
+              {e}
+            </div>
           </div>
         );
       }
       const t = ((innerValue.value as Dayjs) || dayjs()).format("HH:mm:ss");
       return (
         <div class="k-picker-footer">
-          <div class={["k-picker-footer-time", { active: currentView.value === "time" }]} onClick={() => (currentView.value = currentView.value === "time" ? "date" : "time")}>{t}</div>
+          <div
+            class={["k-picker-footer-time", { active: currentView.value === "time" }]}
+            onClick={() => (currentView.value = currentView.value === "time" ? "date" : "time")}
+          >
+            {t}
+          </div>
         </div>
       );
     };
@@ -490,20 +648,24 @@ export default defineComponent({
       };
 
       const rootProps = {
-        class: ["k-datepicker", {
-          "k-datepicker-opened": isFocus.value,
-          "k-datepicker-borderless": props.bordered === false,
-          "k-datepicker-sm": props.size === "small",
-          "k-datepicker-lg": props.size === "large",
-          "k-datepicker-disabled": props.disabled,
-          "k-datepicker-light": props.theme === "light",
-          "k-datepicker-circle": props.shape === "circle",
-        }],
+        class: [
+          "k-datepicker",
+          {
+            "k-datepicker-opened": isFocus.value,
+            "k-datepicker-borderless": props.bordered === false,
+            "k-datepicker-sm": props.size === "small",
+            "k-datepicker-lg": props.size === "large",
+            "k-datepicker-disabled": props.disabled,
+            "k-datepicker-light": props.theme === "light",
+            "k-datepicker-circle": props.shape === "circle",
+          },
+        ],
         ref: refSelection,
         tabindex: props.disabled ? undefined : 0,
       };
 
-      const showClear = props.clearable && (textValue.value || textValueStart.value) && !props.disabled;
+      const showClear =
+        props.clearable && (textValue.value || textValueStart.value) && !props.disabled;
       const selectionProps = {
         class: ["k-datepicker-selection", { "k-datepicker-has-clear": showClear }],
         onClick: togglePanel,
@@ -512,27 +674,61 @@ export default defineComponent({
       const overlayProps = {
         class: "k-datepicker-overlay",
         ref: refPopper,
-        style: { left: `${left.value}px`, top: `${top.value}px`, transformOrigin: transOrigin.value } as CSSProperties,
+        style: {
+          left: `${left.value}px`,
+          top: `${top.value}px`,
+          transformOrigin: transOrigin.value,
+        } as CSSProperties,
       };
 
       const renderInput = () => {
         const size = Math.max(10, getFormat().length);
         if (isRange.value) {
-          const placeholders = Array.isArray(props.placeholder) ? props.placeholder : [props.placeholder, props.placeholder];
+          const placeholders = Array.isArray(props.placeholder)
+            ? props.placeholder
+            : [props.placeholder, props.placeholder];
           return [
-            <input autocomplete="off" size={size} tabindex={-1} class="k-datepicker-input" value={textValueStart.value}
-              onInput={(e) => handleInput(e, 0)} placeholder={placeholders[0] || localPlaceholders.startDate}
-              disabled={props.disabled} readonly={!props.editable} onClick={() => (timeEditSide.value = "start")} />,
-            <span class="k-datepicker-separator"><Icon type={ArrowForward} /></span>,
-            <input autocomplete="off" size={size} tabindex={-1} class="k-datepicker-input" value={textValueEnd.value}
-              onInput={(e) => handleInput(e, 1)} placeholder={placeholders[1] || localPlaceholders.endDate}
-              disabled={props.disabled} readonly={!props.editable} onClick={() => (timeEditSide.value = "end")} />,
+            <input
+              autocomplete="off"
+              size={size}
+              tabindex={-1}
+              class="k-datepicker-input"
+              value={textValueStart.value}
+              onInput={(e) => handleInput(e, 0)}
+              placeholder={placeholders[0] || localPlaceholders.startDate}
+              disabled={props.disabled}
+              readonly={!props.editable}
+              onClick={() => (timeEditSide.value = "start")}
+            />,
+            <span class="k-datepicker-separator">
+              <Icon type={ArrowForward} />
+            </span>,
+            <input
+              autocomplete="off"
+              size={size}
+              tabindex={-1}
+              class="k-datepicker-input"
+              value={textValueEnd.value}
+              onInput={(e) => handleInput(e, 1)}
+              placeholder={placeholders[1] || localPlaceholders.endDate}
+              disabled={props.disabled}
+              readonly={!props.editable}
+              onClick={() => (timeEditSide.value = "end")}
+            />,
           ];
         }
         return (
-          <input autocomplete="off" size={size} tabindex={-1} class="k-datepicker-input" value={textValue.value}
-            onInput={handleInput} placeholder={(props.placeholder as string) || (localPlaceholders as any)[props.mode]}
-            disabled={props.disabled} readonly={!props.editable} />
+          <input
+            autocomplete="off"
+            size={size}
+            tabindex={-1}
+            class="k-datepicker-input"
+            value={textValue.value}
+            onInput={handleInput}
+            placeholder={(props.placeholder as string) || (localPlaceholders as any)[props.mode]}
+            disabled={props.disabled}
+            readonly={!props.editable}
+          />
         );
       };
 
@@ -545,25 +741,42 @@ export default defineComponent({
         emitValue(true);
       };
 
-      const renderPresets = () => props.presets?.length ? (
-        <div class="k-picker-presets">{props.presets.map(x => (
-          <Button size="small" onClick={() => typeof x.value === "function" ? extraEmit(x.value()) : null}>{x.label}</Button>
-        ))}</div>
-      ) : null;
+      const renderPresets = () =>
+        props.presets?.length ? (
+          <div class="k-picker-presets">
+            {props.presets.map((x) => (
+              <Button
+                size="small"
+                onClick={() => (typeof x.value === "function" ? extraEmit(x.value()) : null)}
+              >
+                {x.label}
+              </Button>
+            ))}
+          </div>
+        ) : null;
 
       const overlay = rendered.value ? (
         <Transition name="k-date-picker">
-          <div v-transfer={true} v-show={isVisible.value} {...overlayProps} {...{ mode: props.mode }}>
+          <div
+            v-transfer={true}
+            v-show={isVisible.value}
+            {...overlayProps}
+            {...{ mode: props.mode }}
+          >
             {renderPresets()}
             <div class="k-picker-container">
-              {slots.header && <div class="k-picker-extra-header">{slots.header({ emit: extraEmit })}</div>}
+              {slots.header && (
+                <div class="k-picker-extra-header">{slots.header({ emit: extraEmit })}</div>
+              )}
               {renderHeader()}
               {currentView.value === "year" && renderYearTable()}
               {currentView.value === "month" && renderMonthTable()}
               {currentView.value === "date" && renderDateTable()}
               {currentView.value === "time" && renderTimePicker()}
               {renderFooter()}
-              {slots.footer && <div class="k-picker-extra-footer">{slots.footer({ emit: extraEmit })}</div>}
+              {slots.footer && (
+                <div class="k-picker-extra-footer">{slots.footer({ emit: extraEmit })}</div>
+              )}
             </div>
           </div>
         </Transition>
@@ -573,17 +786,24 @@ export default defineComponent({
         <div {...rootProps} v-resize={updatePosition}>
           <div {...selectionProps}>
             {renderInput()}
-            <Icon type={props.mode === "time" ? TimeOutline : props.dateIcon || CalendarOutline} class="k-icon-calendar" />
+            <Icon
+              type={props.mode === "time" ? TimeOutline : props.dateIcon || CalendarOutline}
+              class="k-icon-calendar"
+            />
             {showClear && (
-              <Icon type={CloseCircle} class="k-icon-clean" onClick={(e) => {
-                e.stopPropagation();
-                innerValue.value = null;
-                syncTextFromValue();
-                emit("update:startDate", null);
-                emit("update:endDate", null);
-                emit("update:modelValue", null);
-                emit("change", null, "");
-              }} />
+              <Icon
+                type={CloseCircle}
+                class="k-icon-clean"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  innerValue.value = null;
+                  syncTextFromValue();
+                  emit("update:startDate", null);
+                  emit("update:endDate", null);
+                  emit("update:modelValue", null);
+                  emit("change", null, "");
+                }}
+              />
             )}
           </div>
           {overlay}

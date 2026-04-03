@@ -2,11 +2,12 @@ import { CaretDown, CaretUp } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
 import { Checkbox } from "../checkbox";
+import type { TypeSize } from "../const/var";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
 
-interface Column {
+export interface Column {
   key: string;
   title: string;
   width?: number;
@@ -26,7 +27,7 @@ export const tableProps = {
   rowKey: { type: String, default: "key" },
   scroll: { type: Object as PropType<{ x: number; y: number }>, default: () => ({}) },
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
   bordered: { type: Boolean, default: false },
@@ -43,7 +44,7 @@ interface Matrix {
 
 export type TableProps = ExtractPropTypes<typeof tableProps>;
 
-interface SortState {
+export interface SortState {
   key: string;
   order: null | "desc" | "asc";
 }

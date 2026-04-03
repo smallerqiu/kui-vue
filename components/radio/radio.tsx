@@ -1,4 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
+import type { TypeSize } from "../const/var";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 export const radioProps = {
@@ -10,7 +11,7 @@ export const radioProps = {
   theme: String,
   icon: Array as PropType<IconType[]>,
   size: {
-    type: String as PropType<"small" | "large" | "default">,
+    type: String as PropType<TypeSize>,
     default: "default",
   },
 };
