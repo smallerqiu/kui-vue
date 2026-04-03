@@ -1,6 +1,6 @@
-import { defineComponent, ref, onMounted, watch, onBeforeUnmount, type PropType } from "vue";
-import Color from "color";
 import { clamp } from "@vueuse/core";
+import Color from "color";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
 
 export default defineComponent({
   name: "Alpha",
@@ -24,7 +24,7 @@ export default defineComponent({
       const c = Color(props.modelValue).rgb();
       gradient.addColorStop(0, `rgba(${c.red()}, ${c.green()}, ${c.blue()}, 0)`);
       gradient.addColorStop(1, `rgba(${c.red()}, ${c.green()}, ${c.blue()}, 1)`);
-      
+
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
@@ -57,10 +57,13 @@ export default defineComponent({
       document.removeEventListener("mouseup", onMouseUp);
     };
 
-    watch(() => props.modelValue, () => {
-      renderPaint();
-      updatePos();
-    });
+    watch(
+      () => props.modelValue,
+      () => {
+        renderPaint();
+        updatePos();
+      }
+    );
 
     onMounted(() => {
       renderPaint();
@@ -71,8 +74,17 @@ export default defineComponent({
 
     return () => (
       <div class="k-color-picker-alpha-box">
-        <canvas class="k-color-picker-alpha" width={190} height={8} ref={refPaint} onMousedown={onMouseDown} />
-        <span class="k-color-picker-alpha-dot" style={{ left: `${dotPos.value}px` }} />
+        <canvas
+          class="k-color-picker-alpha"
+          width={190}
+          height={8}
+          ref={refPaint}
+          onMousedown={onMouseDown}
+        />
+        <span
+          class="k-color-picker-alpha-dot"
+          style={{ left: `${dotPos.value}px`, backgroundColor: props.modelValue }}
+        />
       </div>
     );
   },

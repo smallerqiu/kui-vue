@@ -1,6 +1,5 @@
-import { defineComponent, ref, onMounted, watch, onBeforeUnmount, type PropType } from "vue";
-import Color from "color";
 import { clamp } from "@vueuse/core";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 export default defineComponent({
   name: "Hue",

@@ -12,23 +12,23 @@ const AnchorLink = defineComponent({
   name: "AnchorLink",
   props: anchorLinkProps,
   setup(props, { slots, attrs }) {
-    const kAnchor = inject<AnchorContext | null>("kAnchor", null);
+    const anchorContext = inject<AnchorContext | null>("kAnchor", null);
 
     onMounted(() => {
-      kAnchor?.registerLink(props.href);
+      props.href && anchorContext?.registerLink(props.href);
     });
 
     onBeforeUnmount(() => {
-      kAnchor?.unregisterLink(props.href);
+      props.href && anchorContext?.unregisterLink(props.href);
     });
 
     const handleClick = (e: MouseEvent) => {
       e.preventDefault();
-      kAnchor?.handleScrollTo(props.href);
+      props.href && anchorContext?.handleScrollTo(props.href);
     };
 
     return () => {
-      const active = kAnchor?.activeLink.value === props.href;
+      const active = anchorContext?.activeLink.value === props.href;
 
       const linkWrapperProps = {
         class: ["k-anchor-link", { "k-anchor-link-active": active }],

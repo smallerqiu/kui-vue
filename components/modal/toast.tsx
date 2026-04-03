@@ -6,10 +6,10 @@ import {
   InformationCircle,
 } from "kui-icons";
 import { computed, defineComponent, inject, ref, type PropType } from "vue";
-import { Button } from "../button/index.js";
-import Icon, { type IconType } from "../icon/index.jsx";
-import zhCN from "../locale/zh-CN.js";
-import Modal from "./modal.jsx";
+import { Button } from "../button";
+import Icon, { type IconType } from "../icon";
+import zhCN from "../locale/zh-CN";
+import Modal from "./modal";
 export default defineComponent({
   name: "Toast",
   props: {

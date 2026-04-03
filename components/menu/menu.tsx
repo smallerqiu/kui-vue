@@ -25,7 +25,7 @@ export const menuProps = {
 export interface MenuItemProps {
   icon?: IconType[];
   title?: string;
-  key?: string;
+  key: string;
   disabled?: boolean;
   children?: MenuItemProps[];
 }
