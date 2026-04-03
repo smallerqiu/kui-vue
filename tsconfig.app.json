@@ -19,7 +19,7 @@
 
 
     /* alias */
-    "baseUrl": ".", 
+    // "baseUrl": ".", 
     "paths": {
       "@/*": ["/*"] 
     }
@@ -30,5 +30,5 @@
     "src/**/*.vue",
     "components/**/*.ts",
     "components/**/*.tsx"
-  ]
+, "components/color-picker/mode.jsx"  ]
 }

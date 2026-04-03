@@ -14,10 +14,12 @@ import {
   RotateRight,
 } from "kui-icons";
 import {
+  CSSProperties,
   defineComponent,
   nextTick,
   onBeforeUnmount,
   onMounted,
+  type PropType,
   reactive,
   ref,
   toRefs,
@@ -29,7 +31,17 @@ import Icon from "../icon";
 import Slider from "../slider";
 import { getChildren } from "../utils/vnode";
 
+import { getPosition } from "../utils/mouse";
 import { loadImage } from "./utils";
+
+export interface ImagePreviewProps {
+  type?: string;
+  src?: string;
+  showPanel?: boolean;
+  onClose?: () => void;
+  onSwitch?: (index: number) => void;
+  data?: string[];
+}
 
 const ImagePreview = defineComponent({
   name: "ImagePreview",
@@ -39,10 +51,10 @@ const ImagePreview = defineComponent({
     origin: String,
     hasControl: Boolean,
     value: Boolean,
-    data: { type: Array, default: () => [] },
+    data: { type: Array as PropType<string[]>, default: () => [] },
     showPanel: Boolean,
   },
-  setup(props, { emit, slots, expose, listeners }) {
+  setup(props, { emit, slots, expose }) {
     const { value, type, src, origin, showPanel, data } = toRefs(props);
     const state = reactive({
       scale: 1,
@@ -55,7 +67,7 @@ const ImagePreview = defineComponent({
       isMouseDown: false,
       type: type.value,
       visible: value.value,
-      src: origin.value || src.value,
+      src: origin.value || src.value || "",
       loading: false,
       error: false,
       vertical: true,
@@ -64,22 +76,22 @@ const ImagePreview = defineComponent({
       touch: false,
     });
 
-    const refImage = ref(null);
-    const panelRef = ref(null);
+    const refImage = ref<HTMLElement>();
+    const panelRef = ref<HTMLElement>();
     const maxScale = 10;
     const updatePanelRight = () => {
       state.panelRight = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
     };
 
-    const setRotate = (left) => {
+    const setRotate = (left?: boolean) => {
       state.rotate = left ? state.rotate - 90 : state.rotate + 90;
       state.vertical = !state.vertical;
       resetPosition();
     };
 
-    const setScale = (zoom) => {
-      state.scale = zoom ? state.scale + 1 : state.scale - 1;
-      state.scale = zoom ? Math.min(state.scale, maxScale) : Math.max(1, state.scale);
+    const setScale = (zoomIn?: boolean) => {
+      state.scale = zoomIn ? state.scale + 1 : state.scale - 1;
+      state.scale = zoomIn ? Math.min(state.scale, maxScale) : Math.max(1, state.scale);
       resetPosition();
     };
 
@@ -89,34 +101,38 @@ const ImagePreview = defineComponent({
       emit("close");
     };
 
-    const mousewheel = (e) => {
+    const mousewheel = (e: WheelEvent) => {
       if (!state.visible) return;
       const { deltaY } = e;
-      setScale(deltaY && deltaY < 0);
+      setScale(deltaY < 0);
       e.stopPropagation();
       e.preventDefault();
     };
 
-    const mousedown = (e) => {
+    const mousedown = (e: MouseEvent | TouchEvent) => {
       if (!state.visible) return;
 
-      if (refImage.value && refImage.value.contains(e.target)) {
-        if (e.button && e.button != 0) return;
-        let clientX, clientY;
-        if (e.touches && e.touches.length == 1) {
-          clientX = e.touches[0].clientX;
-          clientY = e.touches[0].clientY;
-        } else {
-          clientX = e.clientX;
-          clientY = e.clientY;
-        }
+      if (refImage.value && refImage.value.contains(e.target as HTMLElement)) {
+        if ((e as MouseEvent).button && (e as MouseEvent).button != 0) return;
+        let [x, y] = getPosition(e);
+
         state.isMouseDown = true;
-        state.startPos = { x: clientX, y: clientY };
-        state.initPos = { x: clientX, y: clientY };
+        state.startPos = { x, y };
+        state.initPos = { x, y };
         mousemove(e);
-        const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
-        document.addEventListener(e1, mousemove, { passive: false });
-        document.addEventListener(e2, mouseup, { passive: false });
+        if (state.touch) {
+          document.addEventListener("touchmove", mousemove as EventListener, {
+            passive: false,
+          });
+          document.addEventListener("touchend", mouseup as EventListener, {
+            passive: false,
+          });
+        } else {
+          document.addEventListener("mousemove", mousemove as EventListener, {
+            passive: false,
+          });
+          document.addEventListener("mouseup", mouseup as EventListener, { passive: false });
+        }
       }
     };
 
@@ -133,12 +149,12 @@ const ImagePreview = defineComponent({
       let offsetWidth = refImage.value.offsetWidth;
       let offsetHeight = refImage.value.offsetHeight;
       let panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
-      let newWidth = offsetWidth + "";
-      let newHeight = offsetHeight + "";
+      let newWidth = offsetWidth;
+      let newHeight = offsetHeight;
 
       if (!vertical) {
-        newWidth = offsetHeight + "";
-        newHeight = offsetWidth + "";
+        newWidth = offsetHeight;
+        newHeight = offsetWidth;
       }
 
       if (newWidth * scale >= innerWidth - panelWidth) {
@@ -168,23 +184,22 @@ const ImagePreview = defineComponent({
       if (!state.visible) return;
       state.isMouseDown = false;
       resetPosition();
-      const [e1, e2] = state.touch ? ["touchmove", "touchend"] : ["mousemove", "mouseup"];
-      document.removeEventListener(e1, mousemove);
-      document.removeEventListener(e2, mouseup);
+
+      if (state.touch) {
+        document.removeEventListener("touchmove", mousemove as EventListener);
+        document.removeEventListener("touchend", mouseup as EventListener);
+      } else {
+        document.removeEventListener("mousemove", mousemove as EventListener);
+        document.removeEventListener("mouseup", mouseup as EventListener);
+      }
     };
 
-    const mousemove = (e) => {
+    const mousemove = (e: MouseEvent | TouchEvent) => {
       if (!state.visible) return;
       if (state.isMouseDown) {
         e.preventDefault();
-        let clientX, clientY;
-        if (e.touches && e.touches.length == 1) {
-          clientX = e.touches[0].clientX;
-          clientY = e.touches[0].clientY;
-        } else {
-          clientX = e.clientX;
-          clientY = e.clientY;
-        }
+        let [clientX, clientY] = getPosition(e);
+
         const { x, y } = state.startPos;
         state.left += clientX - x;
         state.top += clientY - y;
@@ -192,11 +207,11 @@ const ImagePreview = defineComponent({
       }
     };
 
-    const switchImage = (left) => {
+    const switchImage = (left?: boolean) => {
       state.scale = 1;
       const data = props.data || [];
       const index = data.indexOf(state.src);
-      let newIndex = index + 0;
+      let newIndex = index;
       newIndex = left ? newIndex - 1 : newIndex + 1;
       newIndex = Math.max(0, newIndex);
       newIndex = Math.min(newIndex, data.length - 1);
@@ -254,7 +269,7 @@ const ImagePreview = defineComponent({
     watch(
       () => props.src,
       (src) => {
-        state.src = src;
+        state.src = src || "";
       }
     );
 
@@ -278,7 +293,7 @@ const ImagePreview = defineComponent({
         state.loading = true;
         loadImage(
           src,
-          ({ width, height }) => {
+          () => {
             state.loading = false;
             state.error = false;
           },
@@ -300,25 +315,25 @@ const ImagePreview = defineComponent({
 
     onMounted(() => {
       if (typeof window !== "undefined") {
-        const touch = !!(
+        const touch =
           "ontouchstart" in window ||
-          (window.DocumentTouch && document instanceof window.DocumentTouch)
-        );
+          navigator.maxTouchPoints > 0 ||
+          window.TouchEvent !== undefined;
         state.touch = touch;
         const event = touch ? "touchstart" : "mousedown";
         document.addEventListener(event, mousedown, { passive: false });
-        document.addEventListener("mousewheel", mousewheel, { passive: false });
+        document.addEventListener("wheel", mousewheel, { passive: false });
 
         document.addEventListener("keydown", escToClose);
       }
     });
 
     onBeforeUnmount(() => {
-      document.removeEventListener("mousewheel", mousewheel);
+      document.removeEventListener("wheel", mousewheel);
       document.removeEventListener("keydown", escToClose);
     });
 
-    const show = (props = {}) => {
+    const show = (props: ImagePreviewProps) => {
       if (props?.src) {
         state.src = props.src;
       }
@@ -328,7 +343,7 @@ const ImagePreview = defineComponent({
       state.visible = true;
     };
 
-    const escToClose = (e) => {
+    const escToClose = (e: KeyboardEvent) => {
       if (e.keyCode === 27) {
         close();
       }
@@ -341,9 +356,9 @@ const ImagePreview = defineComponent({
       const imgStyle = {
         transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
       };
-      const moveStyle = {
+      const moveStyle: CSSProperties = {
         transform: `translate3d(${left}px, ${top}px, 0px)`,
-        transition: state.isMouseDown ? "0s" : null,
+        transition: state.isMouseDown ? "0" : undefined,
       };
       const imgProps = {
         class: "k-image-preview-img",
@@ -368,7 +383,7 @@ const ImagePreview = defineComponent({
                       icon={ChevronBack}
                       type="text"
                       disabled={!data.length || data.indexOf(src) == 0}
-                      onClick={() => switchImage(1)}
+                      onClick={() => switchImage(true)}
                     />
                     <span>
                       {data?.indexOf(src) + 1 || 1}/{data?.length || 1}
@@ -382,13 +397,13 @@ const ImagePreview = defineComponent({
                   </li>
                   <li
                     class="k-image-preview-action k-image-preview-action-rotate-left"
-                    onClick={() => setRotate(1)}
+                    onClick={() => setRotate(true)}
                   >
                     <Icon type={RotateLeft} />
                   </li>
                   <li
                     class="k-image-preview-action k-image-preview-action-rotate-right"
-                    onClick={() => setRotate(0)}
+                    onClick={() => setRotate()}
                   >
                     <Icon type={RotateRight} />
                   </li>
@@ -397,7 +412,7 @@ const ImagePreview = defineComponent({
                       "k-image-preview-action",
                       { "k-image-preview-action-disabled": scale <= 1 },
                     ]}
-                    onClick={() => setScale(0)}
+                    onClick={() => setScale()}
                   >
                     <Icon type={Remove} />
                   </li>
@@ -416,7 +431,7 @@ const ImagePreview = defineComponent({
                       "k-image-preview-action",
                       { "k-image-preview-action-disabled": scale >= 5 },
                     ]}
-                    onClick={() => setScale(1)}
+                    onClick={() => setScale(true)}
                   >
                     <Icon type={Add} />
                   </li>
@@ -453,7 +468,7 @@ const ImagePreview = defineComponent({
                           "k-image-preview-switch-disabled": data.indexOf(src) == 0,
                         },
                       ]}
-                      onClick={() => switchImage(1)}
+                      onClick={() => switchImage(true)}
                     >
                       <Icon type={ArrowBack} />
                     </div>,

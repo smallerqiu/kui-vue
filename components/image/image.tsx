@@ -1,33 +1,55 @@
 import { IconImage, Loading } from "kui-icons";
-import { defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import {
+  type CSSProperties,
+  defineComponent,
+  type ExtractPropTypes,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  ref,
+  watch,
+} from "vue";
 import Icon from "../icon";
-
-import newInstance from "./instance";
+import createInstance from "./instance";
+import type { ImagePreviewProps } from "./preview";
 import { loadImage } from "./utils";
+
+interface ImageGroupContext {
+  show: (props: ImagePreviewProps, slots: any) => void;
+  destroy: () => void;
+  register: (src?: string) => void;
+  unregister: (src?: string) => void;
+}
+
+export const imageProps = {
+  alt: String,
+  src: String,
+  type: String,
+  origin: String,
+  height: [String, Number],
+  width: [String, Number],
+  placeholder: String,
+  data: Array,
+  imgStyle: Object as PropType<CSSProperties>,
+  showPanel: Boolean,
+};
+
+export type ImageProps = ExtractPropTypes<typeof imageProps>;
 
 const KImage = defineComponent({
   name: "KImage",
-  props: {
-    alt: String,
-    src: String,
-    type: String,
-    origin: String,
-    height: [String, Number],
-    width: [String, Number],
-    placeholder: String,
-    data: Array,
-    imgStyle: Object,
-    showPanel: Boolean,
-  },
-  setup(props, { emit, slots, expose, listeners }) {
+  props: imageProps,
+  emits: ["close", "switch"],
+  setup(props, { emit, slots, expose }) {
     const loading = ref(false);
     const showPlaceholder = ref(false);
-    const imageUrl = ref(null);
+    const imageUrl = ref<string>();
     const imgWidth = ref(0);
     const imgHeight = ref(0);
 
     const preview = ref();
-    const ImageGroup = inject("ImageGroup", null);
+    const ImageGroup = inject<ImageGroupContext>("ImageGroup");
 
     // global api
     const togglePanel = () => {
@@ -37,13 +59,13 @@ const KImage = defineComponent({
       }
     };
     // global api
-    const show = (props, slots) => {
+    const show = (props: ImagePreviewProps, slots: any) => {
       if (ImageGroup) {
         ImageGroup.show(props, slots);
         return;
       }
       if (!preview.value) {
-        preview.value = newInstance({ ...props }, null, slots);
+        preview.value = createInstance({ ...props }, slots);
       }
       preview.value.show(props);
     };
@@ -61,7 +83,7 @@ const KImage = defineComponent({
 
     expose({ show, destroy, togglePanel });
 
-    const showPreview = (e) => {
+    const showPreview = (e: MouseEvent) => {
       const { origin, src } = props;
       if ((!src && !origin) || showPlaceholder.value || loading.value) return;
       const options = {
@@ -71,7 +93,7 @@ const KImage = defineComponent({
             destroy();
           }, 200);
         },
-        onSwitch: (index) => {
+        onSwitch: (index: number) => {
           emit("switch", index);
         },
         src: origin || src,
@@ -98,12 +120,12 @@ const KImage = defineComponent({
           () => {
             loading.value = false;
             showPlaceholder.value = true;
-            imageUrl.value = placeholder || null;
+            imageUrl.value = placeholder;
           }
         );
       } else {
         showPlaceholder.value = true;
-        imageUrl.value = placeholder || null;
+        imageUrl.value = placeholder;
       }
     };
 
@@ -125,7 +147,7 @@ const KImage = defineComponent({
     });
 
     return () => {
-      const { alt, width, height, imgStyle, placeholder } = props;
+      const { alt, width, height, imgStyle } = props;
 
       const containerProps = {
         style: {
