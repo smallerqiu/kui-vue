@@ -1,4 +1,4 @@
-import GridItem from "./grid-item.jsx";
-import Grid from "./grid.jsx";
+import Grid from "./grid";
+import GridItem from "./item";
 
 export { Grid, GridItem };

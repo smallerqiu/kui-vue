@@ -38,12 +38,12 @@ const MenuItem = defineComponent({
       inject<(key: string, selected: boolean, keyPath: string[]) => void>("selectedKeysChange");
 
     onMounted(() => {
-      const selected = selectedKeys.value.indexOf(key) >= 0;
-      selected && selectedKeysChange?.(key, selected, keyPah);
+      const selected = selectedKeys.value.indexOf(key as string) >= 0;
+      selected && selectedKeysChange?.(key as string, selected, keyPah);
     });
     return () => {
       const preCls = dropdown ? "dropdown-menu" : "menu";
-      const selected = selectedKeys.value.indexOf(key) >= 0 && !dropdown;
+      const selected = selectedKeys.value.indexOf(key as string) >= 0 && !dropdown;
       const _props = {
         class: [
           `k-${preCls}-item`,
@@ -71,7 +71,7 @@ const MenuItem = defineComponent({
         },
         onClick: () => {
           if (disabled) return;
-          selectedKeysChange?.(key, true, keyPah);
+          selectedKeysChange?.(key as string, true, keyPah);
         },
       };
 

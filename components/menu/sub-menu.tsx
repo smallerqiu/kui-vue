@@ -1,51 +1,58 @@
 import {
   cloneVNode,
+  type CSSProperties,
   defineComponent,
+  type ExtractPropTypes,
   getCurrentInstance,
   inject,
   nextTick,
   onMounted,
+  type PropType,
   provide,
+  type Ref,
   ref,
   Transition,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { transfer } from "../directives/transfer";
-import Icon from "../icon";
+import Icon, { IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
+
+export const submenuProps = {
+  disabled: Boolean,
+  title: String,
+  isPopup: Boolean,
+  icon: Array as PropType<IconType[]>,
+};
+
+export type SubMenuProps = ExtractPropTypes<typeof submenuProps>;
 
 const SubMenu = defineComponent({
   name: "SubMenu",
   directives: { transfer },
-  props: {
-    disabled: Boolean,
-    title: String,
-    isPopup: Boolean,
-    icon: [String, Array],
-  },
+  props: submenuProps,
   setup(props, { slots }) {
-    const refSelection = ref(null);
+    const refSelection = ref<HTMLElement>();
     const refPopper = ref();
     const top = ref(0);
     const left = ref(0);
     const minWidth = ref("");
     const instance = getCurrentInstance();
     const key = instance?.vnode.key;
-    const mode = inject("menu-mode", null);
+    const menuMode = inject<Ref<string | null>>("menu-mode", ref(null));
     const selectedKeys = inject("menu-selected-keys", ref([]));
     const openKeys = inject("menu-open-keys", ref([]));
-    const openKeysChange = inject("openKeysChange", null);
-    const clearPopTimer = inject("clearPopTimer", null);
-    const hidePopTimer = inject("hidePopTimer", null);
+    const openKeysChange =
+      inject<(key: string, opened: boolean, path: string[]) => void>("openKeysChange");
+    const clearPopTimer = inject<() => void>("clearPopTimer");
+    const hidePopTimer = inject<() => void>("hidePopTimer");
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
     const popTimer = ref();
     const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
     const dropdown = inject("dropdown", null);
     const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";
-
-    const inline = mode.value == "inline";
 
     const rendered = ref(false);
 
@@ -65,7 +72,7 @@ const SubMenu = defineComponent({
     };
     const hideCurrentPopTimer = () => {
       popTimer.value = setTimeout(() => {
-        openKeysChange?.(key, false, keyPah);
+        openKeysChange?.(key as string, false, keyPah);
       }, 200);
     };
 
@@ -79,7 +86,7 @@ const SubMenu = defineComponent({
       // if (!rendered.value) {
       rendered.value = true;
       nextTick(() => {
-        openKeysChange?.(key, true, keyPah);
+        openKeysChange?.(key as string, true, keyPah);
         updatePosition();
       });
       // } else {
@@ -92,9 +99,9 @@ const SubMenu = defineComponent({
       // the second level menu show right top
       // or the mode is vertical
       if (
-        (mode.value == "horizontal" && keyPah.length > 0) ||
-        mode.value == "vertical" ||
-        (mode.value == "inline" && inlineCollapsed.value)
+        (menuMode.value == "horizontal" && keyPah.length > 0) ||
+        menuMode.value == "vertical" ||
+        (menuMode.value == "inline" && inlineCollapsed.value)
       ) {
         currentPlacement.value = "right-top";
       }
@@ -114,21 +121,21 @@ const SubMenu = defineComponent({
       // pop
       const opened = openKeys.value.indexOf(key) >= 0;
       let leftValue = left.value;
-      if ((mode.value == "horizontal" && keyPah.length) || mode.value == "vertical") {
+      if ((menuMode?.value == "horizontal" && keyPah.length) || menuMode.value == "vertical") {
         leftValue += 3;
       }
       const popperPros = {
         ref: refPopper,
         "k-placement": currentPlacement.value,
         style: {
-          minWidth: mode.value == "horizontal" ? minWidth.value : null,
+          minWidth: menuMode.value == "horizontal" ? minWidth.value : null,
           top: top.value + "px",
           left: leftValue + "px",
           transformOrigin: transOrigin.value,
-        },
+        } as CSSProperties,
         onMouseenter: () => {
           clearCurrentPopTimer();
-          openKeysChange?.(key, true, keyPah);
+          openKeysChange?.(key as string, true, keyPah);
           clearPopTimer?.();
         },
         onMouseleave: () => {
@@ -153,44 +160,48 @@ const SubMenu = defineComponent({
       ) : null;
     };
     const renderSubmenu = () => {
-      const inline = mode.value != "horizontal";
+      const inline = menuMode.value != "horizontal";
       const opened = openKeys.value.indexOf(key) >= 0;
       // todo: mode 从inline 切换 vertical 时 会卡一下
-
+      const popper = renderPopper();
       if (inline) {
         const transitionProps = getTransitionProp("k-collapse-slide");
         const node = [
           <Transition {...transitionProps}>
             <div
               class={`k-${preCls}-sub`}
-              v-show={opened && !inlineCollapsed.value && mode.value != "vertical"}
+              v-show={opened && !inlineCollapsed.value && menuMode.value != "vertical"}
             >
-              <ul class={`k-menu k-menu-${mode.value}`}>{slots.default?.()}</ul>
+              <ul class={`k-menu k-menu-${menuMode.value}`}>{slots.default?.()}</ul>
             </div>
           </Transition>,
         ];
-        if (inlineCollapsed.value || mode.value == "vertical") {
-          node.push(renderPopper());
+        if (inlineCollapsed.value || menuMode.value == "vertical") {
+          popper && node.push(popper);
         }
         return node;
       } else {
-        return renderPopper();
+        return popper;
       }
     };
 
     return () => {
       const selected = selectedKeys.value.indexOf(key) >= 0 && !dropdown;
       const opened = openKeys.value.indexOf(key) >= 0;
-      let titleProps = {
+      let titleProps: Record<string, any> = {
         class: `k-${preCls}-title`,
-        style: {},
+        style: {} as CSSProperties,
       };
-      if (mode.value == "inline" && !inlineCollapsed.value) {
+      if (menuMode.value == "inline" && !inlineCollapsed.value) {
         titleProps.onClick = () => {
           if (props.disabled) return;
-          openKeysChange?.(key, !opened, keyPah);
+          openKeysChange?.(key as string, !opened, keyPah);
         };
-      } else if (mode.value == "horizontal" || mode.value == "vertical" || inlineCollapsed.value) {
+      } else if (
+        menuMode.value == "horizontal" ||
+        menuMode.value == "vertical" ||
+        inlineCollapsed.value
+      ) {
         // popper
         titleProps.ref = refSelection;
         titleProps.onMouseenter = () => {
@@ -201,7 +212,7 @@ const SubMenu = defineComponent({
         titleProps.onMouseleave = () => {
           if (props.disabled) return;
           popTimer.value = setTimeout(() => {
-            openKeysChange?.(key, false, keyPah);
+            openKeysChange?.(key as string, false, keyPah);
           }, 200);
         };
       }
@@ -214,7 +225,9 @@ const SubMenu = defineComponent({
         <div {...titleProps}>
           {props.icon ? <Icon type={props.icon} class="k-menu-item-icon" /> : null}
           {<span class={`k-${preCls}-title-content`}>{title}</span>}
-          {mode.value == "horizontal" && !keyPah.length ? null : <i class={`k-${preCls}-arrow`} />}
+          {menuMode.value == "horizontal" && !keyPah.length ? null : (
+            <i class={`k-${preCls}-arrow`} />
+          )}
         </div>
       );
 

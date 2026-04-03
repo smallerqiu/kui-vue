@@ -1,5 +1,5 @@
 import Color from "color";
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, type PropType, ref, watch } from "vue";
 import { Input } from "../input";
 import InputNumber from "../input-number";
 import { Select } from "../select";
@@ -8,12 +8,12 @@ export default defineComponent({
   name: "Mode",
   props: {
     modelValue: [String, Object],
-    mode: String,
+    mode: { type: String as PropType<"hex" | "rgb" | "hsl">, default: "hex" },
     disabledAlpha: Boolean,
   },
-  setup(ps, { emit }) {
-    const currentMode = ref(ps.mode || "hex");
-    const currentColor = ref(ps.modelValue || "#000000");
+  emits: ["updateColorValue", "updateMode"],
+  setup(props, { emit }) {
+    const currentMode = ref<string>(props.mode);
     const options = [
       {
         label: "HEX",
@@ -29,27 +29,18 @@ export default defineComponent({
       },
     ];
     watch(
-      () => ps.mode,
+      () => props.mode,
       (val) => {
         currentMode.value = val;
       }
     );
-    watch(
-      () => ps.modelValue,
-      (val) => {
-        currentColor.value = val;
-      }
-    );
-    const updateHex = (e) => {
-      const hex = `#${e.target.value}`;
+    const updateHex = (hex: string) => {
       if (!isColor(hex)) return;
       const color = Color(hex).rgb();
       emit("updateColorValue", color);
     };
-    const valueChange = (e, type) => {
-      // console.log(e.target.value, type);
-      const value = parseInt(e);
-      let color = Color(currentColor.value);
+    const valueChange = (value: number, type: string) => {
+      let color = Color(props.modelValue);
       switch (type) {
         case "r":
           color = color.red(value);
@@ -73,17 +64,16 @@ export default defineComponent({
           color = color.lightness(value);
           break;
       }
-      currentColor.value = color.rgb();
-      emit("updateColorValue", currentColor.value);
+      emit("updateColorValue", color);
     };
 
-    const changeMode = (v) => {
+    const changeMode = (v: string) => {
       currentMode.value = v;
       emit("updateMode", v);
     };
     return () => {
       const nodes = [];
-      const color = Color(currentColor.value);
+      const color = Color(props.modelValue);
       const alpha = color.alpha();
 
       if (currentMode.value === "hex") {
@@ -157,7 +147,7 @@ export default defineComponent({
         );
       }
 
-      if (!ps.disabledAlpha) {
+      if (!props.disabledAlpha) {
         nodes.push(
           <InputNumber
             // suffix="%"

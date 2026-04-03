@@ -23,6 +23,7 @@
     "build:docs": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "t":"tsc -p tsconfig.app.json --noEmit",
     "format": "prettier --write .",
     "format:md": "prettier --write ./components/*/index.md"
   },
