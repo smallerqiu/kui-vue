@@ -1,4 +1,5 @@
 import {
+  type DefineComponent,
   defineComponent,
   type ExtractPropTypes,
   onUnmounted,
@@ -9,7 +10,7 @@ import {
 import createInstance from "./instance";
 import type { ImagePreviewProps } from "./preview";
 
-export const imageGroupProps = {
+const imageGroupProps = {
   data: Array as PropType<string[]>,
 };
 
@@ -68,5 +69,5 @@ const ImageGroup = defineComponent({
       return <div class="k-image-group">{slots.default?.()}</div>;
     };
   },
-});
+}) as DefineComponent<ImageGroupProps>;
 export default ImageGroup;

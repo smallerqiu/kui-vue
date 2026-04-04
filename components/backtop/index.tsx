@@ -1,9 +1,9 @@
 import { ArrowUp } from "kui-icons";
-import { defineComponent, ref, Transition, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, ref, Transition, type CSSProperties, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { scroll } from "../directives/scroll";
 import Icon from "../icon";
 
-export const backtopProps = {
+const backtopProps = {
   height: { type: Number, default: 100 },
   right: Number,
   bottom: Number,
@@ -74,4 +74,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<BackTopProps>;

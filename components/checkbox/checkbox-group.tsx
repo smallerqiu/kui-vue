@@ -1,14 +1,14 @@
-import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import { computed, defineComponent, ref, watch, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
 import type { TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
-import Checkbox from "./checkbox";
+import Checkbox, { type ChangeEvent } from "./checkbox";
 
-export const checkboxGroupProps = {
+const checkboxGroupProps = {
   modelValue: {
     type: Array as PropType<any[]>,
     default: () => [],
   },
-  theme: String,
+  theme: { type: String, default: "light" },
   disabled: Boolean,
   options: Array as PropType<any[]>,
   direction: {
@@ -37,7 +37,7 @@ export default defineComponent({
       }
     );
 
-    const onChange = ({ value }: { value: any }) => {
+    const onChange = ({ value }: ChangeEvent) => {
       const val = [...currentValue.value];
       const index = val.indexOf(value);
 
@@ -104,4 +104,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<CheckboxGroupProps>;

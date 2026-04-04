@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from "vue";
+import type { DefineComponent, ExtractPropTypes, PropType } from "vue";
 import {
   cloneVNode,
   computed,
@@ -32,7 +32,7 @@ interface FormContext {
   updateMode?: (prop: string, value: any) => void;
 }
 
-export const formItemProps = {
+const formItemProps = {
   label: String,
   prop: String,
   labelCol: Object as PropType<ColProps>,
@@ -283,4 +283,4 @@ export default defineComponent({
       );
     };
   },
-});
+})as DefineComponent<FormItemProps>;

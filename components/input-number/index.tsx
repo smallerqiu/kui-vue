@@ -6,6 +6,7 @@ import {
   inject,
   ref,
   watch,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -191,6 +192,6 @@ const InputNumber = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<InputNumberProps>;
 
 export default InputNumber;

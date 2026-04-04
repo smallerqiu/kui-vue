@@ -1,11 +1,11 @@
 import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } from "vue";
 import { getChildren } from "../utils/vnode";
 
-import type { ExtractPropTypes, PropType } from "vue";
+import type { DefineComponent, ExtractPropTypes, PropType } from "vue";
 import type { TypeSize } from "../const/var";
 import type { ColProps, FormRule } from "./types";
 
-export const formProps = {
+const formProps = {
   layout: {
     type: String as PropType<"horizontal" | "vertical" | "inline">,
     default: "horizontal",
@@ -187,6 +187,6 @@ const Form = defineComponent({
       );
     };
   },
-});
+})as DefineComponent<FormProps>;
 
 export default Form;

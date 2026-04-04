@@ -6,16 +6,17 @@ import {
   onMounted,
   ref,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
 import Icon, { type IconType } from "../icon";
 
-export const avatarProps = {
+const avatarProps = {
   icon: [Array] as PropType<IconType[]>,
-  shape: { 
+  shape: {
     type: String as PropType<"circle" | "square">,
-    default: "circle"
+    default: "circle",
   },
   size: {
     type: [Number, String] as PropType<number | "large" | "small" | "default">,
@@ -26,7 +27,7 @@ export const avatarProps = {
 
 export type AvatarProps = ExtractPropTypes<typeof avatarProps>;
 
-export default defineComponent({
+const Avatar = defineComponent({
   name: "Avatar",
   props: avatarProps,
   setup(props, { slots }) {
@@ -117,7 +118,7 @@ export default defineComponent({
           {icon ? (
             <Icon type={icon} />
           ) : src ? (
-            <img src={src} alt=""/>
+            <img src={src} alt="" />
           ) : isText ? (
             <span {...textProps}>{children}</span>
           ) : (
@@ -127,4 +128,6 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<AvatarProps>;
+
+export default Avatar;

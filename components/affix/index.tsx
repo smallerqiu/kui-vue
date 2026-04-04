@@ -1,4 +1,4 @@
-import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
+import type { CSSProperties, DefineComponent, ExtractPropTypes, PropType } from "vue";
 import {
   defineComponent,
   nextTick,
@@ -9,7 +9,7 @@ import {
 } from "vue";
 import resize from "../directives/resize";
 
-export const affixProps = {
+const affixProps = {
   offsetTop: { type: Number, default: 0 },
   offsetBottom: Number,
   target: {
@@ -144,6 +144,6 @@ const Affix = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<AffixProps>;
 
 export default Affix;

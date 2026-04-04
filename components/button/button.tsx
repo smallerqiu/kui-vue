@@ -4,6 +4,7 @@ import {
   computed,
   defineComponent,
   inject,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -11,7 +12,7 @@ import { colors, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
-export const buttonProps = {
+const buttonProps = {
   htmlType: {
     type: String as PropType<"button" | "submit" | "reset">,
     default: "button",
@@ -127,4 +128,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<ButtonProps>;

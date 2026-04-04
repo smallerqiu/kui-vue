@@ -1,6 +1,12 @@
-import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  type CSSProperties,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType
+} from "vue";
 
-const parseStyle = (styleString:string) => {
+const parseStyle = (styleString: string) => {
   const styles: any = {};
   if (!styleString) return styles;
 
@@ -20,15 +26,16 @@ export interface IconType {
   s?: string;
 }
 
-export const iconProps = {
-  type: [ Array] as PropType<IconType[]>,
+const iconProps = {
+  type: [Array] as PropType<IconType[]>,
   size: [String, Number],
   color: String,
   spin: Boolean,
   strokeWidth: [String, Number],
-};
+  onClick: Function as PropType<() => void>,
+} ;
 
-export type IconProps = ExtractPropTypes<typeof iconProps>;
+export type IconProps = Partial<ExtractPropTypes<typeof iconProps>> ;
 
 const Icon = defineComponent({
   name: "Icon",
@@ -45,7 +52,7 @@ const Icon = defineComponent({
         const dProps = {
           d: i.d,
           style: styleObj,
-        }
+        };
         return <path {...dProps} />;
       });
     };
@@ -58,16 +65,13 @@ const Icon = defineComponent({
       }
 
       /**
-       * Using property spread to avoid "no-inline-styles" warnings 
+       * Using property spread to avoid "no-inline-styles" warnings
        * and maintain consistent component library architecture.
        */
       const iProps = {
         ...attrs,
         style: styles,
-        class: [
-          "k-icon",
-          { "k-load-loop": props.spin }
-        ],
+        class: ["k-icon", { "k-load-loop": props.spin }],
       };
 
       return (
@@ -79,6 +83,6 @@ const Icon = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<IconProps>;
 
 export default Icon;

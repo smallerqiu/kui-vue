@@ -1,11 +1,24 @@
-import { defineComponent, provide, toRefs, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  provide,
+  toRefs,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
 
 export const avatarGroupProps = {
   maxCount: Number,
-  shape: String as PropType<"circle" | "square">,
-  size: [String, Number] as PropType<number | "large" | "small" | "default">,
+  shape: {
+    type: String as PropType<"circle" | "square">,
+    default: "circle",
+  },
+  size: {
+    type: [String, Number] as PropType<number | "large" | "small" | "default">,
+    default: "default",
+  },
 };
 
 export type AvatarGroupProps = ExtractPropTypes<typeof avatarGroupProps>;
@@ -26,27 +39,23 @@ export default defineComponent({
       const { maxCount } = props;
 
       let childrenToShow = [...children];
-      
+
       if (maxCount && maxCount < children.length) {
         childrenToShow = children.slice(0, maxCount);
         const restCount = children.length - maxCount;
-        
+
         childrenToShow.push(
-          <Avatar>
+          <Avatar shape={props.shape} size={props.size}>
             {`+${restCount}`}
           </Avatar>
         );
       }
 
       const groupProps = {
-        class: "k-avatar-group"
+        class: "k-avatar-group",
       };
 
-      return (
-        <div {...groupProps}>
-          {childrenToShow}
-        </div>
-      );
+      return <div {...groupProps}>{childrenToShow}</div>;
     };
   },
-});
+}) as DefineComponent<AvatarGroupProps>;

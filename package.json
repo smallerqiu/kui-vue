@@ -4,12 +4,20 @@
   "version": "4.0.3",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "type": "module",
-  "main": "dist/k-ui.cjs.js",
-  "module": "dist/k-ui.esm.js",
-  "unpkg": "dist/k-ui.umd.js",
-  "jsdelivr": "dist/k-ui.umd.js",
+  "main": "dist/k-ui.cjs",
+  "module": "dist/k-ui.mjs",
+  "browser": "./dist/k-ui.js",
+  "unpkg": "dist/k-ui.js",
+  "jsdelivr": "dist/k-ui.js",
   "style": "dist/k-ui.css",
   "types": "dist/k-ui.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/k-ui.d.ts",
+      "import": "./dist/k-ui.mjs",
+      "require": "./dist/k-ui.cjs"
+    }
+  },
   "files": [
     "dist",
     "test",
@@ -21,6 +29,7 @@
     "start": "npm run dev",
     "dev": "vite",
     "build": "vite build",
+    "build1": "vue-tsc -b && vite build",
     "build:docs": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",

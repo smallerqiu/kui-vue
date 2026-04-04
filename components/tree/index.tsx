@@ -6,6 +6,7 @@ import {
   ref,
   TransitionGroup,
   watch,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type VNodeChild,
@@ -698,6 +699,6 @@ const Tree = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<TreeProps>;
 
 export default Tree;

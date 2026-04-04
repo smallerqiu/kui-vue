@@ -1,8 +1,8 @@
-import type { CSSProperties, ExtractPropTypes } from "vue";
+import type { CSSProperties, DefineComponent, ExtractPropTypes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
 
-export const gridProps = {
+const gridProps = {
   cols: { type: [Number, String, Object], default: 24 },
   rows: { type: [Number, String, Object], default: "auto" },
   autoRows: { type: String, default: "auto" },
@@ -72,6 +72,6 @@ const Grid = defineComponent({
       return <div {...gridProps}>{slots.default?.()}</div>;
     };
   },
-});
+})as DefineComponent<GridProps>;
 
 export default Grid;

@@ -1,6 +1,12 @@
-import { defineComponent, provide, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  provide,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 
-export const breadcrumbProps = {
+const breadcrumbProps = {
   separator: { type: [String, Object] as PropType<string | any>, default: "/" },
 };
 
@@ -25,4 +31,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<BreadcrumbProps>;

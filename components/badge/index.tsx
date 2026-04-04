@@ -1,6 +1,12 @@
-import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  type CSSProperties,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 
-export const badgeProps = {
+const badgeProps = {
   count: [String, Number],
   dot: Boolean,
   color: String,
@@ -36,7 +42,7 @@ const Badge = defineComponent({
       const statusNodes = [];
       if (isStatusType && !displayCount) {
         const isHexColor = color && /^#/.test(color);
-        
+
         const dotProps = {
           class: [
             "k-badge-status-dot",
@@ -75,11 +81,7 @@ const Badge = defineComponent({
           } as CSSProperties,
         };
 
-        supNode = (
-          <sup {...supProps}>
-            {!dot ? displayCount : null}
-          </sup>
-        );
+        supNode = <sup {...supProps}>{!dot ? displayCount : null}</sup>;
       }
 
       const rootProps = {
@@ -95,6 +97,6 @@ const Badge = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<BadgeProps>;
 
 export default Badge;
