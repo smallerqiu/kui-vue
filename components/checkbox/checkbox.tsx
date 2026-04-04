@@ -1,9 +1,16 @@
 import { Checkmark } from "kui-icons";
-import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import type { TypeSize } from "../const/var";
 import Icon from "../icon";
 
-export const checkboxProps = {
+const checkboxProps = {
   checked: {
     type: Boolean,
     default: false,
@@ -19,6 +26,11 @@ export const checkboxProps = {
     default: "default",
   },
 };
+export interface ChangeEvent {
+  value: string | number | boolean;
+  label: string | number;
+  checked: Boolean;
+}
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
 
@@ -39,7 +51,7 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = v||false;
+        isChecked.value = v || false;
       }
     );
 
@@ -49,7 +61,7 @@ export default defineComponent({
         checked: checked,
         value: props.value,
         label: props.label || slots.default?.(),
-      });
+      } as ChangeEvent);
       emit("update:modelValue", checked);
       emit("update:checked", checked);
     };
@@ -112,4 +124,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<CheckboxProps>;

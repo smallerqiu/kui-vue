@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, ref, watch, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
 import type { TypeSize } from "../const/var";
 
 export const textAreaProps = {
@@ -39,4 +39,4 @@ export default defineComponent({
       return <textarea {...rootProps} />;
     };
   },
-});
+}) as DefineComponent<TextAreaProps>;

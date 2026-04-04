@@ -8,6 +8,7 @@ import {
   Transition,
   watch,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type VNode,
@@ -205,4 +206,4 @@ export default defineComponent({
       return [nodeWrapper, tooltipOverlay];
     };
   },
-});
+})  as DefineComponent<TooltipProps>;

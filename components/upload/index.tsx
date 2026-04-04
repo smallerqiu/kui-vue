@@ -6,6 +6,7 @@ import {
   reactive,
   ref,
   watch,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -329,4 +330,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<UploadProps>;

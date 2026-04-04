@@ -1,7 +1,7 @@
-import { defineComponent, inject, onBeforeUnmount, onMounted, type ExtractPropTypes } from "vue";
+import { defineComponent, inject, onBeforeUnmount, onMounted, type DefineComponent, type ExtractPropTypes } from "vue";
 import type { AnchorContext } from "./anchor";
 
-export const anchorLinkProps = {
+const anchorLinkProps = {
   href: { type: String, required: true },
   title: String,
 };
@@ -50,6 +50,6 @@ const AnchorLink = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<AnchorLinkProps>;
 
 export default AnchorLink;

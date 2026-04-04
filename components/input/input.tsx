@@ -7,6 +7,7 @@ import {
   ref,
   watch,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -17,7 +18,7 @@ import { getChildren } from "../utils/vnode";
 import InputBox from "./input-box";
 import InputGroup from "./input-group";
 
-export const inputProps = {
+const inputProps = {
   clearable: { type: Boolean, default: true },
   visiblePasswordIcon: { type: Boolean, default: true },
   size: { type: String as PropType<TypeSize> },
@@ -262,4 +263,4 @@ export default defineComponent({
       }
     };
   },
-});
+}) as DefineComponent<InputProps>;

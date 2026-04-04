@@ -10,6 +10,7 @@ import {
   Transition,
   watch,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type VNodeChild,
@@ -601,6 +602,6 @@ const TreeSelect = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<TreeSelectProps>;
 
 export default TreeSelect;

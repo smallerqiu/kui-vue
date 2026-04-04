@@ -4,6 +4,7 @@ import {
   inject,
   provide,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -75,4 +76,4 @@ export default defineComponent({
       return <div {...rootProps}>{children}</div>;
     };
   },
-});
+}) as DefineComponent<InputGroupProps>;

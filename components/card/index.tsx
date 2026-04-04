@@ -1,7 +1,7 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
 import Icon, { type IconType } from "../icon";
 
-export const cardProps = {
+const cardProps = {
   bordered: { type: Boolean, default: false },
   title: String,
   icon: [Array] as PropType<IconType[]>,
@@ -48,6 +48,6 @@ const Card = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<CardProps>;
 
 export default Card;

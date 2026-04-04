@@ -3,12 +3,13 @@ import {
   inject,
   provide,
   toRefs,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
 import { type TypeSize } from "../const/var";
 
-export const buttonGroupProps = {
+const buttonGroupProps = {
   size: {
     type: String as PropType<TypeSize>,
   },
@@ -43,4 +44,4 @@ export default defineComponent({
       return <div {...groupProps}>{slots.default?.()}</div>;
     };
   },
-});
+}) as DefineComponent<ButtonGroupProps>;

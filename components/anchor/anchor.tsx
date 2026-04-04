@@ -7,6 +7,7 @@ import {
   ref,
   watch,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type Ref,
@@ -20,7 +21,7 @@ export interface AnchorContext {
   handleScrollTo: (link: string) => void;
 }
 
-export const anchorProps = {
+const anchorProps = {
   affix: { type: Boolean, default: true },
   offsetTop: { type: Number, default: 0 },
   bounds: { type: Number, default: 5 },
@@ -173,6 +174,6 @@ const Anchor = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<AnchorProps>;
 
 export default Anchor;

@@ -1,7 +1,15 @@
-import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import {
+  cloneVNode,
+  defineComponent,
+  ref,
+  watch,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import { getChildren } from "../utils/vnode";
 
-export const collapseProps = {
+const collapseProps = {
   openKeys: {
     type: Array as PropType<Array<string | number>>,
     default: () => [],
@@ -63,4 +71,4 @@ export default defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<CollapseProps>;

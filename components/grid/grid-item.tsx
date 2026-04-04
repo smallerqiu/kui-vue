@@ -1,8 +1,8 @@
-import type { CSSProperties, ExtractPropTypes } from "vue";
+import type { CSSProperties, DefineComponent, ExtractPropTypes } from "vue";
 import { computed, defineComponent, inject } from "vue";
 import { GRID_KEY } from "./useBreakpoint";
 
-export const gridItemProps = {
+const gridItemProps = {
   span: { type: [Number, String, Object], default: 1 }, // 跨越几列
   rowSpan: { type: [Number, String, Object], default: 1 }, // 跨越几行
   offset: { type: [Number, Object], default: 0 }, // 左侧偏移（通过 grid-column-start 实现）
@@ -59,6 +59,6 @@ const GridItem = defineComponent({
       return <div {...itemProps}>{slots.default?.()}</div>;
     };
   },
-});
+})as DefineComponent<GridItemProps>;
 
 export default GridItem;

@@ -6,12 +6,13 @@ import {
   nextTick,
   ref,
   watch,
+  type DefineComponent,
   type ExtractPropTypes,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Icon from "../icon";
 
-export const collapsePanelProps = {
+const collapsePanelProps = {
   title: String,
   active: Boolean,
 };
@@ -75,4 +76,4 @@ export default defineComponent({
       );
     };
   },
-});
+})as DefineComponent<CollapsePanelProps>;

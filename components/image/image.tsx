@@ -1,6 +1,7 @@
 import { IconImage, Loading } from "kui-icons";
 import {
   type CSSProperties,
+  type DefineComponent,
   defineComponent,
   type ExtractPropTypes,
   inject,
@@ -22,7 +23,7 @@ interface ImageGroupContext {
   unregister: (src?: string) => void;
 }
 
-export const imageProps = {
+const imageProps = {
   alt: String,
   src: String,
   type: String,
@@ -192,6 +193,6 @@ const KImage = defineComponent({
       );
     };
   },
-});
+}) as DefineComponent<ImageProps>;
 
 export default KImage;
