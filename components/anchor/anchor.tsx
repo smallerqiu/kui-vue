@@ -1,16 +1,15 @@
 import {
-  defineComponent,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  provide,
-  ref,
-  watch,
-  type CSSProperties,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
-  type Ref,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
+    type Ref
 } from "vue";
 
 // 定义 provide/inject 的接口，确保类型安全
@@ -174,6 +173,6 @@ const Anchor = defineComponent({
       );
     };
   },
-}) as DefineComponent<AnchorProps>;
+}) //as DefineComponent<AnchorProps>;
 
 export default Anchor;

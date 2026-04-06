@@ -1,10 +1,9 @@
 import {
-  defineComponent,
-  provide,
-  toRefs,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    provide,
+    toRefs,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
@@ -58,4 +57,4 @@ export default defineComponent({
       return <div {...groupProps}>{childrenToShow}</div>;
     };
   },
-}) as DefineComponent<AvatarGroupProps>;
+}) //as DefineComponent<AvatarGroupProps>;

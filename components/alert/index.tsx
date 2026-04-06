@@ -1,11 +1,10 @@
 import { AlertCircle, CheckmarkCircle, Close, CloseCircle, InformationCircle } from "kui-icons";
 import {
-  defineComponent,
-  ref,
-  Transition,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    ref,
+    Transition,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Icon, { type IconType } from "../icon";
@@ -91,6 +90,6 @@ const Alert = defineComponent({
       );
     };
   },
-}) as DefineComponent<AlertProps>;
+}) //as DefineComponent<AlertProps>;
 
 export default Alert;

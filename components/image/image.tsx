@@ -1,15 +1,14 @@
 import { IconImage, Loading } from "kui-icons";
 import {
-  type CSSProperties,
-  type DefineComponent,
-  defineComponent,
-  type ExtractPropTypes,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  type PropType,
-  ref,
-  watch,
+    type CSSProperties,
+    defineComponent,
+    type ExtractPropTypes,
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    type PropType,
+    ref,
+    watch
 } from "vue";
 import Icon from "../icon";
 import createInstance from "./instance";
@@ -193,6 +192,6 @@ const KImage = defineComponent({
       );
     };
   },
-}) as DefineComponent<ImageProps>;
+}) //as DefineComponent<ImageProps>;
 
 export default KImage;

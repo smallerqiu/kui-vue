@@ -1,19 +1,18 @@
 import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  ref,
-  Transition,
-  watch,
-  type CSSProperties,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
-  type VNodeChild,
+    computed,
+    defineComponent,
+    inject,
+    nextTick,
+    onBeforeMount,
+    onMounted,
+    ref,
+    Transition,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
+    type VNodeChild
 } from "vue";
 import type { TypeDropPlacements, TypeSize } from "../const/var";
 import resize from "../directives/resize";
@@ -602,6 +601,6 @@ const TreeSelect = defineComponent({
       );
     };
   },
-}) as DefineComponent<TreeSelectProps>;
+}) //as DefineComponent<TreeSelectProps>;
 
 export default TreeSelect;

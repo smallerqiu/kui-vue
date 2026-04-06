@@ -1,4 +1,4 @@
-import type { CSSProperties, DefineComponent, ExtractPropTypes } from "vue";
+import type { CSSProperties, ExtractPropTypes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
 
@@ -72,6 +72,6 @@ const Grid = defineComponent({
       return <div {...gridProps}>{slots.default?.()}</div>;
     };
   },
-})as DefineComponent<GridProps>;
+}) //as DefineComponent<GridProps>;
 
 export default Grid;

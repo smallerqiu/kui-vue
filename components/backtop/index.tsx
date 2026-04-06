@@ -1,5 +1,5 @@
 import { ArrowUp } from "kui-icons";
-import { defineComponent, ref, Transition, type CSSProperties, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, ref, Transition, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
 import { scroll } from "../directives/scroll";
 import Icon from "../icon";
 
@@ -74,4 +74,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<BackTopProps>;
+}) //as DefineComponent<BackTopProps>;

@@ -244,7 +244,7 @@ const Page = defineComponent({
         disabled: ps.disabled,
         clearable: false,
         // value: defaultPage.value,
-        onChange: (page:number) => {
+        onChange: (page?:number) => {
           if (page == undefined) {
             return;
           }

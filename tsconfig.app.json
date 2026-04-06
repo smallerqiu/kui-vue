@@ -1,6 +1,16 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
+    //d.ts
+    "composite": true, //  允许该项目被其他项目引用并支持增量构建
+    "declaration": true, //生成声明文件
+    "emitDeclarationOnly": true, //只生成声明文件，不生成 JS
+    "declarationDir": "./types",
+    "noEmit": false,
+    "resolveJsonModule":true,
+
+    // "outDir": "./dist/types", // 明确指定输出目录
+    "rootDir": "." ,// 指定根目录
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "module": "esnext",
@@ -23,7 +33,11 @@
       "@/*": [
         "/*"
       ]
-    }
+    },
+  },
+  "vueCompilerOptions": {
+    "target": 3.5,
+    "strictTemplates": true
   },
   "include": [
     // "src/**/*.ts",

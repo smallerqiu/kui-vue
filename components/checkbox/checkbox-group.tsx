@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
@@ -104,4 +104,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<CheckboxGroupProps>;
+}) //as DefineComponent<CheckboxGroupProps>;

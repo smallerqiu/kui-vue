@@ -1,4 +1,4 @@
-import type { DefineComponent, ExtractPropTypes, PropType } from "vue";
+import type { ExtractPropTypes, PropType } from "vue";
 import {
   cloneVNode,
   computed,
@@ -283,4 +283,4 @@ export default defineComponent({
       );
     };
   },
-})as DefineComponent<FormItemProps>;
+}) //as DefineComponent<FormItemProps>;

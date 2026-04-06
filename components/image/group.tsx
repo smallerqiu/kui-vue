@@ -1,11 +1,10 @@
 import {
-  type DefineComponent,
-  defineComponent,
-  type ExtractPropTypes,
-  onUnmounted,
-  type PropType,
-  provide,
-  ref,
+    defineComponent,
+    type ExtractPropTypes,
+    onUnmounted,
+    type PropType,
+    provide,
+    ref
 } from "vue";
 import createInstance from "./instance";
 import type { ImagePreviewProps } from "./preview";
@@ -69,5 +68,5 @@ const ImageGroup = defineComponent({
       return <div class="k-image-group">{slots.default?.()}</div>;
     };
   },
-}) as DefineComponent<ImageGroupProps>;
+}) //as DefineComponent<ImageGroupProps>;
 export default ImageGroup;

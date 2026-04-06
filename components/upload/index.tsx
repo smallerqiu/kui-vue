@@ -1,14 +1,13 @@
 import { v4 as uuid } from "uuid";
 import {
-  computed,
-  defineComponent,
-  inject,
-  reactive,
-  ref,
-  watch,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    computed,
+    defineComponent,
+    inject,
+    reactive,
+    ref,
+    watch,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -330,4 +329,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<UploadProps>;
+}) //as DefineComponent<UploadProps>;

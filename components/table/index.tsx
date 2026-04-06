@@ -1,7 +1,7 @@
 import { CaretDown, CaretUp } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
-import { Checkbox } from "../checkbox";
+import { Checkbox, type ChangeEvent } from "../checkbox";
 import type { TypeSize } from "../const/var";
 import Empty from "../empty";
 import Icon from "../icon";
@@ -272,7 +272,7 @@ const Table = defineComponent({
       return list;
     });
 
-    const toggleAll = ({ checked }: { checked: boolean }) => {
+    const toggleAll = ({ checked }: ChangeEvent) => {
       const newSet = new Set(innerSelectedKeys.value);
       props.data.forEach((item: any) => {
         const key = item[props.rowKey];

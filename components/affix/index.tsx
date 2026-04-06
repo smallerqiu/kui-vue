@@ -1,13 +1,7 @@
-import type { CSSProperties, DefineComponent, ExtractPropTypes, PropType } from "vue";
-import {
-  defineComponent,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
+import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import resize from "../directives/resize";
+import { WithInstall } from "../utils/vue";
 
 const affixProps = {
   offsetTop: { type: Number, default: 0 },
@@ -15,7 +9,7 @@ const affixProps = {
   target: {
     type: Function as PropType<() => any>,
     default: () => {
-      return typeof window !== 'undefined' ? window : null;
+      return typeof window !== "undefined" ? window : null;
     },
   },
 };
@@ -55,7 +49,7 @@ const Affix = defineComponent({
         if (offset <= 0) {
           isFixed = true;
           styles.value = {
-            position: 'fixed',
+            position: "fixed",
             bottom: `${window.innerHeight - targetRect.bottom + props.offsetBottom}px`,
             width: `${rect.width}px`,
           };
@@ -68,7 +62,7 @@ const Affix = defineComponent({
         if (offset <= 0) {
           isFixed = true;
           styles.value = {
-            position: 'fixed',
+            position: "fixed",
             top: `${targetRect.top + (props.offsetTop || 0)}px`,
             width: `${rect.width}px`,
           };
@@ -137,13 +131,11 @@ const Affix = defineComponent({
 
       return (
         <div {...wrapperProps} v-resize={updatePosition}>
-          <div {...innerProps}>
-            {slots.default?.()}
-          </div>
+          <div {...innerProps}>{slots.default?.()}</div>
         </div>
       );
     };
   },
-}) as DefineComponent<AffixProps>;
+}) //as DefineComponent<AffixProps>;
 
-export default Affix;
+export default WithInstall(Affix);

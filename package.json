@@ -10,10 +10,8 @@
   "unpkg": "dist/k-ui.js",
   "jsdelivr": "dist/k-ui.js",
   "style": "dist/k-ui.css",
-  "types": "dist/k-ui.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/k-ui.d.ts",
       "import": "./dist/k-ui.mjs",
       "require": "./dist/k-ui.cjs"
     }
@@ -34,7 +32,9 @@
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "format": "prettier --write .",
-    "format:md": "prettier --write ./components/*/index.md"
+    "format:md": "prettier --write ./components/*/index.md",
+    "tsc": "vue-tsc --build --declaration --emitDeclarationOnly",
+    "type-check": "vue-tsc --build --noEmit"
   },
   "author": {
     "name": "Qiu",
@@ -67,6 +67,7 @@
     "vue": "^3.0.0"
   },
   "dependencies": {
+    "@types/babel__core": "^7.20.5",
     "big.js": "^7.0.1",
     "color": "^5.0.3",
     "dayjs": "^1.11.20",

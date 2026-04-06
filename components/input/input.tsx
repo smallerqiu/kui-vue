@@ -7,9 +7,8 @@ import {
   ref,
   watch,
   type CSSProperties,
-  type DefineComponent,
   type ExtractPropTypes,
-  type PropType,
+  type PropType
 } from "vue";
 import { type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
@@ -47,7 +46,7 @@ export default defineComponent({
   props: inputProps,
   emits: ["update:modelValue", "change", "blur", "focus", "icon-click", "search"],
   setup(props, { slots, emit, attrs, expose }) {
-    const currentValue = ref(props.modelValue ?? props.value);
+    const currentValue = ref(props.modelValue || props.value);
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();
@@ -263,4 +262,4 @@ export default defineComponent({
       }
     };
   },
-}) as DefineComponent<InputProps>;
+}) //as DefineComponent<InputProps>;

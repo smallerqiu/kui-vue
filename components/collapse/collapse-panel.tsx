@@ -6,8 +6,7 @@ import {
   nextTick,
   ref,
   watch,
-  type DefineComponent,
-  type ExtractPropTypes,
+  type ExtractPropTypes
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Icon from "../icon";
@@ -57,7 +56,7 @@ export default defineComponent({
       const transitionProps = getTransitionProp("k-collapse-slide");
 
       const panelNode = rendered.value ? (
-        <Transition {...transitionProps} duration={350} >
+        <Transition {...transitionProps} duration={350}>
           <div class="k-collapse-content" v-show={expanded.value}>
             <div class="k-collapse-content-box">{slots.default?.()}</div>
           </div>
@@ -76,4 +75,4 @@ export default defineComponent({
       );
     };
   },
-})as DefineComponent<CollapsePanelProps>;
+}) //as DefineComponent<CollapsePanelProps>;

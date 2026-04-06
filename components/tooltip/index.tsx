@@ -8,10 +8,9 @@ import {
   Transition,
   watch,
   type CSSProperties,
-  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
-  type VNode,
+  type VNode
 } from "vue";
 import { colors, type TypePlacements, type TypeSize } from "../const/var";
 import { transfer } from "../directives/transfer";
@@ -28,7 +27,7 @@ export const tooltipProps = {
   size: String as PropType<TypeSize>,
   width: [Number, String] as PropType<number | string>,
   placement: {
-    type: String as PropType< TypePlacements>,
+    type: String as PropType<TypePlacements>,
     default: "top",
   },
 };
@@ -206,4 +205,4 @@ export default defineComponent({
       return [nodeWrapper, tooltipOverlay];
     };
   },
-})  as DefineComponent<TooltipProps>;
+}) //as DefineComponent<TooltipProps>;

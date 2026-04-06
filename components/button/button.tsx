@@ -4,11 +4,10 @@ import {
   computed,
   defineComponent,
   inject,
-  type DefineComponent,
   type ExtractPropTypes,
-  type PropType,
+  type PropType
 } from "vue";
-import { colors, type TypeSize } from "../const/var";
+import { colors, TypeBoolean, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
@@ -18,28 +17,29 @@ const buttonProps = {
     default: "button",
   },
   icon: [Array] as PropType<IconType[]>,
-  block: Boolean,
+  block: { type: Boolean, default: false },
   size: {
     type: String as PropType<TypeSize>,
   },
   color: {
     type: String as PropType<(typeof colors)[number]>,
   },
-  loading: Boolean,
+  loading: { type: Boolean, default: false },
   type: {
     type: String as PropType<"primary" | "danger" | "warning" | "default" | "text" | "link">,
     default: "default",
   },
-  disabled: { type: Boolean, default: false },
+  disabled: TypeBoolean(),
   theme: {
     type: String as PropType<"outline" | "solid" | "light" | "dashed" | "card">,
   },
   shape: String as PropType<"circle" | string>,
   href: String,
   target: String,
+  onClick: Function as PropType<(e?: MouseEvent) => void>,
 };
 
-export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
+export type ButtonProps = ExtractPropTypes<typeof buttonProps> ;
 
 export default defineComponent({
   name: "Button",
@@ -128,4 +128,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<ButtonProps>;
+}) //as DefineComponent<ButtonProps>;
