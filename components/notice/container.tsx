@@ -15,7 +15,7 @@ export default defineComponent({
       let { duration=3.5, onClose, closable, noticeType } = option;
       let key = getUuid();
       option.key = key;
-      let timer: number;
+      let timer: NodeJS.Timeout;
       let callback = (key: string) => {
         typeof onClose === "function" && onClose();
         options.value = options.value.filter((item) => item.key !== key);

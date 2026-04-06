@@ -1,7 +1,6 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import resize from "../directives/resize";
-import { WithInstall } from "../utils/vue";
 
 const affixProps = {
   offsetTop: { type: Number, default: 0 },
@@ -138,4 +137,4 @@ const Affix = defineComponent({
   },
 }) //as DefineComponent<AffixProps>;
 
-export default WithInstall(Affix);
+export default Affix;

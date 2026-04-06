@@ -17,7 +17,7 @@
     "moduleResolution": "bundler",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": [
-      "vite/client"
+      "node","vite/client"
     ],
     "target": "esnext",
     /* Linting */

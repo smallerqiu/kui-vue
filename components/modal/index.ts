@@ -46,7 +46,17 @@ export interface ModalApiProps {
   onCancel?: Function;
   type?: "info" | "success" | "error" | "warning" | "confirm";
 }
-export const modal = {
+export interface ModalApi {
+  name?: "modal";
+  show(props: ModalApiProps): void;
+  info(props: ModalApiProps): void;
+  success(props: ModalApiProps): void;
+  warning(props: ModalApiProps): void;
+  confirm(props: ModalApiProps): void;
+  error(props: ModalApiProps): void;
+  destroyAll(): void;
+}
+export const modal: ModalApi = {
   show(props: ModalApiProps) {
     return showModal(props);
   },

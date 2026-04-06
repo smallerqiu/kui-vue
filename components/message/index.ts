@@ -3,13 +3,23 @@ import { createInstance } from "../notice/instance";
 let messageInstance: Record<string, any> | null | undefined = null;
 
 export interface MessageOptions {
+  type?: "info" | "success" | "warning" | "error";
   content?: string;
   duration?: number;
   icon?: string;
   color?: string;
   onClose?: () => void;
 }
-let message: any = {
+export interface MessageApi {
+  name: "message";
+  info(content: string, duration: number, onClose: () => void): void;
+  success(content: string, duration: number, onClose: () => void): void;
+  warning(content: string, duration: number, onClose: () => void): void;
+  error(content: string, duration: number, onClose: () => void): void;
+  show(options: MessageOptions): void;
+  destroy(): void;
+}
+let message: MessageApi = {
   name: "message",
   show(options: MessageOptions = {}) {
     if (!messageInstance) {
