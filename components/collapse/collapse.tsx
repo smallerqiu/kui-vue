@@ -1,11 +1,10 @@
 import {
-  cloneVNode,
-  defineComponent,
-  ref,
-  watch,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    cloneVNode,
+    defineComponent,
+    ref,
+    watch,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 import { getChildren } from "../utils/vnode";
 
@@ -71,4 +70,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<CollapseProps>;
+}) //as DefineComponent<CollapseProps>;

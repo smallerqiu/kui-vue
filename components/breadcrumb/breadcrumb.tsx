@@ -1,9 +1,8 @@
 import {
-  defineComponent,
-  provide,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    provide,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 
 const breadcrumbProps = {
@@ -31,4 +30,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<BreadcrumbProps>;
+}) //as DefineComponent<BreadcrumbProps>;

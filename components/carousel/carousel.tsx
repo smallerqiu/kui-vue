@@ -1,18 +1,17 @@
 import { ArrowBack, ArrowForward } from "kui-icons";
 import {
-  Fragment,
-  computed,
-  defineComponent,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  provide,
-  ref,
-  watch,
-  type CSSProperties,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type VNode,
+    Fragment,
+    computed,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type VNode
 } from "vue";
 import resizeDir from "../directives/resize";
 import Icon from "../icon";
@@ -213,4 +212,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<CarouselProps>;
+}) //as DefineComponent<CarouselProps>;

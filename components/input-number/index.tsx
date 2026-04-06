@@ -6,9 +6,8 @@ import {
   inject,
   ref,
   watch,
-  type DefineComponent,
   type ExtractPropTypes,
-  type PropType,
+  type PropType
 } from "vue";
 import { type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
@@ -35,6 +34,7 @@ export const inputNumberProps = {
     type: String as PropType<TypeSize>,
   },
   placeholder: String,
+  onChange: Function as PropType<(value: undefined | number) => void>,
 };
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;
@@ -192,6 +192,6 @@ const InputNumber = defineComponent({
       );
     };
   },
-}) as DefineComponent<InputNumberProps>;
+}) //as DefineComponent<InputNumberProps>;
 
 export default InputNumber;

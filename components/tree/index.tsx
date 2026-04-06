@@ -6,21 +6,15 @@ import {
   ref,
   TransitionGroup,
   watch,
-  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
-  type VNodeChild,
+  type VNodeChild
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { Button } from "../button";
-import Checkbox from "../checkbox";
+import Checkbox, { type ChangeEvent } from "../checkbox";
 import Icon from "../icon";
-import {
-  buildTree,
-  updateParentIndeterminate,
-  type TreeKey,
-  type TreeNode
-} from "./utils";
+import { buildTree, updateParentIndeterminate, type TreeKey, type TreeNode } from "./utils";
 
 export const treeProps = {
   data: Array as PropType<TreeNode[]>,
@@ -47,10 +41,6 @@ type LoadData = (node: TreeNode) => Promise<unknown> | void;
 interface DragState {
   key: TreeKey | null;
   data: TreeNode | null;
-}
-
-interface CheckChangeEvent {
-  checked: boolean;
 }
 
 export type { BuildTreeOptions, TreeKey, TreeNode } from "./utils";
@@ -97,7 +87,7 @@ const Tree = defineComponent({
         hasLoad,
         checkable: props.checkable,
         checkStrictly: props.checkStrictly,
-      }) as TreeNode[];
+      }) //as TreeNode[];
     };
 
     const findNode = (key: TreeKey): TreeNode | undefined => {
@@ -185,7 +175,9 @@ const Tree = defineComponent({
 
           if (node.children && node.children.length > 0) {
             const childNodes = defaultData.value.filter((item: TreeNode) => {
-              return !!node.children && node.children.some((child: TreeNode) => child.key === item.key);
+              return (
+                !!node.children && node.children.some((child: TreeNode) => child.key === item.key)
+              );
             });
 
             childNodes.forEach((childNode: TreeNode) => {
@@ -214,7 +206,9 @@ const Tree = defineComponent({
           if (!parent) return;
 
           const allChildren = defaultData.value.filter((item: TreeNode) => {
-            return !!parent.children && parent.children.some((child: TreeNode) => child.key === item.key);
+            return (
+              !!parent.children && parent.children.some((child: TreeNode) => child.key === item.key)
+            );
           });
 
           const enabledChildren = allChildren.filter((item: TreeNode) => !item.disabled);
@@ -366,7 +360,7 @@ const Tree = defineComponent({
       },
     };
 
-    const toggleCheck = (event: CheckChangeEvent, item: TreeNode) => {
+    const toggleCheck = (event: ChangeEvent, item: TreeNode) => {
       const key = item.key;
       updateCheckState.toggleNode(key, event.checked);
 
@@ -546,7 +540,7 @@ const Tree = defineComponent({
 
       const checkNode = props.checkable ? (
         <Checkbox
-          onChange={(e: CheckChangeEvent) => toggleCheck(e, item)}
+          onChange={(e: ChangeEvent) => toggleCheck(e, item)}
           checked={item.checked}
           disabled={item.disabled}
           indeterminate={item.indeterminate}
@@ -602,8 +596,7 @@ const Tree = defineComponent({
         };
       }
 
-      const extraNode =
-        slots.extra && <span class="k-tree-item-extra">{slots.extra(item)}</span>;
+      const extraNode = slots.extra && <span class="k-tree-item-extra">{slots.extra(item)}</span>;
 
       return (
         <div {...itemProps}>
@@ -658,11 +651,7 @@ const Tree = defineComponent({
 
       const visibleNodes = defaultData.value.filter((node: TreeNode) => {
         if (node.level === 0) return true;
-        if (
-          queryKey &&
-          queryKey.trim().length &&
-          String(node.title).indexOf(queryKey) === -1
-        ) {
+        if (queryKey && queryKey.trim().length && String(node.title).indexOf(queryKey) === -1) {
           return false;
         }
 
@@ -699,6 +688,6 @@ const Tree = defineComponent({
       );
     };
   },
-}) as DefineComponent<TreeProps>;
+}) //as DefineComponent<TreeProps>;
 
 export default Tree;

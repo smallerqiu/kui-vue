@@ -1,4 +1,4 @@
-import { defineComponent, inject, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, inject, type ExtractPropTypes, type PropType } from "vue";
 import Icon, { type IconType } from "../icon";
 
 const breadcrumbItemProps = {
@@ -53,4 +53,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<BreadcrumbItemProps>;
+}) //as DefineComponent<BreadcrumbItemProps>;

@@ -3,9 +3,8 @@ import {
   defineComponent,
   ref,
   watch,
-  type DefineComponent,
   type ExtractPropTypes,
-  type PropType,
+  type PropType
 } from "vue";
 import type { TypeSize } from "../const/var";
 import Icon from "../icon";
@@ -25,14 +24,17 @@ const checkboxProps = {
     type: String as PropType<TypeSize>,
     default: "default",
   },
+  onChange: {
+    type: Function as PropType<(e: ChangeEvent) => void>,
+  },
 };
 export interface ChangeEvent {
-  value: string | number | boolean;
-  label: string | number;
-  checked: Boolean;
+  value?: string | number | boolean;
+  label?: string | number;
+  checked: boolean;
 }
 
-export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
+export type CheckboxProps = Partial<ExtractPropTypes<typeof checkboxProps>>;
 
 export default defineComponent({
   name: "Checkbox",
@@ -124,4 +126,4 @@ export default defineComponent({
       );
     };
   },
-}) as DefineComponent<CheckboxProps>;
+}) //as DefineComponent<CheckboxProps>;

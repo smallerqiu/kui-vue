@@ -1,7 +1,6 @@
 import {
   defineComponent,
   type CSSProperties,
-  type DefineComponent,
   type ExtractPropTypes,
   type PropType
 } from "vue";
@@ -32,7 +31,7 @@ const iconProps = {
   color: String,
   spin: Boolean,
   strokeWidth: [String, Number],
-  onClick: Function as PropType<() => void>,
+  onClick: Function as PropType<(e:MouseEvent) => void>,
 } ;
 
 export type IconProps = Partial<ExtractPropTypes<typeof iconProps>> ;
@@ -83,6 +82,6 @@ const Icon = defineComponent({
       );
     };
   },
-}) as DefineComponent<IconProps>;
+}) //as DefineComponent<IconProps>;
 
 export default Icon;

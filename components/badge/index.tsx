@@ -1,9 +1,8 @@
 import {
-  defineComponent,
-  type CSSProperties,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
 
 const badgeProps = {
@@ -97,6 +96,6 @@ const Badge = defineComponent({
       );
     };
   },
-}) as DefineComponent<BadgeProps>;
+}) //as DefineComponent<BadgeProps>;
 
 export default Badge;

@@ -1,7 +1,7 @@
 import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } from "vue";
 import { getChildren } from "../utils/vnode";
 
-import type { DefineComponent, ExtractPropTypes, PropType } from "vue";
+import type { ExtractPropTypes, PropType } from "vue";
 import type { TypeSize } from "../const/var";
 import type { ColProps, FormRule } from "./types";
 
@@ -171,8 +171,8 @@ const Form = defineComponent({
           autocomplete="off"
         >
           {children.map((child) => {
-            const childLabelCol = child.props?.labelCol || labelCol; 
-            const childWrapperCol = child.props?.wrapperCol || wrapperCol; 
+            const childLabelCol = child.props?.labelCol || labelCol;
+            const childWrapperCol = child.props?.wrapperCol || wrapperCol;
 
             return cloneVNode(
               child,
@@ -187,6 +187,6 @@ const Form = defineComponent({
       );
     };
   },
-})as DefineComponent<FormProps>;
+}) //as DefineComponent<FormProps>;
 
 export default Form;

@@ -1,4 +1,4 @@
-import { defineComponent, type DefineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import Icon, { type IconType } from "../icon";
 
 const cardProps = {
@@ -48,6 +48,6 @@ const Card = defineComponent({
       );
     };
   },
-}) as DefineComponent<CardProps>;
+}) //as DefineComponent<CardProps>;
 
 export default Card;
