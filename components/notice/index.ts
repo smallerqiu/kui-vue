@@ -3,6 +3,7 @@ import { createInstance } from "./instance";
 let noticeInstance: Record<string, any> | null | undefined = null;
 
 export interface NoticeOptions {
+  type?: "info" | "success" | "warning" | "error";
   title?: string;
   content?: string;
   duration?: number;
@@ -10,9 +11,18 @@ export interface NoticeOptions {
   color?: string;
   onClose?: () => void;
 }
-let notice: any = {
+export interface NoticeApi {
+  name: "notice";
+  info(options: NoticeOptions): void;
+  success(options: NoticeOptions): void;
+  warning(options: NoticeOptions): void;
+  error(options: NoticeOptions): void;
+  open(options: NoticeOptions): void;
+  destroy(): void;
+}
+let notice: NoticeApi = {
   name: "notice",
-  open(options: NoticeOptions = {}) {
+  open(options: NoticeOptions) {
     if (!noticeInstance) {
       noticeInstance = createInstance("notice");
     }
@@ -27,16 +37,16 @@ let notice: any = {
     }
   },
   info(options: NoticeOptions) {
-    return this.open({ type: "info", ...options });
+    return this.open({ ...options, type: "info" });
   },
   success(options: NoticeOptions) {
-    return this.open({ type: "success", ...options });
+    return this.open({ ...options, type: "info" });
   },
   warning(options: NoticeOptions) {
-    return this.open({ type: "warning", ...options });
+    return this.open({ ...options, type: "info" });
   },
   error(options: NoticeOptions) {
-    return this.open({ type: "error", ...options });
+    return this.open({ ...options, type: "info" });
   },
 };
 

@@ -3,7 +3,7 @@ import { defineComponent, ref, Transition, type CSSProperties, type ExtractPropT
 import { scroll } from "../directives/scroll";
 import Icon from "../icon";
 
-const backtopProps = {
+const backTopProps = {
   height: { type: Number, default: 100 },
   right: Number,
   bottom: Number,
@@ -15,12 +15,12 @@ const backtopProps = {
   },
 };
 
-export type BackTopProps = ExtractPropTypes<typeof backtopProps>;
+export type BackTopProps = ExtractPropTypes<typeof backTopProps>;
 
 export default defineComponent({
   name: "BackTop",
   directives: { scroll },
-  props: backtopProps,
+  props: backTopProps,
   emits: ["click"],
   setup(props, { emit, slots }) {
     const visible = ref(false);
@@ -44,7 +44,7 @@ export default defineComponent({
       
       if (!children || children.length === 0) {
         children = [
-          <div class="k-backtop-content">
+          <div class="k-back-top-content">
             <Icon type={ArrowUp} />
           </div>
         ];
@@ -56,13 +56,13 @@ export default defineComponent({
       };
 
       const rootProps = {
-        class: "k-backtop",
+        class: "k-back-top",
         style: styles,
         onClick: handleClick,
       };
 
       return (
-        <Transition name="k-backtop-fade">
+        <Transition name="k-back-top-fade">
           <div
             {...rootProps}
             v-show={visible.value}

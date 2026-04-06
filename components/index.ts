@@ -1,11 +1,10 @@
 import type { App } from "vue";
-// import { version } from "../package.json";
 import * as components from "./components";
-// import "./styles/index.less";
+import "./styles/index.less";
 import { globalComponents, installGlobal } from "./utils/vue";
-// export * from "./components";
+export * from "./components";
 const UI = {
-  version: import.meta.env.version,
+  version: import.meta.env.version as string,
   lang: {},
   install: (app: App) => {
     Object.keys(components).forEach((key) => {
