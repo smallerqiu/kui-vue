@@ -13,3 +13,4 @@ export interface FormRule {
   min?: number;
   max?: number;
 }
+

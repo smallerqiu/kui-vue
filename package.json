@@ -13,6 +13,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/k-ui.mjs",
+      "module": "./dist/k-ui.mjs",
       "require": "./dist/k-ui.js"
     },
     "./dist/*": "./dist/*"
@@ -83,10 +84,10 @@
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
     "@types/big.js": "^6.2.2",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.5.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
-    "@vue/tsconfig": "^0.9.0",
+    "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.2.1",
     "fast-glob": "^3.3.3",
     "highlight.js": "^11.11.1",
@@ -94,9 +95,9 @@
     "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^9.2.0",
     "typescript": "~5.9.3",
-    "vite": "^8.0.1",
+    "vite": "^8.0.5",
     "vite-plugin-dts": "^4.5.4",
     "vue-router": "^5.0.4",
-    "vue-tsc": "^3.2.5"
+    "vue-tsc": "^3.2.6"
   }
 }

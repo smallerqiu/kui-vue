@@ -27,6 +27,14 @@ const formProps = {
   disabled: Boolean,
 };
 
+export interface FormExpose {
+  validate: (callback?: (result: { valid: boolean }) => void) => void;
+  reset: () => void;
+  test: (key: string) => void;
+  submit: () => void;
+}
+
+
 export type FormProps = ExtractPropTypes<typeof formProps>;
 
 const Form = defineComponent({
@@ -187,6 +195,8 @@ const Form = defineComponent({
       );
     };
   },
-}) //as DefineComponent<FormProps>;
+}); //as DefineComponent<FormProps>;
 
 export default Form;
+
+
