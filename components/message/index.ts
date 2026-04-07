@@ -12,10 +12,10 @@ export interface MessageOptions {
 }
 export interface MessageApi {
   name: "message";
-  info(content: string, duration: number, onClose: () => void): void;
-  success(content: string, duration: number, onClose: () => void): void;
-  warning(content: string, duration: number, onClose: () => void): void;
-  error(content: string, duration: number, onClose: () => void): void;
+  info(content: string, duration?: number, onClose?: () => void): void;
+  success(content: string, duration?: number, onClose?: () => void): void;
+  warning(content: string, duration?: number, onClose?: () => void): void;
+  error(content: string, duration?: number, onClose?: () => void): void;
   show(options: MessageOptions): void;
   destroy(): void;
 }

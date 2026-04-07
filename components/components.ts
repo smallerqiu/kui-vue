@@ -56,7 +56,7 @@ export { default as Empty } from "./empty";
 export type { EmptyProps } from "./empty";
 
 export { Form, FormItem } from "./form";
-export type { FormItemProps, FormProps } from "./form";
+export type { FormContext, FormItemProps, FormProps } from "./form";
 export type { FormRule } from "./form/types";
 
 export { default as Flex } from "./flex";

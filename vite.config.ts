@@ -1,7 +1,7 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-// import fs from "fs";
 import autoprefixer from "autoprefixer";
+import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
@@ -16,19 +16,19 @@ const bannerText = `/*!
  * Author: Qiu / https://chuchur.com
  */\n`;
 
-// const getLocaleEntries = () => {
-//   const localePath = path.resolve(__dirname, "components/locale");
-//   if (!fs.existsSync(localePath)) return {};
-//   const files = fs.readdirSync(localePath);
-//   const entries: Record<string, string> = {};
-//   files.forEach((file) => {
-//     if (file.endsWith(".ts") || file.endsWith(".js")) {
-//       const name = file.replace(/\.(ts|js)$/, "");
-//       entries[`locale/${name}`] = path.resolve(__dirname, `components/locale/${file}`);
-//     }
-//   });
-//   return entries;
-// };
+const getLocaleEntries = () => {
+  const localePath = path.resolve(__dirname, "components/locale");
+  if (!fs.existsSync(localePath)) return {};
+  const files = fs.readdirSync(localePath);
+  const entries: Record<string, string> = {};
+  files.forEach((file) => {
+    if (file.endsWith(".ts") || file.endsWith(".js")) {
+      const name = file.replace(/\.(ts|js)$/, "");
+      entries[`locale/${name}`] = path.resolve(__dirname, `components/locale/${file}`);
+    }
+  });
+  return entries;
+};
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,7 +40,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts({
-      // rollupTypes: true,
+      rollupTypes: true,
       insertTypesEntry: true, //合并
       tsconfigPath: "./tsconfig.app.json",
       outDir: "./dist/types/",
@@ -86,7 +86,6 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      // 确保外部化处理那些不想打包进库的依赖
       external: ["vue", "dayjs"],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量

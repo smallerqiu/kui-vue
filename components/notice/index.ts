@@ -1,3 +1,4 @@
+import type { VNode } from "vue";
 import { createInstance } from "./instance";
 
 let noticeInstance: Record<string, any> | null | undefined = null;
@@ -5,7 +6,7 @@ let noticeInstance: Record<string, any> | null | undefined = null;
 export interface NoticeOptions {
   type?: "info" | "success" | "warning" | "error";
   title?: string;
-  content?: string;
+  content?: string | VNode;
   duration?: number;
   icon?: string;
   color?: string;
