@@ -13,26 +13,27 @@ import {
 } from "vue";
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
+import type { TypeBoolean } from "../const/var";
 import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 
 export const modalProps = {
-  modelValue: Boolean,
+  modelValue: Boolean as TypeBoolean,
   title: String,
   okText: String,
   cancelText: String,
   top: Number,
   width: Number,
-  mask: { type: Boolean, default: true },
-  maskClosable: { type: Boolean, default: false },
-  maximized: Boolean,
-  centered: Boolean,
-  draggable: Boolean,
-  showClose: { type: Boolean, default: true },
-  loading: Boolean,
+  mask: { type: Boolean as TypeBoolean, default: true },
+  maskClosable: { type: Boolean as TypeBoolean, default: false },
+  maximized: Boolean as TypeBoolean,
+  centered: Boolean as TypeBoolean,
+  draggable: Boolean as TypeBoolean,
+  showClose: { type: Boolean as TypeBoolean, default: true },
+  loading: Boolean as TypeBoolean,
   footer: String,
-  transfer: { type: Boolean, default: true },
-  escKey: { type: Boolean, default: true },
+  transfer: { type: Boolean as TypeBoolean, default: true },
+  escKey: { type: Boolean as TypeBoolean, default: true },
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
@@ -93,7 +94,7 @@ const Modal = defineComponent({
         : { left: 0, top: 0 };
     };
 
-    const toggle = (value: boolean) => {
+    const toggle = (value?: boolean) => {
       if (!rendered.value && value) {
         rendered.value = true;
         toggle(true);

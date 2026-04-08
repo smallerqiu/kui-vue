@@ -1,28 +1,29 @@
 import { ArrowBack, ArrowForward } from "kui-icons";
 import {
-    Fragment,
-    computed,
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type VNode
+  Fragment,
+  computed,
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type VNode
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import resizeDir from "../directives/resize";
 import Icon from "../icon";
 
 const carouselProps = {
   value: { type: Number, default: 0 },
-  loop: { type: Boolean, default: true },
-  autoplay: Boolean,
+  loop: { type: Boolean as TypeBoolean, default: true },
+  autoplay: Boolean as TypeBoolean,
   delay: { type: Number, default: 3000 },
   vertical: Boolean,
-  dots: { type: Boolean, default: true },
+  dots: { type: Boolean as TypeBoolean, default: true },
 };
 
 export type CarouselProps = ExtractPropTypes<typeof carouselProps>;

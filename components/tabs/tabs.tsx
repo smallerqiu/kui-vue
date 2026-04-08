@@ -12,6 +12,7 @@ import {
   type PropType,
   type VNode,
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import type { TabClickPayload, TabKey, TabsPaneLike } from "./types";
@@ -19,10 +20,10 @@ import type { TabClickPayload, TabKey, TabsPaneLike } from "./types";
 export const tabsProps = {
   modelValue: [String, Number] as PropType<TabKey>,
   value: [String, Number] as PropType<TabKey>,
-  card: Boolean,
-  sample: Boolean,
-  centered: Boolean,
-  animated: { type: Boolean, default: true },
+  card: Boolean as TypeBoolean,
+  sample: Boolean as TypeBoolean,
+  centered: Boolean as TypeBoolean,
+  animated: { type: Boolean as TypeBoolean, default: true },
 };
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>;

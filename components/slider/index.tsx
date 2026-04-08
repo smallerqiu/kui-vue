@@ -13,6 +13,7 @@ import {
 import Thumb from "./thumb";
 
 import Big from "big.js";
+import type { TypeBoolean } from "../const/var";
 import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
@@ -21,15 +22,15 @@ export const sliderProps = {
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },
   step: { type: Number as PropType<number | null>, default: 1 },
-  disabled: Boolean,
-  vertical: Boolean,
-  reverse: Boolean,
-  range: Boolean,
+  disabled: Boolean as TypeBoolean,
+  vertical: Boolean as TypeBoolean,
+  reverse: Boolean as TypeBoolean,
+  range: Boolean as TypeBoolean,
   marks: Object as PropType<Record<number, string>>,
   size: [String, Number] as PropType<"small" | number>,
-  included: { type: Boolean, default: true },
+  included: { type: Boolean as TypeBoolean, default: true },
   tipFormatter: Function,
-  tooltipVisible: { type: Boolean, default: null },
+  tooltipVisible: { type: Boolean as TypeBoolean, default: null },
 };
 
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;

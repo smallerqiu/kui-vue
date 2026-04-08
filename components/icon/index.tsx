@@ -4,6 +4,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 
 const parseStyle = (styleString: string) => {
   const styles: any = {};
@@ -29,7 +30,7 @@ const iconProps = {
   type: [Array] as PropType<IconType[]>,
   size: [String, Number],
   color: String,
-  spin: Boolean,
+  spin: Boolean as TypeBoolean,
   strokeWidth: [String, Number],
   onClick: Function as PropType<(e:MouseEvent) => void>,
 } ;

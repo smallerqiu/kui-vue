@@ -7,6 +7,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 
 export const progressProps = {
@@ -33,7 +34,7 @@ export const progressProps = {
     type: String as PropType<"line" | "circle" | "dashboard">,
     default: "line",
   },
-  showInfo: { type: Boolean, default: true },
+  showInfo: { type: Boolean as TypeBoolean, default: true },
 };
 
 export type ProgressProps = ExtractPropTypes<typeof progressProps>;

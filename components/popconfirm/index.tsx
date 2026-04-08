@@ -1,20 +1,20 @@
 import { HelpCircle } from "kui-icons";
 import {
-    cloneVNode,
-    computed,
-    defineComponent,
-    inject,
-    nextTick,
-    onMounted,
-    onUnmounted,
-    ref,
-    Transition,
-    watch,
-    type ExtractPropTypes,
-    type PropType,
+  cloneVNode,
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  Transition,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { TypePlacements } from "../const/var";
+import type { TypeBoolean, TypePlacements } from "../const/var";
 import { transfer } from "../directives/transfer";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -22,8 +22,8 @@ import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const popconfirmProps = {
-  dark: Boolean,
-  show: Boolean,
+  dark: Boolean as TypeBoolean,
+  show: Boolean as TypeBoolean,
   title: [String, Number, Object, Array],
   size: String,
   width: [Number, String],
@@ -84,7 +84,7 @@ const Popconfirm = defineComponent({
     watch(
       () => props.show,
       (nv) => {
-        visible.value = nv;
+        visible.value = nv || false;
       }
     );
     watch(

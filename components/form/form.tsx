@@ -2,7 +2,7 @@ import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } fr
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import type { ColProps, FormRule } from "./types";
 
 const formProps = {
@@ -24,7 +24,7 @@ const formProps = {
   },
   theme: String,
   shape: String,
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
 };
 
 export interface FormExpose {

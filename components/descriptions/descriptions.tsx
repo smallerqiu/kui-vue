@@ -1,9 +1,10 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNode } from "vue";
+import type { TypeBoolean } from "../const/var";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
 
 export const descriptionsProps = {
-  bordered: Boolean,
+  bordered: Boolean as TypeBoolean,
   column: { type: Number, default: 3 },
   layout: { type: String as PropType<"horizontal" | "vertical">, default: "horizontal" },
   title: String,

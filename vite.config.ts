@@ -40,7 +40,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts({
-      rollupTypes: true,
+      // rollupTypes: true,
       insertTypesEntry: true, //合并
       tsconfigPath: "./tsconfig.app.json",
       outDir: "./dist/types/",

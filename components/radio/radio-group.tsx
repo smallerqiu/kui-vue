@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
@@ -15,7 +15,7 @@ export interface RadioOptionsProps {
 
 export const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   direction: {
     type: String as PropType<"horizontal" | "vertical">,
     default: "horizontal",

@@ -13,6 +13,7 @@ import {
 import { getTransitionProp } from "../base/transition";
 import { Button } from "../button";
 import Checkbox, { type ChangeEvent } from "../checkbox";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 import { buildTree, updateParentIndeterminate, type TreeKey, type TreeNode } from "./utils";
 
@@ -21,16 +22,16 @@ export const treeProps = {
   selectedKeys: Array as PropType<TreeKey[]>,
   expandedKeys: Array as PropType<TreeKey[]>,
   checkedKeys: Array as PropType<TreeKey[]>,
-  directory: Boolean,
-  expandAll: Boolean,
-  checkable: Boolean,
-  draggable: Boolean,
-  showLine: Boolean,
-  showIcon: { type: Boolean, default: true },
-  showExtra: { type: Boolean, default: false },
-  multiple: { type: Boolean, default: false },
-  checkStrictly: Boolean,
-  selectAsCheck: Boolean,
+  directory: Boolean as TypeBoolean,
+  expandAll: Boolean as TypeBoolean,
+  checkable: Boolean as TypeBoolean,
+  draggable: Boolean as TypeBoolean,
+  showLine: Boolean as TypeBoolean,
+  showIcon: { type: Boolean as TypeBoolean, default: true },
+  showExtra: { type: Boolean as TypeBoolean, default: false },
+  multiple: { type: Boolean as TypeBoolean, default: false },
+  checkStrictly: Boolean as TypeBoolean,
+  selectAsCheck: Boolean as TypeBoolean,
   queryKey: String,
 };
 

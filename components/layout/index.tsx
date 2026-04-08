@@ -9,20 +9,21 @@ import {
   type ExtractPropTypes,
   type InjectionKey
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 
 const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol('SiderHookKey');
 
 export const layoutProps = {
   suffixCls: { type: String, default: 'layout' },
-  hasSider: { type: Boolean, default: undefined } // 允许手动指定是否有 Sider
+  hasSider: { type: Boolean as TypeBoolean, default: undefined } // 允许手动指定是否有 Sider
 };
 
 export const siderProps = {
   suffixCls: { type: String, default: 'layout-sider' },
   width: { type: [Number, String], default: 200 },
   collapsedWidth: { type: [Number, String], default: 80 },
-  collapsible: Boolean,
-  collapsed: Boolean,
+  collapsible: Boolean as TypeBoolean,
+  collapsed: Boolean as TypeBoolean,
 };
 
 export type LayoutProps = ExtractPropTypes<typeof layoutProps>;

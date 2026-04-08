@@ -1,12 +1,13 @@
 import type { PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 
 type size = "large" | "small" | "default";
 type shape = "circle" | "square" | "default";
 export const skeletonProps = {
-  animated: Boolean,
+  animated: Boolean as TypeBoolean,
   radius: Number,
-  loading: Boolean,
-  block: Boolean,
+  loading: Boolean as TypeBoolean,
+  block: Boolean as TypeBoolean,
   width: Number,
   delay: { type: Number, default: 500 },
   shape: String as PropType<shape>,

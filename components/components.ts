@@ -29,7 +29,7 @@ export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";
 
 export { Checkbox, CheckboxGroup } from "./checkbox";
-export type { CheckboxGroupProps, CheckboxProps } from "./checkbox";
+export type { ChangeEvent, CheckboxGroupProps, CheckboxProps } from "./checkbox";
 
 export { Collapse, CollapsePanel } from "./collapse";
 export type { CollapsePanelProps, CollapseProps } from "./collapse";
@@ -127,7 +127,7 @@ export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText }
 export type { SkeletonProps } from "./skeleton";
 
 export { StatCard, StatNumber } from "./stat-card";
-export type { StatCardProps, StatNumberProps } from "./stat-card";
+export type { StatCardProps, StatNumberItem, StatNumberProps } from "./stat-card";
 
 export { default as Slider } from "./slider";
 export type { SliderProps } from "./slider";

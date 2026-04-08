@@ -5,14 +5,14 @@ import {
   provide,
   type CSSProperties,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
-import { TypeBoolean, type TypeSize } from "../const/var";
+import { type TypeBoolean, type TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 
 export const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
-  compact: TypeBoolean(),
+  compact: Boolean as TypeBoolean,
   theme: { type: String, default: "light" },
   size: {
     type: [String, Array, Number] as PropType<TypeSize | number | number[]>,
@@ -72,4 +72,4 @@ export default defineComponent({
       return <div {...rootProps}>{children}</div>;
     };
   },
-}) //as DefineComponent<InputGroupProps>;
+}); //as DefineComponent<InputGroupProps>;

@@ -6,14 +6,15 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import type { IconType } from "../icon";
 import type { TabKey } from "./types";
 
 export const tabPanelProps = {
   title: String,
   icon: [Array] as PropType<IconType[]>,
-  disabled: Boolean,
-  closable: Boolean,
+  disabled: Boolean as TypeBoolean,
+  closable: Boolean as TypeBoolean,
   activeKey: [String, Number] as PropType<TabKey>,
 };
 

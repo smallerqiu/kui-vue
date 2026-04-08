@@ -12,18 +12,18 @@ import {
   type PropType,
   type VNode
 } from "vue";
-import { colors, type TypePlacements, type TypeSize } from "../const/var";
+import { colors, type TypeBoolean, type TypePlacements, type TypeSize } from "../const/var";
 import { transfer } from "../directives/transfer";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const tooltipProps = {
-  show: Boolean,
-  dark: Boolean,
+  show: Boolean as TypeBoolean,
+  dark: Boolean as TypeBoolean,
   title: [String, Number, Object, Array] as PropType<any>,
   color: String,
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   size: String as PropType<TypeSize>,
   width: [Number, String] as PropType<number | string>,
   placement: {

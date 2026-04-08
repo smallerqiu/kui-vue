@@ -1,13 +1,14 @@
 import { AlertCircle, Close, DocumentTextOutline } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
 import type { UploadFile } from "./index";
 
 export const uploadFileListProps = {
-  showUploadList: { type: Boolean, default: true },
+  showUploadList: { type: Boolean as TypeBoolean, default: true },
   locale: Object as PropType<any>,
   type: {
     type: String as PropType<"list" | "picture">,
@@ -15,7 +16,7 @@ export const uploadFileListProps = {
     validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
   },
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
 };
 
 export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;

@@ -1,14 +1,15 @@
 import { v4 as uuid } from "uuid";
 import {
-    computed,
-    defineComponent,
-    inject,
-    reactive,
-    ref,
-    watch,
-    type ExtractPropTypes,
-    type PropType
+  computed,
+  defineComponent,
+  inject,
+  reactive,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
@@ -36,22 +37,22 @@ export const uploadProps = {
     validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
   },
   data: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
-  disabled: Boolean,
-  directory: Boolean,
-  multiple: Boolean,
+  disabled: Boolean as TypeBoolean,
+  directory: Boolean as TypeBoolean,
+  multiple: Boolean as TypeBoolean,
   accept: String,
   headers: Object as PropType<Record<string, string>>,
-  showUploadList: { type: Boolean, default: true },
+  showUploadList: { type: Boolean as TypeBoolean, default: true },
   transformFile: Function as PropType<(file: File) => File | Promise<File>>,
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
-  autoTrigger: { type: Boolean, default: true },
+  autoTrigger: { type: Boolean as TypeBoolean, default: true },
   limit: Number,
   minSize: Number, // KB
   maxSize: Number, // KB
   uploadText: String,
   uploadSubText: String,
   uploadIcon: Array as PropType<IconType[]>,
-  draggable: Boolean,
+  draggable: Boolean as TypeBoolean,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;

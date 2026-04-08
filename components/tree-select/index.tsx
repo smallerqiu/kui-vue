@@ -1,20 +1,20 @@
 import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
-    computed,
-    defineComponent,
-    inject,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-    ref,
-    Transition,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
-    type VNodeChild
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  Transition,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type VNodeChild
 } from "vue";
-import type { TypeDropPlacements, TypeSize } from "../const/var";
+import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Empty from "../empty";
@@ -54,14 +54,14 @@ export const treeSelectProps = {
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<TreeSelectValue>,
   value: [String, Number, Array] as PropType<TreeSelectValue>,
-  clearable: { type: Boolean, default: true },
-  filterable: Boolean,
-  block: Boolean,
-  disabled: Boolean,
-  multiple: Boolean,
-  loading: Boolean,
-  bordered: { type: Boolean, default: true },
-  showArrow: { type: Boolean, default: true },
+  clearable: { type: Boolean as TypeBoolean, default: true },
+  filterable: Boolean as TypeBoolean,
+  block: Boolean as TypeBoolean,
+  disabled: Boolean as TypeBoolean,
+  multiple: Boolean as TypeBoolean,
+  loading: Boolean as TypeBoolean,
+  bordered: { type: Boolean as TypeBoolean, default: true },
+  showArrow: { type: Boolean as TypeBoolean, default: true },
   options: Array,
   theme: { type: String, default: "light" },
   emptyText: String,
@@ -69,14 +69,14 @@ export const treeSelectProps = {
   shape: String,
   arrowIcon: [Array] as PropType<IconType[]>,
   treeData: Array as PropType<TreeNode[]>,
-  treeCheckable: Boolean,
-  treeShowLine: Boolean,
-  treeShowIcon: { type: Boolean, default: true },
-  treeCheckStrictly: Boolean,
+  treeCheckable: Boolean as TypeBoolean,
+  treeShowLine: Boolean as TypeBoolean,
+  treeShowIcon: { type: Boolean as TypeBoolean, default: true },
+  treeCheckStrictly: Boolean as TypeBoolean,
   treeExpandedKeys: Array as PropType<TreeKey[]>,
   treeCheckedKeys: Array as PropType<TreeKey[]>,
   treeSelectedKeys: Array as PropType<TreeKey[]>,
-  treeExpandedAll: Boolean,
+  treeExpandedAll: Boolean as TypeBoolean,
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;

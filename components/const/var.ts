@@ -44,13 +44,13 @@ export type TypeDropPlacements =
   | "bottom-right";
 
 export type TypeSize = "small" | "middle" | "large" | "default";
-
-export const TypeBoolean = (value?: boolean) => {
-  return {
-    type: Boolean as PropType<boolean | undefined>,
-    default: value as boolean,
-  };
-};
+export type TypeBoolean = PropType<boolean | undefined>;
+// export const TypeBoolean = (value?: boolean) => {
+//   return {
+//     type: Boolean as PropType<boolean | undefined>,
+//     default: value as boolean,
+//   };
+// };
 
 export function functionType<T = () => {}>(defaultVal?: T) {
   return { type: Function as PropType<T>, default: defaultVal as T };

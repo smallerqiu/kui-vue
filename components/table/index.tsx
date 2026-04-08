@@ -2,7 +2,7 @@ import { CaretDown, CaretUp } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
@@ -30,9 +30,9 @@ export const tableProps = {
     type: String as PropType<TypeSize>,
     default: "default",
   },
-  bordered: { type: Boolean, default: false },
-  checkable: Boolean,
-  loading: Boolean,
+  bordered: { type: Boolean as TypeBoolean, default: false },
+  checkable: Boolean as TypeBoolean,
+  loading: Boolean as TypeBoolean,
   emptyText: String,
 };
 

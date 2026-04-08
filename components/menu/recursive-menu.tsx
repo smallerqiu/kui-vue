@@ -1,4 +1,5 @@
 import { defineComponent, type PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 import type { MenuOptionsProps } from "./menu";
 import MenuItem from "./menu-item";
 import RecursiveSubMenu from "./recursive-menu";
@@ -7,7 +8,7 @@ const RecursiveMenu = defineComponent({
   name: "RecursiveMenu",
   props: {
     item: { type: Object as PropType<MenuOptionsProps>, required: true },
-    isPopup: Boolean,
+    isPopup: Boolean as TypeBoolean,
   },
   setup(props) {
     return () => {

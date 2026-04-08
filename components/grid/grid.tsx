@@ -1,5 +1,6 @@
 import type { CSSProperties, ExtractPropTypes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
+import type { TypeBoolean } from "../const/var";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
 
 const gridProps = {
@@ -11,7 +12,7 @@ const gridProps = {
   itemMinWidth: { type: Number },
   align: { type: String },
   justify: { type: String },
-  debug: { type: Boolean },
+  debug: { type: Boolean as TypeBoolean },
 };
 export type GridProps = ExtractPropTypes<typeof gridProps>;
 

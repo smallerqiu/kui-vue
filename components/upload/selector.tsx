@@ -1,18 +1,19 @@
 import { Add } from "kui-icons";
 import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 import type { UploadFile } from "./index";
 
 export const selectorProps = {
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   name: { type: String, default: "file" },
   accept: String,
-  multiple: Boolean,
-  directory: Boolean,
+  multiple: Boolean as TypeBoolean,
+  directory: Boolean as TypeBoolean,
   limit: Number,
   uploadText: String,
   uploadSubText: String,
-  draggable: Boolean,
+  draggable: Boolean as TypeBoolean,
   locale: Object as PropType<any>,
   fileList: Array as PropType<UploadFile[]>,
   uploadIcon: [String, Object, Array] as PropType<any>,
@@ -42,9 +43,11 @@ export default defineComponent({
     };
 
     const selectFiles = (e: Event | DragEvent) => {
-      const files = (e as DragEvent).dataTransfer ? (e as DragEvent).dataTransfer?.files : (e.target as HTMLInputElement).files;
+      const files = (e as DragEvent).dataTransfer
+        ? (e as DragEvent).dataTransfer?.files
+        : (e.target as HTMLInputElement).files;
       if (files && files.length > 0) emit("select", files);
-      if (e.target) (e.target as HTMLInputElement).value = ""; 
+      if (e.target) (e.target as HTMLInputElement).value = "";
       e.preventDefault();
       dragOver.value = false;
     };

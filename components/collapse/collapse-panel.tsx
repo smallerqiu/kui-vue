@@ -9,11 +9,12 @@ import {
   type ExtractPropTypes
 } from "vue";
 import { getTransitionProp } from "../base/transition";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 
 const collapsePanelProps = {
   title: String,
-  active: Boolean,
+  active: Boolean as TypeBoolean,
 };
 
 export type CollapsePanelProps = ExtractPropTypes<typeof collapsePanelProps>;
