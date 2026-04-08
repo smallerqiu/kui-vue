@@ -25,7 +25,10 @@ export const tableProps = {
   selectedKeys: { type: Array as PropType<string[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<string[]>, default: () => [] },
   rowKey: { type: String, default: "key" },
-  scroll: { type: Object as PropType<{ x: number; y: number }>, default: () => ({}) },
+  scroll: {
+    type: Object as PropType<{ x?: number | string; y?: number | string }>,
+    default: () => ({}),
+  },
   size: {
     type: String as PropType<TypeSize>,
     default: "default",

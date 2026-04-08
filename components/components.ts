@@ -150,8 +150,8 @@ export type { TooltipProps } from "./tooltip";
 export { TabPanel, Tabs } from "./tabs";
 export type { TabPanelProps, TabsProps } from "./tabs";
 
-export { TimeLine, TimeLineItem } from "./timeline";
-export type { TimelineItemProps, TimelineProps } from "./timeline";
+export { TimeLine, TimeLineItem } from "./time-line";
+export type { TimelineItemProps, TimelineProps } from "./time-line";
 
 export { default as Tree } from "./tree";
 export type { TreeNode, TreeProps } from "./tree";
