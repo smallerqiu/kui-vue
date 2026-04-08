@@ -5,7 +5,7 @@
     "lib": ["ES2020","DOM", "DOM.Iterable"],
     "module": "ESNext",
     "types": ["node"],
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,  //导入路径的文件名大小写
 
     /* Bundler mode */
@@ -21,7 +21,11 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts","plugins/**/*.ts"]
 }

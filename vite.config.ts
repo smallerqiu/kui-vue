@@ -1,13 +1,12 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import autoprefixer from "autoprefixer";
-import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import pkg from "./package.json";
 import banner from "./plugins/banner";
-
+import { generateGlobalDts } from "./plugins/resolver";
 const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
@@ -16,19 +15,19 @@ const bannerText = `/*!
  * Author: Qiu / https://chuchur.com
  */\n`;
 
-const getLocaleEntries = () => {
-  const localePath = path.resolve(__dirname, "components/locale");
-  if (!fs.existsSync(localePath)) return {};
-  const files = fs.readdirSync(localePath);
-  const entries: Record<string, string> = {};
-  files.forEach((file) => {
-    if (file.endsWith(".ts") || file.endsWith(".js")) {
-      const name = file.replace(/\.(ts|js)$/, "");
-      entries[`locale/${name}`] = path.resolve(__dirname, `components/locale/${file}`);
-    }
-  });
-  return entries;
-};
+// const getLocaleEntries = () => {
+//   const localePath = path.resolve(__dirname, "components/locale");
+//   if (!fs.existsSync(localePath)) return {};
+//   const files = fs.readdirSync(localePath);
+//   const entries: Record<string, string> = {};
+//   files.forEach((file) => {
+//     if (file.endsWith(".ts") || file.endsWith(".js")) {
+//       const name = file.replace(/\.(ts|js)$/, "");
+//       entries[`locale/${name}`] = path.resolve(__dirname, `components/locale/${file}`);
+//     }
+//   });
+//   return entries;
+// };
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -52,6 +51,9 @@ export default defineConfig({
         incremental: true, // 增量编译
       },
       cleanVueFileName: false, //清除临时文件
+      afterBuild: () => {
+        generateGlobalDts();
+      },
     }),
     banner(bannerText),
   ],
@@ -70,8 +72,9 @@ export default defineConfig({
     outDir: "dist",
     lib: {
       // entry: {
-      //   index:path.resolve(__dirname, 'components/index.ts'), // 入口文件
-      //   ...getLocaleEntries(),
+      //   index: path.resolve(__dirname, "components/index.ts"), // 入口文件
+      //   resolver: path.resolve(__dirname, "components/resolver.ts"),
+      //   // ...getLocaleEntries(),
       // },
       entry: path.resolve(__dirname, "components/index.ts"),
       name: "kui", // UMD 格式时的全局变量名
