@@ -1,12 +1,13 @@
 import { AlertCircle, CheckmarkCircle, Close, CloseCircle, InformationCircle } from "kui-icons";
 import {
-    defineComponent,
-    ref,
-    Transition,
-    type ExtractPropTypes,
-    type PropType
+  defineComponent,
+  ref,
+  Transition,
+  type ExtractPropTypes,
+  type PropType
 } from "vue";
 import { getTransitionProp } from "../base/transition";
+import type { TypeBoolean } from "../const/var";
 import Icon, { type IconType } from "../icon";
 
 const alertProps = {
@@ -14,12 +15,12 @@ const alertProps = {
     type: String as PropType<"info" | "success" | "warning" | "error">,
     default: "warning",
   },
-  closable: Boolean,
-  showIcon: { type: Boolean, default: true },
+  closable: Boolean as TypeBoolean,
+  showIcon: { type: Boolean as TypeBoolean, default: true },
   icon: [Array] as PropType<IconType[]>,
   message: String,
   description: String,
-  bordered: Boolean,
+  bordered: Boolean as TypeBoolean,
 };
 
 export type AlertProps = ExtractPropTypes<typeof alertProps>;

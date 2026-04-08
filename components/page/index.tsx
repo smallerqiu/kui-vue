@@ -8,17 +8,17 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
 import { Select } from "../select";
 
 export const pageProps = {
-  disabled: Boolean,
-  showSizer: Boolean,
-  showTotal: { type: Boolean, default: true },
-  showElevator: Boolean,
+  disabled: Boolean as TypeBoolean,
+  showSizer: Boolean as TypeBoolean,
+  showTotal: { type: Boolean as TypeBoolean, default: true },
+  showElevator: Boolean as TypeBoolean,
   theme: { type: String, default: "light" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {

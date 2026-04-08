@@ -6,20 +6,20 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import Icon from "../icon";
 
 const checkboxProps = {
   checked: {
-    type: Boolean,
+    type: Boolean as TypeBoolean,
     default: false,
   },
   modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
   theme: { type: String, default: "light" },
-  disabled: Boolean,
-  indeterminate: Boolean,
+  disabled: Boolean as TypeBoolean,
+  indeterminate: Boolean as TypeBoolean,
   size: {
     type: String as PropType<TypeSize>,
     default: "default",

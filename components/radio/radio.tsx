@@ -1,13 +1,13 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 export const radioProps = {
   modelValue: { type: [Boolean, String, Number], default: false },
   value: { type: [String, Number, Boolean] },
   label: { type: [String] },
-  checked: Boolean,
-  disabled: Boolean,
+  checked: Boolean as TypeBoolean,
+  disabled: Boolean as TypeBoolean,
   theme: String,
   icon: Array as PropType<IconType[]>,
   size: {

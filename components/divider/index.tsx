@@ -1,4 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 
 export const dividerProps = {
   type: {
@@ -6,7 +7,7 @@ export const dividerProps = {
     default: "horizontal",
   },
   text: String,
-  dashed: Boolean,
+  dashed: Boolean as TypeBoolean,
   orientation: {
     type: String as PropType<"left" | "right" | "center">,
     default: "center",

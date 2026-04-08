@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeSize } from "../const/var";
+import type { TypeBoolean, TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
 
@@ -9,7 +9,7 @@ const checkboxGroupProps = {
     default: () => [],
   },
   theme: { type: String, default: "light" },
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   options: Array as PropType<any[]>,
   direction: {
     type: String as PropType<"horizontal" | "vertical">,

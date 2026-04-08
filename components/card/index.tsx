@@ -1,8 +1,9 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 import Icon, { type IconType } from "../icon";
 
 const cardProps = {
-  bordered: { type: Boolean, default: false },
+  bordered: { type: Boolean as TypeBoolean, default: false },
   title: String,
   icon: [Array] as PropType<IconType[]>,
 };

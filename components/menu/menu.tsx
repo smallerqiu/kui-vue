@@ -9,6 +9,7 @@ import {
   type PropType,
 } from "vue";
 
+import type { TypeBoolean } from "../const/var";
 import type { IconType } from "../icon";
 import RecursiveMenu from "./recursive-menu";
 
@@ -16,9 +17,9 @@ export const menuProps = {
   theme: String,
   mode: { type: String as PropType<"vertical" | "horizontal">, default: "vertical" },
   modelValue: { type: Array as PropType<string[]>, default: () => [] },
-  accordion: Boolean,
+  accordion: Boolean as TypeBoolean,
   items: Array as PropType<MenuOptionsProps[]>,
-  inlineCollapsed: Boolean,
+  inlineCollapsed: Boolean as TypeBoolean,
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
 };
 
@@ -81,7 +82,7 @@ const Menu = defineComponent({
       setCollapsed(props.inlineCollapsed);
     });
 
-    const setCollapsed = (collapsed: boolean) => {
+    const setCollapsed = (collapsed?: boolean) => {
       if (collapsed) {
         if (defaultOpenKeys.value.length > 0) {
           tempOpenKeys.value = defaultOpenKeys.value;

@@ -1,6 +1,7 @@
 import { AlertCircle, CheckmarkCircle, Close, CloseCircle, InformationCircle } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
+import type { TypeBoolean } from "../const/var";
 import Icon, { type IconType } from "../icon";
 
 export const contentProps = {
@@ -11,7 +12,7 @@ export const contentProps = {
   color: String,
   key: String,
   duration: Number,
-  closable: Boolean,
+  closable: Boolean as TypeBoolean,
   onClose: Function as PropType<() => void>,
   noticeType: { type: String as PropType<"message" | "notice">, default: "message" },
 };

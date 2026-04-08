@@ -12,22 +12,22 @@ import {
   watch,
 } from "vue";
 
-import type { TypeDropPlacements } from "../const/var";
+import type { TypeBoolean, TypeDropPlacements } from "../const/var";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const dropdownProps = {
-  dark: Boolean,
+  dark: Boolean as TypeBoolean,
   trigger: {
     type: String as PropType<"hover" | "click" | "contextmenu">,
     default: "hover",
   },
-  transfer: { type: Boolean, default: true },
-  disabled: Boolean,
-  arrow: { type: Boolean, default: false },
-  show: Boolean,
+  transfer: { type: Boolean as TypeBoolean, default: true },
+  disabled: Boolean as TypeBoolean,
+  arrow: { type: Boolean as TypeBoolean, default: false },
+  show: Boolean as TypeBoolean,
   placement: {
     type: String as PropType<TypeDropPlacements>,
     default: "bottom-left",
@@ -107,7 +107,7 @@ const Dropdown = defineComponent({
         });
       });
     };
-    const toggle = (open: boolean, e?: MouseEvent) => {
+    const toggle = (open?: boolean, e?: MouseEvent) => {
       if (open) {
         if (!rendered.value) {
           rendered.value = true;

@@ -22,7 +22,7 @@ import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-import type { TypeDropPlacements, TypeSize } from "../const/var";
+import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
 import Option from "./option"; // 导入 Option 组件
 
 export interface SelectOption {
@@ -44,14 +44,14 @@ export const selectProps = {
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<string | number | any[]>,
   value: [String, Number, Array] as PropType<string | number | any[]>,
-  clearable: { type: Boolean, default: true },
-  filterable: Boolean,
-  block: Boolean,
-  disabled: Boolean,
-  multiple: Boolean,
-  loading: Boolean,
-  bordered: { type: Boolean, default: true },
-  showArrow: { type: Boolean, default: true },
+  clearable: { type: Boolean as TypeBoolean, default: true },
+  filterable: Boolean as TypeBoolean,
+  block: Boolean as TypeBoolean,
+  disabled: Boolean as TypeBoolean,
+  multiple: Boolean as TypeBoolean,
+  loading: Boolean as TypeBoolean,
+  bordered: { type: Boolean as TypeBoolean, default: true },
+  showArrow: { type: Boolean as TypeBoolean, default: true },
   options: Array as PropType<Array<SelectOption>>,
   theme: { type: String, default: "light" },
   emptyText: String,

@@ -1,15 +1,15 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { cloneVNode, defineComponent, h, provide } from "vue";
-import { type TypeSize } from "../const/var";
+import { type TypeBoolean, type TypeSize } from "../const/var";
 import { getChildren } from "../utils/vnode";
 export const spaceProps = {
   align: {
     type: String as PropType<"start" | "end" | "center" | "baseline">,
   },
-  vertical: Boolean,
-  wrap: { type: Boolean, default: false },
-  block: Boolean,
-  compact: Boolean,
+  vertical: Boolean as TypeBoolean,
+  wrap: { type: Boolean as TypeBoolean, default: false },
+  block: Boolean as TypeBoolean,
+  compact: Boolean as TypeBoolean,
   size: {
     type: [String, Number, Array] as PropType<TypeSize | number | number[]>,
   },

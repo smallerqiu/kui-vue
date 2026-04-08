@@ -14,15 +14,16 @@ import {
   Transition,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
+import type { TypeBoolean } from "../const/var";
 import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const submenuProps = {
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   title: String,
-  isPopup: Boolean,
+  isPopup: Boolean as TypeBoolean,
   icon: Array as PropType<IconType[]>,
   key: String,
 };

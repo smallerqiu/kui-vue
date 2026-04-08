@@ -5,9 +5,9 @@ import {
   defineComponent,
   inject,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
-import { colors, TypeBoolean, type TypeSize } from "../const/var";
+import { colors, type TypeBoolean, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
@@ -17,19 +17,19 @@ const buttonProps = {
     default: "button",
   },
   icon: [Array] as PropType<IconType[]>,
-  block: { type: Boolean, default: false },
+  block: { type: Boolean as TypeBoolean, default: false },
   size: {
     type: String as PropType<TypeSize>,
   },
   color: {
     type: String as PropType<(typeof colors)[number]>,
   },
-  loading: { type: Boolean, default: false },
+  loading: { type: Boolean as TypeBoolean, default: false },
   type: {
     type: String as PropType<"primary" | "danger" | "warning" | "default" | "text" | "link">,
     default: "default",
   },
-  disabled: TypeBoolean(),
+  disabled: Boolean as TypeBoolean,
   theme: {
     type: String as PropType<"outline" | "solid" | "light" | "dashed" | "card">,
   },
@@ -39,12 +39,12 @@ const buttonProps = {
   onClick: Function as PropType<(e?: MouseEvent) => void>,
 };
 
-export type ButtonProps = ExtractPropTypes<typeof buttonProps> ;
+export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 
 export default defineComponent({
   name: "Button",
   props: buttonProps,
-  emits: ["click","mouseenter","mouseleave"],
+  emits: ["click", "mouseenter", "mouseleave"],
   setup(props, { emit, slots, attrs }) {
     const buttonGroup = inject<any>("KButtonGroup", null);
     const parentSize = inject<string | null>("size", null);
@@ -128,4 +128,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<ButtonProps>;
+}); //as DefineComponent<ButtonProps>;

@@ -9,7 +9,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import { type TypeSize } from "../const/var";
+import { type TypeBoolean, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
@@ -23,9 +23,9 @@ export const inputNumberProps = {
   precision: Number,
   formatter: Function as PropType<(value: string | number) => string>,
   parser: Function as PropType<(value: string) => string | number>,
-  disabled: Boolean,
-  readonly: Boolean,
-  controls: { type: Boolean, default: true },
+  disabled: Boolean as TypeBoolean,
+  readonly: Boolean as TypeBoolean,
+  controls: { type: Boolean as TypeBoolean, default: true },
   suffix: String,
   prefix: String,
   theme: { type: String, default: "light" },

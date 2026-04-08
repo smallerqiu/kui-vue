@@ -1,11 +1,12 @@
 import {
-    cloneVNode,
-    defineComponent,
-    ref,
-    watch,
-    type ExtractPropTypes,
-    type PropType
+  cloneVNode,
+  defineComponent,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 import { getChildren } from "../utils/vnode";
 
 const collapseProps = {
@@ -13,8 +14,8 @@ const collapseProps = {
     type: Array as PropType<Array<string | number>>,
     default: () => [],
   },
-  accordion: Boolean,
-  sample: Boolean,
+  accordion: Boolean as TypeBoolean,
+  sample: Boolean as TypeBoolean,
 };
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;

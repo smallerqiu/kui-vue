@@ -1,14 +1,15 @@
 import { Checkmark } from "kui-icons";
 import { computed, defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { type TypeBoolean } from "../const/var";
 import Icon from "../icon";
 
 export const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number] as PropType<string | number> },
-  disabled: Boolean,
-  checked: Boolean,
-  active: Boolean,
-  multiple: Boolean,
+  disabled: Boolean as TypeBoolean,
+  checked: Boolean as TypeBoolean,
+  active: Boolean as TypeBoolean,
+  multiple: Boolean as TypeBoolean,
 };
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>;
@@ -29,12 +30,22 @@ export default defineComponent({
     return () => {
       const { multiple, disabled, active } = props;
       const liProps = {
-        class: ["k-select-item", { "k-select-item-selected": checked.value, "k-select-item-active": active, "k-select-item-disabled": disabled }],
+        class: [
+          "k-select-item",
+          {
+            "k-select-item-selected": checked.value,
+            "k-select-item-active": active,
+            "k-select-item-disabled": disabled,
+          },
+        ],
         onClick: onSelect,
       };
       return (
         <li {...liProps}>
-          <span>{labelText.value}{multiple ? <Icon type={Checkmark} /> : null}</span>
+          <span>
+            {labelText.value}
+            {multiple ? <Icon type={Checkmark} /> : null}
+          </span>
         </li>
       );
     };

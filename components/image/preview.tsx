@@ -31,6 +31,7 @@ import Icon from "../icon";
 import Slider from "../slider";
 import { getChildren } from "../utils/vnode";
 
+import type { TypeBoolean } from "../const/var";
 import { getPosition } from "../utils/mouse";
 import { loadImage } from "./utils";
 
@@ -49,10 +50,10 @@ const ImagePreview = defineComponent({
     type: String,
     src: String,
     origin: String,
-    hasControl: Boolean,
-    value: Boolean,
+    hasControl: Boolean as TypeBoolean,
+    value: Boolean as TypeBoolean,
     data: { type: Array as PropType<string[]>, default: () => [] },
-    showPanel: Boolean,
+    showPanel: Boolean as TypeBoolean,
   },
   setup(props, { emit, slots, expose }) {
     const { value, type, src, origin, showPanel, data } = toRefs(props);

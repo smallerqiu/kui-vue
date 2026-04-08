@@ -1,16 +1,17 @@
 import {
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
-    type Ref
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type Ref
 } from "vue";
+import type { TypeBoolean } from "../const/var";
 
 // 定义 provide/inject 的接口，确保类型安全
 export interface AnchorContext {
@@ -21,7 +22,7 @@ export interface AnchorContext {
 }
 
 const anchorProps = {
-  affix: { type: Boolean, default: true },
+  affix: { type: Boolean as TypeBoolean, default: true },
   offsetTop: { type: Number, default: 0 },
   bounds: { type: Number, default: 5 },
   container: [String, Object] as PropType<string | HTMLElement | Window>, // 明确支持 HTMLElement 和 Window

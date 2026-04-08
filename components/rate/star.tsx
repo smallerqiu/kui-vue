@@ -1,5 +1,6 @@
 import { Star as StarIcon } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import type { TypeBoolean } from "../const/var";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 
@@ -7,10 +8,10 @@ export const starProps = {
   character: [String, Function] as PropType<string | ((index: number) => any)>,
   tooltips: String,
   percent: Number,
-  full: Boolean,
-  half: Boolean,
-  allowHalf: Boolean,
-  disabled: Boolean,
+  full: Boolean as TypeBoolean,
+  half: Boolean as TypeBoolean,
+  allowHalf: Boolean as TypeBoolean,
+  disabled: Boolean as TypeBoolean,
   icon: [String, Function, Array] as PropType<any>,
   size: [Number, String] as PropType<number | string>,
   index: { type: Number, required: true as const },

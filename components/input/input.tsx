@@ -10,7 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import { type TypeSize } from "../const/var";
+import { type TypeBoolean, type TypeSize } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -18,12 +18,12 @@ import InputBox from "./input-box";
 import InputGroup from "./input-group";
 
 const inputProps = {
-  clearable: { type: Boolean, default: true },
-  visiblePasswordIcon: { type: Boolean, default: true },
+  clearable: { type: Boolean as TypeBoolean, default: true },
+  visiblePasswordIcon: { type: Boolean as TypeBoolean, default: true },
   size: { type: String as PropType<TypeSize> },
   modelValue: { type: [String, Number, Array, Object] as PropType<any> },
   value: { type: [String, Number, Array, Object] as PropType<any> },
-  disabled: Boolean,
+  disabled: Boolean as TypeBoolean,
   type: {
     type: String as PropType<
       "text" | "textarea" | "password" | "url" | "email" | "date" | "search" | "hidden"
