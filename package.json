@@ -102,5 +102,9 @@
     "vite-plugin-dts": "^4.5.4",
     "vue-router": "^5.0.4",
     "vue-tsc": "^3.2.6"
+  },
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
   }
 }
