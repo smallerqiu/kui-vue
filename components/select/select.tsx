@@ -22,7 +22,7 @@ import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
+import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 import Option from "./option"; // 导入 Option 组件
 
 export interface SelectOption {
@@ -33,32 +33,35 @@ export interface SelectOption {
 export const selectProps = {
   placeholder: String,
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   placement: {
-    type: String as PropType<TypeDropPlacements>,
+    type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<string | number | any[]>,
   value: [String, Number, Array] as PropType<string | number | any[]>,
-  clearable: { type: Boolean as TypeBoolean, default: true },
-  filterable: Boolean as TypeBoolean,
-  block: Boolean as TypeBoolean,
-  disabled: Boolean as TypeBoolean,
-  multiple: Boolean as TypeBoolean,
-  loading: Boolean as TypeBoolean,
-  bordered: { type: Boolean as TypeBoolean, default: true },
-  showArrow: { type: Boolean as TypeBoolean, default: true },
-  options: Array as PropType<Array<SelectOption>>,
+  clearable: { type: Boolean as BooleanType, default: true },
+  filterable: Boolean as BooleanType,
+  block: Boolean as BooleanType,
+  disabled: Boolean as BooleanType,
+  multiple: Boolean as BooleanType,
+  loading: Boolean as BooleanType,
+  bordered: { type: Boolean as BooleanType, default: true },
+  showArrow: { type: Boolean as BooleanType, default: true },
+  options: Array as PropType<SelectOption[]>,
   theme: { type: String, default: "light" },
   emptyText: String,
   loadingText: String,
   icon: [Array] as PropType<IconType[]>,
   shape: String,
   arrowIcon: [Array] as PropType<IconType[]>,
+  onSearch: Function as PropType<(e: InputEvent) => void>,
+  onChange: Function as PropType<(value: string | number | any[]) => void>,
+  onSelect: Function as PropType<(option: SelectOption) => void>,
 };
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
@@ -408,8 +411,7 @@ export default defineComponent({
         return options;
       }
 
-      const data: Array<{ label: string | number; value: string | number; disabled?: boolean }> =
-        [];
+      const data: SelectOption[] = [];
       const children = getChildren(slots.default?.());
       children.forEach((child: any) => {
         if (child?.props) {

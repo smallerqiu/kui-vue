@@ -1,12 +1,12 @@
 import { defineComponent, inject, type PropType } from "vue";
 import Button from "../button/button";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { type IconType } from "../icon";
 export default defineComponent({
   name: "TriggerButton",
   props: {
     icon: Array as PropType<IconType[]>,
-    disabled: Boolean as TypeBoolean,
+    disabled: Boolean as BooleanType,
   },
   setup(ps, { attrs, slots }) {
     const mouseEnterEvent = inject<() => void>("dropdown-trigger-in");

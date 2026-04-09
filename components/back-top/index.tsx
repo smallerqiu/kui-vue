@@ -74,4 +74,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<BackTopProps>;
+}) 

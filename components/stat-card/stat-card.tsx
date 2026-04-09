@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import StatNumber from "./stat-number";
 
 export interface StatNumberItem {
@@ -19,8 +19,8 @@ export const statCardProps = {
   items: { type: Array as PropType<StatNumberItem[]>, default: () => [] },
   separator: String,
   statNumberType: String as PropType<"rollup" | "countup">,
-  reverse: Boolean as TypeBoolean,
-  bordered: { type: Boolean as TypeBoolean, default: false },
+  reverse: Boolean as BooleanType,
+  bordered: { type: Boolean as BooleanType, default: false },
 };
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;

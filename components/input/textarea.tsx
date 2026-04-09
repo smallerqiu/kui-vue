@@ -1,12 +1,12 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean, TypeSize } from "../const/var";
+import type { BooleanType, SizeType } from "../const/types";
 
 export const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
   value: [String, Number, Object, Array] as PropType<any>,
   theme: { type: String, default: "light" },
-  size: String as PropType<TypeSize>,
-  disabled: Boolean as TypeBoolean,
+  size: String as PropType<SizeType>,
+  disabled: Boolean as BooleanType,
 };
 
 export type TextAreaProps = ExtractPropTypes<typeof textAreaProps>;
@@ -39,4 +39,4 @@ export default defineComponent({
       return <textarea {...rootProps} />;
     };
   },
-}) //as DefineComponent<TextAreaProps>;
+}) 

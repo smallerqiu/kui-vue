@@ -59,6 +59,6 @@ const GridItem = defineComponent({
       return <div {...itemProps}>{slots.default?.()}</div>;
     };
   },
-}) //as DefineComponent<GridItemProps>;
+}) 
 
 export default GridItem;

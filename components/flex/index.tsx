@@ -1,6 +1,6 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, provide } from "vue";
-import { type TypeBoolean, type TypeSize } from "../const/var";
+import { type BooleanType, type SizeType } from "../const/types";
 
 export const flexProps = {
   align: {
@@ -11,10 +11,10 @@ export const flexProps = {
       "flex-start" | "center" | "flex-end" | "space-between" | "space-around" | "space-evenly"
     >,
   },
-  vertical: Boolean as TypeBoolean,
-  wrap: Boolean as TypeBoolean,
+  vertical: Boolean as BooleanType,
+  wrap: Boolean as BooleanType,
   size: {
-    type: [String, Number, Array] as PropType<TypeSize | number | (string | number)[]>,
+    type: [String, Number, Array] as PropType<SizeType | number | (string | number)[]>,
   },
 };
 

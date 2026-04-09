@@ -7,7 +7,7 @@ import {
   type PropType
 } from "vue";
 import { getTransitionProp } from "../base/transition";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
 const alertProps = {
@@ -15,12 +15,12 @@ const alertProps = {
     type: String as PropType<"info" | "success" | "warning" | "error">,
     default: "warning",
   },
-  closable: Boolean as TypeBoolean,
-  showIcon: { type: Boolean as TypeBoolean, default: true },
+  closable: Boolean as BooleanType,
+  showIcon: { type: Boolean as BooleanType, default: true },
   icon: [Array] as PropType<IconType[]>,
   message: String,
   description: String,
-  bordered: Boolean as TypeBoolean,
+  bordered: Boolean as BooleanType,
 };
 
 export type AlertProps = ExtractPropTypes<typeof alertProps>;
@@ -91,6 +91,6 @@ const Alert = defineComponent({
       );
     };
   },
-}) //as DefineComponent<AlertProps>;
+}) 
 
 export default Alert;

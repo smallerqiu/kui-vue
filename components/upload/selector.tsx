@@ -1,19 +1,19 @@
 import { Add } from "kui-icons";
 import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import type { UploadFile } from "./index";
 
 export const selectorProps = {
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   name: { type: String, default: "file" },
   accept: String,
-  multiple: Boolean as TypeBoolean,
-  directory: Boolean as TypeBoolean,
+  multiple: Boolean as BooleanType,
+  directory: Boolean as BooleanType,
   limit: Number,
   uploadText: String,
   uploadSubText: String,
-  draggable: Boolean as TypeBoolean,
+  draggable: Boolean as BooleanType,
   locale: Object as PropType<any>,
   fileList: Array as PropType<UploadFile[]>,
   uploadIcon: [String, Object, Array] as PropType<any>,

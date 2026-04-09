@@ -1,23 +1,23 @@
 import {
-  defineComponent,
-  ref,
-  watch,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    ref,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
 } from "vue";
-import { type TypeBoolean, type TypeSize } from "../const/var";
+import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import Star from "./star";
 export const rateProps = {
   modelValue: { type: Number, default: 0 },
-  allowClear: { type: Boolean as TypeBoolean, default: true },
-  allowHalf: Boolean as TypeBoolean,
+  allowClear: { type: Boolean as BooleanType, default: true },
+  allowHalf: Boolean as BooleanType,
   color: String,
-  size: [Number, String] as PropType<number | TypeSize>,
-  showScore: Boolean as TypeBoolean,
+  size: [Number, String] as PropType<number | SizeType>,
+  showScore: Boolean as BooleanType,
   tooltips: Array as PropType<string[]>,
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   count: { type: Number, default: 5 },
   character: [String, Function] as PropType<string | ((index: number) => any)>,
   icon: [Array, Function] as PropType<IconType[] | ((index: number) => any)>,

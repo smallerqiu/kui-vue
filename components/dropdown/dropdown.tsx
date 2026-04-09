@@ -12,24 +12,24 @@ import {
   watch,
 } from "vue";
 
-import type { TypeBoolean, TypeDropPlacements } from "../const/var";
+import type { BooleanType, DropPlacementsType } from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const dropdownProps = {
-  dark: Boolean as TypeBoolean,
+  dark: Boolean as BooleanType,
   trigger: {
     type: String as PropType<"hover" | "click" | "contextmenu">,
     default: "hover",
   },
-  transfer: { type: Boolean as TypeBoolean, default: true },
-  disabled: Boolean as TypeBoolean,
-  arrow: { type: Boolean as TypeBoolean, default: false },
-  show: Boolean as TypeBoolean,
+  transfer: { type: Boolean as BooleanType, default: true },
+  disabled: Boolean as BooleanType,
+  arrow: { type: Boolean as BooleanType, default: false },
+  show: Boolean as BooleanType,
   placement: {
-    type: String as PropType<TypeDropPlacements>,
+    type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
   target: Object,

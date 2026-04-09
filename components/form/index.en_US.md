@@ -13,6 +13,7 @@
 | change             | Triggered when form data changes                                                                                                                     | Function(model)          | -       |
 | test               | Method to validate a single field of the form                                                                                                        | Function                 | -       |
 | reset              | Reset the entire form, reset all field values to empty and remove validation results                                                                 | Function                 | -       |
+| theme              | The component renders the theme, defaulting to 'light'.                                                                                              | String                   | light   |
 
 ## FormItem API
 

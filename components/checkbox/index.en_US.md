@@ -8,6 +8,7 @@
 | indeterminate | Combined auxiliary option controls the indeterminate state    | Boolean           | false   |
 | change        | Callback when the option state changes                        | Function(checked) | -       |
 | value         | The value represented when used in combination                | String、Number    | -       |
+| theme         | The component renders the theme, defaulting to 'light'.       | String            | light   |
 
 ## CheckboxGroup API
 

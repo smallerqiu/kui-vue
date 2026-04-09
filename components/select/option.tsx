@@ -1,15 +1,15 @@
 import { Checkmark } from "kui-icons";
 import { computed, defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import { type TypeBoolean } from "../const/var";
+import { type BooleanType } from "../const/types";
 import Icon from "../icon";
 
 export const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number] as PropType<string | number> },
-  disabled: Boolean as TypeBoolean,
-  checked: Boolean as TypeBoolean,
-  active: Boolean as TypeBoolean,
-  multiple: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  checked: Boolean as BooleanType,
+  active: Boolean as BooleanType,
+  multiple: Boolean as BooleanType,
 };
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>;

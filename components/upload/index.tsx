@@ -9,7 +9,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, UploadStatusType } from "../const/types";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
@@ -19,7 +19,7 @@ export interface UploadFile {
   uid: string;
   filename: string;
   size: string;
-  status: "wait" | "uploading" | "success" | "error";
+  status: UploadStatusType;
   percent: number;
   preview: string | null;
   response?: any;
@@ -37,22 +37,22 @@ export const uploadProps = {
     validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
   },
   data: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
-  disabled: Boolean as TypeBoolean,
-  directory: Boolean as TypeBoolean,
-  multiple: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  directory: Boolean as BooleanType,
+  multiple: Boolean as BooleanType,
   accept: String,
   headers: Object as PropType<Record<string, string>>,
-  showUploadList: { type: Boolean as TypeBoolean, default: true },
+  showUploadList: { type: Boolean as BooleanType, default: true },
   transformFile: Function as PropType<(file: File) => File | Promise<File>>,
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
-  autoTrigger: { type: Boolean as TypeBoolean, default: true },
+  autoTrigger: { type: Boolean as BooleanType, default: true },
   limit: Number,
   minSize: Number, // KB
   maxSize: Number, // KB
   uploadText: String,
   uploadSubText: String,
   uploadIcon: Array as PropType<IconType[]>,
-  draggable: Boolean as TypeBoolean,
+  draggable: Boolean as BooleanType,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
@@ -121,7 +121,7 @@ export default defineComponent({
           uid: uuid(),
           filename: file.name,
           size: formatFileSize(file.size),
-          status: "wait",
+          status: "waiting",
           percent: 0,
           preview: null,
         };
@@ -184,7 +184,7 @@ export default defineComponent({
         Object.keys(uploadTemp).forEach((uid) => {
           const item = innerFileList.value.find((x) => x.uid === uid);
           const file = uploadTemp[uid];
-          if (item && file && item.status === "wait") uploadFile(item, file);
+          if (item && file && item.status === "waiting") uploadFile(item, file);
         });
       }
     };
@@ -330,4 +330,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<UploadProps>;
+}) 

@@ -1,14 +1,14 @@
 import {
-  defineComponent,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType
+    defineComponent,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 
 const badgeProps = {
   count: [String, Number],
-  dot: Boolean as TypeBoolean,
+  dot: Boolean as BooleanType,
   color: String,
   status: {
     type: String as PropType<"default" | "success" | "error" | "warning">,
@@ -97,6 +97,6 @@ const Badge = defineComponent({
       );
     };
   },
-}) //as DefineComponent<BadgeProps>;
+}) 
 
 export default Badge;

@@ -6,24 +6,24 @@ import {
   ref,
   watch,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
-import type { TypeBoolean, TypeSize } from "../const/var";
+import type { BooleanType, SizeType } from "../const/types";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
 import { Select } from "../select";
 
 export const pageProps = {
-  disabled: Boolean as TypeBoolean,
-  showSizer: Boolean as TypeBoolean,
-  showTotal: { type: Boolean as TypeBoolean, default: true },
-  showElevator: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  showSizer: Boolean as BooleanType,
+  showTotal: { type: Boolean as BooleanType, default: true },
+  showElevator: Boolean as BooleanType,
   theme: { type: String, default: "light" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
     default: "default",
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
   },
   total: { default: 0, type: Number },
   pageSize: { default: 10, type: Number },
@@ -184,7 +184,7 @@ const Page = defineComponent({
       emit("update:page", page);
       emit("change", defaultPage.value, defaultPageSize.value);
     };
-    const changeSize = (value: number) => {
+    const changeSize = (value: any) => {
       defaultPageSize.value = value;
       pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
@@ -244,7 +244,7 @@ const Page = defineComponent({
         disabled: ps.disabled,
         clearable: false,
         // value: defaultPage.value,
-        onChange: (page?:number) => {
+        onChange: (page?: number) => {
           if (page == undefined) {
             return;
           }

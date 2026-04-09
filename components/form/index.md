@@ -13,6 +13,7 @@
 | change             | 表单数据变动时触发                                                                                 | Function(model)         | -      |
 | test               | 对表单单个字段进行校验的方法                                                                       | Function                | -      |
 | reset              | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                                             | Function                | -      |
+| theme              | 组件呈现主题,默认'light'                                                                           | String                  | light  |
 
 ## FormItem API
 

@@ -1,15 +1,15 @@
 import { Loading } from "kui-icons";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 
 export const switchProps = {
   checked: [Boolean, Number],
   modelValue: [Boolean, Number],
   type: String,
-  disabled: Boolean as TypeBoolean,
-  loading: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  loading: Boolean as BooleanType,
   size: {
     default: "default",
     type: String as PropType<"small" | "default" | "large">,

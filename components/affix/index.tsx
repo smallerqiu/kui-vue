@@ -135,6 +135,6 @@ const Affix = defineComponent({
       );
     };
   },
-}) //as DefineComponent<AffixProps>;
+}) 
 
 export default Affix;

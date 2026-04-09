@@ -7,12 +7,13 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { colors, type TypeBoolean } from "../const/var";
+import { type BooleanType } from "../const/types";
+import { colors } from "../const/var";
 import Icon from "../icon";
 import { isColor } from "../utils/color";
 
 export const tagProps = {
-  closeable: Boolean as TypeBoolean,
+  closeable: Boolean as BooleanType,
   color: String,
   shape: String as PropType<"circle">,
   icon: [String, Array] as PropType<any>,

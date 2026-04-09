@@ -1,1 +1,2858 @@
-{}
+{
+  "affix/offsetTop": {
+    "description": "Triggered when the specified offset from the top of the window is reached",
+    "type": "number"
+  },
+  "affix/target": {
+    "description": "Set the element whose scroll event the Affix needs to listen to. The value is a function that returns the corresponding DOM element",
+    "type": "() => any"
+  },
+  "affix/offsetBottom": {
+    "description": "Triggered when the specified offset from the bottom of the window is reached",
+    "type": "number"
+  },
+  "alert/type": {
+    "description": "Alert type, optional values are `success`, `info`, `warning`, `error` or not set",
+    "type": "\"info\" | \"success\" | \"warning\" | \"error\""
+  },
+  "alert/showIcon": {
+    "description": "Whether to show the icon",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "alert/closable": {
+    "description": "Whether to show the close button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "alert/icon": {
+    "description": "Custom icon",
+    "type": "IconType[]"
+  },
+  "alert/message": {
+    "description": "Alert content",
+    "type": "string"
+  },
+  "alert/description": {
+    "description": "Auxiliary text introduction for the alert",
+    "type": "string"
+  },
+  "alert/bordered": {
+    "description": "Whether to display the border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "anchor/offsetTop": {
+    "description": "Triggered when the distance from the top of the window reaches the specified offset",
+    "type": "number"
+  },
+  "anchor/affix": {
+    "description": "Fixed mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "anchor/bounds": {
+    "description": "Boundary of the anchor area",
+    "type": "number"
+  },
+  "anchor/container": {
+    "description": "Specifies the scrolling container",
+    "type": "string | Window | HTMLElement"
+  },
+  "anchor-link/href": {
+    "description": "Anchor link",
+    "type": "string"
+  },
+  "anchor-link/title": {
+    "description": "Text content",
+    "type": "string"
+  },
+  "avatar/shape": {
+    "description": "Specify the shape of the avatar: circle, square",
+    "type": "\"circle\" | \"square\""
+  },
+  "avatar/size": {
+    "description": "Set the size of the avatar",
+    "type": "number | \"default\" | \"large\" | \"small\""
+  },
+  "avatar/icon": {
+    "description": "Set the icon type for the avatar",
+    "type": "IconType[]"
+  },
+  "avatar/src": {
+    "description": "Resource address for image avatar",
+    "type": "string"
+  },
+  "avatar-group/shape": {
+    "description": "Specify the shape of the avatar: circle, square",
+    "type": "\"circle\" | \"square\""
+  },
+  "avatar-group/size": {
+    "description": "Set the size of the avatar",
+    "type": "number | \"default\" | \"large\" | \"small\""
+  },
+  "avatar-group/maxCount": {
+    "description": "Maximum number of images to display",
+    "type": "number"
+  },
+  "breadcrumb/separator": {
+    "description": "Custom separator",
+    "type": "any"
+  },
+  "breadcrumb-item/icon": {
+    "description": "Button icon",
+    "type": "IconType[]"
+  },
+  "breadcrumb-item/href": {
+    "description": "Props for href",
+    "type": "string"
+  },
+  "back-top/target": {
+    "description": "The container that needs to scroll to the top",
+    "type": "() => HTMLElement"
+  },
+  "back-top/height": {
+    "description": "The BackTop component is displayed only when the page scroll height reaches this value",
+    "type": "number"
+  },
+  "back-top/right": {
+    "description": "The distance from the component to the right",
+    "type": "number"
+  },
+  "back-top/bottom": {
+    "description": "The distance from the component to the bottom",
+    "type": "number"
+  },
+  "badge/maxCount": {
+    "description": "Props for maxCount",
+    "type": "number"
+  },
+  "badge/status": {
+    "description": "Props for status",
+    "type": "\"default\" | \"success\" | \"warning\" | \"error\""
+  },
+  "badge/count": {
+    "description": "The text to display",
+    "type": "string | number"
+  },
+  "badge/dot": {
+    "description": "Do not display the number, only a small red dot",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "badge/color": {
+    "description": "Badge color",
+    "type": "string"
+  },
+  "badge/text": {
+    "description": "Props for text",
+    "type": "string"
+  },
+  "button/type": {
+    "description": "Set the button type",
+    "type": "ButtonType"
+  },
+  "button/htmlType": {
+    "description": "Set the native type value of the button",
+    "type": "\"button\" | \"submit\" | \"reset\""
+  },
+  "button/block": {
+    "description": "Option to fit button width to its parent width",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "button/loading": {
+    "description": "Whether the button is in loading mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "button/target": {
+    "description": "Equivalent to the target attribute of an a link, takes effect when href exists",
+    "type": "string"
+  },
+  "button/icon": {
+    "description": "Button icon",
+    "type": "IconType[]"
+  },
+  "button/href": {
+    "description": "The address to jump to when clicked. Specifying this property makes the button behave like an a link",
+    "type": "string"
+  },
+  "button/shape": {
+    "description": "When shape=circle, presents a circular button",
+    "type": "string"
+  },
+  "button/size": {
+    "description": "Button size,",
+    "type": "SizeType"
+  },
+  "button/color": {
+    "description": "Props for color",
+    "type": "string"
+  },
+  "button/disabled": {
+    "description": "Disabled state of the button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "button/theme": {
+    "description": "Button theme",
+    "type": "ButtonTheme"
+  },
+  "button/onClick": {
+    "description": "Props for onClick",
+    "type": "(e?: MouseEvent) => void"
+  },
+  "button-group/shape": {
+    "description": "When shape=circle, presents a circular button",
+    "type": "string"
+  },
+  "button-group/size": {
+    "description": "Button size,",
+    "type": "SizeType"
+  },
+  "card/bordered": {
+    "description": "Whether the card displays a border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "card/icon": {
+    "description": "Icon for the card title",
+    "type": "IconType[]"
+  },
+  "card/title": {
+    "description": "Card title",
+    "type": "string"
+  },
+  "carousel/value": {
+    "description": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
+    "type": "number"
+  },
+  "carousel/loop": {
+    "description": "Whether to enable loop",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "carousel/delay": {
+    "description": "The time interval for auto-switching, in milliseconds",
+    "type": "number"
+  },
+  "carousel/vertical": {
+    "description": "Whether to display in vertical mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "carousel/dots": {
+    "description": "Props for dots",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "carousel/autoplay": {
+    "description": "Whether to auto-switch",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "checkbox/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "string"
+  },
+  "checkbox/checked": {
+    "description": "Whether it is selected. Can use `v-model` for two-way binding",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/disabled": {
+    "description": "Whether the component is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/value": {
+    "description": "Used to set the currently selected value. Can use `v-model` for two-way binding",
+    "type": "string | number | boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/modelValue": {
+    "description": "Props for modelValue",
+    "type": "string | number | boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/label": {
+    "description": "The text to display",
+    "type": "string | number"
+  },
+  "checkbox/indeterminate": {
+    "description": "Combined auxiliary option controls the indeterminate state",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox/onChange": {
+    "description": "Props for onChange",
+    "type": "(e: ChangeEvent) => void"
+  },
+  "checkbox-group/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "checkbox-group/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "string"
+  },
+  "checkbox-group/modelValue": {
+    "description": "Props for modelValue",
+    "type": "any[]"
+  },
+  "checkbox-group/direction": {
+    "description": "Layout direction, optional values `horizontal`, `vertical`",
+    "type": "DirectionType"
+  },
+  "checkbox-group/disabled": {
+    "description": "Whether the component is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "checkbox-group/options": {
+    "description": "Can specify child `checkbox` items",
+    "type": "any[]"
+  },
+  "collapse/openKeys": {
+    "description": "The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding",
+    "type": "(string | number)[]"
+  },
+  "collapse/accordion": {
+    "description": "Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "collapse/sample": {
+    "description": "Whether to enable simple mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "collapse-panel/title": {
+    "description": "The title of the currently active panel",
+    "type": "string"
+  },
+  "collapse-panel/active": {
+    "description": "Props for active",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "color-picker/transfer": {
+    "description": "Props for transfer",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/placement": {
+    "description": "Props for placement",
+    "type": "DropPlacementsType"
+  },
+  "color-picker/trigger": {
+    "description": "Props for trigger",
+    "type": "\"hover\" | \"click\""
+  },
+  "color-picker/mode": {
+    "description": "Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)",
+    "type": "ColorMode"
+  },
+  "color-picker/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/value": {
+    "description": "Props for value",
+    "type": "string"
+  },
+  "color-picker/modelValue": {
+    "description": "Color value, can use `v-model` for two-way binding",
+    "type": "string"
+  },
+  "color-picker/disabledAlpha": {
+    "description": "Whether to disable transparency",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/showText": {
+    "description": "Props for showText",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/arrow": {
+    "description": "Props for arrow",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/show": {
+    "description": "Props for show",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "color-picker/presets": {
+    "description": "Custom color palette",
+    "type": "string[]"
+  },
+  "date-picker/bordered": {
+    "description": "Props for bordered",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/size": {
+    "description": "Button size, optional values `small`, `large`",
+    "type": "SizeType"
+  },
+  "date-picker/theme": {
+    "description": "When theme='light', presents a light theme",
+    "type": "string"
+  },
+  "date-picker/placement": {
+    "description": "Props for placement",
+    "type": "DropPlacementsType"
+  },
+  "date-picker/mode": {
+    "description": "Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`",
+    "type": "\"date\" | \"year\" | \"month\" | \"time\" | \"dateTime\" | \"dateRange\" | \"dateTimeRange\""
+  },
+  "date-picker/valueType": {
+    "description": "Props for valueType",
+    "type": "\"string\" | \"date\" | \"timestamp\" | \"unix\""
+  },
+  "date-picker/clearable": {
+    "description": "Whether to show the clear icon",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/editable": {
+    "description": "Whether it is editable",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/placeholder": {
+    "description": "Placeholder text",
+    "type": "string | string[]"
+  },
+  "date-picker/disabledDate": {
+    "description": "Disabled dates",
+    "type": "(date: Date) => boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/disabledTime": {
+    "description": "Disabled times",
+    "type": "(date: Date) => boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/pickerSize": {
+    "description": "Props for pickerSize",
+    "type": "SizeType"
+  },
+  "date-picker/shape": {
+    "description": "When shape='circle', presents rounded corners",
+    "type": "string"
+  },
+  "date-picker/disabled": {
+    "description": "Whether the component is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "date-picker/modelValue": {
+    "description": "Default time value",
+    "type": "any"
+  },
+  "date-picker/presets": {
+    "description": "Props for presets",
+    "type": "{ label: string; value: any; }[]"
+  },
+  "date-picker/startDate": {
+    "description": "Start time (value)",
+    "type": "any"
+  },
+  "date-picker/endDate": {
+    "description": "End time (value)",
+    "type": "any"
+  },
+  "date-picker/format": {
+    "description": "Set the date format. When an array, supports multiple format matches, displayed according to the first one. Configuration reference http://day.js.org/",
+    "type": "string | string[]"
+  },
+  "date-picker/dateIcon": {
+    "description": "Custom icon",
+    "type": "any"
+  },
+  "descriptions/size": {
+    "description": "Set the size of the list. Can be set to middle, small",
+    "type": "\"default\" | \"small\" | \"middle\""
+  },
+  "descriptions/column": {
+    "description": "The number of DescriptionItems in one row",
+    "type": "number"
+  },
+  "descriptions/layout": {
+    "description": "Description layout",
+    "type": "DirectionType"
+  },
+  "descriptions/bordered": {
+    "description": "Whether to show the border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "descriptions/title": {
+    "description": "The title of the description list, displayed at the very top",
+    "type": "string"
+  },
+  "descriptions/extra": {
+    "description": "The operation area of the description list, displayed in the upper right corner",
+    "type": "string"
+  },
+  "descriptions-item/span": {
+    "description": "Props for span",
+    "type": "number"
+  },
+  "descriptions-item/type": {
+    "description": "Props for type",
+    "type": "\"label\" | \"content\""
+  },
+  "descriptions-item/bordered": {
+    "description": "Whether to show the border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "descriptions-item/label": {
+    "description": "Description of the content",
+    "type": "string"
+  },
+  "descriptions-item/layout": {
+    "description": "Description layout",
+    "type": "DirectionType"
+  },
+  "drawer/target": {
+    "description": "The parent element to display",
+    "type": "() => HTMLElement"
+  },
+  "drawer/closable": {
+    "description": "Whether to show the close button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/title": {
+    "description": "Drawer title. When null or false, the title is not displayed",
+    "type": "string"
+  },
+  "drawer/height": {
+    "description": "Drawer height, used when `placement` is `top` or `bottom`, supports percentage",
+    "type": "string | number"
+  },
+  "drawer/loading": {
+    "description": "Props for loading",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/modelValue": {
+    "description": "Props for modelValue",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/placement": {
+    "description": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
+    "type": "\"right\" | \"bottom\" | \"top\" | \"left\""
+  },
+  "drawer/width": {
+    "description": "Drawer width, used when `placement` is `left` or `right`, supports percentage",
+    "type": "string | number"
+  },
+  "drawer/footer": {
+    "description": "Footer content. Set `footer=null` to not display the footer",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/maskClosable": {
+    "description": "Props for maskClosable",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/mask": {
+    "description": "Whether to show the mask",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/escKey": {
+    "description": "Props for escKey",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "drawer/okText": {
+    "description": "OK button text",
+    "type": "string"
+  },
+  "drawer/cancelText": {
+    "description": "Cancel button text",
+    "type": "string"
+  },
+  "dropdown/transfer": {
+    "description": "Props for transfer",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown/arrow": {
+    "description": "Props for arrow",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown/placement": {
+    "description": "Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight",
+    "type": "DropPlacementsType"
+  },
+  "dropdown/trigger": {
+    "description": "Trigger method. Supports 3 methods: hover (default), click, custom",
+    "type": "\"hover\" | \"click\" | \"contextmenu\""
+  },
+  "dropdown/target": {
+    "description": "Props for target",
+    "type": "Record<string, any>"
+  },
+  "dropdown/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown/show": {
+    "description": "Props for show",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown/dark": {
+    "description": "Props for dark",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown-button/placement": {
+    "description": "Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight",
+    "type": "DropPlacementsType"
+  },
+  "dropdown-button/icon": {
+    "description": "Props for icon",
+    "type": "IconType[]"
+  },
+  "dropdown-button/shape": {
+    "description": "Props for shape",
+    "type": "string"
+  },
+  "dropdown-button/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "dropdown-button/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown-button/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "string"
+  },
+  "dropdown-button/arrow": {
+    "description": "Props for arrow",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "dropdown-button/dark": {
+    "description": "Props for dark",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "divider/type": {
+    "description": "Horizontal or vertical type: horizontal vertical",
+    "type": "DirectionType"
+  },
+  "divider/orientation": {
+    "description": "The position of the divider title : left right",
+    "type": "\"right\" | \"left\" | \"center\""
+  },
+  "divider/text": {
+    "description": "Divider text",
+    "type": "string"
+  },
+  "divider/dashed": {
+    "description": "Whether it is a dashed line",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "empty/description": {
+    "description": "Custom description content",
+    "type": "string"
+  },
+  "empty/image": {
+    "description": "Set the display image. When a string, it represents a custom image address",
+    "type": "string"
+  },
+  "empty/imageStyle": {
+    "description": "Image style",
+    "type": "CSSProperties"
+  },
+  "form/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "form/layout": {
+    "description": "Props for layout",
+    "type": "DirectionType | \"inline\""
+  },
+  "form/rules": {
+    "description": "Form validation rules",
+    "type": "Record<string, FormRule[]>"
+  },
+  "form/shape": {
+    "description": "Props for shape",
+    "type": "string"
+  },
+  "form/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "form/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "string"
+  },
+  "form/model": {
+    "description": "Form data object",
+    "type": "Record<string, any>"
+  },
+  "form/name": {
+    "description": "Form name, will be used as the id prefix for form fields",
+    "type": "string"
+  },
+  "form/labelCol": {
+    "description": "Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}",
+    "type": "ColProps"
+  },
+  "form/wrapperCol": {
+    "description": "Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12}",
+    "type": "ColProps"
+  },
+  "form-item/label": {
+    "description": "Label text",
+    "type": "string"
+  },
+  "form-item/labelCol": {
+    "description": "Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}",
+    "type": "ColProps"
+  },
+  "form-item/wrapperCol": {
+    "description": "Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12}",
+    "type": "ColProps"
+  },
+  "form-item/rules": {
+    "description": "Form validation rules",
+    "type": "unknown"
+  },
+  "form-item/prop": {
+    "description": "Corresponds to the field in the form domain model. Required for form validation",
+    "type": "string"
+  },
+  "flex/size": {
+    "description": "Spacing size",
+    "type": "number | SizeType | (string | number)[]"
+  },
+  "flex/vertical": {
+    "description": "Whether to display vertically",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "flex/align": {
+    "description": "Alignment method",
+    "type": "\"center\" | \"start\" | \"flex-start\" | \"end\" | \"flex-end\" | \"baseline\""
+  },
+  "flex/justify": {
+    "description": "Set the alignment of elements on the main axis",
+    "type": "\"center\" | \"flex-start\" | \"flex-end\" | \"space-between\" | \"space-around\" | \"space-evenly\""
+  },
+  "flex/wrap": {
+    "description": "Whether to wrap",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "grid/cols": {
+    "description": "Set the number of grid columns. Supports numbers (equal division) or strings (e.g., 1fr 2fr)",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid/rows": {
+    "description": "Set the number of grid rows or height. Default is auto",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid/autoRows": {
+    "description": "Implicit grid row height. Used in Bento layout or waterfall flow to set the base height.",
+    "type": "string"
+  },
+  "grid/xGap": {
+    "description": "Grid spacing (horizontal direction). Numeric type will automatically add px unit.",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid/yGap": {
+    "description": "Row spacing (vertical direction). Numeric type will automatically add px unit.",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid/align": {
+    "description": "Vertical alignment of child items within grid cells",
+    "type": "string"
+  },
+  "grid/justify": {
+    "description": "Horizontal alignment of child items within grid cells.",
+    "type": "string"
+  },
+  "grid/itemMinWidth": {
+    "description": "Auto-fill mode. Set the minimum width of child items. Grid will automatically calculate the number of columns based on container width.",
+    "type": "number"
+  },
+  "grid/debug": {
+    "description": "Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment.",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "grid-item/span": {
+    "description": "Number of columns occupied. When set to 0, it will be completely hidden (display: none) at this breakpoint",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid-item/offset": {
+    "description": "Number of columns to offset to the left. Used to create whitespace without using blank placeholders.",
+    "type": "number | Record<string, any>"
+  },
+  "grid-item/rowSpan": {
+    "description": "Number of rows occupied. Combined with the container's autoRows, asymmetric layouts can be achieved",
+    "type": "string | number | Record<string, any>"
+  },
+  "grid-item/suffix": {
+    "description": "Fixed at the end. When set to true, the item will be forced to the end of the current row.",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "image-group/data": {
+    "description": "Image data",
+    "type": "string[]"
+  },
+  "icon/type": {
+    "description": "Icon type. Follows the icon naming convention",
+    "type": "IconType[]"
+  },
+  "icon/size": {
+    "description": "The size of the icon, unit is px",
+    "type": "string | number"
+  },
+  "icon/color": {
+    "description": "The color of the icon",
+    "type": "string"
+  },
+  "icon/onClick": {
+    "description": "Props for onClick",
+    "type": "(e: MouseEvent) => void"
+  },
+  "icon/spin": {
+    "description": "Whether to have rotation animation",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "icon/strokeWidth": {
+    "description": "The line thickness of the icon",
+    "type": "string | number"
+  },
+  "input/type": {
+    "description": "Props for type",
+    "type": "\"text\" | \"date\" | \"textarea\" | \"password\" | \"url\" | \"email\" | \"search\" | \"hidden\""
+  },
+  "input/theme": {
+    "description": "When theme='light', presents a light theme",
+    "type": "string"
+  },
+  "input/clearable": {
+    "description": "Whether to show the clear button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input/visiblePasswordIcon": {
+    "description": "Whether to show the toggle button or control password visibility",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input/inputType": {
+    "description": "Props for inputType",
+    "type": "string"
+  },
+  "input/icon": {
+    "description": "Input box icon",
+    "type": "IconType[]"
+  },
+  "input/shape": {
+    "description": "Props for shape",
+    "type": "string"
+  },
+  "input/size": {
+    "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+    "type": "SizeType"
+  },
+  "input/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input/value": {
+    "description": "Bound value, can use `v-model` for two-way binding",
+    "type": "any"
+  },
+  "input/modelValue": {
+    "description": "Props for modelValue",
+    "type": "any"
+  },
+  "input/suffix": {
+    "description": "Extension suffix",
+    "type": "string"
+  },
+  "input/prefix": {
+    "description": "Extension prefix",
+    "type": "string"
+  },
+  "input-group/block": {
+    "description": "Whether to inherit the parent width",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input-group/theme": {
+    "description": "When theme='light', presents a light theme",
+    "type": "string"
+  },
+  "input-group/size": {
+    "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+    "type": "number | SizeType | number[]"
+  },
+  "input-group/compact": {
+    "description": "Whether to use compact mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "text-area/theme": {
+    "description": "When theme='light', presents a light theme",
+    "type": "string"
+  },
+  "text-area/size": {
+    "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+    "type": "SizeType"
+  },
+  "text-area/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "text-area/value": {
+    "description": "Bound value, can use `v-model` for two-way binding",
+    "type": "any"
+  },
+  "text-area/modelValue": {
+    "description": "Props for modelValue",
+    "type": "any"
+  },
+  "input-number/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "string"
+  },
+  "input-number/min": {
+    "description": "Minimum value",
+    "type": "number"
+  },
+  "input-number/max": {
+    "description": "Maximum value",
+    "type": "number"
+  },
+  "input-number/step": {
+    "description": "Step value for each change, can be a decimal",
+    "type": "number"
+  },
+  "input-number/controls": {
+    "description": "Whether to show increase/decrease buttons",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input-number/icon": {
+    "description": "Props for icon",
+    "type": "IconType[]"
+  },
+  "input-number/size": {
+    "description": "Input box size",
+    "type": "SizeType"
+  },
+  "input-number/disabled": {
+    "description": "Disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "input-number/value": {
+    "description": "Props for value",
+    "type": "string | number"
+  },
+  "input-number/modelValue": {
+    "description": "Props for modelValue",
+    "type": "string | number"
+  },
+  "input-number/onChange": {
+    "description": "Props for onChange",
+    "type": "(value: number) => void"
+  },
+  "input-number/placeholder": {
+    "description": "Props for placeholder",
+    "type": "string"
+  },
+  "input-number/suffix": {
+    "description": "Custom suffix",
+    "type": "string"
+  },
+  "input-number/prefix": {
+    "description": "Prefix content",
+    "type": "string"
+  },
+  "input-number/precision": {
+    "description": "Numerical precision",
+    "type": "number"
+  },
+  "input-number/formatter": {
+    "description": "Specifies the format of the value displayed in the input box",
+    "type": "(value: string | number) => string"
+  },
+  "input-number/parser": {
+    "description": "Specifies how to convert back from formatter to number, used with formatter",
+    "type": "(value: string) => string | number"
+  },
+  "input-number/readonly": {
+    "description": "Props for readonly",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "menu/modelValue": {
+    "description": "Props for modelValue",
+    "type": "string[]"
+  },
+  "menu/openKeys": {
+    "description": "Props for openKeys",
+    "type": "string[]"
+  },
+  "menu/mode": {
+    "description": "Menu type, supports three modes: vertical, horizontal, and inline",
+    "type": "DirectionType"
+  },
+  "menu/theme": {
+    "description": "Theme color",
+    "type": "string"
+  },
+  "menu/accordion": {
+    "description": "Whether only one menu item can be expanded",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "menu/items": {
+    "description": "Menu data",
+    "type": "MenuOptionsProps[]"
+  },
+  "menu/inlineCollapsed": {
+    "description": "Props for inlineCollapsed",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "menu-group/title": {
+    "description": "Group title",
+    "type": "string"
+  },
+  "menu-item/icon": {
+    "description": "Item icon",
+    "type": "IconType[]"
+  },
+  "menu-item/title": {
+    "description": "Group title",
+    "type": "string"
+  },
+  "menu-item/disabled": {
+    "description": "Whether disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "menu-item/key": {
+    "description": "Unique identifier for item",
+    "type": "string"
+  },
+  "menu-item/isPopup": {
+    "description": "Props for isPopup",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "sub-menu/icon": {
+    "description": "Item icon",
+    "type": "IconType[]"
+  },
+  "sub-menu/title": {
+    "description": "Group title",
+    "type": "string"
+  },
+  "sub-menu/disabled": {
+    "description": "Whether disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "sub-menu/key": {
+    "description": "Unique identifier for item",
+    "type": "string"
+  },
+  "sub-menu/isPopup": {
+    "description": "Props for isPopup",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/transfer": {
+    "description": "Props for transfer",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/footer": {
+    "description": "When `footer=false`, the bottom button is not displayed.",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/maskClosable": {
+    "description": "Props for maskClosable",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/mask": {
+    "description": "Props for mask",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/escKey": {
+    "description": "Whether to support closing with Esc key",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/showClose": {
+    "description": "Props for showClose",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/title": {
+    "description": "Dialog title",
+    "type": "string"
+  },
+  "modal/loading": {
+    "description": "Props for loading",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/modelValue": {
+    "description": "Props for modelValue",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/top": {
+    "description": "Props for top",
+    "type": "number"
+  },
+  "modal/width": {
+    "description": "Dialog width",
+    "type": "number"
+  },
+  "modal/okText": {
+    "description": "OK button text",
+    "type": "string"
+  },
+  "modal/cancelText": {
+    "description": "Cancel button text",
+    "type": "string"
+  },
+  "modal/maximized": {
+    "description": "Whether the modal can be maximized, not available in confirm mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/centered": {
+    "description": "Whether the window can be centered, not available in confirm mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "modal/draggable": {
+    "description": "Whether the modal can be dragged, not available in confirm mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "page/size": {
+    "description": "When value is 'small', displays small size",
+    "type": "SizeType"
+  },
+  "page/theme": {
+    "description": "When value is 'light', displays light theme",
+    "type": "string"
+  },
+  "page/showTotal": {
+    "description": "Props for showTotal",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "page/sizeData": {
+    "description": "Props for sizeData",
+    "type": "number[]"
+  },
+  "page/total": {
+    "description": "Total data count",
+    "type": "number"
+  },
+  "page/pageSize": {
+    "description": "Props for pageSize",
+    "type": "number"
+  },
+  "page/page": {
+    "description": "Props for page",
+    "type": "number"
+  },
+  "page/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "page/showSizer": {
+    "description": "Props for showSizer",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "page/showElevator": {
+    "description": "Props for showElevator",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "poptip/placement": {
+    "description": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+    "type": "PlacementsType"
+  },
+  "poptip/trigger": {
+    "description": "Trigger method, optional values: `hover` (hover) `click` (click)",
+    "type": "\"hover\" | \"click\" | \"focus\""
+  },
+  "poptip/show": {
+    "description": "Whether to display",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "poptip/dark": {
+    "description": "Props for dark",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "poptip/title": {
+    "description": "Displayed title",
+    "type": "string | number | unknown[] | Record<string, any>"
+  },
+  "poptip/size": {
+    "description": "Props for size",
+    "type": "string"
+  },
+  "poptip/content": {
+    "description": "Displayed main content",
+    "type": "string"
+  },
+  "poptip/width": {
+    "description": "Display width, defaults to content area size",
+    "type": "string | number"
+  },
+  "popconfirm/placement": {
+    "description": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+    "type": "PlacementsType"
+  },
+  "popconfirm/title": {
+    "description": "Displayed title",
+    "type": "string | number | unknown[] | Record<string, any>"
+  },
+  "popconfirm/size": {
+    "description": "Props for size",
+    "type": "string"
+  },
+  "popconfirm/show": {
+    "description": "Props for show",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "popconfirm/width": {
+    "description": "Display width, defaults to content area size",
+    "type": "string | number"
+  },
+  "popconfirm/okText": {
+    "description": "Props for okText",
+    "type": "string"
+  },
+  "popconfirm/cancelText": {
+    "description": "Props for cancelText",
+    "type": "string"
+  },
+  "popconfirm/dark": {
+    "description": "Props for dark",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "progress/type": {
+    "description": "Progress bar type, provides three types: `line`, `circle`, `dashboard`",
+    "type": "ProgressType"
+  },
+  "progress/size": {
+    "description": "When value is `small`, displays small size",
+    "type": "SizeType"
+  },
+  "progress/status": {
+    "description": "Progress bar status, provides four types: `active`, `exception`, `success`, `normal`",
+    "type": "ProgressStatus"
+  },
+  "progress/strokeWidth": {
+    "description": "Circular progress bar line width",
+    "type": "number"
+  },
+  "progress/percent": {
+    "description": "Progress percentage",
+    "type": "number"
+  },
+  "progress/gapDegree": {
+    "description": "Dashboard progress bar gap angle, can be 0 ~ 295",
+    "type": "number"
+  },
+  "progress/strokeLinecap": {
+    "description": "Progress bar style",
+    "type": "ProgressStroke"
+  },
+  "progress/showInfo": {
+    "description": "Whether to show progress text",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "progress/color": {
+    "description": "Progress bar color",
+    "type": "string"
+  },
+  "progress/format": {
+    "description": "Custom progress bar text",
+    "type": "(percent: number) => any"
+  },
+  "progress/width": {
+    "description": "Circular progress bar canvas width, in px",
+    "type": "number"
+  },
+  "progress/strokeHeight": {
+    "description": "Progress bar line height",
+    "type": "number"
+  },
+  "radio/size": {
+    "description": "Button size, optional values: `small`, `large`, default not selected",
+    "type": "SizeType"
+  },
+  "radio/modelValue": {
+    "description": "Whether selected (v-model)",
+    "type": "string | number | boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio/icon": {
+    "description": "Props for icon",
+    "type": "IconType[]"
+  },
+  "radio/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio/theme": {
+    "description": "`button`'s theme property",
+    "type": "string"
+  },
+  "radio/value": {
+    "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
+    "type": "string | number | boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio/checked": {
+    "description": "Whether selected",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio/label": {
+    "description": "Text prompt",
+    "type": "string"
+  },
+  "radio/onChange": {
+    "description": "Props for onChange",
+    "type": "(e: ChangeEvent) => void"
+  },
+  "radio-button/shape": {
+    "description": "`button`'s shape property, displays rounded corners",
+    "type": "\"circle\" | \"square\""
+  },
+  "radio-button/size": {
+    "description": "Button size, optional values: `small`, `large`, default not selected",
+    "type": "SizeType"
+  },
+  "radio-button/modelValue": {
+    "description": "Whether selected (v-model)",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio-button/icon": {
+    "description": "Props for icon",
+    "type": "IconType[]"
+  },
+  "radio-button/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio-button/theme": {
+    "description": "`button`'s theme property",
+    "type": "string"
+  },
+  "radio-button/value": {
+    "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
+    "type": "string | number"
+  },
+  "radio-button/checked": {
+    "description": "Whether selected",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio-button/label": {
+    "description": "Text prompt",
+    "type": "string"
+  },
+  "radio-group/modelValue": {
+    "description": "Whether selected (v-model)",
+    "type": "string | number"
+  },
+  "radio-group/direction": {
+    "description": "Layout direction, optional values: `horizontal`, `vertical`",
+    "type": "DirectionType"
+  },
+  "radio-group/type": {
+    "description": "If using `options` to render children and children are `button`, need to specify `type=button`",
+    "type": "\"button\" | \"radio\""
+  },
+  "radio-group/shape": {
+    "description": "`button`'s shape property, displays rounded corners",
+    "type": "\"circle\" | \"square\""
+  },
+  "radio-group/size": {
+    "description": "Button size, optional values: `small`, `large`, default not selected",
+    "type": "SizeType"
+  },
+  "radio-group/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "radio-group/theme": {
+    "description": "`button`'s theme property",
+    "type": "string"
+  },
+  "radio-group/options": {
+    "description": "Can specify child `radio` items",
+    "type": "RadioOption[]"
+  },
+  "rate/count": {
+    "description": "Total number of stars",
+    "type": "number"
+  },
+  "rate/modelValue": {
+    "description": "Props for modelValue",
+    "type": "number"
+  },
+  "rate/allowClear": {
+    "description": "Whether to allow clearing by clicking again",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "rate/icon": {
+    "description": "Props for icon",
+    "type": "IconType[] | ((index: number) => any)"
+  },
+  "rate/size": {
+    "description": "Props for size",
+    "type": "number | SizeType"
+  },
+  "rate/color": {
+    "description": "Props for color",
+    "type": "string"
+  },
+  "rate/disabled": {
+    "description": "Read-only, cannot interact",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "rate/allowHalf": {
+    "description": "Whether to allow half selection",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "rate/showScore": {
+    "description": "Whether to show score",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "rate/tooltips": {
+    "description": "Custom prompt information for each item",
+    "type": "string[]"
+  },
+  "rate/character": {
+    "description": "Custom character",
+    "type": "string | ((index: number) => any)"
+  },
+  "option/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "option/value": {
+    "description": "Option value, used for filtering by default, required",
+    "type": "string | number"
+  },
+  "option/checked": {
+    "description": "Props for checked",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "option/label": {
+    "description": "Option display content",
+    "type": "string | number"
+  },
+  "option/active": {
+    "description": "Props for active",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "option/multiple": {
+    "description": "Whether to display in multiple selection mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/bordered": {
+    "description": "Whether to show border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/size": {
+    "description": "Component size, provides two sizes: `small`, `large`, default is normal",
+    "type": "SizeType"
+  },
+  "select/theme": {
+    "description": "When theme='light', displays light theme",
+    "type": "string"
+  },
+  "select/placement": {
+    "description": "Props for placement",
+    "type": "DropPlacementsType"
+  },
+  "select/clearable": {
+    "description": "Whether options can be cleared",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/showArrow": {
+    "description": "Whether to show dropdown button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/icon": {
+    "description": "Custom icon",
+    "type": "IconType[]"
+  },
+  "select/shape": {
+    "description": "When shape='circle', displays rounded corners",
+    "type": "string"
+  },
+  "select/block": {
+    "description": "Props for block",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/loading": {
+    "description": "Whether to show asynchronous loading",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/value": {
+    "description": "Option value, used for filtering by default, required",
+    "type": "string | number | any[]"
+  },
+  "select/modelValue": {
+    "description": "Props for modelValue",
+    "type": "string | number | any[]"
+  },
+  "select/onChange": {
+    "description": "Props for onChange",
+    "type": "(value: string | number | any[]) => void"
+  },
+  "select/options": {
+    "description": "options data, if set, no need to manually construct Option nodes",
+    "type": "SelectOption[]"
+  },
+  "select/placeholder": {
+    "description": "Default text of selector",
+    "type": "string"
+  },
+  "select/width": {
+    "description": "Component width",
+    "type": "number"
+  },
+  "select/multiple": {
+    "description": "Whether to display in multiple selection mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/maxTagCount": {
+    "description": "Maximum number of tags to display, excess shown with ellipsis",
+    "type": "number"
+  },
+  "select/filterable": {
+    "description": "Props for filterable",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "select/emptyText": {
+    "description": "Prompt displayed when no data",
+    "type": "string"
+  },
+  "select/loadingText": {
+    "description": "Props for loadingText",
+    "type": "string"
+  },
+  "select/arrowIcon": {
+    "description": "Props for arrowIcon",
+    "type": "IconType[]"
+  },
+  "select/onSearch": {
+    "description": "Props for onSearch",
+    "type": "(e: InputEvent) => void"
+  },
+  "select/onSelect": {
+    "description": "Props for onSelect",
+    "type": "(option: SelectOption) => void"
+  },
+  "skeleton/title": {
+    "description": "Props for title",
+    "type": "number"
+  },
+  "skeleton/delay": {
+    "description": "Debounce (animation delay closing)",
+    "type": "number"
+  },
+  "skeleton/rows": {
+    "description": "Set the number of paragraph placeholder lines",
+    "type": "number"
+  },
+  "skeleton/shape": {
+    "description": "Specify the shape of the button",
+    "type": "shape"
+  },
+  "skeleton/size": {
+    "description": "Image width (height)",
+    "type": "number | number[] | size"
+  },
+  "skeleton/block": {
+    "description": "Option to adjust button width to its parent width",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "skeleton/loading": {
+    "description": "When true, show placeholder. Otherwise directly display child components",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "skeleton/width": {
+    "description": "Text width",
+    "type": "number"
+  },
+  "skeleton/animated": {
+    "description": "Whether to show animation effect",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "skeleton/radius": {
+    "description": "Specify the border radius of the image",
+    "type": "number"
+  },
+  "skeleton/avatar": {
+    "description": "Whether to show avatar placeholder",
+    "type": "boolean | { size: size; shape: shape; }",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "stat-card/bordered": {
+    "description": "Props for bordered",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "stat-card/precision": {
+    "description": "Numerical precision",
+    "type": "number"
+  },
+  "stat-card/items": {
+    "description": "Data to display",
+    "type": "StatNumberItem[]"
+  },
+  "stat-card/title": {
+    "description": "Card title",
+    "type": "string"
+  },
+  "stat-card/separator": {
+    "description": "Separator",
+    "type": "string"
+  },
+  "stat-card/reverse": {
+    "description": "Whether to reverse number/number description arrangement",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "stat-card/statNumberType": {
+    "description": "Numerical change type",
+    "type": "\"rollup\" | \"countup\""
+  },
+  "stat-number/type": {
+    "description": "Numerical change type",
+    "type": "\"rollup\" | \"countup\""
+  },
+  "stat-number/modelValue": {
+    "description": "Props for modelValue",
+    "type": "number"
+  },
+  "stat-number/precision": {
+    "description": "Numerical precision",
+    "type": "number"
+  },
+  "stat-number/duration": {
+    "description": "Numerical dynamic display time (seconds)",
+    "type": "number"
+  },
+  "stat-number/separator": {
+    "description": "Separator",
+    "type": "string"
+  },
+  "stat-number/suffix": {
+    "description": "Suffix content of numerical value",
+    "type": "string"
+  },
+  "stat-number/prefix": {
+    "description": "Prefix content of numerical value",
+    "type": "string"
+  },
+  "slider/modelValue": {
+    "description": "Props for modelValue",
+    "type": "number | number[]"
+  },
+  "slider/min": {
+    "description": "Minimum value",
+    "type": "number"
+  },
+  "slider/max": {
+    "description": "Maximum value",
+    "type": "number"
+  },
+  "slider/step": {
+    "description": "Step size, must be greater than 0 and divisible by (max - min)",
+    "type": "number"
+  },
+  "slider/included": {
+    "description": "Effective when marks is not empty object, true means inclusive relationship, false means parallel",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "slider/size": {
+    "description": "Props for size",
+    "type": "number | \"small\""
+  },
+  "slider/reverse": {
+    "description": "Props for reverse",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "slider/disabled": {
+    "description": "Whether the slider is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "slider/vertical": {
+    "description": "Whether to set direction to vertical",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "slider/range": {
+    "description": "Whether to support sliding on both sides simultaneously",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "slider/marks": {
+    "description": "Scale marks, key type must be number and value in closed interval [min, max]",
+    "type": "Record<number, string>"
+  },
+  "slider/tipFormatter": {
+    "description": "Set Tooltip display format, defaults to current value",
+    "type": "Function"
+  },
+  "slider/tooltipVisible": {
+    "description": "When true, Tooltip will always display; otherwise never display, even when dragging and hovering",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "space/wrap": {
+    "description": "Whether to wrap",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "space/size": {
+    "description": "Spacing size",
+    "type": "number | SizeType | number[]"
+  },
+  "space/block": {
+    "description": "Option to adjust width to parent element width",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "space/vertical": {
+    "description": "Whether to display vertically",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "space/align": {
+    "description": "Alignment method",
+    "type": "\"center\" | \"start\" | \"end\" | \"baseline\""
+  },
+  "space/compact": {
+    "description": "Whether to use compact mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "spin/size": {
+    "description": "Set loading effect size",
+    "type": "\"default\" | \"large\" | \"small\""
+  },
+  "spin/delay": {
+    "description": "Delay time to display loading effect (prevent flickering)",
+    "type": "number"
+  },
+  "spin/modelValue": {
+    "description": "Whether loading state, can use `v-model` for two-way binding",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "spin/mode": {
+    "description": "Display spin type, provides 4 display methods",
+    "type": "\"bounce\" | \"flip\" | \"rotate\" | \"zoom\""
+  },
+  "table/bordered": {
+    "description": "Whether to display borders",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "table/size": {
+    "description": "Display compact mode when the value is `small`",
+    "type": "SizeType"
+  },
+  "table/data": {
+    "description": "Structured data to be displayed",
+    "type": "unknown[]"
+  },
+  "table/columns": {
+    "description": "Configuration description of table columns",
+    "type": "Column[]"
+  },
+  "table/selectedKeys": {
+    "description": "Props for selectedKeys",
+    "type": "string[]"
+  },
+  "table/disabledKeys": {
+    "description": "Props for disabledKeys",
+    "type": "string[]"
+  },
+  "table/rowKey": {
+    "description": "Basis for selection",
+    "type": "string"
+  },
+  "table/scroll": {
+    "description": "Props for scroll",
+    "type": "{ x?: string | number; y?: string | number; }"
+  },
+  "table/loading": {
+    "description": "Table asynchronous loading mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "table/emptyText": {
+    "description": "Prompt displayed when there is no data",
+    "type": "string"
+  },
+  "table/checkable": {
+    "description": "Whether to show checkboxes",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tooltip/placement": {
+    "description": "Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+    "type": "PlacementsType"
+  },
+  "tooltip/title": {
+    "description": "Displayed title",
+    "type": "any"
+  },
+  "tooltip/size": {
+    "description": "Props for size",
+    "type": "SizeType"
+  },
+  "tooltip/color": {
+    "description": "Background color",
+    "type": "string"
+  },
+  "tooltip/disabled": {
+    "description": "Props for disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tooltip/show": {
+    "description": "Props for show",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tooltip/width": {
+    "description": "Display width, defaults to content area size",
+    "type": "string | number"
+  },
+  "tooltip/dark": {
+    "description": "Props for dark",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tab-panel/closable": {
+    "description": "Whether tab shows close button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tab-panel/icon": {
+    "description": "Icon displayed in tab header",
+    "type": "IconType[]"
+  },
+  "tab-panel/title": {
+    "description": "Text displayed in tab header",
+    "type": "string"
+  },
+  "tab-panel/disabled": {
+    "description": "Whether tab is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tab-panel/activeKey": {
+    "description": "Props for activeKey",
+    "type": "TabKey"
+  },
+  "tabs/animated": {
+    "description": "Whether to use animation to switch Tabs",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tabs/card": {
+    "description": "Whether tab style is card style",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tabs/value": {
+    "description": "Props for value",
+    "type": "TabKey"
+  },
+  "tabs/modelValue": {
+    "description": "Props for modelValue",
+    "type": "TabKey"
+  },
+  "tabs/sample": {
+    "description": "Whether tab style is simple style",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tabs/centered": {
+    "description": "Props for centered",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/showIcon": {
+    "description": "Whether to show icons",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/multiple": {
+    "description": "Whether to support multiple selection",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/showExtra": {
+    "description": "Whether to show extension elements by default",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/data": {
+    "description": "Array of nestable node properties, data to generate `tree`",
+    "type": "TreeNode[]"
+  },
+  "tree/draggable": {
+    "description": "Whether it can be dragged",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/selectedKeys": {
+    "description": "Selected nodes",
+    "type": "TreeKey[]"
+  },
+  "tree/checkable": {
+    "description": "Whether to show checkbox",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/expandedKeys": {
+    "description": "Specify expanded nodes",
+    "type": "TreeKey[]"
+  },
+  "tree/checkedKeys": {
+    "description": "Tree nodes with checked checkboxes",
+    "type": "TreeKey[]"
+  },
+  "tree/directory": {
+    "description": "Props for directory",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/expandAll": {
+    "description": "Props for expandAll",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/showLine": {
+    "description": "Whether to show connecting lines",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/checkStrictly": {
+    "description": "In checkable state, node selection is completely controlled (parent-child node selection state no longer related)",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/selectAsCheck": {
+    "description": "Props for selectAsCheck",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/queryKey": {
+    "description": "Props for queryKey",
+    "type": "string"
+  },
+  "tree-select/bordered": {
+    "description": "Whether to show border",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/size": {
+    "description": "Component size, provides two sizes: `small`, `large`, default is normal",
+    "type": "SizeType"
+  },
+  "tree-select/theme": {
+    "description": "When theme='light', displays light theme",
+    "type": "string"
+  },
+  "tree-select/placement": {
+    "description": "Props for placement",
+    "type": "DropPlacementsType"
+  },
+  "tree-select/clearable": {
+    "description": "Whether options can be cleared",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/showArrow": {
+    "description": "Whether to show dropdown button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/treeShowIcon": {
+    "description": "Props for treeShowIcon",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/icon": {
+    "description": "Custom icon",
+    "type": "IconType[]"
+  },
+  "tree-select/shape": {
+    "description": "When shape='circle', displays rounded corners",
+    "type": "string"
+  },
+  "tree-select/block": {
+    "description": "Props for block",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/loading": {
+    "description": "Asynchronous loading state",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/disabled": {
+    "description": "Whether current item is disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/value": {
+    "description": "Specify the `value` of the selected item, can use `v-model` for two-way binding",
+    "type": "TreeSelectValue"
+  },
+  "tree-select/modelValue": {
+    "description": "Props for modelValue",
+    "type": "TreeSelectValue"
+  },
+  "tree-select/options": {
+    "description": "Props for options",
+    "type": "unknown[]"
+  },
+  "tree-select/placeholder": {
+    "description": "Default text of selector",
+    "type": "string"
+  },
+  "tree-select/width": {
+    "description": "Component width",
+    "type": "number"
+  },
+  "tree-select/multiple": {
+    "description": "Whether to display in multiple selection mode",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/maxTagCount": {
+    "description": "Props for maxTagCount",
+    "type": "number"
+  },
+  "tree-select/filterable": {
+    "description": "Props for filterable",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/emptyText": {
+    "description": "Prompt displayed when no data",
+    "type": "string"
+  },
+  "tree-select/arrowIcon": {
+    "description": "Props for arrowIcon",
+    "type": "IconType[]"
+  },
+  "tree-select/treeData": {
+    "description": "Array of nestable node properties, data to generate `tree`",
+    "type": "TreeNode[]"
+  },
+  "tree-select/treeCheckable": {
+    "description": "Whether to show checkbox",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/treeShowLine": {
+    "description": "Props for treeShowLine",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/treeCheckStrictly": {
+    "description": "Props for treeCheckStrictly",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree-select/treeExpandedKeys": {
+    "description": "Specify expanded nodes",
+    "type": "TreeKey[]"
+  },
+  "tree-select/treeCheckedKeys": {
+    "description": "Props for treeCheckedKeys",
+    "type": "TreeKey[]"
+  },
+  "tree-select/treeSelectedKeys": {
+    "description": "Props for treeSelectedKeys",
+    "type": "TreeKey[]"
+  },
+  "tree-select/treeExpandedAll": {
+    "description": "Props for treeExpandedAll",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tag/size": {
+    "description": "Button size, optional values `small`, `large`, default not selected",
+    "type": "\"large\" | \"small\" | \"middle\""
+  },
+  "tag/theme": {
+    "description": "The component renders the theme, defaulting to 'light'.",
+    "type": "\"light\""
+  },
+  "tag/icon": {
+    "description": "Tag icon",
+    "type": "any"
+  },
+  "tag/shape": {
+    "description": "Props for shape",
+    "type": "\"circle\""
+  },
+  "tag/color": {
+    "description": "Tag color",
+    "type": "string"
+  },
+  "tag/closeable": {
+    "description": "Whether to show close button",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "col/span": {
+    "description": "Number of grid columns occupied, can be integer from 0~24",
+    "type": "number"
+  },
+  "col/offset": {
+    "description": "Number of grid columns to offset left, can be integer from 1~24",
+    "type": "number"
+  },
+  "col/flex": {
+    "description": "Flex layout fill",
+    "type": "string | number"
+  },
+  "row/type": {
+    "description": "Layout mode, optional flex, effective in modern browsers",
+    "type": "string"
+  },
+  "row/align": {
+    "description": "Vertical alignment in flex layout: `top` `middle` `bottom`",
+    "type": "\"bottom\" | \"middle\" | \"top\""
+  },
+  "row/justify": {
+    "description": "Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`",
+    "type": "\"center\" | \"start\" | \"end\" | \"space-between\" | \"space-around\""
+  },
+  "row/gutter": {
+    "description": "Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing]",
+    "type": "number | [number, number]"
+  },
+  "upload/type": {
+    "description": "Props for type",
+    "type": "\"list\" | \"picture\""
+  },
+  "upload/name": {
+    "description": "File parameter name sent to backend, default `file`",
+    "type": "string"
+  },
+  "upload/data": {
+    "description": "Other parameters that may be required for upload",
+    "type": "Record<string, any>"
+  },
+  "upload/method": {
+    "description": "HTTP method for upload request",
+    "type": "string"
+  },
+  "upload/action": {
+    "description": "Upload address",
+    "type": "string"
+  },
+  "upload/showUploadList": {
+    "description": "Whether to show upload list",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/fileList": {
+    "description": "Uploaded file list",
+    "type": "UploadFile[]"
+  },
+  "upload/autoTrigger": {
+    "description": "Whether to auto upload",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/disabled": {
+    "description": "Whether disabled",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/draggable": {
+    "description": "Whether to support drag and drop upload",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/multiple": {
+    "description": "Whether to support multiple file selection",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/directory": {
+    "description": "Whether to support directory upload",
+    "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "upload/accept": {
+    "description": "Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept",
+    "type": "string"
+  },
+  "upload/headers": {
+    "description": "Set upload request headers",
+    "type": "Record<string, string>"
+  },
+  "upload/transformFile": {
+    "description": "Transform file before uploading. Supports returning a Promise object",
+    "type": "(file: File) => File | Promise<File>"
+  },
+  "upload/limit": {
+    "description": "Maximum number of files allowed to upload",
+    "type": "number"
+  },
+  "upload/minSize": {
+    "description": "Minimum file size unit for upload (KB)",
+    "type": "number"
+  },
+  "upload/maxSize": {
+    "description": "Maximum file size unit for upload (KB)",
+    "type": "number"
+  },
+  "upload/uploadText": {
+    "description": "Auxiliary text for upload area",
+    "type": "string"
+  },
+  "upload/uploadSubText": {
+    "description": "Secondary auxiliary text for upload area",
+    "type": "string"
+  },
+  "upload/uploadIcon": {
+    "description": "Auxiliary icon for upload area",
+    "type": "IconType[]"
+  }
+}

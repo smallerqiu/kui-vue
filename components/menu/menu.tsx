@@ -9,17 +9,17 @@ import {
   type PropType,
 } from "vue";
 
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, DirectionType } from "../const/types";
 import type { IconType } from "../icon";
 import RecursiveMenu from "./recursive-menu";
 
 export const menuProps = {
   theme: String,
-  mode: { type: String as PropType<"vertical" | "horizontal">, default: "vertical" },
+  mode: { type: String as PropType<DirectionType>, default: "vertical" },
   modelValue: { type: Array as PropType<string[]>, default: () => [] },
-  accordion: Boolean as TypeBoolean,
+  accordion: Boolean as BooleanType,
   items: Array as PropType<MenuOptionsProps[]>,
-  inlineCollapsed: Boolean as TypeBoolean,
+  inlineCollapsed: Boolean as BooleanType,
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
 };
 

@@ -2,12 +2,12 @@ import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } fr
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
-import type { TypeBoolean, TypeSize } from "../const/var";
+import type { BooleanType, DirectionType, SizeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
 const formProps = {
   layout: {
-    type: String as PropType<"horizontal" | "vertical" | "inline">,
+    type: String as PropType<DirectionType | "inline">,
     default: "horizontal",
   },
   model: Object,
@@ -19,12 +19,12 @@ const formProps = {
     default: () => ({}),
   },
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   theme: String,
   shape: String,
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
 };
 
 export interface FormExpose {
@@ -195,7 +195,7 @@ const Form = defineComponent({
       );
     };
   },
-}); //as DefineComponent<FormProps>;
+}); 
 
 export default Form;
 

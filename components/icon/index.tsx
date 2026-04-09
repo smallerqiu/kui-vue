@@ -1,10 +1,5 @@
-import {
-  defineComponent,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType
-} from "vue";
-import type { TypeBoolean } from "../const/var";
+import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import type { BooleanType } from "../const/types";
 
 const parseStyle = (styleString: string) => {
   const styles: any = {};
@@ -30,12 +25,12 @@ const iconProps = {
   type: [Array] as PropType<IconType[]>,
   size: [String, Number],
   color: String,
-  spin: Boolean as TypeBoolean,
+  spin: Boolean as BooleanType,
   strokeWidth: [String, Number],
-  onClick: Function as PropType<(e:MouseEvent) => void>,
-} ;
+  onClick: Function as PropType<(e: MouseEvent) => void>,
+};
 
-export type IconProps = Partial<ExtractPropTypes<typeof iconProps>> ;
+export type IconProps = ExtractPropTypes<typeof iconProps>;
 
 const Icon = defineComponent({
   name: "Icon",
@@ -83,6 +78,6 @@ const Icon = defineComponent({
       );
     };
   },
-}) //as DefineComponent<IconProps>;
+});
 
 export default Icon;

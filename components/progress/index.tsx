@@ -7,8 +7,12 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, SizeType } from "../const/types";
 import Icon from "../icon";
+
+export type ProgressStatus = "active" | "exception" | "success" | "normal";
+export type ProgressStroke = "round" | "butt" | "square";
+export type ProgressType = "line" | "circle" | "dashboard";
 
 export const progressProps = {
   percent: { type: Number, default: 0 },
@@ -19,22 +23,22 @@ export const progressProps = {
   strokeHeight: Number,
   gapDegree: { type: Number, default: 75 },
   strokeLinecap: {
-    type: String as PropType<"round" | "butt" | "square">,
+    type: String as PropType<ProgressStroke>,
     default: "round",
   },
   size: {
-    type: String as PropType<"small" | "default">,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   status: {
-    type: String as PropType<"active" | "exception" | "success" | "normal">,
+    type: String as PropType<ProgressStatus>,
     default: "normal",
   },
   type: {
-    type: String as PropType<"line" | "circle" | "dashboard">,
+    type: String as PropType<ProgressType>,
     default: "line",
   },
-  showInfo: { type: Boolean as TypeBoolean, default: true },
+  showInfo: { type: Boolean as BooleanType, default: true },
 };
 
 export type ProgressProps = ExtractPropTypes<typeof progressProps>;

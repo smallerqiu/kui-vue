@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { globalComponents } from "../../components/utils/vue";
+import { generateVeturConfig } from "./vetur";
+import { generateWebTypesConfig } from "./web-types";
 export const generateGlobalDts = () => {
   const entryPath = path.resolve(__dirname, "../../components/components.ts");
   if (!fs.existsSync(entryPath)) return;
@@ -29,9 +31,13 @@ export const generateGlobalDts = () => {
     });
   }
 
+  // for Volar
+
   const template = `
 /* eslint-disable @typescript-eslint/consistent-type-imports */
-declare module 'vue' {
+import { GlobalComponents as _GlobalComponents } from '@vue/runtime-core'
+
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
   ${componentNames.map((name) => `${name}: typeof import('kui-vue')['${name}']`).join("\n    ")}
   }
@@ -55,25 +61,8 @@ export {}
       fs.writeFileSync(indexPath, newContent);
     }
   }
-  // for  Vetur
-  const tags: Record<string, any> = {};
-  const attributes: Record<string, any> = {};
 
-  componentNames.forEach((name) => {
-    // 转换成 kebab-case，因为 Vetur 习惯这种格式
-    const kebabName = name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+  generateVeturConfig(componentNames);
 
-    // 生成 tags.json 内容
-    tags[kebabName] = {
-      description: `Kui Vue component: ${name}`,
-      attributes: [], // 如果有自动化提取 Props 的逻辑可以填在这里
-    };
-  });
-
-  const typingsDir = path.resolve(__dirname, "../../typings");
-  fs.writeFileSync(path.resolve(typingsDir, "tags.json"), JSON.stringify(tags, null, 2));
-  fs.writeFileSync(path.resolve(typingsDir, "attributes.json"), JSON.stringify(attributes, null, 2));
-  console.log("Vetur custom data generated.");
+  generateWebTypesConfig(componentNames);
 };
-
-// generateGlobalDts();

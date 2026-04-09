@@ -1,6 +1,6 @@
 import Color from "color";
 import { defineComponent, type PropType, ref, watch } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { Input } from "../input";
 import InputNumber from "../input-number";
 import { Select } from "../select";
@@ -10,7 +10,7 @@ export default defineComponent({
   props: {
     modelValue: [String, Object],
     mode: { type: String as PropType<"hex" | "rgb" | "hsl">, default: "hex" },
-    disabledAlpha: Boolean as TypeBoolean,
+    disabledAlpha: Boolean as BooleanType,
   },
   emits: ["updateColorValue", "updateMode"],
   setup(props, { emit }) {
@@ -68,7 +68,7 @@ export default defineComponent({
       emit("updateColorValue", color);
     };
 
-    const changeMode = (v: string) => {
+    const changeMode = (v: any) => {
       currentMode.value = v;
       emit("updateMode", v);
     };

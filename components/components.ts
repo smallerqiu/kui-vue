@@ -110,10 +110,10 @@ export { default as Popconfirm } from "./popconfirm";
 export type { PopconfirmProps } from "./popconfirm";
 
 export { default as Progress } from "./progress";
-export type { ProgressProps } from "./progress";
+export type { ProgressProps, ProgressStatus, ProgressStroke, ProgressType } from "./progress";
 
 export { Radio, RadioButton, RadioGroup } from "./radio";
-export type { RadioButtonProps, RadioGroupProps, RadioOptionsProps, RadioProps } from "./radio";
+export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from "./radio";
 
 export { default as Rate } from "./rate";
 export type { RateProps } from "./rate";

@@ -1,29 +1,29 @@
 import {
-  computed,
-  defineComponent,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  provide,
-  ref,
-  type ExtractPropTypes,
-  type InjectionKey
+    computed,
+    defineComponent,
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
+    type ExtractPropTypes,
+    type InjectionKey
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 
 const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol('SiderHookKey');
 
 export const layoutProps = {
   suffixCls: { type: String, default: 'layout' },
-  hasSider: { type: Boolean as TypeBoolean, default: undefined } // 允许手动指定是否有 Sider
+  hasSider: { type: Boolean as BooleanType, default: undefined } // 允许手动指定是否有 Sider
 };
 
 export const siderProps = {
   suffixCls: { type: String, default: 'layout-sider' },
   width: { type: [Number, String], default: 200 },
   collapsedWidth: { type: [Number, String], default: 80 },
-  collapsible: Boolean as TypeBoolean,
-  collapsed: Boolean as TypeBoolean,
+  collapsible: Boolean as BooleanType,
+  collapsed: Boolean as BooleanType,
 };
 
 export type LayoutProps = ExtractPropTypes<typeof layoutProps>;

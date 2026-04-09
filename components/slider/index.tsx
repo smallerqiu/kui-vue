@@ -1,19 +1,19 @@
 import {
-  defineComponent,
-  inject,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType,
+    defineComponent,
+    inject,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
 } from "vue";
 import Thumb from "./thumb";
 
 import Big from "big.js";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
@@ -22,15 +22,15 @@ export const sliderProps = {
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },
   step: { type: Number as PropType<number | null>, default: 1 },
-  disabled: Boolean as TypeBoolean,
-  vertical: Boolean as TypeBoolean,
-  reverse: Boolean as TypeBoolean,
-  range: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  vertical: Boolean as BooleanType,
+  reverse: Boolean as BooleanType,
+  range: Boolean as BooleanType,
   marks: Object as PropType<Record<number, string>>,
   size: [String, Number] as PropType<"small" | number>,
-  included: { type: Boolean as TypeBoolean, default: true },
+  included: { type: Boolean as BooleanType, default: true },
   tipFormatter: Function,
-  tooltipVisible: { type: Boolean as TypeBoolean, default: null },
+  tooltipVisible: { type: Boolean as BooleanType, default: null },
 };
 
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;
