@@ -1,16 +1,16 @@
 import {
-    defineComponent,
-    inject,
-    provide,
-    toRefs,
-    type ExtractPropTypes,
-    type PropType
+  defineComponent,
+  inject,
+  provide,
+  toRefs,
+  type ExtractPropTypes,
+  type PropType
 } from "vue";
-import { type TypeSize } from "../const/var";
+import { type SizeType } from "../const/types";
 
 const buttonGroupProps = {
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
   },
   shape: String as PropType<"circle" | string>,
 };
@@ -43,4 +43,4 @@ export default defineComponent({
       return <div {...groupProps}>{slots.default?.()}</div>;
     };
   },
-}) //as DefineComponent<ButtonGroupProps>;
+}) 

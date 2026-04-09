@@ -1,13 +1,13 @@
 import {
-  defineComponent,
-  inject,
-  onMounted,
-  ref,
-  type ExtractPropTypes,
-  type PropType,
-  type Ref,
+    defineComponent,
+    inject,
+    onMounted,
+    ref,
+    type ExtractPropTypes,
+    type PropType,
+    type Ref,
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
@@ -15,8 +15,8 @@ export const menuItemProps = {
   icon: Array as PropType<IconType[]>,
   title: String,
   key: { type: String, required: true },
-  disabled: Boolean as TypeBoolean,
-  isPopup: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
+  isPopup: Boolean as BooleanType,
 };
 
 export type MenuItemProps = ExtractPropTypes<typeof menuItemProps>;

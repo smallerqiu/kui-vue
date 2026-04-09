@@ -12,22 +12,23 @@ import {
   type PropType,
   type VNode
 } from "vue";
-import { colors, type TypeBoolean, type TypePlacements, type TypeSize } from "../const/var";
+import { type BooleanType, type PlacementsType, type SizeType } from "../const/types";
+import { colors } from "../const/var";
 import { transfer } from "../directives/transfer";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const tooltipProps = {
-  show: Boolean as TypeBoolean,
-  dark: Boolean as TypeBoolean,
+  show: Boolean as BooleanType,
+  dark: Boolean as BooleanType,
   title: [String, Number, Object, Array] as PropType<any>,
   color: String,
-  disabled: Boolean as TypeBoolean,
-  size: String as PropType<TypeSize>,
+  disabled: Boolean as BooleanType,
+  size: String as PropType<SizeType>,
   width: [Number, String] as PropType<number | string>,
   placement: {
-    type: String as PropType<TypePlacements>,
+    type: String as PropType<PlacementsType>,
     default: "top",
   },
 };
@@ -205,4 +206,4 @@ export default defineComponent({
       return [nodeWrapper, tooltipOverlay];
     };
   },
-}) //as DefineComponent<TooltipProps>;
+}) 

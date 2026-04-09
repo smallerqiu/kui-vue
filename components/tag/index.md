@@ -7,3 +7,4 @@
 | icon      | 标签的图标                                 | String   | -      |
 | close     | 关闭标签的回调事件                         | Function | -      |
 | size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | String   | -      |
+| theme     | 组件呈现主题,默认'light'                   | String   | light  |

@@ -127,6 +127,6 @@ const Avatar = defineComponent({
       );
     };
   },
-}) //as DefineComponent<AvatarProps>;
+}) 
 
 export default Avatar;

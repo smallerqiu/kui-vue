@@ -16,3 +16,4 @@
 | prefix         | Prefix content                                                              | String, slot   | -         |
 | controls       | Whether to show increase/decrease buttons                                   | Boolean        | true      |
 | clearable      | Whether to show clear button                                                | Boolean        | false     |
+| theme          | The component renders the theme, defaulting to 'light'.                     | String         | light     |

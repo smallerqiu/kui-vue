@@ -6,6 +6,7 @@
 | message     | 警告提示内容                                                        | String，Slot | -       |
 | description | 警告提示的辅助性文字介绍                                            | String       | -       |
 | showIcon    | 是否显示图标                                                        | Boolean      | false   |
+| bordered    | 是否展示边框                                                        | Boolean      | false   |
 | closable    | 是否显示关闭按钮                                                    | Boolean      | false   |
 | close       | 关闭时触发的回调函数                                                | Function     | -       |
 | icon        | 自定义的图标                                                        | Array        | -       |

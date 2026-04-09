@@ -14,7 +14,7 @@ import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-import type { TypePlacements } from "../const/var";
+import type { PlacementsType } from "../const/types";
 
 export type PoptipProps = ExtractPropTypes<typeof poptipProps>;
 
@@ -30,7 +30,7 @@ export const poptipProps = {
     default: "hover",
   },
   placement: {
-    type: String as PropType<TypePlacements>,
+    type: String as PropType<PlacementsType>,
     default: "top",
   },
 };

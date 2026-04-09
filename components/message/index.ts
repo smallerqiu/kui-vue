@@ -6,6 +6,7 @@ export interface MessageOptions {
   type?: "info" | "success" | "warning" | "error";
   content?: string;
   duration?: number;
+  closable?: boolean;
   icon?: string;
   color?: string;
   onClose?: () => void;

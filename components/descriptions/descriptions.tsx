@@ -1,12 +1,12 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNode } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, DirectionType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
 
 export const descriptionsProps = {
-  bordered: Boolean as TypeBoolean,
+  bordered: Boolean as BooleanType,
   column: { type: Number, default: 3 },
-  layout: { type: String as PropType<"horizontal" | "vertical">, default: "horizontal" },
+  layout: { type: String as PropType<DirectionType>, default: "horizontal" },
   title: String,
   extra: String,
   size: { type: String as PropType<"default" | "middle" | "small">, default: "default" },

@@ -12,3 +12,4 @@
 | loading  | Whether the button is in loading mode                                                                | Boolean                                    | false   |
 | href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | String                                     | -       |
 | target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | String                                     | -       |
+| block    | Option to fit button width to its parent width                                                       | Boolean                                    | false   |

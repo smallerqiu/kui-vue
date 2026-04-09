@@ -1,21 +1,14 @@
-import {
-  cloneVNode,
-  defineComponent,
-  ref,
-  watch,
-  type ExtractPropTypes,
-  type PropType
-} from "vue";
-import type { TypeBoolean } from "../const/var";
+import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import type { BooleanType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 
 const collapseProps = {
   openKeys: {
-    type: Array as PropType<Array<string | number>>,
+    type: Array as PropType<(string | number)[]>,
     default: () => [],
   },
-  accordion: Boolean as TypeBoolean,
-  sample: Boolean as TypeBoolean,
+  accordion: Boolean as BooleanType,
+  sample: Boolean as BooleanType,
 };
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
@@ -25,7 +18,7 @@ export default defineComponent({
   props: collapseProps,
   emits: ["change", "update"],
   setup(props, { slots, emit }) {
-    const defaultOpenKeys = ref<Array<string | number>>(props.openKeys || []);
+    const defaultOpenKeys = ref<(string | number)[]>(props.openKeys || []);
 
     watch(
       () => props.openKeys,
@@ -71,4 +64,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<CollapseProps>;
+});

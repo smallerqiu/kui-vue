@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Tooltip from "../tooltip";
 
 export default defineComponent({
@@ -7,13 +7,13 @@ export default defineComponent({
     value: { type: Number, required: true },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
-    vertical: Boolean as TypeBoolean,
+    vertical: Boolean as BooleanType,
     size: [String, Number],
-    reverse: Boolean as TypeBoolean,
-    disabled: Boolean as TypeBoolean,
-    tooltipVisible: { type: Boolean as TypeBoolean, default: null },
+    reverse: Boolean as BooleanType,
+    disabled: Boolean as BooleanType,
+    tooltipVisible: { type: Boolean as BooleanType, default: null },
     tipFormatter: Function,
-    dragging: Boolean as TypeBoolean, // 接收父组件传入的拖拽状态
+    dragging: Boolean as BooleanType, // 接收父组件传入的拖拽状态
   },
   emits: ["dragStart", "keydownUpdate"],
   setup(props, { emit, expose }) {

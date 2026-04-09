@@ -1,20 +1,20 @@
 import { HelpCircle } from "kui-icons";
 import {
-  cloneVNode,
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  Transition,
-  watch,
-  type ExtractPropTypes,
-  type PropType,
+    cloneVNode,
+    computed,
+    defineComponent,
+    inject,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    Transition,
+    watch,
+    type ExtractPropTypes,
+    type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { TypeBoolean, TypePlacements } from "../const/var";
+import type { BooleanType, PlacementsType } from "../const/types";
 import { transfer } from "../directives/transfer";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -22,15 +22,15 @@ import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const popconfirmProps = {
-  dark: Boolean as TypeBoolean,
-  show: Boolean as TypeBoolean,
+  dark: Boolean as BooleanType,
+  show: Boolean as BooleanType,
   title: [String, Number, Object, Array],
   size: String,
   width: [Number, String],
   okText: { type: String },
   cancelText: { type: String },
   placement: {
-    type: String as PropType<TypePlacements>,
+    type: String as PropType<PlacementsType>,
     default: "top",
   },
 };

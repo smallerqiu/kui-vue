@@ -1,9 +1,9 @@
 import {
-    defineComponent,
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    type ExtractPropTypes
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  type ExtractPropTypes
 } from "vue";
 import type { AnchorContext } from "./anchor";
 
@@ -56,6 +56,6 @@ const AnchorLink = defineComponent({
       );
     };
   },
-}) //as DefineComponent<AnchorLinkProps>;
+}) 
 
 export default AnchorLink;

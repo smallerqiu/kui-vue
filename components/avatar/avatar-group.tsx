@@ -57,4 +57,4 @@ export default defineComponent({
       return <div {...groupProps}>{childrenToShow}</div>;
     };
   },
-}) //as DefineComponent<AvatarGroupProps>;
+}) 

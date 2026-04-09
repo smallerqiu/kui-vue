@@ -7,7 +7,8 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { colors, type TypeBoolean, type TypeSize } from "../const/var";
+import type { BooleanType, ButtonTheme, ButtonType, ColorType, SizeType } from "../const/types";
+import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
@@ -17,21 +18,21 @@ const buttonProps = {
     default: "button",
   },
   icon: [Array] as PropType<IconType[]>,
-  block: { type: Boolean as TypeBoolean, default: false },
+  block: { type: Boolean as BooleanType, default: false },
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
   },
   color: {
-    type: String as PropType<(typeof colors)[number]>,
+    type: String as ColorType,
   },
-  loading: { type: Boolean as TypeBoolean, default: false },
+  loading: { type: Boolean as BooleanType, default: false },
   type: {
-    type: String as PropType<"primary" | "danger" | "warning" | "default" | "text" | "link">,
+    type: String as PropType<ButtonType>,
     default: "default",
   },
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   theme: {
-    type: String as PropType<"outline" | "solid" | "light" | "dashed" | "card">,
+    type: String as PropType<ButtonTheme>,
   },
   shape: String as PropType<"circle" | string>,
   href: String,
@@ -128,4 +129,4 @@ export default defineComponent({
       );
     };
   },
-}); //as DefineComponent<ButtonProps>;
+});

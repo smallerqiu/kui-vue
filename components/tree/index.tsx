@@ -1,19 +1,19 @@
 import { AddCircleOutline, ChevronForward, RemoveCircleOutline, Sync } from "kui-icons";
 import {
-  defineComponent,
-  nextTick,
-  reactive,
-  ref,
-  TransitionGroup,
-  watch,
-  type ExtractPropTypes,
-  type PropType,
-  type VNodeChild
+    defineComponent,
+    nextTick,
+    reactive,
+    ref,
+    TransitionGroup,
+    watch,
+    type ExtractPropTypes,
+    type PropType,
+    type VNodeChild
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { Button } from "../button";
 import Checkbox, { type ChangeEvent } from "../checkbox";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import { buildTree, updateParentIndeterminate, type TreeKey, type TreeNode } from "./utils";
 
@@ -22,16 +22,16 @@ export const treeProps = {
   selectedKeys: Array as PropType<TreeKey[]>,
   expandedKeys: Array as PropType<TreeKey[]>,
   checkedKeys: Array as PropType<TreeKey[]>,
-  directory: Boolean as TypeBoolean,
-  expandAll: Boolean as TypeBoolean,
-  checkable: Boolean as TypeBoolean,
-  draggable: Boolean as TypeBoolean,
-  showLine: Boolean as TypeBoolean,
-  showIcon: { type: Boolean as TypeBoolean, default: true },
-  showExtra: { type: Boolean as TypeBoolean, default: false },
-  multiple: { type: Boolean as TypeBoolean, default: false },
-  checkStrictly: Boolean as TypeBoolean,
-  selectAsCheck: Boolean as TypeBoolean,
+  directory: Boolean as BooleanType,
+  expandAll: Boolean as BooleanType,
+  checkable: Boolean as BooleanType,
+  draggable: Boolean as BooleanType,
+  showLine: Boolean as BooleanType,
+  showIcon: { type: Boolean as BooleanType, default: true },
+  showExtra: { type: Boolean as BooleanType, default: false },
+  multiple: { type: Boolean as BooleanType, default: false },
+  checkStrictly: Boolean as BooleanType,
+  selectAsCheck: Boolean as BooleanType,
   queryKey: String,
 };
 
@@ -689,6 +689,6 @@ const Tree = defineComponent({
       );
     };
   },
-}) //as DefineComponent<TreeProps>;
+}) 
 
 export default Tree;

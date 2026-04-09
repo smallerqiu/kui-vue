@@ -1,12 +1,12 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean, TypeSize } from "../const/var";
+import type { BooleanType, DirectionType, SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
 import type { ChangeEvent } from "./types";
 
-export interface RadioOptionsProps {
+export interface RadioOption {
   label?: string;
   value?: string | number;
   disabled?: boolean;
@@ -15,17 +15,17 @@ export interface RadioOptionsProps {
 
 export const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   direction: {
-    type: String as PropType<"horizontal" | "vertical">,
+    type: String as PropType<DirectionType>,
     default: "horizontal",
   },
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
   },
   theme: String,
   shape: String as PropType<"circle" | "square">,
-  options: Array as PropType<RadioOptionsProps[]>,
+  options: Array as PropType<RadioOption[]>,
   type: String as PropType<"radio" | "button">,
 };
 

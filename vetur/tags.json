@@ -1,59 +1,133 @@
 {
   "affix": {
     "description": "Kui Vue component: Affix",
-    "attributes": []
+    "attributes": [
+      "offsetTop",
+      "target",
+      "offsetBottom"
+    ]
   },
   "alert": {
     "description": "Kui Vue component: Alert",
-    "attributes": []
+    "attributes": [
+      "type",
+      "showIcon",
+      "closable",
+      "icon",
+      "message",
+      "description",
+      "bordered"
+    ]
   },
   "anchor": {
     "description": "Kui Vue component: Anchor",
-    "attributes": []
+    "attributes": [
+      "offsetTop",
+      "affix",
+      "bounds",
+      "container"
+    ]
   },
   "anchor-link": {
     "description": "Kui Vue component: AnchorLink",
-    "attributes": []
+    "attributes": [
+      "href",
+      "title"
+    ]
   },
   "avatar": {
     "description": "Kui Vue component: Avatar",
-    "attributes": []
+    "attributes": [
+      "shape",
+      "size",
+      "icon",
+      "src"
+    ]
   },
   "avatar-group": {
     "description": "Kui Vue component: AvatarGroup",
-    "attributes": []
+    "attributes": [
+      "shape",
+      "size",
+      "maxCount"
+    ]
   },
   "breadcrumb": {
     "description": "Kui Vue component: Breadcrumb",
-    "attributes": []
+    "attributes": [
+      "separator"
+    ]
   },
   "breadcrumb-item": {
     "description": "Kui Vue component: BreadcrumbItem",
-    "attributes": []
+    "attributes": [
+      "icon",
+      "href"
+    ]
   },
   "back-top": {
     "description": "Kui Vue component: BackTop",
-    "attributes": []
+    "attributes": [
+      "target",
+      "height",
+      "right",
+      "bottom"
+    ]
   },
   "badge": {
     "description": "Kui Vue component: Badge",
-    "attributes": []
+    "attributes": [
+      "maxCount",
+      "status",
+      "count",
+      "dot",
+      "color",
+      "text"
+    ]
   },
   "button": {
     "description": "Kui Vue component: Button",
-    "attributes": []
+    "attributes": [
+      "type",
+      "htmlType",
+      "block",
+      "loading",
+      "target",
+      "icon",
+      "href",
+      "shape",
+      "size",
+      "color",
+      "disabled",
+      "theme",
+      "onClick"
+    ]
   },
   "button-group": {
     "description": "Kui Vue component: ButtonGroup",
-    "attributes": []
+    "attributes": [
+      "shape",
+      "size"
+    ]
   },
   "card": {
     "description": "Kui Vue component: Card",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "icon",
+      "title"
+    ]
   },
   "carousel": {
     "description": "Kui Vue component: Carousel",
-    "attributes": []
+    "attributes": [
+      "value",
+      "loop",
+      "delay",
+      "vertical",
+      "dots",
+      "autoplay"
+    ]
   },
   "carousel-item": {
     "description": "Kui Vue component: CarouselItem",
@@ -61,79 +135,233 @@
   },
   "checkbox": {
     "description": "Kui Vue component: Checkbox",
-    "attributes": []
+    "attributes": [
+      "size",
+      "theme",
+      "checked",
+      "disabled",
+      "value",
+      "modelValue",
+      "label",
+      "indeterminate",
+      "onChange"
+    ]
   },
   "checkbox-group": {
     "description": "Kui Vue component: CheckboxGroup",
-    "attributes": []
+    "attributes": [
+      "size",
+      "theme",
+      "modelValue",
+      "direction",
+      "disabled",
+      "options"
+    ]
   },
   "collapse": {
     "description": "Kui Vue component: Collapse",
-    "attributes": []
+    "attributes": [
+      "openKeys",
+      "accordion",
+      "sample"
+    ]
   },
   "collapse-panel": {
     "description": "Kui Vue component: CollapsePanel",
-    "attributes": []
+    "attributes": [
+      "title",
+      "active"
+    ]
   },
   "color-picker": {
     "description": "Kui Vue component: ColorPicker",
-    "attributes": []
+    "attributes": [
+      "size",
+      "transfer",
+      "placement",
+      "trigger",
+      "mode",
+      "disabled",
+      "value",
+      "modelValue",
+      "disabledAlpha",
+      "showText",
+      "arrow",
+      "show",
+      "presets"
+    ]
   },
   "date-picker": {
     "description": "Kui Vue component: DatePicker",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "size",
+      "theme",
+      "placement",
+      "mode",
+      "valueType",
+      "clearable",
+      "editable",
+      "placeholder",
+      "disabledDate",
+      "disabledTime",
+      "pickerSize",
+      "shape",
+      "disabled",
+      "modelValue",
+      "presets",
+      "startDate",
+      "endDate",
+      "format",
+      "dateIcon"
+    ]
   },
   "descriptions": {
     "description": "Kui Vue component: Descriptions",
-    "attributes": []
+    "attributes": [
+      "size",
+      "column",
+      "layout",
+      "bordered",
+      "title",
+      "extra"
+    ]
   },
   "descriptions-item": {
     "description": "Kui Vue component: DescriptionsItem",
-    "attributes": []
+    "attributes": [
+      "span",
+      "type",
+      "bordered",
+      "label",
+      "layout"
+    ]
   },
   "drawer": {
     "description": "Kui Vue component: Drawer",
-    "attributes": []
+    "attributes": [
+      "target",
+      "closable",
+      "title",
+      "height",
+      "loading",
+      "modelValue",
+      "placement",
+      "width",
+      "footer",
+      "maskClosable",
+      "mask",
+      "escKey",
+      "okText",
+      "cancelText"
+    ]
   },
   "dropdown": {
     "description": "Kui Vue component: Dropdown",
-    "attributes": []
+    "attributes": [
+      "transfer",
+      "arrow",
+      "placement",
+      "trigger",
+      "target",
+      "disabled",
+      "show",
+      "dark"
+    ]
   },
   "dropdown-button": {
     "description": "Kui Vue component: DropdownButton",
-    "attributes": []
+    "attributes": [
+      "placement",
+      "icon",
+      "shape",
+      "size",
+      "disabled",
+      "theme",
+      "arrow",
+      "dark"
+    ]
   },
   "divider": {
     "description": "Kui Vue component: Divider",
-    "attributes": []
+    "attributes": [
+      "type",
+      "orientation",
+      "text",
+      "dashed"
+    ]
   },
   "empty": {
     "description": "Kui Vue component: Empty",
-    "attributes": []
+    "attributes": [
+      "description",
+      "image",
+      "imageStyle"
+    ]
   },
   "form": {
     "description": "Kui Vue component: Form",
-    "attributes": []
+    "attributes": [
+      "size",
+      "layout",
+      "rules",
+      "shape",
+      "disabled",
+      "theme",
+      "model",
+      "name",
+      "labelCol",
+      "wrapperCol"
+    ]
   },
   "form-item": {
     "description": "Kui Vue component: FormItem",
-    "attributes": []
+    "attributes": [
+      "label",
+      "labelCol",
+      "wrapperCol",
+      "rules",
+      "prop"
+    ]
   },
   "flex": {
     "description": "Kui Vue component: Flex",
-    "attributes": []
+    "attributes": [
+      "size",
+      "vertical",
+      "align",
+      "justify",
+      "wrap"
+    ]
   },
   "grid": {
     "description": "Kui Vue component: Grid",
-    "attributes": []
+    "attributes": [
+      "cols",
+      "rows",
+      "autoRows",
+      "xGap",
+      "yGap",
+      "align",
+      "justify",
+      "itemMinWidth",
+      "debug"
+    ]
   },
   "grid-item": {
     "description": "Kui Vue component: GridItem",
-    "attributes": []
+    "attributes": [
+      "span",
+      "offset",
+      "rowSpan",
+      "suffix"
+    ]
   },
   "image-group": {
     "description": "Kui Vue component: ImageGroup",
-    "attributes": []
+    "attributes": [
+      "data"
+    ]
   },
   "kimage": {
     "description": "Kui Vue component: KImage",
@@ -141,23 +369,74 @@
   },
   "icon": {
     "description": "Kui Vue component: Icon",
-    "attributes": []
+    "attributes": [
+      "type",
+      "size",
+      "color",
+      "onClick",
+      "spin",
+      "strokeWidth"
+    ]
   },
   "input": {
     "description": "Kui Vue component: Input",
-    "attributes": []
+    "attributes": [
+      "type",
+      "theme",
+      "clearable",
+      "visiblePasswordIcon",
+      "inputType",
+      "icon",
+      "shape",
+      "size",
+      "disabled",
+      "value",
+      "modelValue",
+      "suffix",
+      "prefix"
+    ]
   },
   "input-group": {
     "description": "Kui Vue component: InputGroup",
-    "attributes": []
+    "attributes": [
+      "block",
+      "theme",
+      "size",
+      "compact"
+    ]
   },
   "text-area": {
     "description": "Kui Vue component: TextArea",
-    "attributes": []
+    "attributes": [
+      "theme",
+      "size",
+      "disabled",
+      "value",
+      "modelValue"
+    ]
   },
   "input-number": {
     "description": "Kui Vue component: InputNumber",
-    "attributes": []
+    "attributes": [
+      "theme",
+      "min",
+      "max",
+      "step",
+      "controls",
+      "icon",
+      "size",
+      "disabled",
+      "value",
+      "modelValue",
+      "onChange",
+      "placeholder",
+      "suffix",
+      "prefix",
+      "precision",
+      "formatter",
+      "parser",
+      "readonly"
+    ]
   },
   "content": {
     "description": "Kui Vue component: Content",
@@ -181,7 +460,15 @@
   },
   "menu": {
     "description": "Kui Vue component: Menu",
-    "attributes": []
+    "attributes": [
+      "modelValue",
+      "openKeys",
+      "mode",
+      "theme",
+      "accordion",
+      "items",
+      "inlineCollapsed"
+    ]
   },
   "menu-divider": {
     "description": "Kui Vue component: MenuDivider",
@@ -189,59 +476,206 @@
   },
   "menu-group": {
     "description": "Kui Vue component: MenuGroup",
-    "attributes": []
+    "attributes": [
+      "title"
+    ]
   },
   "menu-item": {
     "description": "Kui Vue component: MenuItem",
-    "attributes": []
+    "attributes": [
+      "icon",
+      "title",
+      "disabled",
+      "key",
+      "isPopup"
+    ]
   },
   "sub-menu": {
     "description": "Kui Vue component: SubMenu",
-    "attributes": []
+    "attributes": [
+      "icon",
+      "title",
+      "disabled",
+      "key",
+      "isPopup"
+    ]
   },
   "modal": {
     "description": "Kui Vue component: Modal",
-    "attributes": []
+    "attributes": [
+      "transfer",
+      "footer",
+      "maskClosable",
+      "mask",
+      "escKey",
+      "showClose",
+      "title",
+      "loading",
+      "modelValue",
+      "top",
+      "width",
+      "okText",
+      "cancelText",
+      "maximized",
+      "centered",
+      "draggable"
+    ]
   },
   "page": {
     "description": "Kui Vue component: Page",
-    "attributes": []
+    "attributes": [
+      "size",
+      "theme",
+      "showTotal",
+      "sizeData",
+      "total",
+      "pageSize",
+      "page",
+      "disabled",
+      "showSizer",
+      "showElevator"
+    ]
   },
   "poptip": {
     "description": "Kui Vue component: Poptip",
-    "attributes": []
+    "attributes": [
+      "placement",
+      "trigger",
+      "show",
+      "dark",
+      "title",
+      "size",
+      "content",
+      "width"
+    ]
   },
   "popconfirm": {
     "description": "Kui Vue component: Popconfirm",
-    "attributes": []
+    "attributes": [
+      "placement",
+      "title",
+      "size",
+      "show",
+      "width",
+      "okText",
+      "cancelText",
+      "dark"
+    ]
   },
   "progress": {
     "description": "Kui Vue component: Progress",
-    "attributes": []
+    "attributes": [
+      "type",
+      "size",
+      "status",
+      "strokeWidth",
+      "percent",
+      "gapDegree",
+      "strokeLinecap",
+      "showInfo",
+      "color",
+      "format",
+      "width",
+      "strokeHeight"
+    ]
   },
   "radio": {
     "description": "Kui Vue component: Radio",
-    "attributes": []
+    "attributes": [
+      "size",
+      "modelValue",
+      "icon",
+      "disabled",
+      "theme",
+      "value",
+      "checked",
+      "label",
+      "onChange"
+    ]
   },
   "radio-button": {
     "description": "Kui Vue component: RadioButton",
-    "attributes": []
+    "attributes": [
+      "shape",
+      "size",
+      "modelValue",
+      "icon",
+      "disabled",
+      "theme",
+      "value",
+      "checked",
+      "label"
+    ]
   },
   "radio-group": {
     "description": "Kui Vue component: RadioGroup",
-    "attributes": []
+    "attributes": [
+      "modelValue",
+      "direction",
+      "type",
+      "shape",
+      "size",
+      "disabled",
+      "theme",
+      "options"
+    ]
   },
   "rate": {
     "description": "Kui Vue component: Rate",
-    "attributes": []
+    "attributes": [
+      "count",
+      "modelValue",
+      "allowClear",
+      "icon",
+      "size",
+      "color",
+      "disabled",
+      "allowHalf",
+      "showScore",
+      "tooltips",
+      "character"
+    ]
   },
   "option": {
     "description": "Kui Vue component: Option",
-    "attributes": []
+    "attributes": [
+      "disabled",
+      "value",
+      "checked",
+      "label",
+      "active",
+      "multiple"
+    ]
   },
   "select": {
     "description": "Kui Vue component: Select",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "size",
+      "theme",
+      "placement",
+      "clearable",
+      "showArrow",
+      "icon",
+      "shape",
+      "block",
+      "loading",
+      "disabled",
+      "value",
+      "modelValue",
+      "onChange",
+      "options",
+      "placeholder",
+      "width",
+      "multiple",
+      "maxTagCount",
+      "filterable",
+      "emptyText",
+      "loadingText",
+      "arrowIcon",
+      "onSearch",
+      "onSelect"
+    ]
   },
   "config-provider": {
     "description": "Kui Vue component: ConfigProvider",
@@ -249,7 +683,19 @@
   },
   "skeleton": {
     "description": "Kui Vue component: Skeleton",
-    "attributes": []
+    "attributes": [
+      "title",
+      "delay",
+      "rows",
+      "shape",
+      "size",
+      "block",
+      "loading",
+      "width",
+      "animated",
+      "radius",
+      "avatar"
+    ]
   },
   "skeleton-avatar": {
     "description": "Kui Vue component: SkeletonAvatar",
@@ -269,23 +715,65 @@
   },
   "stat-card": {
     "description": "Kui Vue component: StatCard",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "precision",
+      "items",
+      "title",
+      "separator",
+      "reverse",
+      "statNumberType"
+    ]
   },
   "stat-number": {
     "description": "Kui Vue component: StatNumber",
-    "attributes": []
+    "attributes": [
+      "type",
+      "modelValue",
+      "precision",
+      "duration",
+      "separator",
+      "suffix",
+      "prefix"
+    ]
   },
   "slider": {
     "description": "Kui Vue component: Slider",
-    "attributes": []
+    "attributes": [
+      "modelValue",
+      "min",
+      "max",
+      "step",
+      "included",
+      "size",
+      "reverse",
+      "disabled",
+      "vertical",
+      "range",
+      "marks",
+      "tipFormatter",
+      "tooltipVisible"
+    ]
   },
   "space": {
     "description": "Kui Vue component: Space",
-    "attributes": []
+    "attributes": [
+      "wrap",
+      "size",
+      "block",
+      "vertical",
+      "align",
+      "compact"
+    ]
   },
   "spin": {
     "description": "Kui Vue component: Spin",
-    "attributes": []
+    "attributes": [
+      "size",
+      "delay",
+      "modelValue",
+      "mode"
+    ]
   },
   "kswitch": {
     "description": "Kui Vue component: KSwitch",
@@ -293,19 +781,53 @@
   },
   "table": {
     "description": "Kui Vue component: Table",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "size",
+      "data",
+      "columns",
+      "selectedKeys",
+      "disabledKeys",
+      "rowKey",
+      "scroll",
+      "loading",
+      "emptyText",
+      "checkable"
+    ]
   },
   "tooltip": {
     "description": "Kui Vue component: Tooltip",
-    "attributes": []
+    "attributes": [
+      "placement",
+      "title",
+      "size",
+      "color",
+      "disabled",
+      "show",
+      "width",
+      "dark"
+    ]
   },
   "tab-panel": {
     "description": "Kui Vue component: TabPanel",
-    "attributes": []
+    "attributes": [
+      "closable",
+      "icon",
+      "title",
+      "disabled",
+      "activeKey"
+    ]
   },
   "tabs": {
     "description": "Kui Vue component: Tabs",
-    "attributes": []
+    "attributes": [
+      "animated",
+      "card",
+      "value",
+      "modelValue",
+      "sample",
+      "centered"
+    ]
   },
   "time-line": {
     "description": "Kui Vue component: TimeLine",
@@ -317,26 +839,111 @@
   },
   "tree": {
     "description": "Kui Vue component: Tree",
-    "attributes": []
+    "attributes": [
+      "showIcon",
+      "multiple",
+      "showExtra",
+      "data",
+      "draggable",
+      "selectedKeys",
+      "checkable",
+      "expandedKeys",
+      "checkedKeys",
+      "directory",
+      "expandAll",
+      "showLine",
+      "checkStrictly",
+      "selectAsCheck",
+      "queryKey"
+    ]
   },
   "tree-select": {
     "description": "Kui Vue component: TreeSelect",
-    "attributes": []
+    "attributes": [
+      "bordered",
+      "size",
+      "theme",
+      "placement",
+      "clearable",
+      "showArrow",
+      "treeShowIcon",
+      "icon",
+      "shape",
+      "block",
+      "loading",
+      "disabled",
+      "value",
+      "modelValue",
+      "options",
+      "placeholder",
+      "width",
+      "multiple",
+      "maxTagCount",
+      "filterable",
+      "emptyText",
+      "arrowIcon",
+      "treeData",
+      "treeCheckable",
+      "treeShowLine",
+      "treeCheckStrictly",
+      "treeExpandedKeys",
+      "treeCheckedKeys",
+      "treeSelectedKeys",
+      "treeExpandedAll"
+    ]
   },
   "tag": {
     "description": "Kui Vue component: Tag",
-    "attributes": []
+    "attributes": [
+      "size",
+      "theme",
+      "icon",
+      "shape",
+      "color",
+      "closeable"
+    ]
   },
   "col": {
     "description": "Kui Vue component: Col",
-    "attributes": []
+    "attributes": [
+      "span",
+      "offset",
+      "flex"
+    ]
   },
   "row": {
     "description": "Kui Vue component: Row",
-    "attributes": []
+    "attributes": [
+      "type",
+      "align",
+      "justify",
+      "gutter"
+    ]
   },
   "upload": {
     "description": "Kui Vue component: Upload",
-    "attributes": []
+    "attributes": [
+      "type",
+      "name",
+      "data",
+      "method",
+      "action",
+      "showUploadList",
+      "fileList",
+      "autoTrigger",
+      "disabled",
+      "draggable",
+      "multiple",
+      "directory",
+      "accept",
+      "headers",
+      "transformFile",
+      "limit",
+      "minSize",
+      "maxSize",
+      "uploadText",
+      "uploadSubText",
+      "uploadIcon"
+    ]
   }
 }

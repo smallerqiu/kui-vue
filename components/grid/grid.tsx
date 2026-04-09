@@ -1,6 +1,6 @@
 import type { CSSProperties, ExtractPropTypes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
 
 const gridProps = {
@@ -12,7 +12,7 @@ const gridProps = {
   itemMinWidth: { type: Number },
   align: { type: String },
   justify: { type: String },
-  debug: { type: Boolean as TypeBoolean },
+  debug: { type: Boolean as BooleanType },
 };
 export type GridProps = ExtractPropTypes<typeof gridProps>;
 
@@ -73,6 +73,6 @@ const Grid = defineComponent({
       return <div {...gridProps}>{slots.default?.()}</div>;
     };
   },
-}) //as DefineComponent<GridProps>;
+}) 
 
 export default Grid;

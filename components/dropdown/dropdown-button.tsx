@@ -3,19 +3,19 @@ import { defineComponent, type ExtractPropTypes, type PropType, ref } from "vue"
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";
 
-import { type TypeBoolean, type TypeDropPlacements, type TypeSize } from "../const/var";
+import { type BooleanType, type DropPlacementsType, type SizeType } from "../const/types";
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 export const dropdownButtonProps = {
-  size: String as PropType<TypeSize>,
+  size: String as PropType<SizeType>,
   shape: String,
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
   theme: String,
-  dark: Boolean as TypeBoolean,
-  arrow: Boolean as TypeBoolean,
-  placement: { type: String as PropType<TypeDropPlacements>, default: "bottom-right" },
+  dark: Boolean as BooleanType,
+  arrow: Boolean as BooleanType,
+  placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
 };
 export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
 

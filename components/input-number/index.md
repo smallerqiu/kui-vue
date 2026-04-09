@@ -16,3 +16,4 @@
 | prefix         | 前缀内容                                                   | String,slot   | -         |
 | controls       | 是否显示增减按钮                                           | Boolean       | true      |
 | clearable      | 是否显示清除按钮                                           | Boolean       | false     |
+| theme          | 组件呈现主题,默认'light'                                   | String        | light     |

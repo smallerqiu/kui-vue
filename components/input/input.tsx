@@ -10,7 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType
 } from "vue";
-import { type TypeBoolean, type TypeSize } from "../const/var";
+import { type BooleanType, type SizeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -18,12 +18,12 @@ import InputBox from "./input-box";
 import InputGroup from "./input-group";
 
 const inputProps = {
-  clearable: { type: Boolean as TypeBoolean, default: true },
-  visiblePasswordIcon: { type: Boolean as TypeBoolean, default: true },
-  size: { type: String as PropType<TypeSize> },
+  clearable: { type: Boolean as BooleanType, default: true },
+  visiblePasswordIcon: { type: Boolean as BooleanType, default: true },
+  size: { type: String as PropType<SizeType> },
   modelValue: { type: [String, Number, Array, Object] as PropType<any> },
   value: { type: [String, Number, Array, Object] as PropType<any> },
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   type: {
     type: String as PropType<
       "text" | "textarea" | "password" | "url" | "email" | "date" | "search" | "hidden"
@@ -50,7 +50,7 @@ export default defineComponent({
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();
-    const parentSize = inject<TypeSize | null>("size", null);
+    const parentSize = inject<SizeType | null>("size", null);
 
     provide("size", props.size || parentSize);
 
@@ -262,4 +262,4 @@ export default defineComponent({
       }
     };
   },
-}) //as DefineComponent<InputProps>;
+}) 

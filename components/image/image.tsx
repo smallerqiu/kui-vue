@@ -1,16 +1,16 @@
 import { IconImage, Loading } from "kui-icons";
 import {
-  type CSSProperties,
-  defineComponent,
-  type ExtractPropTypes,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  type PropType,
-  ref,
-  watch
+    type CSSProperties,
+    defineComponent,
+    type ExtractPropTypes,
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    type PropType,
+    ref,
+    watch
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import createInstance from "./instance";
 import type { ImagePreviewProps } from "./preview";
@@ -33,7 +33,7 @@ const imageProps = {
   placeholder: String,
   data: Array,
   imgStyle: Object as PropType<CSSProperties>,
-  showPanel: Boolean as TypeBoolean,
+  showPanel: Boolean as BooleanType,
 };
 
 export type ImageProps = ExtractPropTypes<typeof imageProps>;
@@ -193,6 +193,6 @@ const KImage = defineComponent({
       );
     };
   },
-}) //as DefineComponent<ImageProps>;
+}) 
 
 export default KImage;

@@ -1,14 +1,14 @@
 import { AlertCircle, Close, DocumentTextOutline } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
 import type { UploadFile } from "./index";
 
 export const uploadFileListProps = {
-  showUploadList: { type: Boolean as TypeBoolean, default: true },
+  showUploadList: { type: Boolean as BooleanType, default: true },
   locale: Object as PropType<any>,
   type: {
     type: String as PropType<"list" | "picture">,
@@ -16,7 +16,7 @@ export const uploadFileListProps = {
     validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
   },
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
 };
 
 export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
@@ -65,7 +65,7 @@ export default defineComponent({
                       <span class="k-upload-file-size">{item.size}</span>
                     </div>
                   ) : null}
-                  {item.status !== "wait" && (
+                  {item.status !== "waiting" && (
                     <div class="k-upload-file-status">
                       {item.status === "uploading" ? (
                         <Progress

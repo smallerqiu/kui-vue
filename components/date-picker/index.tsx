@@ -28,7 +28,7 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
+import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Icon from "../icon";
@@ -53,22 +53,22 @@ export const datePickerProps = {
     >,
     default: "date",
   },
-  presets: Array as PropType<Array<{ label: string; value: any }>>,
-  disabled: Boolean as TypeBoolean,
-  clearable: { type: Boolean as TypeBoolean, default: true },
-  editable: { type: Boolean as TypeBoolean, default: true },
+  presets: Array as PropType<{ label: string; value: any }[]>,
+  disabled: Boolean as BooleanType,
+  clearable: { type: Boolean as BooleanType, default: true },
+  editable: { type: Boolean as BooleanType, default: true },
   placeholder: { type: [String, Array] as PropType<string | string[]>, default: "" },
   format: { type: [String, Array] as PropType<string | string[]>, default: null },
   disabledDate: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
   disabledTime: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
-  size: { type: String as PropType<TypeSize>, default: "default" },
-  pickerSize: { type: String as PropType<TypeSize>, default: "default" },
+  size: { type: String as PropType<SizeType>, default: "default" },
+  pickerSize: { type: String as PropType<SizeType>, default: "default" },
   dateIcon: [Array, Object] as PropType<any>,
   theme: { type: String as PropType<string>, default: "light" },
   shape: String,
-  bordered: { type: Boolean as TypeBoolean, default: true },
+  bordered: { type: Boolean as BooleanType, default: true },
   placement: {
-    type: String as PropType<TypeDropPlacements>,
+    type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
 };

@@ -7,3 +7,4 @@
 | icon      | Tag icon                                                            | String   | -       |
 | close     | Callback event when tag is closed                                   | Function | -       |
 | size      | Button size, optional values `small`, `large`, default not selected | String   | -       |
+| theme     | The component renders the theme, defaulting to 'light'.             | String   | light   |

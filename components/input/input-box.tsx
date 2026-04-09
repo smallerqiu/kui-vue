@@ -1,16 +1,16 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 
 export const inputBoxProps = {
-  multiple: Boolean as TypeBoolean,
-  disabled: Boolean as TypeBoolean,
+  multiple: Boolean as BooleanType,
+  disabled: Boolean as BooleanType,
   size: String,
   type: String,
   theme: String,
   shape: String,
   inputType: String,
   value: [String, Number, Object] as PropType<string | number | any>,
-  showPassword: Boolean as TypeBoolean,
+  showPassword: Boolean as BooleanType,
   inputRef: Object as PropType<any>,
   htmlAttrs: { type: Object as PropType<any>, default: () => ({}) },
 };

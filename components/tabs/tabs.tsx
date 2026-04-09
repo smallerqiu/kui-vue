@@ -1,18 +1,18 @@
 import { ChevronBack, ChevronForward, Close } from "kui-icons";
 import {
-  cloneVNode,
-  defineComponent,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  ref,
-  watch,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType,
-  type VNode,
+    cloneVNode,
+    defineComponent,
+    nextTick,
+    onBeforeMount,
+    onMounted,
+    ref,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
+    type VNode,
 } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 import type { TabClickPayload, TabKey, TabsPaneLike } from "./types";
@@ -20,10 +20,10 @@ import type { TabClickPayload, TabKey, TabsPaneLike } from "./types";
 export const tabsProps = {
   modelValue: [String, Number] as PropType<TabKey>,
   value: [String, Number] as PropType<TabKey>,
-  card: Boolean as TypeBoolean,
-  sample: Boolean as TypeBoolean,
-  centered: Boolean as TypeBoolean,
-  animated: { type: Boolean as TypeBoolean, default: true },
+  card: Boolean as BooleanType,
+  sample: Boolean as BooleanType,
+  centered: Boolean as BooleanType,
+  animated: { type: Boolean as BooleanType, default: true },
 };
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>;

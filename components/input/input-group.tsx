@@ -1,21 +1,21 @@
 import {
-  cloneVNode,
-  defineComponent,
-  inject,
-  provide,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType,
+    cloneVNode,
+    defineComponent,
+    inject,
+    provide,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
 } from "vue";
-import { type TypeBoolean, type TypeSize } from "../const/var";
+import { type BooleanType, type SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 
 export const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
-  compact: Boolean as TypeBoolean,
+  compact: Boolean as BooleanType,
   theme: { type: String, default: "light" },
   size: {
-    type: [String, Array, Number] as PropType<TypeSize | number | number[]>,
+    type: [String, Array, Number] as PropType<SizeType | number | number[]>,
   },
 };
 
@@ -72,4 +72,4 @@ export default defineComponent({
       return <div {...rootProps}>{children}</div>;
     };
   },
-}); //as DefineComponent<InputGroupProps>;
+}); 

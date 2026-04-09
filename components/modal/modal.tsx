@@ -1,39 +1,39 @@
 import { Close } from "kui-icons";
 import {
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  ref,
-  Transition,
-  watch,
-  type ExtractPropTypes,
+    computed,
+    defineComponent,
+    inject,
+    nextTick,
+    onBeforeMount,
+    onMounted,
+    ref,
+    Transition,
+    watch,
+    type ExtractPropTypes,
 } from "vue";
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 
 export const modalProps = {
-  modelValue: Boolean as TypeBoolean,
+  modelValue: Boolean as BooleanType,
   title: String,
   okText: String,
   cancelText: String,
   top: Number,
   width: Number,
-  mask: { type: Boolean as TypeBoolean, default: true },
-  maskClosable: { type: Boolean as TypeBoolean, default: false },
-  maximized: Boolean as TypeBoolean,
-  centered: Boolean as TypeBoolean,
-  draggable: Boolean as TypeBoolean,
-  showClose: { type: Boolean as TypeBoolean, default: true },
-  loading: Boolean as TypeBoolean,
-  footer: String,
-  transfer: { type: Boolean as TypeBoolean, default: true },
-  escKey: { type: Boolean as TypeBoolean, default: true },
+  mask: { type: Boolean as BooleanType, default: true },
+  maskClosable: { type: Boolean as BooleanType, default: false },
+  maximized: Boolean as BooleanType,
+  centered: Boolean as BooleanType,
+  draggable: Boolean as BooleanType,
+  showClose: { type: Boolean as BooleanType, default: true },
+  loading: Boolean as BooleanType,
+  footer: { type: Boolean as BooleanType, default: true },
+  transfer: { type: Boolean as BooleanType, default: true },
+  escKey: { type: Boolean as BooleanType, default: true },
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
@@ -52,7 +52,7 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
-    const injectedLocale = inject<Record<string,any>>("locale", zhCN);
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
@@ -85,7 +85,7 @@ const Modal = defineComponent({
         toggle(nv);
       }
     );
-    const getOffset = (el:HTMLElement) => {
+    const getOffset = (el: HTMLElement) => {
       return el
         ? {
             left: el.offsetLeft,
@@ -193,7 +193,7 @@ const Modal = defineComponent({
       let okText = props.okText || locale.value?.k.common.ok;
       let cancelText = props.cancelText || locale.value?.k.common.cancel;
       //content
-      let contentNode:any = slots.content?.();
+      let contentNode: any = slots.content?.();
       if (!contentNode) {
         const contents = [];
         props.showClose &&
@@ -215,7 +215,7 @@ const Modal = defineComponent({
         contents.push(<div class="k-modal-body">{slots.default?.()}</div>);
 
         //footer
-        if (props.footer !== null) {
+        if (props.footer) {
           let footer = slots.footer?.();
           if (!footer) {
             footer = [

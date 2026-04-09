@@ -1,0 +1,5236 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+  "name": "kui-vue",
+  "version": "5.0.0",
+  "description-markup": "markdown",
+  "contributions": {
+    "html": {
+      "types-syntax": "typescript",
+      "tags": [
+        {
+          "name": "affix",
+          "source": {
+            "symbol": "Affix"
+          },
+          "description": "Kui Vue component: Affix",
+          "doc-url": "https://k-ui.cn/components/affix",
+          "attributes": [
+            {
+              "name": "offsetTop",
+              "description": "Triggered when the specified offset from the top of the window is reached",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "target",
+              "description": "Set the element whose scroll event the Affix needs to listen to. The value is a function that returns the corresponding DOM element",
+              "value": {
+                "type": "() => any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "offsetBottom",
+              "description": "Triggered when the specified offset from the bottom of the window is reached",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "alert",
+          "source": {
+            "symbol": "Alert"
+          },
+          "description": "Kui Vue component: Alert",
+          "doc-url": "https://k-ui.cn/components/alert",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Alert type, optional values are `success`, `info`, `warning`, `error` or not set",
+              "value": {
+                "type": "\"info\" | \"success\" | \"warning\" | \"error\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showIcon",
+              "description": "Whether to show the icon",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "closable",
+              "description": "Whether to show the close button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Custom icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "message",
+              "description": "Alert content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "description",
+              "description": "Auxiliary text introduction for the alert",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "bordered",
+              "description": "Whether to display the border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "anchor",
+          "source": {
+            "symbol": "Anchor"
+          },
+          "description": "Kui Vue component: Anchor",
+          "doc-url": "https://k-ui.cn/components/anchor",
+          "attributes": [
+            {
+              "name": "offsetTop",
+              "description": "Triggered when the distance from the top of the window reaches the specified offset",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "affix",
+              "description": "Fixed mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "bounds",
+              "description": "Boundary of the anchor area",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "container",
+              "description": "Specifies the scrolling container",
+              "value": {
+                "type": "string | Window | HTMLElement",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "anchor-link",
+          "source": {
+            "symbol": "AnchorLink"
+          },
+          "description": "Kui Vue component: AnchorLink",
+          "doc-url": "https://k-ui.cn/components/anchor-link",
+          "attributes": [
+            {
+              "name": "href",
+              "description": "Anchor link",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Text content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "avatar",
+          "source": {
+            "symbol": "Avatar"
+          },
+          "description": "Kui Vue component: Avatar",
+          "doc-url": "https://k-ui.cn/components/avatar",
+          "attributes": [
+            {
+              "name": "shape",
+              "description": "Specify the shape of the avatar: circle, square",
+              "value": {
+                "type": "\"circle\" | \"square\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Set the size of the avatar",
+              "value": {
+                "type": "number | \"default\" | \"large\" | \"small\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Set the icon type for the avatar",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "src",
+              "description": "Resource address for image avatar",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "avatar-group",
+          "source": {
+            "symbol": "AvatarGroup"
+          },
+          "description": "Kui Vue component: AvatarGroup",
+          "doc-url": "https://k-ui.cn/components/avatar-group",
+          "attributes": [
+            {
+              "name": "shape",
+              "description": "Specify the shape of the avatar: circle, square",
+              "value": {
+                "type": "\"circle\" | \"square\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Set the size of the avatar",
+              "value": {
+                "type": "number | \"default\" | \"large\" | \"small\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maxCount",
+              "description": "Maximum number of images to display",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "breadcrumb",
+          "source": {
+            "symbol": "Breadcrumb"
+          },
+          "description": "Kui Vue component: Breadcrumb",
+          "doc-url": "https://k-ui.cn/components/breadcrumb",
+          "attributes": [
+            {
+              "name": "separator",
+              "description": "Custom separator",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "breadcrumb-item",
+          "source": {
+            "symbol": "BreadcrumbItem"
+          },
+          "description": "Kui Vue component: BreadcrumbItem",
+          "doc-url": "https://k-ui.cn/components/breadcrumb-item",
+          "attributes": [
+            {
+              "name": "icon",
+              "description": "Button icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "href",
+              "description": "Props for href",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "back-top",
+          "source": {
+            "symbol": "BackTop"
+          },
+          "description": "Kui Vue component: BackTop",
+          "doc-url": "https://k-ui.cn/components/back-top",
+          "attributes": [
+            {
+              "name": "target",
+              "description": "The container that needs to scroll to the top",
+              "value": {
+                "type": "() => HTMLElement",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "height",
+              "description": "The BackTop component is displayed only when the page scroll height reaches this value",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "right",
+              "description": "The distance from the component to the right",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "bottom",
+              "description": "The distance from the component to the bottom",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "badge",
+          "source": {
+            "symbol": "Badge"
+          },
+          "description": "Kui Vue component: Badge",
+          "doc-url": "https://k-ui.cn/components/badge",
+          "attributes": [
+            {
+              "name": "maxCount",
+              "description": "Props for maxCount",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "status",
+              "description": "Props for status",
+              "value": {
+                "type": "\"default\" | \"success\" | \"warning\" | \"error\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "count",
+              "description": "The text to display",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dot",
+              "description": "Do not display the number, only a small red dot",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Badge color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "text",
+              "description": "Props for text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "button",
+          "source": {
+            "symbol": "Button"
+          },
+          "description": "Kui Vue component: Button",
+          "doc-url": "https://k-ui.cn/components/button",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Set the button type",
+              "value": {
+                "type": "ButtonType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "htmlType",
+              "description": "Set the native type value of the button",
+              "value": {
+                "type": "\"button\" | \"submit\" | \"reset\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "block",
+              "description": "Option to fit button width to its parent width",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Whether the button is in loading mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "target",
+              "description": "Equivalent to the target attribute of an a link, takes effect when href exists",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Button icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "href",
+              "description": "The address to jump to when clicked. Specifying this property makes the button behave like an a link",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "When shape=circle, presents a circular button",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Button size,",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Props for color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Disabled state of the button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "Button theme",
+              "value": {
+                "type": "ButtonTheme",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onClick",
+              "description": "Props for onClick",
+              "value": {
+                "type": "(e?: MouseEvent) => void",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "button-group",
+          "source": {
+            "symbol": "ButtonGroup"
+          },
+          "description": "Kui Vue component: ButtonGroup",
+          "doc-url": "https://k-ui.cn/components/button-group",
+          "attributes": [
+            {
+              "name": "shape",
+              "description": "When shape=circle, presents a circular button",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Button size,",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "card",
+          "source": {
+            "symbol": "Card"
+          },
+          "description": "Kui Vue component: Card",
+          "doc-url": "https://k-ui.cn/components/card",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Whether the card displays a border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Icon for the card title",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Card title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "carousel",
+          "source": {
+            "symbol": "Carousel"
+          },
+          "description": "Kui Vue component: Carousel",
+          "doc-url": "https://k-ui.cn/components/carousel",
+          "attributes": [
+            {
+              "name": "value",
+              "description": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loop",
+              "description": "Whether to enable loop",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "delay",
+              "description": "The time interval for auto-switching, in milliseconds",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "vertical",
+              "description": "Whether to display in vertical mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dots",
+              "description": "Props for dots",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "autoplay",
+              "description": "Whether to auto-switch",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "carousel-item",
+          "source": {
+            "symbol": "CarouselItem"
+          },
+          "description": "Kui Vue component: CarouselItem",
+          "doc-url": "https://k-ui.cn/components/carousel-item",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "checkbox",
+          "source": {
+            "symbol": "Checkbox"
+          },
+          "description": "Kui Vue component: Checkbox",
+          "doc-url": "https://k-ui.cn/components/checkbox",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checked",
+              "description": "Whether it is selected. Can use `v-model` for two-way binding",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether the component is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Used to set the currently selected value. Can use `v-model` for two-way binding",
+              "value": {
+                "type": "string | number | boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "string | number | boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "label",
+              "description": "The text to display",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "indeterminate",
+              "description": "Combined auxiliary option controls the indeterminate state",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(e: ChangeEvent) => void",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "checkbox-group",
+          "source": {
+            "symbol": "CheckboxGroup"
+          },
+          "description": "Kui Vue component: CheckboxGroup",
+          "doc-url": "https://k-ui.cn/components/checkbox-group",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "any[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "direction",
+              "description": "Layout direction, optional values `horizontal`, `vertical`",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether the component is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "options",
+              "description": "Can specify child `checkbox` items",
+              "value": {
+                "type": "any[]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "collapse",
+          "source": {
+            "symbol": "Collapse"
+          },
+          "description": "Kui Vue component: Collapse",
+          "doc-url": "https://k-ui.cn/components/collapse",
+          "attributes": [
+            {
+              "name": "openKeys",
+              "description": "The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding",
+              "value": {
+                "type": "(string | number)[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "accordion",
+              "description": "Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "sample",
+              "description": "Whether to enable simple mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "collapse-panel",
+          "source": {
+            "symbol": "CollapsePanel"
+          },
+          "description": "Kui Vue component: CollapsePanel",
+          "doc-url": "https://k-ui.cn/components/collapse-panel",
+          "attributes": [
+            {
+              "name": "title",
+              "description": "The title of the currently active panel",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "active",
+              "description": "Props for active",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "color-picker",
+          "source": {
+            "symbol": "ColorPicker"
+          },
+          "description": "Kui Vue component: ColorPicker",
+          "doc-url": "https://k-ui.cn/components/color-picker",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "transfer",
+              "description": "Props for transfer",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "Props for placement",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "trigger",
+              "description": "Props for trigger",
+              "value": {
+                "type": "\"hover\" | \"click\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mode",
+              "description": "Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)",
+              "value": {
+                "type": "ColorMode",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Props for value",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Color value, can use `v-model` for two-way binding",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabledAlpha",
+              "description": "Whether to disable transparency",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showText",
+              "description": "Props for showText",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "arrow",
+              "description": "Props for arrow",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "show",
+              "description": "Props for show",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "presets",
+              "description": "Custom color palette",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "date-picker",
+          "source": {
+            "symbol": "DatePicker"
+          },
+          "description": "Kui Vue component: DatePicker",
+          "doc-url": "https://k-ui.cn/components/date-picker",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Props for bordered",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Button size, optional values `small`, `large`",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When theme='light', presents a light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "Props for placement",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mode",
+              "description": "Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`",
+              "value": {
+                "type": "\"date\" | \"year\" | \"month\" | \"time\" | \"dateTime\" | \"dateRange\" | \"dateTimeRange\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "valueType",
+              "description": "Props for valueType",
+              "value": {
+                "type": "\"string\" | \"date\" | \"timestamp\" | \"unix\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "clearable",
+              "description": "Whether to show the clear icon",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "editable",
+              "description": "Whether it is editable",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placeholder",
+              "description": "Placeholder text",
+              "value": {
+                "type": "string | string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabledDate",
+              "description": "Disabled dates",
+              "value": {
+                "type": "(date: Date) => boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabledTime",
+              "description": "Disabled times",
+              "value": {
+                "type": "(date: Date) => boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "pickerSize",
+              "description": "Props for pickerSize",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "When shape='circle', presents rounded corners",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether the component is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Default time value",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "presets",
+              "description": "Props for presets",
+              "value": {
+                "type": "{ label: string; value: any; }[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "startDate",
+              "description": "Start time (value)",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "endDate",
+              "description": "End time (value)",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "format",
+              "description": "Set the date format. When an array, supports multiple format matches, displayed according to the first one. Configuration reference http://day.js.org/",
+              "value": {
+                "type": "string | string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dateIcon",
+              "description": "Custom icon",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "descriptions",
+          "source": {
+            "symbol": "Descriptions"
+          },
+          "description": "Kui Vue component: Descriptions",
+          "doc-url": "https://k-ui.cn/components/descriptions",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Set the size of the list. Can be set to middle, small",
+              "value": {
+                "type": "\"default\" | \"small\" | \"middle\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "column",
+              "description": "The number of DescriptionItems in one row",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "layout",
+              "description": "Description layout",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "bordered",
+              "description": "Whether to show the border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "The title of the description list, displayed at the very top",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "extra",
+              "description": "The operation area of the description list, displayed in the upper right corner",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "descriptions-item",
+          "source": {
+            "symbol": "DescriptionsItem"
+          },
+          "description": "Kui Vue component: DescriptionsItem",
+          "doc-url": "https://k-ui.cn/components/descriptions-item",
+          "attributes": [
+            {
+              "name": "span",
+              "description": "Props for span",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "type",
+              "description": "Props for type",
+              "value": {
+                "type": "\"label\" | \"content\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "bordered",
+              "description": "Whether to show the border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "label",
+              "description": "Description of the content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "layout",
+              "description": "Description layout",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "drawer",
+          "source": {
+            "symbol": "Drawer"
+          },
+          "description": "Kui Vue component: Drawer",
+          "doc-url": "https://k-ui.cn/components/drawer",
+          "attributes": [
+            {
+              "name": "target",
+              "description": "The parent element to display",
+              "value": {
+                "type": "() => HTMLElement",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "closable",
+              "description": "Whether to show the close button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Drawer title. When null or false, the title is not displayed",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "height",
+              "description": "Drawer height, used when `placement` is `top` or `bottom`, supports percentage",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Props for loading",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
+              "value": {
+                "type": "\"right\" | \"bottom\" | \"top\" | \"left\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Drawer width, used when `placement` is `left` or `right`, supports percentage",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "footer",
+              "description": "Footer content. Set `footer=null` to not display the footer",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maskClosable",
+              "description": "Props for maskClosable",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mask",
+              "description": "Whether to show the mask",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "escKey",
+              "description": "Props for escKey",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "okText",
+              "description": "OK button text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "cancelText",
+              "description": "Cancel button text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "dropdown",
+          "source": {
+            "symbol": "Dropdown"
+          },
+          "description": "Kui Vue component: Dropdown",
+          "doc-url": "https://k-ui.cn/components/dropdown",
+          "attributes": [
+            {
+              "name": "transfer",
+              "description": "Props for transfer",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "arrow",
+              "description": "Props for arrow",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "trigger",
+              "description": "Trigger method. Supports 3 methods: hover (default), click, custom",
+              "value": {
+                "type": "\"hover\" | \"click\" | \"contextmenu\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "target",
+              "description": "Props for target",
+              "value": {
+                "type": "Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "show",
+              "description": "Props for show",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dark",
+              "description": "Props for dark",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "dropdown-button",
+          "source": {
+            "symbol": "DropdownButton"
+          },
+          "description": "Kui Vue component: DropdownButton",
+          "doc-url": "https://k-ui.cn/components/dropdown-button",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Props for icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "Props for shape",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "arrow",
+              "description": "Props for arrow",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dark",
+              "description": "Props for dark",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "divider",
+          "source": {
+            "symbol": "Divider"
+          },
+          "description": "Kui Vue component: Divider",
+          "doc-url": "https://k-ui.cn/components/divider",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Horizontal or vertical type: horizontal vertical",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "orientation",
+              "description": "The position of the divider title : left right",
+              "value": {
+                "type": "\"right\" | \"left\" | \"center\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "text",
+              "description": "Divider text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dashed",
+              "description": "Whether it is a dashed line",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "empty",
+          "source": {
+            "symbol": "Empty"
+          },
+          "description": "Kui Vue component: Empty",
+          "doc-url": "https://k-ui.cn/components/empty",
+          "attributes": [
+            {
+              "name": "description",
+              "description": "Custom description content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "image",
+              "description": "Set the display image. When a string, it represents a custom image address",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "imageStyle",
+              "description": "Image style",
+              "value": {
+                "type": "CSSProperties",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "form",
+          "source": {
+            "symbol": "Form"
+          },
+          "description": "Kui Vue component: Form",
+          "doc-url": "https://k-ui.cn/components/form",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "layout",
+              "description": "Props for layout",
+              "value": {
+                "type": "DirectionType | \"inline\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rules",
+              "description": "Form validation rules",
+              "value": {
+                "type": "Record<string, FormRule[]>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "Props for shape",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "model",
+              "description": "Form data object",
+              "value": {
+                "type": "Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "name",
+              "description": "Form name, will be used as the id prefix for form fields",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "labelCol",
+              "description": "Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}",
+              "value": {
+                "type": "ColProps",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "wrapperCol",
+              "description": "Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12}",
+              "value": {
+                "type": "ColProps",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "form-item",
+          "source": {
+            "symbol": "FormItem"
+          },
+          "description": "Kui Vue component: FormItem",
+          "doc-url": "https://k-ui.cn/components/form-item",
+          "attributes": [
+            {
+              "name": "label",
+              "description": "Label text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "labelCol",
+              "description": "Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}",
+              "value": {
+                "type": "ColProps",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "wrapperCol",
+              "description": "Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12}",
+              "value": {
+                "type": "ColProps",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rules",
+              "description": "Form validation rules",
+              "value": {
+                "type": "unknown",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "prop",
+              "description": "Corresponds to the field in the form domain model. Required for form validation",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "flex",
+          "source": {
+            "symbol": "Flex"
+          },
+          "description": "Kui Vue component: Flex",
+          "doc-url": "https://k-ui.cn/components/flex",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Spacing size",
+              "value": {
+                "type": "number | SizeType | (string | number)[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "vertical",
+              "description": "Whether to display vertically",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "align",
+              "description": "Alignment method",
+              "value": {
+                "type": "\"center\" | \"start\" | \"flex-start\" | \"end\" | \"flex-end\" | \"baseline\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "justify",
+              "description": "Set the alignment of elements on the main axis",
+              "value": {
+                "type": "\"center\" | \"flex-start\" | \"flex-end\" | \"space-between\" | \"space-around\" | \"space-evenly\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "wrap",
+              "description": "Whether to wrap",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "grid",
+          "source": {
+            "symbol": "Grid"
+          },
+          "description": "Kui Vue component: Grid",
+          "doc-url": "https://k-ui.cn/components/grid",
+          "attributes": [
+            {
+              "name": "cols",
+              "description": "Set the number of grid columns. Supports numbers (equal division) or strings (e.g., 1fr 2fr)",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rows",
+              "description": "Set the number of grid rows or height. Default is auto",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "autoRows",
+              "description": "Implicit grid row height. Used in Bento layout or waterfall flow to set the base height.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "xGap",
+              "description": "Grid spacing (horizontal direction). Numeric type will automatically add px unit.",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "yGap",
+              "description": "Row spacing (vertical direction). Numeric type will automatically add px unit.",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "align",
+              "description": "Vertical alignment of child items within grid cells",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "justify",
+              "description": "Horizontal alignment of child items within grid cells.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "itemMinWidth",
+              "description": "Auto-fill mode. Set the minimum width of child items. Grid will automatically calculate the number of columns based on container width.",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "debug",
+              "description": "Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment.",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "grid-item",
+          "source": {
+            "symbol": "GridItem"
+          },
+          "description": "Kui Vue component: GridItem",
+          "doc-url": "https://k-ui.cn/components/grid-item",
+          "attributes": [
+            {
+              "name": "span",
+              "description": "Number of columns occupied. When set to 0, it will be completely hidden (display: none) at this breakpoint",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "offset",
+              "description": "Number of columns to offset to the left. Used to create whitespace without using blank placeholders.",
+              "value": {
+                "type": "number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rowSpan",
+              "description": "Number of rows occupied. Combined with the container's autoRows, asymmetric layouts can be achieved",
+              "value": {
+                "type": "string | number | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "suffix",
+              "description": "Fixed at the end. When set to true, the item will be forced to the end of the current row.",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "image-group",
+          "source": {
+            "symbol": "ImageGroup"
+          },
+          "description": "Kui Vue component: ImageGroup",
+          "doc-url": "https://k-ui.cn/components/image-group",
+          "attributes": [
+            {
+              "name": "data",
+              "description": "Image data",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "kimage",
+          "source": {
+            "symbol": "KImage"
+          },
+          "description": "Kui Vue component: KImage",
+          "doc-url": "https://k-ui.cn/components/kimage",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "icon",
+          "source": {
+            "symbol": "Icon"
+          },
+          "description": "Kui Vue component: Icon",
+          "doc-url": "https://k-ui.cn/components/icon",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Icon type. Follows the icon naming convention",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "The size of the icon, unit is px",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "The color of the icon",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onClick",
+              "description": "Props for onClick",
+              "value": {
+                "type": "(e: MouseEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "spin",
+              "description": "Whether to have rotation animation",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "strokeWidth",
+              "description": "The line thickness of the icon",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "input",
+          "source": {
+            "symbol": "Input"
+          },
+          "description": "Kui Vue component: Input",
+          "doc-url": "https://k-ui.cn/components/input",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Props for type",
+              "value": {
+                "type": "\"text\" | \"date\" | \"textarea\" | \"password\" | \"url\" | \"email\" | \"search\" | \"hidden\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When theme='light', presents a light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "clearable",
+              "description": "Whether to show the clear button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "visiblePasswordIcon",
+              "description": "Whether to show the toggle button or control password visibility",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "inputType",
+              "description": "Props for inputType",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Input box icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "Props for shape",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Bound value, can use `v-model` for two-way binding",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "suffix",
+              "description": "Extension suffix",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "prefix",
+              "description": "Extension prefix",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "input-group",
+          "source": {
+            "symbol": "InputGroup"
+          },
+          "description": "Kui Vue component: InputGroup",
+          "doc-url": "https://k-ui.cn/components/input-group",
+          "attributes": [
+            {
+              "name": "block",
+              "description": "Whether to inherit the parent width",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When theme='light', presents a light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+              "value": {
+                "type": "number | SizeType | number[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "compact",
+              "description": "Whether to use compact mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "text-area",
+          "source": {
+            "symbol": "TextArea"
+          },
+          "description": "Kui Vue component: TextArea",
+          "doc-url": "https://k-ui.cn/components/text-area",
+          "attributes": [
+            {
+              "name": "theme",
+              "description": "When theme='light', presents a light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Bound value, can use `v-model` for two-way binding",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "input-number",
+          "source": {
+            "symbol": "InputNumber"
+          },
+          "description": "Kui Vue component: InputNumber",
+          "doc-url": "https://k-ui.cn/components/input-number",
+          "attributes": [
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "min",
+              "description": "Minimum value",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "max",
+              "description": "Maximum value",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "step",
+              "description": "Step value for each change, can be a decimal",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "controls",
+              "description": "Whether to show increase/decrease buttons",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Props for icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Input box size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Props for value",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(value: number) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placeholder",
+              "description": "Props for placeholder",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "suffix",
+              "description": "Custom suffix",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "precision",
+              "description": "Numerical precision",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "formatter",
+              "description": "Specifies the format of the value displayed in the input box",
+              "value": {
+                "type": "(value: string | number) => string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "parser",
+              "description": "Specifies how to convert back from formatter to number, used with formatter",
+              "value": {
+                "type": "(value: string) => string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "readonly",
+              "description": "Props for readonly",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "content",
+          "source": {
+            "symbol": "Content"
+          },
+          "description": "Kui Vue component: Content",
+          "doc-url": "https://k-ui.cn/components/content",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "footer",
+          "source": {
+            "symbol": "Footer"
+          },
+          "description": "Kui Vue component: Footer",
+          "doc-url": "https://k-ui.cn/components/footer",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "header",
+          "source": {
+            "symbol": "Header"
+          },
+          "description": "Kui Vue component: Header",
+          "doc-url": "https://k-ui.cn/components/header",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "layout",
+          "source": {
+            "symbol": "Layout"
+          },
+          "description": "Kui Vue component: Layout",
+          "doc-url": "https://k-ui.cn/components/layout",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "sider",
+          "source": {
+            "symbol": "Sider"
+          },
+          "description": "Kui Vue component: Sider",
+          "doc-url": "https://k-ui.cn/components/sider",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "menu",
+          "source": {
+            "symbol": "Menu"
+          },
+          "description": "Kui Vue component: Menu",
+          "doc-url": "https://k-ui.cn/components/menu",
+          "attributes": [
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "openKeys",
+              "description": "Props for openKeys",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mode",
+              "description": "Menu type, supports three modes: vertical, horizontal, and inline",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "Theme color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "accordion",
+              "description": "Whether only one menu item can be expanded",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "items",
+              "description": "Menu data",
+              "value": {
+                "type": "MenuOptionsProps[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "inlineCollapsed",
+              "description": "Props for inlineCollapsed",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "menu-divider",
+          "source": {
+            "symbol": "MenuDivider"
+          },
+          "description": "Kui Vue component: MenuDivider",
+          "doc-url": "https://k-ui.cn/components/menu-divider",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "menu-group",
+          "source": {
+            "symbol": "MenuGroup"
+          },
+          "description": "Kui Vue component: MenuGroup",
+          "doc-url": "https://k-ui.cn/components/menu-group",
+          "attributes": [
+            {
+              "name": "title",
+              "description": "Group title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "menu-item",
+          "source": {
+            "symbol": "MenuItem"
+          },
+          "description": "Kui Vue component: MenuItem",
+          "doc-url": "https://k-ui.cn/components/menu-item",
+          "attributes": [
+            {
+              "name": "icon",
+              "description": "Item icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Group title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "key",
+              "description": "Unique identifier for item",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "isPopup",
+              "description": "Props for isPopup",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "sub-menu",
+          "source": {
+            "symbol": "SubMenu"
+          },
+          "description": "Kui Vue component: SubMenu",
+          "doc-url": "https://k-ui.cn/components/sub-menu",
+          "attributes": [
+            {
+              "name": "icon",
+              "description": "Item icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Group title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "key",
+              "description": "Unique identifier for item",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "isPopup",
+              "description": "Props for isPopup",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "modal",
+          "source": {
+            "symbol": "Modal"
+          },
+          "description": "Kui Vue component: Modal",
+          "doc-url": "https://k-ui.cn/components/modal",
+          "attributes": [
+            {
+              "name": "transfer",
+              "description": "Props for transfer",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "footer",
+              "description": "When `footer=false`, the bottom button is not displayed.",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maskClosable",
+              "description": "Props for maskClosable",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mask",
+              "description": "Props for mask",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "escKey",
+              "description": "Whether to support closing with Esc key",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showClose",
+              "description": "Props for showClose",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Dialog title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Props for loading",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "top",
+              "description": "Props for top",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Dialog width",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "okText",
+              "description": "OK button text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "cancelText",
+              "description": "Cancel button text",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maximized",
+              "description": "Whether the modal can be maximized, not available in confirm mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "centered",
+              "description": "Whether the window can be centered, not available in confirm mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "draggable",
+              "description": "Whether the modal can be dragged, not available in confirm mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "page",
+          "source": {
+            "symbol": "Page"
+          },
+          "description": "Kui Vue component: Page",
+          "doc-url": "https://k-ui.cn/components/page",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "When value is 'small', displays small size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When value is 'light', displays light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showTotal",
+              "description": "Props for showTotal",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "sizeData",
+              "description": "Props for sizeData",
+              "value": {
+                "type": "number[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "total",
+              "description": "Total data count",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "pageSize",
+              "description": "Props for pageSize",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "page",
+              "description": "Props for page",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showSizer",
+              "description": "Props for showSizer",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showElevator",
+              "description": "Props for showElevator",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "poptip",
+          "source": {
+            "symbol": "Poptip"
+          },
+          "description": "Kui Vue component: Poptip",
+          "doc-url": "https://k-ui.cn/components/poptip",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+              "value": {
+                "type": "PlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "trigger",
+              "description": "Trigger method, optional values: `hover` (hover) `click` (click)",
+              "value": {
+                "type": "\"hover\" | \"click\" | \"focus\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "show",
+              "description": "Whether to display",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dark",
+              "description": "Props for dark",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Displayed title",
+              "value": {
+                "type": "string | number | unknown[] | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "content",
+              "description": "Displayed main content",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Display width, defaults to content area size",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "popconfirm",
+          "source": {
+            "symbol": "Popconfirm"
+          },
+          "description": "Kui Vue component: Popconfirm",
+          "doc-url": "https://k-ui.cn/components/popconfirm",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+              "value": {
+                "type": "PlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Displayed title",
+              "value": {
+                "type": "string | number | unknown[] | Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "show",
+              "description": "Props for show",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Display width, defaults to content area size",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "okText",
+              "description": "Props for okText",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "cancelText",
+              "description": "Props for cancelText",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dark",
+              "description": "Props for dark",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "progress",
+          "source": {
+            "symbol": "Progress"
+          },
+          "description": "Kui Vue component: Progress",
+          "doc-url": "https://k-ui.cn/components/progress",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Progress bar type, provides three types: `line`, `circle`, `dashboard`",
+              "value": {
+                "type": "ProgressType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "When value is `small`, displays small size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "status",
+              "description": "Progress bar status, provides four types: `active`, `exception`, `success`, `normal`",
+              "value": {
+                "type": "ProgressStatus",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "strokeWidth",
+              "description": "Circular progress bar line width",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "percent",
+              "description": "Progress percentage",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "gapDegree",
+              "description": "Dashboard progress bar gap angle, can be 0 ~ 295",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "strokeLinecap",
+              "description": "Progress bar style",
+              "value": {
+                "type": "ProgressStroke",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showInfo",
+              "description": "Whether to show progress text",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Progress bar color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "format",
+              "description": "Custom progress bar text",
+              "value": {
+                "type": "(percent: number) => any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Circular progress bar canvas width, in px",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "strokeHeight",
+              "description": "Progress bar line height",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "radio",
+          "source": {
+            "symbol": "Radio"
+          },
+          "description": "Kui Vue component: Radio",
+          "doc-url": "https://k-ui.cn/components/radio",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Button size, optional values: `small`, `large`, default not selected",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Whether selected (v-model)",
+              "value": {
+                "type": "string | number | boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Props for icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "`button`'s theme property",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
+              "value": {
+                "type": "string | number | boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checked",
+              "description": "Whether selected",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "label",
+              "description": "Text prompt",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(e: ChangeEvent) => void",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "radio-button",
+          "source": {
+            "symbol": "RadioButton"
+          },
+          "description": "Kui Vue component: RadioButton",
+          "doc-url": "https://k-ui.cn/components/radio-button",
+          "attributes": [
+            {
+              "name": "shape",
+              "description": "`button`'s shape property, displays rounded corners",
+              "value": {
+                "type": "\"circle\" | \"square\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Button size, optional values: `small`, `large`, default not selected",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Whether selected (v-model)",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Props for icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "`button`'s theme property",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checked",
+              "description": "Whether selected",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "label",
+              "description": "Text prompt",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "radio-group",
+          "source": {
+            "symbol": "RadioGroup"
+          },
+          "description": "Kui Vue component: RadioGroup",
+          "doc-url": "https://k-ui.cn/components/radio-group",
+          "attributes": [
+            {
+              "name": "modelValue",
+              "description": "Whether selected (v-model)",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "direction",
+              "description": "Layout direction, optional values: `horizontal`, `vertical`",
+              "value": {
+                "type": "DirectionType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "type",
+              "description": "If using `options` to render children and children are `button`, need to specify `type=button`",
+              "value": {
+                "type": "\"button\" | \"radio\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "`button`'s shape property, displays rounded corners",
+              "value": {
+                "type": "\"circle\" | \"square\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Button size, optional values: `small`, `large`, default not selected",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "`button`'s theme property",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "options",
+              "description": "Can specify child `radio` items",
+              "value": {
+                "type": "RadioOption[]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "rate",
+          "source": {
+            "symbol": "Rate"
+          },
+          "description": "Kui Vue component: Rate",
+          "doc-url": "https://k-ui.cn/components/rate",
+          "attributes": [
+            {
+              "name": "count",
+              "description": "Total number of stars",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "allowClear",
+              "description": "Whether to allow clearing by clicking again",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Props for icon",
+              "value": {
+                "type": "IconType[] | ((index: number) => any)",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "number | SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Props for color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Read-only, cannot interact",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "allowHalf",
+              "description": "Whether to allow half selection",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showScore",
+              "description": "Whether to show score",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "tooltips",
+              "description": "Custom prompt information for each item",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "character",
+              "description": "Custom character",
+              "value": {
+                "type": "string | ((index: number) => any)",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "option",
+          "source": {
+            "symbol": "Option"
+          },
+          "description": "Kui Vue component: Option",
+          "doc-url": "https://k-ui.cn/components/option",
+          "attributes": [
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Option value, used for filtering by default, required",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checked",
+              "description": "Props for checked",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "label",
+              "description": "Option display content",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "active",
+              "description": "Props for active",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "multiple",
+              "description": "Whether to display in multiple selection mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "select",
+          "source": {
+            "symbol": "Select"
+          },
+          "description": "Kui Vue component: Select",
+          "doc-url": "https://k-ui.cn/components/select",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Whether to show border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Component size, provides two sizes: `small`, `large`, default is normal",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When theme='light', displays light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "Props for placement",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "clearable",
+              "description": "Whether options can be cleared",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showArrow",
+              "description": "Whether to show dropdown button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Custom icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "When shape='circle', displays rounded corners",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "block",
+              "description": "Props for block",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Whether to show asynchronous loading",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Option value, used for filtering by default, required",
+              "value": {
+                "type": "string | number | any[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "string | number | any[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(value: string | number | any[]) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "options",
+              "description": "options data, if set, no need to manually construct Option nodes",
+              "value": {
+                "type": "SelectOption[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placeholder",
+              "description": "Default text of selector",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Component width",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "multiple",
+              "description": "Whether to display in multiple selection mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maxTagCount",
+              "description": "Maximum number of tags to display, excess shown with ellipsis",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "filterable",
+              "description": "Props for filterable",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "emptyText",
+              "description": "Prompt displayed when no data",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loadingText",
+              "description": "Props for loadingText",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "arrowIcon",
+              "description": "Props for arrowIcon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSearch",
+              "description": "Props for onSearch",
+              "value": {
+                "type": "(e: InputEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSelect",
+              "description": "Props for onSelect",
+              "value": {
+                "type": "(option: SelectOption) => void",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "config-provider",
+          "source": {
+            "symbol": "ConfigProvider"
+          },
+          "description": "Kui Vue component: ConfigProvider",
+          "doc-url": "https://k-ui.cn/components/config-provider",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "skeleton",
+          "source": {
+            "symbol": "Skeleton"
+          },
+          "description": "Kui Vue component: Skeleton",
+          "doc-url": "https://k-ui.cn/components/skeleton",
+          "attributes": [
+            {
+              "name": "title",
+              "description": "Props for title",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "delay",
+              "description": "Debounce (animation delay closing)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rows",
+              "description": "Set the number of paragraph placeholder lines",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "Specify the shape of the button",
+              "value": {
+                "type": "shape",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Image width (height)",
+              "value": {
+                "type": "number | number[] | size",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "block",
+              "description": "Option to adjust button width to its parent width",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "When true, show placeholder. Otherwise directly display child components",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Text width",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "animated",
+              "description": "Whether to show animation effect",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "radius",
+              "description": "Specify the border radius of the image",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "avatar",
+              "description": "Whether to show avatar placeholder",
+              "value": {
+                "type": "boolean | { size: size; shape: shape; }",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "skeleton-avatar",
+          "source": {
+            "symbol": "SkeletonAvatar"
+          },
+          "description": "Kui Vue component: SkeletonAvatar",
+          "doc-url": "https://k-ui.cn/components/skeleton-avatar",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "skeleton-button",
+          "source": {
+            "symbol": "SkeletonButton"
+          },
+          "description": "Kui Vue component: SkeletonButton",
+          "doc-url": "https://k-ui.cn/components/skeleton-button",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "skeleton-image",
+          "source": {
+            "symbol": "SkeletonImage"
+          },
+          "description": "Kui Vue component: SkeletonImage",
+          "doc-url": "https://k-ui.cn/components/skeleton-image",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "skeleton-text",
+          "source": {
+            "symbol": "SkeletonText"
+          },
+          "description": "Kui Vue component: SkeletonText",
+          "doc-url": "https://k-ui.cn/components/skeleton-text",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "stat-card",
+          "source": {
+            "symbol": "StatCard"
+          },
+          "description": "Kui Vue component: StatCard",
+          "doc-url": "https://k-ui.cn/components/stat-card",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Props for bordered",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "precision",
+              "description": "Numerical precision",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "items",
+              "description": "Data to display",
+              "value": {
+                "type": "StatNumberItem[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Card title",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "separator",
+              "description": "Separator",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "reverse",
+              "description": "Whether to reverse number/number description arrangement",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "statNumberType",
+              "description": "Numerical change type",
+              "value": {
+                "type": "\"rollup\" | \"countup\"",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "stat-number",
+          "source": {
+            "symbol": "StatNumber"
+          },
+          "description": "Kui Vue component: StatNumber",
+          "doc-url": "https://k-ui.cn/components/stat-number",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Numerical change type",
+              "value": {
+                "type": "\"rollup\" | \"countup\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "precision",
+              "description": "Numerical precision",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "duration",
+              "description": "Numerical dynamic display time (seconds)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "separator",
+              "description": "Separator",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "suffix",
+              "description": "Suffix content of numerical value",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix content of numerical value",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "slider",
+          "source": {
+            "symbol": "Slider"
+          },
+          "description": "Kui Vue component: Slider",
+          "doc-url": "https://k-ui.cn/components/slider",
+          "attributes": [
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "number | number[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "min",
+              "description": "Minimum value",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "max",
+              "description": "Maximum value",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "step",
+              "description": "Step size, must be greater than 0 and divisible by (max - min)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "included",
+              "description": "Effective when marks is not empty object, true means inclusive relationship, false means parallel",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "number | \"small\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "reverse",
+              "description": "Props for reverse",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether the slider is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "vertical",
+              "description": "Whether to set direction to vertical",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "range",
+              "description": "Whether to support sliding on both sides simultaneously",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "marks",
+              "description": "Scale marks, key type must be number and value in closed interval [min, max]",
+              "value": {
+                "type": "Record<number, string>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "tipFormatter",
+              "description": "Set Tooltip display format, defaults to current value",
+              "value": {
+                "type": "Function",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "tooltipVisible",
+              "description": "When true, Tooltip will always display; otherwise never display, even when dragging and hovering",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "space",
+          "source": {
+            "symbol": "Space"
+          },
+          "description": "Kui Vue component: Space",
+          "doc-url": "https://k-ui.cn/components/space",
+          "attributes": [
+            {
+              "name": "wrap",
+              "description": "Whether to wrap",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Spacing size",
+              "value": {
+                "type": "number | SizeType | number[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "block",
+              "description": "Option to adjust width to parent element width",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "vertical",
+              "description": "Whether to display vertically",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "align",
+              "description": "Alignment method",
+              "value": {
+                "type": "\"center\" | \"start\" | \"end\" | \"baseline\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "compact",
+              "description": "Whether to use compact mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "spin",
+          "source": {
+            "symbol": "Spin"
+          },
+          "description": "Kui Vue component: Spin",
+          "doc-url": "https://k-ui.cn/components/spin",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Set loading effect size",
+              "value": {
+                "type": "\"default\" | \"large\" | \"small\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "delay",
+              "description": "Delay time to display loading effect (prevent flickering)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Whether loading state, can use `v-model` for two-way binding",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "mode",
+              "description": "Display spin type, provides 4 display methods",
+              "value": {
+                "type": "\"bounce\" | \"flip\" | \"rotate\" | \"zoom\"",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "kswitch",
+          "source": {
+            "symbol": "KSwitch"
+          },
+          "description": "Kui Vue component: KSwitch",
+          "doc-url": "https://k-ui.cn/components/kswitch",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "table",
+          "source": {
+            "symbol": "Table"
+          },
+          "description": "Kui Vue component: Table",
+          "doc-url": "https://k-ui.cn/components/table",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Whether to display borders",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Display compact mode when the value is `small`",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "data",
+              "description": "Structured data to be displayed",
+              "value": {
+                "type": "unknown[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "columns",
+              "description": "Configuration description of table columns",
+              "value": {
+                "type": "Column[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "selectedKeys",
+              "description": "Props for selectedKeys",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabledKeys",
+              "description": "Props for disabledKeys",
+              "value": {
+                "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "rowKey",
+              "description": "Basis for selection",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "scroll",
+              "description": "Props for scroll",
+              "value": {
+                "type": "{ x?: string | number; y?: string | number; }",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Table asynchronous loading mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "emptyText",
+              "description": "Prompt displayed when there is no data",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checkable",
+              "description": "Whether to show checkboxes",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "tooltip",
+          "source": {
+            "symbol": "Tooltip"
+          },
+          "description": "Kui Vue component: Tooltip",
+          "doc-url": "https://k-ui.cn/components/tooltip",
+          "attributes": [
+            {
+              "name": "placement",
+              "description": "Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
+              "value": {
+                "type": "PlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Displayed title",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Props for size",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Background color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Props for disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "show",
+              "description": "Props for show",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Display width, defaults to content area size",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "dark",
+              "description": "Props for dark",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "tab-panel",
+          "source": {
+            "symbol": "TabPanel"
+          },
+          "description": "Kui Vue component: TabPanel",
+          "doc-url": "https://k-ui.cn/components/tab-panel",
+          "attributes": [
+            {
+              "name": "closable",
+              "description": "Whether tab shows close button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Icon displayed in tab header",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Text displayed in tab header",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether tab is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "activeKey",
+              "description": "Props for activeKey",
+              "value": {
+                "type": "TabKey",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "tabs",
+          "source": {
+            "symbol": "Tabs"
+          },
+          "description": "Kui Vue component: Tabs",
+          "doc-url": "https://k-ui.cn/components/tabs",
+          "attributes": [
+            {
+              "name": "animated",
+              "description": "Whether to use animation to switch Tabs",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "card",
+              "description": "Whether tab style is card style",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Props for value",
+              "value": {
+                "type": "TabKey",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "TabKey",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "sample",
+              "description": "Whether tab style is simple style",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "centered",
+              "description": "Props for centered",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "time-line",
+          "source": {
+            "symbol": "TimeLine"
+          },
+          "description": "Kui Vue component: TimeLine",
+          "doc-url": "https://k-ui.cn/components/time-line",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "time-line-item",
+          "source": {
+            "symbol": "TimeLineItem"
+          },
+          "description": "Kui Vue component: TimeLineItem",
+          "doc-url": "https://k-ui.cn/components/time-line-item",
+          "attributes": [],
+          "events": []
+        },
+        {
+          "name": "tree",
+          "source": {
+            "symbol": "Tree"
+          },
+          "description": "Kui Vue component: Tree",
+          "doc-url": "https://k-ui.cn/components/tree",
+          "attributes": [
+            {
+              "name": "showIcon",
+              "description": "Whether to show icons",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "multiple",
+              "description": "Whether to support multiple selection",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showExtra",
+              "description": "Whether to show extension elements by default",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "data",
+              "description": "Array of nestable node properties, data to generate `tree`",
+              "value": {
+                "type": "TreeNode[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "draggable",
+              "description": "Whether it can be dragged",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "selectedKeys",
+              "description": "Selected nodes",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checkable",
+              "description": "Whether to show checkbox",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "expandedKeys",
+              "description": "Specify expanded nodes",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checkedKeys",
+              "description": "Tree nodes with checked checkboxes",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "directory",
+              "description": "Props for directory",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "expandAll",
+              "description": "Props for expandAll",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showLine",
+              "description": "Whether to show connecting lines",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "checkStrictly",
+              "description": "In checkable state, node selection is completely controlled (parent-child node selection state no longer related)",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "selectAsCheck",
+              "description": "Props for selectAsCheck",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "queryKey",
+              "description": "Props for queryKey",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "tree-select",
+          "source": {
+            "symbol": "TreeSelect"
+          },
+          "description": "Kui Vue component: TreeSelect",
+          "doc-url": "https://k-ui.cn/components/tree-select",
+          "attributes": [
+            {
+              "name": "bordered",
+              "description": "Whether to show border",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Component size, provides two sizes: `small`, `large`, default is normal",
+              "value": {
+                "type": "SizeType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "When theme='light', displays light theme",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placement",
+              "description": "Props for placement",
+              "value": {
+                "type": "DropPlacementsType",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "clearable",
+              "description": "Whether options can be cleared",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showArrow",
+              "description": "Whether to show dropdown button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeShowIcon",
+              "description": "Props for treeShowIcon",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Custom icon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "When shape='circle', displays rounded corners",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "block",
+              "description": "Props for block",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "loading",
+              "description": "Asynchronous loading state",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether current item is disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "value",
+              "description": "Specify the `value` of the selected item, can use `v-model` for two-way binding",
+              "value": {
+                "type": "TreeSelectValue",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "modelValue",
+              "description": "Props for modelValue",
+              "value": {
+                "type": "TreeSelectValue",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "options",
+              "description": "Props for options",
+              "value": {
+                "type": "unknown[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "placeholder",
+              "description": "Default text of selector",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "width",
+              "description": "Component width",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "multiple",
+              "description": "Whether to display in multiple selection mode",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maxTagCount",
+              "description": "Props for maxTagCount",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "filterable",
+              "description": "Props for filterable",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "emptyText",
+              "description": "Prompt displayed when no data",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "arrowIcon",
+              "description": "Props for arrowIcon",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeData",
+              "description": "Array of nestable node properties, data to generate `tree`",
+              "value": {
+                "type": "TreeNode[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeCheckable",
+              "description": "Whether to show checkbox",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeShowLine",
+              "description": "Props for treeShowLine",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeCheckStrictly",
+              "description": "Props for treeCheckStrictly",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeExpandedKeys",
+              "description": "Specify expanded nodes",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeCheckedKeys",
+              "description": "Props for treeCheckedKeys",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeSelectedKeys",
+              "description": "Props for treeSelectedKeys",
+              "value": {
+                "type": "TreeKey[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "treeExpandedAll",
+              "description": "Props for treeExpandedAll",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "tag",
+          "source": {
+            "symbol": "Tag"
+          },
+          "description": "Kui Vue component: Tag",
+          "doc-url": "https://k-ui.cn/components/tag",
+          "attributes": [
+            {
+              "name": "size",
+              "description": "Button size, optional values `small`, `large`, default not selected",
+              "value": {
+                "type": "\"large\" | \"small\" | \"middle\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "theme",
+              "description": "The component renders the theme, defaulting to 'light'.",
+              "value": {
+                "type": "\"light\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "icon",
+              "description": "Tag icon",
+              "value": {
+                "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "shape",
+              "description": "Props for shape",
+              "value": {
+                "type": "\"circle\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "Tag color",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "closeable",
+              "description": "Whether to show close button",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "col",
+          "source": {
+            "symbol": "Col"
+          },
+          "description": "Kui Vue component: Col",
+          "doc-url": "https://k-ui.cn/components/col",
+          "attributes": [
+            {
+              "name": "span",
+              "description": "Number of grid columns occupied, can be integer from 0~24",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "offset",
+              "description": "Number of grid columns to offset left, can be integer from 1~24",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "flex",
+              "description": "Flex layout fill",
+              "value": {
+                "type": "string | number",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "row",
+          "source": {
+            "symbol": "Row"
+          },
+          "description": "Kui Vue component: Row",
+          "doc-url": "https://k-ui.cn/components/row",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Layout mode, optional flex, effective in modern browsers",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "align",
+              "description": "Vertical alignment in flex layout: `top` `middle` `bottom`",
+              "value": {
+                "type": "\"bottom\" | \"middle\" | \"top\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "justify",
+              "description": "Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`",
+              "value": {
+                "type": "\"center\" | \"start\" | \"end\" | \"space-between\" | \"space-around\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "gutter",
+              "description": "Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing]",
+              "value": {
+                "type": "number | [number, number]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        },
+        {
+          "name": "upload",
+          "source": {
+            "symbol": "Upload"
+          },
+          "description": "Kui Vue component: Upload",
+          "doc-url": "https://k-ui.cn/components/upload",
+          "attributes": [
+            {
+              "name": "type",
+              "description": "Props for type",
+              "value": {
+                "type": "\"list\" | \"picture\"",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "name",
+              "description": "File parameter name sent to backend, default `file`",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "data",
+              "description": "Other parameters that may be required for upload",
+              "value": {
+                "type": "Record<string, any>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "method",
+              "description": "HTTP method for upload request",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "action",
+              "description": "Upload address",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "showUploadList",
+              "description": "Whether to show upload list",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "fileList",
+              "description": "Uploaded file list",
+              "value": {
+                "type": "UploadFile[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "autoTrigger",
+              "description": "Whether to auto upload",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Whether disabled",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "draggable",
+              "description": "Whether to support drag and drop upload",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "multiple",
+              "description": "Whether to support multiple file selection",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "directory",
+              "description": "Whether to support directory upload",
+              "value": {
+                "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "accept",
+              "description": "Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "headers",
+              "description": "Set upload request headers",
+              "value": {
+                "type": "Record<string, string>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "transformFile",
+              "description": "Transform file before uploading. Supports returning a Promise object",
+              "value": {
+                "type": "(file: File) => File | Promise<File>",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "limit",
+              "description": "Maximum number of files allowed to upload",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "minSize",
+              "description": "Minimum file size unit for upload (KB)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "maxSize",
+              "description": "Maximum file size unit for upload (KB)",
+              "value": {
+                "type": "number",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "uploadText",
+              "description": "Auxiliary text for upload area",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "uploadSubText",
+              "description": "Secondary auxiliary text for upload area",
+              "value": {
+                "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "uploadIcon",
+              "description": "Auxiliary icon for upload area",
+              "value": {
+                "type": "IconType[]",
+                "kind": "expression"
+              }
+            }
+          ],
+          "events": []
+        }
+      ]
+    }
+  }
+}

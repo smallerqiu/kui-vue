@@ -1,29 +1,29 @@
 import {
-  cloneVNode,
-  type CSSProperties,
-  defineComponent,
-  type ExtractPropTypes,
-  getCurrentInstance,
-  inject,
-  nextTick,
-  onMounted,
-  type PropType,
-  provide,
-  type Ref,
-  ref,
-  Transition,
+    cloneVNode,
+    type CSSProperties,
+    defineComponent,
+    type ExtractPropTypes,
+    getCurrentInstance,
+    inject,
+    nextTick,
+    onMounted,
+    type PropType,
+    provide,
+    type Ref,
+    ref,
+    Transition,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const submenuProps = {
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   title: String,
-  isPopup: Boolean as TypeBoolean,
+  isPopup: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
   key: String,
 };

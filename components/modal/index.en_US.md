@@ -15,6 +15,7 @@
 | cancel        | Callback when Cancel is clicked                                             | Function       | -       |
 | close         | Callback when window closes                                                 | Function       | -       |
 | escKey        | Whether to support closing with Esc key                                     | Boolean        | true    |
+| footer        | When `footer=false`, the bottom button is not displayed.                    | Boolean,Slot   | true    |
 
 ## Modal.method()
 

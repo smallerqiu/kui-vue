@@ -20,18 +20,18 @@ import {
   Transition,
   watch,
 } from "vue";
-import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
+import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 type ColorMode = "hex" | "rgb" | "hsl";
 export const colorPickerProps = {
   modelValue: String,
   value: String,
-  transfer: { type: Boolean as TypeBoolean, default: true },
-  disabled: Boolean as TypeBoolean,
-  disabledAlpha: Boolean as TypeBoolean,
-  showText: Boolean as TypeBoolean,
-  arrow: Boolean as TypeBoolean,
+  transfer: { type: Boolean as BooleanType, default: true },
+  disabled: Boolean as BooleanType,
+  disabledAlpha: Boolean as BooleanType,
+  showText: Boolean as BooleanType,
+  arrow: Boolean as BooleanType,
   placement: {
-    type: String as PropType<TypeDropPlacements>,
+    type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
   trigger: {
@@ -39,14 +39,14 @@ export const colorPickerProps = {
     default: "click",
   },
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   mode: {
     type: String as PropType<ColorMode>,
     default: "hex",
   },
-  show: Boolean as TypeBoolean,
+  show: Boolean as BooleanType,
   presets: {
     type: Array as PropType<string[]>,
   },

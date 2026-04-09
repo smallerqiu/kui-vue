@@ -15,6 +15,7 @@
 | cancel        | 点击取消的回调                                | Function       | -      |
 | close         | 窗口关闭的回调                                | Function       | -      |
 | escKey        | 是否支持按 Esc 关闭                           | Boolean        | true   |
+| footer        | 当`footer=false`时不展示底部按钮              | Boolean,Slot   | true   |
 
 ## Modal.method()
 

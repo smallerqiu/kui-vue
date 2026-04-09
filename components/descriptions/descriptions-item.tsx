@@ -1,12 +1,12 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, DirectionType } from "../const/types";
 
 export const descriptionsItemProps = {
   label: String,
   span: { type: Number, default: 1 },
   type: String as PropType<"label" | "content">,
-  bordered: Boolean as TypeBoolean,
-  layout: String as PropType<"horizontal" | "vertical">,
+  bordered: Boolean as BooleanType,
+  layout: String as PropType<DirectionType>,
 };
 
 export type DescriptionsItemProps = ExtractPropTypes<typeof descriptionsItemProps>;

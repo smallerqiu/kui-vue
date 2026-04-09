@@ -1,37 +1,37 @@
 import {
-  Add,
-  ArrowBack,
-  ArrowDown,
-  ArrowForward,
-  ChevronBack,
-  ChevronForward,
-  ChevronUp,
-  Close,
-  IconImage,
-  Loading,
-  Remove,
-  RotateLeft,
-  RotateRight,
+    Add,
+    ArrowBack,
+    ArrowDown,
+    ArrowForward,
+    ChevronBack,
+    ChevronForward,
+    ChevronUp,
+    Close,
+    IconImage,
+    Loading,
+    Remove,
+    RotateLeft,
+    RotateRight,
 } from "kui-icons";
 import {
-  type CSSProperties,
-  defineComponent,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  type PropType,
-  reactive,
-  ref,
-  toRefs,
-  Transition,
-  watch,
+    type CSSProperties,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    type PropType,
+    reactive,
+    ref,
+    toRefs,
+    Transition,
+    watch,
 } from "vue";
 import { Button } from "../button";
 import Icon from "../icon";
 import Slider from "../slider";
 import { getChildren } from "../utils/vnode";
 
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType } from "../const/types";
 import { getPosition } from "../utils/mouse";
 import { loadImage } from "./utils";
 
@@ -50,10 +50,10 @@ const ImagePreview = defineComponent({
     type: String,
     src: String,
     origin: String,
-    hasControl: Boolean as TypeBoolean,
-    value: Boolean as TypeBoolean,
+    hasControl: Boolean as BooleanType,
+    value: Boolean as BooleanType,
     data: { type: Array as PropType<string[]>, default: () => [] },
-    showPanel: Boolean as TypeBoolean,
+    showPanel: Boolean as BooleanType,
   },
   setup(props, { emit, slots, expose }) {
     const { value, type, src, origin, showPanel, data } = toRefs(props);

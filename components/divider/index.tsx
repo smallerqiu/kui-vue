@@ -1,13 +1,13 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean } from "../const/var";
+import type { BooleanType, DirectionType } from "../const/types";
 
 export const dividerProps = {
   type: {
-    type: String as PropType<"horizontal" | "vertical">,
+    type: String as PropType<DirectionType>,
     default: "horizontal",
   },
   text: String,
-  dashed: Boolean as TypeBoolean,
+  dashed: Boolean as BooleanType,
   orientation: {
     type: String as PropType<"left" | "right" | "center">,
     default: "center",

@@ -1,15 +1,15 @@
 import Big from "big.js";
 import { ChevronDown, ChevronUp } from "kui-icons";
 import {
-  computed,
-  defineComponent,
-  inject,
-  ref,
-  watch,
-  type ExtractPropTypes,
-  type PropType
+    computed,
+    defineComponent,
+    inject,
+    ref,
+    watch,
+    type ExtractPropTypes,
+    type PropType
 } from "vue";
-import { type TypeBoolean, type TypeSize } from "../const/var";
+import { type BooleanType, type SizeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
@@ -23,15 +23,15 @@ export const inputNumberProps = {
   precision: Number,
   formatter: Function as PropType<(value: string | number) => string>,
   parser: Function as PropType<(value: string) => string | number>,
-  disabled: Boolean as TypeBoolean,
-  readonly: Boolean as TypeBoolean,
-  controls: { type: Boolean as TypeBoolean, default: true },
+  disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
+  controls: { type: Boolean as BooleanType, default: true },
   suffix: String,
   prefix: String,
   theme: { type: String, default: "light" },
   icon: [Array] as PropType<IconType[]>,
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
   },
   placeholder: String,
   onChange: Function as PropType<(value: undefined | number) => void>,
@@ -46,7 +46,7 @@ const InputNumber = defineComponent({
   emits: ["update:modelValue", "change", "blur"],
 
   setup(props, { slots, attrs, emit }) {
-    const parentSize = inject<TypeSize>("size");
+    const parentSize = inject<SizeType>("size");
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
 
@@ -192,6 +192,6 @@ const InputNumber = defineComponent({
       );
     };
   },
-}) //as DefineComponent<InputNumberProps>;
+}) 
 
 export default InputNumber;

@@ -68,5 +68,5 @@ const ImageGroup = defineComponent({
       return <div class="k-image-group">{slots.default?.()}</div>;
     };
   },
-}) //as DefineComponent<ImageGroupProps>;
+}) 
 export default ImageGroup;

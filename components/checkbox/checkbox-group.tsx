@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { TypeBoolean, TypeSize } from "../const/var";
+import type { BooleanType, DirectionType, SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
 
@@ -9,14 +9,14 @@ const checkboxGroupProps = {
     default: () => [],
   },
   theme: { type: String, default: "light" },
-  disabled: Boolean as TypeBoolean,
+  disabled: Boolean as BooleanType,
   options: Array as PropType<any[]>,
   direction: {
-    type: String as PropType<"horizontal" | "vertical">,
+    type: String as PropType<DirectionType>,
     default: "horizontal",
   },
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
     default: "default",
   },
 };
@@ -104,4 +104,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<CheckboxGroupProps>;
+}) 

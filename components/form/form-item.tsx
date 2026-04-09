@@ -16,6 +16,7 @@ import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
+import type { DirectionType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
 interface FormContext {
@@ -23,7 +24,7 @@ interface FormContext {
   rules?: Record<string, FormRule[]>;
   register?: (item: any) => void;
   unregister?: (item: any) => void;
-  layout?: "inline" | "horizontal" | "vertical";
+  layout?: "inline" | DirectionType;
   name?: string;
   size?: "large" | "small";
   shape?: "square" | "round" | "circle";
@@ -283,4 +284,4 @@ export default defineComponent({
       );
     };
   },
-}) //as DefineComponent<FormItemProps>;
+}) 

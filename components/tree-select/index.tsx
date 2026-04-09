@@ -1,20 +1,20 @@
 import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  ref,
-  Transition,
-  watch,
-  type CSSProperties,
-  type ExtractPropTypes,
-  type PropType,
-  type VNodeChild
+    computed,
+    defineComponent,
+    inject,
+    nextTick,
+    onBeforeMount,
+    onMounted,
+    ref,
+    Transition,
+    watch,
+    type CSSProperties,
+    type ExtractPropTypes,
+    type PropType,
+    type VNodeChild
 } from "vue";
-import type { TypeBoolean, TypeDropPlacements, TypeSize } from "../const/var";
+import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Empty from "../empty";
@@ -43,25 +43,25 @@ interface SearchEventTarget extends EventTarget {
 export const treeSelectProps = {
   placeholder: String,
   size: {
-    type: String as PropType<TypeSize>,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   placement: {
-    type: String as PropType<TypeDropPlacements>,
+    type: String as PropType<DropPlacementsType>,
     default: "bottom-left", 
   },
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<TreeSelectValue>,
   value: [String, Number, Array] as PropType<TreeSelectValue>,
-  clearable: { type: Boolean as TypeBoolean, default: true },
-  filterable: Boolean as TypeBoolean,
-  block: Boolean as TypeBoolean,
-  disabled: Boolean as TypeBoolean,
-  multiple: Boolean as TypeBoolean,
-  loading: Boolean as TypeBoolean,
-  bordered: { type: Boolean as TypeBoolean, default: true },
-  showArrow: { type: Boolean as TypeBoolean, default: true },
+  clearable: { type: Boolean as BooleanType, default: true },
+  filterable: Boolean as BooleanType,
+  block: Boolean as BooleanType,
+  disabled: Boolean as BooleanType,
+  multiple: Boolean as BooleanType,
+  loading: Boolean as BooleanType,
+  bordered: { type: Boolean as BooleanType, default: true },
+  showArrow: { type: Boolean as BooleanType, default: true },
   options: Array,
   theme: { type: String, default: "light" },
   emptyText: String,
@@ -69,14 +69,14 @@ export const treeSelectProps = {
   shape: String,
   arrowIcon: [Array] as PropType<IconType[]>,
   treeData: Array as PropType<TreeNode[]>,
-  treeCheckable: Boolean as TypeBoolean,
-  treeShowLine: Boolean as TypeBoolean,
-  treeShowIcon: { type: Boolean as TypeBoolean, default: true },
-  treeCheckStrictly: Boolean as TypeBoolean,
+  treeCheckable: Boolean as BooleanType,
+  treeShowLine: Boolean as BooleanType,
+  treeShowIcon: { type: Boolean as BooleanType, default: true },
+  treeCheckStrictly: Boolean as BooleanType,
   treeExpandedKeys: Array as PropType<TreeKey[]>,
   treeCheckedKeys: Array as PropType<TreeKey[]>,
   treeSelectedKeys: Array as PropType<TreeKey[]>,
-  treeExpandedAll: Boolean as TypeBoolean,
+  treeExpandedAll: Boolean as BooleanType,
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
@@ -601,6 +601,6 @@ const TreeSelect = defineComponent({
       );
     };
   },
-}) //as DefineComponent<TreeSelectProps>;
+}) 
 
 export default TreeSelect;
