@@ -8,7 +8,7 @@ const breadcrumbItemProps = {
 
 export type BreadcrumbItemProps = ExtractPropTypes<typeof breadcrumbItemProps>;
 
-export default defineComponent({
+const BreadcrumbItem = defineComponent({
   name: "BreadcrumbItem",
   props: breadcrumbItemProps,
   emits: ["click"],
@@ -38,19 +38,14 @@ export default defineComponent({
       return (
         <li {...itemProps}>
           {props.href ? (
-            <a {...linkProps}>
-              {content}
-            </a>
+            <a {...linkProps}>{content}</a>
           ) : (
-            <span class="k-breadcrumb-link">
-              {content}
-            </span>
+            <span class="k-breadcrumb-link">{content}</span>
           )}
-          <span class="k-breadcrumb-separator">
-            {separator}
-          </span>
+          <span class="k-breadcrumb-separator">{separator}</span>
         </li>
       );
     };
   },
-}) 
+});
+export default BreadcrumbItem;

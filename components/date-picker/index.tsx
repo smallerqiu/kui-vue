@@ -75,7 +75,7 @@ export const datePickerProps = {
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
 
-export default defineComponent({
+const DatePicker = defineComponent({
   name: "DatePicker",
   directives: { transfer, resize },
   props: datePickerProps,
@@ -812,3 +812,4 @@ export default defineComponent({
     };
   },
 });
+export default DatePicker;

@@ -4,7 +4,7 @@ import {
   provide,
   toRefs,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
 import { type SizeType } from "../const/types";
 
@@ -17,7 +17,7 @@ const buttonGroupProps = {
 
 export type ButtonGroupProps = ExtractPropTypes<typeof buttonGroupProps>;
 
-export default defineComponent({
+const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: buttonGroupProps,
   setup(props, { slots }) {
@@ -43,4 +43,5 @@ export default defineComponent({
       return <div {...groupProps}>{slots.default?.()}</div>;
     };
   },
-}) 
+});
+export default ButtonGroup;

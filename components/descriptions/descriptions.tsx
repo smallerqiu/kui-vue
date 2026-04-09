@@ -14,7 +14,7 @@ export const descriptionsProps = {
 
 export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>;
 
-export default defineComponent({
+const Descriptions = defineComponent({
   name: "Descriptions",
   props: descriptionsProps,
   setup(props, { slots }) {
@@ -43,7 +43,14 @@ export default defineComponent({
 
         if (isVertical) {
           currentRow.push(
-            <DescriptionsItem key={`l-${index}`} label={label} span={span} type="label" layout={layout} bordered={bordered} />
+            <DescriptionsItem
+              key={`l-${index}`}
+              label={label}
+              span={span}
+              type="label"
+              layout={layout}
+              bordered={bordered}
+            />
           );
           currentContentRow.push(
             <DescriptionsItem key={`c-${index}`} span={span} layout={layout} bordered={bordered}>
@@ -62,7 +69,13 @@ export default defineComponent({
         } else {
           if (bordered) {
             currentRow.push(
-              <DescriptionsItem key={`l-${index}`} label={label} bordered={bordered} span={1} type="label" />,
+              <DescriptionsItem
+                key={`l-${index}`}
+                label={label}
+                bordered={bordered}
+                span={1}
+                type="label"
+              />,
               <DescriptionsItem key={`c-${index}`} span={span * 2 - 1} bordered={bordered}>
                 {childNodes}
               </DescriptionsItem>
@@ -85,7 +98,9 @@ export default defineComponent({
       });
 
       const trs = rows.map((row, idx) => (
-        <tr key={idx} class="k-descriptions-row">{row}</tr>
+        <tr key={idx} class="k-descriptions-row">
+          {row}
+        </tr>
       ));
 
       const wrapperProps = {
@@ -101,7 +116,7 @@ export default defineComponent({
       };
 
       const extraNode = extra || slots.extra?.();
-      
+
       return (
         <div {...wrapperProps}>
           <div class="k-descriptions-header">
@@ -109,10 +124,13 @@ export default defineComponent({
             {extraNode && <div class="k-descriptions-extra">{extraNode}</div>}
           </div>
           <div class="k-descriptions-view">
-            <table><tbody>{trs}</tbody></table>
+            <table>
+              <tbody>{trs}</tbody>
+            </table>
           </div>
         </div>
       );
     };
   },
 });
+export default Descriptions;

@@ -35,7 +35,7 @@ export const tooltipProps = {
 
 export type TooltipProps = ExtractPropTypes<typeof tooltipProps>;
 
-export default defineComponent({
+const Tooltip = defineComponent({
   name: "Tooltip",
   directives: { transfer },
   props: tooltipProps,
@@ -207,3 +207,4 @@ export default defineComponent({
     };
   },
 }) 
+export default Tooltip;

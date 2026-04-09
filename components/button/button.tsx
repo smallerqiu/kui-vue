@@ -42,7 +42,7 @@ const buttonProps = {
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 
-export default defineComponent({
+const Button = defineComponent({
   name: "Button",
   props: buttonProps,
   emits: ["click", "mouseenter", "mouseleave"],
@@ -130,3 +130,4 @@ export default defineComponent({
     };
   },
 });
+export default Button;

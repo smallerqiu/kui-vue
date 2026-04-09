@@ -26,7 +26,7 @@ export const tagProps = {
 
 export type TagProps = ExtractPropTypes<typeof tagProps>;
 
-export default defineComponent({
+const Tag = defineComponent({
   name: "Tag",
   props: tagProps,
   emits: ["close"],
@@ -91,3 +91,4 @@ export default defineComponent({
     };
   },
 });
+export default Tag;

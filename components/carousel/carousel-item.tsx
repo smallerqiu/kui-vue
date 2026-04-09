@@ -1,6 +1,6 @@
 import { defineComponent, inject, type CSSProperties, type Ref } from "vue";
 
-export default defineComponent({
+const CarouselItem = defineComponent({
   name: "CarouselItem",
   setup(_, { slots }) {
     const width = inject<Ref<number>>("width");
@@ -20,11 +20,8 @@ export default defineComponent({
         style: styles,
       };
 
-      return (
-        <div {...itemProps}>
-          {slots.default?.()}
-        </div>
-      );
+      return <div {...itemProps}>{slots.default?.()}</div>;
     };
   },
 });
+export default CarouselItem;

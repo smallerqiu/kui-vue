@@ -1,17 +1,11 @@
-import {
-    defineComponent,
-    provide,
-    type ExtractPropTypes,
-    type PropType
-} from "vue";
+import { defineComponent, provide, type ExtractPropTypes, type PropType } from "vue";
 
 const breadcrumbProps = {
   separator: { type: [String, Object] as PropType<string | any>, default: "/" },
 };
 
 export type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>;
-
-export default defineComponent({
+const Breadcrumb = defineComponent({
   name: "Breadcrumb",
   props: breadcrumbProps,
   setup(props, { slots }) {
@@ -30,4 +24,5 @@ export default defineComponent({
       );
     };
   },
-}) 
+});
+export default Breadcrumb;
