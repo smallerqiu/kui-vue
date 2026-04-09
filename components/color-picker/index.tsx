@@ -50,6 +50,9 @@ export const colorPickerProps = {
   presets: {
     type: Array as PropType<string[]>,
   },
+  onChange: { type: Function as PropType<(color: string) => void> },
+  onUpdateMode: { type: Function as PropType<(mode: ColorMode) => void> },
+  onUpdate: { type: Function as PropType<(color: string) => void> },
 };
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;

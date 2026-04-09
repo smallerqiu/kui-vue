@@ -10,7 +10,7 @@ const formProps = {
     type: String as PropType<DirectionType | "inline">,
     default: "horizontal",
   },
-  model: Object,
+  model: Object as PropType<Record<string, any>>,
   name: String,
   labelCol: Object as PropType<ColProps>,
   wrapperCol: Object as PropType<ColProps>,
@@ -25,6 +25,9 @@ const formProps = {
   theme: String,
   shape: String,
   disabled: Boolean as BooleanType,
+  onSubmit: {
+    type: Function as PropType<(valid: boolean) => void>,
+  },
 };
 
 export interface FormExpose {
@@ -33,7 +36,6 @@ export interface FormExpose {
   test: (key: string) => void;
   submit: () => void;
 }
-
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
 
@@ -195,8 +197,6 @@ const Form = defineComponent({
       );
     };
   },
-}); 
+});
 
 export default Form;
-
-

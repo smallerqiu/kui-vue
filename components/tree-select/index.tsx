@@ -1,18 +1,18 @@
 import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
 import {
-    computed,
-    defineComponent,
-    inject,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-    ref,
-    Transition,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
-    type VNodeChild
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  Transition,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type VNodeChild,
 } from "vue";
 import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 import resize from "../directives/resize";
@@ -25,7 +25,7 @@ import { buildTree, type TreeKey, type TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 
-type TreeSelectValue = TreeKey | TreeKey[] | null | undefined; 
+type TreeSelectValue = TreeKey | TreeKey[] | null | undefined;
 type TreeSelectPlacement =
   | "top"
   | "top-left"
@@ -48,7 +48,7 @@ export const treeSelectProps = {
   },
   placement: {
     type: String as PropType<DropPlacementsType>,
-    default: "bottom-left", 
+    default: "bottom-left",
   },
   width: Number,
   maxTagCount: Number,
@@ -77,6 +77,15 @@ export const treeSelectProps = {
   treeCheckedKeys: Array as PropType<TreeKey[]>,
   treeSelectedKeys: Array as PropType<TreeKey[]>,
   treeExpandedAll: Boolean as BooleanType,
+  onChange: {
+    type: Function as PropType<(value: TreeSelectValue) => void>,
+  },
+  onTreeSelect: {
+    type: Function as PropType<(value: TreeKey, label: string, selected: boolean) => void>,
+  },
+  onSearch: {
+    type: Function as PropType<(e: InputEvent) => void>,
+  },
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
@@ -88,7 +97,7 @@ const TreeSelect = defineComponent({
     resize,
   },
   props: treeSelectProps,
-  emits: ["update:modelValue", "change", "search", "select", "update:treeExpandedKeys"],
+  emits: ["update:modelValue", "change", "search", "treeSelect", "update:treeExpandedKeys"],
   setup(props, { emit, attrs }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
@@ -203,7 +212,7 @@ const TreeSelect = defineComponent({
       }
     };
 
-    const searchInput = (e: Event) => {
+    const searchInput = (e: InputEvent) => {
       const target = e.target as SearchEventTarget;
       queryKey.value = target.value || "";
       nextTick(() => {
@@ -383,7 +392,7 @@ const TreeSelect = defineComponent({
       }
 
       emitValue();
-      emit("select", value, label, selected);
+      emit("treeSelect", value, label, selected);
     };
 
     const renderTree = () => {
@@ -601,6 +610,6 @@ const TreeSelect = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default TreeSelect;

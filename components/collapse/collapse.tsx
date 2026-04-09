@@ -13,7 +13,7 @@ const collapseProps = {
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
 
-export default defineComponent({
+const Collapse = defineComponent({
   name: "Collapse",
   props: collapseProps,
   emits: ["change", "update"],
@@ -65,3 +65,4 @@ export default defineComponent({
     };
   },
 });
+export default Collapse;

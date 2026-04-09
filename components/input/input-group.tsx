@@ -1,11 +1,11 @@
 import {
-    cloneVNode,
-    defineComponent,
-    inject,
-    provide,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
+  cloneVNode,
+  defineComponent,
+  inject,
+  provide,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
@@ -21,7 +21,7 @@ export const inputGroupProps = {
 
 export type InputGroupProps = ExtractPropTypes<typeof inputGroupProps>;
 
-export default defineComponent({
+const InputGroup = defineComponent({
   name: "InputGroup",
   props: inputGroupProps,
   setup(props, { slots }) {
@@ -72,4 +72,6 @@ export default defineComponent({
       return <div {...rootProps}>{children}</div>;
     };
   },
-}); 
+});
+
+export default InputGroup;

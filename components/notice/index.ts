@@ -21,7 +21,7 @@ export interface NoticeApi {
   open(options: NoticeOptions): void;
   destroy(): void;
 }
-let notice: NoticeApi = {
+const notice: NoticeApi = {
   name: "notice",
   open(options: NoticeOptions) {
     if (!noticeInstance) {

@@ -16,6 +16,7 @@ export const switchProps = {
   },
   trueText: String,
   falseText: String,
+  onChange: Function as PropType<(value: boolean) => void>,
 };
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;

@@ -22,6 +22,7 @@ export const tagProps = {
     default: "small",
   },
   theme: { type: String as PropType<"light">, default: "light" },
+  onClose: { type: Function as PropType<() => void> },
 };
 
 export type TagProps = ExtractPropTypes<typeof tagProps>;

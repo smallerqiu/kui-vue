@@ -1,16 +1,16 @@
 import { ChevronBack, ChevronForward, Close } from "kui-icons";
 import {
-    cloneVNode,
-    defineComponent,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
-    type VNode,
+  cloneVNode,
+  defineComponent,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type VNode,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -24,6 +24,15 @@ export const tabsProps = {
   sample: Boolean as BooleanType,
   centered: Boolean as BooleanType,
   animated: { type: Boolean as BooleanType, default: true },
+  onChange: {
+    type: Function as PropType<(key: TabKey) => void>,
+  },
+  onRemove: {
+    type: Function as PropType<(key: TabKey) => void>,
+  },
+  onTabClick: {
+    type: Function as PropType<(key: TabKey) => void>,
+  },
 };
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>;
@@ -31,7 +40,7 @@ export type TabsProps = ExtractPropTypes<typeof tabsProps>;
 const Tabs = defineComponent({
   name: "Tabs",
   props: tabsProps,
-  emits: ["update:modelValue", "tab-click", "change", "remove"],
+  emits: ["update:modelValue", "tabClick", "change", "remove"],
   setup(props, { slots, emit }) {
     const defaultActiveKey = ref<TabKey>(props.modelValue || props.value);
     const currentIndex = ref(-1);
@@ -150,7 +159,7 @@ const Tabs = defineComponent({
     const tabClick = ({ disabled, key }: TabClickPayload, index: number) => {
       if (!disabled) {
         emit("update:modelValue", key);
-        emit("tab-click", key);
+        emit("tabClick", key);
         if (defaultActiveKey.value !== key) {
           defaultActiveKey.value = key;
           currentIndex.value = index;

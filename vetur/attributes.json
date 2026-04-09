@@ -51,6 +51,10 @@
       "false"
     ]
   },
+  "alert/onClose": {
+    "description": "Props for onClose",
+    "type": "(e: MouseEvent) => void"
+  },
   "anchor/offsetTop": {
     "description": "Triggered when the distance from the top of the window reaches the specified offset",
     "type": "number"
@@ -135,6 +139,10 @@
     "description": "The distance from the component to the bottom",
     "type": "number"
   },
+  "back-top/onClick": {
+    "description": "Props for onClick",
+    "type": "(e: MouseEvent) => void"
+  },
   "badge/maxCount": {
     "description": "Props for maxCount",
     "type": "number"
@@ -207,6 +215,10 @@
     "description": "Button size,",
     "type": "SizeType"
   },
+  "button/onClick": {
+    "description": "Props for onClick",
+    "type": "(e: MouseEvent) => void"
+  },
   "button/color": {
     "description": "Props for color",
     "type": "string"
@@ -222,10 +234,6 @@
   "button/theme": {
     "description": "Button theme",
     "type": "ButtonTheme"
-  },
-  "button/onClick": {
-    "description": "Props for onClick",
-    "type": "(e?: MouseEvent) => void"
   },
   "button-group/shape": {
     "description": "When shape=circle, presents a circular button",
@@ -447,6 +455,10 @@
     "description": "Color value, can use `v-model` for two-way binding",
     "type": "string"
   },
+  "color-picker/onChange": {
+    "description": "Props for onChange",
+    "type": "(color: string) => void"
+  },
   "color-picker/disabledAlpha": {
     "description": "Whether to disable transparency",
     "type": "boolean",
@@ -482,6 +494,14 @@
   "color-picker/presets": {
     "description": "Custom color palette",
     "type": "string[]"
+  },
+  "color-picker/onUpdateMode": {
+    "description": "Props for onUpdateMode",
+    "type": "(mode: ColorMode) => void"
+  },
+  "color-picker/onUpdate": {
+    "description": "Props for onUpdate",
+    "type": "(color: string) => void"
   },
   "date-picker/bordered": {
     "description": "Props for bordered",
@@ -895,6 +915,14 @@
     "description": "Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12}",
     "type": "ColProps"
   },
+  "form/onSubmit": {
+    "description": "Props for onSubmit",
+    "type": "(valid: boolean) => void",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
   "form-item/label": {
     "description": "Label text",
     "type": "string"
@@ -1015,13 +1043,13 @@
     "description": "The size of the icon, unit is px",
     "type": "string | number"
   },
-  "icon/color": {
-    "description": "The color of the icon",
-    "type": "string"
-  },
   "icon/onClick": {
     "description": "Props for onClick",
     "type": "(e: MouseEvent) => void"
+  },
+  "icon/color": {
+    "description": "The color of the icon",
+    "type": "string"
   },
   "icon/spin": {
     "description": "Whether to have rotation animation",
@@ -1267,6 +1295,14 @@
       "false"
     ]
   },
+  "menu/onSelect": {
+    "description": "Props for onSelect",
+    "type": "(data: { key: string; keyPath: string[]; }) => void"
+  },
+  "menu/onOpenChange": {
+    "description": "Props for onOpenChange",
+    "type": "(data: string[]) => void"
+  },
   "menu-group/title": {
     "description": "Group title",
     "type": "string"
@@ -1375,6 +1411,10 @@
       "false"
     ]
   },
+  "modal/onClose": {
+    "description": "Props for onClose",
+    "type": "() => void"
+  },
   "modal/title": {
     "description": "Dialog title",
     "type": "string"
@@ -1435,6 +1475,14 @@
       "false"
     ]
   },
+  "modal/onOk": {
+    "description": "Callback when OK is clicked",
+    "type": "() => void"
+  },
+  "modal/onCancel": {
+    "description": "Callback when Cancel is clicked",
+    "type": "() => void"
+  },
   "page/size": {
     "description": "When value is 'small', displays small size",
     "type": "SizeType"
@@ -1475,6 +1523,10 @@
       "false"
     ]
   },
+  "page/onChange": {
+    "description": "Props for onChange",
+    "type": "(page: number, pageSize: number) => void"
+  },
   "page/showSizer": {
     "description": "Props for showSizer",
     "type": "boolean",
@@ -1514,6 +1566,10 @@
       "true",
       "false"
     ]
+  },
+  "poptip/onClose": {
+    "description": "Props for onClose",
+    "type": "() => void"
   },
   "poptip/title": {
     "description": "Displayed title",
@@ -1570,6 +1626,14 @@
       "true",
       "false"
     ]
+  },
+  "popconfirm/onOk": {
+    "description": "Props for onOk",
+    "type": "() => void"
+  },
+  "popconfirm/onCancel": {
+    "description": "Props for onCancel",
+    "type": "() => void"
   },
   "progress/type": {
     "description": "Progress bar type, provides three types: `line`, `circle`, `dashboard`",
@@ -1755,6 +1819,10 @@
     "description": "`button`'s theme property",
     "type": "string"
   },
+  "radio-group/onChange": {
+    "description": "Props for onChange",
+    "type": "(value: string | number) => void"
+  },
   "radio-group/options": {
     "description": "Can specify child `radio` items",
     "type": "RadioOption[]"
@@ -1794,6 +1862,10 @@
       "true",
       "false"
     ]
+  },
+  "rate/onChange": {
+    "description": "Props for onChange",
+    "type": "(value: number) => void"
   },
   "rate/allowHalf": {
     "description": "Whether to allow half selection",
@@ -1951,6 +2023,10 @@
     "description": "Component width",
     "type": "number"
   },
+  "select/onSelect": {
+    "description": "Props for onSelect",
+    "type": "(option: SelectOption) => void"
+  },
   "select/multiple": {
     "description": "Whether to display in multiple selection mode",
     "type": "boolean",
@@ -1986,10 +2062,6 @@
   "select/onSearch": {
     "description": "Props for onSearch",
     "type": "(e: InputEvent) => void"
-  },
-  "select/onSelect": {
-    "description": "Props for onSelect",
-    "type": "(option: SelectOption) => void"
   },
   "skeleton/title": {
     "description": "Props for title",
@@ -2295,6 +2367,14 @@
       "false"
     ]
   },
+  "table/onSelect": {
+    "description": "Props for onSelect",
+    "type": "(record: any, selected: boolean, selectedKeys: (string | number)[]) => void",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
   "table/emptyText": {
     "description": "Prompt displayed when there is no data",
     "type": "string"
@@ -2302,6 +2382,22 @@
   "table/checkable": {
     "description": "Whether to show checkboxes",
     "type": "boolean",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "table/onSort": {
+    "description": "Triggered when clicking to sort",
+    "type": "(state: SortState) => void"
+  },
+  "table/onRowClick": {
+    "description": "Triggered when clicking a row",
+    "type": "(record: any, index: number) => void"
+  },
+  "table/onSelectAll": {
+    "description": "Props for onSelectAll",
+    "type": "(selected: boolean, selectedKeys: (string | number)[]) => void",
     "options": [
       "true",
       "false"
@@ -2403,6 +2499,10 @@
     "description": "Props for modelValue",
     "type": "TabKey"
   },
+  "tabs/onChange": {
+    "description": "Props for onChange",
+    "type": "(key: TabKey) => void"
+  },
   "tabs/sample": {
     "description": "Whether tab style is simple style",
     "type": "boolean",
@@ -2418,6 +2518,14 @@
       "true",
       "false"
     ]
+  },
+  "tabs/onRemove": {
+    "description": "Props for onRemove",
+    "type": "(key: TabKey) => void"
+  },
+  "tabs/onTabClick": {
+    "description": "Props for onTabClick",
+    "type": "(key: TabKey) => void"
   },
   "tree/showIcon": {
     "description": "Whether to show icons",
@@ -2446,6 +2554,10 @@
   "tree/data": {
     "description": "Array of nestable node properties, data to generate `tree`",
     "type": "TreeNode[]"
+  },
+  "tree/onSelect": {
+    "description": "Props for onSelect",
+    "type": "(node: TreeNode) => void"
   },
   "tree/draggable": {
     "description": "Whether it can be dragged",
@@ -2518,6 +2630,42 @@
   "tree/queryKey": {
     "description": "Props for queryKey",
     "type": "string"
+  },
+  "tree/onExpand": {
+    "description": "Props for onExpand",
+    "type": "(result: { key: TreeKey; expanded: boolean; targetNode: TreeNode; }) => void",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/onCheck": {
+    "description": "Props for onCheck",
+    "type": "(node: TreeNode, checked: boolean, checkedKeys: TreeKey[]) => void",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
+  "tree/onDragStart": {
+    "description": "Props for onDragStart",
+    "type": "(node: TreeNode, event: DragEvent) => void"
+  },
+  "tree/onDragEnter": {
+    "description": "Props for onDragEnter",
+    "type": "(node: TreeNode, event: DragEvent) => void"
+  },
+  "tree/onDragLeave": {
+    "description": "Props for onDragLeave",
+    "type": "(node: TreeNode, event: DragEvent) => void"
+  },
+  "tree/onDrop": {
+    "description": "Props for onDrop",
+    "type": "(node: { dragNode: TreeNode; dropNode: TreeNode; }, event: DragEvent) => void"
+  },
+  "tree/onDragEnd": {
+    "description": "Props for onDragEnd",
+    "type": "(node: TreeNode, event: DragEvent) => void"
   },
   "tree-select/bordered": {
     "description": "Whether to show border",
@@ -2603,6 +2751,10 @@
     "description": "Props for modelValue",
     "type": "TreeSelectValue"
   },
+  "tree-select/onChange": {
+    "description": "Triggered when the value changes",
+    "type": "(value: TreeSelectValue) => void"
+  },
   "tree-select/options": {
     "description": "Props for options",
     "type": "unknown[]"
@@ -2642,6 +2794,10 @@
   "tree-select/arrowIcon": {
     "description": "Props for arrowIcon",
     "type": "IconType[]"
+  },
+  "tree-select/onSearch": {
+    "description": "Triggered during search",
+    "type": "(e: InputEvent) => void"
   },
   "tree-select/treeData": {
     "description": "Array of nestable node properties, data to generate `tree`",
@@ -2691,6 +2847,14 @@
       "false"
     ]
   },
+  "tree-select/onTreeSelect": {
+    "description": "Triggered when tree node is clicked",
+    "type": "(value: TreeKey, label: string, selected: boolean) => void",
+    "options": [
+      "true",
+      "false"
+    ]
+  },
   "tag/size": {
     "description": "Button size, optional values `small`, `large`, default not selected",
     "type": "\"large\" | \"small\" | \"middle\""
@@ -2702,6 +2866,10 @@
   "tag/icon": {
     "description": "Tag icon",
     "type": "any"
+  },
+  "tag/onClose": {
+    "description": "Props for onClose",
+    "type": "() => void"
   },
   "tag/shape": {
     "description": "Props for shape",

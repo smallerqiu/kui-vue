@@ -23,7 +23,7 @@ const checkboxGroupProps = {
 
 export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;
 
-export default defineComponent({
+const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: checkboxGroupProps,
   emits: ["update:modelValue", "change"],
@@ -58,7 +58,7 @@ export default defineComponent({
 
       const data: any[] = [];
       const children = getChildren(slots.default?.());
-      
+
       children.forEach((child: any) => {
         if (child?.props) {
           const { label, value, disabled } = child.props;
@@ -76,12 +76,9 @@ export default defineComponent({
 
     return () => {
       const { direction, disabled, theme, size } = props;
-      
+
       const rootProps = {
-        class: [
-          "k-checkbox-group",
-          { "k-checkbox-group-vertical": direction === "vertical" },
-        ],
+        class: ["k-checkbox-group", { "k-checkbox-group-vertical": direction === "vertical" }],
       };
 
       const nodes = optionsData.value.map((option) => (
@@ -97,11 +94,8 @@ export default defineComponent({
         />
       ));
 
-      return (
-        <div {...rootProps}>
-          {nodes}
-        </div>
-      );
+      return <div {...rootProps}>{nodes}</div>;
     };
   },
-}) 
+});
+export default CheckboxGroup;

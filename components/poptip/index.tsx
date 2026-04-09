@@ -1,14 +1,14 @@
 import {
-    cloneVNode,
-    defineComponent,
-    nextTick,
-    onMounted,
-    onUnmounted,
-    ref,
-    Transition,
-    watch,
-    type ExtractPropTypes,
-    type PropType
+  cloneVNode,
+  defineComponent,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  Transition,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
@@ -32,6 +32,9 @@ export const poptipProps = {
   placement: {
     type: String as PropType<PlacementsType>,
     default: "top",
+  },
+  onClose: {
+    type: Function as PropType<() => void>,
   },
 };
 const Poptip = defineComponent({
@@ -89,6 +92,7 @@ const Poptip = defineComponent({
     const updateShow = (value: boolean) => {
       visible.value = value;
       emit("update:show", value);
+      if (value == false) emit("close");
     };
     const outsideClick = (e: PointerEvent) => {
       const ctx = refSelection.value?.$el || refSelection.value;

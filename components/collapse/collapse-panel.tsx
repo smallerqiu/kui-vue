@@ -1,12 +1,12 @@
 import { ChevronUp } from "kui-icons";
 import {
-    Transition,
-    defineComponent,
-    getCurrentInstance,
-    nextTick,
-    ref,
-    watch,
-    type ExtractPropTypes
+  Transition,
+  defineComponent,
+  getCurrentInstance,
+  nextTick,
+  ref,
+  watch,
+  type ExtractPropTypes,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
@@ -19,7 +19,7 @@ const collapsePanelProps = {
 
 export type CollapsePanelProps = ExtractPropTypes<typeof collapsePanelProps>;
 
-export default defineComponent({
+const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: collapsePanelProps,
   emits: ["expand"],
@@ -76,4 +76,5 @@ export default defineComponent({
       );
     };
   },
-}) 
+});
+export default CollapsePanel;
