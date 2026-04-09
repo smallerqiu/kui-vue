@@ -37,7 +37,7 @@ const buttonProps = {
   shape: String as PropType<"circle" | string>,
   href: String,
   target: String,
-  onClick: Function as PropType<(e?: MouseEvent) => void>,
+  onClick: Function as PropType<(e: MouseEvent) => void>,
 };
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;

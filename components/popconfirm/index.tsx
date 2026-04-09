@@ -1,17 +1,17 @@
 import { HelpCircle } from "kui-icons";
 import {
-    cloneVNode,
-    computed,
-    defineComponent,
-    inject,
-    nextTick,
-    onMounted,
-    onUnmounted,
-    ref,
-    Transition,
-    watch,
-    type ExtractPropTypes,
-    type PropType,
+  cloneVNode,
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  Transition,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { Button } from "../button";
 import type { BooleanType, PlacementsType } from "../const/types";
@@ -33,6 +33,8 @@ export const popconfirmProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
+  onCancel: { type: Function as PropType<() => void> },
+  onOk: { type: Function as PropType<() => void> },
 };
 
 export type PopconfirmProps = ExtractPropTypes<typeof popconfirmProps>;

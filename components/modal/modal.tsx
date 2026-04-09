@@ -1,15 +1,16 @@
 import { Close } from "kui-icons";
 import {
-    computed,
-    defineComponent,
-    inject,
-    nextTick,
-    onBeforeMount,
-    onMounted,
-    ref,
-    Transition,
-    watch,
-    type ExtractPropTypes,
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  ref,
+  Transition,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
@@ -34,6 +35,9 @@ export const modalProps = {
   footer: { type: Boolean as BooleanType, default: true },
   transfer: { type: Boolean as BooleanType, default: true },
   escKey: { type: Boolean as BooleanType, default: true },
+  onClose: { type: Function as PropType<() => void> },
+  onOk: { type: Function as PropType<() => void> },
+  onCancel: { type: Function as PropType<() => void> },
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 

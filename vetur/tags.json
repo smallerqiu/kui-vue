@@ -16,7 +16,8 @@
       "icon",
       "message",
       "description",
-      "bordered"
+      "bordered",
+      "onClose"
     ]
   },
   "anchor": {
@@ -71,7 +72,8 @@
       "target",
       "height",
       "right",
-      "bottom"
+      "bottom",
+      "onClick"
     ]
   },
   "badge": {
@@ -97,10 +99,10 @@
       "href",
       "shape",
       "size",
+      "onClick",
       "color",
       "disabled",
-      "theme",
-      "onClick"
+      "theme"
     ]
   },
   "button-group": {
@@ -184,11 +186,14 @@
       "disabled",
       "value",
       "modelValue",
+      "onChange",
       "disabledAlpha",
       "showText",
       "arrow",
       "show",
-      "presets"
+      "presets",
+      "onUpdateMode",
+      "onUpdate"
     ]
   },
   "date-picker": {
@@ -311,7 +316,8 @@
       "model",
       "name",
       "labelCol",
-      "wrapperCol"
+      "wrapperCol",
+      "onSubmit"
     ]
   },
   "form-item": {
@@ -372,8 +378,8 @@
     "attributes": [
       "type",
       "size",
-      "color",
       "onClick",
+      "color",
       "spin",
       "strokeWidth"
     ]
@@ -467,7 +473,9 @@
       "theme",
       "accordion",
       "items",
-      "inlineCollapsed"
+      "inlineCollapsed",
+      "onSelect",
+      "onOpenChange"
     ]
   },
   "menu-divider": {
@@ -509,6 +517,7 @@
       "mask",
       "escKey",
       "showClose",
+      "onClose",
       "title",
       "loading",
       "modelValue",
@@ -518,7 +527,9 @@
       "cancelText",
       "maximized",
       "centered",
-      "draggable"
+      "draggable",
+      "onOk",
+      "onCancel"
     ]
   },
   "page": {
@@ -532,6 +543,7 @@
       "pageSize",
       "page",
       "disabled",
+      "onChange",
       "showSizer",
       "showElevator"
     ]
@@ -543,6 +555,7 @@
       "trigger",
       "show",
       "dark",
+      "onClose",
       "title",
       "size",
       "content",
@@ -559,7 +572,9 @@
       "width",
       "okText",
       "cancelText",
-      "dark"
+      "dark",
+      "onOk",
+      "onCancel"
     ]
   },
   "progress": {
@@ -617,6 +632,7 @@
       "size",
       "disabled",
       "theme",
+      "onChange",
       "options"
     ]
   },
@@ -630,6 +646,7 @@
       "size",
       "color",
       "disabled",
+      "onChange",
       "allowHalf",
       "showScore",
       "tooltips",
@@ -667,14 +684,14 @@
       "options",
       "placeholder",
       "width",
+      "onSelect",
       "multiple",
       "maxTagCount",
       "filterable",
       "emptyText",
       "loadingText",
       "arrowIcon",
-      "onSearch",
-      "onSelect"
+      "onSearch"
     ]
   },
   "config-provider": {
@@ -791,8 +808,12 @@
       "rowKey",
       "scroll",
       "loading",
+      "onSelect",
       "emptyText",
-      "checkable"
+      "checkable",
+      "onSort",
+      "onRowClick",
+      "onSelectAll"
     ]
   },
   "tooltip": {
@@ -825,8 +846,11 @@
       "card",
       "value",
       "modelValue",
+      "onChange",
       "sample",
-      "centered"
+      "centered",
+      "onRemove",
+      "onTabClick"
     ]
   },
   "time-line": {
@@ -844,6 +868,7 @@
       "multiple",
       "showExtra",
       "data",
+      "onSelect",
       "draggable",
       "selectedKeys",
       "checkable",
@@ -854,7 +879,14 @@
       "showLine",
       "checkStrictly",
       "selectAsCheck",
-      "queryKey"
+      "queryKey",
+      "onExpand",
+      "onCheck",
+      "onDragStart",
+      "onDragEnter",
+      "onDragLeave",
+      "onDrop",
+      "onDragEnd"
     ]
   },
   "tree-select": {
@@ -874,6 +906,7 @@
       "disabled",
       "value",
       "modelValue",
+      "onChange",
       "options",
       "placeholder",
       "width",
@@ -882,6 +915,7 @@
       "filterable",
       "emptyText",
       "arrowIcon",
+      "onSearch",
       "treeData",
       "treeCheckable",
       "treeShowLine",
@@ -889,7 +923,8 @@
       "treeExpandedKeys",
       "treeCheckedKeys",
       "treeSelectedKeys",
-      "treeExpandedAll"
+      "treeExpandedAll",
+      "onTreeSelect"
     ]
   },
   "tag": {
@@ -898,6 +933,7 @@
       "size",
       "theme",
       "icon",
+      "onClose",
       "shape",
       "color",
       "closeable"

@@ -16,7 +16,7 @@ export const dividerProps = {
 
 export type DividerProps = ExtractPropTypes<typeof dividerProps>;
 
-export default defineComponent({
+const Divider = defineComponent({
   name: "Divider",
   props: dividerProps,
   setup(props, { slots }) {
@@ -43,3 +43,4 @@ export default defineComponent({
     };
   },
 });
+export default Divider;

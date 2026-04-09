@@ -37,6 +37,16 @@ export const tableProps = {
   checkable: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   emptyText: String,
+  onSort: { type: Function as PropType<(state: SortState) => void> },
+  onRowClick: { type: Function as PropType<(record: any, index: number) => void> },
+  onSelect: {
+    type: Function as PropType<
+      (record: any, selected: boolean, selectedKeys: (string | number)[]) => void
+    >,
+  },
+  onSelectAll: {
+    type: Function as PropType<(selected: boolean, selectedKeys: (string | number)[]) => void>,
+  },
 };
 
 interface Matrix {
@@ -55,7 +65,7 @@ export interface SortState {
 const Table = defineComponent({
   name: "Table",
   props: tableProps,
-  emits: ["update:selectedKeys", "rowClick", "sort"],
+  emits: ["update:selectedKeys", "rowClick", "sort", "selectAll", "select"],
   setup(props, { emit, slots }) {
     const headerWrapperRef = ref<HTMLElement>();
     const bodyWrapperRef = ref<HTMLElement>();
@@ -284,15 +294,19 @@ const Table = defineComponent({
         }
       });
       innerSelectedKeys.value = newSet;
-      emit("update:selectedKeys", Array.from(newSet));
+      const rows = Array.from(newSet);
+      emit("update:selectedKeys", rows);
+      emit("selectAll", checked, rows);
     };
 
-    const toggleOne = (key: string) => {
+    const toggleOne = (e: ChangeEvent, record: any, key: string) => {
       if (isDisabled(key)) return;
       const newSet = new Set(innerSelectedKeys.value);
       newSet.has(key) ? newSet.delete(key) : newSet.add(key);
       innerSelectedKeys.value = newSet;
-      emit("update:selectedKeys", Array.from(newSet));
+      const rows = Array.from(newSet);
+      emit("update:selectedKeys", rows);
+      emit("select", record, e.checked, rows);
     };
 
     const renderColGroup = (isHeader = false) => (
@@ -466,7 +480,7 @@ const Table = defineComponent({
               key={rowId}
               onClick={(e) => {
                 e.stopPropagation();
-                emit("rowClick", record);
+                emit("rowClick", record, rowIndex);
               }}
             >
               {props.checkable && (
@@ -477,7 +491,7 @@ const Table = defineComponent({
                   <Checkbox
                     checked={innerSelectedKeys.value.has(rowId)}
                     disabled={isDisabled(rowId)}
-                    onChange={() => toggleOne(rowId)}
+                    onChange={(e) => toggleOne(e, record, rowId)}
                   />
                 </td>
               )}

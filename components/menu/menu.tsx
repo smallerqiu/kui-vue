@@ -21,6 +21,8 @@ export const menuProps = {
   items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean as BooleanType,
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
+  onSelect: { type: Function as PropType<(data: { key: string; keyPath: string[] }) => void> },
+  onOpenChange: { type: Function as PropType<(data: string[]) => void> },
 };
 
 export interface MenuOptionsProps {

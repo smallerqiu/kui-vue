@@ -20,7 +20,7 @@ export interface MessageApi {
   show(options: MessageOptions): void;
   destroy(): void;
 }
-let message: MessageApi = {
+const message: MessageApi = {
   name: "message",
   show(options: MessageOptions = {}) {
     if (!messageInstance) {

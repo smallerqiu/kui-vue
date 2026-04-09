@@ -8,7 +8,7 @@ import {
   watch,
   type CSSProperties,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -40,7 +40,7 @@ const inputProps = {
 
 export type InputProps = ExtractPropTypes<typeof inputProps>;
 
-export default defineComponent({
+const Input = defineComponent({
   inheritAttrs: false,
   name: "Input",
   props: inputProps,
@@ -262,4 +262,6 @@ export default defineComponent({
       }
     };
   },
-}) 
+});
+
+export default Input;

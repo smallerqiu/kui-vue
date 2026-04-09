@@ -20,6 +20,7 @@ const backTopProps = {
       return typeof document !== "undefined" ? document.body : null;
     },
   },
+  onClick: Function as PropType<(e: MouseEvent) => void>,
 };
 
 export type BackTopProps = ExtractPropTypes<typeof backTopProps>;

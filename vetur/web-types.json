@@ -105,6 +105,14 @@
                 "type": "boolean",
                 "kind": "expression"
               }
+            },
+            {
+              "name": "onClose",
+              "description": "Props for onClose",
+              "value": {
+                "type": "(e: MouseEvent) => void",
+                "kind": "expression"
+              }
             }
           ],
           "events": []
@@ -342,6 +350,14 @@
                 "type": "number",
                 "kind": "expression"
               }
+            },
+            {
+              "name": "onClick",
+              "description": "Props for onClick",
+              "value": {
+                "type": "(e: MouseEvent) => void",
+                "kind": "expression"
+              }
             }
           ],
           "events": []
@@ -486,6 +502,14 @@
               }
             },
             {
+              "name": "onClick",
+              "description": "Props for onClick",
+              "value": {
+                "type": "(e: MouseEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "color",
               "description": "Props for color",
               "value": {
@@ -506,14 +530,6 @@
               "description": "Button theme",
               "value": {
                 "type": "ButtonTheme",
-                "kind": "expression"
-              }
-            },
-            {
-              "name": "onClick",
-              "description": "Props for onClick",
-              "value": {
-                "type": "(e?: MouseEvent) => void",
                 "kind": "expression"
               }
             }
@@ -928,6 +944,14 @@
               }
             },
             {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(color: string) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "disabledAlpha",
               "description": "Whether to disable transparency",
               "value": {
@@ -964,6 +988,22 @@
               "description": "Custom color palette",
               "value": {
                 "type": "string[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onUpdateMode",
+              "description": "Props for onUpdateMode",
+              "value": {
+                "type": "(mode: ColorMode) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onUpdate",
+              "description": "Props for onUpdate",
+              "value": {
+                "type": "(color: string) => void",
                 "kind": "expression"
               }
             }
@@ -1689,6 +1729,14 @@
                 "type": "ColProps",
                 "kind": "expression"
               }
+            },
+            {
+              "name": "onSubmit",
+              "description": "Props for onSubmit",
+              "value": {
+                "type": "(valid: boolean) => void",
+                "kind": "expression"
+              }
             }
           ],
           "events": []
@@ -1975,18 +2023,18 @@
               }
             },
             {
-              "name": "color",
-              "description": "The color of the icon",
-              "value": {
-                "type": "string",
-                "kind": "expression"
-              }
-            },
-            {
               "name": "onClick",
               "description": "Props for onClick",
               "value": {
                 "type": "(e: MouseEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "color",
+              "description": "The color of the icon",
+              "value": {
+                "type": "string",
                 "kind": "expression"
               }
             },
@@ -2486,6 +2534,22 @@
                 "type": "boolean",
                 "kind": "expression"
               }
+            },
+            {
+              "name": "onSelect",
+              "description": "Props for onSelect",
+              "value": {
+                "type": "(data: { key: string; keyPath: string[]; }) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onOpenChange",
+              "description": "Props for onOpenChange",
+              "value": {
+                "type": "(data: string[]) => void",
+                "kind": "expression"
+              }
             }
           ],
           "events": []
@@ -2678,6 +2742,14 @@
               }
             },
             {
+              "name": "onClose",
+              "description": "Props for onClose",
+              "value": {
+                "type": "() => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "title",
               "description": "Dialog title",
               "value": {
@@ -2754,6 +2826,22 @@
               "description": "Whether the modal can be dragged, not available in confirm mode",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onOk",
+              "description": "Callback when OK is clicked",
+              "value": {
+                "type": "() => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onCancel",
+              "description": "Callback when Cancel is clicked",
+              "value": {
+                "type": "() => void",
                 "kind": "expression"
               }
             }
@@ -2833,6 +2921,14 @@
               }
             },
             {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(page: number, pageSize: number) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "showSizer",
               "description": "Props for showSizer",
               "value": {
@@ -2888,6 +2984,14 @@
               "description": "Props for dark",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onClose",
+              "description": "Props for onClose",
+              "value": {
+                "type": "() => void",
                 "kind": "expression"
               }
             },
@@ -2995,6 +3099,22 @@
               "description": "Props for dark",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onOk",
+              "description": "Props for onOk",
+              "value": {
+                "type": "() => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onCancel",
+              "description": "Props for onCancel",
+              "value": {
+                "type": "() => void",
                 "kind": "expression"
               }
             }
@@ -3339,6 +3459,14 @@
               }
             },
             {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(value: string | number) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "options",
               "description": "Can specify child `radio` items",
               "value": {
@@ -3410,6 +3538,14 @@
               "description": "Read-only, cannot interact",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(value: number) => void",
                 "kind": "expression"
               }
             },
@@ -3652,6 +3788,14 @@
               }
             },
             {
+              "name": "onSelect",
+              "description": "Props for onSelect",
+              "value": {
+                "type": "(option: SelectOption) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "multiple",
               "description": "Whether to display in multiple selection mode",
               "value": {
@@ -3704,14 +3848,6 @@
               "description": "Props for onSearch",
               "value": {
                 "type": "(e: InputEvent) => void",
-                "kind": "expression"
-              }
-            },
-            {
-              "name": "onSelect",
-              "description": "Props for onSelect",
-              "value": {
-                "type": "(option: SelectOption) => void",
                 "kind": "expression"
               }
             }
@@ -4309,6 +4445,14 @@
               }
             },
             {
+              "name": "onSelect",
+              "description": "Props for onSelect",
+              "value": {
+                "type": "(record: any, selected: boolean, selectedKeys: (string | number)[]) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "emptyText",
               "description": "Prompt displayed when there is no data",
               "value": {
@@ -4321,6 +4465,30 @@
               "description": "Whether to show checkboxes",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSort",
+              "description": "Triggered when clicking to sort",
+              "value": {
+                "type": "(state: SortState) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onRowClick",
+              "description": "Triggered when clicking a row",
+              "value": {
+                "type": "(record: any, index: number) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSelectAll",
+              "description": "Props for onSelectAll",
+              "value": {
+                "type": "(selected: boolean, selectedKeys: (string | number)[]) => void",
                 "kind": "expression"
               }
             }
@@ -4494,6 +4662,14 @@
               }
             },
             {
+              "name": "onChange",
+              "description": "Props for onChange",
+              "value": {
+                "type": "(key: TabKey) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "sample",
               "description": "Whether tab style is simple style",
               "value": {
@@ -4506,6 +4682,22 @@
               "description": "Props for centered",
               "value": {
                 "type": "boolean",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onRemove",
+              "description": "Props for onRemove",
+              "value": {
+                "type": "(key: TabKey) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onTabClick",
+              "description": "Props for onTabClick",
+              "value": {
+                "type": "(key: TabKey) => void",
                 "kind": "expression"
               }
             }
@@ -4569,6 +4761,14 @@
               "description": "Array of nestable node properties, data to generate `tree`",
               "value": {
                 "type": "TreeNode[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSelect",
+              "description": "Props for onSelect",
+              "value": {
+                "type": "(node: TreeNode) => void",
                 "kind": "expression"
               }
             },
@@ -4657,6 +4857,62 @@
               "description": "Props for queryKey",
               "value": {
                 "type": "string",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onExpand",
+              "description": "Props for onExpand",
+              "value": {
+                "type": "(result: { key: TreeKey; expanded: boolean; targetNode: TreeNode; }) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onCheck",
+              "description": "Props for onCheck",
+              "value": {
+                "type": "(node: TreeNode, checked: boolean, checkedKeys: TreeKey[]) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onDragStart",
+              "description": "Props for onDragStart",
+              "value": {
+                "type": "(node: TreeNode, event: DragEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onDragEnter",
+              "description": "Props for onDragEnter",
+              "value": {
+                "type": "(node: TreeNode, event: DragEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onDragLeave",
+              "description": "Props for onDragLeave",
+              "value": {
+                "type": "(node: TreeNode, event: DragEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onDrop",
+              "description": "Props for onDrop",
+              "value": {
+                "type": "(node: { dragNode: TreeNode; dropNode: TreeNode; }, event: DragEvent) => void",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onDragEnd",
+              "description": "Props for onDragEnd",
+              "value": {
+                "type": "(node: TreeNode, event: DragEvent) => void",
                 "kind": "expression"
               }
             }
@@ -4784,6 +5040,14 @@
               }
             },
             {
+              "name": "onChange",
+              "description": "Triggered when the value changes",
+              "value": {
+                "type": "(value: TreeSelectValue) => void",
+                "kind": "expression"
+              }
+            },
+            {
               "name": "options",
               "description": "Props for options",
               "value": {
@@ -4844,6 +5108,14 @@
               "description": "Props for arrowIcon",
               "value": {
                 "type": "IconType[]",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onSearch",
+              "description": "Triggered during search",
+              "value": {
+                "type": "(e: InputEvent) => void",
                 "kind": "expression"
               }
             },
@@ -4910,6 +5182,14 @@
                 "type": "boolean",
                 "kind": "expression"
               }
+            },
+            {
+              "name": "onTreeSelect",
+              "description": "Triggered when tree node is clicked",
+              "value": {
+                "type": "(value: TreeKey, label: string, selected: boolean) => void",
+                "kind": "expression"
+              }
             }
           ],
           "events": []
@@ -4943,6 +5223,14 @@
               "description": "Tag icon",
               "value": {
                 "type": "any",
+                "kind": "expression"
+              }
+            },
+            {
+              "name": "onClose",
+              "description": "Props for onClose",
+              "value": {
+                "type": "() => void",
                 "kind": "expression"
               }
             },

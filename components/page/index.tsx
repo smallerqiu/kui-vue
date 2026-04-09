@@ -28,6 +28,9 @@ export const pageProps = {
   total: { default: 0, type: Number },
   pageSize: { default: 10, type: Number },
   page: { default: 1, type: Number },
+  onChange: {
+    type: Function as PropType<(page: number, pageSize: number) => void>,
+  },
 };
 export type PageProps = ExtractPropTypes<typeof pageProps>;
 

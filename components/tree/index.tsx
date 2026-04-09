@@ -1,14 +1,14 @@
 import { AddCircleOutline, ChevronForward, RemoveCircleOutline, Sync } from "kui-icons";
 import {
-    defineComponent,
-    nextTick,
-    reactive,
-    ref,
-    TransitionGroup,
-    watch,
-    type ExtractPropTypes,
-    type PropType,
-    type VNodeChild
+  defineComponent,
+  nextTick,
+  reactive,
+  ref,
+  TransitionGroup,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+  type VNodeChild,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { Button } from "../button";
@@ -33,6 +33,34 @@ export const treeProps = {
   checkStrictly: Boolean as BooleanType,
   selectAsCheck: Boolean as BooleanType,
   queryKey: String,
+  onExpand: {
+    type: Function as PropType<
+      (result: { key: TreeKey; expanded: boolean; targetNode: TreeNode }) => void
+    >,
+  },
+  onCheck: {
+    type: Function as PropType<(node: TreeNode, checked: boolean, checkedKeys: TreeKey[]) => void>,
+  },
+  onSelect: {
+    type: Function as PropType<(node: TreeNode) => void>,
+  },
+  onDragStart: {
+    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
+  },
+  onDragEnter: {
+    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
+  },
+  onDragLeave: {
+    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
+  },
+  onDrop: {
+    type: Function as PropType<
+      (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void
+    >,
+  },
+  onDragEnd: {
+    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
+  },
 };
 
 export type TreeProps = ExtractPropTypes<typeof treeProps>;
@@ -88,7 +116,7 @@ const Tree = defineComponent({
         hasLoad,
         checkable: props.checkable,
         checkStrictly: props.checkStrictly,
-      }) //as TreeNode[];
+      }); //as TreeNode[];
     };
 
     const findNode = (key: TreeKey): TreeNode | undefined => {
@@ -435,7 +463,7 @@ const Tree = defineComponent({
         e.dataTransfer.effectAllowed = "move";
       }
 
-      emit("dragstart", node);
+      emit("dragstart", node, e);
     };
 
     const handleDragOver = (e: DragEvent) => {
@@ -452,14 +480,14 @@ const Tree = defineComponent({
 
       e.preventDefault();
       node.dropping = true;
-      emit("dragenter", node);
+      emit("dragenter", node, e);
     };
 
-    const handleDragLeave = (_e: DragEvent, node: TreeNode) => {
+    const handleDragLeave = (e: DragEvent, node: TreeNode) => {
       if (!props.draggable) return;
 
       node.dropping = false;
-      emit("dragleave", node);
+      emit("dragleave", node, e);
     };
 
     const handleDrop = (e: DragEvent, dropNode: TreeNode) => {
@@ -476,18 +504,22 @@ const Tree = defineComponent({
       dragNode.key = null;
       dragNode.data = null;
 
-      emit("drop", {
-        dragNode: currentDragNode,
-        dropNode,
-      });
+      emit(
+        "drop",
+        {
+          dragNode: currentDragNode,
+          dropNode,
+        },
+        e
+      );
     };
 
-    const handleDragEnd = (node: TreeNode) => {
+    const handleDragEnd = (e: DragEvent, node: TreeNode) => {
       if (!props.draggable) return;
 
       dragNode.key = null;
       dragNode.data = null;
-      emit("dragend", node);
+      emit("dragend", node, e);
     };
 
     const renderTreeNode = (item: TreeNode, i: number) => {
@@ -562,7 +594,7 @@ const Tree = defineComponent({
         titleProps.onDragenter = (e: DragEvent) => handleDragEnter(e, item);
         titleProps.onDragleave = (e: DragEvent) => handleDragLeave(e, item);
         titleProps.onDrop = (e: DragEvent) => handleDrop(e, item);
-        titleProps.onDragend = () => handleDragEnd(item);
+        titleProps.onDragend = (e: DragEvent) => handleDragEnd(e, item);
       }
 
       if (!props.directory) {
@@ -689,6 +721,6 @@ const Tree = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default Tree;

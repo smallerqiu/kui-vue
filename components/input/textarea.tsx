@@ -11,14 +11,19 @@ export const textAreaProps = {
 
 export type TextAreaProps = ExtractPropTypes<typeof textAreaProps>;
 
-export default defineComponent({
+const TextArea = defineComponent({
   name: "TextArea",
   props: textAreaProps,
   emits: ["update:modelValue"],
   setup(props, { attrs, emit }) {
     const currentValue = ref(props.modelValue ?? props.value);
-    
-    watch(() => props.modelValue, (v) => { currentValue.value = v; });
+
+    watch(
+      () => props.modelValue,
+      (v) => {
+        currentValue.value = v;
+      }
+    );
 
     return () => {
       const { theme, disabled, size } = props;
@@ -39,4 +44,5 @@ export default defineComponent({
       return <textarea {...rootProps} />;
     };
   },
-}) 
+});
+export default TextArea;

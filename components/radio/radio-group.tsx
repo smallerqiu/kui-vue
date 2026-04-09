@@ -27,6 +27,7 @@ export const radioGroupProps = {
   shape: String as PropType<"circle" | "square">,
   options: Array as PropType<RadioOption[]>,
   type: String as PropType<"radio" | "button">,
+  onChange: Function as PropType<(value: string | number) => void>,
 };
 
 export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;

@@ -1,10 +1,10 @@
 import {
-    defineComponent,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
+  defineComponent,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
@@ -21,11 +21,14 @@ export const rateProps = {
   count: { type: Number, default: 5 },
   character: [String, Function] as PropType<string | ((index: number) => any)>,
   icon: [Array, Function] as PropType<IconType[] | ((index: number) => any)>,
+  onChange: {
+    type: Function as PropType<(value: number) => void>,
+  },
 };
 
 export type RateProps = ExtractPropTypes<typeof rateProps>;
 
-export default defineComponent({
+const Rate = defineComponent({
   name: "Rate",
   props: rateProps,
   emits: ["update:modelValue", "change"],
@@ -139,3 +142,5 @@ export default defineComponent({
     };
   },
 });
+
+export default Rate;
