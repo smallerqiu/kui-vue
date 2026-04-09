@@ -10,7 +10,7 @@ export const timelineItemProps = {
 
 export type TimelineItemProps = ExtractPropTypes<typeof timelineItemProps>;
 
-export default defineComponent({
+const TimeLineItem = defineComponent({
   name: "TimeLineItem",
   props: timelineItemProps,
   setup(props, { slots }) {
@@ -38,3 +38,4 @@ export default defineComponent({
     };
   },
 });
+export default TimeLineItem;

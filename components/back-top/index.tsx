@@ -1,5 +1,12 @@
 import { ArrowUp } from "kui-icons";
-import { defineComponent, ref, Transition, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  ref,
+  Transition,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import { scroll } from "../directives/scroll";
 import Icon from "../icon";
 
@@ -17,7 +24,7 @@ const backTopProps = {
 
 export type BackTopProps = ExtractPropTypes<typeof backTopProps>;
 
-export default defineComponent({
+const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },
   props: backTopProps,
@@ -41,12 +48,12 @@ export default defineComponent({
 
     return () => {
       let children = slots.default?.();
-      
+
       if (!children || children.length === 0) {
         children = [
           <div class="k-back-top-content">
             <Icon type={ArrowUp} />
-          </div>
+          </div>,
         ];
       }
 
@@ -63,15 +70,12 @@ export default defineComponent({
 
       return (
         <Transition name="k-back-top-fade">
-          <div
-            {...rootProps}
-            v-show={visible.value}
-            v-scroll={onScroll}
-          >
+          <div {...rootProps} v-show={visible.value} v-scroll={onScroll}>
             {children}
           </div>
         </Transition>
       );
     };
   },
-}) 
+});
+export default BackTop;

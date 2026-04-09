@@ -13,8 +13,7 @@ export const optionProps = {
 };
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>;
-
-export default defineComponent({
+const Option = defineComponent({
   name: "Option",
   props: optionProps,
   emits: ["select", "mouseenter"],
@@ -51,3 +50,4 @@ export default defineComponent({
     };
   },
 });
+export default Option;

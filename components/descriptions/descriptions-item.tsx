@@ -11,7 +11,7 @@ export const descriptionsItemProps = {
 
 export type DescriptionsItemProps = ExtractPropTypes<typeof descriptionsItemProps>;
 
-export default defineComponent({
+const DescriptionsItem = defineComponent({
   name: "DescriptionsItem",
   props: descriptionsItemProps,
   setup(props, { slots }) {
@@ -75,15 +75,12 @@ export default defineComponent({
       return (
         <td class="k-descriptions-item" colspan={span}>
           <div class="k-descriptions-item-inner">
-            {label && (
-              <div class="k-descriptions-item-label">{label}</div>
-            )}
-            <div class="k-descriptions-item-content">
-              {children}
-            </div>
+            {label && <div class="k-descriptions-item-label">{label}</div>}
+            <div class="k-descriptions-item-content">{children}</div>
           </div>
         </td>
       );
     };
   },
 });
+export default DescriptionsItem;

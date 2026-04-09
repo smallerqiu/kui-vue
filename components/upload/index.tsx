@@ -7,7 +7,7 @@ import {
   ref,
   watch,
   type ExtractPropTypes,
-  type PropType
+  type PropType,
 } from "vue";
 import type { BooleanType, UploadStatusType } from "../const/types";
 import { type IconType } from "../icon";
@@ -57,7 +57,7 @@ export const uploadProps = {
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
 
-export default defineComponent({
+const Upload = defineComponent({
   name: "Upload",
   props: uploadProps,
   emits: [
@@ -330,4 +330,5 @@ export default defineComponent({
       );
     };
   },
-}) 
+});
+export default Upload;

@@ -1,10 +1,4 @@
-import {
-    defineComponent,
-    provide,
-    toRefs,
-    type ExtractPropTypes,
-    type PropType
-} from "vue";
+import { defineComponent, provide, toRefs, type ExtractPropTypes, type PropType } from "vue";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
 
@@ -22,7 +16,7 @@ export const avatarGroupProps = {
 
 export type AvatarGroupProps = ExtractPropTypes<typeof avatarGroupProps>;
 
-export default defineComponent({
+const AvatarGroup = defineComponent({
   name: "AvatarGroup",
   props: avatarGroupProps,
   setup(props, { slots }) {
@@ -57,4 +51,5 @@ export default defineComponent({
       return <div {...groupProps}>{childrenToShow}</div>;
     };
   },
-}) 
+});
+export default AvatarGroup;

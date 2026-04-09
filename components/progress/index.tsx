@@ -43,7 +43,7 @@ export const progressProps = {
 
 export type ProgressProps = ExtractPropTypes<typeof progressProps>;
 
-export default defineComponent({
+const Progress = defineComponent({
   name: "Progress",
   props: progressProps,
   setup(props, { slots }) {
@@ -146,9 +146,9 @@ export default defineComponent({
           style.height = strokeHeight + "px";
         }
         const bgProps = {
-          class:'k-progress-bg',
-          style
-        }
+          class: "k-progress-bg",
+          style,
+        };
         return (
           <div class="k-progress-inner">
             <div {...bgProps}></div>
@@ -193,3 +193,4 @@ export default defineComponent({
     };
   },
 });
+export default Progress;

@@ -12,16 +12,15 @@ export const timelineProps = {
 
 export type TimelineProps = ExtractPropTypes<typeof timelineProps>;
 
-export default defineComponent({
+const TimeLine = defineComponent({
   name: "TimeLine",
   props: timelineProps,
   setup(props, { slots }) {
     return () => {
-      const classes = [
-        "k-timeline",
-        `k-timeline-${props.mode}`,
-      ];
+      const classes = ["k-timeline", `k-timeline-${props.mode}`];
       return <ul class={classes}>{slots.default?.()}</ul>;
     };
   },
 });
+
+export default TimeLine;

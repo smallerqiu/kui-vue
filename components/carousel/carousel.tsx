@@ -1,17 +1,17 @@
 import { ArrowBack, ArrowForward } from "kui-icons";
 import {
-    Fragment,
-    computed,
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type VNode
+  Fragment,
+  computed,
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type VNode,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import resizeDir from "../directives/resize";
@@ -28,7 +28,7 @@ const carouselProps = {
 
 export type CarouselProps = ExtractPropTypes<typeof carouselProps>;
 
-export default defineComponent({
+const Carousel = defineComponent({
   name: "Carousel",
   directives: { resize: resizeDir },
   props: carouselProps,
@@ -63,16 +63,22 @@ export default defineComponent({
       return flatten(raw);
     });
 
-    watch(() => props.value, (val) => {
-      currentIndex.value = val;
-    });
-
-    watch(() => children.value.length, (newLen, oldLen) => {
-      if (newLen !== oldLen) {
-        currentIndex.value = 0;
-        posIndex.value = props.loop ? 1 : 0;
+    watch(
+      () => props.value,
+      (val) => {
+        currentIndex.value = val;
       }
-    });
+    );
+
+    watch(
+      () => children.value.length,
+      (newLen, oldLen) => {
+        if (newLen !== oldLen) {
+          currentIndex.value = 0;
+          posIndex.value = props.loop ? 1 : 0;
+        }
+      }
+    );
 
     const autoToPlay = () => {
       if (!props.autoplay) return;
@@ -213,4 +219,5 @@ export default defineComponent({
       );
     };
   },
-}) 
+});
+export default Carousel;

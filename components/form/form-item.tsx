@@ -43,7 +43,7 @@ const formItemProps = {
 
 export type FormItemProps = ExtractPropTypes<typeof formItemProps>;
 
-export default defineComponent({
+const FormItem = defineComponent({
   name: "FormItem",
   props: formItemProps,
   setup(props, { slots }) {
@@ -285,3 +285,5 @@ export default defineComponent({
     };
   },
 }) 
+
+export default FormItem

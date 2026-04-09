@@ -66,7 +66,7 @@ export const selectProps = {
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
 
-export default defineComponent({
+const Select = defineComponent({
   name: "Select",
   directives: {
     transfer,
@@ -661,3 +661,4 @@ export default defineComponent({
     };
   },
 });
+export default Select;
