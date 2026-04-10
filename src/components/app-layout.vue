@@ -73,13 +73,13 @@
 </template>
 
 <script setup lang="ts">
-import AppHeader from "./AppHeader";
-// import AppFooter from "./AppFooter";
+import AppHeader from "./app-header.vue";
+// import AppFooter from "./app-footer";
 import { ChevronBack, ChevronForward, Close, Menu as MenuIcon } from "kui-icons";
 import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";
-import WebIcon from "./WebIcon";
+import WebIcon from "./web-icon.vue";
 const router = useRouter();
 const route = useRoute();
 const showMiniNav = ref(false);
@@ -89,7 +89,7 @@ const activeName = ref([]);
 const openKeys = ["start", "basic", "layouts", "navigation", "forms", "data", "notices", "other"];
 
 const locale = inject("locale");
-const $t = inject("$t");
+const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
 const lang = computed(() => {
   // console.log(locale.value.name)

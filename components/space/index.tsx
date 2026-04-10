@@ -43,9 +43,6 @@ const Space = defineComponent({
         },
       ];
 
-      if (size === undefined && !props.compact) {
-        style.gap = "8px";
-      }
       if (!props.compact) {
         if (Array.isArray(size)) {
           style.gap = `${size[1]}px ${size[0]}px`;
@@ -54,6 +51,8 @@ const Space = defineComponent({
           style.gap = `${sizes[size]}px`;
         } else if (typeof size !== "number") {
           style.gap = `${size}px`;
+        } else {
+          style.gap = "8px";
         }
       }
       // const _attrs = { ...attrs }

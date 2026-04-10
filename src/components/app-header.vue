@@ -59,19 +59,18 @@
 <script setup lang="ts">
 import Color from "color";
 import { Language, LogoGithub, LogoKui, Moon, Search, Sunny } from "kui-icons";
-import { theme } from "kui-vue";
+import { type MenuSelectEvent, theme } from "kui-vue";
 import { computed, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { version } from "../../package.json";
 import { routeData } from "../menu";
-import pkg from "/package.json";
 const route = useRoute();
 const router = useRouter();
-const version = pkg.version;
 const themeColor = ref("#3a95ff");
-const topMenu = ref([]);
+const topMenu = ref<string[]>([]);
 const themeMode = ref("");
 const queryKey = ref("");
-const $t = inject("$t");
+const $t = inject<(key: string) => string>("$t", (key: string) => key);
 const changeLang = inject("changeLang");
 
 const items = computed(() => {
@@ -110,7 +109,7 @@ onMounted(() => {
   topMenu.value = path == "/" ? ["home"] : ["start"];
 });
 
-const changeThemeColor = (v) => {
+const changeThemeColor = (v: string) => {
   let stl = document.querySelector("style[name=kui]");
   if (!stl) {
     stl = document.createElement("style");
@@ -140,10 +139,10 @@ const changeThemeColor = (v) => {
   document.body.setAttribute("theme-type", "custom");
   localStorage.setItem("themeColor", v);
 };
-const changeMode = (event:MouseEvent) => {
-  theme.setThemeMode(event, (v:boolean) => (themeMode.value = v ? "dark" : "light"));
+const changeMode = (event: MouseEvent) => {
+  theme.setThemeMode(event, (v: boolean) => (themeMode.value = v ? "dark" : "light"));
 };
-const go = ({ key, keyPath, item }) => {
+const go = ({ key }: MenuSelectEvent) => {
   if (key == "home") {
     topMenu.value = ["home"];
     router.push("/");
@@ -153,7 +152,7 @@ const go = ({ key, keyPath, item }) => {
     open(key);
   }
 };
-const change = (value) => {
+const change = (value: string) => {
   let item = routeData.filter((x) => x.name == value)[0] || {};
   router.push(`/${item.key}/${value}`);
   setTimeout(() => (queryKey.value = ""), 500);

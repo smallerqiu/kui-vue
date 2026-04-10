@@ -2539,7 +2539,7 @@
               "name": "onSelect",
               "description": "Props for onSelect",
               "value": {
-                "type": "(data: { key: string; keyPath: string[]; }) => void",
+                "type": "(data: MenuSelectEvent) => void",
                 "kind": "expression"
               }
             },
@@ -2663,14 +2663,6 @@
               "description": "Whether disabled",
               "value": {
                 "type": "boolean",
-                "kind": "expression"
-              }
-            },
-            {
-              "name": "key",
-              "description": "Unique identifier for item",
-              "value": {
-                "type": "string",
                 "kind": "expression"
               }
             },

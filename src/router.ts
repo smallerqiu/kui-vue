@@ -4,17 +4,17 @@ const lang = localStorage.getItem("lang") || "en";
 let children = [
   {
     path: "/guide/quick-started",
-    component: () => import("./views/quickStarted.md"),
+    component: () => import("./views/quick-started.md"),
   },
   {
     path: "/guide/quick-started-en",
-    component: () => import("./views/quickStarted.en_US.md"),
+    component: () => import("./views/quick-started.en_US.md"),
   },
   { path: "/guide/language", component: () => import("./views/language") },
-  { path: "/guide/change-log", component: () => import("./views/changeLog.md") },
+  { path: "/guide/change-log", component: () => import("./views/change-log.md") },
   { path: "/guide/change-log-en", component: () => import("./views/changeLog.en_US.md") },
-  { path: "/guide/usage-with-nuxt", component: () => import("./views/usageWithNuxt.md") },
-  { path: "/guide/usage-with-nuxt-en", component: () => import("./views/usageWithNuxt.en_US.md") },
+  { path: "/guide/usage-with-nuxt", component: () => import("./views/usage-with-nuxt.md") },
+  { path: "/guide/usage-with-nuxt-en", component: () => import("./views/usage-with-nuxt.en_US.md") },
   // { path: '/guide/theme', component: () => import('./views/theme.md') },
   {
     path: "/guide/dark-mode",
@@ -65,7 +65,7 @@ let children = [
   },
   {
     path: "/navigation/backtop",
-    component: () => import("../components/backtop/demo"),
+    component: () => import("../components/back-top/demo"),
   },
   {
     path: "/notices/badge",
@@ -155,7 +155,7 @@ let children = [
   },
   {
     path: "/data/statcard",
-    component: () => import("@/components/stat-card/demo"),
+    component: () => import("../components/stat-card/demo"),
   },
   { path: "/data/table", component: () => import("../components/table/demo") },
   { path: "/notices/tag", component: () => import("../components/tag/demo") },
@@ -165,7 +165,7 @@ let children = [
   },
   {
     path: "/data/timeline",
-    component: () => import("../components/timeline/demo"),
+    component: () => import("../components/time-line/demo"),
   },
   {
     path: "/notices/tooltip",
@@ -198,11 +198,11 @@ let children = [
   },
 ];
 
-import Layout from "./components/AppLayout";
+import Layout from "./components/app-layout.vue";
 
 let routes = [
-  { path: "/", component: () => import("./views/index") },
-  { path: "/test", component: () => import("./views/test") },
+  { path: "/", component: () => import("./views/index.vue") },
+  { path: "/test", component: () => import("./views/test.vue") },
   {
     path: "/",
     component: Layout,

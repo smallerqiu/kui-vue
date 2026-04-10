@@ -35,7 +35,7 @@ export const verifyBanner = (content: string): string => {
  * @param options - Some options from `vite.config.[ts|js]`
  * @returns A unified plugin option
  */
-export const getPluginConfig = (options: UnionPluginOptions): PluginConfig => {
+export const getPluginConfig = (options?: UnionPluginOptions): PluginConfig => {
   // Set a default config
   const config: PluginConfig = {
     content: '',
@@ -43,7 +43,7 @@ export const getPluginConfig = (options: UnionPluginOptions): PluginConfig => {
     debug: false,
     verify: true,
   }
-
+  if(!options) return config
   // Type of plugin options
   const type: string = Object.prototype.toString.call(options)
 

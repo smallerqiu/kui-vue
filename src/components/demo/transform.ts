@@ -1,13 +1,29 @@
-import * as Vue from "vue";
-import * as Kui from "kui-vue";
 import {
-  parse,
   compileScript,
-  compileTemplate,
   compileStyle,
+  compileTemplate,
+  parse,
   rewriteDefault,
 } from "@vue/compiler-sfc";
-export async function parseCode({ source, id, viewRef, error, currentApp, buildState }) {
+import * as Kui from "kui-vue";
+import * as Vue from "vue";
+
+export interface ParseParams {
+  source: string;
+  id: string;
+  viewRef: any;
+  error: any;
+  currentApp: any;
+  buildState: any;
+}
+export async function parseCode({
+  source,
+  id,
+  viewRef,
+  error,
+  currentApp,
+  buildState,
+}: ParseParams) {
   try {
     error.value = "";
     const { descriptor } = parse(source);
@@ -47,6 +63,7 @@ export async function parseCode({ source, id, viewRef, error, currentApp, buildS
         source: s.content,
         id: scopeId,
         scoped: s.scoped,
+        filename: "App.vue",
       });
       cssCode += compiledStyle.code + "\n";
     }
@@ -72,9 +89,9 @@ export async function parseCode({ source, id, viewRef, error, currentApp, buildS
 
     const app = Vue.createApp(component);
     const KuiPlugin = Kui.default || Kui;
-    if (KuiPlugin.install) {
-      app.use(KuiPlugin);
-    }
+    // if (KuiPlugin.install) {
+    app.use(KuiPlugin);
+    // }
 
     const mountNode = document.createElement("div");
     mountNode.setAttribute(scopeId, "");
@@ -88,7 +105,7 @@ export async function parseCode({ source, id, viewRef, error, currentApp, buildS
     updateStyle(id, cssCode);
     buildState.state = "success";
     buildState.text = "Build Success";
-  } catch (err) {
+  } catch (err: any) {
     buildState.state = "error";
     buildState.text = "Build Error";
     error.value = err.message;
@@ -96,7 +113,7 @@ export async function parseCode({ source, id, viewRef, error, currentApp, buildS
   }
 }
 
-function updateStyle(id, css) {
+function updateStyle(id: string, css: string) {
   let el = document.getElementById(`style-${id}`);
   if (!el) {
     el = document.createElement("style");

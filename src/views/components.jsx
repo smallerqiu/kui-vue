@@ -4,7 +4,7 @@ import { defineComponent, inject } from "vue";
 import { navData } from "../menu";
 export default defineComponent({
   setup() {
-    const $t = inject("$t");
+    const $t = inject<(key: string) => string>("$t", (key: string) => key);
     const locale = inject("locale");
     const renderChildren = (children) => {
       return (
