@@ -26,7 +26,7 @@ Demonstrates dynamic mode switching.
     />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Mail, Heart, Settings, Grid } from "kui-icons";
 const current = ref(["1-1"]);

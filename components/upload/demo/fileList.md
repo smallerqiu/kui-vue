@@ -21,7 +21,7 @@ If not set, only one file can be uploaded by default.
     <Button :icon="CloudUploadOutline">Click to upload</Button>
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CloudUploadOutline } from "kui-icons";
 import { ref } from "vue";
 import { message } from "kui-vue";

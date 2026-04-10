@@ -111,7 +111,7 @@ Use `InputGroup` to tightly connect components and merge borders. Default is `tr
     </InputGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Copy } from "kui-icons";
 
 const treeData = [

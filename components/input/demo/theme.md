@@ -19,7 +19,7 @@ Use `theme` to set the theme, and `shape` for rounded corners.
     <TextArea placeholder="Please input" :rows="3" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Search } from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";

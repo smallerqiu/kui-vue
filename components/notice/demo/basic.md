@@ -13,7 +13,7 @@ Basic usage of `Notice`.
     <Button @click="info" type="primary">Notice</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { notice } from "kui-vue";
 const info = () => {
   notice.open({

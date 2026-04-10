@@ -18,7 +18,7 @@ Set `reverse` to invert the slider.
     <Slider v-model="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const v1 = ref(30);
 const v2 = ref([35, 60]);

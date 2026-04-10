@@ -29,7 +29,7 @@ Customize the image, description, and extra content.
     </Empty>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Add } from "kui-icons";
 </script>
 ```

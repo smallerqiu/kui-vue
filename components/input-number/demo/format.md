@@ -39,7 +39,7 @@ Format numbers using `formatter` to display data with specific meaning, often us
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const n = ref(0.1);
 const n1 = ref(0.1);

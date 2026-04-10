@@ -30,7 +30,7 @@ Use custom validation rules to complete form validation.
     </Form>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 const formRef = ref(null);

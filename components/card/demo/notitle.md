@@ -20,7 +20,7 @@
     </Card>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart } from "kui-icons";
 </script>
 ```

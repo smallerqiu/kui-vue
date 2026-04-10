@@ -21,7 +21,7 @@
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoKui } from "kui-icons";
 import { message } from "kui-vue";
 const iconClick = () => {

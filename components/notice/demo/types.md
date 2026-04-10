@@ -16,7 +16,7 @@ Call different methods to display different types.
     <Button @click="openNotice('error')">Error </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { notice } from "kui-vue";
 const openNotice = (type) => {
   notice[type]({

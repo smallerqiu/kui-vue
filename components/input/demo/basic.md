@@ -18,7 +18,7 @@ Use `v-model` for two-way data binding.
     <TextArea v-model="value" placeholder="TextArea"/>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value = ref("");
 const blur = () => {

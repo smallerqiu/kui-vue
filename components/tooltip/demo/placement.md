@@ -58,7 +58,7 @@ Control the direction via `placement`. There are twelve available positions.
     </Space>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 const title = "Title";
 </script>
 ```

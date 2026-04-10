@@ -22,7 +22,7 @@ Specify the output type via `valueType`.
     <DatePicker v-model="value5" valueType="unix" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value1 = ref("2025-11-30");
 const value2 = ref("2025/11/30");

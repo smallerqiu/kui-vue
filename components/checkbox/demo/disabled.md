@@ -32,7 +32,7 @@ Set disabled state via `disabled`.
     </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const disabled = ref(false);
 const checked = ref(false);

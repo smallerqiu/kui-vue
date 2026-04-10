@@ -20,7 +20,7 @@ Use `bordered` to control whether the border is displayed.
     </Card>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart } from "kui-icons";
 </script>
 ```

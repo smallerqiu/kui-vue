@@ -16,7 +16,7 @@ Control size via `size`.
     <Tag v-for="x in 3" :key="x" :size="size" :shape="shape" :theme="light">Tag{{ x }}</Tag>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 const size = ref("small");
 const isCircle = ref(false);

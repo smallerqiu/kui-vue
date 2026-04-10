@@ -31,7 +31,7 @@ Typically used for message prompts and avatar combination display.
     </AvatarGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Person, HeartOutline } from "kui-icons";
 </script>
 ```

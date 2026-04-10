@@ -34,7 +34,7 @@ Custom `Modal`.
     </Modal>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Save } from "kui-icons";
 import { ref } from "vue";
 const visible1 = ref(false);

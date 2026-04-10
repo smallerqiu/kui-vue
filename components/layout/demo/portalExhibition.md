@@ -71,7 +71,7 @@ Suitable for portal websites, showcase websites, or personal blogs with a large 
     </Footer>
   </Layout>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoKui } from "kui-icons";
 </script>
 <style scoped>

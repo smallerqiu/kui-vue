@@ -50,7 +50,7 @@ Disabled state.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
 const value1 = ref(["0-1", "1-1"]);

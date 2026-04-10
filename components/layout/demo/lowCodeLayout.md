@@ -55,7 +55,7 @@ This demo highlights how the Layout divides screen space into compact yet well-o
     </Footer>
   </Layout>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Documents, GitBranch, Search } from "kui-icons";
 import { ref } from "vue";
 </script>

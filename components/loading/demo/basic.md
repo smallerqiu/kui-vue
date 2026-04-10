@@ -18,7 +18,7 @@ The simplest usage.
     <Button @click="destroy()">destroy</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { loading } from "kui-vue";
 const update = (percent) => {
   loading.update(percent);

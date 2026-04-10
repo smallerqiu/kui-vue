@@ -25,7 +25,7 @@ A regular table.
     </template>
   </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Sunny, Moon } from "kui-icons";
 import { message, modal } from "kui-vue";
 const data = [

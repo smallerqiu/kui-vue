@@ -18,7 +18,7 @@ When used alone, the `v-model` value is `true` for selected and `false` for unse
     <Radio label="Radio" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checked = ref(true);
 </script>

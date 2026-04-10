@@ -18,7 +18,7 @@ Use `disabledDate` and `disabledTime` to disable selecting specific dates and ti
     <DatePicker mode="dateTimeRange" :disabledDate="disabledDate" :disabledTime="disabledTime2" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import dayjs from "dayjs";
 
 const disabledDate = (current) => {

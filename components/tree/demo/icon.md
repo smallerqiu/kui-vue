@@ -11,7 +11,7 @@ You can customize icons for different nodes.
 <template>
   <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" />
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   FolderOpenOutline,
   FolderOutline,

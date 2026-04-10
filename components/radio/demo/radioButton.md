@@ -35,7 +35,7 @@ Combine `RadioGroup` and `RadioButton` for usage.
     </RadioGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoApple } from "kui-icons";
 import { ref } from "vue";
 const size = ref("default");

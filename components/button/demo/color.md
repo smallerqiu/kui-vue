@@ -21,7 +21,7 @@ Use `color` to create more button variants.
     </Flex>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 const colors = [
   "default",
   "red",

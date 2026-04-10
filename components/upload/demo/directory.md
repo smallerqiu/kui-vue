@@ -19,7 +19,7 @@ By setting `directory` to `true`, you can support uploading all files from a fol
     <Button :icon="CloudUploadOutline">Click to upload</Button>
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CloudUploadOutline } from "kui-icons";
 import { ref } from "vue";
 const headers = ref({

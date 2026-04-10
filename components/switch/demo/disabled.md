@@ -25,7 +25,7 @@ Use the `disabled` attribute to set whether the component is disabled.
     <k-switch disabled true-text="Yes" false-text="No" checked size="small" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checked = ref(false);
 const disabled = ref(false);

@@ -19,7 +19,7 @@ No need to manually set breakpoints. Rely on `itemMinWidth` to let the container
     <GridItem v-for="(x, i) in data" :key="i" class="box"> Card {{ i + 1 }} (Minimum 256px) </GridItem>
   </Grid>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const data = ref(Array.from({ length: 7 }));
 </script>

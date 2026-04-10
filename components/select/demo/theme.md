@@ -19,7 +19,7 @@ Some strange things.
     <Select :bordered="false" theme="solid" :options="options" placeholder="No Border" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Search, CaretDown } from "kui-icons";
 

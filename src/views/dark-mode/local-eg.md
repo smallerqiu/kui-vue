@@ -135,7 +135,7 @@ Simple switching example
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import {
   LogoKui,

@@ -34,7 +34,7 @@ This example tests whether component events are triggered normally.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 const events = {};
 ["focus", "blur", "change", "keypress", "keyup", "keydown", "keydownEnter"].forEach((type) => {

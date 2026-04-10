@@ -51,7 +51,7 @@ Example of compactly arranged Button components.
     </Space>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Copy,
   CloudDownloadOutline,

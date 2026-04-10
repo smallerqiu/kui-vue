@@ -17,7 +17,7 @@ You can set the icon's type, size, and color via the `type`, `size`, and `color`
     <Icon :type="Loading" spin />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart, LogoKui, Home, Loading } from "kui-icons";
 </script>
 ```

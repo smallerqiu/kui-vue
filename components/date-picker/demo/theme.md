@@ -18,7 +18,7 @@ Strange things.
     <DatePicker mode="dateRange" theme="light" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ArrowDown } from "kui-icons";
 </script>
 ```

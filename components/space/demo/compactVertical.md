@@ -47,7 +47,7 @@ Vertical compact layout, currently only supporting Button combinations.
     </Space>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Copy,
   CloudDownloadOutline,

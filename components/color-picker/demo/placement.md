@@ -18,7 +18,7 @@ Supports 6 popup placements. If there is not enough space above, the panel will 
   </Space>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const placements = ["bottom-left", "bottom", "bottom-right", "top-left", "top", "top-right"];
 </script>
 ```

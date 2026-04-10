@@ -20,7 +20,7 @@ You can use the `options` property to define options, or use child components in
     </CheckboxGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value = ref(["apple", "grape"]);
 const options = ref([

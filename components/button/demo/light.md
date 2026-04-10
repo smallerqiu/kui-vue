@@ -30,7 +30,7 @@ Light theme.
     </Space>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Camera } from "kui-icons";
 </script>
 ```

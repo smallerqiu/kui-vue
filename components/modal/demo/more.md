@@ -48,7 +48,7 @@ When the footer is not needed, set `footer` to `null`.
     </Modal>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const show1 = ref(false);
 const show2 = ref(false);

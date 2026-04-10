@@ -13,7 +13,7 @@ The table supports row and column spanning; in renders, use cell props colSpan o
 <template>
   <Table :data="data" :columns="columns" bordered> </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 const data = [
   { key: "1", name: "Jim", age: 25, city: "Beijing" },
   { key: "2", name: "Allen", age: 30, city: "Wuhan" },

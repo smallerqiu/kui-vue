@@ -81,7 +81,7 @@ Includes various form items, such as input fields, selectors, switches, radio bu
     </Form>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { reactive } from "vue";
 const state = reactive({
   disabled: false,

@@ -44,7 +44,7 @@ Use `v-model` for two-way binding to control whether the `Drawer` is displayed. 
     </Drawer>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const show = ref(false);
 const show2 = ref(false);

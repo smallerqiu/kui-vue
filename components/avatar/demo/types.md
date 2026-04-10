@@ -25,7 +25,7 @@ Three types are supported: Image, Icon, and Text. Icon and Text avatars support 
     <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" shape="square" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { HeartOutline } from "kui-icons";
 </script>
 ```

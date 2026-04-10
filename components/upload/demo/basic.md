@@ -19,7 +19,7 @@ Classic style. When the user clicks the button, a file selection dialog pops up.
     <Button :icon="CloudUpload">Click to upload</Button>
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CloudUpload } from "kui-icons";
 import { ref } from "vue";
 import { message } from "kui-vue";

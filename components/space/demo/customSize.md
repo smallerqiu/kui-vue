@@ -20,7 +20,7 @@ Customize spacing size.
     </Space>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const size = ref(12);
 </script>

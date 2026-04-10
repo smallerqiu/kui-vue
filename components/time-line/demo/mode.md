@@ -32,7 +32,7 @@ Specify the `mode` to change the display direction.
     <TimeLineItem time="2020-10-01" extra="More auxiliary details"> Release version 1.0 </TimeLineItem>
   </TimeLine>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Ribbon, Build } from "kui-icons";
 import { ref } from "vue";
 const mode = ref("left");

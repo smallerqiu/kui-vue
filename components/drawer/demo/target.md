@@ -36,7 +36,7 @@ Can be expanded within the target element.
     <p>something ...</p>
   </Drawer>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 const show = ref(false);
 const placement = ref("left");

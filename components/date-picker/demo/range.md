@@ -29,7 +29,7 @@ Supports date and time range selection. It's recommended to use `startDate` and 
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const start1 = ref("2025-10-01");
 const end1 = ref("2025-11-25");

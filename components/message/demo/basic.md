@@ -13,7 +13,7 @@ Informational feedback prompt.
     <Button @click="info" type="primary">Show base info </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 let count = ref(0);

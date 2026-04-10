@@ -28,7 +28,7 @@ Use `true-text` and `false-text` to set the text displayed when selected and uns
     </k-switch>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
 import { ref } from "vue";
 const checked = ref(false);

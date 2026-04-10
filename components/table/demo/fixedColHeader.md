@@ -15,7 +15,7 @@ For data with many columns, you can fix the front and back columns and scroll ho
     </template>
   </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 const _columns = [],
   dataItem = {};
 for (let i = 0; i < 20; i++) {

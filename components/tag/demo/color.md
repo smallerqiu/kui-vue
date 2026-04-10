@@ -25,7 +25,7 @@ Multiple preset tag colors for different scenarios. If the presets don't meet yo
     </Space>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 const colors = [
   "pink",
   "red",

@@ -25,7 +25,7 @@ Enable timed autoplay by setting `autoplay`. Use `delay` to set the interval. Th
     </Carousel>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const refCarousel = ref();
 

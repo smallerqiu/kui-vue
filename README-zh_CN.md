@@ -70,7 +70,7 @@ npm add kui-vue
     <button type="primary" @click="test">Primary</button>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
   import { mgessage } from "kui-vue";
   const test = () => {
     message.info("Hello kui !");

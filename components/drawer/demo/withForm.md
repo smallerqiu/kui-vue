@@ -68,7 +68,7 @@ Content will be presented in form mode, with a header and footer, and the footer
     </Drawer>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 import { Home } from "kui-icons";
 import { ref, reactive } from "vue";

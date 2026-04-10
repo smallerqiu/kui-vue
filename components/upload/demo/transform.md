@@ -23,7 +23,7 @@ Use `transformFile` to process the file before it is uploaded, for example, to c
   >
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { CameraOutline } from "kui-icons";
 const headers = ref({

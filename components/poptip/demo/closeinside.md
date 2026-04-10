@@ -16,7 +16,7 @@ Use the `v-model` attribute to control the floating layer's visibility.
     <Button type="primary">Click me</Button>
   </Poptip>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const show = ref(false);
 const test = () => {

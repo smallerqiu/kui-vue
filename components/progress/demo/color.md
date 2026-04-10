@@ -23,7 +23,7 @@ Customize color and format.
     <Button @click="increase" :icon="Add" />
   </ButtonGroup>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Remove, Add } from "kui-icons";
 import { ref } from "vue";
 const percent = ref(0);

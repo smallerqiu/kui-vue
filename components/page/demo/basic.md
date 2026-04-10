@@ -14,7 +14,7 @@ Basic pagination.
     <Page v-model:page="page" v-model:pageSize="size" :total="50" @change="onChange" disabled />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 const page = ref(1);

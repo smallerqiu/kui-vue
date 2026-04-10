@@ -91,7 +91,7 @@ Switch languages by modifying the locale property of ConfigProvider.
   </Space>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, provide } from "vue";
 import en from "kui-vue/locale/en";
 import de from "kui-vue/locale/de";

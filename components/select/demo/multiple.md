@@ -29,7 +29,7 @@ Set the `multiple` value to present multi-select mode.
     <Select v-model="value3" block :maxTagCount="2" :options="data" multiple />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value1 = ref([0, 2]);
 const value2 = ref([0, 2]);

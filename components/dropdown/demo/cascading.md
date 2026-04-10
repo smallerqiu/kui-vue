@@ -19,7 +19,7 @@ The passed menu has multiple levels.
     </template>
   </Dropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronDown } from "kui-icons";
 const menuClick = ({ key }) => {
   console.log(key);

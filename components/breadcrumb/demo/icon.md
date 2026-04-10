@@ -15,7 +15,7 @@ Set the icon via `icon`.
     <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
   </Breadcrumb>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart, Home, Cloud } from "kui-icons";
 </script>
 ```

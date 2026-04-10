@@ -25,7 +25,7 @@
     <Button @click="change">change</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { ArrowUp, ArrowDown } from "kui-icons";
 const value = ref(Math.random() * 100000);

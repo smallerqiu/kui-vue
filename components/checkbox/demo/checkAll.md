@@ -17,7 +17,7 @@ Select-all combination.
     <CheckboxGroup :options="options" v-model="cities" @change="change" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checkAll = ref(false);
 const indeterminate = ref(false);

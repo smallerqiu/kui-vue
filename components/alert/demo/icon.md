@@ -46,7 +46,7 @@ Use `showIcon` to control whether the icon is displayed.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const bordered = ref(true);
 </script>

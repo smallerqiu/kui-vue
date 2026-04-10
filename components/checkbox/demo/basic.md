@@ -17,7 +17,7 @@ When used alone, a `v-model` value of `true` means checked, and `false` means un
     <Checkbox label="Checkbox" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checked = ref(true);
 </script>

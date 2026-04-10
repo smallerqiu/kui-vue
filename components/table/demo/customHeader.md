@@ -33,7 +33,7 @@ A table with a customizable header. You can define the header via `#header-`.
     </template>
   </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 import { modal } from "kui-vue";
 import { AlertCircle } from "kui-icons";
 const data = [

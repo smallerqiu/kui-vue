@@ -31,7 +31,7 @@ By setting the `icon` attribute, you can add an icon to the input field, which i
     <Input placeholder="Please input" :clearable="false" @search="search" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Person, LockClosed } from "kui-icons";
 import { message } from "kui-vue";

@@ -22,7 +22,7 @@ Use `closeable` to show a close button.
     <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput"> New Tag </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Bookmark } from "kui-icons";
 import { ref, nextTick } from "vue";
 const showInput = ref(false);

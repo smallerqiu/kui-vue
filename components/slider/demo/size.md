@@ -42,7 +42,7 @@ size 可以控制操作杆的大小
     <br />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const disabled = ref(false);
 const v1 = ref(80);

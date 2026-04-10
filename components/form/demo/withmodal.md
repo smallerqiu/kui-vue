@@ -54,7 +54,7 @@ Outside the Form, submit the form via `submit` from the outside. Conversely, it'
     </Modal>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 const labelCol = { span: 6 };

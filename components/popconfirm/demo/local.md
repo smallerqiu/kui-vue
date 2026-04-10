@@ -24,7 +24,7 @@ Use `okText` and `cancelText` to customize button text.
     </Popconfirm>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 const ok = () => {
   message.success("Clicked on ok");

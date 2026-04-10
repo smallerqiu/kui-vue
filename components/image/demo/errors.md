@@ -20,7 +20,7 @@ Show an image placeholder on load failure.
     <Button @click="loadOrigin">Load origin</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const src = ref("https://cdn.chuchur.com/upload/demo/test_300.jpg");
 const loadOrigin = () => {

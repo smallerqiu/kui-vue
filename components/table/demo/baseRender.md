@@ -11,7 +11,7 @@ Use custom `render` to initialize the table.
 <template>
   <Table :data="data" :columns="columns" />
 </template>
-<script setup>
+<script setup lang="ts">
 import { modal, Icon, Space, Button, Tag } from "kui-vue";
 import { Sunny, Moon } from "kui-icons";
 const data = [

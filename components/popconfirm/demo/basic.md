@@ -13,7 +13,7 @@ The simplest usage.
     <a type="primary">Delete</a>
   </Popconfirm>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 const ok = () => {
   message.success("Clicked on ok");

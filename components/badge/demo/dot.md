@@ -21,7 +21,7 @@ Set `dot` to display a dot.
     </Badge>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { NotificationsOutline } from "kui-icons";
 </script>
 ```

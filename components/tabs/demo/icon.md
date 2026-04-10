@@ -14,7 +14,7 @@ Tabs with icons.
     <TabPanel key="2" title="Tab 2" :icon="LogoMicrosoft"> Content of Tab Pane 2 </TabPanel>
   </Tabs>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { LogoApple, LogoMicrosoft } from "kui-icons";
 const current = ref("1");

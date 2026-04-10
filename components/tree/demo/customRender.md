@@ -15,7 +15,7 @@ Extended node for a tree item.
     </template>
   </Tree>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 const expandedKeys = ref(["0-0"]);

@@ -19,7 +19,7 @@ You can set the icon's stroke width via the `strokeWidth` attribute.
     <Icon :type="ChevronForward" :strokeWidth="80" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronForward, ChevronDoubleForward } from "kui-icons";
 </script>
 ```

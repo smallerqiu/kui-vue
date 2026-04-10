@@ -45,7 +45,7 @@ Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various 
     </Grid>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, h } from "vue";
 import { Icon } from "kui-vue";
 import { Star, Heart } from "kui-icons";

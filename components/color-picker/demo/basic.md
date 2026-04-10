@@ -22,7 +22,7 @@ Click to open the color panel.
     <ColorPicker showText v-model="color" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const color = ref("#3a95ff");
 const hexColor = ref("#3a95ff");

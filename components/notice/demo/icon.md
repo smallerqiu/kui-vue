@@ -14,7 +14,7 @@ Custom icon.
     <Button @click="wechat" :icon="LogoWechat"></Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { notice, Button } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
 import { getCurrentInstance, h } from "vue";

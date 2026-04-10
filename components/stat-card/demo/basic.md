@@ -23,7 +23,7 @@
     <StatNumber v-model="value" type="rollup" suffix="元" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value = ref(Math.random() * 100000);
 

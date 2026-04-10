@@ -17,7 +17,7 @@ When spacing is horizontal, use `wrap` to control whether items wrap automatical
     </Flex>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const x = ref(12);
 const y = ref(15);

@@ -23,7 +23,7 @@ Inline menus can be collapsed/expanded.
     />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
 import { ref } from "vue";
 const current = ref(["1-1"]);

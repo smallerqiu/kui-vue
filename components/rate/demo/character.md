@@ -21,7 +21,7 @@ Stars can be replaced with other characters, such as letters, numbers, font icon
     <Rate :icon="(i) => icons[i - 1]" :modelValue="3" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart, VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";
 const icons = [VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute];
 </script>

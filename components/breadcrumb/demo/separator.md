@@ -23,7 +23,7 @@ Set the separator via `separator`.
     </Breadcrumb>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart, Home, Cloud } from "kui-icons";
 </script>
 ```

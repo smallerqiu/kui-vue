@@ -22,7 +22,7 @@ Select or manually input a date. Use `v-model` for two-way data binding.
     <DatePicker mode="dateTime" v-model="datetime" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const datetime = ref("2021-01-01 20:20:20");
 const time = ref("20:20:20");
