@@ -1,17 +1,17 @@
 import {
-    cloneVNode,
-    type CSSProperties,
-    defineComponent,
-    type ExtractPropTypes,
-    getCurrentInstance,
-    inject,
-    nextTick,
-    onMounted,
-    type PropType,
-    provide,
-    type Ref,
-    ref,
-    Transition,
+  cloneVNode,
+  type CSSProperties,
+  defineComponent,
+  type ExtractPropTypes,
+  getCurrentInstance,
+  inject,
+  nextTick,
+  onMounted,
+  type PropType,
+  provide,
+  type Ref,
+  ref,
+  Transition,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
@@ -25,7 +25,6 @@ export const submenuProps = {
   title: String,
   isPopup: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
-  key: String,
 };
 
 export type SubMenuProps = ExtractPropTypes<typeof submenuProps>;
@@ -41,14 +40,14 @@ const SubMenu = defineComponent({
     const left = ref(0);
     const minWidth = ref("");
     const instance = getCurrentInstance();
-    const key = props.key || instance?.vnode.key as string;
+    const key = instance?.vnode.key as string;
     const menuMode = inject<Ref<string | null>>("menu-mode", ref(null));
     const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
     const openKeys = inject<Ref<string[]>>("menu-open-keys", ref([]));
     const openKeysChange =
       inject<(key: string, opened: boolean, path: string[]) => void>("openKeysChange");
-    const clearPopTimer = inject<() => void>("clearPopTimer");
-    const hidePopTimer = inject<() => void>("hidePopTimer");
+    const clearPopTimer = inject<(() => void) | null>("clearPopTimer", null);
+    const hidePopTimer = inject<(() => void) | null>("hidePopTimer", null);
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");
     const popTimer = ref();
@@ -57,8 +56,6 @@ const SubMenu = defineComponent({
     const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";
 
     const rendered = ref(false);
-
-    // const key = props.key as string;
 
     onMounted(() => {
       nextTick(() => {

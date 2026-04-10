@@ -1,6 +1,5 @@
 import type { App } from "vue";
 import * as components from "./components";
-import "./styles/index.less";
 import { globalComponents, installGlobal } from "./utils/vue";
 export * from "./components";
 const UI = {
@@ -25,5 +24,8 @@ const UI = {
     });
   },
 };
+
+export const install = UI.install;
+export const version = UI.version;
 
 export default UI;

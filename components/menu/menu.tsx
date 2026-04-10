@@ -13,6 +13,10 @@ import type { BooleanType, DirectionType } from "../const/types";
 import type { IconType } from "../icon";
 import RecursiveMenu from "./recursive-menu";
 
+export interface MenuSelectEvent {
+  key: string;
+  keyPath: string[];
+}
 export const menuProps = {
   theme: String,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
@@ -21,7 +25,7 @@ export const menuProps = {
   items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean as BooleanType,
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
-  onSelect: { type: Function as PropType<(data: { key: string; keyPath: string[] }) => void> },
+  onSelect: { type: Function as PropType<(data: MenuSelectEvent) => void> },
   onOpenChange: { type: Function as PropType<(data: string[]) => void> },
 };
 
@@ -94,8 +98,9 @@ const Menu = defineComponent({
         defaultOpenKeys.value = tempOpenKeys.value;
       }
     };
-    const dropdownMenuSelected =
-      inject<(data: { key: string; keyPath: string[] }) => void>("dropdown-menu-selected");
+    const dropdownMenuSelected = inject<
+      ((data: { key: string; keyPath: string[] }) => void) | null
+    >("dropdown-menu-selected", null);
     const selectedKeysChange = (key: string, selected: boolean, keyPath: string[]) => {
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];

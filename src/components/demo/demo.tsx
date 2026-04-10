@@ -1,6 +1,6 @@
 import { useClipboard } from "@vueuse/core";
 import { CaretHor, CopyOutline, Reload } from "kui-icons";
-import { Tooltip, message } from "kui-vue";
+import { Badge, Button, Divider, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import {
   Transition,
@@ -25,13 +25,13 @@ const Demo = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const $t = inject("$t");
+    const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
     const expanded = ref(props.direction == "vertical" ? false : true);
-    const codeRef = ref(null);
-    const codeOrigin = ref(null);
+    const codeRef = ref<HTMLElement>();
+    const codeOrigin = ref<string>();
     const viewRef = ref(null);
-    const timer = ref(null);
+    const timer = ref<NodeJS.Timeout>();
     const buildState = reactive({
       text: $t("text.build_tip"),
       state: "success",
@@ -41,7 +41,7 @@ const Demo = defineComponent({
 
     const currentApp = ref(null);
     const reload = () => {
-      const source = codeRef.value?.innerText || slots.code?.()?.[0]?.children || "";
+      const source = codeRef.value?.innerText || (slots.code?.()?.[0]?.children as string) || "";
       parseCode({
         source: source,
         viewRef,
@@ -61,7 +61,7 @@ const Demo = defineComponent({
       }, 500);
     };
     const restoreCode = () => {
-      codeRef.value.innerHTML = codeOrigin.value;
+      if (codeRef.value) codeRef.value.innerHTML = codeOrigin.value;
       reload();
     };
     const copyCode = () => {

@@ -2,36 +2,48 @@
   "name": "kui-vue",
   "private": false,
   "version": "5.0.0",
+  "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
-  "main": "dist/k-ui.js",
-  "module": "dist/k-ui.mjs",
-  "unpkg": "dist/k-ui.umd.js",
-  "jsdelivr": "dist/k-ui.umd.js",
-  "style": "dist/k-ui.css",
-  "types": "dist/types/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "style": "style/index.css",
+  "types": "types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/k-ui.mjs",
-      "module": "./dist/k-ui.mjs",
-      "require": "./dist/k-ui.js"
+      "types": "./types/index.d.ts",
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
     },
     "./dist/*": "./dist/*",
     "./global": {
       "types": "./dist/global.d.ts"
-    }
+    },
+    "./locale/*": {
+      "types": "./types/locale/*.d.ts",
+      "import": "./es/locale/*.js",
+      "require": "./lib/locale/*.js"
+    },
+    "./style/*": "./style/*"
   },
   "files": [
     "dist",
     "test",
-    "components/",
-    "vetur"
+    "vetur",
+    "lib",
+    "styles",
+    "es"
   ],
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --config vite.config.docs.ts",
+    "build": "npm run build:css && npm run build:lib && npm run build:umd && npm run build:es",
+    "build:es": "vite build",
+    "build:lib": "vite build --config vite.config.lib.ts",
+    "build:umd": "vite build --config vite.config.umd.ts",
+    "build:css": "vite build --config vite.config.css.ts",
     "build:docs": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
@@ -90,9 +102,11 @@
     "@types/node": "^25.5.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
+    "@vue/compiler-sfc": "^3.5.32",
     "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.2.1",
     "fast-glob": "^3.3.3",
+    "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
     "less": "^4.6.4",
     "markdown-it": "^14.1.1",

@@ -8,6 +8,8 @@
     "declarationDir": "./types",
     "noEmit": false,
     "resolveJsonModule":true,
+    "esModuleInterop": true,    // 允许 ESM 和 CJS 混用时更安全的转换
+    "isolatedModules": true ,    // 确保每个文件可以单独编译，
 
     // "outDir": "./dist/types", // 明确指定输出目录
     "rootDir": "." ,// 指定根目录

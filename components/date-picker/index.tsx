@@ -1,6 +1,5 @@
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import "dayjs/locale/zh-cn";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
@@ -37,7 +36,6 @@ import { setPlacement } from "../utils/placement";
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
-dayjs.locale("zh-cn");
 
 export const datePickerProps = {
   modelValue: { type: [Date, Object, Array, String, Number] as PropType<any>, default: null },

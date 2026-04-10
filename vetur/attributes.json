@@ -1297,7 +1297,7 @@
   },
   "menu/onSelect": {
     "description": "Props for onSelect",
-    "type": "(data: { key: string; keyPath: string[]; }) => void"
+    "type": "(data: MenuSelectEvent) => void"
   },
   "menu/onOpenChange": {
     "description": "Props for onOpenChange",
@@ -1350,10 +1350,6 @@
       "true",
       "false"
     ]
-  },
-  "sub-menu/key": {
-    "description": "Unique identifier for item",
-    "type": "string"
   },
   "sub-menu/isPopup": {
     "description": "Props for isPopup",

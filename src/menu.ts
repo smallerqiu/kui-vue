@@ -177,9 +177,9 @@ const navData = [
   },
 ];
 
-const routeData = navData.reduce((current, { key, children }) => {
+const routeData = navData.reduce((current:any[], { key, children }) => {
   current.push(...children);
-  children.map((x) => (x.key = key));
+  children.map((x:any) => (x.key = key));
   return current;
 }, []);
 export { navData, routeData };
