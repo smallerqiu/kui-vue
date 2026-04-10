@@ -24,7 +24,7 @@ Basic usage. The `keyboard` attribute can control keyboard behavior.
     </InputGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value = ref(1);
 const change = (value) => {

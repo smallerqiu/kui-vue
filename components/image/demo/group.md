@@ -19,7 +19,7 @@ Click the left/right buttons to preview multiple images.
     </ImageGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 const data = [
   "https://cdn.chuchur.com/upload/cat/cat1.jpg",
   "https://cdn.chuchur.com/upload/cat/cat2.webp",

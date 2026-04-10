@@ -22,7 +22,7 @@ Add the `loading` property to put the button in a loading state.
     </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Search, Power } from "kui-icons";
 import { ref } from "vue";
 import { message } from "kui-vue";

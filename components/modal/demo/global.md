@@ -17,7 +17,7 @@ Use global mode.
     <Button @click="show" :icon="Moon">Custom icon</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Moon } from "kui-icons";
 import { modal, message } from "kui-vue";
 //

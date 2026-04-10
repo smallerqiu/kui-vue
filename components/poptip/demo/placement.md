@@ -107,7 +107,7 @@ Control the direction via `placement`, with twelve available positions.
     </Space>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 const tip = "See the light through the mist!";
 const title = "Title";
 </script>

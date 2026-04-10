@@ -13,7 +13,7 @@ KUI components use Chinese by default internally. If you wish to use another lan
   </ConfigProvider>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import en from "kui-vue/components/locale/en";
 </script>
 ```

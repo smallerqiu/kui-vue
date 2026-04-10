@@ -17,7 +17,7 @@ Click to expand a node and load data dynamically.
     block
   />
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const data = ref([
   { title: "Expand to load", key: "0-0" },

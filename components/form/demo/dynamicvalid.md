@@ -63,7 +63,7 @@ Execute different validation rules based on different conditions.
     </Col>
   </Row>
 </template>
-<script setup>
+<script setup lang="ts">
 import { RemoveCircleOutline } from "kui-icons";
 import { ref } from "vue";
 import { message } from "kui-vue";

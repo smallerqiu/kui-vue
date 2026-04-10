@@ -21,7 +21,7 @@ Use `v-model` for two-way data binding.
     </Select>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value1 = ref(2);
 const value2 = ref(2);

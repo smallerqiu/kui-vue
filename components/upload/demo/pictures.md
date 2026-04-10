@@ -23,7 +23,7 @@ Set `type = 'picture'` to allow users to upload images and display thumbnails in
   <br />
   <Button @click="test">change</Button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const headers = ref({
   authorization: "here is token",

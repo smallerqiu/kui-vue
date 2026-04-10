@@ -13,7 +13,7 @@
     ></Slider>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const v1 = ref(30);
 const v2 = ref([30, 50]);

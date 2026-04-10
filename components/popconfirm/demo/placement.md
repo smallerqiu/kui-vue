@@ -58,7 +58,7 @@ Control the direction via `placement`, with twelve available positions.
     </Space>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 const title = "Are you sure to delete this task?";
 </script>
 ```

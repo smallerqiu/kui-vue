@@ -25,7 +25,7 @@ Use `size` to set the spacing between elements. Presets include `small`, `middle
     </Flex>
   </Flex>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const flexSize = ref("small");
 const customize = ref(8);

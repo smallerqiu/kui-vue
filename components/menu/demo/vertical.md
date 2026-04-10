@@ -13,7 +13,7 @@ Submenus appear as popups.
     <Menu v-model="current" mode="vertical" :items="items" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Mail, Grid, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);

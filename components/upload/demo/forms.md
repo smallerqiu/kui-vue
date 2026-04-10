@@ -67,7 +67,7 @@ Upload form validation.
     </FormItem>
   </Form>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CloudUploadOutline, CameraOutline } from "kui-icons";
 import { ref, reactive } from "vue";
 import { message } from "kui-vue";

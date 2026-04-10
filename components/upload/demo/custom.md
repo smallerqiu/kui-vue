@@ -28,7 +28,7 @@ When `autoTrigger='false'`, selecting a file will not automatically trigger the 
   <br />
   <Button :disabled="disabled" @click="startUpload">Starting Upload</Button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 import { CloudUploadOutline } from "kui-icons";

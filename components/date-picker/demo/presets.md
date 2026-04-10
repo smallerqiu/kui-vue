@@ -27,7 +27,7 @@ You can preset common date ranges to improve user experience.
     </DatePicker>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import dayjs from "dayjs";
 import { ref } from "vue";
 const value1 = ref();

@@ -19,7 +19,7 @@ The simplest usage. The size of the floating layer is determined by the content 
     <a @click="clicked = !clicked" href="#">Click me!</a>
   </Tooltip>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const clicked = ref(false);
 </script>

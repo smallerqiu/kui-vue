@@ -13,7 +13,7 @@ You can get whether it is fixed.
     <Button type="primary">200px to affix top</Button>
   </Affix>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 const change = (value) => {
   message.info(value ? "fixed" : "reset");

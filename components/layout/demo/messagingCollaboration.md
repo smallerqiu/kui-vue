@@ -52,7 +52,7 @@ The most common "sidebar navigation + top toolbar" structure, suitable for SaaS 
     </Layout>
   </Layout>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const selectedKeys = ref(["c1"]);
 </script>

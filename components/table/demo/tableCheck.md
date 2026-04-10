@@ -32,7 +32,7 @@ Set `checkable=true` to automatically enable multi-selection.
     </template>
   </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const selectedKeys = ref([]);
 const data = [

@@ -24,7 +24,7 @@ Multiple preset colors for text tips, used in different scenarios.
     </Space>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 const custom = ["#c20", "#39f", "#e3f", "#6c0"];
 const colors = [
   "pink",

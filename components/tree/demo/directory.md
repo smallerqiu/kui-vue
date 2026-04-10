@@ -53,7 +53,7 @@ Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and ex
     </Tree>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Add,
   Trash,

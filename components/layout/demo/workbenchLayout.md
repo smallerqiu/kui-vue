@@ -68,7 +68,7 @@ Left navigation + Middle dashboard + Right detail panel (Right Sider).
   </Layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { CheckmarkCircle, Calendar, StatsChart } from "kui-icons";
 const selectedKeys = ref(['t1'])

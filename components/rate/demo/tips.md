@@ -21,7 +21,7 @@ Add text display to the rating component.
     <Rate :allowClear="false" :modelValue="3" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 const value = ref(3);
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];

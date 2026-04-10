@@ -15,7 +15,7 @@ Can be custom configured. Use `duration` to control the auto-close duration (def
     <Button @click="destroy" type="primary">Destroy</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { notice, message } from "kui-vue";
 
 const config = () => {

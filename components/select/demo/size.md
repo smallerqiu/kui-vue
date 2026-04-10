@@ -21,7 +21,7 @@ Control component size via `width` and `size`.
     <Select v-model="value3" :size="size" :maxTagCount="2" :options="data" multiple block />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const size = ref("default");
 const value1 = ref(0);

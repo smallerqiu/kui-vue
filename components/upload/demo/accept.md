@@ -55,7 +55,7 @@ For example, to only allow users to upload PNG and PDF files, `accept` can be wr
     <Button :icon="CloudUpload">Upload PDF,PNG,JPEG</Button>
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 import { ref } from "vue";
 import { IconImage, Videocam, CloudUpload } from "kui-icons";

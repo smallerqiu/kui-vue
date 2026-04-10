@@ -70,7 +70,7 @@ Using a script tag for global use:
     <button type="primary" @click="test">Primary</button>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
   import { message } from "kui-vue";
   const test = () => {
     message.info("Hello kui !");

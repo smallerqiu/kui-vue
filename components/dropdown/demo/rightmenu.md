@@ -33,7 +33,7 @@ By default, the menu is triggered by hovering, but it can also be triggered by c
     </template>
   </Dropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 import { Save, Cut, Document, IconEdit, Exit } from "kui-icons";
 const handle = ({ key }) => {

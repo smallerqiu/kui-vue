@@ -20,7 +20,7 @@ Set the title and icon via `title` and `icon`.
     </Card>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart } from "kui-icons";
 </script>
 ```

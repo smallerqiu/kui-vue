@@ -22,7 +22,7 @@ Use `small` and `large` to set the size of the picker.
     </Space>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const size = ref("default");
 </script>

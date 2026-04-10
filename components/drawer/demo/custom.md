@@ -32,7 +32,7 @@ Use `title` to set the title, `width` to control the width, and `placement` to c
     </Drawer>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const show = ref(false);
 const placement = ref("left");

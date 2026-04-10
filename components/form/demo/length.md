@@ -70,7 +70,7 @@ Validate certain data types.
     </Form>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from "vue";
 import { message } from "kui-vue";
 const validatePass = (rule, value, callback) => {

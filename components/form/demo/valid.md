@@ -115,7 +115,7 @@ Help users discover and correct errors as early as possible, while preventing mi
     </Form>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from "vue";
 import { message } from "kui-vue";
 const validatePass = (rule, value, callback) => {

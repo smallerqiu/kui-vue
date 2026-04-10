@@ -36,7 +36,7 @@ Place multiple `Button` components inside `ButtonGroup` to group them.
     </DropdownButton>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
 
 const handleMenuClick = (e) => {

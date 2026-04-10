@@ -43,7 +43,7 @@ A table with cell editing functionality.
     </template>
   </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { message } from "kui-vue";
 const data = ref([

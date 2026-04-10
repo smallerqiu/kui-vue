@@ -24,7 +24,7 @@ The simplest usage.
     <Rate :modelValue="3.7" disabled showScore />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Heart } from "kui-icons";
 const value = ref(3);

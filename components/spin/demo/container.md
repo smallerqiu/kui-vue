@@ -21,7 +21,7 @@ You can directly embed content into Spin to turn an existing container into a lo
     Loading state：<KSwitch v-model="spinning" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const spinning = ref(false);
 </script>

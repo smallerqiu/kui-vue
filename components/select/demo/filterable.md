@@ -49,7 +49,7 @@ Set the `filterable` value to present filtering mode.
     </Select>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value1 = ref("");
 const value2 = ref([]);

@@ -21,7 +21,7 @@ Multiple preset color styles for different scenarios. If presets do not meet you
     </div>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 const custom = ["#c20", "#39f", "#e3f", "#6c0"];
 const colors = [
   "pink",

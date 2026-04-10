@@ -20,7 +20,7 @@ You can use the `options` attribute to set options, or use child components to s
     </RadioGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value = ref("apple");
 const options = ref([

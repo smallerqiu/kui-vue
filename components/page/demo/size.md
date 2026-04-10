@@ -15,7 +15,7 @@ Display small size.
     <Page :page="page" :total="50" size="small" show-elevator show-sizer />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const page = ref(1);
 </script>

@@ -11,7 +11,7 @@ The simplest usage, showing selectable items with default expansion.
 <template>
   <Tree :data="data" :expandedKeys="expandedKeys" />
 </template>
-<script setup>
+<script setup lang="ts">
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
 const data = [
   {

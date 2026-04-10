@@ -23,7 +23,7 @@ Set `sample` to display a borderless, minimal style.
     </Collapse>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const openKeys = ref(["1"]);
 const text = `A long time ago, In a beautiful kingdom, 

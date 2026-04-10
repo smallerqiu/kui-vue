@@ -11,7 +11,7 @@ Click to expand a node and load data dynamically. `isLeaf=true` indicates the cu
 <template>
   <Tree :data="data" @loadData="loadData" @expand="expand" />
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const data = ref([
   { title: "Expand to load", key: "0-0" },

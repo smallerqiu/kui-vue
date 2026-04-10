@@ -20,7 +20,7 @@ Horizontal spacing between adjacent components.
     </Tooltip>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Search } from "kui-icons";
 </script>
 ```

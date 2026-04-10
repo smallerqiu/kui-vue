@@ -15,7 +15,7 @@ Set the prompt type via `type`.
     <Button @click="error">Error</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { message } from "kui-vue";
 const warning = () => {
   message.warning("I am a warning message.");

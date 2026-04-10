@@ -92,7 +92,7 @@ On the left is the button, and on the right is an additional related function me
     </Dropdown>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { PersonAddOutline } from "kui-icons";
 
 const handleButtonClick = (e) => {

@@ -24,7 +24,7 @@ Some strange and unusual things.
     <TreeSelect :bordered="false" :treeData="data" block placeholder="No Border" theme="solid"/>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Search, CaretDown } from "kui-icons";
 
 const value = ["0-1", "1-1"];

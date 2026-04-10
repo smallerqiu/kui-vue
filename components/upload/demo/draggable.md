@@ -23,7 +23,7 @@ Set `draggable='true'` to enable drag-and-drop functionality.
     </Upload>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CloudUploadOutline } from "kui-icons";
 import { ref } from "vue";
 import { message } from "kui-vue";

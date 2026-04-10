@@ -83,11 +83,6 @@
     </Content>
   </Layout>
 </template>
-
-<script setup>
-// 这里引入你之前写的 Grid 和 GridItem
-</script>
-
 <style scoped>
 .k-layout {
   height: 100vh;

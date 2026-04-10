@@ -25,7 +25,7 @@ Dividers and disabled menu items.
     </template>
   </Dropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronDown } from "kui-icons";
 </script>
 ```

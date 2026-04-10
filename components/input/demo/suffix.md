@@ -46,7 +46,7 @@ suffix, prefix extension.
     </Input>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from "kui-icons";
 import { message } from "kui-vue";

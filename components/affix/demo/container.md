@@ -23,7 +23,7 @@ Use `target` to set the element whose scroll event `Affix` listens to. Defaults 
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const containerRef = ref();
 </script>

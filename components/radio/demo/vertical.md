@@ -16,7 +16,7 @@ Group layout.
     <RadioGroup :options="options" v-model="cities" @change="change" :direction="direction" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const direction = ref("horizontal");
 const types = [

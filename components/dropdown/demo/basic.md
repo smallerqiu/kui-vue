@@ -42,7 +42,7 @@ The simplest dropdown menu.
     </template>
   </Dropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronDown } from "kui-icons";
 </script>
 ```

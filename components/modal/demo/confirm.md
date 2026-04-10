@@ -16,7 +16,7 @@ A global confirmation dialog that can be closed asynchronously.
     <Button @click="closeAll()">Close All</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { modal, message } from "kui-vue";
 

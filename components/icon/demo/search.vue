@@ -64,11 +64,11 @@
     </div>
   </div>
 </template>
-<script setup>
-import { ref, watch } from "vue";
-import { message } from "kui-vue";
+<script setup lang="ts">
 import { useClipboard } from "@vueuse/core";
 import * as icons from "kui-icons";
+import { message } from "kui-vue";
+import { ref } from "vue";
 // import sprite from 'kui-icons/dist/sprite.svg'
 const { copy, isSupported } = useClipboard();
 

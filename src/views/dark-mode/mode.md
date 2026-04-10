@@ -12,7 +12,7 @@ A simple toggle example, ready to use out of the box
   <Button theme="light" @click="switchMode">Switch</Button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { theme, message } from "kui-vue";
 const switchMode = (event) => {
   message.info(`Current theme mode`);

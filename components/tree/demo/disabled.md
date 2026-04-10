@@ -17,7 +17,7 @@ Set the `disabled` attribute to disable a node.
     :expandedKeys="expandedKeys"
   />
 </template>
-<script setup>
+<script setup lang="ts">
 const expandedKeys = ["0-0", "1-0", "1-1"];
 const checkedKeys = ["1-0-0"];
 const data = [

@@ -28,7 +28,7 @@ Controlled and synchronized with Input.
     </Row>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const n1 = ref(1);
 const n2 = ref(0);

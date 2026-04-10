@@ -16,7 +16,7 @@ You can set the `icon` attribute or directly use the Icon component inside the T
     <Tag :icon="LogoWechat" closeable color="green">Wechat</Tag>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoX, LogoYoutube, LogoQq, LogoWechat } from "kui-icons";
 </script>
 ```

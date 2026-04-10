@@ -13,7 +13,7 @@ Horizontal top navigation menu.
     <Menu mode="horizontal" v-model="current" :items="items" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Mail, Heart, Settings } from "kui-icons";
 import { ref, h } from "vue";
 const current = ref(["1"]);

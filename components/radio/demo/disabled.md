@@ -31,7 +31,7 @@ Set `disabled` to make it unavailable.
     </Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const disabled = ref(false);
 const checked = ref(false);

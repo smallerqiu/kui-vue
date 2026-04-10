@@ -27,7 +27,7 @@ Use loading placeholders in list components.
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const loading = ref(false);
 

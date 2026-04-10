@@ -55,7 +55,7 @@ Use the `gutter` attribute to set the spacing between columns. For vertical spac
     </Row>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const h = ref(8);
 const v = ref(8);

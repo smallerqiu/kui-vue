@@ -17,7 +17,7 @@ DatePicker supports multiple languages, depending on `dayjs`.
     <DatePicker mode="dateTime" v-model="value" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import en from "kui-vue/locale/en";
 import { ref } from "vue";
 import dayjs from "dayjs";

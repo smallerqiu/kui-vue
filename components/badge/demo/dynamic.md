@@ -32,7 +32,7 @@ Dynamic control.
     </ButtonGroup>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { NotificationsOutline } from "kui-icons";
 import { ref } from "vue";
 const show = ref(true);

@@ -18,7 +18,7 @@ Can use `v-model` for two-way data binding.
     <k-switch checked />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checked = ref(false);
 </script>

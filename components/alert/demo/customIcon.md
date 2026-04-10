@@ -45,7 +45,7 @@ Use `showIcon` to control whether the icon is displayed.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoAlipay, LogoWechat, LogoApple, LogoGoogle } from "kui-icons";
 </script>
 ```

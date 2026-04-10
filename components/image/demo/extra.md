@@ -27,7 +27,7 @@ Can extend custom tools and panels.
     </KImage>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Heart, Star } from "kui-icons";
 import { ref } from "vue";
 const imgRef = ref();

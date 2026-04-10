@@ -16,7 +16,7 @@ For text avatars, when the string is long, the font size automatically adjusts b
     <Button size="small" @click="changeValue">change</Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const ran = (min, max) => {
   return parseInt(Math.random() * (max - min) + min);

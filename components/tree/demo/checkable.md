@@ -21,7 +21,7 @@ Set the `checkable` attribute to allow nodes to be checked.
     :checkStrictly="checkStrictly"
   />
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const checkStrictly = ref(false);
 const checkedKeys = ["1-1", "aa"];

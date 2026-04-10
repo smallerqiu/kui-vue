@@ -40,7 +40,7 @@ The select box sizes are: `small`, `default`, `large`.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const sizes = [
   { value: "large", label: "Large" },

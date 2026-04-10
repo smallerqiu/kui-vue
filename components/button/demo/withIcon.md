@@ -19,7 +19,7 @@ Set the button icon by adding the `icon` property.
     <Button type="primary">Expand<Icon :type="ChevronDown" /></Button>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ChevronDown, Search, Power } from "kui-icons";
 </script>
 ```

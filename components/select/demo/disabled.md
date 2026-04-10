@@ -23,7 +23,7 @@ Use `v-model` for two-way data binding.
     <Select v-model="value2" block :clearable="false" :options="data" multiple />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const value1 = ref(2);
 const value2 = ref([0, 3]);

@@ -16,7 +16,7 @@ Will be displayed by default in the above components.
     <Table :data="[]" :columns="columns" />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 const columns = [{ title: "Name" }, { title: "Age" }];
 </script>
 ```

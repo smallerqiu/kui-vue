@@ -111,7 +111,7 @@ Use `compact` to tightly connect form components and merge borders.
     </Space>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Copy } from "kui-icons";
 const treeData = [
   {

@@ -20,7 +20,7 @@ Clicking a menu item collapses all other expanded menus, keeping the menu focuse
     />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Mail, Heart, Settings } from "kui-icons";
 import { ref } from "vue";
 const current = ref(["1-1"]);

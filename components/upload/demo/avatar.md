@@ -22,7 +22,7 @@ When `limit` equals the number of uploaded files, the file selection component w
   >
   </Upload>
 </template>
-<script setup>
+<script setup lang="ts">
 import { CameraOutline } from "kui-icons";
 import { ref } from "vue";
 const headers = ref({

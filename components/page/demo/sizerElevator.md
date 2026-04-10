@@ -44,7 +44,7 @@ Change the number of items displayed per page.
     />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const page = ref(3);
 const sizeData = [30, 50, 80, 100];

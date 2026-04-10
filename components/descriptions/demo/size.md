@@ -42,7 +42,7 @@ Customize the size to adapt to various containers.
     <DescriptionsItem label="Shipping Address"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>
   </Descriptions>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const size = ref("default");
 const types = ref([

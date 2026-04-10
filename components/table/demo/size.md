@@ -53,7 +53,7 @@ Select different configuration combinations to see the effects.
     </Table>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { Moon, Sunny } from "kui-icons";
 const data = [

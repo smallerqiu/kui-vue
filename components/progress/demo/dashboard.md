@@ -19,7 +19,7 @@ Dashboard-style progress bar. Adjust the gap size via `gapDegree`. Use `strokeLi
   <Progress type="dashboard" :percent="50" :gapDegree="gap" :strokeLinecap="strokeLinecap" />
   <Progress type="dashboard" :percent="100" :gapDegree="gap" :strokeLinecap="strokeLinecap" />
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const gap = ref(140);
 const strokeLinecap = ref("round");

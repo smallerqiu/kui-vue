@@ -33,7 +33,7 @@ suffix, prefix extension
     </InputNumber>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { HelpCircle, LogoYen, PersonAddOutline } from "kui-icons";
 </script>
 ```

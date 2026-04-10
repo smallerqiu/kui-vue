@@ -15,7 +15,7 @@
     <InputNumber size="small" placeholder="Small Input" :icon="LogoKui" clearable />
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoKui } from "kui-icons";
 </script>
 ```

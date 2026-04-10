@@ -61,7 +61,7 @@ Imitate the structure of official documentation like Vue or React, with a focus 
     </Layout>
   </Layout>
 </template>
-<script setup>
+<script setup lang="ts">
 import { LogoKui } from "kui-icons";
 </script>
 <style scoped>

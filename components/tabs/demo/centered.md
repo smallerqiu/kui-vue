@@ -15,7 +15,7 @@ Tabs are centered.
     <TabPanel key="3" title="Tab 3"> Content of Tab Pane 3 </TabPanel>
   </Tabs>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const current = ref("1");
 </script>

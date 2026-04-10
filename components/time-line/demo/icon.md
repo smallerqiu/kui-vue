@@ -21,7 +21,7 @@ Set the `icon` and `color` properties on `TimeLineItem` to change the icon displ
     <TimeLineItem time="2020-10-01">Release version 1.0</TimeLineItem>
   </TimeLine>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Ribbon, Build } from "kui-icons";
 </script>
 ```

@@ -25,7 +25,7 @@ Basic usage.
     ></Slider>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const v = ref(10);
 const v1 = ref(30);

@@ -11,7 +11,7 @@
 <template>
   <Table :data="data" :columns="columns" :loading="loading" @sort="sort"> </Table>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 const data = ref([]);
 const loading = ref(false);

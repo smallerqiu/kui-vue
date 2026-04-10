@@ -37,7 +37,7 @@
     </Space>
   </Space>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const color1 = ref("#3a95ff");
 const color2 = ref("#3a95ff");

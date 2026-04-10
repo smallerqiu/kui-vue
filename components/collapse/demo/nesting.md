@@ -30,7 +30,7 @@ Nested collapse panels.
     </Collapse>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const openKeys = ref(["1"]);
 const openKeys2 = ref(["1-1"]);
