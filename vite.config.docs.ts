@@ -2,7 +2,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
-import vitePluginMd from "./src/plugins/vite-plugin-md.js";
+import vueMarkdown from "./plugins/markdown";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       port: 7005,
     },
     plugins: [
-      vitePluginMd(),
+      vueMarkdown(),
       vueJsx(),
       vue({
         include: [/\.vue$/, /\.md$/],

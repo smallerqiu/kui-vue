@@ -3,7 +3,7 @@ node_modules
 /dist
 /es
 /lib
-/styles
+/style
 /docs
 /types
 # local env files

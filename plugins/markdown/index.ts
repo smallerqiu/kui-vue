@@ -6,10 +6,10 @@ import hljs from "highlight.js";
 import anchor from "markdown-it-anchor";
 
 export default function vitePluginMd() {
-  const markdown = new MarkdownIt({
+  const markdown: MarkdownIt = new MarkdownIt({
     html: true,
     breaks: true,
-    highlight(code, lang) {
+    highlight: (code: string, lang: string) => {
       if (lang && hljs.getLanguage(lang)) {
         return `<pre><code class="hljs language-${lang}">${hljs.highlight(code, { language: lang }).value}</code></pre>`;
       }
@@ -17,7 +17,7 @@ export default function vitePluginMd() {
     },
   }).use(anchor, {
     level: 2,
-    slugify: (string) => string.toLocaleLowerCase().trim().split(" ").join("-"),
+    slugify: (string: string) => string.toLocaleLowerCase().trim().split(" ").join("-"),
     permalink: anchor.permalink.headerLink(),
     permalinkClass: "anchor",
     permalinkSymbol: "#",
@@ -27,7 +27,7 @@ export default function vitePluginMd() {
   return {
     name: "vite-plugin-md",
     enforce: "pre",
-    transform(src, path) {
+    transform(src: string, path: string) {
       if (!path.endsWith(".md")) return null;
       const vertical_list = [
         "table",
@@ -82,7 +82,7 @@ export default function vitePluginMd() {
 
       if (m) {
         const block = m[1].trim();
-        
+
         const { descriptor } = parse(block);
         const { template, script, scriptSetup, styles } = descriptor;
 

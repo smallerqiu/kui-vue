@@ -6,6 +6,7 @@
 ### Multilingual switching example
 Switch languages by modifying the locale property of ConfigProvider.
 </en>
+
 ```vue
 <template>
   <Space vertical block>
@@ -196,7 +197,4 @@ const selectSearch = () => {
   }, 1000);
 };
 </script>
-
-```
-
 ```
