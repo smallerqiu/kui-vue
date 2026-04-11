@@ -1,3 +1,17 @@
+# InputNumber
+
+Input values within a range via mouse or keyboard.
+
+## When to Use
+
+When standard numerical values need to be obtained.
+
+## Examples
+
+<code src="./demo/ffix.vue">Extension, Prefix and Suffix</code>
+<code src="./demo/format.vue">High-Precision Decimals / Formatted Display</code>
+<code src="./demo/size.vue">Size</code>
+
 ## InputNumber API
 
 | Property       | Description                                                                 | Type           | Default   |

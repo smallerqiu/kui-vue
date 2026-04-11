@@ -1,3 +1,20 @@
+# TreeSelect 树选择
+
+树型选择控件。
+
+## 何时使用
+
+类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。
+
+## 代码演示
+
+<code src="./demo/checkable.vue">可勾选</code>
+<code src="./demo/disabled.vue">禁用</code>
+<code src="./demo/multiple.vue">多选</code>
+<code src="./demo/size.vue">尺寸</code>
+<code src="./demo/sync.vue">异步加载</code>
+<code src="./demo/theme.vue">奇葩的定义</code>
+
 ## TreeSelect API
 
 | 属性         | 说明                                                       | 类型                             | 默认值     |

@@ -1,3 +1,20 @@
+# Slider
+
+Slider input, displaying current value and optional range.
+
+## When to Use
+
+When users need to select within a numerical range/custom range, it can be continuous or discrete values.
+
+## Examples
+
+<code src="./demo/formatter.vue">Custom Tooltip</code>
+<code src="./demo/marks.vue">With Labels</code>
+<code src="./demo/reverse.vue">Reverse</code>
+<code src="./demo/size.vue">Size/Custom</code>
+<code src="./demo/vertical.vue">Vertical</code>
+<code src="./demo/withNumber.vue">Controlled</code>
+
 ## Slider API
 
 | Property             | Description                                                                                       | Type            | Default |

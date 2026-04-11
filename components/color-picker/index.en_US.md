@@ -1,3 +1,17 @@
+# ColorPicker
+
+Freely output colors.
+
+## When to Use
+
+- When custom colors are needed.
+
+## Examples
+
+<code src="./demo/customTrigger.vue">Custom Trigger</code>
+<code src="./demo/placement.vue">Popup Placement</code>
+<code src="./demo/size.vue">Size / Disabled</code>
+
 ## API
 
 | Property      | Description                                                     | Type     | Default |

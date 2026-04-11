@@ -1,3 +1,20 @@
+# Menu
+
+Navigation menu list for pages and functions.
+
+## When to Use
+
+The navigation menu is the soul of a website. Users rely on navigation to jump between pages. Generally divided into top navigation and side navigation. Top navigation provides global categories and functions, while side navigation provides a multi-level structure to accommodate and arrange the website architecture.
+
+## Examples
+
+<code src="./demo/basic.vue">Top Navigation</code>
+<code src="./demo/collapsed.vue">Collapsible Inline Menu</code>
+<code src="./demo/inline.vue">Inline Menu</code>
+<code src="./demo/mode.vue">Switch Menu Type</code>
+<code src="./demo/theme.vue">Theme</code>
+<code src="./demo/vertical.vue">Vertical Menu</code>
+
 ## API
 
 ### Menu

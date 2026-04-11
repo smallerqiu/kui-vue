@@ -1,3 +1,18 @@
+# Message 全局提示
+
+全局展示操作反馈信息。
+
+## 何时使用
+
+- 可提供成功、警告和错误等反馈信息。
+- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+
+## 代码演示
+
+<code src="./demo/close.vue">自定义时长</code>
+<code src="./demo/icon.vue">自定图标</code>
+<code src="./demo/types.vue">提示类型</code>
+
 ## API
 
 组件提供了一些静态方法，使用方式如下

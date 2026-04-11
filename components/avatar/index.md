@@ -1,3 +1,13 @@
+# Avatar 头像
+
+用来代表用户或事物，支持图片、图标或字符展示。
+
+## 代码演示
+
+<code src="./demo/basic.vue">基本</code>
+<code src="./demo/change.vue">自动调整字符大小</code>
+<code src="./demo/types.vue">类型</code>
+
 ## API
 
 | 属性  | 说明                         | 类型                       | 默认值  |

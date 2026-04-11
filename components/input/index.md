@@ -1,3 +1,22 @@
+# Input 输入框
+
+通过鼠标或键盘输入内容，是最基础的表单域的包装。
+
+## 何时使用
+
+- 需要用户输入表单域内容时。
+- 提供组合型输入框，带搜索的输入框，还可以进行大小选择。
+
+## 代码演示
+
+<code src="./demo/event.vue">事件</code>
+<code src="./demo/group.vue">输入框组合</code>
+<code src="./demo/icon.vue">带图标</code>
+<code src="./demo/size.vue">尺寸</code>
+<code src="./demo/suffix.vue">扩展, 前缀和后缀</code>
+<code src="./demo/textarea.vue">文本域</code>
+<code src="./demo/theme.vue">主题</code>
+
 ## Input API
 
 | 属性                | 说明                                       | 类型             | 默认值 |

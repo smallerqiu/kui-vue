@@ -1,3 +1,22 @@
+# DatePicker 日期选择框
+
+输入或选择日期的控件。
+
+## 何时使用
+
+当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。
+
+## 代码演示
+
+<code src="./demo/disabled.vue">禁用和不可编辑</code>
+<code src="./demo/disabledDate.vue">不可选择日期和时间</code>
+<code src="./demo/lang.vue">多语言</code>
+<code src="./demo/presets.vue">预设范围</code>
+<code src="./demo/range.vue">时间区域</code>
+<code src="./demo/size.vue">尺寸</code>
+<code src="./demo/theme.vue">奇葩的主题</code>
+<code src="./demo/valueType.vue">输出类型</code>
+
 ## API
 
 | 属性         | 说明                                                                                                               | 类型                              | 默认值     |

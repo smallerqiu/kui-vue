@@ -1,3 +1,30 @@
+# Button
+
+Buttons are used to initiate an immediate operation.
+
+## When to Use
+
+Marks one (or encapsulates a group of) operation commands, responds to user click behavior, and triggers the corresponding business logic.
+
+## Component Registration
+
+```js
+import { Button } from "kui-vue";
+Vue.use(Button);
+```
+
+## Examples
+
+<code src="./demo/block.vue">Block Button</code>
+<code src="./demo/color.vue">Color Variants</code>
+<code src="./demo/disabled.vue">Disabled</code>
+<code src="./demo/group.vue">Button Group</code>
+<code src="./demo/light.vue">Light Theme</code>
+<code src="./demo/loading.vue">Loading State</code>
+<code src="./demo/outline.vue">Outline Theme</code>
+<code src="./demo/size.vue">Size</code>
+<code src="./demo/withIcon.vue">With Icon</code>
+
 ## API
 
 | Property | Description                                                                                          | Type                                       | Default |

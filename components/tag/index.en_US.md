@@ -1,3 +1,19 @@
+# Tag
+
+Small labels for marking and categorization.
+
+## When to Use
+
+- Used to mark attributes and dimensions of things.
+- For classification.
+
+## Examples
+
+<code src="./demo/color.vue">Colorful Tags</code>
+<code src="./demo/dynamic.vue">Dynamic Add and Remove</code>
+<code src="./demo/icon.vue">Icon</code>
+<code src="./demo/size.vue">Size and Shape</code>
+
 ## Tag API
 
 | Property  | Description                                                         | Type     | Default |

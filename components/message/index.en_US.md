@@ -1,3 +1,18 @@
+# Message
+
+Globally display operation feedback information.
+
+## When to Use
+
+- Can provide feedback information such as success, warning, and error.
+- Displayed centered at the top and automatically disappears. It is a lightweight prompt method that does not interrupt user operations.
+
+## Examples
+
+<code src="./demo/close.vue">Custom Duration</code>
+<code src="./demo/icon.vue">Custom Icon</code>
+<code src="./demo/types.vue">Prompt Types</code>
+
 ## API
 
 The component provides some static methods, used as follows:

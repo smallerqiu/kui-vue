@@ -1,3 +1,18 @@
+# Image 图片
+
+可预览的图片。
+
+## 何时使用
+
+- 需要展示图片时使用。
+- 加载大图时显示 loading 或加载失败时容错处理。
+
+## 代码演示
+
+<code src="./demo/errors.vue">容错处理</code>
+<code src="./demo/extra.vue">扩展</code>
+<code src="./demo/group.vue">照片墙</code>
+
 ## Image API
 
 | 属性        | 说明                                            | 类型             | 默认值 |

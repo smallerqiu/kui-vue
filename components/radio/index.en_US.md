@@ -1,3 +1,19 @@
+# Radio
+
+Radio button.
+
+## When to Use
+
+- Used to select a single state from multiple options.
+- The legendary choose one of two.
+
+## Examples
+
+<code src="./demo/disabled.vue">Disabled / Controllable</code>
+<code src="./demo/group.vue">Multiple Selection</code>
+<code src="./demo/radioButton.vue">Combined with Button</code>
+<code src="./demo/vertical.vue">Group Layout</code>
+
 ## Radio API
 
 | Property   | Description                        | Type                              | Default |

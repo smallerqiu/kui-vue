@@ -1,3 +1,20 @@
+# TreeSelect
+
+Tree selection control.
+
+## When to Use
+
+Similar to the Select selection control, when the selectable data structure is a tree structure, TreeSelect can be used, such as company hierarchy, subject system, classification directory, etc.
+
+## Examples
+
+<code src="./demo/checkable.vue">Checkable</code>
+<code src="./demo/disabled.vue">Disabled</code>
+<code src="./demo/multiple.vue">Multiple Selection</code>
+<code src="./demo/size.vue">Size</code>
+<code src="./demo/sync.vue">Asynchronous Loading</code>
+<code src="./demo/theme.vue">Weird Definition</code>
+
 ## TreeSelect API
 
 | Property     | Description                                                                     | Type                             | Default       |

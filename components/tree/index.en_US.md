@@ -1,3 +1,18 @@
+# Tree
+
+## When to Use
+
+Folders, organizational structures, biological classifications, countries and regions, etc. Most structures in the world are tree structures. Using `tree control` can fully display the hierarchical relationships and have interactive functions such as expand/collapse and selection.
+
+## Examples
+
+<code src="./demo/checkable.vue">Checkable</code>
+<code src="./demo/customRender.vue">Extended Node</code>
+<code src="./demo/directory.vue">Group Control</code>
+<code src="./demo/disabled.vue">Disabled Node</code>
+<code src="./demo/icon.vue">Custom Icon</code>
+<code src="./demo/sync.vue">Asynchronous Loading</code>
+
 ## Tree API
 
 | Property      | Description                                                                                                       | Type       | Default |

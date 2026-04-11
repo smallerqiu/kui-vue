@@ -1,3 +1,18 @@
+# Image
+
+Previewable images.
+
+## When to Use
+
+- Use when you need to display images.
+- Display loading or error handling when loading large images.
+
+## Examples
+
+<code src="./demo/errors.vue">Error Handling</code>
+<code src="./demo/extra.vue">Extension</code>
+<code src="./demo/group.vue">Photo Wall</code>
+
 ## Image API
 
 | Property    | Description                                            | Type             | Default |

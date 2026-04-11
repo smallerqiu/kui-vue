@@ -1,3 +1,21 @@
+# Notice
+
+Globally display notification reminder information.
+
+## When to Use
+
+Display notification reminder information in the four corners of the system. Often used in the following situations:
+
+- More complex notification content.
+- Interactive notifications, giving users the next action point.
+- System-initiated pushes.
+
+## Examples
+
+<code src="./demo/close.vue">Custom Duration</code>
+<code src="./demo/icon.vue">Custom Icon</code>
+<code src="./demo/types.vue">Notification with Icon</code>
+
 ## API
 
 The component provides some static methods, used as follows:

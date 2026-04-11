@@ -1,3 +1,17 @@
+# InputNumber 数字输入框
+
+通过鼠标或键盘，输入范围内的数值。
+
+## 何时使用
+
+当需要获取标准数值时。
+
+## 代码演示
+
+<code src="./demo/ffix.vue">扩展, 前缀和后缀</code>
+<code src="./demo/format.vue">高精度小数/格式化展示</code>
+<code src="./demo/size.vue">尺寸</code>
+
 ## InputNumber API
 
 | 属性           | 说明                                                       | 类型          | 默认值    |

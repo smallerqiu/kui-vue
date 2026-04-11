@@ -1,3 +1,16 @@
+# Spin 加载中
+
+用于页面和区块的加载中状态。
+
+## 何时使用
+
+页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。
+
+## 代码演示
+
+<code src="./demo/container.vue">卡片加载中</code>
+<code src="./demo/mode.vue">Spin类型</code>
+
 ## Radio API
 
 | 属性       | 说明                                          | 类型                  | 默认值 |

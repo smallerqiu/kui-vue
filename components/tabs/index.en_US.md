@@ -1,3 +1,24 @@
+# Tabs
+
+Tab switching component.
+
+## When to Use
+
+Provide peer areas to accommodate and display large chunks of content, keeping the interface clean.
+
+- Card-style tabs, providing closable styles, often used at the top of containers.
+- Standard line-style tabs, used for main function switching inside containers, this is the most commonly used Tabs.
+
+## Examples
+
+<code src="./demo/card.vue">Card-style Tabs</code>
+<code src="./demo/centered.vue">Centered</code>
+<code src="./demo/closable.vue">Add and Close Tabs</code>
+<code src="./demo/disabled.vue">Disabled</code>
+<code src="./demo/extra.vue">Extra Content</code>
+<code src="./demo/icon.vue">Icon</code>
+<code src="./demo/sample.vue">Minimalist Tabs</code>
+
 ## Tabs API
 
 | Property             | Description                                                     | Type                | Default |

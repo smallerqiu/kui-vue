@@ -1,3 +1,16 @@
+# StatCard
+
+Statistical indicators, can set title, value, description.
+
+## When to Use
+
+Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
+
+## Examples
+
+<code src="./demo/card.vue">Card Display</code>
+<code src="./demo/withCard.vue">Strange Cards</code>
+
 ## StatCard API
 
 | Property       | Description                                              | Type                | Default   |

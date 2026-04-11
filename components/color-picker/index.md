@@ -1,3 +1,17 @@
+# ColorPicker 颜色选择器
+
+可以自由的输出颜色。
+
+## 何时使用
+
+- 需要自定义颜色时
+
+## 代码演示
+
+<code src="./demo/customTrigger.vue">自定义触发器</code>
+<code src="./demo/placement.vue">弹出位置</code>
+<code src="./demo/size.vue">尺寸大小 / 不可用</code>
+
 ## API
 
 | 属性          | 说明                                               | 类型     | 默认值 |

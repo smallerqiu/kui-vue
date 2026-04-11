@@ -1,3 +1,16 @@
+# StatCard 统计卡片
+
+统计指标,可设置标题 , 数值 , 描述
+
+## 何时使用
+
+可在 BI / Dashboard 场景 使用 , 偏业务后台，直观
+
+## 代码演示
+
+<code src="./demo/card.vue">卡片展示</code>
+<code src="./demo/withCard.vue">奇奇怪怪的卡片</code>
+
 ## StatCard API
 
 | 属性           | 说明                      | 类型              | 默认值    |
