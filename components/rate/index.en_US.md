@@ -1,3 +1,17 @@
+# Rate
+
+Rating component.
+
+## When to Use
+
+- Display evaluations.
+- Quickly rate things.
+
+## Examples
+
+<code src="./demo/character.vue">Other Characters</code>
+<code src="./demo/tips.vue">Text Display / Allow Clear</code>
+
 ## Rate API
 
 | Property            | Description                                 | Type                    | Default |

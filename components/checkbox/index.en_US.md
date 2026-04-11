@@ -1,3 +1,19 @@
+# Checkbox
+
+Checkbox for multiple selections.
+
+## When to Use
+
+- When making multiple selections from a set of options.
+- Used alone, it can represent switching between two states, similar to a switch. The difference is that switching a switch directly triggers a state change, while a checkbox is generally used for state marking and needs to cooperate with submission operations.
+
+## Examples
+
+<code src="./demo/checkAll.vue">Select All</code>
+<code src="./demo/disabled.vue">Disabled / Controlled</code>
+<code src="./demo/group.vue">Multiple Selection</code>
+<code src="./demo/groupLayout.vue">Group Layout</code>
+
 ## API
 
 | Property      | Description                                                   | Type              | Default |

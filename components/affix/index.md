@@ -1,3 +1,19 @@
+# Affix 固钉
+
+将页面元素钉在可视范围。
+
+## 何时使用
+
+当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。
+页面可视范围过小时，慎用此功能以免遮挡页面内容。
+
+## 代码演示
+
+<code src="./demo/basic.vue">基本用法</code>
+<code src="./demo/bottom.vue">固定底部</code>
+<code src="./demo/callbacks.vue">固定状态改变的回调</code>
+<code src="./demo/container.vue">滚动容器</code>
+
 ## API
 
 | 属性         | 说明                                                                 | 类型           | 默认值 |

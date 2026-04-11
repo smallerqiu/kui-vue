@@ -1,3 +1,20 @@
+# Slider 滑动输入条
+
+滑动型输入器，展示当前值和可选范围。
+
+## 何时使用
+
+当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。
+
+## 代码演示
+
+<code src="./demo/formatter.vue">自定义提示</code>
+<code src="./demo/marks.vue">带标签的</code>
+<code src="./demo/reverse.vue">反向</code>
+<code src="./demo/size.vue">尺寸/自定义</code>
+<code src="./demo/vertical.vue">垂直</code>
+<code src="./demo/withNumber.vue">受控</code>
+
 ## Slider API
 
 | 属性                 | 说明                                                                       | 类型                                            | 默认值 |

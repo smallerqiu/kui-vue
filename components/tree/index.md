@@ -1,3 +1,18 @@
+# Tree 树形控件
+
+## 何时使用
+
+文件夹、组织架构、生物分类、国家地区等等,世间万物的大多数结构都是树形结构。使用`树控件` 可以完整展现其中的层级关系并具有展开收起选择等交互功能。
+
+## 代码演示
+
+<code src="./demo/checkable.vue">可勾选</code>
+<code src="./demo/customRender.vue">扩展节点</code>
+<code src="./demo/directory.vue">群控</code>
+<code src="./demo/disabled.vue">禁用节点</code>
+<code src="./demo/icon.vue">自定义图标</code>
+<code src="./demo/sync.vue">异步加载</code>
+
 ## Tree API
 
 | 属性          | 说明                                                         | 类型       | 默认值 |

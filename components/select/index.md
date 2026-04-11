@@ -1,3 +1,20 @@
+# Select 选择器
+
+下拉选择器。
+
+## 何时使用
+
+- 弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
+- 当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。
+
+## 代码演示
+
+<code src="./demo/disabled.vue">禁用和不可清除</code>
+<code src="./demo/filterable.vue">过滤 和 搜索</code>
+<code src="./demo/multiple.vue">多选</code>
+<code src="./demo/size.vue">尺寸</code>
+<code src="./demo/theme.vue">奇葩的定义</code>
+
 ## Select API
 
 | 属性        | 说明                                                       | 类型                            | 默认值     |

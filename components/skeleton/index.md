@@ -1,3 +1,23 @@
+# Skeleton 骨架屏
+
+在需要等待加载内容的位置提供一个占位图形组合。
+
+## 何时使用
+
+- 网络较慢，需要长时间等待加载处理的情况下。
+- 图文信息内容较多的列表/卡片中。
+- 只在第一次加载数据的时候使用。
+- 可以被 Spin 完全代替，但是在可用的场景下可以比 Spin 提供更好的视觉效果和用户体验。
+
+## 代码演示
+
+<code src="./demo/basic.vue">基本用法</code>
+<code src="./demo/child.vue">子组件</code>
+<code src="./demo/custom.vue">自定义</code>
+<code src="./demo/group.vue">组合</code>
+<code src="./demo/items.vue">按钮/头像/图像</code>
+<code src="./demo/list.vue">列表</code>
+
 ## API
 
 | 属性     | 说明                                         | 类型                | 默认值 |

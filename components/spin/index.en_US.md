@@ -1,3 +1,16 @@
+# Spin
+
+Used for loading states of pages and blocks.
+
+## When to Use
+
+When part of the page is waiting for asynchronous data or being rendered, appropriate loading animations can effectively alleviate user anxiety.
+
+## Examples
+
+<code src="./demo/container.vue">Card Loading</code>
+<code src="./demo/mode.vue">Spin Type</code>
+
 ## Spin API
 
 | Property   | Description                                                  | Type                        | Default |

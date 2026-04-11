@@ -1,3 +1,19 @@
+# Icon 图标
+
+kui 的图标使用开源项目 [ionicons](http://ionicons.com/) 前版本5.5
+
+3.x 版本以后不再支持`webfont` 使用 `svg`代替
+
+使用图标组件，你需要安装 `kui-icons` 图标组件包：
+
+```bash
+npm install --save kui-icons
+```
+
+<code src="./demo/stroke.vue">线条粗细</code>
+<code src="./demo/use.en_US.vue"></code>
+<code src="./demo/use.vue"></code>
+
 ## API
 
 | 属性        | 说明                         | 类型          | 默认值 |

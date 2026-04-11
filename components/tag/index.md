@@ -1,3 +1,19 @@
+# Tag 标签
+
+进行标记和分类的小标签。
+
+## 何时使用
+
+- 用于标记事物的属性和维度。
+- 进行分类。
+
+## 代码演示
+
+<code src="./demo/color.vue">多彩标签</code>
+<code src="./demo/dynamic.vue">动态添加和删除</code>
+<code src="./demo/icon.vue">图标</code>
+<code src="./demo/size.vue">尺寸和形状</code>
+
 ## Tag API
 
 | 属性      | 说明                                       | 类型     | 默认值 |

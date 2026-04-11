@@ -48,7 +48,7 @@
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "format": "prettier --write .",
-    "format:md": "prettier --write ./components/*/index.md",
+    "format:md": "prettier --write ./components/*/index*.md",
     "tsc": "vue-tsc --build --declaration --emitDeclarationOnly",
     "type-check": "vue-tsc --build --noEmit"
   },

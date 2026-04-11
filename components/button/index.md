@@ -1,3 +1,30 @@
+# Button 按钮
+
+按钮用于开始一个即时操作。
+
+## 何时使用
+
+标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
+
+## 组件注册
+
+```js
+import { Button } from "kui-vue";
+Vue.use(Button);
+```
+
+## 代码演示
+
+<code src="./demo/block.vue">Block 按钮</code>
+<code src="./demo/color.vue">多彩</code>
+<code src="./demo/disabled.vue">禁用</code>
+<code src="./demo/group.vue">按钮组合</code>
+<code src="./demo/light.vue">浅色主题</code>
+<code src="./demo/loading.vue">加载中状态</code>
+<code src="./demo/outline.vue">边框主题</code>
+<code src="./demo/size.vue">尺寸</code>
+<code src="./demo/withIcon.vue">带图标</code>
+
 ## API
 
 | 属性     | 说明                                                  | 类型                                       | 默认值 |

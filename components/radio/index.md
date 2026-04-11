@@ -1,3 +1,19 @@
+# Radio 单选框
+
+单选框。
+
+## 何时使用
+
+- 用于在多个备选项中选中单个状态。
+- 传说中的二选一。
+
+## 代码演示
+
+<code src="./demo/disabled.vue">可不用 / 可控</code>
+<code src="./demo/group.vue">多选</code>
+<code src="./demo/radioButton.vue">组合Button使用</code>
+<code src="./demo/vertical.vue">组合布局</code>
+
 ## Radio API
 
 | 属性       | 说明                     | 类型                            | 默认值 |

@@ -1,3 +1,18 @@
+# Descriptions
+
+Display multiple read-only fields in groups.
+
+## When to Use
+
+Commonly seen in detail page information display.
+
+## Examples
+
+<code src="./demo/bordered.vue">Bordered</code>
+<code src="./demo/size.vue">Custom Size</code>
+<code src="./demo/vertical.vue">Vertical</code>
+<code src="./demo/verticalBordered.vue">Vertical Bordered</code>
+
 ## API
 
 | Property | Description                                                                     | Type                       | Default    |
