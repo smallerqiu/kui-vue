@@ -1,5 +1,5 @@
-import { generate } from "kui-icons/utils/pathify.js";
 import fs from "fs";
+import { generate } from "kui-icons/utils/pathify";
 const { spriteList } = generate("../src/assets/icons/*.svg");
 
 fs.writeFileSync(

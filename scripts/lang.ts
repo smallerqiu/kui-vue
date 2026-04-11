@@ -1,12 +1,12 @@
+import glob from "fast-glob";
 import fs from "fs";
 import path from "path";
-import glob from "fast-glob";
 const matchesMD = glob.sync("../components/*/demo/*.md");
 const matchesIndex = glob.sync("../components/*/index.md");
 const matchesInfo = glob.sync("../components/*/demo/info.md");
 
 const output_md_cn = () => {
-  let langs = {};
+  let langs: Record<string, Record<string, string>> = {};
   let count = 0;
 
   for (const md of matchesMD) {
@@ -61,7 +61,7 @@ const write_md_en = () => {
 };
 
 const output_index_cn = () => {
-  let langs = {};
+  let langs: Record<string, any> = {};
 
   for (const md of matchesIndex) {
     const content = fs.readFileSync(md, "utf-8");
@@ -84,7 +84,7 @@ const output_index_en = () => {
 };
 
 const output_info_cn = () => {
-  let langs = {};
+  let langs: Record<string, any> = {};
 
   for (const md of matchesInfo) {
     const content = fs.readFileSync(md, "utf-8");
@@ -94,7 +94,6 @@ const output_info_cn = () => {
   }
   fs.writeFileSync(`./lang_info.json`, JSON.stringify(langs));
 };
-
 
 const output_info_en = () => {
   const enLangsStr = fs.readFileSync("./lang_info_en.json", "utf-8");
@@ -107,7 +106,6 @@ const output_info_en = () => {
   }
 };
 
-
 const output_index_en1 = () => {
   const enLangsStr = fs.readFileSync("./lang_index.json", "utf-8");
   const langEn = JSON.parse(enLangsStr);
@@ -119,4 +117,4 @@ const output_index_en1 = () => {
   }
 };
 
-output_index_en1()
+output_index_en1();
