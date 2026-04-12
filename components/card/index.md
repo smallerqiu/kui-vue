@@ -9,11 +9,12 @@
 ## 代码演示
 
 [边框](./demo/border.vue)
+
 - `bordered` 可以设置是否显示边框
 
 [很奇怪的卡片](./demo/notitle.vue)
-- 
 
+-
 
 ## API
 

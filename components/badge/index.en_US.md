@@ -9,23 +9,28 @@ Generally appears in the upper right corner of notification icons or avatars, us
 ## Examples
 
 [Colorful Badge](./demo/color.vue)
+
 - Multiple preset color styles for different scenarios. If presets do not meet your needs, you can set a specific color value.
 
 [Dot](./demo/dot.vue)
+
 - Set `dot` to display a dot.
 
 [Controlled](./demo/dynamic.vue)
+
 - Dynamic control.
 
 [Standalone Usage](./demo/mark.vue)
+
 - Using without wrapping any element makes it standalone and allows custom styling. The badge in the top-right corner is limited to red.
 
 [Max Value / Custom](./demo/max.vue)
+
 - Use `max-count` with `count`. In numeric mode, values exceeding the max will be hidden. If `count` is not a number, it will not be calculated.
 
 [Status Dot](./demo/status.vue)
-- A small dot used to indicate status.
 
+- A small dot used to indicate status.
 
 ## API
 

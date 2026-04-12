@@ -10,14 +10,16 @@ Warning prompts to display information that needs attention.
 ## Examples
 
 [Closable](./demo/close.vue)
+
 - Use `closable` to control whether the close button is displayed, with smooth and natural closing animation.
 
-[Custom Icon](./demo/customIcon.vue)
+[Custom Icon](./demo/custom-icon.vue)
+
 - Use `showIcon` to control whether the icon is displayed.
 
 [Icon](./demo/icon.vue)
-- Use `showIcon` to control whether the icon is displayed.
 
+- Use `showIcon` to control whether the icon is displayed.
 
 ## API
 

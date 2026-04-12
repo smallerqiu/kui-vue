@@ -11,11 +11,12 @@
 ## 代码演示
 
 [设置图标](./demo/icon.vue)
+
 - 通过 `icon` 设置图标
 
 [分隔符](./demo/separator.vue)
-- 通过 `separator` 设置分隔符
 
+- 通过 `separator` 设置分隔符
 
 ## BreadcrumbItem API
 

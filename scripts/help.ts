@@ -2,8 +2,48 @@ import glob from "fast-glob";
 import fs from "fs";
 import path from "path";
 
-const matches = glob.sync("components/*/demo/*.md");
+const matches = glob.sync("components/*/demo/*.vue");
 // const matches = glob.sync("components/*/demo/index.tsx");
+
+const isCamelCase = (str: string, strict = false): boolean => {
+  if (typeof str !== "string" || str.length === 0) {
+    return false;
+  }
+
+  // 不允许以下划线、中划线、数字开头
+  if (/^[0-9_\-]/.test(str)) {
+    return false;
+  }
+
+  // 不允许包含空格、下划线、中划线
+  if (/[\s_\-]/.test(str)) {
+    return false;
+  }
+
+  // 必须全是字母或数字
+  if (!/^[a-zA-Z0-9]+$/.test(str)) {
+    return false;
+  }
+
+  // 至少包含一个小写字母（防止纯大写如 "XML" 被误判）
+  if (!/[a-z]/.test(str)) {
+    return false;
+  }
+
+  // 严格模式：必须包含至少一个大写字母（即不能是纯小写 like "name"）
+  if (strict && !/[A-Z]/.test(str)) {
+    return false;
+  }
+
+  return true;
+};
+
+const camelToKebab = (str: string): string => {
+  return str
+    .replace(/([a-z\d])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, "$1-$2")
+    .toLowerCase();
+};
 
 const parseDemoMeta = (content: string) => {
   const result: { cn: { title: string; desc: string }; en: { title: string; desc: string } } = {
@@ -44,10 +84,25 @@ let enList = [];
 
 for (const file of matches) {
   const parts = file.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
-  // const parentDir = parts[1]; // 例如 aaa、bbb、xyz
+  const componentName = parts[1]; // 例如 aaa、bbb、xyz
 
   //
-  fs.renameSync(file, file.replace(".md", ".vue"));
+  const fname = parts.slice(-1)[0];
+  // console.log(fname);
+  if (isCamelCase(fname.replace(".vue", ""), true)) {
+    // console.log();
+    let newName = camelToKebab(fname);
+    console.log(fname + "  " + newName);
+    fs.renameSync(file, file.replace(fname, newName));
+
+    let cn = path.join("components", componentName, "index.md");
+    let content = fs.readFileSync(cn, "utf-8");
+    fs.writeFileSync(cn, content.replace(fname, newName), "utf-8");
+
+    let en = path.join("components", componentName, "index.en_US.md");
+    content = fs.readFileSync(en, "utf-8");
+    fs.writeFileSync(en, content.replace(fname, newName), "utf-8");
+  }
   continue;
   //
 

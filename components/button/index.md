@@ -16,32 +16,40 @@ Vue.use(Button);
 ## 代码演示
 
 [Block 按钮](./demo/block.vue)
+
 - block 属性将使按钮适合其父宽度。
 
 [多彩](./demo/color.vue)
+
 - 使用 `color` 可以衍生出更多的变体按钮。
 
 [禁用](./demo/disabled.vue)
+
 - 通过添加 `disabled` 属性可将按钮设置为不可用状态。
 
 [按钮组合](./demo/group.vue)
+
 - 将多个 `Button` 放入 `ButtonGroup` 内，可实现按钮组合的效果。
 
 [浅色主题](./demo/light.vue)
+
 - 浅色主题
 
 [加载中状态](./demo/loading.vue)
+
 - 添加 `loading` 属性即可让按钮处于加载状态
 
 [边框主题](./demo/outline.vue)
+
 - 只呈现边框
 
 [尺寸](./demo/size.vue)
+
 - `small` 为小尺寸， `large` 为大尺寸
 
-[带图标](./demo/withIcon.vue)
-- 通过添加 `icon` 属性 设置按钮按钮图标。
+[带图标](./demo/with-icon.vue)
 
+- 通过添加 `icon` 属性 设置按钮按钮图标。
 
 ## API
 

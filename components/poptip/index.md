@@ -11,14 +11,16 @@
 ## 代码演示
 
 [从浮层内关闭](./demo/closeinside.vue)
+
 - 使用 `v-model` 属性控制浮层显示。
 
 [位置](./demo/placement.vue)
+
 - 通过 `placement`控制方向, 位置有十二个方向。
 
 [触发模式](./demo/trigger.vue)
-- 通过 `trigger`来控制触发模式, 鼠标移入 `hover`、点击 `click`。
 
+- 通过 `trigger`来控制触发模式, 鼠标移入 `hover`、点击 `click`。
 
 ## API
 

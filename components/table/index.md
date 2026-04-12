@@ -48,35 +48,44 @@ const columns = [
 ## 代码演示
 
 [基本用法](./demo/basic.vue)
+
 - 一个普通的表格
 
 [自定义页头和页脚](./demo/bordered.vue)
+
 - 添加表格边框线，页头和页脚。
 
-[Table Row/Column Span](./demo/colRowSpan.vue)
+[Table Row/Column Span](./demo/col-row-span.vue)
+
 - Headers support only column spanning; use colSpan inside column definitions to configure. The table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.
 
-[自定义表头](./demo/customHeader.vue)
-- 一个可以自定义表头的表格  , 可以通过 `#header-`定义表头
+[自定义表头](./demo/custom-header.vue)
 
-[固定头/列](./demo/fixedColHeader.vue)
+- 一个可以自定义表头的表格 , 可以通过 `#header-`定义表头
+
+[固定头/列](./demo/fixed-col-header.vue)
+
 - 对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据，需要设置表格的宽度 `scroll.x` 和 `scroll.y `
 
-[表头分组](./demo/headerSpan.vue)
+[表头分组](./demo/header-span.vue)
+
 - columns[n] 可以内嵌 children，以渲染分组表头。
 
 [动态控制表格属性](./demo/size.vue)
+
 - 选择不同配置组合查看效果。
 
-[勾选](./demo/tableCheck.vue)
+[勾选](./demo/table-check.vue)
+
 - `checkable=true`，即可自动开启多选功能。 > 注意: 默认勾选的依赖为 `key` , 可以通过 `rowKey` 属性进行自定义。 如: `rowKey="ID"`
 
-[可编辑单元格](./demo/tableEdit.vue)
+[可编辑单元格](./demo/table-edit.vue)
+
 - 带单元格编辑功能的表格。
 
-[排序](./demo/tableSorter.vue)
-- `sorter=true` 现有的数据排序 , 为‘function’时,可自定义排序规则
+[排序](./demo/table-sorter.vue)
 
+- `sorter=true` 现有的数据排序 , 为‘function’时,可自定义排序规则
 
 ## Table API
 

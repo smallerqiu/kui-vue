@@ -10,17 +10,20 @@
 ## 代码演示
 
 [基本用法](./demo/basic.vue)
+
 - 默认可以同时展开一个或者多个面板
 
 [额外节点](./demo/extra.vue)
+
 - 可以同时展开多个面板。
 
 [嵌套面板](./demo/nesting.vue)
+
 - 嵌套折叠面板。
 
 [简洁模式](./demo/sample.vue)
-- 设置 `sample` 呈现没有边框的简洁样式。
 
+- 设置 `sample` 呈现没有边框的简洁样式。
 
 ## API
 

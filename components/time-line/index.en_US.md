@@ -12,11 +12,12 @@ When an operation takes a long time to complete, display the current progress an
 ## Examples
 
 [Icon](./demo/icon.vue)
+
 - Set the `icon` and `color` properties on `TimeLineItem` to change the icon display.
 
 [Display Direction](./demo/mode.vue)
-- Specify the `mode` to change the display direction.
 
+- Specify the `mode` to change the display direction.
 
 ## API
 

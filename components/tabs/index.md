@@ -12,26 +12,32 @@
 ## 代码演示
 
 [卡片式页签](./demo/card.vue)
+
 - 另一种样式的页签。
 
 [居中](./demo/centered.vue)
+
 - 标签居中展示。
 
 [新增和关闭页签](./demo/closable.vue)
+
 - 只有卡片样式的页签支持新增和关闭选项。 使用 `closable={false}` 禁止关闭。
 
 [禁用](./demo/disabled.vue)
+
 - 禁用某一项。
 
 [附加内容](./demo/extra.vue)
+
 - 可以在页签右边添加附加操作。
 
 [图标](./demo/icon.vue)
+
 - 有图标的标签。
 
 [极简式页签](./demo/sample.vue)
-- 简单的卡片呈现模式。
 
+- 简单的卡片呈现模式。
 
 ## Tabs API
 

@@ -9,11 +9,12 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 ## Examples
 
 [Card Loading](./demo/container.vue)
+
 - You can directly embed content into Spin to turn an existing container into a loading state.
 
 [Spin Type](./demo/mode.vue)
-- You can directly embed content into Spin to turn an existing container into a loading state.
 
+- You can directly embed content into Spin to turn an existing container into a loading state.
 
 ## Spin API
 

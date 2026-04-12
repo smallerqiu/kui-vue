@@ -9,18 +9,21 @@ Checkbox for multiple selections.
 
 ## Examples
 
-[Select All](./demo/checkAll.vue)
+[Select All](./demo/check-all.vue)
+
 - Select-all combination.
 
 [Disabled / Controlled](./demo/disabled.vue)
+
 - Set disabled state via `disabled`.
 
 [Multiple Selection](./demo/group.vue)
+
 - You can use the `options` property to define options, or use child components instead.
 
-[Group Layout](./demo/groupLayout.vue)
-- Group layout.
+[Group Layout](./demo/group-layout.vue)
 
+- Group layout.
 
 ## API
 

@@ -10,17 +10,20 @@
 ## 代码演示
 
 [禁用 / 可控](./demo/disabled.vue)
+
 - 通过 `disabled` 属性设置组件是否被禁用
 
 [加载中](./demo/loading.vue)
+
 - 标识开关操作仍在执行中。
 
 [两种大小](./demo/size.vue)
+
 - size="small" 表示小号开关。
 
-[文字 / 图标](./demo/withText.vue)
-- 通过 `true-text` 和 `false-text` 设置选中和非选中呈现文字, 通过设置 `slot` 为 `(checked|unchecked)` 控制内容
+[文字 / 图标](./demo/with-text.vue)
 
+- 通过 `true-text` 和 `false-text` 设置选中和非选中呈现文字, 通过设置 `slot` 为 `(checked|unchecked)` 控制内容
 
 ### API
 

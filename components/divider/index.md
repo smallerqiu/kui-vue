@@ -10,11 +10,12 @@
 ## 代码演示
 
 [水平分割线](./demo/default.vue)
+
 - 默认为水平分割线，可在中间加入文字。
 
-[带文字的分割线](./demo/withText.vue)
-- 分割线中带有文字，可以用 orientation 指定文字位置。
+[带文字的分割线](./demo/with-text.vue)
 
+- 分割线中带有文字，可以用 orientation 指定文字位置。
 
 ## API
 
