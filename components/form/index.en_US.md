@@ -40,23 +40,28 @@ export default {
 ```
 
 [Typical Form](./demo/basic.vue)
+
 - Includes various form items, such as input fields, selectors, switches, radio buttons, checkboxes, etc.
 
 [](./demo/customvalid.vue)
+
 - Use custom validation rules to complete form validation.
 
 [](./demo/dynamicvalid.vue)
+
 - Execute different validation rules based on different conditions.
 
 [](./demo/length.vue)
+
 - Validate certain data types.
 
 [](./demo/valid.vue)
+
 - Help users discover and correct errors as early as possible, while preventing mistakes.
 
 [](./demo/withmodal.vue)
-- Outside the Form, submit the form via `submit` from the outside. Conversely, it's recommended to use `<Button htmlType="submit" />` to call the native submission logic.
 
+- Outside the Form, submit the form via `submit` from the outside. Conversely, it's recommended to use `<Button htmlType="submit" />` to call the native submission logic.
 
 ## Form API
 

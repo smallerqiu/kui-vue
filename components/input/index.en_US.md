@@ -10,26 +10,32 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 ## Examples
 
 [Events](./demo/event.vue)
+
 - This example tests whether component events are triggered normally.
 
 [Input Group](./demo/group.vue)
+
 - Use `InputGroup` to tightly connect components and merge borders. Default is `true`.
 
 [With Icon](./demo/icon.vue)
+
 - By setting the `icon` attribute, you can add an icon to the input field, which is only effective for `input`. This allows for quick implementation of features like password visibility toggle or search.
 
 [Size](./demo/size.vue)
+
 - `large` for large size, `small` for small size.
 
 [Extension, Prefix and Suffix](./demo/suffix.vue)
+
 - suffix, prefix extension.
 
 [Textarea](./demo/textarea.vue)
+
 - Control the number of rows via `rows`.
 
 [Theme](./demo/theme.vue)
-- Use `theme` to set the theme, and `shape` for rounded corners.
 
+- Use `theme` to set the theme, and `shape` for rounded corners.
 
 ## Input API
 

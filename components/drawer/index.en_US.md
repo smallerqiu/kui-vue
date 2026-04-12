@@ -11,14 +11,16 @@ A floating panel that slides in from the edge of the screen.
 ## Examples
 
 [Custom](./demo/custom.vue)
+
 - Use `title` to set the title, `width` to control the width, and `placement` to control the direction.
 
 [Inject into Target Element](./demo/target.vue)
+
 - Can be expanded within the target element.
 
-[Form Mode](./demo/withForm.vue)
-- Content will be presented in form mode, with a header and footer, and the footer can be customized.
+[Form Mode](./demo/with-form.vue)
 
+- Content will be presented in form mode, with a header and footer, and the footer can be customized.
 
 ## API
 

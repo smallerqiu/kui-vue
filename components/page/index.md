@@ -10,11 +10,12 @@
 ## 代码演示
 
 [尺寸](./demo/size.vue)
+
 - 展示小尺寸。
 
-[条目 / 跳转](./demo/sizerElevator.vue)
-- 改变每页显示条目数。
+[条目 / 跳转](./demo/sizer-elevator.vue)
 
+- 改变每页显示条目数。
 
 ## API
 

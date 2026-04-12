@@ -10,11 +10,12 @@ Dividing line that separates content.
 ## Examples
 
 [Horizontal Divider](./demo/default.vue)
+
 - Default is a horizontal divider, with text that can be added in the middle.
 
-[Divider with Text](./demo/withText.vue)
-- A divider with text in the middle, where `orientation` can specify the text position.
+[Divider with Text](./demo/with-text.vue)
 
+- A divider with text in the middle, where `orientation` can specify the text position.
 
 ## API
 

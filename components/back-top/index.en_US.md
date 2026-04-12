@@ -10,8 +10,8 @@ Button to return to the top of the page.
 ## Examples
 
 [Basic Usage](./demo/custom.vue)
-- You can customize the back-to-top button style, for example setting `bottom` to `100px`.
 
+- You can customize the back-to-top button style, for example setting `bottom` to `100px`.
 
 ## API
 

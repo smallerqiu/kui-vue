@@ -9,17 +9,20 @@ Commonly seen in detail page information display.
 ## Examples
 
 [Bordered](./demo/bordered.vue)
+
 - List with borders and background colors.
 
 [Custom Size](./demo/size.vue)
+
 - Customize the size to adapt to various containers.
 
 [Vertical](./demo/vertical.vue)
+
 - Vertical list.
 
-[Vertical Bordered](./demo/verticalBordered.vue)
-- Vertical list with borders and background colors.
+[Vertical Bordered](./demo/vertical-bordered.vue)
 
+- Vertical list with borders and background colors.
 
 ## API
 

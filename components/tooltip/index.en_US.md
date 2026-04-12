@@ -11,11 +11,12 @@ Can be used to replace the system default `title` prompt, providing a text expla
 ## Examples
 
 [Colorful Text Tips](./demo/color.vue)
+
 - Multiple preset colors for text tips, used in different scenarios.
 
 [Position](./demo/placement.vue)
-- Control the direction via `placement`. There are twelve available positions.
 
+- Control the direction via `placement`. There are twelve available positions.
 
 ## API
 

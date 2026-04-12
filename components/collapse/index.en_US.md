@@ -10,17 +10,20 @@ Content area that can be collapsed/expanded.
 ## Examples
 
 [Basic Usage](./demo/basic.vue)
+
 - By default, one or multiple panels can be expanded at the same time.
 
 [Extra Nodes](./demo/extra.vue)
+
 - Multiple panels can be expanded simultaneously.
 
 [Nested Panels](./demo/nesting.vue)
+
 - Nested collapse panels.
 
 [Simple Mode](./demo/sample.vue)
-- Set `sample` to display a borderless, minimal style.
 
+- Set `sample` to display a borderless, minimal style.
 
 ## API
 

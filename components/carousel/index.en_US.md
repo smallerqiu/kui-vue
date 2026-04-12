@@ -11,11 +11,12 @@ A set of rotating/carousel areas.
 ## Examples
 
 [Basic Usage](./demo/basic.vue)
+
 - The simplest usage. You can specify the initial value via `value (v-model)`.
 
 [Vertical](./demo/vertical.vue)
-- Enable vertical mode by setting `vertical`. In this mode, left and right arrows are hidden.
 
+- Enable vertical mode by setting `vertical`. In this mode, left and right arrows are hidden.
 
 ## API
 

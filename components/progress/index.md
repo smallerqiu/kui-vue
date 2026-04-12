@@ -12,20 +12,24 @@
 ## 代码演示
 
 [进度圈](./demo/circle.vue)
+
 - 圆形的进度条。
 
 [颜色和格式](./demo/color.vue)
+
 - 自定义颜色和自定义格式。
 
 [盘仪表进度条](./demo/dashboard.vue)
+
 - 盘仪表进度条。可通过`gapDegree`调节缺口大小。`strokeLinecap="square|round"` 可以调整进度条边缘的形状。
 
 [动态展示](./demo/dynamic.vue)
+
 - 会动的进度条才是好进度条。
 
 [尺寸](./demo/size.vue)
-- 适合放在较狭窄的区域内。
 
+- 适合放在较狭窄的区域内。
 
 ## API
 

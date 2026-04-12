@@ -10,17 +10,20 @@
 ## 代码演示
 
 [提示框](./demo/confirm.vue)
+
 - 全局的确认提示框，可以异步关闭
 
 [自定义](./demo/custom.vue)
+
 - 自定义 `Modal`
 
 [全局模式](./demo/global.vue)
+
 - 使用 全局模式
 
 [其它属性](./demo/more.vue)
-- 不需要页脚时，可以把 `footer` 为`null`
 
+- 不需要页脚时，可以把 `footer` 为`null`
 
 ## API
 

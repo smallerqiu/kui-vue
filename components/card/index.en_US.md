@@ -9,11 +9,12 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 ## Examples
 
 [Border](./demo/border.vue)
+
 - Use `bordered` to control whether the border is displayed.
 
 [A Very Weird Card](./demo/notitle.vue)
-- 
 
+-
 
 ## API
 

@@ -10,14 +10,16 @@
 ## 代码演示
 
 [自定义时长](./demo/close.vue)
+
 - 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
 
 [自定图标](./demo/icon.vue)
+
 - 自定图标。
 
 [提示类型](./demo/types.vue)
-- 通过 `type` 来设置提示类型
 
+- 通过 `type` 来设置提示类型
 
 ## API
 

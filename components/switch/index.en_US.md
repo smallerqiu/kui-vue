@@ -10,17 +10,20 @@ Switch selector.
 ## Examples
 
 [Disabled / Controllable](./demo/disabled.vue)
+
 - Use the `disabled` attribute to set whether the component is disabled.
 
 [Loading](./demo/loading.vue)
+
 - Indicates that the switch operation is still in progress.
 
 [Two Sizes](./demo/size.vue)
+
 - `size="small"` indicates a small switch.
 
-[Text / Icon](./demo/withText.vue)
-- Use `true-text` and `false-text` to set the text displayed when selected and unselected. Use the `slot` `(checked|unchecked)` to control the content.
+[Text / Icon](./demo/with-text.vue)
 
+- Use `true-text` and `false-text` to set the text displayed when selected and unselected. Use the `slot` `(checked|unchecked)` to control the content.
 
 ### API
 

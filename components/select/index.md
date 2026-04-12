@@ -10,20 +10,24 @@
 ## 代码演示
 
 [禁用和不可清除](./demo/disabled.vue)
+
 - 通过 `v-model` 进行数据双向绑定
 
 [过滤 和 搜索](./demo/filterable.vue)
+
 - 通过设置 `filterable` 值来呈现过滤模式 > filterable 和 onSearch 不可以同时使用, 搜索的结果会被过滤
 
 [多选](./demo/multiple.vue)
+
 - 通过设置 `multiple` 值来呈现多选模式
 
 [尺寸](./demo/size.vue)
+
 - 通过 `width` 和 `size` 可控制组件尺寸大小
 
 [奇葩的定义](./demo/theme.vue)
-- 一些奇奇怪怪的东西
 
+- 一些奇奇怪怪的东西
 
 ## Select API
 

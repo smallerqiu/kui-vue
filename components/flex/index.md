@@ -13,14 +13,16 @@
 ## 代码演示
 
 [基本布局](./demo/basic.vue)
+
 - 最简单的用法。
 
 [间距大小](./demo/size.vue)
+
 - 使用 size 设置元素之间的间距，预设了 small、middle、large 三种尺寸，也可以自定义间距。
 
 [设置换行](./demo/wrap.vue)
-- 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 
+- 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 
 ## Space API
 

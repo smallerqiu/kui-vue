@@ -12,32 +12,40 @@ Avoid components sticking together, create uniform space.
 ## Examples
 
 [Basic Usage](./demo/basic.vue)
+
 - Horizontal spacing between adjacent components.
 
 [Compact Layout Group](./demo/compact.vue)
+
 - Use `compact` to tightly connect form components and merge borders.
 
-[Button Compact Layout](./demo/compactButton.vue)
+[Button Compact Layout](./demo/compact-button.vue)
+
 - Example of compactly arranged Button components.
 
-[Vertical Compact Layout](./demo/compactVertical.vue)
+[Vertical Compact Layout](./demo/compact-vertical.vue)
+
 - Vertical compact layout, currently only supporting Button combinations.
 
-[Custom Size](./demo/customSize.vue)
+[Custom Size](./demo/custom-size.vue)
+
 - Customize spacing size.
 
 [Spacing Size](./demo/size.vue)
+
 - Preset spacing sizes: large, medium, and small. Set `size` to `large` or `middle` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.
 
 [Divider](./demo/split.vue)
+
 - Divider between adjacent components.
 
 [Vertical Spacing](./demo/vertical.vue)
+
 - Vertical spacing between adjacent components.
 
 [Set Wrapping](./demo/wrap.vue)
-- When the spacing is horizontal, you can use `wrap` to set whether to wrap automatically. The default is false.
 
+- When the spacing is horizontal, you can use `wrap` to set whether to wrap automatically. The default is false.
 
 ## Space API
 

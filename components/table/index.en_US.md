@@ -48,35 +48,44 @@ const columns = [
 ## Examples
 
 [Basic Usage](./demo/basic.vue)
+
 - A regular table.
 
 [Custom Header and Footer](./demo/bordered.vue)
+
 - Add table border lines, header, and footer.
 
-[Table Row/Column Span](./demo/colRowSpan.vue)
+[Table Row/Column Span](./demo/col-row-span.vue)
+
 - Headers support only column spanning; use colSpan inside column definitions to configure. The table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.
 
-[Custom Table Header](./demo/customHeader.vue)
+[Custom Table Header](./demo/custom-header.vue)
+
 - A table with a customizable header. You can define the header via `#header-`.
 
-[Fixed Header/Columns](./demo/fixedColHeader.vue)
+[Fixed Header/Columns](./demo/fixed-col-header.vue)
+
 - For data with many columns, you can fix the front and back columns and scroll horizontally to view other data. You need to set the table's width `scroll.x` and `scroll.y`.
 
-[Header Grouping](./demo/headerSpan.vue)
+[Header Grouping](./demo/header-span.vue)
+
 - `columns[n]` can nest `children` to render grouped headers.
 
 [Dynamically Control Table Properties](./demo/size.vue)
+
 - Select different configuration combinations to see the effects.
 
-[Checkbox Selection](./demo/tableCheck.vue)
+[Checkbox Selection](./demo/table-check.vue)
+
 - Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
 
-[Editable Cells](./demo/tableEdit.vue)
+[Editable Cells](./demo/table-edit.vue)
+
 - A table with cell editing functionality.
 
-[Sorting](./demo/tableSorter.vue)
-- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
+[Sorting](./demo/table-sorter.vue)
 
+- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
 
 ## Table API
 

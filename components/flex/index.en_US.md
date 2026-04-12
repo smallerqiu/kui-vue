@@ -13,14 +13,16 @@
 ## Examples
 
 [Basic Layout](./demo/basic.vue)
+
 - The simplest usage.
 
 [Spacing Size](./demo/size.vue)
+
 - Use `size` to set the spacing between elements. Presets include `small`, `middle`, and `large`, or you can define a custom spacing.
 
 [Set Wrapping](./demo/wrap.vue)
-- When spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.
 
+- When spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.
 
 ## Space API
 

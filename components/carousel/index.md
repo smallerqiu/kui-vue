@@ -11,11 +11,12 @@
 ## 代码演示
 
 [基本用法](./demo/basic.vue)
+
 - 最简单的用法,可以通过 `value(v-model)` 指定初始值
 
 [垂直](./demo/vertical.vue)
-- 通过设置 `vertical` 呈现垂直模式,此时不显示左右箭头
 
+- 通过设置 `vertical` 呈现垂直模式,此时不显示左右箭头
 
 ## API
 

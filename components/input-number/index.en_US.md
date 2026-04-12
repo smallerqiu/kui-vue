@@ -9,14 +9,16 @@ When standard numerical values need to be obtained.
 ## Examples
 
 [Extension, Prefix and Suffix](./demo/ffix.vue)
+
 - suffix, prefix extension
 
 [High-Precision Decimals / Formatted Display](./demo/format.vue)
+
 - Format numbers using `formatter` to display data with specific meaning, often used in conjunction with `parser`.
 
 [Size](./demo/size.vue)
-- `large` for large size, `small` for small size
 
+- `large` for large size, `small` for small size
 
 ## InputNumber API
 

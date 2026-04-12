@@ -10,17 +10,20 @@
 ## 代码演示
 
 [基本用法](./demo/basic.vue)
+
 - 最简单的用法。
 
 [固定底部](./demo/bottom.vue)
+
 - 最简单的用法。
 
 [固定状态改变的回调](./demo/callbacks.vue)
+
 - 可以获得是否固定的状态。
 
 [滚动容器](./demo/container.vue)
-- 用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 
+- 用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 
 ## API
 

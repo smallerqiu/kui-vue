@@ -9,14 +9,16 @@
 ## 代码演示
 
 [扩展, 前缀和后缀](./demo/ffix.vue)
+
 - suffix，prefix 扩展
 
 [高精度小数/格式化展示](./demo/format.vue)
+
 - 通过 formatter 格式化数字，以展示具有具体含义的数据，往往需要配合 parser 一起使用。
 
 [尺寸](./demo/size.vue)
-- `large` 为大尺寸， `small` 为小尺寸
 
+- `large` 为大尺寸， `small` 为小尺寸
 
 ## InputNumber API
 

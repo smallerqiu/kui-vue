@@ -9,11 +9,12 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 ## Examples
 
 [Card Display](./demo/card.vue)
+
 - Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
 
-[Strange Cards](./demo/withCard.vue)
-- 
+[Strange Cards](./demo/with-card.vue)
 
+-
 
 ## StatCard API
 

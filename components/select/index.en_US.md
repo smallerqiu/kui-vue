@@ -10,20 +10,24 @@ Dropdown selector.
 ## Examples
 
 [Disabled and Non-clearable](./demo/disabled.vue)
+
 - Use `v-model` for two-way data binding.
 
 [Filtering and Searching](./demo/filterable.vue)
+
 - Set the `filterable` value to present filtering mode. > `filterable` and `onSearch` cannot be used simultaneously; search results will be filtered.
 
 [Multiple Selection](./demo/multiple.vue)
+
 - Set the `multiple` value to present multi-select mode.
 
 [Size](./demo/size.vue)
+
 - Control component size via `width` and `size`.
 
 [Weird Definition](./demo/theme.vue)
-- Some strange things.
 
+- Some strange things.
 
 ## Select API
 
