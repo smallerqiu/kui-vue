@@ -45,21 +45,29 @@ English | [简体中文](./README-zh_CN.md)
 
 # Install
 
-```sh
-#with npm:
+```bash
 npm install kui-vue --save
+```
 
-#with yarn:
+```bash
+npm add kui-vue
+```
+
+```bash
 yarn add kui-vue
+```
+
+```bash
+bun add kui-vue
 ```
 
 Using a script tag for global use:
 
 ```html
 <!-- import stylesheet -->
-<link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
+<link rel="stylesheet" href="//unpkg.com/kui-vue/style/index.css" />
 <!-- import kui -->
-<script src="//unpkg.com/kui-vue@4.x"></script>
+<script src="//unpkg.com/kui-vue"></script>
 ```
 
 # Usage
@@ -67,7 +75,7 @@ Using a script tag for global use:
 ```html
 <template>
   <div>
-    <button type="primary" @click="test">Primary</button>
+    <k-button type="primary" @click="test">Primary</k-button>
   </div>
 </template>
 <script setup lang="ts">

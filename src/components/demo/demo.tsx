@@ -4,13 +4,12 @@ import { Badge, Button, Divider, Tooltip, message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import {
   Transition,
-  computed,
   defineComponent,
   inject,
   onBeforeUnmount,
   onMounted,
   reactive,
-  ref,
+  ref
 } from "vue";
 import { parseCode } from "./transform";
 const { copy, isSupported } = useClipboard();
@@ -23,6 +22,8 @@ const Demo = defineComponent({
       type: String,
       default: "horizontal",
     },
+    title: String,
+    description: String,
   },
   setup(props, { slots }) {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
@@ -87,11 +88,11 @@ const Demo = defineComponent({
       }
     });
 
-    const locale = inject("locale");
+    // const locale = inject("locale");
 
-    const lang = computed(() => {
-      return locale.value?.name || "en";
-    });
+    // const lang = computed(() => {
+    //   return locale.value?.name || "en";
+    // });
 
     return () => {
       const transitionProps = getTransitionProp();
@@ -100,7 +101,8 @@ const Demo = defineComponent({
       const descNode = (
         <div class="k-desc">
           <div class="k-desc-content">
-            {lang.value == "en" ? slots.descriptionEn?.() : slots.description?.()}
+            <h3>{props.title}</h3>
+            {props.description}
           </div>
         </div>
       );
