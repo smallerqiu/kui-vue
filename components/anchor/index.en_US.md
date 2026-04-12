@@ -4,8 +4,12 @@ It is necessary to display the anchor links available for navigation on the curr
 
 ## Examples
 
-<code src="./demo/nestedAnchors.vue">Nested Anchors (Complex Document Structure)</code>
-<code src="./demo/withinContainer.vue">Specify container (positioning within a scrolling container)</code>
+[Nested Anchors (Complex Document Structure)](./demo/nestedAnchors.vue)
+- Suitable for documents with multi-level headings.
+
+[Specify container (positioning within a scrolling container)](./demo/withinContainer.vue)
+- If your page does not scroll in full screen but within a specific div.
+
 
 ## Anchor API
 

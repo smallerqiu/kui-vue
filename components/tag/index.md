@@ -9,10 +9,18 @@
 
 ## 代码演示
 
-<code src="./demo/color.vue">多彩标签</code>
-<code src="./demo/dynamic.vue">动态添加和删除</code>
-<code src="./demo/icon.vue">图标</code>
-<code src="./demo/size.vue">尺寸和形状</code>
+[多彩标签](./demo/color.vue)
+- 多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+
+[动态添加和删除](./demo/dynamic.vue)
+- 通过 `closeable` 显示关闭按钮
+
+[图标](./demo/icon.vue)
+- 可以设置 icon 属性，或者直接在 Tag 内使用 Icon 组件。
+
+[尺寸和形状](./demo/size.vue)
+- 通过 `size` 可控尺寸 ,
+
 
 ## Tag API
 

@@ -15,15 +15,33 @@ Vue.use(Button);
 
 ## Examples
 
-<code src="./demo/block.vue">Block Button</code>
-<code src="./demo/color.vue">Color Variants</code>
-<code src="./demo/disabled.vue">Disabled</code>
-<code src="./demo/group.vue">Button Group</code>
-<code src="./demo/light.vue">Light Theme</code>
-<code src="./demo/loading.vue">Loading State</code>
-<code src="./demo/outline.vue">Outline Theme</code>
-<code src="./demo/size.vue">Size</code>
-<code src="./demo/withIcon.vue">With Icon</code>
+[Block Button](./demo/block.vue)
+- The `block` property makes the button fit the width of its parent.
+
+[Color Variants](./demo/color.vue)
+- Use `color` to create more button variants.
+
+[Disabled](./demo/disabled.vue)
+- Add the `disabled` property to make the button unavailable.
+
+[Button Group](./demo/group.vue)
+- Place multiple `Button` components inside `ButtonGroup` to group them.
+
+[Light Theme](./demo/light.vue)
+- Light theme.
+
+[Loading State](./demo/loading.vue)
+- Add the `loading` property to put the button in a loading state.
+
+[Outline Theme](./demo/outline.vue)
+- Only display the border.
+
+[Size](./demo/size.vue)
+- `small` for small size, `large` for large size.
+
+[With Icon](./demo/withIcon.vue)
+- Set the button icon by adding the `icon` property.
+
 
 ## API
 

@@ -8,9 +8,15 @@
 
 ## 代码演示
 
-<code src="./demo/customTrigger.vue">自定义触发器</code>
-<code src="./demo/placement.vue">弹出位置</code>
-<code src="./demo/size.vue">尺寸大小 / 不可用</code>
+[自定义触发器](./demo/customTrigger.vue)
+- 自定义颜色面板的触发器。
+
+[弹出位置](./demo/placement.vue)
+- 支持 6 个弹出位置 , 如果上面的空间不够，色盘会自动在下面展示
+
+[尺寸大小 / 不可用](./demo/size.vue)
+- `small` 为小尺寸， `large` 为大尺寸
+
 
 ## API
 

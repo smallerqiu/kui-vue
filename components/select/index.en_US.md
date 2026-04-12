@@ -9,11 +9,21 @@ Dropdown selector.
 
 ## Examples
 
-<code src="./demo/disabled.vue">Disabled and Non-clearable</code>
-<code src="./demo/filterable.vue">Filtering and Searching</code>
-<code src="./demo/multiple.vue">Multiple Selection</code>
-<code src="./demo/size.vue">Size</code>
-<code src="./demo/theme.vue">Weird Definition</code>
+[Disabled and Non-clearable](./demo/disabled.vue)
+- Use `v-model` for two-way data binding.
+
+[Filtering and Searching](./demo/filterable.vue)
+- Set the `filterable` value to present filtering mode. > `filterable` and `onSearch` cannot be used simultaneously; search results will be filtered.
+
+[Multiple Selection](./demo/multiple.vue)
+- Set the `multiple` value to present multi-select mode.
+
+[Size](./demo/size.vue)
+- Control component size via `width` and `size`.
+
+[Weird Definition](./demo/theme.vue)
+- Some strange things.
+
 
 ## Select API
 

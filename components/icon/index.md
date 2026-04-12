@@ -10,9 +10,15 @@ kui 的图标使用开源项目 [ionicons](http://ionicons.com/) 前版本5.5
 npm install --save kui-icons
 ```
 
-<code src="./demo/stroke.vue">线条粗细</code>
-<code src="./demo/use.en_US.vue"></code>
-<code src="./demo/use.vue"></code>
+[线条粗细](./demo/stroke.vue)
+- 可以通过 `strokeWidth` 属性设置图标的线条。
+
+[](./demo/use.en_US.vue)
+- 
+
+[](./demo/use.vue)
+- 
+
 
 ## API
 

@@ -8,12 +8,24 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ## Examples
 
-<code src="./demo/basic.vue">Top Navigation</code>
-<code src="./demo/collapsed.vue">Collapsible Inline Menu</code>
-<code src="./demo/inline.vue">Inline Menu</code>
-<code src="./demo/mode.vue">Switch Menu Type</code>
-<code src="./demo/theme.vue">Theme</code>
-<code src="./demo/vertical.vue">Vertical Menu</code>
+[Top Navigation](./demo/basic.vue)
+- Horizontal top navigation menu.
+
+[Collapsible Inline Menu](./demo/collapsed.vue)
+- Inline menus can be collapsed/expanded.
+
+[Inline Menu](./demo/inline.vue)
+- Vertical menu, with submenus embedded within the menu area.
+
+[Switch Menu Type](./demo/mode.vue)
+- Demonstrates dynamic mode switching.
+
+[Theme](./demo/theme.vue)
+- Two built-in themes: `light|dark`, defaulting to `light`.
+
+[Vertical Menu](./demo/vertical.vue)
+- Submenus appear as popups.
+
 
 ## API
 

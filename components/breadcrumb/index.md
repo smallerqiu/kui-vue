@@ -10,8 +10,12 @@
 
 ## 代码演示
 
-<code src="./demo/icon.vue">设置图标</code>
-<code src="./demo/separator.vue">分隔符</code>
+[设置图标](./demo/icon.vue)
+- 通过 `icon` 设置图标
+
+[分隔符](./demo/separator.vue)
+- 通过 `separator` 设置分隔符
+
 
 ## BreadcrumbItem API
 

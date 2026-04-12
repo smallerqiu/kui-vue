@@ -9,10 +9,18 @@ Modal dialog box.
 
 ## Examples
 
-<code src="./demo/confirm.vue">Confirmation Dialog</code>
-<code src="./demo/custom.vue">Custom</code>
-<code src="./demo/global.vue">Global Mode</code>
-<code src="./demo/more.vue">Other Properties</code>
+[Confirmation Dialog](./demo/confirm.vue)
+- A global confirmation dialog that can be closed asynchronously.
+
+[Custom](./demo/custom.vue)
+- Custom `Modal`.
+
+[Global Mode](./demo/global.vue)
+- Use global mode.
+
+[Other Properties](./demo/more.vue)
+- When the footer is not needed, set `footer` to `null`.
+
 
 ## API
 

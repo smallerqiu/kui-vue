@@ -12,9 +12,21 @@
 
 > 3.0 版本以后使用 `flex` 布局，请注意[浏览器兼容性](http://caniuse.com/#search=flex)
 
-<code src="./demo/documentationLayout.vue">文档/知识库布局 (Documentation Layout)</code>
-<code src="./demo/enterpriseAdminConsole.vue">现代企业级管理后台 (Enterprise Admin Console)</code>
-<code src="./demo/lowCodeLayout.vue">可视化编辑器布局 (IDE / Low-code Layout)</code>
-<code src="./demo/messagingCollaboration.vue">协作聊天布局 (Messaging & Collaboration)</code>
-<code src="./demo/portalExhibition.vue">响应式门户/官网布局 (Portal Exhibition)</code>
-<code src="./demo/workbenchLayout.vue">任务工作台 (The "Workbench" Details Layout)</code>
+[文档/知识库布局 (Documentation Layout)](./demo/documentationLayout.vue)
+- 模仿类似 Vue 或 React 官方文档的结构，重点在于侧边栏是固定的目录导航。 - 布局逻辑：Header 跨越全宽，下方 Layout 包含 Sider（通常在左侧或右侧作为索引）和 Content。 - 搭配组件：Input（搜索框）、Anchor（锚点导航）、Divider（分割线）。
+
+[现代企业级管理后台 (Enterprise Admin Console)](./demo/enterpriseAdminConsole.vue)
+- 最常见的“侧边导航 + 顶部工具栏”结构，适用于 SaaS 产品、CMS 后台或 ERP 系统。 - 布局逻辑：外层 Layout 包含 Sider，内层 Layout 包含 Header、Content 和 Footer。 - 搭配组件：Menu（垂直模式）、Breadcrumb（面包屑）、Avatar（头像）。
+
+[可视化编辑器布局 (IDE / Low-code Layout)](./demo/lowCodeLayout.vue)
+- - 场景： 类似于 VS Code、Figma 或低代码平台。 - 核心点： 极简的导航、多列固定高度、以及底部状态栏 (Footer)。 此 Demo 重点展示了 Layout 如何通过多层嵌套，将屏幕空间切分为极小但有序的功能区。
+
+[协作聊天布局 (Messaging & Collaboration)](./demo/messagingCollaboration.vue)
+- - 场景： 客服系统、Slack 镜像、应用内私信。 - 核心点： 内容区（Content）负责消息流，页脚（Footer）作为固定高度的输入区域。 - 这个案例展示了如何让 Footer 承载复杂的交互（文本框、表情按钮、发送键）。
+
+[响应式门户/官网布局 (Portal Exhibition)](./demo/portalExhibition.vue)
+- 适用于信息量较大但层级较浅的门户网站、展示型官网或个人博客。 - 布局逻辑：单一垂直方向的 Layout，直接排布 Header、Content、Footer。 - 搭配组件：Menu（水平模式）、Carousel（轮播图）、Card（内容卡片）。
+
+[任务工作台 (The "Workbench" Details Layout)](./demo/workbenchLayout.vue)
+- 左侧导航 + 中间看板 + 右侧详情面板 (Right Sider)。
+

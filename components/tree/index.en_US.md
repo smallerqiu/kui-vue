@@ -6,12 +6,24 @@ Folders, organizational structures, biological classifications, countries and re
 
 ## Examples
 
-<code src="./demo/checkable.vue">Checkable</code>
-<code src="./demo/customRender.vue">Extended Node</code>
-<code src="./demo/directory.vue">Group Control</code>
-<code src="./demo/disabled.vue">Disabled Node</code>
-<code src="./demo/icon.vue">Custom Icon</code>
-<code src="./demo/sync.vue">Asynchronous Loading</code>
+[Checkable](./demo/checkable.vue)
+- Set the `checkable` attribute to allow nodes to be checked.
+
+[Extended Node](./demo/customRender.vue)
+- Extended node for a tree item.
+
+[Group Control](./demo/directory.vue)
+- Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.
+
+[Disabled Node](./demo/disabled.vue)
+- Set the `disabled` attribute to disable a node.
+
+[Custom Icon](./demo/icon.vue)
+- You can customize icons for different nodes.
+
+[Asynchronous Loading](./demo/sync.vue)
+- Click to expand a node and load data dynamically. `isLeaf=true` indicates the current node is a leaf node and has no children.
+
 
 ## Tree API
 

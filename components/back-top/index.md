@@ -9,7 +9,9 @@
 
 ## 代码演示
 
-<code src="./demo/custom.vue">基本用法</code>
+[基本用法](./demo/custom.vue)
+- 可以自定义回到顶部按钮的样式 `bottom` 为 `100px`
+
 
 ## API
 

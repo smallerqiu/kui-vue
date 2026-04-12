@@ -8,9 +8,15 @@ When standard numerical values need to be obtained.
 
 ## Examples
 
-<code src="./demo/ffix.vue">Extension, Prefix and Suffix</code>
-<code src="./demo/format.vue">High-Precision Decimals / Formatted Display</code>
-<code src="./demo/size.vue">Size</code>
+[Extension, Prefix and Suffix](./demo/ffix.vue)
+- suffix, prefix extension
+
+[High-Precision Decimals / Formatted Display](./demo/format.vue)
+- Format numbers using `formatter` to display data with specific meaning, often used in conjunction with `parser`.
+
+[Size](./demo/size.vue)
+- `large` for large size, `small` for small size
+
 
 ## InputNumber API
 

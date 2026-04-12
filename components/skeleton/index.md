@@ -11,12 +11,24 @@
 
 ## 代码演示
 
-<code src="./demo/basic.vue">基本用法</code>
-<code src="./demo/child.vue">子组件</code>
-<code src="./demo/custom.vue">自定义</code>
-<code src="./demo/group.vue">组合</code>
-<code src="./demo/items.vue">按钮/头像/图像</code>
-<code src="./demo/list.vue">列表</code>
+[基本用法](./demo/basic.vue)
+- 最简单的占位效果。
+
+[子组件](./demo/child.vue)
+- 加载占位图包含子组件。
+
+[自定义](./demo/custom.vue)
+- 自定义效果。
+
+[组合](./demo/group.vue)
+- 可以配置骨架屏段落数量，以便更接近真实渲染效果。首行会被渲染一个长度 35% 的段首。
+
+[按钮/头像/图像](./demo/items.vue)
+- 骨架按钮、头像、和图像。
+
+[列表](./demo/list.vue)
+- 在列表组件中使用加载占位符。
+
 
 ## API
 

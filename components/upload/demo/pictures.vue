@@ -1,0 +1,54 @@
+<template>
+  <Upload
+    action="https://www.chuchur.com/api/upload/image"
+    name="file"
+    type="picture"
+    :headers="headers"
+    @change="handleChange"
+    :fileList="fileList"
+    accept="image/*"
+    uploadText="Upload Avatar"
+  >
+  </Upload>
+  <br />
+  <Button @click="test">change</Button>
+</template>
+<script setup lang="ts">
+import { ref } from "vue";
+const headers = ref({
+  authorization: "here is token",
+});
+const fileList = ref([
+  {
+    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+    status: "uploading",
+    filename: "test.jpg",
+    size: "222kb",
+    percent: 50,
+    status: "uploading",
+  },
+  {
+    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
+    status: "error",
+    filename: "test.jpg",
+    size: "222kb",
+  },
+]);
+const handleChange = (info) => {
+  if (info.file.status !== "uploading") {
+    console.log(info.file, info.fileList);
+  }
+};
+const test = () => {
+  fileList.value = [
+    {
+      url: "https://cdn.chuchur.com/upload/cat/cat1.jpg",
+      status: "uploading",
+      filename: "test.jpg",
+      size: "222kb",
+      percent: 50,
+      status: "uploading",
+    },
+  ];
+};
+</script>

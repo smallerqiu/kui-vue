@@ -10,8 +10,12 @@
 
 ## 代码演示
 
-<code src="./demo/local.vue">国际化</code>
-<code src="./demo/placement.vue">位置</code>
+[国际化](./demo/local.vue)
+- 使用 `okText` 和 `cancelText` 自定义按钮文字。
+
+[位置](./demo/placement.vue)
+- 通过 `placement`控制方向, 位置有十二个方向。
+
 
 ## API
 

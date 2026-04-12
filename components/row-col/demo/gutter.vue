@@ -1,0 +1,53 @@
+<template>
+  <Space vertical block>
+    <code>gutter = 10</code>
+    <Row :gutter="10" class="row-gutter">
+      <Col :span="12"><div>col-12</div></Col>
+      <Col :span="12"><div>col-12</div></Col>
+    </Row>
+    <code>Horizontal Gutter (px):{{ h }}</code>
+    <div style="width:55%;padding:10px;">
+      <Slider
+        v-model="h"
+        :min="8"
+        :marks="{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }"
+        :max="40"
+        :step="null"
+      />
+    </div>
+    <code>Vertical Gutter (px):{{ v }}</code>
+    <div style="width:55%;padding:10px;">
+      <Slider
+        v-model="v"
+        :min="8"
+        :max="40"
+        :marks="{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }"
+        :step="null"
+      />
+    </div>
+    <code>Column Count:{{ cols }}</code>
+    <div style="width:55%;padding:10px;">
+      <Slider
+        v-model="cols"
+        :min="2"
+        :marks="{ 2: '2', 3: '3', 4: '4', 6: '6', 8: '8', 12: '12' }"
+        :max="12"
+        :step="null"
+      />
+    </div>
+    <Row :gutter="[v, h]" class="row-gutter">
+      <Col :span="24 / cols" v-for="c in cols" :key="c">
+        <div>col-{{ cols }}</div>
+      </Col>
+      <Col :span="24 / cols" v-for="x in cols" :key="'_' + x">
+        <div>col-{{ cols }}</div>
+      </Col>
+    </Row>
+  </Space>
+</template>
+<script setup lang="ts">
+import { ref } from "vue";
+const h = ref(8);
+const v = ref(8);
+const cols = ref(4);
+</script>

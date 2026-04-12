@@ -8,12 +8,24 @@ Similar to the Select selection control, when the selectable data structure is a
 
 ## Examples
 
-<code src="./demo/checkable.vue">Checkable</code>
-<code src="./demo/disabled.vue">Disabled</code>
-<code src="./demo/multiple.vue">Multiple Selection</code>
-<code src="./demo/size.vue">Size</code>
-<code src="./demo/sync.vue">Asynchronous Loading</code>
-<code src="./demo/theme.vue">Weird Definition</code>
+[Checkable](./demo/checkable.vue)
+- Use checkboxes to enable multi-selection.
+
+[Disabled](./demo/disabled.vue)
+- Disabled state.
+
+[Multiple Selection](./demo/multiple.vue)
+- A tree select component that supports multiple selections.
+
+[Size](./demo/size.vue)
+- The select box sizes are: `small`, `default`, `large`.
+
+[Asynchronous Loading](./demo/sync.vue)
+- Click to expand a node and load data dynamically.
+
+[Weird Definition](./demo/theme.vue)
+- Some strange and unusual things.
+
 
 ## TreeSelect API
 

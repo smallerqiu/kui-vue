@@ -9,9 +9,15 @@
 
 ## 代码演示
 
-<code src="./demo/close.vue">可关闭</code>
-<code src="./demo/customIcon.vue">自定义图标</code>
-<code src="./demo/icon.vue">图标</code>
+[可关闭](./demo/close.vue)
+- `closable` 来控制是否显示可关闭按钮,平滑、自然隐藏关闭
+
+[自定义图标](./demo/customIcon.vue)
+- `showIcon` 来设置是否显示图标
+
+[图标](./demo/icon.vue)
+- `showIcon` 来设置是否显示图标
+
 
 ## API
 

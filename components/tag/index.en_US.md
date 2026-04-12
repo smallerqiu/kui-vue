@@ -9,10 +9,18 @@ Small labels for marking and categorization.
 
 ## Examples
 
-<code src="./demo/color.vue">Colorful Tags</code>
-<code src="./demo/dynamic.vue">Dynamic Add and Remove</code>
-<code src="./demo/icon.vue">Icon</code>
-<code src="./demo/size.vue">Size and Shape</code>
+[Colorful Tags](./demo/color.vue)
+- Multiple preset tag colors for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+
+[Dynamic Add and Remove](./demo/dynamic.vue)
+- Use `closeable` to show a close button.
+
+[Icon](./demo/icon.vue)
+- You can set the `icon` attribute or directly use the Icon component inside the Tag.
+
+[Size and Shape](./demo/size.vue)
+- Control size via `size`.
+
 
 ## Tag API
 

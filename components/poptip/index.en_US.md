@@ -10,9 +10,15 @@ The difference from `Tooltip` is that users can operate on elements in the float
 
 ## Examples
 
-<code src="./demo/closeinside.vue">Close from Inside the Floating Layer</code>
-<code src="./demo/placement.vue">Position</code>
-<code src="./demo/trigger.vue">Trigger Mode</code>
+[Close from Inside the Floating Layer](./demo/closeinside.vue)
+- Use the `v-model` attribute to control the floating layer's visibility.
+
+[Position](./demo/placement.vue)
+- Control the direction via `placement`, with twelve available positions.
+
+[Trigger Mode](./demo/trigger.vue)
+- Control the trigger mode via `trigger`, with options for mouse hover (`hover`) or click (`click`).
+
 
 ## API
 
