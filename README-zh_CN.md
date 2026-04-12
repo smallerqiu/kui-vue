@@ -4,7 +4,7 @@
     </a>
 </p>
 <h1 align="center">
-   KUI for Vue   
+   KUI for Vue
 </h1>
 
 <div align="center">
@@ -19,7 +19,7 @@
 
 ![](https://k-ui.cn/img/theme.jpg)
 
-[English](./readme.md) | 简体中文
+[English](./README.md) | 简体中文
 
 </div>
 
@@ -45,21 +45,29 @@
 
 # 安装
 
-```sh
-#with npm:
-npm install kui-vue
+```bash
+npm install kui-vue --save
+```
 
-#with yarn:
+```bash
 npm add kui-vue
+```
+
+```bash
+yarn add kui-vue
+```
+
+```bash
+bun add kui-vue
 ```
 
 使用脚本标记进行全局使用：
 
 ```html
 <!-- import stylesheet -->
-<link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
+<link rel="stylesheet" href="//unpkg.com/kui-vue/style/index.css" />
 <!-- import kui -->
-<script src="//unpkg.com/kui-vue/dist/k-ui.js"></script>
+<script src="//unpkg.com/kui-vue"></script>
 ```
 
 # 使用
@@ -67,7 +75,7 @@ npm add kui-vue
 ```html
 <template>
   <div>
-    <button type="primary" @click="test">Primary</button>
+    <k-button type="primary" @click="test">Primary</k-button>
   </div>
 </template>
 <script setup lang="ts">
