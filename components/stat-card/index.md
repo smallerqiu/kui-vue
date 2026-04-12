@@ -8,8 +8,12 @@
 
 ## 代码演示
 
-<code src="./demo/card.vue">卡片展示</code>
-<code src="./demo/withCard.vue">奇奇怪怪的卡片</code>
+[卡片展示](./demo/card.vue)
+- 用于 Dashboard 场景 , 结合 `Grid` 可以很好的适配多种设备.
+
+[奇奇怪怪的卡片](./demo/withCard.vue)
+- 
+
 
 ## StatCard API
 

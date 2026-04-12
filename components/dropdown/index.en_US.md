@@ -8,12 +8,24 @@ When there are too many operation commands on the page, this component can be us
 
 ## Examples
 
-<code src="./demo/basic.vue">Basic Usage</code>
-<code src="./demo/cascading.vue">Multi-level Menu</code>
-<code src="./demo/divider.vue">Other Elements</code>
-<code src="./demo/dropdownbutton.vue"></code>
-<code src="./demo/placement.vue">Popup Position</code>
-<code src="./demo/rightmenu.vue">Right-click menu</code>
+[Basic Usage](./demo/basic.vue)
+- The simplest dropdown menu.
+
+[Multi-level Menu](./demo/cascading.vue)
+- The passed menu has multiple levels.
+
+[Other Elements](./demo/divider.vue)
+- Dividers and disabled menu items.
+
+[](./demo/dropdownbutton.vue)
+- On the left is the button, and on the right is an additional related function menu. The icon property can be set to modify the icon on the right.
+
+[Popup Position](./demo/placement.vue)
+- Supports 6 popup positions.
+
+[Right-click menu](./demo/rightmenu.vue)
+- By default, the menu is triggered by hovering, but it can also be triggered by clicking the right mouse button.
+
 
 ## Dropdown API
 

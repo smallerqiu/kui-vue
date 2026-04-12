@@ -9,9 +9,15 @@
 
 ## 代码演示
 
-<code src="./demo/custom.vue">自定义</code>
-<code src="./demo/nodesc.vue">无描述</code>
-<code src="./demo/used.vue">默认展示</code>
+[自定义](./demo/custom.vue)
+- 自定义图片、描述、附属内容。
+
+[无描述](./demo/nodesc.vue)
+- 无描述展示。
+
+[默认展示](./demo/used.vue)
+- 默认会在以上组件展示
+
 
 ## API
 

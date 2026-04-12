@@ -11,8 +11,12 @@
 
 ## 代码演示
 
-<code src="./demo/icon.vue">图标</code>
-<code src="./demo/mode.vue">呈现方向</code>
+[图标](./demo/icon.vue)
+- 给 `TimeLineItem` 设置 `icon` 和 `color` 可以改变图标展示
+
+[呈现方向](./demo/mode.vue)
+- 指定 `mode` 可以改变呈现方向
+
 
 ## API
 

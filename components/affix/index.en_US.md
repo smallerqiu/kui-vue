@@ -9,10 +9,21 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 ## Examples
 
-<code src="./demo/basic.vue">Basic Usage</code>
-<code src="./demo/bottom.vue">Fixed at Bottom</code>
-<code src="./demo/callbacks.vue">Fixed State Change Callback</code>
-<code src="./demo/container.vue">Scroll Container</code>
+[Basic Usage](./demo/basic.vue)
+
+- The simplest usage.
+
+[Fixed at Bottom](./demo/bottom.vue)
+
+- The simplest usage.
+
+[Fixed State Change Callback](./demo/callbacks.vue)
+
+- You can get whether it is fixed.
+
+[Scroll Container](./demo/container.vue)
+
+- Use `target` to set the element whose scroll event `Affix` listens to. Defaults to `window`.
 
 ## API
 

@@ -10,8 +10,12 @@
 
 ## 代码演示
 
-<code src="./demo/color.vue">多彩文字提示</code>
-<code src="./demo/placement.vue">位置</code>
+[多彩文字提示](./demo/color.vue)
+- 多种预设色彩的文字提示样式，用作不同场景使用。
+
+[位置](./demo/placement.vue)
+- 通过 `placement`控制方向, 位置有十二个方向。
+
 
 ## API
 

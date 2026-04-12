@@ -13,11 +13,21 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 ## Examples
 
-<code src="./demo/basic.vue">Basic Usage</code>
-<code src="./demo/fill.vue">Flex Fill</code>
-<code src="./demo/flex.vue">Flex Layout</code>
-<code src="./demo/gutter.vue">Column Gutter</code>
-<code src="./demo/offset.vue">Grid Offset</code>
+[Basic Usage](./demo/basic.vue)
+- `col` must be placed inside `row`.
+
+[Flex Fill](./demo/fill.vue)
+- Col provides a flex property to support filling.
+
+[Flex Layout](./demo/flex.vue)
+- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.
+
+[Column Gutter](./demo/gutter.vue)
+- Use the `gutter` attribute to set the spacing between columns. For vertical spacing, it can be written as an array [horizontal spacing, vertical spacing].
+
+[Grid Offset](./demo/offset.vue)
+- By setting the `offset` attribute, columns can be offset left or right, with the offset grid count being the value of `offset`.
+
 
 ## Row API
 

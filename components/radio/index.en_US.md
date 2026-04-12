@@ -9,10 +9,18 @@ Radio button.
 
 ## Examples
 
-<code src="./demo/disabled.vue">Disabled / Controllable</code>
-<code src="./demo/group.vue">Multiple Selection</code>
-<code src="./demo/radioButton.vue">Combined with Button</code>
-<code src="./demo/vertical.vue">Group Layout</code>
+[Disabled / Controllable](./demo/disabled.vue)
+- Set `disabled` to make it unavailable.
+
+[Multiple Selection](./demo/group.vue)
+- You can use the `options` attribute to set options, or use child components to set options.
+
+[Combined with Button](./demo/radioButton.vue)
+- Combine `RadioGroup` and `RadioButton` for usage.
+
+[Group Layout](./demo/vertical.vue)
+- Group layout.
+
 
 ## Radio API
 

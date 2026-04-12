@@ -8,8 +8,12 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ## Examples
 
-<code src="./demo/card.vue">Card Display</code>
-<code src="./demo/withCard.vue">Strange Cards</code>
+[Card Display](./demo/card.vue)
+- Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
+
+[Strange Cards](./demo/withCard.vue)
+- 
+
 
 ## StatCard API
 

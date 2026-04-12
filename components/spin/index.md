@@ -8,8 +8,12 @@
 
 ## 代码演示
 
-<code src="./demo/container.vue">卡片加载中</code>
-<code src="./demo/mode.vue">Spin类型</code>
+[卡片加载中](./demo/container.vue)
+- 可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。
+
+[Spin类型](./demo/mode.vue)
+- 可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。
+
 
 ## Radio API
 

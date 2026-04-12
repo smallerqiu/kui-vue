@@ -10,8 +10,12 @@ Compared to the full-screen centered modal dialog box popped up by 'confirm', th
 
 ## Examples
 
-<code src="./demo/local.vue">Internationalization</code>
-<code src="./demo/placement.vue">Position</code>
+[Internationalization](./demo/local.vue)
+- Use `okText` and `cancelText` to customize button text.
+
+[Position](./demo/placement.vue)
+- Control the direction via `placement`, with twelve available positions.
+
 
 ## API
 

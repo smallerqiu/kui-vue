@@ -8,8 +8,12 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 ## Examples
 
-<code src="./demo/border.vue">Border</code>
-<code src="./demo/notitle.vue">A Very Weird Card</code>
+[Border](./demo/border.vue)
+- Use `bordered` to control whether the border is displayed.
+
+[A Very Weird Card](./demo/notitle.vue)
+- 
+
 
 ## API
 

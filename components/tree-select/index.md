@@ -8,12 +8,24 @@
 
 ## 代码演示
 
-<code src="./demo/checkable.vue">可勾选</code>
-<code src="./demo/disabled.vue">禁用</code>
-<code src="./demo/multiple.vue">多选</code>
-<code src="./demo/size.vue">尺寸</code>
-<code src="./demo/sync.vue">异步加载</code>
-<code src="./demo/theme.vue">奇葩的定义</code>
+[可勾选](./demo/checkable.vue)
+- 使用勾选框实现多选功能。
+
+[禁用](./demo/disabled.vue)
+- 禁用状态
+
+[多选](./demo/multiple.vue)
+- 多选的树选择。
+
+[尺寸](./demo/size.vue)
+- 选择框的尺寸有：`small`、`default`、`large`。
+
+[异步加载](./demo/sync.vue)
+- 点击展开节点，动态加载数据。
+
+[奇葩的定义](./demo/theme.vue)
+- 一些奇奇怪怪的东西
+
 
 ## TreeSelect API
 

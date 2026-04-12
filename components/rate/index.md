@@ -9,8 +9,12 @@
 
 ## 代码演示
 
-<code src="./demo/character.vue">其他字符</code>
-<code src="./demo/tips.vue">文案展现 / 允许清除</code>
+[其他字符](./demo/character.vue)
+- 可以将星星替换为其他字符，比如字母，数字，字体图标甚至中文。
+
+[文案展现 / 允许清除](./demo/tips.vue)
+- 给评分组件加上文案展示。
+
 
 ## Rate API
 

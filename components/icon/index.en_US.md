@@ -10,9 +10,15 @@ To use the icon component, you need to install the `kui-icons` icon package:
 npm install --save kui-icons
 ```
 
-<code src="./demo/stroke.vue">Stroke Width</code>
-<code src="./demo/use.en_US.vue"></code>
-<code src="./demo/use.vue"></code>
+[Stroke Width](./demo/stroke.vue)
+- You can set the icon's stroke width via the `strokeWidth` attribute.
+
+[](./demo/use.en_US.vue)
+- 
+
+[](./demo/use.vue)
+- 
+
 
 ## API
 

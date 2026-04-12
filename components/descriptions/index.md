@@ -8,10 +8,18 @@
 
 ## 代码演示
 
-<code src="./demo/bordered.vue">带边框的</code>
-<code src="./demo/size.vue">自定义尺寸</code>
-<code src="./demo/vertical.vue">垂直</code>
-<code src="./demo/verticalBordered.vue">垂直带边框</code>
+[带边框的](./demo/bordered.vue)
+- 带边框和背景颜色列表。
+
+[自定义尺寸](./demo/size.vue)
+- 自定义尺寸，适应在各种容器中展示。
+
+[垂直](./demo/vertical.vue)
+- 垂直的列表。
+
+[垂直带边框](./demo/verticalBordered.vue)
+- 垂直带边框和背景颜色的列表。
+
 
 ## API
 

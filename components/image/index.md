@@ -9,9 +9,15 @@
 
 ## 代码演示
 
-<code src="./demo/errors.vue">容错处理</code>
-<code src="./demo/extra.vue">扩展</code>
-<code src="./demo/group.vue">照片墙</code>
+[容错处理](./demo/errors.vue)
+- 加载失败显示图像占位符。
+
+[扩展](./demo/extra.vue)
+- 可以扩展自定工具和面板。
+
+[照片墙](./demo/group.vue)
+- 点击左右切换按钮可以预览多张图片。
+
 
 ## Image API
 

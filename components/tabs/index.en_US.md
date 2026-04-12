@@ -11,13 +11,27 @@ Provide peer areas to accommodate and display large chunks of content, keeping t
 
 ## Examples
 
-<code src="./demo/card.vue">Card-style Tabs</code>
-<code src="./demo/centered.vue">Centered</code>
-<code src="./demo/closable.vue">Add and Close Tabs</code>
-<code src="./demo/disabled.vue">Disabled</code>
-<code src="./demo/extra.vue">Extra Content</code>
-<code src="./demo/icon.vue">Icon</code>
-<code src="./demo/sample.vue">Minimalist Tabs</code>
+[Card-style Tabs](./demo/card.vue)
+- Another style of tabs.
+
+[Centered](./demo/centered.vue)
+- Tabs are centered.
+
+[Add and Close Tabs](./demo/closable.vue)
+- Only card-style tabs support adding and closing options. Use `closable={false}` to disable closing.
+
+[Disabled](./demo/disabled.vue)
+- Disable a specific tab.
+
+[Extra Content](./demo/extra.vue)
+- You can add extra operations to the right of the tabs.
+
+[Icon](./demo/icon.vue)
+- Tabs with icons.
+
+[Minimalist Tabs](./demo/sample.vue)
+- Simple card presentation mode.
+
 
 ## Tabs API
 

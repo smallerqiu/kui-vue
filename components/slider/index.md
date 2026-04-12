@@ -8,12 +8,24 @@
 
 ## 代码演示
 
-<code src="./demo/formatter.vue">自定义提示</code>
-<code src="./demo/marks.vue">带标签的</code>
-<code src="./demo/reverse.vue">反向</code>
-<code src="./demo/size.vue">尺寸/自定义</code>
-<code src="./demo/vertical.vue">垂直</code>
-<code src="./demo/withNumber.vue">受控</code>
+[自定义提示](./demo/formatter.vue)
+- 使用 tipFormatter 可以设置 Tooltip 的显示的格式。 当 tooltipVisible 为 true 时，将始终显示 ToolTip；反之则始终不显示，即使在拖动、移入时也是如此。
+
+[带标签的](./demo/marks.vue)
+- 使用 marks 属性标注滑块的刻度，使用 value 指定滑块位置。
+
+[反向](./demo/reverse.vue)
+- 设置 `reverse` 可以将滑动条置反。
+
+[尺寸/自定义](./demo/size.vue)
+- size 可以控制操作杆的大小
+
+[垂直](./demo/vertical.vue)
+- 垂直方向的 Slider。
+
+[受控](./demo/withNumber.vue)
+- 受控和 Input 同步。
+
 
 ## Slider API
 

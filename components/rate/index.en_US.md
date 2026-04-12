@@ -9,8 +9,12 @@ Rating component.
 
 ## Examples
 
-<code src="./demo/character.vue">Other Characters</code>
-<code src="./demo/tips.vue">Text Display / Allow Clear</code>
+[Other Characters](./demo/character.vue)
+- Stars can be replaced with other characters, such as letters, numbers, font icons, or even Chinese characters.
+
+[Text Display / Allow Clear](./demo/tips.vue)
+- Add text display to the rating component.
+
 
 ## Rate API
 

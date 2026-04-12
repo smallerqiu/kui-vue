@@ -9,9 +9,15 @@ Globally display operation feedback information.
 
 ## Examples
 
-<code src="./demo/close.vue">Custom Duration</code>
-<code src="./demo/icon.vue">Custom Icon</code>
-<code src="./demo/types.vue">Prompt Types</code>
+[Custom Duration](./demo/close.vue)
+- Can be custom configured. Use `duration` to control the auto-close duration (default `3s`). Use `closable` to show a close button.
+
+[Custom Icon](./demo/icon.vue)
+- Custom icon.
+
+[Prompt Types](./demo/types.vue)
+- Set the prompt type via `type`.
+
 
 ## API
 

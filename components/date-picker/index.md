@@ -8,14 +8,30 @@
 
 ## 代码演示
 
-<code src="./demo/disabled.vue">禁用和不可编辑</code>
-<code src="./demo/disabledDate.vue">不可选择日期和时间</code>
-<code src="./demo/lang.vue">多语言</code>
-<code src="./demo/presets.vue">预设范围</code>
-<code src="./demo/range.vue">时间区域</code>
-<code src="./demo/size.vue">尺寸</code>
-<code src="./demo/theme.vue">奇葩的主题</code>
-<code src="./demo/valueType.vue">输出类型</code>
+[禁用和不可编辑](./demo/disabled.vue)
+- 选择框的不可用 、 不可编辑, 不可清除 状态。
+
+[不可选择日期和时间](./demo/disabledDate.vue)
+- 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
+
+[多语言](./demo/lang.vue)
+- DatePicker 支持多语言。依赖 `dayjs`.
+
+[预设范围](./demo/presets.vue)
+- 可以预设常用的日期范围以提高用户体验。。
+
+[时间区域](./demo/range.vue)
+- 支持时间日期区间选择。取值建议用 `startDate` , `endDate`
+
+[尺寸](./demo/size.vue)
+- 通过 `small` ,`large` 来设置选择框的大小呈现
+
+[奇葩的主题](./demo/theme.vue)
+- 奇奇怪怪的东西
+
+[输出类型](./demo/valueType.vue)
+- 通过 `valueType` 指定输出类型
+
 
 ## API
 

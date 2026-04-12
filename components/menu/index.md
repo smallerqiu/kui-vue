@@ -8,12 +8,24 @@
 
 ## 代码演示
 
-<code src="./demo/basic.vue">顶部导航</code>
-<code src="./demo/collapsed.vue">缩起内嵌菜单</code>
-<code src="./demo/inline.vue">内嵌菜单</code>
-<code src="./demo/mode.vue">切换菜单类型</code>
-<code src="./demo/theme.vue">主题</code>
-<code src="./demo/vertical.vue">垂直菜单</code>
+[顶部导航](./demo/basic.vue)
+- 水平的顶部导航菜单。
+
+[缩起内嵌菜单](./demo/collapsed.vue)
+- 内嵌菜单可以被缩起/展开。
+
+[内嵌菜单](./demo/inline.vue)
+- 垂直菜单，子菜单内嵌在菜单区域。
+
+[切换菜单类型](./demo/mode.vue)
+- 展示动态切换模式。
+
+[主题](./demo/theme.vue)
+- 内建了两套主题 `light|dark`，默认 `light`。
+
+[垂直菜单](./demo/vertical.vue)
+- 子菜单是弹出的形式。
+
 
 ## API
 

@@ -29,15 +29,33 @@ The Layout and its subcomponents (Header, Sider, Content, Footer) belong to the 
 
 You can manually resize the browser window to observe the effect.
 
-<code src="./demo/architecture.vue">Layout Hierarchy Design (Architecture)</code>
-<code src="./demo/autoFillMinWidth.vue">Dashboard Card Layout (Auto-fill + Min-Width)</code>
-<code src="./demo/basic.vue">Basic Usage</code>
-<code src="./demo/bento.vue">Image Gallery / Masonry (Bento Grid Style)</code>
-<code src="./demo/breakpointFallback.vue">Complex Form Responsiveness (Breakpoint Fallback)</code>
-<code src="./demo/fixedRowsAreas.vue">Holy Grail Layout / Admin Panel (Fixed Rows & Areas)</code>
-<code src="./demo/footerStrategy.vue">Responsive Footer / Menu (Footer Strategy)</code>
-<code src="./demo/heroSection.vue">Hero Section Overlay Layout (Layering)</code>
-<code src="./demo/suffixDisplayNone.vue">Responsive Hiding & Forced Sorting (Suffix & Display None)</code>
+[Layout Hierarchy Design (Architecture)](./demo/architecture.vue)
+- - Layer 1: Layout series — the main page skeleton (Header + Sider + Content). - Layer 2: Grid series — the primary 2D layout for the content area (stat cards, Bento chart matrix). - Layer 3: Row/Col — simple 1D proportional division (e.g., two side-by-side tables at the bottom). - Layer 4: Flex — extremely fine-grained content alignment (card title + icon).
+
+[Dashboard Card Layout (Auto-fill + Min-Width)](./demo/autoFillMinWidth.vue)
+- No need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width. > When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing. >
+
+[Basic Usage](./demo/basic.vue)
+- > The `offset` logic of Grid is based on `grid-column-start`. In `dense` fill mode, `offset` might cause unexpected "gap-filling" behavior.
+
+[Image Gallery / Masonry (Bento Grid Style)](./demo/bento.vue)
+- Asymmetric layout.
+
+[Complex Form Responsiveness (Breakpoint Fallback)](./demo/breakpointFallback.vue)
+- The logic for finding breakpoints up or down. For example, if `md` is defined but `lg` is not, can the system correctly apply the `md` value?
+
+[Holy Grail Layout / Admin Panel (Fixed Rows & Areas)](./demo/fixedRowsAreas.vue)
+- The vertical control power of `rows` and `rowSpan`.
+
+[Responsive Footer / Menu (Footer Strategy)](./demo/footerStrategy.vue)
+- Extreme compression from "multi-column vertical arrangement" to "single-column folding".
+
+[Hero Section Overlay Layout (Layering)](./demo/heroSection.vue)
+- The overlapping capability of `grid-column-start` and `grid-row-start`, with text floating over a specific part of an image.
+
+[Responsive Hiding & Forced Sorting (Suffix & Display None)](./demo/suffixDisplayNone.vue)
+- `span: 0` completely removes the DOM placeholder, and `suffix` spans across all dynamic items.
+
 
 ## Grid API
 

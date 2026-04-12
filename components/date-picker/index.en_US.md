@@ -8,14 +8,30 @@ When the user needs to input a date, they can click the standard input box to po
 
 ## Examples
 
-<code src="./demo/disabled.vue">Disabled and Non-editable</code>
-<code src="./demo/disabledDate.vue">Disabled Dates and Times</code>
-<code src="./demo/lang.vue">Multi-language</code>
-<code src="./demo/presets.vue">Preset Ranges</code>
-<code src="./demo/range.vue">Date Range</code>
-<code src="./demo/size.vue">Size</code>
-<code src="./demo/theme.vue">Weird Theme</code>
-<code src="./demo/valueType.vue">Output Type</code>
+[Disabled and Non-editable](./demo/disabled.vue)
+- The disabled, non-editable, and non-clearable states of the picker.
+
+[Disabled Dates and Times](./demo/disabledDate.vue)
+- Use `disabledDate` and `disabledTime` to disable selecting specific dates and times, respectively.
+
+[Multi-language](./demo/lang.vue)
+- DatePicker supports multiple languages, depending on `dayjs`.
+
+[Preset Ranges](./demo/presets.vue)
+- You can preset common date ranges to improve user experience.
+
+[Date Range](./demo/range.vue)
+- Supports date and time range selection. It's recommended to use `startDate` and `endDate` for values.
+
+[Size](./demo/size.vue)
+- Use `small` and `large` to set the size of the picker.
+
+[Weird Theme](./demo/theme.vue)
+- Strange things.
+
+[Output Type](./demo/valueType.vue)
+- Specify the output type via `valueType`.
+
 
 ## API
 

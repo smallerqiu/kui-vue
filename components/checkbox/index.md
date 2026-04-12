@@ -9,10 +9,18 @@
 
 ## 代码演示
 
-<code src="./demo/checkAll.vue">全选</code>
-<code src="./demo/disabled.vue">可不用 / 可控</code>
-<code src="./demo/group.vue">多选</code>
-<code src="./demo/groupLayout.vue">组合布局</code>
+[全选](./demo/checkAll.vue)
+- 全选组合
+
+[可不用 / 可控](./demo/disabled.vue)
+- 通过 `disabled` 设置不可用
+
+[多选](./demo/group.vue)
+- 可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
+
+[组合布局](./demo/groupLayout.vue)
+- 组合布局
+
 
 ## API
 

@@ -8,9 +8,15 @@ Freely output colors.
 
 ## Examples
 
-<code src="./demo/customTrigger.vue">Custom Trigger</code>
-<code src="./demo/placement.vue">Popup Placement</code>
-<code src="./demo/size.vue">Size / Disabled</code>
+[Custom Trigger](./demo/customTrigger.vue)
+- Customize the trigger for the color panel.
+
+[Popup Placement](./demo/placement.vue)
+- Supports 6 popup placements. If there is not enough space above, the panel will automatically appear below.
+
+[Size / Disabled](./demo/size.vue)
+- `small` for small size, `large` for large size.
+
 
 ## API
 

@@ -4,8 +4,12 @@
 
 ## 代码演示
 
-<code src="./demo/nestedAnchors.vue">嵌套锚点（复杂文档结构）</code>
-<code src="./demo/withinContainer.vue">指定容器（滚动容器内定位）</code>
+[嵌套锚点（复杂文档结构）](./demo/nestedAnchors.vue)
+- 适用于多层级标题的文档。
+
+[指定容器（滚动容器内定位）](./demo/withinContainer.vue)
+- 如果你的页面不是全屏滚动，而是在一个特定的 div 内滚动。
+
 
 ## Anchor API
 

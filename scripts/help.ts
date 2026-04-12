@@ -46,6 +46,23 @@ for (const file of matches) {
   const parts = file.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
   // const parentDir = parts[1]; // 例如 aaa、bbb、xyz
 
+  //
+  fs.renameSync(file, file.replace(".md", ".vue"));
+  continue;
+  //
+
+  //
+  const c = fs.readFileSync(file, "utf-8");
+  const reg = /```vue([\s\S]*?)```/m;
+  const m = reg.exec(c);
+
+  if (m) {
+    const block = m[1].trim();
+    fs.writeFileSync(file, block, "utf-8");
+  }
+  continue;
+  //
+
   // remove info's content to index
   // componentName = parts[1];
 
@@ -61,20 +78,21 @@ for (const file of matches) {
     let en = path.join("components", componentName, "index.en_US.md");
     let cn = path.join("components", componentName, "index.md");
 
-    // fs.appendFileSync(infoEnFile, "\n" + enList.join(`\n`));
-    // fs.appendFileSync(infoCnFile, "\n" + cnList.join(`\n`));
-    const regex = /<code\s+src="([^"]+)">([^<]*)<\/code>/g;
+    const regex = /<code[\s\S]*<\/code>/;
+
     const cnContent = fs.readFileSync(cn, "utf-8");
-    const cnContent = fs.readFileSync(en, "utf-8");
     if (regex.test(cnContent)) {
-
+      const newContent = cnContent.replace(regex, cnList.join(`\n`));
+      fs.writeFileSync(cn, newContent, "utf-8");
     }
 
-     if (regex.test(enContent)) {
-
+    const enContent = fs.readFileSync(en, "utf-8");
+    if (regex.test(enContent)) {
+      const newContent = enContent.replace(regex, enList.join(`\n`));
+      fs.writeFileSync(en, newContent, "utf-8");
     }
 
-    console.log(cnList.join(`\n`));
+    // console.log(cnList.join(`\n`));
     cnList = [];
     enList = [];
     componentName = parts[1];

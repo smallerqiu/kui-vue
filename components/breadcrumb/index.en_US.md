@@ -10,8 +10,12 @@ Displays the current page's position in the system hierarchy and allows navigati
 
 ## Examples
 
-<code src="./demo/icon.vue">Set Icon</code>
-<code src="./demo/separator.vue">Separator</code>
+[Set Icon](./demo/icon.vue)
+- Set the icon via `icon`.
+
+[Separator](./demo/separator.vue)
+- Set the separator via `separator`.
+
 
 ## BreadcrumbItem API
 

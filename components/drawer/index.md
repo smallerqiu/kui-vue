@@ -10,9 +10,15 @@
 
 ## 代码演示
 
-<code src="./demo/custom.vue">自定义</code>
-<code src="./demo/target.vue">植入目标元素</code>
-<code src="./demo/withForm.vue">表单模式</code>
+[自定义](./demo/custom.vue)
+- 通过 `title` 来设置标题， `width` 控制宽度， 还有 `placement` 控制方向
+
+[植入目标元素](./demo/target.vue)
+- 可以在目标元素内展开
+
+[表单模式](./demo/withForm.vue)
+- 内容将呈现表单模式，有页头和页尾, 可自定义页尾
+
 
 ## API
 
