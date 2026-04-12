@@ -12,9 +12,12 @@ let children = [
   },
   { path: "/guide/language", component: () => import("./views/language") },
   { path: "/guide/change-log", component: () => import("./views/change-log.md") },
-  { path: "/guide/change-log-en", component: () => import("./views/changeLog.en_US.md") },
+  { path: "/guide/change-log-en", component: () => import("./views/change-log.en_US.md") },
   { path: "/guide/usage-with-nuxt", component: () => import("./views/usage-with-nuxt.md") },
-  { path: "/guide/usage-with-nuxt-en", component: () => import("./views/usage-with-nuxt.en_US.md") },
+  {
+    path: "/guide/usage-with-nuxt-en",
+    component: () => import("./views/usage-with-nuxt.en_US.md"),
+  },
   // { path: '/guide/theme', component: () => import('./views/theme.md') },
   {
     path: "/guide/dark-mode",
@@ -22,180 +25,180 @@ let children = [
   },
   { path: "/guide/components", component: () => import("./views/components.jsx") },
 
-  {
-    path: "/notices/alert",
-    component: () => import("../components/alert/demo"),
-  },
+  // {
+  //   path: "/notices/alert",
+  //   component: () => import("../components/alert/demo"),
+  // },
   {
     path: "/navigation/affix",
-    component: () => import("../components/affix/demo"),
+    component: () => import("../components/affix/index.md"),
   },
-    {
-    path: "/navigation/anchor",
-    component: () => import("../components/anchor/demo"),
-  },
-  {
-    path: "/data/avatar",
-    component: () => import("../components/avatar/demo"),
-  },
-  { path: "/data/card", component: () => import("../components/card/demo") },
-  {
-    path: "/data/carousel",
-    component: () => import("../components/carousel/demo"),
-  },
-  {
-    path: "/data/collapse",
-    component: () => import("../components/collapse/demo"),
-  },
-  {
-    path: "/other/colorpicker",
-    component: () => import("../components/color-picker/demo"),
-  },
-  {
-    path: "/forms/checkbox",
-    component: () => import("../components/checkbox/demo"),
-  },
-  {
-    path: "/basic/button",
-    component: () => import("../components/button/demo"),
-  },
-  {
-    path: "/navigation/breadcrumb",
-    component: () => import("../components/breadcrumb/demo"),
-  },
-  {
-    path: "/navigation/backtop",
-    component: () => import("../components/back-top/demo"),
-  },
-  {
-    path: "/notices/badge",
-    component: () => import("../components/badge/demo"),
-  },
-  {
-    path: "/forms/datepicker",
-    component: () => import("../components/date-picker/demo"),
-  },
-  {
-    path: "/data/descriptions",
-    component: () => import("../components/descriptions/demo"),
-  },
-  {
-    path: "/notices/drawer",
-    component: () => import("../components/drawer/demo"),
-  },
-  {
-    path: "/navigation/dropdown",
-    component: () => import("../components/dropdown/demo"),
-  },
-  {
-    path: "/layouts/divider",
-    component: () => import("../components/divider/demo"),
-  },
-  {
-    path: "/notices/empty",
-    component: () => import("../components/empty/demo"),
-  },
-  { path: "/forms/form", component: () => import("../components/form/demo") },
-  { path: "/layouts/flex", component: () => import("../components/flex/demo") },
-  { path: "/layouts/row-col", component: () => import("../components/row-col/demo") },
-  { path: "/layouts/grid", component: () => import("../components/grid/demo") },
-  { path: "/data/image", component: () => import("../components/image/demo") },
-  { path: "/forms/input", component: () => import("../components/input/demo") },
-  {
-    path: "/forms/inputnumber",
-    component: () => import("../components/input-number/demo"),
-  },
-  { path: "/basic/icons", component: () => import("../components/icon/demo") },
-  {
-    path: "/layouts/layout",
-    component: () => import("../components/layout/demo"),
-  },
-  {
-    path: "/notices/loading",
-    component: () => import("../components/loading/demo"),
-  },
-  {
-    path: "/notices/message",
-    component: () => import("../components/message/demo"),
-  },
-  {
-    path: "/notices/modal",
-    component: () => import("../components/modal/demo"),
-  },
-  {
-    path: "/navigation/menu",
-    component: () => import("../components/menu/demo"),
-  },
-  {
-    path: "/notices/notice",
-    component: () => import("../components/notice/demo"),
-  },
-  { path: "/forms/radio", component: () => import("../components/radio/demo") },
-  { path: "/notices/rate", component: () => import("../components/rate/demo") },
-  {
-    path: "/forms/select",
-    component: () => import("../components/select/demo"),
-  },
-  {
-    path: "/forms/slider",
-    component: () => import("../components/slider/demo"),
-  },
-  {
-    path: "/notices/skeleton",
-    component: () => import("../components/skeleton/demo"),
-  },
-  {
-    path: "/layouts/space",
-    component: () => import("../components/space/demo"),
-  },
-  { path: "/notices/spin", component: () => import("../components/spin/demo") },
-  {
-    path: "/forms/switch",
-    component: () => import("../components/switch/demo"),
-  },
-  {
-    path: "/data/statcard",
-    component: () => import("../components/stat-card/demo"),
-  },
-  { path: "/data/table", component: () => import("../components/table/demo") },
-  { path: "/notices/tag", component: () => import("../components/tag/demo") },
-  {
-    path: "/navigation/tabs",
-    component: () => import("../components/tabs/demo"),
-  },
-  {
-    path: "/data/timeline",
-    component: () => import("../components/time-line/demo"),
-  },
-  {
-    path: "/notices/tooltip",
-    component: () => import("../components/tooltip/demo"),
-  },
-  { path: "/data/tree", component: () => import("../components/tree/demo") },
-  {
-    path: "/forms/treeselect",
-    component: () => import("../components/tree-select/demo"),
-  },
-  {
-    path: "/notices/poptip",
-    component: () => import("../components/poptip/demo"),
-  },
-  {
-    path: "/notices/popconfirm",
-    component: () => import("../components/popconfirm/demo"),
-  },
-  {
-    path: "/notices/progress",
-    component: () => import("../components/progress/demo"),
-  },
-  {
-    path: "/navigation/page",
-    component: () => import("../components/page/demo"),
-  },
-  {
-    path: "/forms/upload",
-    component: () => import("../components/upload/demo"),
-  },
+  // {
+  //   path: "/navigation/anchor",
+  //   component: () => import("../components/anchor/demo"),
+  // },
+  // {
+  //   path: "/data/avatar",
+  //   component: () => import("../components/avatar/demo"),
+  // },
+  // { path: "/data/card", component: () => import("../components/card/demo") },
+  // {
+  //   path: "/data/carousel",
+  //   component: () => import("../components/carousel/demo"),
+  // },
+  // {
+  //   path: "/data/collapse",
+  //   component: () => import("../components/collapse/demo"),
+  // },
+  // {
+  //   path: "/other/colorpicker",
+  //   component: () => import("../components/color-picker/demo"),
+  // },
+  // {
+  //   path: "/forms/checkbox",
+  //   component: () => import("../components/checkbox/demo"),
+  // },
+  // {
+  //   path: "/basic/button",
+  //   component: () => import("../components/button/demo"),
+  // },
+  // {
+  //   path: "/navigation/breadcrumb",
+  //   component: () => import("../components/breadcrumb/demo"),
+  // },
+  // {
+  //   path: "/navigation/backtop",
+  //   component: () => import("../components/back-top/demo"),
+  // },
+  // {
+  //   path: "/notices/badge",
+  //   component: () => import("../components/badge/demo"),
+  // },
+  // {
+  //   path: "/forms/datepicker",
+  //   component: () => import("../components/date-picker/demo"),
+  // },
+  // {
+  //   path: "/data/descriptions",
+  //   component: () => import("../components/descriptions/demo"),
+  // },
+  // {
+  //   path: "/notices/drawer",
+  //   component: () => import("../components/drawer/demo"),
+  // },
+  // {
+  //   path: "/navigation/dropdown",
+  //   component: () => import("../components/dropdown/demo"),
+  // },
+  // {
+  //   path: "/layouts/divider",
+  //   component: () => import("../components/divider/demo"),
+  // },
+  // {
+  //   path: "/notices/empty",
+  //   component: () => import("../components/empty/demo"),
+  // },
+  // { path: "/forms/form", component: () => import("../components/form/demo") },
+  // { path: "/layouts/flex", component: () => import("../components/flex/demo") },
+  // { path: "/layouts/row-col", component: () => import("../components/row-col/demo") },
+  // { path: "/layouts/grid", component: () => import("../components/grid/demo") },
+  // { path: "/data/image", component: () => import("../components/image/demo") },
+  // { path: "/forms/input", component: () => import("../components/input/demo") },
+  // {
+  //   path: "/forms/inputnumber",
+  //   component: () => import("../components/input-number/demo"),
+  // },
+  // { path: "/basic/icons", component: () => import("../components/icon/demo") },
+  // {
+  //   path: "/layouts/layout",
+  //   component: () => import("../components/layout/demo"),
+  // },
+  // {
+  //   path: "/notices/loading",
+  //   component: () => import("../components/loading/demo"),
+  // },
+  // {
+  //   path: "/notices/message",
+  //   component: () => import("../components/message/demo"),
+  // },
+  // {
+  //   path: "/notices/modal",
+  //   component: () => import("../components/modal/demo"),
+  // },
+  // {
+  //   path: "/navigation/menu",
+  //   component: () => import("../components/menu/demo"),
+  // },
+  // {
+  //   path: "/notices/notice",
+  //   component: () => import("../components/notice/demo"),
+  // },
+  // { path: "/forms/radio", component: () => import("../components/radio/demo") },
+  // { path: "/notices/rate", component: () => import("../components/rate/demo") },
+  // {
+  //   path: "/forms/select",
+  //   component: () => import("../components/select/demo"),
+  // },
+  // {
+  //   path: "/forms/slider",
+  //   component: () => import("../components/slider/demo"),
+  // },
+  // {
+  //   path: "/notices/skeleton",
+  //   component: () => import("../components/skeleton/demo"),
+  // },
+  // {
+  //   path: "/layouts/space",
+  //   component: () => import("../components/space/demo"),
+  // },
+  // { path: "/notices/spin", component: () => import("../components/spin/demo") },
+  // {
+  //   path: "/forms/switch",
+  //   component: () => import("../components/switch/demo"),
+  // },
+  // {
+  //   path: "/data/statcard",
+  //   component: () => import("../components/stat-card/demo"),
+  // },
+  // { path: "/data/table", component: () => import("../components/table/demo") },
+  // { path: "/notices/tag", component: () => import("../components/tag/demo") },
+  // {
+  //   path: "/navigation/tabs",
+  //   component: () => import("../components/tabs/demo"),
+  // },
+  // {
+  //   path: "/data/timeline",
+  //   component: () => import("../components/time-line/demo"),
+  // },
+  // {
+  //   path: "/notices/tooltip",
+  //   component: () => import("../components/tooltip/demo"),
+  // },
+  // { path: "/data/tree", component: () => import("../components/tree/demo") },
+  // {
+  //   path: "/forms/treeselect",
+  //   component: () => import("../components/tree-select/demo"),
+  // },
+  // {
+  //   path: "/notices/poptip",
+  //   component: () => import("../components/poptip/demo"),
+  // },
+  // {
+  //   path: "/notices/popconfirm",
+  //   component: () => import("../components/popconfirm/demo"),
+  // },
+  // {
+  //   path: "/notices/progress",
+  //   component: () => import("../components/progress/demo"),
+  // },
+  // {
+  //   path: "/navigation/page",
+  //   component: () => import("../components/page/demo"),
+  // },
+  // {
+  //   path: "/forms/upload",
+  //   component: () => import("../components/upload/demo"),
+  // },
 ];
 
 import Layout from "./components/app-layout.vue";
@@ -234,11 +237,11 @@ router.beforeEach(function (to) {
   if (quickPath.test(to.path)) {
     if (lang == "en") {
       if (!to.path.includes("-en")) {
-        return `${to.path}-en`
+        return `${to.path}-en`;
       }
     } else {
       if (to.path.includes("-en")) {
-        return to.path.replace("-en", "")
+        return to.path.replace("-en", "");
       }
     }
   }

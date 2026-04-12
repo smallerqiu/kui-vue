@@ -42,14 +42,14 @@
     "strictTemplates": true
   },
   "include": [
-    // "src/**/*.ts",
-    // "src/**/*.tsx",
-    // "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "components/**/*.ts",
     "components/**/*.tsx"
   ],
   "exclude": [
-    "components/**/demo/*",
+    // "components/**/demo/*",
     "node_modules/*"
   ]
 }

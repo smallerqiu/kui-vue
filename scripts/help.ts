@@ -2,8 +2,8 @@ import glob from "fast-glob";
 import fs from "fs";
 import path from "path";
 
-// const matches = glob.sync("components/*/demo/*.md");
-const matches = glob.sync("components/*/demo/info*.md");
+const matches = glob.sync("components/*/demo/*.md");
+// const matches = glob.sync("components/*/demo/index.tsx");
 
 const parseDemoMeta = (content: string) => {
   const result: { cn: { title: string; desc: string }; en: { title: string; desc: string } } = {
@@ -44,52 +44,40 @@ let enList = [];
 
 for (const file of matches) {
   const parts = file.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
-  const parentDir = parts[1]; // 例如 aaa、bbb、xyz
-
-  // 
-  fs.unlinkSync(file);
-  continue
-  //
+  // const parentDir = parts[1]; // 例如 aaa、bbb、xyz
 
   // remove info's content to index
-  componentName = parts[1];
-  let bName = parts.slice(-1)[0];
-  if (bName == "info.md") {
-    let o = fs.readFileSync(file, "utf-8");
-    let t = path.join("components", componentName, "index.md");
-    let oc = fs.readFileSync(t, "utf-8");
-    fs.writeFileSync(t, o + "\n" + oc);
+  // componentName = parts[1];
+
+  const a = fs.readFileSync(file, "utf-8");
+  const meta = parseDemoMeta(a);
+  const baseName = parts.slice(-1)[0];
+  // console.log(parts.slice(-1));
+
+  if (componentName == parts[1]) {
+    cnList.push(`[${meta.cn.title}](./demo/${baseName.replace("md", "vue")})\n- ${meta.cn.desc}\n`);
+    enList.push(`[${meta.en.title}](./demo/${baseName.replace("md", "vue")})\n- ${meta.en.desc}\n`);
   } else {
-    let o = fs.readFileSync(file, "utf-8");
-    let t = path.join("components", componentName, "index.en_US.md");
-    let oc = fs.readFileSync(t, "utf-8");
-    fs.writeFileSync(t, o + "\n" + oc);
-  }
-  continue;
+    let en = path.join("components", componentName, "index.en_US.md");
+    let cn = path.join("components", componentName, "index.md");
 
-  // reade cn , en to info file
-  let baseName = parts.slice(-1)[0];
-  if (baseName.includes("info")) {
-  } else {
-    const a = fs.readFileSync(file, "utf-8");
-    const meta = parseDemoMeta(a);
-    // console.log(parts.slice(-1));
+    // fs.appendFileSync(infoEnFile, "\n" + enList.join(`\n`));
+    // fs.appendFileSync(infoCnFile, "\n" + cnList.join(`\n`));
+    const regex = /<code\s+src="([^"]+)">([^<]*)<\/code>/g;
+    const cnContent = fs.readFileSync(cn, "utf-8");
+    const cnContent = fs.readFileSync(en, "utf-8");
+    if (regex.test(cnContent)) {
 
-    if (componentName == parts[1]) {
-      cnList.push(`<code src="./demo/${baseName.replace("md", "vue")}">${meta.cn.title}</code>`);
-      enList.push(`<code src="./demo/${baseName.replace("md", "vue")}">${meta.en.title}</code>`);
-    } else {
-      let infoEnFile = path.join("components", componentName, "demo", "info.en_US.md");
-      let infoCnFile = path.join("components", componentName, "demo", "info.md");
-
-      fs.appendFileSync(infoEnFile, "\n" + enList.join(`\n`));
-      fs.appendFileSync(infoCnFile, "\n" + cnList.join(`\n`));
-
-      // console.log(cnList.join(`\n`));
-      cnList = [];
-      enList = [];
-      componentName = parts[1];
     }
+
+     if (regex.test(enContent)) {
+
+    }
+
+    console.log(cnList.join(`\n`));
+    cnList = [];
+    enList = [];
+    componentName = parts[1];
   }
   continue;
   //

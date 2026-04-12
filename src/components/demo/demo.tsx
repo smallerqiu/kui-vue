@@ -61,11 +61,11 @@ const Demo = defineComponent({
       }, 500);
     };
     const restoreCode = () => {
-      if (codeRef.value) codeRef.value.innerHTML = codeOrigin.value;
+      if (codeRef.value && codeOrigin.value) codeRef.value.innerHTML = codeOrigin.value;
       reload();
     };
     const copyCode = () => {
-      if (isSupported) {
+      if (isSupported && codeRef.value) {
         copy(codeRef.value?.innerText)
           .then(() => {
             message.success("Copied!");
