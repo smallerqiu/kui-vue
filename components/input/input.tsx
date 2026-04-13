@@ -133,11 +133,11 @@ const Input = defineComponent({
           slotControls.length > 0) &&
         type !== "hidden";
 
-      const inputBoxProps = {
+      const inputBoxProps: Record<string, any> = {
         htmlAttrs: { ...attrs },
         disabled,
         multiple,
-        size,
+        // size,
         type,
         theme,
         shape,
@@ -159,6 +159,10 @@ const Input = defineComponent({
           emit("blur", e);
         },
       };
+
+      if (typeof size === "string") {
+        inputBoxProps.size = size;
+      }
 
       const textInput = <InputBox {...inputBoxProps} />;
       if (!multiple) return textInput;

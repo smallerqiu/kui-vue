@@ -45,7 +45,7 @@ export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 const Button = defineComponent({
   name: "Button",
   props: buttonProps,
-  emits: ["click", "mouseenter", "mouseleave"],
+  // emits: ["click", "mouseenter", "mouseleave"],
   setup(props, { emit, slots, attrs }) {
     const buttonGroup = inject<any>("KButtonGroup", null);
     const parentSize = inject<string | null>("size", null);

@@ -12,7 +12,7 @@ export const transfer: ObjectDirective = {
     }
   },
   unmounted(el, { value }) {
-    if (value) {
+    if (value && el.__data && el.__data.parentNode) {
       el.__data.parentNode.appendChild(el);
       el.__data = null;
     }

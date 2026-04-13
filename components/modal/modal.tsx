@@ -46,7 +46,7 @@ const Modal = defineComponent({
   directives: { transfer },
   props: modalProps,
   setup(props, { slots, emit }) {
-    const visible = ref(props.modelValue);
+    const visible = ref<boolean | undefined>(props.modelValue);
     const rendered = ref(false);
     const showInner = ref(props.modelValue);
     const left = ref(0);

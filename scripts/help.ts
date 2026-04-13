@@ -2,7 +2,9 @@ import glob from "fast-glob";
 import fs from "fs";
 import path from "path";
 
-const matches = glob.sync("components/*/demo/*.vue");
+import d from "./a.json";
+
+const matches = glob.sync("components/*/index.en_US.md");
 // const matches = glob.sync("components/*/demo/index.tsx");
 
 const isCamelCase = (str: string, strict = false): boolean => {
@@ -82,12 +84,34 @@ let componentName = "affix";
 let cnList = [];
 let enList = [];
 
+console.log("size:" + matches.length);
+
 for (const file of matches) {
   const parts = file.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
   const componentName = parts[1]; // 例如 aaa、bbb、xyz
 
   //
   const fname = parts.slice(-1)[0];
+  let c1 = fs.readFileSync(file, "utf-8");
+  let g1 = /(?:\s*\[[^\]]+\]\([^)]+\.vue\)\s*\n\s*-\s+[^\n]*\s*)+/g;
+  if (!g1.test(c1)) {
+    console.log("111", file);
+  }
+
+  // console.log(r)
+
+  if (!d[file]) {
+    console.log(222, file);
+  } else {
+    // let r = d[file].map((x) => `[${x.cn.title}](${x.src})\n\n- ${x.cn.desc}`).join("\n\n");
+    let r = d[file].map((x) => `[${x.en.title}](${x.src})\n\n- ${x.en.desc}`).join("\n\n");
+    c1 = c1.replace(g1, `\n\n${r}\n\n`);
+    fs.writeFileSync(file, c1, "utf8");
+  }
+
+  continue;
+  //
+
   // console.log(fname);
   if (isCamelCase(fname.replace(".vue", ""), true)) {
     // console.log();

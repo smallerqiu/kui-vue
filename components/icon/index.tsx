@@ -27,7 +27,7 @@ const iconProps = {
   color: String,
   spin: Boolean as BooleanType,
   strokeWidth: [String, Number],
-  onClick: Function as PropType<(e: MouseEvent) => void>,
+  onClick: Function as PropType<(e: PointerEvent) => void>,
 };
 
 export type IconProps = ExtractPropTypes<typeof iconProps>;
@@ -58,7 +58,6 @@ const Icon = defineComponent({
       if (props.size) {
         styles.fontSize = `${props.size}px`;
       }
-
       /**
        * Using property spread to avoid "no-inline-styles" warnings
        * and maintain consistent component library architecture.
@@ -67,6 +66,7 @@ const Icon = defineComponent({
         ...attrs,
         style: styles,
         class: ["k-icon", { "k-load-loop": props.spin }],
+        onClick: (e: PointerEvent) => props.onClick?.(e),
       };
 
       return (

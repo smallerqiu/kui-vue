@@ -28,12 +28,7 @@ const BreadcrumbItem = defineComponent({
         href: props.href,
       };
 
-      const content = (
-        <>
-          {iconNode}
-          {slots.default?.()}
-        </>
-      );
+      const content = [iconNode, slots.default?.()];
 
       return (
         <li {...itemProps}>
