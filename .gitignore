@@ -6,6 +6,8 @@ node_modules
 /style
 /docs
 /types
+/vetur
+
 # local env files
 .env.local
 .env.*.local
