@@ -32,34 +32,6 @@ When there are too many operation commands on the page, this component can be us
 
 - The passed menu has multiple levels.
 
-[](./demo/dropdownbutton.vue)
-
-- On the left is the button, and on the right is an additional related function menu. The icon property can be set to modify the icon on the right.
-
-[Basic Usage](./demo/basic.vue)
-
-- The simplest dropdown menu.
-
-[Right-click menu](./demo/right-menu.vue)
-
-- By default, the menu is triggered by hovering, but it can also be triggered by clicking the right mouse button.
-
-[Button with a dropdown menu](./demo/dropdown-button.vue)
-
-- On the left is the button, and on the right is an additional related function menu. The icon property can be set to modify the icon on the right.
-
-[Other Elements](./demo/divider.vue)
-
-- Dividers and disabled menu items.
-
-[Popup Position](./demo/placement.vue)
-
-- Supports 6 popup positions.
-
-[Multi-level Menu](./demo/cascading.vue)
-
-- The passed menu has multiple levels.
-
 ## Dropdown API
 
 | Property  | Description                                                                         | Type    | Default     |

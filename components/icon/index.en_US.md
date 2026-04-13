@@ -18,14 +18,6 @@ npm install --save kui-icons
 
 - You can set the icon's stroke width via the `strokeWidth` attribute.
 
-[](./demo/use.en_US.vue)
-
--
-
-[](./demo/use.vue)
-
--
-
 ## API
 
 | Property    | Description                                   | Type           | Default |

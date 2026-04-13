@@ -38,7 +38,7 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ## API
 
-### Menu
+### MenuAPI
 
 | Property             | Description                                                       | Type                                              | Default  |
 | -------------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |

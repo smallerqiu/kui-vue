@@ -18,14 +18,6 @@ npm install --save kui-icons
 
 - 可以通过 `strokeWidth` 属性设置图标的线条。
 
-[](./demo/use.en_US.vue)
-
--
-
-[](./demo/use.vue)
-
--
-
 ## API
 
 | 属性        | 说明                         | 类型          | 默认值 |
