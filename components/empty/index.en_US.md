@@ -9,17 +9,21 @@ Placeholder display for empty states.
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- Simple display.
+
 [Custom](./demo/custom.vue)
 
 - Customize the image, description, and extra content.
 
-[No Description](./demo/nodesc.vue)
-
-- Display without description.
-
 [Default Display](./demo/used.vue)
 
 - Will be displayed by default in the above components.
+
+[No Description](./demo/nodesc.vue)
+
+- Display without description.
 
 ## API
 

@@ -9,13 +9,17 @@
 
 ## 代码演示
 
-[尺寸](./demo/size.vue)
+[基本用法](./demo/basic.vue)
 
-- 展示小尺寸。
+- 基础分页。
 
 [条目 / 跳转](./demo/sizer-elevator.vue)
 
 - 改变每页显示条目数。
+
+[尺寸](./demo/size.vue)
+
+- 展示小尺寸。
 
 ## API
 

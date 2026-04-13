@@ -10,6 +10,10 @@ kui 的图标使用开源项目 [ionicons](http://ionicons.com/) 前版本5.5
 npm install --save kui-icons
 ```
 
+[基本用法](./demo/basic.vue)
+
+- 可以通过 `type`、`size`  、`color` 属性分别设置图标的类型、大小、颜色,也可以通过设置 `spin` 属性来实现动画旋转效果。
+
 [线条粗细](./demo/stroke.vue)
 
 - 可以通过 `strokeWidth` 属性设置图标的线条。

@@ -9,17 +9,21 @@ Previewable images.
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- Simple display.
+
 [Error Handling](./demo/errors.vue)
 
 - Show an image placeholder on load failure.
 
-[Extension](./demo/extra.vue)
-
-- Can extend custom tools and panels.
-
 [Photo Wall](./demo/group.vue)
 
 - Click the left/right buttons to preview multiple images.
+
+[Extension](./demo/extra.vue)
+
+- Can extend custom tools and panels.
 
 ## Image API
 

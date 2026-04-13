@@ -8,6 +8,10 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 一个简单的 loading 状态。
+
 [卡片加载中](./demo/container.vue)
 
 - 可以直接把内容内嵌到 Spin 中，将现有容器变为加载状态。

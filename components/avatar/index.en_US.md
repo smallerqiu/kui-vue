@@ -8,13 +8,17 @@ Used to represent users or things, supports image, icon, or character display.
 
 - Avatars support three sizes and two shapes.
 
-[Auto Font Size Adjustment](./demo/change.vue)
-
-- For text avatars, when the string is long, the font size automatically adjusts based on the avatar width.
-
 [Types](./demo/types.vue)
 
 - Three types are supported: Image, Icon, and Text. Icon and Text avatars support custom icon color and background color.
+
+[With logo and grouping](./demo/badge-group.vue)
+
+- Typically used for message prompts and avatar combination display.
+
+[Auto Font Size Adjustment](./demo/change.vue)
+
+- For text avatars, when the string is long, the font size automatically adjusts based on the avatar width.
 
 ## API
 

@@ -17,14 +17,6 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 - `col` must be placed inside `row`.
 
-[Flex Fill](./demo/fill.vue)
-
-- Col provides a flex property to support filling.
-
-[Flex Layout](./demo/flex.vue)
-
-- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.
-
 [Column Gutter](./demo/gutter.vue)
 
 - Use the `gutter` attribute to set the spacing between columns. For vertical spacing, it can be written as an array [horizontal spacing, vertical spacing].
@@ -32,6 +24,18 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 [Grid Offset](./demo/offset.vue)
 
 - By setting the `offset` attribute, columns can be offset left or right, with the offset grid count being the value of `offset`.
+
+[Flex Alignment](./demo/align.vue)
+
+- Vertical alignment of Flex child elements.
+
+[Flex Layout](./demo/flex.vue)
+
+- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.
+
+[Flex Fill](./demo/fill.vue)
+
+- Col provides a flex property to support filling.
 
 ## Row API
 

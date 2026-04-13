@@ -8,6 +8,14 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 最简单的用法。
+
+[多选](./demo/multiple.vue)
+
+- 多选的树选择。
+
 [可勾选](./demo/checkable.vue)
 
 - 使用勾选框实现多选功能。
@@ -16,17 +24,13 @@
 
 - 禁用状态
 
-[多选](./demo/multiple.vue)
+[异步加载](./demo/sync.vue)
 
-- 多选的树选择。
+- 点击展开节点，动态加载数据。
 
 [尺寸](./demo/size.vue)
 
 - 选择框的尺寸有：`small`、`default`、`large`。
-
-[异步加载](./demo/sync.vue)
-
-- 点击展开节点，动态加载数据。
 
 [奇葩的定义](./demo/theme.vue)
 

@@ -13,10 +13,6 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 - The simplest usage.
 
-[Fixed at Bottom](./demo/bottom.vue)
-
-- The simplest usage.
-
 [Fixed State Change Callback](./demo/callbacks.vue)
 
 - You can get whether it is fixed.

@@ -9,21 +9,25 @@
 
 ## 代码演示
 
-[可不用 / 可控](./demo/disabled.vue)
+[单选](./demo/basic.vue)
 
-- 通过 `disabled` 设置不可用
+- 单独使用 `v-model` 的值 `true` 表示选中，为 `false` 表示未选中。
 
 [多选](./demo/group.vue)
 
 - 可以使用 options 属性来设置选项, 也可以使用子组件来设置选项。
 
-[组合Button使用](./demo/radio-button.vue)
-
-- 结合 `RadioGroup`,`RadioButton` 可以组合使用
-
 [组合布局](./demo/vertical.vue)
 
 - 组合布局
+
+[可不用 / 可控](./demo/disabled.vue)
+
+- 通过 `disabled` 设置不可用
+
+[组合Button使用](./demo/radio-button.vue)
+
+- 结合 `RadioGroup`,`RadioButton` 可以组合使用
 
 ## Radio API
 

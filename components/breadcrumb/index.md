@@ -10,6 +10,10 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 通过 `href` 添加跳转链接
+
 [设置图标](./demo/icon.vue)
 
 - 通过 `icon` 设置图标

@@ -12,25 +12,29 @@
 
 - 水平的顶部导航菜单。
 
-[缩起内嵌菜单](./demo/collapsed.vue)
-
-- 内嵌菜单可以被缩起/展开。
-
 [内嵌菜单](./demo/inline.vue)
 
 - 垂直菜单，子菜单内嵌在菜单区域。
 
-[切换菜单类型](./demo/mode.vue)
+[只展开当前父级菜单](./demo/accordion.vue)
 
-- 展示动态切换模式。
+- 点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
+
+[垂直菜单](./demo/vertical.vue)
+
+- 子菜单是弹出的形式。
 
 [主题](./demo/theme.vue)
 
 - 内建了两套主题 `light|dark`，默认 `light`。
 
-[垂直菜单](./demo/vertical.vue)
+[切换菜单类型](./demo/mode.vue)
 
-- 子菜单是弹出的形式。
+- 展示动态切换模式。
+
+[缩起内嵌菜单](./demo/collapsed.vue)
+
+- 内嵌菜单可以被缩起/展开。
 
 ## API
 

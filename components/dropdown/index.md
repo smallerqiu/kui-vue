@@ -12,25 +12,215 @@
 
 - 最简单的下拉菜单。
 
-[多级菜单](./demo/cascading.vue)
+[右键菜单](./demo/right-menu.vue)
 
-- 传入的菜单里有多个层级。
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
 
 [其他元素](./demo/divider.vue)
 
 - 分割线和不可用菜单项。
 
-[](./demo/dropdownbutton.vue)
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
 
 - 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
 
 [弹出位置](./demo/placement.vue)
 
 - 支持 6 个弹出位置。
 
-[右键菜单](./demo/rightmenu.vue)
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
 
 - 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdownbutton.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
+
+[](./demo/dropdown-button.vue)
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的下拉菜单。
+
+[右键菜单](./demo/right-menu.vue)
+
+- 默认是移入触发菜单，可以点击鼠标右键触发。
+
+[带下拉框的按钮](./demo/dropdown-button.vue)
+
+- 左边是按钮，右边是额外的相关功能菜单。可设置 icon 属性来修改右边的图标。
+
+[其他元素](./demo/divider.vue)
+
+- 分割线和不可用菜单项。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置。
+
+[多级菜单](./demo/cascading.vue)
+
+- 传入的菜单里有多个层级。
 
 ## Dropdown API
 

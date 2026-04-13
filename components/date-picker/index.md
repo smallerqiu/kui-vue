@@ -8,37 +8,41 @@
 
 ## 代码演示
 
-[禁用和不可编辑](./demo/disabled.vue)
+[基本用法](./demo/basic.vue)
 
-- 选择框的不可用 、 不可编辑, 不可清除 状态。
+- 选择或者手动输入日期,通过 `v-model` 进行数据双向绑定
 
-[不可选择日期和时间](./demo/disabled-date.vue)
+[输出类型](./demo/value-type.vue)
 
-- 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
-
-[多语言](./demo/lang.vue)
-
-- DatePicker 支持多语言。依赖 `dayjs`.
-
-[预设范围](./demo/presets.vue)
-
-- 可以预设常用的日期范围以提高用户体验。。
+- 通过 `valueType` 指定输出类型
 
 [时间区域](./demo/range.vue)
 
 - 支持时间日期区间选择。取值建议用 `startDate` , `endDate`
 
-[尺寸](./demo/size.vue)
+[不可选择日期和时间](./demo/disabled-date.vue)
 
-- 通过 `small` ,`large` 来设置选择框的大小呈现
+- 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
+
+[禁用和不可编辑](./demo/disabled.vue)
+
+- 选择框的不可用 、 不可编辑, 不可清除 状态。
+
+[预设范围](./demo/presets.vue)
+
+- 可以预设常用的日期范围以提高用户体验。。
 
 [奇葩的主题](./demo/theme.vue)
 
 - 奇奇怪怪的东西
 
-[输出类型](./demo/value-type.vue)
+[尺寸](./demo/size.vue)
 
-- 通过 `valueType` 指定输出类型
+- 通过 `small` ,`large` 来设置选择框的大小呈现
+
+[多语言](./demo/lang.vue)
+
+- DatePicker 支持多语言。依赖 `dayjs`.
 
 ## API
 

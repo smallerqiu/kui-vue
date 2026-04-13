@@ -9,21 +9,25 @@ Radio button.
 
 ## Examples
 
-[Disabled / Controllable](./demo/disabled.vue)
+[Single Selection](./demo/basic.vue)
 
-- Set `disabled` to make it unavailable.
+- When used alone, the `v-model` value is `true` for selected and `false` for unselected.
 
 [Multiple Selection](./demo/group.vue)
 
 - You can use the `options` attribute to set options, or use child components to set options.
 
-[Combined with Button](./demo/radio-button.vue)
-
-- Combine `RadioGroup` and `RadioButton` for usage.
-
 [Group Layout](./demo/vertical.vue)
 
 - Group layout.
+
+[Disabled / Controllable](./demo/disabled.vue)
+
+- Set `disabled` to make it unavailable.
+
+[Combined with Button](./demo/radio-button.vue)
+
+- Combine `RadioGroup` and `RadioButton` for usage.
 
 ## Radio API
 

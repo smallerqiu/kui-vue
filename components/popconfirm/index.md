@@ -10,6 +10,10 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 最简单的用法。
+
 [国际化](./demo/local.vue)
 
 - 使用 `okText` 和 `cancelText` 自定义按钮文字。

@@ -9,6 +9,10 @@ Dividing line that separates content.
 
 ## Examples
 
+[Vertical Divider](./demo/basic.vue)
+
+- Use type="vertical" to set an inline vertical divider.
+
 [Horizontal Divider](./demo/default.vue)
 
 - Default is a horizontal divider, with text that can be added in the middle.

@@ -14,19 +14,7 @@ Assists with page-level overall layout.
 
 ## Examples
 
-[Documentation/Knowledge Base Layout](./demo/documentation-layout.vue)
-
-- Imitate the structure of official documentation like Vue or React, with a focus on a fixed sidebar for directory navigation. - **Layout Logic**: The Header spans the full width, and the Layout below includes a Sider (usually on the left or right as an index) and Content. - **Matching Components**: Input (search box), Anchor (anchor navigation), Divider (divider line).
-
 [Modern Enterprise Admin Console](./demo/enterprise-admin-console.vue)
-
-- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems. - Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer. - Matching components: Menu (vertical mode), Breadcrumb, Avatar.
-
-[Visual Editor Layout (IDE / Low-code Layout)](./demo/low-code-layout.vue)
-
-- - Scenario: Similar to VS Code, Figma, or low-code platforms. - Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer). This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.
-
-[Modern Enterprise Admin Console](./demo/messaging-collaboration.vue)
 
 - The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems. - Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer. - Matching components: Menu (vertical mode), Breadcrumb, Avatar.
 
@@ -34,6 +22,19 @@ Assists with page-level overall layout.
 
 - Suitable for portal websites, showcase websites, or personal blogs with a large amount of information but shallow hierarchy. - **Layout Logic**: A single vertical Layout, directly arranging Header, Content, and Footer. - **Matching Components**: Menu (horizontal mode), Carousel (slideshow), Card (content card).
 
+[Documentation/Knowledge Base Layout](./demo/documentation-layout.vue)
+
+- Imitate the structure of official documentation like Vue or React, with a focus on a fixed sidebar for directory navigation. - **Layout Logic**: The Header spans the full width, and the Layout below includes a Sider (usually on the left or right as an index) and Content. - **Matching Components**: Input (search box), Anchor (anchor navigation), Divider (divider line).
+
 [Task Workbench (The "Workbench" Details Layout)](./demo/workbench-layout.vue)
 
 - Left navigation + Middle dashboard + Right detail panel (Right Sider).
+
+[Modern Enterprise Admin Console](./demo/messaging-collaboration.vue)
+
+- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems. - Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer. - Matching components: Menu (vertical mode), Breadcrumb, Avatar.
+
+[Visual Editor Layout (IDE / Low-code Layout)](./demo/low-code-layout.vue)
+
+- - Scenario: Similar to VS Code, Figma, or low-code platforms. - Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer). This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.
+

@@ -9,6 +9,10 @@
 
 ## 代码演示
 
+[垂直分割线](./demo/basic.vue)
+
+- 使用 type="vertical" 设置为行内的垂直分割线。
+
 [水平分割线](./demo/default.vue)
 
 - 默认为水平分割线，可在中间加入文字。

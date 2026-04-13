@@ -8,18 +8,18 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 通过 `title` 和 `icon` 可设置标题和图标
+
 [边框](./demo/border.vue)
 
 - `bordered` 可以设置是否显示边框
 
-[很奇怪的卡片](./demo/notitle.vue)
+[边框和标题](./demo/notitle.vue)
 
--
+- 通过 `bordered` 属性控制边框，通过 `title` 属性控制标题。
 
-## API
-
-| 属性     | 说明             | 类型         | 默认值 |
-| -------- | ---------------- | ------------ | ------ |
 | title    | 卡片的标题       | String、slot | -      |
 | icon     | 卡片标题的图标   | String       | -      |
 | bordered | 卡片是否显示边框 | Boolean      | true   |

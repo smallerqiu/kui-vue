@@ -11,13 +11,13 @@
 
 ## 代码演示
 
+[进度条](./demo/basic.vue)
+
+- 标准的进度条。
+
 [进度圈](./demo/circle.vue)
 
 - 圆形的进度条。
-
-[颜色和格式](./demo/color.vue)
-
-- 自定义颜色和自定义格式。
 
 [盘仪表进度条](./demo/dashboard.vue)
 
@@ -26,6 +26,10 @@
 [动态展示](./demo/dynamic.vue)
 
 - 会动的进度条才是好进度条。
+
+[颜色和格式](./demo/color.vue)
+
+- 自定义颜色和自定义格式。
 
 [尺寸](./demo/size.vue)
 

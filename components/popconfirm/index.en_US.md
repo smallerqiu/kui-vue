@@ -10,6 +10,10 @@ Compared to the full-screen centered modal dialog box popped up by 'confirm', th
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- The simplest usage.
+
 [Internationalization](./demo/local.vue)
 
 - Use `okText` and `cancelText` to customize button text.

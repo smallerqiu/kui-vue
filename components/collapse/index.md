@@ -13,13 +13,17 @@
 
 - 默认可以同时展开一个或者多个面板
 
-[额外节点](./demo/extra.vue)
+[手风琴](./demo/accordion.vue)
 
-- 可以同时展开多个面板。
+- 设置 `accordion` 只允许同时展开一个面板
 
 [嵌套面板](./demo/nesting.vue)
 
 - 嵌套折叠面板。
+
+[额外节点](./demo/extra.vue)
+
+- 可以同时展开多个面板。
 
 [简洁模式](./demo/sample.vue)
 

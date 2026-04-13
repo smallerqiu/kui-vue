@@ -9,13 +9,9 @@
 
 ## 代码演示
 
-[全选](./demo/check-all.vue)
+[单选](./demo/basic.vue)
 
-- 全选组合
-
-[可不用 / 可控](./demo/disabled.vue)
-
-- 通过 `disabled` 设置不可用
+- 单独使用 `v-model` 的值 `true` 表示选中，为 `false` 表示未选中。
 
 [多选](./demo/group.vue)
 
@@ -24,6 +20,14 @@
 [组合布局](./demo/group-layout.vue)
 
 - 组合布局
+
+[可不用 / 可控](./demo/disabled.vue)
+
+- 通过 `disabled` 设置不可用
+
+[全选](./demo/check-all.vue)
+
+- 全选组合
 
 ## API
 

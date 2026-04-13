@@ -6,6 +6,10 @@ Folders, organizational structures, biological classifications, countries and re
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- The simplest usage, showing selectable items with default expansion.
+
 [Checkable](./demo/checkable.vue)
 
 - Set the `checkable` attribute to allow nodes to be checked.
@@ -14,21 +18,21 @@ Folders, organizational structures, biological classifications, countries and re
 
 - Extended node for a tree item.
 
-[Group Control](./demo/directory.vue)
-
-- Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.
-
 [Disabled Node](./demo/disabled.vue)
 
 - Set the `disabled` attribute to disable a node.
+
+[Asynchronous Loading](./demo/sync.vue)
+
+- Click to expand a node and load data dynamically. `isLeaf=true` indicates the current node is a leaf node and has no children.
 
 [Custom Icon](./demo/icon.vue)
 
 - You can customize icons for different nodes.
 
-[Asynchronous Loading](./demo/sync.vue)
+[Group Control](./demo/directory.vue)
 
-- Click to expand a node and load data dynamically. `isLeaf=true` indicates the current node is a leaf node and has no children.
+- Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.
 
 ## Tree API
 

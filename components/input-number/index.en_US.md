@@ -8,13 +8,17 @@ When standard numerical values need to be obtained.
 
 ## Examples
 
-[Extension, Prefix and Suffix](./demo/ffix.vue)
+[Basic Usage](./demo/basic.vue)
 
-- suffix, prefix extension
+- Basic usage. The `keyboard` attribute can control keyboard behavior.
 
 [High-Precision Decimals / Formatted Display](./demo/format.vue)
 
 - Format numbers using `formatter` to display data with specific meaning, often used in conjunction with `parser`.
+
+[Extension, Prefix and Suffix](./demo/ffix.vue)
+
+- suffix, prefix extension
 
 [Size](./demo/size.vue)
 

@@ -43,6 +43,55 @@ export default {
 
 - 包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
 
+[对齐方式](./demo/align.vue)
+
+- 根据具体目标和制约因素，选择最佳的标签对齐方式。
+
+[表单验证](./demo/valid.vue)
+
+- 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
+
+[辅助校验](./demo/length.vue)
+
+- 校验一些数据类型
+
+[多表单联动](./demo/withmodal.vue)
+
+- 在Form之外，通过`submit`从外部提交表单，反之 则推荐使用 `<Button htmlType="submit" />`调用原生提交逻辑
+
+[自定义校验规则](./demo/customvalid.vue)
+
+- 自定义验证规则来完成表单验证。
+
+[动态校验规则](./demo/dynamicvalid.vue)
+
+- 根据不同情况执行不同的校验规则。
+
+[](./demo/align.vue)
+- 根据具体目标和制约因素，选择最佳的标签对齐方式。
+[](./demo/valid.vue)
+- 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
+[](./demo/length.vue)
+- 校验一些数据类型
+[](./demo/withmodal.vue)
+- 在Form之外，通过`submit`从外部提交表单，反之 则推荐使用 `<Button htmlType="submit" />`调用原生提交逻辑
+[](./demo/customvalid.vue)
+- 自定义验证规则来完成表单验证。
+[](./demo/dynamicvalid.vue)
+- 根据不同情况执行不同的校验规则。
+
+[](./demo/align.vue)
+- 根据具体目标和制约因素，选择最佳的标签对齐方式。
+[](./demo/valid.vue)
+- 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。
+[](./demo/length.vue)
+- 校验一些数据类型
+[](./demo/withmodal.vue)
+- 在Form之外，通过`submit`从外部提交表单，反之 则推荐使用 `<Button htmlType="submit" />`调用原生提交逻辑
+[](./demo/customvalid.vue)
+- 自定义验证规则来完成表单验证。
+[](./demo/dynamicvalid.vue)
+- 根据不同情况执行不同的校验规则。
 [](./demo/customvalid.vue)
 
 - 自定义验证规则来完成表单验证。

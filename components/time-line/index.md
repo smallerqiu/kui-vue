@@ -11,6 +11,10 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- `TimeLine` 内部必须包含 `TimeLineItem`
+
 [图标](./demo/icon.vue)
 
 - 给 `TimeLineItem` 设置 `icon` 和 `color` 可以改变图标展示

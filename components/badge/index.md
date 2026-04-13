@@ -8,29 +8,33 @@
 
 ## 代码演示
 
-[多彩徽标](./demo/color.vue)
+[基本用法](./demo/basic.vue)
 
-- 多种预设色彩的徽标样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+- `Badge` 基础使用
 
 [点](./demo/dot.vue)
 
 - 设置 `dot` 来展示一个点
 
-[可控](./demo/dynamic.vue)
+[最大值 / 自定义](./demo/max.vue)
 
-- 动态控制
+- 设置 `max-count` 配合 `count` ，数字模式超出隐藏，`count` 不为数字时将不进行计算
 
 [独立使用](./demo/mark.vue)
 
 - 不包裹任何元素即是独立使用，可自定样式展现。 在右上角的 badge 则限定为红色。
 
-[最大值 / 自定义](./demo/max.vue)
+[可控](./demo/dynamic.vue)
 
-- 设置 `max-count` 配合 `count` ，数字模式超出隐藏，`count` 不为数字时将不进行计算
+- 动态控制
 
 [状态点](./demo/status.vue)
 
 - 用于表示状态的小圆点。
+
+[多彩徽标](./demo/color.vue)
+
+- 多种预设色彩的徽标样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
 
 ## API
 

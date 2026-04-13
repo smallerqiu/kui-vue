@@ -15,41 +15,45 @@ Vue.use(Button);
 
 ## Examples
 
-[Block Button](./demo/block.vue)
+[Basic Usage](./demo/basic.vue)
 
-- The `block` property makes the button fit the width of its parent.
-
-[Color Variants](./demo/color.vue)
-
-- Use `color` to create more button variants.
-
-[Disabled](./demo/disabled.vue)
-
-- Add the `disabled` property to make the button unavailable.
-
-[Button Group](./demo/group.vue)
-
-- Place multiple `Button` components inside `ButtonGroup` to group them.
-
-[Light Theme](./demo/light.vue)
-
-- Light theme.
-
-[Loading State](./demo/loading.vue)
-
-- Add the `loading` property to put the button in a loading state.
+- Use the `type` property to define a `Button`.
 
 [Outline Theme](./demo/outline.vue)
 
 - Only display the border.
 
-[Size](./demo/size.vue)
+[Color Variants](./demo/color.vue)
 
-- `small` for small size, `large` for large size.
+- Use `color` to create more button variants.
+
+[Light Theme](./demo/light.vue)
+
+- Light theme.
 
 [With Icon](./demo/with-icon.vue)
 
 - Set the button icon by adding the `icon` property.
+
+[Size](./demo/size.vue)
+
+- `small` for small size, `large` for large size.
+
+[Disabled](./demo/disabled.vue)
+
+- Add the `disabled` property to make the button unavailable.
+
+[Loading State](./demo/loading.vue)
+
+- Add the `loading` property to put the button in a loading state.
+
+[Block Button](./demo/block.vue)
+
+- The `block` property makes the button fit the width of its parent.
+
+[Button Group](./demo/group.vue)
+
+- Place multiple `Button` components inside `ButtonGroup` to group them.
 
 ## API
 

@@ -8,6 +8,10 @@ Commonly seen in detail page information display.
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- Simple display.
+
 [Bordered](./demo/bordered.vue)
 
 - List with borders and background colors.
