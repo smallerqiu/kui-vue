@@ -12,6 +12,8 @@
 
 > 3.0 版本以后使用 `flex` 布局，请注意[浏览器兼容性](http://caniuse.com/#search=flex)
 
+## 代码演示
+
 [文档/知识库布局 (Documentation Layout)](./demo/documentation-layout.vue)
 
 - 模仿类似 Vue 或 React 官方文档的结构，重点在于侧边栏是固定的目录导航。 - 布局逻辑：Header 跨越全宽，下方 Layout 包含 Sider（通常在左侧或右侧作为索引）和 Content。 - 搭配组件：Input（搜索框）、Anchor（锚点导航）、Divider（分割线）。
