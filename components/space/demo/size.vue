@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const current = ref("1");
-
 const change = (key) => {
   console.log(key);
 };

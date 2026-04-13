@@ -12,6 +12,8 @@ Assists with page-level overall layout.
 
 > After version 3.0, `flex` layout is used, please pay attention to [flex](http://caniuse.com/#search=flex)
 
+## Examples
+
 [Documentation/Knowledge Base Layout](./demo/documentation-layout.vue)
 
 - Imitate the structure of official documentation like Vue or React, with a focus on a fixed sidebar for directory navigation. - **Layout Logic**: The Header spans the full width, and the Layout below includes a Sider (usually on the left or right as an index) and Content. - **Matching Components**: Input (search box), Anchor (anchor navigation), Divider (divider line).

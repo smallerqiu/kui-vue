@@ -11,7 +11,8 @@ export const spaceProps = {
   block: Boolean as BooleanType,
   compact: Boolean as BooleanType,
   size: {
-    type: [String, Number, Array] as PropType<SizeType | number | number[]>,
+    type: [String, Number, Array] as PropType<SizeType | number | (number | string)[]>,
+    default: "small",
   },
 };
 
@@ -49,10 +50,8 @@ const Space = defineComponent({
         } else if (typeof size === "string") {
           const sizes = { small: 8, middle: 16, large: 24, default: 16 };
           style.gap = `${sizes[size]}px`;
-        } else if (typeof size !== "number") {
-          style.gap = `${size}px`;
-        } else {
-          style.gap = "8px";
+        } else if (!!size) {
+          style.gap = `${size}`;
         }
       }
       // const _attrs = { ...attrs }
