@@ -17,3 +17,27 @@ KUI components use Chinese by default internally. If you wish to use another lan
   import en from "kui-vue/components/locale/en";
 </script>
 ```
+
+## Example
+
+[Multilingual switching example](./demo.vue)
+
+- Switch languages by modifying the locale property of ConfigProvider.
+
+Currently, KUI has the following languages built-in:
+
+- Simplified Chinese (zh-CN)
+- Traditional Chinese (zh-TW)
+- German (de)
+- Greek (el)
+- English (en)
+- French (fr)
+- Italian (it)
+- Japanese (ja)
+- Korean (ko)
+- Russian (ru)
+- Thai (th)
+- Ukrainian (uk)
+- Vietnamese (vi)
+
+We welcome code contributions to support more languages.[Join](https://github.com/smallerqiu/kui-vue/tree/master/components/locale/lang)

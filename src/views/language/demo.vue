@@ -1,13 +1,3 @@
-<cn>
-### 多语言切换示例
-通过修改 ConfigProvider 的 locale 属性，切换语言。
-</cn>
-<en>
-### Multilingual switching example
-Switch languages by modifying the locale property of ConfigProvider.
-</en>
-
-```vue
 <template>
   <Space vertical block>
     <Space>
@@ -53,7 +43,7 @@ Switch languages by modifying the locale property of ConfigProvider.
         <Space>
           <Table :columns="columns" />
         </Space>
-        <Space> TreeSelect : <TreeSelect :treeData="[]" style="width:180px" /> </Space>
+        <Space> TreeSelect : <TreeSelect :treeData="[]" style="width: 180px" /> </Space>
         <Space>
           Image :
           <KImage :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
@@ -68,7 +58,7 @@ Switch languages by modifying the locale property of ConfigProvider.
             <Button>Click to upload</Button>
           </Upload>
         </Space>
-        <Space block style="max-width:500px;">
+        <Space block style="max-width: 500px">
           <Form :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
             <FormItem label="Name" prop="name">
               <Input placeholder="Please input" />
@@ -81,7 +71,7 @@ Switch languages by modifying the locale property of ConfigProvider.
             </FormItem>
             <FormItem :wrapperCol="{ offset: 6 }">
               <Button type="primary" htmlType="submit">Submit</Button>
-              <Button style="margin:0 10px" htmlType="reset">Reset</Button>
+              <Button style="margin: 0 10px" htmlType="reset">Reset</Button>
             </FormItem>
           </Form>
         </Space>
@@ -91,25 +81,21 @@ Switch languages by modifying the locale property of ConfigProvider.
     </ConfigProvider>
   </Space>
 </template>
-
 <script setup lang="ts">
-import { ref, reactive, provide } from "vue";
-import en from "kui-vue/locale/en";
-import de from "kui-vue/locale/de";
-import uk from "kui-vue/locale/uk";
-import zh from "kui-vue/locale/zh-CN";
 import dayjs from "dayjs";
-import { modal, message } from "kui-vue";
 import "dayjs/locale/de";
+import { message, modal } from "kui-vue";
+import de from "kui-vue/locale/de";
+import en from "kui-vue/locale/en";
+import zh from "kui-vue/locale/zh-CN";
+import { reactive, ref } from "vue";
 const lang = ref("en");
 const locale = ref(en);
 dayjs.locale("en");
-const data = [];
 const columns = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
 ];
-
 const fileList = ref([
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
@@ -126,15 +112,11 @@ const fileList = ref([
     size: "222kb",
   },
 ]);
-
 const loading = ref(false);
-
 const visible = ref(false);
 const visible1 = ref(false);
-
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-
 const form = reactive({
   name: "",
   email: "",
@@ -145,12 +127,12 @@ const rules = {
   email: [{ required: true }, { type: "mail" }],
   age: [{ required: true }, { type: "number", min: 10, max: 50 }],
 };
-const langs = {
+const langs: Record<string, any> = {
   en,
   zh,
   de,
 };
-const changeLocale = (value) => {
+const changeLocale = (value: string) => {
   locale.value = langs[value];
   if (value === "en") {
     dayjs.locale("en");
@@ -160,14 +142,12 @@ const changeLocale = (value) => {
     dayjs.locale("zh-cn");
   }
 };
-
 const showModal = () => {
   visible.value = true;
 };
 const openDrawer = () => {
   visible1.value = true;
 };
-
 const showInfo = () => {
   modal.info({
     title: "Hello",
@@ -189,7 +169,6 @@ const showConfirm = () => {
     },
   });
 };
-
 const selectSearch = () => {
   loading.value = true;
   setTimeout(() => {
@@ -197,4 +176,3 @@ const selectSearch = () => {
   }, 1000);
 };
 </script>
-```

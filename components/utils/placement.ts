@@ -39,10 +39,10 @@ export function setPlacement({
       left: position.x,
       right: position.x,
     };
-  } else if (refSelection && refSelection.value) {
+  } else if (refSelection?.value) {
     // 元素模式：真实 DOM 矩形
-    const selection = refSelection.value;
-    console.log(JSON.stringify(refSelection.value))
+    const instance = refSelection.value;
+    const selection = (instance as any).$el || instance;
     rect = selection.getBoundingClientRect?.();
   } else {
     return;

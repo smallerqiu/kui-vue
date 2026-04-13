@@ -10,7 +10,7 @@ let children = [
     path: "/guide/quick-started-en",
     component: () => import("./views/quick-started.en_US.md"),
   },
-  { path: "/guide/language", component: () => import("./views/language") },
+  { path: "/guide/language", component: () => import("./views/language/index.md") },
   { path: "/guide/change-log", component: () => import("./views/change-log.md") },
   { path: "/guide/change-log-en", component: () => import("./views/change-log.en_US.md") },
   { path: "/guide/usage-with-nuxt", component: () => import("./views/usage-with-nuxt.md") },
@@ -21,7 +21,7 @@ let children = [
   // { path: '/guide/theme', component: () => import('./views/theme.md') },
   {
     path: "/guide/dark-mode",
-    component: () => import("./views/dark-mode/index"),
+    component: () => import("./views/dark-mode/index.md"),
   },
   { path: "/guide/components", component: () => import("./views/components") },
 

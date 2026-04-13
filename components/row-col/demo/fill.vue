@@ -1,5 +1,5 @@
 <template>
-  <Space block vertical>
+  <Space block vertical class="demo-grid">
     <code>Percentage columns</code>
     <Row type="flex" class="demo-back">
       <Col :flex="3"><div>3/8</div></Col>

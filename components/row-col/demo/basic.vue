@@ -1,5 +1,5 @@
 <template>
-  <Space block vertical>
+  <Space block vertical class="demo-grid">
     <Row>
       <Col :span="12">col-12</Col>
       <Col :span="12">col-12</Col>

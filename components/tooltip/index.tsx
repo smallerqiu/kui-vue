@@ -124,7 +124,7 @@ const Tooltip = defineComponent({
       const { color } = props;
 
       const wpProps = {
-        ref: refSelection, //todo
+        ref: refSelection,
         onTouchstart: mouseEnter,
         onTouchend: hide,
         onTouchmove: updatePosition,

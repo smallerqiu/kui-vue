@@ -1,5 +1,5 @@
 <template>
-  <Space vertical block>
+  <Space vertical block class="demo-grid">
     <Row>
       <Col :span="8">col-8</Col>
       <Col :span="8" :offset="8">col-8 | offset-8</Col>

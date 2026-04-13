@@ -1,3 +1,26 @@
+# 暗色模式
+
+3.2.5+ 版本 重新设计了 浅色模式和暗色模式, 可以更方便的切换, 并且支持局部范围使用暗色模式
+
+## 使用
+
+3.2.5之后的版本暗色模式的切换是通过给 根元素节点 添加属性 [theme-mode='dark'] 来实现的 ,下面是例子:
+
+```js
+const body = document.documentElement;
+if (body.hasAttribute("theme-mode")) {
+  body.removeAttribute("theme-mode");
+} else {
+  body.setAttribute("theme-mode", "dark");
+}
+```
+
+## 示例
+
+[切换主题](./mode.vue)
+
+- 简单的切换例子, 开箱即用
+
 ## 主题跟随系统
 
 macOS 下的系统主题可以通过 系统偏好设置 -> 通用 -> 外观 来配置。
@@ -59,8 +82,12 @@ function matchMode(e) {
 monitor.addEventListener("change", matchMode);
 ```
 
-# 局部模式
+## 局部模式
 
 在顶级元素上添加 'theme-mode=dark' 或者 'theme-mode=light' 属性 ，这个元素下的组件会使用对应模式的颜色变量。
 
 > 注意: 局部暗色/亮色对弹出层不生效
+
+[局部暗色](./local.md)
+
+- 通过设置顶层元素的 `theme-mode` 属性来控制局暗色模式

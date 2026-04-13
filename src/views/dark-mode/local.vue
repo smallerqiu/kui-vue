@@ -1,13 +1,3 @@
-<cn>
-#### 切换主题
-简单的切换例子
-</cn>
-<en>
-#### Switch theme
-Simple switching example
-</en>
-
-```vue
 <template>
   <div>
     <Button theme="light" @click="change">Local darkening</Button>
@@ -24,7 +14,7 @@ Simple switching example
             mode="inline"
             v-model="leftMenuActiveKeys"
             :inline-collapsed="collapsed"
-            style="border:none;"
+            style="border: none"
           >
             <MenuItem key="1-1" :icon="Home"><span>Home</span></MenuItem>
             <MenuItem key="1-2" :icon="Heart"><span>Data statistics</span></MenuItem>
@@ -48,7 +38,7 @@ Simple switching example
           <div
             class="demo-dark"
             :theme-mode="dark ? 'dark' : 'light'"
-            style="background: var(--kui-color-bg);"
+            style="background: var(--kui-color-bg)"
           >
             <Space vertical block>
               <Menu mode="horizontal" v-model="current">
@@ -67,7 +57,7 @@ Simple switching example
               </Space>
             </Space>
 
-            <div style="width:512px;">
+            <div style="width: 512px">
               <Form
                 :labelCol="{ span: 8 }"
                 :wrapperCol="{ span: 16 }"
@@ -76,7 +66,7 @@ Simple switching example
                 :shape="isCircle ? 'circle' : ''"
               >
                 <FormItem label="Theme">
-                  <Checkbox v-model="theme" label="Light" style="margin-right:8px;" />
+                  <Checkbox v-model="theme" label="Light" style="margin-right: 8px" />
                   <Checkbox v-model="isCircle" label="Circle" />
                 </FormItem>
                 <FormItem label="Size">
@@ -136,18 +126,16 @@ Simple switching example
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import {
-  LogoKui,
-  Home,
-  Heart,
-  Settings,
   ChevronBack,
   ChevronForward,
-  Search,
-  NotificationsOutline,
+  Heart,
+  Home,
+  LogoKui,
   Mail,
+  Settings
 } from "kui-icons";
+import { ref } from "vue";
 
 const current = ref(["1"]);
 const leftMenuActiveKeys = ref(["1-1"]);
@@ -164,6 +152,7 @@ const toggle = () => {
   collapsed.value = !collapsed.value;
 };
 </script>
+
 <style scoped lang="less">
 .demo-dark {
   padding: 20px 0;
@@ -210,4 +199,3 @@ const toggle = () => {
   color: #999;
 }
 </style>
-```
