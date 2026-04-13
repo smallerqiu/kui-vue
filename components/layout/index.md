@@ -32,9 +32,8 @@
 
 [协作聊天布局 (Messaging & Collaboration)](./demo/messaging-collaboration.vue)
 
-- - 场景： 客服系统、Slack 镜像、应用内私信。 - 核心点： 内容区（Content）负责消息流，页脚（Footer）作为固定高度的输入区域。 - 这个案例展示了如何让 Footer 承载复杂的交互（文本框、表情按钮、发送键）。
+- 场景： 客服系统、Slack 镜像、应用内私信。 - 核心点： 内容区（Content）负责消息流，页脚（Footer）作为固定高度的输入区域。 - 这个案例展示了如何让 Footer 承载复杂的交互（文本框、表情按钮、发送键）。
 
 [可视化编辑器布局 (IDE / Low-code Layout)](./demo/low-code-layout.vue)
 
-- - 场景： 类似于 VS Code、Figma 或低代码平台。 - 核心点： 极简的导航、多列固定高度、以及底部状态栏 (Footer)。 此 Demo 重点展示了 Layout 如何通过多层嵌套，将屏幕空间切分为极小但有序的功能区。
-
+- 场景： 类似于 VS Code、Figma 或低代码平台。 - 核心点： 极简的导航、多列固定高度、以及底部状态栏 (Footer)。 此 Demo 重点展示了 Layout 如何通过多层嵌套，将屏幕空间切分为极小但有序的功能区。

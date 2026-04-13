@@ -1,5 +1,5 @@
 <template>
-  <Space vertical block>
+  <Space vertical block class="demo-grid">
     <code>start</code>
     <Row type="flex" justify="start" class="demo-back">
       <Col :span="4"><div>col-4</div></Col>

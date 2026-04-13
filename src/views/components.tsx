@@ -1,6 +1,6 @@
-import WebIcon from "@/src/components/WebIcon";
 import { Card } from "kui-vue";
 import { defineComponent, inject } from "vue";
+import WebIcon from "../components/web-icon";
 import { navData } from "../menu";
 export default defineComponent({
   setup() {

@@ -1,5 +1,5 @@
 <template>
-  <Space vertical block>
+  <Space vertical block class="demo-grid">
     <code>gutter = 10</code>
     <Row :gutter="10" class="row-gutter">
       <Col :span="12"><div>col-12</div></Col>

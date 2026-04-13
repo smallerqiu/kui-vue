@@ -24,8 +24,7 @@ export default function vitePluginKuiMd(): Plugin {
       }
       return `<pre><code class="hljs">${markdown.utils.escapeHtml(code)}</code></pre>`;
     },
-  })
-  .use(anchor, {
+  }).use(anchor, {
     level: 2,
     slugify: (string: string) => string.toLocaleLowerCase().trim().split(" ").join("-"),
     permalink: anchor.permalink.headerLink(),
@@ -44,10 +43,10 @@ export default function vitePluginKuiMd(): Plugin {
       const vertical_list = [
         "table",
         "grid",
-        "row-col/demo",
+        "row-col/index",
         "dark-mode",
         "flex",
-        "layout/demo",
+        "layout/index",
         "space",
         "menu",
         "page",
@@ -81,32 +80,30 @@ export default function vitePluginKuiMd(): Plugin {
         const _id = "k-" + hashId(id);
 
         const absolutePath = path.resolve(path.dirname(id), src);
-        let demoCode = fs.readFileSync(absolutePath, "utf-8");
+        let demoCode = fs.readFileSync(absolutePath, "utf-8").trim().replace("/r/n", "");
         // demoCode = escapeHtml(demoCode);
-        demoCode = markdown.render("```html\n" + demoCode + "\n```");
-        demoCode = demoCode
-          .replace(
-            /{{/g,
-            '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
-          )
-          .replace(/}}/g, "&#125;&#125;")
-          .replace(/<br>/g, "<br />");
+        demoCode = markdown.render("```html\n" + demoCode);
+        // demoCode = demoCode
+        //   .replace(
+        //     /{{/g,
+        //     '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
+        //   )
+        //   .replace(/}}/g, "&#125;&#125;")
+        //   .replace(/<br>/g, "<br />");
         demoImports.push(`import ${componentName} from '${src}';`);
-
+        description = markdown.render(description);
         return `
-
-
-
-<Demo id="${_id}" direction="${direction}" title="${title}" description="${description}">
+<Demo id="${_id}" direction="${direction}">
+    <template #title>${title}</template>
     <template #component><${componentName} /></template>
-    <template #code>${demoCode}</template>
-</Demo>
-
-
-
-`;
+    <template #code>${demoCode.replace(/\n/g, "")}</template>
+    <template #description>
+      ${description.trim().replace(/\n/g, "")}
+    </template>
+</Demo>\n\n\n`;
       });
 
+      fs.writeFileSync(path.join(__dirname, "b.html"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
       // console.log(processedMarkdown);
       const result = `
@@ -119,8 +116,8 @@ export default function vitePluginKuiMd(): Plugin {
 <script setup>
 ${demoImports.join("\n")}
 </script>`;
-      // console.log(result);
-
+      console.log(result);
+      fs.writeFileSync(path.join(__dirname, "s.html"), result);
       return { code: result, map: null };
     },
   };

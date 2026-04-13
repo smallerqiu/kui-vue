@@ -101,8 +101,8 @@ const Demo = defineComponent({
       const descNode = (
         <div class="k-desc">
           <div class="k-desc-content">
-            <h3>{props.title}</h3>
-            {props.description}
+            <h3>{slots.title?.()}</h3>
+            {slots.description?.()}
           </div>
         </div>
       );

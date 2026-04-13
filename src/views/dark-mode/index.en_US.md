@@ -1,3 +1,26 @@
+# Dark Mode
+
+Version 3.2.5+ has redesigned both Light Mode and Dark Mode, making it easier to switch between them, and supports using Dark Mode in specific areas.
+
+## Usage
+
+Starting from version 3.2.5, the dark mode toggle is achieved by adding the attribute [theme-mode='dark'] to the root element node. Here's an example:
+
+```js
+const body = document.documentElement;
+if (body.hasAttribute("theme-mode")) {
+  body.removeAttribute("theme-mode");
+} else {
+  body.setAttribute("theme-mode", "dark");
+}
+```
+
+## Example
+
+[Switch Theme](./demo.vue)
+
+-A simple toggle example, ready to use out of the box
+
 ## Theme follows system
 
 The system theme in macOS can be configured via System Preferences -> General -> Appearance.
@@ -59,8 +82,12 @@ function matchMode(e) {
 monitor.addEventListener("change", matchMode);
 ```
 
-# Local Mode
+## Local Mode
 
 Add the 'theme-mode=dark' or 'theme-mode=light' attribute to the top-level element, and the components under this element will use the corresponding mode's color variables.
 
 > Note: Local dark/light mode does not apply to pop-up layers.
+
+[Local darkening](./local.md)
+
+- Control local dark mode by setting the `theme-mode` attribute of the top-level element
