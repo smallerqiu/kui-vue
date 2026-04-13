@@ -9,15 +9,19 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 通过 `type` 来控制展示类型
+
+[图标](./demo/icon.vue)
+
+- `showIcon` 来设置是否显示图标
+
 [可关闭](./demo/close.vue)
 
 - `closable` 来控制是否显示可关闭按钮,平滑、自然隐藏关闭
 
 [自定义图标](./demo/custom-icon.vue)
-
-- `showIcon` 来设置是否显示图标
-
-[图标](./demo/icon.vue)
 
 - `showIcon` 来设置是否显示图标
 

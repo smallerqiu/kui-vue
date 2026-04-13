@@ -9,21 +9,25 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 可使用 `v-model` 进行数据双向绑定
+
+[文字 / 图标](./demo/with-text.vue)
+
+- 通过 `true-text` 和 `false-text` 设置选中和非选中呈现文字, 通过设置 `slot` 为 `(checked|unchecked)` 控制内容
+
 [禁用 / 可控](./demo/disabled.vue)
 
 - 通过 `disabled` 属性设置组件是否被禁用
-
-[加载中](./demo/loading.vue)
-
-- 标识开关操作仍在执行中。
 
 [两种大小](./demo/size.vue)
 
 - size="small" 表示小号开关。
 
-[文字 / 图标](./demo/with-text.vue)
+[加载中](./demo/loading.vue)
 
-- 通过 `true-text` 和 `false-text` 设置选中和非选中呈现文字, 通过设置 `slot` 为 `(checked|unchecked)` 控制内容
+- 标识开关操作仍在执行中。
 
 ### API
 

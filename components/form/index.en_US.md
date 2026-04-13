@@ -43,6 +43,30 @@ export default {
 
 - Includes various form items, such as input fields, selectors, switches, radio buttons, checkboxes, etc.
 
+[Alignment](./demo/align.vue)
+
+- Choose the best label alignment based on specific goals and constraints.
+
+[Form Validation](./demo/valid.vue)
+
+- Help users discover and correct errors as early as possible, while preventing mistakes.
+
+[Auxiliary Validation](./demo/length.vue)
+
+- Validate certain data types.
+
+[Multi-form Linkage](./demo/withmodal.vue)
+
+- Outside the Form, submit the form via `submit` from the outside. Conversely, it's recommended to use `<Button htmlType="submit" />` to call the native submission logic.
+
+[Custom Validation Rules](./demo/customvalid.vue)
+
+- Use custom validation rules to complete form validation.
+
+[Dynamic Validation Rules](./demo/dynamicvalid.vue)
+
+- Execute different validation rules based on different conditions.
+
 [](./demo/customvalid.vue)
 
 - Use custom validation rules to complete form validation.

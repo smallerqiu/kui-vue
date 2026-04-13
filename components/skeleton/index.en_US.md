@@ -15,25 +15,29 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 - The simplest placeholder effect.
 
+[Combination](./demo/group.vue)
+
+- You can configure the number of skeleton screen paragraphs to better approximate the real rendering effect. The first line will be rendered as a paragraph start of 35% length.
+
+[Animation Effect](./demo/animated.vue)
+
+- Show animation effect.
+
 [Child Component](./demo/child.vue)
 
 - Loading placeholder includes child components.
 
-[Custom](./demo/custom.vue)
+[List](./demo/list.vue)
 
-- Custom effect.
-
-[Combination](./demo/group.vue)
-
-- You can configure the number of skeleton screen paragraphs to better approximate the real rendering effect. The first line will be rendered as a paragraph start of 35% length.
+- Use loading placeholders in list components.
 
 [Button/Avatar/Image](./demo/items.vue)
 
 - Skeleton buttons, avatars, and images.
 
-[List](./demo/list.vue)
+[Custom](./demo/custom.vue)
 
-- Use loading placeholders in list components.
+- Custom effect.
 
 ## API
 

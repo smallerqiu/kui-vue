@@ -70,6 +70,10 @@ export default axiosInstance;
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- The simplest usage.
+
 ## Loading API
 
 | Property | Description              | Type              | Default |

@@ -9,6 +9,10 @@ Button to return to the top of the page.
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- The default position is 50px from the right and bottom of the page. It appears when scrolling 400px from the top.
+
 [Basic Usage](./demo/custom.vue)
 
 - You can customize the back-to-top button style, for example setting `bottom` to `100px`.

@@ -9,13 +9,17 @@ Separate long lists using pagination, loading only one page at a time.
 
 ## Examples
 
-[Size](./demo/size.vue)
+[Basic Usage](./demo/basic.vue)
 
-- Display small size.
+- Basic pagination.
 
 [Items / Jump](./demo/sizer-elevator.vue)
 
 - Change the number of items displayed per page.
+
+[Size](./demo/size.vue)
+
+- Display small size.
 
 ## API
 

@@ -11,6 +11,10 @@ When an operation takes a long time to complete, display the current progress an
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- `TimeLine` must contain `TimeLineItem`.
+
 [Icon](./demo/icon.vue)
 
 - Set the `icon` and `color` properties on `TimeLineItem` to change the icon display.

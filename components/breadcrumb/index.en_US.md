@@ -10,6 +10,10 @@ Displays the current page's position in the system hierarchy and allows navigati
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- Add navigation links via `href`.
+
 [Set Icon](./demo/icon.vue)
 
 - Set the icon via `icon`.

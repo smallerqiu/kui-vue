@@ -51,17 +51,29 @@ const columns = [
 
 - 一个普通的表格
 
+[基本用法(使用render)](./demo/base-render.vue)
+
+- 使用自定义`render`来初始化表格
+
+[自定义表头](./demo/custom-header.vue)
+
+- 一个可以自定义表头的表格  , 可以通过 `#header-`定义表头
+
 [自定义页头和页脚](./demo/bordered.vue)
 
 - 添加表格边框线，页头和页脚。
 
-[Table Row/Column Span](./demo/col-row-span.vue)
+[排序](./demo/table-sorter.vue)
 
-- Headers support only column spanning; use colSpan inside column definitions to configure. The table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.
+- `sorter=true` 现有的数据排序 , 为‘function’时,可自定义排序规则
 
-[自定义表头](./demo/custom-header.vue)
+[表格行/列合并](./demo/col-row-span.vue)
 
-- 一个可以自定义表头的表格 , 可以通过 `#header-`定义表头
+- 表头仅支持列合并；在列定义中使用 colSpan 进行配置。 表格支持行合并与列合并；在渲染时，使用单元格属性 colSpan 或 rowSpan。当设置为 0 时，该单元格将不会渲染。
+
+[可编辑单元格](./demo/table-edit.vue)
+
+- 带单元格编辑功能的表格。
 
 [固定头/列](./demo/fixed-col-header.vue)
 
@@ -71,21 +83,13 @@ const columns = [
 
 - columns[n] 可以内嵌 children，以渲染分组表头。
 
-[动态控制表格属性](./demo/size.vue)
-
-- 选择不同配置组合查看效果。
-
 [勾选](./demo/table-check.vue)
 
 - `checkable=true`，即可自动开启多选功能。 > 注意: 默认勾选的依赖为 `key` , 可以通过 `rowKey` 属性进行自定义。 如: `rowKey="ID"`
 
-[可编辑单元格](./demo/table-edit.vue)
+[动态控制表格属性](./demo/size.vue)
 
-- 带单元格编辑功能的表格。
-
-[排序](./demo/table-sorter.vue)
-
-- `sorter=true` 现有的数据排序 , 为‘function’时,可自定义排序规则
+- 选择不同配置组合查看效果。
 
 ## Table API
 

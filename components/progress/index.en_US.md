@@ -11,13 +11,13 @@ When an operation takes a long time to complete, display the current progress an
 
 ## Examples
 
+[Progress Bar](./demo/basic.vue)
+
+- A standard progress bar.
+
 [Circular Progress](./demo/circle.vue)
 
 - A circular progress bar.
-
-[Color and Format](./demo/color.vue)
-
-- Customize color and format.
 
 [Dashboard-style Progress Bar](./demo/dashboard.vue)
 
@@ -26,6 +26,10 @@ When an operation takes a long time to complete, display the current progress an
 [Dynamic Display](./demo/dynamic.vue)
 
 - A moving progress bar is a good progress bar.
+
+[Color and Format](./demo/color.vue)
+
+- Customize color and format.
 
 [Size](./demo/size.vue)
 

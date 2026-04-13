@@ -70,6 +70,10 @@ export default axiosInstance;
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 最简单的用法。
+
 ## Loading API
 
 | 属性    | 说明             | 类型              | 默认值 |

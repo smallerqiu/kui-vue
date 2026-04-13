@@ -10,17 +10,21 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 通过 `v-model` 双向绑定 `Drawer` 是否展示 , title 为null或false时不显示标题
+
 [自定义](./demo/custom.vue)
 
 - 通过 `title` 来设置标题， `width` 控制宽度， 还有 `placement` 控制方向
 
-[植入目标元素](./demo/target.vue)
-
-- 可以在目标元素内展开
-
 [表单模式](./demo/with-form.vue)
 
 - 内容将呈现表单模式，有页头和页尾, 可自定义页尾
+
+[植入目标元素](./demo/target.vue)
+
+- 可以在目标元素内展开
 
 ## API
 

@@ -18,6 +18,10 @@ A set of rotating/carousel areas.
 
 - Enable vertical mode by setting `vertical`. In this mode, left and right arrows are hidden.
 
+[Autoplay](./demo/autoplay.vue)
+
+- Enable timed autoplay by setting `autoplay`. Use `delay` to set the interval. The default is `3000` milliseconds.
+
 ## API
 
 | Property | Description                                                                    | Type    | Default |

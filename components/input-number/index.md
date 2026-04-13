@@ -8,13 +8,17 @@
 
 ## 代码演示
 
-[扩展, 前缀和后缀](./demo/ffix.vue)
+[基本用法](./demo/basic.vue)
 
-- suffix，prefix 扩展
+- 基本用法 ,使用 keyboard 属性可以控制键盘行为。
 
 [高精度小数/格式化展示](./demo/format.vue)
 
 - 通过 formatter 格式化数字，以展示具有具体含义的数据，往往需要配合 parser 一起使用。
+
+[扩展, 前缀和后缀](./demo/ffix.vue)
+
+- suffix，prefix 扩展
 
 [尺寸](./demo/size.vue)
 

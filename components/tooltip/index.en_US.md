@@ -10,13 +10,17 @@ Can be used to replace the system default `title` prompt, providing a text expla
 
 ## Examples
 
-[Colorful Text Tips](./demo/color.vue)
+[Basic Usage](./demo/basic.vue)
 
-- Multiple preset colors for text tips, used in different scenarios.
+- The simplest usage. The size of the floating layer is determined by the content area.
 
 [Position](./demo/placement.vue)
 
 - Control the direction via `placement`. There are twelve available positions.
+
+[Colorful Text Tips](./demo/color.vue)
+
+- Multiple preset colors for text tips, used in different scenarios.
 
 ## API
 

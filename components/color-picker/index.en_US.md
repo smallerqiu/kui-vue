@@ -8,6 +8,14 @@ Freely output colors.
 
 ## Examples
 
+[Basic Usage](./demo/basic.vue)
+
+- Click to open the color panel.
+
+[Size / Disabled](./demo/size.vue)
+
+- `small` for small size, `large` for large size.
+
 [Custom Trigger](./demo/custom-trigger.vue)
 
 - Customize the trigger for the color panel.
@@ -15,10 +23,6 @@ Freely output colors.
 [Popup Placement](./demo/placement.vue)
 
 - Supports 6 popup placements. If there is not enough space above, the panel will automatically appear below.
-
-[Size / Disabled](./demo/size.vue)
-
-- `small` for small size, `large` for large size.
 
 ## API
 

@@ -9,17 +9,21 @@
 
 ## 代码演示
 
+[基本用法](./demo/basic.vue)
+
+- 简单的展示。
+
 [容错处理](./demo/errors.vue)
 
 - 加载失败显示图像占位符。
 
-[扩展](./demo/extra.vue)
-
-- 可以扩展自定工具和面板。
-
 [照片墙](./demo/group.vue)
 
 - 点击左右切换按钮可以预览多张图片。
+
+[扩展](./demo/extra.vue)
+
+- 可以扩展自定工具和面板。
 
 ## Image API
 

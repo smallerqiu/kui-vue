@@ -10,6 +10,10 @@ To use the icon component, you need to install the `kui-icons` icon package:
 npm install --save kui-icons
 ```
 
+[Basic Usage](./demo/basic.vue)
+
+- You can set the icon's type, size, and color via the `type`, `size`, and `color` attributes, respectively. You can also use the `spin` attribute to achieve a rotating animation effect.
+
 [Stroke Width](./demo/stroke.vue)
 
 - You can set the icon's stroke width via the `strokeWidth` attribute.

@@ -9,21 +9,25 @@
 
 ## 代码演示
 
-[提示框](./demo/confirm.vue)
+[基本用法](./demo/basic.vue)
 
-- 全局的确认提示框，可以异步关闭
+- 使用 `v-model` 进行数据双向绑定
 
 [自定义](./demo/custom.vue)
 
 - 自定义 `Modal`
 
+[其它属性](./demo/more.vue)
+
+- 不需要页脚时，可以把 `footer` 为`null`
+
 [全局模式](./demo/global.vue)
 
 - 使用 全局模式
 
-[其它属性](./demo/more.vue)
+[提示框](./demo/confirm.vue)
 
-- 不需要页脚时，可以把 `footer` 为`null`
+- 全局的确认提示框，可以异步关闭
 
 ## API
 

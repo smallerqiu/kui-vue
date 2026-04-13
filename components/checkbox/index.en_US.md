@@ -9,13 +9,9 @@ Checkbox for multiple selections.
 
 ## Examples
 
-[Select All](./demo/check-all.vue)
+[Single Selection](./demo/basic.vue)
 
-- Select-all combination.
-
-[Disabled / Controlled](./demo/disabled.vue)
-
-- Set disabled state via `disabled`.
+- When used alone, a `v-model` value of `true` means checked, and `false` means unchecked.
 
 [Multiple Selection](./demo/group.vue)
 
@@ -24,6 +20,14 @@ Checkbox for multiple selections.
 [Group Layout](./demo/group-layout.vue)
 
 - Group layout.
+
+[Disabled / Controlled](./demo/disabled.vue)
+
+- Set disabled state via `disabled`.
+
+[Select All](./demo/check-all.vue)
+
+- Select-all combination.
 
 ## API
 

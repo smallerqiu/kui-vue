@@ -9,6 +9,14 @@ Dropdown selector.
 
 ## Examples
 
+[Single Selection](./demo/basic.vue)
+
+- Use `v-model` for two-way data binding.
+
+[Multiple Selection](./demo/multiple.vue)
+
+- Set the `multiple` value to present multi-select mode.
+
 [Disabled and Non-clearable](./demo/disabled.vue)
 
 - Use `v-model` for two-way data binding.
@@ -16,10 +24,6 @@ Dropdown selector.
 [Filtering and Searching](./demo/filterable.vue)
 
 - Set the `filterable` value to present filtering mode. > `filterable` and `onSearch` cannot be used simultaneously; search results will be filtered.
-
-[Multiple Selection](./demo/multiple.vue)
-
-- Set the `multiple` value to present multi-select mode.
 
 [Size](./demo/size.vue)
 

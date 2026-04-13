@@ -16,6 +16,10 @@
 
 - The simplest usage.
 
+[Alignment](./demo/align.vue)
+
+- Set the alignment mode.
+
 [Spacing Size](./demo/size.vue)
 
 - Use `size` to set the spacing between elements. Presets include `small`, `middle`, and `large`, or you can define a custom spacing.

@@ -13,13 +13,17 @@ Content area that can be collapsed/expanded.
 
 - By default, one or multiple panels can be expanded at the same time.
 
-[Extra Nodes](./demo/extra.vue)
+[Accordion](./demo/accordion.vue)
 
-- Multiple panels can be expanded simultaneously.
+- Set `accordion` to allow only one panel to be expanded at a time.
 
 [Nested Panels](./demo/nesting.vue)
 
 - Nested collapse panels.
+
+[Extra Nodes](./demo/extra.vue)
+
+- Multiple panels can be expanded simultaneously.
 
 [Simple Mode](./demo/sample.vue)
 

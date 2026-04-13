@@ -12,11 +12,13 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
 
-[Strange Cards](./demo/with-card.vue)
+[Basic Usage](./demo/basic.vue)
 
--
+- Display Numbers Only
 
-## StatCard API
+[Combination Display](./demo/with-card.vue)
+
+- Show more custom data combined with the `Card` component
 
 | Property       | Description                                              | Type                | Default   |
 | -------------- | -------------------------------------------------------- | ------------------- | --------- |

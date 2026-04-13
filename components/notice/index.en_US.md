@@ -12,17 +12,21 @@ Display notification reminder information in the four corners of the system. Oft
 
 ## Examples
 
-[Custom Duration](./demo/close.vue)
+[Basic Usage](./demo/basic.vue)
 
-- Can be custom configured. Use `duration` to control the auto-close duration (default `3s`).
+- Basic usage of `Notice`.
+
+[Notification with Icon](./demo/types.vue)
+
+- Call different methods to display different types.
 
 [Custom Icon](./demo/icon.vue)
 
 - Custom icon.
 
-[Notification with Icon](./demo/types.vue)
+[Custom Duration](./demo/close.vue)
 
-- Call different methods to display different types.
+- Can be custom configured. Use `duration` to control the auto-close duration (default `3s`).
 
 ## API
 

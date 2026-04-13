@@ -15,6 +15,30 @@
 
 - 相邻组件水平间距。
 
+[垂直间距](./demo/vertical.vue)
+
+- 相邻组件垂直间距。
+
+[间距大小](./demo/size.vue)
+
+- 间距预设大、中、小三种大小。 通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。
+
+[对齐](./demo/align.vue)
+
+- 设置对齐模式。
+
+[自定义尺寸](./demo/custom-size.vue)
+
+- 自定义间距大小。
+
+[设置换行](./demo/wrap.vue)
+
+- 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
+
+[分隔符](./demo/split.vue)
+
+- 相邻组件分隔符。
+
 [紧凑布局组合](./demo/compact.vue)
 
 - 使用 compact 让表单组件之间紧凑连接且合并边框。
@@ -26,26 +50,6 @@
 [垂直方向紧凑布局](./demo/compact-vertical.vue)
 
 - 垂直方向的紧凑布局，目前仅支持 Button 组合。
-
-[自定义尺寸](./demo/custom-size.vue)
-
-- 自定义间距大小。
-
-[间距大小](./demo/size.vue)
-
-- 间距预设大、中、小三种大小。 通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。
-
-[分隔符](./demo/split.vue)
-
-- 相邻组件分隔符。
-
-[垂直间距](./demo/vertical.vue)
-
-- 相邻组件垂直间距。
-
-[设置换行](./demo/wrap.vue)
-
-- 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 
 ## Space API
 
