@@ -1,11 +1,12 @@
 import {
-    defineComponent,
-    inject,
-    onMounted,
-    ref,
-    type ExtractPropTypes,
-    type PropType,
-    type Ref,
+  defineComponent,
+  getCurrentInstance,
+  inject,
+  onMounted,
+  ref,
+  type ExtractPropTypes,
+  type PropType,
+  type Ref,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -14,7 +15,6 @@ import { getChildren } from "../utils/vnode";
 export const menuItemProps = {
   icon: Array as PropType<IconType[]>,
   title: String,
-  key: { type: String, required: true },
   disabled: Boolean as BooleanType,
   isPopup: Boolean as BooleanType,
 };
@@ -26,9 +26,9 @@ const MenuItem = defineComponent({
   props: menuItemProps,
 
   setup(props, { slots }) {
-    let { icon, disabled, title, key } = props;
-    // const instance = getCurrentInstance();
-    // const key = instance?.vnode.key;
+    let { icon, disabled, title } = props;
+    const instance = getCurrentInstance();
+    const key = instance?.vnode.key;
 
     const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
     const mode = inject<Ref<string>>("menu-mode");

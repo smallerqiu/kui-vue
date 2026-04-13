@@ -42,7 +42,8 @@ export function setPlacement({
   } else if (refSelection && refSelection.value) {
     // 元素模式：真实 DOM 矩形
     const selection = refSelection.value;
-    rect = selection.getBoundingClientRect();
+    console.log(JSON.stringify(refSelection.value))
+    rect = selection.getBoundingClientRect?.();
   } else {
     return;
   }

@@ -1,13 +1,13 @@
 import {
-    computed,
-    defineComponent,
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    ref,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType
+  computed,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import Icon, { type IconType } from "../icon";
 
@@ -127,6 +127,6 @@ const Avatar = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default Avatar;

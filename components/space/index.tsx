@@ -12,7 +12,6 @@ export const spaceProps = {
   compact: Boolean as BooleanType,
   size: {
     type: [String, Number, Array] as PropType<SizeType | number | (number | string)[]>,
-    default: "small",
   },
 };
 
@@ -43,15 +42,16 @@ const Space = defineComponent({
           [`k-space-align-${align}`]: align,
         },
       ];
-
       if (!props.compact) {
         if (Array.isArray(size)) {
           style.gap = `${size[1]}px ${size[0]}px`;
         } else if (typeof size === "string") {
           const sizes = { small: 8, middle: 16, large: 24, default: 16 };
           style.gap = `${sizes[size]}px`;
-        } else if (!!size) {
-          style.gap = `${size}`;
+        } else if (typeof size === "number") {
+          style.gap = `${size}px`;
+        } else if (!size) {
+          style.gap = `8px`;
         }
       }
       // const _attrs = { ...attrs }
@@ -72,7 +72,7 @@ const Space = defineComponent({
             [`k-space-${pre}last-item`]: i === children.length - 1,
           },
         };
-        if (typeof size === "string" && ["large", "small"].includes(size)) {
+        if (typeof size === "string") {
           p.size = size;
         }
         const child = props.compact
