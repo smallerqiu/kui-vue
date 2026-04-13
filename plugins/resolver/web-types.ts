@@ -12,10 +12,10 @@ export const generateWebTypesConfig = (componentNames: string[]) => {
     name: "kui-vue", 
     version: pkg.version,
     "description-markup": "markdown",
+    "js-types-syntax": "typescript",   
     contributions: {
       html: {
-        "types-syntax": "typescript",
-        tags: componentNames.map((name) => {
+        elements: componentNames.map((name) => {
           const kebabName = name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
           const propsName = `${name}Props`;
 

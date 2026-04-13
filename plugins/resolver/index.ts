@@ -45,18 +45,18 @@ declare module '@vue/runtime-core' {
 
 export {}
 `;
-  const distDir = path.resolve(__dirname, "../../dist");
+  const distDir = path.resolve(__dirname, "../../types");
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
   fs.writeFileSync(path.resolve(distDir, "global.d.ts"), template);
   console.log("Global types generated with PascalCase names.");
 
-  const indexPath = path.resolve(__dirname, "../../dist/types/index.d.ts");
+  const indexPath = path.resolve(__dirname, "../../types/index.d.ts");
 
   if (fs.existsSync(indexPath)) {
     const content = fs.readFileSync(indexPath, "utf-8");
-    const injection = `/// <reference types="../global.d.ts" />\n`;
+    const injection = `/// <reference types="./global.d.ts" />\n`;
 
-    if (!content.includes('reference types="../global.d.ts"')) {
+    if (!content.includes('reference types="./global.d.ts"')) {
       const newContent = injection + content;
       fs.writeFileSync(indexPath, newContent);
     }
