@@ -12,8 +12,10 @@
   </Space>
 </template>
 <script setup lang="ts">
+import { RadioButton, RadioGroup, Select, Space } from "kui-vue";
 import { ref } from "vue";
-const size = ref("default");
+import type { SizeType } from "../../const/types";
+const size = ref<SizeType>("default");
 const value1 = ref(0);
 const value2 = ref([0, 1]);
 const value3 = ref([0, 1, 2]);
@@ -24,7 +26,7 @@ const data = [
   { label: "Pear", value: 3 },
   { label: "Grape", value: 4 },
 ];
-const setSize = (value) => {
+const setSize = (value: any) => {
   size.value = value;
 };
 </script>

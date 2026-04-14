@@ -123,6 +123,35 @@ const DatePicker = defineComponent({
       };
       return map[props.mode] || "YYYY-MM-DD";
     };
+    const scrollToCurrentTime = () => {
+      nextTick(() => {
+        let activeDate = dayjs();
+        if (props.mode === "dateTimeRange") {
+          const idx = timeEditSide.value === "start" ? 0 : 1;
+          const value = (innerValue.value as any[])[idx];
+          if (value) activeDate = value;
+        } else {
+          if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
+        }
+
+        const targets: Record<string, number> = {
+          hour: activeDate.hour(),
+          minute: activeDate.minute(),
+          second: activeDate.second(),
+        };
+
+        ["hour", "minute", "second"].forEach((type) => {
+          const el = timeColRefs.value[type];
+          if (el) {
+            el.scrollTop = targets[type] * 32 + 16;
+          }
+        });
+      });
+    };
+
+    watch([currentView, timeEditSide], ([v]) => {
+      if (v === "time") scrollToCurrentTime();
+    });
 
     const formatOutputValue = (dayjsVal: Dayjs | null) => {
       if (!dayjsVal) return null;
@@ -258,13 +287,7 @@ const DatePicker = defineComponent({
         setPlacement({ refSelection, refPopper, currentPlacement, transOrigin, top, left })
       );
     };
-
-    const togglePanel = () => {
-      if (props.disabled || isVisible.value) return;
-      if (!rendered.value) {
-        rendered.value = true;
-        document.addEventListener("click", handleClickOutside);
-      }
+    const updatePanelState = () => {
       isVisible.value = true;
       isFocus.value = true;
       const map: Record<string, typeof currentView.value> = {
@@ -278,7 +301,20 @@ const DatePicker = defineComponent({
       if (!innerValue.value) panelDate.value = base;
       else if (!Array.isArray(innerValue.value)) panelDate.value = innerValue.value;
       else panelDate.value = (innerValue.value as any[])[0] || base;
+    };
 
+    const togglePanel = () => {
+      if (props.disabled || isVisible.value) return;
+      if (!rendered.value) {
+        rendered.value = true;
+        document.addEventListener("click", handleClickOutside);
+        nextTick(() => {
+          updatePanelState();
+          updatePosition();
+        });
+        return;
+      }
+      updatePanelState();
       updatePosition();
     };
 
@@ -581,6 +617,16 @@ const DatePicker = defineComponent({
       );
     };
 
+    const timeLabelClick = (e: PointerEvent, direction: "start" | "end") => {
+      e.preventDefault();
+      if (timeEditSide.value == direction && currentView.value == "time") {
+        currentView.value = "date";
+        return;
+      }
+      timeEditSide.value = direction; //"start";
+      currentView.value = "time";
+    };
+
     const renderFooter = () => {
       if (!props.mode.includes("Time")) return null;
       if (props.mode === "dateTimeRange") {
@@ -594,11 +640,7 @@ const DatePicker = defineComponent({
                 "k-picker-footer-time",
                 { active: currentView.value === "time" && timeEditSide.value === "start" },
               ]}
-              onClick={(e) => {
-                e.preventDefault();
-                timeEditSide.value = "start";
-                currentView.value = "time";
-              }}
+              onClick={(e) => timeLabelClick(e, "start")}
             >
               {s}
             </div>
@@ -610,11 +652,7 @@ const DatePicker = defineComponent({
                 "k-picker-footer-time",
                 { active: currentView.value === "time" && timeEditSide.value === "end" },
               ]}
-              onClick={(e) => {
-                e.preventDefault();
-                timeEditSide.value = "end";
-                currentView.value = "time";
-              }}
+              onClick={(e) => timeLabelClick(e, "end")}
             >
               {e}
             </div>
@@ -677,6 +715,7 @@ const DatePicker = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         } as CSSProperties,
+        mode: props.mode,
       };
 
       const renderInput = () => {
@@ -755,12 +794,7 @@ const DatePicker = defineComponent({
 
       const overlay = rendered.value ? (
         <Transition name="k-date-picker">
-          <div
-            v-transfer={true}
-            v-show={isVisible.value}
-            {...overlayProps}
-            {...{ mode: props.mode }}
-          >
+          <div v-transfer={true} v-show={isVisible.value} {...overlayProps}>
             {renderPresets()}
             <div class="k-picker-container">
               {slots.header && (

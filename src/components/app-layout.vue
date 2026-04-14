@@ -14,19 +14,14 @@
           class="left-menu"
           mode="inline"
           :open-keys="openKeys"
-          @select="go"
+          @select="menuSelect"
         >
-          <MenuGroup
-            v-for="item in navData"
-            :key="item.key"
-            :title="$t(item.title)"
-            :name="item.title"
-          >
+          <MenuGroup v-for="item in navData" :key="item.key" :title="$t(item.title)">
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
                 <WebIcon :name="sub.icon" />
               </template>
-              <router-link :to="`/${item.key}/${sub.name}`">
+              <router-link :to="`/${item.key == 'guide' ? 'guide' : 'components'}/${sub.name}`">
                 <span>{{ sub.sub }}</span>
                 <span class="sub" v-if="lang != 'en'">{{ sub.title }}</span>
               </router-link>
@@ -46,11 +41,11 @@
             v-if="prevNavData.sub"
             :href="`/${prevNavData.key}/${prevNavData.name}`"
             class="nav-prev"
-            @click="(e) => navTo(e, 0)"
+            @click="(e) => navTo(e, false)"
           >
             <Icon :type="ChevronBack" />
             <span class="nav-text">
-              {{ prevNavData.sub }} {{ locale.name != "en" ? prevNavData.title : "" }}
+              {{ prevNavData.sub }} {{ locale?.name != "en" ? prevNavData.title : "" }}
             </span>
             <WebIcon :name="prevNavData.icon" />
           </a>
@@ -58,11 +53,11 @@
             v-if="nextNavData.sub"
             :href="`/${nextNavData.key}/${nextNavData.name}`"
             class="nav-next"
-            @click="(e) => navTo(e, 1)"
+            @click="(e) => navTo(e, true)"
           >
             <WebIcon :name="nextNavData.icon" />
             <span class="nav-text">
-              {{ nextNavData.sub }} {{ locale.name != "en" ? nextNavData.title : "" }}
+              {{ nextNavData.sub }} {{ locale?.name != "en" ? nextNavData.title : "" }}
             </span>
             <Icon :type="ChevronForward" />
           </a>
@@ -76,6 +71,7 @@
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
 import { ChevronBack, ChevronForward, Close, Menu as MenuIcon } from "kui-icons";
+import { Button, Content, Icon, Layout, Menu, MenuGroup, MenuItem, Sider } from "kui-vue";
 import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";
@@ -83,19 +79,19 @@ import WebIcon from "./web-icon.vue";
 const router = useRouter();
 const route = useRoute();
 const showMiniNav = ref(false);
-const nextNavData = reactive({});
-const prevNavData = reactive({});
-const activeName = ref([]);
+const nextNavData = reactive<Record<string, any>>({});
+const prevNavData = reactive<Record<string, any>>({});
+const activeName = ref<string[]>([]);
 const openKeys = ["start", "basic", "layouts", "navigation", "forms", "data", "notices", "other"];
 
-const locale = inject("locale");
+const locale = inject<Record<string, any>>("locale");
 const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
 const lang = computed(() => {
   // console.log(locale.value.name)
-  return locale.value?.name || "en";
+  return locale?.value.name || "en";
 });
-const navTo = (e, t) => {
+const navTo = (e: MouseEvent, t: boolean) => {
   e.stopPropagation();
   e.preventDefault();
   let c = t ? nextNavData : prevNavData;
@@ -103,10 +99,10 @@ const navTo = (e, t) => {
   router.push(path);
   setActiveKey({ path });
 };
-const go = ({ key, keyPath }) => {
+const menuSelect = () => {
   showMiniNav.value = false;
 };
-const getPath = (path) => {
+const getPath = (path: string) => {
   let [m, n] = path.split("/").filter((x) => x);
   let index = routeData.findIndex((x) => x.key == m && x.name == n.replace("-en", ""));
 
@@ -116,7 +112,7 @@ const getPath = (path) => {
     next: routeData[index + 1],
   };
 };
-const setActiveKey = ({ path }) => {
+const setActiveKey = ({ path }: { path: string }) => {
   let { current = {}, prev = {}, next = {} } = getPath(path);
   // console.log(current, prev, next);
   Object.assign(prevNavData, prev);

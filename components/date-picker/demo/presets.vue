@@ -22,11 +22,11 @@ import dayjs from "dayjs";
 import { ref } from "vue";
 const value1 = ref();
 const value2 = ref([]);
-const setDate1 = (emit) => {
+const setDate1 = (emit: (fn: any) => void) => {
   let date = dayjs().add(-1, "d");
   emit(date);
 };
-const setDate2 = (emit) => {
+const setDate2 = (emit: (fn: any) => void) => {
   let date = [dayjs().add(-7, "d"), dayjs()];
   emit(date);
 };

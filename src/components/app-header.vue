@@ -17,7 +17,6 @@
           theme="light"
           :show-arrow="false"
           filterable
-          :transfer="false"
           @change="change"
         >
           <Option v-for="(com, index) of routeData" :key="index" :value="com.name">
@@ -31,9 +30,9 @@
           v-model="themeColor"
           class="theme"
           mode="rgb"
-          :show-arrow="false"
+          :arrow="false"
           style="margin-left: 8px"
-          :no-alpha="true"
+          :disabledAlpha="true"
           @change="changeThemeColor"
         />
         <Tooltip :title="`${$t('menu.langTip')}`" placement="bottom">
@@ -59,7 +58,20 @@
 <script setup lang="ts">
 import Color from "color";
 import { Language, LogoGithub, LogoKui, Moon, Search, Sunny } from "kui-icons";
-import { type MenuSelectEvent, theme } from "kui-vue";
+import {
+  Button,
+  ColorPicker,
+  Divider,
+  Header,
+  Icon,
+  Menu,
+  type MenuSelectEvent,
+  Option,
+  Select,
+  Space,
+  theme,
+  Tooltip,
+} from "kui-vue";
 import { computed, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { version } from "../../package.json";
@@ -71,7 +83,7 @@ const topMenu = ref<string[]>([]);
 const themeMode = ref("");
 const queryKey = ref("");
 const $t = inject<(key: string) => string>("$t", (key: string) => key);
-const changeLang = inject("changeLang");
+const changeLang = inject<() => void>("changeLang");
 
 const items = computed(() => {
   return [
@@ -154,7 +166,7 @@ const go = ({ key }: MenuSelectEvent) => {
 };
 const change = (value: string) => {
   let item = routeData.filter((x) => x.name == value)[0] || {};
-  router.push(`/${item.key}/${value}`);
+  router.push(`/${item.key == "guide" ? "guide" : "components"}/${value}`);
   setTimeout(() => (queryKey.value = ""), 500);
 };
 </script>

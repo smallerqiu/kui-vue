@@ -82,7 +82,7 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e: PointerEvent) => {
-      const ctx = refSelection.value;
+      const ctx = (refSelection.value as any)?.$el || refSelection.value;
       if (!refPopper.value) return;
       const target = e.target as HTMLElement;
       if (
@@ -93,7 +93,6 @@ const Dropdown = defineComponent({
       }
     };
     const updatePosition = (e?: MouseEvent) => {
-      if (!e) return;
       const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
         setPlacement({
@@ -140,23 +139,23 @@ const Dropdown = defineComponent({
         toggle(true);
       }
     };
-    const mouseLeaveEvent = (e: MouseEvent) => {
+    const mouseLeaveEvent = () => {
       if (props.disabled) {
         return;
       }
       if (props.trigger == "hover") {
         showTimer.value = setTimeout(() => {
-          toggle(false, e);
+          toggle(false);
         }, 300);
       }
     };
-    const mouseEnterEvent = (e: MouseEvent) => {
+    const mouseEnterEvent = () => {
       if (props.disabled) {
         return;
       }
       if (props.trigger == "hover") {
         clearTimeout(showTimer.value);
-        toggle(true, e);
+        toggle(true);
       }
     };
     const contextmenuEvent = (e: MouseEvent) => {

@@ -38,6 +38,7 @@
   </Space>
 </template>
 <script setup lang="ts">
+import { Option, Select, Space } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref("");
 const value2 = ref([]);
@@ -46,11 +47,13 @@ const value4 = ref([]);
 
 const loading = ref(false);
 
-const optionsData = ref([]);
-const fetchData = (e) => {
+const optionsData = ref<string[]>([]);
+const fetchData = (e: InputEvent) => {
   loading.value = true;
   setTimeout(() => {
-    optionsData.value = options.filter((v) => v.includes(e.target.value.trim()));
+    optionsData.value = options.filter((v) =>
+      v.includes((e.target as HTMLInputElement).value.trim())
+    );
     loading.value = false;
   }, 1000);
 };

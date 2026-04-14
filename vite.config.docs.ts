@@ -2,6 +2,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
+import VueRouter from "vue-router/vite";
 import vueMarkdown from "./plugins/markdown";
 
 // https://vite.dev/config/
@@ -16,6 +17,10 @@ export default defineConfig(({ mode }) => {
       port: 7005,
     },
     plugins: [
+      VueRouter({
+        routesFolder: ["src/views"],
+        extensions: [".tsx"],
+      }),
       vueMarkdown(),
       vueJsx(),
       vue({

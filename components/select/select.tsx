@@ -97,14 +97,14 @@ const Select = defineComponent({
     const minWidth = ref(0);
     const queryInputFocused = ref(false);
     const queryInputRef = ref<HTMLInputElement | null>(null);
-    const hasSearchEvent = !!attrs?.onSearch;
+    const hasSearchEvent = !!props.onSearch;
     const refPopper = ref<HTMLElement | null>(null);
     const transOrigin = ref("bottom");
     const refSelection = ref<HTMLElement | null>(null);
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(props.placement);
-    const queryInputEventTimer = ref<ReturnType<typeof setTimeout> | null>(null);
+    const queryInputEventTimer = ref<NodeJS.Timeout>();
     const activeIndex = ref(-1);
 
     const reallySize = ref(0);
@@ -140,11 +140,9 @@ const Select = defineComponent({
     );
 
     const scrollOptionIntoView = () => {
-      if (!refPopper.value || activeIndex.value < 0) return;
       const containerEl = refPopper.value;
-      const optionEl = containerEl.children[0]?.children[activeIndex.value] as HTMLElement;
-      if (!optionEl) return;
-
+      if (!containerEl) return;
+      const optionEl = containerEl.children[0].children[activeIndex.value] as HTMLElement;
       const optionTop = optionEl.offsetTop;
       const optionHeight = optionEl.offsetHeight;
       const containerHeight = containerEl.clientHeight;
@@ -235,7 +233,7 @@ const Select = defineComponent({
     });
 
     const outsideClick = (e: MouseEvent) => {
-      const ctx = refSelection.value;
+      const ctx = (refSelection.value as any)?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target as Node) &&
@@ -432,7 +430,7 @@ const Select = defineComponent({
       const filter = props.filterable && key.trim() !== "";
       return filter
         ? optionsData.value.filter((item) =>
-            String(item.label).toLowerCase().includes(key.toLowerCase())
+            (item.label as string).toLowerCase().includes(key.toLowerCase())
           )
         : optionsData.value;
     };
@@ -595,7 +593,7 @@ const Select = defineComponent({
           {queryNode}
         </div>
       ) : !isEmpty(labelText.value) ? (
-        <div class="k-select-label" v-show={queryKey.value.length > 0}>
+        <div class="k-select-label" v-show={!queryKey.value.length}>
           {labelText.value[0]}
         </div>
       ) : null;
