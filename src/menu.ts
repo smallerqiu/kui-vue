@@ -32,7 +32,7 @@ const navData = [
     key: "basic",
     children: [
       { title: "按钮", sub: "Button", name: "button", icon: "Button" },
-      { title: "图标", sub: "Icon", name: "icons", icon: "Icons" },
+      { title: "图标", sub: "Icon", name: "icon", icon: "Icons" },
     ],
   },
   {
@@ -69,7 +69,7 @@ const navData = [
       { title: "分页", sub: "Page", name: "page", icon: "Pagination" },
       // { title: "步骤条", sub: "Steps", name: "steps", icon: 'done-all' },
       { title: "标签页", sub: "Tabs", name: "tabs", icon: "Tabs" },
-      { title: "回到顶部", sub: "BackTop", name: "backtop", icon: "Backtop" },
+      { title: "回到顶部", sub: "BackTop", name: "back-top", icon: "Backtop" },
     ],
   },
   {
@@ -80,7 +80,7 @@ const navData = [
       {
         title: "数字输入框",
         sub: "InputNumber",
-        name: "inputnumber",
+        name: "input-number",
         icon: "InputNumber",
       },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: "Checkbox" },
@@ -90,13 +90,13 @@ const navData = [
       {
         title: "树选择器",
         sub: "TreeSelect",
-        name: "treeselect",
+        name: "tree-select",
         icon: "TreeSelect",
       },
       {
         title: "日期选择框",
         sub: "DatePicker",
-        name: "datepicker",
+        name: "date-picker",
         icon: "Date",
       },
       { title: "上传", sub: "Upload", name: "upload", icon: "Upload" },
@@ -127,11 +127,11 @@ const navData = [
       {
         title: "统计卡片",
         sub: "StatCard",
-        name: "statcard",
+        name: "stat-card",
         icon: "Card",
       },
       { title: "表格", sub: "Table", name: "table", icon: "Table" },
-      { title: "时间轴", sub: "TimeLine", name: "timeline", icon: "Timeline" },
+      { title: "时间轴", sub: "TimeLine", name: "time-line", icon: "Timeline" },
       { title: "树形控件", sub: "Tree", name: "tree", icon: "Tree" },
       // { title: "树选择", sub: "TreeSelect", name: "treeselect", icon: 'git-pull-request' },
     ],
@@ -170,16 +170,16 @@ const navData = [
       {
         title: "颜色",
         sub: "ColorPicker",
-        name: "colorpicker",
+        name: "color-picker",
         icon: "Colors",
       },
     ],
   },
 ];
 
-const routeData = navData.reduce((current:any[], { key, children }) => {
+const routeData = navData.reduce((current: any[], { key, children }) => {
   current.push(...children);
-  children.map((x:any) => (x.key = key));
+  children.map((x: any) => (x.key = key));
   return current;
 }, []);
 export { navData, routeData };

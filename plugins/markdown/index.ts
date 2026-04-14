@@ -83,13 +83,13 @@ export default function vitePluginKuiMd(): Plugin {
         let demoCode = fs.readFileSync(absolutePath, "utf-8").trim().replace("/r/n", "");
         // demoCode = escapeHtml(demoCode);
         demoCode = markdown.render("```html\n" + demoCode);
-        // demoCode = demoCode
-        //   .replace(
-        //     /{{/g,
-        //     '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
-        //   )
-        //   .replace(/}}/g, "&#125;&#125;")
-        //   .replace(/<br>/g, "<br />");
+        demoCode = demoCode
+          .replace(
+            /{{/g,
+            '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
+          )
+          .replace(/}}/g, "&#125;&#125;")
+          .replace(/<br>/g, "<br />");
         demoImports.push(`import ${componentName} from '${src}';`);
         description = markdown.render(description);
         return `
@@ -100,10 +100,10 @@ export default function vitePluginKuiMd(): Plugin {
     <template #description>
       ${description.trim().replace(/\n/g, "")}
     </template>
-</Demo>\n\n\n`;
+</Demo>`;
       });
 
-      fs.writeFileSync(path.join(__dirname, "b.html"), processedMarkdown);
+      // fs.writeFileSync(path.join(__dirname, "b.html"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
       // console.log(processedMarkdown);
       const result = `
@@ -116,8 +116,8 @@ export default function vitePluginKuiMd(): Plugin {
 <script setup>
 ${demoImports.join("\n")}
 </script>`;
-      console.log(result);
-      fs.writeFileSync(path.join(__dirname, "s.html"), result);
+      // console.log(result);
+      // fs.writeFileSync(path.join(__dirname, "s.html"), result);
       return { code: result, map: null };
     },
   };

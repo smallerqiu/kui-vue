@@ -1,21 +1,21 @@
-import { Card } from "kui-vue";
+import { Card, Grid, GridItem } from "kui-vue";
 import { defineComponent, inject } from "vue";
-import WebIcon from "../components/web-icon";
+import WebIcon from "../components/web-icon.vue";
 import { navData } from "../menu";
 export default defineComponent({
   setup() {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
-    const locale = inject("locale");
-    const renderChildren = (children) => {
+    const locale = inject<Record<string, any>>("locale");
+    const renderChildren = (children: any[]) => {
       return (
         <Grid itemMinWidth={200} xGap={16} yGap={16}>
-          {children.map((item, i) => {
+          {children.map((item) => {
             return (
               <GridItem>
                 <router-link to={`/${item.key}/${item.name}`}>
                   <Card
                     bordered
-                    title={`${item.sub} ${locale.value?.name != "en" ? item.title : ""}`}
+                    title={`${item.sub} ${locale?.value.name != "en" ? item.title : ""}`}
                   >
                     <WebIcon class="icon-view" name={item.icon} />
                   </Card>
@@ -34,7 +34,7 @@ export default defineComponent({
           <p>
             <code>KUI</code> {$t("text.components_desc")}
           </p>
-          {nav.map((item, x) => {
+          {nav.map((item) => {
             return [<h2>{$t(item.title)}</h2>, renderChildren(item.children)];
           })}
         </div>

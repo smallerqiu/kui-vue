@@ -10,7 +10,6 @@ export const contentProps = {
   content: [String, Object],
   icon:  Array as PropType<IconType[]>,
   color: String,
-  key: String,
   duration: Number,
   closable: Boolean as BooleanType,
   onClose: Function as PropType<() => void>,

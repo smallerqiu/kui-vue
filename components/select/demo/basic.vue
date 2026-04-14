@@ -12,10 +12,11 @@
   </Space>
 </template>
 <script setup lang="ts">
+import { Option, Select, Space, type SelectOption } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref(2);
 const value2 = ref(2);
-const data = ref([
+const data = ref<SelectOption[]>([
   { label: "Apple", value: 0 },
   { label: "Orange", value: 1 },
   { label: "Banana", value: 2 },

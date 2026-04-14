@@ -10,8 +10,9 @@
   </Space>
 </template>
 <script setup lang="ts">
+import { CaretDown, Search } from "kui-icons";
+import { Select, Space } from "kui-vue";
 import { ref } from "vue";
-import { Search, CaretDown } from "kui-icons";
 
 const value = ref(["1", "3"]);
 const options = [
