@@ -14,27 +14,35 @@ Assists with page-level overall layout.
 
 ## Examples
 
-[Modern Enterprise Admin Console](./demo/enterprise-admin-console.vue)
+[Modern Enterprise Admin Console](./demo/enterprise-admin-console.vue?show=vertical)
 
-- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems. - Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer. - Matching components: Menu (vertical mode), Breadcrumb, Avatar.
+- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems.
+- Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer.
+- Matching components: Menu (vertical mode), Breadcrumb, Avatar.
 
-[Responsive Portal/Official Website Layout (Portal Exhibition)](./demo/portal-exhibition.vue)
+[Responsive Portal/Official Website Layout (Portal Exhibition)](./demo/portal-exhibition.vue?show=vertical)
 
-- Suitable for portal websites, showcase websites, or personal blogs with a large amount of information but shallow hierarchy. - **Layout Logic**: A single vertical Layout, directly arranging Header, Content, and Footer. - **Matching Components**: Menu (horizontal mode), Carousel (slideshow), Card (content card).
+- Suitable for portal websites, showcase websites, or personal blogs with a large amount of information but shallow hierarchy.
+- **Layout Logic**: A single vertical Layout, directly arranging Header, Content, and Footer.
+- **Matching Components**: Menu (horizontal mode), Carousel (slideshow), Card (content card).
 
-[Documentation/Knowledge Base Layout](./demo/documentation-layout.vue)
+[Documentation/Knowledge Base Layout](./demo/documentation-layout.vue?show=vertical)
 
-- Imitate the structure of official documentation like Vue or React, with a focus on a fixed sidebar for directory navigation. - **Layout Logic**: The Header spans the full width, and the Layout below includes a Sider (usually on the left or right as an index) and Content. - **Matching Components**: Input (search box), Anchor (anchor navigation), Divider (divider line).
+- Imitate the structure of official documentation like Vue or React, with a focus on a fixed sidebar for directory navigation.
+- **Layout Logic**: The Header spans the full width, and the Layout below includes a Sider (usually on the left or right as an index) and Content.
+- **Matching Components**: Input (search box), Anchor (anchor navigation), Divider (divider line).
 
-[Task Workbench (The "Workbench" Details Layout)](./demo/workbench-layout.vue)
+[Task Workbench (The "Workbench" Details Layout)](./demo/workbench-layout.vue?show=vertical)
 
 - Left navigation + Middle dashboard + Right detail panel (Right Sider).
 
-[Modern Enterprise Admin Console](./demo/messaging-collaboration.vue)
+[Modern Enterprise Admin Console](./demo/messaging-collaboration.vue?show=vertical)
 
-- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems. - Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer. - Matching components: Menu (vertical mode), Breadcrumb, Avatar.
+- The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems.
+- Layout logic: The outer Layout includes the Sider, while the inner Layout contains the Header, Content, and Footer.
+- Matching components: Menu (vertical mode), Breadcrumb, Avatar.
 
-[Visual Editor Layout (IDE / Low-code Layout)](./demo/low-code-layout.vue)
+[Visual Editor Layout (IDE / Low-code Layout)](./demo/low-code-layout.vue?show=vertical)
 
-- - Scenario: Similar to VS Code, Figma, or low-code platforms. - Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer). This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.
-
+- Scenario: Similar to VS Code, Figma, or low-code platforms.
+- Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer). This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.

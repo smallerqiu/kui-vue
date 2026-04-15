@@ -47,47 +47,47 @@ const columns = [
 
 ## Examples
 
-[Basic Usage](./demo/basic.vue)
+[Basic Usage](./demo/basic.vue?show=vertical)
 
 - A regular table.
 
-[Basic Usage (Using render)](./demo/base-render.vue)
+[Basic Usage (Using render)](./demo/base-render.vue?show=vertical)
 
 - Use custom `render` to initialize the table.
 
-[Custom Table Header](./demo/custom-header.vue)
+[Custom Table Header](./demo/custom-header.vue?show=vertical)
 
 - A table with a customizable header. You can define the header via `#header-`.
 
-[Custom Header and Footer](./demo/bordered.vue)
+[Custom Header and Footer](./demo/bordered.vue?show=vertical)
 
 - Add table border lines, header, and footer.
 
-[Sorting](./demo/table-sorter.vue)
+[Sorting](./demo/table-sorter.vue?show=vertical)
 
 - `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
 
-[Table Row/Column Span](./demo/col-row-span.vue)
+[Table Row/Column Span](./demo/col-row-span.vue?show=vertical)
 
 - Headers support only column spanning; use colSpan inside column definitions to configure. The table supports row and column spanning; in renders, use cell props colSpan or rowSpan. When set to 0, the cell will not render.
 
-[Editable Cells](./demo/table-edit.vue)
+[Editable Cells](./demo/table-edit.vue?show=vertical)
 
 - A table with cell editing functionality.
 
-[Fixed Header/Columns](./demo/fixed-col-header.vue)
+[Fixed Header/Columns](./demo/fixed-col-header.vue?show=vertical)
 
 - For data with many columns, you can fix the front and back columns and scroll horizontally to view other data. You need to set the table's width `scroll.x` and `scroll.y`.
 
-[Header Grouping](./demo/header-span.vue)
+[Header Grouping](./demo/header-span.vue?show=vertical)
 
 - `columns[n]` can nest `children` to render grouped headers.
 
-[Checkbox Selection](./demo/table-check.vue)
+[Checkbox Selection](./demo/table-check.vue?show=vertical)
 
 - Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
 
-[Dynamically Control Table Properties](./demo/size.vue)
+[Dynamically Control Table Properties](./demo/size.vue?show=vertical)
 
 - Select different configuration combinations to see the effects.
 

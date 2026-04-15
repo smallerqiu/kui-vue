@@ -29,45 +29,49 @@ The Layout and its subcomponents (Header, Sider, Content, Footer) belong to the 
 
 You can manually resize the browser window to observe the effect.
 
-[Basic Usage](./demo/basic.vue)
+[Basic Usage](./demo/basic.vue?show=vertical)
 
 - > The `offset` logic of Grid is based on `grid-column-start`. In `dense` fill mode, `offset` might cause unexpected "gap-filling" behavior.
 
-[Dashboard Card Layout (Auto-fill + Min-Width)](./demo/auto-fill-min-width.vue)
+[Dashboard Card Layout (Auto-fill + Min-Width)](./demo/auto-fill-min-width.vue?show=vertical)
 
-- No need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width. > When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.
+- No need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width.
+  > When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.
 
-[Complex Form Responsiveness (Breakpoint Fallback)](./demo/breakpoint-fallback.vue)
+[Complex Form Responsiveness (Breakpoint Fallback)](./demo/breakpoint-fallback.vue?show=vertical)
 
 - The logic for finding breakpoints up or down. For example, if `md` is defined but `lg` is not, can the system correctly apply the `md` value?
 
-[Holy Grail Layout / Admin Panel (Fixed Rows & Areas)](./demo/fixed-rows-areas.vue)
+[Holy Grail Layout / Admin Panel (Fixed Rows & Areas)](./demo/fixed-rows-areas.vue?show=vertical)
 
 - The vertical control power of `rows` and `rowSpan`.
 
-[Responsive Hiding & Forced Sorting (Suffix & Display None)](./demo/suffix-display-none.vue)
+[Responsive Hiding & Forced Sorting (Suffix & Display None)](./demo/suffix-display-none.vue?show=vertical)
 
 - `span: 0` completely removes the DOM placeholder, and `suffix` spans across all dynamic items.
 
-[Image Gallery / Masonry (Bento Grid Style)](./demo/bento.vue)
+[Image Gallery / Masonry (Bento Grid Style)](./demo/bento.vue?show=vertical)
 
 - Asymmetric layout.
 
-[Complex Data Detail Page (Alignment & Whitespace)](./demo/align-white-space.vue)
+[Complex Data Detail Page (Alignment & Whitespace)](./demo/align-white-space.vue?show=vertical)
 
 - Effect of a Descriptions list, but automatically adjusts display density on different screens.
 
-[Hero Section Overlay Layout (Layering)](./demo/hero-section.vue)
+[Hero Section Overlay Layout (Layering)](./demo/hero-section.vue?show=vertical)
 
 - The overlapping capability of `grid-column-start` and `grid-row-start`, with text floating over a specific part of an image.
 
-[Responsive Footer / Menu (Footer Strategy)](./demo/footer-strategy.vue)
+[Responsive Footer / Menu (Footer Strategy)](./demo/footer-strategy.vue?show=vertical)
 
 - Extreme compression from "multi-column vertical arrangement" to "single-column folding".
 
-[Layout Hierarchy Design (Architecture)](./demo/architecture.vue)
+[Layout Hierarchy Design (Architecture)](./demo/architecture.vue?show=vertical)
 
-- - Layer 1: Layout series — the main page skeleton (Header + Sider + Content). - Layer 2: Grid series — the primary 2D layout for the content area (stat cards, Bento chart matrix). - Layer 3: Row/Col — simple 1D proportional division (e.g., two side-by-side tables at the bottom). - Layer 4: Flex — extremely fine-grained content alignment (card title + icon).
+- Layer 1: Layout series — the main page skeleton (Header + Sider + Content).
+- Layer 2: Grid series — the primary 2D layout for the content area (stat cards, Bento chart matrix).
+- Layer 3: Row/Col — simple 1D proportional division (e.g., two side-by-side tables at the bottom).
+- Layer 4: Flex — extremely fine-grained content alignment (card title + icon).
 
 ## Grid API
 

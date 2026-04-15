@@ -10,10 +10,15 @@
 ## 1. 初始化一个项目
 
 ```bash
-# npm 7+，需要添加额外的 --：
-$ npm create vite@latest my-app -- --template vue
-#or
-$ yarn create vite my-app --template vue
+npm create vite@latest my-app -- --template vue
+```
+
+```bash
+pnpm create vite my-app --template vue
+```
+
+```bash
+yarn create vite my-app --template vue
 ```
 
 然后按照提示操作即可！
@@ -47,28 +52,30 @@ app.use(kui).mount("#app");
 
 ### 使用规范
 
-组件支持全小写或首字母大写，如：`Button`, 或者 `k-button` :
+组件支持全小写或首字母大写，如：`Button`,`KButton`, 或者 `k-button` :
 
 ```html
 <template>
   <div>
-    <KButton type="primary">button</KButton> ✅ 推荐 
+    <Button type="primary">button</Button> ✅ 推荐
+    <!-- ok -->
+    <KButton type="primary">button</KButton> ✅ 
     <!-- ok -->
     <k-button type="primary">button</k-button> ✅
   </div>
 </template>
 ```
 
-但是 `Switch` 、 `Image` 只支持 以k开头 :
+注意 `Switch` 、 `Image`组件只支持 以k开头 :
 
 ```html
 <template>
   <div>
-    <KSwitch type="primary" /> ✅ 推荐 
+    <KSwitch type="primary" /> ✅ 推荐
     <!-- ok -->
     <KImage src="xxx" /> ✅
     <!-- ok -->
-    <k-switch type="primary" /> ✅ 
+    <k-switch type="primary" /> ✅
     <!-- ok -->
     <k-image src="xxx" /> ✅
   </div>

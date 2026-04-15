@@ -8,7 +8,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ## Examples
 
-[Card Display](./demo/card.vue)
+[Card Display](./demo/card.vue?show=vertical)
 
 - Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
 

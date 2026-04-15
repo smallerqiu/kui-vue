@@ -55,7 +55,7 @@ const docsGlobs = import.meta.glob("./views/**/*.md");
 const docsRoutes: RouteRecordRaw[] = [];
 for (let key in docsGlobs) {
   // console.log(key);
-  const name = key.split("/")[2].replace(/.md|en_US.md/g, "");
+  const name = key.split("/")[2].replace(/.md|.en_US.md/g, "");
   let route: RouteRecordRaw = {
     path: key.includes("US") ? name + "-en" : name,
     component: () => docsGlobs[key](),

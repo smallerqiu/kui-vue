@@ -20,7 +20,7 @@ KUI components use Chinese by default internally. If you wish to use another lan
 
 ## Example
 
-[Multilingual switching example](./demo.vue)
+[Multilingual switching example](./demo.vue?show=vertical)
 
 - Switch languages by modifying the locale property of ConfigProvider.
 

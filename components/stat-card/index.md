@@ -8,7 +8,7 @@
 
 ## 代码演示
 
-[卡片展示](./demo/card.vue)
+[卡片展示](./demo/card.vue?show=vertical)
 
 - 用于 Dashboard 场景 , 结合 `Grid` 可以很好的适配多种设备.
 

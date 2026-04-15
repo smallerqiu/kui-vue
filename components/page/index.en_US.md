@@ -9,15 +9,15 @@ Separate long lists using pagination, loading only one page at a time.
 
 ## Examples
 
-[Basic Usage](./demo/basic.vue)
+[Basic Usage](./demo/basic.vue?show=vertical)
 
 - Basic pagination.
 
-[Items / Jump](./demo/sizer-elevator.vue)
+[Items / Jump](./demo/sizer-elevator.vue?show=vertical)
 
 - Change the number of items displayed per page.
 
-[Size](./demo/size.vue)
+[Size](./demo/size.vue?show=vertical)
 
 - Display small size.
 

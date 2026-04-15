@@ -10,10 +10,15 @@ Before you begin, if you are new to Vue, it is recommended to first review the V
 ## 1. Initialize a Project
 
 ```bash
-# For npm 7+, extra double-dash is needed:
-$ npm create vite@latest my-app -- --template vue
-# or
-$ yarn create vite my-app --template vue
+npm create vite@latest my-app -- --template vue
+```
+
+```bash
+pnpm create vite my-app --template vue
+```
+
+```bash
+yarn create vite my-app --template vue
 ```
 
 Then, just follow the prompts!
@@ -47,18 +52,21 @@ The above code completes the import of KUI. Note: The style file needs to be imp
 
 ### Usage Conventions
 
-Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button` or `k-button`:
+Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button`,`KButton` or `k-button`:
 
 ```html
 <template>
   <div>
-    <KButton type="primary">button</KButton> ✅ Recommended
+    <Button type="primary">button</Button> ✅ Recommended
+    <!-- ok -->
+    <KButton type="primary">button</KButton> ✅ 
+    <!-- ok -->
     <k-button type="primary">button</k-button> ✅
   </div>
 </template>
 ```
 
-However, components like `Switch` and `Image` only support the k-prefixed format:
+Note that the `Switch` and `Image` components only support names starting with 'k'.
 
 ```html
 <template>

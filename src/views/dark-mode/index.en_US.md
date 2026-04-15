@@ -88,6 +88,6 @@ Add the 'theme-mode=dark' or 'theme-mode=light' attribute to the top-level eleme
 
 > Note: Local dark/light mode does not apply to pop-up layers.
 
-[Local darkening](./local.md)
+[Local darkening](./local.md?show=vertical)
 
 - Control local dark mode by setting the `theme-mode` attribute of the top-level element
