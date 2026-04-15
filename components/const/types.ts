@@ -24,6 +24,7 @@ export type DropPlacementsType =
   | "bottom-right";
 
 export type SizeType = "small" | "middle" | "large" | "default";
+export type ShapeType = "circle" | "square" | "round";
 export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
