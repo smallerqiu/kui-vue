@@ -12,19 +12,19 @@
 
 ## 代码演示
 
-[基本布局](./demo/basic.vue)
+[基本布局](./demo/basic.vue?show=vertical)
 
 - 最简单的用法。
 
-[对齐方式](./demo/align.vue)
+[对齐方式](./demo/align.vue?show=vertical)
 
 - 设置对齐模式。
 
-[间距大小](./demo/size.vue)
+[间距大小](./demo/size.vue?show=vertical)
 
 - 使用 size 设置元素之间的间距，预设了 small、middle、large 三种尺寸，也可以自定义间距。
 
-[设置换行](./demo/wrap.vue)
+[设置换行](./demo/wrap.vue?show=vertical)
 
 - 当间距为水平方向时，可使用 wrap 设置是否自动换行，默认情况下为 false。
 

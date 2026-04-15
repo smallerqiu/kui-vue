@@ -25,7 +25,7 @@
 
 - suffix，prefix 扩展
 
-[输入框组合](./demo/group.vue)
+[输入框组合](./demo/group.vue?show=vertical)
 
 - 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
 

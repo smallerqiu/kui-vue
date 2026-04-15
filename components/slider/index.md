@@ -24,15 +24,15 @@
 
 - 使用 tipFormatter 可以设置 Tooltip 的显示的格式。 当 tooltipVisible 为 true 时，将始终显示 ToolTip；反之则始终不显示，即使在拖动、移入时也是如此。
 
-[带标签的](./demo/marks.vue)
+[带标签的](./demo/marks.vue?show=vertical)
 
 - 使用 marks 属性标注滑块的刻度，使用 value 指定滑块位置。
 
-[垂直](./demo/vertical.vue)
+[垂直](./demo/vertical.vue?show=vertical)
 
 - 垂直方向的 Slider。
 
-[反向](./demo/reverse.vue)
+[反向](./demo/reverse.vue?show=vertical)
 
 - 设置 `reverse` 可以将滑动条置反。
 

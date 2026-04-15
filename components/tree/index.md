@@ -30,7 +30,7 @@
 
 - 可以针对不同的节点定制图标。
 
-[群控](./demo/directory.vue)
+[群控](./demo/directory.vue?show=vertical)
 
 - 展示目录、连接线、拖动、复选框、图标、扩展
 

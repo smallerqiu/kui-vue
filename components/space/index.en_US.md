@@ -23,11 +23,11 @@ Avoid components sticking together, create uniform space.
 
 - Preset spacing sizes: large, medium, and small. Set `size` to `large` or `middle` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.
 
-[Alignment](./demo/align.vue)
+[Alignment](./demo/align.vue?show=vertical)
 
 - Set the alignment mode.
 
-[Custom Size](./demo/custom-size.vue)
+[Custom Size](./demo/custom-size.vue?show=vertical)
 
 - Customize spacing size.
 
@@ -39,11 +39,11 @@ Avoid components sticking together, create uniform space.
 
 - Divider between adjacent components.
 
-[Compact Layout Group](./demo/compact.vue)
+[Compact Layout Group](./demo/compact.vue?show=vertical)
 
 - Use `compact` to tightly connect form components and merge borders.
 
-[Button Compact Layout](./demo/compact-button.vue)
+[Button Compact Layout](./demo/compact-button.vue?show=vertical)
 
 - Example of compactly arranged Button components.
 

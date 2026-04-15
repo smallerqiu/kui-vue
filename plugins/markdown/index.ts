@@ -40,59 +40,34 @@ export default function vitePluginKuiMd(): Plugin {
     transform(code, id) {
       if (!id.endsWith(".md")) return null;
 
-      const vertical_list = [
-        "table",
-        "grid",
-        "row-col/index",
-        "dark-mode",
-        "flex",
-        "layout/index",
-        "space",
-        "menu",
-        "page",
-        "tabs",
-        "descriptions",
-        "skeleton",
-        "form/",
-        "anchor/",
-        "input/demo/group",
-        "slider/demo/marks",
-        "tree/demo/directory",
-        "views/language/demo",
-        "stat-card/demo/card",
-      ];
-      let direction = "horizontal";
-      vertical_list.forEach((item) => {
-        if (id.includes(item)) {
-          direction = "vertical";
-        }
-      });
-
       const demoImports: string[] = [];
       let demoCount = 0;
 
       // \[(.*?)\]\((.*?\.vue)\) : 匹配 [标题](./路径.vue)
       // \s*\n\s*-\s+(.*)       : 匹配换行后的横杠及其后面的描述内容
-      const reg = /\[(.*?)\]\((.*?\.vue)\)\s*\n\s*-\s+(.*)/g;
+      const reg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
 
-      const processedMarkdown = code.replace(reg, (_, title, src, description) => {
-        const componentName = `KuiDemo${demoCount++}`;
-        const _id = "k-" + hashId(id);
+      const processedMarkdown = code.replace(
+        reg,
+        (_, title, src, direction = "horizontal", description) => {
+          console.log(direction);
+          const componentName = `KuiDemo${demoCount++}`;
+          const _id = "k-" + hashId(id);
 
-        const absolutePath = path.resolve(path.dirname(id), src);
-        let demoCode = fs.readFileSync(absolutePath, "utf-8").trim().replace("/r/n", "");
-        // demoCode = escapeHtml(demoCode);
-        demoCode = markdown.render("```html\n" + demoCode);
-        demoCode = demoCode
-          .replace(
-            /{{/g,
-            '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
-          )
-          .replace(/}}/g, "&#125;&#125;")
-          .replace(/<br>/g, "<br />");
-        demoImports.push(`import ${componentName} from '${src}';`);
-        description = markdown.render(description);
-        return `
+          const absolutePath = path.resolve(path.dirname(id), src);
+          let demoCode = fs.readFileSync(absolutePath, "utf-8").trim().replace("/r/n", "");
+          // demoCode = escapeHtml(demoCode);
+          demoCode = markdown.render("```html\n" + demoCode);
+          demoCode = demoCode
+            .replace(
+              /{{/g,
+              '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
+            )
+            .replace(/}}/g, "&#125;&#125;")
+            .replace(/<br>/g, "<br />");
+          demoImports.push(`import ${componentName} from '${src}';`);
+          description = markdown.render(description);
+          return `
 <Demo id="${_id}" direction="${direction}">
     <template #title>${title}</template>
     <template #component><${componentName} /></template>
@@ -101,9 +76,10 @@ export default function vitePluginKuiMd(): Plugin {
       ${description.trim().replace(/\n/g, "")}
     </template>
 </Demo>`;
-      });
+        }
+      );
 
-      // fs.writeFileSync(path.join(__dirname, "b.html"), processedMarkdown);
+      fs.writeFileSync(path.join(__dirname, "b.html"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
       // console.log(processedMarkdown);
       const result = `
@@ -117,7 +93,7 @@ export default function vitePluginKuiMd(): Plugin {
 ${demoImports.join("\n")}
 </script>`;
       // console.log(result);
-      // fs.writeFileSync(path.join(__dirname, "s.html"), result);
+      fs.writeFileSync(path.join(__dirname, "s.html"), result);
       return { code: result, map: null };
     },
   };

@@ -9,15 +9,15 @@
 
 ## 代码演示
 
-[基本用法](./demo/basic.vue)
+[基本用法](./demo/basic.vue?show=vertical)
 
 - 基础分页。
 
-[条目 / 跳转](./demo/sizer-elevator.vue)
+[条目 / 跳转](./demo/sizer-elevator.vue?show=vertical)
 
 - 改变每页显示条目数。
 
-[尺寸](./demo/size.vue)
+[尺寸](./demo/size.vue?show=vertical)
 
 - 展示小尺寸。
 

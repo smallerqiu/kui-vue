@@ -19,15 +19,15 @@
 
 - 相邻组件垂直间距。
 
-[间距大小](./demo/size.vue)
+[间距大小](./demo/size.vue?show=vertical)
 
 - 间距预设大、中、小三种大小。 通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。
 
-[对齐](./demo/align.vue)
+[对齐](./demo/align.vue?show=vertical)
 
 - 设置对齐模式。
 
-[自定义尺寸](./demo/custom-size.vue)
+[自定义尺寸](./demo/custom-size.vue?show=vertical)
 
 - 自定义间距大小。
 
@@ -39,11 +39,11 @@
 
 - 相邻组件分隔符。
 
-[紧凑布局组合](./demo/compact.vue)
+[紧凑布局组合](./demo/compact.vue?show=vertical)
 
 - 使用 compact 让表单组件之间紧凑连接且合并边框。
 
-[Button 紧凑布局](./demo/compact-button.vue)
+[Button 紧凑布局](./demo/compact-button.vue?show=vertical)
 
 - Button 组件紧凑排列的示例。
 

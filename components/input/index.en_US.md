@@ -25,7 +25,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 - suffix, prefix extension.
 
-[Input Group](./demo/group.vue)
+[Input Group](./demo/group.vue?show=vertical)
 
 - Use `InputGroup` to tightly connect components and merge borders. Default is `true`.
 

@@ -88,6 +88,6 @@ monitor.addEventListener("change", matchMode);
 
 > 注意: 局部暗色/亮色对弹出层不生效
 
-[局部暗色](./local.md)
+[局部暗色](./local.md?show=vertical)
 
 - 通过设置顶层元素的 `theme-mode` 属性来控制局暗色模式

@@ -8,23 +8,23 @@ Commonly seen in detail page information display.
 
 ## Examples
 
-[Basic Usage](./demo/basic.vue)
+[Basic Usage](./demo/basic.vue?show=vertical)
 
 - Simple display.
 
-[Bordered](./demo/bordered.vue)
+[Bordered](./demo/bordered.vue?show=vertical)
 
 - List with borders and background colors.
 
-[Custom Size](./demo/size.vue)
+[Custom Size](./demo/size.vue?show=vertical)
 
 - Customize the size to adapt to various containers.
 
-[Vertical](./demo/vertical.vue)
+[Vertical](./demo/vertical.vue?show=vertical)
 
 - Vertical list.
 
-[Vertical Bordered](./demo/vertical-bordered.vue)
+[Vertical Bordered](./demo/vertical-bordered.vue?show=vertical)
 
 - Vertical list with borders and background colors.
 

@@ -4,15 +4,15 @@
 
 ## 代码演示
 
-[基础用法（侧边栏目录）](./demo/basic.vue)
+[基础用法（侧边栏目录）](./demo/basic.vue?show=vertical)
 
 - 最常见的场景：右侧显示长文章，左侧或右侧固定锚点导航。
 
-[嵌套锚点（复杂文档结构）](./demo/nested-anchors.vue)
+[嵌套锚点（复杂文档结构）](./demo/nested-anchors.vue?show=vertical)
 
 - 适用于多层级标题的文档。
 
-[指定容器（滚动容器内定位）](./demo/within-container.vue)
+[指定容器（滚动容器内定位）](./demo/within-container.vue?show=vertical)
 
 - 如果你的页面不是全屏滚动，而是在一个特定的 div 内滚动。
 

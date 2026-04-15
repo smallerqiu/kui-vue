@@ -1,7 +1,7 @@
 import { Card, Grid, GridItem } from "kui-vue";
 import { defineComponent, inject } from "vue";
-import WebIcon from "../components/web-icon.vue";
-import { navData } from "../menu";
+import WebIcon from "../../components/web-icon.vue";
+import { navData } from "../../menu";
 export default defineComponent({
   setup() {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);

@@ -30,7 +30,7 @@ Folders, organizational structures, biological classifications, countries and re
 
 - You can customize icons for different nodes.
 
-[Group Control](./demo/directory.vue)
+[Group Control](./demo/directory.vue?show=vertical)
 
 - Displays directories, connecting lines, drag-and-drop, checkboxes, icons, and extensions.
 

@@ -83,7 +83,7 @@
 </template>
 <script setup lang="ts">
 import dayjs from "dayjs";
-import "dayjs/locale/de";
+// import "dayjs/locale/de";
 import { message, modal } from "kui-vue";
 import de from "kui-vue/locale/de";
 import en from "kui-vue/locale/en";
@@ -91,7 +91,7 @@ import zh from "kui-vue/locale/zh-CN";
 import { reactive, ref } from "vue";
 const lang = ref("en");
 const locale = ref(en);
-dayjs.locale("en");
+// dayjs.locale("en");
 const columns = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },

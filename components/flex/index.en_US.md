@@ -12,19 +12,19 @@
 
 ## Examples
 
-[Basic Layout](./demo/basic.vue)
+[Basic Layout](./demo/basic.vue?show=vertical)
 
 - The simplest usage.
 
-[Alignment](./demo/align.vue)
+[Alignment](./demo/align.vue?show=vertical)
 
 - Set the alignment mode.
 
-[Spacing Size](./demo/size.vue)
+[Spacing Size](./demo/size.vue?show=vertical)
 
 - Use `size` to set the spacing between elements. Presets include `small`, `middle`, and `large`, or you can define a custom spacing.
 
-[Set Wrapping](./demo/wrap.vue)
+[Set Wrapping](./demo/wrap.vue?show=vertical)
 
 - When spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.
 

@@ -8,23 +8,23 @@
 
 ## 代码演示
 
-[基本用法](./demo/basic.vue)
+[基本用法](./demo/basic.vue?show=vertical)
 
 - 简单的展示。
 
-[带边框的](./demo/bordered.vue)
+[带边框的](./demo/bordered.vue?show=vertical)
 
 - 带边框和背景颜色列表。
 
-[自定义尺寸](./demo/size.vue)
+[自定义尺寸](./demo/size.vue?show=vertical)
 
 - 自定义尺寸，适应在各种容器中展示。
 
-[垂直](./demo/vertical.vue)
+[垂直](./demo/vertical.vue?show=vertical)
 
 - 垂直的列表。
 
-[垂直带边框](./demo/vertical-bordered.vue)
+[垂直带边框](./demo/vertical-bordered.vue?show=vertical)
 
 - 垂直带边框和背景颜色的列表。
 
