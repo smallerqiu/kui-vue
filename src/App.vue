@@ -52,10 +52,10 @@ const changeLang = () => {
   const value = lang.value === "en" ? "zh" : "en";
   localStorage.setItem("lang", value);
   lang.value = value;
-  const quickPath = /quick-started|usage-with-nuxt|change-log/;
-  if (quickPath.test(route.path)) {
-    window.location.reload();
-  }
+  // const quickPath = /quick-started|usage-with-nuxt|change-log/;
+  // if (quickPath.test(route.path)) {
+  window.location.reload();
+  // }
 };
 
 provide("$t", $t);
