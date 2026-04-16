@@ -1,25 +1,25 @@
 import {
-    computed,
-    defineComponent,
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    type ExtractPropTypes,
-    type InjectionKey
+  computed,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  type ExtractPropTypes,
+  type InjectionKey,
 } from "vue";
 import type { BooleanType } from "../const/types";
 
-const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol('SiderHookKey');
+const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol("SiderHookKey");
 
 export const layoutProps = {
-  suffixCls: { type: String, default: 'layout' },
-  hasSider: { type: Boolean as BooleanType, default: undefined } // 允许手动指定是否有 Sider
+  suffixCls: { type: String, default: "layout" },
+  hasSider: { type: Boolean as BooleanType, default: undefined }, // 允许手动指定是否有 Sider
 };
 
 export const siderProps = {
-  suffixCls: { type: String, default: 'layout-sider' },
+  suffixCls: { type: String, default: "layout-sider" },
   width: { type: [Number, String], default: 200 },
   collapsedWidth: { type: [Number, String], default: 80 },
   collapsible: Boolean as BooleanType,
@@ -34,15 +34,10 @@ function createBasicComponent(suffixCls: string, name: string) {
     name,
     props: { suffixCls: { type: String, default: suffixCls } },
     setup(props, { slots }) {
-      return () => (
-        <section class={`k-${props.suffixCls}`}>
-          {slots.default?.()}
-        </section>
-      );
+      return () => <section class={`k-${props.suffixCls}`}>{slots.default?.()}</section>;
     },
   });
 }
-
 
 const LayoutMain = defineComponent({
   name: "Layout",
@@ -52,23 +47,19 @@ const LayoutMain = defineComponent({
 
     // 提供给子组件 Sider 调用的注册函数
     const collectSider = (mounted: boolean) => {
-      mounted ? siders.value.push('sider') : siders.value.pop();
+      mounted ? siders.value.push("sider") : siders.value.pop();
     };
 
     provide(SiderHookKey, collectSider);
 
     const classes = computed(() => [
       `k-${props.suffixCls}`,
-      { 
-        [`k-${props.suffixCls}-has-sider`]: props.hasSider ?? siders.value.length > 0 
+      {
+        [`k-${props.suffixCls}-has-sider`]: props.hasSider ?? siders.value.length > 0,
       },
     ]);
 
-    return () => (
-      <section class={classes.value}>
-        {slots.default?.()}
-      </section>
-    );
+    return () => <section class={classes.value}>{slots.default?.()}</section>;
   },
 });
 
@@ -86,21 +77,9 @@ const Sider = defineComponent({
       collectSider?.(false);
     });
 
-    const divStyle = computed(() => ({
-      flex: `0 0 ${props.width}px`,
-      maxWidth: `${props.width}px`,
-      minWidth: `${props.width}px`,
-      width: `${props.width}px`,
-    }));
-
-    return () => (
-      <aside class={`k-${props.suffixCls}`} style={divStyle.value}>
-          {slots.default?.()}
-      </aside>
-    );
+    return () => <aside class={`k-${props.suffixCls}`}>{slots.default?.()}</aside>;
   },
 });
-
 
 const Content = createBasicComponent("layout-content", "LayoutContent");
 const Header = createBasicComponent("layout-header", "LayoutHeader");
@@ -124,4 +103,3 @@ Layout.Sider = Sider;
 export default Layout;
 
 export { Content, Footer, Header, Layout, Sider };
-
