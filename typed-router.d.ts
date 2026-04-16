@@ -34,9 +34,9 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/components': RouteRecordInfo<
-      '/components',
-      '/components',
+    '/components/demo': RouteRecordInfo<
+      '/components/demo',
+      '/components/demo',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -60,9 +60,9 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/views/components.tsx': {
+    'src/views/components/demo.tsx': {
       routes:
-        | '/components'
+        | '/components/demo'
       views:
         | never
     }
