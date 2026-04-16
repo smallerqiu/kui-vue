@@ -12,7 +12,7 @@ export default defineComponent({
     const options = ref<ContentProps[]>([]);
 
     const show = (option: ContentProps) => {
-      let { duration=3.5, onClose, closable, noticeType } = option;
+      let { duration = 3.5, onClose, closable, noticeType } = option;
       let key = getUuid();
       option.key = key;
       let timer: NodeJS.Timeout;
@@ -36,11 +36,12 @@ export default defineComponent({
     return () => {
       const { type } = ps;
 
-      let transitionProps = { name: `k-${type}-slide` } as TransitionProps;
+      let transitionProps = { name: `k-${type}-slide`, class: `k-${type}` } as TransitionProps;
       if (type == "notice") {
         transitionProps = getTransitionProp(`k-${type}-slide`);
-        delete transitionProps.onEnter;
-        delete transitionProps.onBeforeEnter;
+        transitionProps.class = `k-${type}`;
+        // delete transitionProps.onEnter;
+        // delete transitionProps.onBeforeEnter;
       }
 
       let children = options.value.map((item) => {

@@ -1,15 +1,15 @@
 import type { RendererElement, TransitionProps } from "vue";
-export function getTransitionProp(name: string):TransitionProps {
+export function getTransitionProp(name: string): TransitionProps {
   return {
     name,
     onBeforeEnter(el: RendererElement) {
-      // el.style.overflow = 'hidden';
+      el.style.overflow = 'hidden';
       el.style.height = "0";
       el.style.opacity = "0.1";
     },
     onEnter(el: RendererElement) {
       if (el.scrollHeight !== 0) {
-        el.style.height = el.scrollHeight + "px"; //window.getComputedStyle(el:RendererElement).height
+        el.style.height = el.scrollHeight + "px";
         el.style.opacity = "1";
       } else {
         el.style.height = "";

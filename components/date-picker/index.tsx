@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs, type UnitType } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
@@ -47,6 +47,11 @@ type DatePickerModeType =
   | "dateRange"
   | "dateTimeRange";
 
+interface DatePickerPresetsType {
+  label: string;
+  value: () => any;
+}
+
 export const datePickerProps = {
   modelValue: { type: [Date, Object, Array, String, Number], default: null },
   startDate: { type: [Date, Object, String, Number], default: null },
@@ -59,7 +64,7 @@ export const datePickerProps = {
     type: String as PropType<DatePickerModeType>,
     default: "date",
   },
-  presets: Array,
+  presets: Array as PropType<DatePickerPresetsType[]>,
   disabled: { type: Boolean as BooleanType },
   clearable: { type: Boolean as BooleanType, default: true },
   editable: { type: Boolean as BooleanType, default: true },
@@ -114,23 +119,23 @@ const DatePicker = defineComponent({
     const left = ref(0);
     const top = ref(0);
     const transOrigin = ref("bottom");
-    const refPopper = ref(null);
-    const refSelection = ref(null);
+    const refPopper = ref<HTMLElement | null>(null);
+    const refSelection = ref<HTMLElement | null>(null);
     // console.log(local);
 
     // DOM 引用，用于滚动计算
-    const timeColRefs = ref<Record<string, HTMLElement>>({});
+    const timeColRefs = ref<Record<string, any>>({});
 
     // 面板显示的基准日期
     const panelDate = ref(dayjs());
     // 内部存储值 (Dayjs Object 或 Array<Dayjs>)
-    const innerValue = ref(null);
+    const innerValue = ref<any[] | Dayjs | null>(null);
     // 输入框显示文本
     const textValue = ref("");
     const textValueStart = ref(""); // 范围模式-开始
     const textValueEnd = ref(""); // 范围模式-结束
     // 范围选择时的悬停日期
-    const hoverDate = ref(null);
+    const hoverDate = ref<Dayjs | null>(null);
 
     // 视图模式: 'date' | 'month' | 'year' | 'time'
     const currentView = ref("date");
@@ -148,7 +153,7 @@ const DatePicker = defineComponent({
       const name = localeName.value.toLowerCase();
       return ["zh", "ja", "ko"].some((k) => name.includes(k));
     });
-    const formatOutputValue = (dayjsVal) => {
+    const formatOutputValue = (dayjsVal: Dayjs) => {
       if (!dayjsVal) return null;
       const d = dayjsVal.locale(localeName.value);
       switch (props.valueType) {
@@ -182,12 +187,13 @@ const DatePicker = defineComponent({
         let activeDate = dayjs();
         if (props.mode === "dateTimeRange") {
           const idx = timeEditSide.value === "start" ? 0 : 1;
-          if (innerValue.value && innerValue.value[idx]) activeDate = innerValue.value[idx];
+          let value = innerValue.value as any[];
+          if (value && value[idx]) activeDate = value[idx];
         } else {
           if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
         }
 
-        const targets = {
+        const targets: Record<string, number> = {
           hour: activeDate.hour(),
           minute: activeDate.minute(),
           second: activeDate.second(),
@@ -216,18 +222,20 @@ const DatePicker = defineComponent({
         return;
       }
 
-      const fmtDate = (d) => (d ? d.locale(localeName.value).format(fmt) : "");
+      const fmtDate = (d: Dayjs) => (d ? d.locale(localeName.value).format(fmt) : "");
       //  Range 模式
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
-        textValueStart.value = start ? start.format(fmt) : "";
-        textValueEnd.value = end ? end.format(fmt) : "";
+        if (end) {
+          textValueStart.value = start ? start.format(fmt) : "";
+          textValueEnd.value = end ? end.format(fmt) : "";
+        }
       } else {
         textValue.value = fmtDate(innerValue.value);
       }
     };
 
-    const parsePropValue = (val) => {
+    const parsePropValue = (val: any) => {
       if (val === null || val === undefined || val === "") return null;
       let d;
       if (props.valueType === "unix") {
@@ -276,7 +284,7 @@ const DatePicker = defineComponent({
         return;
       }
       const fmt = getFormat();
-      const getStr = (d) => d.locale(localeName.value).format(fmt);
+      const getStr = (d: Dayjs) => d.locale(localeName.value).format(fmt);
 
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
@@ -387,16 +395,17 @@ const DatePicker = defineComponent({
       }
     };
 
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: PointerEvent) => {
       const ctx = refSelection.value;
       const popper = refPopper.value;
-      if (popper && !popper.contains(e.target) && ctx && !ctx.contains(e.target)) {
+      const target = e.target as Node;
+      if (popper && !popper.contains(target) && ctx && !ctx.contains(target)) {
         syncTextFromValue();
         isVisible.value = false;
         isFocus.value = false;
       }
     };
-    const timeLabelClick = (e, direction) => {
+    const timeLabelClick = (e: PointerEvent, direction: string) => {
       e.preventDefault();
       if (timeEditSide.value == direction && currentView.value == "time") {
         currentView.value = "date";
@@ -406,7 +415,7 @@ const DatePicker = defineComponent({
       currentView.value = "time";
     };
 
-    const pickDate = (date) => {
+    const pickDate = (date: Dayjs) => {
       if (isRange.value) {
         let newVal = Array.isArray(innerValue.value) ? [...innerValue.value] : [];
         // 清理一下可能的 null
@@ -438,7 +447,7 @@ const DatePicker = defineComponent({
         }
       } else {
         if (props.mode === "dateTime") {
-          const old = innerValue.value || dayjs();
+          const old = (innerValue.value || dayjs()) as Dayjs;
           innerValue.value = date.hour(old.hour()).minute(old.minute()).second(old.second());
           emitValue(false);
         } else {
@@ -448,7 +457,7 @@ const DatePicker = defineComponent({
       }
     };
 
-    const pickYear = (y) => {
+    const pickYear = (y: number) => {
       panelDate.value = panelDate.value.year(y);
       if (props.mode === "year") {
         innerValue.value = panelDate.value;
@@ -460,7 +469,7 @@ const DatePicker = defineComponent({
       }
     };
 
-    const pickMonth = (m) => {
+    const pickMonth = (m: number) => {
       panelDate.value = panelDate.value.month(m);
       if (props.mode === "month") {
         innerValue.value = panelDate.value;
@@ -471,19 +480,20 @@ const DatePicker = defineComponent({
         }, 0);
       }
     };
-    const checkTimeDisabled = (d) => {
+    const checkTimeDisabled = (d: Dayjs) => {
       if (!props.disabledTime || !d) return false;
       // 传入原生 Date 对象给用户校验
       return props.disabledTime(d.toDate());
     };
-    const handleTimeScrollPick = (type, val) => {
+    const handleTimeScrollPick = (type: UnitType, val: number) => {
       let activeDate = dayjs();
       let idx = 0;
 
       if (props.mode === "dateTimeRange") {
         idx = timeEditSide.value === "start" ? 0 : 1;
-        if (innerValue.value && innerValue.value[idx]) {
-          activeDate = innerValue.value[idx];
+        let value = innerValue.value as any[];
+        if (value && value[idx]) {
+          activeDate = value[idx];
         } else if (Array.isArray(innerValue.value) && innerValue.value[idx] === null) {
           return;
         }
@@ -500,7 +510,7 @@ const DatePicker = defineComponent({
       }
 
       if (props.mode === "dateTimeRange") {
-        const newArr = [...(innerValue.value || [null, null])];
+        const newArr = [...((innerValue.value as any[]) || [null, null])];
         newArr[idx] = nextDate;
         innerValue.value = newArr;
         emitValue(false);
@@ -719,12 +729,13 @@ const DatePicker = defineComponent({
       let activeDate = dayjs();
       if (props.mode === "dateTimeRange") {
         const idx = timeEditSide.value === "start" ? 0 : 1;
-        if (innerValue.value && innerValue.value[idx]) activeDate = innerValue.value[idx];
+        let value = innerValue.value as any[];
+        if (value && value[idx]) activeDate = value[idx];
       } else if (innerValue.value && !Array.isArray(innerValue.value)) {
         activeDate = innerValue.value;
       }
 
-      const renderCol = (type, max) => {
+      const renderCol = (type: UnitType, max: number) => {
         const curr =
           type === "hour"
             ? activeDate.hour()
@@ -768,16 +779,10 @@ const DatePicker = defineComponent({
 
     const renderFooter = () => {
       if (!props.mode.includes("Time")) return null;
-
       if (props.mode === "dateTimeRange") {
-        const s =
-          innerValue.value && innerValue.value[0]
-            ? innerValue.value[0].format("HH:mm:ss")
-            : "--:--:--";
-        const e =
-          innerValue.value && innerValue.value[1]
-            ? innerValue.value[1].format("HH:mm:ss")
-            : "--:--:--";
+        const [s, e] = ((innerValue.value as any[]) || [null, null]).map((d) =>
+          d ? d.format("HH:mm:ss") : "--:--:--"
+        );
         return (
           <div class="k-picker-footer">
             <div
@@ -804,7 +809,7 @@ const DatePicker = defineComponent({
           </div>
         );
       } else {
-        const t = (innerValue.value || dayjs()).format("HH:mm:ss");
+        const t = ((innerValue.value as Dayjs) || dayjs()).format("HH:mm:ss");
         return (
           <div class="k-picker-footer">
             <div
@@ -832,7 +837,7 @@ const DatePicker = defineComponent({
     onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
     return () => {
-      const localPlaceholders = {
+      const localPlaceholders: Record<string, string> = {
         year: locale?.value.k.datePicker.selectYear,
         month: locale?.value.k.datePicker.selectMonth,
         date: locale?.value.k.datePicker.selectDate,
@@ -872,6 +877,7 @@ const DatePicker = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         },
+        mode: props.mode,
       };
 
       const renderInput = () => {
@@ -925,18 +931,17 @@ const DatePicker = defineComponent({
               class="k-datepicker-input"
               value={textValue.value}
               onInput={(e) => handleInput(e)}
-              placeholder={props.placeholder || localPlaceholders[props.mode]}
+              placeholder={(props.placeholder as string) || localPlaceholders[props.mode]}
               disabled={props.disabled}
             />
           );
         }
       };
-      const presetEmit = ({ value }) => {
+      const presetEmit = ({ value }: DatePickerPresetsType) => {
         if (typeof value === "function") {
           let date = value();
           if (isRange.value && Array.isArray(date)) {
-            date = [dayjs(date[0]), dayjs(date[1])];
-            innerValue.value = date;
+            innerValue.value = [dayjs(date[0]), dayjs(date[1])];
             emitValue(true);
           } else {
             innerValue.value = dayjs(date);
@@ -959,10 +964,9 @@ const DatePicker = defineComponent({
           );
         }
       };
-      const extraEmit = (date) => {
+      const extraEmit = (date: any) => {
         if (isRange.value && Array.isArray(date)) {
-          date = [dayjs(date[0]), dayjs(date[1])];
-          innerValue.value = date;
+          innerValue.value = [dayjs(date[0]), dayjs(date[1])];
           emitValue(true);
         } else {
           innerValue.value = dayjs(date);
@@ -982,13 +986,7 @@ const DatePicker = defineComponent({
       };
       const overlay = rendered.value ? (
         <Transition name="k-date-picker">
-          <div
-            v-transfer={true}
-            ref={refPopper}
-            v-show={isVisible.value}
-            {...overlayProps}
-            mode={props.mode}
-          >
+          <div v-transfer={true} v-show={isVisible.value} {...overlayProps}>
             {renderPresets()}
             <div class="k-picker-container">
               {renderExtraHeader()}
@@ -1005,7 +1003,7 @@ const DatePicker = defineComponent({
       ) : null;
 
       return (
-        <div class={classes} ref={refSelection} tabindex={props.disabled ? null : 0}>
+        <div class={classes} ref={refSelection} tabindex={props.disabled ? undefined : 0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" />
