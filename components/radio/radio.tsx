@@ -5,7 +5,7 @@ import type { ChangeEvent } from "./types";
 export const radioProps = {
   modelValue: { type: [Boolean, String, Number], default: false },
   value: { type: [String, Number, Boolean] },
-  label: { type: [String] },
+  label: { type: String },
   checked: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   theme: String,

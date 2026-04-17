@@ -1,13 +1,13 @@
 import Big from "big.js";
 import { ChevronDown, ChevronUp } from "kui-icons";
 import {
-    computed,
-    defineComponent,
-    inject,
-    ref,
-    watch,
-    type ExtractPropTypes,
-    type PropType
+  computed,
+  defineComponent,
+  inject,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -46,7 +46,7 @@ const InputNumber = defineComponent({
   emits: ["update:modelValue", "change", "blur"],
 
   setup(props, { slots, attrs, emit }) {
-    const parentSize = inject<SizeType>("size");
+    const parentSize = inject<SizeType | undefined>("size", undefined);
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
 
@@ -192,6 +192,6 @@ const InputNumber = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default InputNumber;

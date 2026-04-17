@@ -60,7 +60,7 @@ const RadioGroup = defineComponent({
             value,
             icon,
             disabled,
-            label: label || child.children?.default() || value,
+            label: label || child.children?.default()[0].children || value,
           });
         });
       }

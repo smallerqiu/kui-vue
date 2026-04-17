@@ -39,7 +39,7 @@
         <div class="foot-nav">
           <a
             v-if="prevNavData.sub"
-            :href="`/${prevNavData.key}/${prevNavData.name}`"
+            :href="`/${prevNavData.key == 'guide' ? 'guide' : 'components'}/${prevNavData.name}`"
             class="nav-prev"
             @click="(e) => navTo(e, false)"
           >
@@ -51,7 +51,7 @@
           </a>
           <a
             v-if="nextNavData.sub"
-            :href="`/${nextNavData.key}/${nextNavData.name}`"
+            :href="`/${nextNavData.key == 'guide' ? 'guide' : 'components'}/${nextNavData.name}`"
             class="nav-next"
             @click="(e) => navTo(e, true)"
           >
@@ -88,14 +88,13 @@ const locale = inject<Record<string, any>>("locale");
 const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
 const lang = computed(() => {
-  // console.log(locale.value.name)
   return locale?.value.name || "en";
 });
 const navTo = (e: MouseEvent, t: boolean) => {
   e.stopPropagation();
   e.preventDefault();
   let c = t ? nextNavData : prevNavData;
-  let path = `/${c.key}/${c.name}`;
+  let path = `/${c.key == "guide" ? "guide" : "components"}/${c.name}`;
   router.push(path);
   setActiveKey({ path });
 };
@@ -103,8 +102,8 @@ const menuSelect = () => {
   showMiniNav.value = false;
 };
 const getPath = (path: string) => {
-  let [m, n] = path.split("/").filter((x) => x);
-  let index = routeData.findIndex((x) => x.key == m && x.name == n.replace("-en", ""));
+  let [_, n] = path.split("/").filter((x) => x);
+  let index = routeData.findIndex((x) => x.name == n);
 
   return {
     current: routeData[index],

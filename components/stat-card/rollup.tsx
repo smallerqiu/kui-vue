@@ -14,7 +14,7 @@ export default defineComponent({
         minimumFractionDigits: props.precision,
         maximumFractionDigits: props.precision,
       })
-        .format(Number(val))
+        .format(val)
         .split("");
     };
     const getChars = (targetValue: number | string): string[] => {
@@ -24,7 +24,7 @@ export default defineComponent({
       );
     };
 
-    displayChars.value = getChars(props.modelValue);
+    // displayChars.value = getChars(props.modelValue);
 
     onMounted(() => {
       displayChars.value = format(props.modelValue);
@@ -33,6 +33,7 @@ export default defineComponent({
       () => props.modelValue,
       (newVal) => {
         displayChars.value = format(newVal);
+        console.log("newVal", 333);
       }
     );
 

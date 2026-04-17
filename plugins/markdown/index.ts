@@ -4,23 +4,13 @@ import hljs from "highlight.js";
 import MarkdownIt from "markdown-it";
 import anchor from "markdown-it-anchor";
 import path from "path";
-import parserHtml from "prettier/parser-html";
-import prettier from "prettier/standalone";
 import { type Plugin } from "vite";
 
 export default function vitePluginKuiMd(): Plugin {
   const markdown: MarkdownIt = new MarkdownIt({
     html: true,
     breaks: true,
-    highlight: async (code: string, lang: string) => {
-      const formattedCode = await prettier.format(code, {
-        parser: "html",
-        plugins: [parserHtml],
-        semi: false,
-        singleQuote: true,
-        printWidth: 80,
-      });
-
+    highlight: (code: string, lang: string) => {
       if (lang && hljs.getLanguage(lang)) {
         return `<pre><code class="hljs language-${lang}">${hljs.highlight(code, { language: lang }).value}</code></pre>`;
       }
@@ -57,33 +47,29 @@ export default function vitePluginKuiMd(): Plugin {
           const _id = "k-" + hashId(id);
 
           const absolutePath = path.resolve(path.dirname(id), src);
-          let demoCode = fs.readFileSync(absolutePath, "utf-8").trim().replace("/r/n", "");
-          demoCode = markdown.render("```html\n" + demoCode + "\n```");
-          // demoCode = markdown.utils.escapeHtml(demoCode)
-          demoCode = demoCode
-            .replace(
-              /{{/g,
-              '<span class="hljs-tag">&#123;</span><span class="hljs-tag">&#123;</span>'
-            )
-            .replace(/}}/g, "&#125;&#125;")
-            .replace(/\n/g, "");
+          let demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
+          let highlighted = hljs.highlight(demoCode, {
+            language: "html",
+          }).value;
+
+          highlighted = highlighted.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");
+
           demoImports.push(`import ${componentName} from '${src}';`);
           description = markdown.render(description);
           return `
 <Demo id="${_id}" direction="${direction}">
     <template #title>${title}</template>
     <template #component><${componentName} /></template>
-    <template #code>${demoCode}</template>
+    <template #code><pre><code class="hljs language-js">${highlighted.replace(/\n/g, "<br>")}</code></pre></template>
     <template #description>
-      ${description.trim().replace(/\n/g, "")}
+      ${description.trim().replace(/\n/g, "<br>")}
     </template>
 </Demo>`;
         }
       );
 
-      fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);
+      // fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
-      // console.log(processedMarkdown);
       const result = `
 <template>
   <div class="markdown-body">
@@ -99,8 +85,7 @@ const copy = (text) => {
   message.success("Copied.");
 };
 </script>`;
-      // console.log(result);
-      fs.writeFileSync(path.join(__dirname, "demo.html"), result);
+      // fs.writeFileSync(path.join(__dirname, "demo.html"), result);
       return { code: result, map: null };
     },
   };

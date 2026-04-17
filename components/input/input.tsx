@@ -50,7 +50,7 @@ const Input = defineComponent({
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();
-    const parentSize = inject<SizeType | null>("size", null);
+    const parentSize = inject<SizeType | undefined>("size", undefined);
 
     provide("size", props.size || parentSize);
 

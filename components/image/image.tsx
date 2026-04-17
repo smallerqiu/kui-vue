@@ -1,14 +1,14 @@
 import { IconImage, Loading } from "kui-icons";
 import {
-    type CSSProperties,
-    defineComponent,
-    type ExtractPropTypes,
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    type PropType,
-    ref,
-    watch
+  type CSSProperties,
+  defineComponent,
+  type ExtractPropTypes,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  ref,
+  watch,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -50,7 +50,7 @@ const KImage = defineComponent({
     const imgHeight = ref(0);
 
     const preview = ref();
-    const ImageGroup = inject<ImageGroupContext>("ImageGroup");
+    const ImageGroup = inject<ImageGroupContext | null>("ImageGroup", null);
 
     // global api
     const togglePanel = () => {
@@ -193,6 +193,6 @@ const KImage = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default KImage;
