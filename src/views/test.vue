@@ -1,37 +1,25 @@
 <template>
   <Space vertical>
-    use options to set options : {{ value1 }}
-    <Select v-model="value1" :options="data" />
+    <Button @click="change">change</Button>
+    <code>default</code>
+    <StatNumber v-model="value" />
+    <code>type=`rollup`</code>
+    <StatNumber v-model="value" type="rollup" />
     <br />
-    use children to set options: {{ value2 }}
-    <Select v-model="value2">
-      <Option :value="item.value" v-for="item in data" :key="item.value">
-        {{ item.label }}
-      </Option>
-    </Select>
+    <code>precision=`3`</code>
+    <StatNumber v-model="value" :precision="3" />
+    <StatNumber v-model="value" type="rollup" :precision="3" />
+    <br />
+    <code>prefix & suffix</code>
+    <StatNumber v-model="value" prefix="$" />
+    <StatNumber v-model="value" type="rollup" suffix="元" />
   </Space>
 </template>
 <script setup lang="ts">
-import { Option, Select, Space, type SelectOption } from "kui-vue";
 import { ref } from "vue";
-const value1 = ref(2);
-const value2 = ref(2);
-const data = ref<SelectOption[]>([
-  { label: "Apple", value: 0 },
-  { label: "Orange", value: 1 },
-  { label: "Banana", value: 2 },
-  { label: "Pear", value: 3 },
-  { label: "Grape", value: 4 },
-]);
-// 异步加载数据
-setTimeout(() => {
-  data.value = [
-    { label: "Apple1", value: 0 },
-    { label: "Orange1", value: 1 },
-    { label: "Banana2", value: 2 },
-    { label: "Pear1", value: 3 },
-    { label: "Grape2", value: 4 },
-  ];
-  value2.value = 2;
-}, 1000);
+const value = ref(Math.random() * 100000);
+
+const change = () => {
+  value.value = Math.random() * 10000000;
+};
 </script>

@@ -9,12 +9,11 @@ function getUuid() {
 export default defineComponent({
   props: { type: String },
   setup(ps, { expose }) {
-    const options = ref<ContentProps[]>([]);
+    const options = ref<any[]>([]);
 
     const show = (option: ContentProps) => {
       let { duration = 3.5, onClose, closable, noticeType } = option;
       let key = getUuid();
-      option.key = key;
       let timer: NodeJS.Timeout;
       let callback = (key: string) => {
         typeof onClose === "function" && onClose();
@@ -25,7 +24,7 @@ export default defineComponent({
       if ((closable === true && noticeType == "message") || noticeType == "notice") {
         option.onClose = () => callback(key);
       }
-      options.value.push(option);
+      options.value.push({ ...option, key });
     };
     const clean = () => {
       options.value = [];
@@ -38,10 +37,10 @@ export default defineComponent({
 
       let transitionProps = { name: `k-${type}-slide`, class: `k-${type}` } as TransitionProps;
       if (type == "notice") {
-        transitionProps = getTransitionProp(`k-${type}-slide`);
-        transitionProps.class = `k-${type}`;
-        // delete transitionProps.onEnter;
-        // delete transitionProps.onBeforeEnter;
+        const p = getTransitionProp(`k-${type}-slide`);
+        delete p.onEnter;
+        delete p.onBeforeEnter;
+        transitionProps = { ...p, ...transitionProps };
       }
 
       let children = options.value.map((item) => {

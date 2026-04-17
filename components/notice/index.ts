@@ -41,13 +41,13 @@ const notice: NoticeApi = {
     return this.open({ ...options, type: "info" });
   },
   success(options: NoticeOptions) {
-    return this.open({ ...options, type: "info" });
+    return this.open({ ...options, type: "success" });
   },
   warning(options: NoticeOptions) {
-    return this.open({ ...options, type: "info" });
+    return this.open({ ...options, type: "warning" });
   },
   error(options: NoticeOptions) {
-    return this.open({ ...options, type: "info" });
+    return this.open({ ...options, type: "error" });
   },
 };
 

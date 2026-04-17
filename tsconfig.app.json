@@ -50,7 +50,6 @@
     "components/**/*.vue"
   ],
   "exclude": [
-    // "components/**/demo/*",
     "node_modules/*"
   ]
 }

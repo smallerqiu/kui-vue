@@ -43,8 +43,8 @@ const StatCard = defineComponent({
                   <div class="k-stat-card-item-value">
                     <StatNumber
                       v-slots={{
-                        prefix: () => item.prefix || slots.prefix,
-                        suffix: () => item.suffix || slots.suffix,
+                        prefix: () => item.prefix || slots.prefix?.(),
+                        suffix: () => item.suffix || slots.suffix?.(),
                       }}
                       modelValue={item.value}
                       duration={item.duration}
