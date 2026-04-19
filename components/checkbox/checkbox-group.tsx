@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, DirectionType, SizeType } from "../const/types";
+import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
 
@@ -8,7 +8,7 @@ const checkboxGroupProps = {
     type: Array as PropType<any[]>,
     default: () => [],
   },
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   disabled: Boolean as BooleanType,
   options: Array as PropType<any[]>,
   direction: {

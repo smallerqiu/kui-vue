@@ -2,28 +2,29 @@
   <Table :data="data" :columns="columns" :loading="loading" @sort="sort"> </Table>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-const data = ref([]);
+import type { Column, SortState } from "kui-vue";
+import { onMounted, ref } from "vue";
+const data = ref<any[]>([]);
 const loading = ref(false);
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name", sorter: true },
   {
     title: "Age",
     key: "age",
     sorter: true,
   },
-  { title: "Email", key: "mail", sorter: (order) => fetch("mail", order) },
+  { title: "Email", key: "mail", sorter: (state) => fetch("mail", state.order) },
 ];
 
 onMounted(() => {
   fetch();
 });
 
-const sort = ({ key, order }) => {
+const sort = ({ key, order }: SortState) => {
   console.log(key, order);
 };
 
-const fetch = (key, order) => {
+const fetch = (key?: string, order?: any) => {
   loading.value = true;
   // 模拟异步加载数据排序
   setTimeout(() => {

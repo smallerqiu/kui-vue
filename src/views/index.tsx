@@ -1,4 +1,5 @@
 import { ArrowForward } from "kui-icons";
+import { Button, Icon, Layout } from "kui-vue";
 import { defineComponent, inject } from "vue";
 import "../assets/css/home.less";
 import AppFooter from "../components/app-footer.vue";

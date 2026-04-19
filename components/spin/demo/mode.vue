@@ -20,8 +20,9 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { SpinModeType } from "kui-vue";
 import { ref } from "vue";
-const mode = ref("bounce");
+const mode = ref<SpinModeType>("bounce");
 const spinning = ref(false);
 </script>
 <style scoped>

@@ -1,11 +1,11 @@
 <template>
-  <Space vertical block style="width: 300px;max-width:100%">
+  <Space vertical block style="width: 300px; max-width: 100%">
     <RadioGroup v-model="size" :options="sizes" type="button" />
     <TreeSelect
       :size="size"
       v-model="value"
       :tree-data="data"
-      tree-showLine
+      treeShowLine
       :treeExpandedKeys="expandedKeys"
       block
     />
@@ -13,7 +13,7 @@
       :size="size"
       v-model="value1"
       :tree-data="data"
-      tree-showLine
+      treeShowLine
       :treeExpandedKeys="expandedKeys"
       block
       multiple
@@ -22,7 +22,7 @@
       :size="size"
       v-model="value1"
       :tree-data="data"
-      tree-showLine
+      treeShowLine
       :treeExpandedKeys="expandedKeys"
       block
       multiple
@@ -31,13 +31,14 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { SizeType } from "kui-vue";
 import { ref } from "vue";
 const sizes = [
   { value: "large", label: "Large" },
   { value: "default", label: "Default" },
   { value: "small", label: "Small" },
 ];
-const size = ref("default");
+const size = ref<SizeType>("default");
 
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
 const value = ref("0-1");

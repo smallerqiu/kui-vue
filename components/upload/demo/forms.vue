@@ -58,11 +58,11 @@
   </Form>
 </template>
 <script setup lang="ts">
-import { CloudUploadOutline, CameraOutline } from "kui-icons";
-import { ref, reactive } from "vue";
+import { CameraOutline, CloudUploadOutline } from "kui-icons";
+import type { FormContext, UploadChangeEvent } from "kui-vue";
 import { message } from "kui-vue";
-const uploadRef = ref(null);
-const formRef = ref(null);
+import { reactive, ref } from "vue";
+const formRef = ref<FormContext>();
 const loading = ref(false);
 const headers = ref({
   authorization: "here is token",
@@ -80,41 +80,40 @@ const rules = ref({
 const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
 const files = ref([]);
-const uploadFile = ({ file }) => {
+const uploadFile = ({ file }: UploadChangeEvent) => {
   console.log(file);
   loading.value = true;
   if (file.status == "success") {
     loading.value = false;
     form.file = file.response.url;
-    formRef.value.test("file");
+    formRef.value?.test("file");
   }
 };
-const uploadFiles = ({ file }) => {
+const uploadFiles = ({ file }: UploadChangeEvent) => {
   if (file.status == "success") {
     files.value.push(file.response.url);
     form.files = files.value.join(",");
     // form.files.push(file.response.url);
-    formRef.value.test("files");
+    formRef.value?.test("files");
   }
 };
-const remove = ({ file }) => {
+const remove = ({ file }: UploadChangeEvent) => {
   // 删除文件的时候 要对应的从表单中删除相对应的url
   if (file.status == "success") {
     let url = file.response.url;
     let index = form.files.indexOf(url);
     files.value.splice(index, 1);
     form.files = files.value.join(",");
-    formRef.value.test("files");
+    formRef.value?.test("files");
   }
 };
-const uploadAvatar = ({ file }) => {
+const uploadAvatar = ({ file }: UploadChangeEvent) => {
   if (file.status == "success") {
     form.avatar = file.response.url;
-    formRef.value.test("avatar");
+    formRef.value?.test("avatar");
   }
 };
-const submit = ({ valid, model }) => {
+const submit = (valid: boolean) => {
   message[valid ? "success" : "error"](valid ? "success" : "failed");
-  console.log(model);
 };
 </script>

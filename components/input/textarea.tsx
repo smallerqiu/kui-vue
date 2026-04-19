@@ -7,6 +7,7 @@ export const textAreaProps = {
   theme: { type: String as PropType<ThemeType>, default: "light" },
   shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,
+  placeholder: String,
   disabled: Boolean as BooleanType,
 };
 

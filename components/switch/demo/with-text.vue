@@ -19,7 +19,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Checkmark, Close, LogoApple, LogoMicrosoft, Airplane, Wifi } from "kui-icons";
-import { ref } from "vue";
-const checked = ref(false);
+import { Airplane, Checkmark, Close, LogoApple, LogoMicrosoft, Wifi } from "kui-icons";
 </script>

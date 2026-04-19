@@ -14,18 +14,18 @@
   </Space>
   <br />
   <br />
-  <Space :size="15"> Image radius: <Slider v-model="radius" style="width:300px;" /> </Space>
+  <Space :size="15"> Image radius: <Slider v-model="radius" style="width: 300px" /> </Space>
   <br />
   <Space :size="15">
     Image Size:
-    <Slider v-model="imgSize" range :min="96" :max="320" style="width:300px;" />
+    <Slider v-model="imgSize" range :min="96" :max="320" style="width: 300px" />
   </Space>
   <br />
   <br />
   <Space>
     <SkeletonButton :animated="animated" :size="size" :shape="btnShape" />
     <SkeletonAvatar :animated="animated" :size="size" :shape="avatarShape" />
-    <SkeletonText :animated="animated" :size="size" style="width:200px;" />
+    <SkeletonText :animated="animated" :size="size" style="width: 200px" />
   </Space>
   <br />
   <br />
@@ -35,6 +35,7 @@
   <SkeletonImage :animated="animated" :radius="radius" :size="imgSize" />
 </template>
 <script setup lang="ts">
+import type { ShapeType } from "kui-vue";
 import { ref } from "vue";
 
 const sizes = [
@@ -53,10 +54,10 @@ const avatarShapes = [
 ];
 const imgSize = ref([196, 96]);
 const animated = ref(false);
-const size = ref("default");
+const size = ref<any>("default");
 const block = ref(false);
 const radius = ref(10);
-const avatarShape = ref("square");
-const btnShape = ref("default");
+const avatarShape = ref<ShapeType>("square");
+const btnShape = ref<ShapeType>("default");
 const imgShape = ref("default");
 </script>

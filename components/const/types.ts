@@ -24,15 +24,16 @@ export type DropPlacementsType =
   | "bottom-right";
 
 export type SizeType = "small" | "middle" | "large" | "default";
-export type ShapeType = "circle" | "square" | "round";
+export type ShapeType = "circle" | "square" | "round" | "default";
 export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
-export type ButtonTheme = "outline" | "solid" | "light" | "dashed" | "card";
-export type ThemeType = "outline" | "light" | "default";
+export type ThemeType = "outline" | "light" | "default" | "solid" | "light" | "dashed" | "card";
 
 export type DirectionType = "horizontal" | "vertical" | "inline";
 export type AlignType = "start" | "center" | "end";
 export type ColorType = PropType<(typeof colors)[number]>;
 
 export type UploadStatusType = "success" | "error" | "uploading" | "waiting";
+
+export type SpinModeType = "bounce" | "flip" | "rotate" | "zoom";

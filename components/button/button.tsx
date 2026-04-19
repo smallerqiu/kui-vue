@@ -9,11 +9,11 @@ import {
 } from "vue";
 import type {
   BooleanType,
-  ButtonTheme,
   ButtonType,
   ColorType,
   ShapeType,
   SizeType,
+  ThemeType,
 } from "../const/types";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
@@ -39,7 +39,7 @@ const buttonProps = {
   },
   disabled: Boolean as BooleanType,
   theme: {
-    type: String as PropType<ButtonTheme>,
+    type: String as PropType<ThemeType>,
   },
   shape: String as PropType<ShapeType>,
   href: String,

@@ -140,7 +140,7 @@ const FormItem = defineComponent({
       return isValid;
     };
 
-    const validate = (rules: any, trigger?: string) => {
+    const validate = (rules: any, _?: string) => {
       if (!rules) return true;
       // TODO: trigger
 
@@ -223,7 +223,7 @@ const FormItem = defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  const tag = child.type?.name;
+                  const tag = (child.type as any)?.name;
                   const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;

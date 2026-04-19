@@ -13,6 +13,7 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref("default");
+const size = ref<SizeType>("default");
 </script>

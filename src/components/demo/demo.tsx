@@ -1,16 +1,16 @@
 import { useClipboard } from "@vueuse/core";
 import { CaretHor, CopyOutline, Reload } from "kui-icons";
-import { message } from "kui-vue";
-import { getTransitionProp } from "kui-vue/base/transition";
+import { Badge, Button, Divider, message, Tooltip } from "kui-vue";
 import {
-  Transition,
   defineComponent,
   inject,
   onBeforeUnmount,
   onMounted,
   reactive,
   ref,
+  Transition,
 } from "vue";
+import { getTransitionProp } from "../../../components/base/transition";
 import { parseCode } from "./transform";
 const { copy, isSupported } = useClipboard();
 
@@ -95,7 +95,7 @@ const Demo = defineComponent({
     // });
 
     return () => {
-      const transitionProps = getTransitionProp();
+      const transitionProps = getTransitionProp("");
       const vertical = props.direction !== "horizontal";
       const classes = ["k-demo", { "k-demo-horizontal": !vertical }];
       const descNode = (

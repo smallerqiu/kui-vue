@@ -3,7 +3,7 @@
 </template>
 <script setup lang="ts">
 import { Moon, Sunny } from "kui-icons";
-import { modal } from "kui-vue";
+import { Button, Icon, modal, Space, Tag, type Column } from "kui-vue";
 const data = [
   {
     key: "0",
@@ -38,13 +38,13 @@ const data = [
     tags: ["Go", "Python"],
   },
 ];
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
   {
     title: "Gender",
     key: "gender",
-    render: (h, { gender }, i) => {
+    render: (h, { gender }, _) => {
       return h(Icon, {
         type: gender == 1 ? Sunny : Moon,
         color: gender == 1 ? "blue" : "#f50cff",
@@ -56,13 +56,13 @@ const columns = [
   {
     title: "Tags",
     key: "tags",
-    render: (h, { tags }, i) => {
+    render: (h, { tags }, _) => {
       return h(
         Space,
         {},
         {
           default: () =>
-            tags.map(function (tag) {
+            tags.map(function (tag: any) {
               return h(
                 Tag,
                 {
@@ -78,12 +78,12 @@ const columns = [
   {
     title: "Operate",
     key: "action",
-    render: (h, record, i) => {
+    render: (h, record, _) => {
       return h(
         Button,
         {
           size: "small",
-          onClick: (e) => {
+          onClick: () => {
             modal.info({
               title: "More",
               content: `My name is ${record.name}`,

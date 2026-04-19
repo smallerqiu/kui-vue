@@ -8,7 +8,7 @@
     <Grid :cols="{ xs: 1, sm: 2, md: 3 }" :xGap="16" :yGap="16">
       <GridItem>
         <StatCard
-          :title="showTitle ? `Today's Orders` : null"
+          :title="showTitle ? `Today's Orders` : undefined"
           :reverse="reverse"
           :items="items"
           :bordered="bordered"
@@ -17,7 +17,7 @@
       <GridItem>
         <StatCard
           statNumberType="rollup"
-          :title="showTitle ? `Today's income` : null"
+          :title="showTitle ? `Today's income` : undefined"
           :items="items1"
           :bordered="bordered"
           :reverse="reverse"
@@ -27,7 +27,7 @@
         <StatCard
           :reverse="reverse"
           statNumberType="rollup"
-          :title="showTitle ? 'Media data' : null"
+          :title="showTitle ? 'Media data' : undefined"
           :items="items2"
           :bordered="bordered"
         />
@@ -37,7 +37,7 @@
 </template>
 <script setup lang="ts">
 import { Heart, Star } from "kui-icons";
-import { Icon } from "kui-vue";
+import { Icon, type StatNumberItem } from "kui-vue";
 import { h, ref } from "vue";
 const showTitle = ref(true);
 const reverse = ref(false);
@@ -51,7 +51,7 @@ const items1 = [
   { value: 5872, desc: "Alipay Revenue", prefix: "$", precision: 2 },
   { value: 9873672, desc: "WeChat Revenue", prefix: "￥", precision: 2 },
 ];
-const items2 = [
+const items2: StatNumberItem[] = [
   {
     value: 5872,
     desc: "Number of likes",
@@ -64,8 +64,3 @@ const items2 = [
   },
 ];
 </script>
-<style scoped>
-.k-stat-card {
-  /* min-width: 330px; */
-}
-</style>

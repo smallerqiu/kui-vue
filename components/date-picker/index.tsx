@@ -1,5 +1,4 @@
 import dayjs, { Dayjs, type UnitType } from "dayjs";
-import dayjsCN from "dayjs/locale/zh-cn";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
@@ -38,11 +37,12 @@ import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
+import dayjsCN from "./dayjs.zh_CN";
 // 启用插件
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
-dayjs.locale(dayjsCN);
+dayjs.locale(dayjsCN, null, true);
 
 type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
 type DatePickerModeType =

@@ -88,7 +88,7 @@ export type {
   MenuItemProps,
   MenuOptionsProps,
   MenuProps,
-  SubMenuProps
+  SubMenuProps,
 } from "./menu";
 
 export { default as message } from "./message";
@@ -166,6 +166,21 @@ export { Col, Row } from "./row-col";
 export type { ColProps, RowProps } from "./row-col";
 
 export { default as Upload } from "./upload";
-export type { UploadFile, UploadProps } from "./upload";
+export type { UploadChangeEvent, UploadFile, UploadProps } from "./upload";
 
 export { default as theme } from "./utils/theme";
+
+export type {
+  AlignType,
+  BooleanType,
+  ButtonType,
+  ColorType,
+  DirectionType,
+  DropPlacementsType,
+  PlacementsType,
+  ShapeType,
+  SizeType,
+  SpinModeType,
+  ThemeType,
+  UploadStatusType,
+} from "./const/types";

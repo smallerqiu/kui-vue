@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 import { message } from "kui-vue";
-const change = (value) => {
+const change = (value: boolean) => {
   message.info(value ? "fixed" : "reset");
 };
 </script>

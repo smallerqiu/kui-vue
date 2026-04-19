@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from "vue";
+import type { ExtractPropTypes, PropType, VNode } from "vue";
 import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
 import StatNumber from "./stat-number";
@@ -8,8 +8,8 @@ export interface StatNumberItem {
   duration?: number;
   precision?: number;
   separator?: string;
-  prefix?: string;
-  suffix?: string;
+  prefix?: string | VNode;
+  suffix?: string | VNode;
   desc?: string;
 }
 

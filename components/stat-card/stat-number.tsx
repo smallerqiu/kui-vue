@@ -2,7 +2,6 @@ import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
 import { getChildren } from "../utils/vnode";
 import CountUp from "./countup";
-import RollUp from "./rollup";
 
 export const statNumberProps = {
   modelValue: {
@@ -38,12 +37,13 @@ const StatNumber = defineComponent({
         separator: props.separator,
         duration: props.duration,
         precision: props.precision,
+        type: props.type,
       };
 
       return (
         <div class="k-stat-number">
           {prefixNode?.length > 0 && <span class="k-stat-number-prefix">{prefixNode}</span>}
-          {props.type === "rollup" ? <RollUp {...items} /> : <CountUp {...items} />}
+          <CountUp {...items} />
           {suffixNode?.length > 0 && <span class="k-stat-number-suffix">{suffixNode}</span>}
         </div>
       );

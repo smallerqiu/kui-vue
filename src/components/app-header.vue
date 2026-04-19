@@ -151,7 +151,7 @@ const go = ({ key }: MenuSelectEvent) => {
     open(key);
   }
 };
-const change = (value: string) => {
+const change = (value: any) => {
   let item = routeData.filter((x) => x.name == value)[0] || {};
   router.push(`/${item.key == "guide" ? "guide" : "components"}/${value}`);
   setTimeout(() => (queryKey.value = ""), 500);

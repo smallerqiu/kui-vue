@@ -24,8 +24,8 @@
   </Table>
 </template>
 <script setup lang="ts">
-import { modal } from "kui-vue";
 import { AlertCircle } from "kui-icons";
+import { modal, type Column } from "kui-vue";
 const data = [
   {
     key: "0",
@@ -42,7 +42,7 @@ const data = [
   { key: "2", name: "Hu Cong", age: 28, address: "Wu Han Nanhu No. 198" },
   { key: "3", name: "Qiu", age: 28, address: "Wu Han Nanhu No. 188" },
 ];
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
   {
@@ -55,7 +55,7 @@ const columns = [
     width: 90,
   },
 ];
-const show = (record) => {
+const show = (record: any) => {
   modal.info({
     title: "More",
     content: `My name is ${record.name}`,
