@@ -48,6 +48,7 @@
 </template>
 <script setup lang="ts">
 import { Moon, Sunny } from "kui-icons";
+import type { Column, SizeType } from "kui-vue";
 import { ref } from "vue";
 const data = [
   {
@@ -83,7 +84,7 @@ const data = [
     tags: ["Go", "Python"],
   },
 ];
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age", sorter: true },
   { title: "Gender", key: "gender" },
@@ -91,7 +92,7 @@ const columns = [
   { title: "Tags", key: "tags" },
   { title: "Operate", key: "action" },
 ];
-const size = ref("default");
+const size = ref<SizeType>("default");
 const bordered = ref(true);
 const checkable = ref(false);
 const loading = ref(false);
@@ -99,7 +100,7 @@ const empty = ref(false);
 const dataSource = ref(data);
 const striped = ref(false);
 
-const setEmpty = (empty) => {
+const setEmpty = (empty: boolean) => {
   dataSource.value = empty ? [] : data;
 };
 </script>

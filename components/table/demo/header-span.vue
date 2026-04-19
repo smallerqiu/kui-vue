@@ -1,7 +1,9 @@
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ x: true, y: 300 }"> </Table>
+  <Table :data="data" :columns="columns" bordered :scroll="{ y: 300 }"> </Table>
 </template>
 <script setup lang="ts">
+import type { Column } from "kui-vue";
+
 const data = [];
 for (let i = 0; i < 10; i++) {
   data.push({
@@ -16,7 +18,7 @@ for (let i = 0; i < 10; i++) {
     gender: "M",
   });
 }
-const columns = [
+const columns: Column[] = [
   {
     title: "Name",
     key: "name",
@@ -25,6 +27,7 @@ const columns = [
   },
   {
     title: "Other",
+    key: "other",
     children: [
       {
         title: "Age",
@@ -33,6 +36,7 @@ const columns = [
       },
       {
         title: "Address",
+        key: "address",
         children: [
           {
             title: "Street",
@@ -40,6 +44,7 @@ const columns = [
           },
           {
             title: "Block",
+            key: "block",
             children: [
               {
                 title: "Building",
@@ -57,6 +62,7 @@ const columns = [
   },
   {
     title: "Company",
+    key: "Company",
     children: [
       {
         title: "Company Address",

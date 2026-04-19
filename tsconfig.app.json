@@ -32,6 +32,9 @@
     /* alias */
     // "baseUrl": ".", 
     "paths": {
+      "kui-vue": [
+        "./components/index.ts"
+      ],
       "@/*": [
         "/*"
       ]
@@ -42,14 +45,19 @@
     "strictTemplates": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "src/**/*.d.ts",
+    // "src/**/*.ts",
+    // "src/**/*.tsx",
+    // "src/**/*.vue",
     "components/**/*.ts",
     "components/**/*.tsx",
-    "components/**/*.vue"
+    "components/**/*.vue",
   ],
   "exclude": [
-    "node_modules/*"
+    "node_modules",
+    "dist",
+    "lib",
+    "es",
+    "types"
   ]
 }

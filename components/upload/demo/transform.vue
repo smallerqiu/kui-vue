@@ -14,12 +14,13 @@
   </Upload>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { CameraOutline } from "kui-icons";
+import type { UploadChangeEvent } from "kui-vue";
+import { ref } from "vue";
 const headers = ref({
   authorization: "here is token",
 });
-const transformFile = (file) => {
+const transformFile = (file: File) => {
   return new Promise((res, rej) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -29,7 +30,7 @@ const transformFile = (file) => {
     img.onload = function () {
       canvas.width = 200;
       canvas.height = 300;
-      ctx.drawImage(
+      ctx?.drawImage(
         img,
         (img.width - canvas.width) / 2,
         (img.height - canvas.height) / 2,
@@ -52,7 +53,7 @@ const transformFile = (file) => {
     img.src = URL.createObjectURL(file);
   });
 };
-const handleChange = (info) => {
+const handleChange = (info: UploadChangeEvent) => {
   if (info.file.status !== "uploading") {
     console.log(info.file, info.fileList);
   }

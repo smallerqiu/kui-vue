@@ -83,18 +83,17 @@
 </template>
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { message, modal } from "kui-vue";
+import { message, modal, type FormRule, type UploadFile } from "kui-vue";
 import de from "kui-vue/locale/de";
 import en from "kui-vue/locale/en";
 import zh from "kui-vue/locale/zh-CN";
 import { reactive, ref } from "vue";
 
-import "dayjs/esm/locale/de";
-import "dayjs/esm/locale/zh-cn";
+import dayjsDe from "dayjs/esm/locale/de";
+import dayjsZh from "dayjs/esm/locale/zh-cn";
 
 const lang = ref("en");
 const locale = ref(en);
-
 
 dayjs.locale("en");
 
@@ -102,14 +101,13 @@ const columns = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
 ];
-const fileList = ref([
+const fileList = ref<UploadFile[]>([
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
     status: "uploading",
     filename: "test.jpg",
     size: "222kb",
     percent: 50,
-    status: "uploading",
   },
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
@@ -128,7 +126,7 @@ const form = reactive({
   email: "",
   age: "",
 });
-const rules = {
+const rules: FormRule = {
   name: [{ required: true }],
   email: [{ required: true }, { type: "mail" }],
   age: [{ required: true }, { type: "number", min: 10, max: 50 }],
@@ -138,14 +136,14 @@ const langs: Record<string, any> = {
   zh,
   de,
 };
-const changeLocale = (value: string) => {
+const changeLocale = (value: string | number) => {
   locale.value = langs[value];
   if (value === "en") {
     dayjs.locale("en");
   } else if (value == "de") {
-    dayjs.locale("de");
+    dayjs.locale(dayjsDe);
   } else {
-    dayjs.locale("zh-cn");
+    dayjs.locale(dayjsZh);
   }
 };
 const showModal = () => {

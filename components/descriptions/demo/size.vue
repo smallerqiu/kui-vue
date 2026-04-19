@@ -29,12 +29,15 @@
     <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
     <DescriptionsItem label="Name">Qiu</DescriptionsItem>
     <DescriptionsItem label="Phone">13888888888</DescriptionsItem>
-    <DescriptionsItem label="Shipping Address"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>
+    <DescriptionsItem label="Shipping Address">
+      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province
+    </DescriptionsItem>
   </Descriptions>
 </template>
 <script setup lang="ts">
+import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref("default");
+const size = ref<SizeType>("default");
 const types = ref([
   { label: "Default", value: "default" },
   { label: "Middle", value: "middle" },

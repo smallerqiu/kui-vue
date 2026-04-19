@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNode } from "vue";
-import type { BooleanType, DirectionType } from "../const/types";
+import type { BooleanType, DirectionType, SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
 
@@ -9,7 +9,7 @@ export const descriptionsProps = {
   layout: { type: String as PropType<DirectionType>, default: "horizontal" },
   title: String,
   extra: String,
-  size: { type: String as PropType<"default" | "middle" | "small">, default: "default" },
+  size: { type: String as PropType<SizeType>, default: "default" },
 };
 
 export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>;

@@ -21,6 +21,7 @@
   </Table>
 </template>
 <script setup lang="ts">
+import type { Column } from "kui-vue";
 import { ref } from "vue";
 const selectedKeys = ref([]);
 const data = [
@@ -57,7 +58,7 @@ const data = [
     tags: ["Go", "Python"],
   },
 ];
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
   { title: "Gender", key: "gender" },

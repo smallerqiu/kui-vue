@@ -13,7 +13,7 @@
       <Input v-model="record.age" size="small" v-if="record.isEdit" />
       <template v-else>{{ value }}</template>
     </template>
-    <template #action="{ value, record, col }">
+    <template #action="{ record }">
       <Space>
         <Button size="small" type="primary" v-if="!record.isEdit" @click="record.isEdit = true">
           Edit
@@ -25,7 +25,7 @@
         <Popconfirm
           v-if="!record.isEdit"
           title="Are you sure delete this content?"
-          @ok="(e) => removeRow(record.key)"
+          @ok="() => removeRow(record.key)"
         >
           <Button size="small" type="danger">Delete</Button>
         </Popconfirm>
@@ -34,8 +34,8 @@
   </Table>
 </template>
 <script setup lang="ts">
+import { message, type Column } from "kui-vue";
 import { ref } from "vue";
-import { message } from "kui-vue";
 const data = ref([
   {
     key: "0",
@@ -66,24 +66,24 @@ const data = ref([
     isEdit: false,
   },
 ]);
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "House price", key: "age" },
   { title: "Address", key: "address" },
   { title: "Operate", key: "action" },
 ];
 const count = ref(4);
-const save = (record) => {
+const save = (record: any) => {
   console.log(record);
   record.isEdit = false;
   message.success("Save successfully!");
 };
-const removeRow = (key) => {
+const removeRow = (key: string) => {
   data.value = data.value.filter((item) => item.key != key);
 };
 const add = () => {
   const key = count.value;
-  let record = {
+  let record: any = {
     key,
     name: `Name ${key}`,
     age: 30,

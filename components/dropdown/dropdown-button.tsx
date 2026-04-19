@@ -3,13 +3,18 @@ import { defineComponent, type ExtractPropTypes, type PropType, ref } from "vue"
 import Button from "../button/button";
 import ButtonGroup from "../button/button-group";
 
-import { type BooleanType, type DropPlacementsType, type SizeType } from "../const/types";
+import {
+  type BooleanType,
+  type DropPlacementsType,
+  type ShapeType,
+  type SizeType,
+} from "../const/types";
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 export const dropdownButtonProps = {
   size: String as PropType<SizeType>,
-  shape: String,
+  shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
   theme: String,
@@ -35,11 +40,7 @@ const DropdownButton = defineComponent({
           disabled={props.disabled}
           v-slots={{
             default: () => (
-              <ButtonGroup
-                class="k-dropdown-button"
-                size={props.size}
-                shape={props.shape}
-              >
+              <ButtonGroup class="k-dropdown-button" size={props.size} shape={props.shape}>
                 <Button
                   disabled={props.disabled}
                   onClick={(e) => {

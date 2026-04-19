@@ -10,14 +10,14 @@
     <template #gender="{ value }">
       <Icon :type="value == 1 ? Sunny : Moon" :color="value == 1 ? 'blue' : '#f50cff'" size="15" />
     </template>
-    <template #action="{ value, record, col }">
-      <Button size="small" @click.stop="(e) => show(record)">more</Button>
+    <template #action="{ record }">
+      <Button size="small" @click.stop="() => show(record)">more</Button>
     </template>
   </Table>
 </template>
 <script setup lang="ts">
-import { Sunny, Moon } from "kui-icons";
-import { message, modal } from "kui-vue";
+import { Moon, Sunny } from "kui-icons";
+import { message, modal, type Column } from "kui-vue";
 const data = [
   {
     key: "0",
@@ -52,7 +52,7 @@ const data = [
     tags: ["Go", "Python"],
   },
 ];
-const columns = [
+const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
   { title: "Gender", key: "gender" },
@@ -60,13 +60,13 @@ const columns = [
   { title: "Tags", key: "tags" },
   { title: "Operate", key: "action" },
 ];
-const show = (record) => {
+const show = (record: any) => {
   modal.info({
     title: "Hi",
     content: `My name is ${record.name}`,
   });
 };
-const rowClick = (data) => {
+const rowClick = (data: any) => {
   message.info("Test row click: " + data.name);
 };
 </script>

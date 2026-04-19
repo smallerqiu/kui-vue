@@ -16,12 +16,13 @@ import FileList from "./file-list";
 import Selector from "./selector";
 
 export interface UploadFile {
-  uid: string;
-  filename: string;
-  size: string;
-  status: UploadStatusType;
-  percent: number;
-  preview: string | null;
+  uid?: string;
+  url?: string;
+  filename?: string;
+  size?: string;
+  status?: UploadStatusType;
+  percent?: number;
+  preview?: string | null;
   response?: any;
   errorText?: string;
   xhr?: XMLHttpRequest;
@@ -53,9 +54,16 @@ export const uploadProps = {
   uploadSubText: String,
   uploadIcon: Array as PropType<IconType[]>,
   draggable: Boolean as BooleanType,
+  onChange: Function as PropType<(file: UploadChangeEvent) => void>,
+  onRemove: Function as PropType<(file: UploadChangeEvent) => void>,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
+
+export interface UploadChangeEvent {
+  file: UploadFile;
+  fileList: UploadFile[];
+}
 
 const Upload = defineComponent({
   name: "Upload",
@@ -157,8 +165,7 @@ const Upload = defineComponent({
       innerFileList.value.push(item);
       const reactiveItem = innerFileList.value.find((x) => x.uid === item.uid);
       if (!reactiveItem) return;
-
-      uploadTemp[reactiveItem.uid] = file;
+      if (reactiveItem.uid) uploadTemp[reactiveItem.uid] = file;
       triggerUpdate(reactiveItem);
 
       if (props.autoTrigger) uploadFile(reactiveItem, file);
@@ -171,7 +178,7 @@ const Upload = defineComponent({
       if (item.xhr) item.xhr.abort();
 
       innerFileList.value.splice(index, 1);
-      delete uploadTemp[item.uid];
+      item.uid && delete uploadTemp[item.uid];
 
       if (item.preview) window.URL.revokeObjectURL(item.preview);
 
@@ -232,7 +239,7 @@ const Upload = defineComponent({
             } catch (e) {
               item.response = xhr.responseText;
             }
-            delete uploadTemp[item.uid];
+            item.uid && delete uploadTemp[item.uid];
             triggerUpdate(item);
           } else {
             handleError();
@@ -253,7 +260,7 @@ const Upload = defineComponent({
 
       const handleError = () => {
         item.status = "error";
-        delete uploadTemp[item.uid];
+        item.uid && delete uploadTemp[item.uid];
         triggerUpdate(item);
       };
 

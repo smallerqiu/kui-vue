@@ -1,15 +1,16 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
+import type { SizeType, SpinModeType } from "../const/types.ts";
 
 export const spinProps = {
   modelValue: { type: Boolean, default: true },
   delay: { type: Number, default: 500 },
   size: {
-    type: String as PropType<"large" | "default" | "small">,
+    type: String as PropType<SizeType>,
     default: "default",
   },
   mode: {
-    type: String as PropType<"bounce" | "flip" | "rotate" | "zoom">,
+    type: String as PropType<SpinModeType>,
     default: "rotate",
   },
 };

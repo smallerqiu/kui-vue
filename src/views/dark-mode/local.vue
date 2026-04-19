@@ -142,7 +142,7 @@ const current = ref(["1"]);
 const leftMenuActiveKeys = ref(["1-1"]);
 const collapsed = ref(false);
 const dark = ref(false);
-const size = ref("default");
+const size = ref();
 const theme = ref(false);
 const shape = ref("");
 const change = () => {

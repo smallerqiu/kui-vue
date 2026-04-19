@@ -7,15 +7,15 @@ const lang = localStorage.getItem("lang") || "en";
 const router = createRouter({
   history: createWebHistory(),
   routes: [...routes],
-  // scrollBehavior(to, _, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition;
-  //   }
-  //   if (to.hash) {
-  //     return { el: to.hash, behavior: "smooth" };
-  //   }
-  //   return { top: 0 };
-  // },
+  scrollBehavior(to, _, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return { el: to.hash, behavior: "smooth" };
+    }
+    return { top: 0 };
+  },
 });
 
 router.beforeEach(function (to) {

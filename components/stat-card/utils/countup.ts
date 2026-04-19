@@ -1,33 +1,71 @@
-// countup.ts
-// Original from countUp.js by Jamie Perkins
-
 export interface CountUpOptions {
+  /** Number to start at @default 0 */
   startVal?: number;
+  /** Number of decimal places @default 0 */
   decimalPlaces?: number;
+  /** Animation duration in seconds @default 2 */
   duration?: number;
-  useEasing?: boolean;
+  /** Example: 1,000 vs 1000 @default true */
   useGrouping?: boolean;
+  /** Example: 1,00,000 vs 100,000 @default false */
   useIndianSeparators?: boolean;
+  /** Ease animation @default true */
+  useEasing?: boolean;
+  /** Smooth easing for large numbers above this if useEasing @default 999 */
   smartEasingThreshold?: number;
+  /** Amount to be eased for numbers above threshold @default 333 */
   smartEasingAmount?: number;
+  /** Grouping separator @default ',' */
   separator?: string;
+  /** Decimal character @default '.' */
   decimal?: string;
-  prefix?: string;
-  suffix?: string;
-  enableScrollSpy?: boolean;
-  scrollSpyDelay?: number;
-  scrollSpyOnce?: boolean;
-  formattingFn?: (value: number) => string;
+  /** Easing function for animation @default easeOutExpo */
   easingFn?: (t: number, b: number, c: number, d: number) => number;
-  onStartCallback?: () => void;
-  onCompleteCallback?: () => void;
-  plugin?: {
-    render?: (target: HTMLElement | HTMLInputElement, formattedValue: string) => void;
-  };
+  /** Custom function to format the result */
+  formattingFn?: (n: number) => string;
+  /** Text prepended to result */
+  prefix?: string;
+  /** Text appended to result */
+  suffix?: string;
+  /** Numeral glyph substitution */
+  numerals?: string[];
+  /** Callback called when animation completes */
+  onCompleteCallback?: (() => any) | null;
+  /** Callback called when animation starts */
+  onStartCallback?: (() => any) | null;
+  /** Plugin for alternate animations */
+  plugin?: CountUpPlugin;
+  /** Trigger animation when target becomes visible @default false */
+  autoAnimate?: boolean;
+  /** Animation delay in ms after auto-animate triggers @default 200 */
+  autoAnimateDelay?: number;
+  /** Run animation only once for auto-animate triggers @default false */
+  autoAnimateOnce?: boolean;
+
+  /** @deprecated Please use autoAnimate instead */
+  enableScrollSpy?: boolean;
+  /** @deprecated Please use autoAnimateDelay instead */
+  scrollSpyDelay?: number;
+  /** @deprecated Please use autoAnimateOnce instead */
+  scrollSpyOnce?: boolean;
 }
 
+export declare interface CountUpPlugin {
+  render(elem: HTMLElement, formatted: string): void;
+}
+
+/**
+ * Animates a number by counting to it.
+ * playground: stackblitz.com/edit/countup-typescript
+ *
+ * @param target - id of html element, input, svg text element, or DOM element reference where counting occurs.
+ * @param endVal - the value you want to arrive at.
+ * @param options - optional configuration object for fine-grain control
+ */
 export class CountUp {
-  private readonly defaults: Required<CountUpOptions> = {
+  version = "2.10.0";
+  private static observedElements = new WeakMap<HTMLElement, CountUp>();
+  private defaults: CountUpOptions = {
     startVal: 0,
     decimalPlaces: 0,
     duration: 2,
@@ -40,128 +78,170 @@ export class CountUp {
     decimal: ".",
     prefix: "",
     suffix: "",
-    enableScrollSpy: false,
-    scrollSpyDelay: 200,
-    scrollSpyOnce: false,
-    formattingFn: undefined,
-    easingFn: undefined,
-    onStartCallback: undefined,
-    onCompleteCallback: undefined,
-    plugin: undefined,
+    autoAnimate: false,
+    autoAnimateDelay: 200,
+    autoAnimateOnce: false,
   };
-
-  public options: Required<CountUpOptions>;
-
-  private el: HTMLElement | HTMLInputElement | null = null;
-  private error: string = "";
-  private paused: boolean = true;
-  private once: boolean = false;
-  private finalEndVal: number | null = null;
-
-  private startVal: number = 0;
-  private endVal: number = 0;
-  private frameVal: number = 0;
-  private duration: number = 2000;
-  private remaining: number = 2000;
+  private rAF: any;
+  private autoAnimateTimeout: any;
   private startTime: number | null = null;
-  private rAF: number | null = null;
-  private countDown: boolean = false;
+  private remaining: number = 0;
+  private finalEndVal: number | null = null; // for smart easing
   private useEasing: boolean = true;
-
-  private formattingFn: (value: number) => string;
-  private easingFn: (t: number, b: number, c: number, d: number) => number;
+  private countDown = false;
+  private observer: IntersectionObserver | null = null;
+  el: HTMLElement | HTMLInputElement | null;
+  formattingFn: (num: number) => string;
+  easingFn: (t: number, b: number, c: number, d: number) => number;
+  error = "";
+  startVal = 0;
+  duration: number = 2;
+  paused = true;
+  frameVal: number;
+  once = false;
+  options: CountUpOptions;
+  private endVal: number;
 
   constructor(
     target: string | HTMLElement | HTMLInputElement,
-    endVal: number | null = null,
-    options: CountUpOptions = {}
+    endVal?: number | null,
+    options?: CountUpOptions
   ) {
-    this.options = { ...this.defaults, ...options } as Required<CountUpOptions>;
+    this.options = {
+      ...this.defaults,
+      ...options,
+    };
+    if (this.options.enableScrollSpy) {
+      this.options.autoAnimate = true;
+    }
+    if (this.options.scrollSpyDelay !== undefined) {
+      this.options.autoAnimateDelay = this.options.scrollSpyDelay;
+    }
+    if (this.options.scrollSpyOnce) {
+      this.options.autoAnimateOnce = true;
+    }
+
+    this.formattingFn = this.options.formattingFn ? this.options.formattingFn : this.formatNumber;
+    this.easingFn = this.options.easingFn ? this.options.easingFn : this.easeOutExpo;
 
     this.el = typeof target === "string" ? document.getElementById(target) : target;
+    endVal = endVal == null && this.el ? this.parse(this.el.innerHTML) : endVal;
 
-    this.formattingFn = this.options.formattingFn || this.formatNumber.bind(this);
-    this.easingFn = this.options.easingFn || this.easeOutExpo.bind(this);
-
-    // 如果没有传入 endVal，则尝试从元素内容解析
-    const initialEndVal =
-      endVal == null ? this.parse(this.el?.textContent || this.el?.value || "0") : endVal;
-
-    this.startVal = this.validateValue(this.options.startVal);
+    this.startVal = this.validateValue(this.options.startVal || 0);
     this.frameVal = this.startVal;
-    this.endVal = this.validateValue(initialEndVal);
-
-    this.options.decimalPlaces = Math.max(0, this.options.decimalPlaces);
+    this.endVal = this.validateValue(endVal as number);
+    this.options.decimalPlaces = Math.max(0 || (this.options.decimalPlaces as number));
+    this.resetDuration();
     this.options.separator = String(this.options.separator);
-
-    this.useEasing = this.options.useEasing;
-
+    this.useEasing = this.options.useEasing || false;
     if (this.options.separator === "") {
       this.options.useGrouping = false;
     }
-
-    this.resetDuration();
-
     if (this.el) {
       this.printValue(this.startVal);
     } else {
       this.error = "[CountUp] target is null or undefined";
     }
 
-    // ScrollSpy 支持
-    if (typeof window !== "undefined" && this.options.enableScrollSpy) {
-      if (!window.__countUpScrollFns) {
-        (window as any).__countUpScrollFns = [];
+    if (typeof window !== "undefined" && this.options.autoAnimate) {
+      if (!this.error && typeof IntersectionObserver !== "undefined") {
+        this.setupObserver();
+      } else {
+        if (this.error) {
+          console.error(this.error, target);
+        } else {
+          console.error("IntersectionObserver is not supported by this browser");
+        }
       }
-      (window as any).__countUpScrollFns.push(() => this.handleScroll());
-
-      window.onscroll = () => {
-        (window as any).__countUpScrollFns.forEach((fn: () => void) => fn());
-      };
-
-      this.handleScroll();
     }
   }
 
-  private count = (timestamp: number): void => {
-    if (!this.startTime) this.startTime = timestamp;
+  /** Set up an IntersectionObserver to auto-animate when the target element appears. */
+  private setupObserver(): void {
+    const existing = CountUp.observedElements.get(this.el as HTMLElement);
+    if (existing) {
+      existing.unobserve();
+    }
+    CountUp.observedElements.set(this.el as HTMLElement, this);
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && this.paused && !this.once) {
+            this.paused = false;
+            this.autoAnimateTimeout = setTimeout(() => this.start(), this.options.autoAnimateDelay);
+            if (this.options.autoAnimateOnce) {
+              this.once = true;
+              this.observer?.disconnect();
+            }
+          } else if (!entry.isIntersecting && !this.paused) {
+            clearTimeout(this.autoAnimateTimeout);
+            this.reset();
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+    this.el && this.observer.observe(this.el);
+  }
 
-    const progress = timestamp - this.startTime;
-    this.remaining = this.duration - progress;
+  /** Disconnect the IntersectionObserver and stop watching this element. */
+  unobserve(): void {
+    clearTimeout(this.autoAnimateTimeout);
+    this.observer?.disconnect();
+    CountUp.observedElements.delete(this.el as HTMLElement);
+  }
 
-    if (this.useEasing) {
-      this.frameVal = this.countDown
-        ? this.startVal - this.easingFn(progress, 0, this.startVal - this.endVal, this.duration)
-        : this.easingFn(progress, this.startVal, this.endVal - this.startVal, this.duration);
+  /** Teardown: cancel animation, disconnect observer, clear callbacks. */
+  onDestroy(): void {
+    clearTimeout(this.autoAnimateTimeout);
+    cancelAnimationFrame(this.rAF);
+    this.paused = true;
+    this.unobserve();
+    this.options.onCompleteCallback = null;
+    this.options.onStartCallback = null;
+  }
+
+  /**
+   * Smart easing works by breaking the animation into 2 parts, the second part being the
+   * smartEasingAmount and first part being the total amount minus the smartEasingAmount. It works
+   * by disabling easing for the first part and enabling it on the second part. It is used if
+   * useEasing is true and the total animation amount exceeds the smartEasingThreshold.
+   */
+  private determineDirectionAndSmartEasing(): void {
+    const end = this.finalEndVal ? this.finalEndVal : this.endVal;
+    this.countDown = this.startVal > end;
+    const animateAmount = end - this.startVal;
+    if (
+      Math.abs(animateAmount) > (this.options.smartEasingThreshold || 999) &&
+      this.options.useEasing
+    ) {
+      this.finalEndVal = end;
+      const up = this.countDown ? 1 : -1;
+      this.endVal = end + up * (this.options.smartEasingAmount || 333);
+      this.duration = this.duration / 2;
     } else {
-      this.frameVal = this.startVal + (this.endVal - this.startVal) * (progress / this.duration);
+      this.endVal = end;
+      this.finalEndVal = null;
     }
-
-    const wentPast = this.countDown ? this.frameVal < this.endVal : this.frameVal > this.endVal;
-
-    if (wentPast) {
-      this.frameVal = this.endVal;
-    }
-
-    this.frameVal = Number(this.frameVal.toFixed(this.options.decimalPlaces));
-
-    this.printValue(this.frameVal);
-
-    if (progress < this.duration) {
-      this.rAF = requestAnimationFrame(this.count);
-    } else if (this.finalEndVal !== null) {
-      this.update(this.finalEndVal);
+    if (this.finalEndVal !== null) {
+      // setting finalEndVal indicates smart easing
+      this.useEasing = false;
     } else {
-      this.options.onCompleteCallback?.();
+      this.useEasing = this.options.useEasing || false;
     }
-  };
+  }
 
-  public start(callback?: () => void): void {
-    if (this.error) return;
-
-    this.options.onStartCallback?.();
-    if (callback) this.options.onCompleteCallback = callback;
-
+  /** Start the animation. Optionally pass a callback that fires on completion. */
+  start(callback?: (args?: any) => any): void {
+    if (this.error) {
+      return;
+    }
+    if (this.options.onStartCallback) {
+      this.options.onStartCallback();
+    }
+    if (callback) {
+      this.options.onCompleteCallback = callback;
+    }
     if (this.duration > 0) {
       this.determineDirectionAndSmartEasing();
       this.paused = false;
@@ -171,9 +251,10 @@ export class CountUp {
     }
   }
 
-  public pauseResume(): void {
+  /** Toggle pause/resume on the animation. */
+  pauseResume(): void {
     if (!this.paused) {
-      cancelAnimationFrame(this.rAF!);
+      cancelAnimationFrame(this.rAF);
     } else {
       this.startTime = null;
       this.duration = this.remaining;
@@ -184,118 +265,177 @@ export class CountUp {
     this.paused = !this.paused;
   }
 
-  public reset(): void {
-    cancelAnimationFrame(this.rAF!);
+  /** Reset to startVal so the animation can be run again. */
+  reset(): void {
+    clearTimeout(this.autoAnimateTimeout);
+    cancelAnimationFrame(this.rAF);
     this.paused = true;
+    this.once = false;
     this.resetDuration();
-    this.startVal = this.validateValue(this.options.startVal);
+    this.startVal = this.validateValue(this.options.startVal || 0);
     this.frameVal = this.startVal;
     this.printValue(this.startVal);
   }
 
-  public update(newEndVal: number): void {
-    cancelAnimationFrame(this.rAF!);
+  /** Pass a new endVal and start the animation. */
+  update(newEndVal: string | number): void {
+    cancelAnimationFrame(this.rAF);
     this.startTime = null;
     this.endVal = this.validateValue(newEndVal);
-
-    if (this.endVal === this.frameVal) return;
-
+    if (this.endVal === this.frameVal) {
+      return;
+    }
     this.startVal = this.frameVal;
-    if (this.finalEndVal == null) this.resetDuration();
-
+    if (this.finalEndVal == null) {
+      this.resetDuration();
+    }
     this.finalEndVal = null;
     this.determineDirectionAndSmartEasing();
     this.rAF = requestAnimationFrame(this.count);
   }
 
-  /* ---------------- helpers ---------------- */
+  /** Animation frame callback — advances the value each frame. */
+  count = (timestamp: number): void => {
+    if (!this.startTime) {
+      this.startTime = timestamp;
+    }
 
-  private determineDirectionAndSmartEasing(): void {
-    const end = this.finalEndVal ?? this.endVal;
-    this.countDown = this.startVal > end;
+    const progress = timestamp - this.startTime;
+    this.remaining = this.duration - progress;
 
-    const animateAmount = Math.abs(end - this.startVal);
-
-    if (animateAmount > this.options.smartEasingThreshold && this.options.useEasing) {
-      this.finalEndVal = end;
-      const up = this.countDown ? 1 : -1;
-      this.endVal = end + up * this.options.smartEasingAmount;
-      this.duration /= 2;
-      this.useEasing = false;
+    // to ease or not to ease
+    if (this.useEasing) {
+      if (this.countDown) {
+        this.frameVal =
+          this.startVal - this.easingFn(progress, 0, this.startVal - this.endVal, this.duration);
+      } else {
+        this.frameVal = this.easingFn(
+          progress,
+          this.startVal,
+          this.endVal - this.startVal,
+          this.duration
+        );
+      }
     } else {
-      this.finalEndVal = null;
-      this.useEasing = this.options.useEasing;
-    }
-  }
-
-  private formatNumber(num: number): string {
-    const neg = num < 0 ? "-" : "";
-    let result = Math.abs(num).toFixed(this.options.decimalPlaces);
-    let [x1, x2] = result.split(".");
-
-    x2 = x2 ? this.options.decimal + x2 : "";
-
-    if (this.options.useGrouping) {
-      x1 = x1.replace(/\B(?=(\d{3})+(?!\d))/g, this.options.separator);
+      this.frameVal = this.startVal + (this.endVal - this.startVal) * (progress / this.duration);
     }
 
-    return `${neg}${this.options.prefix}${x1}${x2}${this.options.suffix}`;
-  }
+    // don't go past endVal since progress can exceed duration in the last frame
+    const wentPast = this.countDown ? this.frameVal < this.endVal : this.frameVal > this.endVal;
+    this.frameVal = wentPast ? this.endVal : this.frameVal;
 
-  private easeOutExpo(t: number, b: number, c: number, d: number): number {
-    return (c * (-Math.pow(2, (-10 * t) / d) + 1) * 1024) / 1023 + b;
-  }
+    // decimal
+    this.frameVal = Number(this.frameVal.toFixed(this.options.decimalPlaces));
 
-  private printValue(val: number): void {
+    // format and print value
+    this.printValue(this.frameVal);
+
+    // whether to continue
+    if (progress < this.duration) {
+      this.rAF = requestAnimationFrame(this.count);
+    } else if (this.finalEndVal !== null) {
+      // smart easing
+      this.update(this.finalEndVal);
+    } else {
+      if (this.options.onCompleteCallback) {
+        this.options.onCompleteCallback();
+      }
+    }
+  };
+
+  /** Format and render the given value to the target element. */
+  printValue(val: number): void {
     if (!this.el) return;
-
     const result = this.formattingFn(val);
-
     if (this.options.plugin?.render) {
       this.options.plugin.render(this.el, result);
-    } else if (this.el.tagName === "INPUT") {
-      (this.el as HTMLInputElement).value = result;
-    } else {
+      return;
+    }
+    if (this.el.tagName === "INPUT") {
+      const input = this.el as HTMLInputElement;
+      input.value = result;
+    } else if (this.el.tagName === "text" || this.el.tagName === "tspan") {
       this.el.textContent = result;
+    } else {
+      this.el.innerHTML = result;
     }
   }
 
-  private validateValue(value: number | string): number {
-    const n = Number(value);
-    if (Number.isNaN(n)) {
-      this.error = `[CountUp] invalid value: ${value}`;
-      return 0; // 返回 0 避免后续 NaN 传播
-    }
-    return n;
+  /** Return true if the value is a finite number. */
+  ensureNumber(n: any): boolean {
+    return typeof n === "number" && !isNaN(n);
   }
 
+  /** Validate and convert a value to a number, setting an error if invalid. */
+  validateValue(value: string | number): number {
+    const newValue = Number(value);
+    if (!this.ensureNumber(newValue)) {
+      this.error = `[CountUp] invalid start or end value: ${value}`;
+      return 0;
+    } else {
+      return newValue;
+    }
+  }
+
+  /** Reset startTime, duration, and remaining to their initial values. */
   private resetDuration(): void {
     this.startTime = null;
     this.duration = Number(this.options.duration) * 1000;
     this.remaining = this.duration;
   }
 
-  private parse(str: string): number {
-    const sep = this.options.separator.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const dec = this.options.decimal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const cleaned = str.replace(new RegExp(sep, "g"), "").replace(new RegExp(dec), ".");
-    return parseFloat(cleaned);
-  }
-
-  private handleScroll(): void {
-    if (this.once || !this.el) return;
-
-    const bottom = window.innerHeight + window.scrollY;
-    const rect = this.el.getBoundingClientRect();
-    const top = rect.top + window.pageYOffset;
-    const elBottom = top + rect.height;
-
-    if (elBottom < bottom && elBottom > window.scrollY && this.paused) {
-      this.paused = false;
-      setTimeout(() => this.start(), this.options.scrollSpyDelay);
-      if (this.options.scrollSpyOnce) this.once = true;
-    } else if ((window.scrollY > elBottom || top > bottom) && !this.paused) {
-      this.reset();
+  /** Default number formatter with grouping, decimals, prefix/suffix, and numeral substitution. */
+  formatNumber = (num: number): string => {
+    const neg = num < 0 ? "-" : "";
+    let result: string, x1: string, x2: string, x3: string;
+    result = Math.abs(num).toFixed(this.options.decimalPlaces);
+    result += "";
+    const x = result.split(".");
+    x1 = x[0];
+    x2 = x.length > 1 ? this.options.decimal + x[1] : "";
+    if (this.options.useGrouping) {
+      x3 = "";
+      let factor = 3,
+        j = 0;
+      for (let i = 0, len = x1.length; i < len; ++i) {
+        if (this.options.useIndianSeparators && i === 4) {
+          factor = 2;
+          j = 1;
+        }
+        if (i !== 0 && j % factor === 0) {
+          x3 = this.options.separator + x3;
+        }
+        j++;
+        x3 = x1[len - i - 1] + x3;
+      }
+      x1 = x3;
     }
+    // optional numeral substitution
+    const { numerals } = this.options;
+    if (numerals && numerals.length) {
+      x1 = x1.replace(/[0-9]/g, (w) => numerals[+w]);
+      x2 = x2.replace(/[0-9]/g, (w) => numerals[+w]);
+    }
+    return neg + this.options.prefix + x1 + x2 + this.options.suffix;
+  };
+
+  /**
+   * Default easing function (easeOutExpo).
+   * @param t current time
+   * @param b beginning value
+   * @param c change in value
+   * @param d duration
+   */
+  easeOutExpo = (t: number, b: number, c: number, d: number): number =>
+    (c * (-Math.pow(2, (-10 * t) / d) + 1) * 1024) / 1023 + b;
+
+  /** Parse a formatted string back to a number using the current separator/decimal options. */
+  parse(number: string): number {
+    // eslint-disable-next-line no-irregular-whitespace
+    const escapeRegExp = (s: string) => s.replace(/([.,'  ])/g, "\\$1");
+    const sep = escapeRegExp(this.options.separator || ",");
+    const dec = escapeRegExp(this.options.decimal || ".");
+    const num = number.replace(new RegExp(sep, "g"), "").replace(new RegExp(dec, "g"), ".");
+    return parseFloat(num);
   }
 }

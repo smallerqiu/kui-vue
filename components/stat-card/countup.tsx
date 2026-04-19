@@ -1,5 +1,6 @@
-import { defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
-import { CountUp } from "./utils/countup";
+import { defineComponent, onMounted, ref, watch, type PropType } from "vue";
+import { CountUp, type CountUpOptions } from "./utils/countup";
+import { Odometer } from "./utils/odometer";
 const CountUpNumber = defineComponent({
   name: "CountUpNumber",
   props: {
@@ -13,22 +14,27 @@ const CountUpNumber = defineComponent({
       default: 1.2,
     },
     precision: { type: Number, default: 0 },
+    type: {
+      type: String as PropType<"rollup" | "countup">,
+      default: "countup",
+    },
   },
   setup(props) {
     const el = ref<HTMLElement>();
     let countUp: CountUp;
     onMounted(() => {
       if (el.value) {
-        countUp = new CountUp(el.value, props.modelValue, {
+        const options: CountUpOptions = {
           duration: props.duration,
           separator: props.separator || ",",
           decimalPlaces: props.precision,
-        });
+        };
+        if (props.type === "rollup") {
+          options.plugin = new Odometer({ duration: props.duration, lastDigitDelay: 0 });
+        }
+        countUp = new CountUp(el.value, props.modelValue, options);
         countUp.start();
       }
-    });
-    onUnmounted(() => {
-      // countUp = null;
     });
     watch(
       () => props.modelValue,
